@@ -18,19 +18,19 @@
 
 (* This file tests the JSON module. *)
 
-open OUnit
+open OUnit2
 
 (* Utils. *)
 let assert_equal_string = assert_equal ~printer:(fun x -> x)
 
 (* "basic" suite. *)
-let test_empty () =
+let test_empty ctx =
   let doc = [] in
   assert_equal_string "{}" (JSON.string_of_doc doc);
   assert_equal_string "{
 }" (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_string () =
+let test_string ctx =
   let doc = [ "test_string", JSON.String "foo"; ] in
   assert_equal_string "{ \"test_string\": \"foo\" }"
     (JSON.string_of_doc doc);
@@ -39,7 +39,7 @@ let test_string () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_bool () =
+let test_bool ctx =
   let doc = [ "test_true", JSON.Bool true;
               "test_false", JSON.Bool false ] in
   assert_equal_string
@@ -52,7 +52,7 @@ let test_bool () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_int () =
+let test_int ctx =
   let doc = [ "test_zero", JSON.Int 0;
               "test_pos", JSON.Int 5;
               "test_neg", JSON.Int (-5);
@@ -71,7 +71,7 @@ let test_int () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_list () =
+let test_list ctx =
   let doc = [ "item", JSON.List [ JSON.String "foo"; JSON.Int 10; JSON.Bool true ] ] in
   assert_equal_string
     "{ \"item\": [ \"foo\", 10, true ] }"
@@ -86,7 +86,7 @@ let test_list () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_nested_dict () =
+let test_nested_dict ctx =
   let doc = [
       "item", JSON.Dict [ "int", JSON.Int 5; "string", JSON.String "foo"; ];
       "last", JSON.Int 10;
@@ -104,7 +104,7 @@ let test_nested_dict () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_nested_nested_dict () =
+let test_nested_nested_dict ctx =
   let doc = [
       "item", JSON.Dict [ "int", JSON.Int 5;
         "item2", JSON.Dict [ "int", JSON.Int 0; ];
@@ -126,7 +126,7 @@ let test_nested_nested_dict () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_escape () =
+let test_escape ctx =
   let doc = [ "test_string", JSON.String "test \" ' \n \b \r \t"; ] in
   assert_equal_string "{ \"test_string\": \"test \\\" ' \\n \\b \\r \\t\" }"
     (JSON.string_of_doc doc);
@@ -136,7 +136,7 @@ let test_escape () =
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
 (* "examples" suite. *)
-let test_qemu () =
+let test_qemu ctx =
   let doc = [
     "file.driver", JSON.String "https";
     "file.url", JSON.String "https://libguestfs.org";
@@ -155,7 +155,7 @@ let test_qemu () =
 }"
     (JSON.string_of_doc ~fmt:JSON.Indented doc)
 
-let test_builder () =
+let test_builder ctx =
   let doc = [
     "version", JSON.Int 1;
     "sources", JSON.List [
@@ -221,25 +221,19 @@ let test_builder () =
 
 (* Suites declaration. *)
 let suite =
-  TestList ([
-    "basic" >::: [
-      "empty" >:: test_empty;
-      "string" >:: test_string;
-      "bool" >:: test_bool;
-      "int" >:: test_int;
-      "list" >:: test_list;
-      "nested dict" >:: test_nested_dict;
-      "nested nested dict" >:: test_nested_nested_dict;
-      "escape" >:: test_escape;
-    ];
-    "examples" >::: [
-      "qemu" >:: test_qemu;
-      "virt-builder" >:: test_builder;
-    ];
-  ])
-
-let _ =
-  run_test_tt_main suite
+  "mllib JSON" >:::
+    [
+      "basic.empty" >:: test_empty;
+      "basic.string" >:: test_string;
+      "basic.bool" >:: test_bool;
+      "basic.int" >:: test_int;
+      "basic.list" >:: test_list;
+      "basic.nested_dict" >:: test_nested_dict;
+      "basic.nested_nested dict" >:: test_nested_nested_dict;
+      "basic.escape" >:: test_escape;
+      "examples.qemu" >:: test_qemu;
+      "examples.virt-builder" >:: test_builder;
+    ]
 
 let () =
-  Printf.fprintf stderr "\n"
+  run_test_tt_main suite

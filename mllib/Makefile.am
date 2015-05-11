@@ -165,6 +165,8 @@ if HAVE_OCAML_PKG_OUNIT
 TESTS += common_utils_tests JSON_tests
 endif
 
+CLEANFILES += oUnit-*
+
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
 
