@@ -159,7 +159,7 @@ and do_verify t args =
   let cmd =
     sprintf "%s --homedir %s --verify%s --status-file %s %s"
         t.gpg t.gpghome
-        (if t.verbose then "" else " -q --logger-file /dev/null")
+        (if t.verbose then "" else " --batch -q --logger-file /dev/null")
         (quote status_file) args in
   if t.verbose then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
