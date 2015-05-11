@@ -1146,6 +1146,19 @@ AS_IF([test "x$OCAMLC" != "xno"],[
 
     AC_CHECK_OCAML_PKG(libvirt)
     AC_CHECK_OCAML_PKG(oUnit)
+
+    # oUnit >= 2 is required.  If it's not this version, discard.
+    if test "x$OCAML_PKG_oUnit" != "xno"; then
+        AC_MSG_CHECKING([for oUnit version 2 or above])
+        ounit_version=`$OCAMLFIND query oUnit -format '%v'`
+        ounit_version_major=`echo $ounit_version | $AWK -F. '{print $1}'`
+        if test $ounit_version_major -ge 2; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            OCAML_PKG_oUnit=no
+        fi
+    fi
 ])
 AM_CONDITIONAL([HAVE_OCAML_PKG_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno"])
