@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
+	v2v_unit_tests.ml \
 	$(TESTS) $(SLOW_TESTS) \
 	HACKING \
 	rhel-7-virt-v2v-conversion-server.config \
