@@ -43,7 +43,17 @@ let import_keyfile ~gpg ~gpghome ~verbose keyfile =
   let r = Sys.command cmd in
   if r <> 0 then
     error (f_"could not import public key\nUse the '-v' option and look for earlier error messages.");
-  status_file
+  let status = read_whole_file status_file in
+  let status = string_nsplit "\n" status in
+  let fingerprint = ref "" in
+  List.iter (
+    fun line ->
+      let line = string_nsplit " " line in
+      match line with
+      | "[GNUPG:]" :: "IMPORT_OK" :: _ :: fp :: _ -> fingerprint := fp
+      | _ -> ()
+  ) status;
+  !fingerprint
 
 let rec create ~verbose ~gpg ~gpgkey ~check_signature =
   (* Create a temporary directory for gnupg. *)
@@ -69,18 +79,7 @@ let rec create ~verbose ~gpg ~gpgkey ~check_signature =
       | No_Key ->
         assert false
       | KeyFile kf ->
-        let status_file = import_keyfile gpg tmpdir verbose kf in
-        let status = read_whole_file status_file in
-        let status = string_nsplit "\n" status in
-        let fingerprint = ref "" in
-        List.iter (
-          fun line ->
-            let line = string_nsplit " " line in
-            match line with
-            | "[GNUPG:]" :: "IMPORT_OK" :: _ :: fp :: _ -> fingerprint := fp
-            | _ -> ()
-        ) status;
-        !fingerprint
+        import_keyfile gpg tmpdir verbose kf
       | Fingerprint fp ->
         let filename = Filename.temp_file "vbpubkey" ".asc" in
         unlink_on_exit filename;
