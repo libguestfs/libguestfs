@@ -567,6 +567,7 @@ Makefile.in
 /v2v/centos-7.0.img
 /v2v/fedora-20.img
 /v2v/link.sh
+/v2v/oUnit-*
 /v2v/rhel-5.10.img
 /v2v/rhel-6.5.img
 /v2v/rhel-7.0.img
@@ -576,5 +577,6 @@ Makefile.in
 /v2v/test-harness/dllv2v_test_harness.so
 /v2v/test-harness/stamp-virt-v2v-test-harness.pod
 /v2v/test-harness/virt-v2v-test-harness.1
+/v2v/v2v_unit_tests
 /v2v/virt-v2v
 /v2v/virt-v2v.1

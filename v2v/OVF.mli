@@ -28,3 +28,8 @@ val create_meta_files : bool -> Types.output_allocation -> string -> string list
 
 val create_ovf : bool -> Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> Types.vmtype option -> string -> string list -> string list -> string -> DOM.doc
 (** Create the OVF file. *)
+
+(**/**)
+
+(* For use by v2v_unit_tests only. *)
+val get_ostype : Types.inspect -> string
