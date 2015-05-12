@@ -413,6 +413,8 @@ v2v_capabilities (value connv, value unitv)
   capabilitiesv = caml_copy_string (capabilities);
   free (capabilities);
 
+  virConnectClose (conn);
+
   CAMLreturn (capabilitiesv);
 }
 
