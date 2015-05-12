@@ -24,6 +24,11 @@ unset CDPATH
 #set -e
 #set -v
 
+if [ -n "$SKIP_TEST_FUSE_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
+
 if [ -n "$SKIP_TEST_GUESTUNMOUNT_NOT_MOUNTED_SH" ]; then
     echo "$0: test skipped because environment variable is set."
     exit 77
