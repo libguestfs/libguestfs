@@ -39,9 +39,25 @@
 int
 main (int argc, char *argv[])
 {
+  char *skip;
   int pipefd[2];
   pid_t pid;
   int r, status;
+
+  /* Allow the test to be skipped. */
+  skip = getenv ("SKIP_TEST_FUSE");
+  if (skip && guestfs_int_is_true (skip) > 0) {
+    fprintf (stderr, "%s: test skipped because environment variable set.\n",
+             guestfs_int_program_name);
+    exit (77);
+  }
+
+  skip = getenv ("SKIP_TEST_GUESTUNMOUNT_FD");
+  if (skip && guestfs_int_is_true (skip) > 0) {
+    fprintf (stderr, "%s: test skipped because environment variable set.\n",
+             guestfs_int_program_name);
+    exit (77);
+  }
 
   /* Create the pipe. */
   if (pipe (pipefd) == -1) {
