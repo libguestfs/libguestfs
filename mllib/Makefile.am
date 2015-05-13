@@ -141,36 +141,54 @@ libdir.ml: Makefile
 
 # Tests.
 
-check_SCRIPTS = \
-	common_utils_tests
+common_utils_tests_SOURCES = dummy.c
+common_utils_tests_BOBJECTS = \
+	config.cmo \
+	common_gettext.cmo \
+	common_utils.cmo \
+	common_utils_tests.cmo
+common_utils_tests_XOBJECTS = $(common_utils_tests_BOBJECTS:.cmo=.cmx)
 
+JSON_tests_SOURCES = dummy.c
+JSON_tests_BOBJECTS = \
+	JSON.cmo \
+	JSON_tests.cmo
+JSON_tests_XOBJECTS = $(JSON_tests_BOBJECTS:.cmo=.cmx)
+
+# Can't call the following as <test>_OBJECTS because automake gets confused.
 if HAVE_OCAMLOPT
+common_utils_tests_THEOBJECTS = $(common_utils_tests_XOBJECTS)
 common_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-common_utils_tests: config.cmx common_gettext.cmx common_utils.cmx common_utils_tests.cmx
-	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
-	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
 
+JSON_tests_THEOBJECTS = $(JSON_tests_XOBJECTS)
 JSON_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-JSON_tests: JSON.cmx JSON_tests.cmx
-	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
-	  mlguestfs.cmxa -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -o $@
 else
+common_utils_tests_THEOBJECTS = $(common_utils_tests_BOBJECTS)
 common_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-common_utils_tests: config.cmo common_gettext.cmo common_utils.cmo common_utils_tests.cmo
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
-	  mlguestfs.cma -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -custom -o $@
 
+JSON_tests_THEOBJECTS = $(JSON_tests_BOBJECTS)
 JSON_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-JSON_tests: JSON.cmo JSON_tests.cmo
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
-	  mlguestfs.cma -linkpkg $^ -cclib '$(LIBTINFO_LIBS)' -custom -o $@
 endif
+
+common_utils_tests_DEPENDENCIES = $(common_utils_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+common_utils_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
+	  $(common_utils_tests_THEOBJECTS) -o $@
+
+JSON_tests_DEPENDENCIES = $(JSON_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+JSON_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
+	  $(JSON_tests_THEOBJECTS) -o $@
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS =
+check_PROGRAMS =
 
 if HAVE_OCAML_PKG_OUNIT
+check_PROGRAMS += common_utils_tests JSON_tests
 TESTS += common_utils_tests JSON_tests
 endif
 

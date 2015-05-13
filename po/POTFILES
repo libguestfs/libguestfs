@@ -258,6 +258,7 @@ inspector/inspector.c
 java/com_redhat_et_libguestfs_GuestFS.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
+mllib/dummy.c
 mllib/fsync-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
