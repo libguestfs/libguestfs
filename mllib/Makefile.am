@@ -95,6 +95,15 @@ if HAVE_OCAML_PKG_OUNIT
 OCAMLPACKAGES_TESTS += -package oUnit
 endif
 
+OCAMLCLIBS = \
+	-lutils \
+	$(LIBTINFO_LIBS) \
+	$(LIBCRYPT_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(LIBXML2_LIBS) \
+	$(LIBINTL) \
+	-lgnu
+
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 if !HAVE_OCAMLOPT
@@ -107,9 +116,9 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
-dummy_DEPENDENCIES = $(OBJECTS)
+dummy_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
 dummy_LINK = \
-	./link.sh \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 

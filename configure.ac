@@ -1708,14 +1708,8 @@ mkdir -p \
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
                 [chmod +x,-w appliance/libguestfs-make-fixed-appliance])
-AC_CONFIG_FILES([builder/link.sh],
-                [chmod +x,-w builder/link.sh])
-AC_CONFIG_FILES([customize/link.sh],
-                [chmod +x,-w customize/link.sh])
 AC_CONFIG_FILES([inspector/test-xmllint.sh],
                 [chmod +x,-w inspector/test-xmllint.sh])
-AC_CONFIG_FILES([mllib/link.sh],
-                [chmod +x,-w mllib/link.sh])
 AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
                 [chmod +x,-w p2v/virt-p2v-make-disk])
 AC_CONFIG_FILES([p2v/virt-p2v-make-kickstart],
@@ -1726,16 +1720,8 @@ AC_CONFIG_FILES([pick-guests.pl],
                 [chmod +x,-w pick-guests.pl])
 AC_CONFIG_FILES([podwrapper.pl],
                 [chmod +x,-w podwrapper.pl])
-AC_CONFIG_FILES([resize/link.sh],
-                [chmod +x,-w resize/link.sh])
 AC_CONFIG_FILES([run],
                 [chmod +x,-w run])
-AC_CONFIG_FILES([sparsify/link.sh],
-                [chmod +x,-w sparsify/link.sh])
-AC_CONFIG_FILES([sysprep/link.sh],
-                [chmod +x,-w sysprep/link.sh])
-AC_CONFIG_FILES([v2v/link.sh],
-                [chmod +x,-w v2v/link.sh])
 
 AC_CONFIG_FILES([Makefile
                  align/Makefile

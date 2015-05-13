@@ -71,6 +71,9 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
+OCAMLCLIBS = \
+	$(LIBTINFO_LIBS)
+
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 if !HAVE_OCAMLOPT
@@ -83,10 +86,10 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
-virt_sparsify_DEPENDENCIES = $(OBJECTS)
+virt_sparsify_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
 
 virt_sparsify_LINK = \
-	./link.sh \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 

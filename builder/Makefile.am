@@ -150,6 +150,16 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
+OCAMLCLIBS = \
+	-pthread -lpthread \
+	-lutils \
+	$(LIBTINFO_LIBS) \
+	$(LIBCRYPT_LIBS) \
+	$(LIBLZMA_LIBS) \
+	$(LIBXML2_LIBS) \
+	$(LIBINTL) \
+	-lgnu
+
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 if !HAVE_OCAMLOPT
@@ -162,9 +172,9 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
-virt_builder_DEPENDENCIES = $(OBJECTS)
+virt_builder_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
 virt_builder_LINK = \
-	./link.sh \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 

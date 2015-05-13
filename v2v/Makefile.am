@@ -160,6 +160,15 @@ if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
+OCAMLCLIBS = \
+	-lutils \
+	$(LIBTINFO_LIBS) \
+	$(LIBCRYPT_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(LIBXML2_LIBS) \
+	$(LIBINTL) \
+	-lgnu
+
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 if !HAVE_OCAMLOPT
@@ -172,9 +181,9 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
-virt_v2v_DEPENDENCIES = $(OBJECTS)
+virt_v2v_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
 virt_v2v_LINK = \
-	./link.sh \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 
@@ -319,9 +328,9 @@ v2v_unit_tests_THEOBJECTS = $(v2v_unit_tests_XOBJECTS)
 v2v_unit_tests.cmx: OCAMLPACKAGES += -package oUnit
 endif
 
-v2v_unit_tests_DEPENDENCIES = $(v2v_unit_tests_THEOBJECTS)
+v2v_unit_tests_DEPENDENCIES = $(v2v_unit_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
 v2v_unit_tests_LINK = \
-	./link.sh \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) \
 	  $(OCAMLPACKAGES) -package oUnit \
 	  $(OCAMLLINKFLAGS) \
