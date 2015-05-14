@@ -289,7 +289,7 @@ partition_parent (dev_t part_dev)
 {
   CLEANUP_FCLOSE FILE *fp = NULL;
   CLEANUP_FREE char *path = NULL, *content = NULL;
-  size_t len;
+  size_t len = 0;
   unsigned parent_major, parent_minor;
 
   if (asprintf (&path, "/sys/dev/block/%d:%d/../dev",
@@ -504,7 +504,7 @@ read_cmdline (void)
 {
   CLEANUP_FCLOSE FILE *fp = NULL;
   char *ret = NULL;
-  size_t len;
+  size_t len = 0;
 
   fp = fopen ("/proc/cmdline", "re");
   if (fp == NULL) {

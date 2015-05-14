@@ -109,7 +109,7 @@ auth_callback (guestfs_h *g,
   size_t i;
   char *prompt;
   char *reply = NULL;
-  size_t allocsize;
+  size_t allocsize = 0;
   char *pass;
   ssize_t len;
   int r;

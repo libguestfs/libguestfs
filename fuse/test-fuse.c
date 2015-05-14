@@ -250,7 +250,7 @@ test_fuse (void)
   fflush (stdout)
   FILE *fp;
   char *line = NULL;
-  size_t len;
+  size_t len = 0;
   struct stat statbuf;
   char buf[128];
   ssize_t r;

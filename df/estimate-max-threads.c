@@ -60,7 +60,7 @@ read_line_from (const char *cmd)
 {
   FILE *pp;
   char *ret = NULL;
-  size_t allocsize;
+  size_t allocsize = 0;
 
   pp = popen (cmd, "r");
   if (pp == NULL)
