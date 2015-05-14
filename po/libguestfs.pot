@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.41\n"
+"Project-Id-Version: libguestfs 1.29.42\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-05-11 13:19+0100\n"
+"POT-Creation-Date: 2015-05-14 10:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1130,13 +1130,19 @@ msgstr ""
 msgid "Full name:"
 msgstr ""
 
-#: ../builder/sigchecker.ml:67
+#: ../builder/sigchecker.ml:88
 msgid ""
 "GPG failure: could not run GPG the first time\n"
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../builder/sigchecker.ml:157
+#: ../builder/sigchecker.ml:65
+msgid ""
+"GPG failure: could not trust the imported key\n"
+"Use the '-v' option and look for earlier error messages."
+msgstr ""
+
+#: ../builder/sigchecker.ml:167
 msgid ""
 "GPG failure: could not verify digital signature of file\n"
 "Try:\n"
@@ -2348,7 +2354,7 @@ msgid ""
 "expected sha1 (%s) = %s)"
 msgstr ""
 
-#: ../builder/sigchecker.ml:198
+#: ../builder/sigchecker.ml:208
 msgid ""
 "checksum of template did not match the expected checksum!\n"
 "  found checksum: %s\n"
@@ -2381,7 +2387,7 @@ msgid ""
 "'%s'.  Try running 'virsh define %s' yourself instead."
 msgstr ""
 
-#: ../builder/sigchecker.ml:93
+#: ../builder/sigchecker.ml:103
 msgid ""
 "could not export public key\n"
 "Use the '-v' option and look for earlier error messages."
@@ -2436,7 +2442,7 @@ msgstr ""
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
-#: ../builder/sigchecker.ml:186
+#: ../builder/sigchecker.ml:196
 msgid "could not run sha512sum command to verify checksum"
 msgstr ""
 
@@ -2612,7 +2618,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../builder/sigchecker.ml:173
+#: ../builder/sigchecker.ml:183
 msgid ""
 "fingerprint of signature does not match the expected fingerprint!\n"
 "  found fingerprint: %s\n"
@@ -3133,7 +3139,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../builder/sigchecker.ml:140
+#: ../builder/sigchecker.ml:150
 msgid ""
 "there is no detached signature file\n"
 "This probably means the index file is missing a sig=... line.\n"
@@ -8777,13 +8783,13 @@ msgid "%s: does not look like a qemu source directory\n"
 msgstr ""
 
 #: v2v/domainxml-c.c:137 v2v/domainxml-c.c:207 v2v/domainxml-c.c:391
-#: v2v/domainxml-c.c:446
+#: v2v/domainxml-c.c:448
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
 #: v2v/domainxml-c.c:139 v2v/domainxml-c.c:209 v2v/domainxml-c.c:393
-#: v2v/domainxml-c.c:448
+#: v2v/domainxml-c.c:450
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
@@ -8793,7 +8799,7 @@ msgstr ""
 msgid "cannot find libvirt pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:230 v2v/domainxml-c.c:472
+#: v2v/domainxml-c.c:230 v2v/domainxml-c.c:474
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
