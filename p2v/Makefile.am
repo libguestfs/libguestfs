@@ -53,7 +53,8 @@ virt_p2v_SOURCES = \
 	miniexpect.c \
 	miniexpect.h \
 	p2v.h \
-	ssh.c
+	ssh.c \
+	utils.c
 
 virt_p2v_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \

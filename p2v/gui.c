@@ -436,7 +436,7 @@ create_conversion_dialog (struct config *config)
   /* XXX It would be nice not to have to set this explicitly, but
    * if we don't then Gtk chooses a very small window.
    */
-  gtk_widget_set_size_request (conv_dlg, 800, 560);
+  gtk_widget_set_size_request (conv_dlg, 900, 560);
 
   /* The main dialog area. */
   hbox = gtk_hbox_new (TRUE, 1);
@@ -891,6 +891,24 @@ populate_interfaces (GtkTreeView *interfaces_list)
                                          G_TYPE_STRING);
   if (all_interfaces) {
     for (i = 0; all_interfaces[i] != NULL; ++i) {
+      const char *if_name = all_interfaces[i];
+      CLEANUP_FREE char *device_descr = NULL;
+      CLEANUP_FREE char *if_addr = get_if_addr (if_name);
+      CLEANUP_FREE char *if_vendor = get_if_vendor (if_name, 40);
+
+      if (asprintf (&device_descr,
+                    "<b>%s</b>\n"
+                    "<small>"
+                    "%s\n"
+                    "%s"
+                    "</small>",
+                    if_name,
+                    if_addr ? : _("Unknown"),
+                    if_vendor ? : _("Unknown")) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+
       gtk_list_store_append (interfaces_store, &iter);
       gtk_list_store_set (interfaces_store, &iter,
                           /* Only convert the first interface.  As
@@ -898,7 +916,7 @@ populate_interfaces (GtkTreeView *interfaces_list)
                            * physical interface.
                            */
                           INTERFACES_COL_CONVERT, i == 0,
-                          INTERFACES_COL_DEVICE, all_interfaces[i],
+                          INTERFACES_COL_DEVICE, device_descr,
                           INTERFACES_COL_NETWORK, "default",
                           -1);
     }
@@ -913,13 +931,15 @@ populate_interfaces (GtkTreeView *interfaces_list)
                                                interfaces_col_convert,
                                                "active", INTERFACES_COL_CONVERT,
                                                NULL);
+  gtk_cell_renderer_set_alignment (interfaces_col_convert, 0.5, 0.0);
   interfaces_col_device = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (interfaces_list,
                                                -1,
                                                _("Device"),
                                                interfaces_col_device,
-                                               "text", INTERFACES_COL_DEVICE,
+                                               "markup", INTERFACES_COL_DEVICE,
                                                NULL);
+  gtk_cell_renderer_set_alignment (interfaces_col_device, 0.5, 0.0);
   interfaces_col_network = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (interfaces_list,
                                                -1,
@@ -927,6 +947,7 @@ populate_interfaces (GtkTreeView *interfaces_list)
                                                interfaces_col_network,
                                                "text", INTERFACES_COL_NETWORK,
                                                NULL);
+  gtk_cell_renderer_set_alignment (interfaces_col_network, 0.5, 0.0);
 
   g_signal_connect (interfaces_col_convert, "toggled",
                     G_CALLBACK (toggled), interfaces_store);

@@ -263,6 +263,7 @@ p2v/kernel.c
 p2v/main.c
 p2v/miniexpect.c
 p2v/ssh.c
+p2v/utils.c
 perl/Guestfs.c
 perl/bindtests.pl
 perl/lib/Sys/Guestfs.pm
