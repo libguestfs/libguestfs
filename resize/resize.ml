@@ -155,7 +155,7 @@ let main () =
     let dryrun = ref false in
     let expand = ref "" in
     let set_expand s =
-      if s = "" then error (f_"%s: empty --expand option") prog
+      if s = "" then error (f_"empty --expand option")
       else if !expand <> "" then error (f_"--expand option given twice")
       else expand := s
     in
