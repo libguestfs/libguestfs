@@ -31,8 +31,6 @@ open Customize_cmdline
 open Unix
 open Printf
 
-let prog = Filename.basename Sys.executable_name
-
 let () = Random.self_init ()
 
 let remove_duplicates index =
@@ -149,7 +147,7 @@ let main () =
 
   (* Download the sources. *)
   let downloader = Downloader.create ~verbose ~curl ~cache in
-  let repos = Sources.read_sources ~prog ~verbose in
+  let repos = Sources.read_sources ~verbose in
   let sources = List.map (
     fun (source, fingerprint) ->
       {
@@ -166,7 +164,7 @@ let main () =
           let sigchecker =
             Sigchecker.create ~verbose ~gpg ~check_signature
               ~gpgkey:source.Sources.gpgkey in
-          Index_parser.get_index ~prog ~verbose ~downloader ~sigchecker source
+          Index_parser.get_index ~verbose ~downloader ~sigchecker source
       ) sources
     ) in
   let index = remove_duplicates index in
@@ -206,7 +204,7 @@ let main () =
             let template = name, arch, revision in
             msg (f_"Downloading: %s") file_uri;
             let progress_bar = not quiet in
-            ignore (Downloader.download ~prog downloader ~template ~progress_bar
+            ignore (Downloader.download downloader ~template ~progress_bar
                       ~proxy file_uri)
         ) index;
         exit 0
@@ -264,7 +262,7 @@ let main () =
       let template = arg, arch, revision in
       msg (f_"Downloading: %s") file_uri;
       let progress_bar = not quiet in
-      Downloader.download ~prog downloader ~template ~progress_bar ~proxy
+      Downloader.download downloader ~template ~progress_bar ~proxy
         file_uri in
     if delete_on_exit then unlink_on_exit template;
     template in
@@ -283,7 +281,7 @@ let main () =
         | { Index_parser.signature_uri = None } -> None
         | { Index_parser.signature_uri = Some signature_uri } ->
           let sigfile, delete_on_exit =
-            Downloader.download ~prog downloader signature_uri in
+            Downloader.download downloader signature_uri in
           if delete_on_exit then unlink_on_exit sigfile;
           Some sigfile in
 
@@ -323,7 +321,7 @@ let main () =
 
   let blockdev_getsize64 dev =
     let cmd = sprintf "blockdev --getsize64 %s" (quote dev) in
-    let lines = external_command ~prog cmd in
+    let lines = external_command cmd in
     assert (List.length lines >= 1);
     Int64.of_string (List.hd lines)
   in
@@ -723,4 +721,4 @@ let main () =
   | None -> ()
   | Some stats -> print_string stats
 
-let () = run_main_and_handle_errors ~prog main
+let () = run_main_and_handle_errors main

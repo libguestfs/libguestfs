@@ -166,7 +166,7 @@ and run_curl_get_lines curl_args =
   close_out chan;
 
   let cmd = sprintf "curl -q --config %s" (quote config_file) in
-  let lines = external_command ~prog cmd in
+  let lines = external_command cmd in
   Unix.unlink config_file;
   lines
 

@@ -31,11 +31,11 @@ type source = {
 
 module StringSet = Set.Make (String)
 
-let parse_conf ~prog ~verbose file =
+let parse_conf ~verbose file =
   if verbose then (
     printf (f_"%s: trying to read %s\n") prog file;
   );
-  let sections = Ini_reader.read_ini ~prog ~error_suffix:"[ignored]" file in
+  let sections = Ini_reader.read_ini ~error_suffix:"[ignored]" file in
 
   let sources = List.fold_right (
     fun (n, fields) acc ->
@@ -101,10 +101,10 @@ let merge_sources current_sources new_sources =
 let filter_filenames filename =
   Filename.check_suffix filename ".conf"
 
-let read_sources ~prog ~verbose =
-  let dirs = Paths.xdg_config_dirs ~prog in
+let read_sources ~verbose =
+  let dirs = Paths.xdg_config_dirs () in
   let dirs =
-    match Paths.xdg_config_home ~prog with
+    match Paths.xdg_config_home () with
     | None -> dirs
     | Some dir -> dir :: dirs in
   let dirs = List.map (fun x -> x // "repos.d") dirs in
@@ -118,7 +118,7 @@ let read_sources ~prog ~verbose =
       List.fold_left (
         fun acc file ->
           try (
-            let s = merge_sources acc (parse_conf ~prog ~verbose (dir // file)) in
+            let s = merge_sources acc (parse_conf ~verbose (dir // file)) in
             (* Add the current file name to the set only if its parsing
              * was successful.
              *)

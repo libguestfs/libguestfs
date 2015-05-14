@@ -111,7 +111,7 @@ let print_entry chan (name, { printable_name = printable_name;
   );
   if hidden then fp "hidden=true\n"
 
-let get_index ~prog ~verbose ~downloader ~sigchecker
+let get_index ~verbose ~downloader ~sigchecker
   { Sources.uri = uri; proxy = proxy } =
   let corrupt_file () =
     error (f_"The index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") uri
@@ -119,7 +119,7 @@ let get_index ~prog ~verbose ~downloader ~sigchecker
 
   let rec get_index () =
     (* Get the index page. *)
-    let tmpfile, delete_tmpfile = Downloader.download ~prog downloader ~proxy uri in
+    let tmpfile, delete_tmpfile = Downloader.download downloader ~proxy uri in
 
     (* Check index file signature (also verifies it was fully
      * downloaded and not corrupted in transit).
@@ -127,7 +127,7 @@ let get_index ~prog ~verbose ~downloader ~sigchecker
     Sigchecker.verify sigchecker tmpfile;
 
     (* Try parsing the file. *)
-    let sections = Ini_reader.read_ini ~prog tmpfile in
+    let sections = Ini_reader.read_ini tmpfile in
     if delete_tmpfile then
       (try Unix.unlink tmpfile with _ -> ());
 

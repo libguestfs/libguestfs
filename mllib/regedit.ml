@@ -44,16 +44,16 @@ let encode_utf16le str =
 (* Take a UTF16LE string and decode it to UTF-8.  Actually this
  * fails if the string is not 7 bit ASCII.  XXX Use iconv here.
  *)
-let decode_utf16le ~prog str =
+let decode_utf16le str =
   let len = String.length str in
   if len mod 2 <> 0 then
-    error ~prog (f_"decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  This could be a bug in %s.") prog;
+    error (f_"decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  This could be a bug in %s.") prog;
   let copy = String.create (len/2) in
   for i = 0 to (len/2)-1 do
     let cl = String.unsafe_get str (i*2) in
     let ch = String.unsafe_get str ((i*2)+1) in
     if ch != '\000' || Char.code cl >= 127 then
-      error ~prog (f_"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This is a bug in %s, please report it.") prog;
+      error (f_"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This is a bug in %s, please report it.") prog;
     String.unsafe_set copy i cl
   done;
   copy

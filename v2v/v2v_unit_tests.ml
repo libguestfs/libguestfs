@@ -21,8 +21,6 @@
 open OUnit2
 open Types
 
-let prog = "v2v_unit_tests"
-
 external identity : 'a -> 'a = "%identity"
 
 let test_get_ostype ctx =

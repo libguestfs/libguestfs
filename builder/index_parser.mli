@@ -38,4 +38,4 @@ and entry = {
   proxy : Downloader.proxy_mode;
 }
 
-val get_index : prog:string -> verbose:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> index
+val get_index : verbose:bool -> downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> index

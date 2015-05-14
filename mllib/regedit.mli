@@ -61,5 +61,5 @@ val reg_import : Guestfs.guestfs -> int64 -> regedits -> unit
 val encode_utf16le : string -> string
 (** Helper: Take a 7 bit ASCII string and encode it as UTF-16LE. *)
 
-val decode_utf16le : prog:string -> string -> string
+val decode_utf16le : string -> string
 (** Helper: Take a UTF-16LE string and decode it to UTF-8. *)

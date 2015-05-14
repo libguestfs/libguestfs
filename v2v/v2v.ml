@@ -815,10 +815,10 @@ and actual_target_size target =
  *)
 and du filename =
   let cmd = sprintf "du --block-size=1 %s | awk '{print $1}'" (quote filename) in
-  let lines = external_command ~prog cmd in
+  let lines = external_command cmd in
   (* Ignore errors because we want to avoid failures after copying. *)
   match lines with
   | line::_ -> (try Some (Int64.of_string line) with _ -> None)
   | [] -> None
 
-let () = run_main_and_handle_errors ~prog main
+let () = run_main_and_handle_errors main

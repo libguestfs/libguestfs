@@ -23,4 +23,4 @@ type source = {
   proxy : Downloader.proxy_mode;
 }
 
-val read_sources : prog:string -> verbose:bool -> source list
+val read_sources : verbose:bool -> source list

@@ -85,7 +85,7 @@ let parse_cmdline () =
   let quiet = ref false in
 
   let size = ref None in
-  let set_size arg = size := Some (parse_size ~prog arg) in
+  let set_size arg = size := Some (parse_size arg) in
 
   let smp = ref None in
   let set_smp arg = smp := Some arg in
@@ -149,9 +149,9 @@ let parse_cmdline () =
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "-V",        Arg.Unit (print_version_and_exit ~prog),
+    "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
-    "--version", Arg.Unit (print_version_and_exit ~prog),
+    "--version", Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in

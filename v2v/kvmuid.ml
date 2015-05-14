@@ -21,6 +21,7 @@
 open Unix
 open Printf
 
+open Common_utils
 open Common_gettext.Gettext
 
 open Utils

@@ -22,11 +22,6 @@ open Printf
 
 open Common_gettext.Gettext
 
-let prog = Filename.basename Sys.executable_name
-let error ?exit_code fs = error ~prog ?exit_code fs
-let warning fs = warning ~prog fs
-let info fs = info ~prog fs
-
 class filesystem_side_effects =
 object
   val mutable m_created_file = false

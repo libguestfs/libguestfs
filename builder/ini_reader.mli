@@ -21,4 +21,4 @@ and section = string * fields                (* [name] + fields *)
 and fields = field list
 and field = string * string option * string  (* key + subkey + value *)
 
-val read_ini : prog:string -> ?error_suffix:string -> string -> sections
+val read_ini : ?error_suffix:string -> string -> sections

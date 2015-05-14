@@ -18,11 +18,6 @@
 
 (** Defines the interface between the main program and sysprep operations. *)
 
-val prog : string
-val error : ?exit_code:int -> ('a, unit, string, 'b) format4 -> 'a
-val warning : ('a, unit, string, unit) format4 -> 'a
-val info : ('a, unit, string, unit) format4 -> 'a
-
 class filesystem_side_effects : object
   method created_file : unit -> unit
   method get_created_file : bool

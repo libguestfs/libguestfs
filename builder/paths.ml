@@ -25,14 +25,14 @@ let xdg_cache_home =
     with Not_found ->
       None (* no cache directory *)
 
-let xdg_config_home ~prog =
+let xdg_config_home () =
   try Some (Sys.getenv "XDG_CONFIG_HOME" // prog)
   with Not_found ->
     try Some (Sys.getenv "HOME" // ".config" // prog)
     with Not_found ->
       None (* no config directory *)
 
-let xdg_config_dirs ~prog =
+let xdg_config_dirs () =
   let dirs =
     try Sys.getenv "XDG_CONFIG_DIRS"
     with Not_found -> "/etc/xdg" in

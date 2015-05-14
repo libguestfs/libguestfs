@@ -146,7 +146,7 @@ object
             let disk = Str.matched_group 1 line in
             let expected = Str.matched_group 2 line in
             let cmd = sprintf "sha1sum %s" (quote (exploded // disk)) in
-            let out = external_command ~prog cmd in
+            let out = external_command cmd in
             match out with
             | [] ->
               error (f_"no output from sha1sum command, see previous errors")

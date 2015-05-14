@@ -100,9 +100,9 @@ let main () =
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "-V",        Arg.Unit (print_version_and_exit ~prog),
+    "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
-    "--version", Arg.Unit (print_version_and_exit ~prog),
+    "--version", Arg.Unit print_version_and_exit,
                           " " ^ s_"Display version and exit";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
@@ -253,4 +253,4 @@ read the man page virt-customize(1).
     Gc.compact ()
 
 (* Finished. *)
-let () = run_main_and_handle_errors ~prog main
+let () = run_main_and_handle_errors main

@@ -114,7 +114,7 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
         raise Not_found
       );
       let data = g#hivex_value_value valueh in
-      let data = decode_utf16le ~prog data in
+      let data = decode_utf16le data in
 
       (* The uninstall program will be uninst.exe.  This is a wrapper
        * around _uninst.exe which prompts the user.  As we don't want

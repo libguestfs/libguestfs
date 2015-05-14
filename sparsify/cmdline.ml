@@ -77,9 +77,9 @@ let parse_cmdline () =
     "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
-    "-V",        Arg.Unit (print_version_and_exit ~prog),
+    "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
-    "--version", Arg.Unit (print_version_and_exit ~prog),  ditto;
+    "--version", Arg.Unit print_version_and_exit,  ditto;
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
     "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in

@@ -188,15 +188,15 @@ object
       ) in
 
     (* Create unique UUIDs for everything *)
-    vm_uuid <- uuidgen ~prog ();
+    vm_uuid <- uuidgen ();
     (* Generate random image and volume UUIDs for each target. *)
     image_uuids <-
       List.map (
-        fun _ -> uuidgen ~prog ()
+        fun _ -> uuidgen ()
       ) targets;
     vol_uuids <-
       List.map (
-        fun _ -> uuidgen ~prog ()
+        fun _ -> uuidgen ()
       ) targets;
 
     (* We need to create the target image director(ies) so there's a place

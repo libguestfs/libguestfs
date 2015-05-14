@@ -25,11 +25,6 @@ open Common_utils
 
 open Types
 
-let prog = Filename.basename Sys.executable_name
-let error ?exit_code fs = error ~prog ?exit_code fs
-let warning fs = warning ~prog fs
-let info fs = info ~prog fs
-
 let quote = Filename.quote
 
 (* Quote XML <element attr='...'> content.  Note you must use single

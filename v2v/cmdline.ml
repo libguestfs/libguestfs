@@ -179,9 +179,9 @@ let parse_cmdline () =
     Arg.Set_string vdsm_ovf_output, " " ^ s_"Output OVF file";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
-    "-V",        Arg.Unit (print_version_and_exit ~prog),
+    "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
-    "--version", Arg.Unit (print_version_and_exit ~prog),  ditto;
+    "--version", Arg.Unit print_version_and_exit,  ditto;
     "--vmtype",  Arg.Set_string vmtype,     "server|desktop " ^ s_"Set vmtype (for RHEV)";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in

@@ -411,7 +411,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           "ovf:size", Int64.to_string size_gb;
           "ovf:fileRef", fileref;
           "ovf:parentRef", "";
-          "ovf:vm_snapshot_id", uuidgen ~prog ();
+          "ovf:vm_snapshot_id", uuidgen ();
           "ovf:volume-format", format_for_rhev;
           "ovf:volume-type", output_alloc_for_rhev;
           "ovf:format", "http://en.wikipedia.org/wiki/Byte"; (* wtf? *)

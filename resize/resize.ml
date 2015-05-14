@@ -27,10 +27,6 @@ module G = Guestfs
 let min_extra_partition = 10L *^ 1024L *^ 1024L
 
 (* Command line argument parsing. *)
-let prog = Filename.basename Sys.executable_name
-let error fs = error ~prog fs
-let warning fs = warning ~prog fs
-
 type align_first_t = [ `Never | `Always | `Auto ]
 
 (* Source partition type. *)
@@ -229,9 +225,9 @@ let main () =
       "--no-sparse", Arg.Clear sparse,        " " ^ s_"Turn off sparse copying";
       "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
       "--verbose", Arg.Set verbose,           ditto;
-      "-V",        Arg.Unit (print_version_and_exit ~prog),
+      "-V",        Arg.Unit print_version_and_exit,
                                               " " ^ s_"Display version and exit";
-      "--version", Arg.Unit (print_version_and_exit ~prog),  ditto;
+      "--version", Arg.Unit print_version_and_exit,  ditto;
       "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
     ] in
     long_options := argspec;
@@ -722,7 +718,7 @@ read the man page virt-resize(1).
 
     (* Parse the size field. *)
     let oldsize = p.p_part.G.part_size in
-    let newsize = parse_resize ~prog oldsize sizefield in
+    let newsize = parse_resize oldsize sizefield in
 
     if newsize <= 0L then
       error (f_"%s: new partition size is zero or negative") dev;
@@ -1367,4 +1363,4 @@ read the man page virt-resize(1).
   if debug_gc then
     Gc.compact ()
 
-let () = run_main_and_handle_errors ~prog main
+let () = run_main_and_handle_errors main

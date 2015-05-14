@@ -35,7 +35,7 @@ type proxy_mode =
 val create : verbose:bool -> curl:string -> cache:Cache.t option -> t
 (** Create the abstract type. *)
 
-val download : prog:string -> t -> ?template:(string*string*int) -> ?progress_bar:bool -> ?proxy:proxy_mode -> uri -> (filename * bool)
+val download : t -> ?template:(string*string*int) -> ?progress_bar:bool -> ?proxy:proxy_mode -> uri -> (filename * bool)
 (** Download the URI, returning the downloaded filename and a
     temporary file flag.  The temporary file flag is [true] iff
     the downloaded file is temporary and should be deleted by the

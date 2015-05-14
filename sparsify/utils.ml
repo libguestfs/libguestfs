@@ -24,11 +24,6 @@ open Common_utils
 
 module G = Guestfs
 
-let prog = Filename.basename Sys.executable_name
-let error ?exit_code fs = error ~prog ?exit_code fs
-let warning fs = warning ~prog fs
-let info fs = info ~prog fs
-
 let quote = Filename.quote
 
 (* Return true if the filesystem is a read-only LV (RHBZ#1185561). *)

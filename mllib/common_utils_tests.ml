@@ -21,8 +21,6 @@
 open OUnit2
 open Common_utils
 
-let prog = "common_utils_tests"
-
 (* Utils. *)
 let assert_equal_string = assert_equal ~printer:(fun x -> x)
 let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
@@ -37,41 +35,41 @@ let test_le32 ctx =
 (* Test Common_utils.parse_size. *)
 let test_parse_resize ctx =
   (* For absolute sizes, oldsize is ignored. *)
-  assert_equal_int64 100_L (parse_resize ~prog 100_L "100b");
-  assert_equal_int64 100_L (parse_resize ~prog 1000_L "100b");
-  assert_equal_int64 100_L (parse_resize ~prog 10000_L "100b");
-  assert_equal_int64 102400_L (parse_resize ~prog 100_L "100K");
+  assert_equal_int64 100_L (parse_resize 100_L "100b");
+  assert_equal_int64 100_L (parse_resize 1000_L "100b");
+  assert_equal_int64 100_L (parse_resize 10000_L "100b");
+  assert_equal_int64 102400_L (parse_resize 100_L "100K");
   (* Fractions are always rounded down. *)
-  assert_equal_int64 1126_L (parse_resize ~prog 100_L "1.1K");
-  assert_equal_int64 104962457_L (parse_resize ~prog 100_L "100.1M");
-  assert_equal_int64 132499741081_L (parse_resize ~prog 100_L "123.4G");
+  assert_equal_int64 1126_L (parse_resize 100_L "1.1K");
+  assert_equal_int64 104962457_L (parse_resize 100_L "100.1M");
+  assert_equal_int64 132499741081_L (parse_resize 100_L "123.4G");
 
   (* oldsize +/- a constant. *)
-  assert_equal_int64 101_L (parse_resize ~prog 100_L "+1b");
-  assert_equal_int64 98_L (parse_resize ~prog 100_L "-2b");
-  assert_equal_int64 1124_L (parse_resize ~prog 100_L "+1K");
-  assert_equal_int64 0_L (parse_resize ~prog 1024_L "-1K");
-  assert_equal_int64 0_L (parse_resize ~prog 1126_L "-1.1K");
-  assert_equal_int64 1154457_L (parse_resize ~prog 1024_L "+1.1M");
-  assert_equal_int64 107374182_L (parse_resize ~prog 132499741081_L "-123.3G");
+  assert_equal_int64 101_L (parse_resize 100_L "+1b");
+  assert_equal_int64 98_L (parse_resize 100_L "-2b");
+  assert_equal_int64 1124_L (parse_resize 100_L "+1K");
+  assert_equal_int64 0_L (parse_resize 1024_L "-1K");
+  assert_equal_int64 0_L (parse_resize 1126_L "-1.1K");
+  assert_equal_int64 1154457_L (parse_resize 1024_L "+1.1M");
+  assert_equal_int64 107374182_L (parse_resize 132499741081_L "-123.3G");
 
   (* oldsize +/- a percentage. *)
-  assert_equal_int64 101_L (parse_resize ~prog 100_L "+1%");
-  assert_equal_int64 99_L (parse_resize ~prog 100_L "-1%");
-  assert_equal_int64 101000_L (parse_resize ~prog 100000_L "+1%");
-  assert_equal_int64 99000_L (parse_resize ~prog 100000_L "-1%");
-  assert_equal_int64 150000_L (parse_resize ~prog 100000_L "+50%");
-  assert_equal_int64 50000_L (parse_resize ~prog 100000_L "-50%");
-  assert_equal_int64 200000_L (parse_resize ~prog 100000_L "+100%");
-  assert_equal_int64 0_L (parse_resize ~prog 100000_L "-100%");
-  assert_equal_int64 300000_L (parse_resize ~prog 100000_L "+200%");
-  assert_equal_int64 400000_L (parse_resize ~prog 100000_L "+300%");
+  assert_equal_int64 101_L (parse_resize 100_L "+1%");
+  assert_equal_int64 99_L (parse_resize 100_L "-1%");
+  assert_equal_int64 101000_L (parse_resize 100000_L "+1%");
+  assert_equal_int64 99000_L (parse_resize 100000_L "-1%");
+  assert_equal_int64 150000_L (parse_resize 100000_L "+50%");
+  assert_equal_int64 50000_L (parse_resize 100000_L "-50%");
+  assert_equal_int64 200000_L (parse_resize 100000_L "+100%");
+  assert_equal_int64 0_L (parse_resize 100000_L "-100%");
+  assert_equal_int64 300000_L (parse_resize 100000_L "+200%");
+  assert_equal_int64 400000_L (parse_resize 100000_L "+300%");
 
   (* Implementation rounds numbers so that only a single digit after
    * the decimal point is significant.
    *)
-  assert_equal_int64 101100_L (parse_resize ~prog 100000_L "+1.1%");
-  assert_equal_int64 101100_L (parse_resize ~prog 100000_L "+1.12%")
+  assert_equal_int64 101100_L (parse_resize 100000_L "+1.1%");
+  assert_equal_int64 101100_L (parse_resize 100000_L "+1.12%")
 
 (* Test Common_utils.human_size. *)
 let test_human_size ctx =

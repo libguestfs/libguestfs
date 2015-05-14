@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Common_utils
+
 type sections = section list
 and section = string * fields                (* [name] + fields *)
 and fields = field list
@@ -29,7 +31,7 @@ and c_fields = field array
 (* Calls yyparse in the C code. *)
 external parse_index : prog:string -> error_suffix:string -> string -> c_sections = "virt_builder_parse_index"
 
-let read_ini ~prog ?(error_suffix = "") file =
+let read_ini ?(error_suffix = "") file =
   let sections = parse_index ~prog ~error_suffix file in
   let sections = Array.to_list sections in
   List.map (

@@ -66,29 +66,32 @@ val make_message_function : quiet:bool -> ('a, unit, string, unit) format4 -> 'a
 (** Timestamped progress messages.  Used for ordinary messages when
     not [--quiet]. *)
 
-val error : prog:string -> ?exit_code:int -> ('a, unit, string, 'b) format4 -> 'a
+val prog : string
+(** The program name (derived from {!Sys.executable_name}). *)
+
+val error : ?exit_code:int -> ('a, unit, string, 'b) format4 -> 'a
 (** Standard error function. *)
 
-val warning : prog:string -> ('a, unit, string, unit) format4 -> 'a
+val warning : ('a, unit, string, unit) format4 -> 'a
 (** Standard warning function. *)
 
-val info : prog:string -> ('a, unit, string, unit) format4 -> 'a
+val info : ('a, unit, string, unit) format4 -> 'a
 (** Standard info function.  Note: Use full sentences for this. *)
 
-val run_main_and_handle_errors : prog:string -> (unit -> unit) -> unit
+val run_main_and_handle_errors : (unit -> unit) -> unit
 (** Common function for handling pretty-printing exceptions. *)
 
-val print_version_and_exit : prog:string -> unit -> unit
+val print_version_and_exit : unit -> unit
 (** Print the version number and exit.  Implements [--version] flag in
     the OCaml tools. *)
 
 val read_whole_file : string -> string
 (** Read in the whole file as a string. *)
 
-val parse_size : prog:string -> string -> int64
+val parse_size : string -> int64
 (** Parse a size field, eg. [10G] *)
 
-val parse_resize : prog:string -> int64 -> string -> int64
+val parse_resize : int64 -> string -> int64
 (** Parse a size field, eg. [10G], [+20%] etc.  Used particularly by
     [virt-resize --resize] and [--resize-force] options. *)
 
@@ -113,10 +116,10 @@ val compare_version : string -> string -> int
 val compare_lvm2_uuids : string -> string -> int
 (** Compare two LVM2 UUIDs, ignoring '-' characters. *)
 
-val external_command : prog:string -> string -> string list
+val external_command : string -> string list
 (** Run an external command, slurp up the output as a list of lines. *)
 
-val uuidgen : prog:string -> unit -> string
+val uuidgen : unit -> string
 (** Run uuidgen to return a random UUID. *)
 
 val unlink_on_exit : string -> unit

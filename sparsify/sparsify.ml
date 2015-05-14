@@ -46,4 +46,4 @@ let rec main () =
   if debug_gc then
     Gc.compact ()
 
-let () = run_main_and_handle_errors ~prog main
+let () = run_main_and_handle_errors main
