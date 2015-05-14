@@ -80,11 +80,15 @@ and partition_type =
   | LogicalPartition
   | NoTypePartition
 
-let rec debug_partition p =
+let rec debug_partition ?(sectsize=512L) p =
   printf "%s:\n" p.p_name;
   printf "\tpartition data: %ld %Ld-%Ld (%Ld bytes)\n"
     p.p_part.G.part_num p.p_part.G.part_start p.p_part.G.part_end
     p.p_part.G.part_size;
+  printf "\tpartition sector data: %Ld-%Ld\n"
+    (p.p_part.G.part_start /^ sectsize) (p.p_part.G.part_end /^ sectsize);
+  printf "\ttarget partition sector data: %Ld-%Ld \n"
+    p.p_target_start p.p_target_end;
   printf "\tbootable: %b\n" p.p_bootable;
   printf "\tpartition ID: %s\n"
     (match p.p_id with
@@ -545,7 +549,7 @@ read the man page virt-resize(1).
 
   if verbose then (
     printf "%d partitions found\n" (List.length partitions);
-    List.iter debug_partition partitions
+    List.iter (debug_partition ~sectsize) partitions
     );
 
   (* Build a data structure describing LVs on the source disk. *)
@@ -1118,6 +1122,11 @@ read the man page virt-resize(1).
         (List.hd partitions).p_part.G.part_start /^ sectsize in
 
     calculate_target_partitions 1 start ~create_surplus:true partitions in
+
+  if verbose then (
+    printf "After calculate target partitions:\n";
+    List.iter (debug_partition ~sectsize) partitions
+  );
 
   let mbr_part_type x =
     match parttype, x.p_part.G.part_num <= 4_l, x.p_type with
