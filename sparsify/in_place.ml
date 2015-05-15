@@ -75,8 +75,7 @@ and perform g disk format ignores machine_readable zeroes =
     fun fs ->
       if not (is_ignored fs) && not (is_read_only_lv fs) then (
         if List.mem fs zeroes then (
-          if not (quiet ()) then
-            printf (f_"Zeroing %s ...\n%!") fs;
+          message (f_"Zeroing %s") fs;
 
           if not (g#blkdiscardzeroes fs) then
             g#zero_device fs;
@@ -87,8 +86,7 @@ and perform g disk format ignores machine_readable zeroes =
             with _ -> false in
 
           if mounted then (
-            if not (quiet ()) then
-              printf (f_"Trimming %s ...\n%!") fs;
+            message (f_"Trimming %s") fs;
 
             g#fstrim "/"
           ) else (
@@ -103,8 +101,7 @@ and perform g disk format ignores machine_readable zeroes =
               with _ -> false in
 
             if is_linux_x86_swap then (
-              if not (quiet ()) then
-                printf (f_"Clearing Linux swap on %s ...\n%!") fs;
+              message (f_"Clearing Linux swap on %s") fs;
 
               (* Don't use mkswap.  Just preserve the header containing
                * the label, UUID and swap format version (libguestfs
@@ -137,8 +134,7 @@ and perform g disk format ignores machine_readable zeroes =
           with _ -> false in
 
         if created then (
-          if not (quiet ()) then
-            printf (f_"Discard space in volgroup %s ...\n%!") vg;
+          message (f_"Discard space in volgroup %s") vg;
 
           g#blkdiscard lvdev;
           g#sync ();
@@ -151,7 +147,4 @@ and perform g disk format ignores machine_readable zeroes =
   g#close ();
 
   (* Finished. *)
-  if not (quiet ()) then (
-    print_newline ();
-    wrap (s_"Sparsify in-place operation completed with no errors.\n");
-  )
+  message (f_"Sparsify in-place operation completed with no errors")

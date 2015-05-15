@@ -98,9 +98,9 @@ let run indisk outdisk check_tmpdir compress convert
   | Directory tmpdir ->
     (* Get virtual size of the input disk. *)
     let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
-    if not (quiet ()) then
-      printf (f_"Input disk virtual size = %Ld bytes (%s)\n%!")
-        virtual_size (human_size virtual_size);
+    if verbose () then
+      printf "input disk virtual size is %Ld bytes (%s)\n%!"
+             virtual_size (human_size virtual_size);
 
     let print_warning () =
       let free_space = statvfs_free_space tmpdir in
@@ -142,16 +142,13 @@ You can ignore this warning or change it to a hard failure using the
 
   (* Create the temporary overlay file. *)
   let overlaydisk =
-    if not (quiet ()) then (
-      match tmp_place with
-      | Directory tmpdir ->
-        printf (f_"Create overlay file in %s to protect source disk ...\n%!")
-          tmpdir
-      | Block_device device ->
-        printf (f_"Create overlay device %s to protect source disk ...\n%!")
-          device
-      | Prebuilt_file file ->
-        printf (f_"Using prebuilt file %s as overlay ...\n%!") file
+    (match tmp_place with
+    | Directory tmpdir ->
+       message (f_"Create overlay file in %s to protect source disk") tmpdir
+    | Block_device device ->
+       message (f_"Create overlay device %s to protect source disk") device
+    | Prebuilt_file file ->
+       message (f_"Using prebuilt file %s as overlay") file
     );
 
     (* Create 'tmp' with the indisk as the backing file. *)
@@ -179,8 +176,7 @@ You can ignore this warning or change it to a hard failure using the
       (* Don't create anything, use the prebuilt file as overlay. *)
       file in
 
-  if not (quiet ()) then
-    printf (f_"Examine source disk ...\n%!");
+  message (f_"Examine source disk");
 
   (* Connect to libguestfs. *)
   let g =
@@ -245,8 +241,7 @@ You can ignore this warning or change it to a hard failure using the
     fun fs ->
       if not (is_ignored fs) && not (is_read_only_lv fs) then (
         if List.mem fs zeroes then (
-          if not (quiet ()) then
-            printf (f_"Zeroing %s ...\n%!") fs;
+          message (f_"Zeroing %s") fs;
 
           g#zero_device fs
         ) else (
@@ -256,15 +251,11 @@ You can ignore this warning or change it to a hard failure using the
 
           if mounted then (
             if is_readonly_btrfs_snapshot fs "/" then (
-              if not (quiet ()) then
-                printf (f_"Skipping %s, as it is a read-only btrfs snapshot.\n%!") fs;
+              info (f_"Skipping %s, as it is a read-only btrfs snapshot.") fs;
             ) else if is_readonly_device "/" then (
-              if not (quiet ()) then
-                printf (f_"Skipping %s, as it is a read-only device.\n%!") fs;
+              info (f_"Skipping %s, as it is a read-only device.") fs;
             ) else (
-              if not (quiet ()) then
-                printf (f_"Fill free space in %s with zero ...\n%!") fs;
-
+              message (f_"Fill free space in %s with zero") fs;
               g#zero_free_space "/"
             )
           ) else (
@@ -279,8 +270,7 @@ You can ignore this warning or change it to a hard failure using the
               with _ -> false in
 
             if is_linux_x86_swap then (
-              if not (quiet ()) then
-                printf (f_"Clearing Linux swap on %s ...\n%!") fs;
+              message (f_"Clearing Linux swap on %s") fs;
 
               (* Don't use mkswap.  Just preserve the header containing
                * the label, UUID and swap format version (libguestfs
@@ -313,8 +303,7 @@ You can ignore this warning or change it to a hard failure using the
           with _ -> false in
 
         if created then (
-          if not (quiet ()) then
-            printf (f_"Fill free space in volgroup %s with zero ...\n%!") vg;
+          message (f_"Fill free space in volgroup %s with zero") vg;
 
           g#zero_device lvdev;
           g#sync ();
@@ -334,8 +323,7 @@ You can ignore this warning or change it to a hard failure using the
   (* Now run qemu-img convert which copies the overlay to the
    * destination and automatically does sparsification.
    *)
-  if not (quiet ()) then
-    printf (f_"Copy to destination and make sparse ...\n%!");
+  message ("Copy to destination and make sparse");
 
   let cmd =
     sprintf "qemu-img convert -f qcow2 -O %s%s%s %s %s"
@@ -351,7 +339,6 @@ You can ignore this warning or change it to a hard failure using the
     error (f_"external command failed: %s") cmd;
 
   (* Finished. *)
-  if not (quiet ()) then (
-    print_newline ();
-    wrap (s_"Sparsify operation completed with no errors.  Before deleting the old disk, carefully check that the target disk boots and works correctly.\n");
-  )
+  message (f_"Sparsify operation completed with no errors.");
+  if not (quiet ()) then
+    info (f_"Before deleting the old disk, carefully check that the target disk boots and works correctly.")
