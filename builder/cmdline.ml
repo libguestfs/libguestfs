@@ -234,11 +234,11 @@ read the man page virt-builder(1).
       )
     | `List ->
       if format <> None then
-        error (f_"virt-builder --list: use '--list-format', not '--format'");
+        error (f_"--list: use '--list-format', not '--format'");
       (match args with
       | [] -> ""
       | _ ->
-        error (f_"virt-builder --list does not need any extra arguments")
+        error (f_"--list option does not need any extra arguments")
       )
     | `Notes ->
       (match args with
@@ -246,7 +246,7 @@ read the man page virt-builder(1).
       | [] ->
         error (f_"virt-builder --notes os-version\nMissing 'os-version'. Use '--list' to list available template names.")
       | _ ->
-        error (f_"virt-builder: too many parameters, expecting 'os-version'");
+        error (f_"--notes: too many parameters, expecting 'os-version'");
       )
     | `Cache_all
     | `Print_cache
@@ -254,7 +254,7 @@ read the man page virt-builder(1).
       (match args with
       | [] -> ""
       | _ ->
-        error (f_"virt-builder --cache-all-templates/--print-cache/--delete-cache does not need any extra arguments")
+        error (f_"--cache-all-templates/--print-cache/--delete-cache does not need any extra arguments")
       )
     | `Get_kernel ->
       (match args with
@@ -262,7 +262,7 @@ read the man page virt-builder(1).
       | [] ->
         error (f_"virt-builder --get-kernel image\nMissing 'image' (disk image file) argument")
       | _ ->
-        error (f_"virt-builder --get-kernel: too many parameters")
+        error (f_"--get-kernel: too many parameters")
       ) in
 
   (* Check source(s) and fingerprint(s). *)
