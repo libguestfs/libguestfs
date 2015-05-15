@@ -145,7 +145,7 @@ and verify_detached t filename sigfile =
   if t.check_signature then (
     match sigfile with
     | None ->
-      error (f_"there is no detached signature file\nThis probably means the index file is missing a sig=... line.\nYou can use --no-check-signature to ignore this error, but that means\nyou are susceptible to man-in-the-middle attacks.\n")
+      error (f_"there is no detached signature file\nThis probably means the index file is missing a sig=... line.\nYou can use --no-check-signature to ignore this error, but that means you are susceptible to man-in-the-middle attacks.")
     | Some sigfile ->
       let args = sprintf "%s %s" (quote sigfile) (quote filename) in
       do_verify t args
