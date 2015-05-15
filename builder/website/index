@@ -291,7 +291,7 @@ checksum=eb44c66f04781064850380fa1747cadc8645c2f3fd8f2dc1b45cbf5b3f31b91383fa9b7
 format=raw
 size=6442450944
 compressed_size=199232964
-expand=/dev/sda4
+expand=/dev/sda3
 notes=Fedora 21 Server (armv7l)
  
  This Fedora image contains only unmodified @Core group packages.
