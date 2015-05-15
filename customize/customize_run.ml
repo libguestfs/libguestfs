@@ -31,6 +31,12 @@ let run ~prog ~verbose ~quiet (g : Guestfs.guestfs) root (ops : ops) =
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
   let msg fs = make_message_function ~quiet fs in
 
+  (* Is the host_cpu compatible with the guest arch?  ie. Can we
+   * run commands in this guest?
+   *)
+  let guest_arch = g#inspect_get_arch root in
+  let guest_arch_compatible = guest_arch_compatible guest_arch in
+
   (* Based on the guest type, choose a log file location. *)
   let logfile =
     match g#inspect_get_type root with
@@ -55,6 +61,10 @@ let run ~prog ~verbose ~quiet (g : Guestfs.guestfs) root (ops : ops) =
 
   (* Useful wrapper for scripts. *)
   let do_run ~display cmd =
+    if not guest_arch_compatible then
+      error ~prog (f_"host cpu (%s) and guest arch (%s) are not compatible, so you cannot use command line options that involve running commands in the guest.  Use --firstboot scripts instead.")
+            Config.host_cpu guest_arch;
+
     (* Add a prologue to the scripts:
      * - Pass environment variables through from the host.
      * - Send stdout and stderr to a log file so we capture all output

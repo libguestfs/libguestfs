@@ -151,11 +151,11 @@ DEFAULT_INCLUDES = \
 check_SCRIPTS = common_utils_tests
 
 if HAVE_OCAMLOPT
-common_utils_tests: common_gettext.cmx tty-c.o tTY.cmx common_utils.cmx common_utils_tests.cmx
+common_utils_tests: config.cmx common_gettext.cmx tty-c.o tTY.cmx common_utils.cmx common_utils_tests.cmx
 	$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) \
 	  mlguestfs.cmxa -linkpkg $^ -cclib -lncurses -o $@
 else
-common_utils_tests: common_gettext.cmo tty-c.o tTY.cmo common_utils.cmo common_utils_tests.cmo
+common_utils_tests: config.cmo common_gettext.cmo tty-c.o tTY.cmo common_utils.cmo common_utils_tests.cmo
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) \
 	  mlguestfs.cma -linkpkg $^ -cclib -lncurses -custom -o $@
 endif

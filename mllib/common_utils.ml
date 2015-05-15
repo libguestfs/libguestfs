@@ -593,3 +593,12 @@ let is_directory path =
 let absolute_path path =
   if not (Filename.is_relative path) then path
   else Sys.getcwd () // path
+
+(* Are guest arch and host_cpu compatible, in terms of being able
+ * to run commands in the libguestfs appliance?
+ *)
+let guest_arch_compatible guest_arch =
+  match Config.host_cpu, guest_arch with
+  | x, y when x = y -> true
+  | "x86_64", ("i386"|"i486"|"i586"|"i686") -> true
+  | _ -> false

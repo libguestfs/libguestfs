@@ -81,13 +81,13 @@ if HAVE_OCAML
 
 # Note this list must be in dependency order.
 deps = \
+	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/common_gettext.cmx \
 	$(top_builddir)/mllib/tty-c.o \
 	$(top_builddir)/mllib/tTY.cmx \
 	$(top_builddir)/mllib/common_utils.cmx \
 	$(top_builddir)/mllib/uri-c.o \
 	$(top_builddir)/mllib/uRI.cmx \
-	$(top_builddir)/mllib/config.cmx \
 	$(top_builddir)/mllib/mkdtemp-c.o \
 	$(top_builddir)/mllib/mkdtemp.cmx \
 	$(top_builddir)/mllib/regedit.cmx \

@@ -129,3 +129,7 @@ val is_directory : string -> bool
 
 val absolute_path : string -> string
 (** Convert any path to an absolute path. *)
+
+val guest_arch_compatible : string -> bool
+(** Are guest arch and host_cpu compatible, in terms of being able
+    to run commands in the libguestfs appliance? *)

@@ -312,25 +312,8 @@ read the man page virt-builder(1).
   (* Check the architecture. *)
   let arch =
     match arch with
-    | "" -> Architecture.current_arch
-    | arch ->
-      let target_arch = Architecture.filter_arch arch in
-      if Architecture.arch_is_compatible Architecture.current_arch target_arch <> true then (
-        let requires_execute_on_guest = List.exists (
-          function
-          | `Command _ | `InstallPackages _ | `Script _ | `Update -> true
-          | `Delete _ | `Edit _ | `FirstbootCommand _ | `FirstbootPackages _
-          | `FirstbootScript _ | `Hostname _ | `Link _ | `Mkdir _
-          | `Password _ | `RootPassword _ | `Scrub _ | `Timezone _ | `Upload _
-          | `Write _ | `Chmod _ -> false
-        ) ops.ops in
-        if requires_execute_on_guest then (
-          eprintf (f_"%s: sorry, cannot run commands on a guest with a different architecture\n")
-            prog;
-          exit 1
-        );
-      );
-      target_arch in
+    | "" -> Config.host_cpu
+    | arch -> arch in
 
   (* If user didn't elect any root password, that means we set a random
    * root password.
