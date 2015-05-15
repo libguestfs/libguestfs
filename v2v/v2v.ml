@@ -48,13 +48,13 @@ let rec main () =
   let input, output,
     debug_gc, debug_overlays, do_copy, network_map, no_trim,
     output_alloc, output_format, output_name,
-    print_source, quiet, root_choice, trace, verbose =
+    print_source, quiet, root_choice =
     Cmdline.parse_cmdline () in
 
   let msg fs = make_message_function ~quiet fs in
 
   (* Print the version, easier than asking users to tell us. *)
-  if verbose then
+  if verbose () then
     printf "%s: %s %s (%s)\n%!"
       prog Config.package_name Config.package_version Config.host_cpu;
 
@@ -71,7 +71,7 @@ let rec main () =
     exit 0
   );
 
-  if verbose then printf "%s%!" (string_of_source source);
+  if verbose () then printf "%s%!" (string_of_source source);
 
   (match source.s_hypervisor with
   | OtherHV hv ->
@@ -143,7 +143,7 @@ let rec main () =
         let cmd =
           sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
             (quote qemu_uri) (quote options) overlay_file in
-        if verbose then printf "%s\n%!" cmd;
+        if verbose () then printf "%s\n%!" cmd;
         if Sys.command cmd <> 0 then
           error (f_"qemu-img command failed, see earlier errors");
 
@@ -157,8 +157,8 @@ let rec main () =
   (* Open the guestfs handle. *)
   msg (f_"Opening the overlay");
   let g = new G.guestfs () in
-  if trace then g#set_trace true;
-  if verbose then g#set_verbose true;
+  if trace () then g#set_trace true;
+  if verbose () then g#set_verbose true;
   g#set_network true;
   List.iter (
     fun (overlay_file, _) ->
@@ -222,7 +222,7 @@ let rec main () =
 
   (* Inspection - this also mounts up the filesystems. *)
   msg (f_"Inspecting the overlay");
-  let inspect = inspect_source ~verbose g root_choice in
+  let inspect = inspect_source g root_choice in
 
   (* Does the guest require UEFI on the target? *)
   let target_firmware =
@@ -252,7 +252,7 @@ let rec main () =
       { mp_dev = dev; mp_path = path; mp_statvfs = statvfs; mp_vfs = vfs }
   ) (g#mountpoints ()) in
 
-  if verbose then (
+  if verbose () then (
     (* This is useful for debugging speed / fstrim issues. *)
     printf "mpstats:\n";
     List.iter (print_mpstat Pervasives.stdout) mpstats
@@ -264,7 +264,7 @@ let rec main () =
 
   (* Estimate space required on target for each disk.  Note this is a max. *)
   msg (f_"Estimating space required on target for each disk");
-  let targets = estimate_target_size ~verbose mpstats targets in
+  let targets = estimate_target_size mpstats targets in
 
   output#check_target_free_space source targets;
 
@@ -285,9 +285,9 @@ let rec main () =
       with Not_found ->
         error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
           inspect.i_type inspect.i_distro in
-    if verbose then printf "picked conversion module %s\n%!" conversion_name;
-    let guestcaps = convert ~verbose ~keep_serial_console g inspect source in
-    if verbose then printf "%s%!" (string_of_guestcaps guestcaps);
+    if verbose () then printf "picked conversion module %s\n%!" conversion_name;
+    let guestcaps = convert ~keep_serial_console g inspect source in
+    if verbose () then printf "%s%!" (string_of_guestcaps guestcaps);
     guestcaps in
 
   (* Did we manage to install virtio drivers? *)
@@ -306,7 +306,7 @@ let rec main () =
      * not have to be copied.
      *)
     msg (f_"Mapping filesystem data to avoid copying unused and blank areas");
-    do_fstrim ~verbose g no_trim inspect;
+    do_fstrim g no_trim inspect;
   );
 
   msg (f_"Closing the overlay");
@@ -332,7 +332,7 @@ let rec main () =
         fun i t ->
           msg (f_"Copying disk %d/%d to %s (%s)")
             (i+1) nr_disks t.target_file t.target_format;
-          if verbose then printf "%s%!" (string_of_target t);
+          if verbose () then printf "%s%!" (string_of_target t);
 
           (* We noticed that qemu sometimes corrupts the qcow2 file on
            * exit.  This only seemed to happen with lazy_refcounts was
@@ -380,7 +380,7 @@ let rec main () =
               (if not quiet then " -p" else "")
               (quote t.target_format) (quote overlay_file)
               (quote t.target_file) in
-          if verbose then printf "%s\n%!" cmd;
+          if verbose () then printf "%s\n%!" cmd;
           let start_time = gettimeofday () in
           if Sys.command cmd <> 0 then
             error (f_"qemu-img command failed, see earlier errors");
@@ -393,7 +393,7 @@ let rec main () =
 
           (* If verbose, print the virtual and real copying rates. *)
           let elapsed_time = end_time -. start_time in
-          if verbose && elapsed_time > 0. then (
+          if verbose () && elapsed_time > 0. then (
             let mbps size time =
               Int64.to_float size /. 1024. /. 1024. *. 10. /. time
             in
@@ -412,7 +412,7 @@ let rec main () =
            * for developer information only - so we can increase the
            * accuracy of the estimate.
            *)
-          if verbose then (
+          if verbose () then (
             match t.target_estimated_size, t.target_actual_size with
             | None, None | None, Some _ | Some _, None | Some _, Some 0L -> ()
             | Some estimate, Some actual ->
@@ -453,7 +453,7 @@ let rec main () =
   if debug_gc then
     Gc.compact ()
 
-and inspect_source ~verbose g root_choice =
+and inspect_source g root_choice =
   let roots = g#inspect_os () in
   let roots = Array.to_list roots in
 
@@ -581,7 +581,7 @@ and inspect_source ~verbose g root_choice =
     i_apps_map = apps_map;
     i_uefi = uefi
   } in
-  if verbose then printf "%s%!" (string_of_inspect inspect);
+  if verbose () then printf "%s%!" (string_of_inspect inspect);
   inspect
 
 (* Conversion can fail if there is no space on the guest filesystems
@@ -622,7 +622,7 @@ and check_free_space mpstats =
 (* Perform the fstrim.  The trimming bit is easy.  Dealing with the
  * [--no-trim] parameter .. not so much.
  *)
-and do_fstrim ~verbose g no_trim inspect =
+and do_fstrim g no_trim inspect =
   (* Get all filesystems. *)
   let fses = g#list_filesystems () in
 
@@ -633,7 +633,7 @@ and do_fstrim ~verbose g no_trim inspect =
   let fses =
     if no_trim = [] then fses
     else (
-      if verbose then (
+      if verbose () then (
         printf "no_trim: %s\n" (String.concat " " no_trim);
         printf "filesystems before considering no_trim: %s\n"
           (String.concat " " fses)
@@ -655,7 +655,7 @@ and do_fstrim ~verbose g no_trim inspect =
           with Not_found -> true
       ) fses in
 
-      if verbose then
+      if verbose () then
         printf "filesystems after considering no_trim: %s\n%!"
           (String.concat " " fses);
 
@@ -673,7 +673,7 @@ and do_fstrim ~verbose g no_trim inspect =
           (* Only emit this warning when debugging, because otherwise
            * it causes distress (RHBZ#1168144).
            *)
-          if verbose then
+          if verbose () then
             warning (f_"%s (ignored)") msg
       )
   ) fses
@@ -732,7 +732,7 @@ and do_fstrim ~verbose g no_trim inspect =
  *     sdb has 3/4 of total virtual size, so it gets a saving of 3 * 1.35 / 4
  *     sdb final estimate size = 3 - (3*1.35/4) = 1.9875 GB
  *)
-and estimate_target_size ~verbose mpstats targets =
+and estimate_target_size mpstats targets =
   let sum = List.fold_left (+^) 0L in
 
   (* (1) *)
@@ -740,14 +740,14 @@ and estimate_target_size ~verbose mpstats targets =
     sum (
       List.map (fun { mp_statvfs = s } -> s.G.blocks *^ s.G.bsize) mpstats
     ) in
-  if verbose then
+  if verbose () then
     printf "estimate_target_size: fs_total_size = %Ld [%s]\n%!"
       fs_total_size (human_size fs_total_size);
 
   (* (2) *)
   let source_total_size =
     sum (List.map (fun t -> t.target_overlay.ov_virtual_size) targets) in
-  if verbose then
+  if verbose () then
     printf "estimate_target_size: source_total_size = %Ld [%s]\n%!"
       source_total_size (human_size source_total_size);
 
@@ -757,7 +757,7 @@ and estimate_target_size ~verbose mpstats targets =
     (* (3) Store the ratio as a float to avoid overflows later. *)
     let ratio =
       Int64.to_float fs_total_size /. Int64.to_float source_total_size in
-    if verbose then
+    if verbose () then
       printf "estimate_target_size: ratio = %.3f\n%!" ratio;
 
     (* (4) *)
@@ -781,11 +781,11 @@ and estimate_target_size ~verbose mpstats targets =
           | _ -> 0L
         ) mpstats
       ) in
-    if verbose then
+    if verbose () then
       printf "estimate_target_size: fs_free = %Ld [%s]\n%!"
         fs_free (human_size fs_free);
     let scaled_saving = Int64.of_float (Int64.to_float fs_free *. ratio) in
-    if verbose then
+    if verbose () then
       printf "estimate_target_size: scaled_saving = %Ld [%s]\n%!"
         scaled_saving (human_size scaled_saving);
 
@@ -797,7 +797,7 @@ and estimate_target_size ~verbose mpstats targets =
           Int64.to_float size /. Int64.to_float source_total_size in
         let estimated_size =
           size -^ Int64.of_float (proportion *. Int64.to_float scaled_saving) in
-        if verbose then
+        if verbose () then
           printf "estimate_target_size: %s: %Ld [%s]\n%!"
             ov.ov_sd estimated_size (human_size estimated_size);
         { t with target_estimated_size = Some estimated_size }

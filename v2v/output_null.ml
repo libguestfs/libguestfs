@@ -24,7 +24,7 @@ open Common_utils
 open Types
 open Utils
 
-class output_null verbose =
+class output_null =
   (* It would be nice to be able to write to /dev/null.
    * Unfortunately qemu-img convert cannot do that.  Instead create a
    * temporary directory which is always deleted at exit.
@@ -35,7 +35,7 @@ class output_null verbose =
     rmdir_on_exit t;
     t in
 object
-  inherit output verbose
+  inherit output
 
   method as_options = "-o null"
 
@@ -51,5 +51,5 @@ object
   method create_metadata _ _ _ _ _ = ()
 end
 
-let output_null = new output_null
+let output_null () = new output_null
 let () = Modules_list.register_output_module "null"

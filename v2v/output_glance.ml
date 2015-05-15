@@ -24,7 +24,7 @@ open Common_utils
 open Types
 open Utils
 
-class output_glance verbose =
+class output_glance () =
   (* Although glance can slurp in a stream from stdin, unfortunately
    * 'qemu-img convert' cannot write to a stream (although I guess
    * it could be implemented at least for raw).  Therefore we have
@@ -36,7 +36,7 @@ class output_glance verbose =
     rmdir_on_exit t;
     t in
 object
-  inherit output verbose
+  inherit output
 
   method as_options = "-o glance"
 
@@ -72,7 +72,7 @@ object
     let cmd =
       sprintf "glance image-create --name %s --disk-format=%s --container-format=bare --file %s"
         (quote source.s_name) (quote target_format) target_file in
-    if verbose then printf "%s\n%!" cmd;
+    if verbose () then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then
       error (f_"glance: image upload to glance failed, see earlier errors");
 
@@ -117,7 +117,7 @@ object
           ) properties
         ))
         (quote source.s_name) in
-    if verbose then printf "%s\n%!" cmd;
+    if verbose () then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then (
       warning (f_"glance: failed to set image properties (ignored)");
       (* Dump out the image properties so the user can set them. *)

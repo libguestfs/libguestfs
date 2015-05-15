@@ -30,8 +30,8 @@ end
 class device_side_effects : object end
 (** There are currently no device side-effects.  For future use. *)
 
-type 'side_effects callback = verbose:bool -> quiet:bool -> Guestfs.guestfs -> string -> 'side_effects -> unit
-(** [callback ~verbose ~quiet g root side_effects] is called to do work.
+type 'side_effects callback = quiet:bool -> Guestfs.guestfs -> string -> 'side_effects -> unit
+(** [callback ~quiet g root side_effects] is called to do work.
 
     If the operation has side effects such as creating files, it
     should indicate that by calling the [side_effects] object. *)
@@ -178,8 +178,8 @@ val not_enabled_check_args : ?operations:set -> unit -> unit
 (** Call [not_enabled_check_args] on all operations in the set
     which are {i not} enabled. *)
 
-val perform_operations_on_filesystems : ?operations:set -> verbose:bool -> quiet:bool -> Guestfs.guestfs -> string -> filesystem_side_effects -> unit
+val perform_operations_on_filesystems : ?operations:set -> quiet:bool -> Guestfs.guestfs -> string -> filesystem_side_effects -> unit
 (** Perform all operations, or the subset listed in the [operations] set. *)
 
-val perform_operations_on_devices : ?operations:set -> verbose:bool -> quiet:bool -> Guestfs.guestfs -> string -> device_side_effects -> unit
+val perform_operations_on_devices : ?operations:set -> quiet:bool -> Guestfs.guestfs -> string -> device_side_effects -> unit
 (** Perform all operations, or the subset listed in the [operations] set. *)

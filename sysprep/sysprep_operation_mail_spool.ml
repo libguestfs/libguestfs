@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let mail_spool_perform ~verbose ~quiet g root side_effects =
+let mail_spool_perform ~quiet g root side_effects =
   List.iter (
     fun glob -> Array.iter g#rm_rf (g#glob_expand glob)
   ) [

@@ -18,6 +18,6 @@
 
 (** [-o null] target. *)
 
-val output_null : bool -> Types.output
-(** [output_null filename] creates and returns a new {!Types.output}
+val output_null : unit -> Types.output
+(** [output_null ()] creates and returns a new {!Types.output}
     object specialized discarding output. *)

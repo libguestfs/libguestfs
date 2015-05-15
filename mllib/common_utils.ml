@@ -278,8 +278,20 @@ let make_message_function ~quiet fs =
   in
   ksprintf p fs
 
+
+(* Program name. *)
 let prog = Filename.basename Sys.executable_name
 
+(* Stores the trace (-x) and verbose (-v) flags in a global variable. *)
+let trace = ref false
+let set_trace () = trace := true
+let trace () = !trace
+
+let verbose = ref false
+let set_verbose () = verbose := true
+let verbose () = !verbose
+
+(* Error messages etc. *)
 let error ?(exit_code = 1) fs =
   let display str =
     let chan = stderr in

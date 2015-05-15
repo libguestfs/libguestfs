@@ -22,7 +22,7 @@ open Common_gettext.Gettext
 module StringSet = Set.Make (String)
 module G = Guestfs
 
-let ca_certificates_perform ~verbose ~quiet g root side_effects =
+let ca_certificates_perform ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = [ "/etc/pki/CA/certs/*.crt";

@@ -18,24 +18,24 @@
 
 (** Common Linux functions. *)
 
-val augeas_init : bool -> Guestfs.guestfs -> unit
-val augeas_reload : bool -> Guestfs.guestfs -> unit
+val augeas_init : Guestfs.guestfs -> unit
+val augeas_reload : Guestfs.guestfs -> unit
 (** Wrappers around [g#aug_init] and [g#aug_load], which (if verbose)
     provide additional debugging information about parsing problems
     that augeas found. *)
 
-val install : bool -> Guestfs.guestfs -> Types.inspect -> string list -> unit
+val install : Guestfs.guestfs -> Types.inspect -> string list -> unit
 (** Install package(s) from the list in the guest (or ensure they are
     installed). *)
 
-val remove : bool -> Guestfs.guestfs -> Types.inspect -> string list -> unit
+val remove : Guestfs.guestfs -> Types.inspect -> string list -> unit
 (** Uninstall package(s). *)
 
-val file_list_of_package : bool -> Guestfs.guestfs -> Types.inspect -> Guestfs.application2 -> string list
+val file_list_of_package : Guestfs.guestfs -> Types.inspect -> Guestfs.application2 -> string list
 (** Return list of files owned by package. *)
 
-val file_owner : bool -> Guestfs.guestfs -> Types.inspect -> string -> string
+val file_owner : Guestfs.guestfs -> Types.inspect -> string -> string
 (** Return the name of the package that owns a file. *)
 
-val is_file_owned : bool -> Guestfs.guestfs -> Types.inspect -> string -> bool
+val is_file_owned : Guestfs.guestfs -> Types.inspect -> string -> bool
 (** Returns true if the file is owned by an installed package. *)

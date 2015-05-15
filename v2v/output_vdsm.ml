@@ -33,9 +33,9 @@ type vdsm_params = {
   ovf_output : string;
 }
 
-class output_vdsm verbose os vdsm_params vmtype output_alloc =
+class output_vdsm os vdsm_params vmtype output_alloc =
 object
-  inherit output verbose
+  inherit output
 
   method as_options =
     sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s" os
@@ -94,7 +94,7 @@ object
 
     dd_mp <- mp;
     dd_uuid <- uuid;
-    if verbose then
+    if verbose () then
       eprintf "VDSM: DD mountpoint: %s\nVDSM: DD UUID: %s\n%!"
         dd_mp dd_uuid;
 
@@ -113,7 +113,7 @@ object
       error (f_"OVF (metadata) directory (%s) does not exist or is not a directory")
         vdsm_params.ovf_output;
 
-    if verbose then
+    if verbose () then
       eprintf "VDSM: OVF (metadata) directory: %s\n%!" vdsm_params.ovf_output;
 
     (* The final directory structure should look like this:
@@ -133,7 +133,7 @@ object
           let ov_sd = ov.ov_sd in
           let target_file = images_dir // image_uuid // vol_uuid in
 
-          if verbose then
+          if verbose () then
             eprintf "VDSM: will export %s to %s\n%!" ov_sd target_file;
 
           { t with target_file = target_file }
@@ -141,7 +141,7 @@ object
 
     (* Generate the .meta files associated with each volume. *)
     let metas =
-      OVF.create_meta_files verbose output_alloc dd_uuid
+      OVF.create_meta_files output_alloc dd_uuid
         vdsm_params.image_uuids targets in
     List.iter (
       fun ({ target_file = target_file }, meta) ->
@@ -170,7 +170,7 @@ object
     assert (target_firmware = TargetBIOS);
 
     (* Create the metadata. *)
-    let ovf = OVF.create_ovf verbose source targets guestcaps inspect
+    let ovf = OVF.create_ovf source targets guestcaps inspect
       output_alloc vmtype dd_uuid
       vdsm_params.image_uuids
       vdsm_params.vol_uuids

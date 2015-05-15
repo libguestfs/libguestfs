@@ -187,7 +187,7 @@ and get_ostype = function
     "Unassigned"
 
 (* Generate the .meta file associated with each volume. *)
-let create_meta_files verbose output_alloc sd_uuid image_uuids targets =
+let create_meta_files output_alloc sd_uuid image_uuids targets =
   (* Note: Upper case in the .meta, mixed case in the OVF. *)
   let output_alloc_for_rhev =
     match output_alloc with
@@ -230,7 +230,7 @@ let create_meta_files verbose output_alloc sd_uuid image_uuids targets =
   ) (List.combine targets image_uuids)
 
 (* Create the OVF file. *)
-let rec create_ovf verbose source targets guestcaps inspect
+let rec create_ovf source targets guestcaps inspect
     output_alloc vmtype sd_uuid image_uuids vol_uuids vm_uuid =
   assert (List.length targets = List.length vol_uuids);
 
@@ -332,7 +332,7 @@ let rec create_ovf verbose source targets guestcaps inspect
     warning (f_"This guest required a password for connection to its display, but this is not supported by RHEV.  Therefore the converted guest's display will not require a separate password to connect.");
     | _ -> ());
 
-  if verbose then (
+  if verbose () then (
     eprintf "OVF:\n";
     doc_to_chan Pervasives.stderr ovf
   );

@@ -56,8 +56,6 @@ let main () =
   let quiet = ref false in
   let smp = ref None in
   let set_smp arg = smp := Some arg in
-  let trace = ref false in
-  let verbose = ref false in
 
   let add_file arg =
     let uri =
@@ -98,13 +96,13 @@ let main () =
     "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
-    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+    "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
     "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
     "--version", Arg.Unit print_version_and_exit,
                           " " ^ s_"Display version and exit";
-    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
+    "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let customize_argspec, get_customize_ops =
     Customize_cmdline.argspec () in
@@ -183,8 +181,6 @@ read the man page virt-customize(1).
   let network = !network in
   let quiet = !quiet in
   let smp = !smp in
-  let trace = !trace in
-  let verbose = !verbose in
 
   let ops = get_customize_ops () in
 
@@ -195,8 +191,8 @@ read the man page virt-customize(1).
   (* Connect to libguestfs. *)
   let g =
     let g = new G.guestfs () in
-    if trace then g#set_trace true;
-    if verbose then g#set_verbose true;
+    if trace () then g#set_trace true;
+    if verbose () then g#set_verbose true;
 
     (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
     (match smp with None -> () | Some smp -> g#set_smp smp);
@@ -239,7 +235,7 @@ read the man page virt-customize(1).
         ) mps;
 
         (* Do the customization. *)
-        Customize_run.run ~verbose ~quiet g root ops;
+        Customize_run.run ~quiet g root ops;
 
         g#umount_all ();
     ) roots;

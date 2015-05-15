@@ -18,7 +18,7 @@
 
 type t
 
-val create : verbose:bool -> gpg:string -> gpgkey:Utils.gpgkey_type -> check_signature:bool -> t
+val create : gpg:string -> gpgkey:Utils.gpgkey_type -> check_signature:bool -> t
 
 val verify : t -> string -> unit
 (** Verify the file is signed (if check_signature is true). *)

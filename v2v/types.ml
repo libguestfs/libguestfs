@@ -347,13 +347,13 @@ gcaps_acpi = %b
   gcaps.gcaps_arch
   gcaps.gcaps_acpi
 
-class virtual input verbose = object
+class virtual input = object
   method virtual as_options : string
   method virtual source : unit -> source
   method adjust_overlay_parameters (_ : overlay) = ()
 end
 
-class virtual output verbose = object
+class virtual output = object
   method virtual as_options : string
   method virtual prepare_targets : source -> target list -> target list
   method virtual supported_firmware : target_firmware list

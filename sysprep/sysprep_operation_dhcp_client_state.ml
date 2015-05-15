@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let dhcp_client_state_perform ~verbose ~quiet g root side_effects =
+let dhcp_client_state_perform ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     List.iter (

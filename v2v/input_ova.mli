@@ -18,5 +18,5 @@
 
 (** [-i ova] source. *)
 
-val input_ova : bool -> string -> Types.input
+val input_ova : string -> Types.input
 (** [input_ova filename] sets up an input from vmware ova file. *)

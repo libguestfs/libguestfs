@@ -305,8 +305,8 @@ let create_libvirt_xml ?pool source targets guestcaps
 
   doc
 
-class output_libvirt verbose oc output_pool = object
-  inherit output verbose
+class output_libvirt oc output_pool = object
+  inherit output
 
   val mutable capabilities_doc = None
 
@@ -320,7 +320,7 @@ class output_libvirt verbose oc output_pool = object
   method prepare_targets source targets =
     (* Get the capabilities from libvirt. *)
     let xml = Domainxml.capabilities ?conn:oc () in
-    if verbose then printf "libvirt capabilities XML:\n%s\n%!" xml;
+    if verbose () then printf "libvirt capabilities XML:\n%s\n%!" xml;
 
     (* This just checks that the capabilities XML is well-formed,
      * early so that we catch parsing errors before conversion.
@@ -385,7 +385,7 @@ class output_libvirt verbose oc output_pool = object
       | Some uri ->
         sprintf "virsh -c %s pool-refresh %s"
           (quote uri) (quote output_pool) in
-    if verbose then printf "%s\n%!" cmd;
+    if verbose () then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then
       warning (f_"could not refresh libvirt pool %s") output_pool;
 

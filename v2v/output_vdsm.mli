@@ -26,7 +26,7 @@ type vdsm_params = {
 }
 (** Miscellaneous extra command line parameters used by VDSM. *)
 
-val output_vdsm : bool -> string -> vdsm_params -> Types.vmtype option -> Types.output_allocation -> Types.output
-(** [output_vdsm verbose os rhev_params output_alloc] creates and
+val output_vdsm : string -> vdsm_params -> Types.vmtype option -> Types.output_allocation -> Types.output
+(** [output_vdsm os rhev_params output_alloc] creates and
     returns a new {!Types.output} object specialized for writing
     output to Data Domains directly under VDSM control. *)

@@ -32,7 +32,7 @@ type proxy_mode =
                                 *)
   | ForcedProxy of string      (* The proxy is forced to the specified URL. *)
 
-val create : verbose:bool -> curl:string -> cache:Cache.t option -> t
+val create : curl:string -> cache:Cache.t option -> t
 (** Create the abstract type. *)
 
 val download : t -> ?template:(string*string*int) -> ?progress_bar:bool -> ?proxy:proxy_mode -> uri -> (filename * bool)

@@ -18,8 +18,8 @@
 
 (** [-o libvirt] target. *)
 
-val output_libvirt : bool -> string option -> string -> Types.output
-(** [output_libvirt verbose oc output_pool] creates and returns a new
+val output_libvirt : string option -> string -> Types.output
+(** [output_libvirt oc output_pool] creates and returns a new
     {!Types.output} object specialized for writing output to
     libvirt. *)
 

@@ -33,8 +33,8 @@ and parsed_source =
 | P_source_file of string
 | P_dont_rewrite
 
-let parse_libvirt_xml ?conn ~verbose xml =
-  if verbose then
+let parse_libvirt_xml ?conn xml =
+  if verbose () then
     printf "libvirt xml is:\n%s\n" xml;
 
   let doc = Xml.parse_memory xml in
@@ -355,16 +355,16 @@ let parse_libvirt_xml ?conn ~verbose xml =
    },
    disks)
 
-class input_libvirtxml verbose file =
+class input_libvirtxml file =
 object
-  inherit input verbose
+  inherit input
 
   method as_options = "-i libvirtxml " ^ file
 
   method source () =
     let xml = read_whole_file file in
 
-    let source, disks = parse_libvirt_xml ~verbose xml in
+    let source, disks = parse_libvirt_xml xml in
 
     (* When reading libvirt XML from a file (-i libvirtxml) we allow
      * paths to disk images in the libvirt XML to be relative (to the XML

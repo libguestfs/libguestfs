@@ -30,12 +30,12 @@ open Input_libvirt_other
 open Printf
 
 (* Subclass specialized for handling Xen over SSH. *)
-class input_libvirt_xen_ssh verbose password libvirt_uri parsed_uri scheme server guest =
+class input_libvirt_xen_ssh password libvirt_uri parsed_uri scheme server guest =
 object
-  inherit input_libvirt verbose password libvirt_uri guest
+  inherit input_libvirt password libvirt_uri guest
 
   method source () =
-    if verbose then
+    if verbose () then
       printf "input_libvirt_xen_ssh: source: scheme %s server %s\n%!"
         scheme server;
 
@@ -46,7 +46,7 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
-    let source, disks = parse_libvirt_xml ?conn:libvirt_uri ~verbose xml in
+    let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
 
     (* Map the <source/> filename (which is relative to the remote
      * Xen server) to an ssh URI.  This is a JSON URI looking something
@@ -87,7 +87,7 @@ object
           | None -> json_params
           | Some user -> ("file.user", JSON.String user) :: json_params in
 
-        if verbose then
+        if verbose () then
           printf "ssh: json parameters: %s\n" (JSON.string_of_doc json_params);
 
         (* Turn the JSON parameters into a 'json:' protocol string. *)

@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val get_kernel : trace:bool -> verbose:bool -> ?format:string -> ?output:string -> string -> unit
+val get_kernel : ?format:string -> ?output:string -> string -> unit

@@ -24,8 +24,8 @@ open Common_utils
 open Types
 open Utils
 
-class output_local verbose dir = object
-  inherit output verbose
+class output_local dir = object
+  inherit output
 
   method as_options = sprintf "-o local -os %s" dir
 

@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let machine_id_perform ~verbose ~quiet g root side_effects =
+let machine_id_perform ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let path = "/etc/machine-id" in

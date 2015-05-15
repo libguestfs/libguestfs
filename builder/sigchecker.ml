@@ -25,7 +25,6 @@ open Printf
 open Unix
 
 type t = {
-  verbose : bool;
   gpg : string;
   fingerprint : string;
   check_signature : bool;
@@ -33,13 +32,13 @@ type t = {
 }
 
 (* Import the specified key file. *)
-let import_keyfile ~gpg ~gpghome ~verbose ?(trust = true) keyfile =
+let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
   let status_file = Filename.temp_file "vbstat" ".txt" in
   unlink_on_exit status_file;
   let cmd = sprintf "%s --homedir %s --status-file %s --import %s%s"
     gpg gpghome (quote status_file) (quote keyfile)
-    (if verbose then "" else " >/dev/null 2>&1") in
-  if verbose then printf "%s\n%!" cmd;
+    (if verbose () then "" else " >/dev/null 2>&1") in
+  if verbose () then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then
     error (f_"could not import public key\nUse the '-v' option and look for earlier error messages.");
@@ -58,15 +57,15 @@ let import_keyfile ~gpg ~gpghome ~verbose ?(trust = true) keyfile =
   if trust then (
     let cmd = sprintf "%s --homedir %s --trusted-key %s --list-keys%s"
       gpg gpghome (quote !key_id)
-      (if verbose then "" else " >/dev/null 2>&1") in
-    if verbose then printf "%s\n%!" cmd;
+      (if verbose () then "" else " >/dev/null 2>&1") in
+    if verbose () then printf "%s\n%!" cmd;
     let r = Sys.command cmd in
     if r <> 0 then
       error (f_"GPG failure: could not trust the imported key\nUse the '-v' option and look for earlier error messages.");
   );
   !fingerprint
 
-let rec create ~verbose ~gpg ~gpgkey ~check_signature =
+let rec create ~gpg ~gpgkey ~check_signature =
   (* Create a temporary directory for gnupg. *)
   let tmpdir = Mkdtemp.temp_dir "vb.gpghome." "" in
   rmdir_on_exit tmpdir;
@@ -81,8 +80,8 @@ let rec create ~verbose ~gpg ~gpgkey ~check_signature =
        * cannot.
        *)
       let cmd = sprintf "%s --homedir %s --list-keys%s"
-        gpg tmpdir (if verbose then "" else " >/dev/null 2>&1") in
-      if verbose then printf "%s\n%!" cmd;
+        gpg tmpdir (if verbose () then "" else " >/dev/null 2>&1") in
+      if verbose () then printf "%s\n%!" cmd;
       let r = Sys.command cmd in
       if r <> 0 then
         error (f_"GPG failure: could not run GPG the first time\nUse the '-v' option and look for earlier error messages.");
@@ -90,23 +89,22 @@ let rec create ~verbose ~gpg ~gpgkey ~check_signature =
       | No_Key ->
         assert false
       | KeyFile kf ->
-        import_keyfile gpg tmpdir verbose kf
+        import_keyfile gpg tmpdir kf
       | Fingerprint fp ->
         let filename = Filename.temp_file "vbpubkey" ".asc" in
         unlink_on_exit filename;
         let cmd = sprintf "%s --yes --armor --output %s --export %s%s"
           gpg (quote filename) (quote fp)
-          (if verbose then "" else " >/dev/null 2>&1") in
-        if verbose then printf "%s\n%!" cmd;
+          (if verbose () then "" else " >/dev/null 2>&1") in
+        if verbose () then printf "%s\n%!" cmd;
         let r = Sys.command cmd in
         if r <> 0 then
           error (f_"could not export public key\nUse the '-v' option and look for earlier error messages.");
-        ignore (import_keyfile gpg tmpdir verbose filename);
+        ignore (import_keyfile gpg tmpdir filename);
         fp
     ) else
       "" in
   {
-    verbose = verbose;
     gpg = gpg;
     fingerprint = fingerprint;
     check_signature = check_signature;
@@ -159,9 +157,9 @@ and do_verify t args =
   let cmd =
     sprintf "%s --homedir %s --verify%s --status-file %s %s"
         t.gpg t.gpghome
-        (if t.verbose then "" else " --batch -q --logger-file /dev/null")
+        (if verbose () then "" else " --batch -q --logger-file /dev/null")
         (quote status_file) args in
-  if t.verbose then printf "%s\n%!" cmd;
+  if verbose () then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then
     error (f_"GPG failure: could not verify digital signature of file\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!");
@@ -190,7 +188,7 @@ let verify_checksum t (SHA512 csum) filename =
   unlink_on_exit csum_file;
   let cmd = sprintf "sha512sum %s | awk '{print $1}' > %s"
     (quote filename) (quote csum_file) in
-  if t.verbose then printf "%s\n%!" cmd;
+  if verbose () then printf "%s\n%!" cmd;
   let r = Sys.command cmd in
   if r <> 0 then
     error (f_"could not run sha512sum command to verify checksum");

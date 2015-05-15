@@ -39,7 +39,7 @@ type tmp_place =
 
 let run indisk outdisk check_tmpdir compress convert
     format ignores machine_readable option tmp_param
-    quiet verbose trace zeroes =
+    quiet zeroes =
 
   (* Once we have got past argument parsing and start to create
    * temporary files (including the potentially massive overlay file), we
@@ -81,8 +81,8 @@ let run indisk outdisk check_tmpdir compress convert
       if not (Sys.file_exists file) then
         error (f_"--tmp prebuilt:file: %s: file does not exist") file;
       let g = new G.guestfs () in
-      if trace then g#set_trace true;
-      if verbose then g#set_verbose true;
+      if trace () then g#set_trace true;
+      if verbose () then g#set_verbose true;
       if g#disk_format file <> "qcow2" then
         error (f_"--tmp prebuilt:file: %s: file format is not qcow2") file;
       if not (g#disk_has_backing_file file) then
@@ -158,8 +158,8 @@ You can ignore this warning or change it to a hard failure using the
     (* Create 'tmp' with the indisk as the backing file. *)
     let create tmp =
       let g = new G.guestfs () in
-      if trace then g#set_trace true;
-      if verbose then g#set_verbose true;
+      if trace () then g#set_trace true;
+      if verbose () then g#set_verbose true;
       g#disk_create
         ~backingfile:indisk ?backingformat:format ~compat:"1.1"
         tmp "qcow2" Int64.minus_one
@@ -186,8 +186,8 @@ You can ignore this warning or change it to a hard failure using the
   (* Connect to libguestfs. *)
   let g =
     let g = new G.guestfs () in
-    if trace then g#set_trace true;
-    if verbose then g#set_verbose true;
+    if trace () then g#set_trace true;
+    if verbose () then g#set_verbose true;
 
     (* Note that the temporary overlay disk is always qcow2 format. *)
     g#add_drive ~format:"qcow2" ~readonly:false ~cachemode:"unsafe" overlaydisk;
@@ -346,7 +346,7 @@ You can ignore this warning or change it to a hard failure using the
       | None -> ""
       | Some option -> " -o " ^ quote option)
       (quote overlaydisk) (quote (qemu_input_filename outdisk)) in
-  if verbose then
+  if verbose () then
     printf "%s\n%!" cmd;
   if Sys.command cmd <> 0 then
     error (f_"external command failed: %s") cmd;

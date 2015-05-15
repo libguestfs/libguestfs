@@ -53,7 +53,7 @@ let check_remove_user user =
   else
     false
 
-let user_account_perform ~verbose ~quiet g root side_effects =
+let user_account_perform ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   let changed = ref false in
   if typ <> "windows" then (
@@ -78,7 +78,7 @@ let user_account_perform ~verbose ~quiet g root side_effects =
           let home_dir =
             try Some (g#aug_get (userpath ^ "/home"))
             with _ ->
-              if verbose then
+              if verbose () then
                 warning (f_"Cannot get the home directory for %s")
                   username;
               None in

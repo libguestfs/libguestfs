@@ -94,8 +94,6 @@ let parse_cmdline () =
   let add_source arg = sources := arg :: !sources in
 
   let sync = ref true in
-  let trace = ref false in
-  let verbose = ref false in
 
   let argspec = [
     "--arch",    Arg.Set_string arch,       "arch" ^ " " ^ s_"Set the output architecture";
@@ -147,13 +145,13 @@ let parse_cmdline () =
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
-    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+    "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
     "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
     "--version", Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
-    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
+    "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
   let customize_argspec =
@@ -211,8 +209,6 @@ read the man page virt-builder(1).
   let smp = !smp in
   let sources = List.rev !sources in
   let sync = !sync in
-  let trace = !trace in
-  let verbose = !verbose in
 
   (* No arguments and machine-readable mode?  Print some facts. *)
   if args = [] && machine_readable then (
@@ -336,5 +332,4 @@ read the man page virt-builder(1).
   mode, arg,
   arch, attach, cache, check_signature, curl,
   delete_on_failure, format, gpg, list_format, memsize,
-  network, ops, output, quiet, size, smp, sources, sync,
-  trace, verbose
+  network, ops, output, quiet, size, smp, sources, sync

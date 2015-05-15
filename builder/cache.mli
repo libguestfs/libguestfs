@@ -24,7 +24,7 @@ val clean_cachedir : string -> unit
 type t
 (** The abstract data type. *)
 
-val create : verbose:bool -> directory:string -> t
+val create : directory:string -> t
 (** Create the abstract type. *)
 
 val cache_of_name : t -> string -> string -> int -> string

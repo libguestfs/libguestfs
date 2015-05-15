@@ -21,10 +21,10 @@
 val error_if_libvirt_backend : unit -> unit
 val error_if_no_ssh_agent : unit -> unit
 
-class virtual input_libvirt : bool -> string option -> string option -> string -> object
+class virtual input_libvirt : string option -> string option -> string -> object
   method as_options : string
   method virtual source : unit -> Types.source
   method adjust_overlay_parameters : Types.overlay -> unit
 end
 
-val input_libvirt_other : bool -> string option -> string option -> string -> Types.input
+val input_libvirt_other : string option -> string option -> string -> Types.input

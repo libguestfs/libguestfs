@@ -27,7 +27,7 @@ and parsed_source =
 | P_source_file of string            (** <source file> *)
 | P_dont_rewrite                     (** s_qemu_uri is already set. *)
 
-val parse_libvirt_xml : ?conn:string -> verbose:bool -> string -> Types.source * parsed_disk list
+val parse_libvirt_xml : ?conn:string -> string -> Types.source * parsed_disk list
 (** Take libvirt XML and parse it into a {!Types.source} structure and a
     list of source disks.
 
@@ -37,7 +37,7 @@ val parse_libvirt_xml : ?conn:string -> verbose:bool -> string -> Types.source *
     This function is also used by {!Input_libvirt}, hence it is
     exported. *)
 
-val input_libvirtxml : bool -> string -> Types.input
-(** [input_libvirtxml verbose xml_file] creates and returns a new
+val input_libvirtxml : string -> Types.input
+(** [input_libvirtxml xml_file] creates and returns a new
     {!Types.input} object specialized for reading input from local
     libvirt XML files. *)

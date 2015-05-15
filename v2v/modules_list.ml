@@ -28,7 +28,7 @@ let input_modules () = List.sort compare !input_modules
 and output_modules () = List.sort compare !output_modules
 
 type conversion_fn =
-  verbose:bool -> keep_serial_console:bool ->
+  keep_serial_console:bool ->
   Guestfs.guestfs -> Types.inspect -> Types.source -> Types.guestcaps
 
 let convert_modules = ref []

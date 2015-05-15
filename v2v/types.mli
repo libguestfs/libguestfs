@@ -195,7 +195,7 @@ and guestcaps_video_type = QXL | Cirrus
 
 val string_of_guestcaps : guestcaps -> string
 
-class virtual input : bool -> object
+class virtual input : object
   method virtual as_options : string
   (** Converts the input object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)
@@ -207,7 +207,7 @@ class virtual input : bool -> object
 end
 (** Encapsulates all [-i], etc input arguments as an object. *)
 
-class virtual output : bool -> object
+class virtual output : object
   method virtual as_options : string
   (** Converts the output object back to the equivalent command line options.
       This is just used for pretty-printing log messages. *)

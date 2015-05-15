@@ -34,7 +34,7 @@ let () = Sysprep_operation.bake ()
 let () = Random.self_init ()
 
 let main () =
-  let debug_gc, operations, g, quiet, mount_opts, verbose =
+  let debug_gc, operations, g, quiet, mount_opts =
     let debug_gc = ref false in
     let domain = ref None in
     let dryrun = ref false in
@@ -43,8 +43,6 @@ let main () =
     let libvirturi = ref "" in
     let mount_opts = ref "" in
     let operations = ref None in
-    let trace = ref false in
-    let verbose = ref false in
 
     let format = ref "auto" in
     let format_consumed = ref true in
@@ -144,13 +142,13 @@ let main () =
       "--operations", Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
       "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
       "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
-      "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-      "--verbose", Arg.Set verbose,           " " ^ s_"Enable debugging messages";
+      "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
+      "--verbose", Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
       "-V",        Arg.Unit print_version_and_exit,
                                               " " ^ s_"Display version and exit";
       "--version", Arg.Unit print_version_and_exit,
                                               " " ^ s_"Display version and exit";
-      "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
+      "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     ] in
     let args = basic_args @ Sysprep_operation.extra_args () in
     let args =
@@ -214,8 +212,6 @@ read the man page virt-sysprep(1).
     let dryrun = !dryrun in
     let operations = !operations in
     let quiet = !quiet in
-    let trace = !trace in
-    let verbose = !verbose in
 
     (* At this point we know which operations are enabled.  So call the
      * not_enabled_check_args method of all *disabled* operations, so
@@ -236,12 +232,12 @@ read the man page virt-sysprep(1).
 
     (* Connect to libguestfs. *)
     let g = new G.guestfs () in
-    if trace then g#set_trace true;
-    if verbose then g#set_verbose true;
+    if trace () then g#set_trace true;
+    if verbose () then g#set_verbose true;
     add g dryrun;
     g#launch ();
 
-    debug_gc, operations, g, quiet, mount_opts, verbose in
+    debug_gc, operations, g, quiet, mount_opts in
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with
@@ -269,7 +265,7 @@ read the man page virt-sysprep(1).
 
         (* Perform the filesystem operations. *)
         Sysprep_operation.perform_operations_on_filesystems
-          ?operations ~verbose ~quiet g root side_effects;
+          ?operations ~quiet g root side_effects;
 
         (* Unmount everything in this guest. *)
         g#umount_all ();
@@ -278,7 +274,7 @@ read the man page virt-sysprep(1).
 
         (* Perform the block device operations. *)
         Sysprep_operation.perform_operations_on_devices
-          ?operations ~verbose ~quiet g root side_effects;
+          ?operations ~quiet g root side_effects;
     ) roots
   );
 

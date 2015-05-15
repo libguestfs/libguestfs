@@ -23,7 +23,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rec lvm_uuids_perform ~verbose ~quiet g root side_effects =
+let rec lvm_uuids_perform ~quiet g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     let has_lvm2_feature =

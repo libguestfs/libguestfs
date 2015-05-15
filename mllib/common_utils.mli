@@ -69,6 +69,12 @@ val make_message_function : quiet:bool -> ('a, unit, string, unit) format4 -> 'a
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
 
+val set_trace : unit -> unit
+val trace : unit -> bool
+val set_verbose : unit -> unit
+val verbose : unit -> bool
+(** Stores the trace ([-x]) and verbose ([-v]) flags in a global variable. *)
+
 val error : ?exit_code:int -> ('a, unit, string, 'b) format4 -> 'a
 (** Standard error function. *)
 

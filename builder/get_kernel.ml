@@ -28,10 +28,10 @@ open Printf
 (* Originally:
  * http://rwmj.wordpress.com/2013/09/13/get-kernel-and-initramfs-from-a-disk-image/
  *)
-let rec get_kernel ~trace ~verbose ?format ?output disk =
+let rec get_kernel ?format ?output disk =
   let g = new G.guestfs () in
-  if trace then g#set_trace true;
-  if verbose then g#set_verbose true;
+  if trace () then g#set_trace true;
+  if verbose () then g#set_verbose true;
   g#add_drive_opts ?format ~readonly:true disk;
   g#launch ();
 

@@ -31,7 +31,7 @@ val output_modules : unit -> string list
 (** Return the list of output modules. *)
 
 type conversion_fn =
-  verbose:bool -> keep_serial_console:bool ->
+  keep_serial_console:bool ->
   Guestfs.guestfs -> Types.inspect -> Types.source -> Types.guestcaps
 
 val register_convert_module : (Types.inspect -> bool) -> string -> conversion_fn -> unit

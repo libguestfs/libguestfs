@@ -29,13 +29,13 @@ module G = Guestfs
 (* Wrappers around aug_init & aug_load which can dump out full Augeas
  * parsing problems when debugging is enabled.
  *)
-let rec augeas_init verbose g =
+let rec augeas_init g =
   g#aug_init "/" 1;
-  if verbose then augeas_debug_errors g
+  if verbose () then augeas_debug_errors g
 
-and augeas_reload verbose g =
+and augeas_reload g =
   g#aug_load ();
-  if verbose then augeas_debug_errors g
+  if verbose () then augeas_debug_errors g
 
 and augeas_debug_errors g =
   try
@@ -97,10 +97,10 @@ and augeas_debug_errors g =
   with
     Guestfs.Error msg -> eprintf "%s: augeas: %s (ignored)\n" prog msg
 
-let install verbose g inspect packages =
+let install g inspect packages =
   assert false
 
-let remove verbose g inspect packages =
+let remove g inspect packages =
   if packages <> [] then (
     let package_format = inspect.i_package_format in
     match package_format with
@@ -110,14 +110,14 @@ let remove verbose g inspect packages =
       ignore (g#command cmd);
 
       (* Reload Augeas in case anything changed. *)
-      augeas_reload verbose g
+      augeas_reload g
 
     | format ->
       error (f_"don't know how to remove packages using %s: packages: %s")
         format (String.concat " " packages)
   )
 
-let file_list_of_package verbose (g : Guestfs.guestfs) inspect app =
+let file_list_of_package (g : Guestfs.guestfs) inspect app =
   let package_format = inspect.i_package_format in
 
   match package_format with
@@ -147,7 +147,7 @@ let file_list_of_package verbose (g : Guestfs.guestfs) inspect app =
       ) else
         pkg_name in
     let cmd = [| "rpm"; "-ql"; pkg_name |] in
-    if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
+    if verbose () then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
     let files = g#command_lines cmd in
     let files = Array.to_list files in
     List.sort compare files
@@ -155,7 +155,7 @@ let file_list_of_package verbose (g : Guestfs.guestfs) inspect app =
     error (f_"don't know how to get list of files from package using %s")
       format
 
-let rec file_owner verbose g inspect path =
+let rec file_owner g inspect path =
   let package_format = inspect.i_package_format in
   match package_format with
   | "rpm" ->
@@ -163,7 +163,7 @@ let rec file_owner verbose g inspect path =
        * a file, this deliberately only returns one package.
        *)
       let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}"; path |] in
-      if verbose then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
+      if verbose () then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
       (try g#command cmd
        with Guestfs.Error msg as exn ->
          if string_find msg "is not owned" >= 0 then
@@ -175,6 +175,6 @@ let rec file_owner verbose g inspect path =
   | format ->
     error (f_"don't know how to find file owner using %s") format
 
-and is_file_owned verbose g inspect path =
-  try file_owner verbose g inspect path; true
+and is_file_owned g inspect path =
+  try file_owner g inspect path; true
   with Not_found -> false

@@ -29,15 +29,13 @@ let clean_cachedir dir =
   ignore (Sys.command cmd);
 
 type t = {
-  verbose : bool;
   directory : string;
 }
 
-let create ~verbose ~directory =
+let create ~directory =
   if not (is_directory directory) then
     mkdir_p directory 0o755;
   {
-    verbose = verbose;
     directory = directory;
   }
 

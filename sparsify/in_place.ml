@@ -29,11 +29,11 @@ open Cmdline
 
 module G = Guestfs
 
-let rec run disk format ignores machine_readable quiet verbose trace zeroes =
+let rec run disk format ignores machine_readable quiet zeroes =
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
-  if trace then g#set_trace true;
-  if verbose then g#set_verbose true;
+  if trace () then g#set_trace true;
+  if verbose () then g#set_verbose true;
 
   try
     perform g disk format ignores machine_readable quiet zeroes

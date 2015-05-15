@@ -26,7 +26,7 @@ open Customize_utils
 open Customize_cmdline
 open Password
 
-let run ~verbose ~quiet (g : Guestfs.guestfs) root (ops : ops) =
+let run ~quiet (g : Guestfs.guestfs) root (ops : ops) =
   (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
   let msg fs = make_message_function ~quiet fs in
 
@@ -73,7 +73,7 @@ exec >>%s 2>&1
 %s
 " (quote logfile) env_vars cmd in
 
-    if verbose then printf "running command:\n%s\n%!" cmd;
+    if verbose () then printf "running command:\n%s\n%!" cmd;
     try ignore (g#sh cmd)
     with
       Guestfs.Error msg ->
@@ -189,7 +189,7 @@ exec >>%s 2>&1
       if not (g#is_file path) then
         error (f_"%s is not a regular file in the guest") path;
 
-      Perl_edit.edit_file ~verbose g#ocaml_handle path expr
+      Perl_edit.edit_file g#ocaml_handle path expr
 
     | `FirstbootCommand cmd ->
       msg (f_"Installing firstboot command: %s") cmd;
@@ -337,7 +337,7 @@ exec >>%s 2>&1
    * If debugging, dump out the log file.
    * Then if asked, scrub the log file.
    *)
-  if verbose then debug_logfile ();
+  if verbose () then debug_logfile ();
   if ops.flags.scrub_logfile && g#exists logfile then (
     msg (f_"Scrubbing the log file");
 
@@ -354,7 +354,7 @@ exec >>%s 2>&1
    *)
   (try ignore (g#debug "sh" [| "fuser"; "-k"; "/sysroot" |])
    with exn ->
-     if verbose then
+     if verbose () then
        printf (f_"%s: %s (ignored)\n") prog (Printexc.to_string exn)
   );
   g#ping_daemon () (* tiny delay after kill *)

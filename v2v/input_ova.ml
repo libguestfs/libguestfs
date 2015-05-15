@@ -24,14 +24,14 @@ open Common_utils
 open Types
 open Utils
 
-class input_ova verbose ova =
+class input_ova ova =
   let tmpdir =
     let base_dir = (new Guestfs.guestfs ())#get_cachedir () in
     let t = Mkdtemp.temp_dir ~base_dir "ova." "" in
     rmdir_on_exit t;
     t in
 object
-  inherit input verbose
+  inherit input
 
   method as_options = "-i ova " ^ ova
 
@@ -61,7 +61,7 @@ object
 
         let untar ?(format = "") file outdir =
           let cmd = sprintf "tar -x%sf %s -C %s" format (quote file) (quote outdir) in
-          if verbose then printf "%s\n%!" cmd;
+          if verbose () then printf "%s\n%!" cmd;
           if Sys.command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova in
 
@@ -75,9 +75,9 @@ object
            * zip files as ova too.
            *)
           let cmd = sprintf "unzip%s -j -d %s %s"
-            (if verbose then "" else " -q")
+            (if verbose () then "" else " -q")
             (quote tmpdir) (quote ova) in
-          if verbose then printf "%s\n%!" cmd;
+          if verbose () then printf "%s\n%!" cmd;
           if Sys.command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir
@@ -155,7 +155,7 @@ object
               if actual <> expected then
                 error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
                   disk mf disk actual disk expected;
-              if verbose then
+              if verbose () then
                 printf "sha1 of %s matches expected checksum %s\n%!"
                   disk expected
             | _::_ -> error (f_"cannot parse output of sha1sum command")
@@ -285,7 +285,7 @@ object
               let new_filename = tmpdir // string_random8 () ^ ".vmdk" in
               let cmd =
                 sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
-              if verbose then printf "%s\n%!" cmd;
+              if verbose () then printf "%s\n%!" cmd;
               if Sys.command cmd <> 0 then
                 error (f_"error uncompressing %s, see earlier error messages")
                   filename;

@@ -26,13 +26,13 @@ open Types
 open Utils
 open DOM
 
-let rec mount_and_check_storage_domain verbose domain_class os =
+let rec mount_and_check_storage_domain domain_class os =
   (* The user can either specify -os nfs:/export, or a local directory
    * which is assumed to be the already-mounted NFS export.
    *)
   match string_split ":/" os with
   | mp, "" ->                         (* Already mounted directory. *)
-    check_storage_domain verbose domain_class os mp
+    check_storage_domain domain_class os mp
   | server, export ->
     let export = "/" ^ export in
 
@@ -45,21 +45,21 @@ let rec mount_and_check_storage_domain verbose domain_class os =
     (* Try mounting it. *)
     let cmd =
       sprintf "mount %s:%s %s" (quote server) (quote export) (quote mp) in
-    if verbose then printf "%s\n%!" cmd;
+    if verbose () then printf "%s\n%!" cmd;
     if Sys.command cmd <> 0 then
       error (f_"mount command failed, see earlier errors.\n\nThis probably means you didn't specify the right %s path [-os %s], or else you need to rerun virt-v2v as root.") domain_class os;
 
     (* Make sure it is unmounted at exit. *)
     at_exit (fun () ->
       let cmd = sprintf "umount %s" (quote mp) in
-      if verbose then printf "%s\n%!" cmd;
+      if verbose () then printf "%s\n%!" cmd;
       ignore (Sys.command cmd);
       try rmdir mp with _ -> ()
     );
 
-    check_storage_domain verbose domain_class os mp
+    check_storage_domain domain_class os mp
 
-and check_storage_domain verbose domain_class os mp =
+and check_storage_domain domain_class os mp =
   (* Typical SD mountpoint looks like this:
    * $ ls /tmp/mnt
    * 39b6af0e-1d64-40c2-97e4-4f094f1919c7  __DIRECT_IO_TEST__  lost+found
@@ -102,7 +102,7 @@ and check_storage_domain verbose domain_class os mp =
 (* UID:GID required for files and directories when writing to ESD. *)
 let uid = 36 and gid = 36
 
-class output_rhev verbose os vmtype output_alloc =
+class output_rhev os vmtype output_alloc =
   (* Create a UID-switching handle.  If we're not root, create a dummy
    * one because we cannot switch UIDs.
    *)
@@ -113,7 +113,7 @@ class output_rhev verbose os vmtype output_alloc =
     else
       Kvmuid.create () in
 object
-  inherit output verbose
+  inherit output
 
   method as_options =
     sprintf "-o rhev -os %s%s" os
@@ -163,10 +163,10 @@ object
    *)
   method prepare_targets _ targets =
     let mp, uuid =
-      mount_and_check_storage_domain verbose (s_"Export Storage Domain") os in
+      mount_and_check_storage_domain (s_"Export Storage Domain") os in
     esd_mp <- mp;
     esd_uuid <- uuid;
-    if verbose then
+    if verbose () then
       eprintf "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s\n%!"
         esd_mp esd_uuid;
 
@@ -177,7 +177,7 @@ object
       let stat = stat testfile in
       Kvmuid.unlink kvmuid_t testfile;
       let actual_uid = stat.st_uid and actual_gid = stat.st_gid in
-      if verbose then
+      if verbose () then
         eprintf "RHEV: actual UID:GID of new files is %d:%d\n"
           actual_uid actual_gid;
       if uid <> actual_uid || gid <> actual_gid then (
@@ -239,7 +239,7 @@ object
           let ov_sd = ov.ov_sd in
           let target_file = images_dir // image_uuid // vol_uuid in
 
-          if verbose then
+          if verbose () then
             eprintf "RHEV: will export %s to %s\n%!" ov_sd target_file;
 
           { t with target_file = target_file }
@@ -247,7 +247,7 @@ object
 
     (* Generate the .meta file associated with each volume. *)
     let metas =
-      OVF.create_meta_files verbose output_alloc esd_uuid image_uuids
+      OVF.create_meta_files output_alloc esd_uuid image_uuids
         targets in
     List.iter (
       fun ({ target_file = target_file }, meta) ->
@@ -283,7 +283,7 @@ object
     assert (target_firmware = TargetBIOS);
 
     (* Create the metadata. *)
-    let ovf = OVF.create_ovf verbose source targets guestcaps inspect
+    let ovf = OVF.create_ovf source targets guestcaps inspect
       output_alloc vmtype esd_uuid image_uuids vol_uuids vm_uuid in
 
     (* Write it to the metadata file. *)

@@ -38,7 +38,7 @@ let readahead_for_copying = Some (64 * 1024 * 1024)
  *)
 let rec get_session_cookie =
   let session_cookie = ref "" in
-  fun verbose password scheme uri sslverify url ->
+  fun password scheme uri sslverify url ->
     if !session_cookie <> "" then
       Some !session_cookie
     else (
@@ -83,7 +83,7 @@ let rec get_session_cookie =
         flush chan
       in
 
-      if verbose then dump_response stdout;
+      if verbose () then dump_response stdout;
 
       (* Look for the last HTTP/x.y NNN status code in the output. *)
       let status = ref "" in
@@ -210,7 +210,7 @@ let get_datacenter uri scheme =
  *)
 let source_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
 
-let map_source_to_uri ?readahead verbose password uri scheme server path =
+let map_source_to_uri ?readahead password uri scheme server path =
   if not (Str.string_match source_re path 0) then
     path
   else (
@@ -244,7 +244,7 @@ let map_source_to_uri ?readahead verbose password uri scheme server path =
 
     (* Now we have to query the server to get the session cookie. *)
     let session_cookie =
-      get_session_cookie verbose password scheme uri sslverify url in
+      get_session_cookie password scheme uri sslverify url in
 
     (* Construct the JSON parameters. *)
     let json_params = [
@@ -268,7 +268,7 @@ let map_source_to_uri ?readahead verbose password uri scheme server path =
       | None -> json_params
       | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
 
-    if verbose then
+    if verbose () then
       printf "vcenter: json parameters: %s\n" (JSON.string_of_doc json_params);
 
     (* Turn the JSON parameters into a 'json:' protocol string.
@@ -281,14 +281,14 @@ let map_source_to_uri ?readahead verbose password uri scheme server path =
 
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
-  verbose password libvirt_uri parsed_uri scheme server guest =
+  password libvirt_uri parsed_uri scheme server guest =
 object
-  inherit input_libvirt verbose password libvirt_uri guest
+  inherit input_libvirt password libvirt_uri guest
 
   val saved_source_paths = Hashtbl.create 13
 
   method source () =
-    if verbose then
+    if verbose () then
       printf "input_libvirt_vcenter_https: source: scheme %s server %s\n%!"
         scheme server;
 
@@ -298,7 +298,7 @@ object
      * that the domain is not running.  (RHBZ#1138586)
      *)
     let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
-    let source, disks = parse_libvirt_xml ?conn:libvirt_uri ~verbose xml in
+    let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
 
     (* Save the original source paths, so that we can remap them again
      * in [#adjust_overlay_parameters].
@@ -321,7 +321,7 @@ object
       | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
       | { p_source_disk = disk; p_source = P_source_file path } ->
         let qemu_uri = map_source_to_uri ?readahead
-	  verbose password parsed_uri scheme server path in
+	  password parsed_uri scheme server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
          * the format of the -flat file is *always* raw, so force it here.
@@ -342,13 +342,13 @@ object
       let readahead = readahead_for_copying in
       let backing_qemu_uri =
         map_source_to_uri ?readahead
-          verbose password parsed_uri scheme server orig_path in
+          password parsed_uri scheme server orig_path in
 
       (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
       let cmd =
         sprintf "qemu-img rebase -u -b %s %s"
           (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
-      if verbose then printf "%s\n%!" cmd;
+      if verbose () then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then
         warning (f_"qemu-img rebase failed (ignored)")
 end

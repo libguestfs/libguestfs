@@ -18,7 +18,7 @@
 
 (** [-o qemu] target. *)
 
-val output_qemu : bool -> string -> bool -> Types.output
-(** [output_qemu verbose filename qemu_boot] creates and returns a new
+val output_qemu : string -> bool -> Types.output
+(** [output_qemu filename qemu_boot] creates and returns a new
     {!Types.output} object specialized for writing output to local
     files with a qemu script to start the guest locally. *)

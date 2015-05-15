@@ -18,7 +18,7 @@
 
 (** Functions for dealing with OVF files. *)
 
-val create_meta_files : bool -> Types.output_allocation -> string -> string list -> Types.target list -> string list
+val create_meta_files : Types.output_allocation -> string -> string list -> Types.target list -> string list
 (** Create the .meta file associated with each target.
 
     Note this does not write them, since output_rhev has to do a
@@ -26,7 +26,7 @@ val create_meta_files : bool -> Types.output_allocation -> string -> string list
     file is returned (one per target), and they must be written to
     [target_file ^ ".meta"]. *)
 
-val create_ovf : bool -> Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> Types.vmtype option -> string -> string list -> string list -> string -> DOM.doc
+val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> Types.vmtype option -> string -> string list -> string list -> string -> DOM.doc
 (** Create the OVF file. *)
 
 (**/**)

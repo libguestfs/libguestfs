@@ -24,9 +24,9 @@ open Common_utils
 open Types
 open Utils
 
-class output_qemu verbose dir qemu_boot =
+class output_qemu dir qemu_boot =
 object
-  inherit output verbose
+  inherit output
 
   method as_options =
     sprintf "-o qemu -os %s%s" dir (if qemu_boot then " --qemu-boot" else "")

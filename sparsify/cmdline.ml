@@ -54,8 +54,6 @@ let parse_cmdline () =
   let option = ref "" in
   let quiet = ref false in
   let tmp = ref "" in
-  let verbose = ref false in
-  let trace = ref false in
   let zeroes = ref [] in
 
   let ditto = " -\"-" in
@@ -75,12 +73,12 @@ let parse_cmdline () =
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
     "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
-    "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Set verbose,           ditto;
+    "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
+    "--verbose", Arg.Unit set_verbose,      ditto;
     "-V",        Arg.Unit print_version_and_exit,
                                             " " ^ s_"Display version and exit";
     "--version", Arg.Unit print_version_and_exit,  ditto;
-    "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
+    "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in
   long_options := argspec;
@@ -112,8 +110,6 @@ read the man page virt-sparsify(1).
   let option = match !option with "" -> None | str -> Some str in
   let quiet = !quiet in
   let tmp = match !tmp with "" -> None | str -> Some str in
-  let verbose = !verbose in
-  let trace = !trace in
   let zeroes = List.rev !zeroes in
 
   (* No arguments and machine-readable mode?  Print out some facts
@@ -195,4 +191,4 @@ read the man page virt-sparsify(1).
       Mode_in_place in
 
   indisk, debug_gc, format, ignores, machine_readable,
-    quiet, verbose, trace, zeroes, mode
+    quiet, zeroes, mode
