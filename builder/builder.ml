@@ -97,7 +97,7 @@ let main () =
     | `Delete_cache ->                  (* --delete-cache *)
       (match cache with
       | Some cachedir ->
-        message "Deleting: %s" cachedir;
+        message (f_"Deleting: %s") cachedir;
         Cache.clean_cachedir cachedir;
         exit 0
       | None ->

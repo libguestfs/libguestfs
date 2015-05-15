@@ -285,7 +285,7 @@ let perform_operations_on_filesystems ?operations g root
   List.iter (
     function
     | { name = name; perform_on_filesystems = Some fn } ->
-      message "Performing %S ..." name;
+      message (f_"Performing %S ...") name;
       fn g root side_effects
     | { perform_on_filesystems = None } -> ()
   ) ops
@@ -306,7 +306,7 @@ let perform_operations_on_devices ?operations g root
   List.iter (
     function
     | { name = name; perform_on_devices = Some fn } ->
-      message "Performing %S ..." name;
+      message (f_"Performing %S ...") name;
       fn g root side_effects
     | { perform_on_devices = None } -> ()
   ) ops
