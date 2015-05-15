@@ -297,11 +297,13 @@ let error ?(exit_code = 1) fs =
     let chan = stderr in
     ansi_red ~chan ();
     wrap ~chan (sprintf (f_"%s: error: %s") prog str);
-    prerr_newline ();
-    prerr_newline ();
-    wrap ~chan
-      (sprintf (f_"If reporting bugs, run %s with debugging enabled and include the complete output:\n\n  %s -v -x [...]")
-         prog prog);
+    if not (verbose () && trace ()) then (
+      prerr_newline ();
+      prerr_newline ();
+      wrap ~chan
+           (sprintf (f_"If reporting bugs, run %s with debugging enabled and include the complete output:\n\n  %s -v -x [...]")
+                    prog prog);
+    );
     ansi_restore ~chan ();
     prerr_newline ();
     exit exit_code
