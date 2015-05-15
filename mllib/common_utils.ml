@@ -715,3 +715,12 @@ let rec mkdir_p path permissions =
      * directory. *)
     mkdir_p (Filename.dirname path) permissions;
     Unix.mkdir path permissions
+
+(* Are guest arch and host_cpu compatible, in terms of being able
+ * to run commands in the libguestfs appliance?
+ *)
+let guest_arch_compatible guest_arch =
+  match Config.host_cpu, guest_arch with
+  | x, y when x = y -> true
+  | "x86_64", ("i386"|"i486"|"i586"|"i686") -> true
+  | _ -> false

@@ -47,15 +47,12 @@ SOURCES_MLI = \
 	pxzcat.mli \
 	setlocale.mli \
 	sigchecker.mli \
-	sources.mli \
-	uname.mli
+	sources.mli
 
 SOURCES_ML = \
 	utils.ml \
 	pxzcat.ml \
 	setlocale.ml \
-	uname.ml \
-	architecture.ml \
 	ini_reader.ml \
 	paths.ml \
 	languages.ml \
@@ -82,8 +79,7 @@ SOURCES_C = \
 	index-parse.c \
 	index-parser-c.c \
 	pxzcat-c.c \
-	setlocale-c.c \
-	uname-c.c
+	setlocale-c.c
 
 man_MANS =
 noinst_DATA =

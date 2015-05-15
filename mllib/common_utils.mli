@@ -165,3 +165,7 @@ val qemu_input_filename : string -> string
 
 val mkdir_p : string -> int -> unit
 (** Creates a directory, and its parents if missing. *)
+
+val guest_arch_compatible : string -> bool
+(** Are guest arch and host_cpu compatible, in terms of being able
+    to run commands in the libguestfs appliance? *)
