@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let puppet_data_log_perform ~quiet g root side_effects =
+let puppet_data_log_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = [ "/var/log/puppet/*";

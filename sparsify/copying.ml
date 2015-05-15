@@ -38,8 +38,7 @@ type tmp_place =
 | Directory of string | Block_device of string | Prebuilt_file of string
 
 let run indisk outdisk check_tmpdir compress convert
-    format ignores machine_readable option tmp_param
-    quiet zeroes =
+    format ignores machine_readable option tmp_param zeroes =
 
   (* Once we have got past argument parsing and start to create
    * temporary files (including the potentially massive overlay file), we
@@ -99,7 +98,7 @@ let run indisk outdisk check_tmpdir compress convert
   | Directory tmpdir ->
     (* Get virtual size of the input disk. *)
     let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
-    if not quiet then
+    if not (quiet ()) then
       printf (f_"Input disk virtual size = %Ld bytes (%s)\n%!")
         virtual_size (human_size virtual_size);
 
@@ -143,7 +142,7 @@ You can ignore this warning or change it to a hard failure using the
 
   (* Create the temporary overlay file. *)
   let overlaydisk =
-    if not quiet then (
+    if not (quiet ()) then (
       match tmp_place with
       | Directory tmpdir ->
         printf (f_"Create overlay file in %s to protect source disk ...\n%!")
@@ -180,7 +179,7 @@ You can ignore this warning or change it to a hard failure using the
       (* Don't create anything, use the prebuilt file as overlay. *)
       file in
 
-  if not quiet then
+  if not (quiet ()) then
     printf (f_"Examine source disk ...\n%!");
 
   (* Connect to libguestfs. *)
@@ -192,7 +191,7 @@ You can ignore this warning or change it to a hard failure using the
     (* Note that the temporary overlay disk is always qcow2 format. *)
     g#add_drive ~format:"qcow2" ~readonly:false ~cachemode:"unsafe" overlaydisk;
 
-    if not quiet then Progress.set_up_progress_bar ~machine_readable g;
+    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
     g#launch ();
 
     g in
@@ -246,7 +245,7 @@ You can ignore this warning or change it to a hard failure using the
     fun fs ->
       if not (is_ignored fs) && not (is_read_only_lv fs) then (
         if List.mem fs zeroes then (
-          if not quiet then
+          if not (quiet ()) then
             printf (f_"Zeroing %s ...\n%!") fs;
 
           g#zero_device fs
@@ -257,13 +256,13 @@ You can ignore this warning or change it to a hard failure using the
 
           if mounted then (
             if is_readonly_btrfs_snapshot fs "/" then (
-              if not quiet then
+              if not (quiet ()) then
                 printf (f_"Skipping %s, as it is a read-only btrfs snapshot.\n%!") fs;
             ) else if is_readonly_device "/" then (
-              if not quiet then
+              if not (quiet ()) then
                 printf (f_"Skipping %s, as it is a read-only device.\n%!") fs;
             ) else (
-              if not quiet then
+              if not (quiet ()) then
                 printf (f_"Fill free space in %s with zero ...\n%!") fs;
 
               g#zero_free_space "/"
@@ -280,7 +279,7 @@ You can ignore this warning or change it to a hard failure using the
               with _ -> false in
 
             if is_linux_x86_swap then (
-              if not quiet then
+              if not (quiet ()) then
                 printf (f_"Clearing Linux swap on %s ...\n%!") fs;
 
               (* Don't use mkswap.  Just preserve the header containing
@@ -314,7 +313,7 @@ You can ignore this warning or change it to a hard failure using the
           with _ -> false in
 
         if created then (
-          if not quiet then
+          if not (quiet ()) then
             printf (f_"Fill free space in volgroup %s with zero ...\n%!") vg;
 
           g#zero_device lvdev;
@@ -335,7 +334,7 @@ You can ignore this warning or change it to a hard failure using the
   (* Now run qemu-img convert which copies the overlay to the
    * destination and automatically does sparsification.
    *)
-  if not quiet then
+  if not (quiet ()) then
     printf (f_"Copy to destination and make sparse ...\n%!");
 
   let cmd =
@@ -352,7 +351,7 @@ You can ignore this warning or change it to a hard failure using the
     error (f_"external command failed: %s") cmd;
 
   (* Finished. *)
-  if not quiet then (
+  if not (quiet ()) then (
     print_newline ();
     wrap (s_"Sparsify operation completed with no errors.  Before deleting the old disk, carefully check that the target disk boots and works correctly.\n");
   )

@@ -47,18 +47,15 @@ let rec main () =
   (* Handle the command line. *)
   let input, output,
     debug_gc, debug_overlays, do_copy, network_map, no_trim,
-    output_alloc, output_format, output_name,
-    print_source, quiet, root_choice =
+    output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
-
-  let msg fs = make_message_function ~quiet fs in
 
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"
       prog Config.package_name Config.package_version Config.host_cpu;
 
-  msg (f_"Opening the source %s") input#as_options;
+  message (f_"Opening the source %s") input#as_options;
   let source = input#source () in
 
   (* Print source and stop. *)
@@ -127,7 +124,7 @@ let rec main () =
    * to fstrim/blkdiscard and avoid copying significant parts of the
    * data over the wire.
    *)
-  msg (f_"Creating an overlay to protect the source from being modified");
+  message (f_"Creating an overlay to protect the source from being modified");
   let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
   let overlays =
     List.map (
@@ -155,7 +152,7 @@ let rec main () =
     ) source.s_disks in
 
   (* Open the guestfs handle. *)
-  msg (f_"Opening the overlay");
+  message (f_"Opening the overlay");
   let g = new G.guestfs () in
   if trace () then g#set_trace true;
   if verbose () then g#set_verbose true;
@@ -187,7 +184,7 @@ let rec main () =
    * just so we can display errors to the user before doing too much
    * work.
    *)
-  msg (f_"Initializing the target %s") output#as_options;
+  message (f_"Initializing the target %s") output#as_options;
   let targets =
     List.map (
       fun ov ->
@@ -221,7 +218,7 @@ let rec main () =
   let targets = output#prepare_targets source targets in
 
   (* Inspection - this also mounts up the filesystems. *)
-  msg (f_"Inspecting the overlay");
+  message (f_"Inspecting the overlay");
   let inspect = inspect_source g root_choice in
 
   (* Does the guest require UEFI on the target? *)
@@ -259,11 +256,11 @@ let rec main () =
   );
 
   (* Check there is enough free space to perform conversion. *)
-  msg (f_"Checking for sufficient free disk space in the guest");
+  message (f_"Checking for sufficient free disk space in the guest");
   check_free_space mpstats;
 
   (* Estimate space required on target for each disk.  Note this is a max. *)
-  msg (f_"Estimating space required on target for each disk");
+  message (f_"Estimating space required on target for each disk");
   let targets = estimate_target_size mpstats targets in
 
   output#check_target_free_space source targets;
@@ -272,9 +269,9 @@ let rec main () =
   let guestcaps =
     (match inspect.i_product_name with
     | "unknown" ->
-      msg (f_"Converting the guest to run on KVM")
+      message (f_"Converting the guest to run on KVM")
     | prod ->
-      msg (f_"Converting %s to run on KVM") prod
+      message (f_"Converting %s to run on KVM") prod
     );
 
     (* RHEV doesn't support serial console so remove any on conversion. *)
@@ -291,7 +288,7 @@ let rec main () =
     guestcaps in
 
   (* Did we manage to install virtio drivers? *)
-  if not quiet then (
+  if not (quiet ()) then (
     if guestcaps.gcaps_block_bus = Virtio_blk then
       info (f_"This guest has virtio drivers installed.")
     else
@@ -305,11 +302,11 @@ let rec main () =
      * because unused blocks are marked in the overlay and thus do
      * not have to be copied.
      *)
-    msg (f_"Mapping filesystem data to avoid copying unused and blank areas");
+    message (f_"Mapping filesystem data to avoid copying unused and blank areas");
     do_fstrim g no_trim inspect;
   );
 
-  msg (f_"Closing the overlay");
+  message (f_"Closing the overlay");
   g#umount_all ();
   g#shutdown ();
   g#close ();
@@ -330,7 +327,7 @@ let rec main () =
       let nr_disks = List.length targets in
       mapi (
         fun i t ->
-          msg (f_"Copying disk %d/%d to %s (%s)")
+          message (f_"Copying disk %d/%d to %s (%s)")
             (i+1) nr_disks t.target_file t.target_format;
           if verbose () then printf "%s%!" (string_of_target t);
 
@@ -377,7 +374,7 @@ let rec main () =
 
           let cmd =
             sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
-              (if not quiet then " -p" else "")
+              (if not (quiet ()) then " -p" else "")
               (quote t.target_format) (quote overlay_file)
               (quote t.target_file) in
           if verbose () then printf "%s\n%!" cmd;
@@ -433,7 +430,7 @@ let rec main () =
     ) (* do_copy *) in
 
   (* Create output metadata. *)
-  msg (f_"Creating output metadata");
+  message (f_"Creating output metadata");
   output#create_metadata source targets guestcaps inspect target_firmware;
 
   (* Save overlays if --debug-overlays option was used. *)
@@ -447,7 +444,7 @@ let rec main () =
     ) overlays
   );
 
-  msg (f_"Finishing off");
+  message (f_"Finishing off");
   delete_target_on_exit := false;  (* Don't delete target on exit. *)
 
   if debug_gc then

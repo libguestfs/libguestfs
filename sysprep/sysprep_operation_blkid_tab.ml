@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let blkid_tab_perform ~quiet g root side_effects =
+let blkid_tab_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let files = [ "/var/run/blkid.tab";

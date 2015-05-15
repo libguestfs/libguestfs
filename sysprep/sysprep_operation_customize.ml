@@ -30,9 +30,9 @@ let customize_args, get_ops =
   ) args in
   args, get_ops
 
-let customize_perform ~quiet g root side_effects =
+let customize_perform g root side_effects =
   let ops = get_ops () in
-  Customize_run.run ~quiet g root ops;
+  Customize_run.run g root ops;
   side_effects#created_file () (* XXX Did we? *)
 
 let op = {

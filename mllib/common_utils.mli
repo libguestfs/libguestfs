@@ -62,18 +62,21 @@ val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
 (** Like {!List.assoc} but with a user-defined comparison function, and
     instead of raising [Not_found], it returns the [~default] value. *)
 
-val make_message_function : quiet:bool -> ('a, unit, string, unit) format4 -> 'a
-(** Timestamped progress messages.  Used for ordinary messages when
-    not [--quiet]. *)
-
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
 
+val set_quiet : unit -> unit
+val quiet : unit -> bool
 val set_trace : unit -> unit
 val trace : unit -> bool
 val set_verbose : unit -> unit
 val verbose : unit -> bool
-(** Stores the trace ([-x]) and verbose ([-v]) flags in a global variable. *)
+(** Stores the quiet ([--quiet]), trace ([-x]) and verbose ([-v]) flags in a
+    global variable. *)
+
+val message : ('a, unit, string, unit) format4 -> 'a
+(** Timestamped progress messages.  Used for ordinary messages when
+    not [--quiet]. *)
 
 val error : ?exit_code:int -> ('a, unit, string, 'b) format4 -> 'a
 (** Standard error function. *)

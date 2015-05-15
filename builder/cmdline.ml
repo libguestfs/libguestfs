@@ -82,8 +82,6 @@ let parse_cmdline () =
   let network = ref true in
   let output = ref "" in
 
-  let quiet = ref false in
-
   let size = ref None in
   let set_size arg = size := Some (parse_size arg) in
 
@@ -140,7 +138,7 @@ let parse_cmdline () =
     "--output",  Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
     "--print-cache", Arg.Unit print_cache_mode,
                                             " " ^ s_"Print info about template cache";
-    "--quiet",   Arg.Set quiet,             " " ^ s_"No progress messages";
+    "--quiet",   Arg.Unit set_quiet,        " " ^ s_"No progress messages";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
@@ -204,7 +202,6 @@ read the man page virt-builder(1).
   let network = !network in
   let ops = get_customize_ops () in
   let output = match !output with "" -> None | s -> Some s in
-  let quiet = !quiet in
   let size = !size in
   let smp = !smp in
   let sources = List.rev !sources in
@@ -315,4 +312,4 @@ read the man page virt-builder(1).
   mode, arg,
   arch, attach, cache, check_signature, curl,
   delete_on_failure, format, gpg, list_format, memsize,
-  network, ops, output, quiet, size, smp, sources, sync
+  network, ops, output, size, smp, sources, sync

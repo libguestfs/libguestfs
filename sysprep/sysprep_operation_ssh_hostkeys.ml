@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let ssh_hostkeys_perform ~quiet g root side_effects =
+let ssh_hostkeys_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let files = g#glob_expand "/etc/ssh/*_host_*" in

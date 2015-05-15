@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let rhn_systemid_perform ~quiet g root side_effects =
+let rhn_systemid_perform g root side_effects =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
 

@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let dovecot_data_perform ~quiet g root side_effects =
+let dovecot_data_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let files = g#glob_expand "/var/lib/dovecot/*" in

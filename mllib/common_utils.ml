@@ -261,13 +261,31 @@ let ansi_magenta ?(chan = stdout) () =
 let ansi_restore ?(chan = stdout) () =
   if istty chan then output_string chan "\x1b[0m"
 
+(* Program name. *)
+let prog = Filename.basename Sys.executable_name
+
+(* Stores the quiet (--quiet), trace (-x) and verbose (-v) flags in a
+ * global variable.
+ *)
+let quiet = ref false
+let set_quiet () = quiet := true
+let quiet () = !quiet
+
+let trace = ref false
+let set_trace () = trace := true
+let trace () = !trace
+
+let verbose = ref false
+let set_verbose () = verbose := true
+let verbose () = !verbose
+
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
  *)
 let start_t = Unix.time ()
-let make_message_function ~quiet fs =
-  let p str =
-    if not quiet then (
+let message fs =
+  let display str =
+    if not (quiet ()) then (
       let t = sprintf "%.1f" (Unix.time () -. start_t) in
       printf "[%6s] " t;
       ansi_green ();
@@ -276,20 +294,7 @@ let make_message_function ~quiet fs =
       print_newline ()
     )
   in
-  ksprintf p fs
-
-
-(* Program name. *)
-let prog = Filename.basename Sys.executable_name
-
-(* Stores the trace (-x) and verbose (-v) flags in a global variable. *)
-let trace = ref false
-let set_trace () = trace := true
-let trace () = !trace
-
-let verbose = ref false
-let set_verbose () = verbose := true
-let verbose () = !verbose
+  ksprintf display fs
 
 (* Error messages etc. *)
 let error ?(exit_code = 1) fs =

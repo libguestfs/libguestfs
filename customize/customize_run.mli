@@ -23,4 +23,4 @@
  * filesystems must be mounted up.
  *)
 
-val run : quiet:bool -> Guestfs.guestfs -> string -> Customize_cmdline.ops -> unit
+val run : Guestfs.guestfs -> string -> Customize_cmdline.ops -> unit

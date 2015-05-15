@@ -53,7 +53,7 @@ let check_remove_user user =
   else
     false
 
-let user_account_perform ~quiet g root side_effects =
+let user_account_perform g root side_effects =
   let typ = g#inspect_get_type root in
   let changed = ref false in
   if typ <> "windows" then (

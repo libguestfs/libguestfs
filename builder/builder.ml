@@ -73,11 +73,8 @@ let main () =
   let mode, arg,
     arch, attach, cache, check_signature, curl,
     delete_on_failure, format, gpg, list_format, memsize,
-    network, ops, output, quiet, size, smp, sources, sync =
+    network, ops, output, size, smp, sources, sync =
     parse_cmdline () in
-
-  (* Timestamped messages in ordinary, non-debug non-quiet mode. *)
-  let msg fs = make_message_function ~quiet fs in
 
   (* If debugging, echo the command line arguments and the sources. *)
   if verbose () then (
@@ -100,7 +97,7 @@ let main () =
     | `Delete_cache ->                  (* --delete-cache *)
       (match cache with
       | Some cachedir ->
-        msg "Deleting: %s" cachedir;
+        message "Deleting: %s" cachedir;
         Cache.clean_cachedir cachedir;
         exit 0
       | None ->
@@ -201,8 +198,8 @@ let main () =
                { Index_parser.revision = revision; file_uri = file_uri;
                  proxy = proxy }) ->
             let template = name, arch, revision in
-            msg (f_"Downloading: %s") file_uri;
-            let progress_bar = not quiet in
+            message (f_"Downloading: %s") file_uri;
+            let progress_bar = not (quiet ()) in
             ignore (Downloader.download downloader ~template ~progress_bar
                       ~proxy file_uri)
         ) index;
@@ -259,8 +256,8 @@ let main () =
       let { Index_parser.revision = revision; file_uri = file_uri;
             proxy = proxy } = entry in
       let template = arg, arch, revision in
-      msg (f_"Downloading: %s") file_uri;
-      let progress_bar = not quiet in
+      message (f_"Downloading: %s") file_uri;
+      let progress_bar = not (quiet ()) in
       Downloader.download downloader ~template ~progress_bar ~proxy
         file_uri in
     if delete_on_exit then unlink_on_exit template;
@@ -457,7 +454,7 @@ let main () =
   in
 
   (* Plan how to create the disk image. *)
-  msg (f_"Planning how to build this image");
+  message (f_"Planning how to build this image");
   let plan =
     try plan ~max_depth:5 transitions itags goal
     with
@@ -520,7 +517,7 @@ let main () =
     | itags, `Copy, otags ->
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
-      msg (f_"Copying");
+      message (f_"Copying");
       let cmd = sprintf "cp %s %s" (quote ifile) (quote ofile) in
       if verbose () then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
@@ -535,7 +532,7 @@ let main () =
     | itags, `Pxzcat, otags ->
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
-      msg (f_"Uncompressing");
+      message (f_"Uncompressing");
       Pxzcat.pxzcat ifile ofile
 
     | itags, `Virt_resize, otags ->
@@ -547,7 +544,7 @@ let main () =
       let osize = roundup64 osize 512L in
       let oformat = List.assoc `Format otags in
       let { Index_parser.expand = expand; lvexpand = lvexpand } = entry in
-      msg (f_"Resizing (using virt-resize) to expand the disk to %s")
+      message (f_"Resizing (using virt-resize) to expand the disk to %s")
         (human_size osize);
       let preallocation = if oformat = "qcow2" then Some "metadata" else None in
       let () =
@@ -577,7 +574,7 @@ let main () =
       let ofile = List.assoc `Filename otags in
       let osize = Int64.of_string (List.assoc `Size otags) in
       let osize = roundup64 osize 512L in
-      msg (f_"Resizing container (but not filesystems) to expand the disk to %s")
+      message (f_"Resizing container (but not filesystems) to expand the disk to %s")
         (human_size osize);
       let cmd = sprintf "qemu-img resize %s %Ld%s"
         (quote ofile) osize (if verbose () then "" else " >/dev/null") in
@@ -590,7 +587,7 @@ let main () =
         try Some (List.assoc `Format itags) with Not_found -> None in
       let ofile = List.assoc `Filename otags in
       let oformat = List.assoc `Format otags in
-      msg (f_"Converting %s to %s")
+      message (f_"Converting %s to %s")
         (match iformat with None -> "auto" | Some f -> f) oformat;
       let cmd = sprintf "qemu-img convert%s %s -O %s %s%s"
         (match iformat with
@@ -603,7 +600,7 @@ let main () =
   ) plan;
 
   (* Now mount the output disk so we can make changes. *)
-  msg (f_"Opening the new disk");
+  message (f_"Opening the new disk");
   let g =
     let g = new G.guestfs () in
     if trace () then g#set_trace true;
@@ -650,7 +647,7 @@ let main () =
       error (f_"no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.")
   in
 
-  Customize_run.run ~quiet g root ops;
+  Customize_run.run g root ops;
 
   (* Collect some stats about the final output file.
    * Notes:
@@ -658,7 +655,7 @@ let main () =
    * - Never fail here.
    *)
   let stats =
-    if not quiet then (
+    if not (quiet ()) then (
       try
       (* Calculate the free space (in bytes) across all mounted
        * filesystems in the guest.
@@ -692,7 +689,7 @@ let main () =
     else None in
 
   (* Unmount everything and we're done! *)
-  msg (f_"Finishing off");
+  message (f_"Finishing off");
 
   g#umount_all ();
   g#shutdown ();

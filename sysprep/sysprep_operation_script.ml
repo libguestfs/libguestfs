@@ -35,7 +35,7 @@ let set_scriptdir dir =
 let scripts = ref []
 let add_script script = scripts := script :: !scripts
 
-let rec script_perform ~quiet (g : Guestfs.guestfs) root side_effects =
+let rec script_perform (g : Guestfs.guestfs) root side_effects =
   let scripts = List.rev !scripts in
   if scripts <> [] then (
     (* Create a temporary directory? *)

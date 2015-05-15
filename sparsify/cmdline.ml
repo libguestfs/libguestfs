@@ -52,7 +52,6 @@ let parse_cmdline () =
   let in_place = ref false in
   let machine_readable = ref false in
   let option = ref "" in
-  let quiet = ref false in
   let tmp = ref "" in
   let zeroes = ref [] in
 
@@ -70,8 +69,8 @@ let parse_cmdline () =
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
-    "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
-    "--quiet",   Arg.Set quiet,             ditto;
+    "-q",        Arg.Unit set_quiet,        " " ^ s_"Quiet output";
+    "--quiet",   Arg.Unit set_quiet,        ditto;
     "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
     "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Unit set_verbose,      ditto;
@@ -108,7 +107,6 @@ read the man page virt-sparsify(1).
   let in_place = !in_place in
   let machine_readable = !machine_readable in
   let option = match !option with "" -> None | str -> Some str in
-  let quiet = !quiet in
   let tmp = match !tmp with "" -> None | str -> Some str in
   let zeroes = List.rev !zeroes in
 
@@ -190,5 +188,4 @@ read the man page virt-sparsify(1).
     else
       Mode_in_place in
 
-  indisk, debug_gc, format, ignores, machine_readable,
-    quiet, zeroes, mode
+  indisk, debug_gc, format, ignores, machine_readable, zeroes, mode

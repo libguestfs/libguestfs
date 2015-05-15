@@ -154,7 +154,7 @@ let main () =
     debug_gc, deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
-    quiet, resizes, resizes_force, shrink, sparse =
+    resizes, resizes_force, shrink, sparse =
 
     let add xs s = xs := s :: !xs in
 
@@ -178,7 +178,6 @@ let main () =
     let machine_readable = ref false in
     let ntfsresize_force = ref false in
     let output_format = ref "" in
-    let quiet = ref false in
     let resizes = ref [] in
     let resizes_force = ref [] in
     let shrink = ref "" in
@@ -215,8 +214,8 @@ let main () =
       "--dry-run", Arg.Set dryrun,            ditto;
       "--ntfsresize-force", Arg.Set ntfsresize_force, " " ^ s_"Force ntfsresize";
       "--output-format", Arg.Set_string output_format, s_"format" ^ " " ^ s_"Format of output disk";
-      "-q",        Arg.Set quiet,             " " ^ s_"Don't print the summary";
-      "--quiet",   Arg.Set quiet,             ditto;
+      "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print the summary";
+      "--quiet",   Arg.Unit set_quiet,        ditto;
       "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
       "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
       "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
@@ -262,7 +261,6 @@ read the man page virt-resize(1).
     let machine_readable = !machine_readable in
     let ntfsresize_force = !ntfsresize_force in
     let output_format = match !output_format with "" -> None | str -> Some str in
-    let quiet = !quiet in
     let resizes = List.rev !resizes in
     let resizes_force = List.rev !resizes_force in
     let shrink = match !shrink with "" -> None | str -> Some str in
@@ -329,10 +327,7 @@ read the man page virt-resize(1).
     debug_gc, deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
-    quiet, resizes, resizes_force, shrink, sparse in
-
-  (* Timestamped messages. *)
-  let msg fs = make_message_function ~quiet fs in
+    resizes, resizes_force, shrink, sparse in
 
   (* Default to true, since NTFS/btrfs/XFS support are usually available. *)
   let ntfs_available = ref true in
@@ -351,7 +346,7 @@ read the man page virt-resize(1).
     (* The output disk is being created, so use cache=unsafe here. *)
     g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
       outfile;
-    if not quiet then Progress.set_up_progress_bar ~machine_readable g;
+    if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
     g#launch ();
 
     (* Set the filter to /dev/sda, in case there are any rogue
@@ -368,7 +363,7 @@ read the man page virt-resize(1).
   in
 
   let g =
-    msg (f_"Examining %s") (fst infile);
+    message (f_"Examining %s") (fst infile);
     let g = connect_both_disks () in
     g in
 
@@ -845,7 +840,7 @@ read the man page virt-resize(1).
   (* Print a summary of what we will do. *)
   flush stderr;
 
-  if not quiet then (
+  if not (quiet ()) then (
     printf "**********\n\n";
     printf "Summary of changes:\n\n";
 
@@ -934,7 +929,7 @@ read the man page virt-resize(1).
     (* Try hard to initialize the partition table.  This might involve
      * relaunching another handle.
      *)
-    msg (f_"Setting up initial partition table on %s") outfile;
+    message (f_"Setting up initial partition table on %s") outfile;
 
     let last_error = ref "" in
     let rec initialize_partition_table g attempts =
@@ -1153,7 +1148,7 @@ read the man page virt-resize(1).
         let source = p.p_name in
         let target = sprintf "/dev/sdb%d" p.p_target_partnum in
 
-        msg (f_"Copying %s") source;
+        message (f_"Copying %s") source;
 
         (match p.p_type with
          | ContentUnknown | ContentPV _ | ContentFS _ ->
@@ -1226,7 +1221,7 @@ read the man page virt-resize(1).
       if magic <> "NTFS    " then
         warning (f_"first partition is NTFS but does not contain NTFS boot loader magic")
       else (
-        msg (f_"Fixing first NTFS partition boot record");
+        message (f_"Fixing first NTFS partition boot record");
 
         if verbose () then (
           let old_hidden = int_of_le32 (g#pread_device target 4 0x1c_L) in
@@ -1275,7 +1270,7 @@ read the man page virt-resize(1).
       (* The output disk is being created, so use cache=unsafe here. *)
       g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
         outfile;
-      if not quiet then Progress.set_up_progress_bar ~machine_readable g;
+      if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
       g#launch ();
 
       g (* Return new handle. *)
@@ -1308,7 +1303,7 @@ read the man page virt-resize(1).
           let target = sprintf "/dev/sda%d" p.p_target_partnum in
           let meth = expand_content_method p.p_type in
 
-          msg (f_"Expanding %s%s using the '%s' method")
+          message (f_"Expanding %s%s using the '%s' method")
             source
             (if source <> target then sprintf " (now %s)" target else "")
             (string_of_expand_content_method meth);
@@ -1327,7 +1322,7 @@ read the man page virt-resize(1).
           let name = lv.lv_name in
           let meth = expand_content_method lv.lv_type in
 
-          msg (f_"Expanding %s using the '%s' method")
+          message (f_"Expanding %s using the '%s' method")
             name (string_of_expand_content_method meth);
 
           (* First expand the LV itself to maximum size. *)
@@ -1351,7 +1346,7 @@ read the man page virt-resize(1).
    *)
   Fsync.file outfile;
 
-  if not quiet then (
+  if not (quiet ()) then (
     print_newline ();
     wrap (s_"Resize operation completed with no errors.  Before deleting the old disk, carefully check that the resized disk boots and works correctly.\n");
   );

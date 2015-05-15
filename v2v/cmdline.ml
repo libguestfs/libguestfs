@@ -40,7 +40,6 @@ let parse_cmdline () =
   let password_file = ref "" in
   let print_source = ref false in
   let qemu_boot = ref false in
-  let quiet = ref false in
   let vdsm_vm_uuid = ref "" in
   let vdsm_ovf_output = ref "." in
   let vmtype = ref "" in
@@ -164,8 +163,8 @@ let parse_cmdline () =
     "--password-file", Arg.Set_string password_file, "file " ^ s_"Use password from file";
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
-    "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
-    "--quiet",   Arg.Set quiet,             ditto;
+    "-q",        Arg.Unit set_quiet,        " " ^ s_"Quiet output";
+    "--quiet",   Arg.Unit set_quiet,        ditto;
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
     "--vdsm-image-uuid",
     Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";
@@ -230,7 +229,6 @@ read the man page virt-v2v(1).
   let password_file = match !password_file with "" -> None | s -> Some s in
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
-  let quiet = !quiet in
   let root_choice = !root_choice in
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
@@ -389,4 +387,4 @@ read the man page virt-v2v(1).
   input, output,
   debug_gc, debug_overlays, do_copy, network_map, no_trim,
   output_alloc, output_format, output_name,
-  print_source, quiet, root_choice
+  print_source, root_choice

@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let smolt_uuid_perform ~quiet g root side_effects =
+let smolt_uuid_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     let files = [ "/etc/sysconfig/hw-uuid";

@@ -34,7 +34,7 @@ end
 
 class device_side_effects = object end
 
-type 'a callback = quiet:bool -> Guestfs.guestfs -> string -> 'a -> unit
+type 'a callback = Guestfs.guestfs -> string -> 'a -> unit
 
 type operation = {
   order : int;
@@ -269,11 +269,9 @@ let compare_operations { order = o1; name = n1 } { order = o2; name = n2 } =
   let i = compare o1 o2 in
   if i <> 0 then i else compare n1 n2
 
-let perform_operations_on_filesystems ?operations ~quiet g root
+let perform_operations_on_filesystems ?operations g root
     side_effects =
   assert !baked;
-
-  let msg fs = make_message_function ~quiet fs in
 
   let ops =
     match operations with
@@ -287,16 +285,14 @@ let perform_operations_on_filesystems ?operations ~quiet g root
   List.iter (
     function
     | { name = name; perform_on_filesystems = Some fn } ->
-      msg "Performing %S ..." name;
-      fn ~quiet g root side_effects
+      message "Performing %S ..." name;
+      fn g root side_effects
     | { perform_on_filesystems = None } -> ()
   ) ops
 
-let perform_operations_on_devices ?operations ~quiet g root
+let perform_operations_on_devices ?operations g root
     side_effects =
   assert !baked;
-
-  let msg fs = make_message_function ~quiet fs in
 
   let ops =
     match operations with
@@ -310,7 +306,7 @@ let perform_operations_on_devices ?operations ~quiet g root
   List.iter (
     function
     | { name = name; perform_on_devices = Some fn } ->
-      msg "Performing %S ..." name;
-      fn ~quiet g root side_effects
+      message "Performing %S ..." name;
+      fn g root side_effects
     | { perform_on_devices = None } -> ()
   ) ops

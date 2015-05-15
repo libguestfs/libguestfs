@@ -22,7 +22,7 @@ open Common_gettext.Gettext
 module StringSet = Set.Make (String)
 module G = Guestfs
 
-let kerberos_data_perform ~quiet g root side_effects =
+let kerberos_data_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let excepts = [ "/var/kerberos/krb5kdc/kadm5.acl";

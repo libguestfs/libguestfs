@@ -132,7 +132,7 @@ let globs = List.sort compare [
 ]
 let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
 
-let logfiles_perform ~quiet g root side_effects =
+let logfiles_perform g root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     List.iter (fun glob -> Array.iter g#rm_rf (g#glob_expand glob)) globs

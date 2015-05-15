@@ -53,7 +53,6 @@ let main () =
   let memsize = ref None in
   let set_memsize arg = memsize := Some arg in
   let network = ref true in
-  let quiet = ref false in
   let smp = ref None in
   let set_smp arg = smp := Some arg in
 
@@ -93,8 +92,8 @@ let main () =
     "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
     "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
-    "-q",        Arg.Set quiet,             " " ^ s_"Don't print log messages";
-    "--quiet",   Arg.Set quiet,             " " ^ s_"Don't print log messages";
+    "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
+    "--quiet",   Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
@@ -179,14 +178,11 @@ read the man page virt-customize(1).
   let dryrun = !dryrun in
   let memsize = !memsize in
   let network = !network in
-  let quiet = !quiet in
   let smp = !smp in
 
   let ops = get_customize_ops () in
 
-  let msg fs = make_message_function ~quiet fs in
-
-  msg (f_"Examining the guest ...");
+  message (f_"Examining the guest ...");
 
   (* Connect to libguestfs. *)
   let g =
@@ -235,13 +231,13 @@ read the man page virt-customize(1).
         ) mps;
 
         (* Do the customization. *)
-        Customize_run.run ~quiet g root ops;
+        Customize_run.run g root ops;
 
         g#umount_all ();
     ) roots;
   );
 
-  msg (f_"Finishing off");
+  message (f_"Finishing off");
   g#shutdown ();
   g#close ();
 

@@ -22,7 +22,7 @@ open Common_gettext.Gettext
 module StringSet = Set.Make (String)
 module G = Guestfs
 
-let rpm_db_perform ~quiet g root side_effects =
+let rpm_db_perform g root side_effects =
   let pf = g#inspect_get_package_format root in
   if pf = "rpm" then (
     let paths = g#glob_expand "/var/lib/rpm/__db.*" in
