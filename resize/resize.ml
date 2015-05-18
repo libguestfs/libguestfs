@@ -81,10 +81,11 @@ let rec debug_partition ?(sectsize=512L) p =
   printf "\tpartition data: %ld %Ld-%Ld (%Ld bytes)\n"
     p.p_part.G.part_num p.p_part.G.part_start p.p_part.G.part_end
     p.p_part.G.part_size;
-  printf "\tpartition sector data: %Ld-%Ld\n"
-    (p.p_part.G.part_start /^ sectsize) (p.p_part.G.part_end /^ sectsize);
-  printf "\ttarget partition sector data: %Ld-%Ld \n"
-    p.p_target_start p.p_target_end;
+  printf "\tpartition sector data: %Ld-%Ld (%Ld sectors)\n"
+    (p.p_part.G.part_start /^ sectsize) (p.p_part.G.part_end /^ sectsize)
+    ((p.p_part.G.part_end +^ 1L -^ p.p_part.G.part_start) /^ sectsize);
+  printf "\ttarget partition sector data: %Ld-%Ld (%Ld sectors)\n"
+    p.p_target_start p.p_target_end (p.p_target_end +^ 1L -^ p.p_target_start);
   printf "\tbootable: %b\n" p.p_bootable;
   printf "\tpartition ID: %s\n"
     (match p.p_id with
