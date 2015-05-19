@@ -104,8 +104,6 @@ base64 -d > /etc/systemd/system/p2v.service <<EOF
 __BASE64_P2V_SERVICE__
 EOF
 
-systemctl enable p2v.service
-
 # Base64-decoding of virt-p2v binary
 # md5(virt-p2v) = __MD5SUM_VIRT_P2V__
 
@@ -122,6 +120,12 @@ sed -i 's/^ExecStart=\(.*\)/ExecStart=\1 -a root/' \
 
 # Reserve tty1 as a getty so we can document it clearly
 echo ReserveVT=1 >> /etc/systemd/logind.conf
+
+# Force text mode
+systemctl set-default multi-user.target
+
+# Start p2v service
+systemctl enable p2v.service
 
 %end
 

@@ -163,6 +163,7 @@ virt-builder "$osversion"                                       \
     --chmod 0755:/usr/bin/launch-virt-p2v                       \
     --upload "$datadir"/p2v.service:/etc/systemd/system/        \
     --mkdir /etc/systemd/system/default.target.wants            \
+    --link /usr/lib/systemd/system/multi-user.target:/etc/systemd/system/default.target \
     --link /etc/systemd/system/p2v.service:/etc/systemd/system/default.target.wants/p2v.service \
     --edit '/usr/lib/systemd/system/getty@.service:
         s/^ExecStart=(.*)/ExecStart=$1 -a root/
