@@ -28,4 +28,4 @@ ExecStart=/usr/bin/launch-virt-p2v
 RemainAfterExit=yes
 
 [Install]
-WantedBy=graphical.target
+WantedBy=multi-user.target
