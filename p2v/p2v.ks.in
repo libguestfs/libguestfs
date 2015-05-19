@@ -70,6 +70,7 @@ metacity
 pcre
 libxml2
 gtk2
+nm-connection-editor
 network-manager-applet
 dbus-x11
 hwdata
