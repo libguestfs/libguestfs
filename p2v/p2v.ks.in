@@ -24,11 +24,12 @@ timezone --utc GMT
 selinux --enforcing
 firewall --enabled
 
-# Need to specify --device, else:
-# Error creating Live CD : No --device specified with network kickstart command
+# Make sure that systemd doesn't rename the network device.  We have
+# to tell Anaconda we're using eth0, *and* we have to pass
+# net.ifnames=0 on the kernel command line.
 network --bootproto=dhcp --device=eth0
+bootloader --location=mbr --append="console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH net.ifnames=0"
 
-bootloader --location=mbr --append="console=tty0 console=ttyS0,115200 rd_NO_PLYMOUTH"
 zerombr
 clearpart --all --initlabel
 part / --size 3000 --fstype ext4
