@@ -1,4 +1,4 @@
-# Kickstart file for creating the RHEL 7 virt-v2v appliance.
+# Kickstart file for creating the RHEL 7 virt-v2v conversion server appliance.
 # (C) Copyright 2014-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# NB: Use rhel-7-virt-v2v-appliance.conf to build the appliance.
+# NB: Use rhel-7-virt-v2v-conversion-server.config to build the appliance.
 # Read the instructions at the top of that file.
 
 lang en_US.UTF-8
@@ -91,7 +91,7 @@ telnet
 # /etc/issue
 
 cat > /etc/issue << 'EOF'
-Welcome to the Red Hat Enterprise Linux 7 virt-v2v appliance.
+Welcome to the Red Hat Enterprise Linux 7 virt-v2v conversion server.
 
 Tips:
 
