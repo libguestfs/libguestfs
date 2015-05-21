@@ -69,6 +69,7 @@ libvirt-client
 libguestfs-tools-c
 libguestfs-xfs
 libguestfs-winsupport
+virtio-win
 
 # Allow users to subscribe the appliance to RHN, if they wish.
 subscription-manager
