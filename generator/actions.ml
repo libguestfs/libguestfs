@@ -790,6 +790,10 @@ to specify the QEMU interface emulation to use at run time." };
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-i586-dynamic"]], "i386"), [];
       InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-ppc64-dynamic"]], "ppc64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-ppc64le-dynamic"]], "ppc64le"), [];
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-win32.exe"]], "i386"), [];
@@ -803,6 +807,10 @@ to specify the QEMU interface emulation to use at run time." };
         [["file_architecture"; "/lib-armv7.so"]], "arm"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-i586.so"]], "i386"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-ppc64.so"]], "ppc64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-ppc64le.so"]], "ppc64le"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-sparc.so"]], "sparc"), [];
       InitISOFS, Always, TestResultString (
