@@ -60,6 +60,15 @@ let () =
 *)
   ) (all_functions @ fish_commands);
 
+  (* Check added field was set to something. *)
+  List.iter (
+    function
+    | { name = name; visibility = VPublic|VPublicNoFish|VDebug;
+        added = (-1, _, _) } ->
+       failwithf "function %s has no 'added' (version when added) field" name
+    | _ -> ()
+  ) all_functions;
+
   (* Check function parameter/return names. *)
   List.iter (
     fun { name = name; style = style } ->
