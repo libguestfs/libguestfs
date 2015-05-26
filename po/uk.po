@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-05-15 21:04+0100\n"
+"POT-Creation-Date: 2015-05-26 21:42+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -23,15 +23,15 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Zanata 3.5.1\n"
 
-#: ../resize/resize.ml:895
+#: ../resize/resize.ml:896
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Додатково буде створено ще один розділ."
 
-#: ../resize/resize.ml:880 ../resize/resize.ml:860
+#: ../resize/resize.ml:881 ../resize/resize.ml:861
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "  %s на %s буде розширено за допомогою методу «%s»."
 
-#: ../resize/resize.ml:897
+#: ../resize/resize.ml:898
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -39,7 +39,7 @@ msgstr ""
 "  Додатковий простір не є достатньо великим для створення додаткового "
 "розділу, отже, його буде просто проігноровано."
 
-#: ../resize/resize.ml:899
+#: ../resize/resize.ml:900
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -83,7 +83,7 @@ msgstr ""
 "Якщо вам не вдається встановити, якою має бути точка монтування %s, ви "
 "можете скористатися для цього інтерфейсом користувача RHEV-M."
 
-#: ../customize/customize_run.ml:197
+#: ../customize/customize_run.ml:192
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../customize/customize_run.ml:369
+#: ../customize/customize_run.ml:364
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (проігноровано)\n"
 
@@ -123,7 +123,7 @@ msgstr "%s: «%s» має нелокальну адресу ключа gpg\n"
 msgid "%s: ... read %d sources\n"
 msgstr "%s: ... прочитано %d джерел\n"
 
-#: ../resize/resize.ml:688
+#: ../resize/resize.ml:689
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -138,11 +138,11 @@ msgstr ""
 "(Причиною появи цього повідомлення про помилку є використання параметра "
 "командного рядка «%s».)"
 
-#: ../resize/resize.ml:877
+#: ../resize/resize.ml:878
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: цей логічний том буде розширено до максимального розміру."
 
-#: ../resize/resize.ml:684
+#: ../resize/resize.ml:685
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -158,7 +158,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:680
+#: ../resize/resize.ml:681
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -174,7 +174,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:677
+#: ../resize/resize.ml:678
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -187,7 +187,7 @@ msgstr ""
 "руйнування усіх даних на розділі. (Причиною появи цього повідомлення про "
 "помилку є використання параметра командного рядка «%s».)"
 
-#: ../resize/resize.ml:853
+#: ../resize/resize.ml:854
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -195,15 +195,15 @@ msgstr ""
 "%s: цей розділ буде створено, але його вміст буде проігноровано (тобто не "
 "буде скопійовано до призначення)."
 
-#: ../resize/resize.ml:855
+#: ../resize/resize.ml:856
 msgid "%s: This partition will be deleted."
 msgstr "%s: цей розділ буде вилучено."
 
-#: ../resize/resize.ml:851
+#: ../resize/resize.ml:852
 msgid "%s: This partition will be left alone."
 msgstr "%s: цей розділ буде залишено."
 
-#: ../resize/resize.ml:857
+#: ../resize/resize.ml:858
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
@@ -255,7 +255,7 @@ msgstr ""
 msgid "%s: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:88
+#: ../customize/customize_run.ml:83
 msgid "%s: command exited with an error"
 msgstr ""
 
@@ -310,7 +310,7 @@ msgstr "%s: помилка: %s"
 msgid "%s: file error: %s: %s\n"
 msgstr "%s: помилка файла: %s: %s\n"
 
-#: ../resize/resize.ml:404 ../resize/resize.ml:401
+#: ../resize/resize.ml:405 ../resize/resize.ml:402
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
@@ -332,7 +332,7 @@ msgstr ""
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: внутрішня помилка: некоректний аргумент: %s\n"
 
-#: ../resize/resize.ml:835
+#: ../resize/resize.ml:836
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -342,11 +342,11 @@ msgstr ""
 "наслідком використання параметра командного рядка «--lv-expand»). Спробуйте "
 "віддати таку команду: virt-filesystems --logical-volumes --long -a %s"
 
-#: ../resize/resize.ml:706
+#: ../resize/resize.ml:707
 msgid "%s: missing size field in '%s' option"
 msgstr "%s: у параметрі «%s» пропущено поле розміру"
 
-#: ../resize/resize.ml:715
+#: ../resize/resize.ml:716
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
@@ -366,18 +366,18 @@ msgstr ""
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: немає запису «uri» для «%s» у %s, пропускаємо\n"
 
-#: ../resize/resize.ml:628
+#: ../resize/resize.ml:629
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ вже вилучено, ви не можете використовувати його у параметрі «%s»"
 
-#: ../resize/resize.ml:624
+#: ../resize/resize.ml:625
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ уже проігноровано, ви не можете використовувати його у параметрі "
 "«%s»"
 
-#: ../resize/resize.ml:620
+#: ../resize/resize.ml:621
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
@@ -387,15 +387,15 @@ msgstr ""
 "використання параметра командного рядка «%s»). Спробуйте віддати таку "
 "команду: virt-filesystems --partitions --long -a %s"
 
-#: ../resize/resize.ml:518
+#: ../resize/resize.ml:519
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: розмір розділу %Ld менший розміру файлової системи %Ld"
 
-#: ../resize/resize.ml:513
+#: ../resize/resize.ml:514
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: розмір розділу %Ld фізичний розмір тому %Ld"
 
-#: ../resize/resize.ml:430
+#: ../resize/resize.ml:431
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: pvs_full не повернуто фізичний том"
 
@@ -420,7 +420,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис наведено на\n"
 "сторінці підручника (man) virt-sysprep(1).\n"
 
-#: ../resize/resize.ml:234
+#: ../resize/resize.ml:235
 msgid ""
 "%s: resize a virtual machine disk\n"
 "\n"
@@ -452,15 +452,15 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладний опис\n"
 "можна знайти на сторінці підручника (man) virt-sparsify(1).\n"
 
-#: ../resize/resize.ml:662
+#: ../resize/resize.ml:663
 msgid "%s: this partition has already been ignored or deleted"
 msgstr "%s: цей розділ вже проігноровано або вилучено"
 
-#: ../resize/resize.ml:658
+#: ../resize/resize.ml:659
 msgid "%s: this partition has already been marked for resizing"
 msgstr "%s: цей розділ вже позначено для зміни розміру"
 
-#: ../resize/resize.ml:528
+#: ../resize/resize.ml:529
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: цей розділ перекривається з попереднім"
 
@@ -468,7 +468,7 @@ msgstr "%s: цей розділ перекривається з попередн
 msgid "%s: trying to read %s\n"
 msgstr "%s: намагаємося прочитати %s\n"
 
-#: ../resize/resize.ml:416
+#: ../resize/resize.ml:417
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -552,7 +552,7 @@ msgstr "Параметр --enable можна використовувати ли
 msgid "--enable: '%s' is not a known operation"
 msgstr "--enable: «%s» не є відомою операцією"
 
-#: ../resize/resize.ml:170
+#: ../resize/resize.ml:171
 msgid "--expand option given twice"
 msgstr "Параметр --expand вказано двічі"
 
@@ -564,7 +564,7 @@ msgstr "Параметр --format слід вказувати до параме�
 msgid "--get-kernel: too many parameters"
 msgstr ""
 
-#: ../customize/customize_run.ml:116
+#: ../customize/customize_run.ml:111
 msgid "--install is not supported for this guest operating system"
 msgstr ""
 
@@ -613,7 +613,7 @@ msgstr ""
 msgid "--scriptdir cannot be used more than once"
 msgstr "Параметр --scriptdir не можна вказувати декілька разів"
 
-#: ../resize/resize.ml:186
+#: ../resize/resize.ml:187
 msgid "--shrink option given twice"
 msgstr "Параметр --shrink вказано двічі"
 
@@ -636,7 +636,7 @@ msgstr "--tmp prebuilt:file: %s: файл не має резервного фа�
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr "--tmp prebuilt:file: %s: форматом файла не є qcow2"
 
-#: ../customize/customize_run.ml:143
+#: ../customize/customize_run.ml:138
 msgid "--update is not supported for this guest operating system"
 msgstr ""
 
@@ -802,7 +802,7 @@ msgstr "Додати параметри qemu-img"
 msgid "Aliases:"
 msgstr "Псевдоніми:"
 
-#: ../resize/resize.ml:193
+#: ../resize/resize.ml:194
 msgid "Align first partition (default: auto)"
 msgstr "Вирівняти перший розділ (типове значення: auto)"
 
@@ -856,7 +856,7 @@ msgstr "Змінити UUID файлових систем"
 msgid "Change the permissions of a file"
 msgstr "Змінити права доступу до файла"
 
-#: ../customize/customize_run.ml:165
+#: ../customize/customize_run.ml:160
 msgid "Changing permissions of %s to %s"
 msgstr "Зміна прав доступу до %s на %s"
 
@@ -912,11 +912,11 @@ msgstr ""
 msgid "Copying"
 msgstr "Копіювання"
 
-#: ../resize/resize.ml:1151
+#: ../resize/resize.ml:1152
 msgid "Copying %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:182
+#: ../customize/customize_run.ml:177
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
@@ -924,7 +924,7 @@ msgstr ""
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
-#: ../customize/customize_run.ml:186
+#: ../customize/customize_run.ml:181
 msgid "Copying: %s to %s"
 msgstr ""
 
@@ -988,7 +988,7 @@ msgstr ""
 msgid "DIR"
 msgstr "КАТАЛОГ"
 
-#: ../v2v/cmdline.ml:141 ../sparsify/cmdline.ml:63 ../resize/resize.ml:198
+#: ../v2v/cmdline.ml:141 ../sparsify/cmdline.ml:63 ../resize/resize.ml:199
 msgid "Debug GC and memory allocations"
 msgstr "Діагностувати збиральник сміття та розподіл пам’яті"
 
@@ -1000,7 +1000,7 @@ msgstr "Діагностувати збиральник сміття та роз
 msgid "Delete a file or directory"
 msgstr "Вилучити файл або каталог"
 
-#: ../resize/resize.ml:199
+#: ../resize/resize.ml:200
 msgid "Delete partition"
 msgstr "Вилучити розділ"
 
@@ -1008,7 +1008,7 @@ msgstr "Вилучити розділ"
 msgid "Delete the template cache"
 msgstr "Вилучити кеш шаблонів"
 
-#: ../customize/customize_run.ml:190 ../builder/builder.ml:100
+#: ../customize/customize_run.ml:185 ../builder/builder.ml:100
 msgid "Deleting: %s"
 msgstr "Вилучаємо: %s"
 
@@ -1033,7 +1033,7 @@ msgid "Display installation notes"
 msgstr "Показати нотатки щодо встановлення"
 
 #. ../sparsify/cmdline.ml:78
-#. ../resize/resize.ml:226
+#. ../resize/resize.ml:227
 #. ../customize/customize_main.ml:103
 #. ../customize/customize_main.ml:101
 #. ../builder/cmdline.ml:151
@@ -1046,11 +1046,11 @@ msgstr "Вивести версію та вийти"
 msgid "Do not fsync output file on exit"
 msgstr "Не виконувати fsync для файла результатів під час виходу"
 
-#: ../resize/resize.ml:195
+#: ../resize/resize.ml:196
 msgid "Don't copy boot loader"
 msgstr "Не копіювати завантажувач"
 
-#: ../resize/resize.ml:202
+#: ../resize/resize.ml:203
 msgid "Don't create extra partition"
 msgstr "Не створювати додатковий розділ"
 
@@ -1058,11 +1058,11 @@ msgstr "Не створювати додатковий розділ"
 msgid "Don't delete output file on failure"
 msgstr "Не вилучати файл результатів після помилки"
 
-#: ../resize/resize.ml:201
+#: ../resize/resize.ml:202
 msgid "Don't expand content"
 msgstr "Не розгортати вміст"
 
-#: ../resize/resize.ml:212
+#: ../resize/resize.ml:213
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
@@ -1072,7 +1072,7 @@ msgstr "Не вносити змін"
 msgid "Don't print log messages"
 msgstr "Не виводити повідомлень до журналу"
 
-#: ../resize/resize.ml:217
+#: ../resize/resize.ml:218
 msgid "Don't print the summary"
 msgstr "Не виводити даних резюме"
 
@@ -1110,7 +1110,7 @@ msgstr "Створити дамп POD для параметрів (внутрі�
 msgid "Edit file using Perl expression"
 msgstr "Редагувати файл за допомогою виразу Perl"
 
-#: ../customize/customize_run.ml:194
+#: ../customize/customize_run.ml:189
 msgid "Editing: %s"
 msgstr "Редагування: %s"
 
@@ -1119,8 +1119,8 @@ msgid "Enable appliance network (default)"
 msgstr "Увімкнути мережу у системі для розгортання (типово)"
 
 #. ../sparsify/cmdline.ml:75
-#. ../resize/resize.ml:223
-#. ../resize/resize.ml:196
+#. ../resize/resize.ml:224
+#. ../resize/resize.ml:197
 #. ../customize/customize_main.ml:99
 #. ../customize/customize_main.ml:98
 #. ../builder/cmdline.ml:147
@@ -1133,7 +1133,7 @@ msgstr "Увімкнути показ діагностичних повідом�
 msgid "Enable specific operations"
 msgstr "Увімкнути специфічні операції"
 
-#. ../resize/resize.ml:228
+#. ../resize/resize.ml:229
 #. ../customize/customize_main.ml:104
 #. ../builder/cmdline.ml:152
 #: ../v2v/cmdline.ml:183 ../sysprep/main.ml:150 ../sparsify/cmdline.ml:80
@@ -1156,7 +1156,7 @@ msgstr "Оцінюємо простір, потрібний у системі п
 msgid "Examine source disk"
 msgstr ""
 
-#: ../resize/resize.ml:366
+#: ../resize/resize.ml:367
 msgid "Examining %s"
 msgstr ""
 
@@ -1164,19 +1164,19 @@ msgstr ""
 msgid "Examining the guest ..."
 msgstr "Вивчаємо гостьову систему…"
 
-#: ../resize/resize.ml:207
+#: ../resize/resize.ml:208
 msgid "Expand logical volume"
 msgstr "Розгорнути логічний том"
 
-#: ../resize/resize.ml:200
+#: ../resize/resize.ml:201
 msgid "Expand partition"
 msgstr "Розгорнути розділ"
 
-#: ../resize/resize.ml:1325
+#: ../resize/resize.ml:1326
 msgid "Expanding %s using the '%s' method"
 msgstr ""
 
-#: ../resize/resize.ml:1306
+#: ../resize/resize.ml:1307
 msgid "Expanding %s%s using the '%s' method"
 msgstr ""
 
@@ -1205,7 +1205,7 @@ msgstr "ФАЙЛ:ВИРАЗ"
 msgid "FILENAME"
 msgstr ""
 
-#: ../resize/resize.ml:953
+#: ../resize/resize.ml:954
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1239,7 +1239,7 @@ msgstr "Відбиток: %s\n"
 msgid "Finishing off"
 msgstr "Завершуємо"
 
-#: ../resize/resize.ml:1224
+#: ../resize/resize.ml:1225
 msgid "Fixing first NTFS partition boot record"
 msgstr ""
 
@@ -1266,19 +1266,19 @@ msgstr ""
 "отже, під час першого завантаження користувачеві буде надіслано запит\n"
 "щодо параметрів, зокрема пароля root та часового поясу."
 
-#: ../resize/resize.ml:215
+#: ../resize/resize.ml:216
 msgid "Force ntfsresize"
 msgstr "Примусово виконати ntfsresize"
 
-#: ../resize/resize.ml:220
+#: ../resize/resize.ml:221
 msgid "Forcefully resize partition"
 msgstr "Примусово змінити розмір розділу"
 
-#: ../sparsify/cmdline.ml:64 ../resize/resize.ml:203
+#: ../sparsify/cmdline.ml:64 ../resize/resize.ml:204
 msgid "Format of input disk"
 msgstr "Формат диска вхідних даних"
 
-#: ../resize/resize.ml:216
+#: ../resize/resize.ml:217
 msgid "Format of output disk"
 msgstr "Формат диска виведених даних"
 
@@ -1345,7 +1345,7 @@ msgstr ""
 msgid "Ignore filesystem"
 msgstr "Ігнорувати файлову систему"
 
-#: ../resize/resize.ml:204
+#: ../resize/resize.ml:205
 msgid "Ignore partition"
 msgstr "Ігнорувати розділ"
 
@@ -1365,19 +1365,19 @@ msgstr "Формат вхідних даних (для -i диск)"
 msgid "Inspecting the overlay"
 msgstr "Вивчаємо оверлей"
 
-#: ../customize/customize_run.ml:202
+#: ../customize/customize_run.ml:197
 msgid "Installing firstboot command: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:206
+#: ../customize/customize_run.ml:201
 msgid "Installing firstboot packages: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:213
+#: ../customize/customize_run.ml:208
 msgid "Installing firstboot script: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:223
+#: ../customize/customize_run.ml:218
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
@@ -1397,7 +1397,7 @@ msgstr ""
 msgid "Libvirt URI"
 msgstr "Адреса libvirt"
 
-#: ../customize/customize_run.ml:230
+#: ../customize/customize_run.ml:225
 msgid "Linking: %s -> %s"
 msgstr "Компонування: %s -> %s"
 
@@ -1405,14 +1405,14 @@ msgstr "Компонування: %s -> %s"
 msgid "List available templates"
 msgstr "Показати список доступних шаблонів"
 
-#. ../resize/resize.ml:206
+#. ../resize/resize.ml:207
 #. ../customize/customize_main.ml:89
 #. ../builder/cmdline.ml:130
 #: ../v2v/cmdline.ml:151 ../sysprep/main.ml:136 ../sparsify/cmdline.ml:69
 msgid "List long options"
 msgstr "Вивести список довгих версій параметрів"
 
-#. ../resize/resize.ml:205
+#. ../resize/resize.ml:206
 #. ../customize/customize_main.ml:90
 #. ../builder/cmdline.ml:129
 #: ../v2v/cmdline.ml:150 ../sysprep/main.ml:135 ../sparsify/cmdline.ml:68
@@ -1424,11 +1424,11 @@ msgid "List supported operations"
 msgstr "Вивести список підтримуваних операцій"
 
 #. ../builder/cmdline.ml:131
-#: ../v2v/cmdline.ml:152 ../sparsify/cmdline.ml:70 ../resize/resize.ml:211
+#: ../v2v/cmdline.ml:152 ../sparsify/cmdline.ml:70 ../resize/resize.ml:212
 msgid "Make output machine readable"
 msgstr "Зробити машину виведення придатною до читання"
 
-#: ../customize/customize_run.ml:235
+#: ../customize/customize_run.ml:230
 msgid "Making directory: %s"
 msgstr "Створюємо каталог: %s"
 
@@ -1462,7 +1462,7 @@ msgstr "Точка монтування у основній системі"
 msgid "Move files in disk image"
 msgstr ""
 
-#: ../customize/customize_run.ml:239
+#: ../customize/customize_run.ml:234
 msgid "Moving: %s -> %s"
 msgstr ""
 
@@ -1632,7 +1632,7 @@ msgstr ""
 msgid "Recursively truncate all files in directory"
 msgstr ""
 
-#: ../customize/customize_run.ml:270
+#: ../customize/customize_run.ml:265
 msgid "Recursively truncating: %s"
 msgstr ""
 
@@ -1830,7 +1830,7 @@ msgstr "Вилучити завдання at та cron користувачів"
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
-#: ../resize/resize.ml:1351
+#: ../resize/resize.ml:1352
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -1839,7 +1839,7 @@ msgstr ""
 "старий диск, ретельно перевірте, чи може диск зі зміненим розміром "
 "завантажується і працює належним чином.\n"
 
-#: ../resize/resize.ml:219
+#: ../resize/resize.ml:220
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
@@ -1894,11 +1894,11 @@ msgstr ""
 msgid "Run touch on a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:279
+#: ../customize/customize_run.ml:274
 msgid "Running touch: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:249 ../customize/customize_run.ml:173
+#: ../customize/customize_run.ml:244 ../customize/customize_run.ml:168
 msgid "Running: %s"
 msgstr "Виконуємо: %s"
 
@@ -1910,7 +1910,7 @@ msgstr "СКРИПТ"
 msgid "SELECTOR"
 msgstr "СЕЛЕКТОР"
 
-#: ../customize/customize_run.ml:330
+#: ../customize/customize_run.ml:325
 msgid "SELinux relabelling"
 msgstr "Зміна міток SELinux"
 
@@ -1918,11 +1918,11 @@ msgstr "Зміна міток SELinux"
 msgid "SOURCE:DEST"
 msgstr ""
 
-#: ../customize/customize_run.ml:263
+#: ../customize/customize_run.ml:258
 msgid "SSH key could be injected for this type of guest"
 msgstr ""
 
-#: ../customize/customize_run.ml:260
+#: ../customize/customize_run.ml:255
 msgid "SSH key inject: %s"
 msgstr ""
 
@@ -1942,11 +1942,11 @@ msgstr "Витерти файл"
 msgid "Scrub build log file"
 msgstr "Витерти файл журналу збирання"
 
-#: ../customize/customize_run.ml:353
+#: ../customize/customize_run.ml:348
 msgid "Scrubbing the log file"
 msgstr "Витираємо файл журналу"
 
-#: ../customize/customize_run.ml:254
+#: ../customize/customize_run.ml:249
 msgid "Scrubbing: %s"
 msgstr "Витираємо: %s"
 
@@ -2020,7 +2020,7 @@ msgstr "Встановити режим виведення (типовий: libv
 msgid "Set output storage location"
 msgstr "Встановити розташування сховища виведених даних"
 
-#: ../resize/resize.ml:194
+#: ../resize/resize.ml:195
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr "Встановити вирівнювання розділів (типове: 128 секторів)"
 
@@ -2069,11 +2069,11 @@ msgstr "Встановити пароль користувача"
 msgid "Set vmtype (for RHEV)"
 msgstr "Встановити значення vmtype (для RHEV)"
 
-#: ../customize/customize_run.ml:149
+#: ../customize/customize_run.ml:144
 msgid "Setting a random seed"
 msgstr "Встановлюємо базу випадковості"
 
-#: ../customize/customize_run.ml:321
+#: ../customize/customize_run.ml:316
 msgid "Setting passwords"
 msgstr "Встановлення паролів"
 
@@ -2081,15 +2081,15 @@ msgstr "Встановлення паролів"
 msgid "Setting random password of %s to %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:218
+#: ../customize/customize_run.ml:213
 msgid "Setting the hostname: %s"
 msgstr "Встановлюємо назву вузла: %s"
 
-#: ../customize/customize_run.ml:274
+#: ../customize/customize_run.ml:269
 msgid "Setting the timezone: %s"
 msgstr "Встановлюємо часовий пояс: %s"
 
-#: ../resize/resize.ml:932
+#: ../resize/resize.ml:933
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
@@ -2097,7 +2097,7 @@ msgstr ""
 msgid "Shortcut for --list-format short"
 msgstr "Скорочення для --list-format short"
 
-#: ../resize/resize.ml:221
+#: ../resize/resize.ml:222
 msgid "Shrink partition"
 msgstr "Стиснути розділ"
 
@@ -2337,7 +2337,7 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
-#: ../resize/resize.ml:820
+#: ../resize/resize.ml:821
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -2345,7 +2345,7 @@ msgstr ""
 "Маємо дефіцит у %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
 "принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
 
-#: ../resize/resize.ml:892
+#: ../resize/resize.ml:893
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
@@ -2428,11 +2428,11 @@ msgstr ""
 msgid "Truncate a file to zero size"
 msgstr ""
 
-#: ../customize/customize_run.ml:266
+#: ../customize/customize_run.ml:261
 msgid "Truncating: %s"
 msgstr ""
 
-#: ../resize/resize.ml:222
+#: ../resize/resize.ml:223
 msgid "Turn off sparse copying"
 msgstr "Вимкнути розріджене копіювання"
 
@@ -2452,7 +2452,7 @@ msgstr "Розпаковуємо"
 msgid "Update core packages"
 msgstr "Оновити основні пакунки"
 
-#: ../customize/customize_run.ml:283
+#: ../customize/customize_run.ml:278
 msgid "Updating core packages"
 msgstr "Оновлюємо основні пакунки"
 
@@ -2460,7 +2460,7 @@ msgstr "Оновлюємо основні пакунки"
 msgid "Upload local file to destination"
 msgstr "Вивантажити локальний файл у систему призначення"
 
-#: ../customize/customize_run.ml:288
+#: ../customize/customize_run.ml:283
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
@@ -2500,11 +2500,11 @@ msgstr ""
 msgid "Write file"
 msgstr "Записати файл"
 
-#: ../customize/customize_run.ml:313
+#: ../customize/customize_run.ml:308
 msgid "Writing: %s"
 msgstr "Записуємо: %s"
 
-#: ../resize/resize.ml:791
+#: ../resize/resize.ml:792
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -2512,7 +2512,7 @@ msgstr ""
 "Не можна використовувати --expand, якщо немає додаткового місця для "
 "розширення. Вам слід збільшити диск призначення на принаймні %s."
 
-#: ../resize/resize.ml:803
+#: ../resize/resize.ml:804
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -2553,7 +2553,7 @@ msgid ""
 "command."
 msgstr ""
 
-#: ../resize/resize.ml:270
+#: ../resize/resize.ml:271
 msgid "alignment cannot be < 1"
 msgstr "значення вирівнювання не може бути меншим за 1"
 
@@ -2577,7 +2577,7 @@ msgstr ""
 msgid "block|dir|prebuilt:file"
 msgstr "блоковий пристрій|каталог|prebuilt:файл"
 
-#: ../resize/resize.ml:148
+#: ../resize/resize.ml:149
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
@@ -2894,17 +2894,17 @@ msgstr "спосіб оновлення %s, який завантажує мод
 msgid "duplicate operation name (%s)"
 msgstr "дублювання назви операції (%s)"
 
-#: ../resize/resize.ml:169
+#: ../resize/resize.ml:170
 msgid "empty --expand option"
 msgstr ""
 
-#: ../resize/resize.ml:185
+#: ../resize/resize.ml:186
 msgid "empty --shrink option"
 msgstr "порожній параметр --shrink"
 
 #. ../customize/customize_main.ml:63
 #. ../builder/downloader.ml:74
-#: ../sysprep/main.ml:57 ../resize/resize.ml:323
+#: ../sysprep/main.ml:57 ../resize/resize.ml:324
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
@@ -2987,14 +2987,14 @@ msgid ""
 "  expected fingerprint: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1222
+#: ../resize/resize.ml:1223
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 "форматом першого розділу є NTFS, але розділ не містить контрольної суми "
 "завантажувача NTFS"
 
-#. ../resize/resize.ml:216
-#. ../resize/resize.ml:203
+#. ../resize/resize.ml:217
+#. ../resize/resize.ml:204
 #. ../customize/customize_main.ml:88
 #: ../sysprep/main.ml:133 ../sparsify/cmdline.ml:64 ../sparsify/cmdline.ml:62
 msgid "format"
@@ -3064,14 +3064,14 @@ msgid "heading for %s must not end with newline or period"
 msgstr ""
 "заголовок %s не повинен завершуватися символом нового рядка або крапкою"
 
-#: ../customize/customize_run.ml:60
+#: ../customize/customize_run.ml:55
 msgid ""
 "host cpu (%s) and guest arch (%s) are not compatible, so you cannot use "
 "command line options that involve running commands in the guest.  Use --"
 "firstboot scripts instead."
 msgstr ""
 
-#: ../customize/customize_run.ml:220
+#: ../customize/customize_run.ml:215
 msgid "hostname could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати назви вузла"
 
@@ -3162,12 +3162,12 @@ msgstr ""
 "портативною системою). Якщо це не так, ймовірно, маємо справу із вадою у "
 "libguestfs. root=%s fmt=%s"
 
-#: ../customize/customize_run.ml:55
+#: ../customize/customize_run.ml:50
 msgid "log file %s: %s (ignored)"
 msgstr ""
 
-#. ../resize/resize.ml:207
-#: ../resize/resize.ml:210 ../resize/resize.ml:209 ../resize/resize.ml:208
+#. ../resize/resize.ml:208
+#: ../resize/resize.ml:211 ../resize/resize.ml:210 ../resize/resize.ml:209
 msgid "lv"
 msgstr "lv"
 
@@ -3197,13 +3197,13 @@ msgstr ""
 "завантаження. Скористайтеся параметром --root для зміни способу обробки "
 "таких систем за допомогою virt-v2v."
 
-#: ../customize/customize_run.ml:157
+#: ../customize/customize_run.ml:152
 msgid ""
 "multiple --root-password/--password options set the password for user '%s' "
 "twice"
 msgstr ""
 
-#: ../resize/resize.ml:193
+#: ../resize/resize.ml:194
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
@@ -3297,7 +3297,7 @@ msgstr ""
 "у файловій системі «%s» недостатньо вільного місця для перетворення. "
 "Вільними є %Ld байтів < потрібно %Ld байтів"
 
-#: ../resize/resize.ml:147
+#: ../resize/resize.ml:148
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
@@ -3387,12 +3387,12 @@ msgstr ""
 msgid "package '%s' contains no files"
 msgstr ""
 
-#. ../resize/resize.ml:199
-#: ../resize/resize.ml:221 ../resize/resize.ml:204 ../resize/resize.ml:200
+#. ../resize/resize.ml:200
+#: ../resize/resize.ml:222 ../resize/resize.ml:205 ../resize/resize.ml:201
 msgid "part"
 msgstr "частина"
 
-#: ../resize/resize.ml:220 ../resize/resize.ml:219
+#: ../resize/resize.ml:221 ../resize/resize.ml:220
 msgid "part=size"
 msgstr "частина=розмір"
 
@@ -3412,15 +3412,15 @@ msgstr ""
 "Якщо це не так, скористайтеся параметром --password-crypto і створіть "
 "повідомлення щодо вади."
 
-#: ../customize/customize_run.ml:326
+#: ../customize/customize_run.ml:321
 msgid "passwords could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати паролі"
 
-#: ../resize/resize.ml:989 ../resize/resize.ml:965
+#: ../resize/resize.ml:990 ../resize/resize.ml:966
 msgid "pread-device: short read"
 msgstr "pread-device: неповне читання"
 
-#: ../resize/resize.ml:145
+#: ../resize/resize.ml:146
 msgid "pvresize"
 msgstr "pvresize"
 
@@ -3440,12 +3440,12 @@ msgstr ""
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
-#: ../customize/customize_run.ml:151
+#: ../customize/customize_run.ml:146
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 "для цього типу гостьових систем не можна встановлювати базу випадковості"
 
-#: ../resize/resize.ml:146
+#: ../resize/resize.ml:147
 msgid "resize2fs"
 msgstr "resize2fs"
 
@@ -3470,15 +3470,15 @@ msgstr ""
 msgid "script: killed by signal (%d)"
 msgstr ""
 
-#: ../resize/resize.ml:194
+#: ../resize/resize.ml:195
 msgid "sectors"
 msgstr "сектори"
 
-#: ../customize/customize_run.ml:118
+#: ../customize/customize_run.ml:113
 msgid "sorry, don't know how to use --install with the '%s' package manager"
 msgstr ""
 
-#: ../customize/customize_run.ml:145
+#: ../customize/customize_run.ml:140
 msgid "sorry, don't know how to use --update with the '%s' package manager"
 msgstr ""
 
@@ -3625,7 +3625,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
-#: ../customize/customize_run.ml:276
+#: ../customize/customize_run.ml:271
 msgid "timezone could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати часовий пояс"
 
@@ -3670,7 +3670,7 @@ msgid ""
 "messages"
 msgstr ""
 
-#: ../resize/resize.ml:279
+#: ../resize/resize.ml:280
 msgid "unknown --align-first option: use never|always|auto"
 msgstr "невідомий параметр --align-first: можливі варіанти — never|always|auto"
 
@@ -3711,7 +3711,7 @@ msgstr ""
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
-#: ../resize/resize.ml:579
+#: ../resize/resize.ml:580
 msgid "unknown/unavailable method for expanding filesystem %s"
 msgstr ""
 
@@ -3721,7 +3721,7 @@ msgstr ""
 msgid "uri"
 msgstr "адреса"
 
-#: ../resize/resize.ml:311
+#: ../resize/resize.ml:312
 msgid "usage is: %s [--options] indisk outdisk"
 msgstr "Користування: %s [--параметри] вхідний_диск вихідний_диск"
 
@@ -3826,7 +3826,7 @@ msgstr ""
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
-#: ../resize/resize.ml:149
+#: ../resize/resize.ml:150
 msgid "xfs_growfs"
 msgstr "xfs_growfs"
 
@@ -3869,12 +3869,12 @@ msgstr "не можна одночасно використовувати пар
 msgid "you cannot use --in-place and -o options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -o"
 
-#: ../resize/resize.ml:779
+#: ../resize/resize.ml:780
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 "не можна використовувати одночасно параметр --expand і параметр --shrink"
 
-#: ../sparsify/cmdline.ml:146 ../resize/resize.ml:317
+#: ../sparsify/cmdline.ml:146 ../resize/resize.ml:318
 msgid "you cannot use the same disk image for input and output"
 msgstr ""
 "ви не можете скористатися тим самим образом диска для введення та виведення "
@@ -9091,27 +9091,27 @@ msgstr "надто мале значення для розміру пам’ят
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
-#: src/info.c:144
+#: src/info.c:152
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
 
-#: src/info.c:175
+#: src/info.c:183
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 "Інформація від qemu-img: «virtual-size» не можна представити як 64-бітове "
 "ціле число"
 
-#: src/info.c:183
+#: src/info.c:191
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-size»"
 
-#: src/info.c:221
+#: src/info.c:229
 msgid "qemu-img info: JSON output was not an object"
 msgstr "Інформація від qemu-img: дані, виведені JSON, не є об’єктом"
 
-#: src/info.c:287
+#: src/info.c:301
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
@@ -9119,16 +9119,16 @@ msgstr ""
 "командою info qemu-img не виведено жодних даних, але і не повернуто коду "
 "стану помилки"
 
-#: src/info.c:321
+#: src/info.c:335
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr "Інформація від qemu-img: помилка під час обробки JSON: %s"
 
-#: src/info.c:323
+#: src/info.c:337
 msgid "qemu-img info: unknown JSON parse error"
 msgstr "Інформація від qemu-img: невідома помилка під час обробки JSON"
 
-#: src/info.c:461
+#: src/info.c:475
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
@@ -9684,7 +9684,7 @@ msgstr "помилка xdr_guestfs_message_header"
 msgid "dispatch failed to marshal args"
 msgstr "помилка розподілу на основні аргументи"
 
-#: src/proto.c:363 src/proto.c:852
+#: src/proto.c:363 src/proto.c:861
 msgid "operation cancelled by user"
 msgstr "дію скасовано користувачем"
 
@@ -9703,21 +9703,21 @@ msgstr "отримано керівну послідовність байтів 
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "довжина повідомлення (%u) перевищує максимальний можливий розмір (%d)"
 
-#: src/proto.c:811
+#: src/proto.c:820
 msgid "write to daemon socket"
 msgstr "записати до сокета фонової служби"
 
-#: src/proto.c:837
+#: src/proto.c:846
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: під час читання фрагментів файла отримано неочікуване "
 "значення прапорця"
 
-#: src/proto.c:845
+#: src/proto.c:854
 msgid "failed to parse file chunk"
 msgstr "не вдалося обробити фрагмент файла"
 
-#: src/proto.c:856
+#: src/proto.c:865
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
