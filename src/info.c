@@ -31,6 +31,14 @@
 #include <assert.h>
 #include <string.h>
 
+#ifdef HAVE_SYS_TIME_H
+#include <sys/time.h>
+#endif
+
+#ifdef HAVE_SYS_RESOURCE_H
+#include <sys/resource.h>
+#endif
+
 #if HAVE_YAJL
 #include <yajl/yajl_tree.h>
 #endif
@@ -270,6 +278,12 @@ get_json_output (guestfs_h *g, const char *filename)
   guestfs___cmd_add_arg (cmd, fdpath);
   guestfs___cmd_set_stdout_callback (cmd, parse_json, &tree,
                                      CMD_STDOUT_FLAG_WHOLE_BUFFER);
+#ifdef RLIMIT_AS
+  guestfs___cmd_set_child_rlimit (cmd, RLIMIT_AS, 1000000000 /* 1GB */);
+#endif
+#ifdef RLIMIT_CPU
+  guestfs___cmd_set_child_rlimit (cmd, RLIMIT_CPU, 10 /* seconds */);
+#endif
   r = guestfs___cmd_run (cmd);
   close (fd);
   if (r == -1)
@@ -548,6 +562,12 @@ old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
   guestfs___cmd_add_arg (cmd, "info");
   guestfs___cmd_add_arg (cmd, safe_filename);
   guestfs___cmd_set_stdout_callback (cmd, fn, data, 0);
+#ifdef RLIMIT_AS
+  guestfs___cmd_set_child_rlimit (cmd, RLIMIT_AS, 1000000000 /* 1GB */);
+#endif
+#ifdef RLIMIT_CPU
+  guestfs___cmd_set_child_rlimit (cmd, RLIMIT_CPU, 10 /* seconds */);
+#endif
   r = guestfs___cmd_run (cmd);
   if (r == -1)
     return -1;

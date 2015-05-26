@@ -77,6 +77,13 @@
 #include <sys/wait.h>
 #include <sys/select.h>
 
+#ifdef HAVE_SYS_TIME_H
+#include <sys/time.h>
+#endif
+#ifdef HAVE_SYS_RESOURCE_H
+#include <sys/resource.h>
+#endif
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
@@ -99,6 +106,12 @@ struct buffering {
   size_t len;
   void (*add_data) (struct command *cmd, const char *buf, size_t len);
   void (*close_data) (struct command *cmd);
+};
+
+struct child_rlimits {
+  struct child_rlimits *next;
+  int resource;
+  long limit;
 };
 
 struct command
@@ -134,6 +147,9 @@ struct command
 
   /* PID of subprocess (if > 0). */
   pid_t pid;
+
+  /* Optional child limits. */
+  struct child_rlimits *child_rlimits;
 };
 
 /* Create a new command handle. */
@@ -308,6 +324,21 @@ guestfs___cmd_clear_close_files (struct command *cmd)
   cmd->close_files = false;
 }
 
+/* Set up child rlimits, in case the process we are running could
+ * consume lots of space or time.
+ */
+void
+guestfs___cmd_set_child_rlimit (struct command *cmd, int resource, long limit)
+{
+  struct child_rlimits *p;
+
+  p = safe_malloc (cmd->g, sizeof *p);
+  p->resource = resource;
+  p->limit = limit;
+  p->next = cmd->child_rlimits;
+  cmd->child_rlimits = p;
+}
+
 /* Finish off the command by either NULL-terminating the argv array or
  * adding a terminating \0 to the string, or die with an internal
  * error if no command has been added.
@@ -367,6 +398,10 @@ run_command (struct command *cmd)
   int errorfd[2] = { -1, -1 };
   int outfd[2] = { -1, -1 };
   char status_string[80];
+#ifdef HAVE_SETRLIMIT
+  struct child_rlimits *child_rlimit;
+  struct rlimit rlimit;
+#endif
 
   /* Set up a pipe to capture command output and send it to the error log. */
   if (cmd->capture_errors) {
@@ -457,6 +492,23 @@ run_command (struct command *cmd)
 
   /* Set the umask for all subcommands to something sensible (RHBZ#610880). */
   umask (022);
+
+#ifdef HAVE_SETRLIMIT
+  for (child_rlimit = cmd->child_rlimits;
+       child_rlimit != NULL;
+       child_rlimit = child_rlimit->next) {
+    rlimit.rlim_cur = rlimit.rlim_max = child_rlimit->limit;
+    if (setrlimit (child_rlimit->resource, &rlimit) == -1) {
+      /* EPERM means we're trying to raise the limit (ie. the limit is
+       * already more restrictive than what we want), so ignore it.
+       */
+      if (errno != EPERM) {
+        perror ("setrlimit");
+        _exit (EXIT_FAILURE);
+      }
+    }
+  }
+#endif /* HAVE_SETRLIMIT */
 
   /* Run the command. */
   switch (cmd->style) {

@@ -302,8 +302,10 @@ AC_CHECK_HEADERS([\
     linux/raid/md_u.h \
     printf.h \
     sys/inotify.h \
+    sys/resource.h \
     sys/socket.h \
     sys/statvfs.h \
+    sys/time.h \
     sys/types.h \
     sys/un.h \
     sys/wait.h \
@@ -331,6 +333,7 @@ AC_CHECK_FUNCS([\
     posix_fadvise \
     removexattr \
     setitimer \
+    setrlimit \
     setxattr \
     sigaction \
     statvfs \
