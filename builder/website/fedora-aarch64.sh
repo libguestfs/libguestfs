@@ -29,7 +29,7 @@ if [ $# -ne 1 ]; then
 fi
 
 version=$1
-tree=https://download.fedoraproject.org/pub/fedora-secondary/releases/21/Server/aarch64/os/
+tree=https://download.fedoraproject.org/pub/fedora-secondary/releases/$version/Server/aarch64/os/
 output=fedora-$version-aarch64
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
