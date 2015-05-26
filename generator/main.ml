@@ -24,7 +24,6 @@ open Printf
 open Pr
 open Actions
 open Structs
-open Api_versions
 open Types
 
 open C
@@ -79,9 +78,6 @@ Run it from the top source directory using the command
    with exn ->
      perror "lock: BUGS" exn;
      exit 1);
-
-  (* Read the API versions file. *)
-  load_api_versions "src/api-support/added";
 
   output_to "src/guestfs_protocol.x" generate_xdr;
   output_to "src/guestfs.h" generate_guestfs_h;

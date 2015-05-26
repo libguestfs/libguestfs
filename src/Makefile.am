@@ -59,10 +59,7 @@ EXTRA_DIST = \
 	MAX_PROC_NR \
 	libguestfs.3 \
 	libguestfs.pc.in \
-	guestfs.pod \
-	api-support/added \
-	api-support/README \
-	api-support/update-from-tarballs.sh
+	guestfs.pod
 
 include_HEADERS = guestfs.h
 

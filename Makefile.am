@@ -571,7 +571,6 @@ maintainer-check-extra-dist:
 	git ls-files | sort > tmp/gitfiles
 	diff -ur tmp/tarfiles tmp/gitfiles | \
 	  grep '^\+' | \
-	  grep -v '^\+src/api-support/[0-9]' | \
 	  grep -v '^\+intltool-.*\.in' | \
 	  grep -v '^\+.gitmodules' | \
 	  grep -v '^\+.gnulib' ||:

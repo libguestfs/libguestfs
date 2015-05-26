@@ -21,8 +21,6 @@ include $(top_srcdir)/subdir-rules.mk
 sources = \
 	actions.ml \
 	actions.mli \
-	api_versions.ml \
-	api_versions.mli \
 	bindtests.ml \
 	c.ml \
 	checks.ml \
@@ -64,7 +62,6 @@ objects = \
 	utils.cmo \
 	actions.cmo \
 	structs.cmo \
-	api_versions.cmo \
 	optgroups.cmo \
 	prepopts.cmo \
 	events.cmo \
