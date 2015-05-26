@@ -61,6 +61,7 @@ for t in $tarballs; do
             grep -v '_len$' |
             grep -v '_val$' |
             grep -v '_cb$' |
+            grep -v '^guestfs_impl_' |
             grep -v '^guestfs_int_' |
             grep -v '^guestfs_set_$' |
             grep -v '^guestfs_free_' |
