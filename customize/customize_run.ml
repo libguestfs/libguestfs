@@ -45,12 +45,7 @@ let run (g : Guestfs.guestfs) root (ops : ops) =
 
   (* Function to cat the log file, for debugging and error messages. *)
   let debug_logfile () =
-    try
-      (* XXX If stderr is redirected this actually truncates the
-       * redirection file, which is pretty annoying to say the
-       * least.
-       *)
-      g#download logfile "/dev/stderr"
+    try g#download logfile "/dev/stderr"
     with exn ->
       warning (f_"log file %s: %s (ignored)") logfile (Printexc.to_string exn) in
 

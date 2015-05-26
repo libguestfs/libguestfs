@@ -756,9 +756,18 @@ guestfs_int_recv_file (guestfs_h *g, const char *filename)
 
   g->user_cancel = 0;
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
+  /* If downloading to /dev/stdout or /dev/stderr, dup the file
+   * descriptor instead of reopening the file, so that redirected
+   * stdout/stderr work properly.
+   */
+  if (STREQ (filename, "/dev/stdout"))
+    fd = dup (1);
+  else if (STREQ (filename, "/dev/stderr"))
+    fd = dup (2);
+  else
+    fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666);
   if (fd == -1) {
-    perrorf (g, "open: %s", filename);
+    perrorf (g, "%s", filename);
     goto cancel;
   }
 
