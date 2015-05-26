@@ -330,9 +330,12 @@ type visibility =
   | VDebug                        (* Exported everywhere, but not documented *)
   | VInternal                     (* Not exported *)
 
+type version = int * int * int
+
 (* Type of an action as declared in Actions module. *)
 type action = {
   name : string;                  (* name, not including "guestfs_" *)
+  added : version;                (* which version was the API first added *)
   style : style;                  (* args and return value *)
   proc_nr : int option;           (* proc number, None for non-daemon *)
   tests : c_api_tests;            (* C API tests *)

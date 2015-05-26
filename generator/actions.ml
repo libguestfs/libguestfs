@@ -24,7 +24,9 @@ open Utils
 (* Default settings for all action fields.  So we copy and override
  * this struct by writing '{ defaults with name = &c }'
  *)
-let defaults = { name = ""; style = RErr, [], []; proc_nr = None;
+let defaults = { name = "";
+                 added = (-1,-1,-1);
+                 style = RErr, [], []; proc_nr = None;
                  tests = []; test_excuse = "";
                  shortdesc = ""; longdesc = "";
                  protocol_limit_warning = false; fish_alias = [];
