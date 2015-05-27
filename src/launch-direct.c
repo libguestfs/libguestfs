@@ -1408,10 +1408,6 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
    * discard option on -drive at all.
    */
   bool qemu15 = qemu_version >= 1005000;
-  /* qemu >= 1.6.  This was the first version that supported unmap on
-   * qcow2 backing files.
-   */
-  bool qemu16 = qemu_version >= 1006000;
 
   if (!qemu15)
     NOT_SUPPORTED (g, false,
@@ -1436,12 +1432,8 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
   }
   else if (STREQ (drv->src.format, "raw"))
     /* OK */ ;
-  else if (STREQ (drv->src.format, "qcow2")) {
-    if (!qemu16)
-      NOT_SUPPORTED (g, false,
-                     _("discard cannot be enabled on this drive: "
-                       "qemu < 1.6 cannot do discard on qcow2 files"));
-  }
+  else if (STREQ (drv->src.format, "qcow2"))
+    /* OK */ ;
   else {
     /* It's possible in future other formats will support discard, but
      * currently (qemu 1.7) none of them do.
