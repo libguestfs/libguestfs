@@ -397,6 +397,28 @@ notes=Fedora 22 Server (aarch64)
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[fedora-22]
+name=Fedora® 22 Server (armv7l)
+osinfo=fedora22
+arch=armv7l
+file=fedora-22-armv7l.xz
+checksum=8c5c39890409e3fe6f0204834289776bb7a8dca95da2f4d3459a99282f5ed100d7ada1caac2234dd0b357ad4047ef441b128c9ba6256b76df79dee6b5c9e33f8
+format=raw
+size=6442450944
+compressed_size=242234088
+expand=/dev/sda3
+notes=Fedora 22 Server (armv7l)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-armv7l.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
 [scientificlinux-6]
 name=Scientific Linux 6.5
 osinfo=centos6.5
