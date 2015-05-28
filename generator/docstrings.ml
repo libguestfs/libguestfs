@@ -51,6 +51,12 @@ fact that they are deprecated indicates that there are problems
 with correct use of these functions." prefix alt in
     Some txt
 
+let version_added = function
+  | { added = (0, 0, release) } -> Some (sprintf "0.%d" release)
+  | { added = ((0|1) as major, minor, release) } ->
+    Some (sprintf "%d.%d.%d" major minor release)
+  | _ -> None
+
 let copyright_years =
   let this_year = 1900 + (localtime (time ())).tm_year in
   if this_year > 2009 then sprintf "2009-%04d" this_year else "2009"

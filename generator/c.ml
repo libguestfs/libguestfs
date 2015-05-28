@@ -301,8 +301,10 @@ I<The caller must free the returned buffer after use>.\n\n"
     pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
-  let version = api_version f.added in
-  pr "(Added in %s)\n\n" version;
+  (match version_added f with
+  | Some version -> pr "(Added in %s)\n\n" version
+  | None -> assert false
+  );
 
   (* Handling of optional argument variants. *)
   if optargs <> [] then (
@@ -322,8 +324,8 @@ L</KEYS AND PASSPHRASES> for more information.\n\n";
     pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
   )
 
-and generate_actions_pod_back_compat_entry { name = name; added = added;
-                                             style = ret, args, _ } =
+and generate_actions_pod_back_compat_entry ({ name = name;
+                                              style = ret, args, _ } as f) =
   pr "=head2 guestfs_%s\n\n" name;
   generate_prototype ~extern:false ~indent:" " ~handle:"g"
     ~prefix:"guestfs_" name (ret, args, []);
@@ -334,13 +336,10 @@ and generate_actions_pod_back_compat_entry { name = name; added = added;
   pr "L</guestfs_%s_opts> with no optional arguments.\n" name;
   pr "\n";
 
-  let version = api_version added in
-  pr "(Added in %s)\n\n\n" version;
-
-and api_version = function
-  | (0, 0, release) -> sprintf "0.%d" release
-  | ((0|1) as major, minor, release) -> sprintf "%d.%d.%d" major minor release
-  | _ -> assert false
+  (match version_added f with
+  | Some version -> pr "(Added in %s)\n\n\n" version
+  | None -> assert false
+  )
 
 and generate_structs_pod () =
   generate_header PODStyle GPLv2plus;
