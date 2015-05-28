@@ -1109,6 +1109,10 @@ guestfs_session_close (GuestfsSession *session, GError **err)
       | Some alt ->
         pr " * Deprecated: In new code, use guestfs_session_%s() instead\n" alt
       );
+      (match version_added f with
+      | None -> ()
+      | Some version -> pr " * Since: %s\n" version
+      );
       pr " */\n";
 
       (* The function body *)
