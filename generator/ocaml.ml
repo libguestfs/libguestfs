@@ -153,12 +153,23 @@ end
       generate_ocaml_prototype name style;
 
       if need_doc then (
+        let has_tags = ref false in
+
         pr "(** %s" shortdesc;
         (match deprecated_by with
          | None -> ()
          | Some replacement ->
-             pr "\n\n    @deprecated Use {!%s} instead\n" replacement
+             has_tags := true;
+             pr "\n\n    @deprecated Use {!%s} instead" replacement
         );
+        (match version_added f with
+        | None -> ()
+        | Some version ->
+             has_tags := true;
+             pr "\n\n    @since %s" version
+        );
+        if !has_tags then
+          pr "\n";
         pr " *)\n";
       );
 
