@@ -273,6 +273,10 @@ public class GuestFS {
         pr "   * </p><p>\n";
         pr "   * %s\n" doc;
         pr "   * </p>\n";
+        (match version_added f with
+        | None -> ()
+        | Some version -> pr "   * @since %s\n" version
+        );
         (match f with
         | { deprecated_by = None } -> ()
         | { deprecated_by = Some alt } ->
