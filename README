@@ -234,10 +234,6 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | Test::More   |             | O | Perl module used by tests.              |
 +--------------+-------------+---+-----------------------------------------+
-| XML::XPath   |             | O | Perl module used by some virt-* tools.  |
-+--------------+-------------+---+-----------------------------------------+
-| XML::XPath::XMLParser      | O | Perl module used by some virt-* tools.  |
-+--------------+-------------+---+-----------------------------------------+
 | perl-libintl |             | O | Perl module for localization.           |
 +--------------+-------------+---+-----------------------------------------+
 | bash-completion            | O | For tab-completion of commands in bash. |
