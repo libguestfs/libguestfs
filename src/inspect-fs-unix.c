@@ -355,8 +355,8 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       goto skip_release_checks;
   }
 
-  /* Oracle Linux includes a "/etc/redhat-release" file, hence the Oracle check
-   * needs to be performed before the Red-Hat one.
+  /* RHEL-based distros include a "/etc/redhat-release" file, hence their
+   * checks need to be performed before the Red-Hat one.
    */
   if (guestfs_is_file_opts (g, "/etc/oracle-release",
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
@@ -379,6 +379,34 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       if (fs->minor_version == -1)
         return -1;
     } else if ((major = match1 (g, fs->product_name, re_oracle_linux_no_minor)) != NULL) {
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1)
+        return -1;
+      fs->minor_version = 0;
+    }
+  }
+  else if (guestfs_is_file_opts (g, "/etc/centos-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    fs->distro = OS_DISTRO_CENTOS;
+
+    if (parse_release_file (g, fs, "/etc/centos-release") == -1)
+      return -1;
+
+    if (match2 (g, fs->product_name, re_centos_old, &major, &minor) ||
+             match2 (g, fs->product_name, re_centos, &major, &minor)) {
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    }
+    else if ((major = match1 (g, fs->product_name, re_centos_no_minor)) != NULL) {
       fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1)
