@@ -302,7 +302,7 @@ let create_libvirt_xml ?pool source targets guestcaps
       e "on_crash" [] [PCData "restart"];
 
       e "devices" [] devices;
-    ] (* /doc *) in
+    ] in
 
   doc
 
