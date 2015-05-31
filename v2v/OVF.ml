@@ -251,6 +251,7 @@ let rec create_ovf source targets guestcaps inspect
       "xmlns:ovf", "http://schemas.dmtf.org/ovf/envelope/1/";
       "ovf:version", "0.9"
     ] [
+      Comment generated_by;
       e "References" [] [];
       e "Section" ["xsi:type", "ovf:NetworkSection_Type"] [
         e "Info" [] [PCData "List of networks"]

@@ -289,6 +289,7 @@ let create_libvirt_xml ?pool source targets guestcaps
     doc "domain" [
       "type", "kvm";                (* Always assume target is kvm? *)
     ] [
+      Comment generated_by;
       e "name" [] [PCData source.s_name];
       e "memory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
       e "currentMemory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
