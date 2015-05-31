@@ -265,7 +265,7 @@ let rec create_ovf source targets guestcaps inspect
         e "Description" [] [PCData title];
         e "Domain" [] [];
         e "CreationDate" [] [PCData iso_time];
-        e "IsInitilized" [] [PCData "True"];
+        e "IsInitilized" (* sic *) [] [PCData "True"];
         e "IsAutoSuspend" [] [PCData "False"];
         e "TimeZone" [] [];
         e "IsStateless" [] [PCData "False"];
