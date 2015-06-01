@@ -1259,6 +1259,89 @@ Of course you can.  Git makes it easy to fork libguestfs.  Github
 makes it even easier.  It's nice if you tell us on the mailing list
 about forks and the reasons for them.
 
+=head1 MISCELLANEOUS QUESTIONS
+
+=head2 Can I monitor the live disk activity of a virtual machine using libguestfs?
+
+A common request is to be able to use libguestfs to monitor the live
+disk activity of a guest, for example, to get notified every time a
+guest creates a new file.  Libguestfs does I<not> work in the way some
+people imagine, as you can see from this diagram:
+
+            ┌─────────────────────────────────────┐
+            │ monitoring program using libguestfs │
+            └─────────────────────────────────────┘
+                             ↓
+ ┌───────────┐    ┌──────────────────────┐
+ │ live VM   │    │ libguestfs appliance │
+ ├───────────┤    ├──────────────────────┤
+ │ kernel (1)│    │ appliance kernel (2) │
+ └───────────┘    └──────────────────────┘
+      ↓                      ↓ (r/o connection)
+      ┌──────────────────────┐
+      |      disk image      |
+      └──────────────────────┘
+
+This scenario is safe (as long as you set the C<readonly> flag when
+adding the drive).  However the libguestfs appliance kernel (2) does
+not see all the changes made to the disk image, for two reasons:
+
+=over 4
+
+=item i.
+
+The VM kernel (1) can cache data in memory, so it doesn't appear in
+the disk image.
+
+=item ii.
+
+The libguestfs appliance kernel (2) doesn't expect that the disk image
+is changing underneath it, so its own cache is not magically updated
+even when the VM kernel (1) does update the disk image.
+
+=back
+
+The only supported solution is to restart the entire libguestfs
+appliance whenever you want to look at changes in the disk image.  At
+the API level that corresponds to calling C<guestfs_shutdown> followed
+by C<guestfs_launch>, which is a heavyweight operation (see also
+L<guestfs-performance(3)>).
+
+There are some unsupported hacks you can try if relaunching the
+appliance is really too costly:
+
+=over 4
+
+=item *
+
+Call C<guestfs_drop_caches (g, 3)>.  This causes all cached data help
+by the libguestfs appliance kernel (2) to be discarded, so it goes
+back to the disk image.
+
+However this on its own is not sufficient, because qemu also caches
+some data.  You will also need to patch libguestfs to (re-)enable the
+C<cache=unsafe> mode.  See:
+L<https://rwmj.wordpress.com/2013/09/02/new-in-libguestfs-allow-cache-mode-to-be-selected/>
+
+=item *
+
+Use a tool like L<virt-bmap|http://git.annexia.org/?p=virt-bmap.git>
+instead.
+
+=item *
+
+Run an agent inside the guest.
+
+=back
+
+Nothing helps if the guest is making more fundamental changes (eg.
+deleting filesystems).  For those kinds of things you must relaunch
+the appliance.
+
+(Note there is a third problem that you need to use consistent
+snapshots to really examine live disk images, but that's a general
+problem with using libguestfs against any live disk image.)
+
 =head1 SEE ALSO
 
 L<guestfish(1)>,
