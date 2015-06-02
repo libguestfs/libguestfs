@@ -160,11 +160,16 @@ parse_release_file (guestfs_h *g, struct inspect_fs *fs,
  *   DISTRIB_CODENAME=Henry_Farman
  *   DISTRIB_DESCRIPTION="Mandriva Linux 2010.1"
  * Mandriva also has a normal release file called /etc/mandriva-release.
+ *
+ * CoreOS has a /etc/lsb-release link to /usr/share/coreos/lsb-release containing:
+ *   DISTRIB_ID=CoreOS
+ *   DISTRIB_RELEASE=647.0.0
+ *   DISTRIB_CODENAME="Red Dog"
+ *   DISTRIB_DESCRIPTION="CoreOS 647.0.0"
  */
 static int
-parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
+parse_lsb_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
 {
-  const char *filename = "/etc/lsb-release";
   int64_t size;
   CLEANUP_FREE_STRING_LIST char **lines = NULL;
   size_t i;
@@ -206,6 +211,11 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
     else if (fs->distro == 0 &&
              STREQ (lines[i], "DISTRIB_ID=\"Mageia\"")) {
       fs->distro = OS_DISTRO_MAGEIA;
+      r = 1;
+    }
+    else if (fs->distro == 0 &&
+             STREQ (lines[i], "DISTRIB_ID=CoreOS")) {
+      fs->distro = OS_DISTRO_COREOS;
       r = 1;
     }
     else if (STRPREFIX (lines[i], "DISTRIB_RELEASE=")) {
@@ -338,7 +348,7 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
   if (guestfs_is_file_opts (g, "/etc/lsb-release",
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
-    r = parse_lsb_release (g, fs);
+    r = parse_lsb_release (g, fs, "/etc/lsb-release");
     if (r == -1)        /* error */
       return -1;
     if (r == 1)         /* ok - detected the release from this file */
@@ -790,6 +800,59 @@ guestfs_int_check_minix_root (guestfs_h *g, struct inspect_fs *fs)
 
   /* Determine hostname. */
   if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
+  return 0;
+}
+
+/* The currently mounted device is a CoreOS root. From this partition we can
+ * only determine the hostname. All immutable OS files are under a separate
+ * read-only /usr partition.
+ */
+int
+guestfs_int_check_coreos_root (guestfs_h *g, struct inspect_fs *fs)
+{
+  fs->type = OS_TYPE_LINUX;
+  fs->distro = OS_DISTRO_COREOS;
+
+  /* Determine hostname. */
+  if (check_hostname_unix (g, fs) == -1)
+    return -1;
+
+  /* CoreOS does not contain /etc/fstab to determine the mount points.
+   * Associate this filesystem with the "/" mount point.
+   */
+  if (add_fstab_entry (g, fs, fs->mountable, "/") == -1)
+    return -1;
+
+  return 0;
+}
+
+/* The currently mounted device looks like a CoreOS /usr. In CoreOS
+ * the read-only /usr contains the OS version. The /etc/os-release is a
+ * link to /usr/share/coreos/os-release.
+ */
+int
+guestfs_int_check_coreos_usr (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+
+  fs->type = OS_TYPE_LINUX;
+  fs->distro = OS_DISTRO_COREOS;
+  if (guestfs_is_file_opts (g, "/share/coreos/lsb-release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    r = parse_lsb_release (g, fs, "/share/coreos/lsb-release");
+    if (r == -1)        /* error */
+      return -1;
+  }
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  /* CoreOS does not contain /etc/fstab to determine the mount points.
+   * Associate this filesystem with the "/usr" mount point.
+   */
+  if (add_fstab_entry (g, fs, fs->mountable, "/usr") == -1)
     return -1;
 
   return 0;

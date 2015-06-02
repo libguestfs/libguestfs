@@ -232,6 +232,17 @@ check_filesystem (guestfs_h *g, const char *mountable,
     if (guestfs_int_check_linux_root (g, fs) == -1)
       return -1;
   }
+  /* CoreOS root? */
+  else if (is_dir_etc &&
+           guestfs_is_dir (g, "/root") > 0 &&
+           guestfs_is_dir (g, "/home") > 0 &&
+           guestfs_is_dir (g, "/usr") > 0 &&
+           guestfs_is_file (g, "/etc/coreos/update.conf") > 0) {
+    fs->is_root = 1;
+    fs->format = OS_FORMAT_INSTALLED;
+    if (guestfs_int_check_coreos_root (g, fs) == -1)
+      return -1;
+  }
   /* Linux /usr/local? */
   else if (is_dir_etc &&
            is_dir_bin &&
@@ -246,6 +257,14 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_dir (g, "/local") > 0 &&
            guestfs_is_file (g, "/etc/fstab") == 0)
     ;
+  /* CoreOS /usr? */
+  else if (is_dir_bin &&
+           is_dir_share &&
+           guestfs_is_dir (g, "/local") > 0 &&
+           guestfs_is_dir (g, "/share/coreos") > 0) {
+    if (guestfs_int_check_coreos_usr (g, fs) == -1)
+      return -1;
+  }
   /* Linux /var? */
   else if (guestfs_is_dir (g, "/log") > 0 &&
            guestfs_is_dir (g, "/run") > 0 &&
@@ -476,6 +495,7 @@ guestfs_int_check_package_format (guestfs_h *g, struct inspect_fs *fs)
 
   case OS_DISTRO_SLACKWARE:
   case OS_DISTRO_TTYLINUX:
+  case OS_DISTRO_COREOS:
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_BUILDROOT:
   case OS_DISTRO_CIRROS:
@@ -546,6 +566,7 @@ guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
 
   case OS_DISTRO_SLACKWARE:
   case OS_DISTRO_TTYLINUX:
+  case OS_DISTRO_COREOS:
   case OS_DISTRO_WINDOWS:
   case OS_DISTRO_BUILDROOT:
   case OS_DISTRO_CIRROS:

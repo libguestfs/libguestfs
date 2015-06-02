@@ -551,6 +551,7 @@ enum inspect_os_distro {
   OS_DISTRO_ORACLE_LINUX,
   OS_DISTRO_FREEBSD,
   OS_DISTRO_NETBSD,
+  OS_DISTRO_COREOS,
 };
 
 enum inspect_os_package_format {
@@ -797,6 +798,8 @@ extern int guestfs_int_check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs_int_check_openbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs_int_check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs_int_check_minix_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs_int_check_coreos_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs_int_check_coreos_usr (guestfs_h *g, struct inspect_fs *fs);
 
 /* inspect-fs-windows.c */
 extern char *guestfs_int_case_sensitive_path_silently (guestfs_h *g, const char *);

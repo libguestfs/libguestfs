@@ -42,6 +42,7 @@
 COMPILE_REGEXP (re_primary_partition, "^/dev/(?:h|s|v)d.[1234]$", 0)
 
 static void check_for_duplicated_bsd_root (guestfs_h *g);
+static void collect_coreos_inspection_info (guestfs_h *g);
 
 /* The main inspection code. */
 char **
@@ -70,6 +71,12 @@ guestfs_impl_inspect_os (guestfs_h *g)
     }
   }
 
+  /* The OS inspection information for CoreOS are gathered by inspecting
+   * multiple filesystems. Gather all the inspected information in the
+   * inspect_fs struct of the root filesystem.
+   */
+  collect_coreos_inspection_info (g);
+
   /* Check if the same filesystem was listed twice as root in g->fses.
    * This may happen for the *BSD root partition where an MBR partition
    * is a shadow of the real root partition probably /dev/sda5
@@ -85,6 +92,57 @@ guestfs_impl_inspect_os (guestfs_h *g)
   if (ret == NULL)
     guestfs_int_free_inspect_info (g);
   return ret;
+}
+
+/* Traverse through the filesystem list and find out if it contains the
+ * "/" and "/usr" filesystems of a CoreOS image. If this is the case,
+ * sum up all the collected information on the root fs.
+ */
+static void
+collect_coreos_inspection_info (guestfs_h *g)
+{
+  size_t i;
+  struct inspect_fs *root = NULL, *usr = NULL;
+
+  for (i = 0; i < g->nr_fses; ++i) {
+    struct inspect_fs *fs = &g->fses[i];
+
+    if (fs->distro == OS_DISTRO_COREOS && fs->is_root)
+      root = fs;
+  }
+
+  if (root == NULL)
+    return;
+
+  for (i = 0; i < g->nr_fses; ++i) {
+    struct inspect_fs *fs = &g->fses[i];
+
+    if (fs->distro != OS_DISTRO_COREOS || fs->is_root != 0)
+      continue;
+
+    /* CoreOS is designed to contain 2 /usr partitions (USR-A, USR-B):
+     * https://coreos.com/docs/sdk-distributors/sdk/disk-partitions/
+     * One is active and one passive. During the initial boot, the passive
+     * partition is empty and it gets filled up when an update is performed.
+     * Then, when the system reboots, the boot loader is instructed to boot
+     * from the passive partition. If both partitions are valid, we cannot
+     * determine which the active and which the passive is, unless we peep into
+     * the boot loader. As a workaround, we check the OS versions and pick the
+     * one with the higher version as active.
+     */
+    if (usr &&
+        (usr->major_version > fs->major_version ||
+         (usr->major_version == fs->major_version &&
+          usr->minor_version > fs->minor_version)))
+      continue;
+
+    usr = fs;
+  }
+
+  if (usr == NULL)
+    return;
+
+  guestfs_int_merge_fs_inspections (g, root, usr);
 }
 
 /* On *BSD systems, sometimes /dev/sda[1234] is a shadow of the real root
@@ -201,6 +259,7 @@ guestfs_impl_inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_BUILDROOT: ret = safe_strdup (g, "buildroot"); break;
   case OS_DISTRO_CENTOS: ret = safe_strdup (g, "centos"); break;
   case OS_DISTRO_CIRROS: ret = safe_strdup (g, "cirros"); break;
+  case OS_DISTRO_COREOS: ret = safe_strdup (g, "coreos"); break;
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_FREEBSD: ret = safe_strdup (g, "freebsd"); break;
