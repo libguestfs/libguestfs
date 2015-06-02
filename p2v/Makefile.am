@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	HACKING \
+	dependencies.m4 \
 	issue \
 	launch-virt-p2v.in \
 	p2v.ks.in \
@@ -79,10 +80,23 @@ virt_p2v_LDADD = \
 # Scripts to build the disk image, USB key, or kickstart.
 bin_SCRIPTS = virt-p2v-make-disk virt-p2v-make-kickstart
 
+dependencies_files = \
+	dependencies.archlinux \
+	dependencies.debian \
+	dependencies.redhat \
+	dependencies.suse
+CLEANFILES += $(dependencies_files)
+
+$(dependencies_files): dependencies.m4
+	define=`echo $@ | $(SED) 's/dependencies.//;y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/'`; \
+	m4 -D$$define=1 $< > $@-t
+	mv $@-t $@
+
 # Support files needed by the virt-p2v-make-* scripts.
 virtp2vdatadir = $(datadir)/virt-p2v
 
 virtp2vdata_DATA = \
+	$(dependencies_files) \
 	issue \
 	launch-virt-p2v \
 	p2v.ks.in \

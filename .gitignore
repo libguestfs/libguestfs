@@ -328,6 +328,10 @@ Makefile.in
 /ocaml/stamp-mlguestfs
 /ocaml/t/*.bc
 /ocaml/t/*.opt
+/p2v/dependencies.archlinux
+/p2v/dependencies.debian
+/p2v/dependencies.redhat
+/p2v/dependencies.suse
 /p2v/launch-virt-p2v
 /p2v/stamp-virt-p2v.pod
 /p2v/stamp-virt-p2v-make-disk.pod

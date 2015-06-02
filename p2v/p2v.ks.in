@@ -68,21 +68,7 @@ firewalld
 /usr/bin/gzip
 
 # The dependencies of virt-p2v.
-/usr/bin/xinit
-/usr/bin/ssh
-/usr/bin/qemu-nbd
-/usr/bin/Xorg
-xorg-x11-drivers
-xorg-x11-fonts-Type1
-metacity
-pcre
-libxml2
-gtk2
-nm-connection-editor
-network-manager-applet
-dbus-x11
-hwdata
-@hardware-support --optional
+__DEPENDENCIES__
 
 %end
 

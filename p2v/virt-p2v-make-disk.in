@@ -82,28 +82,24 @@ cleanup ()
 }
 trap cleanup INT QUIT TERM EXIT ERR
 
-# The dependencies are:
-#
-#   - pcre (library only)
-#   - libxml2 (library only)
-#   - gtk2 (library only)
-#   - ssh
-#   - qemu-nbd
-#   - xinit (script, part of X)
-#   - Xorg (or another X server, but only Xorg has been tested)
-#   - Xorg drivers
-#   - some fonts
-#   - hardware support (firmware etc, RHBZ#1157679)
-#   - metacity (window manager, another could be used)
-#   - NetworkManager
-#   - nm-connection-editor
-#   - nm-applet
-#   - dbus-x11 (required by nm-applet, but not specified as a dep in Fedora)
-#
-# Note that libguestfs is NOT a dependency.
+# Deal with stupid autotools libexecdir-not-expandable crap.
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+libexecdir="@libexecdir@"
+
+if [ -n "$VIRT_P2V_DATA_DIR" ]; then
+    datadir="$VIRT_P2V_DATA_DIR"
+    host_libexecdir="$VIRT_P2V_DATA_DIR"
+else
+    datadir="@datadir@/virt-p2v"
+    host_libexecdir="@libexecdir@"
+fi
+
+# Variations depending on the target distro.  The main difference
+# is in the list of distro packages we add to the base appliance.
 case "$osversion" in
     centos-*|fedora-*|rhel-*|scientificlinux-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/xinit,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/Xorg,xorg-x11-drivers,xorg-x11-fonts-Type1,metacity,NetworkManager,nm-connection-editor,network-manager-applet,dbus-x11,hwdata,@hardware-support
+        depsfile="$datadir/dependencies.redhat"
         cat > $tmpdir/p2v.conf <<'EOF'
 add_drivers+=" usb-storage "
 EOF
@@ -121,38 +117,42 @@ EOF
         "
         ;;
     debian-*|ubuntu-*)
-        deps=libpcre3,libxml2,libgtk2.0-0,openssh-client,qemu-utils,xorg,xserver-xorg-video-all,metacity,network-manager,network-manager-gnome,network-manager-applet,dbus-x11,hwdata
+        depsfile="$datadir/dependencies.debian"
         ;;
     archlinux-*)
-        deps=pcre,libxml2,gtk2,openssh,qemu,xorg-xinit,xorg-server,xf86-video-*,metacity,NetworkManager,nm-connection-editor,network-manager-applet,dbus-x11,hwdata
+        depsfile="$datadir/dependencies.archlinux"
         ;;
     opensuse-*|suse-*)
-        deps=pcre,libxml2,gtk2,/usr/bin/ssh,/usr/bin/qemu-nbd,/usr/bin/xinit,/usr/bin/Xorg,xf86-video-*,metacity,NetworkManager,nm-connection-editor,network-manager-applet,dbus-x11,hwdata
+        depsfile="$datadir/dependencies.suse"
         ;;
     *)
         echo "$program: internal error: could not work out the Linux distro from '$osversion'"
         exit 1
 esac
 
-# Deal with stupid autotools libexecdir-not-expandable crap.
-prefix="@prefix@"
-exec_prefix="@exec_prefix@"
-libexecdir="@libexecdir@"
-
-if [ -n "$VIRT_P2V_DATA_DIR" ]; then
-    datadir="$VIRT_P2V_DATA_DIR"
-    host_libexecdir="$VIRT_P2V_DATA_DIR"
-else
-    datadir="@datadir@/virt-p2v"
-    host_libexecdir="@libexecdir@"
+# Virt-builder requires the dependencies to be comma-separated with
+# no spaces.  The $depsfile is one dependency per line.
+if [ ! -f "$depsfile" ]; then
+    echo "$0: cannot find dependencies file ($depsfile)"
+    exit 1
 fi
+install=
+while read line; do
+    if [ -n "$line" ]; then
+        if [ -z "$install" ]; then
+            install="$line"
+        else
+            install="$install,$line"
+        fi
+    fi
+done < $depsfile
 
 # Run virt-builder.  Note we controversially assume systemd here.  We
 # could provide a sysvinit fallback if required.
 virt-builder "$osversion"                                       \
     --output "$output"                                          \
     --update                                                    \
-    --install "$deps"                                           \
+    --install "$install"                                        \
     --root-password password:p2v                                \
     --upload "$datadir"/issue:/etc/issue                        \
     --upload "$datadir"/issue:/etc/issue.net                    \

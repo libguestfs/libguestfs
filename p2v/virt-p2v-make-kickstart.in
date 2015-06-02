@@ -133,6 +133,25 @@ repo --name=custom$i --baseurl=$repo $proxy
     esac
 done
 
+# Dependencies.  Since kickstart is Red Hat-specific, only include
+# dependencies.redhat here.
+depsfile="$datadir/dependencies.redhat"
+if [ ! -f "$depsfile" ]; then
+    echo "$0: cannot find dependencies file ($depsfile)"
+    exit 1
+fi
+dependencies=
+while read line; do
+    if [ -n "$line" ]; then
+        if [ -z "$dependencies" ]; then
+            dependencies="$line"
+        else
+            dependencies="$dependencies
+$line"
+        fi
+    fi
+done < $depsfile
+
 # Now generate the final kickstart, substituting as necessary.
 # AWK FTW!
 @AWK@ \
@@ -140,6 +159,7 @@ done
   -v "base64_launch_virt_p2v=$base64_launch_virt_p2v" \
   -v "base64_p2v_service=$base64_p2v_service" \
   -v "base64_virt_p2v=$base64_virt_p2v" \
+  -v "dependencies=$dependencies" \
   -v "md5sum_virt_p2v=$md5sum_virt_p2v" \
   -v "repos=$repos" \
   -v "libexecdir=$libexecdir" \
@@ -150,6 +170,7 @@ done
     gsub (/__BASE64_LAUNCH_VIRT_P2V__/, base64_launch_virt_p2v);
     gsub (/__BASE64_P2V_SERVICE__/, base64_p2v_service);
     gsub (/__BASE64_VIRT_P2V__/, base64_virt_p2v);
+    gsub (/__DEPENDENCIES__/, dependencies);
     gsub (/__MD5SUM_VIRT_P2V__/, md5sum_virt_p2v);
     gsub (/__REPOS__/, repos);
     gsub (/__LIBEXECDIR__/, libexecdir);
