@@ -52,6 +52,7 @@
 #endif
 #endif
 
+#include "glthread/lock.h"
 #include "hash.h"
 
 #include "guestfs-utils.h"
@@ -372,6 +373,11 @@ struct cached_feature {
 struct guestfs_h {
   struct guestfs_h *next;	/* Linked list of open handles. */
   enum state state;             /* See the state machine diagram in guestfs(3)*/
+
+  /* Lock acquired when entering any public guestfs_* function to
+   * protect the handle.
+   */
+  gl_recursive_lock_define (, lock);
 
   /**** Configuration of the handle. ****/
   bool verbose;                 /* Debugging. */

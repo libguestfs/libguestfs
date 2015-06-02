@@ -86,6 +86,8 @@ guestfs_create_flags (unsigned flags, ...)
   g = calloc (1, sizeof (*g));
   if (!g) return NULL;
 
+  gl_recursive_lock_init (g->lock);
+
   g->state = CONFIG;
 
   g->conn = NULL;
@@ -169,6 +171,7 @@ guestfs_create_flags (unsigned flags, ...)
   free (g->path);
   free (g->hv);
   free (g->append);
+  gl_recursive_lock_destroy (g->lock);
   free (g);
   return NULL;
 }
@@ -398,6 +401,7 @@ guestfs_close (guestfs_h *g)
   free (g->backend_data);
   guestfs_int_free_string_list (g->backend_settings);
   free (g->append);
+  gl_recursive_lock_destroy (g->lock);
   free (g);
 }
 
