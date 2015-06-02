@@ -1331,14 +1331,31 @@ encrypted devices.
 All high-level libguestfs actions are synchronous.  If you want
 to use libguestfs asynchronously then you must create a thread.
 
-Only use the handle from a single thread.  Either use the handle
-exclusively from one thread, or provide your own mutex so that two
-threads cannot issue calls on the same handle at the same time.  Even
-apparently innocent functions like L</guestfs_get_trace> are I<not>
-safe to be called from multiple threads without a mutex.
+=head3 Threads in libguestfs E<ge> 1.38
 
-See the graphical program guestfs-browser for one possible
-architecture for multithreaded programs using libvirt and libguestfs.
+In libguestfs E<ge> 1.38, each handle (C<guestfs_h>) contains a lock
+which is acquired automatically when you call a libguestfs function.
+The practical effect of this is you can call libguestfs functions with
+the same handle from multiple threads without needing to do any
+locking.
+
+Also in libguestfs E<ge> 1.38, the last error on the handle
+(L</guestfs_last_error>, L</guestfs_last_errno>) is stored in
+thread-local storage, so it is safe to write code like:
+
+ if (guestfs_add_drive_ro (g, drive) == -1)
+   fprintf (stderr, "error was: %s\n", guestfs_last_error (g));
+
+even when other threads may be concurrently using the same handle C<g>.
+
+=head3 Threads in libguestfs E<lt> 1.38
+
+In libguestfs E<lt> 1.38, you must use the handle only from a single
+thread.  Either use the handle exclusively from one thread, or provide
+your own mutex so that two threads cannot issue calls on the same
+handle at the same time.  Even apparently innocent functions like
+L</guestfs_get_trace> are I<not> safe to be called from multiple
+threads without a mutex in libguestfs E<lt> 1.38.
 
 Use L</guestfs_set_identifier> to make it simpler to identify threads
 in trace output.
