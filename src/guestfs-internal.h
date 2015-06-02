@@ -788,6 +788,7 @@ extern char *guestfs_int_first_line_of_file (guestfs_h *g, const char *filename)
 extern int guestfs_int_first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
 extern void guestfs_int_check_package_format (guestfs_h *g, struct inspect_fs *fs);
 extern void guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs);
+extern void guestfs_int_merge_fs_inspections (guestfs_h *g, struct inspect_fs *dst, struct inspect_fs *src);
 
 /* inspect-fs-unix.c */
 extern int guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs);

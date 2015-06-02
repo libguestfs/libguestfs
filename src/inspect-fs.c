@@ -655,3 +655,105 @@ guestfs_int_first_egrep_of_file (guestfs_h *g, const char *filename,
 
   return 1;
 }
+
+/* Merge the missing OS inspection information found on the src inspect_fs into
+ * the ones of the dst inspect_fs. This function is useful if the inspection
+ * information for an OS are gathered by inspecting multiple filesystems.
+ */
+void
+guestfs_int_merge_fs_inspections (guestfs_h *g, struct inspect_fs *dst, struct inspect_fs *src)
+{
+  size_t n, i, old;
+  struct inspect_fstab_entry *fstab = NULL;
+  char ** mappings = NULL;
+
+  if (dst->type == 0)
+    dst->type = src->type;
+
+  if (dst->distro == 0)
+    dst->distro = src->distro;
+
+  if (dst->package_format == 0)
+    dst->package_format = src->package_format;
+
+  if (dst->package_management == 0)
+    dst->package_management = src->package_management;
+
+  if (dst->product_name == NULL) {
+    dst->product_name = src->product_name;
+    src->product_name = NULL;
+  }
+
+  if (dst->product_variant == NULL) {
+    dst->product_variant= src->product_variant;
+    src->product_variant = NULL;
+  }
+
+  if (dst->major_version == 0 && dst->minor_version == 0) {
+    dst->major_version = src->major_version;
+    dst->minor_version = src->minor_version;
+  }
+
+  if (dst->arch == NULL) {
+    dst->arch = src->arch;
+    src->arch = NULL;
+  }
+
+  if (dst->hostname == NULL) {
+    dst->hostname = src->hostname;
+    src->hostname = NULL;
+  }
+
+  if (dst->windows_systemroot == NULL) {
+    dst->windows_systemroot = src->windows_systemroot;
+    src->windows_systemroot = NULL;
+  }
+
+  if (dst->windows_current_control_set == NULL) {
+    dst->windows_current_control_set = src->windows_current_control_set;
+    src->windows_current_control_set = NULL;
+  }
+
+  if (src->drive_mappings != NULL) {
+    if (dst->drive_mappings == NULL) {
+      /* Adopt the drive mappings of src */
+      dst->drive_mappings = src->drive_mappings;
+      src->drive_mappings = NULL;
+    } else {
+      n = 0;
+      for (; dst->drive_mappings[n] != NULL; n++)
+        ;
+      old = n;
+      for (; src->drive_mappings[n] != NULL; n++)
+        ;
+
+      /* Merge the src mappings to dst */
+      mappings = safe_realloc (g, dst->drive_mappings,(n + 1) * sizeof (char *));
+
+      for (i = old; i < n; i++)
+        mappings[i] = src->drive_mappings[i - old];
+
+      mappings[n] = NULL;
+      dst->drive_mappings = mappings;
+
+      free(src->drive_mappings);
+      src->drive_mappings = NULL;
+    }
+  }
+
+  if (src->nr_fstab > 0) {
+    n = dst->nr_fstab + src->nr_fstab;
+    fstab = safe_realloc (g, dst->fstab, n * sizeof (struct inspect_fstab_entry));
+
+    for (i = 0; i < src->nr_fstab; i++) {
+      fstab[dst->nr_fstab + i].mountable = src->fstab[i].mountable;
+      fstab[dst->nr_fstab + i].mountpoint = src->fstab[i].mountpoint;
+    }
+    free(src->fstab);
+    src->fstab = NULL;
+    src->nr_fstab = 0;
+
+    dst->fstab = fstab;
+    dst->nr_fstab = n;
+  }
+}
