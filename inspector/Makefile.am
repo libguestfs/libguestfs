@@ -38,6 +38,7 @@ EXTRA_DIST = \
 	expected-fedora.img.xml \
 	expected-ubuntu.img.xml \
 	expected-archlinux.img.xml \
+	expected-coreos.img.xml \
 	expected-windows.img.xml \
 	test-virt-inspector.sh \
 	test-xmllint.sh.in \

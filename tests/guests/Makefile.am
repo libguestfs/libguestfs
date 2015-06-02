@@ -30,6 +30,7 @@ EXTRA_DIST = \
 	guest-aux/make-ubuntu-img.sh \
 	guest-aux/make-archlinux-img.sh \
 	guest-aux/archlinux-package \
+	guest-aux/make-coreos-img.sh \
 	guest-aux/make-windows-img.sh \
 	guest-aux/windows-software \
 	guest-aux/windows-software.reg \
@@ -52,6 +53,7 @@ disk_images = \
 	fedora-btrfs.img \
 	ubuntu.img \
 	archlinux.img \
+	coreos.img \
 	windows.img
 
 # This is 'check_DATA' because we don't need it until 'make check'
@@ -107,6 +109,10 @@ ubuntu.img: guest-aux/make-ubuntu-img.sh
 
 # Make a (dummy) Arch Linux image.
 archlinux.img: guest-aux/make-archlinux-img.sh
+	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+
+# Make a (dummy) CoreOS image.
+coreos.img: guest-aux/make-coreos-img.sh
 	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
 
 # Make a (dummy) Windows image.

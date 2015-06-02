@@ -540,6 +540,7 @@ Makefile.in
 /tests/guests/stamp-fedora-md.img
 /tests/guests/ubuntu.img
 /tests/guests/archlinux.img
+/tests/guests/coreos.img
 /tests/guests/windows.img
 /tests/mount-local/test-parallel-mount-local
 /tests/mountable/test-internal-parse-mountable
