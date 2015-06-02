@@ -306,6 +306,8 @@ start_conversion (struct config *config,
 
   if (stop) {
     set_conversion_error ("cancelled by user");
+    if (notify_ui)
+      notify_ui (NOTIFY_STATUS, _("Conversion cancelled by user."));
     goto out;
   }
 
