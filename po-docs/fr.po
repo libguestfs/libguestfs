@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.26\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-05-26 21:42+0100\n"
+"POT-Creation-Date: 2015-06-02 17:12+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -1189,7 +1189,8 @@ msgstr ""
 #: ../examples/guestfs-faq.pod:875 ../examples/guestfs-faq.pod:879
 #: ../examples/guestfs-faq.pod:883 ../examples/guestfs-faq.pod:887
 #: ../examples/guestfs-faq.pod:895 ../examples/guestfs-faq.pod:900
-#: ../examples/guestfs-performance.pod:105
+#: ../examples/guestfs-faq.pod:1315 ../examples/guestfs-faq.pod:1326
+#: ../examples/guestfs-faq.pod:1331 ../examples/guestfs-performance.pod:105
 #: ../examples/guestfs-performance.pod:111
 #: ../examples/guestfs-performance.pod:116
 #: ../examples/guestfs-performance.pod:243
@@ -1372,7 +1373,7 @@ msgstr ""
 #: ../customize/virt-customize.pod:254 ../daemon/guestfsd.pod:115
 #: ../df/virt-df.pod:256 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:389
 #: ../erlang/examples/guestfs-erlang.pod:95
-#: ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1262
+#: ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1345
 #: ../examples/guestfs-performance.pod:561 ../examples/guestfs-recipes.pod:668
 #: ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1595
 #: ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48
@@ -1443,7 +1444,7 @@ msgstr ""
 #: ../customize/virt-customize.pod:275 ../daemon/guestfsd.pod:124
 #: ../df/virt-df.pod:268 ../diff/virt-diff.pod:262 ../edit/virt-edit.pod:404
 #: ../erlang/examples/guestfs-erlang.pod:114
-#: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1272
+#: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1355
 #: ../examples/guestfs-performance.pod:577 ../examples/guestfs-recipes.pod:687
 #: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1634
 #: ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62
@@ -1798,7 +1799,7 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:172
 #: ../customize/virt-customize.pod:271
 #: ../erlang/examples/guestfs-erlang.pod:110
-#: ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1268
+#: ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1351
 #: ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:683
 #: ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1630
 #: ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58
@@ -1819,7 +1820,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:174
 #: ../erlang/examples/guestfs-erlang.pod:112
-#: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1270
+#: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1353
 #: ../examples/guestfs-performance.pod:575 ../examples/guestfs-recipes.pod:685
 #: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1632
 #: ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60
@@ -13022,13 +13023,146 @@ msgid ""
 "the reasons for them."
 msgstr ""
 
-#. type: textblock
+#. type: =head1
+#: ../examples/guestfs-faq.pod:1262
+msgid "MISCELLANEOUS QUESTIONS"
+msgstr ""
+
+#. type: =head2
 #: ../examples/guestfs-faq.pod:1264
+msgid ""
+"Can I monitor the live disk activity of a virtual machine using libguestfs?"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1266
+msgid ""
+"A common request is to be able to use libguestfs to monitor the live disk "
+"activity of a guest, for example, to get notified every time a guest creates "
+"a new file.  Libguestfs does I<not> work in the way some people imagine, as "
+"you can see from this diagram:"
+msgstr ""
+
+#. type: verbatim
+#: ../examples/guestfs-faq.pod:1271
+#, no-wrap
+msgid ""
+"            ┌─────────────────────────────────────┐\n"
+"            │ monitoring program using libguestfs │\n"
+"            └─────────────────────────────────────┘\n"
+"                             ↓\n"
+" ┌───────────┐    ┌──────────────────────┐\n"
+" │ live VM   │    │ libguestfs appliance │\n"
+" ├───────────┤    ├──────────────────────┤\n"
+" │ kernel (1)│    │ appliance kernel (2) │\n"
+" └───────────┘    └──────────────────────┘\n"
+"      ↓                      ↓ (r/o connection)\n"
+"      ┌──────────────────────┐\n"
+"      |      disk image      |\n"
+"      └──────────────────────┘\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1285
+msgid ""
+"This scenario is safe (as long as you set the C<readonly> flag when adding "
+"the drive).  However the libguestfs appliance kernel (2) does not see all "
+"the changes made to the disk image, for two reasons:"
+msgstr ""
+
+#. type: =item
+#: ../examples/guestfs-faq.pod:1291
+msgid "i."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1293
+msgid ""
+"The VM kernel (1) can cache data in memory, so it doesn't appear in the disk "
+"image."
+msgstr ""
+
+#. type: =item
+#: ../examples/guestfs-faq.pod:1296
+msgid "ii."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1298
+msgid ""
+"The libguestfs appliance kernel (2) doesn't expect that the disk image is "
+"changing underneath it, so its own cache is not magically updated even when "
+"the VM kernel (1) does update the disk image."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1304
+msgid ""
+"The only supported solution is to restart the entire libguestfs appliance "
+"whenever you want to look at changes in the disk image.  At the API level "
+"that corresponds to calling C<guestfs_shutdown> followed by "
+"C<guestfs_launch>, which is a heavyweight operation (see also L<guestfs-"
+"performance(3)>)."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1310
+msgid ""
+"There are some unsupported hacks you can try if relaunching the appliance is "
+"really too costly:"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1317
+msgid ""
+"Call C<guestfs_drop_caches (g, 3)>.  This causes all cached data help by the "
+"libguestfs appliance kernel (2) to be discarded, so it goes back to the disk "
+"image."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1321
+msgid ""
+"However this on its own is not sufficient, because qemu also caches some "
+"data.  You will also need to patch libguestfs to (re-)enable the "
+"C<cache=unsafe> mode.  See: L<https://rwmj.wordpress.com/2013/09/02/new-in-"
+"libguestfs-allow-cache-mode-to-be-selected/>"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1328
+msgid ""
+"Use a tool like L<virt-bmap|http://git.annexia.org/?p=virt-bmap.git> instead."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1333
+msgid "Run an agent inside the guest."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1337
+msgid ""
+"Nothing helps if the guest is making more fundamental changes (eg.  deleting "
+"filesystems).  For those kinds of things you must relaunch the appliance."
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1341
+msgid ""
+"(Note there is a third problem that you need to use consistent snapshots to "
+"really examine live disk images, but that's a general problem with using "
+"libguestfs against any live disk image.)"
+msgstr ""
+
+#. type: textblock
+#: ../examples/guestfs-faq.pod:1347
 msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-faq.pod:1274
+#: ../examples/guestfs-faq.pod:1357
 msgid "Copyright (C) 2012-2015 Red Hat Inc."
 msgstr ""
 
