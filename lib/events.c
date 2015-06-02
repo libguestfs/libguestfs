@@ -35,6 +35,7 @@ guestfs_set_event_callback (guestfs_h *g,
                             int flags,
                             void *opaque)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   int event_handle;
 
   if (flags != 0) {
@@ -69,6 +70,8 @@ guestfs_set_event_callback (guestfs_h *g,
 void
 guestfs_delete_event_callback (guestfs_h *g, int event_handle)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+
   if (event_handle < 0 || event_handle >= (int) g->nr_events)
     return;
 
@@ -296,6 +299,7 @@ void
 guestfs_set_log_message_callback (guestfs_h *g,
                                   guestfs_log_message_cb cb, void *opaque)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   replace_old_style_event_callback (g, log_message_callback_wrapper,
                                     GUESTFS_EVENT_APPLIANCE,
                                     opaque, cb);
@@ -318,6 +322,7 @@ void
 guestfs_set_subprocess_quit_callback (guestfs_h *g,
                                       guestfs_subprocess_quit_cb cb, void *opaque)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   replace_old_style_event_callback (g, subprocess_quit_callback_wrapper,
                                     GUESTFS_EVENT_SUBPROCESS_QUIT,
                                     opaque, cb);
@@ -340,6 +345,7 @@ void
 guestfs_set_launch_done_callback (guestfs_h *g,
                                   guestfs_launch_done_cb cb, void *opaque)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   replace_old_style_event_callback (g, launch_done_callback_wrapper,
                                     GUESTFS_EVENT_LAUNCH_DONE,
                                     opaque, cb);
@@ -362,6 +368,7 @@ void
 guestfs_set_close_callback (guestfs_h *g,
                             guestfs_close_cb cb, void *opaque)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   replace_old_style_event_callback (g, close_callback_wrapper,
                                     GUESTFS_EVENT_CLOSE,
                                     opaque, cb);
@@ -385,6 +392,7 @@ void
 guestfs_set_progress_callback (guestfs_h *g,
                                guestfs_progress_cb cb, void *opaque)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   replace_old_style_event_callback (g, progress_callback_wrapper,
                                     GUESTFS_EVENT_PROGRESS,
                                     opaque, cb);

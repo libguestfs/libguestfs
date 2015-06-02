@@ -322,6 +322,7 @@ guestfs_close (guestfs_h *g)
 {
   struct hv_param *hp, *hp_next;
   guestfs_h **gg;
+  int r;
 
   if (g->state == NO_HANDLE) {
     /* Not safe to call ANY callbacks here, so ... */
@@ -401,7 +402,21 @@ guestfs_close (guestfs_h *g)
   free (g->backend_data);
   guestfs_int_free_string_list (g->backend_settings);
   free (g->append);
-  gl_recursive_lock_destroy (g->lock);
+  r = glthread_recursive_lock_destroy (&g->lock);
+  if (r != 0) {
+    /* If pthread_mutex_destroy returns 16 (EBUSY), this indicates
+     * that the lock is held somewhere.  That means a programming
+     * error if the main program is using threads.
+     */
+    errno = r;
+    perror ("guestfs_close: g->lock");
+    /* While we're debugging locks in libguestfs I want this to fail
+     * noisily.  Remove this later since there are valid times when
+     * this might fail such as if the program exits during a
+     * libguestfs operation.
+     */
+    abort ();
+  }
   free (g);
 }
 

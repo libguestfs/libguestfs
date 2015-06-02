@@ -54,12 +54,14 @@
 const char *
 guestfs_last_error (guestfs_h *g)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   return g->last_error;
 }
 
 int
 guestfs_last_errno (guestfs_h *g)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   return g->last_errnum;
 }
 
@@ -217,12 +219,14 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 void
 guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb cb)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   g->abort_cb = cb;
 }
 
 guestfs_abort_cb
 guestfs_get_out_of_memory_handler (guestfs_h *g)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   return g->abort_cb;
 }
 
@@ -230,6 +234,7 @@ void
 guestfs_set_error_handler (guestfs_h *g,
                            guestfs_error_handler_cb cb, void *data)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   g->error_cb = cb;
   g->error_cb_data = data;
 }
@@ -237,6 +242,7 @@ guestfs_set_error_handler (guestfs_h *g,
 guestfs_error_handler_cb
 guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   if (data_rtn) *data_rtn = g->error_cb_data;
   return g->error_cb;
 }
@@ -245,6 +251,7 @@ void
 guestfs_push_error_handler (guestfs_h *g,
                             guestfs_error_handler_cb cb, void *data)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   struct error_cb_stack *old_stack;
 
   old_stack = g->error_cb_stack;
@@ -259,6 +266,7 @@ guestfs_push_error_handler (guestfs_h *g,
 void
 guestfs_pop_error_handler (guestfs_h *g)
 {
+  ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
   struct error_cb_stack *next_stack;
 
   if (g->error_cb_stack) {

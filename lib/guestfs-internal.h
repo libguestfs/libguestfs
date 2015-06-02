@@ -77,6 +77,14 @@
 #define TRACE4(name, arg1, arg2, arg3, arg4)
 #endif
 
+/* Acquire and release the per-handle lock.  Note the release happens
+ * in an __attribute__((cleanup)) handler, making it simple to write
+ * bug-free code.
+ */
+#define ACQUIRE_LOCK_FOR_CURRENT_SCOPE(g) \
+  CLEANUP_GL_RECURSIVE_LOCK_UNLOCK gl_recursive_lock_t *_lock = &(g)->lock; \
+  gl_recursive_lock_lock (*_lock)
+
 /* Default and minimum appliance memory size. */
 
 /* Needs to be larger on ppc64 because of the larger page size (64K).
