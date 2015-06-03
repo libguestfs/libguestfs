@@ -282,11 +282,11 @@ let verbose () = !verbose
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
  *)
-let start_t = Unix.time ()
+let start_t = Unix.gettimeofday ()
 let message fs =
   let display str =
     if not (quiet ()) then (
-      let t = sprintf "%.1f" (Unix.time () -. start_t) in
+      let t = sprintf "%.1f" (Unix.gettimeofday () -. start_t) in
       printf "[%6s] " t;
       ansi_green ();
       printf "%s" str;
