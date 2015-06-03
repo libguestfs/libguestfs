@@ -53,6 +53,7 @@
 #endif
 
 #include "glthread/lock.h"
+#include "glthread/tls.h"
 #include "hash.h"
 
 #include "guestfs-utils.h"
@@ -357,15 +358,6 @@ struct connection_ops {
 };
 
 /**
- * Stack of old error handlers.
- */
-struct error_cb_stack {
-  struct error_cb_stack   *next;
-  guestfs_error_handler_cb error_cb;
-  void *                   error_cb_data;
-};
-
-/**
  * Cache of queried features.
  *
  * Used to cache the appliance features (see F<lib/available.c>).
@@ -442,9 +434,6 @@ struct guestfs_h {
   char **backend_settings;      /* Backend settings (can be NULL). */
 
   /**** Runtime information. ****/
-  char *last_error;             /* Last error on handle. */
-  int last_errnum;              /* errno, or 0 if there was no errno */
-
   /* Temporary and cache directories. */
   /* The actual temporary directory - this is not created with the
    * handle, you have to call guestfs_int_lazy_make_tmpdir.
@@ -458,9 +447,13 @@ struct guestfs_h {
   char *int_cachedir; /* $LIBGUESTFS_CACHEDIR or guestfs_set_cachedir or NULL */
 
   /* Error handler, plus stack of old error handlers. */
-  guestfs_error_handler_cb   error_cb;
-  void *                     error_cb_data;
-  struct error_cb_stack     *error_cb_stack;
+  gl_tls_key_t error_data;
+
+  /* Linked list of error_data structures allocated for this handle,
+   * plus a mutex to protect the linked list.
+   */
+  gl_lock_define (, error_data_list_lock);
+  struct error_data *error_data_list;
 
   /* Out of memory error handler. */
   guestfs_abort_cb           abort_cb;
@@ -557,7 +550,7 @@ extern char *guestfs_int_safe_asprintf (guestfs_h *g, const char *fs, ...)
 #define safe_asprintf guestfs_int_safe_asprintf
 
 /* errors.c */
-extern void guestfs_int_init_error_handler (guestfs_h *g);
+extern void guestfs_int_free_error_data_list (guestfs_h *g);
 
 extern void guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
   __attribute__((format (printf,3,4)));

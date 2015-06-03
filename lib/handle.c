@@ -32,6 +32,7 @@
 #include <libxml/xmlversion.h>
 
 #include "glthread/lock.h"
+#include "glthread/tls.h"
 #include "ignore-value.h"
 #include "c-ctype.h"
 #include "getprogname.h"
@@ -92,7 +93,7 @@ guestfs_create_flags (unsigned flags, ...)
 
   g->conn = NULL;
 
-  guestfs_int_init_error_handler (g);
+  gl_tls_key_init (g->error_data, NULL);
   g->abort_cb = abort;
 
   g->recovery_proc = 1;
@@ -171,6 +172,8 @@ guestfs_create_flags (unsigned flags, ...)
   free (g->path);
   free (g->hv);
   free (g->append);
+  guestfs_int_free_error_data_list (g);
+  gl_tls_key_destroy (g->error_data);
   gl_recursive_lock_destroy (g->lock);
   free (g);
   return NULL;
@@ -382,9 +385,6 @@ guestfs_close (guestfs_h *g)
     free (hp);
   }
 
-  while (g->error_cb_stack)
-    guestfs_pop_error_handler (g);
-
   if (g->pda)
     hash_free (g->pda);
   free (g->tmpdir);
@@ -393,7 +393,6 @@ guestfs_close (guestfs_h *g)
   free (g->env_runtimedir);
   free (g->int_tmpdir);
   free (g->int_cachedir);
-  free (g->last_error);
   free (g->identifier);
   free (g->program);
   free (g->path);
@@ -402,6 +401,8 @@ guestfs_close (guestfs_h *g)
   free (g->backend_data);
   guestfs_int_free_string_list (g->backend_settings);
   free (g->append);
+  guestfs_int_free_error_data_list (g);
+  gl_tls_key_destroy (g->error_data);
   r = glthread_recursive_lock_destroy (&g->lock);
   if (r != 0) {
     /* If pthread_mutex_destroy returns 16 (EBUSY), this indicates

@@ -51,26 +51,150 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
+/* How errors and error handlers works in the handle:
+ *
+ * The handle has a g->error_data field which is a thread-local
+ * storage (TLS) key.
+ *
+ * We use TLS because we want to support the common idioms of:
+ *   if (guestfs_foo (g) == -1)
+ *     printf ("%s\n", guestfs_last_error (g));
+ * and:
+ *   guestfs_push_error_handler (g, ...);
+ *   guestfs_foo (g);
+ *   guestfs_pop_error_handler (g);
+ * neither of which would ordinarily be safe when using the same
+ * handle from multiple threads.
+ *
+ * In each thread, the TLS data is either NULL or contains a pointer
+ * to a 'struct error_data'.
+ *
+ * When it is NULL, it means the stack is empty (in that thread) and
+ * the default handler (default_error_cb) is installed.
+ *
+ * As soon as the current thread calls guestfs_set_error_handler,
+ * guestfs_push_error_handler, or an error is set in the handle (calls
+ * like guestfs_int_perrorf and so on), the key is created and
+ * initialized with a pointer to a real 'struct error_data'.
+ *
+ * All the 'struct error_data' structures associated with one handle
+ * are linked together in a linked list, so that we are able to free
+ * them when the handle is closed.  (The pthread_key* API doesn't give
+ * us any other way to do this, in particular pthread_key_delete
+ * doesn't call the destructor associated with the key).
+ */
+
+static void default_error_cb (guestfs_h *g, void *data, const char *msg);
+
+/* Stack of old error handlers. */
+struct error_cb_stack {
+  struct error_cb_stack   *next;
+  guestfs_error_handler_cb error_cb;
+  void *                   error_cb_data;
+};
+
+/* Error data, stored in thread-local storage in g->error_data key. */
+struct error_data {
+  /* Linked list of error_data structs allocated for this handle. */
+  struct error_data *next;
+
+  char *last_error;             /* Last error on handle. */
+  int last_errnum;              /* errno, or 0 if there was no errno */
+
+  /* Error handler and stack of old error handlers. */
+  guestfs_error_handler_cb   error_cb;
+  void *                     error_cb_data;
+  struct error_cb_stack     *error_cb_stack;
+};
+
+static void
+free_error_data (struct error_data *error_data)
+{
+  struct error_cb_stack *p, *next_p;
+
+  free (error_data->last_error);
+  for (p = error_data->error_cb_stack; p != NULL; p = next_p) {
+    next_p = p->next;
+    free (p);
+  }
+  free (error_data);
+}
+
+/* Free all the error_data structs created for a particular handle. */
+void
+guestfs_int_free_error_data_list (guestfs_h *g)
+{
+  struct error_data *p, *next_p;
+
+  gl_lock_lock (g->error_data_list_lock);
+
+  for (p = g->error_data_list; p != NULL; p = next_p) {
+    next_p = p->next;
+    free_error_data (p);
+  }
+
+  g->error_data_list = NULL;
+
+  gl_lock_unlock (g->error_data_list_lock);
+}
+
+/* Get thread-specific error_data struct.  Create it if necessary. */
+static struct error_data *
+get_error_data (guestfs_h *g)
+{
+  struct error_data *ret;
+
+  ret = gl_tls_get (g->error_data);
+
+  /* Not allocated yet for this thread, so allocate one. */
+  if (ret == NULL) {
+    ret = safe_malloc (g, sizeof *ret);
+    ret->last_error = NULL;
+    ret->last_errnum = 0;
+    ret->error_cb = default_error_cb;
+    ret->error_cb_data = NULL;
+    ret->error_cb_stack = NULL;
+
+    /* Add it to the linked list of struct error_data that are
+     * associated with this handle, so we can free them when the
+     * handle is closed.
+     */
+    gl_lock_lock (g->error_data_list_lock);
+    ret->next = g->error_data_list;
+    g->error_data_list = ret;
+    gl_lock_unlock (g->error_data_list_lock);
+
+    /* Set the TLS to point to the struct.  This is safe because we
+     * should have acquired the handle lock.
+     */
+    gl_tls_set (g->error_data, ret);
+  }
+
+  return ret;
+}
+
 const char *
 guestfs_last_error (guestfs_h *g)
 {
   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
-  return g->last_error;
+  return get_error_data (g)->last_error;
 }
 
 int
 guestfs_last_errno (guestfs_h *g)
 {
   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
-  return g->last_errnum;
+  return get_error_data (g)->last_errnum;
 }
 
 static void
 set_last_error (guestfs_h *g, int errnum, const char *msg)
 {
-  free (g->last_error);
-  g->last_error = strdup (msg);
-  g->last_errnum = errnum;
+  struct error_data *error_data = get_error_data (g);
+
+  free (error_data->last_error);
+  error_data->last_error = strdup (msg);
+  error_data->last_errnum = errnum;
 }
 
 /**
@@ -166,6 +290,7 @@ guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
   va_list args;
   CLEANUP_FREE char *msg = NULL;
   int err;
+  struct error_data *error_data = get_error_data (g);
 
   va_start (args, fs);
   err = vasprintf (&msg, fs, args);
@@ -177,7 +302,8 @@ guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
    * message and errno through the handle if it wishes.
    */
   set_last_error (g, errnum, msg);
-  if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
+  if (error_data->error_cb)
+    error_data->error_cb (g, error_data->error_cb_data, msg);
 }
 
 /**
@@ -196,6 +322,7 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
   const int errnum = errno;
   int err;
   char buf[256];
+  struct error_data *error_data = get_error_data (g);
 
   va_start (args, fs);
   err = vasprintf (&msg, fs, args);
@@ -213,7 +340,8 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
    * message and errno through the handle if it wishes.
    */
   set_last_error (g, errnum, msg);
-  if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
+  if (error_data->error_cb)
+    error_data->error_cb (g, error_data->error_cb_data, msg);
 }
 
 void
@@ -235,16 +363,21 @@ guestfs_set_error_handler (guestfs_h *g,
                            guestfs_error_handler_cb cb, void *data)
 {
   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
-  g->error_cb = cb;
-  g->error_cb_data = data;
+  struct error_data *error_data;
+
+  error_data = get_error_data (g);
+  error_data->error_cb = cb;
+  error_data->error_cb_data = data;
 }
 
 guestfs_error_handler_cb
 guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
 {
   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
-  if (data_rtn) *data_rtn = g->error_cb_data;
-  return g->error_cb;
+  struct error_data *error_data = get_error_data (g);
+
+  if (data_rtn) *data_rtn = error_data->error_cb_data;
+  return error_data->error_cb;
 }
 
 void
@@ -252,13 +385,15 @@ guestfs_push_error_handler (guestfs_h *g,
                             guestfs_error_handler_cb cb, void *data)
 {
   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  struct error_data *error_data;
   struct error_cb_stack *old_stack;
 
-  old_stack = g->error_cb_stack;
-  g->error_cb_stack = safe_malloc (g, sizeof (struct error_cb_stack));
-  g->error_cb_stack->next = old_stack;
-  g->error_cb_stack->error_cb = g->error_cb;
-  g->error_cb_stack->error_cb_data = g->error_cb_data;
+  error_data = get_error_data (g);
+  old_stack = error_data->error_cb_stack;
+  error_data->error_cb_stack = safe_malloc (g, sizeof (struct error_cb_stack));
+  error_data->error_cb_stack->next = old_stack;
+  error_data->error_cb_stack->error_cb = error_data->error_cb;
+  error_data->error_cb_stack->error_cb_data = error_data->error_cb_data;
 
   guestfs_set_error_handler (g, cb, data);
 }
@@ -267,26 +402,21 @@ void
 guestfs_pop_error_handler (guestfs_h *g)
 {
   ACQUIRE_LOCK_FOR_CURRENT_SCOPE (g);
+  struct error_data *error_data;
   struct error_cb_stack *next_stack;
 
-  if (g->error_cb_stack) {
-    next_stack = g->error_cb_stack->next;
-    guestfs_set_error_handler (g, g->error_cb_stack->error_cb,
-                               g->error_cb_stack->error_cb_data);
-    free (g->error_cb_stack);
-    g->error_cb_stack = next_stack;
+  error_data = get_error_data (g);
+  if (error_data->error_cb_stack) {
+    next_stack = error_data->error_cb_stack->next;
+    guestfs_set_error_handler (g, error_data->error_cb_stack->error_cb,
+                               error_data->error_cb_stack->error_cb_data);
+    free (error_data->error_cb_stack);
+    error_data->error_cb_stack = next_stack;
   }
-  else
-    guestfs_int_init_error_handler (g);
-}
-
-static void default_error_cb (guestfs_h *g, void *data, const char *msg);
-
-void
-guestfs_int_init_error_handler (guestfs_h *g)
-{
-  g->error_cb = default_error_cb;
-  g->error_cb_data = NULL;
+  else {
+    error_data->error_cb = default_error_cb;
+    error_data->error_cb_data = NULL;
+  }
 }
 
 static void
