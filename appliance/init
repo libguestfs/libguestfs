@@ -10,6 +10,13 @@ RUNLEVEL=S
 PREVLEVEL=N
 export RUNLEVEL PREVLEVEL
 
+# Make sure /tmp /var/tmp are real directories, not symlinks.
+if [ ! -d /tmp ] || [ ! -d /var/tmp ]; then
+    rm -f /tmp /var/tmp
+    mkdir /tmp /var/tmp
+    chmod 1777 /tmp /var/tmp
+fi
+
 # Make sure to find all the libraries, also those in non-standard place
 # but with a proper ld.so configuration pointing at them
 ldconfig
