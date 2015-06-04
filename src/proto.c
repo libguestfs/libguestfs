@@ -360,8 +360,7 @@ guestfs_int_send_file (guestfs_h *g, const char *filename)
   }
 
   if (g->user_cancel) {
-    error (g, _("operation cancelled by user"));
-    g->last_errnum = EINTR;
+    guestfs_int_error_errno (g, EINTR, _("operation cancelled by user"));
     send_file_cancellation (g);
     close (fd);
     return -1;
@@ -857,10 +856,8 @@ receive_file_data (guestfs_h *g, void **buf_r)
   xdr_destroy (&xdr);
 
   if (chunk.cancel) {
-    if (g->user_cancel) {
-      error (g, _("operation cancelled by user"));
-      g->last_errnum = EINTR;
-    }
+    if (g->user_cancel)
+      guestfs_int_error_errno (g, EINTR, _("operation cancelled by user"));
     else
       error (g, _("file receive cancelled by daemon"));
     free (chunk.data.data_val);
