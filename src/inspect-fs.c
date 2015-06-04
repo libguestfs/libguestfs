@@ -47,7 +47,7 @@ COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 static int check_filesystem (guestfs_h *g, const char *mountable,
                              const struct guestfs_internal_mountable *m,
                              int whole_device);
-static int extend_fses (guestfs_h *g);
+static void extend_fses (guestfs_h *g);
 static int get_partition_context (guestfs_h *g, const char *partition, int *partnum_ret, int *nr_partitions_ret);
 
 /* Find out if 'device' contains a filesystem.  If it does, add
@@ -75,8 +75,7 @@ guestfs_int_check_for_filesystem_on (guestfs_h *g, const char *mountable)
          mountable, vfs_type ? vfs_type : "failed to get vfs type");
 
   if (is_swap) {
-    if (extend_fses (g) == -1)
-      return -1;
+    extend_fses (g);
     fs = &g->fses[g->nr_fses-1];
     fs->mountable = safe_strdup (g, mountable);
     return 0;
@@ -95,8 +94,7 @@ guestfs_int_check_for_filesystem_on (guestfs_h *g, const char *mountable)
   }
 
   if (whole_device) {
-    if (extend_fses (g) == -1)
-      return -1;
+    extend_fses (g);
     fs = &g->fses[g->nr_fses-1];
 
     r = guestfs_int_check_installer_iso (g, fs, m->im_device);
@@ -145,8 +143,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
   /* Not CLEANUP_FREE, as it will be cleaned up with inspection info */
   char *windows_systemroot = NULL;
 
-  if (extend_fses (g) == -1)
-    return -1;
+  extend_fses (g);
 
   if (!whole_device && m->im_type == MOUNTABLE_DEVICE &&
       guestfs_int_is_partition (g, m->im_device)) {
@@ -331,24 +328,18 @@ check_filesystem (guestfs_h *g, const char *mountable,
   return 0;
 }
 
-static int
+static void
 extend_fses (guestfs_h *g)
 {
   size_t n = g->nr_fses + 1;
   struct inspect_fs *p;
 
-  p = realloc (g->fses, n * sizeof (struct inspect_fs));
-  if (p == NULL) {
-    perrorf (g, "realloc");
-    return -1;
-  }
+  p = safe_realloc (g, g->fses, n * sizeof (struct inspect_fs));
 
   g->fses = p;
   g->nr_fses = n;
 
   memset (&g->fses[n-1], 0, sizeof (struct inspect_fs));
-
-  return 0;
 }
 
 /* Given a partition (eg. /dev/sda2) then return the partition number

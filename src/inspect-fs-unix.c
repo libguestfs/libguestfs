@@ -90,8 +90,8 @@ static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_redhat (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
-static int add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
-                            const char *mountable, const char *mp);
+static void add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
+                             const char *mountable, const char *mp);
 static char *resolve_fstab_device (guestfs_h *g, const char *spec,
                                    Hash_table *md_map,
                                    enum inspect_os_type os_type);
@@ -850,8 +850,7 @@ guestfs_int_check_coreos_root (guestfs_h *g, struct inspect_fs *fs)
   /* CoreOS does not contain /etc/fstab to determine the mount points.
    * Associate this filesystem with the "/" mount point.
    */
-  if (add_fstab_entry (g, fs, fs->mountable, "/") == -1)
-    return -1;
+  add_fstab_entry (g, fs, fs->mountable, "/");
 
   return 0;
 }
@@ -880,8 +879,7 @@ guestfs_int_check_coreos_usr (guestfs_h *g, struct inspect_fs *fs)
   /* CoreOS does not contain /etc/fstab to determine the mount points.
    * Associate this filesystem with the "/usr" mount point.
    */
-  if (add_fstab_entry (g, fs, fs->mountable, "/usr") == -1)
-    return -1;
+  add_fstab_entry (g, fs, fs->mountable, "/usr");
 
   return 0;
 }
@@ -1197,7 +1195,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       }
     }
 
-    if  (add_fstab_entry (g, fs, mountable, mp) == -1) return -1;
+    add_fstab_entry (g, fs, mountable, mp);
   }
 
   return 0;
@@ -1211,7 +1209,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
  *
  * 'mp' is the mount point, which could also be 'swap' or 'none'.
  */
-static int
+static void
 add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
                  const char *mountable, const char *mountpoint)
 {
@@ -1222,11 +1220,7 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   size_t n = fs->nr_fstab + 1;
   struct inspect_fstab_entry *p;
 
-  p = realloc (fs->fstab, n * sizeof (struct inspect_fstab_entry));
-  if (p == NULL) {
-    perrorf (g, "realloc");
-    return -1;
-  }
+  p = safe_realloc (g, fs->fstab, n * sizeof (struct inspect_fstab_entry));
 
   fs->fstab = p;
   fs->nr_fstab = n;
@@ -1236,8 +1230,6 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
   fs->fstab[n-1].mountpoint = safe_strdup (g, mountpoint);
 
   debug (g, "fstab: mountable=%s mountpoint=%s", mountable, mountpoint);
-
-  return 0;
 }
 
 /* Compute a uuid hash as a simple xor of of its 4 32bit components */
