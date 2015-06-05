@@ -279,7 +279,7 @@ let perform_operations_on_filesystems ?operations g root
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 
-  (* Perform the operations in alphabetical, rathern than random order. *)
+  (* Perform the operations in alphabetical, rather than random order. *)
   let ops = List.sort compare_operations ops in
 
   List.iter (
@@ -300,7 +300,7 @@ let perform_operations_on_devices ?operations g root
     | Some opset -> (* just the operation names listed *)
       OperationSet.elements opset in
 
-  (* Perform the operations in alphabetical, rathern than random order. *)
+  (* Perform the operations in alphabetical, rather than random order. *)
   let ops = List.sort compare_operations ops in
 
   List.iter (
