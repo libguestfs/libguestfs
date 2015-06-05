@@ -679,6 +679,8 @@ guestfs___cmd_run (struct command *cmd)
 void
 guestfs___cmd_close (struct command *cmd)
 {
+  struct child_rlimits *child_rlimit, *child_rlimit_next;
+
   if (!cmd)
     return;
 
@@ -706,6 +708,12 @@ guestfs___cmd_close (struct command *cmd)
 
   if (cmd->pid > 0)
     waitpid (cmd->pid, NULL, 0);
+
+  for (child_rlimit = cmd->child_rlimits; child_rlimit != NULL;
+       child_rlimit = child_rlimit_next) {
+    child_rlimit_next = child_rlimit->next;
+    free (child_rlimit);
+  }
 
   free (cmd);
 }
