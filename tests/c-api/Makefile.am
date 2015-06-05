@@ -41,7 +41,8 @@ check_PROGRAMS = \
 	test-debug-to-file \
 	test-environment \
 	test-pwd \
-	test-event-string
+	test-event-string \
+	test-threads
 if HAVE_LIBDL
 check_PROGRAMS += \
 	test-dlopen
@@ -59,7 +60,8 @@ TESTS = \
 	test-user-cancel \
 	test-debug-to-file \
 	test-environment \
-	test-event-string
+	test-event-string \
+	test-threads
 if HAVE_LIBDL
 TESTS += \
 	test-dlopen
@@ -262,6 +264,21 @@ test_event_string_CFLAGS = \
 test_event_string_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
+	$(LTLIBINTL) \
+	$(top_builddir)/gnulib/lib/libgnu.la
+
+test_threads_SOURCES = test-threads.c
+test_threads_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib
+test_threads_CFLAGS = \
+	-pthread \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_threads_LDADD = \
+	$(top_builddir)/lib/libguestfs.la \
+	$(LTLIBTHREAD) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 

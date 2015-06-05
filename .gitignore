@@ -573,6 +573,7 @@ Makefile.in
 /tests/c-api/test-pwd
 /tests/c-api/tests
 /tests/c-api/tests.c
+/tests/c-api/test-threads
 /tests/c-api/test*.tmp
 /tests/c-api/test-user-cancel
 /tests/charsets/test-charset-fidelity
