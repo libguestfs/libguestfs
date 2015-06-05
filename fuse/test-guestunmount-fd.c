@@ -45,7 +45,7 @@ main (int argc, char *argv[])
   int r, status;
 
   /* Allow the test to be skipped. */
-  skip = getenv ("SKIP_TEST_FUSE");
+  skip = getenv ("SKIP_TEST_FUSE_SH");
   if (skip && guestfs_int_is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
              guestfs_int_program_name);
