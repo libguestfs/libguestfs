@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.45\n"
+"Project-Id-Version: libguestfs 1.29.46\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-06-02 17:12+0100\n"
+"POT-Creation-Date: 2015-06-06 18:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8130,36 +8130,36 @@ msgstr ""
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:181 src/inspect-fs-unix.c:263
-#: src/inspect-fs-unix.c:958 src/inspect-fs-unix.c:1728 src/inspect-fs.c:584
-#: src/inspect-fs.c:630 src/inspect.c:590
+#: src/inspect-fs-unix.c:186 src/inspect-fs-unix.c:273
+#: src/inspect-fs-unix.c:1047 src/inspect-fs-unix.c:1811 src/inspect-fs.c:596
+#: src/inspect-fs.c:642 src/inspect.c:649
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs.c:398 src/inspect-fs.c:411
+#: src/inspect-fs.c:408 src/inspect-fs.c:421
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect-icon.c:648
+#: src/inspect-icon.c:646
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:284
+#: src/inspect.c:343
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:300
+#: src/inspect.c:359
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:628
+#: src/inspect.c:687
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:638
+#: src/inspect.c:697
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -8588,38 +8588,38 @@ msgstr ""
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/proto.c:363 src/proto.c:861
+#: src/proto.c:363 src/proto.c:860
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:433
+#: src/proto.c:432
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/proto.c:530
+#: src/proto.c:529
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/proto.c:549
+#: src/proto.c:548
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/proto.c:820
+#: src/proto.c:819
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/proto.c:846
+#: src/proto.c:845
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/proto.c:854
+#: src/proto.c:853
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/proto.c:865
+#: src/proto.c:862
 msgid "file receive cancelled by daemon"
 msgstr ""
 

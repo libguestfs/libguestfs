@@ -1,54 +1,54 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Red Hat Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
-# rjones <rjones@redhat.com>, 2011
+# Alex Puchades <alex94puchades@gmail.com>, 2015. #zanata
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.46\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2015-06-06 18:10+0100\n"
-"PO-Revision-Date: 2014-10-18 04:00-0400\n"
-"Last-Translator: rjones <rjones@redhat.com>\n"
-"Language-Team: Telugu (http://www.transifex.com/projects/p/libguestfs/language/te/)\n"
+"PO-Revision-Date: 2015-05-09 07:14-0400\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: te\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.6.2\n"
 
 #: ../resize/resize.ml:896
 msgid "  An extra partition will be created for the surplus."
-msgstr ""
+msgstr "  Es crearà una partició extra per a l'espai restant."
 
 #: ../resize/resize.ml:881 ../resize/resize.ml:861
 msgid "  The %s on %s will be expanded using the '%s' method."
-msgstr ""
+msgstr "  El %s en %s s'ampliarà mitjançant el mètode '%s'."
 
 #: ../resize/resize.ml:898
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created"
 " and so it will just be ignored."
 msgstr ""
+"  L'espai restant no és suficient per a crear la nova partició, de manera "
+"que s'ignorarà."
 
 #: ../resize/resize.ml:900
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
 msgstr ""
+"  L'espai restant s'ignorarà. Pots utilitzar un editor de particions en el "
+"sistema convidat per tal de partir aquest espai."
 
 #: ../mllib/common_utils.ml:349
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #. ../customize/customize_main.ml:230
 #. ../builder/get_kernel.ml:52
 #. ../builder/builder.ml:643
 #: ../v2v/v2v.ml:674 ../v2v/v2v.ml:531 ../sysprep/main.ml:258
 msgid "%s (ignored)"
-msgstr ""
+msgstr "%s (s'ignora)"
 
 #: ../v2v/output_rhev.ml:95
 msgid ""
@@ -60,44 +60,53 @@ msgid ""
 "\n"
 "If you don't know what the %s mount point should be then you can also find this out through the RHEV-M user interface."
 msgstr ""
+"%s no existeix o no és un directori.\n"
+"\n"
+"La causa més probable: O bé %s (%s) no s'ha adjuntat a cap Centre de Dades, o la ruta %s no és un %s.\n"
+"\n"
+"Hauries d'adjuntar primer el %s a un Centre de Dades mitjançant la interfície d'usuari de RHEV-M / OVirt.\n"
+"\n"
+"Si no saps quin hauria de ser el punt de muntatge de %s, pots consultar-ho també a la interfície d'usuari de RHEV-M / OVirt."
 
 #: ../customize/customize_run.ml:192
 msgid "%s is not a regular file in the guest"
-msgstr ""
+msgstr "%s no és un fitxer en el sistema convidat"
 
 #: ../v2v/cmdline.ml:95 ../v2v/cmdline.ml:50
 msgid "%s option used more than once on the command line"
-msgstr ""
+msgstr "l'opció %s apareix més d'una vegada a la línia d'ordres"
 
 #: ../v2v/convert_linux.ml:1295
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
 msgstr ""
+"%s referència el dispositiu desconegut \"%s\". S'haurà d'arreglar aquesta "
+"entrada manualment després de la conversió."
 
 #: ../mllib/common_utils.ml:345 ../mllib/common_utils.ml:332
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../customize/customize_run.ml:364
 msgid "%s: %s (ignored)\n"
-msgstr ""
+msgstr "%s: %s (s'ignora)\n"
 
 #: ../mllib/common_utils.ml:347
 msgid "%s: %s: %s"
-msgstr ""
+msgstr "%s: %s: %s"
 
 #: ../builder/sources.ml:55
 msgid "%s: '%s' has invalid gpgkey URI\n"
-msgstr ""
+msgstr "%s: '%s' té una ruta de clau GPG inválida\n"
 
 #: ../builder/sources.ml:65
 msgid "%s: '%s' has non-local gpgkey URI\n"
-msgstr ""
+msgstr "%s: '%s' té una ruta de clau GPG remota\n"
 
 #: ../builder/sources.ml:87
 msgid "%s: ... read %d sources\n"
-msgstr ""
+msgstr "%s: ... es van llegir %d entrades\n"
 
 #: ../resize/resize.ml:689
 msgid ""
@@ -107,10 +116,15 @@ msgid ""
 "within this partition.  (This error came from '%s' option on the command "
 "line.)"
 msgstr ""
+"%s: Aquesta partició ampliada conté particions lògiques que podrien resultar"
+" danyades durant el procés d'encongiment.  Per tal d'encongir aquesta "
+"partició, pots utilitzar l'opció '--resize-force', encara que podrien "
+"resultar destruïdes algunes particions lògiques dins d'aquesta partició.  "
+"(Aquest error va ser provocat per l'opció '%s' a la línia d'ordres.)"
 
 #: ../resize/resize.ml:878
 msgid "%s: This logical volume will be expanded to maximum size."
-msgstr ""
+msgstr "%s: Aquest volum lògic s'expandirà a la mida màxima."
 
 #: ../resize/resize.ml:685
 msgid ""
@@ -120,6 +134,11 @@ msgid ""
 " but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
+"%s: Aquesta partició conté un sistema de fitxers %s que resultarà danyat si "
+"s'encongeix per sota de %Ld bytes (l'usuari va demanar encongir-lo a %Ld "
+"bytes).  Per tal d'encongir aquesta partició, s'ha d'utilitzar l'opció "
+"'--resize-force', però açò podria destruir les dades en aquesta partició.  "
+"(Aquest error va ser provocat per l'opció '%s' a la línia d'ordres.)"
 
 #: ../resize/resize.ml:681
 msgid ""
@@ -129,6 +148,11 @@ msgid ""
 " but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
+"%s: Aquesta partició conté un volum físic LVM que resultarà danyat si "
+"s'encongeix per sota de %Ld bytes (l'usuari va demanar encongir-lo a %Ld "
+"bytes).  Per tal d'encongir aquesta partició, s'ha d'utilitzar l'opció "
+"'--resize-force', però açò podria destruir les dades en aquesta partició.  "
+"(Aquest error va ser provocat per l'opció '%s' a la línia d'ordres.)"
 
 #: ../resize/resize.ml:678
 msgid ""
@@ -137,24 +161,31 @@ msgid ""
 "force' option, but that could destroy any data on this partition.  (This "
 "error came from '%s' option on the command line.)"
 msgstr ""
+"%s: Aquesta partició té contingut desconegut que podria resultar danyat "
+"durant el procés d'encongiment.  Per tal d'encongir aquesta partició, s'ha "
+"d'utilitzar l'opció '--resize-force', però açò podria destruir les dades en "
+"aquesta partició.  (Aquest error va ser provocat per l'opció '%s' a la línia"
+" d'ordres.)"
 
 #: ../resize/resize.ml:854
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
+"%s: Es crearà la partició, però el contingut s'ignorarà (p. ex. no es "
+"copiarà a l'objectiu)."
 
 #: ../resize/resize.ml:856
 msgid "%s: This partition will be deleted."
-msgstr ""
+msgstr "%s: Es borrarà la partició."
 
 #: ../resize/resize.ml:852
 msgid "%s: This partition will be left alone."
-msgstr ""
+msgstr "%s: Es deixa estar la partició."
 
 #: ../resize/resize.ml:858
 msgid "%s: This partition will be resized from %s to %s."
-msgstr ""
+msgstr "%s: Es canviarà la mida de la partició de %s a %s."
 
 #: ../builder/cmdline.ml:170
 msgid ""
@@ -171,30 +202,42 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-builder(1).\n"
 msgstr ""
+"%s: construir imatges de màquina virtual de manera ràpida\n"
+"\n"
+" virt-builder OS-VERSION\n"
+" virt-builder -l\n"
+" virt-builder --notes OS-VERSION\n"
+" virt-builder --print-cache\n"
+" virt-builder --cache-all-templates\n"
+" virt-builder --delete-cache\n"
+" virt-builder --get-kernel IMAGE\n"
+"\n"
+"Un resum de les opcions suportades es dóna a continuació.  Per una\n"
+"ajuda més detallada pots consultar la pàgina de manual virt-builder(1).\n"
 
 #: ../builder/index_parser.ml:225
 msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
-msgstr ""
+msgstr "%s: no es va poder analitzar el camp 'compressed_size' per a '%s'\n"
 
 #: ../builder/index_parser.ml:250
 msgid "%s: cannot parse 'hidden' field for '%s'\n"
-msgstr ""
+msgstr "%s: no es va poder analitzar el camp 'hidden' per a '%s'\n"
 
 #: ../builder/index_parser.ml:206
 msgid "%s: cannot parse 'revision' field for '%s'\n"
-msgstr ""
+msgstr "%s: no es va poder analitzar el camp 'revision' per a '%s'\n"
 
 #: ../builder/index_parser.ml:217
 msgid "%s: cannot parse 'size' field for '%s'\n"
-msgstr ""
+msgstr "%s: no es va poder analitzar el camp 'size' per '%s'\n"
 
 #: ../builder/index_parser.ml:295
 msgid "%s: cannot use a URI ('%s') in the index file\n"
-msgstr ""
+msgstr "%s: no es pot utilitzar una ruta ('%s') en el fitxer índex\n"
 
 #: ../customize/customize_run.ml:83
 msgid "%s: command exited with an error"
-msgstr ""
+msgstr "%s: l'ordre va provocar un error"
 
 #: ../v2v/cmdline.ml:189
 msgid ""
@@ -216,6 +259,23 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-v2v(1).\n"
 msgstr ""
+"%s: convertir un sistema convidat per tal d'utilitzar KVM\n"
+"\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest\n"
+"\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -os rhev.nfs:/export_domain --network rhevm\n"
+"\n"
+" virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
+"\n"
+" virt-v2v -i disk disk.img -o local -os /var/tmp\n"
+"\n"
+" virt-v2v -i disk disk.img -o glance\n"
+"\n"
+"Hi ha un frontal acompanyant anomenat \"virt-p2v\" que ve en forma d'una\n"
+"imatge ISO o de CD que pot arrancar-se en qualsevol màquina física.\n"
+"\n"
+"Un resum de les opcions suportades es dóna a continuació.  Per una ajuda\n"
+"més detallada pots consultar la pàgina de manual virt-v2v(1).\n"
 
 #: ../customize/customize_main.ml:122
 msgid ""
@@ -231,15 +291,15 @@ msgstr ""
 
 #: ../mllib/common_utils.ml:304
 msgid "%s: error: %s"
-msgstr ""
+msgstr "%s: error: %s"
 
 #: ../builder/sources.ml:130
 msgid "%s: file error: %s: %s\n"
-msgstr ""
+msgstr "%s: error de fitxer: %s: %s\n"
 
 #: ../resize/resize.ml:405 ../resize/resize.ml:402
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
-msgstr ""
+msgstr "%s: el fitxer es massa petit per a una imatge de disc (%Ld bytes)"
 
 #: ../builder/index_parser.ml:167
 msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
@@ -3388,7 +3448,7 @@ msgstr ""
 #: make-fs/make-fs.c:74 p2v/main.c:66 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "అధిక సమాచారము కొరకు `%s --help' ప్రయత్నించండి\n"
+msgstr ""
 
 #: align/scan.c:77
 #, c-format
@@ -3418,7 +3478,7 @@ msgstr ""
 #: inspector/inspector.c:129 make-fs/make-fs.c:116 rescue/rescue.c:137
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: సంభాలికను సృష్టించుటకు విఫలమైంది\n"
+msgstr ""
 
 #: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:141
 #: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
@@ -3427,7 +3487,7 @@ msgstr "guestfs_create: సంభాలికను సృష్టించు�
 #: make-fs/make-fs.c:146 p2v/main.c:141 rescue/rescue.c:193
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
-msgstr "%s: తెలియని long ఐచ్చికము: %s (%d)\n"
+msgstr ""
 
 #: align/scan.c:174 df/main.c:186
 #, c-format
@@ -3852,12 +3912,12 @@ msgstr ""
 #: fish/alloc.c:38
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "ప్రతిబింబమును సృష్టించుటకు 'alloc file size' వుపయోగించుము\n"
+msgstr ""
 
 #: fish/alloc.c:52
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "స్పార్స్ ప్రతిబింబమును సృష్టించుటకు 'sparse file size' వుపయోగించుము\n"
+msgstr ""
 
 #: fish/alloc.c:100
 #, c-format
@@ -3866,11 +3926,11 @@ msgstr ""
 
 #: fish/cmds.c:4574
 msgid "Command"
-msgstr "ఆదేశము"
+msgstr ""
 
 #: fish/cmds.c:4574
 msgid "Description"
-msgstr "వివరణ"
+msgstr ""
 
 #: fish/cmds.c:4576
 msgid "delete the default POSIX ACL of a directory"
@@ -3899,7 +3959,7 @@ msgstr ""
 
 #: fish/cmds.c:4585
 msgid "add a CD-ROM disk image to examine"
-msgstr "పరీక్షించుటకు CD-ROM డిస్కు ప్రతిబింబమును జతచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4586
 msgid "add the disk(s) from a named libvirt domain"
@@ -3907,11 +3967,11 @@ msgstr ""
 
 #: fish/cmds.c:4587
 msgid "add an image to examine or modify"
-msgstr "పరీక్షించుటకు లేదా సవరించుటకు వొక ప్రతిబింబమును జతచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4588
 msgid "add a drive in snapshot mode (read-only)"
-msgstr "స్నాప్‌షాట్ రీతినందు (చదువుట-మాత్రమే) వొక డ్రైవును జతచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4589
 msgid "add a drive read-only specifying the QEMU block emulation to use"
@@ -3935,27 +3995,27 @@ msgstr ""
 
 #: fish/cmds.c:4603
 msgid "close the current Augeas handle"
-msgstr "ప్రస్తుత ఆగ్యుయస్ హాండిల్ మూయుము"
+msgstr ""
 
 #: fish/cmds.c:4604
 msgid "define an Augeas node"
-msgstr "ఆగ్యుయస్ నోడ్‌ను నిర్వచించుము"
+msgstr ""
 
 #: fish/cmds.c:4605
 msgid "define an Augeas variable"
-msgstr "ఆగ్యుయస్ వేరియబుల్‌ను నిర్వచించుము"
+msgstr ""
 
 #: fish/cmds.c:4606
 msgid "look up the value of an Augeas path"
-msgstr "ఆగ్యుయస్ పాత్ యొక్క విలువను చూడుము"
+msgstr ""
 
 #: fish/cmds.c:4607
 msgid "create a new Augeas handle"
-msgstr "కొత్త ఆగ్యుయస్ హాండిల్ సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4608
 msgid "insert a sibling Augeas node"
-msgstr "సిబ్లింగ్ ఆగ్యుయస్ నోడ్‌ను చేర్చుము"
+msgstr ""
 
 #: fish/cmds.c:4609
 msgid "return the label from an Augeas path expression"
@@ -3963,31 +4023,31 @@ msgstr ""
 
 #: fish/cmds.c:4610
 msgid "load files into the tree"
-msgstr "ట్రీలోనికి ఫైళ్ళను లోడుచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4611
 msgid "list Augeas nodes under augpath"
-msgstr "ఆగ్యుయస్ నోడ్లను ఆగ్‌పాత్ క్రిందన జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4612
 msgid "return Augeas nodes which match augpath"
-msgstr "ఆగ్‌పాత్‌తో సరిపోలే ఆగ్యుయస్ నోడ్లను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4613
 msgid "move Augeas node"
-msgstr "ఆగ్యుయస్ నోడ్‌ను కదుల్చుము"
+msgstr ""
 
 #: fish/cmds.c:4614
 msgid "remove an Augeas path"
-msgstr "ఆగ్యుయస్ పాత్‌ను తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:4615
 msgid "write all pending Augeas changes to disk"
-msgstr "అన్ని వాయిదాలోవున్న ఆగ్యుయస్ మార్పులను డిస్కునకు వ్రాయుము"
+msgstr ""
 
 #: fish/cmds.c:4616
 msgid "set Augeas path to value"
-msgstr "ఆగ్యుయస్ పాత్‌ను విలువకు అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:4617
 msgid "set multiple Augeas nodes"
@@ -3995,7 +4055,7 @@ msgstr ""
 
 #: fish/cmds.c:4621 fish/cmds.c:4754
 msgid "test availability of some parts of the API"
-msgstr "API యొక్క కొన్ని భాగముల యొక్క అందుబాటును పరిశీలించుము"
+msgstr ""
 
 #: fish/cmds.c:4622
 msgid "return a list of all optional groups"
@@ -4023,35 +4083,35 @@ msgstr ""
 
 #: fish/cmds.c:4631
 msgid "flush device buffers"
-msgstr "పరికర బఫర్సును ఫ్లష్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4632
 msgid "get blocksize of block device"
-msgstr "బ్లాక్ పరికరము యొక్క బ్లాక్‌పరిమాణం పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4633
 msgid "is block device set to read-only"
-msgstr "బ్లాక్ పరికరము చదువుట-మాత్రమే‌కు అమర్చబడిందా"
+msgstr ""
 
 #: fish/cmds.c:4634
 msgid "get total size of device in bytes"
-msgstr "పరికరము యొక్క మొత్తము పరిమాణమును బైట్లలో పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4635
 msgid "get sectorsize of block device"
-msgstr "బ్లాక్ పరికరము యొక్క సెక్టార్‌పరిమాణమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4636
 msgid "get total size of device in 512-byte sectors"
-msgstr "పరికరము యొక్క మొత్తము పరిమాణమును 512-బైట్ సెక్టార్లలో పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4637
 msgid "reread partition table"
-msgstr "విభజన పట్టికను తిరిగిచదువుము"
+msgstr ""
 
 #: fish/cmds.c:4638
 msgid "set blocksize of block device"
-msgstr "బ్లాక్ పరికరము యొక్క బ్లాక్‌పరిమాణమును అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:4639
 msgid "set readahead"
@@ -4059,11 +4119,11 @@ msgstr ""
 
 #: fish/cmds.c:4640
 msgid "set block device to read-only"
-msgstr "బ్లాక్ పరికరమును చదువుట-మాత్రమే‌కు మార్చుము"
+msgstr ""
 
 #: fish/cmds.c:4641
 msgid "set block device to read-write"
-msgstr "బ్లాక్ పరికరమును చదువుట-వ్రాయుటకు అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:4645
 msgid "cancel a running or paused balance"
@@ -4232,15 +4292,15 @@ msgstr ""
 
 #: fish/cmds.c:4689
 msgid "return true path on case-insensitive filesystem"
-msgstr "ట్రూ పాత్‌ను కేస్-యిన్‌సెన్సిటివ్ ఫైల్‌సిస్టమ్‌పై తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4690
 msgid "list the contents of a file"
-msgstr "ఫైలు యొక్క సారములను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4691
 msgid "compute MD5, SHAx or CRC checksum of file"
-msgstr "ఫైలు యొక్క MD5, SHAx లేదా CRC చెక్‌సమ్ యొక్క ఫైలును లెక్కించుము"
+msgstr ""
 
 #: fish/cmds.c:4692
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
@@ -4252,11 +4312,11 @@ msgstr ""
 
 #: fish/cmds.c:4694
 msgid "change file mode"
-msgstr "ఫైలు రీతిని మార్చుము"
+msgstr ""
 
 #: fish/cmds.c:4695 fish/cmds.c:4893
 msgid "change file owner and group"
-msgstr "ఫైలు యజమాని మరియు సమూహంను మార్చుము"
+msgstr ""
 
 #: fish/cmds.c:4696
 msgid "remove a single per-backend settings string"
@@ -4264,11 +4324,11 @@ msgstr ""
 
 #: fish/cmds.c:4697
 msgid "run a command from the guest filesystem"
-msgstr "గెస్టు ఫైలుసిస్టమ్ నుండి ఆదేశమును నడుపుము"
+msgstr ""
 
 #: fish/cmds.c:4698
 msgid "run a command, returning lines"
-msgstr "ఒక ఆదేశమును నడుపుము, లైన్లను తిప్పియిచ్చుచున్నది"
+msgstr ""
 
 #: fish/cmds.c:4699
 msgid "output compressed device"
@@ -4316,11 +4376,11 @@ msgstr ""
 
 #: fish/cmds.c:4710
 msgid "copy a file"
-msgstr "ఫైలును నకలుతీయుము"
+msgstr ""
 
 #: fish/cmds.c:4711 fish/cmds.c:4712
 msgid "copy a file or directory recursively"
-msgstr "డెరెక్టరీ లేదా ఫైలును పునరావృతముగా నకలుతీయుము"
+msgstr ""
 
 #: fish/cmds.c:4713
 msgid "pack directory into cpio file"
@@ -4328,11 +4388,11 @@ msgstr ""
 
 #: fish/cmds.c:4714
 msgid "copy from source to destination using dd"
-msgstr "dd వుపయోగించి మూలమునుండి గమ్యమునకు నకలుతీయుము"
+msgstr ""
 
 #: fish/cmds.c:4715
 msgid "debugging and internals"
-msgstr "డీబగ్గింగ్ మరియు యింటర్నల్స్"
+msgstr ""
 
 #: fish/cmds.c:4716
 msgid "debug the drives (internal use only)"
@@ -4352,12 +4412,11 @@ msgstr ""
 
 #: fish/cmds.c:4720
 msgid "report file system disk space usage"
-msgstr "ఫైల్ సిస్టమ్ డిస్కు జాగా వినియోగమును నివేదించుము"
+msgstr ""
 
 #: fish/cmds.c:4721
 msgid "report file system disk space usage (human readable)"
 msgstr ""
-"ఫైలు సిస్టమ్ డిస్కు జాగా వినియోగమును నివేదించుము (మానవుడు చదువదగునట్లు)"
 
 #: fish/cmds.c:4725
 msgid "create a blank disk image"
@@ -4381,11 +4440,11 @@ msgstr ""
 
 #: fish/cmds.c:4730
 msgid "return kernel messages"
-msgstr "కెర్నల్ సందేశములను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4734
 msgid "download a file to the local machine"
-msgstr "ఒక ఫైలును స్థానిక మిషన్‌కు డౌనులోడు చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4735
 msgid "download a file to the local machine with offset and size"
@@ -4393,23 +4452,23 @@ msgstr ""
 
 #: fish/cmds.c:4736
 msgid "drop kernel page cache, dentries and inodes"
-msgstr "కెర్నల్ పేజీ క్యాచి, డెన్‌ట్రైస్ మరియు ఐనోడ్లను వదిలివేయుము"
+msgstr ""
 
 #: fish/cmds.c:4737
 msgid "estimate file space usage"
-msgstr "ఫైల్ జాగా వినియోగమును అంచనావేయుము"
+msgstr ""
 
 #: fish/cmds.c:4738 fish/cmds.c:4739
 msgid "check an ext2/ext3 filesystem"
-msgstr "ext2/ext3 ఫైల్‌సిస్టమ్‌ను పరిశీలించుము"
+msgstr ""
 
 #: fish/cmds.c:4740
 msgid "display a line of text"
-msgstr "ఒక పాఠ్యపు వరుసను ప్రదర్శించుము"
+msgstr ""
 
 #: fish/cmds.c:4741
 msgid "echo arguments back to the client"
-msgstr "క్లైంట్‌లోనికి యెకో ఆర్గుమెంట్లు"
+msgstr ""
 
 #: fish/cmds.c:4742
 msgid "edit a file"
@@ -4419,11 +4478,11 @@ msgstr ""
 #: fish/cmds.c:4809 fish/cmds.c:4810 fish/cmds.c:5234 fish/cmds.c:5235
 #: fish/cmds.c:5240 fish/cmds.c:5241 fish/cmds.c:5243 fish/cmds.c:5244
 msgid "return lines matching a pattern"
-msgstr "మాదిరిని పోలిన వరుసలను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4748
 msgid "test if two files have equal contents"
-msgstr "రెండు ఫైళ్ళు సమాన సారములను కలిగివుంటే పరిశీలించుము"
+msgstr ""
 
 #: fish/cmds.c:4749
 msgid "register a handler for an event or events"
@@ -4431,7 +4490,7 @@ msgstr ""
 
 #: fish/cmds.c:4750
 msgid "test if file or directory exists"
-msgstr "ఫైలు లేదా డైరెక్టరీ వుందేమో పరిశీలించుము"
+msgstr ""
 
 #: fish/cmds.c:4751
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
@@ -4439,11 +4498,11 @@ msgstr ""
 
 #: fish/cmds.c:4752 fish/cmds.c:4753
 msgid "preallocate a file in the guest filesystem"
-msgstr "ఒక ఫైలు గెస్టు ఫైల్‌సిస్టమ్‌నందు ముందుగా కేటాయించుము"
+msgstr ""
 
 #: fish/cmds.c:4757
 msgid "determine file type"
-msgstr "ఫైలు రకమును నిర్దారించుము"
+msgstr ""
 
 #: fish/cmds.c:4758
 msgid "detect the architecture of a binary file"
@@ -4459,7 +4518,7 @@ msgstr ""
 
 #: fish/cmds.c:4761
 msgid "fill a file with octets"
-msgstr "ఫైలును ఆక్టెట్స్ తో నింపుము"
+msgstr ""
 
 #: fish/cmds.c:4762
 msgid "fill a directory with empty files"
@@ -4471,12 +4530,11 @@ msgstr ""
 
 #: fish/cmds.c:4764
 msgid "find all files and directories"
-msgstr "అన్ని ఫైళ్ళను మరియు డైరెక్టరీలను కనుగొనుము"
+msgstr ""
 
 #: fish/cmds.c:4765
 msgid "find all files and directories, returning NUL-separated list"
 msgstr ""
-"NUL-వేరుచేసిన జాబితాను యిచ్చు, అన్ని ఫైళ్ళను మరియు డైరెక్టరీలను కనుగొనుము"
 
 #: fish/cmds.c:4766
 msgid "find a filesystem by label"
@@ -4488,7 +4546,7 @@ msgstr ""
 
 #: fish/cmds.c:4768
 msgid "run the filesystem checker"
-msgstr "ఫైల్‌సిస్టమ్ పరిశీలకిని నడుపుము"
+msgstr ""
 
 #: fish/cmds.c:4769
 msgid "trim free space in a filesystem"
@@ -4496,7 +4554,7 @@ msgstr ""
 
 #: fish/cmds.c:4773
 msgid "get the additional kernel options"
-msgstr "అదనపు కెర్నల్ ఐచ్చికాలను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4774 fish/cmds.c:4776
 msgid "get the backend"
@@ -4504,7 +4562,7 @@ msgstr ""
 
 #: fish/cmds.c:4775
 msgid "get autosync mode"
-msgstr "ఆటోసింక్ రీతిని పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4777
 msgid "get a single per-backend settings string"
@@ -4520,7 +4578,7 @@ msgstr ""
 
 #: fish/cmds.c:4780
 msgid "get direct appliance mode flag"
-msgstr "డైరెక్ట్ అప్లయెన్స్ రితి ఫ్లాగ్‌ను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4781
 msgid "get ext2 file attributes of a file"
@@ -4532,11 +4590,11 @@ msgstr ""
 
 #: fish/cmds.c:4783
 msgid "get the ext2/3/4 filesystem label"
-msgstr "ext2/3/4 ఫైల్‌సిస్టమ్ లేబుల్ పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4784
 msgid "get the ext2/3/4 filesystem UUID"
-msgstr "ext2/3/4 ఫైల్‌సిస్టమ్ UUID పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4785
 msgid "get the hypervisor binary"
@@ -4568,7 +4626,7 @@ msgstr ""
 
 #: fish/cmds.c:4792
 msgid "get the search path"
-msgstr "శోధన పాత్‌ను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4793
 msgid "get process group flag"
@@ -4588,11 +4646,11 @@ msgstr ""
 
 #: fish/cmds.c:4797
 msgid "get recovery process enabled flag"
-msgstr "మెరుగుపరచు కార్యక్రమము చేతనపరచు ఫ్లాగ్ పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4798
 msgid "get SELinux enabled flag"
-msgstr "SELinux చేతనపరచు ఫ్లాగ్ పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4799
 msgid "get number of virtual CPUs in appliance"
@@ -4604,7 +4662,7 @@ msgstr ""
 
 #: fish/cmds.c:4801
 msgid "get command trace enabled flag"
-msgstr "ఆదేశపు జాడ చేతనపరచు ఫ్లాగ్‌ను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4802
 msgid "get the current umask"
@@ -4612,11 +4670,11 @@ msgstr ""
 
 #: fish/cmds.c:4803
 msgid "get verbose mode"
-msgstr "వెర్బోస్ రీతిని పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4804
 msgid "get SELinux security context"
-msgstr "SELinux రక్షణ సందర్భమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4805 fish/cmds.c:4907
 msgid "get a single extended attribute"
@@ -4624,15 +4682,15 @@ msgstr ""
 
 #: fish/cmds.c:4806 fish/cmds.c:4908
 msgid "list extended attributes of a file or directory"
-msgstr "ఫైలు లేదా డైరెక్టరీ యొక్క పొడిగింపు యాట్రిబ్యూట్లను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4807
 msgid "expand wildcards in command"
-msgstr "ఆదేశమునందు వైల్డుకార్డ్సును విస్తరింపచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4808
 msgid "expand a wildcard path"
-msgstr "వైల్డుకార్డు పాత్ విస్తరింపుము"
+msgstr ""
 
 #: fish/cmds.c:4811
 msgid "install GRUB 1"
@@ -4640,15 +4698,15 @@ msgstr ""
 
 #: fish/cmds.c:4812
 msgid "return first 10 lines of a file"
-msgstr "ఫైలు యొక్క మొదటి 10 వరుసలను తిరిగియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4813
 msgid "return first N lines of a file"
-msgstr "ఫైలు యొక్క మొదటి N వరుసలను తిరిగియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4814
 msgid "dump a file in hexadecimal"
-msgstr "ఫైలును హెక్సాడెసిమల్ నందు డంప్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4815
 msgid "edit with a hex editor"
@@ -4724,31 +4782,31 @@ msgstr ""
 
 #: fish/cmds.c:4837
 msgid "list files in an initrd"
-msgstr "initrd నందు ఫైళ్ళను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4838
 msgid "add an inotify watch"
-msgstr "inotify పర్యవేక్షణను జతచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4839
 msgid "close the inotify handle"
-msgstr "inotify సంభాలికను మూయుము"
+msgstr ""
 
 #: fish/cmds.c:4840
 msgid "return list of watched files that had events"
-msgstr "ఘటనలను కలిగివుండి పర్యవేక్షించబడిన ఫైళ్ళ జాబితాను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4841
 msgid "create an inotify handle"
-msgstr "inotify సంభాలికను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4842
 msgid "return list of inotify events"
-msgstr "inotify ఘటనల జాబితాను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:4843
 msgid "remove an inotify watch"
-msgstr "inotify పర్యవేక్షణను తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:4844
 msgid "get architecture of inspected operating system"
@@ -4852,7 +4910,7 @@ msgstr ""
 
 #: fish/cmds.c:4870
 msgid "is in configuration state"
-msgstr "ఆకృతీకరణ స్థితినందు వుందా"
+msgstr ""
 
 #: fish/cmds.c:4871
 msgid "test if a directory"
@@ -4984,7 +5042,7 @@ msgstr ""
 
 #: fish/cmds.c:4910
 msgid "list the block devices"
-msgstr "బ్లాక్ పరికరములను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4911
 msgid "mapping of disk labels to devices"
@@ -5016,11 +5074,11 @@ msgstr ""
 
 #: fish/cmds.c:4918
 msgid "list the partitions"
-msgstr "విభజనలను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4919
 msgid "list the files in a directory (long format)"
-msgstr "ఫైళ్ళను డైరెక్టరీనందు జాబితాచేయుము (పొడవైన ఫార్మాట్)"
+msgstr ""
 
 #: fish/cmds.c:4920
 msgid "list the files in a directory (long format with SELinux contexts)"
@@ -5028,19 +5086,19 @@ msgstr ""
 
 #: fish/cmds.c:4921 fish/cmds.c:4922
 msgid "create a hard link"
-msgstr "హార్డ్ లింకును సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4923 fish/cmds.c:4924
 msgid "create a symbolic link"
-msgstr "సింబాలిక్ లింకును సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4925 fish/cmds.c:5075
 msgid "remove extended attribute of a file or directory"
-msgstr "ఫైలు లేదా డైరెక్టరీ యొక్క పొడిగించిన యాట్రిబ్యూట్‌ను తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:4926
 msgid "list the files in a directory"
-msgstr "ఫైళ్ళను డైరెక్టరీనందు జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4927
 msgid "get list of files in a directory"
@@ -5048,15 +5106,15 @@ msgstr ""
 
 #: fish/cmds.c:4928 fish/cmds.c:5132
 msgid "set extended attribute of a file or directory"
-msgstr "ఫైలు లేదా డైరెక్టరీ యొక్క పొడిగించిన యాట్రిబ్యూట్‌ను అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:4929 fish/cmds.c:4931
 msgid "get file information for a symbolic link"
-msgstr "సింబాలిక్ లింకు కొరకు ఫైలు సమాచారమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:4930 fish/cmds.c:4932
 msgid "lstat on multiple files"
-msgstr "బహుళ ఫైళ్ళపై lstat"
+msgstr ""
 
 #: fish/cmds.c:4933
 msgid "add a key on a LUKS encrypted device"
@@ -5100,7 +5158,7 @@ msgstr ""
 
 #: fish/cmds.c:4944
 msgid "remove all LVM LVs, VGs and PVs"
-msgstr "అన్ని LVM LVs, VGs మరియు PVsను తొలగించుము"
+msgstr ""
 
 #: fish/cmds.c:4945
 msgid "set LVM device filter"
@@ -5108,7 +5166,7 @@ msgstr ""
 
 #: fish/cmds.c:4946
 msgid "remove an LVM logical volume"
-msgstr "LVM తార్కిక వాల్యూమ్ తొలగించుము"
+msgstr ""
 
 #: fish/cmds.c:4947
 msgid "rename an LVM logical volume"
@@ -5116,7 +5174,7 @@ msgstr ""
 
 #: fish/cmds.c:4948
 msgid "resize an LVM logical volume"
-msgstr "LVM తార్కిక వాల్యూమ్ పునఃపరిమాణము చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4949
 msgid "expand an LV to fill free space"
@@ -5124,7 +5182,7 @@ msgstr ""
 
 #: fish/cmds.c:4950 fish/cmds.c:4951
 msgid "list the LVM logical volumes (LVs)"
-msgstr "LVM తార్కిక వాల్యూములను (LVs) జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4952
 msgid "get the UUID of a logical volume"
@@ -5132,7 +5190,7 @@ msgstr ""
 
 #: fish/cmds.c:4953
 msgid "lgetxattr on multiple files"
-msgstr "బహుళ ఫైళ్ళపై lgetxattr"
+msgstr ""
 
 #: fish/cmds.c:4954
 msgid "open the manual"
@@ -5160,19 +5218,19 @@ msgstr ""
 
 #: fish/cmds.c:4966
 msgid "create a directory"
-msgstr "డైరెక్టరీను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4967
 msgid "create a directory with a particular mode"
-msgstr "ఫలనా రీతితో డైరెక్టరీను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4968
 msgid "create a directory and parents"
-msgstr "డైరెక్టరీ మరియు పేరెంట్లను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4969
 msgid "create a temporary directory"
-msgstr "తాత్కాలిక డైరెక్టరీను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4970
 msgid "create an ext2/ext3/ext4 filesystem on device"
@@ -5180,31 +5238,31 @@ msgstr ""
 
 #: fish/cmds.c:4971 fish/cmds.c:4972 fish/cmds.c:4973
 msgid "make ext2/3/4 filesystem with external journal"
-msgstr "బాహ్య జర్నల్‌తో ext2/3/4 ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4974
 msgid "make ext2/3/4 external journal"
-msgstr "ext2/3/4 బాహ్య జర్నల్‌ను చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4975
 msgid "make ext2/3/4 external journal with label"
-msgstr "లేబుల్‌తో ext2/3/4 బాహ్య జర్నల్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4976
 msgid "make ext2/3/4 external journal with UUID"
-msgstr "UUIDతో ext2/3/4 బాహ్య జర్నల్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4977
 msgid "make FIFO (named pipe)"
-msgstr "FIFO (నామపు పైప్) చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4978
 msgid "make a filesystem"
-msgstr "ఫైల్‌సిస్టమ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4979
 msgid "make a filesystem with block size"
-msgstr "బ్లాక్ పరిమాణముతో ఫైలుసిస్టమ్‌ను చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4980
 msgid "create a btrfs filesystem"
@@ -5216,35 +5274,35 @@ msgstr ""
 
 #: fish/cmds.c:4982
 msgid "create a mountpoint"
-msgstr "మౌంట్‌పాయింట్‌ను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4983
 msgid "make block, character or FIFO devices"
-msgstr "బ్లాక్, కారెక్టర్ లేదా FIFO పరికరములను చేయుము."
+msgstr ""
 
 #: fish/cmds.c:4984
 msgid "make block device node"
-msgstr "బ్లాక్ పరికరము నోడ్‌ను చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4985
 msgid "make char device node"
-msgstr "కార్ పరికరము నోడ్‌ను చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4986
 msgid "create a swap partition"
-msgstr "swap విభజనను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4987
 msgid "create a swap partition with a label"
-msgstr "లేబుల్‌తో swap విభజనను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4988
 msgid "create a swap partition with an explicit UUID"
-msgstr "బాహ్య UUIDతో swap విభజనను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4989
 msgid "create a swap file"
-msgstr "swap ఫైలును సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:4990
 msgid "create a temporary file"
@@ -5252,7 +5310,7 @@ msgstr ""
 
 #: fish/cmds.c:4991
 msgid "load a kernel module"
-msgstr "కెర్నల్ మాడ్యూల్‌ను లోడుచేయుము"
+msgstr ""
 
 #: fish/cmds.c:4992
 msgid "view a file"
@@ -5260,7 +5318,7 @@ msgstr ""
 
 #: fish/cmds.c:4993
 msgid "mount a guest disk at a position in the filesystem"
-msgstr "ఫైల్‌సిస్టమ్ నందలి వొక స్థానమువద్ద గెస్టు డిస్కును మౌంట్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4994
 msgid "mount 9p filesystem"
@@ -5276,31 +5334,31 @@ msgstr ""
 
 #: fish/cmds.c:4997
 msgid "mount a file using the loop device"
-msgstr "లూప్ పరికరమును వుపయోగించి వొక ఫైలును మౌంట్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4998
 msgid "mount a guest disk with mount options"
-msgstr "మౌంట్ ఐచ్చికములతో గెస్టు డిస్కును మౌంటు చేయుము"
+msgstr ""
 
 #: fish/cmds.c:4999
 msgid "mount a guest disk, read-only"
-msgstr "గెస్టు డిస్కును మౌంట్ చేయుము, చదువుట-మాత్రమే"
+msgstr ""
 
 #: fish/cmds.c:5000
 msgid "mount a guest disk with mount options and vfstype"
-msgstr "మౌంట్ ఐచ్చికములు మరియు vfstypeతో గెస్టు డిస్కును మౌంట్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5001
 msgid "show mountpoints"
-msgstr "మౌంట్‌పాయింట్లను చూపుము"
+msgstr ""
 
 #: fish/cmds.c:5002
 msgid "show mounted filesystems"
-msgstr "మౌంటెడ్ ఫైల్‌సిస్టమ్సును చూపుము"
+msgstr ""
 
 #: fish/cmds.c:5003
 msgid "move a file"
-msgstr "ఫైలును కదుల్చుము"
+msgstr ""
 
 #: fish/cmds.c:5007
 msgid "return number of whole block devices (disks) added"
@@ -5308,7 +5366,7 @@ msgstr ""
 
 #: fish/cmds.c:5008
 msgid "probe NTFS volume"
-msgstr "NTFS వాల్యూమ్‌మ ప్రోబ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5009
 msgid "restore NTFS from backup file"
@@ -5336,7 +5394,7 @@ msgstr ""
 
 #: fish/cmds.c:5016
 msgid "add a partition to the device"
-msgstr "విభజనను పరికరమునకు జతచేయుము"
+msgstr ""
 
 #: fish/cmds.c:5017
 msgid "delete a partition"
@@ -5344,7 +5402,7 @@ msgstr ""
 
 #: fish/cmds.c:5018
 msgid "partition whole disk with a single primary partition"
-msgstr "మొత్తము డిస్కును వొంటరి ప్రాధమిక విభజనతో విభజించుము"
+msgstr ""
 
 #: fish/cmds.c:5019
 msgid "return true if a partition is bootable"
@@ -5372,19 +5430,19 @@ msgstr ""
 
 #: fish/cmds.c:5025
 msgid "get the partition table type"
-msgstr "విభజన పట్టిక రకమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:5026
 msgid "create an empty partition table"
-msgstr "ఖాళీ విభజన పట్టికను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:5027
 msgid "list partitions on a device"
-msgstr "విభజనలను పరికరముపై జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:5028
 msgid "make a partition bootable"
-msgstr "విభజనను బూటబుల్‌గా చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5029
 msgid "set the GUID of a GPT partition"
@@ -5400,7 +5458,7 @@ msgstr ""
 
 #: fish/cmds.c:5032
 msgid "set partition name"
-msgstr "విభజన నామమును అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5033
 msgid "convert partition name to device name"
@@ -5412,11 +5470,11 @@ msgstr ""
 
 #: fish/cmds.c:5044
 msgid "ping the guest daemon"
-msgstr "గెస్టు డెమోన్‌ను పింగ్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5045
 msgid "read part of a file"
-msgstr "ఫైలు యొక్క భాగమును చదువుము"
+msgstr ""
 
 #: fish/cmds.c:5046
 msgid "read part of a device"
@@ -5432,15 +5490,15 @@ msgstr ""
 
 #: fish/cmds.c:5052
 msgid "create an LVM physical volume"
-msgstr "LVM భౌతిక వాల్యూమ్‌ను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:5053
 msgid "remove an LVM physical volume"
-msgstr "LVM భౌతిక వాల్యూమ్‌ను తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:5054
 msgid "resize an LVM physical volume"
-msgstr "LVM భౌతిక వాల్యూమ్‌ను పునఃపరిమాణము చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5055
 msgid "resize an LVM physical volume (with size)"
@@ -5448,7 +5506,7 @@ msgstr ""
 
 #: fish/cmds.c:5056 fish/cmds.c:5057
 msgid "list the LVM physical volumes (PVs)"
-msgstr "LVM భౌతిక వాల్యూములు (PVs)ను జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:5058
 msgid "get the UUID of a physical volume"
@@ -5464,27 +5522,27 @@ msgstr ""
 
 #: fish/cmds.c:5064
 msgid "read a file"
-msgstr "ఫైలును చదువుము"
+msgstr ""
 
 #: fish/cmds.c:5065
 msgid "read file as lines"
-msgstr "ఫైలును వరుసలలా చదువుము"
+msgstr ""
 
 #: fish/cmds.c:5066
 msgid "read directories entries"
-msgstr "పదకోశపు అంశములను చదువుము"
+msgstr ""
 
 #: fish/cmds.c:5067
 msgid "read the target of a symbolic link"
-msgstr "సింబాలిక్ లింకుయొక్క లక్ష్యమును చదువుము"
+msgstr ""
 
 #: fish/cmds.c:5068
 msgid "readlink on multiple files"
-msgstr "బహుళ ఫైళ్ళపై రీడ్‌లింక్"
+msgstr ""
 
 #: fish/cmds.c:5069
 msgid "canonicalized absolute pathname"
-msgstr "కెనోనికలైజ్డ్ ఏబ్సొల్యూట్ పాత్‌నామము"
+msgstr ""
 
 #: fish/cmds.c:5073
 msgid "remount a filesystem with different options"
@@ -5500,7 +5558,7 @@ msgstr ""
 
 #: fish/cmds.c:5077
 msgid "close and reopen libguestfs handle"
-msgstr "libguestfs సంభాలికను మూయుము మరియు తిరిగితెరువుము"
+msgstr ""
 
 #: fish/cmds.c:5078
 msgid "resize an ext2, ext3 or ext4 filesystem"
@@ -5516,7 +5574,7 @@ msgstr ""
 
 #: fish/cmds.c:5081
 msgid "remove a file"
-msgstr "ఫైలును తొలగించుము"
+msgstr ""
 
 #: fish/cmds.c:5082
 msgid "remove a file ignoring errors"
@@ -5524,15 +5582,15 @@ msgstr ""
 
 #: fish/cmds.c:5083
 msgid "remove a file or directory recursively"
-msgstr "ఫైలు లేదా డైరెక్టరీను పునరావృతంగా తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:5084
 msgid "remove a directory"
-msgstr "డైరెక్టరీను తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:5085
 msgid "remove a mountpoint"
-msgstr "మౌంట్‌పాయింట్‌ను తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:5086
 msgid "synchronize the contents of two directories"
@@ -5548,19 +5606,19 @@ msgstr ""
 
 #: fish/cmds.c:5095
 msgid "scrub (securely wipe) a device"
-msgstr "ఒక పరికరాన్ని scrub (సురక్షితంగా తుడిచివేయు)చేయి"
+msgstr ""
 
 #: fish/cmds.c:5096
 msgid "scrub (securely wipe) a file"
-msgstr "ఒక ఫైలు scrub (సురక్షితంగా తుడిచివేయి) చేయి"
+msgstr ""
 
 #: fish/cmds.c:5097
 msgid "scrub (securely wipe) free space"
-msgstr "ఖాళీ జాగాను scrub (సురక్షితంగా తుడిచివేయి) చేయి"
+msgstr ""
 
 #: fish/cmds.c:5101
 msgid "add options to kernel command line"
-msgstr "కెర్నల్ ఆదేశ వరుసనకు ఐచ్చికాలను జతచేయుము"
+msgstr ""
 
 #: fish/cmds.c:5102 fish/cmds.c:5104
 msgid "set the backend"
@@ -5568,7 +5626,7 @@ msgstr ""
 
 #: fish/cmds.c:5103
 msgid "set autosync mode"
-msgstr "ఆటోసింక్ రీతిని అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5105
 msgid "set a single per-backend settings string"
@@ -5584,7 +5642,7 @@ msgstr ""
 
 #: fish/cmds.c:5108
 msgid "enable or disable direct appliance mode"
-msgstr "నేరుగా ఆపాదించు రీతిని చేతనముచేయి లేదా అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5109
 msgid "set ext2 file attributes of a file"
@@ -5596,11 +5654,11 @@ msgstr ""
 
 #: fish/cmds.c:5111
 msgid "set the ext2/3/4 filesystem label"
-msgstr "ext2/3/4 ఫైల్‌సిస్టమ్ లేబుల్ అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5112
 msgid "set the ext2/3/4 filesystem UUID"
-msgstr "ext2/3/4 ఫైల్‌సిస్టమ్ UUID అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5113
 msgid "set the hypervisor binary"
@@ -5628,7 +5686,7 @@ msgstr ""
 
 #: fish/cmds.c:5119
 msgid "set the search path"
-msgstr "శోధన పాత్‌ను అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5120
 msgid "set process group flag"
@@ -5644,11 +5702,11 @@ msgstr ""
 
 #: fish/cmds.c:5123
 msgid "enable or disable the recovery process"
-msgstr "మెరుగుపరచు కార్యక్రమమును చేతనముచేయి లేదా అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5124
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr "ఆపాదిత బూట్ నందు SELinux చేతనపరచు లేదా అచేతనపరచు అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5125
 msgid "set number of virtual CPUs in appliance"
@@ -5660,7 +5718,7 @@ msgstr ""
 
 #: fish/cmds.c:5127
 msgid "enable or disable command traces"
-msgstr "ఆదేశ జాడలను చేతనముచేయి లేదా అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5128
 msgid "set the filesystem UUID"
@@ -5668,11 +5726,11 @@ msgstr ""
 
 #: fish/cmds.c:5129
 msgid "set verbose mode"
-msgstr "వెర్బోస్ రీతిని అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5130
 msgid "set SELinux security context"
-msgstr "SELinux సురక్షిత సందర్భమును అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5131
 msgid "set an environment variable"
@@ -5680,31 +5738,31 @@ msgstr ""
 
 #: fish/cmds.c:5133 fish/cmds.c:5134
 msgid "create partitions on a block device"
-msgstr "బ్లాక్ పరికరముపై విభజనలను సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:5135
 msgid "modify a single partition on a block device"
-msgstr "బ్లాక్ పరికరముపై వొంటరి విభజనను సవరించుము"
+msgstr ""
 
 #: fish/cmds.c:5136
 msgid "display the disk geometry from the partition table"
-msgstr "విభజన పట్టికనుండి డిస్కు జియోమెట్రీను ప్రదర్శించుము"
+msgstr ""
 
 #: fish/cmds.c:5137
 msgid "display the kernel geometry"
-msgstr "కెర్నల్ జియోమెట్రీను ప్రదర్శించుము"
+msgstr ""
 
 #: fish/cmds.c:5138
 msgid "display the partition table"
-msgstr "విభజన పట్టికను ప్రదర్శించుము"
+msgstr ""
 
 #: fish/cmds.c:5139
 msgid "run a command via the shell"
-msgstr "షెల్ గుండా ఆదేశమును నడుపుము"
+msgstr ""
 
 #: fish/cmds.c:5140
 msgid "run a command via the shell returning lines"
-msgstr "షెల్ రిటర్నింగ్ వరుసల ద్వారా ఆదేశమును నడుపుము"
+msgstr ""
 
 #: fish/cmds.c:5141
 msgid "shutdown the hypervisor"
@@ -5712,7 +5770,7 @@ msgstr ""
 
 #: fish/cmds.c:5142
 msgid "sleep for some seconds"
-msgstr "కొన్ని సెకనులపాటు నిద్రించుము"
+msgstr ""
 
 #: fish/cmds.c:5146
 msgid "create a sparse disk image and add"
@@ -5720,15 +5778,15 @@ msgstr ""
 
 #: fish/cmds.c:5147 fish/cmds.c:5148
 msgid "get file information"
-msgstr "ఫైల్ సమాచారమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:5149
 msgid "get file system statistics"
-msgstr "ఫైల్ సిస్టమ్ గణాంకాలను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:5150 fish/cmds.c:5151
 msgid "print the printable strings in a file"
-msgstr "ముద్రించదగు స్ట్రింగులను ఫైలునందు ముద్రించుము"
+msgstr ""
 
 #: fish/cmds.c:5152
 msgid "list supported groups of commands"
@@ -5736,39 +5794,39 @@ msgstr ""
 
 #: fish/cmds.c:5153
 msgid "disable swap on device"
-msgstr "swapను పరికరముపై అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5154
 msgid "disable swap on file"
-msgstr "swapను ఫైలుపై అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5155
 msgid "disable swap on labeled swap partition"
-msgstr "swapను లేబుల్డు swap విభజనపై అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5156
 msgid "disable swap on swap partition by UUID"
-msgstr "swapను swap విభజనపై UUID ద్వారా అచేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5157
 msgid "enable swap on device"
-msgstr "పరికరము swapను చేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5158
 msgid "enable swap on file"
-msgstr "ఫైలుపై swapను చేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5159
 msgid "enable swap on labeled swap partition"
-msgstr "swapను లైబుల్డు swap విభజనపై చేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5160
 msgid "enable swap on swap partition by UUID"
-msgstr "swapను swap విభజనపై UUID ద్వారా చేతనముచేయి"
+msgstr ""
 
 #: fish/cmds.c:5161
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "సింక్ డిస్కులు, వ్రాసినవి డిస్కు ప్రతిబింబమునకు ఫ్లష్ చేయబడినవి"
+msgstr ""
 
 #: fish/cmds.c:5162
 msgid "install the SYSLINUX bootloader"
@@ -5776,27 +5834,27 @@ msgstr ""
 
 #: fish/cmds.c:5163
 msgid "return last 10 lines of a file"
-msgstr "ఫైలు యొక్క చివరి 10 వరుసలను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:5164
 msgid "return last N lines of a file"
-msgstr "ఫైలు యొక్క చివరి N వరుసలను తిప్పియివ్వుము"
+msgstr ""
 
 #: fish/cmds.c:5165
 msgid "unpack tarfile to directory"
-msgstr "టార్‌ఫైలును డైరెక్టరీనకు అన్‌పాక్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5166
 msgid "pack directory into tarfile"
-msgstr "డైరెక్టరీను టార్‌పైలులోనికి పాక్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5167 fish/cmds.c:5181
 msgid "unpack compressed tarball to directory"
-msgstr "కుదించిన టార్‌బాల్‌ను డెరెక్టరీనకు అన్‌పాక్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5168 fish/cmds.c:5182
 msgid "pack directory into compressed tarball"
-msgstr "డైరెక్టరీను కుదించిన టార్‌బాల్‌కు పాక్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5169
 msgid "print elapsed time taken to run a command"
@@ -5804,15 +5862,15 @@ msgstr ""
 
 #: fish/cmds.c:5173
 msgid "update file timestamps or create a new file"
-msgstr "ఫైలు టైమ్‌స్టాంపులను నవీకరించుము లేదా కొత్త ఫైలును సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:5177
 msgid "truncate a file to zero size"
-msgstr "ఫైలును సున్నా పరిమాణముకు ట్రంకేట్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5178
 msgid "truncate a file to a particular size"
-msgstr "ఫైలును ఫలానా పరిమాణముకు కుదించుము"
+msgstr ""
 
 #: fish/cmds.c:5179
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
@@ -5820,19 +5878,19 @@ msgstr ""
 
 #: fish/cmds.c:5180
 msgid "get ext2/ext3/ext4 superblock details"
-msgstr "ext2/ext3/ext4 సూపర్‌బ్లాక్ వివరములను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:5183
 msgid "set file mode creation mask (umask)"
-msgstr "ఫైల్ రీతి సృష్టీకరణ మాస్క్ అమర్చుము (umask)"
+msgstr ""
 
 #: fish/cmds.c:5184
 msgid "unmount a filesystem"
-msgstr "ఫైల్‌సిస్టమ్‌ను అన్‌మౌంట్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5185
 msgid "unmount all filesystems"
-msgstr "అన్ని ఫైల్‌సిస్టమ్సును అన్‌మౌంట్ చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5186
 msgid "unmount a locally mounted filesystem"
@@ -5844,7 +5902,7 @@ msgstr ""
 
 #: fish/cmds.c:5194
 msgid "upload a file from the local machine"
-msgstr "స్థానిక మిషన్‌నుండి వొక ఫైలును అప్‌లోడు చేయుము"
+msgstr ""
 
 #: fish/cmds.c:5195
 msgid "upload a file from the local machine with offset"
@@ -5856,7 +5914,7 @@ msgstr ""
 
 #: fish/cmds.c:5197
 msgid "set timestamp of a file with nanosecond precision"
-msgstr "ఫైలు యొక్క టైమ్‌స్టాంపును నానోసెకండ్ ప్రెసిషన్‌(సూక్ష్మత)తో అమర్చుము"
+msgstr ""
 
 #: fish/cmds.c:5198
 msgid "appliance kernel version"
@@ -5864,7 +5922,7 @@ msgstr ""
 
 #: fish/cmds.c:5202
 msgid "get the library version number"
-msgstr "లైబ్రరీ వర్షన్ సంఖ్యను పొందుము"
+msgstr ""
 
 #: fish/cmds.c:5203
 msgid "get the filesystem label"
@@ -5872,7 +5930,7 @@ msgstr ""
 
 #: fish/cmds.c:5204
 msgid "get the Linux VFS type corresponding to a mounted device"
-msgstr "మౌంటైన పరికరముకు చెందిన లైనక్స్ VFS రకమును పొందుము"
+msgstr ""
 
 #: fish/cmds.c:5205
 msgid "get the filesystem UUID"
@@ -5880,11 +5938,11 @@ msgstr ""
 
 #: fish/cmds.c:5206
 msgid "activate or deactivate some volume groups"
-msgstr "కొన్ని వాల్యూమ్ సమూహాలను క్రియాశీలపరచుము లేదా క్రియాహీనపరచుము"
+msgstr ""
 
 #: fish/cmds.c:5207
 msgid "activate or deactivate all volume groups"
-msgstr "అన్ని వాల్యూమ్ సమూహాలను క్రియాశీలపరచుము లేదా క్రియాహీనపరచుము"
+msgstr ""
 
 #: fish/cmds.c:5208
 msgid "generate a new random UUID for a volume group"
@@ -5896,7 +5954,7 @@ msgstr ""
 
 #: fish/cmds.c:5210
 msgid "create an LVM volume group"
-msgstr "LVM వాల్యూమ్ సమూహం సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:5211
 msgid "get the LV UUIDs of all LVs in the volume group"
@@ -5912,7 +5970,7 @@ msgstr ""
 
 #: fish/cmds.c:5214
 msgid "remove an LVM volume group"
-msgstr "LVM వాల్యూమ్ సమూహమును తీసివేయుము"
+msgstr ""
 
 #: fish/cmds.c:5215
 msgid "rename an LVM volume group"
@@ -5920,7 +5978,7 @@ msgstr ""
 
 #: fish/cmds.c:5216 fish/cmds.c:5217
 msgid "list the LVM volume groups (VGs)"
-msgstr "LVM వాల్యూమ్ సమూహాలను (VGs) జాబితాచేయుము"
+msgstr ""
 
 #: fish/cmds.c:5218
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
@@ -5932,15 +5990,15 @@ msgstr ""
 
 #: fish/cmds.c:5223
 msgid "count characters in a file"
-msgstr "ఫైలునందలి అక్షరములను లెక్కించుము"
+msgstr ""
 
 #: fish/cmds.c:5224
 msgid "count lines in a file"
-msgstr "ఫైలునందలి వరుసలను లెక్కించుము"
+msgstr ""
 
 #: fish/cmds.c:5225
 msgid "count words in a file"
-msgstr "ఫైలునందలి పదములను లెక్కించుము"
+msgstr ""
 
 #: fish/cmds.c:5226
 msgid "wipe a filesystem signature from a device"
@@ -5956,7 +6014,7 @@ msgstr ""
 
 #: fish/cmds.c:5229
 msgid "create a file"
-msgstr "ఫైలును సృష్టించుము"
+msgstr ""
 
 #: fish/cmds.c:5230
 msgid "change parameters of an XFS filesystem"
@@ -5976,7 +6034,7 @@ msgstr ""
 
 #: fish/cmds.c:5236
 msgid "write zeroes to the device"
-msgstr "పరికరమునకు సున్నాలను వ్రాయుము"
+msgstr ""
 
 #: fish/cmds.c:5237
 msgid "write zeroes to an entire device"
@@ -5989,16 +6047,14 @@ msgstr ""
 #: fish/cmds.c:5239
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
-"ext2/3 ఫైలుసిస్టమ్ పైన వుపయోగించని ఐనోడ్లు మరియు డిస్కు బ్లాకులు సున్నా"
 
 #: fish/cmds.c:5242
 msgid "determine file type inside a compressed file"
-msgstr "కుదించిన ఫైలునందలి ఫైలు రకమును నిర్ధారించుము"
+msgstr ""
 
 #: fish/cmds.c:5245
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
-"ఆదేశము కొరకు విశదీకృత సహాయమును చూపుటకు -h <cmd> / help <cmd> వుపయోగించుము"
 
 #: fish/cmds.c:6013 fish/cmds.c:6031 fish/cmds.c:6044 fish/cmds.c:6072
 #: fish/cmds.c:6128 fish/cmds.c:6192 fish/cmds.c:6536 fish/cmds.c:7402
@@ -6163,7 +6219,7 @@ msgstr ""
 #: fish/cmds.c:24869
 #, c-format
 msgid "%s: unknown command\n"
-msgstr "%s: తెలియని ఆదేశము\n"
+msgstr ""
 
 #: fish/config.c:65
 #, c-format
@@ -6192,7 +6248,7 @@ msgstr ""
 #: fish/edit.c:41
 #, c-format
 msgid "use '%s filename' to edit a file\n"
-msgstr "ఫైలును సరికూర్చుటకు '%s filename' వుపయోగించుము\n"
+msgstr ""
 
 #: fish/event-names.c:68
 #, c-format
@@ -6273,14 +6329,13 @@ msgstr ""
 #: fish/fish.c:256
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
-msgstr "%s: --listen=PID: PID సంఖ్య కాదు: %s\n"
+msgstr ""
 
 #: fish/fish.c:263
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
-"%s: remote: $GUESTFISH_PID అనునది రిమోట్ కార్యక్రమము యొక్క PIDకు అమర్చాలి\n"
 
 #: fish/fish.c:313
 #, c-format
@@ -6290,22 +6345,22 @@ msgstr ""
 #: fish/fish.c:320
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
-msgstr "%s: ఒక -f పారామితి మాత్రమే యివ్వగలము\n"
+msgstr ""
 
 #: fish/fish.c:517
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr "%s: ఒకే సమయం వద్ద --listen మరియు --remote ఐచ్చికాలను వుపయోగించలేము\n"
+msgstr ""
 
 #: fish/fish.c:525
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
-msgstr "%s: --listen ఫ్లాగ్‌తో ఆదేశ వరుసపై అదనపు పారామితులు\n"
+msgstr ""
 
 #: fish/fish.c:531
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr "%s: ఒకే సమయంలో --listen మరియు --file ఐచ్చికాలను వుపయోగించలేము\n"
+msgstr ""
 
 #: fish/fish.c:710
 #, c-format
@@ -6323,22 +6378,22 @@ msgstr ""
 #: fish/fish.c:870 fish/fish.c:886
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr "%s: వెట్‌స్పేస్ ద్వారా వేరుచేయబడిన కమాండ్ ఆర్గుమెంట్స్\n"
+msgstr ""
 
 #: fish/fish.c:880
 #, c-format
 msgid "%s: unterminated single quote\n"
-msgstr "%s: మూయని సింగిల్ కోట్\n"
+msgstr ""
 
 #: fish/fish.c:910
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
-msgstr "%s: '%s'వద్ద స్ట్రింగును పార్శ్ చేయుటలో అంతర్గత దోషము\n"
+msgstr ""
 
 #: fish/fish.c:927
 #, c-format
 msgid "%s: too many arguments\n"
-msgstr "%s: చాలా యెక్కువ ఆర్గుమెంట్లు\n"
+msgstr ""
 
 #: fish/fish.c:1002
 #, c-format
@@ -6348,20 +6403,20 @@ msgstr ""
 #: fish/fish.c:1011
 #, c-format
 msgid "%s: unterminated double quote\n"
-msgstr "%s: మూయని డబుల్ కోట్\n"
+msgstr ""
 
 #: fish/fish.c:1074
 #, c-format
 msgid "%s: empty command on command line\n"
-msgstr "%s: ఆదేశ వరుసపై ఖాళీ ఆదేశము\n"
+msgstr ""
 
 #: fish/fish.c:1232
 msgid "display a list of commands or help on a command"
-msgstr "ఆదేశముల జాబితాను లేదా ఆదేశముపై సహాయమును ప్రదర్శించుము"
+msgstr ""
 
 #: fish/fish.c:1234
 msgid "quit guestfish"
-msgstr "guestfish నిష్క్రమించుము"
+msgstr ""
 
 #: fish/fish.c:1245
 #, c-format
@@ -6370,9 +6425,6 @@ msgid ""
 "     help cmd\n"
 "     help\n"
 msgstr ""
-"help - ఆదేశముల జాబితాను లేదా ఆదేశముపై సహాయమును ప్రదర్శించును\n"
-"     help cmd\n"
-"     help\n"
 
 #: fish/fish.c:1253
 #, c-format
@@ -6380,13 +6432,11 @@ msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
-"quit - guestfish నిష్క్రమించును\n"
-"     quit\n"
 
 #: fish/fish.c:1258
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
-msgstr "%s: తెలియని ఆదేశము, అన్ని ఆదేశములను జాబితాచేయుటకు -h వుపయోగించుము\n"
+msgstr ""
 
 #: fish/fish.c:1274
 #, c-format
@@ -6404,7 +6454,7 @@ msgstr ""
 #: fish/fish.c:1408
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
-msgstr "\"%s\" స్ట్రింగునందు రన్‌యెవే స్ట్రింగ్\n"
+msgstr ""
 
 #: fish/fish.c:1745
 #, c-format
@@ -6436,12 +6486,12 @@ msgstr ""
 #: fish/glob.c:62
 #, c-format
 msgid "use 'glob command [args...]'\n"
-msgstr "'glob command [args...]' వుపయోగించు\n"
+msgstr ""
 
 #: fish/glob.c:127
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
-msgstr "glob: guestfs_glob_expand కాల్ విఫలమైంది: %s\n"
+msgstr ""
 
 #: fish/help.c:39
 #, c-format
@@ -6556,7 +6606,7 @@ msgstr ""
 #: fish/lcd.c:35
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr "స్థానిక డైరెక్టరీను మార్చుటకు 'lcd directory' వుపయోగించుము\n"
+msgstr ""
 
 #: fish/man.c:36
 #, c-format
@@ -6566,7 +6616,7 @@ msgstr ""
 #: fish/more.c:42
 #, c-format
 msgid "use '%s filename' to page a file\n"
-msgstr "ఒక ఫైలును పేజ్ చేయుటకు '%s filename' వుపయోగించుము\n"
+msgstr ""
 
 #: fish/options.c:107
 #, c-format
@@ -6713,7 +6763,7 @@ msgstr ""
 #: fish/rc.c:295
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
-msgstr "guestfish: నిభందన దోషము: 'hello' సందేశమును చదువలేక పోయింది\n"
+msgstr ""
 
 #: fish/rc.c:300
 #, c-format
@@ -6721,35 +6771,31 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: నిభందన దోషము: వర్షన్ అసమానత, సేవిక వర్షన్ '%s' అనునది క్లైంట్ "
-"వర్షన్ '%s'తో సరిపోలుట లేదు.  రెండు వర్షన్లు తప్పక సరిగ్గా సరిపోలవలెను.\n"
 
 #: fish/rc.c:385 fish/rc.c:399
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
-msgstr "guestfish: remote: సేవిక సరిగ్గా నడుచుచున్నట్లు లేదు\n"
+msgstr ""
 
 #: fish/rc.c:411 fish/rc.c:425
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
-msgstr "guestfish: protocol error: సేవికకు ప్రాధమిక అభివాదం పంపలేక పోయింది\n"
+msgstr ""
 
 #: fish/rc.c:436
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
-"guestfish: protocol error: సేవిక నుండి ప్రత్యుత్తరమును డీకోడ్ చేయలేక "
-"పోయింది\n"
 
 #: fish/reopen.c:39
 #, c-format
 msgid "'reopen' command takes no parameters\n"
-msgstr "'reopen' ఆదేశము యే పారామితులను తీసుకొనదు\n"
+msgstr ""
 
 #: fish/reopen.c:52
 #, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
-msgstr "reopen: guestfs_create: సంభాలిక సృష్టించుటకు విఫలమైంది\n"
+msgstr ""
 
 #: fish/setenv.c:35
 #, c-format
@@ -6772,7 +6818,7 @@ msgstr ""
 #: fish/time.c:37
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr "'time command [args...]' వుపయోగించుము\n"
+msgstr ""
 
 #: fish/uri.c:112
 #, c-format
@@ -6925,7 +6971,6 @@ msgstr ""
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
-"%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
 
 #: fuse/guestunmount.c:56
 #, c-format
@@ -7904,7 +7949,7 @@ msgstr ""
 #: src/errors.c:234
 #, c-format
 msgid "libguestfs: error: %s\n"
-msgstr "libguestfs: దోషము: %s\n"
+msgstr ""
 
 #: src/errors.c:262
 #, c-format
@@ -7913,7 +7958,7 @@ msgstr ""
 
 #: src/errors.c:290
 msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
+msgstr ""
 
 #: src/errors.c:293
 msgid ""
@@ -8047,7 +8092,7 @@ msgstr ""
 #: src/handle.c:319
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
-msgstr "guestfs_close: ఒకే సంభాలికపై రెండుసార్లు పిలువబడింది\n"
+msgstr ""
 
 #: src/handle.c:527
 msgid ""
@@ -8162,12 +8207,11 @@ msgstr ""
 
 #: src/launch-direct.c:258 src/launch-uml.c:159
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "guestfs_launchకు ముందుగా మీరు guestfs_add_driveను పిలువవలెను"
+msgstr ""
 
 #: src/launch-direct.c:851 src/launch-libvirt.c:626
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
-"qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
 #: src/launch-direct.c:1253 src/launch-libvirt.c:1414
 #, c-format
@@ -8396,7 +8440,7 @@ msgstr ""
 
 #: src/launch.c:201
 msgid "qemu has not been launched yet"
-msgstr "qemu యింకా ఆరంభం కాలేదు"
+msgstr ""
 
 #: src/launch.c:272
 #, c-format
@@ -8557,11 +8601,11 @@ msgstr ""
 
 #: src/proto.c:247
 msgid "xdr_guestfs_message_header failed"
-msgstr "xdr_guestfs_message_header విఫలమైంది"
+msgstr ""
 
 #: src/proto.c:256
 msgid "dispatch failed to marshal args"
-msgstr "మార్షల్ argsకు చేరవేత విఫలమైంది"
+msgstr ""
 
 #: src/proto.c:363 src/proto.c:860
 msgid "operation cancelled by user"
@@ -8570,34 +8614,33 @@ msgstr ""
 #: src/proto.c:432
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
-msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
+msgstr ""
 
 #: src/proto.c:529
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
-msgstr "స్థితి %d నందు, guestfsd నుండి చమత్కార సంతకము పొందబడింది"
+msgstr ""
 
 #: src/proto.c:548
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
-msgstr "సందేశము పొడవు (%u) > సాధ్యమగు గరిష్ట పరిమాణము (%d)"
+msgstr ""
 
 #: src/proto.c:819
 msgid "write to daemon socket"
-msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
+msgstr ""
 
 #: src/proto.c:845
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
-"receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
 #: src/proto.c:853
 msgid "failed to parse file chunk"
-msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
+msgstr ""
 
 #: src/proto.c:862
 msgid "file receive cancelled by daemon"
-msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
+msgstr ""
 
 #: src/tmpdirs.c:56 src/tmpdirs.c:61
 #, c-format
@@ -8612,7 +8655,7 @@ msgstr ""
 #: src/tmpdirs.c:135
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr "%s: తాత్కాలిక డైరెక్టరీను సృష్టించలేదు"
+msgstr ""
 
 #: src/utils.c:196
 #, c-format
@@ -8659,27 +8702,27 @@ msgstr ""
 #: test-tool/test-tool.c:114
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
+msgstr ""
 
 #: test-tool/test-tool.c:123
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
+msgstr ""
 
 #: test-tool/test-tool.c:133 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
-msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
+msgstr ""
 
 #: test-tool/test-tool.c:138
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
-msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
+msgstr ""
 
 #: test-tool/test-tool.c:154
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
+msgstr ""
 
 #: test-tool/test-tool.c:161
 #, c-format
@@ -8701,7 +8744,7 @@ msgstr ""
 #: test-tool/test-tool.c:274
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
-msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
+msgstr ""
 
 #: test-tool/test-tool.c:286
 #, c-format
@@ -8711,12 +8754,12 @@ msgstr ""
 #: test-tool/test-tool.c:292
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
-msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
+msgstr ""
 
 #: test-tool/test-tool.c:298
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
-msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
+msgstr ""
 
 #: test-tool/test-tool.c:305
 #, c-format
@@ -8738,12 +8781,12 @@ msgstr ""
 #: test-tool/test-tool.c:353
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
-msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
+msgstr ""
 
 #: test-tool/test-tool.c:370
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
-msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
+msgstr ""
 
 #: v2v/domainxml-c.c:137 v2v/domainxml-c.c:207 v2v/domainxml-c.c:391
 #: v2v/domainxml-c.c:448
