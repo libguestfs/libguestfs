@@ -517,6 +517,9 @@ read_cmdline (void)
     return NULL;
   }
 
+  if (len >= 1 && ret[len-1] == '\n')
+    ret[len-1] = '\0';
+
   return ret;
 }
 
