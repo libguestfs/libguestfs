@@ -120,7 +120,9 @@ containing the files required to PXE boot virt-p2v:
  tftpboot/pxelinux.cfg:
  default
 
-=head1 TESTING THE P2V ISO USING QEMU
+=head1 TESTING VIRT-P2V USING QEMU
+
+=head2 TESTING THE P2V ISO USING QEMU
 
 You can use qemu to test-boot the P2V ISO:
 
@@ -129,6 +131,44 @@ You can use qemu to test-boot the P2V ISO:
 Note that C<-hda> is the (virtual) system that you want to convert
 (for test purposes).  It could be any guest type supported by
 L<virt-v2v(1)>, including Windows or Red Hat Enterprise Linux.
+
+=head2 TESTING PXE SUPPORT USING QEMU
+
+=over 4
+
+=item *
+
+Unpack the tftpboot directory into C</tmp> (so it appears as
+C</tmp/tftpboot>).
+
+=item *
+
+Copy C<pxelinux.0> and C<ldlinux.c32> from syslinux (usually from
+C</usr/share/syslinux>) into C</tmp/tftpboot>.
+
+=item *
+
+Adjust the C<APPEND> line in C</tmp/tftpboot/pxelinux.cfg/default> if
+required.  See L<virt-p2v(1)/KERNEL COMMAND LINE CONFIGURATION>.
+
+=item *
+
+Run qemu like this so that it acts as a TFTP and BOOTP server,
+emulating a netboot:
+
+ qemu-kvm \
+     -m 4096 -hda /tmp/guest.img \
+     -boot n \
+     -netdev user,id=unet,tftp=/tmp/tftpboot,bootfile=/pxelinux.0 \
+     -device virtio-net-pci,netdev=unet \
+     -serial stdio
+
+Note that this requires considerably more memory because the PXE image
+is loaded into memory.  Also that qemu's TFTP server is very slow and
+the virt-p2v PXE image is very large, so it can appear to "hang" after
+pxelinux starts up.
+
+=back
 
 =head1 OPTIONS
 
