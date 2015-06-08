@@ -288,8 +288,8 @@ in the C<pxelinux.cfg> file.  For example:
  TIMEOUT 20
  PROMPT 0
  LABEL p2v
-   KERNEL virt-p2v-vmlinuz
-   APPEND initrd=virt-p2v-initrd p2v.server=conv.example.com p2v.password=secret p2v.o=libvirt
+   KERNEL vmlinuz0
+   APPEND initrd=initrd0.img [....] p2v.server=conv.example.com p2v.password=secret p2v.o=libvirt
 
 You have to set some or all of the following command line arguments:
 
