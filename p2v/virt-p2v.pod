@@ -422,6 +422,41 @@ option.  See L<virt-v2v(1)/OPTIONS>.
 
 If not specified, the default is C</var/tmp> (on the conversion server).
 
+=item B<p2v.pre=COMMAND>
+
+=item B<p2v.pre="COMMAND ARG ...">
+
+Select a pre-conversion command to run.  Any command or script can be
+specified here.  If the command contains spaces, you must quote the
+whole command with double quotes.  The default is not to run any
+command.
+
+=item B<p2v.post=poweroff>
+
+=item B<p2v.post=reboot>
+
+=item B<p2v.post=COMMAND>
+
+=item B<p2v.post="COMMAND ARG ...">
+
+Select a post-conversion command to run if conversion is successful.
+This can be any command or script.  If the command contains spaces,
+you must quote the whole command with double quotes.
+
+I<If> virt-p2v is running as root, I<and> the command line was set
+from C</proc/cmdline> (not I<--cmdline>), then the default is to run
+the L<poweroff(8)> command.  Otherwise the default is not to run any
+command.
+
+=item B<p2v.fail=COMMAND>
+
+=item B<p2v.fail="COMMAND ARG ...">
+
+Select a post-conversion command to run if conversion fails.  Any
+command or script can be specified here.  If the command contains
+spaces, you must quote the whole command with double quotes.  The
+default is not to run any command.
+
 =item B<ip=dhcp>
 
 Use DHCP for configuring the network interface (this is the default).

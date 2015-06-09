@@ -29,15 +29,22 @@
 #include <assert.h>
 #include <locale.h>
 #include <libintl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include "p2v.h"
 
 static void notify_ui_callback (int type, const char *data);
+static void run_command (int verbose, const char *stage, const char *command);
 
 void
 kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
 {
   const char *p;
+
+  p = get_cmdline_key (cmdline, "p2v.pre");
+  if (p)
+    run_command (config->verbose, "p2v.pre", p);
 
   p = get_cmdline_key (cmdline, "p2v.server");
   assert (p); /* checked by caller */
@@ -193,8 +200,21 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
 
     fprintf (stderr, "%s: error during conversion: %s\n",
              guestfs_int_program_name, err);
+
+    p = get_cmdline_key (cmdline, "p2v.fail");
+    if (p)
+      run_command (config->verbose, "p2v.fail", p);
+
     exit (EXIT_FAILURE);
   }
+
+  p = get_cmdline_key (cmdline, "p2v.post");
+  if (!p) {
+    if (geteuid () == 0 && cmdline_source == CMDLINE_SOURCE_PROC_CMDLINE)
+      p = "poweroff";
+  }
+  if (p)
+    run_command (config->verbose, "p2v.post", p);
 }
 
 static void
@@ -216,5 +236,28 @@ notify_ui_callback (int type, const char *data)
   default:
     printf ("%s: unknown message during conversion: type=%d data=%s\n",
             guestfs_int_program_name, type, data);
+  }
+}
+
+static void
+run_command (int verbose, const char *stage, const char *command)
+{
+  int r;
+
+  if (STREQ (command, ""))
+    return;
+
+  if (verbose)
+    printf ("%s\n", command);
+
+  r = system (command);
+  if (r == -1) {
+    perror ("system");
+    exit (EXIT_FAILURE);
+  }
+  if ((WIFEXITED (r) && WEXITSTATUS (r) != 0) || !WIFEXITED (r)) {
+    fprintf (stderr, "%s: %s: unexpected failure of external command\n",
+             guestfs_int_program_name, stage);
+    exit (EXIT_FAILURE);
   }
 }
