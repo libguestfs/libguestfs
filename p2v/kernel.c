@@ -35,46 +35,38 @@
 static void notify_ui_callback (int type, const char *data);
 
 void
-kernel_configuration (struct config *config, const char *cmdline)
+kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
 {
-  const char *r;
-  size_t len;
+  const char *p;
 
-  r = strstr (cmdline, "p2v.server=");
-  assert (r); /* checked by caller */
-  r += 5+6;
-  len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.server");
+  assert (p); /* checked by caller */
   free (config->server);
-  config->server = strndup (r, len);
+  config->server = strdup (p);
 
-  r = strstr (cmdline, "p2v.port=");
-  if (r) {
-    r += 5+4;
-    if (sscanf (r, "%d", &config->port) != 1) {
+  p = get_cmdline_key (cmdline, "p2v.port");
+  if (p) {
+    if (sscanf (p, "%d", &config->port) != 1) {
       fprintf (stderr, "%s: cannot parse p2v.port from kernel command line",
                guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
   }
 
-  r = strstr (cmdline, "p2v.username=");
-  if (r) {
-    r += 5+8;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.username");
+  if (p) {
     free (config->username);
-    config->username = strndup (r, len);
+    config->username = strdup (p);
   }
 
-  r = strstr (cmdline, "p2v.password=");
-  if (r) {
-    r += 5+8;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.password");
+  if (p) {
     free (config->password);
-    config->password = strndup (r, len);
+    config->password = strdup (p);
   }
 
-  r = strstr (cmdline, "p2v.sudo");
-  if (r)
+  p = get_cmdline_key (cmdline, "p2v.sudo");
+  if (p)
     config->sudo = 1;
 
   /* We should now be able to connect and interrogate virt-v2v
@@ -88,30 +80,26 @@ kernel_configuration (struct config *config, const char *cmdline)
     exit (EXIT_FAILURE);
   }
 
-  r = strstr (cmdline, "p2v.name=");
-  if (r) {
-    r += 5+4;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.name");
+  if (p) {
     free (config->guestname);
-    config->guestname = strndup (r, len);
+    config->guestname = strdup (p);
   }
 
-  r = strstr (cmdline, "p2v.vcpus=");
-  if (r) {
-    r += 5+5;
-    if (sscanf (r, "%d", &config->vcpus) != 1) {
+  p = get_cmdline_key (cmdline, "p2v.vcpus");
+  if (p) {
+    if (sscanf (p, "%d", &config->vcpus) != 1) {
       fprintf (stderr, "%s: cannot parse p2v.vcpus from kernel command line\n",
                guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
   }
 
-  r = strstr (cmdline, "p2v.memory=");
-  if (r) {
+  p = get_cmdline_key (cmdline, "p2v.memory");
+  if (p) {
     char mem_code[2];
 
-    r += 5+6;
-    if (sscanf (r, "%" SCNu64 "%c", &config->memory, mem_code) != 1) {
+    if (sscanf (p, "%" SCNu64 "%c", &config->memory, mem_code) != 1) {
       fprintf (stderr, "%s: cannot parse p2v.memory from kernel command line\n",
                guestfs_int_program_name);
       exit (EXIT_FAILURE);
@@ -128,88 +116,75 @@ kernel_configuration (struct config *config, const char *cmdline)
     }
   }
 
-  r = strstr (cmdline, "p2v.disks=");
-  if (r) {
+  p = get_cmdline_key (cmdline, "p2v.disks");
+  if (p) {
     CLEANUP_FREE char *t;
 
-    r += 5+5;
-    len = strcspn (r, " ");
-    t = strndup (r, len);
+    t = strdup (p);
     guestfs_int_free_string_list (config->disks);
     config->disks = guestfs_int_split_string (',', t);
   }
 
-  r = strstr (cmdline, "p2v.removable=");
-  if (r) {
+  p = get_cmdline_key (cmdline, "p2v.removable");
+  if (p) {
     CLEANUP_FREE char *t;
 
-    r += 5+9;
-    len = strcspn (r, " ");
-    t = strndup (r, len);
+    t = strdup (p);
     guestfs_int_free_string_list (config->removable);
     config->removable = guestfs_int_split_string (',', t);
   }
 
-  r = strstr (cmdline, "p2v.interfaces=");
-  if (r) {
+  p = get_cmdline_key (cmdline, "p2v.interfaces");
+  if (p) {
     CLEANUP_FREE char *t;
 
-    r += 5+10;
-    len = strcspn (r, " ");
-    t = strndup (r, len);
+    t = strdup (p);
     guestfs_int_free_string_list (config->interfaces);
     config->interfaces = guestfs_int_split_string (',', t);
   }
 
-  r = strstr (cmdline, "p2v.network=");
-  if (r) {
+  p = get_cmdline_key (cmdline, "p2v.network");
+  if (p) {
     CLEANUP_FREE char *t;
 
-    r += 5+7;
-    len = strcspn (r, " ");
-    t = strndup (r, len);
+    t = strdup (p);
     guestfs_int_free_string_list (config->network_map);
     config->network_map = guestfs_int_split_string (',', t);
   }
 
-  r = strstr (cmdline, "p2v.o=");
-  if (r) {
-    r += 5+1;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.o");
+  if (p) {
     free (config->output);
-    config->output = strndup (r, len);
+    config->output = strdup (p);
   }
 
-  r = strstr (cmdline, "p2v.oa=sparse");
-  if (r)
-    config->output_allocation = OUTPUT_ALLOCATION_SPARSE;
+  p = get_cmdline_key (cmdline, "p2v.oa");
+  if (p) {
+    if (STREQ (p, "sparse"))
+      config->output_allocation = OUTPUT_ALLOCATION_SPARSE;
+    else if (STREQ (p, "preallocated"))
+      config->output_allocation = OUTPUT_ALLOCATION_PREALLOCATED;
+    else
+      fprintf (stderr, "%s: warning: don't know what p2v.oa=%s means\n",
+               guestfs_int_program_name, p);
+  }
 
-  r = strstr (cmdline, "p2v.oa=preallocated");
-  if (r)
-    config->output_allocation = OUTPUT_ALLOCATION_PREALLOCATED;
-
-  r = strstr (cmdline, "p2v.oc=");
-  if (r) {
-    r += 5+2;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.oc");
+  if (p) {
     free (config->output_connection);
-    config->output_connection = strndup (r, len);
+    config->output_connection = strdup (p);
   }
 
-  r = strstr (cmdline, "p2v.of=");
-  if (r) {
-    r += 5+2;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.of");
+  if (p) {
     free (config->output_format);
-    config->output_format = strndup (r, len);
+    config->output_format = strdup (p);
   }
 
-  r = strstr (cmdline, "p2v.os=");
-  if (r) {
-    r += 5+2;
-    len = strcspn (r, " ");
+  p = get_cmdline_key (cmdline, "p2v.os");
+  if (p) {
     free (config->output_storage);
-    config->output_storage = strndup (r, len);
+    config->output_storage = strdup (p);
   }
 
   /* Perform the conversion in text mode. */

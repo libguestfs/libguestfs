@@ -51,6 +51,7 @@ virt_p2v_SOURCES = \
 	conversion.c \
 	gui.c \
 	kernel.c \
+	kernel-cmdline.c \
 	main.c \
 	miniexpect.c \
 	miniexpect.h \
