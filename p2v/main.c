@@ -517,6 +517,11 @@ read_cmdline (void)
     return NULL;
   }
 
+  /* 'len' is not the length of the string, but the length of the
+   * buffer.  We need to chomp the string.
+   */
+  len = strlen (ret);
+
   if (len >= 1 && ret[len-1] == '\n')
     ret[len-1] = '\0';
 
