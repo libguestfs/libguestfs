@@ -85,8 +85,16 @@ extern struct config *new_config (void);
 extern struct config *copy_config (struct config *);
 extern void free_config (struct config *);
 
+/* kernel-cmdline.c */
+extern char **parse_cmdline_string (const char *cmdline);
+extern char **parse_proc_cmdline (void);
+extern const char *get_cmdline_key (char **cmdline, const char *key);
+
+#define CMDLINE_SOURCE_COMMAND_LINE 1 /* --cmdline */
+#define CMDLINE_SOURCE_PROC_CMDLINE 2 /* /proc/cmdline */
+
 /* kernel.c */
-extern void kernel_configuration (struct config *, const char *cmdline);
+extern void kernel_configuration (struct config *, char **cmdline, int cmdline_source);
 
 /* gui.c */
 extern void gui_application (struct config *);

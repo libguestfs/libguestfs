@@ -258,6 +258,7 @@ p2v/config.c
 p2v/conversion.c
 p2v/copying.c
 p2v/gui.c
+p2v/kernel-cmdline.c
 p2v/kernel.c
 p2v/main.c
 p2v/miniexpect.c

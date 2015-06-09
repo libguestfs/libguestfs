@@ -44,7 +44,6 @@ char **all_interfaces;
 static void set_config_defaults (struct config *config);
 static void find_all_disks (void);
 static void find_all_interfaces (void);
-static char *read_cmdline (void);
 static int cpuinfo_flags (void);
 
 enum { HELP_OPTION = CHAR_MAX + 1 };
@@ -99,7 +98,8 @@ main (int argc, char *argv[])
   gboolean gui_possible;
   int c;
   int option_index;
-  char *cmdline = NULL;
+  char **cmdline = NULL;
+  int cmdline_source = 0;
   struct config *config = new_config ();
 
   setlocale (LC_ALL, "");
@@ -120,7 +120,8 @@ main (int argc, char *argv[])
         display_long_options (long_options);
       }
       else if (STREQ (long_options[option_index].name, "cmdline")) {
-        cmdline = strdup (optarg);
+        cmdline = parse_cmdline_string (optarg);
+        cmdline_source = CMDLINE_SOURCE_COMMAND_LINE;
       }
       else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
@@ -158,16 +159,18 @@ main (int argc, char *argv[])
    * If /proc/cmdline contains p2v.debug then we enable verbose mode
    * even for interactive configuration.
    */
-  if (cmdline == NULL)
-    cmdline = read_cmdline ();
-  if (cmdline == NULL)
-    goto gui;
+  if (cmdline == NULL) {
+    cmdline = parse_proc_cmdline ();
+    if (cmdline == NULL)
+      goto gui;
+    cmdline_source = CMDLINE_SOURCE_PROC_CMDLINE;
+  }
 
-  if (strstr (cmdline, "p2v.debug"))
+  if (get_cmdline_key (cmdline, "p2v.debug") != NULL)
     config->verbose = 1;
 
-  if (strstr (cmdline, "p2v.server="))
-    kernel_configuration (config, cmdline);
+  if (get_cmdline_key (cmdline, "p2v.server") != NULL)
+    kernel_configuration (config, cmdline, cmdline_source);
   else {
   gui:
     if (!gui_possible)
@@ -176,7 +179,7 @@ main (int argc, char *argv[])
     gui_application (config);
   }
 
-  free (cmdline);
+  guestfs_int_free_string_list (cmdline);
 
   exit (EXIT_SUCCESS);
 }
@@ -496,36 +499,6 @@ find_all_interfaces (void)
 
   if (all_interfaces)
     qsort (all_interfaces, nr_interfaces, sizeof (char *), compare);
-}
-
-/* Read /proc/cmdline. */
-static char *
-read_cmdline (void)
-{
-  CLEANUP_FCLOSE FILE *fp = NULL;
-  char *ret = NULL;
-  size_t len;
-
-  fp = fopen ("/proc/cmdline", "re");
-  if (fp == NULL) {
-    perror ("/proc/cmdline");
-    return NULL;
-  }
-
-  if (getline (&ret, &len, fp) == -1) {
-    perror ("getline");
-    return NULL;
-  }
-
-  /* 'len' is not the length of the string, but the length of the
-   * buffer.  We need to chomp the string.
-   */
-  len = strlen (ret);
-
-  if (len >= 1 && ret[len-1] == '\n')
-    ret[len-1] = '\0';
-
-  return ret;
 }
 
 /* Read the list of flags from /proc/cpuinfo. */

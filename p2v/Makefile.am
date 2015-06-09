@@ -49,6 +49,7 @@ virt_p2v_SOURCES = \
 	copying.c \
 	gui.c \
 	kernel.c \
+	kernel-cmdline.c \
 	main.c \
 	miniexpect.c \
 	miniexpect.h \
