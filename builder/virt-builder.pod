@@ -805,6 +805,45 @@ In any case, the C<~USER/.ssh> directory and the
 C<~USER/.ssh/authorized_keys> file will be created if not existing
 already.
 
+=head2 FIRST BOOT SCRIPTS
+
+The I<--firstboot> and I<--firstboot-command> options allow you to
+execute commands at the first boot of the guest.  To do so, an init
+script for the guest init system is installed, which takes care of
+running all the added scripts and commands.
+
+Supported operating systems are:
+
+=over 4
+
+=item Linux
+
+Init systems supported are: systemd, System-V init (known also as sysvinit),
+and Upstart (using the System-V scripts).
+
+Note that usually init scripts run as root, but with a more limited
+environment than what could be available from a normal shell:
+for example, C<$HOME> may be unset or empty.
+
+The output of the first boot scripts is available in the guest as
+F<~root/virt-sysprep-firstboot.log>.
+
+=item Windows
+
+F<rhsrvany.exe>, available from sources at
+L<https://github.com/rwmjones/rhsrvany>, is installed to run the
+first boot scripts.  It is required, and the setup of first boot
+scripts will fail if it is not present.
+
+F<rhsrvany.exe> is copied from the location pointed to by the
+C<VIRT_TOOLS_DATA_DIR> environment variable; if not set, a compiled-in
+default will be used (something like F</usr/share/virt-tools>).
+
+The output of the first boot scripts is available in the guest as
+F<C:\Program Files\Red Hat\Firstboot\log.txt>.
+
+=back
+
 =head2 INSTALLATION PROCESS
 
 When you invoke virt-builder, installation proceeds as follows:
