@@ -59,7 +59,7 @@ export PATH=$d:$PATH
 # under test (because of the ./run script).
 
 # The Linux kernel command line.
-cmdline="p2v.server=localhost p2v.name=windows p2v.debug p2v.disks=$f p2v.o=local p2v.os=$d p2v.network=em1:wired,other"
+cmdline="p2v.server=localhost p2v.name=windows p2v.debug p2v.disks=$f p2v.o=local p2v.os=$d p2v.network=em1:wired,other p2v.post="
 
 virt-p2v --cmdline="$cmdline"
 
