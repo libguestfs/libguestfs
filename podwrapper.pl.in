@@ -278,6 +278,9 @@ foreach (@inserts) {
         if $content eq $oldcontent;
 }
 
+# Turn external links to this man page into simple cross-section links.
+$content =~ s,\QL<$name($section)/\E,L</,g;
+
 # Perform @verbatims.
 foreach (@verbatims) {
     my @a = split /:/, $_, 2;
