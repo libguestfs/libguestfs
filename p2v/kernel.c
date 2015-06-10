@@ -79,12 +79,15 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
   /* We should now be able to connect and interrogate virt-v2v
    * on the conversion server.
    */
-  if (test_connection (config) == -1) {
-    const char *err = get_ssh_error ();
+  p = get_cmdline_key (cmdline, "p2v.skip_test_connection");
+  if (!p) {
+    if (test_connection (config) == -1) {
+      const char *err = get_ssh_error ();
 
-    fprintf (stderr, "%s: error opening control connection to %s:%d: %s\n",
-             guestfs_int_program_name, config->server, config->port, err);
-    exit (EXIT_FAILURE);
+      fprintf (stderr, "%s: error opening control connection to %s:%d: %s\n",
+               guestfs_int_program_name, config->server, config->port, err);
+      exit (EXIT_FAILURE);
+    }
   }
 
   p = get_cmdline_key (cmdline, "p2v.name");
@@ -194,6 +197,13 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
   if (p) {
     free (config->output_storage);
     config->output_storage = strdup (p);
+  }
+
+  /* Undocumented command line tool used for testing command line parsing. */
+  p = get_cmdline_key (cmdline, "p2v.dump_config_and_exit");
+  if (p) {
+    print_config (config, stdout);
+    exit (EXIT_SUCCESS);
   }
 
   /* Perform the conversion in text mode. */
