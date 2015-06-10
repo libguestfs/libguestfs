@@ -249,8 +249,10 @@ run_command (int verbose, const char *stage, const char *command)
   if (STREQ (command, ""))
     return;
 
-  if (verbose)
+  if (verbose) {
     printf ("%s\n", command);
+    fflush (stdout);
+  }
 
   r = system (command);
   if (r == -1) {
