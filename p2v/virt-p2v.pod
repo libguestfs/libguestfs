@@ -342,9 +342,12 @@ use the same as the number of physical CPUs.
 
 =item B<p2v.memory=NN(M|G)>
 
-The size of the guest memory.  You can specify this in megabytes or
-gigabytes by using (eg) C<p2v.memory=1024M> or C<p2v.memory=1G>.  The
-default is to use the same amount of RAM as on the physical machine.
+The size of the guest memory.  You must specify the unit as either
+megabytes or gigabytes by using (eg) C<p2v.memory=1024M> or
+C<p2v.memory=1G>.
+
+The default is to use the same amount of RAM as on the physical
+machine.
 
 =item B<p2v.debug>
 
