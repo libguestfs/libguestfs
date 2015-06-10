@@ -155,8 +155,11 @@ stamp-virt-p2v-make-kickstart.pod: virt-p2v-make-kickstart.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
 TESTS = \
+	test-virt-p2v-cmdline.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
 	test-virt-p2v.sh
 endif ENABLE_APPLIANCE
 
