@@ -108,20 +108,22 @@ kernel_configuration (struct config *config, const char *cmdline)
 
   r = strstr (cmdline, "p2v.memory=");
   if (r) {
-    char mem_code[2];
+    char mem_code;
 
     r += 5+6;
-    if (sscanf (r, "%" SCNu64 "%c", &config->memory, mem_code) != 1) {
+    if (sscanf (r, "%" SCNu64 "%c", &config->memory, &mem_code) != 2) {
       fprintf (stderr, "%s: cannot parse p2v.memory from kernel command line\n",
                guestfs___program_name);
       exit (EXIT_FAILURE);
     }
     config->memory *= 1024;
-    if (mem_code[0] == 'M' || mem_code[0] == 'G')
+    if (mem_code == 'M' || mem_code == 'm'
+        || mem_code == 'G' || mem_code == 'g')
       config->memory *= 1024;
-    if (mem_code[0] == 'G')
+    if (mem_code == 'G' || mem_code == 'g')
       config->memory *= 1024;
-    if (mem_code[0] != 'M' && mem_code[0] != 'G') {
+    if (mem_code != 'M' && mem_code != 'm'
+        && mem_code != 'G' && mem_code != 'g') {
       fprintf (stderr, "%s: p2v.memory on kernel command line must be followed by 'G' or 'M'\n",
                guestfs___program_name);
       exit (EXIT_FAILURE);
