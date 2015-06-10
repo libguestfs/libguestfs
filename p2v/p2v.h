@@ -19,6 +19,8 @@
 #ifndef P2V_H
 #define P2V_H
 
+#include <stdio.h>
+
 /* Send various debug information to stderr.  Harmless and useful, so
  * can be left enabled in production builds.
  */
@@ -84,6 +86,7 @@ struct config {
 extern struct config *new_config (void);
 extern struct config *copy_config (struct config *);
 extern void free_config (struct config *);
+extern void print_config (struct config *, FILE *);
 
 /* kernel-cmdline.c */
 extern char **parse_cmdline_string (const char *cmdline);

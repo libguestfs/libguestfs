@@ -58,7 +58,6 @@ static int wait_qemu_nbd (int nbd_local_port, int timeout_seconds);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static char *generate_libvirt_xml (struct config *, struct data_conn *);
 static const char *map_interface_to_network (struct config *, const char *interface);
-static void debug_parameters (struct config *);
 
 static char *conversion_error;
 
@@ -109,7 +108,10 @@ start_conversion (struct config *config,
   struct tm tm;
   mexp_h *control_h = NULL;
 
-  debug_parameters (config);
+#if DEBUG_STDERR
+  print_config (config, stderr);
+  fprintf (stderr, "\n");
+#endif
 
   for (i = 0; config->disks[i] != NULL; ++i) {
     data_conns[i].h = NULL;
@@ -799,66 +801,4 @@ map_interface_to_network (struct config *config, const char *interface)
 
   /* No mapping found. */
   return "default";
-}
-
-static void
-debug_parameters (struct config *config)
-{
-#if DEBUG_STDERR
-  size_t i;
-
-  /* Print the conversion parameters and other important information. */
-  fprintf (stderr, "local version   .  %s\n", PACKAGE_VERSION);
-  fprintf (stderr, "remote version  .  %d.%d.%d\n",
-           v2v_major, v2v_minor, v2v_release);
-  fprintf (stderr, "remote debugging   %s\n",
-           config->verbose ? "true" : "false");
-  fprintf (stderr, "conversion server  %s\n",
-           config->server ? config->server : "none");
-  fprintf (stderr, "port . . . . . .   %d\n", config->port);
-  fprintf (stderr, "username . . . .   %s\n",
-           config->username ? config->username : "none");
-  fprintf (stderr, "password . . . .   %s\n",
-           config->password && strlen (config->password) > 0 ? "***" : "none");
-  fprintf (stderr, "sudo . . . . . .   %s\n",
-           config->sudo ? "true" : "false");
-  fprintf (stderr, "guest name . . .   %s\n",
-           config->guestname ? config->guestname : "none");
-  fprintf (stderr, "vcpus  . . . . .   %d\n", config->vcpus);
-  fprintf (stderr, "memory . . . . .   %" PRIu64 "\n", config->memory);
-  fprintf (stderr, "disks  . . . . .  ");
-  if (config->disks != NULL) {
-    for (i = 0; config->disks[i] != NULL; ++i)
-      fprintf (stderr, " %s", config->disks[i]);
-  }
-  fprintf (stderr, "\n");
-  fprintf (stderr, "removable  . . .  ");
-  if (config->removable != NULL) {
-    for (i = 0; config->removable[i] != NULL; ++i)
-      fprintf (stderr, " %s", config->removable[i]);
-  }
-  fprintf (stderr, "\n");
-  fprintf (stderr, "interfaces . . .  ");
-  if (config->interfaces != NULL) {
-    for (i = 0; config->interfaces[i] != NULL; ++i)
-      fprintf (stderr, " %s", config->interfaces[i]);
-  }
-  fprintf (stderr, "\n");
-  fprintf (stderr, "network map  . .  ");
-  if (config->network_map != NULL) {
-    for (i = 0; config->network_map[i] != NULL; ++i)
-      fprintf (stderr, " %s", config->network_map[i]);
-  }
-  fprintf (stderr, "\n");
-  fprintf (stderr, "output . . . . .   %s\n",
-           config->output ? config->output : "none");
-  fprintf (stderr, "output alloc . .   %d\n", config->output_allocation);
-  fprintf (stderr, "output conn  . .   %s\n",
-           config->output_connection ? config->output_connection : "none");
-  fprintf (stderr, "output format  .   %s\n",
-           config->output_format ? config->output_format : "none");
-  fprintf (stderr, "output storage .   %s\n",
-           config->output_storage ? config->output_storage : "none");
-  fprintf (stderr, "\n");
-#endif
 }

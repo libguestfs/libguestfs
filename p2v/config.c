@@ -103,3 +103,73 @@ free_config (struct config *c)
   free (c->output_storage);
   free (c);
 }
+
+/* Print the conversion parameters and other important information. */
+void
+print_config (struct config *config, FILE *fp)
+{
+  size_t i;
+
+  fprintf (fp, "local version   .  %s\n", PACKAGE_VERSION);
+  fprintf (fp, "remote version  .  %d.%d.%d\n",
+           v2v_major, v2v_minor, v2v_release);
+  fprintf (fp, "remote debugging   %s\n",
+           config->verbose ? "true" : "false");
+  fprintf (fp, "conversion server  %s\n",
+           config->server ? config->server : "none");
+  fprintf (fp, "port . . . . . .   %d\n", config->port);
+  fprintf (fp, "username . . . .   %s\n",
+           config->username ? config->username : "none");
+  fprintf (fp, "password . . . .   %s\n",
+           config->password && strlen (config->password) > 0 ? "***" : "none");
+  fprintf (fp, "sudo . . . . . .   %s\n",
+           config->sudo ? "true" : "false");
+  fprintf (fp, "guest name . . .   %s\n",
+           config->guestname ? config->guestname : "none");
+  fprintf (fp, "vcpus  . . . . .   %d\n", config->vcpus);
+  fprintf (fp, "memory . . . . .   %" PRIu64 "\n", config->memory);
+  fprintf (fp, "flags  . . . . .  %s%s%s\n",
+           config->flags & FLAG_ACPI ? " acpi" : "",
+           config->flags & FLAG_APIC ? " apic" : "",
+           config->flags & FLAG_PAE  ? " pae"  : "");
+  fprintf (fp, "disks  . . . . .  ");
+  if (config->disks != NULL) {
+    for (i = 0; config->disks[i] != NULL; ++i)
+      fprintf (fp, " %s", config->disks[i]);
+  }
+  fprintf (fp, "\n");
+  fprintf (fp, "removable  . . .  ");
+  if (config->removable != NULL) {
+    for (i = 0; config->removable[i] != NULL; ++i)
+      fprintf (fp, " %s", config->removable[i]);
+  }
+  fprintf (fp, "\n");
+  fprintf (fp, "interfaces . . .  ");
+  if (config->interfaces != NULL) {
+    for (i = 0; config->interfaces[i] != NULL; ++i)
+      fprintf (fp, " %s", config->interfaces[i]);
+  }
+  fprintf (fp, "\n");
+  fprintf (fp, "network map  . .  ");
+  if (config->network_map != NULL) {
+    for (i = 0; config->network_map[i] != NULL; ++i)
+      fprintf (fp, " %s", config->network_map[i]);
+  }
+  fprintf (fp, "\n");
+  fprintf (fp, "output . . . . .   %s\n",
+           config->output ? config->output : "none");
+  fprintf (fp, "output alloc . .   ");
+  switch (config->output_allocation) {
+  case OUTPUT_ALLOCATION_NONE:         fprintf (fp, "none"); break;
+  case OUTPUT_ALLOCATION_SPARSE:       fprintf (fp, "sparse"); break;
+  case OUTPUT_ALLOCATION_PREALLOCATED: fprintf (fp, "preallocated"); break;
+  default: fprintf (fp, "unknown? (%d)", config->output_allocation);
+  }
+  fprintf (fp, "\n");
+  fprintf (fp, "output conn  . .   %s\n",
+           config->output_connection ? config->output_connection : "none");
+  fprintf (fp, "output format  .   %s\n",
+           config->output_format ? config->output_format : "none");
+  fprintf (fp, "output storage .   %s\n",
+           config->output_storage ? config->output_storage : "none");
+}
