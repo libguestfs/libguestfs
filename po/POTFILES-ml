@@ -38,6 +38,7 @@ mllib/tTY.ml
 mllib/uRI.ml
 resize/resize.ml
 sparsify/cmdline.ml
+sparsify/config_el.ml
 sparsify/copying.ml
 sparsify/in_place.ml
 sparsify/sparsify.ml

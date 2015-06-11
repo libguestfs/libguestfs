@@ -430,6 +430,7 @@ Makefile.in
 /ruby/Rakefile
 /run
 /sparsify/.depend
+/sparsify/config_el.ml
 /sparsify/link.sh
 /sparsify/stamp-virt-sparsify.pod
 /sparsify/virt-sparsify
