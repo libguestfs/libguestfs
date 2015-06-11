@@ -39,7 +39,6 @@ CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 SOURCES_MLI = \
 	cache.mli \
 	downloader.mli \
-	get_kernel.mli \
 	index_parser.mli \
 	ini_reader.mli \
 	languages.mli \
@@ -56,7 +55,6 @@ SOURCES_ML = \
 	ini_reader.ml \
 	paths.ml \
 	languages.ml \
-	get_kernel.ml \
 	cache.ml \
 	sources.ml \
 	downloader.ml \

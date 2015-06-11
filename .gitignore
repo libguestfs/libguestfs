@@ -193,6 +193,10 @@ Makefile.in
 /generator/generator
 /generator/.pod2text.data*
 /generator/stamp-generator
+/get-kernel/.depend
+/get-kernel/stamp-virt-get-kernel.pod
+/get-kernel/virt-get-kernel
+/get-kernel/virt-get-kernel.1
 /.gitattributes
 /.git-module-status
 /gnulib
@@ -245,6 +249,7 @@ Makefile.in
 /html/virt-edit.1.html
 /html/virt-filesystems.1.html
 /html/virt-format.1.html
+/html/virt-get-kernel.1.html
 /html/virt-index-validate.1.html
 /html/virt-inspector.1.html
 /html/virt-list-filesystems.1.html

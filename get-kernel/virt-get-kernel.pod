@@ -1,0 +1,148 @@
+=head1 NAME
+
+virt-get-kernel - Extract kernel and ramdisk from guests
+
+=head1 SYNOPSIS
+
+ virt-get-kernel [--options] -d domname
+
+ virt-get-kernel [--options] -a disk.img
+
+=head1 DESCRIPTION
+
+This option extracts the kernel and initramfs from a guest.
+
+The format of the disk image is automatically detected unless you
+specify it by using the I<--format> option.
+
+In the case where the guest contains multiple kernels, the one with
+the highest version number is chosen.  To extract arbitrary kernels
+from the disk image, see L<guestfish(1)>.  To extract the entire
+C</boot> directory of a guest, see L<virt-copy-out(1)>.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<-a> file
+
+=item B<--add> file
+
+Add I<file> which should be a disk image from a virtual machine.
+
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format> option.
+
+=item B<-a> URI
+
+=item B<--add> URI
+
+Add a remote disk.  The URI format is compatible with guestfish.
+See L<guestfish(1)/ADDING REMOTE STORAGE>.
+
+=item B<-c> URI
+
+=item B<--connect> URI
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly (I<-a>), then libvirt is
+not used at all.
+
+=item B<-d> guest
+
+=item B<--domain> guest
+
+Add all the disks from the named libvirt guest.  Domain UUIDs can be
+used instead of names.
+
+=item B<--format> raw|qcow2|..
+
+=item B<--format> auto
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for the I<-a> option
+on the command line.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).
+
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
+=item B<-o> directory
+
+=item B<--output> directory
+
+This option specifies the output directory where kernel and initramfs
+from the guest are written.
+
+If not specified, the default output is the current directory.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-get-kernel from
+other programs, GUIs etc.
+
+Use the option on its own to query the capabilities of the
+virt-get-kernel binary.  Typical output looks like this:
+
+ $ virt-get-kernel --machine-readable
+ virt-get-kernel
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+=head1 ENVIRONMENT VARIABLES
+
+For other environment variables which affect all libguestfs programs,
+see L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<guestmount(1)>,
+L<virt-copy-out(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2013-2015 Red Hat Inc.

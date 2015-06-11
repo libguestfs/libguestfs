@@ -4384,6 +4384,10 @@ L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
 The crucially important generator, used to automatically generate
 large amounts of boilerplate C code for things like RPC and bindings.
 
+=item F<get-kernel>
+
+L<virt-get-kernel(1)> command and documentation.
+
 =item F<gnulib>
 
 Gnulib is used as a portability library.  A copy of gnulib is included

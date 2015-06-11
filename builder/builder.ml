@@ -91,8 +91,19 @@ let main () =
   let mode =
     match mode with
     | `Get_kernel -> (* --get-kernel is really a different program ... *)
-      Get_kernel.get_kernel ?format ?output arg;
-      exit 0
+      let cmd =
+        sprintf "virt-get-kernel%s%s%s%s --add %s"
+          (if verbose () then " --verbose" else "")
+          (if trace () then " -x" else "")
+          (match format with
+          | None -> ""
+          | Some format -> sprintf " --format %s" (quote format))
+          (match output with
+          | None -> ""
+          | Some output -> sprintf " --output %s" (quote output))
+          (quote arg) in
+      if verbose () then printf "%s\n%!" cmd;
+      exit (Sys.command cmd)
 
     | `Delete_cache ->                  (* --delete-cache *)
       (match cache with
