@@ -25,13 +25,14 @@ open Printf
 
 (* Main program. *)
 let main () =
-  let add, output =
+  let add, output, unversioned =
     let domain = ref None in
     let file = ref None in
     let libvirturi = ref "" in
     let format = ref "" in
     let output = ref "" in
     let machine_readable = ref false in
+    let unversioned = ref false in
 
     let set_file arg =
       if !file <> None then
@@ -60,6 +61,8 @@ let main () =
       "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
       "-o",        Arg.Set_string output, s_"directory" ^ " " ^ s_"Output directory";
       "--output",  Arg.Set_string output,     ditto;
+      "--unversioned-names", Arg.Set unversioned,
+                                              " " ^ s_"Use unversioned names for files";
       "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
       "--verbose", Arg.Unit set_verbose,      ditto;
       "-V",        Arg.Unit print_version_and_exit,
@@ -116,8 +119,9 @@ read the man page virt-get-kernel(1).
 
     (* Dereference the rest of the args. *)
     let output = match !output with "" -> None | str -> Some str in
+    let unversioned = !unversioned in
 
-    add, output in
+    add, output, unversioned in
 
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
@@ -161,19 +165,24 @@ read the man page virt-get-kernel(1).
   if kernels = [] then
     error (f_"no kernel found");
 
+  let dest_filename fn =
+    let fn = Filename.basename fn in
+    if unversioned then fst (string_split "-" fn)
+    else fn in
+
   (* Download the latest. *)
   let outputdir =
     match output with
     | None -> Filename.current_dir_name
     | Some dir -> dir in
   let kernel_in = List.hd kernels in
-  let kernel_out = outputdir // Filename.basename kernel_in in
+  let kernel_out = outputdir // dest_filename kernel_in in
   printf "download: %s -> %s\n%!" kernel_in kernel_out;
   g#download kernel_in kernel_out;
 
   if initrds <> [] then (
     let initrd_in = List.hd initrds in
-    let initrd_out = outputdir // Filename.basename initrd_in in
+    let initrd_out = outputdir // dest_filename initrd_in in
     printf "download: %s -> %s\n%!" initrd_in initrd_out;
     g#download initrd_in initrd_out
   );

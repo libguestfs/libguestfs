@@ -88,6 +88,15 @@ from the guest are written.
 
 If not specified, the default output is the current directory.
 
+=item B<--unversioned-names>
+
+This option affects the destination file name of extracted files.
+
+If enabled, files will be saved locally just with the base name;
+for example, kernel and ramdisk in the guest like
+C<vmlinuz-3.19.0-20-generic> and C<initrd.img-3.19.0-20-generic>
+are saved respectively as C<vmlinuz> and C<initrd.img>.
+
 =item B<-v>
 
 =item B<--verbose>
