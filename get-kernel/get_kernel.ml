@@ -25,7 +25,7 @@ open Printf
 
 (* Main program. *)
 let main () =
-  let add, output, unversioned =
+  let add, output, unversioned, prefix =
     let domain = ref None in
     let file = ref None in
     let libvirturi = ref "" in
@@ -33,6 +33,7 @@ let main () =
     let output = ref "" in
     let machine_readable = ref false in
     let unversioned = ref false in
+    let prefix = ref None in
 
     let set_file arg =
       if !file <> None then
@@ -45,7 +46,11 @@ let main () =
     and set_domain dom =
       if !domain <> None then
         error (f_"--domain option can only be given once");
-      domain := Some dom in
+      domain := Some dom
+    and set_prefix p =
+      if !prefix <> None then
+        error (f_"--prefix option can only be given once");
+      prefix := Some p in
 
     let ditto = " -\"-" in
     let argspec = Arg.align [
@@ -63,6 +68,7 @@ let main () =
       "--output",  Arg.Set_string output,     ditto;
       "--unversioned-names", Arg.Set unversioned,
                                               " " ^ s_"Use unversioned names for files";
+      "--prefix",  Arg.String set_prefix,     "prefix" ^ " " ^ s_"Prefix for files";
       "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
       "--verbose", Arg.Unit set_verbose,      ditto;
       "-V",        Arg.Unit print_version_and_exit,
@@ -120,8 +126,9 @@ read the man page virt-get-kernel(1).
     (* Dereference the rest of the args. *)
     let output = match !output with "" -> None | str -> Some str in
     let unversioned = !unversioned in
+    let prefix = !prefix in
 
-    add, output, unversioned in
+    add, output, unversioned, prefix in
 
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
@@ -167,8 +174,12 @@ read the man page virt-get-kernel(1).
 
   let dest_filename fn =
     let fn = Filename.basename fn in
-    if unversioned then fst (string_split "-" fn)
-    else fn in
+    let fn =
+      if unversioned then fst (string_split "-" fn)
+      else fn in
+    match prefix with
+    | None -> fn
+    | Some p -> p ^ "-" ^ fn in
 
   (* Download the latest. *)
   let outputdir =

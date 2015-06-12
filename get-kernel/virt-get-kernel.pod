@@ -88,6 +88,17 @@ from the guest are written.
 
 If not specified, the default output is the current directory.
 
+=item B<--prefix> prefix
+
+This option specifies a prefix for the extracted files.
+
+If a prefix is specified, then there will be a dash (C<->) after the
+prefix and before the rest of the file name; for example, a kernel
+in the guest like C<vmlinuz-3.19.0-20-generic> is saved as
+C<mydistro-vmlinuz-3.19.0-20-generic> when the prefix is C<mydistro>.
+
+See also I<--unversioned-names>.
+
 =item B<--unversioned-names>
 
 This option affects the destination file name of extracted files.
@@ -96,6 +107,8 @@ If enabled, files will be saved locally just with the base name;
 for example, kernel and ramdisk in the guest like
 C<vmlinuz-3.19.0-20-generic> and C<initrd.img-3.19.0-20-generic>
 are saved respectively as C<vmlinuz> and C<initrd.img>.
+
+See also I<--prefix>.
 
 =item B<-v>
 
