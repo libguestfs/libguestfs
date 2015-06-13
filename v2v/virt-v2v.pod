@@ -804,6 +804,34 @@ loaded.
 
 =back
 
+=head2 OpenStack and Windows reactivation
+
+OpenStack does not offer stable device / PCI addresses to guests.
+Every time it creates or starts a guest, it regenerates the libvirt
+XML for that guest from scratch.  The libvirt XML will have no
+E<lt>addressE<gt> fields.  Libvirt will then assign addresses to
+devices, in a predictable manner.  Addresses may change if any of the
+following are true:
+
+=over 4
+
+=item *
+
+A new disk or network device has been added or removed from the guest.
+
+=item *
+
+The version of OpenStack or (possibly) libvirt has changed.
+
+=back
+
+Because Windows does not like "hardware" changes of this kind, it may
+trigger Windows reactivation.
+
+This can also prevent booting with a 7B error [see previous section]
+if the guest has group policy containing
+C<Device Installation Restrictions>.
+
 =head1 UEFI
 
 VMware allows you to present UEFI firmware to guests (instead of the
