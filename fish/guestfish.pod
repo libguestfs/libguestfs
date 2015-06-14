@@ -64,7 +64,7 @@ L<virt-rescue(1)> command.
 
 =head2 From shell scripts
 
-Create a new C</etc/motd> file in a guest or disk image:
+Create a new F</etc/motd> file in a guest or disk image:
 
  guestfish <<_EOF_
  add disk.img
@@ -89,13 +89,13 @@ List all the filesystems in a disk image:
 
 =head2 On one command line
 
-Update C</etc/resolv.conf> in a guest:
+Update F</etc/resolv.conf> in a guest:
 
  guestfish \
    add disk.img : run : mount /dev/vg_guest/lv_root / : \
    write /etc/resolv.conf "nameserver 1.2.3.4"
 
-Edit C</boot/grub/grub.conf> interactively:
+Edit F</boot/grub/grub.conf> interactively:
 
  guestfish --rw --add disk.img \
    --mount /dev/vg_guest/lv_root \
@@ -111,7 +111,7 @@ disks from a virtual machine:
 
  guestfish --ro -d libvirt-domain -i cat /etc/group
 
-Another way to edit C</boot/grub/grub.conf> interactively is:
+Another way to edit F</boot/grub/grub.conf> interactively is:
 
  guestfish --rw -a disk.img -i edit /boot/grub/grub.conf
 
@@ -127,7 +127,7 @@ Create a 100MB disk containing an ext2-formatted partition:
 
 =head2 Start with a prepared disk
 
-An alternate way to create a 100MB disk called C<test1.img> containing
+An alternate way to create a 100MB disk called F<test1.img> containing
 a single ext2-formatted partition:
 
  guestfish -N fs
@@ -244,12 +244,12 @@ For example:
 
  guestfish --format=raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  guestfish --format=raw -a disk.img --format -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -290,7 +290,7 @@ were found.
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<--listen>
 
@@ -308,9 +308,9 @@ Connect to a live virtual machine.
 
 Mount the named partition or logical volume on the given mountpoint.
 
-If the mountpoint is omitted, it defaults to C</>.
+If the mountpoint is omitted, it defaults to F</>.
 
-You have to mount something on C</> before most commands will work.
+You have to mount something on F</> before most commands will work.
 
 If any I<-m> or I<--mount> options are given, the guest is
 automatically launched.
@@ -736,7 +736,7 @@ following will not do what you expect:
 
  rm-rf /home/*
 
-Assuming you don't have a directory called literally C</home/*>
+Assuming you don't have a directory called literally F</home/*>
 then the above command will return an error.
 
 To perform wildcard expansion, use the C<glob> command.
@@ -770,15 +770,15 @@ Blank lines are also ignored.
 =head1 RUNNING COMMANDS LOCALLY
 
 Any line which starts with a I<!> character is treated as a command
-sent to the local shell (C</bin/sh> or whatever L<system(3)> uses).
+sent to the local shell (F</bin/sh> or whatever L<system(3)> uses).
 For example:
 
  !mkdir local
  tgz-out /remote local/remote-data.tar.gz
 
 will create a directory C<local> on the host, and then export
-the contents of C</remote> on the mounted filesystem to
-C<local/remote-data.tar.gz>.  (See C<tgz-out>).
+the contents of F</remote> on the mounted filesystem to
+F<local/remote-data.tar.gz>.  (See C<tgz-out>).
 
 To change the local directory, use the C<lcd> command.  C<!cd> will
 have no effect, due to the way that subprocesses work in Unix.
@@ -793,13 +793,13 @@ Thus you can use shell script to construct arbitrary guestfish
 commands which are then parsed by guestfish.
 
 For example it is tedious to create a sequence of files
-(eg. C</foo.1> through C</foo.100>) using guestfish commands
+(eg. F</foo.1> through F</foo.100>) using guestfish commands
 alone.  However this is simple if we use a shell script to
 create the guestfish commands for us:
 
  <! for n in `seq 1 100`; do echo write /foo.$n $n; done
 
-or with names like C</foo.001>:
+or with names like F</foo.001>:
 
  <! for n in `seq 1 100`; do printf "write /foo.%03d %d\n" $n $n; done
 
@@ -863,7 +863,7 @@ Identify encrypted block devices and partitions using L</vfs-type>:
  crypto_LUKS
 
 Then open those devices using L</luks-open>.  This creates a
-device-mapper device called C</dev/mapper/luksdev>.
+device-mapper device called F</dev/mapper/luksdev>.
 
  ><fs> luks-open /dev/sda2 luksdev
  Enter key or passphrase ("key"): <enter the passphrase>
@@ -899,7 +899,7 @@ The parameter is rewritten "behind the scenes" by looking up the
 position where the drive is mounted, prepending that to the path,
 changing all backslash characters to forward slash, then resolving the
 result using L</case-sensitive-path>.  For example if the E: drive
-was mounted on C</e> then the parameter might be rewritten like this:
+was mounted on F</e> then the parameter might be rewritten like this:
 
  win:e:\foo\bar => /e/FOO/bar
 
@@ -913,7 +913,7 @@ special filename C<-> to mean "from stdin" or "to stdout".  For example:
 
  upload - /foo
 
-reads stdin and creates from that a file C</foo> in the disk image,
+reads stdin and creates from that a file F</foo> in the disk image,
 and:
 
  tar-out /etc - | tar tf -
@@ -996,7 +996,7 @@ I<--csh> option:
 =head2 REMOTE CONTROL DETAILS
 
 Remote control happens over a Unix domain socket called
-C</tmp/.guestfish-$UID/socket-$PID>, where C<$UID> is the effective
+F</tmp/.guestfish-$UID/socket-$PID>, where C<$UID> is the effective
 user ID of the process, and C<$PID> is the process ID of the server.
 
 Guestfish client and server versions must match exactly.
@@ -1074,7 +1074,7 @@ make for you to save typing.  This is particularly useful for testing
 purposes.  This option is used instead of the I<-a> option, and like
 I<-a> can appear multiple times (and can be mixed with I<-a>).
 
-The new disk is called C<test1.img> for the first I<-N>, C<test2.img>
+The new disk is called F<test1.img> for the first I<-N>, F<test2.img>
 for the second and so on.  Existing files in the current directory are
 I<overwritten>.  You can use a different filename by specifying
 C<filename=> before the type (see examples below).
@@ -1097,7 +1097,7 @@ is automatically launched.
 =head2 EXAMPLES
 
 Create a 100MB disk with an ext4-formatted partition, called
-C<test1.img> in the current directory:
+F<test1.img> in the current directory:
 
  guestfish -N fs:ext4
 
@@ -1109,8 +1109,8 @@ Create a blank 200MB disk:
 
  guestfish -N disk:200M
 
-Create a blank 200MB disk called C<blankdisk.img> (instead of
-C<test1.img>):
+Create a blank 200MB disk called F<blankdisk.img> (instead of
+F<test1.img>):
 
  guestfish -N blankdisk.img=disk:200M
 
@@ -1138,7 +1138,7 @@ The possible I<-a URI> formats are described below.
 
 =head2 B<-a file:///path/to/disk.img>
 
-Add the local disk image (or device) called C<disk.img>.
+Add the local disk image (or device) called F<disk.img>.
 
 =head2 B<-a ftp://[user@]example.com[:port]/disk.img>
 
@@ -1454,7 +1454,7 @@ using a supermin appliance.  The appliance is cached and shared
 between all handles which have the same effective user ID.
 
 If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If
-C<TMPDIR> is not set, then C</var/tmp> is used.
+C<TMPDIR> is not set, then F</var/tmp> is used.
 
 See also L</LIBGUESTFS_TMPDIR>, L</set-cachedir>.
 
@@ -1491,7 +1491,7 @@ The location where libguestfs will store temporary files used
 by each handle.
 
 If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If
-C<TMPDIR> is not set, then C</tmp> is used.
+C<TMPDIR> is not set, then F</tmp> is used.
 
 See also L</LIBGUESTFS_CACHEDIR>, L</set-tmpdir>.
 
@@ -1585,8 +1585,8 @@ to make guestfish case sensitive.
 =item test2.img (etc)
 
 When using the I<-N> or I<--new> option, the prepared disk or
-filesystem will be created in the file C<test1.img> in the current
-directory.  The second use of I<-N> will use C<test2.img> and so on.
+filesystem will be created in the file F<test1.img> in the current
+directory.  The second use of I<-N> will use F<test2.img> and so on.
 Any existing file with the same name will be overwritten.  You can use
 a different filename by using the C<filename=> prefix.
 

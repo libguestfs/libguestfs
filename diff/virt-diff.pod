@@ -149,12 +149,12 @@ For example:
 
  virt-diff --format=raw -a disk.img [...]
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-diff --format=raw -a disk.img --format -a another.img [...]
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -169,7 +169,7 @@ Display file sizes in human-readable format.
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<--times>
 

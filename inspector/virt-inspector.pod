@@ -29,7 +29,7 @@ You can also run virt-inspector directly on disk images from a single
 virtual machine.  Use C<virt-inspector -a disk.img>.  In rare cases a
 domain has several block devices, in which case you should list
 several I<-a> options one after another, with the first corresponding
-to the guest's C</dev/sda>, the second to the guest's C</dev/sdb> and
+to the guest's F</dev/sda>, the second to the guest's F</dev/sdb> and
 so on.
 
 You can also run virt-inspector on install disks, live CDs, bootable
@@ -117,7 +117,7 @@ ensure the format is always specified.
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<-v>
 
@@ -163,7 +163,7 @@ For compatibility the old style is still supported.
 =head1 XML FORMAT
 
 The virt-inspector XML is described precisely in a RELAX NG schema
-file C<virt-inspector.rng> which is supplied with libguestfs.  This
+file F<virt-inspector.rng> which is supplied with libguestfs.  This
 section is just an overview.
 
 The top-level element is E<lt>operatingsystemsE<gt>, and it contains
@@ -384,11 +384,11 @@ that libguestfs supports, and from guestfish.
 For a description of the C inspection API, read
 L<guestfs(3)/INSPECTION>.
 
-For example code using the C inspection API, look for C<inspect-vm.c>
+For example code using the C inspection API, look for F<inspect-vm.c>
 which ships with libguestfs.
 
-C<inspect-vm.c> has also been translated into other languages.  For
-example, C<inspect_vm.pl> is the Perl translation, and there are other
+F<inspect-vm.c> has also been translated into other languages.  For
+example, F<inspect_vm.pl> is the Perl translation, and there are other
 translations for OCaml, Python, etc.  See
 L<guestfs(3)/USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> for a
 list of man pages which contain this example code.

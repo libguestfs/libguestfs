@@ -29,7 +29,7 @@ Basic usage is:
 
 where C<input> is either a directory containing files that you want to
 add, or a tar archive (either uncompressed tar or gzip-compressed
-tar); and C<output.img> is a disk image.  The input type is detected
+tar); and F<output.img> is a disk image.  The input type is detected
 automatically.  The output disk image defaults to a raw ext2 sparse
 image unless you specify extra flags (see L</OPTIONS> below).
 

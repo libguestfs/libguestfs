@@ -46,9 +46,9 @@ For live VMs you I<must> use the --ro option.
 
 When you run virt-rescue on a virtual machine or disk image, you are
 placed in an interactive bash shell where you can use many ordinary
-Linux commands.  What you see in C</> (C</bin>, C</lib> etc) is the
+Linux commands.  What you see in F</> (F</bin>, F</lib> etc) is the
 rescue appliance.  You must mount the virtual machine's filesystems by
-hand.  There is an empty directory called C</sysroot> where you can
+hand.  There is an empty directory called F</sysroot> where you can
 mount filesystems.
 
 You can get virt-rescue to suggest mount commands for you by using the
@@ -169,12 +169,12 @@ For example:
 
  virt-rescue --format=raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-rescue --format=raw -a disk.img --format -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -304,7 +304,7 @@ QEMU user networking cannot receive incoming connections.
 The virt-rescue appliance needs to be small and so does not include
 many network tools.  In particular there is no L<telnet(1)> command.
 You can make TCP connections from the shell using the magical
-C</dev/tcp/E<lt>hostnameE<gt>/E<lt>portE<gt>> syntax:
+F</dev/tcp/E<lt>hostnameE<gt>/E<lt>portE<gt>> syntax:
 
  exec 3<>/dev/tcp/redhat.com/80
  echo "GET /" >&3
@@ -338,13 +338,13 @@ When starting virt-rescue, attach the core files disk last:
  virt-rescue --rw [-a ...] -a /tmp/corefiles
 
 B<NB.> If you use the I<--ro> option, then virt-rescue will silently
-not write any core files to C</tmp/corefiles>.
+not write any core files to F</tmp/corefiles>.
 
 =item 3.
 
 Inside virt-rescue, mount the core files disk.  Note replace
-C</dev/sdb1> with the last disk index.  For example if the core files
-disk is the last of four disks, you would use C</dev/sdd1>.
+F</dev/sdb1> with the last disk index.  For example if the core files
+disk is the last of four disks, you would use F</dev/sdd1>.
 
  ><rescue> mkdir /tmp/mnt
  ><rescue> mount /dev/sdb1 /tmp/mnt
@@ -360,7 +360,7 @@ Enable core dumps in the rescue kernel:
 =item 5.
 
 Run the tool that caused the core dump.  The core dump will be written
-to C</tmp/mnt/core.I<PID>>.
+to F</tmp/mnt/core.I<PID>>.
 
  ><rescue> ls -l /tmp/mnt
  total 1628

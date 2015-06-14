@@ -106,12 +106,12 @@ For example:
 
  virt-customize --format raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-customize --format raw -a disk.img --format auto -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -231,13 +231,13 @@ This can point to the directory containing data files used for Windows
 firstboot installation.
 
 Normally you do not need to set this.  If not set, a compiled-in
-default will be used (something like C</usr/share/virt-tools>).
+default will be used (something like F</usr/share/virt-tools>).
 
 This directory may contain the following files:
 
 =over 4
 
-=item C<rhsrvany.exe>
+=item F<rhsrvany.exe>
 
 This is the RHSrvAny Windows binary, used to install a "firstboot"
 script in Windows guests.  It is required if you intend to use the

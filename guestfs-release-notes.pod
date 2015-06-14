@@ -84,7 +84,7 @@ The Java bindings are now compatible with OpenJDK 8 (Pino Toscano).
 
 Oracle Linux is returned as C<oraclelinux> (Nikos Skalkotos).
 
-Linux guests which do not have C</etc/fstab> can now be handled
+Linux guests which do not have F</etc/fstab> can now be handled
 (Pino Toscano).
 
 Minix is returned as C<minix> (Pino Toscano).
@@ -187,11 +187,11 @@ Several places that used large arrays and structures on the stack have
 been fixed.
 
 There is now a test for booting the appliance repeatedly.  Useful for
-finding kernel leaks.  See: C<tests/qemu/qemu-boot.c>
+finding kernel leaks.  See: F<tests/qemu/qemu-boot.c>
 
 There is a test for testing the speed of various qemu features such as
 virtio-serial uploads and block device writes.  See:
-C<tests/qemu/qemu-speed-test.c>
+F<tests/qemu/qemu-speed-test.c>
 
 GCC warnings are now enabled for OCaml-C bindings in the OCaml virt
 tools.
@@ -203,7 +203,7 @@ shared between all these utilities (thanks Pino Toscano).
 The FUSE tests were rewritten in C to ensure finer control over how
 system calls are tested.
 
-The C<update-bugs.sh> script has been fixed so it should no longer
+The F<update-bugs.sh> script has been fixed so it should no longer
 create an empty C<BUGS> file if the Bugzilla server is unavailable.
 
 The L<virt-resize(1)> tests now use a stochastic method to ensure much
@@ -612,7 +612,7 @@ Earlier versions of libguestfs are not vulnerable.
 
 When generating random root passwords and random seeds, two bugs were
 fixed which are possibly security related.  Firstly we no longer read
-excessive bytes from C</dev/urandom> (most of which were just thrown
+excessive bytes from F</dev/urandom> (most of which were just thrown
 away).  Secondly we changed the code to avoid modulo bias.  These
 issues were not thought to be exploitable.
 (Both changes suggested by Edwin Török)
@@ -742,7 +742,7 @@ done on physical machines.
 =item *
 
 The libguestfs appliance does not write an empty string to
-C</proc/sys/kernel/hotplug> when starting up.
+F</proc/sys/kernel/hotplug> when starting up.
 
 Note that you B<must> configure your kernel to have
 C<CONFIG_UEVENT_HELPER_PATH=""> otherwise you will get strange LVM
@@ -906,7 +906,7 @@ L<virt-builder(1)> is a new tool for building virtual machine images.
 It lets you rapidly and securely create guests and customize them.
 
 New L<virt-sysprep(1)> operations:
-Remove files in C</tmp> and C</var/tmp>.
+Remove files in F</tmp> and F</var/tmp>.
 Remove RPM database files.
 Change root and user passwords.
 More log files are removed.
@@ -919,7 +919,7 @@ L<virt-resize(1)> and virt-sysprep can now use URIs to specify a
 remote disk.
 
 Use C<guestfish -N filename=type> to create a named disk image
-(instead of the default C<test1.img> etc).
+(instead of the default F<test1.img> etc).
 
 L<virt-sparsify(1)> now tests if there is enough disk space to
 complete the operation, instead of possibly running out of space half
@@ -1383,7 +1383,7 @@ Library code internally uses GCC C<__attribute__((cleanup))> (if
 available) to simplify memory allocation.
 
 Internal header files have been reorganized.  See the comments in
-C<src/guestfs-internal*.h>
+F<src/guestfs-internal*.h>
 
 Internal code shared between the library and certain tools is now
 located in a static C<libutils> library.
@@ -1399,7 +1399,7 @@ Force use of C<serial-tests> with automake E<ge> 1.12.
 
 Use of sockets in the library protocol layer is abstracted, allowing
 other non-POSIX layers to be added in future (see
-C<src/conn-socket.c>).
+F<src/conn-socket.c>).
 
 C<qemu-img info --output json> is used if available, for more secure
 parsing of the output of this command.
@@ -1408,7 +1408,7 @@ Distros can now use C<make INSTALLDIRS=vendor install> to place Ruby
 bindings in vendordir.  This eliminates a non-upstream patch carried
 by both Fedora and Debian.
 
-Valgrind log files are now written to C<tmp/valgrind-I<DATE>-I<PID>.log>
+Valgrind log files are now written to F<tmp/valgrind-I<DATE>-I<PID>.log>
 
 C<make clean> cleans the local C<tmp/> directory.
 
@@ -1596,8 +1596,8 @@ You can now hotplug drives (add and remove drives after launch).
 Libguestfs can now handle E<gt> 25 disks, in all APIs, tools and tests.
 
 You can label drives when adding them, then refer to them by label
-(C</dev/disk/guestfs/LABEL>) instead of having to use device names
-(C</dev/sda>).
+(F</dev/disk/guestfs/LABEL>) instead of having to use device names
+(F</dev/sda>).
 
 =head3 new library features
 
@@ -1744,7 +1744,7 @@ A man page for the daemon (L<guestfsd(8)>) is included.
 
 =head3 guestfish history file
 
-The C<$HOME/.guestfish> history file is now created with 0600
+The F<$HOME/.guestfish> history file is now created with 0600
 permissions (instead of 0644 before) so it is no longer world
 readable.
 
@@ -1754,7 +1754,7 @@ Old versions of both C<virt-edit> and the C<guestfish> C<edit> command
 created a new file containing the changes but did not set the
 permissions, etc of the new file to match the old one.  The result
 of this was that if you edited a security sensitive file such as
-C</etc/shadow> then it would be left world-readable after the edit.
+F</etc/shadow> then it would be left world-readable after the edit.
 
 This issue was assigned CVE-2012-2690, and is fixed in libguestfs E<ge> 1.16.
 
@@ -1874,16 +1874,16 @@ Separation of the library code into more files:
 =item *
 
 Launch backends are now located in separate files
-eg. C<src/launch-appliance.c>, C<src/launch-libvirt.c>.
+eg. F<src/launch-appliance.c>, C<src/launch-libvirt.c>.
 
 =item *
 
-Generated action code is now split over several C<src/action*.c>
+Generated action code is now split over several F<src/action*.c>
 files, for faster compilation.
 
 =item *
 
-The huge C<src/guestfs.c> file is now split into smaller logical
+The huge F<src/guestfs.c> file is now split into smaller logical
 units.
 
 =back
@@ -1944,7 +1944,7 @@ in the main code that were found by syntax-check have been fixed
 
 Emacs mode (-*- foo -*-) has been added to generated files.
 
-Progress bar output is now sent to C</dev/tty> so it doesn't end up in
+Progress bar output is now sent to F</dev/tty> so it doesn't end up in
 the regular output of the program.  virt-resize and virt-sparsify now
 suppress progress bars if stdout is not a tty.
 

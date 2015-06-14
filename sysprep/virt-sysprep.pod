@@ -29,7 +29,7 @@ even in this case it would be better to change the permissions on the
 disk image to be writable as the non-root user running virt-sysprep.
 
 "Sysprep" stands for "system preparation" tool.  The name comes from
-the Microsoft program C<sysprep.exe> which is used to unconfigure
+the Microsoft program F<sysprep.exe> which is used to unconfigure
 Windows machines in preparation for cloning them.  Having said that,
 virt-sysprep does I<not> currently work on Microsoft Windows guests.
 We plan to support Windows sysprepping in a future version, and we
@@ -159,12 +159,12 @@ For example:
 
  virt-sysprep --format raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-sysprep --format raw -a disk.img --format auto -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -209,7 +209,7 @@ will mount the root directory with C<notime>.  This example:
 
  --mount-options "/:noatime;/var:rw,nodiratime"
 
-will do the same, plus mount C</var> with C<rw,nodiratime>.
+will do the same, plus mount F</var> with C<rw,nodiratime>.
 
 =item B<-q>
 
@@ -536,13 +536,13 @@ This can point to the directory containing data files used for Windows
 firstboot installation.
 
 Normally you do not need to set this.  If not set, a compiled-in
-default will be used (something like C</usr/share/virt-tools>).
+default will be used (something like F</usr/share/virt-tools>).
 
 This directory may contain the following files:
 
 =over 4
 
-=item C<rhsrvany.exe>
+=item F<rhsrvany.exe>
 
 This is the RHSrvAny Windows binary, used to install a "firstboot"
 script in Windows guests.  It is required if you intend to use the

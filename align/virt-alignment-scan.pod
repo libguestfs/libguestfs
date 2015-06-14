@@ -67,7 +67,7 @@ program.  The columns are:
 
 =item col 1
 
-The device and partition name (eg. C</dev/sda1> meaning the
+The device and partition name (eg. F</dev/sda1> meaning the
 first partition on the first block device).
 
 When listing all libvirt domains (no I<-a> or I<-d> option given) this
@@ -151,12 +151,12 @@ For example:
 
  virt-alignment-scan --format=raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-alignment-scan --format=raw -a disk.img --format -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible

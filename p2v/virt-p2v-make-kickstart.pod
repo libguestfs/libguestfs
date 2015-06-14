@@ -30,7 +30,7 @@ Using virt-p2v-make-kickstart is very simple:
  virt-p2v-make-kickstart fedora
 
 will build a kickstart file for Fedora.  The kickstart file will be
-called C<p2v.ks> and located in the current directory.
+called F<p2v.ks> and located in the current directory.
 
 The parameters are a list of one or more repositories.  Some built-in
 repositories are available: C<fedora>, C<rawhide> or C<koji>.  You can
@@ -140,17 +140,17 @@ L<virt-v2v(1)>, including Windows or Red Hat Enterprise Linux.
 
 =item *
 
-Unpack the tftpboot directory into C</tmp> (so it appears as
-C</tmp/tftpboot>).
+Unpack the tftpboot directory into F</tmp> (so it appears as
+F</tmp/tftpboot>).
 
 =item *
 
-Copy C<pxelinux.0> and C<ldlinux.c32> from syslinux (usually from
-C</usr/share/syslinux>) into C</tmp/tftpboot>.
+Copy F<pxelinux.0> and F<ldlinux.c32> from syslinux (usually from
+F</usr/share/syslinux>) into F</tmp/tftpboot>.
 
 =item *
 
-Adjust the C<APPEND> line in C</tmp/tftpboot/pxelinux.cfg/default> if
+Adjust the C<APPEND> line in F</tmp/tftpboot/pxelinux.cfg/default> if
 required.  See L<virt-p2v(1)/KERNEL COMMAND LINE CONFIGURATION>.
 
 =item *
@@ -185,7 +185,7 @@ Display help.
 =item B<--output> OUTPUT
 
 Write kickstart to C<OUTPUT>.  If not specified, the default is
-C<p2v.ks> in the current directory.
+F<p2v.ks> in the current directory.
 
 =item B<--proxy> URL
 
@@ -203,17 +203,17 @@ Display version number and exit.
 
 =over 4
 
-=item C<$libexecdir/virt-p2v>
+=item F<$libexecdir/virt-p2v>
 
 The L<virt-p2v(1)> binary which is copied into the kickstart file.
 
-=item C<$datadir/issue>
+=item F<$datadir/issue>
 
-=item C<$datadir/launch-virt-p2v.in>
+=item F<$datadir/launch-virt-p2v.in>
 
-=item C<$datadir/p2v.ks.in>
+=item F<$datadir/p2v.ks.in>
 
-=item C<$datadir/p2v.service>
+=item F<$datadir/p2v.service>
 
 Various data files that are used to make the kickstart.
 

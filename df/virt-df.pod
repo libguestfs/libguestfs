@@ -52,7 +52,7 @@ output human-readable:
  F14x64:/dev/sda1                 484M      66M       393M   14%
  F14x64:/dev/vg_f13x64/lv_root    7.4G     3.4G       4.0G   46%
 
-Show disk usage for a disk image file called C<test.img>:
+Show disk usage for a disk image file called F<test.img>:
 
  $ virt-df -a test1.img
  Filesystem                  1K-blocks     Used  Available  Use%
@@ -129,12 +129,12 @@ For example:
 
  virt-df --format=raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-df --format=raw -a disk.img --format -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -212,7 +212,7 @@ Run this command:
 
  guestfish --ro -d GuestName -i statvfs /
 
-(change C</> to see stats for other filesystems).
+(change F</> to see stats for other filesystems).
 
 =item From inside the guest
 
@@ -220,7 +220,7 @@ Run this command:
 
  python -c 'import os; s = os.statvfs ("/"); print s'
 
-(change C</> to see stats for other filesystems).
+(change F</> to see stats for other filesystems).
 
 =back
 

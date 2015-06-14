@@ -202,7 +202,7 @@ can access them.
 
 =item *
 
-(Nasty) Edit C</etc/libvirt/qemu.conf> and change the C<user> setting.
+(Nasty) Edit F</etc/libvirt/qemu.conf> and change the C<user> setting.
 
 =back
 
@@ -223,15 +223,15 @@ appliance:
  [...followed by a lot of debug output...]
 
 This is a complicated bug related to L<supermin(1)> appliances.  The
-appliance is constructed by copying files like C</bin/bash> and many
+appliance is constructed by copying files like F</bin/bash> and many
 libraries from the host.  The file C<hostfiles> lists the files that
 should be copied from the host into the appliance.  If some files
 don't exist on the host then they are missed out, but if these files
-are needed in order to (eg) run C</bin/bash> then you'll see the above
+are needed in order to (eg) run F</bin/bash> then you'll see the above
 error.
 
 Diagnosing the problem involves studying the libraries needed by
-C</bin/bash>, ie:
+F</bin/bash>, ie:
 
  ldd /bin/bash
 
@@ -240,7 +240,7 @@ the host filesystem, and with the debug output printed in the error
 message.  Once you've worked out which file is missing, install that
 file using your package manager and try again.
 
-You should also check that files like C</init> and C</bin/bash> (in
+You should also check that files like F</init> and F</bin/bash> (in
 the appliance) are executable.  The debug output shows file modes.
 
 =head1 DOWNLOADING, INSTALLING, COMPILING LIBGUESTFS
@@ -468,7 +468,7 @@ There is one known shortcoming: L<virt-rescue(1)> will not use libvirt
 currently get the benefit of sVirt protection when using virt-rescue.
 
 You can check if sVirt is being used by enabling libvirtd logging (see
-C</etc/libvirt/libvirtd.log>), killing and restarting libvirtd, and
+F</etc/libvirt/libvirtd.log>), killing and restarting libvirtd, and
 checking the log files for S<"Setting SELinux context on ..."> messages.
 
 In theory sVirt should support AppArmor, but we have not tried it.  It
@@ -604,7 +604,7 @@ libguestfs caches a large-ish appliance in:
  /var/tmp/.guestfs-<UID>
 
 If the environment variable C<TMPDIR> is defined, then
-C<$TMPDIR/.guestfs-E<lt>UIDE<gt>> is used instead.
+F<$TMPDIR/.guestfs-E<lt>UIDE<gt>> is used instead.
 
 It is safe to delete this directory when you are not using libguestfs.
 
@@ -712,7 +712,7 @@ but in the meantime you have three options:
 =item 1.
 
 If the guest is hosted on a live, reachable ESX server, then locate
-and download the disk image called I<somename>C<-flat.vmdk>.  Despite
+and download the disk image called F<I<somename>-flat.vmdk>.  Despite
 the name, this is a raw disk image, and can be opened by anything.
 
 If you have a recent enough version of qemu and libguestfs, then you
@@ -977,7 +977,7 @@ calling launch.
 
 Use the event API.  For examples, see:
 L<guestfs(3)/SETTING CALLBACKS TO HANDLE EVENTS> and the
-C<examples/debug-logging.c> program in the libguestfs sources.
+F<examples/debug-logging.c> program in the libguestfs sources.
 
 =head2 Digging deeper into the appliance boot process.
 
@@ -993,17 +993,17 @@ of L<libguestfs-test-tool(1)>.
 =head2 Debugging libvirt
 
 If you are using the libvirt backend, and libvirt is failing, then you
-can enable debugging by editing C</etc/libvirt/libvirtd.conf>.
+can enable debugging by editing F</etc/libvirt/libvirtd.conf>.
 
 If you are running as non-root, then you have to edit a different
-file.  Create C<~/.config/libvirt/libvirtd.conf> containing:
+file.  Create F<~/.config/libvirt/libvirtd.conf> containing:
 
  log_level=1
  log_outputs="1:file:/tmp/libvirtd.log"
 
 Kill any session (non-root) libvirtd that is running, and next time
 you run the libguestfs command, you should see a large amount of
-useful debugging information from libvirtd in C</tmp/libvirtd.log>
+useful debugging information from libvirtd in F</tmp/libvirtd.log>
 
 =head1 DESIGN/INTERNALS OF LIBGUESTFS
 
@@ -1113,7 +1113,7 @@ What you have to do is to create a point-in-time snapshot.  If it's a
 logical volume, use an LVM2 snapshot.  If the filesystem is located
 inside something like a btrfs/ZFS file, use a btrfs/ZFS snapshot, and
 then run the fsck on the snapshot.  In practice you don't need to use
-libguestfs for this -- just run C</sbin/fsck> directly.
+libguestfs for this -- just run F</sbin/fsck> directly.
 
 Creating point-in-time snapshots of host devices and files is outside
 the scope of libguestfs, although libguestfs can operate on them once
@@ -1196,7 +1196,7 @@ Users expect some tools (like L<virt-cat(1)>) to work with VM paths:
 
  virt-cat fedora.img /var/log/messages
 
-How does virt-cat know that C</var> is a separate partition?  The
+How does virt-cat know that F</var> is a separate partition?  The
 trick is that virt-cat performs inspection on the disk image, and uses
 that to translate the path correctly.
 

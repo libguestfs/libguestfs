@@ -148,12 +148,12 @@ For example:
 
  virt-edit --format=raw -a disk.img file
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-edit --format=raw -a disk.img --format -a another.img file
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -162,7 +162,7 @@ security problem with malicious guests (CVE-2010-3851).
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<-m dev[:mountpoint[:options[:fstype]]]>
 
@@ -170,7 +170,7 @@ to try to read passphrases from the user by opening C</dev/tty>.
 
 Mount the named partition or logical volume on the given mountpoint.
 
-If the mountpoint is omitted, it defaults to C</>.
+If the mountpoint is omitted, it defaults to F</>.
 
 Specifying any mountpoint disables the inspection of the guest and
 the mount of its root and all of its mountpoints, so make sure
@@ -299,7 +299,7 @@ file):
 =head1 WINDOWS PATHS
 
 C<virt-edit> has a limited ability to understand Windows drive letters
-and paths (eg. C<E:\foo\bar.txt>).
+and paths (eg. F<E:\foo\bar.txt>).
 
 If and only if the guest is running Windows then:
 
@@ -345,7 +345,7 @@ Using C<virt-edit> is approximately equivalent to doing:
 
  guestfish --rw -i -d domname edit /file
 
-where C<domname> is the name of the libvirt guest, and C</file> is the
+where C<domname> is the name of the libvirt guest, and F</file> is the
 full path to the file.
 
 The command above uses libguestfs's guest inspection feature and so
@@ -355,8 +355,8 @@ on a disk image directly, use:
 
  guestfish --rw -a disk.img -m /dev/sda1 edit /file
 
-where C<disk.img> is the disk image, C</dev/sda1> is the filesystem
-within the disk image to edit, and C</file> is the full path to the
+where F<disk.img> is the disk image, F</dev/sda1> is the filesystem
+within the disk image to edit, and F</file> is the full path to the
 file.
 
 C<virt-edit> cannot create new files.  Use the guestfish commands

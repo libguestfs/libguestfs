@@ -211,7 +211,7 @@ zeroed, but existing blocks of zeroes will still be sparsified.
 When using I<--in-place>, the filesystem is ignored completely.
 
 In the second form, this ignores the named volume group.  Use the
-volume group name without the C</dev/> prefix, eg. I<--ignore vg_foo>
+volume group name without the F</dev/> prefix, eg. I<--ignore vg_foo>
 
 You can give this option multiple times.
 
@@ -408,9 +408,9 @@ You should ensure there is enough free space in the worst case for a
 full copy of the source disk (I<virtual> size), or else set C<$TMPDIR>
 to point to another directory that has enough space.
 
-This defaults to C</tmp>.
+This defaults to F</tmp>.
 
-Note that if C<$TMPDIR> is a tmpfs (eg. if C</tmp> is on tmpfs, or if
+Note that if C<$TMPDIR> is a tmpfs (eg. if F</tmp> is on tmpfs, or if
 you use C<TMPDIR=/dev/shm>), tmpfs defaults to a maximum size of
 I<half> of physical RAM.  If virt-sparsify exceeds this, it will hang.
 The solution is either to use a real disk, or to increase the maximum

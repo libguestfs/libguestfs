@@ -140,8 +140,8 @@ cause disk corruption, but adding it read-only is safe.
 You should usually add at least one disk image, and you may add
 multiple disk images.  If adding multiple disk images, they usually
 have to be "related", ie. from the same guest.  In the API, the disk
-images are usually referred to as C</dev/sda> (for the first one you
-added), C</dev/sdb> (for the second one you added), etc.
+images are usually referred to as F</dev/sda> (for the first one you
+added), F</dev/sdb> (for the second one you added), etc.
 
 Once L</guestfs_launch> has been called you cannot add any more images.
 You can call L</guestfs_list_devices> to get a list of the device
@@ -162,10 +162,10 @@ directly:
 
  guestfs_mount (g, "/dev/sda1", "/");
 
-where C</dev/sda1> means literally the first partition (C<1>) of the
-first disk image that we added (C</dev/sda>).  If the disk contains
+where F</dev/sda1> means literally the first partition (C<1>) of the
+first disk image that we added (F</dev/sda>).  If the disk contains
 Linux LVM2 logical volumes you could refer to those instead
-(eg. C</dev/VG/LV>).  Note that these are libguestfs virtual devices,
+(eg. F</dev/VG/LV>).  Note that these are libguestfs virtual devices,
 and are nothing to do with host devices.
 
 If you are given a disk image and you don't know what it contains then
@@ -328,8 +328,8 @@ Example: duplicate the contents of an LV:
          /* -1 marks the end of the list of optional parameters */
          -1);
 
-The destination (C</dev/VG/Copy>) must be at least as large as the
-source (C</dev/VG/Original>).  To copy less than the whole source
+The destination (F</dev/VG/Copy>) must be at least as large as the
+source (F</dev/VG/Original>).  To copy less than the whole source
 device, use the optional C<size> parameter:
 
  guestfs_copy_device_to_device (g,
@@ -353,7 +353,7 @@ Calls like L</guestfs_upload>, L</guestfs_download>,
 L</guestfs_tar_in>, L</guestfs_tar_out> etc appear to only take
 filenames as arguments, so it appears you can only upload and download
 to files.  However many Un*x-like hosts let you use the special device
-files C</dev/stdin>, C</dev/stdout>, C</dev/stderr> and C</dev/fd/N>
+files F</dev/stdin>, F</dev/stdout>, F</dev/stderr> and F</dev/fd/N>
 to read and write from stdin, stdout, stderr, and arbitrary file
 descriptor N.
 
@@ -575,7 +575,7 @@ Then open these devices by calling L</guestfs_luks_open>.
 Obviously you will require the passphrase!
 
 Opening a LUKS device creates a new device mapper device
-called C</dev/mapper/mapname> (where C<mapname> is the
+called F</dev/mapper/mapname> (where C<mapname> is the
 string you supply to L</guestfs_luks_open>).
 Reads and writes to this mapper device are decrypted from and
 encrypted to the underlying block device respectively.
@@ -588,7 +588,7 @@ Use the reverse process to close a LUKS device.  Unmount
 any logical volumes on it, deactivate the volume groups
 by caling C<guestfs_vg_activate (g, 0, ["/dev/VG"])>.
 Then close the mapper device by calling
-L</guestfs_luks_close> on the C</dev/mapper/mapname>
+L</guestfs_luks_close> on the F</dev/mapper/mapname>
 device (I<not> the underlying encrypted block device).
 
 =head2 MOUNT LOCAL
@@ -882,7 +882,7 @@ respectively.
 
 Un*x-like and Linux-based operating systems usually consist of several
 filesystems which are mounted at boot time (for example, a separate
-boot partition mounted on C</boot>).  The inspection rules are able to
+boot partition mounted on F</boot>).  The inspection rules are able to
 detect how filesystems correspond to mount points.  Call
 C<guestfs_inspect_get_mountpoints> to get this mapping.  It might
 return a hash table like this example:
@@ -894,8 +894,8 @@ return a hash table like this example:
 The caller can then make calls to L</guestfs_mount> to
 mount the filesystems as suggested.
 
-Be careful to mount filesystems in the right order (eg. C</> before
-C</usr>).  Sorting the keys of the hash by length, shortest first,
+Be careful to mount filesystems in the right order (eg. F</> before
+F</usr>).  Sorting the keys of the hash by length, shortest first,
 should work.
 
 Inspection currently only works for some common operating systems.
@@ -945,7 +945,7 @@ DOS and Windows still use drive letters, and the filesystems are
 always treated as case insensitive by Windows itself, and therefore
 you might find a Windows configuration file referring to a path like
 C<c:\windows\system32>.  When the filesystem is mounted in libguestfs,
-that directory might be referred to as C</WINDOWS/System32>.
+that directory might be referred to as F</WINDOWS/System32>.
 
 Drive letter mappings can be found using inspection
 (see L</INSPECTION> and L</guestfs_inspect_get_drive_mappings>)
@@ -1113,7 +1113,7 @@ used.
 =item B<C#>
 
 The C# bindings are highly experimental.  Please read the warnings
-at the top of C<csharp/Libguestfs.cs>.
+at the top of F<csharp/Libguestfs.cs>.
 
 =item B<Erlang>
 
@@ -1238,8 +1238,8 @@ L</guestfs_add_drive_ro> to guarantee that the disk is not changed.
 
 =item guestfish command line is hard to use.
 
-C<guestfish disk.img> doesn't do what people expect (open C<disk.img>
-for examination).  It tries to run a guestfish command C<disk.img>
+F<guestfish disk.img> doesn't do what people expect (open F<disk.img>
+for examination).  It tries to run a guestfish command F<disk.img>
 which doesn't exist, so it fails.  In earlier versions of guestfish
 the error message was also unintuitive, but we have corrected this
 since.  Like the Bourne shell, we should have used C<guestfish -c
@@ -1269,15 +1269,15 @@ and return values which take bytes or other units.
 =item Ambiguity between devices and paths
 
 There is a subtle ambiguity in the API between a device name
-(eg. C</dev/sdb2>) and a similar pathname.  A file might just happen
-to be called C<sdb2> in the directory C</dev> (consider some non-Unix
+(eg. F</dev/sdb2>) and a similar pathname.  A file might just happen
+to be called C<sdb2> in the directory F</dev> (consider some non-Unix
 VM image).
 
 In the current API we usually resolve this ambiguity by having two
 separate calls, for example L</guestfs_checksum> and
 L</guestfs_checksum_device>.  Some API calls are ambiguous and
 (incorrectly) resolve the problem by detecting if the path supplied
-begins with C</dev/>.
+begins with F</dev/>.
 
 To avoid both the ambiguity and the need to duplicate some calls, we
 could make paths/devices into structured names.  One way to do this
@@ -1334,14 +1334,14 @@ Libguestfs needs a supermin appliance, which it finds by looking along
 an internal path.
 
 By default it looks for these in the directory C<$libdir/guestfs>
-(eg. C</usr/local/lib/guestfs> or C</usr/lib64/guestfs>).
+(eg. F</usr/local/lib/guestfs> or F</usr/lib64/guestfs>).
 
 Use L</guestfs_set_path> or set the environment variable
 L</LIBGUESTFS_PATH> to change the directories that libguestfs will
 search in.  The value is a colon-separated list of paths.  The current
 directory is I<not> searched unless the path contains an empty element
 or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
-search the current directory and then C</usr/lib/guestfs>.
+search the current directory and then F</usr/lib/guestfs>.
 
 =head2 QEMU WRAPPERS
 
@@ -1361,7 +1361,7 @@ qemu from source:
  qemudir=/home/rjones/d/qemu
  exec $qemudir/x86_64-softmmu/qemu-system-x86_64 -L $qemudir/pc-bios "$@"
 
-Save this script as C</tmp/qemu.wrapper> (or wherever), C<chmod +x>,
+Save this script as F</tmp/qemu.wrapper> (or wherever), C<chmod +x>,
 and then use it by setting the LIBGUESTFS_HV environment variable.
 For example:
 
@@ -1576,7 +1576,7 @@ looking for a virtio-serial channel to connect to:
    </devices>
  </domain>
 
-L</guestfs_add_domain> extracts C</path/to/socket> and sets the
+L</guestfs_add_domain> extracts F</path/to/socket> and sets the
 backend to C<unix:/path/to/socket>.
 
 Some of the libguestfs tools (including guestfish) support a I<--live>
@@ -1678,13 +1678,13 @@ developer to program in confidence against the libguestfs API.
 In the kernel there is now quite a profusion of schemata for naming
 block devices (in this context, by I<block device> I mean a physical
 or virtual hard drive).  The original Linux IDE driver used names
-starting with C</dev/hd*>.  SCSI devices have historically used a
-different naming scheme, C</dev/sd*>.  When the Linux kernel I<libata>
+starting with F</dev/hd*>.  SCSI devices have historically used a
+different naming scheme, F</dev/sd*>.  When the Linux kernel I<libata>
 driver became a popular replacement for the old IDE driver
 (particularly for SATA devices) those devices also used the
-C</dev/sd*> scheme.  Additionally we now have virtual machines with
+F</dev/sd*> scheme.  Additionally we now have virtual machines with
 paravirtualized drivers.  This has created several different naming
-systems, such as C</dev/vd*> for virtio disks and C</dev/xvd*> for Xen
+systems, such as F</dev/vd*> for virtio disks and F</dev/xvd*> for Xen
 PV disks.
 
 As discussed above, libguestfs uses a qemu appliance running an
@@ -1696,11 +1696,11 @@ or partition names.  Working scripts and the recipe (example) scripts
 that we make available over the internet could fail if the naming
 scheme changes.
 
-Therefore libguestfs defines C</dev/sd*> as the I<standard naming
-scheme>.  Internally C</dev/sd*> names are translated, if necessary,
+Therefore libguestfs defines F</dev/sd*> as the I<standard naming
+scheme>.  Internally F</dev/sd*> names are translated, if necessary,
 to other names as required.  For example, under RHEL 5 which uses the
-C</dev/hd*> scheme, any device parameter C</dev/sda2> is translated to
-C</dev/hda2> transparently.
+F</dev/hd*> scheme, any device parameter F</dev/sda2> is translated to
+F</dev/hda2> transparently.
 
 Note that this I<only> applies to parameters.  The
 L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
@@ -1718,9 +1718,9 @@ Not all versions of libguestfs support setting a disk label, and when
 it is supported, it is limited to 20 ASCII characters C<[a-zA-Z]>.
 
 When you add a disk with a label, it can either be addressed
-using C</dev/sd*>, or using C</dev/disk/guestfs/I<label>>.
+using F</dev/sd*>, or using F</dev/disk/guestfs/I<label>>.
 Partitions on the disk can be addressed using
-C</dev/disk/guestfs/I<label>I<partnum>>.
+F</dev/disk/guestfs/I<label>I<partnum>>.
 
 Listing devices (L</guestfs_list_devices>) and partitions
 (L</guestfs_list_partitions>) returns the raw block device name.
@@ -1732,8 +1732,8 @@ to raw block device and partition names.
 Usually this translation is transparent.  However in some (very rare)
 cases you may need to know the exact algorithm.  Such cases include
 where you use L</guestfs_config> to add a mixture of virtio and IDE
-devices to the qemu-based appliance, so have a mixture of C</dev/sd*>
-and C</dev/vd*> devices.
+devices to the qemu-based appliance, so have a mixture of F</dev/sd*>
+and F</dev/vd*> devices.
 
 The algorithm is applied only to I<parameters> which are known to be
 either device or partition names.  Return values from functions such
@@ -1747,7 +1747,7 @@ Is the string a parameter which is a device or partition name?
 
 =item *
 
-Does the string begin with C</dev/sd>?
+Does the string begin with F</dev/sd>?
 
 =item *
 
@@ -1756,15 +1756,15 @@ However if I<not> then we continue with this algorithm.
 
 =item *
 
-Replace initial C</dev/sd> string with C</dev/hd>.
+Replace initial F</dev/sd> string with F</dev/hd>.
 
-For example, change C</dev/sda2> to C</dev/hda2>.
+For example, change F</dev/sda2> to F</dev/hda2>.
 
 If that named device exists, use it.  If not, continue.
 
 =item *
 
-Replace initial C</dev/sd> string with C</dev/vd>.
+Replace initial F</dev/sd> string with F</dev/vd>.
 
 If that named device exists, use it.  If not, return an error.
 
@@ -1905,7 +1905,7 @@ Modern qemu (hence libguestfs) supports most variations, but you
 should be aware that older versions of qemu had some very bad
 data-corrupting bugs in this area.
 
-Note that VMware ESX exposes files with the name C<guest-flat.vmdk>.
+Note that VMware ESX exposes files with the name F<guest-flat.vmdk>.
 These are not VMDK.  They are raw format files which happen to have a
 C<.vmdk> extension.
 
@@ -2050,7 +2050,7 @@ Guest configuration may be altered in unusual ways by the
 administrator of the virtual machine, and may not reflect reality
 (particularly for untrusted or actively malicious guests).  For
 example we parse the hostname from configuration files like
-C</etc/sysconfig/network> that we find in the guest, but the guest
+F</etc/sysconfig/network> that we find in the guest, but the guest
 administrator can easily manipulate these files to provide the wrong
 hostname.
 
@@ -2140,7 +2140,7 @@ Old versions of both virt-edit and the guestfish C<edit> command
 created a new file containing the changes but did not set the
 permissions, etc of the new file to match the old one.  The result of
 this was that if you edited a security sensitive file such as
-C</etc/shadow> then it would be left world-readable after the edit.
+F</etc/shadow> then it would be left world-readable after the edit.
 
 It is sufficient to update libguestfs to any version E<ge> 1.16.
 
@@ -2161,11 +2161,11 @@ L<https://bugzilla.redhat.com/1016960>
 
 When using the L<guestfish(1)> I<--remote> or guestfish I<--listen>
 options, guestfish would create a socket in a known location
-(C</tmp/.guestfish-$UID/socket-$PID>).
+(F</tmp/.guestfish-$UID/socket-$PID>).
 
 The location has to be a known one in order for both ends to
 communicate.  However no checking was done that the containing
-directory (C</tmp/.guestfish-$UID>) is owned by the user.  Thus
+directory (F</tmp/.guestfish-$UID>) is owned by the user.  Thus
 another user could create this directory and potentially hijack
 sockets owned by another user's guestfish client or server.
 
@@ -3056,7 +3056,7 @@ the moment this is only used for progress messages.
 =head2 EXAMPLE: CAPTURING LOG MESSAGES
 
 A working program demonstrating this can be found in
-C<examples/debug-logging.c> in the source of libguestfs.
+F<examples/debug-logging.c> in the source of libguestfs.
 
 One motivation for the generic event API was to allow GUI programs to
 capture debug and other messages.  In libguestfs E<le> 1.8 these were
@@ -3137,7 +3137,7 @@ L</guestfs_get_libvirt_requested_credential_defresult>.
 The example program below should make this clearer.
 
 There is also a more substantial working example program supplied with
-the libguestfs sources, called C<libvirt-auth.c>.
+the libguestfs sources, called F<libvirt-auth.c>.
 
  main ()
  {
@@ -3415,7 +3415,7 @@ and some ordinary C entry points:
        printf ("\t%s %s\n", probefunc(), $$parms);
  }
 
-The script above can be saved to C<test.stap> and run using the
+The script above can be saved to F<test.stap> and run using the
 L<stap(1)> program.  Note that you either have to be root, or you have
 to add yourself to several special stap groups.  Consult the systemtap
 documentation for more information.
@@ -3558,7 +3558,7 @@ debugging (set the environment variable C<LIBGUESTFS_DEBUG=1>).
 C<supermin --build> is invoked to create the kernel, a small initrd
 and the appliance.
 
-The appliance is cached in C</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in
+The appliance is cached in F</var/tmp/.guestfs-E<lt>UIDE<gt>> (or in
 another directory if C<LIBGUESTFS_CACHEDIR> or C<TMPDIR> are set).
 
 For a complete description of how the appliance is created and cached,
@@ -3575,7 +3575,7 @@ appliance.  The purpose of the initrd is to load enough kernel modules
 in order that the appliance itself can be mounted and started.
 
 The initrd is a cpio archive called
-C</var/tmp/.guestfs-E<lt>UIDE<gt>/appliance.d/initrd>.
+F</var/tmp/.guestfs-E<lt>UIDE<gt>/appliance.d/initrd>.
 
 When the initrd has started you will see messages showing that kernel
 modules are being loaded, similar to this:
@@ -3590,16 +3590,16 @@ modules are being loaded, similar to this:
 The appliance is a sparse file containing an ext2 filesystem which
 contains a familiar (although reduced in size) Linux operating system.
 It would normally be called
-C</var/tmp/.guestfs-E<lt>UIDE<gt>/appliance.d/root>.
+F</var/tmp/.guestfs-E<lt>UIDE<gt>/appliance.d/root>.
 
 The regular disks being inspected by libguestfs are the first
-devices exposed by qemu (eg. as C</dev/vda>).
+devices exposed by qemu (eg. as F</dev/vda>).
 
-The last disk added to qemu is the appliance itself (eg. C</dev/vdb>
+The last disk added to qemu is the appliance itself (eg. F</dev/vdb>
 if there was only one regular disk).
 
 Thus the final job of the initrd is to locate the appliance disk,
-mount it, and switch root into the appliance, and run C</init> from
+mount it, and switch root into the appliance, and run F</init> from
 the appliance.
 
 If this works successfully you will see messages such as:
@@ -3644,7 +3644,7 @@ The protocol used to talk between the library and the daemon running
 inside the qemu virtual machine is a simple RPC mechanism built on top
 of XDR (RFC 1014, RFC 1832, RFC 4506).
 
-The detailed format of structures is in C<src/guestfs_protocol.x>
+The detailed format of structures is in F<src/guestfs_protocol.x>
 (note: this file is automatically generated).
 
 There are two broad cases, ordinary functions that don't have any
@@ -3874,10 +3874,10 @@ run the generator (C<./autogen.sh && make -C generator>) in order to
 create those files.
 
 Libguestfs uses an autotools-based build system, with the main files
-being C<configure.ac> and C<Makefile.am>.  The C<generator>
+being F<configure.ac> and F<Makefile.am>.  The F<generator>
 subdirectory contains the generator, plus files describing the API.
-The C<src> subdirectory contains source for the library.  The
-C<appliance> and C<daemon> subdirectories contain the source for the
+The F<src> subdirectory contains source for the library.  The
+F<appliance> and F<daemon> subdirectories contain the source for the
 code that builds the appliance, and the code that runs in the
 appliance respectively.  Other directories are covered in the section
 L<SOURCE CODE SUBDIRECTORIES> below.
@@ -3886,20 +3886,20 @@ Apart from the fact that all API entry points go via some generated
 code, the library is straightforward.  (In fact, even the generated
 code is designed to be readable, and should be read as ordinary code).
 Some actions run entirely in the library, and are written as C
-functions in files under C<src>.  Others are forwarded to the daemon
+functions in files under F<src>.  Others are forwarded to the daemon
 where (after some generated RPC marshalling) they appear as C
-functions in files under C<daemon>.
+functions in files under F<daemon>.
 
 To build from source, first read the C<README> file.
 
-=head2 C<local*> FILES
+=head2 F<local*> FILES
 
-Files in the top source directory that begin with the prefix C<local*>
+Files in the top source directory that begin with the prefix F<local*>
 are ignored by git.  These files can contain local configuration or
 scripts that you need to build libguestfs.
 
-By convention, I have a file called C<localconfigure> which is a
-simple wrapper around C<autogen.sh> containing local configure
+By convention, I have a file called F<localconfigure> which is a
+simple wrapper around F<autogen.sh> containing local configure
 customizations that I need:
 
  . localenv
@@ -3914,7 +3914,7 @@ So I can use this to build libguestfs:
 
  ./localconfigure && make
 
-If there is a file in the top build directory called C<localenv>, then
+If there is a file in the top build directory called F<localenv>, then
 it will be sourced by C<make>.  This file can contain any local
 environment variables needed, eg. for skipping tests:
 
@@ -3923,9 +3923,9 @@ environment variables needed, eg. for skipping tests:
  # Skip this test, it is broken.
  export SKIP_TEST_BTRFS_FSCK=1
 
-Note that C<localenv> is included by the top Makefile (so it's a
+Note that F<localenv> is included by the top Makefile (so it's a
 Makefile fragment).  But if it is also sourced by your
-C<localconfigure> script then it is used as a shell script.
+F<localconfigure> script then it is used as a shell script.
 
 =head2 ADDING A NEW API ACTION
 
@@ -3939,7 +3939,7 @@ To add a new API action there are two changes:
 =item 1.
 
 You need to add a description of the call (name, parameters, return
-type, tests, documentation) to C<generator/actions.ml>.
+type, tests, documentation) to F<generator/actions.ml>.
 
 There are two sorts of API action, depending on whether the call goes
 through to the daemon in the appliance, or is serviced entirely by the
@@ -3985,33 +3985,33 @@ the OCaml description.
 
 You can supply zero or as many tests as you want per API call.  The
 tests can either be added as part of the API description
-(C<generator/actions.ml>), or in some rarer cases you may want to drop
+(F<generator/actions.ml>), or in some rarer cases you may want to drop
 a script into C<tests/*/>.  Note that adding a script to C<tests/*/>
 is slower, so if possible use the first method.
 
 The following describes the test environment used when you add an API
-test in C<actions.ml>.
+test in F<actions.ml>.
 
 The test environment has 4 block devices:
 
 =over 4
 
-=item C</dev/sda> 500MB
+=item F</dev/sda> 500MB
 
 General block device for testing.
 
-=item C</dev/sdb> 500MB
+=item F</dev/sdb> 500MB
 
-C</dev/sdb1> is an ext2 filesystem used for testing
+F</dev/sdb1> is an ext2 filesystem used for testing
 filesystem write operations.
 
-=item C</dev/sdc> 10MB
+=item F</dev/sdc> 10MB
 
 Used in a few tests where two block devices are needed.
 
-=item C</dev/sdd>
+=item F</dev/sdd>
 
-ISO with fixed content (see C<images/test.iso>).
+ISO with fixed content (see F<images/test.iso>).
 
 =back
 
@@ -4020,9 +4020,9 @@ libguestfs appliance and block devices are reused between tests.  So
 don't try testing L</guestfs_kill_subprocess> :-x
 
 Each test starts with an initial scenario, selected using one of the
-C<Init*> expressions, described in C<generator/types.ml>.  These
+C<Init*> expressions, described in F<generator/types.ml>.  These
 initialize the disks mentioned above in a particular way as documented
-in C<types.ml>.  You should not assume anything about the previous
+in F<types.ml>.  You should not assume anything about the previous
 contents of other disks that are not initialized.
 
 You can add a prerequisite clause to any individual test.  This is a
@@ -4048,7 +4048,7 @@ Packagers can run only certain tests by setting for example:
 
  TEST_ONLY="vfs_type zerofree"
 
-See C<tests/c-api/tests.c> for more details of how these environment
+See F<tests/c-api/tests.c> for more details of how these environment
 variables work.
 
 =head2 DEBUGGING NEW API ACTIONS
@@ -4064,11 +4064,11 @@ stderr, and they will show up if you use C<guestfish -v>.
 =head2 ADDING A NEW LANGUAGE BINDING
 
 All language bindings must be generated by the generator
-(see the C<generator> subdirectory).
+(see the F<generator> subdirectory).
 
 There is no documentation for this yet.  We suggest you look
-at an existing binding, eg. C<generator/ocaml.ml> or
-C<generator/perl.ml>.
+at an existing binding, eg. F<generator/ocaml.ml> or
+F<generator/perl.ml>.
 
 =head2 ADDING TESTS FOR LANGUAGE BINDINGS
 
@@ -4162,7 +4162,7 @@ the automake documentation for details.
 
 Runs a subset of the test suite under valgrind.
 
-Any C<Makefile.am> in the tree that has a C<check-valgrind:> target
+Any F<Makefile.am> in the tree that has a C<check-valgrind:> target
 will be run by this rule.
 
 =item C<make check-valgrind-local-guests>
@@ -4199,7 +4199,7 @@ As above, you have to set C<LIBGUESTFS_HV> to point to the kernel.
 =item C<make check-with-upstream-qemu>
 
 Runs all tests using a local qemu binary.  It looks for the qemu
-binary in QEMUDIR (defaults to C<$HOME/d/qemu>), but you can set this
+binary in QEMUDIR (defaults to F<$HOME/d/qemu>), but you can set this
 to another directory on the command line, eg:
 
  make check-with-upstream-qemu QEMUDIR=/usr/src/qemu
@@ -4210,7 +4210,7 @@ Runs all tests using a local libvirt.  This only has any effect if the
 libvirt backend was selected using
 C<./configure --with-default-backend=libvirt>
 
-It looks for libvirt in LIBVIRTDIR (defaults to C<$HOME/d/libvirt>),
+It looks for libvirt in LIBVIRTDIR (defaults to F<$HOME/d/libvirt>),
 but you can set this to another directory on the command line, eg:
 
  make check-with-upstream-libvirt LIBVIRTDIR=/usr/src/libvirt
@@ -4219,7 +4219,7 @@ but you can set this to another directory on the command line, eg:
 
 Runs some slow/long-running tests which are not run by default.
 
-Any C<Makefile.am> in the tree that has a C<check-slow:> target will
+Any F<Makefile.am> in the tree that has a C<check-slow:> target will
 be run by this rule.
 
 =item C<make check-all>
@@ -4311,191 +4311,191 @@ the programmers.
 
 =over 4
 
-=item C<align>
+=item F<align>
 
 L<virt-alignment-scan(1)> command and documentation.
 
-=item C<appliance>
+=item F<appliance>
 
 The libguestfs appliance, build scripts and so on.
 
-=item C<bash>
+=item F<bash>
 
 Bash tab-completion scripts.
 
-=item C<build-aux>
+=item F<build-aux>
 
 Various build scripts used by autotools.
 
-=item C<builder>
+=item F<builder>
 
 L<virt-builder(1)> command and documentation.
 
-=item C<cat>
+=item F<cat>
 
 The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>
 and L<virt-ls(1)> commands and documentation.
 
-=item C<contrib>
+=item F<contrib>
 
 Outside contributions, experimental parts.
 
-=item C<customize>
+=item F<customize>
 
 L<virt-customize(1)> command and documentation.
 
-=item C<daemon>
+=item F<daemon>
 
 The daemon that runs inside the libguestfs appliance and carries out
 actions.
 
-=item C<df>
+=item F<df>
 
 L<virt-df(1)> command and documentation.
 
-=item C<diff>
+=item F<diff>
 
 L<virt-diff(1)> command and documentation.
 
-=item C<edit>
+=item F<edit>
 
 L<virt-edit(1)> command and documentation.
 
-=item C<examples>
+=item F<examples>
 
 C API example code.
 
-=item C<fish>
+=item F<fish>
 
 L<guestfish(1)>, the command-line shell, and various shell scripts
 built on top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>,
 L<virt-tar-in(1)>, L<virt-tar-out(1)>.
 
-=item C<format>
+=item F<format>
 
 L<virt-format(1)> command and documentation.
 
-=item C<fuse>
+=item F<fuse>
 
 L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
 
-=item C<generator>
+=item F<generator>
 
 The crucially important generator, used to automatically generate
 large amounts of boilerplate C code for things like RPC and bindings.
 
-=item C<gnulib>
+=item F<gnulib>
 
 Gnulib is used as a portability library.  A copy of gnulib is included
 under here.
 
-=item C<html>
+=item F<html>
 
 Generated HTML manual pages.
 
-=item C<inspector>
+=item F<inspector>
 
 L<virt-inspector(1)>, the virtual machine image inspector.
 
-=item C<logo>
+=item F<logo>
 
 Logo used on the website.  The fish is called Arthur by the way.
 
-=item C<m4>
+=item F<m4>
 
 M4 macros used by autoconf.
 
-=item C<make-fs>
+=item F<make-fs>
 
 L<virt-make-fs(1)> command and documentation.
 
-=item C<mllib>
+=item F<mllib>
 
 Various libraries and common code used by L<virt-resize(1)> and
 the other tools which are written in OCaml.
 
-=item C<p2v>
+=item F<p2v>
 
 L<virt-p2v(1)> command, documentation and scripts for building the
 virt-p2v ISO or disk image.
 
-=item C<po>
+=item F<po>
 
 Translations of simple gettext strings.
 
-=item C<po-docs>
+=item F<po-docs>
 
 The build infrastructure and PO files for translations of manpages and
-POD files.  Eventually this will be combined with the C<po> directory,
+POD files.  Eventually this will be combined with the F<po> directory,
 but that is rather complicated.
 
-=item C<rescue>
+=item F<rescue>
 
 L<virt-rescue(1)> command and documentation.
 
-=item C<resize>
+=item F<resize>
 
 L<virt-resize(1)> command and documentation.
 
-=item C<sparsify>
+=item F<sparsify>
 
 L<virt-sparsify(1)> command and documentation.
 
-=item C<src>
+=item F<src>
 
 Source code to the C library.
 
-=item C<sysprep>
+=item F<sysprep>
 
 L<virt-sysprep(1)> command and documentation.
 
-=item C<tests>
+=item F<tests>
 
 Tests.
 
-=item C<test-tool>
+=item F<test-tool>
 
 Test tool for end users to test if their qemu/kernel combination
 will work with libguestfs.
 
-=item C<tmp>
+=item F<tmp>
 
-Used for temporary files when running the tests (instead of C</tmp>
+Used for temporary files when running the tests (instead of F</tmp>
 etc).  The reason is so that you can run multiple parallel tests of
 libguestfs without having one set of tests overwriting the appliance
 created by another.
 
-=item C<tools>
+=item F<tools>
 
 Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 
-=item C<v2v>
+=item F<v2v>
 
 L<virt-v2v(1)> command and documentation.
 
-=item C<csharp>
+=item F<csharp>
 
-=item C<erlang>
+=item F<erlang>
 
-=item C<gobject>
+=item F<gobject>
 
-=item C<golang>
+=item F<golang>
 
-=item C<haskell>
+=item F<haskell>
 
-=item C<java>
+=item F<java>
 
-=item C<lua>
+=item F<lua>
 
-=item C<ocaml>
+=item F<ocaml>
 
-=item C<php>
+=item F<php>
 
-=item C<perl>
+=item F<perl>
 
-=item C<python>
+=item F<python>
 
-=item C<ruby>
+=item F<ruby>
 
 Language bindings.
 
@@ -4516,7 +4516,7 @@ Ubuntu.
 
 =item *
 
-Finalize C<guestfs-release-notes.pod>
+Finalize F<guestfs-release-notes.pod>
 
 =item *
 
@@ -4530,7 +4530,7 @@ to push the latest POT files to Zanata.  Then run:
 
  ./zanata-pull.sh
 
-which is a wrapper to pull the latest translated C<*.po> files.
+which is a wrapper to pull the latest translated F<*.po> files.
 
 =item *
 
@@ -4543,7 +4543,7 @@ L<http://libguestfs.org/download>.
 
 =item *
 
-Edit C<index.html.in> on website.
+Edit F<index.html.in> on website.
 
 =item *
 
@@ -4613,7 +4613,7 @@ to 31 slots, but some of these are used for other purposes.
 One virtual disk is used by libguestfs internally.
 
 Before libguestfs 1.19.7, disk names had to be a single character
-(eg. C</dev/sda> through C</dev/sdz>), and since one disk is reserved,
+(eg. F</dev/sda> through F</dev/sdz>), and since one disk is reserved,
 that meant the limit was 25.  This has been fixed in more recent
 versions.
 
@@ -4625,7 +4625,7 @@ L</HOTPLUGGING>.
 Virtio limits the maximum number of partitions per disk to B<15>.
 
 This is because it reserves 4 bits for the minor device number (thus
-C</dev/vda>, and C</dev/vda1> through C</dev/vda15>).
+F</dev/vda>, and F</dev/vda1> through F</dev/vda15>).
 
 If you attach a disk with more than 15 partitions, the extra
 partitions are ignored by libguestfs.
@@ -4707,7 +4707,7 @@ using a supermin appliance.  The appliance is cached and shared
 between all handles which have the same effective user ID.
 
 If C<LIBGUESTFS_CACHEDIR> is not set, then C<TMPDIR> is used.  If
-C<TMPDIR> is not set, then C</var/tmp> is used.
+C<TMPDIR> is not set, then F</var/tmp> is used.
 
 See also L</LIBGUESTFS_TMPDIR>, L</guestfs_set_cachedir>.
 
@@ -4746,7 +4746,7 @@ The location where libguestfs will store temporary files used
 by each handle.
 
 If C<LIBGUESTFS_TMPDIR> is not set, then C<TMPDIR> is used.  If
-C<TMPDIR> is not set, then C</tmp> is used.
+C<TMPDIR> is not set, then F</tmp> is used.
 
 See also L</LIBGUESTFS_CACHEDIR>, L</guestfs_set_tmpdir>.
 

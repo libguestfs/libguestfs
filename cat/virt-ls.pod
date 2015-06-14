@@ -332,12 +332,12 @@ For example:
 
  virt-ls --format=raw -a disk.img /dir
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-ls --format=raw -a disk.img --format -a another.img /dir
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -355,7 +355,7 @@ L</RECURSIVE LONG LISTING> above.
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<-m dev[:mountpoint[:options[:fstype]]]>
 
@@ -363,7 +363,7 @@ to try to read passphrases from the user by opening C</dev/tty>.
 
 Mount the named partition or logical volume on the given mountpoint.
 
-If the mountpoint is omitted, it defaults to C</>.
+If the mountpoint is omitted, it defaults to F</>.
 
 Specifying any mountpoint disables the inspection of the guest and
 the mount of its root and all of its mountpoints, so make sure

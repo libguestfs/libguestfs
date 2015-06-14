@@ -88,7 +88,7 @@ locally under libvirt.
 
 In this case you will most likely have to run virt-v2v as C<root>,
 since it needs to talk to the system libvirt daemon and copy the guest
-disks to C</var/lib/libvirt/images>.
+disks to F</var/lib/libvirt/images>.
 
 For more information see L</INPUT FROM VMWARE VCENTER SERVER> below.
 
@@ -126,8 +126,8 @@ run on KVM, you have two options.  The simplest way is to try:
 
  virt-v2v -i disk disk.img -o local -os /var/tmp
 
-where virt-v2v guesses everything about the input C<disk.img> and (in
-this case) writes the converted result to C</var/tmp>.
+where virt-v2v guesses everything about the input F<disk.img> and (in
+this case) writes the converted result to F</var/tmp>.
 
 A more complex method is to write some
 L<libvirt XML|http://libvirt.org/formatdomain.html> describing the
@@ -136,7 +136,7 @@ libvirt XML, then so much the better).  You can then do:
 
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
-Since C<guest-domain.xml> contains the path(s) to the guest disk
+Since F<guest-domain.xml> contains the path(s) to the guest disk
 image(s) you do not need to specify the name of the disk image on the
 command line.
 
@@ -463,7 +463,7 @@ Set the output method to I<vdsm>.
 
 This mode is similar to I<-o rhev>, but the full path to the
 data domain must be given:
-C</rhev/data-center/E<lt>data-center-uuidE<gt>/E<lt>data-domain-uuidE<gt>>.
+F</rhev/data-center/E<lt>data-center-uuidE<gt>/E<lt>data-domain-uuidE<gt>>.
 This mode is only used when virt-v2v runs under VDSM control.
 
 =item B<-oa sparse>
@@ -557,7 +557,7 @@ Choose the root filesystem to be converted.
 In the case where the virtual machine is dual-boot or multi-boot, or
 where the VM has other filesystems that look like operating systems,
 this option can be used to select the root filesystem (a.k.a. C<C:>
-drive or C</>) of the operating system that is to be converted.  The
+drive or F</>) of the operating system that is to be converted.  The
 Windows Recovery Console, certain attached DVD drives, and bugs in
 libguestfs inspection heuristics, can make a guest look like a
 multi-boot operating system.
@@ -582,7 +582,7 @@ device, then virt-v2v will fail.
 Note that there is a bug in grub which prevents it from successfully
 booting a multiboot system if VirtIO is enabled.  Grub is only able to
 boot an operating system from the first VirtIO disk.  Specifically,
-C</boot> must be on the first VirtIO disk, and it cannot chainload an
+F</boot> must be on the first VirtIO disk, and it cannot chainload an
 OS which is not in the first VirtIO disk.
 
 =item B<--vdsm-image-uuid> UUID
@@ -753,7 +753,7 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=244636>
 =head2 Boot failure: 0x0000007B
 
 This boot failure is caused by Windows being unable to find or load
-the right disk driver (eg. C<viostor.sys>).  If you experience this
+the right disk driver (eg. F<viostor.sys>).  If you experience this
 error, here are some things to check:
 
 =over 4
@@ -766,7 +766,7 @@ conversion.
 =item *
 
 Check you have the Windows virtio drivers available in
-C</usr/share/virtio-win>, and that virt-v2v did not print any warning
+F</usr/share/virtio-win>, and that virt-v2v did not print any warning
 about not being able to install virtio drivers.
 
 On S<Red Hat Enterprise Linux 7>, you will need to install the signed
@@ -799,7 +799,7 @@ Policy-like prohibitions on installing or using new drivers.
 
 =item *
 
-Enable boot debugging and check the C<viostor.sys> driver is being
+Enable boot debugging and check the F<viostor.sys> driver is being
 loaded.
 
 =back
@@ -1078,7 +1078,7 @@ contents.
 
 =head2 OVA: IMPORTING A GUEST
 
-To import an OVA file called C<VM.ova>, do;
+To import an OVA file called F<VM.ova>, do;
 
  $ virt-v2v -i ova VM.ova -o local -os /var/tmp
 
@@ -1102,7 +1102,7 @@ Currently you must enable passwordless SSH access to the remote Xen host
 from the virt-v2v conversion server.
 
 You must also use ssh-agent, and add your ssh public key to
-C</root/.ssh/authorized_keys> (on the Xen host).
+F</root/.ssh/authorized_keys> (on the Xen host).
 
 After doing this, you should check that passwordless access works
 from the virt-v2v server to the Xen host.  For example:
@@ -1187,7 +1187,7 @@ metadata into a local temporary directory:
 
  virt-v2v [...] -o local -os /var/tmp
 
-This creates two (or more) files in C</var/tmp> called:
+This creates two (or more) files in F</var/tmp> called:
 
  /var/tmp/NAME.xml     # the libvirt XML (metadata)
  /var/tmp/NAME-sda     # the guest's first disk
@@ -1204,7 +1204,7 @@ Upload the converted disk(s) into the storage pool called C<POOL>:
 
 =item 3.
 
-Edit C</var/tmp/NAME.xml> to change C</var/tmp/NAME-sda> to the pool
+Edit F</var/tmp/NAME.xml> to change F</var/tmp/NAME-sda> to the pool
 name.  In other words, locate the following bit of XML:
 
  <disk type='file' device='disk'>
@@ -1274,7 +1274,7 @@ possible.
 =head2 Disk space
 
 Virt-v2v places potentially large temporary files in C<$TMPDIR> (which
-is C</var/tmp> if you don't set it).  Using tmpfs is a bad idea.
+is F</var/tmp> if you don't set it).  Using tmpfs is a bad idea.
 
 For each guest disk, an overlay is stored temporarily.  This stores
 the changes made during conversion, and is used as a cache.  The
@@ -1366,7 +1366,7 @@ to perform the conversion.  Currently it checks:
 
 Minimum free space: 20 MB
 
-=item Linux C</boot>
+=item Linux F</boot>
 
 Minimum free space: 50 MB
 
@@ -1412,7 +1412,7 @@ manually change ownership after virt-v2v has finished.
 When using I<-o libvirt>, you may need to run virt-v2v as root so that
 it can write to the libvirt system instance (ie. C<qemu:///system>)
 and to the default location for disk images (usually
-C</var/lib/libvirt/images>).
+F</var/lib/libvirt/images>).
 
 You can avoid this by setting up libvirt connection authentication,
 see L<http://libvirt.org/auth.html>.  Alternatively, use
@@ -1437,7 +1437,7 @@ generally hides the true reason for the failure.
 
 There are two log files of interest.  The first is stored on the
 RHEV-M server itself, and is called
-C</var/log/ovirt-engine/engine.log>
+F</var/log/ovirt-engine/engine.log>
 
 The second file, which is the most useful, is found on the SPM host
 (SPM stands for "Storage Pool Manager").  This is a RHEV node that is
@@ -1445,7 +1445,7 @@ elected to do all metadata modifications in the data center, such as
 image or snapshot creation.  You can find out which host is the
 current SPM from the "Hosts" tab "Spm Status" column.  Once you have
 located the SPM, log into it and grab the file
-C</var/log/vdsm/vdsm.log> which will contain detailed error messages
+F</var/log/vdsm/vdsm.log> which will contain detailed error messages
 from low-level commands.
 
 =head1 MINIMAL XML FOR -i libvirtxml OPTION
@@ -1548,7 +1548,7 @@ option at all.  The option was added when virt-v2v was rewritten in 2014.
 
 =over 4
 
-=item C</usr/share/virtio-win>
+=item F</usr/share/virtio-win>
 
 (Optional)
 
@@ -1575,13 +1575,13 @@ This can point to the directory containing data files used for Windows
 conversion.
 
 Normally you do not need to set this.  If not set, a compiled-in
-default will be used (something like C</usr/share/virt-tools>).
+default will be used (something like F</usr/share/virt-tools>).
 
 This directory may contain the following files:
 
 =over 4
 
-=item C<rhsrvany.exe>
+=item F<rhsrvany.exe>
 
 (Required when doing conversions of Windows guests)
 
@@ -1590,7 +1590,7 @@ script in the guest during conversion of Windows guests.
 
 See also: C<https://github.com/rwmjones/rhsrvany>
 
-=item C<rhev-apt.exe>
+=item F<rhev-apt.exe>
 
 (Optional)
 

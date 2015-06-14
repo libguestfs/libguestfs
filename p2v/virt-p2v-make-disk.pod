@@ -31,7 +31,7 @@ combinations, do:
 
 =head2 EXAMPLES
 
-Write a virt-p2v bootable USB key on C</dev/sdX> (and existing content
+Write a virt-p2v bootable USB key on F</dev/sdX> (and existing content
 is erased), using Fedora 20 as the base distribution:
 
  virt-p2v-make-disk -o /dev/sdX fedora-20
@@ -43,7 +43,7 @@ Write a virt-p2v bootable virtual disk image, and boot it under qemu:
    -drive file=/var/tmp/p2v.img,if=virtio,index=0 \
    -drive file=/var/tmp/guest.img,if=virtio,index=1
 
-where C</var/tmp/guest.img> would be the disk image of some guest that
+where F</var/tmp/guest.img> would be the disk image of some guest that
 you want to convert (for testing only).
 
 =head1 OPTIONS
@@ -73,17 +73,17 @@ Display version number and exit.
 
 =over 4
 
-=item C<$libexecdir/virt-p2v>
+=item F<$libexecdir/virt-p2v>
 
 The L<virt-p2v(1)> binary which is copied into the bootable disk
 image.  The location of the binary can be changed by setting the
 C<VIRT_P2V_DATA_DIR> environment variable.
 
-=item C<$datadir/issue>
+=item F<$datadir/issue>
 
-=item C<$datadir/launch-virt-p2v.in>
+=item F<$datadir/launch-virt-p2v.in>
 
-=item C<$datadir/p2v.service>
+=item F<$datadir/p2v.service>
 
 Various data files that are copied into the bootable disk image.
 

@@ -13,7 +13,7 @@ that it knows how to use.  This index file has a specific format which
 virt-index-validate knows how to validate.
 
 Note that virt-index-validate can validate either the signed or
-unsigned index file (ie. either C<index> or C<index.asc>).  It can
+unsigned index file (ie. either F<index> or F<index.asc>).  It can
 only validate a local file, not a URL.
 
 =head1 OPTIONS

@@ -112,7 +112,7 @@ Display the version number and exit.
 
 Instead of creating the appliance in an output directory, create a
 compressed tarball of the appliance in the current directory called
-C<appliance-I<VERSION>.tar.xz> where C<VERSION> is the version of
+F<appliance-I<VERSION>.tar.xz> where C<VERSION> is the version of
 libguestfs.
 
 Using I<--xz> can take some time.  If working normally, the tool is
@@ -132,8 +132,8 @@ into a full appliance by running C<supermin --build>.
 
 However, a simpler "fixed appliance" can also be used.  libguestfs
 detects this by looking for a directory on the path containing four
-files called C<kernel>, C<initrd>, C<root> and C<README.fixed> (note
-the C<README.fixed> file must be present as well).
+files called F<kernel>, F<initrd>, F<root> and F<README.fixed> (note
+the F<README.fixed> file must be present as well).
 
 If the fixed appliance is found, libguestfs skips supermin entirely
 and just runs qemu with the kernel, initrd and root disk from the

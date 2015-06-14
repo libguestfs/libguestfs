@@ -64,7 +64,7 @@ I<--physical-volumes>, I<--block-devices> to list those items.
 
 You can use these options in combination as well (if you want a
 combination including filesystems, you have to add I<--filesystems>).
-Notice that some items fall into several categories (eg. C</dev/sda1>
+Notice that some items fall into several categories (eg. F</dev/sda1>
 might be both a partition and a filesystem).  These items are listed
 several times.  To get a list which includes absolutely everything
 that virt-filesystems knows about, use the I<--all> option.
@@ -184,12 +184,12 @@ For example:
 
  virt-filesystems --format=raw -a disk.img
 
-forces raw format (no auto-detection) for C<disk.img>.
+forces raw format (no auto-detection) for F<disk.img>.
 
  virt-filesystems --format=raw -a disk.img --format -a another.img
 
-forces raw format (no auto-detection) for C<disk.img> and reverts to
-auto-detection for C<another.img>.
+forces raw format (no auto-detection) for F<disk.img> and reverts to
+auto-detection for F<another.img>.
 
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
@@ -204,7 +204,7 @@ In I<--long> mode, display sizes in human-readable format.
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<-l>
 
@@ -300,7 +300,7 @@ in future versions of this tool.
 The filesystem, partition, block device or LVM name.
 
 For device and partition names these are displayed as canonical
-libguestfs names, so that for example C</dev/sda2> is the second
+libguestfs names, so that for example F</dev/sda2> is the second
 partition on the first device.
 
 If the I<--long> option is B<not> specified, then only the name column

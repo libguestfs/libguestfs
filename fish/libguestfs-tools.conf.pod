@@ -14,7 +14,7 @@ libguestfs-tools.conf - configuration file for guestfish, guestmount, virt-rescu
 
 =head1 DESCRIPTION
 
-C<libguestfs-tools.conf> (or C<$HOME/.libguestfs-tools.rc>) changes the
+F<libguestfs-tools.conf> (or F<$HOME/.libguestfs-tools.rc>) changes the
 defaults for the following programs only:
 
 =over 4
@@ -60,7 +60,7 @@ The order of the configuration files being read is, by importance:
 =item *
 
 $XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf (C<$XDG_CONFIG_HOME> is
-C<$HOME/.config> if not set).
+F<$HOME/.config> if not set).
 
 =item *
 
@@ -69,7 +69,7 @@ $HOME/.libguestfs-tools.rc
 =item *
 
 $XDG_CONFIG_DIRS/libguestfs/libguestfs-tools.conf (where C<$XDG_CONFIG_DIRS>
-means any of the directories in that environment variable, or just C</etc/xdg>
+means any of the directories in that environment variable, or just F</etc/xdg>
 if not set)
 
 =item *
@@ -80,9 +80,9 @@ if not set)
 
 This means local users can override the system configuration by copying
 the configuration file (or creating it anew) into
-C<$XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf>.
+F<$XDG_CONFIG_HOME/libguestfs/libguestfs-tools.conf>.
 
-C</etc/libguestfs-tools.conf> and C<$HOME/.libguestfs-tools.rc> are the old
+F</etc/libguestfs-tools.conf> and F<$HOME/.libguestfs-tools.rc> are the old
 non-XDG paths which are read for compatibility.
 
 =head1 SEE ALSO

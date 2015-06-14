@@ -22,11 +22,11 @@ a virtual machine disk image or named libvirt domain.
 You can give one of more filenames and directories on the command
 line.  Directories are copied in recursively.  The final parameter
 must be the destination directory in the disk image which must be an
-absolute path starting with a C</> character.
+absolute path starting with a F</> character.
 
 =head1 EXAMPLES
 
-Update C</etc/resolv.conf> in a guest:
+Update F</etc/resolv.conf> in a guest:
 
  virt-copy-in -d MyGuest resolv.conf /etc
 

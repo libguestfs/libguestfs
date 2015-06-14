@@ -49,7 +49,7 @@ To checksum a whole device, or a partition, LV etc within a disk image:
 Replace C<md5> with the type of checksum you want.  See
 L<guestfs(3)/guestfs_checksum_device> for a list of supported types.
 
-C</dev/sda1> means "the first partition".  You could use C</dev/sda>
+F</dev/sda1> means "the first partition".  You could use F</dev/sda>
 to checksum the whole disk image, or the name of a logical volume or
 RAID device.
 
@@ -72,11 +72,11 @@ For more details, see: L<virt-sysprep(1)/COPYING AND CLONING>.
 
 =head1 Convert a CD-ROM / DVD / ISO to a tarball
 
-This converts input C<cd.iso> to output C<cd.tar.gz>:
+This converts input F<cd.iso> to output F<cd.tar.gz>:
 
  guestfish --ro -a cd.iso -m /dev/sda tgz-out / cd.tar.gz
 
-To export just a subdirectory, eg. C</files>, do:
+To export just a subdirectory, eg. F</files>, do:
 
  guestfish --ro -a cd.iso -m /dev/sda tgz-out /files cd.tar.gz
 
@@ -251,7 +251,7 @@ like this:
 
 =head1 Export any directory from a VM
 
-To export C</home> from a VM into a local directory use
+To export F</home> from a VM into a local directory use
 L<virt-copy-out(1)>:
 
  virt-copy-out -d Guest /home .
@@ -332,11 +332,11 @@ getting the last assigned DHCP address of a virtual machine.
 L<https://rwmj.wordpress.com/2011/03/31/tip-code-for-getting-dhcp-address-from-a-virtual-machine-disk-image/#content>
 
 In the libguestfs source examples directory you will find the latest
-version of the C<virt-dhcp-address.c> program.
+version of the F<virt-dhcp-address.c> program.
 
 =head1 Get the operating system product name string
 
-Save the following script into a file called C<product-name.sh>:
+Save the following script into a file called F<product-name.sh>:
 
  #!/bin/sh -
  set -e
@@ -480,12 +480,12 @@ SYSLINUX bootloader using either the guestfish commands C<syslinux>
 (for FAT-based guests) or C<extlinux> (for ext2/3/4 and btrfs-based
 guests).
 
-This guide assumes a Linux guest where C</dev/sda1> is C</boot>,
-C</boot/vmlinuz> is the guest kernel, and C</dev/sda3> is the root
+This guide assumes a Linux guest where F</dev/sda1> is F</boot>,
+F</boot/vmlinuz> is the guest kernel, and F</dev/sda3> is the root
 partition.  For a Windows guest you would need a FAT-formatted boot
 partition and you would need to use the C<syslinux> command instead.
 
-Create a C<syslinux.cfg> configuration file.  You should check the
+Create a F<syslinux.cfg> configuration file.  You should check the
 SYSLINUX documentation at L<http://www.syslinux.org> but it may look
 something like this:
 
@@ -497,7 +497,7 @@ something like this:
    APPEND ro root=/dev/sda3
 
 Locate the syslinux master boot record (a file called something like
-C</usr/share/syslinux/mbr.bin>).
+F</usr/share/syslinux/mbr.bin>).
 
  guestfish -a disk.img -i
  # Upload the master boot record and configuration file:
@@ -515,7 +515,7 @@ L<http://rwmj.wordpress.com/2013/04/04/new-in-libguestfs-use-syslinux-or-extlinu
 
 =head1 List applications installed in a VM
 
-Save the following to a file C<list-apps.sh>:
+Save the following to a file F<list-apps.sh>:
 
  #!/bin/sh -
  set -e

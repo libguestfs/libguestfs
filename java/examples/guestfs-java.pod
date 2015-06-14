@@ -112,22 +112,22 @@ supplied in three parts:
 
 =over 4
 
-=item C<libguestfs.jar>
+=item F<libguestfs.jar>
 
-=item C<libguestfs-I<VERSION>.jar>
+=item F<libguestfs-I<VERSION>.jar>
 
 The pure Java JAR file which contains several classes, the primary one
 being C<com.redhat.et.libguestfs.GuestFS>.  Upstream, the JAR file
 contains a version number in the filename, but some Linux distros may
 rename it without the version number.
 
-=item C<libguestfs_jni.so>
+=item F<libguestfs_jni.so>
 
 The JNI code (written in C).  This contains private native functions
 that interface between Java code and the regular libguestfs C library.
 You should B<not> call these directly.
 
-=item C<libguestfs.so>
+=item F<libguestfs.so>
 
 The regular libguestfs C library.
 

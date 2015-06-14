@@ -152,7 +152,7 @@ The second panel on the left controls the virt-v2v output options.  To
 understand these options it is a really good idea to read the
 L<virt-v2v(1)> manual page.  You can leave the options at the default
 to create a guest as a disk image plus libvirt XML file located in
-C</var/tmp> on the conversion host.  This is a good idea if you are a
+F</var/tmp> on the conversion host.  This is a good idea if you are a
 first-time virt-p2v user.
 
  │
@@ -282,7 +282,7 @@ which are booted using PXE.
 
 Where exactly you set command line arguments depends on your PXE
 implementation, but for pxelinux you put them in the C<APPEND> field
-in the C<pxelinux.cfg> file.  For example:
+in the F<pxelinux.cfg> file.  For example:
 
  DEFAULT p2v
  TIMEOUT 20
@@ -355,7 +355,7 @@ Use this to enable full debugging of virt-v2v.
 
 If asked to diagnose a problem with virt-p2v, you should add
 C<p2v.debug> to the kernel command line, and examine the log file
-which is left in C</tmp> on the conversion server.
+which is left in F</tmp> on the conversion server.
 
 =item B<p2v.disks=sdX,sdY,..>
 
@@ -400,7 +400,7 @@ Set the output mode.  This is the same as the virt-v2v I<-o> option.
 See L<virt-v2v(1)/OPTIONS>.
 
 If not specified, the default is C<local>, and the converted guest is
-written to C</var/tmp>.
+written to F</var/tmp>.
 
 =item B<p2v.oa=sparse|preallocated>
 
@@ -423,7 +423,7 @@ option.  See L<virt-v2v(1)/OPTIONS>.
 Set the output storage.  This is the same as the virt-v2v I<-os>
 option.  See L<virt-v2v(1)/OPTIONS>.
 
-If not specified, the default is C</var/tmp> (on the conversion server).
+If not specified, the default is F</var/tmp> (on the conversion server).
 
 =item B<p2v.pre=COMMAND>
 
@@ -447,7 +447,7 @@ This can be any command or script.  If the command contains spaces,
 you must quote the whole command with double quotes.
 
 I<If> virt-p2v is running as root, I<and> the command line was set
-from C</proc/cmdline> (not I<--cmdline>), then the default is to run
+from F</proc/cmdline> (not I<--cmdline>), then the default is to run
 the L<poweroff(8)> command.  Otherwise the default is not to run any
 command.
 
@@ -485,7 +485,7 @@ Display help.
 =item B<--cmdline=CMDLINE>
 
 This is used for debugging. Instead of parsing the kernel command line
-from C</proc/cmdline>, parse the string parameter C<CMDLINE>.
+from F</proc/cmdline>, parse the string parameter C<CMDLINE>.
 
 =item B<-v>
 
@@ -538,13 +538,13 @@ Into this directory are written various files which include:
 
 =over 4
 
-=item C<name>
+=item F<name>
 
 I<before conversion>
 
 The name (usually the hostname) of the physical machine.
 
-=item C<physical.xml>
+=item F<physical.xml>
 
 I<before conversion>
 
@@ -556,20 +556,20 @@ Note this is not "real" libvirt XML (and must B<never> be loaded into
 libvirt, which would reject it anyhow).  Also it is not the same as
 the libvirt XML which virt-v2v generates in certain output modes.
 
-=item C<status>
+=item F<status>
 
 I<after conversion>
 
 The final status of the conversion.  C<0> if the conversion was
 successful.  Non-zero if the conversion failed.
 
-=item C<time>
+=item F<time>
 
 I<before conversion>
 
 The start date/time of conversion.
 
-=item C<virt-v2v-conversion-log.txt>
+=item F<virt-v2v-conversion-log.txt>
 
 I<during/after conversion>
 
@@ -616,7 +616,7 @@ file.
 
 The final step is to send the S<C<virt-v2v -i libvirtxml physical.xml ...>>
 command to the conversion server over the control connection.  This
-references the C<physical.xml> file (see above), which in turn
+references the F<physical.xml> file (see above), which in turn
 references the NBD listening port(s) of the data connection(s).
 
 Output from the virt-v2v command (messages, debugging etc) is saved

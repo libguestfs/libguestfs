@@ -31,7 +31,7 @@ manual page, or by looking at the examples below.
 FUSE lets you mount filesystems as non-root.  The mountpoint must be
 owned by you, and the filesystem will not be visible to any other
 users unless you make certain global configuration changes to
-C</etc/fuse.conf>.  To unmount the filesystem, use the
+F</etc/fuse.conf>.  To unmount the filesystem, use the
 L<guestunmount(1)> command.
 
 =head1 EXAMPLES
@@ -252,7 +252,7 @@ mounted on the real virtual machine.
 =item B<--keys-from-stdin>
 
 Read key or passphrase parameters from stdin.  The default is
-to try to read passphrases from the user by opening C</dev/tty>.
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<--live>
 
@@ -266,8 +266,8 @@ Connect to a live virtual machine.
 Mount the named partition or logical volume on the given mountpoint
 B<in the guest> (this has nothing to do with mountpoints in the host).
 
-If the mountpoint is omitted, it defaults to C</>.  You have to mount
-something on C</>.
+If the mountpoint is omitted, it defaults to F</>.  You have to mount
+something on F</>.
 
 The third (and rarely used) part of the mount parameter is the list of
 mount options used to mount the underlying filesystem.  If this is not
