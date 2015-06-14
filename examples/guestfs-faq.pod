@@ -822,6 +822,23 @@ Make sure the filesystem was created using Joliet and/or Rock Ridge
 extensions.  libguestfs does not require any special mount options to
 handle the filesystem.
 
+=head2 Cannot open Windows guests which use NTFS.
+
+You see errors like:
+
+ mount: unknown filesystem type 'ntfs'
+
+On Red Hat Enterprise Linux or CentOS, you have to install the
+L<libguestfs-winsupport|https://people.redhat.com/~rjones/libguestfs-winsupport/>
+package.
+
+=head2 Cannot open or inspect RHEL 7 guests.
+
+=head2 Cannot open Linux guests which use XFS.
+
+RHEL 7 guests, and any other guests that use XFS, can be opened by
+libguestfs, but you have to install the C<libguestfs-xfs> package.
+
 =head1 USING LIBGUESTFS IN YOUR OWN PROGRAMS
 
 =head2 The API has hundreds of methods, where do I start?
