@@ -575,11 +575,7 @@ read the man page virt-resize(1).
       | ContentFS (("ntfs"), _) when !ntfs_available -> true
       | ContentFS (("btrfs"), _) when !btrfs_available -> true
       | ContentFS (("xfs"), _) when !xfs_available -> true
-      | ContentFS (fs, _) ->
-        if verbose () then
-          warning (f_"unknown/unavailable method for expanding filesystem %s")
-            fs;
-        false
+      | ContentFS _ -> false
       | ContentExtendedPartition -> false
     else
       fun _ -> false
@@ -593,7 +589,7 @@ read the man page virt-resize(1).
       | ContentFS (("ntfs"), _) when !ntfs_available -> NTFSResize
       | ContentFS (("btrfs"), _) when !btrfs_available -> BtrfsFilesystemResize
       | ContentFS (("xfs"), _) when !xfs_available -> XFSGrowFS
-      | ContentFS (_, _) -> assert false
+      | ContentFS _ -> assert false
       | ContentExtendedPartition -> assert false
     else
       fun _ -> assert false
@@ -863,7 +859,17 @@ read the man page virt-resize(1).
                 p.p_name
                 (string_of_expand_content_method
                    (expand_content_method p.p_type))
-            ) else "" in
+            ) else (
+              (match p.p_type with
+              | ContentUnknown
+              | ContentPV _
+              | ContentExtendedPartition -> ()
+              | ContentFS (fs, _) ->
+                warning (f_"unknown/unavailable method for expanding the %s filesystem on %s")
+                  fs p.p_name;
+              );
+              ""
+            ) in
 
       wrap (text ^ "\n\n") in
 
@@ -883,7 +889,17 @@ read the man page virt-resize(1).
                   name
                   (string_of_expand_content_method
                      (expand_content_method lv.lv_type))
-              ) else "" in
+              ) else (
+                (match lv.lv_type with
+                | ContentUnknown
+                | ContentPV _
+                | ContentExtendedPartition -> ()
+                | ContentFS (fs, _) ->
+                  warning (f_"unknown/unavailable method for expanding the %s filesystem on %s")
+                    fs name;
+                );
+                ""
+              ) in
 
             wrap (text ^ "\n\n")
     ) lvs;
