@@ -1049,7 +1049,6 @@ do_btrfs_quota_enable (const mountable_t *fs, int enable)
   size_t i = 0;
   char *fs_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r = -1;
 
   fs_buf = mount (fs);
@@ -1065,7 +1064,7 @@ do_btrfs_quota_enable (const mountable_t *fs, int enable)
   ADD_ARG (argv, i, fs_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", fs_buf, err);
     goto error;
@@ -1085,7 +1084,6 @@ do_btrfs_quota_rescan (const mountable_t *fs)
   size_t i = 0;
   char *fs_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r = -1;
 
   fs_buf = mount (fs);
@@ -1098,7 +1096,7 @@ do_btrfs_quota_rescan (const mountable_t *fs)
   ADD_ARG (argv, i, fs_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", fs_buf, err);
     goto error;
@@ -1118,7 +1116,6 @@ do_btrfs_qgroup_limit (const char *subvolume, int64_t size)
   size_t i = 0;
   CLEANUP_FREE char *subvolume_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   char size_str[32];
   int r;
 
@@ -1136,7 +1133,7 @@ do_btrfs_qgroup_limit (const char *subvolume, int64_t size)
   ADD_ARG (argv, i, subvolume_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", subvolume, err);
     return -1;
@@ -1153,7 +1150,6 @@ do_btrfs_qgroup_create (const char *qgroupid, const char *subvolume)
   size_t i = 0;
   CLEANUP_FREE char *subvolume_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   subvolume_buf = sysroot_path (subvolume);
@@ -1169,7 +1165,7 @@ do_btrfs_qgroup_create (const char *qgroupid, const char *subvolume)
   ADD_ARG (argv, i, subvolume_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", subvolume, err);
     return -1;
@@ -1186,7 +1182,6 @@ do_btrfs_qgroup_destroy (const char *qgroupid, const char *subvolume)
   size_t i = 0;
   CLEANUP_FREE char *subvolume_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   subvolume_buf = sysroot_path (subvolume);
@@ -1202,7 +1197,7 @@ do_btrfs_qgroup_destroy (const char *qgroupid, const char *subvolume)
   ADD_ARG (argv, i, subvolume_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", subvolume, err);
     return -1;
@@ -1343,7 +1338,6 @@ do_btrfs_qgroup_assign (const char *src, const char *dst, const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1360,7 +1354,7 @@ do_btrfs_qgroup_assign (const char *src, const char *dst, const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1377,7 +1371,6 @@ do_btrfs_qgroup_remove (const char *src, const char *dst, const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1394,7 +1387,7 @@ do_btrfs_qgroup_remove (const char *src, const char *dst, const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1411,7 +1404,6 @@ do_btrfs_scrub_start (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1426,7 +1418,7 @@ do_btrfs_scrub_start (const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1443,7 +1435,6 @@ do_btrfs_scrub_cancel (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1458,7 +1449,7 @@ do_btrfs_scrub_cancel (const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1475,7 +1466,6 @@ do_btrfs_scrub_resume (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1490,7 +1480,7 @@ do_btrfs_scrub_resume (const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1507,7 +1497,6 @@ do_btrfs_balance_pause (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1522,7 +1511,7 @@ do_btrfs_balance_pause (const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1539,7 +1528,6 @@ do_btrfs_balance_cancel (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1554,7 +1542,7 @@ do_btrfs_balance_cancel (const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1571,7 +1559,6 @@ do_btrfs_balance_resume (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1586,7 +1573,7 @@ do_btrfs_balance_resume (const char *path)
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1604,7 +1591,6 @@ do_btrfs_filesystem_defragment (const char *path, int flush, const char *compres
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   path_buf = sysroot_path (path);
@@ -1635,7 +1621,7 @@ do_btrfs_filesystem_defragment (const char *path, int flush, const char *compres
   ADD_ARG (argv, i, path_buf);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     return -1;
@@ -1651,7 +1637,6 @@ do_btrfs_rescue_chunk_recover (const char *device)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   ADD_ARG (argv, i, str_btrfs);
@@ -1661,7 +1646,7 @@ do_btrfs_rescue_chunk_recover (const char *device)
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -1677,7 +1662,6 @@ do_btrfs_rescue_super_recover (const char *device)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   ADD_ARG (argv, i, str_btrfs);
@@ -1687,7 +1671,7 @@ do_btrfs_rescue_super_recover (const char *device)
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -1973,7 +1957,6 @@ do_btrfstune_seeding (const char *device, int svalue)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
   const char *s_value = svalue ? "1" : "0";
 
@@ -1985,7 +1968,7 @@ do_btrfstune_seeding (const char *device, int svalue)
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -2001,7 +1984,6 @@ do_btrfstune_enable_extended_inode_refs (const char *device)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   ADD_ARG (argv, i, str_btrfstune);
@@ -2009,7 +1991,7 @@ do_btrfstune_enable_extended_inode_refs (const char *device)
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -2025,7 +2007,6 @@ do_btrfstune_enable_skinny_metadata_extent_refs (const char *device)
   const char *argv[MAX_ARGS];
   size_t i = 0;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   int r;
 
   ADD_ARG (argv, i, str_btrfstune);
@@ -2033,7 +2014,7 @@ do_btrfstune_enable_skinny_metadata_extent_refs (const char *device)
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -2051,7 +2032,6 @@ do_btrfs_image (char *const *sources, const char *image,
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
   CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
   char compresslevel_s[64];
   int r;
 
@@ -2075,7 +2055,7 @@ do_btrfs_image (char *const *sources, const char *image,
   ADD_ARG (argv, i, image);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (&out, &err, argv);
+  r = commandv (NULL, &err, argv);
   if (r == -1) {
     reply_with_error ("%s %s: %s", sources[0], image, err);
     return -1;
