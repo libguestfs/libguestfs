@@ -1723,12 +1723,11 @@ do_btrfs_balance_status (const char *path)
 
   nlines = count_strings (lines);
 
-  ret = malloc(sizeof *ret);
+  ret = calloc (1, sizeof *ret);
   if (ret == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     goto error;
   }
-  memset (ret, 0, sizeof(*ret));
 
   /* Output of `btrfs balance status' is like:
    *
@@ -1850,12 +1849,11 @@ do_btrfs_scrub_status (const char *path)
     return NULL;
   }
 
-  ret = malloc (sizeof *ret);
+  ret = calloc (1, sizeof *ret);
   if (ret == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     return NULL;
   }
-  memset (ret, 0, sizeof(*ret));
 
   /* Output of `btrfs scrub -R status' is like:
    *
