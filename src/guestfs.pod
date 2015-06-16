@@ -3795,6 +3795,43 @@ The daemon self-limits the frequency of progress messages it sends
 (see C<daemon/proto.c:notify_progress>).  Not all calls generate
 progress messages.
 
+=head2 FIXED APPLIANCE
+
+When libguestfs (or libguestfs tools) are run, they search a path
+looking for an appliance.  The path is built into libguestfs, or can
+be set using the C<LIBGUESTFS_PATH> environment variable.
+
+Normally a supermin appliance is located on this path (see
+L<supermin(1)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
+into a full appliance by running C<supermin --build>.
+
+However, a simpler "fixed appliance" can also be used.  libguestfs
+detects this by looking for a directory on the path containing all
+the following files:
+
+=over 4
+
+=item * F<kernel>
+
+=item * F<initrd>
+
+=item * F<root>
+
+=item * F<README.fixed> (note that it B<must> be present as well)
+
+=back
+
+If the fixed appliance is found, libguestfs skips supermin entirely
+and just runs the virtual machine (using qemu or the current backend,
+see L</BACKEND>) with the kernel, initrd and root disk from the fixed
+appliance.
+
+Thus the fixed appliance can be used when a platform or a Linux
+distribution does not support supermin.  You build the fixed appliance
+on a platform that does support supermin using
+L<libguestfs-make-fixed-appliance(1)>, copy it over, and use that
+to run libguestfs.
+
 =head1 LIBGUESTFS VERSION NUMBERS
 
 Since April 2010, libguestfs has started to make separate development

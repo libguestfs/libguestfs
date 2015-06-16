@@ -431,7 +431,16 @@ enough supermin installed, then see the previous question.
 
 If supermin 5 doesn't support your distro at all, you will need to use
 the "fixed appliance method" where you use a pre-compiled binary
-appliance.  See: L<http://libguestfs.org/download/binaries/appliance/>
+appliance.  To build libguestfs without supermin, you need to pass
+C<--disable-appliance --disable-daemon> to either F<./autogen.sh> or
+F<./configure> (depending whether you are building respectively from
+git or from tarballs).  Then, when using libguestfs, you B<must> set
+the C<LIBGUESTFS_PATH> environment variable to the directory of a
+pre-compiled appliance, as also described in
+L<guestfs(3)/FIXED APPLIANCE>.
+
+For pre-compiled appliances, see also:
+L<http://libguestfs.org/download/binaries/appliance/>.
 
 Patches to port supermin to more Linux distros are welcome.
 

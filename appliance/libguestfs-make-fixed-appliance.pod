@@ -38,8 +38,8 @@ L<guestfs-performance(1)>).
 
 =back
 
-For deeper understanding of why you might need this tool, read the
-section L</FIXED APPLIANCE> below.
+For deeper understanding of why you might need this tool, read
+L<guestfs(3)/FIXED APPLIANCE>.
 
 Instead of running this tool, you can download fixed appliances from
 L<http://libguestfs.org/download/binaries/appliance/>.  These
@@ -119,30 +119,6 @@ Using I<--xz> can take some time.  If working normally, the tool is
 completely silent when it is running.
 
 =back
-
-=head1 FIXED APPLIANCE
-
-When libguestfs (or libguestfs tools) are run, they search a path
-looking for an appliance.  The path is built into libguestfs, or can
-be set using the C<LIBGUESTFS_PATH> environment variable.
-
-Normally a supermin appliance is located on this path (see
-L<supermin(1)/SUPERMIN APPLIANCE>).  libguestfs reconstructs this
-into a full appliance by running C<supermin --build>.
-
-However, a simpler "fixed appliance" can also be used.  libguestfs
-detects this by looking for a directory on the path containing four
-files called F<kernel>, F<initrd>, F<root> and F<README.fixed> (note
-the F<README.fixed> file must be present as well).
-
-If the fixed appliance is found, libguestfs skips supermin entirely
-and just runs qemu with the kernel, initrd and root disk from the
-fixed appliance.
-
-Thus the fixed appliance can be used when a platform or Linux distro
-does not support supermin.  You build the fixed appliance on a
-platform that does support supermin, and copy it over, and use that
-to run libguestfs.
 
 =head1 LICENSING
 
