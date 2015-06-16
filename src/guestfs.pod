@@ -586,7 +586,7 @@ The logical volume(s) can now be mounted in the usual way.
 
 Use the reverse process to close a LUKS device.  Unmount
 any logical volumes on it, deactivate the volume groups
-by caling C<guestfs_vg_activate (g, 0, ["/dev/VG"])>.
+by calling C<guestfs_vg_activate (g, 0, ["/dev/VG"])>.
 Then close the mapper device by calling
 L</guestfs_luks_close> on the F</dev/mapper/mapname>
 device (I<not> the underlying encrypted block device).
