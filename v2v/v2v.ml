@@ -549,8 +549,13 @@ and inspect_source ~verbose g root_choice =
     let rec uefi_ESP_guid = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
     and is_uefi_ESP dev { G.part_num = partnum } =
       g#part_get_gpt_type dev (Int32.to_int partnum) = uefi_ESP_guid
+    and parttype_is_gpt dev =
+      try g#part_get_parttype dev = "gpt"
+      with G.Error msg ->
+        if verbose then printf "%s (ignored)\n" msg;
+        false
     and is_uefi_bootable_device dev =
-      g#part_get_parttype dev = "gpt" && (
+      parttype_is_gpt dev && (
         let partitions = Array.to_list (g#part_list dev) in
         List.exists (is_uefi_ESP dev) partitions
       )
