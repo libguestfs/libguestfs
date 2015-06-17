@@ -279,11 +279,17 @@ scan (guestfs_h *g, const char *prefix, FILE *fp)
 
   for (i = 0; devices[i] != NULL; ++i) {
     CLEANUP_FREE char *name = NULL;
+    CLEANUP_FREE_PARTITION_LIST struct guestfs_partition_list *parts = NULL;
 
-    CLEANUP_FREE_PARTITION_LIST struct guestfs_partition_list *parts =
-      guestfs_part_list (g, devices[i]);
-    if (parts == NULL)
-      return -1;
+    guestfs_push_error_handler (g, NULL, NULL);
+    parts = guestfs_part_list (g, devices[i]);
+    guestfs_pop_error_handler (g);
+    if (parts == NULL) {
+      if (guestfs_last_errno (g) == EINVAL) /* unrecognised disk label */
+        continue;
+      else
+        return -1;
+    }
 
     /* Canonicalize the name of the device for printing. */
     name = guestfs_canonical_device_name (g, devices[i]);
