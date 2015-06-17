@@ -479,7 +479,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
   ret->guestfs_int_btrfssubvolume_list_val =
     calloc (nr_subvolumes, sizeof (struct guestfs_int_btrfssubvolume));
   if (ret->guestfs_int_btrfssubvolume_list_val == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     goto error;
   }
 
@@ -1292,7 +1292,7 @@ do_btrfs_qgroup_show (const char *path)
   ret->guestfs_int_btrfsqgroup_list_val =
     calloc (nr_qgroups, sizeof (struct guestfs_int_btrfsqgroup));
   if (ret->guestfs_int_btrfsqgroup_list_val == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     goto error;
   }
 
