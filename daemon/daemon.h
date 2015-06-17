@@ -110,6 +110,7 @@ extern int compare_device_names (const char *a, const char *b);
 extern char *concat_strings (char *const *argv);
 extern char *join_strings (const char *separator, char *const *argv);
 
+extern struct stringsbuf split_lines_sb (char *str);
 extern char **split_lines (char *str);
 
 extern char **empty_list (void);

@@ -1115,7 +1115,8 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     return -1;
 }
 
-/* Split an output string into a NULL-terminated list of lines.
+/* Split an output string into a NULL-terminated list of lines,
+ * wrapped into a stringsbuf.
  * Typically this is used where we have run an external command
  * which has printed out a list of things, and we want to return
  * an actual list.
@@ -1132,15 +1133,23 @@ commandrvf (char **stdoutput, char **stderror, int flags,
  * function (which is usually OK because it's the 'out' string
  * from command()).  You can free the original string, because
  * add_string() strdups the strings.
+ *
+ * argv in the stringsbuf will be NULL in case of errors.
  */
-char **
-split_lines (char *str)
+struct stringsbuf
+split_lines_sb (char *str)
 {
   DECLARE_STRINGSBUF (lines);
+  DECLARE_STRINGSBUF (null);
   char *p, *pend;
 
-  if (STREQ (str, ""))
-    return empty_list ();
+  if (STREQ (str, "")) {
+    /* No need to check the return value, as the stringsbuf will be
+     * returned as it is anyway.
+     */
+    end_stringsbuf (&lines);
+    return lines;
+  }
 
   p = str;
   while (p) {
@@ -1155,16 +1164,26 @@ split_lines (char *str)
     }
 
     if (add_string (&lines, p) == -1) {
-      return NULL;
+      free_stringsbuf (&lines);
+      return null;
     }
 
     p = pend;
   }
 
-  if (end_stringsbuf (&lines) == -1)
-    return NULL;
+  if (end_stringsbuf (&lines) == -1) {
+    free_stringsbuf (&lines);
+    return null;
+  }
 
-  return lines.argv;
+  return lines;
+}
+
+char **
+split_lines (char *str)
+{
+  struct stringsbuf sb = split_lines_sb (str);
+  return take_stringsbuf (&sb);
 }
 
 char **
