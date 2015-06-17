@@ -178,6 +178,7 @@ extern void cleanup_free_string_list (void *ptr);
 extern void cleanup_unlink_free (void *ptr);
 extern void cleanup_close (void *ptr);
 extern void cleanup_aug_close (void *ptr);
+extern void cleanup_free_stringsbuf (void *ptr);
 
 /*-- in names.c (auto-generated) --*/
 extern const char *function_names[];
@@ -458,12 +459,14 @@ is_zero (const char *buffer, size_t size)
 #define CLEANUP_UNLINK_FREE __attribute__((cleanup(cleanup_unlink_free)))
 #define CLEANUP_CLOSE __attribute__((cleanup(cleanup_close)))
 #define CLEANUP_AUG_CLOSE __attribute__((cleanup(cleanup_aug_close)))
+#define CLEANUP_FREE_STRINGSBUF __attribute__((cleanup(cleanup_free_stringsbuf)))
 #else
 #define CLEANUP_FREE
 #define CLEANUP_FREE_STRING_LIST
 #define CLEANUP_UNLINK_FREE
 #define CLEANUP_CLOSE
 #define CLEANUP_AUG_CLOSE
+#define CLEANUP_FREE_STRINGSBUF
 #endif
 
 #endif /* GUESTFSD_DAEMON_H */

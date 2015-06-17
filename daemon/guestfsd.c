@@ -1539,3 +1539,9 @@ cleanup_aug_close (void *ptr)
   if (aug != NULL)
     aug_close (aug);
 }
+
+void
+cleanup_free_stringsbuf (void *ptr)
+{
+  free_stringsbuf ((struct stringsbuf *) ptr);
+}
