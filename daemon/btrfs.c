@@ -1688,10 +1688,10 @@ do_btrfs_balance_status (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   char *out;
   int r;
   guestfs_int_btrfsbalance *ret;
-  char **lines;
   size_t nlines;
   const char *errptr;
   int erroffset;
@@ -1813,10 +1813,10 @@ do_btrfs_scrub_status (const char *path)
   size_t i = 0;
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   char *out;
   int r;
   guestfs_int_btrfsscrub *ret;
-  char **lines;
 
   path_buf = sysroot_path (path);
   if (path_buf == NULL) {
