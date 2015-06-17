@@ -587,6 +587,13 @@ end_stringsbuf (struct stringsbuf *sb)
   return add_string_nodup (sb, NULL);
 }
 
+void
+free_stringsbuf (struct stringsbuf *sb)
+{
+  if (sb->argv != NULL)
+    free_stringslen (sb->argv, sb->size);
+}
+
 size_t
 count_strings (char *const *argv)
 {
