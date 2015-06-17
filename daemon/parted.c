@@ -356,7 +356,7 @@ print_partition_table (const char *device,
   int r;
 
   if (PARTED_OPT_HAS_M == parted_has_m_opt)
-    r = command (&out, &err, str_parted, "-m", "--", device,
+    r = command (&out, &err, str_parted, "-m", "-s", "--", device,
                  "unit", "b",
                  "print", NULL);
   else
@@ -364,9 +364,15 @@ print_partition_table (const char *device,
                  "unit", "b",
                  "print", NULL);
   if (r == -1) {
-    reply_with_error ("parted print: %s: %s", device,
-                      /* Hack for parted 1.x which sends errors to stdout. */
-                      *err ? err : out);
+    /* Hack for parted 1.x which sends errors to stdout. */
+    const char *msg = *err ? err : out;
+    int errcode = 0;
+
+    /* Translate "unrecognised disk label" into an errno code. */
+    if (msg && strstr (msg, "unrecognised disk label") != NULL)
+      errcode = EINVAL;
+
+    reply_with_error_errno (errcode, "parted print: %s: %s", device, msg);
     free (out);
     return NULL;
   }
