@@ -92,6 +92,7 @@ extern int add_string (struct stringsbuf *sb, const char *str);
 extern int add_sprintf (struct stringsbuf *sb, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern int end_stringsbuf (struct stringsbuf *sb);
+extern char **take_stringsbuf (struct stringsbuf *sb);
 extern void free_stringsbuf (struct stringsbuf *sb);
 
 extern size_t count_strings (char *const *argv);

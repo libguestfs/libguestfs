@@ -594,6 +594,18 @@ free_stringsbuf (struct stringsbuf *sb)
     free_stringslen (sb->argv, sb->size);
 }
 
+/* Take the ownership of the strings of the strings buffer,
+ * resetting it to a null buffer.
+ */
+char **
+take_stringsbuf (struct stringsbuf *sb)
+{
+  DECLARE_STRINGSBUF (null);
+  char **ret = sb->argv;
+  *sb = null;
+  return ret;
+}
+
 size_t
 count_strings (char *const *argv)
 {
