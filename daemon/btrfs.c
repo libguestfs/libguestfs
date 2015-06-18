@@ -1248,7 +1248,7 @@ do_btrfs_qgroup_show (const char *path)
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE char *out = NULL;
   int r;
-  char **lines;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
 
   path_buf = sysroot_path (path);
   if (path_buf == NULL) {
@@ -1274,17 +1274,19 @@ do_btrfs_qgroup_show (const char *path)
   if (!lines)
     return NULL;
 
-  /* line 0 and 1 are:
+  /* Output of `btrfs qgroup show' is like:
    *
-   * qgroupid rfer          excl
-   * -------- ----          ----
+   *  qgroupid         rfer         excl
+   *  --------         ----         ----
+   *  0/5        9249849344   9249849344
+   *
    */
   size_t nr_qgroups = count_strings (lines) - 2;
   guestfs_int_btrfsqgroup_list *ret = NULL;
   ret = malloc (sizeof *ret);
   if (!ret) {
     reply_with_perror ("malloc");
-    goto error;
+    return NULL;
   }
 
   ret->guestfs_int_btrfsqgroup_list_len = nr_qgroups;
@@ -1299,31 +1301,23 @@ do_btrfs_qgroup_show (const char *path)
     char *line = lines[i + 2];
     struct guestfs_int_btrfsqgroup *this =
       &ret->guestfs_int_btrfsqgroup_list_val[i];
-    uint64_t dummy1, dummy2;
-    char *p;
 
-    if (sscanf (line, "%" SCNu64 "/%" SCNu64 " %" SCNu64 " %" SCNu64,
-                &dummy1, &dummy2, &this->btrfsqgroup_rfer,
-                &this->btrfsqgroup_excl) != 4) {
+    if (sscanf (line, "%m[0-9/] %" SCNu64 " %" SCNu64,
+                &this->btrfsqgroup_id, &this->btrfsqgroup_rfer,
+                &this->btrfsqgroup_excl) != 3) {
       reply_with_error ("cannot parse output of qgroup show command: %s", line);
       goto error;
     }
-    p = strchr(line, ' ');
-    if (!p) {
-      reply_with_error ("truncated line: %s", line);
-      goto error;
-    }
-    *p = '\0';
-    this->btrfsqgroup_id = line;
   }
 
-  free (lines);
   return ret;
 
 error:
-  free_stringslen (lines, nr_qgroups + 2);
-  if (ret)
+  if (ret->guestfs_int_btrfsqgroup_list_val) {
+    for (i = 0; i < nr_qgroups; ++i)
+      free (ret->guestfs_int_btrfsqgroup_list_val[i].btrfsqgroup_id);
     free (ret->guestfs_int_btrfsqgroup_list_val);
+  }
   free (ret);
 
   return NULL;
