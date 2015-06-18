@@ -555,7 +555,9 @@ and inspect_source g root_choice =
       g#part_get_gpt_type dev (Int32.to_int partnum) = uefi_ESP_guid
     and parttype_is_gpt dev =
       try g#part_get_parttype dev = "gpt"
-      with G.Error msg ->
+      with G.Error msg as exn ->
+        (* If it's _not_ "unrecognised disk label" then re-raise it. *)
+        if g#last_errno () <> G.Errno.errno_EINVAL then raise exn;
         if verbose () then printf "%s (ignored)\n" msg;
         false
     and is_uefi_bootable_device dev =
