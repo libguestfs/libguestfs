@@ -409,7 +409,7 @@ umount (char *fs_buf, const mountable_t *fs)
 guestfs_int_btrfssubvolume_list *
 do_btrfs_subvolume_list (const mountable_t *fs)
 {
-  char **lines;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
   size_t i = 0;
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
@@ -472,7 +472,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
   ret = malloc (sizeof *ret);
   if (!ret) {
     reply_with_perror ("malloc");
-    goto error;
+    return NULL;
   }
 
   ret->guestfs_int_btrfssubvolume_list_len = nr_subvolumes;
@@ -530,20 +530,26 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 
     #undef XSTRTOU64
 
-    memmove (line, line + ovector[6], ovector[7] - ovector[6] + 1);
-    this->btrfssubvolume_path = line;
+    this->btrfssubvolume_path =
+      strndup (line + ovector[6], ovector[7] - ovector[6]);
+    if (this->btrfssubvolume_path == NULL)
+      goto error;
   }
 
-  free (lines);
   pcre_free (re);
 
   return ret;
 
 error:
-  free_stringslen (lines, nr_subvolumes);
-  if (ret) free (ret->guestfs_int_btrfssubvolume_list_val);
+  if (ret->guestfs_int_btrfssubvolume_list_val) {
+    for (i = 0; i < nr_subvolumes; ++i)
+      free (ret->guestfs_int_btrfssubvolume_list_val[i].btrfssubvolume_path);
+    free (ret->guestfs_int_btrfssubvolume_list_val);
+  }
   free (ret);
-  if (re) pcre_free (re);
+
+  if (re)
+    pcre_free (re);
 
   return NULL;
 }
