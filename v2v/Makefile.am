@@ -97,12 +97,7 @@ SOURCES_ML = \
 	v2v.ml
 
 SOURCES_C = \
-	$(top_srcdir)/fish/progress.c \
-	$(top_srcdir)/fish/file-edit.c \
-	$(top_srcdir)/mllib/progress-c.c \
 	$(top_srcdir)/mllib/mkdtemp-c.c \
-	$(top_srcdir)/customize/crypt-c.c \
-	$(top_srcdir)/customize/perl_edit-c.c \
 	domainxml-c.c \
 	kvmuid-c.c \
 	utils-c.c \
@@ -117,8 +112,7 @@ virt_v2v_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/src \
-	-I$(top_srcdir)/fish
+	-I$(top_srcdir)/src
 virt_v2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
@@ -129,20 +123,10 @@ BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
-	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
-	$(top_builddir)/customize/urandom.cmo \
-	$(top_builddir)/customize/random_seed.cmo \
-	$(top_builddir)/customize/hostname.cmo \
-	$(top_builddir)/customize/timezone.cmo \
 	$(top_builddir)/customize/firstboot.cmo \
-	$(top_builddir)/customize/perl_edit.cmo \
-	$(top_builddir)/customize/crypt.cmo \
-	$(top_builddir)/customize/password.cmo \
-	$(top_builddir)/customize/ssh_key.cmo \
-	$(top_builddir)/customize/customize_run.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
@@ -162,8 +146,6 @@ endif
 
 OCAMLCLIBS = \
 	-lutils \
-	$(LIBTINFO_LIBS) \
-	$(LIBCRYPT_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(LIBINTL) \
