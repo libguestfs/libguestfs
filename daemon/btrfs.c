@@ -1814,7 +1814,7 @@ do_btrfs_scrub_status (const char *path)
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE_STRING_LIST char **lines = NULL;
-  char *out;
+  CLEANUP_FREE char *out = NULL;
   int r;
   guestfs_int_btrfsscrub *ret;
 
