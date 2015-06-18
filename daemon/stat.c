@@ -138,7 +138,7 @@ do_internal_lstatnslist (const char *path, char *const *names)
   ret->guestfs_int_statns_list_val =
     calloc (nr_names, sizeof (guestfs_int_statns));
   if (ret->guestfs_int_statns_list_val == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     free (ret);
     return NULL;
   }

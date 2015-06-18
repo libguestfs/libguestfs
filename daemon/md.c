@@ -394,7 +394,7 @@ parse_md_stat_line (char *line)
   ret->guestfs_int_mdstat_list_val =
     calloc (spaces+1, sizeof (struct guestfs_int_mdstat));
   if (ret->guestfs_int_mdstat_list_val == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     free (ret);
     return NULL;
   }

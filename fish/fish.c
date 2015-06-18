@@ -361,7 +361,7 @@ main (int argc, char *argv[])
       }
       drv = calloc (1, sizeof (struct drv));
       if (!drv) {
-        perror ("malloc");
+        perror ("calloc");
         exit (EXIT_FAILURE);
       }
       drv->type = drv_N;
@@ -449,7 +449,7 @@ main (int argc, char *argv[])
           access (argv[optind], F_OK) == 0) { /* simulate -a option */
         drv = calloc (1, sizeof (struct drv));
         if (!drv) {
-          perror ("malloc");
+          perror ("calloc");
           exit (EXIT_FAILURE);
         }
         drv->type = drv_a;
@@ -463,7 +463,7 @@ main (int argc, char *argv[])
       } else {                  /* simulate -d option */
         drv = calloc (1, sizeof (struct drv));
         if (!drv) {
-          perror ("malloc");
+          perror ("calloc");
           exit (EXIT_FAILURE);
         }
         drv->type = drv_d;

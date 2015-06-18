@@ -38,7 +38,7 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
 
   drv = calloc (1, sizeof (struct drv));
   if (!drv) {
-    perror ("malloc");
+    perror ("calloc");
     exit (EXIT_FAILURE);
   }
 
@@ -84,7 +84,7 @@ option_d (const char *arg, struct drv **drvsp)
 
   drv = calloc (1, sizeof (struct drv));
   if (!drv) {
-    perror ("malloc");
+    perror ("calloc");
     exit (EXIT_FAILURE);
   }
 

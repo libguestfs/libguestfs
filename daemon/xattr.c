@@ -120,7 +120,7 @@ getxattrs (const char *path,
 
   r = calloc (1, sizeof (*r));
   if (r == NULL) {
-    reply_with_perror ("malloc");
+    reply_with_perror ("calloc");
     goto error;
   }
 
