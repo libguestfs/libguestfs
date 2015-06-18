@@ -31,6 +31,7 @@
 ../format/virt-format.pod
 ../fuse/guestmount.pod
 ../fuse/guestunmount.pod
+../get-kernel/virt-get-kernel.pod
 ../golang/examples/guestfs-golang.pod
 ../guestfs-release-notes.pod
 ../inspector/virt-inspector.pod
