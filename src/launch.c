@@ -399,32 +399,18 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
 const char *
 guestfs_int_get_cpu_model (int kvm)
 {
-#if defined(__arm__)            /* 32 bit ARM. */
-  if (kvm)
-    return "host";
-  else
-    return NULL;
-
-#elif defined(__aarch64__)
+#if defined(__aarch64__)
   /* With -M virt, the default -cpu is cortex-a15.  Stupid. */
   if (kvm)
     return "host";
   else
     return "cortex-a57";
-
-#elif defined(__i386__) || defined(__x86_64__)
-  /* It is faster to pass the CPU host model to the appliance,
-   * allowing maximum speed for things like checksums, encryption.
-   * Only do this with KVM.  It is broken in subtle ways on TCG, and
-   * fairly pointless anyway.
-   */
-  if (kvm)
-    return "host";
-  else
-    return NULL;
-
 #else
-  /* Hope for the best ... */
+  /* On most architectures, it is faster to pass the CPU host model to
+   * the appliance, allowing maximum speed for things like checksums
+   * and encryption.  Only do this with KVM.  It is broken in subtle
+   * ways on TCG, and fairly pointless when you're emulating anyway.
+   */
   if (kvm)
     return "host";
   else
