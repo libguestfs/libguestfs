@@ -460,10 +460,6 @@ dir_contains_files (const char *dir, ...)
   return 1;
 }
 
-#ifdef __aarch64__
-
-#define AAVMF_DIR "/usr/share/AAVMF"
-
 /* Return the location of firmware needed to boot the appliance.  This
  * is aarch64 only currently, since that's the only architecture where
  * UEFI is mandatory (and that only for RHEL).
@@ -479,47 +475,63 @@ dir_contains_files (const char *dir, ...)
  * If the function returns -1 then there was a real error which should
  * cause appliance building to fail (no UEFI firmware is not an
  * error).
+ *
+ * XXX See also v2v/utils.ml:find_uefi_firmware
  */
+#ifdef __aarch64__
+
+const char *uefi_firmware[] = {
+  "/usr/share/AAVMF/AAVMF_CODE.fd",
+  "/usr/share/AAVMF/AAVMF_VARS.fd",
+
+  "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
+  "/usr/share/edk2.git/aarch64/vars-template-pflash.raw",
+
+  NULL
+};
+
+#else
+
+const char *uefi_firmware[] = { NULL };
+
+#endif
+
 int
 guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 {
-  if (access (AAVMF_DIR "/AAVMF_CODE.fd", R_OK) == 0 &&
-      access (AAVMF_DIR "/AAVMF_VARS.fd", R_OK) == 0) {
-    CLEANUP_CMD_CLOSE struct command *copycmd = guestfs_int_new_command (g);
-    char *varst;
-    int r;
+  size_t i;
 
-    /* Make a copy of AAVMF_VARS.fd.  You can't just map it into the
-     * address space read-only as that triggers a different path
-     * inside UEFI.
-     */
-    varst = safe_asprintf (g, "%s/AAVMF_VARS.fd.%d", g->tmpdir, ++g->unique);
-    guestfs_int_cmd_add_arg (copycmd, "cp");
-    guestfs_int_cmd_add_arg (copycmd, AAVMF_DIR "/AAVMF_VARS.fd");
-    guestfs_int_cmd_add_arg (copycmd, varst);
-    r = guestfs_int_cmd_run (copycmd);
-    if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-      free (varst);
-      return -1;
+  for (i = 0; uefi_firmware[i] != NULL; i += 2) {
+    const char *codefile = uefi_firmware[i];
+    const char *varsfile = uefi_firmware[i+1];
+
+    if (access (codefile, R_OK) == 0 && access (varsfile, R_OK) == 0) {
+      CLEANUP_CMD_CLOSE struct command *copycmd = guestfs_int_new_command (g);
+      char *varst;
+      int r;
+
+      /* Make a copy of NVRAM variables file.  You can't just map it
+       * into the address space read-only as that triggers a different
+       * path inside UEFI.
+       */
+      varst = safe_asprintf (g, "%s/vars.fd.%d", g->tmpdir, ++g->unique);
+      guestfs_int_cmd_add_arg (copycmd, "cp");
+      guestfs_int_cmd_add_arg (copycmd, varsfile);
+      guestfs_int_cmd_add_arg (copycmd, varst);
+      r = guestfs_int_cmd_run (copycmd);
+      if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+        free (varst);
+        return -1;
+      }
+
+      /* Caller frees. */
+      *code = safe_strdup (g, codefile);
+      *vars = varst;
+      return 0;
     }
-
-    /* Caller frees. */
-    *code = safe_strdup (g, AAVMF_DIR "/AAVMF_CODE.fd");
-    *vars = varst;
-    return 0;
   }
 
+  /* Not found. */
   *code = *vars = NULL;
   return 0;
 }
-
-#else /* !__aarch64__ */
-
-int
-guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
-{
-  *code = *vars = NULL;
-  return 0;
-}
-
-#endif /* !__aarch64__ */
