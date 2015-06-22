@@ -49,6 +49,7 @@ OCAMLPACKAGES = \
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 BOBJECTS = \
+	$(top_builddir)/mllib/config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/v2v/xml.cmo \
