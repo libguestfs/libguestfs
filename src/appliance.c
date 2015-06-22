@@ -480,7 +480,7 @@ dir_contains_files (const char *dir, ...)
  */
 #ifdef __aarch64__
 
-const char *uefi_firmware[] = {
+static const char *uefi_firmware[] = {
   "/usr/share/AAVMF/AAVMF_CODE.fd",
   "/usr/share/AAVMF/AAVMF_VARS.fd",
 
@@ -492,7 +492,7 @@ const char *uefi_firmware[] = {
 
 #else
 
-const char *uefi_firmware[] = { NULL };
+static const char *uefi_firmware[] = { NULL };
 
 #endif
 
