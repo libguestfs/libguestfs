@@ -621,7 +621,7 @@ below.
  OpenSUSE 10    kernel >= 2.6.25.5-1.1
 
  Windows        Drivers are installed from the directory pointed to by
-                "VIRTIO_WIN_DIR" environment variable
+                "VIRTIO_WIN" environment variable
                 (/usr/share/virtio-win by default) if present
 
 =head1 RHEL 4
@@ -1472,10 +1472,13 @@ not distributed with virt-v2v.
 
 =back
 
-=item C<VIRTIO_WIN_DIR>
+=item C<VIRTIO_WIN>
 
 This is where VirtIO drivers for Windows are searched for
-(F</usr/share/virtio-win> if unset).  See L<ENABLING VIRTIO>.
+(F</usr/share/virtio-win> if unset).  It can be a directory I<or>
+point to F<virtio-win.iso> (CD ROM image containing drivers).
+
+See L<ENABLING VIRTIO>.
 
 =back
 

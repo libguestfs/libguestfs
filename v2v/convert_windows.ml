@@ -47,9 +47,12 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
     with Not_found -> Config.datadir // "virt-tools" in
 
-  let virtio_win_dir =
-    try Sys.getenv "VIRTIO_WIN_DIR"
-    with Not_found -> Config.datadir // "virtio-win" in
+  let virtio_win =
+    try Sys.getenv "VIRTIO_WIN"
+    with Not_found ->
+      try Sys.getenv "VIRTIO_WIN_DIR" (* old name for VIRTIO_WIN *)
+      with Not_found ->
+        Config.datadir // "virtio-win" in
 
   (* Check if RHEV-APT exists.  This is optional. *)
   let rhev_apt_exe = virt_tools_data_dir // "rhev-apt.exe" in
@@ -231,101 +234,83 @@ echo uninstalling Xen PV driver
     let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
     g#mkdir_p driverdir;
 
-    (* See if the drivers for this guest are available in virtio_win_dir. *)
-    let path =
-      match inspect.i_arch,
-      inspect.i_major_version, inspect.i_minor_version,
-      inspect.i_product_variant with
-      | "i386", 5, 1, _ ->
-        Some (virtio_win_dir // "drivers/i386/WinXP")
-      | "i386", 5, 2, _ ->
-        Some (virtio_win_dir // "drivers/i386/Win2003")
-      | "i386", 6, 0, _ ->
-        Some (virtio_win_dir // "drivers/i386/Win2008")
-      | "i386", 6, 1, _ ->
-        Some (virtio_win_dir // "drivers/i386/Win7")
-      | "i386", 6, 2, _ ->
-        Some (virtio_win_dir // "drivers/i386/Win8")
-      | "i386", 6, 3, _ ->
-        Some (virtio_win_dir // "drivers/i386/Win8.1")
+    (* Load the list of drivers available. *)
+    let drivers = find_virtio_win_drivers ~verbose virtio_win in
 
-      | "x86_64", 5, 2, _ ->
-        Some (virtio_win_dir // "drivers/amd64/Win2003")
-      | "x86_64", 6, 0, _ ->
-        Some (virtio_win_dir // "drivers/amd64/Win2008")
-      | "x86_64", 6, 1, "Client" ->
-        Some (virtio_win_dir // "drivers/amd64/Win7")
-      | "x86_64", 6, 1, "Server" ->
-        Some (virtio_win_dir // "drivers/amd64/Win2008R2")
-      | "x86_64", 6, 2, "Client" ->
-        Some (virtio_win_dir // "drivers/amd64/Win8")
-      | "x86_64", 6, 2, "Server" ->
-        Some (virtio_win_dir // "drivers/amd64/Win2012")
-      | "x86_64", 6, 3, "Client" ->
-        Some (virtio_win_dir // "drivers/amd64/Win8.1")
-      | "x86_64", 6, 3, "Server" ->
-        Some (virtio_win_dir // "drivers/amd64/Win2012R2")
+    (* Filter out only drivers matching the current guest. *)
+    let drivers =
+      List.filter (
+        fun { vwd_os_arch = arch;
+              vwd_os_major = os_major; vwd_os_minor = os_minor;
+              vwd_os_variant = os_variant } ->
+        arch = inspect.i_arch &&
+        os_major = inspect.i_major_version &&
+        os_minor = inspect.i_minor_version &&
+        (match os_variant with
+         | Vwd_client -> inspect.i_product_variant = "Client"
+         | Vwd_server -> inspect.i_product_variant = "Server"
+         | Vwd_any_variant -> true)
+      ) drivers in
 
-      | _ ->
-        None in
+    if verbose then (
+      printf "virtio-win driver files matching this guest:\n";
+      List.iter print_virtio_win_driver_file drivers;
+      flush stdout
+    );
 
-    let path =
-      match path with
-      | None -> None
-      | Some path ->
-        if is_directory path then Some path else None in
+    match drivers with
+    | [] ->
+       warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
+               inspect.i_major_version inspect.i_minor_version
+               inspect.i_arch inspect.i_product_variant
+               virtio_win;
+       ( IDE, RTL8139 )
 
-    match path with
-    | None ->
-      warning ~prog (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
-        inspect.i_major_version inspect.i_minor_version
-        inspect.i_arch inspect.i_product_variant
-        virtio_win_dir;
-      ( IDE, RTL8139 )
+    | drivers ->
+       (* Can we install the block driver? *)
+       let block : guestcaps_block_type =
+         try
+           let viostor_sys_file =
+             List.find
+               (fun { vwd_filename = filename } -> filename = "viostor.sys")
+               drivers in
+           (* Get the actual file contents of the .sys file. *)
+           let content = viostor_sys_file.vwd_get_contents () in
+           let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
+           let target = g#case_sensitive_path target in
+           g#write target content;
+           add_viostor_to_critical_device_database root current_cs;
+           Virtio_blk
+         with Not_found ->
+           warning ~prog (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+                   inspect.i_major_version inspect.i_minor_version
+                   inspect.i_arch virtio_win;
+           IDE in
 
-    | Some path ->
-      (* Can we install the block driver? *)
-      let block : guestcaps_block_type =
-        let block_path = path // "viostor.sys" in
-        if not (Sys.file_exists block_path) then (
-          warning ~prog (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
-            inspect.i_major_version inspect.i_minor_version
-            inspect.i_arch block_path;
-          IDE
-        )
-        else (
-          let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
-          let target = g#case_sensitive_path target in
-          g#upload block_path target;
-          add_viostor_to_critical_device_database root current_cs;
-          Virtio_blk
-        ) in
+       (* Can we install the virtio-net driver? *)
+       let net : guestcaps_net_type =
+         if not (List.exists
+                   (fun { vwd_filename = filename } -> filename = "netkvm.inf")
+                   drivers) then (
+           warning ~prog (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+                   inspect.i_major_version inspect.i_minor_version
+                   inspect.i_arch virtio_win;
+           RTL8139
+         )
+         else
+           (* It will be installed at firstboot. *)
+           Virtio_net in
 
-      (* Can we install the virtio-net driver? *)
-      let net : guestcaps_net_type =
-        let net_path = path // "netkvm.inf" in
-        if not (Sys.file_exists net_path) then (
-          warning ~prog (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver here: %s\n\nThe guest will be configured to use a slower emulated device.")
-            inspect.i_major_version inspect.i_minor_version
-            inspect.i_arch net_path;
-          RTL8139
-        )
-        else
-          (* It will be installed at firstboot. *)
-          Virtio_net in
+       (* Copy all the drivers to the driverdir.  They will be
+        * installed at firstboot.
+        *)
+       List.iter (
+         fun driver ->
+           let content = driver.vwd_get_contents () in
+           g#write (driverdir // driver.vwd_filename) content
+       ) drivers;
 
-      (* Copy the drivers to the driverdir.  They will be installed at
-       * firstboot.
-       *)
-      let files = Sys.readdir path in
-      let files = Array.to_list files in
-      let files = List.sort compare files in
-      List.iter (
-        fun file ->
-          g#upload (path // file) (driverdir // file)
-      ) files;
-
-      (block, net)
+       (block, net)
 
   and add_viostor_to_critical_device_database root current_cs =
     (* See http://rwmj.wordpress.com/2010/04/30/tip-install-a-device-driver-in-a-windows-vm/

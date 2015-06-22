@@ -308,6 +308,14 @@ let rec main () =
   g#shutdown ();
   g#close ();
 
+  (* Force a GC here, to ensure that we're using the minimum resources
+   * as we go into the copy stage.  The particular reason is that
+   * Windows conversion may have opened a second libguestfs handle
+   * pointing to the virtio-win ISO, which is only closed when the
+   * handle is GC'd.
+   *)
+  Gc.compact ();
+
   let delete_target_on_exit = ref true in
 
   let targets =
