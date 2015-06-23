@@ -120,6 +120,9 @@ size_t sysroot_len = 8;
 /* If set (the default), do 'umount-all' when performing autosync. */
 int autosync_umount = 1;
 
+/* If set, we are testing the daemon as part of the libguestfs tests. */
+int test_mode = 0;
+
 /* Not used explicitly, but required by the gnulib 'error' module. */
 const char *program_name = "guestfsd";
 
@@ -136,9 +139,10 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "rv?";
+  static const char *options = "rtv?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
+    { "test", 0, 0, 't' },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
@@ -189,6 +193,11 @@ main (int argc, char *argv[])
       sysroot = "";
       sysroot_len = 0;
       autosync_umount = 0;
+      break;
+
+      /* Undocumented --test option used for testing guestfsd. */
+    case 't':
+      test_mode = 1;
       break;
 
     case 'v':
@@ -244,7 +253,8 @@ main (int argc, char *argv[])
    * environment is essentially empty.
    * https://bugzilla.redhat.com/show_bug.cgi?id=502074#c5
    */
-  setenv ("PATH", "/sbin:/usr/sbin:/bin:/usr/bin", 1);
+  if (!test_mode)
+    setenv ("PATH", "/sbin:/usr/sbin:/bin:/usr/bin", 1);
   setenv ("SHELL", "/bin/sh", 1);
   setenv ("LC_ALL", "C", 1);
   setenv ("TERM", "dumb", 1);
@@ -263,7 +273,8 @@ main (int argc, char *argv[])
   /* Make a private copy of /etc/lvm so we can change the config (see
    * daemon/lvm-filter.c).
    */
-  copy_lvm ();
+  if (!test_mode)
+    copy_lvm ();
 
   /* Connect to virtio-serial channel. */
   char *channel, *p;

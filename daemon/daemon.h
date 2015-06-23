@@ -47,6 +47,8 @@ extern int enable_network;
 
 extern int autosync_umount;
 
+extern int test_mode;
+
 extern const char *sysroot;
 extern size_t sysroot_len;
 
