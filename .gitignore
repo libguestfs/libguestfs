@@ -528,6 +528,7 @@ Makefile.in
 /tests/data/lib-i586.so.xz
 /tests/data/test-grep.txt.gz
 /tests/data/test.iso
+/tests/daemon/captive-daemon.pm
 /tests/disks/test-qemu-drive-libvirt.xml
 /tests/events/test-libvirt-auth-callbacks
 /tests/guests/blank-*.img
