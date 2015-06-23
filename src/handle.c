@@ -426,21 +426,6 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
   if (g->autosync && g->state == READY) {
     if (guestfs_internal_autosync (g) == -1)
       ret = -1;
-#ifdef VALGRIND_DAEMON
-    /* When valgrinding the daemon, this causes the daemon to exit
-     * properly, so we'll see any valgrind problems.  Don't do this in
-     * production builds because it's slow and unnecessary.
-     */
-    guestfs_internal_exit (g);
-    if (g->conn) {
-      /* internal_exit above will cause the daemon to close the
-       * connection.  The purpose of the read_data here is to read the
-       * remaining log messages.
-       */
-      char buf[1];
-      g->conn->ops->read_data (g, g->conn, buf, sizeof buf);
-    }
-#endif
   }
 
   /* Shut down the backend. */

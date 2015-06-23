@@ -20,7 +20,6 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	99-guestfs-serial.rules \
 	excludefiles.in \
-	guestfsd.suppressions \
 	guestfs_lvm_conf.aug \
 	guestfs_shadow.aug \
 	hostfiles.in \
@@ -66,9 +65,6 @@ make.sh: make.sh.in $(top_builddir)/config.log $(top_builddir)/config.status
 	rm -f $@-t
 
 PACKAGELIST_CPP_FLAGS = -D$(DISTRO)=1 -DEXTRA_PACKAGES="$(EXTRA_PACKAGES)"
-if VALGRIND_DAEMON
-PACKAGELIST_CPP_FLAGS += -DVALGRIND_DAEMON=1
-endif
 
 packagelist: packagelist.in Makefile
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
@@ -76,12 +72,11 @@ packagelist: packagelist.in Makefile
 	cmp -s $@ $@-t || mv $@-t $@
 	rm -f $@-t
 
-supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions guestfs_lvm_conf.aug guestfs_shadow.aug
+supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfs_lvm_conf.aug guestfs_shadow.aug
 	rm -f $@ $@-t
 	rm -rf tmp-d
 	mkdir -p tmp-d$(DAEMON_SUPERMIN_DIR) tmp-d/etc tmp-d/usr/share/guestfs
 	ln ../daemon/guestfsd tmp-d$(DAEMON_SUPERMIN_DIR)/guestfsd
-	ln $(srcdir)/guestfsd.suppressions tmp-d/etc/guestfsd.suppressions
 	ln $(srcdir)/guestfs_lvm_conf.aug tmp-d/usr/share/guestfs/guestfs_lvm_conf.aug
 	ln $(srcdir)/guestfs_shadow.aug tmp-d/usr/share/guestfs/guestfs_shadow.aug
 	( cd tmp-d && tar zcf - * ) > $@-t

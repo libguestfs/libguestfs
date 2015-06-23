@@ -335,9 +335,6 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
 #ifdef __arm__
      " mem=%dM"
 #endif
-#ifdef VALGRIND_DAEMON
-     " guestfs_valgrind_daemon=1"
-#endif
 #ifdef __i386__
      " noapic"                  /* workaround for RHBZ#857026 */
 #endif
