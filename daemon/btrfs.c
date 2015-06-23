@@ -42,7 +42,8 @@ GUESTFSD_EXT_CMD(str_btrfsimage, btrfs-image);
 int
 optgroup_btrfs_available (void)
 {
-  return prog_exists (str_btrfs) && filesystem_available ("btrfs") > 0;
+  return test_mode ||
+    (prog_exists (str_btrfs) && filesystem_available ("btrfs") > 0);
 }
 
 char *
