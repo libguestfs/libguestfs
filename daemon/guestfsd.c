@@ -243,9 +243,6 @@ main (int argc, char *argv[])
   /* Set up a basic environment.  After we are called by /init the
    * environment is essentially empty.
    * https://bugzilla.redhat.com/show_bug.cgi?id=502074#c5
-   *
-   * NOTE: if you change $PATH, you must also change 'prog_exists'
-   * function below.
    */
   setenv ("PATH", "/sbin:/usr/sbin:/bin:/usr/bin", 1);
   setenv ("SHELL", "/bin/sh", 1);
@@ -1440,22 +1437,35 @@ mountable_to_string (const mountable_t *mountable)
   }
 }
 
-/* Check program exists and is executable on $PATH.  Actually, we
- * just assume PATH contains the default entries (see main() above).
- */
+/* Check program exists and is executable on $PATH. */
 int
 prog_exists (const char *prog)
 {
-  static const char * const dirs[] =
-    { "/sbin", "/usr/sbin", "/bin", "/usr/bin" };
-  size_t i;
-  char buf[1024];
+  const char *pathc = getenv ("PATH");
 
-  for (i = 0; i < sizeof dirs / sizeof dirs[0]; ++i) {
-    snprintf (buf, sizeof buf, "%s/%s", dirs[i], prog);
-    if (access (buf, X_OK) == 0)
+  if (!pathc)
+    return 0;
+
+  const size_t proglen = strlen (prog);
+  const char *elem;
+  char *saveptr;
+  const size_t len = strlen (pathc) + 1;
+  char path[len];
+  strcpy (path, pathc);
+
+  elem = strtok_r (path, ":", &saveptr);
+  while (elem) {
+    const size_t n = strlen (elem) + proglen + 2;
+    char testprog[n];
+
+    snprintf (testprog, n, "%s/%s", elem, prog);
+    if (access (testprog, X_OK) == 0)
       return 1;
+
+    elem = strtok_r (NULL, ":", &saveptr);
   }
+
+  /* Not found. */
   return 0;
 }
 
