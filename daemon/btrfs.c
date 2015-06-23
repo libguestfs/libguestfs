@@ -512,7 +512,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
       goto error;
     }
 
-    struct guestfs_int_btrfssubvolume *this  =
+    struct guestfs_int_btrfssubvolume *this =
       &ret->guestfs_int_btrfssubvolume_list_val[i];
 
     #if __WORDSIZE == 64
@@ -1298,7 +1298,7 @@ do_btrfs_qgroup_show (const char *path)
 
   for (i = 0; i < nr_qgroups; ++i) {
     char *line = lines[i + 2];
-    struct guestfs_int_btrfsqgroup *this  =
+    struct guestfs_int_btrfsqgroup *this =
       &ret->guestfs_int_btrfsqgroup_list_val[i];
     uint64_t dummy1, dummy2;
     char *p;
