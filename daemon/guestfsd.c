@@ -139,15 +139,17 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "rtv?";
+  static const char *options = "lrtv?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
+    { "listen", 0, 0, 'l' },
     { "test", 0, 0, 't' },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
   int c;
   char *cmdline;
+  int listen_mode = 0;
 
   ignore_value (chdir ("/"));
 
@@ -186,6 +188,10 @@ main (int argc, char *argv[])
     if (c == -1) break;
 
     switch (c) {
+    case 'l':
+      listen_mode = 1;
+      break;
+
       /* The -r flag is used when running standalone.  It changes
        * several aspects of the daemon.
        */
@@ -292,23 +298,47 @@ main (int argc, char *argv[])
   if (verbose)
     printf ("trying to open virtio-serial channel '%s'\n", channel);
 
-  int sock = open (channel, O_RDWR|O_CLOEXEC);
-  if (sock == -1) {
-    fprintf (stderr,
-             "\n"
-             "Failed to connect to virtio-serial channel.\n"
-             "\n"
-             "This is a fatal error and the appliance will now exit.\n"
-             "\n"
-             "Usually this error is caused by either QEMU or the appliance\n"
-             "kernel not supporting the vmchannel method that the\n"
-             "libguestfs library chose to use.  Please run\n"
-             "'libguestfs-test-tool' and provide the complete, unedited\n"
-             "output to the libguestfs developers, either in a bug report\n"
-             "or on the libguestfs redhat com mailing list.\n"
-             "\n");
-    perror (channel);
-    exit (EXIT_FAILURE);
+  int sock;
+  if (!listen_mode) {
+    sock = open (channel, O_RDWR|O_CLOEXEC);
+    if (sock == -1) {
+      fprintf (stderr,
+               "\n"
+               "Failed to connect to virtio-serial channel.\n"
+               "\n"
+               "This is a fatal error and the appliance will now exit.\n"
+               "\n"
+               "Usually this error is caused by either QEMU or the appliance\n"
+               "kernel not supporting the vmchannel method that the\n"
+               "libguestfs library chose to use.  Please run\n"
+               "'libguestfs-test-tool' and provide the complete, unedited\n"
+               "output to the libguestfs developers, either in a bug report\n"
+               "or on the libguestfs redhat com mailing list.\n"
+               "\n");
+      perror (channel);
+      exit (EXIT_FAILURE);
+    }
+  }
+  else {
+    struct sockaddr_un addr;
+
+    sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
+    if (sock == -1)
+      error (EXIT_FAILURE, errno, "socket");
+    addr.sun_family = AF_UNIX;
+    if (strlen (channel) > UNIX_PATH_MAX-1)
+      error (EXIT_FAILURE, 0, "%s: socket path is too long", channel);
+    strcpy (addr.sun_path, channel);
+
+    if (bind (sock, (struct sockaddr *) &addr, sizeof addr) == -1)
+      error (EXIT_FAILURE, errno, "bind: %s", channel);
+
+    if (listen (sock, 4) == -1)
+      error (EXIT_FAILURE, errno, "listen");
+
+    sock = accept4 (sock, NULL, NULL, SOCK_CLOEXEC);
+    if (sock == -1)
+      error (EXIT_FAILURE, errno, "accept");
   }
 
   /* If it's a serial-port like device then it probably has echoing

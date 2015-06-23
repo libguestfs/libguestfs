@@ -50,6 +50,15 @@ removed.
 
 Display brief help.
 
+=item B<-l>
+
+=item B<--listen>
+
+Instead of opening the C<guestfs_channel> and thus expecting that it
+already exists, create the channel as a Unix domain socket, listen on
+it, and accept a single connection.  This is mainly used for testing
+the daemon.
+
 =item B<-r>
 
 Set the root filesystem to be F</> (instead of the default which is
