@@ -30,7 +30,6 @@
 #include "actions.h"
 
 /* wrflags */
-#define DEST_FILE_FLAGS O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0666
 #define DEST_DEVICE_FLAGS O_WRONLY|O_CLOEXEC, 0
 
 /* flags */
@@ -210,8 +209,13 @@ copy (const char *src, const char *src_display,
 int
 do_copy_device_to_device (const char *src, const char *dest,
                           int64_t srcoffset, int64_t destoffset, int64_t size,
-                          int sparse)
+                          int sparse, int append)
 {
+  if ((optargs_bitmask & GUESTFS_COPY_DEVICE_TO_DEVICE_APPEND_BITMASK) &&
+      append) {
+    reply_with_error ("the append flag cannot be set for this call");
+    return -1;
+  }
   return copy (src, src, dest, dest, DEST_DEVICE_FLAGS, 0,
                srcoffset, destoffset, size, sparse);
 }
@@ -219,28 +223,41 @@ do_copy_device_to_device (const char *src, const char *dest,
 int
 do_copy_device_to_file (const char *src, const char *dest,
                         int64_t srcoffset, int64_t destoffset, int64_t size,
-                        int sparse)
+                        int sparse, int append)
 {
   CLEANUP_FREE char *dest_buf = sysroot_path (dest);
+  int wrflags = O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC;
 
   if (!dest_buf) {
     reply_with_perror ("malloc");
     return -1;
   }
 
-  return copy (src, src, dest_buf, dest, DEST_FILE_FLAGS, 0,
+  if ((optargs_bitmask & GUESTFS_COPY_DEVICE_TO_FILE_APPEND_BITMASK) &&
+      append)
+    wrflags |= O_APPEND;
+  else
+    wrflags |= O_TRUNC;
+
+  return copy (src, src, dest_buf, dest, wrflags, 0666, 0,
                srcoffset, destoffset, size, sparse);
 }
 
 int
 do_copy_file_to_device (const char *src, const char *dest,
                         int64_t srcoffset, int64_t destoffset, int64_t size,
-                        int sparse)
+                        int sparse, int append)
 {
   CLEANUP_FREE char *src_buf = sysroot_path (src);
 
   if (!src_buf) {
     reply_with_perror ("malloc");
+    return -1;
+  }
+
+  if ((optargs_bitmask & GUESTFS_COPY_FILE_TO_DEVICE_APPEND_BITMASK) &&
+      append) {
+    reply_with_error ("the append flag cannot be set for this call");
     return -1;
   }
 
@@ -251,9 +268,10 @@ do_copy_file_to_device (const char *src, const char *dest,
 int
 do_copy_file_to_file (const char *src, const char *dest,
                       int64_t srcoffset, int64_t destoffset, int64_t size,
-                      int sparse)
+                      int sparse, int append)
 {
   CLEANUP_FREE char *src_buf = NULL, *dest_buf = NULL;
+  int wrflags = O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC;
 
   src_buf = sysroot_path (src);
   if (!src_buf) {
@@ -267,7 +285,13 @@ do_copy_file_to_file (const char *src, const char *dest,
     return -1;
   }
 
-  return copy (src_buf, src, dest_buf, dest, DEST_FILE_FLAGS,
+  if ((optargs_bitmask & GUESTFS_COPY_FILE_TO_FILE_APPEND_BITMASK) &&
+      append)
+    wrflags |= O_APPEND;
+  else
+    wrflags |= O_TRUNC;
+
+  return copy (src_buf, src, dest_buf, dest, wrflags, 0666,
                COPY_UNLINK_DEST_ON_FAILURE,
                srcoffset, destoffset, size, sparse);
 }
