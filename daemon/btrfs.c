@@ -853,11 +853,10 @@ do_btrfs_fsck (const char *device, int64_t superblock, int repair)
  * returns the next position following \n.
  */
 static char *
-analyze_line (char *line, char **key, char **value)
+analyze_line (char *line, char **key, char **value, char delimiter)
 {
   char *p = line;
   char *next = NULL;
-  char delimiter = ':';
   char *del_pos = NULL;
 
   if (!line || *line == '\0') {
@@ -964,7 +963,7 @@ do_btrfs_subvolume_show (const char *subvolume)
    *                                 snapshots/test3
    *
    */
-  p = analyze_line(out, &key, &value);
+  p = analyze_line(out, &key, &value, ':');
   if (!p) {
     reply_with_error ("truncated output: %s", out);
     return NULL;
@@ -984,7 +983,7 @@ do_btrfs_subvolume_show (const char *subvolume)
   }
 
   /* Read the lines and split into "key: value". */
-  p = analyze_line(p, &key, &value);
+  p = analyze_line(p, &key, &value, ':');
   while (key) {
     /* snapshot is special, see the output above */
     if (STREQLEN (key, "Snapshot(s)", sizeof ("Snapshot(s)") - 1)) {
@@ -994,7 +993,7 @@ do_btrfs_subvolume_show (const char *subvolume)
       if (add_string (&ret, key) == -1)
         return NULL;
 
-      p = analyze_line(p, &key, &value);
+      p = analyze_line(p, &key, &value, ':');
 
       while (key && !value) {
           ss = realloc (ss, ss_len + strlen (key) + 1);
@@ -1008,7 +1007,7 @@ do_btrfs_subvolume_show (const char *subvolume)
           ss_len += strlen (key);
           ss[ss_len] = '\0';
 
-          p = analyze_line(p, &key, &value);
+          p = analyze_line(p, &key, &value, ':');
       }
 
       if (ss) {
@@ -1031,7 +1030,7 @@ do_btrfs_subvolume_show (const char *subvolume)
           return NULL;
       }
 
-      p = analyze_line(p, &key, &value);
+      p = analyze_line(p, &key, &value, ':');
     }
   }
 
