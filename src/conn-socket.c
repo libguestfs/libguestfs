@@ -343,26 +343,6 @@ handle_log_message (guestfs_h *g,
   /* It's an actual log message, send it upwards. */
   guestfs_int_log_message_callback (g, buf, n);
 
-#ifdef VALGRIND_DAEMON
-  /* Find the canary printed by appliance/init if valgrinding of the
-   * daemon fails, and exit abruptly.  Note this is only used in
-   * developer builds, and should never be enabled in ordinary/
-   * production builds.
-   */
-  if (g->verbose) {
-    const char *valgrind_canary = "DAEMON VALGRIND FAILED";
-
-    if (memmem (buf, n, valgrind_canary, strlen (valgrind_canary)) != NULL) {
-      fprintf (stderr,
-               "Detected valgrind failure in the daemon!  Exiting with exit code 119.\n"
-               "See log messages printed above.\n"
-               "Note: This happens because libguestfs was configured with\n"
-               "'--enable-valgrind-daemon' which should not be used in production builds.\n");
-      exit (119);
-    }
-  }
-#endif
-
   return 1;
 }
 

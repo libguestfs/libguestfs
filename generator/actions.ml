@@ -12023,8 +12023,7 @@ This function is used internally when setting up the appliance." };
     cancellable = true;
     shortdesc = "cause the daemon to exit (internal use only)";
     longdesc = "\
-This function is used internally when closing the appliance.  Note
-it's only called when ./configure --enable-valgrind-daemon is used." };
+This function is used internally when testing the appliance." };
 
   { defaults with
     name = "copy_attributes"; added = (1, 25, 21);

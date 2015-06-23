@@ -265,17 +265,6 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE_PRINTF ("ssl3=fd:%d", dsv[1]);
   ADD_CMDLINE ("guestfs_channel=/dev/ttyS3");
 
-#if 0 /* XXX This could be made to work. */
-#ifdef VALGRIND_DAEMON
-  /* Set up virtio-serial channel for valgrind messages. */
-  ADD_CMDLINE ("-chardev");
-  ADD_CMDLINE_PRINTF ("file,path=%s/valgrind.log.%d,id=valgrind",
-                      VALGRIND_LOG_PATH, getpid ());
-  ADD_CMDLINE ("-device");
-  ADD_CMDLINE ("virtserialport,chardev=valgrind,name=org.libguestfs.valgrind");
-#endif
-#endif
-
   /* Add any vmlinux parameters. */
   for (hp = g->hv_params; hp; hp = hp->next) {
     ADD_CMDLINE (hp->hv_param);

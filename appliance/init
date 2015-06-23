@@ -150,18 +150,7 @@ fi
 
 if ! test "$guestfs_rescue" = 1; then
   # Run the daemon.
-
-  # Run the daemon under valgrind if ./configure --enable-valgrind-daemon
-  if grep -sq guestfs_valgrind_daemon=1 /proc/cmdline; then
-    if [ -r /etc/guestfsd.suppressions ]; then
-      suppressions="--suppressions=/etc/guestfsd.suppressions"
-    fi
-    vg="valgrind --leak-check=full --error-exitcode=119 --max-stackframe=8388608 --child-silent-after-fork=yes $suppressions"
-    echo "enabling valgrind: $vg"
-  fi
-
-  # Run guestfsd, under valgrind if asked.
-  cmd="$vg guestfsd"
+  cmd="guestfsd"
   if test "x$guestfs_channel" != "x"; then
     cmd="$cmd --channel $guestfs_channel"
   fi
@@ -173,14 +162,6 @@ if ! test "$guestfs_rescue" = 1; then
   fi
   echo $cmd
   $cmd
-
-  if [ $? -eq 119 ]; then
-      echo "DAEMON VALGRIND FAILED"
-      # Sleep so valgrind messages are seen by the host.  Note this
-      # only happens in non-production builds
-      # (--enable-valgrind-daemon) + on an error path.
-      sleep 10
-  fi
 else
   # Run virt-rescue shell.
 
