@@ -2060,3 +2060,39 @@ do_btrfs_image (char *const *sources, const char *image,
 
   return 0;
 }
+
+int
+do_btrfs_replace (const char *srcdev, const char *targetdev,
+                                const char* mntpoint)
+{
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *path_buf = NULL;
+  int r;
+
+  path_buf = sysroot_path (mntpoint);
+  if (path_buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "replace");
+  ADD_ARG (argv, i, "start");
+  ADD_ARG (argv, i, srcdev);
+  ADD_ARG (argv, i, targetdev);
+  ADD_ARG (argv, i, path_buf);
+  ADD_ARG (argv, i, "-B");
+  ADD_ARG (argv, i, "-f");
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", mntpoint, err);
+    return -1;
+  }
+
+  return 0;
+}

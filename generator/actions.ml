@@ -12606,6 +12606,22 @@ numbered C<partnum> on device C<device>.
 
 It returns C<primary>, C<logical>, or C<extended>." };
 
+  { defaults with
+    name = "btrfs_replace"; added = (1, 29, 48);
+    style = RErr, [Device "srcdev"; Device "targetdev"; Pathname "mntpoint"], [];
+    proc_nr = Some 455;
+    optional = Some "btrfs"; camel_name = "BTRFSReplace";
+    test_excuse = "put the test in 'tests/btrfs' directory";
+    shortdesc = "replace a btrfs managed device with another device";
+    longdesc = "\
+Replace device of a btrfs filesystem. On a live filesystem, duplicate the data
+to the target device which is currently stored on the source device.
+After completion of the operation, the source device is wiped out and
+removed from the filesystem.
+
+The C<targetdev> needs to be same size or larger than the C<srcdev>. Devices
+which are currently mounted are never allowed to be used as the C<targetdev>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
