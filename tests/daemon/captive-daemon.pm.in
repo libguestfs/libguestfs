@@ -93,14 +93,15 @@ sub run_tests {
     # libguestfs live.
     $g = Sys::Guestfs->new ();
     $g->set_backend ("unix:" . $sockname);
+    $g->set_autosync (0);
     $g->launch;
 
     # Run the user tests.
     my $r = ::tests ($g);
 
-    # Close the socket.  The daemon should now exit.
-    $g->shutdown ();
-    $g->close ();
+    # Tell the daemon to exit cleanly, and remove the socket.
+    $g->internal_exit;
+    $g->close;
     unlink $sockname;
 
     waitpid ($pid, 0) or die "waitpid: $!";
@@ -112,10 +113,7 @@ sub run_tests {
         my $status = $? >> 8;
         die "ERROR: guestfsd died with exit code 119 (valgrind failure)\n"
             if $status == 119;
-
-        # Note we allow guestfsd to die with exit code 1, because
-        # that indicates a read failure from the socket.
-        die "ERROR: guestfsd died with exit code $status\n" if $status > 1;
+        die "ERROR: guestfsd died with exit code $status\n";
     }
 
     # Exit with failure if the user test failed.

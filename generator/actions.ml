@@ -11951,7 +11951,8 @@ This function is used internally when setting up the appliance." };
     name = "internal_exit"; added = (1, 23, 30);
     style = RErr, [], [];
     proc_nr = Some 414;
-    visibility = VInternal;
+    (* Really VInternal, but we need to use it from the Perl bindings. XXX *)
+    visibility = VDebug;
     cancellable = true;
     shortdesc = "cause the daemon to exit (internal use only)";
     longdesc = "\
