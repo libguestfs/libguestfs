@@ -18,50 +18,81 @@
 
 (* Mini interface to libxml2. *)
 
-type doc
+type doc = doc_ptr
+and doc_ptr
 type node_ptr
-type xpathctx
-type xpathobj
+type xpathctx_ptr
+type xpathobj_ptr
 
-(* Since node is owned by doc, we have to make that explicit to the
- * garbage collector.
+(* At the C level, various objects "own" other objects.  We have to
+ * make that ownership explicit to the garbage collector, else we could
+ * end up freeing an object before all the C references to it are
+ * freed.
  *)
-type node = doc * node_ptr
+type xpathctx = doc_ptr * xpathctx_ptr
+type xpathobj = xpathctx * xpathobj_ptr
+type node = doc_ptr * node_ptr
 
-external parse_memory : string -> doc = "v2v_xml_parse_memory"
-external copy_doc : doc -> recursive:bool -> doc = "v2v_xml_copy_doc"
+external free_doc_ptr : doc_ptr -> unit = "v2v_xml_free_doc_ptr"
+external free_xpathctx_ptr : xpathctx_ptr -> unit = "v2v_xml_free_xpathctx_ptr"
+external free_xpathobj_ptr : xpathobj_ptr -> unit = "v2v_xml_free_xpathobj_ptr"
 
-external to_string : doc -> format:bool -> string = "v2v_xml_to_string"
+external _parse_memory : string -> doc_ptr = "v2v_xml_parse_memory"
+let parse_memory xml =
+  let doc_ptr = _parse_memory xml in
+  Gc.finalise free_doc_ptr doc_ptr;
+  doc_ptr
 
-external xpath_new_context : doc -> xpathctx = "v2v_xml_xpath_new_context"
-external xpath_eval_expression : xpathctx -> string -> xpathobj = "v2v_xml_xpath_eval_expression"
-external xpath_register_ns : xpathctx -> string -> string -> unit = "v2v_xml_xpath_register_ns"
+external _copy_doc : doc_ptr -> recursive:bool -> doc_ptr = "v2v_xml_copy_doc"
+let copy_doc doc_ptr ~recursive =
+  let copy = _copy_doc doc_ptr ~recursive in
+  Gc.finalise free_doc_ptr copy;
+  copy
 
-external xpathobj_nr_nodes : xpathobj -> int = "v2v_xml_xpathobj_nr_nodes"
-external xpathobj_get_node_ptr : xpathobj -> int -> node_ptr = "v2v_xml_xpathobj_get_node_ptr"
-let xpathobj_node doc xpathobj i =
-  let n = xpathobj_get_node_ptr xpathobj i in
-  (doc, n)
+external to_string : doc_ptr -> format:bool -> string = "v2v_xml_to_string"
 
-external xpathctx_set_node_ptr : xpathctx -> node_ptr -> unit = "v2v_xml_xpathctx_set_node_ptr"
-let xpathctx_set_current_context xpathctx (_, node) =
-  xpathctx_set_node_ptr xpathctx node
+external xpath_new_context_ptr : doc_ptr -> xpathctx_ptr = "v2v_xml_xpath_new_context_ptr"
+let xpath_new_context doc_ptr =
+  let xpathctx_ptr = xpath_new_context_ptr doc_ptr in
+  Gc.finalise free_xpathctx_ptr xpathctx_ptr;
+  doc_ptr, xpathctx_ptr
+
+external xpathctx_ptr_register_ns : xpathctx_ptr -> string -> string -> unit = "v2v_xml_xpathctx_ptr_register_ns"
+let xpath_register_ns (_, xpathctx_ptr) prefix uri =
+  xpathctx_ptr_register_ns xpathctx_ptr prefix uri
+
+external xpathctx_ptr_eval_expression : xpathctx_ptr -> string -> xpathobj_ptr = "v2v_xml_xpathctx_ptr_eval_expression"
+let xpath_eval_expression ((_, xpathctx_ptr) as xpathctx) expr =
+  let xpathobj_ptr = xpathctx_ptr_eval_expression xpathctx_ptr expr in
+  Gc.finalise free_xpathobj_ptr xpathobj_ptr;
+  xpathctx, xpathobj_ptr
+
+external xpathobj_ptr_nr_nodes : xpathobj_ptr -> int = "v2v_xml_xpathobj_ptr_nr_nodes"
+let xpathobj_nr_nodes (_, xpathobj_ptr) =
+  xpathobj_ptr_nr_nodes xpathobj_ptr
+
+external xpathobj_ptr_get_node_ptr : xpathobj_ptr -> int -> node_ptr = "v2v_xml_xpathobj_ptr_get_node_ptr"
+let xpathobj_node ((doc_ptr, _), xpathobj_ptr) i =
+  doc_ptr, xpathobj_ptr_get_node_ptr xpathobj_ptr i
+
+external xpathctx_ptr_set_node_ptr : xpathctx_ptr -> node_ptr -> unit = "v2v_xml_xpathctx_set_node_ptr"
+let xpathctx_set_current_context (_, xpathctx_ptr) (_, node_ptr) =
+  xpathctx_ptr_set_node_ptr xpathctx_ptr node_ptr
 
 external node_ptr_name : node_ptr -> string = "v2v_xml_node_ptr_name"
-let node_name (_, node) = node_ptr_name node
+let node_name (_, node_ptr) = node_ptr_name node_ptr
 
-external node_ptr_as_string : doc -> node_ptr -> string = "v2v_xml_node_ptr_as_string"
-let node_as_string (doc, node) =
-  node_ptr_as_string doc node
+external node_ptr_as_string : doc_ptr -> node_ptr -> string = "v2v_xml_node_ptr_as_string"
+let node_as_string (doc_ptr, node_ptr) = node_ptr_as_string doc_ptr node_ptr
 
 external node_ptr_set_content : node_ptr -> string -> unit = "v2v_xml_node_ptr_set_content"
-let node_set_content (doc, node) = node_ptr_set_content node
+let node_set_content (doc_ptr, node_ptr) = node_ptr_set_content node_ptr
 
 external node_ptr_set_prop : node_ptr -> string -> string -> unit = "v2v_xml_node_ptr_set_prop"
-let set_prop (doc, node) = node_ptr_set_prop node
+let set_prop (doc_ptr, node_ptr) = node_ptr_set_prop node_ptr
 
 external node_ptr_unlink_node : node_ptr -> unit = "v2v_xml_node_ptr_unlink_node"
-let unlink_node (doc, node) = node_ptr_unlink_node node
+let unlink_node (doc_ptr, node_ptr) = node_ptr_unlink_node node_ptr
 
 type uri = {
   uri_scheme : string option;
