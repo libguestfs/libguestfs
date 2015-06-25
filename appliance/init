@@ -88,11 +88,26 @@ for f in /sys/block/{h,s,ub,v}d*/queue/scheduler; do echo noop > $f; done
 # Update the system clock.
 hwclock -u -s
 
+# Parse the kernel command line.
+if grep -sq guestfs_verbose=1 /proc/cmdline; then
+    guestfs_verbose=1
+fi
+if grep -sq guestfs_network=1 /proc/cmdline; then
+    guestfs_network=1
+fi
+if grep -sq guestfs_rescue=1 /proc/cmdline; then
+    guestfs_rescue=1
+fi
+if grep -sq guestfs_noreboot=1 /proc/cmdline; then
+    guestfs_noreboot=1
+fi
+eval `grep -Eo 'guestfs_channel=[^[:space:]]+' /proc/cmdline`
+
 # Set up the network.
 ip addr add 127.0.0.1/8 brd + dev lo scope host
 ip link set dev lo up
 
-if grep -sq guestfs_network=1 /proc/cmdline; then
+if test "$guestfs_network" = 1; then
     if dhclient --version >/dev/null 2>&1; then
         dhclient
     else
@@ -113,7 +128,7 @@ lvm vgchange -aay --sysinit
 ldmtool create all
 
 # These are useful when debugging.
-if grep -sq guestfs_verbose=1 /proc/cmdline; then
+if test "$guestfs_verbose" = 1; then
     uname -a
     ls -lR /dev
     cat /proc/mounts
@@ -132,7 +147,7 @@ if grep -sq guestfs_verbose=1 /proc/cmdline; then
     echo -n "uptime: "; cat /proc/uptime
 fi
 
-if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
+if ! test "$guestfs_rescue" = 1; then
   # Run the daemon.
 
   # Run the daemon under valgrind if ./configure --enable-valgrind-daemon
@@ -145,7 +160,19 @@ if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
   fi
 
   # Run guestfsd, under valgrind if asked.
-  $vg guestfsd
+  cmd="$vg guestfsd"
+  if test "x$guestfs_channel" != "x"; then
+    cmd="$cmd --channel $guestfs_channel"
+  fi
+  if test "$guestfs_verbose" = 1; then
+    cmd="$cmd --verbose"
+  fi
+  if test "$guestfs_network" = 1; then
+    cmd="$cmd --network"
+  fi
+  echo $cmd
+  $cmd
+
   if [ $? -eq 119 ]; then
       echo "DAEMON VALGRIND FAILED"
       # Sleep so valgrind messages are seen by the host.  Note this
@@ -181,7 +208,7 @@ fi
 
 sync
 
-if ! grep -sq guestfs_noreboot=1 /proc/cmdline; then
+if ! test "$guestfs_noreboot" = 1; then
   # qemu has the -no-reboot flag, so issuing a reboot here actually
   # causes qemu to exit gracefully.
   reboot -f

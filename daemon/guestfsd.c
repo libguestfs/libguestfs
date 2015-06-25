@@ -58,8 +58,6 @@
 
 GUESTFSD_EXT_CMD(str_udevadm, udevadm);
 
-static char *read_cmdline (void);
-
 #ifndef MAX
 # define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
@@ -139,16 +137,18 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "lrtv?";
+  static const char *options = "c:lnrtv?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
+    { "channel", 1, 0, 'c' },
     { "listen", 0, 0, 'l' },
+    { "network", 0, 0, 'n' },
     { "test", 0, 0, 't' },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
   int c;
-  char *cmdline;
+  const char *channel = NULL;
   int listen_mode = 0;
 
   ignore_value (chdir ("/"));
@@ -188,8 +188,16 @@ main (int argc, char *argv[])
     if (c == -1) break;
 
     switch (c) {
+    case 'c':
+      channel = optarg;
+      break;
+
     case 'l':
       listen_mode = 1;
+      break;
+
+    case 'n':
+      enable_network = 1;
       break;
 
       /* The -r flag is used when running standalone.  It changes
@@ -224,23 +232,6 @@ main (int argc, char *argv[])
     usage ();
     exit (EXIT_FAILURE);
   }
-
-  cmdline = read_cmdline ();
-
-  /* Set the verbose flag. */
-  verbose = verbose ||
-    (cmdline && strstr (cmdline, "guestfs_verbose=1") != NULL);
-  if (verbose)
-    printf ("verbose daemon enabled\n");
-
-  if (verbose) {
-    if (cmdline)
-      printf ("linux command line: %s\n", cmdline);
-    else
-      printf ("could not read linux command line\n");
-  }
-
-  enable_network = cmdline && strstr (cmdline, "guestfs_network=1") != NULL;
 
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */
@@ -283,17 +274,8 @@ main (int argc, char *argv[])
     copy_lvm ();
 
   /* Connect to virtio-serial channel. */
-  char *channel, *p;
-  if (cmdline && (p = strstr (cmdline, "guestfs_channel=")) != NULL) {
-    p += 16;
-    channel = strndup (p, strcspn (p, " \n"));
-  }
-  else
-    channel = strdup (VIRTIO_SERIAL_CHANNEL);
-  if (!channel) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
+  if (!channel)
+    channel = VIRTIO_SERIAL_CHANNEL;
 
   if (verbose)
     printf ("trying to open virtio-serial channel '%s'\n", channel);
@@ -347,10 +329,6 @@ main (int argc, char *argv[])
   if (STRPREFIX (channel, "/dev/ttyS"))
     makeraw (channel, sock);
 
-  /* cmdline, channel not used after this point */
-  free (cmdline);
-  free (channel);
-
   /* Wait for udev devices to be created.  If you start libguestfs,
    * especially with disks that contain complex (eg. mdadm) data
    * already, then it is possible for the 'mdadm' and LVM commands
@@ -382,55 +360,6 @@ main (int argc, char *argv[])
   main_loop (sock);
 
   exit (EXIT_SUCCESS);
-}
-
-/* Read /proc/cmdline. */
-static char *
-read_cmdline (void)
-{
-  int fd = open ("/proc/cmdline", O_RDONLY|O_CLOEXEC);
-  if (fd == -1) {
-    perror ("/proc/cmdline");
-    return NULL;
-  }
-
-  size_t len = 0;
-  ssize_t n;
-  char buf[256];
-  char *r = NULL;
-
-  for (;;) {
-    n = read (fd, buf, sizeof buf);
-    if (n == -1) {
-      perror ("read");
-      free (r);
-      close (fd);
-      return NULL;
-    }
-    if (n == 0)
-      break;
-    char *newr = realloc (r, len + n + 1); /* + 1 is for terminating NUL */
-    if (newr == NULL) {
-      perror ("realloc");
-      free (r);
-      close (fd);
-      return NULL;
-    }
-    r = newr;
-    memcpy (&r[len], buf, n);
-    len += n;
-  }
-
-  if (r)
-    r[len] = '\0';
-
-  if (close (fd) == -1) {
-    perror ("close");
-    free (r);
-    return NULL;
-  }
-
-  return r;
 }
 
 /* Try to make the socket raw, but don't fail if it's not possible. */

@@ -50,6 +50,14 @@ removed.
 
 Display brief help.
 
+=item B<-c> CHANNEL
+
+=item B<--channel> CHANNEL
+
+Pass the name of the virtio-serial channel, serial port, etc.  over
+which guestfsd will communicate with the library.  If this parameter
+is not given, then an internal default port is used.
+
 =item B<-l>
 
 =item B<--listen>
@@ -58,6 +66,12 @@ Instead of opening the C<guestfs_channel> and thus expecting that it
 already exists, create the channel as a Unix domain socket, listen on
 it, and accept a single connection.  This is mainly used for testing
 the daemon.
+
+=item B<-n>
+
+=item B<--network>
+
+Enable network features in the daemon.
 
 =item B<-r>
 
