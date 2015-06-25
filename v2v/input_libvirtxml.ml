@@ -44,14 +44,14 @@ let parse_libvirt_xml ?conn xml =
     let obj = Xml.xpath_eval_expression xpathctx expr in
     if Xml.xpathobj_nr_nodes obj < 1 then default
     else (
-      let node = Xml.xpathobj_node doc obj 0 in
+      let node = Xml.xpathobj_node obj 0 in
       Xml.node_as_string node
     )
   and xpath_to_int expr default =
     let obj = Xml.xpath_eval_expression xpathctx expr in
     if Xml.xpathobj_nr_nodes obj < 1 then default
     else (
-      let node = Xml.xpathobj_node doc obj 0 in
+      let node = Xml.xpathobj_node obj 0 in
       let str = Xml.node_as_string node in
       try int_of_string str
       with Failure "int_of_string" ->
@@ -78,7 +78,7 @@ let parse_libvirt_xml ?conn xml =
     let obj = Xml.xpath_eval_expression xpathctx "/domain/features/*" in
     let nr_nodes = Xml.xpathobj_nr_nodes obj in
     for i = 0 to nr_nodes-1 do
-      let node = Xml.xpathobj_node doc obj i in
+      let node = Xml.xpathobj_node obj i in
       features := Xml.node_name node :: !features
     done;
     !features in
@@ -89,7 +89,7 @@ let parse_libvirt_xml ?conn xml =
     if nr_nodes < 1 then None
     else (
       (* Ignore everything except the first <graphics> device. *)
-      let node = Xml.xpathobj_node doc obj 0 in
+      let node = Xml.xpathobj_node obj 0 in
       Xml.xpathctx_set_current_context xpathctx node;
       let keymap =
         match xpath_to_string "@keymap" "" with "" -> None | k -> Some k in
@@ -150,7 +150,7 @@ let parse_libvirt_xml ?conn xml =
     if nr_nodes < 1 then None
     else (
       (* Ignore everything except the first <sound> device. *)
-      let node = Xml.xpathobj_node doc obj 0 in
+      let node = Xml.xpathobj_node obj 0 in
 
       Xml.xpathctx_set_current_context xpathctx node;
       match xpath_to_string "@model" "" with
@@ -189,7 +189,7 @@ let parse_libvirt_xml ?conn xml =
     if nr_nodes < 1 then
       error (f_"this guest has no non-removable disks");
     for i = 0 to nr_nodes-1 do
-      let node = Xml.xpathobj_node doc obj i in
+      let node = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx node;
 
       let controller =
@@ -248,7 +248,7 @@ let parse_libvirt_xml ?conn xml =
             let obj = Xml.xpath_eval_expression xpathctx expr in
             if Xml.xpathobj_nr_nodes obj < 1 then default
             else (
-              let node = Xml.xpathobj_node doc obj 0 in
+              let node = Xml.xpathobj_node obj 0 in
               Xml.node_as_string node
             ) in
 
@@ -279,7 +279,7 @@ let parse_libvirt_xml ?conn xml =
     let nr_nodes = Xml.xpathobj_nr_nodes obj in
     let disks = ref [] in
     for i = 0 to nr_nodes-1 do
-      let node = Xml.xpathobj_node doc obj i in
+      let node = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx node;
 
       let controller =
@@ -309,7 +309,7 @@ let parse_libvirt_xml ?conn xml =
     let nr_nodes = Xml.xpathobj_nr_nodes obj in
     let nics = ref [] in
     for i = 0 to nr_nodes-1 do
-      let node = Xml.xpathobj_node doc obj i in
+      let node = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx node;
 
       let mac = xpath_to_string "mac/@address" "" in

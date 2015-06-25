@@ -92,7 +92,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
   let nodes_of_xpathobj doc xpathobj =
     let nodes = ref [] in
     for i = 0 to Xml.xpathobj_nr_nodes xpathobj - 1 do
-      nodes := Xml.xpathobj_node doc xpathobj i :: !nodes
+      nodes := Xml.xpathobj_node xpathobj i :: !nodes
     done;
     List.rev !nodes
   in

@@ -184,14 +184,14 @@ object
       let obj = Xml.xpath_eval_expression xpathctx expr in
       if Xml.xpathobj_nr_nodes obj < 1 then default
       else (
-        let node = Xml.xpathobj_node doc obj 0 in
+        let node = Xml.xpathobj_node obj 0 in
         Xml.node_as_string node
       )
     and xpath_to_int expr default =
       let obj = Xml.xpath_eval_expression xpathctx expr in
       if Xml.xpathobj_nr_nodes obj < 1 then default
       else (
-        let node = Xml.xpathobj_node doc obj 0 in
+        let node = Xml.xpathobj_node obj 0 in
         let str = Xml.node_as_string node in
         try int_of_string str
         with Failure "int_of_string" ->
@@ -247,7 +247,7 @@ object
       let obj = Xml.xpath_eval_expression xpathctx expr in
       let nr_nodes = Xml.xpathobj_nr_nodes obj in
       for i = 0 to nr_nodes-1 do
-        let n = Xml.xpathobj_node doc obj i in
+        let n = Xml.xpathobj_node obj i in
         Xml.xpathctx_set_current_context xpathctx n;
 
         (* XXX We assume the OVF lists these in order.
@@ -316,7 +316,7 @@ object
       let obj = Xml.xpath_eval_expression xpathctx expr in
       let nr_nodes = Xml.xpathobj_nr_nodes obj in
       for i = 0 to nr_nodes-1 do
-        let n = Xml.xpathobj_node doc obj i in
+        let n = Xml.xpathobj_node obj i in
         Xml.xpathctx_set_current_context xpathctx n;
         let id = xpath_to_int "rasd:ResourceType/text()" 0 in
         assert (id = 14 || id = 15 || id = 16);
@@ -350,7 +350,7 @@ object
     let obj = Xml.xpath_eval_expression xpathctx "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=10]"  in
     let nr_nodes = Xml.xpathobj_nr_nodes obj in
     for i = 0 to nr_nodes-1 do
-      let n = Xml.xpathobj_node doc obj i in
+      let n = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx n;
       let vnet = xpath_to_string "rasd:ElementName/text()" (sprintf"eth%d" i) in
       let nic = {
