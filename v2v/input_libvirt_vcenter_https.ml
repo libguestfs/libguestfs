@@ -250,7 +250,8 @@ let map_source_to_uri ?readahead verbose password uri scheme server path =
     let json_params = [
       "file.driver", JSON.String "https";
       "file.url", JSON.String url;
-      "file.timeout", JSON.Int 600;
+      (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
+      "file.timeout", JSON.Int 2000;
     ] in
 
     let json_params =
