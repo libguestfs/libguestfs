@@ -34,7 +34,7 @@ val xpath_register_ns : xpathctx -> string -> string -> unit
 
 val xpathobj_nr_nodes : xpathobj -> int
 (** Get the number of nodes in the nodeset of the xmlXPathObjectPtr. *)
-val xpathobj_node : doc -> xpathobj -> int -> node
+val xpathobj_node : xpathobj -> int -> node
 (** Get the i'th node in the nodeset of the xmlXPathObjectPtr. *)
 
 val xpathctx_set_current_context : xpathctx -> node -> unit

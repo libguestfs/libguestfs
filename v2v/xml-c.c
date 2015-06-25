@@ -42,65 +42,68 @@
 /* xmlDocPtr type */
 #define Doc_val(v) (*((xmlDocPtr *)Data_custom_val(v)))
 
-static void
-doc_finalize (value docv)
-{
-  xmlDocPtr doc = Doc_val (docv);
-
-  if (doc)
-    xmlFreeDoc (doc);
-}
-
 static struct custom_operations doc_custom_operations = {
   (char *) "doc_custom_operations",
-  doc_finalize,
+  custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
   custom_deserialize_default
 };
+
+value
+v2v_xml_free_doc_ptr (value docv)
+{
+  CAMLparam1 (docv);
+  xmlDocPtr doc = Doc_val (docv);
+
+  xmlFreeDoc (doc);
+  CAMLreturn (Val_unit);
+}
 
 /* xmlXPathContextPtr type */
-#define Xpathctx_val(v) (*((xmlXPathContextPtr *)Data_custom_val(v)))
+#define Xpathctx_ptr_val(v) (*((xmlXPathContextPtr *)Data_custom_val(v)))
 
-static void
-xpathctx_finalize (value xpathctxv)
-{
-  xmlXPathContextPtr xpathctx = Xpathctx_val (xpathctxv);
-
-  if (xpathctx)
-    xmlXPathFreeContext (xpathctx);
-}
-
-static struct custom_operations xpathctx_custom_operations = {
-  (char *) "xpathctx_custom_operations",
-  xpathctx_finalize,
+static struct custom_operations xpathctx_ptr_custom_operations = {
+  (char *) "xpathctx_ptr_custom_operations",
+  custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
   custom_deserialize_default
 };
+
+value
+v2v_xml_free_xpathctx_ptr (value xpathctxv)
+{
+  CAMLparam1 (xpathctxv);
+  xmlXPathContextPtr xpathctx = Xpathctx_ptr_val (xpathctxv);
+
+  xmlXPathFreeContext (xpathctx);
+  CAMLreturn (Val_unit);
+}
 
 /* xmlXPathObjectPtr type */
-#define Xpathobj_val(v) (*((xmlXPathObjectPtr *)Data_custom_val(v)))
+#define Xpathobj_ptr_val(v) (*((xmlXPathObjectPtr *)Data_custom_val(v)))
 
-static void
-xpathobj_finalize (value xpathobjv)
-{
-  xmlXPathObjectPtr xpathobj = Xpathobj_val (xpathobjv);
-
-  if (xpathobj)
-    xmlXPathFreeObject (xpathobj);
-}
-
-static struct custom_operations xpathobj_custom_operations = {
-  (char *) "xpathobj_custom_operations",
-  xpathobj_finalize,
+static struct custom_operations xpathobj_ptr_custom_operations = {
+  (char *) "xpathobj_ptr_custom_operations",
+  custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
   custom_serialize_default,
   custom_deserialize_default
 };
+
+value
+v2v_xml_free_xpathobj_ptr (value xpathobjv)
+{
+  CAMLparam1 (xpathobjv);
+  xmlXPathObjectPtr xpathobj = Xpathobj_ptr_val (xpathobjv);
+
+  xmlXPathFreeObject (xpathobj);
+  CAMLreturn (Val_unit);
+}
 
 value
 v2v_xml_parse_memory (value xmlv)
@@ -124,7 +127,7 @@ v2v_xml_parse_memory (value xmlv)
 }
 
 value
-v2v_xml_xpath_new_context (value docv)
+v2v_xml_xpath_new_context_ptr (value docv)
 {
   CAMLparam1 (docv);
   CAMLlocal1 (xpathctxv);
@@ -136,21 +139,21 @@ v2v_xml_xpath_new_context (value docv)
   if (xpathctx == NULL)
     caml_invalid_argument ("xpath_new_context: unable to create xmlXPathNewContext");
 
-  xpathctxv = caml_alloc_custom (&xpathctx_custom_operations,
+  xpathctxv = caml_alloc_custom (&xpathctx_ptr_custom_operations,
                                  sizeof (xmlXPathContextPtr), 0, 1);
-  Xpathctx_val (xpathctxv) = xpathctx;
+  Xpathctx_ptr_val (xpathctxv) = xpathctx;
 
   CAMLreturn (xpathctxv);
 }
 
 value
-v2v_xml_xpath_register_ns (value xpathctxv, value prefix, value uri)
+v2v_xml_xpathctx_ptr_register_ns (value xpathctxv, value prefix, value uri)
 {
   CAMLparam3 (xpathctxv, prefix, uri);
   xmlXPathContextPtr xpathctx;
   int r;
 
-  xpathctx = Xpathctx_val (xpathctxv);
+  xpathctx = Xpathctx_ptr_val (xpathctxv);
   r = xmlXPathRegisterNs (xpathctx, BAD_CAST String_val (prefix), BAD_CAST String_val (uri));
   if (r == -1)
       caml_invalid_argument ("xpath_register_ns: unable to register namespace");
@@ -159,30 +162,30 @@ v2v_xml_xpath_register_ns (value xpathctxv, value prefix, value uri)
 }
 
 value
-v2v_xml_xpath_eval_expression (value xpathctxv, value exprv)
+v2v_xml_xpathctx_ptr_eval_expression (value xpathctxv, value exprv)
 {
   CAMLparam2 (xpathctxv, exprv);
   CAMLlocal1 (xpathobjv);
   xmlXPathContextPtr xpathctx;
   xmlXPathObjectPtr xpathobj;
 
-  xpathctx = Xpathctx_val (xpathctxv);
+  xpathctx = Xpathctx_ptr_val (xpathctxv);
   xpathobj = xmlXPathEvalExpression (BAD_CAST String_val (exprv), xpathctx);
   if (xpathobj == NULL)
     caml_invalid_argument ("xpath_eval_expression: unable to evaluate XPath expression");
 
-  xpathobjv = caml_alloc_custom (&xpathobj_custom_operations,
+  xpathobjv = caml_alloc_custom (&xpathobj_ptr_custom_operations,
                                  sizeof (xmlXPathObjectPtr), 0, 1);
-  Xpathobj_val (xpathobjv) = xpathobj;
+  Xpathobj_ptr_val (xpathobjv) = xpathobj;
 
   CAMLreturn (xpathobjv);
 }
 
 value
-v2v_xml_xpathobj_nr_nodes (value xpathobjv)
+v2v_xml_xpathobj_ptr_nr_nodes (value xpathobjv)
 {
   CAMLparam1 (xpathobjv);
-  xmlXPathObjectPtr xpathobj = Xpathobj_val (xpathobjv);
+  xmlXPathObjectPtr xpathobj = Xpathobj_ptr_val (xpathobjv);
 
   if (xpathobj->nodesetval == NULL)
     CAMLreturn (Val_int (0));
@@ -191,10 +194,10 @@ v2v_xml_xpathobj_nr_nodes (value xpathobjv)
 }
 
 value
-v2v_xml_xpathobj_get_node_ptr (value xpathobjv, value iv)
+v2v_xml_xpathobj_ptr_get_node_ptr (value xpathobjv, value iv)
 {
   CAMLparam2 (xpathobjv, iv);
-  xmlXPathObjectPtr xpathobj = Xpathobj_val (xpathobjv);
+  xmlXPathObjectPtr xpathobj = Xpathobj_ptr_val (xpathobjv);
   int i = Int_val (iv);
 
   if (i < 0 || i >= xpathobj->nodesetval->nodeNr)
@@ -215,7 +218,7 @@ value
 v2v_xml_xpathctx_set_node_ptr (value xpathctxv, value nodev)
 {
   CAMLparam2 (xpathctxv, nodev);
-  xmlXPathContextPtr xpathctx = Xpathctx_val (xpathctxv);
+  xmlXPathContextPtr xpathctx = Xpathctx_ptr_val (xpathctxv);
   xmlNodePtr node = (xmlNodePtr) nodev;
 
   xpathctx->node = node;

@@ -52,7 +52,7 @@ let target_features_of_capabilities_doc doc arch =
     warning ~prog (f_"the target hypervisor does not support a %s KVM guest") arch;
     []
   ) else (
-    let node (* first matching <guest> *) = Xml.xpathobj_node doc obj 0 in
+    let node (* first matching <guest> *) = Xml.xpathobj_node obj 0 in
     Xml.xpathctx_set_current_context xpathctx node;
 
     (* Get guest/features/* nodes. *)
@@ -60,7 +60,7 @@ let target_features_of_capabilities_doc doc arch =
 
     let features = ref [] in
     for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
-      let feature_node = Xml.xpathobj_node doc obj i in
+      let feature_node = Xml.xpathobj_node obj i in
       let feature_name = Xml.node_name feature_node in
       features := feature_name :: !features
     done;
@@ -355,7 +355,7 @@ class output_libvirt verbose oc output_pool = object
       let obj = Xml.xpath_eval_expression xpathctx expr in
       if Xml.xpathobj_nr_nodes obj < 1 then default
       else (
-        let node = Xml.xpathobj_node doc obj 0 in
+        let node = Xml.xpathobj_node obj 0 in
         Xml.node_as_string node
       )
     in
