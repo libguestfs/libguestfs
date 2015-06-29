@@ -371,14 +371,14 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
         b /^ 1073741824L
       in
       let size_gb = bytes_to_gb ov.ov_virtual_size in
-      let actual_size_gb =
+      let actual_size_gb, is_estimate =
         match t.target_actual_size, t.target_estimated_size with
-        | Some actual_size, _ -> Some (bytes_to_gb actual_size)
+        | Some actual_size, _ -> Some (bytes_to_gb actual_size), false
           (* In the --no-copy case the target file does not exist.  In
            * that case we use the estimated size.
            *)
-        | None, Some estimated_size -> Some (bytes_to_gb estimated_size)
-        | None, None -> None in
+        | None, Some estimated_size -> Some (bytes_to_gb estimated_size), true
+        | None, None -> None, false in
 
       let format_for_rhev =
         match t.target_format with
@@ -426,6 +426,10 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           | Some actual_size_gb ->
             ("ovf:actual_size", Int64.to_string actual_size_gb) :: attrs in
         e "Disk" attrs [] in
+      if is_estimate then (
+        let comment = Comment "note: actual_size field is estimated" in
+        append_child comment disk_section
+      );
       append_child disk disk_section;
 
       (* Add disk to VirtualHardware. *)
