@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.46\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-06-18 12:57+0100\n"
+"POT-Creation-Date: 2015-06-29 23:18+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -21,6 +21,3478 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 3.6.2\n"
+
+#: ../resize/resize.ml:912
+msgid "  An extra partition will be created for the surplus."
+msgstr ""
+
+#: ../resize/resize.ml:887 ../resize/resize.ml:857
+msgid "  The %s on %s will be expanded using the '%s' method."
+msgstr ""
+
+#: ../resize/resize.ml:914
+msgid ""
+"  The surplus space is not large enough for an extra partition to be created "
+"and so it will just be ignored."
+msgstr ""
+
+#: ../resize/resize.ml:916
+msgid ""
+"  The surplus space will be ignored.  Run a partitioning program in the "
+"guest to partition this extra space if you want."
+msgstr ""
+
+#: ../mllib/common_utils.ml:349
+msgid "%s"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:154
+#. ../customize/customize_main.ml:230
+#. ../builder/builder.ml:654
+#: ../v2v/v2v.ml:689 ../v2v/v2v.ml:539 ../sysprep/main.ml:258
+msgid "%s (ignored)"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:95
+msgid ""
+"%s does not exist or is not a directory.\n"
+"\n"
+"Most likely cause: Either the %s (%s) has not been attached to any Data "
+"Center, or the path %s is not an %s at all.\n"
+"\n"
+"You have to attach the %s to a Data Center using the RHEV-M / OVirt user "
+"interface first.\n"
+"\n"
+"If you don't know what the %s mount point should be then you can also find "
+"this out through the RHEV-M user interface."
+msgstr ""
+
+#: ../customize/customize_run.ml:192
+msgid "%s is not a regular file in the guest"
+msgstr ""
+
+#: ../v2v/cmdline.ml:95 ../v2v/cmdline.ml:50
+msgid "%s option used more than once on the command line"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1295
+msgid ""
+"%s references unknown device \"%s\".  You may have to fix this entry "
+"manually after conversion."
+msgstr ""
+
+#: ../mllib/common_utils.ml:345 ../mllib/common_utils.ml:332
+msgid "%s: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:364
+msgid "%s: %s (ignored)\n"
+msgstr ""
+
+#: ../mllib/common_utils.ml:347
+msgid "%s: %s: %s"
+msgstr ""
+
+#: ../builder/sources.ml:55
+msgid "%s: '%s' has invalid gpgkey URI\n"
+msgstr ""
+
+#: ../builder/sources.ml:65
+msgid "%s: '%s' has non-local gpgkey URI\n"
+msgstr ""
+
+#: ../builder/sources.ml:87
+msgid "%s: ... read %d sources\n"
+msgstr ""
+
+#: ../resize/resize.ml:685
+msgid ""
+"%s: This extended partition contains logical partitions which might be "
+"damaged by shrinking it.  If you want to shrink this partition, you need to "
+"use the '--resize-force' option, but that could destroy logical partitions "
+"within this partition.  (This error came from '%s' option on the command "
+"line.)"
+msgstr ""
+
+#: ../resize/resize.ml:884
+msgid "%s: This logical volume will be expanded to maximum size."
+msgstr ""
+
+#: ../resize/resize.ml:681
+msgid ""
+"%s: This partition contains a %s filesystem which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
+msgstr ""
+
+#: ../resize/resize.ml:677
+msgid ""
+"%s: This partition contains an LVM physical volume which will be damaged by "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
+"want to shrink this partition, you need to use the '--resize-force' option, "
+"but that could destroy any data on this partition.  (This error came from "
+"'%s' option on the command line.)"
+msgstr ""
+
+#: ../resize/resize.ml:674
+msgid ""
+"%s: This partition has unknown content which might be damaged by shrinking "
+"it.  If you want to shrink this partition, you need to use the '--resize-"
+"force' option, but that could destroy any data on this partition.  (This "
+"error came from '%s' option on the command line.)"
+msgstr ""
+
+#: ../resize/resize.ml:850
+msgid ""
+"%s: This partition will be created, but the contents will be ignored (ie. "
+"not copied to the target)."
+msgstr ""
+
+#: ../resize/resize.ml:852
+msgid "%s: This partition will be deleted."
+msgstr ""
+
+#: ../resize/resize.ml:848
+msgid "%s: This partition will be left alone."
+msgstr ""
+
+#: ../resize/resize.ml:854
+msgid "%s: This partition will be resized from %s to %s."
+msgstr ""
+
+#: ../builder/cmdline.ml:170
+msgid ""
+"%s: build virtual machine images quickly\n"
+"\n"
+" virt-builder OS-VERSION\n"
+" virt-builder -l\n"
+" virt-builder --notes OS-VERSION\n"
+" virt-builder --print-cache\n"
+" virt-builder --cache-all-templates\n"
+" virt-builder --delete-cache\n"
+" virt-builder --get-kernel IMAGE\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-builder(1).\n"
+msgstr ""
+
+#: ../v2v/utils.ml:187
+msgid "%s: cannot open virtio-win ISO file: %s"
+msgstr ""
+
+#: ../builder/index_parser.ml:225
+msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:250
+msgid "%s: cannot parse 'hidden' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:206
+msgid "%s: cannot parse 'revision' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:217
+msgid "%s: cannot parse 'size' field for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:295
+msgid "%s: cannot use a URI ('%s') in the index file\n"
+msgstr ""
+
+#: ../customize/customize_run.ml:83
+msgid "%s: command exited with an error"
+msgstr ""
+
+#: ../v2v/cmdline.ml:189
+msgid ""
+"%s: convert a guest to use KVM\n"
+"\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported "
+"esx_guest\n"
+"\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -"
+"os rhev.nfs:/export_domain --network rhevm\n"
+"\n"
+" virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
+"\n"
+" virt-v2v -i disk disk.img -o local -os /var/tmp\n"
+"\n"
+" virt-v2v -i disk disk.img -o glance\n"
+"\n"
+"There is a companion front-end called \"virt-p2v\" which comes as an\n"
+"ISO or CD image that can be booted on physical machines.\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-v2v(1).\n"
+msgstr ""
+
+#: ../customize/customize_main.ml:122
+msgid ""
+"%s: customize a virtual machine\n"
+"\n"
+" virt-customize [--options] -d domname\n"
+"\n"
+" virt-customize [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-customize(1).\n"
+msgstr ""
+
+#: ../mllib/common_utils.ml:304
+msgid "%s: error: %s"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:82
+msgid ""
+"%s: extract kernel and ramdisk from a guest\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-get-kernel(1).\n"
+msgstr ""
+
+#: ../builder/sources.ml:130
+msgid "%s: file error: %s: %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:405 ../resize/resize.ml:402
+msgid "%s: file is too small to be a disk image (%Ld bytes)"
+msgstr ""
+
+#: ../builder/index_parser.ml:167
+msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:165
+msgid "%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:149
+msgid ""
+"%s: index is corrupt: os-version '%s' with architecture '%s' appears two or "
+"more times\n"
+msgstr ""
+
+#: ../builder/sources.ml:135
+msgid "%s: internal error: invalid argument: %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:832
+msgid ""
+"%s: logical volume not found in the source disk image (this error came from "
+"'--lv-expand' option on the command line).  Try running this command: virt-"
+"filesystems --logical-volumes --long -a %s"
+msgstr ""
+
+#: ../resize/resize.ml:703
+msgid "%s: missing size field in '%s' option"
+msgstr ""
+
+#: ../resize/resize.ml:712
+msgid "%s: new partition size is zero or negative"
+msgstr ""
+
+#: ../builder/index_parser.ml:191
+msgid "%s: no 'arch' entry for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:186
+msgid "%s: no 'file' (URI) entry for '%s'\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:214
+msgid "%s: no 'size' field for '%s'\n"
+msgstr ""
+
+#: ../builder/sources.ml:47
+msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
+msgstr ""
+
+#: ../resize/resize.ml:625
+msgid "%s: partition already deleted, you cannot use it in '%s' option"
+msgstr ""
+
+#: ../resize/resize.ml:621
+msgid "%s: partition already ignored, you cannot use it in '%s' option"
+msgstr ""
+
+#: ../resize/resize.ml:617
+msgid ""
+"%s: partition not found in the source disk image (this error came from '%s' "
+"option on the command line).  Try running this command: virt-filesystems --"
+"partitions --long -a %s"
+msgstr ""
+
+#: ../resize/resize.ml:519
+msgid "%s: partition size %Ld < filesystem size %Ld"
+msgstr ""
+
+#: ../resize/resize.ml:514
+msgid "%s: partition size %Ld < physical volume size %Ld"
+msgstr ""
+
+#: ../resize/resize.ml:431
+msgid "%s: physical volume not returned by pvs_full"
+msgstr ""
+
+#: ../sysprep/main.ml:159
+msgid ""
+"%s: reset or unconfigure a virtual machine so clones can be made\n"
+"\n"
+" virt-sysprep [--options] -d domname\n"
+"\n"
+" virt-sysprep [--options] -a disk.img [-a disk.img ...]\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-sysprep(1).\n"
+msgstr ""
+
+#: ../resize/resize.ml:235
+msgid ""
+"%s: resize a virtual machine disk\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-resize(1).\n"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:87
+msgid ""
+"%s: sparsify a virtual machine disk\n"
+"\n"
+" virt-sparsify [--options] indisk outdisk\n"
+"\n"
+" virt-sparsify [--options] --in-place disk\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-sparsify(1).\n"
+msgstr ""
+
+#: ../resize/resize.ml:659
+msgid "%s: this partition has already been ignored or deleted"
+msgstr ""
+
+#: ../resize/resize.ml:655
+msgid "%s: this partition has already been marked for resizing"
+msgstr ""
+
+#: ../resize/resize.ml:529
+msgid "%s: this partition overlaps the previous one"
+msgstr ""
+
+#: ../builder/sources.ml:36
+msgid "%s: trying to read %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:417
+msgid ""
+"%s: unknown partition table type\n"
+"virt-resize only supports MBR (DOS) and GPT partition tables."
+msgstr ""
+
+#: ../v2v/input_ova.ml:102 ../v2v/input_ova.ml:99
+msgid ""
+"%s: unsupported file format\n"
+"\n"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
+"compress with gzip or xz), zip"
+msgstr ""
+
+#: ../mllib/common_utils.ml:322
+msgid "%s: warning: %s"
+msgstr ""
+
+#: ../builder/index_parser.ml:299
+msgid "%s: you must use relative paths (not '%s') in the index file\n"
+msgstr ""
+
+#: ../builder/index_parser.ml:291
+msgid "%s: zero length path in the index file\n"
+msgstr ""
+
+#: ../customize/firstboot.ml:193
+msgid ""
+"'%s' is missing.  This file is required in order to install Windows "
+"firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
+"rwmjones/rhsrvany).  Original error: %s"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:66
+msgid ""
+"'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
+"error: %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:293 ../customize/customize_cmdline.ml:208
+msgid "'CMD+ARGS'"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:40
+msgid "--add option can only be given once"
+msgstr ""
+
+#: ../customize/customize_main.ml:139
+msgid "--attach-format parameter must appear before --attach parameter"
+msgstr ""
+
+#: ../builder/cmdline.ml:254
+msgid ""
+"--cache-all-templates/--print-cache/--delete-cache does not need any extra "
+"arguments"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:44
+msgid "--check-tmpdir: unknown argument `%s'"
+msgstr ""
+
+#: ../sparsify/copying.ml:70
+msgid ""
+"--compress cannot be used for raw output.  Remove this option or use --"
+"convert qcow2."
+msgstr ""
+
+#. ../customize/customize_main.ml:70
+#: ../sysprep/main.ml:63 ../get-kernel/get_kernel.ml:48
+msgid "--domain option can only be given once"
+msgstr ""
+
+#: ../sysprep/main.ml:73
+msgid "--enable option can only be given once"
+msgstr ""
+
+#: ../sysprep/main.ml:81
+msgid "--enable: '%s' is not a known operation"
+msgstr ""
+
+#: ../resize/resize.ml:171
+msgid "--expand option given twice"
+msgstr ""
+
+#: ../sysprep/main.ml:173 ../customize/customize_main.ml:136
+msgid "--format parameter must appear before -a parameter"
+msgstr ""
+
+#: ../builder/cmdline.ml:262
+msgid "--get-kernel: too many parameters"
+msgstr ""
+
+#: ../customize/customize_run.ml:111
+msgid "--install is not supported for this guest operating system"
+msgstr ""
+
+#: ../builder/cmdline.ml:238
+msgid "--list option does not need any extra arguments"
+msgstr ""
+
+#: ../builder/cmdline.ml:234
+msgid "--list: use '--list-format', not '--format'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:320
+msgid "--no-copy and '-o glance' cannot be used at the same time"
+msgstr ""
+
+#: ../v2v/cmdline.ml:332
+msgid "--no-copy and '-o libvirt' cannot be used at the same time"
+msgstr ""
+
+#: ../v2v/cmdline.ml:87
+msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:85
+msgid "--no-trim: empty parameter"
+msgstr ""
+
+#: ../builder/cmdline.ml:246
+msgid "--notes: too many parameters, expecting 'os-version'"
+msgstr ""
+
+#: ../sysprep/main.ml:111
+msgid "--operations: '%s' is not a known operation"
+msgstr ""
+
+#: ../sysprep/main.ml:100
+msgid "--operations: empty operation name"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:54
+msgid ""
+"--password-file parameter ignored because 'user@' was not given in the URL"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:52
+msgid "--prefix option can only be given once"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:32
+msgid "--scriptdir cannot be used more than once"
+msgstr ""
+
+#: ../resize/resize.ml:187
+msgid "--shrink option given twice"
+msgstr ""
+
+#: ../sparsify/copying.ml:92
+msgid ""
+"--tmp parameter must point to a directory, block device or prebuilt file"
+msgstr ""
+
+#: ../sparsify/copying.ml:81
+msgid "--tmp prebuilt:file: %s: file does not exist"
+msgstr ""
+
+#: ../sparsify/copying.ml:88
+msgid "--tmp prebuilt:file: %s: file does not have backing file"
+msgstr ""
+
+#: ../sparsify/copying.ml:86
+msgid "--tmp prebuilt:file: %s: file format is not qcow2"
+msgstr ""
+
+#: ../customize/customize_run.ml:138
+msgid "--update is not supported for this guest operating system"
+msgstr ""
+
+#: ../v2v/cmdline.ml:318
+msgid "--vmtype option cannot be used with '-o glance'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:330
+msgid "--vmtype option cannot be used with '-o libvirt'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:344
+msgid "--vmtype option cannot be used with '-o local'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:355
+msgid "--vmtype option cannot be used with '-o null'"
+msgstr ""
+
+#: ../v2v/input_disk.ml:49
+msgid "-i disk: invalid input filename (%s)"
+msgstr ""
+
+#: ../v2v/cmdline.ml:316
+msgid "-o glance: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:312
+msgid "-o glance: -oc option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:314
+msgid "-o glance: -os option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:328
+msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:369
+msgid ""
+"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
+"element either does not exist or is not a local directory.  See virt-v2v(1) "
+"section \"OUTPUT TO LIBVIRT\""
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:366
+msgid ""
+"-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
+"v2v(1) section \"OUTPUT TO LIBVIRT\""
+msgstr ""
+
+#: ../v2v/cmdline.ml:342
+msgid "-o local: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:337
+msgid "-o local: output directory was not specified, use '-os /dir'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:353
+msgid "-o null: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:349
+msgid "-o null: -oc option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:351
+msgid "-o null: -os option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:368
+msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:366
+msgid "-o rhev: output storage was not specified, use '-os'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:375
+msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
+msgstr ""
+
+#: ../v2v/cmdline.ml:377
+msgid ""
+"-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not "
+"specified"
+msgstr ""
+
+#: ../v2v/cmdline.ml:373
+msgid "-o vdsm: output storage was not specified, use '-os'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:360 ../v2v/cmdline.ml:339
+msgid "-os %s: output directory does not exist or is not a directory"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:270
+msgid "<disk type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:236
+msgid "<disk type='network'> with <source protocol='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:267
+msgid "<disk type='volume'> with <volume type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:230
+msgid "<disk type=network> was ignored"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:118
+msgid "<listen type='%s'> in the input libvirt XML was ignored"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:57
+#. ../customize/customize_main.ml:76
+#. ../customize/customize_main.ml:75
+#: ../sysprep/main.ml:121 ../sysprep/main.ml:120
+#: ../get-kernel/get_kernel.ml:58
+msgid "Add disk image file"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:234
+msgid "Add package(s) to install"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:218
+msgid "Add package(s) to install at first boot"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:71
+msgid "Add qemu-img options"
+msgstr ""
+
+#: ../builder/list_entries.ml:85
+msgid "Aliases:"
+msgstr ""
+
+#: ../resize/resize.ml:194
+msgid "Align first partition (default: auto)"
+msgstr ""
+
+#: ../builder/list_entries.ml:76
+msgid "Architecture:"
+msgstr ""
+
+#: ../customize/customize_main.ml:77 ../builder/cmdline.ml:98
+msgid "Attach data disk/ISO during install"
+msgstr ""
+
+#: ../sparsify/copying.ml:344
+msgid ""
+"Before deleting the old disk, carefully check that the target disk boots and "
+"works correctly."
+msgstr ""
+
+#: ../v2v/cmdline.ml:165
+msgid "Boot in qemu (-o qemu only)"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:104
+msgid ""
+"By default remove all the user accounts and their home directories.\n"
+"The \"root\" account is not removed.\n"
+"\n"
+"See the I<--remove-user-accounts> parameter for a way to specify\n"
+"how to remove only some users, or to not remove some others."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:82
+msgid "Cannot get the home directory for %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_lvm_uuids.ml:44
+msgid "Change LVM2 PV and VG UUIDs"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:46
+msgid "Change filesystem UUIDs"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:150
+msgid "Change the permissions of a file"
+msgstr ""
+
+#: ../customize/customize_run.ml:160
+msgid "Changing permissions of %s to %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:108 ../builder/cmdline.ml:106
+msgid "Check digital signatures"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:60
+msgid "Check there is enough space in $TMPDIR"
+msgstr ""
+
+#: ../v2v/v2v.ml:259
+msgid "Checking for sufficient free disk space in the guest"
+msgstr ""
+
+#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:273
+msgid "Clearing Linux swap on %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:309
+msgid "Closing the overlay"
+msgstr ""
+
+#: ../sysprep/main.ml:139
+msgid "Compatibility option, does nothing"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:61
+msgid "Compressed output format"
+msgstr ""
+
+#: ../builder/builder.ml:601
+msgid "Converting %s to %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:274
+msgid "Converting %s to run on KVM"
+msgstr ""
+
+#: ../v2v/v2v.ml:272
+msgid "Converting the guest to run on KVM"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:170
+msgid "Copy files in disk image"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:180
+msgid "Copy local files or directories into image"
+msgstr ""
+
+#: ../builder/builder.ml:531
+msgid "Copying"
+msgstr ""
+
+#: ../resize/resize.ml:1168
+msgid "Copying %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:177
+msgid "Copying (in image): %s to %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:338
+msgid "Copying disk %d/%d to %s (%s)"
+msgstr ""
+
+#: ../customize/customize_run.ml:181
+msgid "Copying: %s to %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:250
+msgid "Create a directory"
+msgstr ""
+
+#: ../sparsify/copying.ml:149
+msgid "Create overlay device %s to protect source disk"
+msgstr ""
+
+#: ../sparsify/copying.ml:147
+msgid "Create overlay file in %s to protect source disk"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:244
+msgid "Create symbolic links"
+msgstr ""
+
+#: ../v2v/v2v.ml:127
+msgid "Creating an overlay to protect the source from being modified"
+msgstr ""
+
+#: ../v2v/v2v.ml:441
+msgid "Creating output metadata"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:42
+msgid ""
+"Currently this only looks in C</root> and C</home/*> for\n"
+"home directories, so users with home directories in other\n"
+"locations won't have the bash history removed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:42
+msgid ""
+"Currently this only looks in C</root> and C</home/*> for\n"
+"home directories, so users with home directories in other\n"
+"locations won't have the ssh files removed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_customize.ml:43
+msgid "Customize the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_customize.ml:44
+msgid ""
+"Customize the guest by providing L<virt-customize(1)> options\n"
+"for installing packages, editing files and so on."
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:250
+msgid "DIR"
+msgstr ""
+
+#: ../v2v/cmdline.ml:141 ../sparsify/cmdline.ml:63 ../resize/resize.ml:199
+msgid "Debug GC and memory allocations"
+msgstr ""
+
+#: ../sysprep/main.ml:124 ../customize/customize_main.ml:82
+msgid "Debug GC and memory allocations (internal)"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:186
+msgid "Delete a file or directory"
+msgstr ""
+
+#: ../resize/resize.ml:200
+msgid "Delete partition"
+msgstr ""
+
+#: ../builder/cmdline.ml:115
+msgid "Delete the template cache"
+msgstr ""
+
+#: ../customize/customize_run.ml:185 ../builder/builder.ml:111
+msgid "Deleting: %s"
+msgstr ""
+
+#: ../customize/customize_main.ml:94 ../builder/cmdline.ml:135
+msgid "Disable appliance network"
+msgstr ""
+
+#: ../builder/cmdline.ml:112 ../builder/cmdline.ml:110
+msgid "Disable digital signatures"
+msgstr ""
+
+#: ../builder/cmdline.ml:102
+msgid "Disable template cache"
+msgstr ""
+
+#: ../sparsify/in_place.ml:137
+msgid "Discard space in volgroup %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:136
+msgid "Display installation notes"
+msgstr ""
+
+#. ../sparsify/cmdline.ml:78
+#. ../resize/resize.ml:227
+#. ../get-kernel/get_kernel.ml:75
+#. ../customize/customize_main.ml:103
+#. ../customize/customize_main.ml:101
+#. ../builder/cmdline.ml:151
+#. ../builder/cmdline.ml:149
+#: ../v2v/cmdline.ml:180 ../sysprep/main.ml:149 ../sysprep/main.ml:147
+msgid "Display version and exit"
+msgstr ""
+
+#: ../builder/cmdline.ml:145
+msgid "Do not fsync output file on exit"
+msgstr ""
+
+#: ../resize/resize.ml:196
+msgid "Don't copy boot loader"
+msgstr ""
+
+#: ../resize/resize.ml:203
+msgid "Don't create extra partition"
+msgstr ""
+
+#: ../builder/cmdline.ml:117
+msgid "Don't delete output file on failure"
+msgstr ""
+
+#: ../resize/resize.ml:202
+msgid "Don't expand content"
+msgstr ""
+
+#: ../resize/resize.ml:213
+msgid "Don't perform changes"
+msgstr ""
+
+#. ../customize/customize_main.ml:96
+#. ../customize/customize_main.ml:95
+#: ../sysprep/main.ml:143 ../sysprep/main.ml:142
+msgid "Don't print log messages"
+msgstr ""
+
+#: ../resize/resize.ml:218
+msgid "Don't print the summary"
+msgstr ""
+
+#: ../v2v/cmdline.ml:156
+msgid "Don't trim selected mounts"
+msgstr ""
+
+#: ../builder/cmdline.ml:104
+msgid "Download all templates to the cache"
+msgstr ""
+
+#: ../builder/list_entries.ml:81
+msgid "Download size:"
+msgstr ""
+
+#: ../builder/builder.ml:270 ../builder/builder.ml:212
+msgid "Downloading: %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:475
+msgid ""
+"Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
+"that contains the main operating system from the list below:\n"
+msgstr ""
+
+#: ../sysprep/main.ml:130
+msgid "Dump POD (internal)"
+msgstr ""
+
+#: ../sysprep/main.ml:131
+msgid "Dump POD for options (internal)"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:196
+msgid "Edit file using Perl expression"
+msgstr ""
+
+#: ../customize/customize_run.ml:189
+msgid "Editing: %s"
+msgstr ""
+
+#: ../customize/customize_main.ml:93 ../builder/cmdline.ml:134
+msgid "Enable appliance network (default)"
+msgstr ""
+
+#. ../sparsify/cmdline.ml:75
+#. ../resize/resize.ml:224
+#. ../resize/resize.ml:197
+#. ../get-kernel/get_kernel.ml:72
+#. ../customize/customize_main.ml:99
+#. ../customize/customize_main.ml:98
+#. ../builder/cmdline.ml:147
+#. ../builder/cmdline.ml:146
+#: ../v2v/cmdline.ml:177 ../sysprep/main.ml:145 ../sysprep/main.ml:144
+msgid "Enable debugging messages"
+msgstr ""
+
+#: ../sysprep/main.ml:132
+msgid "Enable specific operations"
+msgstr ""
+
+#. ../resize/resize.ml:229
+#. ../get-kernel/get_kernel.ml:77
+#. ../customize/customize_main.ml:104
+#. ../builder/cmdline.ml:152
+#: ../v2v/cmdline.ml:183 ../sysprep/main.ml:150 ../sparsify/cmdline.ml:80
+msgid "Enable tracing of libguestfs calls"
+msgstr ""
+
+#: ../sysprep/main.ml:141 ../sysprep/main.ml:140
+msgid "Enable/disable specific operations"
+msgstr ""
+
+#: ../v2v/v2v.ml:488
+msgid "Enter a number between 1 and %d, or 'exit': "
+msgstr ""
+
+#: ../v2v/v2v.ml:263
+msgid "Estimating space required on target for each disk"
+msgstr ""
+
+#: ../sparsify/copying.ml:179
+msgid "Examine source disk"
+msgstr ""
+
+#: ../resize/resize.ml:367
+msgid "Examining %s"
+msgstr ""
+
+#: ../sysprep/main.ml:228 ../customize/customize_main.ml:185
+msgid "Examining the guest ..."
+msgstr ""
+
+#: ../resize/resize.ml:208
+msgid "Expand logical volume"
+msgstr ""
+
+#: ../resize/resize.ml:201
+msgid "Expand partition"
+msgstr ""
+
+#: ../resize/resize.ml:1342
+msgid "Expanding %s using the '%s' method"
+msgstr ""
+
+#: ../resize/resize.ml:1323
+msgid "Expanding %s%s using the '%s' method"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:166
+msgid "Export Storage Domain"
+msgstr ""
+
+#. ../customize/customize_cmdline.ml:299
+#: ../customize/customize_cmdline.ml:334 ../customize/customize_cmdline.ml:316
+msgid "FILE"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:360
+msgid "FILE:CONTENT"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:350
+msgid "FILE:DEST"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:196
+msgid "FILE:EXPR"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:160
+msgid "FILENAME"
+msgstr ""
+
+#: ../resize/resize.ml:970
+msgid ""
+"Failed to initialize the partition table on the target disk.  You need to "
+"wipe or recreate the target disk and then run virt-resize again.\n"
+"\n"
+"The underlying error was: %s"
+msgstr ""
+
+#: ../sparsify/copying.ml:258
+msgid "Fill free space in %s with zero"
+msgstr ""
+
+#: ../sparsify/copying.ml:306
+msgid "Fill free space in volgroup %s with zero"
+msgstr ""
+
+#: ../builder/cmdline.ml:119
+msgid "Fingerprint of valid signing key"
+msgstr ""
+
+#: ../builder/list_entries.ml:55
+msgid "Fingerprint: %s\n"
+msgstr ""
+
+#: ../v2v/v2v.ml:455 ../customize/customize_main.ml:240
+#: ../builder/builder.ml:703
+msgid "Finishing off"
+msgstr ""
+
+#: ../resize/resize.ml:1241
+msgid "Fixing first NTFS partition boot record"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:35
+msgid "Flag the system for reconfiguration"
+msgstr ""
+
+#. ../sysprep/sysprep_operation_net_hostname.ml:50
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:50
+msgid ""
+"For Fedora and Red Hat Enterprise Linux,\n"
+"this is removed from C<ifcfg-*> files."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_flag_reconfiguration.ml:36
+msgid ""
+"For Linux guests, this touches C</.unconfigured>, which causes\n"
+"the first boot to interactively query the user for settings such\n"
+"as the root password and timezone."
+msgstr ""
+
+#: ../resize/resize.ml:216
+msgid "Force ntfsresize"
+msgstr ""
+
+#: ../resize/resize.ml:221
+msgid "Forcefully resize partition"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:63
+#: ../sparsify/cmdline.ml:64 ../resize/resize.ml:204
+msgid "Format of input disk"
+msgstr ""
+
+#: ../resize/resize.ml:217
+msgid "Format of output disk"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:62
+msgid "Format of output disk (default: same as input)"
+msgstr ""
+
+#: ../builder/builder.ml:693
+msgid "Free space"
+msgstr ""
+
+#: ../builder/list_entries.ml:74
+msgid "Full name:"
+msgstr ""
+
+#: ../builder/sigchecker.ml:87
+msgid ""
+"GPG failure: could not run GPG the first time\n"
+"Use the '-v' option and look for earlier error messages."
+msgstr ""
+
+#: ../builder/sigchecker.ml:64
+msgid ""
+"GPG failure: could not trust the imported key\n"
+"Use the '-v' option and look for earlier error messages."
+msgstr ""
+
+#: ../builder/sigchecker.ml:165
+msgid ""
+"GPG failure: could not verify digital signature of file\n"
+"Try:\n"
+" - Use the '-v' option and look for earlier error messages.\n"
+" - Delete the cache: virt-builder --delete-cache\n"
+" - Check no one has tampered with the website or your network!"
+msgstr ""
+
+#: ../builder/cmdline.ml:122
+msgid "Get kernel from image"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:224
+msgid "HOSTNAME"
+msgstr ""
+
+#: ../v2v/cmdline.ml:168
+msgid "How to choose root filesystem"
+msgstr ""
+
+#: ../mllib/common_utils.ml:309
+msgid ""
+"If reporting bugs, run %s with debugging enabled and include the complete "
+"output:\n"
+"\n"
+"  %s -v -x [...]"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:65
+msgid "Ignore filesystem"
+msgstr ""
+
+#: ../resize/resize.ml:205
+msgid "Ignore partition"
+msgstr ""
+
+#: ../v2v/v2v.ml:187
+msgid "Initializing the target %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:310
+msgid "Inject a public key into the guest"
+msgstr ""
+
+#: ../v2v/cmdline.ml:149
+msgid "Input format (for -i disk)"
+msgstr ""
+
+#: ../v2v/v2v.ml:221
+msgid "Inspecting the overlay"
+msgstr ""
+
+#: ../customize/customize_run.ml:197
+msgid "Installing firstboot command: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:201
+msgid "Installing firstboot packages: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:208
+msgid "Installing firstboot script: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:218
+msgid "Installing packages: %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:155
+msgid "Just write the metadata"
+msgstr ""
+
+#: ../builder/list_entries.ml:57
+msgid "Key: %s\n"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:180
+msgid "LOCALPATH:REMOTEDIR"
+msgstr ""
+
+#: ../v2v/cmdline.ml:159 ../v2v/cmdline.ml:147
+msgid "Libvirt URI"
+msgstr ""
+
+#: ../customize/customize_run.ml:225
+msgid "Linking: %s -> %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:125 ../builder/cmdline.ml:124
+msgid "List available templates"
+msgstr ""
+
+#. ../resize/resize.ml:207
+#. ../get-kernel/get_kernel.ml:65
+#. ../customize/customize_main.ml:89
+#. ../builder/cmdline.ml:130
+#: ../v2v/cmdline.ml:151 ../sysprep/main.ml:136 ../sparsify/cmdline.ml:69
+msgid "List long options"
+msgstr ""
+
+#. ../resize/resize.ml:206
+#. ../get-kernel/get_kernel.ml:64
+#. ../customize/customize_main.ml:90
+#. ../builder/cmdline.ml:129
+#: ../v2v/cmdline.ml:150 ../sysprep/main.ml:135 ../sparsify/cmdline.ml:68
+msgid "List short options"
+msgstr ""
+
+#: ../sysprep/main.ml:134
+msgid "List supported operations"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:66
+#. ../builder/cmdline.ml:131
+#: ../v2v/cmdline.ml:152 ../sparsify/cmdline.ml:70 ../resize/resize.ml:212
+msgid "Make output machine readable"
+msgstr ""
+
+#: ../customize/customize_run.ml:230
+msgid "Making directory: %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:139
+msgid "Map bridge 'in' to 'out'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:153
+msgid "Map network 'in' to 'out'"
+msgstr ""
+
+#: ../v2v/v2v.ml:305
+msgid "Mapping filesystem data to avoid copying unused and blank areas"
+msgstr ""
+
+#: ../builder/list_entries.ml:77
+msgid "Minimum/default size:"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:66
+msgid "Modify the disk image in-place"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:132
+msgid "Mount point on host"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:260
+msgid "Move files in disk image"
+msgstr ""
+
+#: ../customize/customize_run.ml:234
+msgid "Moving: %s -> %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:141
+msgid "No progress messages"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:197
+msgid "Notes on %s"
+msgstr ""
+
+#: ../builder/list_entries.ml:92
+msgid ""
+"Notes:\n"
+"\n"
+"%s\n"
+msgstr ""
+
+#: ../v2v/output_vdsm.ml:113
+msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_lvm_uuids.ml:45
+msgid ""
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
+"(VGs),\n"
+"new random UUIDs are generated and assigned to those PVs and VGs."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_logfiles.ml:147
+msgid ""
+"On Linux the following files are removed:\n"
+"\n"
+"%s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:47
+msgid ""
+"On guests and filesystem types where this is supported,\n"
+"new random UUIDs are generated and assigned to filesystems."
+msgstr ""
+
+#: ../builder/builder.ml:614
+msgid "Opening the new disk"
+msgstr ""
+
+#: ../v2v/v2v.ml:155
+msgid "Opening the overlay"
+msgstr ""
+
+#: ../v2v/v2v.ml:58
+msgid "Opening the source %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:176
+msgid "Output OVF file"
+msgstr ""
+
+#: ../v2v/cmdline.ml:174
+msgid "Output VM UUID"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:67
+msgid "Output directory"
+msgstr ""
+
+#: ../builder/builder.ml:688
+msgid "Output file"
+msgstr ""
+
+#: ../builder/builder.ml:690
+msgid "Output format"
+msgstr ""
+
+#: ../builder/cmdline.ml:120
+msgid "Output format (default: raw)"
+msgstr ""
+
+#: ../v2v/cmdline.ml:170
+msgid "Output image UUID(s)"
+msgstr ""
+
+#: ../builder/builder.ml:689
+msgid "Output size"
+msgstr ""
+
+#: ../v2v/cmdline.ml:172
+msgid "Output vol UUID(s)"
+msgstr ""
+
+#: ../v2v/v2v.ml:451
+msgid "Overlay saved as %s [--debug-overlays]\n"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:322 ../customize/customize_cmdline.ml:186
+msgid "PATH"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:150
+msgid "PERMISSIONS:FILE"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:234 ../customize/customize_cmdline.ml:218
+msgid "PKG,PKG.."
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:158
+msgid "POD for %s must not end with newline"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:167
+msgid "POD notes for %s must not end with newline"
+msgstr ""
+
+#. ../customize/customize_main.ml:87
+#. ../customize/customize_main.ml:86
+#. ../customize/customize_main.ml:85
+#: ../sysprep/main.ml:129 ../sysprep/main.ml:128 ../sysprep/main.ml:127
+msgid "Perform a dry run"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:309 ../sysprep/sysprep_operation.ml:288
+msgid "Performing %S ..."
+msgstr ""
+
+#: ../v2v/v2v.ml:515
+msgid "Picked %s because '--root %s' was used."
+msgstr ""
+
+#: ../v2v/v2v.ml:506
+msgid "Picked %s because '--root first' was used."
+msgstr ""
+
+#: ../builder/builder.ml:468
+msgid "Planning how to build this image"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:71
+msgid "Prefix for files"
+msgstr ""
+
+#: ../builder/cmdline.ml:140
+msgid "Print info about template cache"
+msgstr ""
+
+#: ../v2v/cmdline.ml:164
+msgid "Print source and stop"
+msgstr ""
+
+#: ../v2v/cmdline.ml:166 ../sparsify/cmdline.ml:72
+msgid "Quiet output"
+msgstr ""
+
+#: ../v2v/OVF.ml:390 ../v2v/OVF.ml:211
+msgid "RHEV does not support the output format '%s', only raw or qcow2"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:160
+msgid "Read customize commands from file"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:322
+msgid "Recursively truncate all files in directory"
+msgstr ""
+
+#: ../customize/customize_run.ml:265
+msgid "Recursively truncating: %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:381
+msgid "Relabel files with correct SELinux labels"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:38
+msgid "Remove \".ssh\" directories in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ca_certificates.ml:51
+msgid "Remove CA certificates in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_dhcp_client_state.ml:36
+msgid "Remove DHCP client leases"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_dhcp_server_state.ml:31
+msgid "Remove DHCP server leases"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_dovecot_data.ml:37
+msgid "Remove Dovecot (mail server) data"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_net_hostname.ml:49
+msgid "Remove HOSTNAME in network interface configuration"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_net_hwaddr.ml:49
+msgid "Remove HWADDR (hard-coded MAC address) configuration"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_kerberos_data.ml:44
+msgid "Remove Kerberos data in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_blkid_tab.ml:47
+msgid "Remove blkid tab in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_mail_spool.ml:36
+msgid "Remove email from the local mail spool directory"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rpm_db.ml:39
+msgid "Remove host-specific RPM database files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rpm_db.ml:40
+msgid ""
+"Remove host-specific RPM database files and locks.  RPM will\n"
+"recreate these files automatically if needed."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_logfiles.ml:145
+msgid "Remove many log files from the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_package_manager_cache.ml:46
+msgid "Remove package manager cache"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_tmp_files.ml:50
+msgid "Remove temporary files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_userdir.ml:39
+msgid ""
+"Remove the C<.ssh> directory of user \"root\" and any other\n"
+"users who have a C<.ssh> directory in their home directory."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_pam_data.ml:44
+msgid "Remove the PAM data in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rh_subscription_manager.ml:38
+msgid "Remove the RH subscription manager files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_rhn_systemid.ml:38
+msgid "Remove the RHN system ID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:35
+msgid "Remove the SSH host keys in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_smolt_uuid.ml:39
+msgid "Remove the Smolt hardware UUID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_abrt_data.ml:38
+msgid ""
+"Remove the automatically generated ABRT crash data in\n"
+"C</var/spool/abrt/>."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_crash_data.ml:40
+msgid "Remove the automatically generated kdump kernel crash data."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:38
+msgid "Remove the bash history in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_bash_history.ml:39
+msgid ""
+"Remove the bash history of user \"root\" and any other users\n"
+"who have a C<.bash_history> file in their home directory."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_abrt_data.ml:37
+msgid "Remove the crash data generated by ABRT"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_crash_data.ml:39
+msgid "Remove the crash data generated by kexec-tools"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_puppet_data_log.ml:44
+msgid "Remove the data and log files of puppet"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_samba_db_log.ml:45
+msgid "Remove the database and log files of Samba"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_sssd_db_log.ml:43
+msgid "Remove the database and log files of sssd"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firewall_rules.ml:44
+msgid "Remove the firewall rules"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_machine_id.ml:39
+msgid "Remove the local machine ID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_pacct_log.ml:56
+msgid "Remove the process accounting log files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:103
+msgid "Remove the user accounts in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_utmp.ml:35
+msgid "Remove the utmp file"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_yum_uuid.ml:34
+msgid "Remove the yum UUID"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:35
+msgid "Remove udev persistent net rules"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_udev_persistent_net.ml:36
+msgid ""
+"Remove udev persistent net rules which map the guest's existing MAC\n"
+"address to a fixed ethernet device (eg. eth0).\n"
+"\n"
+"After a guest is cloned, the MAC address usually changes.  Since the\n"
+"old MAC address occupies the old name (eg. eth0), this means the fresh\n"
+"MAC address is assigned to a new name (eg. eth1) and this is usually\n"
+"undesirable.  Erasing the udev persistent net rules avoids this."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_cron_spool.ml:39
+msgid "Remove user at-jobs and cron-jobs"
+msgstr ""
+
+#: ../v2v/cmdline.ml:161
+msgid "Rename guest when converting"
+msgstr ""
+
+#: ../resize/resize.ml:1368
+msgid ""
+"Resize operation completed with no errors.  Before deleting the old disk, "
+"carefully check that the resized disk boots and works correctly.\n"
+msgstr ""
+
+#: ../resize/resize.ml:220
+msgid "Resize partition"
+msgstr ""
+
+#: ../builder/builder.ml:558
+msgid "Resizing (using virt-resize) to expand the disk to %s"
+msgstr ""
+
+#: ../builder/builder.ml:588
+msgid "Resizing container (but not filesystems) to expand the disk to %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:107
+msgid "Run arbitrary scripts against the guest"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:208
+msgid "Run command at first guest boot"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:293
+msgid "Run command in disk image"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:202
+msgid "Run script at first guest boot"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:287
+msgid "Run script in disk image"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:147
+msgid ""
+"Run the named C<SCRIPT> (a shell script or program) against the\n"
+"guest.  The script can be any program on the host.  The script's\n"
+"current directory will be the guest's root directory.\n"
+"\n"
+"B<Note:> If the script is not on the $PATH, then you must give\n"
+"the full absolute path to the script."
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:334
+msgid "Run touch on a file"
+msgstr ""
+
+#: ../customize/customize_run.ml:274
+msgid "Running touch: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:244 ../customize/customize_run.ml:168
+msgid "Running: %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:287 ../customize/customize_cmdline.ml:202
+msgid "SCRIPT"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:281
+msgid "SELECTOR"
+msgstr ""
+
+#: ../customize/customize_run.ml:325
+msgid "SELinux relabelling"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:260 ../customize/customize_cmdline.ml:170
+msgid "SOURCE:DEST"
+msgstr ""
+
+#: ../customize/customize_run.ml:258
+msgid "SSH key could be injected for this type of guest"
+msgstr ""
+
+#: ../customize/customize_run.ml:255
+msgid "SSH key inject: %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:143
+msgid "Save overlay files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:145
+msgid "Script or program to run on guest"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:299
+msgid "Scrub a file"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:366
+msgid "Scrub build log file"
+msgstr ""
+
+#: ../customize/customize_run.ml:348
+msgid "Scrubbing the log file"
+msgstr ""
+
+#: ../customize/customize_run.ml:249
+msgid "Scrubbing: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:123
+msgid "Set GPG binary/command"
+msgstr ""
+
+#: ../customize/customize_main.ml:79 ../builder/cmdline.ml:100
+msgid "Set attach disk format"
+msgstr ""
+
+#: ../builder/cmdline.ml:113
+msgid "Set curl binary/command"
+msgstr ""
+
+#: ../sysprep/main.ml:133 ../customize/customize_main.ml:88
+msgid "Set format (default: auto)"
+msgstr ""
+
+#: ../v2v/cmdline.ml:146
+msgid "Set input mode (default: libvirt)"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:59
+#. ../customize/customize_main.ml:81
+#. ../customize/customize_main.ml:80
+#: ../sysprep/main.ml:123 ../sysprep/main.ml:122
+#: ../get-kernel/get_kernel.ml:60
+msgid "Set libvirt URI"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:61
+#. ../customize/customize_main.ml:84
+#. ../customize/customize_main.ml:83
+#: ../sysprep/main.ml:126 ../sysprep/main.ml:125
+#: ../get-kernel/get_kernel.ml:62
+msgid "Set libvirt guest name"
+msgstr ""
+
+#. ../builder/cmdline.ml:133
+#. ../builder/cmdline.ml:132
+#: ../customize/customize_main.ml:92 ../customize/customize_main.ml:91
+msgid "Set memory size"
+msgstr ""
+
+#: ../sysprep/main.ml:137
+msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
+msgstr ""
+
+#: ../customize/customize_main.ml:97 ../builder/cmdline.ml:143
+msgid "Set number of vCPUs"
+msgstr ""
+
+#: ../v2v/cmdline.ml:158
+msgid "Set output allocation mode"
+msgstr ""
+
+#: ../builder/cmdline.ml:142
+msgid "Set output disk size"
+msgstr ""
+
+#: ../builder/cmdline.ml:138 ../builder/cmdline.ml:137
+msgid "Set output filename"
+msgstr ""
+
+#: ../v2v/cmdline.ml:160
+msgid "Set output format"
+msgstr ""
+
+#: ../v2v/cmdline.ml:157
+msgid "Set output mode (default: libvirt)"
+msgstr ""
+
+#: ../v2v/cmdline.ml:162
+msgid "Set output storage location"
+msgstr ""
+
+#: ../resize/resize.ml:195
+msgid "Set partition alignment (default: 128 sectors)"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:375
+msgid "Set password crypto"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:281
+msgid "Set root password"
+msgstr ""
+
+#: ../builder/cmdline.ml:144
+msgid "Set source URL"
+msgstr ""
+
+#: ../builder/cmdline.ml:101
+msgid "Set template cache dir"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:74
+msgid "Set temporary block device, directory or prebuilt file"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:328
+msgid "Set the default timezone"
+msgstr ""
+
+#: ../builder/cmdline.ml:128
+msgid "Set the format for --list (default: short)"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:224
+msgid "Set the hostname"
+msgstr ""
+
+#: ../builder/cmdline.ml:97
+msgid "Set the output architecture"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:271
+msgid "Set user password"
+msgstr ""
+
+#: ../v2v/cmdline.ml:182
+msgid "Set vmtype (for RHEV)"
+msgstr ""
+
+#: ../customize/customize_run.ml:144
+msgid "Setting a random seed"
+msgstr ""
+
+#: ../customize/customize_run.ml:316
+msgid "Setting passwords"
+msgstr ""
+
+#: ../customize/password.ml:116
+msgid "Setting random password of %s to %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:213
+msgid "Setting the hostname: %s"
+msgstr ""
+
+#: ../customize/customize_run.ml:269
+msgid "Setting the timezone: %s"
+msgstr ""
+
+#: ../resize/resize.ml:949
+msgid "Setting up initial partition table on %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:126
+msgid "Shortcut for --list-format short"
+msgstr ""
+
+#: ../resize/resize.ml:222
+msgid "Shrink partition"
+msgstr ""
+
+#: ../sparsify/copying.ml:254
+msgid "Skipping %s, as it is a read-only btrfs snapshot."
+msgstr ""
+
+#: ../sparsify/copying.ml:256
+msgid "Skipping %s, as it is a read-only device."
+msgstr ""
+
+#: ../builder/list_entries.ml:51
+msgid "Source URI: %s\n"
+msgstr ""
+
+#: ../v2v/v2v.ml:63
+msgid "Source guest information (--print-source option):\n"
+msgstr ""
+
+#: ../sparsify/in_place.ml:150
+msgid "Sparsify in-place operation completed with no errors"
+msgstr ""
+
+#: ../sparsify/copying.ml:342
+msgid "Sparsify operation completed with no errors."
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:244
+msgid "TARGET:LINK[:LINK..]"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:328
+msgid "TIMEZONE"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:108
+msgid ""
+"The C<script> module lets you run arbitrary shell scripts or programs\n"
+"against the guest.\n"
+"\n"
+"Note this feature requires FUSE support.  You may have to enable\n"
+"this in your host, for example by adding the current user to the\n"
+"C<fuse> group, or by loading a kernel module.\n"
+"\n"
+"Use one or more I<--script> parameters to specify scripts or programs\n"
+"that will be run against the guest.\n"
+"\n"
+"The script or program is run with its current directory being the\n"
+"guest's root directory, so relative paths should be used.  For\n"
+"example: C<rm etc/resolv.conf> in the script would remove a Linux\n"
+"guest's DNS configuration file, but C<rm /etc/resolv.conf> would\n"
+"(try to) remove the host's file.\n"
+"\n"
+"Normally a temporary mount point for the guest is used, but you\n"
+"can choose a specific one by using the I<--scriptdir> parameter.\n"
+"\n"
+"B<Note:> This is different from I<--firstboot> scripts (which run\n"
+"in the context of the guest when it is booting first time).\n"
+"I<--script> scripts run on the host, not in the guest."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_ssh_hostkeys.ml:36
+msgid ""
+"The SSH host keys are regenerated (differently) next time the guest is\n"
+"booted.\n"
+"\n"
+"If, after cloning, the guest gets the same IP address, ssh will give\n"
+"you a stark warning about the host key changing:\n"
+"\n"
+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n"
+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+" IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1089
+msgid ""
+"The display driver was updated to '%s', but X11 does not seem to be "
+"installed in the guest.  X may not function correctly."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:50
+msgid ""
+"The fs-uuids operation is disabled by default because it does\n"
+"not yet find and update all the places in the guest that use\n"
+"the UUIDs.  For example C</etc/fstab> or the bootloader.\n"
+"Enabling this operation is more likely than not to make your\n"
+"guest unbootable.\n"
+"\n"
+"See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
+msgstr ""
+
+#: ../builder/index_parser.ml:117
+msgid ""
+"The index file downloaded from '%s' is corrupt.\n"
+"You need to ask the supplier of this file to fix it and upload a fixed "
+"version."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_machine_id.ml:40
+msgid ""
+"The machine ID is usually generated from a random source during system\n"
+"installation and stays constant for all subsequent boots.  Optionally,\n"
+"for stateless systems it is generated during runtime at boot if it is\n"
+"found to be empty."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:134
+msgid ""
+"The mount point (an empty directory on the host) used when\n"
+"the C<script> operation is enabled and one or more scripts\n"
+"are specified using I<--script> parameter(s).\n"
+"\n"
+"B<Note:> C<SCRIPTDIR> B<must> be an absolute path.\n"
+"\n"
+"If I<--scriptdir> is not specified then a temporary mountpoint\n"
+"will be created."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_pacct_log.ml:57
+msgid ""
+"The system wide process accounting will store to the pacct\n"
+"log files if the process accounting is on."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:128
+msgid ""
+"The user accounts to be kept in the guest.\n"
+"The value of this option is a list of user names separated by comma,\n"
+"where specifying an user means it is going to be kept.\n"
+"For example:\n"
+"\n"
+" --keep-user-accounts mary\n"
+"\n"
+"would keep the user account C<mary>.\n"
+"\n"
+"This option can be specified multiple times."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:113
+msgid ""
+"The user accounts to be removed from the guest.\n"
+"The value of this option is a list of user names separated by comma,\n"
+"where specifying an user means it is going to be removed.\n"
+"For example:\n"
+"\n"
+" --remove-user-accounts bob,eve\n"
+"\n"
+"would only remove the user accounts C<bob> and C<eve>.\n"
+"\n"
+"This option can be specified multiple times."
+msgstr ""
+
+#: ../builder/builder.ml:254
+msgid "There are no notes for %s\n"
+msgstr ""
+
+#: ../resize/resize.ml:817
+msgid ""
+"There is a deficit of %Ld bytes (%s).  You need to make the target disk "
+"larger by at least this amount or adjust your resizing requests."
+msgstr ""
+
+#: ../resize/resize.ml:909
+msgid "There is a surplus of %s."
+msgstr ""
+
+#: ../sparsify/copying.ml:109
+msgid ""
+"There may not be enough free space on %s.\n"
+"You may need to set TMPDIR to point to a directory with more free space.\n"
+"\n"
+"Max needed: %s.  Free: %s.  May need another %s.\n"
+"\n"
+"Note this is an overestimate.  If the guest disk is full of data\n"
+"then not as much free space would be required.\n"
+"\n"
+"You can ignore this warning or change it to a hard failure using the\n"
+"--check-tmpdir=(ignore|continue|warn|fail) option.  See virt-sparsify(1).\n"
+"\n"
+"%!"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_utmp.ml:36
+msgid ""
+"This file records who is currently logged in on a machine.  In modern\n"
+"Linux distros it is stored in a ramdisk and hence not part of the\n"
+"virtual machine's disk, but it was stored on disk in older distros."
+msgstr ""
+
+#: ../v2v/v2v.ml:295
+msgid "This guest does not have virtio drivers installed."
+msgstr ""
+
+#: ../v2v/v2v.ml:293
+msgid "This guest has virtio drivers installed."
+msgstr ""
+
+#: ../v2v/OVF.ml:333
+msgid ""
+"This guest required a password for connection to its display, but this is "
+"not supported by RHEV.  Therefore the converted guest's display will not "
+"require a separate password to connect."
+msgstr ""
+
+#: ../v2v/v2v.ml:239
+msgid "This guest requires UEFI on the target to boot."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_firewall_rules.ml:45
+msgid ""
+"This removes custom firewall rules by removing C</etc/sysconfig/iptables>\n"
+"or custom firewalld configuration in C</etc/firewalld/*/*>.\n"
+"\n"
+"Note this is I<not> enabled by default since it may expose guests to\n"
+"exploits.  Use with care."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_tmp_files.ml:51
+msgid "This removes temporary files under C</tmp> and C</var/tmp>."
+msgstr ""
+
+#: ../builder/builder.ml:691
+msgid "Total usable space"
+msgstr ""
+
+#: ../sparsify/in_place.ml:89
+msgid "Trimming %s"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:316
+msgid "Truncate a file to zero size"
+msgstr ""
+
+#: ../customize/customize_run.ml:261
+msgid "Truncating: %s"
+msgstr ""
+
+#: ../resize/resize.ml:223
+msgid "Turn off sparse copying"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:271
+msgid "USER:SELECTOR"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:310
+msgid "USER[:SELECTOR]"
+msgstr ""
+
+#: ../builder/builder.ml:546
+msgid "Uncompressing"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:340
+msgid "Update core packages"
+msgstr ""
+
+#: ../customize/customize_run.ml:278
+msgid "Updating core packages"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:350
+msgid "Upload local file to destination"
+msgstr ""
+
+#: ../customize/customize_run.ml:283
+msgid "Uploading: %s to %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:163
+msgid "Use password from file"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:70
+msgid "Use unversioned names for files"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:126
+msgid "Users to keep"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:111
+msgid "Users to remove"
+msgstr ""
+
+#: ../sparsify/copying.ml:151
+msgid "Using prebuilt file %s as overlay"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:616
+msgid ""
+"VMware tools was detected, but uninstallation failed.  The error message "
+"was: %s (ignored)"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:525
+msgid ""
+"VirtualBox Guest Additions were detected, but uninstallation failed.  The "
+"error message was: %s (ignored)"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:360
+msgid "Write file"
+msgstr ""
+
+#: ../customize/customize_run.ml:308
+msgid "Writing: %s"
+msgstr ""
+
+#: ../resize/resize.ml:788
+msgid ""
+"You cannot use --expand when there is no surplus space to expand into.  You "
+"need to make the target disk larger by at least %s."
+msgstr ""
+
+#: ../resize/resize.ml:800
+msgid ""
+"You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
+"resize(1) man page)."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_yum_uuid.ml:35
+msgid ""
+"Yum creates a fresh UUID the next time it runs when it notices that the\n"
+"original UUID has been erased."
+msgstr ""
+
+#: ../sparsify/cmdline.ml:81
+msgid "Zero filesystem"
+msgstr ""
+
+#: ../sparsify/in_place.ml:78 ../sparsify/copying.ml:244
+msgid "Zeroing %s"
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:340
+msgid ""
+"a libvirt domain called '%s' already exists on the target.\n"
+"\n"
+"If using virt-p2v, select a different 'Name' in the 'Target properties'. Or "
+"delete the existing domain on the target using the 'virsh undefine' command."
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:343
+msgid ""
+"a libvirt domain called '%s' already exists on the target.\n"
+"\n"
+"If using virt-v2v directly, use the '-on' option to select a different name. "
+"Or delete the existing domain on the target using the 'virsh undefine' "
+"command."
+msgstr ""
+
+#: ../resize/resize.ml:271
+msgid "alignment cannot be < 1"
+msgstr ""
+
+#: ../v2v/input_libvirt_other.ml:33
+msgid ""
+"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 "
+"you must set this environment variable:\n"
+"\n"
+"export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+"and then rerun the virt-v2v command."
+msgstr ""
+
+#: ../sparsify/cmdline.ml:74
+msgid "block|dir|prebuilt:file"
+msgstr ""
+
+#: ../resize/resize.ml:149
+msgid "btrfs-filesystem-resize"
+msgstr ""
+
+#: ../builder/builder.ml:150
+msgid "cache %s: %s"
+msgstr ""
+
+#: ../builder/cache.ml:51
+msgid "cache directory: %s\n"
+msgstr ""
+
+#: ../builder/cache.ml:57
+msgid "cached"
+msgstr ""
+
+#: ../sparsify/copying.ml:65
+msgid "cannot detect input disk format; use the --format parameter"
+msgstr ""
+
+#: ../v2v/input_disk.ml:65
+msgid "cannot detect the input disk format; use the -if parameter"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:422
+msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:408
+msgid ""
+"cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
+msgstr ""
+
+#: ../v2v/utils.ml:105
+msgid ""
+"cannot find firmware for UEFI guests.\n"
+"\n"
+"You probably need to install OVMF, or Gerd's firmware repo (https://www."
+"kraxel.org/repos/), or AAVMF (if using aarch64)"
+msgstr ""
+
+#: ../builder/builder.ml:241
+msgid ""
+"cannot find os-version '%s' with architecture '%s'.\n"
+"Use --list to list available guest types."
+msgstr ""
+
+#: ../builder/builder.ml:327
+msgid "cannot output to a character device or /dev/null"
+msgstr ""
+
+#: ../v2v/input_ova.ml:161
+msgid "cannot parse output of sha1sum command"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_fs_uuids.ml:38
+msgid "cannot set random UUID on filesystem %s type %s: %s"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:116
+msgid ""
+"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
+"\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:185
+msgid ""
+"cannot write files to the NFS server as %d:%d, even though we appear to be "
+"running as root. This probably means the NFS client or idmapd is not "
+"configured properly.\n"
+"\n"
+"You will have to chown the files that virt-v2v creates after the run, "
+"otherwise RHEV-M will not be able to import the VM."
+msgstr ""
+
+#: ../v2v/output_rhev.ml:187
+msgid ""
+"cannot write files to the NFS server as %d:%d. You might want to stop virt-"
+"v2v (^C) and rerun it as root."
+msgstr ""
+
+#: ../v2v/input_ova.ml:156
+msgid ""
+"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
+"expected sha1 (%s) = %s)"
+msgstr ""
+
+#: ../builder/sigchecker.ml:206
+msgid ""
+"checksum of template did not match the expected checksum!\n"
+"  found checksum: %s\n"
+"  expected checksum: %s\n"
+"Try:\n"
+" - Use the '-v' option and look for earlier error messages.\n"
+" - Delete the cache: virt-builder --delete-cache\n"
+" - Check no one has tampered with the website or your network!"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:400
+msgid "command '%s' cannot be used in command files, see the man page"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:417
+msgid "command '%s' not valid, see the man page"
+msgstr ""
+
+#: ../v2v/v2v.ml:495
+msgid "connection closed"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1019
+msgid "could not add grub2 serial console (ignored)"
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:419
+msgid ""
+"could not define libvirt domain.  The libvirt XML is still available in "
+"'%s'.  Try running 'virsh define %s' yourself instead."
+msgstr ""
+
+#: ../builder/sigchecker.ml:102
+msgid ""
+"could not export public key\n"
+"Use the '-v' option and look for earlier error messages."
+msgstr ""
+
+#: ../builder/builder.ml:115
+msgid "could not find cache directory. Is $HOME set?"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:615
+msgid ""
+"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
+"\\CurrentVersion"
+msgstr ""
+
+#: ../builder/sigchecker.ml:44
+msgid ""
+"could not import public key\n"
+"Use the '-v' option and look for earlier error messages."
+msgstr ""
+
+#: ../v2v/input_libvirt.ml:39
+msgid "could not parse '-ic %s'.  Original error message was: %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:304
+msgid "could not parse disk rasd:HostResource from OVF document"
+msgstr ""
+
+#: ../v2v/input_ova.ml:207
+msgid "could not parse ovf:Name from OVF document"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:73
+msgid ""
+"could not read the %s specified by the '-os %s' parameter on the command "
+"line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1037
+msgid ""
+"could not rebuild grub2 configuration file (%s).  This may mean that grub "
+"output will not be sent to the serial port, but otherwise should be "
+"harmless.  Original error message: %s"
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:391
+msgid "could not refresh libvirt pool %s"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1021
+msgid "could not remove grub2 serial console (ignored)"
+msgstr ""
+
+#: ../builder/sigchecker.ml:194
+msgid "could not run sha512sum command to verify checksum"
+msgstr ""
+
+#: ../builder/downloader.ml:93
+msgid "cp (download) command failed copying '%s'"
+msgstr ""
+
+#: ../builder/downloader.ml:125
+msgid "curl (download) command failed downloading '%s'"
+msgstr ""
+
+#: ../builder/builder.ml:136
+msgid "curl is not installed (or does not work)"
+msgstr ""
+
+#: ../mllib/regedit.ml:56
+msgid ""
+"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This "
+"is a bug in %s, please report it."
+msgstr ""
+
+#: ../mllib/regedit.ml:50
+msgid ""
+"decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  "
+"This could be a bug in %s."
+msgstr ""
+
+#: ../v2v/convert_linux.ml:739
+msgid "didn't find grub entry for kernel %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:132
+msgid "dir"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:67
+msgid "directory"
+msgstr ""
+
+#: ../builder/builder.ml:151
+msgid "disabling the cache"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:144
+msgid "disallowed character (%c) in operation name"
+msgstr ""
+
+#: ../sparsify/in_place.ml:44
+msgid "discard/trim is not supported: %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:197
+msgid ""
+"disk %s (%s) has no defined format.\n"
+"\n"
+"The input metadata did not define the disk format (eg. raw/qcow2/etc) of "
+"this disk, and so virt-v2v will try to autodetect the format when reading "
+"it.\n"
+"\n"
+"However because the input format was not defined, we do not know what output "
+"format you want to use.  You have two choices: either define the original "
+"format in the source metadata, or use the '-of' option to force the output "
+"format"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:142
+msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:61
+#. ../customize/customize_main.ml:84
+#. ../customize/customize_main.ml:83
+#: ../sysprep/main.ml:126 ../sysprep/main.ml:125
+#: ../get-kernel/get_kernel.ml:62
+msgid "domain"
+msgstr ""
+
+#: ../v2v/utils.ml:101
+msgid "don't know how to convert UEFI guests for architecture %s"
+msgstr ""
+
+#: ../v2v/linux.ml:176
+msgid "don't know how to find file owner using %s"
+msgstr ""
+
+#: ../v2v/linux.ml:155
+msgid "don't know how to get list of files from package using %s"
+msgstr ""
+
+#: ../v2v/linux.ml:116
+msgid "don't know how to remove packages using %s: packages: %s"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1144
+msgid "don't know how to update %s which loads the %s module"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:132
+msgid "duplicate operation name (%s)"
+msgstr ""
+
+#: ../resize/resize.ml:170
+msgid "empty --expand option"
+msgstr ""
+
+#: ../resize/resize.ml:186
+msgid "empty --shrink option"
+msgstr ""
+
+#. ../customize/customize_main.ml:63
+#. ../builder/downloader.ml:74
+#: ../sysprep/main.ml:57 ../resize/resize.ml:324
+#: ../get-kernel/get_kernel.ml:44
+msgid "error parsing URI '%s'. Look for error messages printed above."
+msgstr ""
+
+#: ../v2v/input_ova.ml:272
+msgid "error parsing disk fileRef"
+msgstr ""
+
+#: ../v2v/input_ova.ml:290
+msgid "error uncompressing %s, see earlier error messages"
+msgstr ""
+
+#: ../v2v/input_ova.ml:82 ../v2v/input_ova.ml:66
+msgid "error unpacking %s, see earlier error messages"
+msgstr ""
+
+#: ../mllib/common_utils.ml:362
+msgid "exception: %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:198 ../v2v/input_libvirtxml.ml:58
+msgid "expecting XML expression to return an integer (expression: %s)"
+msgstr ""
+
+#: ../v2v/cmdline.ml:274
+msgid "expecting a disk image (filename) on the command line"
+msgstr ""
+
+#: ../v2v/cmdline.ml:295
+msgid "expecting a libvirt XML file name on the command line"
+msgstr ""
+
+#: ../v2v/cmdline.ml:286
+msgid "expecting a libvirt guest name on the command line"
+msgstr ""
+
+#: ../v2v/cmdline.ml:304
+msgid "expecting an OVA file name on the command line"
+msgstr ""
+
+#: ../mllib/common_utils.ml:572
+msgid "external command '%s' exited with error %d"
+msgstr ""
+
+#: ../mllib/common_utils.ml:574
+msgid "external command '%s' killed by signal %d"
+msgstr ""
+
+#: ../mllib/common_utils.ml:576
+msgid "external command '%s' stopped by signal %d"
+msgstr ""
+
+#: ../sparsify/copying.ml:339
+msgid "external command failed: %s"
+msgstr ""
+
+#. ../customize/customize_main.ml:120
+#: ../sysprep/main.ml:157 ../get-kernel/get_kernel.ml:80
+msgid "extra parameter on the command line"
+msgstr ""
+
+#: ../builder/downloader.ml:114
+msgid "failed to download %s: HTTP status code %s"
+msgstr ""
+
+#: ../mllib/common_utils.ml:353
+msgid "failure: %s"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:57
+#. ../customize/customize_main.ml:76
+#. ../customize/customize_main.ml:75
+#: ../sysprep/main.ml:121 ../sysprep/main.ml:120
+#: ../get-kernel/get_kernel.ml:58
+msgid "file"
+msgstr ""
+
+#: ../builder/sigchecker.ml:181
+msgid ""
+"fingerprint of signature does not match the expected fingerprint!\n"
+"  found fingerprint: %s\n"
+"  expected fingerprint: %s"
+msgstr ""
+
+#: ../resize/resize.ml:1239
+msgid "first partition is NTFS but does not contain NTFS boot loader magic"
+msgstr ""
+
+#. ../resize/resize.ml:217
+#. ../resize/resize.ml:204
+#. ../get-kernel/get_kernel.ml:63
+#. ../customize/customize_main.ml:88
+#: ../sysprep/main.ml:133 ../sparsify/cmdline.ml:64 ../sparsify/cmdline.ml:62
+msgid "format"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:81 ../sparsify/cmdline.ml:65
+msgid "fs"
+msgstr ""
+
+#: ../mllib/common_utils.ml:372
+msgid "generated by %s %s"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:144
+msgid "get-kernel: dual/multi-boot images are not supported by this tool"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:142
+msgid "get-kernel: no operating system found"
+msgstr ""
+
+#: ../v2v/output_glance.ml:57
+msgid ""
+"glance: OpenStack conversion only supports virtual machines with a single "
+"disk image.  This VM has %d"
+msgstr ""
+
+#: ../v2v/output_glance.ml:122
+msgid "glance: failed to set image properties (ignored)"
+msgstr ""
+
+#: ../v2v/output_glance.ml:52
+msgid ""
+"glance: glance client is not installed or set up correctly.  You may need to "
+"set environment variables or source a script to enable authentication.  See "
+"preceding messages for details."
+msgstr ""
+
+#: ../v2v/output_glance.ml:77
+msgid "glance: image upload to glance failed, see earlier errors"
+msgstr ""
+
+#: ../builder/builder.ml:128
+msgid ""
+"gpg is not installed (or does not work)\n"
+"You should install gpg, or use --gpg option, or use --no-check-signature."
+msgstr ""
+
+#: ../builder/builder.ml:130
+msgid "gpg program is not available"
+msgstr ""
+
+#: ../customize/firstboot.ml:133
+msgid "guest type %s is not supported"
+msgstr ""
+
+#: ../customize/firstboot.ml:319
+msgid "guest type %s/%s is not supported"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:150
+msgid "heading for %s must not end with newline or period"
+msgstr ""
+
+#: ../customize/customize_run.ml:55
+msgid ""
+"host cpu (%s) and guest arch (%s) are not compatible, so you cannot use "
+"command line options that involve running commands in the guest.  Use --"
+"firstboot scripts instead."
+msgstr ""
+
+#: ../customize/customize_run.ml:215
+msgid "hostname could not be set for this type of guest"
+msgstr ""
+
+#: ../v2v/output_vdsm.ml:107
+msgid "image directory (%s) does not exist or is not a directory"
+msgstr ""
+
+#: ../builder/builder.ml:352
+msgid ""
+"images cannot be shrunk, the output size is too small for this image.  "
+"Requested size = %s, minimum size = %s"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:70
+msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:74
+msgid "in the libvirt XML metadata, <name> is missing or empty"
+msgstr ""
+
+#: ../builder/builder.ml:312
+msgid "input file (%s) has an unsupported type"
+msgstr ""
+
+#: ../mllib/common_utils.ml:360
+msgid "internal error: Not_found exception was thrown"
+msgstr ""
+
+#: ../mllib/common_utils.ml:357
+msgid "internal error: assertion failed at %s, line %d, char %d"
+msgstr ""
+
+#: ../mllib/common_utils.ml:355
+msgid "internal error: invalid argument: %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:350
+msgid "internal error: qemu corrupted the overlay file"
+msgstr ""
+
+#: ../v2v/v2v.ml:149
+msgid "internal error: qemu-img did not create overlay with backing file"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:743
+msgid "internal error: regular expression did not match '%s'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:64
+msgid "invalid --bridge or --network parameter"
+msgstr ""
+
+#: ../builder/cmdline.ml:75
+msgid "invalid --list-format type '%s', see the man page"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:137 ../customize/customize_cmdline.ml:126
+msgid "invalid format for '--%s' parameter, see the man page"
+msgstr ""
+
+#: ../customize/password.ml:72
+msgid "invalid password selector '%s'; see the man page"
+msgstr ""
+
+#: ../customize/ssh_key.ml:46
+msgid "invalid ssh-inject selector '%s'; see the man page"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:727
+msgid "kernel %s is not under grub tree %s"
+msgstr ""
+
+#: ../mllib/common_utils.ml:351
+msgid "libguestfs error: %s"
+msgstr ""
+
+#: ../v2v/v2v.ml:522
+msgid ""
+"libguestfs thinks this is not an installed operating system (it might be, "
+"for example, an installer disk or live CD).  If this is wrong, it is "
+"probably a bug in libguestfs.  root=%s fmt=%s"
+msgstr ""
+
+#: ../customize/customize_run.ml:50
+msgid "log file %s: %s (ignored)"
+msgstr ""
+
+#. ../resize/resize.ml:208
+#: ../resize/resize.ml:211 ../resize/resize.ml:210 ../resize/resize.ml:209
+msgid "lv"
+msgstr ""
+
+#: ../v2v/input_ova.ml:135
+msgid "more than one .ovf file was found in %s"
+msgstr ""
+
+#: ../v2v/output_rhev.ml:50
+msgid ""
+"mount command failed, see earlier errors.\n"
+"\n"
+"This probably means you didn't specify the right %s path [-os %s], or else "
+"you need to rerun virt-v2v as root."
+msgstr ""
+
+#: ../v2v/v2v.ml:502
+msgid ""
+"multi-boot operating systems are not supported by virt-v2v. Use the --root "
+"option to change how virt-v2v handles this."
+msgstr ""
+
+#: ../customize/customize_run.ml:152
+msgid ""
+"multiple --root-password/--password options set the password for user '%s' "
+"twice"
+msgstr ""
+
+#: ../resize/resize.ml:194
+msgid "never|always|auto"
+msgstr ""
+
+#: ../v2v/input_ova.ml:132
+msgid "no .ovf file was found in %s"
+msgstr ""
+
+#: ../builder/builder.ml:205
+msgid "no cache directory"
+msgstr ""
+
+#: ../builder/builder.ml:198
+msgid "no cache directory\n"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:110
+msgid "no grub1/grub-legacy or grub2 configuration file was found"
+msgstr ""
+
+#: ../builder/builder.ml:658
+msgid ""
+"no guest operating systems or multiboot OS found in this disk image\n"
+"This is a failure of the source repository.  Use -v for more information."
+msgstr ""
+
+#: ../v2v/convert_linux.ml:194
+msgid "no initrd was found in /boot matching %s %s."
+msgstr ""
+
+#: ../v2v/convert_linux.ml:266
+msgid ""
+"no installed kernel packages were found.\n"
+"\n"
+"This probably indicates that %s was unable to inspect this guest properly."
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:173
+msgid "no kernel found"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:377
+msgid ""
+"no kernels were found in the grub configuration.\n"
+"\n"
+"This probably indicates that %s was unable to parse the grub configuration "
+"of this guest."
+msgstr ""
+
+#: ../sysprep/main.ml:242 ../customize/customize_main.ml:217
+msgid "no operating systems were found in the guest image"
+msgstr ""
+
+#: ../v2v/input_ova.ml:152
+msgid "no output from sha1sum command, see previous errors"
+msgstr ""
+
+#: ../builder/builder.ml:473
+msgid ""
+"no plan could be found for making a disk image with\n"
+"the required size, format etc. This is a bug in libguestfs!\n"
+"Please file a bug, giving the command line arguments you used."
+msgstr ""
+
+#: ../v2v/v2v.ml:468
+msgid "no root device found in this operating system image."
+msgstr ""
+
+#: ../v2v/input_libvirt.ml:64
+msgid ""
+"no support for remote libvirt connections to '-ic %s'.  The conversion may "
+"fail when it tries to read the source disks."
+msgstr ""
+
+#: ../v2v/v2v.ml:629
+msgid ""
+"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
+"%Ld bytes needed"
+msgstr ""
+
+#: ../resize/resize.ml:148
+msgid "ntfsresize"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:694
+msgid ""
+"only Xen kernels are installed in this guest.\n"
+"\n"
+"Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what "
+"to do."
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:156
+msgid "operation %s has no POD"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:165
+msgid "operation %s has no POD notes"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:148
+msgid "operation %s has no heading"
+msgstr ""
+
+#: ../sysprep/sysprep_operation.ml:139
+msgid "operation name is an empty string"
+msgstr ""
+
+#: ../sysprep/main.ml:132
+msgid "operations"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:71
+msgid "option"
+msgstr ""
+
+#: ../sysprep/main.ml:137
+msgid "opts"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:161
+msgid "output '%s' cannot be a character device, it must be a regular file"
+msgstr ""
+
+#: ../v2v/v2v.ml:207
+msgid ""
+"output format should be 'raw' or 'qcow2'.\n"
+"\n"
+"Use the '-of <format>' option to select a different output format for the "
+"converted guest.\n"
+"\n"
+"Other output formats are not supported at the moment, although might be "
+"considered in future."
+msgstr ""
+
+#: ../builder/builder.ml:355
+msgid ""
+"output size is too large for this block device.  Requested size = %s, output "
+"block device = %s, output block device size = %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:238
+msgid ""
+"ova disk has an unknown VMware controller type (%d), please report this as a "
+"bug supplying the *.ovf file extracted from the ova"
+msgstr ""
+
+#: ../v2v/input_ova.ml:235
+msgid ""
+"ova disk has no parent controller, please report this as a bug supplying the "
+"*.ovf file extracted from the ova"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:138
+msgid "package '%s' contains no files"
+msgstr ""
+
+#. ../resize/resize.ml:200
+#: ../resize/resize.ml:222 ../resize/resize.ml:205 ../resize/resize.ml:201
+msgid "part"
+msgstr ""
+
+#: ../resize/resize.ml:221 ../resize/resize.ml:220
+msgid "part=size"
+msgstr ""
+
+#: ../customize/password.ml:51
+msgid ""
+"password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
+msgstr ""
+
+#: ../customize/password.ml:171
+msgid ""
+"password: using insecure md5 password encryption for\n"
+"guest of type %s version %d.\n"
+"If this is incorrect, use --password-crypto option and file a bug."
+msgstr ""
+
+#: ../customize/customize_run.ml:321
+msgid "passwords could not be set for this type of guest"
+msgstr ""
+
+#: ../resize/resize.ml:1006 ../resize/resize.ml:982
+msgid "pread-device: short read"
+msgstr ""
+
+#: ../resize/resize.ml:146
+msgid "pvresize"
+msgstr ""
+
+#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:282
+msgid "pwrite: short write restoring swap partition header"
+msgstr ""
+
+#: ../v2v/v2v.ml:391 ../v2v/v2v.ml:145
+msgid "qemu-img command failed, see earlier errors"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:354
+msgid "qemu-img rebase failed (ignored)"
+msgstr ""
+
+#: ../customize/customize_run.ml:146
+msgid "random seed could not be set for this type of guest"
+msgstr ""
+
+#: ../resize/resize.ml:147
+msgid "resize2fs"
+msgstr ""
+
+#: ../v2v/v2v.ml:513
+msgid "root device %s not found.  Roots found were: %s"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:145
+msgid "script"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:72
+msgid "script failed"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:62
+msgid "script: failed (code %d)"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_script.ml:66
+msgid "script: killed by signal (%d)"
+msgstr ""
+
+#: ../resize/resize.ml:195
+msgid "sectors"
+msgstr ""
+
+#: ../customize/customize_run.ml:113
+msgid "sorry, don't know how to use --install with the '%s' package manager"
+msgstr ""
+
+#: ../customize/customize_run.ml:140
+msgid "sorry, don't know how to use --update with the '%s' package manager"
+msgstr ""
+
+#: ../builder/cmdline.ml:288
+msgid "source and fingerprint lists are not the same length"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:311
+msgid "source disk has <source dev=...> attribute in XML"
+msgstr ""
+
+#: ../v2v/v2v.ml:83
+msgid "source has no hard disks!"
+msgstr ""
+
+#: ../v2v/input_libvirt_other.ml:43
+msgid ""
+"ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
+"Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
+msgstr ""
+
+#: ../customize/ssh_key.ml:58
+msgid "ssh-inject: $HOME environment variable is not set"
+msgstr ""
+
+#: ../customize/ssh_key.ml:95
+msgid "ssh-inject: key is an empty string"
+msgstr ""
+
+#: ../customize/ssh_key.ml:68
+msgid "ssh-inject: no public key file found in %s"
+msgstr ""
+
+#: ../customize/ssh_key.ml:85
+msgid "ssh-inject: public key file (%s) is empty"
+msgstr ""
+
+#: ../customize/ssh_key.ml:114
+msgid "ssh-inject: the user %s does not exist on the guest"
+msgstr ""
+
+#: ../v2v/kvmuid.ml:56
+msgid "subprocess exited with non-zero error code %d"
+msgstr ""
+
+#: ../v2v/kvmuid.ml:58
+msgid "subprocess signalled or stopped by signal %d"
+msgstr ""
+
+#: ../v2v/output_vdsm.ml:79
+msgid ""
+"the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on "
+"the command line has to match the number of guest disk images (for this "
+"guest: %d)"
+msgstr ""
+
+#: ../v2v/output_libvirt.ml:54
+msgid "the target hypervisor does not support a %s KVM guest"
+msgstr ""
+
+#: ../v2v/OVF.ml:201
+msgid ""
+"the virtual size of the input disk %s is not an exact multiple of 512 "
+"bytes.  The virtual size is: %Ld.\n"
+"\n"
+"This probably means something unexpected is going on, so please file a bug "
+"about this issue."
+msgstr ""
+
+#: ../v2v/output_rhev.ml:87
+msgid ""
+"there are multiple UUIDs in the %s (%s).  This is unexpected, and may be a "
+"bug in virt-v2v or OVirt."
+msgstr ""
+
+#: ../v2v/output_rhev.ml:85
+msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:265
+msgid ""
+"there are no virtio drivers available for this version of Windows (%d.%d %s "
+"%s).  virt-v2v looks for drivers in %s\n"
+"\n"
+"The guest will be configured to use slower emulated devices."
+msgstr ""
+
+#: ../builder/sigchecker.ml:148
+msgid ""
+"there is no detached signature file\n"
+"This probably means the index file is missing a sig=... line.\n"
+"You can use --no-check-signature to ignore this error, but that means you "
+"are susceptible to man-in-the-middle attacks."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:287
+msgid ""
+"there is no viostor (virtio block device) driver for this version of Windows "
+"(%d.%d %s).  virt-v2v looks for this driver in %s\n"
+"\n"
+"The guest will be configured to use a slower emulated device."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:297
+msgid ""
+"there is no virtio network driver for this version of Windows (%d.%d %s).  "
+"virt-v2v looks for this driver in %s\n"
+"\n"
+"The guest will be configured to use a slower emulated device."
+msgstr ""
+
+#: ../v2v/v2v.ml:233
+msgid ""
+"this guest cannot run on the target, because the target does not support %s "
+"firmware (supported firmware on target: %s)"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:190
+msgid "this guest has no non-removable disks"
+msgstr ""
+
+#: ../customize/customize_run.ml:271
+msgid "timezone could not be set for this type of guest"
+msgstr ""
+
+#: ../builder/cmdline.ml:230
+msgid "too many parameters, expecting 'os-version'"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:1188
+msgid ""
+"unable to find any valid modprobe configuration file such as /etc/modprobe."
+"conf"
+msgstr ""
+
+#: ../v2v/v2v.ml:534
+msgid ""
+"unable to mount the disk image for writing. This has probably happened "
+"because Windows Hibernation or Fast Restart is being used in this guest. You "
+"have to disable this (in the guest) in order to use virt-v2v.\n"
+"\n"
+"Original error message: %s"
+msgstr ""
+
+#: ../v2v/convert_linux.ml:886
+msgid ""
+"unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
+"the guest"
+msgstr ""
+
+#: ../builder/downloader.ml:105
+msgid ""
+"unexpected output from curl command, enable debug and look at previous "
+"messages"
+msgstr ""
+
+#: ../resize/resize.ml:280
+msgid "unknown --align-first option: use never|always|auto"
+msgstr ""
+
+#: ../v2v/cmdline.ml:123
+msgid "unknown --root option: %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:243
+msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
+msgstr ""
+
+#: ../v2v/cmdline.ml:57
+msgid "unknown -i option: %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:105
+msgid "unknown -o option: %s"
+msgstr ""
+
+#: ../v2v/cmdline.ml:113
+msgid "unknown -oa option: %s"
+msgstr ""
+
+#: ../v2v/input_ova.ml:223
+msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
+msgstr ""
+
+#: ../v2v/OVF.ml:185
+msgid "unknown guest operating system: %s %s %d.%d (%s)"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:166
+msgid "unknown sound model %s ignored"
+msgstr ""
+
+#: ../v2v/v2v.ml:75
+msgid "unknown source hypervisor ('%s') in metadata"
+msgstr ""
+
+#: ../resize/resize.ml:898 ../resize/resize.ml:868
+msgid "unknown/unavailable method for expanding the %s filesystem on %s"
+msgstr ""
+
+#. ../get-kernel/get_kernel.ml:59
+#. ../customize/customize_main.ml:81
+#. ../customize/customize_main.ml:80
+#: ../sysprep/main.ml:123 ../sysprep/main.ml:122
+#: ../get-kernel/get_kernel.ml:60
+msgid "uri"
+msgstr ""
+
+#: ../resize/resize.ml:312
+msgid "usage is: %s [--options] indisk outdisk"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:144
+msgid ""
+"user-accounts: --keep-user-accounts parameter was used, but the \"user-"
+"account\" operation is not enabled"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:146
+msgid ""
+"user-accounts: --remove-user-accounts parameter was used, but the \"user-"
+"account\" operation is not enabled"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_user_account.ml:38
+msgid "user-accounts: empty user name"
+msgstr ""
+
+#. ../sysprep/sysprep_operation_user_account.ml:111
+#: ../sysprep/sysprep_operation_user_account.ml:126
+msgid "users"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:180
+msgid ""
+"vcenter: URI (-ic parameter) contains no path, so we cannot determine the "
+"datacenter name"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:113
+msgid "vcenter: URL not found: %s"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:133
+msgid ""
+"vcenter: could not read session cookie from the vCenter Server, conversion "
+"may consume all sessions on the server and fail part way through"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:105
+msgid "vcenter: incorrect username or password"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:107
+msgid ""
+"vcenter: incorrect username or password.  You might need to specify the "
+"username in the URI like this: %s://USERNAME@[etc]"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:118
+msgid "vcenter: invalid response from server"
+msgstr ""
+
+#: ../v2v/input_libvirt_vcenter_https.ml:99
+msgid ""
+"vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
+msgstr ""
+
+#: ../v2v/output_vdsm.ml:92
+msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
+msgstr ""
+
+#: ../builder/cmdline.ml:260
+msgid ""
+"virt-builder --get-kernel image\n"
+"Missing 'image' (disk image file) argument"
+msgstr ""
+
+#: ../builder/cmdline.ml:244
+msgid ""
+"virt-builder --notes os-version\n"
+"Missing 'os-version'. Use '--list' to list available template names."
+msgstr ""
+
+#: ../builder/cmdline.ml:228
+msgid ""
+"virt-builder os-version\n"
+"Missing 'os-version'. Use '--list' to list available template names."
+msgstr ""
+
+#: ../builder/builder.ml:141
+msgid "virt-resize is not installed (or does not work)"
+msgstr ""
+
+#: ../v2v/input_libvirtxml.ml:139
+msgid ""
+"virt-v2v does not support local displays, so <graphics type='%s'> in the "
+"input libvirt XML was ignored"
+msgstr ""
+
+#: ../v2v/v2v.ml:283
+msgid "virt-v2v is unable to convert this guest type (%s/%s)"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:390
+msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
+msgstr ""
+
+#: ../resize/resize.ml:150
+msgid "xfs_growfs"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:108
+msgid ""
+"you cannot give -a and -d options together.  Read virt-get-kernel(1) man "
+"page for further information."
+msgstr ""
+
+#: ../sysprep/main.ml:193
+msgid ""
+"you cannot give -a and -d options together.  Read virt-sysprep(1) man page "
+"for further information."
+msgstr ""
+
+#: ../customize/customize_main.ml:159
+msgid ""
+"you cannot give -a and -d options together. Read virt-customize(1) man page "
+"for further information."
+msgstr ""
+
+#: ../sysprep/main.ml:75
+msgid "you cannot pass an empty argument to --enable"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:168
+msgid "you cannot use --in-place and --check-tmpdir options together"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:171
+msgid "you cannot use --in-place and --compress options together"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:174
+msgid "you cannot use --in-place and --convert options together"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:180
+msgid "you cannot use --in-place and --tmp options together"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:177
+msgid "you cannot use --in-place and -o options together"
+msgstr ""
+
+#: ../resize/resize.ml:776
+msgid "you cannot use options --expand and --shrink together"
+msgstr ""
+
+#: ../sparsify/cmdline.ml:146 ../resize/resize.ml:318
+msgid "you cannot use the same disk image for input and output"
+msgstr ""
+
+#: ../get-kernel/get_kernel.ml:106
+msgid ""
+"you must give either -a or -d options.  Read virt-get-kernel(1) man page for "
+"further information."
+msgstr ""
+
+#: ../sysprep/main.ml:182
+msgid ""
+"you must give either -a or -d options.  Read virt-sysprep(1) man page for "
+"further information."
+msgstr ""
+
+#: ../customize/customize_main.ml:148
+msgid ""
+"you must give either -a or -d options. Read virt-customize(1) man page for "
+"further information."
+msgstr ""
 
 #: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:83
 #: df/main.c:66 diff/diff.c:92 edit/edit.c:63 fish/fish.c:105
@@ -588,2318 +4060,2327 @@ msgstr "スパースなイメージを作成するには 'sparse file size' を�
 msgid "%s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: 無効な整数パラメーター (%s が %d を返しました)\n"
 
-#: fish/cmds.c:4574
+#: fish/cmds.c:4590
 msgid "Command"
 msgstr "コマンド"
 
-#: fish/cmds.c:4574
+#: fish/cmds.c:4590
 msgid "Description"
 msgstr "説明"
 
-#: fish/cmds.c:4576
+#: fish/cmds.c:4592
 msgid "delete the default POSIX ACL of a directory"
 msgstr "ディレクトリーの標準 POSIX ACL を削除する"
 
-#: fish/cmds.c:4577
+#: fish/cmds.c:4593
 msgid "get the POSIX ACL attached to a file"
 msgstr "ファイルに接続する POSIX ACL を取得する"
 
-#: fish/cmds.c:4578
+#: fish/cmds.c:4594
 msgid "set the POSIX ACL attached to a file"
 msgstr "ファイルに接続する POSIX ACL を設定する"
 
-#: fish/cmds.c:4580 fish/cmds.c:4583 fish/cmds.c:4594 fish/cmds.c:4597
-#: fish/cmds.c:4600 fish/cmds.c:4619 fish/cmds.c:4624 fish/cmds.c:4643
-#: fish/cmds.c:4684 fish/cmds.c:4723 fish/cmds.c:4732 fish/cmds.c:4746
-#: fish/cmds.c:4771 fish/cmds.c:4834 fish/cmds.c:4905 fish/cmds.c:4956
-#: fish/cmds.c:4964 fish/cmds.c:5005 fish/cmds.c:5036 fish/cmds.c:5039
-#: fish/cmds.c:5042 fish/cmds.c:5048 fish/cmds.c:5062 fish/cmds.c:5071
-#: fish/cmds.c:5090 fish/cmds.c:5093 fish/cmds.c:5099 fish/cmds.c:5144
-#: fish/cmds.c:5171 fish/cmds.c:5175 fish/cmds.c:5188 fish/cmds.c:5191
-#: fish/cmds.c:5200 fish/cmds.c:5221
+#: fish/cmds.c:4596 fish/cmds.c:4599 fish/cmds.c:4610 fish/cmds.c:4613
+#: fish/cmds.c:4616 fish/cmds.c:4635 fish/cmds.c:4640 fish/cmds.c:4659
+#: fish/cmds.c:4701 fish/cmds.c:4740 fish/cmds.c:4749 fish/cmds.c:4763
+#: fish/cmds.c:4788 fish/cmds.c:4851 fish/cmds.c:4923 fish/cmds.c:4974
+#: fish/cmds.c:4982 fish/cmds.c:5023 fish/cmds.c:5054 fish/cmds.c:5057
+#: fish/cmds.c:5060 fish/cmds.c:5066 fish/cmds.c:5080 fish/cmds.c:5089
+#: fish/cmds.c:5108 fish/cmds.c:5111 fish/cmds.c:5117 fish/cmds.c:5162
+#: fish/cmds.c:5189 fish/cmds.c:5193 fish/cmds.c:5206 fish/cmds.c:5209
+#: fish/cmds.c:5218 fish/cmds.c:5239
 #, c-format
 msgid "alias for '%s'"
 msgstr ""
 
-#: fish/cmds.c:4585
+#: fish/cmds.c:4601
 msgid "add a CD-ROM disk image to examine"
 msgstr "調査するために CD-ROM ディスクイメージを追加する"
 
-#: fish/cmds.c:4586
+#: fish/cmds.c:4602
 msgid "add the disk(s) from a named libvirt domain"
 msgstr "名前付き libvirt ドメインからディスクを追加する"
 
-#: fish/cmds.c:4587
+#: fish/cmds.c:4603
 msgid "add an image to examine or modify"
 msgstr "調査または修正するためにイメージを追加する"
 
-#: fish/cmds.c:4588
+#: fish/cmds.c:4604
 msgid "add a drive in snapshot mode (read-only)"
 msgstr "スナップショットモード（読み込み専用）でドライブを追加する"
 
-#: fish/cmds.c:4589
+#: fish/cmds.c:4605
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
 "QEMU ブロックエミュレーションを使用するよう指定されたドライブを読み込み専用で"
 "追加する"
 
-#: fish/cmds.c:4590
+#: fish/cmds.c:4606
 msgid "add a temporary scratch drive"
 msgstr "空の一時的なディスクを追加する"
 
-#: fish/cmds.c:4591
+#: fish/cmds.c:4607
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr ""
 "QEMU ブロックエミュレーションを使用するよう指定されたドライブを追加する"
 
-#: fish/cmds.c:4592
+#: fish/cmds.c:4608
 msgid "allocate and add a disk file"
 msgstr "ディスクイメージのファイルを割り当てて追加する"
 
-#: fish/cmds.c:4602
+#: fish/cmds.c:4618
 msgid "clear Augeas path"
 msgstr "Augeas パスを消去する"
 
-#: fish/cmds.c:4603
+#: fish/cmds.c:4619
 msgid "close the current Augeas handle"
 msgstr "現在の Augeas ハンドルを閉じる"
 
-#: fish/cmds.c:4604
+#: fish/cmds.c:4620
 msgid "define an Augeas node"
 msgstr "Augeas ノードを定義する"
 
-#: fish/cmds.c:4605
+#: fish/cmds.c:4621
 msgid "define an Augeas variable"
 msgstr "Augeas 変数を定義する"
 
-#: fish/cmds.c:4606
+#: fish/cmds.c:4622
 msgid "look up the value of an Augeas path"
 msgstr "Augeas パスの値を検索する"
 
-#: fish/cmds.c:4607
+#: fish/cmds.c:4623
 msgid "create a new Augeas handle"
 msgstr "新しい Augeas ハンドルを作成する"
 
-#: fish/cmds.c:4608
+#: fish/cmds.c:4624
 msgid "insert a sibling Augeas node"
 msgstr "兄弟関係の Augeas ノードを挿入する"
 
-#: fish/cmds.c:4609
+#: fish/cmds.c:4625
 msgid "return the label from an Augeas path expression"
 msgstr "Augeas パス表現からラベルを返す"
 
-#: fish/cmds.c:4610
+#: fish/cmds.c:4626
 msgid "load files into the tree"
 msgstr "ツリーにファイルを読み込む"
 
-#: fish/cmds.c:4611
+#: fish/cmds.c:4627
 msgid "list Augeas nodes under augpath"
 msgstr "augpath 下の Augeas ノードを一覧表示する"
 
-#: fish/cmds.c:4612
+#: fish/cmds.c:4628
 msgid "return Augeas nodes which match augpath"
 msgstr "augpath に一致する Augeas ノードを返す"
 
-#: fish/cmds.c:4613
+#: fish/cmds.c:4629
 msgid "move Augeas node"
 msgstr "Augeas ノードを移動する"
 
-#: fish/cmds.c:4614
+#: fish/cmds.c:4630
 msgid "remove an Augeas path"
 msgstr "Augeas パスを削除する"
 
-#: fish/cmds.c:4615
+#: fish/cmds.c:4631
 msgid "write all pending Augeas changes to disk"
 msgstr "保留になっているすべての Augeas の変更をディスクに書き込む"
 
-#: fish/cmds.c:4616
+#: fish/cmds.c:4632
 msgid "set Augeas path to value"
 msgstr "Augeas パスを値に設定する"
 
-#: fish/cmds.c:4617
+#: fish/cmds.c:4633
 msgid "set multiple Augeas nodes"
 msgstr "複数の Augeas ノードを設定する"
 
-#: fish/cmds.c:4621 fish/cmds.c:4754
+#: fish/cmds.c:4637 fish/cmds.c:4771
 msgid "test availability of some parts of the API"
 msgstr "API のいくつかの部分が利用可能かを確認する"
 
-#: fish/cmds.c:4622
+#: fish/cmds.c:4638
 msgid "return a list of all optional groups"
 msgstr "すべてのオプショングループの一覧を返す"
 
-#: fish/cmds.c:4626
+#: fish/cmds.c:4642
 msgid "upload base64-encoded data to file"
 msgstr "base64 エンコードされたデータをファイルへアップロードする"
 
-#: fish/cmds.c:4627
+#: fish/cmds.c:4643
 msgid "download file and encode as base64"
 msgstr "ファイルをダウンロードして base64 エンコードする"
 
-#: fish/cmds.c:4628
+#: fish/cmds.c:4644
 msgid "discard all blocks on a device"
 msgstr ""
 
-#: fish/cmds.c:4629
+#: fish/cmds.c:4645
 msgid "return true if discarded blocks are read as zeroes"
 msgstr ""
 
-#: fish/cmds.c:4630
+#: fish/cmds.c:4646
 msgid "print block device attributes"
 msgstr "ブロックデバイス属性を出力する"
 
-#: fish/cmds.c:4631
+#: fish/cmds.c:4647
 msgid "flush device buffers"
 msgstr "デバイスのバッファーをフラッシュする"
 
-#: fish/cmds.c:4632
+#: fish/cmds.c:4648
 msgid "get blocksize of block device"
 msgstr "ブロックデバイスのブロック容量を取得する"
 
-#: fish/cmds.c:4633
+#: fish/cmds.c:4649
 msgid "is block device set to read-only"
 msgstr "ブロックデバイスが読み込み専用に設定されているかを確認する"
 
-#: fish/cmds.c:4634
+#: fish/cmds.c:4650
 msgid "get total size of device in bytes"
 msgstr "デバイスの合計容量をバイト単位で取得する"
 
-#: fish/cmds.c:4635
+#: fish/cmds.c:4651
 msgid "get sectorsize of block device"
 msgstr "ブロックデバイスのセクター容量を取得する"
 
-#: fish/cmds.c:4636
+#: fish/cmds.c:4652
 msgid "get total size of device in 512-byte sectors"
 msgstr "デバイスの合計容量を 512 バイトセクターで取得する"
 
-#: fish/cmds.c:4637
+#: fish/cmds.c:4653
 msgid "reread partition table"
 msgstr "パーティションテーブルを再読み込みする"
 
-#: fish/cmds.c:4638
+#: fish/cmds.c:4654
 msgid "set blocksize of block device"
 msgstr "ブロックデバイスのブロック容量を設定する"
 
-#: fish/cmds.c:4639
+#: fish/cmds.c:4655
 msgid "set readahead"
 msgstr ""
 
-#: fish/cmds.c:4640
+#: fish/cmds.c:4656
 msgid "set block device to read-only"
 msgstr "ブロックデバイスを読み込み専用に設定する"
 
-#: fish/cmds.c:4641
+#: fish/cmds.c:4657
 msgid "set block device to read-write"
 msgstr "ブロックデバイスを読み書き可能に設定する"
 
-#: fish/cmds.c:4645
+#: fish/cmds.c:4661
 msgid "cancel a running or paused balance"
 msgstr ""
 
-#: fish/cmds.c:4646
+#: fish/cmds.c:4662
 msgid "pause a running balance"
 msgstr ""
 
-#: fish/cmds.c:4647
+#: fish/cmds.c:4663
 msgid "resume a paused balance"
 msgstr ""
 
-#: fish/cmds.c:4648
+#: fish/cmds.c:4664
 msgid "show the status of a running or paused balance"
 msgstr ""
 
-#: fish/cmds.c:4649
+#: fish/cmds.c:4665
 msgid "add devices to a btrfs filesystem"
 msgstr "デバイスを btrfs ファイルシステムに追加する"
 
-#: fish/cmds.c:4650
+#: fish/cmds.c:4666
 msgid "remove devices from a btrfs filesystem"
 msgstr "btrfs ファイルシステムからデバイスを削除する"
 
-#: fish/cmds.c:4651
+#: fish/cmds.c:4667
 msgid "balance a btrfs filesystem"
 msgstr "btrfs ファイルシステムを再バランスする"
 
-#: fish/cmds.c:4652
+#: fish/cmds.c:4668
 msgid "defragment a file or directory"
 msgstr ""
 
-#: fish/cmds.c:4653
+#: fish/cmds.c:4669
 msgid "resize a btrfs filesystem"
 msgstr "Btrfs ファイルシステムの容量を変更する"
 
-#: fish/cmds.c:4654
+#: fish/cmds.c:4670
 msgid "sync a btrfs filesystem"
 msgstr "btrfs ファイルシステムを同期する"
 
-#: fish/cmds.c:4655
+#: fish/cmds.c:4671
 msgid "check a btrfs filesystem"
 msgstr "btrfs ファイルシステムを確認する"
 
-#: fish/cmds.c:4656
+#: fish/cmds.c:4672
 msgid "create an image of a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:4657
+#: fish/cmds.c:4673
 msgid "add a qgroup to a parent qgroup"
 msgstr ""
 
-#: fish/cmds.c:4658
+#: fish/cmds.c:4674
 msgid "create a subvolume quota group"
 msgstr ""
 
-#: fish/cmds.c:4659
+#: fish/cmds.c:4675
 msgid "destroy a subvolume quota group"
 msgstr ""
 
-#: fish/cmds.c:4660
+#: fish/cmds.c:4676
 msgid "limit the size of a subvolume"
 msgstr ""
 
-#: fish/cmds.c:4661
+#: fish/cmds.c:4677
 msgid "remove a qgroup from its parent qgroup"
 msgstr ""
 
-#: fish/cmds.c:4662
+#: fish/cmds.c:4678
 msgid "show subvolume quota groups"
 msgstr ""
 
-#: fish/cmds.c:4663
+#: fish/cmds.c:4679
 msgid "enable or disable subvolume quota support"
 msgstr ""
 
-#: fish/cmds.c:4664
+#: fish/cmds.c:4680
 msgid ""
 "trash all qgroup numbers and scan the metadata again with the current config"
 msgstr ""
 
-#: fish/cmds.c:4665
-msgid "recover the chunk tree of btrfs filesystem"
-msgstr ""
-
-#: fish/cmds.c:4666
-msgid "recover bad superblocks from good copies"
-msgstr ""
-
-#: fish/cmds.c:4667
-msgid "cancel a running scrub"
-msgstr ""
-
-#: fish/cmds.c:4668
-msgid "resume a previously canceled or interrupted scrub"
-msgstr ""
-
-#: fish/cmds.c:4669
-msgid "read all data from all disks and verify checksums"
-msgstr ""
-
-#: fish/cmds.c:4670
-msgid "show status of running or finished scrub"
-msgstr ""
-
-#: fish/cmds.c:4671
-msgid "enable or disable the seeding feature of device"
-msgstr "デバイスのシード機能を有効化または無効化する"
-
-#: fish/cmds.c:4672
-msgid "create a btrfs subvolume"
-msgstr ""
-
-#: fish/cmds.c:4673
-msgid "delete a btrfs subvolume or snapshot"
-msgstr ""
-
-#: fish/cmds.c:4674
-msgid "get the default subvolume or snapshot of a filesystem"
-msgstr ""
-
-#: fish/cmds.c:4675
-msgid "list btrfs snapshots and subvolumes"
-msgstr "btrfs のスナップショットとサブボリュームを表示する"
-
-#: fish/cmds.c:4676
-msgid "set default btrfs subvolume"
-msgstr "初期状態の btrfs サブボリュームを設定する"
-
-#: fish/cmds.c:4677
-msgid "return detailed information of the subvolume"
-msgstr ""
-
-#: fish/cmds.c:4678
-msgid "create a btrfs snapshot"
-msgstr "btrfs スナップショットを作成する"
-
-#: fish/cmds.c:4679
-msgid "enable extended inode refs"
-msgstr ""
-
-#: fish/cmds.c:4680
-msgid "enable skinny metadata extent refs"
-msgstr ""
-
 #: fish/cmds.c:4681
-msgid "enable or disable seeding of a btrfs device"
+msgid "replace a btrfs managed device with another device"
 msgstr ""
 
 #: fish/cmds.c:4682
-msgid "return the C pointer to the guestfs_h handle"
+msgid "recover the chunk tree of btrfs filesystem"
+msgstr ""
+
+#: fish/cmds.c:4683
+msgid "recover bad superblocks from good copies"
+msgstr ""
+
+#: fish/cmds.c:4684
+msgid "cancel a running scrub"
+msgstr ""
+
+#: fish/cmds.c:4685
+msgid "resume a previously canceled or interrupted scrub"
 msgstr ""
 
 #: fish/cmds.c:4686
+msgid "read all data from all disks and verify checksums"
+msgstr ""
+
+#: fish/cmds.c:4687
+msgid "show status of running or finished scrub"
+msgstr ""
+
+#: fish/cmds.c:4688
+msgid "enable or disable the seeding feature of device"
+msgstr "デバイスのシード機能を有効化または無効化する"
+
+#: fish/cmds.c:4689
+msgid "create a btrfs subvolume"
+msgstr ""
+
+#: fish/cmds.c:4690
+msgid "delete a btrfs subvolume or snapshot"
+msgstr ""
+
+#: fish/cmds.c:4691
+msgid "get the default subvolume or snapshot of a filesystem"
+msgstr ""
+
+#: fish/cmds.c:4692
+msgid "list btrfs snapshots and subvolumes"
+msgstr "btrfs のスナップショットとサブボリュームを表示する"
+
+#: fish/cmds.c:4693
+msgid "set default btrfs subvolume"
+msgstr "初期状態の btrfs サブボリュームを設定する"
+
+#: fish/cmds.c:4694
+msgid "return detailed information of the subvolume"
+msgstr ""
+
+#: fish/cmds.c:4695
+msgid "create a btrfs snapshot"
+msgstr "btrfs スナップショットを作成する"
+
+#: fish/cmds.c:4696
+msgid "enable extended inode refs"
+msgstr ""
+
+#: fish/cmds.c:4697
+msgid "enable skinny metadata extent refs"
+msgstr ""
+
+#: fish/cmds.c:4698
+msgid "enable or disable seeding of a btrfs device"
+msgstr ""
+
+#: fish/cmds.c:4699
+msgid "return the C pointer to the guestfs_h handle"
+msgstr ""
+
+#: fish/cmds.c:4703
 msgid "return canonical device name"
 msgstr "正規デバイス名を返す"
 
-#: fish/cmds.c:4687
+#: fish/cmds.c:4704
 msgid "get the Linux capabilities attached to a file"
 msgstr "ファイルに接続する Linux ケイパビリティを取得する"
 
-#: fish/cmds.c:4688
+#: fish/cmds.c:4705
 msgid "set the Linux capabilities attached to a file"
 msgstr "ファイルに接続する Linux ケイパビリティを設定する"
 
-#: fish/cmds.c:4689
+#: fish/cmds.c:4706
 msgid "return true path on case-insensitive filesystem"
 msgstr "大文字小文字を区別しないファイルシステムの実パスを返す"
 
-#: fish/cmds.c:4690
+#: fish/cmds.c:4707
 msgid "list the contents of a file"
 msgstr "ファイルの内容を表示する"
 
-#: fish/cmds.c:4691
+#: fish/cmds.c:4708
 msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "ファイルの MD5, SHAx または CRC チェックサムを計算する"
 
-#: fish/cmds.c:4692
+#: fish/cmds.c:4709
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
 msgstr "デバイスの内容の MD5, SHAx または CRC チェックサムを計算する"
 
-#: fish/cmds.c:4693
+#: fish/cmds.c:4710
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
 msgstr ""
 "ディレクトリにあるファイルの MD5, SHAx または CRC チェックサムを計算する"
 
-#: fish/cmds.c:4694
+#: fish/cmds.c:4711
 msgid "change file mode"
 msgstr "ファイルのモードを変更する"
 
-#: fish/cmds.c:4695 fish/cmds.c:4893
+#: fish/cmds.c:4712 fish/cmds.c:4911
 msgid "change file owner and group"
 msgstr "ファイルの所有者とグループを変更する"
 
-#: fish/cmds.c:4696
+#: fish/cmds.c:4713
 msgid "remove a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:4697
+#: fish/cmds.c:4714
 msgid "run a command from the guest filesystem"
 msgstr "ゲストのファイルシステムからコマンドを実行する"
 
-#: fish/cmds.c:4698
+#: fish/cmds.c:4715
 msgid "run a command, returning lines"
 msgstr "コマンドを実行して行を返す"
 
-#: fish/cmds.c:4699
+#: fish/cmds.c:4716
 msgid "output compressed device"
 msgstr "圧縮されたデバイスを出力する"
 
-#: fish/cmds.c:4700
+#: fish/cmds.c:4717
 msgid "output compressed file"
 msgstr "圧縮されたファイルを出力する"
 
-#: fish/cmds.c:4701
+#: fish/cmds.c:4718
 msgid "add hypervisor parameters"
 msgstr "ハイパーバイザーのパラメーターを追加する"
 
-#: fish/cmds.c:4702
+#: fish/cmds.c:4719
 msgid "copy the attributes of a path (file/directory) to another"
 msgstr ""
 
-#: fish/cmds.c:4703
+#: fish/cmds.c:4720
 msgid "copy from source device to destination device"
 msgstr "ソースデバイスから宛先デバイスにコピーする"
 
-#: fish/cmds.c:4704
+#: fish/cmds.c:4721
 msgid "copy from source device to destination file"
 msgstr "ソースデバイスから宛先ファイルにコピーする"
 
-#: fish/cmds.c:4705
+#: fish/cmds.c:4722
 msgid "copy from source file to destination device"
 msgstr "ソースファイルから宛先デバイスにコピーする"
 
-#: fish/cmds.c:4706
+#: fish/cmds.c:4723
 msgid "copy from source file to destination file"
 msgstr "ソースファイルから宛先ファイルにコピーする"
 
-#: fish/cmds.c:4707
+#: fish/cmds.c:4724
 msgid "copy local files or directories into an image"
 msgstr "ローカルファイルまたはディレクトリをイメージの中にコピーする"
 
-#: fish/cmds.c:4708
+#: fish/cmds.c:4725
 msgid "copy remote files or directories out of an image"
 msgstr "リモートファイルまたはディレクトリをイメージの外にコピーする"
 
-#: fish/cmds.c:4709
+#: fish/cmds.c:4726
 msgid "copy size bytes from source to destination using dd"
 msgstr "dd を使用して size バイトをソースからターゲットにコピーする"
 
-#: fish/cmds.c:4710
+#: fish/cmds.c:4727
 msgid "copy a file"
 msgstr "ファイルをコピーする"
 
-#: fish/cmds.c:4711 fish/cmds.c:4712
+#: fish/cmds.c:4728 fish/cmds.c:4729
 msgid "copy a file or directory recursively"
 msgstr "ファイルもしくはディレクトリーを再帰的にコピーする"
 
-#: fish/cmds.c:4713
+#: fish/cmds.c:4730
 msgid "pack directory into cpio file"
 msgstr ""
 
-#: fish/cmds.c:4714
+#: fish/cmds.c:4731
 msgid "copy from source to destination using dd"
 msgstr "dd コマンドを使用して転送元から転送先へコピーする"
 
-#: fish/cmds.c:4715
+#: fish/cmds.c:4732
 msgid "debugging and internals"
 msgstr "デバッグおよび内部情報"
 
-#: fish/cmds.c:4716
+#: fish/cmds.c:4733
 msgid "debug the drives (internal use only)"
 msgstr "ドライブをデバッグする（内部利用専用）"
 
-#: fish/cmds.c:4717
+#: fish/cmds.c:4734
 msgid "upload a file to the appliance (internal use only)"
 msgstr "ファイルをアプライアンスにアップロードする（内部利用専用）"
 
-#: fish/cmds.c:4718
+#: fish/cmds.c:4735
 msgid "delete a previously registered event handler"
 msgstr "前に登録したイベントハンドラーを削除する"
 
-#: fish/cmds.c:4719
+#: fish/cmds.c:4736
 msgid "convert device to index"
 msgstr "デバイスをインデックスに変換する"
 
-#: fish/cmds.c:4720
+#: fish/cmds.c:4737
 msgid "report file system disk space usage"
 msgstr "ファイルシステムのディスク使用量を報告する"
 
-#: fish/cmds.c:4721
+#: fish/cmds.c:4738
 msgid "report file system disk space usage (human readable)"
 msgstr "ファイルシステムのディスク使用量を（読みやすく）報告する"
 
-#: fish/cmds.c:4725
+#: fish/cmds.c:4742
 msgid "create a blank disk image"
 msgstr ""
 
-#: fish/cmds.c:4726
+#: fish/cmds.c:4743
 msgid "detect the disk format of a disk image"
 msgstr "ディスクイメージのディスク形式を検知する"
 
-#: fish/cmds.c:4727
+#: fish/cmds.c:4744
 msgid "return whether disk has a backing file"
 msgstr "ディスクがバッキングファイルを持つかどうかを返す"
 
-#: fish/cmds.c:4728
+#: fish/cmds.c:4745
 msgid "return virtual size of a disk"
 msgstr "ディスクの仮想容量を返す"
 
-#: fish/cmds.c:4729
+#: fish/cmds.c:4746
 msgid "display an image"
 msgstr "イメージを表示する"
 
-#: fish/cmds.c:4730
+#: fish/cmds.c:4747
 msgid "return kernel messages"
 msgstr "カーネルメッセージを戻す"
 
-#: fish/cmds.c:4734
+#: fish/cmds.c:4751
 msgid "download a file to the local machine"
 msgstr "ローカルマシンにファイルをダウンロードする"
 
-#: fish/cmds.c:4735
+#: fish/cmds.c:4752
 msgid "download a file to the local machine with offset and size"
 msgstr "オフセットと容量を用いてファイルをローカルマシンにダウンロードする"
 
-#: fish/cmds.c:4736
+#: fish/cmds.c:4753
 msgid "drop kernel page cache, dentries and inodes"
 msgstr "カーネルのページキャッシュ、dentry および inode を破棄する"
 
-#: fish/cmds.c:4737
+#: fish/cmds.c:4754
 msgid "estimate file space usage"
 msgstr "ファイル使用量を見積もる"
 
-#: fish/cmds.c:4738 fish/cmds.c:4739
+#: fish/cmds.c:4755 fish/cmds.c:4756
 msgid "check an ext2/ext3 filesystem"
 msgstr "ext2/ext3 ファイルシステムを確認する"
 
-#: fish/cmds.c:4740
+#: fish/cmds.c:4757
 msgid "display a line of text"
 msgstr "一連のテキストを表示する"
 
-#: fish/cmds.c:4741
+#: fish/cmds.c:4758
 msgid "echo arguments back to the client"
 msgstr "引数をクライアントにエコーバックする"
 
-#: fish/cmds.c:4742
+#: fish/cmds.c:4759
 msgid "edit a file"
 msgstr "ファイルを編集する"
 
-#: fish/cmds.c:4743 fish/cmds.c:4744 fish/cmds.c:4755 fish/cmds.c:4756
-#: fish/cmds.c:4809 fish/cmds.c:4810 fish/cmds.c:5234 fish/cmds.c:5235
-#: fish/cmds.c:5240 fish/cmds.c:5241 fish/cmds.c:5243 fish/cmds.c:5244
+#: fish/cmds.c:4760 fish/cmds.c:4761 fish/cmds.c:4772 fish/cmds.c:4773
+#: fish/cmds.c:4826 fish/cmds.c:4827 fish/cmds.c:5252 fish/cmds.c:5253
+#: fish/cmds.c:5258 fish/cmds.c:5259 fish/cmds.c:5261 fish/cmds.c:5262
 msgid "return lines matching a pattern"
 msgstr "パターンに一致する行を返す"
 
-#: fish/cmds.c:4748
+#: fish/cmds.c:4765
 msgid "test if two files have equal contents"
 msgstr "2つのファイルが同じ内容かを確認する"
 
-#: fish/cmds.c:4749
+#: fish/cmds.c:4766
 msgid "register a handler for an event or events"
 msgstr "イベント用のハンドラーを登録する"
 
-#: fish/cmds.c:4750
+#: fish/cmds.c:4767
 msgid "test if file or directory exists"
 msgstr "ファイルまたはディレクトリが存在するかを確認する"
 
-#: fish/cmds.c:4751
+#: fish/cmds.c:4768
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
 "ext2/3/4 または btrfs ファイルシステムに SYSLINUX ブートローダーをインストー"
 "ルします"
 
-#: fish/cmds.c:4752 fish/cmds.c:4753
+#: fish/cmds.c:4769 fish/cmds.c:4770
 msgid "preallocate a file in the guest filesystem"
 msgstr "仮想マシンのファイルシステムにファイルを事前に割り当てる"
 
-#: fish/cmds.c:4757
+#: fish/cmds.c:4774
 msgid "determine file type"
 msgstr "ファイル形式を決定する"
 
-#: fish/cmds.c:4758
+#: fish/cmds.c:4775
 msgid "detect the architecture of a binary file"
 msgstr "バイナリファイルのアーキテクチャーを検知する"
 
-#: fish/cmds.c:4759
+#: fish/cmds.c:4776
 msgid "return the size of the file in bytes"
 msgstr "ファイル容量をバイト単位で返す"
 
-#: fish/cmds.c:4760
+#: fish/cmds.c:4777
 msgid "check if filesystem is available"
 msgstr "ファイルシステムが利用可能ならばチェックする"
 
-#: fish/cmds.c:4761
+#: fish/cmds.c:4778
 msgid "fill a file with octets"
 msgstr "8 進値でファイルを埋める"
 
-#: fish/cmds.c:4762
+#: fish/cmds.c:4779
 msgid "fill a directory with empty files"
 msgstr "ディレクトリーを空のファイルで埋める"
 
-#: fish/cmds.c:4763
+#: fish/cmds.c:4780
 msgid "fill a file with a repeating pattern of bytes"
 msgstr "バイトのパターンの繰り返しでファイルを埋める"
 
-#: fish/cmds.c:4764
+#: fish/cmds.c:4781
 msgid "find all files and directories"
 msgstr "すべてのファイルおよびディレクトリーを検索する"
 
-#: fish/cmds.c:4765
+#: fish/cmds.c:4782
 msgid "find all files and directories, returning NUL-separated list"
 msgstr "すべてのファイルおよびディレクトリーを検索して NULL 区切り一覧を返す"
 
-#: fish/cmds.c:4766
+#: fish/cmds.c:4783
 msgid "find a filesystem by label"
 msgstr "ファイルシステムをラベルにより検索する"
 
-#: fish/cmds.c:4767
+#: fish/cmds.c:4784
 msgid "find a filesystem by UUID"
 msgstr "ファイルシステムを UUID により検索する"
 
-#: fish/cmds.c:4768
+#: fish/cmds.c:4785
 msgid "run the filesystem checker"
 msgstr "ファイルシステムのチェッカーを実行する"
 
-#: fish/cmds.c:4769
+#: fish/cmds.c:4786
 msgid "trim free space in a filesystem"
 msgstr "ファイルシステムにある空き領域を取り除く"
 
-#: fish/cmds.c:4773
+#: fish/cmds.c:4790
 msgid "get the additional kernel options"
 msgstr "追加のカーネルオプションを取得する"
 
-#: fish/cmds.c:4774 fish/cmds.c:4776
+#: fish/cmds.c:4791 fish/cmds.c:4793
 msgid "get the backend"
 msgstr "バックエンドを取得する"
 
-#: fish/cmds.c:4775
+#: fish/cmds.c:4792
 msgid "get autosync mode"
 msgstr "自動同期モードを取得する"
 
-#: fish/cmds.c:4777
+#: fish/cmds.c:4794
 msgid "get a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:4778
+#: fish/cmds.c:4795
 msgid "get per-backend settings"
 msgstr ""
 
-#: fish/cmds.c:4779
+#: fish/cmds.c:4796
 msgid "get the appliance cache directory"
 msgstr "アプライアンスのキャッシュディレクトリーを取得する"
 
-#: fish/cmds.c:4780
+#: fish/cmds.c:4797
 msgid "get direct appliance mode flag"
 msgstr "直接アプライアンスモードのフラグを取得する"
 
-#: fish/cmds.c:4781
+#: fish/cmds.c:4798
 msgid "get ext2 file attributes of a file"
 msgstr "ファイルの ext2 ファイル属性を取得する"
 
-#: fish/cmds.c:4782
+#: fish/cmds.c:4799
 msgid "get ext2 file generation of a file"
 msgstr "ファイルの ext2 ファイル世代を取得する"
 
-#: fish/cmds.c:4783
+#: fish/cmds.c:4800
 msgid "get the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 ファイルシステムのラベルを取得する"
 
-#: fish/cmds.c:4784
+#: fish/cmds.c:4801
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 ファイルシステムの UUID を取得する"
 
-#: fish/cmds.c:4785
+#: fish/cmds.c:4802
 msgid "get the hypervisor binary"
 msgstr "ハイパーバイザーのバイナリを取得する"
 
-#: fish/cmds.c:4786
+#: fish/cmds.c:4803
 msgid "challenge of i'th requested credential"
 msgstr "i 番目の要求されたクレディンシャルのチャレンジ"
 
-#: fish/cmds.c:4787
+#: fish/cmds.c:4804
 msgid "default result of i'th requested credential"
 msgstr "i 番目の要求されたクレディンシャルの標準の結果"
 
-#: fish/cmds.c:4788
+#: fish/cmds.c:4805
 msgid "prompt of i'th requested credential"
 msgstr "i 番目の要求されたクレディンシャルのプロンプト"
 
-#: fish/cmds.c:4789
+#: fish/cmds.c:4806
 msgid "get list of credentials requested by libvirt"
 msgstr "libvirt により要求されたクレディンシャルの一覧を取得する"
 
-#: fish/cmds.c:4790
+#: fish/cmds.c:4807
 msgid "get memory allocated to the hypervisor"
 msgstr "ハイパーバイザーに割り当てられたメモリを取得する"
 
-#: fish/cmds.c:4791
+#: fish/cmds.c:4808
 msgid "get enable network flag"
 msgstr "有効なネットワークフラグを取得する"
 
-#: fish/cmds.c:4792
+#: fish/cmds.c:4809
 msgid "get the search path"
 msgstr "検索パスを取得する"
 
-#: fish/cmds.c:4793
+#: fish/cmds.c:4810
 msgid "get process group flag"
 msgstr "プロセスグループのフラグを取得する"
 
-#: fish/cmds.c:4794
+#: fish/cmds.c:4811
 msgid "get PID of hypervisor"
 msgstr "ハイパーバイザーの PID を取得する"
 
-#: fish/cmds.c:4795
+#: fish/cmds.c:4812
 msgid "get the program name"
 msgstr "プログラム名を取得する"
 
-#: fish/cmds.c:4796
+#: fish/cmds.c:4813
 msgid "get the hypervisor binary (usually qemu)"
 msgstr "ハイパーバイザーのバイナリ (通常は QEMU) を取得する"
 
-#: fish/cmds.c:4797
+#: fish/cmds.c:4814
 msgid "get recovery process enabled flag"
 msgstr "リカバリープロセス有効化のフラグを取得する"
 
-#: fish/cmds.c:4798
+#: fish/cmds.c:4815
 msgid "get SELinux enabled flag"
 msgstr "SELinux 有効化フラグを取得する"
 
-#: fish/cmds.c:4799
+#: fish/cmds.c:4816
 msgid "get number of virtual CPUs in appliance"
 msgstr "アプライアンスの仮想 CPU 数を取得する"
 
-#: fish/cmds.c:4800
+#: fish/cmds.c:4817
 msgid "get the temporary directory"
 msgstr "一時的なディレクトリーを取得する"
 
-#: fish/cmds.c:4801
+#: fish/cmds.c:4818
 msgid "get command trace enabled flag"
 msgstr "コマンドトレースの有効化フラグを取得する"
 
-#: fish/cmds.c:4802
+#: fish/cmds.c:4819
 msgid "get the current umask"
 msgstr "現在の umask を取得する"
 
-#: fish/cmds.c:4803
+#: fish/cmds.c:4820
 msgid "get verbose mode"
 msgstr "冗長化のモードを取得する"
 
-#: fish/cmds.c:4804
+#: fish/cmds.c:4821
 msgid "get SELinux security context"
 msgstr "SELinux のセキュリティコンテキストを取得する"
 
-#: fish/cmds.c:4805 fish/cmds.c:4907
+#: fish/cmds.c:4822 fish/cmds.c:4925
 msgid "get a single extended attribute"
 msgstr "単一の拡張属性を取得する"
 
-#: fish/cmds.c:4806 fish/cmds.c:4908
+#: fish/cmds.c:4823 fish/cmds.c:4926
 msgid "list extended attributes of a file or directory"
 msgstr "ファイルまたはディレクトリの拡張属性を一覧表示する"
 
-#: fish/cmds.c:4807
+#: fish/cmds.c:4824
 msgid "expand wildcards in command"
 msgstr "コマンドにあるワイルドカードを展開する"
 
-#: fish/cmds.c:4808
+#: fish/cmds.c:4825
 msgid "expand a wildcard path"
 msgstr "ワイルドカードのあるパスを展開する"
 
-#: fish/cmds.c:4811
+#: fish/cmds.c:4828
 msgid "install GRUB 1"
 msgstr "GRUB 1 をインストールする"
 
-#: fish/cmds.c:4812
+#: fish/cmds.c:4829
 msgid "return first 10 lines of a file"
 msgstr "ファイルの先頭 10 行を返す"
 
-#: fish/cmds.c:4813
+#: fish/cmds.c:4830
 msgid "return first N lines of a file"
 msgstr "ファイルの先頭 N 行を返す"
 
-#: fish/cmds.c:4814
+#: fish/cmds.c:4831
 msgid "dump a file in hexadecimal"
 msgstr "ファイルを 16 進でダンプする"
 
-#: fish/cmds.c:4815
+#: fish/cmds.c:4832
 msgid "edit with a hex editor"
 msgstr "16 進エディターで編集する"
 
-#: fish/cmds.c:4816
+#: fish/cmds.c:4833
 msgid "close the current hivex handle"
 msgstr "現在の hivex ハンドルを閉じる"
 
-#: fish/cmds.c:4817
+#: fish/cmds.c:4834
 msgid "commit (write) changes back to the hive"
 msgstr "ハイブに変更を (書き込み) コミットする"
 
-#: fish/cmds.c:4818
+#: fish/cmds.c:4835
 msgid "add a child node"
 msgstr "子ノードを追加する"
 
-#: fish/cmds.c:4819
+#: fish/cmds.c:4836
 msgid "return list of nodes which are subkeys of node"
 msgstr "ノードのサブキーであるノードの一覧を返す"
 
-#: fish/cmds.c:4820
+#: fish/cmds.c:4837
 msgid "delete a node (recursively)"
 msgstr "ノードを削除する (再帰的)"
 
-#: fish/cmds.c:4821
+#: fish/cmds.c:4838
 msgid "return the named child of node"
 msgstr "ノードの名前つき子ノードを返す"
 
-#: fish/cmds.c:4822
+#: fish/cmds.c:4839
 msgid "return the named value"
 msgstr "名前つき値を返す"
 
-#: fish/cmds.c:4823
+#: fish/cmds.c:4840
 msgid "return the name of the node"
 msgstr "ノードの名前を返す"
 
-#: fish/cmds.c:4824
+#: fish/cmds.c:4841
 msgid "return the parent of node"
 msgstr "ノードの親を返す"
 
-#: fish/cmds.c:4825
+#: fish/cmds.c:4842
 msgid "set or replace a single value in a node"
 msgstr "ノードにおいて単一の値を設定または置換する"
 
-#: fish/cmds.c:4826
+#: fish/cmds.c:4843
 msgid "return list of values attached to node"
 msgstr "ノードに接続されている値の一覧を返す"
 
-#: fish/cmds.c:4827
+#: fish/cmds.c:4844
 msgid "open a Windows Registry hive file"
 msgstr "Windows レジストリのハイブファイルを開く"
 
-#: fish/cmds.c:4828
+#: fish/cmds.c:4845
 msgid "return the root node of the hive"
 msgstr "ハイブのルートノードを返す"
 
-#: fish/cmds.c:4829
+#: fish/cmds.c:4846
 msgid "return the key field from the (key, datatype, data) tuple"
 msgstr "(キー、データ形式、データ) の組からキーの項目を返す"
 
-#: fish/cmds.c:4830
+#: fish/cmds.c:4847
 msgid "return the data type from the (key, datatype, data) tuple"
 msgstr "(キー、データ形式、データ) の組からデータ形式の項目を返す"
 
-#: fish/cmds.c:4831 fish/cmds.c:4832
+#: fish/cmds.c:4848 fish/cmds.c:4849
 msgid "return the data field from the (key, datatype, data) tuple"
 msgstr "(キー、データ形式、データ) の組からデータの項目を返す"
 
-#: fish/cmds.c:4836
+#: fish/cmds.c:4853
 msgid "list the contents of a single file in an initrd"
 msgstr "initrd にある一つのファイルの内容を表示する"
 
-#: fish/cmds.c:4837
+#: fish/cmds.c:4854
 msgid "list files in an initrd"
 msgstr "initrd にあるファイルを一覧表示する"
 
-#: fish/cmds.c:4838
+#: fish/cmds.c:4855
 msgid "add an inotify watch"
 msgstr "inotify watch を追加する"
 
-#: fish/cmds.c:4839
+#: fish/cmds.c:4856
 msgid "close the inotify handle"
 msgstr "inotify ハンドルを閉じる"
 
-#: fish/cmds.c:4840
+#: fish/cmds.c:4857
 msgid "return list of watched files that had events"
 msgstr "イベントのあったウォッチ中のファイルの一覧を返す"
 
-#: fish/cmds.c:4841
+#: fish/cmds.c:4858
 msgid "create an inotify handle"
 msgstr "inotify ハンドルを作成する"
 
-#: fish/cmds.c:4842
+#: fish/cmds.c:4859
 msgid "return list of inotify events"
 msgstr "inotify イベントの一覧を返す"
 
-#: fish/cmds.c:4843
+#: fish/cmds.c:4860
 msgid "remove an inotify watch"
 msgstr "inotify watch を削除する"
 
-#: fish/cmds.c:4844
+#: fish/cmds.c:4861
 msgid "get architecture of inspected operating system"
 msgstr "検査したオペレーティングシステムのアーキテクチャーを取得する"
 
-#: fish/cmds.c:4845
+#: fish/cmds.c:4862
 msgid "get distro of inspected operating system"
 msgstr "検査したオペレーティングシステムのディストリビューションを取得する"
 
-#: fish/cmds.c:4846
+#: fish/cmds.c:4863
 msgid "get drive letter mappings"
 msgstr "ドライブレターのマッピングを取得する"
 
-#: fish/cmds.c:4847
+#: fish/cmds.c:4864
 msgid "get filesystems associated with inspected operating system"
 msgstr "検査したオペレーティングシステムに関連するファイルシステムを取得する"
 
-#: fish/cmds.c:4848
+#: fish/cmds.c:4865
 msgid "get format of inspected operating system"
 msgstr "検査したオペレーティングシステムのフォーマットを取得する"
 
-#: fish/cmds.c:4849
+#: fish/cmds.c:4866
 msgid "get hostname of the operating system"
 msgstr "オペレーティングシステムのホスト名を取得する"
 
-#: fish/cmds.c:4850
+#: fish/cmds.c:4867
 msgid "get the icon corresponding to this operating system"
 msgstr "このオペレーティングシステムに対応するアイコンを取得する"
 
-#: fish/cmds.c:4851
+#: fish/cmds.c:4868
 msgid "get major version of inspected operating system"
 msgstr "検査したオペレーティングシステムのメジャーバージョンを取得する"
 
-#: fish/cmds.c:4852
+#: fish/cmds.c:4869
 msgid "get minor version of inspected operating system"
 msgstr "検査したオペレーティングシステムのマイナーバージョンを取得する"
 
-#: fish/cmds.c:4853
+#: fish/cmds.c:4870
 msgid "get mountpoints of inspected operating system"
 msgstr "検査したオペレーティングシステムのマウントポイントを取得する"
 
-#: fish/cmds.c:4854
+#: fish/cmds.c:4871
 msgid "get package format used by the operating system"
 msgstr "オペレーティングシステムにより使用されるパッケージ形式を取得する"
 
-#: fish/cmds.c:4855
+#: fish/cmds.c:4872
 msgid "get package management tool used by the operating system"
 msgstr "オペレーティングシステムにより使用されるパッケージ管理ツールを取得する"
 
-#: fish/cmds.c:4856
+#: fish/cmds.c:4873
 msgid "get product name of inspected operating system"
 msgstr "検査したオペレーティングシステムの製品名を取得する"
 
-#: fish/cmds.c:4857
+#: fish/cmds.c:4874
 msgid "get product variant of inspected operating system"
 msgstr "検査するオペレーティングシステムの製品種別を取得する"
 
-#: fish/cmds.c:4858
+#: fish/cmds.c:4875
 msgid "return list of operating systems found by last inspection"
 msgstr "最後の検査により見つかったオペレーティングシステムの一覧を返す"
 
-#: fish/cmds.c:4859
+#: fish/cmds.c:4876
 msgid "get type of inspected operating system"
 msgstr "検査したオペレーティングシステムの種類を取得する"
 
-#: fish/cmds.c:4860
+#: fish/cmds.c:4877
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr ""
 "検出されたオペレーティングシステムの Windows CurrentControlSet を取得する"
 
-#: fish/cmds.c:4861
+#: fish/cmds.c:4878
 msgid "get Windows systemroot of inspected operating system"
 msgstr "検査したオペレーティングシステムの Windows システムルートを取得する"
 
-#: fish/cmds.c:4862
+#: fish/cmds.c:4879
 msgid "get live flag for install disk"
 msgstr "インストールディスクの live フラグを取得する"
 
-#: fish/cmds.c:4863
+#: fish/cmds.c:4880
 msgid "get multipart flag for install disk"
 msgstr "インストールディスクの multipart フラグを取得する"
 
-#: fish/cmds.c:4864
+#: fish/cmds.c:4881
 msgid "get netinst (network installer) flag for install disk"
 msgstr ""
 "インストールディスクの netinst (ネットワークインストーラー) フラグを取得する"
 
-#: fish/cmds.c:4865 fish/cmds.c:4866
+#: fish/cmds.c:4882 fish/cmds.c:4883
 msgid "get list of applications installed in the operating system"
 msgstr ""
 "オペレーティングシステムにインストールされているアプリケーションの一覧を取得"
 "する"
 
-#: fish/cmds.c:4867
+#: fish/cmds.c:4884
 msgid "inspect disk and return list of operating systems found"
 msgstr "ディスクを検査して、見つかったオペレーティングシステムの一覧を返す"
 
-#: fish/cmds.c:4868
-msgid "test if block device"
-msgstr "ブロックデバイスかを確認する"
-
-#: fish/cmds.c:4869
-msgid "test if character device"
-msgstr "キャラクターデバイスかを確認する"
-
-#: fish/cmds.c:4870
-msgid "is in configuration state"
-msgstr "設定状態にあるかを確認する"
-
-#: fish/cmds.c:4871
-msgid "test if a directory"
-msgstr "ディレクトリーかを確認する"
-
-#: fish/cmds.c:4872
-msgid "test if FIFO (named pipe)"
-msgstr "FIFO (名前付きパイプ) かを確認する"
-
-#: fish/cmds.c:4873
-msgid "test if a regular file"
-msgstr "通常のファイルかを確認する"
-
-#: fish/cmds.c:4874
-msgid "test if device is a logical volume"
-msgstr "デバイスが論理ボリュームかを確認する"
-
-#: fish/cmds.c:4875
-msgid "test if socket"
-msgstr "ソケットかを確認する"
-
-#: fish/cmds.c:4876
-msgid "test if symbolic link"
-msgstr "シンボリックリンクかを確認する"
-
-#: fish/cmds.c:4877
-msgid "test if a device is a whole device"
-msgstr "デバイスがデバイス全体かを確認する"
-
-#: fish/cmds.c:4878
-msgid "test if a file contains all zero bytes"
-msgstr "ファイルがすべて 0 のバイトを含むかを確認する"
-
-#: fish/cmds.c:4879
-msgid "test if a device contains all zero bytes"
-msgstr "デバイスがすべて 0 のバイトであるかを確認する"
-
-#: fish/cmds.c:4880
-msgid "get ISO information from primary volume descriptor of ISO file"
-msgstr "ISO ファイルの主ボリューム記述子から ISO の情報を取得する"
-
-#: fish/cmds.c:4881
-msgid "get ISO information from primary volume descriptor of device"
-msgstr "デバイスの主ボリューム記述子から ISO の情報を取得する"
-
-#: fish/cmds.c:4882
-msgid "close the systemd journal"
-msgstr "systemd ジャーナルを閉じる"
-
-#: fish/cmds.c:4883
-msgid "read the current journal entry"
-msgstr "現在のジャーナル項目を読み込む"
-
-#: fish/cmds.c:4884
-msgid "get the data threshold for reading journal entries"
-msgstr "ジャーナル項目の読み込み用のデータ閾値を取得する"
-
 #: fish/cmds.c:4885
-msgid "get the timestamp of the current journal entry"
+msgid "cause the daemon to exit (internal use only)"
 msgstr ""
 
 #: fish/cmds.c:4886
+msgid "test if block device"
+msgstr "ブロックデバイスかを確認する"
+
+#: fish/cmds.c:4887
+msgid "test if character device"
+msgstr "キャラクターデバイスかを確認する"
+
+#: fish/cmds.c:4888
+msgid "is in configuration state"
+msgstr "設定状態にあるかを確認する"
+
+#: fish/cmds.c:4889
+msgid "test if a directory"
+msgstr "ディレクトリーかを確認する"
+
+#: fish/cmds.c:4890
+msgid "test if FIFO (named pipe)"
+msgstr "FIFO (名前付きパイプ) かを確認する"
+
+#: fish/cmds.c:4891
+msgid "test if a regular file"
+msgstr "通常のファイルかを確認する"
+
+#: fish/cmds.c:4892
+msgid "test if device is a logical volume"
+msgstr "デバイスが論理ボリュームかを確認する"
+
+#: fish/cmds.c:4893
+msgid "test if socket"
+msgstr "ソケットかを確認する"
+
+#: fish/cmds.c:4894
+msgid "test if symbolic link"
+msgstr "シンボリックリンクかを確認する"
+
+#: fish/cmds.c:4895
+msgid "test if a device is a whole device"
+msgstr "デバイスがデバイス全体かを確認する"
+
+#: fish/cmds.c:4896
+msgid "test if a file contains all zero bytes"
+msgstr "ファイルがすべて 0 のバイトを含むかを確認する"
+
+#: fish/cmds.c:4897
+msgid "test if a device contains all zero bytes"
+msgstr "デバイスがすべて 0 のバイトであるかを確認する"
+
+#: fish/cmds.c:4898
+msgid "get ISO information from primary volume descriptor of ISO file"
+msgstr "ISO ファイルの主ボリューム記述子から ISO の情報を取得する"
+
+#: fish/cmds.c:4899
+msgid "get ISO information from primary volume descriptor of device"
+msgstr "デバイスの主ボリューム記述子から ISO の情報を取得する"
+
+#: fish/cmds.c:4900
+msgid "close the systemd journal"
+msgstr "systemd ジャーナルを閉じる"
+
+#: fish/cmds.c:4901
+msgid "read the current journal entry"
+msgstr "現在のジャーナル項目を読み込む"
+
+#: fish/cmds.c:4902
+msgid "get the data threshold for reading journal entries"
+msgstr "ジャーナル項目の読み込み用のデータ閾値を取得する"
+
+#: fish/cmds.c:4903
+msgid "get the timestamp of the current journal entry"
+msgstr ""
+
+#: fish/cmds.c:4904
 msgid "move to the next journal entry"
 msgstr "次のジャーナル項目に移動する"
 
-#: fish/cmds.c:4887
+#: fish/cmds.c:4905
 msgid "open the systemd journal"
 msgstr "systemd ジャーナルを開く"
 
-#: fish/cmds.c:4888
+#: fish/cmds.c:4906
 msgid "set the data threshold for reading journal entries"
 msgstr "ジャーナル項目の読み込み用のデータ閾値を設定する"
 
-#: fish/cmds.c:4889
+#: fish/cmds.c:4907
 msgid "skip forwards or backwards in the journal"
 msgstr "ジャーナルで前または後へスキップする"
 
-#: fish/cmds.c:4890
+#: fish/cmds.c:4908
 msgid "kill the hypervisor"
 msgstr "ハイパーバイザーを強制停止する"
 
-#: fish/cmds.c:4891
+#: fish/cmds.c:4909
 msgid "launch the backend"
 msgstr "バックエンドを起動する"
 
-#: fish/cmds.c:4892
+#: fish/cmds.c:4910
 msgid "change working directory"
 msgstr "作業ディレクトリを変更する"
 
-#: fish/cmds.c:4894
+#: fish/cmds.c:4912
 msgid "scan and create Windows dynamic disk volumes"
 msgstr "Windows ダイナミックディスクのボリュームをスキャンおよび作成する"
 
-#: fish/cmds.c:4895
+#: fish/cmds.c:4913
 msgid "return the disks in a Windows dynamic disk group"
 msgstr "Windows ダイナミックディスクのグループにあるディスクを返す"
 
-#: fish/cmds.c:4896
+#: fish/cmds.c:4914
 msgid "return the name of a Windows dynamic disk group"
 msgstr "Windows ダイナミックディスクのグループの名前を返す"
 
-#: fish/cmds.c:4897
+#: fish/cmds.c:4915
 msgid "return the volumes in a Windows dynamic disk group"
 msgstr "Windows ダイナミックディスクのグループにあるボリュームを返す"
 
-#: fish/cmds.c:4898
+#: fish/cmds.c:4916
 msgid "remove all Windows dynamic disk volumes"
 msgstr "すべての Windows ダイナミックディスクのボリュームを削除する"
 
-#: fish/cmds.c:4899 fish/cmds.c:4900
+#: fish/cmds.c:4917 fish/cmds.c:4918
 msgid "scan for Windows dynamic disks"
 msgstr "Windows ダイナミックディスクをスキャンする"
 
-#: fish/cmds.c:4901
+#: fish/cmds.c:4919
 msgid "return the hint field of a Windows dynamic disk volume"
 msgstr "Windows ダイナミックディスクのボリュームのヒント項目を返す"
 
-#: fish/cmds.c:4902
+#: fish/cmds.c:4920
 msgid "return the partitions in a Windows dynamic disk volume"
 msgstr "Windows ダイナミックディスクのボリュームにあるパーティションを返す"
 
-#: fish/cmds.c:4903
+#: fish/cmds.c:4921
 msgid "return the type of a Windows dynamic disk volume"
 msgstr "Windows ダイナミックディスクのボリュームの形式を返す"
 
-#: fish/cmds.c:4909
+#: fish/cmds.c:4927
 msgid "list 9p filesystems"
 msgstr "9p ファイルシステムを一覧表示する"
 
-#: fish/cmds.c:4910
+#: fish/cmds.c:4928
 msgid "list the block devices"
 msgstr "ブロックデバイスを一覧表示する"
 
-#: fish/cmds.c:4911
+#: fish/cmds.c:4929
 msgid "mapping of disk labels to devices"
 msgstr "ディスクラベルからデバイスにマッピングする"
 
-#: fish/cmds.c:4912
+#: fish/cmds.c:4930
 msgid "list device mapper devices"
 msgstr "デバイスマッパーデバイスを一覧表示する"
 
-#: fish/cmds.c:4913
+#: fish/cmds.c:4931
 msgid "list event handlers"
 msgstr "イベントハンドラーを一覧表示する"
 
-#: fish/cmds.c:4914
+#: fish/cmds.c:4932
 msgid "list filesystems"
 msgstr "ファイルシステムを一覧表示する"
 
-#: fish/cmds.c:4915
+#: fish/cmds.c:4933
 msgid "list all Windows dynamic disk partitions"
 msgstr "すべての Windows ダイナミックディスクのパーティションを一覧表示する"
 
-#: fish/cmds.c:4916
+#: fish/cmds.c:4934
 msgid "list all Windows dynamic disk volumes"
 msgstr "すべての Windows ダイナミックディスクのボリュームを一覧表示する"
 
-#: fish/cmds.c:4917
+#: fish/cmds.c:4935
 msgid "list Linux md (RAID) devices"
 msgstr "Linux md (RAID) デバイスを一覧表示する"
 
-#: fish/cmds.c:4918
+#: fish/cmds.c:4936
 msgid "list the partitions"
 msgstr "パーティションを一覧表示する"
 
-#: fish/cmds.c:4919
+#: fish/cmds.c:4937
 msgid "list the files in a directory (long format)"
 msgstr "ディレクトリにあるファイルを一覧表示する（ロング形式）"
 
-#: fish/cmds.c:4920
+#: fish/cmds.c:4938
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr ""
 "ディレクトリーにあるファイルを（SELinux コンテキストを用いたロング形式で）一"
 "覧表示する"
 
-#: fish/cmds.c:4921 fish/cmds.c:4922
+#: fish/cmds.c:4939 fish/cmds.c:4940
 msgid "create a hard link"
 msgstr "ハードリンクを作成する"
 
-#: fish/cmds.c:4923 fish/cmds.c:4924
+#: fish/cmds.c:4941 fish/cmds.c:4942
 msgid "create a symbolic link"
 msgstr "シンボリックリンクを作成する"
 
-#: fish/cmds.c:4925 fish/cmds.c:5075
+#: fish/cmds.c:4943 fish/cmds.c:5093
 msgid "remove extended attribute of a file or directory"
 msgstr "ファイルまたはディレクトリの拡張属性を削除する"
 
-#: fish/cmds.c:4926
+#: fish/cmds.c:4944
 msgid "list the files in a directory"
 msgstr "ディレクトリにあるファイルを一覧表示する"
 
-#: fish/cmds.c:4927
+#: fish/cmds.c:4945
 msgid "get list of files in a directory"
 msgstr "ディレクトリーにあるファイルの一覧を取得する"
 
-#: fish/cmds.c:4928 fish/cmds.c:5132
+#: fish/cmds.c:4946 fish/cmds.c:5150
 msgid "set extended attribute of a file or directory"
 msgstr "ファイルまたはディレクトリの拡張属性を取得する"
 
-#: fish/cmds.c:4929 fish/cmds.c:4931
+#: fish/cmds.c:4947 fish/cmds.c:4949
 msgid "get file information for a symbolic link"
 msgstr "シンボリックリンクのファイル情報を取得する"
 
-#: fish/cmds.c:4930 fish/cmds.c:4932
+#: fish/cmds.c:4948 fish/cmds.c:4950
 msgid "lstat on multiple files"
 msgstr "複数のファイルにおいて lstat する"
 
-#: fish/cmds.c:4933
+#: fish/cmds.c:4951
 msgid "add a key on a LUKS encrypted device"
 msgstr "LUKS 暗号デバイスにキーを追加する"
 
-#: fish/cmds.c:4934
+#: fish/cmds.c:4952
 msgid "close a LUKS device"
 msgstr "LUKS デバイスを閉じる"
 
-#: fish/cmds.c:4935 fish/cmds.c:4936
+#: fish/cmds.c:4953 fish/cmds.c:4954
 msgid "format a block device as a LUKS encrypted device"
 msgstr "ブロックデバイスを LUKS 暗号化デバイスとしてフォーマットする"
 
-#: fish/cmds.c:4937
+#: fish/cmds.c:4955
 msgid "remove a key from a LUKS encrypted device"
 msgstr "LUKS 暗号化デバイスからキーを削除する"
 
-#: fish/cmds.c:4938
+#: fish/cmds.c:4956
 msgid "open a LUKS-encrypted block device"
 msgstr "LUKS 暗号化ブロックデバイスを開く"
 
-#: fish/cmds.c:4939
+#: fish/cmds.c:4957
 msgid "open a LUKS-encrypted block device read-only"
 msgstr "LUKS 暗号化ブロックデバイスを読み込み専用で開く"
 
-#: fish/cmds.c:4940
+#: fish/cmds.c:4958
 msgid "create an LVM logical volume"
 msgstr "LVM 論理ボリュームを作成する"
 
-#: fish/cmds.c:4941
+#: fish/cmds.c:4959
 msgid "create an LVM logical volume in % remaining free space"
 msgstr "% 残り空き領域 に LVM 論理ボリュームを作成する"
 
-#: fish/cmds.c:4942
+#: fish/cmds.c:4960
 msgid "get canonical name of an LV"
 msgstr "論理ボリュームの正規名を取得する"
 
-#: fish/cmds.c:4943
+#: fish/cmds.c:4961
 msgid "clear LVM device filter"
 msgstr "LVM デバイスフィルターを解除する"
 
-#: fish/cmds.c:4944
+#: fish/cmds.c:4962
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "LVM のすべての LV, VG および PV を削除する"
 
-#: fish/cmds.c:4945
+#: fish/cmds.c:4963
 msgid "set LVM device filter"
 msgstr "LVM デバイスフィルターを設定する"
 
-#: fish/cmds.c:4946
+#: fish/cmds.c:4964
 msgid "remove an LVM logical volume"
 msgstr "LVM 論理ボリュームを削除する"
 
-#: fish/cmds.c:4947
+#: fish/cmds.c:4965
 msgid "rename an LVM logical volume"
 msgstr "LVM 論理ボリュームの名前を変更する"
 
-#: fish/cmds.c:4948
+#: fish/cmds.c:4966
 msgid "resize an LVM logical volume"
 msgstr "LVM 論理ボリュームの容量を変更する"
 
-#: fish/cmds.c:4949
+#: fish/cmds.c:4967
 msgid "expand an LV to fill free space"
 msgstr "LV を空き領域を埋めるよう拡張する"
 
-#: fish/cmds.c:4950 fish/cmds.c:4951
+#: fish/cmds.c:4968 fish/cmds.c:4969
 msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM 論理ボリューム (LV) を一覧表示する"
 
-#: fish/cmds.c:4952
+#: fish/cmds.c:4970
 msgid "get the UUID of a logical volume"
 msgstr "論理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:4953
+#: fish/cmds.c:4971
 msgid "lgetxattr on multiple files"
 msgstr "複数のファイルにおいて lgetxattr する"
 
-#: fish/cmds.c:4954
+#: fish/cmds.c:4972
 msgid "open the manual"
 msgstr "マニュアルを開く"
 
-#: fish/cmds.c:4958
+#: fish/cmds.c:4976
 msgid "maximum number of disks that may be added"
 msgstr "追加されるディスクの最大数"
 
-#: fish/cmds.c:4959
+#: fish/cmds.c:4977
 msgid "create a Linux md (RAID) device"
 msgstr "Linux MD (RAID) デバイスを作成する"
 
-#: fish/cmds.c:4960
+#: fish/cmds.c:4978
 msgid "obtain metadata for an MD device"
 msgstr "MD デバイスのメタ情報を取得する"
 
-#: fish/cmds.c:4961
+#: fish/cmds.c:4979
 msgid "get underlying devices from an MD device"
 msgstr "MD デバイスから基礎となるデバイスを取得する"
 
-#: fish/cmds.c:4962
+#: fish/cmds.c:4980
 msgid "stop a Linux md (RAID) device"
 msgstr "Linux MD (RAID) デバイスを停止する"
 
-#: fish/cmds.c:4966
+#: fish/cmds.c:4984
 msgid "create a directory"
 msgstr "ディレクトリーを作成する"
 
-#: fish/cmds.c:4967
+#: fish/cmds.c:4985
 msgid "create a directory with a particular mode"
 msgstr "特定モードでディレクトリーを作成する"
 
-#: fish/cmds.c:4968
+#: fish/cmds.c:4986
 msgid "create a directory and parents"
 msgstr "ディレクトリーとその親ディレクトリーを作成する"
 
-#: fish/cmds.c:4969
+#: fish/cmds.c:4987
 msgid "create a temporary directory"
 msgstr "作業用ディレクトリーを作成する"
 
-#: fish/cmds.c:4970
+#: fish/cmds.c:4988
 msgid "create an ext2/ext3/ext4 filesystem on device"
 msgstr "デバイスに ext2/ext3/ext4 ファイルシステムを作成する"
 
-#: fish/cmds.c:4971 fish/cmds.c:4972 fish/cmds.c:4973
+#: fish/cmds.c:4989 fish/cmds.c:4990 fish/cmds.c:4991
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "外部ジャーナルとともに ext2/3/4 ファイルシステムを作成する"
 
-#: fish/cmds.c:4974
+#: fish/cmds.c:4992
 msgid "make ext2/3/4 external journal"
 msgstr "ext2/3/4 の外部ジャーナルを作成する"
 
-#: fish/cmds.c:4975
+#: fish/cmds.c:4993
 msgid "make ext2/3/4 external journal with label"
 msgstr "ext2/3/4 の外部ジャーナルをラベル付きで作成する"
 
-#: fish/cmds.c:4976
+#: fish/cmds.c:4994
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "UUID を指定して ext2/3/4 の外部ジャーナルを作成する"
 
-#: fish/cmds.c:4977
+#: fish/cmds.c:4995
 msgid "make FIFO (named pipe)"
 msgstr "FIFO (名前付きパイプ) を作成する"
 
-#: fish/cmds.c:4978
+#: fish/cmds.c:4996
 msgid "make a filesystem"
 msgstr "ファイルシステムを作成する"
 
-#: fish/cmds.c:4979
+#: fish/cmds.c:4997
 msgid "make a filesystem with block size"
 msgstr "ブロックサイズを指定してファイルシステムを作成する"
 
-#: fish/cmds.c:4980
+#: fish/cmds.c:4998
 msgid "create a btrfs filesystem"
 msgstr "btrfs ファイルシステムを作成する"
 
-#: fish/cmds.c:4981
+#: fish/cmds.c:4999
 msgid "make lost+found directory on an ext2/3/4 filesystem"
 msgstr "ext2/3/4 ファイルシステムに lost+found ディレクトリーを作成する"
 
-#: fish/cmds.c:4982
+#: fish/cmds.c:5000
 msgid "create a mountpoint"
 msgstr "マウントポイントを作成する"
 
-#: fish/cmds.c:4983
+#: fish/cmds.c:5001
 msgid "make block, character or FIFO devices"
 msgstr "ブロック、キャラクター、FIFO デバイスを作成する"
 
-#: fish/cmds.c:4984
+#: fish/cmds.c:5002
 msgid "make block device node"
 msgstr "ブロックデバイスのノードを作成する"
 
-#: fish/cmds.c:4985
+#: fish/cmds.c:5003
 msgid "make char device node"
 msgstr "キャラクターデバイスのノードを作成する"
 
-#: fish/cmds.c:4986
+#: fish/cmds.c:5004
 msgid "create a swap partition"
 msgstr "スワップパーティションを作成する"
 
-#: fish/cmds.c:4987
+#: fish/cmds.c:5005
 msgid "create a swap partition with a label"
 msgstr "スワップパーティションをラベル付きで作成する"
 
-#: fish/cmds.c:4988
+#: fish/cmds.c:5006
 msgid "create a swap partition with an explicit UUID"
 msgstr "UUID を指定してスワップパーティションを作成する"
 
-#: fish/cmds.c:4989
+#: fish/cmds.c:5007
 msgid "create a swap file"
 msgstr "スワップファイルを作成する"
 
-#: fish/cmds.c:4990
+#: fish/cmds.c:5008
 msgid "create a temporary file"
 msgstr "一時的なファイルを作成する"
 
-#: fish/cmds.c:4991
+#: fish/cmds.c:5009
 msgid "load a kernel module"
 msgstr "カーネルモジュールを読み込む"
 
-#: fish/cmds.c:4992
+#: fish/cmds.c:5010
 msgid "view a file"
 msgstr "ファイルを表示する"
 
-#: fish/cmds.c:4993
+#: fish/cmds.c:5011
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "ファイルシステムのポジションにおいて仮想マシンのディスクをマウントする"
 
-#: fish/cmds.c:4994
+#: fish/cmds.c:5012
 msgid "mount 9p filesystem"
 msgstr "9p ファイルシステムをマウントする"
 
-#: fish/cmds.c:4995
+#: fish/cmds.c:5013
 msgid "mount on the local filesystem"
 msgstr "ローカルファイルシステムにマウントする"
 
-#: fish/cmds.c:4996
+#: fish/cmds.c:5014
 msgid "run main loop of mount on the local filesystem"
 msgstr "ローカルファイルシステムにマウントのメインループを実行する"
 
-#: fish/cmds.c:4997
+#: fish/cmds.c:5015
 msgid "mount a file using the loop device"
 msgstr "ループデバイスを使用してファイルをマウントする"
 
-#: fish/cmds.c:4998
+#: fish/cmds.c:5016
 msgid "mount a guest disk with mount options"
 msgstr "マウントオプションでゲストディスクをマウントする"
 
-#: fish/cmds.c:4999
+#: fish/cmds.c:5017
 msgid "mount a guest disk, read-only"
 msgstr "ゲストのディスクを読み込み専用でマウントする"
 
-#: fish/cmds.c:5000
+#: fish/cmds.c:5018
 msgid "mount a guest disk with mount options and vfstype"
 msgstr "マウントオプションと仮想ファイルシステムでゲストディスクをマウントする"
 
-#: fish/cmds.c:5001
+#: fish/cmds.c:5019
 msgid "show mountpoints"
 msgstr "マウントポイントの一覧を表示する"
 
-#: fish/cmds.c:5002
+#: fish/cmds.c:5020
 msgid "show mounted filesystems"
 msgstr "マウントされたファイルシステムの一覧を表示する"
 
-#: fish/cmds.c:5003
+#: fish/cmds.c:5021
 msgid "move a file"
 msgstr "ファイルを移動する"
 
-#: fish/cmds.c:5007
+#: fish/cmds.c:5025
 msgid "return number of whole block devices (disks) added"
 msgstr "追加されたブロックデバイス (ディスク) の全体数を返す"
 
-#: fish/cmds.c:5008
+#: fish/cmds.c:5026
 msgid "probe NTFS volume"
 msgstr "NTFS ボリュームを検出する"
 
-#: fish/cmds.c:5009
+#: fish/cmds.c:5027
 msgid "restore NTFS from backup file"
 msgstr "バックアップファイルから NTFS を復元する"
 
-#: fish/cmds.c:5010
+#: fish/cmds.c:5028
 msgid "save NTFS to backup file"
 msgstr "バックアップファイルに NTFS を保存する"
 
-#: fish/cmds.c:5011
+#: fish/cmds.c:5029
 msgid "fix common errors and force Windows to check NTFS"
 msgstr ""
 "一般的なエラーを修正する、また強制的に Windows に NTFS をチェックさせる"
 
-#: fish/cmds.c:5012
+#: fish/cmds.c:5030
 msgid "resize an NTFS filesystem"
 msgstr "NTFS ファイルシステムを容量を変更する"
 
-#: fish/cmds.c:5013
+#: fish/cmds.c:5031
 msgid "resize an NTFS filesystem (with size)"
 msgstr "NTFS ファイルシステムをサイズを指定して容量を変更する"
 
-#: fish/cmds.c:5014 fish/cmds.c:5015
+#: fish/cmds.c:5032 fish/cmds.c:5033
 msgid "parse the environment and set handle flags accordingly"
 msgstr "環境を解析し、それに応じたハンドルフラグを設定する"
 
-#: fish/cmds.c:5016
+#: fish/cmds.c:5034
 msgid "add a partition to the device"
 msgstr "デバイスにパーティションを追加する"
 
-#: fish/cmds.c:5017
+#: fish/cmds.c:5035
 msgid "delete a partition"
 msgstr "パーティションを削除する"
 
-#: fish/cmds.c:5018
+#: fish/cmds.c:5036
 msgid "partition whole disk with a single primary partition"
 msgstr "ディスク全体を単一のパーティションにする"
 
-#: fish/cmds.c:5019
+#: fish/cmds.c:5037
 msgid "return true if a partition is bootable"
 msgstr "パーティションがブート可能ならば真を返す"
 
-#: fish/cmds.c:5020
+#: fish/cmds.c:5038
 msgid "get the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:5021
+#: fish/cmds.c:5039
 msgid "get the type GUID of a GPT partition"
 msgstr "GPT パーティションの種別 GUID を取得する"
 
-#: fish/cmds.c:5022
+#: fish/cmds.c:5040
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr "パーティションから MBR 形式バイト（ID バイト）を取得する"
 
-#: fish/cmds.c:5023
+#: fish/cmds.c:5041
 msgid "get the MBR partition type"
 msgstr ""
 
-#: fish/cmds.c:5024
+#: fish/cmds.c:5042
 msgid "get partition name"
 msgstr ""
 
-#: fish/cmds.c:5025
+#: fish/cmds.c:5043
 msgid "get the partition table type"
 msgstr "パーティションテーブル形式を取得する"
 
-#: fish/cmds.c:5026
+#: fish/cmds.c:5044
 msgid "create an empty partition table"
 msgstr "空のパーティションテーブルを作成する"
 
-#: fish/cmds.c:5027
+#: fish/cmds.c:5045
 msgid "list partitions on a device"
 msgstr "デバイスにあるパーティションを一覧表示する"
 
-#: fish/cmds.c:5028
+#: fish/cmds.c:5046
 msgid "make a partition bootable"
 msgstr "パーティションをブート可能にする"
 
-#: fish/cmds.c:5029
+#: fish/cmds.c:5047
 msgid "set the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:5030
+#: fish/cmds.c:5048
 msgid "set the type GUID of a GPT partition"
 msgstr "GPT パーティションの種別 GUID を設定する"
 
-#: fish/cmds.c:5031
+#: fish/cmds.c:5049
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr "パーティションの MBR 形式バイト（ID バイト）を設定する"
 
-#: fish/cmds.c:5032
+#: fish/cmds.c:5050
 msgid "set partition name"
 msgstr "パーティション名を設定する"
 
-#: fish/cmds.c:5033
+#: fish/cmds.c:5051
 msgid "convert partition name to device name"
 msgstr "パーティション名をデバイス名に変換する"
 
-#: fish/cmds.c:5034
+#: fish/cmds.c:5052
 msgid "convert partition name to partition number"
 msgstr "パーティション名をパーティション番号に変換する"
 
-#: fish/cmds.c:5044
+#: fish/cmds.c:5062
 msgid "ping the guest daemon"
 msgstr "ゲストデーモンに ping する"
 
-#: fish/cmds.c:5045
+#: fish/cmds.c:5063
 msgid "read part of a file"
 msgstr "ファイルの中の一部を読み込む"
 
-#: fish/cmds.c:5046
+#: fish/cmds.c:5064
 msgid "read part of a device"
 msgstr "デバイスの中の一部を読み込む"
 
-#: fish/cmds.c:5050
+#: fish/cmds.c:5068
 msgid "generate a new random UUID for a physical volume"
 msgstr "物理ボリュームに対する新しいランダムな UUID を生成する"
 
-#: fish/cmds.c:5051
+#: fish/cmds.c:5069
 msgid "generate new random UUIDs for all physical volumes"
 msgstr "すべての物理ボリュームに対する新しいランダムな UUID を生成する"
 
-#: fish/cmds.c:5052
+#: fish/cmds.c:5070
 msgid "create an LVM physical volume"
 msgstr "LVM 物理ボリュームを作成する"
 
-#: fish/cmds.c:5053
+#: fish/cmds.c:5071
 msgid "remove an LVM physical volume"
 msgstr "LVM 物理ボリュームを削除する"
 
-#: fish/cmds.c:5054
+#: fish/cmds.c:5072
 msgid "resize an LVM physical volume"
 msgstr "LVM 物理ボリュームの容量を変更する"
 
-#: fish/cmds.c:5055
+#: fish/cmds.c:5073
 msgid "resize an LVM physical volume (with size)"
 msgstr "LVM 物理ボリュームの容量を（指定した容量に）変更する"
 
-#: fish/cmds.c:5056 fish/cmds.c:5057
+#: fish/cmds.c:5074 fish/cmds.c:5075
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM 物理ボリューム (PV) を一覧表示する"
 
-#: fish/cmds.c:5058
+#: fish/cmds.c:5076
 msgid "get the UUID of a physical volume"
 msgstr "物理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:5059
+#: fish/cmds.c:5077
 msgid "write to part of a file"
 msgstr "ファイルの一部に書き込む"
 
-#: fish/cmds.c:5060
+#: fish/cmds.c:5078
 msgid "write to part of a device"
 msgstr "デバイスの一部に書き込む"
 
-#: fish/cmds.c:5064
+#: fish/cmds.c:5082
 msgid "read a file"
 msgstr "ファイルを読み込む"
 
-#: fish/cmds.c:5065
+#: fish/cmds.c:5083
 msgid "read file as lines"
 msgstr "ファイルを行として読み込む"
 
-#: fish/cmds.c:5066
+#: fish/cmds.c:5084
 msgid "read directories entries"
 msgstr "ディレクトリのエントリーを読み込む"
 
-#: fish/cmds.c:5067
+#: fish/cmds.c:5085
 msgid "read the target of a symbolic link"
 msgstr "シンボリックリンクのターゲットを読み込む"
 
-#: fish/cmds.c:5068
+#: fish/cmds.c:5086
 msgid "readlink on multiple files"
 msgstr "複数のファイルにおいて readlink する"
 
-#: fish/cmds.c:5069
+#: fish/cmds.c:5087
 msgid "canonicalized absolute pathname"
 msgstr "正規化された絶対パス名"
 
-#: fish/cmds.c:5073
+#: fish/cmds.c:5091
 msgid "remount a filesystem with different options"
 msgstr "ファイルシステムを他のオプションで再マウントする"
 
-#: fish/cmds.c:5074
+#: fish/cmds.c:5092
 msgid "remove a disk image"
 msgstr "ディスクイメージを削除する"
 
-#: fish/cmds.c:5076
+#: fish/cmds.c:5094
 msgid "rename a file on the same filesystem"
 msgstr "同じファイルシステムにあるファイルの名前を変更する"
 
-#: fish/cmds.c:5077
+#: fish/cmds.c:5095
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ハンドルを閉じて開きなおす"
 
-#: fish/cmds.c:5078
+#: fish/cmds.c:5096
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "ext2, ext3 または ext4 ファイルシステムの容量を変更する"
 
-#: fish/cmds.c:5079
+#: fish/cmds.c:5097
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr "ext2, ext3 または ext4 ファイルシステムの容量を最小容量に変更する"
 
-#: fish/cmds.c:5080
+#: fish/cmds.c:5098
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 "ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
 
-#: fish/cmds.c:5081
+#: fish/cmds.c:5099
 msgid "remove a file"
 msgstr "ファイルを削除する"
 
-#: fish/cmds.c:5082
+#: fish/cmds.c:5100
 msgid "remove a file ignoring errors"
 msgstr "エラーを無視してファイルを削除する"
 
-#: fish/cmds.c:5083
+#: fish/cmds.c:5101
 msgid "remove a file or directory recursively"
 msgstr "ファイルまたはディレクトリを再帰的に削除する"
 
-#: fish/cmds.c:5084
+#: fish/cmds.c:5102
 msgid "remove a directory"
 msgstr "ディレクトリを削除する"
 
-#: fish/cmds.c:5085
+#: fish/cmds.c:5103
 msgid "remove a mountpoint"
 msgstr "マウントポイントを削除する"
 
-#: fish/cmds.c:5086
+#: fish/cmds.c:5104
 msgid "synchronize the contents of two directories"
 msgstr "二つのディレクトリーの内容を同期する"
 
-#: fish/cmds.c:5087
+#: fish/cmds.c:5105
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr "ホストまたはリモートのファイルシステムをファイルシステムと同期する"
 
-#: fish/cmds.c:5088
+#: fish/cmds.c:5106
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr "ホストまたはリモートのファイルシステムと同期する"
 
-#: fish/cmds.c:5095
+#: fish/cmds.c:5113
 msgid "scrub (securely wipe) a device"
 msgstr "デバイスを（セキュアに）完全消去する"
 
-#: fish/cmds.c:5096
+#: fish/cmds.c:5114
 msgid "scrub (securely wipe) a file"
 msgstr "ファイルを（セキュアに）完全消去する"
 
-#: fish/cmds.c:5097
+#: fish/cmds.c:5115
 msgid "scrub (securely wipe) free space"
 msgstr "空き領域を（セキュアに）完全消去する"
 
-#: fish/cmds.c:5101
+#: fish/cmds.c:5119
 msgid "add options to kernel command line"
 msgstr "カーネルのコマンド行にオプションを追加する"
 
-#: fish/cmds.c:5102 fish/cmds.c:5104
+#: fish/cmds.c:5120 fish/cmds.c:5122
 msgid "set the backend"
 msgstr "バックエンドを設定する"
 
-#: fish/cmds.c:5103
+#: fish/cmds.c:5121
 msgid "set autosync mode"
 msgstr "自動同期モードを設定する"
 
-#: fish/cmds.c:5105
+#: fish/cmds.c:5123
 msgid "set a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:5106
+#: fish/cmds.c:5124
 msgid "replace per-backend settings strings"
 msgstr ""
 
-#: fish/cmds.c:5107
+#: fish/cmds.c:5125
 msgid "set the appliance cache directory"
 msgstr "アプライアンスのキャッシュディレクトリーを設定する"
 
-#: fish/cmds.c:5108
+#: fish/cmds.c:5126
 msgid "enable or disable direct appliance mode"
 msgstr "直接アプライアンスモードを有効化または無効化する"
 
-#: fish/cmds.c:5109
+#: fish/cmds.c:5127
 msgid "set ext2 file attributes of a file"
 msgstr "ファイルの ext2 ファイル属性を設定する"
 
-#: fish/cmds.c:5110
+#: fish/cmds.c:5128
 msgid "set ext2 file generation of a file"
 msgstr "ファイルの ext2 ファイル世代を設定する"
 
-#: fish/cmds.c:5111
+#: fish/cmds.c:5129
 msgid "set the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 ファイルシステムのラベルを設定する"
 
-#: fish/cmds.c:5112
+#: fish/cmds.c:5130
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 ファイルシステムの UUID を設定する"
 
-#: fish/cmds.c:5113
+#: fish/cmds.c:5131
 msgid "set the hypervisor binary"
 msgstr "ハイパーバイザーのバイナリを設定する"
 
-#: fish/cmds.c:5114
+#: fish/cmds.c:5132
 msgid "set filesystem label"
 msgstr "ファイルシステムのラベルを設定する"
 
-#: fish/cmds.c:5115
+#: fish/cmds.c:5133
 msgid "pass requested credential back to libvirt"
 msgstr "要求されたクレディンシャルを libvirt に渡す"
 
-#: fish/cmds.c:5116
+#: fish/cmds.c:5134
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 "呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
 
-#: fish/cmds.c:5117
+#: fish/cmds.c:5135
 msgid "set memory allocated to the hypervisor"
 msgstr "ハイパーバイザーに割り当てるメモリを設定する"
 
-#: fish/cmds.c:5118
+#: fish/cmds.c:5136
 msgid "set enable network flag"
 msgstr "network フラグを有効に設定する"
 
-#: fish/cmds.c:5119
+#: fish/cmds.c:5137
 msgid "set the search path"
 msgstr "検索パスを設定する"
 
-#: fish/cmds.c:5120
+#: fish/cmds.c:5138
 msgid "set process group flag"
 msgstr "プロセスグループのフラグを設定する"
 
-#: fish/cmds.c:5121
+#: fish/cmds.c:5139
 msgid "set the program name"
 msgstr "プログラム名を設定する"
 
-#: fish/cmds.c:5122
+#: fish/cmds.c:5140
 msgid "set the hypervisor binary (usually qemu)"
 msgstr "ハイパーバイザーのバイナリ (通常は QEMU) を設定する"
 
-#: fish/cmds.c:5123
+#: fish/cmds.c:5141
 msgid "enable or disable the recovery process"
 msgstr "リカバリープロセスを有効化または無効化する"
 
-#: fish/cmds.c:5124
+#: fish/cmds.c:5142
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr "アプライアンスの起動時に SELinux を有効または無効に設定する"
 
-#: fish/cmds.c:5125
+#: fish/cmds.c:5143
 msgid "set number of virtual CPUs in appliance"
 msgstr "アプライアンスの仮想 CPU 数を設定する"
 
-#: fish/cmds.c:5126
+#: fish/cmds.c:5144
 msgid "set the temporary directory"
 msgstr "一時的なディレクトリーを設定する"
 
-#: fish/cmds.c:5127
+#: fish/cmds.c:5145
 msgid "enable or disable command traces"
 msgstr "コマンドのトレースを有効化または無効化する"
 
-#: fish/cmds.c:5128
+#: fish/cmds.c:5146
 msgid "set the filesystem UUID"
 msgstr "ファイルシステム UUID を設定する"
 
-#: fish/cmds.c:5129
+#: fish/cmds.c:5147
 msgid "set verbose mode"
 msgstr "冗長モードを設定する"
 
-#: fish/cmds.c:5130
+#: fish/cmds.c:5148
 msgid "set SELinux security context"
 msgstr "SELinux セキュリティコンテキストを設定する"
 
-#: fish/cmds.c:5131
+#: fish/cmds.c:5149
 msgid "set an environment variable"
 msgstr "環境変数を設定する"
 
-#: fish/cmds.c:5133 fish/cmds.c:5134
+#: fish/cmds.c:5151 fish/cmds.c:5152
 msgid "create partitions on a block device"
 msgstr "ブロックデバイスにパーティションを作成する"
 
-#: fish/cmds.c:5135
+#: fish/cmds.c:5153
 msgid "modify a single partition on a block device"
 msgstr "ブロックデバイスの単一パーティションを変更する"
 
-#: fish/cmds.c:5136
+#: fish/cmds.c:5154
 msgid "display the disk geometry from the partition table"
 msgstr "パーティションテーブルからディスク配置を表示する"
 
-#: fish/cmds.c:5137
+#: fish/cmds.c:5155
 msgid "display the kernel geometry"
 msgstr "カーネル配置を表示する"
 
-#: fish/cmds.c:5138
+#: fish/cmds.c:5156
 msgid "display the partition table"
 msgstr "パーティションテーブルを表示する"
 
-#: fish/cmds.c:5139
+#: fish/cmds.c:5157
 msgid "run a command via the shell"
 msgstr "シェル経由でコマンドを実行する"
 
-#: fish/cmds.c:5140
+#: fish/cmds.c:5158
 msgid "run a command via the shell returning lines"
 msgstr "シェル経由でコマンドを実行して行を返す"
 
-#: fish/cmds.c:5141
+#: fish/cmds.c:5159
 msgid "shutdown the hypervisor"
 msgstr "ハイパーバイザーをシャットダウンする"
 
-#: fish/cmds.c:5142
+#: fish/cmds.c:5160
 msgid "sleep for some seconds"
 msgstr "数秒間スリープする"
 
-#: fish/cmds.c:5146
+#: fish/cmds.c:5164
 msgid "create a sparse disk image and add"
 msgstr "スパースなディスクイメージを作成して追加する"
 
-#: fish/cmds.c:5147 fish/cmds.c:5148
+#: fish/cmds.c:5165 fish/cmds.c:5166
 msgid "get file information"
 msgstr "ファイルの情報を取得する"
 
-#: fish/cmds.c:5149
+#: fish/cmds.c:5167
 msgid "get file system statistics"
 msgstr "ファイルシステムの統計情報を取得する"
 
-#: fish/cmds.c:5150 fish/cmds.c:5151
+#: fish/cmds.c:5168 fish/cmds.c:5169
 msgid "print the printable strings in a file"
 msgstr "ファイルにある表示可能な文字を表示する"
 
-#: fish/cmds.c:5152
+#: fish/cmds.c:5170
 msgid "list supported groups of commands"
 msgstr "サポートされるコマンドのグループを一覧表示する"
 
-#: fish/cmds.c:5153
+#: fish/cmds.c:5171
 msgid "disable swap on device"
 msgstr "デバイスにおけるスワップを無効にする"
 
-#: fish/cmds.c:5154
+#: fish/cmds.c:5172
 msgid "disable swap on file"
 msgstr "ファイルにおけるスワップを無効にする"
 
-#: fish/cmds.c:5155
+#: fish/cmds.c:5173
 msgid "disable swap on labeled swap partition"
 msgstr "ラベル付き swap パーティションにおけるスワップを無効にする"
 
-#: fish/cmds.c:5156
+#: fish/cmds.c:5174
 msgid "disable swap on swap partition by UUID"
 msgstr "UUID による swap パーティションにおけるスワップを無効にする"
 
-#: fish/cmds.c:5157
+#: fish/cmds.c:5175
 msgid "enable swap on device"
 msgstr "デバイスにおけるスワップを有効にする"
 
-#: fish/cmds.c:5158
+#: fish/cmds.c:5176
 msgid "enable swap on file"
 msgstr "ファイルにおけるスワップを有効にする"
 
-#: fish/cmds.c:5159
+#: fish/cmds.c:5177
 msgid "enable swap on labeled swap partition"
 msgstr "ラベル付き swap パーティションにおけるスワップを有効にする"
 
-#: fish/cmds.c:5160
+#: fish/cmds.c:5178
 msgid "enable swap on swap partition by UUID"
 msgstr "UUID による swap パーティションにおけるスワップを有効にする"
 
-#: fish/cmds.c:5161
+#: fish/cmds.c:5179
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "ディスクを同期する、書き込みをディスクイメージにフラッシュする"
 
-#: fish/cmds.c:5162
+#: fish/cmds.c:5180
 msgid "install the SYSLINUX bootloader"
 msgstr "SYSLINUX ブートローダーをインストールする"
 
-#: fish/cmds.c:5163
+#: fish/cmds.c:5181
 msgid "return last 10 lines of a file"
 msgstr "ファイルの末尾 10 行を返す"
 
-#: fish/cmds.c:5164
+#: fish/cmds.c:5182
 msgid "return last N lines of a file"
 msgstr "ファイルの末尾 N 行を返す"
 
-#: fish/cmds.c:5165
+#: fish/cmds.c:5183
 msgid "unpack tarfile to directory"
 msgstr "tar ファイルをディレクトリに展開する"
 
-#: fish/cmds.c:5166
+#: fish/cmds.c:5184
 msgid "pack directory into tarfile"
 msgstr "ディレクトリを tar ファイルに圧縮する"
 
-#: fish/cmds.c:5167 fish/cmds.c:5181
+#: fish/cmds.c:5185 fish/cmds.c:5199
 msgid "unpack compressed tarball to directory"
 msgstr "圧縮 tar ファイルをディレクトリに展開する"
 
-#: fish/cmds.c:5168 fish/cmds.c:5182
+#: fish/cmds.c:5186 fish/cmds.c:5200
 msgid "pack directory into compressed tarball"
 msgstr "ディレクトリを圧縮 tar ファイルに圧縮する"
 
-#: fish/cmds.c:5169
+#: fish/cmds.c:5187
 msgid "print elapsed time taken to run a command"
 msgstr "コマンドの実行にかかった経過時間を表示する"
 
-#: fish/cmds.c:5173
+#: fish/cmds.c:5191
 msgid "update file timestamps or create a new file"
 msgstr "ファイルのタイムスタンプを更新する、または新しいファイルを作成する"
 
-#: fish/cmds.c:5177
+#: fish/cmds.c:5195
 msgid "truncate a file to zero size"
 msgstr "ファイルをゼロまで切り詰める"
 
-#: fish/cmds.c:5178
+#: fish/cmds.c:5196
 msgid "truncate a file to a particular size"
 msgstr "ファイルを特定の容量まで切り詰める"
 
-#: fish/cmds.c:5179
+#: fish/cmds.c:5197
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr "ext2/ext3/ext4 ファイルシステムのパラメーターを調整する"
 
-#: fish/cmds.c:5180
+#: fish/cmds.c:5198
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "ext2/ext3/ext4 スーパーブロックの詳細を取得する"
 
-#: fish/cmds.c:5183
+#: fish/cmds.c:5201
 msgid "set file mode creation mask (umask)"
 msgstr "ファイルモードの作成マスク（umask）を設定する"
 
-#: fish/cmds.c:5184
+#: fish/cmds.c:5202
 msgid "unmount a filesystem"
 msgstr "ファイルシステムをアンマウントする"
 
-#: fish/cmds.c:5185
+#: fish/cmds.c:5203
 msgid "unmount all filesystems"
 msgstr "すべてのファイルシステムをアンマウントする"
 
-#: fish/cmds.c:5186
+#: fish/cmds.c:5204
 msgid "unmount a locally mounted filesystem"
 msgstr "ローカルにマウントされたファイルシステムをアンマウントする"
 
-#: fish/cmds.c:5193
+#: fish/cmds.c:5211
 msgid "unset an environment variable"
 msgstr "環境変数を設定解除する"
 
-#: fish/cmds.c:5194
+#: fish/cmds.c:5212
 msgid "upload a file from the local machine"
 msgstr "ローカルマシンからファイルをアップロードする"
 
-#: fish/cmds.c:5195
+#: fish/cmds.c:5213
 msgid "upload a file from the local machine with offset"
 msgstr "ローカルマシンからファイルをオフセット付きでアップロードする"
 
-#: fish/cmds.c:5196
+#: fish/cmds.c:5214
 msgid "cancel the current upload or download operation"
 msgstr "現在のアップロードまたはダウンロード操作を取り消す"
 
-#: fish/cmds.c:5197
+#: fish/cmds.c:5215
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "ファイルのタイムスタンプをナノ秒単位で設定する"
 
-#: fish/cmds.c:5198
+#: fish/cmds.c:5216
 msgid "appliance kernel version"
 msgstr "アプライアンスのカーネルバージョン"
 
-#: fish/cmds.c:5202
+#: fish/cmds.c:5220
 msgid "get the library version number"
 msgstr "ライブラリのバージョン番号を取得する"
 
-#: fish/cmds.c:5203
+#: fish/cmds.c:5221
 msgid "get the filesystem label"
 msgstr "ファイルシステムのラベルを取得する"
 
-#: fish/cmds.c:5204
+#: fish/cmds.c:5222
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "マウント済みデバイスに対応する Linux VFS 形式を取得する"
 
-#: fish/cmds.c:5205
+#: fish/cmds.c:5223
 msgid "get the filesystem UUID"
 msgstr "ファイルシステムの UUID を取得する"
 
-#: fish/cmds.c:5206
+#: fish/cmds.c:5224
 msgid "activate or deactivate some volume groups"
 msgstr "いくつかのボリュームグループを活性化または非活性化する"
 
-#: fish/cmds.c:5207
+#: fish/cmds.c:5225
 msgid "activate or deactivate all volume groups"
 msgstr "すべてのボリュームグループを活性化または非活性化する"
 
-#: fish/cmds.c:5208
+#: fish/cmds.c:5226
 msgid "generate a new random UUID for a volume group"
 msgstr "ボリュームグループに対するランダムな新規 UUID を生成する"
 
-#: fish/cmds.c:5209
+#: fish/cmds.c:5227
 msgid "generate new random UUIDs for all volume groups"
 msgstr "すべてのボリュームグループに対するランダムな新規 UUID を生成する"
 
-#: fish/cmds.c:5210
+#: fish/cmds.c:5228
 msgid "create an LVM volume group"
 msgstr "LVM ボリュームグループを作成する"
 
-#: fish/cmds.c:5211
+#: fish/cmds.c:5229
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr "ボリュームグループにあるすべての論理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:5212
+#: fish/cmds.c:5230
 msgid "get volume group metadata"
 msgstr "ボリュームグループのメタ情報を取得する"
 
-#: fish/cmds.c:5213
+#: fish/cmds.c:5231
 msgid "get the PV UUIDs containing the volume group"
 msgstr "ボリュームグループを含む物理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:5214
+#: fish/cmds.c:5232
 msgid "remove an LVM volume group"
 msgstr "LVM ボリュームグループを削除する"
 
-#: fish/cmds.c:5215
+#: fish/cmds.c:5233
 msgid "rename an LVM volume group"
 msgstr "LVM ボリュームグループの名前を変更する"
 
-#: fish/cmds.c:5216 fish/cmds.c:5217
+#: fish/cmds.c:5234 fish/cmds.c:5235
 msgid "list the LVM volume groups (VGs)"
 msgstr "LVM ボリュームグループ (VG) を一覧表示する"
 
-#: fish/cmds.c:5218
+#: fish/cmds.c:5236
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 "LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
 
-#: fish/cmds.c:5219
+#: fish/cmds.c:5237
 msgid "get the UUID of a volume group"
 msgstr "ボリュームグループの UUID を取得する"
 
-#: fish/cmds.c:5223
+#: fish/cmds.c:5241
 msgid "count characters in a file"
 msgstr "ファイルにある文字数を数える"
 
-#: fish/cmds.c:5224
+#: fish/cmds.c:5242
 msgid "count lines in a file"
 msgstr "ファイルにある行数を数える"
 
-#: fish/cmds.c:5225
+#: fish/cmds.c:5243
 msgid "count words in a file"
 msgstr "ファイルにある単語数を数える"
 
-#: fish/cmds.c:5226
+#: fish/cmds.c:5244
 msgid "wipe a filesystem signature from a device"
 msgstr "デバイスからファイルシステムのシグネチャーを完全消去する"
 
-#: fish/cmds.c:5227
+#: fish/cmds.c:5245
 msgid "create a new file"
 msgstr "新規ファイルを作成する"
 
-#: fish/cmds.c:5228
+#: fish/cmds.c:5246
 msgid "append content to end of file"
 msgstr "コンテンツをファイルの最後に追加する"
 
-#: fish/cmds.c:5229
+#: fish/cmds.c:5247
 msgid "create a file"
 msgstr "ファイルを作成する"
 
-#: fish/cmds.c:5230
+#: fish/cmds.c:5248
 msgid "change parameters of an XFS filesystem"
 msgstr "XFS ファイルシステムのパラメーターを変更する"
 
-#: fish/cmds.c:5231
+#: fish/cmds.c:5249
 msgid "expand an existing XFS filesystem"
 msgstr "既存の XFS ファイルシステムを拡張する"
 
-#: fish/cmds.c:5232
+#: fish/cmds.c:5250
 msgid "get geometry of XFS filesystem"
 msgstr "XFS ファイルシステムのジオメトリーを取得する"
 
-#: fish/cmds.c:5233
+#: fish/cmds.c:5251
 msgid "repair an XFS filesystem"
 msgstr "XFS ファイルシステムを修復する"
 
-#: fish/cmds.c:5236
+#: fish/cmds.c:5254
 msgid "write zeroes to the device"
 msgstr "デバイスにゼロを書き込む"
 
-#: fish/cmds.c:5237
+#: fish/cmds.c:5255
 msgid "write zeroes to an entire device"
 msgstr "デバイス全体にゼロを書き込む"
 
-#: fish/cmds.c:5238
+#: fish/cmds.c:5256
 msgid "zero free space in a filesystem"
 msgstr "ファイルシステムの空き領域をゼロで埋める"
 
-#: fish/cmds.c:5239
+#: fish/cmds.c:5257
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 "ext2/3 ファイルシステムにある未使用の inode およびディスクブロックをゼロで埋"
 "める"
 
-#: fish/cmds.c:5242
+#: fish/cmds.c:5260
 msgid "determine file type inside a compressed file"
 msgstr "圧縮ファイルの中にあるファイルの形式を決定する"
 
-#: fish/cmds.c:5245
+#: fish/cmds.c:5263
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
 
-#: fish/cmds.c:6013 fish/cmds.c:6031 fish/cmds.c:6044 fish/cmds.c:6072
-#: fish/cmds.c:6128 fish/cmds.c:6192 fish/cmds.c:6536 fish/cmds.c:7402
-#: fish/cmds.c:7567 fish/cmds.c:7862 fish/cmds.c:8060 fish/cmds.c:8293
-#: fish/cmds.c:8392 fish/cmds.c:9021 fish/cmds.c:9034 fish/cmds.c:9047
-#: fish/cmds.c:9060 fish/cmds.c:9172 fish/cmds.c:9281 fish/cmds.c:9392
-#: fish/cmds.c:9504 fish/cmds.c:10274 fish/cmds.c:10287 fish/cmds.c:11963
-#: fish/cmds.c:11976 fish/cmds.c:11989 fish/cmds.c:12002 fish/cmds.c:12599
-#: fish/cmds.c:12612 fish/cmds.c:12625 fish/cmds.c:13231 fish/cmds.c:13244
-#: fish/cmds.c:13686 fish/cmds.c:13745 fish/cmds.c:13823 fish/cmds.c:13882
-#: fish/cmds.c:13941 fish/cmds.c:14022 fish/cmds.c:16679 fish/cmds.c:16692
-#: fish/cmds.c:16705 fish/cmds.c:16718 fish/cmds.c:16731 fish/cmds.c:16744
-#: fish/cmds.c:16757 fish/cmds.c:16770 fish/cmds.c:16783 fish/cmds.c:16796
-#: fish/cmds.c:16809 fish/cmds.c:16822 fish/cmds.c:16835 fish/cmds.c:16848
-#: fish/cmds.c:16861 fish/cmds.c:16874 fish/cmds.c:16887 fish/cmds.c:18158
-#: fish/cmds.c:18199 fish/cmds.c:18456 fish/cmds.c:18526 fish/cmds.c:18539
-#: fish/cmds.c:18552 fish/cmds.c:18565 fish/cmds.c:18578 fish/cmds.c:18635
-#: fish/cmds.c:18707 fish/cmds.c:19302 fish/cmds.c:20186 fish/cmds.c:20518
-#: fish/cmds.c:20531 fish/cmds.c:20593 fish/cmds.c:20606 fish/cmds.c:20666
-#: fish/cmds.c:20679 fish/cmds.c:20839 fish/cmds.c:20959 fish/cmds.c:21001
-#: fish/cmds.c:21287 fish/cmds.c:21339 fish/cmds.c:21412 fish/cmds.c:21442
-#: fish/cmds.c:21534 fish/cmds.c:21587 fish/cmds.c:22598 fish/cmds.c:22809
-#: fish/cmds.c:23140 fish/cmds.c:23153 fish/cmds.c:23226 fish/cmds.c:23557
-#: fish/cmds.c:23591 fish/cmds.c:24095 fish/cmds.c:24108 fish/cmds.c:24121
-#: fish/cmds.c:24134 fish/cmds.c:24147 fish/cmds.c:24213 fish/cmds.c:24226
-#: fish/cmds.c:24239 fish/cmds.c:24414 fish/cmds.c:24427 fish/cmds.c:24440
-#: fish/cmds.c:24453
+#: fish/cmds.c:6031 fish/cmds.c:6049 fish/cmds.c:6062 fish/cmds.c:6090
+#: fish/cmds.c:6146 fish/cmds.c:6210 fish/cmds.c:6554 fish/cmds.c:7420
+#: fish/cmds.c:7585 fish/cmds.c:7880 fish/cmds.c:8106 fish/cmds.c:8339
+#: fish/cmds.c:8438 fish/cmds.c:9067 fish/cmds.c:9080 fish/cmds.c:9093
+#: fish/cmds.c:9106 fish/cmds.c:9218 fish/cmds.c:9231 fish/cmds.c:9340
+#: fish/cmds.c:9353 fish/cmds.c:9464 fish/cmds.c:9477 fish/cmds.c:9589
+#: fish/cmds.c:9602 fish/cmds.c:10372 fish/cmds.c:10385 fish/cmds.c:12061
+#: fish/cmds.c:12074 fish/cmds.c:12087 fish/cmds.c:12100 fish/cmds.c:12697
+#: fish/cmds.c:12710 fish/cmds.c:12723 fish/cmds.c:13329 fish/cmds.c:13342
+#: fish/cmds.c:13802 fish/cmds.c:13861 fish/cmds.c:13939 fish/cmds.c:13998
+#: fish/cmds.c:14057 fish/cmds.c:14138 fish/cmds.c:16795 fish/cmds.c:16808
+#: fish/cmds.c:16821 fish/cmds.c:16834 fish/cmds.c:16847 fish/cmds.c:16860
+#: fish/cmds.c:16873 fish/cmds.c:16886 fish/cmds.c:16899 fish/cmds.c:16912
+#: fish/cmds.c:16925 fish/cmds.c:16938 fish/cmds.c:16951 fish/cmds.c:16964
+#: fish/cmds.c:16977 fish/cmds.c:16990 fish/cmds.c:17003 fish/cmds.c:18274
+#: fish/cmds.c:18315 fish/cmds.c:18572 fish/cmds.c:18642 fish/cmds.c:18655
+#: fish/cmds.c:18668 fish/cmds.c:18681 fish/cmds.c:18694 fish/cmds.c:18751
+#: fish/cmds.c:18823 fish/cmds.c:19418 fish/cmds.c:20302 fish/cmds.c:20634
+#: fish/cmds.c:20647 fish/cmds.c:20709 fish/cmds.c:20722 fish/cmds.c:20782
+#: fish/cmds.c:20795 fish/cmds.c:20955 fish/cmds.c:21075 fish/cmds.c:21117
+#: fish/cmds.c:21403 fish/cmds.c:21455 fish/cmds.c:21528 fish/cmds.c:21558
+#: fish/cmds.c:21650 fish/cmds.c:21703 fish/cmds.c:22714 fish/cmds.c:22925
+#: fish/cmds.c:23256 fish/cmds.c:23269 fish/cmds.c:23342 fish/cmds.c:23673
+#: fish/cmds.c:23707 fish/cmds.c:24211 fish/cmds.c:24224 fish/cmds.c:24237
+#: fish/cmds.c:24250 fish/cmds.c:24263 fish/cmds.c:24329 fish/cmds.c:24342
+#: fish/cmds.c:24355 fish/cmds.c:24530 fish/cmds.c:24543 fish/cmds.c:24556
+#: fish/cmds.c:24569
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: '%s': 無効な論理値、'true' または 'false' を使用してください\n"
 
-#: fish/cmds.c:6082 fish/cmds.c:6202 fish/cmds.c:6313 fish/cmds.c:7417
-#: fish/cmds.c:7479 fish/cmds.c:7577 fish/cmds.c:7646 fish/cmds.c:8102
-#: fish/cmds.c:8308 fish/cmds.c:8871 fish/cmds.c:8944 fish/cmds.c:9070
-#: fish/cmds.c:9182 fish/cmds.c:9291 fish/cmds.c:9402 fish/cmds.c:9514
-#: fish/cmds.c:9699 fish/cmds.c:9988 fish/cmds.c:10297 fish/cmds.c:11120
-#: fish/cmds.c:12012 fish/cmds.c:12635 fish/cmds.c:13254 fish/cmds.c:13696
-#: fish/cmds.c:13755 fish/cmds.c:13833 fish/cmds.c:13892 fish/cmds.c:13951
-#: fish/cmds.c:14032 fish/cmds.c:16161 fish/cmds.c:16897 fish/cmds.c:17333
-#: fish/cmds.c:17538 fish/cmds.c:17898 fish/cmds.c:18016 fish/cmds.c:18113
-#: fish/cmds.c:18209 fish/cmds.c:18588 fish/cmds.c:18645 fish/cmds.c:18717
-#: fish/cmds.c:20196 fish/cmds.c:20541 fish/cmds.c:20616 fish/cmds.c:20689
-#: fish/cmds.c:21011 fish/cmds.c:22417 fish/cmds.c:22541 fish/cmds.c:22614
-#: fish/cmds.c:22972 fish/cmds.c:23163 fish/cmds.c:23236 fish/cmds.c:24167
-#: fish/cmds.c:24340 fish/cmds.c:24541
+#: fish/cmds.c:6100 fish/cmds.c:6220 fish/cmds.c:6331 fish/cmds.c:7435
+#: fish/cmds.c:7497 fish/cmds.c:7595 fish/cmds.c:7664 fish/cmds.c:8148
+#: fish/cmds.c:8354 fish/cmds.c:8917 fish/cmds.c:8990 fish/cmds.c:9116
+#: fish/cmds.c:9241 fish/cmds.c:9363 fish/cmds.c:9487 fish/cmds.c:9612
+#: fish/cmds.c:9797 fish/cmds.c:10086 fish/cmds.c:10395 fish/cmds.c:11218
+#: fish/cmds.c:12110 fish/cmds.c:12733 fish/cmds.c:13352 fish/cmds.c:13812
+#: fish/cmds.c:13871 fish/cmds.c:13949 fish/cmds.c:14008 fish/cmds.c:14067
+#: fish/cmds.c:14148 fish/cmds.c:16277 fish/cmds.c:17013 fish/cmds.c:17449
+#: fish/cmds.c:17654 fish/cmds.c:18014 fish/cmds.c:18132 fish/cmds.c:18229
+#: fish/cmds.c:18325 fish/cmds.c:18704 fish/cmds.c:18761 fish/cmds.c:18833
+#: fish/cmds.c:20312 fish/cmds.c:20657 fish/cmds.c:20732 fish/cmds.c:20805
+#: fish/cmds.c:21127 fish/cmds.c:22533 fish/cmds.c:22657 fish/cmds.c:22730
+#: fish/cmds.c:23088 fish/cmds.c:23279 fish/cmds.c:23352 fish/cmds.c:24283
+#: fish/cmds.c:24456 fish/cmds.c:24657
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: 未知のオプション引数 \"%s\"\n"
 
-#: fish/cmds.c:6088 fish/cmds.c:6208 fish/cmds.c:6319 fish/cmds.c:7423
-#: fish/cmds.c:7485 fish/cmds.c:7583 fish/cmds.c:7652 fish/cmds.c:8108
-#: fish/cmds.c:8314 fish/cmds.c:8877 fish/cmds.c:8950 fish/cmds.c:9076
-#: fish/cmds.c:9188 fish/cmds.c:9297 fish/cmds.c:9408 fish/cmds.c:9520
-#: fish/cmds.c:9705 fish/cmds.c:9994 fish/cmds.c:10303 fish/cmds.c:11126
-#: fish/cmds.c:12018 fish/cmds.c:12641 fish/cmds.c:13260 fish/cmds.c:13702
-#: fish/cmds.c:13761 fish/cmds.c:13839 fish/cmds.c:13898 fish/cmds.c:13957
-#: fish/cmds.c:14038 fish/cmds.c:16167 fish/cmds.c:16903 fish/cmds.c:17339
-#: fish/cmds.c:17544 fish/cmds.c:17904 fish/cmds.c:18022 fish/cmds.c:18119
-#: fish/cmds.c:18215 fish/cmds.c:18594 fish/cmds.c:18651 fish/cmds.c:18723
-#: fish/cmds.c:20202 fish/cmds.c:20547 fish/cmds.c:20622 fish/cmds.c:20695
-#: fish/cmds.c:21017 fish/cmds.c:22423 fish/cmds.c:22547 fish/cmds.c:22620
-#: fish/cmds.c:22978 fish/cmds.c:23169 fish/cmds.c:23242 fish/cmds.c:24173
-#: fish/cmds.c:24346 fish/cmds.c:24547
+#: fish/cmds.c:6106 fish/cmds.c:6226 fish/cmds.c:6337 fish/cmds.c:7441
+#: fish/cmds.c:7503 fish/cmds.c:7601 fish/cmds.c:7670 fish/cmds.c:8154
+#: fish/cmds.c:8360 fish/cmds.c:8923 fish/cmds.c:8996 fish/cmds.c:9122
+#: fish/cmds.c:9247 fish/cmds.c:9369 fish/cmds.c:9493 fish/cmds.c:9618
+#: fish/cmds.c:9803 fish/cmds.c:10092 fish/cmds.c:10401 fish/cmds.c:11224
+#: fish/cmds.c:12116 fish/cmds.c:12739 fish/cmds.c:13358 fish/cmds.c:13818
+#: fish/cmds.c:13877 fish/cmds.c:13955 fish/cmds.c:14014 fish/cmds.c:14073
+#: fish/cmds.c:14154 fish/cmds.c:16283 fish/cmds.c:17019 fish/cmds.c:17455
+#: fish/cmds.c:17660 fish/cmds.c:18020 fish/cmds.c:18138 fish/cmds.c:18235
+#: fish/cmds.c:18331 fish/cmds.c:18710 fish/cmds.c:18767 fish/cmds.c:18839
+#: fish/cmds.c:20318 fish/cmds.c:20663 fish/cmds.c:20738 fish/cmds.c:20811
+#: fish/cmds.c:21133 fish/cmds.c:22539 fish/cmds.c:22663 fish/cmds.c:22736
+#: fish/cmds.c:23094 fish/cmds.c:23285 fish/cmds.c:23358 fish/cmds.c:24289
+#: fish/cmds.c:24462 fish/cmds.c:24663
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: オプション引数 \"%s\" が２回指定されています。\n"
 
-#: fish/cmds.c:6291 fish/cmds.c:6494 fish/cmds.c:7092 fish/cmds.c:7134
-#: fish/cmds.c:7469 fish/cmds.c:7554 fish/cmds.c:7630 fish/cmds.c:7773
-#: fish/cmds.c:8220 fish/cmds.c:8657 fish/cmds.c:8703 fish/cmds.c:8722
-#: fish/cmds.c:8855 fish/cmds.c:8928 fish/cmds.c:9125 fish/cmds.c:9142
-#: fish/cmds.c:9159 fish/cmds.c:9234 fish/cmds.c:9251 fish/cmds.c:9268
-#: fish/cmds.c:9345 fish/cmds.c:9362 fish/cmds.c:9379 fish/cmds.c:9457
-#: fish/cmds.c:9474 fish/cmds.c:9491 fish/cmds.c:9564 fish/cmds.c:9823
-#: fish/cmds.c:9933 fish/cmds.c:9972 fish/cmds.c:10152 fish/cmds.c:10165
-#: fish/cmds.c:10204 fish/cmds.c:10522 fish/cmds.c:10567 fish/cmds.c:10785
-#: fish/cmds.c:10804 fish/cmds.c:10852 fish/cmds.c:10897 fish/cmds.c:11076
-#: fish/cmds.c:11093 fish/cmds.c:11110 fish/cmds.c:11437 fish/cmds.c:11479
-#: fish/cmds.c:11521 fish/cmds.c:12137 fish/cmds.c:12250 fish/cmds.c:12286
-#: fish/cmds.c:12322 fish/cmds.c:12357 fish/cmds.c:12394 fish/cmds.c:12430
-#: fish/cmds.c:12466 fish/cmds.c:12505 fish/cmds.c:12519 fish/cmds.c:12557
-#: fish/cmds.c:12696 fish/cmds.c:12732 fish/cmds.c:12767 fish/cmds.c:12804
-#: fish/cmds.c:12906 fish/cmds.c:12987 fish/cmds.c:13047 fish/cmds.c:14337
-#: fish/cmds.c:14371 fish/cmds.c:14444 fish/cmds.c:14463 fish/cmds.c:15215
-#: fish/cmds.c:15385 fish/cmds.c:15457 fish/cmds.c:15507 fish/cmds.c:15557
-#: fish/cmds.c:15663 fish/cmds.c:15707 fish/cmds.c:15876 fish/cmds.c:15918
-#: fish/cmds.c:16083 fish/cmds.c:16100 fish/cmds.c:16123 fish/cmds.c:16146
-#: fish/cmds.c:16297 fish/cmds.c:16398 fish/cmds.c:16415 fish/cmds.c:16432
-#: fish/cmds.c:16449 fish/cmds.c:16466 fish/cmds.c:16483 fish/cmds.c:16500
-#: fish/cmds.c:16517 fish/cmds.c:16534 fish/cmds.c:16551 fish/cmds.c:16568
-#: fish/cmds.c:16585 fish/cmds.c:16602 fish/cmds.c:16625 fish/cmds.c:16941
-#: fish/cmds.c:16987 fish/cmds.c:17033 fish/cmds.c:17076 fish/cmds.c:17119
-#: fish/cmds.c:17163 fish/cmds.c:17206 fish/cmds.c:17261 fish/cmds.c:17289
-#: fish/cmds.c:17312 fish/cmds.c:17376 fish/cmds.c:17427 fish/cmds.c:17444
-#: fish/cmds.c:17466 fish/cmds.c:17499 fish/cmds.c:17522 fish/cmds.c:17628
-#: fish/cmds.c:17647 fish/cmds.c:17666 fish/cmds.c:17715 fish/cmds.c:17734
-#: fish/cmds.c:17753 fish/cmds.c:17802 fish/cmds.c:17821 fish/cmds.c:17840
-#: fish/cmds.c:18180 fish/cmds.c:18694 fish/cmds.c:18759 fish/cmds.c:18840
-#: fish/cmds.c:18853 fish/cmds.c:18890 fish/cmds.c:18955 fish/cmds.c:18998
-#: fish/cmds.c:19042 fish/cmds.c:19086 fish/cmds.c:19129 fish/cmds.c:19173
-#: fish/cmds.c:19287 fish/cmds.c:19340 fish/cmds.c:19384 fish/cmds.c:19428
-#: fish/cmds.c:19447 fish/cmds.c:19491 fish/cmds.c:19600 fish/cmds.c:19619
-#: fish/cmds.c:19666 fish/cmds.c:19685 fish/cmds.c:19830 fish/cmds.c:19935
-#: fish/cmds.c:19979 fish/cmds.c:20358 fish/cmds.c:21056 fish/cmds.c:21184
-#: fish/cmds.c:21251 fish/cmds.c:21476 fish/cmds.c:21647 fish/cmds.c:21696
-#: fish/cmds.c:21715 fish/cmds.c:21734 fish/cmds.c:21812 fish/cmds.c:21831
-#: fish/cmds.c:21850 fish/cmds.c:21869 fish/cmds.c:22046 fish/cmds.c:22484
-#: fish/cmds.c:22768 fish/cmds.c:22826 fish/cmds.c:22849 fish/cmds.c:22877
-#: fish/cmds.c:22894 fish/cmds.c:22917 fish/cmds.c:22945 fish/cmds.c:22962
-#: fish/cmds.c:23093 fish/cmds.c:23311 fish/cmds.c:23373 fish/cmds.c:23386
-#: fish/cmds.c:23399 fish/cmds.c:23412 fish/cmds.c:24048 fish/cmds.c:24256
-#: fish/cmds.c:24273 fish/cmds.c:24290 fish/cmds.c:24307 fish/cmds.c:24324
-#: fish/cmds.c:24470 fish/cmds.c:24487 fish/cmds.c:24504 fish/cmds.c:24521
+#: fish/cmds.c:6309 fish/cmds.c:6512 fish/cmds.c:7110 fish/cmds.c:7152
+#: fish/cmds.c:7487 fish/cmds.c:7572 fish/cmds.c:7648 fish/cmds.c:7791
+#: fish/cmds.c:8266 fish/cmds.c:8703 fish/cmds.c:8749 fish/cmds.c:8768
+#: fish/cmds.c:8901 fish/cmds.c:8974 fish/cmds.c:9171 fish/cmds.c:9188
+#: fish/cmds.c:9205 fish/cmds.c:9293 fish/cmds.c:9310 fish/cmds.c:9327
+#: fish/cmds.c:9417 fish/cmds.c:9434 fish/cmds.c:9451 fish/cmds.c:9542
+#: fish/cmds.c:9559 fish/cmds.c:9576 fish/cmds.c:9662 fish/cmds.c:9921
+#: fish/cmds.c:10031 fish/cmds.c:10070 fish/cmds.c:10250 fish/cmds.c:10263
+#: fish/cmds.c:10302 fish/cmds.c:10620 fish/cmds.c:10665 fish/cmds.c:10883
+#: fish/cmds.c:10902 fish/cmds.c:10950 fish/cmds.c:10995 fish/cmds.c:11174
+#: fish/cmds.c:11191 fish/cmds.c:11208 fish/cmds.c:11535 fish/cmds.c:11577
+#: fish/cmds.c:11619 fish/cmds.c:12235 fish/cmds.c:12348 fish/cmds.c:12384
+#: fish/cmds.c:12420 fish/cmds.c:12455 fish/cmds.c:12492 fish/cmds.c:12528
+#: fish/cmds.c:12564 fish/cmds.c:12603 fish/cmds.c:12617 fish/cmds.c:12655
+#: fish/cmds.c:12794 fish/cmds.c:12830 fish/cmds.c:12865 fish/cmds.c:12902
+#: fish/cmds.c:13004 fish/cmds.c:13085 fish/cmds.c:13145 fish/cmds.c:14453
+#: fish/cmds.c:14487 fish/cmds.c:14560 fish/cmds.c:14579 fish/cmds.c:15331
+#: fish/cmds.c:15501 fish/cmds.c:15573 fish/cmds.c:15623 fish/cmds.c:15673
+#: fish/cmds.c:15779 fish/cmds.c:15823 fish/cmds.c:15992 fish/cmds.c:16034
+#: fish/cmds.c:16199 fish/cmds.c:16216 fish/cmds.c:16239 fish/cmds.c:16262
+#: fish/cmds.c:16413 fish/cmds.c:16514 fish/cmds.c:16531 fish/cmds.c:16548
+#: fish/cmds.c:16565 fish/cmds.c:16582 fish/cmds.c:16599 fish/cmds.c:16616
+#: fish/cmds.c:16633 fish/cmds.c:16650 fish/cmds.c:16667 fish/cmds.c:16684
+#: fish/cmds.c:16701 fish/cmds.c:16718 fish/cmds.c:16741 fish/cmds.c:17057
+#: fish/cmds.c:17103 fish/cmds.c:17149 fish/cmds.c:17192 fish/cmds.c:17235
+#: fish/cmds.c:17279 fish/cmds.c:17322 fish/cmds.c:17377 fish/cmds.c:17405
+#: fish/cmds.c:17428 fish/cmds.c:17492 fish/cmds.c:17543 fish/cmds.c:17560
+#: fish/cmds.c:17582 fish/cmds.c:17615 fish/cmds.c:17638 fish/cmds.c:17744
+#: fish/cmds.c:17763 fish/cmds.c:17782 fish/cmds.c:17831 fish/cmds.c:17850
+#: fish/cmds.c:17869 fish/cmds.c:17918 fish/cmds.c:17937 fish/cmds.c:17956
+#: fish/cmds.c:18296 fish/cmds.c:18810 fish/cmds.c:18875 fish/cmds.c:18956
+#: fish/cmds.c:18969 fish/cmds.c:19006 fish/cmds.c:19071 fish/cmds.c:19114
+#: fish/cmds.c:19158 fish/cmds.c:19202 fish/cmds.c:19245 fish/cmds.c:19289
+#: fish/cmds.c:19403 fish/cmds.c:19456 fish/cmds.c:19500 fish/cmds.c:19544
+#: fish/cmds.c:19563 fish/cmds.c:19607 fish/cmds.c:19716 fish/cmds.c:19735
+#: fish/cmds.c:19782 fish/cmds.c:19801 fish/cmds.c:19946 fish/cmds.c:20051
+#: fish/cmds.c:20095 fish/cmds.c:20474 fish/cmds.c:21172 fish/cmds.c:21300
+#: fish/cmds.c:21367 fish/cmds.c:21592 fish/cmds.c:21763 fish/cmds.c:21812
+#: fish/cmds.c:21831 fish/cmds.c:21850 fish/cmds.c:21928 fish/cmds.c:21947
+#: fish/cmds.c:21966 fish/cmds.c:21985 fish/cmds.c:22162 fish/cmds.c:22600
+#: fish/cmds.c:22884 fish/cmds.c:22942 fish/cmds.c:22965 fish/cmds.c:22993
+#: fish/cmds.c:23010 fish/cmds.c:23033 fish/cmds.c:23061 fish/cmds.c:23078
+#: fish/cmds.c:23209 fish/cmds.c:23427 fish/cmds.c:23489 fish/cmds.c:23502
+#: fish/cmds.c:23515 fish/cmds.c:23528 fish/cmds.c:24164 fish/cmds.c:24372
+#: fish/cmds.c:24389 fish/cmds.c:24406 fish/cmds.c:24423 fish/cmds.c:24440
+#: fish/cmds.c:24586 fish/cmds.c:24603 fish/cmds.c:24620 fish/cmds.c:24637
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: 無効な整数パラメーター (%s が %d を返しました)\n"
 
-#: fish/cmds.c:6500 fish/cmds.c:7098 fish/cmds.c:7140 fish/cmds.c:7636
-#: fish/cmds.c:8663 fish/cmds.c:8709 fish/cmds.c:8728 fish/cmds.c:8861
-#: fish/cmds.c:8934 fish/cmds.c:9829 fish/cmds.c:9978 fish/cmds.c:10210
-#: fish/cmds.c:10528 fish/cmds.c:10791 fish/cmds.c:10810 fish/cmds.c:10858
-#: fish/cmds.c:10903 fish/cmds.c:11443 fish/cmds.c:11485 fish/cmds.c:11527
-#: fish/cmds.c:12143 fish/cmds.c:12912 fish/cmds.c:12993 fish/cmds.c:13053
-#: fish/cmds.c:14450 fish/cmds.c:14469 fish/cmds.c:15221 fish/cmds.c:15391
-#: fish/cmds.c:15463 fish/cmds.c:15513 fish/cmds.c:15563 fish/cmds.c:15669
-#: fish/cmds.c:15713 fish/cmds.c:15882 fish/cmds.c:15924 fish/cmds.c:16106
-#: fish/cmds.c:16129 fish/cmds.c:16303 fish/cmds.c:16608 fish/cmds.c:16631
-#: fish/cmds.c:16947 fish/cmds.c:16993 fish/cmds.c:17039 fish/cmds.c:17082
-#: fish/cmds.c:17125 fish/cmds.c:17169 fish/cmds.c:17212 fish/cmds.c:17267
-#: fish/cmds.c:17295 fish/cmds.c:17318 fish/cmds.c:17382 fish/cmds.c:17472
-#: fish/cmds.c:17505 fish/cmds.c:17528 fish/cmds.c:17634 fish/cmds.c:17653
-#: fish/cmds.c:17672 fish/cmds.c:17721 fish/cmds.c:17740 fish/cmds.c:17759
-#: fish/cmds.c:17808 fish/cmds.c:17827 fish/cmds.c:17846 fish/cmds.c:18186
-#: fish/cmds.c:18896 fish/cmds.c:18961 fish/cmds.c:19004 fish/cmds.c:19048
-#: fish/cmds.c:19092 fish/cmds.c:19135 fish/cmds.c:19179 fish/cmds.c:19293
-#: fish/cmds.c:19346 fish/cmds.c:19390 fish/cmds.c:19434 fish/cmds.c:19453
-#: fish/cmds.c:19497 fish/cmds.c:19606 fish/cmds.c:19672 fish/cmds.c:21190
-#: fish/cmds.c:21257 fish/cmds.c:21482 fish/cmds.c:21653 fish/cmds.c:21702
-#: fish/cmds.c:21721 fish/cmds.c:21740 fish/cmds.c:21818 fish/cmds.c:21837
-#: fish/cmds.c:21856 fish/cmds.c:21875 fish/cmds.c:22052 fish/cmds.c:22490
-#: fish/cmds.c:22832 fish/cmds.c:22855 fish/cmds.c:22900 fish/cmds.c:22923
-#: fish/cmds.c:23099 fish/cmds.c:24054 fish/cmds.c:24330
+#: fish/cmds.c:6518 fish/cmds.c:7116 fish/cmds.c:7158 fish/cmds.c:7654
+#: fish/cmds.c:8709 fish/cmds.c:8755 fish/cmds.c:8774 fish/cmds.c:8907
+#: fish/cmds.c:8980 fish/cmds.c:9927 fish/cmds.c:10076 fish/cmds.c:10308
+#: fish/cmds.c:10626 fish/cmds.c:10889 fish/cmds.c:10908 fish/cmds.c:10956
+#: fish/cmds.c:11001 fish/cmds.c:11541 fish/cmds.c:11583 fish/cmds.c:11625
+#: fish/cmds.c:12241 fish/cmds.c:13010 fish/cmds.c:13091 fish/cmds.c:13151
+#: fish/cmds.c:14566 fish/cmds.c:14585 fish/cmds.c:15337 fish/cmds.c:15507
+#: fish/cmds.c:15579 fish/cmds.c:15629 fish/cmds.c:15679 fish/cmds.c:15785
+#: fish/cmds.c:15829 fish/cmds.c:15998 fish/cmds.c:16040 fish/cmds.c:16222
+#: fish/cmds.c:16245 fish/cmds.c:16419 fish/cmds.c:16724 fish/cmds.c:16747
+#: fish/cmds.c:17063 fish/cmds.c:17109 fish/cmds.c:17155 fish/cmds.c:17198
+#: fish/cmds.c:17241 fish/cmds.c:17285 fish/cmds.c:17328 fish/cmds.c:17383
+#: fish/cmds.c:17411 fish/cmds.c:17434 fish/cmds.c:17498 fish/cmds.c:17588
+#: fish/cmds.c:17621 fish/cmds.c:17644 fish/cmds.c:17750 fish/cmds.c:17769
+#: fish/cmds.c:17788 fish/cmds.c:17837 fish/cmds.c:17856 fish/cmds.c:17875
+#: fish/cmds.c:17924 fish/cmds.c:17943 fish/cmds.c:17962 fish/cmds.c:18302
+#: fish/cmds.c:19012 fish/cmds.c:19077 fish/cmds.c:19120 fish/cmds.c:19164
+#: fish/cmds.c:19208 fish/cmds.c:19251 fish/cmds.c:19295 fish/cmds.c:19409
+#: fish/cmds.c:19462 fish/cmds.c:19506 fish/cmds.c:19550 fish/cmds.c:19569
+#: fish/cmds.c:19613 fish/cmds.c:19722 fish/cmds.c:19788 fish/cmds.c:21306
+#: fish/cmds.c:21373 fish/cmds.c:21598 fish/cmds.c:21769 fish/cmds.c:21818
+#: fish/cmds.c:21837 fish/cmds.c:21856 fish/cmds.c:21934 fish/cmds.c:21953
+#: fish/cmds.c:21972 fish/cmds.c:21991 fish/cmds.c:22168 fish/cmds.c:22606
+#: fish/cmds.c:22948 fish/cmds.c:22971 fish/cmds.c:23016 fish/cmds.c:23039
+#: fish/cmds.c:23215 fish/cmds.c:24170 fish/cmds.c:24446
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: 範囲外の整数\n"
 
-#: fish/cmds.c:24861
+#: fish/cmds.c:24977
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: fish/cmds.c:24863
+#: fish/cmds.c:24979
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: fish/cmds.c:24864
+#: fish/cmds.c:24980
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: fish/cmds.c:24869
+#: fish/cmds.c:24985
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: 未知のコマンド\n"
