@@ -140,11 +140,14 @@ val unlink_on_exit : string -> unit
 val rmdir_on_exit : string -> unit
 (** Remove a temporary directory on exit (using [rm -rf]). *)
 
-val rm_rf_only_files : Guestfs.guestfs -> string -> unit
+val rm_rf_only_files : Guestfs.guestfs -> ?filter:(string -> bool) -> string -> unit
 (** Using the libguestfs API, recursively remove only files from the
     given directory.  Useful for cleaning [/var/cache] etc in sysprep
     without removing the actual directory structure.  Also if [dir] is
     not a directory or doesn't exist, ignore it.
+
+    The optional [filter] is used to filter out files which will be
+    removed: files returning true are not removed.
 
     XXX Could be faster with a specific API for doing this. *)
 
