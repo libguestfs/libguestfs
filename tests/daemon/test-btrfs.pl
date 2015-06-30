@@ -63,13 +63,13 @@ EOF
     die unless $r[2]->{btrfssubvolume_path} eq "test3";
 
     # Test btrfs_qgroup_show.
-    my $output = <<EOF;
+    $output = <<EOF;
 qgroupid rfer excl 
 -------- ---- ---- 
 0/5      4096 4096 
 EOF
     set_btrfs_output ($output);
-    my @r = $g->btrfs_qgroup_show ("/");
+    @r = $g->btrfs_qgroup_show ("/");
     die unless @r == 1;
     die unless $r[0]->{btrfsqgroup_id} == "0/5";
     die unless $r[0]->{btrfsqgroup_rfer} == 4096;
