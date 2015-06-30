@@ -152,6 +152,8 @@ extern void udev_settle (void);
 
 extern int random_name (char *template);
 
+extern char *get_random_uuid (void);
+
 /* This just stops gcc from giving a warning about our custom printf
  * formatters %Q and %R.  See guestfs(3)/EXTENDING LIBGUESTFS for more
  * info about these.  In GCC 4.8.0 the warning is even harder to

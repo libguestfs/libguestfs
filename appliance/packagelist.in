@@ -97,6 +97,7 @@ dnl iproute has been renamed to iproute2
   vim-tiny
   xz-utils
   zfs-fuse
+  uuid-runtime
 )
 
 ifelse(ARCHLINUX,1,
