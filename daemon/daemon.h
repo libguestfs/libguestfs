@@ -262,6 +262,7 @@ extern int copy_xattrs (const char *src, const char *dest);
 /*-- in xfs.c --*/
 /* Documented in xfs_admin(8). */
 #define XFS_LABEL_MAX 12
+extern int xfs_set_uuid (const char *device, const char *uuid);
 
 /*-- debug-bmap.c --*/
 extern char *debug_bmap (const char *subcmd, size_t argc, char *const *const argv);

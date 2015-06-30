@@ -27,7 +27,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
 GUESTFSD_EXT_CMD(str_swaplabel, swaplabel);
 
 static int
@@ -48,22 +47,13 @@ e2uuid (const char *device, const char *uuid)
 static int
 xfsuuid (const char *device, const char *uuid)
 {
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
   /* Don't allow special values. */
   if (STREQ (uuid, "nil") || STREQ (uuid, "generate")) {
     reply_with_error ("xfs: invalid new UUID");
     return -1;
   }
 
-  r = command (NULL, &err, str_xfs_admin, "-U", uuid, device, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
+  return xfs_set_uuid (device, uuid);
 }
 
 static int
