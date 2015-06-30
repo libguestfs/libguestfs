@@ -6126,12 +6126,14 @@ the command C<mount -o loop file mountpoint>." };
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkswap"; "/dev/sda1"; "hello"; "NOARG"]]), [];
-      InitEmpty, IfAvailable "linuxfsuuid", TestRun (
+      InitEmpty, IfAvailable "linuxfsuuid", TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkswap"; "/dev/sda1"; "NOARG"; uuid]]), [];
-      InitEmpty, IfAvailable "linuxfsuuid", TestRun (
+         ["mkswap"; "/dev/sda1"; "NOARG"; uuid];
+         ["vfs_uuid"; "/dev/sda1"]], uuid), [];
+      InitEmpty, IfAvailable "linuxfsuuid", TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkswap"; "/dev/sda1"; "hello"; uuid]]), []
+         ["mkswap"; "/dev/sda1"; "hello"; uuid];
+         ["vfs_label"; "/dev/sda1"]], "hello"), []
     ]);
     shortdesc = "create a swap partition";
     longdesc = "\
@@ -10803,14 +10805,25 @@ with zeroes)." };
     style = RErr, [Device "device"], [OBool "extunwritten"; OBool "imgfile"; OBool "v2log"; OBool "projid32bit"; OBool "lazycounter"; OString "label"; OString "uuid"];
     proc_nr = Some 349;
     optional = Some "xfs";
-    tests = [
-      InitEmpty, Always, TestResult (
-        [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
-         ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
-         ["mount"; "/dev/sda1"; "/"];
-         ["xfs_info"; "/"]], "ret->xfs_lazycount == 0"), [];
-    ];
+    tests =
+      (let uuid = uuidgen () in [
+        InitEmpty, Always, TestResult (
+          [["part_disk"; "/dev/sda"; "mbr"];
+           ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; "NOARG"];
+           ["mount"; "/dev/sda1"; "/"];
+           ["xfs_info"; "/"]], "ret->xfs_lazycount == 0"), [];
+        InitEmpty, Always, TestResultString (
+          [["part_disk"; "/dev/sda"; "mbr"];
+           ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; uuid];
+           ["vfs_uuid"; "/dev/sda1"]], uuid), [];
+        InitEmpty, Always, TestResultString (
+          [["part_disk"; "/dev/sda"; "mbr"];
+           ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "LBL-TEST"; "NOARG"];
+           ["vfs_label"; "/dev/sda1"]], "LBL-TEST"), [];
+      ]);
     shortdesc = "change parameters of an XFS filesystem";
     longdesc = "\
 Change the parameters of the XFS filesystem on C<device>.
