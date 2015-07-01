@@ -438,3 +438,10 @@ let qemu_input_filename filename =
     "./" ^ filename
   else
     filename
+
+(** Return the last part of a string, after the specified separator. *)
+let last_part_of str sep =
+  try
+    let i = String.rindex str sep in
+    Some (String.sub str (i+1) (String.length str - (i+1)))
+  with Not_found -> None

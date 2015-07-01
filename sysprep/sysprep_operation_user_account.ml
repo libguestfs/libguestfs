@@ -44,8 +44,11 @@ let user_account_perform g root =
           changed := true;
           g#aug_rm userpath;
           let username =
-            let i = String.rindex userpath '/' in
-            String.sub userpath (i+1) (String.length userpath -i-1) in
+            match last_part_of userpath '/' with
+            | Some x -> x
+            | None ->
+              eprintf "virt-sysprep: user-accounts: missing '/' in %s\n" userpath;
+              exit 1 in
           (* XXX Augeas doesn't yet have a lens for /etc/shadow, so the
            * next line currently does nothing, but should start to
            * work in a future version.
