@@ -229,7 +229,7 @@ let find_virtio_win_drivers ~verbose virtio_win =
               (6, 0, Vwd_server)
             else if pathelem "w7" || pathelem "win7" then
               (6, 1, Vwd_client)
-            else if pathelem "2k8r2" || pathelem "win2008" then
+            else if pathelem "2k8r2" || pathelem "win2008r2" then
               (6, 1, Vwd_server)
             else if pathelem "w8" || pathelem "win8" then
               (6, 2, Vwd_client)
