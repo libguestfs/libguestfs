@@ -128,14 +128,14 @@ type virtio_win_driver_file = {
   (* Original source of file (for debugging only). *)
   vwd_original_source : string;
 }
-and vwd_os_variant = Vwd_client | Vwd_server | Vwd_any_variant
+and vwd_os_variant = Vwd_client | Vwd_not_client | Vwd_any_variant
 
 let print_virtio_win_driver_file vwd =
   printf "%s [%d,%d,%s,%s,%s] from %s\n"
          vwd.vwd_filename
          vwd.vwd_os_major vwd.vwd_os_minor
          (match vwd.vwd_os_variant with
-          | Vwd_client -> "client" | Vwd_server -> "server"
+          | Vwd_client -> "client" | Vwd_not_client -> "not-client"
           | Vwd_any_variant -> "any")
          vwd.vwd_os_arch
          vwd.vwd_extension
@@ -226,19 +226,19 @@ let find_virtio_win_drivers ~verbose virtio_win =
             else if pathelem "vista" then
               (6, 0, Vwd_client)
             else if pathelem "2k8" || pathelem "win2008" then
-              (6, 0, Vwd_server)
+              (6, 0, Vwd_not_client)
             else if pathelem "w7" || pathelem "win7" then
               (6, 1, Vwd_client)
             else if pathelem "2k8r2" || pathelem "win2008r2" then
-              (6, 1, Vwd_server)
+              (6, 1, Vwd_not_client)
             else if pathelem "w8" || pathelem "win8" then
               (6, 2, Vwd_client)
             else if pathelem "2k12" || pathelem "win2012" then
-              (6, 2, Vwd_server)
+              (6, 2, Vwd_not_client)
             else if pathelem "w8.1" || pathelem "win8.1" then
               (6, 3, Vwd_client)
             else if pathelem "2k12r2" || pathelem "win2012r2" then
-              (6, 3, Vwd_server)
+              (6, 3, Vwd_not_client)
             else if pathelem "w10" || pathelem "win10" then
               (10, 0, Vwd_client)
             else

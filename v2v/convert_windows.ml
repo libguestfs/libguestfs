@@ -248,7 +248,7 @@ echo uninstalling Xen PV driver
         os_minor = inspect.i_minor_version &&
         (match os_variant with
          | Vwd_client -> inspect.i_product_variant = "Client"
-         | Vwd_server -> inspect.i_product_variant = "Server"
+         | Vwd_not_client -> inspect.i_product_variant <> "Client"
          | Vwd_any_variant -> true)
       ) drivers in
 
