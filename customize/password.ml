@@ -99,8 +99,9 @@ let rec set_linux_passwords ~prog ?password_crypto (g : Guestfs.guestfs) root pa
   List.iter (
     fun userpath ->
       let user =
-        let i = String.rindex userpath '/' in
-        String.sub userpath (i+1) (String.length userpath -i-1) in
+        match last_part_of userpath '/' with
+        | Some x -> x
+        | None -> error ~prog "password: missing '/' in %s" userpath in
       try
         (* Each line is: "user:[!!]password:..."
          * !! at the front of the password field means the account is locked.

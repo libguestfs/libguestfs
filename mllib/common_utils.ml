@@ -608,3 +608,10 @@ let guest_arch_compatible guest_arch =
   | x, y when x = y -> true
   | "x86_64", ("i386"|"i486"|"i586"|"i686") -> true
   | _ -> false
+
+(** Return the last part of a string, after the specified separator. *)
+let last_part_of str sep =
+  try
+    let i = String.rindex str sep in
+    Some (String.sub str (i+1) (String.length str - (i+1)))
+  with Not_found -> None
