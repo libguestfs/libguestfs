@@ -82,11 +82,24 @@ let test_get_ostype ctx =
                                         i_product_variant = "Server";
                                         i_arch = "x86_64" })
 
+let test_drive_name ctx =
+  let printer = identity in
+  assert_equal ~printer "a" (Utils.drive_name 0);
+  assert_equal ~printer "z" (Utils.drive_name 25);
+  assert_equal ~printer "aa" (Utils.drive_name 26);
+  assert_equal ~printer "ab" (Utils.drive_name 27);
+  assert_equal ~printer "az" (Utils.drive_name 51);
+  assert_equal ~printer "ba" (Utils.drive_name 52);
+  assert_equal ~printer "zz" (Utils.drive_name 701);
+  assert_equal ~printer "aaa" (Utils.drive_name 702);
+  assert_equal ~printer "zzz" (Utils.drive_name 18277)
+
 (* Suites declaration. *)
 let suite =
   "virt-v2v" >:::
     [
       "OVF.get_ostype" >:: test_get_ostype;
+      "Utils.drive_name" >:: test_drive_name;
     ]
 
 let () =
