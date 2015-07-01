@@ -94,12 +94,31 @@ let test_drive_name ctx =
   assert_equal ~printer "aaa" (Utils.drive_name 702);
   assert_equal ~printer "zzz" (Utils.drive_name 18277)
 
+let test_drive_index ctx =
+  let printer = string_of_int in
+  assert_equal ~printer 0 (Utils.drive_index "a");
+  assert_equal ~printer 25 (Utils.drive_index "z");
+  assert_equal ~printer 26 (Utils.drive_index "aa");
+  assert_equal ~printer 27 (Utils.drive_index "ab");
+  assert_equal ~printer 51 (Utils.drive_index "az");
+  assert_equal ~printer 52 (Utils.drive_index "ba");
+  assert_equal ~printer 701 (Utils.drive_index "zz");
+  assert_equal ~printer 702 (Utils.drive_index "aaa");
+  assert_equal ~printer 18277 (Utils.drive_index "zzz");
+  let exn = Invalid_argument "drive_index: invalid parameter" in
+  assert_raises exn (fun () -> Utils.drive_index "");
+  assert_raises exn (fun () -> Utils.drive_index "abc123");
+  assert_raises exn (fun () -> Utils.drive_index "123");
+  assert_raises exn (fun () -> Utils.drive_index "Z");
+  assert_raises exn (fun () -> Utils.drive_index "aB")
+
 (* Suites declaration. *)
 let suite =
   "virt-v2v" >:::
     [
       "OVF.get_ostype" >:: test_get_ostype;
       "Utils.drive_name" >:: test_drive_name;
+      "Utils.drive_index" >:: test_drive_index;
     ]
 
 let () =

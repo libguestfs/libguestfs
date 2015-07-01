@@ -23,6 +23,7 @@
 #include <unistd.h>
 
 #include <caml/alloc.h>
+#include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
@@ -42,4 +43,17 @@ v2v_utils_drive_name (value indexv)
   namev = caml_copy_string (name);
 
   CAMLreturn (namev);
+}
+
+value
+v2v_utils_drive_index (value strv)
+{
+  CAMLparam1 (strv);
+  ssize_t r;
+
+  r = guestfs_int_drive_index (String_val (strv));
+  if (r == -1)
+    caml_invalid_argument ("drive_index: invalid parameter");
+
+  CAMLreturn (Val_int (r));
 }

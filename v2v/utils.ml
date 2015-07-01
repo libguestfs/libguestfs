@@ -59,6 +59,7 @@ let uri_quote str =
   String.concat "" (List.rev !xs)
 
 external drive_name : int -> string = "v2v_utils_drive_name"
+external drive_index : string -> int = "v2v_utils_drive_index"
 
 (* Map guest architecture found by inspection to the architecture
  * that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor.
