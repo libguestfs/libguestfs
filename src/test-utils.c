@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2014 Red Hat Inc.
+ * Copyright (C) 2014-2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -162,6 +162,32 @@ test_validate_guid (void)
   assert (guestfs_int_validate_guid ("21EC2020-3AEA-1069-A2DD-08002B30309D") == 1);
 }
 
+/* Test guestfs_int_drive_name. */
+static void
+test_drive_name (void)
+{
+  char s[10];
+
+  guestfs_int_drive_name (0, s);
+  assert (STREQ (s, "a"));
+  guestfs_int_drive_name (25, s);
+  assert (STREQ (s, "z"));
+  guestfs_int_drive_name (26, s);
+  assert (STREQ (s, "aa"));
+  guestfs_int_drive_name (27, s);
+  assert (STREQ (s, "ab"));
+  guestfs_int_drive_name (51, s);
+  assert (STREQ (s, "az"));
+  guestfs_int_drive_name (52, s);
+  assert (STREQ (s, "ba"));
+  guestfs_int_drive_name (701, s);
+  assert (STREQ (s, "zz"));
+  guestfs_int_drive_name (702, s);
+  assert (STREQ (s, "aaa"));
+  guestfs_int_drive_name (18277, s);
+  assert (STREQ (s, "zzz"));
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -169,6 +195,7 @@ main (int argc, char *argv[])
   test_concat ();
   test_join ();
   test_validate_guid ();
+  test_drive_name ();
 
   exit (EXIT_SUCCESS);
 }
