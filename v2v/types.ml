@@ -350,6 +350,35 @@ gcaps_acpi = %b
   gcaps.gcaps_arch
   gcaps.gcaps_acpi
 
+type target_buses = {
+  target_virtio_blk_bus : target_bus_slot array;
+  target_ide_bus : target_bus_slot array;
+  target_scsi_bus : target_bus_slot array;
+}
+
+and target_bus_slot =
+  | BusSlotEmpty
+  | BusSlotTarget of target
+  | BusSlotRemovable of source_removable
+
+let string_of_target_bus_slots bus_name slots =
+  let slots =
+    Array.mapi (
+      fun slot_nr slot ->
+        sprintf "%s slot %d:\n" bus_name slot_nr ^
+          (match slot with
+           | BusSlotEmpty -> "\t(slot empty)\n"
+           | BusSlotTarget t -> string_of_target t
+           | BusSlotRemovable r -> string_of_source_removable r ^ "\n"
+          )
+    ) slots in
+  String.concat "" (Array.to_list slots)
+
+let string_of_target_buses buses =
+  string_of_target_bus_slots "virtio-blk" buses.target_virtio_blk_bus ^
+  string_of_target_bus_slots "ide" buses.target_ide_bus ^
+  string_of_target_bus_slots "scsi" buses.target_scsi_bus
+
 class virtual input = object
   method virtual as_options : string
   method virtual source : unit -> source

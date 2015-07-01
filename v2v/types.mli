@@ -196,6 +196,20 @@ and guestcaps_video_type = QXL | Cirrus
 
 val string_of_guestcaps : guestcaps -> string
 
+type target_buses = {
+  target_virtio_blk_bus : target_bus_slot array;
+  target_ide_bus : target_bus_slot array;
+  target_scsi_bus : target_bus_slot array;
+}
+(** Mapping of fixed and removable disks to buses. *)
+
+and target_bus_slot =
+| BusSlotEmpty                  (** This bus slot is empty. *)
+| BusSlotTarget of target       (** Contains a fixed disk. *)
+| BusSlotRemovable of source_removable (** Contains a removable CD/floppy. *)
+
+val string_of_target_buses : target_buses -> string
+
 class virtual input : object
   method virtual as_options : string
   (** Converts the input object back to the equivalent command line options.
