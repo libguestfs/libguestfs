@@ -18,19 +18,33 @@
 
 open Sysprep_operation
 open Common_gettext.Gettext
+open Common_utils
 
 module G = Guestfs
 
 let cron_spool_perform (g : Guestfs.guestfs) root side_effects =
-  Array.iter g#rm_rf (g#glob_expand "/var/spool/cron/*");
+  let is_seq path =
+    let basename =
+      match last_part_of path '/' with
+      | Some x -> x
+      | None -> path in
+    basename = ".SEQ" in
+  let reset f =
+    if g#is_file f then
+      (* This should overwrite the file in-place, as it's a very
+       * small buffer which will be handled using internal_write.
+       * This way, existing attributes like SELinux labels are
+       * preserved.
+       *)
+      g#write f "00000\n" in
+
+  rm_rf_only_files g ~filter:is_seq "/var/spool/cron/";
+  reset "/var/spool/cron/atjobs/.SEQ";
   Array.iter g#rm (g#glob_expand "/var/spool/atjobs/*");
-  Array.iter g#rm (g#glob_expand "/var/spool/atjobs/.SEQ");
+  reset "/var/spool/atjobs/.SEQ";
   Array.iter g#rm (g#glob_expand "/var/spool/atspool/*");
-  Array.iter
-    (fun path -> if not (g#is_dir path) then g#rm path)
-    (g#glob_expand "/var/spool/at/*");
-  Array.iter g#rm (g#glob_expand "/var/spool/at/.SEQ");
-  Array.iter g#rm (g#glob_expand "/var/spool/at/spool/*")
+  rm_rf_only_files g ~filter:is_seq "/var/spool/at/";
+  reset "/var/spool/at/.SEQ"
 
 let op = {
   defaults with
