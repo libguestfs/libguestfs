@@ -176,9 +176,11 @@ let find_virtio_win_drivers virtio_win =
         let paths = List.filter (g#is_file ~followsymlinks:false) paths in
         List.map (
           fun path ->
-            let i = String.rindex path '/' in
-            let len = String.length path in
-            let basename = String.sub path (i+1) (len - (i+1)) in
+            let basename =
+              match last_part_of path '/' with
+              | Some x -> x
+              | None ->
+                error "v2v/find_virtio_win_drivers: missing '/' in %s" path in
             (path, sprintf "%s:%s" virtio_win path,
              basename,
              fun () -> g#read_file path)
@@ -199,9 +201,11 @@ let find_virtio_win_drivers virtio_win =
           let lc_basename = String.lowercase basename in
 
           let extension =
-            let i = String.rindex lc_basename '.' in
-            let len = String.length lc_basename in
-            String.sub lc_basename (i+1) (len - (i+1)) in
+            match last_part_of lc_basename '.' with
+            | Some x -> x
+            | None ->
+              error "v2v/find_virtio_win_drivers: missing '.' in %s"
+                lc_basename in
 
           (* Skip files without specific extensions. *)
           if extension <> "cat" && extension <> "inf" &&

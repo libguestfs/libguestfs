@@ -795,13 +795,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
        *)
       let mkinitrd_kv =
         let modpath = kernel.ki_modpath in
-        let len = String.length modpath in
-        try
-          let i = String.rindex modpath '/' in
-          String.sub modpath (i+1) (len - (i+1))
-        with
-          Not_found ->
-            invalid_arg (sprintf "invalid module path: %s" modpath) in
+        match last_part_of modpath '/' with
+        | Some x -> x
+        | None -> invalid_arg (sprintf "invalid module path: %s" modpath) in
 
       if g#is_file ~followsymlinks:true "/sbin/dracut" then (
         (* Dracut. *)

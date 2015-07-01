@@ -178,3 +178,6 @@ val mkdir_p : string -> int -> unit
 val guest_arch_compatible : string -> bool
 (** Are guest arch and host_cpu compatible, in terms of being able
     to run commands in the libguestfs appliance? *)
+
+val last_part_of : string -> char -> string option
+(** Return the last part of a string, after the specified separator. *)

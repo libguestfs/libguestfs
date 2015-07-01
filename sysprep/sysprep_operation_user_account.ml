@@ -69,8 +69,9 @@ let user_account_perform g root side_effects =
         let uid = g#aug_get uid in
         let uid = int_of_string uid in
         let username =
-          let i = String.rindex userpath '/' in
-          String.sub userpath (i+1) (String.length userpath -i-1) in
+          match last_part_of userpath '/' with
+          | Some x -> x
+          | None -> error "user-accounts: missing '/' in %s" userpath in
         if uid >= uid_min && uid <= uid_max
            && check_remove_user username then (
           changed := true;
