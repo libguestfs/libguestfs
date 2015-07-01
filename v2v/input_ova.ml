@@ -321,9 +321,10 @@ object
         let id = xpath_to_int "rasd:ResourceType/text()" 0 in
         assert (id = 14 || id = 15 || id = 16);
 
-        (* XXX We assume the OVF lists these in order.
-        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
-        *)
+        let slot =
+          match xpath_to_int "rasd:AddressOnParent/text()" (-1) with
+          | -1 -> None
+          | i -> Some i in
 
         (* Find the parent controller. *)
         let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
@@ -340,6 +341,7 @@ object
         let disk = {
           s_removable_type = typ;
           s_removable_controller = controller;
+          s_removable_slot = slot;
         } in
         removables := disk :: !removables;
       done in

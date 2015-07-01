@@ -11,7 +11,7 @@ hypervisor type: vmware
 disks:
 	.vmdk (vmdk) [scsi]
 removable media:
-	CD-ROM [ide]
+	CD-ROM [ide] in slot 0
 NICs:
 	Network "Network adapter 1"
 

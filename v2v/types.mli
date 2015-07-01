@@ -74,6 +74,7 @@ and s_controller = Source_IDE | Source_SCSI | Source_virtio_blk
 and source_removable = {
   s_removable_type : s_removable_type;  (** Type.  *)
   s_removable_controller : s_controller option; (** Controller, eg. IDE, SCSI.*)
+  s_removable_slot : int option; (** Slot, eg. hda = 0, hdc = 2 *)
 }
 (** Removable media. *)
 

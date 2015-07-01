@@ -33,6 +33,19 @@ and parsed_source =
 | P_source_file of string
 | P_dont_rewrite
 
+(* Turn string like "hda" into controller slot number.  See also
+ * src/utils.c:guestfs_int_drive_index which this function calls.
+ *)
+let get_drive_slot str offset =
+  let len = String.length str in
+  if len-offset < 0 then
+    failwith (sprintf "get_drive_slot: offset longer than string length (offset = %d, string = %s)" offset str);
+  let name = String.sub str offset (len-offset) in
+  try Some (drive_index name)
+  with Invalid_argument _ ->
+       warning (f_"could not parse device name '%s' from the source libvirt XML") str;
+       None
+
 let parse_libvirt_xml ?conn xml =
   if verbose () then
     printf "libvirt xml is:\n%s\n" xml;
@@ -291,6 +304,18 @@ let parse_libvirt_xml ?conn xml =
         | "virtio" -> Some Source_virtio_blk
         | _ -> None in
 
+      let slot =
+        let target_dev = xpath_to_string "target/@dev" "" in
+        match target_dev with
+        | "" -> None
+        | s when string_prefix s "hd" -> get_drive_slot s 2
+        | s when string_prefix s "sd" -> get_drive_slot s 2
+        | s when string_prefix s "vd" -> get_drive_slot s 2
+        | s when string_prefix s "xvd" -> get_drive_slot s 3
+        | s ->
+           warning (f_"<target dev='%s'> was ignored because the device name could not be recognized") s;
+           None in
+
       let typ =
         match xpath_to_string "@device" "" with
         | "cdrom" -> CDROM
@@ -298,7 +323,9 @@ let parse_libvirt_xml ?conn xml =
         | _ -> assert false (* libxml2 error? *) in
 
       let disk =
-        { s_removable_type = typ; s_removable_controller = controller } in
+        { s_removable_type = typ;
+          s_removable_controller = controller;
+          s_removable_slot = slot } in
       disks := disk :: !disks
     done;
     List.rev !disks in

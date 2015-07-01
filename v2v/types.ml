@@ -55,6 +55,7 @@ and s_controller = Source_IDE | Source_SCSI | Source_virtio_blk
 and source_removable = {
   s_removable_type : s_removable_type;
   s_removable_controller : s_controller option;
+  s_removable_slot : int option;
 }
 and s_removable_type = CDROM | Floppy
 and source_nic = {
@@ -175,12 +176,14 @@ and string_of_controller = function
   | Source_virtio_blk -> "virtio"
 
 and string_of_source_removable { s_removable_type = typ;
-                                 s_removable_controller = controller } =
-  sprintf "\t%s%s"
+                                 s_removable_controller = controller;
+                                 s_removable_slot = i } =
+  sprintf "\t%s%s%s"
     (match typ with CDROM -> "CD-ROM" | Floppy -> "Floppy")
     (match controller with
     | None -> ""
     | Some controller -> " [" ^ string_of_controller controller ^ "]")
+    (match i with None -> "" | Some i -> sprintf " in slot %d" i)
 
 and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
   sprintf "\t%s \"%s\"%s"
