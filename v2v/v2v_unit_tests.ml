@@ -29,52 +29,53 @@ let test_get_ostype ctx =
             i_root = ""; i_package_format = ""; i_package_management = "";
             i_product_name = ""; i_product_variant = ""; i_mountpoints = [];
             i_apps = []; i_apps_map = StringMap.empty; i_uefi = false } in
-  assert_equal ~printer:identity "RHEL6"
+  let printer = identity in
+  assert_equal ~printer "RHEL6"
                (OVF.get_ostype { i with i_type = "linux"; i_distro = "rhel";
                                         i_major_version = 6;
                                         i_minor_version = 0;
                                         i_arch = "i386" });
-  assert_equal ~printer:identity "RHEL6x64"
+  assert_equal ~printer "RHEL6x64"
                (OVF.get_ostype { i with i_type = "linux"; i_distro = "rhel";
                                         i_major_version = 6;
                                         i_minor_version = 0;
                                         i_arch = "x86_64" });
-  assert_equal ~printer:identity "rhel_7x64"
+  assert_equal ~printer "rhel_7x64"
                (OVF.get_ostype { i with i_type = "linux"; i_distro = "rhel";
                                         i_major_version = 7;
                                         i_minor_version = 0;
                                         i_arch = "x86_64" });
-  assert_equal ~printer:identity "Windows7"
+  assert_equal ~printer "Windows7"
                (OVF.get_ostype { i with i_type = "windows";
                                         i_major_version = 6;
                                         i_minor_version = 1;
                                         i_product_variant = "Client";
                                         i_arch = "i386" });
-  assert_equal ~printer:identity "Windows7x64"
+  assert_equal ~printer "Windows7x64"
                (OVF.get_ostype { i with i_type = "windows";
                                         i_major_version = 6;
                                         i_minor_version = 1;
                                         i_product_variant = "Client";
                                         i_arch = "x86_64" });
-  assert_equal ~printer:identity "windows_8"
+  assert_equal ~printer "windows_8"
                (OVF.get_ostype { i with i_type = "windows";
                                         i_major_version = 6;
                                         i_minor_version = 2;
                                         i_product_variant = "Client";
                                         i_arch = "i386" });
-  assert_equal ~printer:identity "windows_8x64"
+  assert_equal ~printer "windows_8x64"
                (OVF.get_ostype { i with i_type = "windows";
                                         i_major_version = 6;
                                         i_minor_version = 2;
                                         i_product_variant = "Client";
                                         i_arch = "x86_64" });
-  assert_equal ~printer:identity "windows_2012x64"
+  assert_equal ~printer "windows_2012x64"
                (OVF.get_ostype { i with i_type = "windows";
                                         i_major_version = 6;
                                         i_minor_version = 2;
                                         i_product_variant = "Server";
                                         i_arch = "x86_64" });
-  assert_equal ~printer:identity "windows_2012R2x64"
+  assert_equal ~printer "windows_2012R2x64"
                (OVF.get_ostype { i with i_type = "windows";
                                         i_major_version = 6;
                                         i_minor_version = 3;
