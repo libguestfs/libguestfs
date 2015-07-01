@@ -90,10 +90,8 @@ do_set_uuid (const char *device, const char *uuid)
   else if (STREQ (vfs_type, "swap"))
     r = swapuuid (device, uuid);
 
-  else if (STREQ (vfs_type, "btrfs")) {
-    reply_with_error ("btrfs filesystems' UUID cannot be changed");
-    r = -1;
-  }
+  else if (STREQ (vfs_type, "btrfs"))
+    r = btrfs_set_uuid (device, uuid);
 
   else {
     reply_with_error ("don't know how to set the UUID for '%s' filesystems",

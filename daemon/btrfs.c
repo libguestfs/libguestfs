@@ -797,6 +797,44 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
   return 0;
 }
 
+
+/* btrfstune command add two new options
+ * -U UUID      change fsid to UUID
+ * -u           change fsid, use a random one
+ * since v4.1
+ * We could check wheter 'btrfstune' support
+ * '-u' and '-U UUID' option by checking the output of
+ * 'btrfstune' command.
+ */
+static int
+test_btrfstune_uuid_opt (void)
+{
+  static int result = -1;
+  if (result != -1)
+    return result;
+
+  CLEANUP_FREE char *err = NULL;
+
+  int r = commandr (NULL, &err, str_btrfstune, "--help", NULL);
+
+  if (r == -1) {
+    reply_with_error ("btrfstune: %s", err);
+    return -1;
+  }
+
+  /* FIXME currently btrfstune do not support '--help'.
+   * If got an invalid options, it will print its usage
+   * in stderr.
+   * We had to check it there.
+   */
+  if (strstr (err, "-U") == NULL || strstr (err, "-u") == NULL)
+    result = 0;
+  else
+    result = 1;
+
+  return result;
+}
+
 int
 do_btrfs_set_seeding (const char *device, int svalue)
 {
@@ -806,6 +844,26 @@ do_btrfs_set_seeding (const char *device, int svalue)
   const char *s_value = svalue ? "1" : "0";
 
   r = commandr (NULL, &err, str_btrfstune, "-S", s_value, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+btrfs_set_uuid (const char *device, const char *uuid)
+{
+  CLEANUP_FREE char *err = NULL;
+  int r;
+  int has_uuid_opts = test_btrfstune_uuid_opt ();
+
+  if (has_uuid_opts <= 0)
+    NOT_SUPPORTED(-1, "btrfs filesystems' UUID cannot be changed");
+
+  r = commandr (NULL, &err, str_btrfstune, "-f", "-U", uuid, device, NULL);
+
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;

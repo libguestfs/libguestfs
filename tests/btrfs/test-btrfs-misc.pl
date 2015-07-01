@@ -20,6 +20,7 @@
 
 use strict;
 use warnings;
+use Errno;
 
 use Sys::Guestfs;
 
@@ -46,6 +47,25 @@ $g->set_label ("/dev/sda1", "newlabel");
 my $label = $g->vfs_label ("/dev/sda1");
 die "unexpected label: expecting 'newlabel' but got '$label'"
     unless $label eq "newlabel";
+
+# Setting btrfs UUID
+eval {
+    $g->set_uuid ("/dev/sda1", "12345678-1234-1234-1234-123456789012");
+};
+
+if ($@) {
+    my $err = $g->last_errno ();
+    if ($err == Errno::ENOTSUP()) {
+        warn "$0: skipping test for btrfs UUID change feature is not available";
+    } else {
+        die $@;
+    }
+} else {
+    my $uuid = $g->vfs_uuid ("/dev/sda1");
+    die "unexpected uuid expecting
+      '12345678-1234-1234-1234-123456789012' but got '$uuid'"
+    unless $uuid eq "12345678-1234-1234-1234-123456789012";
+}
 
 $g->shutdown ();
 $g->close ();
