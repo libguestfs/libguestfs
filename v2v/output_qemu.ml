@@ -40,7 +40,8 @@ object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps inspect target_firmware =
+  method create_metadata source _ target_buses guestcaps inspect
+                         target_firmware =
     let name = source.s_name in
     let file = dir // name ^ ".sh" in
 
@@ -82,22 +83,50 @@ object
     if source.s_vcpu > 1 then
       fpf "%s-smp %d" nl source.s_vcpu;
 
-    let block_bus =
-      match guestcaps.gcaps_block_bus with
-      | Virtio_blk -> "virtio"
-      | IDE -> "ide" in
-    List.iter (
-      fun t ->
-        let qemu_quoted_filename = replace_str t.target_file "," ",," in
-        let drive_param =
-          sprintf "file=%s,format=%s,if=%s"
-            qemu_quoted_filename t.target_format block_bus in
-        fpf "%s-drive %s" nl (quote drive_param)
-    ) targets;
+    let make_disk if_name i = function
+    | BusSlotEmpty -> ()
 
-    (* XXX Missing:
-     * - removable devices
-     *)
+    | BusSlotTarget t ->
+       let qemu_quoted_filename = replace_str t.target_file "," ",," in
+       let drive_param =
+          sprintf "file=%s,format=%s,if=%s,index=%d,media=disk"
+                  qemu_quoted_filename t.target_format if_name i in
+       fpf "%s-drive %s" nl (quote drive_param)
+
+    | BusSlotRemovable { s_removable_type = CDROM } ->
+       let drive_param =
+          sprintf "format=raw,if=%s,index=%d,media=cdrom" if_name i in
+       fpf "%s-drive %s" nl (quote drive_param)
+
+    | BusSlotRemovable { s_removable_type = Floppy } ->
+       let drive_param =
+          sprintf "format=raw,if=%s,index=%d,media=floppy" if_name i in
+       fpf "%s-drive %s" nl (quote drive_param)
+    in
+    Array.iteri (make_disk "virtio") target_buses.target_virtio_blk_bus;
+    Array.iteri (make_disk "ide") target_buses.target_ide_bus;
+
+    let make_scsi i = function
+    | BusSlotEmpty -> ()
+
+    | BusSlotTarget t ->
+       let qemu_quoted_filename = replace_str t.target_file "," ",," in
+       let drive_param =
+          sprintf "file=%s,format=%s,if=scsi,bus=0,unit=%d,media=disk"
+                  qemu_quoted_filename t.target_format i in
+       fpf "%s-drive %s" nl (quote drive_param)
+
+    | BusSlotRemovable { s_removable_type = CDROM } ->
+       let drive_param =
+          sprintf "format=raw,if=scsi,bus=0,unit=%d,media=cdrom" i in
+       fpf "%s-drive %s" nl (quote drive_param)
+
+    | BusSlotRemovable { s_removable_type = Floppy } ->
+       let drive_param =
+          sprintf "format=raw,if=scsi,bus=0,unit=%d,media=floppy" i in
+       fpf "%s-drive %s" nl (quote drive_param)
+    in
+    Array.iteri make_scsi target_buses.target_scsi_bus;
 
     let net_bus =
       match guestcaps.gcaps_net_bus with

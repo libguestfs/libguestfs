@@ -38,7 +38,7 @@ class output_local dir = object
         { t with target_file = target_file }
     ) targets
 
-  method create_metadata source targets guestcaps _ target_firmware =
+  method create_metadata source _ target_buses guestcaps _ target_firmware =
     (* We don't know what target features the hypervisor supports, but
      * assume a common set that libvirt supports.
      *)
@@ -49,7 +49,7 @@ class output_local dir = object
       | _ -> [] in
 
     let doc =
-      Output_libvirt.create_libvirt_xml source targets
+      Output_libvirt.create_libvirt_xml source target_buses
         guestcaps target_features target_firmware in
 
     let name = source.s_name in

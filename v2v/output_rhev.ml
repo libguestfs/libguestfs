@@ -278,7 +278,7 @@ object
     )
 
   (* This is called after conversion to write the OVF metadata. *)
-  method create_metadata source targets guestcaps inspect target_firmware =
+  method create_metadata source targets _ guestcaps inspect target_firmware =
     (* See #supported_firmware above. *)
     assert (target_firmware = TargetBIOS);
 

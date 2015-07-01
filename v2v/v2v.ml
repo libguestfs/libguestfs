@@ -444,7 +444,8 @@ let rec main () =
 
   (* Create output metadata. *)
   message (f_"Creating output metadata");
-  output#create_metadata source targets guestcaps inspect target_firmware;
+  output#create_metadata source targets target_buses guestcaps inspect
+                         target_firmware;
 
   (* Save overlays if --debug-overlays option was used. *)
   if debug_overlays then (
