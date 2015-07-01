@@ -33,6 +33,7 @@
 GUESTFSD_EXT_CMD(str_mkswap, mkswap);
 GUESTFSD_EXT_CMD(str_swapon, swapon);
 GUESTFSD_EXT_CMD(str_swapoff, swapoff);
+GUESTFSD_EXT_CMD(str_swaplabel, swaplabel);
 
 /* Confirmed this is true for Linux swap partitions from the Linux sources. */
 #define SWAP_LABEL_MAX 16
@@ -238,4 +239,19 @@ int
 do_swapoff_uuid (const char *uuid)
 {
   return swaponoff (str_swapoff, "-U", uuid);
+}
+
+int
+swap_set_uuid (const char *device, const char *uuid)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  r = command (NULL, &err, str_swaplabel, "-U", uuid, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
 }

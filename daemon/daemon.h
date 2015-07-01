@@ -278,6 +278,9 @@ extern int btrfs_set_uuid (const char *device, const char *uuid);
 /*-- in ntfs.c --*/
 extern char *ntfs_get_label (const char *device);
 
+/*-- in swap.c --*/
+extern int swap_set_uuid (const char *device, const char *uuid);
+
 /* ordinary daemon functions use these to indicate errors
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.

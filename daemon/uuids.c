@@ -27,7 +27,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_swaplabel, swaplabel);
 
 static int
 e2uuid (const char *device, const char *uuid)
@@ -56,21 +55,6 @@ xfsuuid (const char *device, const char *uuid)
   return xfs_set_uuid (device, uuid);
 }
 
-static int
-swapuuid (const char *device, const char *uuid)
-{
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
-  r = command (NULL, &err, str_swaplabel, "-U", uuid, device, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
-}
-
 int
 do_set_uuid (const char *device, const char *uuid)
 {
@@ -88,7 +72,7 @@ do_set_uuid (const char *device, const char *uuid)
     r = xfsuuid (device, uuid);
 
   else if (STREQ (vfs_type, "swap"))
-    r = swapuuid (device, uuid);
+    r = swap_set_uuid (device, uuid);
 
   else if (STREQ (vfs_type, "btrfs"))
     r = btrfs_set_uuid (device, uuid);
