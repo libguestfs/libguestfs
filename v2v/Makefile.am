@@ -24,6 +24,8 @@ EXTRA_DIST = \
 	HACKING \
 	rhel-7-virt-v2v-conversion-server.config \
 	rhel-7-virt-v2v-conversion-server.ks \
+	test-v2v-cdrom.expected \
+	test-v2v-cdrom.xml \
 	test-v2v-i-ova.ovf \
 	test-v2v-i-ova.xml \
 	test-v2v-i-ova-formats.expected \
@@ -229,6 +231,7 @@ endif
 
 if ENABLE_APPLIANCE
 TESTS += \
+	test-v2v-cdrom.sh \
 	test-v2v-i-ova.sh \
 	test-v2v-i-disk.sh \
 	test-v2v-machine-readable.sh \
