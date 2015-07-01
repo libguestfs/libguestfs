@@ -271,6 +271,27 @@ guestfs_int_drive_name (size_t index, char *ret)
   return ret;
 }
 
+/* The opposite of guestfs_int_drive_name.  Take a string like "ab"
+ * and return the index (eg 27).  Note that you must remove any prefix
+ * such as "hd", "sd" etc, or any partition number before calling the
+ * function.
+ */
+ssize_t
+guestfs_int_drive_index (const char *name)
+{
+  ssize_t r = 0;
+
+  while (*name) {
+    if (*name >= 'a' && *name <= 'z')
+      r = 26*r + (*name - 'a' + 1);
+    else
+      return -1;
+    name++;
+  }
+
+  return r-1;
+}
+
 /* Similar to Tcl_GetBoolean. */
 int
 guestfs_int_is_true (const char *str)

@@ -105,6 +105,7 @@ extern char **guestfs_int_split_string (char sep, const char *);
 extern char *guestfs_int_exit_status_to_string (int status, const char *cmd_name, char *buffer, size_t buflen);
 extern int guestfs_int_random_string (char *ret, size_t len);
 extern char *guestfs_int_drive_name (size_t index, char *ret);
+extern ssize_t guestfs_int_drive_index (const char *);
 extern int guestfs_int_is_true (const char *str);
 
 /* These functions are used internally by the CLEANUP_* macros.

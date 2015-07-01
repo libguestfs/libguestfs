@@ -188,6 +188,27 @@ test_drive_name (void)
   assert (STREQ (s, "zzz"));
 }
 
+/* Test guestfs_int_drive_index. */
+static void
+test_drive_index (void)
+{
+  assert (guestfs_int_drive_index ("a") == 0);
+  assert (guestfs_int_drive_index ("z") == 25);
+  assert (guestfs_int_drive_index ("aa") == 26);
+  assert (guestfs_int_drive_index ("ab") == 27);
+  assert (guestfs_int_drive_index ("az") == 51);
+  assert (guestfs_int_drive_index ("ba") == 52);
+  assert (guestfs_int_drive_index ("zz") == 701);
+  assert (guestfs_int_drive_index ("aaa") == 702);
+  assert (guestfs_int_drive_index ("zzz") == 18277);
+
+  assert (guestfs_int_drive_index ("") == -1);
+  assert (guestfs_int_drive_index ("abc123") == -1);
+  assert (guestfs_int_drive_index ("123") == -1);
+  assert (guestfs_int_drive_index ("Z") == -1);
+  assert (guestfs_int_drive_index ("aB") == -1);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -196,6 +217,7 @@ main (int argc, char *argv[])
   test_join ();
   test_validate_guid ();
   test_drive_name ();
+  test_drive_index ();
 
   exit (EXIT_SUCCESS);
 }
