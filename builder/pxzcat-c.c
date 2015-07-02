@@ -292,7 +292,7 @@ parse_indexes (value filenamev, int fd)
     /* Does the stream footer look reasonable? */
     r = lzma_stream_footer_decode (&footer_flags, footer);
     if (r != LZMA_OK) {
-      fprintf (stderr, "invalid stream footer - error %d\n", r);
+      fprintf (stderr, "invalid stream footer - error %u\n", r);
       caml_invalid_argument ("invalid stream footer");
     }
 
@@ -311,7 +311,7 @@ parse_indexes (value filenamev, int fd)
     /* Decode the index. */
     r = lzma_index_decoder (&strm, &this_index, UINT64_MAX);
     if (r != LZMA_OK) {
-      fprintf (stderr, "invalid stream index - error %d\n", r);
+      fprintf (stderr, "invalid stream index - error %u\n", r);
       caml_invalid_argument ("invalid stream index");
     }
 
@@ -333,7 +333,7 @@ parse_indexes (value filenamev, int fd)
     } while (r == LZMA_OK);
 
     if (r != LZMA_STREAM_END) {
-      fprintf (stderr, "could not parse index - error %d\n", r);
+      fprintf (stderr, "could not parse index - error %u\n", r);
       caml_invalid_argument ("could not parse index");
     }
 
@@ -350,14 +350,14 @@ parse_indexes (value filenamev, int fd)
 
     r = lzma_stream_header_decode (&header_flags, header);
     if (r != LZMA_OK) {
-      fprintf (stderr, "invalid stream header - error %d\n", r);
+      fprintf (stderr, "invalid stream header - error %u\n", r);
       caml_invalid_argument ("invalid stream header");
     }
 
     /* Header and footer of the stream should be equal. */
     r = lzma_stream_flags_compare (&header_flags, &footer_flags);
     if (r != LZMA_OK) {
-      fprintf (stderr, "header and footer of stream are not equal - error %d\n",
+      fprintf (stderr, "header and footer of stream are not equal - error %u\n",
                r);
       caml_invalid_argument ("header and footer of stream are not equal");
     }
@@ -365,7 +365,7 @@ parse_indexes (value filenamev, int fd)
     /* Store the decoded stream flags in this_index. */
     r = lzma_index_stream_flags (this_index, &footer_flags);
     if (r != LZMA_OK) {
-      fprintf (stderr, "cannot read stream_flags from index - error %d\n", r);
+      fprintf (stderr, "cannot read stream_flags from index - error %u\n", r);
       caml_invalid_argument ("cannot read stream_flags from index");
     }
 
@@ -374,14 +374,14 @@ parse_indexes (value filenamev, int fd)
      */
     r = lzma_index_stream_padding (this_index, stream_padding);
     if (r != LZMA_OK) {
-      fprintf (stderr, "cannot set stream_padding in index - error %d\n", r);
+      fprintf (stderr, "cannot set stream_padding in index - error %u\n", r);
       caml_invalid_argument ("cannot set stream_padding in index");
     }
 
     if (combined_index != NULL) {
       r = lzma_index_cat (this_index, combined_index, NULL);
       if (r != LZMA_OK) {
-        fprintf (stderr, "cannot combine indexes - error %d\n", r);
+        fprintf (stderr, "cannot combine indexes - error %u\n", r);
         caml_invalid_argument ("cannot combine indexes");
       }
     }
@@ -579,7 +579,7 @@ worker_thread (void *vp)
 
     r = lzma_block_header_decode (&block, NULL, header);
     if (r != LZMA_OK) {
-      fprintf (stderr, "%s: invalid block header (error %d)\n",
+      fprintf (stderr, "%s: invalid block header (error %u)\n",
                global->filename, r);
       return &state->status;
     }
@@ -590,7 +590,7 @@ worker_thread (void *vp)
     r = lzma_block_compressed_size (&block, iter.block.unpadded_size);
     if (r != LZMA_OK) {
       fprintf (stderr,
-               "%s: cannot calculate compressed size (error %d)\n",
+               "%s: cannot calculate compressed size (error %u)\n",
                global->filename, r);
       return &state->status;
     }
@@ -601,7 +601,7 @@ worker_thread (void *vp)
     /* Read the block data and uncompress it. */
     r = lzma_block_decoder (&strm, &block);
     if (r != LZMA_OK) {
-      fprintf (stderr, "%s: invalid block (error %d)\n", global->filename, r);
+      fprintf (stderr, "%s: invalid block (error %u)\n", global->filename, r);
       return &state->status;
     }
 
@@ -651,7 +651,7 @@ worker_thread (void *vp)
         break;
       if (r != LZMA_OK) {
         fprintf (stderr,
-                 "%s: could not parse block data (error %d)\n",
+                 "%s: could not parse block data (error %u)\n",
                  global->filename, r);
         return &state->status;
       }

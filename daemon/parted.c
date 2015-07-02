@@ -744,7 +744,7 @@ do_part_get_mbr_id (const char *device, int partnum)
   udev_settle ();
 
   /* It's printed in hex ... */
-  int id;
+  unsigned id;
   if (sscanf (out, "%x", &id) != 1) {
     reply_with_error ("sfdisk --print-id: cannot parse output: %s", out);
     return -1;
@@ -767,7 +767,8 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
   snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
 
   char idbyte_str[16];
-  snprintf (idbyte_str, sizeof partnum_str, "%x", idbyte); /* NB: hex */
+  /* NB: hex */
+  snprintf (idbyte_str, sizeof partnum_str, "%x", (unsigned) idbyte);
 
   CLEANUP_FREE char *err = NULL;
   int r;

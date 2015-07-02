@@ -157,19 +157,20 @@ main_loop (int _sock)
 
     /* Check the version etc. */
     if (hdr.prog != GUESTFS_PROGRAM) {
-      reply_with_error ("wrong program (%d)", hdr.prog);
+      reply_with_error ("wrong program (%u)", hdr.prog);
       goto cont;
     }
     if (hdr.vers != GUESTFS_PROTOCOL_VERSION) {
-      reply_with_error ("wrong protocol version (%d)", hdr.vers);
+      reply_with_error ("wrong protocol version (%u)", hdr.vers);
       goto cont;
     }
     if (hdr.direction != GUESTFS_DIRECTION_CALL) {
-      reply_with_error ("unexpected message direction (%d)", hdr.direction);
+      reply_with_error ("unexpected message direction (%d)",
+                        (int) hdr.direction);
       goto cont;
     }
     if (hdr.status != GUESTFS_STATUS_OK) {
-      reply_with_error ("unexpected message status (%d)", hdr.status);
+      reply_with_error ("unexpected message status (%d)", (int) hdr.status);
       goto cont;
     }
 
@@ -444,8 +445,9 @@ receive_file (receive_cb cb, void *opaque)
 
     if (verbose)
       fprintf (stderr,
-               "guestfsd: receive_file: got chunk: cancel = 0x%x, len = %d, buf = %p\n",
-               chunk.cancel, chunk.data.data_len, chunk.data.data_val);
+               "guestfsd: receive_file: got chunk: cancel = 0x%x, len = %u, buf = %p\n",
+               (unsigned) chunk.cancel,
+               chunk.data.data_len, chunk.data.data_val);
 
     if (chunk.cancel != 0 && chunk.cancel != 1) {
       fprintf (stderr,

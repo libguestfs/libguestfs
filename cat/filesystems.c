@@ -865,7 +865,7 @@ write_row (const char *name, const char *type,
     strings[len++] = vfs_label;
   if ((columns & COLUMN_MBR)) {
     if (mbr_id >= 0) {
-      snprintf (mbr_id_str, sizeof mbr_id_str, "%02x", mbr_id);
+      snprintf (mbr_id_str, sizeof mbr_id_str, "%02x", (unsigned) mbr_id);
       strings[len++] = mbr_id_str;
     } else
       strings[len++] = NULL;

@@ -151,7 +151,7 @@ main (int argc, char *argv[])
 
     default:
       fprintf (stderr,
-               _("libguestfs-test-tool: unexpected command line option 0x%x\n"),
+               _("libguestfs-test-tool: unexpected command line option %d\n"),
                c);
       exit (EXIT_FAILURE);
     }

@@ -229,7 +229,7 @@ build_supermin_appliance (guestfs_h *g,
    */
   len = strlen (tmpdir) + 128;
   char cachedir[len];
-  snprintf (cachedir, len, "%s/.guestfs-%d", tmpdir, uid);
+  snprintf (cachedir, len, "%s/.guestfs-%ju", tmpdir, (uintmax_t) uid);
   char lockfile[len];
   snprintf (lockfile, len, "%s/lock", cachedir);
   char appliancedir[len];
@@ -244,8 +244,8 @@ build_supermin_appliance (guestfs_h *g,
   if (lstat (cachedir, &statbuf) == -1)
     return 0;
   if (statbuf.st_uid != uid) {
-    error (g, _("security: cached appliance %s is not owned by UID %d"),
-           cachedir, uid);
+    error (g, _("security: cached appliance %s is not owned by UID %ju"),
+           cachedir, (uintmax_t) uid);
     return -1;
   }
   if (!S_ISDIR (statbuf.st_mode)) {

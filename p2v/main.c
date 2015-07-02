@@ -292,8 +292,9 @@ partition_parent (dev_t part_dev)
   size_t len = 0;
   unsigned parent_major, parent_minor;
 
-  if (asprintf (&path, "/sys/dev/block/%d:%d/../dev",
-                major (part_dev), minor (part_dev)) == -1) {
+  if (asprintf (&path, "/sys/dev/block/%ju:%ju/../dev",
+                (uintmax_t) major (part_dev),
+                (uintmax_t) minor (part_dev)) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
   }

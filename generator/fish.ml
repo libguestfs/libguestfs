@@ -243,10 +243,10 @@ Guestfish will prompt for these separately."
     pr "print_%s_list (struct guestfs_%s_list *%ss)\n"
       typ typ typ;
     pr "{\n";
-    pr "  unsigned int i;\n";
+    pr "  size_t i;\n";
     pr "\n";
     pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
-    pr "    printf (\"[%%d] = {\\n\", i);\n";
+    pr "    printf (\"[%%zu] = {\\n\", i);\n";
     pr "    print_%s_indent (&%ss->val[i], \"  \");\n" typ typ;
     pr "    printf (\"}\\n\");\n";
     pr "  }\n";
@@ -264,7 +264,7 @@ Guestfish will prompt for these separately."
       pr "print_%s_indent (struct guestfs_%s *%s, const char *indent)\n" typ typ typ;
       pr "{\n";
       if needs_i then (
-        pr "  unsigned int i;\n";
+        pr "  size_t i;\n";
         pr "\n"
       );
       List.iter (
@@ -282,7 +282,8 @@ Guestfish will prompt for these separately."
             pr "    if (c_isprint (%s->%s[i]))\n" typ name;
             pr "      printf (\"%%c\", %s->%s[i]);\n" typ name;
             pr "    else\n";
-            pr "      printf (\"\\\\x%%02x\", %s->%s[i]);\n" typ name;
+            pr "      printf (\"\\\\x%%02x\", (unsigned) %s->%s[i]);\n"
+               typ name;
             pr "  printf (\"\\n\");\n"
         | name, (FUInt64|FBytes) ->
             pr "  printf (\"%%s%s: %%\" PRIu64 \"\\n\", indent, %s->%s);\n"
@@ -432,7 +433,7 @@ Guestfish will prompt for these separately."
           indent fn expr;
         pr "%s  if (xerr != LONGINT_OK) {\n" indent;
         pr "%s    fprintf (stderr,\n" indent;
-        pr "%s             _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n" indent;
+        pr "%s             _(\"%%s: %%s: invalid integer parameter (%%s returned %%u)\\n\"),\n" indent;
         pr "%s             cmd, \"%s\", \"%s\", xerr);\n" indent name fn;
         pr "%s    goto %s;\n" indent out;
         pr "%s  }\n" indent;
@@ -595,9 +596,9 @@ Guestfish will prompt for these separately."
             | None ->
                 pr "  printf (\"%%d\\n\", r);\n";
             | Some FishOutputOctal ->
-                pr "  printf (\"%%s%%o\\n\", r != 0 ? \"0\" : \"\", r);\n";
+                pr "  printf (\"%%s%%o\\n\", r != 0 ? \"0\" : \"\", (unsigned) r);\n";
             | Some FishOutputHexadecimal ->
-                pr "  printf (\"%%s%%x\\n\", r != 0 ? \"0x\" : \"\", r);\n"
+                pr "  printf (\"%%s%%x\\n\", r != 0 ? \"0x\" : \"\", (unsigned) r);\n"
            )
        | RInt64 _ ->
            pr "  if (r == -1) goto out;\n";
@@ -608,7 +609,7 @@ Guestfish will prompt for these separately."
             | Some FishOutputOctal ->
                 pr "  printf (\"%%s%%\" PRIo64 \"\\n\", r != 0 ? \"0\" : \"\", r);\n";
             | Some FishOutputHexadecimal ->
-                pr "  printf (\"%%s%%\" PRIx64 \"\\n\", r != 0 ? \"0x\" : \"\", r);\n"
+                pr "  printf (\"%%s%%\" PRIx64 \"\\n\", r != 0 ? \"0x\" : \"\", (uint64_t) r);\n"
            )
        | RBool _ ->
            pr "  if (r == -1) goto out;\n";

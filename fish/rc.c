@@ -40,8 +40,8 @@
 /* Because this is a Unix domain socket, the total path length must be
  * under 108 bytes.
  */
-#define SOCKET_DIR "/tmp/.guestfish-%d" /* euid */
-#define SOCKET_PATH "/tmp/.guestfish-%d/socket-%d" /* euid, pid */
+#define SOCKET_DIR "/tmp/.guestfish-%ju" /* euid */
+#define SOCKET_PATH "/tmp/.guestfish-%ju/socket-%ju" /* euid, pid */
 
 static void
 create_sockdir (void)
@@ -52,7 +52,7 @@ create_sockdir (void)
   struct stat statbuf;
 
   /* Create the directory, and ensure it is owned by the user. */
-  snprintf (dir, sizeof dir, SOCKET_DIR, euid);
+  snprintf (dir, sizeof dir, SOCKET_DIR, (uintmax_t) euid);
   r = mkdir (dir, 0700);
   if (r == -1 && errno != EEXIST) {
   error:
@@ -79,7 +79,7 @@ create_sockpath (pid_t pid, char *sockpath, size_t len,
 
   create_sockdir ();
 
-  snprintf (sockpath, len, SOCKET_PATH, euid, pid);
+  snprintf (sockpath, len, SOCKET_PATH, (uintmax_t) euid, (uintmax_t) pid);
 
   addr->sun_family = AF_UNIX;
   strcpy (addr->sun_path, sockpath);
