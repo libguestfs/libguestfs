@@ -223,6 +223,7 @@ extern int sync_disks (void);
 /* Confirmed this is true up to ext4 from the Linux sources. */
 #define EXT2_LABEL_MAX 16
 extern int fstype_is_extfs (const char *fstype);
+extern int ext_set_uuid_random (const char *device);
 
 /*-- in blkid.c --*/
 extern char *get_blkid_tag (const char *device, const char *tag);
@@ -265,6 +266,7 @@ extern int copy_xattrs (const char *src, const char *dest);
 /* Documented in xfs_admin(8). */
 #define XFS_LABEL_MAX 12
 extern int xfs_set_uuid (const char *device, const char *uuid);
+extern int xfs_set_uuid_random (const char *device);
 
 /*-- debug-bmap.c --*/
 extern char *debug_bmap (const char *subcmd, size_t argc, char *const *const argv);
@@ -274,6 +276,7 @@ extern char *debug_bmap_device (const char *subcmd, size_t argc, char *const *co
 /*-- in btrfs.c --*/
 extern char *btrfs_get_label (const char *device);
 extern int btrfs_set_uuid (const char *device, const char *uuid);
+extern int btrfs_set_uuid_random (const char *device);
 
 /*-- in ntfs.c --*/
 extern char *ntfs_get_label (const char *device);

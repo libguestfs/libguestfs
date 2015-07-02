@@ -159,6 +159,12 @@ do_set_e2uuid (const char *device, const char *uuid)
   return 0;
 }
 
+int
+ext_set_uuid_random (const char *device)
+{
+  return do_set_e2uuid (device, "random");
+}
+
 char *
 do_get_e2uuid (const char *device)
 {

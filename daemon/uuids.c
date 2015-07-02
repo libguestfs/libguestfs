@@ -85,3 +85,35 @@ do_set_uuid (const char *device, const char *uuid)
 
   return r;
 }
+
+int
+do_set_uuid_random (const char *device)
+{
+  int r;
+
+  /* How we set the UUID depends on the filesystem type. */
+  CLEANUP_FREE char *vfs_type = get_blkid_tag (device, "TYPE");
+  if (vfs_type == NULL)
+    return -1;
+
+  CLEANUP_FREE char *uuid_random = get_random_uuid ();
+  if (uuid_random == NULL)
+    return -1;
+
+  if (fstype_is_extfs (vfs_type))
+    r = ext_set_uuid_random (device);
+
+  else if (STREQ (vfs_type, "xfs"))
+    r = xfs_set_uuid_random (device);
+
+  else if (STREQ (vfs_type, "swap"))
+    r = swap_set_uuid (device, uuid_random);
+
+  else if (STREQ (vfs_type, "btrfs"))
+    r = btrfs_set_uuid_random (device);
+
+  else
+    NOT_SUPPORTED(-1, "don't know how to set the random UUID for '%s' filesystems",
+                      vfs_type);
+  return r;
+}

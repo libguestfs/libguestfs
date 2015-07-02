@@ -12636,6 +12636,25 @@ removed from the filesystem.
 The C<targetdev> needs to be same size or larger than the C<srcdev>. Devices
 which are currently mounted are never allowed to be used as the C<targetdev>." };
 
+  { defaults with
+    name = "set_uuid_random"; added = (1, 29, 50);
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 456;
+    tests = [
+        InitBasicFS, Always, TestRun (
+            [["set_uuid_random"; "/dev/sda1"]]), [];
+      ];
+    shortdesc = "set a random UUID for the filesystem";
+    longdesc = "\
+Set the filesystem UUID on C<device> to a random UUID.
+If this fails and the errno is ENOTSUP,
+means that there is no support for changing the UUID
+for the type of the specified filesystem.
+
+Only some filesystem types support setting UUIDs.
+
+To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

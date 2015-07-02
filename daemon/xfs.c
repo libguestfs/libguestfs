@@ -463,6 +463,13 @@ xfs_set_uuid (const char *device, const char *uuid)
 }
 
 int
+xfs_set_uuid_random (const char *device)
+{
+  optargs_bitmask = GUESTFS_XFS_ADMIN_UUID_BITMASK;
+  return do_xfs_admin (device, 0, 0, 0, 0, 0, NULL, "generate");
+}
+
+int
 do_xfs_admin (const char *device,
               int extunwritten, int imgfile, int v2log,
               int projid32bit,

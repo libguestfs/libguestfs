@@ -67,5 +67,19 @@ if ($@) {
     unless $uuid eq "12345678-1234-1234-1234-123456789012";
 }
 
+# Setting btrfs random UUID.
+eval {
+    $g->set_uuid_random ("/dev/sda1")
+};
+
+if ($@) {
+    my $err = $g->last_errno ();
+    if ($err == Errno::ENOTSUP()) {
+        warn "$0: skipping test for btrfs UUID change feature is not available";
+    } else {
+        die $@;
+    }
+}
+
 $g->shutdown ();
 $g->close ();

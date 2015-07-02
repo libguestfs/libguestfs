@@ -872,6 +872,25 @@ btrfs_set_uuid (const char *device, const char *uuid)
   return 0;
 }
 
+int
+btrfs_set_uuid_random (const char *device)
+{
+  CLEANUP_FREE char *err = NULL;
+  int r;
+  int has_uuid_opts = test_btrfstune_uuid_opt();
+
+  if (has_uuid_opts <= 0)
+    NOT_SUPPORTED(-1, "btrfs filesystems' UUID cannot be changed");
+
+  r = commandr (NULL, &err, str_btrfstune, "-f", "-u", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_btrfs_fsck (const char *device, int64_t superblock, int repair)
