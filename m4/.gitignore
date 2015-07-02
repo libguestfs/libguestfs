@@ -49,6 +49,7 @@
 /fdopen.m4
 /fflush.m4
 /filenamecat.m4
+/flexmember.m4
 /float_h.m4
 /fnmatch.m4
 /fpending.m4
