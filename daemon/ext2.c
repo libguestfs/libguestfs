@@ -780,8 +780,13 @@ do_get_e2generation (const char *filename)
     return -1;
   }
 
-  if (sscanf (out, "%" SCNu64, &ret) != 1) {
+  if (sscanf (out, "%" SCNi64, &ret) != 1) {
     reply_with_error ("cannot parse output from '%s' command: %s",
+                      "lsattr", out);
+    return -1;
+  }
+  if (ret < 0) {
+    reply_with_error ("unexpected negative number from '%s' command: %s",
                       "lsattr", out);
     return -1;
   }

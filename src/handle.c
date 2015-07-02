@@ -336,7 +336,7 @@ guestfs_close (guestfs_h *g)
                                       trace_msg, strlen (trace_msg));
   }
 
-  debug (g, "closing guestfs handle %p (state %d)", g, g->state);
+  debug (g, "closing guestfs handle %p (state %d)", g, (int) g->state);
 
   if (g->state != CONFIG)
     shutdown_backend (g, 0);

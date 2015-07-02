@@ -97,7 +97,7 @@ parse_size (const char *str, off_t *size_rtn)
   xerr = xstrtoull (str, NULL, 0, &size, "0kKMGTPEZY");
   if (xerr != LONGINT_OK) {
     fprintf (stderr,
-             _("%s: invalid integer parameter (%s returned %d)\n"),
+             _("%s: invalid integer parameter (%s returned %u)\n"),
              "parse_size", "xstrtoull", xerr);
     return -1;
   }

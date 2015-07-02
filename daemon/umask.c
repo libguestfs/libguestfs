@@ -36,7 +36,7 @@ do_umask (int mask)
   int r;
 
   if (mask < 0 || mask > 0777) {
-    reply_with_error ("0%o: mask negative or out of range", mask);
+    reply_with_error ("0%o: mask negative or out of range", (unsigned) mask);
     return -1;
   }
 

@@ -140,7 +140,7 @@ do_chmod (int mode, const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("%s: 0%o", path, mode);
+    reply_with_perror ("%s: 0%o", path, (unsigned) mode);
     return -1;
   }
 

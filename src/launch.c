@@ -86,7 +86,7 @@ guestfs_impl_launch (guestfs_h *g)
 
     debug (g, "launch: tmpdir=%s", g->tmpdir);
     debug (g, "launch: umask=0%03o", get_umask (g));
-    debug (g, "launch: euid=%d", geteuid ());
+    debug (g, "launch: euid=%ju", (uintmax_t) geteuid ());
   }
 
   /* Launch the appliance. */

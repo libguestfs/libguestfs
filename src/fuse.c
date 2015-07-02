@@ -345,8 +345,8 @@ mount_local_access (const char *path, int mask)
 
   debug (g, "%s: "
          "testing access mask%s%s%s%s: "
-         "caller UID:GID = %d:%d, "
-         "file UID:GID = %d:%d, "
+         "caller UID:GID = %ju:%ju, "
+         "file UID:GID = %ju:%ju, "
          "file mode = %o, "
          "result = %s",
          path,
@@ -354,8 +354,8 @@ mount_local_access (const char *path, int mask)
          mask & W_OK ? " W_OK" : "",
          mask & X_OK ? " X_OK" : "",
          mask == 0 ? " 0" : "",
-         fuse->uid, fuse->gid,
-         statbuf.st_uid, statbuf.st_gid,
+         (uintmax_t) fuse->uid, (uintmax_t) fuse->gid,
+         (uintmax_t) statbuf.st_uid, (uintmax_t) statbuf.st_gid,
          statbuf.st_mode,
          ok ? "OK" : "EACCESS");
 
@@ -402,7 +402,7 @@ mount_local_mknod (const char *path, mode_t mode, dev_t rdev)
 {
   int r;
   DECL_G ();
-  DEBUG_CALL ("%s, 0%o, 0x%lx", path, mode, (long) rdev);
+  DEBUG_CALL ("%s, 0%o, 0x%jx", path, mode, (uintmax_t) rdev);
 
   if (g->ml_read_only) return -EROFS;
 
@@ -548,7 +548,7 @@ mount_local_chown (const char *path, uid_t uid, gid_t gid)
 {
   int r;
   DECL_G ();
-  DEBUG_CALL ("%s, %ld, %ld", path, (long) uid, (long) gid);
+  DEBUG_CALL ("%s, %ju, %ju", path, (uintmax_t) uid, (uintmax_t) gid);
 
   if (g->ml_read_only) return -EROFS;
 
@@ -630,7 +630,7 @@ mount_local_open (const char *path, struct fuse_file_info *fi)
 {
   int flags = fi->flags & O_ACCMODE;
   DECL_G ();
-  DEBUG_CALL ("%s, 0%o", path, fi->flags);
+  DEBUG_CALL ("%s, 0%o", path, (unsigned) fi->flags);
 
   if (g->ml_read_only && flags != O_RDONLY)
     return -EROFS;

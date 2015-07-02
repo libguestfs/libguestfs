@@ -564,12 +564,12 @@ cleanup_free_mountable (mountable_t *mountable)
                  pr "      r->%s[i++] = tok[j];\n" name;
                  pr "  }\n";
              | FBytes ->
-                 pr "  if (sscanf (tok, \"%%\"SCNu64, &r->%s) != 1) {\n" name;
+                 pr "  if (sscanf (tok, \"%%\" SCNi64, &r->%s) != 1) {\n" name;
                  pr "    fprintf (stderr, \"%%s: failed to parse size '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
                  pr "    return -1;\n";
                  pr "  }\n";
              | FInt64 ->
-                 pr "  if (sscanf (tok, \"%%\"SCNi64, &r->%s) != 1) {\n" name;
+                 pr "  if (sscanf (tok, \"%%\" SCNi64, &r->%s) != 1) {\n" name;
                  pr "    fprintf (stderr, \"%%s: failed to parse int '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
                  pr "    return -1;\n";
                  pr "  }\n";

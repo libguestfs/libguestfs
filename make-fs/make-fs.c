@@ -620,7 +620,7 @@ parse_size (const char *str, uint64_t estimate, uint64_t *size_rtn)
   xerr = xstrtoull (str, NULL, 0, &size, "0kKMGTPEZY");
   if (xerr != LONGINT_OK) {
     fprintf (stderr,
-             _("%s: %s: invalid size parameter '%s' (%s returned %d)\n"),
+             _("%s: %s: invalid size parameter '%s' (%s returned %u)\n"),
              guestfs_int_program_name, "parse_size", str, "xstrtoull", xerr);
     return -1;
   }

@@ -857,7 +857,8 @@ debug_appliance_permissions (guestfs_h *g)
   CLEANUP_FREE char *cachedir = guestfs_get_cachedir (g);
   CLEANUP_FREE char *appliance = NULL;
 
-  appliance = safe_asprintf (g, "%s/.guestfs-%d", cachedir, geteuid ());
+  appliance = safe_asprintf (g, "%s/.guestfs-%ju",
+                             cachedir, (uintmax_t) geteuid ());
 
   guestfs_int_cmd_add_arg (cmd, "ls");
   guestfs_int_cmd_add_arg (cmd, "-a");

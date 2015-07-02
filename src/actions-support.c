@@ -38,25 +38,25 @@ guestfs_int_check_reply_header (guestfs_h *g,
                               unsigned int proc_nr, unsigned int serial)
 {
   if (hdr->prog != GUESTFS_PROGRAM) {
-    error (g, "wrong program (%d/%d)", hdr->prog, GUESTFS_PROGRAM);
+    error (g, "wrong program (%u/%d)", hdr->prog, GUESTFS_PROGRAM);
     return -1;
   }
   if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
-    error (g, "wrong protocol version (%d/%d)",
+    error (g, "wrong protocol version (%u/%d)",
            hdr->vers, GUESTFS_PROTOCOL_VERSION);
     return -1;
   }
   if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
     error (g, "unexpected message direction (%d/%d)",
-           hdr->direction, GUESTFS_DIRECTION_REPLY);
+           (int) hdr->direction, GUESTFS_DIRECTION_REPLY);
     return -1;
   }
   if (hdr->proc != proc_nr) {
-    error (g, "unexpected procedure number (%d/%d)", hdr->proc, proc_nr);
+    error (g, "unexpected procedure number (%d/%u)", (int) hdr->proc, proc_nr);
     return -1;
   }
   if (hdr->serial != serial) {
-    error (g, "unexpected serial (%d/%d)", hdr->serial, serial);
+    error (g, "unexpected serial (%u/%u)", hdr->serial, serial);
     return -1;
   }
 

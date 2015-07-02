@@ -172,7 +172,7 @@ do_zero_device (const char *device)
     if (!is_zero (buf, sizeof buf)) {
       r = pwrite (fd, zero_buf, n, pos);
       if (r == -1) {
-        reply_with_perror ("pwrite: %s (with %" PRId64 " bytes left to write)",
+        reply_with_perror ("pwrite: %s (with %" PRIu64 " bytes left to write)",
                            device, size);
         close (fd);
         return -1;

@@ -702,7 +702,7 @@ output_int64_perms (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%04" PRIo64, i) < 0) {
+  if (printf ("%04" PRIo64, (uint64_t) i) < 0) {
     perror ("printf");
     exit (EXIT_FAILURE);
   }
@@ -774,7 +774,8 @@ output_int64_dev (int64_t i)
   next_field ();
 
   /* csv doesn't need escaping */
-  if (printf ("%d:%d", major (dev), minor (dev)) < 0) {
+  if (printf ("%ju:%ju",
+              (uintmax_t) major (dev), (uintmax_t) minor (dev)) < 0) {
     perror ("printf");
     exit (EXIT_FAILURE);
   }

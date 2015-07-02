@@ -527,7 +527,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   if (*size_rtn == GUESTFS_LAUNCH_FLAG) {
     if (g->state != LAUNCHING)
       error (g, _("received magic signature from guestfsd, but in state %d"),
-             g->state);
+             (int) g->state);
     else {
       g->state = READY;
       guestfs_int_call_callbacks_void (g, GUESTFS_EVENT_LAUNCH_DONE);

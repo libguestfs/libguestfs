@@ -159,7 +159,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
           pr "  {\n";
           pr "    size_t i;\n";
           pr "    for (i = 0; i < %s_size; ++i)\n" n;
-          pr "      fprintf (fp, \"<%%02x>\", %s[i]);\n" n;
+          pr "      fprintf (fp, \"<%%02x>\", (unsigned) %s[i]);\n" n;
           pr "    fprintf (fp, \"\\n\");\n";
           pr "  }\n";
         | OptString n -> pr "  fprintf (fp, \"%%s\\n\", %s ? %s : \"null\");\n" n n
