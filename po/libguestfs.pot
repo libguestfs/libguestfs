@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.29.48\n"
+"Project-Id-Version: libguestfs 1.29.49\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-07-02 14:24+0100\n"
+"POT-Creation-Date: 2015-07-02 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3999,7 +3999,7 @@ msgstr ""
 
 #: fish/alloc.c:100
 #, c-format
-msgid "%s: invalid integer parameter (%s returned %d)\n"
+msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
 #: fish/cmds.c:4590
@@ -6256,7 +6256,7 @@ msgstr ""
 #: fish/cmds.c:24389 fish/cmds.c:24406 fish/cmds.c:24423 fish/cmds.c:24440
 #: fish/cmds.c:24586 fish/cmds.c:24603 fish/cmds.c:24620 fish/cmds.c:24637
 #, c-format
-msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
+msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
 #: fish/cmds.c:6518 fish/cmds.c:7116 fish/cmds.c:7158 fish/cmds.c:7654
@@ -7247,7 +7247,7 @@ msgstr ""
 
 #: make-fs/make-fs.c:623
 #, c-format
-msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
+msgid "%s: %s: invalid size parameter '%s' (%s returned %u)\n"
 msgstr ""
 
 #: make-fs/make-fs.c:829
@@ -7681,7 +7681,7 @@ msgstr ""
 
 #: src/appliance.c:247
 #, c-format
-msgid "security: cached appliance %s is not owned by UID %d"
+msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
 #: src/appliance.c:252
@@ -8303,7 +8303,7 @@ msgstr ""
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1253 src/launch-libvirt.c:1414
+#: src/launch-direct.c:1253 src/launch-libvirt.c:1415
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8400,70 +8400,70 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:978
+#: src/launch-libvirt.c:979
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1368
+#: src/launch-libvirt.c:1369
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1497
+#: src/launch-libvirt.c:1498
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1522
+#: src/launch-libvirt.c:1523
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1529
+#: src/launch-libvirt.c:1530
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1859
+#: src/launch-libvirt.c:1860
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1870
+#: src/launch-libvirt.c:1871
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1874
+#: src/launch-libvirt.c:1875
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1895
+#: src/launch-libvirt.c:1896
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1908
+#: src/launch-libvirt.c:1909
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2015
+#: src/launch-libvirt.c:2016
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2066 src/launch-libvirt.c:2099
+#: src/launch-libvirt.c:2067 src/launch-libvirt.c:2100
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2162
+#: src/launch-libvirt.c:2163
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2193
+#: src/launch-libvirt.c:2194
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -8812,7 +8812,7 @@ msgstr ""
 
 #: test-tool/test-tool.c:154
 #, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgid "libguestfs-test-tool: unexpected command line option %d\n"
 msgstr ""
 
 #: test-tool/test-tool.c:161
