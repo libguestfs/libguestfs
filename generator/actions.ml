@@ -12578,7 +12578,7 @@ This enable skinny metadata extent refs." };
     proc_nr = Some 453;
     optional = Some "btrfs"; camel_name = "BTRFSImage";
     tests = [
-      InitPartition, Always, TestRun (
+      InitEmpty, Always, TestRun (
         [["part_init"; "/dev/sda"; "mbr"];
          ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
          ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
