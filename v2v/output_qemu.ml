@@ -40,6 +40,15 @@ object
         { t with target_file = target_file }
     ) targets
 
+  method check_target_firmware guestcaps target_firmware =
+    match target_firmware with
+    | TargetBIOS -> ()
+    | TargetUEFI ->
+       (* This will fail with an error if the target firmware is
+        * not installed on the host.
+        *)
+       ignore (find_uefi_firmware guestcaps.gcaps_arch)
+
   method create_metadata source targets guestcaps inspect target_firmware =
     let name = source.s_name in
     let file = dir // name ^ ".sh" in

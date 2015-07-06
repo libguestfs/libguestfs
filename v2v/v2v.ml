@@ -217,24 +217,6 @@ let rec main () =
   msg (f_"Inspecting the overlay");
   let inspect = inspect_source ~verbose g root_choice in
 
-  (* Does the guest require UEFI on the target? *)
-  let target_firmware =
-    match source.s_firmware with
-    | BIOS -> TargetBIOS
-    | UEFI -> TargetUEFI
-    | UnknownFirmware ->
-       if inspect.i_uefi then TargetUEFI else TargetBIOS in
-  let supported_firmware = output#supported_firmware in
-  if not (List.mem target_firmware supported_firmware) then
-    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
-          (string_of_target_firmware target_firmware)
-          (String.concat " "
-            (List.map string_of_target_firmware supported_firmware));
-  (match target_firmware with
-   | TargetBIOS -> ()
-   | TargetUEFI ->
-       info ~prog (f_"This guest requires UEFI on the target to boot."));
-
   (* The guest free disk space check and the target free space
    * estimation both require statvfs information from mountpoints, so
    * get that information first.
@@ -307,6 +289,28 @@ let rec main () =
   g#umount_all ();
   g#shutdown ();
   g#close ();
+
+  (* Does the guest require UEFI on the target? *)
+  msg (f_"Checking if the guest needs BIOS or UEFI to boot");
+  let target_firmware =
+    match source.s_firmware with
+    | BIOS -> TargetBIOS
+    | UEFI -> TargetUEFI
+    | UnknownFirmware ->
+       if inspect.i_uefi then TargetUEFI else TargetBIOS in
+  let supported_firmware = output#supported_firmware in
+  if not (List.mem target_firmware supported_firmware) then
+    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
+          (string_of_target_firmware target_firmware)
+          (String.concat " "
+            (List.map string_of_target_firmware supported_firmware));
+
+  output#check_target_firmware guestcaps target_firmware;
+
+  (match target_firmware with
+   | TargetBIOS -> ()
+   | TargetUEFI ->
+       info ~prog (f_"This guest requires UEFI on the target to boot."));
 
   (* Force a GC here, to ensure that we're using the minimum resources
    * as we go into the copy stage.  The particular reason is that
