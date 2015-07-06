@@ -297,7 +297,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
               let expr =
                 sprintf "/files%s/title[%d]/kernel" grub_config (idx+1) in
               Some expr
-            with Not_found -> None in
+            with G.Error msg
+                 when string_find msg "aug_get: no matching node" >= 0 ->
+              None in
 
           (* If a default kernel was set, put it at the beginning of the paths
            * list.  If not set, assume the first kernel always boots (?)
