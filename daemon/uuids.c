@@ -77,11 +77,9 @@ do_set_uuid (const char *device, const char *uuid)
   else if (STREQ (vfs_type, "btrfs"))
     r = btrfs_set_uuid (device, uuid);
 
-  else {
-    reply_with_error ("don't know how to set the UUID for '%s' filesystems",
+  else
+    NOT_SUPPORTED(-1, "don't know how to set the UUID for '%s' filesystems",
                       vfs_type);
-    r = -1;
-  }
 
   return r;
 }

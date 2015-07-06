@@ -11804,6 +11804,9 @@ parameter.  In future we may allow other flags to be adjusted." };
     shortdesc = "set the filesystem UUID";
     longdesc = "\
 Set the filesystem UUID on C<device> to C<uuid>.
+If this fails and the errno is ENOTSUP,
+means that there is no support for changing the UUID
+for the type of the specified filesystem.
 
 Only some filesystem types support setting UUIDs.
 
