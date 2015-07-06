@@ -231,6 +231,10 @@ class virtual output : object
   method virtual supported_firmware : target_firmware list
   (** Does this output method support UEFI?  Allows us to abort early if
       conversion is impossible. *)
+  method check_target_firmware : guestcaps -> target_firmware -> unit
+  (** Called before conversion once the guest's target firmware is known.
+      Can be used as an additional check that the target firmware is
+      supported on the host. *)
   method check_target_free_space : source -> target list -> unit
   (** Called before conversion.  Can be used to check there is enough space
       on the target, using the [target.target_estimated_size] field. *)

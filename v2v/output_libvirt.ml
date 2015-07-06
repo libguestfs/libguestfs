@@ -368,6 +368,18 @@ class output_libvirt oc output_pool = object
         { t with target_file = target_file }
     ) targets
 
+  method check_target_firmware guestcaps target_firmware =
+    match target_firmware with
+    | TargetBIOS -> ()
+    | TargetUEFI ->
+       (* This will fail with an error if the target firmware is
+        * not installed on the host.
+        * XXX Can remove this method when libvirt supports
+        * <loader type="efi"/> since then it will be up to
+        * libvirt to check this.
+        *)
+       ignore (find_uefi_firmware guestcaps.gcaps_arch)
+
   method create_metadata source _ target_buses guestcaps _ target_firmware =
     (* We copied directly into the final pool directory.  However we
      * have to tell libvirt.

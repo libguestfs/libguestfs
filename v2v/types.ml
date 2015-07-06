@@ -389,6 +389,7 @@ class virtual output = object
   method virtual as_options : string
   method virtual prepare_targets : source -> target list -> target list
   method virtual supported_firmware : target_firmware list
+  method check_target_firmware (_ : guestcaps) (_ : target_firmware) = ()
   method check_target_free_space (_ : source) (_ : target list) = ()
   method disk_create = (new Guestfs.guestfs ())#disk_create
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit

@@ -221,23 +221,6 @@ let rec main () =
   message (f_"Inspecting the overlay");
   let inspect = inspect_source g root_choice in
 
-  (* Does the guest require UEFI on the target? *)
-  let target_firmware =
-    match source.s_firmware with
-    | BIOS -> TargetBIOS
-    | UEFI -> TargetUEFI
-    | UnknownFirmware ->
-       if inspect.i_uefi then TargetUEFI else TargetBIOS in
-  let supported_firmware = output#supported_firmware in
-  if not (List.mem target_firmware supported_firmware) then
-    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
-          (string_of_target_firmware target_firmware)
-          (String.concat " "
-            (List.map string_of_target_firmware supported_firmware));
-  (match target_firmware with
-   | TargetBIOS -> ()
-   | TargetUEFI -> info (f_"This guest requires UEFI on the target to boot."));
-
   (* The guest free disk space check and the target free space
    * estimation both require statvfs information from mountpoints, so
    * get that information first.
@@ -310,6 +293,27 @@ let rec main () =
   g#umount_all ();
   g#shutdown ();
   g#close ();
+
+  (* Does the guest require UEFI on the target? *)
+  message (f_"Checking if the guest needs BIOS or UEFI to boot");
+  let target_firmware =
+    match source.s_firmware with
+    | BIOS -> TargetBIOS
+    | UEFI -> TargetUEFI
+    | UnknownFirmware ->
+       if inspect.i_uefi then TargetUEFI else TargetBIOS in
+  let supported_firmware = output#supported_firmware in
+  if not (List.mem target_firmware supported_firmware) then
+    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
+          (string_of_target_firmware target_firmware)
+          (String.concat " "
+            (List.map string_of_target_firmware supported_firmware));
+
+  output#check_target_firmware guestcaps target_firmware;
+
+  (match target_firmware with
+   | TargetBIOS -> ()
+   | TargetUEFI -> info (f_"This guest requires UEFI on the target to boot."));
 
   message (f_"Assigning disks to buses");
   let target_buses = target_bus_assignment source targets guestcaps in
