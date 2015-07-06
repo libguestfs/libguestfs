@@ -9941,6 +9941,10 @@ not allowed.  Setting the label on a btrfs subvolume will set the
 label on its parent filesystem.  The filesystem must not be mounted
 when trying to set the label.
 
+=item fat
+
+The label is limited to 11 bytes.
+
 =back
 
 To read the label on a filesystem, call C<guestfs_vfs_label>." };
