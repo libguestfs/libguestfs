@@ -125,7 +125,7 @@ let create_libvirt_xml ?pool source targets guestcaps
           * until that day we have to use a bunch of heuristics. XXX
           *)
          let code, vars_template = find_uefi_firmware guestcaps.gcaps_arch in
-         [ e "loader" ["type", "pflash"] [ PCData code ];
+         [ e "loader" ["readonly", "yes"; "type", "pflash"] [ PCData code ];
            e "nvram" ["template", vars_template] [] ] in
 
     (e "type" ["arch", guestcaps.gcaps_arch] [PCData "hvm"]) :: loader in
