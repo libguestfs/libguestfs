@@ -502,7 +502,11 @@ echo uninstalling Xen PV driver
 
 let () =
   let matching = function
-    | { i_type = "windows" } -> true
+    | { i_type = "windows";
+        i_major_version = major; i_minor_version = minor }
+      when (major == 6 && minor < 2) || major < 6 -> true
+    | { i_type = "windows" } ->
+      error "virt-v2v cannot be used to convert Windows > 7 / 2008R2 (see https://bugzilla.redhat.com/1190669)"
     | _ -> false
   in
   Modules_list.register_convert_module matching "windows" convert
