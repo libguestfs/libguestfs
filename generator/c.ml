@@ -1857,11 +1857,28 @@ and generate_client_actions hash () =
       pr "  const uint64_t progress_hint = 0;\n";
 
     pr "\n";
+
     enter_event name;
     check_null_strings c_name style;
     reject_unknown_optargs c_name style;
     check_args_validity c_name style;
     trace_call name c_name style;
+
+    (* RHEL 7 *)
+    if name = "mount" || name = "mount_ro" || name = "mount_options" ||
+       name = "mount_vfs" then (
+      pr "  if (g->program && !STRPREFIX (g->program, \"virt-\")) {\n";
+      pr "    CLEANUP_FREE char *vfs_type = guestfs_vfs_type (g, mountable);\n";
+      pr "    if (vfs_type && STREQ (vfs_type, \"ntfs\")) {\n";
+      pr "      error (g, \"mount: unsupported filesystem type\");\n";
+      pr "      if (trace_flag)\n";
+      pr "        guestfs_int_trace (g, \"%%s = %%s (error)\",\n";
+      pr "                              \"%s\", \"-1\");\n" name;
+      pr "      return %s;\n" (string_of_errcode errcode);
+      pr "    }\n";
+      pr "  }\n";
+      pr "\n";
+    );
 
     (* Calculate the total size of all FileIn arguments to pass
      * as a progress bar hint.
