@@ -27,27 +27,10 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_btrfs, btrfs);
 GUESTFSD_EXT_CMD(str_dosfslabel, dosfslabel);
 GUESTFSD_EXT_CMD(str_e2label, e2label);
 GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
 GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
-
-static int
-btrfslabel (const char *device, const char *label)
-{
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
-  r = command (NULL, &err, str_btrfs, "filesystem", "label",
-               device, label, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
-}
 
 static int
 dosfslabel (const char *device, const char *label)
@@ -144,7 +127,7 @@ do_set_label (const mountable_t *mountable, const char *label)
     return -1;
 
   if (STREQ (vfs_type, "btrfs"))
-    r = btrfslabel (mountable->device, label);
+    r = btrfs_set_label (mountable->device, label);
 
   else if (STREQ (vfs_type, "msdos") ||
            STREQ (vfs_type, "fat") ||

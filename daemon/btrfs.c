@@ -70,6 +70,22 @@ btrfs_get_label (const char *device)
   return out;
 }
 
+int
+btrfs_set_label (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  r = command (NULL, &err, str_btrfs, "filesystem", "label",
+               device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_btrfs_filesystem_resize (const char *filesystem, int64_t size)

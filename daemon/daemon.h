@@ -275,6 +275,7 @@ extern char *debug_bmap_device (const char *subcmd, size_t argc, char *const *co
 
 /*-- in btrfs.c --*/
 extern char *btrfs_get_label (const char *device);
+extern int btrfs_set_label (const char *device, const char *label);
 extern int btrfs_set_uuid (const char *device, const char *uuid);
 extern int btrfs_set_uuid_random (const char *device);
 
