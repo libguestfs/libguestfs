@@ -28,7 +28,6 @@
 #include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_dosfslabel, dosfslabel);
-GUESTFSD_EXT_CMD(str_e2label, e2label);
 GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
 GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
 
@@ -39,27 +38,6 @@ dosfslabel (const char *device, const char *label)
   CLEANUP_FREE char *err = NULL;
 
   r = command (NULL, &err, str_dosfslabel, device, label, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
-}
-
-static int
-e2label (const char *device, const char *label)
-{
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
-  if (strlen (label) > EXT2_LABEL_MAX) {
-    reply_with_error ("%s: ext2 labels are limited to %d bytes",
-                      label, EXT2_LABEL_MAX);
-    return -1;
-  }
-
-  r = command (NULL, &err, str_e2label, device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -135,7 +113,7 @@ do_set_label (const mountable_t *mountable, const char *label)
     r = dosfslabel (mountable->device, label);
 
   else if (fstype_is_extfs (vfs_type))
-    r = e2label (mountable->device, label);
+    r = do_set_e2label (mountable->device, label);
 
   else if (STREQ (vfs_type, "ntfs"))
     r = ntfslabel (mountable->device, label);

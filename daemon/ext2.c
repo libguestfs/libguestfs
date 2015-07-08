@@ -38,6 +38,7 @@ GUESTFSD_EXT_CMD(str_resize2fs, resize2fs);
 GUESTFSD_EXT_CMD(str_mke2fs, mke2fs);
 GUESTFSD_EXT_CMD(str_lsattr, lsattr);
 GUESTFSD_EXT_CMD(str_chattr, chattr);
+GUESTFSD_EXT_CMD(str_e2label, e2label);
 
 /* https://bugzilla.redhat.com/show_bug.cgi?id=978302#c1 */
 int
@@ -125,12 +126,22 @@ do_tune2fs_l (const char *device)
 int
 do_set_e2label (const char *device, const char *label)
 {
-  const mountable_t mountable = {
-    .type = MOUNTABLE_DEVICE,
-    .device = /* not really ... */ (char *) device,
-    .volume = NULL,
-  };
-  return do_set_label (&mountable, label);
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  if (strlen (label) > EXT2_LABEL_MAX) {
+    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+                      label, EXT2_LABEL_MAX);
+    return -1;
+  }
+
+  r = command (NULL, &err, str_e2label, device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
 }
 
 char *
