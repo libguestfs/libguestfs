@@ -9947,6 +9947,10 @@ The label is limited to 11 bytes.
 
 =back
 
+If there is no support for changing the label
+for the type of the specified filesystem,
+set_label will fail and set errno as ENOTSUP.
+
 To read the label on a filesystem, call C<guestfs_vfs_label>." };
 
   { defaults with

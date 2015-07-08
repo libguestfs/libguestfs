@@ -85,11 +85,9 @@ do_set_label (const mountable_t *mountable, const char *label)
   else if (STREQ (vfs_type, "xfs"))
     r = xfslabel (mountable->device, label);
 
-  else {
-    reply_with_error ("don't know how to set the label for '%s' filesystems",
+  else
+    NOT_SUPPORTED(-1, "don't know how to set the label for '%s' filesystems",
                       vfs_type);
-    r = -1;
-  }
 
   return r;
 }
