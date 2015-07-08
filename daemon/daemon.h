@@ -267,6 +267,7 @@ extern int copy_xattrs (const char *src, const char *dest);
 #define XFS_LABEL_MAX 12
 extern int xfs_set_uuid (const char *device, const char *uuid);
 extern int xfs_set_uuid_random (const char *device);
+extern int xfs_set_label (const char *device, const char *label);
 
 /*-- debug-bmap.c --*/
 extern char *debug_bmap (const char *subcmd, size_t argc, char *const *const argv);

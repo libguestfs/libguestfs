@@ -28,7 +28,6 @@
 #include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_dosfslabel, dosfslabel);
-GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
 
 static int
 dosfslabel (const char *device, const char *label)
@@ -48,9 +47,6 @@ dosfslabel (const char *device, const char *label)
 static int
 xfslabel (const char *device, const char *label)
 {
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
   /* Don't allow the special value "---".  If people want to clear
    * the label we'll have to add another call to do that.
    */
@@ -59,19 +55,7 @@ xfslabel (const char *device, const char *label)
     return -1;
   }
 
-  if (strlen (label) > XFS_LABEL_MAX) {
-    reply_with_error ("%s: xfs labels are limited to %d bytes",
-                      label, XFS_LABEL_MAX);
-    return -1;
-  }
-
-  r = command (NULL, &err, str_xfs_admin, "-L", label, device, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
+  return xfs_set_label (device, label);
 }
 
 int
