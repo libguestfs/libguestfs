@@ -71,6 +71,25 @@ ntfs_get_label (const char *device)
 }
 
 int
+ntfs_set_label (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  /* XXX We should check if the label is longer than 128 unicode
+   * characters and return an error.  This is not so easy since we
+   * don't have the required libraries.
+   */
+  r = command (NULL, &err, str_ntfslabel, device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
 do_ntfs_3g_probe (int rw, const char *device)
 {
   CLEANUP_FREE char *err = NULL;

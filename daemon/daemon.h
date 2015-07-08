@@ -281,6 +281,7 @@ extern int btrfs_set_uuid_random (const char *device);
 
 /*-- in ntfs.c --*/
 extern char *ntfs_get_label (const char *device);
+extern int ntfs_set_label (const char *device, const char *label);
 
 /*-- in swap.c --*/
 extern int swap_set_uuid (const char *device, const char *uuid);

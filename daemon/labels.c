@@ -28,7 +28,6 @@
 #include "optgroups.h"
 
 GUESTFSD_EXT_CMD(str_dosfslabel, dosfslabel);
-GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
 GUESTFSD_EXT_CMD(str_xfs_admin, xfs_admin);
 
 static int
@@ -38,25 +37,6 @@ dosfslabel (const char *device, const char *label)
   CLEANUP_FREE char *err = NULL;
 
   r = command (NULL, &err, str_dosfslabel, device, label, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    return -1;
-  }
-
-  return 0;
-}
-
-static int
-ntfslabel (const char *device, const char *label)
-{
-  int r;
-  CLEANUP_FREE char *err = NULL;
-
-  /* XXX We should check if the label is longer than 128 unicode
-   * characters and return an error.  This is not so easy since we
-   * don't have the required libraries.
-   */
-  r = command (NULL, &err, str_ntfslabel, device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -116,7 +96,7 @@ do_set_label (const mountable_t *mountable, const char *label)
     r = do_set_e2label (mountable->device, label);
 
   else if (STREQ (vfs_type, "ntfs"))
-    r = ntfslabel (mountable->device, label);
+    r = ntfs_set_label (mountable->device, label);
 
   else if (STREQ (vfs_type, "xfs"))
     r = xfslabel (mountable->device, label);
