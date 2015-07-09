@@ -11,6 +11,7 @@
 ../customize/virt-customize.pod
 ../daemon/guestfsd.pod
 ../df/virt-df.pod
+../dib/virt-dib.pod
 ../diff/virt-diff.pod
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod

@@ -4390,6 +4390,10 @@ actions.
 
 L<virt-df(1)> command and documentation.
 
+=item F<dib>
+
+L<virt-dib(1)> command and documentation.
+
 =item F<diff>
 
 L<virt-diff(1)> command and documentation.

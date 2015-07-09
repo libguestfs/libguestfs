@@ -118,6 +118,10 @@ Makefile.in
 /df/stamp-virt-df.pod
 /df/virt-df
 /df/virt-df.1
+/dib/.depend
+/dib/stamp-virt-dib.pod
+/dib/virt-dib
+/dib/virt-dib.1
 /diff/stamp-virt-diff.pod
 /diff/virt-diff
 /diff/virt-diff.1
@@ -245,6 +249,7 @@ Makefile.in
 /html/virt-copy-out.1.html
 /html/virt-customize.1.html
 /html/virt-df.1.html
+/html/virt-dib.1.html
 /html/virt-diff.1.html
 /html/virt-edit.1.html
 /html/virt-filesystems.1.html

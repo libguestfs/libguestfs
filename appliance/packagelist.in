@@ -254,6 +254,18 @@ util-linux-ng
 xfsprogs
 zerofree
 
+dnl tools needed by virt-dib
+ifelse(REDHAT,1,
+  qemu-img
+  which
+)
+ifelse(DEBIAN,1,
+  qemu-utils
+)
+curl
+dnl (virt-dib) tools optionally used for elements
+debootstrap
+
 ifelse(VALGRIND_DAEMON,1,valgrind)
 
 dnl Define this by doing: ./configure --with-extra-packages="..."

@@ -1,0 +1,628 @@
+=head1 NAME
+
+virt-dib - Run diskimage-builder elements
+
+=head1 SYNOPSIS
+
+ virt-dib -B DIB-LIB [options] elements...
+
+=head1 DESCRIPTION
+
+Virt-dib is a tool for using the elements of C<diskimage-builder>
+to build a new disk image, generate new ramdisks, etc.
+
+Virt-dib is intended as safe replacement for C<diskimage-builder>
+and its C<ramdisk-image-create> mode, see
+L</COMPARISON WITH DISKIMAGE-BUILDER> for a quick comparison with
+usage of C<diskimage-builder>.
+
+C<diskimage-builder> is part of the TripleO OpenStack project:
+L<https://wiki.openstack.org/wiki/TripleO>.
+
+=head1 EXAMPLES
+
+=head2 Build simple images of distributions
+
+ virt-dib \
+   -B /path/to/diskimage-builder/lib \
+   -p /path/to/diskimage-builder/elements \
+   --envvar DIB_RELEASE=jessie \
+   --name debian-jessie \
+   debian vm
+
+This builds a Debian Jessie (8.x) disk image, suitable for running
+as virtual machine, saved as F<debian-jessie.qcow2>.
+
+=head2 Build ramdisks
+
+ virt-dib \
+   -B /path/to/diskimage-builder/lib \
+   -p /path/to/diskimage-builder/elements \
+   --ramdisk \
+   --name ramdisk \
+   ubuntu deploy-ironic
+
+This builds a ramdisk for the Ironic OpenStack component based
+on the Ubuntu distribution.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<-B> PATH
+
+Set the path to the library directory of C<diskimage-builder>. This is
+usually the F<lib> subdirectory in the sources and when installed,
+and F</usr/share/diskimage-builder/lib> when installed in F</usr>.
+
+This parameter is B<mandatory>, as virt-dib needs to provide it for
+the elements (as some of them might use scripts in it).
+Virt-dib itself does not make use of the library directory.
+
+=item B<--arch> ARCHITECURE
+
+Use the specified architecture for the output image.  The default
+value is the same as the host running virt-dib.
+
+Right now this option does nothing more than setting the C<ARCH>
+environment variable for the elements, and it's up to them to
+produce an image for the requested architecture.
+
+=item B<--debug> LEVEL
+
+Set the debug level to C<LEVEL>, which is a non-negative integer
+number.  The default is C<0>.
+
+This debug level is different than what I<-x> and I<-v> set,
+and it increases the debugging information printed out.
+Specifically, this sets the C<DIB_DEBUG_TRACE>, and any value
+E<gt> C<0> enables tracing in the scripts executed.
+
+=item B<--drive> DISK
+
+Add the specified disk to be used as helper drive where to cache
+files of the elements, like disk images, distribution packages, etc.
+
+See L</HELPER DRIVE>.
+
+=item B<-p> PATH
+
+=item B<--element-path> PATH
+
+Add a new path with elements.  Paths are used in the same order as the
+I<-p> parameters appear, so a path specified first is looked first,
+and so on.
+
+Obviously, it is recommended to add the path to the own elements of
+C<diskimage-builder>, as most of the other elements will rely on them.
+
+=item B<--extra-packages> PACKAGE,...
+
+Install additional packages in the image being built.
+
+This relies on the C<install-packages> binary provided by the
+package management elements.
+
+This option can be specified multiple times, each time with multiple
+packages separated by comma.
+
+=item B<--envvar> VARIABLE
+
+=item B<--envvar> VARIABLE=VALUE
+
+Carry or set an environment variable for the elements.
+
+See L</ENVIRONMENT VARIABLES> below for more information on the
+interaction and usage of environment variables.
+
+This option can be used in two ways:
+
+=over 4
+
+=item B<--envvar> VARIABLE
+
+Carry the environment variable C<VARIABLE>. If it is not set, nothing
+is exported to the elements.
+
+=item B<--envvar> VARIABLE=VALUE
+
+Set the environment variable C<VARIABLE> with value C<VALUE> for the
+elements, regardless whether an environment variable with the same
+name exists.
+
+This can be useful to pass environment variable without exporting
+them in the environment where virt-dib runs.
+
+=back
+
+=item B<--exclude-element> ELEMENT
+
+Ignore the specified element.
+
+=item B<--exclude-script> SCRIPT
+
+Ignore any element script named C<SCRIPT>, whichever element it is in.
+
+This can be useful in case some script does not run well with
+virt-dib, for example when they really need C<diskimage-builder>'s
+environment.
+
+=item B<--formats> FORMAT,...
+
+Set the list of output formats, separating them with comma.
+
+Supported formats are:
+
+=over 4
+
+=item C<qcow2> (enabled by default)
+
+QEMU's qcow2.
+
+=item C<raw>
+
+Raw disk format.
+
+=item C<tar>
+
+An uncompressed tarball.
+
+=item C<vhd>
+
+C<Virtual Hard Disk> disk image.  This output format requires
+the C<vhd-util> tool.
+
+Please note that the version of C<vhd-util> tool needs to be patched
+to support the C<convert> subcommand, and to be bootable.
+The patch is available here:
+L<https://github.com/emonty/vhd-util/blob/master/debian/patches/citrix>.
+
+=back
+
+=item B<--fs-type> FILESYSTEM
+
+Set the filesystem type to use for the root filesystem.  The default
+is C<ext4>.
+
+See also L<guestfs(3)/guestfs_filesystem_available>.
+
+=item B<--image-cache> DIRECTORY
+
+Set the path in the host where cache the resources used by the
+elements of the C<extra-data.d> phase.  The default is
+F<~/.cache/image-create>.
+
+Please note that most of the resources fetched after C<extra-data>
+will be cached in the helper drive specified with I<--drive>;
+see also L</HELPER DRIVE>.
+
+=item B<--install-type> TYPE
+
+Specify the default installation type.  Defaults to C<source>.
+
+Set to C<package> to use package based installations by default.
+
+=item B<--machine-readable>
+
+This option is used to make the output more machine friendly
+when being parsed by other programs.  See
+L</MACHINE READABLE OUTPUT> below.
+
+=item B<-m> MB
+
+=item B<--memsize> MB
+
+Change the amount of memory allocated to the appliance. Increase
+this if you find that the virt-dib execution runs out of memory.
+
+The default can be found with this command:
+
+ guestfish get-memsize
+
+=item B<--mkfs-options> C<OPTION STRING>
+
+Add the specified options to L<mkfs(1)>, to be able to fine-tune
+the root filesystem creation.  Note that this is not possible
+to override the filesystem type.
+
+You should use I<--mkfs-options> at most once.  To pass multiple
+options, separate them with space, eg:
+
+ virt-dib ... --mkfs-options '-O someopt -I foo'
+
+=item B<--network>
+
+=item B<--no-network>
+
+Enable or disable network access from the guest during the
+installation.
+
+Enabled is the default.  Use I<--no-network> to disable access.
+
+The network only allows outgoing connections and has other minor
+limitations.  See L<virt-rescue(1)/NETWORK>.
+
+This does not affect whether the guest can access the network once it
+has been booted, because that is controlled by your hypervisor or
+cloud environment and has nothing to do with virt-dib.
+
+If you use I<--no-network>, then the environment variable
+C<DIB_OFFLINE> is set to C<1>, signaling the elements that they
+should use only cached resources when available.  Note also that,
+unlike with C<diskimage-builder> where elements may still be able
+to access to the network even with C<DIB_OFFLINE=>, under virt-dib
+network will be fully unaccessible.
+
+=item B<--name> NAME
+
+Set the name of the output image file.  The default is C<image>.
+
+According to the chosen name, there will be the following in the
+current directory:
+
+=over 4
+
+=item F<$NAME.ext>
+
+For each output format, a disk image named after the outout image
+with the extension depending on the format; for example:
+F<$NAME.qcow2>, F<$NAME.raw>, etc.
+
+Not applicable in ramdisk mode, see L</RAMDISK BUILDING>.
+
+=item F<$NAME.d>
+
+A directory containing any files created by the elements, for example
+F<dib-manifests> directory (created by the C<manifests> element),
+ramdisks and kernels in ramdisk mode, and so on.
+
+=back
+
+=item B<--no-delete-on-failure>
+
+Don't delete the output files on failure to build.  You can use this
+to debug failures to run scripts.
+
+The default is to delete the output file if virt-dib fails (or,
+for example, some script that it runs fails).
+
+=item B<--qemu-img-options> option[,option,...]
+
+Pass I<--qemu-img-options> option(s) to the L<qemu-img(1)> command
+to fine-tune the output format.  Options available depend on
+the output format (see I<--formats>) and the installed version
+of the qemu-img program.
+
+You should use I<--qemu-img-options> at most once.  To pass multiple
+options, separate them with commas, eg:
+
+ virt-dib ... --qemu-img-options cluster_size=512,preallocation=metadata ...
+
+=item B<--ramdisk>
+
+Set the ramdisk building mode.
+
+See L</RAMDISK BUILDING>.
+
+=item B<--ramdisk-element> NAME
+
+Set the name for the additional element added in ramdisk building
+mode.  The default is C<ramdisk>.
+
+See L</RAMDISK BUILDING>.
+
+=item B<--root-label> LABEL
+
+Set the label for the root filesystem in the created image.
+
+Please note that some filesystems have different restrictions on
+the length of their labels; for example, on C<ext2/3/4> filesystems
+labels cannot be longer than 16 characters, while on C<xfs> they have
+at most 12 characters.
+
+The default depends on the actual filesystem for the root partition
+(see I<--fs-type>): on C<xfs> is C<img-rootfs>, while
+C<cloudimg-rootfs> on any other filesystem.
+
+=item B<--size> SIZE
+
+Select the size of the output disk, where the size can be specified
+using common names such as C<32G> (32 gigabytes) etc.
+The default size is C<5G>.
+
+To specify size in bytes, the number must be followed by the lowercase
+letter I<b>, eg: S<C<--size 10737418240b>>.
+
+See also L<virt-resize(1)> for resizing partitions of an existing
+disk image.
+
+=item B<--skip-base>
+
+Skip the inclusion of the C<base> element.
+
+=item B<--smp> N
+
+Enable N E<ge> 2 virtual CPUs for scripts to use.
+
+=item B<-u>
+
+Do not compress resulting qcow2 images.  The default is to compress
+them.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable debugging messages.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=item B<-x>
+
+Enable tracing of libguestfs API calls.
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+Unlike with C<diskimage-builder>, the environment of the host is
+B<not> inherited in the appliance when running most of the elements
+(i.e. all the ones different than C<extra-data.d>).
+
+To set environment for the elements being run, it is necessary to tell
+virt-dib to use them, with the option I<--envvar>.  Such option
+allows to selectively export environment variables when running the
+elements, and it is the preferred way to pass environment variables
+to the elements.
+
+To recap: if you want the environment variable C<MYVAR>
+(and its content) to be available to the elements, you can do either
+
+ export MYVAR   # whichever is its value
+ virt-dib ... --envvar MYVAR ...
+
+or
+
+ virt-dib ... --envvar MYVAR=value_of_it ...
+
+=head1 HELPER DRIVE
+
+Virt-dib runs most of the element in its own appliance, and thus not
+on the host.  Because of this, there is no possibility for elements
+to cache resources directly on the host.
+
+To solve this issue, virt-dib allows the usage of an helper drive
+where to store cached resources, like disk images,
+distribution packages, etc. While this means that there is a smaller
+space available for caching, at least it allows to limit the space
+on the host for caches, without assuming that elements will do that
+by themselves.
+
+Currently this disk is either required to have a single partition
+on it, or the first partition on it will be used.  A disk with
+the latter configuration can be easily created with L<guestfish(1)>
+like the following:
+
+ guestfish -N filename.img=fs:ext4:10G
+
+The above will create a disk image called F<filename.img>, 10G big,
+with a single partition of type ext4;
+see L<guestfish(1)/PREPARED DISK IMAGES>.
+
+It is recommended for it to be E<ge> 10G or even more, as elements
+will cache disk images, distribution packages, etc.  As with any disk
+image, the helper disk can be easily resized using L<virt-resize(1)>
+if more space in it is needed.
+
+The drive can be accessed like any other disk image, for example using
+other tools of libguestfs such as L<guestfish(1)>:
+
+ guestfish -a filename.img -m /dev/sda1
+
+If no helper drive is specified with I<--drive>, all the resources
+cached during a virt-dib run will be discarded.
+
+=head2 RESOURCES INSIDE THE DRIVE
+
+Inside the helper drive, it is possible to find the following
+resources:
+
+=over 4
+
+=item F</home>
+
+This directory is set as C<HOME> environment variable during the
+build.  It contains mostly the image cache (saved as
+F</home/.cache/image-create>), and whichever other resource is
+cached in the home directory of the user running the various tools.
+
+=item F</virt-dib-*.log>
+
+These are the logs of the elements being run within the libguestfs
+appliance, which means all the hooks except C<extra-data.d>.
+
+=back
+
+=head1 RAMDISK BUILDING
+
+Virt-dib can emulate also C<ramdisk-image-create>, which is a
+secondary operation mode of C<diskimage-builder>.  Instead of being
+a different tool name, virt-dib provides easy access to this mode
+using the I<--ramdisk> switch.
+
+In this mode:
+
+=over 4
+
+=item
+
+there is an additional ramdisk element added (see
+I<--ramdisk-element>)
+
+=item
+
+no image is produced (so I<--formats> is ignored)
+
+=item
+
+F<$NAME.d> (see I<--name>) will contain initrd, kernel, etc
+
+=back
+
+=head1 TEMPORARY DIRECTORY
+
+Virt-dib uses the standard temporary directory used by libguestfs,
+see L<guestfs(3)/ENVIRONMENT VARIABLES>.
+
+By default this location is F</tmp> (default value for C<TMPDIR>),
+which on some systems may be on a tmpfs filesystem, and thus
+defaulting to a maximum size of I<half> of physical RAM.
+If virt-dib exceeds this, it may hang or exit early with an error.
+The solution is to point C<TMPDIR> to a permanent location used
+as temporary location, for example:
+
+ mkdir local-tmp
+ env TMPDIR=$PWD/local-tmp virt-dib ...
+ rm -rf local-tmp
+
+=head1 COMPARISON WITH DISKIMAGE-BUILDER
+
+Virt-dib is intended as safe replacement for C<diskimage-builder>
+and its C<ramdisk-image-create> mode; the user-notable differences
+consist in:
+
+=over 4
+
+=item
+
+the command line arguments; some of the arguments are the same as
+available in C<diskimage-builder>, while some have different names:
+
+ disk-image-create             virt-dib
+ -----------------             --------
+ -a ARCH                       --arch ARCH
+ --image-size SIZE             --size SIZE
+ --max-online-resize SIZE      doable using --mkfs-options
+ -n                            --skip-base
+ -o IMAGENAME                  --name IMAGENAME
+ -p PACKAGE(S)                 --extra-packages PACKAGE(S)
+ -t FORMAT(S)                  --formats FORMAT(S)
+ -x                            --debug N
+
+=item
+
+the location of non-image output files (like ramdisks and kernels)
+
+=item
+
+the way some of the cached resources are saved: using an helper drive,
+not directly on the disk where virt-dib is run
+
+=item
+
+the need to specify a target size for the output disk, as opposed
+to C<diskimage-builder> calculating an optimal one
+
+=item
+
+the handling of environment variables, see L</ENVIRONMENT VARIABLES>.
+
+Furthermore, other than the libguestfs own environment variables
+(see L<guestfs(3)/ENVIRONMENT VARIABLES>), virt-dib does not read
+any other environment variable: this means that all the options
+and behaviour changes are specified solely using command line
+arguments
+
+=item
+
+C<extra-data.d> scripts run in the host environment, before all the
+other ones (even C<root.d>); this means that, depending on the
+configuration for the elements, some of them may fail due to missing
+content (usually directories) in C<TMP_HOOKS_PATH>.
+
+Workarounds for this may be either:
+
+=over 4
+
+=item
+
+fix the C<extra-data.d> scripts to create the missing directories
+
+=item
+
+create (and use) a simple element with a C<extra-data.d> script
+named e.g. F<00-create-missing-dirs> to create the missing
+directories
+
+=back
+
+=back
+
+Elements themselves should notice no difference in they way
+they are run; behaviour differences may due to wrong assumptions in
+elements, or not correct virt-dib emulation.
+
+Known issues at the moment:
+
+=over 4
+
+=item
+
+(none)
+
+=back
+
+=head1 MACHINE READABLE OUTPUT
+
+The I<--machine-readable> option can be used to make the output more
+machine friendly, which is useful when calling virt-dib from other
+programs, GUIs etc.
+
+Use the option on its own to query the capabilities of the
+virt-dib binary.  Typical output looks like this:
+
+ $ virt-dib --machine-readable
+ virt-dib
+ output:qcow2
+ output:tar
+ output:raw
+ output:vhd
+
+A list of features is printed, one per line, and the program exits
+with status 0.
+
+=head1 TESTING
+
+Virt-dib has been tested with C<diskimage-builder> (and its elements)
+E<ge> 0.1.43; from time to time also with C<tripleo-image-elements>
+and C<sahara-image-elements>.
+
+Previous versions may work, but it is not guaranteed.
+
+=head1 EXIT STATUS
+
+This program returns 0 if successful, or non-zero if there was an
+error.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-resize(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Pino Toscano (C<ptoscano at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2015 Red Hat Inc.

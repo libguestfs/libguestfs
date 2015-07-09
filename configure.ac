@@ -1729,6 +1729,7 @@ AC_CONFIG_FILES([Makefile
                  customize/Makefile
                  daemon/Makefile
                  df/Makefile
+                 dib/Makefile
                  diff/Makefile
                  edit/Makefile
                  erlang/Makefile

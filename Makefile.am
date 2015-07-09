@@ -134,6 +134,7 @@ SUBDIRS += \
 	mllib \
 	customize \
 	builder builder/website \
+	dib \
 	get-kernel \
 	resize \
 	sparsify \
@@ -355,7 +356,7 @@ all-local:
 	grep -v -E '^python/utils.c$$' | \
 	LC_ALL=C sort > po/POTFILES
 	cd $(srcdir); \
-	find builder customize get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
+	find builder customize dib get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
 
 # Try to stop people using 'make install' without 'DESTDIR'.
