@@ -91,7 +91,7 @@ supermin.d/daemon.tar.gz: ../daemon/guestfsd guestfsd.suppressions guestfs_lvm_c
 # Note we must avoid touching supermin.d if possible, so don't create
 # the temporary files inside the supermin.d directory.
 
-$@supermin.d/excludefiles: excludefiles.in Makefile
+supermin.d/excludefiles: excludefiles.in Makefile
 	m4 $(PACKAGELIST_CPP_FLAGS) $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > excludefiles-t
 	cmp -s $@ excludefiles-t || mv excludefiles-t $@
