@@ -485,34 +485,17 @@ v2v_domain_exists (value connv, value domnamev)
 
 #else /* !HAVE_LIBVIRT */
 
-value v2v_dumpxml (value connv, value domv) __attribute__((noreturn));
+#define NO_LIBVIRT(proto)                                               \
+  proto __attribute__((noreturn));                                      \
+  proto                                                                 \
+  {                                                                     \
+    caml_invalid_argument ("virt-v2v was compiled without libvirt support"); \
+  }
 
-value
-v2v_dumpxml (value connv, value domv)
-{
-  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
-}
-
-value v2v_pool_dumpxml (value connv, value poolv) __attribute__((noreturn));
-
-value
-v2v_pool_dumpxml (value connv, value poolv)
-{
-  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
-}
-
-value v2v_vol_dumpxml (value connv, value poolnamev, value volnamev) __attribute__((noreturn));
-
-value
-v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
-{
-  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
-}
-
-value
-v2v_capabilities (value connv, value unitv)
-{
-  caml_invalid_argument ("virt-v2v was compiled without libvirt support");
-}
+NO_LIBVIRT (value v2v_dumpxml (value connv, value domv))
+NO_LIBVIRT (value v2v_pool_dumpxml (value connv, value poolv))
+NO_LIBVIRT (value v2v_vol_dumpxml (value connv, value poolnamev, value volnamev))
+NO_LIBVIRT (value v2v_capabilities (value connv, value unitv))
+NO_LIBVIRT (value v2v_domain_exists (value connv, value domnamev))
 
 #endif /* !HAVE_LIBVIRT */
