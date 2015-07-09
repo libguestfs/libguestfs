@@ -32,12 +32,22 @@ dnl The right kernel modules are added back by supermin.
 -/usr/share/i18n/*
 -/usr/share/pkgconfig/*
 
+-/var/log/?tmp
+-/var/log/*.gz
 -/var/log/*.log*
 -/var/log/cron*
 -/var/log/lastlog*
+-/var/log/maillog*
 -/var/log/messages*
 -/var/log/secure*
 -/var/log/syslog*
+-/var/log/tallylog*
+
+-/var/log/*/*.gz
+-/var/log/*/*.log*
+-/var/log/*/syslog*
+
+-/var/log/sa/*
 
 dnl For Debian:
 -/usr/share/lintian/*
