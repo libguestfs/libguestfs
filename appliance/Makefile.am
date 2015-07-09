@@ -44,7 +44,7 @@ superminfs_DATA = \
 	supermin.d/udev-rules.tar.gz
 
 supermin.d/base.tar.gz supermin.d/packages: stamp-supermin
-stamp-supermin: make.sh packagelist
+stamp-supermin: make.sh packagelist supermin.d/excludefiles
 	rm -f $@ supermin.d/base.tar.gz supermin.d/packages
 	./make.sh
 	$(MAKE) \
