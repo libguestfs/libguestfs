@@ -4561,6 +4561,10 @@ Ubuntu.
 
 =item *
 
+Check C<./configure --without-libvirt> works.
+
+=item *
+
 Finalize F<guestfs-release-notes.pod>
 
 =item *
