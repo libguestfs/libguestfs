@@ -94,10 +94,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
     Improvements to virt-customize firstboot support. In particular,
     Windows firstboot should work as well as Linux (Roman Kagan).
 
-    virt-df(1) can now use policykit, SASL and other authentication methods
+    virt-df(1) can now use PolicyKit, SASL and other authentication methods
     when getting the list of domains from libvirt.
 
-    Improvements to guestfish tab completion (Pino Toscano).
+    Improvements to guestfish bash completion (Pino Toscano).
 
     Bash completion now completes short options as well as long options
     (Pino Toscano).
@@ -108,7 +108,7 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
     virt-builder now supports Red Hat Enterprise Linux versions back to
     RHEL 3.
 
-    virt-builder supports SuSE guests using zypper (Cédric Bosdonnat).
+    virt-builder supports SUSE guests using zypper (Cédric Bosdonnat).
 
   Language bindings
 
@@ -145,6 +145,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
     Inspection now recognizes ppc64 and ppc64le guests (Maros Zatko).
 
+    Inspection lists the installed applications on Archlinux guests (Nikos
+    Skalkotos).
+
   Architectures and platforms
 
     PPC64 (POWER7) and PPC64LE (POWER8) architectures are now much better
@@ -155,7 +158,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
     For armv7, we now use the -M virt machine type by default.
 
-    Libguestfs now compiles on Mac OS X (Margaret Lewicka).
+    There is better support for compiling on non-Linux platforms (Pino
+    Toscano, Margaret Lewicka).
 
     Libguestfs should now work on MIPS 32 bit little endian ("mipsel"). I
     have not been able to try 64 bit or big endian.
@@ -320,8 +324,9 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
     guestfs_set_uuid_random
 
-      Set the UUID of a filesystem to a randomly generated value (Chen
-      Hanxiao).
+      Set the UUID of a filesystem to a randomly generated value; supported
+      filesystems currently are ext2/3/4, XFS, Btrfs, and swap partitions.
+      (Chen Hanxiao).
 
   Other API changes
 
@@ -341,8 +346,8 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
     guestfs_btrfs_subvolume_create can also take the optional qgroupid
     parameter (Hu Tao).
 
-    guestfs_set_uuid can set UUID of swap partitions, XFS, Btrfs (Hu Tao,
-    Chen Hanxiao).
+    guestfs_set_uuid can set UUID of swap partitions, Btrfs (Hu Tao, Chen
+    Hanxiao).
 
     guestfs_copy_device_to_file and guestfs_copy_file_to_file have a new
     optional append parameter, allowing you to append to the output file
@@ -350,6 +355,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
     guestfs_mkfs has a new optional label parameter to set the initial
     label of the new filesystem (Pino Toscano).
+
+    guestfs_set_label and guestfs_set_uuid now set ENOTSUP as errno when
+    there is no implemented support for the filesystem of the specified
+    mountable (Chen Hanxiao).
 
     Environment variables now let you write LIBGUESTFS_DEBUG=true,
     LIBGUESTFS_DEBUG=0 and so on.
@@ -384,13 +393,18 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
     OCaml OUnit2 is needed to run some OCaml tests.
 
-    Translations have moved from Transifex to Zanata.
-
     Creating a statically linked libguestfs.a should work again.
 
     The src/api-support subdirectory and its scripts are no longer used.
     Instead we store in the generator/actions.ml when the API was added to
     libguestfs.
+
+ Internationalization
+
+    The translation service has changed from Transifex to Zanata.
+
+    Many more translations are available now, for both library and tools
+    messages and documentation.
 
  Internals
 

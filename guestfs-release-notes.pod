@@ -114,10 +114,10 @@ truncate files (Maros Zatko)
 Improvements to virt-customize firstboot support.  In particular,
 Windows firstboot should work as well as Linux (Roman Kagan).
 
-L<virt-df(1)> can now use policykit, SASL and other authentication
+L<virt-df(1)> can now use PolicyKit, SASL and other authentication
 methods when getting the list of domains from libvirt.
 
-Improvements to guestfish tab completion (Pino Toscano).
+Improvements to guestfish bash completion (Pino Toscano).
 
 Bash completion now completes short options as well as long options
 (Pino Toscano).
@@ -127,7 +127,7 @@ parameters given to a command is wrong (Hu Tao).
 
 virt-builder now supports Red Hat Enterprise Linux versions back to RHEL 3.
 
-virt-builder supports SuSE guests using zypper (Cédric Bosdonnat).
+virt-builder supports SUSE guests using zypper (Cédric Bosdonnat).
 
 =head3 Language bindings
 
@@ -164,6 +164,9 @@ Inspection now works when kernel modules are gzip or xz compressed
 
 Inspection now recognizes ppc64 and ppc64le guests (Maros Zatko).
 
+Inspection lists the installed applications on Archlinux guests
+(Nikos Skalkotos).
+
 =head3 Architectures and platforms
 
 PPC64 (POWER7) and PPC64LE (POWER8) architectures are now much better
@@ -174,7 +177,8 @@ OVMF) if available to run the appliance.
 
 For armv7, we now use the I<-M virt> machine type by default.
 
-Libguestfs now compiles on Mac OS X (Margaret Lewicka).
+There is better support for compiling on non-Linux platforms
+(Pino Toscano, Margaret Lewicka).
 
 Libguestfs should now work on MIPS 32 bit little endian ("mipsel").  I
 have not been able to try 64 bit or big endian.
@@ -348,7 +352,8 @@ Get MBR partition type (Chen Hanxiao).
 
 =item C<guestfs_set_uuid_random>
 
-Set the UUID of a filesystem to a randomly generated value
+Set the UUID of a filesystem to a randomly generated value; supported
+filesystems currently are ext2/3/4, XFS, Btrfs, and swap partitions.
 (Chen Hanxiao).
 
 =back
@@ -375,7 +380,7 @@ for adding the snapshot to a qgroup
 C<guestfs_btrfs_subvolume_create> can also take the optional
 C<qgroupid> parameter (Hu Tao).
 
-C<guestfs_set_uuid> can set UUID of swap partitions, XFS, Btrfs
+C<guestfs_set_uuid> can set UUID of swap partitions, Btrfs
 (Hu Tao, Chen Hanxiao).
 
 C<guestfs_copy_device_to_file> and C<guestfs_copy_file_to_file> have a
@@ -384,6 +389,10 @@ file instead of truncating it.
 
 C<guestfs_mkfs> has a new optional C<label> parameter to set the
 initial label of the new filesystem (Pino Toscano).
+
+C<guestfs_set_label> and C<guestfs_set_uuid> now set C<ENOTSUP> as errno
+when there is no implemented support for the filesystem of the specified
+mountable (Chen Hanxiao).
 
 Environment variables now let you write C<LIBGUESTFS_DEBUG=true>,
 C<LIBGUESTFS_DEBUG=0> and so on.
@@ -423,13 +432,18 @@ Multiple cleanups to support GCC 5.
 
 OCaml OUnit2 is needed to run some OCaml tests.
 
-Translations have moved from Transifex to Zanata.
-
 Creating a statically linked F<libguestfs.a> should work again.
 
 The F<src/api-support> subdirectory and its scripts are no longer
 used.  Instead we store in the F<generator/actions.ml> when the API
 was added to libguestfs.
+
+=head2 Internationalization
+
+The translation service has changed from Transifex to Zanata.
+
+Many more translations are available now, for both library and tools
+messages and documentation.
 
 =head2 Internals
 
