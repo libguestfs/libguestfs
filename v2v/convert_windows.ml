@@ -266,7 +266,7 @@ echo uninstalling Xen PV driver
                inspect.i_major_version inspect.i_minor_version
                inspect.i_arch inspect.i_product_variant
                virtio_win;
-       ( IDE, RTL8139 )
+       ( IDE, RTL8139, Cirrus )
 
     | drivers ->
        (* Can we install the block driver? *)
@@ -303,6 +303,20 @@ echo uninstalling Xen PV driver
            (* It will be installed at firstboot. *)
            Virtio_net in
 
+       (* Can we install the QXL driver? *)
+       let video : guestcaps_video_type =
+         if not (List.exists
+                   (fun { vwd_filename = filename } -> filename = "qxl.inf")
+                   drivers) then (
+           warning (f_"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use standard VGA.")
+                   inspect.i_major_version inspect.i_minor_version
+                   inspect.i_arch virtio_win;
+           Cirrus
+         )
+         else
+           (* It will be installed at firstboot. *)
+           QXL in
+
        (* Copy all the drivers to the driverdir.  They will be
         * installed at firstboot.
         *)
@@ -312,7 +326,7 @@ echo uninstalling Xen PV driver
            g#write (driverdir // driver.vwd_filename) content
        ) drivers;
 
-       (block, net)
+       (block, net, video)
 
   and add_viostor_to_critical_device_database root current_cs =
     let { i_major_version = major; i_minor_version = minor;
@@ -679,7 +693,7 @@ echo uninstalling Xen PV driver
   configure_firstboot ();
 
   (* Open the system hive and update it. *)
-  let block_driver, net_driver =
+  let block_driver, net_driver, video_driver =
     with_hive "system" ~write:true update_system_hive in
 
   (* Open the software hive and update it. *)
@@ -691,10 +705,7 @@ echo uninstalling Xen PV driver
   let guestcaps = {
     gcaps_block_bus = block_driver;
     gcaps_net_bus = net_driver;
-    (* Old virt-v2v would always present a QXL video display to converted
-     * guests.  Unclear if this is correct.  XXX
-     *)
-    gcaps_video = QXL;
+    gcaps_video = video_driver;
     gcaps_arch = Utils.kvm_arch inspect.i_arch;
     gcaps_acpi = true;
   } in
