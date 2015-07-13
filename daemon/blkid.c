@@ -199,7 +199,7 @@ error:
 }
 
 static char **
-blkid_without_p_i_opt(const char *device)
+blkid_without_p_i_opt (const char *device)
 {
   char *s;
   DECLARE_STRINGSBUF (ret);

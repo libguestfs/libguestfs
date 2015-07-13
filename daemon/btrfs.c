@@ -876,7 +876,7 @@ btrfs_set_uuid (const char *device, const char *uuid)
   int has_uuid_opts = test_btrfstune_uuid_opt ();
 
   if (has_uuid_opts <= 0)
-    NOT_SUPPORTED(-1, "btrfs filesystems' UUID cannot be changed");
+    NOT_SUPPORTED (-1, "btrfs filesystems' UUID cannot be changed");
 
   r = commandr (NULL, &err, str_btrfstune, "-f", "-U", uuid, device, NULL);
 
@@ -893,10 +893,10 @@ btrfs_set_uuid_random (const char *device)
 {
   CLEANUP_FREE char *err = NULL;
   int r;
-  int has_uuid_opts = test_btrfstune_uuid_opt();
+  int has_uuid_opts = test_btrfstune_uuid_opt ();
 
   if (has_uuid_opts <= 0)
-    NOT_SUPPORTED(-1, "btrfs filesystems' UUID cannot be changed");
+    NOT_SUPPORTED (-1, "btrfs filesystems' UUID cannot be changed");
 
   r = commandr (NULL, &err, str_btrfstune, "-f", "-u", device, NULL);
   if (r == -1) {
@@ -1063,7 +1063,7 @@ do_btrfs_subvolume_show (const char *subvolume)
    *                                 snapshots/test3
    *
    */
-  p = analyze_line(out, &key, &value, ':');
+  p = analyze_line (out, &key, &value, ':');
   if (!p) {
     reply_with_error ("truncated output: %s", out);
     return NULL;
@@ -1083,7 +1083,7 @@ do_btrfs_subvolume_show (const char *subvolume)
   }
 
   /* Read the lines and split into "key: value". */
-  p = analyze_line(p, &key, &value, ':');
+  p = analyze_line (p, &key, &value, ':');
   while (key) {
     /* snapshot is special, see the output above */
     if (STREQLEN (key, "Snapshot(s)", sizeof ("Snapshot(s)") - 1)) {
@@ -1093,7 +1093,7 @@ do_btrfs_subvolume_show (const char *subvolume)
       if (add_string (&ret, key) == -1)
         return NULL;
 
-      p = analyze_line(p, &key, &value, ':');
+      p = analyze_line (p, &key, &value, ':');
 
       while (key && !value) {
           ss = realloc (ss, ss_len + strlen (key) + 1);
@@ -1107,7 +1107,7 @@ do_btrfs_subvolume_show (const char *subvolume)
           ss_len += strlen (key);
           ss[ss_len] = '\0';
 
-          p = analyze_line(p, &key, &value, ':');
+          p = analyze_line (p, &key, &value, ':');
       }
 
       if (ss) {
@@ -1122,7 +1122,7 @@ do_btrfs_subvolume_show (const char *subvolume)
     } else {
       if (add_string (&ret, key ? key : "") == -1)
         return NULL;
-      if (value && !STREQ(value, "-")) {
+      if (value && !STREQ (value, "-")) {
         if (add_string (&ret, value) == -1)
           return NULL;
       } else {
@@ -1130,7 +1130,7 @@ do_btrfs_subvolume_show (const char *subvolume)
           return NULL;
       }
 
-      p = analyze_line(p, &key, &value, ':');
+      p = analyze_line (p, &key, &value, ':');
     }
   }
 
@@ -1701,9 +1701,9 @@ do_btrfs_filesystem_defragment (const char *path, int flush, const char *compres
   if ((optargs_bitmask & GUESTFS_BTRFS_FILESYSTEM_DEFRAGMENT_FLUSH_BITMASK) && flush)
     ADD_ARG (argv, i, "-f");
   if (optargs_bitmask & GUESTFS_BTRFS_FILESYSTEM_DEFRAGMENT_COMPRESS_BITMASK) {
-    if (STREQ(compress, "zlib"))
+    if (STREQ (compress, "zlib"))
       ADD_ARG (argv, i, "-czlib");
-    else if (STREQ(compress, "lzo"))
+    else if (STREQ (compress, "lzo"))
       ADD_ARG (argv, i, "-clzo");
     else {
       reply_with_error ("unknown compress method: %s", compress);
@@ -1845,7 +1845,7 @@ do_btrfs_balance_status (const char *path)
   }
 
   if (strstr (lines[0], "No balance found on")) {
-    ret->btrfsbalance_status = strdup("none");
+    ret->btrfsbalance_status = strdup ("none");
     if (ret->btrfsbalance_status == NULL) {
       reply_with_perror ("strdup");
       return NULL;
@@ -1866,9 +1866,9 @@ do_btrfs_balance_status (const char *path)
 #undef N_MATCH
 
   if (STREQ (lines[0] + ovector[2], "running"))
-    ret->btrfsbalance_status = strdup("running");
+    ret->btrfsbalance_status = strdup ("running");
   else if (STREQ (lines[0] + ovector[2], "paused"))
-    ret->btrfsbalance_status = strdup("paused");
+    ret->btrfsbalance_status = strdup ("paused");
   else {
     reply_with_error ("unexpected output from 'btrfs balance status' command: %s", lines[0]);
     goto error;
