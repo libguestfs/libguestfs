@@ -304,6 +304,10 @@ let rec create_ovf source targets guestcaps inspect
             e "rasd:ResourceType" [] [PCData "23"];
             e "rasd:UsbPolicy" [] [PCData "Disabled"];
           ];
+          (* We always add a qxl device when outputting to RHEV.
+           * See RHBZ#1213701 and RHBZ#1211231 for the reasoning
+           * behind that.
+           *)
           e "Item" [] [
             e "rasd:Caption" [] [PCData "Graphical Controller"];
             e "rasd:InstanceId" [] [PCData "5"];
