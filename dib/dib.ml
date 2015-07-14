@@ -452,7 +452,8 @@ let main () =
   if List.mem "vhd" formats then
     require_tool "vhd-util";
 
-  let image_name_d = image_name ^ ".d" in
+  let image_basename = Filename.basename image_name in
+  let image_basename_d = image_basename ^ ".d" in
 
   let tmpdir = Mkdtemp.temp_dir "dib." "" in
   rmdir_on_exit tmpdir;
@@ -462,7 +463,7 @@ let main () =
   do_mkdir (hookstmpdir // "environment.d");    (* Just like d-i-b does. *)
   let extradatatmpdir = tmpdir // "extra-data" in
   do_mkdir extradatatmpdir;
-  do_mkdir (auxtmpdir // "out" // image_name_d);
+  do_mkdir (auxtmpdir // "out" // image_basename_d);
   let elements = if use_base then ["base"] @ elements else elements in
   let elements = if is_ramdisk then [ramdisk_element] @ elements else elements in
   message (f_"Elements: %s") (String.concat " " elements);
@@ -554,7 +555,7 @@ let main () =
   ) formats in
   let formats_img_nonraw = List.filter ((<>) "raw") formats_img in
 
-  prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name:image_name
+  prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name:image_basename
     ~rootfs_uuid ~arch ~network ~root_label ~install_type ~debug
     ~extra_packages
     auxtmpdir all_elements;
@@ -570,7 +571,7 @@ let main () =
   in
   at_exit delete_file;
 
-  prepare_external ~dib_args ~dib_vars ~out_name:image_name ~root_label
+  prepare_external ~dib_args ~dib_vars ~out_name:image_basename ~root_label
     ~rootfs_uuid ~image_cache ~arch ~network ~debug
     tmpdir basepath hookstmpdir extradatatmpdir (auxtmpdir // "fake-bin")
     all_elements element_paths;
@@ -825,7 +826,7 @@ let main () =
 
   run_hook_in "finalise.d";
 
-  let out_dir = "/tmp/aux/out/" ^ image_name_d in
+  let out_dir = "/tmp/aux/out/" ^ image_basename_d in
 
   run_hook_out ~new_wd:out_dir "cleanup.d";
 
@@ -833,8 +834,8 @@ let main () =
 
   if g#ls out_dir <> [||] then (
     message (f_"Extracting data out of the image");
-    do_mkdir image_name_d;
-    g#copy_out out_dir ".";
+    do_mkdir (image_name ^ ".d");
+    g#copy_out out_dir (Filename.dirname image_name);
   );
 
   (* Unmount everything, and remount only the root to cleanup
