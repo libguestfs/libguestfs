@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.28.10\n"
+"Project-Id-Version: libguestfs 1.28.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-05-06 17:30+0100\n"
+"POT-Creation-Date: 2015-07-16 15:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1350
+#: ../v2v/convert_linux.ml:1352
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -232,10 +232,6 @@ msgid ""
 "\n"
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-customize(1).\n"
-msgstr ""
-
-#: ../resize/resize.ml:158
-msgid "%s: empty --expand option"
 msgstr ""
 
 #: ../mllib/common_utils.ml:251
@@ -399,7 +395,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:189
+#: ../customize/firstboot.ml:193
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -1867,7 +1863,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1144
+#: ../v2v/convert_linux.ml:1146
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2066,13 +2062,13 @@ msgid ""
 "%!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:634
+#: ../v2v/convert_linux.ml:636
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:543
+#: ../v2v/convert_linux.ml:545
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2217,7 +2213,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1074
+#: ../v2v/convert_linux.ml:1076
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2267,7 +2263,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1092
+#: ../v2v/convert_linux.ml:1094
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2278,7 +2274,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1076
+#: ../v2v/convert_linux.ml:1078
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2310,7 +2306,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:794
+#: ../v2v/convert_linux.ml:796
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2366,12 +2362,16 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1199
+#: ../v2v/convert_linux.ml:1201
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
 #: ../sysprep/sysprep_operation.ml:134
 msgid "duplicate operation name (%s)"
+msgstr ""
+
+#: ../resize/resize.ml:158
+msgid "empty --expand option"
 msgstr ""
 
 #: ../resize/resize.ml:175
@@ -2515,11 +2515,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../customize/firstboot.ml:129
+#: ../customize/firstboot.ml:133
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:315
+#: ../customize/firstboot.ml:319
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -2573,7 +2573,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:798
+#: ../v2v/convert_linux.ml:800
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -2593,7 +2593,7 @@ msgstr ""
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:782
+#: ../v2v/convert_linux.ml:784
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -2678,7 +2678,7 @@ msgstr ""
 msgid "no kernel found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:395
+#: ../v2v/convert_linux.ml:397
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -2721,7 +2721,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:749
+#: ../v2v/convert_linux.ml:751
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -2983,7 +2983,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1243
+#: ../v2v/convert_linux.ml:1245
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -2998,7 +2998,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:941
+#: ../v2v/convert_linux.ml:943
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -3292,11 +3292,11 @@ msgstr ""
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr ""
 
-#: align/scan.c:330
+#: align/scan.c:336
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:333
+#: align/scan.c:339
 msgid "alignment < 64K"
 msgstr ""
 
@@ -3709,7 +3709,7 @@ msgstr ""
 
 #: fish/alloc.c:100
 #, c-format
-msgid "%s: invalid integer parameter (%s returned %d)\n"
+msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
 #: fish/cmds.c:3800
@@ -6088,7 +6088,7 @@ msgstr ""
 #: fish/cmds.c:24085 fish/cmds.c:24102 fish/cmds.c:24253 fish/cmds.c:24270
 #: fish/cmds.c:24287 fish/cmds.c:24304
 #, c-format
-msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
+msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
 #: fish/cmds.c:5550 fish/cmds.c:5770 fish/cmds.c:5896 fish/cmds.c:6001
@@ -7115,7 +7115,7 @@ msgstr ""
 
 #: make-fs/make-fs.c:619
 #, c-format
-msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
+msgid "%s: %s: invalid size parameter '%s' (%s returned %u)\n"
 msgstr ""
 
 #: make-fs/make-fs.c:819
@@ -7514,7 +7514,7 @@ msgstr ""
 
 #: src/appliance.c:247
 #, c-format
-msgid "security: cached appliance %s is not owned by UID %d"
+msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
 #: src/appliance.c:252
@@ -8013,38 +8013,38 @@ msgstr ""
 msgid "setting not found"
 msgstr ""
 
-#: src/info.c:144
+#: src/info.c:152
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 
-#: src/info.c:175
+#: src/info.c:183
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 
-#: src/info.c:183
+#: src/info.c:191
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 
-#: src/info.c:221
+#: src/info.c:229
 msgid "qemu-img info: JSON output was not an object"
 msgstr ""
 
-#: src/info.c:287
+#: src/info.c:301
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
 msgstr ""
 
-#: src/info.c:321
+#: src/info.c:335
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr ""
 
-#: src/info.c:323
+#: src/info.c:337
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: src/info.c:461
+#: src/info.c:475
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr ""
@@ -8066,7 +8066,7 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect-icon.c:646
+#: src/inspect-icon.c:643
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
@@ -8117,7 +8117,7 @@ msgstr ""
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1285 src/launch-libvirt.c:1402
+#: src/launch-direct.c:1285 src/launch-libvirt.c:1403
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8214,70 +8214,70 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:966
+#: src/launch-libvirt.c:967
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1356
+#: src/launch-libvirt.c:1357
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1485
+#: src/launch-libvirt.c:1486
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1510
+#: src/launch-libvirt.c:1511
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1517
+#: src/launch-libvirt.c:1518
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1847
+#: src/launch-libvirt.c:1848
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1858
+#: src/launch-libvirt.c:1859
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1862
+#: src/launch-libvirt.c:1863
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1883
+#: src/launch-libvirt.c:1884
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1896
+#: src/launch-libvirt.c:1897
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2003
+#: src/launch-libvirt.c:2004
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2054 src/launch-libvirt.c:2087
+#: src/launch-libvirt.c:2055 src/launch-libvirt.c:2088
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2150
+#: src/launch-libvirt.c:2151
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2181
+#: src/launch-libvirt.c:2182
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -8626,7 +8626,7 @@ msgstr ""
 
 #: test-tool/test-tool.c:154
 #, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgid "libguestfs-test-tool: unexpected command line option %d\n"
 msgstr ""
 
 #: test-tool/test-tool.c:161

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-04-26 15:58+0100\n"
+"POT-Creation-Date: 2015-07-16 15:05+0100\n"
 "PO-Revision-Date: 2014-10-18 08:00+0000\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -90,7 +90,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1350
+#: ../v2v/convert_linux.ml:1352
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -301,10 +301,6 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис\n"
 "можна знайти на сторінці підручника (man) virt-customize(1).\n"
 
-#: ../resize/resize.ml:158
-msgid "%s: empty --expand option"
-msgstr "%s: порожній параметр --expand"
-
 #: ../mllib/common_utils.ml:251
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
@@ -498,7 +494,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:189
+#: ../customize/firstboot.ml:193
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -2131,7 +2127,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1144
+#: ../v2v/convert_linux.ml:1146
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2393,7 +2389,7 @@ msgstr ""
 "Використовуємо попередньо зібраний файл %s як оверлей…\n"
 "%!"
 
-#: ../v2v/convert_linux.ml:634
+#: ../v2v/convert_linux.ml:636
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2401,7 +2397,7 @@ msgstr ""
 "Виявлено засоби VMware, але спроба вилучення зазнала невдачі. Повідомлення "
 "щодо помилки: %s (проігноровано)"
 
-#: ../v2v/convert_linux.ml:543
+#: ../v2v/convert_linux.ml:545
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2577,7 +2573,7 @@ msgstr ""
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
-#: ../v2v/convert_linux.ml:1074
+#: ../v2v/convert_linux.ml:1076
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -2636,7 +2632,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1092
+#: ../v2v/convert_linux.ml:1094
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2650,7 +2646,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1076
+#: ../v2v/convert_linux.ml:1078
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -2686,7 +2682,7 @@ msgstr ""
 "decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
 "LE. Ймовірно, це вада у %s."
 
-#: ../v2v/convert_linux.ml:794
+#: ../v2v/convert_linux.ml:796
 msgid "didn't find grub entry for kernel %s"
 msgstr "не знайдено запис grub для ядра %s"
 
@@ -2757,13 +2753,17 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1199
+#: ../v2v/convert_linux.ml:1201
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
 #: ../sysprep/sysprep_operation.ml:134
 msgid "duplicate operation name (%s)"
 msgstr "дублювання назви операції (%s)"
+
+#: ../resize/resize.ml:158
+msgid "empty --expand option"
+msgstr ""
 
 #: ../resize/resize.ml:175
 msgid "empty --shrink option"
@@ -2918,11 +2918,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr "немає доступу до програми gpg"
 
-#: ../customize/firstboot.ml:129
+#: ../customize/firstboot.ml:133
 msgid "guest type %s is not supported"
 msgstr "підтримки типу гостьової системи %s не передбачено"
 
-#: ../customize/firstboot.ml:315
+#: ../customize/firstboot.ml:319
 msgid "guest type %s/%s is not supported"
 msgstr "підтримки типу гостьової системи %s/%s не передбачено"
 
@@ -2979,7 +2979,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/convert_linux.ml:798
+#: ../v2v/convert_linux.ml:800
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -2999,7 +2999,7 @@ msgstr ""
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:782
+#: ../v2v/convert_linux.ml:784
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
@@ -3100,7 +3100,7 @@ msgstr ""
 msgid "no kernel found"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:395
+#: ../v2v/convert_linux.ml:397
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -3153,7 +3153,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../v2v/convert_linux.ml:749
+#: ../v2v/convert_linux.ml:751
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -3463,7 +3463,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1243
+#: ../v2v/convert_linux.ml:1245
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3486,7 +3486,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:941
+#: ../v2v/convert_linux.ml:943
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -3814,11 +3814,11 @@ msgstr "%s: зібрано без підтримки libvirt.\n"
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr "%s: параметр --uuid не можна використовувати разом з -a або -d\n"
 
-#: align/scan.c:330
+#: align/scan.c:336
 msgid "alignment < 4K"
 msgstr "вирівнювання < 4кБ"
 
-#: align/scan.c:333
+#: align/scan.c:339
 msgid "alignment < 64K"
 msgstr "вирівнювання < 64кБ"
 
@@ -4452,8 +4452,8 @@ msgstr ""
 
 #: fish/alloc.c:100
 #, c-format
-msgid "%s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: некоректний цілий параметр (%s повернуто %d)\n"
+msgid "%s: invalid integer parameter (%s returned %u)\n"
+msgstr ""
 
 #: fish/cmds.c:3800
 msgid "Command"
@@ -6881,8 +6881,8 @@ msgstr "%s: додатковий аргумент «%s» вказано двіч
 #: fish/cmds.c:24085 fish/cmds.c:24102 fish/cmds.c:24253 fish/cmds.c:24270
 #: fish/cmds.c:24287 fish/cmds.c:24304
 #, c-format
-msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: некоректний цілий параметр (%s повернуто %d)\n"
+msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
+msgstr ""
 
 #: fish/cmds.c:5550 fish/cmds.c:5770 fish/cmds.c:5896 fish/cmds.c:6001
 #: fish/cmds.c:6898 fish/cmds.c:8359 fish/cmds.c:8457 fish/cmds.c:8478
@@ -8231,8 +8231,8 @@ msgstr "%s: %s: невідомий формат стискання вхідни�
 
 #: make-fs/make-fs.c:619
 #, c-format
-msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
-msgstr "%s: %s: некоректний параметр розміру «%s» (%s повернуто %d)\n"
+msgid "%s: %s: invalid size parameter '%s' (%s returned %u)\n"
+msgstr ""
 
 #: make-fs/make-fs.c:819
 #, c-format
@@ -8710,8 +8710,8 @@ msgstr ""
 
 #: src/appliance.c:247
 #, c-format
-msgid "security: cached appliance %s is not owned by UID %d"
-msgstr "безпека: кешований пристрій %s не належить UID %d"
+msgid "security: cached appliance %s is not owned by UID %ju"
+msgstr ""
 
 #: src/appliance.c:252
 #, c-format
@@ -9253,27 +9253,27 @@ msgstr "надто мале значення для розміру пам’ят
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
-#: src/info.c:144
+#: src/info.c:152
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
 
-#: src/info.c:175
+#: src/info.c:183
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 "Інформація від qemu-img: «virtual-size» не можна представити як 64-бітове "
 "ціле число"
 
-#: src/info.c:183
+#: src/info.c:191
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-size»"
 
-#: src/info.c:221
+#: src/info.c:229
 msgid "qemu-img info: JSON output was not an object"
 msgstr "Інформація від qemu-img: дані, виведені JSON, не є об’єктом"
 
-#: src/info.c:287
+#: src/info.c:301
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
@@ -9281,16 +9281,16 @@ msgstr ""
 "командою info qemu-img не виведено жодних даних, але і не повернуто коду "
 "стану помилки"
 
-#: src/info.c:321
+#: src/info.c:335
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr "Інформація від qemu-img: помилка під час обробки JSON: %s"
 
-#: src/info.c:323
+#: src/info.c:337
 msgid "qemu-img info: unknown JSON parse error"
 msgstr "Інформація від qemu-img: невідома помилка під час обробки JSON"
 
-#: src/info.c:461
+#: src/info.c:475
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
@@ -9312,7 +9312,7 @@ msgstr "розмір %s неймовірно великий (%<PRIi64> байт�
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:646
+#: src/inspect-icon.c:643
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
@@ -9374,7 +9374,7 @@ msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1285 src/launch-libvirt.c:1402
+#: src/launch-direct.c:1285 src/launch-libvirt.c:1403
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -9503,16 +9503,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:966
+#: src/launch-libvirt.c:967
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1356
+#: src/launch-libvirt.c:1357
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1485
+#: src/launch-libvirt.c:1486
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -9520,7 +9520,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1510
+#: src/launch-libvirt.c:1511
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -9532,7 +9532,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1517
+#: src/launch-libvirt.c:1518
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -9545,41 +9545,41 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1847
+#: src/launch-libvirt.c:1848
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1858
+#: src/launch-libvirt.c:1859
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1862
+#: src/launch-libvirt.c:1863
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1883
+#: src/launch-libvirt.c:1884
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1896
+#: src/launch-libvirt.c:1897
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2003
+#: src/launch-libvirt.c:2004
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2054 src/launch-libvirt.c:2087
+#: src/launch-libvirt.c:2055 src/launch-libvirt.c:2088
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2150
+#: src/launch-libvirt.c:2151
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2181
+#: src/launch-libvirt.c:2182
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -9975,8 +9975,8 @@ msgstr "libguestfs-test-tool: помилка guestfs_version\n"
 
 #: test-tool/test-tool.c:154
 #, c-format
-msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
+msgid "libguestfs-test-tool: unexpected command line option %d\n"
+msgstr ""
 
 #: test-tool/test-tool.c:161
 #, c-format
@@ -10180,6 +10180,24 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "%s: empty --expand option"
+#~ msgstr "%s: порожній параметр --expand"
+
+#~ msgid "%s: invalid integer parameter (%s returned %d)\n"
+#~ msgstr "%s: некоректний цілий параметр (%s повернуто %d)\n"
+
+#~ msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
+#~ msgstr "%s: %s: некоректний цілий параметр (%s повернуто %d)\n"
+
+#~ msgid "%s: %s: invalid size parameter '%s' (%s returned %d)\n"
+#~ msgstr "%s: %s: некоректний параметр розміру «%s» (%s повернуто %d)\n"
+
+#~ msgid "security: cached appliance %s is not owned by UID %d"
+#~ msgstr "безпека: кешований пристрій %s не належить UID %d"
+
+#~ msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+#~ msgstr "libguestfs-test-tool: неочікуваний параметр командного рядка 0x%x\n"
 
 #~ msgid "Installing firstboot command: [%d] %s"
 #~ msgstr "Встановлюємо програму firstboot: [%d] %s"
