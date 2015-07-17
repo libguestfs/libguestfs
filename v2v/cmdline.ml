@@ -259,7 +259,7 @@ read the man page virt-v2v(1).
     match password_file with
     | None -> None
     | Some filename ->
-      let password = read_whole_file filename in
+      let password = read_first_line_from_file filename in
       Some password in
 
   (* Parsing of the argument(s) depends on the input mode. *)

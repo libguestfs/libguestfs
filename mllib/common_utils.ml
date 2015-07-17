@@ -745,3 +745,9 @@ let last_part_of str sep =
     let i = String.rindex str sep in
     Some (String.sub str (i+1) (String.length str - (i+1)))
   with Not_found -> None
+
+let read_first_line_from_file filename =
+  let chan = open_in filename in
+  let line = input_line chan in
+  close_in chan;
+  line
