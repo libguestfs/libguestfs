@@ -844,6 +844,53 @@ F<C:\Program Files\Red Hat\Firstboot\log.txt>.
 
 =back
 
+=head2 SUBSCRIPTION-MANAGER
+
+It is possible to automate the registration and attaching of the
+system using C<subscription-manager>.  This is typical on
+Red Hat Enterprise Linux guests.  There are few options which ease
+this process, avoid executing commands manually and exposing
+passwords on command line.
+
+I<--sm-register> starts the registration process, and requires
+I<--sm-credentials> to be specified; the format of the C<SELECTOR>
+of I<--sm-credentials> is one of the following formats:
+
+=over 4
+
+=item B<--sm-credentials> USER:file:FILENAME
+
+Read the password for the specified C<USER> from F<FILENAME>.
+
+=item B<--sm-credentials> USER:password:PASSWORD
+
+Use the literal string C<PASSWORD> for the specified C<USER>.
+
+=back
+
+I<--sm-attach> attaches the system to subscriptions; the format
+of its C<SELECTOR> is one of the following:
+
+=over 4
+
+=item B<--sm-attach> auto
+
+C<subscription-manager> attaches to the best-fitting subscriptions
+for the system.
+
+=item B<--sm-attach> file:FILENAME
+
+Read the pool ID from F<FILENAME>.
+
+=item B<--sm-attach> pool:POOL
+
+Use the literal string C<POOL> as pool ID.
+
+=back
+
+I<--sm-remove> removes all the subscriptions from the guest, while
+I<--sm-unregister> completely unregister the system.
+
 =head2 INSTALLATION PROCESS
 
 When you invoke virt-builder, installation proceeds as follows:

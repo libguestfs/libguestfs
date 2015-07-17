@@ -44,6 +44,7 @@ and op_type =
 | UserPasswordSelector of string        (* user:selector *)
 | SSHKeySelector of string              (* user:selector *)
 | StringFn of (string * string)         (* string, function name *)
+| SMPoolSelector of string              (* pool selector *)
 
 let ops = [
   { op_name = "chmod";
@@ -327,6 +328,44 @@ It cannot delete directories, only regular files.
 =back";
   };
 
+  { op_name = "sm-attach";
+    op_type = SMPoolSelector "SELECTOR";
+    op_discrim = "`SMAttach";
+    op_shortdesc = "Attach to a subscription-manager pool";
+    op_pod_longdesc = "\
+Attach to a pool using C<subscription-manager>.
+
+See L<virt-builder(1)/SUBSCRIPTION-MANAGER> for the format of
+the C<SELECTOR> field.";
+  };
+
+  { op_name = "sm-register";
+    op_type = Unit;
+    op_discrim = "`SMRegister";
+    op_shortdesc = "Register using subscription-manager";
+    op_pod_longdesc = "\
+Register the guest using C<subscription-manager>.
+
+This requires credentials being set using I<--sm-credentials>.";
+  };
+
+  { op_name = "sm-remove";
+    op_type = Unit;
+    op_discrim = "`SMRemove";
+    op_shortdesc = "Remove all the subscriptions";
+    op_pod_longdesc = "\
+Remove all the subscriptions from the guest using
+C<subscription-manager>.";
+  };
+
+  { op_name = "sm-unregister";
+    op_type = Unit;
+    op_discrim = "`SMUnregister";
+    op_shortdesc = "Unregister using subscription-manager";
+    op_pod_longdesc = "\
+Unregister the guest using C<subscription-manager>.";
+  };
+
   { op_name = "ssh-inject";
     op_type = SSHKeySelector "USER[:SELECTOR]";
     op_discrim = "`SSHInject";
@@ -428,6 +467,7 @@ type flag = {
 and flag_type =
 | FlagBool of bool                  (* boolean is the default value *)
 | FlagPasswordCrypto of string
+| FlagSMCredentials of string
 
 let flags = [
   { flag_name = "no-logfile";
@@ -477,6 +517,18 @@ Relabel files in the guest so that they have the correct SELinux label.
 
 You should only use this option for guests which support SELinux.";
   };
+
+  { flag_name = "sm-credentials";
+    flag_type = FlagSMCredentials "SELECTOR";
+    flag_ml_var = "sm_credentials";
+    flag_shortdesc = "credentials for subscription-manager";
+    flag_pod_longdesc = "\
+Set the credentials for C<subscription-manager>.
+
+See L<virt-builder(1)/SUBSCRIPTION-MANAGER> for the format of
+the C<SELECTOR> field.";
+  };
+
 ]
 
 let rec generate_customize_cmdline_mli () =
@@ -531,6 +583,8 @@ let rec argspec () =
     | { flag_type = FlagBool default; flag_ml_var = var } ->
       pr "  let %s = ref %b in\n" var default
     | { flag_type = FlagPasswordCrypto _; flag_ml_var = var } ->
+      pr "  let %s = ref None in\n" var
+    | { flag_type = FlagSMCredentials _; flag_ml_var = var } ->
       pr "  let %s = ref None in\n" var
   ) flags;
   pr "\
@@ -672,6 +726,18 @@ let rec argspec () =
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
+    | { op_type = SMPoolSelector v; op_name = name; op_discrim = discrim;
+        op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      \"--%s\",\n" name;
+      pr "      Arg.String (\n";
+      pr "        fun s ->\n";
+      pr "          let sel = Subscription_manager.parse_pool_selector s in\n";
+      pr "          ops := %s sel :: !ops\n" discrim;
+      pr "      ),\n";
+      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S;\n" v longdesc
   ) ops;
 
   List.iter (
@@ -699,6 +765,19 @@ let rec argspec () =
       pr "      \"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
+    | { flag_type = FlagSMCredentials v; flag_ml_var = var;
+        flag_name = name; flag_shortdesc = shortdesc;
+        flag_pod_longdesc = longdesc } ->
+      pr "    (\n";
+      pr "      \"--%s\",\n" name;
+      pr "      Arg.String (\n";
+      pr "        fun s ->\n";
+      pr "          %s := Some (Subscription_manager.parse_credentials_selector s)\n"
+        var;
+      pr "      ),\n";
+      pr "      \"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "    ),\n";
+      pr "    Some %S, %S;\n" v longdesc
   ) flags;
 
   pr "  ]
@@ -717,7 +796,8 @@ let rec argspec () =
     | { op_type = TargetLinks _; }
     | { op_type = PasswordSelector _; }
     | { op_type = UserPasswordSelector _; }
-    | { op_type = SSHKeySelector _; } -> ()
+    | { op_type = SSHKeySelector _; }
+    | { op_type = SMPoolSelector _; } -> ()
   ) ops;
 
 pr "    ] in
@@ -796,6 +876,10 @@ type ops = {
         discrim name v
     | { op_type = StringFn (v, _); op_discrim = discrim; op_name = name } ->
       pr "  | %s of string\n      (* --%s %s *)\n" discrim name v
+    | { op_type = SMPoolSelector v; op_discrim = discrim;
+        op_name = name } ->
+      pr "  | %s of Subscription_manager.sm_pool\n      (* --%s %s *)\n"
+        discrim name v
   ) ops;
   pr "]\n";
 
@@ -808,6 +892,10 @@ type ops = {
     | { flag_type = FlagPasswordCrypto v; flag_ml_var = var;
         flag_name = name } ->
       pr "  %s : Password.password_crypto option;\n      (* --%s %s *)\n"
+        var name v
+    | { flag_type = FlagSMCredentials v; flag_ml_var = var;
+        flag_name = name } ->
+      pr "  %s : Subscription_manager.sm_credentials option;\n      (* --%s %s *)\n"
         var name v
   ) flags;
   pr "}\n"
@@ -822,7 +910,7 @@ let generate_customize_synopsis_pod () =
         n, sprintf "[--%s]" n
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
             | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v
-            | StringFn (v, _);
+            | StringFn (v, _) | SMPoolSelector v;
           op_name = n } ->
         n, sprintf "[--%s %s]" n v
     ) ops @
@@ -831,6 +919,8 @@ let generate_customize_synopsis_pod () =
         | { flag_type = FlagBool _; flag_name = n } ->
           n, sprintf "[--%s]" n
         | { flag_type = FlagPasswordCrypto v; flag_name = n } ->
+          n, sprintf "[--%s %s]" n v
+        | { flag_type = FlagSMCredentials v; flag_name = n } ->
           n, sprintf "[--%s %s]" n v
       ) flags in
 
@@ -863,7 +953,7 @@ let generate_customize_options_pod () =
         n, sprintf "B<--%s>" n, ld
       | { op_type = String v | StringPair v | StringList v | TargetLinks v
             | PasswordSelector v | UserPasswordSelector v | SSHKeySelector v
-            | StringFn (v, _);
+            | StringFn (v, _) | SMPoolSelector v;
           op_name = n; op_pod_longdesc = ld } ->
         n, sprintf "B<--%s> %s" n v, ld
     ) ops @
@@ -872,6 +962,9 @@ let generate_customize_options_pod () =
         | { flag_type = FlagBool _; flag_name = n; flag_pod_longdesc = ld } ->
           n, sprintf "B<--%s>" n, ld
         | { flag_type = FlagPasswordCrypto v;
+            flag_name = n; flag_pod_longdesc = ld } ->
+          n, sprintf "B<--%s> %s" n v, ld
+        | { flag_type = FlagSMCredentials v;
             flag_name = n; flag_pod_longdesc = ld } ->
           n, sprintf "B<--%s> %s" n v, ld
       ) flags in

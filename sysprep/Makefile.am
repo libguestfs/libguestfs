@@ -119,6 +119,7 @@ BOBJECTS = \
 	$(top_builddir)/customize/firstboot.cmo \
 	$(top_builddir)/customize/perl_edit.cmo \
 	$(top_builddir)/customize/ssh_key.cmo \
+	$(top_builddir)/customize/subscription_manager.cmo \
 	$(top_builddir)/customize/customize_cmdline.cmo \
 	$(top_builddir)/customize/customize_run.cmo \
 	$(SOURCES_ML:.ml=.cmo)

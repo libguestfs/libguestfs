@@ -43,6 +43,7 @@ SOURCES_MLI = \
 	perl_edit.mli \
 	random_seed.mli \
 	ssh_key.mli \
+	subscription_manager.mli \
 	timezone.mli \
 	urandom.mli
 
@@ -57,6 +58,7 @@ SOURCES_ML = \
 	perl_edit.ml \
 	random_seed.ml \
 	ssh_key.ml \
+	subscription_manager.ml \
 	timezone.ml \
 	customize_cmdline.ml \
 	customize_run.ml \
