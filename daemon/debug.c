@@ -588,7 +588,7 @@ debug_core_pattern (const char *subcmd, size_t argc, char *const *const argv)
   }
 
   const char *pattern = argv[0];
-  const size_t pattern_len = strlen(pattern);
+  const size_t pattern_len = strlen (pattern);
 
 #define CORE_PATTERN "/proc/sys/kernel/core_pattern"
   int fd = open (CORE_PATTERN, O_WRONLY|O_CLOEXEC);

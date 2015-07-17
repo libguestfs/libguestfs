@@ -408,7 +408,7 @@ do_xfs_growfs (const char *path,
       reply_with_error ("logsize must be >= 0");
       return -1;
     }
-    snprintf(logsize_s, sizeof logsize_s, "%" PRIi64, logsize);
+    snprintf (logsize_s, sizeof logsize_s, "%" PRIi64, logsize);
     ADD_ARG (argv, i, "-L");
     ADD_ARG (argv, i, logsize_s);
   }
@@ -418,7 +418,7 @@ do_xfs_growfs (const char *path,
       reply_with_error ("rtsize must be >= 0");
       return -1;
     }
-    snprintf(rtsize_s, sizeof rtsize_s, "%" PRIi64, rtsize);
+    snprintf (rtsize_s, sizeof rtsize_s, "%" PRIi64, rtsize);
     ADD_ARG (argv, i, "-R");
     ADD_ARG (argv, i, rtsize_s);
   }
@@ -428,7 +428,7 @@ do_xfs_growfs (const char *path,
       reply_with_error ("rtextsize must be >= 0");
       return -1;
     }
-    snprintf(rtextsize_s, sizeof rtextsize_s, "%" PRIi64, rtextsize);
+    snprintf (rtextsize_s, sizeof rtextsize_s, "%" PRIi64, rtextsize);
     ADD_ARG (argv, i, "-e");
     ADD_ARG (argv, i, rtextsize_s);
   }
@@ -438,7 +438,7 @@ do_xfs_growfs (const char *path,
       reply_with_error ("maxpct must be >= 0");
       return -1;
     }
-    snprintf(maxpct_s, sizeof maxpct_s, "%" PRIi32, maxpct);
+    snprintf (maxpct_s, sizeof maxpct_s, "%" PRIi32, maxpct);
     ADD_ARG (argv, i, "-m");
     ADD_ARG (argv, i, maxpct_s);
   }
@@ -591,7 +591,7 @@ do_xfs_repair (const char *device,
       reply_with_error ("maxmem must be >= 0");
       return -1;
     }
-    snprintf(maxmem_s, sizeof maxmem_s, "%" PRIi64, maxmem);
+    snprintf (maxmem_s, sizeof maxmem_s, "%" PRIi64, maxmem);
     ADD_ARG (argv, i, "-m");
     ADD_ARG (argv, i, maxmem_s);
   }
@@ -601,7 +601,7 @@ do_xfs_repair (const char *device,
       reply_with_error ("ihashsize must be >= 0");
       return -1;
     }
-    snprintf(ihashsize_s, sizeof ihashsize_s, "ihash=" "%" PRIi64, ihashsize);
+    snprintf (ihashsize_s, sizeof ihashsize_s, "ihash=" "%" PRIi64, ihashsize);
     ADD_ARG (argv, i, "-o");
     ADD_ARG (argv, i, ihashsize_s);
   }
@@ -611,7 +611,7 @@ do_xfs_repair (const char *device,
       reply_with_error ("bhashsize must be >= 0");
       return -1;
     }
-    snprintf(bhashsize_s, sizeof bhashsize_s, "bhash=" "%" PRIi64, bhashsize);
+    snprintf (bhashsize_s, sizeof bhashsize_s, "bhash=" "%" PRIi64, bhashsize);
     ADD_ARG (argv, i, "-o");
     ADD_ARG (argv, i, bhashsize_s);
   }
@@ -621,7 +621,7 @@ do_xfs_repair (const char *device,
       reply_with_error ("agstride must be >= 0");
       return -1;
     }
-    snprintf(agstride_s, sizeof agstride_s, "ag_stride=" "%" PRIi64, agstride);
+    snprintf (agstride_s, sizeof agstride_s, "ag_stride=" "%" PRIi64, agstride);
     ADD_ARG (argv, i, "-o");
     ADD_ARG (argv, i, agstride_s);
   }

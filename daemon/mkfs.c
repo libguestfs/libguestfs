@@ -86,7 +86,7 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
    */
   if (STREQ (fstype, "reiserfs") || STREQ (fstype, "jfs") ||
       STREQ (fstype, "xfs"))
-    ADD_ARG(argv, i, "-f");
+    ADD_ARG (argv, i, "-f");
 
   /* For GFS, GFS2, assume a single node. */
   if (STREQ (fstype, "gfs") || STREQ (fstype, "gfs2")) {

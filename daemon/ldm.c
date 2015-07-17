@@ -187,9 +187,9 @@ json_value_to_string_list (yajl_val node)
   if (! YAJL_IS_ARRAY (node))
     return TYPE_ERROR;
 
-  len = YAJL_GET_ARRAY(node)->len;
+  len = YAJL_GET_ARRAY (node)->len;
   for (i = 0; i < len; ++i) {
-    n = YAJL_GET_ARRAY(node)->values[i];
+    n = YAJL_GET_ARRAY (node)->values[i];
     if (! YAJL_IS_STRING (n))
       return TYPE_ERROR;
     if (add_string (&strs, YAJL_GET_STRING (n)) == -1)
@@ -238,10 +238,10 @@ parse_json_get_object_string (const char *json, const char *key, int flags,
   if (! YAJL_IS_OBJECT (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT(tree)->len;
+  len = YAJL_GET_OBJECT (tree)->len;
   for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT(tree)->keys[i], key)) {
-      node = YAJL_GET_OBJECT(tree)->values[i];
+    if (STREQ (YAJL_GET_OBJECT (tree)->keys[i], key)) {
+      node = YAJL_GET_OBJECT (tree)->values[i];
 
       if ((flags & GET_STRING_NULL_TO_EMPTY) && YAJL_IS_NULL (node))
         ret = strdup ("");
@@ -282,10 +282,10 @@ parse_json_get_object_string_list (const char *json, const char *key,
   if (! YAJL_IS_OBJECT (tree))
     goto bad_type;
 
-  len = YAJL_GET_OBJECT(tree)->len;
+  len = YAJL_GET_OBJECT (tree)->len;
   for (i = 0; i < len; ++i) {
-    if (STREQ (YAJL_GET_OBJECT(tree)->keys[i], key)) {
-      node = YAJL_GET_OBJECT(tree)->values[i];
+    if (STREQ (YAJL_GET_OBJECT (tree)->keys[i], key)) {
+      node = YAJL_GET_OBJECT (tree)->values[i];
       ret = json_value_to_string_list (node);
       if (ret == TYPE_ERROR)
         goto bad_type;

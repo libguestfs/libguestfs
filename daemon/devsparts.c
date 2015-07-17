@@ -53,7 +53,7 @@ foreach_block_device (block_dev_func_t func)
 
   for (;;) {
     errno = 0;
-    d = readdir(dir);
+    d = readdir (dir);
     if (!d) break;
 
     if (STREQLEN (d->d_name, "sd", 2) ||

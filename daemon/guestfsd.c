@@ -1203,7 +1203,7 @@ print_shell_quote (FILE *stream,
   const char *str = *((const char **) (args[0]));
 
   for (i = len = 0; str[i]; ++i) {
-    if (!SAFE(str[i])) {
+    if (!SAFE (str[i])) {
       putc ('\\', stream);
       len ++;
     }
@@ -1399,8 +1399,8 @@ mountable_to_string (const mountable_t *mountable)
       return strdup (mountable->device);
 
     case MOUNTABLE_BTRFSVOL:
-      if (asprintf(&desc, "btrfsvol:%s/%s",
-                   mountable->device, mountable->volume) == -1)
+      if (asprintf (&desc, "btrfsvol:%s/%s",
+                    mountable->device, mountable->volume) == -1)
         return NULL;
       return desc;
 

@@ -248,7 +248,7 @@ do_list_md_devices (void)
 
     n = dev;
     n = mempcpy (n, DEV, strlen (DEV));
-    n = mempcpy (n, &mds.gl_pathv[i][strlen(PREFIX)], len);
+    n = mempcpy (n, &mds.gl_pathv[i][strlen (PREFIX)], len);
     *n = '\0';
 
     if (!is_raid_device (dev)) {
@@ -273,7 +273,7 @@ error:
 }
 
 char **
-do_md_detail(const char *md)
+do_md_detail (const char *md)
 {
   size_t i;
   int r;
@@ -345,15 +345,15 @@ error:
 }
 
 int
-do_md_stop(const char *md)
+do_md_stop (const char *md)
 {
   int r;
   CLEANUP_FREE char *err = NULL;
 
   const char *mdadm[] = { str_mdadm, "--stop", md, NULL};
-  r = commandv(NULL, &err, mdadm);
+  r = commandv (NULL, &err, mdadm);
   if (r == -1) {
-    reply_with_error("%s", err);
+    reply_with_error ("%s", err);
     return -1;
   }
   return 0;

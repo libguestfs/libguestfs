@@ -97,7 +97,7 @@ fsync_devices (void)
 
   for (;;) {
     errno = 0;
-    d = readdir(dir);
+    d = readdir (dir);
     if (!d) break;
 
     if (STREQLEN (d->d_name, "sd", 2) ||

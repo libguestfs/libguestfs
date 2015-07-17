@@ -78,7 +78,7 @@ do_set_uuid (const char *device, const char *uuid)
     r = btrfs_set_uuid (device, uuid);
 
   else
-    NOT_SUPPORTED(-1, "don't know how to set the UUID for '%s' filesystems",
+    NOT_SUPPORTED (-1, "don't know how to set the UUID for '%s' filesystems",
                       vfs_type);
 
   return r;
@@ -111,7 +111,7 @@ do_set_uuid_random (const char *device)
     r = btrfs_set_uuid_random (device);
 
   else
-    NOT_SUPPORTED(-1, "don't know how to set the random UUID for '%s' filesystems",
+    NOT_SUPPORTED (-1, "don't know how to set the random UUID for '%s' filesystems",
                       vfs_type);
   return r;
 }

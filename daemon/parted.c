@@ -1092,7 +1092,7 @@ do_part_get_mbr_part_type (const char *device, int partnum)
   char temp_type[16] = {'\0'};
   for (i = 0, row = start;  row < end; ++i, ++row) {
     if (STREQ (parttype, "gpt")) {
-      memcpy (temp_type, "primary", strlen("primary"));
+      memcpy (temp_type, "primary", strlen ("primary"));
       if (sscanf (lines[row], "%d%" SCNi64 "B%" SCNi64 "B%" SCNi64 "B",
                &part_num,
                &temp_int64,
@@ -1117,15 +1117,15 @@ do_part_get_mbr_part_type (const char *device, int partnum)
         continue;
 
     if (STRPREFIX (temp_type, "primary")) {
-      part_type = strdup("primary");
+      part_type = strdup ("primary");
       if (part_type == NULL)
           goto error;
     } else if (STRPREFIX (temp_type, "logical")) {
-      part_type = strdup("logical");
+      part_type = strdup ("logical");
       if (part_type == NULL)
           goto error;
     } else if (STRPREFIX (temp_type, "extended")) {
-      part_type = strdup("extended");
+      part_type = strdup ("extended");
       if (part_type == NULL)
           goto error;
     } else
