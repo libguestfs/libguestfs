@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-07-09 18:29+0100\n"
+"POT-Creation-Date: 2015-07-21 12:19+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tajik (http://www.transifex.com/projects/p/libguestfs/"
@@ -87,7 +87,7 @@ msgstr ""
 msgid "%s: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:364
+#: ../customize/customize_run.ml:398
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
@@ -436,7 +436,7 @@ msgid ""
 "error: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:293 ../customize/customize_cmdline.ml:208
+#: ../customize/customize_cmdline.ml:305 ../customize/customize_cmdline.ml:220
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -715,11 +715,11 @@ msgstr ""
 msgid "Add new a elements location"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:234
+#: ../customize/customize_cmdline.ml:246
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:218
+#: ../customize/customize_cmdline.ml:230
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -745,6 +745,18 @@ msgstr ""
 
 #: ../customize/customize_main.ml:77 ../builder/cmdline.ml:98
 msgid "Attach data disk/ISO during install"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:321
+msgid "Attach to a subscription-manager pool"
+msgstr ""
+
+#: ../customize/customize_run.ml:255
+msgid "Attaching to compatible subscriptions"
+msgstr ""
+
+#: ../customize/customize_run.ml:259
+msgid "Attaching to the pool %s"
 msgstr ""
 
 #: ../dib/cmdline.ml:176
@@ -778,7 +790,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
-#: ../dib/dib.ml:494
+#: ../dib/dib.ml:495
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -794,7 +806,7 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:162
 msgid "Change the permissions of a file"
 msgstr ""
 
@@ -834,7 +846,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../dib/dib.ml:856
+#: ../dib/dib.ml:857
 msgid "Compressing the image as tar"
 msgstr ""
 
@@ -850,15 +862,15 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:880
+#: ../dib/dib.ml:881
 msgid "Converting to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:170
+#: ../customize/customize_cmdline.ml:182
 msgid "Copy files in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:180
+#: ../customize/customize_cmdline.ml:192
 msgid "Copy local files or directories into image"
 msgstr ""
 
@@ -882,7 +894,7 @@ msgstr ""
 msgid "Copying: %s to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:250
+#: ../customize/customize_cmdline.ml:262
 msgid "Create a directory"
 msgstr ""
 
@@ -894,7 +906,7 @@ msgstr ""
 msgid "Create overlay file in %s to protect source disk"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:244
+#: ../customize/customize_cmdline.ml:256
 msgid "Create symbolic links"
 msgstr ""
 
@@ -930,7 +942,7 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:250
+#: ../customize/customize_cmdline.ml:262
 msgid "DIR"
 msgstr ""
 
@@ -942,7 +954,7 @@ msgstr ""
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:186
+#: ../customize/customize_cmdline.ml:198
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -1030,7 +1042,7 @@ msgstr ""
 msgid "Don't trim selected mounts"
 msgstr ""
 
-#: ../dib/dib.ml:918
+#: ../dib/dib.ml:919
 msgid "Done"
 msgstr ""
 
@@ -1060,7 +1072,7 @@ msgstr ""
 msgid "Dump POD for options (internal)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:196
+#: ../customize/customize_cmdline.ml:208
 msgid "Edit file using Perl expression"
 msgstr ""
 
@@ -1068,7 +1080,7 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../dib/dib.ml:468
+#: ../dib/dib.ml:469
 msgid "Elements: %s"
 msgstr ""
 
@@ -1146,7 +1158,7 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../dib/dib.ml:491
+#: ../dib/dib.ml:492
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1162,28 +1174,28 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:835
+#: ../dib/dib.ml:836
 msgid "Extracting data out of the image"
 msgstr ""
 
-#. ../customize/customize_cmdline.ml:299
-#: ../customize/customize_cmdline.ml:334 ../customize/customize_cmdline.ml:316
+#. ../customize/customize_cmdline.ml:311
+#: ../customize/customize_cmdline.ml:374 ../customize/customize_cmdline.ml:356
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:360
+#: ../customize/customize_cmdline.ml:400
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:350
+#: ../customize/customize_cmdline.ml:390
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:196
+#: ../customize/customize_cmdline.ml:208
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:172
 msgid "FILENAME"
 msgstr ""
 
@@ -1296,7 +1308,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:224
+#: ../customize/customize_cmdline.ml:236
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1324,7 +1336,7 @@ msgstr ""
 msgid "Initializing the target %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:310
+#: ../customize/customize_cmdline.ml:350
 msgid "Inject a public key into the guest"
 msgstr ""
 
@@ -1368,7 +1380,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:180
+#: ../customize/customize_cmdline.ml:192
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
 
@@ -1453,7 +1465,7 @@ msgstr ""
 msgid "Mount point on host"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:260
+#: ../customize/customize_cmdline.ml:272
 msgid "Move files in disk image"
 msgstr ""
 
@@ -1504,7 +1516,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../dib/dib.ml:622
+#: ../dib/dib.ml:623
 msgid "Opening the disks"
 msgstr ""
 
@@ -1572,15 +1584,15 @@ msgstr ""
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:322 ../customize/customize_cmdline.ml:186
+#: ../customize/customize_cmdline.ml:362 ../customize/customize_cmdline.ml:198
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:150
+#: ../customize/customize_cmdline.ml:162
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:234 ../customize/customize_cmdline.ml:218
+#: ../customize/customize_cmdline.ml:246 ../customize/customize_cmdline.ml:230
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1619,7 +1631,7 @@ msgstr ""
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:513
+#: ../dib/dib.ml:514
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -1635,23 +1647,31 @@ msgstr ""
 msgid "Quiet output"
 msgstr ""
 
-#: ../v2v/OVF.ml:390 ../v2v/OVF.ml:211
+#: ../v2v/OVF.ml:394 ../v2v/OVF.ml:211
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:160
+#: ../customize/customize_cmdline.ml:172
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:322
+#: ../customize/customize_cmdline.ml:362
 msgid "Recursively truncate all files in directory"
 msgstr ""
 
-#: ../customize/customize_run.ml:265
+#: ../customize/customize_run.ml:299
 msgid "Recursively truncating: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:381
+#: ../customize/customize_cmdline.ml:327
+msgid "Register using subscription-manager"
+msgstr ""
+
+#: ../customize/customize_run.ml:265
+msgid "Registering with subscription-manager"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:421
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1685,6 +1705,10 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_kerberos_data.ml:44
 msgid "Remove Kerberos data in the guest"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:333
+msgid "Remove all the subscriptions"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_blkid_tab.ml:47
@@ -1826,6 +1850,10 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
+#: ../customize/customize_run.ml:277
+msgid "Removing all the subscriptions"
+msgstr ""
+
 #: ../v2v/cmdline.ml:161
 msgid "Rename guest when converting"
 msgstr ""
@@ -1852,19 +1880,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:208
+#: ../customize/customize_cmdline.ml:220
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:293
+#: ../customize/customize_cmdline.ml:305
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:202
+#: ../customize/customize_cmdline.ml:214
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:287
+#: ../customize/customize_cmdline.ml:299
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1878,11 +1906,11 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:334
+#: ../customize/customize_cmdline.ml:374
 msgid "Run touch on a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:274
+#: ../customize/customize_run.ml:308
 msgid "Running touch: %s"
 msgstr ""
 
@@ -1894,27 +1922,27 @@ msgstr ""
 msgid "Running: %s/%s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:287 ../customize/customize_cmdline.ml:202
+#: ../customize/customize_cmdline.ml:299 ../customize/customize_cmdline.ml:214
 msgid "SCRIPT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:281
+#: ../customize/customize_cmdline.ml:321 ../customize/customize_cmdline.ml:293
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:325
+#: ../customize/customize_run.ml:359
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:260 ../customize/customize_cmdline.ml:170
+#: ../customize/customize_cmdline.ml:272 ../customize/customize_cmdline.ml:182
 msgid "SOURCE:DEST"
 msgstr ""
 
-#: ../customize/customize_run.ml:258
+#: ../customize/customize_run.ml:292
 msgid "SSH key could be injected for this type of guest"
 msgstr ""
 
-#: ../customize/customize_run.ml:255
+#: ../customize/customize_run.ml:289
 msgid "SSH key inject: %s"
 msgstr ""
 
@@ -1926,15 +1954,15 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:299
+#: ../customize/customize_cmdline.ml:311
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:366
+#: ../customize/customize_cmdline.ml:406
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:348
+#: ../customize/customize_run.ml:382
 msgid "Scrubbing the log file"
 msgstr ""
 
@@ -2027,11 +2055,11 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:375
+#: ../customize/customize_cmdline.ml:415
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:281
+#: ../customize/customize_cmdline.ml:293
 msgid "Set root password"
 msgstr ""
 
@@ -2047,7 +2075,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:328
+#: ../customize/customize_cmdline.ml:368
 msgid "Set the default timezone"
 msgstr ""
 
@@ -2055,7 +2083,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:224
+#: ../customize/customize_cmdline.ml:236
 msgid "Set the hostname"
 msgstr ""
 
@@ -2063,7 +2091,7 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:271
+#: ../customize/customize_cmdline.ml:283
 msgid "Set user password"
 msgstr ""
 
@@ -2075,11 +2103,11 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:316
+#: ../customize/customize_run.ml:350
 msgid "Setting passwords"
 msgstr ""
 
-#: ../customize/password.ml:117
+#: ../customize/password.ml:111
 msgid "Setting random password of %s to %s"
 msgstr ""
 
@@ -2087,7 +2115,7 @@ msgstr ""
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:269
+#: ../customize/customize_run.ml:303
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -2095,7 +2123,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:758
+#: ../dib/dib.ml:759
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2135,11 +2163,11 @@ msgstr ""
 msgid "Sparsify operation completed with no errors."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:244
+#: ../customize/customize_cmdline.ml:256
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:328
+#: ../customize/customize_cmdline.ml:368
 msgid "TIMEZONE"
 msgstr ""
 
@@ -2312,7 +2340,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/OVF.ml:333
+#: ../v2v/OVF.ml:337
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -2344,11 +2372,11 @@ msgstr ""
 msgid "Trimming %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:316
+#: ../customize/customize_cmdline.ml:356
 msgid "Truncate a file to zero size"
 msgstr ""
 
-#: ../customize/customize_run.ml:261
+#: ../customize/customize_run.ml:295
 msgid "Truncating: %s"
 msgstr ""
 
@@ -2356,15 +2384,15 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:271
+#: ../customize/customize_cmdline.ml:283
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:310
+#: ../customize/customize_cmdline.ml:350
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../dib/dib.ml:861
+#: ../dib/dib.ml:862
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2372,19 +2400,27 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:340
+#: ../customize/customize_cmdline.ml:339
+msgid "Unregister using subscription-manager"
+msgstr ""
+
+#: ../customize/customize_run.ml:282
+msgid "Unregistering with subscription-manager"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:380
 msgid "Update core packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:278
+#: ../customize/customize_run.ml:312
 msgid "Updating core packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:350
+#: ../customize/customize_cmdline.ml:390
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:283
+#: ../customize/customize_run.ml:317
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2408,7 +2444,7 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../dib/dib.ml:913
+#: ../dib/dib.ml:914
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -2426,11 +2462,11 @@ msgid ""
 "error message was: %s (ignored)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:360
+#: ../customize/customize_cmdline.ml:400
 msgid "Write file"
 msgstr ""
 
-#: ../customize/customize_run.ml:308
+#: ../customize/customize_run.ml:342
 msgid "Writing: %s"
 msgstr ""
 
@@ -2523,11 +2559,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:422
+#: ../v2v/convert_windows.ml:436
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:408
+#: ../v2v/convert_windows.ml:422
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2597,11 +2633,11 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:400
+#: ../customize/customize_cmdline.ml:449
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:417
+#: ../customize/customize_cmdline.ml:466
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
@@ -2629,7 +2665,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:615
+#: ../v2v/convert_windows.ml:629
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2684,6 +2720,10 @@ msgstr ""
 
 #: ../builder/downloader.ml:93
 msgid "cp (download) command failed copying '%s'"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:430
+msgid "credentials for subscription-manager"
 msgstr ""
 
 #: ../builder/downloader.ml:125
@@ -3029,12 +3069,20 @@ msgstr ""
 msgid "invalid format '%s' in --formats"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:137 ../customize/customize_cmdline.ml:126
+#: ../customize/customize_cmdline.ml:149 ../customize/customize_cmdline.ml:138
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
 #: ../customize/password.ml:72
 msgid "invalid password selector '%s'; see the man page"
+msgstr ""
+
+#: ../customize/subscription_manager.ml:53
+msgid "invalid sm-attach selector '%s'; see the man page"
+msgstr ""
+
+#: ../customize/subscription_manager.ml:40
+msgid "invalid sm-credentials selector '%s'; see the man page"
 msgstr ""
 
 #: ../customize/ssh_key.ml:46
@@ -3146,7 +3194,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../dib/dib.ml:687
+#: ../dib/dib.ml:688
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3264,14 +3312,14 @@ msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:172
+#: ../customize/password.ml:166
 msgid ""
 "password: using insecure md5 password encryption for\n"
 "guest of type %s version %d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:321
+#: ../customize/customize_run.ml:355
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -3394,6 +3442,10 @@ msgstr ""
 msgid "subprocess signalled or stopped by signal %d"
 msgstr ""
 
+#: ../customize/customize_run.ml:269
+msgid "subscription-manager credentials required for --sm-register"
+msgstr ""
+
 #: ../dib/cmdline.ml:233
 msgid "the list of output formats cannot be empty"
 msgstr ""
@@ -3440,6 +3492,14 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
+#: ../v2v/convert_windows.ml:311
+msgid ""
+"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
+"looks for this driver in %s\n"
+"\n"
+"The guest will be configured to use standard VGA."
+msgstr ""
+
 #: ../builder/sigchecker.ml:148
 msgid ""
 "there is no detached signature file\n"
@@ -3474,7 +3534,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../customize/customize_run.ml:271
+#: ../customize/customize_run.ml:305
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -3669,7 +3729,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:390
+#: ../v2v/convert_windows.ml:404
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
