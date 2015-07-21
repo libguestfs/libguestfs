@@ -206,6 +206,15 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
     exit (EXIT_SUCCESS);
   }
 
+  /* Some disks must have been specified for conversion. */
+  if (config->disks == NULL || guestfs_int_count_strings (config->disks) == 0) {
+    fprintf (stderr, "%s: error: no non-removable disks were discovered on this machine.\n",
+             guestfs_int_program_name);
+    fprintf (stderr, "virt-p2v looked in /sys/block and in p2v.disks on the kernel command line.\n");
+    fprintf (stderr, "This is a fatal error and virt-p2v cannot continue.\n");
+    exit (EXIT_FAILURE);
+  }
+
   /* Perform the conversion in text mode. */
   if (start_conversion (config, notify_ui_callback) == -1) {
     const char *err = get_conversion_error ();

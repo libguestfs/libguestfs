@@ -279,7 +279,8 @@ set_config_defaults (struct config *config)
     config->flags = 0;
 
   find_all_disks ();
-  config->disks = guestfs_int_copy_string_list (all_disks);
+  if (all_disks)
+    config->disks = guestfs_int_copy_string_list (all_disks);
   if (all_removable)
     config->removable = guestfs_int_copy_string_list (all_removable);
   find_all_interfaces ();
@@ -448,15 +449,8 @@ find_all_disks (void)
     exit (EXIT_FAILURE);
   }
 
-  if (all_disks == NULL) {
-    fprintf (stderr, "%s: error: no non-removable disks were discovered on this machine.\n",
-             guestfs_int_program_name);
-    fprintf (stderr, "virt-p2v looked in /sys/block.\n");
-    fprintf (stderr, "This is a fatal error and virt-p2v cannot continue.\n");
-    exit (EXIT_FAILURE);
-  }
-
-  qsort (all_disks, nr_disks, sizeof (char *), compare);
+  if (all_disks)
+    qsort (all_disks, nr_disks, sizeof (char *), compare);
   if (all_removable)
     qsort (all_removable, nr_removable, sizeof (char *), compare);
 }
