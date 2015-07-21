@@ -71,7 +71,7 @@ EOF
     set_btrfs_output ($output);
     @r = $g->btrfs_qgroup_show ("/");
     die unless @r == 1;
-    die unless $r[0]->{btrfsqgroup_id} == "0/5";
+    die unless $r[0]->{btrfsqgroup_id} eq "0/5";
     die unless $r[0]->{btrfsqgroup_rfer} == 4096;
     die unless $r[0]->{btrfsqgroup_excl} == 4096;
 
