@@ -4793,22 +4793,22 @@ To get the checksums for many files, use C<guestfs_checksums_out>." };
 
   { defaults with
     name = "tar_in"; added = (1, 0, 3);
-    style = RErr, [FileIn "tarfile"; Pathname "directory"], [OString "compress"];
+    style = RErr, [FileIn "tarfile"; Pathname "directory"], [OString "compress"; OBool "xattrs"; OBool "selinux"; OBool "acls"];
     proc_nr = Some 69;
     once_had_no_optargs = true;
     cancellable = true;
     tests = [
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in"];
-         ["tar_in"; "$srcdir/../data/helloworld.tar"; "/tar_in"; "NOARG"];
+         ["tar_in"; "$srcdir/../data/helloworld.tar"; "/tar_in"; "NOARG"; ""; ""; ""];
          ["cat"; "/tar_in/hello"]], "hello\n"), [];
       InitScratchFS, Always, TestResultString (
         [["mkdir"; "/tar_in_gz"];
-         ["tar_in"; "$srcdir/../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"];
+         ["tar_in"; "$srcdir/../data/helloworld.tar.gz"; "/tar_in_gz"; "gzip"; ""; ""; ""];
          ["cat"; "/tar_in_gz/hello"]], "hello\n"), [];
       InitScratchFS, IfAvailable "xz", TestResultString (
         [["mkdir"; "/tar_in_xz"];
-         ["tar_in"; "$srcdir/../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"];
+         ["tar_in"; "$srcdir/../data/helloworld.tar.xz"; "/tar_in_xz"; "xz"; ""; ""; ""];
          ["cat"; "/tar_in_xz/hello"]], "hello\n"), []
     ];
     shortdesc = "unpack tarfile to directory";
@@ -4820,7 +4820,25 @@ then the input should be an uncompressed tar file.  Otherwise one
 of the following strings may be given to select the compression
 type of the input file: C<compress>, C<gzip>, C<bzip2>, C<xz>, C<lzop>.
 (Note that not all builds of libguestfs will support all of these
-compression types)." };
+compression types).
+
+The other optional arguments are:
+
+=over 4
+
+=item C<xattrs>
+
+If set to true, extended attributes are restored from the tar file.
+
+=item C<selinux>
+
+If set to true, SELinux contexts are restored from the tar file.
+
+=item C<acls>
+
+If set to true, POSIX ACLs are restored from the tar file.
+
+=back" };
 
   { defaults with
     name = "tar_out"; added = (1, 0, 3);
