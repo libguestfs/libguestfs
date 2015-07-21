@@ -34,7 +34,8 @@ my @mbr_paths = (
   "/usr/share/syslinux/mbr.bin",
   "/usr/lib/syslinux/mbr.bin",
   "/usr/lib/syslinux/mbr/mbr.bin",
-  "/usr/lib/syslinux/bios/mbr.bin"
+  "/usr/lib/syslinux/bios/mbr.bin",
+  "/usr/lib/SYSLINUX/mbr.bin"
 );
 foreach my $m (@mbr_paths) {
   if (-f $m) {
