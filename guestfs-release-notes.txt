@@ -81,6 +81,19 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
       inject SSH keys into a guest (Pino Toscano)
 
+    --sm-attach
+
+    --sm-credentials
+
+    --sm-register
+
+    --sm-remove
+
+    --sm-unregister
+
+      register and unregister a guest from subscription-manager (Pino
+      Toscano)
+
     --touch
 
       touch a file in the guest (Pino Toscano)
@@ -431,6 +444,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
 
  Bugs fixed
 
+    https://bugzilla.redhat.com/1239053
+
+      virt-v2v error reporting when grub.conf cannot be parsed by Augeas
+
     https://bugzilla.redhat.com/1238053
 
       v2v:Duplicate disk target set when convert guest with cdrom attached
@@ -535,6 +552,10 @@ RELEASE NOTES FOR LIBGUESTFS 1.30
     https://bugzilla.redhat.com/1188866
 
       Performance regression in virt-builder when uncompressing image
+
+    https://bugzilla.redhat.com/1186800
+
+      virt-v2v should support gzip format ova as input
 
     https://bugzilla.redhat.com/1185561
 
