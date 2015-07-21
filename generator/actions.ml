@@ -4824,7 +4824,7 @@ compression types)." };
 
   { defaults with
     name = "tar_out"; added = (1, 0, 3);
-    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"; OBool "numericowner"; OStringList "excludes"];
+    style = RErr, [String "directory"; FileOut "tarfile"], [OString "compress"; OBool "numericowner"; OStringList "excludes"; OBool "xattrs"; OBool "selinux"; OBool "acls"];
     proc_nr = Some 70;
     once_had_no_optargs = true;
     cancellable = true;
@@ -4853,6 +4853,18 @@ wildcards.
 
 If set to true, the output tar file will contain UID/GID numbers
 instead of user/group names.
+
+=item C<xattrs>
+
+If set to true, extended attributes are saved in the output tar.
+
+=item C<selinux>
+
+If set to true, SELinux contexts are saved in the output tar.
+
+=item C<acls>
+
+If set to true, POSIX ACLs are saved in the output tar.
 
 =back" };
 

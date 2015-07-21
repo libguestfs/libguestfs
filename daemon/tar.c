@@ -311,7 +311,7 @@ make_exclude_from_file (char *const *excludes)
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_tar_out (const char *dir, const char *compress, int numericowner,
-            char *const *excludes)
+            char *const *excludes, int xattrs, int selinux, int acls)
 {
   CLEANUP_FREE char *buf = NULL;
   struct stat statbuf;
@@ -349,6 +349,15 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
       return -1;
   }
 
+  if (!(optargs_bitmask & GUESTFS_TAR_OUT_XATTRS_BITMASK))
+    xattrs = 0;
+
+  if (!(optargs_bitmask & GUESTFS_TAR_OUT_SELINUX_BITMASK))
+    selinux = 0;
+
+  if (!(optargs_bitmask & GUESTFS_TAR_OUT_ACLS_BITMASK))
+    acls = 0;
+
   /* Check the filename exists and is a directory (RHBZ#908322). */
   buf = sysroot_path (dir);
   if (buf == NULL) {
@@ -367,12 +376,15 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   }
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "%s -C %Q%s%s%s%s -cf - .",
+  if (asprintf_nowarn (&cmd, "%s -C %Q%s%s%s%s%s%s%s -cf - .",
                        str_tar,
                        buf, filter,
                        numericowner ? " --numeric-owner" : "",
                        exclude_from_file ? " -X " : "",
-                       exclude_from_file ? exclude_from_file : "") == -1) {
+                       exclude_from_file ? exclude_from_file : "",
+                       xattrs ? " --xattrs" : "",
+                       selinux ? " --selinux" : "",
+                       acls ? " --acls" : "") == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
@@ -423,7 +435,7 @@ int
 do_tgz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "gzip", 0, NULL);
+  return do_tar_out (dir, "gzip", 0, NULL, 0, 0, 0);
 }
 
 /* Has one FileOut parameter. */
@@ -431,5 +443,5 @@ int
 do_txz_out (const char *dir)
 {
   optargs_bitmask = GUESTFS_TAR_OUT_COMPRESS_BITMASK;
-  return do_tar_out (dir, "xz", 0, NULL);
+  return do_tar_out (dir, "xz", 0, NULL, 0, 0, 0);
 }
