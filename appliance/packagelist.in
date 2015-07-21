@@ -262,6 +262,22 @@ ifelse(REDHAT,1,
 ifelse(DEBIAN,1,
   qemu-utils
 )
+ifelse(ARCHLINUX,1,
+  qemu
+  which
+)
+ifelse(SUSE,1,
+  qemu-tools
+  which
+)
+ifelse(FRUGALWARE,1,
+  qemu
+  which
+)
+ifelse(MAGEIA,1,
+  qemu-img
+  which
+)
 curl
 dnl (virt-dib) tools optionally used for elements
 debootstrap
