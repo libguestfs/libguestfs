@@ -45,12 +45,17 @@ if (! -r $disk || -z $disk) {
     exit 77
 }
 
+my $has_format_opt = system ("qemu-nbd --help | grep -q -- --format") == 0;
+
 sub run_test {
     my $readonly = shift;
     my $tcp = shift;
 
     my $server;
     my @qemu_nbd = ("qemu-nbd", $disk, "-t");
+    if ($has_format_opt) {
+        push @qemu_nbd, "--format", "raw";
+    }
     if ($tcp) {
         # Choose a random port number.  XXX Should check it is not in use.
         my $port = int (60000 + rand (5000));
