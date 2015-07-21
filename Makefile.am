@@ -242,10 +242,12 @@ HTMLFILES = \
 	html/virt-copy-out.1.html \
 	html/virt-customize.1.html \
 	html/virt-df.1.html \
+	html/virt-dib.1.html \
 	html/virt-diff.1.html \
 	html/virt-edit.1.html \
 	html/virt-filesystems.1.html \
 	html/virt-format.1.html \
+	html/virt-get-kernel.1.html \
 	html/virt-inspector.1.html \
 	html/virt-list-filesystems.1.html \
 	html/virt-list-partitions.1.html \
