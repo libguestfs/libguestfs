@@ -1169,6 +1169,22 @@ configuration.
 If not present, the assumed value is to respect the proxy settings of the
 system (i.e. as if B<system> would be specified).
 
+=item C<format=FORMAT>
+
+This optional field specifies the format of the repository.
+The possible values are:
+
+=over 4
+
+=item B<native>
+
+The native format of the C<virt-builder> repository.  See also
+L</Creating and signing the index file> below.
+
+=back
+
+If not present, the assumed value is C<native>.
+
 =back
 
 For serious virt-builder use, you may want to create your own

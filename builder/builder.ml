@@ -161,6 +161,7 @@ let main () =
         Sources.name = source; uri = source;
         gpgkey = Utils.Fingerprint fingerprint;
         proxy = Downloader.SystemProxy;
+        format = Sources.FormatNative;
       }
   ) sources in
   let sources = List.append sources repos in
@@ -171,7 +172,9 @@ let main () =
           let sigchecker =
             Sigchecker.create ~gpg ~check_signature
               ~gpgkey:source.Sources.gpgkey in
-          Index_parser.get_index ~downloader ~sigchecker source
+          match source.Sources.format with
+          | Sources.FormatNative ->
+            Index_parser.get_index ~downloader ~sigchecker source
       ) sources
     ) in
   let index = remove_duplicates index in

@@ -27,7 +27,10 @@ type source = {
   uri : string;
   gpgkey : Utils.gpgkey_type;
   proxy : Downloader.proxy_mode;
+  format : source_format;
 }
+and source_format =
+| FormatNative
 
 module StringSet = Set.Make (String)
 
@@ -75,8 +78,21 @@ let parse_conf file =
             )
           with
             Not_found -> Downloader.SystemProxy in
+        let format =
+          try
+            (match (List.assoc ("format", None) fields) with
+            | "native" | "" -> FormatNative
+            | fmt ->
+              if verbose () then (
+                eprintf (f_"%s: unknown repository type '%s' in %s, skipping it\n") prog fmt file;
+              );
+              invalid_arg fmt
+            )
+          with
+            Not_found -> FormatNative in
         {
           name = n; uri = uri; gpgkey = gpgkey; proxy = proxy;
+          format = format;
         }
       in
       try (give_source n fields) :: acc
