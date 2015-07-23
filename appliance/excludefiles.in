@@ -23,13 +23,15 @@ dnl The right kernel modules are added back by supermin.
 -/lib/modules/*
 
 -/usr/lib/locale/*
+-/usr/share/cracklib/*
+-/usr/share/doc/*
+-/usr/share/fonts/*
+-/usr/share/gnome/help/*
+-/usr/share/i18n/*
+-/usr/share/icons/*
+-/usr/share/info/*
 -/usr/share/locale/*
 -/usr/share/man/*
--/usr/share/doc/*
--/usr/share/info/*
--/usr/share/gnome/help/*
--/usr/share/cracklib/*
--/usr/share/i18n/*
 -/usr/share/pkgconfig/*
 
 -/var/log/?tmp
