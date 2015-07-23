@@ -26,6 +26,8 @@
 #include <sys/types.h>
 #include <mntent.h>
 
+#include "ignore-value.h"
+
 #include "daemon.h"
 #include "actions.h"
 
@@ -413,6 +415,9 @@ do_umount_all (void)
 
   if (mounts.size > 0)
     qsort (mounts.argv, mounts.size, sizeof (char *), compare_longest_first);
+
+  /* Hack to work around RHBZ#1246032. */
+  ignore_value (system ("lsof /sysroot"));
 
   /* Unmount them. */
   for (i = 0; i < mounts.size; ++i) {
