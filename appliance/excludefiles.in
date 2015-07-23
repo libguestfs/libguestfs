@@ -21,6 +21,7 @@ dnl Of course, this may break the appliance, so be careful.
 dnl The right kernel modules are added back by supermin.
 -/boot/*
 -/lib/modules/*
+-/usr/lib/modules/*
 
 dnl Firmware blobs should not be required by a virtual machine.
 dnl Because of UsrMove nonsense, we need to list both directories.
