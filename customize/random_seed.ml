@@ -30,6 +30,7 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
       "/var/lib/systemd/random-seed"; (* Fedora after F20? *)
       "/var/lib/urandom/random-seed"; (* Debian *)
       "/var/lib/misc/random-seed";    (* SuSE *)
+      "/etc/random-seed";             (* CirrOS *)
     ] in
     List.iter (
       fun file ->
@@ -52,6 +53,8 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
         Some "/var/lib/urandom/random-seed"
       | "linux", ("opensuse"|"sles"|"suse-based") ->
         Some "/var/lib/misc/random-seed"
+      | "linux", "cirros" ->
+        Some "/etc/random-seed"
       | _ ->
         None in
     match file with
