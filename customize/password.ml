@@ -163,6 +163,8 @@ and default_crypto g root =
   | "ubuntu", _ -> `MD5
 
   | _, _ ->
-    warning (f_"password: using insecure md5 password encryption for
-guest of type %s version %d.\nIf this is incorrect, use --password-crypto option and file a bug.") distro major;
+    let minor = g#inspect_get_minor_version root in
+    warning (f_"password: using insecure md5 password encryption for guest of type %s version %d.%d.
+If this is incorrect, use --password-crypto option and file a bug.")
+      distro major minor;
     `MD5
