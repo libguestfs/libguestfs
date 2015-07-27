@@ -16,26 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-type index = (string * entry) list      (* string = "os-version" *)
-and entry = {
-  printable_name : string option;       (* the name= field *)
-  osinfo : string option;
-  file_uri : string;
-  arch : string;
-  signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
-  checksums : Checksums.csum_t list option;
-  revision : int;
-  format : string option;
-  size : int64;
-  compressed_size : int64 option;
-  expand : string option;
-  lvexpand : string option;
-  notes : (string * string) list;
-  hidden : bool;
-  aliases : string list option;
-
-  sigchecker : Sigchecker.t;
-  proxy : Downloader.proxy_mode;
-}
-
-val get_index : downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> index
+val get_index : downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> Index.index

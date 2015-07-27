@@ -24,98 +24,6 @@ open Utils
 open Printf
 open Unix
 
-type index = (string * entry) list      (* string = "os-version" *)
-and entry = {
-  printable_name : string option;       (* the name= field *)
-  osinfo : string option;
-  file_uri : string;
-  arch : string;
-  signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
-  checksums : Checksums.csum_t list option;
-  revision : int;
-  format : string option;
-  size : int64;
-  compressed_size : int64 option;
-  expand : string option;
-  lvexpand : string option;
-  notes : (string * string) list;
-  hidden : bool;
-  aliases : string list option;
-
-  sigchecker : Sigchecker.t;
-  proxy : Downloader.proxy_mode;
-}
-
-let print_entry chan (name, { printable_name = printable_name;
-                              file_uri = file_uri;
-                              arch = arch;
-                              osinfo = osinfo;
-                              signature_uri = signature_uri;
-                              checksums = checksums;
-                              revision = revision;
-                              format = format;
-                              size = size;
-                              compressed_size = compressed_size;
-                              expand = expand;
-                              lvexpand = lvexpand;
-                              notes = notes;
-                              aliases = aliases;
-                              hidden = hidden }) =
-  let fp fs = fprintf chan fs in
-  fp "[%s]\n" name;
-  (match printable_name with
-  | None -> ()
-  | Some name -> fp "name=%s\n" name
-  );
-  (match osinfo with
-  | None -> ()
-  | Some id -> fp "osinfo=%s\n" id
-  );
-  fp "file=%s\n" file_uri;
-  fp "arch=%s\n" arch;
-  (match signature_uri with
-  | None -> ()
-  | Some uri -> fp "sig=%s\n" uri
-  );
-  (match checksums with
-  | None -> ()
-  | Some checksums ->
-    List.iter (
-      fun c ->
-        fp "checksum[%s]=%s\n"
-          (Checksums.string_of_csum_t c) (Checksums.string_of_csum c)
-    ) checksums
-  );
-  fp "revision=%d\n" revision;
-  (match format with
-  | None -> ()
-  | Some format -> fp "format=%s\n" format
-  );
-  fp "size=%Ld\n" size;
-  (match compressed_size with
-  | None -> ()
-  | Some size -> fp "compressed_size=%Ld\n" size
-  );
-  (match expand with
-  | None -> ()
-  | Some expand -> fp "expand=%s\n" expand
-  );
-  (match lvexpand with
-  | None -> ()
-  | Some lvexpand -> fp "lvexpand=%s\n" lvexpand
-  );
-  List.iter (
-    fun (lang, notes) ->
-      match lang with
-      | "" -> fp "notes=%s\n" notes
-      | lang -> fp "notes[%s]=%s\n" lang notes
-  ) notes;
-  (match aliases with
-  | None -> ()
-  | Some l -> fp "aliases=%s\n" (String.concat " " l)
-  );
-  if hidden then fp "hidden=true\n"
-
 let get_index ~downloader ~sigchecker
   { Sources.uri = uri; proxy = proxy } =
   let corrupt_file () =
@@ -268,7 +176,7 @@ let get_index ~downloader ~sigchecker
             | Some c -> Some [Checksums.SHA512 c]
             | None -> None in
 
-          let entry = { printable_name = printable_name;
+          let entry = { Index.printable_name = printable_name;
                         osinfo = osinfo;
                         file_uri = file_uri;
                         arch = arch;
@@ -290,7 +198,7 @@ let get_index ~downloader ~sigchecker
 
     if verbose () then (
       printf "index file (%s) after parsing (C parser):\n" uri;
-      List.iter (print_entry Pervasives.stdout) entries
+      List.iter (Index.print_entry Pervasives.stdout) entries
     );
 
     entries

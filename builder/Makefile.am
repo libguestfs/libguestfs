@@ -40,6 +40,7 @@ SOURCES_MLI = \
 	cache.mli \
 	downloader.mli \
 	checksums.mli \
+	index.mli \
 	index_parser.mli \
 	ini_reader.mli \
 	languages.mli \
@@ -54,6 +55,7 @@ SOURCES_ML = \
 	pxzcat.ml \
 	setlocale.ml \
 	checksums.ml \
+	index.ml \
 	ini_reader.ml \
 	paths.ml \
 	languages.ml \

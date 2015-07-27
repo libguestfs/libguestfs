@@ -29,7 +29,7 @@ let rec list_entries ~list_format ~sources index =
 
 and list_entries_short index =
   List.iter (
-    fun (name, { Index_parser.printable_name = printable_name;
+    fun (name, { Index.printable_name = printable_name;
                  arch = arch;
                  hidden = hidden }) ->
       if not hidden then (
@@ -60,7 +60,7 @@ and list_entries_long ~sources index =
   ) sources;
 
   List.iter (
-    fun (name, { Index_parser.printable_name = printable_name;
+    fun (name, { Index.printable_name = printable_name;
                  arch = arch;
                  size = size;
                  compressed_size = compressed_size;
@@ -112,7 +112,7 @@ and list_entries_json ~sources index =
     ) sources in
   let json_templates =
     List.map (
-      fun (name, { Index_parser.printable_name = printable_name;
+      fun (name, { Index.printable_name = printable_name;
                    arch = arch;
                    size = size;
                    compressed_size = compressed_size;

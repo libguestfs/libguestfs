@@ -40,7 +40,7 @@ let remove_duplicates index =
    *)
   let nseen = Hashtbl.create 13 in
   List.iter (
-    fun (name, { Index_parser.arch = arch; revision = revision }) ->
+    fun (name, { Index.arch = arch; revision = revision }) ->
       let id = name, arch in
       try
         let rev = Hashtbl.find nseen id in
@@ -50,7 +50,7 @@ let remove_duplicates index =
         Hashtbl.add nseen id revision
   ) index;
   List.filter (
-    fun (name, { Index_parser.arch = arch; revision = revision }) ->
+    fun (name, { Index.arch = arch; revision = revision }) ->
       let id = name, arch in
       try
         let rev = Hashtbl.find nseen (name, arch) in
@@ -165,7 +165,7 @@ let main () =
       }
   ) sources in
   let sources = List.append sources repos in
-  let index : Index_parser.index =
+  let index : Index.index =
     List.concat (
       List.map (
         fun source ->
@@ -190,11 +190,11 @@ let main () =
       (match cache with
       | Some cache ->
         let l = List.filter (
-          fun (_, { Index_parser.hidden = hidden }) ->
+          fun (_, { Index.hidden = hidden }) ->
             hidden <> true
         ) index in
         let l = List.map (
-          fun (name, { Index_parser.revision = revision; arch = arch }) ->
+          fun (name, { Index.revision = revision; arch = arch }) ->
             (name, arch, revision)
         ) l in
         Cache.print_item_status cache ~header:true l
@@ -209,7 +209,7 @@ let main () =
       | Some _ ->
         List.iter (
           fun (name,
-               { Index_parser.revision = revision; file_uri = file_uri;
+               { Index.revision = revision; file_uri = file_uri;
                  proxy = proxy }) ->
             let template = name, arch, revision in
             message (f_"Downloading: %s") file_uri;
@@ -228,7 +228,7 @@ let main () =
     try
       let item =
         List.find (
-          fun (name, { Index_parser.aliases = aliases }) ->
+          fun (name, { Index.aliases = aliases }) ->
             match aliases with
             | None -> false
             | Some l -> List.mem arg l
@@ -237,19 +237,19 @@ let main () =
     with Not_found -> arg in
   let item =
     try List.find (
-      fun (name, { Index_parser.arch = a }) ->
+      fun (name, { Index.arch = a }) ->
         name = arg && arch = a
     ) index
     with Not_found ->
       error (f_"cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.")
         arg arch in
   let entry = snd item in
-  let sigchecker = entry.Index_parser.sigchecker in
+  let sigchecker = entry.Index.sigchecker in
 
   (match mode with
   | `Notes ->                           (* --notes *)
     let notes =
-      Languages.find_notes (Languages.languages ()) entry.Index_parser.notes in
+      Languages.find_notes (Languages.languages ()) entry.Index.notes in
     (match notes with
     | notes :: _ ->
       print_endline notes
@@ -267,7 +267,7 @@ let main () =
   (* Download the template, or it may be in the cache. *)
   let template =
     let template, delete_on_exit =
-      let { Index_parser.revision = revision; file_uri = file_uri;
+      let { Index.revision = revision; file_uri = file_uri;
             proxy = proxy } = entry in
       let template = arg, arch, revision in
       message (f_"Downloading: %s") file_uri;
@@ -281,15 +281,15 @@ let main () =
   let () =
     match entry with
     (* New-style: Using a checksum. *)
-    | { Index_parser.checksums = Some csums } ->
+    | { Index.checksums = Some csums } ->
       Checksums.verify_checksums csums template
 
-    | { Index_parser.checksums = None } ->
+    | { Index.checksums = None } ->
       (* Old-style: detached signature. *)
       let sigfile =
         match entry with
-        | { Index_parser.signature_uri = None } -> None
-        | { Index_parser.signature_uri = Some signature_uri } ->
+        | { Index.signature_uri = None } -> None
+        | { Index.signature_uri = Some signature_uri } ->
           let sigfile, delete_on_exit =
             Downloader.download downloader signature_uri in
           if delete_on_exit then unlink_on_exit sigfile;
@@ -303,7 +303,7 @@ let main () =
 
   (* Planner: Input tags. *)
   let itags =
-    let { Index_parser.size = size; format = format } = entry in
+    let { Index.size = size; format = format } = entry in
     let format_tag =
       match format with
       | None -> []
@@ -341,7 +341,7 @@ let main () =
     b, sz in
 
   let output_size =
-    let { Index_parser.size = original_image_size } = entry in
+    let { Index.size = original_image_size } = entry in
 
     let size =
       match size with
@@ -557,7 +557,7 @@ let main () =
       let osize = Int64.of_string (List.assoc `Size otags) in
       let osize = roundup64 osize 512L in
       let oformat = List.assoc `Format otags in
-      let { Index_parser.expand = expand; lvexpand = lvexpand } = entry in
+      let { Index.expand = expand; lvexpand = lvexpand } = entry in
       message (f_"Resizing (using virt-resize) to expand the disk to %s")
         (human_size osize);
       let preallocation = if oformat = "qcow2" then Some "metadata" else None in
