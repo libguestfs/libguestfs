@@ -4,10 +4,8 @@ virt-customize - Customize a virtual machine
 
 =head1 SYNOPSIS
 
- virt-customize [--options] -d domname
-__CUSTOMIZE_SYNOPSIS__
-
- virt-customize [--options] -a disk.img [-a disk.img ...]
+ virt-customize [--options]
+    [ -d domname | -a disk.img [-a disk.img ...] ]
 __CUSTOMIZE_SYNOPSIS__
 
 =head1 DESCRIPTION
