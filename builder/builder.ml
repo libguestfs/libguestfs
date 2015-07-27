@@ -281,10 +281,10 @@ let main () =
   let () =
     match entry with
     (* New-style: Using a checksum. *)
-    | { Index_parser.checksum_sha512 = Some csum } ->
-      Checksums.verify_checksum (Checksums.SHA512 csum) template
+    | { Index_parser.checksums = Some csums } ->
+      Checksums.verify_checksums csums template
 
-    | { Index_parser.checksum_sha512 = None } ->
+    | { Index_parser.checksums = None } ->
       (* Old-style: detached signature. *)
       let sigfile =
         match entry with

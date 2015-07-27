@@ -31,7 +31,7 @@ and entry = {
   file_uri : string;
   arch : string;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
-  checksum_sha512 : string option;
+  checksums : Checksums.csum_t list option;
   revision : int;
   format : string option;
   size : int64;
@@ -51,7 +51,7 @@ let print_entry chan (name, { printable_name = printable_name;
                               arch = arch;
                               osinfo = osinfo;
                               signature_uri = signature_uri;
-                              checksum_sha512 = checksum_sha512;
+                              checksums = checksums;
                               revision = revision;
                               format = format;
                               size = size;
@@ -77,11 +77,14 @@ let print_entry chan (name, { printable_name = printable_name;
   | None -> ()
   | Some uri -> fp "sig=%s\n" uri
   );
-  (match checksum_sha512 with
+  (match checksums with
   | None -> ()
-  | Some uri ->
-    fp "checksum[%s]=%s\n"
-      (Checksums.string_of_csum_t (Checksums.SHA512 uri)) uri
+  | Some checksums ->
+    List.iter (
+      fun c ->
+        fp "checksum[%s]=%s\n"
+          (Checksums.string_of_csum_t c) (Checksums.string_of_csum c)
+    ) checksums
   );
   fp "revision=%d\n" revision;
   (match format with
@@ -260,12 +263,17 @@ let get_index ~downloader ~sigchecker
             | [] -> None
             | l -> Some l in
 
+          let checksums =
+            match checksum_sha512 with
+            | Some c -> Some [Checksums.SHA512 c]
+            | None -> None in
+
           let entry = { printable_name = printable_name;
                         osinfo = osinfo;
                         file_uri = file_uri;
                         arch = arch;
                         signature_uri = signature_uri;
-                        checksum_sha512 = checksum_sha512;
+                        checksums = checksums;
                         revision = revision;
                         format = format;
                         size = size;

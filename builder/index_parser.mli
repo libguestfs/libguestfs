@@ -23,7 +23,7 @@ and entry = {
   file_uri : string;
   arch : string;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
-  checksum_sha512 : string option;
+  checksums : Checksums.csum_t list option;
   revision : int;
   format : string option;
   size : int64;

@@ -23,6 +23,9 @@ type csum_t =
 val verify_checksum : csum_t -> string -> unit
 (** Verify the checksum of the file. *)
 
+val verify_checksums : csum_t list -> string -> unit
+(** Verify all the checksums of the file. *)
+
 val string_of_csum_t : csum_t -> string
 (** Return a string representation of the checksum type. *)
 

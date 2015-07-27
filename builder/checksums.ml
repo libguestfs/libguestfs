@@ -53,3 +53,6 @@ let verify_checksum csum filename =
     if csum_ref <> csum_actual then
       error (f_"%s checksum of template did not match the expected checksum!\n  found checksum: %s\n  expected checksum: %s\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!")
         (string_of_csum_t csum) csum_actual csum_ref
+
+let verify_checksums checksums filename =
+  List.iter (fun c -> verify_checksum c filename) checksums
