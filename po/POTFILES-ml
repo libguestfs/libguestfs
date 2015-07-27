@@ -1,5 +1,6 @@
 builder/builder.ml
 builder/cache.ml
+builder/checksums.ml
 builder/cmdline.ml
 builder/downloader.ml
 builder/index_parser.ml

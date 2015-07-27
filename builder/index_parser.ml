@@ -79,7 +79,9 @@ let print_entry chan (name, { printable_name = printable_name;
   );
   (match checksum_sha512 with
   | None -> ()
-  | Some uri -> fp "checksum[sha512]=%s\n" uri
+  | Some uri ->
+    fp "checksum[%s]=%s\n"
+      (Checksums.string_of_csum_t (Checksums.SHA512 uri)) uri
   );
   fp "revision=%d\n" revision;
   (match format with

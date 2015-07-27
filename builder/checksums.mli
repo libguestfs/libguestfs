@@ -1,5 +1,5 @@
 (* virt-builder
- * Copyright (C) 2013 Red Hat Inc.
+ * Copyright (C) 2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-type t
+type csum_t =
+| SHA512 of string
 
-val create : gpg:string -> gpgkey:Utils.gpgkey_type -> check_signature:bool -> t
+val verify_checksum : csum_t -> string -> unit
+(** Verify the checksum of the file. *)
 
-val verify : t -> string -> unit
-(** Verify the file is signed (if check_signature is true). *)
+val string_of_csum_t : csum_t -> string
+(** Return a string representation of the checksum type. *)
 
-val verify_detached : t -> string -> string option -> unit
-(** Verify the file is signed against the detached signature
-    (if check_signature is true). *)
+val string_of_csum : csum_t -> string
+(** Return a string representation of the checksum value. *)

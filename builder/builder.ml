@@ -282,7 +282,7 @@ let main () =
     match entry with
     (* New-style: Using a checksum. *)
     | { Index_parser.checksum_sha512 = Some csum } ->
-      Sigchecker.verify_checksum sigchecker (Sigchecker.SHA512 csum) template
+      Checksums.verify_checksum (Checksums.SHA512 csum) template
 
     | { Index_parser.checksum_sha512 = None } ->
       (* Old-style: detached signature. *)
