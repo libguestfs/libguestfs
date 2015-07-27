@@ -27,6 +27,7 @@ open Unix
 type t = {
   gpg : string;
   fingerprint : string;
+  subkeys_fingerprints : string list;
   check_signature : bool;
   gpghome : string;
 }
@@ -63,7 +64,34 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
     if r <> 0 then
       error (f_"GPG failure: could not trust the imported key\nUse the '-v' option and look for earlier error messages.");
   );
-  !fingerprint
+  let subkeys =
+    (* --with-fingerprint is specified twice so gpg outputs the full
+     * fingerprint of the subkeys. *)
+    let cmd = sprintf "%s --homedir %s --with-colons --with-fingerprint --with-fingerprint --list-keys %s"
+      gpg gpghome !fingerprint in
+    if verbose () then printf "%s\n%!" cmd;
+    let lines = external_command cmd in
+    let current = ref None in
+    let subkeys = ref [] in
+    List.iter (
+      fun line ->
+        let line = string_nsplit ":" line in
+        match line with
+        | "sub" :: ("u"|"-") :: _ :: _ :: id :: _ ->
+          current := Some id
+        | "fpr" :: _ :: _ :: _ :: _ :: _ :: _ :: _ :: _ :: id :: _ ->
+          (match !current with
+          | None -> ()
+          | Some k ->
+            if string_suffix id k then (
+              subkeys := id :: !subkeys;
+            );
+            current := None
+          )
+        | _ -> ()
+    ) lines;
+    !subkeys in
+  !fingerprint, subkeys
 
 let rec create ~gpg ~gpgkey ~check_signature =
   (* Create a temporary directory for gnupg. *)
@@ -74,7 +102,7 @@ let rec create ~gpg ~gpgkey ~check_signature =
     match check_signature, gpgkey with
     | true, No_Key -> false, No_Key
     | x, y -> x, y in
-  let fingerprint =
+  let fingerprint, subkeys =
     if check_signature then (
       (* Run gpg so it can setup its own home directory, failing if it
        * cannot.
@@ -100,13 +128,13 @@ let rec create ~gpg ~gpgkey ~check_signature =
         let r = Sys.command cmd in
         if r <> 0 then
           error (f_"could not export public key\nUse the '-v' option and look for earlier error messages.");
-        ignore (import_keyfile gpg tmpdir filename);
-        fp
+        import_keyfile gpg tmpdir filename
     ) else
-      "" in
+      "", [] in
   {
     gpg = gpg;
     fingerprint = fingerprint;
+    subkeys_fingerprints = subkeys;
     check_signature = check_signature;
     gpghome = tmpdir;
   }
@@ -177,6 +205,7 @@ and do_verify t args =
       | _ -> ()
   ) status;
 
-  if not (equal_fingerprints !fingerprint t.fingerprint) then
+  if not (equal_fingerprints !fingerprint t.fingerprint) &&
+    not (List.exists (equal_fingerprints !fingerprint) t.subkeys_fingerprints) then
     error (f_"fingerprint of signature does not match the expected fingerprint!\n  found fingerprint: %s\n  expected fingerprint: %s")
       !fingerprint t.fingerprint
