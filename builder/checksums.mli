@@ -17,6 +17,7 @@
  *)
 
 type csum_t =
+| SHA256 of string
 | SHA512 of string
 
 val verify_checksum : csum_t -> string -> unit

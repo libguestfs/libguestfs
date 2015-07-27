@@ -24,17 +24,21 @@ open Utils
 open Printf
 
 type csum_t =
+| SHA256 of string
 | SHA512 of string
 
 let string_of_csum_t = function
+  | SHA256 _ -> "sha256"
   | SHA512 _ -> "sha512"
 
 let string_of_csum = function
+  | SHA256 c -> c
   | SHA512 c -> c
 
 let verify_checksum csum filename =
   let prog, csum_ref =
     match csum with
+    | SHA256 c -> "sha256sum", c
     | SHA512 c -> "sha512sum", c
   in
 
