@@ -182,12 +182,30 @@ and verify_detached t filename sigfile =
       do_verify t args
   )
 
-and do_verify t args =
+and verify_and_remove_signature t filename =
+  if t.check_signature then (
+    (* Copy the input file as temporary file with the .asc extension,
+     * so gpg recognises that format. *)
+    let asc_file = Filename.temp_file "vbfile" ".asc" in
+    unlink_on_exit asc_file;
+    let cmd = sprintf "cp %s %s" (quote filename) (quote asc_file) in
+    if verbose () then printf "%s\n%!" cmd;
+    if Sys.command cmd <> 0 then exit 1;
+    let out_file = Filename.temp_file "vbfile" "" in
+    unlink_on_exit out_file;
+    let args = sprintf "--yes --output %s %s" (quote out_file) (quote filename) in
+    do_verify ~verify_only:false t args;
+    Some out_file
+  ) else
+    None
+
+and do_verify ?(verify_only = true) t args =
   let status_file = Filename.temp_file "vbstat" ".txt" in
   unlink_on_exit status_file;
   let cmd =
-    sprintf "%s --homedir %s --verify%s --status-file %s %s"
+    sprintf "%s --homedir %s %s%s --status-file %s %s"
         t.gpg t.gpghome
+        (if verify_only then "--verify" else "")
         (if verbose () then "" else " --batch -q --logger-file /dev/null")
         (quote status_file) args in
   if verbose () then printf "%s\n%!" cmd;

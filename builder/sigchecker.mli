@@ -30,3 +30,7 @@ val verify : t -> string -> unit
 val verify_detached : t -> string -> string option -> unit
 (** Verify the file is signed against the detached signature
     (if check_signature is true). *)
+
+val verify_and_remove_signature : t -> string -> string option
+(** If check_signature is true, verify the file is signed and extract
+    the content of the file (i.e. without the signature). *)
