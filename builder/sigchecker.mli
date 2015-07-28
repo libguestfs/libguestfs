@@ -20,6 +20,10 @@ type t
 
 val create : gpg:string -> gpgkey:Utils.gpgkey_type -> check_signature:bool -> t
 
+val verifying_signatures : t -> bool
+(** Return whether signatures are being verified by this
+    Sigchecker.t. *)
+
 val verify : t -> string -> unit
 (** Verify the file is signed (if check_signature is true). *)
 

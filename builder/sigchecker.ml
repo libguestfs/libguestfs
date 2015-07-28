@@ -163,6 +163,9 @@ and getxdigit = function
   | 'A'..'F' as c -> Some (Char.code c - Char.code 'A')
   | _ -> None
 
+let verifying_signatures t =
+  t.check_signature
+
 let rec verify t filename =
   if t.check_signature then (
     let args = quote filename in
