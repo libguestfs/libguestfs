@@ -21,15 +21,12 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let machine_id_perform g root side_effects =
+let machine_id_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
-    let path = "/etc/machine-id" in
-    (try g#rm path with G.Error _ -> ());
-    (try
-       g#touch path;
-       side_effects#created_file ()
-     with G.Error _ -> ());
+    let paths = [ "/etc/machine-id"; ] in
+    let paths = List.filter g#is_file paths in
+    List.iter g#truncate paths
   )
 
 let op = {
