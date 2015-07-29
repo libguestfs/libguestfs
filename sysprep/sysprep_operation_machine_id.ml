@@ -24,7 +24,8 @@ module G = Guestfs
 let machine_id_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
-    let paths = [ "/etc/machine-id"; ] in
+    let paths = [ "/etc/machine-id";
+                  "/var/lib/dbus/machine-id"; ] in
     let paths = List.filter g#is_file paths in
     List.iter g#truncate paths
   )
