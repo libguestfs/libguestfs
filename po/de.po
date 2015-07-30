@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-07-21 12:19+0100\n"
+"POT-Creation-Date: 2015-07-30 14:45+0100\n"
 "PO-Revision-Date: 2015-01-10 08:39-0500\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -49,10 +49,25 @@ msgstr "%s"
 
 #. ../get-kernel/get_kernel.ml:154
 #. ../customize/customize_main.ml:230
-#. ../builder/builder.ml:654
+#. ../builder/builder.ml:657
 #: ../v2v/v2v.ml:699 ../v2v/v2v.ml:549 ../sysprep/main.ml:258
 msgid "%s (ignored)"
 msgstr "%s (ignoriert)"
+
+#: ../builder/checksums.ml:54
+msgid ""
+"%s checksum of template did not match the expected checksum!\n"
+"  found checksum: %s\n"
+"  expected checksum: %s\n"
+"Try:\n"
+" - Use the '-v' option and look for earlier error messages.\n"
+" - Delete the cache: virt-builder --delete-cache\n"
+" - Check no one has tampered with the website or your network!"
+msgstr ""
+
+#: ../builder/checksums.ml:50
+msgid "%s did not return any output"
+msgstr ""
 
 #: ../v2v/output_rhev.ml:95
 msgid ""
@@ -98,15 +113,15 @@ msgstr "%s: %s (ignoriert)\n"
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
-#: ../builder/sources.ml:55
+#: ../builder/sources.ml:58
 msgid "%s: '%s' has invalid gpgkey URI\n"
 msgstr ""
 
-#: ../builder/sources.ml:65
+#: ../builder/sources.ml:68
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr ""
 
-#: ../builder/sources.ml:87
+#: ../builder/sources.ml:103
 msgid "%s: ... read %d sources\n"
 msgstr ""
 
@@ -192,23 +207,23 @@ msgstr ""
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
-#: ../builder/index_parser.ml:225
+#: ../builder/index_parser.ml:138
 msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:250
+#: ../builder/index_parser.ml:163
 msgid "%s: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:206
+#: ../builder/index_parser.ml:119
 msgid "%s: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:217
+#: ../builder/index_parser.ml:130
 msgid "%s: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:295
+#: ../builder/index_parser.ml:213
 msgid "%s: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -263,7 +278,7 @@ msgid ""
 "read the man page virt-get-kernel(1).\n"
 msgstr ""
 
-#: ../builder/sources.ml:130
+#: ../builder/sources.ml:146
 msgid "%s: file error: %s: %s\n"
 msgstr "%s: Dateifehler: %s: %s\n"
 
@@ -271,21 +286,21 @@ msgstr "%s: Dateifehler: %s: %s\n"
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../builder/index_parser.ml:167
+#: ../builder/index_parser.ml:80
 msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:165
+#: ../builder/index_parser.ml:78
 msgid "%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:149
+#: ../builder/index_parser.ml:62
 msgid ""
 "%s: index is corrupt: os-version '%s' with architecture '%s' appears two or "
 "more times\n"
 msgstr ""
 
-#: ../builder/sources.ml:135
+#: ../builder/sources.ml:151
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: interner Fehler: ungültiges Argument: %s\n"
 
@@ -304,19 +319,19 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: Größe der neuen Partition ist Null oder negativ"
 
-#: ../builder/index_parser.ml:191
+#: ../builder/index_parser.ml:104
 msgid "%s: no 'arch' entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:186
+#: ../builder/index_parser.ml:99
 msgid "%s: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:214
+#: ../builder/index_parser.ml:127
 msgid "%s: no 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/sources.ml:47
+#: ../builder/sources.ml:50
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
@@ -401,7 +416,7 @@ msgstr ""
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../builder/sources.ml:36
+#: ../builder/sources.ml:39
 msgid "%s: trying to read %s\n"
 msgstr "%s: Es wird versucht, %s zu lesen\n"
 
@@ -409,6 +424,10 @@ msgstr "%s: Es wird versucht, %s zu lesen\n"
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
+msgstr ""
+
+#: ../builder/sources.ml:87
+msgid "%s: unknown repository type '%s' in %s, skipping it\n"
 msgstr ""
 
 #: ../v2v/input_ova.ml:102 ../v2v/input_ova.ml:99
@@ -423,11 +442,11 @@ msgstr ""
 msgid "%s: warning: %s"
 msgstr "%s: Warnung: %s"
 
-#: ../builder/index_parser.ml:299
+#: ../builder/index_parser.ml:217
 msgid "%s: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:291
+#: ../builder/index_parser.ml:209
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
@@ -858,7 +877,7 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:601
+#: ../builder/builder.ml:604
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -882,7 +901,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:531
+#: ../builder/builder.ml:534
 msgid "Copying"
 msgstr ""
 
@@ -1062,7 +1081,7 @@ msgstr ""
 msgid "Download size:"
 msgstr "Downloadgröße:"
 
-#: ../builder/builder.ml:270 ../builder/builder.ml:212
+#: ../builder/builder.ml:273 ../builder/builder.ml:215
 msgid "Downloading: %s"
 msgstr "Download läuft: %s"
 
@@ -1236,7 +1255,7 @@ msgid "Fingerprint: %s\n"
 msgstr "Fingerabdruck: %s\n"
 
 #: ../v2v/v2v.ml:465 ../customize/customize_main.ml:240
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:706
 msgid "Finishing off"
 msgstr ""
 
@@ -1283,7 +1302,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:696
 msgid "Free space"
 msgstr "Freier Platz"
 
@@ -1291,19 +1310,19 @@ msgstr "Freier Platz"
 msgid "Full name:"
 msgstr "Voller Name:"
 
-#: ../builder/sigchecker.ml:87
+#: ../builder/sigchecker.ml:115
 msgid ""
 "GPG failure: could not run GPG the first time\n"
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../builder/sigchecker.ml:64
+#: ../builder/sigchecker.ml:65
 msgid ""
 "GPG failure: could not trust the imported key\n"
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../builder/sigchecker.ml:165
+#: ../builder/sigchecker.ml:214
 msgid ""
 "GPG failure: could not verify digital signature of file\n"
 "Try:\n"
@@ -1531,7 +1550,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:617
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1563,11 +1582,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:688
+#: ../builder/builder.ml:691
 msgid "Output file"
 msgstr "Ausgabedatei"
 
-#: ../builder/builder.ml:690
+#: ../builder/builder.ml:693
 msgid "Output format"
 msgstr "Ausgabeformat"
 
@@ -1583,7 +1602,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:689
+#: ../builder/builder.ml:692
 msgid "Output size"
 msgstr "Ausgabegröße"
 
@@ -1634,7 +1653,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:468
+#: ../builder/builder.ml:471
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1822,7 +1841,7 @@ msgstr "SSSD-Protokolldateien und -Datenbank entfernen"
 msgid "Remove the firewall rules"
 msgstr "Firewall-Regeln entfernen"
 
-#: ../sysprep/sysprep_operation_machine_id.ml:39
+#: ../sysprep/sysprep_operation_machine_id.ml:37
 msgid "Remove the local machine ID"
 msgstr ""
 
@@ -1879,11 +1898,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Partitionsgröße ändern"
 
-#: ../builder/builder.ml:558
+#: ../builder/builder.ml:561
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:588
+#: ../builder/builder.ml:591
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2239,14 +2258,14 @@ msgid ""
 "See: L<https://bugzilla.redhat.com/show_bug.cgi?id=991641>"
 msgstr ""
 
-#: ../builder/index_parser.ml:117
+#: ../builder/index_parser.ml:30
 msgid ""
 "The index file downloaded from '%s' is corrupt.\n"
 "You need to ask the supplier of this file to fix it and upload a fixed "
 "version."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_machine_id.ml:40
+#: ../sysprep/sysprep_operation_machine_id.ml:38
 msgid ""
 "The machine ID is usually generated from a random source during system\n"
 "installation and stays constant for all subsequent boots.  Optionally,\n"
@@ -2300,7 +2319,7 @@ msgid ""
 "This option can be specified multiple times."
 msgstr ""
 
-#: ../builder/builder.ml:254
+#: ../builder/builder.ml:257
 msgid "There are no notes for %s\n"
 msgstr ""
 
@@ -2375,7 +2394,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:694
 msgid "Total usable space"
 msgstr ""
 
@@ -2407,7 +2426,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:546
+#: ../builder/builder.ml:549
 msgid "Uncompressing"
 msgstr ""
 
@@ -2587,13 +2606,13 @@ msgid ""
 "kraxel.org/repos/), or AAVMF (if using aarch64)"
 msgstr ""
 
-#: ../builder/builder.ml:241
+#: ../builder/builder.ml:244
 msgid ""
 "cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../builder/builder.ml:327
+#: ../builder/builder.ml:330
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
@@ -2633,17 +2652,6 @@ msgid ""
 "expected sha1 (%s) = %s)"
 msgstr ""
 
-#: ../builder/sigchecker.ml:206
-msgid ""
-"checksum of template did not match the expected checksum!\n"
-"  found checksum: %s\n"
-"  expected checksum: %s\n"
-"Try:\n"
-" - Use the '-v' option and look for earlier error messages.\n"
-" - Delete the cache: virt-builder --delete-cache\n"
-" - Check no one has tampered with the website or your network!"
-msgstr ""
-
 #: ../customize/customize_cmdline.ml:449
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
@@ -2666,7 +2674,7 @@ msgid ""
 "'%s'.  Try running 'virsh define %s' yourself instead."
 msgstr ""
 
-#: ../builder/sigchecker.ml:102
+#: ../builder/sigchecker.ml:130
 msgid ""
 "could not export public key\n"
 "Use the '-v' option and look for earlier error messages."
@@ -2682,7 +2690,7 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../builder/sigchecker.ml:44
+#: ../builder/sigchecker.ml:45
 msgid ""
 "could not import public key\n"
 "Use the '-v' option and look for earlier error messages."
@@ -2723,10 +2731,6 @@ msgstr ""
 
 #: ../v2v/convert_linux.ml:1019
 msgid "could not remove grub2 serial console (ignored)"
-msgstr ""
-
-#: ../builder/sigchecker.ml:194
-msgid "could not run sha512sum command to verify checksum"
 msgstr ""
 
 #: ../builder/downloader.ml:93
@@ -2923,7 +2927,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../builder/sigchecker.ml:181
+#: ../builder/sigchecker.ml:231
 msgid ""
 "fingerprint of signature does not match the expected fingerprint!\n"
 "  found fingerprint: %s\n"
@@ -3026,7 +3030,7 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../builder/builder.ml:352
+#: ../builder/builder.ml:355
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -3040,7 +3044,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../builder/builder.ml:312
+#: ../builder/builder.ml:315
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
@@ -3156,11 +3160,11 @@ msgstr ""
 msgid "no .ovf file was found in %s"
 msgstr ""
 
-#: ../builder/builder.ml:205
+#: ../builder/builder.ml:208
 msgid "no cache directory"
 msgstr ""
 
-#: ../builder/builder.ml:198
+#: ../builder/builder.ml:201
 msgid "no cache directory\n"
 msgstr ""
 
@@ -3168,7 +3172,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:658
+#: ../builder/builder.ml:661
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3209,7 +3213,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:473
+#: ../builder/builder.ml:476
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3287,7 +3291,7 @@ msgid ""
 "considered in future."
 msgstr ""
 
-#: ../builder/builder.ml:355
+#: ../builder/builder.ml:358
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -3323,10 +3327,10 @@ msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:166
+#: ../customize/password.ml:167
 msgid ""
-"password: using insecure md5 password encryption for\n"
-"guest of type %s version %d.\n"
+"password: using insecure md5 password encryption for guest of type %s "
+"version %d.%d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
@@ -3511,7 +3515,7 @@ msgid ""
 "The guest will be configured to use standard VGA."
 msgstr ""
 
-#: ../builder/sigchecker.ml:148
+#: ../builder/sigchecker.ml:179
 msgid ""
 "there is no detached signature file\n"
 "This probably means the index file is missing a sig=... line.\n"
@@ -6468,12 +6472,13 @@ msgstr ""
 #: fish/cmds.c:20656 fish/cmds.c:20718 fish/cmds.c:20731 fish/cmds.c:20791
 #: fish/cmds.c:20804 fish/cmds.c:20964 fish/cmds.c:21084 fish/cmds.c:21126
 #: fish/cmds.c:21412 fish/cmds.c:21464 fish/cmds.c:21537 fish/cmds.c:21567
-#: fish/cmds.c:21659 fish/cmds.c:21733 fish/cmds.c:22744 fish/cmds.c:22955
-#: fish/cmds.c:23286 fish/cmds.c:23299 fish/cmds.c:23372 fish/cmds.c:23703
-#: fish/cmds.c:23737 fish/cmds.c:24241 fish/cmds.c:24254 fish/cmds.c:24267
-#: fish/cmds.c:24280 fish/cmds.c:24293 fish/cmds.c:24359 fish/cmds.c:24372
-#: fish/cmds.c:24385 fish/cmds.c:24560 fish/cmds.c:24573 fish/cmds.c:24586
-#: fish/cmds.c:24599
+#: fish/cmds.c:21659 fish/cmds.c:21733 fish/cmds.c:22690 fish/cmds.c:22703
+#: fish/cmds.c:22716 fish/cmds.c:22783 fish/cmds.c:22802 fish/cmds.c:22815
+#: fish/cmds.c:22828 fish/cmds.c:23033 fish/cmds.c:23364 fish/cmds.c:23377
+#: fish/cmds.c:23450 fish/cmds.c:23781 fish/cmds.c:23815 fish/cmds.c:24319
+#: fish/cmds.c:24332 fish/cmds.c:24345 fish/cmds.c:24358 fish/cmds.c:24371
+#: fish/cmds.c:24437 fish/cmds.c:24450 fish/cmds.c:24463 fish/cmds.c:24638
+#: fish/cmds.c:24651 fish/cmds.c:24664 fish/cmds.c:24677
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
@@ -6489,9 +6494,9 @@ msgstr ""
 #: fish/cmds.c:17663 fish/cmds.c:18023 fish/cmds.c:18141 fish/cmds.c:18238
 #: fish/cmds.c:18334 fish/cmds.c:18713 fish/cmds.c:18770 fish/cmds.c:18842
 #: fish/cmds.c:20321 fish/cmds.c:20666 fish/cmds.c:20741 fish/cmds.c:20814
-#: fish/cmds.c:21136 fish/cmds.c:22563 fish/cmds.c:22687 fish/cmds.c:22760
-#: fish/cmds.c:23118 fish/cmds.c:23309 fish/cmds.c:23382 fish/cmds.c:24313
-#: fish/cmds.c:24486 fish/cmds.c:24687
+#: fish/cmds.c:21136 fish/cmds.c:22563 fish/cmds.c:22726 fish/cmds.c:22838
+#: fish/cmds.c:23196 fish/cmds.c:23387 fish/cmds.c:23460 fish/cmds.c:24391
+#: fish/cmds.c:24564 fish/cmds.c:24765
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: Unbekanntes optionales Argument »%s«\n"
@@ -6507,9 +6512,9 @@ msgstr "%s: Unbekanntes optionales Argument »%s«\n"
 #: fish/cmds.c:17669 fish/cmds.c:18029 fish/cmds.c:18147 fish/cmds.c:18244
 #: fish/cmds.c:18340 fish/cmds.c:18719 fish/cmds.c:18776 fish/cmds.c:18848
 #: fish/cmds.c:20327 fish/cmds.c:20672 fish/cmds.c:20747 fish/cmds.c:20820
-#: fish/cmds.c:21142 fish/cmds.c:22569 fish/cmds.c:22693 fish/cmds.c:22766
-#: fish/cmds.c:23124 fish/cmds.c:23315 fish/cmds.c:23388 fish/cmds.c:24319
-#: fish/cmds.c:24492 fish/cmds.c:24693
+#: fish/cmds.c:21142 fish/cmds.c:22569 fish/cmds.c:22732 fish/cmds.c:22844
+#: fish/cmds.c:23202 fish/cmds.c:23393 fish/cmds.c:23466 fish/cmds.c:24397
+#: fish/cmds.c:24570 fish/cmds.c:24771
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: Optionales Argument »%s« wurde zweimal angegeben\n"
@@ -6554,12 +6559,12 @@ msgstr "%s: Optionales Argument »%s« wurde zweimal angegeben\n"
 #: fish/cmds.c:21376 fish/cmds.c:21601 fish/cmds.c:21793 fish/cmds.c:21842
 #: fish/cmds.c:21861 fish/cmds.c:21880 fish/cmds.c:21958 fish/cmds.c:21977
 #: fish/cmds.c:21996 fish/cmds.c:22015 fish/cmds.c:22192 fish/cmds.c:22630
-#: fish/cmds.c:22914 fish/cmds.c:22972 fish/cmds.c:22995 fish/cmds.c:23023
-#: fish/cmds.c:23040 fish/cmds.c:23063 fish/cmds.c:23091 fish/cmds.c:23108
-#: fish/cmds.c:23239 fish/cmds.c:23457 fish/cmds.c:23519 fish/cmds.c:23532
-#: fish/cmds.c:23545 fish/cmds.c:23558 fish/cmds.c:24194 fish/cmds.c:24402
-#: fish/cmds.c:24419 fish/cmds.c:24436 fish/cmds.c:24453 fish/cmds.c:24470
-#: fish/cmds.c:24616 fish/cmds.c:24633 fish/cmds.c:24650 fish/cmds.c:24667
+#: fish/cmds.c:22992 fish/cmds.c:23050 fish/cmds.c:23073 fish/cmds.c:23101
+#: fish/cmds.c:23118 fish/cmds.c:23141 fish/cmds.c:23169 fish/cmds.c:23186
+#: fish/cmds.c:23317 fish/cmds.c:23535 fish/cmds.c:23597 fish/cmds.c:23610
+#: fish/cmds.c:23623 fish/cmds.c:23636 fish/cmds.c:24272 fish/cmds.c:24480
+#: fish/cmds.c:24497 fish/cmds.c:24514 fish/cmds.c:24531 fish/cmds.c:24548
+#: fish/cmds.c:24694 fish/cmds.c:24711 fish/cmds.c:24728 fish/cmds.c:24745
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -6587,28 +6592,28 @@ msgstr ""
 #: fish/cmds.c:21382 fish/cmds.c:21607 fish/cmds.c:21799 fish/cmds.c:21848
 #: fish/cmds.c:21867 fish/cmds.c:21886 fish/cmds.c:21964 fish/cmds.c:21983
 #: fish/cmds.c:22002 fish/cmds.c:22021 fish/cmds.c:22198 fish/cmds.c:22636
-#: fish/cmds.c:22978 fish/cmds.c:23001 fish/cmds.c:23046 fish/cmds.c:23069
-#: fish/cmds.c:23245 fish/cmds.c:24200 fish/cmds.c:24476
+#: fish/cmds.c:23056 fish/cmds.c:23079 fish/cmds.c:23124 fish/cmds.c:23147
+#: fish/cmds.c:23323 fish/cmds.c:24278 fish/cmds.c:24554
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: Ganzzahl außerhalb des Bereichs\n"
 
-#: fish/cmds.c:25007
+#: fish/cmds.c:25085
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: fish/cmds.c:25009
+#: fish/cmds.c:25087
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: fish/cmds.c:25010
+#: fish/cmds.c:25088
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: fish/cmds.c:25015
+#: fish/cmds.c:25093
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: Unbekannter Befehl\n"
