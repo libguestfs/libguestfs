@@ -20,6 +20,8 @@ Fedora/RHEL users:
   A useful tip is to run:
 
     yum-builddep libguestfs
+  or:
+    dnf builddep libguestfs
 
   which will install all build dependencies automatically.  If that is
   successful, you don't need to bother with the rest of this section.
