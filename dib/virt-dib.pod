@@ -63,7 +63,7 @@ This parameter is B<mandatory>, as virt-dib needs to provide it for
 the elements (as some of them might use scripts in it).
 Virt-dib itself does not make use of the library directory.
 
-=item B<--arch> ARCHITECURE
+=item B<--arch> ARCHITECTURE
 
 Use the specified architecture for the output image.  The default
 value is the same as the host running virt-dib.
