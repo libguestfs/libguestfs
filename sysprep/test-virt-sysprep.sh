@@ -19,6 +19,11 @@
 export LANG=C
 set -e
 
+if [ -n "$SKIP_TEST_VIRT_SYSPREP_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
+
 # Get a comma-separated list of the enabled-by-default operations.
 operations=$(
   virt-sysprep --list-operations |
