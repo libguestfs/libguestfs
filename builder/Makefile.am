@@ -65,13 +65,13 @@ SOURCES_ML = \
 	builder.ml
 
 SOURCES_C = \
-	$(top_srcdir)/mllib/fsync-c.c \
-	$(top_srcdir)/mllib/uri-c.c \
-	$(top_srcdir)/mllib/mkdtemp-c.c \
-	$(top_srcdir)/customize/perl_edit-c.c \
-	$(top_srcdir)/customize/crypt-c.c \
-	$(top_srcdir)/fish/uri.c \
-	$(top_srcdir)/fish/file-edit.c \
+	../mllib/fsync-c.c \
+	../mllib/uri-c.c \
+	../mllib/mkdtemp-c.c \
+	../customize/perl_edit-c.c \
+	../customize/crypt-c.c \
+	../fish/uri.c \
+	../fish/file-edit.c \
 	index-scan.c \
 	index-struct.c \
 	index-parse.c \

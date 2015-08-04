@@ -97,7 +97,7 @@ SOURCES_ML = \
 	v2v.ml
 
 SOURCES_C = \
-	$(top_srcdir)/mllib/mkdtemp-c.c \
+	../mllib/mkdtemp-c.c \
 	domainxml-c.c \
 	kvmuid-c.c \
 	utils-c.c \
