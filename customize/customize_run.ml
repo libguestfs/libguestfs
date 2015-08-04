@@ -123,7 +123,7 @@ exec >>%s 2>&1
         apt-get $apt_opts upgrade
       "
     | "dnf" ->
-      sprintf "dnf -y update"
+      sprintf "dnf -y --best upgrade"
     | "pisi" ->
       sprintf "pisi upgrade"
     | "pacman" ->
