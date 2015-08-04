@@ -30,7 +30,7 @@ SOURCES_ML = \
 	dib.ml
 
 SOURCES_C = \
-	$(top_srcdir)/mllib/mkdtemp-c.c
+	../mllib/mkdtemp-c.c
 
 bin_PROGRAMS =
 

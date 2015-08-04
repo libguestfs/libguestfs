@@ -65,10 +65,10 @@ SOURCES_ML = \
 	customize_main.ml
 
 SOURCES_C = \
-	$(top_srcdir)/fish/uri.c \
-	$(top_srcdir)/fish/file-edit.c \
-	$(top_srcdir)/fish/file-edit.h \
-	$(top_srcdir)/mllib/uri-c.c \
+	../fish/uri.c \
+	../fish/file-edit.c \
+	../fish/file-edit.h \
+	../mllib/uri-c.c \
 	crypt-c.c \
 	perl_edit-c.c
 

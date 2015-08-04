@@ -30,11 +30,11 @@ SOURCES_ML = \
 	resize.ml
 
 SOURCES_C = \
-	$(top_srcdir)/mllib/fsync-c.c \
-	$(top_srcdir)/fish/progress.c \
-	$(top_srcdir)/mllib/progress-c.c \
-	$(top_srcdir)/fish/uri.c \
-	$(top_srcdir)/mllib/uri-c.c
+	../mllib/fsync-c.c \
+	../fish/progress.c \
+	../mllib/progress-c.c \
+	../fish/uri.c \
+	../mllib/uri-c.c
 
 if HAVE_OCAML
 

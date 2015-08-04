@@ -23,6 +23,7 @@
 bindtests.tmp
 cscope.out
 .deps
+.dirstamp
 .gdb_history
 .libs
 Makefile

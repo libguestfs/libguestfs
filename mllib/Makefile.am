@@ -50,8 +50,8 @@ SOURCES_ML = \
 	JSON.ml
 
 SOURCES_C = \
-	$(top_srcdir)/fish/progress.c \
-	$(top_srcdir)/fish/uri.c \
+	../fish/progress.c \
+	../fish/uri.c \
 	fsync-c.c \
 	mkdtemp-c.c \
 	progress-c.c \

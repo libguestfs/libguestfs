@@ -27,8 +27,8 @@ SOURCES_ML = \
 	get_kernel.ml
 
 SOURCES_C = \
-	$(top_srcdir)/mllib/uri-c.c \
-	$(top_srcdir)/fish/uri.c
+	../mllib/uri-c.c \
+	../fish/uri.c
 
 man_MANS =
 noinst_DATA =

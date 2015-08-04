@@ -27,8 +27,8 @@ check_PROGRAMS = $(TESTS)
 
 test_parallel_mount_local_SOURCES = \
 	test-parallel-mount-local.c \
-	$(top_srcdir)/df/estimate-max-threads.c \
-	$(top_srcdir)/df/estimate-max-threads.h
+	../../df/estimate-max-threads.c \
+	../../df/estimate-max-threads.h
 test_parallel_mount_local_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
