@@ -121,6 +121,9 @@ systemctl set-default multi-user.target
 # Start p2v service
 systemctl enable p2v.service
 
+# Disable ssh service (RHBZ#1248678)
+systemctl disable sshd.service
+
 %end
 
 %post --nochroot
