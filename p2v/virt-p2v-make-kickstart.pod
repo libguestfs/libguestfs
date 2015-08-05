@@ -33,8 +33,9 @@ will build a kickstart file for Fedora.  The kickstart file will be
 called F<p2v.ks> and located in the current directory.
 
 The parameters are a list of one or more repositories.  Some built-in
-repositories are available: C<fedora>, C<rawhide> or C<koji>.  You can
-also use a URL as a parameter to point to a repository, for example:
+repositories are available: C<fedora>, C<rawhide>, C<koji> or
+C<rhel-VERSION> (eg. C<rhel-7.1>).  You can also use a URL as a
+parameter to point to a repository, for example:
 
  virt-p2v-make-kickstart https://dl.fedoraproject.org/pub/fedora/linux/releases/21/Everything/x86_64/os/
 
