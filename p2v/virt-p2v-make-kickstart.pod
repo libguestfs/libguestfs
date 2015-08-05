@@ -33,8 +33,9 @@ will build a kickstart file for Fedora.  The kickstart file will be
 called C<p2v.ks> and located in the current directory.
 
 The parameters are a list of one or more repositories.  Some built-in
-repositories are available: C<fedora>, C<rawhide> or C<koji>.  You can
-also use a URL as a parameter to point to a repository.
+repositories are available: C<fedora>, C<rawhide>, C<koji> or
+C<rhel-VERSION> (eg. C<rhel-7.1>).  You can also use a URL as a
+parameter to point to a repository.
 
 To control the name of the output file, use the I<-o> parameter.  To
 tell kickstart to use a proxy server or web cache to download files,
