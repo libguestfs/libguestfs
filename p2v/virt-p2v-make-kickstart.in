@@ -157,6 +157,7 @@ done
   '{
     gsub (/__PACKAGE_NAME__/, "@PACKAGE_NAME@");
     gsub (/__PACKAGE_VERSION__/, "@PACKAGE_VERSION@");
+    gsub (/__PACKAGE_VERSION_FULL__/, "@PACKAGE_VERSION_FULL@");
     gsub (/__BASE64_ISSUE__/, base64_issue);
     gsub (/__BASE64_LAUNCH_VIRT_P2V__/, base64_launch_virt_p2v);
     gsub (/__BASE64_P2V_SERVICE__/, base64_p2v_service);
