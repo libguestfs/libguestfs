@@ -951,11 +951,14 @@ may also have to be escaped.
 
 =item C<server>
 
-is the vCenter Server (I<not> hypervisor)
+is the vCenter Server (I<not> hypervisor).
 
 =item C<Datacenter>
 
-is the name of the datacenter
+is the name of the datacenter.
+
+If the name contains a space, replace it with the URI-escape code
+C<%20>.
 
 =item C<esxi>
 
