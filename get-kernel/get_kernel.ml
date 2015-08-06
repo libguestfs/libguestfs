@@ -139,9 +139,9 @@ read the man page virt-get-kernel(1).
 
   let roots = g#inspect_os () in
   if Array.length roots = 0 then
-    error (f_"get-kernel: no operating system found");
+    error (f_"no operating system found");
   if Array.length roots > 1 then
-    error (f_"get-kernel: dual/multi-boot images are not supported by this tool");
+    error (f_"dual/multi-boot images are not supported by this tool");
   let root = roots.(0) in
 
   (* Mount up the disks. *)
