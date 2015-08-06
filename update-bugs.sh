@@ -46,7 +46,6 @@ perl -e '
       /^(\d+) (\w+) (.*)/; push @bugs, [bugclass($2), $1, $2, $3];
     }
     # No bugs?  Fail.
-    print STDERR "#bugs = ", 0+@bugs;
     if (0+@bugs == 0) {
         die "failed to get list of bugs\n"
     }
