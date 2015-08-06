@@ -2219,6 +2219,31 @@ arbitrary code execution (confined to the libguestfs appliance).
 In libguestfs E<ge> 1.29.5 and E<ge> 1.28.3, libguestfs uses the
 C<strings> I<-a> option to avoid BFD parsing on the file.
 
+=head2 CVE-2015-5745
+
+L<https://bugzilla.redhat.com/show_bug.cgi?id=1251157>
+
+This is not a vulnerability in libguestfs, but because we always give
+a virtio-serial port to each guest (since that is how guest-host
+communication happens), an escalation from the appliance to the host
+qemu process is possible.  This could affect you if:
+
+=over 4
+
+=item *
+
+your libguestfs program runs untrusted programs out of the guest
+(using L</guestfs_sh> etc), or
+
+=item *
+
+another exploit was found in (for example) kernel filesystem code that
+allowed a malformed filesystem to take over the appliance.
+
+=back
+
+If you use sVirt to confine qemu, that would thwart some attacks.
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
