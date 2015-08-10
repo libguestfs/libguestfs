@@ -601,8 +601,10 @@ let main () =
         try Some (List.assoc `Format itags) with Not_found -> None in
       let ofile = List.assoc `Filename otags in
       let oformat = List.assoc `Format otags in
-      message (f_"Converting %s to %s")
-        (match iformat with None -> "auto" | Some f -> f) oformat;
+      (match iformat with
+      | None -> message (f_"Converting to %s") oformat
+      | Some f -> message (f_"Converting %s to %s") f oformat
+      );
       let cmd = sprintf "qemu-img convert%s %s -O %s %s%s"
         (match iformat with
         | None -> ""
