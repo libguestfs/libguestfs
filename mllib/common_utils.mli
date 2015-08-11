@@ -175,6 +175,11 @@ val qemu_input_filename : string -> string
 val mkdir_p : string -> int -> unit
 (** Creates a directory, and its parents if missing. *)
 
+val normalize_arch : string -> string
+(** Normalize the architecture name, i.e. maps it into a defined
+    identifier for it -- e.g. i386, i486, i586, and i686 are
+    normalized as i386. *)
+
 val guest_arch_compatible : string -> bool
 (** Are guest arch and host_cpu compatible, in terms of being able
     to run commands in the libguestfs appliance? *)

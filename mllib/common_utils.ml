@@ -730,13 +730,21 @@ let rec mkdir_p path permissions =
     mkdir_p (Filename.dirname path) permissions;
     Unix.mkdir path permissions
 
+let normalize_arch = function
+  | "i386" | "i486" | "i586" | "i686" -> "i386"
+  | "amd64" | "x86_64" -> "x86_64"
+  | "powerpc" | "ppc" -> "ppc"
+  | arch -> arch
+
 (* Are guest arch and host_cpu compatible, in terms of being able
  * to run commands in the libguestfs appliance?
  *)
 let guest_arch_compatible guest_arch =
-  match Config.host_cpu, guest_arch with
+  let own = normalize_arch Config.host_cpu in
+  let guest_arch = normalize_arch guest_arch in
+  match own, guest_arch with
   | x, y when x = y -> true
-  | "x86_64", ("i386"|"i486"|"i586"|"i686") -> true
+  | "x86_64", "i386" -> true
   | _ -> false
 
 (** Return the last part of a string, after the specified separator. *)
