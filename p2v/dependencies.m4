@@ -38,6 +38,7 @@ ifelse(REDHAT,1,
   /usr/bin/Xorg
   xorg-x11-drivers
   xorg-x11-fonts-Type1
+  mesa-dri-drivers
   metacity
 
   NetworkManager
