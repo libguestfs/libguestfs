@@ -123,6 +123,24 @@ containing the files required to PXE boot virt-p2v:
  tftpboot/pxelinux.cfg:
  default
 
+=head1 32 OR 64 BIT VIRT-P2V?
+
+Virt-p2v can convert any 32 or 64 bit guest, regardless of whether
+virt-p2v itself is built as a 32 or 64 bit binary.  The only
+restriction is that 64 bit virt-p2v cannot run on 32 bit hardware.
+
+Old virt-p2v 0.9 was always built as a 32 bit (i686) ISO.  This meant
+that the CD could be booted on any 32- or 64-bit i686 or x86-64
+hardware, and could convert any guest.  The old virt-p2v ISO shipped
+by Red Hat was based on Red Hat Enterprise Linux (RHEL) 6.
+
+Since RHEL 7 dropped support for 32 bit machines, current virt-p2v on
+RHEL can only be built for 64 bit.  It cannot run on old 32 bit only
+hardware.
+
+Fedora virt-p2v ISOs are generally built for 32 bit, so like the old
+RHEL 6-based virt-p2v 0.9 they can boot on any hardware.
+
 =head1 TESTING VIRT-P2V USING QEMU
 
 =head2 TESTING THE P2V ISO USING QEMU
