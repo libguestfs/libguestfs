@@ -26,5 +26,12 @@ type gpgkey_type =
   | No_Key
   | Fingerprint of string
   | KeyFile of string
+and revision =
+  | Rev_int of int
+  | Rev_string of string
 
 let quote = Filename.quote
+
+let string_of_revision = function
+  | Rev_int n -> string_of_int n
+  | Rev_string s -> s

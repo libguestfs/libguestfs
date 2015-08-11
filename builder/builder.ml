@@ -34,6 +34,13 @@ open Printf
 let () = Random.self_init ()
 
 let remove_duplicates index =
+  let compare_revisions rev1 rev2 =
+    match rev1, rev2 with
+    | Rev_int n1, Rev_int n2 -> compare n1 n2
+    | Rev_string s1, Rev_int n2 -> compare s1 (string_of_int n2)
+    | Rev_int n1, Rev_string s2 -> compare (string_of_int n1) s2
+    | Rev_string s1, Rev_string s2 -> compare s1 s2
+  in
   (* Fill an hash with the higher revision of the available
    * (name, arch) tuples, so it possible to ignore duplicates,
    * and versions with a lower revision.
@@ -44,7 +51,7 @@ let remove_duplicates index =
       let id = name, arch in
       try
         let rev = Hashtbl.find nseen id in
-        if revision > rev then
+        if compare_revisions rev revision > 0 then
           Hashtbl.replace nseen id revision
       with Not_found ->
         Hashtbl.add nseen id revision

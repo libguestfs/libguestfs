@@ -24,7 +24,7 @@ and entry = {
   arch : string;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
   checksums : Checksums.csum_t list option;
-  revision : int;
+  revision : Utils.revision;
   format : string option;
   size : int64;
   compressed_size : int64 option;

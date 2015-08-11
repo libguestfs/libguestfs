@@ -32,7 +32,7 @@ and entry = {
   arch : string;
   signature_uri : string option;        (* deprecated, will be removed in 1.26 *)
   checksums : Checksums.csum_t list option;
-  revision : int;
+  revision : Utils.revision;
   format : string option;
   size : int64;
   compressed_size : int64 option;
@@ -86,7 +86,7 @@ let print_entry chan (name, { printable_name = printable_name;
           (Checksums.string_of_csum_t c) (Checksums.string_of_csum c)
     ) checksums
   );
-  fp "revision=%d\n" revision;
+  fp "revision=%s\n" (string_of_revision revision);
   (match format with
   | None -> ()
   | Some format -> fp "format=%s\n" format

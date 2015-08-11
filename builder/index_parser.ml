@@ -112,9 +112,9 @@ let get_index ~downloader ~sigchecker
               try Some (List.assoc ("checksum", None) fields)
               with Not_found -> None in
           let revision =
-            try int_of_string (List.assoc ("revision", None) fields)
+            try Rev_int (int_of_string (List.assoc ("revision", None) fields))
             with
-            | Not_found -> 1
+            | Not_found -> Rev_int 1
             | Failure "int_of_string" ->
               eprintf (f_"%s: cannot parse 'revision' field for '%s'\n") prog n;
               corrupt_file () in
