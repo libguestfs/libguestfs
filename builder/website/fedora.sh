@@ -88,7 +88,7 @@ virt-install \
     --name=$tmpname \
     --ram=2048 \
     --cpu=host --vcpus=2 \
-    --os-type=linux --os-variant=fedora18 \
+    --os-type=linux --os-variant=fedora22 \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyS0,115200 proxy=$http_proxy" \
     --disk $(pwd)/$output,size=6,format=raw \
