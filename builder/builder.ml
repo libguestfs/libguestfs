@@ -238,7 +238,7 @@ let main () =
   let item =
     try List.find (
       fun (name, { Index.arch = a }) ->
-        name = arg && arch = a
+        name = arg && arch = normalize_arch a
     ) index
     with Not_found ->
       error (f_"cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.")

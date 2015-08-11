@@ -295,6 +295,7 @@ read the man page virt-builder(1).
     match arch with
     | "" -> Config.host_cpu
     | arch -> arch in
+  let arch = normalize_arch arch in
 
   (* If user didn't elect any root password, that means we set a random
    * root password.
