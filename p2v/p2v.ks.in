@@ -59,6 +59,9 @@ firewalld
 /usr/bin/base64
 /usr/bin/gzip
 
+# Work around https://bugzilla.redhat.com/show_bug.cgi?id=1182362
+tar
+
 # The dependencies of virt-p2v.
 /usr/bin/xinit
 /usr/bin/ssh
