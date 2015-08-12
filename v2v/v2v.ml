@@ -370,10 +370,8 @@ let rec main () =
           (* What output preallocation mode should we use? *)
           let preallocation =
             match t.target_format, output_alloc with
-            | "raw", `Sparse -> Some "sparse"
-            | "raw", `Preallocated -> Some "full"
-            | "qcow2", `Sparse -> Some "off" (* ? *)
-            | "qcow2", `Preallocated -> Some "metadata"
+            | ("raw"|"qcow2"), `Sparse -> Some "sparse"
+            | ("raw"|"qcow2"), `Preallocated -> Some "full"
             | _ -> None (* ignore -oa flag for other formats *) in
           let compat =
             match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
