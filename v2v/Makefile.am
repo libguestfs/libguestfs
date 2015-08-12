@@ -241,6 +241,7 @@ TESTS += \
 	test-v2v-o-qemu.sh \
 	test-v2v-o-rhev.sh \
 	test-v2v-o-vdsm-options.sh \
+	test-v2v-oa-option.sh \
 	test-v2v-of-option.sh \
 	test-v2v-on-option.sh \
 	test-v2v-print-source.sh \
