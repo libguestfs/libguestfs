@@ -601,6 +601,16 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
   }
+  else if (guestfs_is_file_opts (g, "/etc/alpine-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    fs->distro = OS_DISTRO_ALPINE_LINUX;
+
+    if (parse_release_file (g, fs, "/etc/alpine-release") == -1)
+      return -1;
+
+    if (guestfs_int_parse_major_minor (g, fs) == -1)
+      return -1;
+  }
 
  skip_release_checks:;
 

@@ -494,6 +494,7 @@ guestfs_int_check_package_format (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_FREEBSD:
   case OS_DISTRO_NETBSD:
   case OS_DISTRO_OPENBSD:
+  case OS_DISTRO_ALPINE_LINUX:
   case OS_DISTRO_UNKNOWN:
     fs->package_format = OS_PACKAGE_FORMAT_UNKNOWN;
     break;
@@ -565,6 +566,7 @@ guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_FREEBSD:
   case OS_DISTRO_NETBSD:
   case OS_DISTRO_OPENBSD:
+  case OS_DISTRO_ALPINE_LINUX:
   case OS_DISTRO_UNKNOWN:
     fs->package_management = OS_PACKAGE_MANAGEMENT_UNKNOWN;
     break;

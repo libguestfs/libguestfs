@@ -1055,6 +1055,10 @@ Currently defined distros are:
 
 =over 4
 
+=item \"alpinelinux\"
+
+Alpine Linux.
+
 =item \"archlinux\"
 
 Arch Linux.
