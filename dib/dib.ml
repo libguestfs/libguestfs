@@ -283,6 +283,7 @@ if [ -z \"$preserve_env\" ]; then
   for envvar in `env | grep '^\\w' | cut -d= -f1`; do
     case \"$envvar\" in
       PATH | USER | USERNAME | HOSTNAME | TERM | LANG | HOME | SHELL | LOGNAME ) ;;
+      BASH_FUNC_* ) unset -f $envvar ;;
       *) unset $envvar ;;
     esac
   done
