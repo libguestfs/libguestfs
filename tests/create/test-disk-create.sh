@@ -27,11 +27,14 @@ rm -f disk*.img file:*.img
 
 guestfish <<EOF
   disk-create disk1.img  raw   256K
+  disk-create disk2.img  raw   256K preallocation:off
   disk-create disk2.img  raw   256K preallocation:sparse
   disk-create disk3.img  raw   256K preallocation:full
   disk-create disk4.img  qcow2 256K
   disk-create disk5.img  qcow2 256K preallocation:off
+  disk-create disk5.img  qcow2 256K preallocation:sparse
   disk-create disk6.img  qcow2 256K preallocation:metadata
+  disk-create disk6.img  qcow2 256K preallocation:full
   disk-create disk7.img  qcow2 256K compat:1.1
   disk-create disk8.img  qcow2 256K clustersize:128K
   disk-create disk9.img  qcow2 -1   backingfile:disk1.img compat:1.1
