@@ -117,10 +117,15 @@ WantedBy=default.target
 
   (* Install the systemd firstboot service, if not installed already. *)
   and install_systemd_service g =
-    g#write (sprintf "%s/firstboot.service" firstboot_dir) firstboot_service;
+    (* RHBZ#1250955: systemd will only recognize unit files located
+     * in /usr/lib/systemd/system/
+     *)
+    let unitdir = "/usr/lib/systemd/system" in
+    g#mkdir_p unitdir;
+    let unitfile = sprintf "%s/firstboot.service" unitdir in
+    g#write unitfile firstboot_service;
     g#mkdir_p "/etc/systemd/system/default.target.wants";
-    g#ln_sf (sprintf "%s/firstboot.service" firstboot_dir)
-      "/etc/systemd/system/default.target.wants"
+    g#ln_sf unitfile "/etc/systemd/system/default.target.wants"
 
   and install_sysvinit_service g = function
     | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
