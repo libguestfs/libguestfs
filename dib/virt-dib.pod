@@ -493,6 +493,25 @@ as temporary location, for example:
  env TMPDIR=$PWD/local-tmp virt-dib ...
  rm -rf local-tmp
 
+=head1 EXTRA DEPENDENCIES
+
+Because of virt-dib runs most of the elements in its own appliance,
+all the tools and libraries used by elements running outside the
+guest (typically C<root.d>, C<block-device.d>, and C<cleanup.d>)
+need to be present in the appliance as well.  In case they
+are not, scripts will fail mostly with a C<command not found> error.
+
+For tools and libraries packaged by the distribution, the easy
+solution is to tell libguestfs to include additional packages in the
+appliance.  This is doable by e.g. creating a new file with the
+additional packages:
+
+ # echo wget > /usr/lib64/guestfs/supermin.d/dib-my-extra
+
+The actual path to the F<supermin.d> directory depends on the
+distribution; additional files can list more packages, each in
+its own line.
+
 =head1 COMPARISON WITH DISKIMAGE-BUILDER
 
 Virt-dib is intended as safe replacement for C<diskimage-builder>
@@ -563,6 +582,11 @@ named e.g. F<00-create-missing-dirs> to create the missing
 directories
 
 =back
+
+=item
+
+extra tools needed on some out-of-chroot phases need to be available
+in the appliance, see L</EXTRA DEPENDENCIES>.
 
 =back
 
