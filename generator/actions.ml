@@ -3109,13 +3109,14 @@ The other optional parameters are:
 
 =item C<preallocation>
 
-If format is C<raw>, then this can be either C<sparse> or C<full>
-to create a sparse or fully allocated file respectively.  The default
-is C<sparse>.
+If format is C<raw>, then this can be either C<off> (or C<sparse>)
+or C<full> to create a sparse or fully allocated file respectively.
+The default is C<off>.
 
-If format is C<qcow2>, then this can be either C<off> or
-C<metadata>.  Preallocating metadata can be faster when doing lots
-of writes, but uses more space.  The default is C<off>.
+If format is C<qcow2>, then this can be C<off> (or C<sparse>),
+C<metadata> or C<full>.  Preallocating metadata can be faster
+when doing lots of writes, but uses more space.
+The default is C<off>.
 
 =item C<compat>
 

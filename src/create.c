@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2012 Red Hat Inc.
+ * Copyright (C) 2012-2015 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -139,7 +139,8 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
     return -1;
   }
   if (optargs->bitmask & GUESTFS_DISK_CREATE_PREALLOCATION_BITMASK) {
-    if (STREQ (optargs->preallocation, "sparse"))
+    if (STREQ (optargs->preallocation, "off") ||
+        STREQ (optargs->preallocation, "sparse"))
       allocated = 0;
     else if (STREQ (optargs->preallocation, "full"))
       allocated = 1;
@@ -267,8 +268,15 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
     }
   }
   if (optargs->bitmask & GUESTFS_DISK_CREATE_PREALLOCATION_BITMASK) {
-    preallocation = optargs->preallocation;
-    if (STRNEQ (preallocation, "off") && STRNEQ (preallocation, "metadata")) {
+    if (STREQ (optargs->preallocation, "off") ||
+        STREQ (optargs->preallocation, "sparse"))
+      preallocation = "off";
+    else if (STREQ (optargs->preallocation, "metadata"))
+      preallocation = "metadata";
+    else if (STREQ (optargs->preallocation, "full"))
+      /* Ugh: https://lists.gnu.org/archive/html/qemu-devel/2014-08/msg03863.html */
+      preallocation = "falloc";
+    else {
       error (g, _("invalid value for preallocation parameter '%s'"),
              preallocation);
       return -1;
