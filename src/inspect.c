@@ -530,6 +530,7 @@ guestfs_impl_inspect_get_package_format (guestfs_h *g, const char *root)
   case OS_PACKAGE_FORMAT_EBUILD: ret = safe_strdup (g, "ebuild"); break;
   case OS_PACKAGE_FORMAT_PISI: ret = safe_strdup (g, "pisi"); break;
   case OS_PACKAGE_FORMAT_PKGSRC: ret = safe_strdup (g, "pkgsrc"); break;
+  case OS_PACKAGE_FORMAT_APK: ret = safe_strdup (g, "apk"); break;
   case OS_PACKAGE_FORMAT_UNKNOWN:
     ret = safe_strdup (g, "unknown");
     break;
@@ -550,6 +551,7 @@ guestfs_impl_inspect_get_package_management (guestfs_h *g, const char *root)
     return NULL;
 
   switch (fs->package_management) {
+  case OS_PACKAGE_MANAGEMENT_APK: ret = safe_strdup (g, "apk"); break;
   case OS_PACKAGE_MANAGEMENT_APT: ret = safe_strdup (g, "apt"); break;
   case OS_PACKAGE_MANAGEMENT_DNF: ret = safe_strdup (g, "dnf"); break;
   case OS_PACKAGE_MANAGEMENT_PACMAN: ret = safe_strdup (g, "pacman"); break;

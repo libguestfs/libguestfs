@@ -563,6 +563,7 @@ enum inspect_os_package_format {
   OS_PACKAGE_FORMAT_EBUILD,
   OS_PACKAGE_FORMAT_PISI,
   OS_PACKAGE_FORMAT_PKGSRC,
+  OS_PACKAGE_FORMAT_APK,
 };
 
 enum inspect_os_package_management {
@@ -576,6 +577,7 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_URPMI,
   OS_PACKAGE_MANAGEMENT_ZYPPER,
   OS_PACKAGE_MANAGEMENT_DNF,
+  OS_PACKAGE_MANAGEMENT_APK,
 };
 
 struct inspect_fs {

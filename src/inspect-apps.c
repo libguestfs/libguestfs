@@ -162,6 +162,7 @@ guestfs_impl_inspect_list_applications2 (guestfs_h *g, const char *root)
 	  return NULL;
 	break;
 
+      case OS_PACKAGE_FORMAT_APK:
       case OS_PACKAGE_FORMAT_EBUILD:
       case OS_PACKAGE_FORMAT_PISI:
       case OS_PACKAGE_FORMAT_PKGSRC:
