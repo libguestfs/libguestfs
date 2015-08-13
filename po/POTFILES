@@ -6,6 +6,7 @@ builder/index-struct.c
 builder/index-validate.c
 builder/pxzcat-c.c
 builder/setlocale-c.c
+builder/yajl-c.c
 cat/cat.c
 cat/filesystems.c
 cat/log.c

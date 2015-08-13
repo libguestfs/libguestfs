@@ -60,6 +60,7 @@ Makefile.in
 /builder/index-parse.h
 /builder/index-scan.c
 /builder/libguestfs.conf
+/builder/oUnit-*
 /builder/*.qcow2
 /builder/stamp-virt-builder.pod
 /builder/stamp-virt-index-validate.pod
@@ -70,6 +71,7 @@ Makefile.in
 /builder/virt-index-validate
 /builder/virt-index-validate.1
 /builder/*.xz
+/builder/yajl_tests
 /cat/stamp-virt-*.pod
 /cat/virt-cat
 /cat/virt-cat.1

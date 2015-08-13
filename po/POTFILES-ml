@@ -14,6 +14,8 @@ builder/setlocale.ml
 builder/sigchecker.ml
 builder/sources.ml
 builder/utils.ml
+builder/yajl.ml
+builder/yajl_tests.ml
 customize/crypt.ml
 customize/customize_cmdline.ml
 customize/customize_main.ml

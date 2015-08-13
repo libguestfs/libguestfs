@@ -32,7 +32,8 @@ EXTRA_DIST = \
 	test-virt-index-validate-good-2 \
 	test-virt-index-validate-good-3 \
 	virt-builder.pod \
-	virt-index-validate.pod
+	virt-index-validate.pod \
+	yajl_tests.ml
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-builder
 
@@ -48,7 +49,8 @@ SOURCES_MLI = \
 	pxzcat.mli \
 	setlocale.mli \
 	sigchecker.mli \
-	sources.mli
+	sources.mli \
+	yajl.mli
 
 SOURCES_ML = \
 	utils.ml \
@@ -57,6 +59,7 @@ SOURCES_ML = \
 	checksums.ml \
 	index.ml \
 	ini_reader.ml \
+	yajl.ml \
 	paths.ml \
 	languages.ml \
 	cache.ml \
@@ -81,7 +84,8 @@ SOURCES_C = \
 	index-parse.c \
 	index-parser-c.c \
 	pxzcat-c.c \
-	setlocale-c.c
+	setlocale-c.c \
+	yajl-c.c
 
 man_MANS =
 noinst_DATA =
@@ -106,7 +110,8 @@ virt_builder_CFLAGS = \
 	-Wno-unused-macros \
 	$(LIBLZMA_CFLAGS) \
 	$(LIBTINFO_CFLAGS) \
-	$(LIBXML2_CFLAGS)
+	$(LIBXML2_CFLAGS) \
+	$(YAJL_CFLAGS)
 
 BOBJECTS = \
 	$(top_builddir)/mllib/libdir.cmo \
@@ -145,8 +150,12 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
+OCAMLPACKAGES_TESTS =
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
+endif
+if HAVE_OCAML_PKG_OUNIT
+OCAMLPACKAGES_TESTS += -package oUnit
 endif
 
 OCAMLCLIBS = \
@@ -156,6 +165,7 @@ OCAMLCLIBS = \
 	$(LIBCRYPT_LIBS) \
 	$(LIBLZMA_LIBS) \
 	$(LIBXML2_LIBS) \
+	$(YAJL_LIBS) \
 	$(LIBINTL) \
 	-lgnu
 
@@ -232,13 +242,40 @@ fedora.qcow2.xz: fedora.qcow2
 	xz --best -c $< > $@-t
 	mv $@-t $@
 
+yajl_tests_SOURCES = yajl-c.c
+yajl_tests_CPPFLAGS = $(virt_builder_CPPFLAGS)
+yajl_tests_BOBJECTS = \
+	yajl.cmo \
+	yajl_tests.cmo
+yajl_tests_XOBJECTS = $(yajl_tests_BOBJECTS:.cmo=.cmx)
+
+# Can't call the following as <test>_OBJECTS because automake gets confused.
+if HAVE_OCAMLOPT
+yajl_tests_THEOBJECTS = $(yajl_tests_XOBJECTS)
+yajl_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+else
+yajl_tests_THEOBJECTS = $(yajl_tests_BOBJECTS)
+yajl_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+endif
+
+yajl_tests_DEPENDENCIES = $(yajl_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+yajl_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
+	  $(yajl_tests_THEOBJECTS) -o $@
+
 TESTS = \
 	test-virt-builder-list.sh \
 	test-virt-index-validate.sh
+check_PROGRAMS =
 
 if ENABLE_APPLIANCE
 TESTS += test-virt-builder.sh
 endif ENABLE_APPLIANCE
+if HAVE_OCAML_PKG_OUNIT
+check_PROGRAMS += yajl_tests
+TESTS += yajl_tests
+endif
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
