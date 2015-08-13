@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-07-30 14:45+0100\n"
+"POT-Creation-Date: 2015-08-13 16:41+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -47,8 +47,8 @@ msgstr ""
 
 #. ../get-kernel/get_kernel.ml:154
 #. ../customize/customize_main.ml:230
-#. ../builder/builder.ml:657
-#: ../v2v/v2v.ml:699 ../v2v/v2v.ml:549 ../sysprep/main.ml:258
+#. ../builder/builder.ml:659
+#: ../v2v/v2v.ml:697 ../v2v/v2v.ml:547 ../sysprep/main.ml:258
 msgid "%s (ignored)"
 msgstr ""
 
@@ -443,7 +443,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:193
+#: ../customize/firstboot.ml:198
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -802,7 +802,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:912
+#: ../v2v/v2v.ml:910
 msgid "CD-ROM"
 msgstr ""
 
@@ -810,7 +810,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
-#: ../dib/dib.ml:495
+#: ../dib/dib.ml:496
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -866,11 +866,11 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../dib/dib.ml:857
+#: ../dib/dib.ml:858
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:604
+#: ../builder/builder.ml:606
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -882,7 +882,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:881
+#: ../dib/dib.ml:882 ../builder/builder.ml:605
 msgid "Converting to %s"
 msgstr ""
 
@@ -934,7 +934,7 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:450
+#: ../v2v/v2v.ml:448
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1062,7 +1062,7 @@ msgstr ""
 msgid "Don't trim selected mounts"
 msgstr ""
 
-#: ../dib/dib.ml:919
+#: ../dib/dib.ml:920
 msgid "Done"
 msgstr ""
 
@@ -1078,7 +1078,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:485
+#: ../v2v/v2v.ml:483
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../dib/dib.ml:469
+#: ../dib/dib.ml:470
 msgid "Elements: %s"
 msgstr ""
 
@@ -1142,7 +1142,7 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:498
+#: ../v2v/v2v.ml:496
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
@@ -1178,7 +1178,7 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../dib/dib.ml:492
+#: ../dib/dib.ml:493
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1194,7 +1194,7 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:836
+#: ../dib/dib.ml:837
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1247,8 +1247,8 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:465 ../customize/customize_main.ml:240
-#: ../builder/builder.ml:706
+#: ../v2v/v2v.ml:463 ../customize/customize_main.ml:240
+#: ../builder/builder.ml:708
 msgid "Finishing off"
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:698
 msgid "Free space"
 msgstr ""
 
@@ -1388,7 +1388,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../dib/dib.ml:422
+#: ../dib/dib.ml:423
 msgid "Installing: %s"
 msgstr ""
 
@@ -1536,11 +1536,11 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../dib/dib.ml:623
+#: ../dib/dib.ml:624
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:617
+#: ../builder/builder.ml:619
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1572,11 +1572,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:693
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:695
 msgid "Output format"
 msgstr ""
 
@@ -1592,7 +1592,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:692
+#: ../builder/builder.ml:694
 msgid "Output size"
 msgstr ""
 
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:461
+#: ../v2v/v2v.ml:459
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1635,11 +1635,11 @@ msgstr ""
 msgid "Performing %S ..."
 msgstr ""
 
-#: ../v2v/v2v.ml:525
+#: ../v2v/v2v.ml:523
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:516
+#: ../v2v/v2v.ml:514
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -1651,7 +1651,7 @@ msgstr ""
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:514
+#: ../dib/dib.ml:515
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -1938,7 +1938,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../dib/dib.ml:403 ../dib/dib.ml:370
+#: ../dib/dib.ml:404 ../dib/dib.ml:371
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -2143,7 +2143,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:759
+#: ../dib/dib.ml:760
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2384,7 +2384,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:696
 msgid "Total usable space"
 msgstr ""
 
@@ -2412,7 +2412,7 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../dib/dib.ml:862
+#: ../dib/dib.ml:863
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2464,7 +2464,7 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../dib/dib.ml:914
+#: ../dib/dib.ml:915
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -2650,7 +2650,7 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
-#: ../v2v/v2v.ml:505
+#: ../v2v/v2v.ml:503
 msgid "connection closed"
 msgstr ""
 
@@ -2821,6 +2821,10 @@ msgstr ""
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
+#: ../get-kernel/get_kernel.ml:144
+msgid "dual/multi-boot images are not supported by this tool"
+msgstr ""
+
 #: ../sysprep/sysprep_operation.ml:132
 msgid "duplicate operation name (%s)"
 msgstr ""
@@ -2928,7 +2932,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:913
+#: ../v2v/v2v.ml:911
 msgid "floppy disk"
 msgstr ""
 
@@ -2952,14 +2956,6 @@ msgstr ""
 
 #: ../mllib/common_utils.ml:372
 msgid "generated by %s %s"
-msgstr ""
-
-#: ../get-kernel/get_kernel.ml:144
-msgid "get-kernel: dual/multi-boot images are not supported by this tool"
-msgstr ""
-
-#: ../get-kernel/get_kernel.ml:142
-msgid "get-kernel: no operating system found"
 msgstr ""
 
 #: ../v2v/output_glance.ml:57
@@ -2993,11 +2989,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../customize/firstboot.ml:133
+#: ../customize/firstboot.ml:138
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:319
+#: ../customize/firstboot.ml:324
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3102,7 +3098,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:532
+#: ../v2v/v2v.ml:530
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3130,7 +3126,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:512
+#: ../v2v/v2v.ml:510
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3162,7 +3158,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:661
+#: ../builder/builder.ml:663
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3191,6 +3187,10 @@ msgid ""
 "of this guest."
 msgstr ""
 
+#: ../get-kernel/get_kernel.ml:142
+msgid "no operating system found"
+msgstr ""
+
 #: ../sysprep/main.ml:242 ../customize/customize_main.ml:217
 msgid "no operating systems were found in the guest image"
 msgstr ""
@@ -3199,7 +3199,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../dib/dib.ml:688
+#: ../dib/dib.ml:689
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3210,7 +3210,7 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/v2v.ml:478
+#: ../v2v/v2v.ml:476
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -3220,7 +3220,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:639
+#: ../v2v/v2v.ml:637
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3344,7 +3344,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:400 ../v2v/v2v.ml:145
+#: ../v2v/v2v.ml:398 ../v2v/v2v.ml:145
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3356,7 +3356,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:910
+#: ../v2v/v2v.ml:908
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3369,7 +3369,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:523
+#: ../v2v/v2v.ml:521
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -3462,7 +3462,7 @@ msgid ""
 "guest: %d)"
 msgstr ""
 
-#: ../dib/dib.ml:446
+#: ../dib/dib.ml:447
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
@@ -3553,7 +3553,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:544
+#: ../v2v/v2v.ml:542
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3852,7 +3852,7 @@ msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮ
 #: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
 #: diff/diff.c:264 edit/edit.c:158 fish/fish.c:294 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:124 inspector/inspector.c:152
-#: make-fs/make-fs.c:146 p2v/main.c:142 rescue/rescue.c:193
+#: make-fs/make-fs.c:146 p2v/main.c:149 rescue/rescue.c:193
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
@@ -7565,24 +7565,24 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:129
+#: p2v/conversion.c:152
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:212
+#: p2v/conversion.c:235
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:224
+#: p2v/conversion.c:247
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:311
+#: p2v/conversion.c:334
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:316
+#: p2v/conversion.c:339
 msgid "Control connection closed by remote."
 msgstr ""
 
@@ -7868,9 +7868,16 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:167
+#: p2v/main.c:174
 #, c-format
 msgid "%s: unused arguments on the command line\n"
+msgstr ""
+
+#: p2v/main.c:202
+#, c-format
+msgid ""
+"%s: gtk_init_check returned false, indicating that\n"
+"a GUI is not possible on this host.  Check X11, $DISPLAY etc.\n"
 msgstr ""
 
 #: rescue/rescue.c:60
@@ -8065,60 +8072,60 @@ msgstr ""
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:148 src/create.c:278
+#: src/create.c:149 src/create.c:286
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr ""
 
-#: src/create.c:154
+#: src/create.c:155
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:158
+#: src/create.c:159
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:165
+#: src/create.c:166
 #, c-format
 msgid "refusing to overwrite char device '%s'"
 msgstr ""
 
-#: src/create.c:175
+#: src/create.c:176
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr ""
 
-#: src/create.c:181
+#: src/create.c:182
 #, c-format
 msgid "%s: truncate"
 msgstr ""
 
-#: src/create.c:194
+#: src/create.c:195
 #, c-format
 msgid "%s: fallocate"
 msgstr ""
 
-#: src/create.c:212
+#: src/create.c:213
 #, c-format
 msgid "%s: write"
 msgstr ""
 
-#: src/create.c:223
+#: src/create.c:224
 #, c-format
 msgid "%s: close"
 msgstr ""
 
-#: src/create.c:270
+#: src/create.c:271
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr ""
 
-#: src/create.c:286
+#: src/create.c:294
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr ""
 
-#: src/create.c:294
+#: src/create.c:302
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr ""
@@ -8551,8 +8558,8 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:186 src/inspect-fs-unix.c:273
-#: src/inspect-fs-unix.c:1047 src/inspect-fs-unix.c:1811 src/inspect-fs.c:596
-#: src/inspect-fs.c:642 src/inspect.c:649
+#: src/inspect-fs-unix.c:1057 src/inspect-fs-unix.c:1821 src/inspect-fs.c:604
+#: src/inspect-fs.c:650 src/inspect.c:652
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
@@ -8562,24 +8569,24 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect-icon.c:646
+#: src/inspect-icon.c:647
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
 
-#: src/inspect.c:343
+#: src/inspect.c:344
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:359
+#: src/inspect.c:360
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:687
+#: src/inspect.c:690
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:697
+#: src/inspect.c:700
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
