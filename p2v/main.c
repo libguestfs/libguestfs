@@ -197,9 +197,13 @@ main (int argc, char *argv[])
     kernel_configuration (config, cmdline, cmdline_source);
   else {
   gui:
-    if (!gui_possible)
-      /* Gtk has already printed an error. */
+    if (!gui_possible) {
+      fprintf (stderr,
+               _("%s: gtk_init_check returned false, indicating that\n"
+                 "a GUI is not possible on this host.  Check X11, $DISPLAY etc.\n"),
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
+    }
     gui_application (config);
   }
 
