@@ -142,13 +142,15 @@ compile_regexps (void)
   /* The magic synchronization strings all match this expression.  See
    * start_ssh function below.
    */
-  COMPILE (prompt_re, "###([0123456789abcdefghijklmnopqrstuvwxyz]{8})### ", 0);
+  COMPILE (prompt_re,
+	   "###((?:[0123456789abcdefghijklmnopqrstuvwxyz]){8})### ", 0);
   COMPILE (version_re,
-           "virt-v2v ([1-9]\\d*)\\.([1-9]\\d*)\\.(0|[1-9]\\d*)", 0);
+           "virt-v2v ([1-9](?:\\d)*)\\.([1-9](?:\\d)*)\\.(0|[1-9](?:\\d)*)",
+	   0);
   COMPILE (feature_libguestfs_rewrite_re, "libguestfs-rewrite", 0);
-  COMPILE (feature_input_re, "input:(\\w*)", 0);
-  COMPILE (feature_output_re, "output:(\\w*)", 0);
-  COMPILE (portfwd_re, "Allocated port (\\d+) for remote forward", 0);
+  COMPILE (feature_input_re, "input:((?:\\w)*)", 0);
+  COMPILE (feature_output_re, "output:((?:\\w)*)", 0);
+  COMPILE (portfwd_re, "Allocated port ((?:\\d)+) for remote forward", 0);
 }
 
 static void
