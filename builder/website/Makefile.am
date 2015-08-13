@@ -31,9 +31,11 @@ EXTRA_DIST = \
 	fedora.sh \
 	fedora-aarch64.sh \
 	fedora-armv7l.sh \
+	fedora-i686.sh \
 	fedora-ppc64.sh \
 	fedora-ppc64le.sh \
 	rhel.sh \
+	rhel-aarch64.sh \
 	rhel-ppc64.sh \
 	rhel-ppc64le.sh \
 	scientificlinux.sh \
