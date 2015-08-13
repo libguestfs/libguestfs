@@ -110,6 +110,23 @@ compile_regexps (void)
 {
   const char *err;
   int offset;
+  int p;
+
+  /* These regexps are always used for partial matching.  In pcre < 8
+   * there were limitations on the regexps possible for partial
+   * matching, so fail if that is true here.  In pcre >= 8, all
+   * regexps can be used in a partial match.
+   */
+#define CHECK_PARTIAL_OK(pattern, re)					\
+  do {									\
+    pcre_fullinfo ((re), NULL, PCRE_INFO_OKPARTIAL, &p);		\
+    if (p != 1) {							\
+      fprintf (stderr, "%s: %s:%d: internal error: pattern '%s' cannot be used for partial matching\n", \
+	       guestfs_int_program_name,				\
+	       __FILE__, __LINE__, (pattern));				\
+      abort ();								\
+    }									\
+  } while (0)
 
 #define COMPILE(re,pattern,options)                                     \
   do {                                                                  \
@@ -118,6 +135,7 @@ compile_regexps (void)
       ignore_value (write (2, err, strlen (err)));                      \
       abort ();                                                         \
     }                                                                   \
+    CHECK_PARTIAL_OK ((pattern), re);					\
   } while (0)
 
   COMPILE (password_re, "assword", 0);
