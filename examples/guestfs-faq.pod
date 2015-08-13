@@ -894,7 +894,7 @@ standalone programs).
 =head2 Help, it's not working!
 
 If no libguestfs program seems to work at all, run the program below
-and paste the B<complete, unedited> output into the email to
+and paste the B<complete, unedited> output into an email to
 C<libguestfs> @ C<redhat.com>:
 
  libguestfs-test-tool
