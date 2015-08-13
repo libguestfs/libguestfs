@@ -40,6 +40,29 @@
 #include "miniexpect.h"
 #include "p2v.h"
 
+#ifndef HAVE_XMLBUFFERDETACH
+/* Added in libxml2 2.8.0.  This is mostly a copy of the function from
+ * upstream libxml2, which is under a more permissive license.
+ */
+static xmlChar *
+xmlBufferDetach (xmlBufferPtr buf)
+{
+  xmlChar *ret;
+
+  if (buf == NULL)
+    return NULL;
+  if (buf->alloc == XML_BUFFER_ALLOC_IMMUTABLE)
+    return NULL;
+
+  ret = buf->content;
+  buf->content = NULL;
+  buf->size = 0;
+  buf->use = 0;
+
+  return ret;
+}
+#endif
+
 /* How long to wait for qemu-nbd to start (seconds). */
 #define WAIT_QEMU_NBD_TIMEOUT 10
 
