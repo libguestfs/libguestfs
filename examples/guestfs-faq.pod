@@ -893,24 +893,30 @@ standalone programs).
 
 =head2 Help, it's not working!
 
-Please supply all the information in this checklist, in an
-email sent to C<libguestfs> @ C<redhat.com>:
+If no libguestfs program seems to work at all, run the program below
+and paste the B<complete, unedited> output into the email to
+C<libguestfs> @ C<redhat.com>:
+
+ libguestfs-test-tool
+
+If a particular operation fails, supply all the information in this
+checklist, in an email to C<libguestfs> @ C<redhat.com>:
 
 =over 4
 
-=item *
+=item 1.
 
-What are you trying to achieve?
+What are you trying to do?
 
-=item *
+=item 2.
 
-What exact commands did you run?
+What exact command(s) did you run?
 
-=item *
+=item 3.
 
-What was the precise error / output of these commands?
+What was the precise error or output of these commands?
 
-=item *
+=item 4.
 
 Enable debugging, run the commands again, and capture the B<complete>
 output.  B<Do not edit the output.>
@@ -918,17 +924,10 @@ output.  B<Do not edit the output.>
  export LIBGUESTFS_DEBUG=1
  export LIBGUESTFS_TRACE=1
 
-=item *
+=item 5.
 
 Include the version of libguestfs, the operating system version, and
 how you installed libguestfs (eg. from source, C<yum install>, etc.)
-
-=item *
-
-If no libguestfs program seems to work at all, run the program below
-and paste the B<complete, unedited> output into the email:
-
- libguestfs-test-tool
 
 =back
 
