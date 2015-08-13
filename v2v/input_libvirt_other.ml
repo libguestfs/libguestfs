@@ -43,7 +43,7 @@ let error_if_no_ssh_agent () =
     error (f_"ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page.")
 
 (* Superclass. *)
-class virtual input_libvirt password libvirt_uri guest =
+class virtual input_libvirt (password : string option) libvirt_uri guest =
 object
   inherit input
 
