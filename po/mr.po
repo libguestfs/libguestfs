@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-07-21 12:19+0100\n"
+"POT-Creation-Date: 2015-08-14 15:53+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/libguestfs/"
@@ -48,7 +48,7 @@ msgstr ""
 
 #. ../get-kernel/get_kernel.ml:154
 #. ../customize/customize_main.ml:230
-#. ../builder/builder.ml:654
+#. ../builder/builder.ml:656
 #: ../v2v/v2v.ml:699 ../v2v/v2v.ml:549 ../sysprep/main.ml:258
 msgid "%s (ignored)"
 msgstr ""
@@ -425,7 +425,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:193
+#: ../customize/firstboot.ml:198
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -792,7 +792,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
-#: ../dib/dib.ml:495
+#: ../dib/dib.ml:496
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -848,11 +848,11 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../dib/dib.ml:857
+#: ../dib/dib.ml:858
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:601
+#: ../builder/builder.ml:603
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -864,7 +864,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:881
+#: ../dib/dib.ml:882 ../builder/builder.ml:602
 msgid "Converting to %s"
 msgstr ""
 
@@ -1044,7 +1044,7 @@ msgstr ""
 msgid "Don't trim selected mounts"
 msgstr ""
 
-#: ../dib/dib.ml:919
+#: ../dib/dib.ml:920
 msgid "Done"
 msgstr ""
 
@@ -1082,7 +1082,7 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../dib/dib.ml:469
+#: ../dib/dib.ml:470
 msgid "Elements: %s"
 msgstr ""
 
@@ -1160,7 +1160,7 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../dib/dib.ml:492
+#: ../dib/dib.ml:493
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1176,7 +1176,7 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:836
+#: ../dib/dib.ml:837
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1230,7 +1230,7 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #: ../v2v/v2v.ml:465 ../customize/customize_main.ml:240
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:705
 msgid "Finishing off"
 msgstr ""
 
@@ -1277,7 +1277,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:695
 msgid "Free space"
 msgstr ""
 
@@ -1370,7 +1370,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../dib/dib.ml:422
+#: ../dib/dib.ml:423
 msgid "Installing: %s"
 msgstr ""
 
@@ -1518,11 +1518,11 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../dib/dib.ml:623
+#: ../dib/dib.ml:624
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:616
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1554,11 +1554,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:688
+#: ../builder/builder.ml:690
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:690
+#: ../builder/builder.ml:692
 msgid "Output format"
 msgstr ""
 
@@ -1574,7 +1574,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:689
+#: ../builder/builder.ml:691
 msgid "Output size"
 msgstr ""
 
@@ -1633,7 +1633,7 @@ msgstr ""
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:514
+#: ../dib/dib.ml:515
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -1813,7 +1813,7 @@ msgstr ""
 msgid "Remove the firewall rules"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_machine_id.ml:39
+#: ../sysprep/sysprep_operation_machine_id.ml:37
 msgid "Remove the local machine ID"
 msgstr ""
 
@@ -1920,7 +1920,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../dib/dib.ml:403 ../dib/dib.ml:370
+#: ../dib/dib.ml:404 ../dib/dib.ml:371
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -2125,7 +2125,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:759
+#: ../dib/dib.ml:760
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2237,7 +2237,7 @@ msgid ""
 "version."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_machine_id.ml:40
+#: ../sysprep/sysprep_operation_machine_id.ml:38
 msgid ""
 "The machine ID is usually generated from a random source during system\n"
 "installation and stays constant for all subsequent boots.  Optionally,\n"
@@ -2366,7 +2366,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:693
 msgid "Total usable space"
 msgstr ""
 
@@ -2394,7 +2394,7 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../dib/dib.ml:862
+#: ../dib/dib.ml:863
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2446,7 +2446,7 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../dib/dib.ml:914
+#: ../dib/dib.ml:915
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -2818,6 +2818,10 @@ msgstr ""
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
+#: ../get-kernel/get_kernel.ml:144
+msgid "dual/multi-boot images are not supported by this tool"
+msgstr ""
+
 #: ../sysprep/sysprep_operation.ml:132
 msgid "duplicate operation name (%s)"
 msgstr ""
@@ -2951,14 +2955,6 @@ msgstr ""
 msgid "generated by %s %s"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:144
-msgid "get-kernel: dual/multi-boot images are not supported by this tool"
-msgstr ""
-
-#: ../get-kernel/get_kernel.ml:142
-msgid "get-kernel: no operating system found"
-msgstr ""
-
 #: ../v2v/output_glance.ml:57
 msgid ""
 "glance: OpenStack conversion only supports virtual machines with a single "
@@ -2990,11 +2986,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../customize/firstboot.ml:133
+#: ../customize/firstboot.ml:138
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:319
+#: ../customize/firstboot.ml:324
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3159,7 +3155,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:658
+#: ../builder/builder.ml:660
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3188,6 +3184,10 @@ msgid ""
 "of this guest."
 msgstr ""
 
+#: ../get-kernel/get_kernel.ml:142
+msgid "no operating system found"
+msgstr ""
+
 #: ../sysprep/main.ml:242 ../customize/customize_main.ml:217
 msgid "no operating systems were found in the guest image"
 msgstr ""
@@ -3196,7 +3196,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../dib/dib.ml:688
+#: ../dib/dib.ml:689
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3314,10 +3314,10 @@ msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:166
+#: ../customize/password.ml:167
 msgid ""
-"password: using insecure md5 password encryption for\n"
-"guest of type %s version %d.\n"
+"password: using insecure md5 password encryption for guest of type %s "
+"version %d.%d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
@@ -3459,7 +3459,7 @@ msgid ""
 "guest: %d)"
 msgstr ""
 
-#: ../dib/dib.ml:446
+#: ../dib/dib.ml:447
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
@@ -3849,7 +3849,7 @@ msgstr "guestfs_create: हँडल निर्माण करण्यास
 #: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
 #: diff/diff.c:264 edit/edit.c:158 fish/fish.c:294 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:124 inspector/inspector.c:152
-#: make-fs/make-fs.c:146 p2v/main.c:142 rescue/rescue.c:193
+#: make-fs/make-fs.c:146 p2v/main.c:149 rescue/rescue.c:193
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: अपरिचीत लाँग पर्याय: %s (%d)\n"
@@ -7623,24 +7623,24 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:129
+#: p2v/conversion.c:152
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:212
+#: p2v/conversion.c:235
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:224
+#: p2v/conversion.c:247
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:311
+#: p2v/conversion.c:334
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:316
+#: p2v/conversion.c:339
 msgid "Control connection closed by remote."
 msgstr ""
 
@@ -7926,9 +7926,16 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:167
+#: p2v/main.c:174
 #, c-format
 msgid "%s: unused arguments on the command line\n"
+msgstr ""
+
+#: p2v/main.c:202
+#, c-format
+msgid ""
+"%s: gtk_init_check returned false, indicating that\n"
+"a GUI is not possible on this host.  Check X11, $DISPLAY etc.\n"
 msgstr ""
 
 #: rescue/rescue.c:60

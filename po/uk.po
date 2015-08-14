@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-07-21 12:19+0100\n"
+"POT-Creation-Date: 2015-08-14 15:53+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -55,7 +55,7 @@ msgstr "%s"
 
 #. ../get-kernel/get_kernel.ml:154
 #. ../customize/customize_main.ml:230
-#. ../builder/builder.ml:654
+#. ../builder/builder.ml:656
 #: ../v2v/v2v.ml:699 ../v2v/v2v.ml:549 ../sysprep/main.ml:258
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
@@ -548,7 +548,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr "%s: шлях нульової довжини у файлі покажчика\n"
 
-#: ../customize/firstboot.ml:193
+#: ../customize/firstboot.ml:198
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -963,7 +963,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr "Не вдалося отримати домашній каталог для %s"
 
-#: ../dib/dib.ml:495
+#: ../dib/dib.ml:496
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -1019,11 +1019,11 @@ msgstr "Параметр, призначений для збереження с�
 msgid "Compressed output format"
 msgstr "Стиснутий формат виведення даних"
 
-#: ../dib/dib.ml:857
+#: ../dib/dib.ml:858
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:601
+#: ../builder/builder.ml:603
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
@@ -1035,7 +1035,7 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../dib/dib.ml:881
+#: ../dib/dib.ml:882 ../builder/builder.ml:602
 msgid "Converting to %s"
 msgstr ""
 
@@ -1223,7 +1223,7 @@ msgstr "Не виводити даних резюме"
 msgid "Don't trim selected mounts"
 msgstr "Не обрізати вибрані монтування"
 
-#: ../dib/dib.ml:919
+#: ../dib/dib.ml:920
 msgid "Done"
 msgstr ""
 
@@ -1264,7 +1264,7 @@ msgstr "Редагувати файл за допомогою виразу Perl"
 msgid "Editing: %s"
 msgstr "Редагування: %s"
 
-#: ../dib/dib.ml:469
+#: ../dib/dib.ml:470
 msgid "Elements: %s"
 msgstr ""
 
@@ -1342,7 +1342,7 @@ msgstr "Розгорнути логічний том"
 msgid "Expand partition"
 msgstr "Розгорнути розділ"
 
-#: ../dib/dib.ml:492
+#: ../dib/dib.ml:493
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1358,7 +1358,7 @@ msgstr "Розширюємо %s%s з використанням методу «%
 msgid "Export Storage Domain"
 msgstr "Експортувати домен сховища"
 
-#: ../dib/dib.ml:836
+#: ../dib/dib.ml:837
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1417,7 +1417,7 @@ msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
 #: ../v2v/v2v.ml:465 ../customize/customize_main.ml:240
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:705
 msgid "Finishing off"
 msgstr "Завершуємо"
 
@@ -1471,7 +1471,7 @@ msgstr ""
 "Формат диска виведених даних (типове значення: той самий формат, що і у "
 "вхідних даних)"
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:695
 msgid "Free space"
 msgstr "Вільне місце"
 
@@ -1577,7 +1577,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
-#: ../dib/dib.ml:422
+#: ../dib/dib.ml:423
 msgid "Installing: %s"
 msgstr ""
 
@@ -1738,11 +1738,11 @@ msgstr ""
 "підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
-#: ../dib/dib.ml:623
+#: ../dib/dib.ml:624
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:614
+#: ../builder/builder.ml:616
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1774,11 +1774,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:688
+#: ../builder/builder.ml:690
 msgid "Output file"
 msgstr "Файл виведення"
 
-#: ../builder/builder.ml:690
+#: ../builder/builder.ml:692
 msgid "Output format"
 msgstr "Формат виведення"
 
@@ -1794,7 +1794,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr "Вивести UUID образу"
 
-#: ../builder/builder.ml:689
+#: ../builder/builder.ml:691
 msgid "Output size"
 msgstr "Розмір виведення"
 
@@ -1853,7 +1853,7 @@ msgstr "Плануємо побудову цього образу"
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:514
+#: ../dib/dib.ml:515
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -2042,7 +2042,7 @@ msgstr "Вилучити бази даних і файли журналів sssd
 msgid "Remove the firewall rules"
 msgstr "Вилучити правила брандмауера"
 
-#: ../sysprep/sysprep_operation_machine_id.ml:39
+#: ../sysprep/sysprep_operation_machine_id.ml:37
 msgid "Remove the local machine ID"
 msgstr "Вилучити ідентифікатор локального комп’ютера"
 
@@ -2168,7 +2168,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr "Виконуємо: %s"
 
-#: ../dib/dib.ml:403 ../dib/dib.ml:370
+#: ../dib/dib.ml:404 ../dib/dib.ml:371
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -2374,7 +2374,7 @@ msgstr "Встановлюємо часовий пояс: %s"
 msgid "Setting up initial partition table on %s"
 msgstr "Встановлюємо початкову таблицю розділів на %s"
 
-#: ../dib/dib.ml:759
+#: ../dib/dib.ml:760
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2535,7 +2535,7 @@ msgstr ""
 "Вам слід попросити постачальника виправити цю помилку і вивантажити "
 "виправлену версію."
 
-#: ../sysprep/sysprep_operation_machine_id.ml:40
+#: ../sysprep/sysprep_operation_machine_id.ml:38
 msgid ""
 "The machine ID is usually generated from a random source during system\n"
 "installation and stays constant for all subsequent boots.  Optionally,\n"
@@ -2729,7 +2729,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:693
 msgid "Total usable space"
 msgstr "Загальне придатне до використання місце"
 
@@ -2757,7 +2757,7 @@ msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 msgid "USER[:SELECTOR]"
 msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 
-#: ../dib/dib.ml:862
+#: ../dib/dib.ml:863
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2809,7 +2809,7 @@ msgstr "Користувачі, записи яких слід вилучити"
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../dib/dib.ml:914
+#: ../dib/dib.ml:915
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -3264,6 +3264,10 @@ msgstr ""
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
+#: ../get-kernel/get_kernel.ml:144
+msgid "dual/multi-boot images are not supported by this tool"
+msgstr ""
+
 #: ../sysprep/sysprep_operation.ml:132
 msgid "duplicate operation name (%s)"
 msgstr "дублювання назви операції (%s)"
@@ -3406,16 +3410,6 @@ msgstr "fs"
 msgid "generated by %s %s"
 msgstr ""
 
-#: ../get-kernel/get_kernel.ml:144
-msgid "get-kernel: dual/multi-boot images are not supported by this tool"
-msgstr ""
-"get-kernel: у цьому інструменті не передбачено підтримки образів із "
-"варіантами завантаження"
-
-#: ../get-kernel/get_kernel.ml:142
-msgid "get-kernel: no operating system found"
-msgstr "get-kernel: не знайдено операційної системи"
-
 #: ../v2v/output_glance.ml:57
 msgid ""
 "glance: OpenStack conversion only supports virtual machines with a single "
@@ -3458,11 +3452,11 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr "немає доступу до програми gpg"
 
-#: ../customize/firstboot.ml:133
+#: ../customize/firstboot.ml:138
 msgid "guest type %s is not supported"
 msgstr "підтримки типу гостьової системи %s не передбачено"
 
-#: ../customize/firstboot.ml:319
+#: ../customize/firstboot.ml:324
 msgid "guest type %s/%s is not supported"
 msgstr "підтримки типу гостьової системи %s/%s не передбачено"
 
@@ -3646,7 +3640,7 @@ msgstr "немає каталогу кешування\n"
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr "не знайдено файла налаштувань grub1/grub-legacy або grub2"
 
-#: ../builder/builder.ml:658
+#: ../builder/builder.ml:660
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3687,6 +3681,10 @@ msgstr ""
 "Це, ймовірно, означає, що %s не вдалося обробити налаштування grub цієї "
 "гостьової системи."
 
+#: ../get-kernel/get_kernel.ml:142
+msgid "no operating system found"
+msgstr ""
+
 #: ../sysprep/main.ml:242 ../customize/customize_main.ml:217
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
@@ -3697,7 +3695,7 @@ msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../dib/dib.ml:688
+#: ../dib/dib.ml:689
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3845,16 +3843,12 @@ msgstr ""
 "password-crypto: невідомий алгоритм %s, мало бути використано один з таких "
 "варіантів: «md5», «sha256» або «sha512»"
 
-#: ../customize/password.ml:166
+#: ../customize/password.ml:167
 msgid ""
-"password: using insecure md5 password encryption for\n"
-"guest of type %s version %d.\n"
+"password: using insecure md5 password encryption for guest of type %s "
+"version %d.%d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
-"пароль: використано незахищене шифрування пароля md5 для\n"
-"гостьової системи типу %s, версія %d.\n"
-"Якщо це не так, скористайтеся параметром --password-crypto і створіть "
-"повідомлення щодо вади."
 
 #: ../customize/customize_run.ml:355
 msgid "passwords could not be set for this type of guest"
@@ -4010,7 +4004,7 @@ msgstr ""
 "допомогою командного рядка, має дорівнювати кількості образів дисків "
 "гостьових систем (для цієї гостьової системи: %d)"
 
-#: ../dib/dib.ml:446
+#: ../dib/dib.ml:447
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
@@ -4479,7 +4473,7 @@ msgstr "guestfs_create: не вдалося створити елемент ке
 #: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
 #: diff/diff.c:264 edit/edit.c:158 fish/fish.c:294 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:124 inspector/inspector.c:152
-#: make-fs/make-fs.c:146 p2v/main.c:142 rescue/rescue.c:193
+#: make-fs/make-fs.c:146 p2v/main.c:149 rescue/rescue.c:193
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
@@ -8771,24 +8765,24 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr "%s: помилка підпроцесу\n"
 
-#: p2v/conversion.c:129
+#: p2v/conversion.c:152
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr "Відкриваємо з’єднання для обміну даними для %s…"
 
-#: p2v/conversion.c:212
+#: p2v/conversion.c:235
 msgid "Setting up the control connection ..."
 msgstr "Налаштовуємо контрольне з’єднання…"
 
-#: p2v/conversion.c:224
+#: p2v/conversion.c:247
 msgid "Doing conversion ..."
 msgstr "Виконуємо перетворення…"
 
-#: p2v/conversion.c:311
+#: p2v/conversion.c:334
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:316
+#: p2v/conversion.c:339
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
 
@@ -9113,10 +9107,17 @@ msgstr ""
 "  -V|--version           вивести дані щодо версії і завершити роботу\n"
 "Докладніший опис можна знайти на сторінці man %s(1).\n"
 
-#: p2v/main.c:167
+#: p2v/main.c:174
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
+
+#: p2v/main.c:202
+#, c-format
+msgid ""
+"%s: gtk_init_check returned false, indicating that\n"
+"a GUI is not possible on this host.  Check X11, $DISPLAY etc.\n"
+msgstr ""
 
 #: rescue/rescue.c:60
 #, c-format
@@ -10809,6 +10810,24 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "get-kernel: dual/multi-boot images are not supported by this tool"
+#~ msgstr ""
+#~ "get-kernel: у цьому інструменті не передбачено підтримки образів із "
+#~ "варіантами завантаження"
+
+#~ msgid "get-kernel: no operating system found"
+#~ msgstr "get-kernel: не знайдено операційної системи"
+
+#~ msgid ""
+#~ "password: using insecure md5 password encryption for\n"
+#~ "guest of type %s version %d.\n"
+#~ "If this is incorrect, use --password-crypto option and file a bug."
+#~ msgstr ""
+#~ "пароль: використано незахищене шифрування пароля md5 для\n"
+#~ "гостьової системи типу %s, версія %d.\n"
+#~ "Якщо це не так, скористайтеся параметром --password-crypto і створіть "
+#~ "повідомлення щодо вади."
 
 #~ msgid "%s: invalid integer parameter (%s returned %d)\n"
 #~ msgstr "%s: некоректний цілий параметр (%s повернуто %d)\n"
