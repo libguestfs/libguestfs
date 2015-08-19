@@ -194,6 +194,7 @@ ifelse(MAGEIA,1,
   iproute2
   iputils
   libcap
+  libyajl
   dnl syslinux uses mtools without depending on it
   mtools
   nilfs-utils
