@@ -1338,6 +1338,7 @@ if test "x$with_java" != "xno"; then
         # Look for Java in some likely locations.
         for d in \
             /usr/lib/jvm/java \
+            /usr/lib64/jvm/java \
             /usr/lib/jvm/default-java \
             /usr/lib/jvm/default \
             /usr/lib/jvm/java-8-openjdk \
