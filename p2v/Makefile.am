@@ -163,6 +163,72 @@ TESTS += \
 	test-virt-p2v.sh
 endif ENABLE_APPLIANCE
 
+SLOW_TESTS = \
+	test-virt-p2v-pxe.sh
+
+check-slow: test-virt-p2v-pxe.img \
+	    test-virt-p2v-pxe.vmlinuz test-virt-p2v-pxe.initramfs \
+	    test-virt-p2v-pxe.sshd_config \
+	    test-virt-p2v-pxe.ssh_host_rsa_key \
+	    test-virt-p2v-pxe.ssh_host_rsa_key.pub \
+	    test-virt-p2v-pxe.id_rsa test-virt-p2v-pxe.id_rsa.pub
+	$(MAKE) check TESTS="$(SLOW_TESTS)"
+
+test-virt-p2v-pxe.img: virt-p2v-make-disk \
+	               virt-p2v \
+	               test-virt-p2v-pxe.id_rsa
+	$(top_builddir)/run virt-p2v-make-disk \
+	    --inject-ssh-identity=test-virt-p2v-pxe.id_rsa \
+	    -o $@-t \
+	    fedora-22
+	mv $@-t $@
+
+test-virt-p2v-pxe.vmlinuz test-virt-p2v-pxe.initramfs: stamp-test-virt-p2v-pxe-kernel
+
+stamp-test-virt-p2v-pxe-kernel: test-virt-p2v-pxe.img
+	rm -f $@ vmlinuz initramfs test-virt-p2v-pxe.vmlinuz test-virt-p2v-pxe.initramfs
+	$(top_builddir)/run virt-get-kernel --unversioned-names -a $<
+	mv vmlinuz test-virt-p2v-pxe.vmlinuz
+	mv initramfs test-virt-p2v-pxe.initramfs
+	touch $@
+
+test-virt-p2v-pxe.sshd_config: test-virt-p2v-pxe.sshd_config.in
+	rm -f $@ $@-t
+	@AWK@ \
+	  -v "abs_builddir=$(abs_builddir)" \
+	  '{ \
+	    gsub (/__RANDOM_PORT__/, 10000 + int (1000 * rand())); \
+	    gsub (/__abs_builddir__/, abs_builddir); \
+	    print; \
+	  }' < $< > $@-t
+	chmod 0444 $@-t
+	mv $@-t $@
+
+test-virt-p2v-pxe.ssh_host_rsa_key test-virt-p2v-pxe.ssh_host_rsa_key.pub: stamp-test-virt-p2v-pxe-hostkey
+
+stamp-test-virt-p2v-pxe-hostkey:
+	rm -f test-virt-p2v-pxe.ssh_host_rsa_key
+	rm -f test-virt-p2v-pxe.ssh_host_rsa_key.pub
+	ssh-keygen -t rsa -f test-virt-p2v-pxe.ssh_host_rsa_key -N ''
+	touch $@
+
+test-virt-p2v-pxe.id_rsa test-virt-p2v-pxe.id_rsa.pub: stamp-test-virt-p2v-pxe-userkey
+
+stamp-test-virt-p2v-pxe-userkey:
+	rm -f test-virt-p2v-pxe.id_rsa
+	rm -f test-virt-p2v-pxe.id_rsa.pub
+	ssh-keygen -t rsa -f test-virt-p2v-pxe.id_rsa -N ''
+	touch $@
+
+# Don't clean ssh_host_rsa_key{,.pub} or id_rsa{,.pub} since those
+# consume system entropy to regenerate.
+CLEANFILES += \
+	stamp-test-virt-p2v-pxe-kernel \
+	test-virt-p2v-pxe.img \
+	test-virt-p2v-pxe.vmlinuz \
+	test-virt-p2v-pxe.initramfs \
+	test-virt-p2v-pxe.sshd_config
+
 EXTRA_DIST += \
-	$(TESTS) \
+	$(TESTS) $(SLOW_TESTS) \
 	test-virt-p2v-ssh.sh
