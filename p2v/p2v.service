@@ -20,6 +20,11 @@
 
 [Unit]
 Description=p2v service
+# For the GUI, we cannot necessarily wait for the network to come
+# online, since that may require the "Configure Network" dialog.  For
+# the command line, we would like the network to be online, but we
+# test that within virt-p2v itself.  Therefore use network.target
+# here, not network-online.target.
 After=network.target
 
 [Service]

@@ -119,6 +119,7 @@ extern const char *get_ssh_error (void);
 /* utils.c */
 extern char *get_if_addr (const char *if_name);
 extern char *get_if_vendor (const char *if_name, int truncate);
+extern void wait_network_online (const struct config *);
 
 /* virt-v2v version and features (read from remote). */
 extern int v2v_major;

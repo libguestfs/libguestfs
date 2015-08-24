@@ -81,6 +81,7 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
    */
   p = get_cmdline_key (cmdline, "p2v.skip_test_connection");
   if (!p) {
+    wait_network_online (config);
     if (test_connection (config) == -1) {
       const char *err = get_ssh_error ();
 

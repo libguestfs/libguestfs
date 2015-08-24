@@ -26,6 +26,8 @@
 #include <locale.h>
 #include <libintl.h>
 
+#include "ignore-value.h"
+
 #include "p2v.h"
 
 #define CHOMP(line,len)                         \
@@ -133,4 +135,24 @@ get_if_vendor (const char *if_name, int truncate)
 
   free (line);
   return NULL;
+}
+
+/* Wait for the network to come online, but don't error out if that
+ * fails.  The caller will call test_connection immediately after this
+ * which will fail if the network didn't come online.
+ */
+
+/* XXX We could make this configurable. */
+#define NETWORK_ONLINE_COMMAND "nm-online -t 30"
+
+void
+wait_network_online (const struct config *config)
+{
+  if (config->verbose) {
+    printf ("waiting for the network to come online ...\n");
+    printf ("%s\n", NETWORK_ONLINE_COMMAND);
+    fflush (stdout);
+  }
+
+  ignore_value (system (NETWORK_ONLINE_COMMAND));
 }
