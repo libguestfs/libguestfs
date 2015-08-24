@@ -30,6 +30,14 @@ open Structs
 open C
 open Events
 
+(* List of errnos to expose on Guestfs.Errno. *)
+let ocaml_errnos = [
+  "EINVAL";
+  "ENOTSUP";
+  "EPERM";
+  "ESRCH";
+]
+
 (* Generate the OCaml bindings interface. *)
 let rec generate_ocaml_mli () =
   generate_header OCamlStyle LGPLv2plus;
@@ -132,8 +140,12 @@ val last_errno : t -> int
     which you can use to test the return value of {!Guestfs.last_errno}. *)
 
 module Errno : sig
-  val errno_ENOTSUP : int
-  val errno_ESRCH : int
+";
+  List.iter (
+    fun e ->
+      pr "  val errno_%s : int\n" e
+  ) ocaml_errnos;
+  pr "\
 end
 
 ";
@@ -265,10 +277,15 @@ external event_to_string : event list -> string
 external last_errno : t -> int = \"ocaml_guestfs_last_errno\"
 
 module Errno = struct
-  external enotsup : unit -> int = \"ocaml_guestfs_get_ENOTSUP\" \"noalloc\"
-  let errno_ENOTSUP = enotsup ()
-  external esrch : unit -> int = \"ocaml_guestfs_get_ESRCH\" \"noalloc\"
-  let errno_ESRCH = esrch ()
+";
+  List.iter (
+    fun e ->
+      let le = String.lowercase e in
+      pr "  external %s : unit -> int = \"ocaml_guestfs_get_%s\" \"noalloc\"\n"
+        le e;
+      pr "  let errno_%s = %s ()\n" e le
+  ) ocaml_errnos;
+  pr "\
 end
 
 (* Give the exceptions names, so they can be raised from the C code. *)
@@ -690,6 +707,48 @@ copy_table (char * const * argv)
         pr "\n"
       )
   ) external_functions_sorted
+
+(* Generate the OCaml bindings C errnos. *)
+and generate_ocaml_c_errnos () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
+#include <caml/config.h>
+#include <caml/alloc.h>
+#include <caml/fail.h>
+#include <caml/memory.h>
+#include <caml/mlvalues.h>
+
+#include \"guestfs.h\"
+
+#include \"guestfs-c.h\"
+
+/* These prototypes are solely to quiet gcc warnings. */
+";
+  List.iter (
+    fun e ->
+      pr "value ocaml_guestfs_get_%s (value unitv);\n" e
+  ) ocaml_errnos;
+
+  List.iter (
+    fun e ->
+      pr "\
+
+/* NB: \"noalloc\" function. */
+value
+ocaml_guestfs_get_%s (value unitv)
+{
+  return Val_int (%s);
+}
+" e e
+  ) ocaml_errnos
 
 and generate_ocaml_structure_decls () =
   List.iter (

@@ -129,6 +129,7 @@ Run it from the top source directory using the command
   output_to "ocaml/guestfs.mli" generate_ocaml_mli;
   output_to "ocaml/guestfs.ml" generate_ocaml_ml;
   output_to "ocaml/guestfs-c-actions.c" generate_ocaml_c;
+  output_to "ocaml/guestfs-c-errnos.c" generate_ocaml_c_errnos;
   output_to "ocaml/bindtests.ml" generate_ocaml_bindtests;
   output_to "perl/Guestfs.xs" generate_perl_xs;
   output_to "perl/lib/Sys/Guestfs.pm" generate_perl_pm;
