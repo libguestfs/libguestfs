@@ -357,7 +357,14 @@ let rec convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
                 statbuf.G.st_dev = s.G.st_dev && statbuf.G.st_ino = s.G.st_ino
             ) installed_kernels in
           Some kernel
-        with Not_found -> None
+        with
+        | Not_found -> None
+        | G.Error msg as exn ->
+          (* If it isn't "no such file or directory", then re-raise it. *)
+          if g#last_errno () <> G.Errno.errno_ENOENT then raise exn;
+          warning ~prog (f_"ignoring kernel %s in grub, as it does not exist.")
+            vmlinuz;
+          None
     ) vmlinuzes in
 
   if verbose then (
