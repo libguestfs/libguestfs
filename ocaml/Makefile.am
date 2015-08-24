@@ -21,6 +21,7 @@ generator_built = \
 	guestfs.mli \
 	guestfs.ml \
 	guestfs-c-actions.c \
+	guestfs-c-errnos.c \
 	$(srcdir)/bindtests.ml
 
 EXTRA_DIST = \
@@ -89,6 +90,7 @@ libguestfsocaml_a_CFLAGS = \
 libguestfsocaml_a_SOURCES = \
 	guestfs-c.c \
 	guestfs-c-actions.c \
+	guestfs-c-errnos.c \
 	../src/utils.c
 
 if HAVE_OCAMLDOC
