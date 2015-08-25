@@ -492,7 +492,9 @@ parse_distro (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
 
   content = (char *) xmlNodeGetContent (node);
   if (content) {
-    if (STREQ (content, "centos"))
+    if (STREQ (content, "altlinux"))
+      osinfo->distro = OS_DISTRO_ALTLINUX;
+    else if (STREQ (content, "centos"))
       osinfo->distro = OS_DISTRO_CENTOS;
     else if (STREQ (content, "debian"))
       osinfo->distro = OS_DISTRO_DEBIAN;
@@ -500,6 +502,8 @@ parse_distro (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
       osinfo->distro = OS_DISTRO_FEDORA;
     else if (STREQ (content, "freebsd"))
       osinfo->distro = OS_DISTRO_FREEBSD;
+    else if (STREQ (content, "mageia"))
+      osinfo->distro = OS_DISTRO_MAGEIA;
     else if (STREQ (content, "mandriva"))
       osinfo->distro = OS_DISTRO_MANDRIVA;
     else if (STREQ (content, "netbsd"))
