@@ -553,6 +553,7 @@ enum inspect_os_distro {
   OS_DISTRO_NETBSD,
   OS_DISTRO_COREOS,
   OS_DISTRO_ALPINE_LINUX,
+  OS_DISTRO_ALTLINUX,
 };
 
 enum inspect_os_package_format {

@@ -1059,6 +1059,10 @@ Currently defined distros are:
 
 Alpine Linux.
 
+=item \"altlinux\"
+
+ALT Linux.
+
 =item \"archlinux\"
 
 Arch Linux.

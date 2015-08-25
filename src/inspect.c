@@ -256,6 +256,7 @@ guestfs_impl_inspect_get_distro (guestfs_h *g, const char *root)
 
   switch (fs->distro) {
   case OS_DISTRO_ALPINE_LINUX: ret = safe_strdup (g, "alpinelinux"); break;
+  case OS_DISTRO_ALTLINUX: ret = safe_strdup (g, "altlinux"); break;
   case OS_DISTRO_ARCHLINUX: ret = safe_strdup (g, "archlinux"); break;
   case OS_DISTRO_BUILDROOT: ret = safe_strdup (g, "buildroot"); break;
   case OS_DISTRO_CENTOS: ret = safe_strdup (g, "centos"); break;
