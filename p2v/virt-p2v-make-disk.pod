@@ -46,6 +46,40 @@ Write a virt-p2v bootable virtual disk image, and boot it under qemu:
 where F</var/tmp/guest.img> would be the disk image of some guest that
 you want to convert (for testing only).
 
+=head1 ADDING AN SSH IDENTITY
+
+You can inject an SSH identity (private key) file to the image using
+the I<--inject-ssh-identity> option.
+
+First create a key pair.  It must have an empty passphrase:
+
+ ssh-keygen -t rsa -N '' -f id_rsa
+
+This creates a private key (C<id_rsa>) and a public key
+(C<id_rsa.pub>) pair.  The public key should be appended to the
+C<authorized_keys> file on the virt-v2v conversion server (usually to
+C</root/.ssh/authorized_keys>).
+
+The private key should be injected into the disk image and then
+discarded:
+
+ virt-p2v-make-disk [...] --inject-ssh-identity id_rsa
+ rm id_rsa
+
+When booting virt-p2v, specify the URL of the injected file like this:
+
+ │         User name: [root_____________________________] │
+ │                                                        │
+ │          Password: [    <leave this field blank>     ] │
+ │                                                        │
+ │  SSH Identity URL: [file:///var/tmp/id_rsa___________] │
+
+or if using the kernel command line, add:
+
+ p2v.identity=file:///var/tmp/id_rsa
+
+For more information, see L<virt-p2v(1)/SSH IDENTITIES>.
+
 =head1 OPTIONS
 
 =over 4
@@ -53,6 +87,11 @@ you want to convert (for testing only).
 =item B<--help>
 
 Display help.
+
+=item B<--inject-ssh-identity> id_rsa
+
+Add an SSH identity (private key) file into the image.
+See L</ADDING AN SSH IDENTITY> above.
 
 =item B<-o> OUTPUT
 

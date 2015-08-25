@@ -89,10 +89,13 @@ When virt-p2v starts up in GUI mode, the first dialog looks like this:
  │                                                        │
  │          Password: [_________________________________] │
  │                                                        │
+ │  SSH Identity URL: [_________________________________] │
+ │                                                        │
 
-In the fields above, you must enter the hostname, SSH port number,
-remote user name and password of the conversion server.  The
-conversion server must have an up to date version of virt-v2v.
+In the fields above, you must enter the details of the conversion
+server: the hostname, SSH port number, remote user name, and either
+the password or SSH identity (private key) URL.  The conversion server
+must have an up to date version of virt-v2v.
 
 Normally you must log in to the conversion server as root, but if you
 check the following box:
@@ -320,8 +323,17 @@ The default is to try with no password.  If this fails then virt-p2v
 will ask the user to type the password (probably several times during
 conversion).
 
-Note that virt-p2v does not support authentication using key
-distribution at this time.
+This setting is ignored if C<p2v.identity> is present.
+
+=item B<p2v.identity=URL>
+
+Provide a URL pointing to an SSH identity (private key) file.  The URL
+is interpreted by L<curl(1)> so any URL that curl supports can be used
+here, including C<https://> and C<file://>.  For more information on
+using SSH identities, see L</SSH IDENTITIES> below.
+
+If C<p2v.identity> is present, it overrides C<p2v.password>.  There is
+no fallback.
 
 =item B<p2v.sudo>
 
@@ -473,6 +485,84 @@ Set up a static IPv4 network configuration.
 =end comment
 
 =back
+
+=head1 SSH IDENTITIES
+
+As a somewhat more secure alternative to password authentication, you
+can use an SSH identity (private key) for authentication.
+
+First create a key pair.  It must have an empty passphrase:
+
+ ssh-keygen -t rsa -N '' -f id_rsa
+
+This creates a private key (C<id_rsa>) and a public key
+(C<id_rsa.pub>) pair.
+
+The public key should be appended to the C<authorized_keys> file on
+the virt-v2v conversion server (usually to
+C</root/.ssh/authorized_keys>).
+
+For distributing the private key, there are four scenarios from least
+secure to most secure:
+
+=over 4
+
+=item 1.
+
+Not using SSH identities at all, ie. password authentication.
+
+Anyone who can sniff the PXE boot parameters from the network or
+observe the password some other way can log in to the virt-v2v
+conversion server.
+
+=item 2.
+
+SSH identity embedded in the virt-p2v ISO or disk image.  In the GUI, use:
+
+ │          Password: [    <leave this field blank>       ] │
+ │                                                          │
+ │  SSH Identity URL: [file:///var/tmp/id_rsa_____________] │
+
+or on the kernel command line:
+
+ p2v.identity=file:///var/tmp/id_rsa
+
+The SSH private key can still be sniffed from the network if using
+standard PXE.
+
+=item 3.
+
+SSH identity downloaded from a website.  In the GUI, use:
+
+ │          Password: [    <leave this field blank>       ] │
+ │                                                          │
+ │  SSH Identity URL: [https://internal.example.com/id_rsa] │
+
+or on the kernel command line:
+
+ p2v.identity=https://internal.example.com/id_rsa
+
+Anyone could still download the private key and use it to log in to
+the virt-v2v conversion server, but you could provide some extra
+security by configuring the web server to only allow connections from
+P2V machines.
+
+=item 4.
+
+SSH identity embedded in the virt-p2v ISO or disk image (like 2.),
+I<and> use of secure PXE, PXE over separate physical network, or
+sneakernet to distribute virt-p2v to the physical machine.
+
+=back
+
+Both L<virt-p2v-make-disk(1)> and L<virt-p2v-make-kickstart(1)> have
+the same option I<--inject-ssh-identity> for injecting the private key
+into the virt-p2v disk image / ISO.  See also the following manual
+sections:
+
+L<virt-p2v-make-disk(1)/ADDING AN SSH IDENTITY>
+
+L<virt-p2v-make-kickstart(1)/ADDING AN SSH IDENTITY>
 
 =head1 OPTIONS
 

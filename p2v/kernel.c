@@ -72,6 +72,13 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
     config->password = strdup (p);
   }
 
+  p = get_cmdline_key (cmdline, "p2v.identity");
+  if (p) {
+    free (config->identity_url);
+    config->identity_url = strdup (p);
+    config->identity_file_needs_update = 1;
+  }
+
   p = get_cmdline_key (cmdline, "p2v.sudo");
   if (p)
     config->sudo = 1;

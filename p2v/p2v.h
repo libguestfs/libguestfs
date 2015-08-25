@@ -59,6 +59,9 @@ struct config {
   int port;
   char *username;
   char *password;
+  char *identity_url;
+  char *identity_file; /* Used to cache the downloaded identity_url. */
+  int identity_file_needs_update;
   int sudo;
   char *guestname;
   int vcpus;

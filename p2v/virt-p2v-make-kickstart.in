@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:V \
-        --long help,output:,proxy:,version \
+        --long help,inject-ssh-identity:,output:,proxy:,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -43,9 +43,13 @@ usage ()
 
 output=p2v.ks
 proxy=
+ssh_identity=
 
 while true; do
     case "$1" in
+        --inject-ssh-identity)
+            ssh_identity="$2"
+            shift 2;;
         -o|--output)
             output="$2"
             shift 2;;
@@ -93,6 +97,11 @@ fi
 base64_issue="$(base64 $datadir/issue)"
 base64_launch_virt_p2v="$(base64 $datadir/launch-virt-p2v)"
 base64_p2v_service="$(base64 $datadir/p2v.service)"
+if [ -n "$ssh_identity" ]; then
+    base64_ssh_identity="$(base64 $ssh_identity)"
+else
+    base64_ssh_identity=
+fi
 
 # virt-p2v binary is too large unless we strip it and compress it.
 tmpfile="$(mktemp -u)"
@@ -169,6 +178,7 @@ done < $depsfile
   -v "base64_issue=$base64_issue" \
   -v "base64_launch_virt_p2v=$base64_launch_virt_p2v" \
   -v "base64_p2v_service=$base64_p2v_service" \
+  -v "base64_ssh_identity=$base64_ssh_identity" \
   -v "base64_virt_p2v=$base64_virt_p2v" \
   -v "dependencies=$dependencies" \
   -v "md5sum_virt_p2v=$md5sum_virt_p2v" \
@@ -181,6 +191,7 @@ done < $depsfile
     gsub (/__BASE64_ISSUE__/, base64_issue);
     gsub (/__BASE64_LAUNCH_VIRT_P2V__/, base64_launch_virt_p2v);
     gsub (/__BASE64_P2V_SERVICE__/, base64_p2v_service);
+    gsub (/__BASE64_SSH_IDENTITY__/, base64_ssh_identity);
     gsub (/__BASE64_VIRT_P2V__/, base64_virt_p2v);
     gsub (/__DEPENDENCIES__/, dependencies);
     gsub (/__MD5SUM_VIRT_P2V__/, md5sum_virt_p2v);

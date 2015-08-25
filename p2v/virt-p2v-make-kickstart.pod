@@ -191,6 +191,45 @@ pxelinux starts up.
 
 =back
 
+=head1 ADDING AN SSH IDENTITY
+
+You can inject an SSH identity (private key) file to the kickstart and
+hence into the ISO using the I<--inject-ssh-identity> option.  Note
+that you I<cannot> inject a key once the ISO has been built.
+
+First create a key pair.  It must have an empty passphrase:
+
+ ssh-keygen -t rsa -N '' -f id_rsa
+
+This creates a private key (C<id_rsa>) and a public key
+(C<id_rsa.pub>) pair.  The public key should be appended to the
+C<authorized_keys> file on the virt-v2v conversion server (usually to
+C</root/.ssh/authorized_keys>).
+
+The private key should be added to the kickstart file and then
+discarded:
+
+ virt-p2v-make-kickstart [...] --inject-ssh-identity id_rsa
+ rm id_rsa
+
+The ISO can then be built from the kickstart in the usual way (see
+above), and it will contain the embedded SSH identity
+(F</var/tmp/id_rsa>).
+
+When booting virt-p2v, specify the URL of the injected file like this:
+
+ │         User name: [root_____________________________] │
+ │                                                        │
+ │          Password: [    <leave this field blank>     ] │
+ │                                                        │
+ │  SSH Identity URL: [file:///var/tmp/id_rsa___________] │
+
+or if using the kernel command line, add:
+
+ p2v.identity=file:///var/tmp/id_rsa
+
+For more information, see L<virt-p2v(1)/SSH IDENTITIES>.
+
 =head1 OPTIONS
 
 =over 4
@@ -198,6 +237,11 @@ pxelinux starts up.
 =item B<--help>
 
 Display help.
+
+=item B<--inject-ssh-identity> id_rsa
+
+Add an SSH identity (private key) file into the kickstart.
+See L</ADDING AN SSH IDENTITY> above.
 
 =item B<-o> OUTPUT
 

@@ -64,6 +64,10 @@ copy_config (struct config *old)
     c->username = strdup (c->username);
   if (c->password)
     c->password = strdup (c->password);
+  if (c->identity_url)
+    c->identity_url = strdup (c->identity_url);
+  if (c->identity_file)
+    c->identity_file = strdup (c->identity_file);
   if (c->guestname)
     c->guestname = strdup (c->guestname);
   if (c->disks)
@@ -92,6 +96,8 @@ free_config (struct config *c)
   free (c->server);
   free (c->username);
   free (c->password);
+  free (c->identity_url);
+  free (c->identity_file);
   free (c->guestname);
   guestfs_int_free_string_list (c->disks);
   guestfs_int_free_string_list (c->removable);
@@ -122,6 +128,8 @@ print_config (struct config *config, FILE *fp)
            config->username ? config->username : "none");
   fprintf (fp, "password . . . .   %s\n",
            config->password && strlen (config->password) > 0 ? "***" : "none");
+  fprintf (fp, "identity URL . .   %s\n",
+           config->identity_url ? config->identity_url : "none");
   fprintf (fp, "sudo . . . . . .   %s\n",
            config->sudo ? "true" : "false");
   fprintf (fp, "guest name . . .   %s\n",

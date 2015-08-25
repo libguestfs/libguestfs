@@ -1,7 +1,7 @@
 #!/bin/bash -
 # @configure_input@
 # virt-p2v-make-disk
-# Copyright (C) 2014 Red Hat Inc.
+# Copyright (C) 2014-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:V \
-        --long help,output:,version \
+        --long help,inject-ssh-identity:,output:,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -33,6 +33,7 @@ fi
 eval set -- "$TEMP"
 
 output=
+upload=
 
 usage ()
 {
@@ -45,6 +46,9 @@ usage ()
 
 while true; do
     case "$1" in
+        --inject-ssh-identity)
+            upload="--upload $2:/var/tmp/id_rsa"
+            shift 2;;
         -o|--output)
             output="$2"
             shift 2;;
@@ -171,6 +175,7 @@ virt-builder "$osversion"                                       \
     --edit '/etc/systemd/logind.conf:
         s/^[Login]/[Login]\nReserveVT=1\n/
     '                                                           \
+    $upload                                                     \
     $extra_args
 
 # We have to do this so the cleanup() handler runs.

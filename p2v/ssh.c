@@ -165,8 +165,111 @@ free_regexps (void)
   pcre_free (portfwd_re);
 }
 
+/* Download URL to local file using the external 'curl' command. */
+static int
+curl_download (const char *url, const char *local_file)
+{
+  char curl_config_file[] = "/tmp/curl.XXXXXX";
+  int fd, r;
+  size_t i, len;
+  FILE *fp;
+  CLEANUP_FREE char *curl_cmd = NULL;
+
+  /* Use a secure curl config file because escaping is easier. */
+  fd = mkstemp (curl_config_file);
+  if (fd == -1) {
+    perror ("mkstemp");
+    exit (EXIT_FAILURE);
+  }
+  fp = fdopen (fd, "w");
+  if (fp == NULL) {
+    perror ("fdopen");
+    exit (EXIT_FAILURE);
+  }
+  fprintf (fp, "url = \"");
+  len = strlen (url);
+  for (i = 0; i < len; ++i) {
+    switch (url[i]) {
+    case '\\': fprintf (fp, "\\\\"); break;
+    case '"':  fprintf (fp, "\\\""); break;
+    case '\t': fprintf (fp, "\\t");  break;
+    case '\n': fprintf (fp, "\\n");  break;
+    case '\r': fprintf (fp, "\\r");  break;
+    case '\v': fprintf (fp, "\\v");  break;
+    default:   fputc (url[i], fp);
+    }
+  }
+  fprintf (fp, "\"\n");
+  fclose (fp);
+
+  /* Run curl to download the URL to a file. */
+  if (asprintf (&curl_cmd, "curl -f -o %s -K %s",
+                local_file, curl_config_file) == -1) {
+    perror ("asprintf");
+    exit (EXIT_FAILURE);
+  }
+
+  r = system (curl_cmd);
+  /* unlink (curl_config_file); - useful for debugging */
+  if (r == -1) {
+    perror ("system");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Did curl subprocess fail? */
+  if (WIFEXITED (r) && WEXITSTATUS (r) != 0) {
+    /* XXX Better error handling.  The codes can be looked up in
+     * the curl(1) man page.
+     */
+    set_ssh_error ("%s: curl error %d", url, WEXITSTATUS (r));
+    return -1;
+  }
+  else if (!WIFEXITED (r)) {
+    set_ssh_error ("curl subprocess got a signal (%d)", r);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Re-cache the identity_url if needed. */
+static int
+cache_ssh_identity (struct config *config)
+{
+  int fd;
+
+  /* If it doesn't need downloading, return. */
+  if (config->identity_url == NULL ||
+      !config->identity_file_needs_update)
+    return 0;
+
+  /* Generate a random filename. */
+  free (config->identity_file);
+  config->identity_file = strdup ("/tmp/id.XXXXXX");
+  if (config->identity_file == NULL) {
+    perror ("strdup");
+    exit (EXIT_FAILURE);
+  }
+  fd = mkstemp (config->identity_file);
+  if (fd == -1) {
+    perror ("mkstemp");
+    exit (EXIT_FAILURE);
+  }
+  close (fd);
+
+  /* Curl download URL to file. */
+  if (curl_download (config->identity_url, config->identity_file) == -1) {
+    free (config->identity_file);
+    config->identity_file = NULL;
+    config->identity_file_needs_update = 1;
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Start ssh subprocess with the standard arguments and possibly some
- * optional arguments.  Also handles password authentication.
+ * optional arguments.  Also handles authentication.
  */
 static mexp_h *
 start_ssh (struct config *config, char **extra_args, int wait_prompt)
@@ -178,18 +281,29 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   const int ovecsize = 12;
   int ovector[ovecsize];
   int saved_timeout;
+  int using_password_auth;
+
+  if (cache_ssh_identity (config) == -1)
+    return NULL;
+
+  /* Are we using password or identity authentication? */
+  using_password_auth = config->identity_file == NULL;
 
   /* Create the ssh argument array. */
   nr_args = 0;
   if (extra_args != NULL)
     nr_args = guestfs_int_count_strings (extra_args);
 
-  nr_args += 11;
+  if (using_password_auth)
+    nr_args += 11;
+  else
+    nr_args += 13;
   args = malloc (sizeof (char *) * nr_args);
   if (args == NULL) {
     perror ("malloc");
     exit (EXIT_FAILURE);
   }
+
   j = 0;
   args[j++] = "ssh";
   args[j++] = "-p";             /* Port. */
@@ -199,8 +313,18 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   args[j++] = config->username ? config->username : "root";
   args[j++] = "-o";             /* Host key will always be novel. */
   args[j++] = "StrictHostKeyChecking=no";
-  args[j++] = "-o";            /* Only use password authentication. */
-  args[j++] = "PreferredAuthentications=keyboard-interactive,password";
+  if (using_password_auth) {
+    /* Only use password authentication. */
+    args[j++] = "-o";
+    args[j++] = "PreferredAuthentications=keyboard-interactive,password";
+  }
+  else {
+    /* Use identity file (private key). */
+    args[j++] = "-o";
+    args[j++] = "PreferredAuthentications=publickey";
+    args[j++] = "-i";
+    args[j++] = config->identity_file;
+  }
   if (extra_args != NULL) {
     for (i = 0; extra_args[i] != NULL; ++i)
       args[j++] = extra_args[i];
@@ -213,7 +337,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   if (h == NULL)
     return NULL;
 
-  if (config->password && strlen (config->password) > 0) {
+  if (using_password_auth &&
+      config->password && strlen (config->password) > 0) {
     /* Wait for the password prompt. */
     switch (mexp_expect (h,
                          (mexp_regexp[]) {
