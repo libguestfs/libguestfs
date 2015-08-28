@@ -336,9 +336,7 @@ let parse_libvirt_xml ?conn xml =
       match vnet_type with
       | None -> ()
       | Some vnet_type ->
-        match xpath_string "source/@network | source/@bridge" with
-        | None -> ()
-        | Some vnet ->
+         let add_nic vnet =
            let nic = {
              s_mac = mac;
              s_vnet = vnet;
@@ -346,6 +344,16 @@ let parse_libvirt_xml ?conn xml =
              s_vnet_type = vnet_type
            } in
            nics := nic :: !nics
+         in
+         match xpath_string "source/@network | source/@bridge" with
+         | None -> ()
+         | Some "" ->
+            (* The libvirt VMware driver produces at least <source
+             * bridge=''/> XML - see RHBZ#1257895.
+             *)
+            add_nic (sprintf "eth%d" i)
+         | Some vnet ->
+            add_nic vnet
     done;
     List.rev !nics in
 
