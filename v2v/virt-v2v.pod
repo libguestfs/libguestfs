@@ -830,10 +830,23 @@ is the name of the ESXi hypervisor running the guest.
 
 =back
 
-If the VMware deployment is using clusters and/or folders, then these
-may need to be added to the URI, eg:
+If the VMware deployment is using folders, then these may need to be
+added to the URI, eg:
 
- vpx://user@server/Datacenter/cluster1/esxi
+ vpx://user@server/Folder/Datacenter/esxi
+
+If the deployment uses a cluster before the hostname, then you
+may need to remove it, ie. change this:
+
+ vpx://user@server/Folder/Datacenter/Cluster/esxi
+
+to this:
+
+ vpx://user@server/Folder/Datacenter/esxi
+
+Virt-v2v needs to calculate the C<dcPath> parameter from the URI, and
+it does this by removing the final C</esxi> element, so in the above
+example C<dcPath=Folder/Datacenter>.
 
 For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
 
