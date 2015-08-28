@@ -231,4 +231,5 @@ CLEANFILES += \
 
 EXTRA_DIST += \
 	$(TESTS) $(SLOW_TESTS) \
+	test-virt-p2v-pxe.sshd_config.in \
 	test-virt-p2v-ssh.sh
