@@ -39,7 +39,6 @@ let main () =
     | s -> attach_format := Some s
   in
   let attach_disk s = attach := (!attach_format, s) :: !attach in
-  let debug_gc = ref false in
   let domain = ref None in
   let dryrun = ref false in
   let files = ref [] in
@@ -79,7 +78,7 @@ let main () =
                                             "format" ^ " " ^ s_"Set attach disk format";
     "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
     "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-    "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations (internal)";
+    "--debug-gc", Arg.Unit set_debug_gc,    " " ^ s_"Debug GC and memory allocations (internal)";
     "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
     "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
     "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
@@ -174,7 +173,6 @@ read the man page virt-customize(1).
 
   (* Dereference the rest of the args. *)
   let attach = List.rev !attach in
-  let debug_gc = !debug_gc in
   let dryrun = !dryrun in
   let memsize = !memsize in
   let network = !network in
@@ -239,10 +237,7 @@ read the man page virt-customize(1).
 
   message (f_"Finishing off");
   g#shutdown ();
-  g#close ();
-
-  if debug_gc then
-    Gc.compact ()
+  g#close ()
 
 (* Finished. *)
 let () = run_main_and_handle_errors main

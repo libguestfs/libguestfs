@@ -152,7 +152,7 @@ let string_of_expand_content_method = function
 (* Main program. *)
 let main () =
   let infile, outfile, align_first, alignment, copy_boot_loader,
-    debug_gc, deletes,
+    deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
     resizes, resizes_force, shrink, sparse =
@@ -162,7 +162,6 @@ let main () =
     let align_first = ref "auto" in
     let alignment = ref 128 in
     let copy_boot_loader = ref true in
-    let debug_gc = ref false in
     let deletes = ref [] in
     let dryrun = ref false in
     let expand = ref "" in
@@ -196,7 +195,7 @@ let main () =
       "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " " ^ s_"Don't copy boot loader";
       "-d",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
       "--debug",   Arg.Unit set_verbose,      ditto;
-      "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
+      "--debug-gc",Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations";
       "--delete",  Arg.String (add deletes),  s_"part" ^ " " ^ s_"Delete partition";
       "--expand",  Arg.String set_expand,     s_"part" ^ " " ^ s_"Expand partition";
       "--no-expand-content", Arg.Clear expand_content, " " ^ s_"Don't expand content";
@@ -250,7 +249,6 @@ read the man page virt-resize(1).
     (* Dereference the rest of the args. *)
     let alignment = !alignment in
     let copy_boot_loader = !copy_boot_loader in
-    let debug_gc = !debug_gc in
     let deletes = List.rev !deletes in
     let dryrun = !dryrun in
     let expand = match !expand with "" -> None | str -> Some str in
@@ -325,7 +323,7 @@ read the man page virt-resize(1).
           infile in
 
     infile, outfile, align_first, alignment, copy_boot_loader,
-    debug_gc, deletes,
+    deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
     resizes, resizes_force, shrink, sparse in
@@ -1366,9 +1364,6 @@ read the man page virt-resize(1).
   if not (quiet ()) then (
     print_newline ();
     wrap (s_"Resize operation completed with no errors.  Before deleting the old disk, carefully check that the resized disk boots and works correctly.\n");
-  );
-
-  if debug_gc then
-    Gc.compact ()
+  )
 
 let () = run_main_and_handle_errors main

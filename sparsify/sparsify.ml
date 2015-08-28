@@ -30,7 +30,7 @@ module G = Guestfs
 let () = Random.self_init ()
 
 let rec main () =
-  let indisk, debug_gc, format, ignores, machine_readable, zeroes, mode =
+  let indisk, format, ignores, machine_readable, zeroes, mode =
     parse_cmdline () in
 
   (match mode with
@@ -39,9 +39,6 @@ let rec main () =
       format ignores machine_readable option tmp zeroes
   | Mode_in_place ->
     In_place.run indisk format ignores machine_readable zeroes
-  );
-
-  if debug_gc then
-    Gc.compact ()
+  )
 
 let () = run_main_and_handle_errors main

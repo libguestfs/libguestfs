@@ -190,3 +190,6 @@ val last_part_of : string -> char -> string option
 val read_first_line_from_file : string -> string
 (** Read only the first line (i.e. until the first newline character)
     of a file. *)
+
+val set_debug_gc : unit -> unit
+(** Install an exit hook to check gc consistency for --debug-gc *)
