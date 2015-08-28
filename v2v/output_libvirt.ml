@@ -342,23 +342,18 @@ class output_libvirt oc output_pool = object
     let xml = Domainxml.pool_dumpxml ?conn:oc output_pool in
     let doc = Xml.parse_memory xml in
     let xpathctx = Xml.xpath_new_context doc in
-
-    let xpath_to_string expr default =
-      let obj = Xml.xpath_eval_expression xpathctx expr in
-      if Xml.xpathobj_nr_nodes obj < 1 then default
-      else (
-        let node = Xml.xpathobj_node obj 0 in
-        Xml.node_as_string node
-      )
-    in
+    let xpath_string = xpath_string xpathctx in
 
     (* We can only output to a pool of type 'dir' (directory). *)
-    let pool_type = xpath_to_string "/pool/@type" "" in
-    if pool_type <> "dir" then
+    if xpath_string "/pool/@type" <> Some "dir" then
       error (f_"-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
-    let target_path = xpath_to_string "/pool/target/path/text()" "" in
-    if target_path = "" || not (is_directory target_path) then
-      error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element either does not exist or is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
+    let target_path =
+      match xpath_string "/pool/target/path/text()" with
+      | None ->
+         error (f_"-o libvirt: output pool '%s' does not have /pool/target/path element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+      | Some dir when not (is_directory dir) ->
+         error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+      | Some dir -> dir in
 
     (* Set up the targets. *)
     List.map (
