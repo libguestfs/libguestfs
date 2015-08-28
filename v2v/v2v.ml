@@ -46,7 +46,7 @@ let () = Random.self_init ()
 let rec main () =
   (* Handle the command line. *)
   let input, output,
-    debug_gc, debug_overlays, do_copy, network_map, no_trim,
+    debug_overlays, do_copy, network_map, no_trim,
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
 
@@ -63,8 +63,6 @@ let rec main () =
     printf (f_"Source guest information (--print-source option):\n");
     printf "\n";
     printf "%s\n" (string_of_source source);
-    if debug_gc then
-      Gc.compact ();
     exit 0
   );
 
@@ -463,10 +461,7 @@ let rec main () =
   );
 
   message (f_"Finishing off");
-  delete_target_on_exit := false;  (* Don't delete target on exit. *)
-
-  if debug_gc then
-    Gc.compact ()
+  delete_target_on_exit := false  (* Don't delete target on exit. *)
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in

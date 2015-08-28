@@ -34,8 +34,7 @@ let () = Sysprep_operation.bake ()
 let () = Random.self_init ()
 
 let main () =
-  let debug_gc, operations, g, mount_opts =
-    let debug_gc = ref false in
+  let operations, g, mount_opts =
     let domain = ref None in
     let dryrun = ref false in
     let files = ref [] in
@@ -121,7 +120,7 @@ let main () =
       "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
       "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
       "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-      "--debug-gc", Arg.Set debug_gc,         " " ^ s_"Debug GC and memory allocations (internal)";
+      "--debug-gc", Arg.Unit set_debug_gc,    " " ^ s_"Debug GC and memory allocations (internal)";
       "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
       "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
       "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
@@ -207,7 +206,6 @@ read the man page virt-sysprep(1).
     in
 
     (* Dereference the rest of the args. *)
-    let debug_gc = !debug_gc in
     let dryrun = !dryrun in
     let operations = !operations in
 
@@ -234,7 +232,7 @@ read the man page virt-sysprep(1).
     add g dryrun;
     g#launch ();
 
-    debug_gc, operations, g, mount_opts in
+    operations, g, mount_opts in
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with
@@ -277,9 +275,6 @@ read the man page virt-sysprep(1).
 
   (* Finish off. *)
   g#shutdown ();
-  g#close ();
-
-  if debug_gc then
-    Gc.compact ()
+  g#close ()
 
 let () = run_main_and_handle_errors main

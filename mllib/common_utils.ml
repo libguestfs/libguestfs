@@ -751,3 +751,7 @@ let read_first_line_from_file filename =
   let line = input_line chan in
   close_in chan;
   line
+
+(** Install an exit hook to check gc consistency for --debug-gc *)
+let set_debug_gc () =
+  at_exit (fun () -> Gc.compact())
