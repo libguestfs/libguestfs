@@ -66,8 +66,8 @@ SOURCES_MLI = \
 SOURCES_ML = \
 	stringMap.ml \
 	types.ml \
-	utils.ml \
 	xml.ml \
+	utils.ml \
 	domainxml.ml \
 	DOM.ml \
 	kvmuid.ml \

@@ -61,6 +61,40 @@ let uri_quote str =
   done;
   String.concat "" (List.rev !xs)
 
+(* Parse an xpath expression and return a string/int.  Returns
+ * Some v or None if the expression doesn't match.
+ *)
+let xpath_string xpathctx expr =
+  let obj = Xml.xpath_eval_expression xpathctx expr in
+  if Xml.xpathobj_nr_nodes obj < 1 then None
+  else (
+    let node = Xml.xpathobj_node obj 0 in
+    Some (Xml.node_as_string node)
+  )
+let xpath_int xpathctx expr =
+  let obj = Xml.xpath_eval_expression xpathctx expr in
+  if Xml.xpathobj_nr_nodes obj < 1 then None
+  else (
+    let node = Xml.xpathobj_node obj 0 in
+    let str = Xml.node_as_string node in
+    try Some (int_of_string str)
+    with Failure "int_of_string" ->
+      error (f_"expecting XML expression to return an integer (expression: %s, matching string: %s)")
+            expr str
+  )
+
+(* Parse an xpath expression and return a string/int; if the expression
+ * doesn't match, return the default.
+ *)
+let xpath_string_default xpathctx expr default =
+  match xpath_string xpathctx expr with
+  | None -> default
+  | Some s -> s
+let xpath_int_default xpathctx expr default =
+  match xpath_int xpathctx expr with
+  | None -> default
+  | Some i -> i
+
 external drive_name : int -> string = "v2v_utils_drive_name"
 
 (* Map guest architecture found by inspection to the architecture
