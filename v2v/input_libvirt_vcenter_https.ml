@@ -170,14 +170,14 @@ and run_curl_get_lines curl_args =
   Unix.unlink config_file;
   lines
 
-(* Helper function to extract the datacenter from a URI. *)
-let get_datacenter uri scheme =
+(* Helper function to extract the dcPath from a URI. *)
+let get_dcPath uri scheme =
   let default_dc = "ha-datacenter" in
   match scheme with
   | "vpx" ->           (* Hopefully the first part of the path. *)
     (match uri.uri_path with
     | None ->
-      warning (f_"vcenter: URI (-ic parameter) contains no path, so we cannot determine the datacenter name");
+      warning (f_"vcenter: URI (-ic parameter) contains no path, so we cannot determine the dcPath (datacenter name)");
       default_dc
     | Some path ->
       let path =
@@ -217,8 +217,8 @@ let map_source_to_uri ?readahead password uri scheme server path =
     let datastore = Str.matched_group 1 path
     and path = Str.matched_group 2 path in
 
-    (* Get the datacenter. *)
-    let datacenter = get_datacenter uri scheme in
+    (* Get the dcPath. *)
+    let dcPath = get_dcPath uri scheme in
 
     let port =
       match uri.uri_port with
@@ -230,7 +230,7 @@ let map_source_to_uri ?readahead password uri scheme server path =
       sprintf
         "https://%s%s/folder/%s-flat.vmdk?dcPath=%s&dsName=%s"
         server port
-        (uri_quote path) (uri_quote datacenter) (uri_quote datastore) in
+        (uri_quote path) (uri_quote dcPath) (uri_quote datastore) in
 
     (* If no_verify=1 was passed in the libvirt URI, then we have to
      * turn off certificate verification here too.
