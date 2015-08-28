@@ -180,41 +180,27 @@ object
     Xml.xpath_register_ns xpathctx
       "vssd" "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData";
 
-    let xpath_to_string expr default =
-      let obj = Xml.xpath_eval_expression xpathctx expr in
-      if Xml.xpathobj_nr_nodes obj < 1 then default
-      else (
-        let node = Xml.xpathobj_node obj 0 in
-        Xml.node_as_string node
-      )
-    and xpath_to_int expr default =
-      let obj = Xml.xpath_eval_expression xpathctx expr in
-      if Xml.xpathobj_nr_nodes obj < 1 then default
-      else (
-        let node = Xml.xpathobj_node obj 0 in
-        let str = Xml.node_as_string node in
-        try int_of_string str
-        with Failure "int_of_string" ->
-          error (f_"expecting XML expression to return an integer (expression: %s)")
-            expr
-      )
-    in
+    let xpath_string = xpath_string xpathctx
+    and xpath_int = xpath_int xpathctx
+    and xpath_string_default = xpath_string_default xpathctx
+    and xpath_int_default = xpath_int_default xpathctx in
 
     (* Search for vm name. *)
     let name =
-      xpath_to_string "/ovf:Envelope/ovf:VirtualSystem/ovf:Name/text()" "" in
-    if name = "" then
-      error (f_"could not parse ovf:Name from OVF document");
+      match xpath_string "/ovf:Envelope/ovf:VirtualSystem/ovf:Name/text()" with
+      | None | Some "" ->
+        error (f_"could not parse ovf:Name from OVF document")
+      | Some name -> name in
 
     (* Search for memory. *)
-    let memory = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024 * 1024) in
+    let memory = xpath_int_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024 * 1024) in
     let memory = Int64.of_int (memory * 1024 * 1024) in
 
     (* Search for number of vCPUs. *)
-    let vcpu = xpath_to_int "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
+    let vcpu = xpath_int_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
 
     (* BIOS or EFI firmware? *)
-    let firmware = xpath_to_string "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/vmw:Config[@vmw:key=\"firmware\"]/@vmw:value" "bios" in
+    let firmware = xpath_string_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/vmw:Config[@vmw:key=\"firmware\"]/@vmw:value" "bios" in
     let firmware =
       match firmware with
       | "bios" -> BIOS
@@ -225,16 +211,16 @@ object
     (* Helper function to return the parent controller of a disk. *)
     let parent_controller id =
       let expr = sprintf "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:InstanceID/text()=%d]/rasd:ResourceType/text()" id in
-      let controller = xpath_to_int expr 0 in
+      let controller = xpath_int expr in
 
       (* 6: iscsi controller, 5: ide *)
       match controller with
-      | 6 -> Some Source_SCSI
-      | 5 -> Some Source_IDE
-      | 0 ->
+      | Some 6 -> Some Source_SCSI
+      | Some 5 -> Some Source_IDE
+      | None ->
         warning ~prog (f_"ova disk has no parent controller, please report this as a bug supplying the *.ovf file extracted from the ova");
         None
-      | _ ->
+      | Some controller ->
         warning ~prog (f_"ova disk has an unknown VMware controller type (%d), please report this as a bug supplying the *.ovf file extracted from the ova")
           controller;
         None
@@ -251,27 +237,32 @@ object
         Xml.xpathctx_set_current_context xpathctx n;
 
         (* XXX We assume the OVF lists these in order.
-        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
+        let address = xpath_int "rasd:AddressOnParent/text()" in
         *)
 
         (* Find the parent controller. *)
-        let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
+        let parent_id = xpath_int "rasd:Parent/text()" in
         let controller =
           match parent_id with
-          | 0 -> None
-          | id -> parent_controller id in
+          | None -> None
+          | Some id -> parent_controller id in
 
         Xml.xpathctx_set_current_context xpathctx n;
-        let file_id = xpath_to_string "rasd:HostResource/text()" "" in
+        let file_id = xpath_string_default "rasd:HostResource/text()" "" in
         let rex = Str.regexp "^ovf:/disk/\\(.*\\)" in
         if Str.string_match rex file_id 0 then (
           (* Chase the references through to the actual file name. *)
           let file_id = Str.matched_group 1 file_id in
           let expr = sprintf "/ovf:Envelope/ovf:DiskSection/ovf:Disk[@ovf:diskId='%s']/@ovf:fileRef" file_id in
-          let file_ref = xpath_to_string expr "" in
-          if file_ref == "" then error (f_"error parsing disk fileRef");
+          let file_ref =
+            match xpath_string expr with
+            | None -> error (f_"error parsing disk fileRef")
+            | Some s -> s in
           let expr = sprintf "/ovf:Envelope/ovf:References/ovf:File[@ovf:id='%s']/@ovf:href" file_ref in
-          let filename = xpath_to_string expr "" in
+          let filename =
+            match xpath_string expr with
+            | None -> error (f_"no href in ovf:File (id=%s)") file_ref
+            | Some s -> s in
 
           (* Does the file exist and is it readable? *)
           let filename = exploded // filename in
@@ -318,19 +309,22 @@ object
       for i = 0 to nr_nodes-1 do
         let n = Xml.xpathobj_node obj i in
         Xml.xpathctx_set_current_context xpathctx n;
-        let id = xpath_to_int "rasd:ResourceType/text()" 0 in
-        assert (id = 14 || id = 15 || id = 16);
+        let id =
+          match xpath_int "rasd:ResourceType/text()" with
+          | None -> assert false
+          | Some (14|15|16 as i) -> i
+          | Some _ -> assert false in
 
         (* XXX We assume the OVF lists these in order.
-        let address = xpath_to_int "rasd:AddressOnParent/text()" 0 in
+        let address = xpath_int "rasd:AddressOnParent/text()" in
         *)
 
         (* Find the parent controller. *)
-        let parent_id = xpath_to_int "rasd:Parent/text()" 0 in
+        let parent_id = xpath_int "rasd:Parent/text()" in
         let controller =
           match parent_id with
-          | 0 -> None
-          | id -> parent_controller id in
+          | None -> None
+          | Some id -> parent_controller id in
 
         let typ =
           match id with
@@ -352,7 +346,8 @@ object
     for i = 0 to nr_nodes-1 do
       let n = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx n;
-      let vnet = xpath_to_string "rasd:ElementName/text()" (sprintf"eth%d" i) in
+      let vnet =
+        xpath_string_default "rasd:ElementName/text()" (sprintf"eth%d" i) in
       let nic = {
         s_mac = None;
         s_vnet = vnet;

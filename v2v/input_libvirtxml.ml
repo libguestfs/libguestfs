@@ -39,37 +39,23 @@ let parse_libvirt_xml ?conn ~verbose xml =
 
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
+  let xpath_string = xpath_string xpathctx
+  and xpath_int = xpath_int xpathctx
+  and xpath_int_default = xpath_int_default xpathctx in
 
-  let xpath_to_string expr default =
-    let obj = Xml.xpath_eval_expression xpathctx expr in
-    if Xml.xpathobj_nr_nodes obj < 1 then default
-    else (
-      let node = Xml.xpathobj_node obj 0 in
-      Xml.node_as_string node
-    )
-  and xpath_to_int expr default =
-    let obj = Xml.xpath_eval_expression xpathctx expr in
-    if Xml.xpathobj_nr_nodes obj < 1 then default
-    else (
-      let node = Xml.xpathobj_node obj 0 in
-      let str = Xml.node_as_string node in
-      try int_of_string str
-      with Failure "int_of_string" ->
-        error (f_"expecting XML expression to return an integer (expression: %s)")
-          expr
-    )
-  in
-
-  let dom_type = xpath_to_string "/domain/@type" "" in
-  let name = xpath_to_string "/domain/name/text()" "" in
-  let memory = xpath_to_int "/domain/memory/text()" (1024 * 1024) in
+  let dom_type =
+    match xpath_string "/domain/@type" with
+    | None | Some "" ->
+       error ~prog (f_"in the libvirt XML metadata, <domain type='...'> is missing or empty")
+    | Some s -> s in
+  let name =
+    match xpath_string "/domain/name/text()" with
+    | None | Some "" ->
+       error ~prog (f_"in the libvirt XML metadata, <name> is missing or empty")
+    | Some s -> s in
+  let memory = xpath_int_default "/domain/memory/text()" (1024 * 1024) in
   let memory = Int64.of_int memory *^ 1024L in
-  let vcpu = xpath_to_int "/domain/vcpu/text()" 1 in
-
-  if dom_type = "" then
-    error (f_"in the libvirt XML metadata, <domain type='...'> is missing or empty");
-  if name = "" then
-    error (f_"in the libvirt XML metadata, <name> is missing or empty");
+  let vcpu = xpath_int_default "/domain/vcpu/text()" 1 in
 
   let features =
     let features = ref [] in
@@ -89,54 +75,53 @@ let parse_libvirt_xml ?conn ~verbose xml =
       (* Ignore everything except the first <graphics> device. *)
       let node = Xml.xpathobj_node obj 0 in
       Xml.xpathctx_set_current_context xpathctx node;
-      let keymap =
-        match xpath_to_string "@keymap" "" with "" -> None | k -> Some k in
-      let password =
-        match xpath_to_string "@passwd" "" with "" -> None | pw -> Some pw in
+      let keymap = xpath_string "@keymap" in
+      let password = xpath_string "@passwd" in
       let listen =
         let obj = Xml.xpath_eval_expression xpathctx "listen" in
         let nr_nodes = Xml.xpathobj_nr_nodes obj in
         if nr_nodes < 1 then (
-          match xpath_to_string "@listen" "" with "" -> LNone | a -> LAddress a
+          match xpath_string "@listen" with
+          | None -> LNone | Some a -> LAddress a
         ) else (
           (* Use only the first <listen> configuration. *)
-          match xpath_to_string "listen[1]/@type" "" with
-          | "" -> LNone
-          | "address" ->
-            (match xpath_to_string "listen[1]/@address" "" with
-            | "" -> LNone
-            | a -> LAddress a
+          match xpath_string "listen[1]/@type" with
+          | None -> LNone
+          | Some "address" ->
+            (match xpath_string "listen[1]/@address" with
+            | None -> LNone
+            | Some a -> LAddress a
             )
-          | "network" ->
-            (match xpath_to_string "listen[1]/@network" "" with
-            | "" -> LNone
-            | n -> LNetwork n
+          | Some "network" ->
+            (match xpath_string "listen[1]/@network" with
+            | None -> LNone
+            | Some n -> LNetwork n
             )
-          | t ->
+          | Some t ->
             warning ~prog (f_"<listen type='%s'> in the input libvirt XML was ignored") t;
             LNone
         ) in
       let port =
-        match xpath_to_string "@autoport" "yes" with
-        | "no" ->
-          let port = xpath_to_int "@port" (-1) in
-          if port >= 0 then Some port
-          else None
+        match xpath_string "@autoport" with
+        | Some "no" ->
+          (match xpath_int "@port" with
+           | Some port when port > 0 -> Some port
+           | Some _ | None -> None)
         | _ -> None in
-      match xpath_to_string "@type" "" with
-      | "" -> None
-      | "vnc" ->
+      match xpath_string "@type" with
+      | None -> None
+      | Some "vnc" ->
         Some { s_display_type = VNC;
                s_keymap = keymap; s_password = password; s_listen = listen;
                s_port = port }
-      | "spice" ->
+      | Some "spice" ->
         Some { s_display_type = Spice;
                s_keymap = keymap; s_password = password; s_listen = listen;
                s_port = port }
-      | "sdl"|"desktop" as t ->
+      | Some ("sdl"|"desktop" as t) ->
         warning ~prog (f_"virt-v2v does not support local displays, so <graphics type='%s'> in the input libvirt XML was ignored") t;
         None
-      | t ->
+      | Some t ->
         warning ~prog (f_"display <graphics type='%s'> in the input libvirt XML was ignored") t;
         None
     ) in
@@ -151,16 +136,16 @@ let parse_libvirt_xml ?conn ~verbose xml =
       let node = Xml.xpathobj_node obj 0 in
 
       Xml.xpathctx_set_current_context xpathctx node;
-      match xpath_to_string "@model" "" with
-      | "" -> None
-      | "ac97"   -> Some { s_sound_model = AC97 }
-      | "es1370" -> Some { s_sound_model = ES1370 }
-      | "ich6"   -> Some { s_sound_model = ICH6 }
-      | "ich9"   -> Some { s_sound_model = ICH9 }
-      | "pcspk"  -> Some { s_sound_model = PCSpeaker }
-      | "sb16"   -> Some { s_sound_model = SB16 }
-      | "usb"    -> Some { s_sound_model = USBAudio }
-      | model ->
+      match xpath_string "@model" with
+      | None -> None
+      | Some "ac97"   -> Some { s_sound_model = AC97 }
+      | Some "es1370" -> Some { s_sound_model = ES1370 }
+      | Some "ich6"   -> Some { s_sound_model = ICH6 }
+      | Some "ich9"   -> Some { s_sound_model = ICH9 }
+      | Some "pcspk"  -> Some { s_sound_model = PCSpeaker }
+      | Some "sb16"   -> Some { s_sound_model = SB16 }
+      | Some "usb"    -> Some { s_sound_model = USBAudio }
+      | Some model ->
          warning ~prog (f_"unknown sound model %s ignored") model;
          None
     ) in
@@ -191,84 +176,80 @@ let parse_libvirt_xml ?conn ~verbose xml =
       Xml.xpathctx_set_current_context xpathctx node;
 
       let controller =
-        let target_bus = xpath_to_string "target/@bus" "" in
+        let target_bus = xpath_string "target/@bus" in
         match target_bus with
-        | "" -> None
-        | "ide" -> Some Source_IDE
-        | "scsi" -> Some Source_SCSI
-        | "virtio" -> Some Source_virtio_blk
-        | _ -> None in
+        | None -> None
+        | Some "ide" -> Some Source_IDE
+        | Some "scsi" -> Some Source_SCSI
+        | Some "virtio" -> Some Source_virtio_blk
+        | Some _ -> None in
 
       let format =
-        match xpath_to_string "driver/@type" "" with
-        | "aio" -> Some "raw" (* Xen wierdness *)
-        | "" -> None
-        | format -> Some format in
+        match xpath_string "driver/@type" with
+        | Some "aio" -> Some "raw" (* Xen wierdness *)
+        | None -> None
+        | Some format -> Some format in
 
       (* The <disk type='...'> attribute may be 'block', 'file',
        * 'network' or 'volume'.  We ignore any other types.
        *)
-      match xpath_to_string "@type" "" with
-      | "block" ->
-        let path = xpath_to_string "source/@dev" "" in
-        if path <> "" then
-          add_disk path format controller (P_source_dev path)
-      | "file" ->
-        let path = xpath_to_string "source/@file" "" in
-        if path <> "" then
-          add_disk path format controller (P_source_file path)
-      | "network" ->
+      match xpath_string "@type" with
+      | None ->
+         warning ~prog (f_"<disk> element with no type attribute ignored")
+      | Some "block" ->
+        (match xpath_string "source/@dev" with
+         | Some path ->
+            add_disk path format controller (P_source_dev path)
+         | None -> ()
+        );
+      | Some "file" ->
+        (match xpath_string "source/@file" with
+         | Some path ->
+            add_disk path format controller (P_source_file path)
+         | None -> ()
+        );
+      | Some "network" ->
         (* We only handle <source protocol="nbd"> here, and that is
          * intended only for virt-p2v.  Any other network disk is
          * currently ignored.
          *)
-        (match xpath_to_string "source/@protocol" "" with
-        | "nbd" ->
-          let host = xpath_to_string "source/host/@name" "" in
-          let port = xpath_to_int "source/host/@port" 0 in
-          if host <> "" && port > 0 then (
-            (* Generate a qemu nbd URL.
-             * XXX Quoting, although it's not needed for virt-p2v.
-             *)
-            let path = sprintf "nbd:%s:%d" host port in
-            add_disk path format controller P_dont_rewrite
-          )
-        | "" -> ()
-        | protocol ->
-          warning ~prog (f_"network <disk> with <source protocol='%s'> was ignored")
+        (match (xpath_string "source/@protocol",
+                xpath_string "source/host/@name",
+                xpath_int "source/host/@port") with
+        | None, _, _ ->
+          warning ~prog (f_"<disk type=network> was ignored")
+        | Some "nbd", Some ("localhost" as host), Some port when port > 0 ->
+          (* virt-p2v: Generate a qemu nbd URL. *)
+          let path = sprintf "nbd:%s:%d" host port in
+          add_disk path format controller P_dont_rewrite
+        | Some protocol, _, _ ->
+          warning ~prog (f_"<disk type='network'> with <source protocol='%s'> was ignored")
             protocol
         )
-      | "volume" ->
-        let pool = xpath_to_string "source/@pool" "" in
-        let vol = xpath_to_string "source/@volume" "" in
-        if pool <> "" && vol <> "" then (
+      | Some "volume" ->
+        (match xpath_string "source/@pool", xpath_string "source/@volume" with
+        | None, None | Some _, None | None, Some _ -> ()
+        | Some pool, Some vol ->
           let xml = Domainxml.vol_dumpxml ?conn pool vol in
           let doc = Xml.parse_memory xml in
           let xpathctx = Xml.xpath_new_context doc in
-
-          let xpath_to_string expr default =
-            let obj = Xml.xpath_eval_expression xpathctx expr in
-            if Xml.xpathobj_nr_nodes obj < 1 then default
-            else (
-              let node = Xml.xpathobj_node obj 0 in
-              Xml.node_as_string node
-            ) in
+          let xpath_string = Utils.xpath_string xpathctx in
 
           (* Use the format specified in the volume itself. *)
-          let format =
-            match xpath_to_string "/volume/target/format/@type" "" with
-            | "" -> None
-            | format -> Some format in
+          let format = xpath_string "/volume/target/format/@type" in
 
-          match xpath_to_string "/volume/@type" "" with
-          | "" | "file" ->
-            let path = xpath_to_string "/volume/target/path/text()" "" in
-            if path <> "" then
-              add_disk path format controller (P_source_file path)
-          | vol_type ->
+          (match xpath_string "/volume/@type" with
+          | None | Some "file" ->
+            (match xpath_string "/volume/target/path/text()" with
+             | Some path ->
+                add_disk path format controller (P_source_file path)
+             | None -> ()
+            );
+          | Some vol_type ->
             warning ~prog (f_"<disk type='volume'> with <volume type='%s'> was ignored") vol_type
+          )
         )
-      | disk_type ->
+      | Some disk_type ->
         warning ~prog (f_"<disk type='%s'> was ignored") disk_type
     done;
     get_disks () in
@@ -285,18 +266,18 @@ let parse_libvirt_xml ?conn ~verbose xml =
       Xml.xpathctx_set_current_context xpathctx node;
 
       let controller =
-        let target_bus = xpath_to_string "target/@bus" "" in
+        let target_bus = xpath_string "target/@bus" in
         match target_bus with
-        | "" -> None
-        | "ide" -> Some Source_IDE
-        | "scsi" -> Some Source_SCSI
-        | "virtio" -> Some Source_virtio_blk
-        | _ -> None in
+        | None -> None
+        | Some "ide" -> Some Source_IDE
+        | Some "scsi" -> Some Source_SCSI
+        | Some "virtio" -> Some Source_virtio_blk
+        | Some _ -> None in
 
       let typ =
-        match xpath_to_string "@device" "" with
-        | "cdrom" -> CDROM
-        | "floppy" -> Floppy
+        match xpath_string "@device" with
+        | Some "cdrom" -> CDROM
+        | Some "floppy" -> Floppy
         | _ -> assert false (* libxml2 error? *) in
 
       let disk =
@@ -314,31 +295,31 @@ let parse_libvirt_xml ?conn ~verbose xml =
       let node = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx node;
 
-      let mac = xpath_to_string "mac/@address" "" in
+      let mac = xpath_string "mac/@address" in
       let mac =
         match mac with
-        | ""
-        | "00:00:00:00:00:00" (* thanks, VMware *) -> None
-        | mac -> Some mac in
+        | None
+        | Some "00:00:00:00:00:00" (* thanks, VMware *) -> None
+        | Some mac -> Some mac in
 
       let vnet_type =
-        match xpath_to_string "@type" "" with
-        | "network" -> Some Network
-        | "bridge" -> Some Bridge
-        | _ -> None in
+        match xpath_string "@type" with
+        | Some "network" -> Some Network
+        | Some "bridge" -> Some Bridge
+        | None | Some _ -> None in
       match vnet_type with
       | None -> ()
       | Some vnet_type ->
-        let vnet = xpath_to_string "source/@network | source/@bridge" "" in
-        if vnet <> "" then (
-          let nic = {
-            s_mac = mac;
-            s_vnet = vnet;
-            s_vnet_orig = vnet;
-            s_vnet_type = vnet_type
-          } in
-          nics := nic :: !nics
-        )
+        match xpath_string "source/@network | source/@bridge" with
+        | None -> ()
+        | Some vnet ->
+           let nic = {
+             s_mac = mac;
+             s_vnet = vnet;
+             s_vnet_orig = vnet;
+             s_vnet_type = vnet_type
+           } in
+           nics := nic :: !nics
     done;
     List.rev !nics in
 
