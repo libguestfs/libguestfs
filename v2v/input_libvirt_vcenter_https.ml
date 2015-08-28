@@ -174,19 +174,29 @@ and run_curl_get_lines curl_args =
 let get_dcPath uri scheme =
   let default_dc = "ha-datacenter" in
   match scheme with
-  | "vpx" ->           (* Hopefully the first part of the path. *)
+  | "vpx" ->
     (match uri.uri_path with
     | None ->
       warning (f_"vcenter: URI (-ic parameter) contains no path, so we cannot determine the dcPath (datacenter name)");
       default_dc
     | Some path ->
-      let path =
+      (* vCenter: URIs are *usually* '/Folder/Datacenter/esxi' so we can
+       * just chop off the first '/' and final '/esxi' to get the dcPath.
+       *
+       * However if there is a cluster involved then the URI may be
+       * /Folder/Datacenter/Cluster/esxi but dcPath=Folder/Datacenter/Cluster
+       * won't work.  In this case the user has to adjust the path to
+       * remove the Cluster name (which still works in libvirt).  There
+       * should be a way to ask the libvirt vpx driver for the correct
+       * path, but there isn't. XXX  See also RHBZ#1256823.
+       *)
+      let path =                (* chop off the first '/' *)
         let len = String.length path in
         if len > 0 && path.[0] = '/' then
           String.sub path 1 (len-1)
         else path in
-      let len =
-        try String.index path '/' with Not_found -> String.length path in
+      let len =                 (* chop off the final element (ESXi hostname) *)
+        try String.rindex path '/' with Not_found -> String.length path in
       String.sub path 0 len
     );
   | "esx" -> (* Connecting to an ESXi hypervisor directly, so it's fixed. *)
