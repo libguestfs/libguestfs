@@ -91,6 +91,8 @@ main (int argc, char *argv[])
   if (g == NULL)
     error (EXIT_FAILURE, 0, "failed to create handle");
 
+  guestfs_set_program (g, "virt-testing");
+
   if (guestfs_add_drive_scratch (g, 1024*1024*1024, -1) == -1)
     exit (EXIT_FAILURE);
 

@@ -37,6 +37,7 @@ fi
 
 # Create a disk image.
 guestfish <<EOF
+set-program virt-testing
 sparse windows.img.tmp.$$ 512M
 run
 

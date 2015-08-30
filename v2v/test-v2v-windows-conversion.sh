@@ -71,7 +71,10 @@ test -f $d/windows.xml
 test -f $d/windows-sda
 
 # Test some aspects of the target disk image.
-guestfish --ro -a $d/windows-sda -i <<EOF
+guestfish --ro -a $d/windows-sda <<EOF
+  set-program virt-testing
+  run
+  mount /dev/sda1 /
   is-dir "/Program Files/Red Hat/Firstboot"
   is-file "/Program Files/Red Hat/Firstboot/firstboot.bat"
   is-dir "/Program Files/Red Hat/Firstboot/scripts"
