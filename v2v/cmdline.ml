@@ -137,7 +137,6 @@ let parse_cmdline () =
   let argspec = [
     "-b",        Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--bridge",  Arg.String add_bridge,     "in:out " ^ ditto;
-    "--debug-gc",Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations";
     "--debug-overlay",Arg.Set debug_overlays,
     " " ^ s_"Save overlay files";
     "--debug-overlays",Arg.Set debug_overlays,

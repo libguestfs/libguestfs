@@ -120,7 +120,6 @@ let main () =
       "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
       "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
       "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-      "--debug-gc", Arg.Unit set_debug_gc,    " " ^ s_"Debug GC and memory allocations (internal)";
       "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
       "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
       "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
