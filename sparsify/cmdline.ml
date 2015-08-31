@@ -55,7 +55,7 @@ let parse_cmdline () =
   let zeroes = ref [] in
 
   let ditto = " -\"-" in
-  let argspec = Arg.align [
+  let argspec = [
     "--check-tmpdir", Arg.String set_check_tmpdir,  "ignore|..." ^ " " ^ s_"Check there is enough space in $TMPDIR";
     "--compress", Arg.Set compress,         " " ^ s_"Compressed output format";
     "--convert", Arg.Set_string convert,    s_"format" ^ " " ^ s_"Format of output disk (default: same as input)";
@@ -64,22 +64,14 @@ let parse_cmdline () =
     "--ignore",  Arg.String (add ignores),  s_"fs" ^ " " ^ s_"Ignore filesystem";
     "--in-place", Arg.Set in_place,         " " ^ s_"Modify the disk image in-place";
     "--inplace", Arg.Set in_place,          ditto;
-    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
     "-q",        Arg.Unit set_quiet,        " " ^ s_"Quiet output";
     "--quiet",   Arg.Unit set_quiet,        ditto;
     "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
-    "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Unit set_verbose,      ditto;
-    "-V",        Arg.Unit print_version_and_exit,
-                                            " " ^ s_"Display version and exit";
-    "--version", Arg.Unit print_version_and_exit,  ditto;
-    "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in
-  long_options := argspec;
+  let argspec = set_standard_options argspec in
   let disks = ref [] in
   let anon_fun s = disks := s :: !disks in
   let usage_msg =

@@ -53,7 +53,7 @@ let main () =
       prefix := Some p in
 
     let ditto = " -\"-" in
-    let argspec = Arg.align [
+    let argspec = [
       "-a",        Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
       "--add",     Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
       "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
@@ -61,22 +61,14 @@ let main () =
       "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
       "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
       "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
-      "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-      "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
       "-o",        Arg.Set_string output, s_"directory" ^ " " ^ s_"Output directory";
       "--output",  Arg.Set_string output,     ditto;
       "--unversioned-names", Arg.Set unversioned,
                                               " " ^ s_"Use unversioned names for files";
       "--prefix",  Arg.String set_prefix,     "prefix" ^ " " ^ s_"Prefix for files";
-      "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-      "--verbose", Arg.Unit set_verbose,      ditto;
-      "-V",        Arg.Unit print_version_and_exit,
-                                              " " ^ s_"Display version and exit";
-      "--version", Arg.Unit print_version_and_exit,  ditto;
-      "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     ] in
-    long_options := argspec;
+    let argspec = set_standard_options argspec in
     let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
     let usage_msg =
       sprintf (f_"\
