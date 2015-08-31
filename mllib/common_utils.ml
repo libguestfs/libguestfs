@@ -511,6 +511,9 @@ let display_long_options () =
   exit 0
 
 let set_standard_options argspec =
+  (** Install an exit hook to check gc consistency for --debug-gc *)
+  let set_debug_gc () =
+    at_exit (fun () -> Gc.compact()) in
   let argspec = [
     "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
@@ -521,6 +524,7 @@ let set_standard_options argspec =
     "-v",           Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
     "--verbose",    Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
     "-x",           Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
+    "--debug-gc",   Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations (internal)";
   ] @ argspec in
   let argspec =
     let cmp (arg1, _, _) (arg2, _, _) = compare_command_line_args arg1 arg2 in
@@ -778,7 +782,3 @@ let read_first_line_from_file filename =
   let line = input_line chan in
   close_in chan;
   line
-
-(** Install an exit hook to check gc consistency for --debug-gc *)
-let set_debug_gc () =
-  at_exit (fun () -> Gc.compact())

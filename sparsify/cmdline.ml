@@ -59,7 +59,6 @@ let parse_cmdline () =
     "--check-tmpdir", Arg.String set_check_tmpdir,  "ignore|..." ^ " " ^ s_"Check there is enough space in $TMPDIR";
     "--compress", Arg.Set compress,         " " ^ s_"Compressed output format";
     "--convert", Arg.Set_string convert,    s_"format" ^ " " ^ s_"Format of output disk (default: same as input)";
-    "--debug-gc", Arg.Unit set_debug_gc,    " " ^ s_"Debug GC and memory allocations";
     "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
     "--ignore",  Arg.String (add ignores),  s_"fs" ^ " " ^ s_"Ignore filesystem";
     "--in-place", Arg.Set in_place,         " " ^ s_"Modify the disk image in-place";

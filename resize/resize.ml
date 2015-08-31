@@ -195,7 +195,6 @@ let main () =
       "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " " ^ s_"Don't copy boot loader";
       "-d",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
       "--debug",   Arg.Unit set_verbose,      ditto;
-      "--debug-gc",Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations";
       "--delete",  Arg.String (add deletes),  s_"part" ^ " " ^ s_"Delete partition";
       "--expand",  Arg.String set_expand,     s_"part" ^ " " ^ s_"Expand partition";
       "--no-expand-content", Arg.Clear expand_content, " " ^ s_"Don't expand content";
