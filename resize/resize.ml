@@ -189,7 +189,7 @@ let main () =
     let sparse = ref true in
 
     let ditto = " -\"-" in
-    let argspec = Arg.align [
+    let argspec = [
       "--align-first", Arg.Set_string align_first, s_"never|always|auto" ^ " " ^ s_"Align first partition (default: auto)";
       "--alignment", Arg.Set_int alignment,   s_"sectors" ^ " " ^ s_"Set partition alignment (default: 128 sectors)";
       "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " " ^ s_"Don't copy boot loader";
@@ -202,16 +202,14 @@ let main () =
       "--no-extra-partition", Arg.Clear extra_partition, " " ^ s_"Don't create extra partition";
       "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
       "--ignore",  Arg.String (add ignores),  s_"part" ^ " " ^ s_"Ignore partition";
-      "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-      "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--lv-expand", Arg.String (add lv_expands), s_"lv" ^ " " ^ s_"Expand logical volume";
       "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ ditto;
       "--lvexpand", Arg.String (add lv_expands), s_"lv" ^ ditto;
       "--LVexpand", Arg.String (add lv_expands), s_"lv" ^ ditto;
       "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
       "-n",        Arg.Set dryrun,            " " ^ s_"Don't perform changes";
+      "--dry-run", Arg.Set dryrun,            " " ^ s_"Don't perform changes";
       "--dryrun",  Arg.Set dryrun,            ditto;
-      "--dry-run", Arg.Set dryrun,            ditto;
       "--ntfsresize-force", Arg.Set ntfsresize_force, " " ^ s_"Force ntfsresize";
       "--output-format", Arg.Set_string output_format, s_"format" ^ " " ^ s_"Format of output disk";
       "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print the summary";
@@ -220,14 +218,8 @@ let main () =
       "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
       "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
       "--no-sparse", Arg.Clear sparse,        " " ^ s_"Turn off sparse copying";
-      "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-      "--verbose", Arg.Unit set_verbose,      ditto;
-      "-V",        Arg.Unit print_version_and_exit,
-                                              " " ^ s_"Display version and exit";
-      "--version", Arg.Unit print_version_and_exit,  ditto;
-      "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     ] in
-    long_options := argspec;
+    let argspec = set_standard_options argspec in
     let disks = ref [] in
     let anon_fun s = disks := s :: !disks in
     let usage_msg =

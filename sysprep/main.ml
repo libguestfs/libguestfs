@@ -131,8 +131,6 @@ let main () =
       "--enable",  Arg.String set_enable,     s_"operations" ^ " " ^ s_"Enable specific operations";
       "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
       "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
-      "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-      "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
       "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
       "--no-selinux-relabel", Arg.Unit (fun () -> ()),
                                               " " ^ s_"Compatibility option, does nothing";
@@ -140,19 +138,9 @@ let main () =
       "--operations", Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
       "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
       "--quiet",   Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
-      "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-      "--verbose", Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-      "-V",        Arg.Unit print_version_and_exit,
-                                              " " ^ s_"Display version and exit";
-      "--version", Arg.Unit print_version_and_exit,
-                                              " " ^ s_"Display version and exit";
-      "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     ] in
     let args = basic_args @ Sysprep_operation.extra_args () in
-    let args =
-      List.sort (fun (a,_,_) (b,_,_) -> compare_command_line_args a b) args in
-    let argspec = Arg.align args in
-    long_options := argspec;
+    let argspec = set_standard_options args in
     let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
     let usage_msg =
       sprintf (f_"\

@@ -510,6 +510,25 @@ let display_long_options () =
   ) !long_options;
   exit 0
 
+let set_standard_options argspec =
+  let argspec = [
+    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
+    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "-V",           Arg.Unit print_version_and_exit,
+                                               " " ^ s_"Display version and exit";
+    "--version",    Arg.Unit print_version_and_exit,
+                                               " " ^ s_"Display version and exit";
+    "-v",           Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
+    "--verbose",    Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
+    "-x",           Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
+  ] @ argspec in
+  let argspec =
+    let cmp (arg1, _, _) (arg2, _, _) = compare_command_line_args arg1 arg2 in
+    List.sort cmp argspec in
+  let argspec = Arg.align argspec in
+  long_options := argspec;
+  argspec
+
 (* Compare two version strings intelligently. *)
 let rex_numbers = Str.regexp "^\\([0-9]+\\)\\(.*\\)$"
 let rex_letters = Str.regexp_case_fold "^\\([a-z]+\\)\\(.*\\)$"

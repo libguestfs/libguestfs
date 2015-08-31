@@ -134,7 +134,7 @@ let parse_cmdline () =
     String.concat "|" (Modules_list.output_modules ()) in
 
   let ditto = " -\"-" in
-  let argspec = Arg.align [
+  let argspec = [
     "-b",        Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--bridge",  Arg.String add_bridge,     "in:out " ^ ditto;
     "--debug-gc",Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations";
@@ -146,8 +146,6 @@ let parse_cmdline () =
     "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
     "-if",       Arg.Set_string input_format,
     "format " ^ s_"Input format (for -i disk)";
-    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--network", Arg.String add_network,    "in:out " ^ ditto;
@@ -163,7 +161,7 @@ let parse_cmdline () =
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
     "-q",        Arg.Unit set_quiet,        " " ^ s_"Quiet output";
-    "--quiet",   Arg.Unit set_quiet,        ditto;
+    "--quiet",   Arg.Unit set_quiet,        " " ^ s_"Quiet output";
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
     "--vdsm-image-uuid",
     Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";
@@ -173,15 +171,9 @@ let parse_cmdline () =
     Arg.Set_string vdsm_vm_uuid, "uuid " ^ s_"Output VM UUID";
     "--vdsm-ovf-output",
     Arg.Set_string vdsm_ovf_output, " " ^ s_"Output OVF file";
-    "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Unit set_verbose,      ditto;
-    "-V",        Arg.Unit print_version_and_exit,
-                                            " " ^ s_"Display version and exit";
-    "--version", Arg.Unit print_version_and_exit,  ditto;
     "--vmtype",  Arg.Set_string vmtype,     "server|desktop " ^ s_"Set vmtype (for RHEV)";
-    "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
   ] in
-  long_options := argspec;
+  let argspec = set_standard_options argspec in
   let args = ref [] in
   let anon_fun s = args := s :: !args in
   let usage_msg =

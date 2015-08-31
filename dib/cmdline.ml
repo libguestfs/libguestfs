@@ -126,9 +126,6 @@ read the man page virt-dib(1).
     extra_packages := List.rev (string_nsplit "," arg) @ !extra_packages in
 
   let argspec = [
-    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
-
     "-p",           Arg.String append_element_path, "path" ^ " " ^ s_"Add new a elements location";
     "--element-path", Arg.String append_element_path, "path" ^ " " ^ s_"Add new a elements location";
     "--exclude-element", Arg.String append_excluded_element,
@@ -167,23 +164,11 @@ read the man page virt-dib(1).
                                                " " ^ s_"Don't delete output file on failure";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
 
-    "-V",           Arg.Unit print_version_and_exit,  " " ^ s_"Display version and exit";
-    "--version",    Arg.Unit print_version_and_exit,  " " ^ s_"Display version and exit";
-    "-v",           Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
-    "--verbose",    Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
-    "-x",           Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     "--debug",      Arg.Int set_debug,         "level" ^ " " ^ s_"Set debug level";
     "-B",           Arg.Set_string basepath,   "path" ^ " " ^ s_"Base path of diskimage-builder library";
   ] in
 
-  let argspec =
-    let cmp (arg1, _, _) (arg2, _, _) =
-      let arg1 = skip_dashes arg1 and arg2 = skip_dashes arg2 in
-      compare (String.lowercase arg1) (String.lowercase arg2)
-    in
-    List.sort cmp argspec in
-  let argspec = Arg.align argspec in
-  long_options := argspec;
+  let argspec = set_standard_options argspec in
 
   Arg.parse argspec append_element usage_msg;
 

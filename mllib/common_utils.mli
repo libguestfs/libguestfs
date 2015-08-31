@@ -122,6 +122,12 @@ val display_short_options : unit -> 'a
 val display_long_options : unit -> 'a
 (** Implements [--long-options]. *)
 
+val set_standard_options : (Arg.key * Arg.spec * Arg.doc) list -> (Arg.key * Arg.spec * Arg.doc) list
+(** Adds the standard libguestfs command line options to the specified ones,
+    sorting them, and setting [long_options] to them.
+
+    Returns the resulting options. *)
+
 val compare_version : string -> string -> int
 (** Compare two version strings. *)
 

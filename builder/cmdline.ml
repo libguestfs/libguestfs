@@ -126,8 +126,6 @@ let parse_cmdline () =
     "--long",    Arg.Unit list_set_long,    " " ^ s_"Shortcut for --list-format short";
     "--list-format", Arg.String list_set_format,
                                             "short|long|json" ^ " " ^ s_"Set the format for --list (default: short)";
-    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
@@ -143,26 +141,12 @@ let parse_cmdline () =
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
-    "-v",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-    "--verbose", Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-    "-V",        Arg.Unit print_version_and_exit,
-                                            " " ^ s_"Display version and exit";
-    "--version", Arg.Unit print_version_and_exit,
-                                            " " ^ s_"Display version and exit";
-    "-x",        Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
   let customize_argspec =
     List.map (fun (spec, _, _) -> spec) customize_argspec in
   let argspec = argspec @ customize_argspec in
-  let argspec =
-    let cmp (arg1, _, _) (arg2, _, _) =
-      let arg1 = skip_dashes arg1 and arg2 = skip_dashes arg2 in
-      compare (String.lowercase arg1) (String.lowercase arg2)
-    in
-    List.sort cmp argspec in
-  let argspec = Arg.align argspec in
-  long_options := argspec;
+  let argspec = set_standard_options argspec in
 
   let args = ref [] in
   let anon_fun s = args := s :: !args in
