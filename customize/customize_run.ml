@@ -70,18 +70,20 @@ let run (g : Guestfs.guestfs) root (ops : ops) =
       ) [ "http_proxy"; "https_proxy"; "ftp_proxy"; "no_proxy" ] in
     let env_vars = String.concat "\n" env_vars ^ "\n" in
 
-    let setarch =
+    let cmd =
       match Config.host_cpu, guest_arch with
-      | "x86_64", ("i386"|"i486"|"i586"|"i686") -> "setarch i686"
-      | _ -> "" in
+      | "x86_64", ("i386"|"i486"|"i586"|"i686") ->
+        sprintf "setarch i686 <<\"__EOCMD\"
+%s
+__EOCMD
+" cmd
+      | _ -> cmd in
 
     let cmd = sprintf "\
 exec >>%s 2>&1
 %s
-%s <<\"__EOCMD\"
 %s
-__EOCMD
-" (quote logfile) env_vars setarch cmd in
+" (quote logfile) env_vars cmd in
 
     if verbose () then printf "running command:\n%s\n%!" cmd;
     try ignore (g#sh cmd)
