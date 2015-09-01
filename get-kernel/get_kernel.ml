@@ -23,104 +23,106 @@ module G = Guestfs
 
 open Printf
 
-(* Main program. *)
-let main () =
-  let add, output, unversioned, prefix =
-    let domain = ref None in
-    let file = ref None in
-    let libvirturi = ref "" in
-    let format = ref "" in
-    let output = ref "" in
-    let machine_readable = ref false in
-    let unversioned = ref false in
-    let prefix = ref None in
+let parse_cmdline () =
+  let domain = ref None in
+  let file = ref None in
+  let libvirturi = ref "" in
+  let format = ref "" in
+  let output = ref "" in
+  let machine_readable = ref false in
+  let unversioned = ref false in
+  let prefix = ref None in
 
-    let set_file arg =
-      if !file <> None then
-        error (f_"--add option can only be given once");
-      let uri =
-        try URI.parse_uri arg
-        with Invalid_argument "URI.parse_uri" ->
-          error (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
-      file := Some uri
-    and set_domain dom =
-      if !domain <> None then
-        error (f_"--domain option can only be given once");
-      domain := Some dom
-    and set_prefix p =
-      if !prefix <> None then
-        error (f_"--prefix option can only be given once");
-      prefix := Some p in
+  let set_file arg =
+    if !file <> None then
+      error (f_"--add option can only be given once");
+    let uri =
+      try URI.parse_uri arg
+      with Invalid_argument "URI.parse_uri" ->
+        error (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
+    file := Some uri
+  and set_domain dom =
+    if !domain <> None then
+      error (f_"--domain option can only be given once");
+    domain := Some dom
+  and set_prefix p =
+    if !prefix <> None then
+      error (f_"--prefix option can only be given once");
+    prefix := Some p in
 
-    let ditto = " -\"-" in
-    let argspec = [
-      "-a",        Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
-      "--add",     Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
-      "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-      "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-      "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-      "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-      "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
-      "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
-      "-o",        Arg.Set_string output, s_"directory" ^ " " ^ s_"Output directory";
-      "--output",  Arg.Set_string output,     ditto;
-      "--unversioned-names", Arg.Set unversioned,
-                                              " " ^ s_"Use unversioned names for files";
-      "--prefix",  Arg.String set_prefix,     "prefix" ^ " " ^ s_"Prefix for files";
-    ] in
-    let argspec = set_standard_options argspec in
-    let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
-    let usage_msg =
-      sprintf (f_"\
+  let ditto = " -\"-" in
+  let argspec = [
+    "-a",        Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
+    "--add",     Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
+    "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
+    "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
+    "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
+    "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
+    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
+    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
+    "-o",        Arg.Set_string output, s_"directory" ^ " " ^ s_"Output directory";
+    "--output",  Arg.Set_string output,     ditto;
+    "--unversioned-names", Arg.Set unversioned,
+                                            " " ^ s_"Use unversioned names for files";
+    "--prefix",  Arg.String set_prefix,     "prefix" ^ " " ^ s_"Prefix for files";
+  ] in
+  let argspec = set_standard_options argspec in
+  let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
+  let usage_msg =
+    sprintf (f_"\
 %s: extract kernel and ramdisk from a guest
 
 A short summary of the options is given below.  For detailed help please
 read the man page virt-get-kernel(1).
 ")
-        prog in
-    Arg.parse argspec anon_fun usage_msg;
+      prog in
+  Arg.parse argspec anon_fun usage_msg;
 
-    (* Machine-readable mode?  Print out some facts about what
-     * this binary supports.
-     *)
-    if !machine_readable then (
-      printf "virt-get-kernel\n";
-      exit 0
-    );
+  (* Machine-readable mode?  Print out some facts about what
+   * this binary supports.
+   *)
+  if !machine_readable then (
+    printf "virt-get-kernel\n";
+    exit 0
+  );
 
-    (* Check -a and -d options. *)
-    let file = !file in
-    let domain = !domain in
-    let libvirturi = match !libvirturi with "" -> None | s -> Some s in
-    let add =
-      match file, domain with
-      | None, None ->
-        error (f_"you must give either -a or -d options.  Read virt-get-kernel(1) man page for further information.")
-      | Some _, Some _ ->
-        error (f_"you cannot give -a and -d options together.  Read virt-get-kernel(1) man page for further information.")
-      | None, Some dom ->
-        fun (g : Guestfs.guestfs) ->
-          let readonlydisk = "ignore" (* ignore CDs, data drives *) in
-          ignore (g#add_domain
-                    ~readonly:true ~allowuuid:true ~readonlydisk
-                    ?libvirturi dom)
-      | Some uri, None ->
-        fun g ->
-          let { URI.path = path; protocol = protocol;
-                server = server; username = username;
-                password = password } = uri in
-          let format = match !format with "" -> None | s -> Some s in
-          g#add_drive
-            ~readonly:true ?format ~protocol ?server ?username ?secret:password
-            path
-    in
+  (* Check -a and -d options. *)
+  let file = !file in
+  let domain = !domain in
+  let libvirturi = match !libvirturi with "" -> None | s -> Some s in
+  let add =
+    match file, domain with
+    | None, None ->
+      error (f_"you must give either -a or -d options.  Read virt-get-kernel(1) man page for further information.")
+    | Some _, Some _ ->
+      error (f_"you cannot give -a and -d options together.  Read virt-get-kernel(1) man page for further information.")
+    | None, Some dom ->
+      fun (g : Guestfs.guestfs) ->
+        let readonlydisk = "ignore" (* ignore CDs, data drives *) in
+        ignore (g#add_domain
+                  ~readonly:true ~allowuuid:true ~readonlydisk
+                  ?libvirturi dom)
+    | Some uri, None ->
+      fun g ->
+        let { URI.path = path; protocol = protocol;
+              server = server; username = username;
+              password = password } = uri in
+        let format = match !format with "" -> None | s -> Some s in
+        g#add_drive
+          ~readonly:true ?format ~protocol ?server ?username ?secret:password
+          path
+  in
 
-    (* Dereference the rest of the args. *)
-    let output = match !output with "" -> None | str -> Some str in
-    let unversioned = !unversioned in
-    let prefix = !prefix in
+  (* Dereference the rest of the args. *)
+  let output = match !output with "" -> None | str -> Some str in
+  let unversioned = !unversioned in
+  let prefix = !prefix in
 
-    add, output, unversioned, prefix in
+  add, output, unversioned, prefix
+
+(* Main program. *)
+let main () =
+  let add, output, unversioned, prefix = parse_cmdline () in
 
   (* Connect to libguestfs. *)
   let g = new G.guestfs () in
