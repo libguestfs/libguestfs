@@ -142,7 +142,8 @@ let rec do_fetch ~transform_fn ~outputdir g root =
   List.iter (
     fun f ->
       let dest = outputdir // transform_fn f in
-      printf "download: %s -> %s\n%!" f dest;
+      if not (quiet ()) then
+        printf "download: %s -> %s\n%!" f dest;
       g#download f dest;
   ) files;
 
