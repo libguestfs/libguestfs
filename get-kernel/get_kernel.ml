@@ -120,6 +120,62 @@ read the man page virt-get-kernel(1).
 
   add, output, unversioned, prefix
 
+let rec do_fetch ~transform_fn ~outputdir g root =
+  (* Mount up the disks. *)
+  let mps = g#inspect_get_mountpoints root in
+  let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
+  let mps = List.sort cmp mps in
+  List.iter (
+    fun (mp, dev) ->
+      try g#mount_ro dev mp
+      with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
+  ) mps;
+
+  let files =
+    let typ = g#inspect_get_type root in
+    match typ with
+    | "linux" -> pick_kernel_files_linux g root
+    | typ ->
+      error (f_"operating system '%s' not supported") typ in
+
+  (* Download the files. *)
+  List.iter (
+    fun f ->
+      let dest = outputdir // transform_fn f in
+      printf "download: %s -> %s\n%!" f dest;
+      g#download f dest;
+  ) files;
+
+  g#umount_all ()
+
+and pick_kernel_files_linux g root =
+  (* Get all kernels and initramfses. *)
+  let glob w = Array.to_list (g#glob_expand w) in
+  let kernels = glob "/boot/vmlinuz-*" in
+  let initrds = glob "/boot/initramfs-*" in
+
+  (* Old RHEL: *)
+  let initrds = if initrds <> [] then initrds else glob "/boot/initrd-*" in
+
+  (* Debian/Ubuntu: *)
+  let initrds = if initrds <> [] then initrds else glob "/boot/initrd.img-*" in
+
+  (* Sort by version to get the latest version as first element. *)
+  let kernels = List.rev (List.sort compare_version kernels) in
+  let initrds = List.rev (List.sort compare_version initrds) in
+
+  if kernels = [] then
+    error (f_"no kernel found in %s") root;
+
+  (* Pick the latest. *)
+  let kernel = [List.hd kernels] in
+  let initrd =
+    match initrds with
+    | [] -> []
+    | initrd :: _ -> [initrd] in
+
+  kernel @ initrd
+
 (* Main program. *)
 let main () =
   let add, output, unversioned, prefix = parse_cmdline () in
@@ -138,34 +194,6 @@ let main () =
     error (f_"dual/multi-boot images are not supported by this tool");
   let root = roots.(0) in
 
-  (* Mount up the disks. *)
-  let mps = g#inspect_get_mountpoints root in
-  let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
-  let mps = List.sort cmp mps in
-  List.iter (
-    fun (mp, dev) ->
-      try g#mount_ro dev mp
-      with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
-  ) mps;
-
-  (* Get all kernels and initramfses. *)
-  let glob w = Array.to_list (g#glob_expand w) in
-  let kernels = glob "/boot/vmlinuz-*" in
-  let initrds = glob "/boot/initramfs-*" in
-
-  (* Old RHEL: *)
-  let initrds = if initrds <> [] then initrds else glob "/boot/initrd-*" in
-
-  (* Debian/Ubuntu: *)
-  let initrds = if initrds <> [] then initrds else glob "/boot/initrd.img-*" in
-
-  (* Sort by version to get the latest version as first element. *)
-  let kernels = List.rev (List.sort compare_version kernels) in
-  let initrds = List.rev (List.sort compare_version initrds) in
-
-  if kernels = [] then
-    error (f_"no kernel found");
-
   let dest_filename fn =
     let fn = Filename.basename fn in
     let fn =
@@ -175,22 +203,12 @@ let main () =
     | None -> fn
     | Some p -> p ^ "-" ^ fn in
 
-  (* Download the latest. *)
   let outputdir =
     match output with
     | None -> Filename.current_dir_name
     | Some dir -> dir in
-  let kernel_in = List.hd kernels in
-  let kernel_out = outputdir // dest_filename kernel_in in
-  printf "download: %s -> %s\n%!" kernel_in kernel_out;
-  g#download kernel_in kernel_out;
 
-  if initrds <> [] then (
-    let initrd_in = List.hd initrds in
-    let initrd_out = outputdir // dest_filename initrd_in in
-    printf "download: %s -> %s\n%!" initrd_in initrd_out;
-    g#download initrd_in initrd_out
-  );
+  do_fetch ~transform_fn:dest_filename ~outputdir g root;
 
   (* Shutdown. *)
   g#shutdown ();
