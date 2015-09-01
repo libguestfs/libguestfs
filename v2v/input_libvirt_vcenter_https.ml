@@ -170,6 +170,8 @@ and run_curl_get_lines curl_args =
   Unix.unlink config_file;
   lines
 
+let multiple_slash = Str.regexp "/+"
+
 (* Helper function to extract the dcPath from a URI. *)
 let get_dcPath uri scheme =
   let default_dc = "ha-datacenter" in
@@ -183,6 +185,10 @@ let get_dcPath uri scheme =
       (* vCenter: URIs are *usually* '/Folder/Datacenter/esxi' so we can
        * just chop off the first '/' and final '/esxi' to get the dcPath.
        *
+       * The libvirt driver allows things like '/DC///esxi////' so we also
+       * have to handle trailing slashes and collapse multiple slashes into
+       * single (RHBZ#1258342).
+       *
        * However if there is a cluster involved then the URI may be
        * /Folder/Datacenter/Cluster/esxi but dcPath=Folder/Datacenter/Cluster
        * won't work.  In this case the user has to adjust the path to
@@ -190,12 +196,21 @@ let get_dcPath uri scheme =
        * should be a way to ask the libvirt vpx driver for the correct
        * path, but there isn't. XXX  See also RHBZ#1256823.
        *)
-      let path =                (* chop off the first '/' *)
+      (* Collapse multiple slashes to single slash. *)
+      let path = Str.global_replace multiple_slash "/" path in
+      (* Chop off the first and trailing '/' (if found). *)
+      let path =
         let len = String.length path in
         if len > 0 && path.[0] = '/' then
           String.sub path 1 (len-1)
         else path in
-      let len =                 (* chop off the final element (ESXi hostname) *)
+      let path =
+        let len = String.length path in
+        if len > 0 && path.[len-1] = '/' then
+          String.sub path 0 (len-1)
+        else path in
+      (* Chop off the final element (ESXi hostname). *)
+      let len =
         try String.rindex path '/' with Not_found -> String.length path in
       String.sub path 0 len
     );
