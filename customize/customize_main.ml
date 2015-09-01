@@ -88,8 +88,6 @@ let main () =
     "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
     "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
     "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
-    "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
-    "--quiet",   Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
   ] in
   let customize_argspec, get_customize_ops =

@@ -211,8 +211,6 @@ let main () =
       "--dryrun",  Arg.Set dryrun,            ditto;
       "--ntfsresize-force", Arg.Set ntfsresize_force, " " ^ s_"Force ntfsresize";
       "--output-format", Arg.Set_string output_format, s_"format" ^ " " ^ s_"Format of output disk";
-      "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print the summary";
-      "--quiet",   Arg.Unit set_quiet,        ditto;
       "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
       "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
       "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";

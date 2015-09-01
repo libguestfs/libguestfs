@@ -159,8 +159,6 @@ let parse_cmdline () =
     "--password-file", Arg.Set_string password_file, "file " ^ s_"Use password from file";
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
-    "-q",        Arg.Unit set_quiet,        " " ^ s_"Quiet output";
-    "--quiet",   Arg.Unit set_quiet,        " " ^ s_"Quiet output";
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
     "--vdsm-image-uuid",
     Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";

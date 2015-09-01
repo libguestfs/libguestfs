@@ -65,8 +65,6 @@ let parse_cmdline () =
     "--inplace", Arg.Set in_place,          ditto;
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-o",        Arg.Set_string option,     s_"option" ^ " " ^ s_"Add qemu-img options";
-    "-q",        Arg.Unit set_quiet,        " " ^ s_"Quiet output";
-    "--quiet",   Arg.Unit set_quiet,        ditto;
     "--tmp",     Arg.Set_string tmp,        s_"block|dir|prebuilt:file" ^ " " ^ s_"Set temporary block device, directory or prebuilt file";
     "--zero",    Arg.String (add zeroes),   s_"fs" ^ " " ^ s_"Zero filesystem";
   ] in
