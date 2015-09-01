@@ -290,6 +290,12 @@ to debug failures to run scripts.
 The default is to delete the output file if virt-dib fails (or,
 for example, some script that it runs fails).
 
+=item B<-q>
+
+=item B<--quiet>
+
+Don't print ordinary progress messages.
+
 =item B<--qemu-img-options> option[,option,...]
 
 Pass I<--qemu-img-options> option(s) to the L<qemu-img(1)> command
