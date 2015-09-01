@@ -135,8 +135,6 @@ let main () =
                                               " " ^ s_"Compatibility option, does nothing";
       "--operation",  Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
       "--operations", Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
-      "-q",        Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
-      "--quiet",   Arg.Unit set_quiet,        " " ^ s_"Don't print log messages";
     ] in
     let args = basic_args @ Sysprep_operation.extra_args () in
     let argspec = set_standard_options args in

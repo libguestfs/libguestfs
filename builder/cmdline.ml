@@ -136,7 +136,6 @@ let parse_cmdline () =
     "--output",  Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
     "--print-cache", Arg.Unit print_cache_mode,
                                             " " ^ s_"Print info about template cache";
-    "--quiet",   Arg.Unit set_quiet,        " " ^ s_"No progress messages";
     "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";

@@ -525,6 +525,8 @@ let set_standard_options argspec =
     "--verbose",    Arg.Unit set_verbose,      " " ^ s_"Enable libguestfs debugging messages";
     "-x",           Arg.Unit set_trace,        " " ^ s_"Enable tracing of libguestfs calls";
     "--debug-gc",   Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations (internal)";
+    "-q",           Arg.Unit set_quiet,        " " ^ s_"Don't print progress messages";
+    "--quiet",      Arg.Unit set_quiet,        " " ^ s_"Don't print progress messages";
   ] @ argspec in
   let argspec =
     let cmp (arg1, _, _) (arg2, _, _) = compare_command_line_args arg1 arg2 in
