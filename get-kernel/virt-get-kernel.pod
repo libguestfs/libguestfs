@@ -99,6 +99,12 @@ C<mydistro-vmlinuz-3.19.0-20-generic> when the prefix is C<mydistro>.
 
 See also I<--unversioned-names>.
 
+=item B<-q>
+
+=item B<--quiet>
+
+Don't print ordinary progress messages.
+
 =item B<--unversioned-names>
 
 This option affects the destination file name of extracted files.

@@ -451,6 +451,8 @@ directory.
 
 Print information about the template cache.  See L</CACHING>.
 
+=item B<-q>
+
 =item B<--quiet>
 
 Don't print ordinary progress messages.
