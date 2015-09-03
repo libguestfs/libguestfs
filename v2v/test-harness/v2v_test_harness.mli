@@ -23,6 +23,10 @@
 *)
 
 type test_plan = {
+  guest_clock : float option;
+  (** If not [None], set the guest clock to the specific time.
+      See below for a list of convenient times. *)
+
   post_conversion_test : (Guestfs.guestfs -> string -> Xml.doc -> unit) option;
   (** Arbitrary test that can be run after conversion. *)
 
@@ -57,6 +61,10 @@ and boot_plan =
 | No_boot                      (** Don't do the boot test at all. *)
 | Boot_to_idle                 (** Boot until VM is idle. *)
 | Boot_to_screenshot of string (** Boot until screenshot (subimage) is displayed. *)
+
+val new_year's_day : int -> float option
+(** Set [test_plan.guest_clock = new_year's_day YYYY] to boot the guest with
+    its clock set to midnight on YYYY-01-01. *)
 
 val default_plan : test_plan
 

@@ -26,6 +26,7 @@ open Printf
 open Common_utils
 
 type test_plan = {
+  guest_clock : float option;
   post_conversion_test : (Guestfs.guestfs -> string -> Xml.doc -> unit) option;
   boot_plan : boot_plan;
 
@@ -42,7 +43,15 @@ and boot_plan =
 | Boot_to_idle
 | Boot_to_screenshot of string
 
+let new_year's_day year =
+  let tm = { tm_sec = 0; tm_min = 0; tm_hour = 0;
+             tm_mday = 1; tm_mon = 0; tm_year = year - 1900;
+             tm_wday = 0; tm_yday = 0; tm_isdst = false } in
+  let t, _ = mktime tm in
+  Some t
+
 let default_plan = {
+  guest_clock = None;
   post_conversion_test = None;
   boot_plan = Boot_to_idle;
   boot_wait_to_write = 120;
@@ -118,6 +127,32 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
         if i > 2097152 then
           Xml.node_set_content node "2097152"
     ) nodes;
+
+    (* Adjust the <clock/> if requested. *)
+    (match test_plan.guest_clock with
+     | None -> ()
+     | Some t ->
+        let adjustment = t -. time () in
+        assert (adjustment <= 0.);
+        let adjustment = int_of_float adjustment in
+        let xpath = Xml.xpath_eval_expression xpathctx "/domain/clock" in
+        let nodes = nodes_of_xpathobj boot_xml_doc xpath in
+        let clock_node =
+          match nodes with
+          | [] ->
+             (* No <clock> element, so insert one. *)
+             let root (* the <domain> element *) =
+               match Xml.doc_get_root_element boot_xml_doc with
+               | None -> assert false
+               | Some root -> root in
+             Xml.new_text_child root "clock" ""
+          | [clock_node] -> clock_node
+          | _ ->
+             failwith "multiple <clock> elements found" in
+        Xml.set_prop clock_node "offset" "variable";
+        Xml.set_prop clock_node "basis" "localtime";
+        Xml.set_prop clock_node "adjustment" (string_of_int adjustment)
+    );
 
     (* Remove all devices except for a whitelist. *)
     let xpath = Xml.xpath_eval_expression xpathctx "/domain/devices/*" in
