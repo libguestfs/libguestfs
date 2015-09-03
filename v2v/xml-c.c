@@ -321,6 +321,25 @@ v2v_xml_node_ptr_set_content (value nodev, value contentv)
 }
 
 value
+v2v_xml_node_ptr_new_text_child (value nodev, value namev, value contentv)
+{
+  CAMLparam3 (nodev, namev, contentv);
+  xmlNodePtr node = (xmlNodePtr) nodev;
+  xmlNodePtr new_node;
+
+  new_node = xmlNewTextChild (node, NULL,
+                              BAD_CAST String_val (namev),
+                              BAD_CAST String_val (contentv));
+  if (new_node == NULL)
+    caml_invalid_argument ("node_ptr_new_text_child: failed to create new node");
+
+  /* See comment in v2v_xml_xpathobj_ptr_get_node_ptr about returning
+   * named xmlNodePtr here.
+   */
+  CAMLreturn ((value) new_node);
+}
+
+value
 v2v_xml_node_ptr_set_prop (value nodev, value namev, value valv)
 {
   CAMLparam3 (nodev, namev, valv);
@@ -343,6 +362,24 @@ v2v_xml_node_ptr_unlink_node (value nodev)
   xmlFreeNode (node);
 
   CAMLreturn (Val_unit);
+}
+
+value
+v2v_xml_doc_get_root_element (value docv)
+{
+  CAMLparam1 (docv);
+  CAMLlocal1 (v);
+  xmlDocPtr doc = Doc_val (docv);
+  xmlNodePtr root;
+
+  root = xmlDocGetRootElement (doc);
+  if (root == NULL)
+    CAMLreturn (Val_int (0));   /* None */
+  else {
+    v = caml_alloc (1, 0);
+    Store_field (v, 0, (value) root);
+    CAMLreturn (v);             /* Some node_ptr */
+  }
 }
 
 value

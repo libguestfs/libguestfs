@@ -88,11 +88,21 @@ let node_as_string (doc_ptr, node_ptr) = node_ptr_as_string doc_ptr node_ptr
 external node_ptr_set_content : node_ptr -> string -> unit = "v2v_xml_node_ptr_set_content"
 let node_set_content (doc_ptr, node_ptr) = node_ptr_set_content node_ptr
 
+external node_ptr_new_text_child : node_ptr -> string -> string -> node_ptr = "v2v_xml_node_ptr_new_text_child"
+let new_text_child (doc_ptr, node_ptr) name content =
+  doc_ptr, node_ptr_new_text_child node_ptr name content
+
 external node_ptr_set_prop : node_ptr -> string -> string -> unit = "v2v_xml_node_ptr_set_prop"
 let set_prop (doc_ptr, node_ptr) = node_ptr_set_prop node_ptr
 
 external node_ptr_unlink_node : node_ptr -> unit = "v2v_xml_node_ptr_unlink_node"
 let unlink_node (doc_ptr, node_ptr) = node_ptr_unlink_node node_ptr
+
+external _doc_get_root_element : doc_ptr -> node_ptr option = "v2v_xml_doc_get_root_element"
+let doc_get_root_element doc_ptr =
+  match _doc_get_root_element doc_ptr with
+  | None -> None
+  | Some node_ptr -> Some (doc_ptr, node_ptr)
 
 type uri = {
   uri_scheme : string option;

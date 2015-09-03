@@ -67,12 +67,18 @@ val node_as_string : node -> string
 val node_set_content : node -> string -> unit
 (** xmlNodeSetContent *)
 
+val new_text_child : node -> string -> string -> node
+(** xmlNewTextChild *)
+
 val set_prop : node -> string -> string -> unit
 (** xmlSetProp *)
 
 val unlink_node : node -> unit
 (** xmlUnlinkNode
     {b NB:} This frees the [node], do not use it afterwards. *)
+
+val doc_get_root_element : doc -> node option
+(** xmlDocGetRootElement *)
 
 type uri = {
   uri_scheme : string option;
