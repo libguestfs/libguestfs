@@ -345,6 +345,11 @@ test_connection (struct config *config)
   if (h == NULL)
     return -1;
 
+  /* Clear any previous version information since we may be connecting
+   * to a different server.
+   */
+  v2v_major = v2v_minor = v2v_release = 0;
+
   /* Send 'virt-v2v --version' command and hope we get back a version string.
    * Note old virt-v2v did not understand -V option.
    */
@@ -438,6 +443,13 @@ test_connection (struct config *config)
                    "the conversion server", v2v_major, v2v_minor);
     return -1;
   }
+
+  /* Clear any previous driver information since we may be connecting
+   * to a different server.
+   */
+  guestfs_int_free_string_list (input_drivers);
+  guestfs_int_free_string_list (output_drivers);
+  input_drivers = output_drivers = NULL;
 
   /* Get virt-v2v features.  See: v2v/cmdline.ml */
   if (mexp_printf (h, "%svirt-v2v --machine-readable\n",
