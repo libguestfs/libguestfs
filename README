@@ -183,7 +183,7 @@ The full requirements are described below.
 | liblzma      |             | O | Can be used by virt-builder for fast    |
 |              |             |   | uncompression of templates.             |
 +--------------+-------------+---+-----------------------------------------+
-| gtk2         |             | O | Used by virt-p2v user interface.        |
+| gtk2         | 2.24        | O | Used by virt-p2v user interface.        |
 +--------------+-------------+---+-----------------------------------------+
 | zip, unzip   |             | O | Used by virt-v2v for OVA files.         |
 +--------------+-------------+---+-----------------------------------------+
