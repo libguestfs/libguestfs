@@ -731,7 +731,6 @@ static void
 repopulate_output_combo (struct config *config)
 {
   GtkTreeModel *model;
-  GtkTreeIter iter;
   CLEANUP_FREE char *output;
   size_t i;
 
@@ -743,9 +742,7 @@ repopulate_output_combo (struct config *config)
 
   /* Remove existing rows in o_combo. */
   model = gtk_combo_box_get_model (GTK_COMBO_BOX (o_combo));
-  while (gtk_tree_model_get_iter_first (model, &iter)) {
-    gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-  }
+  gtk_list_store_clear (GTK_LIST_STORE (model));
 
   /* List of output_drivers from virt-v2v not read yet, so present
    * a standard set of drivers.
