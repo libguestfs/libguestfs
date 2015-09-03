@@ -541,7 +541,7 @@ create_conversion_dialog (struct config *config)
   gtk_misc_set_alignment (GTK_MISC (o_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (output_tbl), o_label,
                     0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
-  o_combo = gtk_combo_box_new_text ();
+  o_combo = gtk_combo_box_text_new ();
   gtk_widget_set_tooltip_markup (o_combo, _("<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the conversion server.  <b>local</b> means put it in a directory on the conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for more information about output options."));
   repopulate_output_combo (config);
   gtk_table_attach (GTK_TABLE (output_tbl), o_combo,
@@ -584,9 +584,11 @@ create_conversion_dialog (struct config *config)
   gtk_misc_set_alignment (GTK_MISC (oa_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (output_tbl), oa_label,
                     0, 1, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
-  oa_combo = gtk_combo_box_new_text ();
-  gtk_combo_box_append_text (GTK_COMBO_BOX (oa_combo), "sparse");
-  gtk_combo_box_append_text (GTK_COMBO_BOX (oa_combo), "preallocated");
+  oa_combo = gtk_combo_box_text_new ();
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (oa_combo),
+                                  "sparse");
+  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (oa_combo),
+                                  "preallocated");
   switch (config->output_allocation) {
   case OUTPUT_ALLOCATION_PREALLOCATED:
     gtk_combo_box_set_active (GTK_COMBO_BOX (oa_combo), 1);
@@ -737,7 +739,7 @@ repopulate_output_combo (struct config *config)
   if (config && config->output)
     output = strdup (config->output);
   else
-    output = gtk_combo_box_get_active_text (GTK_COMBO_BOX (o_combo));
+    output = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (o_combo));
 
   /* Remove existing rows in o_combo. */
   model = gtk_combo_box_get_model (GTK_COMBO_BOX (o_combo));
@@ -749,9 +751,9 @@ repopulate_output_combo (struct config *config)
    * a standard set of drivers.
    */
   if (output_drivers == NULL) {
-    gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "libvirt");
-    gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "local");
-    gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), "rhev");
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo), "libvirt");
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo), "local");
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo), "rhev");
     if (output == NULL || STREQ (output, "libvirt"))
       gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 0);
     else if (STREQ (output, "local"))
@@ -762,7 +764,8 @@ repopulate_output_combo (struct config *config)
   /* List of -o options read from remote virt-v2v --machine-readable. */
   else {
     for (i = 0; output_drivers[i] != NULL; ++i)
-      gtk_combo_box_append_text (GTK_COMBO_BOX (o_combo), output_drivers[i]);
+      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo),
+                                      output_drivers[i]);
     if (output) {
       for (i = 0; output_drivers[i] != NULL; ++i)
         if (STREQ (output, output_drivers[i]))
@@ -1432,10 +1435,11 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
 
   /* Output selection. */
   free (config->output);
-  config->output = gtk_combo_box_get_active_text (GTK_COMBO_BOX (o_combo));
+  config->output =
+    gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (o_combo));
 
   config->output_allocation = OUTPUT_ALLOCATION_NONE;
-  str2 = gtk_combo_box_get_active_text (GTK_COMBO_BOX (oa_combo));
+  str2 = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (oa_combo));
   if (str2) {
     if (STREQ (str2, "sparse"))
       config->output_allocation = OUTPUT_ALLOCATION_SPARSE;
