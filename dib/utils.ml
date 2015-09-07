@@ -76,9 +76,6 @@ let digit_prefix_compare a b =
   let split_prefix str =
     let len = String.length str in
     let digits =
-      let isdigit = function
-        | '0'..'9' -> true
-        | _ -> false in
       try string_index_fn (fun x -> not (isdigit x)) str
       with Not_found -> len in
     match digits with
