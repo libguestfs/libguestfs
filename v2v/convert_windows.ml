@@ -104,43 +104,47 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
-  let find_xenpv_uninst root =
-    try
-      let xenpvreg = "Red Hat Paravirtualized Xen Drivers for Windows(R)" in
-      let node =
-        get_node root
-          ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall"; xenpvreg] in
-      let uninstkey = "UninstallString" in
-      let valueh = g#hivex_node_get_value node uninstkey in
-      if valueh = 0L then (
-        warning (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
-          xenpvreg uninstkey;
-        raise Not_found
-      );
-      let data = g#hivex_value_value valueh in
-      let data = decode_utf16le data in
 
-      (* The uninstall program will be uninst.exe.  This is a wrapper
-       * around _uninst.exe which prompts the user.  As we don't want
-       * the user to be prompted, we run _uninst.exe explicitly.
-       *)
-      let len = String.length data in
-      let data =
-        if len >= 8 &&
-          String.lowercase (String.sub data (len-8) 8) = "uninst.exe" then
-          (String.sub data 0 (len-8)) ^ "_uninst.exe"
-        else
-          data in
-
-      Some data
-    with
-      Not_found -> None
-  in
 
   (* Open the software hive (readonly) and find the Xen PV uninstaller,
    * if it exists.
    *)
-  let xenpv_uninst = with_hive "software" ~write:false find_xenpv_uninst in
+  let xenpv_uninst =
+    let xenpvreg = "Red Hat Paravirtualized Xen Drivers for Windows(R)" in
+
+    let find_xenpv_uninst root =
+      try
+        let node =
+          get_node root
+                   ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
+                    xenpvreg] in
+        let uninstkey = "UninstallString" in
+        let valueh = g#hivex_node_get_value node uninstkey in
+        if valueh = 0L then (
+          warning (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
+                  xenpvreg uninstkey;
+          raise Not_found
+        );
+        let data = g#hivex_value_value valueh in
+        let data = decode_utf16le data in
+
+        (* The uninstall program will be uninst.exe.  This is a wrapper
+         * around _uninst.exe which prompts the user.  As we don't want
+         * the user to be prompted, we run _uninst.exe explicitly.
+         *)
+        let len = String.length data in
+        let data =
+          if len >= 8 &&
+               String.lowercase (String.sub data (len-8) 8) = "uninst.exe" then
+            (String.sub data 0 (len-8)) ^ "_uninst.exe"
+          else
+            data in
+
+        Some data
+      with
+        Not_found -> None
+    in
+    with_hive "software" ~write:false find_xenpv_uninst in
 
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
