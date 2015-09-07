@@ -1072,6 +1072,7 @@ PKG_CHECK_MODULES([YAJL], [yajl >= 2.0.4], [
     AC_SUBST([YAJL_LIBS])
     AC_DEFINE([HAVE_YAJL],[1],[Define to 1 if you have yajl.])
 ],[AC_MSG_WARN([yajl not found, some features will be disabled])])
+AM_CONDITIONAL([HAVE_YAJL],[test "x$YAJL_LIBS" != "x"])
 
 dnl Check for C++ (optional, we just use this to test the header works).
 AC_PROG_CXX
