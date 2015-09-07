@@ -58,6 +58,10 @@ let le32_of_int i =
   String.unsafe_set s 3 (Char.unsafe_chr (Int64.to_int c3));
   s
 
+let isdigit = function
+  | '0'..'9' -> true
+  | _ -> false
+
 type wrap_break_t = WrapEOS | WrapSpace | WrapNL
 
 let rec wrap ?(chan = stdout) ?(indent = 0) str =
