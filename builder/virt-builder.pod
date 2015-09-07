@@ -1183,6 +1183,13 @@ The possible values are:
 The native format of the C<virt-builder> repository.  See also
 L</Creating and signing the index file> below.
 
+=item B<simplestreams>
+
+The URI represents the root of a Simple Streams v1.0 tree of metadata.
+
+For more information about Simple Streams, see also
+L<https://launchpad.net/simplestreams>.
+
 =back
 
 If not present, the assumed value is C<native>.

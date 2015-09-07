@@ -182,6 +182,8 @@ let main () =
           match source.Sources.format with
           | Sources.FormatNative ->
             Index_parser.get_index ~downloader ~sigchecker source
+          | Sources.FormatSimpleStreams ->
+            Simplestreams_parser.get_index ~downloader ~sigchecker source
       ) sources
     ) in
   let index = remove_duplicates index in

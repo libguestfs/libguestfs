@@ -1,0 +1,429 @@
+{
+ "products": {
+  "net.cirros-cloud:standard:0.3:i386": {
+   "arch": "i386",
+   "versions": {
+    "20140908": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "785c524f55bf2493dcddeedba25172f1",
+       "sha256": "bc20b950cc20e66e0b915748ad6b1ea2360ec03f08ffe6c68dc1b4a82331ab66",
+       "size": 3204602,
+       "path": "0.3.3/cirros-0.3.3-i386-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "283c77db6fc79b2d47c585ec241e7edc",
+       "sha256": "837cc3c79de14de62b8691c08a6913b7c0c62427870c7c1921ac43b9580748a9",
+       "size": 12268032,
+       "path": "0.3.3/cirros-0.3.3-i386-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "861ef94d90ea220ae72b84d258ff5620",
+       "sha256": "5c7e685d42f0f1c5c70398e8b7388fc21b84dcbb4dc4a37c1c1645fe5c5ed3a4",
+       "size": 8231317,
+       "path": "0.3.3/cirros-0.3.3-i386-uec.tar.gz"
+      }
+     },
+     "version": "0.3.3",
+     "pubname": "cirros-0.3.3-i386"
+    },
+    "20150422": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "ffe02ef2b49cb34881f96e2b4c69383c",
+       "sha256": "5760cae9b9701dc09f495c3787f1da271800dcbc040eb793ddf4eb636689148a",
+       "size": 3210378,
+       "path": "0.3.4/cirros-0.3.4-i386-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "79b4436412283bb63c2cba4ac796bcd9",
+       "sha256": "48c279ff502ea4c5e3e09d58c9e3a2ab615452dae2ed8fe347f68c136c6a5a0b",
+       "size": 12506112,
+       "path": "0.3.4/cirros-0.3.4-i386-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "c1630b33986cc09df2e0cbca7f5c5346",
+       "sha256": "f1cad519da6632b1d0ebad2f892534b732b5f9dd54d27f532d2963a0748f246e",
+       "size": 8241360,
+       "path": "0.3.4/cirros-0.3.4-i386-uec.tar.gz"
+      }
+     },
+     "version": "0.3.4",
+     "pubname": "cirros-0.3.4-i386"
+    },
+    "20140317": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "55023b89a6121b30603859bb80f5c8d3",
+       "sha256": "136f8dfff85b8d509a0d0a0264aea79ae94d9b7c3ea5745fbd478ae600adeb20",
+       "size": 3201206,
+       "path": "0.3.2/cirros-0.3.2-i386-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "b0a256d40e078d66576f7ae91c296e2b",
+       "sha256": "f0803c2d179c8a02d029239d35fc3e752cc81ad3436ea52b757e11685ca7c074",
+       "size": 12336128,
+       "path": "0.3.2/cirros-0.3.2-i386-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "dcbcc559fc3bc468d9149bd7191aaa0c",
+       "sha256": "74ba8b67e0dce67f16a6bc5942bee90cbe31381f932aac1ba51bbc774aad5046",
+       "size": 8221995,
+       "path": "0.3.2/cirros-0.3.2-i386-uec.tar.gz"
+      }
+     },
+     "version": "0.3.2",
+     "pubname": "cirros-0.3.2-i386"
+    },
+    "20111020": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "e760bf470841f57c2c1bb426d407d169",
+       "sha256": "cac7887628527604b65a89e8caa34096d51c2dc1acfe405c15db2fc58495142a",
+       "size": 1845928,
+       "path": "0.3.0/cirros-0.3.0-i386-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "90169ba6f09b5906a7f0755bd00bf2c3",
+       "sha256": "3309675d0d409128b1c2651d576bc8092ca9ab93e15f3d3aa458f40947569b61",
+       "size": 9159168,
+       "path": "0.3.0/cirros-0.3.0-i386-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "115ca6afa47089dc083c0dc9f9b7ff03",
+       "sha256": "b57e0acb32852f89734ff11a511ae0897e8cecb41882d03551649289b6854a1b",
+       "size": 6596586,
+       "path": "0.3.0/cirros-0.3.0-i386-uec.tar.gz"
+      }
+     },
+     "version": "0.3.0",
+     "pubname": "cirros-0.3.0-i386"
+    },
+    "20130207": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "fc404d9fc9dc5f0eb33ebaa03920a046",
+       "sha256": "70a8c9c175589f7ac7054c6151cf2bb7eb9e210cefbe310446df2fb1a436b504",
+       "size": 3191593,
+       "path": "0.3.1/cirros-0.3.1-i386-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "6ba617eafc992e33e7c141c679225e53",
+       "sha256": "b8aa1ce5d11939eaa01205fc31348532a31b82790921d45ceb397fbe76492787",
+       "size": 12251136,
+       "path": "0.3.1/cirros-0.3.1-i386-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "52845de5142e58faf211e135d2b45721",
+       "sha256": "88dda2e505b862a95d0e0044013addcaa3200e602150c9d73e32c2e29345d6f3",
+       "size": 8197543,
+       "path": "0.3.1/cirros-0.3.1-i386-uec.tar.gz"
+      }
+     },
+     "version": "0.3.1",
+     "pubname": "cirros-0.3.1-i386"
+    }
+   },
+   "stream": "released"
+  },
+  "net.cirros-cloud:standard:0.3:x86_64": {
+   "arch": "x86_64",
+   "versions": {
+    "20140908": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "600363faf89daa6adea87e2dd77263b4",
+       "sha256": "66255c2f9404484996e646bb825fd2f1fd9d66583fecd3e9e0789376cf055fd4",
+       "size": 3544884,
+       "path": "0.3.3/cirros-0.3.3-x86_64-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "133eae9fb1c98f45894a4e60d8736619",
+       "sha256": "f11286e2bd317ee1a1d0469a6b182b33bda4af6f35ba224ca49d75752c81e20a",
+       "size": 13200896,
+       "path": "0.3.3/cirros-0.3.3-x86_64-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "4f3371e52d60e5d47a6fbdd7d6a33973",
+       "sha256": "6bd27854862c30e25f0312defb9e86f9176b503751f040e323ab83322aa07dae",
+       "size": 8668951,
+       "path": "0.3.3/cirros-0.3.3-x86_64-uec.tar.gz"
+      }
+     },
+     "version": "0.3.3",
+     "pubname": "cirros-0.3.3-x86_64"
+    },
+    "20150422": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "6554ba2d15401c8caa90212ace985593",
+       "sha256": "e8172c603fad47f4c95e67bd2751c2977e07164c9ebdfcf3f9c1d7ff598ed217",
+       "size": 3555536,
+       "path": "0.3.4/cirros-0.3.4-x86_64-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "ee1eca47dc88f4879d8a229cc70a07c6",
+       "sha256": "34987d0d5702f8813f3ff9efe90e9e39e6926ec78658763580a79face67f3394",
+       "size": 13287936,
+       "path": "0.3.4/cirros-0.3.4-x86_64-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "067d511efcc4acd034f7d64b716273bf",
+       "sha256": "95e77c7deaf0f515f959ffe329918d5dd23e417503d1d45e926a888853c90710",
+       "size": 8683894,
+       "path": "0.3.4/cirros-0.3.4-x86_64-uec.tar.gz"
+      }
+     },
+     "version": "0.3.4",
+     "pubname": "cirros-0.3.4-x86_64"
+    },
+    "20140317": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "174a08e827f22b20ebd774f90f1c9181",
+       "sha256": "03eff2a3603164fa02c00ca76fdcbd611b2ae8a6a80406753ec35eb275648d2e",
+       "size": 3538286,
+       "path": "0.3.2/cirros-0.3.2-x86_64-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "64d7c1cd2b6f60c92c14662941cb7913",
+       "sha256": "a2ca56aeded5a5bcaa6104fb14ec07b1ceb65222e2890bef8a89b8d2da729ad5",
+       "size": 13167616,
+       "path": "0.3.2/cirros-0.3.2-x86_64-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "b369559e3ffa9208b4eb2224c949f579",
+       "sha256": "f462729fc2f071081dbc55932e07437e265263ef2e688306c353a1f152162b03",
+       "size": 8655821,
+       "path": "0.3.2/cirros-0.3.2-x86_64-uec.tar.gz"
+      }
+     },
+     "version": "0.3.2",
+     "pubname": "cirros-0.3.2-x86_64"
+    },
+    "20111020": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "1a480e5150db4d93be2aa3c9ced94fa1",
+       "sha256": "0e78796a30641dd7184f752c302a87d66f1eba9985c876911e4f26b4d8ba4a88",
+       "size": 2115217,
+       "path": "0.3.0/cirros-0.3.0-x86_64-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "50bdc35edb03a38d91b1b071afb20a3c",
+       "sha256": "648782e9287288630250d07531fed9944ecc3986764a6664f0bf6c050ec06afd",
+       "size": 9761280,
+       "path": "0.3.0/cirros-0.3.0-x86_64-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "f56d3cffa47b7d209d2b6905628f07b9",
+       "sha256": "043a3e090a5d76d23758a3919fcaff93f77ce7b97594d9d10fc8d00e85f83191",
+       "size": 6957349,
+       "path": "0.3.0/cirros-0.3.0-x86_64-uec.tar.gz"
+      }
+     },
+     "version": "0.3.0",
+     "pubname": "cirros-0.3.0-x86_64"
+    },
+    "20130207": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "38252f1a49fec0ebedebc820854497e0",
+       "sha256": "a086fcf2758468972d45957dc78ec6317c06f356930dbbc6cad6a8d1855f135e",
+       "size": 3534564,
+       "path": "0.3.1/cirros-0.3.1-x86_64-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "d972013792949d0d3ba628fbe8685bce",
+       "sha256": "e01302fb2d2b13ae65226a0300335172e4487bbe60bb1e5c8b0843a25f126d34",
+       "size": 13147648,
+       "path": "0.3.1/cirros-0.3.1-x86_64-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "e1849016cb71a00808093b7bf986f36a",
+       "sha256": "51eb03b83123a68d4f866c7c15b195204e62db9e33475509a38b79b3122cde38",
+       "size": 8633554,
+       "path": "0.3.1/cirros-0.3.1-x86_64-uec.tar.gz"
+      }
+     },
+     "version": "0.3.1",
+     "pubname": "cirros-0.3.1-x86_64"
+    }
+   },
+   "stream": "released"
+  },
+  "net.cirros-cloud:standard:0.3:powerpc": {
+   "arch": "powerpc",
+   "versions": {
+    "20150422": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "7e3a147b5665a1e14fe6d0ffef9ca410",
+       "sha256": "b1ab58ebb2a3f253d15cfa13f0cd0de883ce6e80f42ce2e3889e880423e95462",
+       "size": 3603000,
+       "path": "0.3.4/cirros-0.3.4-powerpc-lxc.tar.gz"
+      },
+      "disk.img": {
+       "ftype": "disk.img",
+       "md5": "453b21916c47c6ff8c615f8a5f7b76d2",
+       "sha256": "5445d77104d19ccdc2dbc943a3d0735c0dadd1227466a3f3e109c19671065f18",
+       "size": 17145856,
+       "path": "0.3.4/cirros-0.3.4-powerpc-disk.img"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "2f8a48928a6b0b2c9afbcb7255ff2aec",
+       "sha256": "80444c3ac8277d87eed0963567206ea5b009ecf4fdbc71fe8c4df020b42e3215",
+       "size": 12032417,
+       "path": "0.3.4/cirros-0.3.4-powerpc-uec.tar.gz"
+      }
+     }
+    }
+   },
+   "version": "0.3.4",
+   "stream": "released",
+   "pubname": "cirros-0.3.4-powerpc"
+  },
+  "net.cirros-cloud:standard:0.3:arm": {
+   "arch": "arm",
+   "versions": {
+    "20140908": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "7f2fe450d9a0b1688f2a4df6748690f5",
+       "sha256": "c839db36d5c96651d1dbcfc8a553678b010c7bb49416ac3099282858003fa021",
+       "size": 3482025,
+       "path": "0.3.3/cirros-0.3.3-arm-lxc.tar.gz"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "0437419d2371771b7406fade2d6db7d1",
+       "sha256": "4a0987818f3a834d9907b93729beb79426e58be9d46b3c207241bc4b1ceec52f",
+       "size": 7351177,
+       "path": "0.3.3/cirros-0.3.3-arm-uec.tar.gz"
+      }
+     },
+     "version": "0.3.3",
+     "pubname": "cirros-0.3.3-arm"
+    },
+    "20150422": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "5fd856d158dc6787264a1b4236126aab",
+       "sha256": "06c780e8c7166e16154bd0d3a6d1b0031e219269e990c5b8864a82925285486c",
+       "size": 3489736,
+       "path": "0.3.4/cirros-0.3.4-arm-lxc.tar.gz"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "1a2aea370f9f2d95d837f6b84bef658d",
+       "sha256": "6dd3bad904671aee13317c187d933b3efb1ac39a0d81fd5ac9a1fc694e3cb7ff",
+       "size": 7357906,
+       "path": "0.3.4/cirros-0.3.4-arm-uec.tar.gz"
+      }
+     },
+     "version": "0.3.4",
+     "pubname": "cirros-0.3.4-arm"
+    },
+    "20140317": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "bfb2ecb203cf27f4786b43a558b1ffe8",
+       "sha256": "a916b3d268793977001e2f09638e4a3e3953cc51d0d53d0bfb8c14cfa7105e86",
+       "size": 3474403,
+       "path": "0.3.2/cirros-0.3.2-arm-lxc.tar.gz"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "171719bfd4b3ec613f5fac321e4216de",
+       "sha256": "7f74826638e153ec58230bae9eb21805f875ed12eab299140f978e45597cb5cd",
+       "size": 7340357,
+       "path": "0.3.2/cirros-0.3.2-arm-uec.tar.gz"
+      }
+     },
+     "version": "0.3.2",
+     "pubname": "cirros-0.3.2-arm"
+    },
+    "20111020": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "91add49e56cbe6b5004015a4d2f51dbc",
+       "sha256": "fcd3723c956a1c232730dc28513b466657cbe984232ba2fcc30a4e1f55aa91e9",
+       "size": 2043822,
+       "path": "0.3.0/cirros-0.3.0-arm-lxc.tar.gz"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "c31e05f7829ad45f9d9995c35d232769",
+       "sha256": "b871823406f818430f57744333b1bb17ce0047e551a316f316641f1bd70d9152",
+       "size": 5761642,
+       "path": "0.3.0/cirros-0.3.0-arm-uec.tar.gz"
+      }
+     },
+     "version": "0.3.0",
+     "pubname": "cirros-0.3.0-arm"
+    },
+    "20130207": {
+     "items": {
+      "lxc.tar.gz": {
+       "ftype": "lxc.tar.gz",
+       "md5": "7ddea367ecb7ecb91554e18bed7c71bd",
+       "sha256": "2060e59e642b3b2bdf6e34aba3ed15f468bc6f9a8417fc196d01d29b2075493e",
+       "size": 3466149,
+       "path": "0.3.1/cirros-0.3.1-arm-lxc.tar.gz"
+      },
+      "uec.tar.gz": {
+       "ftype": "uec.tar.gz",
+       "md5": "d04e6f26aed123bba2c096581b269e7f",
+       "sha256": "09dcd3ea6f1d48b3519232973e4dc00fc5e73cbea974cda6b5f7cfa380c6b428",
+       "size": 7314471,
+       "path": "0.3.1/cirros-0.3.1-arm-uec.tar.gz"
+      }
+     },
+     "version": "0.3.1",
+     "pubname": "cirros-0.3.1-arm"
+    }
+   },
+   "stream": "released"
+  }
+ },
+ "datatype": "image-downloads",
+ "format": "products:1.0",
+ "updated": "Fri, 08 May 2015 13:20:51 +0000",
+ "content_id": "net.cirros-cloud:released:download"
+}

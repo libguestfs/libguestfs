@@ -12,6 +12,7 @@ builder/paths.ml
 builder/pxzcat.ml
 builder/setlocale.ml
 builder/sigchecker.ml
+builder/simplestreams_parser.ml
 builder/sources.ml
 builder/utils.ml
 builder/yajl.ml

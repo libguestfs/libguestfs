@@ -1724,6 +1724,7 @@ AC_CONFIG_FILES([Makefile
                  builder/Makefile
                  builder/libguestfs.conf
                  builder/test-config/virt-builder/repos.d/test-index.conf
+                 builder/test-simplestreams/virt-builder/repos.d/cirros.conf
                  builder/test-website/virt-builder/repos.d/libguestfs.conf
                  builder/website/Makefile
                  cat/Makefile

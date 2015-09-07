@@ -1,0 +1,18 @@
+{
+ "format": "index:1.0",
+ "updated": "Fri, 08 May 2015 13:20:51 +0000",
+ "index": {
+  "net.cirros-cloud:released:download": {
+   "products": [
+    "net.cirros-cloud:standard:0.3:i386",
+    "net.cirros-cloud:standard:0.3:x86_64",
+    "net.cirros-cloud:standard:0.3:powerpc",
+    "net.cirros-cloud:standard:0.3:arm"
+   ],
+   "datatype": "image-downloads",
+   "format": "products:1.0",
+   "updated": "Fri, 08 May 2015 13:20:51 +0000",
+   "path": "streams/v1/net.cirros-cloud:released:download.json"
+  }
+ }
+}

@@ -65,6 +65,7 @@ Makefile.in
 /builder/stamp-virt-builder.pod
 /builder/stamp-virt-index-validate.pod
 /builder/test-config/virt-builder/repos.d/test-index.conf
+/builder/test-simplestreams/virt-builder/repos.d/cirros.conf
 /builder/test-website/virt-builder/repos.d/libguestfs.conf
 /builder/virt-builder
 /builder/virt-builder.1

@@ -1,5 +1,5 @@
 (* virt-builder
- * Copyright (C) 2014 Red Hat Inc.
+ * Copyright (C) 2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-type source = {
-  name : string;
-  uri : string;
-  gpgkey : Utils.gpgkey_type;
-  proxy : Downloader.proxy_mode;
-  format : source_format;
-}
-and source_format =
-| FormatNative
-| FormatSimpleStreams
-
-val read_sources : unit -> source list
+val get_index : downloader:Downloader.t -> sigchecker:Sigchecker.t -> Sources.source -> Index.index

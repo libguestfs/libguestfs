@@ -1,0 +1,3 @@
+[test-cirros]
+uri=file://@abs_top_builddir@/builder/test-simplestreams
+format=simplestreams

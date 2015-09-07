@@ -49,6 +49,7 @@ SOURCES_MLI = \
 	pxzcat.mli \
 	setlocale.mli \
 	sigchecker.mli \
+	simplestreams_parser.mli \
 	sources.mli \
 	yajl.mli
 
@@ -67,6 +68,7 @@ SOURCES_ML = \
 	downloader.ml \
 	sigchecker.ml \
 	index_parser.ml \
+	simplestreams_parser.ml \
 	list_entries.ml \
 	cmdline.ml \
 	builder.ml
@@ -268,6 +270,10 @@ TESTS = \
 	test-virt-builder-list.sh \
 	test-virt-index-validate.sh
 check_PROGRAMS =
+
+if HAVE_YAJL
+TESTS += test-virt-builder-list-simplestreams.sh
+endif
 
 if ENABLE_APPLIANCE
 TESTS += test-virt-builder.sh
