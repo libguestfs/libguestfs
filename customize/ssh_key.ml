@@ -119,14 +119,14 @@ let do_ssh_inject_unix (g : Guestfs.guestfs) user selector =
   let ssh_dir = sprintf "%s/.ssh" home_dir in
   if not (g#exists ssh_dir) then (
     g#mkdir ssh_dir;
-    g#chmod 0o755 ssh_dir
+    g#chmod 0o700 ssh_dir
   );
 
   (* Create ~user/.ssh/authorized_keys if it doesn't exist. *)
   let auth_keys = sprintf "%s/authorized_keys" ssh_dir in
   if not (g#exists auth_keys) then (
     g#touch auth_keys;
-    g#chmod 0o644 auth_keys
+    g#chmod 0o600 auth_keys
   );
 
   (* Append the key. *)

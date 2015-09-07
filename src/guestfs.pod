@@ -2244,6 +2244,23 @@ allowed a malformed filesystem to take over the appliance.
 
 If you use sVirt to confine qemu, that would thwart some attacks.
 
+=head2 Permissions of F<.ssh> and F<.ssh/authorized_keys>
+
+L<https://bugzilla.redhat.com/1260778>
+
+The tools L<virt-customize(1)>, L<virt-sysprep(1)> and
+L<virt-builder(1)> have an I<--ssh-inject> option for injecting an SSH
+key into virtual machine disk images.  They may create a F<~user/.ssh>
+directory and F<~user/.ssh/authorized_keys> file in the guest to do
+this.
+
+In libguestfs E<lt> 1.31.5 and libguestfs E<lt> 1.30.2, the new
+directory and file would get mode C<0755> and mode C<0644>
+respectively.  However these permissions (especially for
+F<~user/.ssh>) are wider than the permissions that OpenSSH uses.  In
+current libguestfs, the directory and file are created with mode
+C<0700> and mode C<0600>.
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
