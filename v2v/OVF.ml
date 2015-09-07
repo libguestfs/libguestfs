@@ -338,6 +338,9 @@ let rec create_ovf source targets guestcaps inspect
   (* Add networks to the OVF XML. *)
   add_networks source.s_nics guestcaps ovf;
 
+  (* Add sound card to the OVF XML. *)
+  add_sound_card source.s_sound ovf;
+
   (* Old virt-v2v didn't really look at the video and display
    * metadata, instead just adding a single standard display (see
    * above).  However it did warn if there was a password on the
@@ -526,3 +529,35 @@ and add_networks nics guestcaps ovf =
         e "Item" [] children in
       append_child item virtualhardware_section;
   ) nics
+
+(* This modifies the OVF DOM, adding a sound card, if oVirt can emulate it. *)
+and add_sound_card sound ovf =
+  let device =
+    match sound with
+    | None -> None
+    | Some { s_sound_model = AC97 } -> Some "ac97"
+    | Some { s_sound_model = ICH6 } -> Some "ich6"
+    | Some { s_sound_model = model } ->
+       warning (f_"oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from the output.")
+               (string_of_source_sound_model model);
+       None in
+
+  match device with
+  | Some device ->
+     let virtualhardware_section =
+       let sections =
+         path_to_nodes ovf ["ovf:Envelope"; "Content"; "Section"] in
+       try find_node_by_attr sections
+                             ("xsi:type", "ovf:VirtualHardwareSection_Type")
+       with Not_found -> assert false in
+
+     let item =
+       e "Item" [] [
+         e "rasd:InstanceId" [] [PCData (uuidgen ())];
+         e "rasd:ResourceType" [] [PCData "0"];
+         e "Type" [] [PCData "sound"];
+         e "Device" [] [PCData device];
+       ] in
+     append_child item virtualhardware_section
+
+  | None -> ()
