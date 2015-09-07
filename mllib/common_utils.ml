@@ -62,6 +62,12 @@ let isdigit = function
   | '0'..'9' -> true
   | _ -> false
 
+let isxdigit = function
+  | '0'..'9' -> true
+  | 'a'..'f' -> true
+  | 'A'..'F' -> true
+  | _ -> false
+
 type wrap_break_t = WrapEOS | WrapSpace | WrapNL
 
 let rec wrap ?(chan = stdout) ?(indent = 0) str =
