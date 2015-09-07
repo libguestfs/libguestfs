@@ -35,22 +35,30 @@ let parse_cmdline () =
   let debug_gc = ref false in
   let debug_overlays = ref false in
   let do_copy = ref true in
-  let input_conn = ref "" in
-  let input_format = ref "" in
   let machine_readable = ref false in
-  let output_conn = ref "" in
-  let output_format = ref "" in
-  let output_name = ref "" in
-  let output_storage = ref "" in
-  let password_file = ref "" in
   let print_source = ref false in
   let qemu_boot = ref false in
   let quiet = ref false in
-  let vdsm_vm_uuid = ref "" in
-  let vdsm_ovf_output = ref "." in
   let verbose = ref false in
   let trace = ref false in
-  let vmtype = ref "" in
+
+  let input_conn = ref None in
+  let input_format = ref None in
+  let output_conn = ref None in
+  let output_format = ref None in
+  let output_name = ref None in
+  let output_storage = ref None in
+  let password_file = ref None in
+  let vdsm_vm_uuid = ref None in
+  let vdsm_ovf_output = ref None in (* default "." *)
+  let vmtype = ref None in
+  let set_string_option_once optname optref arg =
+    match !optref with
+    | Some _ ->
+       error (f_"%s option used more than once on the command line") optname
+    | None ->
+       optref := Some arg
+  in
 
   let input_mode = ref `Not_set in
   let set_input_mode mode =
@@ -152,9 +160,10 @@ let parse_cmdline () =
     "--debug-overlays",Arg.Set debug_overlays,
     ditto;
     "-i",        Arg.String set_input_mode, i_options ^ " " ^ s_"Set input mode (default: libvirt)";
-    "-ic",       Arg.Set_string input_conn, "uri " ^ s_"Libvirt URI";
-    "-if",       Arg.Set_string input_format,
-    "format " ^ s_"Input format (for -i disk)";
+    "-ic",       Arg.String (set_string_option_once "-ic" input_conn),
+                                            "uri " ^ s_"Libvirt URI";
+    "-if",       Arg.String (set_string_option_once "-if" input_format),
+                                            "format " ^ s_"Input format (for -i disk)";
     "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
@@ -162,30 +171,35 @@ let parse_cmdline () =
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
     "--no-trim", Arg.String set_no_trim,    "all|mp,mp,.." ^ " " ^ s_"Don't trim selected mounts";
     "-o",        Arg.String set_output_mode, o_options ^ " " ^ s_"Set output mode (default: libvirt)";
-    "-oa",       Arg.String set_output_alloc, "sparse|preallocated " ^ s_"Set output allocation mode";
-    "-oc",       Arg.Set_string output_conn, "uri " ^ s_"Libvirt URI";
-    "-of",       Arg.Set_string output_format, "raw|qcow2 " ^ s_"Set output format";
-    "-on",       Arg.Set_string output_name, "name " ^ s_"Rename guest when converting";
-    "-os",       Arg.Set_string output_storage, "storage " ^ s_"Set output storage location";
-    "--password-file", Arg.Set_string password_file, "file " ^ s_"Use password from file";
+    "-oa",       Arg.String set_output_alloc,
+                                            "sparse|preallocated " ^ s_"Set output allocation mode";
+    "-oc",       Arg.String (set_string_option_once "-oc" output_conn),
+                                            "uri " ^ s_"Libvirt URI";
+    "-of",       Arg.String (set_string_option_once "-of" output_format),
+                                            "raw|qcow2 " ^ s_"Set output format";
+    "-on",       Arg.String (set_string_option_once "-on" output_name),
+                                            "name " ^ s_"Rename guest when converting";
+    "-os",       Arg.String (set_string_option_once "-os" output_storage),
+                                            "storage " ^ s_"Set output storage location";
+    "--password-file", Arg.String (set_string_option_once "--password-file" password_file),
+                                            "file " ^ s_"Use password from file";
     "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
     "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"This option cannot be used in RHEL";
     "-q",        Arg.Set quiet,             " " ^ s_"Quiet output";
     "--quiet",   Arg.Set quiet,             ditto;
     "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
-    "--vdsm-image-uuid",
-    Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";
-    "--vdsm-vol-uuid",
-    Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
-    "--vdsm-vm-uuid",
-    Arg.Set_string vdsm_vm_uuid, "uuid " ^ s_"Output VM UUID";
-    "--vdsm-ovf-output",
-    Arg.Set_string vdsm_ovf_output, " " ^ s_"Output OVF file";
+    "--vdsm-image-uuid", Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";
+    "--vdsm-vol-uuid", Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
+    "--vdsm-vm-uuid", Arg.String (set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
+                                            "uuid " ^ s_"Output VM UUID";
+    "--vdsm-ovf-output", Arg.String (set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
+                                            " " ^ s_"Output OVF file";
     "-v",        Arg.Set verbose,           " " ^ s_"Enable debugging messages";
     "--verbose", Arg.Set verbose,           ditto;
     "-V",        Arg.Unit display_version,  " " ^ s_"Display version and exit";
     "--version", Arg.Unit display_version,  ditto;
-    "--vmtype",  Arg.Set_string vmtype,     "server|desktop " ^ s_"Set vmtype (for RHEV)";
+    "--vmtype",  Arg.String (set_string_option_once "--vmtype" vmtype),
+                                            "server|desktop " ^ s_"Set vmtype (for RHEV)";
     "-x",        Arg.Set trace,             " " ^ s_"Enable tracing of libguestfs calls";
   ] in
   long_options := argspec;
@@ -220,19 +234,19 @@ read the man page virt-v2v(1).
   let debug_gc = !debug_gc in
   let debug_overlays = !debug_overlays in
   let do_copy = !do_copy in
-  let input_conn = match !input_conn with "" -> None | s -> Some s in
-  let input_format = match !input_format with "" -> None | s -> Some s in
+  let input_conn = !input_conn in
+  let input_format = !input_format in
   let input_mode = !input_mode in
   let machine_readable = !machine_readable in
   let network_map = !network_map in
   let no_trim = !no_trim in
   let output_alloc = !output_alloc in
-  let output_conn = match !output_conn with "" -> None | s -> Some s in
-  let output_format = match !output_format with "" -> None | s -> Some s in
+  let output_conn = !output_conn in
+  let output_format = !output_format in
   let output_mode = !output_mode in
-  let output_name = match !output_name with "" -> None | s -> Some s in
+  let output_name = !output_name in
   let output_storage = !output_storage in
-  let password_file = match !password_file with "" -> None | s -> Some s in
+  let password_file = !password_file in
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
   let quiet = !quiet in
@@ -240,14 +254,15 @@ read the man page virt-v2v(1).
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
   let vdsm_vm_uuid = !vdsm_vm_uuid in
-  let vdsm_ovf_output = !vdsm_ovf_output in
+  let vdsm_ovf_output =
+    match !vdsm_ovf_output with None -> "." | Some s -> s in
   let verbose = !verbose in
   let trace = !trace in
   let vmtype =
     match !vmtype with
-    | "server" -> Some `Server
-    | "desktop" -> Some `Desktop
-    | "" -> None
+    | Some "server" -> Some `Server
+    | Some "desktop" -> Some `Desktop
+    | None -> None
     | _ ->
       error (f_"unknown --vmtype option, must be \"server\" or \"desktop\"") in
 
@@ -319,7 +334,7 @@ read the man page virt-v2v(1).
     | `Glance ->
       if output_conn <> None then
         error (f_"-o glance: -oc option cannot be used in this output mode");
-      if output_storage <> "" then
+      if output_storage <> None then
         error (f_"-o glance: -os option cannot be used in this output mode");
       if qemu_boot then
         error (f_"-o glance: --qemu-boot option cannot be used in this output mode");
@@ -332,7 +347,7 @@ read the man page virt-v2v(1).
     | `Not_set
     | `Libvirt ->
       let output_storage =
-        if output_storage = "" then "default" else output_storage in
+        match output_storage with None -> "default" | Some os -> os in
       if qemu_boot then
         error (f_"-o libvirt: --qemu-boot option cannot be used in this output mode");
       if vmtype <> None then
@@ -342,21 +357,23 @@ read the man page virt-v2v(1).
       Output_libvirt.output_libvirt verbose output_conn output_storage
 
     | `Local ->
-      if output_storage = "" then
-        error (f_"-o local: output directory was not specified, use '-os /dir'");
-      if not (is_directory output_storage) then
-        error (f_"-os %s: output directory does not exist or is not a directory")
-          output_storage;
+      let os =
+        match output_storage with
+        | None ->
+           error (f_"-o local: output directory was not specified, use '-os /dir'")
+        | Some d when not (is_directory d) ->
+           error (f_"-os %s: output directory does not exist or is not a directory") d
+        | Some d -> d in
       if qemu_boot then
         error (f_"-o local: --qemu-boot option cannot be used in this output mode");
       if vmtype <> None then
         error (f_"--vmtype option cannot be used with '-o local'");
-      Output_local.output_local verbose output_storage
+      Output_local.output_local verbose os
 
     | `Null ->
       if output_conn <> None then
         error (f_"-o null: -oc option cannot be used in this output mode");
-      if output_storage <> "" then
+      if output_storage <> None then
         error (f_"-o null: -os option cannot be used in this output mode");
       if qemu_boot then
         error (f_"-o null: --qemu-boot option cannot be used in this output mode");
@@ -365,34 +382,49 @@ read the man page virt-v2v(1).
       Output_null.output_null verbose
 
     | `QEmu ->
-      if not (is_directory output_storage) then
-        error (f_"-os %s: output directory does not exist or is not a directory")
-          output_storage;
       if qemu_boot then
         error (f_"-o qemu: the --qemu-boot option cannot be used in RHEL");
-      Output_qemu.output_qemu verbose output_storage qemu_boot
+      let os =
+        match output_storage with
+        | None ->
+           error (f_"-o qemu: output directory was not specified, use '-os /dir'")
+        | Some d when not (is_directory d) ->
+           error (f_"-os %s: output directory does not exist or is not a directory") d
+        | Some d -> d in
+      Output_qemu.output_qemu verbose os qemu_boot
 
     | `RHEV ->
-      if output_storage = "" then
-        error (f_"-o rhev: output storage was not specified, use '-os'");
+      let os =
+        match output_storage with
+        | None ->
+           error (f_"-o rhev: output storage was not specified, use '-os'");
+        | Some d -> d in
       if qemu_boot then
         error (f_"-o rhev: --qemu-boot option cannot be used in this output mode");
-      Output_rhev.output_rhev verbose output_storage vmtype output_alloc
+      Output_rhev.output_rhev verbose os vmtype output_alloc
 
     | `VDSM ->
-      if output_storage = "" then
-        error (f_"-o vdsm: output storage was not specified, use '-os'");
+      let os =
+        match output_storage with
+        | None ->
+           error (f_"-o vdsm: output storage was not specified, use '-os'");
+        | Some d -> d in
       if qemu_boot then
         error (f_"-o vdsm: --qemu-boot option cannot be used in this output mode");
-      if vdsm_image_uuids = [] || vdsm_vol_uuids = [] || vdsm_vm_uuid = "" then
-        error (f_"-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not specified");
+      let vdsm_vm_uuid =
+        match vdsm_vm_uuid with
+        | None ->
+           error (f_"-o vdsm: --vdsm-image-uuid was not specified")
+        | Some s -> s in
+      if vdsm_image_uuids = [] || vdsm_vol_uuids = [] then
+        error (f_"-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified");
       let vdsm_params = {
         Output_vdsm.image_uuids = vdsm_image_uuids;
         vol_uuids = vdsm_vol_uuids;
         vm_uuid = vdsm_vm_uuid;
         ovf_output = vdsm_ovf_output;
       } in
-      Output_vdsm.output_vdsm verbose output_storage vdsm_params
+      Output_vdsm.output_vdsm verbose os vdsm_params
         vmtype output_alloc in
 
   input, output,
