@@ -32,6 +32,8 @@ val div_roundup64 : int64 -> int64 -> int64
 val int_of_le32 : string -> int64
 val le32_of_int : int64 -> string
 
+val isxdigit : char -> bool
+
 val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 (** Wrap text. *)
 

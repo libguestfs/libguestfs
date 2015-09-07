@@ -41,6 +41,14 @@ module G = Guestfs
 
 type ('a, 'b) maybe = Either of 'a | Or of 'b
 
+(* Antivirus regexps that match on inspect.i_apps.app2_name fields. *)
+let av_rex =
+  let alternatives = [
+    "virus"; (* generic *)
+    "Kaspersky"; "McAfee"; "Norton"; "Sophos";
+  ] in
+  Str.regexp_case_fold (String.concat "\\|" alternatives)
+
 let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   (* Get the data directory. *)
   let virt_tools_data_dir =
@@ -102,6 +110,47 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
 
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
+
+  (* Warn if Windows guest appears to be using group policy. *)
+  let has_group_policy =
+    let check_group_policy root =
+      try
+        let node =
+          get_node root
+                   ["Microsoft"; "Windows"; "CurrentVersion"; "Group Policy";
+                    "History"] in
+        let children = g#hivex_node_children node in
+        let children = Array.to_list children in
+        let children =
+          List.map (fun { G.hivex_node_h = h } -> g#hivex_node_name h)
+                   children in
+        (* Just assume any children looking like "{<GUID>}" mean that
+         * some GPOs were installed.
+         *
+         * In future we might want to look for nodes which match:
+         * History\{<GUID>}\<N> where <N> is a small integer (the order
+         * in which policy objects were applied.
+         *
+         * For an example registry containing GPOs, see RHBZ#1219651.
+         * See also: https://support.microsoft.com/en-us/kb/201453
+         *)
+        let is_gpo_guid name =
+          let len = String.length name in
+          len > 3 && name.[0] = '{' && isxdigit name.[1] && name.[len-1] = '}'
+        in
+        List.exists is_gpo_guid children
+      with
+        Not_found -> false
+    in
+    with_hive "software" ~write:false check_group_policy in
+
+  (* Warn if Windows guest has AV installed. *)
+  let has_antivirus =
+    let check_app { G.app2_name = name } =
+      try ignore (Str.search_forward av_rex name 0); true
+      with Not_found -> false
+    in
+    List.exists check_app inspect.i_apps in
 
   (* Open the software hive (readonly) and find the Xen PV uninstaller,
    * if it exists.
@@ -487,6 +536,17 @@ echo uninstalling Xen PV driver
   with_hive "software" ~write:true update_software_hive;
 
   fix_ntfs_heads ();
+
+  (* Warn if installation of virtio block drivers might conflict with
+   * group policy or AV software causing a boot 0x7B error (RHBZ#1260689).
+   *)
+  let () =
+    if block_driver = Virtio_blk then (
+      if has_group_policy then
+        warning ~prog (f_"this guest has Windows Group Policy Objects (GPO) and a new virtio block device driver was installed.  In some circumstances, Group Policy may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling Group Policy before doing the conversion.");
+      if has_antivirus then
+        warning ~prog (f_"this guest has Anti-Virus (AV) software and a new virtio block device driver was installed.  In some circumstances, AV may prevent new drivers from working (resulting in a 7B boot error).  If this happens, try disabling AV before doing the conversion.");
+    ) in
 
   (* Return guest capabilities. *)
   let guestcaps = {
