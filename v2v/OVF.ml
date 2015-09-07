@@ -16,7 +16,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Functions for dealing with OVF files. *)
+(* Functions for dealing with OVF files.
+ *
+ * The format is described in
+ * http://www.ovirt.org/images/8/86/Ovirt_ovf_format.odt
+ *)
 
 open Common_gettext.Gettext
 open Common_utils
@@ -31,7 +35,7 @@ open DOM
 let title = sprintf "Exported by virt-v2v %s" Config.package_version
 
 (* We set the creation time to be the same for all dates in
- * all metadata files.
+ * all metadata files.  All dates in OVF are UTC.
  *)
 let time = time ()
 let iso_time =
@@ -243,6 +247,12 @@ let rec create_ovf source targets guestcaps inspect
   let vmtype = match vmtype with Desktop -> "0" | Server -> "1" in
   let ostype = get_ostype inspect in
 
+  let origin =
+    match source.s_hypervisor with
+    | VMware -> 1
+    | Xen -> 2
+    | _ -> 0 in
+
   let ovf : doc =
     doc "ovf:Envelope" [
       "xmlns:rasd", "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData";
@@ -270,13 +280,13 @@ let rec create_ovf source targets guestcaps inspect
         e "IsAutoSuspend" [] [PCData "False"];
         e "TimeZone" [] [];
         e "IsStateless" [] [PCData "False"];
-        e "Origin" [] [PCData "0"];
+        e "Origin" [] [PCData (string_of_int origin)];
         e "VmType" [] [PCData vmtype];
-        e "DefaultDisplayType" [] [PCData "1"];
+        e "DefaultDisplayType" [] [PCData "1" (* qxl *)];
 
         e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
                      "xsi:type", "ovf:OperatingSystemSection_Type"] [
-          e "Info" [] [PCData "Guest Operating System"];
+          e "Info" [] [PCData inspect.i_product_name];
           e "Description" [] [PCData ostype];
         ];
 
@@ -300,7 +310,7 @@ let rec create_ovf source targets guestcaps inspect
           ];
           e "Item" [] [
             e "rasd:Caption" [] [PCData "USB Controller"];
-            e "rasd:InstanceId" [] [PCData "4"];
+            e "rasd:InstanceId" [] [PCData "3"];
             e "rasd:ResourceType" [] [PCData "23"];
             e "rasd:UsbPolicy" [] [PCData "Disabled"];
           ];
@@ -310,8 +320,9 @@ let rec create_ovf source targets guestcaps inspect
            *)
           e "Item" [] [
             e "rasd:Caption" [] [PCData "Graphical Controller"];
-            e "rasd:InstanceId" [] [PCData "5"];
+            e "rasd:InstanceId" [] [PCData (uuidgen ())];
             e "rasd:ResourceType" [] [PCData "20"];
+            e "Type" [] [PCData "video"];
             e "rasd:VirtualQuantity" [] [PCData "1"];
             e "rasd:Device" [] [PCData "qxl"];
           ]
@@ -366,7 +377,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
     fun i ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
       let is_boot_drive = i == 0 in
 
-      let fileref = image_uuid // vol_uuid in
+      let fileref = sprintf "%s/%s" image_uuid vol_uuid in
 
       (* ovf:size and ovf:actual_size fields are integer GBs.  If you
        * use floating point numbers then RHEV will fail to parse them.
@@ -448,6 +459,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           e "rasd:Caption" [] [PCData caption];
           e "rasd:InstanceId" [] [PCData vol_uuid];
           e "rasd:ResourceType" [] [PCData "17"];
+          e "Type" [] [PCData "disk"];
           e "rasd:HostResource" [] [PCData fileref];
           e "rasd:Parent" [] [PCData "00000000-0000-0000-0000-000000000000"];
           e "rasd:Template" [] [PCData "00000000-0000-0000-0000-000000000000"];
@@ -499,10 +511,11 @@ and add_networks nics guestcaps ovf =
 
       let item =
         let children = [
-          e "rasd:InstanceId" [] [PCData "3"];
+          e "rasd:InstanceId" [] [PCData (uuidgen ())];
           e "rasd:Caption" [] [PCData (sprintf "Ethernet adapter on %s" vnet)];
           e "rasd:ResourceType" [] [PCData "10"];
           e "rasd:ResourceSubType" [] [PCData model];
+          e "Type" [] [PCData "interface"];
           e "rasd:Connection" [] [PCData vnet];
           e "rasd:Name" [] [PCData dev];
         ] in
