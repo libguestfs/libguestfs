@@ -162,6 +162,9 @@ and default_crypto g root =
   | "ubuntu", v when v >= 10 -> `SHA512
   | "ubuntu", _ -> `MD5
 
+  | "opensuse", v when v >= 11 -> `SHA512
+  | "opensuse", _ -> `MD5
+
   | _, _ ->
     let minor = g#inspect_get_minor_version root in
     warning (f_"password: using insecure md5 password encryption for guest of type %s version %d.%d.
