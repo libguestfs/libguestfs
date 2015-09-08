@@ -23,8 +23,11 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	libguestfs.gpg \
 	test-index \
+	test-simplestreams/streams/v1/index.json \
+	test-simplestreams/streams/v1/net.cirros-cloud_released_download.json \
 	test-virt-builder.sh \
 	test-virt-builder-list.sh \
+	test-virt-builder-list-simplestreams.sh \
 	test-virt-builder-planner.sh \
 	test-virt-index-validate.sh \
 	test-virt-index-validate-bad-1 \
