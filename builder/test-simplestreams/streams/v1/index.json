@@ -12,7 +12,7 @@
    "datatype": "image-downloads",
    "format": "products:1.0",
    "updated": "Fri, 08 May 2015 13:20:51 +0000",
-   "path": "streams/v1/net.cirros-cloud:released:download.json"
+   "path": "streams/v1/net.cirros-cloud_released_download.json"
   }
  }
 }
