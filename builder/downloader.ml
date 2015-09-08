@@ -94,7 +94,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
   | _ as protocol -> (* Any other protocol. *)
     let outenv = proxy_envvar protocol proxy in
     (* Get the status code first to ensure the file exists. *)
-    let cmd = sprintf "%s%s%s -g -o /dev/null -I -w '%%{http_code}' %s"
+    let cmd = sprintf "%s%s%s -L --max-redirs 5 -g -o /dev/null -I -w '%%{http_code}' %s"
       outenv
       t.curl
       (if verbose () then "" else " -s -S")
@@ -114,7 +114,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       error (f_"failed to download %s: HTTP status code %s") uri status_code;
 
     (* Now download the file. *)
-    let cmd = sprintf "%s%s%s -g -o %s %s"
+    let cmd = sprintf "%s%s%s -L --max-redirs 5 -g -o %s %s"
       outenv
       t.curl
       (if verbose () then "" else if progress_bar then " -#" else " -s -S")
