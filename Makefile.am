@@ -573,13 +573,15 @@ maintainer-tag:
 maintainer-check-extra-dist:
 	zcat $(PACKAGE_NAME)-$(VERSION).tar.gz | tar tf - | sort | \
 	  sed 's,^$(PACKAGE_NAME)-$(VERSION)/,,' > tmp/tarfiles
-	git ls-files | sort > tmp/gitfiles
-	diff -ur tmp/tarfiles tmp/gitfiles | \
-	  grep '^\+' | \
-	  grep -v '^\+intltool-.*\.in' | \
-	  grep -v '^\+.gitmodules' | \
-	  grep -v '^\+.gnulib' ||:
-	rm tmp/tarfiles tmp/gitfiles
+	git ls-files | \
+	  grep -v '^intltool-.*\.in' | \
+	  grep -v '^\.gitmodules' | \
+	  grep -v '^\.gnulib' | \
+	  sort > tmp/gitfiles
+	comm -13 tmp/tarfiles tmp/gitfiles > tmp/comm-out
+	cat tmp/comm-out
+	[ ! -s tmp/comm-out ]
+	rm tmp/tarfiles tmp/gitfiles tmp/comm-out
 
 # Provide help on common Makefile targets.
 
