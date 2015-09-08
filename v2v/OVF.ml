@@ -275,7 +275,11 @@ let rec create_ovf verbose source targets guestcaps inspect
         e "IsStateless" [] [PCData "False"];
         e "Origin" [] [PCData "0"];
         e "VmType" [] [PCData vmtype];
-        e "DefaultDisplayType" [] [PCData "1" (* qxl *)];
+        (* The documentation for DefaultDisplayType is wrong.  See
+         * https://bugzilla.redhat.com/show_bug.cgi?id=1260590#c7 for
+         * correct information.
+         *)
+        e "DefaultDisplayType" [] [PCData "2" (* qxl *)];
 
         e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
                      "xsi:type", "ovf:OperatingSystemSection_Type"] [
