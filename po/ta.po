@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-03 20:47+0100\n"
+"POT-Creation-Date: 2015-09-08 13:13+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/libguestfs/"
@@ -41,13 +41,13 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:349
+#: ../mllib/common_utils.ml:359
 msgid "%s"
 msgstr ""
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:209
-#. ../builder/builder.ml:659
+#. ../builder/builder.ml:668
 #: ../v2v/v2v.ml:692 ../v2v/v2v.ml:542 ../sysprep/main.ml:241
 msgid "%s (ignored)"
 msgstr ""
@@ -81,15 +81,23 @@ msgid ""
 "this out through the RHEV-M user interface."
 msgstr ""
 
+#: ../builder/simplestreams_parser.ml:113
+msgid "%s is not a Simple Streams (index) v1.0 JSON file (format: %s)"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:132
+msgid "%s is not a Simple Streams (products) v1.0 JSON file (format: %s)"
+msgstr ""
+
 #: ../customize/customize_run.ml:202
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../dib/utils.ml:121
+#: ../dib/utils.ml:118
 msgid "%s needed but not found"
 msgstr ""
 
-#: ../v2v/cmdline.ml:94 ../v2v/cmdline.ml:49
+#: ../v2v/cmdline.ml:102 ../v2v/cmdline.ml:57 ../v2v/cmdline.ml:49
 msgid "%s option used more than once on the command line"
 msgstr ""
 
@@ -99,7 +107,7 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:345 ../mllib/common_utils.ml:332
+#: ../mllib/common_utils.ml:355 ../mllib/common_utils.ml:342
 msgid "%s: %s"
 msgstr ""
 
@@ -107,19 +115,19 @@ msgstr ""
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:347
+#: ../mllib/common_utils.ml:357
 msgid "%s: %s: %s"
 msgstr ""
 
-#: ../builder/sources.ml:58
+#: ../builder/sources.ml:59
 msgid "%s: '%s' has invalid gpgkey URI\n"
 msgstr ""
 
-#: ../builder/sources.ml:68
+#: ../builder/sources.ml:69
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr ""
 
-#: ../builder/sources.ml:103
+#: ../builder/sources.ml:112
 msgid "%s: ... read %d sources\n"
 msgstr ""
 
@@ -224,7 +232,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:177
+#: ../v2v/cmdline.ml:191
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -259,7 +267,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:304
+#: ../mllib/common_utils.ml:314
 msgid "%s: error: %s"
 msgstr ""
 
@@ -271,7 +279,7 @@ msgid ""
 "read the man page virt-get-kernel(1).\n"
 msgstr ""
 
-#: ../builder/sources.ml:146
+#: ../builder/sources.ml:155
 msgid "%s: file error: %s: %s\n"
 msgstr ""
 
@@ -293,7 +301,7 @@ msgid ""
 "more times\n"
 msgstr ""
 
-#: ../builder/sources.ml:151
+#: ../builder/sources.ml:160
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr ""
 
@@ -324,7 +332,7 @@ msgstr ""
 msgid "%s: no 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/sources.ml:50
+#: ../builder/sources.ml:51
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
@@ -353,6 +361,11 @@ msgstr ""
 
 #: ../resize/resize.ml:418
 msgid "%s: physical volume not returned by pvs_full"
+msgstr ""
+
+#: ../builder/sources.ml:89
+msgid ""
+"%s: repository type '%s' not supported (missing YAJL support), skipping it\n"
 msgstr ""
 
 #: ../sysprep/main.ml:143
@@ -409,7 +422,7 @@ msgstr ""
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../builder/sources.ml:39
+#: ../builder/sources.ml:40
 msgid "%s: trying to read %s\n"
 msgstr ""
 
@@ -419,7 +432,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../builder/sources.ml:87
+#: ../builder/sources.ml:96
 msgid "%s: unknown repository type '%s' in %s, skipping it\n"
 msgstr ""
 
@@ -431,7 +444,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:322
+#: ../mllib/common_utils.ml:332
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -450,7 +463,7 @@ msgid ""
 "rwmjones/rhsrvany).  Original error: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:66
+#: ../v2v/convert_windows.ml:74
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -525,19 +538,19 @@ msgstr ""
 msgid "--list: use '--list-format', not '--format'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:307
+#: ../v2v/cmdline.ml:322
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:319
+#: ../v2v/cmdline.ml:334
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:86
+#: ../v2v/cmdline.ml:94
 msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:84
+#: ../v2v/cmdline.ml:92
 msgid "--no-trim: empty parameter"
 msgstr ""
 
@@ -591,19 +604,19 @@ msgstr ""
 msgid "--update is not supported for this guest operating system"
 msgstr ""
 
-#: ../v2v/cmdline.ml:305
+#: ../v2v/cmdline.ml:320
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:317
+#: ../v2v/cmdline.ml:332
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:331
+#: ../v2v/cmdline.ml:348
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:342
+#: ../v2v/cmdline.ml:359
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr ""
 
@@ -615,19 +628,19 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:303
+#: ../v2v/cmdline.ml:318
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:299
+#: ../v2v/cmdline.ml:314
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:301
+#: ../v2v/cmdline.ml:316
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:315
+#: ../v2v/cmdline.ml:330
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
@@ -650,49 +663,55 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:329
+#: ../v2v/cmdline.ml:346
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:324
+#: ../v2v/cmdline.ml:341
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:340
+#: ../v2v/cmdline.ml:357
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:336
+#: ../v2v/cmdline.ml:353
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:338
+#: ../v2v/cmdline.ml:355
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:355
+#: ../v2v/cmdline.ml:366
+msgid "-o qemu: output directory was not specified, use '-os /dir'"
+msgstr ""
+
+#: ../v2v/cmdline.ml:379
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:353
+#: ../v2v/cmdline.ml:376
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:362
+#: ../v2v/cmdline.ml:389
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:364
-msgid ""
-"-o vdsm: either --vdsm-image-uuid, --vdsm-vol-uuid or --vdsm-vm-uuid was not "
-"specified"
+#: ../v2v/cmdline.ml:393
+msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:360
+#: ../v2v/cmdline.ml:396
+msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
+msgstr ""
+
+#: ../v2v/cmdline.ml:386
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:347 ../v2v/cmdline.ml:326
+#: ../v2v/cmdline.ml:368 ../v2v/cmdline.ml:343
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -799,7 +818,7 @@ msgid ""
 "works correctly."
 msgstr ""
 
-#: ../v2v/cmdline.ml:161
+#: ../v2v/cmdline.ml:176
 msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
@@ -880,7 +899,7 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:606
+#: ../builder/builder.ml:615
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -892,7 +911,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:882 ../builder/builder.ml:605
+#: ../dib/dib.ml:882 ../builder/builder.ml:614
 msgid "Converting to %s"
 msgstr ""
 
@@ -904,7 +923,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:534
+#: ../builder/builder.ml:543
 msgid "Copying"
 msgstr ""
 
@@ -976,7 +995,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../mllib/common_utils.ml:527
+#: ../mllib/common_utils.ml:537
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -992,7 +1011,7 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../customize/customize_run.ml:195 ../builder/builder.ml:111
+#: ../customize/customize_run.ml:195 ../builder/builder.ml:118
 msgid "Deleting: %s"
 msgstr ""
 
@@ -1017,7 +1036,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:523 ../mllib/common_utils.ml:521
+#: ../mllib/common_utils.ml:533 ../mllib/common_utils.ml:531
 msgid "Display version and exit"
 msgstr ""
 
@@ -1045,11 +1064,11 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:529 ../mllib/common_utils.ml:528
+#: ../mllib/common_utils.ml:539 ../mllib/common_utils.ml:538
 msgid "Don't print progress messages"
 msgstr ""
 
-#: ../v2v/cmdline.ml:152
+#: ../v2v/cmdline.ml:161
 msgid "Don't trim selected mounts"
 msgstr ""
 
@@ -1065,7 +1084,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:273 ../builder/builder.ml:215
+#: ../builder/builder.ml:282 ../builder/builder.ml:224
 msgid "Downloading: %s"
 msgstr ""
 
@@ -1104,7 +1123,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:525 ../mllib/common_utils.ml:524
+#: ../mllib/common_utils.ml:535 ../mllib/common_utils.ml:534
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1112,7 +1131,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:526
+#: ../mllib/common_utils.ml:536
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1226,7 +1245,7 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #: ../v2v/v2v.ml:461 ../customize/customize_main.ml:219
-#: ../builder/builder.ml:708
+#: ../builder/builder.ml:717
 msgid "Finishing off"
 msgstr ""
 
@@ -1273,7 +1292,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:698
+#: ../builder/builder.ml:707
 msgid "Free space"
 msgstr ""
 
@@ -1310,11 +1329,11 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:162
+#: ../v2v/cmdline.ml:177
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:309
+#: ../mllib/common_utils.ml:319
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1338,7 +1357,7 @@ msgstr ""
 msgid "Inject a public key into the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:147
+#: ../v2v/cmdline.ml:156
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1370,7 +1389,7 @@ msgstr ""
 msgid "Installing: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:151
+#: ../v2v/cmdline.ml:160
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1386,7 +1405,7 @@ msgstr ""
 msgid "Label for the root fs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:155 ../v2v/cmdline.ml:145
+#: ../v2v/cmdline.ml:166 ../v2v/cmdline.ml:154
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1398,11 +1417,11 @@ msgstr ""
 msgid "List available templates"
 msgstr ""
 
-#: ../mllib/common_utils.ml:519
+#: ../mllib/common_utils.ml:529
 msgid "List long options"
 msgstr ""
 
-#: ../mllib/common_utils.ml:518
+#: ../mllib/common_utils.ml:528
 msgid "List short options"
 msgstr ""
 
@@ -1421,7 +1440,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:62
 #. ../dib/cmdline.ml:165
 #. ../builder/cmdline.ml:129
-#: ../v2v/cmdline.ml:148 ../sparsify/cmdline.ml:66 ../resize/resize.ml:208
+#: ../v2v/cmdline.ml:157 ../sparsify/cmdline.ml:66 ../resize/resize.ml:208
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1429,11 +1448,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:138
+#: ../v2v/cmdline.ml:146
 msgid "Map bridge 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:158
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
@@ -1504,7 +1523,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:619
+#: ../builder/builder.ml:628
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1520,11 +1539,11 @@ msgstr ""
 msgid "Optional drive for caches"
 msgstr ""
 
-#: ../v2v/cmdline.ml:170
+#: ../v2v/cmdline.ml:183
 msgid "Output OVF file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:168
+#: ../v2v/cmdline.ml:181
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1536,11 +1555,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:702
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:704
 msgid "Output format"
 msgstr ""
 
@@ -1552,15 +1571,15 @@ msgstr ""
 msgid "Output formats"
 msgstr ""
 
-#: ../v2v/cmdline.ml:164
+#: ../v2v/cmdline.ml:178
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:703
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:166
+#: ../v2v/cmdline.ml:179
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1607,7 +1626,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:471
+#: ../builder/builder.ml:480
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1623,11 +1642,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:175
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/OVF.ml:394 ../v2v/OVF.ml:211
+#: ../v2v/OVF.ml:412 ../v2v/OVF.ml:215
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -1834,7 +1853,7 @@ msgstr ""
 msgid "Removing all the subscriptions"
 msgstr ""
 
-#: ../v2v/cmdline.ml:157
+#: ../v2v/cmdline.ml:170
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -1848,11 +1867,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:561
+#: ../builder/builder.ml:570
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:591
+#: ../builder/builder.ml:600
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -1926,7 +1945,7 @@ msgstr ""
 msgid "SSH key inject: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:141
+#: ../v2v/cmdline.ml:149
 msgid "Save overlay files"
 msgstr ""
 
@@ -1970,7 +1989,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:144
+#: ../v2v/cmdline.ml:152
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -2007,7 +2026,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:154
+#: ../v2v/cmdline.ml:164
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -2019,15 +2038,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:156
+#: ../v2v/cmdline.ml:168
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:153
+#: ../v2v/cmdline.ml:162
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:158
+#: ../v2v/cmdline.ml:172
 msgid "Set output storage location"
 msgstr ""
 
@@ -2075,7 +2094,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:171
+#: ../v2v/cmdline.ml:185
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -2269,7 +2288,7 @@ msgid ""
 "This option can be specified multiple times."
 msgstr ""
 
-#: ../builder/builder.ml:257
+#: ../builder/builder.ml:266
 msgid "There are no notes for %s\n"
 msgstr ""
 
@@ -2320,7 +2339,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/OVF.ml:337
+#: ../v2v/OVF.ml:355
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -2344,7 +2363,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:705
 msgid "Total usable space"
 msgstr ""
 
@@ -2376,7 +2395,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:549
+#: ../builder/builder.ml:558
 msgid "Uncompressing"
 msgstr ""
 
@@ -2404,7 +2423,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:159
+#: ../v2v/cmdline.ml:174
 msgid "Use password from file"
 msgstr ""
 
@@ -2519,7 +2538,7 @@ msgstr ""
 msgid "btrfs-filesystem-resize"
 msgstr ""
 
-#: ../builder/builder.ml:150
+#: ../builder/builder.ml:157
 msgid "cache %s: %s"
 msgstr ""
 
@@ -2539,11 +2558,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:436
+#: ../v2v/convert_windows.ml:487
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:422
+#: ../v2v/convert_windows.ml:473
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2556,13 +2575,13 @@ msgid ""
 "kraxel.org/repos/), or AAVMF (if using aarch64)"
 msgstr ""
 
-#: ../builder/builder.ml:244
+#: ../builder/builder.ml:253
 msgid ""
 "cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../builder/builder.ml:330
+#: ../builder/builder.ml:339
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
@@ -2574,7 +2593,7 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:116
+#: ../v2v/convert_windows.ml:171
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2630,11 +2649,11 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../builder/builder.ml:115
+#: ../builder/builder.ml:122
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:629
+#: ../v2v/convert_windows.ml:680
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2695,7 +2714,7 @@ msgstr ""
 msgid "curl (download) command failed downloading '%s'"
 msgstr ""
 
-#: ../builder/builder.ml:136
+#: ../builder/builder.ml:143
 msgid "curl is not installed (or does not work)"
 msgstr ""
 
@@ -2723,7 +2742,7 @@ msgstr ""
 msgid "directory"
 msgstr ""
 
-#: ../builder/builder.ml:151
+#: ../builder/builder.ml:158
 msgid "disabling the cache"
 msgstr ""
 
@@ -2820,7 +2839,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:362
+#: ../mllib/common_utils.ml:372
 msgid "exception: %s"
 msgstr ""
 
@@ -2830,31 +2849,31 @@ msgid ""
 "string: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:261
+#: ../v2v/cmdline.ml:276
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:282
+#: ../v2v/cmdline.ml:297
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:273
+#: ../v2v/cmdline.ml:288
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:291
+#: ../v2v/cmdline.ml:306
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:597
+#: ../mllib/common_utils.ml:607
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:599
+#: ../mllib/common_utils.ml:609
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:601
+#: ../mllib/common_utils.ml:611
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2871,7 +2890,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:353
+#: ../mllib/common_utils.ml:363
 msgid "failure: %s"
 msgstr ""
 
@@ -2916,7 +2935,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../mllib/common_utils.ml:372
+#: ../mllib/common_utils.ml:382
 msgid "generated by %s %s"
 msgstr ""
 
@@ -2941,13 +2960,13 @@ msgstr ""
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
-#: ../builder/builder.ml:128
+#: ../builder/builder.ml:135
 msgid ""
 "gpg is not installed (or does not work)\n"
 "You should install gpg, or use --gpg option, or use --no-check-signature."
 msgstr ""
 
-#: ../builder/builder.ml:130
+#: ../builder/builder.ml:137
 msgid "gpg program is not available"
 msgstr ""
 
@@ -2982,7 +3001,7 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../builder/builder.ml:355
+#: ../builder/builder.ml:364
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -2996,19 +3015,19 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../builder/builder.ml:315
+#: ../builder/builder.ml:324
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
-#: ../mllib/common_utils.ml:360
+#: ../mllib/common_utils.ml:370
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:357
+#: ../mllib/common_utils.ml:367
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:355
+#: ../mllib/common_utils.ml:365
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3024,7 +3043,7 @@ msgstr ""
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:63
+#: ../v2v/cmdline.ml:71
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
@@ -3060,7 +3079,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:351
+#: ../mllib/common_utils.ml:361
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3080,8 +3099,16 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
+#: ../builder/simplestreams_parser.ml:41
+msgid "missing value for the key '%s'"
+msgstr ""
+
 #: ../v2v/input_ova.ml:135
 msgid "more than one .ovf file was found in %s"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:36
+msgid "more than value for the key '%s'"
 msgstr ""
 
 #: ../v2v/output_rhev.ml:50
@@ -3112,11 +3139,11 @@ msgstr ""
 msgid "no .ovf file was found in %s"
 msgstr ""
 
-#: ../builder/builder.ml:208
+#: ../builder/builder.ml:217
 msgid "no cache directory"
 msgstr ""
 
-#: ../builder/builder.ml:201
+#: ../builder/builder.ml:210
 msgid "no cache directory\n"
 msgstr ""
 
@@ -3124,7 +3151,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:663
+#: ../builder/builder.ml:672
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3173,7 +3200,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:476
+#: ../builder/builder.ml:485
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3198,6 +3225,12 @@ msgstr ""
 
 #: ../resize/resize.ml:148
 msgid "ntfsresize"
+msgstr ""
+
+#: ../v2v/OVF.ml:545
+msgid ""
+"oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
+"the output."
 msgstr ""
 
 #: ../v2v/convert_linux.ml:703
@@ -3255,7 +3288,7 @@ msgid ""
 "considered in future."
 msgstr ""
 
-#: ../builder/builder.ml:358
+#: ../builder/builder.ml:367
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -3425,6 +3458,10 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
+#: ../builder/simplestreams_parser.ml:81
+msgid "the key '%s' was not found in a list of objects"
+msgstr ""
+
 #: ../dib/cmdline.ml:218
 msgid "the list of output formats cannot be empty"
 msgstr ""
@@ -3444,7 +3481,31 @@ msgstr ""
 msgid "the target hypervisor does not support a %s KVM guest"
 msgstr ""
 
-#: ../v2v/OVF.ml:201
+#: ../builder/simplestreams_parser.ml:75
+msgid "the value for key '%s' is not a string as expected"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:47
+msgid "the value for the key '%s' is not a string"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:67
+msgid "the value for the key '%s' is not an integer"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:52
+msgid "the value for the key '%s' is not an object"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:56
+msgid "the value is not an object"
+msgstr ""
+
+#: ../builder/simplestreams_parser.ml:37
+msgid "the value of the key '%s' is not an object"
+msgstr ""
+
+#: ../v2v/OVF.ml:205
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -3463,7 +3524,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:265
+#: ../v2v/convert_windows.ml:316
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3471,7 +3532,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:311
+#: ../v2v/convert_windows.ml:362
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3487,7 +3548,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:287
+#: ../v2v/convert_windows.ml:338
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3495,7 +3556,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:297
+#: ../v2v/convert_windows.ml:348
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3507,6 +3568,22 @@ msgstr ""
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
+msgstr ""
+
+#: ../v2v/convert_windows.ml:763
+msgid ""
+"this guest has Anti-Virus (AV) software and a new virtio block device driver "
+"was installed.  In some circumstances, AV may prevent new drivers from "
+"working (resulting in a 7B boot error).  If this happens, try disabling AV "
+"before doing the conversion."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:761
+msgid ""
+"this guest has Windows Group Policy Objects (GPO) and a new virtio block "
+"device driver was installed.  In some circumstances, Group Policy may "
+"prevent new drivers from working (resulting in a 7B boot error).  If this "
+"happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
 #: ../v2v/input_libvirtxml.ml:186
@@ -3552,23 +3629,23 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:122
+#: ../v2v/cmdline.ml:130
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:230
+#: ../v2v/cmdline.ml:245
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:56
+#: ../v2v/cmdline.ml:64
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:104
+#: ../v2v/cmdline.ml:112
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:112
+#: ../v2v/cmdline.ml:120
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -3576,7 +3653,7 @@ msgstr ""
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
-#: ../v2v/OVF.ml:185
+#: ../v2v/OVF.ml:189
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
@@ -3694,7 +3771,7 @@ msgid ""
 "Missing 'os-version'. Use '--list' to list available template names."
 msgstr ""
 
-#: ../builder/builder.ml:141
+#: ../builder/builder.ml:148
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
@@ -3708,7 +3785,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:404
+#: ../v2v/convert_windows.ml:455
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
