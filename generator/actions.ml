@@ -1099,6 +1099,10 @@ FreeBSD.
 
 FreeDOS.
 
+=item \"frugalware\"
+
+Frugalware.
+
 =item \"gentoo\"
 
 Gentoo.

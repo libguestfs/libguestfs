@@ -85,6 +85,7 @@ COMPILE_REGEXP (re_openbsd_duid, "^[0-9a-f]{16}\\.[a-z]", 0)
 COMPILE_REGEXP (re_openbsd_dev, "^/dev/(s|w)d([0-9])([a-z])$", 0)
 COMPILE_REGEXP (re_netbsd_dev, "^/dev/(l|s)d([0-9])([a-z])$", 0)
 COMPILE_REGEXP (re_altlinux, " (?:(\\d+)(?:\\.(\\d+)(?:[\\.\\d]+)?)?)\\s+\\((?:[^)]+)\\)$", 0)
+COMPILE_REGEXP (re_frugalware, "Frugalware (\\d+)\\.(\\d+)", 0)
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
@@ -631,6 +632,26 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
     if (guestfs_int_parse_major_minor (g, fs) == -1)
       return -1;
+  }
+  else if (guestfs_is_file_opts (g, "/etc/frugalware-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    fs->distro = OS_DISTRO_FRUGALWARE;
+
+    if (parse_release_file (g, fs, "/etc/frugalware-release") == -1)
+      return -1;
+
+    if (match2 (g, fs->product_name, re_frugalware, &major, &minor)) {
+      fs->major_version = guestfs_int_parse_unsigned_int (g, major);
+      free (major);
+      if (fs->major_version == -1) {
+        free (minor);
+        return -1;
+      }
+      fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
+      free (minor);
+      if (fs->minor_version == -1)
+        return -1;
+    }
   }
 
  skip_release_checks:;

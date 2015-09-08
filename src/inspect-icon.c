@@ -184,6 +184,7 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     case OS_DISTRO_OPENBSD:
     case OS_DISTRO_ALPINE_LINUX:
     case OS_DISTRO_ALTLINUX:
+    case OS_DISTRO_FRUGALWARE:
     case OS_DISTRO_UNKNOWN:
       ; /* nothing */
     }
