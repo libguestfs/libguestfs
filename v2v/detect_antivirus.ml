@@ -23,17 +23,20 @@ let rex_kaspersky = Str.regexp_case_fold "kaspersky"
 let rex_mcafee    = Str.regexp_case_fold "mcafee"
 let rex_norton    = Str.regexp_case_fold "norton"
 let rex_sophos    = Str.regexp_case_fold "sophos"
+let rex_avg_tech  = Str.regexp_case_fold "avg technologies" (* RHBZ#1261436 *)
 
 let rec detect_antivirus { Types.i_type = t; i_apps = apps } =
   assert (t = "windows");
   List.exists check_app apps
 
-and check_app { Guestfs.app2_name = name } =
+and check_app { Guestfs.app2_name = name;
+                app2_publisher = publisher } =
   name      =~ rex_virus     ||
   name      =~ rex_kaspersky ||
   name      =~ rex_mcafee    ||
   name      =~ rex_norton    ||
-  name      =~ rex_sophos
+  name      =~ rex_sophos    ||
+  publisher =~ rex_avg_tech
 
 and (=~) str rex =
   try ignore (Str.search_forward rex str 0); true with Not_found -> false
