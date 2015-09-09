@@ -618,7 +618,7 @@ let main () =
         (match iformat with
         | None -> ""
         | Some iformat -> sprintf " -f %s" (quote iformat))
-        (quote ifile) (quote oformat) (quote ofile)
+        (quote ifile) (quote oformat) (quote (qemu_input_filename ofile))
         (if verbose () then "" else " >/dev/null 2>&1") in
       if verbose () then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then exit 1
