@@ -141,6 +141,142 @@ parse_release_file (guestfs_h *g, struct inspect_fs *fs,
   return 0;
 }
 
+/* Parse a os-release file.
+ *
+ * Only few fields are parsed, falling back to the usual detection if we
+ * cannot read all of them.
+ *
+ * For the format of os-release, see also:
+ * http://www.freedesktop.org/software/systemd/man/os-release.html
+ */
+static int
+parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
+{
+  int64_t size;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
+  size_t i;
+  enum inspect_os_distro distro = OS_DISTRO_UNKNOWN;
+  CLEANUP_FREE char *product_name = NULL;
+  int major_version = -1, minor_version = -1;
+
+  /* Don't trust guestfs_read_lines not to break with very large files.
+   * Check the file size is something reasonable first.
+   */
+  size = guestfs_filesize (g, filename);
+  if (size == -1)
+    /* guestfs_filesize failed and has already set error in handle */
+    return -1;
+  if (size > MAX_SMALL_FILE_SIZE) {
+    error (g, _("size of %s is unreasonably large (%" PRIi64 " bytes)"),
+           filename, size);
+    return -1;
+  }
+
+  lines = guestfs_read_lines (g, filename);
+  if (lines == NULL)
+    return -1;
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    const char *line = lines[i];
+    const char *value;
+    size_t value_len;
+
+    if (line[0] == '#')
+      continue;
+
+    value = strchr (line, '=');
+    if (value == NULL)
+      continue;
+
+    ++value;
+    value_len = strlen (line) - (value - line);
+    if (value_len > 1 && value[0] == '"' && value[value_len-1] == '"') {
+      ++value;
+      value_len -= 2;
+    }
+
+#define VALUE_IS(a) STREQLEN(value, a, value_len)
+    if (STRPREFIX (line, "ID=")) {
+      if (VALUE_IS ("alpine"))
+        distro = OS_DISTRO_ALPINE_LINUX;
+      else if (VALUE_IS ("altlinux"))
+        distro = OS_DISTRO_ALTLINUX;
+      else if (VALUE_IS ("arch"))
+        distro = OS_DISTRO_ARCHLINUX;
+      else if (VALUE_IS ("centos"))
+        distro = OS_DISTRO_CENTOS;
+      else if (VALUE_IS ("debian"))
+        distro = OS_DISTRO_DEBIAN;
+      else if (VALUE_IS ("fedora"))
+        distro = OS_DISTRO_FEDORA;
+      else if (VALUE_IS ("frugalware"))
+        distro = OS_DISTRO_FRUGALWARE;
+      else if (VALUE_IS ("mageia"))
+        distro = OS_DISTRO_MAGEIA;
+      else if (VALUE_IS ("opensuse"))
+        distro = OS_DISTRO_OPENSUSE;
+      else if (VALUE_IS ("rhel"))
+        distro = OS_DISTRO_RHEL;
+      else if (VALUE_IS ("sles"))
+        distro = OS_DISTRO_SLES;
+      else if (VALUE_IS ("ubuntu"))
+        distro = OS_DISTRO_UBUNTU;
+    } else if (STRPREFIX (line, "PRETTY_NAME=")) {
+      free (product_name);
+      product_name = safe_strndup (g, value, value_len);
+    } else if (STRPREFIX (line, "VERSION_ID=")) {
+      char *major, *minor;
+      if (match2 (g, value, re_major_minor, &major, &minor)) {
+        major_version = guestfs_int_parse_unsigned_int (g, major);
+        free (major);
+        if (major_version == -1) {
+          free (minor);
+          return -1;
+        }
+        minor_version = guestfs_int_parse_unsigned_int (g, minor);
+        free (minor);
+        if (minor_version == -1)
+          return -1;
+      } else {
+        char buf[value_len + 1];
+        snprintf (buf, sizeof buf, "%*s", (int) value_len, value);
+        major_version = guestfs_int_parse_unsigned_int (g, buf);
+        free (major);
+        /* Handle cases where VERSION_ID is not a number. */
+        if (major_version != -1)
+          minor_version = 0;
+      }
+    }
+#undef VALUE_IS
+  }
+
+  /* If we haven't got all the fields, exit right away. */
+  if (distro == OS_DISTRO_UNKNOWN || product_name == NULL ||
+      major_version == -1 || minor_version == -1)
+    return 0;
+
+  /* Apparently, os-release in Debian and CentOS does not provide the full
+   * version number in VERSION_ID, but just the "major" part of it.
+   * Hence, if minor_version is 0, act as there was no information in
+   * os-release, which will continue the inspection using the release files
+   * as done previously.
+   */
+  if ((distro == OS_DISTRO_DEBIAN || distro == OS_DISTRO_CENTOS) &&
+      minor_version == 0)
+    return 0;
+
+  /* We got everything, so set the fields and report the inspection
+   * was successful.
+   */
+  fs->distro = distro;
+  fs->product_name = product_name;
+  product_name = NULL;
+  fs->major_version = major_version;
+  fs->minor_version = minor_version;
+
+  return 1;
+}
+
 /* Ubuntu has /etc/lsb-release containing:
  *   DISTRIB_ID=Ubuntu                                # Distro
  *   DISTRIB_RELEASE=10.04                            # Version
@@ -347,6 +483,15 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   char *major, *minor;
 
   fs->type = OS_TYPE_LINUX;
+
+  if (guestfs_is_file_opts (g, "/etc/os-release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    r = parse_os_release (g, fs, "/etc/os-release");
+    if (r == -1)        /* error */
+      return -1;
+    if (r == 1)         /* ok - detected the release from this file */
+      goto skip_release_checks;
+  }
 
   if (guestfs_is_file_opts (g, "/etc/lsb-release",
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
