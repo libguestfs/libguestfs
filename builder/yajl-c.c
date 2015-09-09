@@ -135,7 +135,7 @@ virt_builder_yajl_is_available (value unit)
 }
 
 value
-virt_builder_yajl_tree_parse (value stringv)
+virt_builder_yajl_tree_parse (value stringv) __attribute__((noreturn))
 {
   caml_invalid_argument ("virt-builder was compiled without yajl support");
 }
