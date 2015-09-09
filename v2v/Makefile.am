@@ -42,6 +42,8 @@ CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
+	detect_antivirus.ml \
+	detect_antivirus.mli \
 	DOM.mli \
 	domainxml.mli \
 	input_disk.mli \
@@ -76,6 +78,7 @@ SOURCES_ML = \
 	kvmuid.ml \
 	OVF.ml \
 	linux.ml \
+	detect_antivirus.ml \
 	modules_list.ml \
 	input_disk.ml \
 	input_libvirtxml.ml \
