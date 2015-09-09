@@ -23,6 +23,7 @@ open Common_utils
 
 open Regedit
 
+open Detect_antivirus
 open Utils
 open Types
 
@@ -40,14 +41,6 @@ module G = Guestfs
  *)
 
 type ('a, 'b) maybe = Either of 'a | Or of 'b
-
-(* Antivirus regexps that match on inspect.i_apps.app2_name fields. *)
-let av_rex =
-  let alternatives = [
-    "virus"; (* generic *)
-    "Kaspersky"; "McAfee"; "Norton"; "Sophos";
-  ] in
-  Str.regexp_case_fold (String.concat "\\|" alternatives)
 
 let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
   (* Get the data directory. *)
@@ -145,12 +138,7 @@ let convert ~verbose ~keep_serial_console (g : G.guestfs) inspect source =
     with_hive "software" ~write:false check_group_policy in
 
   (* Warn if Windows guest has AV installed. *)
-  let has_antivirus =
-    let check_app { G.app2_name = name } =
-      try ignore (Str.search_forward av_rex name 0); true
-      with Not_found -> false
-    in
-    List.exists check_app inspect.i_apps in
+  let has_antivirus = detect_antivirus inspect in
 
   (* Open the software hive (readonly) and find the Xen PV uninstaller,
    * if it exists.
