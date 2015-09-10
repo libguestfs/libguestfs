@@ -32,10 +32,11 @@
 
 #define Val_none (Val_int (0))
 
-extern value virt_builder_yajl_is_available (value unit);
-extern value virt_builder_yajl_tree_parse (value stringv);
+value virt_builder_yajl_is_available (value unit);
 
 #if HAVE_YAJL
+value virt_builder_yajl_tree_parse (value stringv);
+
 static value
 convert_yajl_value (yajl_val val, int level)
 {
@@ -126,6 +127,7 @@ virt_builder_yajl_tree_parse (value stringv)
 }
 
 #else
+value virt_builder_yajl_tree_parse (value stringv)  __attribute__((noreturn));
 
 value
 virt_builder_yajl_is_available (value unit)
@@ -135,7 +137,7 @@ virt_builder_yajl_is_available (value unit)
 }
 
 value
-virt_builder_yajl_tree_parse (value stringv) __attribute__((noreturn))
+virt_builder_yajl_tree_parse (value stringv)
 {
   caml_invalid_argument ("virt-builder was compiled without yajl support");
 }
