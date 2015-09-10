@@ -18,7 +18,7 @@
 
 (** [-i libvirt] source. *)
 
-val input_libvirt : bool -> string option -> string option -> string -> Types.input
-(** [input_libvirt verbose password libvirt_uri guest] creates and returns a
+val input_libvirt : bool -> string option -> string option -> string option -> string -> Types.input
+(** [input_libvirt verbose dcpath password libvirt_uri guest] creates and returns a
     new {!Types.input} object specialized for reading input from
     libvirt sources. *)

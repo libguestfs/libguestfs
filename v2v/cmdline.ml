@@ -42,6 +42,7 @@ let parse_cmdline () =
   let verbose = ref false in
   let trace = ref false in
 
+  let dcpath = ref None in
   let input_conn = ref None in
   let input_format = ref None in
   let output_conn = ref None in
@@ -155,6 +156,10 @@ let parse_cmdline () =
     "-b",        Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--bridge",  Arg.String add_bridge,     "in:out " ^ ditto;
     "--debug-gc",Arg.Set debug_gc,          " " ^ s_"Debug GC and memory allocations";
+    "--dcpath",  Arg.String (set_string_option_once "--dcpath" dcpath),
+                                            "path " ^ s_"Override dcPath (for vCenter)";
+    "--dcPath",  Arg.String (set_string_option_once "--dcPath" dcpath),
+                                            "path " ^ ditto;
     "--debug-overlay",Arg.Set debug_overlays,
     " " ^ s_"Save overlay files";
     "--debug-overlays",Arg.Set debug_overlays,
@@ -232,6 +237,7 @@ read the man page virt-v2v(1).
   (* Dereference the arguments. *)
   let args = List.rev !args in
   let debug_gc = !debug_gc in
+  let dcpath = !dcpath in
   let debug_overlays = !debug_overlays in
   let do_copy = !do_copy in
   let input_conn = !input_conn in
@@ -308,7 +314,7 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      Input_libvirt.input_libvirt verbose password input_conn guest
+      Input_libvirt.input_libvirt verbose dcpath password input_conn guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)

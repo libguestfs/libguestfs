@@ -153,6 +153,16 @@ Display help.
 
 See I<--network> below.
 
+=item B<--dcpath> Folder/Datacenter
+
+For VMware vCenter, override the C<dcPath=...> parameter used to
+select the datacenter.  Virt-v2v can usually calculate this from the
+C<vpx://> URI, but if it gets it wrong, then you can override it using
+this setting.  Go to your vCenter web folder interface, eg.
+C<https://vcenter.example.com/folder> (I<without> a trailing slash),
+and examine the C<dcPath=> parameter in the URLs that appear on this
+page.
+
 =item B<--debug-gc>
 
 Debug garbage collection and memory allocation.  This is only useful
@@ -835,18 +845,11 @@ added to the URI, eg:
 
  vpx://user@server/Folder/Datacenter/esxi
 
-If the deployment uses a cluster before the hostname, then you
-may need to remove it, ie. change this:
-
- vpx://user@server/Folder/Datacenter/Cluster/esxi
-
-to this:
-
- vpx://user@server/Folder/Datacenter/esxi
-
 Virt-v2v needs to calculate the C<dcPath> parameter from the URI, and
 it does this by removing the final C</esxi> element, so in the above
-example C<dcPath=Folder/Datacenter>.
+example C<dcPath=Folder/Datacenter>.  As it is not always possible to
+correctly calculate C<dcPath> from the URI, you can override this
+using the I<--dcpath> parameter.
 
 For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
 
