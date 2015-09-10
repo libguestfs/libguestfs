@@ -110,7 +110,7 @@ let rec get_session_cookie =
 
       if status = "404" then (
         dump_response stderr;
-        error (f_"vcenter: URL not found: %s") url
+        error (f_"vcenter: URL not found: %s\n\nThe '--dcpath' parameter may be useful.  See the explanation in the virt-v2v(1) man page OPTIONS section.") url
       );
 
       if status <> "200" then (
@@ -235,7 +235,7 @@ let get_dcPath uri scheme =
  *)
 let source_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
 
-let map_source_to_uri ?readahead password uri scheme server path =
+let map_source_to_uri ?readahead dcPath password uri scheme server path =
   if not (Str.string_match source_re path 0) then
     path
   else (
@@ -243,7 +243,17 @@ let map_source_to_uri ?readahead password uri scheme server path =
     and path = Str.matched_group 2 path in
 
     (* Get the dcPath. *)
-    let dcPath = get_dcPath uri scheme in
+    let dcPath =
+      match dcPath with
+      | None ->
+         let dcPath = get_dcPath uri scheme in
+         if verbose () then
+           printf "vcenter: calculated dcPath as: %s\n" dcPath;
+         dcPath
+      | Some dcPath ->
+         if verbose () then
+           printf "vcenter: using --dcpath from the command line: %s\n" dcPath;
+         dcPath in
 
     let port =
       match uri.uri_port with
@@ -307,7 +317,7 @@ let map_source_to_uri ?readahead password uri scheme server path =
 
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
-  password libvirt_uri parsed_uri scheme server guest =
+  dcPath password libvirt_uri parsed_uri scheme server guest =
 object
   inherit input_libvirt password libvirt_uri guest
 
@@ -347,7 +357,8 @@ object
       | { p_source_disk = disk; p_source = P_dont_rewrite } -> disk
       | { p_source_disk = disk; p_source = P_source_file path } ->
         let qemu_uri = map_source_to_uri ?readahead
-	  password parsed_uri scheme server path in
+	                                 dcPath password
+                                         parsed_uri scheme server path in
 
         (* The libvirt ESX driver doesn't normally specify a format, but
          * the format of the -flat file is *always* raw, so force it here.
@@ -368,7 +379,8 @@ object
       let readahead = readahead_for_copying in
       let backing_qemu_uri =
         map_source_to_uri ?readahead
-          password parsed_uri scheme server orig_path in
+                          dcPath password
+                          parsed_uri scheme server orig_path in
 
       (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
       let cmd =

@@ -27,7 +27,7 @@ open Types
 open Utils
 
 (* Choose the right subclass based on the URI. *)
-let input_libvirt password libvirt_uri guest =
+let input_libvirt dcpath password libvirt_uri guest =
   match libvirt_uri with
   | None ->
     Input_libvirt_other.input_libvirt_other password libvirt_uri guest
@@ -49,7 +49,7 @@ let input_libvirt password libvirt_uri guest =
 
     | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* vCenter over https *)
       Input_libvirt_vcenter_https.input_libvirt_vcenter_https
-        password libvirt_uri parsed_uri scheme server guest
+        dcpath password libvirt_uri parsed_uri scheme server guest
 
     | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
       Input_libvirt_xen_ssh.input_libvirt_xen_ssh
