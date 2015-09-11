@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-08 13:13+0100\n"
+"POT-Creation-Date: 2015-09-11 14:45+0100\n"
 "PO-Revision-Date: 2015-03-18 06:06-0400\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -114,7 +114,7 @@ msgstr "%s no es un archivo en el sistema invitado"
 msgid "%s needed but not found"
 msgstr ""
 
-#: ../v2v/cmdline.ml:102 ../v2v/cmdline.ml:57 ../v2v/cmdline.ml:49
+#: ../v2v/cmdline.ml:103 ../v2v/cmdline.ml:58 ../v2v/cmdline.ml:50
 msgid "%s option used more than once on the command line"
 msgstr "la opción %s aparece más de una vez en la línea de comandos"
 
@@ -288,7 +288,7 @@ msgstr "%s: no se puede utilizar una URI ('%s') en el archivo de índice\n"
 msgid "%s: command exited with an error"
 msgstr "%s: el comando devolvió un error"
 
-#: ../v2v/cmdline.ml:191
+#: ../v2v/cmdline.ml:196
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -583,7 +583,7 @@ msgstr ""
 "primer inicio de Windows. Puedes obtenerlo construyendo rhsrvany  (https://"
 "github.com/rwmjones/rhsrvany).  Error original: %s"
 
-#: ../v2v/convert_windows.ml:74
+#: ../v2v/convert_windows.ml:67
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -664,20 +664,20 @@ msgstr ""
 msgid "--list: use '--list-format', not '--format'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:322
+#: ../v2v/cmdline.ml:328
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr "--no-copy y '-o glance' no pueden usarse al mismo tiempo"
 
-#: ../v2v/cmdline.ml:334
+#: ../v2v/cmdline.ml:340
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr "--no-copy y '-o libvirt' no pueden usarse al mismo tiempo"
 
-#: ../v2v/cmdline.ml:94
+#: ../v2v/cmdline.ml:95
 msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 msgstr ""
 "--no-trim: %s: el punto de montaje/nombre de dispositivo no empieza por '/'"
 
-#: ../v2v/cmdline.ml:92
+#: ../v2v/cmdline.ml:93
 msgid "--no-trim: empty parameter"
 msgstr "--no-trim: argumento vacío"
 
@@ -735,19 +735,19 @@ msgstr "--tmp prebuilt:file: %s: el formato de archivo no es qcow2"
 msgid "--update is not supported for this guest operating system"
 msgstr "--update no está soportado para el sistema operativo del invitado"
 
-#: ../v2v/cmdline.ml:320
+#: ../v2v/cmdline.ml:326
 msgid "--vmtype option cannot be used with '-o glance'"
 msgstr "la opción --vmtype no puede usarse con '-o glance'"
 
-#: ../v2v/cmdline.ml:332
+#: ../v2v/cmdline.ml:338
 msgid "--vmtype option cannot be used with '-o libvirt'"
 msgstr "la opción --vmtype no puede usarse con '-o libvirt'"
 
-#: ../v2v/cmdline.ml:348
+#: ../v2v/cmdline.ml:354
 msgid "--vmtype option cannot be used with '-o local'"
 msgstr "la opción --vmtype no puede usarse con '-o local'"
 
-#: ../v2v/cmdline.ml:359
+#: ../v2v/cmdline.ml:365
 msgid "--vmtype option cannot be used with '-o null'"
 msgstr "la opción --vmtype no puede usarse con '-o null'"
 
@@ -759,20 +759,20 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr "-i disco: nombre de archivo de entrada inválido (%s)"
 
-#: ../v2v/cmdline.ml:318
+#: ../v2v/cmdline.ml:324
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o glance: la opción --qemu-boot no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:314
+#: ../v2v/cmdline.ml:320
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr "-o glance: la opción -oc no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:316
+#: ../v2v/cmdline.ml:322
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr "-o glance: la opción -os no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:330
+#: ../v2v/cmdline.ml:336
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 "-o libvirt: la opción --qemu-boot no puede usarse en este modo de salida"
@@ -798,55 +798,55 @@ msgstr ""
 "-o libvirt: el pool de salida '%s' no es una carpeta (tipo='dir'). Consulta "
 "virt-v2v(1) sección \"OUTPUT TO LIBVIRT\""
 
-#: ../v2v/cmdline.ml:346
+#: ../v2v/cmdline.ml:352
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr "-o local: la opción --qemu-boot no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:341
+#: ../v2v/cmdline.ml:347
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr "-o local: no se especificó carpeta de salida, use '-os /dir'"
 
-#: ../v2v/cmdline.ml:357
+#: ../v2v/cmdline.ml:363
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr "-o null: la opción --qemu-boot no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:353
+#: ../v2v/cmdline.ml:359
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr "-o null: la opción -oc no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:355
+#: ../v2v/cmdline.ml:361
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr "-o null: la opción -os no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:366
+#: ../v2v/cmdline.ml:372
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:379
+#: ../v2v/cmdline.ml:385
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr "-o rhev: la opción --qemu-boot no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:376
+#: ../v2v/cmdline.ml:382
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr "-o rhev: no se especifica almacenamiento para la salida, utilice '-os'"
 
-#: ../v2v/cmdline.ml:389
+#: ../v2v/cmdline.ml:395
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr "-o vsdm: la opción --qemu-boot no puede usarse en este modo de salida"
 
-#: ../v2v/cmdline.ml:393
+#: ../v2v/cmdline.ml:399
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:396
+#: ../v2v/cmdline.ml:402
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:386
+#: ../v2v/cmdline.ml:392
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr "-o vdsm: no se especifica almacenamiento para la salida, utilice '-os'"
 
-#: ../v2v/cmdline.ml:368 ../v2v/cmdline.ml:343
+#: ../v2v/cmdline.ml:374 ../v2v/cmdline.ml:349
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: la carpeta de salida no existe o no es una carpeta"
 
@@ -953,7 +953,7 @@ msgid ""
 "works correctly."
 msgstr ""
 
-#: ../v2v/cmdline.ml:176
+#: ../v2v/cmdline.ml:181
 msgid "Boot in qemu (-o qemu only)"
 msgstr "Arrancar en qemu (sólo -o qemu)"
 
@@ -1220,7 +1220,7 @@ msgstr "No llevar a cabo los cambios"
 msgid "Don't print progress messages"
 msgstr ""
 
-#: ../v2v/cmdline.ml:161
+#: ../v2v/cmdline.ml:166
 msgid "Don't trim selected mounts"
 msgstr ""
 
@@ -1495,7 +1495,7 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:177
+#: ../v2v/cmdline.ml:182
 msgid "How to choose root filesystem"
 msgstr ""
 
@@ -1523,7 +1523,7 @@ msgstr ""
 msgid "Inject a public key into the guest"
 msgstr "Inyectar clave pública en el sistema invitado"
 
-#: ../v2v/cmdline.ml:156
+#: ../v2v/cmdline.ml:161
 msgid "Input format (for -i disk)"
 msgstr "Formato de entrada (para -i disco)"
 
@@ -1555,7 +1555,7 @@ msgstr "Instalando paquetes: %s"
 msgid "Installing: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:160
+#: ../v2v/cmdline.ml:165
 msgid "Just write the metadata"
 msgstr "Escribir los metadatos solamente"
 
@@ -1571,7 +1571,7 @@ msgstr "LOCALPATH:REMOTEDIR"
 msgid "Label for the root fs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:166 ../v2v/cmdline.ml:154
+#: ../v2v/cmdline.ml:171 ../v2v/cmdline.ml:159
 msgid "Libvirt URI"
 msgstr "Libvirt URI"
 
@@ -1606,7 +1606,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:62
 #. ../dib/cmdline.ml:165
 #. ../builder/cmdline.ml:129
-#: ../v2v/cmdline.ml:157 ../sparsify/cmdline.ml:66 ../resize/resize.ml:208
+#: ../v2v/cmdline.ml:162 ../sparsify/cmdline.ml:66 ../resize/resize.ml:208
 msgid "Make output machine readable"
 msgstr "Hacer legible el sistema de salida"
 
@@ -1614,11 +1614,11 @@ msgstr "Hacer legible el sistema de salida"
 msgid "Making directory: %s"
 msgstr "Creando carpeta: %s"
 
-#: ../v2v/cmdline.ml:146
+#: ../v2v/cmdline.ml:147
 msgid "Map bridge 'in' to 'out'"
 msgstr "Mapear puente 'in' a 'out'"
 
-#: ../v2v/cmdline.ml:158
+#: ../v2v/cmdline.ml:163
 msgid "Map network 'in' to 'out'"
 msgstr "Mapear red 'in' a 'out'"
 
@@ -1712,11 +1712,11 @@ msgstr ""
 msgid "Optional drive for caches"
 msgstr ""
 
-#: ../v2v/cmdline.ml:183
+#: ../v2v/cmdline.ml:188
 msgid "Output OVF file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:181
+#: ../v2v/cmdline.ml:186
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1744,7 +1744,7 @@ msgstr ""
 msgid "Output formats"
 msgstr ""
 
-#: ../v2v/cmdline.ml:178
+#: ../v2v/cmdline.ml:183
 msgid "Output image UUID(s)"
 msgstr ""
 
@@ -1752,12 +1752,16 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:179
+#: ../v2v/cmdline.ml:184
 msgid "Output vol UUID(s)"
 msgstr ""
 
 #: ../v2v/v2v.ml:457
 msgid "Overlay saved as %s [--debug-overlays]\n"
+msgstr ""
+
+#: ../v2v/cmdline.ml:150
+msgid "Override dcPath (for vCenter)"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:362 ../customize/customize_cmdline.ml:198
@@ -1815,11 +1819,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr "Imprimir información acerca de la caché de plantillas"
 
-#: ../v2v/cmdline.ml:175
+#: ../v2v/cmdline.ml:180
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/OVF.ml:412 ../v2v/OVF.ml:215
+#: ../v2v/OVF.ml:409 ../v2v/OVF.ml:215
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr "RHEV no soporta el formato de salida '%s', sólo raw o qcow2"
 
@@ -2037,7 +2041,7 @@ msgstr ""
 msgid "Removing all the subscriptions"
 msgstr ""
 
-#: ../v2v/cmdline.ml:170
+#: ../v2v/cmdline.ml:175
 msgid "Rename guest when converting"
 msgstr "Renombrar el sistema invitado durante la conversión"
 
@@ -2129,7 +2133,7 @@ msgstr "Se podría inyectar una clave SSH en este tipo de sistema invitado"
 msgid "SSH key inject: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:149
+#: ../v2v/cmdline.ml:154
 msgid "Save overlay files"
 msgstr ""
 
@@ -2173,7 +2177,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:152
+#: ../v2v/cmdline.ml:157
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -2210,7 +2214,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:164
+#: ../v2v/cmdline.ml:169
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -2222,15 +2226,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:168
+#: ../v2v/cmdline.ml:173
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:162
+#: ../v2v/cmdline.ml:167
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:177
 msgid "Set output storage location"
 msgstr ""
 
@@ -2278,7 +2282,7 @@ msgstr ""
 msgid "Set user password"
 msgstr ""
 
-#: ../v2v/cmdline.ml:185
+#: ../v2v/cmdline.ml:190
 msgid "Set vmtype (for RHEV)"
 msgstr ""
 
@@ -2523,7 +2527,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/OVF.ml:355
+#: ../v2v/OVF.ml:352
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
@@ -2607,7 +2611,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:174
+#: ../v2v/cmdline.ml:179
 msgid "Use password from file"
 msgstr ""
 
@@ -2742,11 +2746,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:487
+#: ../v2v/convert_windows.ml:475
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:473
+#: ../v2v/convert_windows.ml:461
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2777,7 +2781,7 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:171
+#: ../v2v/convert_windows.ml:159
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2839,7 +2843,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:680
+#: ../v2v/convert_windows.ml:668
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -3035,19 +3039,19 @@ msgid ""
 "string: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:276
+#: ../v2v/cmdline.ml:282
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:297
+#: ../v2v/cmdline.ml:303
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:288
+#: ../v2v/cmdline.ml:294
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:306
+#: ../v2v/cmdline.ml:312
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -3229,7 +3233,7 @@ msgstr ""
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:71
+#: ../v2v/cmdline.ml:72
 msgid "invalid --bridge or --network parameter"
 msgstr ""
 
@@ -3413,7 +3417,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/OVF.ml:545
+#: ../v2v/OVF.ml:542
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -3510,7 +3514,7 @@ msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:167
+#: ../customize/password.ml:170
 msgid ""
 "password: using insecure md5 password encryption for guest of type %s "
 "version %d.%d.\n"
@@ -3541,7 +3545,7 @@ msgstr ""
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:379
+#: ../v2v/input_libvirt_vcenter_https.ml:391
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -3598,7 +3602,7 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:336
+#: ../v2v/input_libvirt_vcenter_https.ml:346
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
@@ -3710,7 +3714,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:316
+#: ../v2v/convert_windows.ml:304
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3718,7 +3722,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:362
+#: ../v2v/convert_windows.ml:350
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3734,7 +3738,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:338
+#: ../v2v/convert_windows.ml:326
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3742,7 +3746,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:348
+#: ../v2v/convert_windows.ml:336
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3756,7 +3760,7 @@ msgid ""
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:763
+#: ../v2v/convert_windows.ml:751
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3764,7 +3768,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:761
+#: ../v2v/convert_windows.ml:749
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3815,23 +3819,23 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:130
+#: ../v2v/cmdline.ml:131
 msgid "unknown --root option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:245
+#: ../v2v/cmdline.ml:251
 msgid "unknown --vmtype option, must be \"server\" or \"desktop\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:64
+#: ../v2v/cmdline.ml:65
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:112
+#: ../v2v/cmdline.ml:113
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:120
+#: ../v2v/cmdline.ml:121
 msgid "unknown -oa option: %s"
 msgstr ""
 
@@ -3907,7 +3911,11 @@ msgid ""
 msgstr ""
 
 #: ../v2v/input_libvirt_vcenter_https.ml:113
-msgid "vcenter: URL not found: %s"
+msgid ""
+"vcenter: URL not found: %s\n"
+"\n"
+"The '--dcpath' parameter may be useful.  See the explanation in the virt-"
+"v2v(1) man page OPTIONS section."
 msgstr ""
 
 #: ../v2v/input_libvirt_vcenter_https.ml:133
@@ -3971,7 +3979,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:455
+#: ../v2v/convert_windows.ml:443
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
@@ -8934,14 +8942,15 @@ msgstr ""
 msgid "%s: cannot detect virtual size of disk image"
 msgstr ""
 
-#: src/inspect-fs-unix.c:137
+#: src/inspect-fs-unix.c:138
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:187 src/inspect-fs-unix.c:274
-#: src/inspect-fs-unix.c:1078 src/inspect-fs-unix.c:1842 src/inspect-fs.c:606
-#: src/inspect-fs.c:652 src/inspect.c:653
+#: src/inspect-fs-unix.c:170 src/inspect-fs-unix.c:324
+#: src/inspect-fs-unix.c:411 src/inspect-fs-unix.c:1244
+#: src/inspect-fs-unix.c:2008 src/inspect-fs.c:608 src/inspect-fs.c:654
+#: src/inspect.c:654
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "el tamaño de %s es irracionalmente largo (%<PRIi64> bytes)"
@@ -8951,24 +8960,24 @@ msgstr "el tamaño de %s es irracionalmente largo (%<PRIi64> bytes)"
 msgid "could not parse integer in version number: %s"
 msgstr "no se pudo analizar el entero en el número de la versión: %s"
 
-#: src/inspect-icon.c:648
+#: src/inspect-icon.c:649
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "read: %s: fin de archivo no esperado"
 
-#: src/inspect.c:345
+#: src/inspect.c:346
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "no es un huésped Windows, o systemroot no pudo ser determinado"
 
-#: src/inspect.c:361
+#: src/inspect.c:362
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr "no es un huésped Wndows, o no pudo determinarse CurrentControlSet"
 
-#: src/inspect.c:691
+#: src/inspect.c:692
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "no existen datos de inspección: invoque primero a guestfs_inspect_os"
 
-#: src/inspect.c:701
+#: src/inspect.c:702
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -9000,12 +9009,12 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch-direct.c:851 src/launch-libvirt.c:626
+#: src/launch-direct.c:851 src/launch-libvirt.c:630
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch-direct.c:1253 src/launch-libvirt.c:1415
+#: src/launch-direct.c:1253 src/launch-libvirt.c:1419
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -9045,25 +9054,25 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:287
+#: src/launch-libvirt.c:288
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:296
+#: src/launch-libvirt.c:297
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:331
+#: src/launch-libvirt.c:332
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:360
+#: src/launch-libvirt.c:361
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:554
+#: src/launch-libvirt.c:558
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9073,21 +9082,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:692
+#: src/launch-libvirt.c:696
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:698 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:702 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr "no es posible crear un nuevo contexto XPath"
 
-#: src/launch-libvirt.c:708
+#: src/launch-libvirt.c:712
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:743
+#: src/launch-libvirt.c:747
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -9102,70 +9111,86 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:979
+#: src/launch-libvirt.c:983
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1369
+#: src/launch-libvirt.c:1373
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1498
+#: src/launch-libvirt.c:1502
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1523
+#: src/launch-libvirt.c:1527
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1530
+#: src/launch-libvirt.c:1534
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1860
+#: src/launch-libvirt.c:1864
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1871
+#: src/launch-libvirt.c:1875
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1875
+#: src/launch-libvirt.c:1879
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1896
+#: src/launch-libvirt.c:1900
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1909
+#: src/launch-libvirt.c:1913
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2016
+#: src/launch-libvirt.c:2023
+#, c-format
+msgid ""
+"bridge '%s' not found.  Try running:\n"
+"\n"
+"  brctl show\n"
+"\n"
+"to get a list of bridges on the host, and then selecting the\n"
+"bridge you wish the appliance network to connect to using:\n"
+"\n"
+"  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
+"\n"
+"You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
+"For further information see guestfs(3)."
+msgstr ""
+
+#: src/launch-libvirt.c:2063
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2067 src/launch-libvirt.c:2100
+#: src/launch-libvirt.c:2114 src/launch-libvirt.c:2147
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2163
+#: src/launch-libvirt.c:2210
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2194
+#: src/launch-libvirt.c:2241
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
