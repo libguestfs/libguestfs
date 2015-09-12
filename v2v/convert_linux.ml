@@ -581,7 +581,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
               List.filter (fun s -> string_find s library = -1) provides in
 
             (* Trim whitespace. *)
-            let rex = Str.regexp "^[ \\t]*\\([^ \\t]+\\)[ \\t]*$" in
+            let rex = Str.regexp "^[ \t]*\\([^ \t]+\\)[ \t]*$" in
             let provides = List.map (Str.replace_first rex "\\1") provides in
 
             (* Install the dependencies with yum.  Use yum explicitly
