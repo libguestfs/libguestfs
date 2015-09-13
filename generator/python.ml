@@ -671,6 +671,8 @@ logvols = g.lvs ()
 
 \"\"\"
 
+import os
+import sys
 import libguestfsmod
 
 ";
@@ -713,6 +715,10 @@ class GuestFS(object):
         if not close_on_exit: flags |= 2
         self._o = libguestfsmod.create (flags)
         self._python_return_dict = python_return_dict
+
+        # If we don't do this, the program name is always set to 'python'.
+        program = os.path.basename (sys.argv[0])
+        libguestfsmod.set_program (self._o, program)
 
     def __del__ (self):
         if self._o:
