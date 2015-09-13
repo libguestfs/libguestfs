@@ -753,6 +753,12 @@ sub new {
   my $g = Sys::Guestfs::_create ($flags);
   my $self = { _g => $g, _flags => $flags };
   bless $self, $class;
+
+  # If we don't do this, the program name is always set to 'perl'.
+  my $program = $0;
+  $program =~ s{.*/}{};
+  $self->set_program ($program);
+
   return $self;
 }
 
