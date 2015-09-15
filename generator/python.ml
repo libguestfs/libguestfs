@@ -140,6 +140,7 @@ put_table (char * const * const argv)
 ";
 
   let emit_put_list_function typ =
+    pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
     pr "static PyObject *\n";
     pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
@@ -151,12 +152,14 @@ put_table (char * const * const argv)
     pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
     pr "  return list;\n";
     pr "};\n";
+    pr "#endif\n";
     pr "\n"
   in
 
   (* Structures, turned into Python dictionaries. *)
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
+      pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
       pr "static PyObject *\n";
       pr "put_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
@@ -228,6 +231,7 @@ put_table (char * const * const argv)
       ) cols;
       pr "  return dict;\n";
       pr "};\n";
+      pr "#endif\n";
       pr "\n";
 
   ) external_structs;
@@ -246,6 +250,7 @@ put_table (char * const * const argv)
     fun { name = name; style = (ret, args, optargs as style);
           blocking = blocking;
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase name);
       pr "static PyObject *\n";
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -381,6 +386,7 @@ put_table (char * const * const argv)
           fun optarg ->
             let n = name_of_optargt optarg in
             let uc_n = String.uppercase n in
+            pr "#ifdef %s_%s_BITMASK\n" c_optarg_prefix uc_n;
             pr "  if (py_%s != Py_None) {\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             (match optarg with
@@ -403,6 +409,7 @@ put_table (char * const * const argv)
               pr "    if (!optargs_s.%s) goto out;\n" n;
             );
             pr "  }\n";
+            pr "#endif\n"
         ) optargs;
         pr "\n"
       );
@@ -524,13 +531,16 @@ put_table (char * const * const argv)
         | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
         | OStringList n ->
           let uc_n = String.uppercase n in
+          pr "#ifdef %s_%s_BITMASK\n" c_optarg_prefix uc_n;
           pr "  if (py_%s != Py_None && (optargs_s.bitmask & %s_%s_BITMASK) != 0)\n"
             n c_optarg_prefix uc_n;
-          pr "    free ((char **) optargs_s.%s);\n" n
+          pr "    free ((char **) optargs_s.%s);\n" n;
+          pr "#endif\n"
       ) optargs;
 
       pr "  return py_r;\n";
       pr "}\n";
+      pr "#endif\n";
       pr "\n"
   ) external_functions_sorted;
 
@@ -546,8 +556,10 @@ put_table (char * const * const argv)
   pr "    py_guestfs_event_to_string, METH_VARARGS, NULL },\n";
   List.iter (
     fun { name = name } ->
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase name);
       pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
-        name name
+        name name;
+      pr "#endif\n"
   ) external_functions_sorted;
   pr "  { NULL, NULL, 0, NULL }\n";
   pr "};\n";
