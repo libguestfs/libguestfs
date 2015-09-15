@@ -603,6 +603,8 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
   (* Public structures. *)
   let generate_all_structs = List.iter (
     fun { s_name = typ; s_cols = cols } ->
+      pr "#define GUESTFS_HAVE_STRUCT_%s 1\n" (String.uppercase typ);
+      pr "\n";
       pr "struct guestfs_%s {\n" typ;
       List.iter (
         function
