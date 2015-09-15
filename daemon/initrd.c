@@ -43,6 +43,7 @@ do_initrd_list (const char *path)
   CLEANUP_FREE char *filename = NULL;
   size_t allocsize;
   ssize_t len;
+  int ret;
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
   if (asprintf_nowarn (&cmd, "%s %R | %s --quiet -it", str_zcat, path, str_cpio) == -1) {
@@ -74,8 +75,15 @@ do_initrd_list (const char *path)
     return NULL;
   }
 
-  if (pclose (fp) != 0) {
-    reply_with_perror ("pclose");
+  ret = pclose (fp);
+  if (ret != 0) {
+    if (ret == -1)
+      reply_with_perror ("pclose");
+    else {
+      if (WEXITSTATUS (ret) != 0)
+        ret = WEXITSTATUS (ret);
+      reply_with_error ("pclose: command failed with return code %d", ret);
+    }
     free_stringslen (filenames.argv, filenames.size);
     return NULL;
   }
