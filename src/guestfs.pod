@@ -4334,6 +4334,20 @@ check-slow
 
 =back
 
+=item C<make installcheck>
+
+Run C<make check> on the installed copy of libguestfs.
+
+The version of installed libguestfs being tested, and the version of
+the libguestfs source tree must be the same.
+
+Do:
+
+ ./autogen.sh
+ make clean ||:
+ make
+ make installcheck
+
 =back
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS

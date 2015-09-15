@@ -281,6 +281,7 @@ Makefile.in
 /inspector/test-xmllint.sh
 /inspector/virt-inspector
 /inspector/virt-inspector.1
+/installcheck.sh
 /install-sh
 /java/api
 /java/Bindtests.java

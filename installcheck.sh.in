@@ -1,0 +1,107 @@
+#!/bin/bash
+# @configure_input@
+#
+# (C) Copyright 2015 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+# Run 'make check' on installed packages.
+#
+# The version of installed libguestfs being tested, and the version of
+# the libguestfs source tree must be the same.
+
+unset CDPATH
+export LANG=C
+set -e
+set -x
+
+# Grrrrrrr autoconf.
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+# Remove all libtool crappage.
+find -name 'lt-*' | grep '/.libs/lt-' | xargs -r rm
+
+# Copy the installed library into libtool directory.
+rm src/.libs/libguestfs.so*
+cp @libdir@/libguestfs.so* src/.libs/
+
+# Copy installed binaries into the right places.
+cp @bindir@/libguestfs-test-tool  test-tool/
+cp @bindir@/guestfish             fish/
+cp @bindir@/guestmount            fuse/
+cp @bindir@/virt-alignment-scan   align/
+cp @bindir@/virt-builder          builder/
+cp @bindir@/virt-cat              cat/
+cp @bindir@/virt-copy-in          fish/
+cp @bindir@/virt-copy-out         fish/
+cp @bindir@/virt-customize        customize/
+cp @bindir@/virt-dib              dib/
+cp @bindir@/virt-diff             diff/
+cp @bindir@/virt-df               df/
+cp @bindir@/virt-edit             edit/
+cp @bindir@/virt-filesystems      cat/
+cp @bindir@/virt-format           format/
+cp @bindir@/virt-get-kernel       get-kernel/
+cp @bindir@/virt-inspector        inspector/
+cp @bindir@/virt-ls               cat/
+cp @bindir@/virt-make-fs          make-fs/
+cp @libexecdir@/virt-p2v          p2v/
+cp @bindir@/virt-rescue           rescue/
+cp @bindir@/virt-resize           resize/
+cp @bindir@/virt-sparsify         sparsify/
+cp @bindir@/virt-sysprep          sysprep/
+cp @bindir@/virt-tar-in           fish/
+cp @bindir@/virt-tar-out          fish/
+cp @bindir@/virt-v2v              v2v/
+cp @bindir@/virt-win-reg          tools/
+
+# virt-list-filesystems, virt-list-partitions and virt-tar are not
+# tested, because they are not routinely installed by Linux distros
+# (being legacy programs).
+
+# XXX No language bindings are copied at the moment.
+
+# Copy the installed appliance.
+rm -rf appliance/supermin.d
+cp -r @libdir@/guestfs/supermin.d appliance/
+# Try to force the appliance not to get rebuilt:
+touch appliance/stamp-supermin
+rm -rf "tmp/.guestfs-$(id -u)"
+
+# Run the tests.
+make check
+
+# Check the library and some critical binaries didn't get rebuilt
+# during the 'make check', which would invalidate the results of
+# the test.
+compare () {
+    sum1=`md5sum $1 | @AWK@ '{print $1}'`
+    sum2=`md5sum $2 | @AWK@ '{print $1}'`
+    if [ "$sum1" != "$sum2" ]; then
+        echo "$2 was overwritten during the test.  Test results are invalid."
+        exit 1
+    fi
+}
+compare @libdir@/libguestfs.so src/.libs/libguestfs.so
+compare @bindir@/guestfish  fish/guestfish
+compare @bindir@/guestmount fuse/guestmount
+compare @bindir@/virt-df    df/virt-df
+compare @bindir@/virt-v2v   v2v/virt-v2v
+compare @libdir@/guestfs/supermin.d/daemon.tar.gz \
+                            appliance/supermin.d/daemon.tar.gz
+
+# Now do a make clean to remove all the above.
+make clean >/dev/null 2>&1 ||:
