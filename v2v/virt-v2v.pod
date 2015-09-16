@@ -1633,6 +1633,20 @@ See L<ENABLING VIRTIO>.
 
 For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
 
+=head1 OTHER TOOLS
+
+=over 4
+
+=item L<engine-image-uploader(8)>
+
+Variously called C<engine-image-uploader>, C<ovirt-image-uploader> or
+C<rhevm-image-uploader>, this tool allows you to copy a guest from one
+oVirt or RHEV Export Storage Domain to another.  It only permits
+importing a guest that was previously exported from another oVirt/RHEV
+instance.
+
+=back
+
 =head1 SEE ALSO
 
 L<virt-p2v(1)>,
@@ -1646,6 +1660,7 @@ L<guestfish(1)>,
 L<qemu-img(1)>,
 L<fstrim(8)>,
 L<virt-v2v-test-harness(1)>,
+L<engine-image-uploader(8)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
