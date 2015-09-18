@@ -1116,6 +1116,15 @@ AM_CONDITIONAL([HAVE_OCAMLOPT],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
+dnl OCaml is required if we need to run the generator.
+AS_IF([test "x$OCAMLC" = "xno" || test "x$OCAMLFIND" = "xno"],[
+    AS_IF([! test -f $srcdir/src/guestfs_protocol.x],[
+        AC_MSG_FAILURE([OCaml compiler and findlib is required to build from git.
+If you don't have OCaml available, you should build from a tarball from
+http://libguestfs.org/download])
+    ])
+])
+
 AS_IF([test "x$OCAMLC" != "xno"],[
     dnl Check for <caml/unixsupport.h> header.
     old_CPPFLAGS="$CPPFLAGS"
