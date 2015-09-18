@@ -1645,6 +1645,14 @@ oVirt or RHEV Export Storage Domain to another.  It only permits
 importing a guest that was previously exported from another oVirt/RHEV
 instance.
 
+=item L<import-to-ovirt.pl|http://git.annexia.org/?p=import-to-ovirt.git>
+
+This script can be used to import guests that already run on KVM to
+oVirt or RHEV.  For more information, see this blog posting by the
+author of virt-v2v:
+
+L<https://rwmj.wordpress.com/2015/09/18/importing-kvm-guests-to-ovirt-or-rhev/#content>
+
 =back
 
 =head1 SEE ALSO
@@ -1661,6 +1669,7 @@ L<qemu-img(1)>,
 L<fstrim(8)>,
 L<virt-v2v-test-harness(1)>,
 L<engine-image-uploader(8)>,
+L<import-to-ovirt.pl|http://git.annexia.org/?p=import-to-ovirt.git>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
