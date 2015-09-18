@@ -182,7 +182,6 @@ EXTRA_DIST = \
 	contrib/intro/vmm-icons-t.png \
 	contrib/intro/vmm-icons.png \
 	contrib/intro/win7.xml \
-	contrib/make-check-on-installed.pl \
 	contrib/README \
 	contrib/visualize-alignment/.gitignore \
 	contrib/visualize-alignment/guestfish-add-mount.qtr \
