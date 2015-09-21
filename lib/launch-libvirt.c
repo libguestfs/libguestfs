@@ -155,7 +155,6 @@ static int is_blk (const char *path);
 static void ignore_errors (void *ignore, virErrorPtr ignore2);
 static void set_socket_create_context (guestfs_h *g);
 static void clear_socket_create_context (guestfs_h *g);
-static int check_bridge_exists (guestfs_h *g, const char *brname);
 
 #if HAVE_LIBSELINUX
 static void selinux_warning (guestfs_h *g, const char *func, const char *selinux_op, const char *data);
@@ -437,9 +436,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   data->selinux_norelabel_disks =
     guestfs_int_get_backend_setting_bool (g, "internal_libvirt_norelabel_disks");
   guestfs_pop_error_handler (g);
-
-  if (g->enable_network && check_bridge_exists (g, data->network_bridge) == -1)
-    goto cleanup;
 
   /* Locate and/or build the appliance. */
   TRACE0 (launch_build_libvirt_appliance_start);
@@ -2046,49 +2042,6 @@ is_blk (const char *path)
   if (stat (path, &statbuf) == -1)
     return 0;
   return S_ISBLK (statbuf.st_mode);
-}
-
-static int
-is_dir (const char *path)
-{
-  struct stat statbuf;
-
-  if (stat (path, &statbuf) == -1)
-    return 0;
-  return S_ISDIR (statbuf.st_mode);
-}
-
-/* Used to check the network_bridge exists, or give a useful error
- * message.
- */
-static int
-check_bridge_exists (guestfs_h *g, const char *brname)
-{
-  CLEANUP_FREE char *path = NULL;
-
-  /* If this doesn't look like Linux, give up. */
-  if (!is_dir ("/sys/class/net"))
-    return 0;
-
-  /* Does the interface exist and is it a bridge? */
-  path = safe_asprintf (g, "/sys/class/net/%s/bridge", brname);
-  if (is_dir (path))
-    return 0;
-
-  error (g,
-         _("bridge ‘%s’ not found.  Try running:\n"
-           "\n"
-           "  brctl show\n"
-           "\n"
-           "to get a list of bridges on the host, and then selecting the\n"
-           "bridge you wish the appliance network to connect to using:\n"
-           "\n"
-           "  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
-           "\n"
-           "You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
-           "For further information see guestfs(3)."),
-	 brname);
-  return -1;
 }
 
 static void
