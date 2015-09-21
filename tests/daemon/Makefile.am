@@ -23,9 +23,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 check_DATA = captive-daemon.pm
 
-TESTS = \
-	test-daemon-start.pl \
-	test-btrfs.pl
+TESTS =
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
