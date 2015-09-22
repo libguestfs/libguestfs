@@ -82,7 +82,7 @@ touch appliance/stamp-supermin
 rm -rf "tmp/.guestfs-$(id -u)"
 
 # Run the tests.
-make check
+make check -k
 
 # Check the library and some critical binaries didn't get rebuilt
 # during the 'make check', which would invalidate the results of
