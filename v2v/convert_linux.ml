@@ -727,6 +727,17 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     (* Does the best/bootable kernel support virtio? *)
     let virtio = best_kernel.ki_supports_virtio in
 
+    (* Update /etc/sysconfig/kernel DEFAULTKERNEL (RHBZ#1176801). *)
+    if g#is_file ~followsymlinks:true "/etc/sysconfig/kernel" then (
+      let entries =
+        g#aug_match "/files/etc/sysconfig/kernel/DEFAULTKERNEL/value" in
+      let entries = Array.to_list entries in
+      if entries <> [] then (
+        List.iter (fun path -> g#aug_set path best_kernel.ki_name) entries;
+        g#aug_save ()
+      )
+    );
+
     best_kernel, virtio
 
   and grub_set_bootable kernel =
