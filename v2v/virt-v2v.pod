@@ -1095,6 +1095,12 @@ easier to deal with.  OVA files are really just uncompressed tar
 files, so you can use commands like C<tar tf VM.ova> to view their
 contents.
 
+You can also use VMware's proprietary C<ovftool>:
+
+ ovftool --noSSLVerify \
+   vi://root:password@esxi.example.com/VM \
+   VM.ova
+
 =head2 OVA: IMPORTING A GUEST
 
 To import an OVA file called F<VM.ova>, do;
