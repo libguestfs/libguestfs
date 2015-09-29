@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-11 14:45+0100\n"
+"POT-Creation-Date: 2015-09-29 18:59+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -104,7 +104,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1300
+#: ../v2v/convert_linux.ml:1311
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2217,7 +2217,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1094
+#: ../v2v/convert_linux.ml:1105
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2640,7 +2640,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1024
+#: ../v2v/convert_linux.ml:1035
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2694,7 +2694,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1053
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2705,7 +2705,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1026
+#: ../v2v/convert_linux.ml:1037
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2737,7 +2737,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:748
+#: ../v2v/convert_linux.ml:759
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2803,7 +2803,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1149
+#: ../v2v/convert_linux.ml:1160
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3046,7 +3046,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:752
+#: ../v2v/convert_linux.ml:763
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -3082,7 +3082,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:736
+#: ../v2v/convert_linux.ml:747
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -3605,7 +3605,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1193
+#: ../v2v/convert_linux.ml:1204
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3620,7 +3620,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:891
+#: ../v2v/convert_linux.ml:902
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -8411,17 +8411,17 @@ msgstr "write_data : socket non connectée"
 msgid "error reading console messages from the appliance"
 msgstr "erreur lors de la lecture des messages console de l'appliance"
 
-#: src/copy-in-out.c:54 src/copy-in-out.c:128
+#: src/copy-in-out.c:55 src/copy-in-out.c:137
 #, c-format
 msgid "target '%s' is not a directory"
 msgstr ""
 
-#: src/copy-in-out.c:165
+#: src/copy-in-out.c:174
 #, c-format
 msgid "'%s' is not a file or directory"
 msgstr ""
 
-#: src/copy-in-out.c:224
+#: src/copy-in-out.c:240
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 
@@ -8966,11 +8966,6 @@ msgstr "la taille de %s est déraisonnablement grande (%<PRIi64> octets)"
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "n'a pas pu analyser en entier dans le numéro de version : %s"
-
-#: src/inspect-icon.c:649
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr "lire : %s : fin de fichier inattendue"
 
 #: src/inspect.c:346
 msgid "not a Windows guest, or systemroot could not be determined"
@@ -9544,6 +9539,11 @@ msgstr "%s a été arrêté par le signal %d (%s)"
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "%s s'est terminé pour une raison inconnue (état %d)"
+
+#: src/whole-file.c:69
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "lire : %s : fin de fichier inattendue"
 
 #: test-tool/test-tool.c:54
 #, c-format

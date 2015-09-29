@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-11 14:45+0100\n"
+"POT-Creation-Date: 2015-09-29 18:59+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -119,7 +119,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1300
+#: ../v2v/convert_linux.ml:1311
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2497,7 +2497,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1094
+#: ../v2v/convert_linux.ml:1105
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -3034,7 +3034,7 @@ msgstr "команда «%s» є некоректною, див. сторінк�
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
-#: ../v2v/convert_linux.ml:1024
+#: ../v2v/convert_linux.ml:1035
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -3104,7 +3104,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1053
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -3118,7 +3118,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1026
+#: ../v2v/convert_linux.ml:1037
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -3154,7 +3154,7 @@ msgstr ""
 "decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
 "LE. Ймовірно, це вада у %s."
 
-#: ../v2v/convert_linux.ml:748
+#: ../v2v/convert_linux.ml:759
 msgid "didn't find grub entry for kernel %s"
 msgstr "не знайдено запис grub для ядра %s"
 
@@ -3235,7 +3235,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1149
+#: ../v2v/convert_linux.ml:1160
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -3503,7 +3503,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/convert_linux.ml:752
+#: ../v2v/convert_linux.ml:763
 msgid "internal error: regular expression did not match '%s'"
 msgstr "внутрішня помилка: формальний вираз не відповідає «%s»"
 
@@ -3539,7 +3539,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr "некоректний варіант ssh-inject «%s»; див. сторінку man"
 
-#: ../v2v/convert_linux.ml:736
+#: ../v2v/convert_linux.ml:747
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
@@ -4149,7 +4149,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:1193
+#: ../v2v/convert_linux.ml:1204
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4172,7 +4172,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:891
+#: ../v2v/convert_linux.ml:902
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -9376,17 +9376,17 @@ msgstr "write_data: сокет не з’єднано"
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
-#: src/copy-in-out.c:54 src/copy-in-out.c:128
+#: src/copy-in-out.c:55 src/copy-in-out.c:137
 #, c-format
 msgid "target '%s' is not a directory"
 msgstr "призначення «%s» не є каталогом"
 
-#: src/copy-in-out.c:165
+#: src/copy-in-out.c:174
 #, c-format
 msgid "'%s' is not a file or directory"
 msgstr "«%s» не є файлом або каталогом"
 
-#: src/copy-in-out.c:224
+#: src/copy-in-out.c:240
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 "помилка: аргумент має нульову довжину або є довшим за максимальне значення"
@@ -9977,11 +9977,6 @@ msgstr "розмір %s неймовірно великий (%<PRIi64> байт�
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
-
-#: src/inspect-icon.c:649
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr "читання: %s: неочікуваний кінець файла"
 
 #: src/inspect.c:346
 msgid "not a Windows guest, or systemroot could not be determined"
@@ -10605,6 +10600,11 @@ msgstr "Роботу %s завершено за допомогою сигнал�
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
+
+#: src/whole-file.c:69
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "читання: %s: неочікуваний кінець файла"
 
 #: test-tool/test-tool.c:54
 #, c-format
