@@ -126,6 +126,7 @@ libguestfs_la_SOURCES = \
 	structs-copy.c \
 	structs-free.c \
 	tmpdirs.c \
+	whole-file.c \
 	libguestfs.syms
 
 libguestfs_la_CPPFLAGS = \

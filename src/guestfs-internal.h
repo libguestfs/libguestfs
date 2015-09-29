@@ -749,6 +749,9 @@ extern int guestfs_int_lazy_make_tmpdir (guestfs_h *g);
 extern void guestfs_int_remove_tmpdir (guestfs_h *g);
 extern void guestfs_int_recursive_remove_dir (guestfs_h *g, const char *dir);
 
+/* whole-file.c */
+extern int guestfs_int_read_whole_file (guestfs_h *g, const char *filename, char **data_r, size_t *size_r);
+
 /* drives.c */
 extern size_t guestfs_int_checkpoint_drives (guestfs_h *g);
 extern void guestfs_int_rollback_drives (guestfs_h *g, size_t);
