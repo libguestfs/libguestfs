@@ -36,7 +36,8 @@
 static int split_path (guestfs_h *g, char *buf, size_t buf_size, const char *path, const char **dirname, const char **basename);
 
 int
-guestfs_impl_copy_in (guestfs_h *g, const char *localpath, const char *remotedir)
+guestfs_impl_copy_in (guestfs_h *g,
+                      const char *localpath, const char *remotedir)
 {
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
   int fd;
@@ -118,7 +119,8 @@ child_setup (guestfs_h *g, void *data)
 }
 
 int
-guestfs_impl_copy_out (guestfs_h *g, const char *remotepath, const char *localdir)
+guestfs_impl_copy_out (guestfs_h *g,
+                       const char *remotepath, const char *localdir)
 {
   struct stat statbuf;
   int r;
