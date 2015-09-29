@@ -20,12 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <errno.h>
 #include <iconv.h>
 
@@ -46,12 +42,10 @@
 
 #include "c-ctype.h"
 #include "ignore-value.h"
-#include "xstrtol.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 COMPILE_REGEXP (re_windows_version, "^(\\d+)\\.(\\d+)", 0)
 COMPILE_REGEXP (re_boot_ini_os_header, "^\\[operating systems\\]\\s*$", 0)

@@ -24,19 +24,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <assert.h>
-#include <sys/types.h>
 #include <libintl.h>
-
-#include <pcre.h>
 
 #include "c-ctype.h"
 #include "ignore-value.h"
@@ -44,7 +38,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 /* Helper struct to hold all the data needed when creating a new
  * drive.

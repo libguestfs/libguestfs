@@ -28,7 +28,6 @@
 #include <errno.h>
 #include <poll.h>
 #include <sys/stat.h>
-#include <sys/socket.h>
 #include <sys/types.h>
 #include <assert.h>
 #include <libintl.h>

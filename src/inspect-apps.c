@@ -20,13 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <errno.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
@@ -58,14 +53,9 @@
 #endif
 #endif
 
-#include <pcre.h>
-
-#include "xstrtol.h"
-
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 #ifdef DB_DUMP
 static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);

@@ -21,7 +21,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
@@ -32,7 +31,6 @@
 #include <signal.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <grp.h>
 #include <assert.h>
 #include <string.h>
 #include <libintl.h>
@@ -46,7 +44,6 @@
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
 COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)

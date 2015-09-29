@@ -20,13 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <errno.h>
 #include <libintl.h>
 
 #ifdef HAVE_ENDIAN_H
@@ -40,8 +35,6 @@
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 

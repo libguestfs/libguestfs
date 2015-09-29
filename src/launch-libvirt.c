@@ -23,12 +23,9 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <limits.h>
 #include <grp.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/wait.h>
 #include <assert.h>
 #include <string.h>
 #include <libintl.h>
@@ -38,24 +35,18 @@
 #include <libvirt/virterror.h>
 #endif
 
-#include <libxml/xmlIO.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xpath.h>
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-#include <libxml/xmlsave.h>
 
 #if HAVE_LIBSELINUX
 #include <selinux/selinux.h>
 #include <selinux/context.h>
 #endif
 
-#include "glthread/lock.h"
 #include "base64.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
 /* Fixes for Mac OS X */

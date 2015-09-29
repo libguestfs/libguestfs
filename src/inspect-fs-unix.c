@@ -20,31 +20,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <errno.h>
 #include <libintl.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
 
-#include <pcre.h>
-
 #include "c-ctype.h"
 #include "ignore-value.h"
-#include "xstrtol.h"
-#include "hash.h"
 #include "hash-pjw.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 COMPILE_REGEXP (re_fedora, "Fedora release (\\d+)", 0)
 COMPILE_REGEXP (re_rhel_old, "Red Hat.*release (\\d+).*Update (\\d+)", 0)

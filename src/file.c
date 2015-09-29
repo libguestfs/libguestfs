@@ -20,8 +20,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -34,7 +32,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 static int
 compare (const void *vp1, const void *vp2)

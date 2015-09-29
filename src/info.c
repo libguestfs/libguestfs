@@ -20,9 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <inttypes.h>
-#include <limits.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -47,7 +45,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 static int which_parser (guestfs_h *g);
 static char *get_disk_format (guestfs_h *g, const char *filename);

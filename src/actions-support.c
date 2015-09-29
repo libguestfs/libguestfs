@@ -22,13 +22,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <unistd.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
 /* Check the return message from a call for validity. */

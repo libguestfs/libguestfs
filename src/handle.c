@@ -20,9 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <errno.h>
 #include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
@@ -38,7 +36,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 static int shutdown_backend (guestfs_h *g, int check_for_errors);
 static void close_handles (void);

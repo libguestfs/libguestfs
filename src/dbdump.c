@@ -20,21 +20,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <errno.h>
 #include <sys/wait.h>
 #include <libintl.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
-
-#include <pcre.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

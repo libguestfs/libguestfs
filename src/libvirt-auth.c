@@ -29,14 +29,10 @@
 #include <libvirt/virterror.h>
 #endif
 
-#include <libxml/xpath.h>
-#include <libxml/parser.h>
-#include <libxml/tree.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 #if defined(HAVE_LIBVIRT)
 

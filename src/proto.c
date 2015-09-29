@@ -20,18 +20,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
-#include <time.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <assert.h>
 #include <libintl.h>
 
@@ -39,12 +33,10 @@
 #include <rpc/xdr.h>
 
 #include "c-ctype.h"
-#include "glthread/lock.h"
 #include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
 /* Size of guestfs_progress message on the wire. */

@@ -18,28 +18,20 @@
 
 #include <config.h>
 
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
 #include <string.h>
-#include <fcntl.h>
-#include <time.h>
 #include <sys/stat.h>
-#include <sys/select.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <utime.h>
 #include <libintl.h>
 
-#include "glthread/lock.h"
 #include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 /* Old-style appliance is going to be obsoleted. */
 static const char *kernel_name = "vmlinuz." host_cpu;

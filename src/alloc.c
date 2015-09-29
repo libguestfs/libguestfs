@@ -23,10 +23,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <libxml/tree.h>
-#include <libxml/xpath.h>
-#include <libxml/xmlwriter.h>
-
 #include "guestfs.h"
 #include "guestfs-internal.h"
 

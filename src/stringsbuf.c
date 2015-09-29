@@ -23,7 +23,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <string.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

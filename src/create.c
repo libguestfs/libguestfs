@@ -39,7 +39,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 static int disk_create_raw (guestfs_h *g, const char *filename, int64_t size, const struct guestfs_disk_create_argv *optargs);
 static int disk_create_qcow2 (guestfs_h *g, const char *filename, int64_t size, const char *backingfile, const struct guestfs_disk_create_argv *optargs);

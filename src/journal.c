@@ -20,7 +20,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
@@ -45,7 +44,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 /* This is implemented library-side in order to get around potential
  * protocol limits.

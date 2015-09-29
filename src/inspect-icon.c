@@ -20,18 +20,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
-#include <errno.h>
 #include <sys/wait.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-#include "guestfs_protocol.h"
 
 /* External tools are required for some icon types.  Check we have them. */
 #if defined(PBMTEXT) && defined (PNMTOPNG)

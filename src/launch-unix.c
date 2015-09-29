@@ -21,15 +21,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <sys/socket.h>
-#include <sys/un.h>
 #include <string.h>
 #include <libintl.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
 /* Alternate backend: instead of launching the appliance,
