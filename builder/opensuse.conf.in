@@ -1,0 +1,3 @@
+[opensuse.org]
+uri=http://download.opensuse.org/repositories/Virtualization:/virt-builder-images/images/index
+gpgkey=file://@SYSCONFDIR@/xdg/virt-builder/repos.d/opensuse.gpg

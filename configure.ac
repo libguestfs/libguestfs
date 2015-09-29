@@ -1734,6 +1734,7 @@ AC_CONFIG_FILES([Makefile
                  bash/Makefile
                  builder/Makefile
                  builder/libguestfs.conf
+                 builder/opensuse.conf
                  builder/test-config/virt-builder/repos.d/test-index.conf
                  builder/test-simplestreams/virt-builder/repos.d/cirros.conf
                  builder/test-website/virt-builder/repos.d/libguestfs.conf
