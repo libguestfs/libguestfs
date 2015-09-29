@@ -408,18 +408,13 @@ debug_command (struct command *cmd)
   }
 }
 
+static void run_child (struct command *cmd) __attribute__((noreturn));
+
 static int
 run_command (struct command *cmd)
 {
-  struct sigaction sa;
-  int i, fd, max_fd, r;
   int errorfd[2] = { -1, -1 };
   int outfd[2] = { -1, -1 };
-  char status_string[80];
-#ifdef HAVE_SETRLIMIT
-  struct child_rlimits *child_rlimit;
-  struct rlimit rlimit;
-#endif
 
   /* Set up a pipe to capture command output and send it to the error log. */
   if (cmd->capture_errors) {
@@ -479,6 +474,33 @@ run_command (struct command *cmd)
 
   if (cmd->stderr_to_stdout)
     dup2 (1, 2);
+
+  run_child (cmd);
+  /*NOTREACHED*/
+
+ error:
+  if (errorfd[0] >= 0)
+    close (errorfd[0]);
+  if (errorfd[1] >= 0)
+    close (errorfd[1]);
+  if (outfd[0] >= 0)
+    close (outfd[0]);
+  if (outfd[1] >= 0)
+    close (outfd[1]);
+
+  return -1;
+}
+
+static void
+run_child (struct command *cmd)
+{
+  struct sigaction sa;
+  int i, fd, max_fd, r;
+  char status_string[80];
+#ifdef HAVE_SETRLIMIT
+  struct child_rlimits *child_rlimit;
+  struct rlimit rlimit;
+#endif
 
   /* Remove all signal handlers.  See the justification here:
    * https://www.redhat.com/archives/libvir-list/2008-August/msg00303.html
@@ -557,19 +579,9 @@ run_command (struct command *cmd)
   case COMMAND_STYLE_NOT_SELECTED:
     abort ();
   }
+
   /*NOTREACHED*/
-
- error:
-  if (errorfd[0] >= 0)
-    close (errorfd[0]);
-  if (errorfd[1] >= 0)
-    close (errorfd[1]);
-  if (outfd[0] >= 0)
-    close (outfd[0]);
-  if (outfd[1] >= 0)
-    close (outfd[1]);
-
-  return -1;
+  abort ();
 }
 
 /* The loop which reads errors and output and directs it either
