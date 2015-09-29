@@ -133,6 +133,9 @@ struct command
   bool capture_errors;
   int errorfd;
 
+  /* When using the pipe_* APIs, stderr is pointed to a temporary file. */
+  char *error_file;
+
   /* Close file descriptors (defaults to true). */
   bool close_files;
 
@@ -711,6 +714,147 @@ guestfs_int_cmd_run (struct command *cmd)
   return wait_command (cmd);
 }
 
+/* Fork and run the command, but don't wait.  Roughly equivalent to
+ * popen (..., "r"|"w").
+ *
+ * Returns the file descriptor of the pipe, connected to stdout ("r")
+ * or stdin ("w") of the child process.
+ *
+ * After reading/writing to this pipe, call guestfs_int_cmd_pipe_wait
+ * to wait for the status of the child.
+ *
+ * Errors from the subcommand cannot be captured to the error log
+ * using this interface.  Instead the caller should call
+ * guestfs_int_cmd_get_pipe_errors (after guestfs_int_cmd_pipe_wait
+ * returns an error).
+ */
+int
+guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
+{
+  int fd[2] = { -1, -1 };
+  int errfd = -1;
+  int r_mode;
+  int ret;
+
+  finish_command (cmd);
+
+  /* Various options cannot be used here. */
+  assert (!cmd->capture_errors);
+  assert (!cmd->stdout_callback);
+  assert (!cmd->stderr_to_stdout);
+
+  if (STREQ (mode, "r"))      r_mode = 1;
+  else if (STREQ (mode, "w")) r_mode = 0;
+  else abort ();
+
+  if (pipe2 (fd, O_CLOEXEC) == -1) {
+    perrorf (cmd->g, "pipe2");
+    goto error;
+  }
+
+  /* We can't easily capture errors from the child process, so instead
+   * we write them into a temporary file and provide a separate
+   * function for the caller to read the error messages.
+   */
+  if (guestfs_int_lazy_make_tmpdir (cmd->g) == -1)
+    goto error;
+
+  cmd->error_file =
+    safe_asprintf (cmd->g, "%s/cmderr.%d", cmd->g->tmpdir, ++cmd->g->unique);
+  errfd = open (cmd->error_file,
+                O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC|O_CLOEXEC, 0600);
+  if (errfd == -1) {
+    perrorf (cmd->g, "open: %s", cmd->error_file);
+    goto error;
+  }
+
+  cmd->pid = fork ();
+  if (cmd->pid == -1) {
+    perrorf (cmd->g, "fork");
+    goto error;
+  }
+
+  /* Parent. */
+  if (cmd->pid > 0) {
+    close (errfd);
+    errfd = -1;
+
+    if (r_mode) {
+      close (fd[1]);
+      ret = fd[0];
+    }
+    else {
+      close (fd[0]);
+      ret = fd[1];
+    }
+
+    return ret;
+  }
+
+  /* Child. */
+  dup2 (errfd, 2);
+  close (errfd);
+
+  if (r_mode) {
+    close (fd[0]);
+    dup2 (fd[1], 1);
+    close (fd[1]);
+  }
+  else {
+    close (fd[1]);
+    dup2 (fd[0], 0);
+    close (fd[0]);
+  }
+
+  run_child (cmd);
+  /*NOTREACHED*/
+
+ error:
+  if (errfd >= 0)
+    close (errfd);
+  if (fd[0] >= 0)
+    close (fd[0]);
+  if (fd[1] >= 0)
+    close (fd[1]);
+  return -1;
+}
+
+/* Wait for a subprocess created by guestfs_int_cmd_pipe_run to
+ * finish.  On error (eg. failed syscall) this returns -1 and sets the
+ * error.  If the subcommand fails, then use WIF* macros to check
+ * this, and call guestfs_int_cmd_get_pipe_errors to read the error
+ * messages printed by the child.
+ */
+int
+guestfs_int_cmd_pipe_wait (struct command *cmd)
+{
+  return wait_command (cmd);
+}
+
+/* Read the error messages printed by the child.  The caller must free
+ * the returned buffer after use.
+ */
+char *
+guestfs_int_cmd_get_pipe_errors (struct command *cmd)
+{
+  char *ret;
+  size_t len;
+
+  assert (cmd->error_file != NULL);
+
+  if (guestfs_int_read_whole_file (cmd->g, cmd->error_file, &ret, NULL) == -1)
+    return NULL;
+
+  /* If the file ends with \n characters, trim them. */
+  len = strlen (ret);
+  while (len > 0 && ret[len-1] == '\n') {
+    ret[len-1] = '\0';
+    len--;
+  }
+
+  return ret;
+}
+
 void
 guestfs_int_cmd_close (struct command *cmd)
 {
@@ -731,6 +875,11 @@ guestfs_int_cmd_close (struct command *cmd)
   case COMMAND_STYLE_SYSTEM:
     free (cmd->string.str);
     break;
+  }
+
+  if (cmd->error_file != NULL) {
+    unlink (cmd->error_file);
+    free (cmd->error_file);
   }
 
   if (cmd->errorfd >= 0)
