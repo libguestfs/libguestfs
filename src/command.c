@@ -154,9 +154,6 @@ struct command
 
   /* Optional child limits. */
   struct child_rlimits *child_rlimits;
-
-  /* Optional stdin forwarding to the child. */
-  int infd;
 };
 
 /* Create a new command handle. */
@@ -171,7 +168,6 @@ guestfs_int_new_command (guestfs_h *g)
   cmd->close_files = true;
   cmd->errorfd = -1;
   cmd->outfd = -1;
-  cmd->infd = -1;
   return cmd;
 }
 
@@ -413,14 +409,12 @@ debug_command (struct command *cmd)
 }
 
 static int
-run_command (struct command *cmd, bool get_stdin_fd, bool get_stdout_fd,
-             bool get_stderr_fd)
+run_command (struct command *cmd, bool get_stdout_fd, bool get_stderr_fd)
 {
   struct sigaction sa;
   int i, fd, max_fd, r;
   int errorfd[2] = { -1, -1 };
   int outfd[2] = { -1, -1 };
-  int infd[2] = { -1, -1 };
   char status_string[80];
 #ifdef HAVE_SETRLIMIT
   struct child_rlimits *child_rlimit;
@@ -429,14 +423,6 @@ run_command (struct command *cmd, bool get_stdin_fd, bool get_stdout_fd,
 
   get_stdout_fd = get_stdout_fd || cmd->stdout_callback != NULL;
   get_stderr_fd = get_stderr_fd || cmd->capture_errors;
-
-  /* Set up a pipe to forward the stdin to the command. */
-  if (get_stdin_fd) {
-    if (pipe2 (infd, O_CLOEXEC) == -1) {
-      perrorf (cmd->g, "pipe2");
-      goto error;
-    }
-  }
 
   /* Set up a pipe to capture command output and send it to the error log. */
   if (get_stderr_fd) {
@@ -476,13 +462,6 @@ run_command (struct command *cmd, bool get_stdin_fd, bool get_stdout_fd,
       outfd[0] = -1;
     }
 
-    if (get_stdin_fd) {
-      close (infd[0]);
-      infd[0] = -1;
-      cmd->infd = infd[1];
-      infd[1] = -1;
-    }
-
     return 0;
   }
 
@@ -499,12 +478,6 @@ run_command (struct command *cmd, bool get_stdin_fd, bool get_stdout_fd,
     close (outfd[0]);
     dup2 (outfd[1], 1);
     close (outfd[1]);
-  }
-
-  if (get_stdin_fd) {
-    close (infd[1]);
-    dup2 (infd[0], 0);
-    close (infd[0]);
   }
 
   if (cmd->stderr_to_stdout)
@@ -720,7 +693,7 @@ guestfs_int_cmd_run (struct command *cmd)
   if (cmd->g->verbose)
     debug_command (cmd);
 
-  if (run_command (cmd, false, false, false) == -1)
+  if (run_command (cmd, false, false) == -1)
     return -1;
 
   if (loop (cmd) == -1)
@@ -730,7 +703,7 @@ guestfs_int_cmd_run (struct command *cmd)
 }
 
 /* Fork, run the command, and returns the pid of the command,
- * and its stdin, stdout and stderr file descriptors.
+ * and its stdout and stderr file descriptors.
  *
  * Returns the exit status.  Test it using WIF* macros.
  *
@@ -738,21 +711,18 @@ guestfs_int_cmd_run (struct command *cmd)
  */
 int
 guestfs_int_cmd_run_async (struct command *cmd, pid_t *pid,
-                         int *stdin_fd, int *stdout_fd, int *stderr_fd)
+                           int *stdout_fd, int *stderr_fd)
 {
   finish_command (cmd);
 
   if (cmd->g->verbose)
     debug_command (cmd);
 
-  if (run_command (cmd, stdin_fd != NULL, stdout_fd != NULL,
-                   stderr_fd != NULL) == -1)
+  if (run_command (cmd, stdout_fd != NULL, stderr_fd != NULL) == -1)
     return -1;
 
   if (pid)
     *pid = cmd->pid;
-  if (stdin_fd)
-    *stdin_fd = cmd->infd;
   if (stdout_fd)
     *stdout_fd = cmd->outfd;
   if (stderr_fd)
@@ -802,9 +772,6 @@ guestfs_int_cmd_close (struct command *cmd)
 
   if (cmd->outfd >= 0)
     close (cmd->outfd);
-
-  if (cmd->infd >= 0)
-    close (cmd->infd);
 
   free (cmd->outbuf.buffer);
 

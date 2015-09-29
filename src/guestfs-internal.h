@@ -878,7 +878,7 @@ extern void guestfs_int_cmd_clear_capture_errors (struct command *);
 extern void guestfs_int_cmd_clear_close_files (struct command *);
 extern void guestfs_int_cmd_set_child_callback (struct command *, cmd_child_callback child_callback, void *data);
 extern int guestfs_int_cmd_run (struct command *);
-extern int guestfs_int_cmd_run_async (struct command *, pid_t *pid, int *stdin_fd, int *stdout_fd, int *stderr_fd);
+extern int guestfs_int_cmd_run_async (struct command *, pid_t *pid, int *stdout_fd, int *stderr_fd);
 extern int guestfs_int_cmd_wait (struct command *);
 extern void guestfs_int_cmd_close (struct command *);
 
