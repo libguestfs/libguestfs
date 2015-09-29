@@ -276,8 +276,8 @@ guestfs_int_cmd_add_string_quoted (struct command *cmd, const char *str)
  */
 void
 guestfs_int_cmd_set_stdout_callback (struct command *cmd,
-                                   cmd_stdout_callback stdout_callback,
-                                   void *stdout_data, unsigned flags)
+                                     cmd_stdout_callback stdout_callback,
+                                     void *stdout_data, unsigned flags)
 {
   cmd->stdout_callback = stdout_callback;
   cmd->stdout_data = stdout_data;
@@ -334,8 +334,8 @@ guestfs_int_cmd_clear_close_files (struct command *cmd)
  */
 void
 guestfs_int_cmd_set_child_callback (struct command *cmd,
-                                  cmd_child_callback child_callback,
-                                  void *data)
+                                    cmd_child_callback child_callback,
+                                    void *data)
 {
   cmd->child_callback = child_callback;
   cmd->child_callback_data = data;
@@ -550,8 +550,8 @@ run_command (struct command *cmd)
       _exit (WEXITSTATUS (r));
     fprintf (stderr, "%s\n",
              guestfs_int_exit_status_to_string (r, cmd->string.str,
-                                              status_string,
-                                              sizeof status_string));
+                                                status_string,
+                                                sizeof status_string));
     _exit (EXIT_FAILURE);
 
   case COMMAND_STYLE_NOT_SELECTED:
@@ -613,7 +613,7 @@ loop (struct command *cmd)
       n = read (cmd->errorfd, buf, sizeof buf);
       if (n > 0)
         guestfs_int_call_callbacks_message (cmd->g, GUESTFS_EVENT_APPLIANCE,
-                                          buf, n);
+                                            buf, n);
       else if (n == 0) {
         if (close (cmd->errorfd) == -1)
           perrorf (cmd->g, "close: errorfd");
