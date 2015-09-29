@@ -28,6 +28,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <libintl.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>

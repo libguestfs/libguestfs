@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <libintl.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

@@ -34,6 +34,7 @@
 #include <arpa/inet.h>
 #include <assert.h>
 #include <sys/types.h>
+#include <libintl.h>
 
 #include <pcre.h>
 

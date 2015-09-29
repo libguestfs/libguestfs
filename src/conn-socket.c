@@ -31,6 +31,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <assert.h>
+#include <libintl.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

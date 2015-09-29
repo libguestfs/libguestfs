@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <libintl.h>
 
 #if HAVE_FUSE
 /* See <attr/xattr.h> */

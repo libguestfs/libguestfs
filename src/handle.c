@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>

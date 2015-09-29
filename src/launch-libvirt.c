@@ -31,6 +31,7 @@
 #include <sys/wait.h>
 #include <assert.h>
 #include <string.h>
+#include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>

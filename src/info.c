@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 #include <assert.h>
 #include <string.h>
+#include <libintl.h>
 
 #ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>

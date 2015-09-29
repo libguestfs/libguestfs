@@ -31,6 +31,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <utime.h>
+#include <libintl.h>
 
 #include "glthread/lock.h"
 #include "ignore-value.h"

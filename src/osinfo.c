@@ -55,6 +55,7 @@
 #include <dirent.h>
 #include <assert.h>
 #include <sys/types.h>
+#include <libintl.h>
 
 #include <libxml/parser.h>
 #include <libxml/xpath.h>

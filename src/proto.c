@@ -33,6 +33,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <assert.h>
+#include <libintl.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>

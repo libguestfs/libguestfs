@@ -21,8 +21,6 @@
 
 #include <stdbool.h>
 
-#include <libintl.h>
-
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 

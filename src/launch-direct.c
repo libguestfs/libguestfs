@@ -35,6 +35,7 @@
 #include <grp.h>
 #include <assert.h>
 #include <string.h>
+#include <libintl.h>
 
 #include <pcre.h>
 

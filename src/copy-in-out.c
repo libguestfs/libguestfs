@@ -28,6 +28,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <string.h>
+#include <libintl.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

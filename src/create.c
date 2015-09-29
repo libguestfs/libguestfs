@@ -30,6 +30,7 @@
 #include <sys/ioctl.h>
 #include <errno.h>
 #include <string.h>
+#include <libintl.h>
 
 #ifdef HAVE_LINUX_FS_H
 #include <linux/fs.h>

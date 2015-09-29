@@ -25,6 +25,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <string.h>
+#include <libintl.h>
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

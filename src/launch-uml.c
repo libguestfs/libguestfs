@@ -30,6 +30,7 @@
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <sys/signal.h>
+#include <libintl.h>
 
 #include "cloexec.h"
 

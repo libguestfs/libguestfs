@@ -26,6 +26,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <libintl.h>
 
 #include <pcre.h>
 

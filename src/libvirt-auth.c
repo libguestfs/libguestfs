@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>

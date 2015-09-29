@@ -25,6 +25,7 @@
 #include <limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <libintl.h>
 
 #include "ignore-value.h"
 
