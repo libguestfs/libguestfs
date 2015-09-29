@@ -134,7 +134,7 @@ endif ENABLE_APPLIANCE
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-noinst_DATA = Bindtests.class $(java_tests:.java=.class)
+check_DATA = Bindtests.class $(java_tests:.java=.class)
 
 t/%.class: t/%.java libguestfs-$(VERSION).jar
 	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d t $<
