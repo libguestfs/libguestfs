@@ -876,6 +876,9 @@ extern void guestfs_int_cmd_clear_close_files (struct command *);
 extern void guestfs_int_cmd_set_child_callback (struct command *, cmd_child_callback child_callback, void *data);
 extern int guestfs_int_cmd_run (struct command *);
 extern void guestfs_int_cmd_close (struct command *);
+extern int guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode);
+extern int guestfs_int_cmd_pipe_wait (struct command *cmd);
+extern char *guestfs_int_cmd_get_pipe_errors (struct command *cmd);
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_CMD_CLOSE __attribute__((cleanup(guestfs_int_cleanup_cmd_close)))
