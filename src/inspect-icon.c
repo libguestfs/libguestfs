@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <errno.h>
 #include <sys/wait.h>
 
@@ -42,8 +41,6 @@
     defined(PAMCUT)
 #define CAN_DO_WINDOWS 1
 #endif
-
-static int read_whole_file (guestfs_h *g, const char *filename, char **data_r, size_t *size_r);
 
 /* All these icon_*() functions return the same way.  One of:
  *
@@ -272,7 +269,7 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
     return NOT_FOUND;
 
   /* Successfully passed checks and downloaded.  Read it into memory. */
-  if (read_whole_file (g, local, &ret, size_r) == -1)
+  if (guestfs_int_read_whole_file (g, local, &ret, size_r) == -1)
     return NULL;
 
   return ret;
@@ -419,7 +416,7 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
     return NOT_FOUND;
 
   /* Read it into memory. */
-  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+  if (guestfs_int_read_whole_file (g, pngfile, &ret, size_r) == -1)
     return NULL;
 
   return ret;
@@ -488,7 +485,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
     return NOT_FOUND;
 
-  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+  if (guestfs_int_read_whole_file (g, pngfile, &ret, size_r) == -1)
     return NULL;
 
   return ret;
@@ -540,7 +537,7 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
     return NOT_FOUND;
 
-  if (read_whole_file (g, pngfile, &ret, size_r) == -1)
+  if (guestfs_int_read_whole_file (g, pngfile, &ret, size_r) == -1)
     return NULL;
 
   return ret;
@@ -577,7 +574,7 @@ icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   if (filename_downloaded == NULL)
     return NOT_FOUND;
 
-  if (read_whole_file (g, filename_downloaded, &ret, size_r) == -1)
+  if (guestfs_int_read_whole_file (g, filename_downloaded, &ret, size_r) == -1)
     return NULL;
 
   return ret;
@@ -606,62 +603,3 @@ icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 }
 
 #endif /* CAN_DO_WINDOWS */
-
-/* Read the whole file into a memory buffer and return it.  The file
- * should be a regular, local, trusted file.
- */
-static int
-read_whole_file (guestfs_h *g, const char *filename,
-                 char **data_r, size_t *size_r)
-{
-  int fd;
-  char *data;
-  off_t size;
-  off_t n;
-  ssize_t r;
-  struct stat statbuf;
-
-  fd = open (filename, O_RDONLY|O_CLOEXEC);
-  if (fd == -1) {
-    perrorf (g, "open: %s", filename);
-    return -1;
-  }
-
-  if (fstat (fd, &statbuf) == -1) {
-    perrorf (g, "stat: %s", filename);
-    close (fd);
-    return -1;
-  }
-
-  size = statbuf.st_size;
-  data = safe_malloc (g, size);
-
-  n = 0;
-  while (n < size) {
-    r = read (fd, &data[n], size - n);
-    if (r == -1) {
-      perrorf (g, "read: %s", filename);
-      free (data);
-      close (fd);
-      return -1;
-    }
-    if (r == 0) {
-      error (g, _("read: %s: unexpected end of file"), filename);
-      free (data);
-      close (fd);
-      return -1;
-    }
-    n += r;
-  }
-
-  if (close (fd) == -1) {
-    perrorf (g, "close: %s", filename);
-    free (data);
-    return -1;
-  }
-
-  *data_r = data;
-  *size_r = size;
-
-  return 0;
-}
