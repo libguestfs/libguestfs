@@ -142,9 +142,9 @@ endif
 
 TESTS = run-bindtests $(test_progs_all)
 
-noinst_DATA += bindtests.bc $(test_progs_all)
+check_DATA = bindtests.bc $(test_progs_all)
 if HAVE_OCAMLOPT
-noinst_DATA += bindtests.opt
+check_DATA += bindtests.opt
 endif
 
 %.bc: %.cmo mlguestfs.cma
@@ -204,6 +204,6 @@ install-data-hook:
 	rm $(DESTDIR)$(OCAMLLIB)/guestfs/bindtests.*
 	rm $(DESTDIR)$(OCAMLLIB)/guestfs/libguestfsocaml.a
 
-CLEANFILES += $(noinst_DATA)
+CLEANFILES += $(noinst_DATA) $(check_DATA)
 
 endif
