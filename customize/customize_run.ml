@@ -116,7 +116,7 @@ exec >>%s 2>&1
     | "yum" ->
       sprintf "yum -y install %s" quoted_args
     | "zypper" ->
-      sprintf "zypper -n in %s" quoted_args
+      sprintf "zypper -n --gpg-auto-import-keys in -l %s" quoted_args
     | "unknown" ->
       error (f_"--install is not supported for this guest operating system")
     | pm ->
@@ -143,7 +143,7 @@ exec >>%s 2>&1
     | "yum" ->
       sprintf "yum -y update"
     | "zypper" ->
-      sprintf "zypper update"
+      sprintf "zypper -n --gpg-auto-import-keys update -l"
     | "unknown" ->
       error (f_"--update is not supported for this guest operating system")
     | pm ->
