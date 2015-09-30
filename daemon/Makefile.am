@@ -76,7 +76,11 @@ else
 noinst_PROGRAMS = guestfsd
 endif
 
+# Compile the largest file (stubs.c) first.  The other files are
+# listed alphabetically.  See also:
+# https://rwmj.wordpress.com/2015/09/30/make-and-queuing-theory/#content
 guestfsd_SOURCES = \
+	stubs.c \
 	9p.c \
 	acl.c \
 	actions.h \
@@ -162,7 +166,6 @@ guestfsd_SOURCES = \
 	stat.c \
 	statvfs.c \
 	strings.c \
-	stubs.c \
 	swap.c \
 	sync.c \
 	syslinux.c \
