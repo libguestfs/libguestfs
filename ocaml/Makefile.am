@@ -98,7 +98,7 @@ if HAVE_OCAMLDOC
 noinst_DATA += html/index.html
 
 html/index.html: $(srcdir)/guestfs.mli $(srcdir)/guestfs.ml
-	-$(OCAMLDOC) -d html -html $^
+	-$(OCAMLFIND) ocamldoc -d html -html $^
 
 endif
 
