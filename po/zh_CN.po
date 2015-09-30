@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-29 18:59+0100\n"
+"POT-Creation-Date: 2015-09-30 17:28+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -8036,24 +8036,24 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr ""
 
-#: src/appliance.c:185
+#: src/appliance.c:178
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
 "on LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
 
-#: src/appliance.c:247
+#: src/appliance.c:240
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: src/appliance.c:252
+#: src/appliance.c:245
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/appliance.c:257
+#: src/appliance.c:250
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -8078,17 +8078,22 @@ msgstr ""
 msgid "error reading console messages from the appliance"
 msgstr ""
 
-#: src/copy-in-out.c:55 src/copy-in-out.c:137
+#: src/copy-in-out.c:51
+#, c-format
+msgid "source '%s' does not exist (or cannot be read)"
+msgstr ""
+
+#: src/copy-in-out.c:60 src/copy-in-out.c:142
 #, c-format
 msgid "target '%s' is not a directory"
 msgstr ""
 
-#: src/copy-in-out.c:174
+#: src/copy-in-out.c:179
 #, c-format
 msgid "'%s' is not a file or directory"
 msgstr ""
 
-#: src/copy-in-out.c:240
+#: src/copy-in-out.c:245
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 
@@ -8177,300 +8182,300 @@ msgstr ""
 msgid "invalid value for clustersize parameter '%d'"
 msgstr ""
 
-#: src/dbdump.c:90
+#: src/dbdump.c:83
 #, c-format
 msgid "%s: unexpected error or end of output"
 msgstr ""
 
-#: src/dbdump.c:125 src/dbdump.c:144
+#: src/dbdump.c:118 src/dbdump.c:137
 msgid "unexpected line from db_dump command, no space prefix"
 msgstr ""
 
-#: src/dbdump.c:226
+#: src/dbdump.c:219
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr ""
 
-#: src/drives.c:86
+#: src/drives.c:80
 msgid "this backend does not support adding read-only drives"
 msgstr ""
 
-#: src/drives.c:175
+#: src/drives.c:169
 msgid "curl: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:181
+#: src/drives.c:175
 msgid "curl: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:186
+#: src/drives.c:180
 msgid "curl: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:191
+#: src/drives.c:185
 msgid "curl: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:203
+#: src/drives.c:197
 msgid "gluster: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:207
+#: src/drives.c:201
 msgid "gluster: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:212
+#: src/drives.c:206
 msgid "gluster: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:217
+#: src/drives.c:211
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:222
+#: src/drives.c:216
 msgid "gluster: volume/image must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:246
+#: src/drives.c:240
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:250
+#: src/drives.c:244
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:255
+#: src/drives.c:249
 msgid "nbd: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:274
+#: src/drives.c:268
 msgid "rbd: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:278
+#: src/drives.c:272
 msgid "rbd: port number must be specified"
 msgstr ""
 
-#: src/drives.c:284
+#: src/drives.c:278
 msgid "rbd: image name parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:289
+#: src/drives.c:283
 msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:303
+#: src/drives.c:297
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:307
+#: src/drives.c:301
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:314
+#: src/drives.c:308
 msgid "sheepdog: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:318
+#: src/drives.c:312
 msgid "sheepdog: port number must be specified"
 msgstr ""
 
-#: src/drives.c:324
+#: src/drives.c:318
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr ""
 
-#: src/drives.c:329
+#: src/drives.c:323
 msgid "sheepdog: volume parameter must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:341
+#: src/drives.c:335
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:347
+#: src/drives.c:341
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:352
+#: src/drives.c:346
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:357
+#: src/drives.c:351
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:362
+#: src/drives.c:356
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: src/drives.c:374
+#: src/drives.c:368
 msgid "iscsi: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:379
+#: src/drives.c:373
 msgid "iscsi: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:384
+#: src/drives.c:378
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:390
+#: src/drives.c:384
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:395
+#: src/drives.c:389
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:400
+#: src/drives.c:394
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:422
+#: src/drives.c:416
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:668
+#: src/drives.c:662
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:680
+#: src/drives.c:674
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:687
+#: src/drives.c:681
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:698
+#: src/drives.c:692
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:782
+#: src/drives.c:776
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:795
+#: src/drives.c:789
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:801 src/drives.c:807
+#: src/drives.c:795 src/drives.c:801
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:813
+#: src/drives.c:807
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:819
+#: src/drives.c:813
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:826
+#: src/drives.c:820
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:831
+#: src/drives.c:825
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:835
+#: src/drives.c:829
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:898
+#: src/drives.c:892
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:916 src/drives.c:1064
+#: src/drives.c:910 src/drives.c:1058
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:922
+#: src/drives.c:916
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1049
+#: src/drives.c:1043
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
 
-#: src/errors.c:234
+#: src/errors.c:235
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/errors.c:262
+#: src/errors.c:263
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/errors.c:290
+#: src/errors.c:291
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 
-#: src/errors.c:293
+#: src/errors.c:294
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 
-#: src/errors.c:303
+#: src/errors.c:304
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 
-#: src/errors.c:306
+#: src/errors.c:307
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 
-#: src/errors.c:316
+#: src/errors.c:317
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 
-#: src/errors.c:319
+#: src/errors.c:320
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: src/errors.c:336
+#: src/errors.c:337
 #, c-format
 msgid "%s, see debug messages above"
 msgstr ""
 
-#: src/errors.c:338
+#: src/errors.c:339
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr ""
 
-#: src/errors.c:344
+#: src/errors.c:345
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: src/errors.c:350
+#: src/errors.c:351
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: src/filearch.c:208 src/filearch.c:280
+#: src/filearch.c:205 src/filearch.c:277
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/filearch.c:359
+#: src/filearch.c:356
 msgid ""
 "file-architecture API not available since this version of libguestfs was "
 "compiled without the libmagic library"
@@ -8525,128 +8530,128 @@ msgid ""
 "found when libguestfs was compiled"
 msgstr ""
 
-#: src/handle.c:134
+#: src/handle.c:132
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
 msgstr ""
 
-#: src/handle.c:136
+#: src/handle.c:134
 msgid "'direct' backend does not work"
 msgstr ""
 
-#: src/handle.c:190 src/handle.c:200
+#: src/handle.c:188 src/handle.c:198
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: src/handle.c:242
+#: src/handle.c:240
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:319
+#: src/handle.c:317
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: src/handle.c:527
+#: src/handle.c:525
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:580
+#: src/handle.c:578
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:775
+#: src/handle.c:773
 msgid "setting not found"
 msgstr ""
 
-#: src/info.c:152
+#: src/info.c:150
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 
-#: src/info.c:183
+#: src/info.c:181
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 
-#: src/info.c:191
+#: src/info.c:189
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 
-#: src/info.c:229
+#: src/info.c:227
 msgid "qemu-img info: JSON output was not an object"
 msgstr ""
 
-#: src/info.c:301
+#: src/info.c:299
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
 msgstr ""
 
-#: src/info.c:335
+#: src/info.c:333
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr ""
 
-#: src/info.c:337
+#: src/info.c:335
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: src/info.c:475
+#: src/info.c:473
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr ""
 
-#: src/inspect-fs-unix.c:138
+#: src/inspect-fs-unix.c:129
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:170 src/inspect-fs-unix.c:324
-#: src/inspect-fs-unix.c:411 src/inspect-fs-unix.c:1244
-#: src/inspect-fs-unix.c:2008 src/inspect-fs.c:608 src/inspect-fs.c:654
-#: src/inspect.c:654
+#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:315
+#: src/inspect-fs-unix.c:402 src/inspect-fs-unix.c:1235
+#: src/inspect-fs-unix.c:1999 src/inspect-fs.c:602 src/inspect-fs.c:648
+#: src/inspect.c:652
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs.c:408 src/inspect-fs.c:421
+#: src/inspect-fs.c:402 src/inspect-fs.c:415
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect.c:346
+#: src/inspect.c:344
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:362
+#: src/inspect.c:360
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:692
+#: src/inspect.c:690
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:702
+#: src/inspect.c:700
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:134
+#: src/launch-direct.c:132
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:153
+#: src/launch-direct.c:151
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:220
+#: src/launch-direct.c:218
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8655,73 +8660,73 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:258 src/launch-uml.c:159
+#: src/launch-direct.c:256 src/launch-uml.c:157
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:851 src/launch-libvirt.c:630
+#: src/launch-direct.c:849 src/launch-libvirt.c:622
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1253 src/launch-libvirt.c:1419
+#: src/launch-direct.c:1251 src/launch-libvirt.c:1411
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1411
+#: src/launch-direct.c:1409
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1420
+#: src/launch-direct.c:1418
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1427
+#: src/launch-direct.c:1425
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1435
+#: src/launch-direct.c:1433
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1443
+#: src/launch-direct.c:1441
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1466
+#: src/launch-direct.c:1464
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:288
+#: src/launch-libvirt.c:280
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:297
+#: src/launch-libvirt.c:289
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:332
+#: src/launch-libvirt.c:324
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:361
+#: src/launch-libvirt.c:353
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:558
+#: src/launch-libvirt.c:550
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8731,21 +8736,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:696
+#: src/launch-libvirt.c:688
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:702 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:694 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:712
+#: src/launch-libvirt.c:704
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:747
+#: src/launch-libvirt.c:739
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8760,57 +8765,57 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:983
+#: src/launch-libvirt.c:975
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1373
+#: src/launch-libvirt.c:1365
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1502
+#: src/launch-libvirt.c:1494
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1527
+#: src/launch-libvirt.c:1519
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1534
+#: src/launch-libvirt.c:1526
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1864
+#: src/launch-libvirt.c:1856
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1875
+#: src/launch-libvirt.c:1867
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1879
+#: src/launch-libvirt.c:1871
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1900
+#: src/launch-libvirt.c:1892
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1913
+#: src/launch-libvirt.c:1905
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2023
+#: src/launch-libvirt.c:2015
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -8826,122 +8831,122 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2063
+#: src/launch-libvirt.c:2055
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2114 src/launch-libvirt.c:2147
+#: src/launch-libvirt.c:2106 src/launch-libvirt.c:2139
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2210
+#: src/launch-libvirt.c:2202
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2241
+#: src/launch-libvirt.c:2233
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
-#: src/launch-uml.c:98
+#: src/launch-uml.c:96
 msgid "uml backend does not support networking"
 msgstr ""
 
-#: src/launch-uml.c:102
+#: src/launch-uml.c:100
 msgid "uml backend does not support SMP"
 msgstr ""
 
-#: src/launch-uml.c:108
+#: src/launch-uml.c:106
 msgid "uml backend does not support remote drives"
 msgstr ""
 
-#: src/launch-uml.c:112
+#: src/launch-uml.c:110
 msgid "uml backend does not support non-raw-format drives"
 msgstr ""
 
-#: src/launch-uml.c:117
+#: src/launch-uml.c:115
 msgid "uml backend does not support drives with 'iface' parameter"
 msgstr ""
 
-#: src/launch-uml.c:122
+#: src/launch-uml.c:120
 msgid "uml backend does not support drives with 'label' parameter"
 msgstr ""
 
-#: src/launch-uml.c:128
+#: src/launch-uml.c:126
 msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: src/launch-uml.c:473
+#: src/launch-uml.c:471
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-unix.c:47
+#: src/launch-unix.c:45
 msgid "cannot set hv parameters with the 'unix:' backend"
 msgstr ""
 
-#: src/launch-unix.c:84
+#: src/launch-unix.c:82
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch-unix.c:92
+#: src/launch-unix.c:90
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:53
+#: src/launch.c:51
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:172
+#: src/launch.c:170
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:178
+#: src/launch.c:176
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:189
+#: src/launch.c:187
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:201
+#: src/launch.c:199
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:272
+#: src/launch.c:270
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/libvirt-auth.c:100
+#: src/libvirt-auth.c:97
 #, c-format
 msgid "unknown credential type '%s'"
 msgstr ""
 
-#: src/libvirt-auth.c:105
+#: src/libvirt-auth.c:102
 msgid "list of supported credentials is too long"
 msgstr ""
 
-#: src/libvirt-auth.c:170
+#: src/libvirt-auth.c:167
 #, c-format
 msgid ""
 "libvirt needs authentication to connect to libvirt URI %s\n"
 "(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
 msgstr ""
 
-#: src/libvirt-auth.c:246
+#: src/libvirt-auth.c:243
 #, c-format
 msgid ""
 "%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
 "handler"
 msgstr ""
 
-#: src/libvirt-auth.c:278 src/libvirt-auth.c:298 src/libvirt-auth.c:318
-#: src/libvirt-auth.c:339
+#: src/libvirt-auth.c:275 src/libvirt-auth.c:295 src/libvirt-auth.c:315
+#: src/libvirt-auth.c:336
 msgid "credential index out of range"
 msgstr ""
 
-#: src/libvirt-auth.c:359
+#: src/libvirt-auth.c:356
 msgid ""
 "libvirt authentication APIs not available since this version of libguestfs "
 "was compiled without libvirt"
@@ -9059,67 +9064,67 @@ msgstr ""
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
 
-#: src/proto.c:201
+#: src/proto.c:194
 #, c-format
 msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
 "synchronization (bad!)\n"
 msgstr ""
 
-#: src/proto.c:247
+#: src/proto.c:240
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/proto.c:256
+#: src/proto.c:249
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/proto.c:363 src/proto.c:860
+#: src/proto.c:356 src/proto.c:853
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:432
+#: src/proto.c:425
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/proto.c:529
+#: src/proto.c:522
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/proto.c:548
+#: src/proto.c:541
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/proto.c:819
+#: src/proto.c:812
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/proto.c:845
+#: src/proto.c:838
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/proto.c:853
+#: src/proto.c:846
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/proto.c:862
+#: src/proto.c:855
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/tmpdirs.c:56 src/tmpdirs.c:61
+#: src/tmpdirs.c:54 src/tmpdirs.c:59
 #, c-format
 msgid "failed to set temporary directory: %s"
 msgstr ""
 
-#: src/tmpdirs.c:66
+#: src/tmpdirs.c:64
 #, c-format
 msgid "temporary directory '%s' is not a directory"
 msgstr ""
 
-#: src/tmpdirs.c:135
+#: src/tmpdirs.c:133
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
@@ -9149,7 +9154,7 @@ msgstr ""
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
 
-#: src/whole-file.c:69
+#: src/whole-file.c:70
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
