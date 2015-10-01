@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2012 Red Hat Inc.
+# Copyright (C) 2012-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 include $(top_srcdir)/subdir-rules.mk
+
+generator_built = guestfs-title.sgml
 
 # The name of the module, e.g. 'glib'.
 DOC_MODULE=guestfs
@@ -94,7 +96,7 @@ include $(srcdir)/gtk-doc.make
 
 # Other files to distribute
 # e.g. EXTRA_DIST += version.xml.in
-EXTRA_DIST +=
+EXTRA_DIST += $(generator_built)
 
 # Files not to distribute
 # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types

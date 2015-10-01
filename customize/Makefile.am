@@ -1,5 +1,5 @@
 # virt-customize
-# Copyright (C) 2014 Red Hat Inc.
+# Copyright (C) 2014-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	$(generator_built) \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	test-virt-customize.sh \
 	virt-customize.pod
