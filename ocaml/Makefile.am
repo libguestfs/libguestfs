@@ -201,7 +201,7 @@ install-data-hook:
 	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
 	  guestfs \
 	  $(data_hook_files)
-	rm $(DESTDIR)$(OCAMLLIB)/guestfs/bindtests.*
+	rm -f $(DESTDIR)$(OCAMLLIB)/guestfs/bindtests.*
 	rm $(DESTDIR)$(OCAMLLIB)/guestfs/libguestfsocaml.a
 
 CLEANFILES += $(noinst_DATA) $(check_DATA)
