@@ -376,11 +376,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE ("-display");
   ADD_CMDLINE ("none");
 
-#ifdef MACHINE_TYPE
-  ADD_CMDLINE ("-M");
-  ADD_CMDLINE (MACHINE_TYPE);
-#endif
-
   /* See guestfs.pod / gdb */
   if (guestfs_int_get_backend_setting_bool (g, "gdb") > 0) {
     ADD_CMDLINE ("-S");
@@ -388,33 +383,24 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     warning (g, "qemu debugging is enabled, connect gdb to tcp::1234 to begin");
   }
 
+  ADD_CMDLINE ("-machine");
+  if (!force_tcg)
+    ADD_CMDLINE (
+#ifdef MACHINE_TYPE
+                 MACHINE_TYPE ","
+#endif
+                 "accel=kvm:tcg");
+  else
+    ADD_CMDLINE (
+#ifdef MACHINE_TYPE
+                 MACHINE_TYPE ","
+#endif
+                 "accel=tcg");
+
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
   if (cpu_model) {
     ADD_CMDLINE ("-cpu");
     ADD_CMDLINE (cpu_model);
-  }
-
-  /* The qemu -machine option (added 2010-12) is a bit more sane
-   * since it falls back through various different acceleration
-   * modes, so try that first (thanks Markus Armbruster).
-   */
-  if (qemu_supports (g, data, "-machine")) {
-    ADD_CMDLINE ("-machine");
-    if (!force_tcg)
-      ADD_CMDLINE ("accel=kvm:tcg");
-    else
-      ADD_CMDLINE ("accel=tcg");
-  } else {
-    /* qemu sometimes needs this option to enable hardware
-     * virtualization, but some versions of 'qemu-kvm' will use KVM
-     * regardless (even where this option appears in the help text).
-     * It is rumoured that there are versions of qemu where
-     * supplying this option when hardware virtualization is not
-     * available will cause qemu to fail.  A giant clusterfuck with
-     * the qemu command line, again.
-     */
-    if (has_kvm && !force_tcg && qemu_supports (g, data, "-enable-kvm"))
-      ADD_CMDLINE ("-enable-kvm");
   }
 
   if (g->smp > 1) {
@@ -997,12 +983,12 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   guestfs_int_cmd_add_arg (cmd3, g->hv);
   guestfs_int_cmd_add_arg (cmd3, "-display");
   guestfs_int_cmd_add_arg (cmd3, "none");
-#ifdef MACHINE_TYPE
-  guestfs_int_cmd_add_arg (cmd3, "-M");
-  guestfs_int_cmd_add_arg (cmd3, MACHINE_TYPE);
-#endif
   guestfs_int_cmd_add_arg (cmd3, "-machine");
-  guestfs_int_cmd_add_arg (cmd3, "accel=kvm:tcg");
+  guestfs_int_cmd_add_arg (cmd3,
+#ifdef MACHINE_TYPE
+                           MACHINE_TYPE ","
+#endif
+                           "accel=kvm:tcg");
   guestfs_int_cmd_add_arg (cmd3, "-device");
   guestfs_int_cmd_add_arg (cmd3, "?");
   guestfs_int_cmd_clear_capture_errors (cmd3);
