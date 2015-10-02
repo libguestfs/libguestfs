@@ -136,7 +136,7 @@
 #define VIRTIO_NET "virtio-net-device"
 #endif /* ARM */
 
-/* Machine types.  XXX Make these configurable. */
+/* Machine types. */
 #ifdef __arm__
 #define MACHINE_TYPE "virt"
 #endif
