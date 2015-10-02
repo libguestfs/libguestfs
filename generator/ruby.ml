@@ -178,7 +178,7 @@ parse_flags (int argc, VALUE *argv)
  *   Guestfs::Guestfs.new([{:environment => false, :close_on_exit => false}]) -> Guestfs::Guestfs
  *
  * Call
- * +guestfs_create_flags+[http://libguestfs.org/guestfs.3.html#guestfs_create_flags]
+ * {guestfs_create_flags}[http://libguestfs.org/guestfs.3.html#guestfs_create_flags]
  * to create a new libguestfs handle.  The handle is represented in
  * Ruby as an instance of the Guestfs::Guestfs class.
  */
@@ -235,7 +235,7 @@ ruby_guestfs_create (int argc, VALUE *argv, VALUE module)
  *   g.close() -> nil
  *
  * Call
- * +guestfs_close+[http://libguestfs.org/guestfs.3.html#guestfs_close]
+ * {guestfs_close}[http://libguestfs.org/guestfs.3.html#guestfs_close]
  * to close the libguestfs handle.
  */
 static VALUE
@@ -258,7 +258,7 @@ ruby_guestfs_close (VALUE gv)
  *   g.set_event_callback(cb, event_bitmask) -> event_handle
  *
  * Call
- * +guestfs_set_event_callback+[http://libguestfs.org/guestfs.3.html#guestfs_set_event_callback]
+ * {guestfs_set_event_callback}[http://libguestfs.org/guestfs.3.html#guestfs_set_event_callback]
  * to register an event callback.  This returns an event handle.
  */
 static VALUE
@@ -297,7 +297,7 @@ ruby_set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
  *   g.delete_event_callback(event_handle) -> nil
  *
  * Call
- * +guestfs_delete_event_callback+[http://libguestfs.org/guestfs.3.html#guestfs_delete_event_callback]
+ * {guestfs_delete_event_callback}[http://libguestfs.org/guestfs.3.html#guestfs_delete_event_callback]
  * to delete an event callback.
  */
 static VALUE
@@ -328,7 +328,7 @@ ruby_delete_event_callback (VALUE gv, VALUE event_handlev)
  *   Guestfs::Guestfs.event_to_string(events) -> string
  *
  * Call
- * +guestfs_event_to_string+[http://libguestfs.org/guestfs.3.html#guestfs_event_to_string]
+ * {guestfs_event_to_string}[http://libguestfs.org/guestfs.3.html#guestfs_event_to_string]
  * to convert an event or event bitmask into a printable string.
  */
 static VALUE
@@ -477,13 +477,18 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
           if f.protocol_limit_warning then
             doc ^ "\n\n" ^ protocol_limit_warning
           else doc in
-        let doc =
-          match deprecation_notice f with
-          | None -> doc
-          | Some txt -> doc ^ "\n\n" ^ txt in
         let doc = pod2text ~width:60 f.name doc in
         let doc = String.concat "\n * " doc in
         let doc = trim doc in
+        let doc =
+          match version_added f with
+          | None -> doc
+          | Some version -> doc ^ (sprintf "\n *\n * [Since] Added in version %s." version) in
+        let doc =
+          match f with
+          | { deprecated_by = None } -> doc
+          | { deprecated_by = Some alt } ->
+            doc ^ (sprintf "\n *\n * [Deprecated] In new code, use rdoc-ref:%s instead." alt) in
 
         (* Because Ruby documentation appears as C comments, we must
          * replace any instance of "/*".
@@ -518,8 +523,8 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
  *
  * %s
  *
- * (For the C API documentation for this function, see
- * +guestfs_%s+[http://libguestfs.org/guestfs.3.html#guestfs_%s]).
+ * [C API] For the C API documentation for this function, see
+ *         {guestfs_%s}[http://libguestfs.org/guestfs.3.html#guestfs_%s].
  */
 " f.name args ret f.shortdesc doc f.name f.name
       ) else (
