@@ -238,14 +238,11 @@ fi
 timeout_period=4h
 timeout_kill=30s
 
-# Do we have Padraig's timeout utility (from coreutils)?
-if timeout --help >/dev/null 2>&1; then
-    # Must use the --foreground option (RHBZ#1025269).
-    if timeout --foreground 2 sleep 0 >/dev/null 2>&1; then
-        # Does this version of timeout have the -k option?  (Not on RHEL 6)
-        if timeout -k 10s 10s true >/dev/null 2>&1; then
-            timeout="timeout --foreground -k $timeout_kill $timeout_period"
-        fi
+# Must use the --foreground option (RHBZ#1025269).
+if timeout --foreground 2 sleep 0 >/dev/null 2>&1; then
+    # Does this version of timeout have the -k option?  (Not on RHEL 6)
+    if timeout -k 10s 10s true >/dev/null 2>&1; then
+        timeout="timeout --foreground -k $timeout_kill $timeout_period"
     fi
 fi
 

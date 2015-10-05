@@ -51,10 +51,7 @@ fi
 
 rm -f rhbz975797-*.img
 
-# The timeout utility was not available in RHEL 5.
-if timeout --help >/dev/null 2>&1; then
-    timeout="timeout 600"
-fi
+timeout="timeout 600"
 
 # Use real disk images here since the code for adding /dev/null may
 # take shortcuts.

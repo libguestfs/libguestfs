@@ -19,11 +19,3 @@
 # cf. 'subdir-rules.mk'
 
 -include $(top_builddir)/localenv
-
-# Old RHEL 5 autoconf defines these, but RHEL 5 automake doesn't
-# create variables for them.  So define them here if they're not
-# defined already.
-builddir     ?= @builddir@
-abs_builddir ?= @abs_builddir@
-srcdir       ?= @srcdir@
-abs_srcdir   ?= @abs_srcdir@

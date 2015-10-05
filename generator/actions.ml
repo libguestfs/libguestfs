@@ -6169,11 +6169,11 @@ the command C<mount -o loop file mountpoint>." };
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkswap"; "/dev/sda1"; "hello"; "NOARG"]]), [];
-      InitEmpty, IfAvailable "linuxfsuuid", TestResultString (
+      InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkswap"; "/dev/sda1"; "NOARG"; uuid];
          ["vfs_uuid"; "/dev/sda1"]], uuid), [];
-      InitEmpty, IfAvailable "linuxfsuuid", TestResultString (
+      InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkswap"; "/dev/sda1"; "hello"; uuid];
          ["vfs_label"; "/dev/sda1"]], "hello"), []

@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <string.h>
@@ -32,13 +33,6 @@
 GUESTFSD_EXT_CMD(str_parted, parted);
 GUESTFSD_EXT_CMD(str_sfdisk, sfdisk);
 GUESTFSD_EXT_CMD(str_sgdisk, sgdisk);
-
-enum parted_has_m_opt {
-  PARTED_INVALID = -1,
-  /* parted do not support -m option */
-  PARTED_OPT_NO_M = 0,
-  PARTED_OPT_HAS_M = 1,
-};
 
 /* Notes:
  *
@@ -319,43 +313,14 @@ get_table_field (const char *line, int n)
   return q;
 }
 
-/* RHEL 5 parted doesn't have the -m (machine readable) option so we
- * must do a lot more work to parse the output in
- * print_partition_table below.  Test for this option the first time
- * this function is called.
- */
-static enum parted_has_m_opt
-test_parted_m_opt (void)
-{
-  static enum parted_has_m_opt result = PARTED_INVALID;
-
-  if (result >= 0)
-    return result;
-
-  CLEANUP_FREE char *err = NULL;
-  int r = commandr (NULL, &err, str_parted, "-s", "-m", "/dev/null", NULL);
-  if (r == -1) {
-    /* Test failed, eg. missing or completely unusable parted binary. */
-    reply_with_error ("could not run 'parted' command");
-    return -1;
-  }
-
-  if (err && strstr (err, "invalid option -- m"))
-    result = PARTED_OPT_NO_M;
-  else
-    result = PARTED_OPT_HAS_M;
-  return result;
-}
-
 static char *
-print_partition_table (const char *device,
-                       enum parted_has_m_opt parted_has_m_opt)
+print_partition_table (const char *device, bool add_m_option)
 {
   char *out;
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  if (PARTED_OPT_HAS_M == parted_has_m_opt)
+  if (add_m_option)
     r = command (&out, &err, str_parted, "-m", "-s", "--", device,
                  "unit", "b",
                  "print", NULL);
@@ -364,15 +329,13 @@ print_partition_table (const char *device,
                  "unit", "b",
                  "print", NULL);
   if (r == -1) {
-    /* Hack for parted 1.x which sends errors to stdout. */
-    const char *msg = *err ? err : out;
     int errcode = 0;
 
     /* Translate "unrecognised disk label" into an errno code. */
-    if (msg && strstr (msg, "unrecognised disk label") != NULL)
+    if (err && strstr (err, "unrecognised disk label") != NULL)
       errcode = EINVAL;
 
-    reply_with_error_errno (errcode, "parted print: %s: %s", device, msg);
+    reply_with_error_errno (errcode, "parted print: %s: %s", device, err);
     free (out);
     return NULL;
   }
@@ -383,93 +346,46 @@ print_partition_table (const char *device,
 char *
 do_part_get_parttype (const char *device)
 {
-  enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
-  if (parted_has_m_opt == PARTED_INVALID)
-    return NULL;
-
-  CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
+  CLEANUP_FREE char *out = print_partition_table (device, true);
   if (!out)
     return NULL;
 
-  if (PARTED_OPT_HAS_M == parted_has_m_opt) {
-    /* New-style parsing using the "machine-readable" format from
-     * 'parted -m'.
-     */
-    CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
+  CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
+  if (!lines)
+    return NULL;
 
-    if (!lines)
-      return NULL;
-
-    if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
-      reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
-                        lines[0] ? lines[0] : "(signature was null)");
-      return NULL;
-    }
-
-    if (lines[1] == NULL) {
-      reply_with_error ("parted didn't return a line describing the device");
-      return NULL;
-    }
-
-    /* lines[1] is something like:
-     * "/dev/sda:1953525168s:scsi:512:512:msdos:ATA Hitachi HDT72101;"
-     */
-    char *r = get_table_field (lines[1], 5);
-    if (r == NULL) {
-      return NULL;
-    }
-
-    /* If "loop" return an error (RHBZ#634246). */
-    if (STREQ (r, "loop")) {
-      free (r);
-      reply_with_error ("not a partitioned device");
-      return NULL;
-    }
-
-    return r;
+  if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
+    reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
+                      lines[0] ? lines[0] : "(signature was null)");
+    return NULL;
   }
-  else {
-    /* Old-style.  Look for "\nPartition Table: <str>\n". */
-    char *p = strstr (out, "\nPartition Table: ");
-    if (!p) {
-      reply_with_error ("parted didn't return Partition Table line");
-      return NULL;
-    }
 
-    p += 18;
-    char *q = strchr (p, '\n');
-    if (!q) {
-      reply_with_error ("parted Partition Table has no end of line char");
-      return NULL;
-    }
-
-    *q = '\0';
-
-    p = strdup (p);
-    if (!p) {
-      reply_with_perror ("strdup");
-      return NULL;
-    }
-
-    /* If "loop" return an error (RHBZ#634246). */
-    if (STREQ (p, "loop")) {
-      free (p);
-      reply_with_error ("not a partitioned device");
-      return NULL;
-    }
-
-    return p;                   /* caller frees */
+  if (lines[1] == NULL) {
+    reply_with_error ("parted didn't return a line describing the device");
+    return NULL;
   }
+
+  /* lines[1] is something like:
+   * "/dev/sda:1953525168s:scsi:512:512:msdos:ATA Hitachi HDT72101;"
+   */
+  char *r = get_table_field (lines[1], 5);
+  if (r == NULL)
+    return NULL;
+
+  /* If "loop" return an error (RHBZ#634246). */
+  if (STREQ (r, "loop")) {
+    free (r);
+    reply_with_error ("not a partitioned device");
+    return NULL;
+  }
+
+  return r;
 }
 
 guestfs_int_partition_list *
 do_part_list (const char *device)
 {
-  enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
-  if (parted_has_m_opt == PARTED_INVALID)
-    return NULL;
-
-  CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
+  CLEANUP_FREE char *out = print_partition_table (device, true);
   if (!out)
     return NULL;
 
@@ -480,97 +396,36 @@ do_part_list (const char *device)
 
   guestfs_int_partition_list *r;
 
-  if (PARTED_OPT_HAS_M == parted_has_m_opt) {
-    /* New-style parsing using the "machine-readable" format from
-     * 'parted -m'.
-     *
-     * lines[0] is "BYT;", lines[1] is the device line which we ignore,
-     * lines[2..] are the partitions themselves.  Count how many.
-     */
-    size_t nr_rows = 0, row;
-    for (row = 2; lines[row] != NULL; ++row)
-      ++nr_rows;
+  /* lines[0] is "BYT;", lines[1] is the device line which we ignore,
+   * lines[2..] are the partitions themselves.  Count how many.
+   */
+  size_t nr_rows = 0, row;
+  for (row = 2; lines[row] != NULL; ++row)
+    ++nr_rows;
 
-    r = malloc (sizeof *r);
-    if (r == NULL) {
-      reply_with_perror ("malloc");
-      return NULL;
-    }
-    r->guestfs_int_partition_list_len = nr_rows;
-    r->guestfs_int_partition_list_val =
-      malloc (nr_rows * sizeof (guestfs_int_partition));
-    if (r->guestfs_int_partition_list_val == NULL) {
-      reply_with_perror ("malloc");
-      goto error2;
-    }
-
-    /* Now parse the lines. */
-    size_t i;
-    for (i = 0, row = 2; lines[row] != NULL; ++i, ++row) {
-      if (sscanf (lines[row], "%d:%" SCNi64 "B:%" SCNi64 "B:%" SCNi64 "B",
-                  &r->guestfs_int_partition_list_val[i].part_num,
-                  &r->guestfs_int_partition_list_val[i].part_start,
-                  &r->guestfs_int_partition_list_val[i].part_end,
-                  &r->guestfs_int_partition_list_val[i].part_size) != 4) {
-        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-        goto error3;
-      }
-    }
+  r = malloc (sizeof *r);
+  if (r == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
   }
-  else {
-    /* Old-style.  Start at the line following "^Number", up to the
-     * next blank line.
-     */
-    size_t start = 0, end = 0, row;
+  r->guestfs_int_partition_list_len = nr_rows;
+  r->guestfs_int_partition_list_val =
+    malloc (nr_rows * sizeof (guestfs_int_partition));
+  if (r->guestfs_int_partition_list_val == NULL) {
+    reply_with_perror ("malloc");
+    goto error2;
+  }
 
-    for (row = 0; lines[row] != NULL; ++row)
-      if (STRPREFIX (lines[row], "Number")) {
-        start = row+1;
-        break;
-      }
-
-    if (start == 0) {
-      reply_with_error ("parted output has no \"Number\" line");
-      return NULL;
-    }
-
-    for (row = start; lines[row] != NULL; ++row)
-      if (STREQ (lines[row], "")) {
-        end = row;
-        break;
-      }
-
-    if (end == 0) {
-      reply_with_error ("parted output has no blank after end of table");
-      return NULL;
-    }
-
-    size_t nr_rows = end - start;
-
-    r = malloc (sizeof *r);
-    if (r == NULL) {
-      reply_with_perror ("malloc");
-      return NULL;
-    }
-    r->guestfs_int_partition_list_len = nr_rows;
-    r->guestfs_int_partition_list_val =
-      malloc (nr_rows * sizeof (guestfs_int_partition));
-    if (r->guestfs_int_partition_list_val == NULL) {
-      reply_with_perror ("malloc");
-      goto error2;
-    }
-
-    /* Now parse the lines. */
-    size_t i;
-    for (i = 0, row = start; row < end; ++i, ++row) {
-      if (sscanf (lines[row], " %d %" SCNi64 "B %" SCNi64 "B %" SCNi64 "B",
-                  &r->guestfs_int_partition_list_val[i].part_num,
-                  &r->guestfs_int_partition_list_val[i].part_start,
-                  &r->guestfs_int_partition_list_val[i].part_end,
-                  &r->guestfs_int_partition_list_val[i].part_size) != 4) {
-        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-        goto error3;
-      }
+  /* Now parse the lines. */
+  size_t i;
+  for (i = 0, row = 2; lines[row] != NULL; ++i, ++row) {
+    if (sscanf (lines[row], "%d:%" SCNi64 "B:%" SCNi64 "B:%" SCNi64 "B",
+                &r->guestfs_int_partition_list_val[i].part_num,
+                &r->guestfs_int_partition_list_val[i].part_start,
+                &r->guestfs_int_partition_list_val[i].part_end,
+                &r->guestfs_int_partition_list_val[i].part_size) != 4) {
+      reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
+      goto error3;
     }
   }
 
@@ -591,11 +446,7 @@ do_part_get_bootable (const char *device, int partnum)
     return -1;
   }
 
-  enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
-  if (parted_has_m_opt == PARTED_INVALID)
-    return -1;
-
-  CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
+  CLEANUP_FREE char *out = print_partition_table (device, true);
   if (!out)
     return -1;
 
@@ -604,95 +455,41 @@ do_part_get_bootable (const char *device, int partnum)
   if (!lines)
     return -1;
 
-  if (PARTED_OPT_HAS_M == parted_has_m_opt) {
-    /* New-style parsing using the "machine-readable" format from
-     * 'parted -m'.
-     *
-     * Partitions may not be in any order, so we have to look for
-     * the matching partition number (RHBZ#602997).
-     */
-    if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
-      reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
-                        lines[0] ? lines[0] : "(signature was null)");
-      return -1;
-    }
-
-    if (lines[1] == NULL) {
-      reply_with_error ("parted didn't return a line describing the device");
-      return -1;
-    }
-
-    size_t row;
-    int pnum;
-    for (row = 2; lines[row] != NULL; ++row) {
-      if (sscanf (lines[row], "%d:", &pnum) != 1) {
-        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-        return -1;
-      }
-      if (pnum == partnum)
-        break;
-    }
-
-    if (lines[row] == NULL) {
-      reply_with_error ("partition number %d not found", partnum);
-      return -1;
-    }
-
-    CLEANUP_FREE char *boot = get_table_field (lines[row], 6);
-    if (boot == NULL)
-      return -1;
-
-    return strstr (boot, "boot") != NULL;
+  /* Partitions may not be in any order, so we have to look for
+   * the matching partition number (RHBZ#602997).
+   */
+  if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
+    reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
+                      lines[0] ? lines[0] : "(signature was null)");
+    return -1;
   }
-  else {
-    /* Old-style: First look for the line matching "^Number". */
-    size_t start = 0, header, row;
 
-    for (row = 0; lines[row] != NULL; ++row)
-      if (STRPREFIX (lines[row], "Number")) {
-        start = row+1;
-        header = row;
-        break;
-      }
-
-    if (start == 0) {
-      reply_with_error ("parted output has no \"Number\" line");
-      return -1;
-    }
-
-    /* Now we have to look at the column number of the "Flags" field.
-     * This is because parted's output has no way to represent a
-     * missing field except as whitespace, so we cannot just count
-     * fields from the left.  eg. The "File system" field is often
-     * missing in the output.
-     */
-    char *p = strstr (lines[header], "Flags");
-    if (!p) {
-      reply_with_error ("parted output has no \"Flags\" field");
-      return -1;
-    }
-    size_t col = p - lines[header];
-
-    /* Partitions may not be in any order, so we have to look for
-     * the matching partition number (RHBZ#602997).
-     */
-    int pnum;
-    for (row = start; lines[row] != NULL; ++row) {
-      if (sscanf (lines[row], " %d", &pnum) != 1) {
-        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-        return -1;
-      }
-      if (pnum == partnum)
-        break;
-    }
-
-    if (lines[row] == NULL) {
-      reply_with_error ("partition number %d not found", partnum);
-      return -1;
-    }
-
-    return STRPREFIX (&lines[row][col], "boot");
+  if (lines[1] == NULL) {
+    reply_with_error ("parted didn't return a line describing the device");
+    return -1;
   }
+
+  size_t row;
+  int pnum;
+  for (row = 2; lines[row] != NULL; ++row) {
+    if (sscanf (lines[row], "%d:", &pnum) != 1) {
+      reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
+      return -1;
+    }
+    if (pnum == partnum)
+      break;
+  }
+
+  if (lines[row] == NULL) {
+    reply_with_error ("partition number %d not found", partnum);
+    return -1;
+  }
+
+  CLEANUP_FREE char *boot = get_table_field (lines[row], 6);
+  if (boot == NULL)
+    return -1;
+
+  return strstr (boot, "boot") != NULL;
 }
 
 /* Test if sfdisk is recent enough to have --part-type, to be used instead
@@ -979,63 +776,51 @@ do_part_get_name (const char *device, int partnum)
     return NULL;
 
   if (STREQ (parttype, "gpt")) {
-    enum parted_has_m_opt parted_has_m_opt = test_parted_m_opt ();
-    if (parted_has_m_opt == PARTED_INVALID)
-      return NULL;
-
-    CLEANUP_FREE char *out = print_partition_table (device, parted_has_m_opt);
+    CLEANUP_FREE char *out = print_partition_table (device, true);
     if (!out)
       return NULL;
 
-    if (PARTED_OPT_HAS_M == parted_has_m_opt) {
-      /* New-style parsing using the "machine-readable" format from
-       * 'parted -m'.
-       */
-      CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
+    CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
 
-      if (!lines)
-        return NULL;
+    if (!lines)
+      return NULL;
 
-      if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
-        reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
-                          lines[0] ? lines[0] : "(signature was null)");
-        return NULL;
-      }
-
-      if (lines[1] == NULL) {
-        reply_with_error ("parted didn't return a line describing the device");
-        return NULL;
-      }
-
-      size_t row;
-      int pnum;
-      for (row = 2; lines[row] != NULL; ++row) {
-        if (sscanf (lines[row], "%d:", &pnum) != 1) {
-          reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-          return NULL;
-        }
-        if (pnum == partnum)
-          break;
-      }
-
-      if (lines[row] == NULL) {
-        reply_with_error ("partition number %d not found", partnum);
-        return NULL;
-      }
-
-      char *name = get_table_field (lines[row], 5);
-      if (name == NULL)
-        reply_with_error ("cannot get the name field from '%s'", lines[row]);
-
-      return name;
+    if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
+      reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
+                        lines[0] ? lines[0] : "(signature was null)");
+      return NULL;
     }
+
+    if (lines[1] == NULL) {
+      reply_with_error ("parted didn't return a line describing the device");
+      return NULL;
+    }
+
+    size_t row;
+    int pnum;
+    for (row = 2; lines[row] != NULL; ++row) {
+      if (sscanf (lines[row], "%d:", &pnum) != 1) {
+        reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
+        return NULL;
+      }
+      if (pnum == partnum)
+        break;
+    }
+
+    if (lines[row] == NULL) {
+      reply_with_error ("partition number %d not found", partnum);
+      return NULL;
+    }
+
+    char *name = get_table_field (lines[row], 5);
+    if (name == NULL)
+      reply_with_error ("cannot get the name field from '%s'", lines[row]);
+
+    return name;
   } else {
     reply_with_error ("part-get-name can only be used on GUID Partition Tables");
     return NULL;
   }
-
-  reply_with_error ("cannot get the partition name from '%s' layouts", parttype);
-  return NULL;
 }
 
 char *
@@ -1052,7 +837,7 @@ do_part_get_mbr_part_type (const char *device, int partnum)
    * partition type info.
    * Use traditional style.
    */
-  CLEANUP_FREE char *out = print_partition_table (device, PARTED_OPT_NO_M);
+  CLEANUP_FREE char *out = print_partition_table (device, false);
   if (!out)
     return NULL;
 

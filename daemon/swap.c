@@ -38,26 +38,10 @@ GUESTFSD_EXT_CMD(str_swaplabel, swaplabel);
 /* Confirmed this is true for Linux swap partitions from the Linux sources. */
 #define SWAP_LABEL_MAX 16
 
-/* Convenient place to test for the later version of e2fsprogs
- * and util-linux which supports -U parameters to specify UUIDs.
- * (Not supported in RHEL 5).
- */
 int
 optgroup_linuxfsuuid_available (void)
 {
-  CLEANUP_FREE char *err = NULL;
-  int av;
-
-  /* Upstream util-linux have been gradually changing '--help' to go
-   * from stderr to stdout, and changing the return code from 1 to 0.
-   * Thus we need to fold stdout and stderr together, and ignore the
-   * return code.
-   */
-  ignore_value (commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                          str_mkswap, "--help", NULL));
-
-  av = strstr (err, "-U") != NULL;
-  return av;
+  return 1;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */

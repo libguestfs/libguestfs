@@ -25,15 +25,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-/* We're not using gnulib here so that we don't have to link to gnulib
- * rpl_* libraries (not possible since this is an LD_PRELOAD lib).
- * However that does mean we have to define O_CLOEXEC explicitly for
- * RHEL 5.
- */
-#ifndef O_CLOEXEC
-#define O_CLOEXEC 0
-#endif
-
 /* Old <libvirt.h> had a slightly different definition of
  * virDomainGetXMLDesc (using 'int' for flags instead of 'unsigned
  * int').  To avoid an error trying to redefine it with a different

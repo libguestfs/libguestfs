@@ -84,20 +84,6 @@ let rec generate_ruby_c () =
 #define RSTRING_PTR(r) (RSTRING((r))->ptr)
 #endif
 
-/* For RHEL 5 (Ruby 1.8.5) */
-#ifndef HAVE_RB_HASH_LOOKUP
-VALUE
-rb_hash_lookup (VALUE hash, VALUE key)
-{
-  volatile VALUE val;
-
-  if (!st_lookup (RHASH(hash)->tbl, key, &val))
-    return Qnil;
-
-  return val;
-}
-#endif /* !HAVE_RB_HASH_LOOKUP */
-
 static VALUE m_guestfs;			/* guestfs module */
 static VALUE c_guestfs;			/* guestfs_h handle */
 static VALUE e_Error;			/* used for all errors */

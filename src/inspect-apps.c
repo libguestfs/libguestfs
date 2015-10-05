@@ -30,12 +30,6 @@
 #include <sys/endian.h>
 #endif
 
-/* be32toh is usually a macro defined in <endian.h>, but it might be
- * a function in some system so check both, and if neither is defined
- * then define be32toh for RHEL 5.
- */
-#if !defined(HAVE_BE32TOH) && !defined(be32toh)
-
 #if defined __APPLE__ && defined __MACH__
 /* Define/include necessary items on MacOS X */
 #include <machine/endian.h>
@@ -45,13 +39,6 @@
 #include <libkern/OSByteOrder.h>
 #define __bswap_32      OSSwapConstInt32
 #endif /* __APPLE__ */
-
-#if __BYTE_ORDER == __LITTLE_ENDIAN
-#define be32toh(x) __bswap_32 (x)
-#else
-#define be32toh(x) (x)
-#endif
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
