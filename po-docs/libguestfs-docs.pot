@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.31.10\n"
+"Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-10-04 19:58+0100\n"
+"POT-Creation-Date: 2015-10-05 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -774,7 +774,7 @@ msgid "This program returns:"
 msgstr ""
 
 #. type: =item
-#: ../align/virt-alignment-scan.pod:356 ../align/virt-alignment-scan.pod:362 ../align/virt-alignment-scan.pod:368 ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:902 ../builder/virt-builder.pod:909 ../builder/virt-builder.pod:913 ../builder/virt-builder.pod:917 ../builder/virt-builder.pod:922 ../builder/virt-builder.pod:926 ../builder/virt-builder.pod:930 ../builder/virt-builder.pod:935 ../builder/virt-builder.pod:1110 ../builder/virt-builder.pod:1115 ../builder/virt-builder.pod:1686 ../builder/virt-builder.pod:1690 ../builder/virt-builder.pod:1694 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:214 ../cat/virt-cat.pod:219 ../cat/virt-cat.pod:224 ../cat/virt-cat.pod:235 ../cat/virt-cat.pod:239 ../customize/customize-options.pod:253 ../customize/customize-options.pod:257 ../edit/virt-edit.pod:308 ../edit/virt-edit.pod:313 ../edit/virt-edit.pod:318 ../edit/virt-edit.pod:329 ../edit/virt-edit.pod:333 ../examples/guestfs-faq.pod:188 ../examples/guestfs-faq.pod:194 ../examples/guestfs-faq.pod:198 ../examples/guestfs-faq.pod:203 ../examples/guestfs-faq.pod:768 ../examples/guestfs-faq.pod:774 ../examples/guestfs-faq.pod:813 ../examples/guestfs-faq.pod:819 ../examples/guestfs-faq.pod:1340 ../examples/guestfs-faq.pod:1351 ../examples/guestfs-faq.pod:1356 ../examples/guestfs-performance.pod:105 ../examples/guestfs-performance.pod:111 ../examples/guestfs-performance.pod:116 ../examples/guestfs-performance.pod:243 ../examples/guestfs-performance.pod:248 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:372 ../examples/guestfs-performance.pod:376 ../examples/guestfs-performance.pod:382 ../examples/guestfs-performance.pod:388 ../examples/guestfs-recipes.pod:229 ../examples/guestfs-recipes.pod:233 ../examples/guestfs-recipes.pod:237 ../examples/guestfs-recipes.pod:263 ../examples/guestfs-recipes.pod:268 ../examples/guestfs-recipes.pod:375 ../examples/guestfs-recipes.pod:379 ../examples/guestfs-recipes.pod:383 ../examples/guestfs-recipes.pod:387 ../examples/guestfs-recipes.pod:391 ../examples/guestfs-testing.pod:67 ../examples/guestfs-testing.pod:74 ../examples/guestfs-testing.pod:85 ../examples/guestfs-testing.pod:94 ../examples/guestfs-testing.pod:203 ../examples/guestfs-testing.pod:207 ../examples/guestfs-testing.pod:211 ../fish/guestfish-actions.pod:748 ../fish/guestfish-actions.pod:754 ../fish/guestfish-actions.pod:762 ../fish/guestfish-actions.pod:769 ../fish/guestfish-actions.pod:776 ../fish/guestfish-actions.pod:2290 ../fish/guestfish-actions.pod:2294 ../fish/guestfish-actions.pod:2298 ../fish/guestfish-actions.pod:2302 ../fish/guestfish-actions.pod:2310 ../fish/guestfish-actions.pod:2314 ../fish/guestfish-actions.pod:2318 ../fish/guestfish-actions.pod:2328 ../fish/guestfish-actions.pod:2332 ../fish/guestfish-actions.pod:2336 ../fish/guestfish-actions.pod:2450 ../fish/guestfish-actions.pod:2454 ../fish/guestfish-actions.pod:2459 ../fish/guestfish-actions.pod:2501 ../fish/guestfish-actions.pod:2505 ../fish/guestfish-actions.pod:2510 ../fish/guestfish-actions.pod:3069 ../fish/guestfish-actions.pod:3076 ../fish/guestfish-actions.pod:3083 ../fish/guestfish-actions.pod:3693 ../fish/guestfish-actions.pod:3699 ../fish/guestfish-actions.pod:3707 ../fish/guestfish-actions.pod:3714 ../fish/guestfish-actions.pod:3721 ../fish/guestfish.pod:474 ../fish/guestfish.pod:478 ../fish/guestfish.pod:482 ../fish/guestfish.pod:486 ../fish/guestfish.pod:1330 ../fish/guestfish.pod:1336 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../guestfs-release-notes.pod:1558 ../guestfs-release-notes.pod:1563 ../guestfs-release-notes.pod:2034 ../guestfs-release-notes.pod:2038 ../guestfs-release-notes.pod:2042 ../guestfs-release-notes.pod:2046 ../guestfs-release-notes.pod:2050 ../guestfs-release-notes.pod:2054 ../guestfs-release-notes.pod:2058 ../guestfs-release-notes.pod:2063 ../guestfs-release-notes.pod:2067 ../guestfs-release-notes.pod:2392 ../guestfs-release-notes.pod:2396 ../guestfs-release-notes.pod:2400 ../guestfs-release-notes.pod:2462 ../guestfs-release-notes.pod:2466 ../guestfs-release-notes.pod:2470 ../guestfs-release-notes.pod:2474 ../guestfs-release-notes.pod:2478 ../guestfs-release-notes.pod:2482 ../guestfs-release-notes.pod:2487 ../guestfs-release-notes.pod:2491 ../guestfs-release-notes.pod:2495 ../guestfs-release-notes.pod:2499 ../guestfs-release-notes.pod:2695 ../guestfs-release-notes.pod:2700 ../guestfs-release-notes.pod:2705 ../inspector/virt-inspector.pod:511 ../inspector/virt-inspector.pod:515 ../p2v/virt-p2v-make-kickstart.pod:58 ../p2v/virt-p2v-make-kickstart.pod:62 ../p2v/virt-p2v-make-kickstart.pod:66 ../p2v/virt-p2v-make-kickstart.pod:84 ../p2v/virt-p2v-make-kickstart.pod:89 ../p2v/virt-p2v-make-kickstart.pod:93 ../p2v/virt-p2v-make-kickstart.pod:160 ../p2v/virt-p2v-make-kickstart.pod:165 ../p2v/virt-p2v-make-kickstart.pod:170 ../p2v/virt-p2v-make-kickstart.pod:175 ../resize/virt-resize.pod:371 ../resize/virt-resize.pod:375 ../resize/virt-resize.pod:384 ../resize/virt-resize.pod:390 ../resize/virt-resize.pod:394 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:273 ../sparsify/virt-sparsify.pod:278 ../sparsify/virt-sparsify.pod:283 ../src/guestfs-actions.pod:1113 ../src/guestfs-actions.pod:1119 ../src/guestfs-actions.pod:1127 ../src/guestfs-actions.pod:1134 ../src/guestfs-actions.pod:1141 ../src/guestfs-actions.pod:3996 ../src/guestfs-actions.pod:4000 ../src/guestfs-actions.pod:4004 ../src/guestfs-actions.pod:4008 ../src/guestfs-actions.pod:4016 ../src/guestfs-actions.pod:4020 ../src/guestfs-actions.pod:4024 ../src/guestfs-actions.pod:4034 ../src/guestfs-actions.pod:4038 ../src/guestfs-actions.pod:4042 ../src/guestfs-actions.pod:4217 ../src/guestfs-actions.pod:4221 ../src/guestfs-actions.pod:4226 ../src/guestfs-actions.pod:4287 ../src/guestfs-actions.pod:4291 ../src/guestfs-actions.pod:4296 ../src/guestfs-actions.pod:5189 ../src/guestfs-actions.pod:5196 ../src/guestfs-actions.pod:5203 ../src/guestfs-actions.pod:6102 ../src/guestfs-actions.pod:6108 ../src/guestfs-actions.pod:6116 ../src/guestfs-actions.pod:6123 ../src/guestfs-actions.pod:6130 ../src/guestfs.pod:396 ../src/guestfs.pod:401 ../src/guestfs.pod:406 ../src/guestfs.pod:410 ../src/guestfs.pod:415 ../src/guestfs.pod:419 ../src/guestfs.pod:424 ../src/guestfs.pod:429 ../src/guestfs.pod:780 ../src/guestfs.pod:787 ../src/guestfs.pod:793 ../src/guestfs.pod:799 ../src/guestfs.pod:805 ../src/guestfs.pod:810 ../src/guestfs.pod:816 ../src/guestfs.pod:1044 ../src/guestfs.pod:1048 ../src/guestfs.pod:1054 ../src/guestfs.pod:1137 ../src/guestfs.pod:1142 ../src/guestfs.pod:1146 ../src/guestfs.pod:1152 ../src/guestfs.pod:1156 ../src/guestfs.pod:1160 ../src/guestfs.pod:1165 ../src/guestfs.pod:1744 ../src/guestfs.pod:1748 ../src/guestfs.pod:1752 ../src/guestfs.pod:1757 ../src/guestfs.pod:1765 ../src/guestfs.pod:1784 ../src/guestfs.pod:1792 ../src/guestfs.pod:1809 ../src/guestfs.pod:1814 ../src/guestfs.pod:1818 ../src/guestfs.pod:2007 ../src/guestfs.pod:2011 ../src/guestfs.pod:2015 ../src/guestfs.pod:2019 ../src/guestfs.pod:2023 ../src/guestfs.pod:2027 ../src/guestfs.pod:2233 ../src/guestfs.pod:2238 ../src/guestfs.pod:2772 ../src/guestfs.pod:2777 ../src/guestfs.pod:2781 ../src/guestfs.pod:2885 ../src/guestfs.pod:2890 ../src/guestfs.pod:2894 ../src/guestfs.pod:2904 ../src/guestfs.pod:3335 ../src/guestfs.pod:3340 ../src/guestfs.pod:3346 ../src/guestfs.pod:3354 ../src/guestfs.pod:3907 ../src/guestfs.pod:3913 ../src/guestfs.pod:3918 ../src/guestfs.pod:3924 ../src/guestfs.pod:4315 ../src/guestfs.pod:4319 ../src/guestfs.pod:4323 ../src/guestfs.pod:4327 ../src/guestfs.pod:4331 ../src/guestfs.pod:4613 ../src/guestfs.pod:4618 ../src/guestfs.pod:4622 ../src/guestfs.pod:4626 ../src/guestfs.pod:4640 ../src/guestfs.pod:4644 ../src/guestfs.pod:4649 ../src/guestfs.pod:4653 ../sysprep/sysprep-extra-options.pod:297 ../sysprep/sysprep-extra-options.pod:301 ../sysprep/virt-sysprep.pod:288 ../sysprep/virt-sysprep.pod:292 ../sysprep/virt-sysprep.pod:296 ../sysprep/virt-sysprep.pod:300 ../sysprep/virt-sysprep.pod:315 ../sysprep/virt-sysprep.pod:319 ../sysprep/virt-sysprep.pod:323 ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:331 ../sysprep/virt-sysprep.pod:384 ../sysprep/virt-sysprep.pod:396 ../sysprep/virt-sysprep.pod:400 ../sysprep/virt-sysprep.pod:408 ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:754 ../tools/virt-win-reg:760 ../tools/virt-win-reg:766 ../v2v/test-harness/virt-v2v-test-harness.pod:172 ../v2v/test-harness/virt-v2v-test-harness.pod:176 ../v2v/test-harness/virt-v2v-test-harness.pod:180 ../v2v/virt-v2v.pod:613 ../v2v/virt-v2v.pod:618 ../v2v/virt-v2v.pod:623 ../v2v/virt-v2v.pod:627 ../v2v/virt-v2v.pod:771 ../v2v/virt-v2v.pod:776 ../v2v/virt-v2v.pod:787 ../v2v/virt-v2v.pod:799 ../v2v/virt-v2v.pod:805 ../v2v/virt-v2v.pod:810 ../v2v/virt-v2v.pod:828 ../v2v/virt-v2v.pod:832 ../v2v/virt-v2v.pod:996 ../v2v/virt-v2v.pod:1000 ../v2v/virt-v2v.pod:1004 ../v2v/virt-v2v.pod:1008 ../v2v/virt-v2v.pod:1012 ../v2v/virt-v2v.pod:1200 ../v2v/virt-v2v.pod:1205 ../v2v/virt-v2v.pod:1210
+#: ../align/virt-alignment-scan.pod:356 ../align/virt-alignment-scan.pod:362 ../align/virt-alignment-scan.pod:368 ../align/virt-alignment-scan.pod:375 ../appliance/libguestfs-make-fixed-appliance.pod:22 ../appliance/libguestfs-make-fixed-appliance.pod:28 ../appliance/libguestfs-make-fixed-appliance.pod:34 ../appliance/libguestfs-make-fixed-appliance.pod:52 ../appliance/libguestfs-make-fixed-appliance.pod:73 ../builder/virt-builder.pod:902 ../builder/virt-builder.pod:909 ../builder/virt-builder.pod:913 ../builder/virt-builder.pod:917 ../builder/virt-builder.pod:922 ../builder/virt-builder.pod:926 ../builder/virt-builder.pod:930 ../builder/virt-builder.pod:935 ../builder/virt-builder.pod:1110 ../builder/virt-builder.pod:1115 ../builder/virt-builder.pod:1686 ../builder/virt-builder.pod:1690 ../builder/virt-builder.pod:1694 ../builder/virt-index-validate.pod:32 ../builder/virt-index-validate.pod:37 ../builder/virt-index-validate.pod:51 ../builder/virt-index-validate.pod:56 ../cat/virt-cat.pod:214 ../cat/virt-cat.pod:219 ../cat/virt-cat.pod:224 ../cat/virt-cat.pod:235 ../cat/virt-cat.pod:239 ../customize/customize-options.pod:253 ../customize/customize-options.pod:257 ../edit/virt-edit.pod:308 ../edit/virt-edit.pod:313 ../edit/virt-edit.pod:318 ../edit/virt-edit.pod:329 ../edit/virt-edit.pod:333 ../examples/guestfs-faq.pod:188 ../examples/guestfs-faq.pod:194 ../examples/guestfs-faq.pod:198 ../examples/guestfs-faq.pod:203 ../examples/guestfs-faq.pod:768 ../examples/guestfs-faq.pod:774 ../examples/guestfs-faq.pod:813 ../examples/guestfs-faq.pod:819 ../examples/guestfs-faq.pod:1340 ../examples/guestfs-faq.pod:1351 ../examples/guestfs-faq.pod:1356 ../examples/guestfs-performance.pod:105 ../examples/guestfs-performance.pod:111 ../examples/guestfs-performance.pod:116 ../examples/guestfs-performance.pod:243 ../examples/guestfs-performance.pod:248 ../examples/guestfs-performance.pod:253 ../examples/guestfs-performance.pod:373 ../examples/guestfs-performance.pod:377 ../examples/guestfs-performance.pod:383 ../examples/guestfs-performance.pod:389 ../examples/guestfs-recipes.pod:229 ../examples/guestfs-recipes.pod:233 ../examples/guestfs-recipes.pod:237 ../examples/guestfs-recipes.pod:263 ../examples/guestfs-recipes.pod:268 ../examples/guestfs-recipes.pod:375 ../examples/guestfs-recipes.pod:379 ../examples/guestfs-recipes.pod:383 ../examples/guestfs-recipes.pod:387 ../examples/guestfs-recipes.pod:391 ../examples/guestfs-testing.pod:67 ../examples/guestfs-testing.pod:74 ../examples/guestfs-testing.pod:85 ../examples/guestfs-testing.pod:94 ../examples/guestfs-testing.pod:203 ../examples/guestfs-testing.pod:207 ../examples/guestfs-testing.pod:211 ../fish/guestfish-actions.pod:748 ../fish/guestfish-actions.pod:754 ../fish/guestfish-actions.pod:762 ../fish/guestfish-actions.pod:769 ../fish/guestfish-actions.pod:776 ../fish/guestfish-actions.pod:2290 ../fish/guestfish-actions.pod:2294 ../fish/guestfish-actions.pod:2298 ../fish/guestfish-actions.pod:2302 ../fish/guestfish-actions.pod:2310 ../fish/guestfish-actions.pod:2314 ../fish/guestfish-actions.pod:2318 ../fish/guestfish-actions.pod:2328 ../fish/guestfish-actions.pod:2332 ../fish/guestfish-actions.pod:2336 ../fish/guestfish-actions.pod:2450 ../fish/guestfish-actions.pod:2454 ../fish/guestfish-actions.pod:2459 ../fish/guestfish-actions.pod:2501 ../fish/guestfish-actions.pod:2505 ../fish/guestfish-actions.pod:2510 ../fish/guestfish-actions.pod:3069 ../fish/guestfish-actions.pod:3076 ../fish/guestfish-actions.pod:3083 ../fish/guestfish-actions.pod:3693 ../fish/guestfish-actions.pod:3699 ../fish/guestfish-actions.pod:3707 ../fish/guestfish-actions.pod:3714 ../fish/guestfish-actions.pod:3721 ../fish/guestfish.pod:474 ../fish/guestfish.pod:478 ../fish/guestfish.pod:482 ../fish/guestfish.pod:486 ../fish/guestfish.pod:1330 ../fish/guestfish.pod:1336 ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75 ../golang/examples/guestfs-golang.pod:58 ../golang/examples/guestfs-golang.pod:62 ../guestfs-release-notes.pod:1558 ../guestfs-release-notes.pod:1563 ../guestfs-release-notes.pod:2034 ../guestfs-release-notes.pod:2038 ../guestfs-release-notes.pod:2042 ../guestfs-release-notes.pod:2046 ../guestfs-release-notes.pod:2050 ../guestfs-release-notes.pod:2054 ../guestfs-release-notes.pod:2058 ../guestfs-release-notes.pod:2063 ../guestfs-release-notes.pod:2067 ../guestfs-release-notes.pod:2392 ../guestfs-release-notes.pod:2396 ../guestfs-release-notes.pod:2400 ../guestfs-release-notes.pod:2462 ../guestfs-release-notes.pod:2466 ../guestfs-release-notes.pod:2470 ../guestfs-release-notes.pod:2474 ../guestfs-release-notes.pod:2478 ../guestfs-release-notes.pod:2482 ../guestfs-release-notes.pod:2487 ../guestfs-release-notes.pod:2491 ../guestfs-release-notes.pod:2495 ../guestfs-release-notes.pod:2499 ../guestfs-release-notes.pod:2695 ../guestfs-release-notes.pod:2700 ../guestfs-release-notes.pod:2705 ../inspector/virt-inspector.pod:511 ../inspector/virt-inspector.pod:515 ../p2v/virt-p2v-make-kickstart.pod:58 ../p2v/virt-p2v-make-kickstart.pod:62 ../p2v/virt-p2v-make-kickstart.pod:66 ../p2v/virt-p2v-make-kickstart.pod:84 ../p2v/virt-p2v-make-kickstart.pod:89 ../p2v/virt-p2v-make-kickstart.pod:93 ../p2v/virt-p2v-make-kickstart.pod:160 ../p2v/virt-p2v-make-kickstart.pod:165 ../p2v/virt-p2v-make-kickstart.pod:170 ../p2v/virt-p2v-make-kickstart.pod:175 ../resize/virt-resize.pod:371 ../resize/virt-resize.pod:375 ../resize/virt-resize.pod:384 ../resize/virt-resize.pod:390 ../resize/virt-resize.pod:394 ../sparsify/virt-sparsify.pod:46 ../sparsify/virt-sparsify.pod:50 ../sparsify/virt-sparsify.pod:59 ../sparsify/virt-sparsify.pod:64 ../sparsify/virt-sparsify.pod:69 ../sparsify/virt-sparsify.pod:75 ../sparsify/virt-sparsify.pod:137 ../sparsify/virt-sparsify.pod:141 ../sparsify/virt-sparsify.pod:145 ../sparsify/virt-sparsify.pod:150 ../sparsify/virt-sparsify.pod:273 ../sparsify/virt-sparsify.pod:278 ../sparsify/virt-sparsify.pod:283 ../src/guestfs-actions.pod:1113 ../src/guestfs-actions.pod:1119 ../src/guestfs-actions.pod:1127 ../src/guestfs-actions.pod:1134 ../src/guestfs-actions.pod:1141 ../src/guestfs-actions.pod:3996 ../src/guestfs-actions.pod:4000 ../src/guestfs-actions.pod:4004 ../src/guestfs-actions.pod:4008 ../src/guestfs-actions.pod:4016 ../src/guestfs-actions.pod:4020 ../src/guestfs-actions.pod:4024 ../src/guestfs-actions.pod:4034 ../src/guestfs-actions.pod:4038 ../src/guestfs-actions.pod:4042 ../src/guestfs-actions.pod:4217 ../src/guestfs-actions.pod:4221 ../src/guestfs-actions.pod:4226 ../src/guestfs-actions.pod:4287 ../src/guestfs-actions.pod:4291 ../src/guestfs-actions.pod:4296 ../src/guestfs-actions.pod:5189 ../src/guestfs-actions.pod:5196 ../src/guestfs-actions.pod:5203 ../src/guestfs-actions.pod:6102 ../src/guestfs-actions.pod:6108 ../src/guestfs-actions.pod:6116 ../src/guestfs-actions.pod:6123 ../src/guestfs-actions.pod:6130 ../src/guestfs.pod:396 ../src/guestfs.pod:401 ../src/guestfs.pod:406 ../src/guestfs.pod:410 ../src/guestfs.pod:415 ../src/guestfs.pod:419 ../src/guestfs.pod:424 ../src/guestfs.pod:429 ../src/guestfs.pod:780 ../src/guestfs.pod:787 ../src/guestfs.pod:793 ../src/guestfs.pod:799 ../src/guestfs.pod:805 ../src/guestfs.pod:810 ../src/guestfs.pod:816 ../src/guestfs.pod:1044 ../src/guestfs.pod:1048 ../src/guestfs.pod:1054 ../src/guestfs.pod:1137 ../src/guestfs.pod:1142 ../src/guestfs.pod:1146 ../src/guestfs.pod:1152 ../src/guestfs.pod:1156 ../src/guestfs.pod:1160 ../src/guestfs.pod:1165 ../src/guestfs.pod:1744 ../src/guestfs.pod:1748 ../src/guestfs.pod:1752 ../src/guestfs.pod:1757 ../src/guestfs.pod:1765 ../src/guestfs.pod:1784 ../src/guestfs.pod:1792 ../src/guestfs.pod:1809 ../src/guestfs.pod:1814 ../src/guestfs.pod:1818 ../src/guestfs.pod:2007 ../src/guestfs.pod:2011 ../src/guestfs.pod:2015 ../src/guestfs.pod:2019 ../src/guestfs.pod:2023 ../src/guestfs.pod:2027 ../src/guestfs.pod:2233 ../src/guestfs.pod:2238 ../src/guestfs.pod:2772 ../src/guestfs.pod:2777 ../src/guestfs.pod:2781 ../src/guestfs.pod:2885 ../src/guestfs.pod:2890 ../src/guestfs.pod:2894 ../src/guestfs.pod:2904 ../src/guestfs.pod:3335 ../src/guestfs.pod:3340 ../src/guestfs.pod:3346 ../src/guestfs.pod:3354 ../src/guestfs.pod:3907 ../src/guestfs.pod:3913 ../src/guestfs.pod:3918 ../src/guestfs.pod:3924 ../src/guestfs.pod:4315 ../src/guestfs.pod:4319 ../src/guestfs.pod:4323 ../src/guestfs.pod:4327 ../src/guestfs.pod:4331 ../src/guestfs.pod:4613 ../src/guestfs.pod:4618 ../src/guestfs.pod:4622 ../src/guestfs.pod:4626 ../src/guestfs.pod:4640 ../src/guestfs.pod:4644 ../src/guestfs.pod:4649 ../src/guestfs.pod:4653 ../sysprep/sysprep-extra-options.pod:297 ../sysprep/sysprep-extra-options.pod:301 ../sysprep/virt-sysprep.pod:288 ../sysprep/virt-sysprep.pod:292 ../sysprep/virt-sysprep.pod:296 ../sysprep/virt-sysprep.pod:300 ../sysprep/virt-sysprep.pod:315 ../sysprep/virt-sysprep.pod:319 ../sysprep/virt-sysprep.pod:323 ../sysprep/virt-sysprep.pod:327 ../sysprep/virt-sysprep.pod:331 ../sysprep/virt-sysprep.pod:384 ../sysprep/virt-sysprep.pod:396 ../sysprep/virt-sysprep.pod:400 ../sysprep/virt-sysprep.pod:408 ../sysprep/virt-sysprep.pod:414 ../tools/virt-win-reg:194 ../tools/virt-win-reg:199 ../tools/virt-win-reg:205 ../tools/virt-win-reg:754 ../tools/virt-win-reg:760 ../tools/virt-win-reg:766 ../v2v/test-harness/virt-v2v-test-harness.pod:172 ../v2v/test-harness/virt-v2v-test-harness.pod:176 ../v2v/test-harness/virt-v2v-test-harness.pod:180 ../v2v/virt-v2v.pod:613 ../v2v/virt-v2v.pod:618 ../v2v/virt-v2v.pod:623 ../v2v/virt-v2v.pod:627 ../v2v/virt-v2v.pod:771 ../v2v/virt-v2v.pod:776 ../v2v/virt-v2v.pod:787 ../v2v/virt-v2v.pod:799 ../v2v/virt-v2v.pod:805 ../v2v/virt-v2v.pod:810 ../v2v/virt-v2v.pod:828 ../v2v/virt-v2v.pod:832 ../v2v/virt-v2v.pod:996 ../v2v/virt-v2v.pod:1000 ../v2v/virt-v2v.pod:1004 ../v2v/virt-v2v.pod:1008 ../v2v/virt-v2v.pod:1012 ../v2v/virt-v2v.pod:1200 ../v2v/virt-v2v.pod:1205 ../v2v/virt-v2v.pod:1210
 msgid "*"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:140 ../builder/virt-builder.pod:1839 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518 ../customize/virt-customize.pod:252 ../daemon/guestfsd.pod:138 ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1370 ../examples/guestfs-performance.pod:561 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1595 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:147 ../get-kernel/virt-get-kernel.pod:162 ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:4326 ../inspector/virt-inspector.pod:498 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:142 ../p2v/virt-p2v-make-kickstart.pod:297 ../p2v/virt-p2v.pod:716 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412 ../resize/virt-resize.pod:794 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4888 ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/test-harness/virt-v2v-test-harness.pod:260 ../v2v/virt-v2v.pod:1680
+#: ../align/virt-alignment-scan.pod:384 ../appliance/libguestfs-make-fixed-appliance.pod:140 ../builder/virt-builder.pod:1839 ../builder/virt-index-validate.pod:79 ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386 ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518 ../customize/virt-customize.pod:252 ../daemon/guestfsd.pod:138 ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248 ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1370 ../examples/guestfs-performance.pod:562 ../examples/guestfs-recipes.pod:668 ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1595 ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48 ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45 ../fish/virt-tar-out.pod:39 ../format/virt-format.pod:185 ../fuse/guestmount.pod:428 ../fuse/guestunmount.pod:147 ../get-kernel/virt-get-kernel.pod:162 ../golang/examples/guestfs-golang.pod:76 ../guestfs-release-notes.pod:4326 ../inspector/virt-inspector.pod:498 ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:142 ../p2v/virt-p2v-make-kickstart.pod:297 ../p2v/virt-p2v.pod:716 ../perl/examples/guestfs-perl.pod:38 ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:412 ../resize/virt-resize.pod:794 ../ruby/examples/guestfs-ruby.pod:34 ../sparsify/virt-sparsify.pod:439 ../src/guestfs.pod:4888 ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:178 ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263 ../tools/virt-tar:292 ../tools/virt-win-reg:785 ../v2v/test-harness/virt-v2v-test-harness.pod:260 ../v2v/virt-v2v.pod:1680
 msgid "SEE ALSO"
 msgstr ""
 
@@ -845,7 +845,7 @@ msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 msgstr ""
 
 #. type: =head1
-#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:152 ../builder/virt-builder.pod:1862 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532 ../customize/virt-customize.pod:273 ../daemon/guestfsd.pod:147 ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262 ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1380 ../examples/guestfs-performance.pod:577 ../examples/guestfs-recipes.pod:687 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1634 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:446 ../fuse/guestunmount.pod:160 ../get-kernel/virt-get-kernel.pod:174 ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:4341 ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:153 ../p2v/virt-p2v-make-kickstart.pod:310 ../p2v/virt-p2v.pod:741 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:822 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4952 ../sysprep/virt-sysprep.pod:582 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/test-harness/virt-v2v-test-harness.pod:274 ../v2v/virt-v2v.pod:1711
+#: ../align/virt-alignment-scan.pod:397 ../appliance/libguestfs-make-fixed-appliance.pod:152 ../builder/virt-builder.pod:1862 ../builder/virt-index-validate.pod:88 ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401 ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532 ../customize/virt-customize.pod:273 ../daemon/guestfsd.pod:147 ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262 ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114 ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1380 ../examples/guestfs-performance.pod:578 ../examples/guestfs-recipes.pod:687 ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1634 ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62 ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60 ../fish/virt-tar-out.pod:53 ../format/virt-format.pod:199 ../fuse/guestmount.pod:446 ../fuse/guestunmount.pod:160 ../get-kernel/virt-get-kernel.pod:174 ../golang/examples/guestfs-golang.pod:95 ../guestfs-release-notes.pod:4341 ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:153 ../p2v/virt-p2v-make-kickstart.pod:310 ../p2v/virt-p2v.pod:741 ../perl/examples/guestfs-perl.pod:57 ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:426 ../resize/virt-resize.pod:822 ../ruby/examples/guestfs-ruby.pod:52 ../sparsify/virt-sparsify.pod:456 ../src/guestfs.pod:4952 ../sysprep/virt-sysprep.pod:582 ../test-tool/libguestfs-test-tool.pod:188 ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278 ../tools/virt-tar:310 ../tools/virt-win-reg:803 ../v2v/test-harness/virt-v2v-test-harness.pod:274 ../v2v/virt-v2v.pod:1711
 msgid "COPYRIGHT"
 msgstr ""
 
@@ -1103,12 +1103,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../appliance/libguestfs-make-fixed-appliance.pod:148 ../customize/virt-customize.pod:269 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1376 ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:683 ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1630 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:442 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:507 ../java/examples/guestfs-java.pod:171 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:149 ../p2v/virt-p2v-make-kickstart.pod:306 ../p2v/virt-p2v.pod:727 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:65 ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4948 ../sysprep/virt-sysprep.pod:576 ../test-tool/libguestfs-test-tool.pod:184 ../v2v/test-harness/virt-v2v-test-harness.pod:270 ../v2v/virt-v2v.pod:1697
+#: ../appliance/libguestfs-make-fixed-appliance.pod:148 ../customize/virt-customize.pod:269 ../erlang/examples/guestfs-erlang.pod:110 ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1376 ../examples/guestfs-performance.pod:574 ../examples/guestfs-recipes.pod:683 ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1630 ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58 ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56 ../fish/virt-tar-out.pod:49 ../fuse/guestmount.pod:442 ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91 ../inspector/virt-inspector.pod:507 ../java/examples/guestfs-java.pod:171 ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:149 ../p2v/virt-p2v-make-kickstart.pod:306 ../p2v/virt-p2v.pod:727 ../perl/examples/guestfs-perl.pod:53 ../python/examples/guestfs-python.pod:65 ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:4948 ../sysprep/virt-sysprep.pod:576 ../test-tool/libguestfs-test-tool.pod:184 ../v2v/test-harness/virt-v2v-test-harness.pod:270 ../v2v/virt-v2v.pod:1697
 msgid "AUTHORS"
 msgstr ""
 
 #. type: textblock
-#: ../appliance/libguestfs-make-fixed-appliance.pod:150 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1378 ../examples/guestfs-performance.pod:575 ../examples/guestfs-recipes.pod:685 ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1632 ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:444 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../java/examples/guestfs-java.pod:173 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:67 ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4950 ../test-tool/libguestfs-test-tool.pod:186
+#: ../appliance/libguestfs-make-fixed-appliance.pod:150 ../erlang/examples/guestfs-erlang.pod:112 ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1378 ../examples/guestfs-performance.pod:576 ../examples/guestfs-recipes.pod:685 ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1632 ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60 ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58 ../fish/virt-tar-out.pod:51 ../fuse/guestmount.pod:444 ../fuse/guestunmount.pod:158 ../golang/examples/guestfs-golang.pod:93 ../java/examples/guestfs-java.pod:173 ../lua/examples/guestfs-lua.pod:153 ../ocaml/examples/guestfs-ocaml.pod:97 ../perl/examples/guestfs-perl.pod:55 ../python/examples/guestfs-python.pod:67 ../ruby/examples/guestfs-ruby.pod:50 ../src/guestfs.pod:4950 ../test-tool/libguestfs-test-tool.pod:186
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
@@ -13696,7 +13696,7 @@ msgstr ""
 #: ../examples/guestfs-performance.pod:325
 #, no-wrap
 msgid ""
-" #!/usr/bin/perl -w\n"
+" #!/usr/bin/env perl\n"
 " \n"
 msgstr ""
 
@@ -13706,13 +13706,14 @@ msgstr ""
 msgid ""
 " use strict;\n"
 " use threads;\n"
+" use warnings;\n"
 " use Sys::Guestfs;\n"
 " use Time::HiRes qw(time);\n"
 " \n"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:332
+#: ../examples/guestfs-performance.pod:333
 #, no-wrap
 msgid ""
 " sub test {\n"
@@ -13723,7 +13724,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:337
+#: ../examples/guestfs-performance.pod:338
 #, no-wrap
 msgid ""
 "     # You could add some work for libguestfs to do here.\n"
@@ -13731,7 +13732,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:339
+#: ../examples/guestfs-performance.pod:340
 #, no-wrap
 msgid ""
 "     $g->close ();\n"
@@ -13740,7 +13741,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:342
+#: ../examples/guestfs-performance.pod:343
 #, no-wrap
 msgid ""
 " # Get everything into cache.\n"
@@ -13749,7 +13750,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:345
+#: ../examples/guestfs-performance.pod:346
 #, no-wrap
 msgid ""
 " for my $nr_threads (1..20) {\n"
@@ -13771,12 +13772,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:361
+#: ../examples/guestfs-performance.pod:362
 msgid "USING USER-MODE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:363
+#: ../examples/guestfs-performance.pod:364
 msgid ""
 "Since libguestfs 1.24, it has been possible to use the User-Mode Linux (uml) "
 "backend instead of KVM (see L<guestfs(3)/USER-MODE LINUX BACKEND>).  This "
@@ -13786,12 +13787,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:374
+#: ../examples/guestfs-performance.pod:375
 msgid "UML usually performs the same or slightly slower than KVM, on baremetal."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:378
+#: ../examples/guestfs-performance.pod:379
 msgid ""
 "However UML often performs the same under virtualization as it does on "
 "baremetal, whereas KVM can run much slower under virtualization (since "
@@ -13799,7 +13800,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:384
+#: ../examples/guestfs-performance.pod:385
 msgid ""
 "Upload and download is as much as 10 times slower on UML than KVM.  "
 "Libguestfs sends this data over the UML emulated serial port, which is far "
@@ -13807,48 +13808,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:390
+#: ../examples/guestfs-performance.pod:391
 msgid ""
 "UML lacks some features (eg. qcow2 support), so it may not be applicable at "
 "all."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:395
+#: ../examples/guestfs-performance.pod:396
 msgid ""
 "For some actual figures, see: "
 "L<http://rwmj.wordpress.com/2013/08/14/performance-of-user-mode-linux-as-a-libguestfs-backend/#content>"
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:398
+#: ../examples/guestfs-performance.pod:399
 msgid "TROUBLESHOOTING POOR PERFORMANCE"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-performance.pod:400
+#: ../examples/guestfs-performance.pod:401
 msgid "ENSURE HARDWARE VIRTUALIZATION IS AVAILABLE"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:402
+#: ../examples/guestfs-performance.pod:403
 msgid "Use F</proc/cpuinfo> and this page:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:404
+#: ../examples/guestfs-performance.pod:405
 msgid "http://virt-tools.org/learning/check-hardware-virt/"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:406
+#: ../examples/guestfs-performance.pod:407
 msgid ""
 "to ensure that hardware virtualization is available.  Note that you may need "
 "to enable it in your BIOS."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:409
+#: ../examples/guestfs-performance.pod:410
 msgid ""
 "Hardware virt is not usually available inside VMs, and libguestfs will run "
 "slowly inside another virtual machine whatever you do.  Nested "
@@ -13857,12 +13858,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-performance.pod:414
+#: ../examples/guestfs-performance.pod:415
 msgid "ENSURE KVM IS AVAILABLE"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:416
+#: ../examples/guestfs-performance.pod:417
 msgid ""
 "Ensure that KVM is enabled and available to the user that will run "
 "libguestfs.  It should be safe to set 0666 permissions on F</dev/kvm> and "
@@ -13870,29 +13871,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-performance.pod:420
+#: ../examples/guestfs-performance.pod:421
 msgid "PROCESSORS TO AVOID"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:422
+#: ../examples/guestfs-performance.pod:423
 msgid ""
 "Avoid processors that don't have hardware virtualization, and some "
 "processors which are simply very slow (AMD Geode being a great example)."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:426
+#: ../examples/guestfs-performance.pod:427
 msgid "DETAILED TIMINGS USING TS"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:428
+#: ../examples/guestfs-performance.pod:429
 msgid "Use the L<ts(1)> command (from moreutils) to show detailed timings:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:431
+#: ../examples/guestfs-performance.pod:432
 #, no-wrap
 msgid ""
 " $ guestfish -a /dev/null run -v |& ts -i '%.s'\n"
@@ -13913,29 +13914,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:445
+#: ../examples/guestfs-performance.pod:446
 msgid "The timestamps are seconds (incrementally since the previous line)."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:447
+#: ../examples/guestfs-performance.pod:448
 msgid "DETAILED TIMINGS USING SYSTEMTAP"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:449
+#: ../examples/guestfs-performance.pod:450
 msgid ""
 "You can use SystemTap (L<stap(1)>) to get detailed timings from libguestfs "
 "programs."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:452
+#: ../examples/guestfs-performance.pod:453
 msgid "Save the following script as F<time.stap>:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:454 ../src/guestfs.pod:3429
+#: ../examples/guestfs-performance.pod:455 ../src/guestfs.pod:3429
 #, no-wrap
 msgid ""
 " global last;\n"
@@ -13943,7 +13944,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:456 ../src/guestfs.pod:3431
+#: ../examples/guestfs-performance.pod:457 ../src/guestfs.pod:3431
 #, no-wrap
 msgid ""
 " function display_time () {\n"
@@ -13956,7 +13957,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:463 ../src/guestfs.pod:3438
+#: ../examples/guestfs-performance.pod:464 ../src/guestfs.pod:3438
 #, no-wrap
 msgid ""
 "       printf (\"%d (+%d):\", now, delta);\n"
@@ -13965,7 +13966,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:466 ../src/guestfs.pod:3441
+#: ../examples/guestfs-performance.pod:467 ../src/guestfs.pod:3441
 #, no-wrap
 msgid ""
 " probe begin {\n"
@@ -13976,7 +13977,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:471 ../src/guestfs.pod:3446
+#: ../examples/guestfs-performance.pod:472 ../src/guestfs.pod:3446
 #, no-wrap
 msgid ""
 " /* Display all calls to static markers. */\n"
@@ -13989,7 +13990,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:478
+#: ../examples/guestfs-performance.pod:479
 #, no-wrap
 msgid ""
 " /* Display all calls to guestfs_* functions. */\n"
@@ -14002,12 +14003,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:485
+#: ../examples/guestfs-performance.pod:486
 msgid "Run it as root in one window:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:487
+#: ../examples/guestfs-performance.pod:488
 #, no-wrap
 msgid ""
 " # stap time.stap\n"
@@ -14016,7 +14017,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:490
+#: ../examples/guestfs-performance.pod:491
 msgid ""
 "It prints \"ready\" when SystemTap has loaded the program.  Run your "
 "libguestfs program, guestfish or a virt tool in another window.  For "
@@ -14024,7 +14025,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:494
+#: ../examples/guestfs-performance.pod:495
 #, no-wrap
 msgid ""
 " $ guestfish -a /dev/null run\n"
@@ -14032,14 +14033,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:496
+#: ../examples/guestfs-performance.pod:497
 msgid ""
 "In the stap window you will see a large amount of output, with the time "
 "taken for each step shown (microseconds in parenthesis).  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:500
+#: ../examples/guestfs-performance.pod:501
 #, no-wrap
 msgid ""
 " xxxx (+0):\tguestfs_create \n"
@@ -14055,26 +14056,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:510
+#: ../examples/guestfs-performance.pod:511
 msgid ""
 "You will need to consult, and even modify, the source to libguestfs to fully "
 "understand the output."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:513
+#: ../examples/guestfs-performance.pod:514
 msgid "DETAILED DEBUGGING USING GDB"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:515
+#: ../examples/guestfs-performance.pod:516
 msgid ""
 "You can attach to the appliance BIOS/kernel using gdb.  If you know what "
 "you're doing, this can be a useful way to diagnose boot regressions."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:519
+#: ../examples/guestfs-performance.pod:520
 msgid ""
 "Firstly, you have to change qemu so it runs with the C<-S> and C<-s> "
 "options.  These options cause qemu to pause at boot and allow you to attach "
@@ -14085,7 +14086,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:526 ../fish/guestfish.pod:1013 ../src/guestfs.pod:1380
+#: ../examples/guestfs-performance.pod:527 ../fish/guestfish.pod:1013 ../src/guestfs.pod:1380
 #, no-wrap
 msgid ""
 " #!/bin/bash -\n"
@@ -14093,7 +14094,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:528
+#: ../examples/guestfs-performance.pod:529
 #, no-wrap
 msgid ""
 " # Set this to point to the real qemu binary.\n"
@@ -14102,7 +14103,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:531
+#: ../examples/guestfs-performance.pod:532
 #, no-wrap
 msgid ""
 " if [ \"$1\" != \"-global\" ]; then\n"
@@ -14116,14 +14117,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:539
+#: ../examples/guestfs-performance.pod:540
 msgid ""
 "Now run guestfish or another libguestfs tool with the qemu wrapper (see "
 "L<guestfs(3)/QEMU WRAPPERS> to understand what this is doing):"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:542
+#: ../examples/guestfs-performance.pod:543
 #, no-wrap
 msgid ""
 " LIBGUESTFS_HV=/path/to/qemu-wrapper guestfish -a /dev/null -v run\n"
@@ -14131,14 +14132,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:544
+#: ../examples/guestfs-performance.pod:545
 msgid ""
 "This should pause just after qemu launches.  In another window, attach to "
 "qemu using gdb:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:547
+#: ../examples/guestfs-performance.pod:548
 #, no-wrap
 msgid ""
 " $ gdb\n"
@@ -14152,7 +14153,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:555
+#: ../examples/guestfs-performance.pod:556
 msgid ""
 "At this point you can use standard gdb techniques, eg. hitting C<^C> to "
 "interrupt the boot and C<bt> get a stack trace, setting breakpoints, etc.  "
@@ -14161,7 +14162,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:563
+#: ../examples/guestfs-performance.pod:564
 msgid ""
 "L<supermin(1)>, L<guestfish(1)>, L<guestfs(3)>, L<guestfs-examples(3)>, "
 "L<libguestfs-make-fixed-appliance(1)>, L<stap(1)>, L<qemu(1)>, L<gdb(1)>, "
@@ -14169,7 +14170,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:579 ../format/virt-format.pod:201 ../lua/examples/guestfs-lua.pod:157
+#: ../examples/guestfs-performance.pod:580 ../format/virt-format.pod:201 ../lua/examples/guestfs-lua.pod:157
 msgid "Copyright (C) 2012 Red Hat Inc."
 msgstr ""
 
@@ -31447,7 +31448,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7144 ../src/guestfs-actions.pod:11947
 msgid ""
-"The label is limited to 256 bytes and some characters are not allowed.  "
+"The label is limited to 255 bytes and some characters are not allowed.  "
 "Setting the label on a btrfs subvolume will set the label on its parent "
 "filesystem.  The filesystem must not be mounted when trying to set the "
 "label."

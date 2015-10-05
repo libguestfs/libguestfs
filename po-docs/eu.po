@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-09-29 18:59+0100\n"
+"POT-Creation-Date: 2015-10-05 16:23+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -1145,10 +1145,10 @@ msgstr ""
 #: ../examples/guestfs-performance.pod:243
 #: ../examples/guestfs-performance.pod:248
 #: ../examples/guestfs-performance.pod:253
-#: ../examples/guestfs-performance.pod:372
-#: ../examples/guestfs-performance.pod:376
-#: ../examples/guestfs-performance.pod:382
-#: ../examples/guestfs-performance.pod:388 ../examples/guestfs-recipes.pod:229
+#: ../examples/guestfs-performance.pod:373
+#: ../examples/guestfs-performance.pod:377
+#: ../examples/guestfs-performance.pod:383
+#: ../examples/guestfs-performance.pod:389 ../examples/guestfs-recipes.pod:229
 #: ../examples/guestfs-recipes.pod:233 ../examples/guestfs-recipes.pod:237
 #: ../examples/guestfs-recipes.pod:263 ../examples/guestfs-recipes.pod:268
 #: ../examples/guestfs-recipes.pod:375 ../examples/guestfs-recipes.pod:379
@@ -1329,7 +1329,7 @@ msgstr ""
 #: ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248
 #: ../edit/virt-edit.pod:389 ../erlang/examples/guestfs-erlang.pod:95
 #: ../examples/guestfs-examples.pod:55 ../examples/guestfs-faq.pod:1370
-#: ../examples/guestfs-performance.pod:561 ../examples/guestfs-recipes.pod:668
+#: ../examples/guestfs-performance.pod:562 ../examples/guestfs-recipes.pod:668
 #: ../examples/guestfs-testing.pod:384 ../fish/guestfish.pod:1595
 #: ../fish/libguestfs-tools.conf.pod:88 ../fish/virt-copy-in.pod:48
 #: ../fish/virt-copy-out.pod:37 ../fish/virt-tar-in.pod:45
@@ -1402,7 +1402,7 @@ msgstr ""
 #: ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262
 #: ../edit/virt-edit.pod:404 ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:73 ../examples/guestfs-faq.pod:1380
-#: ../examples/guestfs-performance.pod:577 ../examples/guestfs-recipes.pod:687
+#: ../examples/guestfs-performance.pod:578 ../examples/guestfs-recipes.pod:687
 #: ../examples/guestfs-testing.pod:395 ../fish/guestfish.pod:1634
 #: ../fish/libguestfs-tools.conf.pod:100 ../fish/virt-copy-in.pod:62
 #: ../fish/virt-copy-out.pod:51 ../fish/virt-tar-in.pod:60
@@ -1694,7 +1694,7 @@ msgstr ""
 #: ../customize/virt-customize.pod:269
 #: ../erlang/examples/guestfs-erlang.pod:110
 #: ../examples/guestfs-examples.pod:69 ../examples/guestfs-faq.pod:1376
-#: ../examples/guestfs-performance.pod:573 ../examples/guestfs-recipes.pod:683
+#: ../examples/guestfs-performance.pod:574 ../examples/guestfs-recipes.pod:683
 #: ../examples/guestfs-testing.pod:391 ../fish/guestfish.pod:1630
 #: ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:58
 #: ../fish/virt-copy-out.pod:47 ../fish/virt-tar-in.pod:56
@@ -1715,7 +1715,7 @@ msgstr "EGILEAK"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:71 ../examples/guestfs-faq.pod:1378
-#: ../examples/guestfs-performance.pod:575 ../examples/guestfs-recipes.pod:685
+#: ../examples/guestfs-performance.pod:576 ../examples/guestfs-recipes.pod:685
 #: ../examples/guestfs-testing.pod:393 ../fish/guestfish.pod:1632
 #: ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:60
 #: ../fish/virt-copy-out.pod:49 ../fish/virt-tar-in.pod:58
@@ -14669,7 +14669,7 @@ msgstr ""
 #: ../examples/guestfs-performance.pod:325
 #, no-wrap
 msgid ""
-" #!/usr/bin/perl -w\n"
+" #!/usr/bin/env perl\n"
 " \n"
 msgstr ""
 
@@ -14679,13 +14679,14 @@ msgstr ""
 msgid ""
 " use strict;\n"
 " use threads;\n"
+" use warnings;\n"
 " use Sys::Guestfs;\n"
 " use Time::HiRes qw(time);\n"
 " \n"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:332
+#: ../examples/guestfs-performance.pod:333
 #, no-wrap
 msgid ""
 " sub test {\n"
@@ -14696,7 +14697,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:337
+#: ../examples/guestfs-performance.pod:338
 #, no-wrap
 msgid ""
 "     # You could add some work for libguestfs to do here.\n"
@@ -14704,7 +14705,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:339
+#: ../examples/guestfs-performance.pod:340
 #, no-wrap
 msgid ""
 "     $g->close ();\n"
@@ -14713,7 +14714,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:342
+#: ../examples/guestfs-performance.pod:343
 #, no-wrap
 msgid ""
 " # Get everything into cache.\n"
@@ -14722,7 +14723,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:345
+#: ../examples/guestfs-performance.pod:346
 #, no-wrap
 msgid ""
 " for my $nr_threads (1..20) {\n"
@@ -14744,12 +14745,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:361
+#: ../examples/guestfs-performance.pod:362
 msgid "USING USER-MODE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:363
+#: ../examples/guestfs-performance.pod:364
 msgid ""
 "Since libguestfs 1.24, it has been possible to use the User-Mode Linux (uml) "
 "backend instead of KVM (see L<guestfs(3)/USER-MODE LINUX BACKEND>).  This "
@@ -14759,13 +14760,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:374
+#: ../examples/guestfs-performance.pod:375
 msgid ""
 "UML usually performs the same or slightly slower than KVM, on baremetal."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:378
+#: ../examples/guestfs-performance.pod:379
 msgid ""
 "However UML often performs the same under virtualization as it does on "
 "baremetal, whereas KVM can run much slower under virtualization (since "
@@ -14773,7 +14774,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:384
+#: ../examples/guestfs-performance.pod:385
 msgid ""
 "Upload and download is as much as 10 times slower on UML than KVM.  "
 "Libguestfs sends this data over the UML emulated serial port, which is far "
@@ -14781,48 +14782,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:390
+#: ../examples/guestfs-performance.pod:391
 msgid ""
 "UML lacks some features (eg. qcow2 support), so it may not be applicable at "
 "all."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:395
+#: ../examples/guestfs-performance.pod:396
 msgid ""
 "For some actual figures, see: L<http://rwmj.wordpress.com/2013/08/14/"
 "performance-of-user-mode-linux-as-a-libguestfs-backend/#content>"
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:398
+#: ../examples/guestfs-performance.pod:399
 msgid "TROUBLESHOOTING POOR PERFORMANCE"
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-performance.pod:400
+#: ../examples/guestfs-performance.pod:401
 msgid "ENSURE HARDWARE VIRTUALIZATION IS AVAILABLE"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:402
+#: ../examples/guestfs-performance.pod:403
 msgid "Use F</proc/cpuinfo> and this page:"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:404
+#: ../examples/guestfs-performance.pod:405
 msgid "http://virt-tools.org/learning/check-hardware-virt/"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:406
+#: ../examples/guestfs-performance.pod:407
 msgid ""
 "to ensure that hardware virtualization is available.  Note that you may need "
 "to enable it in your BIOS."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:409
+#: ../examples/guestfs-performance.pod:410
 msgid ""
 "Hardware virt is not usually available inside VMs, and libguestfs will run "
 "slowly inside another virtual machine whatever you do.  Nested "
@@ -14831,12 +14832,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-performance.pod:414
+#: ../examples/guestfs-performance.pod:415
 msgid "ENSURE KVM IS AVAILABLE"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:416
+#: ../examples/guestfs-performance.pod:417
 msgid ""
 "Ensure that KVM is enabled and available to the user that will run "
 "libguestfs.  It should be safe to set 0666 permissions on F</dev/kvm> and "
@@ -14844,29 +14845,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../examples/guestfs-performance.pod:420
+#: ../examples/guestfs-performance.pod:421
 msgid "PROCESSORS TO AVOID"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:422
+#: ../examples/guestfs-performance.pod:423
 msgid ""
 "Avoid processors that don't have hardware virtualization, and some "
 "processors which are simply very slow (AMD Geode being a great example)."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:426
+#: ../examples/guestfs-performance.pod:427
 msgid "DETAILED TIMINGS USING TS"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:428
+#: ../examples/guestfs-performance.pod:429
 msgid "Use the L<ts(1)> command (from moreutils) to show detailed timings:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:431
+#: ../examples/guestfs-performance.pod:432
 #, no-wrap
 msgid ""
 " $ guestfish -a /dev/null run -v |& ts -i '%.s'\n"
@@ -14886,29 +14887,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:445
+#: ../examples/guestfs-performance.pod:446
 msgid "The timestamps are seconds (incrementally since the previous line)."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:447
+#: ../examples/guestfs-performance.pod:448
 msgid "DETAILED TIMINGS USING SYSTEMTAP"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:449
+#: ../examples/guestfs-performance.pod:450
 msgid ""
 "You can use SystemTap (L<stap(1)>) to get detailed timings from libguestfs "
 "programs."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:452
+#: ../examples/guestfs-performance.pod:453
 msgid "Save the following script as F<time.stap>:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:454 ../src/guestfs.pod:3429
+#: ../examples/guestfs-performance.pod:455 ../src/guestfs.pod:3429
 #, no-wrap
 msgid ""
 " global last;\n"
@@ -14916,7 +14917,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:456 ../src/guestfs.pod:3431
+#: ../examples/guestfs-performance.pod:457 ../src/guestfs.pod:3431
 #, no-wrap
 msgid ""
 " function display_time () {\n"
@@ -14929,7 +14930,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:463 ../src/guestfs.pod:3438
+#: ../examples/guestfs-performance.pod:464 ../src/guestfs.pod:3438
 #, no-wrap
 msgid ""
 "       printf (\"%d (+%d):\", now, delta);\n"
@@ -14938,7 +14939,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:466 ../src/guestfs.pod:3441
+#: ../examples/guestfs-performance.pod:467 ../src/guestfs.pod:3441
 #, no-wrap
 msgid ""
 " probe begin {\n"
@@ -14949,7 +14950,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:471 ../src/guestfs.pod:3446
+#: ../examples/guestfs-performance.pod:472 ../src/guestfs.pod:3446
 #, no-wrap
 msgid ""
 " /* Display all calls to static markers. */\n"
@@ -14962,7 +14963,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:478
+#: ../examples/guestfs-performance.pod:479
 #, no-wrap
 msgid ""
 " /* Display all calls to guestfs_* functions. */\n"
@@ -14975,12 +14976,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:485
+#: ../examples/guestfs-performance.pod:486
 msgid "Run it as root in one window:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:487
+#: ../examples/guestfs-performance.pod:488
 #, no-wrap
 msgid ""
 " # stap time.stap\n"
@@ -14989,14 +14990,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:490
+#: ../examples/guestfs-performance.pod:491
 msgid ""
 "It prints \"ready\" when SystemTap has loaded the program.  Run your "
 "libguestfs program, guestfish or a virt tool in another window.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:494
+#: ../examples/guestfs-performance.pod:495
 #, no-wrap
 msgid ""
 " $ guestfish -a /dev/null run\n"
@@ -15004,14 +15005,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:496
+#: ../examples/guestfs-performance.pod:497
 msgid ""
 "In the stap window you will see a large amount of output, with the time "
 "taken for each step shown (microseconds in parenthesis).  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:500
+#: ../examples/guestfs-performance.pod:501
 #, no-wrap
 msgid ""
 " xxxx (+0):\tguestfs_create \n"
@@ -15027,26 +15028,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:510
+#: ../examples/guestfs-performance.pod:511
 msgid ""
 "You will need to consult, and even modify, the source to libguestfs to fully "
 "understand the output."
 msgstr ""
 
 #. type: =head1
-#: ../examples/guestfs-performance.pod:513
+#: ../examples/guestfs-performance.pod:514
 msgid "DETAILED DEBUGGING USING GDB"
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:515
+#: ../examples/guestfs-performance.pod:516
 msgid ""
 "You can attach to the appliance BIOS/kernel using gdb.  If you know what "
 "you're doing, this can be a useful way to diagnose boot regressions."
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:519
+#: ../examples/guestfs-performance.pod:520
 msgid ""
 "Firstly, you have to change qemu so it runs with the C<-S> and C<-s> "
 "options.  These options cause qemu to pause at boot and allow you to attach "
@@ -15057,7 +15058,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:526 ../fish/guestfish.pod:1013
+#: ../examples/guestfs-performance.pod:527 ../fish/guestfish.pod:1013
 #: ../src/guestfs.pod:1380
 #, no-wrap
 msgid ""
@@ -15066,7 +15067,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:528
+#: ../examples/guestfs-performance.pod:529
 #, no-wrap
 msgid ""
 " # Set this to point to the real qemu binary.\n"
@@ -15075,7 +15076,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:531
+#: ../examples/guestfs-performance.pod:532
 #, no-wrap
 msgid ""
 " if [ \"$1\" != \"-global\" ]; then\n"
@@ -15089,14 +15090,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:539
+#: ../examples/guestfs-performance.pod:540
 msgid ""
 "Now run guestfish or another libguestfs tool with the qemu wrapper (see "
 "L<guestfs(3)/QEMU WRAPPERS> to understand what this is doing):"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:542
+#: ../examples/guestfs-performance.pod:543
 #, no-wrap
 msgid ""
 " LIBGUESTFS_HV=/path/to/qemu-wrapper guestfish -a /dev/null -v run\n"
@@ -15104,14 +15105,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:544
+#: ../examples/guestfs-performance.pod:545
 msgid ""
 "This should pause just after qemu launches.  In another window, attach to "
 "qemu using gdb:"
 msgstr ""
 
 #. type: verbatim
-#: ../examples/guestfs-performance.pod:547
+#: ../examples/guestfs-performance.pod:548
 #, no-wrap
 msgid ""
 " $ gdb\n"
@@ -15125,7 +15126,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:555
+#: ../examples/guestfs-performance.pod:556
 msgid ""
 "At this point you can use standard gdb techniques, eg. hitting C<^C> to "
 "interrupt the boot and C<bt> get a stack trace, setting breakpoints, etc.  "
@@ -15134,7 +15135,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:563
+#: ../examples/guestfs-performance.pod:564
 msgid ""
 "L<supermin(1)>, L<guestfish(1)>, L<guestfs(3)>, L<guestfs-examples(3)>, "
 "L<libguestfs-make-fixed-appliance(1)>, L<stap(1)>, L<qemu(1)>, L<gdb(1)>, "
@@ -15142,7 +15143,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../examples/guestfs-performance.pod:579 ../format/virt-format.pod:201
+#: ../examples/guestfs-performance.pod:580 ../format/virt-format.pod:201
 #: ../lua/examples/guestfs-lua.pod:157
 msgid "Copyright (C) 2012 Red Hat Inc."
 msgstr ""
@@ -32734,7 +32735,7 @@ msgstr ""
 #. type: textblock
 #: ../fish/guestfish-actions.pod:7144 ../src/guestfs-actions.pod:11947
 msgid ""
-"The label is limited to 256 bytes and some characters are not allowed.  "
+"The label is limited to 255 bytes and some characters are not allowed.  "
 "Setting the label on a btrfs subvolume will set the label on its parent "
 "filesystem.  The filesystem must not be mounted when trying to set the label."
 msgstr ""

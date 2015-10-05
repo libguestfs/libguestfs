@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-04 19:58+0100\n"
+"POT-Creation-Date: 2015-10-05 16:23+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -3877,7 +3877,7 @@ msgstr ""
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
 
-#: align/scan.c:77
+#: align/scan.c:76
 #, c-format
 msgid ""
 "%s: check alignment of virtual machine partitions\n"
@@ -3899,43 +3899,43 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:135 cat/cat.c:120 cat/filesystems.c:189 cat/log.c:122
-#: cat/ls.c:182 df/main.c:135 diff/diff.c:194 diff/diff.c:200 edit/edit.c:137
+#: align/scan.c:134 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
+#: cat/ls.c:181 df/main.c:134 diff/diff.c:193 diff/diff.c:199 edit/edit.c:136
 #: fish/fish.c:237 format/format.c:131 fuse/guestmount.c:212
-#: inspector/inspector.c:129 make-fs/make-fs.c:116 rescue/rescue.c:137
+#: inspector/inspector.c:128 make-fs/make-fs.c:116 rescue/rescue.c:136
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:141
-#: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:231 df/main.c:158
-#: diff/diff.c:264 edit/edit.c:158 fish/fish.c:294 format/format.c:184
-#: fuse/guestmount.c:252 fuse/guestunmount.c:124 inspector/inspector.c:152
-#: make-fs/make-fs.c:146 p2v/main.c:149 rescue/rescue.c:193
+#: align/scan.c:153 builder/index-validate.c:85 cat/cat.c:140
+#: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
+#: diff/diff.c:263 edit/edit.c:157 fish/fish.c:294 format/format.c:184
+#: fuse/guestmount.c:252 fuse/guestunmount.c:123 inspector/inspector.c:151
+#: make-fs/make-fs.c:146 p2v/main.c:149 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
 
-#: align/scan.c:174 df/main.c:186
+#: align/scan.c:174 df/main.c:185
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr ""
 
-#: align/scan.c:231 df/main.c:282
+#: align/scan.c:232 df/main.c:282
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
-#: align/scan.c:237
+#: align/scan.c:238
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr ""
 
-#: align/scan.c:339
+#: align/scan.c:340
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:342
+#: align/scan.c:343
 msgid "alignment < 64K"
 msgstr ""
 
@@ -3982,7 +3982,7 @@ msgid ""
 "builder 1.24.0\n"
 msgstr ""
 
-#: cat/cat.c:57
+#: cat/cat.c:56
 #, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -4006,7 +4006,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/filesystems.c:91
+#: cat/filesystems.c:90
 #, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -4045,12 +4045,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/filesystems.c:306 cat/ls.c:346 df/main.c:265 diff/diff.c:330
+#: cat/filesystems.c:306 cat/ls.c:345 df/main.c:265 diff/diff.c:330
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
 
-#: cat/log.c:66
+#: cat/log.c:65
 #, c-format
 msgid ""
 "%s: display log files in a virtual machine\n"
@@ -4096,7 +4096,7 @@ msgstr ""
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
 
-#: cat/ls.c:87
+#: cat/ls.c:86
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -4131,7 +4131,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/ls.c:337
+#: cat/ls.c:336
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -4173,7 +4173,7 @@ msgstr ""
 msgid "%s: could not list inactive domains (code %d, domain %d): %s\n"
 msgstr ""
 
-#: df/main.c:70
+#: df/main.c:69
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -4243,7 +4243,7 @@ msgstr ""
 msgid "IUse%"
 msgstr ""
 
-#: diff/diff.c:96
+#: diff/diff.c:95
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
@@ -4300,7 +4300,7 @@ msgstr ""
 msgid "End of diff"
 msgstr ""
 
-#: edit/edit.c:67
+#: edit/edit.c:66
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
@@ -6715,7 +6715,7 @@ msgstr ""
 msgid "use 'list-events' to list event handlers\n"
 msgstr ""
 
-#: fish/fish.c:109
+#: fish/fish.c:108
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -7292,7 +7292,7 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: format/format.c:69
+#: format/format.c:68
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -7330,7 +7330,7 @@ msgstr ""
 msgid "%s: --lvm option cannot be given multiple times\n"
 msgstr ""
 
-#: format/format.c:274
+#: format/format.c:275
 #, c-format
 msgid ""
 "%s: failed to rescan the disks after two attempts.  This\n"
@@ -7339,12 +7339,12 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:315
+#: format/format.c:316
 #, c-format
 msgid "%s: cannot parse --lvm option (%s)\n"
 msgstr ""
 
-#: fuse/guestmount.c:104
+#: fuse/guestmount.c:103
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -7383,37 +7383,37 @@ msgstr ""
 msgid "%s: unable to parse --fd option value: %s\n"
 msgstr ""
 
-#: fuse/guestmount.c:322
+#: fuse/guestmount.c:323
 #, c-format
 msgid "%s: must have at least one -a/-d and at least one -m/-i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:332
+#: fuse/guestmount.c:333
 #, c-format
 msgid "%s: --live is not compatible with --ro option\n"
 msgstr ""
 
-#: fuse/guestmount.c:339
+#: fuse/guestmount.c:340
 #, c-format
 msgid "%s: --live is not compatible with -i option\n"
 msgstr ""
 
-#: fuse/guestmount.c:354
+#: fuse/guestmount.c:355
 #, c-format
 msgid "%s: with --live, you must use exactly one -d option\n"
 msgstr ""
 
-#: fuse/guestmount.c:361
+#: fuse/guestmount.c:362
 #, c-format
 msgid "%s: --live is not compatible with -a option\n"
 msgstr ""
 
-#: fuse/guestmount.c:370 fuse/guestunmount.c:153
+#: fuse/guestmount.c:371 fuse/guestunmount.c:152
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 
-#: fuse/guestunmount.c:56
+#: fuse/guestunmount.c:55
 #, c-format
 msgid ""
 "%s: clean up a mounted filesystem\n"
@@ -7430,27 +7430,27 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 msgstr ""
 
-#: fuse/guestunmount.c:111
+#: fuse/guestunmount.c:110
 #, c-format
 msgid "%s: cannot parse fd option '%s'\n"
 msgstr ""
 
-#: fuse/guestunmount.c:119
+#: fuse/guestunmount.c:118
 #, c-format
 msgid "%s: cannot parse retries option or value is too large '%s'\n"
 msgstr ""
 
-#: fuse/guestunmount.c:208
+#: fuse/guestunmount.c:207
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
 msgstr ""
 
-#: fuse/guestunmount.c:219
+#: fuse/guestunmount.c:218
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
 msgstr ""
 
-#: inspector/inspector.c:71
+#: inspector/inspector.c:70
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -7515,37 +7515,37 @@ msgstr ""
 msgid "%s: unable to parse XML from stdin\n"
 msgstr ""
 
-#: inspector/inspector.c:780
+#: inspector/inspector.c:781
 #, c-format
 msgid "%s: unable to create new XPath context\n"
 msgstr ""
 
-#: inspector/inspector.c:787
+#: inspector/inspector.c:788
 #, c-format
 msgid "%s: unable to evaluate XPath expression\n"
 msgstr ""
 
-#: inspector/inspector.c:800
+#: inspector/inspector.c:801
 #, c-format
 msgid "%s: xmlSaveToFd failed\n"
 msgstr ""
 
-#: inspector/inspector.c:807
+#: inspector/inspector.c:808
 #, c-format
 msgid "%s: xmlNewDoc failed\n"
 msgstr ""
 
-#: inspector/inspector.c:812
+#: inspector/inspector.c:813
 #, c-format
 msgid "%s: xmlCopyNode failed\n"
 msgstr ""
 
-#: inspector/inspector.c:819
+#: inspector/inspector.c:821
 #, c-format
 msgid "%s: xmlSaveDoc failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:78
+#: make-fs/make-fs.c:77
 #, c-format
 msgid ""
 "%s: make a filesystem from a tar archive or files\n"
@@ -7568,43 +7568,43 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: make-fs/make-fs.c:185
+#: make-fs/make-fs.c:187
 #, c-format
 msgid "%s: missing input and output arguments on the command line\n"
 msgstr ""
 
-#: make-fs/make-fs.c:203
+#: make-fs/make-fs.c:206
 #, c-format
 msgid "%s: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: make-fs/make-fs.c:253 make-fs/make-fs.c:310
+#: make-fs/make-fs.c:256 make-fs/make-fs.c:314
 #, c-format
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:434
+#: make-fs/make-fs.c:439
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:469
+#: make-fs/make-fs.c:474
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:500
+#: make-fs/make-fs.c:505
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:623
+#: make-fs/make-fs.c:628
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %u)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:829
+#: make-fs/make-fs.c:834
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
@@ -7900,7 +7900,7 @@ msgstr ""
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:69
+#: p2v/main.c:68
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -7927,7 +7927,7 @@ msgid ""
 "a GUI is not possible on this host.  Check X11, $DISPLAY etc.\n"
 msgstr ""
 
-#: rescue/rescue.c:60
+#: rescue/rescue.c:59
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -7956,46 +7956,46 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/rescue.c:162
+#: rescue/rescue.c:161
 #, c-format
 msgid "%s: could not parse --smp parameter '%s'\n"
 msgstr ""
 
-#: rescue/rescue.c:167
+#: rescue/rescue.c:166
 #, c-format
 msgid "%s: --smp parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/rescue.c:180
+#: rescue/rescue.c:179
 #, c-format
 msgid "%s: could not parse --scratch parameter '%s'\n"
 msgstr ""
 
-#: rescue/rescue.c:186
+#: rescue/rescue.c:185
 #, c-format
 msgid "%s: --scratch parameter '%s' should be >= 1\n"
 msgstr ""
 
-#: rescue/rescue.c:213
+#: rescue/rescue.c:212
 #, c-format
 msgid "%s: could not parse memory size '%s'\n"
 msgstr ""
 
-#: rescue/rescue.c:320
+#: rescue/rescue.c:319
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
 "at the moment.  As a workaround, forcing backend = 'direct'.\n"
 msgstr ""
 
-#: rescue/rescue.c:401
+#: rescue/rescue.c:400
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:420
+#: rescue/rescue.c:419
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -8003,7 +8003,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:435
+#: rescue/rescue.c:434
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -8012,7 +8012,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:492
+#: rescue/rescue.c:491
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -8022,7 +8022,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/rescue.c:499
+#: rescue/rescue.c:498
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -8031,7 +8031,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:504
+#: rescue/rescue.c:503
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
@@ -8058,23 +8058,23 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/conn-socket.c:63
+#: src/conn-socket.c:64
 msgid "accept_connection called twice"
 msgstr ""
 
-#: src/conn-socket.c:142
+#: src/conn-socket.c:143
 msgid "read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:217
+#: src/conn-socket.c:218
 msgid "can_read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:246
+#: src/conn-socket.c:247
 msgid "write_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:339
+#: src/conn-socket.c:340
 msgid "error reading console messages from the appliance"
 msgstr ""
 
