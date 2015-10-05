@@ -497,7 +497,7 @@ create_conversion_dialog (struct config *config)
   target_warning_label = gtk_label_new ("");
   gtk_label_set_line_wrap (GTK_LABEL (target_warning_label), TRUE);
   gtk_label_set_line_wrap_mode (GTK_LABEL (target_warning_label),
-                                GTK_WRAP_WORD);
+                                PANGO_WRAP_WORD);
   gtk_widget_set_size_request (target_warning_label, -1, 7 * 16);
   gtk_box_pack_end (GTK_BOX (target_vbox), target_warning_label, TRUE, TRUE, 0);
 
