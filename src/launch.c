@@ -244,16 +244,16 @@ guestfs_impl_get_state (guestfs_h *g)
 /* Add arbitrary qemu parameters.  Useful for testing. */
 int
 guestfs_impl_config (guestfs_h *g,
-                 const char *hv_param, const char *hv_value)
+		     const char *hv_param, const char *hv_value)
 {
   struct hv_param *hp;
 
   /*
     XXX For qemu this made sense, but not for uml.
-  if (hv_param[0] != '-') {
+    if (hv_param[0] != '-') {
     error (g, _("parameter must begin with '-' character"));
     return -1;
-  }
+    }
   */
 
   /* A bit fascist, but the user will probably break the extra
@@ -310,7 +310,7 @@ guestfs_impl_config (guestfs_h *g,
 
 char *
 guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
-                                  int flags)
+				    int flags)
 {
   char root[64] = "";
   char *term = getenv ("TERM");

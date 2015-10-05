@@ -56,8 +56,8 @@ run_man (const char *cmd, size_t argc, char *argv[])
 
     fprintf (stderr, "%s\n",
              guestfs_int_exit_status_to_string (r, "man",
-                                              status_string,
-                                              sizeof status_string));
+						status_string,
+						sizeof status_string));
     return -1;
   }
 

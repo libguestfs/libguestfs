@@ -156,7 +156,7 @@ add_cmdline_shell_unquoted (guestfs_h *g, struct stringsbuf *sb,
       nextp++;
 
     guestfs_int_add_string_nodup (g, sb,
-                                safe_strndup (g, startp, endp-startp));
+				  safe_strndup (g, startp, endp-startp));
 
     options = nextp;
   }
@@ -215,10 +215,10 @@ debian_kvm_warning (guestfs_h *g)
    * in warnings.
    */
   warning (g,
-  _("current user is not a member of the KVM group (group ID %d). "
-    "This user cannot access /dev/kvm, so libguestfs may run very slowly. "
-    "It is recommended that you 'chmod 0666 /dev/kvm' or add the current user "
-    "to the KVM group (you might need to log out and log in again)."),
+	   _("current user is not a member of the KVM group (group ID %d). "
+	     "This user cannot access /dev/kvm, so libguestfs may run very slowly. "
+	     "It is recommended that you 'chmod 0666 /dev/kvm' or add the current user "
+	     "to the KVM group (you might need to log out and log in again)."),
            (int) kvm_group);
 #endif /* __linux__ */
 }
@@ -333,11 +333,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * forking, because after fork we are not allowed to use
    * non-signal-safe functions such as malloc.
    */
-#define ADD_CMDLINE(str) \
+#define ADD_CMDLINE(str)			\
   guestfs_int_add_string (g, &cmdline, (str))
-#define ADD_CMDLINE_STRING_NODUP(str) \
+#define ADD_CMDLINE_STRING_NODUP(str)			\
   guestfs_int_add_string_nodup (g, &cmdline, (str))
-#define ADD_CMDLINE_PRINTF(fs,...) \
+#define ADD_CMDLINE_PRINTF(fs,...)				\
   guestfs_int_add_sprintf (g, &cmdline, (fs), ##__VA_ARGS__)
 
   ADD_CMDLINE (g->hv);
@@ -615,7 +615,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (!has_kvm || force_tcg)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
   ADD_CMDLINE_STRING_NODUP (guestfs_int_appliance_command_line (g, appliance_dev,
-                                                              flags));
+								flags));
 
   /* Note: custom command line parameters must come last so that
    * qemu -set parameters can modify previously added options.
@@ -963,7 +963,7 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   guestfs_int_cmd_add_arg (cmd1, "none");
   guestfs_int_cmd_add_arg (cmd1, "-help");
   guestfs_int_cmd_set_stdout_callback (cmd1, read_all, &data->qemu_help,
-                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+				       CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs_int_cmd_run (cmd1);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
@@ -973,7 +973,7 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   guestfs_int_cmd_add_arg (cmd2, "none");
   guestfs_int_cmd_add_arg (cmd2, "-version");
   guestfs_int_cmd_set_stdout_callback (cmd2, read_all, &data->qemu_version,
-                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+				       CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs_int_cmd_run (cmd2);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
@@ -994,7 +994,7 @@ test_qemu (guestfs_h *g, struct backend_direct_data *data)
   guestfs_int_cmd_clear_capture_errors (cmd3);
   guestfs_int_cmd_set_stderr_to_stdout (cmd3);
   guestfs_int_cmd_set_stdout_callback (cmd3, read_all, &data->qemu_devices,
-                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+				       CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs_int_cmd_run (cmd3);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
@@ -1331,13 +1331,13 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *sr
     mon_host[n] = '\0';
 
     if (src->username)
-        username = safe_asprintf (g, ":id=%s", src->username);
+      username = safe_asprintf (g, ":id=%s", src->username);
     if (src->secret)
-        secret = safe_asprintf (g, ":key=%s", src->secret);
+      secret = safe_asprintf (g, ":key=%s", src->secret);
     if (username || secret)
-        auth = ":auth_supported=cephx\\;none";
+      auth = ":auth_supported=cephx\\;none";
     else
-        auth = ":auth_supported=none";
+      auth = ":auth_supported=none";
 
     return safe_asprintf (g, "rbd:%s%s%s%s%s%s",
                           src->u.exportname,
@@ -1379,7 +1379,7 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *sr
  */
 bool
 guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
-                            unsigned long qemu_version)
+			      unsigned long qemu_version)
 {
   /* qemu >= 1.5.  This was the first version that supported the
    * discard option on -drive at all.

@@ -391,14 +391,14 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
   struct read_package_data data;
 
   Name = guestfs_int_download_to_tmp (g, fs,
-                                    "/var/lib/rpm/Name", "rpm_Name",
-                                    MAX_PKG_DB_SIZE);
+				      "/var/lib/rpm/Name", "rpm_Name",
+				      MAX_PKG_DB_SIZE);
   if (Name == NULL)
     goto error;
 
   Packages = guestfs_int_download_to_tmp (g, fs,
-                                        "/var/lib/rpm/Packages", "rpm_Packages",
-                                        MAX_PKG_DB_SIZE);
+					  "/var/lib/rpm/Packages", "rpm_Packages",
+					  MAX_PKG_DB_SIZE);
   if (Packages == NULL)
     goto error;
 
@@ -446,7 +446,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   int installed_flag = 0;
 
   status = guestfs_int_download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
-                                      MAX_PKG_DB_SIZE);
+					MAX_PKG_DB_SIZE);
   if (status == NULL)
     return NULL;
 
@@ -617,8 +617,8 @@ list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
     }
 
     if ((name == NULL) || (version == NULL) || (arch == NULL))
-       /* Those are mandatory fields. The file is corrupted */
-       goto after_add_application;
+      /* Those are mandatory fields. The file is corrupted */
+      goto after_add_application;
 
     /* version: [epoch:]ver-rel */
     p = strchr (version, ':');
@@ -642,28 +642,28 @@ list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
       add_application (g, apps, name, "", epoch, ver, rel, arch, "", "",
                        url ? : "", desc ? : "");
 
-    after_add_application:
-     key = NULL;
-     free (name);
-     free (version);
-     free (desc);
-     free (arch);
-     free (url);
-     name = version = desc = arch = url = NULL;
-     rel = ver = NULL; /* haven't allocated memory for those */
+  after_add_application:
+    key = NULL;
+    free (name);
+    free (version);
+    free (desc);
+    free (arch);
+    free (url);
+    name = version = desc = arch = url = NULL;
+    rel = ver = NULL; /* haven't allocated memory for those */
 
-     if (fclose (fp) == -1) {
-       perrorf (g, "fclose: %s", desc_file);
-       goto out;
-     }
+    if (fclose (fp) == -1) {
+      perrorf (g, "fclose: %s", desc_file);
+      goto out;
+    }
 
   }
 
   ret = apps;
 
-  out:
-    if (ret == NULL)
-      guestfs_free_application2_list (apps);
+ out:
+  if (ret == NULL)
+    guestfs_free_application2_list (apps);
 
   return ret;
 }

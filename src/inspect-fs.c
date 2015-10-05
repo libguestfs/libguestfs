@@ -263,12 +263,12 @@ check_filesystem (guestfs_h *g, const char *mountable,
     ;
   /* Windows root? */
   else if ((windows_systemroot = guestfs_int_get_windows_systemroot (g)) != NULL)
-  {
-    fs->is_root = 1;
-    fs->format = OS_FORMAT_INSTALLED;
-    if (guestfs_int_check_windows_root (g, fs, windows_systemroot) == -1)
-      return -1;
-  }
+    {
+      fs->is_root = 1;
+      fs->format = OS_FORMAT_INSTALLED;
+      if (guestfs_int_check_windows_root (g, fs, windows_systemroot) == -1)
+	return -1;
+    }
   /* Windows volume with installed applications (but not root)? */
   else if (guestfs_int_is_dir_nocase (g, "/System Volume Information") > 0 &&
            guestfs_int_is_dir_nocase (g, "/Program Files") > 0)
@@ -630,7 +630,7 @@ guestfs_int_first_line_of_file (guestfs_h *g, const char *filename)
  */
 int
 guestfs_int_first_egrep_of_file (guestfs_h *g, const char *filename,
-                               const char *eregex, int iflag, char **ret)
+				 const char *eregex, int iflag, char **ret)
 {
   char **lines;
   int64_t size;

@@ -27,11 +27,11 @@
 #include "actions.h"
 #include "optgroups.h"
 
-#if (defined(HAVE_ATTR_XATTR_H) || defined(HAVE_SYS_XATTR_H)) && \
-    defined(HAVE_LISTXATTR) && defined(HAVE_LLISTXATTR) && \
-    defined(HAVE_GETXATTR) && defined(HAVE_LGETXATTR) && \
-    defined(HAVE_REMOVEXATTR) && defined(HAVE_LREMOVEXATTR) && \
-    defined(HAVE_SETXATTR) && defined(HAVE_LSETXATTR)
+#if (defined(HAVE_ATTR_XATTR_H) || defined(HAVE_SYS_XATTR_H)) &&	\
+  defined(HAVE_LISTXATTR) && defined(HAVE_LLISTXATTR) &&		\
+  defined(HAVE_GETXATTR) && defined(HAVE_LGETXATTR) &&			\
+  defined(HAVE_REMOVEXATTR) && defined(HAVE_LREMOVEXATTR) &&		\
+  defined(HAVE_SETXATTR) && defined(HAVE_LSETXATTR)
 # define HAVE_LINUX_XATTRS
 #endif
 

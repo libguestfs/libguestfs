@@ -160,8 +160,7 @@ mount_vfs_nochroot (const char *options, const char *vfstype,
   if (mountable->type == MOUNTABLE_BTRFSVOL) {
     if (options && strlen (options) > 0) {
       if (asprintf (&options_plus, "subvol=%s,%s",
-                    mountable->volume, options) == -1)
-      {
+                    mountable->volume, options) == -1) {
         reply_with_perror ("asprintf");
         return -1;
       }
@@ -227,7 +226,7 @@ do_umount (const char *pathordevice,
 
   is_dev = STREQLEN (pathordevice, "/dev/", 5);
   buf = is_dev ? strdup (pathordevice)
-               : sysroot_path (pathordevice);
+    : sysroot_path (pathordevice);
   if (buf == NULL) {
     reply_with_perror ("malloc");
     return -1;

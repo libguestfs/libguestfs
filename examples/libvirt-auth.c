@@ -14,25 +14,25 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "Usage:\n"
-    "\n"
-    "  libvirt-auth URI domain\n"
-    "\n"
-    "where:\n"
-    "\n"
-    "  URI     is the libvirt URI, eg. qemu+libssh2://USER@localhost/system\n"
-    "  domain  is the name of the guest\n"
-    "\n"
-    "Example:\n"
-    "\n"
-    "  libvirt-auth 'qemu+libssh2://USER@localhost/system' 'foo'\n"
-    "\n"
-    "would connect (read-only) to libvirt URI given and open the guest\n"
-    "called 'foo' and list some information about its filesystems.\n"
-    "\n"
-    "The important point of this example is that any libvirt authentication\n"
-    "required to connect to the server should be done.\n"
-    "\n");
+	   "Usage:\n"
+	   "\n"
+	   "  libvirt-auth URI domain\n"
+	   "\n"
+	   "where:\n"
+	   "\n"
+	   "  URI     is the libvirt URI, eg. qemu+libssh2://USER@localhost/system\n"
+	   "  domain  is the name of the guest\n"
+	   "\n"
+	   "Example:\n"
+	   "\n"
+	   "  libvirt-auth 'qemu+libssh2://USER@localhost/system' 'foo'\n"
+	   "\n"
+	   "would connect (read-only) to libvirt URI given and open the guest\n"
+	   "called 'foo' and list some information about its filesystems.\n"
+	   "\n"
+	   "The important point of this example is that any libvirt authentication\n"
+	   "required to connect to the server should be done.\n"
+	   "\n");
 }
 
 static void auth_callback (guestfs_h *g, void *opaque, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);

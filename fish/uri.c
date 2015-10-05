@@ -101,7 +101,7 @@ is_uri (const char *arg)
 
 static int
 parse (const char *arg, char **path_ret, char **protocol_ret,
-           char ***server_ret, char **username_ret, char **password_ret)
+       char ***server_ret, char **username_ret, char **password_ret)
 {
   CLEANUP_XMLFREEURI xmlURIPtr uri = NULL;
   CLEANUP_FREE char *socket = NULL;

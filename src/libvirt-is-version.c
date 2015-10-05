@@ -63,7 +63,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   return ver >= (major * 1000000 + minor * 1000 + release)
-         ? EXIT_SUCCESS : EXIT_FAILURE;
+    ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 static unsigned int

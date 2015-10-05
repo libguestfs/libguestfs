@@ -144,8 +144,8 @@ main (int argc, char *argv[])
 
     fprintf (stderr, "%s: test failed: %s\n", guestfs_int_program_name,
              guestfs_int_exit_status_to_string (r, GUESTUNMOUNT_BINARY,
-                                              status_string,
-                                              sizeof status_string));
+						status_string,
+						sizeof status_string));
     ignore_value (rmdir (MOUNTPOINT));
     exit (EXIT_FAILURE);
   }
@@ -165,8 +165,8 @@ main (int argc, char *argv[])
     fprintf (stderr, "%s: test failed: %s\n",
              guestfs_int_program_name,
              guestfs_int_exit_status_to_string (status, GUESTMOUNT_BINARY,
-                                              status_string,
-                                              sizeof status_string));
+						status_string,
+						sizeof status_string));
     ignore_value (rmdir (MOUNTPOINT));
     exit (EXIT_FAILURE);
   }

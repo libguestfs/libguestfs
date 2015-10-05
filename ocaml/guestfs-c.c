@@ -49,11 +49,11 @@ static void event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, in
 
 /* This macro was added in OCaml 3.10.  Backport for earlier versions. */
 #ifndef CAMLreturnT
-#define CAMLreturnT(type, result) do{ \
-  type caml__temp_result = (result); \
-  caml_local_roots = caml__frame; \
-  return (caml__temp_result); \
-}while(0)
+#define CAMLreturnT(type, result) do{		\
+    type caml__temp_result = (result);		\
+    caml_local_roots = caml__frame;		\
+    return (caml__temp_result);			\
+  }while(0)
 #endif
 
 /* These prototypes are solely to quiet gcc warning.  */

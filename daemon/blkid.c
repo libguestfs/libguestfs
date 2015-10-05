@@ -191,7 +191,7 @@ blkid_with_p_i_opt (const char *device)
 
   return ret.argv;
 
-error:
+ error:
   if (ret.argv)
     free_strings (ret.argv);
 
@@ -225,7 +225,7 @@ blkid_without_p_i_opt (const char *device)
   if (end_stringsbuf (&ret) == -1) goto error;
 
   return ret.argv;
-error:
+ error:
   if (ret.argv)
     free_stringslen (ret.argv, ret.size);
   return NULL;

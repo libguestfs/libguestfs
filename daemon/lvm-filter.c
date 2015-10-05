@@ -270,7 +270,7 @@ make_filter_strings (char *const *devices)
 
   return ret.argv;
 
-error:
+ error:
   if (ret.argv)
     free_stringslen (ret.argv, ret.size);
   return NULL;

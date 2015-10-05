@@ -87,8 +87,8 @@ usage (int status)
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);
 }
@@ -182,7 +182,8 @@ main (int argc, char *argv[])
 
     case 'P':
       if (sscanf (optarg, "%zu", &max_threads) != 1) {
-        fprintf (stderr, _("%s: -P option is not numeric\n"), guestfs_int_program_name);
+        fprintf (stderr, _("%s: -P option is not numeric\n"),
+                 guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
       break;

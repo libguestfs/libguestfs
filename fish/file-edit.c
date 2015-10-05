@@ -252,7 +252,7 @@ do_upload (guestfs_h *g, const char *fn, const char *tempfile,
    * file to match the old file (RHBZ#788641).
    */
   if (guestfs_copy_attributes (g, filename, newname,
-      GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
+			       GUESTFS_COPY_ATTRIBUTES_ALL, 1, -1) == -1)
     return -1;
 
   /* Backup or overwrite the file. */

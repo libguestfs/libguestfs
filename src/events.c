@@ -104,7 +104,7 @@ guestfs_int_call_callbacks_void (guestfs_h *g, uint64_t event)
 
 void
 guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
-                                  const char *buf, size_t buf_len)
+				    const char *buf, size_t buf_len)
 {
   size_t i, count = 0;
 
@@ -167,8 +167,8 @@ guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
      * try to send longest possible strings in single fwrite calls
      * (thanks to Jim Meyering for the basic approach).
      */
-#define NO_ESCAPING(c) \
-      (c_isprint ((c)) || (from_appliance && ((c) == '\n' || (c) == '\r')))
+#define NO_ESCAPING(c)							\
+    (c_isprint ((c)) || (from_appliance && ((c) == '\n' || (c) == '\r')))
 
     for (i = 0; i < buf_len; ++i) {
       if (NO_ESCAPING (buf[i])) {
@@ -204,7 +204,7 @@ guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
 
 void
 guestfs_int_call_callbacks_array (guestfs_h *g, uint64_t event,
-                                const uint64_t *array, size_t array_len)
+				  const uint64_t *array, size_t array_len)
 {
   size_t i;
 

@@ -363,14 +363,14 @@ write_or_append (guestfs_h *g, const char *path,
 
 int
 guestfs_impl_write (guestfs_h *g, const char *path,
-                const char *content, size_t size)
+		    const char *content, size_t size)
 {
   return write_or_append (g, path, content, size, 0);
 }
 
 int
 guestfs_impl_write_append (guestfs_h *g, const char *path,
-                       const char *content, size_t size)
+			   const char *content, size_t size)
 {
   return write_or_append (g, path, content, size, 1);
 }

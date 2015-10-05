@@ -173,10 +173,10 @@ add_partitions (const char *device, struct stringsbuf *r)
 
   /* Check if readdir failed */
   if (0 != errno) {
-      reply_with_perror ("readdir: %s", devdir);
-      free_stringslen (r->argv, r->size);
-      closedir (dir);
-      return -1;
+    reply_with_perror ("readdir: %s", devdir);
+    free_stringslen (r->argv, r->size);
+    closedir (dir);
+    return -1;
   }
 
   /* Close the directory handle */
@@ -252,8 +252,7 @@ do_is_whole_device (const char *device)
    * /sys/block directory */
   CLEANUP_FREE char *devpath = NULL;
   if (asprintf (&devpath, "/sys/block/%s/device",
-                device + strlen ("/dev/")) == -1)
-  {
+                device + strlen ("/dev/")) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }

@@ -53,8 +53,8 @@ struct cb_data {
  */
 int
 guestfs_int_read_db_dump (guestfs_h *g,
-                        const char *dumpfile, void *opaque,
-                        guestfs_int_db_dump_callback callback)
+			  const char *dumpfile, void *opaque,
+			  guestfs_int_db_dump_callback callback)
 {
   struct cb_data data;
   CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);

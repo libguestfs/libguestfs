@@ -331,7 +331,7 @@ guestfs_close (guestfs_h *g)
     const char trace_msg[] = "close";
 
     guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_TRACE,
-                                      trace_msg, strlen (trace_msg));
+					trace_msg, strlen (trace_msg));
   }
 
   debug (g, "closing guestfs handle %p (state %d)", g, (int) g->state);

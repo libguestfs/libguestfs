@@ -1094,42 +1094,42 @@ do_part_get_mbr_part_type (const char *device, int partnum)
     if (STREQ (parttype, "gpt")) {
       memcpy (temp_type, "primary", strlen ("primary"));
       if (sscanf (lines[row], "%d%" SCNi64 "B%" SCNi64 "B%" SCNi64 "B",
-               &part_num,
-               &temp_int64,
-               &temp_int64,
-               &temp_int64) != 4) {
+		  &part_num,
+		  &temp_int64,
+		  &temp_int64,
+		  &temp_int64) != 4) {
         reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
         return NULL;
       }
     } else {
       if (sscanf (lines[row], "%d%" SCNi64 "B%" SCNi64 "B%" SCNi64 "B" "%15s",
-               &part_num,
-               &temp_int64,
-               &temp_int64,
-               &temp_int64,
-               temp_type) != 5) {
+		  &part_num,
+		  &temp_int64,
+		  &temp_int64,
+		  &temp_int64,
+		  temp_type) != 5) {
         reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
         return NULL;
       }
     }
 
     if (part_num != partnum)
-        continue;
+      continue;
 
     if (STRPREFIX (temp_type, "primary")) {
       part_type = strdup ("primary");
       if (part_type == NULL)
-          goto error;
+	goto error;
     } else if (STRPREFIX (temp_type, "logical")) {
       part_type = strdup ("logical");
       if (part_type == NULL)
-          goto error;
+	goto error;
     } else if (STRPREFIX (temp_type, "extended")) {
       part_type = strdup ("extended");
       if (part_type == NULL)
-          goto error;
+	goto error;
     } else
-        goto error;
+      goto error;
 
     return part_type;
   }
@@ -1139,7 +1139,7 @@ do_part_get_mbr_part_type (const char *device, int partnum)
     return NULL;
   }
 
-  error:
-    reply_with_error ("strdup failed");
-    return NULL;
+ error:
+  reply_with_error ("strdup failed");
+  return NULL;
 }

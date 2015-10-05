@@ -264,7 +264,7 @@ do_list_md_devices (void)
 
   return ret.argv;
 
-error:
+ error:
   globfree (&mds);
   if (ret.argv != NULL)
     free_stringslen (ret.argv, ret.size);
@@ -337,7 +337,7 @@ do_md_detail (const char *md)
 
   return ret.argv;
 
-error:
+ error:
   if (ret.argv != NULL)
     free_stringslen (ret.argv, ret.size);
 

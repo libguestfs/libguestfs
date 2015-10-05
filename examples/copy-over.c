@@ -39,17 +39,17 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "Usage: copy-over source srcdir dest destdir\n"
-    "\n"
-    "  source  : the source domain (a libvirt guest name)\n"
-    "  srcdir  : the directory to copy from the source guest\n"
-    "  dest    : the destination domain (a libvirt guest name)\n"
-    "  destdir : the destination directory (must exist at destination)\n"
-    "\n"
-    "eg: copy-over Src /home/rjones Dest /tmp/dir\n"
-    "would copy /home/rjones from Src to /tmp/dir on Dest\n"
-    "\n"
-    "The destination guest cannot be running.\n");
+	   "Usage: copy-over source srcdir dest destdir\n"
+	   "\n"
+	   "  source  : the source domain (a libvirt guest name)\n"
+	   "  srcdir  : the directory to copy from the source guest\n"
+	   "  dest    : the destination domain (a libvirt guest name)\n"
+	   "  destdir : the destination directory (must exist at destination)\n"
+	   "\n"
+	   "eg: copy-over Src /home/rjones Dest /tmp/dir\n"
+	   "would copy /home/rjones from Src to /tmp/dir on Dest\n"
+	   "\n"
+	   "The destination guest cannot be running.\n");
 }
 
 int

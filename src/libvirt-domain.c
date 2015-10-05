@@ -52,7 +52,7 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
 
 int
 guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
-                     const struct guestfs_add_domain_argv *optargs)
+			 const struct guestfs_add_domain_argv *optargs)
 {
   virErrorPtr err;
   virConnectPtr conn = NULL;
@@ -70,23 +70,23 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
   struct guestfs_add_libvirt_dom_argv optargs2 = { .bitmask = 0 };
 
   libvirturi = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIBVIRTURI_BITMASK
-               ? optargs->libvirturi : NULL;
+    ? optargs->libvirturi : NULL;
   readonly = optargs->bitmask & GUESTFS_ADD_DOMAIN_READONLY_BITMASK
-             ? optargs->readonly : 0;
+    ? optargs->readonly : 0;
   iface = optargs->bitmask & GUESTFS_ADD_DOMAIN_IFACE_BITMASK
-          ? optargs->iface : NULL;
+    ? optargs->iface : NULL;
   live = optargs->bitmask & GUESTFS_ADD_DOMAIN_LIVE_BITMASK
-         ? optargs->live : 0;
+    ? optargs->live : 0;
   allowuuid = optargs->bitmask & GUESTFS_ADD_DOMAIN_ALLOWUUID_BITMASK
-            ? optargs->allowuuid : 0;
+    ? optargs->allowuuid : 0;
   readonlydisk = optargs->bitmask & GUESTFS_ADD_DOMAIN_READONLYDISK_BITMASK
-               ? optargs->readonlydisk : NULL;
+    ? optargs->readonlydisk : NULL;
   cachemode = optargs->bitmask & GUESTFS_ADD_DOMAIN_CACHEMODE_BITMASK
-            ? optargs->cachemode : NULL;
+    ? optargs->cachemode : NULL;
   discard = optargs->bitmask & GUESTFS_ADD_DOMAIN_DISCARD_BITMASK
-          ? optargs->discard : NULL;
+    ? optargs->discard : NULL;
   copyonread = optargs->bitmask & GUESTFS_ADD_DOMAIN_COPYONREAD_BITMASK
-               ? optargs->copyonread : false;
+    ? optargs->copyonread : false;
 
   if (live && readonly) {
     error (g, _("you cannot set both live and readonly flags"));
@@ -180,7 +180,7 @@ struct add_disk_data {
 
 int
 guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
-                          const struct guestfs_add_libvirt_dom_argv *optargs)
+			      const struct guestfs_add_libvirt_dom_argv *optargs)
 {
   virDomainPtr dom = domvp;
   ssize_t r;
@@ -591,7 +591,7 @@ for_each_disk (guestfs_h *g,
         }
 
         xphost = xmlXPathEvalExpression (BAD_CAST "./source/host",
-                                             xpathCtx);
+					 xpathCtx);
         if (xphost == NULL ||
             xphost->nodesetval == NULL)
           continue;
@@ -707,11 +707,11 @@ connect_live (guestfs_h *g, virDomainPtr dom)
    * guestfsd virtio-serial channel.
    */
   xpathObj = xmlXPathEvalExpression (BAD_CAST
-      "//devices/channel[@type=\"unix\" and "
-                        "./source/@mode=\"bind\" and "
-                        "./source/@path and "
-                        "./target/@type=\"virtio\" and "
-                        "./target/@name=\"org.libguestfs.channel.0\"]",
+				     "//devices/channel[@type=\"unix\" and "
+				     "./source/@mode=\"bind\" and "
+				     "./source/@path and "
+				     "./target/@type=\"virtio\" and "
+				     "./target/@name=\"org.libguestfs.channel.0\"]",
                                      xpathCtx);
   if (xpathObj == NULL) {
     error (g, _("unable to evaluate XPath expression"));
@@ -788,14 +788,14 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
 
 int
 guestfs_impl_add_domain (guestfs_h *g, const char *dom,
-                     const struct guestfs_add_domain_argv *optargs)
+			 const struct guestfs_add_domain_argv *optargs)
 {
   NOT_IMPL(-1);
 }
 
 int
 guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
-                          const struct guestfs_add_libvirt_dom_argv *optargs)
+			      const struct guestfs_add_libvirt_dom_argv *optargs)
 {
   NOT_IMPL(-1);
 }

@@ -46,8 +46,8 @@ guestfs_int_safe_malloc (guestfs_h *g, size_t nbytes)
    sizeof (ptrdiff_t) <= sizeof (size_t), so do not bother to test for
    exactly-SIZE_MAX allocations on such hosts; this avoids a test and
    branch when S is known to be 1.  */
-# define xalloc_oversized(n, s) \
-    ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
+# define xalloc_oversized(n, s)						\
+  ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
 
 /* Technically we should add an autoconf test for this, testing for the desired
    functionality, like what's done in gnulib, but for now, this is fine.  */

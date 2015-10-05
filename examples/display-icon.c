@@ -49,9 +49,9 @@ main (int argc, char *argv[])
 
   /* Attach the disk image read-only to libguestfs. */
   if (guestfs_add_drive_opts (g, disk,
-     /* GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw", */
-        GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
-        -1) /* this marks end of optional arguments */
+			      /* GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw", */
+			      GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
+			      -1) /* this marks end of optional arguments */
       == -1)
     exit (EXIT_FAILURE);
 

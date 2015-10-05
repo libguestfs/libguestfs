@@ -29,9 +29,9 @@ main (int argc, char *argv[])
 
   /* Add the disk image to libguestfs. */
   if (guestfs_add_drive_opts (g, "disk.img",
-        GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw", /* raw format */
-        GUESTFS_ADD_DRIVE_OPTS_READONLY, 0, /* for write */
-        -1) /* this marks end of optional arguments */
+			      GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw", /* raw format */
+			      GUESTFS_ADD_DRIVE_OPTS_READONLY, 0, /* for write */
+			      -1) /* this marks end of optional arguments */
       == -1)
     exit (EXIT_FAILURE);
 

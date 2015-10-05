@@ -143,7 +143,7 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
   CLEANUP_FREE char *buf = NULL;
 
   guestfs_int_cmd_set_stdout_callback (cmd, read_all, &buf,
-                                     CMD_STDOUT_FLAG_WHOLE_BUFFER);
+				       CMD_STDOUT_FLAG_WHOLE_BUFFER);
   r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return -1;
@@ -152,8 +152,8 @@ read_lpj_common (guestfs_h *g, const char *func, struct command *cmd)
 
     debug (g, "%s: %s", func,
            guestfs_int_exit_status_to_string (r, "external command",
-                                            status_string,
-                                            sizeof status_string));
+					      status_string,
+					      sizeof status_string));
     return -1;
   }
 

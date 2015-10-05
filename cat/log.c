@@ -79,8 +79,8 @@ usage (int status)
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);
 }
@@ -140,7 +140,8 @@ main (int argc, char *argv[])
         OPTION_format;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name,
+                 long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -470,7 +471,7 @@ do_log_windows_evtx (void)
     fprintf (stderr, "%s: %s\n",
              guestfs_int_program_name,
              guestfs_int_exit_status_to_string (status, "evtxdump.py",
-                                              buf, sizeof buf));
+                                                buf, sizeof buf));
     return -1;
   }
 

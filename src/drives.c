@@ -729,7 +729,7 @@ parse_servers (guestfs_h *g, char *const *strs,
 
 int
 guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
-                         const struct guestfs_add_drive_opts_argv *optargs)
+			     const struct guestfs_add_drive_opts_argv *optargs)
 {
   struct drive_create_data data;
   const char *protocol;
@@ -954,7 +954,7 @@ guestfs_impl_add_drive_ro (guestfs_h *g, const char *filename)
 
 int
 guestfs_impl_add_drive_with_if (guestfs_h *g, const char *filename,
-                            const char *iface)
+				const char *iface)
 {
   const struct guestfs_add_drive_opts_argv optargs = {
     .bitmask = GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK,
@@ -980,7 +980,7 @@ guestfs_impl_add_drive_ro_with_if (guestfs_h *g, const char *filename,
 
 int
 guestfs_impl_add_drive_scratch (guestfs_h *g, int64_t size,
-                            const struct guestfs_add_drive_scratch_argv *optargs)
+				const struct guestfs_add_drive_scratch_argv *optargs)
 {
   struct guestfs_add_drive_opts_argv add_drive_optargs = { .bitmask = 0 };
   CLEANUP_FREE char *filename = NULL;

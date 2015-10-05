@@ -243,9 +243,9 @@ start_thread (void *statevp)
 
       fprintf (stderr, "%s: %s\n", state->mp,
                guestfs_int_exit_status_to_string (status, "test",
-                                                status_string,
-                                                sizeof status_string));
-        goto error;
+						  status_string,
+						  sizeof status_string));
+      goto error;
     }
 
     if (r == -1) /* guestfs_mount_local_run above failed */

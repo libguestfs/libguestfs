@@ -72,11 +72,11 @@
 #define MIN_LIBVIRT_MAJOR 0
 #define MIN_LIBVIRT_MINOR 10
 #define MIN_LIBVIRT_MICRO 2 /* XXX patches in > 2 already */
-#define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 + \
-                             MIN_LIBVIRT_MINOR * 1000 + \
+#define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 +	\
+                             MIN_LIBVIRT_MINOR * 1000 +		\
                              MIN_LIBVIRT_MICRO)
 
-#if defined(HAVE_LIBVIRT) && \
+#if defined(HAVE_LIBVIRT) &&			\
   LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
 
 #ifndef HAVE_XMLBUFFERDETACH
@@ -322,7 +322,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   conn = guestfs_int_open_libvirt_connection (g, libvirt_uri, 0);
   if (!conn) {
     libvirt_error (g, _("could not connect to libvirt (URI = %s)"),
-           libvirt_uri ? : "NULL");
+		   libvirt_uri ? : "NULL");
     goto cleanup;
   }
 
@@ -396,7 +396,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     guestfs_int_print_timestamped_message (g, "build appliance");
 
   if (guestfs_int_build_appliance (g, &params.kernel, &params.dtb,
-				 &params.initrd, &appliance) == -1)
+				   &params.initrd, &appliance) == -1)
     goto cleanup;
 
   guestfs_int_launch_send_progress (g, 3);
@@ -547,12 +547,12 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   dom = virDomainCreateXML (conn, (char *) xml, VIR_DOMAIN_START_AUTODESTROY);
   if (!dom) {
     libvirt_error (g, _(
-      "could not create appliance through libvirt.\n"
-      "\n"
-      "Try running qemu directly without libvirt using this environment variable:\n"
-      "export LIBGUESTFS_BACKEND=direct\n"
-      "\n"
-      "Original error from libvirt"));
+			"could not create appliance through libvirt.\n"
+			"\n"
+			"Try running qemu directly without libvirt using this environment variable:\n"
+			"export LIBGUESTFS_BACKEND=direct\n"
+			"\n"
+			"Original error from libvirt"));
     goto cleanup;
   }
 
@@ -912,30 +912,30 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_x
  */
 
 /* <element */
-#define start_element(element)                                        \
-  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {     \
-    xml_error ("xmlTextWriterStartElement");                          \
-    return -1;                                                        \
-  }                                                                   \
+#define start_element(element)						\
+  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {	\
+    xml_error ("xmlTextWriterStartElement");				\
+    return -1;								\
+  }									\
   do
 
 /* finish current </element> */
-#define end_element()                                                   \
-  while (0);                                                            \
-  do {                                                                  \
-    if (xmlTextWriterEndElement (xo) == -1) {                           \
-      xml_error ("xmlTextWriterEndElement");                            \
-      return -1;                                                        \
-    }                                                                   \
+#define end_element()				\
+  while (0);					\
+  do {						\
+    if (xmlTextWriterEndElement (xo) == -1) {	\
+      xml_error ("xmlTextWriterEndElement");	\
+      return -1;				\
+    }						\
   } while (0)
 
 /* <element/> */
-#define empty_element(element) \
+#define empty_element(element)					\
   do { start_element(element) {} end_element (); } while (0)
 
 /* key=value attribute of the current element. */
 #define attribute(key,value)                                            \
-  if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1){\
+  if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1){ \
     xml_error ("xmlTextWriterWriteAttribute");                          \
     return -1;                                                          \
   }
@@ -958,10 +958,10 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_x
   }
 
 /* A string, eg. within an element. */
-#define string(str)                                                     \
-  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {            \
-    xml_error ("xmlTextWriterWriteString");                             \
-    return -1;                                                          \
+#define string(str)						\
+  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {	\
+    xml_error ("xmlTextWriterWriteString");			\
+    return -1;							\
   }
 
 /* A string, using printf-style formatting. */
@@ -972,8 +972,8 @@ static int construct_libvirt_xml_appliance (guestfs_h *g, const struct libvirt_x
   }
 
 #define xml_error(fn)                                                   \
-    perrorf (g, _("%s:%d: error constructing libvirt XML near call to \"%s\""), \
-             __FILE__, __LINE__, (fn));
+  perrorf (g, _("%s:%d: error constructing libvirt XML near call to \"%s\""), \
+	   __FILE__, __LINE__, (fn));
 
 static xmlChar *
 construct_libvirt_xml (guestfs_h *g, const struct libvirt_xml_params *params)
@@ -2023,7 +2023,7 @@ check_bridge_exists (guestfs_h *g, const char *brname)
            "\n"
            "You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
            "For further information see guestfs(3)."),
-           brname);
+	 brname);
   return -1;
 }
 

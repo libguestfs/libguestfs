@@ -350,7 +350,7 @@ guestfs_impl_inspect_get_windows_systemroot (guestfs_h *g, const char *root)
 
 char *
 guestfs_impl_inspect_get_windows_current_control_set (guestfs_h *g,
-                                                  const char *root)
+						      const char *root)
 {
   struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
   if (!fs)
@@ -623,8 +623,8 @@ guestfs_int_free_inspect_info (guestfs_h *g)
  */
 char *
 guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
-                           const char *filename,
-                           const char *basename, uint64_t max_size)
+			     const char *filename,
+			     const char *basename, uint64_t max_size)
 {
   char *r;
   int fd;

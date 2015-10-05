@@ -63,7 +63,7 @@ guestfs_int_match1 (guestfs_h *g, const char *str, const pcre *re)
 /* Match a regular expression which contains exactly two captures. */
 int
 guestfs_int_match2 (guestfs_h *g, const char *str, const pcre *re,
-                  char **ret1, char **ret2)
+		    char **ret1, char **ret2)
 {
   size_t len = strlen (str);
   int vec[30], r;
@@ -84,7 +84,7 @@ guestfs_int_match2 (guestfs_h *g, const char *str, const pcre *re,
 /* Match a regular expression which contains exactly three captures. */
 int
 guestfs_int_match3 (guestfs_h *g, const char *str, const pcre *re,
-                  char **ret1, char **ret2, char **ret3)
+		    char **ret1, char **ret2, char **ret3)
 {
   size_t len = strlen (str);
   int vec[30], r;
@@ -107,7 +107,7 @@ guestfs_int_match3 (guestfs_h *g, const char *str, const pcre *re,
 /* Match a regular expression which contains exactly four captures. */
 int
 guestfs_int_match4 (guestfs_h *g, const char *str, const pcre *re,
-                  char **ret1, char **ret2, char **ret3, char **ret4)
+		    char **ret1, char **ret2, char **ret3, char **ret4)
 {
   size_t len = strlen (str);
   int vec[30], r;
@@ -132,8 +132,8 @@ guestfs_int_match4 (guestfs_h *g, const char *str, const pcre *re,
 /* Match a regular expression which contains exactly six captures. */
 int
 guestfs_int_match6 (guestfs_h *g, const char *str, const pcre *re,
-                  char **ret1, char **ret2, char **ret3, char **ret4,
-                  char **ret5, char **ret6)
+		    char **ret1, char **ret2, char **ret3, char **ret4,
+		    char **ret5, char **ret6)
 {
   size_t len = strlen (str);
   int vec[30], r;

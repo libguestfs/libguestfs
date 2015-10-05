@@ -189,7 +189,7 @@ guestfs_int_split_string (char sep, const char *str)
  */
 char *
 guestfs_int_exit_status_to_string (int status, const char *cmd_name,
-                                 char *buffer, size_t buflen)
+				   char *buffer, size_t buflen)
 {
   if (WIFEXITED (status)) {
     if (WEXITSTATUS (status) == 0)

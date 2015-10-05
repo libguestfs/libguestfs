@@ -152,49 +152,49 @@ guestfs_int_get_windows_systemroot (guestfs_h *g)
        * of what this line means */
       if (match6 (g, line, re_boot_ini_os, &controller_type,
                   &controller, &disk, &rdisk, &partition, &path))
-      {
-        /* The Windows system root may be on any disk. However, there
-         * are currently (at least) 2 practical problems preventing us
-         * from locating it on another disk:
-         *
-         * 1. We don't have enough metadata about the disks we were
-         * given to know if what controller they were on and what
-         * index they had.
-         *
-         * 2. The way inspection of filesystems currently works, we
-         * can't mark another filesystem, which we may have already
-         * inspected, to be inspected for a specific Windows system
-         * root.
-         *
-         * Solving 1 properly would require a new API at a minimum. We
-         * might be able to fudge something practical without this,
-         * though, e.g. by looking at the <partition>th partition of
-         * every disk for the specific windows root.
-         *
-         * Solving 2 would probably require a significant refactoring
-         * of the way filesystems are inspected. We should probably do
-         * this some time.
-         *
-         * For the moment, we ignore all partition information and
-         * assume the system root is on the current partition. In
-         * practice, this will normally be correct.
-         */
+	{
+	  /* The Windows system root may be on any disk. However, there
+	   * are currently (at least) 2 practical problems preventing us
+	   * from locating it on another disk:
+	   *
+	   * 1. We don't have enough metadata about the disks we were
+	   * given to know if what controller they were on and what
+	   * index they had.
+	   *
+	   * 2. The way inspection of filesystems currently works, we
+	   * can't mark another filesystem, which we may have already
+	   * inspected, to be inspected for a specific Windows system
+	   * root.
+	   *
+	   * Solving 1 properly would require a new API at a minimum. We
+	   * might be able to fudge something practical without this,
+	   * though, e.g. by looking at the <partition>th partition of
+	   * every disk for the specific windows root.
+	   *
+	   * Solving 2 would probably require a significant refactoring
+	   * of the way filesystems are inspected. We should probably do
+	   * this some time.
+	   *
+	   * For the moment, we ignore all partition information and
+	   * assume the system root is on the current partition. In
+	   * practice, this will normally be correct.
+	   */
 
-        /* Swap backslashes for forward slashes in the system root
-         * path */
-        for (char *j = path; *j != '\0'; j++) {
-          if (*j == '\\') *j = '/';
-        }
+	  /* Swap backslashes for forward slashes in the system root
+	   * path */
+	  for (char *j = path; *j != '\0'; j++) {
+	    if (*j == '\\') *j = '/';
+	  }
 
-        char *systemroot = guestfs_int_case_sensitive_path_silently (g, path);
-        if (systemroot && is_systemroot (g, systemroot)) {
-          debug (g, "windows %%SYSTEMROOT%% = %s", systemroot);
+	  char *systemroot = guestfs_int_case_sensitive_path_silently (g, path);
+	  if (systemroot && is_systemroot (g, systemroot)) {
+	    debug (g, "windows %%SYSTEMROOT%% = %s", systemroot);
 
-          return systemroot;
-        } else {
-          free (systemroot);
-        }
-      }
+	    return systemroot;
+	  } else {
+	    free (systemroot);
+	  }
+	}
     }
   }
 
@@ -203,7 +203,7 @@ guestfs_int_get_windows_systemroot (guestfs_h *g)
 
 int
 guestfs_int_check_windows_root (guestfs_h *g, struct inspect_fs *fs,
-                              char *const systemroot)
+				char *const systemroot)
 {
   fs->type = OS_TYPE_WINDOWS;
   fs->distro = OS_DISTRO_WINDOWS;

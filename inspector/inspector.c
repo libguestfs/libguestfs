@@ -85,8 +85,8 @@ usage (int status)
               "  -x                   Trace libguestfs API calls\n"
               "  --xpath query        Perform an XPath query\n"
               "For more information, see the manpage %s(1).\n"),
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);
 }
@@ -149,7 +149,8 @@ main (int argc, char *argv[])
         xpath = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name,
+                 long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -291,7 +292,7 @@ main (int argc, char *argv[])
 #define XMLERROR(code,e) do {                                           \
     if ((e) == (code)) {                                                \
       fprintf (stderr, _("%s: XML write error at \"%s\": %m\n"),        \
-               #e, guestfs_int_program_name);                                       \
+               #e, guestfs_int_program_name);				\
       exit (EXIT_FAILURE);                                              \
     }                                                                   \
   } while (0)
@@ -351,66 +352,66 @@ output_root (xmlTextWriterPtr xo, char *root)
   if (canonical_root == NULL)
     exit (EXIT_FAILURE);
   XMLERROR (-1,
-    xmlTextWriterWriteElement (xo, BAD_CAST "root", BAD_CAST canonical_root));
+	    xmlTextWriterWriteElement (xo, BAD_CAST "root", BAD_CAST canonical_root));
   free (canonical_root);
 
   str = guestfs_inspect_get_type (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "name", BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "name", BAD_CAST str));
   free (str);
 
   str = guestfs_inspect_get_arch (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "arch", BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "arch", BAD_CAST str));
   free (str);
 
   str = guestfs_inspect_get_distro (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "distro", BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "distro", BAD_CAST str));
   free (str);
 
   str = guestfs_inspect_get_product_name (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "product_name", BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "product_name", BAD_CAST str));
   free (str);
 
   str = guestfs_inspect_get_product_variant (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "product_variant", BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "product_variant", BAD_CAST str));
   free (str);
 
   i = guestfs_inspect_get_major_version (g, root);
   snprintf (buf, sizeof buf, "%d", i);
   XMLERROR (-1,
-    xmlTextWriterWriteElement (xo, BAD_CAST "major_version", BAD_CAST buf));
+	    xmlTextWriterWriteElement (xo, BAD_CAST "major_version", BAD_CAST buf));
   i = guestfs_inspect_get_minor_version (g, root);
   snprintf (buf, sizeof buf, "%d", i);
   XMLERROR (-1,
-    xmlTextWriterWriteElement (xo, BAD_CAST "minor_version", BAD_CAST buf));
+	    xmlTextWriterWriteElement (xo, BAD_CAST "minor_version", BAD_CAST buf));
 
   str = guestfs_inspect_get_package_format (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "package_format", BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "package_format", BAD_CAST str));
   free (str);
 
   str = guestfs_inspect_get_package_management (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "package_management",
-                                 BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "package_management",
+					 BAD_CAST str));
   free (str);
 
   /* inspect-get-windows-systemroot will fail with non-windows guests,
@@ -436,16 +437,16 @@ output_root (xmlTextWriterPtr xo, char *root)
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "hostname",
-                                 BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "hostname",
+					 BAD_CAST str));
   free (str);
 
   str = guestfs_inspect_get_format (g, root);
   if (!str) exit (EXIT_FAILURE);
   if (STRNEQ (str, "unknown"))
     XMLERROR (-1,
-      xmlTextWriterWriteElement (xo, BAD_CAST "format",
-                                 BAD_CAST str));
+	      xmlTextWriterWriteElement (xo, BAD_CAST "format",
+					 BAD_CAST str));
   free (str);
 
   r = guestfs_inspect_is_live (g, root);
@@ -700,8 +701,8 @@ output_applications (xmlTextWriterPtr xo, char *root)
 
     if (apps->val[i].app2_display_name && apps->val[i].app2_display_name[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "display_name",
-                                   BAD_CAST apps->val[i].app2_display_name));
+		xmlTextWriterWriteElement (xo, BAD_CAST "display_name",
+					   BAD_CAST apps->val[i].app2_display_name));
 
     if (apps->val[i].app2_epoch != 0) {
       char buf[32];
@@ -709,45 +710,45 @@ output_applications (xmlTextWriterPtr xo, char *root)
       snprintf (buf, sizeof buf, "%d", apps->val[i].app2_epoch);
 
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "epoch", BAD_CAST buf));
+		xmlTextWriterWriteElement (xo, BAD_CAST "epoch", BAD_CAST buf));
     }
 
     if (apps->val[i].app2_version && apps->val[i].app2_version[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "version",
-                                   BAD_CAST apps->val[i].app2_version));
+		xmlTextWriterWriteElement (xo, BAD_CAST "version",
+					   BAD_CAST apps->val[i].app2_version));
     if (apps->val[i].app2_release && apps->val[i].app2_release[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "release",
-                                   BAD_CAST apps->val[i].app2_release));
+		xmlTextWriterWriteElement (xo, BAD_CAST "release",
+					   BAD_CAST apps->val[i].app2_release));
     if (apps->val[i].app2_arch && apps->val[i].app2_arch[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "arch",
-                                   BAD_CAST apps->val[i].app2_arch));
+		xmlTextWriterWriteElement (xo, BAD_CAST "arch",
+					   BAD_CAST apps->val[i].app2_arch));
     if (apps->val[i].app2_install_path && apps->val[i].app2_install_path[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "install_path",
-                                   BAD_CAST apps->val[i].app2_install_path));
+		xmlTextWriterWriteElement (xo, BAD_CAST "install_path",
+					   BAD_CAST apps->val[i].app2_install_path));
     if (apps->val[i].app2_publisher && apps->val[i].app2_publisher[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "publisher",
-                                   BAD_CAST apps->val[i].app2_publisher));
+		xmlTextWriterWriteElement (xo, BAD_CAST "publisher",
+					   BAD_CAST apps->val[i].app2_publisher));
     if (apps->val[i].app2_url && apps->val[i].app2_url[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "url",
-                                   BAD_CAST apps->val[i].app2_url));
+		xmlTextWriterWriteElement (xo, BAD_CAST "url",
+					   BAD_CAST apps->val[i].app2_url));
     if (apps->val[i].app2_source_package && apps->val[i].app2_source_package[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "source_package",
-                                   BAD_CAST apps->val[i].app2_source_package));
+		xmlTextWriterWriteElement (xo, BAD_CAST "source_package",
+					   BAD_CAST apps->val[i].app2_source_package));
     if (apps->val[i].app2_summary && apps->val[i].app2_summary[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "summary",
-                                   BAD_CAST apps->val[i].app2_summary));
+		xmlTextWriterWriteElement (xo, BAD_CAST "summary",
+					   BAD_CAST apps->val[i].app2_summary));
     if (apps->val[i].app2_description && apps->val[i].app2_description[0])
       XMLERROR (-1,
-        xmlTextWriterWriteElement (xo, BAD_CAST "description",
-                                   BAD_CAST apps->val[i].app2_description));
+		xmlTextWriterWriteElement (xo, BAD_CAST "description",
+					   BAD_CAST apps->val[i].app2_description));
 
     XMLERROR (-1, xmlTextWriterEndElement (xo));
   }
@@ -770,7 +771,8 @@ do_xpath (const char *query)
 
   doc = xmlReadFd (STDIN_FILENO, NULL, "utf8", XML_PARSE_NOBLANKS);
   if (doc == NULL) {
-    fprintf (stderr, _("%s: unable to parse XML from stdin\n"), guestfs_int_program_name);
+    fprintf (stderr, _("%s: unable to parse XML from stdin\n"),
+             guestfs_int_program_name);
     exit (EXIT_FAILURE);
   }
 
@@ -808,14 +810,16 @@ do_xpath (const char *query)
       }
       wrnode = xmlCopyNode (nodes->nodeTab[i], 1);
       if (wrnode == NULL) {
-        fprintf (stderr, _("%s: xmlCopyNode failed\n"), guestfs_int_program_name);
+        fprintf (stderr, _("%s: xmlCopyNode failed\n"),
+                 guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
 
       xmlDocSetRootElement (wrdoc, wrnode);
 
       if (xmlSaveDoc (saveCtx, wrdoc) == -1) {
-        fprintf (stderr, _("%s: xmlSaveDoc failed\n"), guestfs_int_program_name);
+        fprintf (stderr, _("%s: xmlSaveDoc failed\n"),
+                 guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
     }

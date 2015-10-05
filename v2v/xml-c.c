@@ -191,7 +191,7 @@ v2v_xml_xpathctx_ptr_register_ns (value xpathctxv, value prefix, value uri)
   xpathctx = Xpathctx_ptr_val (xpathctxv);
   r = xmlXPathRegisterNs (xpathctx, BAD_CAST String_val (prefix), BAD_CAST String_val (uri));
   if (r == -1)
-      caml_invalid_argument ("xpath_register_ns: unable to register namespace");
+    caml_invalid_argument ("xpath_register_ns: unable to register namespace");
 
   CAMLreturn (Val_unit);
 }

@@ -459,7 +459,7 @@ receive_file (receive_cb cb, void *opaque)
     if (chunk.cancel) {
       if (verbose)
         fprintf (stderr,
-	  "guestfsd: receive_file: received cancellation from library\n");
+		 "guestfsd: receive_file: received cancellation from library\n");
       xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
       return -2;
     }

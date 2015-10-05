@@ -102,7 +102,7 @@ child_cleanup (guestfs_h *g)
 /* Convenient wrapper to generate a progress message callback. */
 void
 guestfs_int_progress_message_callback (guestfs_h *g,
-                                     const guestfs_progress *message)
+				       const guestfs_progress *message)
 {
   uint64_t array[4];
 
@@ -112,7 +112,7 @@ guestfs_int_progress_message_callback (guestfs_h *g,
   array[3] = message->total;
 
   guestfs_int_call_callbacks_array (g, GUESTFS_EVENT_PROGRESS,
-                                  array, sizeof array / sizeof array[0]);
+				    array, sizeof array / sizeof array[0]);
 }
 
 /* Connection modules call us back here when they get a log message. */
@@ -201,8 +201,8 @@ check_daemon_socket (guestfs_h *g)
 
 int
 guestfs_int_send (guestfs_h *g, int proc_nr,
-                uint64_t progress_hint, uint64_t optargs_bitmask,
-                xdrproc_t xdrp, char *args)
+		  uint64_t progress_hint, uint64_t optargs_bitmask,
+		  xdrproc_t xdrp, char *args)
 {
   struct guestfs_message_header hdr;
   XDR xdr;
@@ -633,9 +633,9 @@ guestfs_int_recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 /* Receive a reply. */
 int
 guestfs_int_recv (guestfs_h *g, const char *fn,
-                guestfs_message_header *hdr,
-                guestfs_message_error *err,
-                xdrproc_t xdrp, char *ret)
+		  guestfs_message_header *hdr,
+		  guestfs_message_error *err,
+		  xdrproc_t xdrp, char *ret)
 {
   XDR xdr;
   CLEANUP_FREE void *buf = NULL;

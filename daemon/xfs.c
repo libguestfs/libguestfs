@@ -316,7 +316,7 @@ parse_xfs_info (char **lines)
 
   return ret;
 
-error:
+ error:
   free (ret->xfs_mntpoint);
   free (ret->xfs_logname);
   free (ret->xfs_rtname);

@@ -151,9 +151,10 @@ usage (int status)
               "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
               "\n"
               "For more information, see the manpage %s(1).\n"),
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name);
   }
   exit (status);
 }
@@ -1090,7 +1091,7 @@ cmdline (char *argv[], size_t optind, size_t argc)
 
   if (optind == argc) {
     if (issue_command (cmd, params, NULL, exit_on_error) == -1 && exit_on_error)
-        exit (EXIT_FAILURE);
+      exit (EXIT_FAILURE);
   } else {
     argv[optind] = NULL;
     if (issue_command (cmd, params, NULL, exit_on_error) == -1 && exit_on_error)

@@ -517,26 +517,26 @@ do_btrfs_subvolume_list (const mountable_t *fs)
      * freed by the calling (XDR) code.
      */
     char *line = lines[i];
-    #define N_MATCHES 4
+#define N_MATCHES 4
     int ovector[N_MATCHES * 3];
 
     if (pcre_exec (re, NULL, line, strlen (line), 0, 0,
                    ovector, N_MATCHES * 3) < 0)
-    #undef N_MATCHES
-    {
-    unexpected_output:
-      reply_with_error ("unexpected output from 'btrfs subvolume list' command: %s", line);
-      goto error;
-    }
+#undef N_MATCHES
+      {
+      unexpected_output:
+	reply_with_error ("unexpected output from 'btrfs subvolume list' command: %s", line);
+	goto error;
+      }
 
     struct guestfs_int_btrfssubvolume *this =
       &ret->guestfs_int_btrfssubvolume_list_val[i];
 
-    #if __WORDSIZE == 64
-      #define XSTRTOU64 xstrtoul
-    #else
-      #define XSTRTOU64 xstrtoull
-    #endif
+#if __WORDSIZE == 64
+#define XSTRTOU64 xstrtoul
+#else
+#define XSTRTOU64 xstrtoull
+#endif
 
     if (XSTRTOU64 (line + ovector[2], NULL, 10,
                    &this->btrfssubvolume_id, NULL) != LONGINT_OK)
@@ -545,7 +545,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
                    &this->btrfssubvolume_top_level_id, NULL) != LONGINT_OK)
       goto unexpected_output;
 
-    #undef XSTRTOU64
+#undef XSTRTOU64
 
     this->btrfssubvolume_path =
       strndup (line + ovector[6], ovector[7] - ovector[6]);
@@ -557,7 +557,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 
   return ret;
 
-error:
+ error:
   if (ret->guestfs_int_btrfssubvolume_list_val) {
     for (i = 0; i < nr_subvolumes; ++i)
       free (ret->guestfs_int_btrfssubvolume_list_val[i].btrfssubvolume_path);
@@ -639,7 +639,7 @@ do_btrfs_subvolume_get_default (const mountable_t *fs)
     goto error;
   }
 
-error:
+ error:
   if (fs_buf && umount (fs_buf, fs) != 0)
     return -1;
   return ret;
@@ -1096,18 +1096,18 @@ do_btrfs_subvolume_show (const char *subvolume)
       p = analyze_line (p, &key, &value, ':');
 
       while (key && !value) {
-          ss = realloc (ss, ss_len + strlen (key) + 1);
-          if (!ss)
-            return NULL;
+	ss = realloc (ss, ss_len + strlen (key) + 1);
+	if (!ss)
+	  return NULL;
 
-          if (ss_len != 0)
-            ss[ss_len++] = ',';
+	if (ss_len != 0)
+	  ss[ss_len++] = ',';
 
-          memcpy (ss + ss_len, key, strlen (key));
-          ss_len += strlen (key);
-          ss[ss_len] = '\0';
+	memcpy (ss + ss_len, key, strlen (key));
+	ss_len += strlen (key);
+	ss[ss_len] = '\0';
 
-          p = analyze_line (p, &key, &value, ':');
+	p = analyze_line (p, &key, &value, ':');
       }
 
       if (ss) {
@@ -1169,7 +1169,7 @@ do_btrfs_quota_enable (const mountable_t *fs, int enable)
     goto error;
   }
 
-error:
+ error:
   if (fs_buf && umount (fs_buf, fs) != 0)
     return -1;
   return r;
@@ -1201,7 +1201,7 @@ do_btrfs_quota_rescan (const mountable_t *fs)
     goto error;
   }
 
-error:
+ error:
   if (fs_buf && umount (fs_buf, fs) != 0)
     return -1;
   return r;
@@ -1412,7 +1412,7 @@ do_btrfs_qgroup_show (const char *path)
 
   return ret;
 
-error:
+ error:
   if (ret->guestfs_int_btrfsqgroup_list_val) {
     for (i = 0; i < nr_qgroups; ++i)
       free (ret->guestfs_int_btrfsqgroup_list_val[i].btrfsqgroup_id);
@@ -1890,7 +1890,7 @@ do_btrfs_balance_status (const char *path)
   pcre_free (re);
   return ret;
 
-error:
+ error:
   free (ret->btrfsbalance_status);
   free (ret);
   pcre_free (re);
@@ -1979,49 +1979,49 @@ do_btrfs_scrub_status (const char *path)
     else if (STRPREFIX (lines[i], "\tscrub started at"))
       continue;
     else if (sscanf (lines[i], "\tdata_extents_scrubbed: %" SCNu64,
-                                 &ret->btrfsscrub_data_extents_scrubbed) == 1)
+		     &ret->btrfsscrub_data_extents_scrubbed) == 1)
       continue;
     else if (sscanf (lines[i], "\ttree_extents_scrubbed: %" SCNu64,
-                                 &ret->btrfsscrub_tree_extents_scrubbed) == 1)
+		     &ret->btrfsscrub_tree_extents_scrubbed) == 1)
       continue;
     else if (sscanf (lines[i], "\tdata_bytes_scrubbed: %" SCNu64,
-                                 &ret->btrfsscrub_data_bytes_scrubbed) == 1)
+		     &ret->btrfsscrub_data_bytes_scrubbed) == 1)
       continue;
     else if (sscanf (lines[i], "\ttree_bytes_scrubbed: %" SCNu64,
-                                 &ret->btrfsscrub_tree_bytes_scrubbed) == 1)
+		     &ret->btrfsscrub_tree_bytes_scrubbed) == 1)
       continue;
     else if (sscanf (lines[i], "\tread_errors: %" SCNu64,
-                                 &ret->btrfsscrub_read_errors) == 1)
+		     &ret->btrfsscrub_read_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tcsum_errors: %" SCNu64,
-                                 &ret->btrfsscrub_csum_errors) == 1)
+		     &ret->btrfsscrub_csum_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tverify_errors: %" SCNu64,
-                                 &ret->btrfsscrub_verify_errors) == 1)
+		     &ret->btrfsscrub_verify_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tno_csum: %" SCNu64,
-                                 &ret->btrfsscrub_no_csum) == 1)
+		     &ret->btrfsscrub_no_csum) == 1)
       continue;
     else if (sscanf (lines[i], "\tcsum_discards: %" SCNu64,
-                                  &ret->btrfsscrub_csum_discards) == 1)
+		     &ret->btrfsscrub_csum_discards) == 1)
       continue;
     else if (sscanf (lines[i], "\tsuper_errors: %" SCNu64,
-                                  &ret->btrfsscrub_super_errors) == 1)
+		     &ret->btrfsscrub_super_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tmalloc_errors: %" SCNu64,
-                                  &ret->btrfsscrub_malloc_errors) == 1)
+		     &ret->btrfsscrub_malloc_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tuncorrectable_errors: %" SCNu64,
-                                  &ret->btrfsscrub_uncorrectable_errors) == 1)
+		     &ret->btrfsscrub_uncorrectable_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tunverified_errors: %" SCNu64,
-                                  &ret->btrfsscrub_unverified_errors) == 1)
+		     &ret->btrfsscrub_unverified_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tcorrected_errors: %" SCNu64,
-                                  &ret->btrfsscrub_corrected_errors) == 1)
+		     &ret->btrfsscrub_corrected_errors) == 1)
       continue;
     else if (sscanf (lines[i], "\tlast_physical: %" SCNu64,
-                                  &ret->btrfsscrub_last_physical) == 1)
+		     &ret->btrfsscrub_last_physical) == 1)
       continue;
     else
       goto error;
@@ -2035,7 +2035,7 @@ do_btrfs_scrub_status (const char *path)
 
   return ret;
 
-error:
+ error:
   reply_with_error ("%s: could not parse btrfs scrub status.", lines[i]);
   free (ret);
   return NULL;
@@ -2116,7 +2116,7 @@ do_btrfstune_enable_skinny_metadata_extent_refs (const char *device)
 
 int
 do_btrfs_image (char *const *sources, const char *image,
-	int compresslevel)
+		int compresslevel)
 {
   size_t nr_sources =  count_strings (sources);
   const size_t MAX_ARGS = 64 + nr_sources;
@@ -2127,14 +2127,14 @@ do_btrfs_image (char *const *sources, const char *image,
   int r;
 
   if (nr_sources == 0) {
-      reply_with_error ("list of sources must be non-empty");
-      return -1;
+    reply_with_error ("list of sources must be non-empty");
+    return -1;
   }
 
   ADD_ARG (argv, i, str_btrfsimage);
 
   if ((optargs_bitmask & GUESTFS_BTRFS_IMAGE_COMPRESSLEVEL_BITMASK)
-    && compresslevel >= 0) {
+      && compresslevel >= 0) {
     snprintf (compresslevel_s, sizeof compresslevel_s, "%d", compresslevel);
     ADD_ARG (argv, i, "-c");
     ADD_ARG (argv, i, compresslevel_s);
@@ -2157,7 +2157,7 @@ do_btrfs_image (char *const *sources, const char *image,
 
 int
 do_btrfs_replace (const char *srcdev, const char *targetdev,
-                                const char* mntpoint)
+		  const char* mntpoint)
 {
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];

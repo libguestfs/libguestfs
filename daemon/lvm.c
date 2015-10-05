@@ -286,7 +286,7 @@ static int
 ignore_same_size_error (const char *err)
 {
   return strstr (err, "New size (") != NULL &&
-         strstr (err, "extents) matches existing size (") != NULL;
+    strstr (err, "extents) matches existing size (") != NULL;
 }
 
 int
@@ -391,7 +391,7 @@ do_lvm_remove_all (void)
   }
 
   {
-  /* Remove PVs. */
+    /* Remove PVs. */
     CLEANUP_FREE_STRING_LIST char **xs = do_pvs ();
     if (xs == NULL)
       return -1;

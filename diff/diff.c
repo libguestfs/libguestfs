@@ -125,8 +125,8 @@ usage (int status)
               "  -x                   Trace libguestfs API calls\n"
               "  --xattrs             Display extended attributes\n"
               "For more information, see the manpage %s(1).\n"),
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);
 }
@@ -261,7 +261,8 @@ main (int argc, char *argv[])
         enable_xattrs = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name,
+                 long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -675,7 +676,7 @@ changed (guestfs_h *g1, struct file *file1,
     output_start_line ();
     output_string ("#");
     output_string ("changed:");
-#define COMPARE_STAT(n) \
+#define COMPARE_STAT(n)						\
     if (file1->stat->n != file2->stat->n) output_string (#n)
     COMPARE_STAT (st_dev);
     COMPARE_STAT (st_ino);

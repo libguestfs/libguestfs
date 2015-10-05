@@ -72,20 +72,20 @@ inspect_mount_handle (guestfs_h *g)
 
   if (roots[0] == NULL) {
     fprintf (stderr,
-      _("%s: no operating system was found on this disk\n"
-        "\n"
-        "If using guestfish '-i' option, remove this option and instead\n"
-        "use the commands 'run' followed by 'list-filesystems'.\n"
-        "You can then mount filesystems you want by hand using the\n"
-        "'mount' or 'mount-ro' command.\n"
-        "\n"
-        "If using guestmount '-i', remove this option and choose the\n"
-        "filesystem(s) you want to see by manually adding '-m' option(s).\n"
-        "Use 'virt-filesystems' to see what filesystems are available.\n"
-        "\n"
-        "If using other virt tools, this disk image won't work\n"
-        "with these tools.  Use the guestfish equivalent commands\n"
-        "(see the virt tool manual page).\n"),
+	     _("%s: no operating system was found on this disk\n"
+	       "\n"
+	       "If using guestfish '-i' option, remove this option and instead\n"
+	       "use the commands 'run' followed by 'list-filesystems'.\n"
+	       "You can then mount filesystems you want by hand using the\n"
+	       "'mount' or 'mount-ro' command.\n"
+	       "\n"
+	       "If using guestmount '-i', remove this option and choose the\n"
+	       "filesystem(s) you want to see by manually adding '-m' option(s).\n"
+	       "Use 'virt-filesystems' to see what filesystems are available.\n"
+	       "\n"
+	       "If using other virt tools, this disk image won't work\n"
+	       "with these tools.  Use the guestfish equivalent commands\n"
+	       "(see the virt tool manual page).\n"),
              guestfs_int_program_name);
     guestfs_int_free_string_list (roots);
     exit (EXIT_FAILURE);
@@ -93,20 +93,20 @@ inspect_mount_handle (guestfs_h *g)
 
   if (roots[1] != NULL) {
     fprintf (stderr,
-      _("%s: multi-boot operating systems are not supported\n"
-        "\n"
-        "If using guestfish '-i' option, remove this option and instead\n"
-        "use the commands 'run' followed by 'list-filesystems'.\n"
-        "You can then mount filesystems you want by hand using the\n"
-        "'mount' or 'mount-ro' command.\n"
-        "\n"
-        "If using guestmount '-i', remove this option and choose the\n"
-        "filesystem(s) you want to see by manually adding '-m' option(s).\n"
-        "Use 'virt-filesystems' to see what filesystems are available.\n"
-        "\n"
-        "If using other virt tools, multi-boot operating systems won't work\n"
-        "with these tools.  Use the guestfish equivalent commands\n"
-        "(see the virt tool manual page).\n"),
+	     _("%s: multi-boot operating systems are not supported\n"
+	       "\n"
+	       "If using guestfish '-i' option, remove this option and instead\n"
+	       "use the commands 'run' followed by 'list-filesystems'.\n"
+	       "You can then mount filesystems you want by hand using the\n"
+	       "'mount' or 'mount-ro' command.\n"
+	       "\n"
+	       "If using guestmount '-i', remove this option and choose the\n"
+	       "filesystem(s) you want to see by manually adding '-m' option(s).\n"
+	       "Use 'virt-filesystems' to see what filesystems are available.\n"
+	       "\n"
+	       "If using other virt tools, multi-boot operating systems won't work\n"
+	       "with these tools.  Use the guestfish equivalent commands\n"
+	       "(see the virt tool manual page).\n"),
              guestfs_int_program_name);
     guestfs_int_free_string_list (roots);
     exit (EXIT_FAILURE);

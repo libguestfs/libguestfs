@@ -51,8 +51,8 @@
 extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #endif
 
-#if defined (HAVE_LIBLZMA) && \
-  defined (HAVE_LZMA_INDEX_STREAM_FLAGS) && \
+#if defined (HAVE_LIBLZMA) &&			\
+  defined (HAVE_LZMA_INDEX_STREAM_FLAGS) &&	\
   defined (HAVE_LZMA_INDEX_STREAM_PADDING)
 #define PARALLEL_XZCAT 1
 #else

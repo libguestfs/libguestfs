@@ -85,7 +85,7 @@ static void free_osinfo_db_entry (struct osinfo *);
  */
 int
 guestfs_int_osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo,
-                      const struct osinfo **osinfo_ret)
+			const struct osinfo **osinfo_ret)
 {
   size_t i;
 

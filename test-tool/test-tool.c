@@ -342,8 +342,8 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
   if (getenv ("LIBGUESTFS_QEMU") != NULL ||
       getenv ("LIBGUESTFS_HV") != NULL) {
     fprintf (stderr,
-    _("LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
-      "--qemu/--qemudir options cannot be used.\n"));
+	     _("LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
+	       "--qemu/--qemudir options cannot be used.\n"));
     exit (EXIT_FAILURE);
   }
 

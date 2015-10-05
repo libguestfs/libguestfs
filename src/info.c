@@ -349,8 +349,8 @@ which_parser (guestfs_h *g)
     guestfs_int_cmd_add_arg (cmd, "qemu-img");
     guestfs_int_cmd_add_arg (cmd, "--help");
     guestfs_int_cmd_set_stdout_callback (cmd,
-                                       help_contains_output_json,
-                                       &qemu_img_supports_json, 0);
+					 help_contains_output_json,
+					 &qemu_img_supports_json, 0);
     guestfs_int_cmd_run (cmd);
     /* ignore return code, which would usually be 1 */
 

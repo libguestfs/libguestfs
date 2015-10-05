@@ -380,8 +380,8 @@ static struct connection_ops ops = {
  */
 struct connection *
 guestfs_int_new_conn_socket_listening (guestfs_h *g,
-                                     int daemon_accept_sock,
-                                     int console_sock)
+				       int daemon_accept_sock,
+				       int console_sock)
 {
   struct connection_socket *conn;
 
@@ -419,8 +419,8 @@ guestfs_int_new_conn_socket_listening (guestfs_h *g,
  */
 struct connection *
 guestfs_int_new_conn_socket_connected (guestfs_h *g,
-                                     int daemon_sock,
-                                     int console_sock)
+				       int daemon_sock,
+				       int console_sock)
 {
   struct connection_socket *conn;
 

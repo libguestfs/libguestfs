@@ -136,8 +136,8 @@ libvirt_auth_callback (virConnectCredentialPtr cred,
   g->nr_requested_credentials = ncred;
 
   guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_LIBVIRT_AUTH,
-                                    g->saved_libvirt_uri,
-                                    strlen (g->saved_libvirt_uri));
+				      g->saved_libvirt_uri,
+				      strlen (g->saved_libvirt_uri));
 
   /* Clarified with Dan that it is not an error for some fields to be
    * left as NULL.
@@ -189,7 +189,7 @@ exists_libvirt_auth_event (guestfs_h *g)
 /* Open a libvirt connection (called from other parts of the library). */
 virConnectPtr
 guestfs_int_open_libvirt_connection (guestfs_h *g, const char *uri,
-                                   unsigned int flags)
+				     unsigned int flags)
 {
   virConnectAuth authdata;
   virConnectPtr conn;
@@ -256,7 +256,7 @@ guestfs_impl_get_libvirt_requested_credentials (guestfs_h *g)
   /* Convert the requested_credentials types to a list of strings. */
   for (i = 0; i < g->nr_requested_credentials; ++i)
     guestfs_int_add_string (g, &ret,
-                          get_string_of_credtype (g->requested_credentials[i].type));
+			    get_string_of_credtype (g->requested_credentials[i].type));
   guestfs_int_end_stringsbuf (g, &ret);
 
   return ret.argv;              /* caller frees */
@@ -324,7 +324,7 @@ guestfs_impl_get_libvirt_requested_credential_defresult (guestfs_h *g, int index
 
 int
 guestfs_impl_set_libvirt_requested_credential (guestfs_h *g, int index,
-                                           const char *cred, size_t cred_size)
+					       const char *cred, size_t cred_size)
 {
   size_t i;
 

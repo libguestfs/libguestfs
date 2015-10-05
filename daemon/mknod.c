@@ -38,13 +38,13 @@ optgroup_mknod_available (void)
   return 1;
 }
 
-#define CHECK_MODE \
-  do { \
-    if ((mode & ~07777) != 0) { \
+#define CHECK_MODE							\
+  do {									\
+    if ((mode & ~07777) != 0) {						\
       reply_with_error ("%o: mode must specify only file permission bits", \
-                        (unsigned int) mode); \
-      return -1; \
-    } \
+                        (unsigned int) mode);				\
+      return -1;							\
+    }									\
   } while (0)
 
 int

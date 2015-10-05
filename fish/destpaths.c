@@ -45,8 +45,8 @@
    sizeof (ptrdiff_t) <= sizeof (size_t), so do not bother to test for
    exactly-SIZE_MAX allocations on such hosts; this avoids a test and
    branch when S is known to be 1.  */
-# define xalloc_oversized(n, s) \
-    ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
+# define xalloc_oversized(n, s)						\
+  ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
 #endif
 
 /* Readline completion for paths on the guest filesystem, also for
@@ -103,33 +103,33 @@ complete_dest_paths_generator (const char *text, int state)
 
     guestfs_push_error_handler (g, NULL, NULL);
 
-/* Silently do nothing if an allocation fails */
+    /* Silently do nothing if an allocation fails */
 #define APPEND_STRS_AND_FREE						\
-  do {									\
-    if (strs) {								\
-      size_t i;								\
-      size_t n = guestfs_int_count_strings (strs);                        \
+    do {								\
+      if (strs) {							\
+	size_t i;							\
+	size_t n = guestfs_int_count_strings (strs);			\
                                                                         \
-      if ( n > 0 && ! xalloc_oversized (nr_words + n, sizeof (struct word))) { \
-        struct word *w;							\
-        w = realloc (words, sizeof (struct word) * (nr_words + n));	\
+	if ( n > 0 && ! xalloc_oversized (nr_words + n, sizeof (struct word))) { \
+	  struct word *w;						\
+	  w = realloc (words, sizeof (struct word) * (nr_words + n));	\
                                                                         \
-        if (w == NULL) {						\
-          free_words (words, nr_words);					\
-          words = NULL;							\
-          nr_words = 0;							\
-        } else {							\
-          words = w;							\
-          for (i = 0; i < n; ++i) {					\
-            words[nr_words].name = strs[i];				\
-            words[nr_words].is_dir = 0;					\
-            nr_words++;							\
-          }								\
-        }								\
+	  if (w == NULL) {						\
+	    free_words (words, nr_words);				\
+	    words = NULL;						\
+	    nr_words = 0;						\
+	  } else {							\
+	    words = w;							\
+	    for (i = 0; i < n; ++i) {					\
+	      words[nr_words].name = strs[i];				\
+	      words[nr_words].is_dir = 0;				\
+	      nr_words++;						\
+	    }								\
+	  }								\
+	}								\
+	free (strs);							\
       }									\
-      free (strs);							\
-    }									\
-  } while (0)
+    } while (0)
 
     /* Is it a device? */
     if (len < 5 || STREQLEN (text, "/dev/", 5)) {

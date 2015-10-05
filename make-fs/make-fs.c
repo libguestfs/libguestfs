@@ -92,8 +92,9 @@ usage (int status)
               "  -V|--version           Display version and exit\n"
               "  -x                     Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-             guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
-             guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name, guestfs_int_program_name,
+            guestfs_int_program_name);
   }
   exit (status);
 }
@@ -143,7 +144,8 @@ main (int argc, char *argv[])
           partition = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name,
+                 long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;
@@ -181,7 +183,8 @@ main (int argc, char *argv[])
   }
 
   if (optind + 2 != argc) {
-    fprintf (stderr, _("%s: missing input and output arguments on the command line\n"),
+    fprintf (stderr,
+             _("%s: missing input and output arguments on the command line\n"),
              guestfs_int_program_name);
     usage (EXIT_FAILURE);
   }
@@ -199,7 +202,8 @@ check_ntfs_available (void)
 
   if (STREQ (type, "ntfs") &&
       guestfs_feature_available (g, (char **) ntfs_features) == 0) {
-    fprintf (stderr, _("%s: NTFS support was disabled when libguestfs was compiled\n"),
+    fprintf (stderr,
+             _("%s: NTFS support was disabled when libguestfs was compiled\n"),
              guestfs_int_program_name);
     return -1;
   }
@@ -249,7 +253,8 @@ exec_command (char **argv, const char *file)
       return -1;
     }
     if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      fprintf (stderr, _("%s: %s command failed\n"), guestfs_int_program_name, argv[0]);
+      fprintf (stderr, _("%s: %s command failed\n"),
+               guestfs_int_program_name, argv[0]);
       return -1;
     }
     return 0;
@@ -306,7 +311,8 @@ exec_command_count_output (char **argv, uint64_t *bytes_rtn)
       return -1;
     }
     if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-      fprintf (stderr, _("%s: %s command failed\n"), guestfs_int_program_name, argv[0]);
+      fprintf (stderr, _("%s: %s command failed\n"),
+               guestfs_int_program_name, argv[0]);
       return -1;
     }
     return 0;

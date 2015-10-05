@@ -132,7 +132,7 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "guestfsd [-r] [-v|--verbose]\n");
+	   "guestfsd [-r] [-v|--verbose]\n");
 }
 
 int
@@ -1394,18 +1394,18 @@ mountable_to_string (const mountable_t *mountable)
   char *desc;
 
   switch (mountable->type) {
-    case MOUNTABLE_DEVICE:
-    case MOUNTABLE_PATH:
-      return strdup (mountable->device);
+  case MOUNTABLE_DEVICE:
+  case MOUNTABLE_PATH:
+    return strdup (mountable->device);
 
-    case MOUNTABLE_BTRFSVOL:
-      if (asprintf (&desc, "btrfsvol:%s/%s",
-                    mountable->device, mountable->volume) == -1)
-        return NULL;
-      return desc;
-
-    default:
+  case MOUNTABLE_BTRFSVOL:
+    if (asprintf (&desc, "btrfsvol:%s/%s",
+		  mountable->device, mountable->volume) == -1)
       return NULL;
+    return desc;
+
+  default:
+    return NULL;
   }
 }
 

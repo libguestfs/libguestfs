@@ -65,7 +65,7 @@ usage (int status)
               "  -v|--verbose         Verbose messages\n"
               "  -V|--version         Display version and exit\n"
               ),
-             guestfs_int_program_name, guestfs_int_program_name);
+            guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);
 }

@@ -182,7 +182,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   fs->type = OS_TYPE_LINUX;
 
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^family = Fedora$", 0, &str);
+				       "^family = Fedora$", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -191,8 +191,8 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   }
 
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^family = Red Hat Enterprise Linux$",
-                                     0, &str);
+				       "^family = Red Hat Enterprise Linux$",
+				       0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -201,8 +201,8 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   }
 
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^family = Oracle Linux Server$",
-                                     0, &str);
+				       "^family = Oracle Linux Server$",
+				       0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -212,7 +212,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   /* XXX should do major.minor before this */
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^version = [[:digit:]]+", 0, &str);
+				       "^version = [[:digit:]]+", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -224,7 +224,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   }
 
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^arch = [-_[:alnum:]]+$", 0, &str);
+				       "^arch = [-_[:alnum:]]+$", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -234,7 +234,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   }
 
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^discnum = [[:digit:]]+$", 0, &str);
+				       "^discnum = [[:digit:]]+$", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -246,7 +246,7 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
   }
 
   r = guestfs_int_first_egrep_of_file (g, "/.treeinfo",
-                                     "^totaldiscs = [[:digit:]]+$", 0, &str);
+				       "^totaldiscs = [[:digit:]]+$", 0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -280,8 +280,8 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
   fs->type = OS_TYPE_LINUX;
 
   r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
-                                     "^menu title Welcome to Fedora [[:digit:]]+",
-                                     0, &str);
+				       "^menu title Welcome to Fedora [[:digit:]]+",
+				       0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -295,8 +295,8 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   /* XXX parse major.minor */
   r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
-                                     "^menu title Welcome to Red Hat Enterprise Linux [[:digit:]]+",
-                           0, &str);
+				       "^menu title Welcome to Red Hat Enterprise Linux [[:digit:]]+",
+				       0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -310,8 +310,8 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   /* XXX parse major.minor */
   r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
-                                     "^menu title Welcome to RHEL[[:digit:]]+",
-                           0, &str);
+				       "^menu title Welcome to RHEL[[:digit:]]+",
+				       0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -325,8 +325,8 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
 
   /* XXX parse major.minor */
   r = guestfs_int_first_egrep_of_file (g, "/isolinux/isolinux.cfg",
-                                     "^menu title Welcome to Oracle Linux Server [[:digit:]]+",
-                           0, &str);
+				       "^menu title Welcome to Oracle Linux Server [[:digit:]]+",
+				       0, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -374,7 +374,7 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   fs->distro = OS_DISTRO_WINDOWS;
 
   r = guestfs_int_first_egrep_of_file (g, txtsetup,
-                                     "^productname[[:space:]]*=[[:space:]]*\"", 1, &str);
+				       "^productname[[:space:]]*=[[:space:]]*\"", 1, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -386,8 +386,8 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   }
 
   r = guestfs_int_first_egrep_of_file (g, txtsetup,
-                                     "^majorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
-                                     1, &str);
+				       "^majorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
+				       1, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -400,8 +400,8 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   }
 
   r = guestfs_int_first_egrep_of_file (g, txtsetup,
-                                     "^minorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
-                                     1, &str);
+				       "^minorversion[[:space:]]*=[[:space:]]*[[:digit:]]+",
+				       1, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -418,8 +418,8 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
    * the user will finally choose.
    */
   r = guestfs_int_first_egrep_of_file (g, txtsetup,
-                                     "^defaultpath[[:space:]]*=[[:space:]]*",
-                                     1, &str);
+				       "^defaultpath[[:space:]]*=[[:space:]]*",
+				       1, &str);
   if (r == -1)
     return -1;
   if (r > 0) {
@@ -505,7 +505,7 @@ guestfs_int_check_installer_root (guestfs_h *g, struct inspect_fs *fs)
  */
 int
 guestfs_int_check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
-                               const char *device)
+				 const char *device)
 {
   CLEANUP_FREE_ISOINFO struct guestfs_isoinfo *isoinfo = NULL;
   const struct osinfo *osinfo;

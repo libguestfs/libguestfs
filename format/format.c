@@ -87,8 +87,9 @@ usage (int status)
               "For more information, see the manpage %s(1).\n"
               "\n"
               "%s\n\n"),
-             guestfs_int_program_name, warning, guestfs_int_program_name, guestfs_int_program_name,
-             warning);
+            guestfs_int_program_name, warning,
+            guestfs_int_program_name, guestfs_int_program_name,
+            warning);
   }
   exit (status);
 }
@@ -181,7 +182,8 @@ main (int argc, char *argv[])
         label = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
+                 guestfs_int_program_name,
+                 long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);
       }
       break;

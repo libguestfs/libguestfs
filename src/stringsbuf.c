@@ -47,7 +47,7 @@ guestfs_int_add_string (guestfs_h *g, struct stringsbuf *sb, const char *str)
 
 void
 guestfs_int_add_sprintf (guestfs_h *g, struct stringsbuf *sb,
-                       const char *fs, ...)
+			 const char *fs, ...)
 {
   va_list args;
   char *str;

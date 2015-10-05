@@ -458,7 +458,7 @@ parse_suse_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
 
   r = 0;
 
-out:
+ out:
   return r;
 }
 
@@ -532,7 +532,7 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
 
     if (match2 (g, fs->product_name, re_centos_old, &major, &minor) ||
-             match2 (g, fs->product_name, re_centos, &major, &minor)) {
+	match2 (g, fs->product_name, re_centos, &major, &minor)) {
       fs->major_version = guestfs_int_parse_unsigned_int (g, major);
       free (major);
       if (fs->major_version == -1) {
@@ -1337,14 +1337,14 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
        * disklabel. For more info see here:
        * http://www.openbsd.org/faq/faq14.html#intro
        */
-       char device[10]; /* /dev/sd[0-9][a-z] */
-       char part = spec[17];
+      char device[10]; /* /dev/sd[0-9][a-z] */
+      char part = spec[17];
 
-       /* We cannot peep into disklables, we can only assume that this is the
-        * first disk.
-        */
-       snprintf(device, 10, "%s%c", "/dev/sd0", part);
-       mountable = resolve_fstab_device (g, device, md_map, fs->type);
+      /* We cannot peep into disklables, we can only assume that this is the
+       * first disk.
+       */
+      snprintf(device, 10, "%s%c", "/dev/sd0", part);
+      mountable = resolve_fstab_device (g, device, md_map, fs->type);
     }
 
     /* If we haven't resolved the device successfully by this point,
@@ -1530,32 +1530,32 @@ map_app_md_devices (guestfs_h *g, Hash_table **map)
       if (parse_uuid(*i, entry->uuid) == -1) {
         /* Invalid UUID is weird, but not fatal. */
         debug(g, "inspect-os: guestfs_md_detail returned invalid "
-                 "uuid for %s: %s", *md, *i);
+	      "uuid for %s: %s", *md, *i);
         md_uuid_free(entry);
         continue;
       }
 
       const void *matched = NULL;
       switch (hash_insert_if_absent(*map, entry, &matched)) {
-        case -1:
-          g->abort_cb();
+      case -1:
+	g->abort_cb();
 
-        case 0:
-          /* Duplicate uuid in for md device is weird, but not fatal. */
-          debug(g, "inspect-os: md devices %s and %s have the same uuid",
-                ((md_uuid *)matched)->path, entry->path);
-          md_uuid_free(entry);
-          break;
+      case 0:
+	/* Duplicate uuid in for md device is weird, but not fatal. */
+	debug(g, "inspect-os: md devices %s and %s have the same uuid",
+	      ((md_uuid *)matched)->path, entry->path);
+	md_uuid_free(entry);
+	break;
 
-        default:
-          n++;
+      default:
+	n++;
       }
     }
   }
 
   return n;
 
-error:
+ error:
   hash_free (*map); *map = NULL;
 
   return -1;
@@ -1612,12 +1612,12 @@ map_md_devices(guestfs_h *g, Hash_table **map)
   /* Log a debug message if we've got md devices, but nothing in mdadm.conf */
   if (matches[0] == NULL) {
     debug(g, "Appliance has MD devices, but augeas returned no array matches "
-             "in mdadm.conf");
+	  "in mdadm.conf");
     return 0;
   }
 
   *map = hash_initialize(16, NULL, mdadm_app_hash, mdadm_app_cmp,
-                                   mdadm_app_free);
+			 mdadm_app_free);
   if (!*map) g->abort_cb();
 
   for (char **m = matches; *m != NULL; m++) {
@@ -1654,15 +1654,15 @@ map_md_devices(guestfs_h *g, Hash_table **map)
       entry->app = safe_strdup(g, app->path);
 
       switch (hash_insert_if_absent(*map, entry, NULL)) {
-        case -1:
-          g->abort_cb();
+      case -1:
+	g->abort_cb();
 
-        case 0:
-          /* Duplicate uuid in for md device is weird, but not fatal. */
-          debug(g, "inspect-os: mdadm.conf contains multiple entries for %s",
-                app->path);
-          mdadm_app_free(entry);
-          continue;
+      case 0:
+	/* Duplicate uuid in for md device is weird, but not fatal. */
+	debug(g, "inspect-os: mdadm.conf contains multiple entries for %s",
+	      app->path);
+	mdadm_app_free(entry);
+	continue;
       }
     } else
       free (dev);
@@ -1670,7 +1670,7 @@ map_md_devices(guestfs_h *g, Hash_table **map)
 
   return 0;
 
-error:
+ error:
   if (*map) hash_free (*map);
 
   return -1;

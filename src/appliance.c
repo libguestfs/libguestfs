@@ -93,10 +93,10 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  */
 int
 guestfs_int_build_appliance (guestfs_h *g,
-                           char **kernel_rtn,
-                           char **dtb_rtn,
-                           char **initrd_rtn,
-                           char **appliance_rtn)
+			     char **kernel_rtn,
+			     char **dtb_rtn,
+			     char **initrd_rtn,
+			     char **appliance_rtn)
 {
   char *kernel = NULL, *dtb = NULL, *initrd = NULL, *appliance = NULL;
 

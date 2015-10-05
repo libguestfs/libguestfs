@@ -180,7 +180,7 @@ print_rate (const char *msg, int64_t rate)
 /* The maximum amount of data to copy.  You can safely make this very
  * large because it's only making sparse files.
  */
-#define TEST_SERIAL_MAX_SIZE \
+#define TEST_SERIAL_MAX_SIZE						\
   (INT64_C(1024) * INT64_C(1024) * INT64_C(1024) * INT64_C(1024))
 
 static guestfs_h *g;

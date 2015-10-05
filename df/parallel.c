@@ -259,7 +259,8 @@ worker_thread (void *thread_data_vp)
 static void
 thread_failure (const char *fn, int err)
 {
-  fprintf (stderr, "%s: %s: %s\n", guestfs_int_program_name, fn, strerror (err));
+  fprintf (stderr, "%s: %s: %s\n",
+           guestfs_int_program_name, fn, strerror (err));
 }
 
 #endif /* HAVE_LIBVIRT */

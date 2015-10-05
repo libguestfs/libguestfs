@@ -30,8 +30,8 @@
 /* Check the return message from a call for validity. */
 int
 guestfs_int_check_reply_header (guestfs_h *g,
-                              const struct guestfs_message_header *hdr,
-                              unsigned int proc_nr, unsigned int serial)
+				const struct guestfs_message_header *hdr,
+				unsigned int proc_nr, unsigned int serial)
 {
   if (hdr->prog != GUESTFS_PROGRAM) {
     error (g, "wrong program (%u/%d)", hdr->prog, GUESTFS_PROGRAM);

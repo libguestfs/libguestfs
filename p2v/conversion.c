@@ -584,7 +584,7 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
   }
 
   result = 0;
-cleanup:
+ cleanup:
   close (sockfd);
 
   return result;
@@ -615,25 +615,25 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
 
 /* Macros "inspired" by src/launch-libvirt.c */
 /* <element */
-#define start_element(element)                                        \
-  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {     \
-    set_conversion_error ("xmlTextWriterStartElement: %m");           \
-    return NULL;                                                      \
-  }                                                                   \
+#define start_element(element)						\
+  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {	\
+    set_conversion_error ("xmlTextWriterStartElement: %m");		\
+    return NULL;							\
+  }									\
   do
 
 /* finish current </element> */
-#define end_element()                                                   \
-  while (0);                                                            \
-  do {                                                                  \
-    if (xmlTextWriterEndElement (xo) == -1) {                           \
-      set_conversion_error ("xmlTextWriterEndElement: %m");             \
-      return NULL;                                                      \
-    }                                                                   \
+#define end_element()						\
+  while (0);							\
+  do {								\
+    if (xmlTextWriterEndElement (xo) == -1) {			\
+      set_conversion_error ("xmlTextWriterEndElement: %m");	\
+      return NULL;						\
+    }								\
   } while (0)
 
 /* <element/> */
-#define empty_element(element) \
+#define empty_element(element)					\
   do { start_element(element) {} end_element (); } while (0)
 
 /* key=value attribute of the current element. */
@@ -646,16 +646,16 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
 /* key=value, but value is a printf-style format string. */
 #define attribute_format(key,fs,...)                                    \
   if (xmlTextWriterWriteFormatAttribute (xo, BAD_CAST (key),            \
-                                           fs, ##__VA_ARGS__) == -1) {  \
+					 fs, ##__VA_ARGS__) == -1) {	\
     set_conversion_error ("xmlTextWriterWriteFormatAttribute: %m");     \
     return NULL;                                                        \
   }
 
 /* A string, eg. within an element. */
-#define string(str)                                                     \
-  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {            \
-    set_conversion_error ("xmlTextWriterWriteString: %m");              \
-    return NULL;                                                        \
+#define string(str)						\
+  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {	\
+    set_conversion_error ("xmlTextWriterWriteString: %m");	\
+    return NULL;						\
   }
 
 /* A string, using printf-style formatting. */
@@ -666,10 +666,10 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
   }
 
 /* An XML comment. */
-#define comment(str)                                                  \
-  if (xmlTextWriterWriteComment (xo, BAD_CAST (str)) == -1) {         \
-    set_conversion_error ("xmlTextWriterWriteComment: %m");           \
-    return NULL;                                                      \
+#define comment(str)						\
+  if (xmlTextWriterWriteComment (xo, BAD_CAST (str)) == -1) {	\
+    set_conversion_error ("xmlTextWriterWriteComment: %m");	\
+    return NULL;						\
   }
 
 /* Write the libvirt XML for this physical machine.  Note this is not
