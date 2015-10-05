@@ -21,6 +21,7 @@
 
 #include <stdbool.h>
 
+#include <rpc/types.h>  /* Needed on libc's different than glibc. */
 #include <rpc/xdr.h>
 
 #include <pcre.h>
