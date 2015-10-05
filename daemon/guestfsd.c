@@ -1501,7 +1501,8 @@ udev_settle (void)
   char cmd[80];
   int r;
 
-  snprintf (cmd, sizeof cmd, "udevadm%s settle", verbose ? " --debug" : "");
+  snprintf (cmd, sizeof cmd, "%s%s settle",
+            str_udevadm, verbose ? " --debug" : "");
   if (verbose)
     printf ("%s\n", cmd);
   r = system (cmd);
