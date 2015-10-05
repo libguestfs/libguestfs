@@ -238,9 +238,8 @@ let find_virtio_win_drivers virtio_win =
           let extension =
             match last_part_of lc_basename '.' with
             | Some x -> x
-            | None ->
-              error "v2v/find_virtio_win_drivers: missing '.' in %s"
-                lc_basename in
+            | None -> raise Not_found
+          in
 
           (* Skip files without specific extensions. *)
           if extension <> "cat" && extension <> "inf" &&
