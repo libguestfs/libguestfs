@@ -9979,7 +9979,7 @@ be mounted when trying to set the label.
 
 =item btrfs
 
-The label is limited to 256 bytes and some characters are
+The label is limited to 255 bytes and some characters are
 not allowed.  Setting the label on a btrfs subvolume will set the
 label on its parent filesystem.  The filesystem must not be mounted
 when trying to set the label.
