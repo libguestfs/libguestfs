@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 # libguestfs
 # Copyright (C) 2012 Red Hat Inc.
 #
@@ -24,6 +24,7 @@
 #   ./run ./contrib/windows-icons.pl /path/to/windows-disk.img
 
 use strict;
+use warnings;
 
 use Sys::Guestfs;
 use File::Temp qw{tempdir};

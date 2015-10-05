@@ -1,8 +1,9 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 # Example showing how to create a disk image.
 
 use strict;
+use warnings;
 use Sys::Guestfs;
 
 my $output = "disk.img";

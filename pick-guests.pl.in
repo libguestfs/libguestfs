@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 # @configure_input@
 # Copyright (C) 2009-2015 Red Hat Inc.
 #
@@ -20,6 +20,7 @@
 # This is used by 'make check-valgrind-local-guests'.
 
 use strict;
+use warnings;
 
 use Sys::Guestfs;
 use Sys::Virt;

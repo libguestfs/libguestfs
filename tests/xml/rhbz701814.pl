@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 # Copyright (C) 2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=701814
 
 use strict;
+use warnings;
 
 use Sys::Guestfs;
 

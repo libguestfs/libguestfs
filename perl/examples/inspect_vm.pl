@@ -1,8 +1,9 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 # Example showing how to inspect a virtual machine disk.
 
 use strict;
+use warnings;
 use Sys::Guestfs;
 
 if (@ARGV < 1) {

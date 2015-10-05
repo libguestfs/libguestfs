@@ -370,11 +370,12 @@ let () =
   pr "print_endline \"EOF\"\n"
 
 and generate_perl_bindtests () =
-  pr "#!/usr/bin/perl -w\n";
+  pr "#!/usr/bin/env perl\n";
   generate_header HashStyle GPLv2plus;
 
   pr "\
 use strict;
+use warnings;
 
 use Sys::Guestfs;
 

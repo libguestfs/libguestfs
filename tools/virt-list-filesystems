@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 # virt-list-filesystems
 # Copyright (C) 2009-2015 Red Hat Inc.
 #

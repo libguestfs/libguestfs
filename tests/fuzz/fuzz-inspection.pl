@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 # Fuzz-test libguestfs inspection.
 # Copyright (C) 2013 Red Hat Inc.
 #

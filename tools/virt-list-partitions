@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 # virt-list-partitions
 # Copyright (C) 2010 Red Hat Inc.
 #

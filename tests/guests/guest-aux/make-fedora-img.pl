@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # libguestfs
 # Copyright (C) 2010-2015 Red Hat Inc.
 #
