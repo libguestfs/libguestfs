@@ -52,20 +52,19 @@ usage (int status)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
              guestfs_int_program_name);
   else {
-    fprintf (stdout,
-           _("%s: clean up a mounted filesystem\n"
-             "Copyright (C) 2013 Red Hat Inc.\n"
-             "Usage:\n"
-             "  %s [--fd=FD] mountpoint\n"
-             "Options:\n"
-             "  --fd=FD              Pipe file descriptor to monitor\n"
-             "  --help               Display help message and exit\n"
-             "  -q|--quiet           Don't print fusermount errors\n"
-             "  --no-retry           Don't retry fusermount\n"
-             "  --retry=N            Retry fusermount N times (default: 5)\n"
-             "  -v|--verbose         Verbose messages\n"
-             "  -V|--version         Display version and exit\n"
-             ),
+    printf (_("%s: clean up a mounted filesystem\n"
+              "Copyright (C) 2013 Red Hat Inc.\n"
+              "Usage:\n"
+              "  %s [--fd=FD] mountpoint\n"
+              "Options:\n"
+              "  --fd=FD              Pipe file descriptor to monitor\n"
+              "  --help               Display help message and exit\n"
+              "  -q|--quiet           Don't print fusermount errors\n"
+              "  --no-retry           Don't retry fusermount\n"
+              "  --retry=N            Retry fusermount N times (default: 5)\n"
+              "  -v|--verbose         Verbose messages\n"
+              "  -V|--version         Display version and exit\n"
+              ),
              guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);

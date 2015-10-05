@@ -65,17 +65,16 @@ usage (int status)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
              guestfs_int_program_name);
   else {
-    fprintf (stdout,
-           _("%s: Convert a physical machine to use KVM\n"
-             "Copyright (C) 2009-2015 Red Hat Inc.\n"
-             "Usage:\n"
-             "  %s [--options]\n"
-             "Options:\n"
-             "  --help                 Display brief help\n"
-             " --cmdline=CMDLINE       Used to debug command line parsing\n"
-             "  -v|--verbose           Verbose messages\n"
-             "  -V|--version           Display version and exit\n"
-             "For more information, see the manpage %s(1).\n"),
+    printf (_("%s: Convert a physical machine to use KVM\n"
+              "Copyright (C) 2009-2015 Red Hat Inc.\n"
+              "Usage:\n"
+              "  %s [--options]\n"
+              "Options:\n"
+              "  --help                 Display brief help\n"
+              " --cmdline=CMDLINE       Used to debug command line parsing\n"
+              "  -v|--verbose           Verbose messages\n"
+              "  -V|--version           Display version and exit\n"
+              "For more information, see the manpage %s(1).\n"),
              guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name);
   }
   exit (status);

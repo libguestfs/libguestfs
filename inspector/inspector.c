@@ -67,25 +67,24 @@ usage (int status)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
              guestfs_int_program_name);
   else {
-    fprintf (stdout,
-           _("%s: display information about a virtual machine\n"
-             "Copyright (C) 2010 Red Hat Inc.\n"
-             "Usage:\n"
-             "  %s [--options] -d domname file [file ...]\n"
-             "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
-             "Options:\n"
-             "  -a|--add image       Add image\n"
-             "  -c|--connect uri     Specify libvirt URI for -d option\n"
-             "  -d|--domain guest    Add disks from libvirt guest\n"
-             "  --echo-keys          Don't turn off echo for passphrases\n"
-             "  --format[=raw|..]    Force disk format for -a option\n"
-             "  --help               Display brief help\n"
-             "  --keys-from-stdin    Read passphrases from stdin\n"
-             "  -v|--verbose         Verbose messages\n"
-             "  -V|--version         Display version and exit\n"
-             "  -x                   Trace libguestfs API calls\n"
-             "  --xpath query        Perform an XPath query\n"
-             "For more information, see the manpage %s(1).\n"),
+    printf (_("%s: display information about a virtual machine\n"
+              "Copyright (C) 2010 Red Hat Inc.\n"
+              "Usage:\n"
+              "  %s [--options] -d domname file [file ...]\n"
+              "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+              "Options:\n"
+              "  -a|--add image       Add image\n"
+              "  -c|--connect uri     Specify libvirt URI for -d option\n"
+              "  -d|--domain guest    Add disks from libvirt guest\n"
+              "  --echo-keys          Don't turn off echo for passphrases\n"
+              "  --format[=raw|..]    Force disk format for -a option\n"
+              "  --help               Display brief help\n"
+              "  --keys-from-stdin    Read passphrases from stdin\n"
+              "  -v|--verbose         Verbose messages\n"
+              "  -V|--version         Display version and exit\n"
+              "  -x                   Trace libguestfs API calls\n"
+              "  --xpath query        Perform an XPath query\n"
+              "For more information, see the manpage %s(1).\n"),
              guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
              guestfs_int_program_name);
   }

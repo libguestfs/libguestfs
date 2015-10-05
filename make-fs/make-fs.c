@@ -74,25 +74,24 @@ usage (int status)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
              guestfs_int_program_name);
   else {
-    fprintf (stdout,
-           _("%s: make a filesystem from a tar archive or files\n"
-             "Copyright (C) 2010-2015 Red Hat Inc.\n"
-             "Usage:\n"
-             "  %s [--options] input.tar output.img\n"
-             "  %s [--options] input.tar.gz output.img\n"
-             "  %s [--options] directory output.img\n"
-             "Options:\n"
-             "  --floppy               Make a virtual floppy disk\n"
-             "  --format=raw|qcow2|..  Set output format\n"
-             "  --help                 Display brief help\n"
-             "  --label=label          Filesystem label\n"
-             "  --partition=mbr|gpt|.. Set partition type\n"
-             "  --size=size|+size      Set size of output disk\n"
-             "  --type=ext4|..         Set filesystem type\n"
-             "  -v|--verbose           Verbose messages\n"
-             "  -V|--version           Display version and exit\n"
-             "  -x                     Trace libguestfs API calls\n"
-             "For more information, see the manpage %s(1).\n"),
+    printf (_("%s: make a filesystem from a tar archive or files\n"
+              "Copyright (C) 2010-2015 Red Hat Inc.\n"
+              "Usage:\n"
+              "  %s [--options] input.tar output.img\n"
+              "  %s [--options] input.tar.gz output.img\n"
+              "  %s [--options] directory output.img\n"
+              "Options:\n"
+              "  --floppy               Make a virtual floppy disk\n"
+              "  --format=raw|qcow2|..  Set output format\n"
+              "  --help                 Display brief help\n"
+              "  --label=label          Filesystem label\n"
+              "  --partition=mbr|gpt|.. Set partition type\n"
+              "  --size=size|+size      Set size of output disk\n"
+              "  --type=ext4|..         Set filesystem type\n"
+              "  -v|--verbose           Verbose messages\n"
+              "  -V|--version           Display version and exit\n"
+              "  -x                     Trace libguestfs API calls\n"
+              "For more information, see the manpage %s(1).\n"),
              guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name, guestfs_int_program_name,
              guestfs_int_program_name);
   }

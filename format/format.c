@@ -65,29 +65,28 @@ usage (int status)
     fprintf (stderr, _("Try `%s --help' for more information.\n%s\n"),
              guestfs_int_program_name, warning);
   else {
-    fprintf (stdout,
-           _("%s: erase and make a blank disk\n"
-             "Copyright (C) 2012 Red Hat Inc.\n"
-             "\n"
-             "%s\n"
-             "\n"
-             "Usage:\n"
-             "  %s [--options] -a disk.img [-a disk.img ...]\n"
-             "Options:\n"
-             "  -a|--add image       Add image\n"
-             "  --filesystem=..      Create empty filesystem\n"
-             "  --format[=raw|..]    Force disk format for -a option\n"
-             "  --help               Display brief help\n"
-             "  --label=..           Set filesystem label\n"
-             "  --lvm=..             Create Linux LVM2 logical volume\n"
-             "  --partition=..       Create / set partition type\n"
-             "  -v|--verbose         Verbose messages\n"
-             "  -V|--version         Display version and exit\n"
-             "  --wipe               Write zeroes over whole disk\n"
-             "  -x                   Trace libguestfs API calls\n"
-             "For more information, see the manpage %s(1).\n"
-             "\n"
-             "%s\n\n"),
+    printf (_("%s: erase and make a blank disk\n"
+              "Copyright (C) 2012 Red Hat Inc.\n"
+              "\n"
+              "%s\n"
+              "\n"
+              "Usage:\n"
+              "  %s [--options] -a disk.img [-a disk.img ...]\n"
+              "Options:\n"
+              "  -a|--add image       Add image\n"
+              "  --filesystem=..      Create empty filesystem\n"
+              "  --format[=raw|..]    Force disk format for -a option\n"
+              "  --help               Display brief help\n"
+              "  --label=..           Set filesystem label\n"
+              "  --lvm=..             Create Linux LVM2 logical volume\n"
+              "  --partition=..       Create / set partition type\n"
+              "  -v|--verbose         Verbose messages\n"
+              "  -V|--version         Display version and exit\n"
+              "  --wipe               Write zeroes over whole disk\n"
+              "  -x                   Trace libguestfs API calls\n"
+              "For more information, see the manpage %s(1).\n"
+              "\n"
+              "%s\n\n"),
              guestfs_int_program_name, warning, guestfs_int_program_name, guestfs_int_program_name,
              warning);
   }
