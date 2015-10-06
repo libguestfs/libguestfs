@@ -18,7 +18,7 @@
 
 let callback_invoked = ref 0
 
-let callback _ _ _ _ _ = incr callback_invoked
+let callback _ _ _ _ = incr callback_invoked
 
 let () =
   let g = new Guestfs.guestfs () in

@@ -38,13 +38,13 @@ let set_up_progress_bar ?(machine_readable = false) (g : Guestfs.guestfs) =
     let bar = progress_bar_init ~machine_readable in
 
     (* Reset the progress bar before every libguestfs function. *)
-    let enter_callback g event evh buf array =
+    let enter_callback event evh buf array =
       if event = G.EVENT_ENTER then
         progress_bar_reset bar
     in
 
     (* A progress event: move the progress bar. *)
-    let progress_callback g event evh buf array =
+    let progress_callback event evh buf array =
       if event = G.EVENT_PROGRESS && Array.length array >= 4 then (
         let position = array.(2)
         and total = array.(3) in

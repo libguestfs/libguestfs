@@ -18,7 +18,7 @@
 
 let close_invoked = ref 0
 
-let close _ _ _ _ _ =
+let close _ _ _ _ =
   incr close_invoked
 
 let () =

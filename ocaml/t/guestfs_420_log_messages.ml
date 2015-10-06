@@ -20,7 +20,7 @@ open Printf
 
 let log_invoked = ref 0
 
-let log g ev eh buf array =
+let log ev eh buf array =
   let eh : int = Obj.magic eh in
 
   printf "event logged: event=%s eh=%d buf=%S array=[%s]\n"

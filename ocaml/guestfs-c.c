@@ -78,8 +78,6 @@ guestfs_finalize (value gv)
     size_t len, i;
     value **roots = get_all_event_callbacks (g, &len);
 
-    value *v = guestfs_get_private (g, "_ocaml_g");
-
     /* Close the handle: this could invoke callbacks from the list
      * above, which is why we don't want to delete them before
      * closing the handle.
@@ -92,9 +90,6 @@ guestfs_finalize (value gv)
       free (roots[i]);
     }
     free (roots);
-
-    caml_remove_generational_global_root (v);
-    free (v);
   }
 }
 
@@ -156,7 +151,6 @@ ocaml_guestfs_create (value environmentv, value close_on_exitv, value unitv)
   CAMLlocal1 (gv);
   unsigned flags = 0;
   guestfs_h *g;
-  value *v;
 
   if (environmentv != Val_int (0) &&
       !Bool_val (Field (environmentv, 0)))
@@ -173,14 +167,6 @@ ocaml_guestfs_create (value environmentv, value close_on_exitv, value unitv)
   guestfs_set_error_handler (g, NULL, NULL);
 
   gv = Val_guestfs (g);
-
-  /* Store the OCaml handle into the C handle.  This is only so we can
-   * map the C handle to the OCaml handle in event_callback_wrapper.
-   */
-  v = guestfs_int_safe_malloc (g, sizeof *v);
-  *v = gv;
-  caml_register_generational_global_root (v);
-  guestfs_set_private (g, "_ocaml_g", v);
 
   CAMLreturn (gv);
 }
@@ -358,13 +344,9 @@ event_callback_wrapper_locked (guestfs_h *g,
                                const uint64_t *array, size_t array_len)
 {
   CAMLparam0 ();
-  CAMLlocal5 (gv, evv, ehv, bufv, arrayv);
+  CAMLlocal4 (evv, ehv, bufv, arrayv);
   CAMLlocal2 (rv, v);
-  value *root;
   size_t i;
-
-  root = guestfs_get_private (g, "_ocaml_g");
-  gv = *root;
 
   /* Only one bit should be set in 'event'.  Which one? */
   evv = Val_int (event_bitmask_to_event (event));
@@ -380,9 +362,9 @@ event_callback_wrapper_locked (guestfs_h *g,
     Store_field (arrayv, i, v);
   }
 
-  value args[5] = { gv, evv, ehv, bufv, arrayv };
+  value args[4] = { evv, ehv, bufv, arrayv };
 
-  rv = caml_callbackN_exn (*(value*)data, 5, args);
+  rv = caml_callbackN_exn (*(value*)data, 4, args);
 
   /* Callbacks shouldn't throw exceptions.  There's not much we can do
    * except to print it.

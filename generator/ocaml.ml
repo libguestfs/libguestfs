@@ -107,8 +107,7 @@ val event_all : event list
 type event_handle
 (** The opaque event handle which can be used to delete event callbacks. *)
 
-type event_callback =
-  t -> event -> event_handle -> string -> int64 array -> unit
+type event_callback = event -> event_handle -> string -> int64 array -> unit
 (** The event callback. *)
 
 val set_event_callback : t -> event_callback -> event list -> event_handle
@@ -117,9 +116,7 @@ val set_event_callback : t -> event_callback -> event list -> event_handle
 
     Note that if the closure captures a reference to the handle,
     this reference will prevent the handle from being
-    automatically closed by the garbage collector.  Since the
-    handle is passed to the event callback, with careful programming
-    it should be possible to avoid capturing the handle in the closure. *)
+    automatically closed by the garbage collector. *)
 
 val delete_event_callback : t -> event_handle -> unit
 (** [delete_event_callback g eh] removes a previously registered
@@ -321,8 +318,7 @@ let event_all = [
 
 type event_handle = int
 
-type event_callback =
-  t -> event -> event_handle -> string -> int64 array -> unit
+type event_callback = event -> event_handle -> string -> int64 array -> unit
 
 external set_event_callback : t -> event_callback -> event list -> event_handle
   = \"ocaml_guestfs_set_event_callback\"
