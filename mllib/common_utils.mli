@@ -25,6 +25,9 @@ module Char : sig
     val lowercase : char -> char
     val unsafe_chr : int -> char
     val uppercase : char -> char
+
+    val lowercase_ascii : char -> char
+    val uppercase_ascii : char -> char
 end
 (** Override the Char module from stdlib. *)
 
@@ -58,6 +61,9 @@ module String : sig
     val unsafe_get : string -> int -> char
     val unsafe_set : string -> int -> char -> unit
     val uppercase : string -> string
+
+    val lowercase_ascii : string -> string
+    val uppercase_ascii : string -> string
 end
 (** Override the String module from stdlib. *)
 

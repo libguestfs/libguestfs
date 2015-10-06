@@ -22,10 +22,23 @@ open Common_gettext.Gettext
 
 module Char = struct
     include Char
+
+    let lowercase_ascii c =
+      if (c >= 'A' && c <= 'Z')
+      then unsafe_chr (code c + 32)
+      else c
+
+    let uppercase_ascii c =
+      if (c >= 'a' && c <= 'z')
+      then unsafe_chr (code c - 32)
+      else c
 end
 
 module String = struct
     include String
+
+    let lowercase_ascii s = map Char.lowercase_ascii s
+    let uppercase_ascii s = map Char.uppercase_ascii s
 end
 
 let (//) = Filename.concat

@@ -170,7 +170,8 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
         let len = String.length data in
         let data =
           if len >= 8 &&
-               String.lowercase (String.sub data (len-8) 8) = "uninst.exe" then
+             String.lowercase_ascii (String.sub data (len-8) 8) = "uninst.exe"
+          then
             (String.sub data 0 (len-8)) ^ "_uninst.exe"
           else
             data in

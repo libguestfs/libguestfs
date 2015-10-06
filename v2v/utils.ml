@@ -230,10 +230,10 @@ let find_virtio_win_drivers virtio_win =
       fun (path, original_source, basename, get_contents) ->
         try
           (* Lowercased path, since the ISO may contain upper or lowercase
-           * path elements.  XXX This won't work if paths contain non-ASCII.
+           * path elements.
            *)
-          let lc_path = String.lowercase path in
-          let lc_basename = String.lowercase basename in
+          let lc_path = String.lowercase_ascii path in
+          let lc_basename = String.lowercase_ascii basename in
 
           let extension =
             match last_part_of lc_basename '.' with
