@@ -107,7 +107,7 @@ let load_dependencies elements loaded_elements =
       let path = path // filename in
       if Sys.file_exists path then (
         let lines = read_whole_file path in
-        let lines = string_nsplit "\n" lines in
+        let lines = String.nsplit "\n" lines in
         let lines = List.filter ((<>) "") lines in
         stringset_of_list lines
       ) else

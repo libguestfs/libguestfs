@@ -80,7 +80,7 @@ object
         (List.length targets);
 
     let mp, uuid =
-      let fields = string_nsplit "/" os in (* ... "data-center" "UUID" *)
+      let fields = String.nsplit "/" os in (* ... "data-center" "UUID" *)
       let fields = List.rev fields in      (* "UUID" "data-center" ... *)
       match fields with
       | "" :: uuid :: rest                 (* handles trailing "/" case *)

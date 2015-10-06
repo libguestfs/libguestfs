@@ -165,7 +165,7 @@ let get_index ~downloader ~sigchecker
               corrupt_file () in
           let aliases =
             let l =
-              try string_nsplit " " (List.assoc ("aliases", None) fields)
+              try String.nsplit " " (List.assoc ("aliases", None) fields)
               with Not_found -> [] in
             match l with
             | [] -> None
@@ -209,7 +209,7 @@ let get_index ~downloader ~sigchecker
       eprintf (f_"%s: zero length path in the index file\n") prog;
       corrupt_file ()
     )
-    else if string_find path "://" >= 0 then (
+    else if String.find path "://" >= 0 then (
       eprintf (f_"%s: cannot use a URI ('%s') in the index file\n") prog path;
       corrupt_file ()
     )

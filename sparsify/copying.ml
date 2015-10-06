@@ -75,7 +75,7 @@ let run indisk outdisk check_tmpdir compress convert
     | None -> Directory Filename.temp_dir_name (* $TMPDIR or /tmp *)
     | Some dir when is_directory dir -> Directory dir
     | Some dev when is_block_device dev -> Block_device dev
-    | Some file when string_prefix file "prebuilt:" ->
+    | Some file when String.is_prefix file "prebuilt:" ->
       let file = String.sub file 9 (String.length file - 9) in
       if not (Sys.file_exists file) then
         error (f_"--tmp prebuilt:file: %s: file does not exist") file;
@@ -224,7 +224,7 @@ You can ignore this warning or change it to a hard failure using the
       if is_btrfs then (
         try
           let vol_info = g#btrfs_subvolume_show mp in
-          string_find (List.assoc "Flags" vol_info) "readonly" <> -1
+          String.find (List.assoc "Flags" vol_info) "readonly" <> -1
         with G.Error _ -> false
       ) else false
     with Not_found -> false
@@ -295,7 +295,7 @@ You can ignore this warning or change it to a hard failure using the
   List.iter (
     fun vg ->
       if not (List.mem vg ignores) then (
-        let lvname = string_random8 () in
+        let lvname = String.random8 () in
         let lvdev = "/dev/" ^ vg ^ "/" ^ lvname in
 
         let created =

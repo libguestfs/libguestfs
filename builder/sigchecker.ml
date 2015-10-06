@@ -44,12 +44,12 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
   if r <> 0 then
     error (f_"could not import public key\nUse the '-v' option and look for earlier error messages.");
   let status = read_whole_file status_file in
-  let status = string_nsplit "\n" status in
+  let status = String.nsplit "\n" status in
   let key_id = ref "" in
   let fingerprint = ref "" in
   List.iter (
     fun line ->
-      let line = string_nsplit " " line in
+      let line = String.nsplit " " line in
       match line with
       | "[GNUPG:]" :: "IMPORT_OK" :: _ :: fp :: _ -> fingerprint := fp
       | "[GNUPG:]" :: "IMPORTED" :: key :: _ -> key_id := key
@@ -75,7 +75,7 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
     let subkeys = ref [] in
     List.iter (
       fun line ->
-        let line = string_nsplit ":" line in
+        let line = String.nsplit ":" line in
         match line with
         | "sub" :: ("u"|"-") :: _ :: _ :: id :: _ ->
           current := Some id
@@ -83,7 +83,7 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
           (match !current with
           | None -> ()
           | Some k ->
-            if string_suffix id k then (
+            if String.is_suffix id k then (
               subkeys := id :: !subkeys;
             );
             current := None
@@ -216,11 +216,11 @@ and do_verify ?(verify_only = true) t args =
   (* Check the fingerprint is who it should be. *)
   let status = read_whole_file status_file in
 
-  let status = string_nsplit "\n" status in
+  let status = String.nsplit "\n" status in
   let fingerprint = ref "" in
   List.iter (
     fun line ->
-      let line = string_nsplit " " line in
+      let line = String.nsplit " " line in
       match line with
       | "[GNUPG:]" :: "VALIDSIG" :: fp :: _ -> fingerprint := fp
       | _ -> ()

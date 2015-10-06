@@ -33,7 +33,7 @@ let net_hostname_perform g root side_effects =
         (* Replace HOSTNAME=... entry. *)
         let lines = Array.to_list (g#read_lines filename) in
         let lines = List.filter (
-          fun line -> not (string_prefix line "HOSTNAME=")
+          fun line -> not (String.is_prefix line "HOSTNAME=")
         ) lines in
         let file = String.concat "\n" lines ^ "\n" in
         g#write filename file;

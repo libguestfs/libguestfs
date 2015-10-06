@@ -39,6 +39,106 @@ module String = struct
 
     let lowercase_ascii s = map Char.lowercase_ascii s
     let uppercase_ascii s = map Char.uppercase_ascii s
+
+    let is_prefix str prefix =
+      let n = length prefix in
+      length str >= n && sub str 0 n = prefix
+
+    let is_suffix str suffix =
+      let sufflen = length suffix
+      and len = length str in
+      len >= sufflen && sub str (len - sufflen) sufflen = suffix
+
+    let rec find s sub =
+      let len = length s in
+      let sublen = length sub in
+      let rec loop i =
+        if i <= len-sublen then (
+          let rec loop2 j =
+            if j < sublen then (
+              if s.[i+j] = sub.[j] then loop2 (j+1)
+              else -1
+            ) else
+              i (* found *)
+          in
+          let r = loop2 0 in
+          if r = -1 then loop (i+1) else r
+        ) else
+          -1 (* not found *)
+      in
+      loop 0
+
+    let rec replace s s1 s2 =
+      let len = length s in
+      let sublen = length s1 in
+      let i = find s s1 in
+      if i = -1 then s
+      else (
+        let s' = sub s 0 i in
+        let s'' = sub s (i+sublen) (len-i-sublen) in
+        s' ^ s2 ^ replace s'' s1 s2
+      )
+
+    let rec nsplit sep str =
+      let len = length str in
+      let seplen = length sep in
+      let i = find str sep in
+      if i = -1 then [str]
+      else (
+        let s' = sub str 0 i in
+        let s'' = sub str (i+seplen) (len-i-seplen) in
+        s' :: nsplit sep s''
+      )
+
+    let split sep str =
+      let len = length sep in
+      let seplen = length str in
+      let i = find str sep in
+      if i = -1 then str, ""
+      else (
+        sub str 0 i, sub str (i + len) (seplen - i - len)
+      )
+
+    let rec lines_split str =
+      let buf = Buffer.create 16 in
+      let len = length str in
+      let rec loop start len =
+        try
+          let i = index_from str start '\n' in
+          if i > 0 && str.[i-1] = '\\' then (
+            Buffer.add_substring buf str start (i-start-1);
+            Buffer.add_char buf '\n';
+            loop (i+1) len
+          ) else (
+            Buffer.add_substring buf str start (i-start);
+            i+1
+          )
+        with Not_found ->
+          if len > 0 && str.[len-1] = '\\' then (
+            Buffer.add_substring buf str start (len-start-1);
+            Buffer.add_char buf '\n'
+          ) else
+            Buffer.add_substring buf str start (len-start);
+          len+1
+      in
+      let endi = loop 0 len in
+      let line = Buffer.contents buf in
+      if endi > len then
+        [line]
+      else
+        line :: lines_split (sub str endi (len-endi))
+
+    let random8 =
+      let chars = "abcdefghijklmnopqrstuvwxyz0123456789" in
+      fun () ->
+      concat "" (
+        List.map (
+          fun _ ->
+            let c = Random.int 36 in
+            let c = chars.[c] in
+            make 1 c
+        ) [1;2;3;4;5;6;7;8]
+      )
 end
 
 let (//) = Filename.concat
@@ -122,114 +222,6 @@ and _wrap_find_next_break i len str =
   else _wrap_find_next_break (i+1) len str
 
 and output_spaces chan n = for i = 0 to n-1 do output_char chan ' ' done
-
-let string_prefix str prefix =
-  let n = String.length prefix in
-  String.length str >= n && String.sub str 0 n = prefix
-
-let string_suffix str suffix =
-  let sufflen = String.length suffix
-  and len = String.length str in
-  len >= sufflen && String.sub str (len - sufflen) sufflen = suffix
-
-let rec string_find s sub =
-  let len = String.length s in
-  let sublen = String.length sub in
-  let rec loop i =
-    if i <= len-sublen then (
-      let rec loop2 j =
-        if j < sublen then (
-          if s.[i+j] = sub.[j] then loop2 (j+1)
-          else -1
-        ) else
-          i (* found *)
-      in
-      let r = loop2 0 in
-      if r = -1 then loop (i+1) else r
-    ) else
-      -1 (* not found *)
-  in
-  loop 0
-
-let rec replace_str s s1 s2 =
-  let len = String.length s in
-  let sublen = String.length s1 in
-  let i = string_find s s1 in
-  if i = -1 then s
-  else (
-    let s' = String.sub s 0 i in
-    let s'' = String.sub s (i+sublen) (len-i-sublen) in
-    s' ^ s2 ^ replace_str s'' s1 s2
-  )
-
-(* Split a string into multiple strings at each separator. *)
-let rec string_nsplit sep str =
-  let len = String.length str in
-  let seplen = String.length sep in
-  let i = string_find str sep in
-  if i = -1 then [str]
-  else (
-    let s' = String.sub str 0 i in
-    let s'' = String.sub str (i+seplen) (len-i-seplen) in
-    s' :: string_nsplit sep s''
-  )
-
-(* Split a string at the first occurrence of the separator, returning
- * the part before and the part after.  If separator is not found,
- * return the whole string and an empty string.
- *)
-let string_split sep str =
-  let len = String.length sep in
-  let seplen = String.length str in
-  let i = string_find str sep in
-
-  if i = -1 then str, ""
-  else (
-    String.sub str 0 i, String.sub str (i + len) (seplen - i - len)
-  )
-
-let string_random8 =
-  let chars = "abcdefghijklmnopqrstuvwxyz0123456789" in
-  fun () ->
-    String.concat "" (
-      List.map (
-        fun _ ->
-          let c = Random.int 36 in
-          let c = chars.[c] in
-          String.make 1 c
-      ) [1;2;3;4;5;6;7;8]
-    )
-
-(* Split a string into lines, keeping continuation characters
- * (i.e. \ at the end of lines) into account. *)
-let rec string_lines_split str =
-  let buf = Buffer.create 16 in
-  let len = String.length str in
-  let rec loop start len =
-    try
-      let i = String.index_from str start '\n' in
-      if i > 0 && str.[i-1] = '\\' then (
-        Buffer.add_substring buf str start (i-start-1);
-        Buffer.add_char buf '\n';
-        loop (i+1) len
-      ) else (
-        Buffer.add_substring buf str start (i-start);
-        i+1
-      )
-    with Not_found ->
-      if len > 0 && str.[len-1] = '\\' then (
-        Buffer.add_substring buf str start (len-start-1);
-        Buffer.add_char buf '\n'
-      ) else
-        Buffer.add_substring buf str start (len-start);
-      len+1
-  in
-  let endi = loop 0 len in
-  let line = Buffer.contents buf in
-  if endi > len then
-    [line]
-  else
-    line :: string_lines_split (String.sub str endi (len-endi))
 
 (* Drop elements from a list while a predicate is true. *)
 let rec dropwhile f = function
@@ -527,14 +519,15 @@ let long_options = ref ([] : (Arg.key * Arg.spec * Arg.doc) list)
 let display_short_options () =
   List.iter (
     fun (arg, _, _) ->
-      if string_prefix arg "-" && not (string_prefix arg "--") then
+      if String.is_prefix arg "-" && not (String.is_prefix arg "--") then
         printf "%s\n" arg
   ) !long_options;
   exit 0
 let display_long_options () =
   List.iter (
     fun (arg, _, _) ->
-      if string_prefix arg "--" && arg <> "--long-options" && arg <> "--short-options" then
+      if String.is_prefix arg "--" && arg <> "--long-options" &&
+           arg <> "--short-options" then
         printf "%s\n" arg
   ) !long_options;
   exit 0

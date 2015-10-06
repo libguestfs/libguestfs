@@ -96,7 +96,7 @@ object
     | BusSlotEmpty -> ()
 
     | BusSlotTarget t ->
-       let qemu_quoted_filename = replace_str t.target_file "," ",," in
+       let qemu_quoted_filename = String.replace t.target_file "," ",," in
        let drive_param =
           sprintf "file=%s,format=%s,if=%s,index=%d,media=disk"
                   qemu_quoted_filename t.target_format if_name i in
@@ -119,7 +119,7 @@ object
     | BusSlotEmpty -> ()
 
     | BusSlotTarget t ->
-       let qemu_quoted_filename = replace_str t.target_file "," ",," in
+       let qemu_quoted_filename = String.replace t.target_file "," ",," in
        let drive_param =
           sprintf "file=%s,format=%s,if=scsi,bus=0,unit=%d,media=disk"
                   qemu_quoted_filename t.target_format i in

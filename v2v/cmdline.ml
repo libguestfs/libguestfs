@@ -68,7 +68,7 @@ let parse_cmdline () =
   let network_map = ref [] in
   let add_network, add_bridge =
     let add t str =
-      match string_split ":" str with
+      match String.split ":" str with
       | "", "" -> error (f_"invalid --bridge or --network parameter")
       | out, "" | "", out -> network_map := ((t, ""), out) :: !network_map
       | in_, out -> network_map := ((t, in_), out) :: !network_map
@@ -86,7 +86,7 @@ let parse_cmdline () =
        *)
       no_trim := ["*"]
     | mps ->
-      let mps = string_nsplit "," mps in
+      let mps = String.nsplit "," mps in
       List.iter (
         fun mp ->
           if String.length mp = 0 then
@@ -126,7 +126,7 @@ let parse_cmdline () =
     | "ask" -> root_choice := `Ask
     | "single" -> root_choice := `Single
     | "first" -> root_choice := `First
-    | dev when string_prefix dev "/dev/" -> root_choice := `Dev dev
+    | dev when String.is_prefix dev "/dev/" -> root_choice := `Dev dev
     | s ->
       error (f_"unknown --root option: %s") s
   in

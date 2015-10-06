@@ -33,7 +33,7 @@ let net_hwaddr_perform g root side_effects =
         (* Replace HWADDR=... entry. *)
         let lines = Array.to_list (g#read_lines filename) in
         let lines = List.filter (
-          fun line -> not (string_prefix line "HWADDR=")
+          fun line -> not (String.is_prefix line "HWADDR=")
         ) lines in
         let file = String.concat "\n" lines ^ "\n" in
         g#write filename file;

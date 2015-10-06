@@ -30,7 +30,7 @@ let rec mount_and_check_storage_domain domain_class os =
   (* The user can either specify -os nfs:/export, or a local directory
    * which is assumed to be the already-mounted NFS export.
    *)
-  match string_split ":/" os with
+  match String.split ":/" os with
   | mp, "" ->                         (* Already mounted directory. *)
     check_storage_domain domain_class os mp
   | server, export ->
@@ -172,7 +172,7 @@ object
 
     (* See if we can write files as UID:GID 36:36. *)
     let () =
-      let testfile = esd_mp // esd_uuid // string_random8 () in
+      let testfile = esd_mp // esd_uuid // String.random8 () in
       Kvmuid.make_file kvmuid_t testfile "";
       let stat = stat testfile in
       Kvmuid.unlink kvmuid_t testfile;

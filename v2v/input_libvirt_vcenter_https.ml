@@ -124,7 +124,7 @@ let rec get_session_cookie =
           let len = String.length line in
           if len >= 12 && String.sub line 0 12 = "Set-Cookie: " then (
             let line = String.sub line 12 (len-12) in
-            let cookie, _ = string_split ";" line in
+            let cookie, _ = String.split ";" line in
             session_cookie := cookie
           )
       ) lines;
@@ -275,7 +275,7 @@ let map_source_to_uri ?readahead dcPath password uri scheme server path =
       | None -> true
       | Some query ->
         (* XXX only works if the query string is not URI-quoted *)
-        string_find query "no_verify=1" = -1 in
+        String.find query "no_verify=1" = -1 in
 
     (* Now we have to query the server to get the session cookie. *)
     let session_cookie =

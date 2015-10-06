@@ -129,7 +129,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     filter_map (
       function
       | { G.app2_name = name } as app
-          when name = "kernel" || string_prefix name "kernel-" ->
+          when name = "kernel" || String.is_prefix name "kernel-" ->
         (try
            (* For each kernel, list the files directly owned by the kernel. *)
            let files = Linux.file_list_of_package g inspect app in
@@ -141,13 +141,13 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
            else (
              (* Which of these is the kernel itself? *)
              let vmlinuz = List.find (
-               fun filename -> string_prefix filename "/boot/vmlinuz-"
+               fun filename -> String.is_prefix filename "/boot/vmlinuz-"
              ) files in
              (* Which of these is the modpath? *)
              let modpath = List.find (
                fun filename ->
                  String.length filename >= 14 &&
-                   string_prefix filename "/lib/modules/"
+                   String.is_prefix filename "/lib/modules/"
              ) files in
 
              (* Check vmlinuz & modpath exist. *)
@@ -173,12 +173,12 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
                let files =
                  List.filter (
                    fun n ->
-                     string_find n app.G.app2_version >= 0 &&
-                       string_find n app.G.app2_release >= 0
+                     String.find n app.G.app2_version >= 0 &&
+                       String.find n app.G.app2_release >= 0
                  ) files in
                (* Don't consider kdump initramfs images (RHBZ#1138184). *)
                let files =
-                 List.filter (fun n -> string_find n "kdump.img" == -1) files in
+                 List.filter (fun n -> String.find n "kdump.img" == -1) files in
                (* If several files match, take the shortest match.  This
                 * handles the case where we have a mix of same-version non-Xen
                 * and Xen kernels:
@@ -229,8 +229,8 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
               * a debug kernel.
               *)
              let is_debug =
-               string_suffix app.G.app2_name "-debug" ||
-               string_suffix app.G.app2_name "-dbg" in
+               String.is_suffix app.G.app2_name "-debug" ||
+               String.is_suffix app.G.app2_name "-dbg" in
 
              Some {
                ki_app  = app;
@@ -298,7 +298,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
                 sprintf "/files%s/title[%d]/kernel" grub_config (idx+1) in
               Some expr
             with G.Error msg
-                 when string_find msg "aug_get: no matching node" >= 0 ->
+                 when String.find msg "aug_get: no matching node" >= 0 ->
               None in
 
           (* If a default kernel was set, put it at the beginning of the paths
@@ -418,7 +418,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     let xenmods =
       filter_map (
         fun { G.app2_name = name } ->
-          if name = "kmod-xenpv" || string_prefix name "kmod-xenpv-" then
+          if name = "kmod-xenpv" || String.is_prefix name "kmod-xenpv-" then
             Some name
           else
             None
@@ -432,7 +432,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
        *)
       let dirs = g#find "/lib/modules" in
       let dirs = Array.to_list dirs in
-      let dirs = List.filter (fun s -> string_find s "/xenpv" >= 0) dirs in
+      let dirs = List.filter (fun s -> String.find s "/xenpv" >= 0) dirs in
       let dirs = List.map ((^) "/lib/modules/") dirs in
       let dirs = List.filter g#is_dir dirs in
 
@@ -550,13 +550,13 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     let remove = ref [] and libraries = ref [] in
     List.iter (
       fun { G.app2_name = name } ->
-        if string_prefix name "vmware-tools-libraries-" then
+        if String.is_prefix name "vmware-tools-libraries-" then
           libraries := name :: !libraries
-        else if string_prefix name "vmware-tools-" then
+        else if String.is_prefix name "vmware-tools-" then
           remove := name :: !remove
         else if name = "VMwareTools" then
           remove := name :: !remove
-        else if string_prefix name "kmod-vmware-tools" then
+        else if String.is_prefix name "kmod-vmware-tools" then
           remove := name :: !remove
     ) inspect.i_apps;
     let libraries = !libraries in
@@ -578,7 +578,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
 
             (* The packages provide themselves, filter this out. *)
             let provides =
-              List.filter (fun s -> string_find s library = -1) provides in
+              List.filter (fun s -> String.find s library = -1) provides in
 
             (* Trim whitespace. *)
             let rex = Str.regexp "^[ \t]*\\([^ \t]+\\)[ \t]*$" in
@@ -629,7 +629,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
   and unconfigure_citrix () =
     let pkgs =
       List.filter (
-        fun { G.app2_name = name } -> string_prefix name "xe-guest-utilities"
+        fun { G.app2_name = name } -> String.is_prefix name "xe-guest-utilities"
       ) inspect.i_apps in
     let pkgs = List.map (fun { G.app2_name = name } -> name) pkgs in
 
@@ -654,7 +654,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
             let runlevels = Str.matched_group 2 comment in
             let process = Str.matched_group 3 comment in
 
-            if string_find process "getty" >= 0 then (
+            if String.find process "getty" >= 0 then (
               updated := true;
 
               (* Create a new entry immediately after the comment. *)
@@ -743,7 +743,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
   and grub_set_bootable kernel =
     match grub with
     | `Grub1 ->
-      if not (string_prefix kernel.ki_vmlinuz grub_prefix) then
+      if not (String.is_prefix kernel.ki_vmlinuz grub_prefix) then
         error (f_"kernel %s is not under grub tree %s")
           kernel.ki_vmlinuz grub_prefix;
       let kernel_under_grub_prefix =
@@ -1306,14 +1306,14 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
       let replace device =
         try List.assoc device map
         with Not_found ->
-          if string_find device "md" = -1 && string_find device "fd" = -1 &&
+          if String.find device "md" = -1 && String.find device "fd" = -1 &&
             device <> "cdrom" then
             warning (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
               path device;
           device
       in
 
-      if string_find path "GRUB_CMDLINE" >= 0 then (
+      if String.find path "GRUB_CMDLINE" >= 0 then (
         (* Handle grub2 resume=<dev> specially. *)
         if Str.string_match rex_resume value 0 then (
           let start = Str.matched_group 1 value

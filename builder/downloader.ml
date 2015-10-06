@@ -79,7 +79,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
    * fails, we download to a random name in the cache and then
    * atomically rename it to the final filename.
    *)
-  let filename_new = filename ^ "." ^ string_random8 () in
+  let filename_new = filename ^ "." ^ String.random8 () in
   unlink_on_exit filename_new;
 
   (match parseduri.URI.protocol with

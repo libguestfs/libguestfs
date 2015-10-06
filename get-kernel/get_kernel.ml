@@ -198,7 +198,7 @@ let main () =
   let dest_filename fn =
     let fn = Filename.basename fn in
     let fn =
-      if unversioned then fst (string_split "-" fn)
+      if unversioned then fst (String.split "-" fn)
       else fn in
     match prefix with
     | None -> fn

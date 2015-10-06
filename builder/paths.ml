@@ -36,6 +36,6 @@ let xdg_config_dirs () =
   let dirs =
     try Sys.getenv "XDG_CONFIG_DIRS"
     with Not_found -> "/etc/xdg" in
-  let dirs = string_nsplit ":" dirs in
+  let dirs = String.nsplit ":" dirs in
   let dirs = List.filter (fun x -> x <> "") dirs in
   List.map (fun x -> x // prog) dirs

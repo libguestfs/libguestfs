@@ -126,7 +126,7 @@ and perform g disk format ignores machine_readable zeroes =
   List.iter (
     fun vg ->
       if not (List.mem vg ignores) then (
-        let lvname = string_random8 () in
+        let lvname = String.random8 () in
         let lvdev = "/dev/" ^ vg ^ "/" ^ lvname in
 
         let created =

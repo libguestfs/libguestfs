@@ -609,10 +609,10 @@ let rec argspec () =
     String.sub arg 0 i, String.sub arg (i+1) (len-(i+1))
   in
   let split_string_list arg =
-    string_nsplit \",\" arg
+    String.nsplit \",\" arg
   in
   let split_links_list option_name arg =
-    match string_nsplit \":\" arg with
+    match String.nsplit \":\" arg with
     | [] | [_] ->
       error (f_\"invalid format for '--%%s' parameter, see the man page\")
         option_name
@@ -707,7 +707,7 @@ let rec argspec () =
       pr "      \"--%s\",\n" name;
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
-      pr "          let user, selstr = string_split \":\" s in\n";
+      pr "          let user, selstr = String.split \":\" s in\n";
       pr "          let sel = Ssh_key.parse_selector selstr in\n";
       pr "          ops := %s (user, sel) :: !ops\n" discrim;
       pr "      ),\n";
@@ -802,12 +802,12 @@ let rec argspec () =
 
 pr "    ] in
     let lines = read_whole_file filename in
-    let lines = string_lines_split lines in
+    let lines = String.lines_split lines in
     let lines = List.filter (
       fun line ->
         String.length line > 0 && line.[0] <> '#'
     ) lines in
-    let cmds = List.map (fun line -> string_split \" \" line) lines in
+    let cmds = List.map (fun line -> String.split \" \" line) lines in
     (* Check for commands not allowed in files containing commands. *)
     List.iter (
       fun (cmd, _) ->

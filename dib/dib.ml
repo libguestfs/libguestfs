@@ -37,7 +37,7 @@ let exclude_elements elements = function
 let read_envvars envvars =
   filter_map (
     fun var ->
-      let i = string_find var "=" in
+      let i = String.find var "=" in
       if i = -1 then (
         try Some (var, Sys.getenv var)
         with Not_found -> None
@@ -49,7 +49,7 @@ let read_envvars envvars =
 
 let read_dib_envvars () =
   let vars = Array.to_list (Unix.environment ()) in
-  let vars = List.filter (fun x -> string_prefix x "DIB_") vars in
+  let vars = List.filter (fun x -> String.is_prefix x "DIB_") vars in
   let vars = List.map (fun x -> x ^ "\n") vars in
   String.concat "" vars
 
@@ -684,7 +684,7 @@ let main () =
         (match partitions with
         | [] -> "/dev/sdc"
         | p ->
-          let p = List.filter (fun x -> string_prefix x "/dev/sdc") p in
+          let p = List.filter (fun x -> String.is_prefix x "/dev/sdc") p in
           if p = [] then
             error (f_"no partitions found in the helper drive");
           List.hd p
@@ -724,7 +724,7 @@ let main () =
      *)
     let run_losetup device =
       let lines = g#debug "sh" [| "losetup"; "--show"; "-f"; device |] in
-      let lines = string_nsplit "\n" lines in
+      let lines = String.nsplit "\n" lines in
       let lines = List.filter ((<>) "") lines in
       (match lines with
       | [] -> device
@@ -734,7 +734,7 @@ let main () =
 
     let run_hook_out_eval hook envvar =
       let lines = run_hook ~sysroot:Out ~blockdev g hook in
-      let lines = string_nsplit "\n" lines in
+      let lines = String.nsplit "\n" lines in
       let lines = List.filter ((<>) "") lines in
       if lines = [] then None
       else (try Some (var_from_lines envvar lines) with _ -> None) in
@@ -777,7 +777,7 @@ let main () =
   ignore (g#debug "sh" (Array.of_list ([ "mkfs" ] @ mkfs_options)));
   g#set_label blockdev root_label;
   (match fs_type with
-  | x when string_prefix x "ext" -> g#set_uuid blockdev rootfs_uuid
+  | x when String.is_prefix x "ext" -> g#set_uuid blockdev rootfs_uuid
   | _ -> ());
   g#mount blockdev "/";
   g#mkmountpoint "/tmp";

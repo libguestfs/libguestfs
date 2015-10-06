@@ -290,10 +290,10 @@ let parse_libvirt_xml ?conn xml =
         let target_dev = xpath_string "target/@dev" in
         match target_dev with
         | None -> None
-        | Some s when string_prefix s "hd" -> get_drive_slot s 2
-        | Some s when string_prefix s "sd" -> get_drive_slot s 2
-        | Some s when string_prefix s "vd" -> get_drive_slot s 2
-        | Some s when string_prefix s "xvd" -> get_drive_slot s 3
+        | Some s when String.is_prefix s "hd" -> get_drive_slot s 2
+        | Some s when String.is_prefix s "sd" -> get_drive_slot s 2
+        | Some s when String.is_prefix s "vd" -> get_drive_slot s 2
+        | Some s when String.is_prefix s "xvd" -> get_drive_slot s 3
         | Some s ->
            warning (f_"<target dev='%s'> was ignored because the device name could not be recognized") s;
            None in

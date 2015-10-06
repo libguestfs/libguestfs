@@ -51,7 +51,7 @@ let password_crypto_of_string = function
     error (f_"password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\"") arg
 
 let rec parse_selector arg =
-  parse_selector_list arg (string_nsplit ":" arg)
+  parse_selector_list arg (String.nsplit ":" arg)
 
 and parse_selector_list orig_arg = function
   | [ "lock"|"locked" ] ->

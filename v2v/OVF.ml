@@ -50,7 +50,7 @@ let iso_time =
 let get_vmtype = function
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
       i_product_name = product }
-      when major >= 5 && string_find product "Server" >= 0 ->
+      when major >= 5 && String.find product "Server" >= 0 ->
     Server
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major }
@@ -59,12 +59,12 @@ let get_vmtype = function
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
       i_product_name = product }
-      when major >= 3 && string_find product "ES" >= 0 ->
+      when major >= 3 && String.find product "ES" >= 0 ->
     Server
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
       i_product_name = product }
-      when major >= 3 && string_find product "AS" >= 0 ->
+      when major >= 3 && String.find product "AS" >= 0 ->
     Server
 
   | { i_type = "linux"; i_distro = "rhel"; i_major_version = major }
@@ -77,21 +77,21 @@ let get_vmtype = function
     Desktop                            (* Windows XP *)
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
-      i_product_name = product } when string_find product "XP" >= 0 ->
+      i_product_name = product } when String.find product "XP" >= 0 ->
     Desktop                            (* Windows XP *)
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 2 } ->
     Server                             (* Windows 2003 *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 0;
-      i_product_name = product } when string_find product "Server" >= 0 ->
+      i_product_name = product } when String.find product "Server" >= 0 ->
     Server                             (* Windows 2008 *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 0 } ->
     Desktop                            (* Vista *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
-      i_product_name = product } when string_find product "Server" >= 0 ->
+      i_product_name = product } when String.find product "Server" >= 0 ->
     Server                             (* Windows 2008R2 *)
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 1 } ->
@@ -136,7 +136,7 @@ and get_ostype = function
     "WindowsXP" (* no architecture differentiation of XP on RHEV *)
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
-      i_product_name = product } when string_find product "XP" >= 0 ->
+      i_product_name = product } when String.find product "XP" >= 0 ->
     "WindowsXP" (* no architecture differentiation of XP on RHEV *)
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;

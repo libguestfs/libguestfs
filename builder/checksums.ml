@@ -49,7 +49,7 @@ let verify_checksum csum filename =
   | [] ->
     error (f_"%s did not return any output") prog
   | line :: _ ->
-    let csum_actual = fst (string_split " " line) in
+    let csum_actual = fst (String.split " " line) in
     if csum_ref <> csum_actual then
       error (f_"%s checksum of template did not match the expected checksum!\n  found checksum: %s\n  expected checksum: %s\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!")
         (string_of_csum_t csum) csum_actual csum_ref

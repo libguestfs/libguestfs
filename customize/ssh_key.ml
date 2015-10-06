@@ -33,7 +33,7 @@ type ssh_key_selector =
 | KeyString of string
 
 let rec parse_selector arg =
-  parse_selector_list arg (string_nsplit ":" arg)
+  parse_selector_list arg (String.nsplit ":" arg)
 
 and parse_selector_list orig_arg = function
   | [] | [ "" ] ->

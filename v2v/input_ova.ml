@@ -151,7 +151,7 @@ object
             | [] ->
               error (f_"no output from sha1sum command, see previous errors")
             | [line] ->
-              let actual, _ = string_split " " line in
+              let actual, _ = String.split " " line in
               if actual <> expected then
                 error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
                   disk mf disk actual disk expected;
@@ -273,7 +273,7 @@ object
            *)
           let filename =
             if detect_file_type filename = `GZip then (
-              let new_filename = tmpdir // string_random8 () ^ ".vmdk" in
+              let new_filename = tmpdir // String.random8 () ^ ".vmdk" in
               let cmd =
                 sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
               if verbose () then printf "%s\n%!" cmd;

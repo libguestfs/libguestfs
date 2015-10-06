@@ -31,7 +31,7 @@ module StringSet = Set.Make (String)
 let remove_users = ref StringSet.empty
 let keep_users = ref StringSet.empty
 let add_users set users =
-  let users = string_nsplit "," users in
+  let users = String.nsplit "," users in
   List.iter (
     function
     | "" ->

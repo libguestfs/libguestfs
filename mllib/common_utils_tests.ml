@@ -84,46 +84,46 @@ let test_human_size ctx =
   assert_equal_string "3.4G" (human_size 3650722201_L);
   assert_equal_string "-3.4G" (human_size (-3650722201_L))
 
-(* Test Common_utils.string_prefix. *)
-let test_string_prefix ctx =
-  assert_bool "string_prefix,," (string_prefix "" "");
-  assert_bool "string_prefix,foo," (string_prefix "foo" "");
-  assert_bool "string_prefix,foo,foo" (string_prefix "foo" "foo");
-  assert_bool "string_prefix,foo123,foo" (string_prefix "foo123" "foo");
-  assert_bool "not (string_prefix,,foo" (not (string_prefix "" "foo"))
+(* Test Common_utils.String.is_prefix. *)
+let test_string_is_prefix ctx =
+  assert_bool "String.is_prefix,," (String.is_prefix "" "");
+  assert_bool "String.is_prefix,foo," (String.is_prefix "foo" "");
+  assert_bool "String.is_prefix,foo,foo" (String.is_prefix "foo" "foo");
+  assert_bool "String.is_prefix,foo123,foo" (String.is_prefix "foo123" "foo");
+  assert_bool "not (String.is_prefix,,foo" (not (String.is_prefix "" "foo"))
 
-(* Test Common_utils.string_suffix. *)
-let test_string_suffix ctx =
-  assert_bool "string_suffix,," (string_suffix "" "");
-  assert_bool "string_suffix,foo," (string_suffix "foo" "");
-  assert_bool "string_suffix,foo,foo" (string_suffix "foo" "foo");
-  assert_bool "string_suffix,123foo,foo" (string_suffix "123foo" "foo");
-  assert_bool "not string_suffix,,foo" (not (string_suffix "" "foo"))
+(* Test Common_utils.String.is_suffix. *)
+let test_string_is_suffix ctx =
+  assert_bool "String.is_suffix,," (String.is_suffix "" "");
+  assert_bool "String.is_suffix,foo," (String.is_suffix "foo" "");
+  assert_bool "String.is_suffix,foo,foo" (String.is_suffix "foo" "foo");
+  assert_bool "String.is_suffix,123foo,foo" (String.is_suffix "123foo" "foo");
+  assert_bool "not String.is_suffix,,foo" (not (String.is_suffix "" "foo"))
 
-(* Test Common_utils.string_find. *)
+(* Test Common_utils.String.find. *)
 let test_string_find ctx =
-  assert_equal_int 0 (string_find "" "");
-  assert_equal_int 0 (string_find "foo" "");
-  assert_equal_int 1 (string_find "foo" "o");
-  assert_equal_int 3 (string_find "foobar" "bar");
-  assert_equal_int (-1) (string_find "" "baz");
-  assert_equal_int (-1) (string_find "foobar" "baz")
+  assert_equal_int 0 (String.find "" "");
+  assert_equal_int 0 (String.find "foo" "");
+  assert_equal_int 1 (String.find "foo" "o");
+  assert_equal_int 3 (String.find "foobar" "bar");
+  assert_equal_int (-1) (String.find "" "baz");
+  assert_equal_int (-1) (String.find "foobar" "baz")
 
-(* Test Common_utils.string_lines_split. *)
+(* Test Common_utils.String.lines_split. *)
 let test_string_lines_split ctx =
-  assert_equal_stringlist [""] (string_lines_split "");
-  assert_equal_stringlist ["A"] (string_lines_split "A");
-  assert_equal_stringlist ["A"; ""] (string_lines_split "A\n");
-  assert_equal_stringlist ["A"; "B"] (string_lines_split "A\nB");
-  assert_equal_stringlist ["A"; "B"; "C"] (string_lines_split "A\nB\nC");
-  assert_equal_stringlist ["A"; "B"; "C"; "D"] (string_lines_split "A\nB\nC\nD");
-  assert_equal_stringlist ["A\n"] (string_lines_split "A\\");
-  assert_equal_stringlist ["A\nB"] (string_lines_split "A\\\nB");
-  assert_equal_stringlist ["A"; "B\nC"] (string_lines_split "A\nB\\\nC");
-  assert_equal_stringlist ["A"; "B\nC"; "D"] (string_lines_split "A\nB\\\nC\nD");
-  assert_equal_stringlist ["A"; "B\nC\nD"] (string_lines_split "A\nB\\\nC\\\nD");
-  assert_equal_stringlist ["A\nB"; ""] (string_lines_split "A\\\nB\n");
-  assert_equal_stringlist ["A\nB\n"] (string_lines_split "A\\\nB\\\n")
+  assert_equal_stringlist [""] (String.lines_split "");
+  assert_equal_stringlist ["A"] (String.lines_split "A");
+  assert_equal_stringlist ["A"; ""] (String.lines_split "A\n");
+  assert_equal_stringlist ["A"; "B"] (String.lines_split "A\nB");
+  assert_equal_stringlist ["A"; "B"; "C"] (String.lines_split "A\nB\nC");
+  assert_equal_stringlist ["A"; "B"; "C"; "D"] (String.lines_split "A\nB\nC\nD");
+  assert_equal_stringlist ["A\n"] (String.lines_split "A\\");
+  assert_equal_stringlist ["A\nB"] (String.lines_split "A\\\nB");
+  assert_equal_stringlist ["A"; "B\nC"] (String.lines_split "A\nB\\\nC");
+  assert_equal_stringlist ["A"; "B\nC"; "D"] (String.lines_split "A\nB\\\nC\nD");
+  assert_equal_stringlist ["A"; "B\nC\nD"] (String.lines_split "A\nB\\\nC\\\nD");
+  assert_equal_stringlist ["A\nB"; ""] (String.lines_split "A\\\nB\n");
+  assert_equal_stringlist ["A\nB\n"] (String.lines_split "A\\\nB\\\n")
 
 (* Suites declaration. *)
 let suite =
@@ -132,10 +132,10 @@ let suite =
       "numeric.le32" >:: test_le32;
       "sizes.parse_resize" >:: test_parse_resize;
       "sizes.human_size" >:: test_human_size;
-      "strings.prefix" >:: test_string_prefix;
-      "strings.suffix" >:: test_string_suffix;
+      "strings.is_prefix" >:: test_string_is_prefix;
+      "strings.is_suffix" >:: test_string_is_suffix;
       "strings.find" >:: test_string_find;
-      "strings.string_lines_split" >:: test_string_lines_split;
+      "strings.lines_split" >:: test_string_lines_split;
     ]
 
 let () =

@@ -58,6 +58,30 @@ module String : sig
 
     val lowercase_ascii : string -> string
     val uppercase_ascii : string -> string
+
+    val is_prefix : string -> string -> bool
+    (** [is_prefix str prefix] returns true if [prefix] is a prefix of [str]. *)
+    val is_suffix : string -> string -> bool
+    (** [is_suffix str suffix] returns true if [suffix] is a suffix of [str]. *)
+    val find : string -> string -> int
+    (** [find str sub] searches for [sub] as a substring of [str].  If
+        found it returns the index.  If not found, it returns [-1]. *)
+    val replace : string -> string -> string -> string
+    (** [replace str s1 s2] replaces all instances of [s1] appearing in
+        [str] with [s2]. *)
+    val nsplit : string -> string -> string list
+    (** [nsplit sep str] splits [str] into multiple strings at each
+        separator [sep]. *)
+    val split : string -> string -> string * string
+    (** [split sep str] splits [str] at the first occurrence of the
+        separator [sep], returning the part before and the part after.
+        If separator is not found, return the whole string and an
+        empty string. *)
+    val lines_split : string -> string list
+    (** [lines_split str] splits [str] into lines, keeping continuation
+        characters (i.e. [\] at the end of lines) into account. *)
+    val random8 : unit -> string
+    (** Return a string of 8 random printable characters. *)
 end
 (** Override the String module from stdlib. *)
 
@@ -85,16 +109,6 @@ val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 
 val output_spaces : out_channel -> int -> unit
 (** Write [n] spaces to [out_channel]. *)
-
-val string_prefix : string -> string -> bool
-val string_suffix : string -> string -> bool
-val string_find : string -> string -> int
-val replace_str : string -> string -> string -> string
-val string_nsplit : string -> string -> string list
-val string_split : string -> string -> string * string
-val string_random8 : unit -> string
-val string_lines_split : string -> string list
-(** Various string functions. *)
 
 val dropwhile : ('a -> bool) -> 'a list -> 'a list
 val takewhile : ('a -> bool) -> 'a list -> 'a list

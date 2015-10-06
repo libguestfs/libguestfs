@@ -33,7 +33,7 @@ let current_arch () =
   match Config.host_cpu with
   | "amd64" | "x86_64" -> "amd64"
   | "i386" | "i486" | "i586" | "i686" -> "i386"
-  | arch when string_prefix arch "armv" -> "armhf"
+  | arch when String.is_prefix arch "armv" -> "armhf"
   | arch -> arch
 
 let output_filename image_name = function
@@ -47,12 +47,12 @@ let log_filename () =
 
 let var_from_lines var lines =
   let var_with_equal = var ^ "=" in
-  let var_lines = List.filter (fun x -> string_prefix x var_with_equal) lines in
+  let var_lines = List.filter (fun x -> String.is_prefix x var_with_equal) lines in
   match var_lines with
   | [] ->
     error (f_"variable '%s' not found in lines:\n%s")
       var (String.concat "\n" lines)
-  | [x] -> snd (string_split "=" x)
+  | [x] -> snd (String.split "=" x)
   | _ ->
     error (f_"variable '%s' has more than one occurrency in lines:\n%s")
       var (String.concat "\n" lines)
@@ -98,7 +98,7 @@ let rec remove_dups = function
   | x :: xs -> x :: (remove_dups (List.filter ((<>) x) xs))
 
 let which tool =
-  let paths = string_nsplit ":" (Sys.getenv "PATH") in
+  let paths = String.nsplit ":" (Sys.getenv "PATH") in
   let paths = filter_map (
     fun p ->
       let path = p // tool in

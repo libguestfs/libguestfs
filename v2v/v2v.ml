@@ -533,7 +533,7 @@ and inspect_source g root_choice =
       try g#mount dev mp
       with G.Error msg ->
         if mp = "/" then ( (* RHBZ#1145995 *)
-          if string_find msg "Windows" >= 0 && string_find msg "NTFS partition is in an unsafe state" >= 0 then
+          if String.find msg "Windows" >= 0 && String.find msg "NTFS partition is in an unsafe state" >= 0 then
             error (f_"unable to mount the disk image for writing. This has probably happened because Windows Hibernation or Fast Restart is being used in this guest. You have to disable this (in the guest) in order to use virt-v2v.\n\nOriginal error message: %s") msg
           else
             error "%s" msg

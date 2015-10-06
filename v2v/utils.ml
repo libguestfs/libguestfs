@@ -31,16 +31,16 @@ let quote = Filename.quote
  * quotes around the attribute.
  *)
 let xml_quote_attr str =
-  let str = replace_str str "&" "&amp;" in
-  let str = replace_str str "'" "&apos;" in
-  let str = replace_str str "<" "&lt;" in
-  let str = replace_str str ">" "&gt;" in
+  let str = String.replace str "&" "&amp;" in
+  let str = String.replace str "'" "&apos;" in
+  let str = String.replace str "<" "&lt;" in
+  let str = String.replace str ">" "&gt;" in
   str
 
 let xml_quote_pcdata str =
-  let str = replace_str str "&" "&amp;" in
-  let str = replace_str str "<" "&lt;" in
-  let str = replace_str str ">" "&gt;" in
+  let str = String.replace str "&" "&amp;" in
+  let str = String.replace str "<" "&lt;" in
+  let str = String.replace str ">" "&gt;" in
   str
 
 (* URI quoting. *)
@@ -252,7 +252,7 @@ let find_virtio_win_drivers virtio_win =
            * "./drivers/amd64/Win2012R2/netkvm.sys".
            * Note we check lowercase paths.
            *)
-          let pathelem elem = string_find lc_path ("/" ^ elem ^ "/") >= 0 in
+          let pathelem elem = String.find lc_path ("/" ^ elem ^ "/") >= 0 in
           let arch =
             if pathelem "x86" || pathelem "i386" then "i386"
             else if pathelem "amd64" then "x86_64"

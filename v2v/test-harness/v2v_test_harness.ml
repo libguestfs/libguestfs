@@ -307,7 +307,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
            | [] ->              (* error *)
               failwithf "external command '%s' exited with error %d" cmd 2;
            | line::lines ->
-              if string_prefix line "compare: images too dissimilar" then
+              if String.is_prefix line "compare: images too dissimilar" then
                 false           (* no match *)
               else
                 loop lines

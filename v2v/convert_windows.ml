@@ -647,7 +647,7 @@ echo uninstalling Xen PV driver
             let t = g#hivex_value_type valueh in
 
             (* Only add the appended path if it doesn't exist already. *)
-            if string_find data append = -1 then (
+            if String.find data append = -1 then (
               (* Remove the explicit [\0\0] at the end of the string.
                * This is the UTF-16LE NUL-terminator.
                *)

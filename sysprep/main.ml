@@ -72,7 +72,7 @@ let main () =
         error (f_"--enable option can only be given once");
       if ops = "" then
         error (f_"you cannot pass an empty argument to --enable");
-      let ops = string_nsplit "," ops in
+      let ops = String.nsplit "," ops in
       let opset = List.fold_left (
         fun opset op_name ->
           try Sysprep_operation.add_to_set op_name opset
@@ -86,11 +86,11 @@ let main () =
         | Some x -> x
         | None -> Sysprep_operation.empty_set
       in
-      let ops = string_nsplit "," op_string in
+      let ops = String.nsplit "," op_string in
       let opset = List.fold_left (
         fun opset op_name ->
           let op =
-            if string_prefix op_name "-" then
+            if String.is_prefix op_name "-" then
               `Remove (String.sub op_name 1 (String.length op_name - 1))
             else
               `Add op_name in
@@ -205,7 +205,7 @@ read the man page virt-sysprep(1).
      *)
     let mount_opts = !mount_opts in
     let mount_opts =
-      List.map (string_split ":") (string_nsplit ";" mount_opts) in
+      List.map (String.split ":") (String.nsplit ";" mount_opts) in
     let mount_opts mp = assoc ~default:"" mp mount_opts in
 
     message (f_"Examining the guest ...");

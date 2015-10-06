@@ -78,7 +78,7 @@ read the man page virt-dib(1).
 
   let formats = ref ["qcow2"] in
   let set_format arg =
-    let fmts = remove_dups (string_nsplit "," arg) in
+    let fmts = remove_dups (String.nsplit "," arg) in
     List.iter (
       function
       | "qcow2" | "tar" | "raw" | "vhd" -> ()
@@ -123,7 +123,7 @@ read the man page virt-dib(1).
 
   let extra_packages = ref [] in
   let append_extra_packages arg =
-    extra_packages := List.rev (string_nsplit "," arg) @ !extra_packages in
+    extra_packages := List.rev (String.nsplit "," arg) @ !extra_packages in
 
   let argspec = [
     "-p",           Arg.String append_element_path, "path" ^ " " ^ s_"Add new a elements location";

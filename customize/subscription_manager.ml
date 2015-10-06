@@ -29,7 +29,7 @@ type sm_pool =
 | PoolId of string
 
 let rec parse_credentials_selector arg =
-  parse_credentials_selector_list arg (string_nsplit ":" arg)
+  parse_credentials_selector_list arg (String.nsplit ":" arg)
 
 and parse_credentials_selector_list orig_arg = function
   | [ username; "password"; password ] ->
@@ -40,7 +40,7 @@ and parse_credentials_selector_list orig_arg = function
     error (f_"invalid sm-credentials selector '%s'; see the man page") orig_arg
 
 let rec parse_pool_selector arg =
-  parse_pool_selector_list arg (string_nsplit ":" arg)
+  parse_pool_selector_list arg (String.nsplit ":" arg)
 
 and parse_pool_selector_list orig_arg = function
   | [ "auto" ] ->
