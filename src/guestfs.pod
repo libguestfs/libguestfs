@@ -4169,6 +4169,7 @@ This is the numbering scheme used by the tests:
    040  create multiple handles
    050  test setting and getting config properties
    060  explicit close
+   065  implicit close (in GC'd languages)
    070  optargs
  
  - 100  launch, create partitions and LVs and filesystems
