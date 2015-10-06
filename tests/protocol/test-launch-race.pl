@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# Copyright (C) 2010 Red Hat Inc.
+# Copyright (C) 2010-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,6 +31,9 @@ exit 77 if $ENV{SKIP_TEST_LAUNCH_RACE_PL};
 # Use a temporary TMPDIR to ensure it's clean
 my $tmpdir = tempdir (CLEANUP => 1);
 $ENV{TMPDIR} = $tmpdir;
+
+# Unset LIBGUESTFS_CACHEDIR (set by ./run) since that will override TMPDIR.
+delete $ENV{LIBGUESTFS_CACHEDIR};
 
 my $pid = fork();
 die ("fork failed: $!") if ($pid < 0);
