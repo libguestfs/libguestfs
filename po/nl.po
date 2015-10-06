@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-08 13:12+0100\n"
+"POT-Creation-Date: 2015-10-06 23:18+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1300
+#: ../v2v/convert_linux.ml:1311
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2180,7 +2180,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1094
+#: ../v2v/convert_linux.ml:1105
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2614,7 +2614,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1024
+#: ../v2v/convert_linux.ml:1035
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2668,7 +2668,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1053
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2679,7 +2679,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1026
+#: ../v2v/convert_linux.ml:1037
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2715,7 +2715,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:748
+#: ../v2v/convert_linux.ml:759
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2781,7 +2781,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1149
+#: ../v2v/convert_linux.ml:1160
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3024,7 +3024,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:752
+#: ../v2v/convert_linux.ml:763
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -3060,7 +3060,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:736
+#: ../v2v/convert_linux.ml:747
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -3541,7 +3541,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1193
+#: ../v2v/convert_linux.ml:1204
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3556,7 +3556,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:891
+#: ../v2v/convert_linux.ml:902
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -8208,17 +8208,17 @@ msgstr ""
 msgid "error reading console messages from the appliance"
 msgstr ""
 
-#: src/copy-in-out.c:54 src/copy-in-out.c:128
+#: src/copy-in-out.c:55 src/copy-in-out.c:137
 #, c-format
 msgid "target '%s' is not a directory"
 msgstr ""
 
-#: src/copy-in-out.c:165
+#: src/copy-in-out.c:174
 #, c-format
 msgid "'%s' is not a file or directory"
 msgstr ""
 
-#: src/copy-in-out.c:224
+#: src/copy-in-out.c:240
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 
@@ -8680,18 +8680,18 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: twee keer dezelfde hendel aangeroepen\n"
 
-#: src/handle.c:527
+#: src/handle.c:512
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:580
+#: src/handle.c:565
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:775
+#: src/handle.c:760
 msgid "setting not found"
 msgstr ""
 
@@ -8748,11 +8748,6 @@ msgstr "groote van %s is buitensporig groot (%<PRIi64> bytes)"
 msgid "could not parse integer in version number: %s"
 msgstr "kon integer in versie nummer niet ontleden: %s"
 
-#: src/inspect-icon.c:646
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr "lezen: %s: onverwacht einde van bestand"
-
 #: src/inspect.c:343
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "Geen Windows gast, of systeem root kon niet bepaald worden"
@@ -8798,12 +8793,12 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
 
-#: src/launch-direct.c:851 src/launch-libvirt.c:626
+#: src/launch-direct.c:851 src/launch-libvirt.c:630
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
 
-#: src/launch-direct.c:1253 src/launch-libvirt.c:1415
+#: src/launch-direct.c:1253 src/launch-libvirt.c:1419
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: kon '%s' niet converteren naar een absoluut pad"
@@ -8843,25 +8838,25 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:287
+#: src/launch-libvirt.c:288
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:296
+#: src/launch-libvirt.c:297
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:331
+#: src/launch-libvirt.c:332
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "kon niet verbinden met libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:360
+#: src/launch-libvirt.c:361
 msgid "could not get libvirt capabilities"
 msgstr "kon libvirt mogelijkheden niet verkrijgen"
 
-#: src/launch-libvirt.c:554
+#: src/launch-libvirt.c:558
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8871,21 +8866,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:692
+#: src/launch-libvirt.c:696
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:698 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:702 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr "kan nieuwe XPath context niet aanmaken"
 
-#: src/launch-libvirt.c:708
+#: src/launch-libvirt.c:712
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:743
+#: src/launch-libvirt.c:747
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8900,70 +8895,86 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:979
+#: src/launch-libvirt.c:983
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1369
+#: src/launch-libvirt.c:1373
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1498
+#: src/launch-libvirt.c:1502
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1523
+#: src/launch-libvirt.c:1527
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1530
+#: src/launch-libvirt.c:1534
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1860
+#: src/launch-libvirt.c:1864
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1871
+#: src/launch-libvirt.c:1875
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1875
+#: src/launch-libvirt.c:1879
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1896
+#: src/launch-libvirt.c:1900
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1909
+#: src/launch-libvirt.c:1913
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2016
+#: src/launch-libvirt.c:2023
+#, c-format
+msgid ""
+"bridge '%s' not found.  Try running:\n"
+"\n"
+"  brctl show\n"
+"\n"
+"to get a list of bridges on the host, and then selecting the\n"
+"bridge you wish the appliance network to connect to using:\n"
+"\n"
+"  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
+"\n"
+"You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
+"For further information see guestfs(3)."
+msgstr ""
+
+#: src/launch-libvirt.c:2063
 msgid "could not destroy libvirt domain"
 msgstr "kon libvirt domein niet vernietigen"
 
-#: src/launch-libvirt.c:2067 src/launch-libvirt.c:2100
+#: src/launch-libvirt.c:2114 src/launch-libvirt.c:2147
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: interne fout bij formuleren van foutboodschap"
 
-#: src/launch-libvirt.c:2163
+#: src/launch-libvirt.c:2210
 msgid "could not attach disk to libvirt domain"
 msgstr "kon schijf niet koppelen aan libvirt domein"
 
-#: src/launch-libvirt.c:2194
+#: src/launch-libvirt.c:2241
 msgid "could not detach disk from libvirt domain"
 msgstr "kon schijf niet loskoppelen van libvirt domein"
 
@@ -8996,7 +9007,7 @@ msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: src/launch-uml.c:473
+#: src/launch-uml.c:462
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9287,6 +9298,11 @@ msgstr ""
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
+
+#: src/whole-file.c:69
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "lezen: %s: onverwacht einde van bestand"
 
 #: test-tool/test-tool.c:54
 #, c-format

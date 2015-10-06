@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-09-08 13:12+0100\n"
+"POT-Creation-Date: 2015-10-06 23:18+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1300
+#: ../v2v/convert_linux.ml:1311
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2461,7 +2461,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1094
+#: ../v2v/convert_linux.ml:1105
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -3017,7 +3017,7 @@ msgstr "команда «%s» є некоректною, див. сторінк�
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
-#: ../v2v/convert_linux.ml:1024
+#: ../v2v/convert_linux.ml:1035
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -3087,7 +3087,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1053
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -3101,7 +3101,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1026
+#: ../v2v/convert_linux.ml:1037
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -3141,7 +3141,7 @@ msgstr ""
 "decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
 "LE. Ймовірно, це вада у %s."
 
-#: ../v2v/convert_linux.ml:748
+#: ../v2v/convert_linux.ml:759
 msgid "didn't find grub entry for kernel %s"
 msgstr "не знайдено запис grub для ядра %s"
 
@@ -3222,7 +3222,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1149
+#: ../v2v/convert_linux.ml:1160
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -3490,7 +3490,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/convert_linux.ml:752
+#: ../v2v/convert_linux.ml:763
 msgid "internal error: regular expression did not match '%s'"
 msgstr "внутрішня помилка: формальний вираз не відповідає «%s»"
 
@@ -3526,7 +3526,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr "некоректний варіант ssh-inject «%s»; див. сторінку man"
 
-#: ../v2v/convert_linux.ml:736
+#: ../v2v/convert_linux.ml:747
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
@@ -4094,7 +4094,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:1193
+#: ../v2v/convert_linux.ml:1204
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4117,7 +4117,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:891
+#: ../v2v/convert_linux.ml:902
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -9307,17 +9307,17 @@ msgstr "write_data: сокет не з’єднано"
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
-#: src/copy-in-out.c:54 src/copy-in-out.c:128
+#: src/copy-in-out.c:55 src/copy-in-out.c:137
 #, c-format
 msgid "target '%s' is not a directory"
 msgstr "призначення «%s» не є каталогом"
 
-#: src/copy-in-out.c:165
+#: src/copy-in-out.c:174
 #, c-format
 msgid "'%s' is not a file or directory"
 msgstr "«%s» не є файлом або каталогом"
 
-#: src/copy-in-out.c:224
+#: src/copy-in-out.c:240
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 "помилка: аргумент має нульову довжину або є довшим за максимальне значення"
@@ -9832,7 +9832,7 @@ msgstr "нечислове значення LIBGUESTFS_MEMSIZE"
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/handle.c:527
+#: src/handle.c:512
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
@@ -9840,12 +9840,12 @@ msgstr ""
 "зібрано з --without-qemu, отже спроба виклику guestfs_set_qemu з qemu == "
 "NULL призводить до помилки"
 
-#: src/handle.c:580
+#: src/handle.c:565
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "надто мале значення для розміру пам’яті (має бути принаймні %d)"
 
-#: src/handle.c:775
+#: src/handle.c:760
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
@@ -9908,11 +9908,6 @@ msgstr "розмір %s неймовірно великий (%<PRIi64> байт�
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
 
-#: src/inspect-icon.c:646
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr "читання: %s: неочікуваний кінець файла"
-
 #: src/inspect.c:343
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "не є гостьовою системою Windows або не вдалося визначити systemroot"
@@ -9964,13 +9959,13 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:851 src/launch-libvirt.c:626
+#: src/launch-direct.c:851 src/launch-libvirt.c:630
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1253 src/launch-libvirt.c:1415
+#: src/launch-direct.c:1253 src/launch-libvirt.c:1419
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -10019,27 +10014,27 @@ msgstr ""
 "не можна вмикати discard для цього диска: у протоколі «%s» не передбачено "
 "підтримки discard"
 
-#: src/launch-libvirt.c:287
+#: src/launch-libvirt.c:288
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:296
+#: src/launch-libvirt.c:297
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:331
+#: src/launch-libvirt.c:332
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:360
+#: src/launch-libvirt.c:361
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:554
+#: src/launch-libvirt.c:558
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -10056,22 +10051,22 @@ msgstr ""
 "\n"
 "Початкове повідомлення від libvirt"
 
-#: src/launch-libvirt.c:692
+#: src/launch-libvirt.c:696
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:698 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:702 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:708
+#: src/launch-libvirt.c:712
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:743
+#: src/launch-libvirt.c:747
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -10099,16 +10094,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:979
+#: src/launch-libvirt.c:983
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1369
+#: src/launch-libvirt.c:1373
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1498
+#: src/launch-libvirt.c:1502
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -10116,7 +10111,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1523
+#: src/launch-libvirt.c:1527
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10128,7 +10123,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1530
+#: src/launch-libvirt.c:1534
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10141,42 +10136,58 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1860
+#: src/launch-libvirt.c:1864
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: src/launch-libvirt.c:1871
+#: src/launch-libvirt.c:1875
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: src/launch-libvirt.c:1875
+#: src/launch-libvirt.c:1879
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: src/launch-libvirt.c:1896
+#: src/launch-libvirt.c:1900
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1909
+#: src/launch-libvirt.c:1913
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:2016
+#: src/launch-libvirt.c:2023
+#, c-format
+msgid ""
+"bridge '%s' not found.  Try running:\n"
+"\n"
+"  brctl show\n"
+"\n"
+"to get a list of bridges on the host, and then selecting the\n"
+"bridge you wish the appliance network to connect to using:\n"
+"\n"
+"  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
+"\n"
+"You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
+"For further information see guestfs(3)."
+msgstr ""
+
+#: src/launch-libvirt.c:2063
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2067 src/launch-libvirt.c:2100
+#: src/launch-libvirt.c:2114 src/launch-libvirt.c:2147
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2163
+#: src/launch-libvirt.c:2210
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2194
+#: src/launch-libvirt.c:2241
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -10213,7 +10224,7 @@ msgstr ""
 "у модулі uml не передбачено підтримки дисків зі значенням параметра discard "
 "рівним enable"
 
-#: src/launch-uml.c:473
+#: src/launch-uml.c:462
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 "vmlinux запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -10519,6 +10530,11 @@ msgstr "Роботу %s завершено за допомогою сигнал�
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
+
+#: src/whole-file.c:69
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "читання: %s: неочікуваний кінець файла"
 
 #: test-tool/test-tool.c:54
 #, c-format
