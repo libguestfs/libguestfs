@@ -20,8 +20,6 @@ open Printf
 
 open Common_gettext.Gettext
 
-module G = Guestfs
-
 let (//) = Filename.concat
 
 let ( +^ ) = Int64.add
@@ -357,7 +355,7 @@ let run_main_and_handle_errors main =
     error (f_"%s: %s: %s") fname (Unix.error_message code) param
   | Sys_error msg ->                    (* from a syscall *)
     error (f_"%s") msg
-  | G.Error msg ->                      (* from libguestfs *)
+  | Guestfs.Error msg ->                (* from libguestfs *)
     error (f_"libguestfs error: %s") msg
   | Failure msg ->                      (* from failwith/failwithf *)
     error (f_"failure: %s") msg
