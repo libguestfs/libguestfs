@@ -84,7 +84,7 @@ The full requirements are described below.
 +--------------+-------------+---+-----------------------------------------+
 | Pod::Simple  |             | R | Part of Perl core.                      |
 +--------------+-------------+---+-----------------------------------------+
-| OCaml        |             |R/O| Required if compiling from git.         |
+| OCaml        | 3.11        |R/O| Required if compiling from git.         |
 |              |             |   | Optional if compiling from tarball.     |
 |              |             |   | To build generated files and OCaml bindings.
 +--------------+-------------+---+-----------------------------------------+

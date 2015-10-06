@@ -88,12 +88,12 @@ guestfs_finalize (value gv)
 
     /* Now unregister the global roots. */
     for (i = 0; i < len; ++i) {
-      caml_remove_global_root (roots[i]);
+      caml_remove_generational_global_root (roots[i]);
       free (roots[i]);
     }
     free (roots);
 
-    caml_remove_global_root (v);
+    caml_remove_generational_global_root (v);
     free (v);
   }
 }
@@ -179,10 +179,7 @@ ocaml_guestfs_create (value environmentv, value close_on_exitv, value unitv)
    */
   v = guestfs_int_safe_malloc (g, sizeof *v);
   *v = gv;
-  /* XXX This global root is generational, but we cannot rely on every
-   * user having the OCaml 3.11 version which supports this.
-   */
-  caml_register_global_root (v);
+  caml_register_generational_global_root (v);
   guestfs_set_private (g, "_ocaml_g", v);
 
   CAMLreturn (gv);
@@ -255,10 +252,7 @@ ocaml_guestfs_set_event_callback (value gv, value closure, value events)
     ocaml_guestfs_raise_error (g, "set_event_callback");
   }
 
-  /* XXX This global root is generational, but we cannot rely on every
-   * user having the OCaml 3.11 version which supports this.
-   */
-  caml_register_global_root (root);
+  caml_register_generational_global_root (root);
 
   snprintf (key, sizeof key, "_ocaml_event_%d", eh);
   guestfs_set_private (g, key, root);
@@ -280,7 +274,7 @@ ocaml_guestfs_delete_event_callback (value gv, value ehv)
 
   value *root = guestfs_get_private (g, key);
   if (root) {
-    caml_remove_global_root (root);
+    caml_remove_generational_global_root (root);
     free (root);
     guestfs_set_private (g, key, NULL);
     guestfs_delete_event_callback (g, eh);
