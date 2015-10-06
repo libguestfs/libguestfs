@@ -16,6 +16,51 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+module Char : sig
+    type t = char
+    val chr : int -> char
+    val code : char -> int
+    val compare: t -> t -> int
+    val escaped : char -> string
+    val lowercase : char -> char
+    val unsafe_chr : int -> char
+    val uppercase : char -> char
+end
+(** Override the Char module from stdlib. *)
+
+module String : sig
+    type t = string
+    val blit : string -> int -> string -> int -> int -> unit
+    val capitalize : string -> string
+    val compare: t -> t -> int
+    val concat : string -> string list -> string
+    val contains : string -> char -> bool
+    val contains_from : string -> int -> char -> bool
+    val copy : string -> string
+    val create : int -> string
+    val escaped : string -> string
+    val fill : string -> int -> int -> char -> unit
+    val get : string -> int -> char
+    val index : string -> char -> int
+    val index_from : string -> int -> char -> int
+    val iter : (char -> unit) -> string -> unit
+    val length : string -> int
+    val lowercase : string -> string
+    val make : int -> char -> string
+    val rcontains_from : string -> int -> char -> bool
+    val rindex : string -> char -> int
+    val rindex_from : string -> int -> char -> int
+    val set : string -> int -> char -> unit
+    val sub : string -> int -> int -> string
+    val uncapitalize : string -> string
+    val unsafe_blit : string -> int -> string -> int -> int -> unit
+    val unsafe_fill : string -> int -> int -> char -> unit
+    val unsafe_get : string -> int -> char
+    val unsafe_set : string -> int -> char -> unit
+    val uppercase : string -> string
+end
+(** Override the String module from stdlib. *)
+
 val ( // ) : string -> string -> string
 (** Concatenate directory and filename. *)
 

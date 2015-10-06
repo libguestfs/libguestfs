@@ -20,6 +20,14 @@ open Printf
 
 open Common_gettext.Gettext
 
+module Char = struct
+    include Char
+end
+
+module String = struct
+    include String
+end
+
 let (//) = Filename.concat
 
 let ( +^ ) = Int64.add
