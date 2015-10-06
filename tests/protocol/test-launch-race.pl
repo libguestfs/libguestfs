@@ -42,7 +42,9 @@ if ($pid == 0) {
   my $g = Sys::Guestfs->new ();
   $g->add_drive ("/dev/null");
   $g->launch ();
-  _exit (0); # So the tmpdir is not removed.
+  $g->close ();
+  # So $tmpdir is not removed by CLEANUP => 1 above.
+  _exit (0);
 }
 
 my $g = Sys::Guestfs->new ();
