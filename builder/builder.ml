@@ -456,10 +456,9 @@ let main () =
        * Don't run 'qemu-img resize' on an auto format.  This is to
        * force an explicit conversion step to a real format.
        *)
-      else if output_size > old_size && is_not `Template && List.mem_assoc `Format itags then (
+      else if output_size > old_size && is_not `Template
+              && List.mem_assoc `Format itags then
         tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
-        tr `Disk_resize 60 ((`Size, Int64.to_string output_size) :: itags);
-      );
 
       (* qemu-img convert is always possible, and quicker.  It doesn't
        * resize, but it does change the format.
