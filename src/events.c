@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 #include "c-ctype.h"
@@ -136,7 +137,7 @@ guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
     /* APPLIANCE =>  <buf>
      * LIBRARY =>    libguestfs: <buf>\n
      * WARNING =>    libguestfs: warning: <buf>\n
-     * TRACE =>      libguestfs: trace: <buf>\n  (RHBZ#673479)
+     * TRACE =>      libguestfs: trace: [<ID>:] <buf>\n  (RHBZ#673479)
      */
 
     if (event != GUESTFS_EVENT_APPLIANCE)
@@ -145,8 +146,13 @@ guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
     if (event == GUESTFS_EVENT_WARNING)
       fputs ("warning: ", stderr);
 
-    if (event == GUESTFS_EVENT_TRACE)
+    if (event == GUESTFS_EVENT_TRACE) {
       fputs ("trace: ", stderr);
+      if (STRNEQ (g->identifier, "")) {
+        fputs (g->identifier, stderr);
+        fputs (": ", stderr);
+      }
+    }
 
     /* Special or non-printing characters in the buffer must be
      * escaped (RHBZ#731744).  The buffer can contain any 8 bit

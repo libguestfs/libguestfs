@@ -32,6 +32,7 @@
 
 #include "glthread/lock.h"
 #include "ignore-value.h"
+#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -127,6 +128,9 @@ guestfs_create_flags (unsigned flags, ...)
   g->program = strdup ("");
 #endif
   if (!g->program) goto error;
+
+  g->identifier = strdup ("");
+  if (!g->identifier) goto error;
 
   if (guestfs_int_set_backend (g, DEFAULT_BACKEND) == -1) {
     warning (g, _("libguestfs was built with an invalid default backend, using 'direct' instead"));
@@ -664,6 +668,34 @@ const char *
 guestfs_impl_get_program (guestfs_h *g)
 {
   return g->program;
+}
+
+int
+guestfs_impl_set_identifier (guestfs_h *g, const char *identifier)
+{
+  size_t i, len;
+
+  /* Check the identifier contains only permitted characters. */
+  len = strlen (identifier);
+  for (i = 0; i < len; ++i) {
+    char c = identifier[i];
+
+    if (!c_isalnum (c) && c != '_' && c != '-') {
+      error (g, _("identifier must contain only alphanumeric characters, underscore or minus sign"));
+      return -1;
+    }
+  }
+
+  free (g->identifier);
+  g->identifier = safe_strdup (g, identifier);
+
+  return 0;
+}
+
+const char *
+guestfs_impl_get_identifier (guestfs_h *g)
+{
+  return g->identifier;
 }
 
 int

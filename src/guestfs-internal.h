@@ -371,6 +371,7 @@ struct guestfs_h
   struct hv_param *hv_params;   /* Extra hv parameters. */
 
   char *program;                /* Program name. */
+  char *identifier;             /* Handle identifier. */
 
   /* Array of drives added by add-drive* APIs.
    *

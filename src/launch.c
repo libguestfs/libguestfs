@@ -75,6 +75,8 @@ guestfs_impl_launch (guestfs_h *g)
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
 
     debug (g, "launch: program=%s", g->program);
+    if (STRNEQ (g->identifier, ""))
+      debug (g, "launch: identifier=%s", g->identifier);
     debug (g, "launch: version=%"PRIi64".%"PRIi64".%"PRIi64"%s",
            v->major, v->minor, v->release, v->extra);
 
@@ -359,6 +361,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      "%s"                       /* verbose */
      "%s"                       /* network */
      " TERM=%s"                 /* TERM environment variable */
+     "%s%s"                     /* handle identifier */
      "%s%s",                    /* append */
 #ifdef __arm__
      g->memsize,
@@ -369,6 +372,8 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      g->verbose ? " guestfs_verbose=1" : "",
      g->enable_network ? " guestfs_network=1" : "",
      term ? term : "linux",
+     STRNEQ (g->identifier, "") ? " guestfs_identifier=" : "",
+     g->identifier,
      g->append ? " " : "", g->append ? g->append : "");
 
   return ret;

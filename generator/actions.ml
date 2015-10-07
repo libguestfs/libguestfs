@@ -3369,6 +3369,49 @@ To download to the current directory, use C<.> as in:
 
 Wildcards cannot be used." };
 
+  { defaults with
+    name = "set_identifier"; added = (1, 31, 14);
+    style = RErr, [String "identifier"], [];
+    fish_alias = ["identifier"];
+    blocking = false;
+    shortdesc = "set the handle identifier";
+    longdesc = "\
+This is an informative string which the caller may optionally
+set in the handle.  It is printed in various places, allowing
+the current handle to be identified in debugging output.
+
+One important place is when tracing is enabled.  If the
+identifier string is not an empty string, then trace messages
+change from this:
+
+ libguestfs: trace: get_tmpdir
+ libguestfs: trace: get_tmpdir = \"/tmp\"
+
+to this:
+
+ libguestfs: trace: ID: get_tmpdir
+ libguestfs: trace: ID: get_tmpdir = \"/tmp\"
+
+where C<ID> is the identifier string set by this call.
+
+The identifier must only contain alphanumeric ASCII characters,
+underscore and minus sign.  The default is the empty string.
+
+See also C<guestfs_set_program>, C<guestfs_set_trace>,
+C<guestfs_get_identifier>." };
+
+  { defaults with
+    name = "get_identifier"; added = (1, 31, 14);
+    style = RConstString "identifier", [], [];
+    blocking = false;
+    tests = [
+      InitNone, Always, TestRun (
+        [["get_identifier"]]), []
+    ];
+    shortdesc = "get the handle identifier";
+    longdesc = "\
+Get the handle identifier.  See C<guestfs_set_identifier>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
