@@ -43,6 +43,7 @@
 #define NR_THREADS 5
 
 struct thread_state {
+  size_t thread_num;            /* Thread number. */
   pthread_t thread;             /* Thread handle. */
   int exit_status;              /* Thread exit status. */
 };
@@ -89,6 +90,7 @@ main (int argc, char *argv[])
   sigaction (SIGQUIT, &sa, NULL);
 
   for (i = 0; i < NR_THREADS; ++i) {
+    threads[i].thread_num = i;
     /* Start the thread. */
     r = pthread_create (&threads[i].thread, NULL, start_thread,
                         &threads[i]);
@@ -117,6 +119,7 @@ start_thread (void *statevp)
   struct thread_state *state = statevp;
   guestfs_h *g;
   time_t start_t, t;
+  char id[64];
 
   time (&start_t);
 
@@ -132,6 +135,9 @@ start_thread (void *statevp)
       state->exit_status = 1;
       pthread_exit (&state->exit_status);
     }
+
+    snprintf (id, sizeof id, "%zu", state->thread_num);
+    guestfs_set_identifier (g, id);
 
     if (guestfs_add_drive_opts (g, "/dev/null",
                                 GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",

@@ -177,6 +177,8 @@ start_thread (void *statevp)
     pthread_exit (&state->exit_status);
   }
 
+  guestfs_set_identifier (g, state->mp);
+
   if (guestfs_add_drive_scratch (g, 512*1024*1024, -1) == -1)
     goto error;
   if (guestfs_launch (g) == -1)

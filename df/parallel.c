@@ -149,6 +149,7 @@ worker_thread (void *thread_data_vp)
     size_t output_len = 0;
     guestfs_h *g;
     int err;
+    char id[64];
 
     /* Take the next domain from the list. */
     if (thread_data->verbose)
@@ -190,6 +191,11 @@ worker_thread (void *thread_data_vp)
       thread_data->r = -1;
       return &thread_data->r;
     }
+
+    /* Set the handle identifier so we can tell threads apart. */
+    snprintf (id, sizeof id, "thread_%zu_domain_%zu",
+              thread_data->thread_num, i);
+    guestfs_set_identifier (g, id);
 
     /* Copy some settings from the options guestfs handle. */
     guestfs_set_trace (g, thread_data->trace);

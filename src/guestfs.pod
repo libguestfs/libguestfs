@@ -1328,6 +1328,9 @@ safe to be called from multiple threads without a mutex.
 See the graphical program guestfs-browser for one possible
 architecture for multithreaded programs using libvirt and libguestfs.
 
+Use L</guestfs_set_identifier> to make it simpler to identify threads
+in trace output.
+
 =head2 PATH
 
 Libguestfs needs a supermin appliance, which it finds by looking along

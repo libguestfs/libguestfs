@@ -199,6 +199,7 @@ start_thread (void *thread_data_vp)
   size_t i;
   guestfs_h *g;
   unsigned errors = 0;
+  char id[64];
 
   for (;;) {
     /* Take the next process. */
@@ -236,6 +237,9 @@ start_thread (void *thread_data_vp)
       if (!ignore_errors)
         goto error;
     }
+
+    snprintf (id, sizeof id, "%zu", i);
+    guestfs_set_identifier (g, id);
 
     guestfs_set_trace (g, trace);
     guestfs_set_verbose (g, verbose);
