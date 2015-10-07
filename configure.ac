@@ -1095,6 +1095,17 @@ AS_IF([test "x$enable_ocaml" != "xno"],[
     OCAMLFIND=
     AC_PROG_OCAML
     AC_PROG_FINDLIB
+
+    dnl OCaml >= 3.11 is required.
+    AC_MSG_CHECKING([if OCaml version >= 3.11])
+    ocaml_major="`echo $OCAMLVERSION | $AWK -F. '{print $1}'`"
+    ocaml_minor="`echo $OCAMLVERSION | $AWK -F. '{print $2}'`"
+    AS_IF([test "$ocaml_major" -ge 4 || ( test "$ocaml_major" -eq 3 && test "$ocaml_minor" -ge 11 )],[
+        AC_MSG_RESULT([yes])
+    ],[
+        AC_MSG_RESULT([no])
+        AC_MSG_FAILURE([OCaml compiler is not new enough.  At least OCaml 3.11 is required])
+    ])
 ])
 AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
