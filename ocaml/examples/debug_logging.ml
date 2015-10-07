@@ -65,7 +65,7 @@ let rec main () =
  * This example simply redirects these messages to syslog, but
  * obviously you could do something more advanced here.
  *)
-and message_callback g event event_handle buf array =
+and message_callback event event_handle buf array =
   if String.length buf > 0 then (
     let event_name = Guestfs.event_to_string [event] in
     Printf.printf "[%s] %S\n%!" event_name buf
