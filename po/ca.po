@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-05 16:23+0100\n"
+"POT-Creation-Date: 2015-10-07 13:59+0100\n"
 "PO-Revision-Date: 2015-05-09 07:14-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -40,13 +40,13 @@ msgstr ""
 "  L'espai restant s'ignorarà. Pots utilitzar un editor de particions en el "
 "sistema convidat per tal de partir aquest espai."
 
-#: ../mllib/common_utils.ml:359
+#: ../mllib/common_utils.ml:370
 msgid "%s"
 msgstr "%s"
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:209
-#. ../builder/builder.ml:668
+#. ../builder/builder.ml:667
 #: ../v2v/v2v.ml:692 ../v2v/v2v.ml:542 ../sysprep/main.ml:241
 msgid "%s (ignored)"
 msgstr "%s (s'ignora)"
@@ -118,7 +118,7 @@ msgstr ""
 "%s referència el dispositiu desconegut \"%s\". S'haurà d'arreglar aquesta "
 "entrada manualment després de la conversió."
 
-#: ../mllib/common_utils.ml:355 ../mllib/common_utils.ml:342
+#: ../mllib/common_utils.ml:366 ../mllib/common_utils.ml:353
 msgid "%s: %s"
 msgstr "%s: %s"
 
@@ -126,7 +126,7 @@ msgstr "%s: %s"
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (s'ignora)\n"
 
-#: ../mllib/common_utils.ml:357
+#: ../mllib/common_utils.ml:368
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -331,7 +331,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:314
+#: ../mllib/common_utils.ml:325
 msgid "%s: error: %s"
 msgstr "%s: error: %s"
 
@@ -508,7 +508,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:332
+#: ../mllib/common_utils.ml:343
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:615
+#: ../builder/builder.ml:614
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -975,7 +975,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:882 ../builder/builder.ml:614
+#: ../dib/dib.ml:882 ../builder/builder.ml:613
 msgid "Converting to %s"
 msgstr ""
 
@@ -987,7 +987,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:543
+#: ../builder/builder.ml:542
 msgid "Copying"
 msgstr ""
 
@@ -1059,7 +1059,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../mllib/common_utils.ml:537
+#: ../mllib/common_utils.ml:549
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:533 ../mllib/common_utils.ml:531
+#: ../mllib/common_utils.ml:545 ../mllib/common_utils.ml:543
 msgid "Display version and exit"
 msgstr ""
 
@@ -1128,7 +1128,7 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:539 ../mllib/common_utils.ml:538
+#: ../mllib/common_utils.ml:551 ../mllib/common_utils.ml:550
 msgid "Don't print progress messages"
 msgstr ""
 
@@ -1187,7 +1187,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:535 ../mllib/common_utils.ml:534
+#: ../mllib/common_utils.ml:547 ../mllib/common_utils.ml:546
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1195,7 +1195,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:536
+#: ../mllib/common_utils.ml:548
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1309,7 +1309,7 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #: ../v2v/v2v.ml:461 ../customize/customize_main.ml:219
-#: ../builder/builder.ml:717
+#: ../builder/builder.ml:716
 msgid "Finishing off"
 msgstr ""
 
@@ -1356,7 +1356,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:707
+#: ../builder/builder.ml:706
 msgid "Free space"
 msgstr ""
 
@@ -1397,7 +1397,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:319
+#: ../mllib/common_utils.ml:330
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1481,11 +1481,11 @@ msgstr ""
 msgid "List available templates"
 msgstr ""
 
-#: ../mllib/common_utils.ml:529
+#: ../mllib/common_utils.ml:541
 msgid "List long options"
 msgstr ""
 
-#: ../mllib/common_utils.ml:528
+#: ../mllib/common_utils.ml:540
 msgid "List short options"
 msgstr ""
 
@@ -1587,7 +1587,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:628
+#: ../builder/builder.ml:627
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1619,11 +1619,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:702
+#: ../builder/builder.ml:701
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:703
 msgid "Output format"
 msgstr ""
 
@@ -1639,7 +1639,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:703
+#: ../builder/builder.ml:702
 msgid "Output size"
 msgstr ""
 
@@ -1694,7 +1694,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:480
+#: ../builder/builder.ml:479
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1935,11 +1935,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:570
+#: ../builder/builder.ml:569
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:600
+#: ../builder/builder.ml:599
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2431,7 +2431,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:705
+#: ../builder/builder.ml:704
 msgid "Total usable space"
 msgstr ""
 
@@ -2463,7 +2463,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:558
+#: ../builder/builder.ml:557
 msgid "Uncompressing"
 msgstr ""
 
@@ -2626,11 +2626,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:475
+#: ../v2v/convert_windows.ml:476
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:461
+#: ../v2v/convert_windows.ml:462
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2721,7 +2721,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:668
+#: ../v2v/convert_windows.ml:669
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2907,7 +2907,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:372
+#: ../mllib/common_utils.ml:383
 msgid "exception: %s"
 msgstr ""
 
@@ -2933,15 +2933,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:607
+#: ../mllib/common_utils.ml:619
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:609
+#: ../mllib/common_utils.ml:621
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:611
+#: ../mllib/common_utils.ml:623
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2958,7 +2958,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:363
+#: ../mllib/common_utils.ml:374
 msgid "failure: %s"
 msgstr ""
 
@@ -3003,7 +3003,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../mllib/common_utils.ml:382
+#: ../mllib/common_utils.ml:393
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3087,15 +3087,15 @@ msgstr ""
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
-#: ../mllib/common_utils.ml:370
+#: ../mllib/common_utils.ml:381
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:367
+#: ../mllib/common_utils.ml:378
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:365
+#: ../mllib/common_utils.ml:376
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3147,7 +3147,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:361
+#: ../mllib/common_utils.ml:372
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3219,7 +3219,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:672
+#: ../builder/builder.ml:671
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3268,7 +3268,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:485
+#: ../builder/builder.ml:484
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3592,7 +3592,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:304
+#: ../v2v/convert_windows.ml:305
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3600,7 +3600,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:350
+#: ../v2v/convert_windows.ml:351
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3616,7 +3616,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:326
+#: ../v2v/convert_windows.ml:327
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3624,7 +3624,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:336
+#: ../v2v/convert_windows.ml:337
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3638,7 +3638,7 @@ msgid ""
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:751
+#: ../v2v/convert_windows.ml:752
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3646,7 +3646,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:749
+#: ../v2v/convert_windows.ml:750
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3857,7 +3857,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:443
+#: ../v2v/convert_windows.ml:444
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
