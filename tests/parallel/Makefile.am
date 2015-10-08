@@ -36,6 +36,7 @@ test_parallel_CFLAGS = \
 test_parallel_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 #check-valgrind:
