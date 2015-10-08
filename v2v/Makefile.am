@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	v2v_unit_tests.ml \
 	$(TESTS) $(SLOW_TESTS) \
+	$(FAKE_VIRT_TOOLS) \
 	HACKING \
 	test-v2v-cdrom.expected \
 	test-v2v-cdrom.xml \
@@ -105,6 +106,10 @@ SOURCES_C = \
 	kvmuid-c.c \
 	utils-c.c \
 	xml-c.c
+
+fake_virt_tools_dir = fake-virt-tools
+FAKE_VIRT_TOOLS = \
+	$(fake_virt_tools_dir)/rhsrvany.exe
 
 if HAVE_OCAML
 
