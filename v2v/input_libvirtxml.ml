@@ -54,7 +54,8 @@ let parse_libvirt_xml ?conn xml =
   let xpathctx = Xml.xpath_new_context doc in
   let xpath_string = xpath_string xpathctx
   and xpath_int = xpath_int xpathctx
-  and xpath_int_default = xpath_int_default xpathctx in
+  and xpath_int_default = xpath_int_default xpathctx
+  and xpath_int64_default = xpath_int64_default xpathctx in
 
   let hypervisor =
     match xpath_string "/domain/@type" with
@@ -66,8 +67,8 @@ let parse_libvirt_xml ?conn xml =
     | None | Some "" ->
        error (f_"in the libvirt XML metadata, <name> is missing or empty")
     | Some s -> s in
-  let memory = xpath_int_default "/domain/memory/text()" (1024 * 1024) in
-  let memory = Int64.of_int memory *^ 1024L in
+  let memory = xpath_int64_default "/domain/memory/text()" (1024L *^ 1024L) in
+  let memory = memory *^ 1024L in
   let vcpu = xpath_int_default "/domain/vcpu/text()" 1 in
 
   let features =

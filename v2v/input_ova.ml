@@ -183,7 +183,8 @@ object
     let xpath_string = xpath_string xpathctx
     and xpath_int = xpath_int xpathctx
     and xpath_string_default = xpath_string_default xpathctx
-    and xpath_int_default = xpath_int_default xpathctx in
+    and xpath_int_default = xpath_int_default xpathctx
+    and xpath_int64_default = xpath_int64_default xpathctx in
 
     (* Search for vm name. *)
     let name =
@@ -193,8 +194,8 @@ object
       | Some name -> name in
 
     (* Search for memory. *)
-    let memory = xpath_int_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024 * 1024) in
-    let memory = Int64.of_int (memory * 1024 * 1024) in
+    let memory = xpath_int64_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=4]/rasd:VirtualQuantity/text()" (1024L *^ 1024L) in
+    let memory = memory *^ 1024L *^ 1024L in
 
     (* Search for number of vCPUs. *)
     let vcpu = xpath_int_default "/ovf:Envelope/ovf:VirtualSystem/ovf:VirtualHardwareSection/ovf:Item[rasd:ResourceType/text()=3]/rasd:VirtualQuantity/text()" 1 in
