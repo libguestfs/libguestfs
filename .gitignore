@@ -594,6 +594,7 @@ Makefile.in
 /v2v/centos-6.img
 /v2v/centos-7.0.img
 /v2v/fedora-20.img
+/v2v/fake-virtio-win.iso
 /v2v/oUnit-*
 /v2v/rhel-5.10.img
 /v2v/rhel-6.5.img

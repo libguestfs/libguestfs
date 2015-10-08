@@ -116,6 +116,13 @@ FAKE_VIRT_TOOLS = \
 fake_virtio_win_dir = fake-virtio-win
 FAKE_VIRTIO_WIN = $(wildcard $(fake_virtio_win_dir)/*/*/*/*)
 
+fake_virtio_win_iso = fake-virtio-win.iso
+check_DATA = $(fake_virtio_win_iso)
+CLEANFILES += $(fake_virtio_win_iso)
+
+$(fake_virtio_win_iso): $(FAKE_VIRTIO_WIN)
+	$(GENISOIMAGE) -J -r -o $@ $(fake_virtio_win_dir)
+
 if HAVE_OCAML
 
 bin_PROGRAMS = virt-v2v
@@ -259,6 +266,7 @@ TESTS += \
 	test-v2v-on-option.sh \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
+	test-v2v-virtio-win-iso.sh \
 	test-v2v-windows-conversion.sh
 endif ENABLE_APPLIANCE
 
