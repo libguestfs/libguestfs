@@ -152,6 +152,7 @@ let rec main () =
   (* Open the guestfs handle. *)
   message (f_"Opening the overlay");
   let g = new G.guestfs () in
+  g#set_identifier "v2v";
   if trace () then g#set_trace true;
   if verbose () then g#set_verbose true;
   g#set_network true;

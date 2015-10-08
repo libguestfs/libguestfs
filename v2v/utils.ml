@@ -200,6 +200,7 @@ let find_virtio_win_drivers virtio_win =
     else if is_regular_file virtio_win then (
       try
         let g = new Guestfs.guestfs () in
+        g#set_identifier "virtio_win";
         if trace () then g#set_trace true;
         if verbose () then g#set_verbose true;
         g#add_drive_opts virtio_win ~readonly:true;

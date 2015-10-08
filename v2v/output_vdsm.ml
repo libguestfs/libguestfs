@@ -157,6 +157,7 @@ object
   method disk_create ?backingfile ?backingformat ?preallocation ?compat
     ?clustersize path format size =
     let g = new Guestfs.guestfs () in
+    g#set_identifier "vdsm_disk_create";
     (* For qcow2, override v2v-supplied compat option, because RHEL 6
      * nodes cannot handle qcow2 v3 (RHBZ#1145582).
      *)
