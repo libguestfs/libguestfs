@@ -42,6 +42,7 @@ if ! test -f $f || ! test -s $f; then
 fi
 
 export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
+export VIRTIO_WIN="$PWD/fake-virtio-win"
 
 # Return a random element from the array 'choices'.
 function random_choice
@@ -85,10 +86,17 @@ mktest ()
 :> "$script"
 :> "$expected"
 
-mktest "is-dir \"/Program Files/Red Hat/Firstboot\"" true
-mktest "is-file \"/Program Files/Red Hat/Firstboot/firstboot.bat\"" true
-mktest "is-dir \"/Program Files/Red Hat/Firstboot/scripts\"" true
-mktest "is-dir \"/Windows/Drivers/VirtIO\"" true
+firstboot_dir="/Program Files/Red Hat/Firstboot"
+mktest "is-dir \"$firstboot_dir\"" true
+mktest "is-file \"$firstboot_dir/firstboot.bat\"" true
+mktest "is-dir \"$firstboot_dir/scripts\"" true
+virtio_dir="/Windows/Drivers/VirtIO"
+mktest "is-dir \"$virtio_dir\"" true
+for drv in netkvm qxl vioscsi viostor; do
+    for sfx in cat inf sys; do
+        mktest "is-file \"$virtio_dir/$drv.$sfx\"" true
+    done
+done
 
 guestfish --ro -a "$d/windows-sda" -i < "$script" > "$response"
 diff -u "$expected" "$response"

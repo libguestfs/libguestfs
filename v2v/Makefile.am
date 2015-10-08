@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	v2v_unit_tests.ml \
 	$(TESTS) $(SLOW_TESTS) \
 	$(FAKE_VIRT_TOOLS) \
+	$(FAKE_VIRTIO_WIN) \
 	HACKING \
 	test-v2v-cdrom.expected \
 	test-v2v-cdrom.xml \
@@ -111,6 +112,9 @@ fake_virt_tools_dir = fake-virt-tools
 FAKE_VIRT_TOOLS = \
 	$(fake_virt_tools_dir)/rhsrvany.exe \
 	$(fake_virt_tools_dir)/rhev-apt.exe
+
+fake_virtio_win_dir = fake-virtio-win
+FAKE_VIRTIO_WIN = $(wildcard $(fake_virtio_win_dir)/*/*/*/*)
 
 if HAVE_OCAML
 

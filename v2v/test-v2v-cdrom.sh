@@ -49,6 +49,7 @@ if ! test -f $f || ! test -s $f; then
 fi
 
 export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
+export VIRTIO_WIN="$PWD/fake-virtio-win"
 
 d=test-v2v-cdrom.d
 rm -rf $d

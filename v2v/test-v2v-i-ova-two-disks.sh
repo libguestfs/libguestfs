@@ -33,6 +33,7 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
 fi
 
 export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
+export VIRTIO_WIN="$PWD/fake-virtio-win"
 
 d=test-v2v-i-ova-two-disks.d
 rm -rf $d
