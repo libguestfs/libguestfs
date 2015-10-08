@@ -79,6 +79,17 @@ let xpath_int xpathctx expr =
       error (f_"expecting XML expression to return an integer (expression: %s, matching string: %s)")
             expr str
   )
+let xpath_int64 xpathctx expr =
+  let obj = Xml.xpath_eval_expression xpathctx expr in
+  if Xml.xpathobj_nr_nodes obj < 1 then None
+  else (
+    let node = Xml.xpathobj_node obj 0 in
+    let str = Xml.node_as_string node in
+    try Some (Int64.of_string str)
+    with Failure "int_of_string" ->
+      error (f_"expecting XML expression to return an integer (expression: %s, matching string: %s)")
+            expr str
+  )
 
 (* Parse an xpath expression and return a string/int; if the expression
  * doesn't match, return the default.
@@ -89,6 +100,10 @@ let xpath_string_default xpathctx expr default =
   | Some s -> s
 let xpath_int_default xpathctx expr default =
   match xpath_int xpathctx expr with
+  | None -> default
+  | Some i -> i
+let xpath_int64_default xpathctx expr default =
+  match xpath_int64 xpathctx expr with
   | None -> default
   | Some i -> i
 
