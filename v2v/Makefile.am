@@ -109,7 +109,8 @@ SOURCES_C = \
 
 fake_virt_tools_dir = fake-virt-tools
 FAKE_VIRT_TOOLS = \
-	$(fake_virt_tools_dir)/rhsrvany.exe
+	$(fake_virt_tools_dir)/rhsrvany.exe \
+	$(fake_virt_tools_dir)/rhev-apt.exe
 
 if HAVE_OCAML
 
