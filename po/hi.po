@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-08 19:49+0100\n"
+"POT-Creation-Date: 2015-10-08 21:57+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/"
@@ -205,7 +205,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/utils.ml:225
+#: ../v2v/utils.ml:240
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -716,31 +716,31 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:265
+#: ../v2v/input_libvirtxml.ml:266
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:238
+#: ../v2v/input_libvirtxml.ml:239
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:261
+#: ../v2v/input_libvirtxml.ml:262
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:232
+#: ../v2v/input_libvirtxml.ml:233
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:211
+#: ../v2v/input_libvirtxml.ml:212
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:114
+#: ../v2v/input_libvirtxml.ml:115
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:298
+#: ../v2v/input_libvirtxml.ml:299
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -2572,7 +2572,7 @@ msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/utils.ml:140
+#: ../v2v/utils.ml:155
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -2678,11 +2678,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:295
+#: ../v2v/input_ova.ml:296
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:192
+#: ../v2v/input_ova.ml:193
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2773,7 +2773,7 @@ msgid ""
 "format"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:138
+#: ../v2v/input_libvirtxml.ml:139
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2785,7 +2785,7 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/utils.ml:136
+#: ../v2v/utils.ml:151
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
@@ -2832,11 +2832,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:259
+#: ../v2v/input_ova.ml:260
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:281
+#: ../v2v/input_ova.ml:282
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -2848,7 +2848,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/utils.ml:79
+#: ../v2v/utils.ml:90 ../v2v/utils.ml:79
 msgid ""
 "expecting XML expression to return an integer (expression: %s, matching "
 "string: %s)"
@@ -3012,11 +3012,11 @@ msgid ""
 "Requested size = %s, minimum size = %s"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:62
+#: ../v2v/input_libvirtxml.ml:63
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:67
+#: ../v2v/input_libvirtxml.ml:68
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
@@ -3162,7 +3162,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:264
+#: ../v2v/input_ova.ml:265
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3299,13 +3299,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:224
+#: ../v2v/input_ova.ml:225
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:221
+#: ../v2v/input_ova.ml:222
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3591,7 +3591,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:186
+#: ../v2v/input_libvirtxml.ml:187
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3654,7 +3654,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:209
+#: ../v2v/input_ova.ml:210
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -3662,7 +3662,7 @@ msgstr ""
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:162
+#: ../v2v/input_libvirtxml.ml:163
 msgid "unknown sound model %s ignored"
 msgstr ""
 
@@ -3784,7 +3784,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:135
+#: ../v2v/input_libvirtxml.ml:136
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -8556,38 +8556,38 @@ msgstr ""
 msgid "'direct' backend does not work"
 msgstr ""
 
-#: src/handle.c:192 src/handle.c:202
+#: src/handle.c:193 src/handle.c:203
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: src/handle.c:244
+#: src/handle.c:245
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:321
+#: src/handle.c:322
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: called twice on the same handle\n"
 
-#: src/handle.c:514
+#: src/handle.c:516
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:567
+#: src/handle.c:569
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:684
+#: src/handle.c:686
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: src/handle.c:790
+#: src/handle.c:792
 msgid "setting not found"
 msgstr ""
 

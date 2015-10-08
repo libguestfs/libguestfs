@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-08 19:49+0100\n"
+"POT-Creation-Date: 2015-10-08 21:57+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -263,7 +263,7 @@ msgstr ""
 "Коротке резюме параметрів надано нижче. Докладніші довідкові дані\n"
 "можна знайти на сторінках підручника (man) virt-builder(1).\n"
 
-#: ../v2v/utils.ml:225
+#: ../v2v/utils.ml:240
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr "%s: не вдалося відкрити файл ISO virtio-win: %s"
 
@@ -892,31 +892,31 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:265
+#: ../v2v/input_libvirtxml.ml:266
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:238
+#: ../v2v/input_libvirtxml.ml:239
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:261
+#: ../v2v/input_libvirtxml.ml:262
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr "<disk type='volume'> з <volume type='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:232
+#: ../v2v/input_libvirtxml.ml:233
 msgid "<disk type=network> was ignored"
 msgstr "<disk type=network> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:211
+#: ../v2v/input_libvirtxml.ml:212
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:114
+#: ../v2v/input_libvirtxml.ml:115
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr "<listen type='%s'> у вхідних даних XML libvirt було проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:298
+#: ../v2v/input_libvirtxml.ml:299
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -2992,7 +2992,7 @@ msgstr ""
 "не вдалося знайти HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s у регістрі "
 "гостьової системи"
 
-#: ../v2v/utils.ml:140
+#: ../v2v/utils.ml:155
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -3133,11 +3133,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:295
+#: ../v2v/input_ova.ml:296
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:192
+#: ../v2v/input_ova.ml:193
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3249,7 +3249,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:138
+#: ../v2v/input_libvirtxml.ml:139
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
@@ -3261,7 +3261,7 @@ msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt пр
 msgid "domain"
 msgstr "домен"
 
-#: ../v2v/utils.ml:136
+#: ../v2v/utils.ml:151
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr "спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
 
@@ -3314,11 +3314,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:259
+#: ../v2v/input_ova.ml:260
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
-#: ../v2v/input_ova.ml:281
+#: ../v2v/input_ova.ml:282
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3332,7 +3332,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr "виключення: %s"
 
-#: ../v2v/utils.ml:79
+#: ../v2v/utils.ml:90 ../v2v/utils.ml:79
 msgid ""
 "expecting XML expression to return an integer (expression: %s, matching "
 "string: %s)"
@@ -3521,13 +3521,13 @@ msgstr ""
 "образи не можна стискати, розмір результату надто малий для цього образу. "
 "Потрібний розмір = %s, мінімальний розмір = %s"
 
-#: ../v2v/input_libvirtxml.ml:62
+#: ../v2v/input_libvirtxml.ml:63
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
 "значення"
 
-#: ../v2v/input_libvirtxml.ml:67
+#: ../v2v/input_libvirtxml.ml:68
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
@@ -3691,7 +3691,7 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/input_ova.ml:264
+#: ../v2v/input_ova.ml:265
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3862,7 +3862,7 @@ msgstr ""
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
 
-#: ../v2v/input_ova.ml:224
+#: ../v2v/input_ova.ml:225
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -3870,7 +3870,7 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/input_ova.ml:221
+#: ../v2v/input_ova.ml:222
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4216,7 +4216,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:186
+#: ../v2v/input_libvirtxml.ml:187
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -4292,7 +4292,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:209
+#: ../v2v/input_ova.ml:210
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
@@ -4300,7 +4300,7 @@ msgstr "невідоме значення Config:firmware %s (мало бути 
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d (%s)"
 
-#: ../v2v/input_libvirtxml.ml:162
+#: ../v2v/input_libvirtxml.ml:163
 msgid "unknown sound model %s ignored"
 msgstr "невідому звукову модель %s проігноровано"
 
@@ -4444,7 +4444,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
 
-#: ../v2v/input_libvirtxml.ml:135
+#: ../v2v/input_libvirtxml.ml:136
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -9994,21 +9994,21 @@ msgstr ""
 msgid "'direct' backend does not work"
 msgstr "модуль «direct» не працює"
 
-#: src/handle.c:192 src/handle.c:202
+#: src/handle.c:193 src/handle.c:203
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr "%s=%s: не булеве значення"
 
-#: src/handle.c:244
+#: src/handle.c:245
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr "нечислове значення LIBGUESTFS_MEMSIZE"
 
-#: src/handle.c:321
+#: src/handle.c:322
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/handle.c:514
+#: src/handle.c:516
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
@@ -10016,18 +10016,18 @@ msgstr ""
 "зібрано з --without-qemu, отже спроба виклику guestfs_set_qemu з qemu == "
 "NULL призводить до помилки"
 
-#: src/handle.c:567
+#: src/handle.c:569
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "надто мале значення для розміру пам’яті (має бути принаймні %d)"
 
-#: src/handle.c:684
+#: src/handle.c:686
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: src/handle.c:790
+#: src/handle.c:792
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
