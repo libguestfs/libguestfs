@@ -165,6 +165,7 @@ guestfs_create_flags (unsigned flags, ...)
  error:
   guestfs_int_free_string_list (g->backend_settings);
   free (g->backend);
+  free (g->identifier);
   free (g->program);
   free (g->path);
   free (g->hv);
@@ -384,6 +385,7 @@ guestfs_close (guestfs_h *g)
   free (g->int_tmpdir);
   free (g->int_cachedir);
   free (g->last_error);
+  free (g->identifier);
   free (g->program);
   free (g->path);
   free (g->hv);
