@@ -224,10 +224,11 @@ start_thread (void *thread_data_vp)
   guestfs_h *g;
   unsigned errors = 0;
   char id[64];
-  CLEANUP_FREE char *log_file = NULL;
-  CLEANUP_FCLOSE FILE *log_fp = NULL;
 
   for (;;) {
+    CLEANUP_FREE char *log_file = NULL;
+    CLEANUP_FCLOSE FILE *log_fp = NULL;
+
     /* Take the next process. */
     err = pthread_mutex_lock (&mutex);
     if (err != 0) {
