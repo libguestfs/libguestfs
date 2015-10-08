@@ -67,12 +67,31 @@ test -f $d/windows.xml
 test -f $d/windows-sda
 
 # Test some aspects of the target disk image.
-guestfish --ro -a $d/windows-sda -i <<EOF
-  is-dir "/Program Files/Red Hat/Firstboot"
-  is-file "/Program Files/Red Hat/Firstboot/firstboot.bat"
-  is-dir "/Program Files/Red Hat/Firstboot/scripts"
-  is-dir "/Windows/Drivers/VirtIO"
-EOF
+script="$d/test.fish"
+expected="$d/expected"
+response="$d/response"
+
+mktest ()
+{
+    local cmd="$1" exp="$2"
+
+    echo "echo '$cmd'" >> "$script"
+    echo "$cmd" >> "$expected"
+
+    echo "$cmd" >> "$script"
+    echo "$exp" >> "$expected"
+}
+
+:> "$script"
+:> "$expected"
+
+mktest "is-dir \"/Program Files/Red Hat/Firstboot\"" true
+mktest "is-file \"/Program Files/Red Hat/Firstboot/firstboot.bat\"" true
+mktest "is-dir \"/Program Files/Red Hat/Firstboot/scripts\"" true
+mktest "is-dir \"/Windows/Drivers/VirtIO\"" true
+
+guestfish --ro -a "$d/windows-sda" -i < "$script" > "$response"
+diff -u "$expected" "$response"
 
 # We also update the Registry several times, for firstboot, and (ONLY
 # if the virtio-win drivers are installed locally) the critical device
