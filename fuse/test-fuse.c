@@ -283,14 +283,17 @@ test_fuse (void)
   fp = fopen ("hello.txt", "r");
   if (fp == NULL) {
     perror ("open: hello.txt");
+    fclose (fp);
     return -1;
   }
   if (getline (&line, &len, fp) == -1) {
     perror ("getline: hello.txt");
+    fclose (fp);
     return -1;
   }
   if (STRNEQ (line, "hello")) {
     fprintf (stderr, "'hello.txt' does not contain expected content\n");
+    fclose (fp);
     return -1;
   }
   fclose (fp);
@@ -298,14 +301,17 @@ test_fuse (void)
   fp = fopen ("world.txt", "r");
   if (fp == NULL) {
     perror ("open: world.txt");
+    fclose (fp);
     return -1;
   }
   if (getline (&line, &len, fp) == -1) {
     perror ("getline: world.txt");
+    fclose (fp);
     return -1;
   }
   if (STRNEQ (line, "hello world")) {
     fprintf (stderr, "'world.txt' does not contain expected content\n");
+    fclose (fp);
     return -1;
   }
   fclose (fp);
@@ -358,6 +364,7 @@ test_fuse (void)
   fp = fopen ("new", "w");
   if (fp == NULL) {
     perror ("open: new");
+    fclose (fp);
     return -1;
   }
   fclose (fp);
@@ -595,10 +602,12 @@ test_fuse (void)
   ts[1].tv_nsec = 78;
   if (futimens (fd, ts) == -1) {
     perror ("futimens: timestamp");
+    close (fd);
     return -1;
   }
   if (fstat (fd, &statbuf) == -1) {
     perror ("fstat: timestamp");
+    close (fd);
     return -1;
   }
   if (statbuf.st_atime != 12 ||
@@ -608,6 +617,7 @@ test_fuse (void)
     fprintf (stderr, "utimens did not set time (%d/%d/%d/%d)\n",
              (int) statbuf.st_atime, (int) statbuf.st_atim.tv_nsec,
              (int) statbuf.st_mtime, (int) statbuf.st_mtim.tv_nsec);
+    close (fd);
     return -1;
   }
   close (fd);
@@ -617,11 +627,13 @@ test_fuse (void)
   fp = fopen ("new.txt", "w");
   if (fp == NULL) {
     perror ("open: new.txt");
+    fclose (fp);
     return -1;
   }
   for (u = 0; u < 1000; ++u) {
     if (fprintf (fp, "line %u\n", u) == -1) {
       perror ("fprintf: new.txt");
+      fclose (fp);
       return -1;
     }
   }
@@ -638,10 +650,12 @@ test_fuse (void)
   for (u = 0; u < 1000; ++u) {
     if (getline (&line, &len, fp) == -1) {
       perror ("getline: new.txt");
+      fclose (fp);
       return -1;
     }
     if (sscanf (line, "line %u", &u1) != 1 || u != u1) {
       fprintf (stderr, "unexpected content: %s\n", line);
+      fclose (fp);
       return -1;
     }
   }
