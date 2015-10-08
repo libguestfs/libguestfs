@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2014 Red Hat Inc.
+ * Copyright (C) 2014-2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,8 +50,17 @@ static size_t n;       /* Number of qemu processes to run in total. */
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static int ignore_errors = 0;
+static const char *log_template = NULL;
+static size_t log_file_size;
 static int trace = 0;
 static int verbose = 0;
+
+/* Events captured by the --log option. */
+static const uint64_t event_bitmask =
+  GUESTFS_EVENT_LIBRARY |
+  GUESTFS_EVENT_WARNING |
+  GUESTFS_EVENT_APPLIANCE |
+  GUESTFS_EVENT_TRACE;
 
 struct thread_data {
   int thread_num;
@@ -59,14 +68,17 @@ struct thread_data {
 };
 
 static void *start_thread (void *thread_data_vp);
+static void message_callback (guestfs_h *g, void *opaque, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
 static void
 usage (int exitcode)
 {
   fprintf (stderr,
            "qemu-boot: A program for repeatedly running the libguestfs appliance.\n"
-           "qemu-boot [-i] [-P <nr-threads>] -n <nr-appliances>\n"
+           "qemu-boot [-i] [--log output.%%] [-P <nr-threads>] -n <nr-appliances>\n"
            "  -i     Ignore errors\n"
+           "  --log <file.%%>\n"
+           "         Write per-appliance logs to file (%% in name replaced by boot number)\n"
            "  -P <n> Set number of parallel threads\n"
            "           (default is based on the amount of free memory)\n"
            "  -n <n> Set number of appliances to run before exiting\n"
@@ -83,6 +95,7 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     { "help", 0, 0, HELP_OPTION },
     { "ignore", 0, 0, 'i' },
+    { "log", 1, 0, 0 },
     { "number", 1, 0, 'n' },
     { "processes", 1, 0, 'P' },
     { "trace", 0, 0, 'x' },
@@ -101,9 +114,20 @@ main (int argc, char *argv[])
     switch (c) {
     case 0:
       /* Options which are long only. */
-      fprintf (stderr, "%s: unknown long option: %s (%d)\n",
-               guestfs_int_program_name, long_options[option_index].name, option_index);
-      exit (EXIT_FAILURE);
+      if (STREQ (long_options[option_index].name, "log")) {
+        log_template = optarg;
+        log_file_size = strlen (log_template);
+        for (i = 0; i < strlen (log_template); ++i) {
+          if (log_template[i] == '%')
+            log_file_size += 64;
+        }
+      }
+      else {
+        fprintf (stderr, "%s: unknown long option: %s (%d)\n",
+                 guestfs_int_program_name, long_options[option_index].name, option_index);
+        exit (EXIT_FAILURE);
+      }
+      break;
 
     case 'i':
       ignore_errors = 1;
@@ -200,6 +224,8 @@ start_thread (void *thread_data_vp)
   guestfs_h *g;
   unsigned errors = 0;
   char id[64];
+  CLEANUP_FREE char *log_file = NULL;
+  CLEANUP_FCLOSE FILE *log_fp = NULL;
 
   for (;;) {
     /* Take the next process. */
@@ -236,6 +262,30 @@ start_thread (void *thread_data_vp)
       errors++;
       if (!ignore_errors)
         goto error;
+    }
+
+    /* Only if using --log, set up a callback.  See examples/debug-logging.c */
+    if (log_template != NULL) {
+      size_t j, k;
+
+      log_file = malloc (log_file_size + 1);
+      if (log_file == NULL) abort ();
+      for (j = 0, k = 0; j < strlen (log_template); ++j) {
+        if (log_template[j] == '%') {
+          snprintf (&log_file[k], log_file_size - k, "%zu", i);
+          k += strlen (&log_file[k]);
+        }
+        else
+          log_file[k++] = log_template[j];
+      }
+      log_file[k] = '\0';
+      log_fp = fopen (log_file, "w");
+      if (log_fp == NULL) {
+        perror (log_file);
+        abort ();
+      }
+      guestfs_set_event_callback (g, message_callback,
+                                  event_bitmask, 0, log_fp);
     }
 
     snprintf (id, sizeof id, "%zu", i);
@@ -277,4 +327,35 @@ start_thread (void *thread_data_vp)
  error:
   thread_data->r = -1;
   return &thread_data->r;
+}
+
+/* If using --log, this is called to write messages to the log file. */
+static void
+message_callback (guestfs_h *g, void *opaque,
+                  uint64_t event, int event_handle,
+                  int flags,
+                  const char *buf, size_t buf_len,
+                  const uint64_t *array, size_t array_len)
+{
+  FILE *fp = opaque;
+
+  if (buf_len > 0) {
+    CLEANUP_FREE char *msg = strndup (buf, buf_len);
+
+    switch (event) {
+    case GUESTFS_EVENT_APPLIANCE:
+      fprintf (fp, "%s", msg);
+      break;
+    case GUESTFS_EVENT_LIBRARY:
+      fprintf (fp, "libguestfs: %s\n", msg);
+      break;
+    case GUESTFS_EVENT_WARNING:
+      fprintf (fp, "libguestfs: warning: %s\n", msg);
+      break;
+    case GUESTFS_EVENT_TRACE:
+      fprintf (fp, "libguestfs: trace: %s\n", msg);
+      break;
+    }
+    fflush (fp);
+  }
 }
