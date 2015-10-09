@@ -36,7 +36,7 @@ let readahead_for_copying = Some (64 * 1024 * 1024)
 (* Return the session cookie.  It is memoized, so you can call this
  * as often as required.
  *)
-let rec get_session_cookie =
+let get_session_cookie =
   let session_cookie = ref "" in
   fun password scheme uri sslverify url ->
     if !session_cookie <> "" then
@@ -60,24 +60,11 @@ let rec get_session_cookie =
       let curl_args =
         if not sslverify then ("insecure", None) :: curl_args else curl_args in
 
-      let lines = run_curl_get_lines curl_args in
+      let lines = Curl.run curl_args in
 
       let dump_response chan =
-        (* Don't print passwords in the debug output. *)
-        let curl_args =
-          List.map (
-            function
-            | ("user", Some _) -> ("user", Some "<hidden>")
-            | x -> x
-          ) curl_args in
-        (* Dump out the approximate curl command that was run. *)
-        fprintf chan "curl -q";
-        List.iter (
-          function
-          | name, None -> fprintf chan " --%s" name
-          | name, Some value -> fprintf chan " --%s %s" name (quote value)
-        ) curl_args;
-        fprintf chan "\n";
+        Curl.print_curl_command chan curl_args;
+
         (* Dump out the output of the command. *)
         List.iter (fun x -> fprintf chan "%s\n" x) lines;
         flush chan
@@ -136,39 +123,6 @@ let rec get_session_cookie =
       else
         Some !session_cookie
     )
-
-(* Run 'curl' and pass the arguments securely through the --config
- * option and an external file.
- *)
-and run_curl_get_lines curl_args =
-  let config_file, chan = Filename.open_temp_file "v2vcurl" ".conf" in
-  List.iter (
-    function
-    | name, None -> fprintf chan "%s\n" name
-    | name, Some value ->
-      fprintf chan "%s = \"" name;
-      (* Write the quoted value.  See 'curl' man page for what is
-       * allowed here.
-       *)
-      let len = String.length value in
-      for i = 0 to len-1 do
-        match value.[i] with
-        | '\\' -> output_string chan "\\\\"
-        | '"' -> output_string chan "\\\""
-        | '\t' -> output_string chan "\\t"
-        | '\n' -> output_string chan "\\n"
-        | '\r' -> output_string chan "\\r"
-        | '\x0b' -> output_string chan "\\v"
-        | c -> output_char chan c
-      done;
-      fprintf chan "\"\n"
-  ) curl_args;
-  close_out chan;
-
-  let cmd = sprintf "curl -q --config %s" (quote config_file) in
-  let lines = external_command cmd in
-  Unix.unlink config_file;
-  lines
 
 let multiple_slash = Str.regexp "/+"
 

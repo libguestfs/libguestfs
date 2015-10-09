@@ -44,6 +44,7 @@ CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
+	curl.mli \
 	detect_antivirus.ml \
 	detect_antivirus.mli \
 	DOM.mli \
@@ -75,6 +76,7 @@ SOURCES_ML = \
 	types.ml \
 	xml.ml \
 	utils.ml \
+	curl.ml \
 	domainxml.ml \
 	DOM.ml \
 	kvmuid.ml \
