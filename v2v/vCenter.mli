@@ -42,3 +42,13 @@ val guess_dcPath : Xml.uri -> string -> string
     This function is only used with [libvirt < 1.2.20] because later
     versions of libvirt provide the dcPath (see
     https://bugzilla.redhat.com/1263574). *)
+
+val map_source_to_uri : int option -> string -> string option -> Xml.uri -> string -> string -> string -> string
+(** [map_source_to_uri readahead dcPath password uri scheme server path]
+    maps the [<source path=...>] string to a qemu URI.
+
+    The [path] will be something like:
+
+    ["[datastore1] Fedora 20/Fedora 20.vmdk"]
+
+    including those literal spaces in the string. *)

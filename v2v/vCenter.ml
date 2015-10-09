@@ -21,6 +21,7 @@ open Printf
 open Common_utils
 open Common_gettext.Gettext
 
+open Utils
 open Xml
 
 (* Memoized session cookie. *)
@@ -156,3 +157,76 @@ let guess_dcPath uri = function
      default_dc
   | _ ->     (* Don't know, so guess. *)
      default_dc
+
+let source_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
+
+let map_source_to_uri readahead dcPath password uri scheme server path =
+  if not (Str.string_match source_re path 0) then
+    path
+  else (
+    let datastore = Str.matched_group 1 path
+    and path = Str.matched_group 2 path in
+
+    let port =
+      match uri.uri_port with
+      | 443 -> ""
+      | n when n >= 1 -> ":" ^ string_of_int n
+      | _ -> "" in
+
+    (* XXX Old virt-v2v could also handle snapshots, ie:
+     * "[datastore1] Fedora 20/Fedora 20-NNNNNN.vmdk"
+     * XXX Need to handle templates.  The file is called "-delta.vmdk" in
+     * place of "-flat.vmdk".
+     *)
+    let url =
+      sprintf
+        "https://%s%s/folder/%s-flat.vmdk?dcPath=%s&dsName=%s"
+        server port
+        (uri_quote path) (uri_quote dcPath) (uri_quote datastore) in
+
+    (* If no_verify=1 was passed in the libvirt URI, then we have to
+     * turn off certificate verification here too.
+     *)
+    let sslverify =
+      match uri.uri_query_raw with
+      | None -> true
+      | Some query ->
+        (* XXX only works if the query string is not URI-quoted *)
+        String.find query "no_verify=1" = -1 in
+
+    (* Now we have to query the server to get the session cookie. *)
+    let session_cookie = get_session_cookie password scheme uri sslverify url in
+
+    (* Construct the JSON parameters. *)
+    let json_params = [
+      "file.driver", JSON.String "https";
+      "file.url", JSON.String url;
+      (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
+      "file.timeout", JSON.Int 2000;
+    ] in
+
+    let json_params =
+      match readahead with
+      | None -> json_params
+      | Some readahead ->
+        ("file.readahead", JSON.Int readahead) :: json_params in
+
+    let json_params =
+      if sslverify then json_params
+      else ("file.sslverify", JSON.String "off") :: json_params in
+
+    let json_params =
+      match session_cookie with
+      | None -> json_params
+      | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
+
+    if verbose () then
+      printf "vcenter: json parameters: %s\n" (JSON.string_of_doc json_params);
+
+    (* Turn the JSON parameters into a 'json:' protocol string.
+     * Note this requires qemu-img >= 2.1.0.
+     *)
+    let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
+
+    qemu_uri
+  )
