@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-08 21:57+0100\n"
+"POT-Creation-Date: 2015-10-09 17:53+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -715,7 +715,7 @@ msgstr "--operations: «%s» не є відомою операцією"
 msgid "--operations: empty operation name"
 msgstr "--operations: порожня назва операції"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:54
+#: ../v2v/vCenter.ml:43
 msgid ""
 "--password-file parameter ignored because 'user@' was not given in the URL"
 msgstr ""
@@ -3933,7 +3933,7 @@ msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:391
+#: ../v2v/input_libvirt_vcenter_https.ml:140
 msgid "qemu-img rebase failed (ignored)"
 msgstr "помилка пересування qemu-img (проігноровано)"
 
@@ -4001,7 +4001,7 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr "списки джерел і відбитків мають різну довжину"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:346
+#: ../v2v/input_libvirt_vcenter_https.ml:96
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr "диск джерела має атрибут <source dev=...> у XML"
 
@@ -4365,13 +4365,13 @@ msgstr ""
 "змінної «%s» не знайдено у таких рядках:\n"
 "%s"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:182
+#: ../v2v/vCenter.ml:123
 msgid ""
 "vcenter: URI (-ic parameter) contains no path, so we cannot determine the "
 "dcPath (datacenter name)"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:113
+#: ../v2v/vCenter.ml:89
 msgid ""
 "vcenter: URL not found: %s\n"
 "\n"
@@ -4379,7 +4379,7 @@ msgid ""
 "v2v(1) man page OPTIONS section."
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:133
+#: ../v2v/vCenter.ml:109
 msgid ""
 "vcenter: could not read session cookie from the vCenter Server, conversion "
 "may consume all sessions on the server and fail part way through"
@@ -4387,11 +4387,11 @@ msgstr ""
 "vcenter: не вдалося прочитати куку сеансу з сервера vCenter. Перетворення "
 "може спожити усі сеанси на сервері і помилитися для одного з них."
 
-#: ../v2v/input_libvirt_vcenter_https.ml:105
+#: ../v2v/vCenter.ml:81
 msgid "vcenter: incorrect username or password"
 msgstr "vcenter: помилкове ім’я користувача або пароль"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:107
+#: ../v2v/vCenter.ml:83
 msgid ""
 "vcenter: incorrect username or password.  You might need to specify the "
 "username in the URI like this: %s://USERNAME@[etc]"
@@ -4399,11 +4399,11 @@ msgstr ""
 "vcenter: помилкове ім’я користувача або пароль. Вам варто вказати ім’я "
 "користувача у адресі ось так: %s://ІМ’Я_КОРИСТУВАЧА@[інше]"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:118
+#: ../v2v/vCenter.ml:94
 msgid "vcenter: invalid response from server"
 msgstr "vcenter: некоректна відповідь від сервера"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:99
+#: ../v2v/vCenter.ml:75
 msgid ""
 "vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
@@ -10078,9 +10078,9 @@ msgstr "%s: не вдалося визначити віртуальний роз
 msgid "release file %s is empty or malformed"
 msgstr "файл випуску %s є порожнім або форматованим з помилками"
 
-#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:315
-#: src/inspect-fs-unix.c:402 src/inspect-fs-unix.c:1235
-#: src/inspect-fs-unix.c:1999 src/inspect-fs.c:602 src/inspect-fs.c:648
+#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:314
+#: src/inspect-fs-unix.c:401 src/inspect-fs-unix.c:1234
+#: src/inspect-fs-unix.c:1998 src/inspect-fs.c:602 src/inspect-fs.c:648
 #: src/inspect.c:652
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"

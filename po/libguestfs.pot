@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.31.15\n"
+"Project-Id-Version: libguestfs 1.31.16\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-08 22:03+0100\n"
+"POT-Creation-Date: 2015-10-09 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -563,7 +563,7 @@ msgstr ""
 msgid "--operations: empty operation name"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:54
+#: ../v2v/vCenter.ml:43
 msgid ""
 "--password-file parameter ignored because 'user@' was not given in the URL"
 msgstr ""
@@ -3356,7 +3356,7 @@ msgstr ""
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:391
+#: ../v2v/input_libvirt_vcenter_https.ml:140
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -3413,7 +3413,7 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:346
+#: ../v2v/input_libvirt_vcenter_https.ml:96
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
@@ -3715,13 +3715,13 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:182
+#: ../v2v/vCenter.ml:123
 msgid ""
 "vcenter: URI (-ic parameter) contains no path, so we cannot determine the "
 "dcPath (datacenter name)"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:113
+#: ../v2v/vCenter.ml:89
 msgid ""
 "vcenter: URL not found: %s\n"
 "\n"
@@ -3729,27 +3729,27 @@ msgid ""
 "v2v(1) man page OPTIONS section."
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:133
+#: ../v2v/vCenter.ml:109
 msgid ""
 "vcenter: could not read session cookie from the vCenter Server, conversion "
 "may consume all sessions on the server and fail part way through"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:105
+#: ../v2v/vCenter.ml:81
 msgid "vcenter: incorrect username or password"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:107
+#: ../v2v/vCenter.ml:83
 msgid ""
 "vcenter: incorrect username or password.  You might need to specify the "
 "username in the URI like this: %s://USERNAME@[etc]"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:118
+#: ../v2v/vCenter.ml:94
 msgid "vcenter: invalid response from server"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:99
+#: ../v2v/vCenter.ml:75
 msgid ""
 "vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
@@ -8620,9 +8620,9 @@ msgstr ""
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:315
-#: src/inspect-fs-unix.c:402 src/inspect-fs-unix.c:1235
-#: src/inspect-fs-unix.c:1999 src/inspect-fs.c:602 src/inspect-fs.c:648
+#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:314
+#: src/inspect-fs-unix.c:401 src/inspect-fs-unix.c:1234
+#: src/inspect-fs-unix.c:1998 src/inspect-fs.c:602 src/inspect-fs.c:648
 #: src/inspect.c:652
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
