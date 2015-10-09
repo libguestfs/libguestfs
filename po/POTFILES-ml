@@ -126,4 +126,5 @@ v2v/types.ml
 v2v/utils.ml
 v2v/v2v.ml
 v2v/v2v_unit_tests.ml
+v2v/vCenter.ml
 v2v/xml.ml

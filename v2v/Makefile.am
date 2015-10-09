@@ -69,6 +69,7 @@ SOURCES_MLI = \
 	OVF.mli \
 	stringMap.mli \
 	types.mli \
+	vCenter.mli \
 	xml.mli
 
 SOURCES_ML = \
@@ -77,6 +78,7 @@ SOURCES_ML = \
 	xml.ml \
 	utils.ml \
 	curl.ml \
+	vCenter.ml \
 	domainxml.ml \
 	DOM.ml \
 	kvmuid.ml \
