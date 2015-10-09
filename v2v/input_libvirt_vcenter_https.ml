@@ -56,19 +56,6 @@ let map_source_to_uri ?readahead dcPath password uri scheme server path =
     let datastore = Str.matched_group 1 path
     and path = Str.matched_group 2 path in
 
-    (* Get the dcPath. *)
-    let dcPath =
-      match dcPath with
-      | None ->
-         let dcPath = VCenter.guess_dcPath uri scheme in
-         if verbose () then
-           printf "vcenter: calculated dcPath as: %s\n" dcPath;
-         dcPath
-      | Some dcPath ->
-         if verbose () then
-           printf "vcenter: using --dcpath from the command line: %s\n" dcPath;
-         dcPath in
-
     let port =
       match uri.uri_port with
       | 443 -> ""
@@ -131,11 +118,12 @@ let map_source_to_uri ?readahead dcPath password uri scheme server path =
 
 (* Subclass specialized for handling VMware vCenter over https. *)
 class input_libvirt_vcenter_https
-  dcPath password libvirt_uri parsed_uri scheme server guest =
+  cmdline_dcPath password libvirt_uri parsed_uri scheme server guest =
 object
   inherit input_libvirt password libvirt_uri guest
 
   val saved_source_paths = Hashtbl.create 13
+  val mutable dcPath = ""
 
   method source () =
     if verbose () then
@@ -149,6 +137,38 @@ object
      *)
     let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
     let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
+
+    (* Find the <vmware:datacenterpath> element from the XML, if it
+     * exists.  This was added in libvirt >= 1.2.20.
+     *)
+    let xml_dcPath =
+      let doc = Xml.parse_memory xml in
+      let xpathctx = Xml.xpath_new_context doc in
+      Xml.xpath_register_ns xpathctx
+        "vmware" "http://libvirt.org/schemas/domain/vmware/1.0";
+      let xpath_string = xpath_string xpathctx in
+      xpath_string "/domain/vmware:datacenterpath" in
+
+    (* Calculate the dcPath we're going to use. *)
+    dcPath <- (
+      match cmdline_dcPath, xml_dcPath with
+      (* Command line --dcpath parameter overrides everything, allowing
+       * users to correct any mistakes in v2v or libvirt.
+       *)
+      | Some p, (None|Some _) ->
+         if verbose () then
+           printf "vcenter: using --dcpath from the command line: %s\n" p;
+         p
+      | None, Some p ->
+         if verbose () then
+           printf "vcenter: using <vmware:datacenterpath> from libvirt: %s\n" p;
+         p
+      | None, None ->
+         let p = VCenter.guess_dcPath parsed_uri scheme in
+         if verbose () then
+           printf "vcenter: guessed dcPath from URI: %s\n" p;
+         p
+    );
 
     (* Save the original source paths, so that we can remap them again
      * in [#adjust_overlay_parameters].

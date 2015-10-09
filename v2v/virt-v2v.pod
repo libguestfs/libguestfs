@@ -252,6 +252,9 @@ See I<--network> below.
 
 =item B<--dcpath> Folder/Datacenter
 
+B<NB:> You don't need to use this parameter if you have
+S<libvirt E<ge> 1.2.20>.
+
 For VMware vCenter, override the C<dcPath=...> parameter used to
 select the datacenter.  Virt-v2v can usually calculate this from the
 C<vpx://> URI, but if it gets it wrong, then you can override it using
@@ -980,12 +983,6 @@ If the VMware deployment is using folders, then these may need to be
 added to the URI, eg:
 
  vpx://user@server/Folder/Datacenter/esxi
-
-Virt-v2v needs to calculate the C<dcPath> parameter from the URI, and
-it does this by removing the final C</esxi> element, so in the above
-example C<dcPath=Folder/Datacenter>.  As it is not always possible to
-correctly calculate C<dcPath> from the URI, you can override this
-using the I<--dcpath> parameter.
 
 For full details of libvirt URIs, see: L<http://libvirt.org/drvesx.html>
 

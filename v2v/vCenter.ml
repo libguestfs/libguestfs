@@ -132,9 +132,7 @@ let guess_dcPath uri = function
           * However if there is a cluster involved then the URI may be
           * /Folder/Datacenter/Cluster/esxi but dcPath=Folder/Datacenter/Cluster
           * won't work.  In this case the user has to adjust the path to
-          * remove the Cluster name (which still works in libvirt).  There
-          * should be a way to ask the libvirt vpx driver for the correct
-          * path, but there isn't. XXX  See also RHBZ#1256823.
+          * remove the Cluster name (which still works in libvirt).
           *)
          (* Collapse multiple slashes to single slash. *)
          let path = Str.global_replace multiple_slash "/" path in

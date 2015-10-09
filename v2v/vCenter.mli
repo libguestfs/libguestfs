@@ -37,4 +37,8 @@ val get_session_cookie : string option -> string -> Xml.uri -> bool -> string ->
 
 val guess_dcPath : Xml.uri -> string -> string
 (** Try to guess the dcPath parameter from a URI.  The mapping is
-    not precise. *)
+    not precise.
+
+    This function is only used with [libvirt < 1.2.20] because later
+    versions of libvirt provide the dcPath (see
+    https://bugzilla.redhat.com/1263574). *)
