@@ -232,7 +232,6 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
         char buf[value_len + 1];
         snprintf (buf, sizeof buf, "%*s", (int) value_len, value);
         major_version = guestfs_int_parse_unsigned_int (g, buf);
-        free (major);
         /* Handle cases where VERSION_ID is not a number. */
         if (major_version != -1)
           minor_version = 0;
