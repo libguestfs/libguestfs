@@ -76,9 +76,8 @@ convert_yajl_value (yajl_val val, int level)
     Store_field (rv, 0, v);
   } else if (YAJL_IS_DOUBLE (val)) {
     rv = caml_alloc (1, 2);
-    lv = caml_alloc_tuple (1);
-    Store_double_field (lv, 0, YAJL_GET_DOUBLE(val));
-    Store_field (rv, 0, lv);
+    v = caml_copy_double (YAJL_GET_DOUBLE(val));
+    Store_field (rv, 0, v);
   } else if (YAJL_IS_INTEGER (val)) {
     rv = caml_alloc (1, 1);
     v = caml_copy_int64 (YAJL_GET_INTEGER(val));
