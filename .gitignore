@@ -582,6 +582,7 @@ Makefile.in
 /tests/regressions/rhbz914931
 /tests/regressions/rhbz1044014.out
 /tests/regressions/rhbz1055452
+/tests/regressions/test-big-heap
 /tests/rsync/rsyncd.pid
 /tests/syslinux/extlinux-guest.img
 /tests/syslinux/syslinux-guest.img

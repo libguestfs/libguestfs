@@ -71,6 +71,7 @@ TESTS = \
 	rhbz1091803.sh \
 	rhbz1175196.sh \
 	rhbz1232192.sh \
+	test-big-heap \
 	test-noexec-stack.pl
 
 if HAVE_LIBVIRT
@@ -89,7 +90,8 @@ check_PROGRAMS = \
 	rhbz501893 \
 	rhbz790721 \
 	rhbz914931 \
-	rhbz1055452
+	rhbz1055452 \
+	test-big-heap
 
 rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
@@ -128,6 +130,15 @@ rhbz1055452_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz1055452_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+test_big_heap_SOURCES = test-big-heap.c
+test_big_heap_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-DGUESTFS_PRIVATE=1
+test_big_heap_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_big_heap_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 check-slow:
