@@ -12751,6 +12751,20 @@ Only some filesystem types support setting UUIDs.
 
 To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
 
+  { defaults with
+    name = "resize2fs_P"; added = (1, 31, 17);
+    style = RInt64 "sizeinblocks", [Device "device"], [];
+    proc_nr = Some 457;
+    tests = [
+      InitBasicFS, Always, TestRun (
+        [["resize2fs_P"; "/dev/sda1"]]), [];
+    ];
+    shortdesc = "get minimum filesystem size in blocks";
+    longdesc = "\
+Get the estimated minimum filesystem size of an ext2/3/4 filesystem in blocks.
+
+See also L<resize2fs(8)>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

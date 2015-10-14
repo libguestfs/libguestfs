@@ -279,6 +279,41 @@ do_resize2fs_M (const char *device)
   return 0;
 }
 
+int64_t
+do_resize2fs_P (const char *device)
+{
+  CLEANUP_FREE char *err = NULL, *out = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
+  int r;
+  size_t i;
+  char *p;
+  int64_t ret;
+  const char *pattern = "Estimated minimum size of the filesystem: ";
+
+  r = command (&out, &err, str_resize2fs, "-P", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  lines = split_lines (out);
+  if (lines == NULL)
+    return -1;
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (verbose)
+      fprintf (stderr, "resize2fs_P: lines[%zu] = \"%s\"\n", i, lines[i]);
+
+    if ((p = strstr (lines[i], pattern))) {
+      if (sscanf (p + strlen(pattern), "%" SCNd64, &ret) != 1)
+        return -1;
+      return ret;
+    }
+  }
+
+  return -1;
+}
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_e2fsck (const char *device,
