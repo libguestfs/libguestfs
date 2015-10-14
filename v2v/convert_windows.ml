@@ -271,12 +271,9 @@ echo uninstalling Xen PV driver
     with
       Not_found -> ()
 
-  and install_virtio_drivers root current_cs =
-    (* Copy the virtio drivers to the guest. *)
-    let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
-    g#mkdir_p driverdir;
-
-    (* Load the list of drivers available. *)
+  and copy_virtio_drivers driverdir =
+    (* Copy the matching drivers to the driverdir; return true if any have been
+     * copied *)
     let drivers = find_virtio_win_drivers virtio_win in
 
     (* Filter out only drivers matching the current guest. *)
@@ -300,73 +297,69 @@ echo uninstalling Xen PV driver
       flush stdout
     );
 
-    match drivers with
-    | [] ->
-       warning (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
-               inspect.i_major_version inspect.i_minor_version
-               inspect.i_arch inspect.i_product_variant
-               virtio_win;
-       ( IDE, RTL8139, Cirrus )
+    let ret = ref false in
+    List.iter (
+      fun driver ->
+        let content = driver.vwd_get_contents () in
+        g#write (driverdir // driver.vwd_filename) content;
+        ret := true
+    ) drivers;
+    !ret
 
-    | drivers ->
-       (* Can we install the block driver? *)
-       let block : guestcaps_block_type =
-         try
-           let viostor_sys_file =
-             List.find
-               (fun { vwd_filename = filename } -> filename = "viostor.sys")
-               drivers in
-           (* Get the actual file contents of the .sys file. *)
-           let content = viostor_sys_file.vwd_get_contents () in
-           let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
-           let target = g#case_sensitive_path target in
-           g#write target content;
-           add_viostor_to_critical_device_database root current_cs;
-           Virtio_blk
-         with Not_found ->
-           warning (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
-                   inspect.i_major_version inspect.i_minor_version
-                   inspect.i_arch virtio_win;
-           IDE in
+  and install_virtio_drivers root current_cs =
+    (* Copy the virtio drivers to the guest. *)
+    let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
+    g#mkdir_p driverdir;
 
-       (* Can we install the virtio-net driver? *)
-       let net : guestcaps_net_type =
-         if not (List.exists
-                   (fun { vwd_filename = filename } -> filename = "netkvm.inf")
-                   drivers) then (
-           warning (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
-                   inspect.i_major_version inspect.i_minor_version
-                   inspect.i_arch virtio_win;
-           RTL8139
-         )
-         else
-           (* It will be installed at firstboot. *)
-           Virtio_net in
+    if not (copy_virtio_drivers driverdir) then (
+      warning (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
+              inspect.i_major_version inspect.i_minor_version inspect.i_arch
+              inspect.i_product_variant virtio_win;
+      ( IDE, RTL8139, Cirrus )
+    )
+    else (
+      (* Can we install the block driver? *)
+      let block : guestcaps_block_type =
+        let source = driverdir // "viostor.sys" in
+        if g#exists source then (
+          let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
+          let target = g#case_sensitive_path target in
+          g#cp source target;
+          add_viostor_to_critical_device_database root current_cs;
+          Virtio_blk
+        ) else (
+          warning (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+                  inspect.i_major_version inspect.i_minor_version
+                  inspect.i_arch virtio_win;
+          IDE
+        ) in
 
-       (* Can we install the QXL driver? *)
-       let video : guestcaps_video_type =
-         if not (List.exists
-                   (fun { vwd_filename = filename } -> filename = "qxl.inf")
-                   drivers) then (
-           warning (f_"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use standard VGA.")
-                   inspect.i_major_version inspect.i_minor_version
-                   inspect.i_arch virtio_win;
-           Cirrus
-         )
-         else
-           (* It will be installed at firstboot. *)
-           QXL in
+      (* Can we install the virtio-net driver? *)
+      let net : guestcaps_net_type =
+        if not (g#exists (driverdir // "netkvm.inf")) then (
+          warning (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+                  inspect.i_major_version inspect.i_minor_version
+                  inspect.i_arch virtio_win;
+          RTL8139
+        )
+        else
+          (* It will be installed at firstboot. *)
+          Virtio_net in
 
-       (* Copy all the drivers to the driverdir.  They will be
-        * installed at firstboot.
-        *)
-       List.iter (
-         fun driver ->
-           let content = driver.vwd_get_contents () in
-           g#write (driverdir // driver.vwd_filename) content
-       ) drivers;
+      (* Can we install the QXL driver? *)
+      let video : guestcaps_video_type =
+        if not (g#exists (driverdir // "qxl.inf")) then (
+          warning (f_"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use standard VGA.")
+                  inspect.i_major_version inspect.i_minor_version
+                  inspect.i_arch virtio_win;
+          Cirrus
+        )
+        else
+          (* It will be installed at firstboot. *)
+          QXL in
 
-       (block, net, video)
+      (block, net, video)
+    )
 
   and add_viostor_to_critical_device_database root current_cs =
     let { i_major_version = major; i_minor_version = minor;
