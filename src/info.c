@@ -58,6 +58,7 @@ static yajl_val get_json_output (guestfs_h *g, const char *filename);
 static char *old_parser_disk_format (guestfs_h *g, const char *filename);
 static int64_t old_parser_disk_virtual_size (guestfs_h *g, const char *filename);
 static int old_parser_disk_has_backing_file (guestfs_h *g, const char *filename);
+static void set_child_rlimits (struct command *);
 
 char *
 guestfs_impl_disk_format (guestfs_h *g, const char *filename)
@@ -278,12 +279,7 @@ get_json_output (guestfs_h *g, const char *filename)
   guestfs_int_cmd_add_arg (cmd, fdpath);
   guestfs_int_cmd_set_stdout_callback (cmd, parse_json, &tree,
                                        CMD_STDOUT_FLAG_WHOLE_BUFFER);
-#ifdef RLIMIT_AS
-  guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_AS, 1000000000 /* 1GB */);
-#endif
-#ifdef RLIMIT_CPU
-  guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_CPU, 10 /* seconds */);
-#endif
+  set_child_rlimits (cmd);
   r = guestfs_int_cmd_run (cmd);
   close (fd);
   if (r == -1)
@@ -562,12 +558,7 @@ old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
   guestfs_int_cmd_add_arg (cmd, "info");
   guestfs_int_cmd_add_arg (cmd, safe_filename);
   guestfs_int_cmd_set_stdout_callback (cmd, fn, data, 0);
-#ifdef RLIMIT_AS
-  guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_AS, 1000000000 /* 1GB */);
-#endif
-#ifdef RLIMIT_CPU
-  guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_CPU, 10 /* seconds */);
-#endif
+  set_child_rlimits (cmd);
   r = guestfs_int_cmd_run (cmd);
   if (r == -1)
     return -1;
@@ -577,4 +568,16 @@ old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
   }
 
   return 0;
+}
+
+static void
+set_child_rlimits (struct command *cmd)
+{
+#ifdef RLIMIT_AS
+  const long one_gb = 1024L * 1024 * 1024;
+  guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_AS, one_gb);
+#endif
+#ifdef RLIMIT_CPU
+  guestfs_int_cmd_set_child_rlimit (cmd, RLIMIT_CPU, 10 /* seconds */);
+#endif
 }
