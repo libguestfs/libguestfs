@@ -87,7 +87,7 @@ You can run test cases in parallel by doing:
 
  make check -j<N>
 
-(eg. C<-j2> for running up to 2 tests in parallel).  Be careful about
+(eg. I<-j2> for running up to 2 tests in parallel).  Be careful about
 running too many parallel tests, as it can slow down each test enough
 to cause false failures.
 
