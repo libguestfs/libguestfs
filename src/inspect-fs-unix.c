@@ -1983,6 +1983,9 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
   int64_t size;
   int r;
   CLEANUP_FREE char *pathexpr = NULL;
+  CLEANUP_FREE_STRING_LIST char **matches = NULL;
+  char **match;
+  size_t len;
 
   /* Security: Refuse to do this if a config file is too large. */
   for (i = 0; configfiles[i] != NULL; ++i) {
@@ -2018,6 +2021,22 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
 
   if (guestfs_aug_load (g) == -1)
     goto out;
+
+  /* Check that augeas did not get a parse error for any of the configfiles,
+   * otherwise we are silently missing information. */
+  matches = guestfs_aug_match (g, "/augeas/files//error");
+  for (match = matches; *match != NULL; ++match) {
+    for (i = 0; configfiles[i] != NULL; ++i) {
+      len = strlen (configfiles[i]);
+      if (strlen (*match) == (13 /* len(/augeas/files) */ + len + 6 /* len(/error) */) &&
+          STRPREFIX(*match, "/augeas/files") &&
+          STREQLEN(*match + 13, configfiles[i], len) &&
+          STREQ(*match + 13 + len, "/error")) {
+        error (g, _("augeas could not parse %s"), configfiles[i]);
+        goto out;
+      }
+    }
+  }
 
   r = f (g, fs);
 
