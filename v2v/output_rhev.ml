@@ -107,11 +107,11 @@ class output_rhev os vmtype output_alloc =
    * one because we cannot switch UIDs.
    *)
   let running_as_root = geteuid () = 0 in
-  let kvmuid_t =
+  let changeuid_t =
     if running_as_root then
-      Kvmuid.create ~uid ~gid ()
+      Changeuid.create ~uid ~gid ()
     else
-      Kvmuid.create () in
+      Changeuid.create () in
 object
   inherit output
 
@@ -173,9 +173,9 @@ object
     (* See if we can write files as UID:GID 36:36. *)
     let () =
       let testfile = esd_mp // esd_uuid // String.random8 () in
-      Kvmuid.make_file kvmuid_t testfile "";
+      Changeuid.make_file changeuid_t testfile "";
       let stat = stat testfile in
-      Kvmuid.unlink kvmuid_t testfile;
+      Changeuid.unlink changeuid_t testfile;
       let actual_uid = stat.st_uid and actual_gid = stat.st_gid in
       if verbose () then
         eprintf "RHEV: actual UID:GID of new files is %d:%d\n"
@@ -207,7 +207,7 @@ object
     List.iter (
       fun image_uuid ->
         let d = images_dir // image_uuid in
-        Kvmuid.mkdir kvmuid_t d 0o755
+        Changeuid.mkdir changeuid_t d 0o755
     ) image_uuids;
     at_exit (fun () ->
       if delete_target_directory then (
@@ -215,7 +215,7 @@ object
           fun image_uuid ->
             let d = images_dir // image_uuid in
             let cmd = sprintf "rm -rf %s" d in
-            Kvmuid.command kvmuid_t cmd
+            Changeuid.command changeuid_t cmd
         ) image_uuids
       )
     );
@@ -252,7 +252,7 @@ object
     List.iter (
       fun ({ target_file = target_file }, meta) ->
         let meta_filename = target_file ^ ".meta" in
-        Kvmuid.make_file kvmuid_t meta_filename meta
+        Changeuid.make_file changeuid_t meta_filename meta
     ) (List.combine targets metas);
 
     (* Return the list of targets. *)
@@ -260,7 +260,7 @@ object
 
   method disk_create ?backingfile ?backingformat ?preallocation ?compat
     ?clustersize path format size =
-    Kvmuid.func kvmuid_t (
+    Changeuid.func changeuid_t (
       fun () ->
         let g = new Guestfs.guestfs () in
         g#set_identifier "rhev_disk_create";
@@ -289,9 +289,9 @@ object
 
     (* Write it to the metadata file. *)
     let dir = esd_mp // esd_uuid // "master" // "vms" // vm_uuid in
-    Kvmuid.mkdir kvmuid_t dir 0o755;
+    Changeuid.mkdir changeuid_t dir 0o755;
     let file = dir // vm_uuid ^ ".ovf" in
-    Kvmuid.output kvmuid_t file (fun chan -> doc_to_chan chan ovf);
+    Changeuid.output changeuid_t file (fun chan -> doc_to_chan chan ovf);
 
     (* Finished, so don't delete the target directory on exit. *)
     delete_target_directory <- false

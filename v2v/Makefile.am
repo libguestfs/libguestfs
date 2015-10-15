@@ -56,7 +56,7 @@ SOURCES_MLI = \
 	input_libvirt_xen_ssh.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
-	kvmuid.mli \
+	changeuid.mli \
 	linux.mli \
 	modules_list.mli \
 	output_glance.mli \
@@ -81,7 +81,7 @@ SOURCES_ML = \
 	vCenter.ml \
 	domainxml.ml \
 	DOM.ml \
-	kvmuid.ml \
+	changeuid.ml \
 	OVF.ml \
 	linux.ml \
 	detect_antivirus.ml \
@@ -108,7 +108,7 @@ SOURCES_ML = \
 SOURCES_C = \
 	../mllib/mkdtemp-c.c \
 	domainxml-c.c \
-	kvmuid-c.c \
+	changeuid-c.c \
 	utils-c.c \
 	xml-c.c
 

@@ -351,7 +351,7 @@ src/tmpdirs.c
 src/utils.c
 src/whole-file.c
 test-tool/test-tool.c
+v2v/changeuid-c.c
 v2v/domainxml-c.c
-v2v/kvmuid-c.c
 v2v/utils-c.c
 v2v/xml-c.c

@@ -97,6 +97,7 @@ sysprep/sysprep_operation_utmp.ml
 sysprep/sysprep_operation_yum_uuid.ml
 v2v/DOM.ml
 v2v/OVF.ml
+v2v/changeuid.ml
 v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
@@ -110,7 +111,6 @@ v2v/input_libvirt_vcenter_https.ml
 v2v/input_libvirt_xen_ssh.ml
 v2v/input_libvirtxml.ml
 v2v/input_ova.ml
-v2v/kvmuid.ml
 v2v/linux.ml
 v2v/modules_list.ml
 v2v/output_glance.ml
