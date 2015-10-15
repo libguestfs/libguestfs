@@ -163,11 +163,11 @@ let is_regular_file path = (* NB: follows symlinks. *)
   try (Unix.stat path).Unix.st_kind = Unix.S_REG
   with Unix.Unix_error _ -> false
 
-(* Given a path of a file relative to the root of the directory tree with
- * virtio-win drivers, figure out if it's suitable for the specific Windows
- * flavor.
+(* Given a path of a file relative to the root of the directory tree
+ * with virtio-win drivers, figure out if it's suitable for the
+  specific Windows flavor of the current guest.
  *)
-let match_vio_path_with_os path inspect =
+let virtio_iso_path_matches_guest_os path inspect =
   let { i_major_version = os_major; i_minor_version = os_minor;
         i_arch = arch; i_product_variant = os_variant } = inspect in
   try

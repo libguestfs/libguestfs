@@ -280,7 +280,7 @@ echo uninstalling Xen PV driver
       let paths = external_command cmd in
       List.iter (
         fun path ->
-          if match_vio_path_with_os path inspect then (
+          if virtio_iso_path_matches_guest_os path inspect then (
             let source = virtio_win // path in
             let target = driverdir //
                     String.lowercase_ascii (Filename.basename path) in
@@ -308,7 +308,7 @@ echo uninstalling Xen PV driver
           fun path ->
             let source = vio_root // path in
             if g2#is_file source ~followsymlinks:false &&
-               match_vio_path_with_os path inspect then (
+               virtio_iso_path_matches_guest_os path inspect then (
               let target = driverdir //
                       String.lowercase_ascii (Filename.basename path) in
               if verbose () then
