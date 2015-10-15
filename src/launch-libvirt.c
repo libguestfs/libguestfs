@@ -61,23 +61,7 @@
 #endif
 /* End of fixes for Mac OS X */
 
-/* Check minimum required version of libvirt.  The libvirt backend
- * is new and not the default, so we can get away with forcing
- * people who want to try it to have a reasonably new version of
- * libvirt, so we don't have to work around any bugs in libvirt.
- *
- * This is also checked at runtime because you can dynamically link
- * with a different version from what you were compiled with.
- */
-#define MIN_LIBVIRT_MAJOR 0
-#define MIN_LIBVIRT_MINOR 10
-#define MIN_LIBVIRT_MICRO 2 /* XXX patches in > 2 already */
-#define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 +	\
-                             MIN_LIBVIRT_MINOR * 1000 +		\
-                             MIN_LIBVIRT_MICRO)
-
-#if defined(HAVE_LIBVIRT) &&			\
-  LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
+#ifdef HAVE_LIBVIRT_BACKEND
 
 #ifndef HAVE_XMLBUFFERDETACH
 /* Added in libxml2 2.8.0.  This is mostly a copy of the function from
@@ -2308,4 +2292,4 @@ guestfs_int_init_libvirt_backend (void)
   guestfs_int_register_backend ("libvirt", &backend_libvirt_ops);
 }
 
-#endif
+#endif /* HAVE_LIBVIRT_BACKEND */

@@ -26,6 +26,22 @@
 
 #include <pcre.h>
 
+/* Minimum required version of libvirt for the libvirt backend.
+ *
+ * This is also checked at runtime because you can dynamically link
+ * with a different version from what you were compiled with.
+ */
+#define MIN_LIBVIRT_MAJOR 0
+#define MIN_LIBVIRT_MINOR 10
+#define MIN_LIBVIRT_MICRO 2 /* XXX patches in > 2 already */
+#define MIN_LIBVIRT_VERSION (MIN_LIBVIRT_MAJOR * 1000000 +	\
+                             MIN_LIBVIRT_MINOR * 1000 +		\
+                             MIN_LIBVIRT_MICRO)
+
+#if defined(HAVE_LIBVIRT) && LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
+#define HAVE_LIBVIRT_BACKEND
+#endif
+
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
 #endif
@@ -476,7 +492,7 @@ struct guestfs_h
   int ml_debug_calls;        /* Extra debug info on each FUSE call. */
 #endif
 
-#ifdef HAVE_LIBVIRT
+#ifdef HAVE_LIBVIRT_BACKEND
   /* Used by src/libvirt-auth.c. */
 #define NR_CREDENTIAL_TYPES 9
   unsigned int nr_supported_credentials;
@@ -885,7 +901,7 @@ extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, unsig
 
 /* launch-*.c constructors */
 void guestfs_int_init_direct_backend (void) __attribute__((constructor));
-#ifdef HAVE_LIBVIRT
+#ifdef HAVE_LIBVIRT_BACKEND
 void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
 #endif
 void guestfs_int_init_uml_backend (void) __attribute__((constructor));
