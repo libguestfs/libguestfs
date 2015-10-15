@@ -77,7 +77,7 @@ let make_file t path content =
 let unlink t path =
   with_fork t (fun () -> unlink path)
 
-let func t f = with_fork t f
+let func = with_fork
 
 let command t cmd =
   with_fork t (
