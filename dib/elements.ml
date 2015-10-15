@@ -147,9 +147,6 @@ let copy_element element destdir blacklist =
   let dirs, nondirs = List.partition is_directory entries in
   let dirs = List.map (fun x -> (x, element.directory // x, destdir // x)) dirs in
   let nondirs = List.map (fun x -> element.directory // x) nondirs in
-  let is_regular_file file =
-    try (Unix.stat file).Unix.st_kind = Unix.S_REG
-    with Unix.Unix_error _ -> false in
   List.iter (
     fun (e, path, destpath) ->
       do_mkdir destpath;

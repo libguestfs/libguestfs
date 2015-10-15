@@ -806,3 +806,7 @@ let read_first_line_from_file filename =
   let line = input_line chan in
   close_in chan;
   line
+
+let is_regular_file path = (* NB: follows symlinks. *)
+  try (Unix.stat path).Unix.st_kind = Unix.S_REG
+  with Unix.Unix_error _ -> false

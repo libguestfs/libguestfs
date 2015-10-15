@@ -159,10 +159,6 @@ let find_uefi_firmware guest_arch =
   in
   loop files
 
-let is_regular_file path = (* NB: follows symlinks. *)
-  try (Unix.stat path).Unix.st_kind = Unix.S_REG
-  with Unix.Unix_error _ -> false
-
 (* Given a path of a file relative to the root of the directory tree
  * with virtio-win drivers, figure out if it's suitable for the
   specific Windows flavor of the current guest.
