@@ -1985,7 +1985,6 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
   CLEANUP_FREE char *pathexpr = NULL;
   CLEANUP_FREE_STRING_LIST char **matches = NULL;
   char **match;
-  size_t len;
 
   /* Security: Refuse to do this if a config file is too large. */
   for (i = 0; configfiles[i] != NULL; ++i) {
@@ -2023,16 +2022,33 @@ inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs,
     goto out;
 
   /* Check that augeas did not get a parse error for any of the configfiles,
-   * otherwise we are silently missing information. */
+   * otherwise we are silently missing information.
+   */
   matches = guestfs_aug_match (g, "/augeas/files//error");
   for (match = matches; *match != NULL; ++match) {
     for (i = 0; configfiles[i] != NULL; ++i) {
-      len = strlen (configfiles[i]);
-      if (strlen (*match) == (13 /* len(/augeas/files) */ + len + 6 /* len(/error) */) &&
-          STRPREFIX(*match, "/augeas/files") &&
-          STREQLEN(*match + 13, configfiles[i], len) &&
-          STREQ(*match + 13 + len, "/error")) {
-        error (g, _("augeas could not parse %s"), configfiles[i]);
+      CLEANUP_FREE char *errorpath =
+        safe_asprintf (g, "/augeas/files%s/error", configfiles[i]);
+
+      if (STREQ (*match, errorpath)) {
+        /* Get the various error details. */
+        guestfs_push_error_handler (g, NULL, NULL);
+        CLEANUP_FREE char *messagepath =
+          safe_asprintf (g, "%s/message", errorpath);
+        CLEANUP_FREE char *message = guestfs_aug_get (g, messagepath);
+        CLEANUP_FREE char *linepath =
+          safe_asprintf (g, "%s/line", errorpath);
+        CLEANUP_FREE char *line = guestfs_aug_get (g, linepath);
+        CLEANUP_FREE char *charpath =
+          safe_asprintf (g, "%s/char", errorpath);
+        CLEANUP_FREE char *charp = guestfs_aug_get (g, charpath);
+        guestfs_pop_error_handler (g);
+
+        error (g, _("%s:%s:%s: augeas parse failure: %s"),
+               configfiles[i],
+               line ? : "<none>",
+               charp ? : "<none>",
+               message ? : "<none>");
         goto out;
       }
     }
