@@ -37,6 +37,7 @@ EXTRA_DIST = \
 	rhbz957772.sh \
 	rhbz975797.sh \
 	rhbz1001875.sh \
+	rhbz1011907-1165785.sh \
 	rhbz1044014.sh \
 	rhbz1044014.in \
 	rhbz1044014.xml \
@@ -69,6 +70,7 @@ TESTS = \
 	rhbz1054761.sh \
 	rhbz1055452 \
 	rhbz1091803.sh \
+	rhbz1011907-1165785.sh \
 	rhbz1175196.sh \
 	rhbz1232192.sh \
 	test-big-heap \
