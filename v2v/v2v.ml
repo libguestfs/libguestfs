@@ -80,32 +80,9 @@ let rec main () =
   message (f_"Inspecting the overlay");
   let inspect = inspect_source g root_choice in
 
-  (* The guest free disk space check and the target free space
-   * estimation both require statvfs information from mountpoints, so
-   * get that information first.
-   *)
-  let mpstats = List.map (
-    fun (dev, path) ->
-      let statvfs = g#statvfs path in
-      let vfs = g#vfs_type dev in
-      { mp_dev = dev; mp_path = path; mp_statvfs = statvfs; mp_vfs = vfs }
-  ) (g#mountpoints ()) in
-
-  if verbose () then (
-    (* This is useful for debugging speed / fstrim issues. *)
-    printf "mpstats:\n";
-    List.iter (print_mpstat Pervasives.stdout) mpstats
-  );
-
-  (* Check there is enough free space to perform conversion. *)
-  message (f_"Checking for sufficient free disk space in the guest");
+  let mpstats = get_mpstats g in
   check_free_space mpstats;
-
-  (* Estimate space required on target for each disk.  Note this is a max. *)
-  message (f_"Estimating space required on target for each disk");
-  let targets = estimate_target_size mpstats targets in
-
-  output#check_target_free_space source targets;
+  check_target_free_space mpstats source targets output;
 
   (* Conversion. *)
   let guestcaps =
@@ -594,11 +571,29 @@ and inspect_source g root_choice =
   if verbose () then printf "%s%!" (string_of_inspect inspect);
   inspect
 
+and get_mpstats g =
+  (* Collect statvfs information from the guest mountpoints. *)
+  let mpstats = List.map (
+    fun (dev, path) ->
+      let statvfs = g#statvfs path in
+      let vfs = g#vfs_type dev in
+      { mp_dev = dev; mp_path = path; mp_statvfs = statvfs; mp_vfs = vfs }
+  ) (g#mountpoints ()) in
+
+  if verbose () then (
+    (* This is useful for debugging speed / fstrim issues. *)
+    printf "mpstats:\n";
+    List.iter (print_mpstat Pervasives.stdout) mpstats
+  );
+
+  mpstats
+
 (* Conversion can fail if there is no space on the guest filesystems
  * (RHBZ#1139543).  To avoid this situation, check there is some
  * headroom.  Mainly we care about the root filesystem.
  *)
 and check_free_space mpstats =
+  message (f_"Checking for sufficient free disk space in the guest");
   List.iter (
     fun { mp_path = mp;
           mp_statvfs = { G.bfree = bfree; blocks = blocks; bsize = bsize } } ->
@@ -815,6 +810,13 @@ and estimate_target_size mpstats targets =
 
     targets
   )
+
+and check_target_free_space mpstats source targets output =
+  (* Estimate space required on target for each disk.  Note this is a max. *)
+  message (f_"Estimating space required on target for each disk");
+  let targets = estimate_target_size mpstats targets in
+
+  output#check_target_free_space source targets
 
 (* Update the target_actual_size field in the target structure. *)
 and actual_target_size target =
