@@ -119,17 +119,7 @@ let rec main () =
   output#create_metadata source targets target_buses guestcaps inspect
                          target_firmware;
 
-  (* Save overlays if --debug-overlays option was used. *)
-  if debug_overlays then (
-    let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
-    List.iter (
-      fun ov ->
-        let saved_filename =
-          sprintf "%s/%s-%s.qcow2" overlay_dir source.s_name ov.ov_sd in
-        rename ov.ov_overlay_file saved_filename;
-        printf (f_"Overlay saved as %s [--debug-overlays]\n") saved_filename
-    ) overlays
-  );
+  if debug_overlays then preserve_overlays overlays source.s_name;
 
   message (f_"Finishing off");
   delete_target_on_exit := false  (* Don't delete target on exit. *)
@@ -914,5 +904,16 @@ and target_bus_assignment source targets guestcaps =
   { target_virtio_blk_bus = !virtio_blk_bus;
     target_ide_bus = !ide_bus;
     target_scsi_bus = !scsi_bus }
+
+and preserve_overlays overlays src_name =
+  (* Save overlays if --debug-overlays option was used. *)
+  let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
+  List.iter (
+    fun ov ->
+      let saved_filename =
+        sprintf "%s/%s-%s.qcow2" overlay_dir src_name ov.ov_sd in
+      rename ov.ov_overlay_file saved_filename;
+      printf (f_"Overlay saved as %s [--debug-overlays]\n") saved_filename
+  ) overlays
 
 let () = run_main_and_handle_errors main
