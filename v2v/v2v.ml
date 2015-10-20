@@ -110,121 +110,9 @@ let rec main () =
   if verbose () then
     printf "%s%!" (string_of_target_buses target_buses);
 
-  let delete_target_on_exit = ref true in
-
   let targets =
     if not do_copy then targets
-    else (
-      (* Copy the source to the output. *)
-      at_exit (fun () ->
-        if !delete_target_on_exit then (
-          List.iter (
-            fun t -> try unlink t.target_file with _ -> ()
-          ) targets
-        )
-      );
-      let nr_disks = List.length targets in
-      mapi (
-        fun i t ->
-          message (f_"Copying disk %d/%d to %s (%s)")
-            (i+1) nr_disks t.target_file t.target_format;
-          if verbose () then printf "%s%!" (string_of_target t);
-
-          (* We noticed that qemu sometimes corrupts the qcow2 file on
-           * exit.  This only seemed to happen with lazy_refcounts was
-           * used.  The symptom was that the header wasn't written back
-           * to the disk correctly and the file appeared to have no
-           * backing file.  Just sanity check this here.
-           *)
-          let overlay_file = t.target_overlay.ov_overlay_file in
-          if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
-            error (f_"internal error: qemu corrupted the overlay file");
-
-          (* Give the input module a chance to adjust the parameters
-           * of the overlay/backing file.  This allows us to increase
-           * the readahead parameter when copying (see RHBZ#1151033 and
-           * RHBZ#1153589 for the gruesome details).
-           *)
-          input#adjust_overlay_parameters t.target_overlay;
-
-          (* It turns out that libguestfs's disk creation code is
-           * considerably more flexible and easier to use than
-           * qemu-img, so create the disk explicitly using libguestfs
-           * then pass the 'qemu-img convert -n' option so qemu reuses
-           * the disk.
-           *
-           * Also we allow the output mode to actually create the disk
-           * image.  This lets the output mode set ownership and
-           * permissions correctly if required.
-           *)
-          (* What output preallocation mode should we use? *)
-          let preallocation =
-            match t.target_format, output_alloc with
-            | ("raw"|"qcow2"), Sparse -> Some "sparse"
-            | ("raw"|"qcow2"), Preallocated -> Some "full"
-            | _ -> None (* ignore -oa flag for other formats *) in
-          let compat =
-            match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
-          output#disk_create
-            t.target_file t.target_format t.target_overlay.ov_virtual_size
-            ?preallocation ?compat;
-
-          let cmd =
-            sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
-              (if not (quiet ()) then " -p" else "")
-              (quote t.target_format) (quote overlay_file)
-              (quote t.target_file) in
-          if verbose () then printf "%s\n%!" cmd;
-          let start_time = gettimeofday () in
-          if Sys.command cmd <> 0 then
-            error (f_"qemu-img command failed, see earlier errors");
-          let end_time = gettimeofday () in
-
-          (* Calculate the actual size on the target, returns an updated
-           * target structure.
-           *)
-          let t = actual_target_size t in
-
-          (* If verbose, print the virtual and real copying rates. *)
-          let elapsed_time = end_time -. start_time in
-          if verbose () && elapsed_time > 0. then (
-            let mbps size time =
-              Int64.to_float size /. 1024. /. 1024. *. 10. /. time
-            in
-
-            printf "virtual copying rate: %.1f M bits/sec\n%!"
-              (mbps t.target_overlay.ov_virtual_size elapsed_time);
-
-            match t.target_actual_size with
-            | None -> ()
-            | Some actual ->
-              printf "real copying rate: %.1f M bits/sec\n%!"
-                (mbps actual elapsed_time)
-          );
-
-          (* If verbose, find out how close the estimate was.  This is
-           * for developer information only - so we can increase the
-           * accuracy of the estimate.
-           *)
-          if verbose () then (
-            match t.target_estimated_size, t.target_actual_size with
-            | None, None | None, Some _ | Some _, None | Some _, Some 0L -> ()
-            | Some estimate, Some actual ->
-              let pc =
-                100. *. Int64.to_float estimate /. Int64.to_float actual
-                -. 100. in
-              printf "%s: estimate %Ld (%s) versus actual %Ld (%s): %.1f%%"
-                t.target_overlay.ov_sd
-                estimate (human_size estimate)
-                actual (human_size actual)
-                pc;
-              if pc < 0. then printf " ! ESTIMATE TOO LOW !";
-              printf "\n%!";
-          );
-
-          t
-      ) targets
-    ) (* do_copy *) in
+    else copy_targets targets input output output_alloc in
 
   (* Create output metadata. *)
   message (f_"Creating output metadata");
@@ -823,6 +711,119 @@ and get_target_firmware inspect guestcaps source output =
    | TargetUEFI -> info (f_"This guest requires UEFI on the target to boot."));
 
   target_firmware
+
+and delete_target_on_exit = ref true
+
+and copy_targets targets input output output_alloc =
+  (* Copy the source to the output. *)
+  at_exit (fun () ->
+    if !delete_target_on_exit then (
+      List.iter (
+        fun t -> try unlink t.target_file with _ -> ()
+      ) targets
+    )
+  );
+  let nr_disks = List.length targets in
+  mapi (
+    fun i t ->
+      message (f_"Copying disk %d/%d to %s (%s)")
+        (i+1) nr_disks t.target_file t.target_format;
+      if verbose () then printf "%s%!" (string_of_target t);
+
+      (* We noticed that qemu sometimes corrupts the qcow2 file on
+       * exit.  This only seemed to happen with lazy_refcounts was
+       * used.  The symptom was that the header wasn't written back
+       * to the disk correctly and the file appeared to have no
+       * backing file.  Just sanity check this here.
+       *)
+      let overlay_file = t.target_overlay.ov_overlay_file in
+      if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+        error (f_"internal error: qemu corrupted the overlay file");
+
+      (* Give the input module a chance to adjust the parameters
+       * of the overlay/backing file.  This allows us to increase
+       * the readahead parameter when copying (see RHBZ#1151033 and
+       * RHBZ#1153589 for the gruesome details).
+       *)
+      input#adjust_overlay_parameters t.target_overlay;
+
+      (* It turns out that libguestfs's disk creation code is
+       * considerably more flexible and easier to use than
+       * qemu-img, so create the disk explicitly using libguestfs
+       * then pass the 'qemu-img convert -n' option so qemu reuses
+       * the disk.
+       *
+       * Also we allow the output mode to actually create the disk
+       * image.  This lets the output mode set ownership and
+       * permissions correctly if required.
+       *)
+      (* What output preallocation mode should we use? *)
+      let preallocation =
+        match t.target_format, output_alloc with
+        | ("raw"|"qcow2"), Sparse -> Some "sparse"
+        | ("raw"|"qcow2"), Preallocated -> Some "full"
+        | _ -> None (* ignore -oa flag for other formats *) in
+      let compat =
+        match t.target_format with "qcow2" -> Some "1.1" | _ -> None in
+      output#disk_create
+        t.target_file t.target_format t.target_overlay.ov_virtual_size
+        ?preallocation ?compat;
+
+      let cmd =
+        sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
+          (if not (quiet ()) then " -p" else "")
+          (quote t.target_format) (quote overlay_file)
+          (quote t.target_file) in
+      if verbose () then printf "%s\n%!" cmd;
+      let start_time = gettimeofday () in
+      if Sys.command cmd <> 0 then
+        error (f_"qemu-img command failed, see earlier errors");
+      let end_time = gettimeofday () in
+
+      (* Calculate the actual size on the target, returns an updated
+       * target structure.
+       *)
+      let t = actual_target_size t in
+
+      (* If verbose, print the virtual and real copying rates. *)
+      let elapsed_time = end_time -. start_time in
+      if verbose () && elapsed_time > 0. then (
+        let mbps size time =
+          Int64.to_float size /. 1024. /. 1024. *. 10. /. time
+        in
+
+        printf "virtual copying rate: %.1f M bits/sec\n%!"
+          (mbps t.target_overlay.ov_virtual_size elapsed_time);
+
+        match t.target_actual_size with
+        | None -> ()
+        | Some actual ->
+          printf "real copying rate: %.1f M bits/sec\n%!"
+            (mbps actual elapsed_time)
+      );
+
+      (* If verbose, find out how close the estimate was.  This is
+       * for developer information only - so we can increase the
+       * accuracy of the estimate.
+       *)
+      if verbose () then (
+        match t.target_estimated_size, t.target_actual_size with
+        | None, None | None, Some _ | Some _, None | Some _, Some 0L -> ()
+        | Some estimate, Some actual ->
+          let pc =
+            100. *. Int64.to_float estimate /. Int64.to_float actual
+            -. 100. in
+          printf "%s: estimate %Ld (%s) versus actual %Ld (%s): %.1f%%"
+            t.target_overlay.ov_sd
+            estimate (human_size estimate)
+            actual (human_size actual)
+            pc;
+          if pc < 0. then printf " ! ESTIMATE TOO LOW !";
+          printf "\n%!";
+      );
+
+      t
+  ) targets
 
 (* Update the target_actual_size field in the target structure. *)
 and actual_target_size target =
