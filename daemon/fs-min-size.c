@@ -35,6 +35,9 @@ do_vfs_minimum_size (const mountable_t *mountable)
   if (vfs_type == NULL)
     return -1;
 
+  else if (fstype_is_extfs (vfs_type))
+    r = ext_minimum_size (mountable->device);
+
   else if (STREQ (vfs_type, "ntfs"))
     r = ntfs_minimum_size (mountable->device);
 

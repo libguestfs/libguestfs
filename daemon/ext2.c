@@ -29,6 +29,7 @@
 #include "daemon.h"
 #include "c-ctype.h"
 #include "actions.h"
+#include "xstrtol.h"
 
 #define MAX_ARGS 128
 
@@ -279,15 +280,41 @@ do_resize2fs_M (const char *device)
   return 0;
 }
 
+static long
+get_block_size (const char *device)
+{
+  CLEANUP_FREE_STRING_LIST char **params = NULL;
+  const char *block_pattern = "Block size";
+  size_t i;
+  long block_size;
+
+  params = do_tune2fs_l (device);
+  if (params == NULL)
+    return -1;
+
+  for (i = 0; params[i] != NULL; i += 2) {
+    if (STREQ (params[i], block_pattern)) {
+      if (xstrtol (params[i + 1], NULL, 10, &block_size, NULL) != LONGINT_OK) {
+        reply_with_error ("cannot parse block size");
+        return -1;
+      }
+      return block_size;
+    }
+  }
+
+  reply_with_error ("missing 'Block size' in tune2fs_l output");
+  return -1;
+}
+
 int64_t
-do_resize2fs_P (const char *device)
+ext_minimum_size (const char *device)
 {
   CLEANUP_FREE char *err = NULL, *out = NULL;
   CLEANUP_FREE_STRING_LIST char **lines = NULL;
   int r;
   size_t i;
-  char *p;
   int64_t ret;
+  long block_size;
   const char *pattern = "Estimated minimum size of the filesystem: ";
 
   r = command (&out, &err, str_resize2fs, "-P", device, NULL);
@@ -300,17 +327,36 @@ do_resize2fs_P (const char *device)
   if (lines == NULL)
     return -1;
 
-  for (i = 0; lines[i] != NULL; ++i) {
-    if (verbose)
-      fprintf (stderr, "resize2fs_P: lines[%zu] = \"%s\"\n", i, lines[i]);
+#if __WORDSIZE == 64
+#define XSTRTOD64 xstrtol
+#else
+#define XSTRTOD64 xstrtoll
+#endif
 
-    if ((p = strstr (lines[i], pattern))) {
-      if (sscanf (p + strlen(pattern), "%" SCNd64, &ret) != 1)
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (STRPREFIX (lines[i], pattern)) {
+      if (XSTRTOD64 (lines[i] + strlen (pattern),
+                     NULL, 20, &ret, NULL) != LONGINT_OK) {
+        reply_with_error ("cannot parse minimum size");
         return -1;
-      return ret;
+      }
+      if ((block_size = get_block_size (device)) == -1)
+        return -1;
+      if (verbose) {
+        fprintf (stderr, "Minimum size in blocks: %" SCNd64 \
+                         "\nBlock count: %ld\n", ret, block_size);
+      }
+      if (INT64_MAX / block_size < ret) {
+        reply_with_error ("filesystem size too big: overflow");
+        return -1;
+      }
+      return ret * block_size;
     }
   }
 
+#undef XSTRTOD64
+
+  reply_with_error ("minimum size not found. Check output format:\n%s", out);
   return -1;
 }
 

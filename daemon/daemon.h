@@ -224,6 +224,7 @@ extern int sync_disks (void);
 #define EXT2_LABEL_MAX 16
 extern int fstype_is_extfs (const char *fstype);
 extern int ext_set_uuid_random (const char *device);
+extern int64_t ext_minimum_size (const char *device);
 
 /*-- in blkid.c --*/
 extern char *get_blkid_tag (const char *device, const char *tag);

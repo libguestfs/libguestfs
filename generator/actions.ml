@@ -12752,24 +12752,12 @@ Only some filesystem types support setting UUIDs.
 To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
 
   { defaults with
-    name = "resize2fs_P"; added = (1, 31, 17);
-    style = RInt64 "sizeinblocks", [Device "device"], [];
+    name = "vfs_minimum_size"; added = (1, 31, 18);
+    style = RInt64 "sizeinbytes", [Mountable "mountable"], [];
     proc_nr = Some 457;
     tests = [
       InitBasicFS, Always, TestRun (
-        [["resize2fs_P"; "/dev/sda1"]]), [];
-    ];
-    shortdesc = "get minimum filesystem size in blocks";
-    longdesc = "\
-Get the estimated minimum filesystem size of an ext2/3/4 filesystem in blocks.
-
-See also L<resize2fs(8)>." };
-
-  { defaults with
-    name = "vfs_minimum_size"; added = (1, 31, 18);
-    style = RInt64 "sizeinbytes", [Mountable "mountable"], [];
-    proc_nr = Some 458;
-    tests = [
+        [["vfs_minimum_size"; "/dev/sda1"]]), [];
       InitPartition, IfAvailable "ntfsprogs", TestRun(
         [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
@@ -12782,7 +12770,7 @@ This is the minimum possible size for filesystem shrinking.
 If getting minimum size of specified filesystem is not supported,
 this will fail and set errno as ENOTSUP.
 
-See also L<ntfsresize(8)>." };
+See also L<ntfsresize(8)>, L<resize2fs(8)>." };
 
 ]
 
