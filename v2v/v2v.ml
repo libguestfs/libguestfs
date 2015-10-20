@@ -84,35 +84,8 @@ let rec main () =
   check_free_space mpstats;
   check_target_free_space mpstats source targets output;
 
-  (* Conversion. *)
-  let guestcaps =
-    (match inspect.i_product_name with
-    | "unknown" ->
-      message (f_"Converting the guest to run on KVM")
-    | prod ->
-      message (f_"Converting %s to run on KVM") prod
-    );
-
-    (* RHEV doesn't support serial console so remove any on conversion. *)
-    let keep_serial_console = output#keep_serial_console in
-
-    let conversion_name, convert =
-      try Modules_list.find_convert_module inspect
-      with Not_found ->
-        error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
-          inspect.i_type inspect.i_distro in
-    if verbose () then printf "picked conversion module %s\n%!" conversion_name;
-    let guestcaps = convert ~keep_serial_console g inspect source in
-    if verbose () then printf "%s%!" (string_of_guestcaps guestcaps);
-    guestcaps in
-
-  (* Did we manage to install virtio drivers? *)
-  if not (quiet ()) then (
-    if guestcaps.gcaps_block_bus = Virtio_blk then
-      info (f_"This guest has virtio drivers installed.")
-    else
-      info (f_"This guest does not have virtio drivers installed.");
-  );
+  let keep_serial_console = output#keep_serial_console in
+  let guestcaps = do_convert g inspect source keep_serial_console in
 
   g#umount_all ();
 
@@ -817,6 +790,34 @@ and check_target_free_space mpstats source targets output =
   let targets = estimate_target_size mpstats targets in
 
   output#check_target_free_space source targets
+
+and do_convert g inspect source keep_serial_console =
+  (* Conversion. *)
+  (match inspect.i_product_name with
+  | "unknown" ->
+    message (f_"Converting the guest to run on KVM")
+  | prod ->
+    message (f_"Converting %s to run on KVM") prod
+  );
+
+  let conversion_name, convert =
+    try Modules_list.find_convert_module inspect
+    with Not_found ->
+      error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
+        inspect.i_type inspect.i_distro in
+  if verbose () then printf "picked conversion module %s\n%!" conversion_name;
+  let guestcaps = convert ~keep_serial_console g inspect source in
+  if verbose () then printf "%s%!" (string_of_guestcaps guestcaps);
+
+  (* Did we manage to install virtio drivers? *)
+  if not (quiet ()) then (
+    if guestcaps.gcaps_block_bus = Virtio_blk then
+      info (f_"This guest has virtio drivers installed.")
+    else
+      info (f_"This guest does not have virtio drivers installed.");
+  );
+
+  guestcaps
 
 (* Update the target_actual_size field in the target structure. *)
 and actual_target_size target =
