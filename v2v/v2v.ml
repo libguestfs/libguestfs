@@ -55,65 +55,8 @@ let rec main () =
     printf "%s: %s %s (%s)\n%!"
       prog Config.package_name Config.package_version Config.host_cpu;
 
-  message (f_"Opening the source %s") input#as_options;
-  let source = input#source () in
-
-  (* Print source and stop. *)
-  if print_source then (
-    printf (f_"Source guest information (--print-source option):\n");
-    printf "\n";
-    printf "%s\n" (string_of_source source);
-    exit 0
-  );
-
-  if verbose () then printf "%s%!" (string_of_source source);
-
-  (match source.s_hypervisor with
-  | OtherHV hv ->
-    warning (f_"unknown source hypervisor ('%s') in metadata") hv
-  | _ -> ()
-  );
-
-  assert (source.s_name <> "");
-  assert (source.s_memory > 0L);
-  assert (source.s_vcpu >= 1);
-  if source.s_disks = [] then
-    error (f_"source has no hard disks!");
-  List.iter (
-    fun disk ->
-      assert (disk.s_qemu_uri <> "");
-  ) source.s_disks;
-
-  (* Map source name. *)
-  let source =
-    match output_name with
-    | None -> source
-    (* Note the s_orig_name field retains the original name in case we
-     * need it for some reason.
-     *)
-    | Some name -> { source with s_name = name } in
-
-  (* Map networks and bridges. *)
-  let source =
-    let { s_nics = nics } = source in
-    let nics = List.map (
-      fun ({ s_vnet_type = t; s_vnet = vnet } as nic) ->
-        try
-          (* Look for a --network or --bridge parameter which names this
-           * network/bridge (eg. --network in:out).
-           *)
-          let new_name = List.assoc (t, vnet) network_map in
-          { nic with s_vnet = new_name }
-        with Not_found ->
-          try
-            (* Not found, so look for a default mapping (eg. --network out). *)
-            let new_name = List.assoc (t, "") network_map in
-            { nic with s_vnet = new_name }
-          with Not_found ->
-            (* Not found, so return the original NIC unchanged. *)
-            nic
-    ) nics in
-    { source with s_nics = nics } in
+  let source = open_source input print_source in
+  let source = amend_source source output_name network_map in
 
   (* Create a qcow2 v3 overlay to protect the source image(s).  There
    * is a specific reason to use the newer qcow2 variant: Because the
@@ -453,6 +396,69 @@ let rec main () =
 
   message (f_"Finishing off");
   delete_target_on_exit := false  (* Don't delete target on exit. *)
+
+and open_source input print_source =
+  message (f_"Opening the source %s") input#as_options;
+  let source = input#source () in
+
+  (* Print source and stop. *)
+  if print_source then (
+    printf (f_"Source guest information (--print-source option):\n");
+    printf "\n";
+    printf "%s\n" (string_of_source source);
+    exit 0
+  );
+
+  if verbose () then printf "%s%!" (string_of_source source);
+
+  (match source.s_hypervisor with
+  | OtherHV hv ->
+    warning (f_"unknown source hypervisor ('%s') in metadata") hv
+  | _ -> ()
+  );
+
+  assert (source.s_name <> "");
+  assert (source.s_memory > 0L);
+  assert (source.s_vcpu >= 1);
+  if source.s_disks = [] then
+    error (f_"source has no hard disks!");
+  List.iter (
+    fun disk ->
+      assert (disk.s_qemu_uri <> "");
+  ) source.s_disks;
+
+  source
+
+and amend_source source output_name network_map =
+  (* Map source name. *)
+  let source =
+    match output_name with
+    | None -> source
+    (* Note the s_orig_name field retains the original name in case we
+     * need it for some reason.
+     *)
+    | Some name -> { source with s_name = name } in
+
+  (* Map networks and bridges. *)
+  let nics = List.map (
+    fun ({ s_vnet_type = t; s_vnet = vnet } as nic) ->
+      try
+        (* Look for a --network or --bridge parameter which names this
+         * network/bridge (eg. --network in:out).
+         *)
+        let new_name = List.assoc (t, vnet) network_map in
+        { nic with s_vnet = new_name }
+      with Not_found ->
+        try
+          (* Not found, so look for a default mapping (eg. --network out). *)
+          let new_name = List.assoc (t, "") network_map in
+          { nic with s_vnet = new_name }
+        with Not_found ->
+          (* Not found, so return the original NIC unchanged. *)
+          nic
+  ) source.s_nics in
+
+  { source with s_nics = nics }
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in
