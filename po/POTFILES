@@ -49,6 +49,7 @@ daemon/file.c
 daemon/fill.c
 daemon/find.c
 daemon/findfs.c
+daemon/fs-min-size.c
 daemon/fsck.c
 daemon/fstrim.c
 daemon/glob.c

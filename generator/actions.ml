@@ -12765,6 +12765,25 @@ Get the estimated minimum filesystem size of an ext2/3/4 filesystem in blocks.
 
 See also L<resize2fs(8)>." };
 
+  { defaults with
+    name = "vfs_minimum_size"; added = (1, 31, 18);
+    style = RInt64 "sizeinbytes", [Mountable "mountable"], [];
+    proc_nr = Some 458;
+    tests = [
+      InitPartition, IfAvailable "ntfsprogs", TestRun(
+        [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+         ["vfs_minimum_size"; "/dev/sda1"]]), [];
+    ];
+    shortdesc = "get minimum filesystem size";
+    longdesc = "\
+Get the minimum size of filesystem in bytes.
+This is the minimum possible size for filesystem shrinking.
+
+If getting minimum size of specified filesystem is not supported,
+this will fail and set errno as ENOTSUP.
+
+See also L<ntfsresize(8)>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

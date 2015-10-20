@@ -27,6 +27,7 @@
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"
+#include "xstrtol.h"
 
 #define MAX_ARGS 64
 
@@ -151,6 +152,92 @@ do_ntfsresize_size (const char *device, int64_t size)
 {
   optargs_bitmask = GUESTFS_NTFSRESIZE_SIZE_BITMASK;
   return do_ntfsresize (device, size, 0);
+}
+
+int64_t
+ntfs_minimum_size (const char *device)
+{
+  CLEANUP_FREE char *err = NULL, *out = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
+  int r;
+  size_t i;
+  int64_t volume_size = 0;
+  const char *size_pattern = "You might resize at ",
+             *full_pattern = "Volume is full",
+             *cluster_size_pattern = "Cluster size",
+             *volume_size_pattern = "Current volume size:";
+  int is_full = 0;
+  int32_t cluster_size = 0;
+
+  /* FS may be marked for check, so force ntfsresize */
+  r = command (&out, &err, str_ntfsresize, "--info", "-ff", device, NULL);
+
+  lines = split_lines (out);
+  if (lines == NULL)
+    return -1;
+
+  if (verbose) {
+    for (i = 0; lines[i] != NULL; ++i)
+      fprintf (stderr, "ntfs_minimum_size: lines[%zu] = \"%s\"\n", i, lines[i]);
+  }
+
+#if __WORDSIZE == 64
+#define XSTRTOD64 xstrtol
+#else
+#define XSTRTOD64 xstrtoll
+#endif
+
+  if (r == -1) {
+    /* If volume is full, ntfsresize returns error. */
+    for (i = 0; lines[i] != NULL; ++i) {
+      if (strstr (lines[i], full_pattern))
+        is_full = 1;
+      else if (STRPREFIX (lines[i], cluster_size_pattern)) {
+        if (sscanf (lines[i] + strlen (cluster_size_pattern),
+                    "%*[ ]:%" SCNd32, &cluster_size) != 1) {
+          reply_with_error ("cannot parse cluster size");
+          return -1;
+        }
+      }
+      else if (STRPREFIX (lines[i], volume_size_pattern)) {
+        if (XSTRTOD64 (lines[i] + strlen (volume_size_pattern),
+                       NULL, 20, &volume_size, NULL) != LONGINT_OK) {
+          reply_with_error ("cannot parse volume size");
+          return -1;
+        }
+      }
+    }
+    if (is_full) {
+      if (cluster_size == 0) {
+        reply_with_error ("bad cluster size");
+        return -1;
+      }
+      /* In case of a full filesystem, we estimate minimum size
+       * as volume size rounded up to cluster size.
+       */
+      return (volume_size + cluster_size - 1) / cluster_size * cluster_size;
+    }
+
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (STRPREFIX (lines[i], size_pattern)) {
+      int64_t ret;
+      if (XSTRTOD64 (lines[i] + strlen (size_pattern),
+                     NULL, 20, &ret, NULL) != LONGINT_OK) {
+        reply_with_error ("cannot parse minimum size");
+        return -1;
+      }
+      return ret;
+    }
+  }
+
+#undef XSTRTOD64
+
+  reply_with_error ("minimum size not found. Check output format:\n%s", out);
+  return -1;
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
