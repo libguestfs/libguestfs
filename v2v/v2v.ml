@@ -58,6 +58,7 @@ let rec main () =
   let source = open_source input print_source in
   let source = amend_source source output_name network_map in
   let overlays = create_overlays source.s_disks in
+  let targets = init_targets overlays source output output_format in
 
   (* Open the guestfs handle. *)
   message (f_"Opening the overlay");
@@ -74,43 +75,6 @@ let rec main () =
   ) overlays;
 
   g#launch ();
-
-  (* Work out where we will write the final output.  Do this early
-   * just so we can display errors to the user before doing too much
-   * work.
-   *)
-  message (f_"Initializing the target %s") output#as_options;
-  let targets =
-    List.map (
-      fun ov ->
-        (* What output format should we use? *)
-        let format =
-          match output_format, ov.ov_source.s_format with
-          | Some format, _ -> format    (* -of overrides everything *)
-          | None, Some format -> format (* same as backing format *)
-          | None, None ->
-            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the '-of' option to force the output format") ov.ov_sd ov.ov_source.s_qemu_uri in
-
-        (* What really happens here is that the call to #disk_create
-         * below fails if the format is not raw or qcow2.  We would
-         * have to extend libguestfs to support further formats, which
-         * is trivial, but we'd want to check that the files being
-         * created by qemu-img really work.  In any case, fail here,
-         * early, not below, later.
-         *)
-        if format <> "raw" && format <> "qcow2" then
-          error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
-
-        (* output#prepare_targets will fill in the target_file field.
-         * estimate_target_size will fill in the target_estimated_size field.
-         * actual_target_size will fill in the target_actual_size field.
-         *)
-        { target_file = ""; target_format = format;
-          target_estimated_size = None;
-          target_actual_size = None;
-          target_overlay = ov }
-    ) overlays in
-  let targets = output#prepare_targets source targets in
 
   (* Inspection - this also mounts up the filesystems. *)
   message (f_"Inspecting the overlay");
@@ -452,6 +416,45 @@ and create_overlays src_disks =
       { ov_overlay_file = overlay_file; ov_sd = sd;
         ov_virtual_size = vsize; ov_source = source }
   ) src_disks
+
+and init_targets overlays source output output_format =
+  (* Work out where we will write the final output.  Do this early
+   * just so we can display errors to the user before doing too much
+   * work.
+   *)
+  message (f_"Initializing the target %s") output#as_options;
+  let targets =
+    List.map (
+      fun ov ->
+        (* What output format should we use? *)
+        let format =
+          match output_format, ov.ov_source.s_format with
+          | Some format, _ -> format    (* -of overrides everything *)
+          | None, Some format -> format (* same as backing format *)
+          | None, None ->
+            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the '-of' option to force the output format") ov.ov_sd ov.ov_source.s_qemu_uri in
+
+        (* What really happens here is that the call to #disk_create
+         * below fails if the format is not raw or qcow2.  We would
+         * have to extend libguestfs to support further formats, which
+         * is trivial, but we'd want to check that the files being
+         * created by qemu-img really work.  In any case, fail here,
+         * early, not below, later.
+         *)
+        if format <> "raw" && format <> "qcow2" then
+          error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
+
+        (* output#prepare_targets will fill in the target_file field.
+         * estimate_target_size will fill in the target_estimated_size field.
+         * actual_target_size will fill in the target_actual_size field.
+         *)
+        { target_file = ""; target_format = format;
+          target_estimated_size = None;
+          target_actual_size = None;
+          target_overlay = ov }
+    ) overlays in
+
+  output#prepare_targets source targets
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in
