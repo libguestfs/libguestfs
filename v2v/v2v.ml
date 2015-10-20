@@ -60,19 +60,9 @@ let rec main () =
   let overlays = create_overlays source.s_disks in
   let targets = init_targets overlays source output output_format in
 
-  (* Open the guestfs handle. *)
   message (f_"Opening the overlay");
-  let g = new G.guestfs () in
-  g#set_identifier "v2v";
-  if trace () then g#set_trace true;
-  if verbose () then g#set_verbose true;
-  g#set_network true;
-  List.iter (
-    fun ({ov_overlay_file = overlay_file}) ->
-      g#add_drive_opts overlay_file
-        ~format:"qcow2" ~cachemode:"unsafe" ~discard:"besteffort"
-        ~copyonread:true
-  ) overlays;
+  let g = open_guestfs () in
+  populate_overlays g overlays;
 
   g#launch ();
 
@@ -264,6 +254,24 @@ and init_targets overlays source output output_format =
     ) overlays in
 
   output#prepare_targets source targets
+
+and open_guestfs () =
+  (* Open the guestfs handle. *)
+  let g = new G.guestfs () in
+  g#set_identifier "v2v";
+  if trace () then g#set_trace true;
+  if verbose () then g#set_verbose true;
+  g#set_network true;
+  g
+
+and populate_overlays (g:G.guestfs) overlays =
+  (* Populate guestfs handle with qcow2 overlays. *)
+  List.iter (
+    fun ({ov_overlay_file = overlay_file}) ->
+      g#add_drive_opts overlay_file
+        ~format:"qcow2" ~cachemode:"unsafe" ~discard:"besteffort"
+        ~copyonread:true
+  ) overlays
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in
