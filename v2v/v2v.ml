@@ -41,12 +41,16 @@ let print_mpstat chan { mp_dev = dev; mp_path = path;
   fprintf chan "  bsize=%Ld blocks=%Ld bfree=%Ld bavail=%Ld\n"
     s.G.bsize s.G.blocks s.G.bfree s.G.bavail
 
+type conversion_mode =
+    | Copying of overlay list * target list
+    | In_place
+
 let () = Random.self_init ()
 
 let rec main () =
   (* Handle the command line. *)
   let input, output,
-    debug_overlays, do_copy, network_map, no_trim,
+    debug_overlays, do_copy, in_place, network_map, no_trim,
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
 
@@ -57,12 +61,25 @@ let rec main () =
 
   let source = open_source input print_source in
   let source = amend_source source output_name network_map in
-  let overlays = create_overlays source.s_disks in
-  let targets = init_targets overlays source output output_format in
 
-  message (f_"Opening the overlay");
+  let conversion_mode =
+    if not in_place then (
+      let overlays = create_overlays source.s_disks in
+      let targets = init_targets overlays source output output_format in
+      Copying (overlays, targets)
+    )
+    else In_place in
+
+  (match conversion_mode with
+   | Copying _ -> message (f_"Opening the overlay")
+   | In_place -> message (f_"Opening the source VM")
+  );
+
   let g = open_guestfs () in
-  populate_overlays g overlays;
+  (match conversion_mode with
+   | Copying (overlays, _) -> populate_overlays g overlays
+   | In_place -> populate_disks g source.s_disks
+  );
 
   g#launch ();
 
@@ -72,7 +89,11 @@ let rec main () =
 
   let mpstats = get_mpstats g in
   check_free_space mpstats;
-  check_target_free_space mpstats source targets output;
+  (match conversion_mode with
+   | Copying (_, targets) ->
+       check_target_free_space mpstats source targets output
+   | In_place -> ()
+  );
 
   let keep_serial_console = output#keep_serial_console in
   let guestcaps = do_convert g inspect source keep_serial_console in
@@ -88,31 +109,39 @@ let rec main () =
     do_fstrim g no_trim inspect;
   );
 
-  message (f_"Closing the overlay");
+  (match conversion_mode with
+   | Copying _ -> message (f_"Closing the overlay")
+   | In_place -> message (f_"Closing the source VM")
+  );
   g#umount_all ();
   g#shutdown ();
   g#close ();
 
-  let target_firmware = get_target_firmware inspect guestcaps source output in
+  (match conversion_mode with
+   | In_place -> ()
+   | Copying (overlays, targets) ->
+       let target_firmware =
+         get_target_firmware inspect guestcaps source output in
 
-  message (f_"Assigning disks to buses");
-  let target_buses = target_bus_assignment source targets guestcaps in
-  if verbose () then
-    printf "%s%!" (string_of_target_buses target_buses);
+       message (f_"Assigning disks to buses");
+       let target_buses = target_bus_assignment source targets guestcaps in
+       if verbose () then
+         printf "%s%!" (string_of_target_buses target_buses);
 
-  let targets =
-    if not do_copy then targets
-    else copy_targets targets input output output_alloc in
+       let targets =
+         if not do_copy then targets
+         else copy_targets targets input output output_alloc in
 
-  (* Create output metadata. *)
-  message (f_"Creating output metadata");
-  output#create_metadata source targets target_buses guestcaps inspect
-                         target_firmware;
+       (* Create output metadata. *)
+       message (f_"Creating output metadata");
+       output#create_metadata source targets target_buses guestcaps inspect
+                             target_firmware;
 
-  if debug_overlays then preserve_overlays overlays source.s_name;
+       if debug_overlays then preserve_overlays overlays source.s_name;
 
-  message (f_"Finishing off");
-  delete_target_on_exit := false  (* Don't delete target on exit. *)
+       delete_target_on_exit := false  (* Don't delete target on exit. *)
+  );
+  message (f_"Finishing off")
 
 and open_source input print_source =
   message (f_"Opening the source %s") input#as_options;
@@ -264,7 +293,7 @@ and open_guestfs () =
   g#set_network true;
   g
 
-and populate_overlays (g:G.guestfs) overlays =
+and populate_overlays g overlays =
   (* Populate guestfs handle with qcow2 overlays. *)
   List.iter (
     fun ({ov_overlay_file = overlay_file}) ->
@@ -272,6 +301,13 @@ and populate_overlays (g:G.guestfs) overlays =
         ~format:"qcow2" ~cachemode:"unsafe" ~discard:"besteffort"
         ~copyonread:true
   ) overlays
+
+and populate_disks g src_disks =
+  List.iter (
+    fun ({s_qemu_uri = qemu_uri; s_format = format}) ->
+      g#add_drive_opts qemu_uri ?format ~cachemode:"unsafe"
+                          ~discard:"besteffort"
+  ) src_disks
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in

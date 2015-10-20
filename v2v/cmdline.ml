@@ -36,6 +36,7 @@ let parse_cmdline () =
   let dcpath = ref None in
   let input_conn = ref None in
   let input_format = ref None in
+  let in_place = ref false in
   let output_conn = ref None in
   let output_format = ref None in
   let output_name = ref None in
@@ -159,6 +160,7 @@ let parse_cmdline () =
                                             "uri " ^ s_"Libvirt URI";
     "-if",       Arg.String (set_string_option_once "-if" input_format),
                                             "format " ^ s_"Input format (for -i disk)";
+    "--in-place", Arg.Set in_place,         " " ^ s_"Only tune the guest in the input VM";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--network", Arg.String add_network,    "in:out " ^ ditto;
@@ -224,6 +226,7 @@ read the man page virt-v2v(1).
   let input_conn = !input_conn in
   let input_format = !input_format in
   let input_mode = !input_mode in
+  let in_place = !in_place in
   let machine_readable = !machine_readable in
   let network_map = !network_map in
   let no_trim = !no_trim in
@@ -313,6 +316,8 @@ read the man page virt-v2v(1).
       Input_ova.input_ova filename in
 
   (* Parse the output mode. *)
+  if output_mode <> `Not_set && in_place then
+    error (f_"-o and --in-place cannot be used at the same time");
   let output =
     match output_mode with
     | `Glance ->
@@ -409,6 +414,6 @@ read the man page virt-v2v(1).
       Output_vdsm.output_vdsm os vdsm_params vmtype output_alloc in
 
   input, output,
-  debug_overlays, do_copy, network_map, no_trim,
+  debug_overlays, do_copy, in_place, network_map, no_trim,
   output_alloc, output_format, output_name,
   print_source, root_choice
