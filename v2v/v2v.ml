@@ -57,40 +57,7 @@ let rec main () =
 
   let source = open_source input print_source in
   let source = amend_source source output_name network_map in
-
-  (* Create a qcow2 v3 overlay to protect the source image(s).  There
-   * is a specific reason to use the newer qcow2 variant: Because the
-   * L2 table can store zero clusters efficiently, and because
-   * discarded blocks are stored as zero clusters, this should allow us
-   * to fstrim/blkdiscard and avoid copying significant parts of the
-   * data over the wire.
-   *)
-  message (f_"Creating an overlay to protect the source from being modified");
-  let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
-  let overlays =
-    List.map (
-      fun ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
-        let overlay_file =
-          Filename.temp_file ~temp_dir:overlay_dir "v2vovl" ".qcow2" in
-        unlink_on_exit overlay_file;
-
-        let options =
-          "compat=1.1" ^
-            (match format with None -> ""
-            | Some fmt -> ",backing_fmt=" ^ fmt) in
-        let cmd =
-          sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
-            (quote qemu_uri) (quote options) overlay_file in
-        if verbose () then printf "%s\n%!" cmd;
-        if Sys.command cmd <> 0 then
-          error (f_"qemu-img command failed, see earlier errors");
-
-        (* Sanity check created overlay (see below). *)
-        if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
-          error (f_"internal error: qemu-img did not create overlay with backing file");
-
-        overlay_file, source
-    ) source.s_disks in
+  let overlays = create_overlays source.s_disks in
 
   (* Open the guestfs handle. *)
   message (f_"Opening the overlay");
@@ -100,27 +67,13 @@ let rec main () =
   if verbose () then g#set_verbose true;
   g#set_network true;
   List.iter (
-    fun (overlay_file, _) ->
+    fun ({ov_overlay_file = overlay_file}) ->
       g#add_drive_opts overlay_file
         ~format:"qcow2" ~cachemode:"unsafe" ~discard:"besteffort"
         ~copyonread:true
   ) overlays;
 
   g#launch ();
-
-  (* Create the list of overlays structs.  Query each disk for its
-   * virtual size, and fill in a few other fields.
-   *)
-  let overlays =
-    mapi (
-      fun i (overlay_file, source) ->
-        let sd = "sd" ^ drive_name i in
-        let dev = "/dev/" ^ sd in
-        let vsize = g#blockdev_getsize64 dev in
-
-        { ov_overlay_file = overlay_file; ov_sd = sd;
-          ov_virtual_size = vsize; ov_source = source }
-    ) overlays in
 
   (* Work out where we will write the final output.  Do this early
    * just so we can display errors to the user before doing too much
@@ -385,6 +338,7 @@ let rec main () =
 
   (* Save overlays if --debug-overlays option was used. *)
   if debug_overlays then (
+    let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
     List.iter (
       fun ov ->
         let saved_filename =
@@ -459,6 +413,45 @@ and amend_source source output_name network_map =
   ) source.s_nics in
 
   { source with s_nics = nics }
+
+and create_overlays src_disks =
+  (* Create a qcow2 v3 overlay to protect the source image(s).  There
+   * is a specific reason to use the newer qcow2 variant: Because the
+   * L2 table can store zero clusters efficiently, and because
+   * discarded blocks are stored as zero clusters, this should allow us
+   * to fstrim/blkdiscard and avoid copying significant parts of the
+   * data over the wire.
+   *)
+  message (f_"Creating an overlay to protect the source from being modified");
+  let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
+  List.mapi (
+    fun i ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
+      let overlay_file =
+        Filename.temp_file ~temp_dir:overlay_dir "v2vovl" ".qcow2" in
+      unlink_on_exit overlay_file;
+
+      let options =
+        "compat=1.1" ^
+          (match format with None -> ""
+          | Some fmt -> ",backing_fmt=" ^ fmt) in
+      let cmd =
+        sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
+          (quote qemu_uri) (quote options) overlay_file in
+      if verbose () then printf "%s\n%!" cmd;
+      if Sys.command cmd <> 0 then
+        error (f_"qemu-img command failed, see earlier errors");
+
+      (* Sanity check created overlay (see below). *)
+      if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+        error (f_"internal error: qemu-img did not create overlay with backing file");
+
+      let sd = "sd" ^ drive_name i in
+
+      let vsize = (new G.guestfs ())#disk_virtual_size overlay_file in
+
+      { ov_overlay_file = overlay_file; ov_sd = sd;
+        ov_virtual_size = vsize; ov_source = source }
+  ) src_disks
 
 and inspect_source g root_choice =
   let roots = g#inspect_os () in
