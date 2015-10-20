@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-15 14:22+0100\n"
+"POT-Creation-Date: 2015-10-20 16:53+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -51,7 +51,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:209
 #. ../builder/builder.ml:667
-#: ../v2v/v2v.ml:685 ../v2v/v2v.ml:535 ../sysprep/main.ml:241
+#: ../v2v/v2v.ml:522 ../v2v/v2v.ml:354 ../sysprep/main.ml:241
 msgid "%s (ignored)"
 msgstr ""
 
@@ -791,7 +791,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:317
+#: ../v2v/v2v.ml:98
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -834,7 +834,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:898
+#: ../v2v/v2v.ml:907
 msgid "CD-ROM"
 msgstr ""
 
@@ -874,11 +874,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:241
+#: ../v2v/v2v.ml:436
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:297
+#: ../v2v/v2v.ml:691
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -886,7 +886,7 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:291
+#: ../v2v/v2v.ml:91
 msgid "Closing the overlay"
 msgstr ""
 
@@ -906,11 +906,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:256
+#: ../v2v/v2v.ml:667
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:254
+#: ../v2v/v2v.ml:665
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -938,7 +938,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:338
+#: ../v2v/v2v.ml:727
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -962,11 +962,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:125
+#: ../v2v/v2v.ml:188
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:439
+#: ../v2v/v2v.ml:108
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1091,7 +1091,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:471
+#: ../v2v/v2v.ml:290
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1142,11 +1142,11 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:484
+#: ../v2v/v2v.ml:303
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:245
+#: ../v2v/v2v.ml:656
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1247,7 +1247,7 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:454 ../customize/customize_main.ml:219
+#: ../v2v/v2v.ml:114 ../customize/customize_main.ml:219
 #: ../builder/builder.ml:716
 msgid "Finishing off"
 msgstr ""
@@ -1352,7 +1352,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:186
+#: ../v2v/v2v.ml:224
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1364,7 +1364,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:220
+#: ../v2v/v2v.ml:70
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1459,7 +1459,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:287
+#: ../v2v/v2v.ml:87
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1530,11 +1530,11 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../v2v/v2v.ml:153
+#: ../v2v/v2v.ml:63
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:58
+#: ../v2v/v2v.ml:118
 msgid "Opening the source %s"
 msgstr ""
 
@@ -1586,7 +1586,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:450
+#: ../v2v/v2v.ml:924
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1625,11 +1625,11 @@ msgstr ""
 msgid "Performing %S ..."
 msgstr ""
 
-#: ../v2v/v2v.ml:511
+#: ../v2v/v2v.ml:330
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:502
+#: ../v2v/v2v.ml:321
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -2157,7 +2157,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:63
+#: ../v2v/v2v.ml:123
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2305,7 +2305,7 @@ msgid ""
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../dib/elements.ml:185
+#: ../dib/elements.ml:182
 msgid ""
 "There is a duplicated script in your elements:\n"
 "%s/%s in: %s"
@@ -2338,11 +2338,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:277
+#: ../v2v/v2v.ml:684
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:275
+#: ../v2v/v2v.ml:682
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2353,7 +2353,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:315
+#: ../v2v/v2v.ml:709
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2636,7 +2636,7 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
-#: ../v2v/v2v.ml:491
+#: ../v2v/v2v.ml:310
 msgid "connection closed"
 msgstr ""
 
@@ -2761,7 +2761,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:196
+#: ../v2v/v2v.ml:234
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2920,7 +2920,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:899
+#: ../v2v/v2v.ml:908
 msgid "floppy disk"
 msgstr ""
 
@@ -3038,11 +3038,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:350
+#: ../v2v/v2v.ml:739
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:147
+#: ../v2v/v2v.ml:209
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3090,7 +3090,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:518
+#: ../v2v/v2v.ml:337
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3126,7 +3126,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:498
+#: ../v2v/v2v.ml:317
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3214,7 +3214,7 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/v2v.ml:464
+#: ../v2v/v2v.ml:283
 msgid "no root device found in this operating system image."
 msgstr ""
 
@@ -3224,7 +3224,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:625
+#: ../v2v/v2v.ml:462
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3284,7 +3284,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/v2v.ml:206
+#: ../v2v/v2v.ml:244
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3358,7 +3358,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:389 ../v2v/v2v.ml:143
+#: ../v2v/v2v.ml:778 ../v2v/v2v.ml:205
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3370,7 +3370,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:896
+#: ../v2v/v2v.ml:905
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3383,7 +3383,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:509
+#: ../v2v/v2v.ml:328
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -3423,7 +3423,7 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:81
+#: ../v2v/v2v.ml:141
 msgid "source has no hard disks!"
 msgstr ""
 
@@ -3453,11 +3453,11 @@ msgstr ""
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr ""
 
-#: ../v2v/kvmuid.ml:56
+#: ../v2v/changeuid.ml:56
 msgid "subprocess exited with non-zero error code %d"
 msgstr ""
 
-#: ../v2v/kvmuid.ml:58
+#: ../v2v/changeuid.ml:58
 msgid "subprocess signalled or stopped by signal %d"
 msgstr ""
 
@@ -3571,7 +3571,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:306
+#: ../v2v/v2v.ml:700
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3611,7 +3611,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:530
+#: ../v2v/v2v.ml:349
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3668,7 +3668,7 @@ msgstr ""
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:73
+#: ../v2v/v2v.ml:133
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
@@ -3792,7 +3792,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:265
+#: ../v2v/v2v.ml:673
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -8979,11 +8979,16 @@ msgstr "le fichier release %s est vide ou malformé"
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:314
 #: src/inspect-fs-unix.c:401 src/inspect-fs-unix.c:1234
-#: src/inspect-fs-unix.c:1998 src/inspect-fs.c:602 src/inspect-fs.c:648
+#: src/inspect-fs-unix.c:2000 src/inspect-fs.c:602 src/inspect-fs.c:648
 #: src/inspect.c:652
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "la taille de %s est déraisonnablement grande (%<PRIi64> octets)"
+
+#: src/inspect-fs-unix.c:2047
+#, c-format
+msgid "%s:%s:%s: augeas parse failure: %s"
+msgstr ""
 
 #: src/inspect-fs.c:402 src/inspect-fs.c:415
 #, c-format
@@ -9034,11 +9039,11 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "vous devez appeler guestfs_add_drive avant guestfs_launch"
 
-#: src/launch-direct.c:835 src/launch-libvirt.c:622
+#: src/launch-direct.c:835 src/launch-libvirt.c:606
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu est lancé et a contacté le démon, mais l'état est != PRÊT"
 
-#: src/launch-direct.c:1237 src/launch-libvirt.c:1411
+#: src/launch-direct.c:1237 src/launch-libvirt.c:1395
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath : impossible de convertir « %s » en chemin absolu"
@@ -9078,28 +9083,28 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:280
+#: src/launch-libvirt.c:264
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "le drapeau de mode direct n'est pas pris en charge par le moteur libvirt"
 
-#: src/launch-libvirt.c:289
+#: src/launch-libvirt.c:273
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "libvirt doit être d'une version >= %d.%d.%d pour utiliser le moteur "
 "« libvirt »"
 
-#: src/launch-libvirt.c:324
+#: src/launch-libvirt.c:308
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "impossible de se connecter à libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:353
+#: src/launch-libvirt.c:337
 msgid "could not get libvirt capabilities"
 msgstr "impossible d'obtenir les capacités libvirt"
 
-#: src/launch-libvirt.c:550
+#: src/launch-libvirt.c:534
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9109,21 +9114,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:688
+#: src/launch-libvirt.c:672
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr "impossible d'analyser les capacités XML renvoyées par libvirt"
 
-#: src/launch-libvirt.c:694 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:678 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr "impossible de créer un nouveau contexte XPath"
 
-#: src/launch-libvirt.c:704
+#: src/launch-libvirt.c:688
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "impossible d'évaluer l'expression XPath : %s"
 
-#: src/launch-libvirt.c:739
+#: src/launch-libvirt.c:723
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -9150,22 +9155,22 @@ msgstr ""
 "Lire la page de manuel guestfs(3) et la FAQ libguestfs pour plus "
 "d'informations."
 
-#: src/launch-libvirt.c:975
+#: src/launch-libvirt.c:959
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1365
+#: src/launch-libvirt.c:1349
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "le paramètre « iface » n'est pas pris en charge par le moteur libvirt"
 
-#: src/launch-libvirt.c:1494
+#: src/launch-libvirt.c:1478
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1519
+#: src/launch-libvirt.c:1503
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -9176,35 +9181,35 @@ msgstr ""
 "en utilisant l'option « --format », ou via l'argument « format » de\n"
 "« add-drive »."
 
-#: src/launch-libvirt.c:1526
+#: src/launch-libvirt.c:1510
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1856
+#: src/launch-libvirt.c:1840
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1867
+#: src/launch-libvirt.c:1851
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1871
+#: src/launch-libvirt.c:1855
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1892
+#: src/launch-libvirt.c:1876
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1905
+#: src/launch-libvirt.c:1889
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:2015
+#: src/launch-libvirt.c:1999
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -9220,20 +9225,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2055
+#: src/launch-libvirt.c:2039
 msgid "could not destroy libvirt domain"
 msgstr "impossible d'arrêter le domaine libvirt"
 
-#: src/launch-libvirt.c:2106 src/launch-libvirt.c:2139
+#: src/launch-libvirt.c:2090 src/launch-libvirt.c:2123
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s : erreur interne lors de la construction du message d'erreur"
 
-#: src/launch-libvirt.c:2202
+#: src/launch-libvirt.c:2186
 msgid "could not attach disk to libvirt domain"
 msgstr "impossible d'attacher le disque au domaine libvirt"
 
-#: src/launch-libvirt.c:2233
+#: src/launch-libvirt.c:2217
 msgid "could not detach disk from libvirt domain"
 msgstr "impossible de détacher le disque du domaine libvirt"
 
