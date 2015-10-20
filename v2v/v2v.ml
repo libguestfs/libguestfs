@@ -103,26 +103,7 @@ let rec main () =
   g#shutdown ();
   g#close ();
 
-  (* Does the guest require UEFI on the target? *)
-  message (f_"Checking if the guest needs BIOS or UEFI to boot");
-  let target_firmware =
-    match source.s_firmware with
-    | BIOS -> TargetBIOS
-    | UEFI -> TargetUEFI
-    | UnknownFirmware ->
-       if inspect.i_uefi then TargetUEFI else TargetBIOS in
-  let supported_firmware = output#supported_firmware in
-  if not (List.mem target_firmware supported_firmware) then
-    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
-          (string_of_target_firmware target_firmware)
-          (String.concat " "
-            (List.map string_of_target_firmware supported_firmware));
-
-  output#check_target_firmware guestcaps target_firmware;
-
-  (match target_firmware with
-   | TargetBIOS -> ()
-   | TargetUEFI -> info (f_"This guest requires UEFI on the target to boot."));
+  let target_firmware = get_target_firmware inspect guestcaps source output in
 
   message (f_"Assigning disks to buses");
   let target_buses = target_bus_assignment source targets guestcaps in
@@ -818,6 +799,30 @@ and do_convert g inspect source keep_serial_console =
   );
 
   guestcaps
+
+and get_target_firmware inspect guestcaps source output =
+  (* Does the guest require UEFI on the target? *)
+  message (f_"Checking if the guest needs BIOS or UEFI to boot");
+  let target_firmware =
+    match source.s_firmware with
+    | BIOS -> TargetBIOS
+    | UEFI -> TargetUEFI
+    | UnknownFirmware ->
+       if inspect.i_uefi then TargetUEFI else TargetBIOS in
+  let supported_firmware = output#supported_firmware in
+  if not (List.mem target_firmware supported_firmware) then
+    error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")
+          (string_of_target_firmware target_firmware)
+          (String.concat " "
+            (List.map string_of_target_firmware supported_firmware));
+
+  output#check_target_firmware guestcaps target_firmware;
+
+  (match target_firmware with
+   | TargetBIOS -> ()
+   | TargetUEFI -> info (f_"This guest requires UEFI on the target to boot."));
+
+  target_firmware
 
 (* Update the target_actual_size field in the target structure. *)
 and actual_target_size target =
