@@ -171,7 +171,7 @@ sed -i -e '
 #/label check0/{N;N;N;d;}
 
 # Set the default timeout to 60 seconds
-s/^timeout .*/timeout 60/
+s/^timeout .*/timeout 600/
 ' $LIVE_ROOT/isolinux/isolinux.cfg
 
 # TODO: Replace the splash screen with something P2V appropriate
