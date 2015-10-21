@@ -60,7 +60,7 @@ class input_disk input_format disk = object
       match input_format with
       | Some format -> format
       | None ->
-        match (new Guestfs.guestfs ())#disk_format disk with
+        match (open_guestfs ())#disk_format disk with
         | "unknown" ->
           error (f_"cannot detect the input disk format; use the -if parameter")
         | format -> format in

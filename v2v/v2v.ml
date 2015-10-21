@@ -217,7 +217,7 @@ and create_overlays src_disks =
    * data over the wire.
    *)
   message (f_"Creating an overlay to protect the source from being modified");
-  let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
+  let overlay_dir = (open_guestfs ())#get_cachedir () in
   List.mapi (
     fun i ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
       let overlay_file =
@@ -944,7 +944,7 @@ and target_bus_assignment source targets guestcaps =
 
 and preserve_overlays overlays src_name =
   (* Save overlays if --debug-overlays option was used. *)
-  let overlay_dir = (new Guestfs.guestfs ())#get_cachedir () in
+  let overlay_dir = (open_guestfs ())#get_cachedir () in
   List.iter (
     fun ov ->
       let saved_filename =

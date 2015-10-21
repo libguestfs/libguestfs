@@ -28,7 +28,7 @@ open Utils
  * (RHBZ#1134592).  This can be removed once the libvirt bug is fixed.
  *)
 let error_if_libvirt_backend () =
-  let libguestfs_backend = (new Guestfs.guestfs ())#get_backend () in
+  let libguestfs_backend = (open_guestfs ())#get_backend () in
   if libguestfs_backend = "libvirt" then (
     error (f_"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
   )
