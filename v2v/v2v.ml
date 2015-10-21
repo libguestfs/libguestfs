@@ -76,6 +76,8 @@ let rec main () =
   );
 
   let g = open_guestfs () in
+  g#set_identifier "v2v";
+  g#set_network true;
   (match conversion_mode with
    | Copying (overlays, _) -> populate_overlays g overlays
    | In_place -> populate_disks g source.s_disks
@@ -283,15 +285,6 @@ and init_targets overlays source output output_format =
     ) overlays in
 
   output#prepare_targets source targets
-
-and open_guestfs () =
-  (* Open the guestfs handle. *)
-  let g = new G.guestfs () in
-  g#set_identifier "v2v";
-  if trace () then g#set_trace true;
-  if verbose () then g#set_verbose true;
-  g#set_network true;
-  g
 
 and populate_overlays g overlays =
   (* Populate guestfs handle with qcow2 overlays. *)
