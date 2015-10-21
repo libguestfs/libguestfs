@@ -16,6 +16,7 @@
 ../docs/guestfs-faq.pod
 ../docs/guestfs-performance.pod
 ../docs/guestfs-recipes.pod
+../docs/guestfs-release-notes.pod
 ../docs/guestfs-testing.pod
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod
@@ -34,7 +35,6 @@
 ../fuse/guestunmount.pod
 ../get-kernel/virt-get-kernel.pod
 ../golang/examples/guestfs-golang.pod
-../guestfs-release-notes.pod
 ../inspector/virt-inspector.pod
 ../java/examples/guestfs-java.pod
 ../lua/examples/guestfs-lua.pod

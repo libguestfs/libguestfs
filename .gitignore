@@ -133,10 +133,12 @@ Makefile.in
 /docs/guestfs-faq.1
 /docs/guestfs-performance.1
 /docs/guestfs-recipes.1
+/docs/guestfs-release-notes.1
 /docs/guestfs-testing.1
 /docs/stamp-guestfs-faq.pod
 /docs/stamp-guestfs-performance.pod
 /docs/stamp-guestfs-recipes.pod
+/docs/stamp-guestfs-release-notes.pod
 /docs/stamp-guestfs-testing.pod
 /edit/stamp-virt-*.pod
 /edit/virt-edit
@@ -217,7 +219,6 @@ Makefile.in
 /golang/examples/guestfs-golang.3
 /golang/examples/stamp-guestfs-golang.pod
 /golang/pkg
-/guestfs-release-notes.1
 /guestfsd-in-wine.log
 /haskell/Bindtests
 /haskell/Bindtests.hs
@@ -500,7 +501,6 @@ Makefile.in
 /src/structs-copy.c
 /src/structs-free.c
 /src/test-utils
-/stamp-guestfs-release-notes.pod
 /stamp-h1
 /sysprep/.depend
 /sysprep/stamp-script1.sh

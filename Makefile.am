@@ -194,8 +194,6 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/README \
 	contrib/visualize-alignment/tracetops.ml \
 	contrib/windows-icons.pl \
-	guestfs-release-notes.pod \
-	guestfs-release-notes.txt \
 	html/draft.png \
 	html/draft.svg \
 	html/pod.css \
@@ -379,25 +377,6 @@ install:
 installcheck-local: installcheck.sh
 	$(builddir)/installcheck.sh
 
-# Manual pages in top level directory.
-
-man_MANS = \
-	guestfs-release-notes.1
-noinst_DATA = \
-	$(top_builddir)/html/guestfs-release-notes.1.html
-
-guestfs-release-notes.1 guestfs-release-notes.txt $(top_builddir)/html/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
-
-stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
-	$(PODWRAPPER) \
-	  --section 1 \
-	  --man guestfs-release-notes.1 \
-	  --text guestfs-release-notes.txt \
-	  --html $(top_builddir)/html/guestfs-release-notes.1.html \
-	  --license GPLv2+ \
-	  $<
-	touch $@
-
 # NB. podwrapper is an internal tool, so the man page mustn't be installed.
 noinst_MANS = podwrapper.1
 podwrapper.1: podwrapper.pl
@@ -416,7 +395,6 @@ CLEANFILES = \
 	pod2htm?.tmp \
 	podwrapper.1 \
 	qemu-wrapper.sh \
-	stamp-guestfs-release-notes.pod \
 	tmp/disk* \
 	tmp/run-* \
 	tmp/valgrind-*.log
