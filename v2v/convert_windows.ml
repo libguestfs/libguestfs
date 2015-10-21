@@ -296,7 +296,7 @@ echo uninstalling Xen PV driver
     else if is_regular_file virtio_win then (
       try
         let g2 = open_guestfs () in
-        g#set_identifier "virtio_win";
+        g2#set_identifier "virtio_win";
         g2#add_drive_opts virtio_win ~readonly:true;
         g2#launch ();
         let vio_root = "/" in
