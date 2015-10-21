@@ -1743,6 +1743,7 @@ AC_CONFIG_FILES([Makefile
                  df/Makefile
                  dib/Makefile
                  diff/Makefile
+                 docs/Makefile
                  edit/Makefile
                  erlang/Makefile
                  erlang/examples/Makefile

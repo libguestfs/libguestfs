@@ -26,7 +26,7 @@ SUBDIRS += gnulib/tests
 endif
 
 # Basic source for the library.
-SUBDIRS += tests/data generator src examples po
+SUBDIRS += tests/data generator src docs examples po
 
 if ENABLE_DAEMON
 SUBDIRS += daemon

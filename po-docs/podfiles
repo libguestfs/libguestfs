@@ -13,13 +13,13 @@
 ../df/virt-df.pod
 ../dib/virt-dib.pod
 ../diff/virt-diff.pod
+../docs/guestfs-faq.pod
+../docs/guestfs-performance.pod
+../docs/guestfs-recipes.pod
+../docs/guestfs-testing.pod
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod
 ../examples/guestfs-examples.pod
-../examples/guestfs-faq.pod
-../examples/guestfs-performance.pod
-../examples/guestfs-recipes.pod
-../examples/guestfs-testing.pod
 ../fish/guestfish-actions.pod
 ../fish/guestfish-commands.pod
 ../fish/guestfish-prepopts.pod

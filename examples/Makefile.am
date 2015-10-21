@@ -20,10 +20,6 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	LICENSE \
 	guestfs-examples.pod \
-	guestfs-faq.pod \
-	guestfs-performance.pod \
-	guestfs-recipes.pod \
-	guestfs-testing.pod \
 	copy-over.c \
 	create-disk.c \
 	debug-logging.c \
@@ -34,11 +30,7 @@ EXTRA_DIST = \
 	virt-dhcp-address.c
 
 CLEANFILES = \
-	stamp-guestfs-examples.pod \
-	stamp-guestfs-faq.pod \
-	stamp-guestfs-performance.pod \
-	stamp-guestfs-recipes.pod \
-	stamp-guestfs-testing.pod
+	stamp-guestfs-examples.pod
 
 noinst_PROGRAMS = create-disk debug-logging display-icon inspect-vm
 if HAVE_LIBVIRT
@@ -139,18 +131,8 @@ virt_dhcp_address_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 endif
 
-man_MANS = \
-	guestfs-examples.3 \
-	guestfs-faq.1 \
-	guestfs-performance.1 \
-	guestfs-recipes.1 \
-	guestfs-testing.1
-noinst_DATA = \
-	$(top_builddir)/html/guestfs-examples.3.html \
-	$(top_builddir)/html/guestfs-faq.1.html \
-	$(top_builddir)/html/guestfs-performance.1.html \
-	$(top_builddir)/html/guestfs-recipes.1.html \
-	$(top_builddir)/html/guestfs-testing.1.html
+man_MANS = guestfs-examples.3
+noinst_DATA = $(top_builddir)/html/guestfs-examples.3.html
 
 guestfs-examples.3 $(top_builddir)/html/guestfs-examples.3.html: stamp-guestfs-examples.pod
 
@@ -168,49 +150,5 @@ stamp-guestfs-examples.pod: guestfs-examples.pod copy-over.c create-disk.c debug
 	  --verbatim $(srcdir)/mount-local.c:@MOUNT_LOCAL@ \
 	  --verbatim $(srcdir)/virt-dhcp-address.c:@VIRT_DHCP_ADDRESS@ \
 	  --license examples \
-	  $<
-	touch $@
-
-guestfs-faq.1 $(top_builddir)/html/guestfs-faq.1.html: stamp-guestfs-faq.pod
-
-stamp-guestfs-faq.pod: guestfs-faq.pod
-	$(PODWRAPPER) \
-	  --section 1 \
-	  --man guestfs-faq.1 \
-	  --html $(top_builddir)/html/guestfs-faq.1.html \
-	  --license LGPLv2+ \
-	  $<
-	touch $@
-
-guestfs-performance.1 $(top_builddir)/html/guestfs-performance.1.html: stamp-guestfs-performance.pod
-
-stamp-guestfs-performance.pod: guestfs-performance.pod
-	$(PODWRAPPER) \
-	  --section 1 \
-	  --man guestfs-performance.1 \
-	  --html $(top_builddir)/html/guestfs-performance.1.html \
-	  --license LGPLv2+ \
-	  $<
-	touch $@
-
-guestfs-recipes.1 $(top_builddir)/html/guestfs-recipes.1.html: stamp-guestfs-recipes.pod
-
-stamp-guestfs-recipes.pod: guestfs-recipes.pod
-	$(PODWRAPPER) \
-	  --section 1 \
-	  --man guestfs-recipes.1 \
-	  --html $(top_builddir)/html/guestfs-recipes.1.html \
-	  --license examples \
-	  $<
-	touch $@
-
-guestfs-testing.1 $(top_builddir)/html/guestfs-testing.1.html: stamp-guestfs-testing.pod
-
-stamp-guestfs-testing.pod: guestfs-testing.pod
-	$(PODWRAPPER) \
-	  --section 1 \
-	  --man guestfs-testing.1 \
-	  --html $(top_builddir)/html/guestfs-testing.1.html \
-	  --license LGPLv2+ \
 	  $<
 	touch $@

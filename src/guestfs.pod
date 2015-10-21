@@ -4458,6 +4458,10 @@ L<virt-dib(1)> command and documentation.
 
 L<virt-diff(1)> command and documentation.
 
+=item F<doc>
+
+Miscellaneous manual pages.
+
 =item F<edit>
 
 L<virt-edit(1)> command and documentation.
