@@ -44,11 +44,7 @@ if ! test -f $f2 || ! test -s $f2; then
     exit 77
 fi
 
-virt_tools_data_dir=${VIRT_TOOLS_DATA_DIR:-/usr/share/virt-tools}
-if ! test -r $virt_tools_data_dir/rhsrvany.exe; then
-    echo "$0: test skipped because rhsrvany.exe is not installed"
-    exit 77
-fi
+export VIRT_TOOLS_DATA_DIR="../v2v/fake-virt-tools"
 
 d=test-virt-p2v.d
 rm -rf $d

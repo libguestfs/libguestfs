@@ -47,10 +47,6 @@ if [ ! -f ../guests/blank-disk.img ]; then
     exit 77
 fi
 
-virt_tools_data_dir=${VIRT_TOOLS_DATA_DIR:-/usr/share/virt-tools}
-if ! test -r $virt_tools_data_dir/rhsrvany.exe; then
-    echo "$0: test skipped because rhsrvany.exe is not installed"
-    exit 77
-fi
+export VIRT_TOOLS_DATA_DIR="../../v2v/fake-virt-tools"
 
 ../../v2v/virt-v2v -i libvirtxml rhbz1232192.xml -o null --no-copy
