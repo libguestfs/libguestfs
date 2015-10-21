@@ -19,7 +19,7 @@ the time taken for inspection of VMs.
 Before making changes to how you use libguestfs, take baseline
 measurements.
 
-=head2 BASELINE: STARTING THE APPLIANCE
+=head2 Baseline: Starting the appliance
 
 On an unloaded machine, time how long it takes to start up the
 appliance:
@@ -43,7 +43,7 @@ You should expect to be getting times under 6 seconds.  If the times
 you see on an unloaded machine are above this, then see the section
 L</TROUBLESHOOTING POOR PERFORMANCE> below.
 
-=head2 BASELINE: PERFORMING INSPECTION OF A GUEST
+=head2 Baseline: Performing inspection of a guest
 
 For this test you will need an unloaded machine and at least one real
 guest or disk image.  If you are planning to use libguestfs against
@@ -147,7 +147,7 @@ build, rebuild, or cache their own appliance.
 (For detailed information on this subject, see:
 L<libguestfs-make-fixed-appliance(1)>).
 
-=head2 PERFORMANCE OF THE FIXED APPLIANCE
+=head2 Performance of the fixed appliance
 
 In our testing we did not find that using a fixed appliance gave any
 measurable performance benefit, even when the appliance was located in
@@ -397,7 +397,7 @@ L<http://rwmj.wordpress.com/2013/08/14/performance-of-user-mode-linux-as-a-libgu
 
 =head1 TROUBLESHOOTING POOR PERFORMANCE
 
-=head2 ENSURE HARDWARE VIRTUALIZATION IS AVAILABLE
+=head2 Ensure hardware virtualization is available
 
 Use F</proc/cpuinfo> and this page:
 
@@ -411,13 +411,13 @@ run slowly inside another virtual machine whatever you do.  Nested
 virtualization does not work well in our experience, and is certainly
 no substitute for running libguestfs on baremetal.
 
-=head2 ENSURE KVM IS AVAILABLE
+=head2 Ensure KVM is available
 
 Ensure that KVM is enabled and available to the user that will run
 libguestfs.  It should be safe to set 0666 permissions on F</dev/kvm>
 and most distributions now do this.
 
-=head2 PROCESSORS TO AVOID
+=head2 Processors to avoid
 
 Avoid processors that don't have hardware virtualization, and some
 processors which are simply very slow (AMD Geode being a great
