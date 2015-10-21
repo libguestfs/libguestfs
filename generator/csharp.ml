@@ -195,7 +195,7 @@ namespace Guestfs
           | BufferIn n
           | GUID n ->
               pr ", [In] string %s" n
-          | StringList n | DeviceList n ->
+          | StringList n | DeviceList n | FilenameList n ->
               pr ", [In] string[] %s" n
           | Bool n ->
               pr ", bool %s" n
@@ -224,7 +224,7 @@ namespace Guestfs
           | BufferIn n
           | GUID n ->
               next (); pr "string %s" n
-          | StringList n | DeviceList n ->
+          | StringList n | DeviceList n | FilenameList n ->
               next (); pr "string[] %s" n
           | Bool n ->
               next (); pr "bool %s" n

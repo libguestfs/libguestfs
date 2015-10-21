@@ -474,7 +474,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
           pr "  size_t %s_size;\n" n;
         | OptString n ->
           pr "  const char *%s;\n" n;
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
           pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
@@ -504,7 +504,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
             pr "  %s = luaL_checklstring (L, %d, &%s_size);\n" n i n
           | OptString n ->
             pr "  %s = luaL_optstring (L, %d, NULL);\n" n i
-          | StringList n | DeviceList n ->
+          | StringList n | DeviceList n | FilenameList n ->
             pr "  %s = get_string_list (L, %d);\n" n i
           | Bool n ->
             pr "  %s = lua_toboolean (L, %d);\n" n i
@@ -564,7 +564,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
         | BufferIn _ | OptString _
         | Bool _ | Int _ | Int64 _
         | Pointer _ | GUID _ -> ()
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
           pr "  free (%s);\n" n
       ) args;
       List.iter (

@@ -485,7 +485,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
           pr "String %s" n
       | BufferIn n ->
           pr "byte[] %s" n
-      | StringList n | DeviceList n ->
+      | StringList n | DeviceList n | FilenameList n ->
           pr "String[] %s" n
       | Bool n ->
           pr "boolean %s" n
@@ -846,7 +846,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
             pr ", jstring j%s" n
         | BufferIn n ->
             pr ", jbyteArray j%s" n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr ", jobjectArray j%s" n
         | Bool n ->
             pr ", jboolean j%s" n
@@ -917,7 +917,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | BufferIn n ->
             pr "  char *%s;\n" n;
             pr "  size_t %s_size;\n" n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr "  size_t %s_len;\n" n;
             pr "  char **%s;\n" n
         | Bool n
@@ -979,7 +979,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | BufferIn n ->
             pr "  %s = (char *) (*env)->GetByteArrayElements (env, j%s, NULL);\n" n n;
             pr "  %s_size = (*env)->GetArrayLength (env, j%s);\n" n n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
             pr "  %s = guestfs_int_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
@@ -1044,7 +1044,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
             pr "    (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
         | BufferIn n ->
             pr "  (*env)->ReleaseByteArrayElements (env, j%s, (jbyte *) %s, 0);\n" n n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;

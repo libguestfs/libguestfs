@@ -255,7 +255,7 @@ cleanup_free_mountable (mountable_t *mountable)
           | Mountable n | Mountable_or_Path n ->
             pr "  CLEANUP_FREE_MOUNTABLE mountable_t %s\n" n;
             pr "      = { .device = NULL, .volume = NULL };\n"
-          | StringList n ->
+          | StringList n | FilenameList n ->
             pr "  char **%s;\n" n
           | DeviceList n ->
             pr "  CLEANUP_FREE_STRING_LIST char **%s = NULL;\n" n
@@ -344,7 +344,23 @@ cleanup_free_mountable (mountable_t *mountable)
                 n n (if is_filein then "cancel_receive ()" else "");
           | String n | Key n | GUID n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
-          | StringList n ->
+          | StringList n | FilenameList n as arg ->
+            (match arg with
+            | FilenameList n ->
+              pr "  {\n";
+              pr "    size_t i;\n";
+              pr "    for (i = 0; i < args.%s.%s_len; ++i) {\n" n n;
+              pr "      if (strchr (args.%s.%s_val[i], '/') != NULL) {\n" n n;
+              if is_filein then
+                pr "        cancel_receive ();\n";
+              pr "        reply_with_error (\"%%s: '%%s' is not a file name\", __func__, args.%s.%s_val[i]);\n"
+                n n;
+              pr "        goto done;\n";
+              pr "      }\n";
+              pr "    }\n";
+              pr "  }\n"
+            | _ -> ()
+            );
             pr "  /* Ugly, but safe and avoids copying the strings. */\n";
             pr "  %s = realloc (args.%s.%s_val,\n" n n n;
             pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;

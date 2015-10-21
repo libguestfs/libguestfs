@@ -600,7 +600,7 @@ copy_table (char * const * argv)
         | BufferIn n ->
             pr "  size_t %s_size = caml_string_length (%sv);\n" n n;
             pr "  char *%s = guestfs_int_safe_memdup (g, String_val (%sv), %s_size);\n" n n n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
         | Bool n ->
             pr "  int %s = Bool_val (%sv);\n" n n
@@ -677,7 +677,7 @@ copy_table (char * const * argv)
         | OptString n | FileIn n | FileOut n | BufferIn n
         | Key n | GUID n ->
             pr "  free (%s);\n" n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr "  guestfs_int_free_string_list (%s);\n" n;
         | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
       ) args;
@@ -850,7 +850,8 @@ and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
     | FileIn _ | FileOut _ | BufferIn _ | Key _
     | GUID _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
-    | StringList _ | DeviceList _ -> pr "string array -> "
+    | StringList _ | DeviceList _ | FilenameList _ ->
+        pr "string array -> "
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "
     | Int64 _ | Pointer _ -> pr "int64 -> "

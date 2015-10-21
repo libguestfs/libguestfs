@@ -115,7 +115,8 @@ let generate_xdr () =
           | Key n | GUID n ->
             pr "  string %s<>;\n" n
           | OptString n -> pr "  guestfs_str *%s;\n" n
-          | StringList n | DeviceList n -> pr "  guestfs_str %s<>;\n" n
+          | StringList n | DeviceList n | FilenameList n ->
+            pr "  guestfs_str %s<>;\n" n
           | Bool n -> pr "  bool %s;\n" n
           | Int n -> pr "  int %s;\n" n
           | Int64 n -> pr "  int64_t %s;\n" n

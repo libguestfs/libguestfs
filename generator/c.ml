@@ -131,7 +131,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
           pr "const mountable_t *%s" n
         else
           pr "const char *%s" n
-    | StringList n | DeviceList n ->
+    | StringList n | DeviceList n | FilenameList n ->
         next ();
         pr "char *const *%s" n
     | Bool n -> next (); pr "int %s" n
@@ -1252,7 +1252,8 @@ and generate_client_actions hash () =
       | DeviceList n
       | Key n
       | Pointer (_, n)
-      | GUID n ->
+      | GUID n
+      | FilenameList n ->
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" c_name n;
@@ -1355,6 +1356,23 @@ and generate_client_actions hash () =
           pr "  }\n";
           pr_newline := true
 
+      | FilenameList n ->
+          pr "  {\n";
+          pr "    size_t i;\n";
+          pr "    for (i = 0; %s[i] != NULL; ++i) {\n" n;
+          pr "      if (strchr (%s[i], '/') != NULL) {\n" n;
+          pr "        error (g, \"%%s: %%s: '%%s' is not a file name\",\n";
+          pr "               \"%s\", \"%s\", %s[i]);\n" c_name n n;
+          let errcode =
+            match errcode_of_ret ret with
+            | `CannotReturnError -> assert false
+            | (`ErrorIsMinusOne |`ErrorIsNULL) as e -> e in
+          pr "        return %s;\n" (string_of_errcode errcode);
+          pr "      }\n";
+          pr "    }\n";
+          pr "  }\n";
+          pr_newline := true
+
       (* not applicable *)
       | String _
       | Device _
@@ -1383,7 +1401,7 @@ and generate_client_actions hash () =
 
     let needs_i =
       List.exists (function
-      | StringList _ | DeviceList _ -> true
+      | StringList _ | DeviceList _ | FilenameList _ -> true
       | _ -> false) args ||
       List.exists (function
       | OStringList _ -> true
@@ -1419,7 +1437,8 @@ and generate_client_actions hash () =
           pr "    else\n";
           pr "      fprintf (trace_buffer.fp, \" null\");\n"
       | StringList n
-      | DeviceList n ->			(* string list *)
+      | DeviceList n
+      | FilenameList n ->			(* string list *)
           pr "    fputc (' ', trace_buffer.fp);\n";
           pr "    fputc ('\"', trace_buffer.fp);\n";
           pr "    for (i = 0; %s[i]; ++i) {\n" n;
@@ -1735,7 +1754,7 @@ and generate_client_actions hash () =
           pr "  args.%s = (char *) %s;\n" n n
         | OptString n ->
           pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
           pr "  args.%s.%s_val = (char **) %s;\n" n n n;
           pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
         | Bool n ->

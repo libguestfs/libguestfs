@@ -147,7 +147,8 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
           | BufferIn n ->
               pr "withCStringLen %s $ \\(%s, %s_size) -> " n n n
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
-          | StringList n | DeviceList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
+          | StringList n | DeviceList n | FilenameList n ->
+              pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
           | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
         (* Convert integer arguments. *)
@@ -161,7 +162,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
             | Pathname n | Device n | Mountable n
             | Dev_or_Path n | Mountable_or_Path n
             | String n | OptString n
-            | StringList n | DeviceList n
+            | StringList n | DeviceList n | FilenameList n
             | Key n | GUID n -> n
             | BufferIn n -> sprintf "%s (fromIntegral %s_size)" n n
           ) args in
@@ -224,7 +225,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
           pr "CString -> CInt"
         | OptString _ ->
           pr "CString"
-        | StringList _ | DeviceList _ ->
+        | StringList _ | DeviceList _ | FilenameList _ ->
           pr "Ptr CString"
         | Bool _ -> pr "CInt"
         | Int _ -> pr "CInt"
@@ -267,7 +268,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
           pr "String"
         | OptString _ ->
           pr "Maybe String"
-        | StringList _ | DeviceList _ ->
+        | StringList _ | DeviceList _ | FilenameList _ ->
           pr "[String]"
         | Bool _ -> pr "Bool"
         | Int _ -> pr "Int"

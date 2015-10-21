@@ -85,7 +85,8 @@ let generate_gobject_proto name ?(single_line = true)
       | GUID n ->
         pr "const gchar *%s" n
       | StringList n
-      | DeviceList n ->
+      | DeviceList n
+      | FilenameList n ->
         pr "gchar *const *%s" n
       | BufferIn n ->
         pr "const guint8 *%s, gsize %s_size" n n
@@ -1052,7 +1053,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
             pr " (transfer none) (type filename):"
           | StringList _ ->
             pr " (transfer none) (array zero-terminated=1) (element-type utf8): an array of strings"
-          | DeviceList _ ->
+          | DeviceList _ | FilenameList _ ->
             pr " (transfer none) (array zero-terminated=1) (element-type filename): an array of strings"
           | BufferIn n ->
             pr " (transfer none) (array length=%s_size) (element-type guint8): an array of binary data\n" n;
@@ -1211,7 +1212,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
           | Pathname n | Dev_or_Path n | Mountable_or_Path n
           | OptString n | StringList n
           | DeviceList n | Key n | FileIn n | FileOut n
-          | GUID n ->
+          | GUID n | FilenameList n ->
             pr "%s" n
           | Pointer (_, n) ->
             pr "%s" n

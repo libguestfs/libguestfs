@@ -419,7 +419,8 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
     | DeviceList _, "", sym ->
       pr "  const char *const %s[1] = { NULL };\n" sym
     | StringList _, arg, sym
-    | DeviceList _, arg, sym ->
+    | DeviceList _, arg, sym
+    | FilenameList _, arg, sym ->
       let strs = string_split " " arg in
       iteri (
         fun i str ->
@@ -527,7 +528,9 @@ and generate_test_command_call ?(expect_error = false) ?test ?ret test_name cmd=
     | GUID _, _, sym -> pr ", %s" sym
     | BufferIn _, _, sym -> pr ", %s, %s_size" sym sym
     | FileOut _, arg, _ -> pr ", \"%s\"" (c_quote arg)
-    | StringList _, _, sym | DeviceList _, _, sym -> pr ", (char **) %s" sym
+    | StringList _, _, sym | DeviceList _, _, sym
+    | FilenameList _, _, sym ->
+      pr ", (char **) %s" sym
     | Int _, arg, _ ->
       let i =
         try int_of_string arg

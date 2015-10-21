@@ -582,7 +582,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
           pr "  size_t %s_size = RSTRING_LEN (%sv);\n" n n
         | OptString n ->
           pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
           pr "  char **%s;\n" n;
           pr "  Check_Type (%sv, T_ARRAY);\n" n;
           pr "  {\n";
@@ -677,7 +677,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
         | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ | Pointer _ | GUID _ -> ()
-        | StringList n | DeviceList n ->
+        | StringList n | DeviceList n | FilenameList n ->
             pr "  free (%s);\n" n
       ) args;
 

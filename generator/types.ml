@@ -190,6 +190,11 @@ and argt =
      * guestfs_int_validate_guid.
      *)
   | GUID of string
+    (* List of file names only, where the list cannot be NULL,
+     * and each element cannot be NULL, empty, or anything different than
+     * a simple file name (i.e. neither absolute nor relative paths).
+     *)
+  | FilenameList of string
 
 and optargs = optargt list
 
