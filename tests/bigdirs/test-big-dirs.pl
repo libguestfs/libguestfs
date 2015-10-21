@@ -63,7 +63,6 @@ for (my $i = 0; $i < $nr_files; ++$i) {
 # Check that lstatlist, lxattrlist and readlinklist return the
 # expected number of entries.
 my @a;
-@filenames = map { "/dir/$_" } @filenames;
 
 @a = $g->lstatlist ("/dir", \@filenames);
 die unless @a == $nr_files;

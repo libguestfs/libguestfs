@@ -2655,7 +2655,7 @@ See also C<guestfs_write>." };
 
   { defaults with
     name = "lstatlist"; added = (1, 0, 77);
-    style = RStructList ("statbufs", "stat"), [Pathname "path"; StringList "names"], [];
+    style = RStructList ("statbufs", "stat"), [Pathname "path"; FilenameList "names"], [];
     deprecated_by = Some "lstatnslist";
     shortdesc = "lstat on multiple files";
     longdesc = "\
@@ -2675,7 +2675,7 @@ for getting extended attributes." };
 
   { defaults with
     name = "lstatnslist"; added = (1, 27, 53);
-    style = RStructList ("statbufs", "statns"), [Pathname "path"; StringList "names"], [];
+    style = RStructList ("statbufs", "statns"), [Pathname "path"; FilenameList "names"], [];
     shortdesc = "lstat on multiple files";
     longdesc = "\
 This call allows you to perform the C<guestfs_lstatns> operation
@@ -2694,7 +2694,7 @@ for getting extended attributes." };
 
   { defaults with
     name = "lxattrlist"; added = (1, 0, 77);
-    style = RStructList ("xattrs", "xattr"), [Pathname "path"; StringList "names"], [];
+    style = RStructList ("xattrs", "xattr"), [Pathname "path"; FilenameList "names"], [];
     optional = Some "linuxxattrs";
     shortdesc = "lgetxattr on multiple files";
     longdesc = "\
@@ -2719,7 +2719,7 @@ for getting standard stats." };
 
   { defaults with
     name = "readlinklist"; added = (1, 0, 77);
-    style = RStringList "links", [Pathname "path"; StringList "names"], [];
+    style = RStringList "links", [Pathname "path"; FilenameList "names"], [];
     shortdesc = "readlink on multiple files";
     longdesc = "\
 This call allows you to do a C<readlink> operation
@@ -7703,7 +7703,7 @@ yourself (Augeas support makes this relatively easy)." };
 
   { defaults with
     name = "internal_lxattrlist"; added = (1, 19, 32);
-    style = RStructList ("xattrs", "xattr"), [Pathname "path"; StringList "names"], [];
+    style = RStructList ("xattrs", "xattr"), [Pathname "path"; FilenameList "names"], [];
     proc_nr = Some 205;
     visibility = VInternal;
     optional = Some "linuxxattrs";
@@ -7733,7 +7733,7 @@ into smaller groups of names." };
 
   { defaults with
     name = "internal_readlinklist"; added = (1, 19, 32);
-    style = RStringList "links", [Pathname "path"; StringList "names"], [];
+    style = RStringList "links", [Pathname "path"; FilenameList "names"], [];
     proc_nr = Some 206;
     visibility = VInternal;
     shortdesc = "readlink on multiple files";
@@ -12220,7 +12220,7 @@ This is the same as the L<lstat(2)> system call." };
 
   { defaults with
     name = "internal_lstatnslist"; added = (1, 27, 53);
-    style = RStructList ("statbufs", "statns"), [Pathname "path"; StringList "names"], [];
+    style = RStructList ("statbufs", "statns"), [Pathname "path"; FilenameList "names"], [];
     proc_nr = Some 423;
     visibility = VInternal;
     shortdesc = "lstat on multiple files";
