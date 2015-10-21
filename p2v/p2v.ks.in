@@ -70,6 +70,9 @@ firewalld
 # Work around https://bugzilla.redhat.com/show_bug.cgi?id=1182362
 tar
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=1168223
+dracut-live
+
 # The dependencies of virt-p2v.
 __DEPENDENCIES__
 
