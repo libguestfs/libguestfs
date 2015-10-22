@@ -33,7 +33,9 @@
       <source network='Ethernet 1'/>
       <model type='virtio'/>
     </interface>
-    <video type='qxl' ram='65536' heads='1'/>
+    <video>
+      <model type='qxl' ram='65536' heads='1'/>
+    </video>
     <graphics type='vnc' autoport='yes' port='-1'/>
     <input type='tablet' bus='usb'/>
     <input type='mouse' bus='ps2'/>
