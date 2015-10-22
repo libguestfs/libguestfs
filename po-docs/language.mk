@@ -56,10 +56,12 @@ MANPAGES = \
 	virt-copy-out.1 \
 	virt-customize.1 \
 	virt-df.1 \
+	virt-dib.1 \
 	virt-diff.1 \
 	virt-edit.1 \
 	virt-filesystems.1 \
 	virt-format.1 \
+	virt-get-kernel.1 \
 	virt-index-validate.1 \
 	virt-inspector.1 \
 	virt-list-filesystems.1 \
