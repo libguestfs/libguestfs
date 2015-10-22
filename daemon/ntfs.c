@@ -201,7 +201,7 @@ ntfs_minimum_size (const char *device)
       }
       else if (STRPREFIX (lines[i], volume_size_pattern)) {
         if (XSTRTOD64 (lines[i] + strlen (volume_size_pattern),
-                       NULL, 20, &volume_size, NULL) != LONGINT_OK) {
+                       NULL, 10, &volume_size, NULL) != LONGINT_OK) {
           reply_with_error ("cannot parse volume size");
           return -1;
         }
@@ -226,7 +226,7 @@ ntfs_minimum_size (const char *device)
     if (STRPREFIX (lines[i], size_pattern)) {
       int64_t ret;
       if (XSTRTOD64 (lines[i] + strlen (size_pattern),
-                     NULL, 20, &ret, NULL) != LONGINT_OK) {
+                     NULL, 10, &ret, NULL) != LONGINT_OK) {
         reply_with_error ("cannot parse minimum size");
         return -1;
       }

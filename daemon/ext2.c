@@ -336,7 +336,7 @@ ext_minimum_size (const char *device)
   for (i = 0; lines[i] != NULL; ++i) {
     if (STRPREFIX (lines[i], pattern)) {
       if (XSTRTOD64 (lines[i] + strlen (pattern),
-                     NULL, 20, &ret, NULL) != LONGINT_OK) {
+                     NULL, 10, &ret, NULL) != LONGINT_OK) {
         reply_with_error ("cannot parse minimum size");
         return -1;
       }
