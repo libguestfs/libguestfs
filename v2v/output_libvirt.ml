@@ -407,6 +407,12 @@ class output_libvirt oc output_pool = object
     DOM.doc_to_chan chan doc;
     close_out chan;
 
+    if verbose () then (
+      printf "resulting XML for libvirt:\n%!";
+      DOM.doc_to_chan stdout doc;
+      printf "\n%!";
+    );
+
     (* Define the domain in libvirt. *)
     let cmd =
       match oc with
