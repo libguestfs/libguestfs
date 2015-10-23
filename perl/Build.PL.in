@@ -1,0 +1,72 @@
+#!/usr/bin/env perl
+# libguestfs Perl bindings
+# Copyright (C) 2009-2015 Red Hat Inc.
+# @configure_input@
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+use warnings;
+use strict;
+
+use Module::Build;
+
+# The Perl module version doesn't (and can't) use the libguestfs
+# version.  It uses '0.<max_proc_nr>' instead.  However it's nice to
+# set the release_status correctly here based on the libguestfs minor
+# number (see configure.ac for how this works).
+my $release_status;
+if ('@BRANCH_TYPE@' eq 'stable') { $release_status = "stable" }
+else { $release_status = "testing" }
+
+my $build = Module::Build->new (
+    module_name => 'Sys::Guestfs',
+    release_status => $release_status,
+    license => 'lgpl',          # See COPYING.LIB
+
+    configure_requires => {
+        'Module::Build' => '0.4004', # test_requires
+    },
+
+    build_requires => {
+        'ExtUtils::CBuilder' => 0,
+    },
+
+    requires => {
+        perl => '5.6.0',
+    },
+
+    test_requires => {
+        'Test::More' => 0,
+    },
+
+    create_packlist => 0,
+
+    needs_compiler => 1,
+
+    extra_compiler_flags => [
+        '-DGUESTFS_PRIVATE=1',
+        split (' ', '@CFLAGS@'),
+    ],
+    include_dirs => [
+        '@top_builddir@/src',
+        '@top_srcdir@/src',
+    ],
+    extra_linker_flags => [
+        '-L@top_builddir@/src/.libs',
+        '-lguestfs',
+    ],
+);
+
+$build->create_build_script;

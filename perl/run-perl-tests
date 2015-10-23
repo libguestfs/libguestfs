@@ -18,4 +18,4 @@
 
 set -e
 
-make -f Makefile-pl test "$@"
+./Build test

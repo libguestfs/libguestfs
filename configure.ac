@@ -1774,8 +1774,8 @@ AC_CONFIG_FILES([Makefile
                  ocaml/Makefile
                  ocaml/examples/Makefile
                  p2v/Makefile
+                 perl/Build.PL
                  perl/Makefile
-                 perl/Makefile.PL
                  perl/examples/Makefile
                  php/Makefile
                  po-docs/Makefile
