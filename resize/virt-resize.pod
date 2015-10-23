@@ -578,6 +578,28 @@ gigabyte of free space.
 
 Note that you cannot use I<--expand> and I<--shrink> together.
 
+=item B<--unknown-filesystems ignore>
+
+=item B<--unknown-filesystems warn>
+
+=item B<--unknown-filesystems error>
+
+Configure the behaviour of virt-resize when asking to expand a
+filesystem, and neither libguestfs has the support it, nor virt-resize
+knows how to expand the content of the filesystem.
+
+I<--unknown-filesystems ignore> will cause virt-resize to silently
+ignore such filesystems, and nothing is printed about them.
+
+I<--unknown-filesystems warn> (the default behaviour) will cause
+virt-resize to warn for each of the filesystem that cannot be
+expanded, but still continuing to resize the disk.
+
+I<--unknown-filesystems error> will cause virt-resize to error out
+at the first filesystem that cannot be expanded.
+
+See also L</"unknown/unavailable method for expanding the TYPE filesystem on DEVICE/LV">.
+
 =item B<-v>
 
 =item B<--verbose>
@@ -764,7 +786,11 @@ expand that type of filesystem.
 
 =back
 
-In both cases, virt-resize will not expand the mentioned filesystem.
+In both cases, virt-resize will not expand the mentioned filesystem;
+the result (unless I<--unknown-filesystems error> is specified)
+is that the partitions containing such filesystems will be actually
+bigger as requested, but the filesystems will still be usable at the
+their older sizes.
 
 =head1 ALTERNATIVE TOOLS
 

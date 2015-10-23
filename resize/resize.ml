@@ -149,13 +149,18 @@ let string_of_expand_content_method = function
   | BtrfsFilesystemResize -> s_"btrfs-filesystem-resize"
   | XFSGrowFS -> s_"xfs_growfs"
 
+type unknown_filesystems_mode =
+  | UnknownFsIgnore
+  | UnknownFsWarn
+  | UnknownFsError
+
 (* Main program. *)
 let main () =
   let infile, outfile, align_first, alignment, copy_boot_loader,
     deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
-    resizes, resizes_force, shrink, sparse =
+    resizes, resizes_force, shrink, sparse, unknown_fs_mode =
 
     let add xs s = xs := s :: !xs in
 
@@ -187,6 +192,7 @@ let main () =
       else shrink := s
     in
     let sparse = ref true in
+    let unknown_fs_mode = ref "warn" in
 
     let ditto = " -\"-" in
     let argspec = [
@@ -215,6 +221,8 @@ let main () =
       "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
       "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
       "--no-sparse", Arg.Clear sparse,        " " ^ s_"Turn off sparse copying";
+      "--unknown-filesystems", Arg.Set_string unknown_fs_mode,
+                                              s_"ignore|warn|error" ^ " " ^ s_"Behaviour on expand unknown filesystems (default: warn)";
     ] in
     let argspec = set_standard_options argspec in
     let disks = ref [] in
@@ -253,6 +261,7 @@ read the man page virt-resize(1).
     let resizes_force = List.rev !resizes_force in
     let shrink = match !shrink with "" -> None | str -> Some str in
     let sparse = !sparse in
+    let unknown_fs_mode = !unknown_fs_mode in
 
     if alignment < 1 then
       error (f_"alignment cannot be < 1");
@@ -265,6 +274,14 @@ read the man page virt-resize(1).
       | "auto" -> `Auto
       | _ ->
         error (f_"unknown --align-first option: use never|always|auto") in
+
+    let unknown_fs_mode =
+      match unknown_fs_mode with
+      | "ignore" -> UnknownFsIgnore
+      | "warn" -> UnknownFsWarn
+      | "error" -> UnknownFsError
+      | _ ->
+        error (f_"unknown --unknown-filesystems: use ignore|warn|error") in
 
     (* No arguments and machine-readable mode?  Print out some facts
      * about what this binary supports.  We only need to print out new
@@ -315,7 +332,7 @@ read the man page virt-resize(1).
     deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
     lv_expands, machine_readable, ntfsresize_force, output_format,
-    resizes, resizes_force, shrink, sparse in
+    resizes, resizes_force, shrink, sparse, unknown_fs_mode in
 
   (* Default to true, since NTFS/btrfs/XFS support are usually available. *)
   let ntfs_available = ref true in
@@ -820,6 +837,50 @@ read the man page virt-resize(1).
             name (fst infile) in
       lv.lv_operation <- LVOpExpand
   ) lv_expands;
+
+  (* In case we need to error out on unknown/unhandled filesystems,
+   * iterate on what we need to resize/expand.
+   *)
+  (match unknown_fs_mode with
+  | UnknownFsIgnore -> ()
+  | UnknownFsWarn -> ()
+  | UnknownFsError ->
+    List.iter (
+      fun p ->
+        match p.p_operation with
+        | OpCopy
+        | OpIgnore
+        | OpDelete -> ()
+        | OpResize _ ->
+          if not (can_expand_content p.p_type) then (
+            (match p.p_type with
+            | ContentUnknown
+            | ContentPV _
+            | ContentExtendedPartition -> ()
+            | ContentFS (fs, _) ->
+              error (f_"unknown/unavailable method for expanding the %s filesystem on %s")
+                fs p.p_name
+            );
+          )
+    ) partitions;
+
+    List.iter (
+      fun lv ->
+        match lv.lv_operation with
+        | LVOpNone -> ()
+        | LVOpExpand ->
+          if not (can_expand_content lv.lv_type) then (
+            (match lv.lv_type with
+            | ContentUnknown
+            | ContentPV _
+            | ContentExtendedPartition -> ()
+            | ContentFS (fs, _) ->
+              error (f_"unknown/unavailable method for expanding the %s filesystem on %s")
+                fs lv.lv_name;
+            );
+          )
+    ) lvs;
+  );
 
   (* Print a summary of what we will do. *)
   flush stderr;

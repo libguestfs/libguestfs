@@ -36,6 +36,9 @@ _guestfs_options_only ()
         --password-crypto)
             COMPREPLY=( $( compgen -W "md5 sha256 sha512" -- "$cur") )
             return ;;
+        --unknown-filesystems)
+            COMPREPLY=( $( compgen -W "ignore warn error" -- "$cur") )
+            return ;;
     esac
 
     case "$cur" in
