@@ -575,7 +575,7 @@ let main () =
         if verbose () then g#set_verbose true;
         g#disk_create ?preallocation ofile oformat osize in
       let cmd =
-        sprintf "virt-resize%s%s%s --output-format %s%s%s %s %s"
+        sprintf "virt-resize%s%s%s --output-format %s%s%s --unknown-filesystems error %s %s"
           (if verbose () then " --verbose" else " --quiet")
           (if is_block_device ofile then " --no-sparse" else "")
           (match iformat with
