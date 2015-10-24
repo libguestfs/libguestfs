@@ -100,7 +100,9 @@ endif
 
 v2v_test_harness.cmi: $(top_builddir)/ocaml/guestfs.cmi
 
-# Do the installation by hand, because we want to run ocamlfind.
+# Run ocamlfind to perform the install.  ocamlfind refuses to install
+# the package if it is already installed, so remove the old package
+# first.
 data_hook_files = META *.so *.a *.cmi $(srcdir)/*.mli
 if !HAVE_OCAMLOPT
 data_hook_files += *.cmo *.cma
@@ -111,6 +113,8 @@ endif
 install-data-hook:
 	mkdir -p $(DESTDIR)$(OCAMLLIB)
 	mkdir -p $(DESTDIR)$(OCAMLLIB)/stublibs
+	rm -rf $(DESTDIR)$(OCAMLLIB)/v2v_test_harness
+	rm -rf $(DESTDIR)$(OCAMLLIB)/stublibs/dllv2v_test_harness.so*
 	$(OCAMLFIND) install \
 	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
 	  v2v_test_harness \
