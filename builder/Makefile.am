@@ -268,7 +268,7 @@ repoconfdir = $(sysconfdir)/xdg/virt-builder/repos.d
 repoconf_DATA = libguestfs.conf libguestfs.gpg
 
 install-exec-hook:
-	$(LN_S) xdg/virt-builder $(DESTDIR)$(sysconfdir)/virt-builder
+	$(LN_S) -f xdg/virt-builder $(DESTDIR)$(sysconfdir)/virt-builder
 
 # Build a small C index validator program.
 bin_PROGRAMS += virt-index-validate
