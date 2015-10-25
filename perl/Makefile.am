@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	Guestfs.xs \
+	lib/Sys/Guestfs.xs \
 	lib/Sys/Guestfs.pm \
 	bindtests.pl
 
@@ -28,6 +28,7 @@ EXTRA_DIST = \
 	examples/README \
 	examples/LICENSE \
 	examples/*.pl \
+	MANIFEST \
 	run-bindtests \
 	run-perl-tests \
 	t/*.t \
