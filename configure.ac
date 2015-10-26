@@ -1178,7 +1178,7 @@ AS_IF([test "x$enable_perl" != "xno"],[
     dnl Check for Perl modules that must be present to compile and
     dnl test the Perl bindings.
     missing_perl_modules=no
-    for pm in Test::More ExtUtils::MakeMaker; do
+    for pm in Test::More Module::Build; do
         AC_MSG_CHECKING([for $pm])
         if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
             AC_MSG_RESULT([no])
