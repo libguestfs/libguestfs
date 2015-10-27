@@ -142,6 +142,41 @@ notes=Debian 7 (Wheezy).
  
  --firstboot-command "dpkg-reconfigure openssh-server"
 
+[debian-7]
+name=Debian 7 (Wheezy) (sparc64)
+osinfo=debian7
+arch=sparc64
+file=debian-7-sparc64.xz
+checksum=a81530ec2335d578e54fcf3c62b979a2985faee8e6480a49e7d24269097c89585f39a04b00d99e82aca00f3304c44dfbed843ce6ce5dcd7828256a51219b701f
+format=raw
+size=4294967296
+compressed_size=96292208
+expand=/dev/sda3
+notes=Debian 7 (Wheezy).
+ 
+ This is a Debian 7 (Wheezy) sparc64 image.  This was not built using
+ a reproducible script, but by installing Debian by hand, so don't use
+ this in production.
+ 
+ There is also a 'debian' account which you should be aware of and
+ may need to remove.
+ 
+ To build the image, use:
+ 
+ virt-builder [...] \
+   --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,' \
+   --firstboot-command "dpkg-reconfigure openssh-server"
+ 
+ Resizing the image will not work because virt-builder does not
+ understand the partition format.
+ 
+ To boot the image:
+ 
+ qemu-system-sparc64 -drive file=debian-7.img,format=raw  -serial stdio
+ 
+ Console messages are lost after the bootconsole is disabled, but it
+ is still booting and will eventually give you a login prompt.
+
 [debian-8]
 name=Debian 8 (Jessie)
 osinfo=debian8
