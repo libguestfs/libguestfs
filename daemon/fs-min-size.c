@@ -73,6 +73,13 @@ do_vfs_minimum_size (const mountable_t *mountable)
     r = btrfs_minimum_size (path);
   }
 
+  else if (STREQ (vfs_type, "xfs")) {
+    CLEANUP_FREE char *path = get_mount_point (mountable->device);
+    if (path == NULL)
+      return -1;
+    r = xfs_minimum_size (path);
+  }
+
   else
     NOT_SUPPORTED (-1, "don't know how to get minimum size of '%s' filesystems",
                    vfs_type);
