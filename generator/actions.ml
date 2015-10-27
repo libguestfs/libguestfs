@@ -12761,6 +12761,10 @@ To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
       InitPartition, IfAvailable "ntfsprogs", TestRun(
         [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
+      InitPartition, Always, TestRun (
+        [["mkfs"; "btrfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
+         ["mount"; "/dev/sda1"; "/"];
+         ["vfs_minimum_size"; "/dev/sda1"]]), [];
     ];
     shortdesc = "get minimum filesystem size";
     longdesc = "\
@@ -12770,7 +12774,7 @@ This is the minimum possible size for filesystem shrinking.
 If getting minimum size of specified filesystem is not supported,
 this will fail and set errno as ENOTSUP.
 
-See also L<ntfsresize(8)>, L<resize2fs(8)>." };
+See also L<ntfsresize(8)>, L<resize2fs(8)>, L<btrfs(8)>." };
 
 ]
 

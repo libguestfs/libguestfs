@@ -280,6 +280,7 @@ extern char *btrfs_get_label (const char *device);
 extern int btrfs_set_label (const char *device, const char *label);
 extern int btrfs_set_uuid (const char *device, const char *uuid);
 extern int btrfs_set_uuid_random (const char *device);
+extern int64_t btrfs_minimum_size (const char *path);
 
 /*-- in ntfs.c --*/
 extern char *ntfs_get_label (const char *device);

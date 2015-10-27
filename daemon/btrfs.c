@@ -2190,3 +2190,74 @@ do_btrfs_replace (const char *srcdev, const char *targetdev,
 
   return 0;
 }
+
+/* btrfs command add a new command
+ * inspect-internal min-dev-size <path>
+ * since v4.2
+ * We could check whether 'btrfs' supports
+ * 'min-dev-size' command by checking the output of
+ * 'btrfs --help' command.
+ */
+static int
+test_btrfs_min_dev_size (void)
+{
+  CLEANUP_FREE char *err = NULL, *out = NULL;
+  static int result = -1;
+  const char *cmd_pattern = "btrfs inspect-internal min-dev-size";
+  int r;
+
+  if (result != -1)
+    return result;
+
+  r = commandr (&out, &err, str_btrfs, "--help", NULL);
+
+  if (r == -1) {
+    reply_with_error ("btrfs: %s", err);
+    return -1;
+  }
+
+  if (strstr (out, cmd_pattern) == NULL)
+    result = 0;
+  else
+    result = 1;
+
+  return result;
+}
+
+int64_t
+btrfs_minimum_size (const char *path)
+{
+  CLEANUP_FREE char *err = NULL, *out = NULL;
+  int64_t ret = 0;
+  int r;
+  int min_size_supported = test_btrfs_min_dev_size ();
+
+  if (min_size_supported == -1)
+    return -1;
+  else if (min_size_supported == 0)
+    NOT_SUPPORTED (-1, "'btrfs inspect-internal min-dev-size' \
+                        needs btrfs-progs >= 4.2");
+
+  r = command (&out, &err, str_btrfs, "inspect-internal",
+               "min-dev-size", sysroot_path (path), NULL);
+
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+#if __WORDSIZE == 64
+#define XSTRTOD64 xstrtol
+#else
+#define XSTRTOD64 xstrtoll
+#endif
+
+  if (XSTRTOD64 (out, NULL, 10, &ret, NULL) != LONGINT_OK) {
+    reply_with_error ("cannot parse minimum size");
+    return -1;
+  }
+
+#undef XSTRTOD64
+
+  return ret;
+}
