@@ -128,7 +128,7 @@ let find_uefi_firmware guest_arch =
 
 (* Given a path of a file relative to the root of the directory tree
  * with virtio-win drivers, figure out if it's suitable for the
-  specific Windows flavor of the current guest.
+ * specific Windows flavor of the current guest.
  *)
 let virtio_iso_path_matches_guest_os path inspect =
   let { Types.i_major_version = os_major; i_minor_version = os_minor;
