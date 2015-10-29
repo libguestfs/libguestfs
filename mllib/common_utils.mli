@@ -149,6 +149,10 @@ val warning : ('a, unit, string, unit) format4 -> 'a
 val info : ('a, unit, string, unit) format4 -> 'a
 (** Standard info function.  Note: Use full sentences for this. *)
 
+val open_guestfs : unit -> Guestfs.guestfs
+(** Common function to create a new Guestfs handle, with common options
+    (e.g. debug, tracing) already set. *)
+
 val run_main_and_handle_errors : (unit -> unit) -> unit
 (** Common function for handling pretty-printing exceptions. *)
 

@@ -382,13 +382,6 @@ let string_of_target_buses buses =
   string_of_target_bus_slots "ide" buses.target_ide_bus ^
   string_of_target_bus_slots "scsi" buses.target_scsi_bus
 
-let open_guestfs () =
-  (* Open the guestfs handle. *)
-  let g = new Guestfs.guestfs () in
-  if trace () then g#set_trace true;
-  if verbose () then g#set_verbose true;
-  g
-
 class virtual input = object
   method virtual as_options : string
   method virtual source : unit -> source

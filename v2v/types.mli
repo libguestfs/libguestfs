@@ -253,8 +253,3 @@ type output_allocation = Sparse | Preallocated
 
 type vmtype = Desktop | Server
 (** Type of [--vmtype] option. *)
-
-val open_guestfs : unit -> Guestfs.guestfs
-(* Create a new Guestfs handle, with common options (e.g. debug, tracing)
- * already set.
- *)
