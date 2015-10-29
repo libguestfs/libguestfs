@@ -1,0 +1,751 @@
+=head1 NAME
+
+guestfs-hacking - extending and contributing to libguestfs
+
+=head1 DESCRIPTION
+
+This manual page is for hackers who want to extend libguestfs itself.
+
+=head2 OVERVIEW OF THE SOURCE CODE
+
+Libguestfs source is located in the github repository
+L<https://github.com/libguestfs/libguestfs>
+
+Large amounts of boilerplate code in libguestfs (RPC, bindings,
+documentation) are generated.  This means that many source files will
+appear to be missing from a straightforward git checkout.  You have to
+run the generator (C<./autogen.sh && make -C generator>) in order to
+create those files.
+
+Libguestfs uses an autotools-based build system, with the main files
+being F<configure.ac> and F<Makefile.am>.  The F<generator>
+subdirectory contains the generator, plus files describing the API.
+The F<src> subdirectory contains source for the library.  The
+F<appliance> and F<daemon> subdirectories contain the source for the
+code that builds the appliance, and the code that runs in the
+appliance respectively.  Other directories are covered in the section
+L<SOURCE CODE SUBDIRECTORIES> below.
+
+Apart from the fact that all API entry points go via some generated
+code, the library is straightforward.  (In fact, even the generated
+code is designed to be readable, and should be read as ordinary code).
+Some actions run entirely in the library, and are written as C
+functions in files under F<src>.  Others are forwarded to the daemon
+where (after some generated RPC marshalling) they appear as C
+functions in files under F<daemon>.
+
+To build from source, first read the C<README> file.
+
+=head2 F<local*> FILES
+
+Files in the top source directory that begin with the prefix F<local*>
+are ignored by git.  These files can contain local configuration or
+scripts that you need to build libguestfs.
+
+By convention, I have a file called F<localconfigure> which is a
+simple wrapper around F<autogen.sh> containing local configure
+customizations that I need:
+
+ . localenv
+ ./autogen.sh \
+     --with-default-backend=libvirt \
+     --enable-gcc-warnings \
+     --enable-gtk-doc \
+     -C \
+     "$@"
+
+So I can use this to build libguestfs:
+
+ ./localconfigure && make
+
+If there is a file in the top build directory called F<localenv>, then
+it will be sourced by C<make>.  This file can contain any local
+environment variables needed, eg. for skipping tests:
+
+ # Use an alternate python binary.
+ export PYTHON=python3
+ # Skip this test, it is broken.
+ export SKIP_TEST_BTRFS_FSCK=1
+
+Note that F<localenv> is included by the top Makefile (so it's a
+Makefile fragment).  But if it is also sourced by your
+F<localconfigure> script then it is used as a shell script.
+
+=head2 ADDING A NEW API ACTION
+
+Because large amounts of boilerplate code in libguestfs are generated,
+this makes it easy to extend the libguestfs API.
+
+To add a new API action there are two changes:
+
+=over 4
+
+=item 1.
+
+You need to add a description of the call (name, parameters, return
+type, tests, documentation) to F<generator/actions.ml>.
+
+There are two sorts of API action, depending on whether the call goes
+through to the daemon in the appliance, or is serviced entirely by the
+library (see L<guestfs-internals(3)/ARCHITECTURE>).  L<guestfs(3)/guestfs_sync> is an example
+of the former, since the sync is done in the appliance.
+L<guestfs(3)/guestfs_set_trace> is an example of the latter, since a trace flag
+is maintained in the handle and all tracing is done on the library
+side.
+
+Most new actions are of the first type, and get added to the
+C<daemon_functions> list.  Each function has a unique procedure number
+used in the RPC protocol which is assigned to that action when we
+publish libguestfs and cannot be reused.  Take the latest procedure
+number and increment it.
+
+For library-only actions of the second type, add to the
+C<non_daemon_functions> list.  Since these functions are serviced by
+the library and do not travel over the RPC mechanism to the daemon,
+these functions do not need a procedure number, and so the procedure
+number is set to C<-1>.
+
+=item 2.
+
+Implement the action (in C):
+
+For daemon actions, implement the function C<do_E<lt>nameE<gt>> in the
+C<daemon/> directory.
+
+For library actions, implement the function C<guestfs_impl_E<lt>nameE<gt>>
+(note: double underscore) in the C<src/> directory.
+
+In either case, use another function as an example of what to do.
+
+=back
+
+After making these changes, use C<make> to compile.
+
+Note that you don't need to implement the RPC, language bindings,
+manual pages or anything else.  It's all automatically generated from
+the OCaml description.
+
+=head2 ADDING TESTS FOR AN API ACTION
+
+You can supply zero or as many tests as you want per API call.  The
+tests can either be added as part of the API description
+(F<generator/actions.ml>), or in some rarer cases you may want to drop
+a script into C<tests/*/>.  Note that adding a script to C<tests/*/>
+is slower, so if possible use the first method.
+
+The following describes the test environment used when you add an API
+test in F<actions.ml>.
+
+The test environment has 4 block devices:
+
+=over 4
+
+=item F</dev/sda> 500MB
+
+General block device for testing.
+
+=item F</dev/sdb> 500MB
+
+F</dev/sdb1> is an ext2 filesystem used for testing
+filesystem write operations.
+
+=item F</dev/sdc> 10MB
+
+Used in a few tests where two block devices are needed.
+
+=item F</dev/sdd>
+
+ISO with fixed content (see F<images/test.iso>).
+
+=back
+
+To be able to run the tests in a reasonable amount of time, the
+libguestfs appliance and block devices are reused between tests.  So
+don't try testing L<guestfs(3)/guestfs_kill_subprocess> :-x
+
+Each test starts with an initial scenario, selected using one of the
+C<Init*> expressions, described in F<generator/types.ml>.  These
+initialize the disks mentioned above in a particular way as documented
+in F<types.ml>.  You should not assume anything about the previous
+contents of other disks that are not initialized.
+
+You can add a prerequisite clause to any individual test.  This is a
+run-time check, which, if it fails, causes the test to be skipped.
+Useful if testing a command which might not work on all variations of
+libguestfs builds.  A test that has prerequisite of C<Always> means to
+run unconditionally.
+
+In addition, packagers can skip individual tests by setting
+environment variables before running C<make check>.
+
+ SKIP_TEST_<CMD>_<NUM>=1
+
+eg: C<SKIP_TEST_COMMAND_3=1> skips test #3 of L<guestfs(3)/guestfs_command>.
+
+or:
+
+ SKIP_TEST_<CMD>=1
+
+eg: C<SKIP_TEST_ZEROFREE=1> skips all L<guestfs(3)/guestfs_zerofree> tests.
+
+Packagers can run only certain tests by setting for example:
+
+ TEST_ONLY="vfs_type zerofree"
+
+See F<tests/c-api/tests.c> for more details of how these environment
+variables work.
+
+=head2 DEBUGGING NEW API ACTIONS
+
+Test new actions work before submitting them.
+
+You can use guestfish to try out new commands.
+
+Debugging the daemon is a problem because it runs inside a minimal
+environment.  However you can fprintf messages in the daemon to
+stderr, and they will show up if you use C<guestfish -v>.
+
+=head2 ADDING A NEW LANGUAGE BINDING
+
+All language bindings must be generated by the generator
+(see the F<generator> subdirectory).
+
+There is no documentation for this yet.  We suggest you look
+at an existing binding, eg. F<generator/ocaml.ml> or
+F<generator/perl.ml>.
+
+=head2 ADDING TESTS FOR LANGUAGE BINDINGS
+
+Language bindings should come with tests.  Previously testing of
+language bindings was rather ad-hoc, but we have been trying to
+formalize the set of tests that every language binding should use.
+
+Currently only the OCaml and Perl bindings actually implement the full
+set of tests, and the OCaml bindings are canonical, so you should
+emulate what the OCaml tests do.
+
+This is the numbering scheme used by the tests:
+
+ - 000+ basic tests:
+ 
+   010  load the library
+   020  create
+   030  create-flags
+   040  create multiple handles
+   050  test setting and getting config properties
+   060  explicit close
+   065  implicit close (in GC'd languages)
+   070  optargs
+ 
+ - 100  launch, create partitions and LVs and filesystems
+ 
+ - 400+ events:
+ 
+   410  close event
+   420  log messages
+   430  progress messages
+ 
+ - 800+ regression tests (specific to the language)
+ 
+ - 900+ any other custom tests for the language
+
+To save time when running the tests, only 100, 430, 800+, 900+ should
+launch the handle.
+
+=head2 FORMATTING CODE
+
+Our C source code generally adheres to some basic code-formatting
+conventions.  The existing code base is not totally consistent on this
+front, but we do prefer that contributed code be formatted similarly.
+In short, use spaces-not-TABs for indentation, use 2 spaces for each
+indentation level, and other than that, follow the K&R style.
+
+If you use Emacs, add the following to one of one of your start-up files
+(e.g., ~/.emacs), to help ensure that you get indentation right:
+
+ ;;; In libguestfs, indent with spaces everywhere (not TABs).
+ ;;; Exceptions: Makefile and ChangeLog modes.
+ (add-hook 'find-file-hook
+     '(lambda () (if (and buffer-file-name
+                          (string-match "/libguestfs\\>"
+                              (buffer-file-name))
+                          (not (string-equal mode-name "Change Log"))
+                          (not (string-equal mode-name "Makefile")))
+                     (setq indent-tabs-mode nil))))
+ 
+ ;;; When editing C sources in libguestfs, use this style.
+ (defun libguestfs-c-mode ()
+   "C mode with adjusted defaults for use with libguestfs."
+   (interactive)
+   (c-set-style "K&R")
+   (setq c-indent-level 2)
+   (setq c-basic-offset 2))
+ (add-hook 'c-mode-hook
+           '(lambda () (if (string-match "/libguestfs\\>"
+                               (buffer-file-name))
+                           (libguestfs-c-mode))))
+
+=head2 TESTING YOUR CHANGES
+
+Enable warnings when compiling (and fix any problems this
+finds):
+
+ ./configure --enable-gcc-warnings
+
+Useful targets are:
+
+=over 4
+
+=item C<make check>
+
+Runs the regular test suite.
+
+This is implemented using the regular automake C<TESTS> target.  See
+the automake documentation for details.
+
+=item C<make check-valgrind>
+
+Runs a subset of the test suite under valgrind.
+
+Any F<Makefile.am> in the tree that has a C<check-valgrind:> target
+will be run by this rule.
+
+=item C<make check-valgrind-local-guests>
+
+Runs a subset of the test suite under valgrind
+using locally installed libvirt guests (read-only).
+
+=item C<make check-direct>
+
+Runs all tests using default appliance back-end.  This only
+has any effect if a non-default backend was selected
+using C<./configure --with-default-backend=...>
+
+=item C<make check-valgrind-direct>
+
+Run a subset of the test suite under valgrind using the
+default appliance back-end.
+
+=item C<make check-uml>
+
+Runs all tests using the User-Mode Linux backend.
+
+As there is no standard location for the User-Mode Linux kernel, you
+I<have> to set C<LIBGUESTFS_HV> to point to the kernel image, eg:
+
+ make check-uml LIBGUESTFS_HV=~/d/linux-um/vmlinux
+
+=item C<make check-valgrind-uml>
+
+Runs all tests using the User-Mode Linux backend, under valgrind.
+
+As above, you have to set C<LIBGUESTFS_HV> to point to the kernel.
+
+=item C<make check-with-upstream-qemu>
+
+Runs all tests using a local qemu binary.  It looks for the qemu
+binary in QEMUDIR (defaults to F<$HOME/d/qemu>), but you can set this
+to another directory on the command line, eg:
+
+ make check-with-upstream-qemu QEMUDIR=/usr/src/qemu
+
+=item C<make check-with-upstream-libvirt>
+
+Runs all tests using a local libvirt.  This only has any effect if the
+libvirt backend was selected using
+C<./configure --with-default-backend=libvirt>
+
+It looks for libvirt in LIBVIRTDIR (defaults to F<$HOME/d/libvirt>),
+but you can set this to another directory on the command line, eg:
+
+ make check-with-upstream-libvirt LIBVIRTDIR=/usr/src/libvirt
+
+=item C<make check-slow>
+
+Runs some slow/long-running tests which are not run by default.
+
+Any F<Makefile.am> in the tree that has a C<check-slow:> target will
+be run by this rule.
+
+=item C<make check-all>
+
+Equivalent to running all C<make check*> rules.
+
+=item C<make check-release>
+
+Runs a subset of C<make check*> rules that are required to pass
+before a tarball can be released.  Currently this is:
+
+=over 4
+
+=item *
+
+check
+
+=item *
+
+check-valgrind
+
+=item *
+
+check-direct
+
+=item *
+
+check-valgrind-direct
+
+=item *
+
+check-slow
+
+=back
+
+=item C<make installcheck>
+
+Run C<make check> on the installed copy of libguestfs.
+
+The version of installed libguestfs being tested, and the version of
+the libguestfs source tree must be the same.
+
+Do:
+
+ ./autogen.sh
+ make clean ||:
+ make
+ make installcheck
+
+=back
+
+=head2 DAEMON CUSTOM PRINTF FORMATTERS
+
+In the daemon code we have created custom printf formatters C<%Q> and
+C<%R>, which are used to do shell quoting.
+
+=over 4
+
+=item %Q
+
+Simple shell quoted string.  Any spaces or other shell characters are
+escaped for you.
+
+=item %R
+
+Same as C<%Q> except the string is treated as a path which is prefixed
+by the sysroot.
+
+=back
+
+For example:
+
+ asprintf (&cmd, "cat %R", path);
+
+would produce C<cat /sysroot/some\ path\ with\ spaces>
+
+I<Note:> Do I<not> use these when you are passing parameters to the
+C<command{,r,v,rv}()> functions.  These parameters do NOT need to be
+quoted because they are not passed via the shell (instead, straight to
+exec).  You probably want to use the C<sysroot_path()> function
+however.
+
+=head2 SUBMITTING YOUR NEW API ACTIONS
+
+Submit patches to the mailing list:
+L<http://www.redhat.com/mailman/listinfo/libguestfs>
+and CC to L<rjones@redhat.com>.
+
+=head2 INTERNATIONALIZATION (I18N) SUPPORT
+
+We support i18n (gettext anyhow) in the library.
+
+However many messages come from the daemon, and we don't translate
+those at the moment.  One reason is that the appliance generally has
+all locale files removed from it, because they take up a lot of space.
+So we'd have to readd some of those, as well as copying our PO files
+into the appliance.
+
+Debugging messages are never translated, since they are intended for
+the programmers.
+
+=head2 SOURCE CODE SUBDIRECTORIES
+
+=over 4
+
+=item F<align>
+
+L<virt-alignment-scan(1)> command and documentation.
+
+=item F<appliance>
+
+The libguestfs appliance, build scripts and so on.
+
+=item F<bash>
+
+Bash tab-completion scripts.
+
+=item F<build-aux>
+
+Various build scripts used by autotools.
+
+=item F<builder>
+
+L<virt-builder(1)> command and documentation.
+
+=item F<cat>
+
+The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>
+and L<virt-ls(1)> commands and documentation.
+
+=item F<contrib>
+
+Outside contributions, experimental parts.
+
+=item F<customize>
+
+L<virt-customize(1)> command and documentation.
+
+=item F<daemon>
+
+The daemon that runs inside the libguestfs appliance and carries out
+actions.
+
+=item F<df>
+
+L<virt-df(1)> command and documentation.
+
+=item F<dib>
+
+L<virt-dib(1)> command and documentation.
+
+=item F<diff>
+
+L<virt-diff(1)> command and documentation.
+
+=item F<doc>
+
+Miscellaneous manual pages.
+
+=item F<edit>
+
+L<virt-edit(1)> command and documentation.
+
+=item F<examples>
+
+C API example code.
+
+=item F<fish>
+
+L<guestfish(1)>, the command-line shell, and various shell scripts
+built on top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>,
+L<virt-tar-in(1)>, L<virt-tar-out(1)>.
+
+=item F<format>
+
+L<virt-format(1)> command and documentation.
+
+=item F<fuse>
+
+L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
+
+=item F<generator>
+
+The crucially important generator, used to automatically generate
+large amounts of boilerplate C code for things like RPC and bindings.
+
+=item F<get-kernel>
+
+L<virt-get-kernel(1)> command and documentation.
+
+=item F<gnulib>
+
+Gnulib is used as a portability library.  A copy of gnulib is included
+under here.
+
+=item F<html>
+
+Generated HTML manual pages.
+
+=item F<inspector>
+
+L<virt-inspector(1)>, the virtual machine image inspector.
+
+=item F<logo>
+
+Logo used on the website.  The fish is called Arthur by the way.
+
+=item F<m4>
+
+M4 macros used by autoconf.
+
+=item F<make-fs>
+
+L<virt-make-fs(1)> command and documentation.
+
+=item F<mllib>
+
+Various libraries and common code used by L<virt-resize(1)> and
+the other tools which are written in OCaml.
+
+=item F<p2v>
+
+L<virt-p2v(1)> command, documentation and scripts for building the
+virt-p2v ISO or disk image.
+
+=item F<po>
+
+Translations of simple gettext strings.
+
+=item F<po-docs>
+
+The build infrastructure and PO files for translations of manpages and
+POD files.  Eventually this will be combined with the F<po> directory,
+but that is rather complicated.
+
+=item F<rescue>
+
+L<virt-rescue(1)> command and documentation.
+
+=item F<resize>
+
+L<virt-resize(1)> command and documentation.
+
+=item F<sparsify>
+
+L<virt-sparsify(1)> command and documentation.
+
+=item F<src>
+
+Source code to the C library.
+
+=item F<sysprep>
+
+L<virt-sysprep(1)> command and documentation.
+
+=item F<tests>
+
+Tests.
+
+=item F<test-tool>
+
+Test tool for end users to test if their qemu/kernel combination
+will work with libguestfs.
+
+=item F<tmp>
+
+Used for temporary files when running the tests (instead of F</tmp>
+etc).  The reason is so that you can run multiple parallel tests of
+libguestfs without having one set of tests overwriting the appliance
+created by another.
+
+=item F<tools>
+
+Command line tools written in Perl (L<virt-win-reg(1)> and many others).
+
+=item F<v2v>
+
+L<virt-v2v(1)> command and documentation.
+
+=item F<csharp>
+
+=item F<erlang>
+
+=item F<gobject>
+
+=item F<golang>
+
+=item F<haskell>
+
+=item F<java>
+
+=item F<lua>
+
+=item F<ocaml>
+
+=item F<php>
+
+=item F<perl>
+
+=item F<python>
+
+=item F<ruby>
+
+Language bindings.
+
+=back
+
+=head2 MAKING A STABLE RELEASE
+
+When we make a stable release, there are several steps documented
+here.  See L<guestfs(3)/LIBGUESTFS VERSION NUMBERS> for general information
+about the stable branch policy.
+
+=over 4
+
+=item *
+
+Check C<make && make check> works on at least Fedora, Debian and
+Ubuntu.
+
+=item *
+
+Check C<./configure --without-libvirt> works.
+
+=item *
+
+Finalize F<guestfs-release-notes.pod>
+
+=item *
+
+Push and pull from Zanata.
+
+Run:
+
+ zanata push
+
+to push the latest POT files to Zanata.  Then run:
+
+ ./zanata-pull.sh
+
+which is a wrapper to pull the latest translated F<*.po> files.
+
+=item *
+
+Consider updating gnulib to latest upstream version.
+
+=item *
+
+Create new stable and development directories under
+L<http://libguestfs.org/download>.
+
+=item *
+
+Edit F<index.html.in> on website.
+
+=item *
+
+Create the branch in git:
+
+ git tag -a 1.XX.0 -m "Version 1.XX.0 (stable)"
+ git tag -a 1.YY.0 -m "Version 1.YY.0 (development)"
+ git branch stable-1.XX
+ git push origin tag 1.XX.0 1.YY.0 stable-1.XX
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<guestfs-performance(1)>,
+L<guestfs-release-notes(1)>,
+L<guestfs-testing(1)>,
+L<libguestfs-test-tool(1)>,
+L<libguestfs-make-fixed-appliance(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2015 Red Hat Inc.

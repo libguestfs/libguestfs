@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	guestfs-faq.pod \
+	guestfs-hacking.pod \
 	guestfs-performance.pod \
 	guestfs-recipes.pod \
 	guestfs-release-notes.pod \
@@ -27,6 +28,7 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	stamp-guestfs-faq.pod \
+	stamp-guestfs-hacking.pod \
 	stamp-guestfs-performance.pod \
 	stamp-guestfs-recipes.pod \
 	stamp-guestfs-release-notes.pod \
@@ -34,12 +36,14 @@ CLEANFILES = \
 
 man_MANS = \
 	guestfs-faq.1 \
+	guestfs-hacking.1 \
 	guestfs-performance.1 \
 	guestfs-recipes.1 \
 	guestfs-release-notes.1 \
 	guestfs-testing.1
 noinst_DATA = \
 	$(top_builddir)/html/guestfs-faq.1.html \
+	$(top_builddir)/html/guestfs-hacking.1.html \
 	$(top_builddir)/html/guestfs-performance.1.html \
 	$(top_builddir)/html/guestfs-recipes.1.html \
 	$(top_builddir)/html/guestfs-release-notes.1.html \
@@ -52,6 +56,17 @@ stamp-guestfs-faq.pod: guestfs-faq.pod
 	  --section 1 \
 	  --man guestfs-faq.1 \
 	  --html $(top_builddir)/html/guestfs-faq.1.html \
+	  --license LGPLv2+ \
+	  $<
+	touch $@
+
+guestfs-hacking.1 $(top_builddir)/html/guestfs-hacking.1.html: stamp-guestfs-hacking.pod
+
+stamp-guestfs-hacking.pod: guestfs-hacking.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-hacking.1 \
+	  --html $(top_builddir)/html/guestfs-hacking.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@

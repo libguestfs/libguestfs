@@ -14,6 +14,7 @@
 ../dib/virt-dib.pod
 ../diff/virt-diff.pod
 ../docs/guestfs-faq.pod
+../docs/guestfs-hacking.pod
 ../docs/guestfs-performance.pod
 ../docs/guestfs-recipes.pod
 ../docs/guestfs-release-notes.pod

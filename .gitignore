@@ -131,11 +131,13 @@ Makefile.in
 /diff/virt-diff
 /diff/virt-diff.1
 /docs/guestfs-faq.1
+/docs/guestfs-hacking.1
 /docs/guestfs-performance.1
 /docs/guestfs-recipes.1
 /docs/guestfs-release-notes.1
 /docs/guestfs-testing.1
 /docs/stamp-guestfs-faq.pod
+/docs/stamp-guestfs-hacking.pod
 /docs/stamp-guestfs-performance.pod
 /docs/stamp-guestfs-recipes.pod
 /docs/stamp-guestfs-release-notes.pod
@@ -231,6 +233,7 @@ Makefile.in
 /html/guestfs-erlang.3.html
 /html/guestfs-examples.3.html
 /html/guestfs-faq.1.html
+/html/guestfs-hacking.1.html
 /html/guestfs-golang.3.html
 /html/guestfs-java.3.html
 /html/guestfs-lua.3.html

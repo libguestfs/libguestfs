@@ -212,7 +212,7 @@ type fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)
   | FishOutputHexadecimal (* for int return, print in hex *)
 
-(* See guestfs(3)/EXTENDING LIBGUESTFS. *)
+(* See guestfs-hacking(1). *)
 type c_api_tests = (c_api_test_init * c_api_test_prereq * c_api_test * c_api_test_cleanup) list
 and c_api_test =
     (* Run the command sequence and just expect nothing to fail. *)

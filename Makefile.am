@@ -600,5 +600,5 @@ help:
 	@echo "To run programs without installing:"
 	@echo "  ./run ./fish/guestfish [or any other program]"
 	@echo
-	@echo "For more information, see EXTENDING LIBGUESTFS in guestfs(3); and README."
+	@echo "For more information, see guestfs-hacking(1); and README."
 	@echo

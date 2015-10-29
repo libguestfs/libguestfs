@@ -155,7 +155,7 @@ extern int random_name (char *template);
 extern char *get_random_uuid (void);
 
 /* This just stops gcc from giving a warning about our custom printf
- * formatters %Q and %R.  See guestfs(3)/EXTENDING LIBGUESTFS for more
+ * formatters %Q and %R.  See guestfs-hacking(1) for more
  * info about these.  In GCC 4.8.0 the warning is even harder to
  * 'trick', hence the need for the #pragma directives.
  */

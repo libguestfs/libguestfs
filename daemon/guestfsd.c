@@ -1189,7 +1189,7 @@ trim (char *str)
 }
 
 /* printf helper function so we can use %Q ("quoted") and %R to print
- * shell-quoted strings.  See guestfs(3)/EXTENDING LIBGUESTFS for more
+ * shell-quoted strings.  See guestfs-hacking(1) for more
  * details.
  */
 static int
