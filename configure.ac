@@ -108,75 +108,11 @@ m4_include([m4/guestfs_daemon.m4])
 dnl The appliance and any dependencies.
 m4_include([m4/guestfs_appliance.m4])
 
-dnl Check if crypt() is provided by a separate library.
-old_LIBS="$LIBS"
-AC_SEARCH_LIBS([crypt],[crypt])
-LIBS="$old_LIBS"
-if test "$ac_cv_search_crypt" = "-lcrypt" ; then
-  LIBCRYPT_LIBS="-lcrypt"
-fi
-AC_SUBST([LIBCRYPT_LIBS])
-
-dnl liblzma can be used by virt-builder (optional).
-PKG_CHECK_MODULES([LIBLZMA], [liblzma], [
-    AC_SUBST([LIBLZMA_CFLAGS])
-    AC_SUBST([LIBLZMA_LIBS])
-    AC_DEFINE([HAVE_LIBLZMA],[1],[liblzma found at compile time.])
-
-    dnl Old lzma in RHEL 6 didn't have some APIs we need.
-    old_LIBS="$LIBS"
-    LIBS="$LIBS $LIBLZMA_LIBS"
-    AC_CHECK_FUNCS([lzma_index_stream_flags lzma_index_stream_padding])
-    LIBS="$old_LIBS"
-],
-[AC_MSG_WARN([liblzma not found, virt-builder will be slower])])
-
 dnl Check for QEMU.
 m4_include([m4/guestfs_qemu.m4])
 
-dnl Readline.
-AC_ARG_WITH([readline],[
-    AS_HELP_STRING([--with-readline],
-        [support fancy command line editing @<:@default=check@:>@])],
-    [],
-    [with_readline=check])
-
-LIBREADLINE=
-AS_IF([test "x$with_readline" != xno],[
-    AC_CHECK_LIB([readline], [main],
-        [AC_SUBST([LIBREADLINE], ["-lreadline -lncurses"])
-         AC_DEFINE([HAVE_LIBREADLINE], [1],
-                   [Define if you have libreadline.])
-        ],
-        [if test "x$with_readline" != xcheck; then
-         AC_MSG_FAILURE(
-             [--with-readline was given, but test for readline failed])
-         fi
-        ], -lncurses)
-    old_LIBS="$LIBS"
-    LIBS="$LIBS $LIBREADLINE"
-    AC_CHECK_FUNCS([append_history completion_matches rl_completion_matches])
-    LIBS="$old_LIBS"
-    ])
-
-dnl libconfig (highly recommended)
-PKG_CHECK_MODULES([LIBCONFIG], [libconfig],[
-    AC_SUBST([LIBCONFIG_CFLAGS])
-    AC_SUBST([LIBCONFIG_LIBS])
-    AC_DEFINE([HAVE_LIBCONFIG],[1],[libconfig found at compile time.])
-],
-    [AC_MSG_WARN([libconfig not found, some features will be disabled])])
-AM_CONDITIONAL([HAVE_LIBCONFIG],[test "x$LIBCONFIG_LIBS" != "x"])
-
-dnl Check for gtk2 library, used by virt-p2v.
-PKG_CHECK_MODULES([GTK2], [gtk+-2.0], [
-    AC_SUBST([GTK2_CFLAGS])
-    AC_SUBST([GTK2_LIBS])
-],
-    [AC_MSG_WARN([gtk2 not found, virt-p2v will be disabled])])
-
-dnl Can we build virt-p2v?
-AM_CONDITIONAL([HAVE_P2V], [test "x$GTK2_LIBS" != "x"])
+dnl Miscellaneous libraries used by other programs.
+m4_include([m4/guestfs_misc_libraries.m4])
 
 dnl FUSE is optional to build the FUSE module.
 AC_ARG_ENABLE([fuse],
