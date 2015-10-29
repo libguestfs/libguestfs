@@ -15,7 +15,30 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-dnl Check for Perl (optional, for Perl bindings and Perl tools).
+dnl Check for perl (required).
+AC_CHECK_PROG([PERL],[perl],[perl],[no])
+test "x$PERL" = "xno" &&
+    AC_MSG_ERROR([perl must be installed])
+
+dnl Check for Pod::Man, Pod::Simple (for man pages).
+AC_MSG_CHECKING([for Pod::Man])
+if ! $PERL -MPod::Man -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_ERROR([perl Pod::Man must be installed])
+else
+    AC_MSG_RESULT([yes])
+fi
+AC_MSG_CHECKING([for Pod::Simple])
+if ! $PERL -MPod::Simple -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+    AC_MSG_ERROR([perl Pod::Simple must be installed])
+else
+    AC_MSG_RESULT([yes])
+fi
+
+dnl Define the path to the podwrapper program.
+PODWRAPPER="$PERL $(pwd)/podwrapper.pl"
+AC_SUBST([PODWRAPPER])
+
+dnl Check for Perl for Perl bindings and Perl tools.
 AC_ARG_ENABLE([perl],
     AS_HELP_STRING([--disable-perl], [disable Perl language bindings]),
     [],
