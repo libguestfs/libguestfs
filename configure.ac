@@ -1072,17 +1072,7 @@ m4_include([m4/guestfs_golang.m4])
 m4_include([m4/guestfs_gobject.m4])
 
 dnl Bash completion.
-PKG_CHECK_MODULES([BASH_COMPLETION], [bash-completion >= 2.0], [
-    bash_completion=yes
-    AC_MSG_CHECKING([for bash-completions directory])
-    BASH_COMPLETIONS_DIR="`pkg-config --variable=completionsdir bash-completion`"
-    AC_MSG_RESULT([$BASH_COMPLETIONS_DIR])
-    AC_SUBST([BASH_COMPLETIONS_DIR])
-],[
-    bash_completion=no
-    AC_MSG_WARN([bash-completion not installed])
-])
-AM_CONDITIONAL([HAVE_BASH_COMPLETION],[test "x$bash_completion" = "xyes"])
+m4_include([m4/guestfs_bash_completion.m4])
 
 dnl For search paths.
 AC_DEFINE_UNQUOTED([PATH_SEPARATOR],["$PATH_SEPARATOR"],
