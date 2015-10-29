@@ -23,8 +23,6 @@ open Printf
 open Common_gettext.Gettext
 open Common_utils
 
-open Types
-
 let quote = Filename.quote
 
 (* Quote XML <element attr='...'> content.  Note you must use single
@@ -121,13 +119,13 @@ let kvm_arch = function
 
 (* Does qemu support the given sound card? *)
 let qemu_supports_sound_card = function
-  | AC97
-  | ES1370
-  | ICH6
-  | ICH9
-  | PCSpeaker
-  | SB16
-  | USBAudio
+  | Types.AC97
+  | Types.ES1370
+  | Types.ICH6
+  | Types.ICH9
+  | Types.PCSpeaker
+  | Types.SB16
+  | Types.USBAudio
     -> true
 
 (* Find the UEFI firmware. *)
@@ -164,7 +162,7 @@ let find_uefi_firmware guest_arch =
   specific Windows flavor of the current guest.
  *)
 let virtio_iso_path_matches_guest_os path inspect =
-  let { i_major_version = os_major; i_minor_version = os_minor;
+  let { Types.i_major_version = os_major; i_minor_version = os_minor;
         i_arch = arch; i_product_variant = os_variant } = inspect in
   try
     (* Lowercased path, since the ISO may contain upper or lowercase path
