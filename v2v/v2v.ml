@@ -57,7 +57,7 @@ let rec main () =
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"
-      prog Config.package_name Config.package_version Config.host_cpu;
+      prog Guestfs_config.package_name Guestfs_config.package_version Guestfs_config.host_cpu;
 
   let source = open_source input print_source in
   let source = amend_source source output_name network_map in

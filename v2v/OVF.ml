@@ -32,7 +32,7 @@ open Types
 open Utils
 open DOM
 
-let title = sprintf "Exported by virt-v2v %s" Config.package_version
+let title = sprintf "Exported by virt-v2v %s" Guestfs_config.package_version
 
 (* We set the creation time to be the same for all dates in
  * all metadata files.  All dates in OVF are UTC.

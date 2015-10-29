@@ -331,8 +331,8 @@ Makefile.in
 /mllib/.depend
 /mllib/common_gettext.ml
 /mllib/common_utils_tests
-/mllib/config.ml
 /mllib/dummy
+/mllib/guestfs_config.ml
 /mllib/JSON_tests
 /mllib/libdir.ml
 /mllib/oUnit-*

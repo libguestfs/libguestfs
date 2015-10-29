@@ -222,7 +222,7 @@ AC_CONFIG_FILES([Makefile
                  lua/examples/Makefile
                  make-fs/Makefile
                  mllib/Makefile
-                 mllib/config.ml
+                 mllib/guestfs_config.ml
                  ocaml/META
                  ocaml/Makefile
                  ocaml/examples/Makefile
