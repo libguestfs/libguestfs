@@ -25,37 +25,6 @@ open Common_utils
 
 let quote = Filename.quote
 
-(* Quote XML <element attr='...'> content.  Note you must use single
- * quotes around the attribute.
- *)
-let xml_quote_attr str =
-  let str = String.replace str "&" "&amp;" in
-  let str = String.replace str "'" "&apos;" in
-  let str = String.replace str "<" "&lt;" in
-  let str = String.replace str ">" "&gt;" in
-  str
-
-let xml_quote_pcdata str =
-  let str = String.replace str "&" "&amp;" in
-  let str = String.replace str "<" "&lt;" in
-  let str = String.replace str ">" "&gt;" in
-  str
-
-(* URI quoting. *)
-let uri_quote str =
-  let len = String.length str in
-  let xs = ref [] in
-  for i = 0 to len-1 do
-    xs :=
-      (match str.[i] with
-      | ('A'..'Z' | 'a'..'z' | '0'..'9' | '/' | '.' | '-') as c ->
-        String.make 1 c
-      | c ->
-        sprintf "%%%02x" (Char.code c)
-      ) :: !xs
-  done;
-  String.concat "" (List.rev !xs)
-
 (* Parse an xpath expression and return a string/int.  Returns
  * Some v or None if the expression doesn't match.
  *)

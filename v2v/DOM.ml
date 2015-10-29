@@ -19,7 +19,6 @@
 (* Poor man's XML DOM, mutable for ease of modification. *)
 
 open Common_utils
-open Utils
 
 open Printf
 
@@ -82,6 +81,22 @@ and element_to_chan ?(indent = 0) chan
   ) else (
     output_string chan "/>"
   )
+
+(* Quote XML <element attr='...'> content.  Note you must use single
+ * quotes around the attribute.
+ *)
+and xml_quote_attr str =
+  let str = String.replace str "&" "&amp;" in
+  let str = String.replace str "'" "&apos;" in
+  let str = String.replace str "<" "&lt;" in
+  let str = String.replace str ">" "&gt;" in
+  str
+
+and xml_quote_pcdata str =
+  let str = String.replace str "&" "&amp;" in
+  let str = String.replace str "<" "&lt;" in
+  let str = String.replace str ">" "&gt;" in
+  str
 
 let doc_to_chan chan doc =
   fprintf chan "<?xml version='1.0' encoding='utf-8'?>\n";
