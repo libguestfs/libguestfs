@@ -40,6 +40,15 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 77
 fi
 
+# Since libvirt ~ 1.2.19, it started to check that the guest
+# architecture was valid at guest creation time, rather than when you
+# first run the guest.  Since the guest XML contains arch='x86_64',
+# this test will fail on !x86_64.
+if [ "$(uname -m)" != "x86_64" ]; then
+    echo "$0: test skipped because !x86_64"
+    exit 77
+fi
+
 abs_top_builddir="$(cd ..; pwd)"
 libvirt_uri="test://$abs_top_builddir/tests/guests/guests.xml"
 

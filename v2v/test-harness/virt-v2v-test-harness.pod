@@ -79,15 +79,18 @@ repository, do:
 
  ./configure [--with-test-harness=/path/to/libguestfs/v2v/test-harness]
  make
- make check
+ make check -k
+
+Using the I<-k> option is recommended so the test doesn't stop at the
+first failure.
 
 =head2 PARALLEL TESTS
 
 You can run test cases in parallel by doing:
 
- make check -j<N>
+ make check -k -j<N>
 
-(eg. C<-j2> for running up to 2 tests in parallel).  Be careful about
+(eg. I<-j2> for running up to 2 tests in parallel).  Be careful about
 running too many parallel tests, as it can slow down each test enough
 to cause false failures.
 
@@ -100,7 +103,7 @@ If you have compiled libguestfs from source and want to test that
 version of virt-v2v, use the libguestfs C<run> script (in the
 top-level build directory of the libguestfs sources).  eg:
 
- ../libguestfs/run make check
+ ../libguestfs/run make check -k
 
 =head1 WRITING NEW TEST CASES
 

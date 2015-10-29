@@ -558,6 +558,17 @@ run_child (struct command *cmd)
   }
 #endif /* HAVE_SETRLIMIT */
 
+  /* NB: If the main process (which we have forked a copy of) uses
+   * more heap than the RLIMIT_AS we set above, then any call to
+   * malloc or any extension of the stack will fail with ENOMEM or
+   * SIGSEGV respectively.  Luckily we only use RLIMIT_AS followed by
+   * execvp below, so we get away with it, but adding any code here
+   * could cause a failure.
+   *
+   * There is a regression test for this.  See:
+   * tests/regressions/test-big-heap.c
+   */
+
   /* Run the command. */
   switch (cmd->style) {
   case COMMAND_STYLE_EXECV:

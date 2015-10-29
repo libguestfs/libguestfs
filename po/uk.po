@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-06 23:18+0100\n"
+"POT-Creation-Date: 2015-10-25 20:30+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -49,13 +49,13 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../mllib/common_utils.ml:359
+#: ../mllib/common_utils.ml:357
 msgid "%s"
 msgstr "%s"
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:209
-#. ../builder/builder.ml:656
+#. ../builder/builder.ml:655
 #: ../v2v/v2v.ml:694 ../v2v/v2v.ml:544 ../sysprep/main.ml:241
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
@@ -104,7 +104,7 @@ msgstr ""
 "%s посилається на невідомий пристрій «%s». Ймовірно, вам доведеться "
 "виправити цей запис після перетворення."
 
-#: ../mllib/common_utils.ml:355 ../mllib/common_utils.ml:342
+#: ../mllib/common_utils.ml:353 ../mllib/common_utils.ml:340
 msgid "%s: %s"
 msgstr "%s: %s"
 
@@ -112,7 +112,7 @@ msgstr "%s: %s"
 msgid "%s: %s (ignored)\n"
 msgstr "%s: %s (проігноровано)\n"
 
-#: ../mllib/common_utils.ml:357
+#: ../mllib/common_utils.ml:355
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -240,7 +240,7 @@ msgstr ""
 "Коротке резюме параметрів надано нижче. Докладніші довідкові дані\n"
 "можна знайти на сторінках підручника (man) virt-builder(1).\n"
 
-#: ../v2v/utils.ml:224
+#: ../v2v/utils.ml:239
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -331,7 +331,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис\n"
 "можна знайти на сторінці підручника (man) virt-customize(1).\n"
 
-#: ../mllib/common_utils.ml:314
+#: ../mllib/common_utils.ml:312
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
@@ -535,7 +535,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:332
+#: ../mllib/common_utils.ml:330
 msgid "%s: warning: %s"
 msgstr "%s: попередження: %s"
 
@@ -844,31 +844,31 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:265
+#: ../v2v/input_libvirtxml.ml:266
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:238
+#: ../v2v/input_libvirtxml.ml:239
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:261
+#: ../v2v/input_libvirtxml.ml:262
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:232
+#: ../v2v/input_libvirtxml.ml:233
 msgid "<disk type=network> was ignored"
 msgstr "<disk type=network> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:211
+#: ../v2v/input_libvirtxml.ml:212
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:114
+#: ../v2v/input_libvirtxml.ml:115
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:298
+#: ../v2v/input_libvirtxml.ml:299
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -1035,7 +1035,7 @@ msgstr "Стиснутий формат виведення даних"
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:603
+#: ../builder/builder.ml:602
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
@@ -1047,7 +1047,7 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../dib/dib.ml:882 ../builder/builder.ml:602
+#: ../dib/dib.ml:882 ../builder/builder.ml:601
 msgid "Converting to %s"
 msgstr ""
 
@@ -1059,7 +1059,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr "Копіювати локальні файли або каталоги до образу"
 
-#: ../builder/builder.ml:531
+#: ../builder/builder.ml:530
 msgid "Copying"
 msgstr "Копіювання"
 
@@ -1139,7 +1139,7 @@ msgstr ""
 msgid "DIR"
 msgstr "КАТАЛОГ"
 
-#: ../mllib/common_utils.ml:537
+#: ../mllib/common_utils.ml:535
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностувати збиральник сміття та розподіл пам’яті (внутрішньо)"
 
@@ -1180,7 +1180,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr "Показати нотатки щодо встановлення"
 
-#: ../mllib/common_utils.ml:533 ../mllib/common_utils.ml:531
+#: ../mllib/common_utils.ml:531 ../mllib/common_utils.ml:529
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
 
@@ -1208,7 +1208,7 @@ msgstr "Не розгортати вміст"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../mllib/common_utils.ml:539 ../mllib/common_utils.ml:538
+#: ../mllib/common_utils.ml:537 ../mllib/common_utils.ml:536
 msgid "Don't print progress messages"
 msgstr ""
 
@@ -1270,7 +1270,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../mllib/common_utils.ml:535 ../mllib/common_utils.ml:534
+#: ../mllib/common_utils.ml:533 ../mllib/common_utils.ml:532
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1278,7 +1278,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr "Увімкнути специфічні операції"
 
-#: ../mllib/common_utils.ml:536
+#: ../mllib/common_utils.ml:534
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1397,7 +1397,7 @@ msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
 #: ../v2v/v2v.ml:463 ../customize/customize_main.ml:219
-#: ../builder/builder.ml:705
+#: ../builder/builder.ml:704
 msgid "Finishing off"
 msgstr "Завершуємо"
 
@@ -1451,7 +1451,7 @@ msgstr ""
 "Формат диска виведених даних (типове значення: той самий формат, що і у "
 "вхідних даних)"
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:694
 msgid "Free space"
 msgstr "Вільне місце"
 
@@ -1501,7 +1501,7 @@ msgstr "НАЗВА_ВУЗЛА"
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
-#: ../mllib/common_utils.ml:319
+#: ../mllib/common_utils.ml:317
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1589,11 +1589,11 @@ msgstr "Компонування: %s -> %s"
 msgid "List available templates"
 msgstr "Показати список доступних шаблонів"
 
-#: ../mllib/common_utils.ml:529
+#: ../mllib/common_utils.ml:527
 msgid "List long options"
 msgstr "Вивести список довгих версій параметрів"
 
-#: ../mllib/common_utils.ml:528
+#: ../mllib/common_utils.ml:526
 msgid "List short options"
 msgstr "Показати список скорочених параметрів"
 
@@ -1708,7 +1708,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:616
+#: ../builder/builder.ml:615
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1740,11 +1740,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:690
+#: ../builder/builder.ml:689
 msgid "Output file"
 msgstr "Файл виведення"
 
-#: ../builder/builder.ml:692
+#: ../builder/builder.ml:691
 msgid "Output format"
 msgstr "Формат виведення"
 
@@ -1760,7 +1760,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr "Вивести UUID образу"
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:690
 msgid "Output size"
 msgstr "Розмір виведення"
 
@@ -1811,7 +1811,7 @@ msgstr "Вибрано %s, оскільки використано «--root %s»
 msgid "Picked %s because '--root first' was used."
 msgstr "Вибрано %s, оскільки використано «--root first»."
 
-#: ../builder/builder.ml:468
+#: ../builder/builder.ml:467
 msgid "Planning how to build this image"
 msgstr "Плануємо побудову цього образу"
 
@@ -2071,11 +2071,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:558
+#: ../builder/builder.ml:557
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:588
+#: ../builder/builder.ml:587
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Змінюємо розміри контейнера (але не файлової системи) для розширення диска "
@@ -2691,7 +2691,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:692
 msgid "Total usable space"
 msgstr "Загальне придатне до використання місце"
 
@@ -2723,7 +2723,7 @@ msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:546
+#: ../builder/builder.ml:545
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -2914,7 +2914,7 @@ msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/utils.ml:140
+#: ../v2v/utils.ml:155
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -3070,11 +3070,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:295
+#: ../v2v/input_ova.ml:296
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:192
+#: ../v2v/input_ova.ml:193
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3190,7 +3190,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:138
+#: ../v2v/input_libvirtxml.ml:139
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
@@ -3202,7 +3202,7 @@ msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt пр
 msgid "domain"
 msgstr "домен"
 
-#: ../v2v/utils.ml:136
+#: ../v2v/utils.ml:151
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
@@ -3255,11 +3255,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:259
+#: ../v2v/input_ova.ml:260
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
-#: ../v2v/input_ova.ml:281
+#: ../v2v/input_ova.ml:282
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3269,11 +3269,11 @@ msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../mllib/common_utils.ml:372
+#: ../mllib/common_utils.ml:370
 msgid "exception: %s"
 msgstr "виключення: %s"
 
-#: ../v2v/utils.ml:79
+#: ../v2v/utils.ml:90 ../v2v/utils.ml:79
 msgid ""
 "expecting XML expression to return an integer (expression: %s, matching "
 "string: %s)"
@@ -3295,15 +3295,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:607
+#: ../mllib/common_utils.ml:605
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:609
+#: ../mllib/common_utils.ml:607
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:611
+#: ../mllib/common_utils.ml:609
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3320,7 +3320,7 @@ msgstr "додатковий параметр у командному рядку
 msgid "failed to download %s: HTTP status code %s"
 msgstr "не вдалося отримати %s: код стану HTTP %s"
 
-#: ../mllib/common_utils.ml:363
+#: ../mllib/common_utils.ml:361
 msgid "failure: %s"
 msgstr "помилка: %s"
 
@@ -3370,7 +3370,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "fs"
 
-#: ../mllib/common_utils.ml:382
+#: ../mllib/common_utils.ml:380
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3456,13 +3456,13 @@ msgstr ""
 "образи не можна стискати, розмір результату надто малий для цього образу. "
 "Потрібний розмір = %s, мінімальний розмір = %s"
 
-#: ../v2v/input_libvirtxml.ml:62
+#: ../v2v/input_libvirtxml.ml:63
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
 "значення"
 
-#: ../v2v/input_libvirtxml.ml:67
+#: ../v2v/input_libvirtxml.ml:68
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
@@ -3470,15 +3470,15 @@ msgstr "у метаданих XML libvirt пропущено <name> або вк�
 msgid "input file (%s) has an unsupported type"
 msgstr "файл вхідних даних (%s) належить до непідтримуваного типу"
 
-#: ../mllib/common_utils.ml:370
+#: ../mllib/common_utils.ml:368
 msgid "internal error: Not_found exception was thrown"
 msgstr "внутрішня помилка: надіслано виключення Not_found"
 
-#: ../mllib/common_utils.ml:367
+#: ../mllib/common_utils.ml:365
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr "внутрішня помилка: помилка оцінки у %s, рядок %d, символ %d"
 
-#: ../mllib/common_utils.ml:365
+#: ../mllib/common_utils.ml:363
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
@@ -3530,7 +3530,7 @@ msgstr "некоректний варіант ssh-inject «%s»; див. сто�
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
-#: ../mllib/common_utils.ml:361
+#: ../mllib/common_utils.ml:359
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
@@ -3608,7 +3608,7 @@ msgstr "немає каталогу кешування\n"
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr "не знайдено файла налаштувань grub1/grub-legacy або grub2"
 
-#: ../builder/builder.ml:660
+#: ../builder/builder.ml:659
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3618,7 +3618,7 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/input_ova.ml:264
+#: ../v2v/input_ova.ml:265
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3671,7 +3671,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:473
+#: ../builder/builder.ml:472
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3783,7 +3783,7 @@ msgstr ""
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
 
-#: ../v2v/input_ova.ml:224
+#: ../v2v/input_ova.ml:225
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -3791,7 +3791,7 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/input_ova.ml:221
+#: ../v2v/input_ova.ml:222
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4082,7 +4082,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:186
+#: ../v2v/input_libvirtxml.ml:187
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -4158,7 +4158,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:209
+#: ../v2v/input_ova.ml:210
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -4166,7 +4166,7 @@ msgstr ""
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d (%s)"
 
-#: ../v2v/input_libvirtxml.ml:162
+#: ../v2v/input_libvirtxml.ml:163
 msgid "unknown sound model %s ignored"
 msgstr ""
 
@@ -4302,7 +4302,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
 
-#: ../v2v/input_libvirtxml.ml:135
+#: ../v2v/input_libvirtxml.ml:136
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -9849,27 +9849,27 @@ msgstr "надто мале значення для розміру пам’ят
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
-#: src/info.c:152
+#: src/info.c:153
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
 
-#: src/info.c:183
+#: src/info.c:184
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 "Інформація від qemu-img: «virtual-size» не можна представити як 64-бітове "
 "ціле число"
 
-#: src/info.c:191
+#: src/info.c:192
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-size»"
 
-#: src/info.c:229
+#: src/info.c:230
 msgid "qemu-img info: JSON output was not an object"
 msgstr "Інформація від qemu-img: дані, виведені JSON, не є об’єктом"
 
-#: src/info.c:301
+#: src/info.c:297
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
@@ -9877,16 +9877,16 @@ msgstr ""
 "командою info qemu-img не виведено жодних даних, але і не повернуто коду "
 "стану помилки"
 
-#: src/info.c:335
+#: src/info.c:331
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr "Інформація від qemu-img: помилка під час обробки JSON: %s"
 
-#: src/info.c:337
+#: src/info.c:333
 msgid "qemu-img info: unknown JSON parse error"
 msgstr "Інформація від qemu-img: невідома помилка під час обробки JSON"
 
-#: src/info.c:475
+#: src/info.c:471
 #, c-format
 msgid "%s: cannot detect virtual size of disk image"
 msgstr "%s: не вдалося визначити віртуальний розмір образу диска"

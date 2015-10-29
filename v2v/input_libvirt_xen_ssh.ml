@@ -57,8 +57,9 @@ object
      *   "file.user": "username",
      *   "file.host": "xen-host",
      *   "file.port": 1022,
-     *   "file.path": "path",
+     *   "file.path": <remote-path>,
      *   "file.host_key_check": "no"
+     * }
      *)
     let disks = List.map (
       function
