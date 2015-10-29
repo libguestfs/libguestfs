@@ -50,7 +50,7 @@ Some virt tools have been ported to Windows.
 
 Libguestfs takes a different approach from kpartx.  kpartx needs root,
 and mounts filesystems on the host kernel (which can be insecure - see
-L<guestfs(3)/SECURITY>).  Libguestfs isolates your host kernel from
+L<guestfs-security(1)>).  Libguestfs isolates your host kernel from
 guests, is more flexible, scriptable, supports LVM, doesn't require
 root, is isolated from other processes, and cleans up after itself.
 Libguestfs is more than just file access because you can use it to

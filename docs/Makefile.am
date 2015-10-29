@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	guestfs-performance.pod \
 	guestfs-recipes.pod \
 	guestfs-release-notes.pod \
+	guestfs-security.pod \
 	guestfs-testing.pod \
 	README
 
@@ -34,6 +35,7 @@ CLEANFILES = \
 	stamp-guestfs-performance.pod \
 	stamp-guestfs-recipes.pod \
 	stamp-guestfs-release-notes.pod \
+	stamp-guestfs-security.pod \
 	stamp-guestfs-testing.pod
 
 man_MANS = \
@@ -43,6 +45,7 @@ man_MANS = \
 	guestfs-performance.1 \
 	guestfs-recipes.1 \
 	guestfs-release-notes.1 \
+	guestfs-security.1 \
 	guestfs-testing.1
 noinst_DATA = \
 	$(top_builddir)/html/guestfs-faq.1.html \
@@ -51,6 +54,7 @@ noinst_DATA = \
 	$(top_builddir)/html/guestfs-performance.1.html \
 	$(top_builddir)/html/guestfs-recipes.1.html \
 	$(top_builddir)/html/guestfs-release-notes.1.html \
+	$(top_builddir)/html/guestfs-security.1.html \
 	$(top_builddir)/html/guestfs-testing.1.html
 
 guestfs-faq.1 $(top_builddir)/html/guestfs-faq.1.html: stamp-guestfs-faq.pod
@@ -116,6 +120,17 @@ stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 	  --man guestfs-release-notes.1 \
 	  --html $(top_builddir)/html/guestfs-release-notes.1.html \
 	  --license GPLv2+ \
+	  $<
+	touch $@
+
+guestfs-security.1 $(top_builddir)/html/guestfs-security.1.html: stamp-guestfs-security.pod
+
+stamp-guestfs-security.pod: guestfs-security.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-security.1 \
+	  --html $(top_builddir)/html/guestfs-security.1.html \
+	  --license LGPLv2+ \
 	  $<
 	touch $@
 

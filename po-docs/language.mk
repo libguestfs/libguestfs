@@ -44,6 +44,7 @@ MANPAGES = \
 	guestfs-recipes.1 \
 	guestfs-release-notes.1 \
 	guestfs-ruby.3 \
+	guestfs-security.1 \
 	guestfs-testing.1 \
 	guestfsd.8 \
 	guestmount.1 \

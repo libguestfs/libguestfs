@@ -1,0 +1,338 @@
+=head1 NAME
+
+guestfs-security - security of libguestfs
+
+=head1 DESCRIPTION
+
+This manual page discusses security implications of using libguestfs,
+particularly with untrusted or malicious guests or disk images.
+
+=head2 SECURITY OF MOUNTING FILESYSTEMS
+
+You should never mount an untrusted guest filesystem directly on your
+host kernel (eg. using loopback or kpartx).
+
+When you mount a filesystem, mistakes in the kernel filesystem (VFS)
+can be escalated into exploits by attackers creating a malicious
+filesystem.  These exploits are very severe for two reasons.  Firstly
+there are very many filesystem drivers in the kernel, and many of them
+are infrequently used and not much developer attention has been paid
+to the code.  Linux userspace helps potential crackers by detecting
+the filesystem type and automatically choosing the right VFS driver,
+even if that filesystem type is unexpected.  Secondly, a kernel-level
+exploit is like a local root exploit (worse in some ways), giving
+immediate and total access to the system right down to the hardware
+level.
+
+These exploits can be present in the kernel for a very long time
+(L<https://lwn.net/Articles/538898/>).
+
+Libguestfs provides a layered approach to protecting you from
+exploits:
+
+   untrusted filesystem
+ --------------------------------------
+   appliance kernel
+ --------------------------------------
+   qemu process running as non-root
+ --------------------------------------
+   sVirt [if using libvirt + SELinux]
+ --------------------------------------
+   host kernel
+
+We run a Linux kernel inside a qemu virtual machine, usually running
+as a non-root user.  The attacker would need to write a filesystem
+which first exploited the kernel, and then exploited either qemu
+virtualization (eg. a faulty qemu driver) or the libguestfs protocol,
+and finally to be as serious as the host kernel exploit it would need
+to escalate its privileges to root.  Additionally if you use the
+libvirt back end and SELinux, sVirt is used to confine the qemu
+process.  This multi-step escalation, performed by a static piece of
+data, is thought to be extremely hard to do, although we never say
+'never' about security issues.
+
+Callers can also reduce the attack surface by forcing the filesystem
+type when mounting (use L</guestfs_mount_vfs>).
+
+=head2 GENERAL SECURITY CONSIDERATIONS
+
+Be careful with any files or data that you download from a guest (by
+"download" we mean not just the L</guestfs_download> command but any
+command that reads files, filenames, directories or anything else from
+a disk image).  An attacker could manipulate the data to fool your
+program into doing the wrong thing.  Consider cases such as:
+
+=over 4
+
+=item *
+
+the data (file etc) not being present
+
+=item *
+
+being present but empty
+
+=item *
+
+being much larger than normal
+
+=item *
+
+containing arbitrary 8 bit data
+
+=item *
+
+being in an unexpected character encoding
+
+=item *
+
+containing homoglyphs.
+
+=back
+
+=head2 PROTOCOL SECURITY
+
+The protocol is designed to be secure, being based on RFC 4506 (XDR)
+with a defined upper message size.  However a program that uses
+libguestfs must also take care - for example you can write a program
+that downloads a binary from a disk image and executes it locally, and
+no amount of protocol security will save you from the consequences.
+
+=head2 INSPECTION SECURITY
+
+Parts of the inspection API (see L</INSPECTION>) return untrusted
+strings directly from the guest, and these could contain any 8 bit
+data.  Callers should be careful to escape these before printing them
+to a structured file (for example, use HTML escaping if creating a web
+page).
+
+Guest configuration may be altered in unusual ways by the
+administrator of the virtual machine, and may not reflect reality
+(particularly for untrusted or actively malicious guests).  For
+example we parse the hostname from configuration files like
+F</etc/sysconfig/network> that we find in the guest, but the guest
+administrator can easily manipulate these files to provide the wrong
+hostname.
+
+The inspection API parses guest configuration using two external
+libraries: Augeas (Linux configuration) and hivex (Windows Registry).
+Both are designed to be robust in the face of malicious data, although
+denial of service attacks are still possible, for example with
+oversized configuration files.
+
+=head2 RUNNING UNTRUSTED GUEST COMMANDS
+
+Be very cautious about running commands from the guest.  By running a
+command in the guest, you are giving CPU time to a binary that you do
+not control, under the same user account as the library, albeit
+wrapped in qemu virtualization.  More information and alternatives can
+be found in the section L</RUNNING COMMANDS>.
+
+=head2 CVE-2010-3851
+
+L<https://bugzilla.redhat.com/642934>
+
+This security bug concerns the automatic disk format detection that
+qemu does on disk images.
+
+A raw disk image is just the raw bytes, there is no header.  Other
+disk images like qcow2 contain a special header.  Qemu deals with this
+by looking for one of the known headers, and if none is found then
+assuming the disk image must be raw.
+
+This allows a guest which has been given a raw disk image to write
+some other header.  At next boot (or when the disk image is accessed
+by libguestfs) qemu would do autodetection and think the disk image
+format was, say, qcow2 based on the header written by the guest.
+
+This in itself would not be a problem, but qcow2 offers many features,
+one of which is to allow a disk image to refer to another image
+(called the "backing disk").  It does this by placing the path to the
+backing disk into the qcow2 header.  This path is not validated and
+could point to any host file (eg. "/etc/passwd").  The backing disk is
+then exposed through "holes" in the qcow2 disk image, which of course
+is completely under the control of the attacker.
+
+In libguestfs this is rather hard to exploit except under two
+circumstances:
+
+=over 4
+
+=item 1.
+
+You have enabled the network or have opened the disk in write mode.
+
+=item 2.
+
+You are also running untrusted code from the guest (see
+L</RUNNING COMMANDS>).
+
+=back
+
+The way to avoid this is to specify the expected disk format when
+adding disks (the optional C<format> option to
+L</guestfs_add_drive_opts>).  You should always do this if the disk is
+raw format, and it's a good idea for other cases too.
+(See also L</DISK IMAGE FORMATS>).
+
+For disks added from libvirt using calls like L</guestfs_add_domain>,
+the format is fetched from libvirt and passed through.
+
+For libguestfs tools, use the I<--format> command line parameter as
+appropriate.
+
+=head2 CVE-2011-4127
+
+L<https://bugzilla.redhat.com/752375>
+
+This is a bug in the kernel which allowed guests to overwrite
+parts of the host's drives which they should not normally
+have access to.
+
+It is sufficient to update libguestfs to any version E<ge> 1.16 which
+contains a change that mitigates the problem.
+
+=head2 CVE-2012-2690
+
+L<https://bugzilla.redhat.com/831117>
+
+Old versions of both virt-edit and the guestfish C<edit> command
+created a new file containing the changes but did not set the
+permissions, etc of the new file to match the old one.  The result of
+this was that if you edited a security sensitive file such as
+F</etc/shadow> then it would be left world-readable after the edit.
+
+It is sufficient to update libguestfs to any version E<ge> 1.16.
+
+=head2 CVE-2013-2124
+
+L<https://bugzilla.redhat.com/968306>
+
+This security bug was a flaw in inspection where an untrusted guest
+using a specially crafted file in the guest OS could cause a
+double-free in the C library (denial of service).
+
+It is sufficient to update libguestfs to a version that is not
+vulnerable: libguestfs E<ge> 1.20.8, E<ge> 1.22.2 or E<ge> 1.23.2.
+
+=head2 CVE-2013-4419
+
+L<https://bugzilla.redhat.com/1016960>
+
+When using the L<guestfish(1)> I<--remote> or guestfish I<--listen>
+options, guestfish would create a socket in a known location
+(F</tmp/.guestfish-$UID/socket-$PID>).
+
+The location has to be a known one in order for both ends to
+communicate.  However no checking was done that the containing
+directory (F</tmp/.guestfish-$UID>) is owned by the user.  Thus
+another user could create this directory and potentially hijack
+sockets owned by another user's guestfish client or server.
+
+It is sufficient to update libguestfs to a version that is not
+vulnerable: libguestfs E<ge> 1.20.12, E<ge> 1.22.7 or E<ge> 1.24.
+
+=head2 Denial of service when inspecting disk images with corrupt btrfs volumes
+
+It was possible to crash libguestfs (and programs that use libguestfs
+as a library) by presenting a disk image containing a corrupt btrfs
+volume.
+
+This was caused by a NULL pointer dereference causing a denial of
+service, and is not thought to be exploitable any further.
+
+See commit d70ceb4cbea165c960710576efac5a5716055486 for the fix.  This
+fix is included in libguestfs stable branches S<E<ge> 1.26.0>, S<E<ge>
+1.24.6> and S<E<ge> 1.22.8>, and also in RHEL S<E<ge> 7.0>.
+Earlier versions of libguestfs are not vulnerable.
+
+=head2 CVE-2014-0191
+
+Libguestfs previously used unsafe libxml2 APIs for parsing libvirt
+XML.  These APIs defaulted to allowing network connections to be made
+when certain XML documents were presented.  Using a malformed XML
+document it was also possible to exhaust all CPU, memory or file
+descriptors on the machine.
+
+Since the libvirt XML comes from a trusted source (the libvirt daemon)
+it is not thought that this could have been exploitable.
+
+This was fixed in libguestfs E<ge> 1.27.9 and the fix was backported
+to stable versions E<ge> 1.26.2, E<ge> 1.24.9, E<ge> 1.22.10 and E<ge>
+1.20.13.
+
+=head2 Shellshock (bash CVE-2014-6271)
+
+This bash bug indirectly affects libguestfs.  For more information
+see:
+L<https://www.redhat.com/archives/libguestfs/2014-September/msg00252.html>
+
+=head2 CVE-2014-8484
+
+=head2 CVE-2014-8485
+
+These two bugs in binutils affect the GNU L<strings(1)> program, and
+thus the L</guestfs_strings> and L</guestfs_strings_e> APIs in
+libguestfs.  Running strings on an untrusted file could cause
+arbitrary code execution (confined to the libguestfs appliance).
+
+In libguestfs E<ge> 1.29.5 and E<ge> 1.28.3, libguestfs uses the
+C<strings> I<-a> option to avoid BFD parsing on the file.
+
+=head2 CVE-2015-5745
+
+L<https://bugzilla.redhat.com/show_bug.cgi?id=1251157>
+
+This is not a vulnerability in libguestfs, but because we always give
+a virtio-serial port to each guest (since that is how guest-host
+communication happens), an escalation from the appliance to the host
+qemu process is possible.  This could affect you if:
+
+=over 4
+
+=item *
+
+your libguestfs program runs untrusted programs out of the guest
+(using L</guestfs_sh> etc), or
+
+=item *
+
+another exploit was found in (for example) kernel filesystem code that
+allowed a malformed filesystem to take over the appliance.
+
+=back
+
+If you use sVirt to confine qemu, that would thwart some attacks.
+
+=head2 Permissions of F<.ssh> and F<.ssh/authorized_keys>
+
+L<https://bugzilla.redhat.com/1260778>
+
+The tools L<virt-customize(1)>, L<virt-sysprep(1)> and
+L<virt-builder(1)> have an I<--ssh-inject> option for injecting an SSH
+key into virtual machine disk images.  They may create a F<~user/.ssh>
+directory and F<~user/.ssh/authorized_keys> file in the guest to do
+this.
+
+In libguestfs E<lt> 1.31.5 and libguestfs E<lt> 1.30.2, the new
+directory and file would get mode C<0755> and mode C<0644>
+respectively.  However these permissions (especially for
+F<~user/.ssh>) are wider than the permissions that OpenSSH uses.  In
+current libguestfs, the directory and file are created with mode
+C<0700> and mode C<0600>.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-internals(3)>,
+L<guestfs-release-notes(1)>,
+L<guestfs-testing(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2015 Red Hat Inc.
