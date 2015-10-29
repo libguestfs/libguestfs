@@ -39,3 +39,23 @@ AS_IF([test "x$enable_perl" != "xno"],[
 ])
 AM_CONDITIONAL([HAVE_PERL],
     [test "x$enable_perl" != "xno" && test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
+
+dnl Check for Perl modules needed by Perl virt tools (virt-df, etc.)
+AS_IF([test "x$PERL" != "xno"],[
+    missing_perl_modules=no
+    for pm in Pod::Usage Getopt::Long Sys::Virt Locale::TextDomain Win::Hivex Win::Hivex::Regedit ; do
+        AC_MSG_CHECKING([for $pm])
+        if ! $PERL -M$pm -e1 >&AS_MESSAGE_LOG_FD 2>&1; then
+            AC_MSG_RESULT([no])
+            missing_perl_modules=yes
+        else
+            AC_MSG_RESULT([yes])
+        fi
+    done
+    if test "x$missing_perl_modules" = "xyes"; then
+        AC_MSG_WARN([some Perl modules required to compile the Perl virt-* tools are missing])
+    fi
+])
+
+AM_CONDITIONAL([HAVE_TOOLS],
+    [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
