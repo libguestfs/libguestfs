@@ -206,16 +206,6 @@ let compare_app2_versions app1 app2 =
       compare_version app1.Guestfs.app2_release app2.Guestfs.app2_release
   )
 
-and compare_app2_version_min app1 (min_epoch, min_version, min_release) =
-  let i = compare app1.Guestfs.app2_epoch min_epoch in
-  if i <> 0 then i
-  else (
-    let i = compare_version app1.Guestfs.app2_version min_version in
-    if i <> 0 then i
-    else
-      compare_version app1.Guestfs.app2_release min_release
-  )
-
 let remove_duplicates xs =
   let h = Hashtbl.create (List.length xs) in
   let rec loop = function
