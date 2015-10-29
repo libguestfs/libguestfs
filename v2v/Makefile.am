@@ -69,6 +69,7 @@ SOURCES_MLI = \
 	OVF.mli \
 	stringMap.mli \
 	types.mli \
+	utils.mli \
 	vCenter.mli \
 	xml.mli
 
