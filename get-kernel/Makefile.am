@@ -54,7 +54,7 @@ virt_get_kernel_CFLAGS = \
 
 BOBJECTS = \
 	$(top_builddir)/mllib/libdir.cmo \
-	$(top_builddir)/mllib/config.cmo \
+	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/uRI.cmo \

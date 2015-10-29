@@ -276,7 +276,7 @@ read the man page virt-builder(1).
   (* Check the architecture. *)
   let arch =
     match arch with
-    | "" -> Config.host_cpu
+    | "" -> Guestfs_config.host_cpu
     | arch -> arch in
 
   (* If user didn't elect any root password, that means we set a random

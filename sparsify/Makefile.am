@@ -52,7 +52,7 @@ virt_sparsify_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 BOBJECTS = \
-	$(top_builddir)/mllib/config.cmo \
+	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/progress.cmo \

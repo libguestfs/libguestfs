@@ -53,7 +53,7 @@ let rec main () =
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"
-      prog Config.package_name Config.package_version Config.host_cpu;
+      prog Guestfs_config.package_name Guestfs_config.package_version Guestfs_config.host_cpu;
 
   message (f_"Opening the source %s") input#as_options;
   let source = input#source () in

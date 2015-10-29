@@ -30,7 +30,7 @@ let unit_GB howmany =
 
 let current_arch () =
   (* Turn a CPU into the dpkg architecture naming. *)
-  match Config.host_cpu with
+  match Guestfs_config.host_cpu with
   | "amd64" | "x86_64" -> "amd64"
   | "i386" | "i486" | "i586" | "i686" -> "i386"
   | arch when string_prefix arch "armv" -> "armhf"

@@ -183,7 +183,7 @@ module Windows = struct
     (* Get the data directory. *)
     let virt_tools_data_dir =
       try Sys.getenv "VIRT_TOOLS_DATA_DIR"
-      with Not_found -> Config.datadir // "virt-tools" in
+      with Not_found -> Guestfs_config.datadir // "virt-tools" in
 
     (* rhsrvany.exe must exist.
      *
