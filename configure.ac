@@ -102,6 +102,9 @@ m4_include([m4/guestfs_c.m4])
 dnl Any C libraries required by the libguestfs C library (not the daemon).
 m4_include([m4/guestfs_libraries.m4])
 
+dnl Check for FUSE.
+m4_include([m4/guestfs_fuse.m4])
+
 dnl The daemon and any dependencies.
 m4_include([m4/guestfs_daemon.m4])
 
@@ -113,27 +116,6 @@ m4_include([m4/guestfs_qemu.m4])
 
 dnl Miscellaneous libraries used by other programs.
 m4_include([m4/guestfs_misc_libraries.m4])
-
-dnl FUSE is optional to build the FUSE module.
-AC_ARG_ENABLE([fuse],
-    AS_HELP_STRING([--disable-fuse], [disable FUSE (guestmount) support]),
-    [],
-    [enable_fuse=yes])
-AS_IF([test "x$enable_fuse" != "xno"],[
-    PKG_CHECK_MODULES([FUSE],[fuse],[
-        AC_SUBST([FUSE_CFLAGS])
-        AC_SUBST([FUSE_LIBS])
-        AC_DEFINE([HAVE_FUSE],[1],[Define to 1 if you have FUSE.])
-        old_LIBS="$LIBS"
-        LIBS="$FUSE_LIBS $LIBS"
-        AC_CHECK_FUNCS([fuse_opt_add_opt_escaped])
-        LIBS="$old_LIBS"
-    ],[
-        enable_fuse=no
-        AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])
-    ])
-])
-AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
 dnl Check for language bindings.
 m4_include([m4/guestfs_ocaml.m4])
