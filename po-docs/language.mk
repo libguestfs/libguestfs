@@ -33,6 +33,7 @@ MANPAGES = \
 	guestfs-examples.3 \
 	guestfs-faq.1 \
 	guestfs-hacking.1 \
+	guestfs-internals.1 \
 	guestfs-golang.3 \
 	guestfs-java.3 \
 	guestfs-lua.3 \

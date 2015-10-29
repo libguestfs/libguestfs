@@ -990,7 +990,7 @@ F<examples/debug-logging.c> program in the libguestfs sources.
 =head2 Digging deeper into the appliance boot process.
 
 Enable debugging and then read this documentation on the appliance
-boot process: L<guestfs(3)/INTERNALS>.
+boot process: L<guestfs-internals(1)>.
 
 =head2 libguestfs hangs or fails during run/launch.
 
@@ -1014,6 +1014,8 @@ you run the libguestfs command, you should see a large amount of
 useful debugging information from libvirtd in F</tmp/libvirtd.log>
 
 =head1 DESIGN/INTERNALS OF LIBGUESTFS
+
+See also L<guestfs-internals(1)>.
 
 =head2 Why don't you do everything through the FUSE / filesystem
 interface?

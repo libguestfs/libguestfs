@@ -735,6 +735,7 @@ Create the branch in git:
 
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
+L<guestfs-internals(3)>,
 L<guestfs-performance(1)>,
 L<guestfs-release-notes(1)>,
 L<guestfs-testing(1)>,
