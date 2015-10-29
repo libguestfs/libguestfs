@@ -3456,7 +3456,10 @@ See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 
 =head1 SEE ALSO
 
-L<guestfs-examples(3)>,
+Examples written in C:
+L<guestfs-examples(3)>.
+
+Language bindings:
 L<guestfs-erlang(3)>,
 L<guestfs-golang(3)>,
 L<guestfs-java(3)>,
@@ -3464,7 +3467,9 @@ L<guestfs-lua(3)>,
 L<guestfs-ocaml(3)>,
 L<guestfs-perl(3)>,
 L<guestfs-python(3)>,
-L<guestfs-ruby(3)>,
+L<guestfs-ruby(3)>.
+
+Tools:
 L<guestfish(1)>,
 L<guestmount(1)>,
 L<virt-alignment-scan(1)>,
@@ -3493,7 +3498,9 @@ L<virt-tar(1)>,
 L<virt-tar-in(1)>,
 L<virt-tar-out(1)>,
 L<virt-v2v(1)>,
-L<virt-win-reg(1)>,
+L<virt-win-reg(1)>.
+
+Other libguestfs topics:
 L<guestfs-faq(1)>,
 L<guestfs-hacking(1)>,
 L<guestfs-internals(1)>,
@@ -3502,13 +3509,17 @@ L<guestfs-release-notes(1)>,
 L<guestfs-security(1)>,
 L<guestfs-testing(1)>,
 L<libguestfs-test-tool(1)>,
-L<libguestfs-make-fixed-appliance(1)>,
+L<libguestfs-make-fixed-appliance(1)>.
+
+Related manual pages:
 L<supermin(1)>,
 L<qemu(1)>,
 L<hivex(3)>,
 L<stap(1)>,
-L<sd-journal(3)>,
-L<http://libguestfs.org/>.
+L<sd-journal(3)>.
+
+Website:
+L<http://libguestfs.org/>
 
 Tools with a similar purpose:
 L<fdisk(8)>,
