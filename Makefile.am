@@ -235,9 +235,12 @@ HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfs-examples.3.html \
 	html/guestfs-faq.1.html \
+	html/guestfs-hacking.1.html \
+	html/guestfs-internals.1.html \
 	html/guestfs-performance.1.html \
 	html/guestfs-recipes.1.html \
 	html/guestfs-release-notes.1.html \
+	html/guestfs-security.1.html \
 	html/guestfs-testing.1.html \
 	html/guestfsd.8.html \
 	html/guestfish.1.html \
