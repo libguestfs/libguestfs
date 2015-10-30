@@ -626,7 +626,7 @@ Tests.
 
 =item F<test-data>
 
-Files other test data used by the tests.
+Files and other test data used by the tests.
 
 =item F<test-tool>
 
