@@ -70,9 +70,6 @@ and partition_id =
   | MBR_ID of int                (* MBR ID. *)
   | GPT_Type of string           (* GPT UUID. *)
 
-type partition_type =
-  | PrimaryPartition
-
 let rec debug_partition ?(sectsize=512L) p =
   printf "%s:\n" p.p_name;
   printf "\tpartition data: %ld %Ld-%Ld (%Ld bytes)\n"
@@ -429,15 +426,14 @@ read the man page virt-resize(1).
     | MBR_ID _ | GPT_Type _ | No_ID -> false
   in
 
-  let find_partitions part_type =
+  let partitions : partition list =
     let parts = Array.to_list (g#part_list "/dev/sda") in
+
+    if List.length parts = 0 then
+      error (f_"the source disk has no partitions");
 
     (* Filter out logical partitions.  See note above. *)
     let parts =
-      match part_type with
-      (* for GPT, all partitions are regarded as Primary Partition,
-       * e.g. there is no Extended Partition or Logical Partition. *)
-      | PrimaryPartition ->
         List.filter (fun p -> parttype <> MBR || p.G.part_num <= 4_l)
         parts in
 
@@ -475,6 +471,11 @@ read the man page virt-resize(1).
             p_target_start = 0L; p_target_end = 0L }
       ) parts in
 
+    if verbose () then (
+      eprintf "%d partitions found\n" (List.length partitions);
+      List.iter debug_partition partitions
+    );
+
     (* Check content isn't larger than partitions.  If it is then
      * something has gone wrong and we shouldn't continue.  Old
      * virt-resize didn't do these checks.
@@ -505,13 +506,6 @@ read the man page virt-resize(1).
     loop 0L partitions;
 
     partitions in
-
-  let partitions = find_partitions PrimaryPartition in
-
-  if verbose () then (
-    printf "%d partitions found\n" (List.length partitions);
-    List.iter (debug_partition ~sectsize) partitions
-    );
 
   (* Build a data structure describing LVs on the source disk. *)
   let lvs =
