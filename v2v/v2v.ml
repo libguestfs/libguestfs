@@ -50,6 +50,29 @@ let rec main () =
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
 
+let passwd = match get_everrun_passwd () with
+                  | "" -> error (f_"No password is found");
+                  | s -> s in
+printf "[franklin] password is %s\n" passwd;
+printf "[franklin] ========= Test XML BEGIN =========\n";
+(* let cmd = sprintf "curl http://localhost:8999 > response.xml" in
+if Sys.command cmd <> 0 then
+  error (f_"get response error");
+let file = "response.xml" in
+let xml = read_whole_file file in
+let cmd = sprintf "rm -rf response.xml" in
+if Sys.command cmd <> 0 then
+  error (f_"delete temp response file error"); *)
+(* printf "libvirt xml is:\n%s\n" xml; *)
+
+printf "[franklin] %s\n" output#as_options;
+(* let host_name = "myanmar4" in
+let os = "Initial Storage Group" in
+let my_result = parse_xml_test xml os host_name in
+printf "[franklin] get the result storage group name %s\n" my_result; *)
+
+printf "[franklin] ========= Test XML END =========\n";
+
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"

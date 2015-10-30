@@ -26,6 +26,7 @@ generator_built = \
 	guestfs.h \
 	guestfs-internal-actions.h \
 	guestfs-internal-frontend-cleanups.h \
+	everrun_utils.h \
 	actions-0.c \
 	actions-1.c \
 	actions-2.c \
@@ -225,7 +226,8 @@ endif
 libutils_la_SOURCES = \
 	cleanup.c \
 	structs-cleanup.c \
-	utils.c
+	utils.c \
+	everrun_utils.c
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)
 

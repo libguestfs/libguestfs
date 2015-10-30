@@ -109,6 +109,24 @@ and source_sound = {
 and source_sound_model =
   AC97 | ES1370 | ICH6 | ICH9 | PCSpeaker | SB16 | USBAudio
 
+and p2v_config = {
+  c_domain_name : string;
+  c_disks : config_disk list;
+  c_networks : config_network list;
+}
+
+and config_disk = {
+  c_disk_name : string;
+  c_storage_group_name : string;
+  c_storage_group_id : string;
+}
+
+and config_network = {
+  c_network_name : string;
+  c_virtual_network_name : string;
+  c_virtal_network_id : string;
+}
+
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
 

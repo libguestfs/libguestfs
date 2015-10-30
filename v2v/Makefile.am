@@ -61,6 +61,7 @@ SOURCES_MLI = \
 	output_qemu.mli \
 	output_rhev.mli \
 	output_vdsm.mli \
+	output_everrun.mli \
 	OVF.mli \
 	stringMap.mli \
 	types.mli \
@@ -93,6 +94,7 @@ SOURCES_ML = \
 	output_qemu.ml \
 	output_rhev.ml \
 	output_vdsm.ml \
+	output_everrun.ml \
 	cmdline.ml \
 	v2v.ml
 

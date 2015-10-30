@@ -108,6 +108,8 @@ let parse_cmdline () =
     | "ovirt" | "rhev" -> output_mode := `RHEV
     | "qemu" -> output_mode := `QEmu
     | "vdsm" -> output_mode := `VDSM
+    | "everrunft" -> output_mode := `EVERRUNFT
+    | "everrunha" -> output_mode := `EVERRUNHA
     | s ->
       error (f_"unknown -o option: %s") s
   in
@@ -378,6 +380,22 @@ read the man page virt-v2v(1).
       if qemu_boot then
         error (f_"-o rhev: --qemu-boot option cannot be used in this output mode");
       Output_rhev.output_rhev os vmtype output_alloc
+
+    | `EVERRUNFT ->
+      let os =
+        match output_storage with
+        | None -> "/home/franklin/temp/download/v2v-tmp/tmp_config.xml";
+        | Some d -> d in
+        printf "[franklin] everrunft output_storage => %s\n" os;
+    Output_everrun.output_everrun os "FT"
+
+    | `EVERRUNHA ->
+      let os =
+        match output_storage with
+        | None -> "/home/franklin/temp/download/v2v-tmp/tmp_config.xml";
+        | Some d -> d in
+        printf "[franklin] everrunha output_storage => %s\n" os;
+    Output_everrun.output_everrun os "HA"
 
     | `VDSM ->
       let os =

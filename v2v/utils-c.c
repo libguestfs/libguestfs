@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
@@ -29,6 +30,7 @@
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
+#include "everrun_utils.h"
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
@@ -56,4 +58,43 @@ v2v_utils_drive_index (value strv)
     caml_invalid_argument ("drive_index: invalid parameter");
 
   CAMLreturn (Val_int (r));
+}
+
+value
+v2v_utils_trim (value origin)
+{
+  CAMLparam1 (origin);
+  CAMLlocal1 (modified_str);
+  char result[strlen(String_val (origin))];
+
+  everrun_trim(String_val (origin), result);
+  modified_str = caml_copy_string (result);
+
+  CAMLreturn (modified_str);
+}
+
+value
+v2v_utils_get_everrun_obj_id (value mixed_id)
+{
+  CAMLparam1 (mixed_id);
+  CAMLlocal1 (id);
+  char result[strlen(String_val (mixed_id))];
+
+  get_everrun_obj_id(String_val (mixed_id), result);
+  id = caml_copy_string (result);
+
+  CAMLreturn (id);
+}
+
+value
+v2v_utils_get_everrun_passwd (value unit)
+{
+  CAMLparam1 (unit);
+  CAMLlocal1 (passwd);
+  char passwd_r[100];
+
+  get_everrun_passwd(passwd_r);
+  passwd = caml_copy_string (passwd_r);
+
+  CAMLreturn (passwd);
 }
