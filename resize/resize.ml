@@ -1104,19 +1104,10 @@ read the man page virt-resize(1).
     List.iter (debug_partition ~sectsize) partitions
   );
 
-  let mbr_part_type x =
-    match parttype, x.p_part.G.part_num <= 4_l, x.p_type with
-    (* for GPT, all partitions are regarded as Primary Partition. *)
-    | GPT, _, _ -> "primary"
-    | MBR, true, (ContentUnknown|ContentPV _|ContentFS _) -> "primary"
-    | MBR, true, ContentExtendedPartition -> "extended"
-    | MBR, false, _ -> "logical"
-  in
-
   (* Now partition the target disk. *)
   List.iter (
     fun p ->
-      g#part_add "/dev/sdb" (mbr_part_type p) p.p_target_start p.p_target_end
+      g#part_add "/dev/sdb" "primary" p.p_target_start p.p_target_end
   ) partitions;
 
   (* Copy over the data. *)
