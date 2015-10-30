@@ -26,7 +26,7 @@ SUBDIRS += gnulib/tests
 endif
 
 # Basic source for the library.
-SUBDIRS += tests/data generator src docs examples po
+SUBDIRS += generator src docs examples po
 
 if ENABLE_DAEMON
 SUBDIRS += daemon
@@ -39,7 +39,6 @@ endif
 # Tests - order is important.
 if ENABLE_APPLIANCE
 SUBDIRS += tests/qemu
-SUBDIRS += tests/guests
 SUBDIRS += tests/c-api
 SUBDIRS += tests/tmpdirs
 SUBDIRS += tests/protocol
@@ -149,6 +148,9 @@ endif
 if HAVE_TOOLS
 SUBDIRS += tools
 endif
+
+# Files and other test data used by the tests (must come after fish, perl).
+SUBDIRS += test-data
 
 # guestmount
 if HAVE_FUSE
@@ -350,7 +352,7 @@ dist-hook:
 all-local:
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
-	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests)/' | \
+	grep -v -E '^(examples|gnulib|perl/(blib|examples)|po-docs|tests|test-data)/' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils.c$$' | \
 	LC_ALL=C sort > po/POTFILES
@@ -522,7 +524,7 @@ check-slow: build-test-guests
 	exit $$(( $$errors ? 1 : 0 ))
 
 build-test-guests:
-	$(MAKE) -C tests/guests check
+	$(MAKE) -C test-data/phony-guests check
 
 # Print subdirs.
 #

@@ -68,7 +68,7 @@ if ! guestfish -a /dev/null run : available rsync; then
 fi
 
 pwd="$(pwd)"
-datadir="$(cd ../../tests/data && pwd)"
+datadir="$(cd ../../test-data/files && pwd)"
 
 rm -rf tmp
 mkdir tmp

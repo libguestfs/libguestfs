@@ -35,7 +35,7 @@ can_handle ()
 tmpfile=`mktemp`
 
 # Read out the log files from the image using virt-log.
-for f in ../tests/guests/{fedora,debian,ubuntu}.img; do
+for f in ../test-data/phony-guests/{fedora,debian,ubuntu}.img; do
     echo "Trying $f ..."
     if [ ! -s "$f" ]; then
         echo "SKIP: empty file"

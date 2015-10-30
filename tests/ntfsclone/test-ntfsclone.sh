@@ -33,13 +33,13 @@ if ! guestfish add /dev/null : run : available "ntfs3g"; then
     exit 77
 fi
 
-if [ ! -s ../guests/windows.img ]; then
+if [ ! -s ../../test-data/phony-guests/windows.img ]; then
     echo "$0: skipped because windows.img is zero-sized"
     exit 77
 fi
 
 # Export the filesystems to the backup file.
-guestfish --ro -a ../guests/windows.img <<EOF
+guestfish --ro -a ../../test-data/phony-guests/windows.img <<EOF
 run
 ntfsclone-out /dev/sda1 ntfsclone-backup1 preservetimestamps:true force:true
 ntfsclone-out /dev/sda2 ntfsclone-backup2 metadataonly:true ignorefscheck:true

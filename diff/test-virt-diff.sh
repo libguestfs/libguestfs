@@ -19,7 +19,7 @@
 export LANG=C
 set -e
 
-if [ ! -f ../tests/guests/fedora.img ]; then
+if [ ! -f ../test-data/phony-guests/fedora.img ]; then
     echo "$0: test skipped because there is no phony fedora test image"
     exit 77
 fi
@@ -34,14 +34,14 @@ rm -f fedora.qcow2
 # Modify a copy of the image.
 guestfish -- \
   disk-create fedora.qcow2 qcow2 -1 \
-    backingfile:../tests/guests/fedora.img backingformat:raw
+    backingfile:../test-data/phony-guests/fedora.img backingformat:raw
 
 guestfish -a fedora.qcow2 -i <<EOF
 touch /diff
 write-append /etc/motd "Testing virt-diff\n"
 EOF
 
-output="$($VG virt-diff -a ../tests/guests/fedora.img -A fedora.qcow2)"
+output="$($VG virt-diff -a ../test-data/phony-guests/fedora.img -A fedora.qcow2)"
 
 expected="\
 + - 0644          0 /diff

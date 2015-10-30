@@ -24,7 +24,7 @@ export LANG=C
 
 rm -f test.out
 
-guestfish -a ../guests/fedora.img --ro > test.out <<EOF
+guestfish -a ../../test-data/phony-guests/fedora.img --ro > test.out <<EOF
 run
 
 # Not a device at all, should fail.

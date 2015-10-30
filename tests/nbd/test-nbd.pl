@@ -22,7 +22,7 @@ use POSIX qw(getcwd);
 
 use Sys::Guestfs;
 
-my $disk = "../guests/fedora.img";
+my $disk = "../../test-data/phony-guests/fedora.img";
 
 my $pid = 0;
 END { kill 15, $pid if $pid > 0 };

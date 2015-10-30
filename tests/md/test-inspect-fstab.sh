@@ -35,7 +35,7 @@ rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 # and then inspect it.
 guestfish -- \
   disk-create inspect-fstab-1.qcow2 qcow2 -1 \
-    backingfile:../guests/fedora.img backingformat:raw
+    backingfile:../../test-data/phony-guests/fedora.img backingformat:raw
 
 cat <<'EOF' > inspect-fstab.fstab
 /dev/VG/Root / ext2 default 0 0

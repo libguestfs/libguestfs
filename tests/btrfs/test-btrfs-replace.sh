@@ -44,7 +44,7 @@ mkfs-btrfs /dev/sda
 mount /dev/sda /
 
 mkdir /data
-copy-in $srcdir/../data/filesanddirs-10M.tar.xz /data
+copy-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data
 
 # now, sda is btrfs while sdb is blank.
 btrfs-replace /dev/sda /dev/sdb /

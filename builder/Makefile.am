@@ -226,14 +226,14 @@ CLEANFILES += stamp-virt-builder.pod
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 disk_images := \
-	$(shell for f in debian fedora ubuntu windows; do if [ -s "../tests/guests/$$f.img" ]; then echo $$f.xz; fi; done) \
-	$(shell if [ -s "../tests/guests/fedora.img" ]; then echo fedora.qcow2 fedora.qcow2.xz; fi)
+	$(shell for f in debian fedora ubuntu windows; do if [ -s "../test-data/phony-guests/$$f.img" ]; then echo $$f.xz; fi; done) \
+	$(shell if [ -s "../test-data/phony-guests/fedora.img" ]; then echo fedora.qcow2 fedora.qcow2.xz; fi)
 
 CLEANFILES += *.qcow2 *.xz
 
 check_DATA = $(disk_images)
 
-fedora.qcow2: ../tests/guests/fedora.img
+fedora.qcow2: ../test-data/phony-guests/fedora.img
 	rm -f $@ $@-t
 	qemu-img convert -f raw -O qcow2 $< $@-t
 	mv $@-t $@
@@ -243,7 +243,7 @@ fedora.qcow2.xz: fedora.qcow2
 	xz --best -c $< > $@-t
 	mv $@-t $@
 
-%.xz: ../tests/guests/%.img
+%.xz: ../test-data/phony-guests/%.img
 	rm -f $@ $@-t
 	xz --best -c $< > $@-t
 	mv $@-t $@

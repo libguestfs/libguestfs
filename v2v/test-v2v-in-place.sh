@@ -35,7 +35,7 @@ fi
 
 abs_top_builddir="$(cd ..; pwd)"
 
-img_base="$abs_top_builddir/tests/guests/windows.img"
+img_base="$abs_top_builddir/test-data/phony-guests/windows.img"
 if ! test -f $img_base || ! test -s $img_base; then
     echo "$0: test skipped because phony Windows image was not created"
     exit 77

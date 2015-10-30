@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
     <devices>
       <disk type='file' device='disk'>
         <driver name='qemu' type='raw'/>
-        <source file='../tests/guests/windows.img'/>
+        <source file='../test-data/phony-guests/windows.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
 

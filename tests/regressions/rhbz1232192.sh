@@ -37,13 +37,13 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
     exit 77
 fi
 
-if [ ! -f ../guests/windows.img ] || [ ! -s ../guests/windows.img ]; then
-    echo "$0: test skipped because tests/guests/windows.img was not built"
+if [ ! -f ../../test-data/phony-guests/windows.img ] || [ ! -s ../../test-data/phony-guests/windows.img ]; then
+    echo "$0: test skipped because test-data/phony-guests/windows.img was not built"
     exit 77
 fi
 
-if [ ! -f ../guests/blank-disk.img ]; then
-    echo "$0: test skipped because tests/guests/blank-disk.img was not built"
+if [ ! -f ../../test-data/phony-guests/blank-disk.img ]; then
+    echo "$0: test skipped because test-data/phony-guests/blank-disk.img was not built"
     exit 77
 fi
 

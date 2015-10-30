@@ -37,7 +37,7 @@ echo
 # virt-sysprep with the -n option doesn't modify the guest.  It ought
 # to be able to sysprep any of our test guests.
 
-for f in ../tests/guests/{debian,fedora,ubuntu,windows}.img; do
+for f in ../test-data/phony-guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
 	echo "Running virt-sysprep on $f ..."
@@ -49,5 +49,5 @@ done
 # We could also test this image, but mdadm is problematic for
 # many users.
 # $VG virt-sysprep -q -n \
-#   -a ../tests/guests/fedora-md1.img \
-#   -a ../tests/guests/fedora-md2.img
+#   -a ../test-data/phony-guests/fedora-md1.img \
+#   -a ../test-data/phony-guests/fedora-md2.img

@@ -24,7 +24,7 @@ from time import sleep
 from random import randint
 
 progname = os.path.basename(sys.argv[0])
-guestsdir = "../guests"
+guestsdir = "../../test-data/phony-guests"
 listen_addr = "localhost"
 #listen_addr = "127.0.0.1"
 #listen_addr = ""

@@ -23,7 +23,7 @@ set -e
 rm -f test.out
 
 $VG guestfish <<'EOF'
-add-ro ../tests/data/test.iso
+add-ro ../test-data/test.iso
 run
 mount-ro /dev/sda /
 find0 / test.out

@@ -22,7 +22,7 @@
 set -e
 export LANG=C
 
-if [ ! -s ../data/test.iso ]; then
+if [ ! -s ../../test-data/test.iso ]; then
     echo "$0: test skipped because there is no test.iso"
     exit 77
 fi
@@ -30,7 +30,7 @@ fi
 rm -f test.out
 
 guestfish --ro > test.out <<EOF
-add-cdrom ../data/test.iso
+add-cdrom ../../test-data/test.iso
 
 run
 

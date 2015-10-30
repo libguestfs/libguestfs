@@ -18,4 +18,4 @@
 
 set -e
 
-$VG guestfish -a ../tests/guests/fedora.img -i exit
+$VG guestfish -a ../test-data/phony-guests/fedora.img -i exit

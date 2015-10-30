@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
     <devices>
       <disk type='file' device='disk'>
         <driver name='qemu' type='raw'/>
-        <source file='../tests/guests/windows.img'/>
+        <source file='../test-data/phony-guests/windows.img'/>
         <!-- virt-v2v should install virtio drivers and turn this
              into dev='vda' bus='virtio' -->
         <target dev='hda' bus='ide'/>
       </disk>
       <disk type='file' device='cdrom'>
         <driver name='qemu' type='raw'/>
-        <source file='../tests/guests/blank-disk.img'/>
+        <source file='../test-data/phony-guests/blank-disk.img'/>
         <!-- virt-v2v should preserve the device name and bus -->
         <target dev='hdc' bus='ide'/>
       </disk>

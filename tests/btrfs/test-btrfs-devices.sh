@@ -55,7 +55,7 @@ mkfs-btrfs "/dev/sda1 /dev/sdb1"
 mount /dev/sda1 /
 
 mkdir /data1
-tar-in $srcdir/../data/filesanddirs-10M.tar.xz /data1 compress:xz
+tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data1 compress:xz
 
 # In btrfs-progs 0.19, a test was added which prevents us from
 # deleting the mount device (/dev/sda1) although that restriction
@@ -68,7 +68,7 @@ btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data2
-tar-in $srcdir/../data/filesanddirs-10M.tar.xz /data2 compress:xz
+tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data2 compress:xz
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sdb1" /
@@ -76,7 +76,7 @@ btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data3
-tar-in $srcdir/../data/filesanddirs-10M.tar.xz /data3 compress:xz
+tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data3 compress:xz
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sdb1" /
@@ -84,7 +84,7 @@ btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data4
-tar-in $srcdir/../data/filesanddirs-10M.tar.xz /data4 compress:xz
+tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data4 compress:xz
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sdb1" /

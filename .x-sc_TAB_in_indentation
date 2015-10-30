@@ -1,4 +1,4 @@
-^tests/data/
+^test-data/
 ^COPYING(.LIB)?$
 ^\.gitmodules$
 (^|\/)ChangeLog[^/]*$

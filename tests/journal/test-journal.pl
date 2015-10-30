@@ -16,9 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test journal using test data from ../guests/guest-aux/-
-# fedora-journal.tar.xz which is incorporated into the Fedora test
-# image in ../guests/fedora.img.
+# Test journal using test data from
+# test-data/phony-guests/fedora-journal.tar.xz which is incorporated
+# into the Fedora test image in test-data/phony-guests/fedora.img.
 
 use strict;
 use warnings;
@@ -28,7 +28,8 @@ use Sys::Guestfs;
 exit 77 if $ENV{SKIP_TEST_JOURNAL_PL};
 
 my $g = Sys::Guestfs->new ();
-$g->add_drive ("../guests/fedora.img", readonly => 1, format => "raw");
+$g->add_drive ("../../test-data/phony-guests/fedora.img",
+               readonly => 1, format => "raw");
 $g->launch ();
 
 # If journal feature is not available, bail.

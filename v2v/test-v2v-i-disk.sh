@@ -32,7 +32,7 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
     exit 77
 fi
 
-f=../tests/guests/windows.img
+f=../test-data/phony-guests/windows.img
 if ! test -f $f || ! test -s $f; then
     echo "$0: test skipped because phony Windows image was not created"
     exit 77

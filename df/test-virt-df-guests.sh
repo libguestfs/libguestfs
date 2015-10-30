@@ -26,7 +26,7 @@ if [ -n "$SKIP_TEST_VIRT_DF_GUESTS_SH" ]; then
     exit 77
 fi
 
-guestsdir="$(cd ../tests/guests && pwd)"
+guestsdir="$(cd ../test-data/phony-guests && pwd)"
 libvirt_uri="test://$guestsdir/guests.xml"
 
 $VG virt-df -c "$libvirt_uri"

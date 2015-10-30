@@ -455,8 +455,8 @@ create_handle (void)
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_add_drive_ro (g, "../data/test.iso") == -1) {
-    printf ("FAIL: guestfs_add_drive_ro ../data/test.iso\n");
+  if (guestfs_add_drive_ro (g, "../../test-data/test.iso") == -1) {
+    printf ("FAIL: guestfs_add_drive_ro ../../test-data/test.iso\n");
     exit (EXIT_FAILURE);
   }
 

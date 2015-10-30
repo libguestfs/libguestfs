@@ -22,7 +22,7 @@
 set -e
 export LANG=C
 
-if [ ! -s ../guests/fedora.img -o ! -s ../data/test.iso -o ! -s ../guests/debian.img ]; then
+if [ ! -s ../../test-data/phony-guests/fedora.img -o ! -s ../../test-data/test.iso -o ! -s ../../test-data/phony-guests/debian.img ]; then
     echo "$0: test skipped because there is no fedora.img nor test.iso nor debian.img"
     exit 77
 fi
@@ -30,9 +30,9 @@ fi
 rm -f test.out
 
 guestfish --ro > test.out <<EOF
-add-drive-ro ../guests/fedora.img
-add-cdrom ../data/test.iso
-add-drive-ro ../guests/debian.img
+add-drive-ro ../../test-data/phony-guests/fedora.img
+add-cdrom ../../test-data/test.iso
+add-drive-ro ../../test-data/phony-guests/debian.img
 
 run
 

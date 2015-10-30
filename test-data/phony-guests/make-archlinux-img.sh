@@ -47,9 +47,9 @@ write /etc/fstab "/dev/sda1 / ext4 rw,relatime,data=ordered 0 1"
 touch /etc/arch-release
 write /etc/hostname "archlinux.test"
 
-upload $SRCDIR/guest-aux/archlinux-package /var/lib/pacman/local/test-package-1:0.1-1/desc
+upload $SRCDIR/archlinux-package /var/lib/pacman/local/test-package-1:0.1-1/desc
 
-upload $SRCDIR/../data/bin-x86_64-dynamic /bin/ls
+upload $SRCDIR/../binaries/bin-x86_64-dynamic /bin/ls
 
 mkdir /boot/grub
 touch /boot/grub/grub.conf

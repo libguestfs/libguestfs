@@ -20,7 +20,7 @@ export LANG=C
 set -e
 
 # Read out the test directory using virt-tar.
-$srcdir/virt-tar -x ../tests/guests/fedora.img /bin test.tar
+$srcdir/virt-tar -x ../test-data/phony-guests/fedora.img /bin test.tar
 
 if [ "$(tar tf test.tar | sort)" != "./
 ./ls

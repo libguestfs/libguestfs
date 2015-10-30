@@ -44,7 +44,7 @@ rm -f root.tmp test.qcow2 test.output
 # and then inspect it.
 guestfish -- \
   disk-create test.qcow2 qcow2 -1 \
-    backingfile:../guests/fedora-btrfs.img backingformat:raw
+    backingfile:../../test-data/phony-guests/fedora-btrfs.img backingformat:raw
 
 # Test that basic inspection works and the expected filesystems are
 # found

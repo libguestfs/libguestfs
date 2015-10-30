@@ -155,8 +155,7 @@ mkdir -p \
     appliance/supermin.d \
     java/t \
     ocaml/html \
-    ocaml/t \
-    tests/guests/guest-aux
+    ocaml/t
 
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/libguestfs-make-fixed-appliance],
@@ -248,6 +247,12 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/libguestfs.pc
                  sysprep/Makefile
+                 test-data/Makefile
+                 test-data/binaries/Makefile
+                 test-data/blank-disks/Makefile
+                 test-data/files/Makefile
+                 test-data/phony-guests/Makefile
+                 test-data/phony-guests/guests.xml
                  test-tool/Makefile
                  tests/9p/Makefile
                  tests/bigdirs/Makefile
@@ -255,7 +260,6 @@ AC_CONFIG_FILES([Makefile
                  tests/c-api/Makefile
                  tests/charsets/Makefile
                  tests/create/Makefile
-                 tests/data/Makefile
                  tests/daemon/Makefile
                  tests/daemon/captive-daemon.pm
                  tests/discard/Makefile
@@ -264,8 +268,6 @@ AC_CONFIG_FILES([Makefile
                  tests/disk-labels/Makefile
                  tests/events/Makefile
                  tests/fuzz/Makefile
-                 tests/guests/Makefile
-                 tests/guests/guests.xml
                  tests/hotplug/Makefile
                  tests/http/Makefile
                  tests/journal/Makefile

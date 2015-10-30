@@ -34,12 +34,12 @@ $progname =~ s{.*/}{};
 my $trace_depth = 0;
 
 my $srcdir = $ENV{srcdir} || ".";
-# Location of tests/data.
-my $datasrcdir = $srcdir . "/../data";
-my $databindir = "../data";
-# Location of tests/guests/guest-aux.
-my $guestauxsrcdir = $srcdir . "/../guests/guest-aux";
-my $guestauxbindir = "../guests/guest-aux";
+# Location of test-data/files.
+my $datasrcdir = $srcdir . "/../../test-data/files";
+my $databindir = "../../test-data/files";
+# Location of test-data/phony-guests.
+my $guestsrcdir = $srcdir . "/../../test-data/phony-guests";
+my $guestbindir = "../../test-data/phony-guests";
 
 if ($ENV{SKIP_FUZZ_INSPECTION_PL}) {
     print "$progname: test skipped because environment variable set\n";
@@ -526,9 +526,9 @@ sub random_file_hive
     my $filename = shift;
 
     my @hivefiles = ();
-    $_ = $guestauxbindir . "/windows-software";
+    $_ = $guestbindir . "/windows-software";
     push @hivefiles, $_ if -f $_;
-    $_ = $guestauxbindir . "/windows-system";
+    $_ = $guestbindir . "/windows-system";
     push @hivefiles, $_ if -f $_;
 
     if (@hivefiles > 0) {

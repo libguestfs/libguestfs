@@ -1,6 +1,5 @@
-#!/bin/bash -
-# libguestfs virt-customize test script
-# Copyright (C) 2014 Red Hat Inc.
+# libguestfs test images
+# Copyright (C) 2009-2015 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,20 +15,29 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
-set -e
+include $(top_srcdir)/subdir-rules.mk
 
-# virt-customize with the -n option doesn't modify the guest.  It ought
-# to be able to customize any of our Linux-like test guests.
-
-for f in ../test-data/phony-guests/{debian,fedora,ubuntu}.img; do
-    # Ignore zero-sized windows.img if ntfs-3g is not installed.
-    if [ -s "$f" ]; then
-        # Add --no-network so UML works.
-	$VG virt-customize -n -a $f \
-            --no-network \
-            --write /etc/motd:HELLO \
-            --chmod 0600:/etc/motd \
-            --delete /etc/motd
-    fi
-done
+EXTRA_DIST = \
+	README \
+	bin-aarch64-dynamic \
+	bin-armv7-dynamic \
+	bin-i586-dynamic \
+	bin-ia64-dynamic \
+	bin-mipsel-dynamic \
+	bin-ppc64-dynamic \
+	bin-ppc64le-dynamic \
+	bin-sparc-dynamic \
+	bin-win32.exe \
+	bin-win64.exe \
+	bin-x86_64-dynamic \
+	lib-aarch64.so \
+	lib-armv7.so \
+	lib-i586.so \
+	lib-ia64.so \
+	lib-ppc64.so \
+	lib-ppc64le.so \
+	lib-mipsel.so \
+	lib-sparc.so \
+	lib-win32.dll \
+	lib-win64.dll \
+	lib-x86_64.so

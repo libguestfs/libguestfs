@@ -1,2 +1,2 @@
-tests/data/bin-win64.exe
+test-data/binaries/bin-win64.exe
 *.pod

@@ -29,8 +29,8 @@ fi
 rm -f inspect-fstab-md-{1,2}.img inspect-fstab-md.fstab inspect-fstab-md.output
 
 # First, test the regular fedora image, which specifies /boot as /dev/md0
-cp ../guests/fedora-md1.img inspect-fstab-md-1.img
-cp ../guests/fedora-md2.img inspect-fstab-md-2.img
+cp ../../test-data/phony-guests/fedora-md1.img inspect-fstab-md-1.img
+cp ../../test-data/phony-guests/fedora-md2.img inspect-fstab-md-2.img
 
 guestfish -i inspect-fstab-md-[12].img <<'EOF' | sort > inspect-fstab-md.output
   exists /boot/grub/grub.conf

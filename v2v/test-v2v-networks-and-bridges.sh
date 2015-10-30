@@ -35,7 +35,7 @@ fi
 abs_builddir="$(pwd)"
 libvirt_uri="test://$abs_builddir/test-v2v-networks-and-bridges.xml"
 
-f=../tests/guests/windows.img
+f=../test-data/phony-guests/windows.img
 if ! test -f $f || ! test -s $f; then
     echo "$0: test skipped because phony Windows image was not created"
     exit 77

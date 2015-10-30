@@ -20,7 +20,7 @@ export LANG=C
 set -e
 
 # Read out the test directory using virt-ls.
-if [ "$($VG virt-ls ../tests/guests/fedora.img /bin)" != "ls
+if [ "$($VG virt-ls ../test-data/phony-guests/fedora.img /bin)" != "ls
 test1
 test2
 test3
@@ -33,7 +33,7 @@ test7" ]; then
 fi
 
 # Try the -lR option.
-output="$($VG virt-ls -lR ../tests/guests/fedora.img /boot | awk '{print $1 $2 $4}')"
+output="$($VG virt-ls -lR ../test-data/phony-guests/fedora.img /boot | awk '{print $1 $2 $4}')"
 expected="d0755/boot
 d0755/boot/grub
 -0644/boot/grub/grub.conf
@@ -49,5 +49,5 @@ if [ "$output" != "$expected" ]; then
 fi
 
 # Try the -l and -R options.   XXX Should check the output.
-$VG virt-ls -l ../tests/guests/fedora.img /
-$VG virt-ls -R ../tests/guests/fedora.img /
+$VG virt-ls -l ../test-data/phony-guests/fedora.img /
+$VG virt-ls -R ../test-data/phony-guests/fedora.img /

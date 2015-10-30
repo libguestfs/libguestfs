@@ -24,7 +24,7 @@ set -e
 
 rm -f test-upload-to-dir.img test-upload-to-dir.out
 
-if $VG guestfish -N test-upload-to-dir.img=fs -m /dev/sda1 upload ../tests/data/test.iso / 2>test-upload-to-dir.out
+if $VG guestfish -N test-upload-to-dir.img=fs -m /dev/sda1 upload ../test-data/test.iso / 2>test-upload-to-dir.out
 then
   echo "$0: expecting guestfish to return an error"
   exit 1

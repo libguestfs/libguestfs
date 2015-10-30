@@ -29,14 +29,14 @@ if [ -n "$SKIP_TEST_RHBZ1174551_SH" ]; then
     exit 77
 fi
 
-if [ ! -s ../guests/fedora.img ]; then
+if [ ! -s ../../test-data/phony-guests/fedora.img ]; then
     echo "$0: test skipped because there is no fedora.img"
     exit 77
 fi
 
 rm -f test.error
 
-$VG guestfish --ro -a ../guests/fedora.img -i <<EOF 2>test.error
+$VG guestfish --ro -a ../../test-data/phony-guests/fedora.img -i <<EOF 2>test.error
 # valid invocations
 lstatlist /etc "fedora-release sysconfig"
 lstatnslist /etc "fedora-release sysconfig"

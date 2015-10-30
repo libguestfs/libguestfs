@@ -39,7 +39,7 @@ g.connect('trace', function(session, params) {
   }
 });
 
-g.add_drive('../tests/guests/fedora.img', null);
+g.add_drive('../test-data/phony-guests/fedora.img', null);
 g.set_trace(true);
 g.launch();
 // Fake progress messages for a 5 second event. We do this as launch() will not

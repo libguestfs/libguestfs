@@ -55,7 +55,7 @@ if ! test -f $img; then
     exit 77
 fi
 
-guestsdir="$(cd ../tests/guests && pwd)"
+guestsdir="$(cd ../test-data/phony-guests && pwd)"
 f="$guestsdir/windows.img"
 if ! test -f $f; then
     echo "$0: test skipped because phony Windows image was not created"

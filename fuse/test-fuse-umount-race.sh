@@ -38,7 +38,7 @@ if [ ! -w /dev/fuse ]; then
     exit 77
 fi
 
-if [ ! -f ../tests/guests/fedora.img ]; then
+if [ ! -f ../test-data/phony-guests/fedora.img ]; then
     echo "$0: test skipped because fedora.img test guest does not exist."
     exit 77
 fi
@@ -54,7 +54,7 @@ rm -rf mp
 # Make a copy of the Fedora image so we can write to it then discard it.
 guestfish -- \
     disk-create test.qcow2 qcow2 -1 \
-      backingfile:../tests/guests/fedora.img backingformat:raw
+      backingfile:../test-data/phony-guests/fedora.img backingformat:raw
 
 mkdir mp
 ./guestmount -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp

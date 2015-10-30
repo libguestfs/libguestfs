@@ -23,12 +23,12 @@ set -e
 rm -f test.out
 
 $VG guestfish <<'EOF' > test.out
-add-ro ../tests/data/test.iso
+add-ro ../test-data/test.iso
 run
 mount-ro /dev/sda /
 read-file /helloworld.tar
 EOF
 
-cmp $srcdir/../tests/data/helloworld.tar test.out
+cmp $srcdir/../test-data/files/helloworld.tar test.out
 
 rm -f test.out

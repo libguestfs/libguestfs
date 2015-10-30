@@ -30,7 +30,7 @@ rm -f test.qcow2
 # discard it.
 guestfish -- \
   disk-create test.qcow2 qcow2 -1 \
-    backingfile:../tests/guests/fedora.img backingformat:raw
+    backingfile:../test-data/phony-guests/fedora.img backingformat:raw
 
 # Edit interactively.  We have to simulate this by setting $EDITOR.
 # The command will be: echo newline >> /tmp/file
@@ -64,7 +64,7 @@ newline" ]; then
 fi
 
 # Verify the mode of /etc/test3 is still 0600 and the UID:GID is 10:11.
-# See tests/guests/guest-aux/make-fedora-img.pl and RHBZ#788641.
+# See test-data/phony-guests/make-fedora-img.pl and RHBZ#788641.
 if [ "$(guestfish -i -a test.qcow2 --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
 mode: 33152
 uid: 10" ]; then

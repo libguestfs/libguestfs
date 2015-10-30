@@ -23,7 +23,7 @@ if [ -n "$SKIP_TEST_VIRT_ALIGNMENT_SCAN_GUESTS_SH" ]; then
     exit 77
 fi
 
-guestsdir="$(cd ../tests/guests && pwd)"
+guestsdir="$(cd ../test-data/phony-guests && pwd)"
 libvirt_uri="test://$guestsdir/guests-all-good.xml"
 
 $VG virt-alignment-scan -c "$libvirt_uri"

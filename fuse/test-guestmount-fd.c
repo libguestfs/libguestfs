@@ -35,7 +35,7 @@
 
 #define GUESTMOUNT_BINARY "./guestmount"
 #define GUESTUNMOUNT_BINARY "./guestunmount"
-#define TEST_IMAGE "../tests/guests/fedora.img"
+#define TEST_IMAGE "../test-data/phony-guests/fedora.img"
 #define MOUNTPOINT "test-guestmount-fd.d"
 #define TEST_FILE MOUNTPOINT "/etc/fstab"
 

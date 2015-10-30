@@ -14,12 +14,12 @@
   <devices>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
-      <source file='../guests/windows.img'/>
+      <source file='../../test-data/phony-guests/windows.img'/>
       <target dev='hda' bus='ide'/>
     </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
-      <source file='../guests/blank-disk.img'/>
+      <source file='../../test-data/phony-guests/blank-disk.img'/>
       <target dev='hdb' bus='ide'/>
     </disk>
   </devices>

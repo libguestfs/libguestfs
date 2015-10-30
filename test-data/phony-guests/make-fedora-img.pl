@@ -217,12 +217,12 @@ if (-f "mdadm.tmp.$$") {
   unlink ("mdadm.tmp.$$") or die;
 }
 
-$g->upload ($ENV{SRCDIR}.'/guest-aux/fedora-name.db', '/var/lib/rpm/Name');
-$g->upload ($ENV{SRCDIR}.'/guest-aux/fedora-packages.db', '/var/lib/rpm/Packages');
+$g->upload ($ENV{SRCDIR}.'/fedora-name.db', '/var/lib/rpm/Name');
+$g->upload ($ENV{SRCDIR}.'/fedora-packages.db', '/var/lib/rpm/Packages');
 
-$g->upload ($ENV{SRCDIR}.'/../data/bin-x86_64-dynamic', '/bin/ls');
+$g->upload ($ENV{SRCDIR}.'/../binaries/bin-x86_64-dynamic', '/bin/ls');
 
-$g->txz_in ($ENV{SRCDIR}.'/guest-aux/fedora-journal.tar.xz', '/var/log/journal');
+$g->txz_in ($ENV{SRCDIR}.'/fedora-journal.tar.xz', '/var/log/journal');
 
 $g->mkdir ('/boot/grub');
 $g->touch ('/boot/grub/grub.conf');

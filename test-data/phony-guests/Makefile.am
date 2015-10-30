@@ -18,26 +18,26 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	guest-aux/make-debian-img.sh \
-	guest-aux/debian-packages \
-	guest-aux/debian-syslog \
-	guest-aux/make-fedora-img.pl \
-	guest-aux/fedora-journal.tar.xz \
-	guest-aux/fedora-name.db.txt \
-	guest-aux/fedora-name.db \
-	guest-aux/fedora-packages.db.txt \
-	guest-aux/fedora-packages.db \
-	guest-aux/make-ubuntu-img.sh \
-	guest-aux/make-archlinux-img.sh \
-	guest-aux/archlinux-package \
-	guest-aux/make-coreos-img.sh \
-	guest-aux/make-windows-img.sh \
-	guest-aux/windows-software \
-	guest-aux/windows-software.reg \
-	guest-aux/windows-system \
-	guest-aux/windows-system.reg \
-	guest-aux/minimal-hive \
-	guest-aux/make-guests-all-good.pl \
+	make-debian-img.sh \
+	debian-packages \
+	debian-syslog \
+	make-fedora-img.pl \
+	fedora-journal.tar.xz \
+	fedora-name.db.txt \
+	fedora-name.db \
+	fedora-packages.db.txt \
+	fedora-packages.db \
+	make-ubuntu-img.sh \
+	make-archlinux-img.sh \
+	archlinux-package \
+	make-coreos-img.sh \
+	make-windows-img.sh \
+	windows-software \
+	windows-software.reg \
+	windows-system \
+	windows-system.reg \
+	minimal-hive \
+	make-guests-all-good.pl \
 	guests.xml.in
 
 disk_images = \
@@ -56,11 +56,10 @@ disk_images = \
 	coreos.img \
 	windows.img
 
-# This is 'check_DATA' because we don't need it until 'make check'
-# time and we need the tools we have built in order to make it.
-check_DATA = $(disk_images) guests-all-good.xml
+noinst_DATA = $(disk_images) guests-all-good.xml
 
-CLEANFILES = $(check_DATA) \
+CLEANFILES = \
+	$(noinst_DATA) \
 	guests-all-good.xml \
 	stamp-fedora-md.img \
 	*.tmp.*
@@ -70,91 +69,91 @@ CLEANFILES = $(check_DATA) \
 # virt-alignment-scan don't break when they encounter them.
 blank-%.img:
 	rm -f $@ $@-t
-	$(top_builddir)/run \
-	  ../../fish/guestfish \
+	$(top_builddir)/run guestfish \
 	    -N $@-t="$$(echo $@ | $(SED) -e 's/blank-//' -e 's/.img//')" exit
 	mv $@-t $@
 
 # Make a (dummy) Fedora image.
-fedora.img: guest-aux/make-fedora-img.pl \
-		guest-aux/fedora-journal.tar.xz \
-		guest-aux/fedora-name.db \
-		guest-aux/fedora-packages.db
-	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test $<
+fedora.img: make-fedora-img.pl \
+		fedora-journal.tar.xz \
+		fedora-name.db \
+		fedora-packages.db
+	SRCDIR=$(srcdir) LAYOUT=partitions $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Fedora image using md devices
 fedora-md1.img fedora-md2.img: stamp-fedora-md.img
 
-stamp-fedora-md.img: guest-aux/make-fedora-img.pl \
-		guest-aux/fedora-journal.tar.xz \
-		guest-aux/fedora-name.db \
-		guest-aux/fedora-packages.db
+stamp-fedora-md.img: make-fedora-img.pl \
+		fedora-journal.tar.xz \
+		fedora-name.db \
+		fedora-packages.db
 	rm -f $@
-	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test $<
+	SRCDIR=$(srcdir) LAYOUT=partitions-md $(top_builddir)/run --test ./$<
 	touch $@
 
-fedora-btrfs.img: guest-aux/make-fedora-img.pl \
-		guest-aux/fedora-journal.tar.xz \
-		guest-aux/fedora-name.db \
-		guest-aux/fedora-packages.db
-	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test $<
+fedora-btrfs.img: make-fedora-img.pl \
+		fedora-journal.tar.xz \
+		fedora-name.db \
+		fedora-packages.db
+	SRCDIR=$(srcdir) LAYOUT=btrfs $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Debian image.
-debian.img: guest-aux/make-debian-img.sh
-	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+debian.img: make-debian-img.sh
+	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Ubuntu image.
-ubuntu.img: guest-aux/make-ubuntu-img.sh
-	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+ubuntu.img: make-ubuntu-img.sh
+	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Arch Linux image.
-archlinux.img: guest-aux/make-archlinux-img.sh
-	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+archlinux.img: make-archlinux-img.sh
+	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) CoreOS image.
-coreos.img: guest-aux/make-coreos-img.sh
-	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+coreos.img: make-coreos-img.sh
+	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
 # Make a (dummy) Windows image.
-windows.img: guest-aux/make-windows-img.sh \
-	     guest-aux/windows-software guest-aux/windows-system
-	SRCDIR=$(srcdir) $(top_builddir)/run --test $<
+windows.img: make-windows-img.sh \
+		windows-software \
+		windows-system
+	SRCDIR=$(srcdir) $(top_builddir)/run --test ./$<
 
-guests-all-good.xml: guest-aux/make-guests-all-good.pl $(disk_images)
+guests-all-good.xml: make-guests-all-good.pl $(disk_images)
 	rm -f $@ $@-t
-	$^ > $@-t
+	./$^ > $@-t
 	mv $@-t $@
 
 # Since users might not have the tools needed to create this, we also
 # distribute these files and they are only cleaned by 'make distclean'
 # not regular 'make clean'.
-guest-aux/fedora-name.db: guest-aux/fedora-name.db.txt
+fedora-name.db: fedora-name.db.txt
 	rm -f $@ $@-t
 	$(DB_LOAD) $@-t < $<
 	mv $@-t $@
 
-guest-aux/fedora-packages.db: guest-aux/fedora-packages.db.txt
+fedora-packages.db: fedora-packages.db.txt
 	rm -f $@ $@-t
 	$(DB_LOAD) $@-t < $<
 	mv $@-t $@
 
-guest-aux/windows-software: guest-aux/windows-software.reg
+windows-software: windows-software.reg
 	rm -f $@ $@-t
-	cp $(srcdir)/guest-aux/minimal-hive $@-t
+	cp $(srcdir)/minimal-hive $@-t
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SOFTWARE' $<
 	mv $@-t $@
 
-guest-aux/windows-system: guest-aux/windows-system.reg
+windows-system: windows-system.reg
 	rm -f $@ $@-t
-	cp $(srcdir)/guest-aux/minimal-hive $@-t
+	cp $(srcdir)/minimal-hive $@-t
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
 	mv $@-t $@
 
 DISTCLEANFILES = \
-	guest-aux/fedora-name.db \
-	guest-aux/fedora-packages.db \
-	guest-aux/windows-software \
-	guest-aux/windows-system
+	fedora-name.db \
+	fedora-packages.db \
+	windows-software \
+	windows-system
 
 # Don't construct the guests in parallel.  In automake 1.13, check_DATA
 # was changed so it can now run in parallel, but this causes everything

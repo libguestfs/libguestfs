@@ -624,6 +624,10 @@ L<virt-sysprep(1)> command and documentation.
 
 Tests.
 
+=item F<test-data>
+
+Files other test data used by the tests.
+
 =item F<test-tool>
 
 Test tool for end users to test if their qemu/kernel combination

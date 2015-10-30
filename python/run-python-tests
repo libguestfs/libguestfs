@@ -18,7 +18,7 @@
 
 errors=0
 
-guestsdir="$(cd ../tests/guests && pwd)"
+guestsdir="$(cd ../test-data/phony-guests && pwd)"
 export guestsdir
 
 for f in $srcdir/t/*.py; do
