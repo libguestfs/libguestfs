@@ -717,26 +717,29 @@ echo uninstalling Xen PV driver
     *)
     let rootpart = inspect.i_root in
 
-    (* Check that the root device contains NTFS magic. *)
-    let magic = g#pread_device rootpart 8 3L in
-    if magic = "NTFS    " then (
-      (* Get the size of the whole disk containing the root partition. *)
-      let rootdev = g#part_to_dev rootpart in (* eg. /dev/sda *)
-      let size = g#blockdev_getsize64 rootdev in
+    (* Ignore if the rootpart is something like /dev/sda.  RHBZ#1276540. *)
+    if not (g#is_whole_device rootpart) then (
+      (* Check that the root device contains NTFS magic. *)
+      let magic = g#pread_device rootpart 8 3L in
+      if magic = "NTFS    " then (
+        (* Get the size of the whole disk containing the root partition. *)
+        let rootdev = g#part_to_dev rootpart in (* eg. /dev/sda *)
+        let size = g#blockdev_getsize64 rootdev in
 
-      let heads =                       (* refer to the table above *)
-        if size < 2114445312L then 0x40
-        else if size < 4228374780L then 0x80
-        else 0xff in
+        let heads =             (* refer to the table above *)
+          if size < 2114445312L then 0x40
+          else if size < 4228374780L then 0x80
+          else 0xff in
 
-      (* Update NTFS's idea of the number of heads.  This is an
-       * unsigned 16 bit little-endian integer, offset 0x1a from the
-       * beginning of the partition.
-       *)
-      let bytes = String.create 2 in
-      bytes.[0] <- Char.chr heads;
-      bytes.[1] <- '\000';
-      ignore (g#pwrite_device rootpart bytes 0x1a_L)
+        (* Update NTFS's idea of the number of heads.  This is an
+         * unsigned 16 bit little-endian integer, offset 0x1a from the
+         * beginning of the partition.
+         *)
+        let bytes = String.create 2 in
+        bytes.[0] <- Char.chr heads;
+        bytes.[1] <- '\000';
+        ignore (g#pwrite_device rootpart bytes 0x1a_L)
+      )
     )
   in
 
