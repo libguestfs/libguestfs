@@ -56,10 +56,12 @@ disk_images = \
 	coreos.img \
 	windows.img
 
-noinst_DATA = $(disk_images) guests-all-good.xml
+# This is 'check_DATA' because we don't need it until 'make check'
+# time and we need the tools we have built in order to make it.
+check_DATA = $(disk_images) guests-all-good.xml
 
 CLEANFILES = \
-	$(noinst_DATA) \
+	$(check_DATA) \
 	guests-all-good.xml \
 	stamp-fedora-md.img \
 	*.tmp.*

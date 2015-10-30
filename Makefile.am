@@ -19,15 +19,28 @@ include $(top_srcdir)/common-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
+# The generator - must be before anything else.
+SUBDIRS = generator
+
+# Must be the first tests that run.
+if ENABLE_APPLIANCE
+SUBDIRS += tests/qemu
+endif
+
+# Files and other test data used by the tests.  Must be before any
+# tests run, except tests/qemu.
+SUBDIRS += test-data
+
 # Gnulib - must be built and tested before the library.
-SUBDIRS = gnulib/lib
+SUBDIRS += gnulib/lib
 if ENABLE_GNULIB_TESTS
 SUBDIRS += gnulib/tests
 endif
 
 # Basic source for the library.
-SUBDIRS += generator src docs examples po
+SUBDIRS += src docs examples po
 
+# The daemon and the appliance.
 if ENABLE_DAEMON
 SUBDIRS += daemon
 SUBDIRS += tests/daemon
@@ -38,7 +51,6 @@ endif
 
 # Tests - order is important.
 if ENABLE_APPLIANCE
-SUBDIRS += tests/qemu
 SUBDIRS += tests/c-api
 SUBDIRS += tests/tmpdirs
 SUBDIRS += tests/protocol
@@ -148,9 +160,6 @@ endif
 if HAVE_TOOLS
 SUBDIRS += tools
 endif
-
-# Files and other test data used by the tests (must come after fish, perl).
-SUBDIRS += test-data
 
 # guestmount
 if HAVE_FUSE
