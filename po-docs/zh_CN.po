@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-10-30 10:48+0000\n"
+"POT-Creation-Date: 2015-10-30 16:14+0000\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -1142,11 +1142,11 @@ msgstr ""
 #: ../docs/guestfs-faq.pod:1353 ../docs/guestfs-faq.pod:1358
 #: ../docs/guestfs-hacking.pod:381 ../docs/guestfs-hacking.pod:385
 #: ../docs/guestfs-hacking.pod:389 ../docs/guestfs-hacking.pod:393
-#: ../docs/guestfs-hacking.pod:397 ../docs/guestfs-hacking.pod:683
-#: ../docs/guestfs-hacking.pod:688 ../docs/guestfs-hacking.pod:692
-#: ../docs/guestfs-hacking.pod:696 ../docs/guestfs-hacking.pod:710
-#: ../docs/guestfs-hacking.pod:714 ../docs/guestfs-hacking.pod:719
-#: ../docs/guestfs-hacking.pod:723 ../docs/guestfs-performance.pod:105
+#: ../docs/guestfs-hacking.pod:397 ../docs/guestfs-hacking.pod:687
+#: ../docs/guestfs-hacking.pod:692 ../docs/guestfs-hacking.pod:696
+#: ../docs/guestfs-hacking.pod:700 ../docs/guestfs-hacking.pod:714
+#: ../docs/guestfs-hacking.pod:718 ../docs/guestfs-hacking.pod:723
+#: ../docs/guestfs-hacking.pod:727 ../docs/guestfs-performance.pod:105
 #: ../docs/guestfs-performance.pod:111 ../docs/guestfs-performance.pod:116
 #: ../docs/guestfs-performance.pod:243 ../docs/guestfs-performance.pod:248
 #: ../docs/guestfs-performance.pod:253 ../docs/guestfs-performance.pod:373
@@ -1343,7 +1343,7 @@ msgstr ""
 #: ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518
 #: ../customize/virt-customize.pod:252 ../daemon/guestfsd.pod:138
 #: ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248
-#: ../docs/guestfs-faq.pod:1372 ../docs/guestfs-hacking.pod:734
+#: ../docs/guestfs-faq.pod:1372 ../docs/guestfs-hacking.pod:738
 #: ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:567
 #: ../docs/guestfs-recipes.pod:668 ../docs/guestfs-release-notes.pod:4326
 #: ../docs/guestfs-security.pod:324 ../docs/guestfs-testing.pod:384
@@ -1418,7 +1418,7 @@ msgstr ""
 #: ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532
 #: ../customize/virt-customize.pod:273 ../daemon/guestfsd.pod:147
 #: ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262
-#: ../docs/guestfs-faq.pod:1382 ../docs/guestfs-hacking.pod:750
+#: ../docs/guestfs-faq.pod:1382 ../docs/guestfs-hacking.pod:754
 #: ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:584
 #: ../docs/guestfs-recipes.pod:687 ../docs/guestfs-release-notes.pod:4341
 #: ../docs/guestfs-security.pod:336 ../docs/guestfs-testing.pod:395
@@ -1712,7 +1712,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
 #: ../customize/virt-customize.pod:269 ../docs/guestfs-faq.pod:1378
-#: ../docs/guestfs-hacking.pod:746 ../docs/guestfs-internals.pod:409
+#: ../docs/guestfs-hacking.pod:750 ../docs/guestfs-internals.pod:409
 #: ../docs/guestfs-performance.pod:580 ../docs/guestfs-recipes.pod:683
 #: ../docs/guestfs-security.pod:332 ../docs/guestfs-testing.pod:391
 #: ../erlang/examples/guestfs-erlang.pod:110
@@ -1734,7 +1734,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
-#: ../docs/guestfs-faq.pod:1380 ../docs/guestfs-hacking.pod:748
+#: ../docs/guestfs-faq.pod:1380 ../docs/guestfs-hacking.pod:752
 #: ../docs/guestfs-internals.pod:411 ../docs/guestfs-performance.pod:582
 #: ../docs/guestfs-recipes.pod:685 ../docs/guestfs-security.pod:334
 #: ../docs/guestfs-testing.pod:393 ../erlang/examples/guestfs-erlang.pod:112
@@ -1754,7 +1754,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534
 #: ../daemon/guestfsd.pod:149 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
-#: ../docs/guestfs-hacking.pod:752 ../docs/guestfs-internals.pod:415
+#: ../docs/guestfs-hacking.pod:756 ../docs/guestfs-internals.pod:415
 #: ../docs/guestfs-recipes.pod:689 ../docs/guestfs-release-notes.pod:4343
 #: ../docs/guestfs-security.pod:338 ../edit/virt-edit.pod:406
 #: ../fish/guestfish.pod:1636 ../fuse/guestmount.pod:448
@@ -14609,23 +14609,33 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:627
-msgid "F<test-tool>"
+msgid "F<test-data>"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:629
+msgid "Files other test data used by the tests."
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-hacking.pod:631
+msgid "F<test-tool>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-hacking.pod:633
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:632
+#: ../docs/guestfs-hacking.pod:636
 msgid "F<tmp>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:634
+#: ../docs/guestfs-hacking.pod:638
 msgid ""
 "Used for temporary files when running the tests (instead of F</tmp> etc).  "
 "The reason is so that you can run multiple parallel tests of libguestfs "
@@ -14633,98 +14643,98 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:639
+#: ../docs/guestfs-hacking.pod:643
 msgid "F<tools>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:641
+#: ../docs/guestfs-hacking.pod:645
 msgid ""
 "Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:643
+#: ../docs/guestfs-hacking.pod:647
 msgid "F<v2v>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:645
+#: ../docs/guestfs-hacking.pod:649
 msgid "L<virt-v2v(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:647
+#: ../docs/guestfs-hacking.pod:651
 msgid "F<csharp>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:649
+#: ../docs/guestfs-hacking.pod:653
 msgid "F<erlang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:651
+#: ../docs/guestfs-hacking.pod:655
 msgid "F<gobject>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:653
+#: ../docs/guestfs-hacking.pod:657
 msgid "F<golang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:655
+#: ../docs/guestfs-hacking.pod:659
 msgid "F<haskell>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:657
+#: ../docs/guestfs-hacking.pod:661
 msgid "F<java>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:659
+#: ../docs/guestfs-hacking.pod:663
 msgid "F<lua>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:661
+#: ../docs/guestfs-hacking.pod:665
 msgid "F<ocaml>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:663
+#: ../docs/guestfs-hacking.pod:667
 msgid "F<php>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:665
+#: ../docs/guestfs-hacking.pod:669
 msgid "F<perl>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:667
+#: ../docs/guestfs-hacking.pod:671
 msgid "F<python>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:669
+#: ../docs/guestfs-hacking.pod:673
 msgid "F<ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:671
+#: ../docs/guestfs-hacking.pod:675
 msgid "Language bindings."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-hacking.pod:675
+#: ../docs/guestfs-hacking.pod:679
 msgid "MAKING A STABLE RELEASE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:677
+#: ../docs/guestfs-hacking.pod:681
 msgid ""
 "When we make a stable release, there are several steps documented here.  See "
 "L<guestfs(3)/LIBGUESTFS VERSION NUMBERS> for general information about the "
@@ -14732,34 +14742,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:685
+#: ../docs/guestfs-hacking.pod:689
 msgid ""
 "Check C<make && make check> works on at least Fedora, Debian and Ubuntu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:690
+#: ../docs/guestfs-hacking.pod:694
 msgid "Check C<./configure --without-libvirt> works."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:694
+#: ../docs/guestfs-hacking.pod:698
 msgid "Finalize F<guestfs-release-notes.pod>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:698
+#: ../docs/guestfs-hacking.pod:702
 msgid "Push and pull from Zanata."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:700 ../docs/guestfs-testing.pod:31
+#: ../docs/guestfs-hacking.pod:704 ../docs/guestfs-testing.pod:31
 #: ../docs/guestfs-testing.pod:224
 msgid "Run:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:702
+#: ../docs/guestfs-hacking.pod:706
 #, no-wrap
 msgid ""
 " zanata push\n"
@@ -14767,12 +14777,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:704
+#: ../docs/guestfs-hacking.pod:708
 msgid "to push the latest POT files to Zanata.  Then run:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:706
+#: ../docs/guestfs-hacking.pod:710
 #, no-wrap
 msgid ""
 " ./zanata-pull.sh\n"
@@ -14780,34 +14790,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:708
+#: ../docs/guestfs-hacking.pod:712
 msgid "which is a wrapper to pull the latest translated F<*.po> files."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:712
+#: ../docs/guestfs-hacking.pod:716
 msgid "Consider updating gnulib to latest upstream version."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:716
+#: ../docs/guestfs-hacking.pod:720
 msgid ""
 "Create new stable and development directories under L<http://libguestfs.org/"
 "download>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:721
+#: ../docs/guestfs-hacking.pod:725
 msgid "Edit F<index.html.in> on website."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:725
+#: ../docs/guestfs-hacking.pod:729
 msgid "Create the branch in git:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:727
+#: ../docs/guestfs-hacking.pod:731
 #, no-wrap
 msgid ""
 " git tag -a 1.XX.0 -m \"Version 1.XX.0 (stable)\"\n"
@@ -14818,7 +14828,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:736
+#: ../docs/guestfs-hacking.pod:740
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-internals(3)>, L<guestfs-"
 "performance(1)>, L<guestfs-release-notes(1)>, L<guestfs-testing(1)>, "

@@ -584,9 +584,6 @@ You can help by testing the fixes.
 1180769 POST https://bugzilla.redhat.com/show_bug.cgi?id=1180769
   Security context on image file gets reset
 
-1194472 POST https://bugzilla.redhat.com/show_bug.cgi?id=1194472
-  Current virt-builder index breaks version < 1.26
-
 1225789 POST https://bugzilla.redhat.com/show_bug.cgi?id=1225789
   Wrong video driver is installed for rhel5.11 guest after conversion to libvirt
 
@@ -644,7 +641,7 @@ You can help by testing the fixes.
 1260778 ON_QA https://bugzilla.redhat.com/show_bug.cgi?id=1260778
   virt-builder --ssh-inject doesn't set proper permissions on created files
 
-(27 bugs)
+(26 bugs)
 
 --------------------------------------------------
 These bugs are in the VERIFIED state.
