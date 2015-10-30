@@ -110,6 +110,39 @@ let get_storage_group_id doc os =
   !storage_group_id;
 ;;
 
+let get_network_id doc network_name =
+    let xpathctx = Xml.xpath_new_context doc in
+  let xpath_string = xpath_string xpathctx in
+
+  let network_id = ref "" in
+  let obj = Xml.xpath_eval_expression xpathctx
+    "/responses/response/output/sharednetwork" in
+  let nr_nodes = Xml.xpathobj_nr_nodes obj in
+  if nr_nodes < 1 then
+      error (f_"there is no shared network in the everrun system");
+  let found_nw = ref false in
+  for i = 0 to nr_nodes-1 do
+    if not !found_nw then (
+      let node = Xml.xpathobj_node obj i in
+      Xml.xpathctx_set_current_context xpathctx node;
+      let network_name_tmp = match xpath_string "name" with
+                             | None -> ""
+                             | Some netname -> (string_trim netname)
+      in
+      if network_name_tmp = network_name then (
+        let full_id = match xpath_string "@id" with
+                      | None -> ""
+                      | Some nid -> (string_trim nid) in
+        network_id := get_everrun_obj_id full_id;
+        found_nw := true;
+      )
+    )
+  done;
+  if !network_id = "" then
+    error (f_"there is no shared network match name in the everrun system");
+  !network_id;
+;;
+
 let check_domain_existence doc host_name =
   let xpathctx = Xml.xpath_new_context doc in
   let xpath_string = xpath_string xpathctx in
@@ -134,12 +167,21 @@ let check_domain_existence doc host_name =
 
 let parse_config_file os =
 
-  let cmd = sprintf "curl http://localhost:8999 > %s" !tmp_output_file in
+  (* Get watch response *)
+  let cmd = sprintf "curl http://localhost:8999/watch > %s" !tmp_output_file in
   if Sys.command cmd <> 0 then
     error (f_"get response error");
-
   let xml = read_whole_file !tmp_output_file in
   let everrun_response_doc = Xml.parse_memory xml in
+  clean_up ();
+
+  (* Get all shared networks *)
+  (* let cmd_curl_topology = sprintf "<request id='1' target='sharednetwork'><select>sharednetwork</select></request>" in *)
+  let cmd = sprintf "curl http://localhost:8999/network > %s" !tmp_output_file in
+  if Sys.command cmd <> 0 then
+    error (f_"get response error");
+  let xml = read_whole_file !tmp_output_file in
+  let everrun_network_response_doc = Xml.parse_memory xml in
   clean_up ();
 
   let xml = read_whole_file os in
@@ -194,7 +236,7 @@ let parse_config_file os =
         let virtual_network_name = match xpath_string "virtual-network-name" with
                                   | None -> ""
                                   | Some net_name -> (string_trim net_name) in
-        let virtal_network_id = "" in
+        let virtal_network_id = get_network_id everrun_network_response_doc virtual_network_name in
         add_network name virtual_network_name virtal_network_id;
     )
     else error (f_"unknown device type");
