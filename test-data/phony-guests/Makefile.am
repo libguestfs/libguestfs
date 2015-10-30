@@ -158,7 +158,4 @@ DISTCLEANFILES = \
 # Don't construct the guests in parallel.  In automake 1.13, check_DATA
 # was changed so it can now run in parallel, but this causes everything
 # to fall over on machines with limited memory.
-#
-# ALSO: the guestfish rules above for making the blank-*.img files are
-# NOT safe to run in parallel.
 .NOTPARALLEL:
