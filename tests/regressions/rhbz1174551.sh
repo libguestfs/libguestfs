@@ -51,7 +51,8 @@ EOF
 
 # check the number of errors in the log
 if [ $(cat test.error | wc -l) -ne 4 ]; then
-    echo "$0: "
+    echo "$0: unexpected errors in the log:"
+    cat test.error
     exit 1
 fi
 
