@@ -747,7 +747,7 @@ let test_virtio_iso_path_matches_guest_os ctx =
              let msg = sprintf "path %s should not match %s"
                                path win.i_product_name in
              assert_equal ~printer ~msg false
-               (Utils.virtio_iso_path_matches_guest_os path win)
+               (Windows.UNIT_TESTS.virtio_iso_path_matches_guest_os path win)
          ) all_windows
       | Some correct_windows ->
          List.iter (
@@ -761,7 +761,7 @@ let test_virtio_iso_path_matches_guest_os ctx =
                  sprintf "path %s should not match %s"
                          path win.i_product_name in
              assert_equal ~printer ~msg expected
-               (Utils.virtio_iso_path_matches_guest_os path win)
+               (Windows.UNIT_TESTS.virtio_iso_path_matches_guest_os path win)
          ) all_windows
   ) paths
 
@@ -772,7 +772,7 @@ let suite =
       "OVF.get_ostype" >:: test_get_ostype;
       "Utils.drive_name" >:: test_drive_name;
       "Utils.drive_index" >:: test_drive_index;
-      "Utils.virtio_iso_path_matches_guest_os" >::
+      "Windows.virtio_iso_path_matches_guest_os" >::
         test_virtio_iso_path_matches_guest_os;
     ]
 

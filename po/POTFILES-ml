@@ -102,7 +102,6 @@ v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
 v2v/curl.ml
-v2v/detect_antivirus.ml
 v2v/domainxml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
@@ -127,4 +126,5 @@ v2v/utils.ml
 v2v/v2v.ml
 v2v/v2v_unit_tests.ml
 v2v/vCenter.ml
+v2v/windows.ml
 v2v/xml.ml

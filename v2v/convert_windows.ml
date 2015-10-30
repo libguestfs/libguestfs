@@ -23,7 +23,6 @@ open Common_utils
 
 open Regedit
 
-open Detect_antivirus
 open Utils
 open Types
 
@@ -139,7 +138,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
     with_hive "software" ~write:false check_group_policy in
 
   (* Warn if Windows guest has AV installed. *)
-  let has_antivirus = detect_antivirus inspect in
+  let has_antivirus = Windows.detect_antivirus inspect in
 
   (* Open the software hive (readonly) and find the Xen PV uninstaller,
    * if it exists.
@@ -271,64 +270,12 @@ echo uninstalling Xen PV driver
     with
       Not_found -> ()
 
-  and copy_virtio_drivers driverdir =
-    (* Copy the matching drivers to the driverdir; return true if any have been
-     * copied *)
-    let ret = ref false in
-    if is_directory virtio_win then (
-      let cmd = sprintf "cd %s && find -type f" (quote virtio_win) in
-      let paths = external_command cmd in
-      List.iter (
-        fun path ->
-          if virtio_iso_path_matches_guest_os path inspect then (
-            let source = virtio_win // path in
-            let target = driverdir //
-                    String.lowercase_ascii (Filename.basename path) in
-            if verbose () then
-              printf "Copying virtio driver bits: 'host:%s' -> '%s'\n"
-                source target;
-
-            g#write target (read_whole_file source);
-            ret := true
-          )
-      ) paths
-    )
-    else if is_regular_file virtio_win then (
-      try
-        let g2 = open_guestfs () in
-        g2#set_identifier "virtio_win";
-        g2#add_drive_opts virtio_win ~readonly:true;
-        g2#launch ();
-        let vio_root = "/" in
-        g2#mount_ro "/dev/sda" vio_root;
-        let paths = g2#find vio_root in
-        Array.iter (
-          fun path ->
-            let source = vio_root // path in
-            if g2#is_file source ~followsymlinks:false &&
-               virtio_iso_path_matches_guest_os path inspect then (
-              let target = driverdir //
-                      String.lowercase_ascii (Filename.basename path) in
-              if verbose () then
-                printf "Copying virtio driver bits: '%s:%s' -> '%s'\n"
-                  virtio_win path target;
-
-              g#write target (g2#read_file source);
-              ret := true
-            )
-        ) paths;
-        g2#close()
-      with Guestfs.Error msg ->
-        error (f_"%s: cannot open virtio-win ISO file: %s") virtio_win msg
-    );
-    !ret
-
   and install_virtio_drivers root current_cs =
     (* Copy the virtio drivers to the guest. *)
     let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
     g#mkdir_p driverdir;
 
-    if not (copy_virtio_drivers driverdir) then (
+    if not (Windows.copy_virtio_drivers g inspect virtio_win driverdir) then (
       warning (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
               inspect.i_major_version inspect.i_minor_version inspect.i_arch
               inspect.i_product_variant virtio_win;

@@ -45,8 +45,6 @@ SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
 	curl.mli \
-	detect_antivirus.ml \
-	detect_antivirus.mli \
 	DOM.mli \
 	domainxml.mli \
 	input_disk.mli \
@@ -71,6 +69,7 @@ SOURCES_MLI = \
 	types.mli \
 	utils.mli \
 	vCenter.mli \
+	windows.mli \
 	xml.mli
 
 SOURCES_ML = \
@@ -85,7 +84,7 @@ SOURCES_ML = \
 	changeuid.ml \
 	OVF.ml \
 	linux.ml \
-	detect_antivirus.ml \
+	windows.ml \
 	modules_list.ml \
 	input_disk.ml \
 	input_libvirtxml.ml \
@@ -324,6 +323,7 @@ v2v_unit_tests_BOBJECTS = \
 	utils.cmo \
 	DOM.cmo \
 	OVF.cmo \
+	windows.cmo \
 	v2v_unit_tests.cmo
 v2v_unit_tests_XOBJECTS = $(v2v_unit_tests_BOBJECTS:.cmo=.cmx)
 

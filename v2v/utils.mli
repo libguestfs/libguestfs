@@ -48,11 +48,6 @@ val find_uefi_firmware : string -> string * string
     pair [(code_file, vars_file)].  This cannot return an error, it
     calls [error] and fails instead. *)
 
-val virtio_iso_path_matches_guest_os : string -> Types.inspect -> bool
-(** Given a path of a file relative to the root of the directory tree
-    with virtio-win drivers, figure out if it's suitable for the
-    specific Windows flavor of the current guest. *)
-
 val compare_app2_versions : Guestfs.application2 -> Guestfs.application2 -> int
 (** Compare two app versions. *)
 
