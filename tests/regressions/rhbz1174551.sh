@@ -50,7 +50,7 @@ readlinklist /bin "test5"
 EOF
 
 # check the number of errors in the log
-if [ $(cat test.error | wc -l) -ne 4 ]; then
+if [ $(grep '^\*stdin\*.*is not a file name' test.error | wc -l) -ne 4 ]; then
     echo "$0: unexpected errors in the log:"
     cat test.error
     exit 1
