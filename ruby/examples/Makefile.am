@@ -23,7 +23,9 @@ EXTRA_DIST = \
 	inspect_vm.rb \
 	guestfs-ruby.pod
 
-CLEANFILES = stamp-guestfs-ruby.pod
+CLEANFILES = \
+	guestfs-ruby.3 \
+	stamp-guestfs-ruby.pod
 
 man_MANS = guestfs-ruby.3
 noinst_DATA = $(top_builddir)/website/guestfs-ruby.3.html

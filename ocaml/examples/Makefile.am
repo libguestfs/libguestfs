@@ -27,6 +27,7 @@ EXTRA_DIST = \
 CLEANFILES = \
 	$(noinst_SCRIPTS) \
 	*.cmi *.cmo *.cmx *.o \
+	guestfs-ocaml.3 \
 	stamp-guestfs-ocaml.pod
 
 man_MANS = guestfs-ocaml.3

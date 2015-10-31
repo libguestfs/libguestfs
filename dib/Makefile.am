@@ -121,7 +121,9 @@ stamp-virt-dib.pod: virt-dib.pod
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-dib.pod
+CLEANFILES += \
+	stamp-virt-dib.pod \
+	virt-dib.1
 
 # Dependencies.
 depend: .depend

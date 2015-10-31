@@ -125,7 +125,9 @@ stamp-virt-resize.pod: virt-resize.pod
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-resize.pod
+CLEANFILES += \
+	stamp-virt-resize.pod \
+	virt-resize.1
 
 # Tests.
 

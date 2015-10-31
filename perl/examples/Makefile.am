@@ -23,7 +23,9 @@ EXTRA_DIST = \
 	inspect_vm.pl \
 	guestfs-perl.pod
 
-CLEANFILES = stamp-guestfs-perl.pod
+CLEANFILES = \
+	guestfs-perl.3
+	stamp-guestfs-perl.pod
 
 man_MANS = guestfs-perl.3
 noinst_DATA = $(top_builddir)/website/guestfs-perl.3.html

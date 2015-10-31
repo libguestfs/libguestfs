@@ -17,7 +17,9 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-CLEANFILES = stamp-guestfsd.pod
+CLEANFILES = \
+	stamp-guestfsd.pod \
+	guestfsd.8
 
 generator_built = \
 	actions.h \

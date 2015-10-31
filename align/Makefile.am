@@ -22,7 +22,9 @@ EXTRA_DIST = \
 	test-virt-alignment-scan-guests.sh \
 	virt-alignment-scan.pod
 
-CLEANFILES = stamp-virt-alignment-scan.pod
+CLEANFILES = \
+	stamp-virt-alignment-scan.pod \
+	virt-alignment-scan.1
 
 bin_PROGRAMS = virt-alignment-scan
 

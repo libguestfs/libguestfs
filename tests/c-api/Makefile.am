@@ -23,6 +23,10 @@ BUILT_SOURCES = $(generator_built)
 
 EXTRA_DIST = $(BUILT_SOURCES)
 
+CLEANFILES = \
+	test.log \
+	testdownload.tmp
+
 check_PROGRAMS = \
 	tests \
 	test-command \

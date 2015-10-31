@@ -27,8 +27,9 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	*~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o \
-	virt-sysprep virt-sysprep.1 \
-	stamp-virt-sysprep.pod
+	stamp-virt-sysprep.pod \
+	virt-sysprep \
+	virt-sysprep.1
 
 # Filenames sysprep_operation_<name>.ml in alphabetical order.
 operations = \

@@ -21,7 +21,9 @@ EXTRA_DIST = \
 	test-virt-make-fs.sh \
 	virt-make-fs.pod
 
-CLEANFILES = stamp-virt-make-fs.pod
+CLEANFILES = \
+	stamp-virt-make-fs.pod \
+	virt-make-fs.1
 
 bin_PROGRAMS = virt-make-fs
 

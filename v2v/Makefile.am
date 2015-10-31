@@ -222,7 +222,9 @@ stamp-virt-v2v.pod: virt-v2v.pod
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-v2v.pod
+CLEANFILES += \
+	stamp-virt-v2v.pod \
+	virt-v2v.1
 
 # Tests.
 

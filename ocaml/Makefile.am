@@ -34,7 +34,7 @@ EXTRA_DIST = \
 	t/*.ml
 
 CLEANFILES = *.annot *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
-CLEANFILES += t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
+CLEANFILES += t/*.annot t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
 
@@ -100,6 +100,9 @@ noinst_DATA += html/index.html
 html/index.html: $(srcdir)/guestfs.mli $(srcdir)/guestfs.ml
 	-$(OCAMLFIND) ocamldoc -d html -html $^
 
+clean-local:
+	rm -rf html/*
+
 endif
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
@@ -160,6 +163,8 @@ endif
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" TESTS="$(test_progs_all)" check
+
+CLEANFILES += bindtests.tmp
 
 # Dependencies.
 %.cmi: %.mli

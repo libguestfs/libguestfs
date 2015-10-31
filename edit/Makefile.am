@@ -21,7 +21,9 @@ EXTRA_DIST = \
 	test-virt-edit.sh \
 	virt-edit.pod
 
-CLEANFILES = stamp-virt-edit.pod
+CLEANFILES = \
+	stamp-virt-edit.pod \
+	virt-edit.1
 
 bin_PROGRAMS = virt-edit
 

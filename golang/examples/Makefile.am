@@ -23,7 +23,9 @@ EXTRA_DIST = \
 	inspect-vm.go \
 	guestfs-golang.pod
 
-CLEANFILES = stamp-guestfs-golang.pod
+CLEANFILES = \
+	guestfs-golang.3 \
+	stamp-guestfs-golang.pod
 
 man_MANS = guestfs-golang.3
 noinst_DATA = $(top_builddir)/website/guestfs-golang.3.html

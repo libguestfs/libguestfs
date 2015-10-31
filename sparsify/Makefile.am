@@ -118,7 +118,9 @@ stamp-virt-sparsify.pod: virt-sparsify.pod
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-sparsify.pod
+CLEANFILES += \
+	stamp-virt-sparsify.pod \
+	virt-sparsify.1
 
 # Tests.
 

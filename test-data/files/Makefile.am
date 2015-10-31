@@ -42,6 +42,8 @@ noinst_DATA = \
 	lib-i586.so.xz \
 	test-grep.txt.gz
 
+CLEANFILES = $(noinst_DATA)
+
 100kallzeroes:
 	rm -f $@ $@-t
 	dd if=/dev/zero of=$@-t bs=1024 count=100

@@ -145,5 +145,7 @@ CLEANFILES = \
 	stamp-libguestfs-make-fixed-appliance.pod
 
 DISTCLEANFILES = \
+	make.sh \
+	packagelist \
 	stamp-supermin \
 	supermin.d/*

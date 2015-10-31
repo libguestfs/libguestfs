@@ -154,6 +154,6 @@ stamp-generator: generator
 
 CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
 
-DISTCLEANFILES = .depend
+DISTCLEANFILES = .depend .pod2text.data.version.2
 
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly

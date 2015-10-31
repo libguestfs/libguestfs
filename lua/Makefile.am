@@ -27,7 +27,10 @@ EXTRA_DIST = \
 	$(generator_built) \
 	run-bindtests
 
-CLEANFILES = *~ guestfs.so
+CLEANFILES = \
+	*~ \
+	bindtests.tmp \
+	guestfs.so
 
 if HAVE_LUA
 

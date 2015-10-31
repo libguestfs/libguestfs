@@ -56,10 +56,12 @@ EXTRA_DIST = \
 	Makefile.inc
 
 CLEANFILES = \
-	doc-stamp \
+	bindtests.tmp \
 	com/redhat/et/libguestfs/*.class \
 	com_redhat_et_libguestfs_GuestFS.h \
+	doc-stamp \
 	*.class \
+	t/*.class \
 	*.jar
 
 clean-local:

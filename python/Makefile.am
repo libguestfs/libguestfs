@@ -110,7 +110,10 @@ endif HAVE_PYTHON
 
 # Extra clean.
 CLEANFILES = \
-	*~ examples/*~ t/*~ \
+	*~ *.pyc \
+	examples/*~ examples/*.pyc \
+	t/*~ t/*.pyc \
+	bindtests.tmp \
 	config.h \
 	guestfs-internal-all.h \
 	guestfs-internal-frontend-cleanups.h \

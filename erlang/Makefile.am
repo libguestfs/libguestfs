@@ -30,7 +30,13 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	$(erlang_bin_DATA) \
-	$(bin_PROGRAMS)
+	$(bin_PROGRAMS) \
+	bindtests.tmp
+
+# Erlang makes a new libguestfs-<VERSION>/ebin subdirectory each time
+# we build, so we have to remove that and any previous copies.
+clean-local:
+	rm -rf libguestfs-1.*
 
 if HAVE_ERLANG
 

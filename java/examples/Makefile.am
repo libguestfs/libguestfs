@@ -25,6 +25,7 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	*.class \
+	guestfs-java.3 \
 	stamp-guestfs-java.pod
 
 man_MANS = guestfs-java.3

@@ -31,7 +31,11 @@ CLEANFILES = \
 	stamp-virt-cat.pod \
 	stamp-virt-filesystems.pod \
 	stamp-virt-log.pod \
-	stamp-virt-ls.pod
+	stamp-virt-ls.pod \
+	virt-cat.1 \
+	virt-filesystems.1 \
+	virt-log.1 \
+	virt-ls.1
 
 bin_PROGRAMS = virt-cat virt-filesystems virt-log virt-ls
 

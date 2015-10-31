@@ -23,8 +23,11 @@ tools = \
 	tar \
 	win-reg
 
-# Before 1.23.23, there were symlinks called *.pl.  Need to delete these.
-CLEANFILES = *.pl
+CLEANFILES = \
+	virt-list-filesystems.1 \
+	virt-list-partitions.1 \
+	virt-tar.1 \
+	virt-win-reg.1
 
 EXTRA_DIST = \
 	$(tools:%=virt-%) \

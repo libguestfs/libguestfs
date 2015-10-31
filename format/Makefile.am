@@ -20,7 +20,9 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	virt-format.pod
 
-CLEANFILES = stamp-virt-format.pod
+CLEANFILES = \
+	stamp-virt-format.pod \
+	virt-format.1
 
 bin_PROGRAMS = virt-format
 

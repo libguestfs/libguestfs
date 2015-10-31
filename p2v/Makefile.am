@@ -33,7 +33,10 @@ EXTRA_DIST = \
 CLEANFILES = \
 	stamp-virt-p2v.pod \
 	stamp-virt-p2v-make-disk.pod \
-	stamp-virt-p2v-make-kickstart.pod
+	stamp-virt-p2v-make-kickstart.pod \
+	virt-p2v.1 \
+	virt-p2v-make-disk.1 \
+	virt-p2v-make-kickstart.1
 
 # Although virt-p2v is a regular binary, it is not usually installed
 # in /usr/bin since it only functions when contained in an ISO or PXE

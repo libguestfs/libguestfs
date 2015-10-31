@@ -123,7 +123,9 @@ stamp-virt-get-kernel.pod: virt-get-kernel.pod
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-get-kernel.pod
+CLEANFILES += \
+	stamp-virt-get-kernel.pod \
+	virt-get-kernel.1
 
 # Dependencies.
 depend: .depend

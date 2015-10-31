@@ -36,6 +36,14 @@ EXTRA_DIST = \
 
 DISTCLEANFILES = Build
 
+# Some files are not removed by './Build clean' below.
+CLEANFILES = \
+	*.o \
+	bindtests.tmp \
+	MYMETA.json \
+	MYMETA.yml \
+	pm_to_blib
+
 # It would be nice to do this, but 'make distclean' runs 'make clean'
 # in parallel, and './Build clean' requires '_build/magicnum' to
 # exist, so you end up deleting a file which is required by the

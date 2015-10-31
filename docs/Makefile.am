@@ -29,6 +29,14 @@ EXTRA_DIST = \
 	README
 
 CLEANFILES = \
+	guestfs-faq.1 \
+	guestfs-hacking.1 \
+	guestfs-internals.1 \
+	guestfs-performance.1 \
+	guestfs-recipes.1 \
+	guestfs-release-notes.1 \
+	guestfs-security.1 \
+	guestfs-testing.1 \
 	stamp-guestfs-faq.pod \
 	stamp-guestfs-hacking.pod \
 	stamp-guestfs-internals.pod \

@@ -24,6 +24,8 @@ EXTRA_DIST = \
 	test-guestunmount-not-mounted.sh
 
 CLEANFILES = \
+	guestmount.1 \
+	guestunmount.1 \
 	stamp-guestmount.pod \
 	stamp-guestunmount.pod
 
