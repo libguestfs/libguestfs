@@ -131,8 +131,7 @@ For programmers: examples in
 <a href="guestfs-ocaml.3.html">OCaml</a>,
 <a href="guestfs-perl.3.html">Perl</a>,
 <a href="guestfs-python.3.html">Python</a>,
-<a href="guestfs-ruby.3.html">Ruby</a>,
-<a href="guestfs-performance.1.html">guestfs-performance(1)</a>.
+<a href="guestfs-ruby.3.html">Ruby</a>.
 </p>
 
 <p>
@@ -140,7 +139,11 @@ For developers:
 <a href="README.txt">README</a>,
 <a href="TODO.txt">TODO</a>,
 <a href="guestfs-faq.1.html">FAQ</a>,
-<a href="guestfs-release-notes.1.html">guestfs-release-notes(1)</a>.
+<a href="guestfs-hacking.1.html">guestfs-hacking(1)</a>,
+<a href="guestfs-internals.1.html">guestfs-internals(1)</a>,
+<a href="guestfs-performance.1.html">guestfs-performance(1)</a>,
+<a href="guestfs-release-notes.1.html">guestfs-release-notes(1)</a>,
+<a href="guestfs-security.1.html">guestfs-security(1)</a>.
 </p>
 
 <p>
