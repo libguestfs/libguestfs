@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-10-30 16:14+0000\n"
+"POT-Creation-Date: 2015-10-31 11:05+0000\n"
 "PO-Revision-Date: 2015-03-20 01:39-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -15420,7 +15420,7 @@ msgstr "F<test-tool>"
 #: ../docs/guestfs-hacking.pod:629
 #, fuzzy
 #| msgid "Allow other users to see the filesystem."
-msgid "Files other test data used by the tests."
+msgid "Files and other test data used by the tests."
 msgstr "Дозволити іншим користувачам переглядати файлову систему."
 
 #. type: =item

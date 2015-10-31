@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2015-10-30 16:14+0000\n"
+"POT-Creation-Date: 2015-10-31 11:05+0000\n"
 "PO-Revision-Date: 2015-01-04 11:17-0500\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -14798,7 +14798,7 @@ msgstr "C<metadata>"
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:629
-msgid "Files other test data used by the tests."
+msgid "Files and other test data used by the tests."
 msgstr ""
 
 #. type: =item
