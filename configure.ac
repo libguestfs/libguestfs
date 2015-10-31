@@ -272,7 +272,6 @@ AC_CONFIG_FILES([Makefile
                  tests/disks/test-qemu-drive-libvirt.xml
                  tests/disk-labels/Makefile
                  tests/events/Makefile
-                 tests/fuzz/Makefile
                  tests/hotplug/Makefile
                  tests/http/Makefile
                  tests/journal/Makefile
