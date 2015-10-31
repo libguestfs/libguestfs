@@ -34,7 +34,7 @@ typedef int (*work_fn) (guestfs_h *g, size_t i, FILE *fp);
 /* Run the threads and work through the global list of libvirt
  * domains.  'option_P' is whatever the user passed in the '-P'
  * option, or 0 if the user didn't use the '-P' option (in which case
- * the number of threads is chosen heuristically.  'options_handle'
+ * the number of threads is chosen heuristically).  'options_handle'
  * (which may be NULL) is the global guestfs handle created by the
  * options mini-library.
  *
