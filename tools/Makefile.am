@@ -41,7 +41,7 @@ bin_SCRIPTS = $(tools:%=virt-%)
 # then the man pages are neither built nor installed.
 man_MANS = virt-tar.1 $(patsubst %,virt-%.1,$(filter-out tar,$(tools)))
 
-noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
+noinst_DATA = $(tools:%=$(top_builddir)/website/virt-%.1.html)
 
 virt-%.1: virt-%
 	$(PODWRAPPER) \
@@ -49,7 +49,7 @@ virt-%.1: virt-%
 	  --license GPLv2+ \
 	  $<
 
-$(top_builddir)/html/virt-%.1.html: virt-%
+$(top_builddir)/website/virt-%.1.html: virt-%
 	$(PODWRAPPER) \
 	  --html $@ \
 	  --license GPLv2+ \

@@ -26,15 +26,15 @@ EXTRA_DIST = \
 CLEANFILES = *.pyc *.pyo stamp-guestfs-python.pod
 
 man_MANS = guestfs-python.3
-noinst_DATA = $(top_builddir)/html/guestfs-python.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-python.3.html
 
-guestfs-python.3 $(top_builddir)/html/guestfs-python.3.html: stamp-guestfs-python.pod
+guestfs-python.3 $(top_builddir)/website/guestfs-python.3.html: stamp-guestfs-python.pod
 
 stamp-guestfs-python.pod: guestfs-python.pod create_disk.py inspect_vm.py
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-python.3 \
-	  --html $(top_builddir)/html/guestfs-python.3.html \
+	  --html $(top_builddir)/website/guestfs-python.3.html \
 	  --verbatim $(srcdir)/create_disk.py:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.py:@EXAMPLE2@ \
 	  --license examples \

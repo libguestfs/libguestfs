@@ -111,14 +111,14 @@ endif
 # Manual pages and HTML files for the website.
 
 man_MANS += virt-get-kernel.1
-noinst_DATA += $(top_builddir)/html/virt-get-kernel.1.html
+noinst_DATA += $(top_builddir)/website/virt-get-kernel.1.html
 
-virt-get-kernel.1 $(top_builddir)/html/virt-get-kernel.1.html: stamp-virt-get-kernel.pod
+virt-get-kernel.1 $(top_builddir)/website/virt-get-kernel.1.html: stamp-virt-get-kernel.pod
 
 stamp-virt-get-kernel.pod: virt-get-kernel.pod
 	$(PODWRAPPER) \
 	  --man virt-get-kernel.1 \
-	  --html $(top_builddir)/html/virt-get-kernel.1.html \
+	  --html $(top_builddir)/website/virt-get-kernel.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

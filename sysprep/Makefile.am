@@ -176,16 +176,16 @@ endif
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-sysprep.1
-noinst_DATA = $(top_builddir)/html/virt-sysprep.1.html
+noinst_DATA = $(top_builddir)/website/virt-sysprep.1.html
 
-virt-sysprep.1 $(top_builddir)/html/virt-sysprep.1.html: stamp-virt-sysprep.pod
+virt-sysprep.1 $(top_builddir)/website/virt-sysprep.1.html: stamp-virt-sysprep.pod
 
 stamp-virt-sysprep.pod: virt-sysprep.pod sysprep-extra-options.pod sysprep-operations.pod
 	$(PODWRAPPER) \
 	  --man virt-sysprep.1 \
           --insert sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
           --insert sysprep-operations.pod:__OPERATIONS__ \
-	  --html $(top_builddir)/html/virt-sysprep.1.html \
+	  --html $(top_builddir)/website/virt-sysprep.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

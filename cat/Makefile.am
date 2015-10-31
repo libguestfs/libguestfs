@@ -144,47 +144,47 @@ virt_ls_LDADD = \
 man_MANS = virt-cat.1 virt-filesystems.1 virt-log.1 virt-ls.1
 
 noinst_DATA = \
-	$(top_builddir)/html/virt-cat.1.html \
-	$(top_builddir)/html/virt-filesystems.1.html \
-	$(top_builddir)/html/virt-log.1.html \
-	$(top_builddir)/html/virt-ls.1.html
+	$(top_builddir)/website/virt-cat.1.html \
+	$(top_builddir)/website/virt-filesystems.1.html \
+	$(top_builddir)/website/virt-log.1.html \
+	$(top_builddir)/website/virt-ls.1.html
 
-virt-cat.1 $(top_builddir)/html/virt-cat.1.html: stamp-virt-cat.pod
+virt-cat.1 $(top_builddir)/website/virt-cat.1.html: stamp-virt-cat.pod
 
 stamp-virt-cat.pod: virt-cat.pod
 	$(PODWRAPPER) \
 	  --man virt-cat.1 \
-	  --html $(top_builddir)/html/virt-cat.1.html \
+	  --html $(top_builddir)/website/virt-cat.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-filesystems.1 $(top_builddir)/html/virt-filesystems.1.html: stamp-virt-filesystems.pod
+virt-filesystems.1 $(top_builddir)/website/virt-filesystems.1.html: stamp-virt-filesystems.pod
 
 stamp-virt-filesystems.pod: virt-filesystems.pod
 	$(PODWRAPPER) \
 	  --man virt-filesystems.1 \
-	  --html $(top_builddir)/html/virt-filesystems.1.html \
+	  --html $(top_builddir)/website/virt-filesystems.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-log.1 $(top_builddir)/html/virt-log.1.html: stamp-virt-log.pod
+virt-log.1 $(top_builddir)/website/virt-log.1.html: stamp-virt-log.pod
 
 stamp-virt-log.pod: virt-log.pod
 	$(PODWRAPPER) \
 	  --man virt-log.1 \
-	  --html $(top_builddir)/html/virt-log.1.html \
+	  --html $(top_builddir)/website/virt-log.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-ls.1 $(top_builddir)/html/virt-ls.1.html: stamp-virt-ls.pod
+virt-ls.1 $(top_builddir)/website/virt-ls.1.html: stamp-virt-ls.pod
 
 stamp-virt-ls.pod: virt-ls.pod
 	$(PODWRAPPER) \
 	  --man virt-ls.1 \
-	  --html $(top_builddir)/html/virt-ls.1.html \
+	  --html $(top_builddir)/website/virt-ls.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

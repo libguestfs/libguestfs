@@ -280,9 +280,9 @@ pkgconfig_DATA = libguestfs.pc
 # Manual page.
 
 man_MANS = guestfs.3 libguestfs.3
-noinst_DATA = $(top_builddir)/html/guestfs.3.html
+noinst_DATA = $(top_builddir)/website/guestfs.3.html
 
-guestfs.3 $(top_builddir)/html/guestfs.3.html: stamp-guestfs.pod
+guestfs.3 $(top_builddir)/website/guestfs.3.html: stamp-guestfs.pod
 
 stamp-guestfs.pod: guestfs.pod \
 		guestfs-actions.pod \
@@ -291,7 +291,7 @@ stamp-guestfs.pod: guestfs.pod \
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs.3 \
-	  --html $(top_builddir)/html/guestfs.3.html \
+	  --html $(top_builddir)/website/guestfs.3.html \
 	  --insert $(srcdir)/guestfs-actions.pod:__ACTIONS__ \
 	  --insert $(srcdir)/guestfs-availability.pod:__AVAILABILITY__ \
 	  --insert $(srcdir)/guestfs-structs.pod:__STRUCTS__ \

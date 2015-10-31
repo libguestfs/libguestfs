@@ -77,14 +77,14 @@ virt_df_LDADD = \
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-df.1
-noinst_DATA = $(top_builddir)/html/virt-df.1.html
+noinst_DATA = $(top_builddir)/website/virt-df.1.html
 
-virt-df.1 $(top_builddir)/html/virt-df.1.html: stamp-virt-df.pod
+virt-df.1 $(top_builddir)/website/virt-df.1.html: stamp-virt-df.pod
 
 stamp-virt-df.pod: virt-df.pod
 	$(PODWRAPPER) \
 	  --man virt-df.1 \
-	  --html $(top_builddir)/html/virt-df.1.html \
+	  --html $(top_builddir)/website/virt-df.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

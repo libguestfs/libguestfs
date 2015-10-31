@@ -117,36 +117,36 @@ man_MANS = \
 	virt-p2v-make-kickstart.1
 
 noinst_DATA = \
-	$(top_builddir)/html/virt-p2v.1.html \
-	$(top_builddir)/html/virt-p2v-make-disk.1.html \
-	$(top_builddir)/html/virt-p2v-make-kickstart.1.html
+	$(top_builddir)/website/virt-p2v.1.html \
+	$(top_builddir)/website/virt-p2v-make-disk.1.html \
+	$(top_builddir)/website/virt-p2v-make-kickstart.1.html
 
-virt-p2v.1 $(top_builddir)/html/virt-p2v.1.html: stamp-virt-p2v.pod
+virt-p2v.1 $(top_builddir)/website/virt-p2v.1.html: stamp-virt-p2v.pod
 
 stamp-virt-p2v.pod: virt-p2v.pod
 	$(PODWRAPPER) \
 	  --man virt-p2v.1 \
-	  --html $(top_builddir)/html/virt-p2v.1.html \
+	  --html $(top_builddir)/website/virt-p2v.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-p2v-make-disk.1 $(top_builddir)/html/virt-p2v-make-disk.1.html: stamp-virt-p2v-make-disk.pod
+virt-p2v-make-disk.1 $(top_builddir)/website/virt-p2v-make-disk.1.html: stamp-virt-p2v-make-disk.pod
 
 stamp-virt-p2v-make-disk.pod: virt-p2v-make-disk.pod
 	$(PODWRAPPER) \
 	  --man virt-p2v-make-disk.1 \
-	  --html $(top_builddir)/html/virt-p2v-make-disk.1.html \
+	  --html $(top_builddir)/website/virt-p2v-make-disk.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-p2v-make-kickstart.1 $(top_builddir)/html/virt-p2v-make-kickstart.1.html: stamp-virt-p2v-make-kickstart.pod
+virt-p2v-make-kickstart.1 $(top_builddir)/website/virt-p2v-make-kickstart.1.html: stamp-virt-p2v-make-kickstart.pod
 
 stamp-virt-p2v-make-kickstart.pod: virt-p2v-make-kickstart.pod
 	$(PODWRAPPER) \
 	  --man virt-p2v-make-kickstart.1 \
-	  --html $(top_builddir)/html/virt-p2v-make-kickstart.1.html \
+	  --html $(top_builddir)/website/virt-p2v-make-kickstart.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

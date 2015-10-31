@@ -63,14 +63,14 @@ virt_diff_LDADD = \
 man_MANS = virt-diff.1
 
 noinst_DATA = \
-	$(top_builddir)/html/virt-diff.1.html
+	$(top_builddir)/website/virt-diff.1.html
 
-virt-diff.1 $(top_builddir)/html/virt-diff.1.html: stamp-virt-diff.pod
+virt-diff.1 $(top_builddir)/website/virt-diff.1.html: stamp-virt-diff.pod
 
 stamp-virt-diff.pod: virt-diff.pod
 	$(PODWRAPPER) \
 	  --man virt-diff.1 \
-	  --html $(top_builddir)/html/virt-diff.1.html \
+	  --html $(top_builddir)/website/virt-diff.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

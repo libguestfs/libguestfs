@@ -210,14 +210,14 @@ virttoolsdatadir = $(datadir)/virt-tools
 
 man_MANS = virt-v2v.1
 
-noinst_DATA = $(top_builddir)/html/virt-v2v.1.html
+noinst_DATA = $(top_builddir)/website/virt-v2v.1.html
 
-virt-v2v.1 $(top_builddir)/html/virt-v2v.1.html: stamp-virt-v2v.pod
+virt-v2v.1 $(top_builddir)/website/virt-v2v.1.html: stamp-virt-v2v.pod
 
 stamp-virt-v2v.pod: virt-v2v.pod
 	$(PODWRAPPER) \
 	  --man virt-v2v.1 \
-	  --html $(top_builddir)/html/virt-v2v.1.html \
+	  --html $(top_builddir)/website/virt-v2v.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

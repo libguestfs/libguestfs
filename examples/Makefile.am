@@ -132,15 +132,15 @@ virt_dhcp_address_LDADD = \
 endif
 
 man_MANS = guestfs-examples.3
-noinst_DATA = $(top_builddir)/html/guestfs-examples.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-examples.3.html
 
-guestfs-examples.3 $(top_builddir)/html/guestfs-examples.3.html: stamp-guestfs-examples.pod
+guestfs-examples.3 $(top_builddir)/website/guestfs-examples.3.html: stamp-guestfs-examples.pod
 
 stamp-guestfs-examples.pod: guestfs-examples.pod copy-over.c create-disk.c debug-logging.c display-icon.c inspect-vm.c libvirt-auth.c mount-local.c virt-dhcp-address.c
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-examples.3 \
-	  --html $(top_builddir)/html/guestfs-examples.3.html \
+	  --html $(top_builddir)/website/guestfs-examples.3.html \
 	  --verbatim $(srcdir)/copy-over.c:@COPY_OVER@ \
 	  --verbatim $(srcdir)/create-disk.c:@CREATE_DISK@ \
 	  --verbatim $(srcdir)/debug-logging.c:@DEBUG_LOGGING@ \

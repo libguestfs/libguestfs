@@ -26,15 +26,15 @@ EXTRA_DIST = \
 CLEANFILES = stamp-guestfs-ruby.pod
 
 man_MANS = guestfs-ruby.3
-noinst_DATA = $(top_builddir)/html/guestfs-ruby.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-ruby.3.html
 
-guestfs-ruby.3 $(top_builddir)/html/guestfs-ruby.3.html: stamp-guestfs-ruby.pod
+guestfs-ruby.3 $(top_builddir)/website/guestfs-ruby.3.html: stamp-guestfs-ruby.pod
 
 stamp-guestfs-ruby.pod: guestfs-ruby.pod create_disk.rb inspect_vm.rb
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-ruby.3 \
-	  --html $(top_builddir)/html/guestfs-ruby.3.html \
+	  --html $(top_builddir)/website/guestfs-ruby.3.html \
 	  --verbatim $(srcdir)/create_disk.rb:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.rb:@EXAMPLE2@ \
 	  --license examples \

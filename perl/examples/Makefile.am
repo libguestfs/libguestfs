@@ -26,15 +26,15 @@ EXTRA_DIST = \
 CLEANFILES = stamp-guestfs-perl.pod
 
 man_MANS = guestfs-perl.3
-noinst_DATA = $(top_builddir)/html/guestfs-perl.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-perl.3.html
 
-guestfs-perl.3 $(top_builddir)/html/guestfs-perl.3.html: stamp-guestfs-perl.pod
+guestfs-perl.3 $(top_builddir)/website/guestfs-perl.3.html: stamp-guestfs-perl.pod
 
 stamp-guestfs-perl.pod: guestfs-perl.pod create_disk.pl inspect_vm.pl
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-perl.3 \
-	  --html $(top_builddir)/html/guestfs-perl.3.html \
+	  --html $(top_builddir)/website/guestfs-perl.3.html \
 	  --verbatim $(srcdir)/create_disk.pl:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.pl:@EXAMPLE2@ \
 	  --license examples \

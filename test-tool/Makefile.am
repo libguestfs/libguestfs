@@ -40,12 +40,12 @@ libguestfs_test_tool_LDADD = \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
-libguestfs-test-tool.1 $(top_builddir)/html/libguestfs-test-tool.1.html: stamp-libguestfs-test-tool.pod
+libguestfs-test-tool.1 $(top_builddir)/website/libguestfs-test-tool.1.html: stamp-libguestfs-test-tool.pod
 
 stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
 	$(PODWRAPPER) \
 	  --man libguestfs-test-tool.1 \
-	  --html $(top_builddir)/html/libguestfs-test-tool.1.html \
+	  --html $(top_builddir)/website/libguestfs-test-tool.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

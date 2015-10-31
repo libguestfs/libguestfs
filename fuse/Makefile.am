@@ -101,25 +101,25 @@ man_MANS = \
 	guestmount.1 \
 	guestunmount.1
 noinst_DATA = \
-	$(top_builddir)/html/guestmount.1.html \
-	$(top_builddir)/html/guestunmount.1.html
+	$(top_builddir)/website/guestmount.1.html \
+	$(top_builddir)/website/guestunmount.1.html
 
-guestmount.1 $(top_builddir)/html/guestmount.1.html: stamp-guestmount.pod
+guestmount.1 $(top_builddir)/website/guestmount.1.html: stamp-guestmount.pod
 
 stamp-guestmount.pod: guestmount.pod
 	$(PODWRAPPER) \
 	  --man guestmount.1 \
-	  --html $(top_builddir)/html/guestmount.1.html \
+	  --html $(top_builddir)/website/guestmount.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-guestunmount.1 $(top_builddir)/html/guestunmount.1.html: stamp-guestunmount.pod
+guestunmount.1 $(top_builddir)/website/guestunmount.1.html: stamp-guestunmount.pod
 
 stamp-guestunmount.pod: guestunmount.pod
 	$(PODWRAPPER) \
 	  --man guestunmount.1 \
-	  --html $(top_builddir)/html/guestunmount.1.html \
+	  --html $(top_builddir)/website/guestunmount.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

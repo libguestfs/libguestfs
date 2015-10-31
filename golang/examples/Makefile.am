@@ -26,15 +26,15 @@ EXTRA_DIST = \
 CLEANFILES = stamp-guestfs-golang.pod
 
 man_MANS = guestfs-golang.3
-noinst_DATA = $(top_builddir)/html/guestfs-golang.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-golang.3.html
 
-guestfs-golang.3 $(top_builddir)/html/guestfs-golang.3.html: stamp-guestfs-golang.pod
+guestfs-golang.3 $(top_builddir)/website/guestfs-golang.3.html: stamp-guestfs-golang.pod
 
 stamp-guestfs-golang.pod: guestfs-golang.pod create-disk.go inspect-vm.go
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-golang.3 \
-	  --html $(top_builddir)/html/guestfs-golang.3.html \
+	  --html $(top_builddir)/website/guestfs-golang.3.html \
 	  --verbatim $(srcdir)/create-disk.go:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect-vm.go:@EXAMPLE2@ \
 	  --license examples \

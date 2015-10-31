@@ -106,14 +106,14 @@ endif
 
 man_MANS = virt-sparsify.1
 
-noinst_DATA = $(top_builddir)/html/virt-sparsify.1.html
+noinst_DATA = $(top_builddir)/website/virt-sparsify.1.html
 
-virt-sparsify.1 $(top_builddir)/html/virt-sparsify.1.html: stamp-virt-sparsify.pod
+virt-sparsify.1 $(top_builddir)/website/virt-sparsify.1.html: stamp-virt-sparsify.pod
 
 stamp-virt-sparsify.pod: virt-sparsify.pod
 	$(PODWRAPPER) \
 	  --man virt-sparsify.1 \
-	  --html $(top_builddir)/html/virt-sparsify.1.html \
+	  --html $(top_builddir)/website/virt-sparsify.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

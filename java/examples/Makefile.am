@@ -28,15 +28,15 @@ CLEANFILES = \
 	stamp-guestfs-java.pod
 
 man_MANS = guestfs-java.3
-noinst_DATA = $(top_builddir)/html/guestfs-java.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-java.3.html
 
-guestfs-java.3 $(top_builddir)/html/guestfs-java.3.html: stamp-guestfs-java.pod
+guestfs-java.3 $(top_builddir)/website/guestfs-java.3.html: stamp-guestfs-java.pod
 
 stamp-guestfs-java.pod: guestfs-java.pod CreateDisk.java InspectVM.java
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-java.3 \
-	  --html $(top_builddir)/html/guestfs-java.3.html \
+	  --html $(top_builddir)/website/guestfs-java.3.html \
 	  --verbatim $(srcdir)/CreateDisk.java:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/InspectVM.java:@EXAMPLE2@ \
 	  --license examples \

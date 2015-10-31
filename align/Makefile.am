@@ -74,14 +74,14 @@ virt_alignment_scan_LDADD = \
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-alignment-scan.1
-noinst_DATA = $(top_builddir)/html/virt-alignment-scan.1.html
+noinst_DATA = $(top_builddir)/website/virt-alignment-scan.1.html
 
-virt-alignment-scan.1 $(top_builddir)/html/virt-alignment-scan.1.html: stamp-virt-alignment-scan.pod
+virt-alignment-scan.1 $(top_builddir)/website/virt-alignment-scan.1.html: stamp-virt-alignment-scan.pod
 
 stamp-virt-alignment-scan.pod: virt-alignment-scan.pod
 	$(PODWRAPPER) \
 	  --man virt-alignment-scan.1 \
-	  --html $(top_builddir)/html/virt-alignment-scan.1.html \
+	  --html $(top_builddir)/website/virt-alignment-scan.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

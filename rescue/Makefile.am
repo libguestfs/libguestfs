@@ -64,14 +64,14 @@ virt_rescue_LDADD = \
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-rescue.1
-noinst_DATA = $(top_builddir)/html/virt-rescue.1.html
+noinst_DATA = $(top_builddir)/website/virt-rescue.1.html
 
-virt-rescue.1 $(top_builddir)/html/virt-rescue.1.html: stamp-virt-rescue.pod
+virt-rescue.1 $(top_builddir)/website/virt-rescue.1.html: stamp-virt-rescue.pod
 
 stamp-virt-rescue.pod: virt-rescue.pod
 	$(PODWRAPPER) \
 	  --man virt-rescue.1 \
-	  --html $(top_builddir)/html/virt-rescue.1.html \
+	  --html $(top_builddir)/website/virt-rescue.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

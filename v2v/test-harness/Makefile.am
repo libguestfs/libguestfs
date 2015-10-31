@@ -125,14 +125,14 @@ install-data-hook:
 
 man_MANS = virt-v2v-test-harness.1
 
-noinst_DATA += $(top_builddir)/html/virt-v2v-test-harness.1.html
+noinst_DATA += $(top_builddir)/website/virt-v2v-test-harness.1.html
 
-virt-v2v-test-harness.1 $(top_builddir)/html/virt-v2v-test-harness.1.html: stamp-virt-v2v-test-harness.pod
+virt-v2v-test-harness.1 $(top_builddir)/website/virt-v2v-test-harness.1.html: stamp-virt-v2v-test-harness.pod
 
 stamp-virt-v2v-test-harness.pod: virt-v2v-test-harness.pod
 	$(PODWRAPPER) \
 	  --man virt-v2v-test-harness.1 \
-	  --html $(top_builddir)/html/virt-v2v-test-harness.1.html \
+	  --html $(top_builddir)/website/virt-v2v-test-harness.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@

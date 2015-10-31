@@ -1,0 +1,27 @@
+/* styles for the RSS feed from feed2js */
+
+.rss-box {
+    width: 380px;
+}
+
+.rss-title {
+    display: none;
+}
+
+.rss-items {
+    list-style: none;
+    padding: 1em;
+    margin-left: 1em;
+}
+
+.rss-item  {
+    border-left: none;
+    padding-left: none;
+}
+
+.rss-item a:link, .rss-item a:visited, .rss-item a:active {
+}
+
+.rss-date {
+    font-size: x-small;
+}

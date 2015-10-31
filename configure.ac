@@ -23,6 +23,11 @@ m4_define([libguestfs_minor],   [31])
 m4_define([libguestfs_release], [23])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
+
+dnl The date that the above version was released.  This is used in
+dnl the website 'index.html' file.
+AC_SUBST([RELEASE_DATE], [2015-10-31])
+
 AC_CONFIG_AUX_DIR([build-aux])
 
 dnl Initialize automake.  automake < 1.12 didn't have serial-tests and
@@ -293,7 +298,8 @@ AC_CONFIG_FILES([Makefile
                  tools/Makefile
                  v2v/Makefile
                  v2v/test-harness/Makefile
-                 v2v/test-harness/META])
+                 v2v/test-harness/META
+                 website/index.html])
 AC_OUTPUT
 
 dnl Produce summary.

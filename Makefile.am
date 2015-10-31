@@ -205,10 +205,6 @@ EXTRA_DIST = \
 	contrib/visualize-alignment/README \
 	contrib/visualize-alignment/tracetops.ml \
 	contrib/windows-icons.pl \
-	html/draft.png \
-	html/draft.svg \
-	html/pod.css \
-	html/virt-builder.svg \
 	libtool-kill-dependency_libs.sh \
 	logo/fish.svg logo/fish.png \
 	logo/fish-5yrs.svg logo/fish-5yrs.png \
@@ -220,6 +216,21 @@ EXTRA_DIST = \
 	tmp/.gitignore \
 	update-bugs.sh \
 	valgrind-suppressions \
+	website/bugs.png \
+	website/communicate.png \
+	website/documentation.png \
+	website/download.png \
+	website/draft.png \
+	website/draft.svg \
+	website/easytoread.css \
+	website/feed.css \
+	website/fish-5yrs.svg \
+	website/fish.png \
+	website/git.png \
+	website/index.css \
+	website/index.html.in \
+	website/pod.css \
+	website/standard.css \
 	zanata.xml \
 	zanata-pull.sh \
 	.x-sc_avoid_ctype_macros \
@@ -230,94 +241,7 @@ EXTRA_DIST = \
 	.x-sc_TAB_in_indentation \
 	.x-sc_trailing_blank
 
-# The website.
-HTMLFILES = \
-	html/guestfs.3.html \
-	html/guestfs-examples.3.html \
-	html/guestfs-faq.1.html \
-	html/guestfs-hacking.1.html \
-	html/guestfs-internals.1.html \
-	html/guestfs-performance.1.html \
-	html/guestfs-recipes.1.html \
-	html/guestfs-release-notes.1.html \
-	html/guestfs-security.1.html \
-	html/guestfs-testing.1.html \
-	html/guestfsd.8.html \
-	html/guestfish.1.html \
-	html/libguestfs-make-fixed-appliance.1.html \
-	html/libguestfs-test-tool.1.html \
-	html/virt-alignment-scan.1.html \
-	html/virt-builder.1.html \
-	html/virt-cat.1.html \
-	html/virt-copy-in.1.html \
-	html/virt-copy-out.1.html \
-	html/virt-customize.1.html \
-	html/virt-df.1.html \
-	html/virt-dib.1.html \
-	html/virt-diff.1.html \
-	html/virt-edit.1.html \
-	html/virt-filesystems.1.html \
-	html/virt-format.1.html \
-	html/virt-get-kernel.1.html \
-	html/virt-inspector.1.html \
-	html/virt-list-filesystems.1.html \
-	html/virt-list-partitions.1.html \
-	html/virt-log.1.html \
-	html/virt-ls.1.html \
-	html/virt-make-fs.1.html \
-	html/virt-rescue.1.html \
-	html/virt-resize.1.html \
-	html/virt-sparsify.1.html \
-	html/virt-sysprep.1.html \
-	html/virt-tar.1.html \
-	html/virt-tar-in.1.html \
-	html/virt-tar-out.1.html \
-	html/virt-v2v.1.html \
-	html/virt-win-reg.1.html
-
-if HAVE_ERLANG
-HTMLFILES += html/guestfs-erlang.3.html
-endif
-if HAVE_GOLANG
-HTMLFILES += html/guestfs-golang.3.html
-endif
-if HAVE_JAVA
-HTMLFILES += html/guestfs-java.3.html
-endif
-if HAVE_LUA
-HTMLFILES += html/guestfs-lua.3.html
-endif
-if HAVE_OCAML
-HTMLFILES += html/guestfs-ocaml.3.html
-endif
-if HAVE_PERL
-HTMLFILES += html/guestfs-perl.3.html
-endif
-if HAVE_PYTHON
-HTMLFILES += html/guestfs-python.3.html
-endif
-if HAVE_RUBY
-HTMLFILES += html/guestfs-ruby.3.html
-endif
-if HAVE_FUSE
-HTMLFILES += \
-	html/guestmount.1.html \
-	html/guestunmount.1.html
-endif
-if HAVE_P2V
-HTMLFILES += \
-	html/virt-p2v.1.html \
-	html/virt-p2v-make-disk.1.html \
-	html/virt-p2v-make-kickstart.1.html
-endif
-
-HTMLSUPPORTFILES = \
-	html/draft.png \
-	html/pod.css \
-	html/virt-builder.svg
-
-TEXTFILES = BUGS README TODO
-
+# XXX Eventually move builder/website under website/ top level directory.
 BUILDERFILES = \
 	builder/website/README \
 	builder/website/index \
@@ -325,19 +249,20 @@ BUILDERFILES = \
 
 WEBSITEDIR = $(HOME)/d/websites/libguestfs
 
-# For reasons not fully understood, we need to rebuild all the
-# man pages and HTMLFILES from scratch here.
-website: $(HTMLFILES) $(HTMLSUPPORTFILES) $(TEXTFILES) $(BUILDERFILES)
-	find -name 'stamp-*.pod' -delete
-	$(MAKE)
-	cp $(HTMLFILES) $(HTMLSUPPORTFILES) $(WEBSITEDIR)
-	for f in $(TEXTFILES); do cp $$f $(WEBSITEDIR)/$$f.txt; done
+noinst_DATA = \
+	website/index.html \
+	website/README.txt \
+	website/TODO.txt
+
+website/README.txt: README
+	cp $< $@
+
+website/TODO.txt: TODO
+	cp $< $@
+
+maintainer-upload-website:
+	cp website/*.{css,html,png,svg,txt} $(WEBSITEDIR)/
 	cp $(BUILDERFILES) $(WEBSITEDIR)/download/builder/
-	cd $(WEBSITEDIR) && \
-	date=`date +%F`; \
-	sed -e "s/SUBST_VERSION/$(VERSION)/" \
-	    -e "s/SUBST_DATE/$$date/" \
-	< index.html.in > index.html
 
 # When doing 'make dist' update a few files automatically.
 dist-hook:
@@ -405,13 +330,14 @@ podwrapper.1: podwrapper.pl
 
 CLEANFILES = \
 	*~ \
-	html/*.html \
 	pod2htm?.tmp \
 	podwrapper.1 \
 	qemu-wrapper.sh \
 	tmp/disk* \
 	tmp/run-* \
-	tmp/valgrind-*.log
+	tmp/valgrind-*.log \
+	website/*~ \
+	website/*.html
 
 clean-local:
 	-rm -rf tmp/libguestfs??????

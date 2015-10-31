@@ -188,19 +188,19 @@ man_MANS = \
 	virt-tar-in.1 \
 	virt-tar-out.1
 noinst_DATA = \
-	$(top_builddir)/html/guestfish.1.html \
-	$(top_builddir)/html/libguestfs-tools.conf.5.html \
-	$(top_builddir)/html/virt-copy-in.1.html \
-	$(top_builddir)/html/virt-copy-out.1.html \
-	$(top_builddir)/html/virt-tar-in.1.html \
-	$(top_builddir)/html/virt-tar-out.1.html
+	$(top_builddir)/website/guestfish.1.html \
+	$(top_builddir)/website/libguestfs-tools.conf.5.html \
+	$(top_builddir)/website/virt-copy-in.1.html \
+	$(top_builddir)/website/virt-copy-out.1.html \
+	$(top_builddir)/website/virt-tar-in.1.html \
+	$(top_builddir)/website/virt-tar-out.1.html
 
-guestfish.1 $(top_builddir)/html/guestfish.1.html: stamp-guestfish.pod
+guestfish.1 $(top_builddir)/website/guestfish.1.html: stamp-guestfish.pod
 
 stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod
 	$(PODWRAPPER) \
 	  --man guestfish.1 \
-	  --html $(top_builddir)/html/guestfish.1.html \
+	  --html $(top_builddir)/website/guestfish.1.html \
 	  --insert $(srcdir)/guestfish-actions.pod:__ACTIONS__ \
 	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
 	  --insert $(srcdir)/guestfish-prepopts.pod:__PREPOPTS__ \
@@ -208,53 +208,53 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod 
 	  $<
 	touch $@
 
-libguestfs-tools.conf.5 $(top_builddir)/html/libguestfs-tools.conf.5.html: stamp-libguestfs-tools.conf.pod
+libguestfs-tools.conf.5 $(top_builddir)/website/libguestfs-tools.conf.5.html: stamp-libguestfs-tools.conf.pod
 
 stamp-libguestfs-tools.conf.pod: libguestfs-tools.conf.pod
 	$(PODWRAPPER) \
 	  --section 5 \
 	  --man libguestfs-tools.conf.5 \
-	  --html $(top_builddir)/html/libguestfs-tools.conf.5.html \
+	  --html $(top_builddir)/website/libguestfs-tools.conf.5.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-copy-in.1 $(top_builddir)/html/virt-copy-in.1.html: stamp-virt-copy-in.pod
+virt-copy-in.1 $(top_builddir)/website/virt-copy-in.1.html: stamp-virt-copy-in.pod
 
 stamp-virt-copy-in.pod: virt-copy-in.pod
 	$(PODWRAPPER) \
 	  --man virt-copy-in.1 \
-	  --html $(top_builddir)/html/virt-copy-in.1.html \
+	  --html $(top_builddir)/website/virt-copy-in.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-copy-out.1 $(top_builddir)/html/virt-copy-out.1.html: stamp-virt-copy-out.pod
+virt-copy-out.1 $(top_builddir)/website/virt-copy-out.1.html: stamp-virt-copy-out.pod
 
 stamp-virt-copy-out.pod: virt-copy-out.pod
 	$(PODWRAPPER) \
 	  --man virt-copy-out.1 \
-	  --html $(top_builddir)/html/virt-copy-out.1.html \
+	  --html $(top_builddir)/website/virt-copy-out.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-tar-in.1 $(top_builddir)/html/virt-tar-in.1.html: stamp-virt-tar-in.pod
+virt-tar-in.1 $(top_builddir)/website/virt-tar-in.1.html: stamp-virt-tar-in.pod
 
 stamp-virt-tar-in.pod: virt-tar-in.pod
 	$(PODWRAPPER) \
 	  --man virt-tar-in.1 \
-	  --html $(top_builddir)/html/virt-tar-in.1.html \
+	  --html $(top_builddir)/website/virt-tar-in.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-virt-tar-out.1 $(top_builddir)/html/virt-tar-out.1.html: stamp-virt-tar-out.pod
+virt-tar-out.1 $(top_builddir)/website/virt-tar-out.1.html: stamp-virt-tar-out.pod
 
 stamp-virt-tar-out.pod: virt-tar-out.pod
 	$(PODWRAPPER) \
 	  --man virt-tar-out.1 \
-	  --html $(top_builddir)/html/virt-tar-out.1.html \
+	  --html $(top_builddir)/website/virt-tar-out.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

@@ -48,99 +48,99 @@ man_MANS = \
 	guestfs-security.1 \
 	guestfs-testing.1
 noinst_DATA = \
-	$(top_builddir)/html/guestfs-faq.1.html \
-	$(top_builddir)/html/guestfs-hacking.1.html \
-	$(top_builddir)/html/guestfs-internals.1.html \
-	$(top_builddir)/html/guestfs-performance.1.html \
-	$(top_builddir)/html/guestfs-recipes.1.html \
-	$(top_builddir)/html/guestfs-release-notes.1.html \
-	$(top_builddir)/html/guestfs-security.1.html \
-	$(top_builddir)/html/guestfs-testing.1.html
+	$(top_builddir)/website/guestfs-faq.1.html \
+	$(top_builddir)/website/guestfs-hacking.1.html \
+	$(top_builddir)/website/guestfs-internals.1.html \
+	$(top_builddir)/website/guestfs-performance.1.html \
+	$(top_builddir)/website/guestfs-recipes.1.html \
+	$(top_builddir)/website/guestfs-release-notes.1.html \
+	$(top_builddir)/website/guestfs-security.1.html \
+	$(top_builddir)/website/guestfs-testing.1.html
 
-guestfs-faq.1 $(top_builddir)/html/guestfs-faq.1.html: stamp-guestfs-faq.pod
+guestfs-faq.1 $(top_builddir)/website/guestfs-faq.1.html: stamp-guestfs-faq.pod
 
 stamp-guestfs-faq.pod: guestfs-faq.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-faq.1 \
-	  --html $(top_builddir)/html/guestfs-faq.1.html \
+	  --html $(top_builddir)/website/guestfs-faq.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
 
-guestfs-hacking.1 $(top_builddir)/html/guestfs-hacking.1.html: stamp-guestfs-hacking.pod
+guestfs-hacking.1 $(top_builddir)/website/guestfs-hacking.1.html: stamp-guestfs-hacking.pod
 
 stamp-guestfs-hacking.pod: guestfs-hacking.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-hacking.1 \
-	  --html $(top_builddir)/html/guestfs-hacking.1.html \
+	  --html $(top_builddir)/website/guestfs-hacking.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
 
-guestfs-internals.1 $(top_builddir)/html/guestfs-internals.1.html: stamp-guestfs-internals.pod
+guestfs-internals.1 $(top_builddir)/website/guestfs-internals.1.html: stamp-guestfs-internals.pod
 
 stamp-guestfs-internals.pod: guestfs-internals.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-internals.1 \
-	  --html $(top_builddir)/html/guestfs-internals.1.html \
+	  --html $(top_builddir)/website/guestfs-internals.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
 
-guestfs-performance.1 $(top_builddir)/html/guestfs-performance.1.html: stamp-guestfs-performance.pod
+guestfs-performance.1 $(top_builddir)/website/guestfs-performance.1.html: stamp-guestfs-performance.pod
 
 stamp-guestfs-performance.pod: guestfs-performance.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-performance.1 \
-	  --html $(top_builddir)/html/guestfs-performance.1.html \
+	  --html $(top_builddir)/website/guestfs-performance.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
 
-guestfs-recipes.1 $(top_builddir)/html/guestfs-recipes.1.html: stamp-guestfs-recipes.pod
+guestfs-recipes.1 $(top_builddir)/website/guestfs-recipes.1.html: stamp-guestfs-recipes.pod
 
 stamp-guestfs-recipes.pod: guestfs-recipes.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-recipes.1 \
-	  --html $(top_builddir)/html/guestfs-recipes.1.html \
+	  --html $(top_builddir)/website/guestfs-recipes.1.html \
 	  --license examples \
 	  $<
 	touch $@
 
-guestfs-release-notes.1 guestfs-release-notes.txt $(top_builddir)/html/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
+guestfs-release-notes.1 guestfs-release-notes.txt $(top_builddir)/website/guestfs-release-notes.1.html: stamp-guestfs-release-notes.pod
 
 stamp-guestfs-release-notes.pod: guestfs-release-notes.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-release-notes.1 \
-	  --html $(top_builddir)/html/guestfs-release-notes.1.html \
+	  --html $(top_builddir)/website/guestfs-release-notes.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@
 
-guestfs-security.1 $(top_builddir)/html/guestfs-security.1.html: stamp-guestfs-security.pod
+guestfs-security.1 $(top_builddir)/website/guestfs-security.1.html: stamp-guestfs-security.pod
 
 stamp-guestfs-security.pod: guestfs-security.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-security.1 \
-	  --html $(top_builddir)/html/guestfs-security.1.html \
+	  --html $(top_builddir)/website/guestfs-security.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
 
-guestfs-testing.1 $(top_builddir)/html/guestfs-testing.1.html: stamp-guestfs-testing.pod
+guestfs-testing.1 $(top_builddir)/website/guestfs-testing.1.html: stamp-guestfs-testing.pod
 
 stamp-guestfs-testing.pod: guestfs-testing.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-testing.1 \
-	  --html $(top_builddir)/html/guestfs-testing.1.html \
+	  --html $(top_builddir)/website/guestfs-testing.1.html \
 	  --license LGPLv2+ \
 	  $<
 	touch $@

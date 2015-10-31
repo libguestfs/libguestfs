@@ -222,15 +222,15 @@ man_MANS = guestfsd.8
 else
 noinst_MANS = guestfsd.8
 endif
-noinst_DATA = $(top_builddir)/html/guestfsd.8.html
+noinst_DATA = $(top_builddir)/website/guestfsd.8.html
 
-guestfsd.8 $(top_builddir)/html/guestfsd.8.html: stamp-guestfsd.pod
+guestfsd.8 $(top_builddir)/website/guestfsd.8.html: stamp-guestfsd.pod
 
 stamp-guestfsd.pod: guestfsd.pod
 	$(PODWRAPPER) \
 	  --section 8 \
 	  --man guestfsd.8 \
-	  --html $(top_builddir)/html/guestfsd.8.html \
+	  --html $(top_builddir)/website/guestfsd.8.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

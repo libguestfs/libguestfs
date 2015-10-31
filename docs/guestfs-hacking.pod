@@ -560,10 +560,6 @@ L<virt-get-kernel(1)> command and documentation.
 Gnulib is used as a portability library.  A copy of gnulib is included
 under here.
 
-=item F<html>
-
-Generated HTML manual pages.
-
 =item F<inspector>
 
 L<virt-inspector(1)>, the virtual machine image inspector.
@@ -647,6 +643,10 @@ Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 =item F<v2v>
 
 L<virt-v2v(1)> command and documentation.
+
+=item F<website>
+
+The L<http://libguestfs.org> website files.
 
 =item F<csharp>
 

@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>libguestfs, library for accessing and modifying VM disk images</title>
+<meta name="description" content="libguestfs, library and tools for accessing and modifying VM disk images" />
+<meta name="keywords" content="libguestfs, guestfish, guestfs, libguest, guest image, virtual machine, disk image, supermin, febootstrap, fedora, qemu, qcow2, vmdk, vdi, kvm, richard jones, red hat, redhat" />
+<link rel="stylesheet" href="standard.css" type="text/css" title="Standard"/>
+<link rel="stylesheet" href="index.css" type="text/css" title="Standard"/>
+<link rel="stylesheet" href="feed.css" type="text/css" title="Standard"/>
+<link rel="alternate stylesheet" href="easytoread.css" type="text/css" title="High contrast, big fonts"/>
+</head>
+<body>
+<img src="fish-5yrs.svg" width="144" height="148" id="logo"/>
+<h1>libguestfs <br/> tools for accessing and modifying virtual machine disk images</h1>
+
+<div class="right">
+<a href="download/"><img src="download.png" /></a>
+<h2>Downloads</h2>
+
+<p>
+For source see the <a href="download/">downloads directory</a>.
+</p>
+
+<p>
+In <a href="https://fedoraproject.org/">Fedora</a>
+or <a href="https://www.redhat.com/rhel/">Red&nbsp;Hat&nbsp;Enterprise&nbsp;Linux</a>:
+<pre>
+sudo yum install libguestfs-tools
+</pre>
+</p>
+
+<p>
+On Debian/Ubuntu:
+<pre>
+sudo apt-get install libguestfs-tools
+</pre>
+</p>
+
+<p>
+Open a disk image:
+<pre>
+guestfish --ro -i -a disk.img
+</pre>
+</p>
+
+<p>
+<a href="http://libguestfs.org/guestfs-faq.1.html#binaries">Other distros, compiling from source ...</a>
+</p>
+</div>
+
+<div class="right">
+<img src="communicate.png" />
+<h2>Mailing list and chat</h2>
+
+<p>
+Join us on
+the <a href="http://www.redhat.com/mailman/listinfo/libguestfs">libguestfs
+mailing list</a>, or on IRC channel <code>#libguestfs</code>
+on <a href="http://freenode.net/">FreeNode</a>.
+</p>
+
+</div>
+
+<div class="right">
+<img src="documentation.png" />
+<h2>Documentation</h2>
+
+<p>
+<b><a href="guestfs-faq.1.html">Frequently Asked Questions (FAQ)</a></b> and
+<a href="guestfs-recipes.1.html">recipes page</a>
+</p>
+
+<p>
+<b><a href="guestfs.3.html">guestfs(3)</a> &mdash; main API documentation</b> <br/>
+<a href="guestfish.1.html">guestfish(1)</a> &mdash; interactive shell <br/>
+<a href="guestmount.1.html">guestmount(1)</a> &mdash; mount guest filesystem in host <br/>
+<a href="guestunmount.1.html">guestunmount(1)</a> &mdash; unmount guest filesystem <br/>
+<a href="virt-alignment-scan.1.html">virt-alignment-scan(1)</a> &mdash; check alignment of virtual machine partitions <br/>
+<a href="virt-builder.1.html">virt-builder(1)</a> &mdash; quick image builder <br/>
+<a href="virt-cat.1.html">virt-cat(1)</a> &mdash; display a file <br/>
+<a href="virt-copy-in.1.html">virt-copy-in(1)</a> &mdash; copy files and directories into a VM <br/>
+<a href="virt-copy-out.1.html">virt-copy-out(1)</a> &mdash; copy files and directories out of a VM <br/>
+<a href="virt-customize.1.html">virt-customize(1)</a> &mdash; customize virtual machines <br/>
+<a href="virt-df.1.html">virt-df(1)</a> &mdash; free space <br/>
+<a href="virt-dib.1.html">virt-dib(1)</a> &mdash; safe diskimage-builder <br/>
+<a href="virt-diff.1.html">virt-diff(1)</a> &mdash; differences <br/>
+<a href="virt-edit.1.html">virt-edit(1)</a> &mdash; edit a file <br/>
+<a href="virt-filesystems.1.html">virt-filesystems(1)</a> &mdash; display information about filesystems, devices, LVM <br/>
+<a href="virt-format.1.html">virt-format(1)</a> &mdash; erase and make blank disks <br/>
+<a href="virt-get-kernel.1.html">virt-get-kernel(1)</a> &mdash; get kernel from disk <br/>
+<a href="virt-inspector.1.html">virt-inspector(1)</a> &mdash; inspect VM images <br/>
+<a href="virt-list-filesystems.1.html">virt-list-filesystems(1)</a> &mdash; list filesystems <br/>
+<a href="virt-list-partitions.1.html">virt-list-partitions(1)</a> &mdash; list partitions <br/>
+<a href="virt-log.1.html">virt-log(1)</a> &mdash; display log files <br/>
+<a href="virt-ls.1.html">virt-ls(1)</a> &mdash; list files <br/>
+<a href="virt-make-fs.1.html">virt-make-fs(1)</a> &mdash; make a filesystem <br/>
+<a href="virt-p2v.1.html">virt-p2v(1)</a> &mdash; convert physical machine to run on KVM <br/>
+<a href="virt-p2v-make-disk.1.html">virt-p2v-make-disk(1)</a> &mdash; make P2V ISO <br/>
+<a href="virt-p2v-make-kickstart.1.html">virt-p2v-make-kickstart(1)</a> &mdash; make P2V kickstart <br/>
+<a href="virt-rescue.1.html">virt-rescue(1)</a> &mdash; rescue shell <br/>
+<a href="virt-resize.1.html">virt-resize(1)</a> &mdash; resize virtual machines <br/>
+<a href="virt-sparsify.1.html">virt-sparsify(1)</a> &mdash; make virtual machines sparse (thin-provisioned) <br/>
+<a href="virt-sysprep.1.html">virt-sysprep(1)</a> &mdash; unconfigure a virtual machine before cloning <br/>
+<a href="virt-tar.1.html">virt-tar(1)</a> &mdash; archive and upload files <br/>
+<a href="virt-tar-in.1.html">virt-tar-in(1)</a> &mdash; archive and upload files <br/>
+<a href="virt-tar-out.1.html">virt-tar-out(1)</a> &mdash; archive and download files <br/>
+<a href="virt-v2v.1.html">virt-v2v(1)</a> &mdash; convert guest to run on KVM <br/>
+<a href="virt-win-reg.1.html">virt-win-reg(1)</a> &mdash; export and merge Windows Registry keys <br/>
+<a href="libguestfs-test-tool.1.html">libguestfs-test-tool(1)</a> &mdash; test libguestfs <br/>
+<a href="libguestfs-make-fixed-appliance.1.html">libguestfs-make-fixed-appliance(1)</a> &mdash; make libguestfs fixed appliance <br/>
+<a href="hivex.3.html">hivex(3)</a> &mdash; extract Windows Registry hive <br/>
+<a href="hivexregedit.1.html">hivexregedit(1)</a> &mdash; merge and export Registry changes from regedit-format files <br/>
+<a href="hivexsh.1.html">hivexsh(1)</a> &mdash; Windows Registry hive shell <br/>
+<a href="hivexml.1.html">hivexml(1)</a> &mdash; convert Windows Registry hive to XML <br/>
+<a href="hivexget.1.html">hivexget(1)</a> &mdash; extract data from Windows Registry hive <br/>
+<s><a href="febootstrap.8.html">febootstrap(8)</a> &mdash; tool for building supermin appliances <br/>
+<a href="febootstrap-supermin-helper.8.html">febootstrap-supermin-helper(8)</a> &mdash; febootstrap helper</s> <br/>
+<a href="supermin.1.html">supermin(1)</a> &mdash; tool for building supermin appliances <br/>
+<s><a href="supermin-helper.1.html">supermin-helper(1)</a> &mdash; supermin helper</s> <br/>
+<a href="guestfsd.8.html">guestfsd(8)</a> &mdash; guestfs daemon <br/>
+<br/>
+</p>
+
+<p>
+For programmers: examples in
+<a href="guestfs-examples.3.html">C/C++</a>,
+<a href="guestfs-erlang.3.html">Erlang</a>,
+<a href="guestfs-golang.3.html">Golang</a>,
+<a href="guestfs-java.3.html">Java</a>,
+<a href="guestfs-lua.3.html">Lua</a>,
+<a href="guestfs-ocaml.3.html">OCaml</a>,
+<a href="guestfs-perl.3.html">Perl</a>,
+<a href="guestfs-python.3.html">Python</a>,
+<a href="guestfs-ruby.3.html">Ruby</a>,
+<a href="guestfs-performance.1.html">guestfs-performance(1)</a>.
+</p>
+
+<p>
+For developers:
+<a href="README.txt">README</a>,
+<a href="TODO.txt">TODO</a>,
+<a href="guestfs-faq.1.html">FAQ</a>,
+<a href="guestfs-release-notes.1.html">guestfs-release-notes(1)</a>.
+</p>
+
+<p>
+For testers:
+<a href="guestfs-testing.1.html">guestfs-testing(1)</a>.
+</p>
+</div>
+
+<div class="right">
+<img src="bugs.png" />
+<h2>Bug reports</h2>
+
+<p>
+<a href="https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Virtualization+Tools">List of bugs in libguestfs</a> and
+<a href="https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Fedora">in Fedora packaging of libguestfs</a>
+</p>
+
+<p>
+<a href="https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools">Enter a new bug report</a>
+</p>
+</div>
+
+<div class="right">
+<img src="git.png" />
+<h2>Git repository</h2>
+
+<pre>
+git clone <a href="https://github.com/libguestfs/libguestfs">git://github.com/libguestfs/libguestfs.git</a>
+</pre>
+</div>
+
+<!--<h2>About libguestfs</h2> -->
+
+<p class="latest">
+<em><small>
+  <!--
+LATEST-URL: http://libguestfs.org/download/1.31-development/libguestfs-@PACKAGE_VERSION@.tar.gz
+LATEST-VERSION: @PACKAGE_VERSION@
+  -->
+  <a href="download/1.31-development/">Latest development version: <strong>@PACKAGE_VERSION@</strong></a> (released <strong>@RELEASE_DATE@</strong>).<br/>
+  Stable branch:
+  <strong>
+  <a href="download/1.30-stable/">1.30.x</a>,
+  </strong>
+  Old stable:
+  <strong>
+  <a href="download/1.28-stable/">1.28.x</a>,
+  <a href="download/1.26-stable/">1.26.x</a>,
+  <a href="download/1.24-stable/">1.24.x</a>,
+  <a href="download/1.22-stable/">1.22.x</a>,
+  <a href="download/1.20-stable/">1.20.x</a>
+  </strong>
+</small></em>
+</p>
+
+<p>
+<b>libguestfs is a set of tools for accessing and modifying virtual
+machine (VM) disk images</b>.  You can use this for
+viewing and editing files inside guests,
+scripting changes to VMs,
+<a href="virt-df.1.html">monitoring disk used/free statistics</a>,
+<a href="virt-builder.1.html">creating guests</a>, P2V,
+<a href="virt-v2v.1.html">V2V</a>, performing backups,
+cloning VMs, building VMs, formatting disks, resizing disks, and much
+more.
+</p>
+
+<p>
+<b>libguestfs can access almost any disk image imaginable</b>.  It can
+do it securely &mdash; without needing root and with multiple layers
+of defence against rogue disk images.  It can access disk images on
+remote machines or on CDs/USB sticks.  It can access proprietary
+systems like VMware and Hyper-V.
+</p>
+
+<p>
+All this functionality is available through a scriptable shell
+called <a href="guestfish.1.html">guestfish</a>, or an interactive
+rescue shell <a href="virt-rescue.1.html">virt-rescue</a>.
+</p>
+
+<p>
+<b>libguestfs is a C library</b> that can be linked with
+<a href="guestfs.3.html">C and C++</a> management programs and has
+bindings for about a dozen other programming languages.  Using our
+FUSE module you can also
+<a href="guestmount.1.html">mount guest filesystems on the host</a>.
+</p>
+
+<p>
+The <a href="hivex.3.html">hivex subproject</a> lets you
+<a href="virt-win-reg.1.html">merge changes into the Windows Registry</a>
+in Windows guests.
+You can <a href="virt-inspector.1.html">examine unknown disk images</a>
+to find out what they contain.
+</p>
+
+<p>
+<b>libguestfs has been in continuous development since 2009</b>,
+<a href="guestfs.3.html">with a 250 page manual</a>, deployed in
+enterprise environments, and with many happy and successful users.
+</p>
+
+<p>
+<b>Dozens of projects are using libguestfs today</b>.
+</p>
+
+<h3>Latest blog entries</h3>
+
+<script src="http://feeds.feedburner.com/libguestfs?format=sigpro"
+        type="text/javascript" ></script>
+<noscript><p>Subscribe to RSS headline updates from:
+    <a href="http://feeds.feedburner.com/libguestfs"></a><br/>Powered by
+    FeedBurner</p> </noscript>
+
+<h3>Getting started</h3>
+
+<pre>
+sudo yum install libguestfs-tools      # Fedora/RHEL/CentOS
+sudo apt-get install libguestfs-tools  # Debian/Ubuntu
+guestfish --ro -i -a disk.img
+</pre>
+
+<p>
+For examples using guestfish and other tools see the
+<a href="guestfs-recipes.1.html">recipes page</a>.  For other examples
+<a href="http://rwmj.wordpress.com/tag/libguestfs/">see these blog entries</a>.
+</p>
+
+<address>
+<a href="http://people.redhat.com/~rjones/">rjones AT redhat DOT com</a>
+</address>
+
+<script type="text/javascript" src="http://www.ohloh.net/p/328438/widgets/project_partner_badge.js"></script>
+
+</body>
+</html>

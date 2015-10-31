@@ -26,15 +26,15 @@ EXTRA_DIST = \
 CLEANFILES = stamp-guestfs-erlang.pod
 
 man_MANS = guestfs-erlang.3
-noinst_DATA = $(top_builddir)/html/guestfs-erlang.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-erlang.3.html
 
-guestfs-erlang.3 $(top_builddir)/html/guestfs-erlang.3.html: stamp-guestfs-erlang.pod
+guestfs-erlang.3 $(top_builddir)/website/guestfs-erlang.3.html: stamp-guestfs-erlang.pod
 
 stamp-guestfs-erlang.pod: guestfs-erlang.pod create_disk.erl inspect_vm.erl
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-erlang.3 \
-	  --html $(top_builddir)/html/guestfs-erlang.3.html \
+	  --html $(top_builddir)/website/guestfs-erlang.3.html \
 	  --verbatim $(srcdir)/create_disk.erl:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.erl:@EXAMPLE2@ \
 	  --license examples \

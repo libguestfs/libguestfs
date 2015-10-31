@@ -30,15 +30,15 @@ CLEANFILES = \
 	stamp-guestfs-ocaml.pod
 
 man_MANS = guestfs-ocaml.3
-noinst_DATA = $(top_builddir)/html/guestfs-ocaml.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-ocaml.3.html
 
-guestfs-ocaml.3 $(top_builddir)/html/guestfs-ocaml.3.html: stamp-guestfs-ocaml.pod
+guestfs-ocaml.3 $(top_builddir)/website/guestfs-ocaml.3.html: stamp-guestfs-ocaml.pod
 
 stamp-guestfs-ocaml.pod: guestfs-ocaml.pod create_disk.ml inspect_vm.ml
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-ocaml.3 \
-	  --html $(top_builddir)/html/guestfs-ocaml.3.html \
+	  --html $(top_builddir)/website/guestfs-ocaml.3.html \
 	  --verbatim $(srcdir)/create_disk.ml:@CREATE_DISK@ \
 	  --verbatim $(srcdir)/inspect_vm.ml:@INSPECT_VM@ \
 	  --verbatim $(srcdir)/debug_logging.ml:@DEBUG_LOGGING@ \

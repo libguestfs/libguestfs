@@ -66,14 +66,14 @@ virt_edit_LDADD = \
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-edit.1
-noinst_DATA = $(top_builddir)/html/virt-edit.1.html
+noinst_DATA = $(top_builddir)/website/virt-edit.1.html
 
-virt-edit.1 $(top_builddir)/html/virt-edit.1.html: stamp-virt-edit.pod
+virt-edit.1 $(top_builddir)/website/virt-edit.1.html: stamp-virt-edit.pod
 
 stamp-virt-edit.pod: virt-edit.pod
 	$(PODWRAPPER) \
 	  --man virt-edit.1 \
-	  --html $(top_builddir)/html/virt-edit.1.html \
+	  --html $(top_builddir)/website/virt-edit.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

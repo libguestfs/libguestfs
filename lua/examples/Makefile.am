@@ -26,15 +26,15 @@ EXTRA_DIST = \
 CLEANFILES = stamp-guestfs-lua.pod
 
 man_MANS = guestfs-lua.3
-noinst_DATA = $(top_builddir)/html/guestfs-lua.3.html
+noinst_DATA = $(top_builddir)/website/guestfs-lua.3.html
 
-guestfs-lua.3 $(top_builddir)/html/guestfs-lua.3.html: stamp-guestfs-lua.pod
+guestfs-lua.3 $(top_builddir)/website/guestfs-lua.3.html: stamp-guestfs-lua.pod
 
 stamp-guestfs-lua.pod: guestfs-lua.pod create_disk.lua inspect_vm.lua
 	$(PODWRAPPER) \
 	  --section 3 \
 	  --man guestfs-lua.3 \
-	  --html $(top_builddir)/html/guestfs-lua.3.html \
+	  --html $(top_builddir)/website/guestfs-lua.3.html \
 	  --verbatim $(srcdir)/create_disk.lua:@EXAMPLE1@ \
 	  --verbatim $(srcdir)/inspect_vm.lua:@EXAMPLE2@ \
 	  --license examples \

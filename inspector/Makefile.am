@@ -91,14 +91,14 @@ virt_inspector_LDADD = \
 
 # Manual pages and HTML files for the website.
 man_MANS = virt-inspector.1
-noinst_DATA = $(top_builddir)/html/virt-inspector.1.html
+noinst_DATA = $(top_builddir)/website/virt-inspector.1.html
 
-virt-inspector.1 $(top_builddir)/html/virt-inspector.1.html: stamp-virt-inspector.pod
+virt-inspector.1 $(top_builddir)/website/virt-inspector.1.html: stamp-virt-inspector.pod
 
 stamp-virt-inspector.pod: virt-inspector.pod
 	$(PODWRAPPER) \
 	  --man virt-inspector.1 \
-	  --html $(top_builddir)/html/virt-inspector.1.html \
+	  --html $(top_builddir)/website/virt-inspector.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

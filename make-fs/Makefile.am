@@ -57,14 +57,14 @@ virt_make_fs_LDADD = \
 man_MANS = virt-make-fs.1
 
 noinst_DATA = \
-	$(top_builddir)/html/virt-make-fs.1.html
+	$(top_builddir)/website/virt-make-fs.1.html
 
-virt-make-fs.1 $(top_builddir)/html/virt-make-fs.1.html: stamp-virt-make-fs.pod
+virt-make-fs.1 $(top_builddir)/website/virt-make-fs.1.html: stamp-virt-make-fs.pod
 
 stamp-virt-make-fs.pod: virt-make-fs.pod
 	$(PODWRAPPER) \
 	  --man virt-make-fs.1 \
-	  --html $(top_builddir)/html/virt-make-fs.1.html \
+	  --html $(top_builddir)/website/virt-make-fs.1.html \
 	  --license GPLv2+ \
 	  $<
 	touch $@

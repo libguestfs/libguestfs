@@ -1,0 +1,7 @@
+/* High contrast, large fonts.
+ * $Id: easytoread.css,v 1.1 2007/01/23 16:33:28 rjones Exp $
+ */
+
+body {
+  font-size: 200%;
+}
