@@ -738,7 +738,9 @@ add_input_driver (const char *name, size_t len)
 static void
 add_output_driver (const char *name, size_t len)
 {
-  add_option ("output", &output_drivers, name, len);
+  /* Ignore the 'vdsm' driver, since that should only be used by VDSM. */
+  if (len != 4 || memcmp (name, "vdsm", 4) != 0)
+    add_option ("output", &output_drivers, name, len);
 }
 
 /* The p2v ISO should allow us to open up just about any port. */
