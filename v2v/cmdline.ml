@@ -384,17 +384,17 @@ read the man page virt-v2v(1).
     | `EVERRUNFT ->
       let os =
         match output_storage with
-        | None -> "/home/franklin/temp/download/v2v-tmp/tmp_config.xml";
+        | None ->
+            error (f_"-o everrunft: output storage was not specified, use '-os'");
         | Some d -> d in
-        printf "[franklin] everrunft output_storage => %s\n" os;
     Output_everrun.output_everrun os "FT"
 
     | `EVERRUNHA ->
       let os =
         match output_storage with
-        | None -> "/home/franklin/temp/download/v2v-tmp/tmp_config.xml";
+        | None ->
+            error (f_"-o everrunha: output storage was not specified, use '-os'");
         | Some d -> d in
-        printf "[franklin] everrunha output_storage => %s\n" os;
     Output_everrun.output_everrun os "HA"
 
     | `VDSM ->

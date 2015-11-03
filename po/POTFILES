@@ -312,6 +312,7 @@ src/errnostring.c
 src/errors.c
 src/event-string.c
 src/events.c
+src/everrun_utils.c
 src/file.c
 src/filearch.c
 src/fuse.c

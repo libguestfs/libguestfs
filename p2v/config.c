@@ -68,6 +68,8 @@ copy_config (struct config *old)
     c->guestname = strdup (c->guestname);
   if (c->disks)
     c->disks = guestfs_int_copy_string_list (c->disks);
+  if (c->disk_map)
+    c->disk_map = guestfs_int_copy_string_list (c->disk_map);
   if (c->removable)
     c->removable = guestfs_int_copy_string_list (c->removable);
   if (c->interfaces)
@@ -94,6 +96,7 @@ free_config (struct config *c)
   free (c->password);
   free (c->guestname);
   guestfs_int_free_string_list (c->disks);
+  guestfs_int_free_string_list (c->disk_map);
   guestfs_int_free_string_list (c->removable);
   guestfs_int_free_string_list (c->interfaces);
   guestfs_int_free_string_list (c->network_map);
@@ -136,6 +139,11 @@ print_config (struct config *config, FILE *fp)
   if (config->disks != NULL) {
     for (i = 0; config->disks[i] != NULL; ++i)
       fprintf (fp, " %s", config->disks[i]);
+  }
+  fprintf (fp, "disk map  . . . . .  ");
+  if (config->disk_map != NULL) {
+    for (i = 0; config->disk_map[i] != NULL; ++i)
+      fprintf (fp, " %s", config->disk_map[i]);
   }
   fprintf (fp, "\n");
   fprintf (fp, "removable  . . .  ");

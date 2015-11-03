@@ -165,7 +165,7 @@ let check_domain_existence doc host_name =
     done;
 ;;
 
-let parse_config_file os =
+let parse_config_file os domain_name=
 
   (* Get watch response *)
   let cmd = sprintf "curl http://localhost:8999/watch > %s" !tmp_output_file in
@@ -189,57 +189,55 @@ let parse_config_file os =
   let xpathctx = Xml.xpath_new_context doc in
   let xpath_string = xpath_string xpathctx in
 
-  let domain_name = match xpath_string "/configs/@domain_name" with
-                    | None -> ""
-                    | Some d_name -> (string_trim d_name) in
   check_domain_existence everrun_response_doc domain_name;
 
   let obj = Xml.xpath_eval_expression xpathctx
-    "/configs/device" in
+    "/configs/devices/disk" in
   let nr_nodes = Xml.xpathobj_nr_nodes obj in
   if nr_nodes < 1 then
-      error (f_"there is no device defined in the config file");
+      error (f_"there is no disk defined in the config file");
   let disks = ref [] in
   let networks = ref [] in
   for i = 0 to nr_nodes-1 do
     let node = Xml.xpathobj_node obj i in
     Xml.xpathctx_set_current_context xpathctx node;
-    let device_type = match xpath_string "type" with
-                      | None -> ""
-                      | Some d_type -> (string_trim d_type) in
-    if device_type = "disk" then (
-      let add_disk name storage_group_name storage_group_id =
-        disks := {
-          c_disk_name = name;
-          c_storage_group_name = storage_group_name;
-          c_storage_group_id = storage_group_id;
-        } :: !disks in
-      let name = match xpath_string "name" with
-                 | None -> ""
-                 | Some d_name -> (string_trim d_name) in
-      let storage_group_name = match xpath_string "storage-group-name" with
+    let add_disk name storage_group_name storage_group_id =
+      disks := {
+        c_disk_name = name;
+        c_storage_group_name = storage_group_name;
+        c_storage_group_id = storage_group_id;
+      } :: !disks in
+    let name = match xpath_string "target/@dev" with
+               | None -> ""
+               | Some d_name -> (string_trim d_name) in
+    let storage_group_name = match xpath_string "source/storage-group/@name" with
+                             | None -> ""
+                             | Some sg_name -> (string_trim sg_name) in
+    let storage_group_id = get_storage_group_id everrun_response_doc storage_group_name in
+    add_disk name storage_group_name storage_group_id;
+  done;
+  let obj = Xml.xpath_eval_expression xpathctx
+    "/configs/devices/interface" in
+  let nr_nodes = Xml.xpathobj_nr_nodes obj in
+  if nr_nodes < 1 then
+      error (f_"there is no interface defined in the config file");
+  for i = 0 to nr_nodes-1 do
+    let node = Xml.xpathobj_node obj i in
+    Xml.xpathctx_set_current_context xpathctx node;
+    let add_network name virtual_network_name virtal_network_id =
+      networks := {
+        c_network_name = name;
+        c_virtual_network_name = virtual_network_name;
+        c_virtal_network_id = virtal_network_id;
+      } :: !networks in
+    let name = match xpath_string "target/@dev" with
+               | None -> ""
+               | Some d_name -> (string_trim d_name) in
+    let virtual_network_name = match xpath_string "source/@network" with
                                | None -> ""
-                               | Some sg_name -> (string_trim sg_name) in
-      let storage_group_id = get_storage_group_id everrun_response_doc storage_group_name in
-      add_disk name storage_group_name storage_group_id;
-    )
-    else if device_type = "network" then (
-      let add_network name virtual_network_name virtal_network_id =
-        networks := {
-          c_network_name = name;
-          c_virtual_network_name = virtual_network_name;
-          c_virtal_network_id = virtal_network_id;
-        } :: !networks in
-        let name = match xpath_string "name" with
-                   | None -> ""
-                   | Some d_name -> (string_trim d_name) in
-        let virtual_network_name = match xpath_string "virtual-network-name" with
-                                  | None -> ""
-                                  | Some net_name -> (string_trim net_name) in
-        let virtal_network_id = get_network_id everrun_network_response_doc virtual_network_name in
-        add_network name virtual_network_name virtal_network_id;
-    )
-    else error (f_"unknown device type");
+                               | Some net_name -> (string_trim net_name) in
+    let virtal_network_id = get_network_id everrun_network_response_doc virtual_network_name in
+    add_network name virtual_network_name virtal_network_id;
   done;
   ({
     c_domain_name = domain_name;
@@ -272,8 +270,7 @@ class output_everrun os availability = object
   val mutable capabilities_doc = None
 
   method as_options = (
-    printf "[franklin] as options ok\n";
-    let config = parse_config_file os in
+    let config = parse_config_file os "test_domain" in
     printf "[franklin] domain_name = %s\n" config.c_domain_name;
     print_disks config.c_disks;
     print_networks config.c_networks;
@@ -288,9 +285,7 @@ class output_everrun os availability = object
 
   method prepare_targets source targets =
     (* capabilities_doc <- Some doc; *)
- (*    let cmd = sprintf "curl http://localhost:8999 > /home/franklin/temp/response.xml" in
-    if Sys.command cmd <> 0 then
-      error (f_"get response error"); *)
+    let config = parse_config_file os source.s_name in
     List.map (
       fun t ->
         let target_file = source.s_name ^ "-" ^ t.target_overlay.ov_sd in

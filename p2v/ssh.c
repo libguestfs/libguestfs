@@ -721,7 +721,7 @@ wait_for_prompt (mexp_h *h)
 
 mexp_h *
 start_remote_connection (struct config *config,
-                         const char *remote_dir, const char *libvirt_xml)
+                         const char *remote_dir, const char *libvirt_xml, const char *config_xml)
 {
   mexp_h *h;
   char magic[9];
@@ -750,6 +750,16 @@ start_remote_connection (struct config *config,
     set_ssh_error ("mexp_printf: %m");
     goto error;
   }
+
+  if (strcmp (config->output, "everrunft") == 0 || strcmp (config->output, "everrunha") == 0)
+  {
+    if (mexp_printf (h, "echo '%s' > %s/config.xml\n",
+                   config_xml, remote_dir) == -1) {
+      set_ssh_error ("mexp_printf: %m");
+      goto error;
+    }
+  }
+
 
   if (wait_for_prompt (h) == -1)
     goto error;

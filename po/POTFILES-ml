@@ -106,6 +106,7 @@ v2v/input_ova.ml
 v2v/kvmuid.ml
 v2v/linux.ml
 v2v/modules_list.ml
+v2v/output_everrun.ml
 v2v/output_glance.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml

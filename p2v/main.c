@@ -417,8 +417,9 @@ find_all_disks (void)
       char *p;
 
       /* Skip the device containing the root filesystem. */
-      if (device_contains (d->d_name, root_device))
-        continue;
+    // [franklin] should display for user to decide which storage group to store this partition
+      // if (device_contains (d->d_name, root_device))
+      //   continue;
 
       nr_disks++;
       all_disks = realloc (all_disks, sizeof (char *) * (nr_disks + 1));
