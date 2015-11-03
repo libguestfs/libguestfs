@@ -280,6 +280,12 @@ For ordinary builds, this selects the output format.  The default is I<raw>.
 
 With I<--get-kernel> this specifies the input format.
 
+To create an old-style qcow2 file (for compatibility with RHEL 6 or
+very old qemu E<lt> 1.1), after running virt-builder, use this
+command:
+
+ qemu-img amend -f qcow2 -o compat=0.10 output.qcow2
+
 =item B<--get-kernel> IMAGE
 
 This option extracts the kernel and initramfs from a previously built
