@@ -285,7 +285,7 @@ class output_everrun os availability = object
 
   method prepare_targets source targets =
     (* capabilities_doc <- Some doc; *)
-    let config = parse_config_file os source.s_name in
+    (* let config = parse_config_file os source.s_name in *)
     List.map (
       fun t ->
         let target_file = source.s_name ^ "-" ^ t.target_overlay.ov_sd in

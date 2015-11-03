@@ -24,4 +24,4 @@ val output_everrun : string -> string -> Types.output
     {!Types.output} object specialized for writing output to local
     files. *)
 
-val parse_config_file : string -> Types.p2v_config
+val parse_config_file : string -> string -> Types.p2v_config
