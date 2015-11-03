@@ -35,8 +35,15 @@ let rec run disk format ignores machine_readable zeroes =
   if trace () then g#set_trace true;
   if verbose () then g#set_verbose true;
 
+  (* Capture ^C and clean up gracefully. *)
+  let quit = ref false in
+  let set_quit _ = quit := true in
+  Sys.set_signal Sys.sigint (Sys.Signal_handle set_quit);
+  Sys.set_signal Sys.sigquit (Sys.Signal_handle set_quit);
+  g#set_pgroup true;
+
   try
-    perform g disk format ignores machine_readable zeroes
+    perform g disk format ignores machine_readable zeroes quit
   with
     G.Error msg as exn ->
       if g#last_errno () = G.Errno.errno_ENOTSUP then (
@@ -45,7 +52,7 @@ let rec run disk format ignores machine_readable zeroes =
       )
       else raise exn
 
-and perform g disk format ignores machine_readable zeroes =
+and perform g disk format ignores machine_readable zeroes quit =
   (* XXX Current limitation of the API.  Can remove this hunk in future. *)
   let format =
     match format with
@@ -71,80 +78,98 @@ and perform g disk format ignores machine_readable zeroes =
 
   let is_read_only_lv = is_read_only_lv g in
 
-  List.iter (
-    fun fs ->
-      if not (is_ignored fs) && not (is_read_only_lv fs) then (
-        if List.mem fs zeroes then (
-          message (f_"Zeroing %s") fs;
+  let tasks =
+    List.map (
+      fun fs () ->
+        if not (is_ignored fs) && not (is_read_only_lv fs) then (
+          if List.mem fs zeroes then (
+            message (f_"Zeroing %s") fs;
 
-          if not (g#blkdiscardzeroes fs) then
-            g#zero_device fs;
-          g#blkdiscard fs
-        ) else (
-          let mounted =
-            try g#mount_options "discard" fs "/"; true
-            with _ -> false in
-
-          if mounted then (
-            message (f_"Trimming %s") fs;
-
-            g#fstrim "/"
+            if not (g#blkdiscardzeroes fs) then
+              g#zero_device fs;
+            g#blkdiscard fs
           ) else (
-            let is_linux_x86_swap =
-              (* Look for the signature for Linux swap on i386.
-               * Location depends on page size, so it definitely won't
-               * work on non-x86 architectures (eg. on PPC, page size is
-               * 64K).  Also this avoids hibernated swap space: in those,
-               * the signature is moved to a different location.
-               *)
-              try g#pread_device fs 10 4086L = "SWAPSPACE2"
+            let mounted =
+              try g#mount_options "discard" fs "/"; true
               with _ -> false in
 
-            if is_linux_x86_swap then (
-              message (f_"Clearing Linux swap on %s") fs;
+            if mounted then (
+              message (f_"Trimming %s") fs;
 
-              (* Don't use mkswap.  Just preserve the header containing
-               * the label, UUID and swap format version (libguestfs
-               * mkswap may differ from guest's own).
-               *)
-              let header = g#pread_device fs 4096 0L in
-              g#blkdiscard fs;
-              if g#pwrite_device fs header 0L <> 4096 then
-                error (f_"pwrite: short write restoring swap partition header")
+              g#fstrim "/"
+            ) else (
+              let is_linux_x86_swap =
+                (* Look for the signature for Linux swap on i386.
+                 * Location depends on page size, so it definitely won't
+                 * work on non-x86 architectures (eg. on PPC, page size is
+                 * 64K).  Also this avoids hibernated swap space: in those,
+                 * the signature is moved to a different location.
+                 *)
+                try g#pread_device fs 10 4086L = "SWAPSPACE2"
+                with _ -> false in
+
+              if is_linux_x86_swap then (
+                message (f_"Clearing Linux swap on %s") fs;
+
+                (* Don't use mkswap.  Just preserve the header containing
+                 * the label, UUID and swap format version (libguestfs
+                 * mkswap may differ from guest's own).
+                 *)
+                let header = g#pread_device fs 4096 0L in
+                g#blkdiscard fs;
+                if g#pwrite_device fs header 0L <> 4096 then
+                  error (f_"pwrite: short write restoring swap partition header")
+              )
             )
-          )
-        );
+          );
 
-        g#umount_all ()
-      )
-  ) filesystems;
+          g#umount_all ()
+        )
+    ) filesystems in
 
   (* Discard unused space in volume groups. *)
   let vgs = g#vgs () in
   let vgs = Array.to_list vgs in
   let vgs = List.sort compare vgs in
-  List.iter (
-    fun vg ->
-      if not (List.mem vg ignores) then (
-        let lvname = String.random8 () in
-        let lvdev = "/dev/" ^ vg ^ "/" ^ lvname in
 
-        let created =
-          try g#lvcreate_free lvname vg 100; true
-          with _ -> false in
+  let tasks = tasks @
+    List.map (
+      fun vg () ->
+        if not (List.mem vg ignores) then (
+          let lvname = String.random8 () in
+          let lvdev = "/dev/" ^ vg ^ "/" ^ lvname in
 
-        if created then (
-          message (f_"Discard space in volgroup %s") vg;
+          let created =
+            try g#lvcreate_free lvname vg 100; true
+            with _ -> false in
 
-          g#blkdiscard lvdev;
-          g#sync ();
-          g#lvremove lvdev
+          if created then (
+            message (f_"Discard space in volgroup %s") vg;
+
+            g#blkdiscard lvdev;
+            g#sync ();
+            g#lvremove lvdev
+          )
         )
-      )
-  ) vgs;
+    ) vgs in
+
+  (* The above calls to List.map just created a list of tasks (thunks)
+   * to run.  Now we actually run that code, keeping an eye on the
+   * state of the 'quit' flag.
+   *)
+  List.iter (
+    fun task ->
+      if not !quit then task ();
+  ) tasks;
 
   g#shutdown ();
   g#close ();
 
-  (* Finished. *)
-  message (f_"Sparsify in-place operation completed with no errors")
+  if not !quit then (
+    (* Finished. *)
+    message (f_"Sparsify in-place operation completed with no errors")
+  )
+  else (
+    (* User quit. *)
+    error (f_"quit (^C) at user request")
+  )
