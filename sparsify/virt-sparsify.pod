@@ -319,10 +319,8 @@ excellent!  You can give this option multiple times.
 
 Since virt-sparsify E<ge> 1.26, the tool is able to do in-place
 sparsification (instead of copying from an input disk to an output
-disk).  This is more efficient.  However it requires special support
-in libguestfs, the kernel and qemu, and it is not able to recover
-quite as much space as copying sparsification.  So in-place
-sparsification is considered to be experimental at this time.
+disk).  This is more efficient.  It is not able to recover quite as
+much space as copying sparsification.
 
 To use this mode, specify a disk image which will be modified in
 place:
