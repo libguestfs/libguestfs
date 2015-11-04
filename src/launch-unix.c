@@ -25,6 +25,10 @@
 #include <string.h>
 #include <libintl.h>
 
+#if defined __APPLE__ && defined __MACH__
+#include <sys/un.h>
+#endif
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
