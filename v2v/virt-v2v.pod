@@ -1082,6 +1082,36 @@ In this case the output flags are set to write the converted guest to
 a temporary directory as this is just an example, but you can also
 write to libvirt or any other supported target.
 
+=head2 VCENTER: NON-ADMINISTRATOR ROLE
+
+Instead of using the vCenter Administrator role, you can create a
+custom non-administrator role to perform the conversion.  You will
+however need to give it a minimum set of permissions as follows:
+
+=over 4
+
+=item 1.
+
+Create a custom role in vCenter.
+
+=item 2.
+
+Enable (check) the following objects:
+
+ Datastore:
+  - Browse datastore
+  - Low level file operations
+ 
+ Session:
+  - Validate session
+ 
+ Virtual Machine:
+   Provisioning:
+     - Allow disk access
+     - Allow read-only disk access
+
+=back
+
 =head1 INPUT FROM VMWARE OVA
 
 Virt-v2v is able to import guests from VMware's OVA (Open
