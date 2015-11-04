@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-30 10:48+0000\n"
+"POT-Creation-Date: 2015-11-04 17:43+0000\n"
 "PO-Revision-Date: 2015-05-09 07:14-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -951,7 +951,7 @@ msgstr ""
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:273
+#: ../sparsify/in_place.ml:112 ../sparsify/copying.ml:273
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
@@ -1104,7 +1104,7 @@ msgstr ""
 msgid "Disable template cache"
 msgstr ""
 
-#: ../sparsify/in_place.ml:137
+#: ../sparsify/in_place.ml:147
 msgid "Discard space in volgroup %s"
 msgstr ""
 
@@ -2242,7 +2242,7 @@ msgstr ""
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
-#: ../sparsify/in_place.ml:150
+#: ../sparsify/in_place.ml:170
 msgid "Sparsify in-place operation completed with no errors"
 msgstr ""
 
@@ -2455,7 +2455,7 @@ msgstr ""
 msgid "Total usable space"
 msgstr ""
 
-#: ../sparsify/in_place.ml:89
+#: ../sparsify/in_place.ml:97
 msgid "Trimming %s"
 msgstr ""
 
@@ -2579,7 +2579,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:78 ../sparsify/copying.ml:244
+#: ../sparsify/in_place.ml:86 ../sparsify/copying.ml:244
 msgid "Zeroing %s"
 msgstr ""
 
@@ -2838,7 +2838,7 @@ msgstr ""
 msgid "disallowed character (%c) in operation name"
 msgstr ""
 
-#: ../sparsify/in_place.ml:44
+#: ../sparsify/in_place.ml:51
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
@@ -3439,7 +3439,7 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:282
+#: ../sparsify/in_place.ml:121 ../sparsify/copying.ml:282
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
@@ -3449,6 +3449,10 @@ msgstr ""
 
 #: ../v2v/input_libvirt_vcenter_https.ml:140
 msgid "qemu-img rebase failed (ignored)"
+msgstr ""
+
+#: ../sparsify/in_place.ml:174
+msgid "quit (^C) at user request"
 msgstr ""
 
 #: ../customize/customize_run.ml:156
@@ -8784,11 +8788,11 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:835 src/launch-libvirt.c:606
+#: src/launch-direct.c:835 src/launch-libvirt.c:605
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1237 src/launch-libvirt.c:1395
+#: src/launch-direct.c:1237 src/launch-libvirt.c:1394
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8828,25 +8832,25 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:264
+#: src/launch-libvirt.c:263
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:273
+#: src/launch-libvirt.c:272
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:308
+#: src/launch-libvirt.c:307
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:337
+#: src/launch-libvirt.c:336
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:534
+#: src/launch-libvirt.c:533
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8856,21 +8860,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:672
+#: src/launch-libvirt.c:671
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:678 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:677 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:688
+#: src/launch-libvirt.c:687
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:723
+#: src/launch-libvirt.c:722
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8885,57 +8889,57 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:959
+#: src/launch-libvirt.c:958
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1349
+#: src/launch-libvirt.c:1348
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1478
+#: src/launch-libvirt.c:1477
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1503
+#: src/launch-libvirt.c:1502
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1510
+#: src/launch-libvirt.c:1509
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1840
+#: src/launch-libvirt.c:1839
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1851
+#: src/launch-libvirt.c:1850
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1855
+#: src/launch-libvirt.c:1854
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1876
+#: src/launch-libvirt.c:1875
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1889
+#: src/launch-libvirt.c:1888
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1999
+#: src/launch-libvirt.c:1998
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -8951,20 +8955,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2039
+#: src/launch-libvirt.c:2038
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2090 src/launch-libvirt.c:2123
+#: src/launch-libvirt.c:2089 src/launch-libvirt.c:2122
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2186
+#: src/launch-libvirt.c:2185
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2217
+#: src/launch-libvirt.c:2216
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9001,15 +9005,15 @@ msgstr ""
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-unix.c:45
+#: src/launch-unix.c:46
 msgid "cannot set hv parameters with the 'unix:' backend"
 msgstr ""
 
-#: src/launch-unix.c:82
+#: src/launch-unix.c:83
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch-unix.c:90
+#: src/launch-unix.c:91
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 

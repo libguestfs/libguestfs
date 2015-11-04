@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-10-30 10:48+0000\n"
+"POT-Creation-Date: 2015-11-04 17:43+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -1076,7 +1076,7 @@ msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 "Перевіряємо, чи потрібні гостьовій системі BIOS або UEFI для завантаження"
 
-#: ../sparsify/in_place.ml:104 ../sparsify/copying.ml:273
+#: ../sparsify/in_place.ml:112 ../sparsify/copying.ml:273
 msgid "Clearing Linux swap on %s"
 msgstr "Спорожнюємо резервну пам’ять Linux на %s"
 
@@ -1237,7 +1237,7 @@ msgstr "Вимкнути цифрові підписи"
 msgid "Disable template cache"
 msgstr "Вимкнути кеш шаблонів"
 
-#: ../sparsify/in_place.ml:137
+#: ../sparsify/in_place.ml:147
 msgid "Discard space in volgroup %s"
 msgstr "Відкинути місце у групі томів %s"
 
@@ -2450,7 +2450,7 @@ msgstr "Адреса джерела: %s\n"
 msgid "Source guest information (--print-source option):\n"
 msgstr "Дані щодо гостьової системи джерела (параметр --print-source):\n"
 
-#: ../sparsify/in_place.ml:150
+#: ../sparsify/in_place.ml:170
 msgid "Sparsify in-place operation completed with no errors"
 msgstr "Операцію із розрідження на місці виконано без помилок."
 
@@ -2779,7 +2779,7 @@ msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 msgid "Total usable space"
 msgstr "Загальне придатне до використання місце"
 
-#: ../sparsify/in_place.ml:89
+#: ../sparsify/in_place.ml:97
 msgid "Trimming %s"
 msgstr "Обрізаємо %s"
 
@@ -2915,7 +2915,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr "Занулити файлову систему"
 
-#: ../sparsify/in_place.ml:78 ../sparsify/copying.ml:244
+#: ../sparsify/in_place.ml:86 ../sparsify/copying.ml:244
 msgid "Zeroing %s"
 msgstr "Занулюємо %s"
 
@@ -3240,7 +3240,7 @@ msgstr "вимикаємо кеш"
 msgid "disallowed character (%c) in operation name"
 msgstr "заборонений символ (%c) у назві операції"
 
-#: ../sparsify/in_place.ml:44
+#: ../sparsify/in_place.ml:51
 msgid "discard/trim is not supported: %s"
 msgstr "підтримки відкидання або обрізання не передбачено: %s"
 
@@ -3945,7 +3945,7 @@ msgstr "pread-device: неповне читання"
 msgid "pvresize"
 msgstr "pvresize"
 
-#: ../sparsify/in_place.ml:113 ../sparsify/copying.ml:282
+#: ../sparsify/in_place.ml:121 ../sparsify/copying.ml:282
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
@@ -3960,6 +3960,10 @@ msgstr ""
 #: ../v2v/input_libvirt_vcenter_https.ml:140
 msgid "qemu-img rebase failed (ignored)"
 msgstr "помилка пересування qemu-img (проігноровано)"
+
+#: ../sparsify/in_place.ml:174
+msgid "quit (^C) at user request"
+msgstr ""
 
 #: ../customize/customize_run.ml:156
 msgid "random seed could not be set for this type of guest"
@@ -10184,13 +10188,13 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:835 src/launch-libvirt.c:606
+#: src/launch-direct.c:835 src/launch-libvirt.c:605
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1237 src/launch-libvirt.c:1395
+#: src/launch-direct.c:1237 src/launch-libvirt.c:1394
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -10239,27 +10243,27 @@ msgstr ""
 "не можна вмикати discard для цього диска: у протоколі «%s» не передбачено "
 "підтримки discard"
 
-#: src/launch-libvirt.c:264
+#: src/launch-libvirt.c:263
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:273
+#: src/launch-libvirt.c:272
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:308
+#: src/launch-libvirt.c:307
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:337
+#: src/launch-libvirt.c:336
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:534
+#: src/launch-libvirt.c:533
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -10276,22 +10280,22 @@ msgstr ""
 "\n"
 "Початкове повідомлення від libvirt"
 
-#: src/launch-libvirt.c:672
+#: src/launch-libvirt.c:671
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:678 src/libvirt-domain.c:406 src/libvirt-domain.c:489
+#: src/launch-libvirt.c:677 src/libvirt-domain.c:406 src/libvirt-domain.c:489
 #: src/libvirt-domain.c:702
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:688
+#: src/launch-libvirt.c:687
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:723
+#: src/launch-libvirt.c:722
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -10319,16 +10323,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:959
+#: src/launch-libvirt.c:958
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1349
+#: src/launch-libvirt.c:1348
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1478
+#: src/launch-libvirt.c:1477
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -10336,7 +10340,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1503
+#: src/launch-libvirt.c:1502
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10348,7 +10352,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1510
+#: src/launch-libvirt.c:1509
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10361,29 +10365,29 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1840
+#: src/launch-libvirt.c:1839
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: src/launch-libvirt.c:1851
+#: src/launch-libvirt.c:1850
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: src/launch-libvirt.c:1855
+#: src/launch-libvirt.c:1854
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: src/launch-libvirt.c:1876
+#: src/launch-libvirt.c:1875
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1889
+#: src/launch-libvirt.c:1888
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1999
+#: src/launch-libvirt.c:1998
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -10399,20 +10403,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2039
+#: src/launch-libvirt.c:2038
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2090 src/launch-libvirt.c:2123
+#: src/launch-libvirt.c:2089 src/launch-libvirt.c:2122
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2186
+#: src/launch-libvirt.c:2185
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2217
+#: src/launch-libvirt.c:2216
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -10455,16 +10459,16 @@ msgstr ""
 "vmlinux запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-unix.c:45
+#: src/launch-unix.c:46
 msgid "cannot set hv parameters with the 'unix:' backend"
 msgstr ""
 "не можна встановлювати параметри гіпервізора за допомогою модуля «unix:»"
 
-#: src/launch-unix.c:82
+#: src/launch-unix.c:83
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr "помилка guestfs_launch, мало бути початкове повідомлення від guestfsd"
 
-#: src/launch-unix.c:90
+#: src/launch-unix.c:91
 msgid "contacted guestfsd, but state != READY"
 msgstr "встановлено зв’язок з guestfs, але стан процесу не дорівнює READY"
 
