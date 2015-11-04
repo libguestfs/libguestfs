@@ -23,12 +23,14 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <grp.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <assert.h>
 #include <string.h>
 #include <libintl.h>
+#include <sys/un.h>  /* sockaddr_un */
 
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
@@ -50,9 +52,6 @@
 #include "guestfs_protocol.h"
 
 /* Fixes for Mac OS X */
-#if defined __APPLE__ && defined __MACH__
-#include <sys/un.h>
-#endif
 #ifndef SOCK_CLOEXEC
 # define SOCK_CLOEXEC O_CLOEXEC
 #endif
