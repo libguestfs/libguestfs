@@ -22,7 +22,7 @@ export LANG=C
 set -e
 
 # fstab file.
-cat > fstab.tmp.$$ <<EOF
+cat > debian.fstab <<EOF
 LABEL=BOOT /boot ext2 default 0 0
 /dev/debian/root / ext2 default 0 0
 /dev/debian/usr /usr ext2 default 1 2
@@ -32,7 +32,7 @@ EOF
 
 # Create a disk image.
 guestfish <<EOF
-sparse debian.img.tmp.$$ 512M
+sparse debian.img-t 512M
 run
 
 # Format the disk.
@@ -78,7 +78,7 @@ mkdir-p /var/lib/dpkg
 mkdir /var/lib/urandom
 mkdir /var/log
 
-upload fstab.tmp.$$ /etc/fstab
+upload debian.fstab /etc/fstab
 write /etc/debian_version "5.0.1"
 write /etc/hostname "debian.invalid"
 
@@ -92,5 +92,5 @@ mkdir /boot/grub
 touch /boot/grub/grub.conf
 EOF
 
-rm fstab.tmp.$$
-mv debian.img.tmp.$$ debian.img
+rm debian.fstab
+mv debian.img-t debian.img

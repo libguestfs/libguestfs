@@ -22,7 +22,7 @@ export LANG=C
 set -e
 
 # lsb-release file.
-cat > release.tmp.$$ <<'EOF'
+cat > archlinux.release <<'EOF'
 DISTRIB_ID=CoreOS
 DISTRIB_RELEASE=647.0.0
 DISTRIB_CODENAME="Red Dog"
@@ -31,7 +31,7 @@ EOF
 
 # Create a disk image.
 guestfish <<EOF
-sparse coreos.img.tmp.$$ 512M
+sparse coreos.img-t 512M
 run
 
 part-init /dev/sda gpt
@@ -73,11 +73,11 @@ mkdir /root
 mkdir /home
 
 write /etc/coreos/update.conf "GROUP=stable"
-upload release.tmp.$$ /usr/share/coreos/lsb-release
+upload archlinux.release /usr/share/coreos/lsb-release
 ln-s ../usr/share/coreos/lsb-release /etc/lsb-release
 write /etc/hostname "coreos.invalid"
 
 EOF
 
-rm release.tmp.$$
-mv coreos.img.tmp.$$ coreos.img
+rm archlinux.release
+mv coreos.img-t coreos.img

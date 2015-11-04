@@ -23,7 +23,7 @@ set -e
 
 # Create a disk image.
 guestfish <<EOF
-sparse archlinux.img.tmp.$$ 512M
+sparse archlinux.img-t 512M
 run
 
 # Format the disk.
@@ -55,4 +55,4 @@ mkdir /boot/grub
 touch /boot/grub/grub.conf
 EOF
 
-mv archlinux.img.tmp.$$ archlinux.img
+mv archlinux.img-t archlinux.img

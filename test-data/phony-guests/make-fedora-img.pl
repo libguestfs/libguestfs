@@ -49,9 +49,9 @@ foreach ('LAYOUT', 'SRCDIR') {
 }
 
 if ($ENV{LAYOUT} eq 'partitions') {
-  push (@images, "fedora.img.tmp.$$");
+  push (@images, "fedora.img-t");
 
-  open (my $fstab, '>', "fstab.tmp.$$") or die;
+  open (my $fstab, '>', "fedora.fstab") or die;
   print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
@@ -60,9 +60,9 @@ EOF
 
   $bootdev = '/dev/sda1';
 
-  $g->disk_create ("fedora.img.tmp.$$", "raw", $IMAGE_SIZE);
+  $g->disk_create ("fedora.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora.img.tmp.$$");
+  $g->add_drive ("fedora.img-t");
   $g->launch ();
 
   $g->part_init ('/dev/sda', 'mbr');
@@ -74,9 +74,9 @@ EOF
 }
 
 elsif ($ENV{LAYOUT} eq 'partitions-md') {
-  push (@images, "fedora-md1.img.tmp.$$", "fedora-md2.img.tmp.$$");
+  push (@images, "fedora-md1.img-t", "fedora-md2.img-t");
 
-  open (my $fstab, '>', "fstab.tmp.$$") or die;
+  open (my $fstab, '>', "fedora.fstab") or die;
   print $fstab <<EOF;
 /dev/md0 /boot ext2 default 0 0
 LABEL=ROOT / ext2 default 0 0
@@ -103,7 +103,7 @@ EOF
   $g->md_create ('boot', ['/dev/sda1', '/dev/sdb1']);
   $g->md_create ('root', ['/dev/sda2', '/dev/sdb2']);
 
-  open (my $mdadm, '>', "mdadm.tmp.$$") or die;
+  open (my $mdadm, '>', "fedora.mdadm") or die;
   print $mdadm <<EOF;
 MAILADDR root
 AUTO +imsm +1.x -all
@@ -123,9 +123,9 @@ EOF
 }
 
 elsif ($ENV{LAYOUT} eq 'btrfs') {
-  push (@images, "fedora-btrfs.img.tmp.$$");
+  push (@images, "fedora-btrfs.img-t");
 
-  open (my $fstab, '>', "fstab.tmp.$$") or die;
+  open (my $fstab, '>', "fedora.fstab") or die;
   print $fstab <<EOF;
 LABEL=BOOT /boot ext2 default 0 0
 LABEL=ROOT / btrfs subvol=root 0 0
@@ -135,9 +135,9 @@ EOF
 
   $bootdev = '/dev/sda1';
 
-  $g->disk_create ("fedora-btrfs.img.tmp.$$", "raw", $IMAGE_SIZE);
+  $g->disk_create ("fedora-btrfs.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora-btrfs.img.tmp.$$");
+  $g->add_drive ("fedora-btrfs.img-t");
   $g->launch ();
 
   $g->part_init ('/dev/sda', 'mbr');
@@ -206,15 +206,15 @@ $g->chmod (0, '/etc/shadow');
 $g->lsetxattr ('security.selinux', "system_u:object_r:shadow_t:s0\0", 30,
                '/etc/shadow');
 
-$g->upload ("fstab.tmp.$$", '/etc/fstab');
+$g->upload ("fedora.fstab", '/etc/fstab');
 $g->write ('/etc/motd', "Welcome to Fedora release 14 (Phony)\n");
 $g->write ('/etc/redhat-release', 'Fedora release 14 (Phony)');
 $g->write ('/etc/fedora-release', 'Fedora release 14 (Phony)');
 $g->write ('/etc/sysconfig/network', 'HOSTNAME=fedora.invalid');
 
-if (-f "mdadm.tmp.$$") {
-  $g->upload ("mdadm.tmp.$$", '/etc/mdadm.conf');
-  unlink ("mdadm.tmp.$$") or die;
+if (-f "fedora.mdadm") {
+  $g->upload ("fedora.mdadm", '/etc/mdadm.conf');
+  unlink ("fedora.mdadm") or die;
 }
 
 $g->upload ($ENV{SRCDIR}.'/fedora-name.db', '/var/lib/rpm/Name');
@@ -252,8 +252,8 @@ $g->mknod (0777, 10, 10, '/bin/test7');
 $g->shutdown ();
 $g->close ();
 
-unlink ("fstab.tmp.$$") or die;
+unlink ("fedora.fstab") or die;
 foreach my $img (@images) {
-  $img =~ /^(.*)\.tmp\.\d+$/ or die;
+  $img =~ /^(.*)-t$/ or die;
   rename ($img, $1) or die;
 }

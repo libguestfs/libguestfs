@@ -63,8 +63,7 @@ check_DATA = $(disk_images) guests-all-good.xml
 CLEANFILES = \
 	$(check_DATA) \
 	guests-all-good.xml \
-	stamp-fedora-md.img \
-	*.tmp.*
+	stamp-fedora-md.img
 
 # Make several different blank images.  These are not guests, but we
 # include them in the libvirt fake XML to make sure that virt-df and
