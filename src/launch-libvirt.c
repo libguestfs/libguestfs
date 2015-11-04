@@ -52,7 +52,6 @@
 /* Fixes for Mac OS X */
 #if defined __APPLE__ && defined __MACH__
 #include <sys/un.h>
-#include <sys/fcntl.h>
 #endif
 #ifndef SOCK_CLOEXEC
 # define SOCK_CLOEXEC O_CLOEXEC
