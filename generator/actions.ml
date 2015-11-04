@@ -12761,11 +12761,11 @@ To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
       InitPartition, IfAvailable "ntfsprogs", TestRun(
         [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
-      InitPartition, Always, TestRun (
+      InitPartition, IfAvailable "btrfs", TestRun (
         [["mkfs"; "btrfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
-      InitPartition, Always, TestRun (
+      InitPartition, IfAvailable "xfs", TestRun (
         [["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
