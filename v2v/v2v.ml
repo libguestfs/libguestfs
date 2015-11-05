@@ -599,6 +599,22 @@ and inspect_source g root_choice =
     i_uefi = uefi
   } in
   if verbose () then printf "%s%!" (string_of_inspect inspect);
+
+  (* If some of these fields are "unknown", then that indicates a
+   * failure in inspection, and we shouldn't continue.  For an example
+   * of this, see RHBZ#1278371.  However don't "assert" here, since
+   * the user might have pointed virt-v2v at a blank disk.  Give an
+   * error message instead.
+   *)
+  let error_if_unknown fieldname value =
+    if value = "unknown" then
+      error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n\nInspection field '%s' was 'unknown'.")
+            fieldname
+  in
+  error_if_unknown "i_type" inspect.i_type;
+  error_if_unknown "i_distro" inspect.i_distro;
+  error_if_unknown "i_arch" inspect.i_arch;
+
   inspect
 
 (* Conversion can fail if there is no space on the guest filesystems
