@@ -1109,6 +1109,7 @@ Enable (check) the following objects:
    Provisioning:
      - Allow disk access
      - Allow read-only disk access
+     - Guest Operating system management by VIX API
 
 =back
 
