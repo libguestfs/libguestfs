@@ -26,18 +26,139 @@
 include $(top_srcdir)/subdir-rules.mk
 
 drivers = \
-	drivers/i386/Win7/qxl.cat \
-	drivers/i386/Win7/qxl.inf \
-	drivers/i386/Win7/qxl.sys \
+	drivers/amd64/Win2003/netkvm.cat \
+	drivers/amd64/Win2003/netkvm.inf \
+	drivers/amd64/Win2003/netkvm.sys \
+	drivers/amd64/Win2003/viostor.cat \
+	drivers/amd64/Win2003/viostor.inf \
+	drivers/amd64/Win2003/viostor.sys \
+	drivers/amd64/Win2008/netkvm.cat \
+	drivers/amd64/Win2008/netkvm.inf \
+	drivers/amd64/Win2008/netkvm.sys \
+	drivers/amd64/Win2008R2/netkvm.cat \
+	drivers/amd64/Win2008R2/netkvm.inf \
+	drivers/amd64/Win2008R2/netkvm.sys \
+	drivers/amd64/Win2008R2/qxl.cat \
+	drivers/amd64/Win2008R2/qxldd.dll \
+	drivers/amd64/Win2008R2/qxl.inf \
+	drivers/amd64/Win2008R2/qxl.sys \
+	drivers/amd64/Win2008R2/vioscsi.cat \
+	drivers/amd64/Win2008R2/vioscsi.inf \
+	drivers/amd64/Win2008R2/vioscsi.sys \
+	drivers/amd64/Win2008R2/viostor.cat \
+	drivers/amd64/Win2008R2/viostor.inf \
+	drivers/amd64/Win2008R2/viostor.sys \
+	drivers/amd64/Win2008/vioscsi.cat \
+	drivers/amd64/Win2008/vioscsi.inf \
+	drivers/amd64/Win2008/vioscsi.sys \
+	drivers/amd64/Win2008/viostor.cat \
+	drivers/amd64/Win2008/viostor.inf \
+	drivers/amd64/Win2008/viostor.sys \
+	drivers/amd64/Win2012/netkvm.cat \
+	drivers/amd64/Win2012/netkvm.inf \
+	drivers/amd64/Win2012/netkvm.sys \
+	drivers/amd64/Win2012R2/netkvm.cat \
+	drivers/amd64/Win2012R2/netkvm.inf \
+	drivers/amd64/Win2012R2/netkvm.sys \
+	drivers/amd64/Win2012R2/vioscsi.cat \
+	drivers/amd64/Win2012R2/vioscsi.inf \
+	drivers/amd64/Win2012R2/vioscsi.sys \
+	drivers/amd64/Win2012R2/viostor.cat \
+	drivers/amd64/Win2012R2/viostor.inf \
+	drivers/amd64/Win2012R2/viostor.sys \
+	drivers/amd64/Win2012/vioscsi.cat \
+	drivers/amd64/Win2012/vioscsi.inf \
+	drivers/amd64/Win2012/vioscsi.sys \
+	drivers/amd64/Win2012/viostor.cat \
+	drivers/amd64/Win2012/viostor.inf \
+	drivers/amd64/Win2012/viostor.sys \
+	drivers/amd64/Win7/netkvm.cat \
+	drivers/amd64/Win7/netkvm.inf \
+	drivers/amd64/Win7/netkvm.sys \
+	drivers/amd64/Win7/qxl.cat \
+	drivers/amd64/Win7/qxldd.dll \
+	drivers/amd64/Win7/qxl.inf \
+	drivers/amd64/Win7/qxl.sys \
+	drivers/amd64/Win7/vioscsi.cat \
+	drivers/amd64/Win7/vioscsi.inf \
+	drivers/amd64/Win7/vioscsi.sys \
+	drivers/amd64/Win7/viostor.cat \
+	drivers/amd64/Win7/viostor.inf \
+	drivers/amd64/Win7/viostor.sys \
+	drivers/amd64/Win8.1/netkvm.cat \
+	drivers/amd64/Win8.1/netkvm.inf \
+	drivers/amd64/Win8.1/netkvm.sys \
+	drivers/amd64/Win8.1/vioscsi.cat \
+	drivers/amd64/Win8.1/vioscsi.inf \
+	drivers/amd64/Win8.1/vioscsi.sys \
+	drivers/amd64/Win8.1/viostor.cat \
+	drivers/amd64/Win8.1/viostor.inf \
+	drivers/amd64/Win8.1/viostor.sys \
+	drivers/amd64/Win8/netkvm.cat \
+	drivers/amd64/Win8/netkvm.inf \
+	drivers/amd64/Win8/netkvm.sys \
+	drivers/amd64/Win8/vioscsi.cat \
+	drivers/amd64/Win8/vioscsi.inf \
+	drivers/amd64/Win8/vioscsi.sys \
+	drivers/amd64/Win8/viostor.cat \
+	drivers/amd64/Win8/viostor.inf \
+	drivers/amd64/Win8/viostor.sys \
+	drivers/i386/Win2003/netkvm.cat \
+	drivers/i386/Win2003/netkvm.inf \
+	drivers/i386/Win2003/netkvm.sys \
+	drivers/i386/Win2003/viostor.cat \
+	drivers/i386/Win2003/viostor.inf \
+	drivers/i386/Win2003/viostor.sys \
+	drivers/i386/Win2008/netkvm.cat \
+	drivers/i386/Win2008/netkvm.inf \
+	drivers/i386/Win2008/netkvm.sys \
+	drivers/i386/Win2008/vioscsi.cat \
+	drivers/i386/Win2008/vioscsi.inf \
+	drivers/i386/Win2008/vioscsi.sys \
+	drivers/i386/Win2008/viostor.cat \
+	drivers/i386/Win2008/viostor.inf \
+	drivers/i386/Win2008/viostor.sys \
 	drivers/i386/Win7/netkvm.cat \
 	drivers/i386/Win7/netkvm.inf \
 	drivers/i386/Win7/netkvm.sys \
+	drivers/i386/Win7/qxl.cat \
+	drivers/i386/Win7/qxldd.dll \
+	drivers/i386/Win7/qxl.inf \
+	drivers/i386/Win7/qxl.sys \
 	drivers/i386/Win7/vioscsi.cat \
 	drivers/i386/Win7/vioscsi.inf \
 	drivers/i386/Win7/vioscsi.sys \
 	drivers/i386/Win7/viostor.cat \
 	drivers/i386/Win7/viostor.inf \
-	drivers/i386/Win7/viostor.sys
+	drivers/i386/Win7/viostor.sys \
+	drivers/i386/Win8.1/netkvm.cat \
+	drivers/i386/Win8.1/netkvm.inf \
+	drivers/i386/Win8.1/netkvm.sys \
+	drivers/i386/Win8.1/vioscsi.cat \
+	drivers/i386/Win8.1/vioscsi.inf \
+	drivers/i386/Win8.1/vioscsi.sys \
+	drivers/i386/Win8.1/viostor.cat \
+	drivers/i386/Win8.1/viostor.inf \
+	drivers/i386/Win8.1/viostor.sys \
+	drivers/i386/Win8/netkvm.cat \
+	drivers/i386/Win8/netkvm.inf \
+	drivers/i386/Win8/netkvm.sys \
+	drivers/i386/Win8/vioscsi.cat \
+	drivers/i386/Win8/vioscsi.inf \
+	drivers/i386/Win8/vioscsi.sys \
+	drivers/i386/Win8/viostor.cat \
+	drivers/i386/Win8/viostor.inf \
+	drivers/i386/Win8/viostor.sys \
+	drivers/i386/WinXP/netkvm.cat \
+	drivers/i386/WinXP/netkvm.inf \
+	drivers/i386/WinXP/netkvm.sys \
+	drivers/i386/WinXP/qxl.cat \
+	drivers/i386/WinXP/qxldd.dll \
+	drivers/i386/WinXP/qxl.inf \
+	drivers/i386/WinXP/qxl.sys \
+	drivers/i386/WinXP/viostor.cat \
+	drivers/i386/WinXP/viostor.inf \
+	drivers/i386/WinXP/viostor.sys
 
 EXTRA_DIST = $(drivers)
 
