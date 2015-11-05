@@ -795,7 +795,7 @@ generate_config_xml (struct config *config, struct data_conn *data_conns)
           start_element ("interface") {
             attribute ("type", "network");
             start_element ("source") {
-              attribute ("network", "virtual-net1");
+              attribute ("network", "priv0");
             } end_element ();
             start_element ("target") {
               attribute ("dev", config->interfaces[i]);

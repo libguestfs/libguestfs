@@ -113,6 +113,18 @@ external string_trim : string -> string = "v2v_utils_trim"
 external get_everrun_obj_id : string -> string = "v2v_utils_get_everrun_obj_id"
 external get_everrun_passwd : unit -> string = "v2v_utils_get_everrun_passwd"
 
+let xpath_bool xpathctx expr =
+  let bool_str = match xpath_string xpathctx expr with
+                 | None -> ""
+                 | Some s -> (string_trim s) in
+  match bool_str with
+  | "true" -> true
+  | "false" -> false
+  | s -> error (f_"failed to transfer the node value %s to bool") bool_str
+
+let get_CDATA text =
+  sprintf "<![CDATA[%s]]>" text
+
 (* Map guest architecture found by inspection to the architecture
  * that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor.
  *)

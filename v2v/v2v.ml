@@ -43,20 +43,12 @@ let print_mpstat chan { mp_dev = dev; mp_path = path;
 
 let () = Random.self_init ()
 
-let test output =
-  printf "==============TEST BEGIN====================\n";
-  printf "[franklin] %s\n" output#as_options;
-  printf "===============TEST END====================\n";
-;;
-
 let rec main () =
   (* Handle the command line. *)
   let input, output,
     debug_overlays, do_copy, network_map, no_trim,
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
-
-test output;
 
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then

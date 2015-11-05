@@ -102,6 +102,13 @@ and config_network = {
   c_virtal_network_id : string;
 }
 
+and everrun_volume = {
+  e_vol_path : string;
+  e_vol_id : string;
+  e_vol_name : string;
+  e_disk_name : string;
+}
+
 let rec string_of_source s =
   sprintf "    source name: %s
 hypervisor type: %s

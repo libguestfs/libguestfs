@@ -25,3 +25,9 @@ val output_everrun : string -> string -> Types.output
     files. *)
 
 val parse_config_file : string -> string -> Types.p2v_config
+
+val create_volumes : Types.p2v_config -> Types.everrun_volume list
+
+val generate_volumes_xml : Types.everrun_volume list -> string
+
+val create_guest : string -> int -> int64 -> string -> Types.p2v_config -> Types.everrun_volume list -> unit
