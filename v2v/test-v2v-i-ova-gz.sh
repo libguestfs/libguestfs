@@ -32,7 +32,7 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
     exit 77
 fi
 
-export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 
 d=test-v2v-i-ova-gz.d
 rm -rf $d

@@ -22,6 +22,7 @@ SUBDIRS += blank-disks
 if ENABLE_APPLIANCE
 SUBDIRS += phony-guests
 endif
+SUBDIRS += fake-virtio-win fake-virt-tools
 SUBDIRS += files
 SUBDIRS += .
 

@@ -42,8 +42,9 @@ if ! test -f $f || ! test -s $f; then
     exit 77
 fi
 
-export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
-export VIRTIO_WIN="$PWD/fake-virtio-win.iso"
+export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
+# NB: This is located in the builddir:
+export VIRTIO_WIN="../test-data/fake-virtio-win/fake-virtio-win.iso"
 
 if ! test -f "$VIRTIO_WIN"; then
     echo "$0: test skipped because fake virtio-win iso image was not created"

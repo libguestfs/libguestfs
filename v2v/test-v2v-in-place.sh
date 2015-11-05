@@ -41,8 +41,8 @@ if ! test -f $img_base || ! test -s $img_base; then
     exit 77
 fi
 
-export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
-export VIRTIO_WIN="$PWD/fake-virtio-win"
+export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
+export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
 
 d=$PWD/test-v2v-in-place.d
 rm -rf $d

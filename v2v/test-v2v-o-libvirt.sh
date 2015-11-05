@@ -58,7 +58,7 @@ if ! test -f $f || ! test -s $f; then
     exit 77
 fi
 
-export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 
 # Generate a random guest name.
 guestname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)

@@ -504,6 +504,7 @@ Makefile.in
 /tests/syslinux/syslinux-guest.img
 /test-data/test.iso
 /test-data/blank-disks/blank-disk-*
+/test-data/fake-virtio-win/fake-virtio-win.iso
 /test-data/files/100kallnewlines
 /test-data/files/100kallspaces
 /test-data/files/100kallzeroes

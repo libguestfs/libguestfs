@@ -38,7 +38,7 @@ if ! test -f $f || ! test -s $f; then
     exit 77
 fi
 
-export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 
 d=test-v2v-i-disk.d
 rm -rf $d
