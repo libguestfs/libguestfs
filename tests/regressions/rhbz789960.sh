@@ -22,9 +22,9 @@
 set -e
 export LANG=C
 
-rm -f test.out
+rm -f rhbz789960.out
 
-guestfish -a ../../test-data/phony-guests/fedora.img --ro > test.out <<EOF
+guestfish -a ../../test-data/phony-guests/fedora.img --ro > rhbz789960.out <<EOF
 run
 
 # Not a device at all, should fail.
@@ -59,10 +59,10 @@ echo done
 
 EOF
 
-if [ "$(cat test.out)" != "done" ]; then
+if [ "$(cat rhbz789960.out)" != "done" ]; then
     echo "$0: unexpected output:"
-    cat test.out
+    cat rhbz789960.out
     exit 1
 fi
 
-rm -f test.out
+rm -f rhbz789960.out

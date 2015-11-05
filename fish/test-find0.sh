@@ -20,20 +20,20 @@
 
 set -e
 
-rm -f test.out
+rm -f test-find0.out
 
 $VG guestfish <<'EOF'
 add-ro ../test-data/test.iso
 run
 mount-ro /dev/sda /
-find0 / test.out
+find0 / test-find0.out
 EOF
 
-n=$(tr '\0' '\n' < test.out | grep '^known-[1-5]' | wc -l)
+n=$(tr '\0' '\n' < test-find0.out | grep '^known-[1-5]' | wc -l)
 [ "$n" = 5 ] || {
   echo find0: Invalid list of files
-  tr '\0' '\n' < test.out
+  tr '\0' '\n' < test-find0.out
   exit 1
 }
 
-rm -f test.out
+rm -f test-find0.out

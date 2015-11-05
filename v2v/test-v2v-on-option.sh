@@ -43,7 +43,7 @@ fi
 
 export VIRT_TOOLS_DATA_DIR="$PWD/fake-virt-tools"
 
-d=test-v2v-windows-conversion.d
+d=test-v2v-on-option.d
 rm -rf $d
 mkdir $d
 

@@ -20,15 +20,15 @@
 
 set -e
 
-rm -f test.out
+rm -f test-read-file.out
 
-$VG guestfish <<'EOF' > test.out
+$VG guestfish <<'EOF' > test-read-file.out
 add-ro ../test-data/test.iso
 run
 mount-ro /dev/sda /
 read-file /helloworld.tar
 EOF
 
-cmp $srcdir/../test-data/files/helloworld.tar test.out
+cmp $srcdir/../test-data/files/helloworld.tar test-read-file.out
 
-rm -f test.out
+rm -f test-read-file.out

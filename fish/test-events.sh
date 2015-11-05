@@ -20,9 +20,9 @@
 
 set -e
 
-rm -f test.out
+rm -f test-events.out
 
-$VG guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' | grep -v 'get_path' > test.out
+$VG guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' | grep -v 'get_path' > test-events.out
 trace true
 
 event ev1 * "echo $EVENT $@"
@@ -49,7 +49,7 @@ list-events
 
 EOF
 
-if [ "$(cat test.out)" != '"ev1" (0): *: echo $EVENT $@
+if [ "$(cat test-events.out)" != '"ev1" (0): *: echo $EVENT $@
 "ev1" (1): *: echo $EVENT $@
 "ev2" (2): *: echo $EVENT $@
 "ev2" (2): *: echo $EVENT $@
@@ -75,8 +75,8 @@ close
 "ev2" (1): close,subprocess_quit: echo $EVENT $@
 close' ]; then
     echo "$0: unexpected output from guestfish events"
-    cat test.out
+    cat test-events.out
     exit 1
 fi
 
-rm test.out
+rm test-events.out

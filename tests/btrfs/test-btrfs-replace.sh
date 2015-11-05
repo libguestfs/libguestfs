@@ -32,12 +32,12 @@ if ! guestfish -a /dev/null run : available btrfs; then
     exit 77
 fi
 
-rm -f test-btrfs-devices-{1,2}.img replace.output
+rm -f test-btrfs-replace-{1,2}.img replace.output
 
 guestfish  <<EOF > replace.output
 # Add 2 empty disks
-sparse test-btrfs-devices-1.img 1G
-sparse test-btrfs-devices-2.img 1G
+sparse test-btrfs-replace-1.img 1G
+sparse test-btrfs-replace-2.img 1G
 run
 
 mkfs-btrfs /dev/sda
@@ -63,4 +63,4 @@ filesanddirs-10M.tar.xz" ]; then
     exit 1
 fi
 
-rm test-btrfs-devices-{1,2}.img replace.output
+rm test-btrfs-replace-{1,2}.img replace.output

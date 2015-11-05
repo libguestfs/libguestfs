@@ -462,8 +462,6 @@ Makefile.in
 /sysprep/sysprep-operations.pod
 /sysprep/virt-sysprep
 /sysprep/virt-sysprep.1
-/test.err
-/test.out
 /tests/c-api/test-add-drive-opts
 /tests/c-api/test-add-libvirt-dom
 /tests/c-api/test-backend-settings

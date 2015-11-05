@@ -27,9 +27,9 @@ if [ ! -s ../../test-data/phony-guests/fedora.img -o ! -s ../../test-data/test.i
     exit 77
 fi
 
-rm -f test.out
+rm -f rhbz563450.out
 
-guestfish --ro > test.out <<EOF
+guestfish --ro > rhbz563450.out <<EOF
 add-drive-ro ../../test-data/phony-guests/fedora.img
 add-cdrom ../../test-data/test.iso
 add-drive-ro ../../test-data/phony-guests/debian.img
@@ -43,7 +43,7 @@ list-partitions | sed -r 's,^/dev/[abce-ln-z]+d,/dev/sd,'
 ping-daemon
 EOF
 
-if [ "$(cat test.out)" != "/dev/sda
+if [ "$(cat rhbz563450.out)" != "/dev/sda
 /dev/sdb
 /dev/sdc
 ----
@@ -52,8 +52,8 @@ if [ "$(cat test.out)" != "/dev/sda
 /dev/sdc1
 /dev/sdc2" ]; then
     echo "$0: unexpected output:"
-    cat test.out
+    cat rhbz563450.out
     exit 1
 fi
 
-rm -f test.out
+rm -f rhbz563450.out

@@ -74,7 +74,7 @@ $VG virt-builder phony-fedora \
     --firstboot-install "minicom,inkscape"
 
 # Check that some modifications were made.
-$VG guestfish --ro -i -a $output > test.out <<EOF
+$VG guestfish --ro -i -a $output > test-virt-builder.out <<EOF
 # Uploaded files
 is-file /etc/foo/bar/baz/Makefile
 cat /etc/foo/bar/baz/foo
@@ -99,7 +99,7 @@ is-file /etc/shadow
 cat /etc/shadow | sed -r '/^root:/!d;s,^(root:\\\$6\\\$).*,\\1,g'
 EOF
 
-if [ "$(cat test.out)" != "true
+if [ "$(cat test-virt-builder.out)" != "true
 Hello World
 true
 true
@@ -115,9 +115,9 @@ true
 true
 root:\$6\$" ]; then
     echo "$0: unexpected output:"
-    cat test.out
+    cat test-virt-builder.out
     exit 1
 fi
 
 rm $output
-rm test.out
+rm test-virt-builder.out

@@ -21,9 +21,9 @@
 set -e
 export LANG=C
 
-rm -f test.out
+rm -f test-file-attrs.out
 
-$VG guestfish > test.out <<EOF
+$VG guestfish > test-file-attrs.out <<EOF
 scratch 50MB
 run
 part-disk /dev/sda mbr
@@ -72,7 +72,7 @@ copy-attributes /foo /new mode:true
 stat /new | grep mode:
 EOF
 
-if [ "$(cat test.out)" != "mode: 33226
+if [ "$(cat test-file-attrs.out)" != "mode: 33226
 mode: 33226
 -----
 uid: 0
@@ -150,8 +150,8 @@ gid: 11
 }
 mode: 33226" ]; then
     echo "$0: unexpected output:"
-    cat test.out
+    cat test-file-attrs.out
     exit 1
 fi
 
-rm test.out
+rm test-file-attrs.out
