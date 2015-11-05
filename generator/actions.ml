@@ -12779,18 +12779,9 @@ this will fail and set errno as ENOTSUP.
 See also L<ntfsresize(8)>, L<resize2fs(8)>, L<btrfs(8)>, L<xfs_info(8)>." };
 
   { defaults with
-    name = "internal_available"; added = (1, 31, 25);
-    style = RErr, [StringList "groups"], [];
-    proc_nr = Some 458;
-    visibility = VInternal;
-    shortdesc = "test availability of some parts of the API";
-    longdesc = "\
-This is the internal call which implements C<guestfs_available>." };
-
-  { defaults with
     name = "internal_feature_available"; added = (1, 31, 25);
-    style = RBool "isavailable", [StringList "groups"], [];
-    proc_nr = Some 459;
+    style = RInt "result", [String "group"], [];
+    proc_nr = Some 458;
     visibility = VInternal;
     shortdesc = "test availability of some parts of the API";
     longdesc = "\

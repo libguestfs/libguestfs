@@ -33,53 +33,20 @@
 GUESTFSD_EXT_CMD(str_grep, grep);
 GUESTFSD_EXT_CMD(str_modprobe, modprobe);
 
-static int
-available (char *const *groups, int error_on_unavailable)
+int
+do_internal_feature_available (const char *group)
 {
-  int av;
-  size_t i, j;
+  size_t i;
 
-  for (i = 0; groups[i] != NULL; ++i) {
-    for (j = 0; optgroups[j].group != NULL; ++j) {
-      if (STREQ (groups[i], optgroups[j].group)) {
-        av = optgroups[j].available ();
-        if (!av) {
-          if (error_on_unavailable) {
-            reply_with_error ("%s: group not available", optgroups[j].group);
-            return -1;
-          }
-          else
-            return 0;
-        }
-        break; /* out of for (j) loop */
-      }
-    }
-
-    /* Unknown group? */
-    if (optgroups[j].group == NULL) {
-      reply_with_error ("%s: unknown group", groups[i]);
-      return -1;
+  for (i = 0; optgroups[i].group != NULL; ++i) {
+    if (STREQ (group, optgroups[i].group)) {
+      int av = optgroups[i].available ();
+      return av ? 0 : 1;
     }
   }
 
-  /* All specified groups available. */
-  return 1;
-}
-
-int
-do_internal_feature_available (char *const *groups)
-{
-  return available (groups, 0);
-}
-
-int
-do_internal_available (char *const *groups)
-{
-  if (available (groups, 1) == -1)
-    return -1;
-
-  /* No error, so all groups available, just returns no error. */
-  return 0;
+  /* Unknown group */
+  return 2;
 }
 
 char **

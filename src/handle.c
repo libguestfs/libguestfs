@@ -422,6 +422,7 @@ static int
 shutdown_backend (guestfs_h *g, int check_for_errors)
 {
   int ret = 0;
+  size_t i;
 
   if (g->state == CONFIG)
     return 0;
@@ -443,6 +444,12 @@ shutdown_backend (guestfs_h *g, int check_for_errors)
   }
 
   guestfs_int_free_drives (g);
+
+  for (i = 0; i < g->nr_features; ++i)
+    free (g->features[i].group);
+  free (g->features);
+  g->features = NULL;
+  g->nr_features = 0;
 
   g->state = CONFIG;
 

@@ -360,6 +360,12 @@ struct error_cb_stack {
   void *                   error_cb_data;
 };
 
+/* Cached queried features. */
+struct cached_feature {
+  char *group;
+  int result;
+};
+
 /* The libguestfs handle. */
 struct guestfs_h
 {
@@ -502,6 +508,10 @@ struct guestfs_h
   unsigned int nr_requested_credentials;
   virConnectCredentialPtr requested_credentials;
 #endif
+
+  /* Cached features. */
+  struct cached_feature *features;
+  size_t nr_features;
 };
 
 /* Per-filesystem data stored for inspect_os. */
