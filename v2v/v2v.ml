@@ -470,7 +470,7 @@ and inspect_source g root_choice =
   let root =
     match roots with
     | [] ->
-      error (f_"no root device found in this operating system image.");
+       error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n\nNo root device found in this operating system image.");
     | [root] -> root
     | roots ->
       match root_choice with
