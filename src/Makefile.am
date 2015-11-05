@@ -83,6 +83,7 @@ libguestfs_la_SOURCES = \
 	actions-variants.c \
 	alloc.c \
 	appliance.c \
+	available.c \
 	bindtests.c \
 	canonical-name.c \
 	command.c \

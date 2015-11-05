@@ -300,6 +300,7 @@ src/actions-support.c
 src/actions-variants.c
 src/alloc.c
 src/appliance.c
+src/available.c
 src/bindtests.c
 src/canonical-name.c
 src/cleanup.c

@@ -3412,6 +3412,92 @@ C<guestfs_get_identifier>." };
     longdesc = "\
 Get the handle identifier.  See C<guestfs_set_identifier>." };
 
+  { defaults with
+    name = "available"; added = (1, 0, 80);
+    style = RErr, [StringList "groups"], [];
+    tests = [
+      InitNone, Always, TestRun [["available"; ""]], []
+    ];
+    shortdesc = "test availability of some parts of the API";
+    longdesc = "\
+This command is used to check the availability of some
+groups of functionality in the appliance, which not all builds of
+the libguestfs appliance will be able to provide.
+
+The libguestfs groups, and the functions that those
+groups correspond to, are listed in L<guestfs(3)/AVAILABILITY>.
+You can also fetch this list at runtime by calling
+C<guestfs_available_all_groups>.
+
+The argument C<groups> is a list of group names, eg:
+C<[\"inotify\", \"augeas\"]> would check for the availability of
+the Linux inotify functions and Augeas (configuration file
+editing) functions.
+
+The command returns no error if I<all> requested groups are available.
+
+It fails with an error if one or more of the requested
+groups is unavailable in the appliance.
+
+If an unknown group name is included in the
+list of groups then an error is always returned.
+
+I<Notes:>
+
+=over 4
+
+=item *
+
+C<guestfs_feature_available> is the same as this call, but
+with a slightly simpler to use API: that call returns a boolean
+true/false instead of throwing an error.
+
+=item *
+
+You must call C<guestfs_launch> before calling this function.
+
+The reason is because we don't know what groups are
+supported by the appliance/daemon until it is running and can
+be queried.
+
+=item *
+
+If a group of functions is available, this does not necessarily
+mean that they will work.  You still have to check for errors
+when calling individual API functions even if they are
+available.
+
+=item *
+
+It is usually the job of distro packagers to build
+complete functionality into the libguestfs appliance.
+Upstream libguestfs, if built from source with all
+requirements satisfied, will support everything.
+
+=item *
+
+This call was added in version C<1.0.80>.  In previous
+versions of libguestfs all you could do would be to speculatively
+execute a command to find out if the daemon implemented it.
+See also C<guestfs_version>.
+
+=back
+
+See also C<guestfs_filesystem_available>." };
+
+  { defaults with
+    name = "feature_available"; added = (1, 21, 26);
+    style = RBool "isavailable", [StringList "groups"], [];
+    tests = [
+      InitNone, Always, TestResultTrue [["feature_available"; ""]], []
+    ];
+    shortdesc = "test availability of some parts of the API";
+    longdesc = "\
+This is the same as C<guestfs_available>, but unlike that
+call it returns a simple true/false boolean result, instead
+of throwing an exception if a feature is not found.  For
+other documentation see C<guestfs_available>." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -8031,80 +8117,6 @@ To create a file with a pattern of repeating bytes
 use C<guestfs_fill_pattern>." };
 
   { defaults with
-    name = "available"; added = (1, 0, 80);
-    style = RErr, [StringList "groups"], [];
-    proc_nr = Some 216;
-    tests = [
-      InitNone, Always, TestRun [["available"; ""]], []
-    ];
-    shortdesc = "test availability of some parts of the API";
-    longdesc = "\
-This command is used to check the availability of some
-groups of functionality in the appliance, which not all builds of
-the libguestfs appliance will be able to provide.
-
-The libguestfs groups, and the functions that those
-groups correspond to, are listed in L<guestfs(3)/AVAILABILITY>.
-You can also fetch this list at runtime by calling
-C<guestfs_available_all_groups>.
-
-The argument C<groups> is a list of group names, eg:
-C<[\"inotify\", \"augeas\"]> would check for the availability of
-the Linux inotify functions and Augeas (configuration file
-editing) functions.
-
-The command returns no error if I<all> requested groups are available.
-
-It fails with an error if one or more of the requested
-groups is unavailable in the appliance.
-
-If an unknown group name is included in the
-list of groups then an error is always returned.
-
-I<Notes:>
-
-=over 4
-
-=item *
-
-C<guestfs_feature_available> is the same as this call, but
-with a slightly simpler to use API: that call returns a boolean
-true/false instead of throwing an error.
-
-=item *
-
-You must call C<guestfs_launch> before calling this function.
-
-The reason is because we don't know what groups are
-supported by the appliance/daemon until it is running and can
-be queried.
-
-=item *
-
-If a group of functions is available, this does not necessarily
-mean that they will work.  You still have to check for errors
-when calling individual API functions even if they are
-available.
-
-=item *
-
-It is usually the job of distro packagers to build
-complete functionality into the libguestfs appliance.
-Upstream libguestfs, if built from source with all
-requirements satisfied, will support everything.
-
-=item *
-
-This call was added in version C<1.0.80>.  In previous
-versions of libguestfs all you could do would be to speculatively
-execute a command to find out if the daemon implemented it.
-See also C<guestfs_version>.
-
-=back
-
-See also C<guestfs_filesystem_available>." };
-
-  { defaults with
     name = "dd"; added = (1, 0, 80);
     style = RErr, [Dev_or_Path "src"; Dev_or_Path "dest"], [];
     proc_nr = Some 217;
@@ -11763,20 +11775,6 @@ This is only used to debug RHBZ#914931.  Note that this
 deliberately crashes guestfsd." };
 
   { defaults with
-    name = "feature_available"; added = (1, 21, 26);
-    style = RBool "isavailable", [StringList "groups"], [];
-    proc_nr = Some 398;
-    tests = [
-      InitNone, Always, TestResultTrue [["feature_available"; ""]], []
-    ];
-    shortdesc = "test availability of some parts of the API";
-    longdesc = "\
-This is the same as C<guestfs_available>, but unlike that
-call it returns a simple true/false boolean result, instead
-of throwing an exception if a feature is not found.  For
-other documentation see C<guestfs_available>." };
-
-  { defaults with
     name = "syslinux"; added = (1, 21, 27);
     style = RErr, [Device "device"], [OString "directory"];
     proc_nr = Some 399;
@@ -12779,6 +12777,24 @@ If getting minimum size of specified filesystem is not supported,
 this will fail and set errno as ENOTSUP.
 
 See also L<ntfsresize(8)>, L<resize2fs(8)>, L<btrfs(8)>, L<xfs_info(8)>." };
+
+  { defaults with
+    name = "internal_available"; added = (1, 31, 25);
+    style = RErr, [StringList "groups"], [];
+    proc_nr = Some 458;
+    visibility = VInternal;
+    shortdesc = "test availability of some parts of the API";
+    longdesc = "\
+This is the internal call which implements C<guestfs_available>." };
+
+  { defaults with
+    name = "internal_feature_available"; added = (1, 31, 25);
+    style = RBool "isavailable", [StringList "groups"], [];
+    proc_nr = Some 459;
+    visibility = VInternal;
+    shortdesc = "test availability of some parts of the API";
+    longdesc = "\
+This is the internal call which implements C<guestfs_feature_available>." };
 
 ]
 

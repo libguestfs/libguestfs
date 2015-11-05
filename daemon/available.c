@@ -67,13 +67,13 @@ available (char *const *groups, int error_on_unavailable)
 }
 
 int
-do_feature_available (char *const *groups)
+do_internal_feature_available (char *const *groups)
 {
   return available (groups, 0);
 }
 
 int
-do_available (char *const *groups)
+do_internal_available (char *const *groups)
 {
   if (available (groups, 1) == -1)
     return -1;
