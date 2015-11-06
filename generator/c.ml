@@ -1228,7 +1228,7 @@ and generate_client_actions hash () =
   (* Generate code for enter events. *)
   let enter_event shortname =
     pr "  guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_ENTER,\n";
-    pr "                                    \"%s\", %d);\n"
+    pr "                                      \"%s\", %d);\n"
       shortname (String.length shortname)
   in
 
