@@ -210,8 +210,7 @@ EXTRA_DIST = \
 	logo/virt-builder.svg \
 	m4/.gitignore \
 	ocaml-link.sh \
-	tests/run-xml-to-junit.sh \
-	tests/run-xml-to-junit.xsl \
+	tests/automake2junit.ml \
 	tmp/.gitignore \
 	update-bugs.sh \
 	valgrind-suppressions \
