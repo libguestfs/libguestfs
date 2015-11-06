@@ -25,7 +25,7 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
-static struct cached_feature *
+static const struct cached_feature *
 find_or_cache_feature (guestfs_h *g, const char *group)
 {
   struct cached_feature *f;
@@ -63,7 +63,7 @@ guestfs_impl_available (guestfs_h *g, char *const *groups)
 
   for (ptr = groups; *ptr != NULL; ++ptr) {
     const char *group = *ptr;
-    struct cached_feature *f = find_or_cache_feature (g, group);
+    const struct cached_feature *f = find_or_cache_feature (g, group);
 
     if (f == NULL)
       return -1;
@@ -87,7 +87,7 @@ guestfs_impl_feature_available (guestfs_h *g, char *const *groups)
 
   for (ptr = groups; *ptr != NULL; ++ptr) {
     const char *group = *ptr;
-    struct cached_feature *f = find_or_cache_feature (g, group);
+    const struct cached_feature *f = find_or_cache_feature (g, group);
 
     if (f == NULL)
       return -1;
