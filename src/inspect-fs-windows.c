@@ -244,9 +244,10 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
     return -1;
 
   char *arch = guestfs_file_architecture (g, cmd_exe_path);
+  if (!arch)
+    return -1;
 
-  if (arch)
-    fs->arch = arch;        /* freed by guestfs_int_free_inspect_info */
+  fs->arch = arch;        /* freed by guestfs_int_free_inspect_info */
 
   return 0;
 }
