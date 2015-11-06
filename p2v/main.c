@@ -38,6 +38,7 @@
 #include "p2v.h"
 
 char **all_disks;
+char *root_disk;
 char **all_removable;
 char **all_interfaces;
 
@@ -290,6 +291,8 @@ set_config_defaults (struct config *config)
     config->flags = 0;
 
   find_all_disks ();
+  if (root_disk)
+    config->root_disk = root_disk;
   if (all_disks)
     config->disks = guestfs_int_copy_string_list (all_disks);
   if (all_removable)
@@ -416,10 +419,14 @@ find_all_disks (void)
         STRPREFIX (d->d_name, "vd")) {
       char *p;
 
-      /* Skip the device containing the root filesystem. */
-    // [franklin] should display for user to decide which storage group to store this partition
-      // if (device_contains (d->d_name, root_device))
-      //   continue;
+    printf("[franklin] d->name = %s\n", d->d_name);
+      /* Skip the device containing the root filesystem, and add it into a global variable
+      for later usage. */
+      if (device_contains (d->d_name, root_device))
+      {
+        root_disk = strdup (d->d_name);
+        continue;
+      }
 
       nr_disks++;
       all_disks = realloc (all_disks, sizeof (char *) * (nr_disks + 1));

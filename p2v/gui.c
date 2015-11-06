@@ -764,6 +764,53 @@ populate_disks (GtkTreeView *disks_list)
   disks_store = gtk_list_store_new (NUM_DISKS_COLS,
                                     G_TYPE_BOOLEAN, G_TYPE_STRING,
                                     G_TYPE_STRING, G_TYPE_STRING);
+
+  /* display the root disk, just for user to select a Storage Group for it */
+  if (root_disk)
+  {
+      CLEANUP_FREE char *size_filename = NULL;
+      CLEANUP_FREE char *model_filename = NULL;
+      CLEANUP_FREE char *size_str = NULL;
+      CLEANUP_FREE char *size_gb = NULL;
+      CLEANUP_FREE char *model = NULL;
+      uint64_t size;
+
+      if (asprintf (&size_filename, "/sys/block/%s/size",
+                    root_disk) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+      if (g_file_get_contents (size_filename, &size_str, NULL, NULL) &&
+          sscanf (size_str, "%" SCNu64, &size) == 1) {
+        size /= 2*1024*1024; /* size from kernel is given in sectors? */
+        if (asprintf (&size_gb, "%" PRIu64, size) == -1) {
+          perror ("asprintf");
+          exit (EXIT_FAILURE);
+        }
+      }
+
+      if (asprintf (&model_filename, "/sys/block/%s/device/model",
+                    root_disk) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+      if (g_file_get_contents (model_filename, &model, NULL, NULL)) {
+        /* Need to chomp trailing \n from the content. */
+        size_t len = strlen (model);
+        if (len > 0 && model[len-1] == '\n')
+          model[len-1] = '\0';
+      } else {
+        model = strdup ("");
+      }
+
+      gtk_list_store_append (disks_store, &iter);
+      gtk_list_store_set (disks_store, &iter,
+                          DISKS_COL_CONVERT, TRUE,
+                          DISKS_COL_DEVICE, root_disk,
+                          DISKS_COL_SIZE, size_gb,
+                          DISKS_COL_MODEL, model,
+                          -1);
+  }
   if (all_disks != NULL) {
     for (i = 0; all_disks[i] != NULL; ++i) {
       CLEANUP_FREE char *size_filename = NULL;

@@ -66,6 +66,10 @@ copy_config (struct config *old)
     c->password = strdup (c->password);
   if (c->guestname)
     c->guestname = strdup (c->guestname);
+  if (c->root_disk)
+    c->root_disk = strdup (c->root_disk);
+  if (c->root_disk_map)
+    c->root_disk_map = strdup (c->root_disk_map);
   if (c->disks)
     c->disks = guestfs_int_copy_string_list (c->disks);
   if (c->disk_map)
@@ -95,6 +99,8 @@ free_config (struct config *c)
   free (c->username);
   free (c->password);
   free (c->guestname);
+  free (c->root_disk);
+  free (c->root_disk_map);
   guestfs_int_free_string_list (c->disks);
   guestfs_int_free_string_list (c->disk_map);
   guestfs_int_free_string_list (c->removable);
@@ -135,6 +141,8 @@ print_config (struct config *config, FILE *fp)
            config->flags & FLAG_ACPI ? " acpi" : "",
            config->flags & FLAG_APIC ? " apic" : "",
            config->flags & FLAG_PAE  ? " pae"  : "");
+  fprintf (fp, "root disk  . . . . .   %s\n", config->root_disk);
+  fprintf (fp, "root disk map  . . . . .   %s\n", config->root_disk_map);
   fprintf (fp, "disks  . . . . .  ");
   if (config->disks != NULL) {
     for (i = 0; config->disks[i] != NULL; ++i)

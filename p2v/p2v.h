@@ -48,6 +48,7 @@
 /* All disks / removable media / network interfaces discovered
  * when the program started.  Do not change these.
  */
+extern char *root_disk;
 extern char **all_disks;
 extern char **all_removable;
 extern char **all_interfaces;
@@ -64,6 +65,8 @@ struct config {
   int vcpus;
   uint64_t memory;
   int flags;
+  char *root_disk;
+  char *root_disk_map;
   char **disks;
   char **disk_map;
   char **removable;
