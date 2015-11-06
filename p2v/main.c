@@ -419,7 +419,6 @@ find_all_disks (void)
         STRPREFIX (d->d_name, "vd")) {
       char *p;
 
-    printf("[franklin] d->name = %s\n", d->d_name);
       /* Skip the device containing the root filesystem, and add it into a global variable
       for later usage. */
       if (device_contains (d->d_name, root_device))

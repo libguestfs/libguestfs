@@ -24,7 +24,13 @@ val output_everrun : string -> string -> Types.output
     {!Types.output} object specialized for writing output to local
     files. *)
 
+val get_default_storage_group : Xml.doc -> Types.storage_group
+
+val get_default_virtual_network : Xml.doc -> Types.virtual_network
+
 val parse_config_file : string -> string -> Types.p2v_config
+
+val parse_config_without_cfg_file : Types.source -> Types.target list-> Types.p2v_config
 
 val create_volumes : Types.p2v_config -> Types.everrun_volume list
 

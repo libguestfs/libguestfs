@@ -151,7 +151,7 @@ let get_storage_group_oid doc os =
         | Some sname -> (string_trim sname)
       in
 
-      if storage_group_name_temp = os then (
+      if storage_group_name_temp == os then (
         storage_group_name := storage_group_name_temp;
         let id = match xpath_string "@id" with
                             | None -> ""
@@ -185,7 +185,7 @@ let get_network_oid doc network_name =
                              | None -> ""
                              | Some netname -> (string_trim netname)
       in
-      if network_name_tmp = network_name then (
+      if network_name_tmp == network_name then (
       let id = match xpath_string "@id" with
                | None -> ""
                | Some nid -> (string_trim nid) in
@@ -194,7 +194,7 @@ let get_network_oid doc network_name =
       )
     )
   done;
-  if !network_id = "" then
+  if !network_id == "" then
     error (f_"there is no shared network match name in the everrun system");
   !network_id;
 ;;
@@ -216,12 +216,145 @@ let check_domain_existence doc host_name =
           | Some sname -> (string_trim sname)
         in
 
-        if domain_name = host_name then
+        if domain_name == host_name then
           error (f_"a domain with the same name has already exist in the system");
     done;
 ;;
 
-let parse_config_file os domain_name=
+let get_default_storage_group doc =
+  let xpathctx = Xml.xpath_new_context doc in
+  let xpath_string = xpath_string xpathctx in
+
+  let storage_group_id = ref "" in
+  let storage_group_name = ref "" in
+  let obj = Xml.xpath_eval_expression xpathctx
+    "/responses/response/output/storagegroup" in
+  let nr_nodes = Xml.xpathobj_nr_nodes obj in
+  if nr_nodes < 1 then
+      error (f_"there is no storage group in the everrun system");
+  let found_sg = ref false in
+  for i = 0 to nr_nodes-1 do
+    if not !found_sg then (
+      let node = Xml.xpathobj_node obj i in
+      Xml.xpathctx_set_current_context xpathctx node;
+(*       if i == 0 then (
+        let storage_group_name_temp =  match xpath_string "name" with
+                                       | None -> ""
+                                       | Some sname -> (string_trim sname) in
+        let id = match xpath_string "@id" with
+                 | None -> ""
+                 | Some fid -> (string_trim fid) in
+        storage_group_name := storage_group_name_temp;
+        storage_group_id := id;
+      ) *)
+      let storage_group_name_temp = match xpath_string "name" with
+                                    | None -> ""
+                                    | Some sname -> (string_trim sname) in
+      if storage_group_name_temp == "Initial Storage Group" then (
+        storage_group_name := storage_group_name_temp;
+        let id = match xpath_string "@id" with
+                 | None -> ""
+                 | Some fid -> (string_trim fid) in
+        storage_group_id := id;
+        found_sg := true;
+      )
+    )
+  done;
+  if !storage_group_id == "" || !storage_group_name == "" then
+    error (f_"failed to get the default storage group");
+  ({
+    s_storage_group_id = !storage_group_id;
+    s_storage_group_name = !storage_group_name;
+  })
+;;
+
+let get_default_virtual_network doc =
+  let xpathctx = Xml.xpath_new_context doc in
+  let xpath_string = xpath_string xpathctx in
+  let xpath_bool = xpath_bool xpathctx in
+
+  let virtual_network_id = ref "" in
+  let virtual_network_name = ref "" in
+  let obj = Xml.xpath_eval_expression xpathctx
+    "/responses/response/output/sharednetwork" in
+  let nr_nodes = Xml.xpathobj_nr_nodes obj in
+  if nr_nodes < 1 then
+      error (f_"there is no shared network in the everrun system");
+  let found_nw = ref false in
+  for i = 0 to nr_nodes-1 do
+    if not !found_nw then (
+      let node = Xml.xpathobj_node obj i in
+      Xml.xpathctx_set_current_context xpathctx node;
+      if xpath_bool "withPortal" then (
+        let network_name_tmp = match xpath_string "name" with
+                               | None -> ""
+                               | Some netname -> (string_trim netname) in
+        let id = match xpath_string "@id" with
+                 | None -> ""
+                 | Some nid -> (string_trim nid) in
+        virtual_network_id := id;
+        virtual_network_name := network_name_tmp;
+        found_nw := true;
+      )
+    )
+  done;
+  if !virtual_network_id == "" || !virtual_network_name == "" then
+    error (f_"failed to get the default virtual network");
+  ({
+    v_network_id = !virtual_network_id;
+    v_network_name = !virtual_network_name;
+  })
+;;
+
+let parse_config_without_cfg_file source targets =
+  if verbose () then printf "Output_everrun::parse_config_without_cfg_file\n";
+  (* Get watch response *)
+  let cmd_curl_watch = "<request id='1' target='supernova'><watch/></request>" in
+  let everrun_response_xml = do_doh_request cmd_curl_watch in
+  let everrun_response_doc = Xml.parse_memory everrun_response_xml in
+
+  (* Get all shared networks *)
+  let cmd_curl_topology = "<request id='1' target='sharednetwork'><select>sharednetwork</select></request>" in
+  let everrun_network_response_xml = do_doh_request cmd_curl_topology in
+  let everrun_network_response_doc = Xml.parse_memory everrun_network_response_xml in
+
+  check_domain_existence everrun_response_doc source.s_name;
+
+  let default_storage_group = get_default_storage_group everrun_response_doc in
+  let default_virtual_network = get_default_virtual_network everrun_network_response_doc in
+  let disks = ref [] in
+  let networks = ref [] in
+  List.iter (
+    fun t ->
+      let add_disk name =
+        disks := {
+          c_disk_name = name;
+          c_storage_group_name = default_storage_group.s_storage_group_name;
+          c_storage_group_id = default_storage_group.s_storage_group_id;
+        } :: !disks in
+      let name = t.target_overlay.ov_sd in
+      add_disk name;
+  ) targets;
+
+  List.iter (
+    fun nic ->
+    let add_network name =
+      networks := {
+        c_network_name = name;
+        c_virtual_network_name = default_virtual_network.v_network_name;
+        c_virtal_network_id = default_virtual_network.v_network_id;
+      } :: !networks in
+      let name = nic.s_vnet in
+      add_network name;
+  ) source.s_nics;
+  ({
+    c_domain_name = source.s_name;
+    c_disks = !disks;
+    c_networks = !networks;
+  })
+;;
+
+let parse_config_file os domain_name =
   if verbose () then printf "Output_everrun::parse_config_file\n";
   (* Get watch response *)
   let cmd_curl_watch = "<request id='1' target='supernova'><watch/></request>" in
@@ -390,6 +523,7 @@ class output_everrun os availability = object
   inherit output
   val mutable everrun_config = None
   val mutable everrun_volumes = None
+  val mutable use_config = false
 
   method as_options = (
     match availability with
@@ -399,10 +533,16 @@ class output_everrun os availability = object
       error (f_"unknown -os option: %s") s
   )
 
+  method set_use_config use_cfg =
+    use_config <- use_cfg;
+
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
-    let config = parse_config_file os source.s_name in
+    let config = match use_config with
+                 | true -> parse_config_file os source.s_name
+                 | false -> parse_config_without_cfg_file source targets
+    in
     let volumes = create_volumes config in
     everrun_config <- Some config;
     everrun_volumes <- Some volumes;

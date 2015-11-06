@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <regex.h>
 
 #include "everrun_utils.h"
 
@@ -85,4 +86,13 @@ get_everrun_passwd (char *passwd)
 
     strcpy(passwd, pw);
     passwd[len] = '\0';
+}
+
+void
+get_input_type (char *input_option, char *input_type)
+{
+    if (input_option)
+    {
+        input_type = "abc";
+    }
 }

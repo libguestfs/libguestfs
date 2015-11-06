@@ -112,6 +112,7 @@ external drive_index : string -> int = "v2v_utils_drive_index"
 external string_trim : string -> string = "v2v_utils_trim"
 external get_everrun_obj_id : string -> string = "v2v_utils_get_everrun_obj_id"
 external get_everrun_passwd : unit -> string = "v2v_utils_get_everrun_passwd"
+external get_input_type : string -> string = "v2v_utils_get_input_type"
 
 let xpath_bool xpathctx expr =
   let bool_str = match xpath_string xpathctx expr with

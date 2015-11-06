@@ -65,9 +65,9 @@ v2v_utils_trim (value origin)
 {
   CAMLparam1 (origin);
   CAMLlocal1 (modified_str);
-  char result[strlen(String_val (origin))];
+  char result[strlen (String_val (origin))];
 
-  everrun_trim(String_val (origin), result);
+  everrun_trim (String_val (origin), result);
   modified_str = caml_copy_string (result);
 
   CAMLreturn (modified_str);
@@ -78,9 +78,9 @@ v2v_utils_get_everrun_obj_id (value mixed_id)
 {
   CAMLparam1 (mixed_id);
   CAMLlocal1 (id);
-  char result[strlen(String_val (mixed_id))];
+  char result[strlen (String_val (mixed_id))];
 
-  get_everrun_obj_id(String_val (mixed_id), result);
+  get_everrun_obj_id (String_val (mixed_id), result);
   id = caml_copy_string (result);
 
   CAMLreturn (id);
@@ -93,8 +93,21 @@ v2v_utils_get_everrun_passwd (value unit)
   CAMLlocal1 (passwd);
   char passwd_r[100];
 
-  get_everrun_passwd(passwd_r);
+  get_everrun_passwd (passwd_r);
   passwd = caml_copy_string (passwd_r);
 
   CAMLreturn (passwd);
+}
+
+value
+v2v_utils_get_input_type (value input_option)
+{
+  CAMLparam1 (input_option);
+  CAMLlocal1 (input_type);
+  char result[strlen (String_val (input_option))];
+
+  get_input_type (String_val (input_option), result);
+  input_type = caml_copy_string (result);
+
+  CAMLreturn (input_type);
 }

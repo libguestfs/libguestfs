@@ -50,6 +50,8 @@ let rec main () =
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
 
+  output#set_use_config false;
+
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"

@@ -109,6 +109,16 @@ and everrun_volume = {
   e_disk_name : string;
 }
 
+and storage_group = {
+  s_storage_group_id : string;
+  s_storage_group_name : string;
+}
+
+and virtual_network = {
+  v_network_id : string;
+  v_network_name : string;
+}
+
 let rec string_of_source s =
   sprintf "    source name: %s
 hypervisor type: %s
@@ -419,6 +429,7 @@ class virtual output = object
   method disk_create = (new Guestfs.guestfs ())#disk_create
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
+  method set_use_config (_ : bool) = ()
 end
 
 type output_allocation = Sparse | Preallocated

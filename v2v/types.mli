@@ -134,6 +134,16 @@ and everrun_volume = {
   e_disk_name : string;
 }
 
+and storage_group = {
+  s_storage_group_id : string;
+  s_storage_group_name : string;
+}
+
+and virtual_network = {
+  v_network_id : string;
+  v_network_name : string;
+}
+
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
 
@@ -270,6 +280,7 @@ class virtual output : object
       same signature as Guestfs#disk_create. *)
   method keep_serial_console : bool
   (** Whether this output supports serial consoles (RHEV does not). *)
+  method set_use_config : bool -> unit
 end
 (** Encapsulates all [-o], etc output arguments as an object. *)
 
