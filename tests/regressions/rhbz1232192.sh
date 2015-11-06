@@ -47,6 +47,6 @@ if [ ! -f ../../test-data/phony-guests/blank-disk.img ]; then
     exit 77
 fi
 
-export VIRT_TOOLS_DATA_DIR="../../v2v/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$srcdir/../../test-data/fake-virt-tools"
 
 ../../v2v/virt-v2v -i libvirtxml rhbz1232192.xml -o null --no-copy
