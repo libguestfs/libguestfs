@@ -211,7 +211,7 @@ start_conversion (struct config *config,
   time (&now);
   gmtime_r (&now, &tm);
   if (asprintf (&remote_dir,
-                "/home/franklin/temp/download/virt-p2v-%04d%02d%02d-XXXXXXXX",
+                "/tmp/virt-p2v-%04d%02d%02d-XXXXXXXX",
                 tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday) == -1) {
     perror ("asprintf");
     cleanup_data_conns (data_conns, nr_disks);

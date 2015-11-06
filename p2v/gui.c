@@ -318,8 +318,7 @@ test_connection_thread (void *data)
   gdk_threads_leave ();
 
   wait_network_online (copy);
-  // r = test_connection (copy);
-  r = 0;
+  r = test_connection (copy);
   free_config (copy);
 
   gdk_threads_enter ();
