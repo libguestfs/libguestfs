@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <regex.h>
@@ -72,7 +73,6 @@ get_everrun_passwd (char *passwd)
     int len = ftell(pFile) - 1;
     char pw[len + 1];
     rewind(pFile);
-    fread(pw, 1, len + 1, pFile);
     pw[len] = '\0';
     fclose(pFile);
 
@@ -88,11 +88,30 @@ get_everrun_passwd (char *passwd)
     passwd[len] = '\0';
 }
 
+/*
+ * Get the input type from input#as_options
+ */
 void
 get_input_type (char *input_option, char *input_type)
 {
-    if (input_option)
+    regmatch_t pm[1];
+    regex_t preg;
+    input_type[0] = '\0';
+    const char *pattern = "^[-][i] [a-z]*[a-z] *";
+
+    if (regcomp (&preg, pattern, REG_EXTENDED | REG_NEWLINE) == 0)
     {
-        input_type = "abc";
+        if (regexec(&preg, input_option, 1, pm, REG_NOTEOL) == 0)
+        {
+            int i;
+            int j = 0;
+            for (i = pm[0].rm_so + strlen ("-i "); i < pm[0].rm_eo - 1; i++)
+            {
+                input_type[j] = input_option[i];
+                j++;
+            }
+            input_type[j] = '\0';
+        }
     }
+    regfree(&preg);
 }

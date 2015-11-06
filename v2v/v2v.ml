@@ -50,14 +50,20 @@ let rec main () =
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
 
-  output#set_use_config false;
-
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"
       prog Config.package_name Config.package_version Config.host_cpu;
 
-  message (f_"Opening the source %s") input#as_options;
+  let input_options = input#as_options in
+  let input_type = get_input_type input_options in
+  let use_config = match input_type with
+                   | "libvirtxml" -> true
+                   | s -> false in
+  (* Set whether use config.xml for output_everrun *)
+  output#set_use_config use_config;
+
+  message (f_"Opening the source %s") input_options;
   let source = input#source () in
 
   (* Print source and stop. *)
