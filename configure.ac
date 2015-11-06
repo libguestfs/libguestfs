@@ -30,23 +30,8 @@ AC_SUBST([RELEASE_DATE], [2015-11-04])
 
 AC_CONFIG_AUX_DIR([build-aux])
 
-dnl Initialize automake.  automake < 1.12 didn't have serial-tests and
-dnl gives an error if it sees this, but for automake >= 1.13
-dnl serial-tests is required so we have to include it.  Solution is to
-dnl test for the version of automake (by running an external command)
-dnl and provide it if necessary.  Note we have to do this entirely using
-dnl m4 macros since automake queries this macro by running
-dnl 'autoconf --trace'.
-m4_define([serial_tests], [
-    m4_esyscmd([automake --version | head -1 | awk '
-                     {
-                       split ($NF, version, ".");
-                       if (version[1] == 1 && version[2] >= 12)
-                         print "serial-tests";
-                     }'
-    ])
-])
-AM_INIT_AUTOMAKE(foreign serial_tests subdir-objects) dnl NB: Do not [quote] this parameter.
+dnl Initialize automake.
+AM_INIT_AUTOMAKE(foreign subdir-objects) dnl NB: Do not [quote] this parameter.
 
 m4_ifndef([AM_SILENT_RULES], [m4_define([AM_SILENT_RULES],[])])
 AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.

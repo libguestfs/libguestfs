@@ -75,3 +75,7 @@ qemu_speed_test_LDADD = \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
+
+# Don't run these tests in parallel, since they are designed to check
+# the integrity of qemu.
+.NOTPARALLEL:

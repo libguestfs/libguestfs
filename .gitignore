@@ -14,11 +14,13 @@
 *.jar
 *.la
 *.lo
+*.log
 *.o
 *.orig
 *.patch
 *.rej
 *.swp
+*.trs
 
 bindtests.tmp
 cscope.out

@@ -31,15 +31,20 @@
 # For lots more ways to use this script, see the libguestfs README
 # file.
 #
-# The script can also be used to make the output of tests shorter:
+# The script should also be used for tests like this:
+#
 #   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test [$(VG)]
-# (Use the optional $(VG) when the tests must also be run under
-# valgrind).
+#
+# The --test parameter introduces a timeout, stopping tests from
+# running forever.
+#
+# Use the optional $(VG) when the tests must also be run under
+# valgrind.
 
 #----------------------------------------------------------------------
 
 if [ "$1" = "--test" ]; then
-    test_mode=1
+    timeout_mode=1
     shift
 fi
 
@@ -223,14 +228,11 @@ export GNOME_KEYRING_CONTROL=
 export GNOME_KEYRING_PID=
 
 # Run the program.
-if [ -z "$test_mode" ]; then
+if [ -z "$timeout_mode" ]; then
     exec $libtool "$@"
 fi
 
 # For tests (./run --test):
-#  - redirect all output to a file, and only print the file if the
-#    test fails
-#  - print how long it takes to run the test
 #  - timeout if the test takes too long to run
 
 # Originally 1h, but that is not long enough to run the C API
@@ -246,41 +248,19 @@ if timeout --foreground 2 sleep 0 >/dev/null 2>&1; then
     fi
 fi
 
-pid=$$
-tmpout=$b/tmp/run-$pid
-rm -f $tmpout
-start_t="$(date +'%s')"
-$timeout $libtool "$@" > $tmpout 2>&1
+$timeout $libtool "$@"
 fail=$?
-end_t="$(date +'%s')"
 if [ "$fail" -eq 0 ]; then
     # Test successful.
-    echo $(($end_t - $start_t)) seconds: "$@"
+    :
 elif [ "$fail" -eq 77 ]; then
     # Tests return 77 to mean skipped.
-    cat $tmpout
+    :
 elif [ "$fail" -eq 124 ]; then
     # Timed out.
-    echo "$b/run --test" "$@"
-    cat $tmpout
     echo "$b/run: command timed out after $timeout_period"
 else
     # Test failed.
-    echo "$b/run --test" "$@"
-    cat $tmpout
     echo "$b/run: command failed with exit code $fail"
 fi
-if [ -n "$RUN_OUTPUT_FILE" ]; then
-    testname=`echo "$1" | @SED@ -e 's,^./,,g'`
-    echo "<test rescode=\"$fail\" name=\"$testname\" time=\"$(($end_t - $start_t))\">" >> $RUN_OUTPUT_FILE
-    echo "<![CDATA[" >> $RUN_OUTPUT_FILE
-    # skip the results of test-virt-rescue.pl, as they contain
-    # non-ASCII chars which give troubles to xsltproc
-    if ! echo "$testname" | grep test-virt-rescue.pl &>/dev/null ; then
-      cat $tmpout >> $RUN_OUTPUT_FILE
-    fi
-    echo "]]>" >> $RUN_OUTPUT_FILE
-    echo "</test>" >> $RUN_OUTPUT_FILE
-fi
-rm -f $tmpout
 exit $fail
