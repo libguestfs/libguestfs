@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-04 17:43+0000\n"
+"POT-Creation-Date: 2015-11-06 17:28+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -51,7 +51,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:209
 #. ../builder/builder.ml:667
-#: ../v2v/v2v.ml:551 ../v2v/v2v.ml:383 ../sysprep/main.ml:241
+#: ../v2v/v2v.ml:567 ../v2v/v2v.ml:383 ../sysprep/main.ml:241
 msgid "%s (ignored)"
 msgstr ""
 
@@ -754,8 +754,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:55
 #. ../customize/customize_main.ml:75
 #. ../customize/customize_main.ml:74
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119
-#: ../get-kernel/get_kernel.ml:56
+#: ../sysprep/main.ml:120 ../sysprep/main.ml:119 ../get-kernel/get_kernel.ml:56
 msgid "Add disk image file"
 msgstr ""
 
@@ -842,7 +841,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:936
+#: ../v2v/v2v.ml:952
 msgid "CD-ROM"
 msgstr ""
 
@@ -882,11 +881,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:465
+#: ../v2v/v2v.ml:481
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:720
+#: ../v2v/v2v.ml:736
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -918,11 +917,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:696
+#: ../v2v/v2v.ml:712
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:694
+#: ../v2v/v2v.ml:710
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -950,7 +949,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:756
+#: ../v2v/v2v.ml:772
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -1158,7 +1157,7 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:685
+#: ../v2v/v2v.ml:701
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1606,7 +1605,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:953
+#: ../v2v/v2v.ml:969
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -2023,16 +2022,14 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:57
 #. ../customize/customize_main.ml:80
 #. ../customize/customize_main.ml:79
-#: ../sysprep/main.ml:122 ../sysprep/main.ml:121
-#: ../get-kernel/get_kernel.ml:58
+#: ../sysprep/main.ml:122 ../sysprep/main.ml:121 ../get-kernel/get_kernel.ml:58
 msgid "Set libvirt URI"
 msgstr ""
 
 #. ../get-kernel/get_kernel.ml:59
 #. ../customize/customize_main.ml:82
 #. ../customize/customize_main.ml:81
-#: ../sysprep/main.ml:124 ../sysprep/main.ml:123
-#: ../get-kernel/get_kernel.ml:60
+#: ../sysprep/main.ml:124 ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:60
 msgid "Set libvirt guest name"
 msgstr ""
 
@@ -2358,11 +2355,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:713
+#: ../v2v/v2v.ml:729
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:711
+#: ../v2v/v2v.ml:727
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2373,7 +2370,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:738
+#: ../v2v/v2v.ml:754
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2802,8 +2799,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:59
 #. ../customize/customize_main.ml:82
 #. ../customize/customize_main.ml:81
-#: ../sysprep/main.ml:124 ../sysprep/main.ml:123
-#: ../get-kernel/get_kernel.ml:60
+#: ../sysprep/main.ml:124 ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:60
 msgid "domain"
 msgstr ""
 
@@ -2849,8 +2845,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:62
 #. ../builder/downloader.ml:74
-#: ../sysprep/main.ml:56 ../resize/resize.ml:316
-#: ../get-kernel/get_kernel.ml:42
+#: ../sysprep/main.ml:56 ../resize/resize.ml:316 ../get-kernel/get_kernel.ml:42
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
@@ -2924,8 +2919,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:55
 #. ../customize/customize_main.ml:75
 #. ../customize/customize_main.ml:74
-#: ../sysprep/main.ml:120 ../sysprep/main.ml:119
-#: ../get-kernel/get_kernel.ml:56
+#: ../sysprep/main.ml:120 ../sysprep/main.ml:119 ../get-kernel/get_kernel.ml:56
 msgid "file"
 msgstr ""
 
@@ -2940,7 +2934,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:937
+#: ../v2v/v2v.ml:953
 msgid "floppy disk"
 msgstr ""
 
@@ -3050,6 +3044,30 @@ msgstr ""
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
+#: ../v2v/v2v.ml:450
+msgid ""
+"inspection could not detect the source guest (or physical machine).\n"
+"\n"
+"Assuming that you are running virt-v2v/virt-p2v on a source which is "
+"supported (and not, for example, a blank disk), then this should not "
+"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
+"log to a new bug report (see http://libguestfs.org).\n"
+"\n"
+"Inspection field '%s' was 'unknown'."
+msgstr ""
+
+#: ../v2v/v2v.ml:312
+msgid ""
+"inspection could not detect the source guest (or physical machine).\n"
+"\n"
+"Assuming that you are running virt-v2v/virt-p2v on a source which is "
+"supported (and not, for example, a blank disk), then this should not "
+"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
+"log to a new bug report (see http://libguestfs.org).\n"
+"\n"
+"No root device found in this operating system image."
+msgstr ""
+
 #: ../mllib/common_utils.ml:390
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
@@ -3062,7 +3080,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:768
+#: ../v2v/v2v.ml:784
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -3238,17 +3256,13 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/v2v.ml:312
-msgid "no root device found in this operating system image."
-msgstr ""
-
 #: ../v2v/input_libvirt.ml:64
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:491
+#: ../v2v/v2v.ml:507
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3382,7 +3396,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:807 ../v2v/v2v.ml:236
+#: ../v2v/v2v.ml:823 ../v2v/v2v.ml:236
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3398,7 +3412,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:934
+#: ../v2v/v2v.ml:950
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3603,7 +3617,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:729
+#: ../v2v/v2v.ml:745
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3716,8 +3730,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:57
 #. ../customize/customize_main.ml:80
 #. ../customize/customize_main.ml:79
-#: ../sysprep/main.ml:122 ../sysprep/main.ml:121
-#: ../get-kernel/get_kernel.ml:58
+#: ../sysprep/main.ml:122 ../sysprep/main.ml:121 ../get-kernel/get_kernel.ml:58
 msgid "uri"
 msgstr ""
 
@@ -3829,7 +3842,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:702
+#: ../v2v/v2v.ml:718
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -7381,8 +7394,8 @@ msgstr "n'a pas pu analyser la taille de démarrage"
 msgid "failed to get sector size of disk: %s"
 msgstr "impossible d'obtenir la taille du secteur du disque  : %s"
 
-#: fish/prep-boot.c:51 fish/prep-boot.c:105 fish/prep-fs.c:42
-#: fish/prep-lv.c:77 fish/prep-lv.c:120 fish/prep-part.c:42
+#: fish/prep-boot.c:51 fish/prep-boot.c:105 fish/prep-fs.c:42 fish/prep-lv.c:77
+#: fish/prep-lv.c:120 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "impossible de partitionner le disque : %s"
@@ -7407,8 +7420,8 @@ msgstr "impossible de créer le système de fichiers de démarrage : %s"
 msgid "failed to create root filesystem: %s"
 msgstr "impossible de créer le système de fichiers racine : %s"
 
-#: fish/prep-boot.c:86 fish/prep-boot.c:120 fish/prep-lv.c:67
-#: fish/prep-lv.c:83 fish/prep-lv.c:110 fish/prep-lv.c:126
+#: fish/prep-boot.c:86 fish/prep-boot.c:120 fish/prep-lv.c:67 fish/prep-lv.c:83
+#: fish/prep-lv.c:110 fish/prep-lv.c:126
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
 "format incorrect pour le nom du volume logique, utilisez « /dev/"
@@ -8440,6 +8453,16 @@ msgstr ""
 "security : le cache de l'appareil %s est accessible en écriture par un "
 "groupe ou autre (mode %o)"
 
+#: src/available.c:71 src/available.c:95
+#, c-format
+msgid "%s: unknown group"
+msgstr ""
+
+#: src/available.c:74
+#, c-format
+msgid "%s: group not available"
+msgstr ""
+
 #: src/conn-socket.c:64
 msgid "accept_connection called twice"
 msgstr "accept_connection appelé deux fois"
@@ -8947,24 +8970,24 @@ msgstr ""
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close : appelé deux fois sur le même identificateur\n"
 
-#: src/handle.c:516
+#: src/handle.c:523
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:569
+#: src/handle.c:576
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:686
+#: src/handle.c:693
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: src/handle.c:792
+#: src/handle.c:799
 msgid "setting not found"
 msgstr ""
 
