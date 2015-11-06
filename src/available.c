@@ -45,8 +45,9 @@ find_or_cache_feature (guestfs_h *g, const char *group)
   if (res < 0)
     return 0;  /* internal_feature_available sent an error. */
 
-  g->features = safe_realloc (g, g->features,
-                              (g->nr_features+1) * sizeof (struct cached_feature));
+  g->features =
+    safe_realloc (g, g->features,
+                  (g->nr_features+1) * sizeof (struct cached_feature));
   f = &g->features[g->nr_features];
   ++g->nr_features;
   f->group = safe_strdup (g, group);
