@@ -40,3 +40,5 @@ $(top_builddir)/generator/generator:
 	else \
 	  echo "warning: Run 'make' at the top level to build $@"; \
 	fi
+
+LOG_DRIVER = env $(SHELL) $(top_srcdir)/build-aux/guestfs-test-driver

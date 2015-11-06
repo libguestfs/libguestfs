@@ -29,6 +29,7 @@ dnl the website 'index.html' file.
 AC_SUBST([RELEASE_DATE], [2015-11-04])
 
 AC_CONFIG_AUX_DIR([build-aux])
+AC_REQUIRE_AUX_FILE([guestfs-test-driver])
 
 dnl Initialize automake.
 AM_INIT_AUTOMAKE(foreign subdir-objects) dnl NB: Do not [quote] this parameter.
