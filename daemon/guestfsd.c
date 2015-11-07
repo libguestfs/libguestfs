@@ -284,23 +284,29 @@ main (int argc, char *argv[])
 
   int sock;
   if (!listen_mode) {
-    sock = open (channel, O_RDWR|O_CLOEXEC);
-    if (sock == -1) {
-      fprintf (stderr,
-               "\n"
-               "Failed to connect to virtio-serial channel.\n"
-               "\n"
-               "This is a fatal error and the appliance will now exit.\n"
-               "\n"
-               "Usually this error is caused by either QEMU or the appliance\n"
-               "kernel not supporting the vmchannel method that the\n"
-               "libguestfs library chose to use.  Please run\n"
-               "'libguestfs-test-tool' and provide the complete, unedited\n"
-               "output to the libguestfs developers, either in a bug report\n"
-               "or on the libguestfs redhat com mailing list.\n"
-               "\n");
-      perror (channel);
-      exit (EXIT_FAILURE);
+    if (STRPREFIX (channel, "fd:")) {
+      if (sscanf (channel+3, "%d", &sock) != 1)
+        error (EXIT_FAILURE, 0, "cannot parse --channel %s", channel);
+    }
+    else {
+      sock = open (channel, O_RDWR|O_CLOEXEC);
+      if (sock == -1) {
+        fprintf (stderr,
+                 "\n"
+                 "Failed to connect to virtio-serial channel.\n"
+                 "\n"
+                 "This is a fatal error and the appliance will now exit.\n"
+                 "\n"
+                 "Usually this error is caused by either QEMU or the appliance\n"
+                 "kernel not supporting the vmchannel method that the\n"
+                 "libguestfs library chose to use.  Please run\n"
+                 "'libguestfs-test-tool' and provide the complete, unedited\n"
+                 "output to the libguestfs developers, either in a bug report\n"
+                 "or on the libguestfs redhat com mailing list.\n"
+                 "\n");
+        perror (channel);
+        exit (EXIT_FAILURE);
+      }
     }
   }
   else {

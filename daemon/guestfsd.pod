@@ -54,9 +54,14 @@ Display brief help.
 
 =item B<--channel> CHANNEL
 
+=item B<--channel> fd:N
+
 Pass the name of the virtio-serial channel, serial port, etc.  over
 which guestfsd will communicate with the library.  If this parameter
 is not given, then an internal default port is used.
+
+The C<fd:N> form causes guestfsd to use the file descriptor C<N>
+directly.
 
 =item B<-l>
 
