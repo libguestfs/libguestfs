@@ -154,29 +154,7 @@ extern int random_name (char *template);
 
 extern char *get_random_uuid (void);
 
-/* This just stops gcc from giving a warning about our custom printf
- * formatters %Q and %R.  See guestfs-hacking(1) for more
- * info about these.  In GCC 4.8.0 the warning is even harder to
- * 'trick', hence the need for the #pragma directives.
- */
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wsuggest-attribute=format"
-#endif
-static inline int
-asprintf_nowarn (char **strp, const char *fmt, ...)
-{
-  int r;
-  va_list args;
-
-  va_start (args, fmt);
-  r = vasprintf (strp, fmt, args);
-  va_end (args);
-  return r;
-}
-#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
-#pragma GCC diagnostic pop
-#endif
+extern int asprintf_nowarn (char **strp, const char *fmt, ...);
 
 /* Use by the CLEANUP_* macros. */
 extern void cleanup_free (void *ptr);
