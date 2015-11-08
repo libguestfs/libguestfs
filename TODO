@@ -576,11 +576,3 @@ Subsecond handling in virt-diff, virt-ls
 
 Handle nanoseconds properly.  You should be able to specify them on
 the command line and display them.
-
-virt-p2v
---------
-
-virt-p2v-make-disk and virt-p2v-make-kickstart should have
-options to let you inject SSH identities, eg:
-
-  virt-p2v-make-disk [...] --inject-ssh-identity=id_rsa
