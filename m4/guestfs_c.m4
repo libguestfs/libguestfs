@@ -43,22 +43,15 @@ fi
 dnl This, $nw, is the list of warnings we disable.
 nw=
 nw="$nw -Waggregate-return"          # anachronistic
-nw="$nw -Wc++-compat"                # We don't care about C++ compilers
 nw="$nw -Wundef"                     # Warns on '#if GNULIB_FOO' etc in gnulib
 nw="$nw -Wtraditional"               # Warns on #elif which we use often
-nw="$nw -Wcast-qual"                 # Too many warnings for now
-nw="$nw -Wconversion"                # Too many warnings for now
 nw="$nw -Wsystem-headers"            # Don't let system headers trigger warnings
-nw="$nw -Wsign-conversion"           # Not an error
-nw="$nw -Wtraditional-conversion"    # Don't care about pre-ANSI compilers
 nw="$nw -Wpadded"                    # Our structs are not padded
-nw="$nw -Wvla"                       # two warnings in mount.c
-dnl things I might fix soon:
-nw="$nw -Wmissing-format-attribute"  # daemon.h's asprintf_nowarn
-nw="$nw -Winline"                    # daemon.h's asprintf_nowarn
-nw="$nw -Wshadow"                    # numerous, plus we're not unanimous
+nw="$nw -Wvla"                       # Allow variable length arrays.
+nw="$nw -Wshadow"                    # Not useful, as it applies to global vars
 nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                      # was not possible, safe to ignore
+dnl things I might fix soon:
 nw="$nw -Wpacked"                    # Allow attribute((packed)) on structs
 nw="$nw -Wlong-long"                 # Allow long long since it's required
                                      # by Python, Ruby and xstrtoll.
