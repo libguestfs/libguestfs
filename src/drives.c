@@ -524,7 +524,7 @@ add_drive_to_handle_at (guestfs_h *g, struct drive *d, size_t drv_index)
   if (drv_index >= g->nr_drives) {
     g->drives = safe_realloc (g, g->drives,
                               sizeof (struct drive *) * (drv_index + 1));
-    while (g->nr_drives <= drv_index) {
+    while (g->nr_drives < drv_index+1) {
       g->drives[g->nr_drives] = NULL;
       g->nr_drives++;
     }

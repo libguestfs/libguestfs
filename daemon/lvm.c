@@ -215,7 +215,7 @@ do_vgcreate (const char *volgroup, char *const *physvols)
   argv[0] = str_lvm;
   argv[1] = "vgcreate";
   argv[2] = volgroup;
-  for (i = 3; i <= argc; ++i)
+  for (i = 3; i < argc+1; ++i)
     argv[i] = physvols[i-3];
 
   r = commandv (NULL, &err, (const char * const*) argv);
@@ -522,7 +522,7 @@ do_vg_activate (int activate, char *const *volgroups)
   argv[1] = "vgchange";
   argv[2] = "-a";
   argv[3] = activate ? "y" : "n";
-  for (i = 4; i <= argc; ++i)
+  for (i = 4; i < argc+1; ++i)
     argv[i] = volgroups[i-4];
 
   r = commandv (NULL, &err, (const char * const*) argv);

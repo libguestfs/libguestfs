@@ -467,7 +467,7 @@ parse_md_stat_line (char *line)
   return ret;
 
  error:
-  for (i = 0; i <= spaces; ++i) {
+  for (i = 0; i < spaces+1; ++i) {
     free (ret->guestfs_int_mdstat_list_val[i].mdstat_device);
     free (ret->guestfs_int_mdstat_list_val[i].mdstat_flags);
   }

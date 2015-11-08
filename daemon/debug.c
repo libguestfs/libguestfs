@@ -547,7 +547,7 @@ debug_progress (const char *subcmd, size_t argc, char *const *const argv)
     uint64_t tsecs = secs * 10; /* 1/10ths of seconds */
     uint64_t i;
 
-    for (i = 1; i <= tsecs; ++i) {
+    for (i = 1; i < tsecs+1; ++i) {
       usleep (100000);
       notify_progress (i, tsecs);
     }
