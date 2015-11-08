@@ -350,7 +350,6 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   if (g->recovery_proc) {
     r = fork ();
     if (r == 0) {
-      int i;
       struct sigaction sa;
       pid_t vmlinux_pid = data->pid;
       pid_t parent_pid = getppid ();

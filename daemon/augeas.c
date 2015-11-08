@@ -35,13 +35,13 @@
     if (code == AUG_ENOMEM)                                             \
       reply_with_error (fs ": augeas out of memory", ##__VA_ARGS__);    \
     else {                                                              \
-      const char *message = aug_error_message (aug);                    \
-      const char *minor = aug_error_minor_message (aug);                \
-      const char *details = aug_error_details (aug);                    \
+      const char *aug_err_message = aug_error_message (aug);            \
+      const char *aug_err_minor = aug_error_minor_message (aug);        \
+      const char *aug_err_details = aug_error_details (aug);            \
       fprintf (stderr, fs ": %s%s%s%s%s", ##__VA_ARGS__,                \
-	       message,							\
-	       minor ? ": " : "", minor ? minor : "",			\
-	       details ? ": " : "", details ? details : "");		\
+	       aug_err_message,                                         \
+	       aug_err_minor ? ": " : "", aug_err_minor ? aug_err_minor : "", \
+	       aug_err_details ? ": " : "", aug_err_details ? aug_err_details : ""); \
     }                                                                   \
   } while (0)
 

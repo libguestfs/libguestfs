@@ -132,7 +132,7 @@ guestfs_int_call_callbacks_message (guestfs_h *g, uint64_t event,
        event == GUESTFS_EVENT_WARNING ||
        event == GUESTFS_EVENT_TRACE)) {
     bool from_appliance = event == GUESTFS_EVENT_APPLIANCE;
-    size_t i, i0;
+    size_t i0;
 
     /* APPLIANCE =>  <buf>
      * LIBRARY =>    libguestfs: <buf>\n

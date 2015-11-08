@@ -174,14 +174,14 @@ check_daemon_socket (guestfs_h *g)
 
   /* Read and process progress messages that happen during FileIn. */
   if (flag == GUESTFS_PROGRESS_FLAG) {
-    char buf[PROGRESS_MESSAGE_SIZE];
+    char mbuf[PROGRESS_MESSAGE_SIZE];
     guestfs_progress message;
 
-    n = g->conn->ops->read_data (g, g->conn, buf, PROGRESS_MESSAGE_SIZE);
+    n = g->conn->ops->read_data (g, g->conn, mbuf, PROGRESS_MESSAGE_SIZE);
     if (n <= 0) /* 0 or -1 */
       return n;
 
-    xdrmem_create (&xdr, buf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
+    xdrmem_create (&xdr, mbuf, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
     xdr_guestfs_progress (&xdr, &message);
     xdr_destroy (&xdr);
 

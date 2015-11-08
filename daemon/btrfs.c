@@ -511,7 +511,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
     goto error;
   }
 
-  for (size_t i = 0; i < nr_subvolumes; ++i) {
+  for (i = 0; i < nr_subvolumes; ++i) {
     /* To avoid allocations, reuse the 'line' buffer to store the
      * path.  Thus we don't need to free 'line', since it will be
      * freed by the calling (XDR) code.

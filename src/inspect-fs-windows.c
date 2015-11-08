@@ -451,7 +451,6 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
       /* Get the binary value.  Is it a fixed disk? */
       CLEANUP_FREE char *blob = NULL;
       char *device;
-      size_t len;
       int64_t type;
 
       type = guestfs_hivex_value_type (g, v);

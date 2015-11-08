@@ -117,14 +117,14 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
        * have to determine the block device sector size in order to do
        * this.
        */
-      int sectorsize = do_blockdev_getss (device);
-      if (sectorsize == -1)
+      int ss = do_blockdev_getss (device);
+      if (ss == -1)
         return -1;
 
-      int sectors_per_cluster = blocksize / sectorsize;
+      int sectors_per_cluster = blocksize / ss;
       if (sectors_per_cluster < 1 || sectors_per_cluster > 128) {
         reply_with_error ("unsupported cluster size for %s filesystem (requested cluster size = %d, sector size = %d, trying sectors per cluster = %d)",
-                          fstype, blocksize, sectorsize, sectors_per_cluster);
+                          fstype, blocksize, ss, sectors_per_cluster);
         return -1;
       }
 
