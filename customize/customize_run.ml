@@ -201,7 +201,7 @@ exec >>%s 2>&1
       if not (g#exists path) then
         error (f_"%s does not exist in the guest") path;
 
-      if not (g#is_file path) then
+      if not (g#is_file ~followsymlinks:true path) then
         error (f_"%s is not a regular file in the guest") path;
 
       Perl_edit.edit_file g#ocaml_handle path expr
