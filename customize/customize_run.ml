@@ -198,6 +198,9 @@ exec >>%s 2>&1
     | `Edit (path, expr) ->
       message (f_"Editing: %s") path;
 
+      if not (g#exists path) then
+        error (f_"%s does not exist in the guest") path;
+
       if not (g#is_file path) then
         error (f_"%s is not a regular file in the guest") path;
 
