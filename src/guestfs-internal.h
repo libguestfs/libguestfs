@@ -38,12 +38,11 @@
                              MIN_LIBVIRT_MINOR * 1000 +		\
                              MIN_LIBVIRT_MICRO)
 
-#if defined(HAVE_LIBVIRT) && LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
-#define HAVE_LIBVIRT_BACKEND
-#endif
-
 #ifdef HAVE_LIBVIRT
 #include <libvirt/libvirt.h>
+#if LIBVIR_VERSION_NUMBER >= MIN_LIBVIRT_VERSION
+#define HAVE_LIBVIRT_BACKEND
+#endif
 #endif
 
 #include "hash.h"
