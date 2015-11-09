@@ -23,10 +23,6 @@
 #include <string.h>
 #include <libintl.h>
 
-#ifdef HAVE_LIBVIRT
-#include <libvirt/libvirt.h>
-#endif
-
 #include <libxml/parser.h>
 #include <libxml/xmlversion.h>
 

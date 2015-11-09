@@ -25,7 +25,6 @@
 #include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
-#include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
 #endif
 
