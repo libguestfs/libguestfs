@@ -63,20 +63,11 @@ let print_entry chan (name, { printable_name = printable_name;
                               hidden = hidden }) =
   let fp fs = fprintf chan fs in
   fp "[%s]\n" name;
-  (match printable_name with
-  | None -> ()
-  | Some name -> fp "name=%s\n" name
-  );
-  (match osinfo with
-  | None -> ()
-  | Some id -> fp "osinfo=%s\n" id
-  );
+  may (fp "name=%s\n") printable_name;
+  may (fp "osinfo=%s\n") osinfo;
   fp "file=%s\n" file_uri;
   fp "arch=%s\n" arch;
-  (match signature_uri with
-  | None -> ()
-  | Some uri -> fp "sig=%s\n" uri
-  );
+  may (fp "sig=%s\n") signature_uri;
   (match checksums with
   | None -> ()
   | Some checksums ->
@@ -87,23 +78,11 @@ let print_entry chan (name, { printable_name = printable_name;
     ) checksums
   );
   fp "revision=%s\n" (string_of_revision revision);
-  (match format with
-  | None -> ()
-  | Some format -> fp "format=%s\n" format
-  );
+  may (fp "format=%s\n") format;
   fp "size=%Ld\n" size;
-  (match compressed_size with
-  | None -> ()
-  | Some size -> fp "compressed_size=%Ld\n" size
-  );
-  (match expand with
-  | None -> ()
-  | Some expand -> fp "expand=%s\n" expand
-  );
-  (match lvexpand with
-  | None -> ()
-  | Some lvexpand -> fp "lvexpand=%s\n" lvexpand
-  );
+  may (fp "compressed_size=%Ld\n") compressed_size;
+  may (fp "expand=%s\n") expand;
+  may (fp "lvexpand=%s\n") lvexpand;
   List.iter (
     fun (lang, notes) ->
       match lang with

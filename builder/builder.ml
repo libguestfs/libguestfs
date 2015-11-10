@@ -626,8 +626,8 @@ let main () =
   let g =
     let g = open_guestfs () in
 
-    (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
-    (match smp with None -> () | Some smp -> g#set_smp smp);
+    may g#set_memsize memsize;
+    may g#set_smp smp;
     g#set_network network;
 
     (* Make sure to turn SELinux off to avoid awkward interactions
@@ -733,8 +733,6 @@ let main () =
   Pervasives.flush Pervasives.stdout;
   Pervasives.flush Pervasives.stderr;
 
-  match stats with
-  | None -> ()
-  | Some stats -> print_string stats
+  may print_string stats
 
 let () = run_main_and_handle_errors main
