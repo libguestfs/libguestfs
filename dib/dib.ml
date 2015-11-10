@@ -627,9 +627,8 @@ let main () =
 
   let g, tmpdisk, tmpdiskfmt, drive_partition =
     let g = open_guestfs () in
-
-    (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
-    (match smp with None -> () | Some smp -> g#set_smp smp);
+    may g#set_memsize memsize;
+    may g#set_smp smp;
     g#set_network network;
 
     (* Make sure to turn SELinux off to avoid awkward interactions

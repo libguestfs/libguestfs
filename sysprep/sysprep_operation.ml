@@ -186,10 +186,7 @@ let dump_pod () =
       if op.enabled_by_default then printf "*\n";
       printf "\n";
       printf "%s.\n\n" op.heading;
-      (match op.pod_description with
-      | None -> ()
-      | Some description -> printf "%s\n\n" description
-      );
+      may (printf "%s\n\n") op.pod_description;
       (match op.pod_notes with
       | None -> ()
       | Some notes ->
