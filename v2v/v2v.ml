@@ -27,6 +27,8 @@ open Common_utils
 open Types
 open Utils
 
+open Cmdline
+
 (* Mountpoint stats, used for free space estimation. *)
 type mpstat = {
   mp_dev : string;                      (* Filesystem device (eg. /dev/sda1) *)
@@ -49,24 +51,20 @@ let () = Random.self_init ()
 
 let rec main () =
   (* Handle the command line. *)
-  let input, output,
-    compressed, debug_overlays, do_copy, in_place, network_map, no_trim,
-    output_alloc, output_format, output_name, print_source, root_choice =
-    Cmdline.parse_cmdline () in
+  let cmdline, input, output = parse_cmdline () in
 
   (* Print the version, easier than asking users to tell us. *)
   if verbose () then
     printf "%s: %s %s (%s)\n%!"
       prog Guestfs_config.package_name Guestfs_config.package_version Guestfs_config.host_cpu;
 
-  let source = open_source input print_source in
-  let source = amend_source source output_name network_map in
+  let source = open_source cmdline input in
+  let source = amend_source cmdline source in
 
   let conversion_mode =
-    if not in_place then (
+    if not cmdline.in_place then (
       let overlays = create_overlays source.s_disks in
-      let targets =
-        init_targets overlays source output output_format compressed in
+      let targets = init_targets cmdline output source overlays in
       Copying (overlays, targets)
     )
     else In_place in
@@ -88,7 +86,7 @@ let rec main () =
 
   (* Inspection - this also mounts up the filesystems. *)
   message (f_"Inspecting the overlay");
-  let inspect = inspect_source g root_choice in
+  let inspect = inspect_source cmdline g in
 
   let mpstats = get_mpstats g in
   check_free_space mpstats;
@@ -103,13 +101,14 @@ let rec main () =
 
   g#umount_all ();
 
-  if no_trim <> ["*"] && (do_copy || debug_overlays) then (
+  if cmdline.no_trim <> ["*"] &&
+       (cmdline.do_copy || cmdline.debug_overlays) then (
     (* Doing fstrim on all the filesystems reduces the transfer size
      * because unused blocks are marked in the overlay and thus do
      * not have to be copied.
      *)
     message (f_"Mapping filesystem data to avoid copying unused and blank areas");
-    do_fstrim g no_trim inspect;
+    do_fstrim g cmdline.no_trim inspect;
   );
 
   (match conversion_mode with
@@ -132,26 +131,26 @@ let rec main () =
          printf "%s%!" (string_of_target_buses target_buses);
 
        let targets =
-         if not do_copy then targets
-         else copy_targets targets input output output_alloc compressed in
+         if not cmdline.do_copy then targets
+         else copy_targets cmdline targets input output in
 
        (* Create output metadata. *)
        message (f_"Creating output metadata");
        output#create_metadata source targets target_buses guestcaps inspect
                              target_firmware;
 
-       if debug_overlays then preserve_overlays overlays source.s_name;
+       if cmdline.debug_overlays then preserve_overlays overlays source.s_name;
 
        delete_target_on_exit := false  (* Don't delete target on exit. *)
   );
   message (f_"Finishing off")
 
-and open_source input print_source =
+and open_source cmdline input =
   message (f_"Opening the source %s") input#as_options;
   let source = input#source () in
 
   (* Print source and stop. *)
-  if print_source then (
+  if cmdline.print_source then (
     printf (f_"Source guest information (--print-source option):\n");
     printf "\n";
     printf "%s\n" (string_of_source source);
@@ -178,10 +177,10 @@ and open_source input print_source =
 
   source
 
-and amend_source source output_name network_map =
+and amend_source cmdline source =
   (* Map source name. *)
   let source =
-    match output_name with
+    match cmdline.output_name with
     | None -> source
     (* Note the s_orig_name field retains the original name in case we
      * need it for some reason.
@@ -195,12 +194,12 @@ and amend_source source output_name network_map =
         (* Look for a --network or --bridge parameter which names this
          * network/bridge (eg. --network in:out).
          *)
-        let new_name = List.assoc (t, vnet) network_map in
+        let new_name = List.assoc (t, vnet) cmdline.network_map in
         { nic with s_vnet = new_name }
       with Not_found ->
         try
           (* Not found, so look for a default mapping (eg. --network out). *)
-          let new_name = List.assoc (t, "") network_map in
+          let new_name = List.assoc (t, "") cmdline.network_map in
           { nic with s_vnet = new_name }
         with Not_found ->
           (* Not found, so return the original NIC unchanged. *)
@@ -248,7 +247,7 @@ and create_overlays src_disks =
         ov_virtual_size = vsize; ov_source = source }
   ) src_disks
 
-and init_targets overlays source output output_format compressed =
+and init_targets cmdline output source overlays =
   (* Work out where we will write the final output.  Do this early
    * just so we can display errors to the user before doing too much
    * work.
@@ -259,7 +258,7 @@ and init_targets overlays source output output_format compressed =
       fun ov ->
         (* What output format should we use? *)
         let format =
-          match output_format, ov.ov_source.s_format with
+          match cmdline.output_format, ov.ov_source.s_format with
           | Some format, _ -> format    (* -of overrides everything *)
           | None, Some format -> format (* same as backing format *)
           | None, None ->
@@ -276,7 +275,7 @@ and init_targets overlays source output output_format compressed =
           error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
 
         (* Only allow compressed with qcow2. *)
-        if compressed && format <> "qcow2" then
+        if cmdline.compressed && format <> "qcow2" then
           error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
 
         (* output#prepare_targets will fill in the target_file field.
@@ -307,7 +306,7 @@ and populate_disks g src_disks =
                           ~discard:"besteffort"
   ) src_disks
 
-and inspect_source g root_choice =
+and inspect_source cmdline g =
   let roots = g#inspect_os () in
   let roots = Array.to_list roots in
 
@@ -317,7 +316,7 @@ and inspect_source g root_choice =
        error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n\nNo root device found in this operating system image.");
     | [root] -> root
     | roots ->
-      match root_choice with
+      match cmdline.root_choice with
       | `Ask ->
         (* List out the roots and ask the user to choose. *)
         printf "\n***\n";
@@ -762,7 +761,7 @@ and get_target_firmware inspect guestcaps source output =
 
 and delete_target_on_exit = ref true
 
-and copy_targets targets input output output_alloc compressed =
+and copy_targets cmdline targets input output =
   (* Copy the source to the output. *)
   at_exit (fun () ->
     if !delete_target_on_exit then (
@@ -807,7 +806,7 @@ and copy_targets targets input output output_alloc compressed =
        *)
       (* What output preallocation mode should we use? *)
       let preallocation =
-        match t.target_format, output_alloc with
+        match t.target_format, cmdline.output_alloc with
         | ("raw"|"qcow2"), Sparse -> Some "sparse"
         | ("raw"|"qcow2"), Preallocated -> Some "full"
         | _ -> None (* ignore -oa flag for other formats *) in
@@ -821,7 +820,7 @@ and copy_targets targets input output output_alloc compressed =
         sprintf "qemu-img convert%s -n -f qcow2 -O %s%s %s %s"
           (if not (quiet ()) then " -p" else "")
           (quote t.target_format)
-          (if compressed then " -c" else "")
+          (if cmdline.compressed then " -c" else "")
           (quote overlay_file)
           (quote t.target_file) in
       if verbose () then printf "%s\n%!" cmd;

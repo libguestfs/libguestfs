@@ -40,6 +40,7 @@ EXTRA_DIST = \
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 
 SOURCES_MLI = \
+	cmdline.mli \
 	convert_linux.mli \
 	convert_windows.mli \
 	curl.mli \

@@ -26,6 +26,20 @@ open Common_utils
 open Types
 open Utils
 
+type cmdline = {
+  compressed : bool;
+  debug_overlays : bool;
+  do_copy : bool;
+  in_place : bool;
+  network_map : ((vnet_type * string) * string) list;
+  no_trim : string list;
+  output_alloc : output_allocation;
+  output_format : string option;
+  output_name : string option;
+  print_source : bool;
+  root_choice : [`Ask|`Single|`First|`Dev of string];
+}
+
 let parse_cmdline () =
   let compressed = ref false in
   let debug_overlays = ref false in
@@ -416,7 +430,12 @@ read the man page virt-v2v(1).
       } in
       Output_vdsm.output_vdsm os vdsm_params vmtype output_alloc in
 
-  input, output,
-  compressed, debug_overlays, do_copy, in_place, network_map, no_trim,
-  output_alloc, output_format, output_name,
-  print_source, root_choice
+  {
+    compressed = compressed; debug_overlays = debug_overlays;
+    do_copy = do_copy; in_place = in_place; network_map = network_map;
+    no_trim = no_trim;
+    output_alloc = output_alloc; output_format = output_format;
+    output_name = output_name;
+    print_source = print_source; root_choice = root_choice;
+  },
+  input, output
