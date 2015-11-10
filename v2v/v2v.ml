@@ -50,7 +50,7 @@ let () = Random.self_init ()
 let rec main () =
   (* Handle the command line. *)
   let input, output,
-    debug_overlays, do_copy, in_place, network_map, no_trim,
+    compressed, debug_overlays, do_copy, in_place, network_map, no_trim,
     output_alloc, output_format, output_name, print_source, root_choice =
     Cmdline.parse_cmdline () in
 
@@ -65,7 +65,8 @@ let rec main () =
   let conversion_mode =
     if not in_place then (
       let overlays = create_overlays source.s_disks in
-      let targets = init_targets overlays source output output_format in
+      let targets =
+        init_targets overlays source output output_format compressed in
       Copying (overlays, targets)
     )
     else In_place in
@@ -132,7 +133,7 @@ let rec main () =
 
        let targets =
          if not do_copy then targets
-         else copy_targets targets input output output_alloc in
+         else copy_targets targets input output output_alloc compressed in
 
        (* Create output metadata. *)
        message (f_"Creating output metadata");
@@ -247,7 +248,7 @@ and create_overlays src_disks =
         ov_virtual_size = vsize; ov_source = source }
   ) src_disks
 
-and init_targets overlays source output output_format =
+and init_targets overlays source output output_format compressed =
   (* Work out where we will write the final output.  Do this early
    * just so we can display errors to the user before doing too much
    * work.
@@ -273,6 +274,10 @@ and init_targets overlays source output output_format =
          *)
         if format <> "raw" && format <> "qcow2" then
           error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
+
+        (* Only allow compressed with qcow2. *)
+        if compressed && format <> "qcow2" then
+          error (f_"the --compressed flag is only allowed when the output format is qcow2 (-of qcow2)");
 
         (* output#prepare_targets will fill in the target_file field.
          * estimate_target_size will fill in the target_estimated_size field.
@@ -757,7 +762,7 @@ and get_target_firmware inspect guestcaps source output =
 
 and delete_target_on_exit = ref true
 
-and copy_targets targets input output output_alloc =
+and copy_targets targets input output output_alloc compressed =
   (* Copy the source to the output. *)
   at_exit (fun () ->
     if !delete_target_on_exit then (
@@ -813,9 +818,11 @@ and copy_targets targets input output output_alloc =
         ?preallocation ?compat;
 
       let cmd =
-        sprintf "qemu-img convert%s -n -f qcow2 -O %s %s %s"
+        sprintf "qemu-img convert%s -n -f qcow2 -O %s%s %s %s"
           (if not (quiet ()) then " -p" else "")
-          (quote t.target_format) (quote overlay_file)
+          (quote t.target_format)
+          (if compressed then " -c" else "")
+          (quote overlay_file)
           (quote t.target_file) in
       if verbose () then printf "%s\n%!" cmd;
       let start_time = gettimeofday () in

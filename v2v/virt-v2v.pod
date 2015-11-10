@@ -255,6 +255,12 @@ Display help.
 
 See I<--network> below.
 
+=item B<--compressed>
+
+Write a compressed output file.  This is only allowed if the output
+format is qcow2 (see I<-of> below), and is equivalent to the I<-c>
+option of L<qemu-img(1)>.
+
 =item B<--dcpath> Folder/Datacenter
 
 B<NB:> You don't need to use this parameter if you have

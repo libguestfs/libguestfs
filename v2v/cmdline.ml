@@ -27,6 +27,7 @@ open Types
 open Utils
 
 let parse_cmdline () =
+  let compressed = ref false in
   let debug_overlays = ref false in
   let do_copy = ref true in
   let machine_readable = ref false in
@@ -147,6 +148,7 @@ let parse_cmdline () =
   let argspec = [
     "-b",        Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
     "--bridge",  Arg.String add_bridge,     "in:out " ^ ditto;
+    "--compressed", Arg.Set compressed,     " " ^ s_"Compress output file";
     "--dcpath",  Arg.String (set_string_option_once "--dcpath" dcpath),
                                             "path " ^ s_"Override dcPath (for vCenter)";
     "--dcPath",  Arg.String (set_string_option_once "--dcPath" dcpath),
@@ -220,6 +222,7 @@ read the man page virt-v2v(1).
 
   (* Dereference the arguments. *)
   let args = List.rev !args in
+  let compressed = !compressed in
   let dcpath = !dcpath in
   let debug_overlays = !debug_overlays in
   let do_copy = !do_copy in
@@ -414,6 +417,6 @@ read the man page virt-v2v(1).
       Output_vdsm.output_vdsm os vdsm_params vmtype output_alloc in
 
   input, output,
-  debug_overlays, do_copy, in_place, network_map, no_trim,
+  compressed, debug_overlays, do_copy, in_place, network_map, no_trim,
   output_alloc, output_format, output_name,
   print_source, root_choice
