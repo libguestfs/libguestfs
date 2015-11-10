@@ -25,7 +25,37 @@ open Utils
 
 open Printf
 
-let parse_args () =
+type cmdline = {
+  debug : int;
+  basepath : string;
+  elements : string list;
+  excluded_elements : string list;
+  element_paths : string list;
+  excluded_scripts : string list;
+  use_base : bool;
+  drive : string option;
+  image_name : string;
+  fs_type : string;
+  size : int64;
+  root_label : string option;
+  install_type : string;
+  image_cache : string option;
+  compressed : bool;
+  qemu_img_options : string option;
+  mkfs_options : string option;
+  is_ramdisk : bool;
+  ramdisk_element : string;
+  extra_packages : string list;
+  memsize : int option;
+  network : bool;
+  smp : int option;
+  delete_on_failure : bool;
+  formats : string list;
+  arch : string;
+  envvars : string list;
+}
+
+let parse_cmdline () =
   let usage_msg =
     sprintf (f_"\
 %s: run diskimage-builder elements to generate images
@@ -220,8 +250,15 @@ read the man page virt-dib(1).
   if elements = [] then
     error (f_"at least one distribution root element must be specified");
 
-  debug, basepath, elements, excluded_elements, element_paths,
-  excluded_scripts, use_base, drive,
-  image_name, fs_type, size, root_label, install_type, image_cache, compressed,
-  qemu_img_options, mkfs_options, is_ramdisk, ramdisk_element, extra_packages,
-  memsize, network, smp, delete_on_failure, formats, arch, envvars
+  { debug = debug; basepath = basepath; elements = elements;
+    excluded_elements = excluded_elements; element_paths = element_paths;
+    excluded_scripts = excluded_scripts; use_base = use_base; drive = drive;
+    image_name = image_name; fs_type = fs_type; size = size;
+    root_label = root_label; install_type = install_type;
+    image_cache = image_cache; compressed = compressed;
+    qemu_img_options = qemu_img_options; mkfs_options = mkfs_options;
+    is_ramdisk = is_ramdisk; ramdisk_element = ramdisk_element;
+    extra_packages = extra_packages; memsize = memsize; network = network;
+    smp = smp; delete_on_failure = delete_on_failure;
+    formats = formats; arch = arch; envvars = envvars;
+  }

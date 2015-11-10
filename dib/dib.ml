@@ -432,28 +432,24 @@ let run_install_packages ~debug ~blockdev ~log_file
   out
 
 let main () =
-  let debug, basepath, elements, excluded_elements, element_paths,
-    excluded_scripts, use_base, drive,
-    image_name, fs_type, size, root_label, install_type, image_cache, compressed,
-    qemu_img_options, mkfs_options, is_ramdisk, ramdisk_element, extra_packages,
-    memsize, network, smp, delete_on_failure, formats, arch, envvars =
-    parse_args () in
+  let cmdline = parse_cmdline () in
+  let debug = cmdline.debug in
 
   (* Check that the specified base directory of diskimage-builder
    * has the "die" script in it, so we know the directory is the
    * right one (hopefully so, at least).
    *)
-  if not (Sys.file_exists (basepath // "die")) then
+  if not (Sys.file_exists (cmdline.basepath // "die")) then
     error (f_"the specified base path is not the diskimage-builder library");
 
   (* Check for required tools. *)
   require_tool "uuidgen";
-  if List.mem "qcow2" formats then
+  if List.mem "qcow2" cmdline.formats then
     require_tool "qemu-img";
-  if List.mem "vhd" formats then
+  if List.mem "vhd" cmdline.formats then
     require_tool "vhd-util";
 
-  let image_basename = Filename.basename image_name in
+  let image_basename = Filename.basename cmdline.image_name in
   let image_basename_d = image_basename ^ ".d" in
 
   let tmpdir = Mkdtemp.temp_dir "dib." "" in
@@ -465,15 +461,19 @@ let main () =
   let extradatatmpdir = tmpdir // "extra-data" in
   do_mkdir extradatatmpdir;
   do_mkdir (auxtmpdir // "out" // image_basename_d);
-  let elements = if use_base then ["base"] @ elements else elements in
-  let elements = if is_ramdisk then [ramdisk_element] @ elements else elements in
+  let elements =
+    if cmdline.use_base then ["base"] @ cmdline.elements
+    else cmdline.elements in
+  let elements =
+    if cmdline.is_ramdisk then [cmdline.ramdisk_element] @ elements
+    else elements in
   message (f_"Elements: %s") (String.concat " " elements);
   if debug >= 1 then (
     printf "tmpdir: %s\n" tmpdir;
-    printf "element paths: %s\n" (String.concat ":" element_paths);
+    printf "element paths: %s\n" (String.concat ":" cmdline.element_paths);
   );
 
-  let loaded_elements = load_elements ~debug element_paths in
+  let loaded_elements = load_elements ~debug cmdline.element_paths in
   if debug >= 1 then (
     printf "loaded elements:\n";
     Hashtbl.iter (
@@ -488,11 +488,11 @@ let main () =
   );
   let all_elements = load_dependencies elements loaded_elements in
   let all_elements = exclude_elements all_elements
-    (excluded_elements @ builtin_elements_blacklist) in
+    (cmdline.excluded_elements @ builtin_elements_blacklist) in
 
   message (f_"Expanded elements: %s") (String.concat " " (StringSet.elements all_elements));
 
-  let envvars = read_envvars envvars in
+  let envvars = read_envvars cmdline.envvars in
   message (f_"Carried environment variables: %s") (String.concat " " (List.map fst envvars));
   if debug >= 1 then (
     printf "carried over envvars:\n";
@@ -515,7 +515,7 @@ let main () =
   message (f_"Preparing auxiliary data");
 
   copy_elements all_elements loaded_elements
-    (excluded_scripts @ builtin_scripts_blacklist) hookstmpdir;
+    (cmdline.excluded_scripts @ builtin_scripts_blacklist) hookstmpdir;
 
   (* Re-read the hook scripts from the hooks dir, as d-i-b (and we too)
    * has basically copied over anything found in elements.
@@ -525,24 +525,24 @@ let main () =
   let log_file = "/tmp/aux/perm/" ^ (log_filename ()) in
 
   let arch =
-    match arch with
+    match cmdline.arch with
     | "" -> current_arch ()
     | arch -> arch in
 
   let root_label =
-    match root_label with
+    match cmdline.root_label with
     | None ->
       (* XFS has a limit of 12 characters for filesystem labels.
        * Not changing the default for other filesystems to maintain
        * backwards compatibility.
        *)
-      (match fs_type with
+      (match cmdline.fs_type with
       | "xfs" -> "img-rootfs"
       | _ -> "cloudimg-rootfs")
     | Some label -> label in
 
   let image_cache =
-    match image_cache with
+    match cmdline.image_cache with
     | None -> Sys.getenv "HOME" // ".cache" // "image-create"
     | Some dir -> dir in
   do_mkdir image_cache;
@@ -553,29 +553,32 @@ let main () =
     function
     | "qcow2" | "raw" | "vhd" -> true
     | _ -> false
-  ) formats in
+  ) cmdline.formats in
   let formats_img_nonraw = List.filter ((<>) "raw") formats_img in
 
   prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name:image_basename
-    ~rootfs_uuid ~arch ~network ~root_label ~install_type ~debug
-    ~extra_packages
-    auxtmpdir all_elements;
+              ~rootfs_uuid ~arch ~network:cmdline.network ~root_label
+              ~install_type:cmdline.install_type ~debug
+              ~extra_packages:cmdline.extra_packages
+              auxtmpdir all_elements;
 
-  let delete_output_file = ref delete_on_failure in
+  let delete_output_file = ref cmdline.delete_on_failure in
   let delete_file () =
     if !delete_output_file then (
       List.iter (
         fun fmt ->
-          try Unix.unlink (output_filename image_name fmt) with _ -> ()
-      ) formats
+          try Unix.unlink (output_filename cmdline.image_name fmt) with _ -> ()
+      ) cmdline.formats
     )
   in
   at_exit delete_file;
 
   prepare_external ~dib_args ~dib_vars ~out_name:image_basename ~root_label
-    ~rootfs_uuid ~image_cache ~arch ~network ~debug
-    tmpdir basepath hookstmpdir extradatatmpdir (auxtmpdir // "fake-bin")
-    all_elements element_paths;
+                   ~rootfs_uuid ~image_cache ~arch ~network:cmdline.network
+                   ~debug
+                   tmpdir cmdline.basepath hookstmpdir extradatatmpdir
+                   (auxtmpdir // "fake-bin")
+                   all_elements cmdline.element_paths;
 
   let run_hook_host hook =
     try
@@ -623,13 +626,14 @@ let main () =
 
   message (f_"Opening the disks");
 
-  let is_ramdisk_build = is_ramdisk || StringSet.mem "ironic-agent" all_elements in
+  let is_ramdisk_build =
+    cmdline.is_ramdisk || StringSet.mem "ironic-agent" all_elements in
 
   let g, tmpdisk, tmpdiskfmt, drive_partition =
     let g = open_guestfs () in
-    may g#set_memsize memsize;
-    may g#set_smp smp;
-    g#set_network network;
+    may g#set_memsize cmdline.memsize;
+    may g#set_smp cmdline.smp;
+    g#set_network cmdline.network;
 
     (* Make sure to turn SELinux off to avoid awkward interactions
      * between the appliance kernel and applications/libraries interacting
@@ -643,17 +647,19 @@ let main () =
       (* If "raw" is among the selected outputs, use it as main backing
        * disk, otherwise create a temporary disk.
        *)
-      if not is_ramdisk_build && List.mem "raw" formats_img then image_name
-      else Filename.temp_file ~temp_dir:tmpdir "image." "" in
+      if not is_ramdisk_build && List.mem "raw" formats_img then
+        cmdline.image_name
+      else
+        Filename.temp_file ~temp_dir:tmpdir "image." "" in
     let fn = output_filename fn fmt in
     (* Produce the output image. *)
-    g#disk_create fn fmt size;
+    g#disk_create fn fmt cmdline.size;
     g#add_drive ~readonly:false ~format:fmt fn;
 
     (* Helper drive for elements and binaries. *)
     g#add_drive_scratch (unit_GB 5);
 
-    (match drive with
+    (match cmdline.drive with
     | None ->
       g#add_drive_scratch (unit_GB 5)
     | Some drive ->
@@ -667,12 +673,12 @@ let main () =
     g#mount "/dev/sdb" "/";
 
     copy_in g auxtmpdir "/";
-    copy_in g basepath "/lib";
+    copy_in g cmdline.basepath "/lib";
     g#umount "/";
 
     (* Prepare the /aux/perm partition. *)
     let drive_partition =
-      match drive with
+      match cmdline.drive with
       | None ->
         g#mkfs "ext2" "/dev/sdc";
         "/dev/sdc"
@@ -758,11 +764,11 @@ let main () =
 
   (* Create and mount the target filesystem. *)
   let mkfs_options =
-    match mkfs_options with
+    match cmdline.mkfs_options with
     | None -> []
     | Some o -> [ o ] in
   let mkfs_options =
-    (match fs_type with
+    (match cmdline.fs_type with
     | "ext4" ->
       (* Very conservative to handle images being resized a lot
        * Without -J option specified, default journal size will be set to 32M
@@ -770,10 +776,10 @@ let main () =
        *)
       [ "-i"; "4096"; "-J"; "size=64" ]
     | _ -> []
-    ) @ mkfs_options @ [ "-t"; fs_type; blockdev ] in
+    ) @ mkfs_options @ [ "-t"; cmdline.fs_type; blockdev ] in
   ignore (g#debug "sh" (Array.of_list ([ "mkfs" ] @ mkfs_options)));
   g#set_label blockdev root_label;
-  (match fs_type with
+  (match cmdline.fs_type with
   | x when String.is_prefix x "ext" -> g#set_uuid blockdev rootfs_uuid
   | _ -> ());
   g#mount blockdev "/";
@@ -805,8 +811,9 @@ let main () =
 
   run_hook_in "pre-install.d";
 
-  if extra_packages <> [] then
-    ignore (run_install_packages ~debug ~blockdev ~log_file g extra_packages);
+  if cmdline.extra_packages <> [] then
+    ignore (run_install_packages ~debug ~blockdev ~log_file g
+                                 cmdline.extra_packages);
 
   run_hook_in "install.d";
 
@@ -832,8 +839,8 @@ let main () =
 
   if g#ls out_dir <> [||] then (
     message (f_"Extracting data out of the image");
-    do_mkdir (image_name ^ ".d");
-    g#copy_out out_dir (Filename.dirname image_name);
+    do_mkdir (cmdline.image_name ^ ".d");
+    g#copy_out out_dir (Filename.dirname cmdline.image_name);
   );
 
   (* Unmount everything, and remount only the root to cleanup
@@ -849,7 +856,7 @@ let main () =
 
   List.iter (
     fun fmt ->
-      let fn = output_filename image_name fmt in
+      let fn = output_filename cmdline.image_name fmt in
       match fmt with
       | "tar" ->
         message (f_"Compressing the image as tar");
@@ -875,17 +882,17 @@ let main () =
   if not is_ramdisk_build then (
     List.iter (
       fun fmt ->
-        let fn = output_filename image_name fmt in
+        let fn = output_filename cmdline.image_name fmt in
         message (f_"Converting to %s") fmt;
         match fmt with
         | "qcow2" ->
           let cmd =
             sprintf "qemu-img convert%s -f %s %s -O %s%s %s"
-              (if compressed then " -c" else "")
+              (if cmdline.compressed then " -c" else "")
               tmpdiskfmt
               (quote tmpdisk)
               fmt
-              (match qemu_img_options with
+              (match cmdline.qemu_img_options with
               | None -> ""
               | Some opt -> " -o " ^ quote opt)
               (quote (qemu_input_filename fn)) in

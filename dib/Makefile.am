@@ -18,10 +18,13 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES_ML) $(SOURCES_C) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
         virt-dib.pod
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-dib
+
+SOURCES_MLI = \
+	cmdline.mli
 
 SOURCES_ML = \
 	utils.ml \
