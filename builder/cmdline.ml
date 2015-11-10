@@ -1,5 +1,5 @@
 (* virt-builder
- * Copyright (C) 2013 Red Hat Inc.
+ * Copyright (C) 2013-2015 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,29 @@ module G = Guestfs
 
 open Unix
 open Printf
+
+type cmdline = {
+  mode : [ `Cache_all | `Delete_cache | `Get_kernel | `Install | `List
+           | `Notes | `Print_cache ];
+  arg : string;
+  arch : string;
+  attach : (string option * string) list;
+  cache : string option;
+  check_signature : bool;
+  curl : string;
+  delete_on_failure : bool;
+  format : string option;
+  gpg : string;
+  list_format : [`Short|`Long|`Json];
+  memsize : int option;
+  network : bool;
+  ops : Customize_cmdline.ops;
+  output : string option;
+  size : int64 option;
+  smp : int option;
+  sources : (string * string) list;
+  sync : bool;
+}
 
 let parse_cmdline () =
   let mode = ref `Install in
@@ -293,7 +316,11 @@ read the man page virt-builder(1).
       { ops with ops = ops.ops @ [ `RootPassword pw ] }
     ) in
 
-  mode, arg,
-  arch, attach, cache, check_signature, curl,
-  delete_on_failure, format, gpg, list_format, memsize,
-  network, ops, output, size, smp, sources, sync
+  { mode = mode; arg = arg;
+    arch = arch; attach = attach; cache = cache;
+    check_signature = check_signature; curl = curl;
+    delete_on_failure = delete_on_failure; format = format;
+    gpg = gpg; list_format = list_format; memsize = memsize;
+    network = network; ops = ops; output = output;
+    size = size; smp = smp; sources = sources; sync = sync;
+  }

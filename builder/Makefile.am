@@ -53,6 +53,7 @@ CLEANFILES = \
 
 SOURCES_MLI = \
 	cache.mli \
+	cmdline.mli \
 	downloader.mli \
 	checksums.mli \
 	index.mli \
