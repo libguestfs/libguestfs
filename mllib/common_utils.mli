@@ -65,6 +65,9 @@ val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
 (** Like {!List.assoc} but with a user-defined comparison function, and
     instead of raising [Not_found], it returns the [~default] value. *)
 
+val may : ('a -> unit) -> 'a option -> unit
+(** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
+
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
 
