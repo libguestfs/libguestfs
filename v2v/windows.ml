@@ -72,8 +72,7 @@ let rec copy_virtio_drivers g inspect virtio_win driverdir =
   )
   else if is_regular_file virtio_win then (
     try
-      let g2 = open_guestfs () in
-      g2#set_identifier "virtio_win";
+      let g2 = open_guestfs ~identifier:"virtio_win" () in
       g2#add_drive_opts virtio_win ~readonly:true;
       g2#launch ();
       let vio_root = "/" in

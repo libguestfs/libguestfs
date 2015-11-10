@@ -363,10 +363,11 @@ let info fs =
 (* Common function to create a new Guestfs handle, with common options
  * (e.g. debug, tracing) already set.
  *)
-let open_guestfs () =
+let open_guestfs ?identifier () =
   let g = new Guestfs.guestfs () in
   if trace () then g#set_trace true;
   if verbose () then g#set_verbose true;
+  may g#set_identifier identifier;
   g
 
 (* All the OCaml virt-* programs use this wrapper to catch exceptions

@@ -74,8 +74,7 @@ let rec main () =
    | In_place -> message (f_"Opening the source VM")
   );
 
-  let g = open_guestfs () in
-  g#set_identifier "v2v";
+  let g = open_guestfs ~identifier:"v2v" () in
   g#set_network true;
   (match conversion_mode with
    | Copying (overlays, _) -> populate_overlays g overlays

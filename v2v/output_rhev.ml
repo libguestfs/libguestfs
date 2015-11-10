@@ -262,8 +262,7 @@ object
     ?clustersize path format size =
     Changeuid.func changeuid_t (
       fun () ->
-        let g = open_guestfs () in
-        g#set_identifier "rhev_disk_create";
+        let g = open_guestfs ~identifier:"rhev_disk_create" () in
         (* For qcow2, override v2v-supplied compat option, because RHEL 6
          * nodes cannot handle qcow2 v3 (RHBZ#1145582).
          *)
