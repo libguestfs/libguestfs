@@ -1151,17 +1151,8 @@ read the man page virt-resize(1).
       if p.p_bootable then
         g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
 
-      (match p.p_label with
-      | Some label ->
-        g#part_set_name "/dev/sdb" p.p_target_partnum label;
-      | None -> ()
-      );
-
-      (match p.p_guid with
-      | Some guid ->
-        g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum guid;
-      | None -> ()
-      );
+      may (g#part_set_name "/dev/sdb" p.p_target_partnum) p.p_label;
+      may (g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum) p.p_guid;
 
       match parttype, p.p_id with
       | GPT, GPT_Type gpt_type ->
