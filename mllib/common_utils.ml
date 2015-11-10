@@ -267,6 +267,10 @@ let rec assoc ?(cmp = compare) ~default x = function
   | (y, y') :: _ when cmp x y = 0 -> y'
   | _ :: ys -> assoc ~cmp ~default x ys
 
+let may f = function
+  | None -> ()
+  | Some x -> f x
+
 let istty chan =
   Unix.isatty (Unix.descr_of_out_channel chan)
 
