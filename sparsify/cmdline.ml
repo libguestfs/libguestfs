@@ -25,9 +25,18 @@ open Common_utils
 
 open Utils
 
-type mode_t =
-| Mode_copying of string * check_t * bool * string option * string option *
-    string option
+type cmdline = {
+  indisk : string;
+  format : string option;
+  ignores : string list;
+  machine_readable : bool;
+  zeroes : string list;
+  mode : mode_t;
+}
+
+and mode_t =
+| Mode_copying of
+    string * check_t * bool * string option * string option * string option
 | Mode_in_place
 and check_t = [`Ignore|`Continue|`Warn|`Fail]
 
@@ -175,4 +184,10 @@ read the man page virt-sparsify(1).
     else
       Mode_in_place in
 
-  indisk, format, ignores, machine_readable, zeroes, mode
+  { indisk = indisk;
+    format = format;
+    ignores = ignores;
+    machine_readable = machine_readable;
+    zeroes = zeroes;
+    mode = mode;
+  }

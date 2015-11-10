@@ -18,12 +18,15 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	$(SOURCES_ML) $(SOURCES_C) \
+	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	virt-sparsify.pod \
 	test-virt-sparsify.sh \
 	test-virt-sparsify-in-place.sh
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
+
+SOURCES_MLI = \
+	cmdline.mli
 
 SOURCES_ML = \
 	utils.ml \

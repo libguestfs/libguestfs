@@ -16,30 +16,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Unix
-open Printf
+(** Command line argument parsing. *)
 
-open Common_utils
-open Common_gettext.Gettext
+type cmdline = {
+  indisk : string;
+  format : string option;
+  ignores : string list;
+  machine_readable : bool;
+  zeroes : string list;
+  mode : mode_t;
+}
 
-open Utils
-open Cmdline
+and mode_t =
+| Mode_copying of
+    string * check_t * bool * string option * string option * string option
+| Mode_in_place
+and check_t = [`Ignore|`Continue|`Warn|`Fail]
 
-module G = Guestfs
-
-let () = Random.self_init ()
-
-let rec main () =
-  let cmdline = parse_cmdline () in
-
-  (match cmdline.mode with
-  | Mode_copying (outdisk, check_tmpdir, compress, convert, option, tmp) ->
-    Copying.run cmdline.indisk outdisk check_tmpdir compress convert
-                cmdline.format cmdline.ignores cmdline.machine_readable
-                option tmp cmdline.zeroes
-  | Mode_in_place ->
-    In_place.run cmdline.indisk cmdline.format cmdline.ignores
-                 cmdline.machine_readable cmdline.zeroes
-  )
-
-let () = run_main_and_handle_errors main
+val parse_cmdline : unit -> cmdline
