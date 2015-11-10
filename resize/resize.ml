@@ -284,7 +284,7 @@ read the man page virt-resize(1).
       printf "alignment\n";
       printf "align-first\n";
       printf "infile-uri\n";
-      let g = new G.guestfs () in
+      let g = open_guestfs () in
       g#add_drive "/dev/null";
       g#launch ();
       if g#feature_available [| "ntfsprogs"; "ntfs3g" |] then
@@ -329,9 +329,7 @@ read the man page virt-resize(1).
 
   (* Add in and out disks to the handle and launch. *)
   let connect_both_disks () =
-    let g = new G.guestfs () in
-    if trace () then g#set_trace true;
-    if verbose () then g#set_verbose true;
+    let g = open_guestfs () in
     let _, { URI.path = path; protocol = protocol;
              server = server; username = username;
              password = password } = infile in
@@ -1295,9 +1293,7 @@ read the man page virt-resize(1).
       g#shutdown ();
       g#close ();
 
-      let g = new G.guestfs () in
-      if trace () then g#set_trace true;
-      if verbose () then g#set_verbose true;
+      let g = open_guestfs () in
       (* The output disk is being created, so use cache=unsafe here. *)
       g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
         outfile;

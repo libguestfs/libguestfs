@@ -211,9 +211,7 @@ read the man page virt-sysprep(1).
     message (f_"Examining the guest ...");
 
     (* Connect to libguestfs. *)
-    let g = new G.guestfs () in
-    if trace () then g#set_trace true;
-    if verbose () then g#set_verbose true;
+    let g = open_guestfs () in
     add g dryrun;
     g#launch ();
 

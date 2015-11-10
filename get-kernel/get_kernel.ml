@@ -182,9 +182,7 @@ let main () =
   let add, output, unversioned, prefix = parse_cmdline () in
 
   (* Connect to libguestfs. *)
-  let g = new G.guestfs () in
-  if trace () then g#set_trace true;
-  if verbose () then g#set_verbose true;
+  let g = open_guestfs () in
   add g;
   g#launch ();
 

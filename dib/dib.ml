@@ -626,9 +626,7 @@ let main () =
   let is_ramdisk_build = is_ramdisk || StringSet.mem "ironic-agent" all_elements in
 
   let g, tmpdisk, tmpdiskfmt, drive_partition =
-    let g = new G.guestfs () in
-    if verbose () then g#set_verbose true;
-    if trace () then g#set_trace true;
+    let g = open_guestfs () in
 
     (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
     (match smp with None -> () | Some smp -> g#set_smp smp);

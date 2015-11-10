@@ -31,9 +31,7 @@ module G = Guestfs
 
 let rec run disk format ignores machine_readable zeroes =
   (* Connect to libguestfs. *)
-  let g = new G.guestfs () in
-  if trace () then g#set_trace true;
-  if verbose () then g#set_verbose true;
+  let g = open_guestfs () in
 
   (* Capture ^C and clean up gracefully. *)
   let quit = ref false in

@@ -236,12 +236,12 @@ and create_overlays src_disks =
         error (f_"qemu-img command failed, see earlier errors");
 
       (* Sanity check created overlay (see below). *)
-      if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+      if not ((open_guestfs ())#disk_has_backing_file overlay_file) then
         error (f_"internal error: qemu-img did not create overlay with backing file");
 
       let sd = "sd" ^ drive_name i in
 
-      let vsize = (new G.guestfs ())#disk_virtual_size overlay_file in
+      let vsize = (open_guestfs ())#disk_virtual_size overlay_file in
 
       { ov_overlay_file = overlay_file; ov_sd = sd;
         ov_virtual_size = vsize; ov_source = source }
@@ -780,7 +780,7 @@ and copy_targets targets input output output_alloc =
        * backing file.  Just sanity check this here.
        *)
       let overlay_file = t.target_overlay.ov_overlay_file in
-      if not ((new G.guestfs ())#disk_has_backing_file overlay_file) then
+      if not ((open_guestfs ())#disk_has_backing_file overlay_file) then
         error (f_"internal error: qemu corrupted the overlay file");
 
       (* Give the input module a chance to adjust the parameters

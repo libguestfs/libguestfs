@@ -60,7 +60,7 @@ let run indisk outdisk check_tmpdir compress convert
       | Some fmt -> fmt    (* user specified input format, use that *)
       | None ->
         (* Don't know, so we must autodetect. *)
-        match (new G.guestfs ())#disk_format indisk  with
+        match (open_guestfs ())#disk_format indisk  with
         | "unknown" ->
           error (f_"cannot detect input disk format; use the --format parameter")
         | fmt -> fmt in
@@ -79,9 +79,7 @@ let run indisk outdisk check_tmpdir compress convert
       let file = String.sub file 9 (String.length file - 9) in
       if not (Sys.file_exists file) then
         error (f_"--tmp prebuilt:file: %s: file does not exist") file;
-      let g = new G.guestfs () in
-      if trace () then g#set_trace true;
-      if verbose () then g#set_verbose true;
+      let g = open_guestfs () in
       if g#disk_format file <> "qcow2" then
         error (f_"--tmp prebuilt:file: %s: file format is not qcow2") file;
       if not (g#disk_has_backing_file file) then
@@ -97,7 +95,7 @@ let run indisk outdisk check_tmpdir compress convert
   | Prebuilt_file _ -> ()
   | Directory tmpdir ->
     (* Get virtual size of the input disk. *)
-    let virtual_size = (new G.guestfs ())#disk_virtual_size indisk in
+    let virtual_size = (open_guestfs ())#disk_virtual_size indisk in
     if verbose () then
       printf "input disk virtual size is %Ld bytes (%s)\n%!"
              virtual_size (human_size virtual_size);
@@ -153,9 +151,7 @@ You can ignore this warning or change it to a hard failure using the
 
     (* Create 'tmp' with the indisk as the backing file. *)
     let create tmp =
-      let g = new G.guestfs () in
-      if trace () then g#set_trace true;
-      if verbose () then g#set_verbose true;
+      let g = open_guestfs () in
       g#disk_create
         ~backingfile:indisk ?backingformat:format ~compat:"1.1"
         tmp "qcow2" Int64.minus_one
@@ -180,9 +176,7 @@ You can ignore this warning or change it to a hard failure using the
 
   (* Connect to libguestfs. *)
   let g =
-    let g = new G.guestfs () in
-    if trace () then g#set_trace true;
-    if verbose () then g#set_verbose true;
+    let g = open_guestfs () in
 
     (* Note that the temporary overlay disk is always qcow2 format. *)
     g#add_drive ~format:"qcow2" ~readonly:false ~cachemode:"unsafe" overlaydisk;

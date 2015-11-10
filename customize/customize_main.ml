@@ -165,9 +165,7 @@ read the man page virt-customize(1).
 
   (* Connect to libguestfs. *)
   let g =
-    let g = new G.guestfs () in
-    if trace () then g#set_trace true;
-    if verbose () then g#set_verbose true;
+    let g = open_guestfs () in
 
     (match memsize with None -> () | Some memsize -> g#set_memsize memsize);
     (match smp with None -> () | Some smp -> g#set_smp smp);
