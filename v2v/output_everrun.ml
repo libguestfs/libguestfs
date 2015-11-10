@@ -232,21 +232,23 @@ let get_default_storage_group doc =
   let nr_nodes = Xml.xpathobj_nr_nodes obj in
   if nr_nodes < 1 then
       error (f_"there is no storage group in the everrun system");
+
+  let node = Xml.xpathobj_node obj 0 in
+  Xml.xpathctx_set_current_context xpathctx node;
+  let storage_group_name_temp = match xpath_string "name" with
+                                | None -> ""
+                                | Some sname -> (string_trim sname) in
+  let id = match xpath_string "@id" with
+           | None -> ""
+           | Some fid -> (string_trim fid) in
+  storage_group_name := storage_group_name_temp;
+  storage_group_id := id;
+
   let found_sg = ref false in
   for i = 0 to nr_nodes-1 do
     if not !found_sg then (
       let node = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx node;
-(*       if i == 0 then (
-        let storage_group_name_temp =  match xpath_string "name" with
-                                       | None -> ""
-                                       | Some sname -> (string_trim sname) in
-        let id = match xpath_string "@id" with
-                 | None -> ""
-                 | Some fid -> (string_trim fid) in
-        storage_group_name := storage_group_name_temp;
-        storage_group_id := id;
-      ) *)
       let storage_group_name_temp = match xpath_string "name" with
                                     | None -> ""
                                     | Some sname -> (string_trim sname) in
