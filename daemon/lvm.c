@@ -148,7 +148,9 @@ do_lvs (void)
 
   r = command (&out, &err,
                str_lvm, "lvs",
-               "-o", "vg_name,lv_name", "--noheadings",
+               "-o", "vg_name,lv_name",
+               "-S", "lv_role=public",
+               "--noheadings",
                "--separator", "/", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
