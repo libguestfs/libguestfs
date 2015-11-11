@@ -467,7 +467,7 @@ let main () =
   let elements =
     if cmdline.is_ramdisk then [cmdline.ramdisk_element] @ elements
     else elements in
-  message (f_"Elements: %s") (String.concat " " elements);
+  info (f_"Elements: %s") (String.concat " " elements);
   if debug >= 1 then (
     printf "tmpdir: %s\n" tmpdir;
     printf "element paths: %s\n" (String.concat ":" cmdline.element_paths);
@@ -490,10 +490,12 @@ let main () =
   let all_elements = exclude_elements all_elements
     (cmdline.excluded_elements @ builtin_elements_blacklist) in
 
-  message (f_"Expanded elements: %s") (String.concat " " (StringSet.elements all_elements));
+  info (f_"Expanded elements: %s")
+       (String.concat " " (StringSet.elements all_elements));
 
   let envvars = read_envvars cmdline.envvars in
-  message (f_"Carried environment variables: %s") (String.concat " " (List.map fst envvars));
+  info (f_"Carried environment variables: %s")
+       (String.concat " " (List.map fst envvars));
   if debug >= 1 then (
     printf "carried over envvars:\n";
     if envvars <> [] then
