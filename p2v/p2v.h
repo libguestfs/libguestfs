@@ -49,9 +49,12 @@
  * when the program started.  Do not change these.
  */
 extern char *root_disk;
+extern char *root_disk_map;
 extern char **all_disks;
+extern char **all_disk_map;
 extern char **all_removable;
 extern char **all_interfaces;
+extern char **all_network_map;
 
 /* config.c */
 struct config {
