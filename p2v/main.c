@@ -38,12 +38,10 @@
 #include "p2v.h"
 
 char *root_disk;
-char *root_disk_map;
 char **all_disks;
-char **all_disk_map;
 char **all_removable;
 char **all_interfaces;
-char **all_network_map;
+
 
 static void set_config_defaults (struct config *config);
 static void find_all_disks (void);
@@ -309,17 +307,6 @@ set_config_defaults (struct config *config)
    */
   config->output = strdup ("local");
   config->output_storage = strdup ("/var/tmp");
-
-  /* Set default Storage Groups and Virtual Networks for all disks and networks */
-  char storage_groups[3][] = {"Initial Storage Group", "Storage group A", "Storage Group B"};
-  char virtual_networks[3][] = {"biz0", "biz1", "biz2"};
-  root_disk_map = strdup ("Initial Storage Group");
-  all_disk_map = guestfs_int_copy_string_list (storage_groups);
-  all_network_map = guestfs_int_copy_string_list (virtual_networks);
-
-  config->root_disk_map = strdup (root_disk_map);
-  config->disk_map = guestfs_int_copy_string_list (storage_groups);
-  config->network_map = guestfs_int_copy_string_list (virtual_networks);
 }
 
 static int

@@ -39,6 +39,10 @@
 
 #include "p2v.h"
 
+char *root_disk_map;
+char **all_disk_map;
+char **all_network_map;
+
 /* Interactive GUI configuration. */
 
 static void create_connection_dialog (struct config *);
@@ -333,6 +337,13 @@ test_connection_thread (void *data)
     gtk_widget_set_sensitive (next_button, FALSE);
   }
   else {
+      /* Set default Storage Groups and Virtual Networks for all disks and networks */
+      char *storage_groups[] = {"Initial Storage Group", "Storage group A", "Storage Group B"};
+      char *virtual_networks[] = {"biz0", "biz1", "biz2"};
+      root_disk_map = strdup ("Initial Storage Group");
+      all_disk_map = guestfs_int_copy_string_list (storage_groups);
+      all_network_map = guestfs_int_copy_string_list (virtual_networks);
+
     /* Connection is good. */
     gtk_label_set_text (GTK_LABEL (spinner_message),
                         _("Connected to the conversion server.\n"
