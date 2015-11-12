@@ -181,7 +181,10 @@ read the man page virt-sparsify(1).
 let qemu_img_version =
   let cmd = "qemu-img --help" in
   let chan = open_process_in cmd in
-  let line = input_line chan in
+  let lines = ref [] in
+  (try while true do lines := input_line chan :: !lines done
+   with End_of_file -> ());
+  let lines = List.rev !lines in
   let stat = close_process_in chan in
   (match stat with
   | WEXITED _ -> ()
@@ -190,6 +193,8 @@ let qemu_img_version =
   | WSTOPPED i ->
     error (f_"external command '%s' stopped by signal %d") cmd i
   );
+
+  let line = List.hd lines in
 
   try
     sscanf line "qemu-img version %d.%d" (
