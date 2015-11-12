@@ -810,7 +810,7 @@ do_xpath (const char *query)
                  guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
-      wrnode = xmlCopyNode (nodes->nodeTab[i], 1);
+      wrnode = xmlDocCopyNode (nodes->nodeTab[i], wrdoc, 1);
       if (wrnode == NULL) {
         fprintf (stderr, _("%s: xmlCopyNode failed\n"), guestfs_int_program_name);
         exit (EXIT_FAILURE);
