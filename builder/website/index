@@ -476,6 +476,31 @@ notes=Fedora 23 Server.
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[fedora-23]
+name=Fedora® 23 Server (aarch64)
+osinfo=fedora23
+arch=aarch64
+file=fedora-23-aarch64.xz
+checksum=aa1359b2a81841ac07e4e25bef9d3ef3b7cf10c171403505cbbd732644fe6c37938cf6c9e3251dae201b659b47033fb792cb29f587fd4d4816b6c0d100dc5be8
+format=raw
+size=6442450944
+compressed_size=216417776
+expand=/dev/sda4
+notes=Fedora 23 Server (aarch64)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-aarch64.sh
+ 
+ You may need to use the associated EFI NVRAM variables:
+ http://libguestfs.org/download/builder/fedora-23-aarch64-nvram.xz
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
 [scientificlinux-6]
 name=Scientific Linux 6.5
 osinfo=centos6.5
