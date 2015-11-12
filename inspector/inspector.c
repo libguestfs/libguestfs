@@ -796,16 +796,19 @@ do_xpath (const char *query)
     if (nodes == NULL)
       break;
 
-    saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL, XML_SAVE_NO_DECL | XML_SAVE_FORMAT);
+    saveCtx = xmlSaveToFd (STDOUT_FILENO, NULL,
+                           XML_SAVE_NO_DECL | XML_SAVE_FORMAT);
     if (saveCtx == NULL) {
-      fprintf (stderr, _("%s: xmlSaveToFd failed\n"), guestfs_int_program_name);
+      fprintf (stderr, _("%s: xmlSaveToFd failed\n"),
+               guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
 
     for (i = 0; i < (size_t) nodes->nodeNr; ++i) {
       CLEANUP_XMLFREEDOC xmlDocPtr wrdoc = xmlNewDoc (BAD_CAST "1.0");
       if (wrdoc == NULL) {
-        fprintf (stderr, _("%s: xmlNewDoc failed\n"), guestfs_int_program_name);
+        fprintf (stderr, _("%s: xmlNewDoc failed\n"),
+                 guestfs_int_program_name);
         exit (EXIT_FAILURE);
       }
       wrnode = xmlCopyNode (nodes->nodeTab[i], 1);
