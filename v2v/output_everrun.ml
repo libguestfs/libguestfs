@@ -540,6 +540,14 @@ class output_everrun os availability = object
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
+    if verbose () then (
+      printf "Output_everrun::prepare_targets:source=>%s\n" (string_of_source source);
+      printf "Output_everrun::prepare_targets:targets=>\n";
+      List.iter (
+        fun target ->
+          printf "%s\n" (string_of_target target);
+      ) targets;
+    );
     let config = match use_config with
                  | true -> parse_config_file os source.s_name
                  | false -> parse_config_without_cfg_file source targets
