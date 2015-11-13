@@ -39,6 +39,10 @@
 
 #include "p2v.h"
 
+char *root_disk_map;
+char **all_disk_map;
+char **all_network_map;
+
 /* Interactive GUI configuration. */
 
 static void create_connection_dialog (struct config *);
@@ -333,6 +337,13 @@ test_connection_thread (void *data)
     gtk_widget_set_sensitive (next_button, FALSE);
   }
   else {
+      /* Set default Storage Groups and Virtual Networks for all disks and networks */
+      char *storage_groups[] = {"Initial Storage Group", "Storage group A", "Storage Group B"};
+      char *virtual_networks[] = {"biz0", "biz1", "biz2"};
+      root_disk_map = strdup ("Initial Storage Group");
+      all_disk_map = guestfs_int_copy_string_list (storage_groups);
+      all_network_map = guestfs_int_copy_string_list (virtual_networks);
+
     /* Connection is good. */
     gtk_label_set_text (GTK_LABEL (spinner_message),
                         _("Connected to the conversion server.\n"
@@ -764,8 +775,28 @@ populate_disks (GtkTreeView *disks_list)
                                     G_TYPE_BOOLEAN, G_TYPE_STRING,
                                     G_TYPE_STRING, G_TYPE_STRING);
 
+  /* Just for test */
+  if (root_disk_map != NULL)
+  {
+    printf("root disk map: %s\n", root_disk_map);
+  }
+  if (all_disk_map != NULL)
+  {
+    for (i = 0; all_disk_map[i] != NULL; ++i)
+    {
+      printf("Storage group %d is %s\n", i, all_disk_map[i]);
+    }
+  }
+  if (all_network_map != NULL)
+  {
+    for (i = 0; all_network_map[i] != NULL; ++i)
+    {
+      printf("Network map %d is %s\n", i, all_network_map[i]);
+    }
+  }
+
   /* display the root disk, just for user to select a Storage Group for it */
-  if (root_disk)
+  if (root_disk != NULL)
   {
       CLEANUP_FREE char *size_filename = NULL;
       CLEANUP_FREE char *model_filename = NULL;

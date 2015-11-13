@@ -62,6 +62,8 @@ get_everrun_passwd (char *passwd)
     char salt1[] = "avance";
     char salt2[] = "EVERrun";
     char secret[] = "NNY";
+    char *pchBuf = NULL;
+    int len = 0;
 
     FILE *pFile  = fopen("/shared/creds/root", "r");
     if (pFile == NULL)
@@ -69,23 +71,32 @@ get_everrun_passwd (char *passwd)
         passwd[0] = '\0';
         return;
     }
-    fseek(pFile,0,SEEK_END);
-    int len = ftell(pFile) - 1;
-    char pw[len + 1];
-    rewind(pFile);
-    pw[len] = '\0';
-    fclose(pFile);
+    fseek (pFile, 0, SEEK_END);
+    len = ftell (pFile);
+    rewind (pFile);
+
+    pchBuf = (char*) malloc (sizeof (char) *len + 1);
+    if(!pchBuf)
+    {
+        passwd[0] = '\0';
+        fclose(pFile);
+        return;
+    }
+    len = fread (pchBuf, sizeof (char), len, pFile);
+    pchBuf[len] = '\0';
 
     int i;
     for (i = 0; i < len; i++)
     {
-        pw[i] = pw[i] ^ salt2[i % strlen(salt2)];
-        pw[i] = pw[i] ^ secret[i % strlen(secret)];
-        pw[i] = pw[i] ^ salt1[i % strlen(salt1)];
+        pchBuf[i] = pchBuf[i] ^ salt2[i % strlen(salt2)];
+        pchBuf[i] = pchBuf[i] ^ secret[i % strlen(secret)];
+        pchBuf[i] = pchBuf[i] ^ salt1[i % strlen(salt1)];
     }
 
-    strcpy(passwd, pw);
+    strcpy(passwd, pchBuf);
     passwd[len] = '\0';
+    fclose(pFile);
+    free(pchBuf);
 }
 
 /*

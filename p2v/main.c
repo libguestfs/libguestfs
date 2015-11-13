@@ -37,10 +37,11 @@
 
 #include "p2v.h"
 
-char **all_disks;
 char *root_disk;
+char **all_disks;
 char **all_removable;
 char **all_interfaces;
+
 
 static void set_config_defaults (struct config *config);
 static void find_all_disks (void);
@@ -292,7 +293,7 @@ set_config_defaults (struct config *config)
 
   find_all_disks ();
   if (root_disk)
-    config->root_disk = root_disk;
+    config->root_disk = strdup (root_disk);
   if (all_disks)
     config->disks = guestfs_int_copy_string_list (all_disks);
   if (all_removable)

@@ -48,7 +48,7 @@ let get_doh_session () =
 
   let status = match xpath_string "/responses/response/login/@status" with
                | None -> ""
-               | Some s -> s in
+               | Some s -> (string_trim s) in
   if status <> "ok" then
     error (f_"login failed")
 ;;
@@ -58,7 +58,6 @@ let do_doh_request doh_cmd =
   get_doh_session ();
   let cmd_curl = sprintf "curl  -s -b cookie_file -c cookie_file -H \"Content-type: text/xml\" -d \"<requests output='XML'>%s</requests>\" http://localhost/doh/ > %s" doh_cmd !tmp_output_file in
   if verbose () then printf "%s\n" cmd_curl;
-  if verbose () then printf "Output_everrun: do_doh_request: cmd_curl = %s" cmd_curl;
   if Sys.command cmd_curl <> 0 then
     error (f_"do doh request failed");
   let xml = read_whole_file !tmp_output_file in
@@ -68,9 +67,9 @@ let do_doh_request doh_cmd =
   let xpath_string = xpath_string xpathctx in
   let status = match xpath_string "/responses/response/@status" with
                | None -> ""
-               | Some s -> s in
+               | Some s -> (string_trim s) in
   if status <> "ok" then
-    error (f_"login failed");
+    error (f_"do doh request %s failed, status is %s") cmd_curl status;
   xml
 ;;
 
@@ -96,7 +95,7 @@ let trigger_doh_alert () =
   let xpath_string = xpath_string xpathctx in
   let status = match xpath_string "/responses/response/@status" with
                | None -> ""
-               | Some s -> s in
+               | Some s -> (string_trim s) in
   if status <> "ok" then
     error (f_"Everrun Doh command failed status was: %s") status;
 ;;
@@ -232,21 +231,23 @@ let get_default_storage_group doc =
   let nr_nodes = Xml.xpathobj_nr_nodes obj in
   if nr_nodes < 1 then
       error (f_"there is no storage group in the everrun system");
+
+  let node = Xml.xpathobj_node obj 0 in
+  Xml.xpathctx_set_current_context xpathctx node;
+  let storage_group_name_temp = match xpath_string "name" with
+                                | None -> ""
+                                | Some sname -> (string_trim sname) in
+  let id = match xpath_string "@id" with
+           | None -> ""
+           | Some fid -> (string_trim fid) in
+  storage_group_name := storage_group_name_temp;
+  storage_group_id := id;
+
   let found_sg = ref false in
   for i = 0 to nr_nodes-1 do
     if not !found_sg then (
       let node = Xml.xpathobj_node obj i in
       Xml.xpathctx_set_current_context xpathctx node;
-(*       if i == 0 then (
-        let storage_group_name_temp =  match xpath_string "name" with
-                                       | None -> ""
-                                       | Some sname -> (string_trim sname) in
-        let id = match xpath_string "@id" with
-                 | None -> ""
-                 | Some fid -> (string_trim fid) in
-        storage_group_name := storage_group_name_temp;
-        storage_group_id := id;
-      ) *)
       let storage_group_name_temp = match xpath_string "name" with
                                     | None -> ""
                                     | Some sname -> (string_trim sname) in
@@ -539,6 +540,14 @@ class output_everrun os availability = object
   method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
+    if verbose () then (
+      printf "Output_everrun::prepare_targets:source=>%s\n" (string_of_source source);
+      printf "Output_everrun::prepare_targets:targets=>\n";
+      List.iter (
+        fun target ->
+          printf "%s\n" (string_of_target target);
+      ) targets;
+    );
     let config = match use_config with
                  | true -> parse_config_file os source.s_name
                  | false -> parse_config_without_cfg_file source targets
