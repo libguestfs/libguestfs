@@ -347,9 +347,6 @@ clean-local:
 	-find . -name '*.bak' -delete
 	-find . -name '*.orig' -delete
 
-DISTCLEANFILES = \
-	ChangeLog
-
 # If you don't want to run all of the tests ('make check') then this
 # will just run libguestfs-test-tool for a quick check.  Note this
 # is NOT a substitute for proper testing!
