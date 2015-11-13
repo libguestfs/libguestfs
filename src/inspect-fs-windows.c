@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <inttypes.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
@@ -285,6 +286,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
     { "Microsoft", "Windows NT", "CurrentVersion" };
   size_t i;
   CLEANUP_FREE_HIVEX_VALUE_LIST struct guestfs_hivex_value_list *values = NULL;
+  bool ignore_currentversion = false;
 
   if (guestfs_hivex_open (g, software_path,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
@@ -315,7 +317,43 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
       if (!fs->product_name)
         goto out;
     }
-    else if (STRCASEEQ (key, "CurrentVersion")) {
+    else if (STRCASEEQ (key, "CurrentMajorVersionNumber")) {
+      size_t vsize;
+      int64_t vtype = guestfs_hivex_value_type (g, value);
+      CLEANUP_FREE char *vbuf = guestfs_hivex_value_value (g, value, &vsize);
+
+      if (vbuf == NULL)
+        goto out;
+      if (vtype != 4 || vsize != 4) {
+        error (g, "hivex: expected CurrentVersion\\%s to be a DWORD field",
+               "CurrentMajorVersionNumber");
+        goto out;
+      }
+
+      fs->major_version = le32toh (*(int32_t *)vbuf);
+
+      /* Ignore CurrentVersion if we see it after this key. */
+      ignore_currentversion = true;
+    }
+    else if (STRCASEEQ (key, "CurrentMinorVersionNumber")) {
+      size_t vsize;
+      int64_t vtype = guestfs_hivex_value_type (g, value);
+      CLEANUP_FREE char *vbuf = guestfs_hivex_value_value (g, value, &vsize);
+
+      if (vbuf == NULL)
+        goto out;
+      if (vtype != 4 || vsize != 4) {
+        error (g, "hivex: expected CurrentVersion\\%s to be a DWORD field",
+               "CurrentMinorVersionNumber");
+        goto out;
+      }
+
+      fs->minor_version = le32toh (*(int32_t *)vbuf);
+
+      /* Ignore CurrentVersion if we see it after this key. */
+      ignore_currentversion = true;
+    }
+    else if (!ignore_currentversion && STRCASEEQ (key, "CurrentVersion")) {
       CLEANUP_FREE char *version = guestfs_hivex_value_utf8 (g, value);
       if (!version)
         goto out;
