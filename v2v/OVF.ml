@@ -32,8 +32,6 @@ open Types
 open Utils
 open DOM
 
-let title = sprintf "Exported by virt-v2v %s" Guestfs_config.package_version
-
 (* We set the creation time to be the same for all dates in
  * all metadata files.  All dates in OVF are UTC.
  *)
@@ -228,7 +226,7 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
       bpf "SIZE=%Ld\n" size_in_sectors;
       bpf "FORMAT=%s\n" format_for_rhev;
       bpf "TYPE=%s\n" output_alloc_for_rhev;
-      bpf "DESCRIPTION=%s\n" title;
+      bpf "DESCRIPTION=%s\n" generated_by;
       bpf "EOF\n";
       Buffer.contents buf
   ) (List.combine targets image_uuids)
@@ -273,7 +271,7 @@ let rec create_ovf source targets guestcaps inspect
         e "Name" [] [PCData source.s_name];
         e "TemplateId" [] [PCData "00000000-0000-0000-0000-000000000000"];
         e "TemplateName" [] [PCData "Blank"];
-        e "Description" [] [PCData title];
+        e "Description" [] [PCData generated_by];
         e "Domain" [] [];
         e "CreationDate" [] [PCData iso_time];
         e "IsInitilized" (* sic *) [] [PCData "True"];
@@ -420,7 +418,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           "ovf:href", fileref;
           "ovf:id", vol_uuid;
           "ovf:size", Int64.to_string ov.ov_virtual_size; (* NB: in bytes *)
-          "ovf:description", title;
+          "ovf:description", generated_by;
         ] [] in
       append_child disk references;
 
