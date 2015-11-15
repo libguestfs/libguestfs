@@ -82,7 +82,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
-  (* Warn if Windows guest appears to be using group policy. *)
+  (* If the Windows guest appears to be using group policy. *)
   let has_group_policy =
     Windows.with_hive g software_hive_filename ~write:false
       (fun root ->
@@ -117,7 +117,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
          Not_found -> false
       ) in
 
-  (* Warn if Windows guest has AV installed. *)
+  (* If the Windows guest has AV installed. *)
   let has_antivirus = Windows.detect_antivirus inspect in
 
   (* Open the software hive (readonly) and find the Xen PV uninstaller,
