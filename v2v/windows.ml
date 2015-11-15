@@ -173,3 +173,24 @@ and virtio_iso_path_matches_guest_os path inspect =
 module UNIT_TESTS = struct
   let virtio_iso_path_matches_guest_os = virtio_iso_path_matches_guest_os
 end
+
+(* This is a wrapper that handles opening and closing the hive
+ * properly around a function [f].  If [~write] is [true] then the
+ * hive is opened for writing and committed at the end if the
+ * function returned without error.
+ *)
+type ('a, 'b) maybe = Either of 'a | Or of 'b
+
+let with_hive (g : Guestfs.guestfs) hive_filename ~write f =
+  let verbose = verbose () in
+  g#hivex_open ~write ~verbose (* ~debug:verbose *) hive_filename;
+  let r =
+    try
+      let root = g#hivex_root () in
+      let ret = f root in
+      if write then g#hivex_commit None;
+      Either ret
+    with exn ->
+      Or exn in
+  g#hivex_close ();
+  match r with Either ret -> ret | Or exn -> raise exn

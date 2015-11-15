@@ -39,8 +39,6 @@ module G = Guestfs
  * time the Windows VM is booted on KVM.
  *)
 
-type ('a, 'b) maybe = Either of 'a | Or of 'b
-
 let convert ~keep_serial_console (g : G.guestfs) inspect source =
   (* Get the data directory. *)
   let virt_tools_data_dir =
@@ -67,33 +65,24 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
           rhev_apt_exe msg;
         None in
 
+  (* Get the Windows %systemroot%. *)
   let systemroot = g#inspect_get_windows_systemroot inspect.i_root in
 
-  (* This is a wrapper that handles opening and closing the hive
-   * properly around a function [f].  If [~write] is [true] then the
-   * hive is opened for writing and committed at the end if the
-   * function returned without error.
-   *)
-  let rec with_hive name ~write f =
-    let filename = sprintf "%s/system32/config/%s" systemroot name in
+  (* Get the software and system hive files. *)
+  let software_hive_filename =
+    let filename = sprintf "%s/system32/config/software" systemroot in
     let filename = g#case_sensitive_path filename in
-    let verbose = verbose () in
-    g#hivex_open ~write ~verbose (* ~debug:verbose *) filename;
-    let r =
-      try
-        let root = g#hivex_root () in
-        let ret = f root in
-        if write then g#hivex_commit None;
-        Either ret
-      with exn ->
-        Or exn in
-    g#hivex_close ();
-    match r with Either ret -> ret | Or exn -> raise exn
+    filename in
+
+  let system_hive_filename =
+    let filename = sprintf "%s/system32/config/system" systemroot in
+    let filename = g#case_sensitive_path filename in
+    filename in
 
   (* Find the given node in the current hive, relative to the starting
    * point.  Raises [Not_found] if the node is not found.
    *)
-  and get_node node = function
+  let rec get_node node = function
     | [] -> node
     | x :: xs ->
       let node = g#hivex_node_get_child node x in
@@ -135,7 +124,8 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
       with
         Not_found -> false
     in
-    with_hive "software" ~write:false check_group_policy in
+    Windows.with_hive g software_hive_filename ~write:false
+                      check_group_policy in
 
   (* Warn if Windows guest has AV installed. *)
   let has_antivirus = Windows.detect_antivirus inspect in
@@ -179,7 +169,8 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
       with
         Not_found -> None
     in
-    with_hive "software" ~write:false find_xenpv_uninst in
+    Windows.with_hive g software_hive_filename ~write:false
+                      find_xenpv_uninst in
 
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
@@ -694,10 +685,10 @@ echo uninstalling Xen PV driver
 
   (* Open the system hive and update it. *)
   let block_driver, net_driver, video_driver =
-    with_hive "system" ~write:true update_system_hive in
+    Windows.with_hive g system_hive_filename ~write:true update_system_hive in
 
   (* Open the software hive and update it. *)
-  with_hive "software" ~write:true update_software_hive;
+  Windows.with_hive g software_hive_filename ~write:true update_software_hive;
 
   fix_ntfs_heads ();
 

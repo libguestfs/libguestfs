@@ -29,6 +29,12 @@ val copy_virtio_drivers : Guestfs.guestfs -> Types.inspect -> string -> string -
     drivers were copied, or [false] if no suitable drivers were
     found. *)
 
+val with_hive : Guestfs.guestfs -> string -> write:bool -> (int64 -> 'a) -> 'a
+(** This is a wrapper that handles opening and closing the hive
+    properly around a function [f root].  If [~write] is [true] then
+    the hive is opened for writing and committed at the end if the
+    function returned without error. *)
+
 (**/**)
 
 (* The following function is only exported for unit tests. *)
