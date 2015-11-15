@@ -194,3 +194,13 @@ let with_hive (g : Guestfs.guestfs) hive_filename ~write f =
       Or exn in
   g#hivex_close ();
   match r with Either ret -> ret | Or exn -> raise exn
+
+(* Find the given node in the current hive, relative to the starting
+ * point.  Returns [None] if the node is not found.
+ *)
+let rec get_node (g : Guestfs.guestfs) node = function
+  | [] -> Some node
+  | x :: xs ->
+     let node = g#hivex_node_get_child node x in
+     if node = 0L then None
+     else get_node g node xs

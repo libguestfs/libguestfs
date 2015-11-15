@@ -35,6 +35,12 @@ val with_hive : Guestfs.guestfs -> string -> write:bool -> (int64 -> 'a) -> 'a
     the hive is opened for writing and committed at the end if the
     function returned without error. *)
 
+val get_node : Guestfs.guestfs -> int64 -> string list -> int64 option
+(** [get_node g root path] starts at the [root] node of the hive (it does
+    not need to be the actual hive root), and searches down the [path].
+    It returns [Some node] of the final node if found, or [None] if
+    not found. *)
+
 (**/**)
 
 (* The following function is only exported for unit tests. *)

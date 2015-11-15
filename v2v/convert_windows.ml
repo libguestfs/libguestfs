@@ -79,17 +79,6 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
     let filename = g#case_sensitive_path filename in
     filename in
 
-  (* Find the given node in the current hive, relative to the starting
-   * point.  Raises [Not_found] if the node is not found.
-   *)
-  let rec get_node node = function
-    | [] -> node
-    | x :: xs ->
-      let node = g#hivex_node_get_child node x in
-      if node = 0L then raise Not_found;
-      get_node node xs
-  in
-
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
@@ -98,10 +87,12 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
     Windows.with_hive g software_hive_filename ~write:false
       (fun root ->
        try
+         let path = ["Microsoft"; "Windows"; "CurrentVersion";
+                     "Group Policy"; "History"]  in
          let node =
-           get_node root
-                    ["Microsoft"; "Windows"; "CurrentVersion";
-                     "Group Policy"; "History"] in
+           match Windows.get_node g root path with
+           | None -> raise Not_found
+           | Some node -> node in
          let children = g#hivex_node_children node in
          let children = Array.to_list children in
          let children =
@@ -138,10 +129,12 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
     Windows.with_hive g software_hive_filename ~write:false
       (fun root ->
        try
-         let node =
-           get_node root
-                    ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
+         let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
                      xenpvreg] in
+         let node =
+           match Windows.get_node g root path with
+           | None -> raise Not_found
+           | Some node -> node in
          let uninstkey = "UninstallString" in
          let valueh = g#hivex_node_get_value node uninstkey in
          if valueh = 0L then (
@@ -231,33 +224,36 @@ echo uninstalling Xen PV driver
 
   and disable_services root current_cs =
     (* Disable miscellaneous services. *)
-    let services = get_node root [current_cs; "Services"] in
+    let services = Windows.get_node g root [current_cs; "Services"] in
 
-    (* Disable the Processor and Intelppm services
-     * http://blogs.msdn.com/b/virtual_pc_guy/archive/2005/10/24/484461.aspx
-     *
-     * Disable the rhelscsi service (RHBZ#809273).
-     *)
-    let disable = [ "Processor"; "Intelppm"; "rhelscsi" ] in
-    List.iter (
-      fun name ->
-        let node = g#hivex_node_get_child services name in
-        if node <> 0L then (
-          (* Delete the node instead of trying to disable it.  RHBZ#737600. *)
-          g#hivex_node_delete_child node
-        )
-    ) disable
+    match services with
+    | None -> ()
+    | Some services ->
+       (* Disable the Processor and Intelppm services
+        * http://blogs.msdn.com/b/virtual_pc_guy/archive/2005/10/24/484461.aspx
+        *
+        * Disable the rhelscsi service (RHBZ#809273).
+        *)
+       let disable = [ "Processor"; "Intelppm"; "rhelscsi" ] in
+       List.iter (
+           fun name ->
+           let node = g#hivex_node_get_child services name in
+           if node <> 0L then (
+             (* Delete the node instead of trying to disable it (RHBZ#737600) *)
+             g#hivex_node_delete_child node
+           )
+         ) disable
 
   and disable_autoreboot root current_cs =
     (* If the guest reboots after a crash, it's hard to see the original
      * error (eg. the infamous 0x0000007B).  Turn off autoreboot.
      *)
-    try
-      let crash_control =
-        get_node root [current_cs; "Control"; "CrashControl"] in
-      g#hivex_node_set_value crash_control "AutoReboot" 4_L (le32_of_int 0_L)
-    with
-      Not_found -> ()
+    let crash_control =
+      Windows.get_node g root [current_cs; "Control"; "CrashControl"] in
+    match crash_control with
+    | None -> ()
+    | Some crash_control ->
+       g#hivex_node_set_value crash_control "AutoReboot" 4_L (le32_of_int 0_L)
 
   and install_virtio_drivers root current_cs =
     (* Copy the virtio drivers to the guest. *)
@@ -402,11 +398,12 @@ echo uninstalling Xen PV driver
      * "oem1.inf"=hex(0):
      *)
     let () =
-      let node =
-        try get_node root [ "DriverDatabase"; "DeviceIds"; scsi_adapter_guid ]
-        with Not_found ->
-          error (f_"cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry") scsi_adapter_guid in
-      g#hivex_node_set_value node oem1_inf (* REG_NONE *) 0_L "" in
+      let path = [ "DriverDatabase"; "DeviceIds"; scsi_adapter_guid ] in
+      match Windows.get_node g root path with
+      | None ->
+         error (f_"cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry") scsi_adapter_guid
+      | Some node ->
+         g#hivex_node_set_value node oem1_inf (* REG_NONE *) 0_L "" in
 
     (* There should be a key
      * HKLM\SYSTEM\ControlSet001\Control\Class\{4d36e97b-e325-11ce-bfc1-08002be10318}
@@ -416,17 +413,17 @@ echo uninstalling Xen PV driver
     let controller_path =
       [ current_cs; "Control"; "Class"; scsi_adapter_guid ] in
     let controller_offset =
-      let node =
-        try get_node root controller_path
-        with Not_found ->
-          error (f_"cannot find HKLM\\SYSTEM\\%s in the guest registry")
-                (String.concat "\\" controller_path) in
-      let rec loop node i =
-        let controller_offset = sprintf "%04d" i in
-        let child = g#hivex_node_get_child node controller_offset in
-        if child = 0_L then controller_offset else loop node (i+1)
-      in
-      loop node 0 in
+      match Windows.get_node g root controller_path with
+      | None ->
+         error (f_"cannot find HKLM\\SYSTEM\\%s in the guest registry")
+               (String.concat "\\" controller_path)
+      | Some node ->
+         let rec loop node i =
+           let controller_offset = sprintf "%04d" i in
+           let child = g#hivex_node_get_child node controller_offset in
+           if child = 0_L then controller_offset else loop node (i+1)
+         in
+         loop node 0 in
 
     let regedits = [
         controller_path @ [ controller_offset ],
@@ -577,42 +574,44 @@ echo uninstalling Xen PV driver
      * has a key called DevicePath then append the virtio driver
      * path to this key.
      *)
-    try
-      let node = get_node root ["Microsoft"; "Windows"; "CurrentVersion"] in
-      let append = encode_utf16le ";%SystemRoot%\\Drivers\\VirtIO" in
-      let values = Array.to_list (g#hivex_node_values node) in
-      let rec loop = function
-        | [] -> () (* DevicePath not found -- ignore this case *)
-        | { G.hivex_value_h = valueh } :: values ->
-          let key = g#hivex_value_key valueh in
-          if key <> "DevicePath" then
-            loop values
-          else (
-            let data = g#hivex_value_value valueh in
-            let len = String.length data in
-            let t = g#hivex_value_type valueh in
+    let node =
+      Windows.get_node g root ["Microsoft"; "Windows"; "CurrentVersion"] in
+    match node with
+    | Some node ->
+       let append = encode_utf16le ";%SystemRoot%\\Drivers\\VirtIO" in
+       let values = Array.to_list (g#hivex_node_values node) in
+       let rec loop = function
+         | [] -> () (* DevicePath not found -- ignore this case *)
+         | { G.hivex_value_h = valueh } :: values ->
+            let key = g#hivex_value_key valueh in
+            if key <> "DevicePath" then
+              loop values
+            else (
+              let data = g#hivex_value_value valueh in
+              let len = String.length data in
+              let t = g#hivex_value_type valueh in
 
-            (* Only add the appended path if it doesn't exist already. *)
-            if String.find data append = -1 then (
-              (* Remove the explicit [\0\0] at the end of the string.
-               * This is the UTF-16LE NUL-terminator.
-               *)
-              let data =
-                if len >= 2 && String.sub data (len-2) 2 = "\000\000" then
-                  String.sub data 0 (len-2)
-                else
-                  data in
+              (* Only add the appended path if it doesn't exist already. *)
+              if String.find data append = -1 then (
+                (* Remove the explicit [\0\0] at the end of the string.
+                 * This is the UTF-16LE NUL-terminator.
+                 *)
+                let data =
+                  if len >= 2 && String.sub data (len-2) 2 = "\000\000" then
+                    String.sub data 0 (len-2)
+                  else
+                    data in
 
-              (* Append the path and the explicit NUL. *)
-              let data = data ^ append ^ "\000\000" in
+                (* Append the path and the explicit NUL. *)
+                let data = data ^ append ^ "\000\000" in
 
-              g#hivex_node_set_value node key t data
+                g#hivex_node_set_value node key t data
+              )
             )
-          )
-      in
-      loop values
-    with Not_found ->
-      warning (f_"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion")
+       in
+       loop values
+    | None ->
+       warning (f_"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion")
 
   and fix_ntfs_heads () =
     (* NTFS hardcodes the number of heads on the drive which created
