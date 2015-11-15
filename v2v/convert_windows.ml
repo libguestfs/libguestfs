@@ -95,37 +95,36 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
 
   (* Warn if Windows guest appears to be using group policy. *)
   let has_group_policy =
-    let check_group_policy root =
-      try
-        let node =
-          get_node root
-                   ["Microsoft"; "Windows"; "CurrentVersion"; "Group Policy";
-                    "History"] in
-        let children = g#hivex_node_children node in
-        let children = Array.to_list children in
-        let children =
-          List.map (fun { G.hivex_node_h = h } -> g#hivex_node_name h)
-                   children in
-        (* Just assume any children looking like "{<GUID>}" mean that
-         * some GPOs were installed.
-         *
-         * In future we might want to look for nodes which match:
-         * History\{<GUID>}\<N> where <N> is a small integer (the order
-         * in which policy objects were applied.
-         *
-         * For an example registry containing GPOs, see RHBZ#1219651.
-         * See also: https://support.microsoft.com/en-us/kb/201453
-         *)
-        let is_gpo_guid name =
-          let len = String.length name in
-          len > 3 && name.[0] = '{' && isxdigit name.[1] && name.[len-1] = '}'
-        in
-        List.exists is_gpo_guid children
-      with
-        Not_found -> false
-    in
     Windows.with_hive g software_hive_filename ~write:false
-                      check_group_policy in
+      (fun root ->
+       try
+         let node =
+           get_node root
+                    ["Microsoft"; "Windows"; "CurrentVersion";
+                     "Group Policy"; "History"] in
+         let children = g#hivex_node_children node in
+         let children = Array.to_list children in
+         let children =
+           List.map (fun { G.hivex_node_h = h } -> g#hivex_node_name h)
+                    children in
+         (* Just assume any children looking like "{<GUID>}" mean that
+          * some GPOs were installed.
+          *
+          * In future we might want to look for nodes which match:
+          * History\{<GUID>}\<N> where <N> is a small integer (the order
+          * in which policy objects were applied.
+          *
+          * For an example registry containing GPOs, see RHBZ#1219651.
+          * See also: https://support.microsoft.com/en-us/kb/201453
+          *)
+         let is_gpo_guid name =
+           let len = String.length name in
+           len > 3 && name.[0] = '{' && isxdigit name.[1] && name.[len-1] = '}'
+         in
+         List.exists is_gpo_guid children
+       with
+         Not_found -> false
+      ) in
 
   (* Warn if Windows guest has AV installed. *)
   let has_antivirus = Windows.detect_antivirus inspect in
@@ -136,41 +135,40 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
   let xenpv_uninst =
     let xenpvreg = "Red Hat Paravirtualized Xen Drivers for Windows(R)" in
 
-    let find_xenpv_uninst root =
-      try
-        let node =
-          get_node root
-                   ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
-                    xenpvreg] in
-        let uninstkey = "UninstallString" in
-        let valueh = g#hivex_node_get_value node uninstkey in
-        if valueh = 0L then (
-          warning (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
-                  xenpvreg uninstkey;
-          raise Not_found
-        );
-        let data = g#hivex_value_value valueh in
-        let data = decode_utf16le data in
-
-        (* The uninstall program will be uninst.exe.  This is a wrapper
-         * around _uninst.exe which prompts the user.  As we don't want
-         * the user to be prompted, we run _uninst.exe explicitly.
-         *)
-        let len = String.length data in
-        let data =
-          if len >= 8 &&
-             String.lowercase_ascii (String.sub data (len-8) 8) = "uninst.exe"
-          then
-            (String.sub data 0 (len-8)) ^ "_uninst.exe"
-          else
-            data in
-
-        Some data
-      with
-        Not_found -> None
-    in
     Windows.with_hive g software_hive_filename ~write:false
-                      find_xenpv_uninst in
+      (fun root ->
+       try
+         let node =
+           get_node root
+                    ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
+                     xenpvreg] in
+         let uninstkey = "UninstallString" in
+         let valueh = g#hivex_node_get_value node uninstkey in
+         if valueh = 0L then (
+           warning (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
+                   xenpvreg uninstkey;
+           raise Not_found
+         );
+         let data = g#hivex_value_value valueh in
+         let data = decode_utf16le data in
+
+         (* The uninstall program will be uninst.exe.  This is a wrapper
+          * around _uninst.exe which prompts the user.  As we don't want
+          * the user to be prompted, we run _uninst.exe explicitly.
+          *)
+         let len = String.length data in
+         let data =
+           if len >= 8 &&
+              String.lowercase_ascii (String.sub data (len-8) 8) = "uninst.exe"
+           then
+             (String.sub data 0 (len-8)) ^ "_uninst.exe"
+           else
+             data in
+
+         Some data
+       with
+         Not_found -> None
+      ) in
 
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
