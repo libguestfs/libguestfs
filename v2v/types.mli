@@ -175,6 +175,16 @@ type inspect = {
 
 val string_of_inspect : inspect -> string
 
+type mpstat = {
+  mp_dev : string;                      (** Filesystem device (eg. /dev/sda1) *)
+  mp_path : string;                     (** Guest mountpoint (eg. /boot) *)
+  mp_statvfs : Guestfs.statvfs;         (** Free space stats. *)
+  mp_vfs : string;                      (** VFS type (eg. "ext4") *)
+}
+(** Mountpoint stats, used for free space estimation. *)
+
+val print_mpstat : out_channel -> mpstat -> unit
+
 type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;

@@ -29,20 +29,6 @@ open Utils
 
 open Cmdline
 
-(* Mountpoint stats, used for free space estimation. *)
-type mpstat = {
-  mp_dev : string;                      (* Filesystem device (eg. /dev/sda1) *)
-  mp_path : string;                     (* Guest mountpoint (eg. /boot) *)
-  mp_statvfs : Guestfs.statvfs;         (* Free space stats. *)
-  mp_vfs : string;                      (* VFS type (eg. "ext4") *)
-}
-
-let print_mpstat chan { mp_dev = dev; mp_path = path;
-                        mp_statvfs = s; mp_vfs = vfs } =
-  fprintf chan "mountpoint statvfs %s %s (%s):\n" dev path vfs;
-  fprintf chan "  bsize=%Ld blocks=%Ld bfree=%Ld bavail=%Ld\n"
-    s.G.bsize s.G.blocks s.G.bfree s.G.bavail
-
 type conversion_mode =
     | Copying of overlay list * target list
     | In_place

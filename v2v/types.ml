@@ -322,6 +322,12 @@ type mpstat = {
   mp_vfs : string;
 }
 
+let print_mpstat chan { mp_dev = dev; mp_path = path;
+                        mp_statvfs = s; mp_vfs = vfs } =
+  fprintf chan "mountpoint statvfs %s %s (%s):\n" dev path vfs;
+  fprintf chan "  bsize=%Ld blocks=%Ld bfree=%Ld bavail=%Ld\n"
+    s.Guestfs.bsize s.Guestfs.blocks s.Guestfs.bfree s.Guestfs.bavail
+
 type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;
