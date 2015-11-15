@@ -711,6 +711,7 @@ echo uninstalling Xen PV driver
 
   guestcaps
 
+(* Register this conversion module. *)
 let () =
   let matching = function
     | { i_type = "windows" } -> true

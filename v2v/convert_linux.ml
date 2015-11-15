@@ -1417,6 +1417,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
 
   guestcaps
 
+(* Register this conversion module. *)
 let () =
   let matching = function
     | { i_type = "linux";
