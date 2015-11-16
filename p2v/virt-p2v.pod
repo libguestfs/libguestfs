@@ -538,6 +538,14 @@ Into this directory are written various files which include:
 
 =over 4
 
+=item F<dmesg>
+
+I<before conversion>
+
+The dmesg output from the physical machine.  Useful for detecting
+problems such as missing device drivers or firmware on the virt-p2v
+ISO.
+
 =item F<name>
 
 I<before conversion>

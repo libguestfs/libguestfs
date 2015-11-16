@@ -723,7 +723,8 @@ wait_for_prompt (mexp_h *h)
 
 mexp_h *
 start_remote_connection (struct config *config,
-                         const char *remote_dir, const char *libvirt_xml)
+                         const char *remote_dir, const char *libvirt_xml,
+                         const char *dmesg)
 {
   mexp_h *h;
   char magic[9];
@@ -778,6 +779,24 @@ start_remote_connection (struct config *config,
 
   if (wait_for_prompt (h) == -1)
     goto error;
+
+  if (dmesg != NULL) {
+    /* Upload the physical host dmesg to the remote directory. */
+    if (mexp_printf (h,
+                     "cat > '%s/dmesg' << '__%s__'\n"
+                     "%s"
+                     "\n"
+                     "__%s__\n",
+                     remote_dir, magic,
+                     dmesg,
+                     magic) == -1) {
+      set_ssh_error ("mexp_printf: %m");
+      goto error;
+    }
+
+    if (wait_for_prompt (h) == -1)
+      goto error;
+  }
 
   return h;
 
