@@ -1263,6 +1263,7 @@ static void add_v2v_output (const char *msg);
 static void *start_conversion_thread (void *data);
 static void cancel_conversion_clicked (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
+static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data);
 
 static void
 create_running_dialog (void)
@@ -1307,6 +1308,8 @@ create_running_dialog (void)
   gtk_widget_set_sensitive (reboot_button, FALSE);
 
   /* Signals. */
+  g_signal_connect_swapped (G_OBJECT (run_dlg), "delete_event",
+                            G_CALLBACK (close_running_dialog), NULL);
   g_signal_connect_swapped (G_OBJECT (run_dlg), "destroy",
                             G_CALLBACK (gtk_main_quit), NULL);
   g_signal_connect (G_OBJECT (cancel_button), "clicked",
@@ -1558,6 +1561,21 @@ notify_ui_callback (int type, const char *data)
   }
 
   gdk_threads_leave ();
+}
+
+static gboolean
+close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data)
+{
+  /* This function is called if the user tries to close the running
+   * dialog.  This is the same as cancelling the conversion.
+   */
+  if (conversion_is_running ()) {
+    cancel_conversion ();
+    return TRUE;
+  }
+  else
+    /* Conversion is not running, so this will delete the dialog. */
+    return FALSE;
 }
 
 static void
