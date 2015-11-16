@@ -33,6 +33,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#include <pthread.h>
+
 #include <glib.h>
 
 #include <libxml/xmlwriter.h>
@@ -115,7 +117,26 @@ get_conversion_error (void)
   return conversion_error;
 }
 
-static volatile sig_atomic_t stop = 0;
+static pthread_mutex_t cancel_requested_mutex = PTHREAD_MUTEX_INITIALIZER;
+static int cancel_requested = 0;
+
+static int
+is_cancel_requested (void)
+{
+  int r;
+  pthread_mutex_lock (&cancel_requested_mutex);
+  r = cancel_requested;
+  pthread_mutex_unlock (&cancel_requested_mutex);
+  return r;
+}
+
+static void
+set_cancel_requested (int r)
+{
+  pthread_mutex_lock (&cancel_requested_mutex);
+  cancel_requested = r;
+  pthread_mutex_unlock (&cancel_requested_mutex);
+}
 
 #pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
 int
@@ -139,6 +160,8 @@ start_conversion (struct config *config,
   print_config (config, stderr);
   fprintf (stderr, "\n");
 #endif
+
+  set_cancel_requested (0);
 
   for (i = 0; config->disks[i] != NULL; ++i) {
     data_conns[i].h = NULL;
@@ -336,7 +359,7 @@ start_conversion (struct config *config,
   /* Read output from the virt-v2v process and echo it through the
    * notify function, until virt-v2v closes the connection.
    */
-  while (!stop) {
+  while (!is_cancel_requested ()) {
     char buf[257];
     ssize_t r;
 
@@ -355,7 +378,7 @@ start_conversion (struct config *config,
       notify_ui (NOTIFY_REMOTE_MESSAGE, buf);
   }
 
-  if (stop) {
+  if (is_cancel_requested ()) {
     set_conversion_error ("cancelled by user");
     if (notify_ui)
       notify_ui (NOTIFY_STATUS, _("Conversion cancelled by user."));
@@ -386,7 +409,7 @@ start_conversion (struct config *config,
 void
 cancel_conversion (void)
 {
-  stop = 1;
+  set_cancel_requested (1);
 }
 
 /* Send a shell-quoted string to remote. */
