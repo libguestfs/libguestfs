@@ -37,6 +37,8 @@
 
 #include <libxml/xmlwriter.h>
 
+#include "ignore-value.h"
+
 #include "miniexpect.h"
 #include "p2v.h"
 
@@ -129,6 +131,9 @@ start_conversion (struct config *config,
   time_t now;
   struct tm tm;
   mexp_h *control_h = NULL;
+  char dmesg_cmd[] = "dmesg > /tmp/dmesg.XXXXXX", *dmesg_file = &dmesg_cmd[8];
+  CLEANUP_FREE char *dmesg = NULL;
+  int fd, r;
 
 #if DEBUG_STDERR
   print_config (config, stderr);
@@ -230,11 +235,33 @@ start_conversion (struct config *config,
   fprintf (stderr, "%s: libvirt XML:\n%s", guestfs_int_program_name, libvirt_xml);
 #endif
 
+  /* Get the output from the 'dmesg' command.  We will store this
+   * on the remote server.
+   */
+  fd = mkstemp (dmesg_file);
+  if (fd == -1) {
+    perror ("mkstemp");
+    goto skip_dmesg;
+  }
+  close (fd);
+  r = system (dmesg_cmd);
+  if (r == -1) {
+    perror ("system");
+    goto skip_dmesg;
+  }
+  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+    fprintf (stderr, "'dmesg' failed (ignored)\n");
+    goto skip_dmesg;
+  }
+
+  ignore_value (read_whole_file (dmesg_file, &dmesg, NULL));
+ skip_dmesg:
+
   /* Open the control connection and start conversion */
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Setting up the control connection ..."));
 
-  control_h = start_remote_connection (config, remote_dir, libvirt_xml);
+  control_h = start_remote_connection (config, remote_dir, libvirt_xml, dmesg);
   if (control_h == NULL) {
     const char *err = get_ssh_error ();
 
