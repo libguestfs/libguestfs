@@ -112,6 +112,7 @@ extern int start_conversion (struct config *, void (*notify_ui) (int type, const
 #define NOTIFY_STATUS         3  /* stage in conversion process */
 extern const char *get_conversion_error (void);
 extern void cancel_conversion (void);
+extern int conversion_is_running (void);
 
 /* ssh.c */
 extern int test_connection (struct config *);

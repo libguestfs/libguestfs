@@ -117,8 +117,28 @@ get_conversion_error (void)
   return conversion_error;
 }
 
+static pthread_mutex_t running_mutex = PTHREAD_MUTEX_INITIALIZER;
+static int running = 0;
 static pthread_mutex_t cancel_requested_mutex = PTHREAD_MUTEX_INITIALIZER;
 static int cancel_requested = 0;
+
+static int
+is_running (void)
+{
+  int r;
+  pthread_mutex_lock (&running_mutex);
+  r = running;
+  pthread_mutex_unlock (&running_mutex);
+  return r;
+}
+
+static void
+set_running (int r)
+{
+  pthread_mutex_lock (&running_mutex);
+  running = r;
+  pthread_mutex_unlock (&running_mutex);
+}
 
 static int
 is_cancel_requested (void)
@@ -161,6 +181,7 @@ start_conversion (struct config *config,
   fprintf (stderr, "\n");
 #endif
 
+  set_running (1);
   set_cancel_requested (0);
 
   for (i = 0; config->disks[i] != NULL; ++i) {
@@ -403,7 +424,16 @@ start_conversion (struct config *config,
     }
   }
   cleanup_data_conns (data_conns, nr_disks);
+
+  set_running (0);
+
   return ret;
+}
+
+int
+conversion_is_running (void)
+{
+  return is_running ();
 }
 
 void
