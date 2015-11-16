@@ -630,7 +630,7 @@ Into this directory are written various files which include:
 
 =item F<dmesg>
 
-I<before conversion>
+I<(before conversion)>
 
 The dmesg output from the physical machine.  Useful for detecting
 problems such as missing device drivers or firmware on the virt-p2v
@@ -638,13 +638,13 @@ ISO.
 
 =item F<name>
 
-I<before conversion>
+I<(before conversion)>
 
 The name (usually the hostname) of the physical machine.
 
 =item F<physical.xml>
 
-I<before conversion>
+I<(before conversion)>
 
 Libvirt XML describing the physical machine.  It is used to pass data
 about the physical source host to L<virt-v2v(1)> via the I<-i libvirtxml>
@@ -656,20 +656,20 @@ the libvirt XML which virt-v2v generates in certain output modes.
 
 =item F<status>
 
-I<after conversion>
+I<(after conversion)>
 
 The final status of the conversion.  C<0> if the conversion was
 successful.  Non-zero if the conversion failed.
 
 =item F<time>
 
-I<before conversion>
+I<(before conversion)>
 
 The start date/time of conversion.
 
 =item F<virt-v2v-conversion-log.txt>
 
-I<during/after conversion>
+I<(during/after conversion)>
 
 The conversion log.  This is just the output of the virt-v2v command
 on the conversion server.  If conversion fails, you should examine
