@@ -52,3 +52,9 @@ val map_source_to_uri : int option -> string -> string option -> Xml.uri -> stri
     ["[datastore1] Fedora 20/Fedora 20.vmdk"]
 
     including those literal spaces in the string. *)
+
+val map_source_to_https : string -> Xml.uri -> string -> string -> string * bool
+(** [map_source_to_https dcPath uri server path] is the same as
+    {!map_source_to_uri} but it produces a regular [https://...] URL.
+    The returned boolean is whether TLS certificate verification
+    should be done. *)

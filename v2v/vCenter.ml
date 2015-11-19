@@ -174,9 +174,9 @@ let guess_dcPath uri = function
 
 let source_re = Str.regexp "^\\[\\(.*\\)\\] \\(.*\\)\\.vmdk$"
 
-let map_source_to_uri readahead dcPath password uri scheme server path =
+let map_source_to_https dcPath uri server path =
   if not (Str.string_match source_re path 0) then
-    path
+    (path, true)
   else (
     let datastore = Str.matched_group 1 path
     and path = Str.matched_group 2 path in
@@ -208,39 +208,44 @@ let map_source_to_uri readahead dcPath password uri scheme server path =
         (* XXX only works if the query string is not URI-quoted *)
         String.find query "no_verify=1" = -1 in
 
-    (* Now we have to query the server to get the session cookie. *)
-    let session_cookie = get_session_cookie password scheme uri sslverify url in
-
-    (* Construct the JSON parameters. *)
-    let json_params = [
-      "file.driver", JSON.String "https";
-      "file.url", JSON.String url;
-      (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
-      "file.timeout", JSON.Int 2000;
-    ] in
-
-    let json_params =
-      match readahead with
-      | None -> json_params
-      | Some readahead ->
-        ("file.readahead", JSON.Int readahead) :: json_params in
-
-    let json_params =
-      if sslverify then json_params
-      else ("file.sslverify", JSON.String "off") :: json_params in
-
-    let json_params =
-      match session_cookie with
-      | None -> json_params
-      | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
-
-    if verbose () then
-      printf "vcenter: json parameters: %s\n" (JSON.string_of_doc json_params);
-
-    (* Turn the JSON parameters into a 'json:' protocol string.
-     * Note this requires qemu-img >= 2.1.0.
-     *)
-    let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
-
-    qemu_uri
+    (url, sslverify)
   )
+
+let map_source_to_uri readahead dcPath password uri scheme server path =
+  let url, sslverify = map_source_to_https dcPath uri server path in
+
+  (* Now we have to query the server to get the session cookie. *)
+  let session_cookie = get_session_cookie password scheme uri sslverify url in
+
+  (* Construct the JSON parameters. *)
+  let json_params = [
+    "file.driver", JSON.String "https";
+    "file.url", JSON.String url;
+    (* https://bugzilla.redhat.com/show_bug.cgi?id=1146007#c10 *)
+    "file.timeout", JSON.Int 2000;
+  ] in
+
+  let json_params =
+    match readahead with
+    | None -> json_params
+    | Some readahead ->
+       ("file.readahead", JSON.Int readahead) :: json_params in
+
+  let json_params =
+    if sslverify then json_params
+    else ("file.sslverify", JSON.String "off") :: json_params in
+
+  let json_params =
+    match session_cookie with
+    | None -> json_params
+    | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
+
+  if verbose () then
+    printf "vcenter: json parameters: %s\n" (JSON.string_of_doc json_params);
+
+  (* Turn the JSON parameters into a 'json:' protocol string.
+   * Note this requires qemu-img >= 2.1.0.
+   *)
+  let qemu_uri = "json: " ^ JSON.string_of_doc json_params in
+
+  qemu_uri
