@@ -95,6 +95,9 @@ let new_text_child (doc_ptr, node_ptr) name content =
 external node_ptr_set_prop : node_ptr -> string -> string -> unit = "v2v_xml_node_ptr_set_prop"
 let set_prop (doc_ptr, node_ptr) = node_ptr_set_prop node_ptr
 
+external node_ptr_unset_prop : node_ptr -> string -> bool = "v2v_xml_node_ptr_unset_prop"
+let unset_prop (doc_ptr, node_ptr) = node_ptr_unset_prop node_ptr
+
 external node_ptr_unlink_node : node_ptr -> unit = "v2v_xml_node_ptr_unlink_node"
 let unlink_node (doc_ptr, node_ptr) = node_ptr_unlink_node node_ptr
 

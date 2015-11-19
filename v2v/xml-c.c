@@ -353,6 +353,18 @@ v2v_xml_node_ptr_set_prop (value nodev, value namev, value valv)
 }
 
 value
+v2v_xml_node_ptr_unset_prop (value nodev, value namev)
+{
+  CAMLparam2 (nodev, namev);
+  xmlNodePtr node = (xmlNodePtr) nodev;
+  int r;
+
+  r = xmlUnsetProp (node, BAD_CAST String_val (namev));
+
+  CAMLreturn (r == 0 ? Val_true : Val_false);
+}
+
+value
 v2v_xml_node_ptr_unlink_node (value nodev)
 {
   CAMLparam1 (nodev);

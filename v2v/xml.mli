@@ -73,6 +73,9 @@ val new_text_child : node -> string -> string -> node
 val set_prop : node -> string -> string -> unit
 (** xmlSetProp *)
 
+val unset_prop : node -> string -> bool
+(** xmlUnsetProp (returns [true] if the property was removed) *)
+
 val unlink_node : node -> unit
 (** xmlUnlinkNode
     {b NB:} This frees the [node], do not use it afterwards. *)
