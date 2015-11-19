@@ -1177,6 +1177,19 @@ directory containing the files:
 
  $ virt-v2v -i ova /path/to/files -o local -os /var/tmp
 
+=head1 INPUT FROM VMWARE ESXi HYPERVISOR
+
+Virt-v2v cannot access an ESXi hypervisor directly.
+
+However you can use the L<virt-v2v-copy-to-local(1)> tool to copy the
+guest off the hypervisor into a local file, and then convert it:
+
+ virt-v2v-copy-to-local -ic esx://esxi.example.com vmware_guest
+ virt-v2v -i libvirtxml vmware_guest.xml [-o options ...]
+ rm vmware_guest.xml vmware_guest-disk*
+
+See L<virt-v2v-copy-to-local(1)> for further information.
+
 =head1 INPUT FROM RHEL 5 XEN
 
 Virt-v2v is able to import Xen guests from RHEL 5 Xen hosts.
@@ -1269,53 +1282,9 @@ The workaround is to copy the guest over to the conversion server.
 You will need sufficient space on the conversion server to store a
 full copy of the guest.
 
-=over 4
-
-=item 1.
-
-From the conversion host, dump the guest XML to a local file:
-
- virsh -c xen+ssh://root@xen.example.com dumpxml guest > guest.xml
-
-=item 2.
-
-From the conversion host, copy the guest disk(s) over.  You may need
-to read the C<E<lt>diskE<gt>> sections from the guest XML to find the
-names of the guest disks.
-
- ssh root@xen.example.com 'dd if=/dev/VG/guest' | dd conv=sparse of=guest-disk1
-
-Notice C<conv=sparse> which adds sparseness, so the copied disk will
-use as little space as possible.
-
-=item 3.
-
-Edit the guest XML file, replacing C<E<lt>diskE<gt>> section(s) that
-refer to the remote disks with references to the local copies.
-
-Three changes have to be made.  Firstly in:
-
- <disk type='block' device='disk'>
-
-the C<type> must be changed to C<file>:
-
- <disk type='file' device='disk'>
-
-The last two changes are in the C<E<lt>sourceE<gt>> line where:
-
- <source dev='/dev/VG/guest'/>
-
-C<source dev=> becomes C<source file=> pointing at the local file:
-
- <source file='guest-disk1'/>
-
-=item 4.
-
-Convert the guest using C<virt-v2v -i libvirtxml> mode like this:
-
- virt-v2v -i libvirtxml guest.xml [-o options as usual ...]
-
-=back
+ virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com guest
+ virt-v2v -i libvirtxml guest.xml [-o options ...]
+ rm guest.xml guest-disk*
 
 =head1 OUTPUT TO LIBVIRT
 
@@ -1786,6 +1755,14 @@ For other environment variables, see L<guestfs(3)/ENVIRONMENT VARIABLES>.
 
 =over 4
 
+=item L<virt-v2v-copy-to-local(1)>
+
+There are some special cases where virt-v2v cannot directly access the
+remote hypervisor.  In that case you have to use
+L<virt-v2v-copy-to-local(1)> to make a local copy of the guest first,
+followed by running C<virt-v2v -i libvirtxml> to perform the
+conversion.
+
 =item L<engine-image-uploader(8)>
 
 Variously called C<engine-image-uploader>, C<ovirt-image-uploader> or
@@ -1816,6 +1793,7 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<qemu-img(1)>,
 L<fstrim(8)>,
+L<virt-v2v-copy-to-local(1)>,
 L<virt-v2v-test-harness(1)>,
 L<engine-image-uploader(8)>,
 L<import-to-ovirt.pl|http://git.annexia.org/?p=import-to-ovirt.git>,

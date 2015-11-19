@@ -1,0 +1,216 @@
+=head1 NAME
+
+virt-v2v-copy-to-local - Copy a remote guest to the local machine
+
+=head1 SYNOPSIS
+
+ virt-v2v-copy-to-local -ic LIBVIRT_URI GUEST
+
+ virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com xen_guest
+
+ virt-v2v-copy-to-local -ic esx://root@esxi.example.com vmware_guest
+
+=head1 DESCRIPTION
+
+C<virt-v2v-copy-to-local> copies a guest from a remote hypervisor to
+the local machine, in preparation for conversion by L<virt-v2v(1)>.
+Note this tool alone B<does not> do the virt-v2v conversion.
+
+=head2 When to use this tool
+
+This tool is not usually necessary, but there are a few special cases
+(see list below) where you might need it.
+
+If your case does not fit one of these special cases, then ignore this
+tool and read L<virt-v2v(1)> instead.  The virt-v2v-copy-to-local
+process is slower than using virt-v2v directly, because it has to copy
+unused parts of the guest disk.
+
+=over 4
+
+=item *
+
+You have a Xen guest using host block devices.  Virt-v2v cannot
+convert such guests directly.
+
+See L<virt-v2v(1)/XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>.
+
+=item *
+
+You have VMware ESXi hypervisors, and are not using VMware vCenter to
+manage them.  Virt-v2v cannot directly access ESXi hypervisor, so you
+either have to export the guest as an OVA (eg. using VMware's
+C<ovftool>); or you can use this tool to copy the guest to a local
+file on the conversion server, from where virt-v2v will be able to
+access it.
+
+=back
+
+=head2 How this tool works
+
+This tool uses libvirt to get the libvirt XML (metadata) of the remote
+guest, essentially equivalent to running C<virsh dumpxml guest>.
+
+It then uses the XML to locate the remote guest disks, which are
+copied over using a hypervisor-specific method.  It uses ssh for
+remote Xen hypervisors, and HTTPS (curl) for remote ESXi hypervisors.
+
+It then modifies the libvirt XML so that it points at the local copies
+of the guest disks.
+
+The libvirt XML is output to a file called F<guest.xml> (where
+I<guest> is the name of the guest).  The disk(s) are output to file(s)
+called F<guest-disk1>, F<guest-disk2> and so on.
+
+After copying the guest locally, you can convert it using:
+
+ virt-v2v -i libvirtxml guest.xml [-o options ...]
+
+Virt-v2v finds the local copies of the disks by looking in the XML.
+
+=head1 EXAMPLES
+
+=head2 Copy and convert from Xen hypervisor that uses host block devices
+
+ virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com xen_guest
+ virt-v2v -i libvirtxml xen_guest.xml -o local -os /var/tmp
+ rm xen_guest.xml xen_guest-disk*
+
+=head2 Copy and convert from ESXi hypervisor
+
+ virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 vmware_guest
+ virt-v2v -i libvirtxml vmware_guest.xml -o local -os /var/tmp
+ rm vmware_guest.xml vmware_guest-disk*
+
+=head1 COPYING FROM XEN HYPERVISOR
+
+=head2 XEN: LIBVIRT URI
+
+The libvirt URI for remote Xen hosts will look something like this:
+
+ xen+ssh://root@xen.example.com
+
+The remote Xen server must allow root logins over ssh.
+
+To test it and list the remote guests available, use L<virsh(1)>:
+
+ $ virsh -c xen+ssh://root@xen.example.com list --all
+  Id    Name                           State
+ ----------------------------------------------------
+  0     Domain-0                       running
+  -     guest                          shut off
+
+=head2 XEN: COPY THE GUEST
+
+Using the libvirt URI as the I<-ic> option, copy one of the guests to
+the local machine:
+
+ $ virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com guest
+
+This creates F<guest.xml>, F<guest-disk1>, ...
+
+=head2 XEN: DO THE CONVERSION
+
+Perform the conversion of the guest using virt-v2v:
+
+ $ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
+
+=head2 XEN: CLEAN UP
+
+Remove the F<guest.xml> and F<guest-disk*> files.
+
+=head1 COPYING FROM VMware ESXi HYPERVISOR
+
+=head2 ESXi: LIBVIRT URI
+
+The libvirt URI for VMware ESXi hypervisors will look something like this:
+
+ esx://root@esxi.example.com?no_verify=1
+
+The C<?no_verify=1> parameter disables TLS certificate checking.
+
+To test it and list the remote guests available, use L<virsh(1)>:
+
+ $ virsh -c esx://root@esxi.example.com?no_verify=1 list --all
+ Enter root's password for esxi.example.com: ***
+  Id    Name                           State
+ ----------------------------------------------------
+  -     guest                          shut off
+
+=head2 ESXi: COPY THE GUEST
+
+Using the libvirt URI as the I<-ic> option, copy one of the guests to
+the local machine:
+
+ $ virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 guest
+
+This creates F<guest.xml>, F<guest-disk1>, ...
+
+=head2 ESXi: DO THE CONVERSION
+
+Perform the conversion of the guest using virt-v2v:
+
+ $ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
+
+=head2 ESXi: CLEAN UP
+
+Remove the F<guest.xml> and F<guest-disk*> files.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display help.
+
+=item B<-ic> libvirtURI
+
+Specify a libvirt connection URI
+
+=item B<--password-file> file
+
+Instead of asking for password(s) interactively, pass the password
+through a file.  Note the file should contain the whole password,
+B<without any trailing newline>, and for security the file should have
+mode C<0600> so that others cannot read it.
+
+Currently this option does not have any effect on xen+ssh transfers,
+but that is a bug.
+
+=item B<-q>
+
+=item B<--quiet>
+
+This disables progress bars and other unnecessary output.
+
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose messages for debugging.
+
+=item B<-V>
+
+=item B<--version>
+
+Display version number and exit.
+
+=back
+
+=head1 SEE ALSO
+
+L<virt-v2v(1)>,
+L<virsh(1)>,
+L<http://libguestfs.org/>,
+L<https://libvirt.org/uri.html>,
+L<https://libvirt.org/remote.html>,
+L<https://libvirt.org/drvesx.html>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2015 Red Hat Inc.

@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
+	copy_to_local.ml \
 	v2v_unit_tests.ml \
 	$(TESTS) $(SLOW_TESTS) \
 	HACKING \
@@ -35,7 +36,8 @@ EXTRA_DIST = \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.xml \
 	test-v2v-sound.xml \
-	virt-v2v.pod
+	virt-v2v.pod \
+	virt-v2v-copy-to-local.pod
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 
@@ -113,7 +115,7 @@ SOURCES_C = \
 
 if HAVE_OCAML
 
-bin_PROGRAMS = virt-v2v
+bin_PROGRAMS = virt-v2v virt-v2v-copy-to-local
 
 virt_v2v_SOURCES = $(SOURCES_C)
 virt_v2v_CPPFLAGS = \
@@ -177,6 +179,46 @@ virt_v2v_LINK = \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
 
+virt_v2v_copy_to_local_SOURCES = \
+	domainxml-c.c \
+	utils-c.c \
+	xml-c.c
+virt_v2v_copy_to_local_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src
+virt_v2v_copy_to_local_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBXML2_CFLAGS) \
+	$(LIBVIRT_CFLAGS)
+
+COPY_TO_LOCAL_BOBJECTS = \
+	$(top_builddir)/mllib/guestfs_config.cmo \
+	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/JSON.cmo \
+	xml.cmo \
+	utils.cmo \
+	curl.cmo \
+	vCenter.cmo \
+	domainxml.cmo \
+	copy_to_local.cmo
+COPY_TO_LOCAL_XOBJECTS = $(COPY_TO_LOCAL_BOBJECTS:.cmo=.cmx)
+
+if !HAVE_OCAMLOPT
+COPY_TO_LOCAL_OBJECTS = $(COPY_TO_LOCAL_BOBJECTS)
+else
+COPY_TO_LOCAL_OBJECTS = $(COPY_TO_LOCAL_XOBJECTS)
+endif
+
+virt_v2v_copy_to_local_DEPENDENCIES = \
+	$(COPY_TO_LOCAL_OBJECTS) $(top_srcdir)/ocaml-link.sh
+virt_v2v_copy_to_local_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
+	  $(COPY_TO_LOCAL_OBJECTS) -o $@
+
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
@@ -192,9 +234,11 @@ virttoolsdatadir = $(datadir)/virt-tools
 
 # Manual pages and HTML files for the website.
 
-man_MANS = virt-v2v.1
+man_MANS = virt-v2v.1 virt-v2v-copy-to-local.1
 
-noinst_DATA = $(top_builddir)/website/virt-v2v.1.html
+noinst_DATA = \
+	$(top_builddir)/website/virt-v2v.1.html \
+	$(top_builddir)/website/virt-v2v-copy-to-local.1.html
 
 virt-v2v.1 $(top_builddir)/website/virt-v2v.1.html: stamp-virt-v2v.pod
 
@@ -206,9 +250,21 @@ stamp-virt-v2v.pod: virt-v2v.pod
 	  $<
 	touch $@
 
+virt-v2v-copy-to-local.1 $(top_builddir)/website/virt-v2v-copy-to-local.1.html: stamp-virt-v2v-copy-to-local.pod
+
+stamp-virt-v2v-copy-to-local.pod: virt-v2v-copy-to-local.pod
+	$(PODWRAPPER) \
+	  --man virt-v2v-copy-to-local.1 \
+	  --html $(top_builddir)/website/virt-v2v-copy-to-local.1.html \
+	  --license GPLv2+ \
+	  $<
+	touch $@
+
 CLEANFILES += \
 	stamp-virt-v2v.pod \
-	virt-v2v.1
+	stamp-virt-v2v-copy-to-local.pod \
+	virt-v2v.1 \
+	virt-v2v-copy-to-local.1
 
 # Tests.
 
@@ -231,7 +287,8 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = \
 	test-v2v-i-ova-formats.sh \
 	test-v2v-i-ova-gz.sh \
-	test-v2v-i-ova-two-disks.sh
+	test-v2v-i-ova-two-disks.sh \
+	test-v2v-copy-to-local.sh
 
 if HAVE_OCAML_PKG_OUNIT
 TESTS += v2v_unit_tests
