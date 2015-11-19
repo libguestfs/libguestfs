@@ -1172,6 +1172,10 @@ B<If the above commands do not work, then virt-v2v is not going to
 work either>.  Fix your libvirt configuration or the remote server
 before continuing.
 
+B<If the guest disks are located on a host block device>, then the
+conversion will fail.  See L</XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>
+below for a workaround.
+
 =head2 XEN: IMPORTING A GUEST
 
 To import a particular guest from a Xen server, do:
@@ -1186,6 +1190,78 @@ down).
 In this case the output flags are set to write the converted guest to
 a temporary directory as this is just an example, but you can also
 write to libvirt or any other supported target.
+
+=head2 XEN OR SSH CONVERSIONS FROM BLOCK DEVICES
+
+It is currently not possible to convert a Xen guest (or any guest
+located remotely over ssh) if that guest's disks are located on host
+block devices.
+
+To tell if a Xen guest uses host block devices, look at the guest XML.
+You will see:
+
+  <disk type='block' device='disk'>
+    ...
+    <source dev='/dev/VG/guest'/>
+
+where C<type='block'>, C<source dev=> and C</dev/...> are all
+indications that the disk is located on a host block device.
+
+This happens because the qemu ssh block driver that we use to access
+remote disks uses the ssh sftp protocol, and this protocol cannot
+correctly detect the size of host block devices.
+
+The workaround is to copy the guest over to the conversion server.
+You will need sufficient space on the conversion server to store a
+full copy of the guest.
+
+=over 4
+
+=item 1.
+
+From the conversion host, dump the guest XML to a local file:
+
+ virsh -c xen+ssh://root@xen.example.com dumpxml guest > guest.xml
+
+=item 2.
+
+From the conversion host, copy the guest disk(s) over.  You may need
+to read the C<E<lt>diskE<gt>> sections from the guest XML to find the
+names of the guest disks.
+
+ ssh root@xen.example.com 'dd if=/dev/VG/guest' | dd conv=sparse of=guest-disk1
+
+Notice C<conv=sparse> which adds sparseness, so the copied disk will
+use as little space as possible.
+
+=item 3.
+
+Edit the guest XML file, replacing C<E<lt>diskE<gt>> section(s) that
+refer to the remote disks with references to the local copies.
+
+Three changes have to be made.  Firstly in:
+
+ <disk type='block' device='disk'>
+
+the C<type> must be changed to C<file>:
+
+ <disk type='file' device='disk'>
+
+The last two changes are in the C<E<lt>sourceE<gt>> line where:
+
+ <source dev='/dev/VG/guest'/>
+
+C<source dev=> becomes C<source file=> pointing at the local file:
+
+ <source file='guest-disk1'/>
+
+=item 4.
+
+Convert the guest using C<virt-v2v -i libvirtxml> mode like this:
+
+ virt-v2v -i libvirtxml guest.xml [-o options as usual ...]
+
+=back
 
 =head1 OUTPUT TO LIBVIRT
 
