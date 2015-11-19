@@ -228,6 +228,13 @@ and create_overlays src_disks =
 
       let vsize = (open_guestfs ())#disk_virtual_size overlay_file in
 
+      (* If the virtual size is 0, then something went badly wrong.
+       * It could be RHBZ#1283588 or some other problem with qemu.
+       *)
+      if vsize = 0L then
+        error (f_"guest disk %s appears to be zero bytes in size.\n\nThere could be several reasons for this:\n\nCheck that the guest doesn't really have a zero-sized disk.  virt-v2v cannot convert such a guest.\n\nIf you are converting a guest from an ssh source and the guest has a disk on a block device (eg. on a host partition or host LVM LV), then conversions of this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES\" in the virt-v2v(1) manual for a workaround.")
+              sd;
+
       { ov_overlay_file = overlay_file; ov_sd = sd;
         ov_virtual_size = vsize; ov_source = source }
   ) src_disks
