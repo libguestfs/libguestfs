@@ -66,6 +66,7 @@ cp @bindir@/virt-sysprep          sysprep/
 cp @bindir@/virt-tar-in           fish/
 cp @bindir@/virt-tar-out          fish/
 cp @bindir@/virt-v2v              v2v/
+cp @bindir@/virt-v2v-copy-to-local v2v/
 cp @bindir@/virt-win-reg          tools/
 
 # virt-list-filesystems, virt-list-partitions and virt-tar are not
