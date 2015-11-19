@@ -48,6 +48,7 @@ nw="$nw -Wtraditional"               # Warns on #elif which we use often
 nw="$nw -Wsystem-headers"            # Don't let system headers trigger warnings
 nw="$nw -Wpadded"                    # Our structs are not padded
 nw="$nw -Wvla"                       # Allow variable length arrays.
+nw="$nw -Winline"                    # inline functions in Python binding
 nw="$nw -Wshadow"                    # Not useful, as it applies to global vars
 nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                      # was not possible, safe to ignore
