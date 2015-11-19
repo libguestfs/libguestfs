@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-13 19:12+0000\n"
+"POT-Creation-Date: 2015-11-19 22:49+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/libguestfs/"
@@ -48,7 +48,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:206
 #. ../builder/builder.ml:660
-#: ../v2v/v2v.ml:570 ../v2v/v2v.ml:386 ../sysprep/main.ml:239
+#: ../v2v/v2v.ml:563 ../v2v/v2v.ml:379 ../sysprep/main.ml:239
 msgid "%s (ignored)"
 msgstr ""
 
@@ -101,7 +101,8 @@ msgstr ""
 msgid "%s needed but not found"
 msgstr ""
 
-#: ../v2v/cmdline.ml:119 ../v2v/cmdline.ml:74 ../v2v/cmdline.ml:66
+#. ../v2v/cmdline.ml:66
+#: ../v2v/copy_to_local.ml:37 ../v2v/cmdline.ml:119 ../v2v/cmdline.ml:74
 msgid "%s option used more than once on the command line"
 msgstr ""
 
@@ -257,6 +258,28 @@ msgid ""
 "\n"
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-v2v(1).\n"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:53
+msgid ""
+"%s: copy a remote guest to the local machine\n"
+"\n"
+"Copy the remote guest:\n"
+"\n"
+"  virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com guest\n"
+"\n"
+"  virt-v2v-copy-to-local -ic esx://esxi.example.com guest\n"
+"\n"
+"Then perform the conversion step:\n"
+"\n"
+"  virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp\n"
+"\n"
+"To clean up:\n"
+"\n"
+"  rm guest.xml guest-disk*\n"
+"\n"
+"A short summary of the options is given below.  For detailed help please\n"
+"read the man page virt-v2v-copy-to-local(1).\n"
 msgstr ""
 
 #: ../customize/customize_main.ml:102
@@ -467,7 +490,7 @@ msgid ""
 "rwmjones/rhsrvany).  Original error: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:66
+#: ../v2v/convert_windows.ml:64
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -723,7 +746,7 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:266
+#: ../v2v/input_libvirtxml.ml:266 ../v2v/copy_to_local.ml:326
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
@@ -739,7 +762,7 @@ msgstr ""
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:212
+#: ../v2v/input_libvirtxml.ml:212 ../v2v/copy_to_local.ml:308
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
@@ -795,7 +818,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:127
+#: ../v2v/v2v.ml:113
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -842,7 +865,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:957
+#: ../v2v/v2v.ml:950
 msgid "CD-ROM"
 msgstr ""
 
@@ -882,11 +905,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:484
+#: ../v2v/v2v.ml:477
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:739
+#: ../v2v/v2v.ml:732
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -894,11 +917,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:114
+#: ../v2v/v2v.ml:100
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:115
+#: ../v2v/v2v.ml:101
 msgid "Closing the source VM"
 msgstr ""
 
@@ -922,11 +945,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:715
+#: ../v2v/v2v.ml:708
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:713
+#: ../v2v/v2v.ml:706
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -954,8 +977,12 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:775
+#: ../v2v/v2v.ml:768
 msgid "Copying disk %d/%d to %s (%s)"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:179
+msgid "Copying remote disk %d/%d to %s"
 msgstr ""
 
 #: ../customize/customize_run.ml:191
@@ -978,11 +1005,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:218
+#: ../v2v/v2v.ml:204
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:137
+#: ../v2v/v2v.ml:123
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1107,7 +1134,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:322
+#: ../v2v/v2v.ml:315
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1158,11 +1185,11 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:335
+#: ../v2v/v2v.ml:328
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:704
+#: ../v2v/v2v.ml:697
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1243,6 +1270,10 @@ msgid ""
 "The underlying error was: %s"
 msgstr ""
 
+#: ../v2v/copy_to_local.ml:130
+msgid "Fetching the remote libvirt XML metadata ..."
+msgstr ""
+
 #: ../dib/cmdline.ml:182
 msgid "Filesystem for the image"
 msgstr ""
@@ -1263,8 +1294,9 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:145 ../customize/customize_main.ml:216
-#: ../builder/builder.ml:709
+#. ../customize/customize_main.ml:216
+#. ../builder/builder.ml:709
+#: ../v2v/v2v.ml:131 ../v2v/copy_to_local.ml:240
 msgid "Finishing off"
 msgstr ""
 
@@ -1368,7 +1400,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:254
+#: ../v2v/v2v.ml:247
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1380,7 +1412,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:87
+#: ../v2v/v2v.ml:73
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1424,7 +1456,7 @@ msgstr ""
 msgid "Label for the root fs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:189 ../v2v/cmdline.ml:176
+#: ../v2v/copy_to_local.ml:45 ../v2v/cmdline.ml:189 ../v2v/cmdline.ml:176
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1475,7 +1507,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:109
+#: ../v2v/v2v.ml:95
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1550,15 +1582,15 @@ msgstr ""
 msgid "Opening the new disk"
 msgstr ""
 
-#: ../v2v/v2v.ml:73
+#: ../v2v/v2v.ml:59
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:148
+#: ../v2v/v2v.ml:134
 msgid "Opening the source %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:74
+#: ../v2v/v2v.ml:60
 msgid "Opening the source VM"
 msgstr ""
 
@@ -1610,7 +1642,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:974
+#: ../v2v/v2v.ml:967
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1638,6 +1670,10 @@ msgstr ""
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
+#: ../v2v/copy_to_local.ml:137
+msgid "Parsing the remote libvirt XML metadata ..."
+msgstr ""
+
 #. ../customize/customize_main.ml:85
 #. ../customize/customize_main.ml:84
 #. ../customize/customize_main.ml:83
@@ -1649,11 +1685,11 @@ msgstr ""
 msgid "Performing %S ..."
 msgstr ""
 
-#: ../v2v/v2v.ml:362
+#: ../v2v/v2v.ml:355
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:353
+#: ../v2v/v2v.ml:346
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -1677,7 +1713,7 @@ msgstr ""
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/OVF.ml:409 ../v2v/OVF.ml:215
+#: ../v2v/OVF.ml:407 ../v2v/OVF.ml:213
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2179,7 +2215,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:153
+#: ../v2v/v2v.ml:139
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2360,22 +2396,22 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:732
+#: ../v2v/v2v.ml:725
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:730
+#: ../v2v/v2v.ml:723
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/OVF.ml:352
+#: ../v2v/OVF.ml:350
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHEV.  Therefore the converted guest's display will not "
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:757
+#: ../v2v/v2v.ml:750
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2452,7 +2488,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:197
+#: ../v2v/copy_to_local.ml:47 ../v2v/cmdline.ml:197
 msgid "Use password from file"
 msgstr ""
 
@@ -2492,6 +2528,10 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:400
 msgid "Write file"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:234
+msgid "Writing libvirt XML metadata to %s ..."
 msgstr ""
 
 #: ../customize/customize_run.ml:355
@@ -2587,11 +2627,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:433
+#: ../v2v/convert_windows.ml:418
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:419
+#: ../v2v/convert_windows.ml:404
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2622,7 +2662,7 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:158
+#: ../v2v/convert_windows.ml:141
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2658,8 +2698,12 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
-#: ../v2v/v2v.ml:342
+#: ../v2v/v2v.ml:335
 msgid "connection closed"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:230
+msgid "copy command failed, see earlier errors"
 msgstr ""
 
 #: ../v2v/convert_linux.ml:1035
@@ -2682,7 +2726,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:626
+#: ../v2v/convert_windows.ml:614
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2694,7 +2738,7 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:39
+#: ../v2v/input_libvirt.ml:39 ../v2v/copy_to_local.ml:98
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
@@ -2783,7 +2827,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:264
+#: ../v2v/v2v.ml:257
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2939,7 +2983,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:958
+#: ../v2v/v2v.ml:951
 msgid "floppy disk"
 msgstr ""
 
@@ -2996,6 +3040,21 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
+#: ../v2v/v2v.ml:235
+msgid ""
+"guest disk %s appears to be zero bytes in size.\n"
+"\n"
+"There could be several reasons for this:\n"
+"\n"
+"Check that the guest doesn't really have a zero-sized disk.  virt-v2v cannot "
+"convert such a guest.\n"
+"\n"
+"If you are converting a guest from an ssh source and the guest has a disk on "
+"a block device (eg. on a host partition or host LVM LV), then conversions of "
+"this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES"
+"\" in the virt-v2v(1) manual for a workaround."
+msgstr ""
+
 #: ../customize/firstboot.ml:138
 msgid "guest type %s is not supported"
 msgstr ""
@@ -3049,7 +3108,7 @@ msgstr ""
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
-#: ../v2v/v2v.ml:453
+#: ../v2v/v2v.ml:446
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -3061,7 +3120,7 @@ msgid ""
 "Inspection field '%s' was 'unknown'."
 msgstr ""
 
-#: ../v2v/v2v.ml:315
+#: ../v2v/v2v.ml:308
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -3085,11 +3144,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:787
+#: ../v2v/v2v.ml:780
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:239
+#: ../v2v/v2v.ml:225
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3137,7 +3196,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:369
+#: ../v2v/v2v.ml:362
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3151,6 +3210,10 @@ msgstr ""
 #. ../resize/resize.ml:198
 #: ../resize/resize.ml:201 ../resize/resize.ml:200 ../resize/resize.ml:199
 msgid "lv"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:119
+msgid "missing guest name.  See the virt-v2v-copy-to-local(1) manual page."
 msgstr ""
 
 #: ../builder/simplestreams_parser.ml:41
@@ -3173,7 +3236,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:349
+#: ../v2v/v2v.ml:342
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3267,7 +3330,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:510
+#: ../v2v/v2v.ml:503
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3277,7 +3340,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/OVF.ml:542
+#: ../v2v/OVF.ml:540
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -3289,6 +3352,12 @@ msgid ""
 "\n"
 "Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what "
 "to do."
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:113
+msgid ""
+"only copies from VMware ESXi or Xen over SSH are supported.  See the virt-"
+"v2v-copy-to-local(1) manual page."
 msgstr ""
 
 #: ../get-kernel/get_kernel.ml:139
@@ -3327,7 +3396,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/v2v.ml:274
+#: ../v2v/v2v.ml:267
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3401,7 +3470,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:828 ../v2v/v2v.ml:235
+#: ../v2v/v2v.ml:821 ../v2v/v2v.ml:221
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3417,7 +3486,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:955
+#: ../v2v/v2v.ml:948
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3430,7 +3499,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:360
+#: ../v2v/v2v.ml:353
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -3470,8 +3539,12 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:171
+#: ../v2v/v2v.ml:157
 msgid "source has no hard disks!"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:203
+msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 
 #: ../v2v/input_libvirt_other.ml:43
@@ -3512,10 +3585,14 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:278
+#: ../v2v/v2v.ml:271
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:83
+msgid "the -ic parameter is required"
 msgstr ""
 
 #: ../builder/simplestreams_parser.ml:81
@@ -3569,7 +3646,7 @@ msgstr ""
 msgid "the value of the key '%s' is not an object"
 msgstr ""
 
-#: ../v2v/OVF.ml:205
+#: ../v2v/OVF.ml:203
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -3588,7 +3665,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:279
+#: ../v2v/convert_windows.ml:264
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3596,7 +3673,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:316
+#: ../v2v/convert_windows.ml:301
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3612,7 +3689,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:295
+#: ../v2v/convert_windows.ml:280
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3620,7 +3697,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:304
+#: ../v2v/convert_windows.ml:289
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3628,13 +3705,13 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:748
+#: ../v2v/v2v.ml:741
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:712
+#: ../v2v/convert_windows.ml:700
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3642,7 +3719,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:710
+#: ../v2v/convert_windows.ml:698
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3650,12 +3727,18 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:187
+#: ../v2v/input_libvirtxml.ml:187 ../v2v/copy_to_local.ml:297
 msgid "this guest has no non-removable disks"
 msgstr ""
 
 #: ../customize/customize_run.ml:318
 msgid "timezone could not be set for this type of guest"
+msgstr ""
+
+#: ../v2v/copy_to_local.ml:122
+msgid ""
+"too many command line parameters.  See the virt-v2v-copy-to-local(1) manual "
+"page."
 msgstr ""
 
 #: ../builder/cmdline.ml:236
@@ -3668,7 +3751,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:381
+#: ../v2v/v2v.ml:374
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3721,7 +3804,7 @@ msgstr ""
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
-#: ../v2v/OVF.ml:189
+#: ../v2v/OVF.ml:187
 msgid "unknown guest operating system: %s %s %d.%d (%s)"
 msgstr ""
 
@@ -3729,7 +3812,7 @@ msgstr ""
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:163
+#: ../v2v/v2v.ml:149
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
@@ -3853,11 +3936,11 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:721
+#: ../v2v/v2v.ml:714
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:401
+#: ../v2v/convert_windows.ml:386
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
@@ -7694,24 +7777,24 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:152
+#: p2v/conversion.c:201
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:235
+#: p2v/conversion.c:306
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:247
+#: p2v/conversion.c:318
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:334
+#: p2v/conversion.c:405
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:339
+#: p2v/conversion.c:410
 msgid "Control connection closed by remote."
 msgstr ""
 
@@ -7938,15 +8021,15 @@ msgid ""
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1301
+#: p2v/gui.c:1302
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1302
+#: p2v/gui.c:1303
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1337
+#: p2v/gui.c:1340
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -7954,34 +8037,34 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1397
+#: p2v/gui.c:1400
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1398 p2v/gui.c:1422
+#: p2v/gui.c:1401 p2v/gui.c:1425
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1420
+#: p2v/gui.c:1423
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1508
+#: p2v/gui.c:1511
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1509
+#: p2v/gui.c:1512
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1518
+#: p2v/gui.c:1521
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1519
+#: p2v/gui.c:1522
 msgid "Conversion was successful"
 msgstr ""
 
