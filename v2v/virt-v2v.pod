@@ -946,9 +946,9 @@ I<--bridge> option instead.  For example:
 
 Virt-v2v is able to import guests from VMware vCenter Server.
 
-vCenter E<ge> 5.0 is required.  Virt-v2v B<cannot> import guests
-directly from an ESXi hypervisor.  If you don't have vCenter, using
-OVA is recommended instead (see L</INPUT FROM VMWARE OVA> below).
+vCenter E<ge> 5.0 is required.  If you don't have vCenter, using OVA
+is recommended instead (see L</INPUT FROM VMWARE OVA> below), or if
+that is not possible then see L</INPUT FROM VMWARE ESXi HYPERVISOR>.
 
 Virt-v2v uses libvirt for access to vCenter, and therefore the input
 mode should be I<-i libvirt>.  As this is the default, you don't need
@@ -1179,16 +1179,63 @@ directory containing the files:
 
 =head1 INPUT FROM VMWARE ESXi HYPERVISOR
 
-Virt-v2v cannot access an ESXi hypervisor directly.
+Virt-v2v cannot access an ESXi hypervisor directly.  You should use
+the OVA method above (see L</INPUT FROM VMWARE OVA>) if possible, as
+it is much faster and requires much less disk space than the method
+described in this section.
 
-However you can use the L<virt-v2v-copy-to-local(1)> tool to copy the
-guest off the hypervisor into a local file, and then convert it:
+You can use the L<virt-v2v-copy-to-local(1)> tool to copy the guest
+off the hypervisor into a local file, and then convert it.
 
- virt-v2v-copy-to-local -ic esx://esxi.example.com vmware_guest
- virt-v2v -i libvirtxml vmware_guest.xml [-o options ...]
- rm vmware_guest.xml vmware_guest-disk*
+=head2 ESXi: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
 
-See L<virt-v2v-copy-to-local(1)> for further information.
+For Windows guests, you should remove VMware tools before conversion.
+Although this is not strictly necessary, and the guest will still be
+able to run, if you don't do this then the converted guest will
+complain on every boot.  The tools cannot be removed after conversion
+because the uninstaller checks if it is running on VMware and refuses
+to start (which is also the reason that virt-v2v cannot remove them).
+
+This is not necessary for Linux guests, as virt-v2v is able to remove
+VMware tools.
+
+=head2 ESXi: URI
+
+The libvirt URI for VMware ESXi hypervisors will look something like this:
+
+ esx://root@esxi.example.com?no_verify=1
+
+The C<?no_verify=1> parameter disables TLS certificate checking.
+
+=head2 ESXi: TEST LIBVIRT CONNECTION TO ESXi HYPERVISOR
+
+Use the L<virsh(1)> command to test the URI and list the remote guests
+available:
+
+ $ virsh -c esx://root@esxi.example.com?no_verify=1 list --all
+ Enter root's password for esxi.example.com: ***
+  Id    Name                           State
+ ----------------------------------------------------
+  -     guest                          shut off
+
+=head2 ESXi: COPY THE GUEST TO THE LOCAL MACHINE
+
+Using the libvirt URI as the I<-ic> option, copy one of the guests to
+the local machine:
+
+ $ virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 guest
+
+This creates F<guest.xml>, F<guest-disk1>, ...
+
+=head2 ESXi: DO THE VIRT-V2V CONVERSION
+
+Perform the conversion of the guest using virt-v2v:
+
+ $ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
+
+=head2 ESXi: CLEAN UP
+
+Remove the F<guest.xml> and F<guest-disk*> files.
 
 =head1 INPUT FROM RHEL 5 XEN
 
@@ -1260,7 +1307,7 @@ write to libvirt or any other supported target.
 
 =head2 XEN OR SSH CONVERSIONS FROM BLOCK DEVICES
 
-It is currently not possible to convert a Xen guest (or any guest
+Currently virt-v2v cannot directly access a Xen guest (or any guest
 located remotely over ssh) if that guest's disks are located on host
 block devices.
 
@@ -1278,12 +1325,13 @@ This happens because the qemu ssh block driver that we use to access
 remote disks uses the ssh sftp protocol, and this protocol cannot
 correctly detect the size of host block devices.
 
-The workaround is to copy the guest over to the conversion server.
-You will need sufficient space on the conversion server to store a
-full copy of the guest.
+The workaround is to copy the guest over to the conversion server,
+using the separate L<virt-v2v-copy-to-local(1)> tool, followed by
+running virt-v2v.  You will need sufficient space on the conversion
+server to store a full copy of the guest.
 
  virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com guest
- virt-v2v -i libvirtxml guest.xml [-o options ...]
+ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
  rm guest.xml guest-disk*
 
 =head1 OUTPUT TO LIBVIRT

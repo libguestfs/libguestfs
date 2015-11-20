@@ -44,6 +44,8 @@ C<ovftool>); or you can use this tool to copy the guest to a local
 file on the conversion server, from where virt-v2v will be able to
 access it.
 
+See L<virt-v2v(1)/INPUT FROM VMWARE ESXi HYPERVISOR>.
+
 =back
 
 =head2 How this tool works
@@ -72,89 +74,21 @@ Virt-v2v finds the local copies of the disks by looking in the XML.
 
 =head2 Copy and convert from Xen hypervisor that uses host block devices
 
+For full instructions, see
+L<virt-v2v(1)/XEN OR SSH CONVERSIONS FROM BLOCK DEVICES>.
+
  virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com xen_guest
  virt-v2v -i libvirtxml xen_guest.xml -o local -os /var/tmp
  rm xen_guest.xml xen_guest-disk*
 
 =head2 Copy and convert from ESXi hypervisor
 
+For full instructions, see
+L<virt-v2v(1)/INPUT FROM VMWARE ESXi HYPERVISOR>.
+
  virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 vmware_guest
  virt-v2v -i libvirtxml vmware_guest.xml -o local -os /var/tmp
  rm vmware_guest.xml vmware_guest-disk*
-
-=head1 COPYING FROM XEN HYPERVISOR
-
-=head2 XEN: LIBVIRT URI
-
-The libvirt URI for remote Xen hosts will look something like this:
-
- xen+ssh://root@xen.example.com
-
-The remote Xen server must allow root logins over ssh.
-
-To test it and list the remote guests available, use L<virsh(1)>:
-
- $ virsh -c xen+ssh://root@xen.example.com list --all
-  Id    Name                           State
- ----------------------------------------------------
-  0     Domain-0                       running
-  -     guest                          shut off
-
-=head2 XEN: COPY THE GUEST
-
-Using the libvirt URI as the I<-ic> option, copy one of the guests to
-the local machine:
-
- $ virt-v2v-copy-to-local -ic xen+ssh://root@xen.example.com guest
-
-This creates F<guest.xml>, F<guest-disk1>, ...
-
-=head2 XEN: DO THE CONVERSION
-
-Perform the conversion of the guest using virt-v2v:
-
- $ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
-
-=head2 XEN: CLEAN UP
-
-Remove the F<guest.xml> and F<guest-disk*> files.
-
-=head1 COPYING FROM VMware ESXi HYPERVISOR
-
-=head2 ESXi: LIBVIRT URI
-
-The libvirt URI for VMware ESXi hypervisors will look something like this:
-
- esx://root@esxi.example.com?no_verify=1
-
-The C<?no_verify=1> parameter disables TLS certificate checking.
-
-To test it and list the remote guests available, use L<virsh(1)>:
-
- $ virsh -c esx://root@esxi.example.com?no_verify=1 list --all
- Enter root's password for esxi.example.com: ***
-  Id    Name                           State
- ----------------------------------------------------
-  -     guest                          shut off
-
-=head2 ESXi: COPY THE GUEST
-
-Using the libvirt URI as the I<-ic> option, copy one of the guests to
-the local machine:
-
- $ virt-v2v-copy-to-local -ic esx://root@esxi.example.com?no_verify=1 guest
-
-This creates F<guest.xml>, F<guest-disk1>, ...
-
-=head2 ESXi: DO THE CONVERSION
-
-Perform the conversion of the guest using virt-v2v:
-
- $ virt-v2v -i libvirtxml guest.xml -o local -os /var/tmp
-
-=head2 ESXi: CLEAN UP
-
-Remove the F<guest.xml> and F<guest-disk*> files.
 
 =head1 OPTIONS
 
