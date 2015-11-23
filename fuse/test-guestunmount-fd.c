@@ -107,8 +107,8 @@ main (int argc, char *argv[])
   }
 
   /* Close the write side of the pipe.  This should cause guestunmount
-   * to exit.  It should exit with status code _2_ because we gave it
-   * a mountpoint which isn't a FUSE mountpoint.
+   * to exit.  It should exit with status code _3_ because we gave it
+   * a directory which isn't a FUSE mountpoint.
    */
   close (pipefd[1]);
 
@@ -117,10 +117,10 @@ main (int argc, char *argv[])
     perror ("waitpid");
     exit (EXIT_FAILURE);
   }
-  if (!WIFEXITED (status) || WEXITSTATUS (status) != 2) {
+  if (!WIFEXITED (status) || WEXITSTATUS (status) != 3) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: guestunmount didn't return status code 2; %s\n",
+    fprintf (stderr, "%s: test failed: guestunmount didn't return status code 3; %s\n",
              guestfs_int_program_name,
              guestfs_int_exit_status_to_string (status, "guestunmount",
 						status_string,

@@ -220,7 +220,7 @@ main (int argc, char *argv[])
 
   free (error);
 
-  exit (2);
+  exit (3);
 
   /* success */
  done:
