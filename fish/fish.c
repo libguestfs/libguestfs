@@ -645,8 +645,8 @@ shell_script (void)
 static char *ps1 = NULL;        /* GUESTFISH_PS1 */
 static char *ps_output = NULL;  /* GUESTFISH_OUTPUT */
 static char *ps_init = NULL;    /* GUESTFISH_INIT */
-#endif /* HAVE_LIBREADLINE */
 static char *ps_restore = NULL; /* GUESTFISH_RESTORE */
+#endif /* HAVE_LIBREADLINE */
 static char *line_read = NULL;
 
 static char *
