@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-19 22:49+0000\n"
+"POT-Creation-Date: 2015-11-24 22:52+0000\n"
 "PO-Revision-Date: 2015-01-10 08:39-0500\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -2848,7 +2848,7 @@ msgid ""
 "However because the input format was not defined, we do not know what output "
 "format you want to use.  You have two choices: either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
-"format"
+"format."
 msgstr ""
 
 #: ../v2v/input_libvirtxml.ml:139
@@ -8865,44 +8865,44 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "Sie müssen guestfs_add_drive vor guestfs_launch aufrufen"
 
-#: src/launch-direct.c:834 src/launch-libvirt.c:604
+#: src/launch-direct.c:840 src/launch-libvirt.c:604
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1236 src/launch-libvirt.c:1393
+#: src/launch-direct.c:1242 src/launch-libvirt.c:1393
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1394
+#: src/launch-direct.c:1400
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1403
+#: src/launch-direct.c:1409
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1410
+#: src/launch-direct.c:1416
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1418
+#: src/launch-direct.c:1424
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1426
+#: src/launch-direct.c:1432
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1449
+#: src/launch-direct.c:1455
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "

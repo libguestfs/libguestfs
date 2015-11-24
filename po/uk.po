@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-19 22:49+0000\n"
+"POT-Creation-Date: 2015-11-24 22:52+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -3304,19 +3304,8 @@ msgid ""
 "However because the input format was not defined, we do not know what output "
 "format you want to use.  You have two choices: either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
-"format"
+"format."
 msgstr ""
-"диск %s (%s) не має визначеного формату.\n"
-"\n"
-"Вхідні метадані не визначають формату цього диска (наприклад raw/qcow2/"
-"тощо), отже virt-v2v спробує автоматично визначити формат під час читання "
-"диска.\n"
-"\n"
-"Втім, оскільки вхідний формат не визначено, програмі невідомий формат "
-"виведення, яким ви хочете скористатися. Ви можете скористатися одним із "
-"таких варіантів: визначити початковий формат у метаданих джерела, "
-"використати параметр «-of» для примусового визначення формату виведення "
-"даних."
 
 #: ../v2v/input_libvirtxml.ml:139
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
@@ -10308,36 +10297,36 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:834 src/launch-libvirt.c:604
+#: src/launch-direct.c:840 src/launch-libvirt.c:604
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1236 src/launch-libvirt.c:1393
+#: src/launch-direct.c:1242 src/launch-libvirt.c:1393
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-direct.c:1394
+#: src/launch-direct.c:1400
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr "не можна вмикати discard для цього диска: qemu < 1.5"
 
-#: src/launch-direct.c:1403
+#: src/launch-direct.c:1409
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 "не можна вмикати discard для цього диска: на диску є призначена лише для "
 "читання накладка"
 
-#: src/launch-direct.c:1410
+#: src/launch-direct.c:1416
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 "не можна вмикати discard для цього диска: вам слід вказати формат файла"
 
-#: src/launch-direct.c:1418
+#: src/launch-direct.c:1424
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
@@ -10345,7 +10334,7 @@ msgstr ""
 "не можна вмикати discard для цього диска: у qemu < 1.6  не передбачено "
 "підтримки discard для файлів qcow2"
 
-#: src/launch-direct.c:1426
+#: src/launch-direct.c:1432
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
@@ -10354,7 +10343,7 @@ msgstr ""
 "не можна вмикати discard для цього диска: у qemu не передбачено підтримки "
 "discard для файлів у форматі «%s»"
 
-#: src/launch-direct.c:1449
+#: src/launch-direct.c:1455
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -11159,6 +11148,30 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "disk %s (%s) has no defined format.\n"
+#~ "\n"
+#~ "The input metadata did not define the disk format (eg. raw/qcow2/etc) of "
+#~ "this disk, and so virt-v2v will try to autodetect the format when reading "
+#~ "it.\n"
+#~ "\n"
+#~ "However because the input format was not defined, we do not know what "
+#~ "output format you want to use.  You have two choices: either define the "
+#~ "original format in the source metadata, or use the '-of' option to force "
+#~ "the output format"
+#~ msgstr ""
+#~ "диск %s (%s) не має визначеного формату.\n"
+#~ "\n"
+#~ "Вхідні метадані не визначають формату цього диска (наприклад raw/qcow2/"
+#~ "тощо), отже virt-v2v спробує автоматично визначити формат під час читання "
+#~ "диска.\n"
+#~ "\n"
+#~ "Втім, оскільки вхідний формат не визначено, програмі невідомий формат "
+#~ "виведення, яким ви хочете скористатися. Ви можете скористатися одним із "
+#~ "таких варіантів: визначити початковий формат у метаданих джерела, "
+#~ "використати параметр «-of» для примусового визначення формату виведення "
+#~ "даних."
 
 #~ msgid "no root device found in this operating system image."
 #~ msgstr "у цьому образі операційної системи не знайдено кореневого пристрою."
