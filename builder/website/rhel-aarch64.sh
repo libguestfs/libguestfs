@@ -37,7 +37,7 @@ guestroot=/dev/sda4
 case $version in
     7.*)
         major=7
-        topurl=http://download.eng.rdu2.redhat.com/nightly/RHEL-$version/compose
+        topurl=http://download.eng.bos.redhat.com/released/RHEL-7/$version/
         tree=$topurl/Server/aarch64/os
         baseurl=$tree
         srpms=$topurl/Server/source/tree
