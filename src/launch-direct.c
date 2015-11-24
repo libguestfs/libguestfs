@@ -389,11 +389,17 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 #ifdef MACHINE_TYPE
                  MACHINE_TYPE ","
 #endif
+#ifdef __aarch64__
+		 "gic-version=host,"
+#endif
                  "accel=kvm:tcg");
   else
     ADD_CMDLINE (
 #ifdef MACHINE_TYPE
                  MACHINE_TYPE ","
+#endif
+#ifdef __aarch64__
+		 "gic-version=host,"
 #endif
                  "accel=tcg");
 
