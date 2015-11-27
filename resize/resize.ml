@@ -1159,6 +1159,28 @@ read the man page virt-resize(1).
       g#part_add "/dev/sdb" "primary" p.p_target_start p.p_target_end
   ) partitions;
 
+  (* Set bootable and MBR IDs.  Do this *before* copying over the data,
+   * because the rewritten sfdisk "helpfully" overwrites the partition
+   * table in the first sector of an extended partition if a partition
+   * is changed from primary to extended.  Thus we need to set the
+   * MBR ID before doing the copy so sfdisk doesn't corrupt things.
+   *)
+  let set_partition_bootable_and_id p =
+      if p.p_bootable then
+        g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
+
+      may (g#part_set_name "/dev/sdb" p.p_target_partnum) p.p_label;
+      may (g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum) p.p_guid;
+
+      match parttype, p.p_id with
+      | GPT, GPT_Type gpt_type ->
+        g#part_set_gpt_type "/dev/sdb" p.p_target_partnum gpt_type
+      | MBR, MBR_ID mbr_id ->
+        g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
+      | GPT, (No_ID|MBR_ID _) | MBR, (No_ID|GPT_Type _) -> ()
+  in
+  List.iter set_partition_bootable_and_id partitions;
+
   (* Copy over the data. *)
   let copy_partition p =
       match p.p_operation with
@@ -1201,26 +1223,6 @@ read the man page virt-resize(1).
       | OpIgnore | OpDelete -> ()
   in
   List.iter copy_partition partitions;
-
-  (* Set bootable and MBR IDs.  Do this *after* copying over the data,
-   * so that we can magically change the primary partition to an extended
-   * partition if necessary.
-   *)
-  let set_partition_bootable_and_id p =
-      if p.p_bootable then
-        g#part_set_bootable "/dev/sdb" p.p_target_partnum true;
-
-      may (g#part_set_name "/dev/sdb" p.p_target_partnum) p.p_label;
-      may (g#part_set_gpt_guid "/dev/sdb" p.p_target_partnum) p.p_guid;
-
-      match parttype, p.p_id with
-      | GPT, GPT_Type gpt_type ->
-        g#part_set_gpt_type "/dev/sdb" p.p_target_partnum gpt_type
-      | MBR, MBR_ID mbr_id ->
-        g#part_set_mbr_id "/dev/sdb" p.p_target_partnum mbr_id
-      | GPT, (No_ID|MBR_ID _) | MBR, (No_ID|GPT_Type _) -> ()
-  in
-  List.iter set_partition_bootable_and_id partitions;
 
   (* Fix the bootloader if we aligned the first partition. *)
   if align_first_partition_and_fix_bootloader then (
