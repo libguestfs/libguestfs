@@ -670,7 +670,7 @@ worker_thread (void *vp)
          */
         if (!is_zero (outbuf, wsz)) {
           if (xpwrite (global->ofd, outbuf, wsz, oposition) == -1) {
-            perror (global->filename);
+            perror (global->outputfile);
             return &state->status;
           }
         }
