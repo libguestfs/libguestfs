@@ -1457,6 +1457,8 @@ See also: L<guestfs(3)/GLUSTER>
 
 Connect to the iSCSI server.
 The C<server> parameter must also be supplied - see below.
+The C<username> parameter may be supplied.  See below.
+The C<secret> parameter may be supplied.  See below.
 
 See also: L<guestfs(3)/ISCSI>.
 

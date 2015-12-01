@@ -364,16 +364,6 @@ static struct drive *
 create_drive_iscsi (guestfs_h *g,
                     const struct drive_create_data *data)
 {
-  if (data->username != NULL) {
-    error (g, _("iscsi: you cannot specify a username with this protocol"));
-    return NULL;
-  }
-
-  if (data->secret != NULL) {
-    error (g, _("iscsi: you cannot specify a secret with this protocol"));
-    return NULL;
-  }
-
   if (data->nr_servers != 1) {
     error (g, _("iscsi: you must specify exactly one server"));
     return NULL;
