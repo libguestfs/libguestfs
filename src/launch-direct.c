@@ -1274,9 +1274,34 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *sr
     return make_uri (g, "https", src->username, src->secret,
                      &src->servers[0], src->u.exportname);
 
-  case drive_protocol_iscsi:
-    return make_uri (g, "iscsi", NULL, NULL,
-                     &src->servers[0], src->u.exportname);
+  case drive_protocol_iscsi: {
+    CLEANUP_FREE char *escaped_hostname = NULL;
+    CLEANUP_FREE char *escaped_target = NULL;
+    CLEANUP_FREE char *userauth = NULL;
+    char port_str[16];
+    char *ret;
+
+    escaped_hostname =
+      (char *) xmlURIEscapeStr(BAD_CAST src->servers[0].u.hostname,
+                               BAD_CAST "");
+    /* The target string must keep slash as it is, as exportname contains
+     * "iqn/lun".
+     */
+    escaped_target =
+      (char *) xmlURIEscapeStr(BAD_CAST src->u.exportname, BAD_CAST "/");
+    if (src->username != NULL && src->secret != NULL)
+      userauth = safe_asprintf (g, "%s%%%s@", src->username, src->secret);
+    if (src->servers[0].port != 0)
+      snprintf (port_str, sizeof port_str, ":%d", src->servers[0].port);
+
+    ret = safe_asprintf (g, "iscsi://%s%s%s/%s",
+                         userauth != NULL ? userauth : "",
+                         escaped_hostname,
+                         src->servers[0].port != 0 ? port_str : "",
+                         escaped_target);
+
+    return ret;
+  }
 
   case drive_protocol_nbd: {
     CLEANUP_FREE char *p = NULL;
