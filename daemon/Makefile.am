@@ -96,7 +96,6 @@ guestfsd_SOURCES = \
 	cap.c \
 	checksum.c \
 	cmp.c \
-	command.c \
 	compress.c \
 	copy.c \
 	cpio.c \
@@ -166,6 +165,7 @@ guestfsd_SOURCES = \
 	scrub.c \
 	selinux.c \
 	sfdisk.c \
+	sh.c \
 	sleep.c \
 	stat.c \
 	statvfs.c \
