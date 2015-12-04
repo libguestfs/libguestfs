@@ -96,6 +96,8 @@ guestfsd_SOURCES = \
 	cap.c \
 	checksum.c \
 	cmp.c \
+	command.c \
+	command.h \
 	compress.c \
 	copy.c \
 	cpio.c \

@@ -25,7 +25,9 @@ daemon/blockdev.c
 daemon/btrfs.c
 daemon/cap.c
 daemon/checksum.c
+daemon/cleanups.c
 daemon/cmp.c
+daemon/command.c
 daemon/compress.c
 daemon/copy.c
 daemon/cpio.c

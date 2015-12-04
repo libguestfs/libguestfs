@@ -32,6 +32,9 @@
 
 #include "guestfs-internal-all.h"
 
+#include "cleanups.h"
+#include "command.h"
+
 /* Mountables */
 
 typedef struct {
@@ -117,27 +120,8 @@ extern char **split_lines (char *str);
 
 extern char **empty_list (void);
 
-#define command(out,err,name,...) commandf((out),(err),0,(name),__VA_ARGS__)
-#define commandr(out,err,name,...) commandrf((out),(err),0,(name),__VA_ARGS__)
-#define commandv(out,err,argv) commandvf((out),(err),0,(argv))
-#define commandrv(out,err,argv) commandrvf((out),(err),0,(argv))
-
 #define __external_command __attribute__((__section__(".guestfsd_ext_cmds")))
 #define GUESTFSD_EXT_CMD(___ext_cmd_var, ___ext_cmd_str) static const char ___ext_cmd_var[] __external_command = #___ext_cmd_str
-
-#define COMMAND_FLAG_FD_MASK                   0x0000ffff
-#define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR     0x00010000
-#define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 0x00020000
-#define COMMAND_FLAG_DO_CHROOT                 0x00040000
-
-extern int commandf (char **stdoutput, char **stderror, unsigned flags,
-                     const char *name, ...) __attribute__((sentinel));
-extern int commandrf (char **stdoutput, char **stderror, unsigned flags,
-                      const char *name, ...) __attribute__((sentinel));
-extern int commandvf (char **stdoutput, char **stderror, unsigned flags,
-                      char const *const *argv);
-extern int commandrvf (char **stdoutput, char **stderror, unsigned flags,
-                       char const* const *argv);
 
 extern int is_power_of_2 (unsigned long v);
 
@@ -156,14 +140,6 @@ extern int random_name (char *template);
 extern char *get_random_uuid (void);
 
 extern int asprintf_nowarn (char **strp, const char *fmt, ...);
-
-/* Use by the CLEANUP_* macros. */
-extern void cleanup_free (void *ptr);
-extern void cleanup_free_string_list (void *ptr);
-extern void cleanup_unlink_free (void *ptr);
-extern void cleanup_close (void *ptr);
-extern void cleanup_aug_close (void *ptr);
-extern void cleanup_free_stringsbuf (void *ptr);
 
 /*-- in names.c (auto-generated) --*/
 extern const char *function_names[];
@@ -451,22 +427,5 @@ is_zero (const char *buffer, size_t size)
                           details ? ": " : "", details ? details : ""); \
     }                                                                   \
   } while (0)
-
-#ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_FREE __attribute__((cleanup(cleanup_free)))
-#define CLEANUP_FREE_STRING_LIST                        \
-    __attribute__((cleanup(cleanup_free_string_list)))
-#define CLEANUP_UNLINK_FREE __attribute__((cleanup(cleanup_unlink_free)))
-#define CLEANUP_CLOSE __attribute__((cleanup(cleanup_close)))
-#define CLEANUP_AUG_CLOSE __attribute__((cleanup(cleanup_aug_close)))
-#define CLEANUP_FREE_STRINGSBUF __attribute__((cleanup(cleanup_free_stringsbuf)))
-#else
-#define CLEANUP_FREE
-#define CLEANUP_FREE_STRING_LIST
-#define CLEANUP_UNLINK_FREE
-#define CLEANUP_CLOSE
-#define CLEANUP_AUG_CLOSE
-#define CLEANUP_FREE_STRINGSBUF
-#endif
 
 #endif /* GUESTFSD_DAEMON_H */
