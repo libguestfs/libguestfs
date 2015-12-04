@@ -369,6 +369,8 @@ let main () =
 
     goal_must, goal_must_not in
 
+  let cache_dir = (new G.guestfs ())#get_cachedir () in
+
   (* Planner: Transitions. *)
   let transitions itags =
     let is t = List.mem_assoc t itags in
@@ -385,7 +387,7 @@ let main () =
     (* Since the final plan won't run in parallel, we don't only need
      * to choose unique tempfiles per transition, so this is OK:
      *)
-    let tempfile = Filename.temp_file "vb" ".img" in
+    let tempfile = Filename.temp_file ~temp_dir:cache_dir "vb" ".img" in
     unlink_on_exit tempfile;
 
     (* Always possible to copy from one place to another.  The only
