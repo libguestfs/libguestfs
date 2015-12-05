@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-24 22:52+0000\n"
+"POT-Creation-Date: 2015-12-05 23:39+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -55,7 +55,7 @@ msgstr "%s"
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:206
-#. ../builder/builder.ml:660
+#. ../builder/builder.ml:662
 #: ../v2v/v2v.ml:563 ../v2v/v2v.ml:379 ../sysprep/main.ml:239
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
@@ -1130,7 +1130,7 @@ msgstr "Стиснутий формат виведення даних"
 msgid "Compressing the image as tar"
 msgstr "Стискаємо образ за допомогою tar"
 
-#: ../builder/builder.ml:609
+#: ../builder/builder.ml:611
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
@@ -1142,7 +1142,7 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../dib/dib.ml:888 ../builder/builder.ml:608
+#: ../dib/dib.ml:888 ../builder/builder.ml:610
 msgid "Converting to %s"
 msgstr "Перетворюємо на %s"
 
@@ -1154,11 +1154,11 @@ msgstr "Копіювати файли на образ диска"
 msgid "Copy local files or directories into image"
 msgstr "Копіювати локальні файли або каталоги до образу"
 
-#: ../builder/builder.ml:539
+#: ../builder/builder.ml:541
 msgid "Copying"
 msgstr "Копіювання"
 
-#: ../resize/resize.ml:1180
+#: ../resize/resize.ml:1202
 msgid "Copying %s"
 msgstr "Копіюємо %s"
 
@@ -1425,11 +1425,11 @@ msgstr "Розгорнути розділ"
 msgid "Expanded elements: %s"
 msgstr "Розгорнуті елементи: %s"
 
-#: ../resize/resize.ml:1343
+#: ../resize/resize.ml:1345
 msgid "Expanding %s using the '%s' method"
 msgstr "Розширюємо %s з використанням методу «%s»"
 
-#: ../resize/resize.ml:1324
+#: ../resize/resize.ml:1326
 msgid "Expanding %s%s using the '%s' method"
 msgstr "Розширюємо %s%s з використанням методу «%s»"
 
@@ -1500,12 +1500,12 @@ msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
 #. ../customize/customize_main.ml:216
-#. ../builder/builder.ml:709
+#. ../builder/builder.ml:711
 #: ../v2v/v2v.ml:131 ../v2v/copy_to_local.ml:240
 msgid "Finishing off"
 msgstr "Завершуємо"
 
-#: ../resize/resize.ml:1244
+#: ../resize/resize.ml:1246
 msgid "Fixing first NTFS partition boot record"
 msgstr "Виправляємо перший запис завантаження розділу NTFS"
 
@@ -1555,7 +1555,7 @@ msgstr ""
 "Формат диска виведених даних (типове значення: той самий формат, що і у "
 "вхідних даних)"
 
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:701
 msgid "Free space"
 msgstr "Вільне місце"
 
@@ -1819,7 +1819,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr "Відкриваємо диски"
 
-#: ../builder/builder.ml:622
+#: ../builder/builder.ml:624
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1855,11 +1855,11 @@ msgstr "Архітектура для виведення даних"
 msgid "Output directory"
 msgstr "Каталог виведених даних"
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:696
 msgid "Output file"
 msgstr "Файл виведення"
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:698
 msgid "Output format"
 msgstr "Формат виведення"
 
@@ -1875,7 +1875,7 @@ msgstr "Формати виведення"
 msgid "Output image UUID(s)"
 msgstr "Вивести UUID образу"
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:697
 msgid "Output size"
 msgstr "Розмір виведення"
 
@@ -1934,7 +1934,7 @@ msgstr "Вибрано %s, оскільки використано «--root %s»
 msgid "Picked %s because '--root first' was used."
 msgstr "Вибрано %s, оскільки використано «--root first»."
 
-#: ../builder/builder.ml:476
+#: ../builder/builder.ml:478
 msgid "Planning how to build this image"
 msgstr "Плануємо побудову цього образу"
 
@@ -2181,7 +2181,7 @@ msgstr "Вилучаємо усі підписки"
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
-#: ../resize/resize.ml:1369
+#: ../resize/resize.ml:1371
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -2194,11 +2194,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:566
+#: ../builder/builder.ml:568
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:594
+#: ../builder/builder.ml:596
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Змінюємо розміри контейнера (але не файлової системи) для розширення диска "
@@ -2816,7 +2816,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:699
 msgid "Total usable space"
 msgstr "Загальне придатне до використання місце"
 
@@ -2848,7 +2848,7 @@ msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 msgid "Umounting the disks"
 msgstr "Демонтуємо диски"
 
-#: ../builder/builder.ml:554
+#: ../builder/builder.ml:556
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -3456,7 +3456,7 @@ msgstr ""
 "  виявлений відбиток: %s\n"
 "  очікуваний відбиток: %s"
 
-#: ../resize/resize.ml:1242
+#: ../resize/resize.ml:1244
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 "форматом першого розділу є NTFS, але розділ не містить контрольної суми "
@@ -3783,7 +3783,7 @@ msgstr "немає каталогу кешування\n"
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr "не знайдено файла налаштувань grub1/grub-legacy або grub2"
 
-#: ../builder/builder.ml:664
+#: ../builder/builder.ml:666
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3846,7 +3846,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr "на допоміжному диску не знайдено розділів"
 
-#: ../builder/builder.ml:481
+#: ../builder/builder.ml:483
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"

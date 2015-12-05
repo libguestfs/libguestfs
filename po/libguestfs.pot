@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.31.28\n"
+"Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-24 22:52+0000\n"
+"POT-Creation-Date: 2015-12-05 23:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:206
-#. ../builder/builder.ml:660
+#. ../builder/builder.ml:662
 #: ../v2v/v2v.ml:563 ../v2v/v2v.ml:379 ../sysprep/main.ml:239
 msgid "%s (ignored)"
 msgstr ""
@@ -938,7 +938,7 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:609
+#: ../builder/builder.ml:611
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -950,7 +950,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:888 ../builder/builder.ml:608
+#: ../dib/dib.ml:888 ../builder/builder.ml:610
 msgid "Converting to %s"
 msgstr ""
 
@@ -962,11 +962,11 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:539
+#: ../builder/builder.ml:541
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1180
+#: ../resize/resize.ml:1202
 msgid "Copying %s"
 msgstr ""
 
@@ -1222,11 +1222,11 @@ msgstr ""
 msgid "Expanded elements: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1343
+#: ../resize/resize.ml:1345
 msgid "Expanding %s using the '%s' method"
 msgstr ""
 
-#: ../resize/resize.ml:1324
+#: ../resize/resize.ml:1326
 msgid "Expanding %s%s using the '%s' method"
 msgstr ""
 
@@ -1292,12 +1292,12 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:216
-#. ../builder/builder.ml:709
+#. ../builder/builder.ml:711
 #: ../v2v/v2v.ml:131 ../v2v/copy_to_local.ml:240
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1244
+#: ../resize/resize.ml:1246
 msgid "Fixing first NTFS partition boot record"
 msgstr ""
 
@@ -1340,7 +1340,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:701
 msgid "Free space"
 msgstr ""
 
@@ -1575,7 +1575,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:622
+#: ../builder/builder.ml:624
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1611,11 +1611,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:696
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:698
 msgid "Output format"
 msgstr ""
 
@@ -1631,7 +1631,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:697
 msgid "Output size"
 msgstr ""
 
@@ -1690,7 +1690,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:476
+#: ../builder/builder.ml:478
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1921,7 +1921,7 @@ msgstr ""
 msgid "Rename guest when converting"
 msgstr ""
 
-#: ../resize/resize.ml:1369
+#: ../resize/resize.ml:1371
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -1931,11 +1931,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:566
+#: ../builder/builder.ml:568
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:594
+#: ../builder/builder.ml:596
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2425,7 +2425,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:699
 msgid "Total usable space"
 msgstr ""
 
@@ -2457,7 +2457,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:554
+#: ../builder/builder.ml:556
 msgid "Uncompressing"
 msgstr ""
 
@@ -2976,7 +2976,7 @@ msgid ""
 "  expected fingerprint: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1242
+#: ../resize/resize.ml:1244
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
@@ -3265,7 +3265,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:664
+#: ../builder/builder.ml:666
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3314,7 +3314,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:481
+#: ../builder/builder.ml:483
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
