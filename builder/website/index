@@ -500,6 +500,28 @@ notes=Fedora 23 Server.
  Source and further information is available from http://fedoraproject.org/
 
 [fedora-23]
+name=Fedora® 23 Server (i686)
+osinfo=fedora23
+arch=i686
+file=fedora-23-i686.xz
+checksum=b3142d8330f68870e986bd2861e6ad8bda27a6fe3eede3dc6bfc3c841fcc87caed98c829da9a2e7f5d866fedbbc8eccfff83bbc9cda0246cd57486e462a9f3c9
+format=raw
+size=6442450944
+compressed_size=259261944
+expand=/dev/sda3
+notes=Fedora 23 Server (i686)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-i686.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-23]
 name=Fedora® 23 Server (aarch64)
 osinfo=fedora23
 arch=aarch64
