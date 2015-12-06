@@ -24,7 +24,7 @@ EXTRA_DIST = \
 	guestfs-perl.pod
 
 CLEANFILES = \
-	guestfs-perl.3
+	guestfs-perl.3 \
 	stamp-guestfs-perl.pod
 
 man_MANS = guestfs-perl.3
