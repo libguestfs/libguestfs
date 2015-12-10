@@ -1143,6 +1143,10 @@ Oracle Linux.
 
 Pardus.
 
+=item \"pldlinux\"
+
+PLD Linux.
+
 =item \"redhat-based\"
 
 Some Red Hat-derived distro.

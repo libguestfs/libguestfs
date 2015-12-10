@@ -206,6 +206,8 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
         distro = OS_DISTRO_MAGEIA;
       else if (VALUE_IS ("opensuse"))
         distro = OS_DISTRO_OPENSUSE;
+      else if (VALUE_IS ("pld"))
+        distro = OS_DISTRO_PLD_LINUX;
       else if (VALUE_IS ("rhel"))
         distro = OS_DISTRO_RHEL;
       else if (VALUE_IS ("sles"))

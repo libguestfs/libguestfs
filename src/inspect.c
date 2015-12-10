@@ -275,6 +275,7 @@ guestfs_impl_inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_OPENSUSE: ret = safe_strdup (g, "opensuse"); break;
   case OS_DISTRO_ORACLE_LINUX: ret = safe_strdup (g, "oraclelinux"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
+  case OS_DISTRO_PLD_LINUX: ret = safe_strdup (g, "pldlinux"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
   case OS_DISTRO_SCIENTIFIC_LINUX: ret = safe_strdup (g, "scientificlinux"); break;
