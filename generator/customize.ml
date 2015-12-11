@@ -521,7 +521,7 @@ You should only use this option for guests which support SELinux.";
   { flag_name = "sm-credentials";
     flag_type = FlagSMCredentials "SELECTOR";
     flag_ml_var = "sm_credentials";
-    flag_shortdesc = "credentials for subscription-manager";
+    flag_shortdesc = "Credentials for subscription-manager";
     flag_pod_longdesc = "\
 Set the credentials for C<subscription-manager>.
 
