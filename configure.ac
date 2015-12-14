@@ -155,6 +155,8 @@ nw="$nw -Winline"                    # daemon.h's asprintf_nowarn
 nw="$nw -Wshadow"                    # numerous, plus we're not unanimous
 nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                      # was not possible, safe to ignore
+nw="$nw -Wstack-protector"           # Useless warning when stack protector
+                                     # cannot being used in a function.
 nw="$nw -Wpacked"                    # Allow attribute((packed)) on structs
 nw="$nw -Wlong-long"                 # Allow long long since it's required
                                      # by Python, Ruby and xstrtoll.
