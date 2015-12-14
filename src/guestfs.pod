@@ -1550,7 +1550,7 @@ such as L<guestfish(1)> with the I<--live> option will "just work".
 
 By calling L</guestfs_set_backend> you can change how the library
 connects to the C<guestfsd> daemon in L</guestfs_launch> (read
-L</ARCHITECTURE> for some background).
+L<guestfs-internals(1)/ARCHITECTURE> for some background).
 
 The normal backend is C<direct>, where a small appliance is created
 containing the daemon, and then the library connects to this.
