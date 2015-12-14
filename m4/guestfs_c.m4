@@ -52,6 +52,8 @@ nw="$nw -Winline"                    # inline functions in Python binding
 nw="$nw -Wshadow"                    # Not useful, as it applies to global vars
 nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                      # was not possible, safe to ignore
+nw="$nw -Wstack-protector"           # Useless warning when stack protector
+                                     # cannot being used in a function.
 dnl things I might fix soon:
 nw="$nw -Wpacked"                    # Allow attribute((packed)) on structs
 nw="$nw -Wlong-long"                 # Allow long long since it's required
