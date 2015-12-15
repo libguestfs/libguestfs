@@ -1,42 +1,42 @@
-# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+# Marco Aurélio Krause <ouesten@me.com>, 2015. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2015-12-15 10:57+0000\n"
-"PO-Revision-Date: 2015-09-30 09:24-0400\n"
-"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
-"Language-Team: Catalan\n"
+"PO-Revision-Date: 2015-10-28 05:01-0400\n"
+"Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
+"Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: pt-BR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Zanata 3.7.3\n"
 
 #: ../resize/resize.ml:938
 msgid "  An extra partition will be created for the surplus."
-msgstr "  Es crearà una partició extra per a l'espai restant."
+msgstr "Uma partição extra será criado para o excedente."
 
 #: ../resize/resize.ml:913 ../resize/resize.ml:883
 msgid "  The %s on %s will be expanded using the '%s' method."
-msgstr "  %s en %s s'ampliarà mitjançant el mètode «%s»."
+msgstr "O %s em %s será expandido usando o método '%s'."
 
 #: ../resize/resize.ml:940
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created"
 " and so it will just be ignored."
 msgstr ""
-"  L'espai restant no és suficient per crear una partició extra, de manera "
-"que s'ignorarà."
+"O espaço excedente não é grande o suficiente para uma partição extra ser "
+"criada e por isso vai apenas ser ignorado."
 
 #: ../resize/resize.ml:942
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
 msgstr ""
-"  L'espai restant s'ignorarà. Si voleu, podeu utilitzar un programa de "
-"particionatge al convidat per particionar aquest espai extra."
+"O espaço excedente será ignorado. Execute um programa de particionamento "
+"para dividir este espaço extra, se quiser."
 
 #: ../mllib/common_utils.ml:384
 msgid "%s"
@@ -47,7 +47,7 @@ msgstr "%s"
 #. ../builder/builder.ml:662
 #: ../v2v/v2v.ml:563 ../v2v/v2v.ml:379 ../sysprep/main.ml:239
 msgid "%s (ignored)"
-msgstr "%s (s'ignora)"
+msgstr "%s (ignorado)"
 
 #: ../builder/checksums.ml:54
 msgid ""
@@ -78,13 +78,6 @@ msgid ""
 "\n"
 "If you don't know what the %s mount point should be then you can also find this out through the RHEV-M user interface."
 msgstr ""
-"%s no existeix o no és un directori.\n"
-"\n"
-"La causa més probable: O bé %s (%s) no s'ha adjuntat a cap centre de dades, o el camí %s no és un %s.\n"
-"\n"
-"Hauríeu d'adjuntar primer %s a un centre de dades mitjançant la interfície d'usuari de RHEV-M / OVirt.\n"
-"\n"
-"Si no coneixeu quin hauria de ser el punt de muntatge de %s, també podeu consultar-ho a través de la interfície d'usuari de RHEV-M / OVirt."
 
 #: ../builder/simplestreams_parser.ml:113
 msgid "%s is not a Simple Streams (index) v1.0 JSON file (format: %s)"
@@ -96,24 +89,22 @@ msgstr ""
 
 #: ../customize/customize_run.ml:205
 msgid "%s is not a regular file in the guest"
-msgstr "%s no és un fitxer regular al convidat"
+msgstr ""
 
 #: ../dib/utils.ml:118
 msgid "%s needed but not found"
-msgstr "%s es necessita, però no es va trobar"
+msgstr ""
 
 #. ../v2v/cmdline.ml:66
 #: ../v2v/copy_to_local.ml:37 ../v2v/cmdline.ml:119 ../v2v/cmdline.ml:74
 msgid "%s option used more than once on the command line"
-msgstr "l'opció %s apareix més d'una vegada a la línia d'ordres"
+msgstr ""
 
 #: ../v2v/convert_linux.ml:1311
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
 msgstr ""
-"%s fa referència el dispositiu desconegut \"%s\". Haureu de corregir "
-"manualment aquesta entrada després de la conversió."
 
 #: ../mllib/common_utils.ml:380 ../mllib/common_utils.ml:357
 msgid "%s: %s"
@@ -121,7 +112,7 @@ msgstr "%s: %s"
 
 #: ../customize/customize_run.ml:411
 msgid "%s: %s (ignored)\n"
-msgstr "%s: %s (s'ignora)\n"
+msgstr "%s: %s (ignorado)\n"
 
 #: ../mllib/common_utils.ml:382
 msgid "%s: %s: %s"
@@ -129,15 +120,15 @@ msgstr "%s: %s: %s"
 
 #: ../builder/sources.ml:59
 msgid "%s: '%s' has invalid gpgkey URI\n"
-msgstr "%s: «%s» té un URI no vàlid al gpgkey\n"
+msgstr ""
 
 #: ../builder/sources.ml:69
 msgid "%s: '%s' has non-local gpgkey URI\n"
-msgstr "%s: «%s» té un URI no local al gpgkey\n"
+msgstr ""
 
 #: ../builder/sources.ml:112
 msgid "%s: ... read %d sources\n"
-msgstr "%s: ... es van llegir %d fonts\n"
+msgstr ""
 
 #: ../resize/resize.ml:667
 msgid ""
@@ -147,15 +138,10 @@ msgid ""
 "within this partition.  (This error came from '%s' option on the command "
 "line.)"
 msgstr ""
-"%s: En aquesta partició ampliada hi ha particions lògiques que podrien "
-"resultar malmeses amb la reducció. Si voleu reduir aquesta partició, podeu "
-"utilitzar l'opció «--resize-force», però això podria destruir algunes "
-"particions lògiques dins d'aquesta partició. (Aquest error ve de l'opció "
-"«%s» en la línia d'ordres)"
 
 #: ../resize/resize.ml:910
 msgid "%s: This logical volume will be expanded to maximum size."
-msgstr "%s: Aquest volum lògic s'expandirà a la mida màxima."
+msgstr ""
 
 #: ../resize/resize.ml:663
 msgid ""
@@ -165,11 +151,6 @@ msgid ""
 " but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
-"%s: En aquesta partició hi ha un sistema de fitxers %s el qual seria malmès "
-"amb la reducció per sota dels %Ld bytes (l'usuari va demanar reduir-ho a %Ld"
-" bytes). Si voleu reduir aquesta partició, heu d'utilitzar l'opció "
-"«--resize-force», però això podria destruir les dades en aquesta partició. "
-"(Aquest error ve de l'opció «%s» en la línia d'ordres)"
 
 #: ../resize/resize.ml:659
 msgid ""
@@ -179,11 +160,6 @@ msgid ""
 " but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
-"%s: En aquesta partició hi ha un volum físic LVM que seria malmès amb la "
-"reducció per sota dels %Ld bytes (l'usuari va demanar reduir-ho a %Ld "
-"bytes).  Si voleu reduir aquesta partició, heu d'utilitzar l'opció "
-"«--resize-force», però això podria destruir les dades en aquesta partició. "
-"(Aquest error ve de l'opció «%s» en la línia d'ordres)"
 
 #: ../resize/resize.ml:656
 msgid ""
@@ -192,30 +168,26 @@ msgid ""
 "force' option, but that could destroy any data on this partition.  (This "
 "error came from '%s' option on the command line.)"
 msgstr ""
-"%s: En aquesta partició hi ha un contingut desconegut que podria ser malmès "
-"amb la reducció. Si voleu reduir aquesta partició, heu d'utilitzar l'opció "
-"«--resize-force», però això podria destruir les dades en aquesta partició. "
-"(Aquest error ve de l'opció «%s» en la línia d'ordres)"
 
 #: ../resize/resize.ml:876
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
-"%s: Es crearà aquesta partició, però el contingut s'ignorarà (p. ex. no es "
-"copia a la destinació)."
+"%s: Esta partição será criada, mas o conteúdo será ignorado (ou seja, não "
+"foram copiados para o destino)."
 
 #: ../resize/resize.ml:878
 msgid "%s: This partition will be deleted."
-msgstr "%s: S'eliminarà aquesta partició."
+msgstr "%s: Esta partição será apagada."
 
 #: ../resize/resize.ml:874
 msgid "%s: This partition will be left alone."
-msgstr "%s: Aquesta partició es quedarà sola."
+msgstr ""
 
 #: ../resize/resize.ml:880
 msgid "%s: This partition will be resized from %s to %s."
-msgstr "%s: Es canviarà la mida d'aquesta partició de %s a %s."
+msgstr ""
 
 #: ../builder/cmdline.ml:176
 msgid ""
@@ -232,18 +204,6 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-builder(1).\n"
 msgstr ""
-"%s: construcció ràpida d'imatges de màquines virtuals\n"
-"\n"
-" virt-builder OS-VERSION\n"
-" virt-builder -l\n"
-" virt-builder --notes OS-VERSION\n"
-" virt-builder --print-cache\n"
-" virt-builder --cache-all-templates\n"
-" virt-builder --delete-cache\n"
-" virt-builder --get-kernel IMAGE\n"
-"\n"
-"A continuació es proporciona un resum breu de les opcions.  Per una\n"
-"ajuda més detallada podeu llegir la pàgina man virt-builder(1).\n"
 
 #: ../v2v/windows.ml:98
 msgid "%s: cannot open virtio-win ISO file: %s"
@@ -251,27 +211,27 @@ msgstr ""
 
 #: ../builder/index_parser.ml:138
 msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
-msgstr "%s: no es pot analitzar el camp «compressed_size» per «%s»\n"
+msgstr ""
 
 #: ../builder/index_parser.ml:163
 msgid "%s: cannot parse 'hidden' field for '%s'\n"
-msgstr "%s: no es pot analitzar el camp «hidden» per «%s»\n"
+msgstr ""
 
 #: ../builder/index_parser.ml:119
 msgid "%s: cannot parse 'revision' field for '%s'\n"
-msgstr "%s: no es pot analitzar el camp «revision» per «%s»\n"
+msgstr ""
 
 #: ../builder/index_parser.ml:130
 msgid "%s: cannot parse 'size' field for '%s'\n"
-msgstr "%s: no es pot analitzar el camp «size» per «%s»\n"
+msgstr ""
 
 #: ../builder/index_parser.ml:213
 msgid "%s: cannot use a URI ('%s') in the index file\n"
-msgstr "%s: no es pot utilitzar un URI («%s») al fitxer de l'índex\n"
+msgstr ""
 
 #: ../customize/customize_run.ml:93
 msgid "%s: command exited with an error"
-msgstr "%s: l'ordre va sortir amb un error"
+msgstr ""
 
 #: ../v2v/cmdline.ml:214
 msgid ""
@@ -293,23 +253,6 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-v2v(1).\n"
 msgstr ""
-"%s: conversió d'un convidat per utilitzar KVM\n"
-"\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest\n"
-"\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -os rhev.nfs:/export_domain --network rhevm\n"
-"\n"
-" virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
-"\n"
-" virt-v2v -i disk disk.img -o local -os /var/tmp\n"
-"\n"
-" virt-v2v -i disk disk.img -o glance\n"
-"\n"
-"Hi ha un recull per a la interacció que es diu «virt-p2v», ve com una ISO\n"
-"o una imatge de CD, i es pot arrencar en qualsevol màquina física.\n"
-"\n"
-"A continuació es proporciona un resum breu de les opcions. Per a una\n"
-"ajuda més detallada, si us plau, llegiu la pàgina man virt-v2v(1).\n"
 
 #: ../v2v/copy_to_local.ml:53
 msgid ""
@@ -347,7 +290,7 @@ msgstr ""
 
 #: ../mllib/common_utils.ml:329
 msgid "%s: error: %s"
-msgstr "%s: error: %s"
+msgstr ""
 
 #: ../get-kernel/get_kernel.ml:72
 msgid ""
@@ -359,11 +302,11 @@ msgstr ""
 
 #: ../builder/sources.ml:155
 msgid "%s: file error: %s: %s\n"
-msgstr "%s: error de fitxer: %s: %s\n"
+msgstr ""
 
 #: ../resize/resize.ml:395 ../resize/resize.ml:392
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
-msgstr "%s: el fitxer és massa petit per ser una imatge de disc (%Ld bytes)"
+msgstr ""
 
 #: ../builder/index_parser.ml:80
 msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
