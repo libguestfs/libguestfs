@@ -30,10 +30,18 @@
 int
 main (int argc, char *argv[])
 {
+  const char *s;
   guestfs_h *g;
   struct guestfs_internal_mountable *mountable;
   const char *devices[] = { "/dev/VG/LV", NULL };
   const char *feature[] = { "btrfs", NULL };
+
+  s = getenv ("SKIP_TEST_INTERNAL_PARSE_MOUNTABLE");
+  if (s && STRNEQ (s, "")) {
+    printf ("%s: test skipped because environment variable is set\n",
+            argv[0]);
+    exit (77);
+  }
 
   g = guestfs_create ();
   if (g == NULL) {
