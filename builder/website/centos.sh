@@ -39,7 +39,8 @@ case $version in
         ;;
     7.*)
         major=7
-        # XXX Need to fix the URL when 7.1 comes out.
+        # XXX This always points to the latest CentOS 7, so
+        # effectively the minor number is always ignored.
         tree=http://mirror.centos.org/centos-7/$major/os/x86_64/
         ;;
 esac
