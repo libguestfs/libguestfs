@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.29.48\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-11-17 22:44+0000\n"
+"POT-Creation-Date: 2015-12-15 16:32+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -42,14 +42,14 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:357
+#: ../mllib/common_utils.ml:361
 msgid "%s"
 msgstr ""
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:209
-#. ../builder/builder.ml:655
-#: ../v2v/v2v.ml:710 ../v2v/v2v.ml:544 ../sysprep/main.ml:241
+#. ../builder/builder.ml:657
+#: ../v2v/v2v.ml:717 ../v2v/v2v.ml:551 ../sysprep/main.ml:241
 msgid "%s (ignored)"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:353 ../mllib/common_utils.ml:340
+#: ../mllib/common_utils.ml:357 ../mllib/common_utils.ml:344
 msgid "%s: %s"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "%s: %s (ignored)\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:355
+#: ../mllib/common_utils.ml:359
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:312
+#: ../mllib/common_utils.ml:316
 msgid "%s: error: %s"
 msgstr ""
 
@@ -417,7 +417,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:330
+#: ../mllib/common_utils.ml:334
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -760,7 +760,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:316
+#: ../v2v/v2v.ml:323
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -803,7 +803,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:923
+#: ../v2v/v2v.ml:930
 msgid "CD-ROM"
 msgstr ""
 
@@ -843,11 +843,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:240
+#: ../v2v/v2v.ml:247
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:296
+#: ../v2v/v2v.ml:303
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -855,7 +855,7 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:290
+#: ../v2v/v2v.ml:297
 msgid "Closing the overlay"
 msgstr ""
 
@@ -871,19 +871,19 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:602
+#: ../builder/builder.ml:604
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:255
+#: ../v2v/v2v.ml:262
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:253
+#: ../v2v/v2v.ml:260
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:883 ../builder/builder.ml:601
+#: ../dib/dib.ml:883 ../builder/builder.ml:603
 msgid "Converting to %s"
 msgstr ""
 
@@ -895,11 +895,11 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:530
+#: ../builder/builder.ml:532
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1121
+#: ../resize/resize.ml:1143
 msgid "Copying %s"
 msgstr ""
 
@@ -907,7 +907,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:345
+#: ../v2v/v2v.ml:352
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -935,8 +935,12 @@ msgstr ""
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:448
+#: ../v2v/v2v.ml:455
 msgid "Creating output metadata"
+msgstr ""
+
+#: ../customize/customize_cmdline.ml:430
+msgid "Credentials for subscription-manager"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_bash_history.ml:42
@@ -967,7 +971,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../mllib/common_utils.ml:535
+#: ../mllib/common_utils.ml:539
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -1008,7 +1012,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:531 ../mllib/common_utils.ml:529
+#: ../mllib/common_utils.ml:535 ../mllib/common_utils.ml:533
 msgid "Display version and exit"
 msgstr ""
 
@@ -1036,7 +1040,7 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:537 ../mllib/common_utils.ml:536
+#: ../mllib/common_utils.ml:541 ../mllib/common_utils.ml:540
 msgid "Don't print progress messages"
 msgstr ""
 
@@ -1060,7 +1064,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:480
+#: ../v2v/v2v.ml:487
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1095,7 +1099,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:533 ../mllib/common_utils.ml:532
+#: ../mllib/common_utils.ml:537 ../mllib/common_utils.ml:536
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1103,7 +1107,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:534
+#: ../mllib/common_utils.ml:538
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1111,11 +1115,11 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:493
+#: ../v2v/v2v.ml:500
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:244
+#: ../v2v/v2v.ml:251
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1151,11 +1155,11 @@ msgstr ""
 msgid "Expanded elements: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1295
+#: ../resize/resize.ml:1288
 msgid "Expanding %s using the '%s' method"
 msgstr ""
 
-#: ../resize/resize.ml:1276
+#: ../resize/resize.ml:1269
 msgid "Expanding %s%s using the '%s' method"
 msgstr ""
 
@@ -1216,12 +1220,12 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:463 ../customize/customize_main.ml:219
-#: ../builder/builder.ml:704
+#: ../v2v/v2v.ml:470 ../customize/customize_main.ml:219
+#: ../builder/builder.ml:706
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1194
+#: ../resize/resize.ml:1187
 msgid "Fixing first NTFS partition boot record"
 msgstr ""
 
@@ -1264,7 +1268,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:696
 msgid "Free space"
 msgstr ""
 
@@ -1305,7 +1309,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:317
+#: ../mllib/common_utils.ml:321
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1321,7 +1325,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:185
+#: ../v2v/v2v.ml:192
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1333,7 +1337,7 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:219
+#: ../v2v/v2v.ml:226
 msgid "Inspecting the overlay"
 msgstr ""
 
@@ -1389,11 +1393,11 @@ msgstr ""
 msgid "List available templates"
 msgstr ""
 
-#: ../mllib/common_utils.ml:527
+#: ../mllib/common_utils.ml:531
 msgid "List long options"
 msgstr ""
 
-#: ../mllib/common_utils.ml:526
+#: ../mllib/common_utils.ml:530
 msgid "List short options"
 msgstr ""
 
@@ -1428,7 +1432,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:286
+#: ../v2v/v2v.ml:293
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1495,7 +1499,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:615
+#: ../builder/builder.ml:617
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1527,11 +1531,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:689
+#: ../builder/builder.ml:691
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:691
+#: ../builder/builder.ml:693
 msgid "Output format"
 msgstr ""
 
@@ -1547,7 +1551,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:690
+#: ../builder/builder.ml:692
 msgid "Output size"
 msgstr ""
 
@@ -1555,7 +1559,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:459
+#: ../v2v/v2v.ml:466
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1590,15 +1594,15 @@ msgstr ""
 msgid "Performing %S ..."
 msgstr ""
 
-#: ../v2v/v2v.ml:520
+#: ../v2v/v2v.ml:527
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:511
+#: ../v2v/v2v.ml:518
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:467
+#: ../builder/builder.ml:469
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1829,7 +1833,7 @@ msgstr ""
 msgid "Rename guest when converting"
 msgstr ""
 
-#: ../resize/resize.ml:1321
+#: ../resize/resize.ml:1314
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -1839,11 +1843,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:557
+#: ../builder/builder.ml:559
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:587
+#: ../builder/builder.ml:589
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2301,11 +2305,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:276
+#: ../v2v/v2v.ml:283
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:274
+#: ../v2v/v2v.ml:281
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2316,7 +2320,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:314
+#: ../v2v/v2v.ml:321
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2333,7 +2337,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:692
+#: ../builder/builder.ml:694
 msgid "Total usable space"
 msgstr ""
 
@@ -2365,7 +2369,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:545
+#: ../builder/builder.ml:547
 msgid "Uncompressing"
 msgstr ""
 
@@ -2610,7 +2614,7 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
-#: ../v2v/v2v.ml:500
+#: ../v2v/v2v.ml:507
 msgid "connection closed"
 msgstr ""
 
@@ -2691,10 +2695,6 @@ msgstr ""
 msgid "cp (download) command failed copying '%s'"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:430
-msgid "credentials for subscription-manager"
-msgstr ""
-
 #: ../builder/downloader.ml:125
 msgid "curl (download) command failed downloading '%s'"
 msgstr ""
@@ -2739,7 +2739,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:195
+#: ../v2v/v2v.ml:202
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2750,7 +2750,7 @@ msgid ""
 "However because the input format was not defined, we do not know what output "
 "format you want to use.  You have two choices: either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
-"format"
+"format."
 msgstr ""
 
 #: ../v2v/input_libvirtxml.ml:139
@@ -2822,7 +2822,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:370
+#: ../mllib/common_utils.ml:374
 msgid "exception: %s"
 msgstr ""
 
@@ -2848,15 +2848,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:605
+#: ../mllib/common_utils.ml:609
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:607
+#: ../mllib/common_utils.ml:611
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:609
+#: ../mllib/common_utils.ml:613
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2873,7 +2873,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:361
+#: ../mllib/common_utils.ml:365
 msgid "failure: %s"
 msgstr ""
 
@@ -2891,11 +2891,11 @@ msgid ""
 "  expected fingerprint: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1192
+#: ../resize/resize.ml:1185
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:924
+#: ../v2v/v2v.ml:931
 msgid "floppy disk"
 msgstr ""
 
@@ -2917,7 +2917,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../mllib/common_utils.ml:380
+#: ../mllib/common_utils.ml:384
 msgid "generated by %s %s"
 msgstr ""
 
@@ -2950,6 +2950,21 @@ msgstr ""
 
 #: ../builder/builder.ml:130
 msgid "gpg program is not available"
+msgstr ""
+
+#: ../v2v/v2v.ml:181
+msgid ""
+"guest disk %s appears to be zero bytes in size.\n"
+"\n"
+"There could be several reasons for this:\n"
+"\n"
+"Check that the guest doesn't really have a zero-sized disk.  virt-v2v cannot "
+"convert such a guest.\n"
+"\n"
+"If you are converting a guest from an ssh source and the guest has a disk on "
+"a block device (eg. on a host partition or host LVM LV), then conversions of "
+"this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES"
+"\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 
 #: ../customize/firstboot.ml:138
@@ -3001,7 +3016,7 @@ msgstr ""
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
-#: ../v2v/v2v.ml:611
+#: ../v2v/v2v.ml:618
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -3013,7 +3028,7 @@ msgid ""
 "Inspection field '%s' was 'unknown'."
 msgstr ""
 
-#: ../v2v/v2v.ml:473
+#: ../v2v/v2v.ml:480
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -3025,19 +3040,19 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../mllib/common_utils.ml:368
+#: ../mllib/common_utils.ml:372
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:365
+#: ../mllib/common_utils.ml:369
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:363
+#: ../mllib/common_utils.ml:367
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:357
+#: ../v2v/v2v.ml:364
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -3085,11 +3100,11 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:359
+#: ../mllib/common_utils.ml:363
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:527
+#: ../v2v/v2v.ml:534
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3117,7 +3132,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:507
+#: ../v2v/v2v.ml:514
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3149,7 +3164,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:659
+#: ../builder/builder.ml:661
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3198,7 +3213,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:472
+#: ../builder/builder.ml:474
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3211,7 +3226,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:650
+#: ../v2v/v2v.ml:657
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3265,7 +3280,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/v2v.ml:205
+#: ../v2v/v2v.ml:212
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3339,7 +3354,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:398 ../v2v/v2v.ml:143
+#: ../v2v/v2v.ml:405 ../v2v/v2v.ml:143
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3351,7 +3366,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:921
+#: ../v2v/v2v.ml:928
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3364,7 +3379,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:518
+#: ../v2v/v2v.ml:525
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -3528,7 +3543,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:305
+#: ../v2v/v2v.ml:312
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3568,7 +3583,7 @@ msgid ""
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:539
+#: ../v2v/v2v.ml:546
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3744,7 +3759,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:264
+#: ../v2v/v2v.ml:271
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -7563,24 +7578,24 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:152
+#: p2v/conversion.c:157
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:235
+#: p2v/conversion.c:262
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:247
+#: p2v/conversion.c:274
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:334
+#: p2v/conversion.c:361
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:339
+#: p2v/conversion.c:366
 msgid "Control connection closed by remote."
 msgstr ""
 
