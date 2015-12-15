@@ -932,22 +932,48 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     signal (SIGPIPE, SIG_DFL);
     close (0);
     if (flag_copy_stdin) {
-      dup2 (flag_copy_fd, STDIN_FILENO);
+      if (dup2 (flag_copy_fd, STDIN_FILENO) == -1) {
+        perror ("dup2/flag_copy_fd");
+        _exit (EXIT_FAILURE);
+      }
     } else {
-      /* Set stdin to /dev/null (ignore failure) */
-      ignore_value (open ("/dev/null", O_RDONLY|O_CLOEXEC));
+      /* Set stdin to /dev/null. */
+      if (open ("/dev/null", O_RDONLY) == -1) {
+        perror ("open: /dev/null");
+        _exit (EXIT_FAILURE);
+      }
     }
     close (so_fd[PIPE_READ]);
     close (se_fd[PIPE_READ]);
-    if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR))
-      dup2 (so_fd[PIPE_WRITE], STDOUT_FILENO);
-    else
-      dup2 (se_fd[PIPE_WRITE], STDOUT_FILENO);
-    dup2 (se_fd[PIPE_WRITE], STDERR_FILENO);
+    if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR)) {
+      if (dup2 (so_fd[PIPE_WRITE], STDOUT_FILENO) == -1) {
+        perror ("dup2/so_fd[PIPE_WRITE]");
+        _exit (EXIT_FAILURE);
+      }
+    } else {
+      if (dup2 (se_fd[PIPE_WRITE], STDOUT_FILENO) == -1) {
+        perror ("dup2/se_fd[PIPE_WRITE]");
+        _exit (EXIT_FAILURE);
+      }
+    }
+    if (dup2 (se_fd[PIPE_WRITE], STDERR_FILENO) == -1) {
+      perror ("dup2/se_fd[PIPE_WRITE]");
+      _exit (EXIT_FAILURE);
+    }
     close (so_fd[PIPE_WRITE]);
     close (se_fd[PIPE_WRITE]);
 
-    ignore_value (chdir ("/"));
+    if (flags & COMMAND_FLAG_DO_CHROOT && sysroot_len > 0) {
+      if (chroot (sysroot) == -1) {
+        perror ("chroot in sysroot");
+        _exit (EXIT_FAILURE);
+      }
+    }
+
+    if (chdir ("/") == -1) {
+      perror ("chdir");
+      _exit (EXIT_FAILURE);
+    }
 
     execvp (argv[0], (void *) argv);
     perror (argv[0]);

@@ -244,7 +244,7 @@ do_command (char *const *argv)
 {
   char *out;
   CLEANUP_FREE char *err = NULL;
-  int r, dev_null_fd, flags;
+  int r, flags;
   CLEANUP_BIND_STATE struct bind_state bind_state = { .mounted = false };
   CLEANUP_RESOLVER_STATE struct resolver_state resolver_state =
     { .mounted = false };
@@ -261,17 +261,6 @@ do_command (char *const *argv)
     return NULL;
   }
 
-  /* Provide /dev/null as stdin for the command, since we want
-   * to make sure processes have an open stdin, and it is not
-   * possible to rely on the guest to provide it (Linux guests
-   * get /dev dynamically populated at runtime by udev).
-   */
-  dev_null_fd = open ("/dev/null", O_RDONLY|O_CLOEXEC);
-  if (dev_null_fd == -1) {
-    reply_with_perror ("/dev/null");
-    return NULL;
-  }
-
   if (bind_mount (&bind_state) == -1)
     return NULL;
   if (enable_network) {
@@ -279,11 +268,9 @@ do_command (char *const *argv)
       return NULL;
   }
 
-  flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | dev_null_fd;
+  flags = COMMAND_FLAG_DO_CHROOT;
 
-  CHROOT_IN;
   r = commandvf (&out, &err, flags, (const char * const *) argv);
-  CHROOT_OUT;
 
   free_bind_state (&bind_state);
   free_resolver_state (&resolver_state);

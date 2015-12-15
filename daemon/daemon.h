@@ -128,6 +128,7 @@ extern char **empty_list (void);
 #define COMMAND_FLAG_FD_MASK                   (1024-1)
 #define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR     1024
 #define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 2048
+#define COMMAND_FLAG_DO_CHROOT                 4096
 
 extern int commandf (char **stdoutput, char **stderror, int flags,
                      const char *name, ...) __attribute__((sentinel));
