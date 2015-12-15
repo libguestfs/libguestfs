@@ -19,6 +19,7 @@
 /close-stream.m4
 /codeset.m4
 /configmake.m4
+/ctype.m4
 /cycle-check.m4
 /d-ino.m4
 /dirent_h.m4

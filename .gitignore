@@ -57,6 +57,7 @@ Makefile.in
 /bash/virt-sysprep
 /bash/virt-sparsify
 /build-aux/.gitignore
+/build-aux/ar-lib
 /build-aux/compile
 /build-aux/config.guess
 /build-aux/config.sub
