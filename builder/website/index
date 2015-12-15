@@ -59,6 +59,25 @@ notes=CentOS 7.1
  
  builder/website/centos.sh
 
+[centos-7.2]
+name=CentOS 7.2
+osinfo=centos7.2
+arch=x86_64
+file=centos-7.2.xz
+checksum=b32e6003d1f15e3a97e3644e35bb3fdc345a9b2e7448655d951ec331af6cd2b5548d6acfc9d92f09ac3a8a6439069c27fa539997118cb8a3f77d3bfa45c659d0
+format=raw
+size=6442450944
+compressed_size=252158848
+expand=/dev/sda3
+notes=CentOS 7.2
+ 
+ This CentOS image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/centos.sh
+
 [cirros-0.3.1]
 name=CirrOS 0.3.1
 arch=x86_64
