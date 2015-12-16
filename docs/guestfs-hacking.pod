@@ -722,7 +722,7 @@ L<http://libguestfs.org/download>.
 
 =item *
 
-Edit F<index.html.in> on website.
+Edit F<website/index.html.in>.
 
 =item *
 
