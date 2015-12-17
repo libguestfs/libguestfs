@@ -903,10 +903,32 @@ commandrvf (char **stdoutput, char **stderror, unsigned flags,
   if (stderror) *stderror = NULL;
 
   if (verbose) {
-    printf ("%s", argv[0]);
-    for (i = 1; argv[i] != NULL; ++i)
-      printf (" %s", argv[i]);
-    printf ("\n");
+    printf ("commandrvf: stdout=%s stderr=%s flags=0x%x\n",
+            stdoutput ? "y" : "n", stderror ? "y" : "n", flags);
+    fputs ("commandrvf: ", stdout);
+    fputs (argv[0], stdout);
+    for (i = 1; argv[i] != NULL; ++i) {
+      char quote;
+
+      /* Do simple (and incorrect) quoting of the debug output.  Real
+       * quoting is not necessary because we use execvp to run the
+       * command below.
+       */
+      if (strchr (argv[i], '\''))
+        quote = '"';
+      else if (strchr (argv[i], '"'))
+        quote = '\'';
+      else if (strchr (argv[i], ' '))
+        quote = '"';
+      else
+        quote = 0;
+
+      putchar (' ');
+      if (quote) putchar (quote);
+      fputs (argv[i], stdout);
+      if (quote) putchar (quote);
+    }
+    putchar ('\n');
   }
 
   /* Note: abort is used in a few places along the error paths early
