@@ -756,7 +756,8 @@ join_strings (const char *separator, char *const *argv)
  * 'commandrvf' below.
  */
 int
-commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
+commandf (char **stdoutput, char **stderror, unsigned flags,
+          const char *name, ...)
 {
   va_list args;
   /* NB: Mustn't free the strings which are on the stack. */
@@ -801,7 +802,8 @@ commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
  * We still return -1 if there was some other error.
  */
 int
-commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
+commandrf (char **stdoutput, char **stderror, unsigned flags,
+           const char *name, ...)
 {
   va_list args;
   CLEANUP_FREE const char **argv = NULL;
@@ -841,7 +843,7 @@ commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 
 /* Same as 'command', but passing an argv. */
 int
-commandvf (char **stdoutput, char **stderror, int flags,
+commandvf (char **stdoutput, char **stderror, unsigned flags,
            char const *const *argv)
 {
   int r;
@@ -884,13 +886,13 @@ commandvf (char **stdoutput, char **stderror, int flags,
  * example of usage.
  */
 int
-commandrvf (char **stdoutput, char **stderror, int flags,
+commandrvf (char **stdoutput, char **stderror, unsigned flags,
             char const* const *argv)
 {
   size_t so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
-  int flag_copy_stdin = flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
-  int flag_copy_fd = flags & COMMAND_FLAG_FD_MASK;
+  unsigned flag_copy_stdin = flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
+  int flag_copy_fd = (int) (flags & COMMAND_FLAG_FD_MASK);
   pid_t pid;
   int r, quit, i;
   fd_set rset, rset2;

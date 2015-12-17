@@ -125,18 +125,18 @@ extern char **empty_list (void);
 #define __external_command __attribute__((__section__(".guestfsd_ext_cmds")))
 #define GUESTFSD_EXT_CMD(___ext_cmd_var, ___ext_cmd_str) static const char ___ext_cmd_var[] __external_command = #___ext_cmd_str
 
-#define COMMAND_FLAG_FD_MASK                   (1024-1)
-#define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR     1024
-#define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 2048
-#define COMMAND_FLAG_DO_CHROOT                 4096
+#define COMMAND_FLAG_FD_MASK                   0x0000ffff
+#define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR     0x00010000
+#define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 0x00020000
+#define COMMAND_FLAG_DO_CHROOT                 0x00040000
 
-extern int commandf (char **stdoutput, char **stderror, int flags,
+extern int commandf (char **stdoutput, char **stderror, unsigned flags,
                      const char *name, ...) __attribute__((sentinel));
-extern int commandrf (char **stdoutput, char **stderror, int flags,
+extern int commandrf (char **stdoutput, char **stderror, unsigned flags,
                       const char *name, ...) __attribute__((sentinel));
-extern int commandvf (char **stdoutput, char **stderror, int flags,
+extern int commandvf (char **stdoutput, char **stderror, unsigned flags,
                       char const *const *argv);
-extern int commandrvf (char **stdoutput, char **stderror, int flags,
+extern int commandrvf (char **stdoutput, char **stderror, unsigned flags,
                        char const* const *argv);
 
 extern int is_power_of_2 (unsigned long v);
