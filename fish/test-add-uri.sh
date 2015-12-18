@@ -81,5 +81,12 @@ grep -sq 'add_drive "/disk.img" "protocol:ssh" "server:tcp:example.com" "usernam
 $VG guestfish -x -a ssh://user@example.com:2000/disk.img </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive "/disk.img" "protocol:ssh" "server:tcp:example.com:2000" "username:user"' test-add-uri.out || fail
 
+# iSCSI
+$VG guestfish -x -a iscsi://example.com/iqn.2015-12.com.libguestfs:test1/0 </dev/null >test-add-uri.out 2>&1
+grep -sq 'add_drive "iqn.2015-12.com.libguestfs:test1/0" "protocol:iscsi" "server:tcp:example.com"' test-add-uri.out || fail
+
+$VG guestfish -x -a iscsi://user:password@example.com/iqn.2015-12.com.libguestfs:test2/0 </dev/null >test-add-uri.out 2>&1
+grep -sq 'add_drive "iqn.2015-12.com.libguestfs:test2/0" "protocol:iscsi" "server:tcp:example.com" "username:user" "secret:password"' test-add-uri.out || fail
+
 rm test-add-uri.out
 rm test-add-uri.img

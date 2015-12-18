@@ -91,6 +91,15 @@ check_output
 grep -sq -- '-drive file=iscsi://www.example.com:3000/target-iqn-name/lun,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
+guestfish <<EOF ||:
+  add "target-iqn-name/lun" "format:raw" "protocol:iscsi" "server:www.example.com:3000" \
+    "username:user" "secret:pass"
+  run
+EOF
+check_output
+grep -sq -- '-drive file=iscsi://user%pass@www.example.com:3000/target-iqn-name/lun,' "$DEBUG_QEMU_FILE" || fail
+rm "$DEBUG_QEMU_FILE"
+
 # NBD.
 
 guestfish <<EOF ||:
