@@ -565,6 +565,50 @@ notes=Fedora 23 Server (aarch64)
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[fedora-23]
+name=Fedora® 23 Server (ppc64)
+osinfo=fedora23
+arch=ppc64
+file=fedora-23-ppc64.xz
+checksum=99e0c8186b21525d49c0db074fd25bf6631d2fd2cef2ac22f1b1beb6cb492cfc9aed632a2ea091d39d8762fa892b6d2393fecbde7e140236ba4a88d8c54c3152
+format=raw
+size=6442450944
+compressed_size=280692072
+expand=/dev/sda3
+notes=Fedora 23 Server (ppc64 big endian)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-23]
+name=Fedora® 23 Server (ppc64le)
+osinfo=fedora23
+arch=ppc64le
+file=fedora-23-ppc64le.xz
+checksum=f4a29c710064a2ff15be67a03a07b371c63fb3dc560a2a4d152844212062743459401e27041220397939b3b9832f6244103927176daacd13cda1332d2f78d718
+format=raw
+size=6442450944
+compressed_size=274200248
+expand=/dev/sda3
+notes=Fedora 23 Server (ppc64le)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64le.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
 [scientificlinux-6]
 name=Scientific Linux 6.5
 osinfo=centos6.5
