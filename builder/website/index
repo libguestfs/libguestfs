@@ -592,10 +592,11 @@ name=Fedora® 23 Server (ppc64le)
 osinfo=fedora23
 arch=ppc64le
 file=fedora-23-ppc64le.xz
-checksum=f4a29c710064a2ff15be67a03a07b371c63fb3dc560a2a4d152844212062743459401e27041220397939b3b9832f6244103927176daacd13cda1332d2f78d718
+revision=2
+checksum=bb6a4cb02a4d7f99f3b8a0f73faa585a4c14e0120a4ace584e0c86062736302bd293072513510378ad30bbdb5fc905077f15ecb8fb5f2ab6ef50b0532af6b8a7
 format=raw
 size=6442450944
-compressed_size=274200248
+compressed_size=278241384
 expand=/dev/sda3
 notes=Fedora 23 Server (ppc64le)
  
