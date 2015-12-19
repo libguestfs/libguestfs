@@ -29,7 +29,7 @@ if [ $# -ne 1 ]; then
 fi
 
 version=$1
-tree=https://download.fedoraproject.org/pub/fedora-secondary/releases/21/Server/ppc64/os/
+tree=https://download.fedoraproject.org/pub/fedora-secondary/releases/$version/Server/ppc64/os/
 output=fedora-$version-ppc64
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
@@ -79,7 +79,7 @@ virt-install \
     --name=$tmpname \
     --ram=4096 \
     --vcpus=1 \
-    --os-type=linux --os-variant=fedora21 \
+    --os-type=linux --os-variant=fedora22 \
     --arch ppc64 --machine pseries \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=hvc0 proxy=$http_proxy" \
