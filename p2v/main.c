@@ -1,5 +1,5 @@
 /* virt-p2v
- * Copyright (C) 2009-2015 Red Hat Inc.
+ * Copyright (C) 2009-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ usage (int status)
              guestfs_int_program_name);
   else {
     printf (_("%s: Convert a physical machine to use KVM\n"
-              "Copyright (C) 2009-2015 Red Hat Inc.\n"
+              "Copyright (C) 2009-2016 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options]\n"
               "Options:\n"

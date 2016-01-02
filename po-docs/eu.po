@@ -1773,7 +1773,7 @@ msgstr "Richard W.M. Jones (C<rjones abildua redhat puntu com>)"
 #: ../src/guestfs.pod:3537 ../test-tool/libguestfs-test-tool.pod:190
 #: ../tools/virt-list-partitions:280 ../v2v/virt-v2v-copy-to-local.pod:150
 #: ../v2v/virt-v2v.pod:1866
-msgid "Copyright (C) 2009-2015 Red Hat Inc."
+msgid "Copyright (C) 2009-2016 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -7003,7 +7003,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-log.pod:151 ../examples/guestfs-examples.pod:75
 #: ../make-fs/virt-make-fs.pod:235
-msgid "Copyright (C) 2010-2015 Red Hat Inc."
+msgid "Copyright (C) 2010-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -7780,7 +7780,7 @@ msgstr ""
 #: ../src/guestfs-structs.pod:8
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2015 Red Hat Inc.\n"
+" Copyright (C) 2009-2016 Red Hat Inc.\n"
 "\n"
 msgstr ""
 
@@ -8786,7 +8786,7 @@ msgstr ""
 #. type: textblock
 #: ../customize/virt-customize.pod:275 ../fish/libguestfs-tools.conf.pod:102
 #: ../sparsify/virt-sparsify.pod:456 ../sysprep/virt-sysprep.pod:584
-msgid "Copyright (C) 2011-2015 Red Hat Inc."
+msgid "Copyright (C) 2011-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -13297,7 +13297,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1384 ../docs/guestfs-performance.pod:586
-msgid "Copyright (C) 2012-2015 Red Hat Inc."
+msgid "Copyright (C) 2012-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -55923,7 +55923,7 @@ msgstr ""
 
 #. type: textblock
 #: ../get-kernel/virt-get-kernel.pod:176
-msgid "Copyright (C) 2013-2015 Red Hat Inc."
+msgid "Copyright (C) 2013-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -91034,7 +91034,7 @@ msgstr ""
 
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:279
-msgid "Copyright (C) 2014-2015 Red Hat Inc."
+msgid "Copyright (C) 2014-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

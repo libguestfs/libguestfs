@@ -1,6 +1,6 @@
 /* Regression test for RHBZ#501893.
  * Test that String parameters are checked for != NULL.
- * Copyright (C) 2009-2015 Red Hat Inc.
+ * Copyright (C) 2009-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

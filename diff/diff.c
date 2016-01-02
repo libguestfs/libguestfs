@@ -93,7 +93,7 @@ usage (int status)
              guestfs_int_program_name);
   else {
     printf (_("%s: list differences between virtual machines\n"
-              "Copyright (C) 2010-2015 Red Hat Inc.\n"
+              "Copyright (C) 2010-2016 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options] -d domain1 -D domain2\n"
               "  %s [--options] -a disk1.img -A disk2.img [-a|-A ...]\n"

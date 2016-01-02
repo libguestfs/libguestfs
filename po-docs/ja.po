@@ -1982,7 +1982,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../tools/virt-list-partitions:280 ../v2v/virt-v2v-copy-to-local.pod:150
 #: ../v2v/virt-v2v.pod:1866
 #, fuzzy
-msgid "Copyright (C) 2009-2015 Red Hat Inc."
+msgid "Copyright (C) 2009-2016 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
 #. type: =end
@@ -7379,7 +7379,7 @@ msgstr ""
 #: ../cat/virt-log.pod:151 ../examples/guestfs-examples.pod:75
 #: ../make-fs/virt-make-fs.pod:235
 #, fuzzy
-msgid "Copyright (C) 2010-2015 Red Hat Inc."
+msgid "Copyright (C) 2010-2016 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
 #. type: textblock
@@ -8245,7 +8245,7 @@ msgstr ""
 #: ../src/guestfs-structs.pod:8
 #, fuzzy, no-wrap
 msgid ""
-" Copyright (C) 2009-2015 Red Hat Inc.\n"
+" Copyright (C) 2009-2016 Red Hat Inc.\n"
 "\n"
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
@@ -9262,7 +9262,7 @@ msgstr ""
 #: ../customize/virt-customize.pod:275 ../fish/libguestfs-tools.conf.pod:102
 #: ../sparsify/virt-sparsify.pod:456 ../sysprep/virt-sysprep.pod:584
 #, fuzzy
-msgid "Copyright (C) 2011-2015 Red Hat Inc."
+msgid "Copyright (C) 2011-2016 Red Hat Inc."
 msgstr "Copyright (C) 2011-2012 Red Hat Inc."
 
 #. type: textblock
@@ -13902,7 +13902,7 @@ msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1384 ../docs/guestfs-performance.pod:586
 #, fuzzy
-msgid "Copyright (C) 2012-2015 Red Hat Inc."
+msgid "Copyright (C) 2012-2016 Red Hat Inc."
 msgstr "Copyright (C) 2010-2012 Red Hat Inc."
 
 #. type: textblock
@@ -59131,7 +59131,7 @@ msgstr ""
 
 #. type: textblock
 #: ../get-kernel/virt-get-kernel.pod:176
-msgid "Copyright (C) 2013-2015 Red Hat Inc."
+msgid "Copyright (C) 2013-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -98954,7 +98954,7 @@ msgstr ""
 
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:279
-msgid "Copyright (C) 2014-2015 Red Hat Inc."
+msgid "Copyright (C) 2014-2016 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

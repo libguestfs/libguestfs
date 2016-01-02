@@ -408,7 +408,7 @@ Don't enable GCC warnings (ie. *don't* use
 Copyright and license information
 ----------------------------------------------------------------------
 
-Copyright (C) 2009-2015 Red Hat Inc.
+Copyright (C) 2009-2016 Red Hat Inc.
 
 The library is distributed under the LGPLv2+.  The programs are
 distributed under the GPLv2+.  Please see the files COPYING and
