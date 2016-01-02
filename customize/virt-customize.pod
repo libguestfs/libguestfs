@@ -4,9 +4,16 @@ virt-customize - Customize a virtual machine
 
 =head1 SYNOPSIS
 
- virt-customize [--options]
-    [ -d domname | -a disk.img [-a disk.img ...] ]
+ virt-customize
+    [ -a disk.img [ -a disk.img ... ] | -d domname ]
+    [--attach ISOFILE] [--attach-format FORMAT]
+    [ -c URI | --connect URI ] [ -n | --dry-run ]
+    [ --format FORMAT] [ -m MB | --memsize MB ]
+    [ --network | --no-network ]
+    [ -q | --quiet ] [--smp N] [ -v | --verbose ] [-x]
 __CUSTOMIZE_SYNOPSIS__
+
+ virt-customize [ -V | --version ]
 
 =head1 DESCRIPTION
 
