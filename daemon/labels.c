@@ -39,7 +39,7 @@ e2label (const char *device, const char *label)
   CLEANUP_FREE char *err = NULL;
 
   if (strlen (label) > EXT2_LABEL_MAX) {
-    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+    reply_with_error ("%s: ext2/3/4 labels are limited to %d bytes",
                       label, EXT2_LABEL_MAX);
     return -1;
   }

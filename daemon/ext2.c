@@ -334,7 +334,7 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   int r;
 
   if (strlen (label) > EXT2_LABEL_MAX) {
-    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+    reply_with_error ("%s: ext2/3/4 labels are limited to %d bytes",
                       label, EXT2_LABEL_MAX);
     return -1;
   }
@@ -424,7 +424,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   }
 
   if (strlen (label) > EXT2_LABEL_MAX) {
-    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+    reply_with_error ("%s: ext2/3/4 labels are limited to %d bytes",
                       label, EXT2_LABEL_MAX);
     return -1;
   }
