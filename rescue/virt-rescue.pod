@@ -16,16 +16,6 @@ Old style:
 
  virt-rescue [--options] disk.img [disk.img ...]
 
-=head1 WARNING
-
-You must I<not> use C<virt-rescue> on live virtual machines.  Doing so
-will probably result in disk corruption in the VM.  C<virt-rescue>
-tries to stop you from doing this, but doesn't catch all cases.
-
-However if you use the I<--ro> (read only) option, then you can attach
-a shell to a live virtual machine.  The results might be strange or
-inconsistent at times but you won't get disk corruption.
-
 =head1 DESCRIPTION
 
 virt-rescue is like a Rescue CD, but for virtual machines, and without

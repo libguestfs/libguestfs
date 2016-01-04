@@ -85,6 +85,7 @@ stamp-virt-alignment-scan.pod: virt-alignment-scan.pod
 	  --man virt-alignment-scan.1 \
 	  --html $(top_builddir)/website/virt-alignment-scan.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

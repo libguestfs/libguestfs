@@ -143,6 +143,7 @@ stamp-virt-v2v-test-harness.pod: virt-v2v-test-harness.pod
 	  --man virt-v2v-test-harness.1 \
 	  --html $(top_builddir)/website/virt-v2v-test-harness.1.html \
 	  --license LGPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

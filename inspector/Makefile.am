@@ -102,6 +102,7 @@ stamp-virt-inspector.pod: virt-inspector.pod
 	  --man virt-inspector.1 \
 	  --html $(top_builddir)/website/virt-inspector.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

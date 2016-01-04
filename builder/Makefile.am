@@ -227,6 +227,7 @@ stamp-virt-builder.pod: virt-builder.pod $(top_srcdir)/customize/customize-synop
 	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
 	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -366,6 +367,7 @@ stamp-virt-index-validate.pod: virt-index-validate.pod
 	  --man virt-index-validate.1 \
 	  --html $(top_builddir)/website/virt-index-validate.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

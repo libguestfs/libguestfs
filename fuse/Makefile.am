@@ -113,6 +113,7 @@ stamp-guestmount.pod: guestmount.pod
 	  --man guestmount.1 \
 	  --html $(top_builddir)/website/guestmount.1.html \
 	  --license GPLv2+ \
+	  --warning ro-option \
 	  $<
 	touch $@
 
@@ -123,6 +124,7 @@ stamp-guestunmount.pod: guestunmount.pod
 	  --man guestunmount.1 \
 	  --html $(top_builddir)/website/guestunmount.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

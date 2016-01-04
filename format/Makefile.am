@@ -73,6 +73,7 @@ stamp-virt-format.pod: virt-format.pod
 	  --man virt-format.1 \
 	  --html $(top_builddir)/website/virt-format.1.html \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 

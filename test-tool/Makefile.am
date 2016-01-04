@@ -47,6 +47,7 @@ stamp-libguestfs-test-tool.pod: libguestfs-test-tool.pod
 	  --man libguestfs-test-tool.1 \
 	  --html $(top_builddir)/website/libguestfs-test-tool.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

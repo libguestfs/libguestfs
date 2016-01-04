@@ -160,6 +160,7 @@ stamp-virt-cat.pod: virt-cat.pod
 	  --man virt-cat.1 \
 	  --html $(top_builddir)/website/virt-cat.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -170,6 +171,7 @@ stamp-virt-filesystems.pod: virt-filesystems.pod
 	  --man virt-filesystems.1 \
 	  --html $(top_builddir)/website/virt-filesystems.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -180,6 +182,7 @@ stamp-virt-log.pod: virt-log.pod
 	  --man virt-log.1 \
 	  --html $(top_builddir)/website/virt-log.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -190,6 +193,7 @@ stamp-virt-ls.pod: virt-ls.pod
 	  --man virt-ls.1 \
 	  --html $(top_builddir)/website/virt-ls.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

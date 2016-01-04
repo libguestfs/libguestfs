@@ -161,6 +161,7 @@ stamp-virt-customize.pod: virt-customize.pod $(top_srcdir)/customize/customize-s
 	  --insert $(top_srcdir)/customize/customize-synopsis.pod:__CUSTOMIZE_SYNOPSIS__ \
 	  --insert $(top_srcdir)/customize/customize-options.pod:__CUSTOMIZE_OPTIONS__ \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 

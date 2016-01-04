@@ -552,6 +552,7 @@ Makefile.in
 /test-tool/libguestfs-test-tool.1
 /test-tool/libguestfs-test-tool-helper
 /test-tool/stamp-libguestfs-test-tool.pod
+/tools/stamp-virt-*.pod
 /tools/virt-*.1
 /v2v/.depend
 /v2v/centos-6.img

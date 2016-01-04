@@ -122,6 +122,7 @@ stamp-virt-resize.pod: virt-resize.pod
 	  --man virt-resize.1 \
 	  --html $(top_builddir)/website/virt-resize.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

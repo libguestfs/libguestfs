@@ -10,12 +10,6 @@ virt-tar-in - Unpack a tarball into a virtual machine disk image.
 
  zcat data.tar.gz | virt-tar-in -d domain - /destination
 
-=head1 WARNING
-
-Using C<virt-tar-in> on live virtual machines can be dangerous,
-potentially causing disk corruption.  The virtual machine must be shut
-down before you use this command.
-
 =head1 DESCRIPTION
 
 C<virt-tar-in> unpacks an uncompressed tarball into a virtual machine

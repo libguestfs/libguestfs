@@ -75,6 +75,7 @@ stamp-virt-rescue.pod: virt-rescue.pod
 	  --man virt-rescue.1 \
 	  --html $(top_builddir)/website/virt-rescue.1.html \
 	  --license GPLv2+ \
+	  --warning ro-option \
 	  $<
 	touch $@
 
