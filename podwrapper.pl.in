@@ -218,6 +218,9 @@ die "$progname: $input: no output format specified.  Use --man and/or --html and
 $name = basename ($input, ".pod") unless defined $name;
 $section = 1 unless defined $section;
 
+# Is it a user command line tool?
+my $cli_tool = $section == 1 && $name !~ /^guestfs-/;
+
 # Note that these @...@ are substituted by ./configure.
 my $abs_top_srcdir = "@abs_top_srcdir@";
 my $abs_top_builddir = "@abs_top_builddir@";
@@ -300,6 +303,8 @@ $content =~ s/^=(.*)/\n=encoding utf8\n\n=$1/m;
 
 if ($strict_checks) {
     # Verify sections present / not present.
+    die "$progname: $input: missing DESCRIPTION section\n"
+        if $cli_tool && $content !~ /^=head1 DESCRIPTION/m;
     die "$progname: $input: missing AUTHOR or AUTHORS section\n"
         unless $content =~ /^=head1 AUTHOR/m;
     die "$progname: $input: missing SEE ALSO section\n"
