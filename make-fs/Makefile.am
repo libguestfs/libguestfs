@@ -68,6 +68,7 @@ stamp-virt-make-fs.pod: virt-make-fs.pod
 	  --man virt-make-fs.1 \
 	  --html $(top_builddir)/website/virt-make-fs.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

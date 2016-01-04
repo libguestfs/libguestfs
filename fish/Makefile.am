@@ -211,6 +211,7 @@ stamp-guestfish.pod: guestfish.pod guestfish-actions.pod guestfish-commands.pod 
 	  --insert $(srcdir)/guestfish-commands.pod:__FISH_COMMANDS__ \
 	  --insert $(srcdir)/guestfish-prepopts.pod:__PREPOPTS__ \
 	  --license GPLv2+ \
+	  --warning ro-option \
 	  $<
 	touch $@
 
@@ -232,6 +233,7 @@ stamp-virt-copy-in.pod: virt-copy-in.pod
 	  --man virt-copy-in.1 \
 	  --html $(top_builddir)/website/virt-copy-in.1.html \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 
@@ -242,6 +244,7 @@ stamp-virt-copy-out.pod: virt-copy-out.pod
 	  --man virt-copy-out.1 \
 	  --html $(top_builddir)/website/virt-copy-out.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -252,6 +255,7 @@ stamp-virt-tar-in.pod: virt-tar-in.pod
 	  --man virt-tar-in.1 \
 	  --html $(top_builddir)/website/virt-tar-in.1.html \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 
@@ -262,6 +266,7 @@ stamp-virt-tar-out.pod: virt-tar-out.pod
 	  --man virt-tar-out.1 \
 	  --html $(top_builddir)/website/virt-tar-out.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

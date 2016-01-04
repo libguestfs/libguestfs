@@ -74,6 +74,7 @@ stamp-virt-diff.pod: virt-diff.pod
 	  --man virt-diff.1 \
 	  --html $(top_builddir)/website/virt-diff.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

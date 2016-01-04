@@ -39,24 +39,55 @@ bin_SCRIPTS = $(tools:%=virt-%)
 
 # Manual pages and HTML files for the website.
 
-# XXX Bug in automake?  If you list virt-tar.1 explicitly, then it
-# builds and installs the man pages.  However if this is removed,
-# then the man pages are neither built nor installed.
-man_MANS = virt-tar.1 $(patsubst %,virt-%.1,$(filter-out tar,$(tools)))
+man_MANS = \
+	virt-list-filesystems.1 \
+	virt-list-partitions.1 \
+	virt-tar.1 \
+	virt-win-reg.1
 
-noinst_DATA = $(tools:%=$(top_builddir)/website/virt-%.1.html)
+virt-list-filesystems.1 $(top_builddir)/website/virt-list-filesystems.1.html: stamp-virt-list-filesystems.pod
 
-virt-%.1: virt-%
+stamp-virt-list-filesystems.pod: virt-list-filesystems
 	$(PODWRAPPER) \
-	  --man $@ \
+	  --man virt-list-filesystems.1 \
+	  --html $(top_builddir)/website/virt-list-filesystems.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
+	touch $@
 
-$(top_builddir)/website/virt-%.1.html: virt-%
+virt-list-partitions.1 $(top_builddir)/website/virt-list-partitions.1.html: stamp-virt-list-partitions.pod
+
+stamp-virt-list-partitions.pod: virt-list-partitions
 	$(PODWRAPPER) \
-	  --html $@ \
+	  --man virt-list-partitions.1 \
+	  --html $(top_builddir)/website/virt-list-partitions.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
+	touch $@
+
+virt-tar.1 $(top_builddir)/website/virt-tar.1.html: stamp-virt-tar.pod
+
+stamp-virt-tar.pod: virt-tar
+	$(PODWRAPPER) \
+	  --man virt-tar.1 \
+	  --html $(top_builddir)/website/virt-tar.1.html \
+	  --license GPLv2+ \
+	  --warning custom \
+	  $<
+	touch $@
+
+virt-win-reg.1 $(top_builddir)/website/virt-win-reg.1.html: stamp-virt-win-reg.pod
+
+stamp-virt-win-reg.pod: virt-win-reg
+	$(PODWRAPPER) \
+	  --man virt-win-reg.1 \
+	  --html $(top_builddir)/website/virt-win-reg.1.html \
+	  --license GPLv2+ \
+	  --warning custom \
+	  $<
+	touch $@
 
 # Tests.
 

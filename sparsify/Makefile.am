@@ -118,6 +118,7 @@ stamp-virt-sparsify.pod: virt-sparsify.pod
 	  --man virt-sparsify.1 \
 	  --html $(top_builddir)/website/virt-sparsify.1.html \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 

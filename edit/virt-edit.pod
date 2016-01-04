@@ -16,12 +16,6 @@ Old-style:
 
  virt-edit disk.img [disk.img ...] file
 
-=head1 WARNING
-
-You must I<not> use C<virt-edit> on live virtual machines.  If you do
-this, you risk disk corruption in the VM.  C<virt-edit> tries to stop
-you from doing this, but doesn't catch all cases.
-
 =head1 DESCRIPTION
 
 C<virt-edit> is a command line tool to edit C<file> where each C<file>

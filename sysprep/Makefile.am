@@ -188,6 +188,7 @@ stamp-virt-sysprep.pod: virt-sysprep.pod sysprep-extra-options.pod sysprep-opera
           --insert sysprep-operations.pod:__OPERATIONS__ \
 	  --html $(top_builddir)/website/virt-sysprep.1.html \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 

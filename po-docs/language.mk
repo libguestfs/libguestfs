@@ -108,6 +108,10 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  --insert $(srcdir)/guestfs-structs.pod:__STRUCTS__ \
 	  $<
 
+# XXX --warning parameter is not passed, so no WARNING section is
+# generated in any translated manual.  To fix this we need to expand
+# out all the %.1 pattern rules below.
+
 guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod guestfish-prepopts.pod
 	$(PODWRAPPER) \
 	  --no-strict-checks \

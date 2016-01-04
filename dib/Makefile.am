@@ -121,6 +121,7 @@ stamp-virt-dib.pod: virt-dib.pod
 	  --man virt-dib.1 \
 	  --html $(top_builddir)/website/virt-dib.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

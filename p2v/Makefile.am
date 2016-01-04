@@ -132,6 +132,7 @@ stamp-virt-p2v.pod: virt-p2v.pod
 	  --man virt-p2v.1 \
 	  --html $(top_builddir)/website/virt-p2v.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -142,6 +143,7 @@ stamp-virt-p2v-make-disk.pod: virt-p2v-make-disk.pod
 	  --man virt-p2v-make-disk.1 \
 	  --html $(top_builddir)/website/virt-p2v-make-disk.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -152,6 +154,7 @@ stamp-virt-p2v-make-kickstart.pod: virt-p2v-make-kickstart.pod
 	  --man virt-p2v-make-kickstart.1 \
 	  --html $(top_builddir)/website/virt-p2v-make-kickstart.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

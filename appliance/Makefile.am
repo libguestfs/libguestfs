@@ -134,6 +134,7 @@ stamp-libguestfs-make-fixed-appliance.pod: libguestfs-make-fixed-appliance.pod
 	  --man libguestfs-make-fixed-appliance.1 \
 	  --html $(top_builddir)/website/libguestfs-make-fixed-appliance.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

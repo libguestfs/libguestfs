@@ -77,6 +77,7 @@ stamp-virt-edit.pod: virt-edit.pod
 	  --man virt-edit.1 \
 	  --html $(top_builddir)/website/virt-edit.1.html \
 	  --license GPLv2+ \
+	  --warning general \
 	  $<
 	touch $@
 

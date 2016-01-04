@@ -247,6 +247,7 @@ stamp-virt-v2v.pod: virt-v2v.pod
 	  --man virt-v2v.1 \
 	  --html $(top_builddir)/website/virt-v2v.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 
@@ -257,6 +258,7 @@ stamp-virt-v2v-copy-to-local.pod: virt-v2v-copy-to-local.pod
 	  --man virt-v2v-copy-to-local.1 \
 	  --html $(top_builddir)/website/virt-v2v-copy-to-local.1.html \
 	  --license GPLv2+ \
+	  --warning safe \
 	  $<
 	touch $@
 

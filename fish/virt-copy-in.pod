@@ -8,12 +8,6 @@ virt-copy-in - Copy files and directories into a virtual machine disk image.
 
  virt-copy-in -d domain file|dir [file|dir ...] /destination
 
-=head1 WARNING
-
-Using C<virt-copy-in> on live virtual machines can be dangerous,
-potentially causing disk corruption.  The virtual machine must be
-shut down before you use this command.
-
 =head1 DESCRIPTION
 
 C<virt-copy-in> copies files and directories from the local disk into
