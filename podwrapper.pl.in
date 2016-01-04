@@ -47,6 +47,7 @@ podwrapper.pl - Generate libguestfs documentation from POD input files
            --man virt-foo.1 \
            --html $(top_builddir)/website/virt-foo.1.html \
            --license GPLv2+ \
+           --warning general \
            $<
          touch $@
  
@@ -182,6 +183,31 @@ patterns, in fact you can use any string as the pattern.
 
 =cut
 
+my $warning = "not-set";
+
+=item B<--warning general>
+
+=item B<--warning ro-option>
+
+Add a standard warning section near the top of the manual page,
+warning the user not to use the tool in write mode or concurrently.
+
+There are two variations of the warning: The I<--warning ro-option>
+variation should be used with tools such as L<guestfish(1)> which have
+an I<--ro> option.  The I<--warning general> variation should be used
+with other tools that open the disk image for writes, with no
+read-only option.
+
+=item B<--warning custom>
+
+Use I<--warning custom> if there is already a warning section in the
+manual page.
+
+=item B<--warning safe>
+
+Use I<--warning safe> for tools which are safe, ie. only open disk
+images in read-only mode, or just don't need a warning section.
+
 =back
 
 =cut
@@ -200,7 +226,8 @@ GetOptions ("help|?" => \$help,
             "section=s" => \$section,
             "strict-checks!" => \$strict_checks,
             "text=s" => \$text,
-            "verbatim=s" => \@verbatims
+            "verbatim=s" => \@verbatims,
+            "warning=s" => \$warning,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 
@@ -220,6 +247,13 @@ $section = 1 unless defined $section;
 
 # Is it a user command line tool?
 my $cli_tool = $section == 1 && $name !~ /^guestfs-/;
+
+# Warning parameter is mandatory for user tools in section 1.
+if ($strict_checks && $cli_tool) {
+    die "$progname: $input: missing argument: --warning parameter is missing or invalid\n"
+        unless $warning eq "general" || $warning eq "ro-option" ||
+               $warning eq "custom" || $warning eq "safe";
+}
 
 # Note that these @...@ are substituted by ./configure.
 my $abs_top_srcdir = "@abs_top_srcdir@";
@@ -266,6 +300,7 @@ my $release = "$package_name-$package_version";
 #print "name=$name\n";
 #print "section=$section\n";
 #print "date=$date\n";
+#print "warning=$warning\n";
 
 # Read the input.
 my $content = read_whole_file ($input);
@@ -318,9 +353,18 @@ if ($strict_checks) {
     die "$progname: $input: GPL/LGPL should be specified using the --license parameter, not included in the POD file\n"
         if $content =~ /^This program is free software/ ||
         $content =~ /^This library is free software/;
+    if ($warning eq "general" || $warning eq "ro-option" ||
+        $warning eq "safe") {
+        die "$progname: $input: WARNING is now added automatically using the --warning parameter\n"
+            if $content =~ /^=head1 WARNING/m
+    }
+    elsif ($warning eq "custom") {
+        die "$progname: $input: missing WARNING section\n"
+            unless $content =~ /^=head1 WARNING/m;
+    }
 }
 
-# Add standard LICENSE and BUGS sections.
+# Add standard LICENSE, BUGS and WARNING sections.
 my $LGPLv2plus =
 "This library is free software; you can redistribute it and/or modify it
 under the terms of the GNU Lesser General Public License as published
@@ -393,6 +437,25 @@ output into the bug report.
 \=back
 ";
 
+my $warning_general =
+"Using C<$name>
+on live virtual machines, or concurrently with other
+disk editing tools, can be dangerous, potentially causing disk
+corruption.  The virtual machine must be shut down before you use this
+command, and disk images must not be edited concurrently.";
+
+my $warning_ro_option =
+"Using C<$name> in write mode
+on live virtual machines, or concurrently with other
+disk editing tools, can be dangerous, potentially causing disk
+corruption.  The virtual machine must be shut down before you use this
+command, and disk images must not be edited concurrently.
+
+Use the I<--ro> (read-only) option to use C<$name> safely if the disk
+image or virtual machine might be live.  You may see strange or
+inconsistent results if running concurrently with other changes, but
+with this option you won't risk disk corruption.";
+
 $content .= "\n\n=head1 LICENSE\n\n";
 
 foreach (@licenses) {
@@ -411,6 +474,14 @@ foreach (@licenses) {
 }
 
 $content .= "\n\n$reporting_bugs";
+
+if ($warning eq "general") {
+    $content =~ s/^=head1 DESCRIPTION/=head1 WARNING\n\n$warning_general\n\n=head1 DESCRIPTION/m or die;
+}
+elsif ($warning eq "ro-option") {
+    $content =~ s/^=head1 DESCRIPTION/=head1 WARNING\n\n$warning_ro_option\n\n=head1 DESCRIPTION/m or die;
+}
+# else do nothing for $warning "custom", "safe" or "not-set"
 
 # Output man page.
 SUBMAN: {
