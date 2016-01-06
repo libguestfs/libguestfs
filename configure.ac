@@ -19,7 +19,7 @@
 # add extra information using --with-extra="..." which may be any
 # freeform string.
 m4_define([libguestfs_major],   [1])
-m4_define([libguestfs_minor],   [32])
+m4_define([libguestfs_minor],   [33])
 m4_define([libguestfs_release], [0])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
