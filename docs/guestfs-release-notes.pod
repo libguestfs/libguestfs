@@ -8,14 +8,14 @@ UPDATED TO 6c6c3ea67596afd1947f71d4f3f1252f1cc0f2d6
 
 =end comment
 
-=begin html
+=begin comment
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
-=end html
+=end comment
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.32
 
@@ -27,7 +27,7 @@ the git repository, or the ChangeLog file distributed in the tarball.
 
 =head3 New tools
 
-The new L<virt-v2v-copy-to-local(1)> tool is an auxiliary tool for
+The new L<virt-v2v-copy-to-local(1)> tool is an ancillary tool for
 L<virt-v2v(1)> allowing you to convert source guests that virt-v2v is
 unable to access directly.
 
@@ -55,10 +55,10 @@ default on openSUSE E<ge> 11 (Pino Toscano).
 
 Virt-builder will now correctly handle output filenames containing
 colon characters (C<:>), and will create temporary files in the
-libguestfs cache directory instead of defaulting to C</tmp>
+libguestfs cache directory instead of defaulting to F</tmp>
 (Pino Toscano).
 
-Virt-builder has a new I<--unknown-filesystems> option to control what
+Virt-resize has a new I<--unknown-filesystems> option to control what
 to do when asked to resize a filesystem that libguestfs doesn't know
 how to resize.
 
@@ -108,7 +108,7 @@ essential in order to fix this very serious bug.
 Alpine Linux and the APK package manager, ALT Linux, Frugalware, and
 PLD Linux are now recognized (Pino Toscano).
 
-If it exists, C</etc/os-release> will be preferred for inspecting
+If it exists, F</etc/os-release> will be preferred for inspecting
 Linux guests (Pino Toscano).
 
 The correct kernel version is returned for Windows guests E<ge> 10.
@@ -117,7 +117,7 @@ The correct kernel version is returned for Windows guests E<ge> 10.
 
 The large L<guestfs(3)> man page has been split into several separate
 man pages: L<guestfs-hacking(1)> L<guestfs-internals(1)>
-L<guestfs-security(1)>.  In the source tree, a new C<docs> directory
+L<guestfs-security(1)>.  In the source tree, a new F<docs> directory
 contains this documentation.
 
 =head3 Architectures and platforms
@@ -155,13 +155,13 @@ allowed a malformed filesystem to take over the appliance.
 
 If you use sVirt to confine qemu, that would thwart some attacks.
 
-=item Virt-customize permissions on C<.ssh>, C<.ssh/authorized_keys>
+=item Virt-customize permissions on F<.ssh>, F<.ssh/authorized_keys>
 
 L<https://bugzilla.redhat.com/1260778>.
 
 Previously when asked to inject an SSH key into a guest,
-virt-customize (hence virt-builder too) would create the C<.ssh>
-directory and C<.ssh/authorized_keys> file with too broad permissions,
+virt-customize (hence virt-builder too) would create the F<.ssh>
+directory and F<.ssh/authorized_keys> file with too broad permissions,
 allowing other users to read.  They are now created as C<0700> and
 C<0600> respectively, which is the same as the L<ssh-copy-id(1)>
 utility.
@@ -218,6 +218,11 @@ L<posix_fallocate(3)> for efficiency.
 These extra parameters control whether extended attributes, SELinux
 contexts and/or POSIX ACLs are restored from / saved to tarballs.
 
+=item C<guestfs_add_drive>
+
+The existing C<username> and C<secret> parameters can be used to
+supply authentication for iSCSI (Pino Toscano).
+
 =back
 
 =head2 Build changes
@@ -243,7 +248,7 @@ failed if findlib was not installed.
 
 C<make check> tests now run in parallel (within each test directory).
 
-C<make install> no longer installs OCaml C<bindtests.*> files
+C<make install> no longer installs OCaml F<bindtests.*> files
 incorrectly.
 
 C<make install> can now be run twice.  Previously it would fail on the
@@ -285,17 +290,17 @@ some unsafe functions in stdlib.
 Many more virt-v2v tests will now be run even if you don't have
 rhsrvany and virtio-win installed (Roman Kagan).
 
-The C<configure.ac> file has been split into several smaller files
-called C<m4/guestfs_*.m4>.
+The huge F<configure.ac> file has been split into several smaller
+files called F<m4/guestfs_*.m4>.
 
-The old C<tests/data> and C<tests/guests> directories have been moved
-to C<test-data/>.  This new top level directory carries all test data
+The old F<tests/data> and F<tests/guests> directories have been moved
+to F<test-data/>.  This new top level directory carries all test data
 which is common, large and/or shared between multiple tests.
 
-There is a new top level C<website/> directory containing the public
+There is a new top level F<website/> directory containing the public
 L<http://libguestfs.org> website (or most of it).
 
-The fuzz testing of inspection (C<tests/fuzz>) has been removed.
+The fuzz testing of inspection (F<tests/fuzz>) has been removed.
 
 Virt-p2v now saves the source physical machine dmesg output into the
 conversion server debug directory, making it simpler to debug cases of
@@ -310,6 +315,10 @@ https_proxy= ./bugs-in-changelog.sh 1.30.0..
 =end comment
 
 =over 4
+
+=item L<https://bugzilla.redhat.com/1294956>
+
+set-label returns wrong error message when set the ext3/ext4 filesystem label
 
 =item L<https://bugzilla.redhat.com/1288733>
 
