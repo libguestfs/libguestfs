@@ -741,7 +741,7 @@ ie. 1.XX.0, and commit it:
 Create the stable branch in git:
 
  git branch stable-1.XX
- git push origin tag stable-1.XX
+ git push origin stable-1.XX
 
 =item *
 
