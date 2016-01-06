@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2015-12-16 13:17+0000\n"
+"POT-Creation-Date: 2016-01-06 10:47+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -8477,99 +8477,91 @@ msgid "ssh: username should not be an empty string"
 msgstr ""
 
 #: src/drives.c:368
-msgid "iscsi: you cannot specify a username with this protocol"
-msgstr ""
-
-#: src/drives.c:373
-msgid "iscsi: you cannot specify a secret with this protocol"
-msgstr ""
-
-#: src/drives.c:378
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:384
+#: src/drives.c:374
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:389
+#: src/drives.c:379
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:394
+#: src/drives.c:384
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:416
+#: src/drives.c:406
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:662
+#: src/drives.c:652
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:674
+#: src/drives.c:664
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:681
+#: src/drives.c:671
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:692
+#: src/drives.c:682
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:776
+#: src/drives.c:766
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:789
+#: src/drives.c:779
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:795 src/drives.c:801
+#: src/drives.c:785 src/drives.c:791
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:807
+#: src/drives.c:797
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:813
+#: src/drives.c:803
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:820
+#: src/drives.c:810
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:825
+#: src/drives.c:815
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:829
+#: src/drives.c:819
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:892
+#: src/drives.c:882
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:910 src/drives.c:1058
+#: src/drives.c:900 src/drives.c:1048
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:916
+#: src/drives.c:906
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1043
+#: src/drives.c:1033
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -8853,35 +8845,35 @@ msgstr ""
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1400
+#: src/launch-direct.c:1425
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1409
+#: src/launch-direct.c:1434
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1416
+#: src/launch-direct.c:1441
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1424
+#: src/launch-direct.c:1449
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1432
+#: src/launch-direct.c:1457
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1455
+#: src/launch-direct.c:1480
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
