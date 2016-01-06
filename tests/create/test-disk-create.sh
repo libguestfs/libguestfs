@@ -21,6 +21,11 @@ export LANG=C
 
 set -e
 
+if [ -n "$SKIP_TEST_DISK_CREATE_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
+
 rm -f disk*.img file:*.img
 
 # XXX We should also test failure paths.
