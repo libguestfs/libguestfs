@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-01-06 10:49+0000\n"
+"POT-Creation-Date: 2016-01-06 11:32+0000\n"
 "PO-Revision-Date: 2015-10-28 05:02-0400\n"
 "Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -1148,18 +1148,20 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:692 ../docs/guestfs-hacking.pod:696
 #: ../docs/guestfs-hacking.pod:700 ../docs/guestfs-hacking.pod:714
 #: ../docs/guestfs-hacking.pod:718 ../docs/guestfs-hacking.pod:723
-#: ../docs/guestfs-hacking.pod:727 ../docs/guestfs-performance.pod:105
-#: ../docs/guestfs-performance.pod:111 ../docs/guestfs-performance.pod:116
-#: ../docs/guestfs-performance.pod:243 ../docs/guestfs-performance.pod:248
-#: ../docs/guestfs-performance.pod:253 ../docs/guestfs-performance.pod:373
-#: ../docs/guestfs-performance.pod:377 ../docs/guestfs-performance.pod:383
-#: ../docs/guestfs-performance.pod:389 ../docs/guestfs-recipes.pod:229
-#: ../docs/guestfs-recipes.pod:233 ../docs/guestfs-recipes.pod:237
-#: ../docs/guestfs-recipes.pod:263 ../docs/guestfs-recipes.pod:268
-#: ../docs/guestfs-recipes.pod:375 ../docs/guestfs-recipes.pod:379
-#: ../docs/guestfs-recipes.pod:383 ../docs/guestfs-recipes.pod:387
-#: ../docs/guestfs-recipes.pod:391 ../docs/guestfs-release-notes.pod:144
-#: ../docs/guestfs-release-notes.pod:149 ../docs/guestfs-release-notes.pod:2045
+#: ../docs/guestfs-hacking.pod:727 ../docs/guestfs-hacking.pod:739
+#: ../docs/guestfs-hacking.pod:746 ../docs/guestfs-hacking.pod:750
+#: ../docs/guestfs-performance.pod:105 ../docs/guestfs-performance.pod:111
+#: ../docs/guestfs-performance.pod:116 ../docs/guestfs-performance.pod:243
+#: ../docs/guestfs-performance.pod:248 ../docs/guestfs-performance.pod:253
+#: ../docs/guestfs-performance.pod:373 ../docs/guestfs-performance.pod:377
+#: ../docs/guestfs-performance.pod:383 ../docs/guestfs-performance.pod:389
+#: ../docs/guestfs-recipes.pod:229 ../docs/guestfs-recipes.pod:233
+#: ../docs/guestfs-recipes.pod:237 ../docs/guestfs-recipes.pod:263
+#: ../docs/guestfs-recipes.pod:268 ../docs/guestfs-recipes.pod:375
+#: ../docs/guestfs-recipes.pod:379 ../docs/guestfs-recipes.pod:383
+#: ../docs/guestfs-recipes.pod:387 ../docs/guestfs-recipes.pod:391
+#: ../docs/guestfs-release-notes.pod:144 ../docs/guestfs-release-notes.pod:149
+#: ../docs/guestfs-release-notes.pod:2045
 #: ../docs/guestfs-release-notes.pod:2050
 #: ../docs/guestfs-release-notes.pod:2521
 #: ../docs/guestfs-release-notes.pod:2525
@@ -1346,7 +1348,7 @@ msgstr ""
 #: ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518
 #: ../customize/virt-customize.pod:252 ../daemon/guestfsd.pod:143
 #: ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248
-#: ../docs/guestfs-faq.pod:1372 ../docs/guestfs-hacking.pod:738
+#: ../docs/guestfs-faq.pod:1372 ../docs/guestfs-hacking.pod:757
 #: ../docs/guestfs-internals.pod:400 ../docs/guestfs-performance.pod:567
 #: ../docs/guestfs-recipes.pod:668 ../docs/guestfs-release-notes.pod:4813
 #: ../docs/guestfs-security.pod:324 ../docs/guestfs-testing.pod:384
@@ -1422,7 +1424,7 @@ msgstr ""
 #: ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532
 #: ../customize/virt-customize.pod:273 ../daemon/guestfsd.pod:152
 #: ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262
-#: ../docs/guestfs-faq.pod:1382 ../docs/guestfs-hacking.pod:754
+#: ../docs/guestfs-faq.pod:1382 ../docs/guestfs-hacking.pod:773
 #: ../docs/guestfs-internals.pod:413 ../docs/guestfs-performance.pod:584
 #: ../docs/guestfs-recipes.pod:687 ../docs/guestfs-release-notes.pod:4828
 #: ../docs/guestfs-security.pod:336 ../docs/guestfs-testing.pod:395
@@ -1715,7 +1717,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
 #: ../customize/virt-customize.pod:269 ../docs/guestfs-faq.pod:1378
-#: ../docs/guestfs-hacking.pod:750 ../docs/guestfs-internals.pod:409
+#: ../docs/guestfs-hacking.pod:769 ../docs/guestfs-internals.pod:409
 #: ../docs/guestfs-performance.pod:580 ../docs/guestfs-recipes.pod:683
 #: ../docs/guestfs-security.pod:332 ../docs/guestfs-testing.pod:391
 #: ../erlang/examples/guestfs-erlang.pod:110
@@ -1738,7 +1740,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
-#: ../docs/guestfs-faq.pod:1380 ../docs/guestfs-hacking.pod:752
+#: ../docs/guestfs-faq.pod:1380 ../docs/guestfs-hacking.pod:771
 #: ../docs/guestfs-internals.pod:411 ../docs/guestfs-performance.pod:582
 #: ../docs/guestfs-recipes.pod:685 ../docs/guestfs-security.pod:334
 #: ../docs/guestfs-testing.pod:393 ../erlang/examples/guestfs-erlang.pod:112
@@ -1758,7 +1760,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534
 #: ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
-#: ../docs/guestfs-hacking.pod:756 ../docs/guestfs-internals.pod:415
+#: ../docs/guestfs-hacking.pod:775 ../docs/guestfs-internals.pod:415
 #: ../docs/guestfs-recipes.pod:689 ../docs/guestfs-release-notes.pod:4830
 #: ../docs/guestfs-security.pod:338 ../edit/virt-edit.pod:406
 #: ../fish/guestfish.pod:1636 ../fuse/guestmount.pod:448
@@ -14843,22 +14845,52 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:729
-msgid "Create the branch in git:"
+msgid ""
+"Set the version (in F<configure.ac>) to the new I<stable> version, ie. 1."
+"XX.0, and commit it:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:731
+#: ../docs/guestfs-hacking.pod:732
 #, no-wrap
 msgid ""
-" git tag -a 1.XX.0 -m \"Version 1.XX.0 (stable)\"\n"
-" git tag -a 1.YY.0 -m \"Version 1.YY.0 (development)\"\n"
-" git branch stable-1.XX\n"
-" git push origin tag 1.XX.0 1.YY.0 stable-1.XX\n"
+" ./localconfigure\n"
+" make distclean -k\n"
+" ./localconfigure\n"
+" make && make dist\n"
+" make maintainer-commit\n"
+" make maintainer-tag\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:740
+#: ../docs/guestfs-hacking.pod:741
+msgid "Create the stable branch in git:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/guestfs-hacking.pod:743
+#, no-wrap
+msgid ""
+" git branch stable-1.XX\n"
+" git push origin tag stable-1.XX\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-hacking.pod:748
+msgid "Do a full release of the stable branch."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-hacking.pod:752
+msgid ""
+"Set the version to the next development version and commit that.  Optionally "
+"do a full release of the development branch."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-hacking.pod:759
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-internals(3)>, L<guestfs-"
 "performance(1)>, L<guestfs-release-notes(1)>, L<guestfs-testing(1)>, "
@@ -18143,7 +18175,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:30
 msgid ""
-"The new L<virt-v2v-copy-to-local(1)> tool is an auxiliary tool for L<virt-"
+"The new L<virt-v2v-copy-to-local(1)> tool is an ancillary tool for L<virt-"
 "v2v(1)> allowing you to convert source guests that virt-v2v is unable to "
 "access directly."
 msgstr ""
@@ -18205,13 +18237,13 @@ msgstr ""
 msgid ""
 "Virt-builder will now correctly handle output filenames containing colon "
 "characters (C<:>), and will create temporary files in the libguestfs cache "
-"directory instead of defaulting to C</tmp> (Pino Toscano)."
+"directory instead of defaulting to F</tmp> (Pino Toscano)."
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:61
 msgid ""
-"Virt-builder has a new I<--unknown-filesystems> option to control what to do "
+"Virt-resize has a new I<--unknown-filesystems> option to control what to do "
 "when asked to resize a filesystem that libguestfs doesn't know how to resize."
 msgstr ""
 
@@ -18315,7 +18347,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:111
 msgid ""
-"If it exists, C</etc/os-release> will be preferred for inspecting Linux "
+"If it exists, F</etc/os-release> will be preferred for inspecting Linux "
 "guests (Pino Toscano)."
 msgstr ""
 
@@ -18334,7 +18366,7 @@ msgstr ""
 msgid ""
 "The large L<guestfs(3)> man page has been split into several separate man "
 "pages: L<guestfs-hacking(1)> L<guestfs-internals(1)> L<guestfs-"
-"security(1)>.  In the source tree, a new C<docs> directory contains this "
+"security(1)>.  In the source tree, a new F<docs> directory contains this "
 "documentation."
 msgstr ""
 
@@ -18411,7 +18443,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-release-notes.pod:158
-msgid "Virt-customize permissions on C<.ssh>, C<.ssh/authorized_keys>"
+msgid "Virt-customize permissions on F<.ssh>, F<.ssh/authorized_keys>"
 msgstr ""
 
 #. type: textblock
@@ -18423,7 +18455,7 @@ msgstr ""
 #: ../docs/guestfs-release-notes.pod:162
 msgid ""
 "Previously when asked to inject an SSH key into a guest, virt-customize "
-"(hence virt-builder too) would create the C<.ssh> directory and C<.ssh/"
+"(hence virt-builder too) would create the F<.ssh> directory and F<.ssh/"
 "authorized_keys> file with too broad permissions, allowing other users to "
 "read.  They are now created as C<0700> and C<0600> respectively, which is "
 "the same as the L<ssh-copy-id(1)> utility."
@@ -18629,7 +18661,7 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:251
 msgid ""
-"C<make install> no longer installs OCaml C<bindtests.*> files incorrectly."
+"C<make install> no longer installs OCaml F<bindtests.*> files incorrectly."
 msgstr ""
 
 #. type: textblock
@@ -18733,28 +18765,28 @@ msgstr ""
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:293
 msgid ""
-"The C<configure.ac> file has been split into several smaller files called "
-"C<m4/guestfs_*.m4>."
+"The huge F<configure.ac> file has been split into several smaller files "
+"called F<m4/guestfs_*.m4>."
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:296
 msgid ""
-"The old C<tests/data> and C<tests/guests> directories have been moved to "
-"C<test-data/>.  This new top level directory carries all test data which is "
+"The old F<tests/data> and F<tests/guests> directories have been moved to "
+"F<test-data/>.  This new top level directory carries all test data which is "
 "common, large and/or shared between multiple tests."
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:300
 msgid ""
-"There is a new top level C<website/> directory containing the public "
+"There is a new top level F<website/> directory containing the public "
 "L<http://libguestfs.org> website (or most of it)."
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-release-notes.pod:303
-msgid "The fuzz testing of inspection (C<tests/fuzz>) has been removed."
+msgid "The fuzz testing of inspection (F<tests/fuzz>) has been removed."
 msgstr ""
 
 #. type: textblock
