@@ -46,6 +46,10 @@ main (int argc, char *argv[])
    * contiguous memory.  Therefore skip the test if the calloc call
    * fails.
    */
+  /* XXX This test also fails for machines with ~ 4 GB of RAM,
+   * because the 2 GB allocation succeeds here, but the fork
+   * fails (since it will require around 2 * 2 GB).
+   */
   mem = calloc (2 * 1024, 1024 * 1024);
   if (mem == NULL) {
     fprintf (stderr,
