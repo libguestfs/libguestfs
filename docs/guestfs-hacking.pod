@@ -726,12 +726,31 @@ Edit F<website/index.html.in>.
 
 =item *
 
-Create the branch in git:
+Set the version (in F<configure.ac>) to the new I<stable> version,
+ie. 1.XX.0, and commit it:
 
- git tag -a 1.XX.0 -m "Version 1.XX.0 (stable)"
- git tag -a 1.YY.0 -m "Version 1.YY.0 (development)"
+ ./localconfigure
+ make distclean -k
+ ./localconfigure
+ make && make dist
+ make maintainer-commit
+ make maintainer-tag
+
+=item *
+
+Create the stable branch in git:
+
  git branch stable-1.XX
- git push origin tag 1.XX.0 1.YY.0 stable-1.XX
+ git push origin tag stable-1.XX
+
+=item *
+
+Do a full release of the stable branch.
+
+=item *
+
+Set the version to the next development version and commit that.
+Optionally do a full release of the development branch.
 
 =back
 
