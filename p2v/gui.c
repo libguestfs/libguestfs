@@ -1260,6 +1260,7 @@ get_memory_from_conv_dlg (void)
 static void set_log_dir (const char *remote_dir);
 static void set_status (const char *msg);
 static void add_v2v_output (const char *msg);
+static void add_v2v_output_2 (const char *msg, size_t len);
 static void *start_conversion_thread (void *data);
 static void cancel_conversion_clicked (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
@@ -1361,13 +1362,38 @@ set_status (const char *msg)
 static void
 add_v2v_output (const char *msg)
 {
+  static size_t linelen = 0;
+  const char *p0, *p;
+
+  /* Gtk2 (in ~ Fedora 23) has a regression where it takes much
+   * longer to display long lines, to the point where the virt-p2v
+   * UI would still be slowly display kernel modules while the
+   * conversion had finished.  For this reason, arbitrarily break
+   * long lines.
+   */
+  for (p0 = p = msg; *p; ++p) {
+    linelen++;
+    if (*p == '\n' || linelen > 1024) {
+      add_v2v_output_2 (p0, p-p0+1);
+      if (*p != '\n')
+        add_v2v_output_2 ("\n", 1);
+      linelen = 0;
+      p0 = p+1;
+    }
+  }
+  add_v2v_output_2 (p0, p-p0);
+}
+
+static void
+add_v2v_output_2 (const char *msg, size_t len)
+{
   GtkTextBuffer *buf;
   GtkTextIter iter;
 
   /* Insert it at the end. */
   buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (v2v_output));
   gtk_text_buffer_get_end_iter (buf, &iter);
-  gtk_text_buffer_insert (buf, &iter, msg, -1);
+  gtk_text_buffer_insert (buf, &iter, msg, len);
 
   /* Scroll to the end of the buffer. */
   gtk_text_buffer_get_end_iter (buf, &iter);
