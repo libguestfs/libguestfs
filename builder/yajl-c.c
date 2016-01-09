@@ -23,18 +23,13 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-#if HAVE_YAJL
 #include <yajl/yajl_tree.h>
-#endif
 
 #include <stdio.h>
 #include <string.h>
 
 #define Val_none (Val_int (0))
 
-value virt_builder_yajl_is_available (value unit);
-
-#if HAVE_YAJL
 value virt_builder_yajl_tree_parse (value stringv);
 
 static value
@@ -95,13 +90,6 @@ convert_yajl_value (yajl_val val, int level)
 }
 
 value
-virt_builder_yajl_is_available (value unit)
-{
-  /* NB: noalloc */
-  return Val_true;
-}
-
-value
 virt_builder_yajl_tree_parse (value stringv)
 {
   CAMLparam1 (stringv);
@@ -124,21 +112,3 @@ virt_builder_yajl_tree_parse (value stringv)
 
   CAMLreturn (rv);
 }
-
-#else
-value virt_builder_yajl_tree_parse (value stringv)  __attribute__((noreturn));
-
-value
-virt_builder_yajl_is_available (value unit)
-{
-  /* NB: noalloc */
-  return Val_false;
-}
-
-value
-virt_builder_yajl_tree_parse (value stringv)
-{
-  caml_invalid_argument ("virt-builder was compiled without yajl support");
-}
-
-#endif

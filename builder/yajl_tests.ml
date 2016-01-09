@@ -134,6 +134,4 @@ let suite =
     ]
 
 let () =
-  if not (yajl_is_available ()) then
-    exit 77;
   run_test_tt_main suite

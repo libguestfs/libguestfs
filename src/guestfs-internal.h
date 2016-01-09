@@ -477,12 +477,6 @@ struct guestfs_h
    */
   int unique;
 
-  /* In src/info.c: Use new (JSON) or old (human) qemu-img info parser. */
-  int qemu_img_info_parser;
-#define QEMU_IMG_INFO_UNKNOWN_PARSER 0
-#define QEMU_IMG_INFO_NEW_PARSER 1
-#define QEMU_IMG_INFO_OLD_PARSER 2
-
   /*** Protocol. ***/
   struct connection *conn;              /* Connection to appliance. */
   int msg_next_serial;

@@ -25,6 +25,4 @@ type yajl_val =
 | Yajl_array of yajl_val array
 | Yajl_bool of bool
 
-external yajl_is_available : unit -> bool = "virt_builder_yajl_is_available" "noalloc"
-
 external yajl_tree_parse : string -> yajl_val = "virt_builder_yajl_tree_parse"

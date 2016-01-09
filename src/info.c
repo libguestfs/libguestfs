@@ -38,75 +38,14 @@
 #include <sys/resource.h>
 #endif
 
-#if HAVE_YAJL
 #include <yajl/yajl_tree.h>
-#endif
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
-static int which_parser (guestfs_h *g);
-static char *get_disk_format (guestfs_h *g, const char *filename);
-static int64_t get_disk_virtual_size (guestfs_h *g, const char *filename);
-static int get_disk_has_backing_file (guestfs_h *g, const char *filename);
-#if HAVE_YAJL
-static yajl_val get_json_output (guestfs_h *g, const char *filename);
-#endif
-static char *old_parser_disk_format (guestfs_h *g, const char *filename);
-static int64_t old_parser_disk_virtual_size (guestfs_h *g, const char *filename);
-static int old_parser_disk_has_backing_file (guestfs_h *g, const char *filename);
-static void set_child_rlimits (struct command *);
-
-char *
-guestfs_impl_disk_format (guestfs_h *g, const char *filename)
-{
-  switch (which_parser (g)) {
-  case QEMU_IMG_INFO_NEW_PARSER:
-    return get_disk_format (g, filename);
-  case QEMU_IMG_INFO_OLD_PARSER:
-    return old_parser_disk_format (g, filename);
-  case QEMU_IMG_INFO_UNKNOWN_PARSER:
-    abort ();
-  }
-
-  abort ();
-}
-
-int64_t
-guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
-{
-  switch (which_parser (g)) {
-  case QEMU_IMG_INFO_NEW_PARSER:
-    return get_disk_virtual_size (g, filename);
-  case QEMU_IMG_INFO_OLD_PARSER:
-    return old_parser_disk_virtual_size (g, filename);
-  case QEMU_IMG_INFO_UNKNOWN_PARSER:
-    abort ();
-  }
-
-  abort ();
-}
-
-int
-guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
-{
-  switch (which_parser (g)) {
-  case QEMU_IMG_INFO_NEW_PARSER:
-    return get_disk_has_backing_file (g, filename);
-  case QEMU_IMG_INFO_OLD_PARSER:
-    return old_parser_disk_has_backing_file (g, filename);
-  case QEMU_IMG_INFO_UNKNOWN_PARSER:
-    abort ();
-  }
-
-  abort ();
-}
-
-#if HAVE_YAJL
-
-# ifdef HAVE_ATTRIBUTE_CLEANUP
-# define CLEANUP_YAJL_TREE_FREE __attribute__((cleanup(cleanup_yajl_tree_free)))
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_YAJL_TREE_FREE __attribute__((cleanup(cleanup_yajl_tree_free)))
 
 static void
 cleanup_yajl_tree_free (void *ptr)
@@ -114,16 +53,16 @@ cleanup_yajl_tree_free (void *ptr)
   yajl_tree_free (* (yajl_val *) ptr);
 }
 
-# else
-# define CLEANUP_YAJL_TREE_FREE
-# endif
+#else
+#define CLEANUP_YAJL_TREE_FREE
 #endif
 
-static char *
-get_disk_format (guestfs_h *g, const char *filename)
-{
-#if HAVE_YAJL
+static yajl_val get_json_output (guestfs_h *g, const char *filename);
+static void set_child_rlimits (struct command *);
 
+char *
+guestfs_impl_disk_format (guestfs_h *g, const char *filename)
+{
   size_t i, len;
   CLEANUP_YAJL_TREE_FREE yajl_val tree = get_json_output (g, filename);
 
@@ -150,17 +89,11 @@ get_disk_format (guestfs_h *g, const char *filename)
  bad_type:
   error (g, _("qemu-img info: JSON output did not contain 'format' key"));
   return NULL;
-
-#else /* !HAVE_YAJL */
-  abort ();
-#endif /* !HAVE_YAJL */
 }
 
-static int64_t
-get_disk_virtual_size (guestfs_h *g, const char *filename)
+int64_t
+guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
 {
-#if HAVE_YAJL
-
   size_t i, len;
   CLEANUP_YAJL_TREE_FREE yajl_val tree = get_json_output (g, filename);
 
@@ -189,17 +122,11 @@ get_disk_virtual_size (guestfs_h *g, const char *filename)
  bad_type:
   error (g, _("qemu-img info: JSON output did not contain 'virtual-size' key"));
   return -1;
-
-#else /* !HAVE_YAJL */
-  abort ();
-#endif /* !HAVE_YAJL */
 }
 
-static int
-get_disk_has_backing_file (guestfs_h *g, const char *filename)
+int
+guestfs_impl_disk_has_backing_file (guestfs_h *g, const char *filename)
 {
-#if HAVE_YAJL
-
   size_t i, len;
   CLEANUP_YAJL_TREE_FREE yajl_val tree = get_json_output (g, filename);
 
@@ -227,13 +154,7 @@ get_disk_has_backing_file (guestfs_h *g, const char *filename)
  bad_type:
   error (g, _("qemu-img info: JSON output was not an object"));
   return -1;
-
-#else /* !HAVE_YAJL */
-  abort ();
-#endif /* !HAVE_YAJL */
 }
-
-#if HAVE_YAJL
 
 /* Run 'qemu-img info --output json filename', and parse the output
  * as JSON, returning a JSON tree and handling errors.
@@ -330,242 +251,6 @@ parse_json (guestfs_h *g, void *treevp, const char *input, size_t len)
     else
       error (g, _("qemu-img info: unknown JSON parse error"));
   }
-}
-
-static void help_contains_output_json (guestfs_h *g, void *datav, const char *help_line, size_t len);
-
-/* Choose new (JSON) or old (human) parser? */
-static int
-which_parser (guestfs_h *g)
-{
-  if (g->qemu_img_info_parser == QEMU_IMG_INFO_UNKNOWN_PARSER) {
-    int qemu_img_supports_json = 0;
-    CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
-
-    guestfs_int_cmd_add_arg (cmd, "qemu-img");
-    guestfs_int_cmd_add_arg (cmd, "--help");
-    guestfs_int_cmd_set_stdout_callback (cmd,
-					 help_contains_output_json,
-					 &qemu_img_supports_json, 0);
-    guestfs_int_cmd_run (cmd);
-    /* ignore return code, which would usually be 1 */
-
-    if (qemu_img_supports_json)
-      g->qemu_img_info_parser = QEMU_IMG_INFO_NEW_PARSER;
-    else
-      g->qemu_img_info_parser = QEMU_IMG_INFO_OLD_PARSER;
-  }
-
-  debug (g, "%s: g->qemu_img_info_parser = %d",
-         __func__, g->qemu_img_info_parser);
-
-  return g->qemu_img_info_parser;
-}
-
-static void
-help_contains_output_json (guestfs_h *g, void *datav,
-                           const char *help_line, size_t len)
-{
-  if (strstr (help_line, "--output") != NULL &&
-      strstr (help_line, "json") != NULL) {
-    * (int *) datav = 1;
-  }
-}
-
-#else /* !HAVE_YAJL */
-
-/* With no YAJL, only the old parser is available. */
-static int
-which_parser (guestfs_h *g)
-{
-  return g->qemu_img_info_parser = QEMU_IMG_INFO_OLD_PARSER;
-}
-
-#endif /* !HAVE_YAJL */
-
-/*----------------------------------------------------------------------
- * This is the old parser for the old / human-readable output of
- * qemu-img info, ONLY used if EITHER you've got an old version of
- * qemu-img, OR you're not using yajl.  It is highly recommended that
- * you upgrade qemu-img and install yajl so that you can use the new,
- * secure JSON parser above.
- */
-
-static int old_parser_run_qemu_img_info (guestfs_h *g, const char *filename, cmd_stdout_callback cb, void *data);
-
-/* NB: For security reasons, the check_* callbacks MUST bail
- * after seeing the first line that matches /^backing file: /.  See:
- * https://lists.gnu.org/archive/html/qemu-devel/2012-09/msg00137.html
- */
-
-struct old_parser_check_data {
-  int stop, failed;
-  union {
-    char *ret;
-    int reti;
-    int64_t reti64;
-  };
-};
-
-static void old_parser_check_disk_format (guestfs_h *g, void *data, const char *line, size_t len);
-static void old_parser_check_disk_virtual_size (guestfs_h *g, void *data, const char *line, size_t len);
-static void old_parser_check_disk_has_backing_file (guestfs_h *g, void *data, const char *line, size_t len);
-
-static char *
-old_parser_disk_format (guestfs_h *g, const char *filename)
-{
-  struct old_parser_check_data data;
-
-  memset (&data, 0, sizeof data);
-
-  if (old_parser_run_qemu_img_info (g, filename,
-                                    old_parser_check_disk_format,
-                                    &data) == -1) {
-    free (data.ret);
-    return NULL;
-  }
-
-  if (data.ret == NULL)
-    data.ret = safe_strdup (g, "unknown");
-
-  return data.ret;
-}
-
-static void
-old_parser_check_disk_format (guestfs_h *g, void *datav,
-                              const char *line, size_t len)
-{
-  struct old_parser_check_data *data = datav;
-  const char *p;
-
-  if (data->stop)
-    return;
-
-  if (STRPREFIX (line, "backing file: ")) {
-    data->stop = 1;
-    return;
-  }
-
-  if (STRPREFIX (line, "file format: ")) {
-    p = &line[13];
-    data->ret = safe_strdup (g, p);
-    data->stop = 1;
-  }
-}
-
-static int64_t
-old_parser_disk_virtual_size (guestfs_h *g, const char *filename)
-{
-  struct old_parser_check_data data;
-
-  memset (&data, 0, sizeof data);
-
-  if (old_parser_run_qemu_img_info (g, filename,
-                                    old_parser_check_disk_virtual_size,
-                                    &data) == -1)
-    return -1;
-
-  if (data.failed)
-    error (g, _("%s: cannot detect virtual size of disk image"), filename);
-
-  return data.reti64;
-}
-
-static void
-old_parser_check_disk_virtual_size (guestfs_h *g, void *datav,
-                                    const char *line, size_t len)
-{
-  struct old_parser_check_data *data = datav;
-  const char *p;
-
-  if (data->stop)
-    return;
-
-  if (STRPREFIX (line, "backing file: ")) {
-    data->stop = 1;
-    return;
-  }
-
-  if (STRPREFIX (line, "virtual size: ")) {
-    /* "virtual size: 500M (524288000 bytes)\n" */
-    p = &line[14];
-    p = strchr (p, ' ');
-    if (!p || p[1] != '(' || sscanf (&p[2], "%" SCNi64, &data->reti64) != 1)
-      data->failed = 1;
-    data->stop = 1;
-  }
-}
-
-static int
-old_parser_disk_has_backing_file (guestfs_h *g, const char *filename)
-{
-  struct old_parser_check_data data;
-
-  memset (&data, 0, sizeof data);
-
-  if (old_parser_run_qemu_img_info (g, filename,
-                                    old_parser_check_disk_has_backing_file,
-                                    &data) == -1)
-    return -1;
-
-  return data.reti;
-}
-
-static void
-old_parser_check_disk_has_backing_file (guestfs_h *g, void *datav,
-                                        const char *line, size_t len)
-{
-  struct old_parser_check_data *data = datav;
-
-  if (data->stop)
-    return;
-
-  if (STRPREFIX (line, "backing file: ")) {
-    data->reti = 1;
-    data->stop = 1;
-  }
-}
-
-static int
-old_parser_run_qemu_img_info (guestfs_h *g, const char *filename,
-                              cmd_stdout_callback fn, void *data)
-{
-  CLEANUP_FREE char *abs_filename = NULL;
-  CLEANUP_FREE char *safe_filename = NULL;
-  CLEANUP_CMD_CLOSE struct command *cmd = guestfs_int_new_command (g);
-  int r;
-
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
-    return -1;
-
-  safe_filename = safe_asprintf (g, "%s/format.%d", g->tmpdir, ++g->unique);
-
-  /* 'filename' must be an absolute path so we can link to it. */
-  abs_filename = realpath (filename, NULL);
-  if (abs_filename == NULL) {
-    perrorf (g, "realpath");
-    return -1;
-  }
-
-  if (symlink (abs_filename, safe_filename) == -1) {
-    perrorf (g, "symlink");
-    return -1;
-  }
-
-  guestfs_int_cmd_add_arg (cmd, "qemu-img");
-  guestfs_int_cmd_add_arg (cmd, "info");
-  guestfs_int_cmd_add_arg (cmd, safe_filename);
-  guestfs_int_cmd_set_stdout_callback (cmd, fn, data, 0);
-  set_child_rlimits (cmd);
-  r = guestfs_int_cmd_run (cmd);
-  if (r == -1)
-    return -1;
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    guestfs_int_external_command_failed (g, r, "qemu-img info", filename);
-    return -1;
-  }
-
-  return 0;
 }
 
 static void

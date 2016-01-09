@@ -25,9 +25,5 @@ type yajl_val =
 | Yajl_array of yajl_val array
 | Yajl_bool of bool
 
-val yajl_is_available : unit -> bool
-(** Is YAJL built in? If not, calling any of the other yajl_*
-    functions will result in an error. *)
-
 val yajl_tree_parse : string -> yajl_val
 (** Parse the JSON string. *)

@@ -286,9 +286,7 @@ TESTS = \
 	test-virt-index-validate.sh
 check_PROGRAMS =
 
-if HAVE_YAJL
 TESTS += test-virt-builder-list-simplestreams.sh
-endif
 
 if ENABLE_APPLIANCE
 TESTS += test-virt-builder.sh
