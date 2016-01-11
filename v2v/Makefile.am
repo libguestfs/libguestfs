@@ -367,6 +367,7 @@ v2v_unit_tests_BOBJECTS = \
 	DOM.cmo \
 	OVF.cmo \
 	windows.cmo \
+	linux.cmo \
 	v2v_unit_tests.cmo
 v2v_unit_tests_XOBJECTS = $(v2v_unit_tests_BOBJECTS:.cmo=.cmx)
 
