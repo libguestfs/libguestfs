@@ -515,8 +515,13 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
       let lines = filter_map (
         fun line ->
           if Str.string_match rex line 0 then (
-            let vboxuninstall = Str.matched_group 1 line ^ "/uninstall.sh" in
-            Some vboxuninstall
+            let path = Str.matched_group 1 line in
+            let path = Linux.shell_unquote path in
+            if String.length path >= 1 && path.[0] = '/' then (
+              let vboxuninstall = path ^ "/uninstall.sh" in
+              Some vboxuninstall
+            )
+            else None
           )
           else None
       ) lines in

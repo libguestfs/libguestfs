@@ -765,6 +765,19 @@ let test_virtio_iso_path_matches_guest_os ctx =
          ) all_windows
   ) paths
 
+let test_shell_unquote ctx =
+  let printer = identity in
+  assert_equal ~printer "a" (Linux.shell_unquote "a");
+  assert_equal ~printer "b" (Linux.shell_unquote "'b'");
+  assert_equal ~printer "c" (Linux.shell_unquote "\"c\"");
+  assert_equal ~printer "dd" (Linux.shell_unquote "\"dd\"");
+  assert_equal ~printer "e\\e" (Linux.shell_unquote "\"e\\\\e\"");
+  assert_equal ~printer "f\\" (Linux.shell_unquote "\"f\\\\\"");
+  assert_equal ~printer "\\g" (Linux.shell_unquote "\"\\\\g\"");
+  assert_equal ~printer "h\\-h" (Linux.shell_unquote "\"h\\-h\"");
+  assert_equal ~printer "i`" (Linux.shell_unquote "\"i\\`\"");
+  assert_equal ~printer "j\"" (Linux.shell_unquote "\"j\\\"\"")
+
 (* Suites declaration. *)
 let suite =
   "virt-v2v" >:::
@@ -774,6 +787,7 @@ let suite =
       "Utils.drive_index" >:: test_drive_index;
       "Windows.virtio_iso_path_matches_guest_os" >::
         test_virtio_iso_path_matches_guest_os;
+      "Linux.shell_unquote" >:: test_shell_unquote;
     ]
 
 let () =
