@@ -296,7 +296,6 @@ TESTS += \
 	test-v2v-cdrom.sh \
 	test-v2v-i-ova.sh \
 	test-v2v-i-disk.sh \
-	test-v2v-in-place.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-networks-and-bridges.sh \
 	test-v2v-no-copy.sh \

@@ -15,8 +15,6 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i disk disk.img -o glance
 
- virt-v2v -ic qemu:///system qemu_guest --in-place
-
 =head1 DESCRIPTION
 
 Virt-v2v converts guests from a foreign hypervisor to run on KVM.  It
@@ -76,9 +74,6 @@ booting the guest directly in qemu (mainly for testing).
 
 I<-o rhev> is used to write to a RHEV-M / oVirt target.  I<-o vdsm>
 is only used when virt-v2v runs under VDSM control.
-
-I<--in-place> instructs virt-v2v to customize the guest OS in the input
-virtual machine, instead of creating a new VM in the target hypervisor.
 
 =head1 EXAMPLES
 
@@ -247,18 +242,6 @@ L</INPUT FROM RHEL 5 XEN> below.
 For I<-i disk> only, this specifies the format of the input disk
 image.  For other input methods you should specify the input
 format in the metadata.
-
-=item B<--in-place>
-
-Do not create an output virtual machine in the target hypervisor.
-Instead, adjust the guest OS in the source VM to run in the input
-hypervisor.
-
-This mode is meant for integration with other toolsets, which take the
-responsibility of converting the VM configuration, providing for
-rollback in case of errors, transforming the storage, etc.
-
-Conflicts with all I<-o *> options.
 
 =item B<--machine-readable>
 

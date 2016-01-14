@@ -194,7 +194,7 @@ let parse_cmdline () =
                                             "uri " ^ s_"Libvirt URI";
     "-if",       Arg.String (set_string_option_once "-if" input_format),
                                             "format " ^ s_"Input format (for -i disk)";
-    "--in-place", Arg.Set in_place,         " " ^ s_"Only tune the guest in the input VM";
+    "--in-place", Arg.Set in_place,         " " ^ s_"Unsupported option in RHEL 7";
     "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--network", Arg.String add_network,    "in:out " ^ ditto;
@@ -351,6 +351,10 @@ read the man page virt-v2v(1).
         | _ ->
           error (f_"expecting an OVA file name on the command line") in
       Input_ova.input_ova filename in
+
+  (* Prevent use of --in-place option in RHEL. *)
+  if in_place then
+    error (f_"--in-place cannot be used in RHEL 7");
 
   (* Parse the output mode. *)
   if output_mode <> `Not_set && in_place then
