@@ -291,7 +291,6 @@ if HAVE_LIBVIRT
 TESTS += \
 	test-v2v-cdrom.sh \
 	test-v2v-floppy.sh \
-	test-v2v-in-place.sh \
 	test-v2v-networks-and-bridges.sh \
 	test-v2v-no-copy.sh \
 	test-v2v-o-glance.sh \
@@ -412,7 +411,6 @@ EXTRA_DIST += \
 	test-v2v-i-ova.ovf \
 	test-v2v-i-ova.sh \
 	test-v2v-i-ova.xml \
-	test-v2v-in-place.sh \
 	test-v2v-machine-readable.sh \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.sh \

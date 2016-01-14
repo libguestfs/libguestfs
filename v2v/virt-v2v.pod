@@ -15,8 +15,6 @@ virt-v2v - Convert a guest to use KVM
 
  virt-v2v -i disk disk.img -o glance
 
- virt-v2v -ic qemu:///system qemu_guest --in-place
-
 =head1 DESCRIPTION
 
 Virt-v2v converts guests from a foreign hypervisor to run on KVM.  It
@@ -76,9 +74,6 @@ booting the guest directly in qemu (mainly for testing).
 
 I<-o rhv> is used to write to a RHV / oVirt target.  I<-o vdsm>
 is only used when virt-v2v runs under VDSM control.
-
-I<--in-place> instructs virt-v2v to customize the guest OS in the input
-virtual machine, instead of creating a new VM in the target hypervisor.
 
 =head1 EXAMPLES
 
@@ -250,20 +245,6 @@ L</INPUT FROM XEN> below.
 For I<-i disk> only, this specifies the format of the input disk
 image.  For other input methods you should specify the input
 format in the metadata.
-
-=item B<--in-place>
-
-Do not create an output virtual machine in the target hypervisor.
-Instead, adjust the guest OS in the source VM to run in the input
-hypervisor.
-
-This mode is meant for integration with other toolsets, which take the
-responsibility of converting the VM configuration, providing for
-rollback in case of errors, transforming the storage, etc.
-
-See L</IN PLACE CONVERSION> below.
-
-Conflicts with all I<-o *> options.
 
 =item B<--machine-readable>
 
@@ -1657,7 +1638,7 @@ Minimum free space: 10 MB
 =head2 Minimum free space check in the host
 
 You must have sufficient free space in the host directory used to
-store temporary overlays (except in I<--in-place> mode).  To find out
+store temporary overlays.  To find out
 which directory this is, use:
 
  $ df -h "`guestfish get-cachedir`"
@@ -1788,31 +1769,6 @@ that instead.
      </interface>
    </devices>
  </domain>
-
-=head1 IN PLACE CONVERSION
-
-It is also possible to use virt-v2v in scenarios where a foreign VM
-has already been imported into a KVM-based hypervisor, but still needs
-adjustments in the guest to make it run in the new virtual hardware.
-
-In that case it is assumed that a third-party tool has created the
-target VM in the supported KVM-based hypervisor based on the source VM
-configuration and contents, but using virtual devices more appropriate
-for KVM (e.g. virtio storage and network, etc.).
-
-Then, to make the guest OS boot and run in the changed environment,
-one can use:
-
- virt-v2v -ic qemu:///system converted_vm --in-place
-
-Virt-v2v will analyze the configuration of C<converted_vm> in the
-C<qemu:///system> libvirt instance, and apply various fixups to the
-guest OS configuration to make it match the VM configuration.  This
-may include installing virtio drivers, configuring the bootloader, the
-mountpoints, the network interfaces, and so on.
-
-Should an error occur during the operation, virt-v2v exits with an
-error code leaving the VM in an undefined state.
 
 =head1 MACHINE READABLE OUTPUT
 
