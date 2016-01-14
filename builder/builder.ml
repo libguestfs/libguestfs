@@ -75,6 +75,30 @@ let remove_duplicates index =
         false
   ) index
 
+(* Look for the specified os-version, resolving it as alias first. *)
+let selected_cli_item cmdline index =
+  let arg =
+    (* Try to resolve the alias. *)
+    try
+      let item =
+        List.find (
+          fun (name, { Index.aliases = aliases }) ->
+            match aliases with
+            | None -> false
+            | Some l -> List.mem cmdline.arg l
+        ) index in
+        fst item
+    with Not_found -> cmdline.arg in
+  let item =
+    try List.find (
+      fun (name, { Index.arch = a }) ->
+        name = arg && cmdline.arch = normalize_arch a
+    ) index
+    with Not_found ->
+      error (f_"cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.")
+        arg cmdline.arch in
+  item
+
 let main () =
   (* Command line argument parsing - see cmdline.ml. *)
   let cmdline = parse_cmdline () in
@@ -229,26 +253,8 @@ let main () =
     | (`Install|`Notes) as mode -> mode in
 
   (* Which os-version (ie. index entry)? *)
-  let arg =
-    (* Try to resolve the alias. *)
-    try
-      let item =
-        List.find (
-          fun (name, { Index.aliases = aliases }) ->
-            match aliases with
-            | None -> false
-            | Some l -> List.mem cmdline.arg l
-        ) index in
-        fst item
-    with Not_found -> cmdline.arg in
-  let item =
-    try List.find (
-      fun (name, { Index.arch = a }) ->
-        name = arg && cmdline.arch = normalize_arch a
-    ) index
-    with Not_found ->
-      error (f_"cannot find os-version '%s' with architecture '%s'.\nUse --list to list available guest types.")
-        arg cmdline.arch in
+  let item = selected_cli_item cmdline index in
+  let arg = fst item in
   let entry = snd item in
   let sigchecker = entry.Index.sigchecker in
 
