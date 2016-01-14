@@ -194,8 +194,7 @@ let parse_cmdline () =
                                     s_"Input format (for -i disk)";
     [ M"it" ],       Getopt.String ("transport", set_string_option_once "-it" input_transport),
                                     s_"Input transport";
-    [ L"in-place" ], Getopt.Set in_place,
-                                    s_"Only tune the guest in the input VM";
+    [ L"in-place" ], Getopt.Set in_place, Getopt.hidden_option_description;
     [ L"machine-readable" ], Getopt.Set machine_readable,
                                     s_"Make output machine readable";
     [ S 'n'; L"network" ], Getopt.String ("in:out", add_network),
@@ -338,7 +337,6 @@ read the man page virt-v2v(1).
     printf "vddk\n";
     printf "colours-option\n";
     printf "vdsm-compat-option\n";
-    printf "in-place\n";
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
     List.iter (printf "output:%s\n") (Modules_list.output_modules ());
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
@@ -437,6 +435,10 @@ read the man page virt-v2v(1).
         | Some `VDDK ->
            error (f_"only ‘-it ssh’ can be used here") in
       Input_vmx.input_vmx input_transport arg in
+
+  (* Prevent use of --in-place option in RHEL. *)
+  if in_place then
+    error (f_"--in-place cannot be used in RHEL 7");
 
   (* Common error message. *)
   let error_option_cannot_be_used_in_output_mode mode opt =
