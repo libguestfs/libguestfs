@@ -26,6 +26,7 @@ $top_srcdir/podcheck.pl virt-v2v.pod virt-v2v \
 --debug-overlay,\
 --ic,\
 --if,\
+--in-place,\
 --io,\
 --ip,\
 --it,\
