@@ -209,8 +209,7 @@ let parse_cmdline () =
                                     s_"Use password from file to connect to input hypervisor";
     [ M"it" ],       Getopt.String ("transport", set_string_option_once "-it" input_transport),
                                     s_"Input transport";
-    [ L"in-place" ], Getopt.Set in_place,
-                                    s_"Only tune the guest in the input VM";
+    [ L"in-place" ], Getopt.Set in_place, Getopt.hidden_option_description;
     [ L"mac" ],      Getopt.String ("mac:network|bridge:out", add_mac),
                                     s_"Map NIC to network or bridge";
     [ S 'n'; L"network" ], Getopt.String ("in:out", add_network),
@@ -347,7 +346,6 @@ read the man page virt-v2v(1).
     pr "vddk\n";
     pr "colours-option\n";
     pr "vdsm-compat-option\n";
-    pr "in-place\n";
     pr "io/oo\n";
     pr "mac-option\n";
     List.iter (pr "input:%s\n") (Modules_list.input_modules ());
@@ -520,6 +518,10 @@ read the man page virt-v2v(1).
         | Some (`VDDK _) ->
            error (f_"only ‘-it ssh’ can be used here") in
       Input_vmx.input_vmx input_transport arg in
+
+  (* Prevent use of --in-place option in RHEL. *)
+  if in_place then
+    error (f_"--in-place cannot be used in RHEL");
 
   (* Common error message. *)
   let error_option_cannot_be_used_in_output_mode mode opt =
