@@ -213,6 +213,12 @@ let main () =
   let mode =
     match mode with
     | `List ->                          (* --list *)
+      let sources, index =
+        match cmdline.arg with
+        | "" -> sources, index   (* no template -> all the available ones *)
+        | arg ->                 (* just the specified template *)
+          let item = selected_cli_item cmdline index in
+          [], [item] in
       List_entries.list_entries ~list_format:cmdline.list_format ~sources index;
       exit 0
 

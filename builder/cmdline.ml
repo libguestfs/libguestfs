@@ -239,9 +239,10 @@ read the man page virt-builder(1).
       if format <> None then
         error (f_"--list: use '--list-format', not '--format'");
       (match args with
+      | [arg] -> arg
       | [] -> ""
       | _ ->
-        error (f_"--list option does not need any extra arguments")
+        error (f_"too many parameters, at most one 'os-version' is allowed for --list")
       )
     | `Notes ->
       (match args with

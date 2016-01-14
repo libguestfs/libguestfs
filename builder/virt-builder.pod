@@ -16,7 +16,7 @@ virt-builder - Build virtual machine images quickly
     [--arch ARCHITECTURE] [--attach ISOFILE]
 __CUSTOMIZE_SYNOPSIS__
 
- virt-builder -l|--list [--long] [--list-format short|long|json]
+ virt-builder -l|--list [--long] [--list-format short|long|json] [os-version]
 
  virt-builder --notes os-version
 
@@ -311,15 +311,16 @@ alternate home directory:
 
  virt-builder --gpg "gpg --homedir /tmp" [...]
 
-=item B<-l>
+=item B<-l> [os-version]
 
-=item B<--list>
+=item B<--list> [os-version]
 
-=item B<--list --list-format> format
+=item B<--list --list-format> format [os-version]
 
-=item B<--list --long>
+=item B<--list --long> [os-version]
 
-List available templates.
+List all the available templates if no guest is specified, or only for the
+specified one.
 
 It is possible to choose with I<--list-format> the output format for the list
 templates:
