@@ -95,21 +95,24 @@ do_ls0 (const char *path)
   return 0;
 }
 
-/* Because we can't chroot and run the ls command (since 'ls' won't
- * necessarily exist in the chroot), this command can be used to escape
- * from the sysroot (eg. 'll /..').  This command is not meant for
- * serious use anyway, just for quick interactive sessions.
- */
-
 char *
 do_ll (const char *path)
 {
   int r;
   char *out;
   CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *rpath = NULL;
   CLEANUP_FREE char *spath = NULL;
 
-  spath = sysroot_path (path);
+  CHROOT_IN;
+  rpath = realpath (path, NULL);
+  CHROOT_OUT;
+  if (rpath == NULL) {
+    reply_with_perror ("%s", path);
+    return NULL;
+  }
+
+  spath = sysroot_path (rpath);
   if (!spath) {
     reply_with_perror ("malloc");
     return NULL;
@@ -131,9 +134,18 @@ do_llz (const char *path)
   int r;
   char *out;
   CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *rpath = NULL;
   CLEANUP_FREE char *spath = NULL;
 
-  spath = sysroot_path (path);
+  CHROOT_IN;
+  rpath = realpath (path, NULL);
+  CHROOT_OUT;
+  if (rpath == NULL) {
+    reply_with_perror ("%s", path);
+    return NULL;
+  }
+
+  spath = sysroot_path (rpath);
   if (!spath) {
     reply_with_perror ("malloc");
     return NULL;
