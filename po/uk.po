@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-01-06 10:47+0000\n"
+"POT-Creation-Date: 2016-01-15 11:38+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -136,7 +136,7 @@ msgstr "Потрібен %s, але його не знайдено"
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1311
+#: ../v2v/convert_linux.ml:1316
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2629,7 +2629,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1105
+#: ../v2v/convert_linux.ml:1110
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2949,7 +2949,7 @@ msgstr ""
 "Виведені дані VHD не створено, найімовірніше vhd-util є застарілим і "
 "незалатаним для «convert»"
 
-#: ../v2v/convert_linux.ml:625
+#: ../v2v/convert_linux.ml:630
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2957,7 +2957,7 @@ msgstr ""
 "Виявлено засоби VMware, але спроба вилучення зазнала невдачі. Повідомлення "
 "щодо помилки: %s (проігноровано)"
 
-#: ../v2v/convert_linux.ml:534
+#: ../v2v/convert_linux.ml:539
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -3196,7 +3196,7 @@ msgstr ""
 "помилка під час спроби виконати copy, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/convert_linux.ml:1035
+#: ../v2v/convert_linux.ml:1040
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -3266,7 +3266,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1053
+#: ../v2v/convert_linux.ml:1058
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -3280,7 +3280,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1037
+#: ../v2v/convert_linux.ml:1042
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -3312,7 +3312,7 @@ msgstr ""
 "decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
 "LE. Ймовірно, це вада у %s."
 
-#: ../v2v/convert_linux.ml:759
+#: ../v2v/convert_linux.ml:764
 msgid "didn't find grub entry for kernel %s"
 msgstr "не знайдено запис grub для ядра %s"
 
@@ -3392,7 +3392,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1160
+#: ../v2v/convert_linux.ml:1165
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -3742,7 +3742,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/convert_linux.ml:763
+#: ../v2v/convert_linux.ml:768
 msgid "internal error: regular expression did not match '%s'"
 msgstr "внутрішня помилка: формальний вираз не відповідає «%s»"
 
@@ -3778,7 +3778,7 @@ msgstr "некоректний варіант sm-credentials «%s»; див. с�
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr "некоректний варіант ssh-inject «%s»; див. сторінку man"
 
-#: ../v2v/convert_linux.ml:747
+#: ../v2v/convert_linux.ml:752
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
@@ -3976,7 +3976,7 @@ msgstr ""
 "Система oVirt не здатна емулювати звукові картки «%s». Цю звукову картку "
 "буде викинуто з виведених даних."
 
-#: ../v2v/convert_linux.ml:703
+#: ../v2v/convert_linux.ml:708
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -4475,7 +4475,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:1204
+#: ../v2v/convert_linux.ml:1209
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4498,7 +4498,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:902
+#: ../v2v/convert_linux.ml:907
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -9268,15 +9268,15 @@ msgstr ""
 "виконано, але гостьова система може виявитися непрацездатною або "
 "непідтримуваною на системі призначення."
 
-#: p2v/gui.c:1302
+#: p2v/gui.c:1303
 msgid "Cancel conversion"
 msgstr "Скасувати перетворення"
 
-#: p2v/gui.c:1303
+#: p2v/gui.c:1304
 msgid "Reboot"
 msgstr "Перезавантажити"
 
-#: p2v/gui.c:1340
+#: p2v/gui.c:1341
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -9287,15 +9287,15 @@ msgstr ""
 "цього каталогу:\n"
 "%s"
 
-#: p2v/gui.c:1400
+#: p2v/gui.c:1426
 msgid "The guest \"Name\" field is empty."
 msgstr "Порожнє поле «Назва» гостьової системи."
 
-#: p2v/gui.c:1401 p2v/gui.c:1425
+#: p2v/gui.c:1427 p2v/gui.c:1451
 msgid "Error"
 msgstr "Помилка"
 
-#: p2v/gui.c:1423
+#: p2v/gui.c:1449
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
@@ -9303,20 +9303,20 @@ msgstr ""
 "Не вказано дисків для перетворення.\n"
 "Слід вказати принаймні один стаціонарний жорсткий диск.\n"
 
-#: p2v/gui.c:1511
+#: p2v/gui.c:1537
 #, c-format
 msgid "Conversion failed: %s"
 msgstr "Помилка під час перетворення: %s"
 
-#: p2v/gui.c:1512
+#: p2v/gui.c:1538
 msgid "Conversion failed"
 msgstr "Перетворення не вдалося"
 
-#: p2v/gui.c:1521
+#: p2v/gui.c:1547
 msgid "The conversion was successful."
 msgstr "Перетворення виконано успішно."
 
-#: p2v/gui.c:1522
+#: p2v/gui.c:1548
 msgid "Conversion was successful"
 msgstr "Успішне перетворення"
 

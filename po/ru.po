@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-01-06 10:47+0000\n"
+"POT-Creation-Date: 2016-01-15 11:38+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1311
+#: ../v2v/convert_linux.ml:1316
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2280,7 +2280,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1105
+#: ../v2v/convert_linux.ml:1110
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2519,13 +2519,13 @@ msgid ""
 "'convert'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:625
+#: ../v2v/convert_linux.ml:630
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:534
+#: ../v2v/convert_linux.ml:539
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2711,7 +2711,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1035
+#: ../v2v/convert_linux.ml:1040
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2765,7 +2765,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1053
+#: ../v2v/convert_linux.ml:1058
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2776,7 +2776,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1037
+#: ../v2v/convert_linux.ml:1042
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2804,7 +2804,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:759
+#: ../v2v/convert_linux.ml:764
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2869,7 +2869,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1160
+#: ../v2v/convert_linux.ml:1165
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3153,7 +3153,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:763
+#: ../v2v/convert_linux.ml:768
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -3189,7 +3189,7 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:747
+#: ../v2v/convert_linux.ml:752
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -3347,7 +3347,7 @@ msgid ""
 "the output."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:703
+#: ../v2v/convert_linux.ml:708
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -3746,7 +3746,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1204
+#: ../v2v/convert_linux.ml:1209
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3761,7 +3761,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:902
+#: ../v2v/convert_linux.ml:907
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -8013,15 +8013,15 @@ msgid ""
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1302
+#: p2v/gui.c:1303
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1303
+#: p2v/gui.c:1304
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1340
+#: p2v/gui.c:1341
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -8029,34 +8029,34 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1400
+#: p2v/gui.c:1426
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1401 p2v/gui.c:1425
+#: p2v/gui.c:1427 p2v/gui.c:1451
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1423
+#: p2v/gui.c:1449
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1511
+#: p2v/gui.c:1537
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1512
+#: p2v/gui.c:1538
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1521
+#: p2v/gui.c:1547
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1522
+#: p2v/gui.c:1548
 msgid "Conversion was successful"
 msgstr ""
 
