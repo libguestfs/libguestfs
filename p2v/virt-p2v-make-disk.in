@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:V \
-        --long help,inject-ssh-identity:,output:,version \
+        --long arch:,help,inject-ssh-identity:,output:,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -46,6 +46,9 @@ usage ()
 
 while true; do
     case "$1" in
+        --arch)
+            arch="--arch $2"
+            shift 2;;
         --inject-ssh-identity)
             upload="--upload $2:/var/tmp/id_rsa"
             shift 2;;
@@ -155,6 +158,7 @@ done < $depsfile
 # could provide a sysvinit fallback if required.
 virt-builder "$osversion"                                       \
     --output "$output"                                          \
+    $arch							\
     --update                                                    \
     --install "$install"                                        \
     --root-password password:p2v                                \
