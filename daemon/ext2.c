@@ -317,7 +317,7 @@ ext_minimum_size (const char *device)
   long block_size;
   const char *pattern = "Estimated minimum size of the filesystem: ";
 
-  r = command (&out, &err, str_resize2fs, "-P", device, NULL);
+  r = command (&out, &err, str_resize2fs, "-P", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
