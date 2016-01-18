@@ -113,8 +113,8 @@ EOF
         cat > $tmpdir/post-install <<'EOF'
 #!/bin/bash
 # Rebuild the initramfs.
-version=` rpm -q kernel | sort -rV | head -1 | sed 's/kernel-//' `
-dracut -f --kver $version
+latest_version="$(cd /lib/modules; ls -1vr | head -1)"
+dracut -f --kver $latest_version
 EOF
         # Double quotes because we want $tmpdir to be expanded:
         extra_args="
