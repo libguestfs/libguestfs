@@ -560,6 +560,29 @@ L<https://github.com/libguestfs/libguestfs/commits/rhel-7.3>
 The sources and spec files for RHEL versions of libguestfs are
 available on L<ftp://ftp.redhat.com/>
 
+=head1 BUILDING i686 32 BIT VIRT-P2V
+
+I<(This section only applies on the x86-64 architecture.)>
+
+Building a 32 bit virt-p2v (i686) binary improves compatibility with
+older hardware.  See L<virt-p2v-make-disk(1)> for details.  Although
+virt-p2v is a simple Gtk application, it is not especially easy to
+build just virt-p2v as a 32 bit application on a 64 bit host.  Usually
+the simplest way is to use a 32 bit chroot or even a 32 bit virtual
+machine to build libguestfs.
+
+On Fedora you can use the L<mock(1)> tool.  For example:
+
+ fedpkg mockbuild --root fedora-23-i386
+
+This will result in a F<virt-v2v-*.i686.rpm> file which can be
+unpacked to extract the 32 bit virt-p2v binary.
+
+The binary may be copied to either F<p2v/virt-p2v.i686>, or
+F<$libexecdir/virt-p2v.i686> or F<$VIRT_P2V_DATA_DIR/virt-p2v.i686> as
+appropriate.  This enables the L<virt-p2v-make-disk(1)> I<--arch>
+option.
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,

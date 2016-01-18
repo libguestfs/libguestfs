@@ -80,6 +80,22 @@ or if using the kernel command line, add:
 
 For more information, see L<virt-p2v(1)/SSH IDENTITIES>.
 
+=head1 32 BIT VIRT-P2V
+
+For improved compatibility with older hardware, virt-p2v-make-disk has
+an I<--arch> option.  The most useful setting (on x86-64 hosts) is
+I<--arch i686>, which builds a 32 bit virt-p2v environment that will
+work on older hardware.  32 bit virt-p2v can convert 64 bit physical
+machines and can interoperate with 64 bit virt-v2v and 64 bit
+hypervisors.
+
+This option requires that you have built F<virt-p2v.$arch> (ie.
+usually F<virt-p2v.i686>) by some means, and that you install it next
+to the ordinary F<virt-p2v> binary (eg. in libexecdir or
+C<$VIRT_V2V_DATA_DIR>).  This is outside the scope of this manual
+page, but you can find some tips in
+L<guestfs-building(1)/BUILDING i686 32 BIT VIRT-P2V>.
+
 =head1 OPTIONS
 
 =over 4
@@ -87,6 +103,13 @@ For more information, see L<virt-p2v(1)/SSH IDENTITIES>.
 =item B<--help>
 
 Display help.
+
+=item B<--arch> ARCH
+
+Set the architecture of the virt-p2v ISO.  See L</32 BIT VIRT-P2V> above.
+
+If this option is not supplied, then the default is to use the same
+architecture as the host that is running virt-p2v-make-disk.
 
 =item B<--inject-ssh-identity> id_rsa
 
