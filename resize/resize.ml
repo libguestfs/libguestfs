@@ -407,6 +407,13 @@ read the man page virt-resize(1).
       error (f_"%s: unknown partition table type\nvirt-resize only supports MBR (DOS) and GPT partition tables.")
         (fst infile) in
 
+  let disk_guid =
+    match parttype with
+    | MBR -> None
+    | GPT ->
+      try Some (g#part_get_disk_guid "/dev/sda")
+      with G.Error _ -> None in
+
   (* Build a data structure describing the source disk's partition layout. *)
   let get_partition_content =
     let pvs_full = Array.to_list (g#pvs_full ()) in
@@ -977,7 +984,10 @@ read the man page virt-resize(1).
     let last_error = ref "" in
     let rec initialize_partition_table g attempts =
       let ok =
-        try g#part_init "/dev/sdb" parttype_string; true
+        try
+          g#part_init "/dev/sdb" parttype_string;
+          may (g#part_set_disk_guid "/dev/sdb") disk_guid;
+          true
         with G.Error error -> last_error := error; false in
       if ok then g, true
       else if attempts > 0 then (
