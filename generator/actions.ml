@@ -12830,6 +12830,21 @@ or if C<guid> is not a valid GUID." };
 Return the disk identifier (GUID) of a GPT-partitioned C<device>.
 Behaviour is undefined for other partition types." };
 
+  { defaults with
+    name = "part_set_disk_guid_random"; added = (1, 33, 2);
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 461;
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestRun (
+        [["part_set_disk_guid_random"; "/dev/sda"]]), [];
+    ];
+    shortdesc = "set the GUID of a GPT-partitioned disk to random value";
+    longdesc = "\
+Set the disk identifier (GUID) of a GPT-partitioned C<device> to
+a randomly generated value.
+Return an error if the partition table of C<device> isn't GPT." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

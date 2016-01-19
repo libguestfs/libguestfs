@@ -988,3 +988,18 @@ do_part_set_disk_guid (const char *device, const char *guid)
 
   return 0;
 }
+
+int
+do_part_set_disk_guid_random (const char *device)
+{
+  CLEANUP_FREE char *err = NULL;
+  int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                    str_sgdisk, device, "-U", "R", NULL);
+
+  if (r == -1) {
+    reply_with_error ("%s %s -U R: %s", str_sgdisk, device, err);
+    return -1;
+  }
+
+  return 0;
+}
