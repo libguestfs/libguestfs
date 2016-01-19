@@ -36,13 +36,6 @@ is erased), using Fedora 20 as the base distribution:
 
  virt-p2v-make-disk -o /dev/sdX fedora-20
 
-Use a 32 bit Fedora environment, useful for converting older hardware
-(note that 32 bit virt-p2v can convert 64 bit physical machines and
-can interoperate with 64 bit virt-v2v and 64 bit hypervisors just
-fine):
-
- virt-p2v-make-disk -o /dev/sdX --arch i686 fedora-20
-
 Write a virt-p2v bootable virtual disk image, and boot it under qemu:
 
  virt-p2v-make-disk -o /var/tmp/p2v.img fedora-20
@@ -94,19 +87,6 @@ For more information, see L<virt-p2v(1)/SSH IDENTITIES>.
 =item B<--help>
 
 Display help.
-
-=item B<--arch> ARCH
-
-Set the architecture of the virt-p2v ISO.
-
-This is most usefully set to I<--arch i686>, which builds a 32 bit
-virt-p2v environment that will work on older hardware.  32 bit
-virt-p2v can convert 64 bit physical machines and can interoperate
-with 64 bit virt-v2v and 64 bit hypervisors, so there's no downside to
-using this option.
-
-If this option is not supplied, then the default is to use the same
-architecture as the host that is running virt-p2v-make-disk.
 
 =item B<--inject-ssh-identity> id_rsa
 
