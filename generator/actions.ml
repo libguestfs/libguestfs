@@ -12793,6 +12793,43 @@ See also L<ntfsresize(8)>, L<resize2fs(8)>, L<btrfs(8)>, L<xfs_info(8)>." };
     longdesc = "\
 This is the internal call which implements C<guestfs_feature_available>." };
 
+  { defaults with
+    name = "part_set_disk_guid"; added = (1, 33, 2);
+    style = RErr, [Device "device"; GUID "guid"], [];
+    proc_nr = Some 459;
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestLastFail (
+        [["part_set_disk_guid"; "/dev/sda"; "f"]]), [];
+      InitGPT, Always, TestResultString (
+        [["part_set_disk_guid"; "/dev/sda";
+          "01234567-89AB-CDEF-0123-456789ABCDEF"];
+         ["part_get_disk_guid"; "/dev/sda"]],
+        "01234567-89AB-CDEF-0123-456789ABCDEF"), [];
+    ];
+    shortdesc = "set the GUID of a GPT-partitioned disk";
+    longdesc = "\
+Set the disk identifier (GUID) of a GPT-partitioned C<device> to C<guid>.
+Return an error if the partition table of C<device> isn't GPT,
+or if C<guid> is not a valid GUID." };
+
+  { defaults with
+    name = "part_get_disk_guid"; added = (1, 33, 2);
+    style = RString "guid", [Device "device"], [];
+    proc_nr = Some 460;
+    optional = Some "gdisk";
+    tests = [
+      InitGPT, Always, TestResultString (
+        [["part_set_disk_guid"; "/dev/sda";
+          "01234567-89AB-CDEF-0123-456789ABCDEF"];
+         ["part_get_disk_guid"; "/dev/sda"]],
+        "01234567-89AB-CDEF-0123-456789ABCDEF"), [];
+    ];
+    shortdesc = "get the GUID of a GPT-partitioned disk";
+    longdesc = "\
+Return the disk identifier (GUID) of a GPT-partitioned C<device>.
+Behaviour is undefined for other partition types." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
