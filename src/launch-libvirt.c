@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <grp.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <assert.h>
@@ -2015,6 +2016,8 @@ ignore_errors (void *ignore, virErrorPtr ignore2)
   /* empty */
 }
 
+static int destroy_domain (guestfs_h *g, virDomainPtr dom, int check_for_errors);
+
 static int
 shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
 {
@@ -2023,23 +2026,14 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   virDomainPtr dom = data->dom;
   size_t i;
   int ret = 0;
-  int flags;
 
   /* Note that we can be called back very early in launch (specifically
    * from launch_libvirt itself), when conn and dom might be NULL.
    */
-
   if (dom != NULL) {
-    flags = check_for_errors ? VIR_DOMAIN_DESTROY_GRACEFUL : 0;
-    debug (g, "calling virDomainDestroy \"%s\" flags=%s",
-           data->name, check_for_errors ? "VIR_DOMAIN_DESTROY_GRACEFUL" : "0");
-    if (virDomainDestroyFlags (dom, flags) == -1) {
-      libvirt_error (g, _("could not destroy libvirt domain"));
-      ret = -1;
-    }
+    ret = destroy_domain (g, dom, check_for_errors);
     virDomainFree (dom);
   }
-
   if (conn != NULL)
     virConnectClose (conn);
 
@@ -2066,6 +2060,36 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   data->uefi_vars = NULL;
 
   return ret;
+}
+
+/* Wrapper around virDomainDestroy which handles errors and retries.. */
+static int
+destroy_domain (guestfs_h *g, virDomainPtr dom, int check_for_errors)
+{
+  const int flags = check_for_errors ? VIR_DOMAIN_DESTROY_GRACEFUL : 0;
+  virErrorPtr err;
+
+ again:
+  debug (g, "calling virDomainDestroy flags=%s",
+         check_for_errors ? "VIR_DOMAIN_DESTROY_GRACEFUL" : "0");
+  if (virDomainDestroyFlags (dom, flags) == -1) {
+    err = virGetLastError ();
+
+    /* Second chance if we're just waiting for qemu to shut down.  See:
+     * https://www.redhat.com/archives/libvir-list/2016-January/msg00767.html
+     */
+    if (err && err->code == VIR_ERR_SYSTEM_ERROR && err->int1 == EBUSY)
+      goto again;
+
+    /* "Domain not found" is not treated as an error. */
+    if (err && err->code == VIR_ERR_NO_DOMAIN)
+      return 0;
+
+    libvirt_error (g, _("could not destroy libvirt domain"));
+    return -1;
+  }
+
+  return 0;
 }
 
 /* Wrapper around error() which produces better errors for
