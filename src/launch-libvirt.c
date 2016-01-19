@@ -2091,8 +2091,8 @@ libvirt_error (guestfs_h *g, const char *fs, ...)
   /* In all recent libvirt, this retrieves the thread-local error. */
   err = virGetLastError ();
   if (err)
-    error (g, "%s: %s [code=%d domain=%d]",
-           msg, err->message, err->code, err->domain);
+    error (g, "%s: %s [code=%d int1=%d]",
+           msg, err->message, err->code, err->int1);
   else
     error (g, "%s", msg);
 
@@ -2124,8 +2124,8 @@ libvirt_debug (guestfs_h *g, const char *fs, ...)
   /* In all recent libvirt, this retrieves the thread-local error. */
   err = virGetLastError ();
   if (err)
-    debug (g, "%s: %s [code=%d domain=%d]",
-           msg, err->message, err->code, err->domain);
+    debug (g, "%s: %s [code=%d int1=%d]",
+           msg, err->message, err->code, err->int1);
   else
     debug (g, "%s", msg);
 
