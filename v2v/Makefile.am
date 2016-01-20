@@ -22,7 +22,6 @@ EXTRA_DIST = \
 	copy_to_local.ml \
 	v2v_unit_tests.ml \
 	$(TESTS) $(SLOW_TESTS) \
-	HACKING \
 	test-v2v-cdrom.expected \
 	test-v2v-cdrom.xml \
 	test-v2v-i-ova.ovf \

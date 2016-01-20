@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	HACKING \
 	dependencies.m4 \
 	issue \
 	launch-virt-p2v.in \
