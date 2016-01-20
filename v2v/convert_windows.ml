@@ -163,12 +163,66 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
          Not_found -> None
       ) in
 
+  (* Locate and retrieve all uninstallation commands for Parallels Tools *)
+  let prltools_uninsts =
+    let uninsts = ref [] in
+
+    Windows.with_hive g software_hive_filename ~write:false
+      (fun root ->
+       try
+         let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall"] in
+         let node =
+           match Windows.get_node g root path with
+           | None -> raise Not_found
+           | Some node -> node in
+         let uninstnodes = g#hivex_node_children node in
+
+         Array.iter (
+           fun { G.hivex_node_h = uninstnode } ->
+             try
+               let valueh = g#hivex_node_get_value uninstnode "DisplayName" in
+               if valueh = 0L then
+                 raise Not_found;
+
+               let dispname = g#hivex_value_utf8 valueh in
+               if not (Str.string_match (Str.regexp ".*Parallels Tools.*")
+                                        dispname 0) then
+                 raise Not_found;
+
+               let uninstval = "UninstallString" in
+               let valueh = g#hivex_node_get_value uninstnode uninstval in
+               if valueh = 0L then (
+                 let name = g#hivex_node_name uninstnode in
+                 warning (f_"cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with DisplayName '%s' doesn't contain value '%s'")
+                         (String.concat "\\" path) name dispname uninstval;
+                 raise Not_found
+               );
+
+               let uninst = (g#hivex_value_utf8 valueh) ^
+                     " /quiet /norestart /l*v+ \"%~dpn0.log\"" ^
+                     " REBOOT=ReallySuppress REMOVE=ALL" ^
+                     (* without these custom Parallels-specific MSI properties the
+                      * uninstaller still shows a no-way-out reboot dialog *)
+                     " PREVENT_REBOOT=Yes LAUNCHED_BY_SETUP_EXE=Yes" in
+
+               uninsts := uninst :: !uninsts
+             with
+               Not_found -> ()
+         ) uninstnodes
+       with
+         Not_found -> ()
+      );
+
+    !uninsts
+  in
+
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
 
   let rec configure_firstboot () =
     configure_rhev_apt ();
-    unconfigure_xenpv ()
+    unconfigure_xenpv ();
+    unconfigure_prltools ()
 
   and configure_rhev_apt () =
     (* Configure RHEV-APT (the RHEV guest agent).  However if it doesn't
@@ -203,6 +257,23 @@ echo uninstalling Xen PV driver
 " uninst in
       Firstboot.add_firstboot_script g inspect.i_root
         "uninstall Xen PV" fb_script
+
+  and unconfigure_prltools () =
+    List.iter (
+      fun uninst ->
+        let fb_script = "\
+@echo off
+
+echo uninstalling Parallels guest tools
+" ^ uninst ^
+(* ERROR_SUCCESS_REBOOT_REQUIRED == 3010 is OK too *)
+"
+if errorlevel 3010 exit /b 0
+" in
+
+        Firstboot.add_firstboot_script g inspect.i_root
+          "uninstall Parallels tools" fb_script
+    ) prltools_uninsts
   in
 
   let rec update_system_hive root =
