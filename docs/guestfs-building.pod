@@ -1,0 +1,578 @@
+=head1 NAME
+
+guestfs-building - How to build libguestfs from source
+
+=head1 DESCRIPTION
+
+This manual page describes how to build libguestfs from source.
+
+The main steps are:
+
+=over 4
+
+=item *
+
+Install the requirements.
+
+=item *
+
+Build, either from the git repository or from a tarball.
+
+=item *
+
+Run the tests.
+
+=item *
+
+Run the tools from the source directory, or install.
+
+=back
+
+=head1 REQUIREMENTS
+
+=head2 Short cut for Fedora or Red Hat Enterprise Linux (RHEL) users
+
+On Fedora, use L<dnf(8)> to install all the requirements:
+
+ dnf builddep libguestfs
+
+On systems still using L<yum(8)>, do:
+
+ yum-builddep libguestfs
+
+=head2 Short cut for Debian or Ubuntu users
+
+Use APT to install all the requirements:
+
+ apt-get build-dep libguestfs
+
+If that command doesn't work, take a look at the Debian source package
+L<http://packages.debian.org/source/libguestfs>, at the list of
+C<build-depends> and C<build-depends-indep>, and install everything
+listed there.
+
+=head2 Full list of requirements
+
+=over 4
+
+=item F<appliance/packagelist.in>
+
+Install as many package names found in this file as possible.  (It is
+not strictly required to install all of them).
+
+=item qemu E<ge> 1.3.0
+
+I<Required>.
+
+=item qemu-img E<ge> 1.3.0
+
+I<Required>.  Virt-p2v and virt-v2v requires qemu-img E<ge> 2.2.0.
+
+=item kernel E<ge> 2.6.34
+
+I<Required>.  The following features must be enabled:
+C<virtio-pci>, C<virtio-serial>, C<virtio-block>, C<virtio-net>.
+
+=item supermin E<ge> 5.1.0
+
+I<Required>.  For alternatives, see L</USING A PREBUILT BINARY APPLIANCE>
+below.
+
+=item glibc
+
+I<Required>.  We use various glibc-isms, and glibc also provides XDR
+libraries and the C<rpcgen> tool.
+
+=item Gcc or Clang
+
+I<Required>.  We use C<__attribute__((cleanup))> which is a GCC
+extension also supported by Clang.
+
+=item Perl
+
+I<Required>.  Various build steps and tests are written in Perl.  Perl
+is not needed at runtime except if you need to run a small number of
+virt tools which are still written in Perl.
+
+=item Perl C<Pod::Man>
+
+=item Perl C<Pod::Simple>
+
+I<Required>.  Part of Perl core.
+
+=item OCaml E<ge> 3.11
+
+=item OCaml findlib
+
+I<Required> if compiling from git.
+Optional (but recommended) if compiling from tarball.
+
+=item autoconf
+
+=item automake
+
+I<Required> if compiling from git.
+Optional if compiling from tarball.
+
+=item cpio
+
+I<Required>.
+
+=item gperf
+
+I<Required>.
+
+=item flex
+
+=item bison
+
+I<Required>.
+
+=item Perl-compatible Regular Expressions (PCRE) library
+
+I<Required>.
+
+=item genisoimage
+
+I<Required>.
+
+=item libxml2
+
+I<Required>.
+
+=item augeas E<ge> 1.0.0
+
+I<Required>.
+
+=item xz
+
+I<Required>.
+
+=item yajl E<ge> 2.0.4
+
+I<Required>.
+
+=item po4a
+
+I<Required> if compiling from git.
+Optional if compiling from tarball.
+
+=item hivex E<ge> 1.2.7
+
+I<Required> if compiling from git, and highly recommended otherwise.
+Various core features will be disabled if hivex is not available.
+
+=item libmagic
+
+Optional.  This is the library used by the L<file(1)> command.
+
+=item libvirt E<ge> 0.10.2
+
+Optional.  Always use the latest possible version of libvirt.
+
+=item xmllint
+
+Optional.  Used only for tests.
+
+=item libconfig
+
+Optional.  Used to parse libguestfs's own config files,
+eg. F</etc/libguestfs-tools.conf>.
+
+=item libselinux
+
+Optional.  Used by the L<libvirt backend|guestfs(3)/BACKEND> to
+securely confine the appliance (sVirt).
+
+=item Berkeley DB utils (db_dump, db_load, etc)
+
+Optional.  Usually found in a package called C<db-utils>,
+C<db4-utils>, C<db4.X-utils> etc.
+
+=item systemtap
+
+Optional.  For userspace probes.
+
+=item readline
+
+Optional.  For nicer command line editing in L<guestfish(1)>.
+
+=item acl
+
+Optional.  Library and programs for handling POSIX ACLs.
+
+=item libcap
+
+Optional.  Library and programs for handling Linux capabilities.
+
+=item libldm
+
+Optional.  Library and L<ldmtool(1)> for handling
+Windows Dynamic Disks.
+
+=item sd-journal
+
+Optional.  Library for accessing systemd journals.
+
+=item gdisk
+
+Optional.  GPT disk support.
+
+=item netpbm
+
+Optional.  Render icons from guests.
+
+=item icoutils
+
+Optional.  Render icons from Windows guests.
+
+=item Perl C<Expect>
+
+Optional.  Perl module used to test L<virt-rescue(1)>.
+
+=item FUSE
+
+Optional.  L<fusermount(1)>, libfuse and kernel module are all needed
+if you want L<guestmount(1)> and/or L<mount-local|guestfs(3)/MOUNT LOCAL>
+support.
+
+=item static glibc
+
+Optional.  Used only for testing.
+
+=item qemu-nbd
+
+Optional.  Used for testing, and by virt-p2v.
+
+=item uml_mkcow
+
+Optional.  For the L<UML backend|guestfs(3)/BACKEND>.
+
+=item curl
+
+Optional.  Used by virt-builder for downloads.
+
+=item gpg
+
+Optional.  Used by virt-builder for checking digital signatures.
+
+=item liblzma
+
+Optional.  If available, virt-builder will use this library
+for fast, parallel uncompression of templates.
+
+=item gtk2 E<ge> 2.24
+
+Optional.  Used by the virt-p2v user interface.
+
+=item zip
+
+=item unzip
+
+Optional.  Used by virt-v2v to handle OVA files.
+
+=item python-evtx
+
+Optional.  Used by L<virt-log(1)> to parse Windows Event Log files.
+
+=item OCaml gettext
+
+Optional.  For localizing OCaml virt tools.
+
+=item ocaml-ounit E<ge> 2.0.0
+
+Optional.  For testing the common OCaml modules.
+
+=item ocaml-libvirt E<ge> 0.6.1.5
+
+Optional.  For building the optional virt-v2v test harness.
+
+=item Perl C<Module::Build> E<ge> 0.19
+
+=item Perl C<Test::More>
+
+Optional.  Used to build and test the Perl bindings.
+
+=item Python E<ge> 2.2
+
+Optional.  Used to build the Python bindings.  For building
+Python 2 or Python 3 bindings, see
+L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below.
+
+=item Ruby
+
+=item rake
+
+=item rubygem-minitest
+
+Optional.  Used to build the Ruby bindings.
+
+=item Java E<ge> 1.6
+
+Optional.  Java, JNI and jpackage-utils are needed for building Java
+bindings.
+
+=item GHC
+
+Optional.  Used to build the Haskell bindings.
+
+=item PHP
+
+=item phpize
+
+Optional.  Used to build the PHP bindings.
+
+=item glib2
+
+=item gobject-introspection
+
+=item gjs
+
+Optional.  Used to build and test the GObject bindings.
+
+=item LUA
+
+Optional.  Used to build the LUA bindings.
+
+=item Erlang
+
+=item erl_interface
+
+Optional.  Used to build the Erlang bindings.
+
+=item golang E<ge> 1.1.1
+
+Optional.  Used to build the Go bindings.
+
+=item valgrind
+
+Optional.  For testing memory problems.
+
+=item Perl C<Sys::Virt>
+
+Optional.
+
+=item libvirt-python
+
+Optional.  For testing Python libvirt/libguestfs interactions.
+
+=item Perl C<Win::Hivex>
+
+Optional.  Used by the L<virt-win-reg(1)> tool.
+
+=item Perl C<Pod::Usage>
+
+Optional.  Used by some Perl virt tools.
+
+=item Perl C<libintl>
+
+Optional.
+
+=item bash-completion
+
+Optional.  For tab-completion of commands in bash.
+
+=back
+
+=head1 BUILDING FROM GIT
+
+ git clone https://github.com/libguestfs/libguestfs
+ cd libguestfs
+ ./autogen.sh
+ make
+
+=head1 BUILDING FROM TARBALLS
+
+Download and unpack the tarball.
+
+ cd libguestfs-1.xx.yy
+ ./configure
+ make
+
+=head1 RUNNING THE TESTS
+
+To sanity check that the build worked, do:
+
+ make quickcheck
+
+To run the basic tests, do:
+
+ make check
+
+There are many more tests you can run.  See L<guestfs-hacking(1)>
+for details.
+
+=head1 INSTALLING
+
+B<Do not use C<make install>!>  You'll end up with conflicting versions
+of libguestfs installed, and this causes constant headaches for users.
+
+Distro packagers can use:
+
+ make INSTALLDIRS=vendor DESTDIR=[temp-build-dir] install
+
+You can run L<guestfish(1)>, L<guestmount(1)> and the virt tools
+without needing to install, using the F<./run> script in the top
+directory.  This script sets up some environment variables.  For
+example:
+
+ ./run guestfish [usual guestfish args ...]
+
+ ./run virt-inspector [usual virt-inspector args ...]
+
+If you are already in the F<fish/> subdirectory, then the following
+command will also work:
+
+ ../run guestfish [...]
+
+The F<./run> script adds every libguestfs binary to the C<$PATH>, so
+the above example runs guestfish from the build directory (not the
+globally installed guestfish if there is one).
+
+You can also run the C programs under valgrind like this:
+
+ ./run valgrind [valgrind opts...] virt-cat [virt-cat opts...]
+
+or under gdb:
+
+ ./run gdb --args virt-cat [virt-cat opts...]
+
+This also works with sudo (eg. if you need root access for libvirt or
+to access a block device):
+
+ sudo ./run virt-cat -d LinuxGuest /etc/passwd
+
+=head1 NOTES ABOUT QEMU AND KVM
+
+A common problem is with broken or incompatible qemu releases.
+
+Different versions of qemu have problems booting the appliance for
+different reasons.  This varies between versions of qemu, and Linux
+distributions which add their own patches.
+
+If you find a problem, you could try using your own qemu built from
+source (qemu is very easy to build from source), with a "qemu
+wrapper".  See L<guestfs(3)/QEMU WRAPPERS>.
+
+By default the configure script will look for qemu-kvm (KVM support).
+KVM is much faster than using plain qemu.
+
+You may also need to enable KVM support for non-root users, by
+following these instructions:
+L<http://www.linux-kvm.org/page/FAQ#How_can_I_use_kvm_with_a_non-privileged_user.3F>
+
+On some systems, this will work too:
+
+ chmod 0666 /dev/kvm
+
+On some systems, the chmod will not survive a reboot, and you will
+need to make edits to the udev configuration.
+
+=head1 USING CLANG (LLVM) INSTEAD OF GCC
+
+ export CC=clang
+ ./configure --disable-probes
+ make
+
+SystemTap/DTrace-style userspace probe points don't work under the
+Clang compiler, which is why you may need to disable them.
+
+Don't enable GCC warnings (ie. I<don't> use
+C<./configure --enable-gcc-warnings>).
+
+=head1 USING A PREBUILT BINARY APPLIANCE
+
+To understand what the libguestfs appliance means, see
+L<guestfs-internals(1)>.
+
+If you are using non-Linux, or a Linux distribution that does not have
+L<supermin(1)> support, or simply if you don't want to build your own
+libguestfs appliance, then you can use one of the prebuilt binary
+appliances that we supply:
+L<http://libguestfs.org/download/binaries/appliance>
+
+Build libguestfs like this:
+
+ ./configure --disable-appliance --disable-daemon
+ make
+
+Set C<$LIBGUESTFS_PATH> to the path where you unpacked the appliance
+tarball, eg:
+
+ export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance
+
+and run the libguestfs programs and virt tools in the normal way,
+eg. using the F<./run> script (see above).
+
+=head1 BUILDING PYTHON 2 AND PYTHON 3 BINDINGS
+
+The F<./configure> script detects the currently installed version of
+Python using whatever program is called C<python> in the current
+C<$PATH>.  Libguestfs will build Python 2 or Python 3 bindings as
+appropriate.
+
+You can override this behaviour by specifying an alternate Python
+binary, eg:
+
+ PYTHON=/usr/bin/python3 ./configure
+
+To build parallel Python 2 and Python 3 bindings, you will need to
+build libguestfs twice.  The second time, you can disable all the
+other bindings and tools and just build the Python bindings.  See the
+Fedora spec file (see below) for a complete example of how to do this.
+
+=head1 BUILDING A PACKAGE FOR FEDORA
+
+The Fedora spec file is stored under:
+L<http://pkgs.fedoraproject.org/cgit/rpms/libguestfs.git/>
+
+Libguestfs is built in Fedora using the ordinary Fedora build system
+(Koji).
+
+=head1 BUILDING A PACKAGE FOR RED HAT ENTERPRISE LINUX
+
+Red Hat Enterprise Linux (RHEL) builds of libguestfs are heavily
+patched.  There are broadly two types of patches we apply:
+
+=over 4
+
+=item *
+
+We disable many features that we do not wish to support for RHEL
+customers.  For example, the "libguestfs live" feature is disabled.
+
+=item *
+
+We backport upstream features.
+
+=back
+
+The patches we apply to RHEL releases are available publically in the
+upstream git repository, in a branch called C<rhel-x.y>
+
+For example, the RHEL 7.3 patches are available here:
+L<https://github.com/libguestfs/libguestfs/commits/rhel-7.3>
+
+The sources and spec files for RHEL versions of libguestfs are
+available on L<ftp://ftp.redhat.com/>
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfs-examples(3)>,
+L<guestfs-hacking(3)>,
+L<guestfs-internals(3)>,
+L<guestfs-performance(1)>,
+L<guestfs-release-notes(1)>,
+L<guestfs-testing(1)>,
+L<libguestfs-test-tool(1)>,
+L<libguestfs-make-fixed-appliance(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2016 Red Hat Inc.

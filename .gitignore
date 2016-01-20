@@ -143,6 +143,7 @@ Makefile.in
 /diff/stamp-virt-diff.pod
 /diff/virt-diff
 /diff/virt-diff.1
+/docs/guestfs-building.1
 /docs/guestfs-faq.1
 /docs/guestfs-hacking.1
 /docs/guestfs-internals.1
@@ -151,6 +152,7 @@ Makefile.in
 /docs/guestfs-release-notes.1
 /docs/guestfs-security.1
 /docs/guestfs-testing.1
+/docs/stamp-guestfs-building.pod
 /docs/stamp-guestfs-faq.pod
 /docs/stamp-guestfs-hacking.pod
 /docs/stamp-guestfs-internals.pod

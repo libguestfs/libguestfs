@@ -13,6 +13,7 @@
 ../df/virt-df.pod
 ../dib/virt-dib.pod
 ../diff/virt-diff.pod
+../docs/guestfs-building.pod
 ../docs/guestfs-faq.pod
 ../docs/guestfs-hacking.pod
 ../docs/guestfs-internals.pod

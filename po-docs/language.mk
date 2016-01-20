@@ -29,6 +29,7 @@ CLEANFILES += *.pl
 MANPAGES = \
 	guestfish.1 \
 	guestfs.3 \
+	guestfs-building.1 \
 	guestfs-erlang.3 \
 	guestfs-examples.3 \
 	guestfs-faq.1 \

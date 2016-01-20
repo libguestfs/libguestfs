@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	guestfs-building.pod \
 	guestfs-faq.pod \
 	guestfs-hacking.pod \
 	guestfs-internals.pod \
@@ -29,6 +30,7 @@ EXTRA_DIST = \
 	README
 
 CLEANFILES = \
+	guestfs-building.1 \
 	guestfs-faq.1 \
 	guestfs-hacking.1 \
 	guestfs-internals.1 \
@@ -37,6 +39,7 @@ CLEANFILES = \
 	guestfs-release-notes.1 \
 	guestfs-security.1 \
 	guestfs-testing.1 \
+	stamp-guestfs-building.pod \
 	stamp-guestfs-faq.pod \
 	stamp-guestfs-hacking.pod \
 	stamp-guestfs-internals.pod \
@@ -47,6 +50,7 @@ CLEANFILES = \
 	stamp-guestfs-testing.pod
 
 man_MANS = \
+	guestfs-building.1 \
 	guestfs-faq.1 \
 	guestfs-hacking.1 \
 	guestfs-internals.1 \
@@ -56,6 +60,7 @@ man_MANS = \
 	guestfs-security.1 \
 	guestfs-testing.1
 noinst_DATA = \
+	$(top_builddir)/website/guestfs-building.1.html \
 	$(top_builddir)/website/guestfs-faq.1.html \
 	$(top_builddir)/website/guestfs-hacking.1.html \
 	$(top_builddir)/website/guestfs-internals.1.html \
@@ -64,6 +69,17 @@ noinst_DATA = \
 	$(top_builddir)/website/guestfs-release-notes.1.html \
 	$(top_builddir)/website/guestfs-security.1.html \
 	$(top_builddir)/website/guestfs-testing.1.html
+
+guestfs-building.1 $(top_builddir)/website/guestfs-building.1.html: stamp-guestfs-building.pod
+
+stamp-guestfs-building.pod: guestfs-building.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-building.1 \
+	  --html $(top_builddir)/website/guestfs-building.1.html \
+	  --license LGPLv2+ \
+	  $<
+	touch $@
 
 guestfs-faq.1 $(top_builddir)/website/guestfs-faq.1.html: stamp-guestfs-faq.pod
 

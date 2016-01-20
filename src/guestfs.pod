@@ -40,7 +40,8 @@ For tips and recipes, see L<guestfs-recipes(1)>.
 
 If you are having performance problems, read
 L<guestfs-performance(1)>.  To help test libguestfs, read
-L<libguestfs-test-tool(1)> and L<guestfs-testing(1)>.  To contribute
+L<libguestfs-test-tool(1)> and L<guestfs-testing(1)>.  To build
+libguestfs from source, read L<guestfs-building(1)>.  To contribute
 code to libguestfs, see L<guestfs-hacking(1)>.  To find out how
 libguestfs works, see L<guestfs-internals(1)>.
 
@@ -3501,6 +3502,7 @@ L<virt-v2v(1)>,
 L<virt-win-reg(1)>.
 
 Other libguestfs topics:
+L<guestfs-building(1)>,
 L<guestfs-faq(1)>,
 L<guestfs-hacking(1)>,
 L<guestfs-internals(1)>,
