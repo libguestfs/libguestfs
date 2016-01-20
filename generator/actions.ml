@@ -12845,6 +12845,20 @@ Set the disk identifier (GUID) of a GPT-partitioned C<device> to
 a randomly generated value.
 Return an error if the partition table of C<device> isn't GPT." };
 
+  { defaults with
+    name = "part_expand_gpt"; added = (1, 33, 2);
+    style = RErr, [Device "device"], [];
+    proc_nr = Some 462;
+    optional = Some "gdisk";
+    shortdesc = "move backup GPT header to the end of the disk";
+    longdesc = "\
+Move backup GPT data structures to the end of the disk.
+This is useful in case of in-place image expand
+since disk space after backup GPT header is not usable.
+This is equivalent to C<sgdisk -e>.
+
+See also L<sgdisk(8)>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

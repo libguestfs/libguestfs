@@ -1003,3 +1003,37 @@ do_part_set_disk_guid_random (const char *device)
 
   return 0;
 }
+
+int
+do_part_expand_gpt(const char *device)
+{
+  CLEANUP_FREE char *err = NULL;
+
+  /* If something is broken, sgdisk may try to correct it.
+   * (e.g. recreate partition table and so on).
+   * We do not want such behavior, so dry-run at first.*/
+  int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                    str_sgdisk, "--pretend", "-e", device, NULL);
+
+  if (r == -1) {
+    reply_with_error ("%s --pretend -e %s: %s", str_sgdisk, device, err);
+    return -1;
+  }
+  if (err && strlen(err) != 0) {
+    /* Unexpected actions. */
+    reply_with_error ("%s --pretend -e %s: %s", str_sgdisk, device, err);
+    return -1;
+  }
+  free(err);
+
+  /* Now we can do a real run. */
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                str_sgdisk, "-e", device, NULL);
+
+  if (r == -1) {
+    reply_with_error ("%s -e %s: %s", str_sgdisk, device, err);
+    return -1;
+  }
+
+  return 0;
+}
