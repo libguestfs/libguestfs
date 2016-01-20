@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-01-06 10:47+0000\n"
+"POT-Creation-Date: 2016-01-20 17:23+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -24,15 +24,15 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Zanata 3.7.3\n"
 
-#: ../resize/resize.ml:938
+#: ../resize/resize.ml:945
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Додатково буде створено ще один розділ."
 
-#: ../resize/resize.ml:913 ../resize/resize.ml:883
+#: ../resize/resize.ml:920 ../resize/resize.ml:890
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "  %s на %s буде розширено за допомогою методу «%s»."
 
-#: ../resize/resize.ml:940
+#: ../resize/resize.ml:947
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -40,7 +40,7 @@ msgstr ""
 "  Додатковий простір не є достатньо великим для створення додаткового "
 "розділу, отже, його буде просто проігноровано."
 
-#: ../resize/resize.ml:942
+#: ../resize/resize.ml:949
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -55,7 +55,7 @@ msgstr "%s"
 
 #. ../get-kernel/get_kernel.ml:131
 #. ../customize/customize_main.ml:206
-#. ../builder/builder.ml:662
+#. ../builder/builder.ml:674
 #: ../v2v/v2v.ml:563 ../v2v/v2v.ml:379 ../sysprep/main.ml:239
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
@@ -136,7 +136,7 @@ msgstr "Потрібен %s, але його не знайдено"
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1311
+#: ../v2v/convert_linux.ml:1316
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -164,11 +164,11 @@ msgstr "%s: «%s» має некоректну адресу ключа gpg\n"
 msgid "%s: '%s' has non-local gpgkey URI\n"
 msgstr "%s: «%s» має нелокальну адресу ключа gpg\n"
 
-#: ../builder/sources.ml:112
+#: ../builder/sources.ml:105
 msgid "%s: ... read %d sources\n"
 msgstr "%s: ... прочитано %d джерел\n"
 
-#: ../resize/resize.ml:667
+#: ../resize/resize.ml:674
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -183,11 +183,11 @@ msgstr ""
 "(Причиною появи цього повідомлення про помилку є використання параметра "
 "командного рядка «%s».)"
 
-#: ../resize/resize.ml:910
+#: ../resize/resize.ml:917
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: цей логічний том буде розширено до максимального розміру."
 
-#: ../resize/resize.ml:663
+#: ../resize/resize.ml:670
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -203,7 +203,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:659
+#: ../resize/resize.ml:666
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -219,7 +219,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:656
+#: ../resize/resize.ml:663
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -232,7 +232,7 @@ msgstr ""
 "руйнування усіх даних на розділі. (Причиною появи цього повідомлення про "
 "помилку є використання параметра командного рядка «%s».)"
 
-#: ../resize/resize.ml:876
+#: ../resize/resize.ml:883
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -240,15 +240,15 @@ msgstr ""
 "%s: цей розділ буде створено, але його вміст буде проігноровано (тобто не "
 "буде скопійовано до призначення)."
 
-#: ../resize/resize.ml:878
+#: ../resize/resize.ml:885
 msgid "%s: This partition will be deleted."
 msgstr "%s: цей розділ буде вилучено."
 
-#: ../resize/resize.ml:874
+#: ../resize/resize.ml:881
 msgid "%s: This partition will be left alone."
 msgstr "%s: цей розділ буде залишено."
 
-#: ../resize/resize.ml:880
+#: ../resize/resize.ml:887
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
@@ -427,7 +427,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Із докладнішим описом можна\n"
 "ознайомитися за допомогою сторінки довідника (man) virt-get-kernel(1).\n"
 
-#: ../builder/sources.ml:155
+#: ../builder/sources.ml:148
 msgid "%s: file error: %s: %s\n"
 msgstr "%s: помилка файла: %s: %s\n"
 
@@ -453,11 +453,11 @@ msgstr ""
 "%s: покажчик пошкоджено: версія ОС «%s» з архітектурою «%s» використано два "
 "або більше разів\n"
 
-#: ../builder/sources.ml:160
+#: ../builder/sources.ml:153
 msgid "%s: internal error: invalid argument: %s\n"
 msgstr "%s: внутрішня помилка: некоректний аргумент: %s\n"
 
-#: ../resize/resize.ml:814
+#: ../resize/resize.ml:821
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -467,11 +467,11 @@ msgstr ""
 "наслідком використання параметра командного рядка «--lv-expand»). Спробуйте "
 "віддати таку команду: virt-filesystems --logical-volumes --long -a %s"
 
-#: ../resize/resize.ml:685
+#: ../resize/resize.ml:692
 msgid "%s: missing size field in '%s' option"
 msgstr "%s: у параметрі «%s» пропущено поле розміру"
 
-#: ../resize/resize.ml:694
+#: ../resize/resize.ml:701
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
@@ -491,18 +491,18 @@ msgstr "%s: немає запису «size» для «%s»\n"
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: немає запису «uri» для «%s» у %s, пропускаємо\n"
 
-#: ../resize/resize.ml:607
+#: ../resize/resize.ml:614
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ вже вилучено, ви не можете використовувати його у параметрі «%s»"
 
-#: ../resize/resize.ml:603
+#: ../resize/resize.ml:610
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ уже проігноровано, ви не можете використовувати його у параметрі "
 "«%s»"
 
-#: ../resize/resize.ml:599
+#: ../resize/resize.ml:606
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
@@ -512,24 +512,17 @@ msgstr ""
 "використання параметра командного рядка «%s»). Спробуйте віддати таку "
 "команду: virt-filesystems --partitions --long -a %s"
 
-#: ../resize/resize.ml:508
+#: ../resize/resize.ml:515
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: розмір розділу %Ld менший розміру файлової системи %Ld"
 
-#: ../resize/resize.ml:503
+#: ../resize/resize.ml:510
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: розмір розділу %Ld фізичний розмір тому %Ld"
 
-#: ../resize/resize.ml:421
+#: ../resize/resize.ml:428
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: pvs_full не повернуто фізичний том"
-
-#: ../builder/sources.ml:89
-msgid ""
-"%s: repository type '%s' not supported (missing YAJL support), skipping it\n"
-msgstr ""
-"%s: підтримки типу сховищ «%s» не передбачено (немає підтримки YAJL), "
-"пропускаємо його\n"
 
 #: ../sysprep/main.ml:143
 msgid ""
@@ -600,15 +593,15 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладний опис\n"
 "можна знайти на сторінці підручника (man) virt-sparsify(1).\n"
 
-#: ../resize/resize.ml:641
+#: ../resize/resize.ml:648
 msgid "%s: this partition has already been ignored or deleted"
 msgstr "%s: цей розділ вже проігноровано або вилучено"
 
-#: ../resize/resize.ml:637
+#: ../resize/resize.ml:644
 msgid "%s: this partition has already been marked for resizing"
 msgstr "%s: цей розділ вже позначено для зміни розміру"
 
-#: ../resize/resize.ml:518
+#: ../resize/resize.ml:525
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: цей розділ перекривається з попереднім"
 
@@ -624,7 +617,7 @@ msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
 
-#: ../builder/sources.ml:96
+#: ../builder/sources.ml:89
 msgid "%s: unknown repository type '%s' in %s, skipping it\n"
 msgstr "%s: невідомий тип сховища, «%s», у %s, пропускаємо\n"
 
@@ -683,7 +676,7 @@ msgstr "Параметр --add можна використовувати лиш�
 msgid "--attach-format parameter must appear before --attach parameter"
 msgstr "параметр --attach-format має бути вказано до параметра --attach"
 
-#: ../builder/cmdline.ml:260
+#: ../builder/cmdline.ml:261
 msgid ""
 "--cache-all-templates/--print-cache/--delete-cache does not need any extra "
 "arguments"
@@ -728,7 +721,7 @@ msgstr "Параметр --expand вказано двічі"
 msgid "--format parameter must appear before -a parameter"
 msgstr "Параметр --format слід вказувати до параметра -a"
 
-#: ../builder/cmdline.ml:268
+#: ../builder/cmdline.ml:269
 msgid "--get-kernel: too many parameters"
 msgstr "--get-kernel: забагато параметрів"
 
@@ -736,10 +729,6 @@ msgstr "--get-kernel: забагато параметрів"
 msgid "--install is not supported for this guest operating system"
 msgstr ""
 "підтримки --install не передбачено для цієї гостьової операційної системи"
-
-#: ../builder/cmdline.ml:244
-msgid "--list option does not need any extra arguments"
-msgstr "параметр --list не потребує ніяких додаткових аргументів"
 
 #: ../builder/cmdline.ml:240
 msgid "--list: use '--list-format', not '--format'"
@@ -762,7 +751,7 @@ msgstr ""
 msgid "--no-trim: empty parameter"
 msgstr "--no-trim: порожній параметр"
 
-#: ../builder/cmdline.ml:252
+#: ../builder/cmdline.ml:253
 msgid "--notes: too many parameters, expecting 'os-version'"
 msgstr "--notes: забагато параметрів, мало бути «версія-ОС»"
 
@@ -1171,7 +1160,7 @@ msgstr "Стиснутий формат виведення даних"
 msgid "Compressing the image as tar"
 msgstr "Стискаємо образ за допомогою tar"
 
-#: ../builder/builder.ml:611
+#: ../builder/builder.ml:623
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
@@ -1183,7 +1172,7 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../dib/dib.ml:888 ../builder/builder.ml:610
+#: ../dib/dib.ml:888 ../builder/builder.ml:622
 msgid "Converting to %s"
 msgstr "Перетворюємо на %s"
 
@@ -1195,11 +1184,11 @@ msgstr "Копіювати файли на образ диска"
 msgid "Copy local files or directories into image"
 msgstr "Копіювати локальні файли або каталоги до образу"
 
-#: ../builder/builder.ml:541
+#: ../builder/builder.ml:553
 msgid "Copying"
 msgstr "Копіювання"
 
-#: ../resize/resize.ml:1202
+#: ../resize/resize.ml:1212
 msgid "Copying %s"
 msgstr "Копіюємо %s"
 
@@ -1299,7 +1288,7 @@ msgstr "Вилучити розділ"
 msgid "Delete the template cache"
 msgstr "Вилучити кеш шаблонів"
 
-#: ../customize/customize_run.ml:195 ../builder/builder.ml:114
+#: ../customize/customize_run.ml:195 ../builder/builder.ml:138
 msgid "Deleting: %s"
 msgstr "Вилучаємо: %s"
 
@@ -1372,7 +1361,7 @@ msgstr "Завантажити усіх шаблони до кешу"
 msgid "Download size:"
 msgstr "Розмір отриманого:"
 
-#: ../builder/builder.ml:279 ../builder/builder.ml:221
+#: ../builder/builder.ml:291 ../builder/builder.ml:251
 msgid "Downloading: %s"
 msgstr "Отримуємо: %s"
 
@@ -1470,11 +1459,11 @@ msgstr "Розгорнути розділ"
 msgid "Expanded elements: %s"
 msgstr "Розгорнуті елементи: %s"
 
-#: ../resize/resize.ml:1345
+#: ../resize/resize.ml:1355
 msgid "Expanding %s using the '%s' method"
 msgstr "Розширюємо %s з використанням методу «%s»"
 
-#: ../resize/resize.ml:1326
+#: ../resize/resize.ml:1336
 msgid "Expanding %s%s using the '%s' method"
 msgstr "Розширюємо %s%s з використанням методу «%s»"
 
@@ -1507,7 +1496,7 @@ msgstr "ФАЙЛ:ВИРАЗ"
 msgid "FILENAME"
 msgstr "НАЗВА_ФАЙЛА"
 
-#: ../resize/resize.ml:996
+#: ../resize/resize.ml:1006
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1545,12 +1534,12 @@ msgid "Fingerprint: %s\n"
 msgstr "Відбиток: %s\n"
 
 #. ../customize/customize_main.ml:216
-#. ../builder/builder.ml:711
+#. ../builder/builder.ml:723
 #: ../v2v/v2v.ml:131 ../v2v/copy_to_local.ml:240
 msgid "Finishing off"
 msgstr "Завершуємо"
 
-#: ../resize/resize.ml:1246
+#: ../resize/resize.ml:1256
 msgid "Fixing first NTFS partition boot record"
 msgstr "Виправляємо перший запис завантаження розділу NTFS"
 
@@ -1600,7 +1589,7 @@ msgstr ""
 "Формат диска виведених даних (типове значення: той самий формат, що і у "
 "вхідних даних)"
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:713
 msgid "Free space"
 msgstr "Вільне місце"
 
@@ -1864,7 +1853,7 @@ msgstr "Лише скоригувати гостьову систему у вх�
 msgid "Opening the disks"
 msgstr "Відкриваємо диски"
 
-#: ../builder/builder.ml:624
+#: ../builder/builder.ml:636
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
@@ -1900,11 +1889,11 @@ msgstr "Архітектура для виведення даних"
 msgid "Output directory"
 msgstr "Каталог виведених даних"
 
-#: ../builder/builder.ml:696
+#: ../builder/builder.ml:708
 msgid "Output file"
 msgstr "Файл виведення"
 
-#: ../builder/builder.ml:698
+#: ../builder/builder.ml:710
 msgid "Output format"
 msgstr "Формат виведення"
 
@@ -1920,7 +1909,7 @@ msgstr "Формати виведення"
 msgid "Output image UUID(s)"
 msgstr "Вивести UUID образу"
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:709
 msgid "Output size"
 msgstr "Розмір виведення"
 
@@ -1979,7 +1968,7 @@ msgstr "Вибрано %s, оскільки використано «--root %s»
 msgid "Picked %s because '--root first' was used."
 msgstr "Вибрано %s, оскільки використано «--root first»."
 
-#: ../builder/builder.ml:478
+#: ../builder/builder.ml:490
 msgid "Planning how to build this image"
 msgstr "Плануємо побудову цього образу"
 
@@ -2226,7 +2215,7 @@ msgstr "Вилучаємо усі підписки"
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
-#: ../resize/resize.ml:1371
+#: ../resize/resize.ml:1381
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -2239,11 +2228,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr "Змінити розміри розділу"
 
-#: ../builder/builder.ml:568
+#: ../builder/builder.ml:580
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
-#: ../builder/builder.ml:596
+#: ../builder/builder.ml:608
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 "Змінюємо розміри контейнера (але не файлової системи) для розширення диска "
@@ -2498,7 +2487,7 @@ msgstr "Встановлюємо назву вузла: %s"
 msgid "Setting the timezone: %s"
 msgstr "Встановлюємо часовий пояс: %s"
 
-#: ../resize/resize.ml:975
+#: ../resize/resize.ml:982
 msgid "Setting up initial partition table on %s"
 msgstr "Встановлюємо початкову таблицю розділів на %s"
 
@@ -2629,7 +2618,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1105
+#: ../v2v/convert_linux.ml:1110
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2755,11 +2744,11 @@ msgstr ""
 "\n"
 "Цей параметр можна вказувати декілька разів у одній команді."
 
-#: ../builder/builder.ml:263
+#: ../builder/builder.ml:275
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
-#: ../resize/resize.ml:799
+#: ../resize/resize.ml:806
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -2775,7 +2764,7 @@ msgstr ""
 "У ваших елементах є дублювання скрипту:\n"
 "%s/%s у: %s"
 
-#: ../resize/resize.ml:935
+#: ../resize/resize.ml:942
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
@@ -2861,7 +2850,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr "Вилучає тимчасові файли з C</tmp> і C</var/tmp>."
 
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:711
 msgid "Total usable space"
 msgstr "Загальне придатне до використання місце"
 
@@ -2893,7 +2882,7 @@ msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 msgid "Umounting the disks"
 msgstr "Демонтуємо диски"
 
-#: ../builder/builder.ml:556
+#: ../builder/builder.ml:568
 msgid "Uncompressing"
 msgstr "Розпаковуємо"
 
@@ -2949,7 +2938,7 @@ msgstr ""
 "Виведені дані VHD не створено, найімовірніше vhd-util є застарілим і "
 "незалатаним для «convert»"
 
-#: ../v2v/convert_linux.ml:625
+#: ../v2v/convert_linux.ml:630
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2957,7 +2946,7 @@ msgstr ""
 "Виявлено засоби VMware, але спроба вилучення зазнала невдачі. Повідомлення "
 "щодо помилки: %s (проігноровано)"
 
-#: ../v2v/convert_linux.ml:534
+#: ../v2v/convert_linux.ml:539
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2977,7 +2966,7 @@ msgstr "Записуємо метадані XML libvirt до %s…"
 msgid "Writing: %s"
 msgstr "Записуємо: %s"
 
-#: ../resize/resize.ml:770
+#: ../resize/resize.ml:777
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -2985,7 +2974,7 @@ msgstr ""
 "Не можна використовувати --expand, якщо немає додаткового місця для "
 "розширення. Вам слід збільшити диск призначення на принаймні %s."
 
-#: ../resize/resize.ml:782
+#: ../resize/resize.ml:789
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -3068,7 +3057,7 @@ msgstr "блоковий пристрій|каталог|prebuilt:файл"
 msgid "btrfs-filesystem-resize"
 msgstr "btrfs-filesystem-resize"
 
-#: ../builder/builder.ml:153
+#: ../builder/builder.ml:177
 msgid "cache %s: %s"
 msgstr "кеш %s: %s"
 
@@ -3114,7 +3103,7 @@ msgstr ""
 "Ймовірно, вам слід встановити OVMF або сховище мікропрограм Gerd (https://"
 "www.kraxel.org/repos/) або AAVMF (якщо використовується aarch64)"
 
-#: ../builder/builder.ml:250
+#: ../builder/builder.ml:98
 msgid ""
 "cannot find os-version '%s' with architecture '%s'.\n"
 "Use --list to list available guest types."
@@ -3123,7 +3112,7 @@ msgstr ""
 "Скористайтеся параметром --list, щоб отримати список усіх доступних типів "
 "гостьових систем."
 
-#: ../builder/builder.ml:336
+#: ../builder/builder.ml:348
 msgid "cannot output to a character device or /dev/null"
 msgstr "неможливо вивести дані до символьного пристрою або /dev/null"
 
@@ -3196,7 +3185,7 @@ msgstr ""
 "помилка під час спроби виконати copy, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/convert_linux.ml:1035
+#: ../v2v/convert_linux.ml:1040
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -3217,7 +3206,7 @@ msgstr ""
 "Скористайтеся параметром «-v» і перегляньте попередні повідомлення про "
 "помилки."
 
-#: ../builder/builder.ml:118
+#: ../builder/builder.ml:142
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 "не вдалося знайти каталог кешування. Чи встановлено значення змінної $HOME?"
@@ -3266,7 +3255,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1053
+#: ../v2v/convert_linux.ml:1058
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -3280,7 +3269,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1037
+#: ../v2v/convert_linux.ml:1042
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -3292,7 +3281,7 @@ msgstr "команді cp (download) не вдалося скопіювати «
 msgid "curl (download) command failed downloading '%s'"
 msgstr "команді curl (download) не вдалося отримати «%s»"
 
-#: ../builder/builder.ml:139
+#: ../builder/builder.ml:163
 msgid "curl is not installed (or does not work)"
 msgstr "curl не встановлено (або програма непрацездатна)"
 
@@ -3312,7 +3301,7 @@ msgstr ""
 "decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
 "LE. Ймовірно, це вада у %s."
 
-#: ../v2v/convert_linux.ml:759
+#: ../v2v/convert_linux.ml:764
 msgid "didn't find grub entry for kernel %s"
 msgstr "не знайдено запис grub для ядра %s"
 
@@ -3324,7 +3313,7 @@ msgstr "каталог"
 msgid "directory"
 msgstr "каталог"
 
-#: ../builder/builder.ml:154
+#: ../builder/builder.ml:178
 msgid "disabling the cache"
 msgstr "вимикаємо кеш"
 
@@ -3392,7 +3381,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1160
+#: ../v2v/convert_linux.ml:1165
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -3513,7 +3502,7 @@ msgstr ""
 "  виявлений відбиток: %s\n"
 "  очікуваний відбиток: %s"
 
-#: ../resize/resize.ml:1244
+#: ../resize/resize.ml:1254
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 "форматом першого розділу є NTFS, але розділ не містить контрольної суми "
@@ -3576,7 +3565,7 @@ msgstr ""
 "glance: помилка вивантаження образу до glance, див. попередні повідомлення "
 "щодо помилок"
 
-#: ../builder/builder.ml:131
+#: ../builder/builder.ml:155
 msgid ""
 "gpg is not installed (or does not work)\n"
 "You should install gpg, or use --gpg option, or use --no-check-signature."
@@ -3585,7 +3574,7 @@ msgstr ""
 "Вам слід встановити gpg, скористатися параметром --gpg або скористатися "
 "параметром --no-check-signature."
 
-#: ../builder/builder.ml:133
+#: ../builder/builder.ml:157
 msgid "gpg program is not available"
 msgstr "немає доступу до програми gpg"
 
@@ -3658,7 +3647,7 @@ msgstr "ігноруємо ядро %s у grub, оскільки його не �
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr "каталогу образу (%s) не існує, або ж це не каталог"
 
-#: ../builder/builder.ml:361
+#: ../builder/builder.ml:373
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -3676,7 +3665,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
-#: ../builder/builder.ml:321
+#: ../builder/builder.ml:333
 msgid "input file (%s) has an unsupported type"
 msgstr "файл вхідних даних (%s) належить до непідтримуваного типу"
 
@@ -3742,7 +3731,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/convert_linux.ml:763
+#: ../v2v/convert_linux.ml:768
 msgid "internal error: regular expression did not match '%s'"
 msgstr "внутрішня помилка: формальний вираз не відповідає «%s»"
 
@@ -3778,7 +3767,7 @@ msgstr "некоректний варіант sm-credentials «%s»; див. с�
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr "некоректний варіант ssh-inject «%s»; див. сторінку man"
 
-#: ../v2v/convert_linux.ml:747
+#: ../v2v/convert_linux.ml:752
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
@@ -3862,11 +3851,11 @@ msgstr "never|always|auto"
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
-#: ../builder/builder.ml:214
+#: ../builder/builder.ml:244
 msgid "no cache directory"
 msgstr "немає каталогу кешування"
 
-#: ../builder/builder.ml:207
+#: ../builder/builder.ml:237
 msgid "no cache directory\n"
 msgstr "немає каталогу кешування\n"
 
@@ -3874,7 +3863,7 @@ msgstr "немає каталогу кешування\n"
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr "не знайдено файла налаштувань grub1/grub-legacy або grub2"
 
-#: ../builder/builder.ml:666
+#: ../builder/builder.ml:678
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3937,7 +3926,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr "на допоміжному диску не знайдено розділів"
 
-#: ../builder/builder.ml:483
+#: ../builder/builder.ml:495
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3976,7 +3965,7 @@ msgstr ""
 "Система oVirt не здатна емулювати звукові картки «%s». Цю звукову картку "
 "буде викинуто з виведених даних."
 
-#: ../v2v/convert_linux.ml:703
+#: ../v2v/convert_linux.ml:708
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -4052,7 +4041,7 @@ msgstr ""
 "Підтримки інших форматів виведення у поточній версії ще не передбачено, хоча "
 "їхню підтримку може бути реалізовано у майбутньому."
 
-#: ../builder/builder.ml:364
+#: ../builder/builder.ml:376
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -4116,7 +4105,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "please include an operating system element"
 msgstr "будь ласка, включіть елемент операційної системи"
 
-#: ../resize/resize.ml:1032 ../resize/resize.ml:1008
+#: ../resize/resize.ml:1042 ../resize/resize.ml:1018
 msgid "pread-device: short read"
 msgstr "pread-device: неповне читання"
 
@@ -4204,7 +4193,7 @@ msgstr ""
 "вибачте, спосіб використання --update для засобу керування пакунками «%s» "
 "невідомий"
 
-#: ../builder/cmdline.ml:294
+#: ../builder/cmdline.ml:295
 msgid "source and fingerprint lists are not the same length"
 msgstr "списки джерел і відбитків мають різну довжину"
 
@@ -4293,7 +4282,7 @@ msgstr ""
 "допомогою командного рядка, має дорівнювати кількості образів дисків "
 "гостьових систем (для цієї гостьової системи: %d)"
 
-#: ../resize/resize.ml:448
+#: ../resize/resize.ml:455
 msgid "the source disk has no partitions"
 msgstr "на диску джерела немає розділів"
 
@@ -4471,11 +4460,15 @@ msgstr ""
 "забагато параметрів командного рядка. Див. сторінку підручника virt-v2v-copy-"
 "to-local(1)."
 
+#: ../builder/cmdline.ml:245
+msgid "too many parameters, at most one 'os-version' is allowed for --list"
+msgstr ""
+
 #: ../builder/cmdline.ml:236
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:1204
+#: ../v2v/convert_linux.ml:1209
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4498,7 +4491,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:902
+#: ../v2v/convert_linux.ml:907
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4560,8 +4553,8 @@ msgstr "невідому звукову модель %s проігнорован
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr "невідомий гіпервізор джерела («%s») у метаданих"
 
-#. ../resize/resize.ml:839
-#: ../resize/resize.ml:924 ../resize/resize.ml:894 ../resize/resize.ml:856
+#. ../resize/resize.ml:846
+#: ../resize/resize.ml:931 ../resize/resize.ml:901 ../resize/resize.ml:863
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr "невідомий або недоступний метод розкриття файлової системи %s на %s"
 
@@ -4672,7 +4665,7 @@ msgstr ""
 msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
 msgstr "vdsm: некоректний параметр -os не містить коректного UUID: %s"
 
-#: ../builder/cmdline.ml:266
+#: ../builder/cmdline.ml:267
 msgid ""
 "virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument"
@@ -4680,7 +4673,7 @@ msgstr ""
 "virt-builder --get-kernel образ\n"
 "Пропущено аргумент «образ» (файл образу диска)"
 
-#: ../builder/cmdline.ml:250
+#: ../builder/cmdline.ml:251
 msgid ""
 "virt-builder --notes os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names."
@@ -4698,7 +4691,7 @@ msgstr ""
 "Пропущено аргумент «ОС-версія». Скористайтеся параметром «--list» для "
 "отримання списку доступних шаблонів назв."
 
-#: ../builder/builder.ml:144
+#: ../builder/builder.ml:168
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
 
@@ -4772,7 +4765,7 @@ msgstr "не можна одночасно використовувати пар
 msgid "you cannot use --in-place and -o options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -o"
 
-#: ../resize/resize.ml:758
+#: ../resize/resize.ml:765
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 "не можна використовувати одночасно параметр --expand і параметр --shrink"
@@ -5454,2377 +5447,2389 @@ msgstr ""
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr "%s: некоректний цілий параметр (%s повернуто %u)\n"
 
-#: fish/cmds.c:4622
+#: fish/cmds.c:4646
 msgid "Command"
 msgstr "Команда"
 
-#: fish/cmds.c:4622
+#: fish/cmds.c:4646
 msgid "Description"
 msgstr "Опис"
 
-#: fish/cmds.c:4624
+#: fish/cmds.c:4648
 msgid "delete the default POSIX ACL of a directory"
 msgstr "вилучити типовий ACL POSIX каталогу"
 
-#: fish/cmds.c:4625
+#: fish/cmds.c:4649
 msgid "get the POSIX ACL attached to a file"
 msgstr "отримати ACL POSIX, пов’язаний з файлом"
 
-#: fish/cmds.c:4626
+#: fish/cmds.c:4650
 msgid "set the POSIX ACL attached to a file"
 msgstr "встановити ACL POSIX, пов’язаний з файлом"
 
-#: fish/cmds.c:4628 fish/cmds.c:4631 fish/cmds.c:4642 fish/cmds.c:4645
-#: fish/cmds.c:4648 fish/cmds.c:4667 fish/cmds.c:4672 fish/cmds.c:4691
-#: fish/cmds.c:4733 fish/cmds.c:4772 fish/cmds.c:4781 fish/cmds.c:4795
-#: fish/cmds.c:4820 fish/cmds.c:4884 fish/cmds.c:4887 fish/cmds.c:4959
-#: fish/cmds.c:5010 fish/cmds.c:5018 fish/cmds.c:5059 fish/cmds.c:5090
-#: fish/cmds.c:5093 fish/cmds.c:5096 fish/cmds.c:5102 fish/cmds.c:5116
-#: fish/cmds.c:5125 fish/cmds.c:5144 fish/cmds.c:5147 fish/cmds.c:5153
-#: fish/cmds.c:5200 fish/cmds.c:5227 fish/cmds.c:5231 fish/cmds.c:5244
-#: fish/cmds.c:5247 fish/cmds.c:5256 fish/cmds.c:5278
+#: fish/cmds.c:4652 fish/cmds.c:4655 fish/cmds.c:4666 fish/cmds.c:4669
+#: fish/cmds.c:4672 fish/cmds.c:4691 fish/cmds.c:4696 fish/cmds.c:4715
+#: fish/cmds.c:4757 fish/cmds.c:4796 fish/cmds.c:4805 fish/cmds.c:4819
+#: fish/cmds.c:4844 fish/cmds.c:4908 fish/cmds.c:4911 fish/cmds.c:4983
+#: fish/cmds.c:5034 fish/cmds.c:5042 fish/cmds.c:5083 fish/cmds.c:5117
+#: fish/cmds.c:5120 fish/cmds.c:5123 fish/cmds.c:5129 fish/cmds.c:5143
+#: fish/cmds.c:5152 fish/cmds.c:5171 fish/cmds.c:5174 fish/cmds.c:5180
+#: fish/cmds.c:5227 fish/cmds.c:5254 fish/cmds.c:5258 fish/cmds.c:5271
+#: fish/cmds.c:5274 fish/cmds.c:5283 fish/cmds.c:5305
 #, c-format
 msgid "alias for '%s'"
 msgstr "псевдонім для «%s»"
 
-#: fish/cmds.c:4633
+#: fish/cmds.c:4657
 msgid "add a CD-ROM disk image to examine"
 msgstr "додати образ диска CD-ROM для вивчення"
 
-#: fish/cmds.c:4634
+#: fish/cmds.c:4658
 msgid "add the disk(s) from a named libvirt domain"
 msgstr "додати диски з іменованого домену libvirt"
 
-#: fish/cmds.c:4635
+#: fish/cmds.c:4659
 msgid "add an image to examine or modify"
 msgstr "додати образ для вивчення або внесення змін"
 
-#: fish/cmds.c:4636
+#: fish/cmds.c:4660
 msgid "add a drive in snapshot mode (read-only)"
 msgstr "додати пристрій у режимі знімка даних (лише для читання)"
 
-#: fish/cmds.c:4637
+#: fish/cmds.c:4661
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
 "додати пристрій у режимі лише читання з визначенням режиму емуляції блоків "
 "QEMU"
 
-#: fish/cmds.c:4638
+#: fish/cmds.c:4662
 msgid "add a temporary scratch drive"
 msgstr "додати тимчасовий фальшивий диск"
 
-#: fish/cmds.c:4639
+#: fish/cmds.c:4663
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr "додати пристрій з визначенням режиму емуляції блоків QEMU"
 
-#: fish/cmds.c:4640
+#: fish/cmds.c:4664
 msgid "allocate and add a disk file"
 msgstr "виокремити місце і додати файл диска"
 
-#: fish/cmds.c:4650
+#: fish/cmds.c:4674
 msgid "clear Augeas path"
 msgstr "спорожнити адресу каталогу Augeas"
 
-#: fish/cmds.c:4651
+#: fish/cmds.c:4675
 msgid "close the current Augeas handle"
 msgstr "закрити поточний елемент керування Augeas"
 
-#: fish/cmds.c:4652
+#: fish/cmds.c:4676
 msgid "define an Augeas node"
 msgstr "визначити вузол Augeas"
 
-#: fish/cmds.c:4653
+#: fish/cmds.c:4677
 msgid "define an Augeas variable"
 msgstr "визначити змінну Augeas"
 
-#: fish/cmds.c:4654
+#: fish/cmds.c:4678
 msgid "look up the value of an Augeas path"
 msgstr "шукати значення запису каталогу Augeas"
 
-#: fish/cmds.c:4655
+#: fish/cmds.c:4679
 msgid "create a new Augeas handle"
 msgstr "створити елемент керування Augeas"
 
-#: fish/cmds.c:4656
+#: fish/cmds.c:4680
 msgid "insert a sibling Augeas node"
 msgstr "вставити вузол Augeas того самого рівня"
 
-#: fish/cmds.c:4657
+#: fish/cmds.c:4681
 msgid "return the label from an Augeas path expression"
 msgstr "повернути мітку на основі виразу шляху Augeas"
 
-#: fish/cmds.c:4658
+#: fish/cmds.c:4682
 msgid "load files into the tree"
 msgstr "завантажити файли до ієрархії"
 
-#: fish/cmds.c:4659
+#: fish/cmds.c:4683
 msgid "list Augeas nodes under augpath"
 msgstr "повернути список вузлів Augeas у каталозі augpath"
 
-#: fish/cmds.c:4660
+#: fish/cmds.c:4684
 msgid "return Augeas nodes which match augpath"
 msgstr "повернути вузли Augeas, які відповідають вказаному значенню augpath"
 
-#: fish/cmds.c:4661
+#: fish/cmds.c:4685
 msgid "move Augeas node"
 msgstr "пересунути вузол Augeas"
 
-#: fish/cmds.c:4662
+#: fish/cmds.c:4686
 msgid "remove an Augeas path"
 msgstr "вилучити запис каталогу Augeas"
 
-#: fish/cmds.c:4663
+#: fish/cmds.c:4687
 msgid "write all pending Augeas changes to disk"
 msgstr "записати всі зміни з черги змін Augeas на диск"
 
-#: fish/cmds.c:4664
+#: fish/cmds.c:4688
 msgid "set Augeas path to value"
 msgstr "встановити для шляху Augeas вказане значення"
 
-#: fish/cmds.c:4665
+#: fish/cmds.c:4689
 msgid "set multiple Augeas nodes"
 msgstr "встановити декілька вузлів Augeas"
 
-#: fish/cmds.c:4669 fish/cmds.c:4803
+#: fish/cmds.c:4693 fish/cmds.c:4827
 msgid "test availability of some parts of the API"
 msgstr "перевірити доступність певних частин програмного інтерфейсу"
 
-#: fish/cmds.c:4670
+#: fish/cmds.c:4694
 msgid "return a list of all optional groups"
 msgstr "повернути список всіх додаткових груп"
 
-#: fish/cmds.c:4674
+#: fish/cmds.c:4698
 msgid "upload base64-encoded data to file"
 msgstr "вивантажити дані, закодовані у форматі base64, до файла"
 
-#: fish/cmds.c:4675
+#: fish/cmds.c:4699
 msgid "download file and encode as base64"
 msgstr "отримати файл і закодувати його у форматі base64"
 
-#: fish/cmds.c:4676
+#: fish/cmds.c:4700
 msgid "discard all blocks on a device"
 msgstr "відкинути усі блоки на пристрої"
 
-#: fish/cmds.c:4677
+#: fish/cmds.c:4701
 msgid "return true if discarded blocks are read as zeroes"
 msgstr "повертає true, якщо відкинуті блоки було прочитано як нулі"
 
-#: fish/cmds.c:4678
+#: fish/cmds.c:4702
 msgid "print block device attributes"
 msgstr "вивести атрибути блокового пристрою"
 
-#: fish/cmds.c:4679
+#: fish/cmds.c:4703
 msgid "flush device buffers"
 msgstr "спорожнити буфери пристрою"
 
-#: fish/cmds.c:4680
+#: fish/cmds.c:4704
 msgid "get blocksize of block device"
 msgstr "отримати розмір у блоках блокового пристрою"
 
-#: fish/cmds.c:4681
+#: fish/cmds.c:4705
 msgid "is block device set to read-only"
 msgstr "визначити, чи працює блоковий пристрій у режимі лише читання"
 
-#: fish/cmds.c:4682
+#: fish/cmds.c:4706
 msgid "get total size of device in bytes"
 msgstr "отримати дані щодо загального об’єму зберігання пристрою у байтах"
 
-#: fish/cmds.c:4683
+#: fish/cmds.c:4707
 msgid "get sectorsize of block device"
 msgstr "отримати розмір сектора блокового пристрою"
 
-#: fish/cmds.c:4684
+#: fish/cmds.c:4708
 msgid "get total size of device in 512-byte sectors"
 msgstr ""
 "отримати загальний об’єм зберігання на пристрої у 512-байтових секторах"
 
-#: fish/cmds.c:4685
+#: fish/cmds.c:4709
 msgid "reread partition table"
 msgstr "повторно прочитати таблицю розділів"
 
-#: fish/cmds.c:4686
+#: fish/cmds.c:4710
 msgid "set blocksize of block device"
 msgstr "встановити розмір у блоках блокового пристрою"
 
-#: fish/cmds.c:4687
+#: fish/cmds.c:4711
 msgid "set readahead"
 msgstr "встановити прапорець випереджального читання"
 
-#: fish/cmds.c:4688
+#: fish/cmds.c:4712
 msgid "set block device to read-only"
 msgstr "перевести блоковий пристрій у режим лише читання"
 
-#: fish/cmds.c:4689
+#: fish/cmds.c:4713
 msgid "set block device to read-write"
 msgstr "перевести блоковий пристрій у режим читання-запису"
 
-#: fish/cmds.c:4693
+#: fish/cmds.c:4717
 msgid "cancel a running or paused balance"
 msgstr "скасувати використовуваний або призупинений баланс"
 
-#: fish/cmds.c:4694
+#: fish/cmds.c:4718
 msgid "pause a running balance"
 msgstr "призупинити використовуваний баланс"
 
-#: fish/cmds.c:4695
+#: fish/cmds.c:4719
 msgid "resume a paused balance"
 msgstr "відновити призупинений баланс"
 
-#: fish/cmds.c:4696
+#: fish/cmds.c:4720
 msgid "show the status of a running or paused balance"
 msgstr "показати стан використовуваного або призупиненого балансу"
 
-#: fish/cmds.c:4697
+#: fish/cmds.c:4721
 msgid "add devices to a btrfs filesystem"
 msgstr "додати пристрої до файлової системи btrfs"
 
-#: fish/cmds.c:4698
+#: fish/cmds.c:4722
 msgid "remove devices from a btrfs filesystem"
 msgstr "вилучити пристрої з файлової системи btrfs"
 
-#: fish/cmds.c:4699
+#: fish/cmds.c:4723
 msgid "balance a btrfs filesystem"
 msgstr "збалансувати файлову систему btrfs"
 
-#: fish/cmds.c:4700
+#: fish/cmds.c:4724
 msgid "defragment a file or directory"
 msgstr "виконати дефрагментацію файла або каталогу"
 
-#: fish/cmds.c:4701
+#: fish/cmds.c:4725
 msgid "resize a btrfs filesystem"
 msgstr "змінити розмір файлової системи btrfs"
 
-#: fish/cmds.c:4702
+#: fish/cmds.c:4726
 msgid "sync a btrfs filesystem"
 msgstr "синхронізувати файлову систему btrfs"
 
-#: fish/cmds.c:4703
+#: fish/cmds.c:4727
 msgid "check a btrfs filesystem"
 msgstr "перевірити файлову систему btrfs"
 
-#: fish/cmds.c:4704
+#: fish/cmds.c:4728
 msgid "create an image of a btrfs filesystem"
 msgstr "створити образ файлової системи btrfs"
 
-#: fish/cmds.c:4705
+#: fish/cmds.c:4729
 msgid "add a qgroup to a parent qgroup"
 msgstr "додати qgroup до батьківської qgroup"
 
-#: fish/cmds.c:4706
+#: fish/cmds.c:4730
 msgid "create a subvolume quota group"
 msgstr "створити групу квот підтомів"
 
-#: fish/cmds.c:4707
+#: fish/cmds.c:4731
 msgid "destroy a subvolume quota group"
 msgstr "знищити групу квот підтомів"
 
-#: fish/cmds.c:4708
+#: fish/cmds.c:4732
 msgid "limit the size of a subvolume"
 msgstr "обмежити розмір підтому"
 
-#: fish/cmds.c:4709
+#: fish/cmds.c:4733
 msgid "remove a qgroup from its parent qgroup"
 msgstr "вилучити qgroup із батьківської qgroup"
 
-#: fish/cmds.c:4710
+#: fish/cmds.c:4734
 msgid "show subvolume quota groups"
 msgstr "показати групи квот підтомів"
 
-#: fish/cmds.c:4711
+#: fish/cmds.c:4735
 msgid "enable or disable subvolume quota support"
 msgstr "увімкнути або вимкнути підтримку квот підтомів"
 
-#: fish/cmds.c:4712
+#: fish/cmds.c:4736
 msgid ""
 "trash all qgroup numbers and scan the metadata again with the current config"
 msgstr ""
 "викинути усі числові дані qgroup і виконати повторне сканування з поточними "
 "налаштуваннями"
 
-#: fish/cmds.c:4713
+#: fish/cmds.c:4737
 msgid "replace a btrfs managed device with another device"
 msgstr "замінити керований btrfs пристрій іншим пристроєм"
 
-#: fish/cmds.c:4714
+#: fish/cmds.c:4738
 msgid "recover the chunk tree of btrfs filesystem"
 msgstr "відновити дерево фрагментів файлової системи btrfs"
 
-#: fish/cmds.c:4715
+#: fish/cmds.c:4739
 msgid "recover bad superblocks from good copies"
 msgstr "відновити пошкоджені суперблоки із якісних копій"
 
-#: fish/cmds.c:4716
+#: fish/cmds.c:4740
 msgid "cancel a running scrub"
 msgstr "скасувати витирання, що виконується"
 
-#: fish/cmds.c:4717
+#: fish/cmds.c:4741
 msgid "resume a previously canceled or interrupted scrub"
 msgstr "відновити раніше скасована або перерване витирання"
 
-#: fish/cmds.c:4718
+#: fish/cmds.c:4742
 msgid "read all data from all disks and verify checksums"
 msgstr "прочитати усі дані з усіх дисків і перевірити контрольні суми"
 
-#: fish/cmds.c:4719
+#: fish/cmds.c:4743
 msgid "show status of running or finished scrub"
 msgstr "показати дані щодо стану витирання, яке виконується або завершено"
 
-#: fish/cmds.c:4720
+#: fish/cmds.c:4744
 msgid "enable or disable the seeding feature of device"
 msgstr "увімкнути або вимкнути можливість поширення даних з пристрою"
 
-#: fish/cmds.c:4721
+#: fish/cmds.c:4745
 msgid "create a btrfs subvolume"
 msgstr "створити підтом btrfs"
 
-#: fish/cmds.c:4722
+#: fish/cmds.c:4746
 msgid "delete a btrfs subvolume or snapshot"
 msgstr "вилучити підтом або знімок btrfs"
 
-#: fish/cmds.c:4723
+#: fish/cmds.c:4747
 msgid "get the default subvolume or snapshot of a filesystem"
 msgstr "отримати типовий підтом або знімок файлової системи"
 
-#: fish/cmds.c:4724
+#: fish/cmds.c:4748
 msgid "list btrfs snapshots and subvolumes"
 msgstr "показати список знімків і підтомів btrfs"
 
-#: fish/cmds.c:4725
+#: fish/cmds.c:4749
 msgid "set default btrfs subvolume"
 msgstr "встановити типовий підтом btrfs"
 
-#: fish/cmds.c:4726
+#: fish/cmds.c:4750
 msgid "return detailed information of the subvolume"
 msgstr "повернути докладні дані щодо підтому"
 
-#: fish/cmds.c:4727
+#: fish/cmds.c:4751
 msgid "create a btrfs snapshot"
 msgstr "створити знімок btrfs"
 
-#: fish/cmds.c:4728
+#: fish/cmds.c:4752
 msgid "enable extended inode refs"
 msgstr "увімкнути розширені посилання inode"
 
-#: fish/cmds.c:4729
+#: fish/cmds.c:4753
 msgid "enable skinny metadata extent refs"
 msgstr "увімкнути розширені посилання на спрощені метадані"
 
-#: fish/cmds.c:4730
+#: fish/cmds.c:4754
 msgid "enable or disable seeding of a btrfs device"
 msgstr "увімкнути або вимкнути розсіювання пристрою btrfs"
 
-#: fish/cmds.c:4731
+#: fish/cmds.c:4755
 msgid "return the C pointer to the guestfs_h handle"
 msgstr "повернути вказівник C на дескриптор guestfs_h"
 
-#: fish/cmds.c:4735
+#: fish/cmds.c:4759
 msgid "return canonical device name"
 msgstr "повернути стандартну назву пристрою"
 
-#: fish/cmds.c:4736
+#: fish/cmds.c:4760
 msgid "get the Linux capabilities attached to a file"
 msgstr "отримати можливості Linux, пов’язані з файлом"
 
-#: fish/cmds.c:4737
+#: fish/cmds.c:4761
 msgid "set the Linux capabilities attached to a file"
 msgstr "встановити можливості Linux, пов’язані з файлом"
 
-#: fish/cmds.c:4738
+#: fish/cmds.c:4762
 msgid "return true path on case-insensitive filesystem"
 msgstr ""
 "повернути справжню адресу у файловій системі без врахування регістру символів"
 
-#: fish/cmds.c:4739
+#: fish/cmds.c:4763
 msgid "list the contents of a file"
 msgstr "показати вміст файла"
 
-#: fish/cmds.c:4740
+#: fish/cmds.c:4764
 msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "обчислити контрольну суму MD5, SHAx або CRC файла"
 
-#: fish/cmds.c:4741
+#: fish/cmds.c:4765
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
 msgstr "обчислити контрольну суму MD5, SHAx або CRC вмісту пристрою"
 
-#: fish/cmds.c:4742
+#: fish/cmds.c:4766
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
 msgstr "обчислити контрольну суму MD5, SHAx або CRC файлів у каталозі"
 
-#: fish/cmds.c:4743
+#: fish/cmds.c:4767
 msgid "change file mode"
 msgstr "змінити режим доступу до файла"
 
-#: fish/cmds.c:4744 fish/cmds.c:4947
+#: fish/cmds.c:4768 fish/cmds.c:4971
 msgid "change file owner and group"
 msgstr "змінити власника і групу належності файла"
 
-#: fish/cmds.c:4745
+#: fish/cmds.c:4769
 msgid "remove a single per-backend settings string"
 msgstr "вилучити окремий рядок параметрів, специфічний для модуля"
 
-#: fish/cmds.c:4746
+#: fish/cmds.c:4770
 msgid "run a command from the guest filesystem"
 msgstr "виконати команду з гостьової файлової системи"
 
-#: fish/cmds.c:4747
+#: fish/cmds.c:4771
 msgid "run a command, returning lines"
 msgstr "виконати команду, повернути виведені рядки"
 
-#: fish/cmds.c:4748
+#: fish/cmds.c:4772
 msgid "output compressed device"
 msgstr "вивести на пристрій зі стисканням"
 
-#: fish/cmds.c:4749
+#: fish/cmds.c:4773
 msgid "output compressed file"
 msgstr "вивести до файла зі стисканням"
 
-#: fish/cmds.c:4750
+#: fish/cmds.c:4774
 msgid "add hypervisor parameters"
 msgstr "додати параметри гіпервізора"
 
-#: fish/cmds.c:4751
+#: fish/cmds.c:4775
 msgid "copy the attributes of a path (file/directory) to another"
 msgstr "копіювати атрибути за шляхом (для файла або каталогу) до іншого шляху"
 
-#: fish/cmds.c:4752
+#: fish/cmds.c:4776
 msgid "copy from source device to destination device"
 msgstr "копіювати з пристрою джерела на пристрій призначення"
 
-#: fish/cmds.c:4753
+#: fish/cmds.c:4777
 msgid "copy from source device to destination file"
 msgstr "копіювати з пристрою джерела до файла призначення"
 
-#: fish/cmds.c:4754
+#: fish/cmds.c:4778
 msgid "copy from source file to destination device"
 msgstr "копіювати з файла джерела на пристрій призначення"
 
-#: fish/cmds.c:4755
+#: fish/cmds.c:4779
 msgid "copy from source file to destination file"
 msgstr "копіювати з файла джерела до файла призначення"
 
-#: fish/cmds.c:4756
+#: fish/cmds.c:4780
 msgid "copy local files or directories into an image"
 msgstr "копіювати локальні файли або каталоги на образ"
 
-#: fish/cmds.c:4757
+#: fish/cmds.c:4781
 msgid "copy remote files or directories out of an image"
 msgstr "копіювати файли або каталоги з віддалених джерел поза межі образу"
 
-#: fish/cmds.c:4758
+#: fish/cmds.c:4782
 msgid "copy size bytes from source to destination using dd"
 msgstr ""
 "копіювати вказану кількість байтів з джерела до призначення за допомогою dd"
 
-#: fish/cmds.c:4759
+#: fish/cmds.c:4783
 msgid "copy a file"
 msgstr "копіювати файл"
 
-#: fish/cmds.c:4760 fish/cmds.c:4761
+#: fish/cmds.c:4784 fish/cmds.c:4785
 msgid "copy a file or directory recursively"
 msgstr "копіювати файл або каталог рекурсивно"
 
-#: fish/cmds.c:4762
+#: fish/cmds.c:4786
 msgid "pack directory into cpio file"
 msgstr "запакувати каталог до файла cpio"
 
-#: fish/cmds.c:4763
+#: fish/cmds.c:4787
 msgid "copy from source to destination using dd"
 msgstr "копіювати з джерела до призначення за допомогою dd"
 
-#: fish/cmds.c:4764
+#: fish/cmds.c:4788
 msgid "debugging and internals"
 msgstr "діагностика і внутрішні функції"
 
-#: fish/cmds.c:4765
+#: fish/cmds.c:4789
 msgid "debug the drives (internal use only)"
 msgstr "діагностика дисків (лише для внутрішнього використання)"
 
-#: fish/cmds.c:4766
+#: fish/cmds.c:4790
 msgid "upload a file to the appliance (internal use only)"
 msgstr "вивантажити файл на пристрій (лише для внутрішнього використання)"
 
-#: fish/cmds.c:4767
+#: fish/cmds.c:4791
 msgid "delete a previously registered event handler"
 msgstr "вилучити раніше зареєстрований обробник подій"
 
-#: fish/cmds.c:4768
+#: fish/cmds.c:4792
 msgid "convert device to index"
 msgstr "перетворити пристрій на покажчик"
 
-#: fish/cmds.c:4769
+#: fish/cmds.c:4793
 msgid "report file system disk space usage"
 msgstr "повідомити про використання файлової системи"
 
-#: fish/cmds.c:4770
+#: fish/cmds.c:4794
 msgid "report file system disk space usage (human readable)"
 msgstr ""
 "повідомити про використання файлової системи (у зручному для читання форматі)"
 
-#: fish/cmds.c:4774
+#: fish/cmds.c:4798
 msgid "create a blank disk image"
 msgstr "створити порожній образ диска"
 
-#: fish/cmds.c:4775
+#: fish/cmds.c:4799
 msgid "detect the disk format of a disk image"
 msgstr "визначити формат диска образу"
 
-#: fish/cmds.c:4776
+#: fish/cmds.c:4800
 msgid "return whether disk has a backing file"
 msgstr "повернути дані щодо існування резервного файла диска"
 
-#: fish/cmds.c:4777
+#: fish/cmds.c:4801
 msgid "return virtual size of a disk"
 msgstr "повернути віртуальний розмір диска"
 
-#: fish/cmds.c:4778
+#: fish/cmds.c:4802
 msgid "display an image"
 msgstr "показати зображення"
 
-#: fish/cmds.c:4779
+#: fish/cmds.c:4803
 msgid "return kernel messages"
 msgstr "повернути повідомлення ядра"
 
-#: fish/cmds.c:4783
+#: fish/cmds.c:4807
 msgid "download a file to the local machine"
 msgstr "зберегти файл у локальній системі"
 
-#: fish/cmds.c:4784
+#: fish/cmds.c:4808
 msgid "download a file to the local machine with offset and size"
 msgstr "зберегти файл у локальній системі з вказаним зсувом та розміром"
 
-#: fish/cmds.c:4785
+#: fish/cmds.c:4809
 msgid "drop kernel page cache, dentries and inodes"
 msgstr "скинути кеш сторінок ядра, записи dentry та inode."
 
-#: fish/cmds.c:4786
+#: fish/cmds.c:4810
 msgid "estimate file space usage"
 msgstr "оцінити об’єм даних файлів"
 
-#: fish/cmds.c:4787 fish/cmds.c:4788
+#: fish/cmds.c:4811 fish/cmds.c:4812
 msgid "check an ext2/ext3 filesystem"
 msgstr "перевірити файлову систему ext2/ext3"
 
-#: fish/cmds.c:4789
+#: fish/cmds.c:4813
 msgid "display a line of text"
 msgstr "показати рядок тексту"
 
-#: fish/cmds.c:4790
+#: fish/cmds.c:4814
 msgid "echo arguments back to the client"
 msgstr "повернути копію параметрів клієнту"
 
-#: fish/cmds.c:4791
+#: fish/cmds.c:4815
 msgid "edit a file"
 msgstr "редагувати файл"
 
-#: fish/cmds.c:4792 fish/cmds.c:4793 fish/cmds.c:4804 fish/cmds.c:4805
-#: fish/cmds.c:4859 fish/cmds.c:4860 fish/cmds.c:5291 fish/cmds.c:5292
-#: fish/cmds.c:5297 fish/cmds.c:5298 fish/cmds.c:5300 fish/cmds.c:5301
+#: fish/cmds.c:4816 fish/cmds.c:4817 fish/cmds.c:4828 fish/cmds.c:4829
+#: fish/cmds.c:4883 fish/cmds.c:4884 fish/cmds.c:5318 fish/cmds.c:5319
+#: fish/cmds.c:5324 fish/cmds.c:5325 fish/cmds.c:5327 fish/cmds.c:5328
 msgid "return lines matching a pattern"
 msgstr "повернути рядки, що відповідають зразку"
 
-#: fish/cmds.c:4797
+#: fish/cmds.c:4821
 msgid "test if two files have equal contents"
 msgstr "перевірити, чи є вміст двох файлів тотожнім"
 
-#: fish/cmds.c:4798
+#: fish/cmds.c:4822
 msgid "register a handler for an event or events"
 msgstr "зареєструвати обробник для події або подій"
 
-#: fish/cmds.c:4799
+#: fish/cmds.c:4823
 msgid "test if file or directory exists"
 msgstr "перевірити, чи існує файл або каталог"
 
-#: fish/cmds.c:4800
+#: fish/cmds.c:4824
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr "встановити завантажувач SYSLINUX на файлову систему ext2/3/4 або btrfs"
 
-#: fish/cmds.c:4801 fish/cmds.c:4802
+#: fish/cmds.c:4825 fish/cmds.c:4826
 msgid "preallocate a file in the guest filesystem"
 msgstr "попередньо виокремити місце для файла на гостьовій файловій системі"
 
-#: fish/cmds.c:4806
+#: fish/cmds.c:4830
 msgid "determine file type"
 msgstr "визначити тип файла"
 
-#: fish/cmds.c:4807
+#: fish/cmds.c:4831
 msgid "detect the architecture of a binary file"
 msgstr "визначити архітектуру бінарного файла"
 
-#: fish/cmds.c:4808
+#: fish/cmds.c:4832
 msgid "return the size of the file in bytes"
 msgstr "повернути розмір файла у байтах"
 
-#: fish/cmds.c:4809
+#: fish/cmds.c:4833
 msgid "check if filesystem is available"
 msgstr "перевірити, чи є доступною файлова система"
 
-#: fish/cmds.c:4810
+#: fish/cmds.c:4834
 msgid "fill a file with octets"
 msgstr "заповнити файл вісімковими значеннями"
 
-#: fish/cmds.c:4811
+#: fish/cmds.c:4835
 msgid "fill a directory with empty files"
 msgstr "заповнити каталог порожніми файлами"
 
-#: fish/cmds.c:4812
+#: fish/cmds.c:4836
 msgid "fill a file with a repeating pattern of bytes"
 msgstr "заповнити файл повторюваним зразком рядка байтів"
 
-#: fish/cmds.c:4813
+#: fish/cmds.c:4837
 msgid "find all files and directories"
 msgstr "знайти всі файли і каталоги"
 
-#: fish/cmds.c:4814
+#: fish/cmds.c:4838
 msgid "find all files and directories, returning NUL-separated list"
 msgstr ""
 "знайти всі файли і каталоги, повернути відокремлений символами NUL список"
 
-#: fish/cmds.c:4815
+#: fish/cmds.c:4839
 msgid "find a filesystem by label"
 msgstr "знайти файлову систему за міткою"
 
-#: fish/cmds.c:4816
+#: fish/cmds.c:4840
 msgid "find a filesystem by UUID"
 msgstr "знайти файлову систему за UUID"
 
-#: fish/cmds.c:4817
+#: fish/cmds.c:4841
 msgid "run the filesystem checker"
 msgstr "виконати перевірку файлової системи"
 
-#: fish/cmds.c:4818
+#: fish/cmds.c:4842
 msgid "trim free space in a filesystem"
 msgstr "обрізати вільне місце у файловій системі"
 
-#: fish/cmds.c:4822
+#: fish/cmds.c:4846
 msgid "get the additional kernel options"
 msgstr "отримати додаткові параметри ядра"
 
-#: fish/cmds.c:4823 fish/cmds.c:4825
+#: fish/cmds.c:4847 fish/cmds.c:4849
 msgid "get the backend"
 msgstr "отримати назву модуля"
 
-#: fish/cmds.c:4824
+#: fish/cmds.c:4848
 msgid "get autosync mode"
 msgstr "отримати значення режиму автосинхронізації"
 
-#: fish/cmds.c:4826
+#: fish/cmds.c:4850
 msgid "get a single per-backend settings string"
 msgstr "отримати окремий рядок параметрів, специфічний для модуля"
 
-#: fish/cmds.c:4827
+#: fish/cmds.c:4851
 msgid "get per-backend settings"
 msgstr "отримати параметри окремого модуля"
 
-#: fish/cmds.c:4828
+#: fish/cmds.c:4852
 msgid "get the appliance cache directory"
 msgstr "отримати назву каталогу кешування системи розгортання"
 
-#: fish/cmds.c:4829
+#: fish/cmds.c:4853
 msgid "get direct appliance mode flag"
 msgstr "отримати значення режиму безпосередньої роботи з пристроєм"
 
-#: fish/cmds.c:4830
+#: fish/cmds.c:4854
 msgid "get ext2 file attributes of a file"
 msgstr "отримати атрибути файла у ext2"
 
-#: fish/cmds.c:4831
+#: fish/cmds.c:4855
 msgid "get ext2 file generation of a file"
 msgstr "отримати стан створення файла у ext2"
 
-#: fish/cmds.c:4832
+#: fish/cmds.c:4856
 msgid "get the ext2/3/4 filesystem label"
 msgstr "отримати мітку файлової системи ext2/3/4"
 
-#: fish/cmds.c:4833
+#: fish/cmds.c:4857
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "отримати UUID файлової системи ext2/3/4"
 
-#: fish/cmds.c:4834
+#: fish/cmds.c:4858
 msgid "get the hypervisor binary"
 msgstr "отримати назву виконуваного файла гіпервізора"
 
-#: fish/cmds.c:4835
+#: fish/cmds.c:4859
 msgid "get the handle identifier"
 msgstr "отримати ідентифікатор дескриптора"
 
-#: fish/cmds.c:4836
+#: fish/cmds.c:4860
 msgid "challenge of i'th requested credential"
 msgstr "випробування i-их запитаних реєстраційних даних"
 
-#: fish/cmds.c:4837
+#: fish/cmds.c:4861
 msgid "default result of i'th requested credential"
 msgstr "типовий результат i-го запиту щодо реєстраційних даних"
 
-#: fish/cmds.c:4838
+#: fish/cmds.c:4862
 msgid "prompt of i'th requested credential"
 msgstr "запит щодо i-их запитаних реєстраційних даних"
 
-#: fish/cmds.c:4839
+#: fish/cmds.c:4863
 msgid "get list of credentials requested by libvirt"
 msgstr ""
 "отримати список реєстраційних даних, запит щодо яких надсилався libvirt"
 
-#: fish/cmds.c:4840
+#: fish/cmds.c:4864
 msgid "get memory allocated to the hypervisor"
 msgstr "отримати об’єм пам’яті, отриманий гіпервізором"
 
-#: fish/cmds.c:4841
+#: fish/cmds.c:4865
 msgid "get enable network flag"
 msgstr "отримати значення прапорця вмикання мережі"
 
-#: fish/cmds.c:4842
+#: fish/cmds.c:4866
 msgid "get the search path"
 msgstr "отримати адресу каталогу пошуку"
 
-#: fish/cmds.c:4843
+#: fish/cmds.c:4867
 msgid "get process group flag"
 msgstr "отримати значення прапорця групи обробки"
 
-#: fish/cmds.c:4844
+#: fish/cmds.c:4868
 msgid "get PID of hypervisor"
 msgstr "отримати PID гіпервізора"
 
-#: fish/cmds.c:4845
+#: fish/cmds.c:4869
 msgid "get the program name"
 msgstr "отримати назву програми"
 
-#: fish/cmds.c:4846
+#: fish/cmds.c:4870
 msgid "get the hypervisor binary (usually qemu)"
 msgstr "отримати назву виконуваного файла гіпервізора (зазвичай, qemu)"
 
-#: fish/cmds.c:4847
+#: fish/cmds.c:4871
 msgid "get recovery process enabled flag"
 msgstr "отримати значення прапорця відновлення процесу"
 
-#: fish/cmds.c:4848
+#: fish/cmds.c:4872
 msgid "get SELinux enabled flag"
 msgstr "отримати значення прапорця вмикання SELinux"
 
-#: fish/cmds.c:4849
+#: fish/cmds.c:4873
 msgid "get number of virtual CPUs in appliance"
 msgstr "отримати дані щодо кількості віртуальних процесорів на пристрої"
 
-#: fish/cmds.c:4850
+#: fish/cmds.c:4874
 msgid "get the temporary directory"
 msgstr "отримати назву тимчасового каталогу"
 
-#: fish/cmds.c:4851
+#: fish/cmds.c:4875
 msgid "get command trace enabled flag"
 msgstr "отримати значення вмикання трасування команди"
 
-#: fish/cmds.c:4852
+#: fish/cmds.c:4876
 msgid "get the current umask"
 msgstr "отримати поточне значення umask"
 
-#: fish/cmds.c:4853
+#: fish/cmds.c:4877
 msgid "get verbose mode"
 msgstr "отримати значення режиму докладних повідомлень"
 
-#: fish/cmds.c:4854
+#: fish/cmds.c:4878
 msgid "get SELinux security context"
 msgstr "отримати значення контексту захисту SELinux"
 
-#: fish/cmds.c:4855 fish/cmds.c:4961
+#: fish/cmds.c:4879 fish/cmds.c:4985
 msgid "get a single extended attribute"
 msgstr "отримати окремий додатковий атрибут"
 
-#: fish/cmds.c:4856 fish/cmds.c:4962
+#: fish/cmds.c:4880 fish/cmds.c:4986
 msgid "list extended attributes of a file or directory"
 msgstr "показати список додаткових атрибутів файла або каталогу"
 
-#: fish/cmds.c:4857
+#: fish/cmds.c:4881
 msgid "expand wildcards in command"
 msgstr "розгорнути шаблони заміни у команду"
 
-#: fish/cmds.c:4858
+#: fish/cmds.c:4882
 msgid "expand a wildcard path"
 msgstr "розгорнути адресу каталогу з шаблонами заміни"
 
-#: fish/cmds.c:4861
+#: fish/cmds.c:4885
 msgid "install GRUB 1"
 msgstr "встановити GRUB 1"
 
-#: fish/cmds.c:4862
+#: fish/cmds.c:4886
 msgid "return first 10 lines of a file"
 msgstr "повернути перші 10 рядків файла"
 
-#: fish/cmds.c:4863
+#: fish/cmds.c:4887
 msgid "return first N lines of a file"
 msgstr "повернути перші N рядків файла"
 
-#: fish/cmds.c:4864
+#: fish/cmds.c:4888
 msgid "dump a file in hexadecimal"
 msgstr "створити шістнадцятковий дамп файла"
 
-#: fish/cmds.c:4865
+#: fish/cmds.c:4889
 msgid "edit with a hex editor"
 msgstr "редагувати за допомогою шістнадцяткового редактора"
 
-#: fish/cmds.c:4866
+#: fish/cmds.c:4890
 msgid "close the current hivex handle"
 msgstr "закрити поточний елемент керування hivex"
 
-#: fish/cmds.c:4867
+#: fish/cmds.c:4891
 msgid "commit (write) changes back to the hive"
 msgstr "внести (записати) зміни назад до гілки реєстру"
 
-#: fish/cmds.c:4868
+#: fish/cmds.c:4892
 msgid "add a child node"
 msgstr "додати дочірній вузол"
 
-#: fish/cmds.c:4869
+#: fish/cmds.c:4893
 msgid "return list of nodes which are subkeys of node"
 msgstr "повернути список вузлів, які є підключами вказаного вузла"
 
-#: fish/cmds.c:4870
+#: fish/cmds.c:4894
 msgid "delete a node (recursively)"
 msgstr "вилучити вузол (рекурсивно)"
 
-#: fish/cmds.c:4871
+#: fish/cmds.c:4895
 msgid "return the named child of node"
 msgstr "повернути дочірній вузол вказаного вузла за вказаною назвою"
 
-#: fish/cmds.c:4872
+#: fish/cmds.c:4896
 msgid "return the named value"
 msgstr "повернути значення з вказаною назвою"
 
-#: fish/cmds.c:4873
+#: fish/cmds.c:4897
 msgid "return the name of the node"
 msgstr "повернути назву вузла"
 
-#: fish/cmds.c:4874
+#: fish/cmds.c:4898
 msgid "return the parent of node"
 msgstr "повернути батьківський вузол вказаного вузла"
 
-#: fish/cmds.c:4875
+#: fish/cmds.c:4899
 msgid "set or replace a single value in a node"
 msgstr "встановити або замінити окреме значення у вузлі"
 
-#: fish/cmds.c:4876
+#: fish/cmds.c:4900
 msgid "return list of values attached to node"
 msgstr "повернути список значень, долучених до вузла"
 
-#: fish/cmds.c:4877
+#: fish/cmds.c:4901
 msgid "open a Windows Registry hive file"
 msgstr "відкрити файл гілки реєстру Windows"
 
-#: fish/cmds.c:4878
+#: fish/cmds.c:4902
 msgid "return the root node of the hive"
 msgstr "повернути кореневий вузол гілки"
 
-#: fish/cmds.c:4879
+#: fish/cmds.c:4903
 msgid "return the key field from the (key, datatype, data) tuple"
 msgstr "повернути поле ключа за кортежем (ключ, тип даних, дані)"
 
-#: fish/cmds.c:4880
+#: fish/cmds.c:4904
 msgid "return the data type from the (key, datatype, data) tuple"
 msgstr "повернути тип даних за кортежем (ключ, тип даних, дані)"
 
-#: fish/cmds.c:4881 fish/cmds.c:4882
+#: fish/cmds.c:4905 fish/cmds.c:4906
 msgid "return the data field from the (key, datatype, data) tuple"
 msgstr "повернути поле даних за кортежем (ключ, тип даних, дані)"
 
-#: fish/cmds.c:4889
+#: fish/cmds.c:4913
 msgid "list the contents of a single file in an initrd"
 msgstr "показати вміст окремого файла у initrd"
 
-#: fish/cmds.c:4890
+#: fish/cmds.c:4914
 msgid "list files in an initrd"
 msgstr "показати список файлів у initrd"
 
-#: fish/cmds.c:4891
+#: fish/cmds.c:4915
 msgid "add an inotify watch"
 msgstr "додати спостереження за inotify"
 
-#: fish/cmds.c:4892
+#: fish/cmds.c:4916
 msgid "close the inotify handle"
 msgstr "закрити елемент керування inotify"
 
-#: fish/cmds.c:4893
+#: fish/cmds.c:4917
 msgid "return list of watched files that had events"
 msgstr ""
 "повернути список файлів, за якими ведеться спостереження, для яких сталися "
 "події"
 
-#: fish/cmds.c:4894
+#: fish/cmds.c:4918
 msgid "create an inotify handle"
 msgstr "створити елемент керування inotify"
 
-#: fish/cmds.c:4895
+#: fish/cmds.c:4919
 msgid "return list of inotify events"
 msgstr "повернути список подій inotify"
 
-#: fish/cmds.c:4896
+#: fish/cmds.c:4920
 msgid "remove an inotify watch"
 msgstr "вилучити спостереження за inotify"
 
-#: fish/cmds.c:4897
+#: fish/cmds.c:4921
 msgid "get architecture of inspected operating system"
 msgstr "отримати значення архітектури операційної системи, яка вивчається"
 
-#: fish/cmds.c:4898
+#: fish/cmds.c:4922
 msgid "get distro of inspected operating system"
 msgstr ""
 "отримати значення запису дистрибутива операційної системи, яка вивчається"
 
-#: fish/cmds.c:4899
+#: fish/cmds.c:4923
 msgid "get drive letter mappings"
 msgstr "отримати прив’язку дисків до літер"
 
-#: fish/cmds.c:4900
+#: fish/cmds.c:4924
 msgid "get filesystems associated with inspected operating system"
 msgstr ""
 "отримати значення записів файлових систем, пов’язаних з операційною "
 "системою, яка вивчається"
 
-#: fish/cmds.c:4901
+#: fish/cmds.c:4925
 msgid "get format of inspected operating system"
 msgstr "отримати значення запису формату операційної системи, яка вивчається"
 
-#: fish/cmds.c:4902
+#: fish/cmds.c:4926
 msgid "get hostname of the operating system"
 msgstr "отримати значення назви вузла операційної системи"
 
-#: fish/cmds.c:4903
+#: fish/cmds.c:4927
 msgid "get the icon corresponding to this operating system"
 msgstr "отримати піктограму відповідної операційної системи"
 
-#: fish/cmds.c:4904
+#: fish/cmds.c:4928
 msgid "get major version of inspected operating system"
 msgstr "отримати значення основної версії операційної системи, яка вивчається"
 
-#: fish/cmds.c:4905
+#: fish/cmds.c:4929
 msgid "get minor version of inspected operating system"
 msgstr ""
 "отримати значення версії виправлення операційної системи, яка вивчається"
 
-#: fish/cmds.c:4906
+#: fish/cmds.c:4930
 msgid "get mountpoints of inspected operating system"
 msgstr "отримати значення точок монтування операційної системи, яка вивчається"
 
-#: fish/cmds.c:4907
+#: fish/cmds.c:4931
 msgid "get package format used by the operating system"
 msgstr ""
 "отримати значення формату пакунків, що використовується операційною системою"
 
-#: fish/cmds.c:4908
+#: fish/cmds.c:4932
 msgid "get package management tool used by the operating system"
 msgstr ""
 "отримати значення назви програми для керування пакунками, що "
 "використовується операційною системою"
 
-#: fish/cmds.c:4909
+#: fish/cmds.c:4933
 msgid "get product name of inspected operating system"
 msgstr "отримати значення назви продукту операційної системи, яка вивчається"
 
-#: fish/cmds.c:4910
+#: fish/cmds.c:4934
 msgid "get product variant of inspected operating system"
 msgstr ""
 "отримати значення варіанта продукту операційної системи, яка вивчається"
 
-#: fish/cmds.c:4911
+#: fish/cmds.c:4935
 msgid "return list of operating systems found by last inspection"
 msgstr ""
 "повернути список операційних систем, знайдених під час останньої перевірки"
 
-#: fish/cmds.c:4912
+#: fish/cmds.c:4936
 msgid "get type of inspected operating system"
 msgstr "отримати значення типу операційної системи, яка вивчається"
 
-#: fish/cmds.c:4913
+#: fish/cmds.c:4937
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr ""
 "отримати значення CurrentControlSet Windows операційної системи, яка "
 "вивчається"
 
-#: fish/cmds.c:4914
+#: fish/cmds.c:4938
 msgid "get Windows systemroot of inspected operating system"
 msgstr ""
 "отримати значення кореневого каталогу Windows операційної системи, яка "
 "вивчається"
 
-#: fish/cmds.c:4915
+#: fish/cmds.c:4939
 msgid "get live flag for install disk"
 msgstr ""
 "отримати значення прапорця портативного носія для диска для встановлення"
 
-#: fish/cmds.c:4916
+#: fish/cmds.c:4940
 msgid "get multipart flag for install disk"
 msgstr ""
 "отримати значення прапорця носія з декількох частин для диска для "
 "встановлення"
 
-#: fish/cmds.c:4917
+#: fish/cmds.c:4941
 msgid "get netinst (network installer) flag for install disk"
 msgstr ""
 "отримати значення прапорця netinst (встановлення з мережі) для диска для "
 "встановлення"
 
-#: fish/cmds.c:4918 fish/cmds.c:4919
+#: fish/cmds.c:4942 fish/cmds.c:4943
 msgid "get list of applications installed in the operating system"
 msgstr "отримати список програм, встановлених у операційній системі"
 
-#: fish/cmds.c:4920
+#: fish/cmds.c:4944
 msgid "inspect disk and return list of operating systems found"
 msgstr "вивчити диск і повернути список знайдених операційних систем"
 
-#: fish/cmds.c:4921
+#: fish/cmds.c:4945
 msgid "cause the daemon to exit (internal use only)"
 msgstr ""
 "спричинити вихід із фонової служби (лише для внутрішнього використання)"
 
-#: fish/cmds.c:4922
+#: fish/cmds.c:4946
 msgid "test if block device"
 msgstr "перевірити, чи є пристрій блоковим"
 
-#: fish/cmds.c:4923
+#: fish/cmds.c:4947
 msgid "test if character device"
 msgstr "перевірити, чи є пристрій символьним"
 
-#: fish/cmds.c:4924
+#: fish/cmds.c:4948
 msgid "is in configuration state"
 msgstr "у стані налаштування"
 
-#: fish/cmds.c:4925
+#: fish/cmds.c:4949
 msgid "test if a directory"
 msgstr "перевірити, чи є каталогом"
 
-#: fish/cmds.c:4926
+#: fish/cmds.c:4950
 msgid "test if FIFO (named pipe)"
 msgstr "перевірити, чи є FIFO (іменованим каналом)"
 
-#: fish/cmds.c:4927
+#: fish/cmds.c:4951
 msgid "test if a regular file"
 msgstr "перевірити, чи є звичайним файлом"
 
-#: fish/cmds.c:4928
+#: fish/cmds.c:4952
 msgid "test if device is a logical volume"
 msgstr "перевірити, чи є пристрій логічним томом"
 
-#: fish/cmds.c:4929
+#: fish/cmds.c:4953
 msgid "test if socket"
 msgstr "перевірити, чи є сокетом"
 
-#: fish/cmds.c:4930
+#: fish/cmds.c:4954
 msgid "test if symbolic link"
 msgstr "перевірити, чи є символічним посиланням"
 
-#: fish/cmds.c:4931
+#: fish/cmds.c:4955
 msgid "test if a device is a whole device"
 msgstr "перевірити чи займає логічний пристрій весь фізичний пристрій"
 
-#: fish/cmds.c:4932
+#: fish/cmds.c:4956
 msgid "test if a file contains all zero bytes"
 msgstr "визначити, чи містить файл всі нульові байти"
 
-#: fish/cmds.c:4933
+#: fish/cmds.c:4957
 msgid "test if a device contains all zero bytes"
 msgstr "визначити, чи містить диск всі нульові байти"
 
-#: fish/cmds.c:4934
+#: fish/cmds.c:4958
 msgid "get ISO information from primary volume descriptor of ISO file"
 msgstr "отримати дані щодо ISO з дескриптора основного тому файла ISO"
 
-#: fish/cmds.c:4935
+#: fish/cmds.c:4959
 msgid "get ISO information from primary volume descriptor of device"
 msgstr "отримати дані щодо ISO з дескриптора основного тому пристрою"
 
-#: fish/cmds.c:4936
+#: fish/cmds.c:4960
 msgid "close the systemd journal"
 msgstr "закрити журнал systemd"
 
-#: fish/cmds.c:4937
+#: fish/cmds.c:4961
 msgid "read the current journal entry"
 msgstr "прочитати поточний запис журналу"
 
-#: fish/cmds.c:4938
+#: fish/cmds.c:4962
 msgid "get the data threshold for reading journal entries"
 msgstr "отримати значення порогу читання даних записів журналу"
 
-#: fish/cmds.c:4939
+#: fish/cmds.c:4963
 msgid "get the timestamp of the current journal entry"
 msgstr "отримати часову позначку поточного запису журналу"
 
-#: fish/cmds.c:4940
+#: fish/cmds.c:4964
 msgid "move to the next journal entry"
 msgstr "перейти до наступного запису журналу"
 
-#: fish/cmds.c:4941
+#: fish/cmds.c:4965
 msgid "open the systemd journal"
 msgstr "відкрити журнал systemd"
 
-#: fish/cmds.c:4942
+#: fish/cmds.c:4966
 msgid "set the data threshold for reading journal entries"
 msgstr "встановити поріг читання даних записів журналу"
 
-#: fish/cmds.c:4943
+#: fish/cmds.c:4967
 msgid "skip forwards or backwards in the journal"
 msgstr "пересунутися до кінця або початку журналу"
 
-#: fish/cmds.c:4944
+#: fish/cmds.c:4968
 msgid "kill the hypervisor"
 msgstr "припинити роботу гіпервізора"
 
-#: fish/cmds.c:4945
+#: fish/cmds.c:4969
 msgid "launch the backend"
 msgstr "запустити вказаний модуль"
 
-#: fish/cmds.c:4946
+#: fish/cmds.c:4970
 msgid "change working directory"
 msgstr "змінити робочий каталог"
 
-#: fish/cmds.c:4948
+#: fish/cmds.c:4972
 msgid "scan and create Windows dynamic disk volumes"
 msgstr "виявити і створити динамічні дискові томи Windows"
 
-#: fish/cmds.c:4949
+#: fish/cmds.c:4973
 msgid "return the disks in a Windows dynamic disk group"
 msgstr "повернути список дисків у динамічній групі дисків Windows"
 
-#: fish/cmds.c:4950
+#: fish/cmds.c:4974
 msgid "return the name of a Windows dynamic disk group"
 msgstr "повернути назву динамічної групи дисків Windows"
 
-#: fish/cmds.c:4951
+#: fish/cmds.c:4975
 msgid "return the volumes in a Windows dynamic disk group"
 msgstr "повернути список томів у динамічній групі дисків Windows"
 
-#: fish/cmds.c:4952
+#: fish/cmds.c:4976
 msgid "remove all Windows dynamic disk volumes"
 msgstr "вилучити всі динамічні дискові томи Windows"
 
-#: fish/cmds.c:4953 fish/cmds.c:4954
+#: fish/cmds.c:4977 fish/cmds.c:4978
 msgid "scan for Windows dynamic disks"
 msgstr "виявити динамічні диски Windows"
 
-#: fish/cmds.c:4955
+#: fish/cmds.c:4979
 msgid "return the hint field of a Windows dynamic disk volume"
 msgstr "повернути вміст поля підказки динамічного дискового тому Windows"
 
-#: fish/cmds.c:4956
+#: fish/cmds.c:4980
 msgid "return the partitions in a Windows dynamic disk volume"
 msgstr "повернути список розділів на динамічному дисковому томі Windows"
 
-#: fish/cmds.c:4957
+#: fish/cmds.c:4981
 msgid "return the type of a Windows dynamic disk volume"
 msgstr "повернути тип динамічного дискового тому Windows"
 
-#: fish/cmds.c:4963
+#: fish/cmds.c:4987
 msgid "list 9p filesystems"
 msgstr "показати список файлових систем 9p"
 
-#: fish/cmds.c:4964
+#: fish/cmds.c:4988
 msgid "list the block devices"
 msgstr "показати список блокових пристроїв"
 
-#: fish/cmds.c:4965
+#: fish/cmds.c:4989
 msgid "mapping of disk labels to devices"
 msgstr "відображення міток дисків на пристрої"
 
-#: fish/cmds.c:4966
+#: fish/cmds.c:4990
 msgid "list device mapper devices"
 msgstr "показати список пристроїв відображення пристроїв"
 
-#: fish/cmds.c:4967
+#: fish/cmds.c:4991
 msgid "list event handlers"
 msgstr "показати список обробників подій"
 
-#: fish/cmds.c:4968
+#: fish/cmds.c:4992
 msgid "list filesystems"
 msgstr "показати список файлових систем"
 
-#: fish/cmds.c:4969
+#: fish/cmds.c:4993
 msgid "list all Windows dynamic disk partitions"
 msgstr "показати список всіх динамічних дискових розділів Windows"
 
-#: fish/cmds.c:4970
+#: fish/cmds.c:4994
 msgid "list all Windows dynamic disk volumes"
 msgstr "показати список всіх динамічних дискових томів Windows"
 
-#: fish/cmds.c:4971
+#: fish/cmds.c:4995
 msgid "list Linux md (RAID) devices"
 msgstr "показати список пристроїв md (RAID) Linux"
 
-#: fish/cmds.c:4972
+#: fish/cmds.c:4996
 msgid "list the partitions"
 msgstr "показати список розділів"
 
-#: fish/cmds.c:4973
+#: fish/cmds.c:4997
 msgid "list the files in a directory (long format)"
 msgstr "показати список файлів у каталозі (у розширеному форматі)"
 
-#: fish/cmds.c:4974
+#: fish/cmds.c:4998
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr ""
 "показати список файлів у каталозі (у розширеному форматі з контекстами "
 "SELinux)"
 
-#: fish/cmds.c:4975 fish/cmds.c:4976
+#: fish/cmds.c:4999 fish/cmds.c:5000
 msgid "create a hard link"
 msgstr "створити жорстке посилання"
 
-#: fish/cmds.c:4977 fish/cmds.c:4978
+#: fish/cmds.c:5001 fish/cmds.c:5002
 msgid "create a symbolic link"
 msgstr "створити символічне посилання"
 
-#: fish/cmds.c:4979 fish/cmds.c:5129
+#: fish/cmds.c:5003 fish/cmds.c:5156
 msgid "remove extended attribute of a file or directory"
 msgstr "вилучити додатковий атрибут файла або каталогу"
 
-#: fish/cmds.c:4980
+#: fish/cmds.c:5004
 msgid "list the files in a directory"
 msgstr "показати список файлів у каталозі"
 
-#: fish/cmds.c:4981
+#: fish/cmds.c:5005
 msgid "get list of files in a directory"
 msgstr "отримати список файлів у каталозі"
 
-#: fish/cmds.c:4982 fish/cmds.c:5188
+#: fish/cmds.c:5006 fish/cmds.c:5215
 msgid "set extended attribute of a file or directory"
 msgstr "встановити додатковий атрибут файла або каталогу"
 
-#: fish/cmds.c:4983 fish/cmds.c:4985
+#: fish/cmds.c:5007 fish/cmds.c:5009
 msgid "get file information for a symbolic link"
 msgstr "отримати дані щодо файла за символічним посиланням"
 
-#: fish/cmds.c:4984 fish/cmds.c:4986
+#: fish/cmds.c:5008 fish/cmds.c:5010
 msgid "lstat on multiple files"
 msgstr "lstat для декількох файлів"
 
-#: fish/cmds.c:4987
+#: fish/cmds.c:5011
 msgid "add a key on a LUKS encrypted device"
 msgstr "додати ключ на зашифрованому LUKS пристрої"
 
-#: fish/cmds.c:4988
+#: fish/cmds.c:5012
 msgid "close a LUKS device"
 msgstr "закрити пристрій LUKS"
 
-#: fish/cmds.c:4989 fish/cmds.c:4990
+#: fish/cmds.c:5013 fish/cmds.c:5014
 msgid "format a block device as a LUKS encrypted device"
 msgstr "форматувати блоковий пристрій як зашифрований LUKS пристрій"
 
-#: fish/cmds.c:4991
+#: fish/cmds.c:5015
 msgid "remove a key from a LUKS encrypted device"
 msgstr "вилучити ключ з зашифрованого LUKS пристрою"
 
-#: fish/cmds.c:4992
+#: fish/cmds.c:5016
 msgid "open a LUKS-encrypted block device"
 msgstr "відкрити зашифрований LUKS блоковий пристрій"
 
-#: fish/cmds.c:4993
+#: fish/cmds.c:5017
 msgid "open a LUKS-encrypted block device read-only"
 msgstr "відкрити зашифрований LUKS блоковий пристрій у режимі лише для читання"
 
-#: fish/cmds.c:4994
+#: fish/cmds.c:5018
 msgid "create an LVM logical volume"
 msgstr "створити логічний том LVM"
 
-#: fish/cmds.c:4995
+#: fish/cmds.c:5019
 msgid "create an LVM logical volume in % remaining free space"
 msgstr ""
 "створити логічний том LVM на вказаному у відсотках вільному місці на диску"
 
-#: fish/cmds.c:4996
+#: fish/cmds.c:5020
 msgid "get canonical name of an LV"
 msgstr "отримати канонічну назву логічного тому"
 
-#: fish/cmds.c:4997
+#: fish/cmds.c:5021
 msgid "clear LVM device filter"
 msgstr "спорожнити фільтр пристроїв LVM"
 
-#: fish/cmds.c:4998
+#: fish/cmds.c:5022
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "вилучити всі логічні томи, групи томів та фізичні томи LVM"
 
-#: fish/cmds.c:4999
+#: fish/cmds.c:5023
 msgid "set LVM device filter"
 msgstr "встановити фільтр пристроїв LVM"
 
-#: fish/cmds.c:5000
+#: fish/cmds.c:5024
 msgid "remove an LVM logical volume"
 msgstr "вилучити логічний том LVM"
 
-#: fish/cmds.c:5001
+#: fish/cmds.c:5025
 msgid "rename an LVM logical volume"
 msgstr "перейменувати логічний том LVM"
 
-#: fish/cmds.c:5002
+#: fish/cmds.c:5026
 msgid "resize an LVM logical volume"
 msgstr "змінити розміри логічного тому LVM"
 
-#: fish/cmds.c:5003
+#: fish/cmds.c:5027
 msgid "expand an LV to fill free space"
 msgstr "розширити логічний том для заповнення вільного місця"
 
-#: fish/cmds.c:5004 fish/cmds.c:5005
+#: fish/cmds.c:5028 fish/cmds.c:5029
 msgid "list the LVM logical volumes (LVs)"
 msgstr "показати список логічних томів LVM"
 
-#: fish/cmds.c:5006
+#: fish/cmds.c:5030
 msgid "get the UUID of a logical volume"
 msgstr "отримати UUID логічного тому"
 
-#: fish/cmds.c:5007
+#: fish/cmds.c:5031
 msgid "lgetxattr on multiple files"
 msgstr "lgetxattr для декількох файлів"
 
-#: fish/cmds.c:5008
+#: fish/cmds.c:5032
 msgid "open the manual"
 msgstr "відкрити сторінку довідки"
 
-#: fish/cmds.c:5012
+#: fish/cmds.c:5036
 msgid "maximum number of disks that may be added"
 msgstr "максимальна кількість дисків, які може бути додано"
 
-#: fish/cmds.c:5013
+#: fish/cmds.c:5037
 msgid "create a Linux md (RAID) device"
 msgstr "створити запис пристрою md (RAID) Linux"
 
-#: fish/cmds.c:5014
+#: fish/cmds.c:5038
 msgid "obtain metadata for an MD device"
 msgstr "отримати метадані щодо пристрою MD"
 
-#: fish/cmds.c:5015
+#: fish/cmds.c:5039
 msgid "get underlying devices from an MD device"
 msgstr "отримати дані щодо підлеглих пристроїв з пристрою MD"
 
-#: fish/cmds.c:5016
+#: fish/cmds.c:5040
 msgid "stop a Linux md (RAID) device"
 msgstr "зупинити роботу пристрою md (RAID) Linux"
 
-#: fish/cmds.c:5020
+#: fish/cmds.c:5044
 msgid "create a directory"
 msgstr "створити каталог"
 
-#: fish/cmds.c:5021
+#: fish/cmds.c:5045
 msgid "create a directory with a particular mode"
 msgstr "створити каталог у вказаному режимі"
 
-#: fish/cmds.c:5022
+#: fish/cmds.c:5046
 msgid "create a directory and parents"
 msgstr "створити каталог і його батьківські каталоги"
 
-#: fish/cmds.c:5023
+#: fish/cmds.c:5047
 msgid "create a temporary directory"
 msgstr "створити тимчасовий каталог"
 
-#: fish/cmds.c:5024
+#: fish/cmds.c:5048
 msgid "create an ext2/ext3/ext4 filesystem on device"
 msgstr "створити на пристрої файлову систему ext2, ext3 або ext4"
 
-#: fish/cmds.c:5025 fish/cmds.c:5026 fish/cmds.c:5027
+#: fish/cmds.c:5049 fish/cmds.c:5050 fish/cmds.c:5051
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "створити файлову систему ext2/3/4 з зовнішнім журналом"
 
-#: fish/cmds.c:5028
+#: fish/cmds.c:5052
 msgid "make ext2/3/4 external journal"
 msgstr "створити зовнішній журнал ext2/3/4"
 
-#: fish/cmds.c:5029
+#: fish/cmds.c:5053
 msgid "make ext2/3/4 external journal with label"
 msgstr "створити зовнішній журнал ext2/3/4 з міткою"
 
-#: fish/cmds.c:5030
+#: fish/cmds.c:5054
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "створити зовнішній журнал ext2/3/4 з UUID"
 
-#: fish/cmds.c:5031
+#: fish/cmds.c:5055
 msgid "make FIFO (named pipe)"
 msgstr "створити FIFO (іменований канал)"
 
-#: fish/cmds.c:5032
+#: fish/cmds.c:5056
 msgid "make a filesystem"
 msgstr "створити файлову систему"
 
-#: fish/cmds.c:5033
+#: fish/cmds.c:5057
 msgid "make a filesystem with block size"
 msgstr "створити файлову систему з розміром блоку"
 
-#: fish/cmds.c:5034
+#: fish/cmds.c:5058
 msgid "create a btrfs filesystem"
 msgstr "створити файлову систему btrfs"
 
-#: fish/cmds.c:5035
+#: fish/cmds.c:5059
 msgid "make lost+found directory on an ext2/3/4 filesystem"
 msgstr "створити каталог lost+found у файловій системі ext2/3/4"
 
-#: fish/cmds.c:5036
+#: fish/cmds.c:5060
 msgid "create a mountpoint"
 msgstr "створити точку монтування"
 
-#: fish/cmds.c:5037
+#: fish/cmds.c:5061
 msgid "make block, character or FIFO devices"
 msgstr "створити блокові, символьні пристрої або пристрої FIFO"
 
-#: fish/cmds.c:5038
+#: fish/cmds.c:5062
 msgid "make block device node"
 msgstr "створити вузол блокового пристрою"
 
-#: fish/cmds.c:5039
+#: fish/cmds.c:5063
 msgid "make char device node"
 msgstr "створити вузол символьного пристрою"
 
-#: fish/cmds.c:5040
+#: fish/cmds.c:5064
 msgid "create a swap partition"
 msgstr "створити розділ резервних даних (свопінгу)"
 
-#: fish/cmds.c:5041
+#: fish/cmds.c:5065
 msgid "create a swap partition with a label"
 msgstr "створити розділ резервних даних (свопінгу) з міткою"
 
-#: fish/cmds.c:5042
+#: fish/cmds.c:5066
 msgid "create a swap partition with an explicit UUID"
 msgstr "створити розділ резервних даних (свопінгу) з явним визначенням UUID"
 
-#: fish/cmds.c:5043
+#: fish/cmds.c:5067
 msgid "create a swap file"
 msgstr "створити файл резервної пам’яті"
 
-#: fish/cmds.c:5044
+#: fish/cmds.c:5068
 msgid "create a temporary file"
 msgstr "створити тимчасовий файл"
 
-#: fish/cmds.c:5045
+#: fish/cmds.c:5069
 msgid "load a kernel module"
 msgstr "завантажити модуль ядра"
 
-#: fish/cmds.c:5046
+#: fish/cmds.c:5070
 msgid "view a file"
 msgstr "переглянути файл"
 
-#: fish/cmds.c:5047
+#: fish/cmds.c:5071
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "змонтувати гостьовий диск до вказаного каталогу файлової системи"
 
-#: fish/cmds.c:5048
+#: fish/cmds.c:5072
 msgid "mount 9p filesystem"
 msgstr "змонтувати файлову систему 9p"
 
-#: fish/cmds.c:5049
+#: fish/cmds.c:5073
 msgid "mount on the local filesystem"
 msgstr "змонтувати локальну файлову систему"
 
-#: fish/cmds.c:5050
+#: fish/cmds.c:5074
 msgid "run main loop of mount on the local filesystem"
 msgstr "виконати основний цикл монтування на локальній файловій системі"
 
-#: fish/cmds.c:5051
+#: fish/cmds.c:5075
 msgid "mount a file using the loop device"
 msgstr "змонтувати файли за допомогою петльового пристрою"
 
-#: fish/cmds.c:5052
+#: fish/cmds.c:5076
 msgid "mount a guest disk with mount options"
 msgstr "змонтувати гостьовий диск з вказаними параметрами монтування"
 
-#: fish/cmds.c:5053
+#: fish/cmds.c:5077
 msgid "mount a guest disk, read-only"
 msgstr "змонтувати гостьовий диск у режимі лише читання"
 
-#: fish/cmds.c:5054
+#: fish/cmds.c:5078
 msgid "mount a guest disk with mount options and vfstype"
 msgstr ""
 "змонтувати гостьовий диск з вказаними параметрами монтування та типом ВФС"
 
-#: fish/cmds.c:5055
+#: fish/cmds.c:5079
 msgid "show mountpoints"
 msgstr "показати точки монтування"
 
-#: fish/cmds.c:5056
+#: fish/cmds.c:5080
 msgid "show mounted filesystems"
 msgstr "показати список змонтованих файлових систем"
 
-#: fish/cmds.c:5057
+#: fish/cmds.c:5081
 msgid "move a file"
 msgstr "пересунути файл"
 
-#: fish/cmds.c:5061
+#: fish/cmds.c:5085
 msgid "return number of whole block devices (disks) added"
 msgstr "повернути кількість доданих цілих блокових пристроїв (дисків)"
 
-#: fish/cmds.c:5062
+#: fish/cmds.c:5086
 msgid "probe NTFS volume"
 msgstr "зондувати том NTFS"
 
-#: fish/cmds.c:5063
+#: fish/cmds.c:5087
 msgid "restore NTFS from backup file"
 msgstr "відновити NTFS з файла резервної копії"
 
-#: fish/cmds.c:5064
+#: fish/cmds.c:5088
 msgid "save NTFS to backup file"
 msgstr "зберегти NTFS до файла резервної копії"
 
-#: fish/cmds.c:5065
+#: fish/cmds.c:5089
 msgid "fix common errors and force Windows to check NTFS"
 msgstr "виправити загальні помилки і наказати Windows виконати перевірку NTFS"
 
-#: fish/cmds.c:5066
+#: fish/cmds.c:5090
 msgid "resize an NTFS filesystem"
 msgstr "змінити розміри файлової системи NTFS"
 
-#: fish/cmds.c:5067
+#: fish/cmds.c:5091
 msgid "resize an NTFS filesystem (with size)"
 msgstr "змінити розміри файлової системи NTFS (з визначенням розміру)"
 
-#: fish/cmds.c:5068 fish/cmds.c:5069
+#: fish/cmds.c:5092 fish/cmds.c:5093
 msgid "parse the environment and set handle flags accordingly"
 msgstr ""
 "обробити параметри середовища і встановити прапорці обробки відповідним чином"
 
-#: fish/cmds.c:5070
+#: fish/cmds.c:5094
 msgid "add a partition to the device"
 msgstr "додати розділ на пристрій"
 
-#: fish/cmds.c:5071
+#: fish/cmds.c:5095
 msgid "delete a partition"
 msgstr "вилучити розділ"
 
-#: fish/cmds.c:5072
+#: fish/cmds.c:5096
 msgid "partition whole disk with a single primary partition"
 msgstr "поділити на розділи весь диск з єдиним основним розділом"
 
-#: fish/cmds.c:5073
+#: fish/cmds.c:5097
 msgid "return true if a partition is bootable"
 msgstr "повернути «true», якщо розділ придатний до завантаження"
 
-#: fish/cmds.c:5074
+#: fish/cmds.c:5098
+msgid "get the GUID of a GPT-partitioned disk"
+msgstr ""
+
+#: fish/cmds.c:5099
 msgid "get the GUID of a GPT partition"
 msgstr "отримати GUID розділу GPT"
 
-#: fish/cmds.c:5075
+#: fish/cmds.c:5100
 msgid "get the type GUID of a GPT partition"
 msgstr "отримати тип GUID розділу GPT"
 
-#: fish/cmds.c:5076
+#: fish/cmds.c:5101
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr "отримати байт типу MBR (байт-ідентифікатор) з розділу"
 
-#: fish/cmds.c:5077
+#: fish/cmds.c:5102
 msgid "get the MBR partition type"
 msgstr "отримати тип розділу MBR"
 
-#: fish/cmds.c:5078
+#: fish/cmds.c:5103
 msgid "get partition name"
 msgstr "отримати назву розділу"
 
-#: fish/cmds.c:5079
+#: fish/cmds.c:5104
 msgid "get the partition table type"
 msgstr "отримати тип таблиці розділів"
 
-#: fish/cmds.c:5080
+#: fish/cmds.c:5105
 msgid "create an empty partition table"
 msgstr "створити порожню таблицю розділів"
 
-#: fish/cmds.c:5081
+#: fish/cmds.c:5106
 msgid "list partitions on a device"
 msgstr "показати список розділів на пристрої"
 
-#: fish/cmds.c:5082
+#: fish/cmds.c:5107
 msgid "make a partition bootable"
 msgstr "зробити розділ придатним до завантаження"
 
-#: fish/cmds.c:5083
+#: fish/cmds.c:5108
+msgid "set the GUID of a GPT-partitioned disk"
+msgstr ""
+
+#: fish/cmds.c:5109
+msgid "set the GUID of a GPT-partitioned disk to random value"
+msgstr ""
+
+#: fish/cmds.c:5110
 msgid "set the GUID of a GPT partition"
 msgstr "встановити GUID розділу GPT"
 
-#: fish/cmds.c:5084
+#: fish/cmds.c:5111
 msgid "set the type GUID of a GPT partition"
 msgstr "встановити тип GUID розділу GPT"
 
-#: fish/cmds.c:5085
+#: fish/cmds.c:5112
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr "встановити байт типу MBR (байт-ідентифікатор) розділу"
 
-#: fish/cmds.c:5086
+#: fish/cmds.c:5113
 msgid "set partition name"
 msgstr "встановити назву розділу"
 
-#: fish/cmds.c:5087
+#: fish/cmds.c:5114
 msgid "convert partition name to device name"
 msgstr "перетворити назву розділу на назву пристрою"
 
-#: fish/cmds.c:5088
+#: fish/cmds.c:5115
 msgid "convert partition name to partition number"
 msgstr "перетворити назву розділу на номер розділу"
 
-#: fish/cmds.c:5098
+#: fish/cmds.c:5125
 msgid "ping the guest daemon"
 msgstr "перевірити луна-імпульсом фонову службу гостьових систем"
 
-#: fish/cmds.c:5099
+#: fish/cmds.c:5126
 msgid "read part of a file"
 msgstr "прочитати частину файла"
 
-#: fish/cmds.c:5100
+#: fish/cmds.c:5127
 msgid "read part of a device"
 msgstr "прочитати частину пристрою"
 
-#: fish/cmds.c:5104
+#: fish/cmds.c:5131
 msgid "generate a new random UUID for a physical volume"
 msgstr "створити новий випадковий UUID для фізичного тому"
 
-#: fish/cmds.c:5105
+#: fish/cmds.c:5132
 msgid "generate new random UUIDs for all physical volumes"
 msgstr "створити нові випадкові UUID для всіх фізичних томів"
 
-#: fish/cmds.c:5106
+#: fish/cmds.c:5133
 msgid "create an LVM physical volume"
 msgstr "створити фізичний том LVM"
 
-#: fish/cmds.c:5107
+#: fish/cmds.c:5134
 msgid "remove an LVM physical volume"
 msgstr "вилучити фізичний том LVM"
 
-#: fish/cmds.c:5108
+#: fish/cmds.c:5135
 msgid "resize an LVM physical volume"
 msgstr "змінити розміри фізичного тому LVM"
 
-#: fish/cmds.c:5109
+#: fish/cmds.c:5136
 msgid "resize an LVM physical volume (with size)"
 msgstr "змінити розміри фізичного тому LVM (з визначенням розміру)"
 
-#: fish/cmds.c:5110 fish/cmds.c:5111
+#: fish/cmds.c:5137 fish/cmds.c:5138
 msgid "list the LVM physical volumes (PVs)"
 msgstr "показати список фізичних томів LVM"
 
-#: fish/cmds.c:5112
+#: fish/cmds.c:5139
 msgid "get the UUID of a physical volume"
 msgstr "отримати значення UUID фізичного тому"
 
-#: fish/cmds.c:5113
+#: fish/cmds.c:5140
 msgid "write to part of a file"
 msgstr "записати частину файла"
 
-#: fish/cmds.c:5114
+#: fish/cmds.c:5141
 msgid "write to part of a device"
 msgstr "записати частину пристрою"
 
-#: fish/cmds.c:5118
+#: fish/cmds.c:5145
 msgid "read a file"
 msgstr "прочитати файл"
 
-#: fish/cmds.c:5119
+#: fish/cmds.c:5146
 msgid "read file as lines"
 msgstr "прочитати файл як набір рядків"
 
-#: fish/cmds.c:5120
+#: fish/cmds.c:5147
 msgid "read directories entries"
 msgstr "прочитати записи каталогів"
 
-#: fish/cmds.c:5121
+#: fish/cmds.c:5148
 msgid "read the target of a symbolic link"
 msgstr "прочитати файл, на який вказує символічне посилання"
 
-#: fish/cmds.c:5122
+#: fish/cmds.c:5149
 msgid "readlink on multiple files"
 msgstr "readlink для декількох файлів"
 
-#: fish/cmds.c:5123
+#: fish/cmds.c:5150
 msgid "canonicalized absolute pathname"
 msgstr "канонічний запис абсолютного шляху"
 
-#: fish/cmds.c:5127
+#: fish/cmds.c:5154
 msgid "remount a filesystem with different options"
 msgstr "повторно змонтувати файлову систему з іншими параметрами"
 
-#: fish/cmds.c:5128
+#: fish/cmds.c:5155
 msgid "remove a disk image"
 msgstr "вилучити образ диска"
 
-#: fish/cmds.c:5130
+#: fish/cmds.c:5157
 msgid "rename a file on the same filesystem"
 msgstr "перейменувати файл на тій самій файловій системі"
 
-#: fish/cmds.c:5131
+#: fish/cmds.c:5158
 msgid "close and reopen libguestfs handle"
 msgstr "закрити, а потім повторно відкрити елемент керування libguestfs"
 
-#: fish/cmds.c:5132
+#: fish/cmds.c:5159
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "змінити розміри файлової системи ext2, ext3 або ext4"
 
-#: fish/cmds.c:5133
+#: fish/cmds.c:5160
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr "змінити розміри файлової системи ext2, ext3 або ext4 до мінімальних"
 
-#: fish/cmds.c:5134
+#: fish/cmds.c:5161
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 "змінити розміри файлової системи ext2, ext3 або ext4 (з визначенням розміру)"
 
-#: fish/cmds.c:5135
+#: fish/cmds.c:5162
 msgid "remove a file"
 msgstr "вилучити файл"
 
-#: fish/cmds.c:5136
+#: fish/cmds.c:5163
 msgid "remove a file ignoring errors"
 msgstr "вилучити файл, помилки ігнорувати"
 
-#: fish/cmds.c:5137
+#: fish/cmds.c:5164
 msgid "remove a file or directory recursively"
 msgstr "вилучити файл або каталог рекурсивно"
 
-#: fish/cmds.c:5138
+#: fish/cmds.c:5165
 msgid "remove a directory"
 msgstr "вилучити каталог"
 
-#: fish/cmds.c:5139
+#: fish/cmds.c:5166
 msgid "remove a mountpoint"
 msgstr "вилучити точку монтування"
 
-#: fish/cmds.c:5140
+#: fish/cmds.c:5167
 msgid "synchronize the contents of two directories"
 msgstr "синхронізувати вміст двох каталогів"
 
-#: fish/cmds.c:5141
+#: fish/cmds.c:5168
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr "синхронізувати вузол або віддалену файлову систему з файловою системою"
 
-#: fish/cmds.c:5142
+#: fish/cmds.c:5169
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 "синхронізувати файлову систему з вузлом або віддаленою файловою системою"
 
-#: fish/cmds.c:5149
+#: fish/cmds.c:5176
 msgid "scrub (securely wipe) a device"
 msgstr "витерти (безпечно спорожнити) пристрій"
 
-#: fish/cmds.c:5150
+#: fish/cmds.c:5177
 msgid "scrub (securely wipe) a file"
 msgstr "витерти (безпечно спорожнити) файл"
 
-#: fish/cmds.c:5151
+#: fish/cmds.c:5178
 msgid "scrub (securely wipe) free space"
 msgstr "витерти (безпечно спорожнити) вільний об’єм"
 
-#: fish/cmds.c:5155
+#: fish/cmds.c:5182
 msgid "add options to kernel command line"
 msgstr "додати параметри до командного рядка ядра"
 
-#: fish/cmds.c:5156 fish/cmds.c:5158
+#: fish/cmds.c:5183 fish/cmds.c:5185
 msgid "set the backend"
 msgstr "встановити модуль"
 
-#: fish/cmds.c:5157
+#: fish/cmds.c:5184
 msgid "set autosync mode"
 msgstr "встановити режим автоматичної синхронізації"
 
-#: fish/cmds.c:5159
+#: fish/cmds.c:5186
 msgid "set a single per-backend settings string"
 msgstr "встановити окремий рядок параметрів, специфічний для модуля"
 
-#: fish/cmds.c:5160
+#: fish/cmds.c:5187
 msgid "replace per-backend settings strings"
 msgstr "замінити рядки параметрів окремих модулів"
 
-#: fish/cmds.c:5161
+#: fish/cmds.c:5188
 msgid "set the appliance cache directory"
 msgstr "встановити адресу каталогу кешування системи розгортання"
 
-#: fish/cmds.c:5162
+#: fish/cmds.c:5189
 msgid "enable or disable direct appliance mode"
 msgstr "увімкнути або вимкнути режим безпосередньої роботи з пристроєм"
 
-#: fish/cmds.c:5163
+#: fish/cmds.c:5190
 msgid "set ext2 file attributes of a file"
 msgstr "встановити атрибути файла у ext2"
 
-#: fish/cmds.c:5164
+#: fish/cmds.c:5191
 msgid "set ext2 file generation of a file"
 msgstr "встановити стан створення файла у ext2"
 
-#: fish/cmds.c:5165
+#: fish/cmds.c:5192
 msgid "set the ext2/3/4 filesystem label"
 msgstr "встановити мітку файлової системи ext2/3/4 filesystem"
 
-#: fish/cmds.c:5166
+#: fish/cmds.c:5193
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "встановити UUID файлової системи ext2/3/4"
 
-#: fish/cmds.c:5167
+#: fish/cmds.c:5194
 msgid "set the hypervisor binary"
 msgstr "встановити назву виконуваного файла гіпервізора"
 
-#: fish/cmds.c:5168
+#: fish/cmds.c:5195
 msgid "set the handle identifier"
 msgstr "встановити ідентифікатор дескриптора"
 
-#: fish/cmds.c:5169
+#: fish/cmds.c:5196
 msgid "set filesystem label"
 msgstr "встановити мітку файлової системи"
 
-#: fish/cmds.c:5170
+#: fish/cmds.c:5197
 msgid "pass requested credential back to libvirt"
 msgstr "передати запитані реєстраційні дані назад до libvirt"
 
-#: fish/cmds.c:5171
+#: fish/cmds.c:5198
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 "встановити реєстраційні дані libvirt, підтримувані програмою, яка надсилала "
 "виклик"
 
-#: fish/cmds.c:5172
+#: fish/cmds.c:5199
 msgid "set memory allocated to the hypervisor"
 msgstr "встановити об’єм пам’яті, отриманий гіпервізором"
 
-#: fish/cmds.c:5173
+#: fish/cmds.c:5200
 msgid "set enable network flag"
 msgstr "встановити значення прапорця вмикання мережі"
 
-#: fish/cmds.c:5174
+#: fish/cmds.c:5201
 msgid "set the search path"
 msgstr "встановити адресу каталогу пошуку"
 
-#: fish/cmds.c:5175
+#: fish/cmds.c:5202
 msgid "set process group flag"
 msgstr "встановити прапорець групи обробки"
 
-#: fish/cmds.c:5176
+#: fish/cmds.c:5203
 msgid "set the program name"
 msgstr "встановити назву програми"
 
-#: fish/cmds.c:5177
+#: fish/cmds.c:5204
 msgid "set the hypervisor binary (usually qemu)"
 msgstr "встановити назву виконуваного файла гіпервізора (зазвичай, qemu)"
 
-#: fish/cmds.c:5178
+#: fish/cmds.c:5205
 msgid "enable or disable the recovery process"
 msgstr "увімкнути або вимкнути процес відновлення"
 
-#: fish/cmds.c:5179
+#: fish/cmds.c:5206
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr ""
 "встановити параметр вмикання або вимикання SELinux під час завантаження з "
 "пристрою"
 
-#: fish/cmds.c:5180
+#: fish/cmds.c:5207
 msgid "set number of virtual CPUs in appliance"
 msgstr "встановити кількість віртуальних процесорів на пристрої"
 
-#: fish/cmds.c:5181
+#: fish/cmds.c:5208
 msgid "set the temporary directory"
 msgstr "встановити адресу тимчасового каталогу"
 
-#: fish/cmds.c:5182
+#: fish/cmds.c:5209
 msgid "enable or disable command traces"
 msgstr "увімкнути або вимкнути трасування команд"
 
-#: fish/cmds.c:5183
+#: fish/cmds.c:5210
 msgid "set the filesystem UUID"
 msgstr "встановити UUID файлової системи"
 
-#: fish/cmds.c:5184
+#: fish/cmds.c:5211
 msgid "set a random UUID for the filesystem"
 msgstr "встановити випадковий UUID для файлової системи"
 
-#: fish/cmds.c:5185
+#: fish/cmds.c:5212
 msgid "set verbose mode"
 msgstr "увімкнути докладний режим"
 
-#: fish/cmds.c:5186
+#: fish/cmds.c:5213
 msgid "set SELinux security context"
 msgstr "встановити значення контексту захисту SELinux"
 
-#: fish/cmds.c:5187
+#: fish/cmds.c:5214
 msgid "set an environment variable"
 msgstr "встановити змінну середовища"
 
-#: fish/cmds.c:5189 fish/cmds.c:5190
+#: fish/cmds.c:5216 fish/cmds.c:5217
 msgid "create partitions on a block device"
 msgstr "створити розділи на блоковому пристрої"
 
-#: fish/cmds.c:5191
+#: fish/cmds.c:5218
 msgid "modify a single partition on a block device"
 msgstr "змінити окремий розділ на блоковому пристрої"
 
-#: fish/cmds.c:5192
+#: fish/cmds.c:5219
 msgid "display the disk geometry from the partition table"
 msgstr "показати дані щодо конфігурації диска з таблиці розділів"
 
-#: fish/cmds.c:5193
+#: fish/cmds.c:5220
 msgid "display the kernel geometry"
 msgstr "показати дані щодо конфігурації ядра"
 
-#: fish/cmds.c:5194
+#: fish/cmds.c:5221
 msgid "display the partition table"
 msgstr "показати таблицю розділів"
 
-#: fish/cmds.c:5195
+#: fish/cmds.c:5222
 msgid "run a command via the shell"
 msgstr "запустити команду у оболонці"
 
-#: fish/cmds.c:5196
+#: fish/cmds.c:5223
 msgid "run a command via the shell returning lines"
 msgstr "виконати команду за допомогою оболонки, повернути виведені рядки"
 
-#: fish/cmds.c:5197
+#: fish/cmds.c:5224
 msgid "shutdown the hypervisor"
 msgstr "завершити роботу гіпервізора"
 
-#: fish/cmds.c:5198
+#: fish/cmds.c:5225
 msgid "sleep for some seconds"
 msgstr "призупинити обробку на декілька секунд"
 
-#: fish/cmds.c:5202
+#: fish/cmds.c:5229
 msgid "create a sparse disk image and add"
 msgstr "створити розріджений образ диска та додати"
 
-#: fish/cmds.c:5203 fish/cmds.c:5204
+#: fish/cmds.c:5230 fish/cmds.c:5231
 msgid "get file information"
 msgstr "отримати дані щодо файла"
 
-#: fish/cmds.c:5205
+#: fish/cmds.c:5232
 msgid "get file system statistics"
 msgstr "отримати статистичні дані щодо файлової системи"
 
-#: fish/cmds.c:5206 fish/cmds.c:5207
+#: fish/cmds.c:5233 fish/cmds.c:5234
 msgid "print the printable strings in a file"
 msgstr "вивести придатні до друку рядки до файла"
 
-#: fish/cmds.c:5208
+#: fish/cmds.c:5235
 msgid "list supported groups of commands"
 msgstr "показати список підтримуваних груп команд"
 
-#: fish/cmds.c:5209
+#: fish/cmds.c:5236
 msgid "disable swap on device"
 msgstr "вимкнути резервування місця на диску"
 
-#: fish/cmds.c:5210
+#: fish/cmds.c:5237
 msgid "disable swap on file"
 msgstr "вимкнути резервування місця у файлі"
 
-#: fish/cmds.c:5211
+#: fish/cmds.c:5238
 msgid "disable swap on labeled swap partition"
 msgstr "вимкнути резервування місця на позначеному розділі резервної пам’яті"
 
-#: fish/cmds.c:5212
+#: fish/cmds.c:5239
 msgid "disable swap on swap partition by UUID"
 msgstr ""
 "вимкнути резервування місця на розділі резервної пам’яті, вказаному за "
 "допомогою UUID"
 
-#: fish/cmds.c:5213
+#: fish/cmds.c:5240
 msgid "enable swap on device"
 msgstr "увімкнути резервну пам’ять на диску"
 
-#: fish/cmds.c:5214
+#: fish/cmds.c:5241
 msgid "enable swap on file"
 msgstr "увімкнути резервну пам’ять у файлі"
 
-#: fish/cmds.c:5215
+#: fish/cmds.c:5242
 msgid "enable swap on labeled swap partition"
 msgstr "увімкнути резервування місця на позначеному розділі резервної пам’яті"
 
-#: fish/cmds.c:5216
+#: fish/cmds.c:5243
 msgid "enable swap on swap partition by UUID"
 msgstr ""
 "увімкнути резервування місця на розділі резервної пам’яті, вказаному за "
 "допомогою UUID"
 
-#: fish/cmds.c:5217
+#: fish/cmds.c:5244
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "синхронізувати диски, буфери запису буде випорожнено до образу диска"
 
-#: fish/cmds.c:5218
+#: fish/cmds.c:5245
 msgid "install the SYSLINUX bootloader"
 msgstr "встановити завантажувач SYSLINUX"
 
-#: fish/cmds.c:5219
+#: fish/cmds.c:5246
 msgid "return last 10 lines of a file"
 msgstr "повернути останні 10 рядків файла"
 
-#: fish/cmds.c:5220
+#: fish/cmds.c:5247
 msgid "return last N lines of a file"
 msgstr "повернути останні N рядків файла"
 
-#: fish/cmds.c:5221
+#: fish/cmds.c:5248
 msgid "unpack tarfile to directory"
 msgstr "розпакувати архів tar до каталогу"
 
-#: fish/cmds.c:5222
+#: fish/cmds.c:5249
 msgid "pack directory into tarfile"
 msgstr "запакувати каталог до архіву tar"
 
-#: fish/cmds.c:5223 fish/cmds.c:5237
+#: fish/cmds.c:5250 fish/cmds.c:5264
 msgid "unpack compressed tarball to directory"
 msgstr "розпакувати стиснений архів tar до каталогу"
 
-#: fish/cmds.c:5224 fish/cmds.c:5238
+#: fish/cmds.c:5251 fish/cmds.c:5265
 msgid "pack directory into compressed tarball"
 msgstr "запакувати каталог до стиснутого архіву tar"
 
-#: fish/cmds.c:5225
+#: fish/cmds.c:5252
 msgid "print elapsed time taken to run a command"
 msgstr "показувати час, витрачений на виконання команди"
 
-#: fish/cmds.c:5229
+#: fish/cmds.c:5256
 msgid "update file timestamps or create a new file"
 msgstr "оновити позначки часу файла або створити новий файл"
 
-#: fish/cmds.c:5233
+#: fish/cmds.c:5260
 msgid "truncate a file to zero size"
 msgstr "обрізати файл до нульового розміру"
 
-#: fish/cmds.c:5234
+#: fish/cmds.c:5261
 msgid "truncate a file to a particular size"
 msgstr "обрізати файл до вказаного розміру"
 
-#: fish/cmds.c:5235
+#: fish/cmds.c:5262
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr "виправити параметри файлової системи ext2/ext3/ext4"
 
-#: fish/cmds.c:5236
+#: fish/cmds.c:5263
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "отримати дані щодо суперблоку ext2/ext3/ext4"
 
-#: fish/cmds.c:5239
+#: fish/cmds.c:5266
 msgid "set file mode creation mask (umask)"
 msgstr "встановити маску режиму створення файла (umask)"
 
-#: fish/cmds.c:5240
+#: fish/cmds.c:5267
 msgid "unmount a filesystem"
 msgstr "демонтувати файлову систему"
 
-#: fish/cmds.c:5241
+#: fish/cmds.c:5268
 msgid "unmount all filesystems"
 msgstr "демонтувати всі файлові системи"
 
-#: fish/cmds.c:5242
+#: fish/cmds.c:5269
 msgid "unmount a locally mounted filesystem"
 msgstr "демонтувати змонтовану локально файлову систему"
 
-#: fish/cmds.c:5249
+#: fish/cmds.c:5276
 msgid "unset an environment variable"
 msgstr "скасувати визначення змінної середовища"
 
-#: fish/cmds.c:5250
+#: fish/cmds.c:5277
 msgid "upload a file from the local machine"
 msgstr "вивантажити файл з локальної системи"
 
-#: fish/cmds.c:5251
+#: fish/cmds.c:5278
 msgid "upload a file from the local machine with offset"
 msgstr "вивантажити файл з локальної системи зі зсувом"
 
-#: fish/cmds.c:5252
+#: fish/cmds.c:5279
 msgid "cancel the current upload or download operation"
 msgstr "скасувати поточну дію з вивантаження або отримання даних"
 
-#: fish/cmds.c:5253
+#: fish/cmds.c:5280
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "встановити часову позначку файла з точністю до наносекунди"
 
-#: fish/cmds.c:5254
+#: fish/cmds.c:5281
 msgid "appliance kernel version"
 msgstr "версія ядра системи для розгортання"
 
-#: fish/cmds.c:5258
+#: fish/cmds.c:5285
 msgid "get the library version number"
 msgstr "отримати номер версії бібліотеки"
 
-#: fish/cmds.c:5259
+#: fish/cmds.c:5286
 msgid "get the filesystem label"
 msgstr "отримати значення мітки файлової системи"
 
-#: fish/cmds.c:5260
+#: fish/cmds.c:5287
 msgid "get minimum filesystem size"
 msgstr "отримати мінімальний розмір файлової системи"
 
-#: fish/cmds.c:5261
+#: fish/cmds.c:5288
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
 "отримати тип віртуальної файлової системи Linux, відповідний до змонтованого "
 "пристрою"
 
-#: fish/cmds.c:5262
+#: fish/cmds.c:5289
 msgid "get the filesystem UUID"
 msgstr "отримати UUID файлової системи"
 
-#: fish/cmds.c:5263
+#: fish/cmds.c:5290
 msgid "activate or deactivate some volume groups"
 msgstr "задіяти або вимкнути певні групи томів"
 
-#: fish/cmds.c:5264
+#: fish/cmds.c:5291
 msgid "activate or deactivate all volume groups"
 msgstr "задіяти або вимкнути всі групи томів"
 
-#: fish/cmds.c:5265
+#: fish/cmds.c:5292
 msgid "generate a new random UUID for a volume group"
 msgstr "створити новий випадковий UUID для групи томів"
 
-#: fish/cmds.c:5266
+#: fish/cmds.c:5293
 msgid "generate new random UUIDs for all volume groups"
 msgstr "створити нові випадкові UUID для всіх груп томів"
 
-#: fish/cmds.c:5267
+#: fish/cmds.c:5294
 msgid "create an LVM volume group"
 msgstr "створити групу томів LVM"
 
-#: fish/cmds.c:5268
+#: fish/cmds.c:5295
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr "отримати UUID всіх логічних томів у групі томів"
 
-#: fish/cmds.c:5269
+#: fish/cmds.c:5296
 msgid "get volume group metadata"
 msgstr "отримати метадані щодо групи томів"
 
-#: fish/cmds.c:5270
+#: fish/cmds.c:5297
 msgid "get the PV UUIDs containing the volume group"
 msgstr "отримати UUID фізичних томів, що містяться у групі томів"
 
-#: fish/cmds.c:5271
+#: fish/cmds.c:5298
 msgid "remove an LVM volume group"
 msgstr "вилучити групу томів LVM"
 
-#: fish/cmds.c:5272
+#: fish/cmds.c:5299
 msgid "rename an LVM volume group"
 msgstr "перейменувати групу томів LVM"
 
-#: fish/cmds.c:5273 fish/cmds.c:5274
+#: fish/cmds.c:5300 fish/cmds.c:5301
 msgid "list the LVM volume groups (VGs)"
 msgstr "показати список груп томів LVM"
 
-#: fish/cmds.c:5275
+#: fish/cmds.c:5302
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 "виконати повторне сканування фізичних томів, груп томів та логічних томів LVM"
 
-#: fish/cmds.c:5276
+#: fish/cmds.c:5303
 msgid "get the UUID of a volume group"
 msgstr "отримати UUID групи томів"
 
-#: fish/cmds.c:5280
+#: fish/cmds.c:5307
 msgid "count characters in a file"
 msgstr "порахувати символи у файлі"
 
-#: fish/cmds.c:5281
+#: fish/cmds.c:5308
 msgid "count lines in a file"
 msgstr "порахувати рядки у файлі"
 
-#: fish/cmds.c:5282
+#: fish/cmds.c:5309
 msgid "count words in a file"
 msgstr "порахувати слова у файлі"
 
-#: fish/cmds.c:5283
+#: fish/cmds.c:5310
 msgid "wipe a filesystem signature from a device"
 msgstr "витерти підпис файлової системи з пристрою"
 
-#: fish/cmds.c:5284
+#: fish/cmds.c:5311
 msgid "create a new file"
 msgstr "створити новий файл"
 
-#: fish/cmds.c:5285
+#: fish/cmds.c:5312
 msgid "append content to end of file"
 msgstr "дописати дані в кінці файла"
 
-#: fish/cmds.c:5286
+#: fish/cmds.c:5313
 msgid "create a file"
 msgstr "створити файл"
 
-#: fish/cmds.c:5287
+#: fish/cmds.c:5314
 msgid "change parameters of an XFS filesystem"
 msgstr "змінити параметри файлової системи XFS"
 
-#: fish/cmds.c:5288
+#: fish/cmds.c:5315
 msgid "expand an existing XFS filesystem"
 msgstr "розширити вже створену файлову систему XFS"
 
-#: fish/cmds.c:5289
+#: fish/cmds.c:5316
 msgid "get geometry of XFS filesystem"
 msgstr "отримати дані щодо геометрії файлової системи XFS"
 
-#: fish/cmds.c:5290
+#: fish/cmds.c:5317
 msgid "repair an XFS filesystem"
 msgstr "відновити файлову систему XFS"
 
-#: fish/cmds.c:5293
+#: fish/cmds.c:5320
 msgid "write zeroes to the device"
 msgstr "записати нулі на пристрій"
 
-#: fish/cmds.c:5294
+#: fish/cmds.c:5321
 msgid "write zeroes to an entire device"
 msgstr "занулити весь пристрій"
 
-#: fish/cmds.c:5295
+#: fish/cmds.c:5322
 msgid "zero free space in a filesystem"
 msgstr "у файловій системі немає вільного місця"
 
-#: fish/cmds.c:5296
+#: fish/cmds.c:5323
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 "занулити невикористані inode і дискові блоки на файловій системі ext2/3"
 
-#: fish/cmds.c:5299
+#: fish/cmds.c:5326
 msgid "determine file type inside a compressed file"
 msgstr "визначити тип файлів у стиснутому файлі"
 
-#: fish/cmds.c:5302
+#: fish/cmds.c:5329
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Скористайтеся -h <команда> або help <команда>, щоб переглянути докладну "
 "довідку щодо команди."
 
-#: fish/cmds.c:6070 fish/cmds.c:6088 fish/cmds.c:6101 fish/cmds.c:6129
-#: fish/cmds.c:6185 fish/cmds.c:6249 fish/cmds.c:6593 fish/cmds.c:7459
-#: fish/cmds.c:7624 fish/cmds.c:7919 fish/cmds.c:8145 fish/cmds.c:8378
-#: fish/cmds.c:8477 fish/cmds.c:9106 fish/cmds.c:9119 fish/cmds.c:9132
-#: fish/cmds.c:9145 fish/cmds.c:9257 fish/cmds.c:9270 fish/cmds.c:9379
-#: fish/cmds.c:9392 fish/cmds.c:9503 fish/cmds.c:9516 fish/cmds.c:9628
-#: fish/cmds.c:9641 fish/cmds.c:10411 fish/cmds.c:10424 fish/cmds.c:12119
-#: fish/cmds.c:12132 fish/cmds.c:12145 fish/cmds.c:12158 fish/cmds.c:12755
-#: fish/cmds.c:12768 fish/cmds.c:12781 fish/cmds.c:13387 fish/cmds.c:13400
-#: fish/cmds.c:13860 fish/cmds.c:13919 fish/cmds.c:13997 fish/cmds.c:14056
-#: fish/cmds.c:14115 fish/cmds.c:14196 fish/cmds.c:16853 fish/cmds.c:16866
-#: fish/cmds.c:16879 fish/cmds.c:16892 fish/cmds.c:16905 fish/cmds.c:16918
-#: fish/cmds.c:16931 fish/cmds.c:16944 fish/cmds.c:16957 fish/cmds.c:16970
-#: fish/cmds.c:16983 fish/cmds.c:16996 fish/cmds.c:17009 fish/cmds.c:17022
-#: fish/cmds.c:17035 fish/cmds.c:17048 fish/cmds.c:17061 fish/cmds.c:18332
-#: fish/cmds.c:18373 fish/cmds.c:18630 fish/cmds.c:18700 fish/cmds.c:18713
-#: fish/cmds.c:18726 fish/cmds.c:18739 fish/cmds.c:18752 fish/cmds.c:18809
-#: fish/cmds.c:18881 fish/cmds.c:19476 fish/cmds.c:20360 fish/cmds.c:20692
-#: fish/cmds.c:20705 fish/cmds.c:20767 fish/cmds.c:20780 fish/cmds.c:20840
-#: fish/cmds.c:20853 fish/cmds.c:21013 fish/cmds.c:21133 fish/cmds.c:21175
-#: fish/cmds.c:21482 fish/cmds.c:21534 fish/cmds.c:21607 fish/cmds.c:21637
-#: fish/cmds.c:21729 fish/cmds.c:21803 fish/cmds.c:22760 fish/cmds.c:22773
-#: fish/cmds.c:22786 fish/cmds.c:22853 fish/cmds.c:22872 fish/cmds.c:22885
-#: fish/cmds.c:22898 fish/cmds.c:23103 fish/cmds.c:23434 fish/cmds.c:23447
-#: fish/cmds.c:23520 fish/cmds.c:23873 fish/cmds.c:23907 fish/cmds.c:24411
-#: fish/cmds.c:24424 fish/cmds.c:24437 fish/cmds.c:24450 fish/cmds.c:24463
-#: fish/cmds.c:24529 fish/cmds.c:24542 fish/cmds.c:24555 fish/cmds.c:24730
-#: fish/cmds.c:24743 fish/cmds.c:24756 fish/cmds.c:24769
+#: fish/cmds.c:6097 fish/cmds.c:6115 fish/cmds.c:6128 fish/cmds.c:6156
+#: fish/cmds.c:6212 fish/cmds.c:6276 fish/cmds.c:6620 fish/cmds.c:7486
+#: fish/cmds.c:7651 fish/cmds.c:7946 fish/cmds.c:8172 fish/cmds.c:8405
+#: fish/cmds.c:8504 fish/cmds.c:9133 fish/cmds.c:9146 fish/cmds.c:9159
+#: fish/cmds.c:9172 fish/cmds.c:9284 fish/cmds.c:9297 fish/cmds.c:9406
+#: fish/cmds.c:9419 fish/cmds.c:9530 fish/cmds.c:9543 fish/cmds.c:9655
+#: fish/cmds.c:9668 fish/cmds.c:10438 fish/cmds.c:10451 fish/cmds.c:12146
+#: fish/cmds.c:12159 fish/cmds.c:12172 fish/cmds.c:12185 fish/cmds.c:12782
+#: fish/cmds.c:12795 fish/cmds.c:12808 fish/cmds.c:13414 fish/cmds.c:13427
+#: fish/cmds.c:13887 fish/cmds.c:13946 fish/cmds.c:14024 fish/cmds.c:14083
+#: fish/cmds.c:14142 fish/cmds.c:14223 fish/cmds.c:16880 fish/cmds.c:16893
+#: fish/cmds.c:16906 fish/cmds.c:16919 fish/cmds.c:16932 fish/cmds.c:16945
+#: fish/cmds.c:16958 fish/cmds.c:16971 fish/cmds.c:16984 fish/cmds.c:16997
+#: fish/cmds.c:17010 fish/cmds.c:17023 fish/cmds.c:17036 fish/cmds.c:17049
+#: fish/cmds.c:17062 fish/cmds.c:17075 fish/cmds.c:17088 fish/cmds.c:18359
+#: fish/cmds.c:18400 fish/cmds.c:18657 fish/cmds.c:18727 fish/cmds.c:18740
+#: fish/cmds.c:18753 fish/cmds.c:18766 fish/cmds.c:18779 fish/cmds.c:18836
+#: fish/cmds.c:18908 fish/cmds.c:19526 fish/cmds.c:20454 fish/cmds.c:20786
+#: fish/cmds.c:20799 fish/cmds.c:20861 fish/cmds.c:20874 fish/cmds.c:20934
+#: fish/cmds.c:20947 fish/cmds.c:21107 fish/cmds.c:21227 fish/cmds.c:21269
+#: fish/cmds.c:21576 fish/cmds.c:21628 fish/cmds.c:21701 fish/cmds.c:21731
+#: fish/cmds.c:21823 fish/cmds.c:21897 fish/cmds.c:22854 fish/cmds.c:22867
+#: fish/cmds.c:22880 fish/cmds.c:22947 fish/cmds.c:22966 fish/cmds.c:22979
+#: fish/cmds.c:22992 fish/cmds.c:23197 fish/cmds.c:23528 fish/cmds.c:23541
+#: fish/cmds.c:23614 fish/cmds.c:23967 fish/cmds.c:24001 fish/cmds.c:24505
+#: fish/cmds.c:24518 fish/cmds.c:24531 fish/cmds.c:24544 fish/cmds.c:24557
+#: fish/cmds.c:24623 fish/cmds.c:24636 fish/cmds.c:24649 fish/cmds.c:24824
+#: fish/cmds.c:24837 fish/cmds.c:24850 fish/cmds.c:24863
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: «%s»: некоректне булеве значення, має бути 'true' або 'false'\n"
 
-#: fish/cmds.c:6139 fish/cmds.c:6259 fish/cmds.c:6370 fish/cmds.c:7474
-#: fish/cmds.c:7536 fish/cmds.c:7634 fish/cmds.c:7703 fish/cmds.c:8187
-#: fish/cmds.c:8393 fish/cmds.c:8956 fish/cmds.c:9029 fish/cmds.c:9155
-#: fish/cmds.c:9280 fish/cmds.c:9402 fish/cmds.c:9526 fish/cmds.c:9651
-#: fish/cmds.c:9836 fish/cmds.c:10125 fish/cmds.c:10434 fish/cmds.c:11257
-#: fish/cmds.c:12168 fish/cmds.c:12791 fish/cmds.c:13410 fish/cmds.c:13870
-#: fish/cmds.c:13929 fish/cmds.c:14007 fish/cmds.c:14066 fish/cmds.c:14125
-#: fish/cmds.c:14206 fish/cmds.c:16335 fish/cmds.c:17071 fish/cmds.c:17507
-#: fish/cmds.c:17712 fish/cmds.c:18072 fish/cmds.c:18190 fish/cmds.c:18287
-#: fish/cmds.c:18383 fish/cmds.c:18762 fish/cmds.c:18819 fish/cmds.c:18891
-#: fish/cmds.c:20370 fish/cmds.c:20715 fish/cmds.c:20790 fish/cmds.c:20863
-#: fish/cmds.c:21185 fish/cmds.c:22633 fish/cmds.c:22796 fish/cmds.c:22908
-#: fish/cmds.c:23266 fish/cmds.c:23457 fish/cmds.c:23530 fish/cmds.c:24483
-#: fish/cmds.c:24656 fish/cmds.c:24857
+#: fish/cmds.c:6166 fish/cmds.c:6286 fish/cmds.c:6397 fish/cmds.c:7501
+#: fish/cmds.c:7563 fish/cmds.c:7661 fish/cmds.c:7730 fish/cmds.c:8214
+#: fish/cmds.c:8420 fish/cmds.c:8983 fish/cmds.c:9056 fish/cmds.c:9182
+#: fish/cmds.c:9307 fish/cmds.c:9429 fish/cmds.c:9553 fish/cmds.c:9678
+#: fish/cmds.c:9863 fish/cmds.c:10152 fish/cmds.c:10461 fish/cmds.c:11284
+#: fish/cmds.c:12195 fish/cmds.c:12818 fish/cmds.c:13437 fish/cmds.c:13897
+#: fish/cmds.c:13956 fish/cmds.c:14034 fish/cmds.c:14093 fish/cmds.c:14152
+#: fish/cmds.c:14233 fish/cmds.c:16362 fish/cmds.c:17098 fish/cmds.c:17534
+#: fish/cmds.c:17739 fish/cmds.c:18099 fish/cmds.c:18217 fish/cmds.c:18314
+#: fish/cmds.c:18410 fish/cmds.c:18789 fish/cmds.c:18846 fish/cmds.c:18918
+#: fish/cmds.c:20464 fish/cmds.c:20809 fish/cmds.c:20884 fish/cmds.c:20957
+#: fish/cmds.c:21279 fish/cmds.c:22727 fish/cmds.c:22890 fish/cmds.c:23002
+#: fish/cmds.c:23360 fish/cmds.c:23551 fish/cmds.c:23624 fish/cmds.c:24577
+#: fish/cmds.c:24750 fish/cmds.c:24951
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: невідомий додатковий аргумент «%s»\n"
 
-#: fish/cmds.c:6145 fish/cmds.c:6265 fish/cmds.c:6376 fish/cmds.c:7480
-#: fish/cmds.c:7542 fish/cmds.c:7640 fish/cmds.c:7709 fish/cmds.c:8193
-#: fish/cmds.c:8399 fish/cmds.c:8962 fish/cmds.c:9035 fish/cmds.c:9161
-#: fish/cmds.c:9286 fish/cmds.c:9408 fish/cmds.c:9532 fish/cmds.c:9657
-#: fish/cmds.c:9842 fish/cmds.c:10131 fish/cmds.c:10440 fish/cmds.c:11263
-#: fish/cmds.c:12174 fish/cmds.c:12797 fish/cmds.c:13416 fish/cmds.c:13876
-#: fish/cmds.c:13935 fish/cmds.c:14013 fish/cmds.c:14072 fish/cmds.c:14131
-#: fish/cmds.c:14212 fish/cmds.c:16341 fish/cmds.c:17077 fish/cmds.c:17513
-#: fish/cmds.c:17718 fish/cmds.c:18078 fish/cmds.c:18196 fish/cmds.c:18293
-#: fish/cmds.c:18389 fish/cmds.c:18768 fish/cmds.c:18825 fish/cmds.c:18897
-#: fish/cmds.c:20376 fish/cmds.c:20721 fish/cmds.c:20796 fish/cmds.c:20869
-#: fish/cmds.c:21191 fish/cmds.c:22639 fish/cmds.c:22802 fish/cmds.c:22914
-#: fish/cmds.c:23272 fish/cmds.c:23463 fish/cmds.c:23536 fish/cmds.c:24489
-#: fish/cmds.c:24662 fish/cmds.c:24863
+#: fish/cmds.c:6172 fish/cmds.c:6292 fish/cmds.c:6403 fish/cmds.c:7507
+#: fish/cmds.c:7569 fish/cmds.c:7667 fish/cmds.c:7736 fish/cmds.c:8220
+#: fish/cmds.c:8426 fish/cmds.c:8989 fish/cmds.c:9062 fish/cmds.c:9188
+#: fish/cmds.c:9313 fish/cmds.c:9435 fish/cmds.c:9559 fish/cmds.c:9684
+#: fish/cmds.c:9869 fish/cmds.c:10158 fish/cmds.c:10467 fish/cmds.c:11290
+#: fish/cmds.c:12201 fish/cmds.c:12824 fish/cmds.c:13443 fish/cmds.c:13903
+#: fish/cmds.c:13962 fish/cmds.c:14040 fish/cmds.c:14099 fish/cmds.c:14158
+#: fish/cmds.c:14239 fish/cmds.c:16368 fish/cmds.c:17104 fish/cmds.c:17540
+#: fish/cmds.c:17745 fish/cmds.c:18105 fish/cmds.c:18223 fish/cmds.c:18320
+#: fish/cmds.c:18416 fish/cmds.c:18795 fish/cmds.c:18852 fish/cmds.c:18924
+#: fish/cmds.c:20470 fish/cmds.c:20815 fish/cmds.c:20890 fish/cmds.c:20963
+#: fish/cmds.c:21285 fish/cmds.c:22733 fish/cmds.c:22896 fish/cmds.c:23008
+#: fish/cmds.c:23366 fish/cmds.c:23557 fish/cmds.c:23630 fish/cmds.c:24583
+#: fish/cmds.c:24756 fish/cmds.c:24957
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: додатковий аргумент «%s» вказано двічі\n"
 
-#: fish/cmds.c:6348 fish/cmds.c:6551 fish/cmds.c:7149 fish/cmds.c:7191
-#: fish/cmds.c:7526 fish/cmds.c:7611 fish/cmds.c:7687 fish/cmds.c:7830
-#: fish/cmds.c:8305 fish/cmds.c:8742 fish/cmds.c:8788 fish/cmds.c:8807
-#: fish/cmds.c:8940 fish/cmds.c:9013 fish/cmds.c:9210 fish/cmds.c:9227
-#: fish/cmds.c:9244 fish/cmds.c:9332 fish/cmds.c:9349 fish/cmds.c:9366
-#: fish/cmds.c:9456 fish/cmds.c:9473 fish/cmds.c:9490 fish/cmds.c:9581
-#: fish/cmds.c:9598 fish/cmds.c:9615 fish/cmds.c:9701 fish/cmds.c:9960
-#: fish/cmds.c:10070 fish/cmds.c:10109 fish/cmds.c:10289 fish/cmds.c:10302
-#: fish/cmds.c:10341 fish/cmds.c:10659 fish/cmds.c:10704 fish/cmds.c:10922
-#: fish/cmds.c:10941 fish/cmds.c:10989 fish/cmds.c:11034 fish/cmds.c:11213
-#: fish/cmds.c:11230 fish/cmds.c:11247 fish/cmds.c:11593 fish/cmds.c:11635
-#: fish/cmds.c:11677 fish/cmds.c:12293 fish/cmds.c:12406 fish/cmds.c:12442
-#: fish/cmds.c:12478 fish/cmds.c:12513 fish/cmds.c:12550 fish/cmds.c:12586
-#: fish/cmds.c:12622 fish/cmds.c:12661 fish/cmds.c:12675 fish/cmds.c:12713
-#: fish/cmds.c:12852 fish/cmds.c:12888 fish/cmds.c:12923 fish/cmds.c:12960
-#: fish/cmds.c:13062 fish/cmds.c:13143 fish/cmds.c:13203 fish/cmds.c:14511
-#: fish/cmds.c:14545 fish/cmds.c:14618 fish/cmds.c:14637 fish/cmds.c:15389
-#: fish/cmds.c:15559 fish/cmds.c:15631 fish/cmds.c:15681 fish/cmds.c:15731
-#: fish/cmds.c:15837 fish/cmds.c:15881 fish/cmds.c:16050 fish/cmds.c:16092
-#: fish/cmds.c:16257 fish/cmds.c:16274 fish/cmds.c:16297 fish/cmds.c:16320
-#: fish/cmds.c:16471 fish/cmds.c:16572 fish/cmds.c:16589 fish/cmds.c:16606
-#: fish/cmds.c:16623 fish/cmds.c:16640 fish/cmds.c:16657 fish/cmds.c:16674
-#: fish/cmds.c:16691 fish/cmds.c:16708 fish/cmds.c:16725 fish/cmds.c:16742
-#: fish/cmds.c:16759 fish/cmds.c:16776 fish/cmds.c:16799 fish/cmds.c:17115
-#: fish/cmds.c:17161 fish/cmds.c:17207 fish/cmds.c:17250 fish/cmds.c:17293
-#: fish/cmds.c:17337 fish/cmds.c:17380 fish/cmds.c:17435 fish/cmds.c:17463
-#: fish/cmds.c:17486 fish/cmds.c:17550 fish/cmds.c:17601 fish/cmds.c:17618
-#: fish/cmds.c:17640 fish/cmds.c:17673 fish/cmds.c:17696 fish/cmds.c:17802
-#: fish/cmds.c:17821 fish/cmds.c:17840 fish/cmds.c:17889 fish/cmds.c:17908
-#: fish/cmds.c:17927 fish/cmds.c:17976 fish/cmds.c:17995 fish/cmds.c:18014
-#: fish/cmds.c:18354 fish/cmds.c:18868 fish/cmds.c:18933 fish/cmds.c:19014
-#: fish/cmds.c:19027 fish/cmds.c:19064 fish/cmds.c:19129 fish/cmds.c:19172
-#: fish/cmds.c:19216 fish/cmds.c:19260 fish/cmds.c:19303 fish/cmds.c:19347
-#: fish/cmds.c:19461 fish/cmds.c:19514 fish/cmds.c:19558 fish/cmds.c:19602
-#: fish/cmds.c:19621 fish/cmds.c:19665 fish/cmds.c:19774 fish/cmds.c:19793
-#: fish/cmds.c:19840 fish/cmds.c:19859 fish/cmds.c:20004 fish/cmds.c:20109
-#: fish/cmds.c:20153 fish/cmds.c:20532 fish/cmds.c:21230 fish/cmds.c:21379
-#: fish/cmds.c:21446 fish/cmds.c:21671 fish/cmds.c:21863 fish/cmds.c:21912
-#: fish/cmds.c:21931 fish/cmds.c:21950 fish/cmds.c:22028 fish/cmds.c:22047
-#: fish/cmds.c:22066 fish/cmds.c:22085 fish/cmds.c:22262 fish/cmds.c:22700
-#: fish/cmds.c:23062 fish/cmds.c:23120 fish/cmds.c:23143 fish/cmds.c:23171
-#: fish/cmds.c:23188 fish/cmds.c:23211 fish/cmds.c:23239 fish/cmds.c:23256
-#: fish/cmds.c:23387 fish/cmds.c:23605 fish/cmds.c:23667 fish/cmds.c:23680
-#: fish/cmds.c:23693 fish/cmds.c:23706 fish/cmds.c:24364 fish/cmds.c:24572
-#: fish/cmds.c:24589 fish/cmds.c:24606 fish/cmds.c:24623 fish/cmds.c:24640
-#: fish/cmds.c:24786 fish/cmds.c:24803 fish/cmds.c:24820 fish/cmds.c:24837
+#: fish/cmds.c:6375 fish/cmds.c:6578 fish/cmds.c:7176 fish/cmds.c:7218
+#: fish/cmds.c:7553 fish/cmds.c:7638 fish/cmds.c:7714 fish/cmds.c:7857
+#: fish/cmds.c:8332 fish/cmds.c:8769 fish/cmds.c:8815 fish/cmds.c:8834
+#: fish/cmds.c:8967 fish/cmds.c:9040 fish/cmds.c:9237 fish/cmds.c:9254
+#: fish/cmds.c:9271 fish/cmds.c:9359 fish/cmds.c:9376 fish/cmds.c:9393
+#: fish/cmds.c:9483 fish/cmds.c:9500 fish/cmds.c:9517 fish/cmds.c:9608
+#: fish/cmds.c:9625 fish/cmds.c:9642 fish/cmds.c:9728 fish/cmds.c:9987
+#: fish/cmds.c:10097 fish/cmds.c:10136 fish/cmds.c:10316 fish/cmds.c:10329
+#: fish/cmds.c:10368 fish/cmds.c:10686 fish/cmds.c:10731 fish/cmds.c:10949
+#: fish/cmds.c:10968 fish/cmds.c:11016 fish/cmds.c:11061 fish/cmds.c:11240
+#: fish/cmds.c:11257 fish/cmds.c:11274 fish/cmds.c:11620 fish/cmds.c:11662
+#: fish/cmds.c:11704 fish/cmds.c:12320 fish/cmds.c:12433 fish/cmds.c:12469
+#: fish/cmds.c:12505 fish/cmds.c:12540 fish/cmds.c:12577 fish/cmds.c:12613
+#: fish/cmds.c:12649 fish/cmds.c:12688 fish/cmds.c:12702 fish/cmds.c:12740
+#: fish/cmds.c:12879 fish/cmds.c:12915 fish/cmds.c:12950 fish/cmds.c:12987
+#: fish/cmds.c:13089 fish/cmds.c:13170 fish/cmds.c:13230 fish/cmds.c:14538
+#: fish/cmds.c:14572 fish/cmds.c:14645 fish/cmds.c:14664 fish/cmds.c:15416
+#: fish/cmds.c:15586 fish/cmds.c:15658 fish/cmds.c:15708 fish/cmds.c:15758
+#: fish/cmds.c:15864 fish/cmds.c:15908 fish/cmds.c:16077 fish/cmds.c:16119
+#: fish/cmds.c:16284 fish/cmds.c:16301 fish/cmds.c:16324 fish/cmds.c:16347
+#: fish/cmds.c:16498 fish/cmds.c:16599 fish/cmds.c:16616 fish/cmds.c:16633
+#: fish/cmds.c:16650 fish/cmds.c:16667 fish/cmds.c:16684 fish/cmds.c:16701
+#: fish/cmds.c:16718 fish/cmds.c:16735 fish/cmds.c:16752 fish/cmds.c:16769
+#: fish/cmds.c:16786 fish/cmds.c:16803 fish/cmds.c:16826 fish/cmds.c:17142
+#: fish/cmds.c:17188 fish/cmds.c:17234 fish/cmds.c:17277 fish/cmds.c:17320
+#: fish/cmds.c:17364 fish/cmds.c:17407 fish/cmds.c:17462 fish/cmds.c:17490
+#: fish/cmds.c:17513 fish/cmds.c:17577 fish/cmds.c:17628 fish/cmds.c:17645
+#: fish/cmds.c:17667 fish/cmds.c:17700 fish/cmds.c:17723 fish/cmds.c:17829
+#: fish/cmds.c:17848 fish/cmds.c:17867 fish/cmds.c:17916 fish/cmds.c:17935
+#: fish/cmds.c:17954 fish/cmds.c:18003 fish/cmds.c:18022 fish/cmds.c:18041
+#: fish/cmds.c:18381 fish/cmds.c:18895 fish/cmds.c:18960 fish/cmds.c:19041
+#: fish/cmds.c:19054 fish/cmds.c:19091 fish/cmds.c:19156 fish/cmds.c:19222
+#: fish/cmds.c:19266 fish/cmds.c:19310 fish/cmds.c:19353 fish/cmds.c:19397
+#: fish/cmds.c:19511 fish/cmds.c:19608 fish/cmds.c:19652 fish/cmds.c:19696
+#: fish/cmds.c:19715 fish/cmds.c:19759 fish/cmds.c:19868 fish/cmds.c:19887
+#: fish/cmds.c:19934 fish/cmds.c:19953 fish/cmds.c:20098 fish/cmds.c:20203
+#: fish/cmds.c:20247 fish/cmds.c:20626 fish/cmds.c:21324 fish/cmds.c:21473
+#: fish/cmds.c:21540 fish/cmds.c:21765 fish/cmds.c:21957 fish/cmds.c:22006
+#: fish/cmds.c:22025 fish/cmds.c:22044 fish/cmds.c:22122 fish/cmds.c:22141
+#: fish/cmds.c:22160 fish/cmds.c:22179 fish/cmds.c:22356 fish/cmds.c:22794
+#: fish/cmds.c:23156 fish/cmds.c:23214 fish/cmds.c:23237 fish/cmds.c:23265
+#: fish/cmds.c:23282 fish/cmds.c:23305 fish/cmds.c:23333 fish/cmds.c:23350
+#: fish/cmds.c:23481 fish/cmds.c:23699 fish/cmds.c:23761 fish/cmds.c:23774
+#: fish/cmds.c:23787 fish/cmds.c:23800 fish/cmds.c:24458 fish/cmds.c:24666
+#: fish/cmds.c:24683 fish/cmds.c:24700 fish/cmds.c:24717 fish/cmds.c:24734
+#: fish/cmds.c:24880 fish/cmds.c:24897 fish/cmds.c:24914 fish/cmds.c:24931
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr "%s: %s: некоректний цілий параметр (%s повернуто %u)\n"
 
-#: fish/cmds.c:6557 fish/cmds.c:7155 fish/cmds.c:7197 fish/cmds.c:7693
-#: fish/cmds.c:8748 fish/cmds.c:8794 fish/cmds.c:8813 fish/cmds.c:8946
-#: fish/cmds.c:9019 fish/cmds.c:9966 fish/cmds.c:10115 fish/cmds.c:10347
-#: fish/cmds.c:10665 fish/cmds.c:10928 fish/cmds.c:10947 fish/cmds.c:10995
-#: fish/cmds.c:11040 fish/cmds.c:11599 fish/cmds.c:11641 fish/cmds.c:11683
-#: fish/cmds.c:12299 fish/cmds.c:13068 fish/cmds.c:13149 fish/cmds.c:13209
-#: fish/cmds.c:14624 fish/cmds.c:14643 fish/cmds.c:15395 fish/cmds.c:15565
-#: fish/cmds.c:15637 fish/cmds.c:15687 fish/cmds.c:15737 fish/cmds.c:15843
-#: fish/cmds.c:15887 fish/cmds.c:16056 fish/cmds.c:16098 fish/cmds.c:16280
-#: fish/cmds.c:16303 fish/cmds.c:16477 fish/cmds.c:16782 fish/cmds.c:16805
-#: fish/cmds.c:17121 fish/cmds.c:17167 fish/cmds.c:17213 fish/cmds.c:17256
-#: fish/cmds.c:17299 fish/cmds.c:17343 fish/cmds.c:17386 fish/cmds.c:17441
-#: fish/cmds.c:17469 fish/cmds.c:17492 fish/cmds.c:17556 fish/cmds.c:17646
-#: fish/cmds.c:17679 fish/cmds.c:17702 fish/cmds.c:17808 fish/cmds.c:17827
-#: fish/cmds.c:17846 fish/cmds.c:17895 fish/cmds.c:17914 fish/cmds.c:17933
-#: fish/cmds.c:17982 fish/cmds.c:18001 fish/cmds.c:18020 fish/cmds.c:18360
-#: fish/cmds.c:19070 fish/cmds.c:19135 fish/cmds.c:19178 fish/cmds.c:19222
-#: fish/cmds.c:19266 fish/cmds.c:19309 fish/cmds.c:19353 fish/cmds.c:19467
-#: fish/cmds.c:19520 fish/cmds.c:19564 fish/cmds.c:19608 fish/cmds.c:19627
-#: fish/cmds.c:19671 fish/cmds.c:19780 fish/cmds.c:19846 fish/cmds.c:21385
-#: fish/cmds.c:21452 fish/cmds.c:21677 fish/cmds.c:21869 fish/cmds.c:21918
-#: fish/cmds.c:21937 fish/cmds.c:21956 fish/cmds.c:22034 fish/cmds.c:22053
-#: fish/cmds.c:22072 fish/cmds.c:22091 fish/cmds.c:22268 fish/cmds.c:22706
-#: fish/cmds.c:23126 fish/cmds.c:23149 fish/cmds.c:23194 fish/cmds.c:23217
-#: fish/cmds.c:23393 fish/cmds.c:24370 fish/cmds.c:24646
+#: fish/cmds.c:6584 fish/cmds.c:7182 fish/cmds.c:7224 fish/cmds.c:7720
+#: fish/cmds.c:8775 fish/cmds.c:8821 fish/cmds.c:8840 fish/cmds.c:8973
+#: fish/cmds.c:9046 fish/cmds.c:9993 fish/cmds.c:10142 fish/cmds.c:10374
+#: fish/cmds.c:10692 fish/cmds.c:10955 fish/cmds.c:10974 fish/cmds.c:11022
+#: fish/cmds.c:11067 fish/cmds.c:11626 fish/cmds.c:11668 fish/cmds.c:11710
+#: fish/cmds.c:12326 fish/cmds.c:13095 fish/cmds.c:13176 fish/cmds.c:13236
+#: fish/cmds.c:14651 fish/cmds.c:14670 fish/cmds.c:15422 fish/cmds.c:15592
+#: fish/cmds.c:15664 fish/cmds.c:15714 fish/cmds.c:15764 fish/cmds.c:15870
+#: fish/cmds.c:15914 fish/cmds.c:16083 fish/cmds.c:16125 fish/cmds.c:16307
+#: fish/cmds.c:16330 fish/cmds.c:16504 fish/cmds.c:16809 fish/cmds.c:16832
+#: fish/cmds.c:17148 fish/cmds.c:17194 fish/cmds.c:17240 fish/cmds.c:17283
+#: fish/cmds.c:17326 fish/cmds.c:17370 fish/cmds.c:17413 fish/cmds.c:17468
+#: fish/cmds.c:17496 fish/cmds.c:17519 fish/cmds.c:17583 fish/cmds.c:17673
+#: fish/cmds.c:17706 fish/cmds.c:17729 fish/cmds.c:17835 fish/cmds.c:17854
+#: fish/cmds.c:17873 fish/cmds.c:17922 fish/cmds.c:17941 fish/cmds.c:17960
+#: fish/cmds.c:18009 fish/cmds.c:18028 fish/cmds.c:18047 fish/cmds.c:18387
+#: fish/cmds.c:19097 fish/cmds.c:19162 fish/cmds.c:19228 fish/cmds.c:19272
+#: fish/cmds.c:19316 fish/cmds.c:19359 fish/cmds.c:19403 fish/cmds.c:19517
+#: fish/cmds.c:19614 fish/cmds.c:19658 fish/cmds.c:19702 fish/cmds.c:19721
+#: fish/cmds.c:19765 fish/cmds.c:19874 fish/cmds.c:19940 fish/cmds.c:21479
+#: fish/cmds.c:21546 fish/cmds.c:21771 fish/cmds.c:21963 fish/cmds.c:22012
+#: fish/cmds.c:22031 fish/cmds.c:22050 fish/cmds.c:22128 fish/cmds.c:22147
+#: fish/cmds.c:22166 fish/cmds.c:22185 fish/cmds.c:22362 fish/cmds.c:22800
+#: fish/cmds.c:23220 fish/cmds.c:23243 fish/cmds.c:23288 fish/cmds.c:23311
+#: fish/cmds.c:23487 fish/cmds.c:24464 fish/cmds.c:24740
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: ціле значення поза межами діапазону\n"
 
-#: fish/cmds.c:25177
+#: fish/cmds.c:25271
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr "помилка: помилкова кількість аргументів\n"
 
-#: fish/cmds.c:25179
+#: fish/cmds.c:25273
 #, c-format
 msgid "usage: %s\n"
 msgstr "користування: %s\n"
 
-#: fish/cmds.c:25180
+#: fish/cmds.c:25274
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr "введіть «help %s», щоб отримати додаткові довідкові дані щодо %s\n"
 
-#: fish/cmds.c:25185
+#: fish/cmds.c:25279
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: невідома команда\n"
@@ -9268,15 +9273,15 @@ msgstr ""
 "виконано, але гостьова система може виявитися непрацездатною або "
 "непідтримуваною на системі призначення."
 
-#: p2v/gui.c:1302
+#: p2v/gui.c:1303
 msgid "Cancel conversion"
 msgstr "Скасувати перетворення"
 
-#: p2v/gui.c:1303
+#: p2v/gui.c:1304
 msgid "Reboot"
 msgstr "Перезавантажити"
 
-#: p2v/gui.c:1340
+#: p2v/gui.c:1341
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -9287,15 +9292,15 @@ msgstr ""
 "цього каталогу:\n"
 "%s"
 
-#: p2v/gui.c:1400
+#: p2v/gui.c:1426
 msgid "The guest \"Name\" field is empty."
 msgstr "Порожнє поле «Назва» гостьової системи."
 
-#: p2v/gui.c:1401 p2v/gui.c:1425
+#: p2v/gui.c:1427 p2v/gui.c:1451
 msgid "Error"
 msgstr "Помилка"
 
-#: p2v/gui.c:1423
+#: p2v/gui.c:1449
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
@@ -9303,20 +9308,20 @@ msgstr ""
 "Не вказано дисків для перетворення.\n"
 "Слід вказати принаймні один стаціонарний жорсткий диск.\n"
 
-#: p2v/gui.c:1511
+#: p2v/gui.c:1537
 #, c-format
 msgid "Conversion failed: %s"
 msgstr "Помилка під час перетворення: %s"
 
-#: p2v/gui.c:1512
+#: p2v/gui.c:1538
 msgid "Conversion failed"
 msgstr "Перетворення не вдалося"
 
-#: p2v/gui.c:1521
+#: p2v/gui.c:1547
 msgid "The conversion was successful."
 msgstr "Перетворення виконано успішно."
 
-#: p2v/gui.c:1522
+#: p2v/gui.c:1548
 msgid "Conversion was successful"
 msgstr "Успішне перетворення"
 
@@ -10086,27 +10091,27 @@ msgstr ""
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
-#: src/info.c:151
+#: src/info.c:90
 msgid "qemu-img info: JSON output did not contain 'format' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «format»"
 
-#: src/info.c:182
+#: src/info.c:115
 msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
 msgstr ""
 "Інформація від qemu-img: «virtual-size» не можна представити як 64-бітове "
 "ціле число"
 
-#: src/info.c:190
+#: src/info.c:123
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
 "Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-size»"
 
-#: src/info.c:228
+#: src/info.c:155
 msgid "qemu-img info: JSON output was not an object"
 msgstr "Інформація від qemu-img: дані, виведені JSON, не є об’єктом"
 
-#: src/info.c:295
+#: src/info.c:216
 msgid ""
 "qemu-img info command produced no output, but didn't return an error status "
 "code"
@@ -10114,19 +10119,14 @@ msgstr ""
 "командою info qemu-img не виведено жодних даних, але і не повернуто коду "
 "стану помилки"
 
-#: src/info.c:329
+#: src/info.c:250
 #, c-format
 msgid "qemu-img info: JSON parse error: %s"
 msgstr "Інформація від qemu-img: помилка під час обробки JSON: %s"
 
-#: src/info.c:331
+#: src/info.c:252
 msgid "qemu-img info: unknown JSON parse error"
 msgstr "Інформація від qemu-img: невідома помилка під час обробки JSON"
-
-#: src/info.c:469
-#, c-format
-msgid "%s: cannot detect virtual size of disk image"
-msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
 
 #: src/inspect-fs-unix.c:129
 #, c-format
@@ -10202,13 +10202,13 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:840 src/launch-libvirt.c:604
+#: src/launch-direct.c:840 src/launch-libvirt.c:605
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1242 src/launch-libvirt.c:1393
+#: src/launch-direct.c:1242 src/launch-libvirt.c:1394
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -10257,27 +10257,27 @@ msgstr ""
 "не можна вмикати discard для цього диска: у протоколі «%s» не передбачено "
 "підтримки discard"
 
-#: src/launch-libvirt.c:262
+#: src/launch-libvirt.c:263
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:271
+#: src/launch-libvirt.c:272
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:306
+#: src/launch-libvirt.c:307
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:335
+#: src/launch-libvirt.c:336
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:532
+#: src/launch-libvirt.c:533
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -10294,22 +10294,22 @@ msgstr ""
 "\n"
 "Початкове повідомлення від libvirt"
 
-#: src/launch-libvirt.c:670
+#: src/launch-libvirt.c:671
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:676 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:677 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:686
+#: src/launch-libvirt.c:687
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:721
+#: src/launch-libvirt.c:722
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -10337,16 +10337,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:957
+#: src/launch-libvirt.c:958
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1347
+#: src/launch-libvirt.c:1348
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1476
+#: src/launch-libvirt.c:1477
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -10354,7 +10354,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1501
+#: src/launch-libvirt.c:1502
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10366,7 +10366,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1508
+#: src/launch-libvirt.c:1509
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10379,29 +10379,29 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1838
+#: src/launch-libvirt.c:1839
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: src/launch-libvirt.c:1849
+#: src/launch-libvirt.c:1850
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: src/launch-libvirt.c:1853
+#: src/launch-libvirt.c:1854
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: src/launch-libvirt.c:1874
+#: src/launch-libvirt.c:1875
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1887
+#: src/launch-libvirt.c:1888
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1997
+#: src/launch-libvirt.c:1998
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -10429,20 +10429,20 @@ msgstr ""
 "Ймовірно, вам також слід дозволити місток у /etc/qemu/bridge.conf.\n"
 "Докладніший опис можна знайти на сторінці підручника guestfs(3)."
 
-#: src/launch-libvirt.c:2037
+#: src/launch-libvirt.c:2088
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2088 src/launch-libvirt.c:2121
+#: src/launch-libvirt.c:2112 src/launch-libvirt.c:2145
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2184
+#: src/launch-libvirt.c:2208
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2215
+#: src/launch-libvirt.c:2239
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -11053,6 +11053,19 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "%s: repository type '%s' not supported (missing YAJL support), skipping "
+#~ "it\n"
+#~ msgstr ""
+#~ "%s: підтримки типу сховищ «%s» не передбачено (немає підтримки YAJL), "
+#~ "пропускаємо його\n"
+
+#~ msgid "--list option does not need any extra arguments"
+#~ msgstr "параметр --list не потребує ніяких додаткових аргументів"
+
+#~ msgid "%s: cannot detect virtual size of disk image"
+#~ msgstr "%s: не вдалося визначити віртуальний розмір образу диска"
 
 #~ msgid ""
 #~ "%s: display log files in a virtual machine\n"
