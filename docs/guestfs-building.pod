@@ -140,6 +140,10 @@ I<Required>.
 
 I<Required>.
 
+=item ncurses
+
+I<Required>.
+
 =item augeas E<ge> 1.0.0
 
 I<Required>.
