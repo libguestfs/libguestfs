@@ -389,7 +389,7 @@ about_button_clicked (GtkWidget *w, gpointer data)
 {
   gtk_show_about_dialog (GTK_WINDOW (conn_dlg),
                          "program-name", guestfs_int_program_name,
-                         "version", PACKAGE_VERSION,
+                         "version", PACKAGE_VERSION " (" host_cpu ")",
                          "copyright", "\u00A9 2009-2016 Red Hat Inc.",
                          "comments", "Convert a physical machine to use KVM",
                          "license", gplv2plus,
