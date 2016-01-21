@@ -115,16 +115,21 @@ Display version number and exit.
 =item F<$libexecdir/virt-p2v>
 
 The L<virt-p2v(1)> binary which is copied into the bootable disk
-image.  The location of the binary can be changed by setting the
+image.
+
+The location of the binary can be changed by setting the
 C<VIRT_P2V_DATA_DIR> environment variable.
 
-=item F<$datadir/issue>
+=item F<$datadir/virt-p2v/issue>
 
-=item F<$datadir/launch-virt-p2v.in>
+=item F<$datadir/virt-p2v/launch-virt-p2v.in>
 
-=item F<$datadir/p2v.service>
+=item F<$datadir/virt-p2v/p2v.service>
 
 Various data files that are copied into the bootable disk image.
+
+The location of these files can be changed by setting the
+C<VIRT_P2V_DATA_DIR> environment variable.
 
 =back
 

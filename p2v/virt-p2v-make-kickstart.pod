@@ -270,15 +270,21 @@ Display version number and exit.
 
 The L<virt-p2v(1)> binary which is copied into the kickstart file.
 
-=item F<$datadir/issue>
+The location of the binary can be changed by setting the
+C<VIRT_P2V_DATA_DIR> environment variable.
 
-=item F<$datadir/launch-virt-p2v.in>
+=item F<$datadir/virt-p2v/issue>
 
-=item F<$datadir/p2v.ks.in>
+=item F<$datadir/virt-p2v/launch-virt-p2v.in>
 
-=item F<$datadir/p2v.service>
+=item F<$datadir/virt-p2v/p2v.ks.in>
+
+=item F<$datadir/virt-p2v/p2v.service>
 
 Various data files that are used to make the kickstart.
+
+The location of these files can be changed by setting the
+C<VIRT_P2V_DATA_DIR> environment variable.
 
 =back
 
