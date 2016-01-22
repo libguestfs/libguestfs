@@ -19,7 +19,9 @@
 #ifndef GUESTFSD_CLEANUPS_H
 #define GUESTFSD_CLEANUPS_H
 
-/* Used by the CLEANUP_* macros. */
+/* These functions are used internally by the CLEANUP_* macros.
+ * Don't call them directly.
+ */
 extern void cleanup_free (void *ptr);
 extern void cleanup_free_string_list (void *ptr);
 extern void cleanup_unlink_free (void *ptr);
