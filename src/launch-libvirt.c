@@ -2072,24 +2072,24 @@ destroy_domain (guestfs_h *g, virDomainPtr dom, int check_for_errors)
  again:
   debug (g, "calling virDomainDestroy flags=%s",
          check_for_errors ? "VIR_DOMAIN_DESTROY_GRACEFUL" : "0");
-  if (virDomainDestroyFlags (dom, flags) == -1) {
-    err = virGetLastError ();
+  if (virDomainDestroyFlags (dom, flags) == 0)
+    return 0;
 
-    /* Second chance if we're just waiting for qemu to shut down.  See:
-     * https://www.redhat.com/archives/libvir-list/2016-January/msg00767.html
-     */
-    if (err && err->code == VIR_ERR_SYSTEM_ERROR && err->int1 == EBUSY)
-      goto again;
+  /* Error returned by virDomainDestroyFlags ... */
+  err = virGetLastError ();
 
-    /* "Domain not found" is not treated as an error. */
-    if (err && err->code == VIR_ERR_NO_DOMAIN)
-      return 0;
+  /* Retry (indefinitely) if we're just waiting for qemu to shut down.  See:
+   * https://www.redhat.com/archives/libvir-list/2016-January/msg00767.html
+   */
+  if (err && err->code == VIR_ERR_SYSTEM_ERROR && err->int1 == EBUSY)
+    goto again;
 
-    libvirt_error (g, _("could not destroy libvirt domain"));
-    return -1;
-  }
+  /* "Domain not found" is not treated as an error. */
+  if (err && err->code == VIR_ERR_NO_DOMAIN)
+    return 0;
 
-  return 0;
+  libvirt_error (g, _("could not destroy libvirt domain"));
+  return -1;
 }
 
 /* Wrapper around error() which produces better errors for
