@@ -2163,7 +2163,7 @@ selinux_warning (guestfs_h *g, const char *func,
                  const char *selinux_op, const char *data)
 {
   debug (g, "%s: %s failed: %s: %m"
-         " [you can ignore this UNLESS using SELinux + sVirt]",
+         " [you can ignore this message if you are not using SELinux + sVirt]",
          func, selinux_op, data ? data : "(none)");
 }
 #endif
