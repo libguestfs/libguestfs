@@ -31,6 +31,7 @@
 
 #include "ignore-value.h"
 
+#include "guestfs-internal-all.h"
 #include "command.h"
 #include "cleanups.h"
 
@@ -38,10 +39,6 @@ extern int verbose;
 
 extern const char *sysroot;
 extern size_t sysroot_len;
-
-#ifndef MAX
-# define MAX(a,b) ((a)>(b)?(a):(b))
-#endif
 
 /* For improved readability dealing with pipe arrays */
 #define PIPE_READ 0
