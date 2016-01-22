@@ -475,11 +475,8 @@ need to make edits to the udev configuration.
 =head1 USING CLANG (LLVM) INSTEAD OF GCC
 
  export CC=clang
- ./configure --disable-probes
+ ./configure
  make
-
-SystemTap/DTrace-style userspace probe points don't work under the
-Clang compiler, which is why you may need to disable them.
 
 Don't enable GCC warnings (ie. I<don't> use
 C<./configure --enable-gcc-warnings>).
