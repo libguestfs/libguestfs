@@ -37,14 +37,14 @@
 static const char *kernel_name = "vmlinuz." host_cpu;
 static const char *initrd_name = "initramfs." host_cpu ".img";
 
-static int build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
+static int build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
 static int dir_contains_file (const char *dir, const char *file);
 static int dir_contains_files (const char *dir, ...);
 static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
-static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, uid_t uid, char **kernel, char **dtb, char **initrd, char **appliance);
+static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, uid_t uid, char **kernel, char **initrd, char **appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
 
 /* Locate or build the appliance.
@@ -82,7 +82,6 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  *
  *   $TMPDIR/.guestfs-$UID/lock         - the supermin lock file
  *   $TMPDIR/.guestfs-$UID/appliance.d/kernel  - the kernel
- *   $TMPDIR/.guestfs-$UID/appliance.d/dtb     - the device tree (on ARM)
  *   $TMPDIR/.guestfs-$UID/appliance.d/initrd  - the supermin initrd
  *   $TMPDIR/.guestfs-$UID/appliance.d/root    - the appliance
  *
@@ -94,20 +93,18 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
 int
 guestfs_int_build_appliance (guestfs_h *g,
 			     char **kernel_rtn,
-			     char **dtb_rtn,
 			     char **initrd_rtn,
 			     char **appliance_rtn)
 {
-  char *kernel = NULL, *dtb = NULL, *initrd = NULL, *appliance = NULL;
+  char *kernel = NULL, *initrd = NULL, *appliance = NULL;
 
-  if (build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
+  if (build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
 
   /* Don't assign these until we know we're going to succeed, to avoid
    * the caller double-freeing (RHBZ#983218).
    */
   *kernel_rtn = kernel;
-  *dtb_rtn = dtb;
   *initrd_rtn = initrd;
   *appliance_rtn = appliance;
   return 0;
@@ -116,7 +113,6 @@ guestfs_int_build_appliance (guestfs_h *g,
 static int
 build_appliance (guestfs_h *g,
                  char **kernel,
-                 char **dtb,
                  char **initrd,
                  char **appliance)
 {
@@ -133,7 +129,7 @@ build_appliance (guestfs_h *g,
   if (r == 1)
     /* Step (2): build supermin appliance. */
     return build_supermin_appliance (g, supermin_path, uid,
-                                     kernel, dtb, initrd, appliance);
+                                     kernel, initrd, appliance);
 
   /* Step (3). */
   r = find_path (g, contains_fixed_appliance, NULL, &path);
@@ -148,14 +144,6 @@ build_appliance (guestfs_h *g,
     sprintf (*kernel, "%s/kernel", path);
     sprintf (*initrd, "%s/initrd", path);
     sprintf (*appliance, "%s/root", path);
-
-    /* The dtb file may or may not exist in the fixed appliance. */
-    if (dir_contains_file (path, "dtb")) {
-      *dtb = safe_malloc (g, len + 3 /* "dtb" */ + 2);
-      sprintf (*dtb, "%s/dtb", path);
-    }
-    else
-      *dtb = NULL;
     return 0;
   }
 
@@ -167,7 +155,6 @@ build_appliance (guestfs_h *g,
   if (r == 1) {
     size_t len = strlen (path);
     *kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
-    *dtb = NULL;
     *initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
     sprintf (*kernel, "%s/%s", path, kernel_name);
     sprintf (*initrd, "%s/%s", path, initrd_name);
@@ -210,8 +197,8 @@ static int
 build_supermin_appliance (guestfs_h *g,
                           const char *supermin_path,
                           uid_t uid,
-                          char **kernel, char **dtb,
-			  char **initrd, char **appliance)
+                          char **kernel, char **initrd,
+                          char **appliance)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
   struct stat statbuf;
@@ -268,25 +255,14 @@ build_supermin_appliance (guestfs_h *g,
 
   /* Return the appliance filenames. */
   *kernel = safe_malloc (g, len);
-#ifdef DTB_WILDCARD
-  *dtb = safe_malloc (g, len);
-#else
-  *dtb = NULL;
-#endif
   *initrd = safe_malloc (g, len);
   *appliance = safe_malloc (g, len);
   snprintf (*kernel, len, "%s/kernel", appliancedir);
-#ifdef DTB_WILDCARD
-  snprintf (*dtb, len, "%s/dtb", appliancedir);
-#endif
   snprintf (*initrd, len, "%s/initrd", appliancedir);
   snprintf (*appliance, len, "%s/root", appliancedir);
 
   /* Touch the files so they don't get deleted (as they are in /var/tmp). */
   (void) utimes (*kernel, NULL);
-#ifdef DTB_WILDCARD
-  (void) utimes (*dtb, NULL);
-#endif
   (void) utimes (*initrd, NULL);
 
   /* Checking backend != "uml" is a big hack.  UML encodes the mtime
@@ -346,10 +322,6 @@ run_supermin_build (guestfs_h *g,
   guestfs_int_cmd_add_arg (cmd, "ext2");
   guestfs_int_cmd_add_arg (cmd, "--host-cpu");
   guestfs_int_cmd_add_arg (cmd, host_cpu);
-#ifdef DTB_WILDCARD
-  guestfs_int_cmd_add_arg (cmd, "--dtb");
-  guestfs_int_cmd_add_arg (cmd, DTB_WILDCARD);
-#endif
   guestfs_int_cmd_add_arg_format (cmd, "%s/supermin.d", supermin_path);
   guestfs_int_cmd_add_arg (cmd, "-o");
   guestfs_int_cmd_add_arg (cmd, appliancedir);

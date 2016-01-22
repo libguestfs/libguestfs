@@ -130,8 +130,7 @@ struct backend_libvirt_data {
  */
 struct libvirt_xml_params {
   struct backend_libvirt_data *data;
-  char *kernel;                 /* paths to kernel, dtb and initrd */
-  char *dtb;
+  char *kernel;                 /* paths to kernel and initrd */
   char *initrd;
   char *appliance_overlay;      /* path to qcow2 overlay backed by appliance */
   char appliance_dev[64];       /* appliance device name */
@@ -243,7 +242,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   struct libvirt_xml_params params = {
     .data = data,
     .kernel = NULL,
-    .dtb = NULL,
     .initrd = NULL,
     .appliance_overlay = NULL,
   };
@@ -378,8 +376,8 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   if (g->verbose)
     guestfs_int_print_timestamped_message (g, "build appliance");
 
-  if (guestfs_int_build_appliance (g, &params.kernel, &params.dtb,
-				   &params.initrd, &appliance) == -1)
+  if (guestfs_int_build_appliance (g, &params.kernel, &params.initrd,
+                                   &appliance) == -1)
     goto cleanup;
 
   guestfs_int_launch_send_progress (g, 3);
@@ -617,7 +615,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   data->dom = dom;
 
   free (params.kernel);
-  free (params.dtb);
   free (params.initrd);
   free (params.appliance_overlay);
 
@@ -643,7 +640,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     virConnectClose (conn);
 
   free (params.kernel);
-  free (params.dtb);
   free (params.initrd);
   free (params.appliance_overlay);
 
@@ -1167,12 +1163,6 @@ construct_libvirt_xml_boot (guestfs_h *g,
     start_element ("kernel") {
       string (params->kernel);
     } end_element ();
-
-    if (params->dtb) {
-      start_element ("dtb") {
-        string (params->dtb);
-      } end_element ();
-    }
 
     start_element ("initrd") {
       string (params->initrd);

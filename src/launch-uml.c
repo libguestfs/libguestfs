@@ -139,8 +139,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   int console_sock = -1, daemon_sock = -1;
   int r;
   int csv[2], dsv[2];
-  CLEANUP_FREE char *kernel = NULL, *dtb = NULL,
-    *initrd = NULL, *appliance = NULL;
+  CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
   int has_appliance_drive;
   CLEANUP_FREE char *appliance_cow = NULL;
   uint32_t size;
@@ -165,7 +164,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   }
 
   /* Locate and/or build the appliance. */
-  if (guestfs_int_build_appliance (g, &kernel, &dtb, &initrd, &appliance) == -1)
+  if (guestfs_int_build_appliance (g, &kernel, &initrd, &appliance) == -1)
     return -1;
   has_appliance_drive = appliance != NULL;
 

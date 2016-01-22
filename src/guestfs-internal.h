@@ -772,7 +772,7 @@ extern void guestfs_int_free_drives (guestfs_h *g);
 extern const char *guestfs_int_drive_protocol_to_string (enum drive_protocol protocol);
 
 /* appliance.c */
-extern int guestfs_int_build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
+extern int guestfs_int_build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars);
 
 /* launch.c */
