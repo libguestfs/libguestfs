@@ -689,12 +689,16 @@ test_connection (struct config *config)
   }
 
   status = mexp_close (h);
-  if (!((WIFEXITED (status) && WEXITSTATUS (status) == 0)
-        || (WIFSIGNALED (status) && WTERMSIG (status) == SIGHUP))) {
+  if (status == -1) {
+    set_ssh_error ("mexp_close: %m");
+    return -1;
+  }
+  if (WIFSIGNALED (status) && WTERMSIG (status) == SIGHUP)
+    return 0; /* not an error */
+  if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
     set_ssh_error ("unexpected close status from ssh subprocess (%d)", status);
     return -1;
   }
-
   return 0;
 }
 
