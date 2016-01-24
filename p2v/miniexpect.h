@@ -50,6 +50,19 @@ struct mexp_h {
 };
 typedef struct mexp_h mexp_h;
 
+/* Methods to access (some) fields in the handle. */
+#define mexp_get_fd(h) ((h)->fd)
+#define mexp_get_pid(h) ((h)->pid)
+#define mexp_get_timeout_ms(h) ((h)->timeout)
+#define mexp_set_timeout_ms(h, ms) ((h)->timeout = (ms))
+/* If secs == -1, then this sets h->timeout to -1000, but the main
+ * code handles this since it only checks for h->timeout < 0.
+ */
+#define mexp_set_timeout(h, secs) ((h)->timeout = 1000 * (secs))
+#define mexp_get_read_size(h) ((h)->read_size)
+#define mexp_set_read_size(h, size) ((h)->read_size = (size))
+#define mexp_get_pcre_error(h) ((h)->pcre_error)
+
 /* Spawn a subprocess. */
 extern mexp_h *mexp_spawnv (const char *file, char **argv);
 extern mexp_h *mexp_spawnl (const char *file, const char *arg, ...);
