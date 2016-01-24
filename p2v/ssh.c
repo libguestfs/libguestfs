@@ -369,7 +369,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       return NULL;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
       mexp_close (h);
       return NULL;
     }
@@ -385,8 +385,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
    * we can do is to repeatedly send 'export PS1=<magic>' commands
    * until we synchronize with the remote shell.
    */
-  saved_timeout = h->timeout;
-  h->timeout = 2000;
+  saved_timeout = mexp_get_timeout_ms (h);
+  mexp_set_timeout (h, 2);
 
   for (count = 0; count < 30; ++count) {
     char magic[9];
@@ -428,7 +428,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       /* Got a prompt.  However it might be an earlier prompt.  If it
        * doesn't match the PS1 string we sent, then repeat the expect.
        */
-      r = pcre_get_substring (h->buffer, ovector, h->pcre_error, 1, &matched);
+      r = pcre_get_substring (h->buffer, ovector,
+                              mexp_get_pcre_error (h), 1, &matched);
       if (r < 0) {
         fprintf (stderr, "error: PCRE error reading substring (%d)\n", r);
         exit (EXIT_FAILURE);
@@ -456,7 +457,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       return NULL;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
       mexp_close (h);
       return NULL;
     }
@@ -467,7 +468,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   return NULL;
 
  got_prompt:
-  h->timeout = saved_timeout;
+  mexp_set_timeout_ms (h, saved_timeout);
 
   return h;
 }
@@ -553,7 +554,7 @@ test_connection (struct config *config)
       return -1;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
       mexp_close (h);
       return -1;
     }
@@ -648,7 +649,7 @@ test_connection (struct config *config)
       return -1;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
       mexp_close (h);
       return -1;
     }
@@ -683,7 +684,7 @@ test_connection (struct config *config)
     return -1;
 
   case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+    set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
     mexp_close (h);
     return -1;
   }
@@ -807,7 +808,7 @@ open_data_connection (struct config *config, int *local_port, int *remote_port)
     return NULL;
 
   case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+    set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
     mexp_close (h);
     return NULL;
   }
@@ -843,7 +844,7 @@ wait_for_prompt (mexp_h *h)
     return -1;
 
   case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", h->pcre_error);
+    set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
     return -1;
   }
 
