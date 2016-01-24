@@ -384,7 +384,7 @@ start_conversion (struct config *config,
     char buf[257];
     ssize_t r;
 
-    r = read (control_h->fd, buf, sizeof buf - 1);
+    r = read (mexp_get_fd (control_h), buf, sizeof buf - 1);
     if (r == -1) {
       /* See comment about this in miniexpect.c. */
       if (errno == EIO)
@@ -681,7 +681,7 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
        * these ssh connections is to send a signal.  Just closing the
        * pipe doesn't do anything.
        */
-      kill (data_conns[i].h->pid, SIGHUP);
+      kill (mexp_get_pid (data_conns[i].h), SIGHUP);
       mexp_close (data_conns[i].h);
     }
 
