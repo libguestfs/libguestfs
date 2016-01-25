@@ -1029,9 +1029,12 @@ do_btrfs_subvolume_show (const char *subvolume)
   }
 
   /* If the path is the btrfs root, `btrfs subvolume show' reports:
-   *   <path> is btrfs root
+   *   <path> is btrfs root [in btrfs-progs < 4.4]
+   *   <path> is toplevel subvolume
    */
-  if (out && strstr (out, "is btrfs root") != NULL) {
+  if (out &&
+      (strstr (out, "is btrfs root") != NULL ||
+       strstr (out, "is toplevel subvolume") != NULL)) {
     reply_with_error ("%s is btrfs root", subvolume);
     return NULL;
   }
