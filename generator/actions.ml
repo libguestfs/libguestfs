@@ -12680,8 +12680,8 @@ This enable skinny metadata extent refs." };
     tests = [
       InitEmpty, Always, TestRun (
         [["part_init"; "/dev/sda"; "mbr"];
-         ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
-         ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+         ["part_add"; "/dev/sda"; "p"; "64"; "409599"];
+         ["part_add"; "/dev/sda"; "p"; "409600"; "819199"];
          ["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mkfs_btrfs"; "/dev/sda2"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
