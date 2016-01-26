@@ -10928,12 +10928,12 @@ with zeroes)." };
         InitEmpty, Always, TestResultString (
           [["part_disk"; "/dev/sda"; "mbr"];
            ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
-           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "NOARG"; uuid];
+           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; ""; "NOARG"; uuid];
            ["vfs_uuid"; "/dev/sda1"]], uuid), [];
         InitEmpty, Always, TestResultString (
           [["part_disk"; "/dev/sda"; "mbr"];
            ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
-           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; "false"; "LBL-TEST"; "NOARG"];
+           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; ""; "LBL-TEST"; "NOARG"];
            ["vfs_label"; "/dev/sda1"]], "LBL-TEST"), [];
       ]);
     shortdesc = "change parameters of an XFS filesystem";
