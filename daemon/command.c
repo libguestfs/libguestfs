@@ -185,6 +185,7 @@ commandrvf (char **stdoutput, char **stderror, unsigned flags,
   int so_fd[2], se_fd[2];
   unsigned flag_copy_stdin = flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
   int flag_copy_fd = (int) (flags & COMMAND_FLAG_FD_MASK);
+  unsigned flag_out_on_err = flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR;
   pid_t pid;
   int r, quit, i;
   fd_set rset, rset2;
@@ -196,7 +197,8 @@ commandrvf (char **stdoutput, char **stderror, unsigned flags,
 
   if (verbose) {
     printf ("commandrvf: stdout=%s stderr=%s flags=0x%x\n",
-            stdoutput ? "y" : "n", stderror ? "y" : "n", flags);
+            stdoutput ? "y" : flag_out_on_err ? "e" : "n",
+            stderror ? "y" : "n", flags);
     fputs ("commandrvf: ", stdout);
     fputs (argv[0], stdout);
     for (i = 1; argv[i] != NULL; ++i) {
@@ -261,7 +263,7 @@ commandrvf (char **stdoutput, char **stderror, unsigned flags,
     }
     close (so_fd[PIPE_READ]);
     close (se_fd[PIPE_READ]);
-    if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR)) {
+    if (!flag_out_on_err) {
       if (dup2 (so_fd[PIPE_WRITE], STDOUT_FILENO) == -1) {
         perror ("dup2/so_fd[PIPE_WRITE]");
         _exit (EXIT_FAILURE);
