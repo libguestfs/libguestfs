@@ -97,6 +97,11 @@ exec >>%s 2>&1
   let guest_install_command packages =
     let quoted_args = String.concat " " (List.map quote packages) in
     match g#inspect_get_package_management root with
+    | "apk" ->
+       sprintf "
+         apk update
+         apk add %s
+       " quoted_args
     | "apt" ->
       (* http://unix.stackexchange.com/questions/22820 *)
       sprintf "
@@ -124,6 +129,11 @@ exec >>%s 2>&1
 
   and guest_update_command () =
     match g#inspect_get_package_management root with
+    | "apk" ->
+       sprintf "
+         apk update
+         apk upgrade
+       "
     | "apt" ->
       (* http://unix.stackexchange.com/questions/22820 *)
       sprintf "
