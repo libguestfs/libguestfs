@@ -537,7 +537,7 @@ do_xfs_admin (const char *device,
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
 
-  r = commandv (NULL, &err, argv);
+  r = commandvf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR, argv);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
