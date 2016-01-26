@@ -232,6 +232,10 @@ should be created in the guest after conversion.  You can also connect
 these to target hypervisor networks (for further information about
 this feature, see L<virt-v2v(1)/NETWORKS AND BRIDGES>).
 
+On supported hardware, left-clicking on the device name (eg. C<em1>)
+causes a light to start flashing on the physical interface, allowing
+the interface to be identified by the operator.
+
 When you are ready to begin the conversion, press the
 C<Start conversion> button:
 

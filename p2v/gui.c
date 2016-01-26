@@ -418,6 +418,7 @@ static void populate_removable (GtkTreeView *removable_list);
 static void populate_interfaces (GtkTreeView *interfaces_list);
 static void toggled (GtkCellRendererToggle *cell, gchar *path_str, gpointer data);
 static void network_edited_callback (GtkCellRendererToggle *cell, gchar *path_str, gchar *new_text, gpointer data);
+static gboolean maybe_identify_click (GtkWidget *interfaces_list, GdkEventButton *event, gpointer data);
 static void set_disks_from_ui (struct config *);
 static void set_removable_from_ui (struct config *);
 static void set_interfaces_from_ui (struct config *);
@@ -653,6 +654,10 @@ create_conversion_dialog (struct config *config)
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (interfaces_sw),
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   interfaces_list = gtk_tree_view_new ();
+  /* See maybe_identify_click below for what we're doing. */
+  g_signal_connect (interfaces_list, "button-press-event",
+                    G_CALLBACK (maybe_identify_click), NULL);
+  gtk_widget_set_tooltip_markup (interfaces_list, _("Left click on an interface name to flash the light on the physical interface."));
   populate_interfaces (GTK_TREE_VIEW (interfaces_list));
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (interfaces_sw),
                                          interfaces_list);
@@ -944,7 +949,8 @@ populate_interfaces (GtkTreeView *interfaces_list)
                     "<small>"
                     "%s\n"
                     "%s"
-                    "</small>",
+                    "</small>\n"
+                    "<small><u><span foreground=\"blue\">Identify interface</span></u></small>",
                     if_name,
                     if_addr ? : _("Unknown"),
                     if_vendor ? : _("Unknown")) == -1) {
@@ -1032,6 +1038,68 @@ network_edited_callback (GtkCellRendererToggle *cell, gchar *path_str,
   gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                       INTERFACES_COL_NETWORK, new_text, -1);
   gtk_tree_path_free (path);
+}
+
+/* When the user clicks on the interface name on the list of
+ * interfaces, we want to run 'ethtool --identify', which usually
+ * makes some lights flash on the physical interface.  We cannot catch
+ * clicks on the cell itself, so we have to go via a more obscure
+ * route.  See http://stackoverflow.com/a/27207433 and
+ * https://en.wikibooks.org/wiki/GTK%2B_By_Example/Tree_View/Events
+ */
+static gboolean
+maybe_identify_click (GtkWidget *interfaces_list, GdkEventButton *event,
+                      gpointer data)
+{
+  gboolean ret = FALSE;         /* Did we handle this event? */
+
+  /* Single left click only. */
+  if (event->type == GDK_BUTTON_PRESS && event->button == 1) {
+    GtkTreePath *path;
+    GtkTreeViewColumn *column;
+
+    if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (interfaces_list),
+                                       event->x, event->y,
+                                       &path, &column, NULL, NULL)) {
+      GList *cols;
+      gint column_index;
+
+      /* Get column index. */
+      cols = gtk_tree_view_get_columns (GTK_TREE_VIEW (interfaces_list));
+      column_index = g_list_index (cols, (gpointer) column);
+      g_list_free (cols);
+
+      if (column_index == INTERFACES_COL_DEVICE) {
+        const gint *indices;
+        gint row_index;
+        const char *if_name;
+        char *cmd;
+
+        /* Get the row index. */
+        indices = gtk_tree_path_get_indices (path);
+        row_index = indices[0];
+
+        /* And the interface name. */
+        if_name = all_interfaces[row_index];
+
+        /* Issue the ethtool command in the background. */
+        if (asprintf (&cmd, "ethtool --identify '%s' 10 &", if_name) == -1) {
+          perror ("asprintf");
+          exit (EXIT_FAILURE);
+        }
+        printf ("%s\n", cmd);
+        ignore_value (system (cmd));
+
+        free (cmd);
+
+        ret = TRUE;             /* We handled this event. */
+      }
+
+      gtk_tree_path_free (path);
+    }
+  }
+
+  return ret;
 }
 
 static void
