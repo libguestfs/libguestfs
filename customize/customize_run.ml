@@ -110,18 +110,12 @@ exec >>%s 2>&1
         apt-get $apt_opts update
         apt-get $apt_opts install %s
       " quoted_args
-    | "dnf" ->
-      sprintf "dnf -y install %s" quoted_args
-    | "pisi" ->
-      sprintf "pisi it %s" quoted_args
-    | "pacman" ->
-      sprintf "pacman -S %s" quoted_args
-    | "urpmi" ->
-      sprintf "urpmi %s" quoted_args
-    | "yum" ->
-      sprintf "yum -y install %s" quoted_args
-    | "zypper" ->
-      sprintf "zypper -n in -l %s" quoted_args
+    | "dnf" ->    sprintf "dnf -y install %s" quoted_args
+    | "pisi" ->   sprintf "pisi it %s" quoted_args
+    | "pacman" -> sprintf "pacman -S %s" quoted_args
+    | "urpmi" ->  sprintf "urpmi %s" quoted_args
+    | "yum" ->    sprintf "yum -y install %s" quoted_args
+    | "zypper" -> sprintf "zypper -n in -l %s" quoted_args
     | "unknown" ->
       error (f_"--install is not supported for this guest operating system")
     | pm ->
@@ -130,30 +124,24 @@ exec >>%s 2>&1
   and guest_update_command () =
     match g#inspect_get_package_management root with
     | "apk" ->
-       sprintf "
+       "
          apk update
          apk upgrade
        "
     | "apt" ->
       (* http://unix.stackexchange.com/questions/22820 *)
-      sprintf "
+      "
         export DEBIAN_FRONTEND=noninteractive
         apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
         apt-get $apt_opts update
         apt-get $apt_opts upgrade
       "
-    | "dnf" ->
-      sprintf "dnf -y --best upgrade"
-    | "pisi" ->
-      sprintf "pisi upgrade"
-    | "pacman" ->
-      sprintf "pacman -Su"
-    | "urpmi" ->
-      sprintf "urpmi --auto-select"
-    | "yum" ->
-      sprintf "yum -y update"
-    | "zypper" ->
-      sprintf "zypper -n update -l"
+    | "dnf" ->    "dnf -y --best upgrade"
+    | "pisi" ->   "pisi upgrade"
+    | "pacman" -> "pacman -Su"
+    | "urpmi" ->  "urpmi --auto-select"
+    | "yum" ->    "yum -y update"
+    | "zypper" -> "zypper -n update -l"
     | "unknown" ->
       error (f_"--update is not supported for this guest operating system")
     | pm ->
