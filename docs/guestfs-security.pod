@@ -7,7 +7,7 @@ guestfs-security - security of libguestfs
 This manual page discusses security implications of using libguestfs,
 particularly with untrusted or malicious guests or disk images.
 
-=head2 REPORTING SECURITY PROBLEMS
+=head1 REPORTING SECURITY PROBLEMS
 
 If you wish to privately report a security issue, please follow the
 Red Hat security procedure at
@@ -19,7 +19,9 @@ If the security problem is not so serious, you can simply file a bug
 need to subscribe to the mailing list to send email, but there will be
 a delay while the message is moderated.
 
-=head2 SECURITY OF MOUNTING FILESYSTEMS
+=head1 GENERAL ISSUES
+
+=head2 Security of mounting filesystems
 
 You should never mount an untrusted guest filesystem directly on your
 host kernel (eg. using loopback or kpartx).
@@ -66,7 +68,7 @@ data, is thought to be extremely hard to do, although we never say
 Callers can also reduce the attack surface by forcing the filesystem
 type when mounting (use L</guestfs_mount_vfs>).
 
-=head2 GENERAL SECURITY CONSIDERATIONS
+=head2 General security considerations
 
 Be careful with any files or data that you download from a guest (by
 "download" we mean not just the L</guestfs_download> command but any
@@ -102,7 +104,7 @@ containing homoglyphs.
 
 =back
 
-=head2 PROTOCOL SECURITY
+=head2 Protocol security
 
 The protocol is designed to be secure, being based on RFC 4506 (XDR)
 with a defined upper message size.  However a program that uses
@@ -110,7 +112,7 @@ libguestfs must also take care - for example you can write a program
 that downloads a binary from a disk image and executes it locally, and
 no amount of protocol security will save you from the consequences.
 
-=head2 INSPECTION SECURITY
+=head2 Inspection security
 
 Parts of the inspection API (see L</INSPECTION>) return untrusted
 strings directly from the guest, and these could contain any 8 bit
@@ -132,13 +134,15 @@ Both are designed to be robust in the face of malicious data, although
 denial of service attacks are still possible, for example with
 oversized configuration files.
 
-=head2 RUNNING UNTRUSTED GUEST COMMANDS
+=head2 Running untrusted guest commands
 
 Be very cautious about running commands from the guest.  By running a
 command in the guest, you are giving CPU time to a binary that you do
 not control, under the same user account as the library, albeit
 wrapped in qemu virtualization.  More information and alternatives can
 be found in the section L</RUNNING COMMANDS>.
+
+=head1 HISTORICAL SECURITY ISSUES IN LIBGUESTFS
 
 =head2 CVE-2010-3851
 
