@@ -22,7 +22,9 @@ or:
 =head1 DESCRIPTION
 
 Libguestfs is a library for accessing and modifying disk images and
-virtual machines.  This manual page documents the C API.
+virtual machines.
+
+This manual page documents the C API.
 
 If you are looking for an introduction to libguestfs, see the web
 site: L<http://libguestfs.org/>
@@ -30,23 +32,50 @@ site: L<http://libguestfs.org/>
 Each virt tool has its own man page (for a full list, go to
 L</SEE ALSO> at the end of this file).
 
-The libguestfs FAQ contains many useful answers: L<guestfs-faq(1)>.
+Other libguestfs manual pages:
 
-For examples of using the API from C, see L<guestfs-examples(3)>.  For
-examples in other languages, see
-L</USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> below.
+=over 4
 
-For tips and recipes, see L<guestfs-recipes(1)>.
+=item L<guestfs-faq(1)>
 
-If you are having performance problems, read
-L<guestfs-performance(1)>.  To help test libguestfs, read
-L<libguestfs-test-tool(1)> and L<guestfs-testing(1)>.  To build
-libguestfs from source, read L<guestfs-building(1)>.  To contribute
-code to libguestfs, see L<guestfs-hacking(1)>.  To find out how
-libguestfs works, see L<guestfs-internals(1)>.
+Frequently Asked Questions (FAQ).
 
-For security information, including CVEs affecting libguestfs, see
-L<guestfs-security(1)>.
+=item L<guestfs-examples(3)>
+
+Examples of using the API from C.  For examples in other languages,
+see L</USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES> below.
+
+=item L<guestfs-recipes(1)>
+
+Tips and recipes.
+
+=item L<guestfs-performance(1)>
+
+Performance tips and solutions.
+
+=item L<libguestfs-test-tool(1)>
+
+=item L<guestfs-testing(1)>
+
+Help testing libguestfs.
+
+=item L<guestfs-building(1)>
+
+How to build libguestfs from source.
+
+=item L<guestfs-hacking(1)>
+
+Contribute code to libguestfs.
+
+=item L<guestfs-internals(1)>
+
+How libguestfs works.
+
+=item L<guestfs-security(1)>
+
+Security information, including CVEs affecting libguestfs.
+
+=back
 
 =head1 API OVERVIEW
 
