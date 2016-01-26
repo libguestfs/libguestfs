@@ -1079,13 +1079,25 @@ check_architecture (guestfs_h *g, struct inspect_fs *fs)
   const char *binaries[] =
     { "/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh" };
   size_t i;
-  char *arch;
+  char *arch = NULL;
 
   for (i = 0; i < sizeof binaries / sizeof binaries[0]; ++i) {
-    if (guestfs_is_file (g, binaries[i]) > 0) {
-      /* Ignore errors from file_architecture call. */
+    /* Allow symlinks when checking the binaries:,so in case they are
+     * relative ones (which can be resolved within the same partition),
+     * then we can check the architecture of their target.
+     */
+    if (guestfs_is_file_opts (g, binaries[i],
+                              GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+      CLEANUP_FREE char *resolved = NULL;
+
+      /* Ignore errors from realpath and file_architecture calls. */
       guestfs_push_error_handler (g, NULL, NULL);
-      arch = guestfs_file_architecture (g, binaries[i]);
+      resolved = guestfs_realpath (g, binaries[i]);
+      /* If is_file above succeeded realpath should too, but better
+       * be safe than sorry.
+       */
+      if (resolved)
+        arch = guestfs_file_architecture (g, resolved);
       guestfs_pop_error_handler (g);
 
       if (arch) {
