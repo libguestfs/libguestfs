@@ -11,8 +11,7 @@ this testing is very valuable.  Thanks for helping out!
 Tests marked with a B<*> (asterisk) can B<destroy data> if you're not
 careful.  The others are safe and won't modify anything.
 
-Most of these tests will work with any libguestfs E<ge> 1.14.  Some of
-these tests (marked) require libguestfs E<ge> 1.22.
+These tests B<require libguestfs E<ge> 1.22>.
 
 You can report bugs you find through this link:
 
@@ -88,9 +87,6 @@ Which version of qemu is being used?  It may be printed out:
 
  libguestfs: qemu version 1.5
 
-but note that if you're using libvirt then libguestfs doesn't have
-this information.
-
 =item *
 
 Which kernel is being used?  L<supermin(1)> will try to pick the
@@ -119,7 +115,6 @@ line).  Also make sure that L<libguestfs-test-tool(1)> succeeds.
 
 =head2 Try to open a remote guest image with guestfish.
 
-B<Note> this test requires S<libguestfs E<ge> 1.22> and S<qemu E<ge> 1.5>.
 You may also have to disable libvirt by setting this:
 
  export LIBGUESTFS_BACKEND=direct
@@ -270,6 +265,10 @@ or:
 
 Do the results match what is actually in the guest?
 
+If you have an unusual guest (a rare Linux distro, a very new version
+of Windows), does virt-inspector recognize it?  If not, then it's
+probably a bug.
+
 =head2 Try the auditing features of virt-ls on all your guests.
 
 List all setuid or setgid programs in a Linux virtual machine:
@@ -352,7 +351,23 @@ Using L<virt-sparsify(1)>, make a disk image more sparse:
 Is F<newdisk.img> still bootable after sparsifying?  Is the resulting
 disk image smaller (use C<du> to check)?
 
-=head2 B<*> "sysprep" a B<shut off> Linux guest.
+=head2 Build and boot a guest
+
+Using L<virt-builder(1)>, choose a guest from the list:
+
+ virt-builder -l
+
+build it:
+
+ virt-builder -o disk.img [os-version from list above]
+
+and boot it:
+
+ qemu-kvm -cpu host -m 2048 -drive file=disk.img,format=raw
+
+Does it boot?
+
+=head2 B<*> "Sysprep" a B<shut off> Linux guest.
 
 B<Note> that this really will mess up an existing guest, so it's
 better to clone the guest before trying this.
