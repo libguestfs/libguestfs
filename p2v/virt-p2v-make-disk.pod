@@ -4,7 +4,7 @@ virt-p2v-make-disk - Build the virt-p2v disk using virt-builder
 
 =head1 SYNOPSIS
 
- virt-p2v-make-disk -o /dev/sdX os-version
+ virt-p2v-make-disk -o /dev/sdX [os-version]
 
 =head1 DESCRIPTION
 
@@ -17,28 +17,34 @@ virt-p2v-make-disk is a script which creates a bootable disk image or
 USB key containing virt-p2v.  It uses L<virt-builder(1)> to do this,
 and is just a small shell script around virt-builder.
 
-virt-p2v-make-disk has two required parameters:
+The required I<-o> parameter specifies where the output should go, for
+example to a USB key (eg. C<-o /dev/sdX>) or to a file.  If you pass a
+device name, then B<the existing contents of the device will be erased>.
 
-The I<-o> parameter specifies where the output should go, for example
-to a USB key (eg. C<-o /dev/sdX>) or to a file.  If you pass a device
-name, then B<the existing contents of the device will be erased>.
+=head2 C<os-version> parameter
 
-The C<os-version> parameter is the base Linux distro to use for the
-operating system on the ISO.  To list possible C<os-version>
-combinations, do:
+The optional C<os-version> parameter is the base Linux distro to use
+for the operating system on the ISO.  If you don't set this parameter,
+the script tries to choose a suitable default for you.  Most users
+should I<not> use the C<os-version> parameter.
+
+The base OS selected for virt-p2v is not related in any way to the OS
+of the physical machine that you are trying to convert.
+
+To list possible C<os-version> combinations, do:
 
  virt-builder -l
 
-=head2 EXAMPLES
+=head1 EXAMPLES
 
 Write a virt-p2v bootable USB key on F</dev/sdX> (any existing content
-is erased), using Fedora 20 as the base distribution:
+on F</dev/sdX> is erased):
 
- virt-p2v-make-disk -o /dev/sdX fedora-20
+ virt-p2v-make-disk -o /dev/sdX
 
 Write a virt-p2v bootable virtual disk image, and boot it under qemu:
 
- virt-p2v-make-disk -o /var/tmp/p2v.img fedora-20
+ virt-p2v-make-disk -o /var/tmp/p2v.img
  qemu-kvm -m 1024 -boot c \
    -drive file=/var/tmp/p2v.img,if=virtio,index=0 \
    -drive file=/var/tmp/guest.img,if=virtio,index=1
