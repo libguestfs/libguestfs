@@ -245,6 +245,11 @@ and c_api_test =
    *)
   | TestLastFail of seq
 
+  (* Run the command sequence and expect either nothing to fail,
+   * or that the last command only can fail with ENOTSUP.
+   *)
+  | TestRunOrUnsupported of seq
+
 (* Test prerequisites. *)
 and c_api_test_prereq =
     (* Test always runs. *)
