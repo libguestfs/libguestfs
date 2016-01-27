@@ -2242,6 +2242,11 @@ btrfs_minimum_size (const char *path)
                        "needs btrfs-progs >= 4.2");
 
   buf = sysroot_path (path);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
   r = command (&out, &err, str_btrfs, "inspect-internal",
                "min-dev-size", buf, NULL);
 
