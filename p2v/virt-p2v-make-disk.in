@@ -38,7 +38,7 @@ upload=
 usage ()
 {
     echo "Usage:"
-    echo "  $program [--options] -o /dev/sdX os-version"
+    echo "  $program [--options] -o /dev/sdX [os-version]"
     echo
     echo "Read $program(1) man page for more information."
     exit $1
@@ -71,12 +71,30 @@ if [ -z "$output" ]; then
     exit 1
 fi
 
-if [ $# -ne 1 ]; then
-    echo "$program: Missing os-version.  See $program(1)."
+if [ $# -gt 1 ]; then
+    echo "$program: Too many parameters.  See $program(1)."
     exit 1
 fi
 
-osversion="$1"
+if [ $# -eq 1 ]; then
+    osversion="$1"
+else
+    # If osversion was not set, then we must guess a good value
+    # based on the host distro.
+    if test -f /etc/redhat-release; then
+        osversion="$(virt-builder -l | sort |
+                       @AWK@ '/^fedora-[1-9]/ {print $1}' | tail -1)"
+    elif test -f /etc/debian_version; then
+        osversion="$(virt-builder -l | sort |
+                       @AWK@ '/^debian-[1-9]/ {print $1}' | tail -1)"
+    fi
+    if [ "x$osversion" = "x" ]; then
+        echo "$program: unable to guess a suitable os-version."
+        echo "You must supply one on the command line and output of 'virt-builder -l'."
+        echo "See $program(1) for further details."
+        exit 1
+    fi
+fi
 
 # Create a temporary directory and clean it up when we finish.
 tmpdir="$(mktemp -d)"
