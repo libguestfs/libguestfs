@@ -204,8 +204,7 @@ test-virt-p2v-pxe.img: \
 	    virt-p2v-make-disk
 	$(top_builddir)/run virt-p2v-make-disk \
 	    --inject-ssh-identity=test-virt-p2v-pxe.id_rsa \
-	    -o $@-t \
-	    fedora-22
+	    -o $@-t
 	mv $@-t $@
 
 test-virt-p2v-pxe.vmlinuz test-virt-p2v-pxe.initramfs: stamp-test-virt-p2v-pxe-kernel
