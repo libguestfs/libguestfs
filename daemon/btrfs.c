@@ -2230,7 +2230,7 @@ test_btrfs_min_dev_size (void)
 int64_t
 btrfs_minimum_size (const char *path)
 {
-  CLEANUP_FREE char *err = NULL, *out = NULL;
+  CLEANUP_FREE char *buf = NULL, *err = NULL, *out = NULL;
   int64_t ret = 0;
   int r;
   int min_size_supported = test_btrfs_min_dev_size ();
@@ -2241,8 +2241,9 @@ btrfs_minimum_size (const char *path)
     NOT_SUPPORTED (-1, "'btrfs inspect-internal min-dev-size' "
                        "needs btrfs-progs >= 4.2");
 
+  buf = sysroot_path (path);
   r = command (&out, &err, str_btrfs, "inspect-internal",
-               "min-dev-size", sysroot_path (path), NULL);
+               "min-dev-size", buf, NULL);
 
   if (r == -1) {
     reply_with_error ("%s", err);
