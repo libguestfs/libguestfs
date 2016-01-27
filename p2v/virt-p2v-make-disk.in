@@ -137,7 +137,7 @@ esac
 # Virt-builder requires the dependencies to be comma-separated with
 # no spaces.  The $depsfile is one dependency per line.
 if [ ! -f "$depsfile" ]; then
-    echo "$0: cannot find dependencies file ($depsfile)"
+    echo "$program: cannot find dependencies file ($depsfile)"
     exit 1
 fi
 install=
