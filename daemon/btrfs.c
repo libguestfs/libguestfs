@@ -2238,8 +2238,8 @@ btrfs_minimum_size (const char *path)
   if (min_size_supported == -1)
     return -1;
   else if (min_size_supported == 0)
-    NOT_SUPPORTED (-1, "'btrfs inspect-internal min-dev-size' \
-                        needs btrfs-progs >= 4.2");
+    NOT_SUPPORTED (-1, "'btrfs inspect-internal min-dev-size' "
+                       "needs btrfs-progs >= 4.2");
 
   r = command (&out, &err, str_btrfs, "inspect-internal",
                "min-dev-size", sysroot_path (path), NULL);
