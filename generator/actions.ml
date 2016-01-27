@@ -12765,7 +12765,7 @@ To read the UUID on a filesystem, call C<guestfs_vfs_uuid>." };
       InitPartition, IfAvailable "ntfsprogs", TestRun(
         [["mkfs"; "ntfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
-      InitPartition, IfAvailable "btrfs", TestRun (
+      InitPartition, IfAvailable "btrfs", TestRunOrUnsupported (
         [["mkfs"; "btrfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
          ["mount"; "/dev/sda1"; "/"];
          ["vfs_minimum_size"; "/dev/sda1"]]), [];
