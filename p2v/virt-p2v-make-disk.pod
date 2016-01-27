@@ -31,7 +31,7 @@ combinations, do:
 
 =head2 EXAMPLES
 
-Write a virt-p2v bootable USB key on F</dev/sdX> (and existing content
+Write a virt-p2v bootable USB key on F</dev/sdX> (any existing content
 is erased), using Fedora 20 as the base distribution:
 
  virt-p2v-make-disk -o /dev/sdX fedora-20
