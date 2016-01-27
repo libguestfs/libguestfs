@@ -103,7 +103,7 @@ else
 fi
 
 if [ ! -f "$virt_p2v_binary" ]; then
-    echo "$0: cannot find $virt_p2v_binary"
+    echo "$program: cannot find $virt_p2v_binary"
     if [ -n "$arch" ]; then
         echo "You used the '--arch' option, so it's likely that you will need to build"
         echo "an virt-p2v.$arch binary yourself."
@@ -158,7 +158,7 @@ esac
 # Virt-builder requires the dependencies to be comma-separated with
 # no spaces.  The $depsfile is one dependency per line.
 if [ ! -f "$depsfile" ]; then
-    echo "$0: cannot find dependencies file ($depsfile)"
+    echo "$program: cannot find dependencies file ($depsfile)"
     exit 1
 fi
 install=
