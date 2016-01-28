@@ -464,7 +464,7 @@ if errorlevel 3010 exit /b 0
     let oem1_inf = "oem1.inf" in
 
     (* There should be a key
-     * HKLM\SYSTEM\DriverDatabase\DeviceIds\{4d36e97b-e325-11ce-bfc1-08002be10318}.
+     *   HKLM\SYSTEM\DriverDatabase\DeviceIds\<scsi_adapter_guid>
      * We want to add:
      * "oem1.inf"=hex(0):
      *)
@@ -477,7 +477,7 @@ if errorlevel 3010 exit /b 0
          g#hivex_node_set_value node oem1_inf (* REG_NONE *) 0_L "" in
 
     (* There should be a key
-     * HKLM\SYSTEM\ControlSet001\Control\Class\{4d36e97b-e325-11ce-bfc1-08002be10318}
+     * HKLM\SYSTEM\ControlSet001\Control\Class\<scsi_adapter_guid>
      * There may be subkey(s) of this called "0000", "0001" etc.  We want
      * to create the next free subkey.
      *)
