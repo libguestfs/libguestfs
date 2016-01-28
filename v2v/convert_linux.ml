@@ -824,15 +824,20 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
         | Some x -> x
         | None -> invalid_arg (sprintf "invalid module path: %s" modpath) in
 
-      if g#is_file ~followsymlinks:true "/sbin/dracut" then (
+      let run_dracut_command dracut_path =
         (* Dracut. *)
         let args =
-          [ "/sbin/dracut" ]
-          @ (if verbose () then [ "--verbose" ] else [])
+          dracut_path ::
+            (if verbose () then [ "--verbose" ] else [])
           @ [ "--add-drivers"; String.concat " " modules; initrd; mkinitrd_kv ]
         in
         ignore (g#command (Array.of_list args))
-      )
+      in
+
+      if g#is_file ~followsymlinks:true "/sbin/dracut" then
+        run_dracut_command "/sbin/dracut"
+      else if g#is_file ~followsymlinks:true "/usr/bin/dracut" then
+        run_dracut_command "/usr/bin/dracut"
       else if family = `SUSE_family
            && g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
         ignore (
