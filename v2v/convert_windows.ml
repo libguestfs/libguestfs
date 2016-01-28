@@ -461,20 +461,27 @@ if errorlevel 3010 exit /b 0
       sprintf "viostor.inf_%s_%s" arch "c86329aaeb0a7904" in
 
     let scsi_adapter_guid = "{4d36e97b-e325-11ce-bfc1-08002be10318}" in
-    let oem1_inf = "oem1.inf" in
-
     (* There should be a key
      *   HKLM\SYSTEM\DriverDatabase\DeviceIds\<scsi_adapter_guid>
      * We want to add:
-     * "oem1.inf"=hex(0):
+     *   "oem1.inf"=hex(0):
+     * but if we find "oem1.inf" we'll add "oem2.inf" (etc).
      *)
-    let () =
+    let oem_inf =
       let path = [ "DriverDatabase"; "DeviceIds"; scsi_adapter_guid ] in
       match Windows.get_node g root path with
       | None ->
          error (f_"cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry") scsi_adapter_guid
       | Some node ->
-         g#hivex_node_set_value node oem1_inf (* REG_NONE *) 0_L "" in
+         let rec loop node i =
+           let oem_inf = sprintf "oem%d.inf" i in
+           let value = g#hivex_node_get_value node oem_inf in
+           if value = 0_L then oem_inf else loop node (i+1)
+         in
+         let oem_inf = loop node 1 in
+         (* Create the key. *)
+         g#hivex_node_set_value node oem_inf (* REG_NONE *) 0_L "";
+         oem_inf in
 
     (* There should be a key
      * HKLM\SYSTEM\ControlSet001\Control\Class\<scsi_adapter_guid>
@@ -502,7 +509,7 @@ if errorlevel 3010 exit /b 0
           "DriverDateData", REG_BINARY "\x00\x40\x90\xed\x87\x7f\xcf\x01";
           "DriverDesc", REG_SZ "Red Hat VirtIO SCSI controller";
           "DriverVersion", REG_SZ "62.71.104.8600" (* XXX *);
-          "InfPath", REG_SZ oem1_inf;
+          "InfPath", REG_SZ oem_inf;
           "InfSection", REG_SZ "rhelscsi_inst";
           "MatchingDeviceId", REG_SZ "PCI\\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00";
           "ProviderName", REG_SZ "Red Hat, Inc." ];
@@ -521,7 +528,7 @@ if errorlevel 3010 exit /b 0
                              ];
           "ConfigFlags", REG_DWORD 0_l;
           "ContainerID", REG_SZ "{00000000-0000-0000-ffff-ffffffffffff}";
-          "DeviceDesc", REG_SZ (sprintf "@%s,%%rhelscsi.devicedesc%%;Red Hat VirtIO SCSI controller" oem1_inf);
+          "DeviceDesc", REG_SZ (sprintf "@%s,%%rhelscsi.devicedesc%%;Red Hat VirtIO SCSI controller" oem_inf);
           "Driver", REG_SZ (sprintf "%s\\%s" scsi_adapter_guid controller_offset);
           "HardwareID", REG_MULTI_SZ [
                             "PCI\\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00";
@@ -530,7 +537,7 @@ if errorlevel 3010 exit /b 0
                             "PCI\\VEN_1AF4&DEV_1001&CC_0100";
                           ];
           "LocationInformation", REG_SZ "@System32\\drivers\\pci.sys,#65536;PCI bus %1, device %2, function %3;(0,7,0)";
-          "Mfg", REG_SZ (sprintf "@%s,%%rhel%%;Red Hat, Inc." oem1_inf);
+          "Mfg", REG_SZ (sprintf "@%s,%%rhel%%;Red Hat, Inc." oem_inf);
           "ParentIdPrefix", REG_SZ "4&87f7bfb&0";
           "Service", REG_SZ "viostor";
           "UINumber", REG_DWORD 0x7_l ];
@@ -539,7 +546,7 @@ if errorlevel 3010 exit /b 0
         [ "ErrorControl", REG_DWORD 0x1_l;
           "Group", REG_SZ "SCSI miniport";
           "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys";
-          "Owners", REG_MULTI_SZ [ oem1_inf ];
+          "Owners", REG_MULTI_SZ [ oem_inf ];
           "Start", REG_DWORD 0x0_l;
           "Tag", REG_DWORD 0x58_l;
           "Type", REG_DWORD 0x1_l ];
@@ -550,17 +557,17 @@ if errorlevel 3010 exit /b 0
         [ current_cs; "Services"; "viostor"; "Parameters"; "PnpInterface" ],
         [ "5", REG_DWORD 0x1_l ];
 
-        [ "DriverDatabase"; "DriverInfFiles"; oem1_inf ],
+        [ "DriverDatabase"; "DriverInfFiles"; oem_inf ],
         [ "", REG_MULTI_SZ [ viostor_inf ];
           "Active", REG_SZ viostor_inf;
           "Configurations", REG_MULTI_SZ [ "rhelscsi_inst" ]
         ];
 
         [ "DriverDatabase"; "DeviceIds"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
-        [ oem1_inf, REG_BINARY "\x01\xff\x00\x00" ];
+        [ oem_inf, REG_BINARY "\x01\xff\x00\x00" ];
 
         [ "DriverDatabase"; "DriverPackages"; viostor_inf ],
-        [ "", REG_SZ oem1_inf;
+        [ "", REG_SZ oem_inf;
           "F6", REG_DWORD 0x1_l;
           "InfName", REG_SZ "viostor.inf";
           "OemPath", REG_SZ ("X:\\windows\\System32\\DriverStore\\FileRepository\\" ^ viostor_inf);
