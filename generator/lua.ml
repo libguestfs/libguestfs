@@ -67,7 +67,7 @@ let generate_lua_c () =
 
 /* This struct is managed on the Lua heap.  If the GC collects it,
  * the Lua '__gc' function is called which ends up calling
- * guestfs_lua_finalizer.
+ * guestfs_int_lua_finalizer.
  *
  * There is also an entry in the Lua registry, indexed by 'g'
  * (allocated on demand) which stores per-handle Lua data.  See
@@ -134,7 +134,7 @@ static void push_event (lua_State *L, uint64_t event);
 
 /* Create a new connection. */
 static int
-guestfs_lua_create (lua_State *L)
+guestfs_int_lua_create (lua_State *L)
 {
   guestfs_h *g;
   struct userdata *u;
@@ -185,7 +185,7 @@ close_handle (lua_State *L, guestfs_h *g)
 
 /* Finalizer. */
 static int
-guestfs_lua_finalizer (lua_State *L)
+guestfs_int_lua_finalizer (lua_State *L)
 {
   struct userdata *u = get_handle (L, 1);
   struct event_state *es, *es_next;
@@ -205,7 +205,7 @@ guestfs_lua_finalizer (lua_State *L)
 
 /* Explicit close. */
 static int
-guestfs_lua_close (lua_State *L)
+guestfs_int_lua_close (lua_State *L)
 {
   struct userdata *u = get_handle (L, 1);
 
@@ -302,7 +302,7 @@ free_per_handle_table (lua_State *L, guestfs_h *g)
 
 /* Set an event callback. */
 static int
-guestfs_lua_set_event_callback (lua_State *L)
+guestfs_int_lua_set_event_callback (lua_State *L)
 {
   struct userdata *u = get_handle (L, 1);
   guestfs_h *g = u->g;
@@ -407,7 +407,7 @@ event_callback_wrapper (guestfs_h *g,
 
 /* Delete an event callback. */
 static int
-guestfs_lua_delete_event_callback (lua_State *L)
+guestfs_int_lua_delete_event_callback (lua_State *L)
 {
   struct userdata *u = get_handle (L, 1);
   guestfs_h *g = u->g;
@@ -431,7 +431,7 @@ guestfs_lua_delete_event_callback (lua_State *L)
     fun { name = name; style = (ret, args, optargs as style);
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "static int\n";
-      pr "guestfs_lua_%s (lua_State *L)\n" name;
+      pr "guestfs_int_lua_%s (lua_State *L)\n" name;
       pr "{\n";
 
       (match ret with
@@ -869,26 +869,26 @@ push_event (lua_State *L, uint64_t event)
  * See: http://article.gmane.org/gmane.comp.lang.lua.general/95065
  */
 static luaL_Reg metamethods[] = {
-  { \"__gc\", guestfs_lua_finalizer },
+  { \"__gc\", guestfs_int_lua_finalizer },
   { NULL, NULL }
 };
 
 /* Module functions. */
 static luaL_Reg functions[] = {
-  { \"create\", guestfs_lua_create },
+  { \"create\", guestfs_int_lua_create },
   { NULL, NULL }
 };
 
 /* Methods. */
 static luaL_Reg methods[] = {
-  { \"close\", guestfs_lua_close },
-  { \"set_event_callback\", guestfs_lua_set_event_callback },
-  { \"delete_event_callback\", guestfs_lua_delete_event_callback },
+  { \"close\", guestfs_int_lua_close },
+  { \"set_event_callback\", guestfs_int_lua_set_event_callback },
+  { \"delete_event_callback\", guestfs_int_lua_delete_event_callback },
 
 ";
 
   List.iter (
-    fun { name = name } -> pr "  { \"%s\", guestfs_lua_%s },\n" name name
+    fun { name = name } -> pr "  { \"%s\", guestfs_int_lua_%s },\n" name name
   ) external_functions_sorted;
 
   pr "\
