@@ -633,13 +633,13 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 #define METHOD_SIGNATURE \"(JILjava/lang/String;[J)V\"
 
 static void
-guestfs_java_callback (guestfs_h *g,
-                       void *opaque,
-                       uint64_t event,
-                       int event_handle,
-                       int flags,
-                       const char *buf, size_t buf_len,
-                       const uint64_t *array, size_t array_len)
+java_callback (guestfs_h *g,
+               void *opaque,
+               uint64_t event,
+               int event_handle,
+               int flags,
+               const char *buf, size_t buf_len,
+               const uint64_t *array, size_t array_len)
 {
   struct callback_data *data = opaque;
   JavaVM *jvm = data->jvm;
@@ -721,7 +721,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1set_1event_1callback
   (*env)->GetJavaVM (env, &data->jvm);
   data->method = method;
 
-  r = guestfs_set_event_callback (g, guestfs_java_callback,
+  r = guestfs_set_event_callback (g, java_callback,
                                   (uint64_t) jevents, 0, data);
   if (r == -1) {
     free (data);
