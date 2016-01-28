@@ -446,6 +446,39 @@ to access a block device):
 
  sudo ./run virt-cat -d LinuxGuest /etc/passwd
 
+=head1 F<local*> FILES
+
+Files in the top source directory that begin with the prefix F<local*>
+are ignored by git.  These files can contain local configuration or
+scripts that you need to build libguestfs.
+
+I have a file called F<localconfigure> which is a simple wrapper
+around F<autogen.sh> containing local configure customizations that I
+need.  It looks like this:
+
+ . localenv
+ ./autogen.sh \
+     -C \
+     --enable-gcc-warnings \
+     "$@"
+
+So I can use this to build libguestfs:
+
+ ./localconfigure && make
+
+If there is a file in the top build directory called F<localenv>, then
+it will be sourced by C<make>.  This file can contain any local
+environment variables needed, eg. for skipping tests:
+
+ # Use an alternate python binary.
+ export PYTHON=python3
+ # Skip this test, it is broken.
+ export SKIP_TEST_BTRFS_FSCK=1
+
+Note that F<localenv> is included by the top Makefile (so it's a
+Makefile fragment).  But if it is also sourced by your
+F<localconfigure> script then it is used as a shell script.
+
 =head1 NOTES ABOUT QEMU AND KVM
 
 A common problem is with broken or incompatible qemu releases.
