@@ -1,5 +1,5 @@
-(* virt-resize
- * Copyright (C) 2013 Red Hat Inc.
+(* libguestfs OCaml tools common code
+ * Copyright (C) 2013-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,5 +16,5 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-external sync : unit -> unit = "virt_resize_sync" "noalloc"
-external file : string -> unit = "virt_resize_fsync_file"
+external sync : unit -> unit = "guestfs_int_mllib_sync" "noalloc"
+external file : string -> unit = "guestfs_int_mllib_fsync_file"

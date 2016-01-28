@@ -1,5 +1,5 @@
-/* virt-resize - interface to -a URI option parsing mini library
- * Copyright (C) 2013 Red Hat Inc.
+/* interface to -a URI option parsing mini library
+ * Copyright (C) 2013-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,10 +34,10 @@
 #include "guestfs-internal-frontend.h"
 #include "uri.h"
 
-extern value virt_resize_parse_uri (value argv);
+extern value guestfs_int_mllib_parse_uri (value argv);
 
 value
-virt_resize_parse_uri (value argv /* arg value, not an array! */)
+guestfs_int_mllib_parse_uri (value argv /* arg value, not an array! */)
 {
   CAMLparam1 (argv);
   CAMLlocal4 (rv, sv, ssv, ov);

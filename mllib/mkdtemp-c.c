@@ -1,5 +1,5 @@
-/* virt-builder
- * Copyright (C) 2014 Red Hat Inc.
+/* libguestfs OCaml tools common code
+ * Copyright (C) 2014-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 value
-virt_builder_mkdtemp (value val_pattern)
+guestfs_int_mllib_mkdtemp (value val_pattern)
 {
   CAMLparam1 (val_pattern);
   CAMLlocal1 (rv);

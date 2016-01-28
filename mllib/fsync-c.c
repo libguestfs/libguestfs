@@ -1,5 +1,5 @@
-/* virt-resize - interface to fsync
- * Copyright (C) 2013 Red Hat Inc.
+/* libguestfs OCaml tools common code
+ * Copyright (C) 2013-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,12 +38,12 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 
 /* OCaml doesn't bind any *sync* calls. */
 
-extern value virt_resize_sync (value unitv);
-extern value virt_resize_fsync_file (value filenamev);
+extern value guestfs_int_mllib_sync (value unitv);
+extern value guestfs_int_mllib_fsync_file (value filenamev);
 
 /* NB: This is a "noalloc" call. */
 value
-virt_resize_sync (value unitv)
+guestfs_int_mllib_sync (value unitv)
 {
   sync ();
   return Val_unit;
@@ -60,7 +60,7 @@ virt_resize_sync (value unitv)
  * http://pubs.opengroup.org/onlinepubs/007908775/xsh/fsync.html
  */
 value
-virt_resize_fsync_file (value filenamev)
+guestfs_int_mllib_fsync_file (value filenamev)
 {
   CAMLparam1 (filenamev);
   const char *filename = String_val (filenamev);
