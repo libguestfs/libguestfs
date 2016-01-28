@@ -1,5 +1,5 @@
-(* virt-resize - interface to -a URI option parsing mini library
- * Copyright (C) 2013 Red Hat Inc.
+(* interface to -a URI option parsing mini library
+ * Copyright (C) 2013-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,4 +24,4 @@ type uri = {
   password : string option;
 }
 
-external parse_uri : string -> uri = "virt_resize_parse_uri"
+external parse_uri : string -> uri = "guestfs_int_mllib_parse_uri"

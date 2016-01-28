@@ -29,7 +29,7 @@
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 value
-virt_sysprep_crypt (value keyv, value saltv)
+virt_customize_crypt (value keyv, value saltv)
 {
   CAMLparam2 (keyv, saltv);
   CAMLlocal1 (rv);

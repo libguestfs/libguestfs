@@ -1,5 +1,5 @@
-(* virt-builder
- * Copyright (C) 2014 Red Hat Inc.
+(* libguestfs OCaml tools common code
+ * Copyright (C) 2014-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 open Common_utils
 
-external mkdtemp : string -> string = "virt_builder_mkdtemp"
+external mkdtemp : string -> string = "guestfs_int_mllib_mkdtemp"
 
 let temp_dir ?(base_dir = Filename.temp_dir_name) prefix suffix =
   mkdtemp (base_dir // (prefix ^ "XXXXXX" ^ suffix))

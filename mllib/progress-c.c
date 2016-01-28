@@ -1,5 +1,5 @@
-/* virt-resize - interface to progress bar mini library
- * Copyright (C) 2011 Red Hat Inc.
+/* libguestfs OCaml tools common code
+ * Copyright (C) 2011-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ static struct custom_operations progress_bar_custom_operations = {
 };
 
 value
-virt_resize_progress_bar_init (value machine_readablev)
+guestfs_int_mllib_progress_bar_init (value machine_readablev)
 {
   CAMLparam1 (machine_readablev);
   CAMLlocal1 (barv);
@@ -84,7 +84,7 @@ virt_resize_progress_bar_init (value machine_readablev)
 
 /* NB: "noalloc" function. */
 value
-virt_resize_progress_bar_reset (value barv)
+guestfs_int_mllib_progress_bar_reset (value barv)
 {
   struct progress_bar *bar = Bar_val (barv);
 
@@ -95,8 +95,8 @@ virt_resize_progress_bar_reset (value barv)
 
 /* NB: "noalloc" function. */
 value
-virt_resize_progress_bar_set (value barv,
-                              value positionv, value totalv)
+guestfs_int_mllib_progress_bar_set (value barv,
+                                    value positionv, value totalv)
 {
   struct progress_bar *bar = Bar_val (barv);
   uint64_t position = Int64_val (positionv);

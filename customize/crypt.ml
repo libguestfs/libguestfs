@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-external crypt : string -> string -> string = "virt_sysprep_crypt"
+external crypt : string -> string -> string = "virt_customize_crypt"

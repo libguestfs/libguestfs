@@ -57,12 +57,12 @@ static void event_callback_wrapper (guestfs_h *g, void *data, uint64_t event, in
 #endif
 
 /* These prototypes are solely to quiet gcc warning.  */
-value ocaml_guestfs_create (value environmentv, value close_on_exitv, value unitv);
-value ocaml_guestfs_close (value gv);
-value ocaml_guestfs_set_event_callback (value gv, value closure, value events);
-value ocaml_guestfs_delete_event_callback (value gv, value eh);
-value ocaml_guestfs_event_to_string (value events);
-value ocaml_guestfs_last_errno (value gv);
+value guestfs_int_ocaml_create (value environmentv, value close_on_exitv, value unitv);
+value guestfs_int_ocaml_close (value gv);
+value guestfs_int_ocaml_set_event_callback (value gv, value closure, value events);
+value guestfs_int_ocaml_delete_event_callback (value gv, value eh);
+value guestfs_int_ocaml_event_to_string (value events);
+value guestfs_int_ocaml_last_errno (value gv);
 
 /* Allocate handles and deal with finalization. */
 static void
@@ -116,7 +116,7 @@ Val_guestfs (guestfs_h *g)
 }
 
 void
-ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
+guestfs_int_ocaml_raise_error (guestfs_h *g, const char *func)
 {
   CAMLparam0 ();
   CAMLlocal1 (v);
@@ -128,24 +128,24 @@ ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
     v = caml_copy_string (msg);
   else
     v = caml_copy_string (func);
-  caml_raise_with_arg (*caml_named_value ("ocaml_guestfs_error"), v);
+  caml_raise_with_arg (*caml_named_value ("guestfs_int_ocaml_error"), v);
   CAMLnoreturn;
 }
 
 void
-ocaml_guestfs_raise_closed (const char *func)
+guestfs_int_ocaml_raise_closed (const char *func)
 {
   CAMLparam0 ();
   CAMLlocal1 (v);
 
   v = caml_copy_string (func);
-  caml_raise_with_arg (*caml_named_value ("ocaml_guestfs_closed"), v);
+  caml_raise_with_arg (*caml_named_value ("guestfs_int_ocaml_closed"), v);
   CAMLnoreturn;
 }
 
 /* Guestfs.create */
 value
-ocaml_guestfs_create (value environmentv, value close_on_exitv, value unitv)
+guestfs_int_ocaml_create (value environmentv, value close_on_exitv, value unitv)
 {
   CAMLparam3 (environmentv, close_on_exitv, unitv);
   CAMLlocal1 (gv);
@@ -173,7 +173,7 @@ ocaml_guestfs_create (value environmentv, value close_on_exitv, value unitv)
 
 /* Guestfs.close */
 value
-ocaml_guestfs_close (value gv)
+guestfs_int_ocaml_close (value gv)
 {
   CAMLparam1 (gv);
 
@@ -187,7 +187,7 @@ ocaml_guestfs_close (value gv)
 
 /* Copy string array value. */
 char **
-ocaml_guestfs_strings_val (guestfs_h *g, value sv)
+guestfs_int_ocaml_strings_val (guestfs_h *g, value sv)
 {
   CAMLparam1 (sv);
   char **r;
@@ -216,7 +216,7 @@ event_bitmask_of_event_list (value events)
 
 /* Guestfs.set_event_callback */
 value
-ocaml_guestfs_set_event_callback (value gv, value closure, value events)
+guestfs_int_ocaml_set_event_callback (value gv, value closure, value events)
 {
   CAMLparam3 (gv, closure, events);
   char key[64];
@@ -235,7 +235,7 @@ ocaml_guestfs_set_event_callback (value gv, value closure, value events)
 
   if (eh == -1) {
     free (root);
-    ocaml_guestfs_raise_error (g, "set_event_callback");
+    guestfs_int_ocaml_raise_error (g, "set_event_callback");
   }
 
   caml_register_generational_global_root (root);
@@ -248,7 +248,7 @@ ocaml_guestfs_set_event_callback (value gv, value closure, value events)
 
 /* Guestfs.delete_event_callback */
 value
-ocaml_guestfs_delete_event_callback (value gv, value ehv)
+guestfs_int_ocaml_delete_event_callback (value gv, value ehv)
 {
   CAMLparam2 (gv, ehv);
   char key[64];
@@ -271,7 +271,7 @@ ocaml_guestfs_delete_event_callback (value gv, value ehv)
 
 /* Guestfs.event_to_string */
 value
-ocaml_guestfs_event_to_string (value events)
+guestfs_int_ocaml_event_to_string (value events)
 {
   CAMLparam1 (events);
   CAMLlocal1 (rv);
@@ -398,7 +398,7 @@ event_callback_wrapper (guestfs_h *g,
 }
 
 value
-ocaml_guestfs_last_errno (value gv)
+guestfs_int_ocaml_last_errno (value gv)
 {
   CAMLparam1 (gv);
   CAMLlocal1 (rv);
@@ -407,7 +407,7 @@ ocaml_guestfs_last_errno (value gv)
 
   g = Guestfs_val (gv);
   if (g == NULL)
-    ocaml_guestfs_raise_closed ("last_errno");
+    guestfs_int_ocaml_raise_closed ("last_errno");
 
   r = guestfs_last_errno (g);
 

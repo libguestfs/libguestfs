@@ -48,7 +48,7 @@ virt_customize_edit_file_perl (value verbosev, value gv, value filev,
   r = edit_file_perl (g, String_val (filev), String_val (exprv), NULL,
                       Bool_val (verbosev));
   if (r == -1)
-    ocaml_guestfs_raise_error (g, "edit_file_perl");
+    guestfs_int_ocaml_raise_error (g, "edit_file_perl");
 
   CAMLreturn (Val_unit);
 }

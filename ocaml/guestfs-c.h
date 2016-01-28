@@ -22,10 +22,10 @@
 #include "guestfs-internal-frontend.h"
 
 #define Guestfs_val(v) (*((guestfs_h **)Data_custom_val(v)))
-extern void ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
+extern void guestfs_int_ocaml_raise_error (guestfs_h *g, const char *func)
   Noreturn;
-extern void ocaml_guestfs_raise_closed (const char *func)
+extern void guestfs_int_ocaml_raise_closed (const char *func)
   Noreturn;
-extern char **ocaml_guestfs_strings_val (guestfs_h *g, value sv);
+extern char **guestfs_int_ocaml_strings_val (guestfs_h *g, value sv);
 
 #endif /* GUESTFS_OCAML_C_H */
