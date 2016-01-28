@@ -7274,7 +7274,7 @@ per libguestfs instance." };
       InitScratchFS, Always, TestResult (
         [["mkdir"; "/inotify_add_watch"];
          ["inotify_init"; "0"];
-         ["inotify_add_watch"; "/inotify_add_watch"; "1073741823"];
+         ["inotify_add_watch"; "/inotify_add_watch"; "4095"];
          ["touch"; "/inotify_add_watch/a"];
          ["touch"; "/inotify_add_watch/b"];
          ["inotify_files"]],
