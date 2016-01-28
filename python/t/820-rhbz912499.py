@@ -30,28 +30,28 @@ import guestfs
 try:
     import libvirt
 except:
-    print "skipping test: could not import python-libvirt"
+    print ("skipping test: could not import python-libvirt")
     exit (77)
 
 # If the backend is not libvirt, skip the test.
 backend = guestfs.GuestFS().get_backend()
 rex = re.compile ("^libvirt")
 if not rex.match (backend):
-    print "skipping test: backend is not libvirt"
+    print ("skipping test: backend is not libvirt")
     exit (77)
 
 # If the architecture doesn't support IDE, skip the test.
 machine = platform.machine ()
 rex = re.compile ("i.86")
 if machine != "x86_64" and not rex.match (machine):
-    print "skipping test: arch is not x86 and does not support IDE"
+    print ("skipping test: arch is not x86 and does not support IDE")
     exit (77)
 
 conn = libvirt.open (None)
 
 # Check we're using the version of libvirt-python that has c_pointer() methods.
 if not "c_pointer" in dir (conn):
-    print "skipping test: libvirt-python doesn't support c_pointer()"
+    print ("skipping test: libvirt-python doesn't support c_pointer()")
     exit (77)
 
 # Create a test disk.
@@ -86,12 +86,12 @@ dom = conn.createXML (xml, libvirt.VIR_DOMAIN_START_AUTODESTROY)
 if dom == None:
     raise "could not create temporary domain (%s)" % domname
 
-print "temporary domain %s is running" % domname
+print ("temporary domain %s is running" % domname)
 
 # Libvirt should have labelled the disk.
-print "before starting libguestfs"
+print ("before starting libguestfs")
 before = check_output (["ls", "-Z", filename])
-print "disk label = %s" % before
+print ("disk label = %s" % before)
 
 # Now see if we can open the domain with libguestfs without
 # disturbing the label.
@@ -101,9 +101,9 @@ if r != 1:
     raise "unexpected return value from add_libvirt_dom (%d)" % r
 g.launch ()
 
-print "after starting libguestfs"
+print ("after starting libguestfs")
 after = check_output (["ls", "-Z", filename])
-print "disk label = %s" % after
+print ("disk label = %s" % after)
 
 if before != after:
     raise "disk label was changed unexpectedly"

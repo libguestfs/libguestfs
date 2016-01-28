@@ -28,14 +28,14 @@ guestsdir = os.environ['guestsdir']
 try:
     import libvirt
 except:
-    print "could not import python-libvirt"
+    print ("could not import python-libvirt")
     exit (77)
 
 conn = libvirt.open ("test:///%s/guests.xml" % guestsdir)
 
 # Check we're using the version of libvirt-python that has c_pointer() methods.
 if not "c_pointer" in dir (conn):
-    print "skipping test: libvirt-python doesn't support c_pointer()"
+    print ("skipping test: libvirt-python doesn't support c_pointer()")
     exit (77)
 
 dom = conn.lookupByName ("blank-disk")
