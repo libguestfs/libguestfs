@@ -252,7 +252,7 @@ put_table (char * const * const argv)
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase name);
       pr "static PyObject *\n";
-      pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
+      pr "guestfs_int_py_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
 
       if blocking then
@@ -547,18 +547,18 @@ put_table (char * const * const argv)
 
   (* Table of functions. *)
   pr "static PyMethodDef methods[] = {\n";
-  pr "  { (char *) \"create\", py_guestfs_create, METH_VARARGS, NULL },\n";
-  pr "  { (char *) \"close\", py_guestfs_close, METH_VARARGS, NULL },\n";
+  pr "  { (char *) \"create\", guestfs_int_py_create, METH_VARARGS, NULL },\n";
+  pr "  { (char *) \"close\", guestfs_int_py_close, METH_VARARGS, NULL },\n";
   pr "  { (char *) \"set_event_callback\",\n";
-  pr "    py_guestfs_set_event_callback, METH_VARARGS, NULL },\n";
+  pr "    guestfs_int_py_set_event_callback, METH_VARARGS, NULL },\n";
   pr "  { (char *) \"delete_event_callback\",\n";
-  pr "    py_guestfs_delete_event_callback, METH_VARARGS, NULL },\n";
+  pr "    guestfs_int_py_delete_event_callback, METH_VARARGS, NULL },\n";
   pr "  { (char *) \"event_to_string\",\n";
-  pr "    py_guestfs_event_to_string, METH_VARARGS, NULL },\n";
+  pr "    guestfs_int_py_event_to_string, METH_VARARGS, NULL },\n";
   List.iter (
     fun { name = name } ->
       pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase name);
-      pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
+      pr "  { (char *) \"%s\", guestfs_int_py_%s, METH_VARARGS, NULL },\n"
         name name;
       pr "#endif\n"
   ) external_functions_sorted;

@@ -37,7 +37,7 @@
 static PyObject **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
 
 PyObject *
-py_guestfs_create (PyObject *self, PyObject *args)
+guestfs_int_py_create (PyObject *self, PyObject *args)
 {
   guestfs_h *g;
   unsigned flags;
@@ -58,7 +58,7 @@ py_guestfs_create (PyObject *self, PyObject *args)
 }
 
 PyObject *
-py_guestfs_close (PyObject *self, PyObject *args)
+guestfs_int_py_close (PyObject *self, PyObject *args)
 {
   PyThreadState *py_save = NULL;
   PyObject *py_g;
@@ -92,7 +92,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
 /* http://docs.python.org/release/2.5.2/ext/callingPython.html */
 static void
-py_guestfs_event_callback_wrapper (guestfs_h *g,
+guestfs_int_py_event_callback_wrapper (guestfs_h *g,
                                    void *callback,
                                    uint64_t event,
                                    int event_handle,
@@ -137,7 +137,7 @@ py_guestfs_event_callback_wrapper (guestfs_h *g,
 }
 
 PyObject *
-py_guestfs_set_event_callback (PyObject *self, PyObject *args)
+guestfs_int_py_set_event_callback (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
   guestfs_h *g;
@@ -160,7 +160,7 @@ py_guestfs_set_event_callback (PyObject *self, PyObject *args)
 
   g = get_handle (py_g);
 
-  eh = guestfs_set_event_callback (g, py_guestfs_event_callback_wrapper,
+  eh = guestfs_set_event_callback (g, guestfs_int_py_event_callback_wrapper,
                                    events, 0, py_callback);
   if (eh == -1) {
     PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
@@ -170,7 +170,7 @@ py_guestfs_set_event_callback (PyObject *self, PyObject *args)
   /* Increase the refcount for this callback since we are storing it
    * in the opaque C libguestfs handle.  We need to remember that we
    * did this, so we can decrease the refcount for all undeleted
-   * callbacks left around at close time (see py_guestfs_close).
+   * callbacks left around at close time (see guestfs_int_py_close).
    */
   Py_XINCREF (py_callback);
 
@@ -182,7 +182,7 @@ py_guestfs_set_event_callback (PyObject *self, PyObject *args)
 }
 
 PyObject *
-py_guestfs_delete_event_callback (PyObject *self, PyObject *args)
+guestfs_int_py_delete_event_callback (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
   guestfs_h *g;
@@ -208,7 +208,7 @@ py_guestfs_delete_event_callback (PyObject *self, PyObject *args)
 }
 
 PyObject *
-py_guestfs_event_to_string (PyObject *self, PyObject *args)
+guestfs_int_py_event_to_string (PyObject *self, PyObject *args)
 {
   unsigned PY_LONG_LONG events;
   char *str;
