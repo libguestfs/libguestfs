@@ -216,7 +216,9 @@ do_inotify_read (void)
     r = read (inotify_fd, inotify_buf + inotify_posn,
               sizeof (inotify_buf) - inotify_posn);
     if (r == -1) {
-      if (errno == EWOULDBLOCK || errno == EAGAIN) /* End of list. */
+       /* End of list? */
+      if (errno == EWOULDBLOCK ||
+          (EWOULDBLOCK != EAGAIN && errno == EAGAIN))
         break;
       reply_with_perror ("read");
       goto error;
