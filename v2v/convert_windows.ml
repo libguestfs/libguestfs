@@ -484,9 +484,13 @@ if errorlevel 3010 exit /b 0
          oem_inf in
 
     (* There should be a key
-     * HKLM\SYSTEM\ControlSet001\Control\Class\<scsi_adapter_guid>
+     *   HKLM\SYSTEM\ControlSet001\Control\Class\<scsi_adapter_guid>
      * There may be subkey(s) of this called "0000", "0001" etc.  We want
-     * to create the next free subkey.
+     * to create the next free subkey.  MSFT covers the key here:
+     *   https://technet.microsoft.com/en-us/library/cc957341.aspx
+     * That page incorrectly states that the key has the form "000n".
+     * In fact we observed from real registries that the key is a
+     * decimal number that goes 0009 -> 0010 etc.
      *)
     let controller_path =
       [ current_cs; "Control"; "Class"; scsi_adapter_guid ] in
