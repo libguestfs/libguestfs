@@ -92,7 +92,9 @@ let find_uefi_firmware guest_arch =
        [ "/usr/share/OVMF/OVMF_CODE.fd",
          "/usr/share/OVMF/OVMF_VARS.fd";
          "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd",
-         "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd" ]
+         "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd";
+         "/usr/share/qemu/ovmf-x86_64-code.bin",
+         "/usr/share/qemu/ovmf-x86_64-vars.bin" ]
     | "aarch64" ->
        [ "/usr/share/AAVMF/AAVMF_CODE.fd",
          "/usr/share/AAVMF/AAVMF_VARS.fd";
