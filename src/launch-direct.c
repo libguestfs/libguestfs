@@ -61,6 +61,8 @@ struct backend_direct_data {
   int qemu_version_major, qemu_version_minor;
 
   int virtio_scsi;        /* See function qemu_supports_virtio_scsi */
+
+  char guestfsd_sock[UNIX_PATH_MAX]; /* Path to daemon socket. */
 };
 
 static int is_openable (guestfs_h *g, const char *path, int flags);
@@ -232,7 +234,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   int r;
   int flags;
   int sv[2];
-  char guestfsd_sock[256];
   struct sockaddr_un addr;
   CLEANUP_FREE char *uefi_code = NULL, *uefi_vars = NULL;
   CLEANUP_FREE char *kernel = NULL, *initrd = NULL, *appliance = NULL;
@@ -294,8 +295,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
    */
-  snprintf (guestfsd_sock, sizeof guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
-  unlink (guestfsd_sock);
+  snprintf (data->guestfsd_sock, sizeof data->guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
+  unlink (data->guestfsd_sock);
 
   daemon_accept_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (daemon_accept_sock == -1) {
@@ -304,7 +305,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   addr.sun_family = AF_UNIX;
-  strncpy (addr.sun_path, guestfsd_sock, UNIX_PATH_MAX);
+  strncpy (addr.sun_path, data->guestfsd_sock, UNIX_PATH_MAX);
   addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
   if (bind (daemon_accept_sock, (struct sockaddr *) &addr,
@@ -599,7 +600,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Set up virtio-serial for the communications channel. */
   ADD_CMDLINE ("-chardev");
-  ADD_CMDLINE_PRINTF ("socket,path=%s,id=channel0", guestfsd_sock);
+  ADD_CMDLINE_PRINTF ("socket,path=%s,id=channel0", data->guestfsd_sock);
   ADD_CMDLINE ("-device");
   ADD_CMDLINE ("virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
 
