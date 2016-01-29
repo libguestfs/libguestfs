@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-01-27 17:34+0000\n"
+"POT-Creation-Date: 2016-01-29 10:24+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -110,7 +110,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1316
+#: ../v2v/convert_linux.ml:1321
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -213,7 +213,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows.ml:98
+#: ../v2v/windows_virtio.ml:397 ../v2v/windows.ml:98
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -489,7 +489,7 @@ msgid ""
 "rwmjones/rhsrvany).  Original error: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:64
+#: ../v2v/convert_windows.ml:62
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -2274,7 +2274,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1110
+#: ../v2v/convert_linux.ml:1115
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2626,16 +2626,16 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:489
+#: ../v2v/windows_virtio.ml:200
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:475
+#: ../v2v/windows_virtio.ml:174
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/utils.ml:106
+#: ../v2v/utils.ml:108
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -2661,13 +2661,13 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:196
+#: ../v2v/convert_windows.ml:194
 msgid ""
 "cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
 "DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:141
+#: ../v2v/convert_windows.ml:139
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2711,7 +2711,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1040
+#: ../v2v/convert_linux.ml:1045
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2731,7 +2731,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:685
+#: ../v2v/convert_windows.ml:375
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2765,7 +2765,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1058
+#: ../v2v/convert_linux.ml:1063
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2776,7 +2776,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1047
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2853,7 +2853,7 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/utils.ml:102
+#: ../v2v/utils.ml:104
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
@@ -2869,7 +2869,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1165
+#: ../v2v/convert_linux.ml:1170
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3666,7 +3666,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:335
+#: ../v2v/windows_virtio.ml:35
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3674,7 +3674,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:372
+#: ../v2v/windows_virtio.ml:72
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3690,7 +3690,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:351
+#: ../v2v/windows_virtio.ml:51
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3698,7 +3698,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:360
+#: ../v2v/windows_virtio.ml:60
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3712,7 +3712,7 @@ msgid ""
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:771
+#: ../v2v/convert_windows.ml:461
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3720,7 +3720,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:769
+#: ../v2v/convert_windows.ml:459
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3750,7 +3750,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1209
+#: ../v2v/convert_linux.ml:1214
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3765,7 +3765,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:907
+#: ../v2v/convert_linux.ml:912
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -3945,7 +3945,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:457
+#: ../v2v/windows_virtio.ml:157
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 

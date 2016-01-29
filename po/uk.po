@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-01-27 17:34+0000\n"
+"POT-Creation-Date: 2016-01-29 10:24+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -136,7 +136,7 @@ msgstr "Потрібен %s, але його не знайдено"
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1316
+#: ../v2v/convert_linux.ml:1321
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -280,7 +280,7 @@ msgstr ""
 "Коротке резюме параметрів надано нижче. Докладніші довідкові дані\n"
 "можна знайти на сторінках підручника (man) virt-builder(1).\n"
 
-#: ../v2v/windows.ml:98
+#: ../v2v/windows_virtio.ml:397 ../v2v/windows.ml:98
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr "%s: не вдалося відкрити файл ISO virtio-win: %s"
 
@@ -656,7 +656,7 @@ msgstr ""
 "завантаження Windows. Отримати цей файл можна зібравши rhsrvany (https://"
 "github.com/rwmjones/rhsrvany). Початкове повідомлення про помилку: %s"
 
-#: ../v2v/convert_windows.ml:64
+#: ../v2v/convert_windows.ml:62
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -2618,7 +2618,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1110
+#: ../v2v/convert_linux.ml:1115
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -3080,18 +3080,18 @@ msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
 
-#: ../v2v/convert_windows.ml:489
+#: ../v2v/windows_virtio.ml:200
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr "не вдалося знайти HKLM\\SYSTEM\\%s у регістрі гостьової системи"
 
-#: ../v2v/convert_windows.ml:475
+#: ../v2v/windows_virtio.ml:174
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
 "не вдалося знайти HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s у регістрі "
 "гостьової системи"
 
-#: ../v2v/utils.ml:106
+#: ../v2v/utils.ml:108
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -3125,13 +3125,13 @@ msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 "не вдалося встановити випадковий UUID для файлової системи %s типу %s: %s"
 
-#: ../v2v/convert_windows.ml:196
+#: ../v2v/convert_windows.ml:194
 msgid ""
 "cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
 "DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:141
+#: ../v2v/convert_windows.ml:139
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -3191,7 +3191,7 @@ msgstr ""
 "помилка під час спроби виконати copy, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/convert_linux.ml:1040
+#: ../v2v/convert_linux.ml:1045
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -3217,7 +3217,7 @@ msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 "не вдалося знайти каталог кешування. Чи встановлено значення змінної $HOME?"
 
-#: ../v2v/convert_windows.ml:685
+#: ../v2v/convert_windows.ml:375
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -3261,7 +3261,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1058
+#: ../v2v/convert_linux.ml:1063
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -3275,7 +3275,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1047
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -3367,7 +3367,7 @@ msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt пр
 msgid "domain"
 msgstr "домен"
 
-#: ../v2v/utils.ml:102
+#: ../v2v/utils.ml:104
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr "спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
 
@@ -3387,7 +3387,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1165
+#: ../v2v/convert_linux.ml:1170
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -4351,7 +4351,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr "у %s (%s) немає UUID. Це справді OVirt чи RHEV-M %s?"
 
-#: ../v2v/convert_windows.ml:335
+#: ../v2v/windows_virtio.ml:35
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -4364,7 +4364,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільніших емульованих "
 "пристроїв."
 
-#: ../v2v/convert_windows.ml:372
+#: ../v2v/windows_virtio.ml:72
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -4389,7 +4389,7 @@ msgstr ""
 "але це означатиме, що ваша система стане вразливою до нападів man-in-the-"
 "middle."
 
-#: ../v2v/convert_windows.ml:351
+#: ../v2v/windows_virtio.ml:51
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -4402,7 +4402,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/convert_windows.ml:360
+#: ../v2v/windows_virtio.ml:60
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -4424,7 +4424,7 @@ msgstr ""
 "не передбачено підтримки мікропрограм %s (підтримувана мікропрограма на "
 "призначенні: %s)"
 
-#: ../v2v/convert_windows.ml:771
+#: ../v2v/convert_windows.ml:461
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -4437,7 +4437,7 @@ msgstr ""
 "(результатом є помилка завантаження 7B). Якщо таке трапляється, спробуйте "
 "вимкнути антивірус до перетворення."
 
-#: ../v2v/convert_windows.ml:769
+#: ../v2v/convert_windows.ml:459
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -4474,7 +4474,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:1209
+#: ../v2v/convert_linux.ml:1214
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4497,7 +4497,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:907
+#: ../v2v/convert_linux.ml:912
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4714,7 +4714,7 @@ msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
 
-#: ../v2v/convert_windows.ml:457
+#: ../v2v/windows_virtio.ml:157
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr "під час додавання viostor до DriverDatabase, невідома архітектура: %s"
 

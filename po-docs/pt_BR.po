@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-01-27 17:34+0000\n"
+"POT-Creation-Date: 2016-01-29 10:24+0000\n"
 "PO-Revision-Date: 2015-10-28 05:02-0400\n"
 "Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -566,7 +566,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:109 ../cat/virt-filesystems.pod:183
 #: ../cat/virt-log.pod:92 ../cat/virt-ls.pod:331
 #: ../customize/virt-customize.pod:110 ../df/virt-df.pod:128
-#: ../diff/virt-diff.pod:148 ../docs/guestfs-hacking.pod:438
+#: ../diff/virt-diff.pod:148 ../docs/guestfs-hacking.pod:412
 #: ../docs/guestfs-recipes.pod:457 ../edit/virt-edit.pod:141
 #: ../fish/guestfish.pod:236 ../fish/guestfish.pod:694
 #: ../format/virt-format.pod:100 ../inspector/virt-inspector.pod:354
@@ -1139,22 +1139,22 @@ msgstr ""
 #: ../cat/virt-cat.pod:239 ../customize/customize-options.pod:253
 #: ../customize/customize-options.pod:257 ../docs/guestfs-building.pod:13
 #: ../docs/guestfs-building.pod:17 ../docs/guestfs-building.pod:21
-#: ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:540
-#: ../docs/guestfs-building.pod:545 ../docs/guestfs-faq.pod:188
+#: ../docs/guestfs-building.pod:25 ../docs/guestfs-building.pod:573
+#: ../docs/guestfs-building.pod:578 ../docs/guestfs-faq.pod:188
 #: ../docs/guestfs-faq.pod:194 ../docs/guestfs-faq.pod:198
 #: ../docs/guestfs-faq.pod:203 ../docs/guestfs-faq.pod:768
 #: ../docs/guestfs-faq.pod:774 ../docs/guestfs-faq.pod:813
 #: ../docs/guestfs-faq.pod:819 ../docs/guestfs-faq.pod:1342
 #: ../docs/guestfs-faq.pod:1353 ../docs/guestfs-faq.pod:1358
-#: ../docs/guestfs-hacking.pod:381 ../docs/guestfs-hacking.pod:385
-#: ../docs/guestfs-hacking.pod:389 ../docs/guestfs-hacking.pod:393
-#: ../docs/guestfs-hacking.pod:397 ../docs/guestfs-hacking.pod:697
-#: ../docs/guestfs-hacking.pod:701 ../docs/guestfs-hacking.pod:767
-#: ../docs/guestfs-hacking.pod:772 ../docs/guestfs-hacking.pod:776
-#: ../docs/guestfs-hacking.pod:780 ../docs/guestfs-hacking.pod:794
-#: ../docs/guestfs-hacking.pod:798 ../docs/guestfs-hacking.pod:803
-#: ../docs/guestfs-hacking.pod:807 ../docs/guestfs-hacking.pod:819
-#: ../docs/guestfs-hacking.pod:826 ../docs/guestfs-hacking.pod:830
+#: ../docs/guestfs-hacking.pod:346 ../docs/guestfs-hacking.pod:350
+#: ../docs/guestfs-hacking.pod:354 ../docs/guestfs-hacking.pod:358
+#: ../docs/guestfs-hacking.pod:362 ../docs/guestfs-hacking.pod:665
+#: ../docs/guestfs-hacking.pod:669 ../docs/guestfs-hacking.pod:735
+#: ../docs/guestfs-hacking.pod:740 ../docs/guestfs-hacking.pod:744
+#: ../docs/guestfs-hacking.pod:748 ../docs/guestfs-hacking.pod:762
+#: ../docs/guestfs-hacking.pod:766 ../docs/guestfs-hacking.pod:771
+#: ../docs/guestfs-hacking.pod:775 ../docs/guestfs-hacking.pod:787
+#: ../docs/guestfs-hacking.pod:794 ../docs/guestfs-hacking.pod:798
 #: ../docs/guestfs-performance.pod:105 ../docs/guestfs-performance.pod:111
 #: ../docs/guestfs-performance.pod:116 ../docs/guestfs-performance.pod:243
 #: ../docs/guestfs-performance.pod:248 ../docs/guestfs-performance.pod:253
@@ -1353,8 +1353,8 @@ msgstr ""
 #: ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518
 #: ../customize/virt-customize.pod:259 ../daemon/guestfsd.pod:143
 #: ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248
-#: ../docs/guestfs-building.pod:583 ../docs/guestfs-faq.pod:1372
-#: ../docs/guestfs-hacking.pod:837 ../docs/guestfs-internals.pod:400
+#: ../docs/guestfs-building.pod:616 ../docs/guestfs-faq.pod:1372
+#: ../docs/guestfs-hacking.pod:805 ../docs/guestfs-internals.pod:400
 #: ../docs/guestfs-performance.pod:567 ../docs/guestfs-recipes.pod:668
 #: ../docs/guestfs-release-notes.pod:4813 ../docs/guestfs-security.pod:340
 #: ../docs/guestfs-testing.pod:399 ../edit/virt-edit.pod:383
@@ -1429,8 +1429,8 @@ msgstr ""
 #: ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532
 #: ../customize/virt-customize.pod:280 ../daemon/guestfsd.pod:152
 #: ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262
-#: ../docs/guestfs-building.pod:600 ../docs/guestfs-faq.pod:1382
-#: ../docs/guestfs-hacking.pod:853 ../docs/guestfs-internals.pod:413
+#: ../docs/guestfs-building.pod:633 ../docs/guestfs-faq.pod:1382
+#: ../docs/guestfs-hacking.pod:822 ../docs/guestfs-internals.pod:413
 #: ../docs/guestfs-performance.pod:584 ../docs/guestfs-recipes.pod:687
 #: ../docs/guestfs-release-notes.pod:4828 ../docs/guestfs-security.pod:352
 #: ../docs/guestfs-testing.pod:410 ../edit/virt-edit.pod:398
@@ -1722,8 +1722,8 @@ msgstr ""
 
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
-#: ../customize/virt-customize.pod:276 ../docs/guestfs-building.pod:596
-#: ../docs/guestfs-faq.pod:1378 ../docs/guestfs-hacking.pod:849
+#: ../customize/virt-customize.pod:276 ../docs/guestfs-building.pod:629
+#: ../docs/guestfs-faq.pod:1378 ../docs/guestfs-hacking.pod:818
 #: ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:580
 #: ../docs/guestfs-recipes.pod:683 ../docs/guestfs-security.pod:348
 #: ../docs/guestfs-testing.pod:406 ../erlang/examples/guestfs-erlang.pod:110
@@ -1746,8 +1746,8 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
-#: ../docs/guestfs-building.pod:598 ../docs/guestfs-faq.pod:1380
-#: ../docs/guestfs-hacking.pod:851 ../docs/guestfs-internals.pod:411
+#: ../docs/guestfs-building.pod:631 ../docs/guestfs-faq.pod:1380
+#: ../docs/guestfs-hacking.pod:820 ../docs/guestfs-internals.pod:411
 #: ../docs/guestfs-performance.pod:582 ../docs/guestfs-recipes.pod:685
 #: ../docs/guestfs-security.pod:350 ../docs/guestfs-testing.pod:408
 #: ../erlang/examples/guestfs-erlang.pod:112
@@ -1767,7 +1767,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534
 #: ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
-#: ../docs/guestfs-building.pod:602 ../docs/guestfs-hacking.pod:855
+#: ../docs/guestfs-building.pod:635 ../docs/guestfs-hacking.pod:824
 #: ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:689
 #: ../docs/guestfs-release-notes.pod:4830 ../docs/guestfs-security.pod:354
 #: ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1629
@@ -2736,7 +2736,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:397 ../builder/virt-builder.pod:963
 #: ../customize/virt-customize.pod:160 ../docs/guestfs-faq.pod:494
 #: ../docs/guestfs-faq.pod:721 ../docs/guestfs-faq.pod:907
-#: ../docs/guestfs-hacking.pod:83 ../docs/guestfs-performance.pod:159
+#: ../docs/guestfs-hacking.pod:48 ../docs/guestfs-performance.pod:159
 #: ../docs/guestfs-performance.pod:201 ../docs/guestfs-recipes.pod:406
 #: ../docs/guestfs-security.pod:177 ../p2v/virt-p2v.pod:514
 #: ../rescue/virt-rescue.pod:316 ../resize/virt-resize.pod:29
@@ -2758,7 +2758,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:402 ../builder/virt-builder.pod:968
 #: ../customize/virt-customize.pod:165 ../docs/guestfs-faq.pod:499
 #: ../docs/guestfs-faq.pod:731 ../docs/guestfs-faq.pod:911
-#: ../docs/guestfs-hacking.pod:108 ../docs/guestfs-performance.pod:165
+#: ../docs/guestfs-hacking.pod:73 ../docs/guestfs-performance.pod:165
 #: ../docs/guestfs-performance.pod:208 ../docs/guestfs-recipes.pod:412
 #: ../docs/guestfs-security.pod:181 ../p2v/virt-p2v.pod:522
 #: ../rescue/virt-rescue.pod:324 ../resize/virt-resize.pod:42
@@ -11634,16 +11634,89 @@ msgstr ""
 
 #. type: =head1
 #: ../docs/guestfs-building.pod:449
-msgid "NOTES ABOUT QEMU AND KVM"
+msgid "F<local*> FILES"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-building.pod:451
+msgid ""
+"Files in the top source directory that begin with the prefix F<local*> are "
+"ignored by git.  These files can contain local configuration or scripts that "
+"you need to build libguestfs."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:455
+msgid ""
+"I have a file called F<localconfigure> which is a simple wrapper around "
+"F<autogen.sh> containing local configure customizations that I need.  It "
+"looks like this:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/guestfs-building.pod:459
+#, no-wrap
+msgid ""
+" . localenv\n"
+" ./autogen.sh \\\n"
+"     -C \\\n"
+"     --enable-gcc-warnings \\\n"
+"     \"$@\"\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:465
+msgid "So I can use this to build libguestfs:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/guestfs-building.pod:467
+#, no-wrap
+msgid ""
+" ./localconfigure && make\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:469
+msgid ""
+"If there is a file in the top build directory called F<localenv>, then it "
+"will be sourced by C<make>.  This file can contain any local environment "
+"variables needed, eg. for skipping tests:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/guestfs-building.pod:473
+#, no-wrap
+msgid ""
+" # Use an alternate python binary.\n"
+" export PYTHON=python3\n"
+" # Skip this test, it is broken.\n"
+" export SKIP_TEST_BTRFS_FSCK=1\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:478
+msgid ""
+"Note that F<localenv> is included by the top Makefile (so it's a Makefile "
+"fragment).  But if it is also sourced by your F<localconfigure> script then "
+"it is used as a shell script."
+msgstr ""
+
+#. type: =head1
+#: ../docs/guestfs-building.pod:482
+msgid "NOTES ABOUT QEMU AND KVM"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-building.pod:484
 msgid "A common problem is with broken or incompatible qemu releases."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:453
+#: ../docs/guestfs-building.pod:486
 msgid ""
 "Different versions of qemu have problems booting the appliance for different "
 "reasons.  This varies between versions of qemu, and Linux distributions "
@@ -11651,7 +11724,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:457
+#: ../docs/guestfs-building.pod:490
 msgid ""
 "If you find a problem, you could try using your own qemu built from source "
 "(qemu is very easy to build from source), with a \"qemu wrapper\".  See "
@@ -11659,14 +11732,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:461
+#: ../docs/guestfs-building.pod:494
 msgid ""
 "By default the configure script will look for qemu-kvm (KVM support).  KVM "
 "is much faster than using plain qemu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:464
+#: ../docs/guestfs-building.pod:497
 msgid ""
 "You may also need to enable KVM support for non-root users, by following "
 "these instructions: L<http://www.linux-kvm.org/page/"
@@ -11674,12 +11747,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:468
+#: ../docs/guestfs-building.pod:501
 msgid "On some systems, this will work too:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:470
+#: ../docs/guestfs-building.pod:503
 #, no-wrap
 msgid ""
 " chmod 0666 /dev/kvm\n"
@@ -11687,19 +11760,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:472
+#: ../docs/guestfs-building.pod:505
 msgid ""
 "On some systems, the chmod will not survive a reboot, and you will need to "
 "make edits to the udev configuration."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:475
+#: ../docs/guestfs-building.pod:508
 msgid "USING CLANG (LLVM) INSTEAD OF GCC"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:477
+#: ../docs/guestfs-building.pod:510
 #, no-wrap
 msgid ""
 " export CC=clang\n"
@@ -11709,26 +11782,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:481
+#: ../docs/guestfs-building.pod:514
 msgid ""
 "Don't enable GCC warnings (ie. I<don't> use C<./configure --enable-gcc-"
 "warnings>)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:484
+#: ../docs/guestfs-building.pod:517
 msgid "USING A PREBUILT BINARY APPLIANCE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:486
+#: ../docs/guestfs-building.pod:519
 msgid ""
 "To understand what the libguestfs appliance means, see L<guestfs-"
 "internals(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:489
+#: ../docs/guestfs-building.pod:522
 msgid ""
 "If you are using non-Linux, or a Linux distribution that does not have "
 "L<supermin(1)> support, or simply if you don't want to build your own "
@@ -11737,12 +11810,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:495
+#: ../docs/guestfs-building.pod:528
 msgid "Build libguestfs like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:497
+#: ../docs/guestfs-building.pod:530
 #, no-wrap
 msgid ""
 " ./configure --disable-appliance --disable-daemon\n"
@@ -11751,14 +11824,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:500
+#: ../docs/guestfs-building.pod:533
 msgid ""
 "Set C<$LIBGUESTFS_PATH> to the path where you unpacked the appliance "
 "tarball, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:503 ../docs/guestfs-faq.pod:567
+#: ../docs/guestfs-building.pod:536 ../docs/guestfs-faq.pod:567
 #: ../docs/guestfs-performance.pod:141
 #, no-wrap
 msgid ""
@@ -11767,19 +11840,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:505
+#: ../docs/guestfs-building.pod:538
 msgid ""
 "and run the libguestfs programs and virt tools in the normal way, eg. using "
 "the F<./run> script (see above)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:508
+#: ../docs/guestfs-building.pod:541
 msgid "BUILDING PYTHON 2 AND PYTHON 3 BINDINGS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:510
+#: ../docs/guestfs-building.pod:543
 msgid ""
 "The F<./configure> script detects the currently installed version of Python "
 "using whatever program is called C<python> in the current C<$PATH>.  "
@@ -11787,13 +11860,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:515
+#: ../docs/guestfs-building.pod:548
 msgid ""
 "You can override this behaviour by specifying an alternate Python binary, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:518
+#: ../docs/guestfs-building.pod:551
 #, no-wrap
 msgid ""
 " PYTHON=/usr/bin/python3 ./configure\n"
@@ -11801,7 +11874,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:520
+#: ../docs/guestfs-building.pod:553
 msgid ""
 "To build parallel Python 2 and Python 3 bindings, you will need to build "
 "libguestfs twice.  The second time, you can disable all the other bindings "
@@ -11810,80 +11883,80 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:525
+#: ../docs/guestfs-building.pod:558
 msgid "BUILDING A PACKAGE FOR FEDORA"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:527
+#: ../docs/guestfs-building.pod:560
 msgid ""
 "The Fedora spec file is stored under: L<http://pkgs.fedoraproject.org/cgit/"
 "rpms/libguestfs.git/>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:530
+#: ../docs/guestfs-building.pod:563
 msgid ""
 "Libguestfs is built in Fedora using the ordinary Fedora build system (Koji)."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:533
+#: ../docs/guestfs-building.pod:566
 msgid "BUILDING A PACKAGE FOR RED HAT ENTERPRISE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:535
+#: ../docs/guestfs-building.pod:568
 msgid ""
 "Red Hat Enterprise Linux (RHEL) builds of libguestfs are heavily patched.  "
 "There are broadly two types of patches we apply:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:542
+#: ../docs/guestfs-building.pod:575
 msgid ""
 "We disable many features that we do not wish to support for RHEL customers.  "
 "For example, the \"libguestfs live\" feature is disabled."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:547
+#: ../docs/guestfs-building.pod:580
 msgid "We backport upstream features."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:551
+#: ../docs/guestfs-building.pod:584
 msgid ""
 "The patches we apply to RHEL releases are available publically in the "
 "upstream git repository, in a branch called C<rhel-x.y>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:554
+#: ../docs/guestfs-building.pod:587
 msgid ""
 "For example, the RHEL 7.3 patches are available here: L<https://github.com/"
 "libguestfs/libguestfs/commits/rhel-7.3>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:557
+#: ../docs/guestfs-building.pod:590
 msgid ""
 "The sources and spec files for RHEL versions of libguestfs are available on "
 "L<ftp://ftp.redhat.com/>"
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-building.pod:560
+#: ../docs/guestfs-building.pod:593
 msgid "BUILDING i686 32 BIT VIRT-P2V"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:562
+#: ../docs/guestfs-building.pod:595
 msgid "I<(This section only applies on the x86-64 architecture.)>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:564
+#: ../docs/guestfs-building.pod:597
 msgid ""
 "Building a 32 bit virt-p2v (i686) binary improves compatibility with older "
 "hardware.  See L<virt-p2v-make-disk(1)> for details.  Although virt-p2v is a "
@@ -11893,12 +11966,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:571
+#: ../docs/guestfs-building.pod:604
 msgid "On Fedora you can use the L<mock(1)> tool.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-building.pod:573
+#: ../docs/guestfs-building.pod:606
 #, no-wrap
 msgid ""
 " fedpkg mockbuild --root fedora-23-i386\n"
@@ -11906,14 +11979,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:575
+#: ../docs/guestfs-building.pod:608
 msgid ""
 "This will result in a F<virt-v2v-*.i686.rpm> file which can be unpacked to "
 "extract the 32 bit virt-p2v binary."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:578
+#: ../docs/guestfs-building.pod:611
 msgid ""
 "The binary may be copied to either F<p2v/virt-p2v.i686>, or F<$libexecdir/"
 "virt-p2v.i686> or F<$VIRT_P2V_DATA_DIR/virt-p2v.i686> as appropriate.  This "
@@ -11921,7 +11994,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-building.pod:585
+#: ../docs/guestfs-building.pod:618
 msgid ""
 "L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-hacking(3)>, L<guestfs-"
 "internals(3)>, L<guestfs-performance(1)>, L<guestfs-release-notes(1)>, "
@@ -14640,7 +14713,7 @@ msgstr ""
 msgid "This manual page is for hackers who want to extend libguestfs itself."
 msgstr ""
 
-#. type: =head2
+#. type: =head1
 #: ../docs/guestfs-hacking.pod:9
 msgid "OVERVIEW OF THE SOURCE CODE"
 msgstr ""
@@ -14690,107 +14763,32 @@ msgstr ""
 msgid "To build from source, first read the C<README> file."
 msgstr ""
 
-#. type: =head2
+#. type: =head1
 #: ../docs/guestfs-hacking.pod:39
-msgid "F<local*> FILES"
+msgid "ADDING A NEW API"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:41
-msgid ""
-"Files in the top source directory that begin with the prefix F<local*> are "
-"ignored by git.  These files can contain local configuration or scripts that "
-"you need to build libguestfs."
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-hacking.pod:45
-msgid ""
-"By convention, I have a file called F<localconfigure> which is a simple "
-"wrapper around F<autogen.sh> containing local configure customizations that "
-"I need:"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/guestfs-hacking.pod:49
-#, no-wrap
-msgid ""
-" . localenv\n"
-" ./autogen.sh \\\n"
-"     --with-default-backend=libvirt \\\n"
-"     --enable-gcc-warnings \\\n"
-"     --enable-gtk-doc \\\n"
-"     -C \\\n"
-"     \"$@\"\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-hacking.pod:57
-msgid "So I can use this to build libguestfs:"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/guestfs-hacking.pod:59
-#, no-wrap
-msgid ""
-" ./localconfigure && make\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-hacking.pod:61
-msgid ""
-"If there is a file in the top build directory called F<localenv>, then it "
-"will be sourced by C<make>.  This file can contain any local environment "
-"variables needed, eg. for skipping tests:"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/guestfs-hacking.pod:65
-#, no-wrap
-msgid ""
-" # Use an alternate python binary.\n"
-" export PYTHON=python3\n"
-" # Skip this test, it is broken.\n"
-" export SKIP_TEST_BTRFS_FSCK=1\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-hacking.pod:70
-msgid ""
-"Note that F<localenv> is included by the top Makefile (so it's a Makefile "
-"fragment).  But if it is also sourced by your F<localconfigure> script then "
-"it is used as a shell script."
-msgstr ""
-
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:74
-msgid "ADDING A NEW API ACTION"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-hacking.pod:76
 msgid ""
 "Because large amounts of boilerplate code in libguestfs are generated, this "
 "makes it easy to extend the libguestfs API."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:79
+#: ../docs/guestfs-hacking.pod:44
 msgid "To add a new API action there are two changes:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:85
+#: ../docs/guestfs-hacking.pod:50
 msgid ""
 "You need to add a description of the call (name, parameters, return type, "
 "tests, documentation) to F<generator/actions.ml>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:88
+#: ../docs/guestfs-hacking.pod:53
 msgid ""
 "There are two sorts of API action, depending on whether the call goes "
 "through to the daemon in the appliance, or is serviced entirely by the "
@@ -14802,7 +14800,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:96
+#: ../docs/guestfs-hacking.pod:61
 msgid ""
 "Most new actions are of the first type, and get added to the "
 "C<daemon_functions> list.  Each function has a unique procedure number used "
@@ -14812,7 +14810,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:102
+#: ../docs/guestfs-hacking.pod:67
 msgid ""
 "For library-only actions of the second type, add to the "
 "C<non_daemon_functions> list.  Since these functions are serviced by the "
@@ -14822,36 +14820,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:110
+#: ../docs/guestfs-hacking.pod:75
 msgid "Implement the action (in C):"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:112
+#: ../docs/guestfs-hacking.pod:77
 msgid ""
 "For daemon actions, implement the function C<do_E<lt>nameE<gt>> in the "
 "C<daemon/> directory."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:115
+#: ../docs/guestfs-hacking.pod:80
 msgid ""
 "For library actions, implement the function C<guestfs_impl_E<lt>nameE<gt>> "
-"(note: double underscore) in the C<src/> directory."
+"in the C<src/> directory."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:118
+#: ../docs/guestfs-hacking.pod:83
 msgid "In either case, use another function as an example of what to do."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:122
+#: ../docs/guestfs-hacking.pod:87
 msgid "After making these changes, use C<make> to compile."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:124
+#: ../docs/guestfs-hacking.pod:89
 msgid ""
 "Note that you don't need to implement the RPC, language bindings, manual "
 "pages or anything else.  It's all automatically generated from the OCaml "
@@ -14859,12 +14857,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-hacking.pod:128
-msgid "ADDING TESTS FOR AN API ACTION"
+#: ../docs/guestfs-hacking.pod:93
+msgid "Adding tests for an API"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:130
+#: ../docs/guestfs-hacking.pod:95
 msgid ""
 "You can supply zero or as many tests as you want per API call.  The tests "
 "can either be added as part of the API description (F<generator/actions."
@@ -14874,61 +14872,61 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:136
+#: ../docs/guestfs-hacking.pod:101
 msgid ""
 "The following describes the test environment used when you add an API test "
 "in F<actions.ml>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:139
+#: ../docs/guestfs-hacking.pod:104
 msgid "The test environment has 4 block devices:"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:143
+#: ../docs/guestfs-hacking.pod:108
 msgid "F</dev/sda> 500MB"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:145
+#: ../docs/guestfs-hacking.pod:110
 msgid "General block device for testing."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:147
+#: ../docs/guestfs-hacking.pod:112
 msgid "F</dev/sdb> 500MB"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:149
+#: ../docs/guestfs-hacking.pod:114
 msgid ""
 "F</dev/sdb1> is an ext2 filesystem used for testing filesystem write "
 "operations."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:152
+#: ../docs/guestfs-hacking.pod:117
 msgid "F</dev/sdc> 10MB"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:154
+#: ../docs/guestfs-hacking.pod:119
 msgid "Used in a few tests where two block devices are needed."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:156
+#: ../docs/guestfs-hacking.pod:121
 msgid "F</dev/sdd>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:158
+#: ../docs/guestfs-hacking.pod:123
 msgid "ISO with fixed content (see F<images/test.iso>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:162
+#: ../docs/guestfs-hacking.pod:127
 msgid ""
 "To be able to run the tests in a reasonable amount of time, the libguestfs "
 "appliance and block devices are reused between tests.  So don't try testing "
@@ -14936,7 +14934,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:166
+#: ../docs/guestfs-hacking.pod:131
 msgid ""
 "Each test starts with an initial scenario, selected using one of the "
 "C<Init*> expressions, described in F<generator/types.ml>.  These initialize "
@@ -14946,7 +14944,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:172
+#: ../docs/guestfs-hacking.pod:137
 msgid ""
 "You can add a prerequisite clause to any individual test.  This is a run-"
 "time check, which, if it fails, causes the test to be skipped.  Useful if "
@@ -14956,14 +14954,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:178
+#: ../docs/guestfs-hacking.pod:143
 msgid ""
 "In addition, packagers can skip individual tests by setting environment "
 "variables before running C<make check>."
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:181
+#: ../docs/guestfs-hacking.pod:146
 #, no-wrap
 msgid ""
 " SKIP_TEST_<CMD>_<NUM>=1\n"
@@ -14971,13 +14969,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:183
+#: ../docs/guestfs-hacking.pod:148
 msgid ""
 "eg: C<SKIP_TEST_COMMAND_3=1> skips test #3 of L<guestfs(3)/guestfs_command>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:185 ../docs/guestfs-testing.pod:80
+#: ../docs/guestfs-hacking.pod:150 ../docs/guestfs-testing.pod:80
 #: ../docs/guestfs-testing.pod:142 ../docs/guestfs-testing.pod:249
 #: ../docs/guestfs-testing.pod:262 ../docs/guestfs-testing.pod:326
 #: ../fish/guestfish.pod:1046 ../lua/examples/guestfs-lua.pod:64
@@ -14985,7 +14983,7 @@ msgid "or:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:187
+#: ../docs/guestfs-hacking.pod:152
 #, no-wrap
 msgid ""
 " SKIP_TEST_<CMD>=1\n"
@@ -14993,18 +14991,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:189
+#: ../docs/guestfs-hacking.pod:154
 msgid ""
 "eg: C<SKIP_TEST_ZEROFREE=1> skips all L<guestfs(3)/guestfs_zerofree> tests."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:191
+#: ../docs/guestfs-hacking.pod:156
 msgid "Packagers can run only certain tests by setting for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:193
+#: ../docs/guestfs-hacking.pod:158
 #, no-wrap
 msgid ""
 " TEST_ONLY=\"vfs_type zerofree\"\n"
@@ -15012,61 +15010,61 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:195
+#: ../docs/guestfs-hacking.pod:160
 msgid ""
 "See F<tests/c-api/tests.c> for more details of how these environment "
 "variables work."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-hacking.pod:198
-msgid "DEBUGGING NEW API ACTIONS"
+#: ../docs/guestfs-hacking.pod:163
+msgid "Debugging new APIs"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:200
+#: ../docs/guestfs-hacking.pod:165
 msgid "Test new actions work before submitting them."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:202
+#: ../docs/guestfs-hacking.pod:167
 msgid "You can use guestfish to try out new commands."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:204
+#: ../docs/guestfs-hacking.pod:169
 msgid ""
 "Debugging the daemon is a problem because it runs inside a minimal "
 "environment.  However you can fprintf messages in the daemon to stderr, and "
 "they will show up if you use C<guestfish -v>."
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:208
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:173
 msgid "ADDING A NEW LANGUAGE BINDING"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:210
+#: ../docs/guestfs-hacking.pod:175
 msgid ""
 "All language bindings must be generated by the generator (see the "
 "F<generator> subdirectory)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:213
+#: ../docs/guestfs-hacking.pod:178
 msgid ""
 "There is no documentation for this yet.  We suggest you look at an existing "
 "binding, eg. F<generator/ocaml.ml> or F<generator/perl.ml>."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-hacking.pod:217
-msgid "ADDING TESTS FOR LANGUAGE BINDINGS"
+#: ../docs/guestfs-hacking.pod:182
+msgid "Adding tests for language bindings"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:219
+#: ../docs/guestfs-hacking.pod:184
 msgid ""
 "Language bindings should come with tests.  Previously testing of language "
 "bindings was rather ad-hoc, but we have been trying to formalize the set of "
@@ -15074,7 +15072,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:223
+#: ../docs/guestfs-hacking.pod:188
 msgid ""
 "Currently only the OCaml and Perl bindings actually implement the full set "
 "of tests, and the OCaml bindings are canonical, so you should emulate what "
@@ -15082,12 +15080,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:227
+#: ../docs/guestfs-hacking.pod:192
 msgid "This is the numbering scheme used by the tests:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:229
+#: ../docs/guestfs-hacking.pod:194
 #, no-wrap
 msgid ""
 " - 000+ basic tests:\n"
@@ -15095,7 +15093,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:231
+#: ../docs/guestfs-hacking.pod:196
 #, no-wrap
 msgid ""
 "   010  load the library\n"
@@ -15110,7 +15108,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:240
+#: ../docs/guestfs-hacking.pod:205
 #, no-wrap
 msgid ""
 " - 100  launch, create partitions and LVs and filesystems\n"
@@ -15118,7 +15116,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:242
+#: ../docs/guestfs-hacking.pod:207
 #, no-wrap
 msgid ""
 " - 400+ events:\n"
@@ -15126,7 +15124,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:244
+#: ../docs/guestfs-hacking.pod:209
 #, no-wrap
 msgid ""
 "   410  close event\n"
@@ -15136,7 +15134,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:248
+#: ../docs/guestfs-hacking.pod:213
 #, no-wrap
 msgid ""
 " - 800+ regression tests (specific to the language)\n"
@@ -15144,7 +15142,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:250
+#: ../docs/guestfs-hacking.pod:215
 #, no-wrap
 msgid ""
 " - 900+ any other custom tests for the language\n"
@@ -15152,19 +15150,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:252
+#: ../docs/guestfs-hacking.pod:217
 msgid ""
 "To save time when running the tests, only 100, 430, 800+, 900+ should launch "
 "the handle."
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:255
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:220
 msgid "FORMATTING CODE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:257
+#: ../docs/guestfs-hacking.pod:222
 msgid ""
 "Our C source code generally adheres to some basic code-formatting "
 "conventions.  The existing code base is not totally consistent on this "
@@ -15174,14 +15172,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:263
+#: ../docs/guestfs-hacking.pod:228
 msgid ""
 "If you use Emacs, add the following to one of one of your start-up files (e."
 "g., ~/.emacs), to help ensure that you get indentation right:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:266
+#: ../docs/guestfs-hacking.pod:231
 #, no-wrap
 msgid ""
 " ;;; In libguestfs, indent with spaces everywhere (not TABs).\n"
@@ -15197,7 +15195,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:276
+#: ../docs/guestfs-hacking.pod:241
 #, no-wrap
 msgid ""
 " ;;; When editing C sources in libguestfs, use this style.\n"
@@ -15214,18 +15212,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:288
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:253
 msgid "TESTING YOUR CHANGES"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:290
+#: ../docs/guestfs-hacking.pod:255
 msgid "Enable warnings when compiling (and fix any problems this finds):"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:293
+#: ../docs/guestfs-hacking.pod:258
 #, no-wrap
 msgid ""
 " ./configure --enable-gcc-warnings\n"
@@ -15233,63 +15231,63 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:295
+#: ../docs/guestfs-hacking.pod:260
 msgid "Useful targets are:"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:299
+#: ../docs/guestfs-hacking.pod:264
 msgid "C<make check>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:301
+#: ../docs/guestfs-hacking.pod:266
 msgid "Runs the regular test suite."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:303
+#: ../docs/guestfs-hacking.pod:268
 msgid ""
 "This is implemented using the regular automake C<TESTS> target.  See the "
 "automake documentation for details."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:306
+#: ../docs/guestfs-hacking.pod:271
 msgid "C<make check-valgrind>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:308
+#: ../docs/guestfs-hacking.pod:273
 msgid "Runs a subset of the test suite under valgrind."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:310
+#: ../docs/guestfs-hacking.pod:275
 msgid ""
 "Any F<Makefile.am> in the tree that has a C<check-valgrind:> target will be "
 "run by this rule."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:313
+#: ../docs/guestfs-hacking.pod:278
 msgid "C<make check-valgrind-local-guests>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:315
+#: ../docs/guestfs-hacking.pod:280
 msgid ""
 "Runs a subset of the test suite under valgrind using locally installed "
 "libvirt guests (read-only)."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:318
+#: ../docs/guestfs-hacking.pod:283
 msgid "C<make check-direct>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:320
+#: ../docs/guestfs-hacking.pod:285
 msgid ""
 "Runs all tests using default appliance back-end.  This only has any effect "
 "if a non-default backend was selected using C<./configure --with-default-"
@@ -15297,36 +15295,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:324
+#: ../docs/guestfs-hacking.pod:289
 msgid "C<make check-valgrind-direct>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:326
+#: ../docs/guestfs-hacking.pod:291
 msgid ""
 "Run a subset of the test suite under valgrind using the default appliance "
 "back-end."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:329
+#: ../docs/guestfs-hacking.pod:294
 msgid "C<make check-uml>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:331
+#: ../docs/guestfs-hacking.pod:296
 msgid "Runs all tests using the User-Mode Linux backend."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:333
+#: ../docs/guestfs-hacking.pod:298
 msgid ""
 "As there is no standard location for the User-Mode Linux kernel, you I<have> "
 "to set C<LIBGUESTFS_HV> to point to the kernel image, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:336
+#: ../docs/guestfs-hacking.pod:301
 #, no-wrap
 msgid ""
 " make check-uml LIBGUESTFS_HV=~/d/linux-um/vmlinux\n"
@@ -15334,27 +15332,27 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:338
+#: ../docs/guestfs-hacking.pod:303
 msgid "C<make check-valgrind-uml>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:340
+#: ../docs/guestfs-hacking.pod:305
 msgid "Runs all tests using the User-Mode Linux backend, under valgrind."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:342
+#: ../docs/guestfs-hacking.pod:307
 msgid "As above, you have to set C<LIBGUESTFS_HV> to point to the kernel."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:344
+#: ../docs/guestfs-hacking.pod:309
 msgid "C<make check-with-upstream-qemu>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:346
+#: ../docs/guestfs-hacking.pod:311
 msgid ""
 "Runs all tests using a local qemu binary.  It looks for the qemu binary in "
 "QEMUDIR (defaults to F<$HOME/d/qemu>), but you can set this to another "
@@ -15362,7 +15360,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:350
+#: ../docs/guestfs-hacking.pod:315
 #, no-wrap
 msgid ""
 " make check-with-upstream-qemu QEMUDIR=/usr/src/qemu\n"
@@ -15370,12 +15368,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:352
+#: ../docs/guestfs-hacking.pod:317
 msgid "C<make check-with-upstream-libvirt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:354
+#: ../docs/guestfs-hacking.pod:319
 msgid ""
 "Runs all tests using a local libvirt.  This only has any effect if the "
 "libvirt backend was selected using C<./configure --with-default-"
@@ -15383,14 +15381,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:358
+#: ../docs/guestfs-hacking.pod:323
 msgid ""
 "It looks for libvirt in LIBVIRTDIR (defaults to F<$HOME/d/libvirt>), but you "
 "can set this to another directory on the command line, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:361
+#: ../docs/guestfs-hacking.pod:326
 #, no-wrap
 msgid ""
 " make check-with-upstream-libvirt LIBVIRTDIR=/usr/src/libvirt\n"
@@ -15398,93 +15396,93 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:363
+#: ../docs/guestfs-hacking.pod:328
 msgid "C<make check-slow>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:365
+#: ../docs/guestfs-hacking.pod:330
 msgid "Runs some slow/long-running tests which are not run by default."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:367
+#: ../docs/guestfs-hacking.pod:332
 msgid ""
 "Any F<Makefile.am> in the tree that has a C<check-slow:> target will be run "
 "by this rule."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:370
+#: ../docs/guestfs-hacking.pod:335
 msgid "C<make check-all>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:372
+#: ../docs/guestfs-hacking.pod:337
 msgid "Equivalent to running all C<make check*> rules."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:374
+#: ../docs/guestfs-hacking.pod:339
 msgid "C<make check-release>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:376
+#: ../docs/guestfs-hacking.pod:341
 msgid ""
 "Runs a subset of C<make check*> rules that are required to pass before a "
 "tarball can be released.  Currently this is:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:383
+#: ../docs/guestfs-hacking.pod:348
 msgid "check"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:387
+#: ../docs/guestfs-hacking.pod:352
 msgid "check-valgrind"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:391
+#: ../docs/guestfs-hacking.pod:356
 msgid "check-direct"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:395
+#: ../docs/guestfs-hacking.pod:360
 msgid "check-valgrind-direct"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:399
+#: ../docs/guestfs-hacking.pod:364
 msgid "check-slow"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:403
+#: ../docs/guestfs-hacking.pod:368
 msgid "C<make installcheck>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:405
+#: ../docs/guestfs-hacking.pod:370
 msgid "Run C<make check> on the installed copy of libguestfs."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:407
+#: ../docs/guestfs-hacking.pod:372
 msgid ""
 "The version of installed libguestfs being tested, and the version of the "
 "libguestfs source tree must be the same."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:410
+#: ../docs/guestfs-hacking.pod:375
 msgid "Do:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:412
+#: ../docs/guestfs-hacking.pod:377
 #, no-wrap
 msgid ""
 " ./autogen.sh\n"
@@ -15494,44 +15492,63 @@ msgid ""
 "\n"
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:419
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:384
+msgid "SUBMITTING PATCHES"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-hacking.pod:386
+msgid ""
+"Submit patches to the mailing list: L<http://www.redhat.com/mailman/listinfo/"
+"libguestfs> and CC to L<rjones@redhat.com>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-hacking.pod:390
+msgid ""
+"You do not need to subscribe to the mailing list if you don't want to.  "
+"There may be a short delay while your message is moderated."
+msgstr ""
+
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:393
 msgid "DAEMON CUSTOM PRINTF FORMATTERS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:421
+#: ../docs/guestfs-hacking.pod:395
 msgid ""
 "In the daemon code we have created custom printf formatters C<%Q> and C<%R>, "
 "which are used to do shell quoting."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:426
+#: ../docs/guestfs-hacking.pod:400
 msgid "%Q"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:428
+#: ../docs/guestfs-hacking.pod:402
 msgid ""
 "Simple shell quoted string.  Any spaces or other shell characters are "
 "escaped for you."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:431
+#: ../docs/guestfs-hacking.pod:405
 msgid "%R"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:433
+#: ../docs/guestfs-hacking.pod:407
 msgid ""
 "Same as C<%Q> except the string is treated as a path which is prefixed by "
 "the sysroot."
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:440
+#: ../docs/guestfs-hacking.pod:414
 #, no-wrap
 msgid ""
 " asprintf (&cmd, \"cat %R\", path);\n"
@@ -15539,12 +15556,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:442
+#: ../docs/guestfs-hacking.pod:416
 msgid "would produce C<cat /sysroot/some\\ path\\ with\\ spaces>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:444
+#: ../docs/guestfs-hacking.pod:418
 msgid ""
 "I<Note:> Do I<not> use these when you are passing parameters to the "
 "C<command{,r,v,rv}()> functions.  These parameters do NOT need to be quoted "
@@ -15552,30 +15569,18 @@ msgid ""
 "probably want to use the C<sysroot_path()> function however."
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:450
-msgid "SUBMITTING YOUR NEW API ACTIONS"
-msgstr ""
-
-#. type: textblock
-#: ../docs/guestfs-hacking.pod:452
-msgid ""
-"Submit patches to the mailing list: L<http://www.redhat.com/mailman/listinfo/"
-"libguestfs> and CC to L<rjones@redhat.com>."
-msgstr ""
-
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:456
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:424
 msgid "INTERNATIONALIZATION (I18N) SUPPORT"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:458
+#: ../docs/guestfs-hacking.pod:426
 msgid "We support i18n (gettext anyhow) in the library."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:460
+#: ../docs/guestfs-hacking.pod:428
 msgid ""
 "However many messages come from the daemon, and we don't translate those at "
 "the moment.  One reason is that the appliance generally has all locale files "
@@ -15584,177 +15589,177 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:466
+#: ../docs/guestfs-hacking.pod:434
 msgid ""
 "Debugging messages are never translated, since they are intended for the "
 "programmers."
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:469
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:437
 msgid "SOURCE CODE SUBDIRECTORIES"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:473
+#: ../docs/guestfs-hacking.pod:441
 msgid "F<align>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:475
+#: ../docs/guestfs-hacking.pod:443
 msgid "L<virt-alignment-scan(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:477
+#: ../docs/guestfs-hacking.pod:445
 msgid "F<appliance>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:479
+#: ../docs/guestfs-hacking.pod:447
 msgid "The libguestfs appliance, build scripts and so on."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:481
+#: ../docs/guestfs-hacking.pod:449
 msgid "F<bash>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:483
+#: ../docs/guestfs-hacking.pod:451
 msgid "Bash tab-completion scripts."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:485
+#: ../docs/guestfs-hacking.pod:453
 msgid "F<build-aux>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:487
+#: ../docs/guestfs-hacking.pod:455
 msgid "Various build scripts used by autotools."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:489
+#: ../docs/guestfs-hacking.pod:457
 msgid "F<builder>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:491
+#: ../docs/guestfs-hacking.pod:459
 msgid "L<virt-builder(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:493
+#: ../docs/guestfs-hacking.pod:461
 msgid "F<cat>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:495
+#: ../docs/guestfs-hacking.pod:463
 msgid ""
 "The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)> and L<virt-ls(1)> "
 "commands and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:498
+#: ../docs/guestfs-hacking.pod:466
 msgid "F<contrib>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:500
+#: ../docs/guestfs-hacking.pod:468
 msgid "Outside contributions, experimental parts."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:502
+#: ../docs/guestfs-hacking.pod:470
 msgid "F<customize>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:504
+#: ../docs/guestfs-hacking.pod:472
 msgid "L<virt-customize(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:506
+#: ../docs/guestfs-hacking.pod:474
 msgid "F<daemon>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:508
+#: ../docs/guestfs-hacking.pod:476
 msgid ""
 "The daemon that runs inside the libguestfs appliance and carries out actions."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:511
+#: ../docs/guestfs-hacking.pod:479
 msgid "F<df>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:513
+#: ../docs/guestfs-hacking.pod:481
 msgid "L<virt-df(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:515
+#: ../docs/guestfs-hacking.pod:483
 msgid "F<dib>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:517
+#: ../docs/guestfs-hacking.pod:485
 msgid "L<virt-dib(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:519
+#: ../docs/guestfs-hacking.pod:487
 msgid "F<diff>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:521
+#: ../docs/guestfs-hacking.pod:489
 msgid "L<virt-diff(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:523
+#: ../docs/guestfs-hacking.pod:491
 msgid "F<doc>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:525
+#: ../docs/guestfs-hacking.pod:493
 msgid "Miscellaneous manual pages."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:527
+#: ../docs/guestfs-hacking.pod:495
 msgid "F<edit>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:529
+#: ../docs/guestfs-hacking.pod:497
 msgid "L<virt-edit(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:531
+#: ../docs/guestfs-hacking.pod:499
 msgid "F<examples>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:533
+#: ../docs/guestfs-hacking.pod:501
 msgid "C API example code."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:535
+#: ../docs/guestfs-hacking.pod:503
 msgid "F<fish>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:537
+#: ../docs/guestfs-hacking.pod:505
 msgid ""
 "L<guestfish(1)>, the command-line shell, and various shell scripts built on "
 "top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>, L<virt-tar-in(1)>, "
@@ -15762,141 +15767,141 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:541
+#: ../docs/guestfs-hacking.pod:509
 msgid "F<format>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:543
+#: ../docs/guestfs-hacking.pod:511
 msgid "L<virt-format(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:545
+#: ../docs/guestfs-hacking.pod:513
 msgid "F<fuse>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:547
+#: ../docs/guestfs-hacking.pod:515
 msgid ""
 "L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:549
+#: ../docs/guestfs-hacking.pod:517
 msgid "F<generator>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:551
+#: ../docs/guestfs-hacking.pod:519
 msgid ""
 "The crucially important generator, used to automatically generate large "
 "amounts of boilerplate C code for things like RPC and bindings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:554
+#: ../docs/guestfs-hacking.pod:522
 msgid "F<get-kernel>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:556
+#: ../docs/guestfs-hacking.pod:524
 msgid "L<virt-get-kernel(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:558
+#: ../docs/guestfs-hacking.pod:526
 msgid "F<gnulib>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:560
+#: ../docs/guestfs-hacking.pod:528
 msgid ""
 "Gnulib is used as a portability library.  A copy of gnulib is included under "
 "here."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:563
+#: ../docs/guestfs-hacking.pod:531
 msgid "F<inspector>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:565
+#: ../docs/guestfs-hacking.pod:533
 msgid "L<virt-inspector(1)>, the virtual machine image inspector."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:567
+#: ../docs/guestfs-hacking.pod:535
 msgid "F<logo>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:569
+#: ../docs/guestfs-hacking.pod:537
 msgid "Logo used on the website.  The fish is called Arthur by the way."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:571
+#: ../docs/guestfs-hacking.pod:539
 msgid "F<m4>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:573
+#: ../docs/guestfs-hacking.pod:541
 msgid "M4 macros used by autoconf."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:575
+#: ../docs/guestfs-hacking.pod:543
 msgid "F<make-fs>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:577
+#: ../docs/guestfs-hacking.pod:545
 msgid "L<virt-make-fs(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:579
+#: ../docs/guestfs-hacking.pod:547
 msgid "F<mllib>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:581
+#: ../docs/guestfs-hacking.pod:549
 msgid ""
 "Various libraries and common code used by L<virt-resize(1)> and the other "
 "tools which are written in OCaml."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:584
+#: ../docs/guestfs-hacking.pod:552
 msgid "F<p2v>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:586
+#: ../docs/guestfs-hacking.pod:554
 msgid ""
 "L<virt-p2v(1)> command, documentation and scripts for building the virt-p2v "
 "ISO or disk image."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:589
+#: ../docs/guestfs-hacking.pod:557
 msgid "F<po>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:591
+#: ../docs/guestfs-hacking.pod:559
 msgid "Translations of simple gettext strings."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:593
+#: ../docs/guestfs-hacking.pod:561
 msgid "F<po-docs>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:595
+#: ../docs/guestfs-hacking.pod:563
 msgid ""
 "The build infrastructure and PO files for translations of manpages and POD "
 "files.  Eventually this will be combined with the F<po> directory, but that "
@@ -15904,94 +15909,94 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:599
+#: ../docs/guestfs-hacking.pod:567
 msgid "F<rescue>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:601
+#: ../docs/guestfs-hacking.pod:569
 msgid "L<virt-rescue(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:603
+#: ../docs/guestfs-hacking.pod:571
 msgid "F<resize>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:605
+#: ../docs/guestfs-hacking.pod:573
 msgid "L<virt-resize(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:607
+#: ../docs/guestfs-hacking.pod:575
 msgid "F<sparsify>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:609
+#: ../docs/guestfs-hacking.pod:577
 msgid "L<virt-sparsify(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:611
+#: ../docs/guestfs-hacking.pod:579
 msgid "F<src>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:613
+#: ../docs/guestfs-hacking.pod:581
 msgid "Source code to the C library."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:615
+#: ../docs/guestfs-hacking.pod:583
 msgid "F<sysprep>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:617
+#: ../docs/guestfs-hacking.pod:585
 msgid "L<virt-sysprep(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:619
+#: ../docs/guestfs-hacking.pod:587
 msgid "F<tests>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:621
+#: ../docs/guestfs-hacking.pod:589
 msgid "Tests."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:623
+#: ../docs/guestfs-hacking.pod:591
 msgid "F<test-data>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:625
+#: ../docs/guestfs-hacking.pod:593
 msgid "Files and other test data used by the tests."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:627
+#: ../docs/guestfs-hacking.pod:595
 msgid "F<test-tool>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:629
+#: ../docs/guestfs-hacking.pod:597
 msgid ""
 "Test tool for end users to test if their qemu/kernel combination will work "
 "with libguestfs."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:632
+#: ../docs/guestfs-hacking.pod:600
 msgid "F<tmp>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:634
+#: ../docs/guestfs-hacking.pod:602
 msgid ""
 "Used for temporary files when running the tests (instead of F</tmp> etc).  "
 "The reason is so that you can run multiple parallel tests of libguestfs "
@@ -15999,108 +16004,108 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:639
+#: ../docs/guestfs-hacking.pod:607
 msgid "F<tools>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:641
+#: ../docs/guestfs-hacking.pod:609
 msgid ""
 "Command line tools written in Perl (L<virt-win-reg(1)> and many others)."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:643
+#: ../docs/guestfs-hacking.pod:611
 msgid "F<v2v>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:645
+#: ../docs/guestfs-hacking.pod:613
 msgid "L<virt-v2v(1)> command and documentation."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:647
+#: ../docs/guestfs-hacking.pod:615
 msgid "F<website>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:649
+#: ../docs/guestfs-hacking.pod:617
 msgid "The L<http://libguestfs.org> website files."
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:651
+#: ../docs/guestfs-hacking.pod:619
 msgid "F<csharp>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:653
+#: ../docs/guestfs-hacking.pod:621
 msgid "F<erlang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:655
+#: ../docs/guestfs-hacking.pod:623
 msgid "F<gobject>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:657
+#: ../docs/guestfs-hacking.pod:625
 msgid "F<golang>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:659
+#: ../docs/guestfs-hacking.pod:627
 msgid "F<haskell>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:661
+#: ../docs/guestfs-hacking.pod:629
 msgid "F<java>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:663
+#: ../docs/guestfs-hacking.pod:631
 msgid "F<lua>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:665
+#: ../docs/guestfs-hacking.pod:633
 msgid "F<ocaml>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:667
+#: ../docs/guestfs-hacking.pod:635
 msgid "F<php>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:669
+#: ../docs/guestfs-hacking.pod:637
 msgid "F<perl>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:671
+#: ../docs/guestfs-hacking.pod:639
 msgid "F<python>"
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-hacking.pod:673
+#: ../docs/guestfs-hacking.pod:641
 msgid "F<ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:675
+#: ../docs/guestfs-hacking.pod:643
 msgid "Language bindings."
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:679
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:647
 msgid "VIRT-V2V"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:681
+#: ../docs/guestfs-hacking.pod:649
 msgid ""
 "First a little history.  Virt-v2v has been through at least two complete "
 "rewrites, so this is probably about the third version (but we don't intend "
@@ -16109,7 +16114,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:687
+#: ../docs/guestfs-hacking.pod:655
 msgid ""
 "The current version started out as almost a line-for-line rewrite of the "
 "Perl code in OCaml + C, and it still has a fairly similar structure.  "
@@ -16119,22 +16124,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:693
+#: ../docs/guestfs-hacking.pod:661
 msgid "The files to start with when reading this code are:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:699
+#: ../docs/guestfs-hacking.pod:667
 msgid "F<types.mli>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:703
+#: ../docs/guestfs-hacking.pod:671
 msgid "F<v2v.ml>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:707
+#: ../docs/guestfs-hacking.pod:675
 msgid ""
 "F<types.mli> defines all the structures used and passed around when "
 "communicating between different bits of the program.  F<v2v.ml> controls how "
@@ -16142,7 +16147,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:711
+#: ../docs/guestfs-hacking.pod:679
 msgid ""
 "After studying those files, you may want to branch out into the input "
 "modules (F<input_*>), the output modules (F<output_*>) or the conversion "
@@ -16152,20 +16157,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:718
+#: ../docs/guestfs-hacking.pod:686
 msgid ""
 "Every other file in this directory is a support module / library of some "
 "sort.  Some code is written in C, especially where we want to use an "
 "external C library such as libxml2."
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:722
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:690
 msgid "VIRT-P2V"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:724
+#: ../docs/guestfs-hacking.pod:692
 msgid ""
 "Virt-p2v is a front end on virt-v2v.  ie. All it does is act as a GUI front "
 "end, and it calls out to virt-v2v to perform the actual conversion.  "
@@ -16176,14 +16181,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:731
+#: ../docs/guestfs-hacking.pod:699
 msgid ""
 "There are two paths through the code, GUI or non-GUI (parsing the kernel "
 "command line):"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:734
+#: ../docs/guestfs-hacking.pod:702
 #, no-wrap
 msgid ""
 " main.c     --+---->   gui.c    -----+----> conversion.c\n"
@@ -16194,28 +16199,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:739
+#: ../docs/guestfs-hacking.pod:707
 msgid ""
 "but both paths call back to the F<conversion.c> function C<start_conversion> "
 "to run the remote virt-v2v."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:742
+#: ../docs/guestfs-hacking.pod:710
 msgid ""
 "The main task of F<gui.c>/F<kernel.c> is to populate the virt-v2v "
 "configuration (F<config.c>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:745
+#: ../docs/guestfs-hacking.pod:713
 msgid ""
 "During conversion, we need to establish ssh connections, and that is done "
 "using two libraries:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:748
+#: ../docs/guestfs-hacking.pod:716
 #, no-wrap
 msgid ""
 " conversion.c  ------>  ssh.c  ------>  miniexpect.c\n"
@@ -16223,7 +16228,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:750
+#: ../docs/guestfs-hacking.pod:718
 msgid ""
 "where F<ssh.c> is responsible for managing ssh connections overall, and "
 "F<miniexpect.c> implements \"expect-like\" functionality for talking "
@@ -16231,7 +16236,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:754
+#: ../docs/guestfs-hacking.pod:722
 msgid ""
 "(Note that miniexpect is a separate library with its own upstream, so if you "
 "patch miniexpect.c, then please make sure the changes get reflected in "
@@ -16239,13 +16244,13 @@ msgid ""
 "a=summary>)"
 msgstr ""
 
-#. type: =head2
-#: ../docs/guestfs-hacking.pod:759
+#. type: =head1
+#: ../docs/guestfs-hacking.pod:727
 msgid "MAKING A STABLE RELEASE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:761
+#: ../docs/guestfs-hacking.pod:729
 msgid ""
 "When we make a stable release, there are several steps documented here.  See "
 "L<guestfs(3)/LIBGUESTFS VERSION NUMBERS> for general information about the "
@@ -16253,34 +16258,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:769
+#: ../docs/guestfs-hacking.pod:737
 msgid ""
 "Check C<make && make check> works on at least Fedora, Debian and Ubuntu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:774
+#: ../docs/guestfs-hacking.pod:742
 msgid "Check C<./configure --without-libvirt> works."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:778
+#: ../docs/guestfs-hacking.pod:746
 msgid "Finalize F<guestfs-release-notes.pod>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:782
+#: ../docs/guestfs-hacking.pod:750
 msgid "Push and pull from Zanata."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:784 ../docs/guestfs-testing.pod:30
+#: ../docs/guestfs-hacking.pod:752 ../docs/guestfs-testing.pod:30
 #: ../docs/guestfs-testing.pod:219
 msgid "Run:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:786
+#: ../docs/guestfs-hacking.pod:754
 #, no-wrap
 msgid ""
 " zanata push\n"
@@ -16288,12 +16293,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:788
+#: ../docs/guestfs-hacking.pod:756
 msgid "to push the latest POT files to Zanata.  Then run:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:790
+#: ../docs/guestfs-hacking.pod:758
 #, no-wrap
 msgid ""
 " ./zanata-pull.sh\n"
@@ -16301,36 +16306,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:792
+#: ../docs/guestfs-hacking.pod:760
 msgid "which is a wrapper to pull the latest translated F<*.po> files."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:796
+#: ../docs/guestfs-hacking.pod:764
 msgid "Consider updating gnulib to latest upstream version."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:800
+#: ../docs/guestfs-hacking.pod:768
 msgid ""
 "Create new stable and development directories under L<http://libguestfs.org/"
 "download>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:805
+#: ../docs/guestfs-hacking.pod:773
 msgid "Edit F<website/index.html.in>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:809
+#: ../docs/guestfs-hacking.pod:777
 msgid ""
 "Set the version (in F<configure.ac>) to the new I<stable> version, ie. 1."
 "XX.0, and commit it:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:812
+#: ../docs/guestfs-hacking.pod:780
 #, no-wrap
 msgid ""
 " ./localconfigure\n"
@@ -16343,12 +16348,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:821
+#: ../docs/guestfs-hacking.pod:789
 msgid "Create the stable branch in git:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:823
+#: ../docs/guestfs-hacking.pod:791
 #, no-wrap
 msgid ""
 " git branch stable-1.XX\n"
@@ -16357,24 +16362,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:828
+#: ../docs/guestfs-hacking.pod:796
 msgid "Do a full release of the stable branch."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:832
+#: ../docs/guestfs-hacking.pod:800
 msgid ""
 "Set the version to the next development version and commit that.  Optionally "
 "do a full release of the development branch."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:839
+#: ../docs/guestfs-hacking.pod:807
 msgid ""
-"L<guestfs(3)>, L<guestfs-examples(3)>, L<guestfs-internals(3)>, L<guestfs-"
-"performance(1)>, L<guestfs-release-notes(1)>, L<guestfs-testing(1)>, "
-"L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-appliance(1)>, L<http://"
-"libguestfs.org/>."
+"L<guestfs(3)>, L<guestfs-building(1)>, L<guestfs-examples(3)>, L<guestfs-"
+"internals(3)>, L<guestfs-performance(1)>, L<guestfs-release-notes(1)>, "
+"L<guestfs-testing(1)>, L<libguestfs-test-tool(1)>, L<libguestfs-make-fixed-"
+"appliance(1)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
