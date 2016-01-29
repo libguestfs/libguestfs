@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-01-15 11:38+0000\n"
+"POT-Creation-Date: 2016-01-29 11:02+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/libguestfs/"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1316
+#: ../v2v/convert_linux.ml:1321
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -210,7 +210,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows.ml:98
+#: ../v2v/windows_virtio.ml:397 ../v2v/windows.ml:98
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -491,7 +491,7 @@ msgid ""
 "rwmjones/rhsrvany).  Original error: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:64
+#: ../v2v/convert_windows.ml:62
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -2280,7 +2280,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1110
+#: ../v2v/convert_linux.ml:1115
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2632,16 +2632,16 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:418
+#: ../v2v/windows_virtio.ml:200
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:404
+#: ../v2v/windows_virtio.ml:174
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/utils.ml:106
+#: ../v2v/utils.ml:108
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -2667,7 +2667,7 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:141
+#: ../v2v/convert_windows.ml:139
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2711,7 +2711,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1040
+#: ../v2v/convert_linux.ml:1045
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2731,7 +2731,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:614
+#: ../v2v/convert_windows.ml:304
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2765,7 +2765,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1058
+#: ../v2v/convert_linux.ml:1063
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2776,7 +2776,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1042
+#: ../v2v/convert_linux.ml:1047
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2853,7 +2853,7 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: ../v2v/utils.ml:102
+#: ../v2v/utils.ml:104
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
@@ -2869,7 +2869,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1165
+#: ../v2v/convert_linux.ml:1170
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3666,7 +3666,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:264
+#: ../v2v/windows_virtio.ml:35
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3674,7 +3674,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:301
+#: ../v2v/windows_virtio.ml:72
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3690,7 +3690,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:280
+#: ../v2v/windows_virtio.ml:51
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3698,7 +3698,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:289
+#: ../v2v/windows_virtio.ml:60
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3712,7 +3712,7 @@ msgid ""
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:700
+#: ../v2v/convert_windows.ml:390
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3720,7 +3720,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:698
+#: ../v2v/convert_windows.ml:388
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3746,7 +3746,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1209
+#: ../v2v/convert_linux.ml:1214
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3761,7 +3761,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:907
+#: ../v2v/convert_linux.ml:912
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -3941,7 +3941,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:386
+#: ../v2v/windows_virtio.ml:157
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
@@ -8855,14 +8855,14 @@ msgid "release file %s is empty or malformed"
 msgstr ""
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:316
-#: src/inspect-fs-unix.c:403 src/inspect-fs-unix.c:1236
-#: src/inspect-fs-unix.c:2002 src/inspect-fs.c:604 src/inspect-fs.c:650
+#: src/inspect-fs-unix.c:403 src/inspect-fs-unix.c:1248
+#: src/inspect-fs-unix.c:2014 src/inspect-fs.c:604 src/inspect-fs.c:650
 #: src/inspect.c:653
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s चे आकार असमंजसपणे मोठे आहे (%<PRIi64> बाईट्स्)"
 
-#: src/inspect-fs-unix.c:2049
+#: src/inspect-fs-unix.c:2061
 #, c-format
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr ""
@@ -8916,11 +8916,11 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch-direct.c:840 src/launch-libvirt.c:604
+#: src/launch-direct.c:840 src/launch-libvirt.c:605
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch-direct.c:1242 src/launch-libvirt.c:1393
+#: src/launch-direct.c:1242 src/launch-libvirt.c:1394
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -8960,25 +8960,25 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:262
+#: src/launch-libvirt.c:263
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:271
+#: src/launch-libvirt.c:272
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:306
+#: src/launch-libvirt.c:307
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:335
+#: src/launch-libvirt.c:336
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:532
+#: src/launch-libvirt.c:533
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8988,21 +8988,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:670
+#: src/launch-libvirt.c:671
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:676 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:677 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr "नवीन XPath संदर्भ निर्माण करणे अशक्य"
 
-#: src/launch-libvirt.c:686
+#: src/launch-libvirt.c:687
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:721
+#: src/launch-libvirt.c:722
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -9017,57 +9017,57 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:957
+#: src/launch-libvirt.c:958
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1347
+#: src/launch-libvirt.c:1348
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1476
+#: src/launch-libvirt.c:1477
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1501
+#: src/launch-libvirt.c:1502
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1508
+#: src/launch-libvirt.c:1509
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1838
+#: src/launch-libvirt.c:1839
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1849
+#: src/launch-libvirt.c:1850
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1853
+#: src/launch-libvirt.c:1854
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1874
+#: src/launch-libvirt.c:1875
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1887
+#: src/launch-libvirt.c:1888
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1997
+#: src/launch-libvirt.c:1998
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -9083,20 +9083,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2037
+#: src/launch-libvirt.c:2091
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2088 src/launch-libvirt.c:2121
+#: src/launch-libvirt.c:2112 src/launch-libvirt.c:2145
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2184
+#: src/launch-libvirt.c:2208
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2215
+#: src/launch-libvirt.c:2239
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 

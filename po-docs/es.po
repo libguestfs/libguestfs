@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-01-15 11:38+0000\n"
+"POT-Creation-Date: 2016-01-29 11:02+0000\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -1369,7 +1369,7 @@ msgstr ""
 #: ../golang/examples/guestfs-golang.pod:76 ../inspector/virt-inspector.pod:498
 #: ../java/examples/guestfs-java.pod:156 ../lua/examples/guestfs-lua.pod:136
 #: ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80
-#: ../p2v/virt-p2v-make-disk.pod:142 ../p2v/virt-p2v-make-kickstart.pod:297
+#: ../p2v/virt-p2v-make-disk.pod:147 ../p2v/virt-p2v-make-kickstart.pod:303
 #: ../p2v/virt-p2v.pod:724 ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:402
 #: ../resize/virt-resize.pod:820 ../ruby/examples/guestfs-ruby.pod:34
@@ -1412,8 +1412,8 @@ msgstr ""
 #: ../daemon/guestfsd.pod:150 ../df/virt-df.pod:266 ../diff/virt-diff.pod:260
 #: ../edit/virt-edit.pod:396 ../format/virt-format.pod:197
 #: ../get-kernel/virt-get-kernel.pod:172 ../inspector/virt-inspector.pod:513
-#: ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v-make-disk.pod:151
-#: ../p2v/virt-p2v-make-kickstart.pod:308 ../p2v/virt-p2v.pod:741
+#: ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v-make-disk.pod:156
+#: ../p2v/virt-p2v-make-kickstart.pod:314 ../p2v/virt-p2v.pod:741
 #: ../rescue/virt-rescue.pod:414 ../resize/virt-resize.pod:846
 #: ../sparsify/virt-sparsify.pod:452 ../sysprep/virt-sysprep.pod:578
 #: ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276
@@ -1445,7 +1445,7 @@ msgstr ""
 #: ../golang/examples/guestfs-golang.pod:95 ../inspector/virt-inspector.pod:521
 #: ../java/examples/guestfs-java.pod:175 ../lua/examples/guestfs-lua.pod:155
 #: ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99
-#: ../p2v/virt-p2v-make-disk.pod:153 ../p2v/virt-p2v-make-kickstart.pod:310
+#: ../p2v/virt-p2v-make-disk.pod:158 ../p2v/virt-p2v-make-kickstart.pod:316
 #: ../p2v/virt-p2v.pod:749 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:416
 #: ../resize/virt-resize.pod:848 ../ruby/examples/guestfs-ruby.pod:52
@@ -1699,7 +1699,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1781 ../customize/virt-customize.pod:229
 #: ../dib/virt-dib.pod:380 ../edit/virt-edit.pod:365 ../fish/guestfish.pod:1378
 #: ../fuse/guestunmount.pod:113 ../get-kernel/virt-get-kernel.pod:152
-#: ../p2v/virt-p2v-make-disk.pod:131 ../p2v/virt-p2v-make-kickstart.pod:285
+#: ../p2v/virt-p2v-make-disk.pod:136 ../p2v/virt-p2v-make-kickstart.pod:291
 #: ../rescue/virt-rescue.pod:378 ../sparsify/virt-sparsify.pod:393
 #: ../src/guestfs.pod:3355 ../sysprep/virt-sysprep.pod:529
 #: ../test-tool/libguestfs-test-tool.pod:173 ../v2v/virt-v2v.pod:1743
@@ -1735,7 +1735,7 @@ msgstr ""
 #: ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91
 #: ../inspector/virt-inspector.pod:507 ../java/examples/guestfs-java.pod:171
 #: ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95
-#: ../p2v/virt-p2v-make-disk.pod:149 ../p2v/virt-p2v-make-kickstart.pod:306
+#: ../p2v/virt-p2v-make-disk.pod:154 ../p2v/virt-p2v-make-kickstart.pod:312
 #: ../p2v/virt-p2v.pod:735 ../perl/examples/guestfs-perl.pod:53
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3531
@@ -1771,7 +1771,7 @@ msgstr ""
 #: ../docs/guestfs-recipes.pod:689 ../docs/guestfs-release-notes.pod:4830
 #: ../docs/guestfs-security.pod:338 ../edit/virt-edit.pod:400
 #: ../fish/guestfish.pod:1629 ../fuse/guestmount.pod:443
-#: ../p2v/virt-p2v-make-disk.pod:155 ../p2v/virt-p2v-make-kickstart.pod:312
+#: ../p2v/virt-p2v-make-disk.pod:160 ../p2v/virt-p2v-make-kickstart.pod:318
 #: ../p2v/virt-p2v.pod:751 ../rescue/virt-rescue.pod:418
 #: ../src/guestfs.pod:3537 ../test-tool/libguestfs-test-tool.pod:190
 #: ../tools/virt-list-partitions:280 ../v2v/virt-v2v-copy-to-local.pod:150
@@ -13524,7 +13524,7 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:115
 msgid ""
 "For library actions, implement the function C<guestfs_impl_E<lt>nameE<gt>> "
-"(note: double underscore) in the C<src/> directory."
+"in the C<src/> directory."
 msgstr ""
 
 #. type: textblock
@@ -58150,7 +58150,7 @@ msgstr ""
 #. type: textblock
 #: ../p2v/virt-p2v-make-disk.pod:34
 msgid ""
-"Write a virt-p2v bootable USB key on F</dev/sdX> (and existing content is "
+"Write a virt-p2v bootable USB key on F</dev/sdX> (any existing content is "
 "erased), using Fedora 20 as the base distribution:"
 msgstr ""
 
@@ -58307,46 +58307,57 @@ msgstr ""
 
 #. type: textblock
 #: ../p2v/virt-p2v-make-disk.pod:117
-msgid ""
-"The L<virt-p2v(1)> binary which is copied into the bootable disk image.  The "
-"location of the binary can be changed by setting the C<VIRT_P2V_DATA_DIR> "
-"environment variable."
-msgstr ""
-
-#. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:121 ../p2v/virt-p2v-make-kickstart.pod:273
-msgid "F<$datadir/issue>"
-msgstr ""
-
-#. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:123 ../p2v/virt-p2v-make-kickstart.pod:275
-msgid "F<$datadir/launch-virt-p2v.in>"
-msgstr ""
-
-#. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:125 ../p2v/virt-p2v-make-kickstart.pod:279
-msgid "F<$datadir/p2v.service>"
+msgid "The L<virt-p2v(1)> binary which is copied into the bootable disk image."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:127
-msgid "Various data files that are copied into the bootable disk image."
+#: ../p2v/virt-p2v-make-disk.pod:120 ../p2v/virt-p2v-make-kickstart.pod:273
+msgid ""
+"The location of the binary can be changed by setting the "
+"C<VIRT_P2V_DATA_DIR> environment variable."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:135 ../p2v/virt-p2v-make-kickstart.pod:289
+#: ../p2v/virt-p2v-make-disk.pod:123 ../p2v/virt-p2v-make-kickstart.pod:276
+msgid "F<$datadir/virt-p2v/issue>"
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v-make-disk.pod:125 ../p2v/virt-p2v-make-kickstart.pod:278
+msgid "F<$datadir/virt-p2v/launch-virt-p2v.in>"
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v-make-disk.pod:127 ../p2v/virt-p2v-make-kickstart.pod:282
+msgid "F<$datadir/virt-p2v/p2v.service>"
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v-make-disk.pod:129
+msgid "Various data files that are copied into the bootable disk image."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v-make-disk.pod:131 ../p2v/virt-p2v-make-kickstart.pod:286
+msgid ""
+"The location of these files can be changed by setting the "
+"C<VIRT_P2V_DATA_DIR> environment variable."
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v-make-disk.pod:140 ../p2v/virt-p2v-make-kickstart.pod:295
 msgid "C<VIRT_P2V_DATA_DIR>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:137
+#: ../p2v/virt-p2v-make-disk.pod:142
 msgid ""
 "The directory where virt-p2v-make-disk looks for data files (see L</FILES> "
 "above).  If not set, a compiled-in location is used."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:144
+#: ../p2v/virt-p2v-make-disk.pod:149
 msgid ""
 "L<virt-p2v(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-v2v(1)>, L<http://"
 "libguestfs.org/>."
@@ -58765,17 +58776,17 @@ msgid "The L<virt-p2v(1)> binary which is copied into the kickstart file."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-kickstart.pod:277
-msgid "F<$datadir/p2v.ks.in>"
+#: ../p2v/virt-p2v-make-kickstart.pod:280
+msgid "F<$datadir/virt-p2v/p2v.ks.in>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:281
+#: ../p2v/virt-p2v-make-kickstart.pod:284
 msgid "Various data files that are used to make the kickstart."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:291
+#: ../p2v/virt-p2v-make-kickstart.pod:297
 msgid ""
 "The directory where virt-p2v-make-kickstart looks for data files and the "
 "virt-p2v binary (see L</FILES> above).  If not set, a compiled-in location "
@@ -58783,7 +58794,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:299
+#: ../p2v/virt-p2v-make-kickstart.pod:305
 msgid ""
 "L<virt-p2v(1)>, L<virt-p2v-make-disk(1)>, L<virt-v2v(1)>, L<livecd-"
 "creator(8)>, L<livecd-iso-to-disk(8)>, L<http://libguestfs.org/>."
