@@ -3,11 +3,4 @@ Missing features compared to Perl version:
  - user-custom in virt-v2v.conf to install custom packages (virt-customize?)
  - Fix configure_kernel on SUSE (see Mike Latimer's email)
 
-virt-v2v bash (tab) completion
-
 Proper progress bars when copying.
-
-Better handling of removable devices in -i ova / -o rhev.  At the
-moment input_ova.ml doesn't record the bus and slot of removable
-devices properly, and output_(rhev|vdsm).ml doesn't try to put devices
-into the right slots.  (See RHBZ#1238053 for all the details).
