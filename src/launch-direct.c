@@ -296,7 +296,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * for qemu to connect to.
    */
   snprintf (data->guestfsd_sock, sizeof data->guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
-  unlink (data->guestfsd_sock);
 
   daemon_accept_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (daemon_accept_sock == -1) {
@@ -1509,6 +1508,11 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
   if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
 
   data->pid = data->recoverypid = 0;
+
+  if (data->guestfsd_sock[0] != '\0') {
+    unlink (data->guestfsd_sock);
+    data->guestfsd_sock[0] = '\0';
+  }
 
   free (data->qemu_help);
   data->qemu_help = NULL;
