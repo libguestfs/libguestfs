@@ -123,6 +123,8 @@ struct backend_libvirt_data {
   size_t nr_secrets;
   char *uefi_code;		/* UEFI (firmware) code and variables. */
   char *uefi_vars;
+  char guestfsd_path[UNIX_PATH_MAX]; /* paths to sockets */
+  char console_path[UNIX_PATH_MAX];
 };
 
 /* Parameters passed to construct_libvirt_xml and subfunctions.  We
@@ -135,8 +137,6 @@ struct libvirt_xml_params {
   char *appliance_overlay;      /* path to qcow2 overlay backed by appliance */
   char appliance_dev[64];       /* appliance device name */
   size_t appliance_index;       /* index of appliance */
-  char guestfsd_path[UNIX_PATH_MAX]; /* paths to sockets */
-  char console_path[UNIX_PATH_MAX];
   bool enable_svirt;            /* false if we decided to disable sVirt */
   bool current_proc_is_root;    /* true = euid is root */
 };
@@ -395,9 +395,9 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
    */
-  snprintf (params.guestfsd_path, sizeof params.guestfsd_path,
+  snprintf (data->guestfsd_path, sizeof data->guestfsd_path,
             "%s/guestfsd.sock", g->tmpdir);
-  unlink (params.guestfsd_path);
+  unlink (data->guestfsd_path);
 
   set_socket_create_context (g);
 
@@ -408,7 +408,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   addr.sun_family = AF_UNIX;
-  memcpy (addr.sun_path, params.guestfsd_path, UNIX_PATH_MAX);
+  memcpy (addr.sun_path, data->guestfsd_path, UNIX_PATH_MAX);
 
   if (bind (daemon_accept_sock, (struct sockaddr *) &addr,
             sizeof addr) == -1) {
@@ -422,9 +422,9 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   /* For the serial console. */
-  snprintf (params.console_path, sizeof params.console_path,
+  snprintf (data->console_path, sizeof data->console_path,
             "%s/console.sock", g->tmpdir);
-  unlink (params.console_path);
+  unlink (data->console_path);
 
   console_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (console_sock == -1) {
@@ -433,7 +433,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   addr.sun_family = AF_UNIX;
-  memcpy (addr.sun_path, params.console_path, UNIX_PATH_MAX);
+  memcpy (addr.sun_path, data->console_path, UNIX_PATH_MAX);
 
   if (bind (console_sock, (struct sockaddr *) &addr, sizeof addr) == -1) {
     perrorf (g, "bind");
@@ -470,24 +470,24 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
      */
     struct group *grp;
 
-    if (chmod (params.guestfsd_path, 0660) == -1) {
-      perrorf (g, "chmod: %s", params.guestfsd_path);
+    if (chmod (data->guestfsd_path, 0660) == -1) {
+      perrorf (g, "chmod: %s", data->guestfsd_path);
       goto cleanup;
     }
 
-    if (chmod (params.console_path, 0660) == -1) {
-      perrorf (g, "chmod: %s", params.console_path);
+    if (chmod (data->console_path, 0660) == -1) {
+      perrorf (g, "chmod: %s", data->console_path);
       goto cleanup;
     }
 
     grp = getgrnam ("qemu");
     if (grp != NULL) {
-      if (chown (params.guestfsd_path, 0, grp->gr_gid) == -1) {
-        perrorf (g, "chown: %s", params.guestfsd_path);
+      if (chown (data->guestfsd_path, 0, grp->gr_gid) == -1) {
+        perrorf (g, "chown: %s", data->guestfsd_path);
         goto cleanup;
       }
-      if (chown (params.console_path, 0, grp->gr_gid) == -1) {
-        perrorf (g, "chown: %s", params.console_path);
+      if (chown (data->console_path, 0, grp->gr_gid) == -1) {
+        perrorf (g, "chown: %s", data->console_path);
         goto cleanup;
       }
     } else
@@ -1282,7 +1282,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
       attribute ("type", "unix");
       start_element ("source") {
         attribute ("mode", "connect");
-        attribute ("path", params->console_path);
+        attribute ("path", params->data->console_path);
       } end_element ();
       start_element ("target") {
         attribute ("port", "0");
@@ -1294,7 +1294,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
       attribute ("type", "unix");
       start_element ("source") {
         attribute ("mode", "connect");
-        attribute ("path", params->guestfsd_path);
+        attribute ("path", params->data->guestfsd_path);
       } end_element ();
       start_element ("target") {
         attribute ("type", "virtio");
