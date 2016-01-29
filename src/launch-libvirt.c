@@ -397,7 +397,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
    */
   snprintf (data->guestfsd_path, sizeof data->guestfsd_path,
             "%s/guestfsd.sock", g->tmpdir);
-  unlink (data->guestfsd_path);
 
   set_socket_create_context (g);
 
@@ -424,7 +423,6 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   /* For the serial console. */
   snprintf (data->console_path, sizeof data->console_path,
             "%s/console.sock", g->tmpdir);
-  unlink (data->console_path);
 
   console_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (console_sock == -1) {
@@ -2026,6 +2024,16 @@ shutdown_libvirt (guestfs_h *g, void *datav, int check_for_errors)
   }
   if (conn != NULL)
     virConnectClose (conn);
+
+  if (data->guestfsd_path[0] != '\0') {
+    unlink (data->guestfsd_path);
+    data->guestfsd_path[0] = '\0';
+  }
+
+  if (data->console_path[0] != '\0') {
+    unlink (data->console_path);
+    data->console_path[0] = '\0';
+  }
 
   data->conn = NULL;
   data->dom = NULL;
