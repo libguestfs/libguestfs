@@ -71,6 +71,7 @@ SOURCES_MLI = \
 	utils.mli \
 	vCenter.mli \
 	windows.mli \
+	windows_virtio.mli \
 	xml.mli
 
 SOURCES_ML = \
@@ -86,6 +87,7 @@ SOURCES_ML = \
 	OVF.ml \
 	linux.ml \
 	windows.ml \
+	windows_virtio.ml \
 	modules_list.ml \
 	input_disk.ml \
 	input_libvirtxml.ml \
@@ -362,6 +364,7 @@ v2v_unit_tests_BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
+	$(top_builddir)/mllib/regedit.cmo \
 	stringMap.cmo \
 	types.cmo \
 	xml.cmo \
@@ -369,6 +372,7 @@ v2v_unit_tests_BOBJECTS = \
 	DOM.cmo \
 	OVF.cmo \
 	windows.cmo \
+	windows_virtio.cmo \
 	linux.cmo \
 	v2v_unit_tests.cmo
 v2v_unit_tests_XOBJECTS = $(v2v_unit_tests_BOBJECTS:.cmo=.cmx)

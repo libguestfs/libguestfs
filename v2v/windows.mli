@@ -22,13 +22,6 @@ val detect_antivirus : Types.inspect -> bool
 (** Return [true] if anti-virus (AV) software was detected in
     this Windows guest. *)
 
-val copy_virtio_drivers : Guestfs.guestfs -> Types.inspect -> string -> string -> bool
-(** [copy_virtio_drivers g inspect virtio_win driverdir]
-    copies applicable virtio drivers from the driver directory or
-    driver ISO into the guest driver dir.  Returns [true] if any
-    drivers were copied, or [false] if no suitable drivers were
-    found. *)
-
 val with_hive : Guestfs.guestfs -> string -> write:bool -> (int64 -> 'a) -> 'a
 (** This is a wrapper that handles opening and closing the hive
     properly around a function [f root].  If [~write] is [true] then
@@ -40,10 +33,3 @@ val get_node : Guestfs.guestfs -> int64 -> string list -> int64 option
     not need to be the actual hive root), and searches down the [path].
     It returns [Some node] of the final node if found, or [None] if
     not found. *)
-
-(**/**)
-
-(* The following function is only exported for unit tests. *)
-module UNIT_TESTS : sig
-  val virtio_iso_path_matches_guest_os : string -> Types.inspect -> bool
-end
