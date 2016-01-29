@@ -47,6 +47,12 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
     return -1;
   }
 
+  if (strlen (sockpath) > UNIX_PATH_MAX-1) {
+    error (g, _("socket filename too long (more than %d characters): %s"),
+           UNIX_PATH_MAX-1, sockpath);
+    return -1;
+  }
+
   if (g->verbose)
     guestfs_int_print_timestamped_message (g, "connecting to %s", sockpath);
 
