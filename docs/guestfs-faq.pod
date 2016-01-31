@@ -837,9 +837,28 @@ You see errors like:
 
  mount: unknown filesystem type 'ntfs'
 
-On Red Hat Enterprise Linux or CentOS, you have to install the
+On Red Hat Enterprise Linux or CentOS E<lt> 7.2, you have to install
+the
 L<libguestfs-winsupport|https://people.redhat.com/~rjones/libguestfs-winsupport/>
-package.
+package.  In RHEL E<ge> 7.2, C<libguestfs-winsupport> is part of the
+base RHEL distribution, but see the next question.
+
+=head2 "mount: unsupported filesystem type" with NTFS in RHEL E<ge> 7.2
+
+In RHEL 7.2 we were able to add C<libguestfs-winsupport> to the base
+RHEL distribution, but we had to disable the ability to use it for
+opening and editing filesystems.  It is only supported when used with
+L<virt-v2v(1)>.  If you try to use L<guestfish(1)> or L<guestmount(1)>
+or some other programs on an NTFS filesystem, you will see the error:
+
+ mount: unsupported filesystem type
+
+This is not a supported configuration, and it will not be made to work
+in RHEL.  Don't bother to open a bug about it, as it will be
+immediately C<CLOSED -E<gt> WONTFIX>.
+
+You may compile your own libguestfs, removing this restriction, but
+that won't be endorsed or supported by Red Hat.
 
 =head2 Cannot open or inspect RHEL 7 guests.
 
