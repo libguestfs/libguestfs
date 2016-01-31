@@ -127,6 +127,9 @@ val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
 val may : ('a -> unit) -> 'a option -> unit
 (** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
 
+type ('a, 'b) maybe = Either of 'a | Or of 'b
+(** Like the Haskell [Either] type. *)
+
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
 

@@ -271,6 +271,8 @@ let may f = function
   | None -> ()
   | Some x -> f x
 
+type ('a, 'b) maybe = Either of 'a | Or of 'b
+
 let istty chan =
   Unix.isatty (Unix.descr_of_out_channel chan)
 

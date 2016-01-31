@@ -52,8 +52,6 @@ and (=~) str rex =
  * hive is opened for writing and committed at the end if the
  * function returned without error.
  *)
-type ('a, 'b) maybe = Either of 'a | Or of 'b
-
 let with_hive (g : Guestfs.guestfs) hive_filename ~write f =
   let verbose = verbose () in
   g#hivex_open ~write ~verbose (* ~debug:verbose *) hive_filename;
