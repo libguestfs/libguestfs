@@ -82,7 +82,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
 
   (* If the Windows guest appears to be using group policy. *)
   let has_group_policy =
-    Windows.with_hive g software_hive_filename ~write:false
+    Windows.with_hive_readonly g software_hive_filename
       (fun root ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion";
@@ -124,7 +124,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
   let xenpv_uninst =
     let xenpvreg = "Red Hat Paravirtualized Xen Drivers for Windows(R)" in
 
-    Windows.with_hive g software_hive_filename ~write:false
+    Windows.with_hive_readonly g software_hive_filename
       (fun root ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
@@ -370,12 +370,12 @@ echo uninstalling Xen PV driver
   (* Firstboot configuration. *)
   configure_firstboot ();
 
-  (* Open the system hive and update it. *)
+  (* Open the system hive for writes and update it. *)
   let block_driver, net_driver, video_driver =
-    Windows.with_hive g system_hive_filename ~write:true update_system_hive in
+    Windows.with_hive_write g system_hive_filename update_system_hive in
 
-  (* Open the software hive and update it. *)
-  Windows.with_hive g software_hive_filename ~write:true update_software_hive;
+  (* Open the software hive for writes and update it. *)
+  Windows.with_hive_write g software_hive_filename update_software_hive;
 
   fix_ntfs_heads ();
 
