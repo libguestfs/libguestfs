@@ -55,16 +55,16 @@ and (=~) str rex =
 let with_hive (g : Guestfs.guestfs) hive_filename ~write f =
   let verbose = verbose () in
   g#hivex_open ~write ~verbose (* ~debug:verbose *) hive_filename;
-  let r =
-    try
+  protect ~f:(
+    fun () ->
       let root = g#hivex_root () in
       let ret = f root in
       if write then g#hivex_commit None;
-      Either ret
-    with exn ->
-      Or exn in
-  g#hivex_close ();
-  match r with Either ret -> ret | Or exn -> raise exn
+      ret
+  ) ~finally:(
+    fun () ->
+      g#hivex_close ()
+  )
 
 (* Find the given node in the current hive, relative to the starting
  * point.  Returns [None] if the node is not found.
