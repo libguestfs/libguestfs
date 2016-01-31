@@ -22,11 +22,15 @@ val detect_antivirus : Types.inspect -> bool
 (** Return [true] if anti-virus (AV) software was detected in
     this Windows guest. *)
 
-val with_hive : Guestfs.guestfs -> string -> write:bool -> (int64 -> 'a) -> 'a
-(** This is a wrapper that handles opening and closing the hive
-    properly around a function [f root].  If [~write] is [true] then
-    the hive is opened for writing and committed at the end if the
-    function returned without error. *)
+val with_hive_readonly : Guestfs.guestfs -> string -> (int64 -> 'a) -> 'a
+val with_hive_write : Guestfs.guestfs -> string -> (int64 -> 'a) -> 'a
+(** These are wrappers that handle opening and closing the hive
+    properly around a function [f].
+
+    [with_hive_readonly] opens the hive for read-only (attempts
+    to write will throw an error).  [with_hive_write] opens the
+    hive for writes, and commits the changes at the end if there
+    were no errors. *)
 
 val get_node : Guestfs.guestfs -> int64 -> string list -> int64 option
 (** [get_node g root path] starts at the [root] node of the hive (it does

@@ -47,24 +47,25 @@ and check_app { Guestfs.app2_name = name;
 and (=~) str rex =
   try ignore (Str.search_forward rex str 0); true with Not_found -> false
 
-(* This is a wrapper that handles opening and closing the hive
- * properly around a function [f].  If [~write] is [true] then the
- * hive is opened for writing and committed at the end if the
- * function returned without error.
- *)
-let with_hive (g : Guestfs.guestfs) hive_filename ~write f =
+let with_hive_readonly (g : Guestfs.guestfs) hive_filename f =
   let verbose = verbose () in
-  g#hivex_open ~write ~verbose (* ~debug:verbose *) hive_filename;
+  g#hivex_open ~write:false ~verbose (* ~debug:verbose *) hive_filename;
+  protect ~f:(
+    fun () ->
+      let root = g#hivex_root () in
+      f root
+  ) ~finally:g#hivex_close
+
+let with_hive_write (g : Guestfs.guestfs) hive_filename f =
+  let verbose = verbose () in
+  g#hivex_open ~write:true ~verbose (* ~debug:verbose *) hive_filename;
   protect ~f:(
     fun () ->
       let root = g#hivex_root () in
       let ret = f root in
-      if write then g#hivex_commit None;
+      g#hivex_commit None;
       ret
-  ) ~finally:(
-    fun () ->
-      g#hivex_close ()
-  )
+  ) ~finally:g#hivex_close
 
 (* Find the given node in the current hive, relative to the starting
  * point.  Returns [None] if the node is not found.
