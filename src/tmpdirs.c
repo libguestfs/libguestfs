@@ -119,6 +119,22 @@ guestfs_impl_get_cachedir (guestfs_h *g)
   return safe_strdup (g, str);
 }
 
+static int
+lazy_make_tmpdir (guestfs_h *g, char *(*getdir) (guestfs_h *g), char **dest)
+{
+  if (!*dest) {
+    CLEANUP_FREE char *tmpdir = getdir (g);
+    char *tmppath = safe_asprintf (g, "%s/libguestfsXXXXXX", tmpdir);
+    if (mkdtemp (tmppath) == NULL) {
+      perrorf (g, _("%s: cannot create temporary directory"), tmppath);
+      free (tmpdir);
+      return -1;
+    }
+    *dest = tmppath;
+  }
+  return 0;
+}
+
 /* The g->tmpdir (per-handle temporary directory) is not created when
  * the handle is created.  Instead we create it lazily before the
  * first time it is used, or during launch.
@@ -126,17 +142,7 @@ guestfs_impl_get_cachedir (guestfs_h *g)
 int
 guestfs_int_lazy_make_tmpdir (guestfs_h *g)
 {
-  if (!g->tmpdir) {
-    CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g);
-    g->tmpdir = safe_asprintf (g, "%s/libguestfsXXXXXX", tmpdir);
-    if (mkdtemp (g->tmpdir) == NULL) {
-      perrorf (g, _("%s: cannot create temporary directory"), g->tmpdir);
-      free (g->tmpdir);
-      g->tmpdir = NULL;
-      return -1;
-    }
-  }
-  return 0;
+  return lazy_make_tmpdir (g, guestfs_get_tmpdir, &g->tmpdir);
 }
 
 /* Recursively remove a temporary directory.  If removal fails, just
