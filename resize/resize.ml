@@ -1218,7 +1218,9 @@ read the man page virt-resize(1).
             *)
            let srcoffset = p.p_part.G.part_start in
            let destoffset = p.p_target_start *^ 512L in
-           g#copy_device_to_device ~srcoffset ~destoffset ~size:copysize "/dev/sda" "/dev/sdb"
+           g#copy_device_to_device ~srcoffset ~destoffset ~size:copysize
+                                   ~sparse
+                                   "/dev/sda" "/dev/sdb"
         )
       | OpIgnore | OpDelete -> ()
   in
