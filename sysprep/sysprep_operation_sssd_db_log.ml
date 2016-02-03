@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let sssd_db_log_perform g root side_effects =
+let sssd_db_log_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = [ "/var/log/sssd/*";

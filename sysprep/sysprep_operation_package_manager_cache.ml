@@ -22,7 +22,7 @@ open Common_utils
 
 module G = Guestfs
 
-let package_manager_cache_perform g root side_effects =
+let package_manager_cache_perform (g : Guestfs.guestfs) root side_effects =
   let packager = g#inspect_get_package_management root in
   let cache_dirs =
     match packager with

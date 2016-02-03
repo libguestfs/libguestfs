@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let ssh_userdir_perform g root side_effects =
+let ssh_userdir_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let dirs = g#glob_expand "/home/*/.ssh" in
