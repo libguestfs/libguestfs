@@ -76,6 +76,12 @@ guestfs_int_set_env_tmpdir (guestfs_h *g, const char *tmpdir)
 }
 
 int
+guestfs_int_set_env_runtimedir (guestfs_h *g, const char *runtimedir)
+{
+  return set_abs_path (g, runtimedir, &g->env_runtimedir);
+}
+
+int
 guestfs_impl_set_tmpdir (guestfs_h *g, const char *tmpdir)
 {
   return set_abs_path (g, tmpdir, &g->int_tmpdir);
@@ -119,6 +125,20 @@ guestfs_impl_get_cachedir (guestfs_h *g)
   return safe_strdup (g, str);
 }
 
+/* Note this actually calculates the sockdir, so it never returns NULL. */
+char *
+guestfs_impl_get_sockdir (guestfs_h *g)
+{
+  const char *str;
+
+  if (g->env_runtimedir)
+    str = g->env_runtimedir;
+  else
+    str = "/tmp";
+
+  return safe_strdup (g, str);
+}
+
 static int
 lazy_make_tmpdir (guestfs_h *g, char *(*getdir) (guestfs_h *g), char **dest)
 {
@@ -145,6 +165,12 @@ guestfs_int_lazy_make_tmpdir (guestfs_h *g)
   return lazy_make_tmpdir (g, guestfs_get_tmpdir, &g->tmpdir);
 }
 
+int
+guestfs_int_lazy_make_sockdir (guestfs_h *g)
+{
+  return lazy_make_tmpdir (g, guestfs_get_sockdir, &g->sockdir);
+}
+
 /* Recursively remove a temporary directory.  If removal fails, just
  * return (it's a temporary directory so it'll eventually be cleaned
  * up by a temp cleaner).  This is done using "rm -rf" because that's
@@ -166,4 +192,11 @@ guestfs_int_remove_tmpdir (guestfs_h *g)
 {
   if (g->tmpdir)
     guestfs_int_recursive_remove_dir (g, g->tmpdir);
+}
+
+void
+guestfs_int_remove_sockdir (guestfs_h *g)
+{
+  if (g->sockdir)
+    guestfs_int_recursive_remove_dir (g, g->sockdir);
 }

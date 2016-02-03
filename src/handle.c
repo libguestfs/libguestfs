@@ -273,6 +273,10 @@ parse_environment (guestfs_h *g,
       return -1;
   }
 
+  str = do_getenv (data, "XDG_RUNTIME_DIR");
+  if (guestfs_int_set_env_runtimedir (g, str) == -1)
+    return -1;
+
   return 0;
 }
 
@@ -347,8 +351,9 @@ guestfs_close (guestfs_h *g)
   if (g->test_fp != NULL)
     fclose (g->test_fp);
 
-  /* Remove temporary directory. */
+  /* Remove temporary directories. */
   guestfs_int_remove_tmpdir (g);
+  guestfs_int_remove_sockdir (g);
 
   /* Mark the handle as dead and then free up all memory. */
   g->state = NO_HANDLE;
@@ -377,7 +382,9 @@ guestfs_close (guestfs_h *g)
   if (g->pda)
     hash_free (g->pda);
   free (g->tmpdir);
+  free (g->sockdir);
   free (g->env_tmpdir);
+  free (g->env_runtimedir);
   free (g->int_tmpdir);
   free (g->int_cachedir);
   free (g->last_error);

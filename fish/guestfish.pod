@@ -1519,6 +1519,17 @@ about kernel selection, see L<supermin(1)>.
 
 See L</LIBGUESTFS_CACHEDIR>, L</LIBGUESTFS_TMPDIR>.
 
+=item XDG_RUNTIME_DIR
+
+This directory represents a user-specific directory for storing
+non-essential runtime files.
+
+If it is set, then is used to store temporary sockets.  Otherwise,
+F</tmp> is used.
+
+See also L</get-sockdir>,
+L<http://www.freedesktop.org/wiki/Specifications/basedir-spec/>.
+
 =back
 
 =head1 FILES

@@ -425,12 +425,15 @@ int
 guestfs_int_create_socketname (guestfs_h *g, const char *filename,
                                char (*sockpath)[UNIX_PATH_MAX])
 {
-  if (strlen (g->tmpdir) + 1 + strlen (filename) > UNIX_PATH_MAX-1) {
-    error (g, _("socket path too long: %s/%s"), g->tmpdir, filename);
+  if (guestfs_int_lazy_make_sockdir (g) == -1)
+    return -1;
+
+  if (strlen (g->sockdir) + 1 + strlen (filename) > UNIX_PATH_MAX-1) {
+    error (g, _("socket path too long: %s/%s"), g->sockdir, filename);
     return -1;
   }
 
-  snprintf (*sockpath, UNIX_PATH_MAX, "%s/%s", g->tmpdir, filename);
+  snprintf (*sockpath, UNIX_PATH_MAX, "%s/%s", g->sockdir, filename);
 
   return 0;
 }

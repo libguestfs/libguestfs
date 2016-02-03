@@ -210,6 +210,9 @@ main (int argc, char *argv[])
   p = getenv ("PATH");
   if (p)
     printf ("PATH=%s\n", p);
+  p = getenv ("XDG_RUNTIME_DIR");
+  if (p)
+    printf ("XDG_RUNTIME_DIR=%s\n", p);
 
   /* Print SELinux mode (don't worry if this fails, or if the command
    * doesn't even exist).
@@ -255,6 +258,9 @@ main (int argc, char *argv[])
   printf ("guestfs_get_recovery_proc: %d\n", guestfs_get_recovery_proc (g));
   printf ("guestfs_get_selinux: %d\n", guestfs_get_selinux (g));
   printf ("guestfs_get_smp: %d\n", guestfs_get_smp (g));
+  p = guestfs_get_sockdir (g);
+  printf ("guestfs_get_sockdir: %s\n", p ? : "(null)");
+  free (p);
   p = guestfs_get_tmpdir (g);
   printf ("guestfs_get_tmpdir: %s\n", p ? : "(null)");
   free (p);

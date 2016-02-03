@@ -3504,6 +3504,22 @@ call it returns a simple true/false boolean result, instead
 of throwing an exception if a feature is not found.  For
 other documentation see C<guestfs_available>." };
 
+  { defaults with
+    name = "get_sockdir"; added = (1, 33, 8);
+    style = RString "sockdir", [], [];
+    blocking = false;
+    shortdesc = "get the temporary directory for sockets";
+    longdesc = "\
+Get the directory used by the handle to store temporary socket files.
+
+This is different from C<guestfs_tmpdir>, as we need shorter paths for
+sockets (due to the limited buffers of filenames for UNIX sockets),
+and C<guestfs_tmpdir> may be too long for them.
+
+The environment variable C<XDG_RUNTIME_DIR> controls the default
+value: If C<XDG_RUNTIME_DIR> is set, then that is the default.
+Else F</tmp> is the default." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
