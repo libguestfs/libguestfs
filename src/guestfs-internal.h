@@ -782,6 +782,7 @@ extern void guestfs_int_launch_send_progress (guestfs_h *g, int perdozen);
 extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
 const char *guestfs_int_get_cpu_model (int kvm);
+int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
 extern void guestfs_int_register_backend (const char *name, const struct backend_ops *);
 extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 

@@ -395,8 +395,9 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
    */
-  snprintf (data->guestfsd_path, sizeof data->guestfsd_path,
-            "%s/guestfsd.sock", g->tmpdir);
+  if (guestfs_int_create_socketname (g, "guestfsd.sock",
+                                     &data->guestfsd_path) == -1)
+    goto cleanup;
 
   set_socket_create_context (g);
 
@@ -421,8 +422,9 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   /* For the serial console. */
-  snprintf (data->console_path, sizeof data->console_path,
-            "%s/console.sock", g->tmpdir);
+  if (guestfs_int_create_socketname (g, "console.sock",
+                                     &data->console_path) == -1)
+    goto cleanup;
 
   console_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (console_sock == -1) {

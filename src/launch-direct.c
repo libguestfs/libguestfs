@@ -295,7 +295,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Using virtio-serial, we need to create a local Unix domain socket
    * for qemu to connect to.
    */
-  snprintf (data->guestfsd_sock, sizeof data->guestfsd_sock, "%s/guestfsd.sock", g->tmpdir);
+  if (guestfs_int_create_socketname (g, "guestfsd.sock",
+                                     &data->guestfsd_sock) == -1)
+    goto cleanup0;
 
   daemon_accept_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (daemon_accept_sock == -1) {

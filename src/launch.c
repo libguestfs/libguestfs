@@ -418,6 +418,23 @@ guestfs_int_get_cpu_model (int kvm)
 #endif
 }
 
+/* Create the path for a socket with the selected filename in the
+ * tmpdir.
+ */
+int
+guestfs_int_create_socketname (guestfs_h *g, const char *filename,
+                               char (*sockpath)[UNIX_PATH_MAX])
+{
+  if (strlen (g->tmpdir) + 1 + strlen (filename) > UNIX_PATH_MAX-1) {
+    error (g, _("socket path too long: %s/%s"), g->tmpdir, filename);
+    return -1;
+  }
+
+  snprintf (*sockpath, UNIX_PATH_MAX, "%s/%s", g->tmpdir, filename);
+
+  return 0;
+}
+
 /* glibc documents, but does not actually implement, a 'getumask(3)'
  * call.  This implements a thread-safe way to get the umask.  Note
  * this is only called when g->verbose is true and after g->tmpdir
