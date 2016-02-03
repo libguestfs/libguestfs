@@ -226,7 +226,7 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
       bpf "SIZE=%Ld\n" size_in_sectors;
       bpf "FORMAT=%s\n" format_for_rhev;
       bpf "TYPE=%s\n" output_alloc_for_rhev;
-      bpf "DESCRIPTION=%s\n" generated_by;
+      bpf "DESCRIPTION=%s\n" (String.replace generated_by "=" "_");
       bpf "EOF\n";
       Buffer.contents buf
   ) (List.combine targets image_uuids)
