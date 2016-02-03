@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let firewall_rules_perform g root side_effects =
+let firewall_rules_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = [ "/etc/sysconfig/iptables";

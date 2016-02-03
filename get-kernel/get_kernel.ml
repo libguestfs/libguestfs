@@ -149,7 +149,7 @@ let rec do_fetch ~transform_fn ~outputdir g root =
 
   g#umount_all ()
 
-and pick_kernel_files_linux g root =
+and pick_kernel_files_linux (g : Guestfs.guestfs) root =
   (* Get all kernels and initramfses. *)
   let glob w = Array.to_list (g#glob_expand w) in
   let kernels = glob "/boot/vmlinuz-*" in

@@ -21,7 +21,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
-let abrt_data_perform g root side_effects =
+let abrt_data_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ <> "windows" then (
     let paths = g#glob_expand "/var/spool/abrt/*" in

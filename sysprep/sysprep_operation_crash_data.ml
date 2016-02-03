@@ -26,7 +26,7 @@ let globs = [
   "/var/log/dump/*";
 ]
 
-let crash_data_perform g root side_effects =
+let crash_data_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   if typ = "linux" then (
     List.iter (fun glob -> Array.iter g#rm_rf (g#glob_expand glob)) globs
