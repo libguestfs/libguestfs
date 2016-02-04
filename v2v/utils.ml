@@ -81,6 +81,8 @@ let qemu_supports_sound_card = function
   | Types.USBAudio
     -> true
 
+external aavmf_firmware : unit -> (string * string) list = "v2v_utils_aavmf_firmware"
+
 (* Find the UEFI firmware. *)
 let find_uefi_firmware guest_arch =
   let files =
@@ -96,10 +98,7 @@ let find_uefi_firmware guest_arch =
          "/usr/share/qemu/ovmf-x86_64-code.bin",
          "/usr/share/qemu/ovmf-x86_64-vars.bin" ]
     | "aarch64" ->
-       [ "/usr/share/AAVMF/AAVMF_CODE.fd",
-         "/usr/share/AAVMF/AAVMF_VARS.fd";
-         "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
-         "/usr/share/edk2.git/aarch64/vars-template-pflash.raw" ]
+       aavmf_firmware () (* actually defined in src/utils.c *)
     | arch ->
        error (f_"don't know how to convert UEFI guests for architecture %s")
              guest_arch in

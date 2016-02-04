@@ -443,32 +443,15 @@ dir_contains_files (const char *dir, ...)
  *
  * XXX See also v2v/utils.ml:find_uefi_firmware
  */
-#ifdef __aarch64__
-
-static const char *uefi_firmware[] = {
-  "/usr/share/AAVMF/AAVMF_CODE.fd",
-  "/usr/share/AAVMF/AAVMF_VARS.fd",
-
-  "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
-  "/usr/share/edk2.git/aarch64/vars-template-pflash.raw",
-
-  NULL
-};
-
-#else
-
-static const char *uefi_firmware[] = { NULL };
-
-#endif
-
 int
 guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 {
+#ifdef __aarch64__
   size_t i;
 
-  for (i = 0; uefi_firmware[i] != NULL; i += 2) {
-    const char *codefile = uefi_firmware[i];
-    const char *varsfile = uefi_firmware[i+1];
+  for (i = 0; guestfs_int_aavmf_firmware[i] != NULL; i += 2) {
+    const char *codefile = guestfs_int_aavmf_firmware[i];
+    const char *varsfile = guestfs_int_aavmf_firmware[i+1];
 
     if (access (codefile, R_OK) == 0 && access (varsfile, R_OK) == 0) {
       CLEANUP_CMD_CLOSE struct command *copycmd = guestfs_int_new_command (g);
@@ -495,6 +478,7 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
       return 0;
     }
   }
+#endif
 
   /* Not found. */
   *code = *vars = NULL;
