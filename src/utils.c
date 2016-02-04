@@ -314,3 +314,15 @@ guestfs_int_is_true (const char *str)
 
   return -1;
 }
+
+/* See src/appliance.c:guestfs_int_get_uefi. */
+const char *
+guestfs_int_aavmf_firmware[] = {
+  "/usr/share/AAVMF/AAVMF_CODE.fd",
+  "/usr/share/AAVMF/AAVMF_VARS.fd",
+
+  "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
+  "/usr/share/edk2.git/aarch64/vars-template-pflash.raw",
+
+  NULL
+};

@@ -57,3 +57,30 @@ v2v_utils_drive_index (value strv)
 
   CAMLreturn (Val_int (r));
 }
+
+value
+v2v_utils_aavmf_firmware (value unitv)
+{
+  CAMLparam1 (unitv);
+  CAMLlocal5 (rv, v, v1, v2, cons);
+  size_t i, len;
+
+  rv = Val_int (0);
+
+  /* Build the list backwards so we don't have to reverse it at the end. */
+  len = guestfs_int_count_strings ((char **) guestfs_int_aavmf_firmware);
+
+  for (i = len; i > 0; i -= 2) {
+    v1 = caml_copy_string (guestfs_int_aavmf_firmware[i-2]);
+    v2 = caml_copy_string (guestfs_int_aavmf_firmware[i-1]);
+    v = caml_alloc (2, 0);
+    Store_field (v, 0, v1);
+    Store_field (v, 1, v2);
+    cons = caml_alloc (2, 0);
+    Store_field (cons, 1, rv);
+    rv = cons;
+    Store_field (cons, 0, v);
+  }
+
+  CAMLreturn (rv);
+}
