@@ -69,6 +69,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-disk_create.h \
   include/guestfs-gobject/optargs-e2fsck.h \
   include/guestfs-gobject/optargs-fstrim.h \
+  include/guestfs-gobject/optargs-glob_expand.h \
   include/guestfs-gobject/optargs-grep.h \
   include/guestfs-gobject/optargs-hivex_open.h \
   include/guestfs-gobject/optargs-inspect_get_icon.h \
@@ -154,6 +155,7 @@ guestfs_gobject_sources= \
   src/optargs-disk_create.c \
   src/optargs-e2fsck.c \
   src/optargs-fstrim.c \
+  src/optargs-glob_expand.c \
   src/optargs-grep.c \
   src/optargs-hivex_open.c \
   src/optargs-inspect_get_icon.c \

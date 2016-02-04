@@ -194,6 +194,7 @@ gobject/src/optargs-cpio_out.c
 gobject/src/optargs-disk_create.c
 gobject/src/optargs-e2fsck.c
 gobject/src/optargs-fstrim.c
+gobject/src/optargs-glob_expand.c
 gobject/src/optargs-grep.c
 gobject/src/optargs-hivex_open.c
 gobject/src/optargs-inspect_get_icon.c

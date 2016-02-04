@@ -5908,27 +5908,34 @@ See also: C<guestfs_command_lines>" };
      * start with "/".  There is no concept of "cwd" in libguestfs,
      * hence no "."-relative names.
      *)
-    style = RStringList "paths", [Pathname "pattern"], [];
+    style = RStringList "paths", [Pathname "pattern"], [OBool "directoryslash"];
     proc_nr = Some 113;
+    once_had_no_optargs = true;
     tests = [
       InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/glob_expand/b/c"];
          ["touch"; "/glob_expand/b/c/d"];
          ["touch"; "/glob_expand/b/c/e"];
-         ["glob_expand"; "/glob_expand/b/c/*"]],
+         ["glob_expand"; "/glob_expand/b/c/*"; ""]],
         "is_string_list (ret, 2, \"/glob_expand/b/c/d\", \"/glob_expand/b/c/e\")"), [];
       InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/glob_expand2/b/c"];
          ["touch"; "/glob_expand2/b/c/d"];
          ["touch"; "/glob_expand2/b/c/e"];
-         ["glob_expand"; "/glob_expand2/*/c/*"]],
+         ["glob_expand"; "/glob_expand2/*/c/*"; ""]],
         "is_string_list (ret, 2, \"/glob_expand2/b/c/d\", \"/glob_expand2/b/c/e\")"), [];
       InitScratchFS, Always, TestResult (
         [["mkdir_p"; "/glob_expand3/b/c"];
          ["touch"; "/glob_expand3/b/c/d"];
          ["touch"; "/glob_expand3/b/c/e"];
-         ["glob_expand"; "/glob_expand3/*/x/*"]],
-        "is_string_list (ret, 0)"), []
+         ["glob_expand"; "/glob_expand3/*/x/*"; ""]],
+        "is_string_list (ret, 0)"), [];
+      InitScratchFS, Always, TestResult (
+        [["mkdir_p"; "/glob_expand4/b/c"];
+         ["touch"; "/glob_expand4/b1"];
+         ["touch"; "/glob_expand4/c1"];
+         ["glob_expand"; "/glob_expand4/b*"; "false"]],
+        "is_string_list (ret, 2, \"/glob_expand4/b\", \"/glob_expand4/b1\")"), [];
     ];
     shortdesc = "expand a wildcard path";
     longdesc = "\
@@ -5942,6 +5949,10 @@ If no paths match, then this returns an empty list
 It is just a wrapper around the C L<glob(3)> function
 with flags C<GLOB_MARK|GLOB_BRACE>.
 See that manual page for more details.
+
+C<directoryslash> controls whether use the C<GLOB_MARK> flag for
+L<glob(3)>, and it defaults to true.  It can be explicitly set as
+off to return no trailing slashes in filenames of directories.
 
 Notice that there is no equivalent command for expanding a device
 name (eg. F</dev/sd*>).  Use C<guestfs_list_devices>,

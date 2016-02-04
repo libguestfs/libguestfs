@@ -26,14 +26,21 @@
 #include "actions.h"
 
 char **
-do_glob_expand (const char *pattern)
+do_glob_expand (const char *pattern, int directoryslash)
 {
   int r;
   glob_t buf = { .gl_pathc = 0, .gl_pathv = NULL, .gl_offs = 0 };
+  int flags = GLOB_BRACE | GLOB_MARK;
+
+  /* GLOB_MARK is default, unless the user explicitly disabled it. */
+  if ((optargs_bitmask & GUESTFS_GLOB_EXPAND_DIRECTORYSLASH_BITMASK)
+      && !directoryslash) {
+    flags &= ~GLOB_MARK;
+  }
 
   /* glob(3) in glibc never calls chdir, so this seems to be safe: */
   CHROOT_IN;
-  r = glob (pattern, GLOB_MARK|GLOB_BRACE, NULL, &buf);
+  r = glob (pattern, flags, NULL, &buf);
   CHROOT_OUT;
 
   if (r == GLOB_NOMATCH) {	/* Return an empty list instead of an error. */
