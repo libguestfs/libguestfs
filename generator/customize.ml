@@ -117,6 +117,12 @@ Wildcards cannot be used.";
 Delete a file from the guest.  Or delete a directory (and all its
 contents, recursively).
 
+You can use shell glob characters in the specified path.  Be careful
+to escape glob characters from the host shell, if that is required.
+For example:
+
+ virt-customize --delete '/var/log/*.log'.
+
 See also: I<--upload>, I<--scrub>.";
   };
 

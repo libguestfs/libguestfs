@@ -205,7 +205,7 @@ exec >>%s 2>&1
 
     | `Delete path ->
       message (f_"Deleting: %s") path;
-      g#rm_rf path
+      Array.iter g#rm_rf (g#glob_expand ~directoryslash:false path)
 
     | `Edit (path, expr) ->
       message (f_"Editing: %s") path;
