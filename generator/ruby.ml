@@ -260,7 +260,9 @@ set_event_callback (VALUE gv, VALUE cbv, VALUE event_bitmaskv)
 
   event_bitmask = NUM2ULL (event_bitmaskv);
 
-  root = guestfs_int_safe_malloc (g, sizeof *root);
+  root = malloc (sizeof *root);
+  if (root == NULL)
+    rb_raise (rb_eNoMemError, \"malloc: %%m\");
   *root = cbv;
 
   eh = guestfs_set_event_callback (g, event_callback_wrapper,
@@ -431,7 +433,9 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs_int_safe_malloc (g, sizeof (VALUE *) * (*len_rtn));
+  r = malloc (sizeof (VALUE *) * (*len_rtn));
+  if (r == NULL)
+    rb_raise (rb_eNoMemError, \"malloc: %%m\");
 
   i = 0;
   root = guestfs_first_private (g, &key);
