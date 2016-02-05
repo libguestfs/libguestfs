@@ -2187,14 +2187,6 @@ and generate_linker_script () =
     "guestfs_set_private";
     "guestfs_set_progress_callback";
     "guestfs_set_subprocess_quit_callback";
-
-    (* Unofficial parts of the API: the bindings code use these
-     * functions, so it is useful to export them.
-     *)
-    "guestfs_int_safe_calloc";
-    "guestfs_int_safe_malloc";
-    "guestfs_int_safe_strdup";
-    "guestfs_int_safe_memdup";
   ] in
   let functions =
     List.flatten (

@@ -72,29 +72,6 @@
 #define CLEANUP_PCLOSE
 #endif
 
-/* NB: At some point we will stop exporting these safe_* allocation
- * functions outside the library, so don't use them in new tools or
- * bindings code.
- */
-extern GUESTFS_DLL_PUBLIC void *guestfs_int_safe_malloc (guestfs_h *g, size_t nbytes);
-extern GUESTFS_DLL_PUBLIC void *guestfs_int_safe_calloc (guestfs_h *g, size_t n, size_t s);
-extern GUESTFS_DLL_PUBLIC char *guestfs_int_safe_strdup (guestfs_h *g, const char *str);
-extern GUESTFS_DLL_PUBLIC void *guestfs_int_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-extern void *guestfs_int_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
-extern char *guestfs_int_safe_strdup (guestfs_h *g, const char *str);
-extern char *guestfs_int_safe_strndup (guestfs_h *g, const char *str, size_t n);
-extern void *guestfs_int_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
-extern char *guestfs_int_safe_asprintf (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
-
-#define safe_calloc guestfs_int_safe_calloc
-#define safe_malloc guestfs_int_safe_malloc
-#define safe_realloc guestfs_int_safe_realloc
-#define safe_strdup guestfs_int_safe_strdup
-#define safe_strndup guestfs_int_safe_strndup
-#define safe_memdup guestfs_int_safe_memdup
-#define safe_asprintf guestfs_int_safe_asprintf
-
 /* utils.c */
 extern void guestfs_int_free_string_list (char **);
 extern size_t guestfs_int_count_strings (char *const *);

@@ -626,6 +626,26 @@ struct guestfs_progress;
 /* handle.c */
 extern int guestfs_int_get_backend_setting_bool (guestfs_h *g, const char *name);
 
+/* alloc.c */
+extern void *guestfs_int_safe_malloc (guestfs_h *g, size_t nbytes);
+extern void *guestfs_int_safe_calloc (guestfs_h *g, size_t n, size_t s);
+extern char *guestfs_int_safe_strdup (guestfs_h *g, const char *str);
+extern void *guestfs_int_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
+extern void *guestfs_int_safe_realloc (guestfs_h *g, void *ptr, size_t nbytes);
+extern char *guestfs_int_safe_strdup (guestfs_h *g, const char *str);
+extern char *guestfs_int_safe_strndup (guestfs_h *g, const char *str, size_t n);
+extern void *guestfs_int_safe_memdup (guestfs_h *g, const void *ptr, size_t size);
+extern char *guestfs_int_safe_asprintf (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+
+#define safe_calloc guestfs_int_safe_calloc
+#define safe_malloc guestfs_int_safe_malloc
+#define safe_realloc guestfs_int_safe_realloc
+#define safe_strdup guestfs_int_safe_strdup
+#define safe_strndup guestfs_int_safe_strndup
+#define safe_memdup guestfs_int_safe_memdup
+#define safe_asprintf guestfs_int_safe_asprintf
+
 /* errors.c */
 extern void guestfs_int_init_error_handler (guestfs_h *g);
 
