@@ -207,6 +207,13 @@ type guestcaps = {
   gcaps_arch : string;      (** Architecture that KVM must emulate. *)
   gcaps_acpi : bool;        (** True if guest supports acpi. *)
 }
+and requested_guestcaps = {
+  rcaps_block_bus : guestcaps_block_type option;
+  rcaps_net_bus : guestcaps_net_type option;
+  rcaps_video : guestcaps_video_type option;
+  (** Requested guest capabilities, to allow the caller to affect converter
+      choices *)
+}
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
 
 and guestcaps_block_type = Virtio_blk | IDE
@@ -214,6 +221,7 @@ and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
 
 val string_of_guestcaps : guestcaps -> string
+val string_of_requested_guestcaps : requested_guestcaps -> string
 
 type target_buses = {
   target_virtio_blk_bus : target_bus_slot array;
