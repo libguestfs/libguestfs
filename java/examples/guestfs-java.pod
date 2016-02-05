@@ -38,6 +38,9 @@ is the error message (a C<String>).
 
 Calling any method on a closed handle raises the same exception.
 
+If L<malloc(3)> or some other allocation fails inside the bindings,
+the C<LibGuestFSOutOfMemory> exception is thrown.
+
 =head2 EVENTS
 
 The L<libguestfs event API|guestfs(3)/EVENTS> is fully supported from

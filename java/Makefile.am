@@ -31,7 +31,8 @@ include $(srcdir)/Makefile.inc
 java_sources = \
 	$(java_built_sources) \
 	com/redhat/et/libguestfs/EventCallback.java \
-	com/redhat/et/libguestfs/LibGuestFSException.java
+	com/redhat/et/libguestfs/LibGuestFSException.java \
+	com/redhat/et/libguestfs/LibGuestFSOutOfMemory.java
 
 java_tests = \
 	Bindtests.java \

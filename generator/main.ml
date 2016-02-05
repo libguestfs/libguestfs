@@ -145,6 +145,7 @@ Run it from the top source directory using the command
   ) external_structs;
   delete_except_generated
     ~skip:["java/com/redhat/et/libguestfs/LibGuestFSException.java";
+           "java/com/redhat/et/libguestfs/LibGuestFSOutOfMemory.java";
            "java/com/redhat/et/libguestfs/EventCallback.java"]
     "java/com/redhat/et/libguestfs/*.java";
 

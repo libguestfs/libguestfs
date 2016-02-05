@@ -576,7 +576,7 @@ struct callback_data {
   jmethodID method;      // callback.event method
 };
 
-static struct callback_data **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
+static struct callback_data **get_all_event_callbacks (JNIEnv *env, guestfs_h *g, size_t *len_rtn);
 
 /* Note that this function returns.  The exception is not thrown
  * until after the wrapper function returns.
@@ -587,6 +587,18 @@ throw_exception (JNIEnv *env, const char *msg)
   jclass cl;
   cl = (*env)->FindClass (env,
                           \"com/redhat/et/libguestfs/LibGuestFSException\");
+  (*env)->ThrowNew (env, cl, msg);
+}
+
+/* Note that this function returns.  The exception is not thrown
+ * until after the wrapper function returns.
+ */
+static void
+throw_out_of_memory (JNIEnv *env, const char *msg)
+{
+  jclass cl;
+  cl = (*env)->FindClass (env,
+                          \"com/redhat/et/libguestfs/LibGuestFSOutOfMemory\");
   (*env)->ThrowNew (env, cl, msg);
 }
 
@@ -617,7 +629,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
    * user deletes events in one of the callbacks that we are
    * about to invoke, resulting in a double-free.  XXX
    */
-  data = get_all_event_callbacks (g, &len);
+  data = get_all_event_callbacks (env, g, &len);
 
   guestfs_close (g);
 
@@ -717,7 +729,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1set_1event_1callback
     return -1;
   }
 
-  data = guestfs_int_safe_malloc (g, sizeof *data);
+  data = malloc (sizeof *data);
+  if (data == NULL) {
+    throw_out_of_memory (env, \"malloc\");
+    return -1;
+  }
   (*env)->GetJavaVM (env, &data->jvm);
   data->method = method;
 
@@ -779,7 +795,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1event_1to_1string
 }
 
 static struct callback_data **
-get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
+get_all_event_callbacks (JNIEnv *env, guestfs_h *g, size_t *len_rtn)
 {
   struct callback_data **r;
   size_t i;
@@ -796,7 +812,11 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs_int_safe_malloc (g, sizeof (struct callback_data *) * (*len_rtn));
+  r = malloc (sizeof (struct callback_data *) * (*len_rtn));
+  if (r == NULL) {
+    throw_out_of_memory (env, \"malloc\");
+    return NULL;
+  }
 
   i = 0;
   data = guestfs_first_private (g, &key);
@@ -961,6 +981,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       pr "\n";
 
       (* Get the parameters. *)
+      let add_ret_error_label = ref false in
       List.iter (
         function
         | Pathname n
@@ -981,7 +1002,12 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
             pr "  %s_size = (*env)->GetArrayLength (env, j%s);\n" n n
         | StringList n | DeviceList n | FilenameList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-            pr "  %s = guestfs_int_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  %s = malloc (sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  if (%s == NULL) {\n" n;
+            pr "    throw_out_of_memory (env, \"malloc\");\n";
+            pr "    goto ret_error;\n";
+            add_ret_error_label := true;
+            pr "  }\n";
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
@@ -1007,7 +1033,12 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
                 n n
           | OStringList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-            pr "  %s = guestfs_int_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  %s = malloc (sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  if (%s == NULL) {\n" n;
+            pr "    throw_out_of_memory (env, \"malloc\");\n";
+            pr "    goto ret_error;\n";
+            add_ret_error_label := true;
+            pr "  }\n";
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
@@ -1084,25 +1115,14 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
                 pr "  if (r == NULL) {\n";
            );
            pr "    throw_exception (env, guestfs_last_error (g));\n";
-           (match ret with
-            | RErr ->
-                pr "    return;\n"
-            | RInt _
-            | RInt64 _
-            | RBool _ ->
-                pr "    return -1;\n"
-            | RConstString _ | RConstOptString _ | RString _
-            | RBufferOut _
-            | RStruct _ | RHashtable _
-            | RStringList _ | RStructList _ ->
-                pr "    return NULL;\n"
-           );
+           pr "    goto ret_error;\n";
+           add_ret_error_label := true;
            pr "  }\n"
       );
 
       (* Return value. *)
       (match ret with
-       | RErr -> ()
+       | RErr -> pr "  return;\n";
        | RInt _ -> pr "  return (jint) r;\n"
        | RBool _ -> pr "  return (jboolean) r;\n"
        | RInt64 _ -> pr "  return (jlong) r;\n"
@@ -1138,6 +1158,24 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
            pr "  jr = (*env)->NewStringUTF (env, r); // XXX size\n";
            pr "  free (r);\n";
            pr "  return jr;\n"
+      );
+
+      if !add_ret_error_label then (
+        pr "\n";
+        pr " ret_error:\n";
+        (match ret with
+         | RErr ->
+            pr "  return;\n"
+         | RInt _
+         | RInt64 _
+         | RBool _ ->
+            pr "  return -1;\n"
+         | RConstString _ | RConstOptString _ | RString _
+         | RBufferOut _
+         | RStruct _ | RHashtable _
+         | RStringList _ | RStructList _ ->
+            pr "  return NULL;\n"
+        );
       );
 
       pr "}\n";
