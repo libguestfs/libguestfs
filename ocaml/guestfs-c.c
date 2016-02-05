@@ -193,9 +193,12 @@ guestfs_int_ocaml_strings_val (guestfs_h *g, value sv)
   char **r;
   size_t i;
 
-  r = guestfs_int_safe_malloc (g, sizeof (char *) * (Wosize_val (sv) + 1));
-  for (i = 0; i < Wosize_val (sv); ++i)
-    r[i] = guestfs_int_safe_strdup (g, String_val (Field (sv, i)));
+  r = malloc (sizeof (char *) * (Wosize_val (sv) + 1));
+  if (r == NULL) caml_raise_out_of_memory ();
+  for (i = 0; i < Wosize_val (sv); ++i) {
+    r[i] = strdup (String_val (Field (sv, i)));
+    if (r[i] == NULL) caml_raise_out_of_memory ();
+  }
   r[i] = NULL;
 
   CAMLreturnT (char **, r);
@@ -227,7 +230,8 @@ guestfs_int_ocaml_set_event_callback (value gv, value closure, value events)
 
   event_bitmask = event_bitmask_of_event_list (events);
 
-  value *root = guestfs_int_safe_malloc (g, sizeof *root);
+  value *root = malloc (sizeof *root);
+  if (root == NULL) caml_raise_out_of_memory ();
   *root = closure;
 
   eh = guestfs_set_event_callback (g, event_callback_wrapper,
@@ -307,7 +311,8 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   /* Copy them into the return array. */
-  r = guestfs_int_safe_malloc (g, sizeof (value *) * (*len_rtn));
+  r = malloc (sizeof (value *) * (*len_rtn));
+  if (r == NULL) caml_raise_out_of_memory ();
 
   i = 0;
   root = guestfs_first_private (g, &key);

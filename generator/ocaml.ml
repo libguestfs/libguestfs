@@ -592,14 +592,23 @@ copy_table (char * const * argv)
         | Key n
         | GUID n ->
             (* Copy strings in case the GC moves them: RHBZ#604691 *)
-            pr "  char *%s = guestfs_int_safe_strdup (g, String_val (%sv));\n" n n
+            pr "  char *%s;\n" n;
+            pr "  %s = strdup (String_val (%sv));\n" n n;
+            pr "  if (%s == NULL) caml_raise_out_of_memory ();\n" n
         | OptString n ->
-            pr "  char *%s =\n" n;
-            pr "    %sv != Val_int (0) ?\n" n;
-            pr "      guestfs_int_safe_strdup (g, String_val (Field (%sv, 0))) : NULL;\n" n
+            pr "  char *%s;\n" n;
+            pr "  if (%sv == Val_int (0))\n" n;
+            pr "    %s = NULL;\n" n;
+            pr "  else {\n";
+            pr "    %s = strdup (String_val (Field (%sv, 0)));\n" n n;
+            pr "    if (%s == NULL) caml_raise_out_of_memory ();\n" n;
+            pr "  }\n"
         | BufferIn n ->
             pr "  size_t %s_size = caml_string_length (%sv);\n" n n;
-            pr "  char *%s = guestfs_int_safe_memdup (g, String_val (%sv), %s_size);\n" n n n
+            pr "  char *%s;\n" n;
+            pr "  %s = malloc (%s_size);\n" n n;
+            pr "  if (%s == NULL) caml_raise_out_of_memory ();\n" n;
+            pr "  memcpy (%s, String_val (%sv), %s_size);\n" n n n
         | StringList n | DeviceList n | FilenameList n ->
             pr "  char **%s = guestfs_int_ocaml_strings_val (g, %sv);\n" n n
         | Bool n ->
@@ -622,17 +631,19 @@ copy_table (char * const * argv)
             let uc_n = String.uppercase n in
             pr "  if (%sv != Val_int (0)) {\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
-            pr "    optargs_s.%s = " n;
             (match argt with
-             | OBool _ -> pr "Bool_val (Field (%sv, 0))" n
-             | OInt _ -> pr "Int_val (Field (%sv, 0))" n
-             | OInt64 _ -> pr "Int64_val (Field (%sv, 0))" n
+             | OBool _ ->
+                pr "    optargs_s.%s = Bool_val (Field (%sv, 0));\n" n n
+             | OInt _ ->
+                pr "    optargs_s.%s = Int_val (Field (%sv, 0));\n" n n
+             | OInt64 _ ->
+                pr "    optargs_s.%s = Int64_val (Field (%sv, 0));\n" n n
              | OString _ ->
-                 pr "guestfs_int_safe_strdup (g, String_val (Field (%sv, 0)))" n
+                 pr "    optargs_s.%s = strdup (String_val (Field (%sv, 0)));\n" n n;
+                 pr "    if (optargs_s.%s == NULL) caml_raise_out_of_memory ();\n" n
              | OStringList n ->
-                 pr "guestfs_int_ocaml_strings_val (g, Field (%sv, 0))\n" n
+                 pr "    optargs_s.%s = guestfs_int_ocaml_strings_val (g, Field (%sv, 0));\n" n n
             );
-            pr ";\n";
             pr "  }\n";
         ) optargs
       );
