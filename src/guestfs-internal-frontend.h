@@ -107,6 +107,8 @@ extern int guestfs_int_random_string (char *ret, size_t len);
 extern char *guestfs_int_drive_name (size_t index, char *ret);
 extern ssize_t guestfs_int_drive_index (const char *);
 extern int guestfs_int_is_true (const char *str);
+extern const char *guestfs_int_ovmf_i386_firmware[];
+extern const char *guestfs_int_ovmf_x86_64_firmware[];
 extern const char *guestfs_int_aavmf_firmware[];
 
 /* These functions are used internally by the CLEANUP_* macros.

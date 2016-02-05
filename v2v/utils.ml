@@ -81,24 +81,18 @@ let qemu_supports_sound_card = function
   | Types.USBAudio
     -> true
 
+external ovmf_i386_firmware : unit -> (string * string) list = "v2v_utils_ovmf_i386_firmware"
+external ovmf_x86_64_firmware : unit -> (string * string) list = "v2v_utils_ovmf_x86_64_firmware"
 external aavmf_firmware : unit -> (string * string) list = "v2v_utils_aavmf_firmware"
 
 (* Find the UEFI firmware. *)
 let find_uefi_firmware guest_arch =
   let files =
+    (* The lists of firmware are actually defined in src/utils.c. *)
     match guest_arch with
-    | "i386" | "i486" | "i586" | "i686" ->
-       [ "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd",
-         "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd" ]
-    | "x86_64" ->
-       [ "/usr/share/OVMF/OVMF_CODE.fd",
-         "/usr/share/OVMF/OVMF_VARS.fd";
-         "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd",
-         "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd";
-         "/usr/share/qemu/ovmf-x86_64-code.bin",
-         "/usr/share/qemu/ovmf-x86_64-vars.bin" ]
-    | "aarch64" ->
-       aavmf_firmware () (* actually defined in src/utils.c *)
+    | "i386" | "i486" | "i586" | "i686" -> ovmf_i386_firmware ()
+    | "x86_64" -> ovmf_x86_64_firmware ()
+    | "aarch64" -> aavmf_firmware ()
     | arch ->
        error (f_"don't know how to convert UEFI guests for architecture %s")
              guest_arch in
