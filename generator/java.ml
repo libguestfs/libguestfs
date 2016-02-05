@@ -77,7 +77,7 @@ public class GuestFS {
   /**
    * Create a libguestfs handle, setting flags.
    *
-   * @throws LibGuestFSException
+   * @throws LibGuestFSException If there is a libguestfs error.
    */
   public GuestFS (Map<String, Object> optargs) throws LibGuestFSException
   {
@@ -101,7 +101,7 @@ public class GuestFS {
   /**
    * Create a libguestfs handle.
    *
-   * @throws LibGuestFSException
+   * @throws LibGuestFSException If there is a libguestfs error.
    */
   public GuestFS () throws LibGuestFSException
   {
@@ -121,7 +121,7 @@ public class GuestFS {
    * exception.
    * </p>
    *
-   * @throws LibGuestFSException
+   * @throws LibGuestFSException If there is a libguestfs error.
    */
   public void close () throws LibGuestFSException
   {
@@ -198,7 +198,7 @@ public class GuestFS {
    * the libguestfs handle is closed.
    * </p>
    *
-   * @throws LibGuestFSException
+   * @throws LibGuestFSException If there is a libguestfs error.
    * @see \"The section &quot;EVENTS&quot; in the guestfs(3) manual\"
    * @see #delete_event_callback
    * @return handle for the event
@@ -228,7 +228,7 @@ public class GuestFS {
    * libguestfs handle is closed.
    * </p>
    *
-   * @throws LibGuestFSException
+   * @throws LibGuestFSException If there is a libguestfs error.
    * @see #set_event_callback
    */
   public void delete_event_callback (int eh)
@@ -282,7 +282,7 @@ public class GuestFS {
         | { deprecated_by = Some alt } ->
           pr "   * @deprecated In new code, use {@link #%s} instead\n" alt
         );
-        pr "   * @throws LibGuestFSException\n";
+        pr "   * @throws LibGuestFSException If there is a libguestfs error.\n";
         pr "   */\n";
       );
       pr "  ";
