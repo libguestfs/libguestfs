@@ -25,6 +25,7 @@
 #include <string.h>
 #include <errno.h>
 #include <iconv.h>
+#include <inttypes.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
@@ -57,6 +58,8 @@ static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
 static char *map_registry_disk_blob (guestfs_h *g, const void *blob);
+static char *map_registry_disk_blob_gpt (guestfs_h *g, const void *blob);
+static char *extract_guid_from_registry_blob (guestfs_h *g, const void *blob);
 
 /* XXX Handling of boot.ini in the Perl version was pretty broken.  It
  * essentially didn't do anything for modern Windows guests.
@@ -386,6 +389,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   int r;
   size_t len = strlen (fs->windows_systemroot) + 64;
   char system[len];
+  char gpt_prefix[] = "DMIO:ID:";
   snprintf (system, len, "%s/system32/config/system",
             fs->windows_systemroot);
 
@@ -490,12 +494,18 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
       CLEANUP_FREE char *blob = NULL;
       char *device;
       int64_t type;
+      bool is_gpt;
 
       type = guestfs_hivex_value_type (g, v);
       blob = guestfs_hivex_value_value (g, v, &len);
-      if (blob != NULL && type == 3 && len == 12) {
+      is_gpt = memcmp (blob, gpt_prefix, 8) == 0;
+      if (blob != NULL && type == 3 && (len == 12 || is_gpt)) {
         /* Try to map the blob to a known disk and partition. */
-        device = map_registry_disk_blob (g, blob);
+        if (is_gpt)
+          device = map_registry_disk_blob_gpt (g, blob);
+        else
+          device = map_registry_disk_blob (g, blob);
+
         if (device != NULL) {
           fs->drive_mappings[count++] = safe_strndup (g, &key[12], 1);
           fs->drive_mappings[count++] = device;
@@ -603,6 +613,88 @@ map_registry_disk_blob (guestfs_h *g, const void *blob)
  found_partition:
   /* Construct the full device name. */
   return safe_asprintf (g, "%s%d", devices[i], partitions->val[j].part_num);
+}
+
+/* Matches Windows registry HKLM\SYSYTEM\MountedDevices\DosDevices blob to
+ * to libguestfs GPT partition device. For GPT disks, the blob is made of
+ * "DMIO:ID:" prefix followed by the GPT partition GUID.
+ */
+static char *
+map_registry_disk_blob_gpt (guestfs_h *g, const void *blob)
+{
+  CLEANUP_FREE_STRING_LIST char **parts = NULL;
+  CLEANUP_FREE char *blob_guid = extract_guid_from_registry_blob (g, blob);
+  size_t i;
+
+  parts = guestfs_list_partitions (g);
+  if (parts == NULL)
+    return NULL;
+
+  for (i = 0; parts[i] != NULL; ++i) {
+    CLEANUP_FREE char *fs_guid = NULL;
+    int partnum;
+    CLEANUP_FREE char *device = NULL;
+    CLEANUP_FREE char *type = NULL;
+
+    partnum = guestfs_part_to_partnum (g, parts[i]);
+    if (partnum == -1)
+      continue;
+
+    device = guestfs_part_to_dev (g, parts[i]);
+    if (device == NULL)
+      continue;
+
+    type = guestfs_part_get_parttype (g, device);
+    if (type == NULL)
+      continue;
+
+    if (STRCASENEQ (type, "gpt"))
+      continue;
+
+    /* get the GPT parition GUID from the partition block device */
+    fs_guid = guestfs_part_get_gpt_guid (g, device, partnum);
+    if (fs_guid == NULL)
+      continue;
+
+    /* if both GUIDs match, we have found the mapping for our device */
+    if (STRCASEEQ (fs_guid, blob_guid))
+      return safe_strdup (g, parts[i]);
+  }
+
+  return NULL;
+}
+
+/* Extracts the binary GUID stored in blob from Windows registry
+ * HKLM\SYSTYEM\MountedDevices\DosDevices value and converts it to a
+ * GUID string so that it can be matched against libguestfs partition
+ * device GPT GUID.
+ */
+static char *
+extract_guid_from_registry_blob (guestfs_h *g, const void *blob)
+{
+  char guid_bytes[16];
+  uint32_t data1;
+  uint16_t data2, data3;
+  uint64_t data4;
+
+  /* get the GUID bytes from blob (skip 8 byte "DMIO:ID:" prefix) */
+  memcpy (&guid_bytes, (char *) blob + 8, sizeof (guid_bytes));
+
+  /* copy relevant sections from blob to respective ints */
+  memcpy (&data1, guid_bytes, sizeof (data1));
+  memcpy (&data2, guid_bytes + 4, sizeof (data2));
+  memcpy (&data3, guid_bytes + 6, sizeof (data3));
+  memcpy (&data4, guid_bytes + 8, sizeof (data4));
+
+  /* ensure proper endianness */
+  data1 = le32toh (data1);
+  data2 = le16toh (data2);
+  data3 = le16toh (data3);
+  data4 = be64toh (data4);
+
+  return safe_asprintf (g,
+           "%08" PRIX32 "-%04" PRIX16 "-%04" PRIX16 "-%04" PRIX64 "-%012" PRIX64,
+           data1, data2, data3, data4 >> 48, data4 & 0xffffffffffff);
 }
 
 /* NB: This function DOES NOT test for the existence of the file.  It
