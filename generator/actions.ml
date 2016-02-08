@@ -4780,7 +4780,7 @@ C<blocksize> option of C<guestfs_mkfs>." };
     tests = [
       InitEmpty, Always, TestResult (
         [["blockdev_getsz"; "/dev/sda"]],
-          "ret == INT64_C(10)*1024*1024*1024/512"), []
+          "ret == INT64_C(2)*1024*1024*1024/512"), []
     ];
     shortdesc = "get total size of device in 512-byte sectors";
     longdesc = "\
@@ -4800,7 +4800,7 @@ This uses the L<blockdev(8)> command." };
     tests = [
       InitEmpty, Always, TestResult (
         [["blockdev_getsize64"; "/dev/sda"]],
-          "ret == INT64_C(10)*1024*1024*1024"), []
+          "ret == INT64_C(2)*1024*1024*1024"), []
     ];
     shortdesc = "get total size of device in bytes";
     longdesc = "\
@@ -9884,7 +9884,7 @@ device is stopped, but it is not destroyed or zeroed." };
           "check_hash (ret, \"PART_ENTRY_NUMBER\", \"1\") == 0 && "^
           "check_hash (ret, \"PART_ENTRY_TYPE\", \"0x83\") == 0 && "^
           "check_hash (ret, \"PART_ENTRY_OFFSET\", \"128\") == 0 && "^
-          "check_hash (ret, \"PART_ENTRY_SIZE\", \"20971265\") == 0"), [];
+          "check_hash (ret, \"PART_ENTRY_SIZE\", \"4194049\") == 0"), [];
     ];
     shortdesc = "print block device attributes";
     longdesc = "\
@@ -12712,8 +12712,8 @@ This enable skinny metadata extent refs." };
     tests = [
       InitEmpty, Always, TestRun (
         [["part_init"; "/dev/sda"; "mbr"];
-         ["part_add"; "/dev/sda"; "p"; "64"; "4095999"];
-         ["part_add"; "/dev/sda"; "p"; "4096000"; "8191999"];
+         ["part_add"; "/dev/sda"; "p"; "64"; "2047999"];
+         ["part_add"; "/dev/sda"; "p"; "2048000"; "4095999"];
          ["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mkfs_btrfs"; "/dev/sda2"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];

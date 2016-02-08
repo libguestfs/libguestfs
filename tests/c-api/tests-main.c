@@ -440,12 +440,12 @@ create_handle (void)
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_add_drive_scratch (g, INT64_C(10)*1024*1024*1024, -1) == -1) {
+  if (guestfs_add_drive_scratch (g, INT64_C(2)*1024*1024*1024, -1) == -1) {
     printf ("FAIL: guestfs_add_drive_scratch\n");
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_add_drive_scratch (g, INT64_C(10)*1024*1024*1024, -1) == -1) {
+  if (guestfs_add_drive_scratch (g, INT64_C(2)*1024*1024*1024, -1) == -1) {
     printf ("FAIL: guestfs_add_drive_scratch\n");
     exit (EXIT_FAILURE);
   }

@@ -105,11 +105,11 @@ The test environment has 4 block devices:
 
 =over 4
 
-=item F</dev/sda> 10 GB
+=item F</dev/sda> 2 GB
 
 General block device for testing.
 
-=item F</dev/sdb> 10 GB
+=item F</dev/sdb> 2 GB
 
 F</dev/sdb1> is an ext2 filesystem used for testing
 filesystem write operations.
