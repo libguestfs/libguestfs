@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-05 19:09+0000\n"
+"POT-Creation-Date: 2016-02-08 17:50+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -9131,7 +9131,7 @@ msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗ�
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:432
+#: src/launch.c:438
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""

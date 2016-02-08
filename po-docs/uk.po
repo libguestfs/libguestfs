@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-02-05 19:10+0000\n"
+"POT-Creation-Date: 2016-02-08 17:50+0000\n"
 "PO-Revision-Date: 2015-03-20 01:39-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -15901,7 +15901,7 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:108
 #, fuzzy
 #| msgid "F</dev/sdc> 10MB"
-msgid "F</dev/sda> 10 GB"
+msgid "F</dev/sda> 2 GB"
 msgstr "F</dev/sdc> 10MB"
 
 #. type: textblock
@@ -15913,7 +15913,7 @@ msgstr "Блоковий пристрій загального типу для �
 #: ../docs/guestfs-hacking.pod:112
 #, fuzzy
 #| msgid "F</dev/sdc> 10MB"
-msgid "F</dev/sdb> 10 GB"
+msgid "F</dev/sdb> 2 GB"
 msgstr "F</dev/sdc> 10MB"
 
 #. type: textblock

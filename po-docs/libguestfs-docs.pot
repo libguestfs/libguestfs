@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.33.9\n"
+"Project-Id-Version: libguestfs 1.33.10\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-02-05 19:10+0000\n"
+"POT-Creation-Date: 2016-02-08 17:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13965,7 +13965,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:108
-msgid "F</dev/sda> 10 GB"
+msgid "F</dev/sda> 2 GB"
 msgstr ""
 
 #. type: textblock
@@ -13975,7 +13975,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:112
-msgid "F</dev/sdb> 10 GB"
+msgid "F</dev/sdb> 2 GB"
 msgstr ""
 
 #. type: textblock
