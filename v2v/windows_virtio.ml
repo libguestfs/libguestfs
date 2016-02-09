@@ -26,12 +26,19 @@ open Regedit
 open Types
 open Utils
 
-let rec install_drivers g inspect systemroot virtio_win root current_cs =
+let virtio_win =
+  try Sys.getenv "VIRTIO_WIN"
+  with Not_found ->
+    try Sys.getenv "VIRTIO_WIN_DIR" (* old name for VIRTIO_WIN *)
+    with Not_found ->
+      Guestfs_config.datadir // "virtio-win"
+
+let rec install_drivers g inspect systemroot root current_cs =
   (* Copy the virtio drivers to the guest. *)
   let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
   g#mkdir_p driverdir;
 
-  if not (copy_drivers g inspect virtio_win driverdir) then (
+  if not (copy_drivers g inspect driverdir) then (
     warning (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n\nThe guest will be configured to use slower emulated devices.")
             inspect.i_major_version inspect.i_minor_version inspect.i_arch
             inspect.i_product_variant virtio_win;
@@ -349,7 +356,7 @@ and add_viostor_to_driver_database g root arch current_cs =
 (* Copy the matching drivers to the driverdir; return true if any have
  * been copied.
  *)
-and copy_drivers g inspect virtio_win driverdir =
+and copy_drivers g inspect driverdir =
   let ret = ref false in
   if is_directory virtio_win then (
     let cmd = sprintf "cd %s && find -type f" (quote virtio_win) in
