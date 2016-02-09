@@ -19,13 +19,12 @@
 (** Functions for installing Windows virtio drivers. *)
 
 val install_drivers
-    : Guestfs.guestfs -> Types.inspect -> string -> string -> int64 -> string ->
+    : Guestfs.guestfs -> Types.inspect -> string -> int64 -> string ->
       Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type
-(** [install_drivers g inspect systemroot virtio_win root current_cs]
+(** [install_drivers g inspect systemroot root current_cs]
     installs virtio drivers from the driver directory or driver
-    ISO ([virtio_win]) into the guest driver directory and updates
-    the registry so that the [viostor.sys] driver gets loaded by
-    Windows at boot.
+    ISO into the guest driver directory and updates the registry
+    so that the [viostor.sys] driver gets loaded by Windows at boot.
 
     [root] is the root node of the system hive (which is open for writes
     when this function is called).  [current_cs] is the name of the

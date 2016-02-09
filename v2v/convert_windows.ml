@@ -43,13 +43,6 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
     with Not_found -> Guestfs_config.datadir // "virt-tools" in
 
-  let virtio_win =
-    try Sys.getenv "VIRTIO_WIN"
-    with Not_found ->
-      try Sys.getenv "VIRTIO_WIN_DIR" (* old name for VIRTIO_WIN *)
-      with Not_found ->
-        Guestfs_config.datadir // "virtio-win" in
-
   (* Check if RHEV-APT exists.  This is optional. *)
   let rhev_apt_exe = virt_tools_data_dir // "rhev-apt.exe" in
   let rhev_apt_exe =
@@ -218,7 +211,7 @@ echo uninstalling Xen PV driver
 
     disable_services root current_cs;
     disable_autoreboot root current_cs;
-    Windows_virtio.install_drivers g inspect systemroot virtio_win
+    Windows_virtio.install_drivers g inspect systemroot
                                    root current_cs
 
   and disable_services root current_cs =
