@@ -120,8 +120,10 @@ and source_sound_model =
 
 val string_of_source : source -> string
 val string_of_source_disk : source_disk -> string
-
+val string_of_controller : s_controller -> string
+val string_of_nic_model : s_nic_model -> string
 val string_of_source_sound_model : source_sound_model -> string
+val string_of_source_video : source_video -> string
 
 val string_of_source_hypervisor : source_hypervisor -> string
 val source_hypervisor_of_string : string -> source_hypervisor
