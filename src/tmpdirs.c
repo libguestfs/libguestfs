@@ -160,6 +160,17 @@ lazy_make_tmpdir (guestfs_h *g, char *(*getdir) (guestfs_h *g), char **dest)
       free (tmpdir);
       return -1;
     }
+    /* Allow qemu (which may be running as qemu.qemu) to read in this
+     * temporary directory; we are storing either sockets, or temporary
+     * disks which qemu needs to access to.  (RHBZ#610880).
+     * We do this only for root, as for normal users qemu will be run
+     * under the same user.
+     */
+    if (geteuid () == 0 && chmod (tmppath, 0755) == -1) {
+      perrorf (g, "chmod: %s", tmppath);
+      free (tmppath);
+      return -1;
+    }
     *dest = tmppath;
   }
   return 0;
@@ -178,24 +189,7 @@ guestfs_int_lazy_make_tmpdir (guestfs_h *g)
 int
 guestfs_int_lazy_make_sockdir (guestfs_h *g)
 {
-  int ret;
-  uid_t euid = geteuid ();
-
-  ret = lazy_make_tmpdir (g, guestfs_get_sockdir, &g->sockdir);
-  if (ret == -1)
-    return ret;
-
-  if (euid == 0) {
-    /* Allow qemu (which may be running as qemu.qemu) to read the socket
-     * temporary directory.  (RHBZ#610880).
-     */
-    if (chmod (g->sockdir, 0755) == -1) {
-      perrorf (g, "chmod: %s", g->sockdir);
-      return -1;
-    }
-  }
-
-  return ret;
+  return lazy_make_tmpdir (g, guestfs_get_sockdir, &g->sockdir);
 }
 
 /* Recursively remove a temporary directory.  If removal fails, just

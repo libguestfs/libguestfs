@@ -60,13 +60,6 @@ guestfs_impl_launch (guestfs_h *g)
   if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return -1;
 
-  /* Allow anyone to read the temporary directory.  The socket in this
-   * directory won't be readable but anyone can see it exists if they
-   * want. (RHBZ#610880).
-   */
-  if (chmod (g->tmpdir, 0755) == -1)
-    warning (g, "chmod: %s: %m (ignored)", g->tmpdir);
-
   /* Some common debugging information. */
   if (g->verbose) {
     CLEANUP_FREE_VERSION struct guestfs_version *v =
