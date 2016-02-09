@@ -75,6 +75,7 @@ class input_disk input_format disk = object
     (* Give the guest a simple generic network interface. *)
     let network = {
       s_mac = None;
+      s_nic_model = None;
       s_vnet = "default"; s_vnet_orig = "default";
       s_vnet_type = Network
     } in
@@ -89,6 +90,7 @@ class input_disk input_format disk = object
       s_display =
         Some { s_display_type = Window; s_keymap = None; s_password = None;
                s_listen = LNone; s_port = None };
+      s_video = None;
       s_sound = None;
       s_disks = [disk];
       s_removables = [];

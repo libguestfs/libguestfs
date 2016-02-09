@@ -32,6 +32,7 @@ type source = {
   s_features : string list;
   s_firmware : source_firmware;
   s_display : source_display option;
+  s_video : source_video option;
   s_sound : source_sound option;
   s_disks : source_disk list;
   s_removables : source_removable list;
@@ -63,10 +64,13 @@ and source_removable = {
 and s_removable_type = CDROM | Floppy
 and source_nic = {
   s_mac : string option;
+  s_nic_model : s_nic_model option;
   s_vnet : string;
   s_vnet_orig : string;
   s_vnet_type : vnet_type;
 }
+and s_nic_model = Source_other_nic of string |
+                  Source_rtl8139 | Source_e1000 | Source_virtio_net
 and vnet_type = Bridge | Network
 and source_display = {
   s_display_type : s_display_type;
@@ -80,6 +84,9 @@ and s_display_listen =
   | LNone
   | LAddress of string
   | LNetwork of string
+
+and source_video = Source_other_video of string |
+                   Source_Cirrus | Source_QXL
 
 and source_sound = {
   s_sound_model : source_sound_model;
@@ -95,6 +102,7 @@ hypervisor type: %s
    CPU features: %s
        firmware: %s
         display: %s
+          video: %s
           sound: %s
 disks:
 %s
@@ -112,6 +120,9 @@ NICs:
     (match s.s_display with
     | None -> ""
     | Some display -> string_of_source_display display)
+    (match s.s_video with
+    | None -> ""
+    | Some video -> string_of_source_video video)
     (match s.s_sound with
     | None -> ""
     | Some sound -> string_of_source_sound sound)
@@ -188,13 +199,23 @@ and string_of_source_removable { s_removable_type = typ;
     | Some controller -> " [" ^ string_of_controller controller ^ "]")
     (match i with None -> "" | Some i -> sprintf " in slot %d" i)
 
-and string_of_source_nic { s_mac = mac; s_vnet = vnet; s_vnet_type = typ } =
-  sprintf "\t%s \"%s\"%s"
+and string_of_source_nic { s_mac = mac; s_nic_model = model; s_vnet = vnet;
+                           s_vnet_type = typ } =
+  sprintf "\t%s \"%s\"%s%s"
     (match typ with Bridge -> "Bridge" | Network -> "Network")
     vnet
     (match mac with
     | None -> ""
     | Some mac -> " mac: " ^ mac)
+    (match model with
+    | None -> ""
+    | Some model -> " [" ^ string_of_nic_model model ^ "]")
+
+and string_of_nic_model = function
+  | Source_virtio_net -> "virtio"
+  | Source_e1000 -> "e1000"
+  | Source_rtl8139 -> "rtl8139"
+  | Source_other_nic model -> model
 
 and string_of_source_display { s_display_type = typ;
                                s_keymap = keymap; s_password = password;
@@ -208,6 +229,11 @@ and string_of_source_display { s_display_type = typ;
     | LAddress a -> sprintf " listening on address %s" a
     | LNetwork n -> sprintf " listening on network %s" n
     )
+
+and string_of_source_video = function
+  | Source_QXL -> "qxl"
+  | Source_Cirrus -> "cirrus"
+  | Source_other_video video -> video
 
 and string_of_source_sound { s_sound_model = model } =
   string_of_source_sound_model model

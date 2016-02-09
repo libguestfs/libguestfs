@@ -60,11 +60,13 @@ hypervisor type: test
    CPU features: 
        firmware: unknown
         display: 
+          video: qxl
           sound: 
 disks:
 	/windows.img (raw) [virtio]
 removable media:
-NICs:" ]; then
+NICs:
+	Network \"default\" mac: 00:11:22:33:44:55 [virtio]" ]; then
     echo "$0: unexpected output from test:"
     cat $d/output.orig
     exit 1

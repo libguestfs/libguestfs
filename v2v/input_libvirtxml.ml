@@ -140,6 +140,23 @@ let parse_libvirt_xml ?conn xml =
         None
     ) in
 
+  (* Video adapter. *)
+  let video =
+    let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/video" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    if nr_nodes < 1 then None
+    else (
+      (* Ignore everything except the first <video> device. *)
+      let node = Xml.xpathobj_node obj 0 in
+
+      Xml.xpathctx_set_current_context xpathctx node;
+      match xpath_string "model/@type" with
+      | None -> None
+      | Some "qxl" | Some "virtio" -> Some Source_QXL
+      | Some "cirrus" | Some "vga" -> Some Source_Cirrus
+      | Some model -> Some (Source_other_video model)
+    ) in
+
   (* Sound card. *)
   let sound =
     let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/sound" in
@@ -329,6 +346,14 @@ let parse_libvirt_xml ?conn xml =
         | Some "00:00:00:00:00:00" (* thanks, VMware *) -> None
         | Some mac -> Some mac in
 
+      let model =
+        match xpath_string "model/@type" with
+        | None -> None
+        | Some "virtio" -> Some Source_virtio_net
+        | Some "e1000" -> Some Source_e1000
+        | Some "rtl8139" -> Some Source_rtl8139
+        | Some model -> Some (Source_other_nic model) in
+
       let vnet_type =
         match xpath_string "@type" with
         | Some "network" -> Some Network
@@ -340,6 +365,7 @@ let parse_libvirt_xml ?conn xml =
          let add_nic vnet =
            let nic = {
              s_mac = mac;
+             s_nic_model = model;
              s_vnet = vnet;
              s_vnet_orig = vnet;
              s_vnet_type = vnet_type
@@ -366,6 +392,7 @@ let parse_libvirt_xml ?conn xml =
     s_features = features;
     s_firmware = UnknownFirmware; (* XXX until RHBZ#1217444 is fixed *)
     s_display = display;
+    s_video = video;
     s_sound = sound;
     s_disks = [];
     s_removables = removables;

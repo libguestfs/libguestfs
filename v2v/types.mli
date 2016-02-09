@@ -29,6 +29,7 @@ type source = {
   s_features : string list;             (** Machine features. *)
   s_firmware : source_firmware;         (** Firmware (BIOS or EFI). *)
   s_display : source_display option;    (** Guest display. *)
+  s_video : source_video option;        (** Video adapter. *)
   s_sound : source_sound option;        (** Sound card. *)
   s_disks : source_disk list;           (** Disk images. *)
   s_removables : source_removable list; (** CDROMs etc. *)
@@ -82,10 +83,14 @@ and s_removable_type = CDROM | Floppy
 
 and source_nic = {
   s_mac : string option;                (** MAC address. *)
+  s_nic_model : s_nic_model option;     (** Network adapter model. *)
   s_vnet : string;                      (** Source network name. *)
   s_vnet_orig : string;                 (** Original network (if we map it). *)
   s_vnet_type : vnet_type;              (** Source network type. *)
 }
+(** Network adapter models. *)
+and s_nic_model = Source_other_nic of string |
+                  Source_rtl8139 | Source_e1000 | Source_virtio_net
 (** Network interfaces. *)
 and vnet_type = Bridge | Network
 
@@ -102,6 +107,10 @@ and s_display_listen =
   | LNone
   | LAddress of string             (** Listen address. *)
   | LNetwork of string             (** Listen network. *)
+
+(** Video adapter model. *)
+and source_video = Source_other_video of string |
+                   Source_Cirrus | Source_QXL
 
 and source_sound = {
   s_sound_model : source_sound_model; (** Sound model. *)

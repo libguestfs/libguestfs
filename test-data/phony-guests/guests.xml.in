@@ -276,6 +276,14 @@
         <source file='@abs_builddir@/windows.img'/>
         <target dev='vda' bus='virtio'/>
       </disk>
+      <interface type='network'>
+        <mac address='00:11:22:33:44:55'/>
+        <source network='default'/>
+        <model type='virtio'/>
+      </interface>
+      <video>
+        <model type='qxl' ram='65536' vram='65536' vgamem='16384' heads='1'/>
+      </video>
     </devices>
   </domain>
 

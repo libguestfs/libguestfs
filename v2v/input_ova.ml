@@ -350,6 +350,7 @@ object
         xpath_string_default "rasd:ElementName/text()" (sprintf"eth%d" i) in
       let nic = {
         s_mac = None;
+        s_nic_model = None;
         s_vnet = vnet;
         s_vnet_orig = vnet;
         s_vnet_type = Network;
@@ -366,6 +367,7 @@ object
       s_features = []; (* XXX *)
       s_firmware = firmware;
       s_display = None; (* XXX *)
+      s_video = None;
       s_sound = None;
       s_disks = disks;
       s_removables = removables;
