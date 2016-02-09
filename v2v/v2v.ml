@@ -82,7 +82,12 @@ let rec main () =
   );
 
   let keep_serial_console = output#keep_serial_console in
-  let guestcaps = do_convert g inspect source keep_serial_console in
+  let rcaps = {
+                rcaps_block_bus = None;
+                rcaps_net_bus = None;
+                rcaps_video = None;
+              } in
+  let guestcaps = do_convert g inspect source keep_serial_console rcaps in
 
   g#umount_all ();
 
@@ -699,7 +704,7 @@ and check_target_free_space mpstats source targets output =
 
   output#check_target_free_space source targets
 
-and do_convert g inspect source keep_serial_console =
+and do_convert g inspect source keep_serial_console rcaps =
   (* Conversion. *)
   (match inspect.i_product_name with
   | "unknown" ->
@@ -714,7 +719,9 @@ and do_convert g inspect source keep_serial_console =
       error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
         inspect.i_type inspect.i_distro in
   if verbose () then printf "picked conversion module %s\n%!" conversion_name;
-  let guestcaps = convert ~keep_serial_console g inspect source in
+  if verbose () then printf "requested caps: %s%!"
+    (string_of_requested_guestcaps rcaps);
+  let guestcaps = convert ~keep_serial_console g inspect source rcaps in
   if verbose () then printf "%s%!" (string_of_guestcaps guestcaps);
 
   (* Did we manage to install virtio drivers? *)

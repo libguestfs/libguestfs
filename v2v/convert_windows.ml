@@ -37,7 +37,7 @@ module G = Guestfs
  * time the Windows VM is booted on KVM.
  *)
 
-let convert ~keep_serial_console (g : G.guestfs) inspect source =
+let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (* Get the data directory. *)
   let virt_tools_data_dir =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
@@ -283,7 +283,7 @@ if errorlevel 3010 exit /b 0
     disable_services root current_cs;
     disable_autoreboot root current_cs;
     Windows_virtio.install_drivers g inspect systemroot
-                                   root current_cs
+                                   root current_cs rcaps
 
   and disable_services root current_cs =
     (* Disable miscellaneous services. *)

@@ -59,7 +59,7 @@ let string_of_kernel_info ki =
     ki.ki_supports_virtio ki.ki_is_xen_kernel ki.ki_is_debug
 
 (* The conversion function. *)
-let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
+let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (*----------------------------------------------------------------------*)
   (* Inspect the guest first.  We already did some basic inspection in
    * the common v2v.ml code, but that has to deal with generic guests
@@ -1115,19 +1115,26 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
       warning (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
         video_driver
 
-  and configure_kernel_modules virtio =
+  and configure_kernel_modules block_type net_type =
     (* This function modifies modules.conf (and its various aliases). *)
 
     (* Update 'alias eth0 ...'. *)
     let paths = augeas_modprobe ". =~ regexp('eth[0-9]+')" in
-    let net_device = if virtio then "virtio_net" else "e1000" in
+    let net_device =
+      match net_type with
+      | Virtio_net -> "virtio_net"
+      | E1000 -> "e1000"
+      | RTL8139 -> "rtl8139cp"
+    in
+
     List.iter (
       fun path -> g#aug_set (path ^ "/modulename") net_device
     ) paths;
 
     (* Update 'alias scsi_hostadapter ...' *)
     let paths = augeas_modprobe ". =~ regexp('scsi_hostadapter.*')" in
-    if virtio then (
+    match block_type with
+    | Virtio_blk ->
       if paths <> [] then (
         (* There's only 1 scsi controller in the converted guest.
          * Convert only the first scsi_hostadapter entry to virtio
@@ -1150,10 +1157,10 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
         g#aug_set (sprintf "/files%s/alias[last()]/modulename" modpath)
           "virtio_blk"
       )
-    ) else (* not virtio *) (
+    | IDE ->
       (* There is no scsi controller in an IDE guest. *)
       List.iter (fun path -> ignore (g#aug_rm path)) (List.rev paths)
-    );
+    ;
 
     (* Display a warning about any leftover Xen modules which we
      * haven't converted.  These are likely to cause an error when
@@ -1215,7 +1222,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
 
     !modpath
 
-  and remap_block_devices virtio =
+  and remap_block_devices block_type =
     (* This function's job is to iterate over boot configuration
      * files, replacing "hda" with "vda" or whatever is appropriate.
      * This is mostly applicable to old guests, since newer OSes use
@@ -1238,7 +1245,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
         (* All modern distros use libata: *) "sd" in
 
     let block_prefix_after_conversion =
-      if virtio then "vd" else ide_block_prefix in
+      match block_type with
+      | Virtio_blk -> "vd"
+      | IDE -> ide_block_prefix in
 
     let map =
       mapi (
@@ -1411,15 +1420,29 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
 
   let acpi = supports_acpi () in
 
-  let video = get_display_driver () in
+  let video =
+    match rcaps.rcaps_video with
+    | None -> get_display_driver ()
+    | Some video -> video in
+
+  let block_type =
+    match rcaps.rcaps_block_bus with
+    | None -> if virtio then Virtio_blk else IDE
+    | Some block_type -> block_type in
+
+  let net_type =
+    match rcaps.rcaps_net_bus with
+    | None -> if virtio then Virtio_net else E1000
+    | Some net_type -> net_type in
+
   configure_display_driver video;
-  remap_block_devices virtio;
-  configure_kernel_modules virtio;
+  remap_block_devices block_type;
+  configure_kernel_modules block_type net_type;
   rebuild_initrd kernel;
 
   let guestcaps = {
-    gcaps_block_bus = if virtio then Virtio_blk else IDE;
-    gcaps_net_bus = if virtio then Virtio_net else E1000;
+    gcaps_block_bus = block_type;
+    gcaps_net_bus = net_type;
     gcaps_video = video;
     gcaps_arch = Utils.kvm_arch inspect.i_arch;
     gcaps_acpi = acpi;

@@ -32,7 +32,8 @@ val output_modules : unit -> string list
 
 type conversion_fn =
   keep_serial_console:bool ->
-  Guestfs.guestfs -> Types.inspect -> Types.source -> Types.guestcaps
+  Guestfs.guestfs -> Types.inspect -> Types.source ->
+  Types.requested_guestcaps -> Types.guestcaps
 
 val register_convert_module : (Types.inspect -> bool) -> string -> conversion_fn -> unit
 (** [register_convert_module inspect_fn name fn] registers a

@@ -20,6 +20,7 @@
 
 val install_drivers
     : Guestfs.guestfs -> Types.inspect -> string -> int64 -> string ->
+      Types.requested_guestcaps ->
       Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type
 (** [install_drivers g inspect systemroot root current_cs]
     installs virtio drivers from the driver directory or driver
@@ -29,6 +30,11 @@ val install_drivers
     [root] is the root node of the system hive (which is open for writes
     when this function is called).  [current_cs] is the name of the
     [CurrentControlSet] (eg. ["ControlSet001"]).
+
+    [rcaps] is the set of guest "capabilities" requested by the caller.  This
+    may include the type of the block driver, network driver, and video driver.
+    install_drivers will adjust its choices based on that information, and
+    abort if the requested driver wasn't found.
 
     This returns the tuple [(block_driver, net_driver, video_driver)]
     reflecting what devices are now required by the guest, either
