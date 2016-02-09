@@ -157,7 +157,7 @@ lazy_make_tmpdir (guestfs_h *g, char *(*getdir) (guestfs_h *g), char **dest)
     char *tmppath = safe_asprintf (g, "%s/libguestfsXXXXXX", tmpdir);
     if (mkdtemp (tmppath) == NULL) {
       perrorf (g, _("%s: cannot create temporary directory"), tmppath);
-      free (tmpdir);
+      free (tmppath);
       return -1;
     }
     /* Allow qemu (which may be running as qemu.qemu) to read in this
