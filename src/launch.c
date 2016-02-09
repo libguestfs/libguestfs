@@ -428,12 +428,6 @@ guestfs_int_create_socketname (guestfs_h *g, const char *filename,
   if (guestfs_int_lazy_make_sockdir (g) == -1)
     return -1;
 
-  /* Allow qemu (which may be running as qemu.qemu) to read the socket
-   * temporary directory.  (RHBZ#610880).
-   */
-  if (chmod (g->sockdir, 0755) == -1)
-    warning (g, "chmod: %s: %m (ignored)", g->sockdir);
-
   if (strlen (g->sockdir) + 1 + strlen (filename) > UNIX_PATH_MAX-1) {
     error (g, _("socket path too long: %s/%s"), g->sockdir, filename);
     return -1;

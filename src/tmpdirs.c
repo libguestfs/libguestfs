@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <libintl.h>
+#include <unistd.h>
 
 #include "ignore-value.h"
 
@@ -130,11 +131,20 @@ char *
 guestfs_impl_get_sockdir (guestfs_h *g)
 {
   const char *str;
+  uid_t euid = geteuid ();
 
-  if (g->env_runtimedir)
-    str = g->env_runtimedir;
-  else
+  if (euid == 0) {
+    /* Use /tmp exclusively for root, as otherwise qemu (running as
+     * qemu.qemu when launched by libvirt) will not be able to access
+     * the directory.
+     */
     str = "/tmp";
+  } else {
+    if (g->env_runtimedir)
+      str = g->env_runtimedir;
+    else
+      str = "/tmp";
+  }
 
   return safe_strdup (g, str);
 }
@@ -168,7 +178,24 @@ guestfs_int_lazy_make_tmpdir (guestfs_h *g)
 int
 guestfs_int_lazy_make_sockdir (guestfs_h *g)
 {
-  return lazy_make_tmpdir (g, guestfs_get_sockdir, &g->sockdir);
+  int ret;
+  uid_t euid = geteuid ();
+
+  ret = lazy_make_tmpdir (g, guestfs_get_sockdir, &g->sockdir);
+  if (ret == -1)
+    return ret;
+
+  if (euid == 0) {
+    /* Allow qemu (which may be running as qemu.qemu) to read the socket
+     * temporary directory.  (RHBZ#610880).
+     */
+    if (chmod (g->sockdir, 0755) == -1) {
+      perrorf (g, "chmod: %s", g->sockdir);
+      return -1;
+    }
+  }
+
+  return ret;
 }
 
 /* Recursively remove a temporary directory.  If removal fails, just
