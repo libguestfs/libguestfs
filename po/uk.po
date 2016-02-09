@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-08 17:50+0000\n"
+"POT-Creation-Date: 2016-02-09 13:21+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -10549,7 +10549,7 @@ msgstr "qemu ще не запущено"
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
 
-#: src/launch.c:438
+#: src/launch.c:432
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -10775,17 +10775,17 @@ msgstr "не вдалося обробити фрагмент файла"
 msgid "file receive cancelled by daemon"
 msgstr "отримання файла було скасовано фоновою службою"
 
-#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#: src/tmpdirs.c:55 src/tmpdirs.c:60
 #, c-format
 msgid "failed to set temporary directory: %s"
 msgstr "не вдалося встановити тимчасовий каталог: %s"
 
-#: src/tmpdirs.c:64
+#: src/tmpdirs.c:65
 #, c-format
 msgid "temporary directory '%s' is not a directory"
 msgstr "тимчасовий каталог «%s» не є каталогом"
 
-#: src/tmpdirs.c:149
+#: src/tmpdirs.c:159
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: не вдалося створити тимчасовий каталог"

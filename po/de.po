@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-08 17:50+0000\n"
+"POT-Creation-Date: 2016-02-09 13:21+0000\n"
 "PO-Revision-Date: 2015-01-10 08:39-0500\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -9137,7 +9137,7 @@ msgstr "qemu wurde noch nicht gestartet"
 msgid "parameter '%s' isn't allowed"
 msgstr "Parameter »%s« ist nicht erlaubt"
 
-#: src/launch.c:438
+#: src/launch.c:432
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9340,17 +9340,17 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr "Dateiempfang wurde vom Hintergrunddienst abgebrochen"
 
-#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#: src/tmpdirs.c:55 src/tmpdirs.c:60
 #, c-format
 msgid "failed to set temporary directory: %s"
 msgstr "Das temporäre Verzeichnis konnte nicht festgelegt werden: %s"
 
-#: src/tmpdirs.c:64
+#: src/tmpdirs.c:65
 #, c-format
 msgid "temporary directory '%s' is not a directory"
 msgstr "Das temporäre Verzeichnis »%s« ist kein Verzeichnis."
 
-#: src/tmpdirs.c:149
+#: src/tmpdirs.c:159
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: Temporärer Ordner konnte nicht angelegt werden"

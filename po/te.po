@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-08 17:50+0000\n"
+"POT-Creation-Date: 2016-02-09 13:21+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/libguestfs/"
@@ -9123,7 +9123,7 @@ msgstr "qemu యింకా ఆరంభం కాలేదు"
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:438
+#: src/launch.c:432
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9324,17 +9324,17 @@ msgstr "ఫైలు ముక్కను పార్శ్ చేయుటల
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
-#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#: src/tmpdirs.c:55 src/tmpdirs.c:60
 #, c-format
 msgid "failed to set temporary directory: %s"
 msgstr ""
 
-#: src/tmpdirs.c:64
+#: src/tmpdirs.c:65
 #, c-format
 msgid "temporary directory '%s' is not a directory"
 msgstr ""
 
-#: src/tmpdirs.c:149
+#: src/tmpdirs.c:159
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: తాత్కాలిక డైరెక్టరీను సృష్టించలేదు"

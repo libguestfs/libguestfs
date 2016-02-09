@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-08 17:50+0000\n"
+"POT-Creation-Date: 2016-02-09 13:21+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -9470,7 +9470,7 @@ msgstr "QEMU がまだ開始されていません"
 msgid "parameter '%s' isn't allowed"
 msgstr "パラメーター '%s' は許可されていません"
 
-#: src/launch.c:438
+#: src/launch.c:432
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9691,17 +9691,17 @@ msgstr "ファイルのチャンクの解析に失敗しました"
 msgid "file receive cancelled by daemon"
 msgstr "ファイルの受信がデーモンにより取り消されました"
 
-#: src/tmpdirs.c:54 src/tmpdirs.c:59
+#: src/tmpdirs.c:55 src/tmpdirs.c:60
 #, c-format
 msgid "failed to set temporary directory: %s"
 msgstr "一時ディレクトリーの設定に失敗しました: %s"
 
-#: src/tmpdirs.c:64
+#: src/tmpdirs.c:65
 #, c-format
 msgid "temporary directory '%s' is not a directory"
 msgstr "一時ディレクトリー '%s' がディレクトリーではありません"
 
-#: src/tmpdirs.c:149
+#: src/tmpdirs.c:159
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: 一時ディレクトリを作成できません"
