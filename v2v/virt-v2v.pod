@@ -1117,6 +1117,13 @@ Enable (check) the following objects:
      - Allow read-only disk access
      - Guest Operating system management by VIX API
 
+=item 3.
+
+The role's access to vCenter, Datacenter, Cluster (if used), Folder
+(if used) and ESXi hypervisor must all be set to C<OK>.  If set to
+C<READ_ONLY> or C<NO_ACCESS>, this will prevent virt-v2v from working.
+(This is a bug in libvirt which may be resolved in a future version.)
+
 =back
 
 =head1 INPUT FROM VMWARE OVA
