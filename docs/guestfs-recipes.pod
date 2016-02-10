@@ -202,6 +202,57 @@ L<virt-ls(1)> to list the available systemd services like this:
 
  virt-ls -a /tmp/fedora-19.img -R /lib/systemd/system
 
+=head1 Drive letters over FUSE
+
+You have a Windows guest, and you want to expose the drive letters as
+FUSE mountpoints (F</C/...>, F</D/...> etc).  Instead of
+L<guestmount(1)>, use this Perl script:
+
+ #!/usr/bin/perl -w
+ use strict;
+ use Sys::Guestfs;
+ $| = 1;
+ die "usage: $0 mountpoint disk.img" if @ARGV < 2;
+ my $mp = shift @ARGV;
+ my $g = new Sys::Guestfs;
+ $g->add_drive_opts ($_) foreach @ARGV;
+ $g->launch;
+ my @roots = $g->inspect_os;
+ die "$0: no operating system found" if @roots != 1;
+ my $root = $roots[0];
+ die "$0: not Windows" if $g->inspect_get_type ($root) ne "windows";
+ my %map = $g->inspect_get_drive_mappings ($root);
+ foreach (keys %map) {
+     $g->mkmountpoint ("/$_");
+     eval { $g->mount ($map{$_}, "/$_") };
+     warn "$@ (ignored)\n" if $@;
+ }
+ $g->mount_local ($mp);
+ print "filesystem ready on $mp\n";
+ $g->mount_local_run;
+ $g->shutdown;
+
+You can use the script like this:
+
+ $ mkdir /tmp/mnt
+ $ ./drive-letters.pl /tmp/mnt windows7.img
+ filesystem ready on /tmp/mnt
+
+In another window:
+
+ $ cd /tmp/mnt
+ $ ls
+ C  D
+ $ cd C
+ $ ls
+ Documents and Settings
+ PerfLogs
+ ProgramData
+ Program Files
+ [etc]
+ $ cd ../..
+ $ guestunmount /tmp/mnt
+
 =head1 Dump raw filesystem content from inside a disk image or VM
 
 You can use the L<guestfish(1)> C<download> command to extract the raw
