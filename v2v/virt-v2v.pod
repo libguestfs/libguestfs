@@ -1108,7 +1108,7 @@ Enable (check) the following objects:
   - Browse datastore
   - Low level file operations
  
- Session:
+ Sessions:
   - Validate session
  
  Virtual Machine:
