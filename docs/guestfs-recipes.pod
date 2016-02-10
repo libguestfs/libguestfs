@@ -285,6 +285,23 @@ Although it sounds tempting, this is usually not a reliable way to get
 a backup from a running guest.  See the entry in the FAQ:
 L<http://libguestfs.org/FAQ.html#backup>
 
+=head1 Export external kernel and initramfs (initrd)
+
+If a Linux guest doesn't have a boot loader or it is broken, then you
+can usually boot it using an external kernel and initramfs.  In this
+configuration, the hypervisor acts like a bootloader, loading the
+kernel from the host disk into guest memory and jumping straight into
+the kernel.
+
+However you may wonder how to get the right kernel corresponding to
+the disk image you have.  Since libguestfs E<ge> 1.24
+L<virt-builder(1)> can get the latest kernel and corresponding
+initramfs for you:
+
+ mkdir outputdir
+ virt-builder --get-kernel disk.img -o outputdir
+ ls -lh outputdir
+
 =head1 Find out which user is using the most space
 
 This simple script examines a Linux guest to find out which user is
@@ -306,23 +323,6 @@ using the most space in their home directory:
  done | sort -nr -k 2
  
  guestfish --remote exit
-
-=head1 Export external kernel and initramfs (initrd)
-
-If a Linux guest doesn't have a boot loader or it is broken, then you
-can usually boot it using an external kernel and initramfs.  In this
-configuration, the hypervisor acts like a bootloader, loading the
-kernel from the host disk into guest memory and jumping straight into
-the kernel.
-
-However you may wonder how to get the right kernel corresponding to
-the disk image you have.  Since libguestfs E<ge> 1.24
-L<virt-builder(1)> can get the latest kernel and corresponding
-initramfs for you:
-
- mkdir outputdir
- virt-builder --get-kernel disk.img -o outputdir
- ls -lh outputdir
 
 =head1 Get DHCP address from a VM
 
