@@ -213,8 +213,12 @@ TESTS_ENVIRONMENT = \
 if ENABLE_APPLIANCE
 TESTS = \
 	test-virt-sysprep.sh \
-	test-virt-sysprep-passwords.sh \
+	test-virt-sysprep-passwords.sh
+
+if HAVE_FUSE
+TESTS += \
 	test-virt-sysprep-script.sh
+endif HAVE_FUSE
 endif ENABLE_APPLIANCE
 
 check-valgrind:
