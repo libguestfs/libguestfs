@@ -297,7 +297,6 @@ TESTS += \
 	test-find0.sh \
 	test-inspect.sh \
 	test-glob.sh \
-	test-mount-local.sh \
 	test-prep.sh \
 	test-read-file.sh \
 	test-remote.sh \
@@ -306,6 +305,11 @@ TESTS += \
 	test-run.sh \
 	test-stringlist.sh \
 	test-upload-to-dir.sh
+
+if HAVE_FUSE
+TESTS += \
+	test-mount-local.sh
+endif
 endif
 
 check-valgrind:
