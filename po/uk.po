@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-09 13:21+0000\n"
+"POT-Creation-Date: 2016-02-12 15:45+0000\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -280,7 +280,7 @@ msgstr ""
 "Коротке резюме параметрів надано нижче. Докладніші довідкові дані\n"
 "можна знайти на сторінках підручника (man) virt-builder(1).\n"
 
-#: ../v2v/windows_virtio.ml:397
+#: ../v2v/windows_virtio.ml:404
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr "%s: не вдалося відкрити файл ISO virtio-win: %s"
 
@@ -656,7 +656,7 @@ msgstr ""
 "завантаження Windows. Отримати цей файл можна зібравши rhsrvany (https://"
 "github.com/rwmjones/rhsrvany). Початкове повідомлення про помилку: %s"
 
-#: ../v2v/convert_windows.ml:62
+#: ../v2v/convert_windows.ml:55
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -3080,11 +3080,11 @@ msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
 
-#: ../v2v/windows_virtio.ml:200
+#: ../v2v/windows_virtio.ml:207
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr "не вдалося знайти HKLM\\SYSTEM\\%s у регістрі гостьової системи"
 
-#: ../v2v/windows_virtio.ml:174
+#: ../v2v/windows_virtio.ml:181
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -3125,13 +3125,13 @@ msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 "не вдалося встановити випадковий UUID для файлової системи %s типу %s: %s"
 
-#: ../v2v/convert_windows.ml:194
+#: ../v2v/convert_windows.ml:187
 msgid ""
 "cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
 "DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:139
+#: ../v2v/convert_windows.ml:132
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -3217,7 +3217,7 @@ msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 "не вдалося знайти каталог кешування. Чи встановлено значення змінної $HOME?"
 
-#: ../v2v/convert_windows.ml:375
+#: ../v2v/convert_windows.ml:368
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -4351,7 +4351,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr "у %s (%s) немає UUID. Це справді OVirt чи RHEV-M %s?"
 
-#: ../v2v/windows_virtio.ml:35
+#: ../v2v/windows_virtio.ml:42
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -4364,7 +4364,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільніших емульованих "
 "пристроїв."
 
-#: ../v2v/windows_virtio.ml:72
+#: ../v2v/windows_virtio.ml:79
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -4389,7 +4389,7 @@ msgstr ""
 "але це означатиме, що ваша система стане вразливою до нападів man-in-the-"
 "middle."
 
-#: ../v2v/windows_virtio.ml:51
+#: ../v2v/windows_virtio.ml:58
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -4402,7 +4402,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/windows_virtio.ml:60
+#: ../v2v/windows_virtio.ml:67
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -4424,7 +4424,7 @@ msgstr ""
 "не передбачено підтримки мікропрограм %s (підтримувана мікропрограма на "
 "призначенні: %s)"
 
-#: ../v2v/convert_windows.ml:461
+#: ../v2v/convert_windows.ml:454
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -4437,7 +4437,7 @@ msgstr ""
 "(результатом є помилка завантаження 7B). Якщо таке трапляється, спробуйте "
 "вимкнути антивірус до перетворення."
 
-#: ../v2v/convert_windows.ml:459
+#: ../v2v/convert_windows.ml:452
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -4714,7 +4714,7 @@ msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
 
-#: ../v2v/windows_virtio.ml:157
+#: ../v2v/windows_virtio.ml:164
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr "під час додавання viostor до DriverDatabase, невідома архітектура: %s"
 
@@ -10526,30 +10526,30 @@ msgstr "встановлено зв’язок з guestfs, але стан пр�
 msgid "the libguestfs handle has already been launched"
 msgstr "елемент керування libguestfs вже запущено"
 
-#: src/launch.c:172
+#: src/launch.c:165
 msgid "get-pid can only be called after launch"
 msgstr "get-pid можна викликати лише після launch"
 
-#: src/launch.c:178
+#: src/launch.c:171
 msgid "the current backend does not support 'get-pid'"
 msgstr "у поточному модулі не передбачено підтримки «get-pid»"
 
-#: src/launch.c:189
+#: src/launch.c:182
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 "у поточному модулі не передбачено опитування щодо максимальної кількості "
 "дисків"
 
-#: src/launch.c:201
+#: src/launch.c:194
 msgid "qemu has not been launched yet"
 msgstr "qemu ще не запущено"
 
-#: src/launch.c:272
+#: src/launch.c:265
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
 
-#: src/launch.c:432
+#: src/launch.c:425
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""

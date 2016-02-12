@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-02-09 13:21+0000\n"
+"POT-Creation-Date: 2016-02-12 15:45+0000\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -210,7 +210,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:397
+#: ../v2v/windows_virtio.ml:404
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgid ""
 "rwmjones/rhsrvany).  Original error: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:62
+#: ../v2v/convert_windows.ml:55
 msgid ""
 "'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original "
 "error: %s"
@@ -2623,11 +2623,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:200
+#: ../v2v/windows_virtio.ml:207
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:174
+#: ../v2v/windows_virtio.ml:181
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2658,13 +2658,13 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:194
+#: ../v2v/convert_windows.ml:187
 msgid ""
 "cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
 "DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:139
+#: ../v2v/convert_windows.ml:132
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2728,7 +2728,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:375
+#: ../v2v/convert_windows.ml:368
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -3663,7 +3663,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:35
+#: ../v2v/windows_virtio.ml:42
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3671,7 +3671,7 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:72
+#: ../v2v/windows_virtio.ml:79
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3687,7 +3687,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:51
+#: ../v2v/windows_virtio.ml:58
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3695,7 +3695,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:60
+#: ../v2v/windows_virtio.ml:67
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3709,7 +3709,7 @@ msgid ""
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:461
+#: ../v2v/convert_windows.ml:454
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3717,7 +3717,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:459
+#: ../v2v/convert_windows.ml:452
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3942,7 +3942,7 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:157
+#: ../v2v/windows_virtio.ml:164
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
@@ -9172,28 +9172,28 @@ msgstr "guestfsd ਨਾਲ ਸੰਪਰਕ ਕੀਤਾ ਹੈ, ਪਰ state != 
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs ਹੈਂਡਲ ਪਹਿਲਾਂ ਹੀ ਚਾਲੂ ਕੀਤਾ ਹੈ"
 
-#: src/launch.c:172
+#: src/launch.c:165
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:178
+#: src/launch.c:171
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:189
+#: src/launch.c:182
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:201
+#: src/launch.c:194
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
 
-#: src/launch.c:272
+#: src/launch.c:265
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:432
+#: src/launch.c:425
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
