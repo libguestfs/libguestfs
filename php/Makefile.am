@@ -24,7 +24,7 @@ generator_built = \
 EXTRA_DIST = \
 	$(generator_built) \
 	run-php-tests.sh \
-	extension/tests/guestfs_php_*.phpt \
+	extension/tests/guestfs_*.phpt \
 	extension/config.m4 \
 	README-PHP \
 	guestfs_php.ini

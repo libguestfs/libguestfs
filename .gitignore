@@ -367,12 +367,6 @@ Makefile.in
 /php/extension/configure.in
 /php/extension/env
 /php/extension/guestfs_php.c
-/php/extension/guestfs_php_*.diff
-/php/extension/guestfs_php_*.exp
-/php/extension/guestfs_php_*.log
-/php/extension/guestfs_php_*.out
-/php/extension/guestfs_php_*.php
-/php/extension/guestfs_php_*.sh
 /php/extension/install-sh
 /php/extension/libtool
 /php/extension/ltmain.sh
@@ -385,7 +379,13 @@ Makefile.in
 /php/extension/php-for-tests.sh
 /php/extension/php_guestfs_php.h
 /php/extension/run-tests.php
-/php/extension/tests/guestfs_php_bindtests.phpt
+/php/extension/tests/guestfs_*.diff
+/php/extension/tests/guestfs_*.exp
+/php/extension/tests/guestfs_*.log
+/php/extension/tests/guestfs_*.out
+/php/extension/tests/guestfs_*.php
+/php/extension/tests/guestfs_*.sh
+/php/extension/tests/guestfs_090_bindtests.phpt
 /php/extension/tmp-php.ini
 /pick-guests.pl
 /po-docs/*/*.1
