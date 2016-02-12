@@ -157,6 +157,10 @@ filter_convert_old_lvs_output (char *out)
     if (lv_attr[0] == 't')
       goto skip_line;
 
+    /* Ignore activationskip (RHBZ#1306666). */
+    if (strlen (lv_attr) >= 10 && lv_attr[9] == 'k')
+      goto skip_line;
+
     /* Ignore "unknown device" message (RHBZ#1054761). */
     if (STRNEQ (p, "unknown device")) {
       char buf[256];
@@ -260,7 +264,7 @@ do_lvs (void)
     r = command (&out, &err,
                  str_lvm, "lvs",
                  "-o", "vg_name,lv_name",
-                 "-S", "lv_role=public",
+                 "-S", "lv_role=public && lv_active=active",
                  "--noheadings",
                  "--separator", "/", NULL);
     if (r == -1) {
