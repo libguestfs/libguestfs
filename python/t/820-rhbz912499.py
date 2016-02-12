@@ -89,7 +89,7 @@ class Test820RHBZ912499 (unittest.TestCase):
     def test_rhbz912499 (self):
         dom = conn.createXML (self.xml,
                               libvirt.VIR_DOMAIN_START_AUTODESTROY)
-        self.assertFalse (dom == None)
+        self.assertIsNotNone (dom)
 
         print ("temporary domain %s is running" % self.domname)
 

@@ -51,7 +51,7 @@ class Test420LogMessages (unittest.TestCase):
 
         g.close ()
 
-        self.assertFalse (log_invoked == 0)
+        self.assertNotEqual (log_invoked, 0)
 
 if __name__ == '__main__':
     unittest.main ()

@@ -27,7 +27,6 @@ class Test900PythonDict (unittest.TestCase):
         g = guestfs.GuestFS (python_return_dict=False)
 
         r = g.internal_test_rhashtable ("5")
-        self.assertTrue (isinstance (r, list))
         self.assertEqual (r, [ ("0","0"), ("1","1"), ("2","2"),
                                ("3","3"), ("4","4") ])
 
@@ -35,13 +34,7 @@ class Test900PythonDict (unittest.TestCase):
         g = guestfs.GuestFS (python_return_dict=True)
 
         r = g.internal_test_rhashtable ("5")
-        self.assertTrue (isinstance (r, dict))
-        self.assertEqual (sorted (r.keys()), ["0","1","2","3","4"])
-        self.assertEqual (r["0"], "0")
-        self.assertEqual (r["1"], "1")
-        self.assertEqual (r["2"], "2")
-        self.assertEqual (r["3"], "3")
-        self.assertEqual (r["4"], "4")
+        self.assertEqual (r, {"0": "0", "1": "1", "2": "2", "3": "3", "4": "4"})
 
 if __name__ == '__main__':
     unittest.main ()

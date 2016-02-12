@@ -34,13 +34,13 @@ class Test080Version (unittest.TestCase):
         self.assertEqual (self.version['major'], 1)
 
     def test_minor (self):
-        self.assertTrue (isinstance (self.version['minor'], cl))
+        self.assertIsInstance (self.version['minor'], cl)
 
     def test_release (self):
-        self.assertTrue (isinstance (self.version['release'], cl))
+        self.assertIsInstance (self.version['release'], cl)
 
     def test_extra (self):
-        self.assertTrue (isinstance (self.version['extra'], str))
+        self.assertIsInstance (self.version['extra'], str)
 
 if __name__ == '__main__':
     unittest.main ()

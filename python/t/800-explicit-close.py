@@ -37,11 +37,7 @@ class Test800ExplicitClose (unittest.TestCase):
         # Expect an exception if we call a method on a closed handle.
         g = guestfs.GuestFS (python_return_dict=True)
         g.close ()
-        try:
-            g.set_memsize (512)
-            raise Exception("expected an exception from previous statement")
-        except guestfs.ClosedHandle:
-            pass
+        self.assertRaises (guestfs.ClosedHandle, g.set_memsize, 512)
         del g
 
         # Verify that the handle is really being closed by g.close, by

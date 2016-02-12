@@ -31,10 +31,7 @@ class Test810RHBZ811650 (unittest.TestCase):
         # Because error() wasn't being called, guestfs_last_error
         # would return NULL, causing a segfault in the Python bindings
         # (RHBZ#811650).
-        try:
-            g.launch ()
-        except:
-            pass
+        self.assertRaises (RuntimeError, g.launch)
 
     def tearDown (self):
         os.unlink ("rhbz811650.img")
