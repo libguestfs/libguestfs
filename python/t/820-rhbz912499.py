@@ -20,6 +20,7 @@
 #      https://bugzilla.redhat.com/1075164#c7
 
 from subprocess import check_output
+import unittest
 import random
 import string
 import re
@@ -54,16 +55,19 @@ if not "c_pointer" in dir (conn):
     print ("skipping test: libvirt-python doesn't support c_pointer()")
     exit (77)
 
-# Create a test disk.
-filename = os.getcwd () + "/820-rhbz912499.img"
-guestfs.GuestFS().disk_create (filename, "raw", 1024*1024*1024)
+class Test820RHBZ912499 (unittest.TestCase):
+    def setUp (self):
+        # Create a test disk.
+        self.filename = os.getcwd () + "/820-rhbz912499.img"
+        guestfs.GuestFS().disk_create (self.filename, "raw", 1024*1024*1024)
 
-# Create a new domain.  This won't work, it will just hang when
-# booted.  But that's sufficient for the test.
-domname = ''.join (random.choice (string.ascii_uppercase) for _ in range (8))
-domname = "tmp-" + domname
+        # Create a new domain.  This won't work, it will just hang when
+        # booted.  But that's sufficient for the test.
+        self.domname = ''.join (random.choice (string.ascii_uppercase)
+                                for _ in range (8))
+        self.domname = "tmp-" + self.domname
 
-xml = """
+        self.xml = """
 <domain type='qemu'>
   <name>%s</name>
   <memory>1048576</memory>
@@ -80,32 +84,35 @@ xml = """
     </disk>
   </devices>
 </domain>
-""" % (domname, filename)
+""" % (self.domname, self.filename)
 
-dom = conn.createXML (xml, libvirt.VIR_DOMAIN_START_AUTODESTROY)
-if dom == None:
-    raise "could not create temporary domain (%s)" % domname
+    def test_rhbz912499 (self):
+        dom = conn.createXML (self.xml,
+                              libvirt.VIR_DOMAIN_START_AUTODESTROY)
+        self.assertFalse (dom == None)
 
-print ("temporary domain %s is running" % domname)
+        print ("temporary domain %s is running" % self.domname)
 
-# Libvirt should have labelled the disk.
-print ("before starting libguestfs")
-before = check_output (["ls", "-Z", filename])
-print ("disk label = %s" % before)
+        # Libvirt should have labelled the disk.
+        print ("before starting libguestfs")
+        before = check_output (["ls", "-Z", self.filename])
+        print ("disk label = %s" % before)
 
-# Now see if we can open the domain with libguestfs without
-# disturbing the label.
-g = guestfs.GuestFS ()
-r = g.add_libvirt_dom (dom, readonly = 1)
-if r != 1:
-    raise "unexpected return value from add_libvirt_dom (%d)" % r
-g.launch ()
+        # Now see if we can open the domain with libguestfs without
+        # disturbing the label.
+        g = guestfs.GuestFS ()
+        r = g.add_libvirt_dom (dom, readonly = 1)
+        self.assertEqual (r, 1)
+        g.launch ()
 
-print ("after starting libguestfs")
-after = check_output (["ls", "-Z", filename])
-print ("disk label = %s" % after)
+        print ("after starting libguestfs")
+        after = check_output (["ls", "-Z", self.filename])
+        print ("disk label = %s" % after)
 
-if before != after:
-    raise "disk label was changed unexpectedly"
+        self.assertEqual (before, after)
 
-os.unlink (filename)
+    def tearDown (self):
+        os.unlink (self.filename)
+
+if __name__ == '__main__':
+    unittest.main ()

@@ -20,6 +20,7 @@
 # working by testing it.  See:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1075164
 
+import unittest
 import os
 import guestfs
 
@@ -38,11 +39,14 @@ if not "c_pointer" in dir (conn):
     print ("skipping test: libvirt-python doesn't support c_pointer()")
     exit (77)
 
-dom = conn.lookupByName ("blank-disk")
+class Test910Libvirt (unittest.TestCase):
+    def test_libvirt (self):
+        dom = conn.lookupByName ("blank-disk")
 
-g = guestfs.GuestFS ()
+        g = guestfs.GuestFS ()
 
-r = g.add_libvirt_dom (dom, readonly=1)
+        r = g.add_libvirt_dom (dom, readonly=1)
+        self.assertEqual (r, 1)
 
-if r != 1:
-    raise "unexpected return value from add_libvirt_dom (%d)" % r
+if __name__ == '__main__':
+    unittest.main ()

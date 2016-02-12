@@ -18,17 +18,30 @@
 # Test python-specific python_return_dict parameter.
 
 from types import *
+import unittest
 import os
 import guestfs
 
-g = guestfs.GuestFS (python_return_dict=False)
+class Test900PythonDict (unittest.TestCase):
+    def test_python_no_dict (self):
+        g = guestfs.GuestFS (python_return_dict=False)
 
-r = g.internal_test_rhashtable ("5")
-if type(r) != list or r != [ ("0","0"), ("1","1"), ("2","2"), ("3","3"), ("4","4") ]:
-    raise Exception ("python_return_dict=False: internal_test_rhashtable returned %s" % r)
+        r = g.internal_test_rhashtable ("5")
+        self.assertTrue (isinstance (r, list))
+        self.assertEqual (r, [ ("0","0"), ("1","1"), ("2","2"),
+                               ("3","3"), ("4","4") ])
 
-g = guestfs.GuestFS (python_return_dict=True)
+    def test_python_dict (self):
+        g = guestfs.GuestFS (python_return_dict=True)
 
-r = g.internal_test_rhashtable ("5")
-if type(r) != dict or sorted (r.keys()) != ["0","1","2","3","4"] or r["0"] != "0" or r["1"] != "1" or r["2"] != "2" or r["3"] != "3" or r["4"] != "4":
-    raise Exception ("python_return_dict=True: internal_test_rhashtable returned %s" % r)
+        r = g.internal_test_rhashtable ("5")
+        self.assertTrue (isinstance (r, dict))
+        self.assertEqual (sorted (r.keys()), ["0","1","2","3","4"])
+        self.assertEqual (r["0"], "0")
+        self.assertEqual (r["1"], "1")
+        self.assertEqual (r["2"], "2")
+        self.assertEqual (r["3"], "3")
+        self.assertEqual (r["4"], "4")
+
+if __name__ == '__main__':
+    unittest.main ()

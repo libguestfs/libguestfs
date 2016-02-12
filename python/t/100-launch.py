@@ -15,18 +15,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import unittest
 import os
 import guestfs
 
-g = guestfs.GuestFS (python_return_dict=True)
-g.add_drive_scratch (500 * 1024 * 1024)
-g.launch ()
+class Test100Launch (unittest.TestCase):
+    def test_launch (self):
+        g = guestfs.GuestFS (python_return_dict=True)
+        g.add_drive_scratch (500 * 1024 * 1024)
+        g.launch ()
 
-g.pvcreate ("/dev/sda")
-g.vgcreate ("VG", ["/dev/sda"])
-g.lvcreate ("LV1", "VG", 200)
-g.lvcreate ("LV2", "VG", 200)
-if (g.lvs () != ["/dev/VG/LV1", "/dev/VG/LV2"]):
-    raise "Error: g.lvs() returned incorrect result"
-g.shutdown ()
-g.close ()
+        g.pvcreate ("/dev/sda")
+        g.vgcreate ("VG", ["/dev/sda"])
+        g.lvcreate ("LV1", "VG", 200)
+        g.lvcreate ("LV2", "VG", 200)
+        self.assertEqual (g.lvs (), ["/dev/VG/LV1", "/dev/VG/LV2"])
+        g.shutdown ()
+        g.close ()
+
+if __name__ == '__main__':
+    unittest.main ()

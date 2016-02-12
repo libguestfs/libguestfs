@@ -15,10 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import unittest
 import os
 import guestfs
-
-g = guestfs.GuestFS (python_return_dict=True)
 
 close_invoked = 0
 
@@ -26,12 +25,17 @@ def close_callback (ev, eh, buf, array):
     global close_invoked
     close_invoked += 1
 
-# Register a callback for the close event.
-g.set_event_callback (close_callback, guestfs.EVENT_CLOSE)
+class Test410CloseEvent (unittest.TestCase):
+    def test_close_event (self):
+        g = guestfs.GuestFS (python_return_dict=True)
 
-# Close the handle.  The close callback should be invoked.
-if close_invoked != 0:
-    raise "Error: close_invoked should be 0"
-g.close ()
-if close_invoked != 1:
-    raise "Error: close_invoked should be 1"
+        # Register a callback for the close event.
+        g.set_event_callback (close_callback, guestfs.EVENT_CLOSE)
+
+        # Close the handle.  The close callback should be invoked.
+        self.assertEqual (close_invoked, 0)
+        g.close ()
+        self.assertEqual (close_invoked, 1)
+
+if __name__ == '__main__':
+    unittest.main ()

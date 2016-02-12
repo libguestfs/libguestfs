@@ -15,10 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import unittest
 import os
 import guestfs
-
-g = guestfs.GuestFS (python_return_dict=True)
 
 log_invoked = 0
 
@@ -33,20 +32,26 @@ def log_callback (ev,eh,buf,array):
     print ("python event logged: event=%s eh=%d buf='%s' array=%s" %
            (guestfs.event_to_string (ev), eh, buf, array))
 
-# Register an event callback for all log messages.
-events = guestfs.EVENT_APPLIANCE | guestfs.EVENT_LIBRARY \
-         | guestfs.EVENT_WARNING | guestfs.EVENT_TRACE
-g.set_event_callback (log_callback, events)
+class Test420LogMessages (unittest.TestCase):
+    def test_log_messages (self):
+        g = guestfs.GuestFS (python_return_dict=True)
 
-# Now make sure we see some messages.
-g.set_trace (1)
-g.set_verbose (1)
+        # Register an event callback for all log messages.
+        events = guestfs.EVENT_APPLIANCE | guestfs.EVENT_LIBRARY \
+                 | guestfs.EVENT_WARNING | guestfs.EVENT_TRACE
+        g.set_event_callback (log_callback, events)
 
-# Do some stuff.
-g.add_drive_ro ("/dev/null")
-g.set_autosync (1)
+        # Now make sure we see some messages.
+        g.set_trace (1)
+        g.set_verbose (1)
 
-g.close ()
+        # Do some stuff.
+        g.add_drive_ro ("/dev/null")
+        g.set_autosync (1)
 
-if log_invoked == 0:
-    raise "Error: log_invoked should be > 0"
+        g.close ()
+
+        self.assertFalse (log_invoked == 0)
+
+if __name__ == '__main__':
+    unittest.main ()

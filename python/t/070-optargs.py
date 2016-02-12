@@ -15,11 +15,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import unittest
 import os
 import guestfs
 
-g = guestfs.GuestFS (python_return_dict=True)
-g.add_drive ("/dev/null")
-g.add_drive ("/dev/null", readonly = True)
-g.add_drive ("/dev/null", iface = "virtio", format = "raw")
-g.close ()
+class Test070OptArgs (unittest.TestCase):
+    def setUp (self):
+        self.g = guestfs.GuestFS (python_return_dict=True)
+
+    def test_no_optargs (self):
+        self.g.add_drive ("/dev/null")
+
+    def test_one_optarg (self):
+        self.g.add_drive ("/dev/null", readonly = True)
+
+    def test_two_optargs (self):
+        self.g.add_drive ("/dev/null", iface = "virtio", format = "raw")
+
+    def tearDown (self):
+        self.g.close ()
+
+if __name__ == '__main__':
+    unittest.main ()

@@ -303,6 +303,10 @@ Optional.  Used to build the Python bindings.  For building
 Python 2 or Python 3 bindings, see
 L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below.
 
+=item Python C<unittest>
+
+Optional.  Used to run the Python testsuite.
+
 =item Ruby
 
 =item rake

@@ -15,4 +15,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import guestfs
+import unittest
+
+class Test010Load (unittest.TestCase):
+    def test_import (self):
+        import guestfs
+
+if __name__ == '__main__':
+    unittest.main ()

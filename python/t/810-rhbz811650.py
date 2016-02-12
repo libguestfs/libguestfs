@@ -15,21 +15,29 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import unittest
 import os
 import guestfs
 
-g = guestfs.GuestFS (python_return_dict=True)
+class Test810RHBZ811650 (unittest.TestCase):
+    def test_rhbz811650 (self):
+        g = guestfs.GuestFS (python_return_dict=True)
 
-g.disk_create ("rhbz811650.img", "raw", 500 * 1024 * 1024)
+        g.disk_create ("rhbz811650.img", "raw", 500 * 1024 * 1024)
 
-# Deliberate error: the disk format is supposed to be raw.
-g.add_drive ("rhbz811650.img", format="qcow2");
+        # Deliberate error: the disk format is supposed to be raw.
+        g.add_drive ("rhbz811650.img", format="qcow2");
 
-# Because error() wasn't being called, guestfs_last_error would return
-# NULL, causing a segfault in the Python bindings (RHBZ#811650).
-try:
-    g.launch ()
-except:
-    pass
+        # Because error() wasn't being called, guestfs_last_error
+        # would return NULL, causing a segfault in the Python bindings
+        # (RHBZ#811650).
+        try:
+            g.launch ()
+        except:
+            pass
 
-os.unlink ("rhbz811650.img")
+    def tearDown (self):
+        os.unlink ("rhbz811650.img")
+
+if __name__ == '__main__':
+    unittest.main ()
