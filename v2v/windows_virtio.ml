@@ -234,8 +234,8 @@ and add_viostor_to_driver_database g root arch current_cs =
                              "PCI\\VEN_1AF4&CC_010000";
                              "PCI\\VEN_1AF4&CC_0100";
                              "PCI\\VEN_1AF4";
-                             "PCI\\VEN_010000";
-                             "PCI\\VEN_0100";
+                             "PCI\\CC_010000";
+                             "PCI\\CC_0100";
                            ];
         "ConfigFlags", REG_DWORD 0_l;
         "ContainerID", REG_SZ "{00000000-0000-0000-ffff-ffffffffffff}";
