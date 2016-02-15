@@ -202,6 +202,7 @@ This is the numbering scheme used by the tests:
    065  implicit close (in GC'd languages)
    070  optargs
    080  version
+   090  retvalues
  
  - 100  launch, create partitions and LVs and filesystems
  

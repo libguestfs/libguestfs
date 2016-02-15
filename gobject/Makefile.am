@@ -90,7 +90,9 @@ gir_DATA = $(INTROSPECTION_GIRS)
 typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
-TESTS = run-tests
+TESTS = \
+	run-tests \
+	run-tests-retvalues
 
 if ENABLE_APPLIANCE
 TESTS += run-live-tests
