@@ -51,11 +51,7 @@ object
     if Sys.command "glance image-list > /dev/null" <> 0 then
       error (f_"glance: glance client is not installed or set up correctly.  You may need to set environment variables or source a script to enable authentication.  See preceding messages for details.");
 
-    (* OpenStack only supports single image VMs, I think? *)
-    let nr_targets = List.length targets in
-    if nr_targets <> 1 then
-      error (f_"glance: OpenStack conversion only supports virtual machines with a single disk image.  This VM has %d") nr_targets;
-
+    (* Write targets to a temporary local file - see above for reason. *)
     List.map (
       fun t ->
         let target_file = tmpdir // t.target_overlay.ov_sd in
@@ -66,68 +62,77 @@ object
     (* See #supported_firmware above. *)
     assert (target_firmware = TargetBIOS);
 
-    (* Upload the disk image (there should only be one - see above). *)
-    let { target_file = target_file; target_format = target_format } =
-      List.hd targets in
-    let cmd =
-      sprintf "glance image-create --name %s --disk-format=%s --container-format=bare --file %s"
-        (quote source.s_name) (quote target_format) target_file in
-    if verbose then printf "%s\n%!" cmd;
-    if Sys.command cmd <> 0 then
-      error (f_"glance: image upload to glance failed, see earlier errors");
+    (* The first disk, assumed to be the system, will be called
+     * "guestname".  Subsequent disks, assumed to be data disks,
+     * will be called "guestname-disk2" etc.  The manual strongly
+     * hints you should import the data disks to Cinder.
+     *)
+    List.iteri (
+      fun i { target_file = target_file; target_format = target_format } ->
+        let name =
+          if i == 0 then source.s_name
+          else sprintf "%s-disk%d" source.s_name (i+1) in
 
-    (* Set the properties (ie. metadata). *)
-    let min_ram = source.s_memory /^ 1024L /^ 1024L in
-    let properties = [
-      "hw_disk_bus",
-      (match guestcaps.gcaps_block_bus with
-      | Virtio_blk -> "virtio"
-      | IDE -> "ide");
-      "hw_vif_model",
-      (match guestcaps.gcaps_net_bus with
-      | Virtio_net -> "virtio"
-      | E1000 -> "e1000"
-      | RTL8139 -> "rtl8139");
-      "architecture", guestcaps.gcaps_arch;
-      "hypervisor_type", "kvm";
-      "vm_mode", "hvm";
-      "os_type", inspect.i_type;
-      "os_distro",
-      (match inspect.i_distro with
-      (* http://docs.openstack.org/cli-reference/glance.html#image-service-property-keys *)
-      | "archlinux" -> "arch"
-      | "sles" -> "sled"
-      | x -> x (* everything else is the same in libguestfs and OpenStack *)
-      )
-    ] in
-    let properties =
-      match inspect.i_major_version, inspect.i_minor_version with
-      | 0, 0 -> properties
-      | x, 0 -> ("os_version", string_of_int x) :: properties
-      | x, y -> ("os_version", sprintf "%d.%d" x y) :: properties in
+        let cmd =
+          sprintf "glance image-create --name %s --disk-format=%s --container-format=bare --file %s"
+                  (quote name) (quote target_format) target_file in
+        if verbose then printf "%s\n%!" cmd;
+        if Sys.command cmd <> 0 then
+          error (f_"glance: image upload to glance failed, see earlier errors");
 
-    (* Glance doesn't appear to check the properties. *)
-    let cmd =
-      sprintf "glance image-update --min-ram %Ld %s %s"
-        min_ram
-        (String.concat " " (
-          List.map (
-            fun (k, v) ->
-              sprintf "--property %s=%s" (quote k) (quote v)
+        (* Set the properties (ie. metadata). *)
+        let min_ram = source.s_memory /^ 1024L /^ 1024L in
+        let properties = [
+          "hw_disk_bus",
+          (match guestcaps.gcaps_block_bus with
+           | Virtio_blk -> "virtio"
+           | IDE -> "ide");
+          "hw_vif_model",
+          (match guestcaps.gcaps_net_bus with
+           | Virtio_net -> "virtio"
+           | E1000 -> "e1000"
+           | RTL8139 -> "rtl8139");
+          "architecture", guestcaps.gcaps_arch;
+          "hypervisor_type", "kvm";
+          "vm_mode", "hvm";
+          "os_type", inspect.i_type;
+          "os_distro",
+          (match inspect.i_distro with
+          (* http://docs.openstack.org/cli-reference/glance.html#image-service-property-keys *)
+           | "archlinux" -> "arch"
+           | "sles" -> "sled"
+           | x -> x (* everything else is the same in libguestfs and OpenStack*)
+          )
+        ] in
+        let properties =
+          match inspect.i_major_version, inspect.i_minor_version with
+          | 0, 0 -> properties
+          | x, 0 -> ("os_version", string_of_int x) :: properties
+          | x, y -> ("os_version", sprintf "%d.%d" x y) :: properties in
+
+        (* Glance doesn't appear to check the properties. *)
+        let cmd =
+          sprintf "glance image-update --min-ram %Ld %s %s"
+                  min_ram
+                  (String.concat " "
+                    (List.map (
+                       fun (k, v) ->
+                         sprintf "--property %s=%s" (quote k) (quote v)
+                    ) properties
+                  ))
+                  (quote name) in
+        if verbose then printf "%s\n%!" cmd;
+        if Sys.command cmd <> 0 then (
+          warning ~prog (f_"glance: failed to set image properties (ignored)");
+          (* Dump out the image properties so the user can set them. *)
+          printf "Image properties:\n";
+          printf "  --min-ram %Ld\n" min_ram;
+          List.iter (
+	    fun (k, v) ->
+	      printf "  --property %s=%s" (quote k) (quote v)
           ) properties
-        ))
-        (quote source.s_name) in
-    if verbose then printf "%s\n%!" cmd;
-    if Sys.command cmd <> 0 then (
-      warning ~prog (f_"glance: failed to set image properties (ignored)");
-      (* Dump out the image properties so the user can set them. *)
-      printf "Image properties:\n";
-      printf "  --min-ram %Ld\n" min_ram;
-      List.iter (
-	fun (k, v) ->
-	  printf "  --property %s=%s" (quote k) (quote v)
-      ) properties
-    )
+        )
+      ) targets
 end
 
 let output_glance = new output_glance

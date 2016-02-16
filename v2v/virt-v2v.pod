@@ -1158,6 +1158,30 @@ Glance image upload doesn't appear to correctly handle sparseness.
 For this reason, using qcow2 will be faster and use less space on the
 Glance server.  Use the virt-v2v S<I<-of qcow2>> option.
 
+=head2 Glance and multiple disks
+
+If the guest has a single disk, then the name of the disk in Glance
+will be the name of the guest.  You can control this using the I<-on>
+option.
+
+Glance doesn't have a concept of associating multiple disks with a
+single guest, and Nova doesn't allow you to boot a guest from multiple
+Glance disks either.  If the guest has multiple disks, then the first
+(assumed to be the system disk) will have the name of the guest, and
+the second and subsequent data disks will be called
+C<I<guestname>-disk2>, C<I<guestname>-disk3> etc.  It may be best to
+leave the system disk in Glance, and import the data disks to Cinder
+(see next section).
+
+=head2 Importing disks into Cinder
+
+Since most virt-v2v guests are "pets", Glance is perhaps not the best
+place to store them.  There is no way for virt-v2v to upload directly
+to Cinder (L<https://bugzilla.redhat.com/1155229>), so instead you
+must import them yourself by doing:
+
+ cinder create --image-id <GLANCE-IMAGE-UUID> <SIZE>
+
 =head1 RESOURCE REQUIREMENTS
 
 =head2 Network
