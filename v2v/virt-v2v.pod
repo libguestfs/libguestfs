@@ -122,7 +122,7 @@ run on OpenStack (only KVM-based OpenStack is supported), you can do:
 
  virt-v2v -i disk disk.img -o glance
 
-To control the name of the image in Glance, use the I<-on> option.
+See L</OUTPUT TO GLANCE> below.
 
 =head2 Convert disk image to disk image
 
@@ -429,8 +429,7 @@ This is the same as I<-o local>.
 =item B<-o glance>
 
 Set the output method to OpenStack Glance.  In this mode the converted
-guest is uploaded to Glance.  You can control the image name by setting
-the I<-on> option.
+guest is uploaded to Glance.  See L</OUTPUT TO GLANCE> below.
 
 =item B<-o libvirt>
 
@@ -1440,6 +1439,26 @@ additional details.
 
 If you export several guests, then you can import them all at the same
 time through the UI.
+
+=head1 OUTPUT TO GLANCE
+
+To output to OpenStack Glance, use the I<-o glance> option.
+
+This runs the L<glance(1)> CLI program which must be installed on the
+virt-v2v conversion host.  For authentication to work, you will need
+to set C<OS_*> environment variables.  In most cases you can do this
+by sourcing a file called something like F<keystonerc_admin>.
+
+Virt-v2v adds metadata for the guest to Glance, describing such things
+as the guest operating system and what drivers it requires.  The
+command C<glance image-show> will display the metadata as "Property"
+fields such as C<os_type> and C<hw_disk_bus>.
+
+=head2 Glance and sparseness
+
+Glance image upload doesn't appear to correctly handle sparseness.
+For this reason, using qcow2 will be faster and use less space on the
+Glance server.  Use the virt-v2v S<I<-of qcow2>> option.
 
 =head1 RESOURCE REQUIREMENTS
 
