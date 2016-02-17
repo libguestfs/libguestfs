@@ -32,7 +32,7 @@ EXTRA_DIST = \
 	$(generator_built) \
 	TODO.txt \
 	.gitignore \
-	bindtests-manual.js \
+	bindtests-retvalues.js \
 	docs/.gitignore \
 	tests-misc.js \
 	run-tests \
