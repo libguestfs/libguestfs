@@ -190,10 +190,10 @@ and get_ostype = function
     "windows_10x64"
 
   | { i_type = typ; i_distro = distro;
-      i_major_version = major; i_minor_version = minor;
+      i_major_version = major; i_minor_version = minor; i_arch = arch;
       i_product_name = product } ->
-    warning (f_"unknown guest operating system: %s %s %d.%d (%s)")
-      typ distro major minor product;
+    warning (f_"unknown guest operating system: %s %s %d.%d %s (%s)")
+      typ distro major minor arch product;
     "Unassigned"
 
 (* Generate the .meta file associated with each volume. *)
