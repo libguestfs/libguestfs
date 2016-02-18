@@ -181,6 +181,14 @@ and get_ostype = function
       i_arch = "x86_64" } ->
     "windows_2012R2x64"
 
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_arch = "i386" } ->
+    "windows_10"
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_arch = "x86_64" } ->
+    "windows_10x64"
+
   | { i_type = typ; i_distro = distro;
       i_major_version = major; i_minor_version = minor;
       i_product_name = product } ->
