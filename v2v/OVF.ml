@@ -178,6 +178,13 @@ and get_ostype = function
     "windows_2012x64"
 
   | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
+    (* Treat Windows 8.1 client like Windows 8.  See:
+     * https://bugzilla.redhat.com/show_bug.cgi?id=1309580#c4
+     *)
+    "windows_8x64"
+
+  | { i_type = "windows"; i_major_version = 6; i_minor_version = 3;
       i_arch = "x86_64" } ->
     "windows_2012R2x64"
 
