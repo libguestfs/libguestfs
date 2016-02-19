@@ -76,7 +76,7 @@ let rec install_drivers g inspect systemroot root current_cs =
     (* Can we install the QXL driver? *)
     let video : guestcaps_video_type =
       if not (g#exists (driverdir // "qxl.inf")) then (
-        warning (f_"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use standard VGA.")
+        warning (f_"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a basic VGA display driver.")
                 inspect.i_major_version inspect.i_minor_version
                 inspect.i_arch virtio_win;
         Cirrus
