@@ -35,8 +35,10 @@ exec_prefix=@exec_prefix@
 find -name 'lt-*' | grep '/.libs/lt-' | xargs -r rm
 
 # Copy the installed library into libtool directory.
-rm src/.libs/libguestfs.so*
-cp @libdir@/libguestfs.so* src/.libs/
+rm -f src/.libs/libguestfs.so*
+cp @libdir@/libguestfs.so src/.libs/
+cp @libdir@/libguestfs.so.0 src/.libs/
+cp @libdir@/libguestfs.so.0.* src/.libs/
 
 # Copy installed binaries into the right places.
 cp @bindir@/libguestfs-test-tool  test-tool/
