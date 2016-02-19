@@ -36,6 +36,7 @@ EXTRA_DIST = \
 	docs/.gitignore \
 	tests-misc.js \
 	run-tests \
+	run-tests-retvalues \
 	run-live-tests
 
 # Remove the old generated files which were directly in the gobject/
