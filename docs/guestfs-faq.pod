@@ -1366,7 +1366,7 @@ back to the disk image.
 
 However this on its own is not sufficient, because qemu also caches
 some data.  You will also need to patch libguestfs to (re-)enable the
-C<cache=unsafe> mode.  See:
+C<cache=none> mode.  See:
 L<https://rwmj.wordpress.com/2013/09/02/new-in-libguestfs-allow-cache-mode-to-be-selected/>
 
 =item *
