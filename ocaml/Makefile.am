@@ -105,7 +105,8 @@ clean-local:
 
 endif
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+LOG_COMPILER = $(VG)
 
 test_progs_bc = \
 	t/guestfs_010_load.bc \
@@ -164,7 +165,7 @@ if HAVE_OCAMLOPT
 endif
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" TESTS="$(test_progs_all)" check
+	$(MAKE) VG="@VG@" TESTS="$(test_progs_all)" check
 
 CLEANFILES += bindtests.tmp
 

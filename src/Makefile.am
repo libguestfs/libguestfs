@@ -253,7 +253,8 @@ endif
 # internal tests of utility functions.  Note we don't just test what's
 # in utils.c, we can test other functions as well here.
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+LOG_COMPILER = $(VG)
 
 TESTS = test-utils
 check_PROGRAMS = test-utils
