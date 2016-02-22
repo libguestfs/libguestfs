@@ -179,7 +179,7 @@ Run it from the top source directory using the command
         sprintf "gobject/include/guestfs-gobject/%s.h" short in
       output_to filename (generate_gobject_struct_header short typ cols);
       let filename = sprintf "gobject/src/%s.c" short in
-      output_to filename (generate_gobject_struct_source short typ cols)
+      output_to filename (generate_gobject_struct_source short typ)
   ) external_structs;
   delete_except_generated "gobject/include/guestfs-gobject/struct-*.h";
   delete_except_generated "gobject/src/struct-*.c";
@@ -191,7 +191,7 @@ Run it from the top source directory using the command
       let filename =
         sprintf "gobject/include/guestfs-gobject/%s.h" short in
       output_to filename
-        (generate_gobject_optargs_header short name optargs f);
+        (generate_gobject_optargs_header short name f);
       let filename = sprintf "gobject/src/%s.c" short in
       output_to filename
         (generate_gobject_optargs_source short name optargs f)
