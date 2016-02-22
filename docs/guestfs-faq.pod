@@ -857,8 +857,9 @@ This is not a supported configuration, and it will not be made to work
 in RHEL.  Don't bother to open a bug about it, as it will be
 immediately C<CLOSED -E<gt> WONTFIX>.
 
-You may compile your own libguestfs, removing this restriction, but
-that won't be endorsed or supported by Red Hat.
+You may
+L<compile your own libguestfs removing this restriction|https://www.redhat.com/archives/libguestfs/2016-February/msg00145.html>,
+but that won't be endorsed or supported by Red Hat.
 
 =head2 Cannot open or inspect RHEL 7 guests.
 
