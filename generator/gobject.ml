@@ -271,7 +271,7 @@ let generate_gobject_struct_header filename typ cols () =
 
   header_end filename
 
-let generate_gobject_struct_source filename typ cols () =
+let generate_gobject_struct_source filename typ () =
   let title = "Guestfs" ^ camel_name_of_struct typ in
   source_start ~title filename;
 
@@ -295,7 +295,7 @@ let generate_gobject_struct_source filename typ cols () =
   pr "G_DEFINE_BOXED_TYPE (%s, %s, %s_copy, %s_free)\n"
      camel_name name name name
 
-let generate_gobject_optargs_header filename name optargs f () =
+let generate_gobject_optargs_header filename name f () =
   header_start filename;
   let uc_name = String.uppercase name in
   let camel_name = camel_of_name f in

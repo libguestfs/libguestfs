@@ -19,11 +19,11 @@
 val generate_gobject_doc_title : unit -> unit
 val generate_gobject_header : unit -> unit
 val generate_gobject_makefile : unit -> unit
-val generate_gobject_optargs_header : string -> string -> 'a -> Types.action -> unit -> unit
+val generate_gobject_optargs_header : string -> string -> Types.action -> unit -> unit
 val generate_gobject_optargs_source : string -> string -> Types.optargt list -> Types.action -> unit -> unit
 val generate_gobject_session_header : unit -> unit
 val generate_gobject_session_source : unit -> unit
 val generate_gobject_struct_header : string -> string -> (string * Types.field) list -> unit -> unit
-val generate_gobject_struct_source : string -> string -> 'a -> unit -> unit
+val generate_gobject_struct_source : string -> string -> unit -> unit
 val generate_gobject_tristate_header : unit -> unit
 val generate_gobject_tristate_source : unit -> unit
