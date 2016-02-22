@@ -19,11 +19,7 @@ import unittest
 import sys
 import os
 import guestfs
-
-if sys.version_info >= (3, 0):
-    cl = int
-else:
-    cl = long
+from .tests_helper import *
 
 class Test080Version (unittest.TestCase):
     def setUp (self):
@@ -34,10 +30,10 @@ class Test080Version (unittest.TestCase):
         self.assertEqual (self.version['major'], 1)
 
     def test_minor (self):
-        self.assertIsInstance (self.version['minor'], cl)
+        self.assertIsInstance (self.version['minor'], int_type)
 
     def test_release (self):
-        self.assertIsInstance (self.version['release'], cl)
+        self.assertIsInstance (self.version['release'], int_type)
 
     def test_extra (self):
         self.assertIsInstance (self.version['extra'], str)

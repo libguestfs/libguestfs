@@ -17,7 +17,14 @@
 
 # Utilities for the tests of the Python bindings.
 
+import sys
 import unittest
+
+
+if sys.version_info >= (3, 0):
+    int_type = int
+else:
+    int_type = long
 
 
 def skipUnlessLibirtHasCPointer ():
