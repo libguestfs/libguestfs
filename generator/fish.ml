@@ -31,6 +31,8 @@ open Prepopts
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/fish.ml"]
+
 type func =
   | Function of string           (* The description. *)
   | Alias of string              (* The function of which it is one the

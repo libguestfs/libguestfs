@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/python.ml"]
+
 (* Generate Python C module. *)
 let rec generate_python_c () =
   generate_header CStyle LGPLv2plus;

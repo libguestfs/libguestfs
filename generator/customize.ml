@@ -23,6 +23,8 @@ open Printf
 open Docstrings
 open Pr
 
+let generate_header = generate_header ~inputs:["generator/customize.ml"]
+
 (* Command-line arguments used by virt-customize, virt-builder and
  * virt-sysprep.
  *)

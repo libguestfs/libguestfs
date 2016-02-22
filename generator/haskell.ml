@@ -28,6 +28,8 @@ open Optgroups
 open Actions
 open Structs
 
+let generate_header = generate_header ~inputs:["generator/haskell.ml"]
+
 let rec generate_haskell_hs () =
   generate_header HaskellStyle LGPLv2plus;
 

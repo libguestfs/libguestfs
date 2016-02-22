@@ -29,6 +29,8 @@ open Actions
 open Structs
 open C
 
+let generate_header = generate_header ~inputs:["generator/php.ml"]
+
 let rec generate_php_h () =
   generate_header CStyle LGPLv2plus;
 

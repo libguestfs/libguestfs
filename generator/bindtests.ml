@@ -29,6 +29,8 @@ open Actions
 open Structs
 open C
 
+let generate_header = generate_header ~inputs:["generator/bindtests.ml"]
+
 let rec generate_bindtests () =
   generate_header CStyle LGPLv2plus;
 

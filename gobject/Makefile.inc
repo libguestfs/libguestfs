@@ -1,6 +1,7 @@
 # libguestfs generated file
-# WARNING: THIS FILE IS GENERATED
-#          from the code in the generator/ subdirectory.
+# WARNING: THIS FILE IS GENERATED FROM THE FOLLOWING FILES:
+#          generator/gobject.ml
+#          and from the code in the generator/ subdirectory.
 # ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.
 #
 # Copyright (C) 2009-2016 Red Hat Inc.

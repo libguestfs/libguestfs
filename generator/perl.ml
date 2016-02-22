@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/perl.ml"]
+
 (* Generate Perl xs code, a sort of crazy variation of C with macros. *)
 let rec generate_perl_xs () =
   generate_header CStyle LGPLv2plus;

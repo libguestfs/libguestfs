@@ -29,6 +29,8 @@ open Actions
 open Structs
 open Events
 
+let generate_header = generate_header ~inputs:["generator/c.ml"]
+
 (* Generate C API. *)
 
 (* The actions are split across this many C files.  You can increase

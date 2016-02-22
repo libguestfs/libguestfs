@@ -28,6 +28,8 @@ open Optgroups
 open Actions
 open Structs
 
+let generate_header = generate_header ~inputs:["generator/xdr.ml"]
+
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
  * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.
  *
