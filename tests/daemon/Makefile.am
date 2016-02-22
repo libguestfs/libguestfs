@@ -27,7 +27,7 @@ TESTS = \
 	test-daemon-start.pl \
 	test-btrfs.pl
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test $(VG)
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
 	captive-daemon.pm \

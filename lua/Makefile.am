@@ -64,7 +64,7 @@ guestfs.so: libluaguestfs.la
 	ln -sf .libs/libluaguestfs.so $@
 
 # Tests.
-TESTS_ENVIRONMENT = LC_ALL=C $(top_builddir)/run --test $(VG)
+TESTS_ENVIRONMENT = LC_ALL=C $(top_builddir)/run --test
 TESTS = \
 	run-bindtests \
 	tests/010-load.lua \
