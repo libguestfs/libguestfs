@@ -19,6 +19,7 @@
 
 import unittest
 import guestfs
+from .tests_helper import *
 
 
 class Test090PythonRetValues (unittest.TestCase):
@@ -33,7 +34,7 @@ class Test090PythonRetValues (unittest.TestCase):
     def test_rint64 (self):
         g = guestfs.GuestFS ()
 
-        self.assertAlmostEqual (g.internal_test_rint64 ("10"), 10L, places=1)
+        self.assertAlmostEqual (g.internal_test_rint64 ("10"), int_type (10), places=1)
 
         self.assertRaises (RuntimeError, g.internal_test_rint64err)
 
