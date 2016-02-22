@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/erlang.ml"]
+
 let rec generate_erlang_erl () =
   generate_header ErlangStyle LGPLv2plus;
 

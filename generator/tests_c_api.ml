@@ -28,6 +28,8 @@ open Optgroups
 open Actions
 open Structs
 
+let generate_header = generate_header ~inputs:["generator/tests_c_api.ml"]
+
 (* Generate the C API tests. *)
 let rec generate_c_api_tests () =
   generate_header CStyle GPLv2plus;

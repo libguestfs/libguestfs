@@ -30,6 +30,8 @@ open Structs
 open Types
 open Utils
 
+let generate_header = generate_header ~inputs:["generator/gobject.ml"]
+
 let camel_of_name { camel_name = camel_name } = "Guestfs" ^ camel_name
 
 let generate_gobject_proto name ?(single_line = true)

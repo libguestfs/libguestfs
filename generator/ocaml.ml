@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/ocaml.ml"]
+
 (* List of errnos to expose on Guestfs.Errno. *)
 let ocaml_errnos = [
   "EINVAL";

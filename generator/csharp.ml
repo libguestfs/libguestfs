@@ -28,6 +28,8 @@ open Optgroups
 open Actions
 open Structs
 
+let generate_header = generate_header ~inputs:["generator/csharp.ml"]
+
 let rec generate_csharp () =
   generate_header CPlusPlusStyle LGPLv2plus;
 

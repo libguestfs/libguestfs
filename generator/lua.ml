@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/lua.ml"]
+
 let generate_lua_c () =
   generate_header CStyle LGPLv2plus;
 

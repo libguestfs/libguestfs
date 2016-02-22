@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/ruby.ml"]
+
 (* Generate ruby bindings. *)
 let rec generate_ruby_c () =
   generate_header CStyle LGPLv2plus;

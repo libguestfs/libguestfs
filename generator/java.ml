@@ -30,6 +30,8 @@ open Structs
 open Events
 open C
 
+let generate_header = generate_header ~inputs:["generator/java.ml"]
+
 (* Generate Java bindings GuestFS.java file. *)
 let rec generate_java_java () =
   generate_header CStyle LGPLv2plus;

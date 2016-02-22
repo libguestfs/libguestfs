@@ -30,6 +30,8 @@ open Structs
 open C
 open Events
 
+let generate_header = generate_header ~inputs:["generator/golang.ml"]
+
 let generate_golang_go () =
   generate_header CStyle LGPLv2plus;
 

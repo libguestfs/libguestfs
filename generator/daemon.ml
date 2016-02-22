@@ -29,6 +29,8 @@ open Actions
 open Structs
 open C
 
+let generate_header = generate_header ~inputs:["generator/daemon.ml"]
+
 (* Generate daemon/actions.h. *)
 let generate_daemon_actions_h () =
   generate_header CStyle GPLv2plus;

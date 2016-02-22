@@ -25,6 +25,8 @@ open Utils
 open Pr
 open Docstrings
 
+let generate_header = generate_header ~inputs:["generator/errnostring.ml"]
+
 (* Generate the functions errno_to_string and string_to_errno which
  * convert errno (eg. EINVAL) into string ("EINVAL") and back again,
  * allowing us to portably pass error values over the protocol between
