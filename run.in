@@ -33,13 +33,10 @@
 #
 # The script should also be used for tests like this:
 #
-#   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test [$(VG)]
+#   TESTS_ENVIRONMENT = ... $(top_builddir)/run --test
 #
 # The --test parameter introduces a timeout, stopping tests from
 # running forever.
-#
-# Use the optional $(VG) when the tests must also be run under
-# valgrind.
 
 #----------------------------------------------------------------------
 
