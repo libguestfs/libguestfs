@@ -18,6 +18,7 @@
 *.o
 *.orig
 *.patch
+*.pyc
 *.rej
 *.swp
 *.trs

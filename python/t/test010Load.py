@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2011-2016 Red Hat Inc.
+# Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,26 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import unittest
-import os
-import guestfs
 
-close_invoked = 0
-
-def close_callback (ev, eh, buf, array):
-    global close_invoked
-    close_invoked += 1
-
-class Test410CloseEvent (unittest.TestCase):
-    def test_close_event (self):
-        g = guestfs.GuestFS (python_return_dict=True)
-
-        # Register a callback for the close event.
-        g.set_event_callback (close_callback, guestfs.EVENT_CLOSE)
-
-        # Close the handle.  The close callback should be invoked.
-        self.assertEqual (close_invoked, 0)
-        g.close ()
-        self.assertEqual (close_invoked, 1)
-
-if __name__ == '__main__':
-    unittest.main ()
+class Test010Load (unittest.TestCase):
+    def test_import (self):
+        import guestfs

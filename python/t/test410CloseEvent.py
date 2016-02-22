@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2016 Red Hat Inc.
+# Copyright (C) 2011-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,31 +16,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import unittest
-import sys
 import os
 import guestfs
 
-if sys.version_info >= (3, 0):
-    cl = int
-else:
-    cl = long
+close_invoked = 0
 
-class Test080Version (unittest.TestCase):
-    def setUp (self):
-        self.g = guestfs.GuestFS (python_return_dict=True)
-        self.version = self.g.version ()
+def close_callback (ev, eh, buf, array):
+    global close_invoked
+    close_invoked += 1
 
-    def test_major (self):
-        self.assertEqual (self.version['major'], 1)
+class Test410CloseEvent (unittest.TestCase):
+    def test_close_event (self):
+        g = guestfs.GuestFS (python_return_dict=True)
 
-    def test_minor (self):
-        self.assertIsInstance (self.version['minor'], cl)
+        # Register a callback for the close event.
+        g.set_event_callback (close_callback, guestfs.EVENT_CLOSE)
 
-    def test_release (self):
-        self.assertIsInstance (self.version['release'], cl)
-
-    def test_extra (self):
-        self.assertIsInstance (self.version['extra'], str)
-
-if __name__ == '__main__':
-    unittest.main ()
+        # Close the handle.  The close callback should be invoked.
+        self.assertEqual (close_invoked, 0)
+        g.close ()
+        self.assertEqual (close_invoked, 1)

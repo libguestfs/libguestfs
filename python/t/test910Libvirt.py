@@ -22,31 +22,21 @@
 
 import unittest
 import os
+import sys
 import guestfs
+from .tests_helper import *
 
 guestsdir = os.environ['guestsdir']
 
-try:
-    import libvirt
-except:
-    print ("could not import python-libvirt")
-    exit (77)
-
-conn = libvirt.open ("test:///%s/guests.xml" % guestsdir)
-
-# Check we're using the version of libvirt-python that has c_pointer() methods.
-if not "c_pointer" in dir (conn):
-    print ("skipping test: libvirt-python doesn't support c_pointer()")
-    exit (77)
-
+@skipUnlessLibirtHasCPointer ()
 class Test910Libvirt (unittest.TestCase):
     def test_libvirt (self):
+        import libvirt
+
+        conn = libvirt.open ("test:///%s/guests.xml" % guestsdir)
         dom = conn.lookupByName ("blank-disk")
 
         g = guestfs.GuestFS ()
 
         r = g.add_libvirt_dom (dom, readonly=1)
         self.assertEqual (r, 1)
-
-if __name__ == '__main__':
-    unittest.main ()

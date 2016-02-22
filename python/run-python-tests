@@ -16,26 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-errors=0
-
 guestsdir="$(cd ../test-data/phony-guests && pwd)"
 export guestsdir
 
-for f in $srcdir/t/*.py; do
-  $PYTHON $f
-  r=$?
-  case $r in
-      0) ;;
-      77)
-          echo "$f: test skipped"
-          ;;
-      *)
-          echo "FAIL: $f"
-          ((errors++))
-          ;;
-  esac
-done
-
-if [ $errors -gt 0 ]; then
-    exit 1
-fi
+$PYTHON -m unittest discover -v

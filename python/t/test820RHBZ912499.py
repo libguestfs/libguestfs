@@ -23,38 +23,14 @@ from subprocess import check_output
 import unittest
 import random
 import string
-import re
 import os
-import platform
+import sys
 import guestfs
+from .tests_helper import *
 
-try:
-    import libvirt
-except:
-    print ("skipping test: could not import python-libvirt")
-    exit (77)
-
-# If the backend is not libvirt, skip the test.
-backend = guestfs.GuestFS().get_backend()
-rex = re.compile ("^libvirt")
-if not rex.match (backend):
-    print ("skipping test: backend is not libvirt")
-    exit (77)
-
-# If the architecture doesn't support IDE, skip the test.
-machine = platform.machine ()
-rex = re.compile ("i.86")
-if machine != "x86_64" and not rex.match (machine):
-    print ("skipping test: arch is not x86 and does not support IDE")
-    exit (77)
-
-conn = libvirt.open (None)
-
-# Check we're using the version of libvirt-python that has c_pointer() methods.
-if not "c_pointer" in dir (conn):
-    print ("skipping test: libvirt-python doesn't support c_pointer()")
-    exit (77)
-
+@skipUnlessArchMatches ("(i.86|x86_64)")   # If the architecture doesn't support IDE, skip the test.
+@skipUnlessGuestfsBackendIs ('libvirt')
+@skipUnlessLibirtHasCPointer ()
 class Test820RHBZ912499 (unittest.TestCase):
     def setUp (self):
         # Create a test disk.
@@ -87,6 +63,9 @@ class Test820RHBZ912499 (unittest.TestCase):
 """ % (self.domname, self.filename)
 
     def test_rhbz912499 (self):
+        import libvirt
+
+        conn = libvirt.open (None)
         dom = conn.createXML (self.xml,
                               libvirt.VIR_DOMAIN_START_AUTODESTROY)
         self.assertIsNotNone (dom)
@@ -113,6 +92,3 @@ class Test820RHBZ912499 (unittest.TestCase):
 
     def tearDown (self):
         os.unlink (self.filename)
-
-if __name__ == '__main__':
-    unittest.main ()

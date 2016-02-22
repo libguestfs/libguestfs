@@ -52,6 +52,3 @@ class Test800ExplicitClose (unittest.TestCase):
 
         del g
         self.assertEqual (close_invoked, 1)
-
-if __name__ == '__main__':
-    unittest.main ()

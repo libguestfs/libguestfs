@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2009-2016 Red Hat Inc.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,19 +19,18 @@ import unittest
 import os
 import guestfs
 
-class Test100Launch (unittest.TestCase):
-    def test_launch (self):
-        g = guestfs.GuestFS (python_return_dict=True)
-        g.add_drive_scratch (500 * 1024 * 1024)
-        g.launch ()
+class Test070OptArgs (unittest.TestCase):
+    def setUp (self):
+        self.g = guestfs.GuestFS (python_return_dict=True)
 
-        g.pvcreate ("/dev/sda")
-        g.vgcreate ("VG", ["/dev/sda"])
-        g.lvcreate ("LV1", "VG", 200)
-        g.lvcreate ("LV2", "VG", 200)
-        self.assertEqual (g.lvs (), ["/dev/VG/LV1", "/dev/VG/LV2"])
-        g.shutdown ()
-        g.close ()
+    def test_no_optargs (self):
+        self.g.add_drive ("/dev/null")
 
-if __name__ == '__main__':
-    unittest.main ()
+    def test_one_optarg (self):
+        self.g.add_drive ("/dev/null", readonly = True)
+
+    def test_two_optargs (self):
+        self.g.add_drive ("/dev/null", iface = "virtio", format = "raw")
+
+    def tearDown (self):
+        self.g.close ()

@@ -1,5 +1,5 @@
 # libguestfs Python bindings
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2012 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,10 +16,22 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import unittest
+import os
+import guestfs
 
-class Test010Load (unittest.TestCase):
-    def test_import (self):
-        import guestfs
+class Test810RHBZ811650 (unittest.TestCase):
+    def test_rhbz811650 (self):
+        g = guestfs.GuestFS (python_return_dict=True)
 
-if __name__ == '__main__':
-    unittest.main ()
+        g.disk_create ("rhbz811650.img", "raw", 500 * 1024 * 1024)
+
+        # Deliberate error: the disk format is supposed to be raw.
+        g.add_drive ("rhbz811650.img", format="qcow2");
+
+        # Because error() wasn't being called, guestfs_last_error
+        # would return NULL, causing a segfault in the Python bindings
+        # (RHBZ#811650).
+        self.assertRaises (RuntimeError, g.launch)
+
+    def tearDown (self):
+        os.unlink ("rhbz811650.img")

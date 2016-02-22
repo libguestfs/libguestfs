@@ -132,7 +132,3 @@ class Test090PythonRetValues (unittest.TestCase):
         self.assertEqual (g.internal_test_rbufferout ("test"), b'test')
 
         self.assertRaises (RuntimeError, g.internal_test_rbufferouterr)
-
-
-if __name__ == '__main__':
-    unittest.main ()
