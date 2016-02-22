@@ -67,8 +67,7 @@ type comment_style =
   | ErlangStyle | LuaStyle | PODStyle
 type license = GPLv2plus | LGPLv2plus
 
-let generate_header ?(extra_inputs = []) ?emacs_mode comment license =
-  let inputs = "generator/ *.ml" :: extra_inputs in
+let generate_header ?(inputs = []) ?emacs_mode comment license =
   let c = match comment with
     | CStyle ->         pr "/* "; " *"
     | CPlusPlusStyle -> pr "// "; "//"
@@ -84,8 +83,14 @@ let generate_header ?(extra_inputs = []) ?emacs_mode comment license =
   | Some mode -> pr " -*- %s -*-" mode
   );
   pr "\n";
-  pr "%s WARNING: THIS FILE IS GENERATED FROM:\n" c;
-  List.iter (pr "%s   %s\n" c) inputs;
+  if inputs <> [] then (
+    pr "%s WARNING: THIS FILE IS GENERATED FROM THE FOLLOWING FILES:\n" c;
+    List.iter (pr "%s          %s\n" c) inputs;
+    pr "%s          and from the code in the generator/ subdirectory.\n" c
+  ) else (
+    pr "%s WARNING: THIS FILE IS GENERATED\n" c;
+    pr "%s          from the code in the generator/ subdirectory.\n" c
+  );
   pr "%s ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n" c;
   pr "%s\n" c;
   pr "%s Copyright (C) %s Red Hat Inc.\n" c copyright_years;
