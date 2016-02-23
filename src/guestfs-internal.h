@@ -694,30 +694,6 @@ extern int guestfs_int_match6 (guestfs_h *g, const char *str, const pcre *re, ch
 #define match4 guestfs_int_match4
 #define match6 guestfs_int_match6
 
-/* Macro which compiles the regexp once when the library is loaded,
- * and frees it when the library is unloaded.
- */
-#define COMPILE_REGEXP(name,pattern,options)                            \
-  static void compile_regexp_##name (void) __attribute__((constructor)); \
-  static void free_regexp_##name (void) __attribute__((destructor));    \
-  static pcre *name;                                                    \
-  static void                                                           \
-  compile_regexp_##name (void)                                          \
-  {                                                                     \
-    const char *err;                                                    \
-    int offset;                                                         \
-    name = pcre_compile ((pattern), (options), &err, &offset, NULL);    \
-    if (name == NULL) {                                                 \
-      ignore_value (write (2, err, strlen (err)));                      \
-      abort ();                                                         \
-    }                                                                   \
-  }                                                                     \
-  static void                                                           \
-  free_regexp_##name (void)                                             \
-  {                                                                     \
-    pcre_free (name);                                                   \
-  }
-
 /* stringsbuf.c */
 struct stringsbuf {
   char **argv;
