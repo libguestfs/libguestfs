@@ -29,12 +29,8 @@ class TestLoad < MiniTest::Unit::TestCase
     # Check that the close event is called.
     g.set_event_callback(close, Guestfs::EVENT_CLOSE)
 
-    if close_invoked != 0
-      raise "close_invoked should be 0"
-    end
+    assert_equal 0, close_invoked
     g.close()
-    if close_invoked != 1
-      raise "close_invoked should be 1"
-    end
+    assert_equal 1, close_invoked
   end
 end

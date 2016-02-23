@@ -45,8 +45,6 @@ class TestLoad < MiniTest::Unit::TestCase
     g.set_autosync(1)
 
     g.close()
-    if log_invoked == 0
-      raise "log_invoked should be > 0"
-    end
+    refute_equal 0, log_invoked
   end
 end
