@@ -18,10 +18,4 @@
 
 set -e
 
-# Run them one at a time, otherwise rake runs them in parallel (which
-# is bound to fail because they all use a single test image file).
-
-for f in t/tc_*.rb; do
-    echo $RAKE test "$@" TEST="$f"
-    $RAKE test "$@" TEST="$f"
-done
+$RAKE test "$@"
