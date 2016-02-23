@@ -31,6 +31,7 @@
 #include "optgroups.h"
 #include "xstrtol.h"
 #include "c-ctype.h"
+#include "ignore-value.h"
 
 GUESTFSD_EXT_CMD(str_btrfs, btrfs);
 GUESTFSD_EXT_CMD(str_btrfstune, btrfstune);
@@ -38,6 +39,13 @@ GUESTFSD_EXT_CMD(str_btrfsck, btrfsck);
 GUESTFSD_EXT_CMD(str_mkfs_btrfs, mkfs.btrfs);
 GUESTFSD_EXT_CMD(str_umount, umount);
 GUESTFSD_EXT_CMD(str_btrfsimage, btrfs-image);
+
+COMPILE_REGEXP (re_btrfs_subvolume_list,
+                "ID\\s+(\\d+).*\\s"
+                "top level\\s+(\\d+).*\\s"
+                "path\\s(.*)",
+                0)
+COMPILE_REGEXP (re_btrfs_balance_status, "Balance on '.*' is (.*)", 0)
 
 int
 optgroup_btrfs_available (void)
@@ -482,7 +490,6 @@ do_btrfs_subvolume_list (const mountable_t *fs)
    */
 
   guestfs_int_btrfssubvolume_list *ret = NULL;
-  pcre *re = NULL;
 
   size_t nr_subvolumes = count_strings (lines);
 
@@ -500,17 +507,6 @@ do_btrfs_subvolume_list (const mountable_t *fs)
     goto error;
   }
 
-  const char *errptr;
-  int erroffset;
-  re = pcre_compile ("ID\\s+(\\d+).*\\s"
-                     "top level\\s+(\\d+).*\\s"
-                     "path\\s(.*)",
-                     0, &errptr, &erroffset, NULL);
-  if (re == NULL) {
-    reply_with_error ("pcre_compile (%i): %s", erroffset, errptr);
-    goto error;
-  }
-
   for (i = 0; i < nr_subvolumes; ++i) {
     /* To avoid allocations, reuse the 'line' buffer to store the
      * path.  Thus we don't need to free 'line', since it will be
@@ -520,7 +516,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 #define N_MATCHES 4
     int ovector[N_MATCHES * 3];
 
-    if (pcre_exec (re, NULL, line, strlen (line), 0, 0,
+    if (pcre_exec (re_btrfs_subvolume_list, NULL, line, strlen (line), 0, 0,
                    ovector, N_MATCHES * 3) < 0)
 #undef N_MATCHES
       {
@@ -553,8 +549,6 @@ do_btrfs_subvolume_list (const mountable_t *fs)
       goto error;
   }
 
-  pcre_free (re);
-
   return ret;
 
  error:
@@ -564,9 +558,6 @@ do_btrfs_subvolume_list (const mountable_t *fs)
     free (ret->guestfs_int_btrfssubvolume_list_val);
   }
   free (ret);
-
-  if (re)
-    pcre_free (re);
 
   return NULL;
 }
@@ -1789,11 +1780,8 @@ do_btrfs_balance_status (const char *path)
   int r;
   guestfs_int_btrfsbalance *ret;
   size_t nlines;
-  const char *errptr;
-  int erroffset;
 #define N_MATCH 2
   int ovector[N_MATCH * 3];
-  pcre *re = NULL;
 
   path_buf = sysroot_path (path);
   if (path_buf == NULL) {
@@ -1856,12 +1844,8 @@ do_btrfs_balance_status (const char *path)
     return ret;
   }
 
-  re = pcre_compile ("Balance on '.*' is (.*)", 0, &errptr, &erroffset, NULL);
-  if (re == NULL) {
-    reply_with_error ("pcre_compile (%i): %s", erroffset, errptr);
-    goto error;
-  }
-  if (pcre_exec (re, NULL, lines[0], strlen (lines[0]), 0, 0,
+  if (pcre_exec (re_btrfs_balance_status,
+                 NULL, lines[0], strlen (lines[0]), 0, 0,
                  ovector, N_MATCH * 3) < 0) {
     reply_with_error ("unexpected output from 'btrfs balance status' command: %s", lines[0]);
     goto error;
@@ -1890,13 +1874,11 @@ do_btrfs_balance_status (const char *path)
     goto error;
   }
 
-  pcre_free (re);
   return ret;
 
  error:
   free (ret->btrfsbalance_status);
   free (ret);
-  pcre_free (re);
 
   return NULL;
 }
