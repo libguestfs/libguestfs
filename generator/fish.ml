@@ -94,6 +94,7 @@ let generate_fish_cmds () =
   pr "\n";
   pr "#include \"guestfs.h\"\n";
   pr "#include \"guestfs-internal-frontend.h\"\n";
+  pr "#include \"structs-print.h\"\n";
   pr "\n";
   pr "#include \"fish.h\"\n";
   pr "#include \"fish-cmds.h\"\n";
@@ -255,69 +256,13 @@ Guestfish will prompt for these separately."
     pr "\n";
     pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
     pr "    printf (\"[%%zu] = {\\n\", i);\n";
-    pr "    print_%s_indent (&%ss->val[i], \"  \");\n" typ typ;
+    pr "    guestfs_int_print_%s_indent (&%ss->val[i], stdout, \"\\n\", \"  \");\n"
+      typ typ;
     pr "    printf (\"}\\n\");\n";
     pr "  }\n";
     pr "}\n";
     pr "\n";
   in
-
-  (* print_* functions *)
-  List.iter (
-    fun { s_name = typ; s_cols = cols } ->
-      let needs_i =
-        List.exists (function (_, (FUUID|FBuffer)) -> true | _ -> false) cols in
-
-      pr "static void\n";
-      pr "print_%s_indent (struct guestfs_%s *%s, const char *indent)\n" typ typ typ;
-      pr "{\n";
-      if needs_i then (
-        pr "  size_t i;\n";
-        pr "\n"
-      );
-      List.iter (
-        function
-        | name, FString ->
-            pr "  printf (\"%%s%s: %%s\\n\", indent, %s->%s);\n" name typ name
-        | name, FUUID ->
-            pr "  printf (\"%%s%s: \", indent);\n" name;
-            pr "  for (i = 0; i < 32; ++i)\n";
-            pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
-            pr "  printf (\"\\n\");\n"
-        | name, FBuffer ->
-            pr "  printf (\"%%s%s: \", indent);\n" name;
-            pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
-            pr "    if (c_isprint (%s->%s[i]))\n" typ name;
-            pr "      printf (\"%%c\", %s->%s[i]);\n" typ name;
-            pr "    else\n";
-            pr "      printf (\"\\\\x%%02x\", (unsigned) %s->%s[i]);\n"
-               typ name;
-            pr "  printf (\"\\n\");\n"
-        | name, (FUInt64|FBytes) ->
-            pr "  printf (\"%%s%s: %%\" PRIu64 \"\\n\", indent, %s->%s);\n"
-              name typ name
-        | name, FInt64 ->
-            pr "  printf (\"%%s%s: %%\" PRIi64 \"\\n\", indent, %s->%s);\n"
-              name typ name
-        | name, FUInt32 ->
-            pr "  printf (\"%%s%s: %%\" PRIu32 \"\\n\", indent, %s->%s);\n"
-              name typ name
-        | name, FInt32 ->
-            pr "  printf (\"%%s%s: %%\" PRIi32 \"\\n\", indent, %s->%s);\n"
-              name typ name
-        | name, FChar ->
-            pr "  printf (\"%%s%s: %%c\\n\", indent, %s->%s);\n"
-              name typ name
-        | name, FOptPercent ->
-            pr "  if (%s->%s >= 0)\n" typ name;
-            pr "    printf (\"%%s%s: %%g %%%%\\n\", indent, (double) %s->%s);\n"
-              name typ name;
-            pr "  else\n";
-            pr "    printf (\"%%s%s: \\n\", indent);\n" name
-      ) cols;
-      pr "}\n";
-      pr "\n";
-  ) external_structs;
 
   (* Emit a print_TYPE_list function definition only if that function is used. *)
   List.iter (
@@ -335,7 +280,8 @@ Guestfish will prompt for these separately."
         pr "static void\n";
         pr "print_%s (struct guestfs_%s *%s)\n" typ typ typ;
         pr "{\n";
-        pr "  print_%s_indent (%s, \"\");\n" typ typ;
+        pr "  guestfs_int_print_%s_indent (%s, stdout, \"\\n\", \"\");\n"
+          typ typ;
         pr "}\n";
         pr "\n";
     | typ, _ -> () (* empty *)
