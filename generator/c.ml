@@ -1204,6 +1204,130 @@ and generate_client_structs_cleanup () =
 
   ) structs
 
+(* Generate structs-print.c file. *)
+and generate_client_structs_print_c () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <inttypes.h>
+
+#include \"c-ctype.h\"
+
+#include \"guestfs.h\"
+#include \"structs-print.h\"
+
+";
+
+  let write_structs =
+    List.iter (
+      fun { s_name = typ; s_cols = cols } ->
+        let needs_i =
+          List.exists (function (_, (FUUID|FBuffer)) -> true | _ -> false) cols in
+
+        pr "void\n";
+        pr "guestfs_int_print_%s_indent (struct guestfs_%s *%s, FILE *dest, const char *linesep, const char *indent)\n"
+          typ typ typ;
+        pr "{\n";
+        if needs_i then (
+          pr "  size_t i;\n";
+          pr "\n"
+        );
+        List.iter (
+          function
+          | name, FString ->
+              pr "  fprintf (dest, \"%%s%s: %%s%%s\", indent, %s->%s, linesep);\n"
+                name typ name
+          | name, FUUID ->
+              pr "  fprintf (dest, \"%%s%s: \", indent);\n" name;
+              pr "  for (i = 0; i < 32; ++i)\n";
+              pr "    fprintf (dest, \"%%c\", %s->%s[i]);\n" typ name;
+              pr "  fprintf (dest, \"%%s\", linesep);\n"
+          | name, FBuffer ->
+              pr "  fprintf (dest, \"%%s%s: \", indent);\n" name;
+              pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
+              pr "    if (c_isprint (%s->%s[i]))\n" typ name;
+              pr "      fprintf (dest, \"%%c\", %s->%s[i]);\n" typ name;
+              pr "    else\n";
+              pr "      fprintf (dest, \"\\\\x%%02x\", (unsigned) %s->%s[i]);\n"
+                 typ name;
+              pr "  fprintf (dest, \"%%s\", linesep);\n"
+          | name, (FUInt64|FBytes) ->
+              pr "  fprintf (dest, \"%%s%s: %%\" PRIu64 \"%%s\", indent, %s->%s, linesep);\n"
+                name typ name
+          | name, FInt64 ->
+              pr "  fprintf (dest, \"%%s%s: %%\" PRIi64 \"%%s\", indent, %s->%s, linesep);\n"
+                name typ name
+          | name, FUInt32 ->
+              pr "  fprintf (dest, \"%%s%s: %%\" PRIu32 \"%%s\", indent, %s->%s, linesep);\n"
+                name typ name
+          | name, FInt32 ->
+              pr "  fprintf (dest, \"%%s%s: %%\" PRIi32 \"%%s\", indent, %s->%s, linesep);\n"
+                name typ name
+          | name, FChar ->
+              pr "  fprintf (dest, \"%%s%s: %%c%%s\", indent, %s->%s, linesep);\n"
+                name typ name
+          | name, FOptPercent ->
+              pr "  if (%s->%s >= 0)\n" typ name;
+              pr "    fprintf (dest, \"%%s%s: %%g %%%%%%s\", indent, (double) %s->%s, linesep);\n"
+                name typ name;
+              pr "  else\n";
+              pr "    fprintf (dest, \"%%s%s: %%s\", indent, linesep);\n" name
+        ) cols;
+        pr "}\n";
+        pr "\n";
+    ) in
+
+  write_structs external_structs;
+
+  pr "\
+#if GUESTFS_PRIVATE
+
+";
+
+  write_structs internal_structs;
+
+  pr "\
+#endif /* End of GUESTFS_PRIVATE. */
+"
+
+(* Generate structs-print.h file. *)
+and generate_client_structs_print_h () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#ifndef GUESTFS_INTERNAL_STRUCTS_PRINT_H_
+#define GUESTFS_INTERNAL_STRUCTS_PRINT_H_
+
+#include <stdio.h>
+
+";
+
+  let write_structs =
+    List.iter (
+      fun { s_name = name } ->
+        pr "extern void guestfs_int_print_%s_indent (struct guestfs_%s *%s, FILE *dest, const char *linesep, const char *indent);\n"
+          name name name
+    ) in
+
+  write_structs external_structs;
+
+  pr "\
+
+#if GUESTFS_PRIVATE
+
+";
+
+  write_structs internal_structs;
+
+  pr "\
+
+#endif /* End of GUESTFS_PRIVATE. */
+
+#endif /* GUESTFS_INTERNAL_STRUCTS_PRINT_H_ */
+"
+
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions hash () =
   generate_header CStyle LGPLv2plus;

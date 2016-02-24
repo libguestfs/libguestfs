@@ -46,7 +46,9 @@ generator_built = \
 	structs-cleanup.c \
 	structs-compare.c \
 	structs-copy.c \
-	structs-free.c
+	structs-free.c \
+	structs-print.c \
+	structs-print.h
 
 BUILT_SOURCES = \
 	$(generator_built) \
@@ -226,6 +228,8 @@ endif
 libutils_la_SOURCES = \
 	cleanup.c \
 	structs-cleanup.c \
+	structs-print.c \
+	structs-print.h \
 	utils.c
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)

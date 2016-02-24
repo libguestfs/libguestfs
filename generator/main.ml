@@ -99,6 +99,8 @@ Run it from the top source directory using the command
   output_to "src/structs-copy.c" generate_client_structs_copy;
   output_to "src/structs-free.c" generate_client_structs_free;
   output_to "src/structs-cleanup.c" generate_client_structs_cleanup;
+  output_to "src/structs-print.c" generate_client_structs_print_c;
+  output_to "src/structs-print.h" generate_client_structs_print_h;
   output_to "src/actions-variants.c" generate_client_actions_variants;
 
   for i = 0 to nr_actions_files-1 do
