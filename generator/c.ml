@@ -1348,6 +1348,7 @@ and generate_client_actions hash () =
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 #include \"errnostring.h\"
+#include \"structs-print.h\"
 
 ";
 
@@ -1623,7 +1624,7 @@ and generate_client_actions hash () =
 
     let needs_i =
       match ret with
-      | RStringList _ | RHashtable _ -> true
+      | RStringList _ | RHashtable _ | RStructList _ -> true
       | _ -> false in
     if needs_i then (
       pr "%s  size_t i;\n" indent;
@@ -1656,15 +1657,25 @@ and generate_client_actions hash () =
          pr "%s  }\n" indent;
          pr "%s  fputs (\"]\", trace_buffer.fp);\n" indent;
      | RStruct (_, typ) ->
-         (* XXX There is code generated for guestfish for printing
-          * these structures.  We need to make it generally available
-          * for all callers
-          *)
-         pr "%s  fprintf (trace_buffer.fp, \"<struct guestfs_%s *>\");\n"
-           indent typ (* XXX *)
+         pr "%s  fprintf (trace_buffer.fp, \"<struct guestfs_%s = \");\n"
+           indent typ;
+         pr "%s  guestfs_int_print_%s_indent (%s, trace_buffer.fp, \", \", \"\");\n"
+           indent typ rv;
+         pr "%s  fprintf (trace_buffer.fp, \">\");\n" indent
      | RStructList (_, typ) ->
-         pr "%s  fprintf (trace_buffer.fp, \"<struct guestfs_%s_list *>\");\n"
-           indent typ (* XXX *)
+         pr "%s  fprintf (trace_buffer.fp, \"<struct guestfs_%s_list(%%u)\", %s->len);\n"
+           indent typ rv;
+         pr "%s  if (%s->len > 0)\n" indent rv;
+         pr "%s    fprintf (trace_buffer.fp, \" = \");\n" indent;
+         pr "%s  for (i = 0; i < %s->len; ++i) {\n" indent rv;
+         pr "%s    if (i != 0)\n" indent;
+         pr "%s      fprintf (trace_buffer.fp, \" \");\n" indent;
+         pr "%s    fprintf (trace_buffer.fp, \"[%%zu]{\", i);\n" indent;
+         pr "%s    guestfs_int_print_%s_indent (&%s->val[i], trace_buffer.fp, \", \", \"\");\n"
+           indent typ rv;
+         pr "%s    fprintf (trace_buffer.fp, \"}\");\n" indent;
+         pr "%s  }\n" indent;
+         pr "%s  fprintf (trace_buffer.fp, \">\");\n" indent
     );
     pr "%s  guestfs_int_trace_send_line (g, &trace_buffer);\n" indent;
     pr "%s}\n" indent;
