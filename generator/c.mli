@@ -32,6 +32,8 @@ val generate_client_structs_cleanup : unit -> unit
 val generate_client_structs_compare : unit -> unit
 val generate_client_structs_copy : unit -> unit
 val generate_client_structs_free : unit -> unit
+val generate_client_structs_print_h : unit -> unit
+val generate_client_structs_print_c : unit -> unit
 val generate_event_string_c : unit -> unit
 val generate_guestfs_h : unit -> unit
 val generate_internal_actions_h : unit -> unit

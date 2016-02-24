@@ -464,6 +464,8 @@ Makefile.in
 /src/structs-compare.c
 /src/structs-copy.c
 /src/structs-free.c
+/src/structs-print.c
+/src/structs-print.h
 /src/test-utils
 /stamp-h1
 /sysprep/.depend
