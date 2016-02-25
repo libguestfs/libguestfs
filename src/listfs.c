@@ -169,8 +169,17 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
     if (vols == NULL)
       return -1;
 
+    int64_t default_volume = guestfs_btrfs_subvolume_get_default (g, device);
+
     for (size_t i = 0; i < vols->len; i++) {
       struct guestfs_btrfssubvolume *this = &vols->val[i];
+
+      /* Ignore the default subvolume.  We get it by simply mounting
+       * the whole device of this btrfs filesystem.
+       */
+      if (this->btrfssubvolume_id == (uint64_t) default_volume)
+        continue;
+
       guestfs_int_add_sprintf (g, sb,
 			       "btrfsvol:%s/%s",
 			       device, this->btrfssubvolume_path);
