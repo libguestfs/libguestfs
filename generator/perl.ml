@@ -722,16 +722,17 @@ package Sys::Guestfs;
 use strict;
 use warnings;
 
-# This version number changes whenever a new function
-# is added to the libguestfs API.  It is not directly
-# related to the libguestfs version number.
+# This is always 1.0, never changes, and is unrelated to the
+# real libguestfs version.  If you want to find the libguestfs
+# library version, use $g->version.  If you want to test if
+# APIs/parameters are present, use %%guestfs_introspection.
 use vars qw($VERSION);
-$VERSION = '0.%d';
+$VERSION = '1.0';
 
 require XSLoader;
 XSLoader::load ('Sys::Guestfs');
 
-" max_proc_nr;
+";
 
   (* Methods. *)
   pr "\
