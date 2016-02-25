@@ -24,4 +24,4 @@ for arg in $@; do
     esac
 done
 
-exec guestfish --ro -i copy-out "$@"
+exec -a "$0" guestfish --ro -i copy-out "$@"

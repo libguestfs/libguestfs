@@ -24,4 +24,4 @@ for arg in $@; do
     esac
 done
 
-exec guestfish --rw -i tar-in "$@"
+exec -a "$0" guestfish --rw -i tar-in "$@"
