@@ -1081,6 +1081,14 @@ guestfs_session_close (GuestfsSession *session, GError **err)
       pr " *\n";
       pr " * %s\n" doc;
 
+      (match f.optional with
+      | None -> ()
+      | Some opt ->
+        pr " * This function depends on the feature \"%s\".\n" opt;
+        pr " * See also guestfs_session_feature_available().\n";
+        pr " *\n";
+      );
+
       pr " * Returns: ";
       (match ret with
       | RErr ->

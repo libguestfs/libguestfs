@@ -817,6 +817,11 @@ class GuestFS(object):
           match deprecation_notice f with
           | None -> doc
           | Some txt -> doc ^ "\n\n" ^ txt in
+        let doc =
+          match f.optional with
+          | None -> doc
+          | Some opt ->
+            doc ^ sprintf "\n\nThis function depends on the feature C<%s>.  See also C<g.feature-available>." opt in
         let doc = pod2text ~width:60 f.name doc in
         let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
         let doc = String.concat "\n        " doc in

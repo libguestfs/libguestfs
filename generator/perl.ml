@@ -892,6 +892,12 @@ errnos:
       pr "%s\n\n" longdesc;
       if f.protocol_limit_warning then
         pr "%s\n\n" protocol_limit_warning;
+      (match f.optional with
+      | None -> ()
+      | Some opt ->
+        pr "This function depends on the feature C<%s>.  See also
+C<$g-E<gt>feature-available>.\n\n" opt
+      );
       (match deprecation_notice f with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt

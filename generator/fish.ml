@@ -897,9 +897,17 @@ Guestfish will prompt for these separately.\n\n";
       if f.protocol_limit_warning then
         pr "%s\n\n" protocol_limit_warning;
 
-      match deprecation_notice ~replace_underscores:true f with
+      (match deprecation_notice ~replace_underscores:true f with
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
+      );
+
+      (match f.optional with
+      | None -> ()
+      | Some opt ->
+        pr "This command depends on the feature C<%s>.   See also
+L</feature-available>.\n\n" opt
+      );
   ) fishdoc_functions_sorted
 
 (* Generate documentation for guestfish-only commands. *)
