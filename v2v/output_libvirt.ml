@@ -231,9 +231,14 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     e "video" [] [ video_model ] in
 
   let graphics =
-    match guestcaps.gcaps_video with
-    | QXL ->    e "graphics" [ "type", "vnc" ] []
-    | Cirrus -> e "graphics" [ "type", "spice" ] [] in
+    match source.s_display with
+    | None -> e "graphics" [ "type", "vnc" ] []
+    | Some { s_display_type = Window } ->
+       e "graphics" [ "type", "sdl" ] []
+    | Some { s_display_type = VNC } ->
+       e "graphics" [ "type", "vnc" ] []
+    | Some { s_display_type = Spice } ->
+       e "graphics" [ "type", "spice" ] [] in
 
   (match source.s_display with
    | Some { s_keymap = Some km } -> append_attr ("keymap", km) graphics
