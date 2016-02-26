@@ -274,6 +274,13 @@ public class GuestFS {
         pr "   * %s\n" f.shortdesc;
         pr "   * </p><p>\n";
         pr "   * %s\n" doc;
+        (match f.optional with
+        | None -> ()
+        | Some opt ->
+          pr "   * </p><p>\n";
+          pr "   * This function depends on the feature \"%s\".  See also {@link #feature_available}.\n"
+            opt;
+        );
         pr "   * </p>\n";
         (match version_added f with
         | None -> ()

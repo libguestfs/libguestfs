@@ -303,6 +303,12 @@ I<The caller must free the returned buffer after use>.\n\n"
     pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
+  (match f.optional with
+  | None -> ()
+  | Some opt ->
+    pr "This function depends on the feature C<%s>.  See also
+L</guestfs_feature_available>.\n\n" opt
+  );
   (match version_added f with
   | Some version -> pr "(Added in %s)\n\n" version
   | None -> assert false
