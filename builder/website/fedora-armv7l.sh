@@ -78,7 +78,7 @@ trap cleanup INT QUIT TERM EXIT ERR
 virt-install \
     --name=$tmpname \
     --ram=1024 \
-    --cpu=host --vcpus=2 \
+    --cpu=host --vcpus=1 \
     --os-type=linux --os-variant=fedora21 \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=ttyAMA0,115200 proxy=$http_proxy" \
