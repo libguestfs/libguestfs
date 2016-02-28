@@ -15,6 +15,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# This subdirectory builds the appliance.  It is first prepared as a
+# supermin appliance (appliance/supermin.d/*), and then the supermin
+# appliance is built into a full fat appliance in $TMPDIR/.guestfs-*
+# (which is under tmp/ if you are using the ./run script).
+#
+# Because preparing the supermin appliance is expensive, even
+# `make clean' does not delete it.  If you want to force the supermin
+# appliance to be reprepared, do:
+#
+#   make -C appliance clean-supermin-appliance
+#   make -C appliance
+
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
@@ -53,6 +65,9 @@ stamp-supermin: make.sh packagelist supermin.d/excludefiles
 	  supermin.d/init.tar.gz \
 	  supermin.d/udev-rules.tar.gz
 	touch $@
+
+clean-supermin-appliance:
+	rm -f stamp-supermin
 
 # This used to be a configure-generated file.  However config.status
 # always touches the destination file, which means the appliance got
