@@ -60,6 +60,13 @@ listed there.
 Install as many package names found in this file as possible.  (It is
 not strictly required to install all of them).
 
+I<Note>: If you build libguestfs followed by installing appliance
+packages, the build will not pick them up automatically, even if you
+do S<C<make clean>>.  You have to do this command to clean the old
+supermin appliance and force a new one to be prepared:
+
+ make -C appliance clean-supermin-appliance
+
 =item qemu E<ge> 1.3.0
 
 I<Required>.
