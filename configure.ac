@@ -272,6 +272,7 @@ AC_CONFIG_FILES([Makefile
                  tests/nbd/Makefile
                  tests/network/Makefile
                  tests/ntfsclone/Makefile
+                 tests/ntfscat/Makefile
                  tests/parallel/Makefile
                  tests/protocol/Makefile
                  tests/qemu/Makefile

@@ -66,6 +66,7 @@ SUBDIRS += tests/luks
 SUBDIRS += tests/md
 SUBDIRS += tests/selinux
 SUBDIRS += tests/ntfsclone
+SUBDIRS += tests/ntfscat
 SUBDIRS += tests/btrfs
 SUBDIRS += tests/xfs
 SUBDIRS += tests/charsets
