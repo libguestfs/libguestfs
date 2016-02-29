@@ -12891,6 +12891,22 @@ This is equivalent to C<sgdisk -e>.
 
 See also L<sgdisk(8)>." };
 
+  { defaults with
+    name = "ntfscat_i"; added = (1, 33, 14);
+    style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename"], [];
+    proc_nr = Some 463;
+    progress = true; cancellable = true;
+    shortdesc = "download a file to the local machine given its inode";
+    longdesc = "\
+Download a file given its inode from a NTFS filesystem and save it as
+F<filename> on the local machine.
+
+This allows to download some otherwise inaccessible files such as the ones
+within the C<$Extend> folder.
+
+The filesystem from which to extract the file must be unmounted,
+otherwise the call will fail." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
