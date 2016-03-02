@@ -82,8 +82,8 @@ do_ntfsclone_in (const char *device)
   close (fd);
 
   /* Construct the command. */
-  if (asprintf_nowarn (&cmd, "%s -O %s --restore-image - 2> %s",
-                       str_ntfsclone, device, error_file) == -1) {
+  if (asprintf (&cmd, "%s -O %s --restore-image - 2> %s",
+                str_ntfsclone, device, error_file) == -1) {
     err = errno;
     r = cancel_receive ();
     errno = err;
