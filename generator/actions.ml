@@ -11336,6 +11336,18 @@ silently create an ext2 filesystem instead." };
     name = "list_disk_labels"; added = (1, 19, 49);
     style = RHashtable "labels", [], [];
     proc_nr = Some 369;
+    tests = [
+      (* The test disks have no labels, so we can be sure there are
+       * no labels.  See in tests/disk-labels/ for tests checking
+       * for actual disk labels.
+       *
+       * Also, we make use of the assumption that RHashtable is a
+       * char*[] in C, so an empty hash has just a NULL element.
+       *)
+      InitScratchFS, Always, TestResult (
+        [["list_disk_labels"]],
+        "is_string_list (ret, 0)"), [];
+    ];
     shortdesc = "mapping of disk labels to devices";
     longdesc = "\
 If you add drives using the optional C<label> parameter

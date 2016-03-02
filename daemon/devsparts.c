@@ -316,6 +316,13 @@ do_list_disk_labels (void)
 
   dir = opendir (GUESTFSDIR);
   if (!dir) {
+    if (errno == ENOENT) {
+      /* The directory does not exist, and usually this happens when
+       * there are no labels set.  In this case, act as if the directory
+       * was empty.
+       */
+      return empty_list ();
+    }
     reply_with_perror ("opendir: %s", GUESTFSDIR);
     return NULL;
   }
