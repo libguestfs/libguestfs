@@ -773,8 +773,8 @@ do_make_fs (const char *input, const char *output_str)
 
     if (r == -1) {
       /* Provide more guidance in the error message (RHBZ#823883). */
-      fprintf (stderr, "%s: 'mkfs' (create filesystem) operation failed.\n",
-               guestfs_int_program_name);
+      fprintf (stderr, "%s: 'mkfs' (create filesystem) operation failed: %s\n",
+               guestfs_int_program_name, guestfs_last_error (g));
       if (STREQ (type, "fat"))
         fprintf (stderr, "Instead of 'fat', try 'vfat' (long filenames) or 'msdos' (short filenames).\n");
       else
