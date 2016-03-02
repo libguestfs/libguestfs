@@ -282,8 +282,8 @@ do_ntfscat_i (const mountable_t *mountable, int64_t inode)
   }
 
   /* Construct the command. */
-  if (asprintf_nowarn (&cmd, "ntfscat -i %ld %s",
-                       inode, mountable->device) == -1) {
+  if (asprintf (&cmd, "ntfscat -i %" PRIi64 " %s",
+                inode, mountable->device) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
@@ -311,14 +311,14 @@ do_ntfscat_i (const mountable_t *mountable, int64_t inode)
   }
 
   if (ferror (fp)) {
-    fprintf (stderr, "fread: %ld: %m\n", inode);
+    fprintf (stderr, "fread: %" PRIi64 ": %m\n", inode);
     send_file_end (1);		/* Cancel. */
     pclose (fp);
     return -1;
   }
 
   if (pclose (fp) != 0) {
-    fprintf (stderr, "pclose: %ld: %m\n", inode);
+    fprintf (stderr, "pclose: %" PRIi64 ": %m\n", inode);
     send_file_end (1);		/* Cancel. */
     return -1;
   }
