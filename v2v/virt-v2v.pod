@@ -785,6 +785,26 @@ L<https://bugzilla.redhat.com/show_bug.cgi?id=244636>
 
 =head1 WINDOWS
 
+=head2 Windows E<ge> 8 Fast Startup is incompatible with virt-v2v
+
+Guests which use the Windows E<ge> 8 "Fast Startup" feature (or guests
+which are hibernated) cannot be converted with virt-v2v.  You will see
+an error:
+
+ virt-v2v: error: unable to mount the disk image for writing. This has
+ probably happened because Windows Hibernation or Fast Restart is being
+ used in this guest. You have to disable this (in the guest) in order
+ to use virt-v2v.
+
+As the message says, you need to boot the guest and disable the "Fast
+Startup" feature (Control Panel → Power Options → Choose what the
+power buttons do → Change settings that are currently unavailable →
+Turn on fast startup), and shut down the guest, and then you will be
+able to convert it.
+
+For more information, see:
+L<guestfs(3)/WINDOWS HIBERNATION AND WINDOWS 8 FAST STARTUP>.
+
 =head2 Boot failure: 0x0000007B
 
 This boot failure is caused by Windows being unable to find or load
