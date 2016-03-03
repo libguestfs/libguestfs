@@ -664,15 +664,7 @@ let main () =
   let root =
     match Array.to_list (g#inspect_os ()) with
     | [root] ->
-      let mps = g#inspect_get_mountpoints root in
-      let cmp (a,_) (b,_) =
-        compare (String.length a) (String.length b) in
-      let mps = List.sort cmp mps in
-      List.iter (
-        fun (mp, dev) ->
-          try g#mount dev mp
-          with G.Error msg -> warning (f_"%s (ignored)") msg
-      ) mps;
+      inspect_mount_root g root;
       root
     | _ ->
       error (f_"no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.")

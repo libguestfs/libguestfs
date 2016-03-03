@@ -122,14 +122,7 @@ read the man page virt-get-kernel(1).
 
 let rec do_fetch ~transform_fn ~outputdir g root =
   (* Mount up the disks. *)
-  let mps = g#inspect_get_mountpoints root in
-  let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
-  let mps = List.sort cmp mps in
-  List.iter (
-    fun (mp, dev) ->
-      try g#mount_ro dev mp
-      with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
-  ) mps;
+  inspect_mount_root_ro g root;
 
   let files =
     let typ = g#inspect_get_type root in

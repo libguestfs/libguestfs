@@ -227,17 +227,7 @@ read the man page virt-sysprep(1).
         (* Mount up the disks, like guestfish -i.
          * See [ocaml/examples/inspect_vm.ml].
          *)
-        let mps = g#inspect_get_mountpoints root in
-        let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
-        let mps = List.sort cmp mps in
-        List.iter (
-          fun (mp, dev) ->
-            (* Get mount options for this mountpoint. *)
-            let opts = mount_opts mp in
-
-            try g#mount_options opts dev mp;
-            with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
-        ) mps;
+        inspect_mount_root ~mount_opts_fn:mount_opts g root;
 
         let side_effects = new Sysprep_operation.filesystem_side_effects in
 

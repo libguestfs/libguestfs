@@ -273,3 +273,14 @@ val read_first_line_from_file : string -> string
 
 val is_regular_file : string -> bool
 (** Checks whether the file is a regular file. *)
+
+val inspect_mount_root : Guestfs.guestfs -> ?mount_opts_fn:(string -> string) -> string -> unit
+(** Mounts all the mount points of the specified root, just like
+    [guestfish -i] does.
+
+    [mount_opts_fn] represents a function providing the mount options
+    for each mount point. *)
+
+val inspect_mount_root_ro : Guestfs.guestfs -> string -> unit
+(** Like [inspect_mount_root], but mounting every mount point as
+    read-only. *)

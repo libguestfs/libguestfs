@@ -833,3 +833,21 @@ let read_first_line_from_file filename =
 let is_regular_file path = (* NB: follows symlinks. *)
   try (Unix.stat path).Unix.st_kind = Unix.S_REG
   with Unix.Unix_error _ -> false
+
+let inspect_mount_root g ?mount_opts_fn root =
+  let mps = g#inspect_get_mountpoints root in
+  let cmp (a,_) (b,_) =
+    compare (String.length a) (String.length b) in
+  let mps = List.sort cmp mps in
+  List.iter (
+    fun (mp, dev) ->
+      let mountfn =
+        match mount_opts_fn with
+        | Some fn -> g#mount_options (fn mp)
+        | None -> g#mount in
+      try mountfn dev mp
+      with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
+  ) mps
+
+let inspect_mount_root_ro =
+  inspect_mount_root ~mount_opts_fn:(fun _ -> "ro")

@@ -197,14 +197,7 @@ read the man page virt-customize(1).
         (* Mount up the disks, like guestfish -i.
          * See [ocaml/examples/inspect_vm.ml].
          *)
-        let mps = g#inspect_get_mountpoints root in
-        let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
-        let mps = List.sort cmp mps in
-        List.iter (
-          fun (mp, dev) ->
-            try g#mount dev mp;
-            with Guestfs.Error msg -> warning (f_"%s (ignored)") msg
-        ) mps;
+        inspect_mount_root g root;
 
         (* Do the customization. *)
         Customize_run.run g root ops;
