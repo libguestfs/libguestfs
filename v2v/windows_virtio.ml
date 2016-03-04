@@ -417,7 +417,7 @@ and virtio_iso_path_matches_guest_os path inspect =
      * elements.
      *)
     let lc_path = String.lowercase_ascii path in
-    let lc_basename = Filename.basename path in
+    let lc_basename = Filename.basename lc_path in
 
     let extension =
       match last_part_of lc_basename '.' with
