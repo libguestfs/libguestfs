@@ -341,14 +341,12 @@ guestfs_int_external_command_failed (guestfs_h *g, int status,
   }
   else {
     if (!extra)
-      error (g, _(
-		  "%s.\n"
+      error (g, _("%s.\n"
 		  "To see full error messages you may need to enable debugging.\n"
 		  DEBUG_ADVICE),
              status_string);
     else
-      error (g, _(
-		  "%s: %s: %s.\n"
+      error (g, _("%s: %s: %s.\n"
 		  "To see full error messages you may need to enable debugging.\n"
 		  DEBUG_ADVICE),
              cmd_name, extra, status_string);
