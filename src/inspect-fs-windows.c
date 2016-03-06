@@ -83,18 +83,18 @@ static char *extract_guid_from_registry_blob (guestfs_h *g, const void *blob);
 static int
 is_systemroot (guestfs_h *const g, const char *systemroot)
 {
-  char path[256];
+  CLEANUP_FREE char *path1 = NULL, *path2 = NULL, *path3 = NULL;
 
-  snprintf (path, sizeof path, "%s/system32", systemroot);
-  if (!guestfs_int_is_dir_nocase (g, path))
+  path1 = safe_asprintf (g, "%s/system32", systemroot);
+  if (!guestfs_int_is_dir_nocase (g, path1))
     return 0;
 
-  snprintf (path, sizeof path, "%s/system32/config", systemroot);
-  if (!guestfs_int_is_dir_nocase (g, path))
+  path2 = safe_asprintf (g, "%s/system32/config", systemroot);
+  if (!guestfs_int_is_dir_nocase (g, path2))
     return 0;
 
-  snprintf (path, sizeof path, "%s/system32/cmd.exe", systemroot);
-  if (!guestfs_int_is_file_nocase (g, path))
+  path3 = safe_asprintf (g, "%s/system32/cmd.exe", systemroot);
+  if (!guestfs_int_is_file_nocase (g, path3))
     return 0;
 
   return 1;
