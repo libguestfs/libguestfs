@@ -184,9 +184,7 @@ guestfs_int_split_string (char sep, const char *str)
   return ret;
 }
 
-/* Translate a wait/system exit status into a printable string.  The
- * string must be freed by the caller.
- */
+/* Translate a wait/system exit status into a printable string. */
 char *
 guestfs_int_exit_status_to_string (int status, const char *cmd_name,
 				   char *buffer, size_t buflen)
