@@ -50,10 +50,16 @@ copy (const char *src, const char *src_display,
 {
   int64_t saved_size = size;
   int src_fd, dest_fd;
-  char buf[BUFSIZ];
+  CLEANUP_FREE char *buf = NULL;
   size_t n;
   ssize_t r;
   int err;
+
+  buf = malloc (BUFSIZ);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   if ((optargs_bitmask & GUESTFS_COPY_DEVICE_TO_DEVICE_SRCOFFSET_BITMASK)) {
     if (srcoffset < 0) {
@@ -119,8 +125,8 @@ copy (const char *src, const char *src_display,
 
   while (size != 0) {
     /* Calculate bytes to copy. */
-    if (size == -1 || size > (int64_t) sizeof buf)
-      n = sizeof buf;
+    if (size == -1 || size > BUFSIZ)
+      n = BUFSIZ;
     else
       n = size;
 

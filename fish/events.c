@@ -99,11 +99,17 @@ do_event_handler (guestfs_h *g,
                   const uint64_t *array, size_t array_len)
 {
   pid_t pid;
-  const char *argv[8 + array_len];
+  CLEANUP_FREE const char **argv = NULL;
   const char *shell;
   struct entry *entry = opaque;
   size_t i, j;
   char *s;
+
+  argv = malloc (sizeof (const char *) * (8 + array_len));
+  if (argv == NULL) {
+    perror ("malloc");
+    return;
+  }
 
   pid = fork ();
   if (pid == -1) {

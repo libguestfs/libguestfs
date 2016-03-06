@@ -596,12 +596,19 @@ send_file_end (int cancel)
 static int
 send_chunk (const guestfs_chunk *chunk)
 {
-  char buf[GUESTFS_MAX_CHUNK_SIZE + 48];
+  const size_t buf_len = GUESTFS_MAX_CHUNK_SIZE + 48;
+  CLEANUP_FREE char *buf = NULL;
   char lenbuf[4];
   XDR xdr;
   uint32_t len;
 
-  xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
+  buf = malloc (buf_len);
+  if (buf == NULL) {
+    perror ("malloc");
+    return -1;
+  }
+
+  xdrmem_create (&xdr, buf, buf_len, XDR_ENCODE);
   if (!xdr_guestfs_chunk (&xdr, (guestfs_chunk *) chunk)) {
     fprintf (stderr, "guestfsd: send_chunk: failed to encode chunk\n");
     xdr_destroy (&xdr);

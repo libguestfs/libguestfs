@@ -26,6 +26,13 @@
 #include "index-struct.h"
 #include "index-parse.h"
 
+/* The generated code uses frames > 5000 bytes. */
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wframe-larger-than="
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 #define YY_EXTRA_TYPE struct parse_context *
 
 extern void yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg);

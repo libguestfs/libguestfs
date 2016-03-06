@@ -160,6 +160,7 @@ static int
 set_up_etc_resolv_conf (struct resolver_state *rs)
 {
   struct stat statbuf;
+  CLEANUP_FREE char *buf = NULL;
 
   rs->sysroot_etc_resolv_conf_old = NULL;
 
@@ -174,11 +175,11 @@ set_up_etc_resolv_conf (struct resolver_state *rs)
    * that on Ubuntu it's a dangling symlink.
    */
   if (lstat (rs->sysroot_etc_resolv_conf, &statbuf) == 0) {
-    size_t len = sysroot_len + 32;
-    char buf[len];
-
     /* Make a random name for the backup file. */
-    snprintf (buf, len, "%s/etc/XXXXXXXX", sysroot);
+    if (asprintf (&buf, "%s/etc/XXXXXXXX", sysroot) == -1) {
+      reply_with_perror ("asprintf");
+      goto error;
+    }
     if (random_name (buf) == -1) {
       reply_with_perror ("random_name");
       goto error;

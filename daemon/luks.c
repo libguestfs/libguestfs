@@ -91,9 +91,11 @@ luks_open (const char *device, const char *key, const char *mapname,
    * that the device-mapper control device (/dev/mapper/control) is
    * always there, so you can't ever have mapname == "control".
    */
-  size_t len = strlen (mapname);
-  char devmapper[len+32];
-  snprintf (devmapper, len+32, "/dev/mapper/%s", mapname);
+  CLEANUP_FREE char *devmapper = NULL;
+  if (asprintf (&devmapper, "/dev/mapper/%s", mapname) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
   if (access (devmapper, F_OK) == 0) {
     reply_with_error ("%s: device already exists", devmapper);
     return -1;

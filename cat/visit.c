@@ -89,6 +89,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
   /* Call function on everything in this directory. */
   for (i = 0, xattrp = 0; names[i] != NULL; ++i, ++xattrp) {
     CLEANUP_FREE char *path = NULL;
+    CLEANUP_FREE char *attrval = NULL;
     struct guestfs_xattr_list file_xattrs;
     size_t nr_xattrs;
 
@@ -104,7 +105,11 @@ _visit (guestfs_h *g, int depth, const char *dir,
       return -1;
     }
     /* attrval is not \0-terminated. */
-    char attrval[xattrs->val[xattrp].attrval_len+1];
+    attrval = malloc (xattrs->val[xattrp].attrval_len + 1);
+    if (attrval == NULL) {
+      perror ("malloc");
+      return -1;
+    }
     memcpy (attrval, xattrs->val[xattrp].attrval,
             xattrs->val[xattrp].attrval_len);
     attrval[xattrs->val[xattrp].attrval_len] = '\0';

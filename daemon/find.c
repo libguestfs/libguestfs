@@ -61,7 +61,13 @@ do_find0 (const char *dir)
   CLEANUP_FREE char *cmd = NULL;
   CLEANUP_FREE char *sysrootdir = NULL;
   size_t sysrootdirlen;
-  char str[GUESTFS_MAX_CHUNK_SIZE];
+  CLEANUP_FREE char *str = NULL;
+
+  str = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (str == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   sysrootdir = sysroot_path (dir);
   if (!sysrootdir) {

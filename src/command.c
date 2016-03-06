@@ -607,7 +607,7 @@ loop (struct command *cmd)
   fd_set rset, rset2;
   int maxfd = -1, r;
   size_t nr_fds = 0;
-  char buf[BUFSIZ];
+  CLEANUP_FREE char *buf = safe_malloc (cmd->g, BUFSIZ);
   ssize_t n;
 
   FD_ZERO (&rset);
@@ -636,7 +636,7 @@ loop (struct command *cmd)
 
     if (cmd->errorfd >= 0 && FD_ISSET (cmd->errorfd, &rset2)) {
       /* Read output and send it to the log. */
-      n = read (cmd->errorfd, buf, sizeof buf);
+      n = read (cmd->errorfd, buf, BUFSIZ);
       if (n > 0)
         guestfs_int_call_callbacks_message (cmd->g, GUESTFS_EVENT_APPLIANCE,
                                             buf, n);
@@ -660,7 +660,7 @@ loop (struct command *cmd)
       /* Read the output, buffer it up to the end of the line, then
        * pass it to the callback.
        */
-      n = read (cmd->outfd, buf, sizeof buf);
+      n = read (cmd->outfd, buf, BUFSIZ);
       if (n > 0) {
         if (cmd->outbuf.add_data)
           cmd->outbuf.add_data (cmd, buf, n);

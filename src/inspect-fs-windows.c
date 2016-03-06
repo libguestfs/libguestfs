@@ -232,9 +232,8 @@ guestfs_int_check_windows_root (guestfs_h *g, struct inspect_fs *fs,
 static int
 check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
 {
-  size_t len = strlen (fs->windows_systemroot) + 32;
-  char cmd_exe[len];
-  snprintf (cmd_exe, len, "%s/system32/cmd.exe", fs->windows_systemroot);
+  CLEANUP_FREE char *cmd_exe =
+    safe_asprintf (g, "%s/system32/cmd.exe", fs->windows_systemroot);
 
   /* Should exist because of previous check above in get_windows_systemroot. */
   CLEANUP_FREE char *cmd_exe_path = guestfs_case_sensitive_path (g, cmd_exe);
@@ -260,10 +259,8 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   int ret = -1;
   int r;
 
-  size_t len = strlen (fs->windows_systemroot) + 64;
-  char software[len];
-  snprintf (software, len, "%s/system32/config/software",
-            fs->windows_systemroot);
+  CLEANUP_FREE char *software =
+    safe_asprintf (g, "%s/system32/config/software", fs->windows_systemroot);
 
   CLEANUP_FREE char *software_path = guestfs_case_sensitive_path (g, software);
   if (!software_path)
@@ -387,11 +384,11 @@ static int
 check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 {
   int r;
-  size_t len = strlen (fs->windows_systemroot) + 64;
-  char system[len];
   static const char gpt_prefix[] = "DMIO:ID:";
-  snprintf (system, len, "%s/system32/config/system",
-            fs->windows_systemroot);
+
+  CLEANUP_FREE char *system =
+    safe_asprintf (g, "%s/system32/config/system",
+                   fs->windows_systemroot);
 
   CLEANUP_FREE char *system_path = guestfs_case_sensitive_path (g, system);
   if (!system_path)
@@ -495,6 +492,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
       char *device;
       int64_t type;
       bool is_gpt;
+      size_t len;
 
       type = guestfs_hivex_value_type (g, v);
       blob = guestfs_hivex_value_value (g, v, &len);

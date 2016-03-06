@@ -45,7 +45,13 @@ do_cpio_out (const char *dir, const char *format)
   int r;
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
-  char buffer[GUESTFS_MAX_CHUNK_SIZE];
+  CLEANUP_FREE char *buffer = NULL;
+
+  buffer = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (buffer == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   /* Check the filename exists and is a directory (RHBZ#908322). */
   buf = sysroot_path (dir);
@@ -97,7 +103,7 @@ do_cpio_out (const char *dir, const char *format)
    */
   reply (NULL, NULL);
 
-  while ((r = fread (buffer, 1, sizeof buffer, fp)) > 0) {
+  while ((r = fread (buffer, 1, GUESTFS_MAX_CHUNK_SIZE, fp)) > 0) {
     if (send_file_write (buffer, r) < 0) {
       pclose (fp);
       return -1;

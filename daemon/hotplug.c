@@ -48,12 +48,14 @@ hotplug_error (const char *op, const char *path, const char *verb,
 int
 do_internal_hot_add_drive (const char *label)
 {
+  CLEANUP_FREE char *path = NULL;
   time_t start_t, now_t;
-  size_t len = strlen (label);
-  char path[len+64];
   int r;
 
-  snprintf (path, len+64, "/dev/disk/guestfs/%s", label);
+  if (asprintf (&path, "/dev/disk/guestfs/%s", label) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
 
   time (&start_t);
 
@@ -81,8 +83,7 @@ GUESTFSD_EXT_CMD(str_fuser, fuser);
 int
 do_internal_hot_remove_drive_precheck (const char *label)
 {
-  size_t len = strlen (label);
-  char path[len+64];
+  CLEANUP_FREE char *path = NULL;
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
@@ -90,7 +91,10 @@ do_internal_hot_remove_drive_precheck (const char *label)
   udev_settle ();
   sync_disks ();
 
-  snprintf (path, len+64, "/dev/disk/guestfs/%s", label);
+  if (asprintf (&path, "/dev/disk/guestfs/%s", label) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
 
   r = commandr (&out, &err, str_fuser, "-v", "-m", path, NULL);
   if (r == -1) {
@@ -124,12 +128,14 @@ do_internal_hot_remove_drive_precheck (const char *label)
 int
 do_internal_hot_remove_drive (const char *label)
 {
+  CLEANUP_FREE char *path = NULL;
   time_t start_t, now_t;
-  size_t len = strlen (label);
-  char path[len+64];
   int r;
 
-  snprintf (path, len+64, "/dev/disk/guestfs/%s", label);
+  if (asprintf (&path, "/dev/disk/guestfs/%s", label) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
 
   time (&start_t);
 

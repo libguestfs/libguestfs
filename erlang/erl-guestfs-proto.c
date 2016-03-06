@@ -201,11 +201,14 @@ ETERM *
 make_string_list (char **r)
 {
   size_t i, size;
+  CLEANUP_FREE ETERM **t = NULL;
 
   for (size = 0; r[size] != NULL; ++size)
     ;
 
-  ETERM *t[size];
+  t = malloc (sizeof (ETERM *) * size);
+  if (t == NULL)
+    return make_error ("make_string_list");
 
   for (i = 0; r[i] != NULL; ++i)
     t[i] = erl_mk_string (r[i]);
@@ -220,12 +223,15 @@ ETERM *
 make_table (char **r)
 {
   size_t i, size;
+  CLEANUP_FREE ETERM **t = NULL;
+  ETERM *a[2];
 
   for (size = 0; r[size] != NULL; ++size)
     ;
 
-  ETERM *t[size/2];
-  ETERM *a[2];
+  t = malloc (sizeof (ETERM *) * (size/2));
+  if (t == NULL)
+    return make_error ("make_table");
 
   for (i = 0; r[i] != NULL; i += 2) {
     a[0] = erl_mk_string (r[i]);

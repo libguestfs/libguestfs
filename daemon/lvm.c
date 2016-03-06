@@ -901,6 +901,8 @@ do_list_dm_devices (void)
   }
 
   while (1) {
+    CLEANUP_FREE char *devname = NULL;
+
     errno = 0;
     d = readdir (dir);
     if (d == NULL) break;
@@ -913,10 +915,12 @@ do_list_dm_devices (void)
     if (STREQ (d->d_name, "control"))
       continue;
 
-    size_t len = strlen (d->d_name);
-    char devname[len+64];
-
-    snprintf (devname, len+64, "/dev/mapper/%s", d->d_name);
+    if (asprintf (&devname, "/dev/mapper/%s", d->d_name) == -1) {
+      reply_with_perror ("asprintf");
+      free_stringslen (ret.argv, ret.size);
+      closedir (dir);
+      return NULL;
+    }
 
     /* Ignore dm devices which are LVs. */
     r = lv_canonical (devname, NULL);

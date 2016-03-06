@@ -152,7 +152,13 @@ int
 do_download (const char *filename)
 {
   int fd, r, is_dev;
-  char buf[GUESTFS_MAX_CHUNK_SIZE];
+  CLEANUP_FREE char *buf = NULL;
+
+  buf = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   is_dev = STRPREFIX (filename, "/dev/");
 
@@ -195,7 +201,7 @@ do_download (const char *filename)
    */
   reply (NULL, NULL);
 
-  while ((r = read (fd, buf, sizeof buf)) > 0) {
+  while ((r = read (fd, buf, GUESTFS_MAX_CHUNK_SIZE)) > 0) {
     if (send_file_write (buf, r) < 0) {
       close (fd);
       return -1;
@@ -229,7 +235,13 @@ int
 do_download_offset (const char *filename, int64_t offset, int64_t size)
 {
   int fd, r, is_dev;
-  char buf[GUESTFS_MAX_CHUNK_SIZE];
+  CLEANUP_FREE char *buf = NULL;
+
+  buf = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   if (offset < 0) {
     reply_with_perror ("%s: offset in file is negative", filename);
@@ -274,7 +286,8 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   reply (NULL, NULL);
 
   while (usize > 0) {
-    r = read (fd, buf, usize > sizeof buf ? sizeof buf : usize);
+    r = read (fd, buf,
+              usize > GUESTFS_MAX_CHUNK_SIZE ? GUESTFS_MAX_CHUNK_SIZE : usize);
     if (r == -1) {
       fprintf (stderr, "read: %s: %m\n", filename);
       send_file_end (1);        /* Cancel. */

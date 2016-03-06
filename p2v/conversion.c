@@ -167,7 +167,7 @@ start_conversion (struct config *config,
   int status;
   size_t i, len;
   size_t nr_disks = guestfs_int_count_strings (config->disks);
-  struct data_conn data_conns[nr_disks];
+  CLEANUP_FREE struct data_conn *data_conns = NULL;
   CLEANUP_FREE char *remote_dir = NULL, *libvirt_xml = NULL;
   time_t now;
   struct tm tm;
@@ -183,6 +183,12 @@ start_conversion (struct config *config,
 
   set_running (1);
   set_cancel_requested (0);
+
+  data_conns = malloc (sizeof (struct data_conn) * nr_disks);
+  if (data_conns == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
 
   for (i = 0; config->disks[i] != NULL; ++i) {
     data_conns[i].h = NULL;

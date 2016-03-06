@@ -70,12 +70,14 @@ do_available_all_groups (void)
 static int
 test_proc_filesystems (const char *filesystem)
 {
-  size_t len = strlen (filesystem) + 32;
-  char regex[len];
+  CLEANUP_FREE char *regex = NULL;
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  snprintf (regex, len, "^[[:space:]]*%s$", filesystem);
+  if (asprintf (&regex, "^[[:space:]]*%s$", filesystem) == -1) {
+    perror ("asprintf");
+    return -1;
+  }
 
   r = commandr (NULL, &err, str_grep, regex, "/proc/filesystems", NULL);
   if (r == -1 || r >= 2) {

@@ -281,8 +281,14 @@ exec_command_count_output (char **argv, uint64_t *bytes_rtn)
   pid_t pid;
   int status;
   int fd[2];
-  char buffer[BUFSIZ];
+  CLEANUP_FREE char *buffer = NULL;
   ssize_t r;
+
+  buffer = malloc (BUFSIZ);
+  if (buffer == NULL) {
+    perror ("malloc");
+    return -1;
+  }
 
   if (pipe (fd) == -1) {
     perror ("pipe");
@@ -297,7 +303,7 @@ exec_command_count_output (char **argv, uint64_t *bytes_rtn)
     close (fd[1]);
 
     /* Read output from the subprocess and count the length. */
-    while ((r = read (fd[0], buffer, sizeof buffer)) > 0) {
+    while ((r = read (fd[0], buffer, BUFSIZ)) > 0) {
       *bytes_rtn += r;
     }
     if (r == -1) {

@@ -39,8 +39,8 @@ static const char *initrd_name = "initramfs." host_cpu ".img";
 
 static int build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
-static int dir_contains_file (const char *dir, const char *file);
-static int dir_contains_files (const char *dir, ...);
+static int dir_contains_file (guestfs_h *g, const char *dir, const char *file);
+static int dir_contains_files (guestfs_h *g, const char *dir, ...);
 static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
@@ -170,13 +170,13 @@ build_appliance (guestfs_h *g,
 static int
 contains_old_style_appliance (guestfs_h *g, const char *path, void *data)
 {
-  return dir_contains_files (path, kernel_name, initrd_name, NULL);
+  return dir_contains_files (g, path, kernel_name, initrd_name, NULL);
 }
 
 static int
 contains_fixed_appliance (guestfs_h *g, const char *path, void *data)
 {
-  return dir_contains_files (path,
+  return dir_contains_files (g, path,
                              "README.fixed",
                              "kernel", "initrd", "root", NULL);
 }
@@ -184,7 +184,7 @@ contains_fixed_appliance (guestfs_h *g, const char *path, void *data)
 static int
 contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 {
-  return dir_contains_files (path, "supermin.d", NULL);
+  return dir_contains_files (g, path, "supermin.d", NULL);
 }
 
 /* Build supermin appliance from supermin_path to $TMPDIR/.guestfs-$UID.
@@ -201,19 +201,12 @@ build_supermin_appliance (guestfs_h *g,
                           char **appliance)
 {
   CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
+  CLEANUP_FREE char *cachedir = NULL, *lockfile = NULL, *appliancedir = NULL;
   struct stat statbuf;
-  size_t len;
 
-  /* len must be longer than the length of any pathname we can
-   * generate in this function.
-   */
-  len = strlen (tmpdir) + 128;
-  char cachedir[len];
-  snprintf (cachedir, len, "%s/.guestfs-%ju", tmpdir, (uintmax_t) uid);
-  char lockfile[len];
-  snprintf (lockfile, len, "%s/lock", cachedir);
-  char appliancedir[len];
-  snprintf (appliancedir, len, "%s/appliance.d", cachedir);
+  cachedir = safe_asprintf (g, "%s/.guestfs-%ju", tmpdir, (uintmax_t) uid);
+  lockfile = safe_asprintf (g, "%s/lock", cachedir);
+  appliancedir = safe_asprintf (g, "%s/appliance.d", cachedir);
 
   ignore_value (mkdir (cachedir, 0755));
   ignore_value (chmod (cachedir, 0755)); /* RHBZ#921292 */
@@ -254,12 +247,9 @@ build_supermin_appliance (guestfs_h *g,
     guestfs_int_print_timestamped_message (g, "finished building supermin appliance");
 
   /* Return the appliance filenames. */
-  *kernel = safe_malloc (g, len);
-  *initrd = safe_malloc (g, len);
-  *appliance = safe_malloc (g, len);
-  snprintf (*kernel, len, "%s/kernel", appliancedir);
-  snprintf (*initrd, len, "%s/initrd", appliancedir);
-  snprintf (*appliance, len, "%s/root", appliancedir);
+  *kernel = safe_asprintf (g, "%s/kernel", appliancedir);
+  *initrd = safe_asprintf (g, "%s/initrd", appliancedir);
+  *appliance = safe_asprintf (g, "%s/root", appliancedir);
 
   /* Touch the files so they don't get deleted (as they are in /var/tmp). */
   (void) utimes (*kernel, NULL);
@@ -396,27 +386,24 @@ find_path (guestfs_h *g,
 
 /* Returns true iff file is contained in dir. */
 static int
-dir_contains_file (const char *dir, const char *file)
+dir_contains_file (guestfs_h *g, const char *dir, const char *file)
 {
-  size_t dirlen = strlen (dir);
-  size_t filelen = strlen (file);
-  size_t len = dirlen + filelen + 2;
-  char path[len];
+  CLEANUP_FREE char *path = NULL;
 
-  snprintf (path, len, "%s/%s", dir, file);
+  path = safe_asprintf (g, "%s/%s", dir, file);
   return access (path, F_OK) == 0;
 }
 
 /* Returns true iff every listed file is contained in 'dir'. */
 static int
-dir_contains_files (const char *dir, ...)
+dir_contains_files (guestfs_h *g, const char *dir, ...)
 {
   va_list args;
   const char *file;
 
   va_start (args, dir);
   while ((file = va_arg (args, const char *)) != NULL) {
-    if (!dir_contains_file (dir, file)) {
+    if (!dir_contains_file (g, dir, file)) {
       va_end (args);
       return 0;
     }

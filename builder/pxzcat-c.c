@@ -250,8 +250,8 @@ parse_indexes (value filenamev, int fd)
 {
   lzma_ret r;
   off_t pos, index_size;
-  uint8_t footer[LZMA_STREAM_HEADER_SIZE];
-  uint8_t header[LZMA_STREAM_HEADER_SIZE];
+  CLEANUP_FREE uint8_t *footer = NULL;
+  CLEANUP_FREE uint8_t *header = NULL;
   lzma_stream_flags footer_flags;
   lzma_stream_flags header_flags;
   lzma_stream strm = LZMA_STREAM_INIT;
@@ -260,6 +260,13 @@ parse_indexes (value filenamev, int fd)
   lzma_index *this_index = NULL;
   lzma_vli stream_padding = 0;
   size_t nr_streams = 0;
+  CLEANUP_FREE uint8_t *buf = NULL;
+
+  footer = malloc (sizeof (uint8_t) * LZMA_STREAM_HEADER_SIZE);
+  header = malloc (sizeof (uint8_t) * LZMA_STREAM_HEADER_SIZE);
+  buf = malloc (sizeof (uint8_t) * BUFSIZ);
+  if (footer == NULL || header == NULL || buf == NULL)
+    caml_raise_out_of_memory ();
 
   /* Check file size is a multiple of 4 bytes. */
   pos = lseek (fd, 0, SEEK_END);
@@ -322,13 +329,11 @@ parse_indexes (value filenamev, int fd)
     }
 
     do {
-      uint8_t buf[BUFSIZ];
-
       strm.avail_in = index_size;
       if (strm.avail_in > BUFSIZ)
         strm.avail_in = BUFSIZ;
 
-      n = read (fd, &buf, strm.avail_in);
+      n = read (fd, buf, strm.avail_in);
       if (n == -1)
         unix_error (errno, (char *) "read", filenamev);
 
@@ -454,11 +459,16 @@ iter_blocks (lzma_index *idx, unsigned nr_threads,
              value filenamev, int fd, value outputfilev, int ofd)
 {
   struct global_state global;
-  struct per_thread_state per_thread[nr_threads];
-  pthread_t thread[nr_threads];
+  CLEANUP_FREE struct per_thread_state *per_thread = NULL;
+  CLEANUP_FREE pthread_t *thread = NULL;
   unsigned u, nr_errors;
   int err;
   void *status;
+
+  per_thread = malloc (sizeof (struct per_thread_state) * nr_threads);
+  thread = malloc (sizeof (pthread_t) * nr_threads);
+  if (per_thread == NULL || thread == NULL)
+    caml_raise_out_of_memory ();
 
   lzma_index_iter_init (&global.iter, idx);
   global.iter_finished = 0;

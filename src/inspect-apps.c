@@ -781,13 +781,10 @@ static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_ap
 static struct guestfs_application2_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
-  size_t len = strlen (fs->windows_systemroot) + 64;
-  char software[len];
+  CLEANUP_FREE char *software =
+    safe_asprintf (g, "%s/system32/config/software", fs->windows_systemroot);
   CLEANUP_FREE char *software_path;
   struct guestfs_application2_list *ret = NULL;
-
-  snprintf (software, len, "%s/system32/config/software",
-            fs->windows_systemroot);
 
   software_path = guestfs_case_sensitive_path (g, software);
   if (!software_path)

@@ -35,10 +35,16 @@ do_fill (int c, int len, const char *path)
   ssize_t r;
   size_t len_sz;
   size_t n;
-  char buf[BUFSIZ];
+  CLEANUP_FREE char *buf = NULL;
 
   if (c < 0 || c > 255) {
     reply_with_error ("%d: byte number must be in range 0..255", c);
+    return -1;
+  }
+
+  buf = malloc (BUFSIZ);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
     return -1;
   }
   memset (buf, c, BUFSIZ);
@@ -127,13 +133,16 @@ do_fill_pattern (const char *pattern, int len, const char *path)
 int
 do_fill_dir (const char *dir, int n)
 {
-  size_t len = strlen (dir);
-  char filename[len+10];
   int fd;
   int i;
 
   for (i = 0; i < n; ++i) {
-    snprintf (filename, len+10, "%s/%08d", dir, i);
+    CLEANUP_FREE char *filename = NULL;
+
+    if (asprintf (&filename, "%s/%08d", dir, i) == -1) {
+      reply_with_perror ("asprintf");
+      return -1;
+    }
 
     CHROOT_IN;
     fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0666);

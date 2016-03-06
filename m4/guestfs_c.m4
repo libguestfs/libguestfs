@@ -87,9 +87,13 @@ gl_WARN_ADD([-fdiagnostics-show-option])
 
 dnl Now some warnings we want to enable and/or customize ...
 
-dnl Warn about large stack allocations.  10000 happens to be the
-dnl same size as Coverity warns about.
-gl_WARN_ADD([-Wframe-larger-than=10000])
+dnl Warn about large stack frames.  This does not include alloca and
+dnl variable length arrays.  Coverity warns about 10000 byte frames.
+gl_WARN_ADD([-Wframe-larger-than=5000])
+
+dnl Warn about large stack frames, including estimates for alloca
+dnl and variable length arrays.
+gl_WARN_ADD([-Wstack-usage=10000])
 
 AC_SUBST([WARN_CFLAGS])
 

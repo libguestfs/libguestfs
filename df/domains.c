@@ -75,6 +75,8 @@ get_all_libvirt_domains (const char *libvirt_uri)
   virErrorPtr err;
   int n;
   size_t i;
+  CLEANUP_FREE int *ids = NULL;
+  CLEANUP_FREE char **names = NULL;
 
   /* Get the list of all domains. */
   conn = virConnectOpenAuth (libvirt_uri, virConnectAuthPtrDefault,
@@ -96,7 +98,11 @@ get_all_libvirt_domains (const char *libvirt_uri)
     exit (EXIT_FAILURE);
   }
 
-  int ids[n];
+  ids = malloc (sizeof (int) * n);
+  if (ids == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
   n = virConnectListDomains (conn, ids, n);
   if (n == -1) {
     err = virGetLastError ();
@@ -117,7 +123,11 @@ get_all_libvirt_domains (const char *libvirt_uri)
     exit (EXIT_FAILURE);
   }
 
-  char *names[n];
+  names = malloc (sizeof (char *) * n);
+  if (names == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
   n = virConnectListDefinedDomains (conn, names, n);
   if (n == -1) {
     err = virGetLastError ();

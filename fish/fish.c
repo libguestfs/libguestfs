@@ -1843,8 +1843,14 @@ file_in_heredoc (const char *endmarker)
   CLEANUP_FREE char *tmpdir = guestfs_get_tmpdir (g), *template = NULL;
   int fd;
   size_t markerlen;
-  char buffer[BUFSIZ];
+  CLEANUP_FREE char *buffer = NULL;
   int write_error = 0;
+
+  buffer = malloc (BUFSIZ);
+  if (buffer == NULL) {
+    perror ("malloc");
+    return NULL;
+  }
 
   if (asprintf (&template, "%s/guestfishXXXXXX", tmpdir) == -1) {
     perror ("asprintf");
@@ -1865,7 +1871,7 @@ file_in_heredoc (const char *endmarker)
 
   markerlen = strlen (endmarker);
 
-  while (fgets (buffer, sizeof buffer, stdin) != NULL) {
+  while (fgets (buffer, BUFSIZ, stdin) != NULL) {
     /* Look for "END"<EOF> or "END\n" in input. */
     size_t blen = strlen (buffer);
     if (STREQLEN (buffer, endmarker, markerlen) &&

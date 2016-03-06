@@ -85,6 +85,8 @@ start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
   size_t i, nr_threads;
   int err, errors;
   void *status;
+  CLEANUP_FREE struct thread_data *thread_data = NULL;
+  CLEANUP_FREE pthread_t *threads = NULL;
 
   if (nr_domains == 0)          /* Nothing to do. */
     return 0;
@@ -98,8 +100,10 @@ start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
   if (verbose)
     fprintf (stderr, "parallel: creating %zu threads\n", nr_threads);
 
-  struct thread_data thread_data[nr_threads];
-  pthread_t threads[nr_threads];
+  thread_data = malloc (sizeof (struct thread_data) * nr_threads);
+  threads = malloc (sizeof (pthread_t) * nr_threads);
+  if (thread_data == NULL || threads == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   for (i = 0; i < nr_threads; ++i) {
     thread_data[i].thread_num = i;

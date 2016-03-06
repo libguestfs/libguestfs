@@ -316,7 +316,7 @@ static int send_file_complete (guestfs_h *g);
 int
 guestfs_int_send_file (guestfs_h *g, const char *filename)
 {
-  char buf[GUESTFS_MAX_CHUNK_SIZE];
+  CLEANUP_FREE char *buf = safe_malloc (g, GUESTFS_MAX_CHUNK_SIZE);
   int fd, r = 0, err;
 
   g->user_cancel = 0;
@@ -332,7 +332,7 @@ guestfs_int_send_file (guestfs_h *g, const char *filename)
 
   /* Send file in chunked encoding. */
   while (!g->user_cancel) {
-    r = read (fd, buf, sizeof buf);
+    r = read (fd, buf, GUESTFS_MAX_CHUNK_SIZE);
     if (r == -1 && (errno == EINTR || errno == EAGAIN))
       continue;
     if (r <= 0) break;

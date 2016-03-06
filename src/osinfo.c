@@ -229,9 +229,7 @@ static int read_os_node (guestfs_h *g, xmlXPathContextPtr xpathCtx, xmlNodePtr o
 static int
 read_osinfo_db_xml (guestfs_h *g, const char *filename)
 {
-  const size_t pathname_len =
-    strlen (LIBOSINFO_DB_OS_PATH) + strlen (filename) + 2;
-  char pathname[pathname_len];
+  CLEANUP_FREE char *pathname = NULL;
   CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
   CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
   CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
@@ -240,7 +238,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *filename)
   struct osinfo *osinfo;
   size_t i;
 
-  snprintf (pathname, pathname_len, "%s/%s", LIBOSINFO_DB_OS_PATH, filename);
+  pathname = safe_asprintf (g, "%s/%s", LIBOSINFO_DB_OS_PATH, filename);
 
   doc = xmlReadFile (pathname, NULL, XML_PARSE_NONET);
   if (doc == NULL) {

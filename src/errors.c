@@ -328,7 +328,7 @@ guestfs_int_external_command_failed (guestfs_h *g, int status,
 				     const char *cmd_name, const char *extra)
 {
   size_t len = 80 + strlen (cmd_name);
-  char status_string[len];
+  CLEANUP_FREE char *status_string = safe_malloc (g, len);
 
   guestfs_int_exit_status_to_string (status, cmd_name, status_string, len);
 

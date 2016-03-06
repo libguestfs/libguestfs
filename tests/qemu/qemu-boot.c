@@ -67,6 +67,7 @@ struct thread_data {
   int r;
 };
 
+static void run_test (size_t P);
 static void *start_thread (void *thread_data_vp);
 static void message_callback (guestfs_h *g, void *opaque, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
@@ -102,10 +103,8 @@ main (int argc, char *argv[])
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
-  size_t P = 0, i, errors;
+  size_t P = 0, i;
   int c, option_index;
-  int err;
-  void *status;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -183,10 +182,27 @@ main (int argc, char *argv[])
   else
     P = MIN (n, MIN (MAX_THREADS, estimate_max_threads ()));
 
-  /* Start the worker threads. */
-  struct thread_data thread_data[P];
-  pthread_t threads[P];
+  run_test (P);
+  exit (EXIT_SUCCESS);
+}
 
+static void
+run_test (size_t P)
+{
+  void *status;
+  int err;
+  size_t i, errors;
+  CLEANUP_FREE struct thread_data *thread_data = NULL;
+  CLEANUP_FREE pthread_t *threads = NULL;
+
+  thread_data = malloc (sizeof (struct thread_data) * P);
+  threads = malloc (sizeof (pthread_t) * P);
+  if (thread_data == NULL || threads == NULL) {
+    perror ("malloc");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Start the worker threads. */
   for (i = 0; i < P; ++i) {
     thread_data[i].thread_num = i;
     err = pthread_create (&threads[i], NULL, start_thread, &thread_data[i]);
@@ -210,7 +226,8 @@ main (int argc, char *argv[])
       errors++;
   }
 
-  exit (errors == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+  if (errors > 0)
+    exit (EXIT_FAILURE);
 }
 
 /* Worker thread. */

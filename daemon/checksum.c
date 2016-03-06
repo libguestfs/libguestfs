@@ -132,12 +132,23 @@ do_checksums_out (const char *csumtype, const char *dir)
 {
   struct stat statbuf;
   int r;
+  const char *program;
+  CLEANUP_FREE char *str = NULL;
+  CLEANUP_FREE char *sysrootdir = NULL;
+  CLEANUP_FREE char *cmd = NULL;
+  FILE *fp;
 
-  const char *program = program_of_csum (csumtype);
+  str = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (str == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  program = program_of_csum (csumtype);
   if (program == NULL)
     return -1;
 
-  CLEANUP_FREE char *sysrootdir = sysroot_path (dir);
+  sysrootdir = sysroot_path (dir);
   if (!sysrootdir) {
     reply_with_perror ("malloc");
     return -1;
@@ -153,7 +164,7 @@ do_checksums_out (const char *csumtype, const char *dir)
     return -1;
   }
 
-  CLEANUP_FREE char *cmd = NULL;
+  cmd = NULL;
   if (asprintf_nowarn (&cmd, "cd %Q && %s -type f -print0 | %s -0 %s",
                        sysrootdir, str_find, str_xargs, program) == -1) {
     reply_with_perror ("asprintf");
@@ -163,7 +174,7 @@ do_checksums_out (const char *csumtype, const char *dir)
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
 
-  FILE *fp = popen (cmd, "r");
+  fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
     return -1;
@@ -174,8 +185,6 @@ do_checksums_out (const char *csumtype, const char *dir)
    * message back.  Instead we can only cancel the transfer.
    */
   reply (NULL, NULL);
-
-  char str[GUESTFS_MAX_CHUNK_SIZE];
 
   while ((r = fread (str, 1, GUESTFS_MAX_CHUNK_SIZE, fp)) > 0) {
     if (send_file_write (str, r) < 0) {

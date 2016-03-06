@@ -45,12 +45,17 @@ optgroup_xz_available (void)
 static int
 is_chown_supported (const char *dir)
 {
-  size_t len = sysroot_len + strlen (dir) + 64;
-  char buf[len];
+  CLEANUP_FREE char *buf = NULL;
   int fd, r, err, saved_errno;
 
   /* Create a randomly named file. */
-  snprintf (buf, len, "%s%s/XXXXXXXX.XXX", sysroot, dir);
+  if (asprintf (&buf, "%s%s/XXXXXXXX.XXX", sysroot, dir) == -1) {
+    err = errno;
+    r = cancel_receive ();
+    errno = err;
+    reply_with_perror ("asprintf");
+    return -1;
+  }
   if (random_name (buf) == -1) {
     err = errno;
     r = cancel_receive ();
@@ -332,7 +337,13 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
   FILE *fp;
   CLEANUP_UNLINK_FREE char *exclude_from_file = NULL;
   CLEANUP_FREE char *cmd = NULL;
-  char buffer[GUESTFS_MAX_CHUNK_SIZE];
+  CLEANUP_FREE char *buffer = NULL;
+
+  buffer = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (buffer == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   if ((optargs_bitmask & GUESTFS_TAR_OUT_COMPRESS_BITMASK)) {
     if (STREQ (compress, "compress"))
@@ -416,7 +427,7 @@ do_tar_out (const char *dir, const char *compress, int numericowner,
    */
   reply (NULL, NULL);
 
-  while ((r = fread (buffer, 1, sizeof buffer, fp)) > 0) {
+  while ((r = fread (buffer, 1, GUESTFS_MAX_CHUNK_SIZE, fp)) > 0) {
     if (send_file_write (buffer, r) < 0) {
       pclose (fp);
       return -1;

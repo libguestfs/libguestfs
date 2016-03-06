@@ -231,8 +231,8 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
         if (minor_version == -1)
           return -1;
       } else {
-        char buf[value_len + 1];
-        snprintf (buf, sizeof buf, "%*s", (int) value_len, value);
+        CLEANUP_FREE char *buf =
+          safe_asprintf (g, "%*s", (int) value_len, value);
         major_version = guestfs_int_parse_unsigned_int (g, buf);
         /* Handle cases where VERSION_ID is not a number. */
         if (major_version != -1)

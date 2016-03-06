@@ -312,7 +312,7 @@ static int
 handle_log_message (guestfs_h *g,
                     struct connection_socket *conn)
 {
-  char buf[BUFSIZ];
+  CLEANUP_FREE char *buf = safe_malloc (g, BUFSIZ);
   ssize_t n;
 
   /* Carried over from ancient proto.c code.  The comment there was:
@@ -329,7 +329,7 @@ handle_log_message (guestfs_h *g,
    */
   usleep (1000);
 
-  n = read (conn->console_sock, buf, sizeof buf);
+  n = read (conn->console_sock, buf, BUFSIZ);
   if (n == 0)
     return 0;
 

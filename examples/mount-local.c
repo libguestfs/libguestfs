@@ -142,10 +142,16 @@ main (int argc, char *argv[])
       p = strrchr (shell, '/');
       if (p && strcmp (p+1, "bash") == 0) {
         size_t len = 64 + strlen (shell);
-        char buf[len];
+        char *buf;
 
+        buf = malloc (len);
+        if (buf == NULL) {
+          perror ("malloc");
+          _exit (EXIT_FAILURE);
+        }
         snprintf (buf, len, "PS1='mount-local-shell> ' %s --norc -i", shell);
         r = system (buf);
+        free (buf);
       } else
         r = system (shell);
     }

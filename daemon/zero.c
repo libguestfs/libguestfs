@@ -197,8 +197,14 @@ int
 do_is_zero (const char *path)
 {
   int fd;
-  char buf[BUFSIZ];
+  CLEANUP_FREE char *buf = NULL;
   ssize_t r;
+
+  buf = malloc (BUFSIZ);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   CHROOT_IN;
   fd = open (path, O_RDONLY|O_CLOEXEC);
@@ -209,7 +215,7 @@ do_is_zero (const char *path)
     return -1;
   }
 
-  while ((r = read (fd, buf, sizeof buf)) > 0) {
+  while ((r = read (fd, buf, BUFSIZ)) > 0) {
     if (!is_zero (buf, r)) {
       close (fd);
       return 0;
@@ -234,8 +240,14 @@ int
 do_is_zero_device (const char *device)
 {
   int fd;
-  char buf[BUFSIZ];
+  CLEANUP_FREE char *buf = NULL;
   ssize_t r;
+
+  buf = malloc (BUFSIZ);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
 
   fd = open (device, O_RDONLY|O_CLOEXEC);
   if (fd == -1) {
@@ -243,7 +255,7 @@ do_is_zero_device (const char *device)
     return -1;
   }
 
-  while ((r = read (fd, buf, sizeof buf)) > 0) {
+  while ((r = read (fd, buf, BUFSIZ)) > 0) {
     if (!is_zero (buf, r)) {
       close (fd);
       return 0;
@@ -276,8 +288,7 @@ do_is_zero_device (const char *device)
 int
 do_zero_free_space (const char *dir)
 {
-  size_t len = strlen (dir);
-  char filename[sysroot_len+len+14]; /* sysroot + dir + "/" + 8.3 + "\0" */
+  CLEANUP_FREE char *filename = NULL;
   int fd;
   unsigned skip = 0;
   struct statvfs statbuf;
@@ -287,7 +298,10 @@ do_zero_free_space (const char *dir)
    * this won't conflict with existing files, and it should be
    * compatible with any filesystem type inc. FAT.
    */
-  snprintf (filename, sysroot_len+len+14, "%s%s/XXXXXXXX.XXX", sysroot, dir);
+  if (asprintf (&filename, "%s%s/XXXXXXXX.XXX", sysroot, dir) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
   if (random_name (filename) == -1) {
     reply_with_perror ("random_name");
     return -1;

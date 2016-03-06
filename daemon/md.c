@@ -58,6 +58,11 @@ count_bits (uint64_t bitmap)
   return c + count_bits (bitmap);
 }
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_md_create (const char *name, char *const *devices,
@@ -176,6 +181,10 @@ do_md_create (const char *name, char *const *devices,
 
   return 0;
 }
+
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
 
 static int
 glob_errfunc (const char *epath, int eerrno)

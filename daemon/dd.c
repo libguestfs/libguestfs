@@ -106,15 +106,21 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
   }
 
   uint64_t position = 0, size = (uint64_t) ssize;
+  CLEANUP_FREE char *buf = NULL;
+  buf = malloc (BUFSIZ);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    close (src_fd);
+    close (dest_fd);
+    return -1;
+  }
 
   while (position < size) {
-    char buf[BUFSIZ];
-
     /* Calculate bytes to copy. */
     uint64_t n64 = size - position;
     size_t n;
-    if (n64 > sizeof buf)
-      n = sizeof buf;
+    if (n64 > BUFSIZ)
+      n = BUFSIZ;
     else
       n = (size_t) n64; /* safe because of if condition */
 

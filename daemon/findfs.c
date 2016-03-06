@@ -33,7 +33,9 @@ findfs (const char *tag, const char *label_or_uuid)
 {
   char *out;
   CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE char *arg = NULL;
   int r;
+  size_t len;
 
   /* Kill the cache file, forcing blkid to reread values from the
    * original filesystems.  In blkid there is a '-p' option which is
@@ -43,9 +45,10 @@ findfs (const char *tag, const char *label_or_uuid)
   unlink ("/etc/blkid/blkid.tab");
   unlink ("/run/blkid/blkid.tab");
 
-  size_t len = strlen (tag) + strlen (label_or_uuid) + 2;
-  char arg[len];
-  snprintf (arg, len, "%s=%s", tag, label_or_uuid);
+  if (asprintf (&arg, "%s=%s", tag, label_or_uuid) == -1) {
+    reply_with_perror ("asprintf");
+    return NULL;
+  }
 
   r = command (&out, &err, str_findfs, arg, NULL);
   if (r == -1) {

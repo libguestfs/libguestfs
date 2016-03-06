@@ -43,7 +43,7 @@ guestfs_impl_copy_in (guestfs_h *g,
   int r;
   char fdbuf[64];
   size_t buf_len = strlen (localpath) + 1;
-  char buf[buf_len];
+  CLEANUP_FREE char *buf = safe_malloc (g, buf_len);
   const char *dirname, *basename;
   struct stat statbuf;
 
@@ -153,7 +153,7 @@ guestfs_impl_copy_out (guestfs_h *g,
   if (r == 1) {               /* is file */
     CLEANUP_FREE char *filename = NULL;
     size_t buf_len = strlen (remotepath) + 1;
-    char buf[buf_len];
+    CLEANUP_FREE char *buf = safe_malloc (g, buf_len);
     const char *basename;
 
     if (split_path (g, buf, buf_len, remotepath, NULL, &basename) == -1)
@@ -181,7 +181,7 @@ guestfs_impl_copy_out (guestfs_h *g,
     }
 
     size_t buf_len = strlen (remotepath) + 1;
-    char buf[buf_len];
+    CLEANUP_FREE char *buf = safe_malloc (g, buf_len);
     const char *basename;
     if (split_path (g, buf, buf_len, remotepath, NULL, &basename) == -1)
       return -1;

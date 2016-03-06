@@ -94,6 +94,11 @@ btrfs_set_label (const char *device, const char *label)
   return 0;
 }
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 /* Takes optional arguments, consult optargs_bitmask. */
 int
 do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
@@ -258,6 +263,10 @@ do_mkfs_btrfs (char *const *devices,
 
   return 0;
 }
+
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
 
 int
 do_btrfs_subvolume_snapshot (const char *source, const char *dest, int ro,
@@ -715,6 +724,11 @@ test_btrfs_device_add_needs_force (void)
   return strstr (out, "--force") != NULL;
 }
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 int
 do_btrfs_device_add (char *const *devices, const char *fs)
 {
@@ -804,6 +818,10 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
   return 0;
 }
 
+
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
 
 /* btrfstune command add two new options
  * -U UUID      change fsid to UUID
@@ -2099,6 +2117,11 @@ do_btrfstune_enable_skinny_metadata_extent_refs (const char *device)
   return 0;
 }
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 int
 do_btrfs_image (char *const *sources, const char *image,
 		int compresslevel)
@@ -2139,6 +2162,10 @@ do_btrfs_image (char *const *sources, const char *image,
 
   return 0;
 }
+
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
 
 int
 do_btrfs_replace (const char *srcdev, const char *targetdev,

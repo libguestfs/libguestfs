@@ -37,7 +37,7 @@ static char **expand_devicename (guestfs_h *g, const char *device);
 static int add_strings_matching (char **pp, const char *glob, char ***ret, size_t *size_r);
 static int add_string (const char *str, char ***ret, size_t *size_r);
 static char **single_element_list (const char *element);
-static void glob_issue (char *cmd, size_t argc, char ***globs, size_t *posn, size_t *count, int *r);
+static int glob_issue (char *cmd, size_t argc, char ***globs, size_t *posn, size_t *count, int *r);
 
 int
 run_glob (const char *cmd, size_t argc, char *argv[])
@@ -52,11 +52,19 @@ run_glob (const char *cmd, size_t argc, char *argv[])
    * and then we call every combination (ie. 1x3x3) of
    * argv[1-].
    */
-  char **globs[argc];
-  size_t posn[argc];
-  size_t count[argc];
+  CLEANUP_FREE char ***globs = NULL;
+  CLEANUP_FREE size_t *posn = NULL;
+  CLEANUP_FREE size_t *count = NULL;
   size_t i;
   int r = 0;
+
+  globs = malloc (sizeof (char **) * argc);
+  posn = malloc (sizeof (size_t) * argc);
+  count = malloc (sizeof (size_t) * argc);
+  if (globs == NULL || posn == NULL || count == NULL) {
+    perror ("malloc");
+    return -1;
+  }
 
   if (argc < 1) {
     fprintf (stderr, _("use 'glob command [args...]'\n"));
@@ -107,7 +115,10 @@ run_glob (const char *cmd, size_t argc, char *argv[])
   }
 
   /* Issue the commands. */
-  glob_issue (argv[0], argc, globs, posn, count, &r);
+  if (glob_issue (argv[0], argc, globs, posn, count, &r) == -1) {
+    r = -1;
+    goto error;
+  }
 
   /* Free resources. */
  error:
@@ -285,13 +296,19 @@ single_element_list (const char *element)
   return pp;
 }
 
-static void
+static int
 glob_issue (char *cmd, size_t argc,
             char ***globs, size_t *posn, size_t *count,
             int *r)
 {
   size_t i;
-  char *argv[argc+1];
+  CLEANUP_FREE char **argv = NULL;
+
+  argv = malloc (sizeof (char *) * (argc+1));
+  if (argv == NULL) {
+    perror ("malloc");
+    return -1;
+  }
 
   argv[0] = cmd;
   argv[argc] = NULL;
@@ -310,7 +327,7 @@ glob_issue (char *cmd, size_t argc,
     posn[i] = 0;
   }
   if (i == 0)			/* All done. */
-    return;
+    return 0;
 
   goto again;
 }

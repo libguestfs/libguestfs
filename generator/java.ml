@@ -1218,7 +1218,11 @@ and generate_java_struct_return typ jtyp cols =
     | name, FBuffer ->
         pr "  {\n";
         pr "    size_t len = r->%s_len;\n" name;
-        pr "    char s[len+1];\n";
+        pr "    CLEANUP_FREE char *s = malloc (len + 1);\n";
+        pr "    if (s == NULL) {\n";
+        pr "      throw_out_of_memory (env, \"malloc\");\n";
+        pr "      goto ret_error;\n";
+        pr "    }\n";
         pr "    memcpy (s, r->%s, len);\n" name;
         pr "    s[len] = 0;\n";
         pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
@@ -1275,7 +1279,11 @@ and generate_java_struct_list_return typ jtyp cols =
       | FBuffer ->
         pr "    {\n";
         pr "      size_t len = r->val[i].%s_len;\n" name;
-        pr "      char s[len+1];\n";
+        pr "      CLEANUP_FREE char *s = malloc (len);\n";
+        pr "      if (s == NULL) {\n";
+        pr "        throw_out_of_memory (env, \"malloc\");\n";
+        pr "        goto ret_error;\n";
+        pr "      }\n";
         pr "      memcpy (s, r->val[i].%s, len);\n" name;
         pr "      s[len] = 0;\n";
         pr "      (*env)->SetObjectField (env, jfl, fl,\n";

@@ -992,8 +992,7 @@ device_name_translation (const char *device)
 int
 parse_btrfsvol (const char *desc_orig, mountable_t *mountable)
 {
-  size_t len = strlen (desc_orig);
-  char desc[len+1];
+  CLEANUP_FREE char *desc = NULL;
   CLEANUP_FREE char *device = NULL;
   const char *volume = NULL;
   char *slash;
@@ -1001,10 +1000,14 @@ parse_btrfsvol (const char *desc_orig, mountable_t *mountable)
 
   mountable->type = MOUNTABLE_BTRFSVOL;
 
-  memcpy (desc, desc_orig, len+1);
-
-  if (! STRPREFIX (desc, "/dev/"))
+  if (!STRPREFIX (desc_orig, "/dev/"))
     return -1;
+
+  desc = strdup (desc_orig);
+  if (desc == NULL) {
+    perror ("strdup");
+    return -1;
+  }
 
   slash = desc + strlen ("/dev/") - 1;
   while ((slash = strchr (slash + 1, '/'))) {
@@ -1073,6 +1076,11 @@ mountable_to_string (const mountable_t *mountable)
   }
 }
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 /* Check program exists and is executable on $PATH. */
 int
 prog_exists (const char *prog)
@@ -1104,6 +1112,10 @@ prog_exists (const char *prog)
   /* Not found. */
   return 0;
 }
+
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
 
 /* Pass a template such as "/sysroot/XXXXXXXX.XXX".  This updates the
  * template to contain a randomly named file.  Any 'X' characters

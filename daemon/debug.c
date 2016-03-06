@@ -437,11 +437,17 @@ static char *
 debug_ls (const char *subcmd, size_t argc, char *const *const argv)
 {
   size_t len = count_strings (argv);
-  const char *cargv[len+3];
+  CLEANUP_FREE const char **cargv = NULL;
   size_t i;
   int r;
   char *out;
   CLEANUP_FREE char *err = NULL;
+
+  cargv = malloc (sizeof (char *) * (len+3));
+  if (cargv == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
 
   cargv[0] = str_ls;
   cargv[1] = "-a";
@@ -464,11 +470,17 @@ static char *
 debug_ll (const char *subcmd, size_t argc, char *const *const argv)
 {
   size_t len = count_strings (argv);
-  const char *cargv[len+3];
+  CLEANUP_FREE const char **cargv = NULL;
   size_t i;
   int r;
   char *out;
   CLEANUP_FREE char *err = NULL;
+
+  cargv = malloc (sizeof (char *) * (len+3));
+  if (cargv == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
 
   cargv[0] = str_ls;
   cargv[1] = "-la";
