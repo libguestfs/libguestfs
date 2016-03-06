@@ -1105,7 +1105,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
 
     g#aug_save ();
 
-    (* If we updated the X driver, checkthat X itself is installed,
+    (* If we updated the X driver, check that X itself is installed,
      * and warn if not.  Old virt-v2v used to attempt to install X here
      * but that way lies insanity and ruin.
      *)
