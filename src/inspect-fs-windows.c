@@ -389,7 +389,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   int r;
   size_t len = strlen (fs->windows_systemroot) + 64;
   char system[len];
-  char gpt_prefix[] = "DMIO:ID:";
+  static const char gpt_prefix[] = "DMIO:ID:";
   snprintf (system, len, "%s/system32/config/system",
             fs->windows_systemroot);
 
