@@ -282,6 +282,7 @@ AC_CONFIG_FILES([Makefile
                  tests/selinux/Makefile
                  tests/syslinux/Makefile
                  tests/tmpdirs/Makefile
+                 tests/tsk/Makefile
                  tests/xfs/Makefile
                  tests/xml/Makefile
                  tools/Makefile

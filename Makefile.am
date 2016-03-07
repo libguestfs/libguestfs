@@ -83,6 +83,7 @@ SUBDIRS += tests/journal
 SUBDIRS += tests/relative-paths
 SUBDIRS += tests/gdisk
 SUBDIRS += tests/regressions
+SUBDIRS += tests/tsk
 endif
 
 # libguestfs-test-tool
