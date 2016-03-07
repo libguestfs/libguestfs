@@ -23,8 +23,8 @@ dnl Also, the date that this version was released.  This is used in
 dnl the website 'index.html' file.
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [33])
-m4_define([libguestfs_release], [13])
-AC_SUBST([RELEASE_DATE], [2016-02-12])
+m4_define([libguestfs_release], [14])
+AC_SUBST([RELEASE_DATE], [2016-03-07])
 
 dnl Initialize autoconf.
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
