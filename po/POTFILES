@@ -108,6 +108,7 @@ daemon/sync.c
 daemon/syslinux.c
 daemon/tar.c
 daemon/truncate.c
+daemon/tsk.c
 daemon/umask.c
 daemon/upload.c
 daemon/utimens.c

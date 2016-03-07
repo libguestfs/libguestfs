@@ -179,6 +179,7 @@ guestfsd_SOURCES = \
 	syslinux.c \
 	tar.c \
 	truncate.c \
+	tsk.c \
 	umask.c \
 	upload.c \
 	utimens.c \
