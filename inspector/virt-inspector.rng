@@ -26,12 +26,7 @@
           <interleave>
 
             <optional><element name="root"><text/></element></optional>
-            <element name="name">
-              <choice>
-                <value>linux</value>
-                <value>windows</value>
-              </choice>
-            </element>
+            <ref name="osname"/>
             <optional><element name="arch"><text/></element></optional>
             <optional><element name="distro"><text/></element></optional>
             <optional><element name="product_name"><text/></element></optional>
@@ -60,6 +55,23 @@
       </oneOrMore>
     </element>
   </start>
+
+  <!-- the operating system -->
+  <define name="osname">
+    <element name="name">
+      <choice>
+        <value>dos</value>
+        <value>freebsd</value>
+        <value>hurd</value>
+        <value>linux</value>
+        <value>minix</value>
+        <value>netbsd</value>
+        <value>openbsd</value>
+        <value>windows</value>
+        <!-- "unknown" is intentionally left out -->
+      </choice>
+    </element>
+  </define>
 
   <!-- how filesystems are mounted on mount points -->
   <define name="mountpoints">
