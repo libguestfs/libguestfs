@@ -50,6 +50,8 @@ int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 1;
 static const char *xpath = NULL;
+static int inspect_apps = 1;
+static int inspect_icon = 1;
 
 static void output (char **roots);
 static void output_roots (xmlTextWriterPtr xo, char **roots);
@@ -80,6 +82,8 @@ usage (int status)
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
+              "  --no-applications    Do not output the installed applications\n"
+              "  --no-icon            Do not output the guest icon\n"
               "  -v|--verbose         Verbose messages\n"
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
@@ -110,6 +114,8 @@ main (int argc, char *argv[])
     { "help", 0, 0, HELP_OPTION },
     { "keys-from-stdin", 0, 0, 0 },
     { "long-options", 0, 0, 0 },
+    { "no-applications", 0, 0, 0 },
+    { "no-icon", 0, 0, 0 },
     { "short-options", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
@@ -147,6 +153,10 @@ main (int argc, char *argv[])
         OPTION_format;
       } else if (STREQ (long_options[option_index].name, "xpath")) {
         xpath = optarg;
+      } else if (STREQ (long_options[option_index].name, "no-applications")) {
+        inspect_apps = 0;
+      } else if (STREQ (long_options[option_index].name, "no-icon")) {
+        inspect_icon = 0;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  guestfs_int_program_name,
@@ -479,30 +489,35 @@ output_root (xmlTextWriterPtr xo, char *root)
   /* We need to mount everything up in order to read out the list of
    * applications and the icon, ie. everything below this point.
    */
-  inspect_mount_root (g, root);
+  if (inspect_apps || inspect_icon) {
+    inspect_mount_root (g, root);
 
-  output_applications (xo, root);
+    if (inspect_apps)
+      output_applications (xo, root);
 
-  /* Don't return favicon.  RHEL 7 and Fedora have crappy 16x16
-   * favicons in the base distro.
-   */
-  str = guestfs_inspect_get_icon (g, root, &size,
-                                  GUESTFS_INSPECT_GET_ICON_FAVICON, 0,
-                                  -1);
-  if (!str) exit (EXIT_FAILURE);
-  if (size > 0) {
-    XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "icon"));
-    XMLERROR (-1, xmlTextWriterWriteBase64 (xo, str, 0, size));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
+    if (inspect_icon) {
+      /* Don't return favicon.  RHEL 7 and Fedora have crappy 16x16
+       * favicons in the base distro.
+       */
+      str = guestfs_inspect_get_icon (g, root, &size,
+                                      GUESTFS_INSPECT_GET_ICON_FAVICON, 0,
+                                      -1);
+      if (!str) exit (EXIT_FAILURE);
+      if (size > 0) {
+        XMLERROR (-1, xmlTextWriterStartElement (xo, BAD_CAST "icon"));
+        XMLERROR (-1, xmlTextWriterWriteBase64 (xo, str, 0, size));
+        XMLERROR (-1, xmlTextWriterEndElement (xo));
+      }
+      /* Note we must free (str) even if size == 0, because that indicates
+       * there was no icon.
+       */
+      free (str);
+    }
+
+    /* Unmount (see inspect_mount_root above). */
+    if (guestfs_umount_all (g) == -1)
+      exit (EXIT_FAILURE);
   }
-  /* Note we must free (str) even if size == 0, because that indicates
-   * there was no icon.
-   */
-  free (str);
-
-  /* Unmount (see inspect_mount_root above). */
-  if (guestfs_umount_all (g) == -1)
-    exit (EXIT_FAILURE);
 
   XMLERROR (-1, xmlTextWriterEndElement (xo));
 }
