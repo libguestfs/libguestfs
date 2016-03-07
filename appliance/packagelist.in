@@ -46,6 +46,7 @@ ifelse(REDHAT,1,
   pcre
   reiserfs-utils
   libselinux
+  sleuthkit
   syslinux-extlinux
   systemd              dnl for /sbin/reboot and udevd
   vim-minimal
@@ -89,6 +90,7 @@ dnl iproute has been renamed to iproute2
   ntfs-3g
   openssh-client
   reiserfsprogs
+  sleuthkit
   sysvinit                  dnl for /sbin/reboot
   systemd                   dnl alternative for /sbin/reboot
   ufsutils
@@ -120,6 +122,7 @@ ifelse(ARCHLINUX,1,
   ntfs-3g
   pcre
   reiserfsprogs
+  sleuthkit
   systemd
   vim
   xz
