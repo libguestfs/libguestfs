@@ -49,6 +49,7 @@ static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, st
 #endif
 static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
 static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application2_list *list_applications_apk (guestfs_h *g, struct inspect_fs *fs);
 static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
 static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *description);
 static void sort_applications (struct guestfs_application2_list *);
@@ -140,6 +141,11 @@ guestfs_impl_inspect_list_applications2 (guestfs_h *g, const char *root)
 	break;
 
       case OS_PACKAGE_FORMAT_APK:
+        ret = list_applications_apk (g, fs);
+        if (ret == NULL)
+          return NULL;
+        break;
+
       case OS_PACKAGE_FORMAT_EBUILD:
       case OS_PACKAGE_FORMAT_PISI:
       case OS_PACKAGE_FORMAT_PKGSRC:
@@ -652,6 +658,121 @@ list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
   if (ret == NULL)
     guestfs_free_application2_list (apps);
 
+  return ret;
+}
+
+static struct guestfs_application2_list *
+list_applications_apk (guestfs_h *g, struct inspect_fs *fs)
+{
+  CLEANUP_FREE char *installed = NULL, *line = NULL;
+  struct guestfs_application2_list *apps = NULL, *ret = NULL;
+  FILE *fp;
+  size_t allocsize = 0;
+  ssize_t len;
+  int32_t epoch = 0;
+  CLEANUP_FREE char *name = NULL, *version = NULL, *release = NULL, *arch = NULL,
+    *url = NULL, *description = NULL;
+
+  installed = guestfs_int_download_to_tmp (g, fs, "/lib/apk/db/installed",
+                                           "installed", MAX_PKG_DB_SIZE);
+  if (installed == NULL)
+    return NULL;
+
+  fp = fopen (installed, "r");
+  if (fp == NULL) {
+    perrorf (g, "fopen: %s", installed);
+    goto out;
+  }
+
+  /* Allocate 'apps' list. */
+  apps = safe_malloc (g, sizeof *apps);
+  apps->len = 0;
+  apps->val = NULL;
+
+  /* Read the temporary file.  Each package entry is separated by
+   * a blank line.  Each package line is <character>:<field>.
+   */
+  while ((len = getline (&line, &allocsize, fp)) != -1) {
+    if (len > 0 && line[len-1] == '\n') {
+      line[len-1] = '\0';
+      --len;
+    }
+
+    if (len > 1 && line[1] != ':') {
+      /* Invalid line format.  Should we fail instead? */
+      continue;
+    }
+
+    switch (line[0]) {
+    case '\0':
+      if (name && version && (epoch >= 0))
+        add_application (g, apps, name, "", epoch, version, release ? : "",
+                         arch ? : "", "", "", url ? : "", description ? : "");
+      free (name);
+      free (version);
+      free (release);
+      free (arch);
+      free (url);
+      free (description);
+      name = version = release = arch = url = description = NULL;
+      break;
+    case 'A':
+      free (arch);
+      arch = safe_strdup (g, &line[2]);
+      break;
+    case 'P':
+      free (name);
+      name = safe_strdup (g, &line[2]);
+      break;
+    case 'T':
+      free (description);
+      description = safe_strdup (g, &line[2]);
+      break;
+    case 'U':
+      free (url);
+      url = safe_strdup (g, &line[2]);
+      break;
+    case 'V':
+      free (version);
+      free (release);
+      char *p1, *p2;
+      p1 = strchr (&line[2], ':');
+      if (p1) {
+        *p1++ = '\0';
+        epoch = guestfs_int_parse_unsigned_int (g, &line[2]); /* -1 on error */
+      } else {
+        p1 = &line[2];
+        epoch = 0;
+      }
+      p2 = strchr (p1, '-');
+      if (p2) {
+        *p2++ = '\0';
+        /* Skip the leading 'r' in revisions. */
+        if (p2[0] == 'r')
+          ++p2;
+        release = safe_strdup (g, p2);
+      } else {
+        release = NULL;
+      }
+      version = safe_strdup (g, p1);
+      break;
+    }
+  }
+
+  if (fclose (fp) == -1) {
+    perrorf (g, "fclose: %s", installed);
+    goto out;
+  }
+
+  ret = apps;
+
+ out:
+  if (ret == NULL)
+    guestfs_free_application2_list (apps);
+  /*
+  if (fp)
+    fclose (fp);
+  */
   return ret;
 }
 
