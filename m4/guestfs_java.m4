@@ -84,7 +84,7 @@ if test "x$with_java" != "xno"; then
         else
             JAR="$JAVA/bin/jar"
         fi
-        java_version=`$JAVA_EXE -version 2>&1 | grep "java version"`
+        java_version=`$JAVA_EXE -version 2>&1 | $AWK -F '"' '/^(java|openjdk) version/ {print $2;}'`
         AC_MSG_RESULT(found $java_version in $JAVA)
 
         dnl Find jni.h.
