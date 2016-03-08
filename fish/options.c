@@ -280,7 +280,33 @@ display_mountpoints_on_failure (const char *mp_device,
            guestfs_int_program_name);
 
   for (i = 0; fses[i] != NULL; i += 2) {
-    CLEANUP_FREE char *p = guestfs_canonical_device_name (g, fses[i]);
+    CLEANUP_FREE char *p = NULL;
+    CLEANUP_FREE char *device = guestfs_mountable_device (g, fses[i]);
+    CLEANUP_FREE char *subvolume = NULL;
+
+    guestfs_push_error_handler (g, NULL, NULL);
+
+    subvolume = guestfs_mountable_subvolume (g, fses[i]);
+    if (subvolume == NULL && guestfs_last_errno (g) != EINVAL) {
+      fprintf (stderr,
+               _("%s: cannot determine the subvolume for %s: %s (%d)\n"),
+              guestfs_int_program_name, fses[i],
+              guestfs_last_error (g), guestfs_last_errno (g));
+      exit (EXIT_FAILURE);
+    }
+
+    guestfs_pop_error_handler (g);
+
+    /* Reformat the internal btrfsvol string into a valid mount option */
+    if (device && subvolume) {
+      if (asprintf (&p, "%s:/:subvol=%s", device, subvolume) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+    } else {
+      p = guestfs_canonical_device_name (g, fses[i]);
+    }
+
     fprintf (stderr, "%s: \t%s (%s)\n", guestfs_int_program_name,
              p ? p : fses[i], fses[i+1]);
   }
