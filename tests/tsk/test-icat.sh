@@ -28,7 +28,7 @@ fi
 rm -f test-mft.bin
 
 # Skip if TSK is not supported by the appliance.
-if ! guestfish add /dev/null : run : available "icat"; then
+if ! guestfish add /dev/null : run : available "sleuthkit"; then
     echo "$0: skipped because TSK is not available in the appliance"
     exit 77
 fi

@@ -12949,7 +12949,7 @@ otherwise the call will fail." };
     name = "icat"; added = (1, 33, 14);
     style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename"], [];
     proc_nr = Some 464;
-    optional = Some "icat";
+    optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download a file to the local machine given its inode";
     longdesc = "\

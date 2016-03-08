@@ -31,12 +31,12 @@
 
 static int file_out (const char *cmd);
 
-GUESTFSD_EXT_CMD(str_tsk_probe, icat);
+GUESTFSD_EXT_CMD(str_sleuthkit_probe, icat);
 
 int
-optgroup_icat_available (void)
+optgroup_sleuthkit_available (void)
 {
-  return prog_exists (str_tsk_probe);
+  return prog_exists (str_sleuthkit_probe);
 }
 
 int
