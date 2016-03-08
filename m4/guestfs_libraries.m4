@@ -113,7 +113,14 @@ struct sockaddr_un myaddr;
 dnl tgetent, tputs and UP [sic] are all required.  They come from the lower
 dnl tinfo library, but might be part of ncurses directly.
 PKG_CHECK_MODULES([LIBTINFO], [tinfo], [], [
-    PKG_CHECK_MODULES([LIBTINFO], [ncurses])
+    PKG_CHECK_MODULES([LIBTINFO], [ncurses], [], [
+        AC_CHECK_PROGS([NCURSES_CONFIG], [ncurses6-config ncurses5-config], [no])
+        AS_IF([test "x$NCURSES_CONFIG" = "xno"], [
+            AC_MSG_ERROR([ncurses development package is not installed])
+        ])
+        LIBTINFO_CFLAGS=`$NCURSES_CONFIG --cflags`
+        LIBTINFO_LIBS=`$NCURSES_CONFIG --libs`
+    ])
 ])
 AC_SUBST([LIBTINFO_CFLAGS])
 AC_SUBST([LIBTINFO_LIBS])
