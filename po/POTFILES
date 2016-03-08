@@ -346,6 +346,7 @@ src/libvirt-is-version.c
 src/listfs.c
 src/lpj.c
 src/match.c
+src/mountable.c
 src/osinfo.c
 src/private-data.c
 src/proto.c

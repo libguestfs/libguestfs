@@ -121,6 +121,7 @@ libguestfs_la_SOURCES = \
 	listfs.c \
 	lpj.c \
 	match.c \
+	mountable.c \
 	osinfo.c \
 	private-data.c \
 	proto.c \

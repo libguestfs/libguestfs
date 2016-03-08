@@ -1290,6 +1290,32 @@ Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>." };
 
   { defaults with
+    name = "mountable_device"; added = (1, 33, 15);
+    style = RString "device", [Mountable "mountable"], [];
+    shortdesc = "extract the device part of a mountable";
+    longdesc = "\
+Returns the device name of a mountable. In quite a lot of
+cases, the mountable is the device name.
+
+However this doesn't apply for btrfs subvolumes, where the
+mountable is a combination of both the device name and the
+subvolume path (see also C<guestfs_mountable_subvolume> to
+extract the subvolume path of the mountable if any)." };
+
+  { defaults with
+    name = "mountable_subvolume"; added = (1, 33, 15);
+    style = RString "subvolume", [Mountable "mountable"], [];
+    shortdesc = "extract the subvolume part of a mountable";
+    longdesc = "\
+Returns the subvolume path of a mountable. Btrfs subvolumes
+mountables are a combination of both the device name and the
+subvolume path (see also C<guestfs_mountable_device> to extract
+the device of the mountable).
+
+If the mountable does not represent a btrfs subvolume, then
+this function fails and the C<errno> is set to C<EINVAL>." };
+
+  { defaults with
     name = "set_network"; added = (1, 5, 4);
     style = RErr, [Bool "network"], [];
     fish_alias = ["network"]; config_only = true;
