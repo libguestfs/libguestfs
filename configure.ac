@@ -15,19 +15,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-dnl The major, minor, and release fields MUST be numbers.  Packagers can
-dnl add extra information using --with-extra="..." which may be any
-dnl freeform string.
-dnl
-dnl Also, the date that this version was released.  This is used in
-dnl the website 'index.html' file.
+# The major, minor, and release fields MUST be numbers.  Packagers can
+# add extra information using --with-extra="..." which may be any
+# freeform string.
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [33])
 m4_define([libguestfs_release], [14])
-AC_SUBST([RELEASE_DATE], [2016-03-07])
 
-dnl Initialize autoconf.
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
+
+dnl The date that the above version was released.  This is used in
+dnl the website 'index.html' file.
+AC_SUBST([RELEASE_DATE], [2016-03-07])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_REQUIRE_AUX_FILE([guestfs-test-driver])
