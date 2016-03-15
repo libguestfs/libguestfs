@@ -39,7 +39,7 @@ L<guestfs-performance(1)>).
 =back
 
 For deeper understanding of why you might need this tool, read
-L<guestfs(3)/FIXED APPLIANCE>.
+L<guestfs-internals(1)/FIXED APPLIANCE>.
 
 Instead of running this tool, you can download fixed appliances from
 L<http://libguestfs.org/download/binaries/appliance/>.  These

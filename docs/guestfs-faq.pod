@@ -437,7 +437,7 @@ F<./configure> (depending whether you are building respectively from
 git or from tarballs).  Then, when using libguestfs, you B<must> set
 the C<LIBGUESTFS_PATH> environment variable to the directory of a
 pre-compiled appliance, as also described in
-L<guestfs(3)/FIXED APPLIANCE>.
+L<guestfs-internals(1)/FIXED APPLIANCE>.
 
 For pre-compiled appliances, see also:
 L<http://libguestfs.org/download/binaries/appliance/>.
