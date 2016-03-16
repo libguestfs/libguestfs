@@ -147,6 +147,7 @@ guestfish_CFLAGS = \
 guestfish_LDADD = \
 	$(LIBCONFIG_LIBS) \
 	$(LIBREADLINE) \
+	$(LIBTINFO_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/src/libutils.la \
 	$(LIBXML2_LIBS) \
