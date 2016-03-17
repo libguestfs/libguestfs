@@ -73,6 +73,9 @@ popd
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
 dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
+
+# Ensure the installation is up-to-date:
+dnf -y --best upgrade
 %end
 EOF
 
@@ -96,11 +99,5 @@ virt-install \
     --location=$tree \
     --nographics \
     --noreboot
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1280029
-# (Only for Fedora 23)
-if [ "$version" = "23" ]; then
-    virt-customize -a $output --install "https://kojipkgs.fedoraproject.org//packages/dnf/1.1.4/2.fc23/noarch/dnf-1.1.4-2.fc23.noarch.rpm,https://kojipkgs.fedoraproject.org//packages/dnf/1.1.4/2.fc23/noarch/dnf-conf-1.1.4-2.fc23.noarch.rpm,https://kojipkgs.fedoraproject.org//packages/dnf/1.1.4/2.fc23/noarch/dnf-yum-1.1.4-2.fc23.noarch.rpm,https://kojipkgs.fedoraproject.org//packages/dnf/1.1.4/2.fc23/noarch/python3-dnf-1.1.4-2.fc23.noarch.rpm"
-fi
 
 source $(dirname "$0")/compress.sh $output

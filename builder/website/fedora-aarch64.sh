@@ -64,6 +64,9 @@ poweroff
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
 dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
+
+# Ensure the installation is up-to-date:
+dnf -y --best upgrade
 %end
 EOF
 
