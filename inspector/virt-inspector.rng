@@ -28,17 +28,17 @@
             <optional><element name="root"><text/></element></optional>
             <ref name="osname"/>
             <optional><element name="arch"><text/></element></optional>
-            <optional><element name="distro"><text/></element></optional>
+            <optional><ref name="osdistro"/></optional>
             <optional><element name="product_name"><text/></element></optional>
             <optional><element name="product_variant"><text/></element></optional>
             <element name="major_version"><text/></element>
             <element name="minor_version"><text/></element>
             <optional><element name="windows_systemroot"><text/></element></optional>
             <optional><element name="windows_current_control_set"><text/></element></optional>
-            <optional><element name="package_format"><text/></element></optional>
-            <optional><element name="package_management"><text/></element></optional>
+            <optional><ref name="ospackageformat"/></optional>
+            <optional><ref name="ospackagemanagement"/></optional>
             <optional><element name="hostname"><text/></element></optional>
-            <optional><element name="format"><text/></element></optional>
+            <optional><ref name="osformat"/></optional>
             <optional><element name="live"><empty/></element></optional>
             <optional><element name="netinst"><empty/></element></optional>
             <optional><element name="multipart"><empty/></element></optional>
@@ -68,6 +68,93 @@
         <value>netbsd</value>
         <value>openbsd</value>
         <value>windows</value>
+        <!-- "unknown" is intentionally left out -->
+      </choice>
+    </element>
+  </define>
+
+  <!-- the distribution -->
+  <define name="osdistro">
+    <element name="distro">
+      <choice>
+        <value>alpinelinux</value>
+        <value>altlinux</value>
+        <value>archlinux</value>
+        <value>buildroot</value>
+        <value>centos</value>
+        <value>cirros</value>
+        <value>coreos</value>
+        <value>debian</value>
+        <value>fedora</value>
+        <value>freebsd</value>
+        <value>freedos</value>
+        <value>frugalware</value>
+        <value>gentoo</value>
+        <value>linuxmint</value>
+        <value>mageia</value>
+        <value>mandriva</value>
+        <value>meego</value>
+        <value>netbsd</value>
+        <value>openbsd</value>
+        <value>opensuse</value>
+        <value>oraclelinux</value>
+        <value>pardus</value>
+        <value>pldlinux</value>
+        <value>redhat-based</value>
+        <value>rhel</value>
+        <value>scientificlinux</value>
+        <value>slackware</value>
+        <value>sles</value>
+        <value>suse-based</value>
+        <value>ttylinux</value>
+        <value>ubuntu</value>
+        <value>windows</value>
+        <!-- "unknown" is intentionally left out -->
+      </choice>
+    </element>
+  </define>
+
+  <!-- the package format -->
+  <define name="ospackageformat">
+    <element name="package_format">
+      <choice>
+        <value>apk</value>
+        <value>deb</value>
+        <value>ebuild</value>
+        <value>pacman</value>
+        <value>pisi</value>
+        <value>pkgsrc</value>
+        <value>rpm</value>
+        <!-- "unknown" is intentionally left out -->
+      </choice>
+    </element>
+  </define>
+
+  <!-- the package management -->
+  <define name="ospackagemanagement">
+    <element name="package_management">
+      <choice>
+        <value>apk</value>
+        <value>apt</value>
+        <value>dnf</value>
+        <value>pacman</value>
+        <value>pisi</value>
+        <value>portage</value>
+        <value>up2date</value>
+        <value>urpmi</value>
+        <value>yum</value>
+        <value>zypper</value>
+        <!-- "unknown" is intentionally left out -->
+      </choice>
+    </element>
+  </define>
+
+  <!-- the operating system format -->
+  <define name="osformat">
+    <element name="format">
+      <choice>
+        <value>installed</value>
+        <value>installer</value>
         <!-- "unknown" is intentionally left out -->
       </choice>
     </element>
