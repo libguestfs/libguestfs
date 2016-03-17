@@ -359,7 +359,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
      "%s"                       /* root=appliance_dev */
      " %s"                      /* selinux */
-     "%s"                       /* verbose */
+     " %s"                      /* quiet/verbose */
      "%s"                       /* network */
      " TERM=%s"                 /* TERM environment variable */
      "%s%s"                     /* handle identifier */
@@ -370,7 +370,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      lpj_s,
      root,
      g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
-     g->verbose ? " guestfs_verbose=1" : "",
+     g->verbose ? "guestfs_verbose=1" : "quiet",
      g->enable_network ? " guestfs_network=1" : "",
      term ? term : "linux",
      STRNEQ (g->identifier, "") ? " guestfs_identifier=" : "",

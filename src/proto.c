@@ -129,6 +129,9 @@ guestfs_int_log_message_callback (guestfs_h *g, const char *buf, size_t len)
     const char *sentinel;
     size_t slen;
 
+    /* Since 2016-03, if !verbose, then we add the "quiet" flag to the
+     * kernel, so the following sentinel will never be produced. XXX
+     */
     sentinel = "Linux version"; /* kernel up */
     slen = strlen (sentinel);
     if (memmem (buf, len, sentinel, slen) != NULL)
