@@ -132,3 +132,7 @@ AS_IF([test "x$VALGRIND" != "xno"],[
 ])
 AC_SUBST([VG])
 AM_SUBST_NOTMAKE([VG])
+
+dnl Check for fuser (used in FUSE stuff).
+AC_PATH_PROGS([FUSER],[fuser],[/sbin/fuser])
+AC_DEFINE_UNQUOTED([FUSER],["$FUSER"],[Name of fuser program.])

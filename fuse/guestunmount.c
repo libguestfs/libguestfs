@@ -348,11 +348,11 @@ do_fuser (const char *mountpoint)
     exit (EXIT_FAILURE);
   }
 
-  if (pid == 0) {               /* Child - run /sbin/fuser. */
+  if (pid == 0) {               /* Child - run fuser. */
 #ifdef __linux__
-    execlp ("/sbin/fuser", "fuser", "-v", "-m", mountpoint, NULL);
+    execlp (FUSER, "fuser", "-v", "-m", mountpoint, NULL);
 #else
-    execlp ("/sbin/fuser", "fuser", "-c", mountpoint, NULL);
+    execlp (FUSER, "fuser", "-c", mountpoint, NULL);
 #endif
     _exit (EXIT_FAILURE);
   }
