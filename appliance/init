@@ -54,6 +54,9 @@ fi
 if [[ $cmdline == *guestfs_noreboot=1* ]]; then
     guestfs_noreboot=1
 fi
+if [[ $cmdline == *guestfs_boot_analysis=1* ]]; then
+    guestfs_boot_analysis=1
+fi
 
 # Mount the other special filesystems.
 if [ ! -d /sys ]; then rm -f /sys; fi
@@ -133,7 +136,7 @@ lvm vgchange -aay --sysinit
 ldmtool create all
 
 # These are useful when debugging.
-if test "$guestfs_verbose" = 1; then
+if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     uname -a
     ls -lR /dev
     cat /proc/mounts

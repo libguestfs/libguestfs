@@ -509,6 +509,7 @@ Makefile.in
 /tests/mountable/test-internal-parse-mountable
 /tests/parallel/test-parallel
 /tests/protocol/test-error-messages
+/tests/qemu/boot-analysis
 /tests/qemu/qemu-boot
 /tests/qemu/qemu-speed-test
 /tests/regressions/rhbz501893
