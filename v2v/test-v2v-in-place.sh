@@ -44,6 +44,8 @@ fi
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
 
+. $srcdir/../test-data/guestfs-hashsums.sh
+
 d=$PWD/test-v2v-in-place.d
 rm -rf $d
 mkdir $d
@@ -51,7 +53,7 @@ mkdir $d
 img="$d/test.qcow2"
 rm -f $img
 qemu-img create -f qcow2 -b $img_base -o compat=1.1,backing_fmt=raw $img
-md5="$(md5sum $img_base)"
+md5="$(do_md5 $img_base)"
 
 libvirt_xml="$d/test.xml"
 rm -f $libvirt_xml
@@ -113,7 +115,7 @@ guestfish --ro -a "$img" -i < "$script" > "$response"
 diff -u "$expected" "$response"
 
 # Test the base image remained untouched
-test "$md5" = "$(md5sum $img_base)"
+test "$md5" = "$(do_md5 $img_base)"
 
 # Clean up.
 rm -r $d
