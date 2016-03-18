@@ -60,7 +60,9 @@ extension/config.h: extension/config.m4 ../config.status
 	test -f "$@" && touch -- $@
 
 # Don't use --test because PHP always returns a success code.
-TESTS_ENVIRONMENT = $(top_builddir)/run
+TESTS_ENVIRONMENT = \
+	MAKE=$(MAKE) \
+	$(top_builddir)/run
 
 TESTS = run-php-tests.sh
 
