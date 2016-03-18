@@ -138,7 +138,7 @@ start_thread (void *vi)
   }
 
   /* Fake out hypervisor. */
-  if (guestfs_set_hv (g, "/bin/true") == -1) {
+  if (guestfs_set_hv (g, TOOL_TRUE) == -1) {
     *(int *)vi = -1;
     pthread_exit (vi);
   }
