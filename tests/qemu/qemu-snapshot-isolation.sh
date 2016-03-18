@@ -22,7 +22,7 @@
 
 set -e
 
-. $srcdir/guestfs-md5.sh
+. $srcdir/../../test-data/guestfs-hashsums.sh
 
 # UML backend doesn't support qcow2 format.
 supports_qcow2=yes
