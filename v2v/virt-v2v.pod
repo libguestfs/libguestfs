@@ -354,6 +354,8 @@ This mode is meant for integration with other toolsets, which take the
 responsibility of converting the VM configuration, providing for
 rollback in case of errors, transforming the storage, etc.
 
+See L</IN PLACE CONVERSION> below.
+
 Conflicts with all I<-o *> options.
 
 =item B<--machine-readable>
@@ -1729,6 +1731,31 @@ that instead.
      </interface>
    </devices>
  </domain>
+
+=head1 IN PLACE CONVERSION
+
+It is also possible to use virt-v2v in scenarios where a foreign VM
+has already been imported into a KVM-based hypervisor, but still needs
+adjustments in the guest to make it run in the new virtual hardware.
+
+In that case it is assumed that a third-party tool has created the
+target VM in the supported KVM-based hypervisor based on the source VM
+configuration and contents, but using virtual devices more appropriate
+for KVM (e.g. virtio storage and network, etc.).
+
+Then, to make the guest OS boot and run in the changed environment,
+one can use:
+
+ virt-v2v -ic qemu:///system converted_vm --in-place
+
+Virt-v2v will analyze the configuration of C<converted_vm> in the
+C<qemu:///system> libvirt instance, and apply various fixups to the
+guest OS configuration to make it match the VM configuration.  This
+may include installing virtio drivers, configuring the bootloader, the
+mountpoints, the network interfaces, and so on.
+
+Should an error occur during the operation, virt-v2v exits with an
+error code leaving the VM in an undefined state.
 
 =head1 MACHINE READABLE OUTPUT
 
