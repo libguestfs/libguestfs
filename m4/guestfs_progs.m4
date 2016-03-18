@@ -136,3 +136,7 @@ AM_SUBST_NOTMAKE([VG])
 dnl Check for fuser (used in FUSE stuff).
 AC_PATH_PROGS([FUSER],[fuser],[/sbin/fuser])
 AC_DEFINE_UNQUOTED([FUSER],["$FUSER"],[Name of fuser program.])
+
+dnl Check for true (used in tests).
+AC_PATH_PROGS([TOOL_TRUE],[true],[/bin/true])
+AC_DEFINE_UNQUOTED([TOOL_TRUE],["$TOOL_TRUE"],[Name of 'true' program.])
