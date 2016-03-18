@@ -20,13 +20,14 @@ AC_DEFUN([GUESTFS_FIND_DB_TOOL],[
     TOOL=$2
 
     db_tool_name="db_$TOOL"
-    db_versions="5.1 4.8 4.7 4.6"
-    db_tool_patterns="db_$TOOL dbX_$TOOL dbX.Y_$TOOL"
+    db_versions="5.3 5.2 5.1 4.8 4.7 4.6"
+    db_tool_patterns="dbX_$TOOL dbX.Y_$TOOL"
+    db_tool_patterns="dbX_$TOOL db_$TOOL-X dbX.Y_$TOOL db_$TOOL-X.Y"
 
     AC_ARG_VAR(VARIABLE, [Absolute path to $db_tool_name executable])
 
     AS_IF(test -z "$VARIABLE", [
-        exe_list=""
+        exe_list="db_$TOOL"
         for ver in $db_versions ; do
             ver_maj=`echo $ver | cut -d. -f1`
             ver_min=`echo $ver | cut -d. -f2`
