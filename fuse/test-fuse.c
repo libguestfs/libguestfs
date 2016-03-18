@@ -148,7 +148,7 @@ main (int argc, char *argv[])
     ignore_value (chdir ("/"));
 
     /* Who's using the mountpoint?  Should be no one. */
-    snprintf (cmd, sizeof cmd, "/sbin/fuser %s", mountpoint);
+    snprintf (cmd, sizeof cmd, "%s %s", FUSER, mountpoint);
     printf ("%s\n", cmd);
     fflush (stdout);
     ignore_value (system (cmd));
