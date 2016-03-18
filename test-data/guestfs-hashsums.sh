@@ -28,3 +28,16 @@ do_md5 ()
       ;;
   esac
 }
+
+do_sha1 ()
+{
+  case "$(uname)" in
+    Linux)
+      sha1sum "$1" | awk '{print $1}'
+      ;;
+    *)
+      echo "$0: unknown method to calculate SHA1 of file on $(uname)"
+      exit 1
+      ;;
+  esac
+}

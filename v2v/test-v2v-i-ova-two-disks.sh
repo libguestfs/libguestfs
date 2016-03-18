@@ -35,6 +35,8 @@ fi
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
 
+. $srcdir/../test-data/guestfs-hashsums.sh
+
 d=test-v2v-i-ova-two-disks.d
 rm -rf $d
 mkdir $d
@@ -44,10 +46,10 @@ pushd $d
 # Create a phony OVA.  This is only a test of source parsing, not
 # conversion, so the contents of the disks doesn't matter.
 truncate -s 10k disk1.vmdk
-sha=`sha1sum disk1.vmdk | awk '{print $1}'`
+sha=`do_sha1 disk1.vmdk`
 echo -e "SHA1(disk1.vmdk)=$sha\r" > disk1.mf
 truncate -s 100k disk2.vmdk
-sha=`sha1sum disk2.vmdk | awk '{print $1}'`
+sha=`do_sha1 disk2.vmdk`
 echo -e "SHA1(disk2.vmdk)=$sha\r" > disk2.mf
 
 tar -cf test.ova ../test-v2v-i-ova-two-disks.ovf disk1.vmdk disk1.mf disk2.vmdk disk2.mf
