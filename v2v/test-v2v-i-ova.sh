@@ -41,6 +41,8 @@ fi
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
 
+. $srcdir/../test-data/guestfs-hashsums.sh
+
 d=test-v2v-i-ova.d
 rm -rf $d
 mkdir $d
@@ -53,9 +55,9 @@ raw=TestOva-sda
 
 qemu-img convert $f -O vmdk $d/$vmdk
 cp $ovf $d/$ovf
-sha1=`sha1sum $d/$ovf | awk '{print $1}'`
+sha1=`do_sha1 $d/$ovf`
 echo "SHA1($ovf)= $sha1" > $d/$mf
-sha1=`sha1sum $d/$vmdk | awk '{print $1}'`
+sha1=`do_sha1 $d/$vmdk`
 echo "SHA1($vmdk)= $sha1" >> $d/$mf
 
 pushd .
