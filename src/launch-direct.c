@@ -574,19 +574,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE ("-device");
   ADD_CMDLINE (VIRTIO_SERIAL);
 
-#if 0
-  /* Use virtio-console (a variant form of virtio-serial) for the
-   * guest's serial console.
-   */
-  ADD_CMDLINE ("-chardev");
-  ADD_CMDLINE ("stdio,id=console");
-  ADD_CMDLINE ("-device");
-  ADD_CMDLINE ("virtconsole,chardev=console,name=org.libguestfs.console.0");
-#else
-  /* When the above works ...  until then: */
+  /* Create the serial console. */
   ADD_CMDLINE ("-serial");
   ADD_CMDLINE ("stdio");
-#endif
 
   if (qemu_supports_device (g, data, "Serial Graphics Adapter")) {
     /* Use sgabios instead of vgabios.  This means we'll see BIOS
