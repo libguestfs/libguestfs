@@ -97,6 +97,7 @@ hwclock -u -s
 # Parse the kernel command line.
 if [[ $cmdline == *guestfs_verbose=1* ]]; then
     guestfs_verbose=1
+    set -x
 fi
 if [[ $cmdline == *guestfs_network=1* ]]; then
     guestfs_network=1
