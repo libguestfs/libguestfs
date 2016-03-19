@@ -109,9 +109,6 @@ for f in /sys/block/sd*/device/timeout; do echo 300 > $f; done
 for f in /sys/block/{h,s,ub,v}d*/queue/scheduler; do echo noop > $f; done
 shopt -u nullglob
 
-# Update the system clock.
-hwclock -u -s
-
 # Set up the network.
 ip addr add 127.0.0.1/8 brd + dev lo scope host
 ip link set dev lo up
