@@ -33,9 +33,29 @@ done
 
 mkdir -p /sysroot
 
+# Mount /proc.
 if [ ! -d /proc ]; then rm -f /proc; fi
 mkdir -p /proc
 mount -t proc /proc /proc
+
+# Parse the kernel command line early (must be after /proc is mounted).
+cmdline=$(</proc/cmdline)
+
+if [[ $cmdline == *guestfs_verbose=1* ]]; then
+    guestfs_verbose=1
+    set -x
+fi
+if [[ $cmdline == *guestfs_network=1* ]]; then
+    guestfs_network=1
+fi
+if [[ $cmdline == *guestfs_rescue=1* ]]; then
+    guestfs_rescue=1
+fi
+if [[ $cmdline == *guestfs_noreboot=1* ]]; then
+    guestfs_noreboot=1
+fi
+
+# Mount the other special filesystems.
 if [ ! -d /sys ]; then rm -f /sys; fi
 mkdir -p /sys
 mount -t sysfs /sys /sys
@@ -77,8 +97,6 @@ $UDEVD --daemon #--debug
 udevadm trigger
 udevadm settle --timeout=600
 
-cmdline=$(</proc/cmdline)
-
 if [[ $cmdline == *selinux=1* ]]; then
   mount -t selinuxfs none /sys/fs/selinux
 fi
@@ -93,22 +111,6 @@ shopt -u nullglob
 
 # Update the system clock.
 hwclock -u -s
-
-# Parse the kernel command line.
-if [[ $cmdline == *guestfs_verbose=1* ]]; then
-    guestfs_verbose=1
-    set -x
-fi
-if [[ $cmdline == *guestfs_network=1* ]]; then
-    guestfs_network=1
-fi
-if [[ $cmdline == *guestfs_rescue=1* ]]; then
-    guestfs_rescue=1
-fi
-if [[ $cmdline == *guestfs_noreboot=1* ]]; then
-    guestfs_noreboot=1
-fi
-eval `grep -Eo 'guestfs_channel=[^[:space:]]+' /proc/cmdline`
 
 # Set up the network.
 ip addr add 127.0.0.1/8 brd + dev lo scope host
@@ -157,6 +159,7 @@ fi
 if ! test "$guestfs_rescue" = 1; then
   # Run the daemon.
   cmd="guestfsd"
+  eval `grep -Eo 'guestfs_channel=[^[:space:]]+' /proc/cmdline`
   if test "x$guestfs_channel" != "x"; then
     cmd="$cmd --channel $guestfs_channel"
   fi
