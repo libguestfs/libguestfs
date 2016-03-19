@@ -456,8 +456,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     goto cleanup1;
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "appliance is up");
+  debug (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then vmlinux immediately exits.  Check

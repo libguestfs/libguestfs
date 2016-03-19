@@ -290,8 +290,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   guestfs_int_launch_send_progress (g, 3);
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "begin testing qemu features");
+  debug (g, "begin testing qemu features");
 
   /* Get qemu help text and version. */
   if (qemu_supports (g, data, NULL) == -1)
@@ -331,8 +330,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     }
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "finished testing qemu features");
+  debug (g, "finished testing qemu features");
 
   /* Construct the qemu command line.  We have to do this before
    * forking, because after fork we are not allowed to use
@@ -818,8 +816,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     goto cleanup1;
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "appliance is up");
+  debug (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for

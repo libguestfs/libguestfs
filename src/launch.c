@@ -127,31 +127,6 @@ guestfs_int_launch_send_progress (guestfs_h *g, int perdozen)
   }
 }
 
-/* Note that since this calls 'debug' it should only be called
- * from the parent process.
- */
-void
-guestfs_int_print_timestamped_message (guestfs_h *g, const char *fs, ...)
-{
-  va_list args;
-  char *msg;
-  int err;
-  struct timeval tv;
-
-  va_start (args, fs);
-  err = vasprintf (&msg, fs, args);
-  va_end (args);
-
-  if (err < 0) return;
-
-  gettimeofday (&tv, NULL);
-
-  debug (g, "[%05" PRIi64 "ms] %s",
-         guestfs_int_timeval_diff (&g->launch_t, &tv), msg);
-
-  free (msg);
-}
-
 /* Compute Y - X and return the result in milliseconds.
  * Approximately the same as this code:
  * http://www.mpp.mpg.de/~huber/util/timevaldiff.c

@@ -220,18 +220,15 @@ build_supermin_appliance (guestfs_h *g,
   appliancedir = safe_asprintf (g, "%s/appliance.d", cachedir);
   lockfile = safe_asprintf (g, "%s/lock", cachedir);
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "begin building supermin appliance");
+  debug (g, "begin building supermin appliance");
 
   /* Build the appliance if it needs to be built. */
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "run supermin");
+  debug (g, "run supermin");
 
   if (run_supermin_build (g, lockfile, appliancedir, supermin_path) == -1)
     return -1;
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "finished building supermin appliance");
+  debug (g, "finished building supermin appliance");
 
   /* Return the appliance filenames. */
   *kernel = safe_asprintf (g, "%s/kernel", appliancedir);

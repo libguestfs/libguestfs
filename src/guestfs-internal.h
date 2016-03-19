@@ -760,7 +760,6 @@ extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars);
 
 /* launch.c */
 extern int64_t guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y);
-extern void guestfs_int_print_timestamped_message (guestfs_h *g, const char *fs, ...) __attribute__((format (printf,2,3)));
 extern void guestfs_int_launch_send_progress (guestfs_h *g, int perdozen);
 extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
 #define APPLIANCE_COMMAND_LINE_IS_TCG 1
