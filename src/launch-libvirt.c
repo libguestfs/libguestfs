@@ -286,8 +286,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
   debug (g, "guest random name = %s", data->name);
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "connect to libvirt");
+  debug (g, "connect to libvirt");
 
   /* Decode the URI string. */
   if (!libvirt_uri) {           /* "libvirt" */
@@ -326,8 +325,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     data->qemu_version = 0;
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "get libvirt capabilities");
+  debug (g, "get libvirt capabilities");
 
   capabilities_xml = virConnectGetCapabilities (conn);
   if (!capabilities_xml) {
@@ -339,8 +337,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
    * struct, and can also fail if we detect that the hypervisor cannot
    * run qemu guests (RHBZ#886915).
    */
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "parsing capabilities XML");
+  debug (g, "parsing capabilities XML");
 
   if (parse_capabilities (g, capabilities_xml, data) == -1)
     goto cleanup;
@@ -373,8 +370,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   /* Locate and/or build the appliance. */
   TRACE0 (launch_build_libvirt_appliance_start);
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "build appliance");
+  debug (g, "build appliance");
 
   if (guestfs_int_build_appliance (g, &params.kernel, &params.initrd,
                                    &appliance) == -1)
@@ -503,8 +499,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   /* Construct the libvirt XML. */
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "create libvirt XML");
+  debug (g, "create libvirt XML");
 
   params.appliance_index = g->nr_drives;
   strcpy (params.appliance_dev, "/dev/sd");
@@ -522,8 +517,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   }
 
   /* Launch the libvirt guest. */
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "launch libvirt guest");
+  debug (g, "launch libvirt guest");
 
   dom = virDomainCreateXML (conn, (char *) xml, VIR_DOMAIN_START_AUTODESTROY);
   if (!dom) {
@@ -591,8 +585,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     goto cleanup;
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "appliance is up");
+  debug (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for

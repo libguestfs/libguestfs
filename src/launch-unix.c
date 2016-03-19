@@ -53,8 +53,7 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
     return -1;
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "connecting to %s", sockpath);
+  debug (g, "connecting to %s", sockpath);
 
   daemon_sock = socket (AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0);
   if (daemon_sock == -1) {
@@ -90,8 +89,7 @@ launch_unix (guestfs_h *g, void *datav, const char *sockpath)
     goto cleanup;
   }
 
-  if (g->verbose)
-    guestfs_int_print_timestamped_message (g, "connected");
+  debug (g, "connected");
 
   if (g->state != READY) {
     error (g, _("contacted guestfsd, but state != READY"));
