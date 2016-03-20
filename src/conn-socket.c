@@ -33,6 +33,8 @@
 #include <assert.h>
 #include <libintl.h>
 
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
@@ -314,6 +316,9 @@ handle_log_message (guestfs_h *g,
 {
   char buf[BUFSIZ];
   ssize_t n;
+  const char dsr_request[] = "\033[6n";
+  const char dsr_reply[] = "\033[24;80R";
+  const char dsr_reply_padding[] = "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
 
   /* Carried over from ancient proto.c code.  The comment there was:
    *
@@ -341,7 +346,34 @@ handle_log_message (guestfs_h *g,
     return -1;
   }
 
-  /* It's an actual log message, send it upwards. */
+  /* It's an actual log message. */
+
+  /* SGABIOS tries to query the "serial console" for its size using the
+   * ISO/IEC 6429 Device Status Report (ESC [ 6 n).  If it doesn't
+   * read anything back, then it unfortunately hangs for 0.26 seconds.
+   * Therefore we detect this situation and send back a fake console
+   * size.
+   */
+  if (memmem (buf, n, dsr_request, sizeof dsr_request - 1) != NULL) {
+    debug (g, "responding to serial console Device Status Report");
+
+    /* Ignore any error from this write, as it's just an optimization.
+     * We can't even be sure that console_sock is a socket or that
+     * it's writable.
+     */
+    ignore_value (write (conn->console_sock, dsr_reply,
+                         sizeof dsr_reply - 1));
+    /* Additionally, because of a bug in sgabios, it will still pause
+     * unless you write at least 14 bytes, so we have to pad the
+     * reply.  We can't pad with NULs since sgabios's input routine
+     * ignores these, so we have to use some other safe padding
+     * characters.  Backspace seems innocuous.
+     */
+    ignore_value (write (conn->console_sock, dsr_reply_padding,
+                         sizeof dsr_reply_padding - 1));
+  }
+
+  /* Send it upwards. */
   guestfs_int_log_message_callback (g, buf, n);
 
   return 1;
