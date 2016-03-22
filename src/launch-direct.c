@@ -454,6 +454,17 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE ("-initrd");
   ADD_CMDLINE (initrd);
 
+  /* Add a random number generator (backend for virtio-rng).  This
+   * isn't strictly necessary but means we won't need to hang around
+   * when needing entropy.
+   */
+  if (qemu_supports_device (g, data, "virtio-rng-pci")) {
+    ADD_CMDLINE ("-object");
+    ADD_CMDLINE ("rng-random,filename=/dev/urandom,id=rng0");
+    ADD_CMDLINE ("-device");
+    ADD_CMDLINE ("virtio-rng-pci,rng=rng0");
+  }
+
   /* Add drives */
   virtio_scsi = qemu_supports_virtio_scsi (g, data);
 
