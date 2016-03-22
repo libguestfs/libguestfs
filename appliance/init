@@ -77,7 +77,9 @@ $UDEVD --daemon #--debug
 udevadm trigger
 udevadm settle --timeout=600
 
-if grep -sq selinux=1 /proc/cmdline; then
+cmdline=$(</proc/cmdline)
+
+if [[ $cmdline == *selinux=1* ]]; then
   mount -t selinuxfs none /sys/fs/selinux
 fi
 
@@ -93,16 +95,16 @@ shopt -u nullglob
 hwclock -u -s
 
 # Parse the kernel command line.
-if grep -sq guestfs_verbose=1 /proc/cmdline; then
+if [[ $cmdline == *guestfs_verbose=1* ]]; then
     guestfs_verbose=1
 fi
-if grep -sq guestfs_network=1 /proc/cmdline; then
+if [[ $cmdline == *guestfs_network=1* ]]; then
     guestfs_network=1
 fi
-if grep -sq guestfs_rescue=1 /proc/cmdline; then
+if [[ $cmdline == *guestfs_rescue=1* ]]; then
     guestfs_rescue=1
 fi
-if grep -sq guestfs_noreboot=1 /proc/cmdline; then
+if [[ $cmdline == *guestfs_noreboot=1* ]]; then
     guestfs_noreboot=1
 fi
 eval `grep -Eo 'guestfs_channel=[^[:space:]]+' /proc/cmdline`
