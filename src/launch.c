@@ -311,6 +311,12 @@ guestfs_impl_config (guestfs_h *g,
 #define SERIAL_CONSOLE "console=ttyS0"
 #endif
 
+#if defined(__aarch64__)
+#define EARLYPRINTK " earlyprintk=pl011,0x9000000"
+#else
+#define EARLYPRINTK ""
+#endif
+
 char *
 guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
 				    int flags)
@@ -339,9 +345,10 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
 #ifdef __i386__
      " noapic"                  /* workaround for RHBZ#857026 */
 #endif
-     " " SERIAL_CONSOLE /* serial console */
+     " " SERIAL_CONSOLE         /* serial console */
+     EARLYPRINTK                /* get messages from early boot */
 #ifdef __aarch64__
-     " earlyprintk=pl011,0x9000000 ignore_loglevel"
+     " ignore_loglevel"
      /* This option turns off the EFI RTC device.  QEMU VMs don't
       * currently provide EFI, and if the device is compiled in it
       * will try to call the EFI function GetTime unconditionally
