@@ -54,7 +54,6 @@ virt_df_SOURCES = \
 
 virt_df_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-DGUESTFS_PRIVATE=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \

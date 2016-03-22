@@ -43,7 +43,6 @@ check_PROGRAMS = test-error-messages
 test_error_messages_SOURCES = \
 	test-error-messages.c
 test_error_messages_CPPFLAGS = \
-	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_error_messages_CFLAGS = \
