@@ -74,6 +74,10 @@ fi
 # devtmpfs is required since udev 176
 mount -t devtmpfs /dev /dev
 
+if [[ $cmdline == *selinux=1* ]]; then
+  mount -t selinuxfs none /sys/fs/selinux
+fi
+
 # Static nodes must happen before udev is started.
 
 # Set up kmod static-nodes (RHBZ#1011907).
@@ -96,10 +100,6 @@ fi
 $UDEVD --daemon #--debug
 udevadm trigger
 udevadm settle --timeout=600
-
-if [[ $cmdline == *selinux=1* ]]; then
-  mount -t selinuxfs none /sys/fs/selinux
-fi
 
 # Disk optimizations.
 # Increase the SCSI timeout so we can read remote images.
