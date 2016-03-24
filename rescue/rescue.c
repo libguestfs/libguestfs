@@ -461,10 +461,9 @@ do_suggestion (struct drv *drvs)
 
     /* If it's Linux, print the bind-mounts. */
     if (type && STREQ (type, "linux")) {
-      printf ("mount --bind /dev /sysroot/dev\n");
-      printf ("mount --bind /dev/pts /sysroot/dev/pts\n");
-      printf ("mount --bind /proc /sysroot/proc\n");
-      printf ("mount --bind /sys /sysroot/sys\n");
+      printf ("mount --rbind /dev /sysroot/dev\n");
+      printf ("mount --rbind /proc /sysroot/proc\n");
+      printf ("mount --rbind /sys /sysroot/sys\n");
     }
 
     printf ("\n");
