@@ -517,6 +517,10 @@ C</etc/pam.d/common-password> (Debian, Ubuntu).";
     flag_pod_longdesc = "\
 Relabel files in the guest so that they have the correct SELinux label.
 
+This will attempt to relabel files immediately, but if the operation fails
+this will instead touch F</.autorelabel> on the image to schedule a
+relabel operation for the next time the image boots.
+
 You should only use this option for guests which support SELinux.";
   };
 
