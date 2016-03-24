@@ -459,11 +459,14 @@ do_suggestion (struct drv *drvs)
     for (j = 0; mps[j] != NULL; j += 2)
       printf ("mount %s /sysroot%s\n", mps[j+1], mps[j]);
 
-    /* If it's Linux, print the bind-mounts. */
+    /* If it's Linux, print the bind-mounts and a chroot command. */
     if (type && STREQ (type, "linux")) {
       printf ("mount --rbind /dev /sysroot/dev\n");
       printf ("mount --rbind /proc /sysroot/proc\n");
       printf ("mount --rbind /sys /sysroot/sys\n");
+      printf ("\n");
+      printf ("cd /sysroot\n");
+      printf ("chroot /sysroot\n");
     }
 
     printf ("\n");
