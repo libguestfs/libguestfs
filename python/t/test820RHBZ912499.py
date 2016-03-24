@@ -30,7 +30,7 @@ from .tests_helper import *
 
 @skipUnlessArchMatches ("(i.86|x86_64)")   # If the architecture doesn't support IDE, skip the test.
 @skipUnlessGuestfsBackendIs ('libvirt')
-@skipUnlessLibirtHasCPointer ()
+@skipUnlessLibvirtHasCPointer ()
 class Test820RHBZ912499 (unittest.TestCase):
     def setUp (self):
         # Create a test disk.

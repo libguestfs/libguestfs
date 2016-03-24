@@ -27,7 +27,7 @@ else:
     int_type = long
 
 
-def skipUnlessLibirtHasCPointer ():
+def skipUnlessLibvirtHasCPointer ():
     """
     Skip the current class/method if:
       (a) libvirt cannot be imported (e.g. not installed)
