@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-03-16 15:15+0000\n"
+"POT-Creation-Date: 2016-03-24 18:22+0000\n"
 "PO-Revision-Date: 2015-10-28 05:01-0400\n"
 "Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -43,7 +43,7 @@ msgstr ""
 msgid "%s"
 msgstr "%s"
 
-#: ../v2v/v2v.ml:563 ../v2v/v2v.ml:379 ../mllib/common_utils.ml:849
+#: ../v2v/v2v.ml:573 ../v2v/v2v.ml:389 ../mllib/common_utils.ml:849
 msgid "%s (ignored)"
 msgstr "%s (ignorado)"
 
@@ -101,7 +101,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1321
+#: ../v2v/convert_linux.ml:1330
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -206,7 +206,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:404
+#: ../v2v/windows_virtio.ml:449
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -734,23 +734,23 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:266 ../v2v/copy_to_local.ml:326
+#: ../v2v/input_libvirtxml.ml:283 ../v2v/copy_to_local.ml:326
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:239
+#: ../v2v/input_libvirtxml.ml:256
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:262
+#: ../v2v/input_libvirtxml.ml:279
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:233
+#: ../v2v/input_libvirtxml.ml:250
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:212 ../v2v/copy_to_local.ml:308
+#: ../v2v/input_libvirtxml.ml:229 ../v2v/copy_to_local.ml:308
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
@@ -758,7 +758,7 @@ msgstr ""
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:299
+#: ../v2v/input_libvirtxml.ml:316
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -806,7 +806,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:113
+#: ../v2v/v2v.ml:123
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -853,7 +853,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:950
+#: ../v2v/v2v.ml:962
 msgid "CD-ROM"
 msgstr ""
 
@@ -893,11 +893,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:477
+#: ../v2v/v2v.ml:487
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:732
+#: ../v2v/v2v.ml:744
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -905,11 +905,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:100
+#: ../v2v/v2v.ml:110
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:101
+#: ../v2v/v2v.ml:111
 msgid "Closing the source VM"
 msgstr ""
 
@@ -933,11 +933,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:708
+#: ../v2v/v2v.ml:718
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:706
+#: ../v2v/v2v.ml:716
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -965,7 +965,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:768
+#: ../v2v/v2v.ml:780
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -993,11 +993,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:204
+#: ../v2v/v2v.ml:214
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:123
+#: ../v2v/v2v.ml:133
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Downloading: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:315
+#: ../v2v/v2v.ml:325
 msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
@@ -1177,11 +1177,11 @@ msgstr ""
 msgid "Enable/disable specific operations"
 msgstr ""
 
-#: ../v2v/v2v.ml:328
+#: ../v2v/v2v.ml:338
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:697
+#: ../v2v/v2v.ml:707
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1288,7 +1288,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:209
 #. ../builder/builder.ml:715
-#: ../v2v/v2v.ml:131 ../v2v/copy_to_local.ml:240
+#: ../v2v/v2v.ml:141 ../v2v/copy_to_local.ml:240
 msgid "Finishing off"
 msgstr ""
 
@@ -1392,7 +1392,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:247
+#: ../v2v/v2v.ml:257
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1499,7 +1499,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:95
+#: ../v2v/v2v.ml:105
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1578,7 +1578,7 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:134
+#: ../v2v/v2v.ml:144
 msgid "Opening the source %s"
 msgstr ""
 
@@ -1634,7 +1634,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:967
+#: ../v2v/v2v.ml:979
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1677,11 +1677,11 @@ msgstr ""
 msgid "Performing %S ..."
 msgstr ""
 
-#: ../v2v/v2v.ml:355
+#: ../v2v/v2v.ml:365
 msgid "Picked %s because '--root %s' was used."
 msgstr ""
 
-#: ../v2v/v2v.ml:346
+#: ../v2v/v2v.ml:356
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
@@ -2207,7 +2207,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:139
+#: ../v2v/v2v.ml:149
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2388,11 +2388,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:725
+#: ../v2v/v2v.ml:737
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:723
+#: ../v2v/v2v.ml:735
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2403,7 +2403,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:750
+#: ../v2v/v2v.ml:762
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2619,11 +2619,11 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:207
+#: ../v2v/windows_virtio.ml:252
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:181
+#: ../v2v/windows_virtio.ml:226
 msgid ""
 "cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry"
 msgstr ""
@@ -2696,7 +2696,7 @@ msgstr ""
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
-#: ../v2v/v2v.ml:335
+#: ../v2v/v2v.ml:345
 msgid "connection closed"
 msgstr ""
 
@@ -2821,7 +2821,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:257
+#: ../v2v/v2v.ml:267
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2862,7 +2862,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1170
+#: ../v2v/convert_linux.ml:1177
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2977,7 +2977,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:951
+#: ../v2v/v2v.ml:963
 msgid "floppy disk"
 msgstr ""
 
@@ -3028,7 +3028,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../v2v/v2v.ml:235
+#: ../v2v/v2v.ml:245
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3096,7 +3096,7 @@ msgstr ""
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
-#: ../v2v/v2v.ml:446
+#: ../v2v/v2v.ml:456
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -3108,7 +3108,7 @@ msgid ""
 "Inspection field '%s' was 'unknown'."
 msgstr ""
 
-#: ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:318
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
@@ -3132,11 +3132,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:780
+#: ../v2v/v2v.ml:792
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:225
+#: ../v2v/v2v.ml:235
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3184,7 +3184,7 @@ msgstr ""
 msgid "libguestfs error: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:362
+#: ../v2v/v2v.ml:372
 msgid ""
 "libguestfs thinks this is not an installed operating system (it might be, "
 "for example, an installer disk or live CD).  If this is wrong, it is "
@@ -3224,7 +3224,7 @@ msgid ""
 "you need to rerun virt-v2v as root."
 msgstr ""
 
-#: ../v2v/v2v.ml:342
+#: ../v2v/v2v.ml:352
 msgid ""
 "multi-boot operating systems are not supported by virt-v2v. Use the --root "
 "option to change how virt-v2v handles this."
@@ -3318,7 +3318,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:503
+#: ../v2v/v2v.ml:513
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3384,7 +3384,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/v2v.ml:267
+#: ../v2v/v2v.ml:277
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3458,7 +3458,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:821 ../v2v/v2v.ml:221
+#: ../v2v/v2v.ml:833 ../v2v/v2v.ml:231
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3474,7 +3474,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:948
+#: ../v2v/v2v.ml:960
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3487,7 +3487,7 @@ msgstr ""
 msgid "resize2fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:353
+#: ../v2v/v2v.ml:363
 msgid "root device %s not found.  Roots found were: %s"
 msgstr ""
 
@@ -3527,8 +3527,32 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:157
+#: ../v2v/v2v.ml:991
+msgid "source has multiple hard disk types!"
+msgstr ""
+
+#: ../v2v/v2v.ml:1006
+msgid "source has multiple network adapter model!"
+msgstr ""
+
+#: ../v2v/v2v.ml:989 ../v2v/v2v.ml:167
 msgid "source has no hard disks!"
+msgstr ""
+
+#: ../v2v/v2v.ml:998
+msgid "source has unrecognized hard disk type"
+msgstr ""
+
+#: ../v2v/v2v.ml:996
+msgid "source has unsupported hard disk type '%s'"
+msgstr ""
+
+#: ../v2v/v2v.ml:1012
+msgid "source has unsupported network adapter model '%s'"
+msgstr ""
+
+#: ../v2v/v2v.ml:1020
+msgid "source has unsupported video adapter model '%s'"
 msgstr ""
 
 #: ../v2v/copy_to_local.ml:203
@@ -3573,7 +3597,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:271
+#: ../v2v/v2v.ml:281
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -3653,7 +3677,13 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:42
+#: ../v2v/windows_virtio.ml:46
+msgid ""
+"there are no virtio drivers available for this version of Windows (%d.%d %s "
+"%s).  virt-v2v looks for drivers in %s"
+msgstr ""
+
+#: ../v2v/windows_virtio.ml:53
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3661,7 +3691,13 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:79
+#: ../v2v/windows_virtio.ml:117
+msgid ""
+"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
+"looks for this driver in %s"
+msgstr ""
+
+#: ../v2v/windows_virtio.ml:122
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3677,7 +3713,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:58
+#: ../v2v/windows_virtio.ml:73 ../v2v/windows_virtio.ml:68
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3685,7 +3721,13 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:67
+#: ../v2v/windows_virtio.ml:96
+msgid ""
+"there is no virtio network driver for this version of Windows (%d.%d %s).  "
+"virt-v2v looks for this driver in %s"
+msgstr ""
+
+#: ../v2v/windows_virtio.ml:101
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3693,7 +3735,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:741
+#: ../v2v/v2v.ml:753
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3715,7 +3757,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:187 ../v2v/copy_to_local.ml:297
+#: ../v2v/input_libvirtxml.ml:204 ../v2v/copy_to_local.ml:297
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3737,13 +3779,13 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1214
+#: ../v2v/convert_linux.ml:1221
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
 msgstr ""
 
-#: ../v2v/v2v.ml:374
+#: ../v2v/v2v.ml:384
 msgid ""
 "unable to mount the disk image for writing. This has probably happened "
 "because Windows Hibernation or Fast Restart is being used in this guest. You "
@@ -3800,11 +3842,11 @@ msgstr ""
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:163
+#: ../v2v/input_libvirtxml.ml:180
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:149
+#: ../v2v/v2v.ml:159
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
@@ -3928,11 +3970,11 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:714
+#: ../v2v/v2v.ml:724
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:164
+#: ../v2v/windows_virtio.ml:209
 msgid "when adding viostor to the DriverDatabase, unknown architecture: %s"
 msgstr ""
 
@@ -8208,7 +8250,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:491
+#: rescue/rescue.c:493
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -8218,7 +8260,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/rescue.c:498
+#: rescue/rescue.c:500
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -8227,7 +8269,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:503
+#: rescue/rescue.c:505
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
@@ -8264,23 +8306,23 @@ msgstr ""
 msgid "%s: group not available"
 msgstr ""
 
-#: src/conn-socket.c:64
+#: src/conn-socket.c:66
 msgid "accept_connection called twice"
 msgstr ""
 
-#: src/conn-socket.c:143
+#: src/conn-socket.c:145
 msgid "read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:218
+#: src/conn-socket.c:220
 msgid "can_read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:247
+#: src/conn-socket.c:249
 msgid "write_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:340
+#: src/conn-socket.c:345
 msgid "error reading console messages from the appliance"
 msgstr ""
 
@@ -8810,7 +8852,7 @@ msgstr ""
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:316
 #: src/inspect-fs-unix.c:403 src/inspect-fs-unix.c:1248
-#: src/inspect-fs-unix.c:2014 src/inspect-fs.c:604 src/inspect-fs.c:650
+#: src/inspect-fs-unix.c:2014 src/inspect-fs.c:620 src/inspect-fs.c:666
 #: src/inspect.c:653
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
@@ -8821,7 +8863,7 @@ msgstr ""
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr ""
 
-#: src/inspect-fs.c:402 src/inspect-fs.c:415
+#: src/inspect-fs.c:418 src/inspect-fs.c:431
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
@@ -8845,17 +8887,17 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:134
+#: src/launch-direct.c:133
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:153
+#: src/launch-direct.c:152
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:220
+#: src/launch-direct.c:219
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8864,48 +8906,48 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:256 src/launch-uml.c:156
+#: src/launch-direct.c:255 src/launch-uml.c:156
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:837 src/launch-libvirt.c:603
+#: src/launch-direct.c:834 src/launch-libvirt.c:596
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1239 src/launch-libvirt.c:1384
+#: src/launch-direct.c:1223 src/launch-libvirt.c:1391
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1422
+#: src/launch-direct.c:1406
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1431
+#: src/launch-direct.c:1415
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1438
+#: src/launch-direct.c:1422
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1446
+#: src/launch-direct.c:1430
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1454
+#: src/launch-direct.c:1438
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1477
+#: src/launch-direct.c:1461
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -8921,16 +8963,16 @@ msgstr ""
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:305
+#: src/launch-libvirt.c:304
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:334
+#: src/launch-libvirt.c:332
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:531
+#: src/launch-libvirt.c:525
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -8940,21 +8982,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:667
+#: src/launch-libvirt.c:660
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:673 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:666 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: src/launch-libvirt.c:683
+#: src/launch-libvirt.c:676
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:718
+#: src/launch-libvirt.c:711
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -8969,57 +9011,57 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:954
+#: src/launch-libvirt.c:947
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1338
+#: src/launch-libvirt.c:1345
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1467
+#: src/launch-libvirt.c:1474
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1492
+#: src/launch-libvirt.c:1499
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1499
+#: src/launch-libvirt.c:1506
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1829
+#: src/launch-libvirt.c:1836
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1840
+#: src/launch-libvirt.c:1847
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1844
+#: src/launch-libvirt.c:1851
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1865
+#: src/launch-libvirt.c:1872
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1878
+#: src/launch-libvirt.c:1885
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1988
+#: src/launch-libvirt.c:1995
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -9035,20 +9077,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2091
+#: src/launch-libvirt.c:2098
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2112 src/launch-libvirt.c:2145
+#: src/launch-libvirt.c:2119 src/launch-libvirt.c:2152
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2208
+#: src/launch-libvirt.c:2215
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2239
+#: src/launch-libvirt.c:2246
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9081,7 +9123,7 @@ msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: src/launch-uml.c:458
+#: src/launch-uml.c:457
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9094,11 +9136,11 @@ msgstr ""
 msgid "socket filename too long (more than %d characters): %s"
 msgstr ""
 
-#: src/launch-unix.c:89
+#: src/launch-unix.c:88
 msgid "guestfs_launch failed, unexpected initial message from guestfsd"
 msgstr ""
 
-#: src/launch-unix.c:97
+#: src/launch-unix.c:95
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
@@ -9106,28 +9148,28 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:165
+#: src/launch.c:140
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:171
+#: src/launch.c:146
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:182
+#: src/launch.c:157
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:194
+#: src/launch.c:169
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:265
+#: src/launch.c:240
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:425
+#: src/launch.c:407
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9278,53 +9320,53 @@ msgstr ""
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
 
-#: src/proto.c:194
+#: src/proto.c:197
 #, c-format
 msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
 "synchronization (bad!)\n"
 msgstr ""
 
-#: src/proto.c:240
+#: src/proto.c:243
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/proto.c:249
+#: src/proto.c:252
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/proto.c:356 src/proto.c:853
+#: src/proto.c:359 src/proto.c:856
 msgid "operation cancelled by user"
 msgstr ""
 
-#: src/proto.c:425
+#: src/proto.c:428
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/proto.c:522
+#: src/proto.c:525
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/proto.c:541
+#: src/proto.c:544
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/proto.c:812
+#: src/proto.c:815
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/proto.c:838
+#: src/proto.c:841
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/proto.c:846
+#: src/proto.c:849
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/proto.c:855
+#: src/proto.c:858
 msgid "file receive cancelled by daemon"
 msgstr ""
 
