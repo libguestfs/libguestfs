@@ -1,0 +1,4 @@
+To run a single test, run a command like this in the python/
+directory:
+
+  ../run python -m unittest discover -v t test820RHBZ912499.py
