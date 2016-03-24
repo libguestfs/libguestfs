@@ -34,10 +34,9 @@ $VG virt-rescue --suggest --format=raw -a "$guest" |
 
 if [ "$(cat virt-rescue-suggest.out)" != "mount /dev/VG/Root /sysroot/
 mount /dev/sda1 /sysroot/boot
-mount --bind /dev /sysroot/dev
-mount --bind /dev/pts /sysroot/dev/pts
-mount --bind /proc /sysroot/proc
-mount --bind /sys /sysroot/sys" ]; then
+mount --rbind /dev /sysroot/dev
+mount --rbind /proc /sysroot/proc
+mount --rbind /sys /sysroot/sys" ]; then
     echo "$0: unexpected output from virt-rescue --suggest command:"
     cat virt-rescue-suggest.out
     exit 1
