@@ -985,7 +985,7 @@ and rcaps_from_source source =
   let source_block_types =
     List.map (fun sd -> sd.s_controller) source.s_disks in
   let source_block_type =
-    match List.sort_uniq compare source_block_types with
+    match sort_uniq source_block_types with
     | [] -> error (f_"source has no hard disks!")
     | [t] -> t
     | _ -> error (f_"source has multiple hard disk types!") in
@@ -1000,7 +1000,7 @@ and rcaps_from_source source =
   let source_net_types =
       List.map (fun nic -> nic.s_nic_model) source.s_nics in
   let source_net_type =
-    match List.sort_uniq compare source_net_types with
+    match sort_uniq source_net_types with
     | [] -> None
     | [t] -> t
     | _ -> error (f_"source has multiple network adapter model!") in

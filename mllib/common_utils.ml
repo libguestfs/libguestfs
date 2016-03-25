@@ -267,6 +267,22 @@ let rec assoc ?(cmp = compare) ~default x = function
   | (y, y') :: _ when cmp x y = 0 -> y'
   | _ :: ys -> assoc ~cmp ~default x ys
 
+let uniq ?(cmp = Pervasives.compare) xs =
+  let rec loop acc = function
+    | [] -> acc
+    | [x] -> x :: acc
+    | x :: (y :: _ as xs) when cmp x y = 0 ->
+       loop acc xs
+    | x :: (y :: _ as xs) ->
+       loop (x :: acc) xs
+  in
+  List.rev (loop [] xs)
+
+let sort_uniq ?(cmp = Pervasives.compare) xs =
+  let xs = List.sort cmp xs in
+  let xs = uniq ~cmp xs in
+  xs
+
 let may f = function
   | None -> ()
   | Some x -> f x

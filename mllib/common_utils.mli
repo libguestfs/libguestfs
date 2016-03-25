@@ -124,6 +124,12 @@ val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
 (** Like {!List.assoc} but with a user-defined comparison function, and
     instead of raising [Not_found], it returns the [~default] value. *)
 
+val uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
+(** Uniquify a list (the list must be sorted first). *)
+
+val sort_uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
+(** Sort and uniquify a list. *)
+
 val may : ('a -> unit) -> 'a option -> unit
 (** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
 
