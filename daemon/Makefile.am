@@ -171,6 +171,7 @@ guestfsd_SOURCES = \
 	sfdisk.c \
 	sh.c \
 	sleep.c \
+	sleuthkit.c \
 	stat.c \
 	statvfs.c \
 	strings.c \
@@ -179,7 +180,6 @@ guestfsd_SOURCES = \
 	syslinux.c \
 	tar.c \
 	truncate.c \
-	tsk.c \
 	umask.c \
 	upload.c \
 	utimens.c \
