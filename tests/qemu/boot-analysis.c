@@ -89,7 +89,10 @@ struct pass_data pass_data[NR_TEST_PASSES];
 size_t nr_activities;
 struct activity *activities;
 
+static const char *append = NULL;
 static int force_colour = 0;
+static int memsize = 0;
+static int smp = 1;
 static int verbose = 0;
 
 static void run_test (void);
@@ -117,14 +120,28 @@ static void ansi_restore (void);
 static void
 usage (int exitcode)
 {
+  guestfs_h *g;
+  int default_memsize = -1;
+
+  g = guestfs_create ();
+  if (g) {
+    default_memsize = guestfs_get_memsize (g);
+    guestfs_close (g);
+  }
+
   fprintf (stderr,
            "boot-analysis: Trace and analyze the appliance boot process.\n"
            "Usage:\n"
            "  boot-analysis [--options]\n"
            "Options:\n"
-           "  --help        Display this usage text and exit.\n"
-           "  --colour      Output colours, even if not a terminal.\n"
-           "  -v|--verbose  Verbose output, useful for debugging.\n");
+           "  --help         Display this usage text and exit.\n"
+           "  --append OPTS  Append OPTS to kernel command line.\n"
+           "  --colour       Output colours, even if not a terminal.\n"
+           "  -m MB\n"
+           "  --memsize MB   Set memory size in MB (default: %d).\n"
+           "  --smp N        Enable N virtual CPUs (default: 1).\n"
+           "  -v|--verbose   Verbose output, useful for debugging.\n",
+           default_memsize);
   exit (exitcode);
 }
 
@@ -132,11 +149,14 @@ int
 main (int argc, char *argv[])
 {
   enum { HELP_OPTION = CHAR_MAX + 1 };
-  static const char *options = "v";
+  static const char *options = "m:v";
   static const struct option long_options[] = {
     { "help", 0, 0, HELP_OPTION },
+    { "append", 1, 0, 0 },
     { "color", 0, 0, 0 },
     { "colour", 0, 0, 0 },
+    { "memsize", 1, 0, 'm' },
+    { "smp", 1, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
@@ -148,14 +168,34 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:                     /* Options which are long only. */
-      if (STREQ (long_options[option_index].name, "color") ||
-          STREQ (long_options[option_index].name, "colour")) {
+      if (STREQ (long_options[option_index].name, "append")) {
+        append = optarg;
+        break;
+      }
+      else if (STREQ (long_options[option_index].name, "color") ||
+               STREQ (long_options[option_index].name, "colour")) {
         force_colour = 1;
+        break;
+      }
+      else if (STREQ (long_options[option_index].name, "smp")) {
+        if (sscanf (optarg, "%d", &smp) != 1) {
+          fprintf (stderr, "%s: could not parse smp parameter: %s\n",
+                   guestfs_int_program_name, optarg);
+          exit (EXIT_FAILURE);
+        }
         break;
       }
       fprintf (stderr, "%s: unknown long option: %s (%d)\n",
                guestfs_int_program_name, long_options[option_index].name, option_index);
       exit (EXIT_FAILURE);
+
+    case 'm':
+      if (sscanf (optarg, "%d", &memsize) != 1) {
+        fprintf (stderr, "%s: could not parse memsize parameter: %s\n",
+                 guestfs_int_program_name, optarg);
+        exit (EXIT_FAILURE);
+      }
+      break;
 
     case 'v':
       verbose = 1;
@@ -267,6 +307,7 @@ static guestfs_h *
 create_handle (void)
 {
   guestfs_h *g;
+  CLEANUP_FREE char *full_append = NULL;
 
   g = guestfs_create ();
   if (!g) error (EXIT_FAILURE, errno, "guestfs_create");
@@ -279,12 +320,25 @@ create_handle (void)
   if (guestfs_set_backend (g, "direct") == -1)
     exit (EXIT_FAILURE);
 
+  if (memsize != 0)
+    if (guestfs_set_memsize (g, memsize) == -1)
+      exit (EXIT_FAILURE);
+
+  if (smp >= 2)
+    if (guestfs_set_smp (g, smp) == -1)
+      exit (EXIT_FAILURE);
+
   /* This changes some details in appliance/init and enables a
    * detailed trace of calls to initcall functions in the kernel.
    */
-  if (guestfs_set_append (g,
-                          "guestfs_boot_analysis=1 "
-                          "ignore_loglevel initcall_debug") == -1)
+  if (asprintf (&full_append,
+                "guestfs_boot_analysis=1 "
+                "ignore_loglevel initcall_debug "
+                "%s",
+                append != NULL ? append : "") == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
+
+  if (guestfs_set_append (g, full_append) == -1)
     exit (EXIT_FAILURE);
 
   return g;
