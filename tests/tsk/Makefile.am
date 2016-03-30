@@ -18,7 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
-	test-icat.sh
+	test-download-inode.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 

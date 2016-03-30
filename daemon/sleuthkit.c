@@ -40,7 +40,7 @@ optgroup_sleuthkit_available (void)
 }
 
 int
-do_icat (const mountable_t *mountable, int64_t inode)
+do_download_inode (const mountable_t *mountable, int64_t inode)
 {
   CLEANUP_FREE char *cmd = NULL;
 

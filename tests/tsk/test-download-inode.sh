@@ -16,11 +16,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test the icat command.
+# Test the download_inode command.
 
 set -e
 
-if [ -n "$SKIP_TEST_ICAT_SH" ]; then
+if [ -n "$SKIP_TEST_DOWNLOAD_INODE_SH" ]; then
     echo "$0: test skipped because environment variable is set."
     exit 77
 fi
@@ -41,7 +41,7 @@ fi
 # download Master File Table ($MFT).
 guestfish --ro -a ../../test-data/phony-guests/windows.img <<EOF
 run
-icat /dev/sda2 0 test-mft.bin
+download-inode /dev/sda2 0 test-mft.bin
 EOF
 
 # test extracted file is the Master File Table

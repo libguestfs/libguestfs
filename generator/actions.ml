@@ -12946,7 +12946,7 @@ The filesystem from which to extract the file must be unmounted,
 otherwise the call will fail." };
 
   { defaults with
-    name = "icat"; added = (1, 33, 14);
+    name = "download_inode"; added = (1, 33, 14);
     style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename"], [];
     proc_nr = Some 464;
     optional = Some "sleuthkit";
