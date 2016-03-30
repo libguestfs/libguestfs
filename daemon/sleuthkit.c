@@ -29,19 +29,14 @@
 #include "actions.h"
 #include "optgroups.h"
 
-static int file_out (const char *cmd);
+static int send_command_output (const char *cmd);
 
-GUESTFSD_EXT_CMD(str_sleuthkit_probe, icat);
-
-int
-optgroup_sleuthkit_available (void)
-{
-  return prog_exists (str_sleuthkit_probe);
-}
+GUESTFSD_EXT_CMD(str_icat, icat);
 
 int
 do_download_inode (const mountable_t *mountable, int64_t inode)
 {
+  int ret;
   CLEANUP_FREE char *cmd = NULL;
 
   /* Inode must be greater than 0 */
@@ -51,18 +46,22 @@ do_download_inode (const mountable_t *mountable, int64_t inode)
   }
 
   /* Construct the command. */
-  if (asprintf (&cmd, "icat -r %s %" PRIi64, mountable->device, inode) == -1) {
+  ret = asprintf(&cmd, "%s -r %s %" PRIi64, str_icat, mountable->device, inode);
+  if (ret < 0) {
     reply_with_perror ("asprintf");
     return -1;
   }
 
-  return file_out (cmd);
+  return send_command_output (cmd);
 }
 
+/* Run the given command, collect the output and send it to the appliance.
+ * Return 0 on success, -1 on error.
+ */
 static int
-file_out (const char *cmd)
+send_command_output (const char *cmd)
 {
-  int r;
+  int ret;
   FILE *fp;
   CLEANUP_FREE char *buffer = NULL;
 
@@ -81,34 +80,41 @@ file_out (const char *cmd)
     return -1;
   }
 
-  /* Now we must send the reply message, before the file contents.  After
-   * this there is no opportunity in the protocol to send any error
-   * message back.  Instead we can only cancel the transfer.
-   */
+  /* Send reply message before the file content. */
   reply (NULL, NULL);
 
-  while ((r = fread (buffer, 1, sizeof buffer, fp)) > 0) {
-    if (send_file_write (buffer, r) < 0) {
+  while ((ret = fread (buffer, 1, sizeof buffer, fp)) > 0) {
+    ret = send_file_write (buffer, ret);
+    if (ret < 0) {
       pclose (fp);
       return -1;
     }
   }
 
-  if (ferror (fp)) {
+  ret = ferror (fp);
+  if (ret != 0) {
     fprintf (stderr, "fread: %m");
     send_file_end (1);		/* Cancel. */
     pclose (fp);
     return -1;
   }
 
-  if (pclose (fp) != 0) {
+  ret = pclose (fp);
+  if (ret != 0) {
     fprintf (stderr, "pclose: %m");
     send_file_end (1);		/* Cancel. */
     return -1;
   }
 
-  if (send_file_end (0))	/* Normal end of file. */
+  ret = send_file_end (0);      /* Normal end of file. */
+  if (ret != 0)
     return -1;
 
   return 0;
+}
+
+int
+optgroup_sleuthkit_available (void)
+{
+  return prog_exists (str_icat);
 }
