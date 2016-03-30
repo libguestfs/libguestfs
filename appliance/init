@@ -87,6 +87,10 @@ fi
 mkdir -p /run/tmpfiles.d
 kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/kmod.conf
 
+# Create a machine-id with a random UUID
+machine_id=$(dd if=/dev/urandom bs=16 count=1 status=none | od -x -A n)
+echo "${machine_id// /}" > /etc/machine-id
+
 # Set up tmpfiles (must run after kmod.conf is created above).
 systemd-tmpfiles --prefix=/dev --create --boot
 
