@@ -523,10 +523,11 @@ name=Fedora® 23 Server (i686)
 osinfo=fedora23
 arch=i686
 file=fedora-23-i686.xz
-checksum=b3142d8330f68870e986bd2861e6ad8bda27a6fe3eede3dc6bfc3c841fcc87caed98c829da9a2e7f5d866fedbbc8eccfff83bbc9cda0246cd57486e462a9f3c9
+revision=2
+checksum=4b1badbb92f40ca1b3336e70b2564755d643bc00005fd6364c389a1f3078952968a6887c36c4f79fe3873cf42d41cb36dd226521fee32ed6e08c65d6d059af3c
 format=raw
 size=6442450944
-compressed_size=259261944
+compressed_size=322831152
 expand=/dev/sda3
 notes=Fedora 23 Server (i686)
  
