@@ -12957,10 +12957,12 @@ otherwise the call will fail." };
     progress = true; cancellable = true;
     shortdesc = "download a file to the local machine given its inode";
     longdesc = "\
-Download a file given its inode from the disk partition (eg. F</dev/sda1>)
-and save it as F<filename> on the local machine.
+Download a file given its inode from the disk partition
+(eg. F</dev/sda1>) and save it as F<filename> on the local machine.
 
-This allows to download deleted or inaccessible files." };
+It is not required to mount the disk to run this command.
+
+The command is capable of downloading deleted or inaccessible files." };
 
   { defaults with
     name = "btrfs_filesystem_show"; added = (1, 33, 29);
