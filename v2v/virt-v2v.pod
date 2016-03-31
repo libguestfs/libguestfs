@@ -1501,10 +1501,27 @@ leave the system disk in Glance, and import the data disks to Cinder
 
 Since most virt-v2v guests are "pets", Glance is perhaps not the best
 place to store them.  There is no way for virt-v2v to upload directly
-to Cinder (L<https://bugzilla.redhat.com/1155229>), so instead you
-must import them yourself by doing:
+to Cinder (L<https://bugzilla.redhat.com/1155229>).  There are two
+ways to upload to Cinder:
+
+=over 4
+
+=item 1.
+
+Import the image to Glance first (ie. I<-o glance>) and then copy it
+to Cinder:
 
  cinder create --image-id <GLANCE-IMAGE-UUID> <SIZE>
+
+=item 2.
+
+Create (through some other means) a new volume / LUN in your Cinder
+backing store.  Migrate the guest to this volume (using I<-o local>).
+Then ask Cinder to take over management of the volume using:
+
+ cinder manage <VOLUMEREF>
+
+=back
 
 =head1 RESOURCE REQUIREMENTS
 
