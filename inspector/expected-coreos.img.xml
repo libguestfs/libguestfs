@@ -4,9 +4,9 @@
     <root>/dev/sda5</root>
     <name>linux</name>
     <distro>coreos</distro>
-    <product_name>CoreOS 647.0.0</product_name>
-    <major_version>647</major_version>
-    <minor_version>0</minor_version>
+    <product_name>CoreOS 899.13.0</product_name>
+    <major_version>899</major_version>
+    <minor_version>13</minor_version>
     <hostname>coreos.invalid</hostname>
     <format>installed</format>
     <mountpoints>

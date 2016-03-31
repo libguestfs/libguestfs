@@ -196,6 +196,8 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
         distro = OS_DISTRO_ARCHLINUX;
       else if (VALUE_IS ("centos"))
         distro = OS_DISTRO_CENTOS;
+      else if (VALUE_IS ("coreos"))
+        distro = OS_DISTRO_COREOS;
       else if (VALUE_IS ("debian"))
         distro = OS_DISTRO_DEBIAN;
       else if (VALUE_IS ("fedora"))
@@ -1055,12 +1057,24 @@ guestfs_int_check_coreos_usr (guestfs_h *g, struct inspect_fs *fs)
 
   fs->type = OS_TYPE_LINUX;
   fs->distro = OS_DISTRO_COREOS;
+
+  if (guestfs_is_file_opts (g, "/lib/os-release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    r = parse_os_release (g, fs, "/lib/os-release");
+    if (r == -1)        /* error */
+      return -1;
+    if (r == 1)         /* ok - detected the release from this file */
+      goto skip_release_checks;
+  }
+
   if (guestfs_is_file_opts (g, "/share/coreos/lsb-release",
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     r = parse_lsb_release (g, fs, "/share/coreos/lsb-release");
     if (r == -1)        /* error */
       return -1;
   }
+
+ skip_release_checks:;
 
   /* Determine the architecture. */
   check_architecture (g, fs);

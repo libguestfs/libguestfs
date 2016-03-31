@@ -21,12 +21,17 @@
 export LANG=C
 set -e
 
-# lsb-release file.
-cat > archlinux.release <<'EOF'
-DISTRIB_ID=CoreOS
-DISTRIB_RELEASE=647.0.0
-DISTRIB_CODENAME="Red Dog"
-DISTRIB_DESCRIPTION="CoreOS 647.0.0"
+# os-release file.
+cat > coreos.release <<'EOF'
+NAME=CoreOS
+ID=coreos
+VERSION=899.13.0
+VERSION_ID=899.13.0
+BUILD_ID=2016-03-23-0120
+PRETTY_NAME="CoreOS 899.13.0"
+ANSI_COLOR="1;32"
+HOME_URL="https://coreos.com/"
+BUG_REPORT_URL="https://github.com/coreos/bugs/issues"
 EOF
 
 # Create a disk image.
@@ -69,15 +74,16 @@ mkdir-p /usr/share/coreos/
 ln-s usr/bin /bin
 ln-s usr/lib64 /lib64
 ln-s lib64 /lib
+ln-s lib64 /usr/lib
 mkdir /root
 mkdir /home
 
 write /etc/coreos/update.conf "GROUP=stable"
-upload archlinux.release /usr/share/coreos/lsb-release
-ln-s ../usr/share/coreos/lsb-release /etc/lsb-release
+upload coreos.release /usr/lib/os-release
+ln-s ../usr/lib/os-release /etc/os-release
 write /etc/hostname "coreos.invalid"
 
 EOF
 
-rm archlinux.release
+rm coreos.release
 mv coreos.img-t coreos.img
