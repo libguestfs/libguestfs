@@ -376,6 +376,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (qemu_supports (g, data, "-nodefaults"))
     ADD_CMDLINE ("-nodefaults");
 
+  /* This disables the host-side display (SDL, Gtk). */
   ADD_CMDLINE ("-display");
   ADD_CMDLINE ("none");
 
