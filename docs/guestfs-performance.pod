@@ -429,7 +429,23 @@ example).
 In Xen, dom0 is a virtual machine, and so hardware virtualization is
 not available.
 
-=head1 DETAILED TIMINGS USING TS
+=head1 DETAILED ANALYSIS
+
+=head2 Boot analysis
+
+In the libguestfs source directory, in F<tests/qemu> is a program
+called C<boot-analysis>.  This program is able to produce a very
+detailed breakdown of the boot steps (eg. qemu, BIOS, kernel,
+libguestfs init script), and can measure how long it takes to perform
+each step.
+
+To run this program, do:
+
+ make
+ make -C tests/qemu boot-analysis
+ ./run ./tests/qemu/boot-analysis
+
+=head2 Detailed timings using ts
 
 Use the L<ts(1)> command (from moreutils) to show detailed
 timings:
@@ -450,7 +466,7 @@ timings:
 
 The timestamps are seconds (incrementally since the previous line).
 
-=head1 DETAILED TIMINGS USING SYSTEMTAP
+=head2 Detailed timings using SystemTap
 
 You can use SystemTap (L<stap(1)>) to get detailed timings from
 libguestfs programs.
@@ -516,7 +532,7 @@ example:
 You will need to consult, and even modify, the source to libguestfs to
 fully understand the output.
 
-=head1 DETAILED DEBUGGING USING GDB
+=head2 Detailed debugging using gdb
 
 You can attach to the appliance BIOS/kernel using gdb.  If you know
 what you're doing, this can be a useful way to diagnose boot
