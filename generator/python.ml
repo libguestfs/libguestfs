@@ -225,10 +225,12 @@ put_table (char * const * const argv)
         | name, FChar ->
             pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name;
+            pr "                        PyString_FromStringAndSize (&%s->%s, 1));\n"
+              typ name;
             pr "#else\n";
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyUnicode_FromStringAndSize (&dirent->%s, 1));\n" name;
+            pr "                        PyUnicode_FromStringAndSize (&%s->%s, 1));\n"
+              typ name;
             pr "#endif\n"
       ) cols;
       pr "  return dict;\n";
