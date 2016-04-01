@@ -79,6 +79,7 @@
 #include "guestfs-internal-frontend.h"
 
 #include "boot-analysis.h"
+#include "boot-analysis-utils.h"
 
 /* Activities taking longer than this % of the total time, except
  * those flagged as LONG_ACTIVITY, are highlighted in red.
@@ -96,8 +97,6 @@ static int smp = 1;
 static int verbose = 0;
 
 static void run_test (void);
-static void get_time (struct timespec *ts);
-static int64_t timespec_diff (const struct timespec *x, const struct timespec *y);
 static struct event *add_event (struct pass_data *, uint64_t source);
 static guestfs_h *create_handle (void);
 static void set_up_event_handlers (guestfs_h *g, size_t pass);
@@ -265,24 +264,6 @@ run_test (void)
 
   free_pass_data ();
   free_final_timeline ();
-}
-
-static void
-get_time (struct timespec *ts)
-{
-  if (clock_gettime (CLOCK_REALTIME, ts) == -1)
-    error (EXIT_FAILURE, errno, "clock_gettime: CLOCK_REALTIME");
-}
-
-/* Computes Y - X, returning nanoseconds. */
-static int64_t
-timespec_diff (const struct timespec *x, const struct timespec *y)
-{
-  int64_t nsec;
-
-  nsec = (y->tv_sec - x->tv_sec) * UINT64_C(1000000000);
-  nsec += y->tv_nsec - x->tv_nsec;
-  return nsec;
 }
 
 static struct event *
