@@ -29,11 +29,20 @@ appliance:
 Run this command several times in a row and discard the first few
 runs, so that you are measuring a typical "hot cache" case.
 
+I<Side note for developers:> If you are compiling libguestfs from
+source, there is a program called F<tests/qemu/boot-benchmark> which
+does the same thing, but performs multiple runs and prints the mean
+and standard deviation.  To run it, do:
+
+ make
+ make -C tests/qemu boot-benchmark
+ ./run ./tests/qemu/boot-benchmark
+
 =head3 Explanation
 
-This command starts up the libguestfs appliance on a null disk, and
-then immediately shuts it down.  The first time you run the command,
-it will create an appliance and cache it (usually under
+The guestfish command above starts up the libguestfs appliance on a
+null disk, and then immediately shuts it down.  The first time you run
+the command, it will create an appliance and cache it (usually under
 F</var/tmp/.guestfs-*>).  Subsequent runs should reuse the cached
 appliance.
 
