@@ -591,7 +591,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE ("-serial");
   ADD_CMDLINE ("stdio");
 
-  if (qemu_supports_device (g, data, "Serial Graphics Adapter")) {
+  if (g->verbose &&
+      qemu_supports_device (g, data, "Serial Graphics Adapter")) {
     /* Use sgabios instead of vgabios.  This means we'll see BIOS
      * messages on the serial port, and also works around this bug
      * in qemu 1.1.0:
