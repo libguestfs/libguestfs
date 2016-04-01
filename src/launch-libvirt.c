@@ -1166,9 +1166,11 @@ construct_libvirt_xml_boot (guestfs_h *g,
     } end_element ();
 
 #if defined(__i386__) || defined(__x86_64__)
-    start_element ("bios") {
-      attribute ("useserial", "yes");
-    } end_element ();
+    if (g->verbose) {
+      start_element ("bios") {
+        attribute ("useserial", "yes");
+      } end_element ();
+    }
 #endif
 
   } end_element ();
