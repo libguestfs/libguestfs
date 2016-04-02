@@ -73,8 +73,6 @@
 #include <assert.h>
 #include <math.h>
 
-#include "ignore-value.h"
-
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
@@ -105,7 +103,6 @@ static void check_pass_data (void);
 static void dump_pass_data (void);
 static void analyze_timeline (void);
 static void dump_timeline (void);
-static void print_info (void);
 static void print_analysis (void);
 static void print_longest_to_shortest (void);
 static void free_pass_data (void);
@@ -254,7 +251,9 @@ run_test (void)
     dump_timeline ();
 
   printf ("\n");
-  print_info ();
+  g = create_handle ();
+  test_info (g, NR_TEST_PASSES);
+  guestfs_close (g);
   printf ("\n");
   print_analysis ();
   printf ("\n");
@@ -820,37 +819,6 @@ dump_timeline (void)
     printf ("    variance = %.1f\n", activities[i].variance);
     printf ("    s.d = %.1f\n", activities[i].sd);
     printf ("    percent = %.1f\n", activities[i].percent);
-  }
-}
-
-/* Print some information that will allow us to determine the test
- * system when reviewing the results in future.
- */
-static void
-print_info (void)
-{
-  size_t i;
-
-  printf ("%s %s\n", PACKAGE_NAME, PACKAGE_VERSION_FULL);
-
-  printf ("Host:\n");
-  ignore_value (system ("uname -a"));
-  ignore_value (system ("grep '^model name' /proc/cpuinfo | head -1"));
-
-  /* We can dig some information about qemu and the appliance out of
-   * the events.
-   */
-  printf ("Appliance:\n");
-  assert (NR_TEST_PASSES > 0);
-  for (i = 0; i < pass_data[0].nr_events; ++i) {
-    const char *message = pass_data[0].events[i].message;
-    if (strstr (message, "qemu version") ||
-        (strstr (message, "SeaBIOS") && strstr (message, "version")) ||
-        strstr (message, "Linux version") ||
-        (strstr (message, "supermin") && strstr (message, "starting up"))) {
-      print_escaped_string (message);
-      putchar ('\n');
-    }
   }
 }
 
