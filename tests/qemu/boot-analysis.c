@@ -860,8 +860,8 @@ print_activity (struct activity *activity)
   if (activity->warning) ansi_red (); else ansi_green ();
   print_escaped_string (activity->name);
   ansi_restore ();
-  printf (" %1.6fs ±%.1fms ",
-          activity->mean / 1000000000, activity->sd / 1000000);
+  printf (" %.1fms ±%.1fms ",
+          activity->mean / 1000000, activity->sd / 1000000);
   if (activity->warning) ansi_red (); else ansi_green ();
   printf ("(%.1f%%) ", activity->percent);
   ansi_restore ();
@@ -906,7 +906,7 @@ print_analysis (void)
 
     /* Draw a spacer line, but only if last_t -> t is a large jump. */
     if (t - last_t >= 1000000 /* ns */) {
-      printf ("           ");
+      printf ("          ");
       ansi_magenta ();
       for (j = 0; j < last_free_column; ++j) {
         if (columns[j] >= 0 &&
@@ -946,7 +946,7 @@ print_analysis (void)
 
     /* Draw the line. */
     ansi_blue ();
-    printf ("%1.6fs: ", t / 1000000000);
+    printf ("%6.1fms: ", t / 1000000);
 
     ansi_magenta ();
     for (j = 0; j < last_free_column; ++j) {
