@@ -179,13 +179,8 @@ run_test (void)
 
   /* Print the test parameters. */
   printf ("\n");
-  printf (" passes %d\n", NR_TEST_PASSES);
   g = create_handle ();
-  printf (" append %s\n", guestfs_get_append (g) ? : "");
-  printf ("backend %s\n", guestfs_get_backend (g));
-  printf ("     hv %s\n", guestfs_get_hv (g));
-  printf ("memsize %d\n", guestfs_get_memsize (g));
-  printf ("    smp %d\n", guestfs_get_smp (g));
+  test_info (g, NR_TEST_PASSES);
   guestfs_close (g);
 
   /* Print the result. */

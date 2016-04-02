@@ -27,4 +27,10 @@ extern void get_time (struct timespec *ts);
 /* Computes Y - X, returning nanoseconds. */
 extern int64_t timespec_diff (const struct timespec *x, const struct timespec *y);
 
+/* Display host machine and test parameters (to stdout).  'g' should
+ * be an open libguestfs handle.  It is used for reading hv, memsize
+ * etc. and is not modified.
+ */
+extern void test_info (guestfs_h *g, int nr_test_passes);
+
 #endif /* GUESTFS_BOOT_ANALYSIS_UTILS_H_ */
