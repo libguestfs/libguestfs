@@ -292,14 +292,6 @@ create_handle (void)
   g = guestfs_create ();
   if (!g) error (EXIT_FAILURE, errno, "guestfs_create");
 
-  /* We always run these tests using LIBGUESTFS_BACKEND=direct.  It
-   * may be in future we need to test libvirt as well, in case
-   * performance issues are suspected there, but so far libvirt has
-   * not been a bottleneck.
-   */
-  if (guestfs_set_backend (g, "direct") == -1)
-    exit (EXIT_FAILURE);
-
   if (memsize != 0)
     if (guestfs_set_memsize (g, memsize) == -1)
       exit (EXIT_FAILURE);
@@ -622,7 +614,8 @@ check_pass_data (void)
       assert (pass_data[i].events[j].source != 0);
       message = pass_data[i].events[j].message;
       assert (message != NULL);
-      assert (strchr (message, '\n') == NULL);
+      assert (pass_data[i].events[j].source != GUESTFS_EVENT_APPLIANCE ||
+              strchr (message, '\n') == NULL);
       len = strlen (message);
       assert (len == 0 || message[len-1] != '\r');
     }

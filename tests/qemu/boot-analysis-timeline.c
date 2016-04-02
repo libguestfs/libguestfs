@@ -176,28 +176,61 @@ construct_timeline (void)
                   "finished building supermin appliance"));
 
     /* Find where we invoke qemu to test features. */
-    FIND ("qemu:feature-detect", 0,
-          data->events[j].source == GUESTFS_EVENT_LIBRARY &&
-          strstr (data->events[j].message,
-                  "begin testing qemu features"),
-          data->events[k].source == GUESTFS_EVENT_LIBRARY &&
-          strstr (data->events[k].message,
-                  "finished testing qemu features"));
+    FIND_OPTIONAL ("qemu:feature-detect", 0,
+                   data->events[j].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[j].message,
+                           "begin testing qemu features"),
+                   data->events[k].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[k].message,
+                           "finished testing qemu features"));
 
     /* Find where we run qemu. */
-    FIND ("qemu", LONG_ACTIVITY,
-          data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[j].message, "-nodefconfig"),
-          data->events[k].source == GUESTFS_EVENT_CLOSE);
+    FIND_OPTIONAL ("qemu", LONG_ACTIVITY,
+                   data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
+                   strstr (data->events[j].message, "-nodefconfig"),
+                   data->events[k].source == GUESTFS_EVENT_CLOSE);
+
+    /* For the libvirt backend, connecting to libvirt, getting
+     * capabilities, parsing capabilities etc.
+     */
+    FIND_OPTIONAL ("libvirt:connect", 0,
+                   data->events[j].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[j].message, "connect to libvirt"),
+                   data->events[k].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[k].message, "successfully opened libvirt handle"));
+    FIND_OPTIONAL ("libvirt:get-libvirt-capabilities", 0,
+                   data->events[j].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[j].message, "get libvirt capabilities"),
+                   data->events[k].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[k].message, "parsing capabilities XML"));
+
+    FIND_OPTIONAL ("libguestfs:parse-libvirt-capabilities", 0,
+                   data->events[j].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[j].message, "parsing capabilities XML"),
+                   data->events[k].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[k].message, "get_backend_setting"));
+
+    FIND_OPTIONAL ("libguestfs:create-libvirt-xml", 0,
+                   data->events[j].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[j].message, "create libvirt XML"),
+                   data->events[k].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[k].message, "libvirt XML:"));
 
 #define SGABIOS_STRING "\033[1;256r\033[256;256H\033[6n"
 
+    /* For the libvirt backend, find the overhead of libvirt. */
+    FIND_OPTIONAL ("libvirt:overhead", 0,
+                   data->events[j].source == GUESTFS_EVENT_LIBRARY &&
+                   strstr (data->events[j].message, "launch libvirt guest"),
+                   data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
+                   strstr (data->events[k].message, SGABIOS_STRING));
+
     /* From starting qemu up to entering the BIOS is the qemu overhead. */
-    FIND ("qemu:overhead", 0,
-          data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[j].message, "-nodefconfig"),
-          data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[k].message, SGABIOS_STRING));
+    FIND_OPTIONAL ("qemu:overhead", 0,
+                   data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
+                   strstr (data->events[j].message, "-nodefconfig"),
+                   data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
+                   strstr (data->events[k].message, SGABIOS_STRING));
 
     /* From entering the BIOS to starting the kernel is the BIOS overhead. */
     FIND_OPTIONAL ("bios:overhead", 0,
