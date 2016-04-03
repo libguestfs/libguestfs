@@ -28,6 +28,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -60,17 +61,13 @@ main (int argc, char *argv[])
   }
 
   /* Create the pipe. */
-  if (pipe (pipefd) == -1) {
-    perror ("pipe");
-    exit (EXIT_FAILURE);
-  }
+  if (pipe (pipefd) == -1)
+    error (EXIT_FAILURE, errno, "pipe");
 
   /* Create the guestunmount subprocess. */
   pid = fork ();
-  if (pid == -1) {
-    perror ("fork");
-    exit (EXIT_FAILURE);
-  }
+  if (pid == -1)
+    error (EXIT_FAILURE, errno, "fork");
 
   if (pid == 0) {               /* child - guestunmount */
     char fd_str[64];
@@ -92,10 +89,8 @@ main (int argc, char *argv[])
   sleep (2);
 
   r = waitpid (pid, &status, WNOHANG);
-  if (r == -1) {
-    perror ("waitpid");
-    exit (EXIT_FAILURE);
-  }
+  if (r == -1)
+    error (EXIT_FAILURE, errno, "waitpid");
   if (r != 0) {
     char status_string[80];
 
@@ -113,10 +108,8 @@ main (int argc, char *argv[])
   close (pipefd[1]);
 
   r = waitpid (pid, &status, 0);
-  if (r == -1) {
-    perror ("waitpid");
-    exit (EXIT_FAILURE);
-  }
+  if (r == -1)
+    error (EXIT_FAILURE, errno, "waitpid");
   if (!WIFEXITED (status) || WEXITSTATUS (status) != 3) {
     char status_string[80];
 

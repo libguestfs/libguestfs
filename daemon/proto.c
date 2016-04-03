@@ -26,6 +26,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <sys/param.h>		/* defines MIN */
 #include <sys/select.h>
 #include <sys/time.h>
@@ -231,10 +232,8 @@ reply_with_error_errno (int err, const char *fs, ...)
   r = vasprintf (&buf, fs, args);
   va_end (args);
 
-  if (r == -1) {
-    perror ("vasprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (r == -1)
+    error (EXIT_FAILURE, errno, "vasprintf");
 
   send_error (err, buf);
 }
@@ -251,11 +250,9 @@ reply_with_perror_errno (int err, const char *fs, ...)
   r = vasprintf (&buf1, fs, args);
   va_end (args);
 
-  if (r == -1) {
+  if (r == -1)
   error:
-    perror ("vasprintf");
-    exit (EXIT_FAILURE);
-  }
+    error (EXIT_FAILURE, errno, "vasprintf");
 
   r = asprintf (&buf2, "%s: %s", buf1, strerror (err));
   if (r == -1)
@@ -287,10 +284,8 @@ send_error (int errnum, char *msg)
     msg[GUESTFS_ERROR_LEN] = '\0';
 
   buf = malloc (GUESTFS_ERROR_LEN + 200);
-  if (!buf) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!buf)
+    error (EXIT_FAILURE, errno, "malloc");
   xdrmem_create (&xdr, buf, GUESTFS_ERROR_LEN + 200, XDR_ENCODE);
 
   memset (&hdr, 0, sizeof hdr);
@@ -345,10 +340,8 @@ reply (xdrproc_t xdrp, char *ret)
   uint32_t len;
 
   buf = malloc (GUESTFS_MESSAGE_MAX);
-  if (!buf) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!buf)
+    error (EXIT_FAILURE, errno, "malloc");
   xdrmem_create (&xdr, buf, GUESTFS_MESSAGE_MAX, XDR_ENCODE);
 
   memset (&hdr, 0, sizeof hdr);

@@ -23,6 +23,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #include "fish.h"
@@ -106,19 +108,15 @@ Use 'guestfish -N help' to list possible values for the -N parameter.\n"),
   }
 
   prep_data *data = malloc (sizeof *data);
-  if (data == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (data == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
   data->prep = &preps[i];
   data->orig_type_string = type_string;
 
   /* Set up the optional parameters to all-defaults. */
   data->params = malloc (data->prep->nr_params * sizeof (char *));
-  if (data->params == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (data->params == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   for (i = 0; i < data->prep->nr_params; ++i)
     data->params[i] = (char *) data->prep->params[i].pdefault;
@@ -131,10 +129,8 @@ Use 'guestfish -N help' to list possible values for the -N parameter.\n"),
   while (*p) {
     len = strcspn (p, ":");
     data->params[i] = strndup (p, len);
-    if (data->params[i] == NULL) {
-      perror ("strndup");
-      exit (EXIT_FAILURE);
-    }
+    if (data->params[i] == NULL)
+      error (EXIT_FAILURE, errno, "strndup");
 
     p += len;
     if (*p) p++; /* skip colon char */

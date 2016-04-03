@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #include "guestfs.h"
@@ -37,20 +38,16 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
   struct drv *drv;
 
   drv = calloc (1, sizeof (struct drv));
-  if (!drv) {
-    perror ("calloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!drv)
+    error (EXIT_FAILURE, errno, "calloc");
 
   if (parse_uri (arg, &uri) == -1)
     exit (EXIT_FAILURE);
 
   if (STREQ (uri.protocol, "file")) {
     /* Ordinary file. */
-    if (access (uri.path, R_OK) != 0) {
-      perror (uri.path);
-      exit (EXIT_FAILURE);
-    }
+    if (access (uri.path, R_OK) != 0)
+      error (EXIT_FAILURE, errno, "access: %s", uri.path);
 
     drv->type = drv_a;
     drv->nr_drives = -1;
@@ -83,10 +80,8 @@ option_d (const char *arg, struct drv **drvsp)
   struct drv *drv;
 
   drv = calloc (1, sizeof (struct drv));
-  if (!drv) {
-    perror ("calloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!drv)
+    error (EXIT_FAILURE, errno, "calloc");
 
   drv->type = drv_d;
   drv->nr_drives = -1;
@@ -115,10 +110,8 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
     free (drv->device);
     drv->device = NULL;
 
-    if (asprintf (&drv->device, "/dev/sd%c", next_drive) == -1) {
-      perror ("asprintf");
-      exit (EXIT_FAILURE);
-    }
+    if (asprintf (&drv->device, "/dev/sd%c", next_drive) == -1)
+      error (EXIT_FAILURE, errno, "asprintf");
 
     switch (drv->type) {
     case drv_a:
@@ -299,10 +292,8 @@ display_mountpoints_on_failure (const char *mp_device,
 
     /* Reformat the internal btrfsvol string into a valid mount option */
     if (device && subvolume) {
-      if (asprintf (&p, "%s:/:subvol=%s", device, subvolume) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+      if (asprintf (&p, "%s:/:subvol=%s", device, subvolume) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
     } else {
       p = guestfs_canonical_device_name (g, fses[i]);
     }

@@ -23,6 +23,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <libintl.h>
 
@@ -48,10 +50,8 @@ get_if_addr (const char *if_name)
   size_t len = 0;
   ssize_t n;
 
-  if (asprintf (&path, "/sys/class/net/%s/address", if_name) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&path, "/sys/class/net/%s/address", if_name) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   fp = fopen (path, "r");
   if (fp == NULL)
     return NULL;
@@ -78,10 +78,8 @@ get_if_vendor (const char *if_name, int truncate)
   ssize_t n;
   char vendor[5];
 
-  if (asprintf (&path, "/sys/class/net/%s/device/vendor", if_name) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&path, "/sys/class/net/%s/device/vendor", if_name) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   fp = fopen (path, "r");
   if (fp == NULL) {
     perror (path);

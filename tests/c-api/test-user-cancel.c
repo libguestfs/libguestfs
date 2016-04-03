@@ -39,6 +39,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <error.h>
 #include <sys/time.h>
 #include <math.h>
 
@@ -99,17 +100,13 @@ main (int argc, char *argv[])
   data.g = g;
   data.direction = DIRECTION_UP;
 
-  if (pipe (fds) == -1) {
-    perror ("pipe");
-    exit (EXIT_FAILURE);
-  }
+  if (pipe (fds) == -1)
+    error (EXIT_FAILURE, errno, "pipe");
 
   /* We don't want the pipe to be passed to subprocesses. */
   if (fcntl (fds[0], F_SETFD, FD_CLOEXEC) == -1 ||
-      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1) {
-    perror ("fcntl");
-    exit (EXIT_FAILURE);
-  }
+      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1)
+    error (EXIT_FAILURE, errno, "fcntl");
 
   data.fd = fds[1];
   snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fds[0]);
@@ -167,17 +164,13 @@ main (int argc, char *argv[])
   data.g = g;
   data.direction = DIRECTION_DOWN;
 
-  if (pipe (fds) == -1) {
-    perror ("pipe");
-    exit (EXIT_FAILURE);
-  }
+  if (pipe (fds) == -1)
+    error (EXIT_FAILURE, errno, "pipe");
 
   /* We don't want the pipe to be passed to subprocesses. */
   if (fcntl (fds[0], F_SETFD, FD_CLOEXEC) == -1 ||
-      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1) {
-    perror ("fcntl");
-    exit (EXIT_FAILURE);
-  }
+      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1)
+    error (EXIT_FAILURE, errno, "fcntl");
 
   data.fd = fds[0];
   snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fds[1]);
@@ -241,10 +234,9 @@ start_test_thread (void *datav)
       n = MIN (sizeof buffer,
                (size_t) (data->cancel_posn - data->transfer_size));
       r = write (data->fd, buffer, n);
-      if (r == -1) {
-        perror ("test thread: write to pipe before user cancel");
-        exit (EXIT_FAILURE);
-      }
+      if (r == -1)
+        error (EXIT_FAILURE, errno,
+               "test thread: write to pipe before user cancel");
       data->transfer_size += r;
     }
 
@@ -259,10 +251,9 @@ start_test_thread (void *datav)
       guestfs_user_cancel (data->g);
 
       r = write (data->fd, buffer, sizeof buffer);
-      if (r == -1) {
-        perror ("test thread: write to pipe after user cancel");
-        exit (EXIT_FAILURE);
-      }
+      if (r == -1)
+        error (EXIT_FAILURE, errno,
+               "test thread: write to pipe after user cancel");
       data->transfer_size += r;
     }
   } else {                      /* thread is reading */
@@ -271,14 +262,12 @@ start_test_thread (void *datav)
       n = MIN (sizeof buffer,
                (size_t) (data->cancel_posn - data->transfer_size));
       r = read (data->fd, buffer, n);
-      if (r == -1) {
-        perror ("test thread: read from pipe before user cancel");
-        exit (EXIT_FAILURE);
-      }
-      if (r == 0) {
-        perror ("test thread: unexpected end of file before user cancel");
-        exit (EXIT_FAILURE);
-      }
+      if (r == -1)
+        error (EXIT_FAILURE, errno,
+               "test thread: read from pipe before user cancel");
+      if (r == 0)
+        error (EXIT_FAILURE, errno,
+               "test thread: unexpected end of file before user cancel");
       data->transfer_size += r;
     }
 
@@ -288,10 +277,9 @@ start_test_thread (void *datav)
     /* Keep sinking data as long as the main thread is writing. */
     while (1) {
       r = read (data->fd, buffer, sizeof buffer);
-      if (r == -1) {
-        perror ("test thread: read from pipe after user cancel");
-        exit (EXIT_FAILURE);
-      }
+      if (r == -1)
+        error (EXIT_FAILURE, errno,
+               "test thread: read from pipe after user cancel");
       if (r == 0)
         break;
       data->transfer_size += r;

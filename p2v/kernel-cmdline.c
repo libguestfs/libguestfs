@@ -35,6 +35,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 
 #include "p2v.h"
 
@@ -43,10 +44,8 @@ add_null (char ***argv, size_t *lenp)
 {
   (*lenp)++;
   *argv = realloc (*argv, *lenp * sizeof (char *));
-  if (*argv == NULL) {
-    perror ("realloc");
-    exit (EXIT_FAILURE);
-  }
+  if (*argv == NULL)
+    error (EXIT_FAILURE, errno, "realloc");
   (*argv)[(*lenp)-1] = NULL;
 }
 
@@ -55,10 +54,8 @@ add_string (char ***argv, size_t *lenp, const char *str, size_t len)
 {
   add_null (argv, lenp);
   (*argv)[(*lenp)-1] = strndup (str, len);
-  if ((*argv)[(*lenp)-1] == NULL) {
-    perror ("strndup");
-    exit (EXIT_FAILURE);
-  }
+  if ((*argv)[(*lenp)-1] == NULL)
+    error (EXIT_FAILURE, errno, "strndup");
 }
 
 char **

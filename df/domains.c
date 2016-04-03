@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #ifdef HAVE_LIBVIRT
@@ -99,10 +100,8 @@ get_all_libvirt_domains (const char *libvirt_uri)
   }
 
   ids = malloc (sizeof (int) * n);
-  if (ids == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (ids == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
   n = virConnectListDomains (conn, ids, n);
   if (n == -1) {
     err = virGetLastError ();
@@ -124,10 +123,8 @@ get_all_libvirt_domains (const char *libvirt_uri)
   }
 
   names = malloc (sizeof (char *) * n);
-  if (names == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (names == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
   n = virConnectListDefinedDomains (conn, names, n);
   if (n == -1) {
     err = virGetLastError ();
@@ -187,10 +184,8 @@ add_domain (virDomainPtr dom)
   struct domain *domain;
 
   domains = realloc (domains, (nr_domains + 1) * sizeof (struct domain));
-  if (domains == NULL) {
-    perror ("realloc");
-    exit (EXIT_FAILURE);
-  }
+  if (domains == NULL)
+    error (EXIT_FAILURE, errno, "realloc");
 
   domain = &domains[nr_domains];
   nr_domains++;
@@ -198,18 +193,14 @@ add_domain (virDomainPtr dom)
   domain->dom = dom;
 
   domain->name = strdup (virDomainGetName (dom));
-  if (domain->name == NULL) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
+  if (domain->name == NULL)
+    error (EXIT_FAILURE, errno, "strdup");
 
   char uuid[VIR_UUID_STRING_BUFLEN];
   if (virDomainGetUUIDString (dom, uuid) == 0) {
     domain->uuid = strdup (uuid);
-    if (domain->uuid == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (domain->uuid == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
   }
   else
     domain->uuid = NULL;

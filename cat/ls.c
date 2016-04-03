@@ -26,6 +26,7 @@
 #include <getopt.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <time.h>
@@ -291,24 +292,18 @@ main (int argc, char *argv[])
       if (strchr (argv[optind], '/') ||
           access (argv[optind], F_OK) == 0) { /* simulate -a option */
         drv = calloc (1, sizeof (struct drv));
-        if (!drv) {
-          perror ("calloc");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv)
+          error (EXIT_FAILURE, errno, "calloc");
         drv->type = drv_a;
         drv->a.filename = strdup (argv[optind]);
-        if (!drv->a.filename) {
-          perror ("strdup");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv->a.filename)
+          error (EXIT_FAILURE, errno, "strdup");
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */
         drv = calloc (1, sizeof (struct drv));
-        if (!drv) {
-          perror ("calloc");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv)
+          error (EXIT_FAILURE, errno, "calloc");
         drv->type = drv_d;
         drv->d.guest = argv[optind];
         drv->next = drvs;
@@ -564,10 +559,8 @@ next_field (void)
   field++;
   if (field == 1) return;
 
-  if (putchar (c) == EOF) {
-    perror ("putchar");
-    exit (EXIT_FAILURE);
-  }
+  if (putchar (c) == EOF)
+    error (EXIT_FAILURE, errno, "putchar");
 }
 
 static void
@@ -579,10 +572,8 @@ output_start_line (void)
 static void
 output_end_line (void)
 {
-  if (printf ("\n") < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("\n") < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -592,10 +583,8 @@ output_string (const char *s)
 
   if (!csv) {
   print_no_quoting:
-    if (printf ("%s", s) < 0) {
-      perror ("printf");
-      exit (EXIT_FAILURE);
-    }
+    if (printf ("%s", s) < 0)
+      error (EXIT_FAILURE, errno, "printf");
   }
   else {
     /* Quote CSV string without requiring an external module. */
@@ -616,27 +605,19 @@ output_string (const char *s)
       goto print_no_quoting;
 
     /* Quoting for CSV fields. */
-    if (putchar ('"') == EOF) {
-      perror ("putchar");
-      exit (EXIT_FAILURE);
-    }
+    if (putchar ('"') == EOF)
+      error (EXIT_FAILURE, errno, "putchar");
     for (i = 0; i < len; ++i) {
       if (s[i] == '"') {
-        if (putchar ('"') == EOF || putchar ('"') == EOF) {
-          perror ("putchar");
-          exit (EXIT_FAILURE);
-        }
+        if (putchar ('"') == EOF || putchar ('"') == EOF)
+          error (EXIT_FAILURE, errno, "putchar");
       } else {
-        if (putchar (s[i]) == EOF) {
-          perror ("putchar");
-          exit (EXIT_FAILURE);
-        }
+        if (putchar (s[i]) == EOF)
+          error (EXIT_FAILURE, errno, "putchar");
       }
     }
-    if (putchar ('"') == EOF) {
-      perror ("putchar");
-      exit (EXIT_FAILURE);
-    }
+    if (putchar ('"') == EOF)
+      error (EXIT_FAILURE, errno, "putchar");
   }
 }
 
@@ -648,10 +629,8 @@ output_string_link (const char *link)
   else {
     next_field ();
 
-    if (printf ("-> %s", link) < 0) {
-      perror ("printf");
-      exit (EXIT_FAILURE);
-    }
+    if (printf ("-> %s", link) < 0)
+      error (EXIT_FAILURE, errno, "printf");
   }
 }
 
@@ -660,10 +639,8 @@ output_int64 (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%" PRIi64, i) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("%" PRIi64, i) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -690,10 +667,8 @@ output_int64_size (int64_t size)
                   human_readable ((uintmax_t) size, buf, hopts, 1, 1));
   }
 
-  if (r < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (r < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -701,10 +676,8 @@ output_int64_perms (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%04" PRIo64, (uint64_t) i) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("%04" PRIo64, (uint64_t) i) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -735,23 +708,17 @@ output_int64_time (int64_t secs, int64_t nsecs)
     struct tm *tm;
 
     tm = localtime (&t);
-    if (tm == NULL) {
-      perror ("localtime");
-      exit (EXIT_FAILURE);
-    }
+    if (tm == NULL)
+      error (EXIT_FAILURE, errno, "localtime");
 
-    if (strftime (buf, sizeof buf, "%F %T", tm) == 0) {
-      perror ("strftime");
-      exit (EXIT_FAILURE);
-    }
+    if (strftime (buf, sizeof buf, "%F %T", tm) == 0)
+      error (EXIT_FAILURE, errno, "strftime");
 
     r = printf ("%s", buf);
   }
 
-  if (r < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (r < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -759,10 +726,8 @@ output_int64_uid (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%4" PRIi64, i) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("%4" PRIi64, i) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -774,8 +739,6 @@ output_int64_dev (int64_t i)
 
   /* csv doesn't need escaping */
   if (printf ("%ju:%ju",
-              (uintmax_t) major (dev), (uintmax_t) minor (dev)) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+              (uintmax_t) major (dev), (uintmax_t) minor (dev)) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }

@@ -27,6 +27,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <getopt.h>
 #include <signal.h>
 #include <locale.h>
@@ -55,10 +56,8 @@ fuse_opt_add_opt_escaped (char **opts, const char *opt)
   unsigned oldlen = *opts ? strlen(*opts) : 0;
   char *d = realloc (*opts, oldlen + 1 + strlen(opt) * 2 + 1);
 
-  if (!d) {
-    perror ("realloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!d)
+    error (EXIT_FAILURE, errno, "realloc");
 
   *opts = d;
   if (oldlen) {
@@ -419,10 +418,8 @@ main (int argc, char *argv[])
     int fd;
 
     pid = fork ();
-    if (pid == -1) {
-      perror ("fork");
-      exit (EXIT_FAILURE);
-    }
+    if (pid == -1)
+      error (EXIT_FAILURE, errno, "fork");
 
     if (pid != 0) {             /* parent */
       if (write_pid_file (pid_file, pid) == -1)
@@ -434,10 +431,8 @@ main (int argc, char *argv[])
     }
 
     /* Emulate what old fuse_daemonize used to do. */
-    if (setsid () == -1) {
-      perror ("setsid");
-      exit (EXIT_FAILURE);
-    }
+    if (setsid () == -1)
+      error (EXIT_FAILURE, errno, "setsid");
 
     ignore_value (chdir ("/"));
 

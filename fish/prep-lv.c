@@ -23,6 +23,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #include "fish.h"
@@ -43,18 +45,14 @@ vg_lv_parse (const char *device, char **vg, char **lv)
 
   if (vg) {
     *vg = strndup (device, p - device);
-    if (*vg == NULL) {
-      perror ("strndup");
-      exit (EXIT_FAILURE);
-    }
+    if (*vg == NULL)
+      error (EXIT_FAILURE, errno, "strndup");
   }
 
   if (lv) {
     *lv = strdup (p+1);
-    if (*lv == NULL) {
-      perror ("strndup");
-      exit (EXIT_FAILURE);
-    }
+    if (*lv == NULL)
+      error (EXIT_FAILURE, errno, "strndup");
   }
 
   return 0;
@@ -83,10 +81,8 @@ prep_postlaunch_lv (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("incorrect format for LV name, use '/dev/VG/LV'"));
 
   CLEANUP_FREE char *part;
-  if (asprintf (&part, "%s1", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part, "%s1", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   if (guestfs_pvcreate (g, part) == -1)
     prep_error (data, filename, _("failed to create PV: %s: %s"),
@@ -126,10 +122,8 @@ prep_postlaunch_lvfs (const char *filename, prep_data *data, const char *device)
     prep_error (data, filename, _("incorrect format for LV name, use '/dev/VG/LV'"));
 
   CLEANUP_FREE char *part;
-  if (asprintf (&part, "%s1", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part, "%s1", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   if (guestfs_pvcreate (g, part) == -1)
     prep_error (data, filename, _("failed to create PV: %s: %s"),

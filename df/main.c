@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <libintl.h>
@@ -216,24 +217,18 @@ main (int argc, char *argv[])
       if (strchr (argv[optind], '/') ||
           access (argv[optind], F_OK) == 0) { /* simulate -a option */
         drv = calloc (1, sizeof (struct drv));
-        if (!drv) {
-          perror ("calloc");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv)
+          error (EXIT_FAILURE, errno, "calloc");
         drv->type = drv_a;
         drv->a.filename = strdup (argv[optind]);
-        if (!drv->a.filename) {
-          perror ("strdup");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv->a.filename)
+          error (EXIT_FAILURE, errno, "strdup");
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */
         drv = calloc (1, sizeof (struct drv));
-        if (!drv) {
-          perror ("calloc");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv)
+          error (EXIT_FAILURE, errno, "calloc");
         drv->type = drv_d;
         drv->d.guest = argv[optind];
         drv->next = drvs;
@@ -335,28 +330,22 @@ single_drive_display_name (struct drv *drvs)
     else
       name++;                   /* skip '/' character */
     name = strdup (name);
-    if (name == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (name == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
     break;
 
   case drv_uri:
     name = strdup (drvs->uri.orig_uri);
-    if (name == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (name == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
     /* Try to shorten the URI to just the final element, if it will
      * still make sense.
      */
     p = strrchr (name, '/');
     if (p && strlen (p) > 1) {
       p = strdup (p+1);
-      if (!p) {
-        perror ("strdup");
-        exit (EXIT_FAILURE);
-      }
+      if (!p)
+        error (EXIT_FAILURE, errno, "strdup");
       free (name);
       name = p;
     }
@@ -364,10 +353,8 @@ single_drive_display_name (struct drv *drvs)
 
   case drv_d:
     name = strdup (drvs->d.guest);
-    if (name == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (name == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
     break;
   }
 
@@ -405,10 +392,8 @@ make_display_name (struct drv *drvs)
     len = strlen (ret);
 
     ret = realloc (ret, len + pluses + 1);
-    if (ret == NULL) {
-      perror ("realloc");
-      exit (EXIT_FAILURE);
-    }
+    if (ret == NULL)
+      error (EXIT_FAILURE, errno, "realloc");
     for (i = len; i < len + pluses; ++i)
       ret[i] = '+';
     ret[i] = '\0';

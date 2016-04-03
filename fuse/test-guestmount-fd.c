@@ -24,6 +24,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -64,38 +65,28 @@ main (int argc, char *argv[])
   }
 
   /* Skip the test if the test image can't be found. */
-  if (access (TEST_IMAGE, R_OK) == -1) {
-    perror (TEST_IMAGE);
-    exit (77);
-  }
+  if (access (TEST_IMAGE, R_OK) == -1)
+    error (77, errno, "access: %s", TEST_IMAGE);
 
   /* Skip the test if /dev/fuse is not writable, because guestmount
    * will fail.
    */
-  if (access ("/dev/fuse", W_OK) == -1) {
-    perror ("/dev/fuse");
-    exit (77);
-  }
+  if (access ("/dev/fuse", W_OK) == -1)
+    error (77, errno, "access: %s", "/dev/fuse");
 
   /* Create the pipe. */
-  if (pipe (pipefd) == -1) {
-    perror ("pipe");
-    exit (EXIT_FAILURE);
-  }
+  if (pipe (pipefd) == -1)
+    error (EXIT_FAILURE, errno, "pipe");
 
   /* Create the mount point. */
   ignore_value (rmdir (MOUNTPOINT));
-  if (mkdir (MOUNTPOINT, 0700) == -1) {
-    perror ("mkdir: " MOUNTPOINT);
-    exit (EXIT_FAILURE);
-  }
+  if (mkdir (MOUNTPOINT, 0700) == -1)
+    error (EXIT_FAILURE, errno, "mkdir: %s", MOUNTPOINT);
 
   /* Create the guestmount subprocess. */
   pid = fork ();
-  if (pid == -1) {
-    perror ("fork");
-    exit (EXIT_FAILURE);
-  }
+  if (pid == -1)
+    error (EXIT_FAILURE, errno, "fork");
 
   if (pid == 0) {               /* child - guestmount */
     char fd_str[64];

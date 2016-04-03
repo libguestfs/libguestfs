@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <libintl.h>
 #include <netdb.h>
@@ -101,11 +102,9 @@ set_conversion_error (const char *fs, ...)
   len = vasprintf (&msg, fs, args);
   va_end (args);
 
-  if (len < 0) {
-    perror ("vasprintf");
-    fprintf (stderr, "original error format string: %s\n", fs);
-    exit (EXIT_FAILURE);
-  }
+  if (len < 0)
+    error (EXIT_FAILURE, errno,
+           "vasprintf (original error format string: %s)", fs);
 
   free (conversion_error);
   conversion_error = msg;
@@ -185,10 +184,8 @@ start_conversion (struct config *config,
   set_cancel_requested (0);
 
   data_conns = malloc (sizeof (struct data_conn) * nr_disks);
-  if (data_conns == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (data_conns == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   for (i = 0; config->disks[i] != NULL; ++i) {
     data_conns[i].h = NULL;
@@ -205,10 +202,8 @@ start_conversion (struct config *config,
       CLEANUP_FREE char *msg;
       if (asprintf (&msg,
                     _("Opening data connection for %s ..."),
-                    config->disks[i]) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+                    config->disks[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
       notify_ui (NOTIFY_STATUS, msg);
     }
 
@@ -910,10 +905,8 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
             map_interface_to_network (config, config->interfaces[i]);
 
           if (asprintf (&mac_filename, "/sys/class/net/%s/address",
-                        config->interfaces[i]) == -1) {
-            perror ("asprintf");
-            exit (EXIT_FAILURE);
-          }
+                        config->interfaces[i]) == -1)
+            error (EXIT_FAILURE, errno, "asprintf");
           if (g_file_get_contents (mac_filename, &mac, NULL, NULL)) {
             size_t len = strlen (mac);
 

@@ -31,6 +31,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <errno.h>
+#include <error.h>
 #include <getopt.h>
 #include <unistd.h>
 #include <signal.h>
@@ -253,24 +254,16 @@ test_virtio_serial (void)
    * source file is a regular file.
    */
   fd = mkstemp (tmpfile);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
-  if (ftruncate (fd, TEST_SERIAL_MAX_SIZE) == -1) {
-    perror ("ftruncate");
-    exit (EXIT_FAILURE);
-  }
-  if (close (fd) == -1) {
-    perror ("close");
-    exit (EXIT_FAILURE);
-  }
+  if (fd == -1)
+    error (EXIT_FAILURE, errno, "mkstemp: %s", tmpfile);
+  if (ftruncate (fd, TEST_SERIAL_MAX_SIZE) == -1)
+    error (EXIT_FAILURE, errno, "ftruncate");
+  if (close (fd) == -1)
+    error (EXIT_FAILURE, errno, "close");
 
   g = guestfs_create ();
-  if (!g) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (!g)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive_scratch (g, INT64_C (100*1024*1024), -1) == -1)
     exit (EXIT_FAILURE);
@@ -395,19 +388,15 @@ test_block_device (void)
   snprintf (tbuf, sizeof tbuf, "%d", t);
 
   g = guestfs_create ();
-  if (!g) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (!g)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   /* Create a fully allocated backing file.  Note we are not testing
    * the speed of allocation on the host.
    */
   fd = mkstemp (tmpfile);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
+  if (fd == -1)
+    error (EXIT_FAILURE, errno, "mkstemp: %s", tmpfile);
   close (fd);
 
   if (guestfs_disk_create (g, tmpfile, "raw",

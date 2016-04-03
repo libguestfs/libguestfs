@@ -32,6 +32,7 @@
 #include <getopt.h>
 #include <limits.h>
 #include <errno.h>
+#include <error.h>
 #include <pthread.h>
 
 #include "guestfs.h"
@@ -197,10 +198,8 @@ run_test (size_t P)
 
   thread_data = malloc (sizeof (struct thread_data) * P);
   threads = malloc (sizeof (pthread_t) * P);
-  if (thread_data == NULL || threads == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (thread_data == NULL || threads == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   /* Start the worker threads. */
   for (i = 0; i < P; ++i) {

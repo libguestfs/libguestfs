@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <langinfo.h>
 #include <libintl.h>
@@ -59,24 +60,18 @@ windows_path (guestfs_h *g, const char *root, const char *path, int readonly)
     /* This returns the newly allocated string. */
     mount_drive_letter (g, drive_letter, root, readonly);
     ret = strdup (path + 2);
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (ret == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
   }
   else if (!*path) {
     ret = strdup ("/");
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (ret == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
   }
   else {
     ret = strdup (path);
-    if (ret == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (ret == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
   }
 
   /* Blindly convert any backslashes into forward slashes.  Is this good? */

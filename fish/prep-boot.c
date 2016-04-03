@@ -23,6 +23,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #include "fish.h"
@@ -61,19 +63,15 @@ prep_postlaunch_bootroot (const char *filename, prep_data *data, const char *dev
                 guestfs_last_error (g));
 
   CLEANUP_FREE char *part;
-  if (asprintf (&part, "%s1", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part, "%s1", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   if (guestfs_mkfs (g, data->params[0], part) == -1)
     prep_error (data, filename, _("failed to create boot filesystem: %s"),
                 guestfs_last_error (g));
 
   CLEANUP_FREE char *part2;
-  if (asprintf (&part2, "%s2", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part2, "%s2", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   if (guestfs_mkfs (g, data->params[1], part2) == -1)
     prep_error (data, filename, _("failed to create root filesystem: %s"),
                 guestfs_last_error (g));
@@ -120,19 +118,15 @@ prep_postlaunch_bootrootlv (const char *filename, prep_data *data, const char *d
     prep_error (data, filename, _("incorrect format for LV name, use '/dev/VG/LV'"));
 
   CLEANUP_FREE char *part;
-  if (asprintf (&part, "%s1", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part, "%s1", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   if (guestfs_mkfs (g, data->params[1], part) == -1)
     prep_error (data, filename, _("failed to create boot filesystem: %s"),
                 guestfs_last_error (g));
 
   CLEANUP_FREE char *part2;
-  if (asprintf (&part2, "%s2", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part2, "%s2", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   if (guestfs_pvcreate (g, part2) == -1)
     prep_error (data, filename, _("failed to create PV: %s: %s"),
                 part2, guestfs_last_error (g));

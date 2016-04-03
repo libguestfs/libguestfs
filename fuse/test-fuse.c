@@ -33,6 +33,8 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
+#include <error.h>
 
 #ifdef HAVE_ACL
 #include <sys/acl.h>
@@ -86,16 +88,12 @@ main (int argc, char *argv[])
     exit (77);
   }
 
-  if (access ("/dev/fuse", W_OK) == -1) {
-    perror ("/dev/fuse");
-    exit (77);
-  }
+  if (access ("/dev/fuse", W_OK) == -1)
+    error (77, errno, "access: /dev/fuse");
 
   g = guestfs_create ();
-  if (g == NULL) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive_scratch (g, SIZE, -1) == -1)
     exit (EXIT_FAILURE);
@@ -126,10 +124,8 @@ main (int argc, char *argv[])
 
   /* Fork to run the next part of the test. */
   pid = fork ();
-  if (pid == -1) {
-    perror ("fork");
-    exit (EXIT_FAILURE);
-  }
+  if (pid == -1)
+    error (EXIT_FAILURE, errno, "fork");
 
   if (pid == 0) {               /* Child. */
     /* Move into the mountpoint for the tests. */
@@ -176,15 +172,11 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Clean up and exit. */
-  if (waitpid (pid, &r, 0) == -1) {
-    perror ("waitpid");
-    exit (EXIT_FAILURE);
-  }
+  if (waitpid (pid, &r, 0) == -1)
+    error (EXIT_FAILURE, errno, "waitpid");
 
-  if (rmdir (mountpoint) == -1) {
-    perror (mountpoint);
-    exit (EXIT_FAILURE);
-  }
+  if (rmdir (mountpoint) == -1)
+    error (EXIT_FAILURE, errno, "rmdir: %s", mountpoint);
 
   if (guestfs_shutdown (g) == -1)
     exit (EXIT_FAILURE);

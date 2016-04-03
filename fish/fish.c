@@ -27,6 +27,7 @@
 #include <getopt.h>
 #include <signal.h>
 #include <errno.h>
+#include <error.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <locale.h>
@@ -360,10 +361,8 @@ main (int argc, char *argv[])
         exit (EXIT_SUCCESS);
       }
       drv = calloc (1, sizeof (struct drv));
-      if (!drv) {
-        perror ("calloc");
-        exit (EXIT_FAILURE);
-      }
+      if (!drv)
+        error (EXIT_FAILURE, errno, "calloc");
       drv->type = drv_N;
       drv->nr_drives = -1;
       p = strchr (optarg, '=');
@@ -371,16 +370,12 @@ main (int argc, char *argv[])
         *p = '\0';
         p = p+1;
         drv->N.filename = strdup (optarg);
-        if (drv->N.filename == NULL) {
-          perror ("strdup");
-          exit (EXIT_FAILURE);
-        }
+        if (drv->N.filename == NULL)
+          error (EXIT_FAILURE, errno, "strdup");
       } else {
         if (asprintf (&drv->N.filename, "test%d.img",
-                      next_prepared_drive) == -1) {
-          perror ("asprintf");
-          exit (EXIT_FAILURE);
-        }
+                      next_prepared_drive) == -1)
+          error (EXIT_FAILURE, errno, "asprintf");
         p = optarg;
       }
       drv->N.data = create_prepared_file (p, drv->N.filename);
@@ -448,24 +443,18 @@ main (int argc, char *argv[])
       if (strchr (argv[optind], '/') ||
           access (argv[optind], F_OK) == 0) { /* simulate -a option */
         drv = calloc (1, sizeof (struct drv));
-        if (!drv) {
-          perror ("calloc");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv)
+          error (EXIT_FAILURE, errno, "calloc");
         drv->type = drv_a;
         drv->a.filename = strdup (argv[optind]);
-        if (!drv->a.filename) {
-          perror ("strdup");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv->a.filename)
+          error (EXIT_FAILURE, errno, "strdup");
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */
         drv = calloc (1, sizeof (struct drv));
-        if (!drv) {
-          perror ("calloc");
-          exit (EXIT_FAILURE);
-        }
+        if (!drv)
+          error (EXIT_FAILURE, errno, "calloc");
         drv->type = drv_d;
         drv->d.guest = argv[optind];
         drv->next = drvs;
@@ -539,10 +528,8 @@ main (int argc, char *argv[])
   /* -f (file) parameter? */
   if (file) {
     close (0);
-    if (open (file, O_RDONLY|O_CLOEXEC) == -1) {
-      perror (file);
-      exit (EXIT_FAILURE);
-    }
+    if (open (file, O_RDONLY|O_CLOEXEC) == -1)
+      error (EXIT_FAILURE, errno, "open: %s", file);
   }
 
   /* Get the name of the input file, for error messages, and replace
@@ -565,10 +552,8 @@ main (int argc, char *argv[])
 
   if (progress_bars) {
     bar = progress_bar_init (0);
-    if (!bar) {
-      perror ("progress_bar_init");
-      exit (EXIT_FAILURE);
-    }
+    if (!bar)
+      error (EXIT_FAILURE, errno, "progress_bar_init");
 
     guestfs_set_event_callback (g, progress_callback,
                                 GUESTFS_EVENT_PROGRESS, 0, NULL);
@@ -1481,30 +1466,24 @@ initialize_readline (void)
   if (str) {
     free (ps1);
     ps1 = strdup (str);
-    if (!ps1) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (!ps1)
+      error (EXIT_FAILURE, errno, "strdup");
   }
 
   str = getenv ("GUESTFISH_OUTPUT");
   if (str) {
     free (ps_output);
     ps_output = strdup (str);
-    if (!ps_output) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (!ps_output)
+      error (EXIT_FAILURE, errno, "strdup");
   }
 
   str = getenv ("GUESTFISH_INIT");
   if (str) {
     free (ps_init);
     ps_init = strdup (str);
-    if (!ps_init) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (!ps_init)
+      error (EXIT_FAILURE, errno, "strdup");
   }
 #endif
 }
@@ -1557,10 +1536,8 @@ decode_ps1 (const char *str)
    * future.
    */
   ret = malloc (len + 1);
-  if (!ret) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!ret)
+    error (EXIT_FAILURE, errno, "malloc");
 
   for (i = j = 0; i < len; ++i) {
     if (str[i] == '\\') {       /* Start of an escape sequence. */

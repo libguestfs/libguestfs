@@ -18,11 +18,13 @@
 
 #include <config.h>
 
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-all.h"
@@ -44,10 +46,8 @@ main (int argc, char *argv[])
   }
 
   g = guestfs_create ();
-  if (g == NULL) {
-    perror ("could not create handle");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive_scratch (g, 1024*1024*1024, -1) == -1) {
   error:

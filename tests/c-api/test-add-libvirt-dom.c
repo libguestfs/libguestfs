@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include <libvirt/libvirt.h>
 #include <libvirt/virterror.h>
@@ -100,10 +102,8 @@ main (int argc, char *argv[])
    * directory.
    */
   fp = fopen ("test-add-libvirt-dom.xml", "w");
-  if (fp == NULL) {
-    perror ("test-add-libvirt-dom.xml");
-    exit (EXIT_FAILURE);
-  }
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "fopen: %s", "test-add-libvirt-dom.xml");
   make_test_xml (fp, cwd);
   fclose (fp);
 

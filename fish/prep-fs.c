@@ -23,6 +23,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #include "fish.h"
@@ -43,10 +45,8 @@ prep_postlaunch_fs (const char *filename, prep_data *data, const char *device)
                 guestfs_last_error (g));
 
   CLEANUP_FREE char *part;
-  if (asprintf (&part, "%s1", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&part, "%s1", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   if (guestfs_mkfs (g, data->params[0], part) == -1)
     prep_error (data, filename, _("failed to create filesystem (%s): %s"),

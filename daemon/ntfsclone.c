@@ -23,6 +23,8 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include "read-file.h"
 
@@ -42,10 +44,8 @@ read_error_file (char *error_file)
   str = read_file (error_file, &len);
   if (str == NULL) {
     str = strdup ("(no error)");
-    if (str == NULL) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (str == NULL)
+      error (EXIT_FAILURE, errno, "strdup"); /* XXX */
     len = strlen (str);
   }
 

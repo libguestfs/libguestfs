@@ -26,6 +26,7 @@
 #include <getopt.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <time.h>
@@ -709,20 +710,14 @@ diff (struct file *file1, guestfs_h *g1, struct file *file2, guestfs_h *g2)
   assert (is_reg (file1->stat->st_mode));
   assert (is_reg (file2->stat->st_mode));
 
-  if (asprintf (&tmpd, "%s/virtdiffXXXXXX", tmpdir) < 0) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-  if (mkdtemp (tmpd) == NULL) {
-    perror ("mkdtemp");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&tmpd, "%s/virtdiffXXXXXX", tmpdir) < 0)
+    error (EXIT_FAILURE, errno, "asprintf");
+  if (mkdtemp (tmpd) == NULL)
+    error (EXIT_FAILURE, errno, "mkdtemp");
 
   if (asprintf (&tmpda, "%s/a", tmpd) < 0 ||
-      asprintf (&tmpdb, "%s/b", tmpd) < 0) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+      asprintf (&tmpdb, "%s/b", tmpd) < 0)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   if (guestfs_download (g1, file1->path, tmpda) == -1)
     goto out;
@@ -732,10 +727,8 @@ diff (struct file *file1, guestfs_h *g1, struct file *file2, guestfs_h *g2)
   /* Note that the tmpdir is safe, and the rest of the path
    * should not need quoting.
    */
-  if (asprintf (&cmd, "diff -u '%s' '%s' | tail -n +3", tmpda, tmpdb) < 0) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&cmd, "diff -u '%s' '%s' | tail -n +3", tmpda, tmpdb) < 0)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
@@ -838,10 +831,8 @@ next_field (void)
   field++;
   if (field == 1) return;
 
-  if (putchar (c) == EOF) {
-    perror ("putchar");
-    exit (EXIT_FAILURE);
-  }
+  if (putchar (c) == EOF)
+    error (EXIT_FAILURE, errno, "putchar");
 }
 
 static void
@@ -853,19 +844,15 @@ output_start_line (void)
 static void
 output_end_line (void)
 {
-  if (printf ("\n") < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("\n") < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
 output_flush (void)
 {
-  if (fflush (stdout) == EOF) {
-    perror ("fflush");
-    exit (EXIT_FAILURE);
-  }
+  if (fflush (stdout) == EOF)
+    error (EXIT_FAILURE, errno, "fflush");
 }
 
 static void
@@ -875,10 +862,8 @@ output_string (const char *s)
 
   if (!csv) {
   print_no_quoting:
-    if (printf ("%s", s) < 0) {
-      perror ("printf");
-      exit (EXIT_FAILURE);
-    }
+    if (printf ("%s", s) < 0)
+      error (EXIT_FAILURE, errno, "printf");
   }
   else {
     /* Quote CSV string without requiring an external module. */
@@ -899,27 +884,19 @@ output_string (const char *s)
       goto print_no_quoting;
 
     /* Quoting for CSV fields. */
-    if (putchar ('"') == EOF) {
-      perror ("putchar");
-      exit (EXIT_FAILURE);
-    }
+    if (putchar ('"') == EOF)
+      error (EXIT_FAILURE, errno, "putchar");
     for (i = 0; i < len; ++i) {
       if (s[i] == '"') {
-        if (putchar ('"') == EOF || putchar ('"') == EOF) {
-          perror ("putchar");
-          exit (EXIT_FAILURE);
-        }
+        if (putchar ('"') == EOF || putchar ('"') == EOF)
+          error (EXIT_FAILURE, errno, "putchar");
       } else {
-        if (putchar (s[i]) == EOF) {
-          perror ("putchar");
-          exit (EXIT_FAILURE);
-        }
+        if (putchar (s[i]) == EOF)
+          error (EXIT_FAILURE, errno, "putchar");
       }
     }
-    if (putchar ('"') == EOF) {
-      perror ("putchar");
-      exit (EXIT_FAILURE);
-    }
+    if (putchar ('"') == EOF)
+      error (EXIT_FAILURE, errno, "putchar");
   }
 }
 
@@ -931,10 +908,8 @@ output_string_link (const char *link)
   else {
     next_field ();
 
-    if (printf ("-> %s", link) < 0) {
-      perror ("printf");
-      exit (EXIT_FAILURE);
-    }
+    if (printf ("-> %s", link) < 0)
+      error (EXIT_FAILURE, errno, "printf");
   }
 }
 
@@ -949,15 +924,11 @@ output_binary (const char *s, size_t len)
   print_no_quoting:
     for (i = 0; i < len; ++i) {
       if (c_isprint (s[i])) {
-        if (putchar (s[i]) == EOF) {
-          perror ("putchar");
-          exit (EXIT_FAILURE);
-        }
+        if (putchar (s[i]) == EOF)
+          error (EXIT_FAILURE, errno, "putchar");
       } else {
-        if (printf ("\\x%02x", (unsigned char) s[i]) < 0) {
-          perror ("printf");
-          exit (EXIT_FAILURE);
-        }
+        if (printf ("\\x%02x", (unsigned char) s[i]) < 0)
+          error (EXIT_FAILURE, errno, "putchar");
       }
     }
   }
@@ -977,34 +948,24 @@ output_binary (const char *s, size_t len)
       goto print_no_quoting;
 
     /* Quoting for CSV fields. */
-    if (putchar ('"') == EOF) {
-      perror ("putchar");
-      exit (EXIT_FAILURE);
-    }
+    if (putchar ('"') == EOF)
+      error (EXIT_FAILURE, errno, "putchar");
     for (i = 0; i < len; ++i) {
       if (s[i] == '"') {
-        if (putchar ('"') == EOF || putchar ('"') == EOF) {
-          perror ("putchar");
-          exit (EXIT_FAILURE);
-        }
+        if (putchar ('"') == EOF || putchar ('"') == EOF)
+          error (EXIT_FAILURE, errno, "putchar");
       } else {
         if (c_isprint (s[i])) {
-          if (putchar (s[i]) == EOF) {
-            perror ("putchar");
-            exit (EXIT_FAILURE);
-          }
+          if (putchar (s[i]) == EOF)
+            error (EXIT_FAILURE, errno, "putchar");
         } else {
-          if (printf ("\\x%2x", (unsigned) s[i]) < 0) {
-            perror ("printf");
-            exit (EXIT_FAILURE);
-          }
+          if (printf ("\\x%2x", (unsigned) s[i]) < 0)
+            error (EXIT_FAILURE, errno, "printf");
         }
       }
     }
-    if (putchar ('"') == EOF) {
-      perror ("putchar");
-      exit (EXIT_FAILURE);
-    }
+    if (putchar ('"') == EOF)
+      error (EXIT_FAILURE, errno, "putchar");
   }
 }
 
@@ -1013,10 +974,8 @@ output_int64 (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%" PRIi64, i) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("%" PRIi64, i) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -1043,10 +1002,8 @@ output_int64_size (int64_t size)
                   human_readable ((uintmax_t) size, buf, hopts, 1, 1));
   }
 
-  if (r < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (r < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -1054,10 +1011,8 @@ output_int64_perms (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf ("%04" PRIo64, (uint64_t) i) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf ("%04" PRIo64, (uint64_t) i) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -1088,23 +1043,17 @@ output_int64_time (int64_t secs, int64_t nsecs)
     struct tm *tm;
 
     tm = localtime (&t);
-    if (tm == NULL) {
-      perror ("localtime");
-      exit (EXIT_FAILURE);
-    }
+    if (tm == NULL)
+      error (EXIT_FAILURE, errno, "localtime");
 
-    if (strftime (buf, sizeof buf, "%F %T", tm) == 0) {
-      perror ("strftime");
-      exit (EXIT_FAILURE);
-    }
+    if (strftime (buf, sizeof buf, "%F %T", tm) == 0)
+      error (EXIT_FAILURE, errno, "strftime");
 
     r = printf ("%s", buf);
   }
 
-  if (r < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (r < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -1112,10 +1061,8 @@ output_int64_uid (int64_t i)
 {
   next_field ();
   /* csv doesn't need escaping */
-  if (printf (csv ? "%" PRIi64 : "%4" PRIi64, i) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+  if (printf (csv ? "%" PRIi64 : "%4" PRIi64, i) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }
 
 static void
@@ -1127,8 +1074,6 @@ output_int64_dev (int64_t i)
 
   /* csv doesn't need escaping */
   if (printf ("%ju:%ju",
-              (uintmax_t) major (dev), (uintmax_t) minor (dev)) < 0) {
-    perror ("printf");
-    exit (EXIT_FAILURE);
-  }
+              (uintmax_t) major (dev), (uintmax_t) minor (dev)) < 0)
+    error (EXIT_FAILURE, errno, "printf");
 }

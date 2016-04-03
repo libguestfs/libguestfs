@@ -29,6 +29,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -49,10 +51,8 @@ main (int argc, char *argv[])
       setenv (var[i], value[j], 1);
 
       g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);
-      if (!g) {
-        perror ("guestfs_create_flags");
-        exit (EXIT_FAILURE);
-      }
+      if (!g)
+        error (EXIT_FAILURE, errno, "guestfs_create_flags");
 
       if (guestfs_parse_environment (g) == -1)
         exit (EXIT_FAILURE);
@@ -66,10 +66,8 @@ main (int argc, char *argv[])
   /* Check that guestfs_get_attach_method returns "appliance" ... */
 
   g = guestfs_create ();
-  if (!g) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (!g)
+    error (EXIT_FAILURE, errno, "guestfs_create");
   if (guestfs_set_backend (g, "direct") == -1)
     exit (EXIT_FAILURE);
 

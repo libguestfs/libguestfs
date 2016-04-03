@@ -45,6 +45,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <libintl.h>
@@ -78,11 +79,9 @@ set_ssh_error (const char *fs, ...)
   len = vasprintf (&msg, fs, args);
   va_end (args);
 
-  if (len < 0) {
-    perror ("vasprintf");
-    fprintf (stderr, "original error format string: %s\n", fs);
-    exit (EXIT_FAILURE);
-  }
+  if (len < 0)
+    error (EXIT_FAILURE, errno,
+           "vasprintf (original error format string: %s)", fs);
 
   free (ssh_error);
   ssh_error = msg;
@@ -177,15 +176,11 @@ curl_download (const char *url, const char *local_file)
 
   /* Use a secure curl config file because escaping is easier. */
   fd = mkstemp (curl_config_file);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
+  if (fd == -1)
+    error (EXIT_FAILURE, errno, "mkstemp: %s", curl_config_file);
   fp = fdopen (fd, "w");
-  if (fp == NULL) {
-    perror ("fdopen");
-    exit (EXIT_FAILURE);
-  }
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "fdopen: %s", curl_config_file);
   fprintf (fp, "url = \"");
   len = strlen (url);
   for (i = 0; i < len; ++i) {
@@ -204,17 +199,13 @@ curl_download (const char *url, const char *local_file)
 
   /* Run curl to download the URL to a file. */
   if (asprintf (&curl_cmd, "curl -f -o %s -K %s",
-                local_file, curl_config_file) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+                local_file, curl_config_file) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   r = system (curl_cmd);
   /* unlink (curl_config_file); - useful for debugging */
-  if (r == -1) {
-    perror ("system");
-    exit (EXIT_FAILURE);
-  }
+  if (r == -1)
+    error (EXIT_FAILURE, errno, "system: %s", curl_cmd);
 
   /* Did curl subprocess fail? */
   if (WIFEXITED (r) && WEXITSTATUS (r) != 0) {
@@ -246,15 +237,11 @@ cache_ssh_identity (struct config *config)
   /* Generate a random filename. */
   free (config->identity_file);
   config->identity_file = strdup ("/tmp/id.XXXXXX");
-  if (config->identity_file == NULL) {
-    perror ("strdup");
-    exit (EXIT_FAILURE);
-  }
+  if (config->identity_file == NULL)
+    error (EXIT_FAILURE, errno, "strdup");
   fd = mkstemp (config->identity_file);
-  if (fd == -1) {
-    perror ("mkstemp");
-    exit (EXIT_FAILURE);
-  }
+  if (fd == -1)
+    error (EXIT_FAILURE, errno, "mkstemp");
   close (fd);
 
   /* Curl download URL to file. */
@@ -299,10 +286,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   else
     nr_args += 13;
   args = malloc (sizeof (char *) * nr_args);
-  if (args == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (args == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   j = 0;
   args[j++] = "ssh";
@@ -716,16 +701,12 @@ add_option (const char *type, char ***drivers, const char *name, size_t len)
   n++;
 
   *drivers = realloc (*drivers, (n+1) * sizeof (char *));
-  if (*drivers == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (*drivers == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   (*drivers)[n-1] = strndup (name, len);
-  if ((*drivers)[n-1] == NULL) {
-    perror ("strndup");
-    exit (EXIT_FAILURE);
-  }
+  if ((*drivers)[n-1] == NULL)
+    error (EXIT_FAILURE, errno, "strndup");
   (*drivers)[n] = NULL;
 
 #if DEBUG_STDERR

@@ -178,10 +178,8 @@ extern void display_long_options (const struct option *) __attribute__((noreturn
 
 #define OPTION_m                                \
   mp = malloc (sizeof (struct mp));             \
-  if (!mp) {                                    \
-    perror ("malloc");                          \
-    exit (EXIT_FAILURE);                        \
-  }                                             \
+  if (!mp)                                      \
+    error (EXIT_FAILURE, errno, "malloc");      \
   mp->fstype = NULL;                            \
   mp->options = NULL;                           \
   mp->mountpoint = (char *) "/";                \

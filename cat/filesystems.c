@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <string.h>
@@ -458,10 +459,8 @@ do_output_filesystems (void)
       guestfs_pop_error_handler (g);
       if (vfs_label == NULL) {
         vfs_label = strdup ("");
-        if (!vfs_label) {
-          perror ("strdup");
-          exit (EXIT_FAILURE);
-        }
+        if (!vfs_label)
+          error (EXIT_FAILURE, errno, "strdup");
       }
     }
     if ((columns & COLUMN_UUID)) {
@@ -470,10 +469,8 @@ do_output_filesystems (void)
       guestfs_pop_error_handler (g);
       if (vfs_uuid == NULL) {
         vfs_uuid = strdup ("");
-        if (!vfs_uuid) {
-          perror ("strdup");
-          exit (EXIT_FAILURE);
-        }
+        if (!vfs_uuid)
+          error (EXIT_FAILURE, errno, "strdup");
       }
     }
     if ((columns & COLUMN_SIZE)) {
@@ -518,10 +515,8 @@ do_output_lvs (void)
     }
     if ((columns & COLUMN_PARENTS)) {
       parent_name = strdup (lvs[i]);
-      if (parent_name == NULL) {
-        perror ("strdup");
-        exit (EXIT_FAILURE);
-      }
+      if (parent_name == NULL)
+        error (EXIT_FAILURE, errno, "strdup");
       char *p = strrchr (parent_name, '/');
       if (p)
         *p = '\0';
@@ -549,10 +544,8 @@ do_output_vgs (void)
     char uuid[33];
     CLEANUP_FREE_STRING_LIST char **parents = NULL;
 
-    if (asprintf (&name, "/dev/%s", vgs->val[i].vg_name) == -1) {
-      perror ("asprintf");
-      exit (EXIT_FAILURE);
-    }
+    if (asprintf (&name, "/dev/%s", vgs->val[i].vg_name) == -1)
+      error (EXIT_FAILURE, errno, "asprintf");
 
     memcpy (uuid, vgs->val[i].vg_uuid, 32);
     uuid[32] = '\0';
@@ -719,10 +712,8 @@ no_parents (void)
   char **ret;
 
   ret = malloc (sizeof (char *));
-  if (!ret) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!ret)
+    error (EXIT_FAILURE, errno, "malloc");
 
   ret[0] = NULL;
 
@@ -760,10 +751,8 @@ parents_of_md (char *device)
     exit (EXIT_FAILURE);
 
   ret = malloc ((stats->len + 1) * sizeof (char *));
-  if (!ret) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!ret)
+    error (EXIT_FAILURE, errno, "malloc");
 
   for (i = 0; i < stats->len; ++i) {
     ret[i] = guestfs_canonical_device_name (g, stats->val[i].mdstat_device);
@@ -814,10 +803,8 @@ parents_of_vg (char *vg)
   n = guestfs_int_count_strings (pvuuids);
 
   ret = malloc ((n + 1) * sizeof (char *));
-  if (!ret) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (!ret)
+    error (EXIT_FAILURE, errno, "malloc");
 
   /* Resolve each PV UUID back to a PV. */
   for (i = 0; i < n; ++i) {
@@ -834,10 +821,8 @@ parents_of_vg (char *vg)
     else {
       fprintf (stderr, "%s: warning: unknown PV UUID ignored\n", __func__);
       ret[i] = strndup (pvuuids[i], 32);
-      if (!ret[i]) {
-        perror ("strndup");
-        exit (EXIT_FAILURE);
-      }
+      if (!ret[i])
+        error (EXIT_FAILURE, errno, "strndup");
     }
   }
 
@@ -978,18 +963,14 @@ add_row (char **strings, size_t len)
   assert (len <= NR_COLUMNS);
 
   row = malloc (sizeof (char *) * len);
-  if (row == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (row == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   for (i = 0; i < len; ++i) {
     if (strings[i]) {
       row[i] = strdup (strings[i]);
-      if (row[i] == NULL) {
-        perror ("strdup");
-        exit (EXIT_FAILURE);
-      }
+      if (row[i] == NULL)
+        error (EXIT_FAILURE, errno, "strdup");
 
       /* Keep a running total of the max width of each column. */
       slen = strlen (strings[i]);
@@ -1003,10 +984,8 @@ add_row (char **strings, size_t len)
   }
 
   rows = realloc (rows, sizeof (char **) * (nr_rows + 1));
-  if (rows == NULL) {
-    perror ("realloc");
-    exit (EXIT_FAILURE);
-  }
+  if (rows == NULL)
+    error (EXIT_FAILURE, errno, "realloc");
   rows[nr_rows] = row;
   nr_rows++;
 }

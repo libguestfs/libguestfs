@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <libintl.h>
@@ -800,24 +801,18 @@ populate_disks (GtkTreeView *disks_list)
       uint64_t size;
 
       if (asprintf (&size_filename, "/sys/block/%s/size",
-                    all_disks[i]) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+                    all_disks[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
       if (g_file_get_contents (size_filename, &size_str, NULL, NULL) &&
           sscanf (size_str, "%" SCNu64, &size) == 1) {
         size /= 2*1024*1024; /* size from kernel is given in sectors? */
-        if (asprintf (&size_gb, "%" PRIu64, size) == -1) {
-          perror ("asprintf");
-          exit (EXIT_FAILURE);
-        }
+        if (asprintf (&size_gb, "%" PRIu64, size) == -1)
+          error (EXIT_FAILURE, errno, "asprintf");
       }
 
       if (asprintf (&model_filename, "/sys/block/%s/device/model",
-                    all_disks[i]) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+                    all_disks[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
       if (g_file_get_contents (model_filename, &model, NULL, NULL)) {
         /* Need to chomp trailing \n from the content. */
         size_t len = strlen (model);
@@ -941,10 +936,8 @@ populate_interfaces (GtkTreeView *interfaces_list)
                     "<small><u><span foreground=\"blue\">Identify interface</span></u></small>",
                     if_name,
                     if_addr ? : _("Unknown"),
-                    if_vendor ? : _("Unknown")) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+                    if_vendor ? : _("Unknown")) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
 
       gtk_list_store_append (interfaces_store, &iter);
       gtk_list_store_set (interfaces_store, &iter,
@@ -1071,10 +1064,8 @@ maybe_identify_click (GtkWidget *interfaces_list, GdkEventButton *event,
         if_name = all_interfaces[row_index];
 
         /* Issue the ethtool command in the background. */
-        if (asprintf (&cmd, "ethtool --identify '%s' 10 &", if_name) == -1) {
-          perror ("asprintf");
-          exit (EXIT_FAILURE);
-        }
+        if (asprintf (&cmd, "ethtool --identify '%s' 10 &", if_name) == -1)
+          error (EXIT_FAILURE, errno, "asprintf");
         printf ("%s\n", cmd);
         ignore_value (system (cmd));
 
@@ -1108,10 +1099,8 @@ set_from_ui_generic (char **all, char ***ret, GtkTreeView *list)
 
   guestfs_int_free_string_list (*ret);
   *ret = malloc ((1 + guestfs_int_count_strings (all)) * sizeof (char *));
-  if (*ret == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (*ret == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
   i = j = 0;
 
   b = gtk_tree_model_get_iter_first (model, &iter);
@@ -1172,10 +1161,8 @@ set_network_map_from_ui (struct config *config)
   config->network_map =
     malloc ((1 + guestfs_int_count_strings (all_interfaces))
             * sizeof (char *));
-  if (config->network_map == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (config->network_map == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
   i = j = 0;
 
   b = gtk_tree_model_get_iter_first (model, &iter);
@@ -1184,10 +1171,8 @@ set_network_map_from_ui (struct config *config)
     if (s) {
       assert (all_interfaces[i] != NULL);
       if (asprintf (&config->network_map[j], "%s:%s",
-                    all_interfaces[i], s) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+                    all_interfaces[i], s) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
       ++j;
     }
     b = gtk_tree_model_iter_next (model, &iter);
@@ -1230,11 +1215,9 @@ concat_warning (char *warning, const char *fs, ...)
 
   if (warning == NULL) {
     warning = strdup ("");
-    if (warning == NULL) {
+    if (warning == NULL)
     malloc_fail:
-      perror ("malloc");
-      exit (EXIT_FAILURE);
-    }
+      error (EXIT_FAILURE, errno, "malloc");
   }
 
   len = strlen (warning);
@@ -1410,10 +1393,8 @@ set_log_dir (const char *remote_dir)
                   "is saved to this directory "
                   "on the conversion server:\n"
                   "%s"),
-                remote_dir ? remote_dir : "") == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+                remote_dir ? remote_dir : "") == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   gtk_label_set_text (GTK_LABEL (log_label), msg);
 }

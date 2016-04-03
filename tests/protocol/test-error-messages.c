@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs_protocol.h" /* For GUESTFS_ERROR_LEN. */
@@ -45,10 +46,8 @@ main (int argc, char *argv[])
   char *args[2];
 
   g = guestfs_create ();
-  if (g == NULL) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive (g, "/dev/null") == -1)
     exit (EXIT_FAILURE);

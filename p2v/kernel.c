@@ -26,6 +26,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <assert.h>
 #include <locale.h>
 #include <libintl.h>
@@ -282,10 +283,8 @@ run_command (int verbose, const char *stage, const char *command)
   }
 
   r = system (command);
-  if (r == -1) {
-    perror ("system");
-    exit (EXIT_FAILURE);
-  }
+  if (r == -1)
+    error (EXIT_FAILURE, errno, "system: %s", command);
   if ((WIFEXITED (r) && WEXITSTATUS (r) != 0) || !WIFEXITED (r)) {
     fprintf (stderr, "%s: %s: unexpected failure of external command\n",
              guestfs_int_program_name, stage);

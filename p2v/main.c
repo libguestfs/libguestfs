@@ -26,6 +26,7 @@
 #include <getopt.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <error.h>
 #include <dirent.h>
 #include <locale.h>
 #include <libintl.h>
@@ -228,10 +229,8 @@ set_config_defaults (struct config *config)
   if (gethostname (hostname, sizeof hostname) == -1) {
     perror ("gethostname");
     /* Generate a simple random name. */
-    if (guestfs_int_random_string (hostname, 8) == -1) {
-      perror ("/dev/urandom");
-      exit (EXIT_FAILURE);
-    }
+    if (guestfs_int_random_string (hostname, 8) == -1)
+      error (EXIT_FAILURE, errno, "/dev/random");
   } else {
     char *p;
 
@@ -326,19 +325,15 @@ partition_parent (dev_t part_dev)
 
   if (asprintf (&path, "/sys/dev/block/%ju:%ju/../dev",
                 (uintmax_t) major (part_dev),
-                (uintmax_t) minor (part_dev)) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+                (uintmax_t) minor (part_dev)) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   fp = fopen (path, "r");
   if (fp == NULL)
     return 0;
 
-  if (getline (&content, &len, fp) == -1) {
-    perror ("getline");
-    exit (EXIT_FAILURE);
-  }
+  if (getline (&content, &len, fp) == -1)
+    error (EXIT_FAILURE, errno, "getline");
 
   if (sscanf (content, "%u:%u", &parent_major, &parent_minor) != 2)
     return 0;
@@ -361,10 +356,8 @@ device_contains (const char *dev, dev_t root_device)
   CLEANUP_FREE char *dev_name = NULL;
   dev_t root_device_parent;
 
-  if (asprintf (&dev_name, "/dev/%s", dev) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&dev_name, "/dev/%s", dev) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   if (stat (dev_name, &statbuf) == -1)
     return 0;
@@ -399,10 +392,8 @@ find_all_disks (void)
    * matches the common patterns for disk names.
    */
   dir = opendir ("/sys/block");
-  if (!dir) {
-    perror ("opendir");
-    exit (EXIT_FAILURE);
-  }
+  if (!dir)
+    error (EXIT_FAILURE, errno, "opendir");
 
   for (;;) {
     errno = 0;
@@ -422,10 +413,8 @@ find_all_disks (void)
 
       nr_disks++;
       all_disks = realloc (all_disks, sizeof (char *) * (nr_disks + 1));
-      if (!all_disks) {
-        perror ("realloc");
-        exit (EXIT_FAILURE);
-      }
+      if (!all_disks)
+        error (EXIT_FAILURE, errno, "realloc");
 
       all_disks[nr_disks-1] = strdup (d->d_name);
 
@@ -439,26 +428,20 @@ find_all_disks (void)
       nr_removable++;
       all_removable = realloc (all_removable,
                                sizeof (char *) * (nr_removable + 1));
-      if (!all_removable) {
-        perror ("realloc");
-        exit (EXIT_FAILURE);
-      }
+      if (!all_removable)
+        error (EXIT_FAILURE, errno, "realloc");
       all_removable[nr_removable-1] = strdup (d->d_name);
       all_removable[nr_removable] = NULL;
     }
   }
 
   /* Check readdir didn't fail */
-  if (errno != 0) {
-    perror ("readdir: /sys/block");
-    exit (EXIT_FAILURE);
-  }
+  if (errno != 0)
+    error (EXIT_FAILURE, errno, "readdir: %s", "/sys/block");
 
   /* Close the directory handle */
-  if (closedir (dir) == -1) {
-    perror ("closedir: /sys/block");
-    exit (EXIT_FAILURE);
-  }
+  if (closedir (dir) == -1)
+    error (EXIT_FAILURE, errno, "closedir: %s", "/sys/block");
 
   if (all_disks)
     qsort (all_disks, nr_disks, sizeof (char *), compare);
@@ -477,10 +460,8 @@ find_all_interfaces (void)
    * /sys/class/net which matches some common patterns.
    */
   dir = opendir ("/sys/class/net");
-  if (!dir) {
-    perror ("opendir");
-    exit (EXIT_FAILURE);
-  }
+  if (!dir)
+    error (EXIT_FAILURE, errno, "opendir: %s", "/sys/class/net");
 
   for (;;) {
     errno = 0;
@@ -499,26 +480,20 @@ find_all_interfaces (void)
       nr_interfaces++;
       all_interfaces =
         realloc (all_interfaces, sizeof (char *) * (nr_interfaces + 1));
-      if (!all_interfaces) {
-        perror ("realloc");
-        exit (EXIT_FAILURE);
-      }
+      if (!all_interfaces)
+        error (EXIT_FAILURE, errno, "realloc");
       all_interfaces[nr_interfaces-1] = strdup (d->d_name);
       all_interfaces[nr_interfaces] = NULL;
     }
   }
 
   /* Check readdir didn't fail */
-  if (errno != 0) {
-    perror ("readdir: /sys/class/net");
-    exit (EXIT_FAILURE);
-  }
+  if (errno != 0)
+    error (EXIT_FAILURE, errno, "readdir: %s", "/sys/class/net");
 
   /* Close the directory handle */
-  if (closedir (dir) == -1) {
-    perror ("closedir: /sys/class/net");
-    exit (EXIT_FAILURE);
-  }
+  if (closedir (dir) == -1)
+    error (EXIT_FAILURE, errno, "closedir: %s", "/sys/class/net");
 
   if (all_interfaces)
     qsort (all_interfaces, nr_interfaces, sizeof (char *), compare);

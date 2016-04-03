@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include <libvirt/libvirt.h>
 
@@ -71,15 +73,11 @@ main (int argc, char *argv[])
   }
 
   cwd = getcwd (NULL, 0);
-  if (cwd == NULL) {
-    perror ("getcwd");
-    exit (EXIT_FAILURE);
-  }
+  if (cwd == NULL)
+    error (EXIT_FAILURE, errno, "getcwd");
 
-  if (asprintf (&test_uri, "test://%s/%s/libvirt-auth.xml", cwd, srcdir) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&test_uri, "test://%s/%s/libvirt-auth.xml", cwd, srcdir) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
 
   free (cwd);
 

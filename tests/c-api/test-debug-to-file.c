@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -54,10 +56,8 @@ main (int argc, char *argv[])
   FILE *debugfp;
 
   debugfp = fopen (filename, "w");
-  if (debugfp == NULL) {
-    perror (filename);
-    exit (EXIT_FAILURE);
-  }
+  if (debugfp == NULL)
+    error (EXIT_FAILURE, errno, "fopen: %s", filename);
 
   g = guestfs_create ();
   if (g == NULL) {

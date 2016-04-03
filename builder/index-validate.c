@@ -23,6 +23,7 @@
 #include <string.h>
 #include <limits.h>
 #include <getopt.h>
+#include <error.h>
 #include <errno.h>
 #include <locale.h>
 #include <libintl.h>
@@ -108,10 +109,8 @@ main (int argc, char *argv[])
   input = argv[optind++];
 
   in = fopen (input, "r");
-  if (in == NULL) {
-    perror (input);
-    exit (EXIT_FAILURE);
-  }
+  if (in == NULL)
+    error (EXIT_FAILURE, errno, "fopen: %s", input);
 
   ret = do_parse (&context, in);
 

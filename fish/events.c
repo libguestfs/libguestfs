@@ -27,6 +27,8 @@
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
+#include <error.h>
 
 #include <guestfs.h>
 
@@ -261,10 +263,8 @@ print_event_set (uint64_t event_bitmask, FILE *fp)
     fputs ("*", fp);
   else {
     CLEANUP_FREE char *str = guestfs_event_to_string (event_bitmask);
-    if (!str) {
-      perror ("guestfs_event_to_string");
-      exit (EXIT_FAILURE);
-    }
+    if (!str)
+      error (EXIT_FAILURE, errno, "guestfs_event_to_string");
     fputs (str, fp);
   }
 }

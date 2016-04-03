@@ -25,6 +25,8 @@
 #include <assert.h>
 #include <pwd.h>
 #include <sys/types.h>
+#include <errno.h>
+#include <error.h>
 
 #include "fish.h"
 
@@ -59,10 +61,8 @@ try_tilde_expansion (char *str)
     if (home) {
       len = strlen (home) + strlen (rest) + 1;
       str = malloc (len);
-      if (str == NULL) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
+      if (str == NULL)
+        error (EXIT_FAILURE, errno, "malloc");
       strcpy (str, home);
       strcat (str, rest);
       return str;
@@ -93,10 +93,8 @@ expand_home (char *orig, const char *append)
 
   len = strlen (home) + (append ? strlen (append) : 0) + 1;
   str = malloc (len);
-  if (str == NULL) {
-    perror ("malloc");
-    exit (EXIT_FAILURE);
-  }
+  if (str == NULL)
+    error (EXIT_FAILURE, errno, "malloc");
 
   strcpy (str, home);
   if (append)

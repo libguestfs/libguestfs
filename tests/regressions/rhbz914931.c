@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -48,10 +49,8 @@ main (int argc, char *argv[])
   }
 
   g = guestfs_create ();
-  if (!g) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (!g)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive_opts (g, "/dev/null",
                               GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",

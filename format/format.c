@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <libintl.h>
@@ -163,7 +164,8 @@ main (int argc, char *argv[])
         if (optarg == NULL) {
           vg = strdup ("VG");
           lv = strdup ("LV");
-          if (!vg || !lv) { perror ("strdup"); exit (EXIT_FAILURE); }
+          if (!vg || !lv)
+            error (EXIT_FAILURE, errno, "strdup");
         }
         else if (STREQ (optarg, "none"))
           vg = lv = NULL;
@@ -307,10 +309,8 @@ parse_vg_lv (const char *lvm)
     vg = strndup (lvm, i);
     lv = strdup (lvm + i + 1);
 
-    if (!vg || !lv) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (!vg || !lv)
+      error (EXIT_FAILURE, errno, "strdup");
   } else {
   cannot_parse:
     fprintf (stderr, _("%s: cannot parse --lvm option (%s)\n"),
@@ -381,10 +381,8 @@ do_format (void)
 
       if (guestfs_part_disk (g, devices[i], ptype) == -1)
         exit (EXIT_FAILURE);
-      if (asprintf (&dev, "%s1", devices[i]) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+      if (asprintf (&dev, "%s1", devices[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
       free_dev = 1;
 
       /* Set the partition type byte appropriately, otherwise Windows
@@ -427,10 +425,8 @@ do_format (void)
 
       if (free_dev)
         free (dev);
-      if (asprintf (&dev, "/dev/%s/%s", vg, lv) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+      if (asprintf (&dev, "/dev/%s/%s", vg, lv) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
       free_dev = 1;
     }
 

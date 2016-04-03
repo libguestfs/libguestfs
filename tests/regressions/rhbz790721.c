@@ -38,6 +38,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 
 #include <pthread.h>
 
@@ -61,10 +62,8 @@ main (int argc, char *argv[])
 
   /* Test is only meaningful if the backend "direct" is used. */
   g = guestfs_create ();
-  if (!g) {
-    perror ("guestfs_create");
-    exit (EXIT_FAILURE);
-  }
+  if (!g)
+    error (EXIT_FAILURE, errno, "guestfs_create");
   backend = guestfs_get_backend (g);
   if (backend == NULL) {
     guestfs_close (g);

@@ -26,6 +26,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <errno.h>
+#include <error.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -366,10 +368,8 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
   }
 
   /* This should be a source directory, so check it. */
-  if (asprintf (&buffer, "%s/pc-bios", path) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
+  if (asprintf (&buffer, "%s/pc-bios", path) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
   if (stat (buffer, &statbuf) == -1 ||
       !S_ISDIR (statbuf.st_mode)) {
     fprintf (stderr,
@@ -382,10 +382,8 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
 
   /* Make a wrapper script. */
   fd = mkstemp (qemuwrapper);
-  if (fd == -1) {
-    perror (qemuwrapper);
-    exit (EXIT_FAILURE);
-  }
+  if (fd == -1)
+    error (EXIT_FAILURE, errno, "mkstemp: %s", qemuwrapper);
 
   fchmod (fd, 0700);
 

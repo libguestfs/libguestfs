@@ -23,6 +23,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <fcntl.h>
 #include <assert.h>
 #include <sys/utsname.h>
@@ -271,18 +273,12 @@ md5sum (const char *filename, char *result)
   char cmd[256];
   snprintf (cmd, sizeof cmd, "md5sum %s", filename);
   FILE *pp = popen (cmd, "r");
-  if (pp == NULL) {
-    perror (cmd);
-    exit (EXIT_FAILURE);
-  }
-  if (fread (result, 1, 32, pp) != 32) {
-    perror ("md5sum: fread");
-    exit (EXIT_FAILURE);
-  }
-  if (pclose (pp) != 0) {
-    perror ("pclose");
-    exit (EXIT_FAILURE);
-  }
+  if (pp == NULL)
+    error (EXIT_FAILURE, errno, "popen: %s", cmd);
+  if (fread (result, 1, 32, pp) != 32)
+    error (EXIT_FAILURE, errno, "md5sum: fread");
+  if (pclose (pp) != 0)
+    error (EXIT_FAILURE, errno, "pclose");
   result[32] = '\0';
 }
 
@@ -382,17 +378,13 @@ substitute_srcdir (const char *path)
       exit (EXIT_FAILURE);
     }
 
-    if (asprintf (&ret, "%s%s", srcdir, path + 7) == -1) {
-      perror ("asprintf");
-      exit (EXIT_FAILURE);
-    }
+    if (asprintf (&ret, "%s%s", srcdir, path + 7) == -1)
+      error (EXIT_FAILURE, errno, "asprintf");
   }
   else {
     ret = strdup (path);
-    if (!ret) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
+    if (!ret)
+      error (EXIT_FAILURE, errno, "strdup");
   }
 
   return ret;

@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #ifdef HAVE_LIBCONFIG
@@ -68,10 +69,8 @@ read_config_from_file (const char *filename)
       exit (EXIT_FAILURE);
     }
 
-    if (fclose (fp) == -1) {
-      perror (filename);
-      exit (EXIT_FAILURE);
-    }
+    if (fclose (fp) == -1)
+      error (EXIT_FAILURE, errno, "fclose: %s", filename);
 
     config_lookup_bool (&conf, "read_only", &read_only);
 
@@ -101,10 +100,8 @@ parse_config (void)
       CLEANUP_FREE char *path = NULL;
       const char *dir = xdg_config_dirs[i - 1];
 
-      if (asprintf (&path, "%s/libguestfs/" GLOBAL_CONFIG_FILENAME, dir) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+      if (asprintf (&path, "%s/libguestfs/" GLOBAL_CONFIG_FILENAME, dir) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
 
       read_config_from_file (path);
     }
@@ -117,10 +114,8 @@ parse_config (void)
       /* Old-style configuration file first. */
       CLEANUP_FREE char *path = NULL;
 
-      if (asprintf (&path, "%s/%s", home, home_filename) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+      if (asprintf (&path, "%s/%s", home, home_filename) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
 
       read_config_from_file (path);
     }
@@ -131,24 +126,18 @@ parse_config (void)
       CLEANUP_FREE char *home_copy = strdup (home);
       const char *xdg_env;
 
-      if (home_copy == NULL) {
-        perror ("strdup");
-        exit (EXIT_FAILURE);
-      }
+      if (home_copy == NULL)
+        error (EXIT_FAILURE, errno, "strdup");
 
       xdg_env = getenv ("XDG_CONFIG_HOME");
       if (xdg_env == NULL) {
         if (asprintf (&path, "%s/.config/libguestfs/" GLOBAL_CONFIG_FILENAME,
-                      home_copy) == -1) {
-          perror ("asprintf");
-          exit (EXIT_FAILURE);
-        }
+                      home_copy) == -1)
+          error (EXIT_FAILURE, errno, "asprintf");
       } else {
         if (asprintf (&path, "%s/libguestfs/" GLOBAL_CONFIG_FILENAME,
-                      xdg_env) == -1) {
-          perror ("asprintf");
-          exit (EXIT_FAILURE);
-        }
+                      xdg_env) == -1)
+          error (EXIT_FAILURE, errno, "asprintf");
       }
 
       read_config_from_file (path);

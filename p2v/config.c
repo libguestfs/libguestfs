@@ -24,6 +24,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <libintl.h>
 
@@ -35,10 +36,8 @@ new_config (void)
   struct config *c;
 
   c = calloc (1, sizeof *c);
-  if (c == NULL) {
-    perror ("calloc");
-    exit (EXIT_FAILURE);
-  }
+  if (c == NULL)
+    error (EXIT_FAILURE, errno, "calloc");
 
 #if FORCE_REMOTE_DEBUG
   c->verbose = 1;

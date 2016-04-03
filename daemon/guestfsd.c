@@ -40,6 +40,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include <error.h>
 #include <assert.h>
 #include <termios.h>
 
@@ -300,8 +301,7 @@ main (int argc, char *argv[])
                  "output to the libguestfs developers, either in a bug report\n"
                  "or on the libguestfs redhat com mailing list.\n"
                  "\n");
-        perror (channel);
-        exit (EXIT_FAILURE);
+        error (EXIT_FAILURE, errno, "open: %s", channel);
       }
     }
   }
@@ -353,10 +353,8 @@ main (int argc, char *argv[])
   xdrmem_create (&xdr, lenbuf, sizeof lenbuf, XDR_ENCODE);
   xdr_u_int (&xdr, &len);
 
-  if (xwrite (sock, lenbuf, sizeof lenbuf) == -1) {
-    perror ("xwrite");
-    exit (EXIT_FAILURE);
-  }
+  if (xwrite (sock, lenbuf, sizeof lenbuf) == -1)
+    error (EXIT_FAILURE, errno, "xwrite");
 
   xdr_destroy (&xdr);
 
