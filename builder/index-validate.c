@@ -82,11 +82,10 @@ main (int argc, char *argv[])
         compat_1_24_0 = compat_1_24_1 = 1;
       else if (STREQ (long_options[option_index].name, "compat-1.24.1"))
         compat_1_24_1 = 1;
-      else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'V':
@@ -121,16 +120,15 @@ main (int argc, char *argv[])
 
   if (ret != 0) {
     parse_context_free (&context);
-    fprintf (stderr, _("%s: '%s' could not be validated, see errors above\n"),
-             guestfs_int_program_name, input);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("'%s' could not be validated, see errors above"), input);
   }
 
   if (compat_1_24_1 && context.seen_comments) {
     parse_context_free (&context);
-    fprintf (stderr, _("%s: %s contains comments which will not work with virt-builder 1.24.1\n"),
-             guestfs_int_program_name, input);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("%s contains comments which will not work with virt-builder 1.24.1"),
+           input);
   }
 
   /* Iterate over the parsed sections, semantically validating it. */
@@ -141,9 +139,9 @@ main (int argc, char *argv[])
     if (compat_1_24_0) {
       if (strchr (sections->name, '_')) {
         parse_context_free (&context);
-        fprintf (stderr, _("%s: %s: section [%s] has invalid characters which will not work with virt-builder 1.24.0\n"),
-                 guestfs_int_program_name, input, sections->name);
-        exit (EXIT_FAILURE);
+        error (EXIT_FAILURE, 0,
+               _("%s: section [%s] has invalid characters which will not work with virt-builder 1.24.0"),
+               input, sections->name);
       }
     }
 
@@ -152,18 +150,18 @@ main (int argc, char *argv[])
         if (strchr (fields->key, '[') ||
             strchr (fields->key, ']')) {
           parse_context_free (&context);
-          fprintf (stderr, _("%s: %s: section [%s], field '%s' has invalid characters which will not work with virt-builder 1.24.0\n"),
-                   guestfs_int_program_name, input, sections->name, fields->key);
-          exit (EXIT_FAILURE);
+          error (EXIT_FAILURE, 0,
+                 _("%s: section [%s], field '%s' has invalid characters which will not work with virt-builder 1.24.0"),
+                 input, sections->name, fields->key);
         }
       }
       if (compat_1_24_1) {
         if (strchr (fields->key, '.') ||
             strchr (fields->key, ',')) {
           parse_context_free (&context);
-          fprintf (stderr, _("%s: %s: section [%s], field '%s' has invalid characters which will not work with virt-builder 1.24.1\n"),
-                   guestfs_int_program_name, input, sections->name, fields->key);
-          exit (EXIT_FAILURE);
+          error (EXIT_FAILURE, 0,
+                 _("%s: section [%s], field '%s' has invalid characters which will not work with virt-builder 1.24.1"),
+                 input, sections->name, fields->key);
         }
       }
       if (STREQ (fields->key, "sig"))
@@ -172,9 +170,9 @@ main (int argc, char *argv[])
 
     if (compat_1_24_0 && !seen_sig) {
       parse_context_free (&context);
-      fprintf (stderr, _("%s: %s: section [%s] is missing a 'sig' field which will not work with virt-builder 1.24.0\n"),
-               guestfs_int_program_name, input, sections->name);
-      exit (EXIT_FAILURE);
+      error (EXIT_FAILURE, 0,
+             _("%s: section [%s] is missing a 'sig' field which will not work with virt-builder 1.24.0"),
+             input, sections->name);
     }
   }
 

@@ -190,16 +190,12 @@ main (int argc, char *argv[])
   struct tree *tree1, *tree2;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   g2 = guestfs_create ();
-  if (g2 == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g2 == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -260,12 +256,10 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "xattr") ||
                  STREQ (long_options[option_index].name, "xattrs")) {
         enable_xattrs = 1;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name,
-                 long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -327,17 +321,11 @@ main (int argc, char *argv[])
   /* CSV && human is unsafe because spreadsheets fail to parse these
    * fields correctly.  (RHBZ#600977).
    */
-  if (human && csv) {
-    fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (human && csv)
+    error (EXIT_FAILURE, 0, _("you cannot use -h and --csv options together."));
 
-  if (optind != argc) {
-    fprintf (stderr, _("%s: extra arguments on the command line\n"),
-             guestfs_int_program_name);
-    usage (EXIT_FAILURE);
-  }
+  if (optind != argc)
+    error (EXIT_FAILURE, 0, _("extra arguments on the command line"));
 
   /* These are really constants, but they have to be variables for the
    * options parsing code.  Assert here that they have known-good

@@ -146,11 +146,10 @@ main (int argc, char *argv[])
         cmdline = parse_cmdline_string (optarg);
         cmdline_source = CMDLINE_SOURCE_COMMAND_LINE;
       }
-      else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'v':
@@ -198,13 +197,10 @@ main (int argc, char *argv[])
     kernel_configuration (config, cmdline, cmdline_source);
   else {
   gui:
-    if (!gui_possible) {
-      fprintf (stderr,
-               _("%s: gtk_init_check returned false, indicating that\n"
-                 "a GUI is not possible on this host.  Check X11, $DISPLAY etc.\n"),
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+    if (!gui_possible)
+      error (EXIT_FAILURE, 0,
+             _("gtk_init_check returned false, indicating that\n"
+               "a GUI is not possible on this host.  Check X11, $DISPLAY etc."));
     gui_application (config);
   }
 

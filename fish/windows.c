@@ -97,11 +97,9 @@ mount_drive_letter (guestfs_h *g, char drive_letter, const char *root,
   /* Resolve the drive letter using the drive mappings table. */
   CLEANUP_FREE_STRING_LIST char **drives =
     guestfs_inspect_get_drive_mappings (g, root);
-  if (drives == NULL || drives[0] == NULL) {
-    fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (drives == NULL || drives[0] == NULL)
+    error (EXIT_FAILURE, 0,
+           _("to use Windows drive letters, this must be a Windows guest"));
 
   device = NULL;
   for (i = 0; drives[i] != NULL; i += 2) {
@@ -111,11 +109,8 @@ mount_drive_letter (guestfs_h *g, char drive_letter, const char *root,
     }
   }
 
-  if (device == NULL) {
-    fprintf (stderr, _("%s: drive '%c:' not found.\n"),
-             guestfs_int_program_name, drive_letter);
-    exit (EXIT_FAILURE);
-  }
+  if (device == NULL)
+    error (EXIT_FAILURE, 0, _("drive '%c:' not found."), drive_letter);
 
   /* Unmount current disk and remount device. */
   if (guestfs_umount_all (g) == -1)

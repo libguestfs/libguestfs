@@ -97,12 +97,8 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
   int r;
   struct guestfs_add_drive_opts_argv ad_optargs;
 
-  if (next_drive > 'z') {
-    fprintf (stderr,
-             _("%s: too many drives added on the command line\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (next_drive > 'z')
+    error (EXIT_FAILURE, 0, _("too many drives added on the command line"));
 
   if (drv) {
     next_drive = add_drives (drv->next, next_drive);
@@ -280,13 +276,10 @@ display_mountpoints_on_failure (const char *mp_device,
     guestfs_push_error_handler (g, NULL, NULL);
 
     subvolume = guestfs_mountable_subvolume (g, fses[i]);
-    if (subvolume == NULL && guestfs_last_errno (g) != EINVAL) {
-      fprintf (stderr,
-               _("%s: cannot determine the subvolume for %s: %s (%d)\n"),
-              guestfs_int_program_name, fses[i],
-              guestfs_last_error (g), guestfs_last_errno (g));
-      exit (EXIT_FAILURE);
-    }
+    if (subvolume == NULL && guestfs_last_errno (g) != EINVAL)
+      error (EXIT_FAILURE, 0,
+             _("cannot determine the subvolume for %s: %s (%d)"),
+             fses[i], guestfs_last_error (g), guestfs_last_errno (g));
 
     guestfs_pop_error_handler (g);
 

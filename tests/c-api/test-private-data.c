@@ -25,6 +25,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -68,10 +70,8 @@ main (int argc, char *argv[])
   size_t count;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_set_event_callback (g, close_callback, GUESTFS_EVENT_CLOSE,
                                   0, NULL) == -1)

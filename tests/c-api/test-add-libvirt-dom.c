@@ -84,17 +84,13 @@ main (int argc, char *argv[])
 
   /* Create the guestfs handle. */
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   backend = guestfs_get_backend (g);
   if (STREQ (backend, "uml")) {
-    printf ("%s: test skipped because UML backend does not support qcow2\n",
-            argv[0]);
     free (backend);
-    exit (77);
+    error (77, 0, "test skipped because UML backend does not support qcow2");
   }
   free (backend);
 
@@ -125,19 +121,16 @@ main (int argc, char *argv[])
   conn = virConnectOpenReadOnly (libvirt_uri);
   if (!conn) {
     err = virGetLastError ();
-    fprintf (stderr,
-             "%s: could not connect to libvirt (code %d, domain %d): %s\n",
-             argv[0], err->code, err->domain, err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           "could not connect to libvirt (code %d, domain %d): %s",
+           err->code, err->domain, err->message);
   }
 
   dom = virDomainLookupByName (conn, "guest");
   if (!dom) {
     err = virGetLastError ();
-    fprintf (stderr,
-             "%s: no libvirt domain called '%s': %s\n",
-             argv[0], "guest", err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           "no libvirt domain called '%s': %s", "guest", err->message);
   }
 
   r = guestfs_add_libvirt_dom (g, dom,
@@ -146,12 +139,9 @@ main (int argc, char *argv[])
   if (r == -1)
     exit (EXIT_FAILURE);
 
-  if (r != 3) {
-    fprintf (stderr,
-             "%s: incorrect number of disks added (%d, expected 3)\n",
-             argv[0], r);
-    exit (EXIT_FAILURE);
-  }
+  if (r != 3)
+    error (EXIT_FAILURE, 0,
+           "incorrect number of disks added (%d, expected 3)", r);
 
   guestfs_close (g);
 

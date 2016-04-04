@@ -47,18 +47,12 @@ main (int argc, char *argv[])
 
   /* Allow the test to be skipped. */
   skip = getenv ("SKIP_TEST_FUSE_SH");
-  if (skip && guestfs_int_is_true (skip) > 0) {
-    fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs_int_program_name);
-    exit (77);
-  }
+  if (skip && guestfs_int_is_true (skip) > 0)
+    error (77, 0, "test skipped because environment variable set");
 
   skip = getenv ("SKIP_TEST_GUESTUNMOUNT_FD");
-  if (skip && guestfs_int_is_true (skip) > 0) {
-    fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs_int_program_name);
-    exit (77);
-  }
+  if (skip && guestfs_int_is_true (skip) > 0)
+    error (77, 0, "test skipped because environment variable set");
 
   /* Create the pipe. */
   if (pipe (pipefd) == -1)
@@ -94,11 +88,11 @@ main (int argc, char *argv[])
   if (r != 0) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: %s\n", guestfs_int_program_name,
-             guestfs_int_exit_status_to_string (r, "guestunmount",
-						status_string,
-						sizeof status_string));
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           "test failed: %s",
+           guestfs_int_exit_status_to_string (r, "guestunmount",
+                                              status_string,
+                                              sizeof status_string));
   }
 
   /* Close the write side of the pipe.  This should cause guestunmount
@@ -113,12 +107,11 @@ main (int argc, char *argv[])
   if (!WIFEXITED (status) || WEXITSTATUS (status) != 3) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: guestunmount didn't return status code 3; %s\n",
-             guestfs_int_program_name,
-             guestfs_int_exit_status_to_string (status, "guestunmount",
-						status_string,
-						sizeof status_string));
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           "test failed: guestunmount didn't return status code 3; %s",
+           guestfs_int_exit_status_to_string (status, "guestunmount",
+                                              status_string,
+                                              sizeof status_string));
   }
 
   exit (EXIT_SUCCESS);

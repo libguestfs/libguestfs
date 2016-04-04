@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
 #include "c-ctype.h"
@@ -58,11 +59,8 @@ compare_keys (const void *p1, const void *p2)
 void
 inspect_mount_handle (guestfs_h *g)
 {
-  if (live) {
-    fprintf (stderr, _("%s: don't use --live and -i options together\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (live)
+    error (EXIT_FAILURE, 0, _("don't use --live and -i options together"));
 
   inspect_do_decrypt (g);
 

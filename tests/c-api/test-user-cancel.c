@@ -75,10 +75,8 @@ main (int argc, char *argv[])
   srand48 (time (NULL));
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive_scratch (g, filesize, -1) == -1)
     exit (EXIT_FAILURE);
@@ -115,10 +113,8 @@ main (int argc, char *argv[])
 
   /* Create the test thread. */
   r = pthread_create (&test_thread, NULL, start_test_thread, &data);
-  if (r != 0) {
-    fprintf (stderr, "pthread_create: %s\n", strerror (r));
-    exit (EXIT_FAILURE);
-  }
+  if (r != 0)
+    error (EXIT_FAILURE, r, "pthread_create");
 
   /* Do the upload. */
   op_error = guestfs_upload (g, dev_fd, "/upload");
@@ -126,15 +122,11 @@ main (int argc, char *argv[])
 
   /* Kill the test thread and clean up. */
   r = pthread_cancel (test_thread);
-  if (r != 0) {
-    fprintf (stderr, "pthread_cancel: %s\n", strerror (r));
-    exit (EXIT_FAILURE);
-  }
+  if (r != 0)
+    error (EXIT_FAILURE, r, "pthread_cancel");
   r = pthread_join (test_thread, NULL);
-  if (r != 0) {
-    fprintf (stderr, "pthread_join: %s\n", strerror (r));
-    exit (EXIT_FAILURE);
-  }
+  if (r != 0)
+    error (EXIT_FAILURE, r, "pthread_join");
 
   close (fds[0]);
   close (fds[1]);
@@ -179,10 +171,8 @@ main (int argc, char *argv[])
 
   /* Create the test thread. */
   r = pthread_create (&test_thread, NULL, start_test_thread, &data);
-  if (r != 0) {
-    fprintf (stderr, "pthread_create: %s\n", strerror (r));
-    exit (EXIT_FAILURE);
-  }
+  if (r != 0)
+    error (EXIT_FAILURE, r, "pthread_create");
 
   /* Do the download. */
   op_error = guestfs_download (g, "/download", dev_fd);
@@ -190,15 +180,11 @@ main (int argc, char *argv[])
 
   /* Kill the test thread and clean up. */
   r = pthread_cancel (test_thread);
-  if (r != 0) {
-    fprintf (stderr, "pthread_cancel: %s\n", strerror (r));
-    exit (EXIT_FAILURE);
-  }
+  if (r != 0)
+    error (EXIT_FAILURE, r, "pthread_cancel");
   r = pthread_join (test_thread, NULL);
-  if (r != 0) {
-    fprintf (stderr, "pthread_join: %s\n", strerror (r));
-    exit (EXIT_FAILURE);
-  }
+  if (r != 0)
+    error (EXIT_FAILURE, r, "pthread_join");
 
   close (fds[0]);
   close (fds[1]);

@@ -99,13 +99,11 @@ parse_type_string (const char *type_string)
     if (STRCASEEQLEN (type_string, preps[i].name, len))
       break;
 
-  if (i == NR_PREPS) {
-    fprintf (stderr, _("\
-guestfish: -N parameter '%s': no such prepared disk image known.\n\
-Use 'guestfish -N help' to list possible values for the -N parameter.\n"),
-             type_string);
-    exit (EXIT_FAILURE);
-  }
+  if (i == NR_PREPS)
+    error (EXIT_FAILURE, 0,
+           _("-N parameter '%s': no such prepared disk image known.\n"
+             "Use 'guestfish -N help' to list possible values for the -N parameter."),
+           type_string);
 
   prep_data *data = malloc (sizeof *data);
   if (data == NULL)

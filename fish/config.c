@@ -61,13 +61,10 @@ read_config_from_file (const char *filename)
                guestfs_int_program_name, filename);
     */
 
-    if (config_read (&conf, fp) == CONFIG_FALSE) {
-      fprintf (stderr,
-               _("%s: %s: line %d: error parsing configuration file: %s\n"),
-               guestfs_int_program_name, filename, config_error_line (&conf),
-               config_error_text (&conf));
-      exit (EXIT_FAILURE);
-    }
+    if (config_read (&conf, fp) == CONFIG_FALSE)
+      error (EXIT_FAILURE, 0,
+             _("%s: line %d: error parsing configuration file: %s"),
+             filename, config_error_line (&conf), config_error_text (&conf));
 
     if (fclose (fp) == -1)
       error (EXIT_FAILURE, errno, "fclose: %s", filename);

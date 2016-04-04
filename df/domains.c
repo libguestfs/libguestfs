@@ -84,19 +84,17 @@ get_all_libvirt_domains (const char *libvirt_uri)
                              VIR_CONNECT_RO);
   if (!conn) {
     err = virGetLastError ();
-    fprintf (stderr,
-             _("%s: could not connect to libvirt (code %d, domain %d): %s\n"),
-             guestfs_int_program_name, err->code, err->domain, err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("could not connect to libvirt (code %d, domain %d): %s"),
+           err->code, err->domain, err->message);
   }
 
   n = virConnectNumOfDomains (conn);
   if (n == -1) {
     err = virGetLastError ();
-    fprintf (stderr,
-             _("%s: could not get number of running domains (code %d, domain %d): %s\n"),
-             guestfs_int_program_name, err->code, err->domain, err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("could not get number of running domains (code %d, domain %d): %s"),
+           err->code, err->domain, err->message);
   }
 
   ids = malloc (sizeof (int) * n);
@@ -105,10 +103,9 @@ get_all_libvirt_domains (const char *libvirt_uri)
   n = virConnectListDomains (conn, ids, n);
   if (n == -1) {
     err = virGetLastError ();
-    fprintf (stderr,
-             _("%s: could not list running domains (code %d, domain %d): %s\n"),
-             guestfs_int_program_name, err->code, err->domain, err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("could not list running domains (code %d, domain %d): %s"),
+           err->code, err->domain, err->message);
   }
 
   add_domains_by_id (conn, ids, n);
@@ -116,10 +113,9 @@ get_all_libvirt_domains (const char *libvirt_uri)
   n = virConnectNumOfDefinedDomains (conn);
   if (n == -1) {
     err = virGetLastError ();
-    fprintf (stderr,
-             _("%s: could not get number of inactive domains (code %d, domain %d): %s\n"),
-             guestfs_int_program_name, err->code, err->domain, err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("could not get number of inactive domains (code %d, domain %d): %s"),
+           err->code, err->domain, err->message);
   }
 
   names = malloc (sizeof (char *) * n);
@@ -128,10 +124,9 @@ get_all_libvirt_domains (const char *libvirt_uri)
   n = virConnectListDefinedDomains (conn, names, n);
   if (n == -1) {
     err = virGetLastError ();
-    fprintf (stderr,
-             _("%s: could not list inactive domains (code %d, domain %d): %s\n"),
-             guestfs_int_program_name, err->code, err->domain, err->message);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("could not list inactive domains (code %d, domain %d): %s"),
+           err->code, err->domain, err->message);
   }
 
   add_domains_by_name (conn, names, n);

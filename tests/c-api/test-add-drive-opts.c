@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -33,10 +35,8 @@ main (int argc, char *argv[])
   int r;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   r = guestfs_add_drive_opts (g, "/dev/null", -1);
   if (r == -1)

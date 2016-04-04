@@ -415,10 +415,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
        */
       r = pcre_get_substring (h->buffer, ovector,
                               mexp_get_pcre_error (h), 1, &matched);
-      if (r < 0) {
-        fprintf (stderr, "error: PCRE error reading substring (%d)\n", r);
-        exit (EXIT_FAILURE);
-      }
+      if (r < 0)
+        error (EXIT_FAILURE, 0, "PCRE error reading substring (%d)", r);
       r = STREQ (magic, matched);
       pcre_free_substring (matched);
       if (!r)

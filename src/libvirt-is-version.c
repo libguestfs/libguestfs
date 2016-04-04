@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <libintl.h>
 
@@ -51,10 +52,7 @@ main (int argc, char *argv[])
     major = argtoint (argv[0], argv[1]);
     break;
   case 1:
-    fprintf (stderr, "%s: not enough arguments: MAJOR [MINOR [PATCH]]\n",
-             argv[0]);
-    exit (EXIT_FAILURE);
-    break;
+    error (EXIT_FAILURE, 0, "not enough arguments: MAJOR [MINOR [PATCH]]");
   }
 
   virInitialize ();
@@ -74,10 +72,8 @@ argtoint (const char *prog, const char *arg)
 
   errno = 0;
   res = strtol (arg, &endptr, 10);
-  if (errno || *endptr) {
-    fprintf (stderr, "%s: cannot parse integer argument '%s'.\n", prog, arg);
-    exit (EXIT_FAILURE);
-  }
+  if (errno || *endptr)
+    error (EXIT_FAILURE, 0, "cannot parse integer argument '%s'", arg);
 
   return (unsigned int) res;
 }

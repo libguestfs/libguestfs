@@ -133,10 +133,8 @@ main (int argc, char *argv[])
   int option_index;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -154,12 +152,10 @@ main (int argc, char *argv[])
         echo_keys = 1;
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name,
-                 long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -167,11 +163,8 @@ main (int argc, char *argv[])
       break;
 
     case 'b':
-      if (backup_extension) {
-        fprintf (stderr, _("%s: -b option given multiple times\n"),
-                 guestfs_int_program_name);
-        exit (EXIT_FAILURE);
-      }
+      if (backup_extension)
+        error (EXIT_FAILURE, 0, _("-b option given multiple times"));
       backup_extension = optarg;
       break;
 
@@ -184,11 +177,8 @@ main (int argc, char *argv[])
       break;
 
     case 'e':
-      if (perl_expr) {
-        fprintf (stderr, _("%s: -e option given multiple times\n"),
-                 guestfs_int_program_name);
-        exit (EXIT_FAILURE);
-      }
+      if (perl_expr)
+        error (EXIT_FAILURE, 0, _("-e option given multiple times"));
       perl_expr = optarg;
       break;
 

@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <error.h>
 
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 
@@ -54,14 +55,10 @@ main (int argc, char *argv[])
       printf ("Result10-1\nResult10-2\n");
     } else if (STREQ (argv[1], "11")) {
       printf ("Result11-1\nResult11-2");
-    } else {
-      fprintf (stderr, "unknown parameter: %s\n", argv[1]);
-      exit (EXIT_FAILURE);
-    }
-  } else {
-    fprintf (stderr, "missing parameter\n");
-    exit (EXIT_FAILURE);
-  }
+    } else
+      error (EXIT_FAILURE, 0, "unknown parameter: %s", argv[1]);
+  } else
+    error (EXIT_FAILURE, 0, "missing parameter");
 
   exit (EXIT_SUCCESS);
 }

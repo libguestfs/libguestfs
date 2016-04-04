@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -40,10 +41,8 @@ main (int argc, char *argv[])
   struct guestfs_stat *stat;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_add_drive_scratch (g, 524288000, -1) == -1)
     exit (EXIT_FAILURE);
@@ -64,18 +63,14 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   r = guestfs_touch (g, "/test");
-  if (r != -1) {
-    fprintf (stderr,
-             "guestfs_touch: expected error for read-only filesystem\n");
-    exit (EXIT_FAILURE);
-  }
+  if (r != -1)
+    error (EXIT_FAILURE, 0,
+           "guestfs_touch: expected error for read-only filesystem");
 
   err = guestfs_last_errno (g);
-  if (err != EROFS) {
-    fprintf (stderr,
-             "guestfs_touch: expected errno == EROFS, but got %d\n", err);
-    exit (EXIT_FAILURE);
-  }
+  if (err != EROFS)
+    error (EXIT_FAILURE, 0,
+           "guestfs_touch: expected errno == EROFS, but got %d", err);
 
   if (guestfs_umount (g, "/") == -1)
     exit (EXIT_FAILURE);
@@ -85,35 +80,27 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   stat = guestfs_lstat (g, "/nosuchfile");
-  if (stat != NULL) {
-    fprintf (stderr,
-             "guestfs_lstat: expected error for missing file\n");
-    exit (EXIT_FAILURE);
-  }
+  if (stat != NULL)
+    error (EXIT_FAILURE, 0,
+           "guestfs_lstat: expected error for missing file");
 
   err = guestfs_last_errno (g);
-  if (err != ENOENT) {
-    fprintf (stderr,
-             "guestfs_lstat: expected errno == ENOENT, but got %d\n", err);
-    exit (EXIT_FAILURE);
-  }
+  if (err != ENOENT)
+    error (EXIT_FAILURE, 0,
+           "guestfs_lstat: expected errno == ENOENT, but got %d", err);
 
   if (guestfs_touch (g, "/test") == -1)
     exit (EXIT_FAILURE);
 
   r = guestfs_mkdir (g, "/test");
-  if (r != -1) {
-    fprintf (stderr,
-             "guestfs_mkdir: expected error for file which exists\n");
-    exit (EXIT_FAILURE);
-  }
+  if (r != -1)
+    error (EXIT_FAILURE, 0,
+           "guestfs_mkdir: expected error for file which exists");
 
   err = guestfs_last_errno (g);
-  if (err != EEXIST) {
-    fprintf (stderr,
-             "guestfs_mkdir: expected errno == EEXIST, but got %d\n", err);
-    exit (EXIT_FAILURE);
-  }
+  if (err != EEXIST)
+    error (EXIT_FAILURE, 0,
+           "guestfs_mkdir: expected errno == EEXIST, but got %d", err);
 
   guestfs_close (g);
 

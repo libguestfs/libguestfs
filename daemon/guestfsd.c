@@ -221,9 +221,8 @@ main (int argc, char *argv[])
       exit (EXIT_SUCCESS);
 
     default:
-      fprintf (stderr, "guestfsd: unexpected command line option 0x%x\n",
-               (unsigned) c);
-      exit (EXIT_FAILURE);
+      error (EXIT_FAILURE, 0,
+             "unexpected command line option 0x%x\n", (unsigned) c);
     }
   }
 

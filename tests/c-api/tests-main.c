@@ -345,11 +345,9 @@ match_re (const char *str, const char *pattern)
   int vec[30], r;
 
   re = pcre_compile (pattern, 0, &err, &offset, NULL);
-  if (re == NULL) {
-    fprintf (stderr, "tests: cannot compile regular expression '%s': %s\n",
-             pattern, err);
-    exit (EXIT_FAILURE);
-  }
+  if (re == NULL)
+    error (EXIT_FAILURE, 0,
+           "cannot compile regular expression '%s': %s", pattern, err);
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
   pcre_free (re);
 
@@ -370,13 +368,12 @@ substitute_srcdir (const char *path)
     const char *srcdir;
 
     srcdir = getenv ("srcdir");
-    if (!srcdir) {
-      fprintf (stderr, "tests: environment variable $srcdir is not defined.\n"
-               "Normally it is defined by automake.  If you are running the\n"
-               "tests directly, set $srcdir to point to the source tests/c-api\n"
-               "directory.\n");
-      exit (EXIT_FAILURE);
-    }
+    if (!srcdir)
+      error (EXIT_FAILURE, 0,
+             "environment variable $srcdir is not defined.\n"
+             "Normally it is defined by automake.  If you are running the\n"
+             "tests directly, set $srcdir to point to the source tests/c-api\n"
+             "directory.");
 
     if (asprintf (&ret, "%s%s", srcdir, path + 7) == -1)
       error (EXIT_FAILURE, errno, "asprintf");
@@ -485,17 +482,12 @@ check_cross_appliance (guestfs_h *g)
   struct guestfs_utsname host_utsname;
 
   r = uname (&host);
-  if (r == -1) {
-    fprintf (stderr, "call to uname failed\n");
-    exit (EXIT_FAILURE);
-  }
+  if (r == -1)
+    error (EXIT_FAILURE, errno, "uname");
 
   appliance = guestfs_utsname (g);
-  if (appliance == NULL) {
-    fprintf (stderr, "call to guestfs_utsname failed: %d, %s\n",
-             guestfs_last_errno (g), guestfs_last_error (g));
+  if (appliance == NULL)
     exit (EXIT_FAILURE);
-  }
 
   host_utsname.uts_sysname = host.sysname;
   host_utsname.uts_release = host.release;

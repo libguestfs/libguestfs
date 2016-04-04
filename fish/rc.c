@@ -62,12 +62,10 @@ create_sockdir (void)
     goto error;
   if (!S_ISDIR (statbuf.st_mode) ||
       (statbuf.st_mode & 0777) != 0700 ||
-      statbuf.st_uid != euid) {
-    fprintf (stderr,
-             _("guestfish: '%s' is not a directory or has insecure owner or permissions\n"),
-             dir);
-    exit (EXIT_FAILURE);
-  }
+      statbuf.st_uid != euid)
+    error (EXIT_FAILURE, 0,
+           _("'%s' is not a directory or has insecure owner or permissions"),
+           dir);
 }
 
 static void

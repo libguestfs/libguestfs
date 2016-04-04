@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -33,10 +35,8 @@ main (int argc, char *argv[])
   int r;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   /* If these fail, the default error handler will print an error
    * message to stderr, so we don't need to print anything.  This code
@@ -49,19 +49,15 @@ main (int argc, char *argv[])
   r = guestfs_get_verbose (g);
   if (r == -1)
     exit (EXIT_FAILURE);
-  if (!r) {
-    fprintf (stderr, "set_verbose not true\n");
-    exit (EXIT_FAILURE);
-  }
+  if (!r)
+    error (EXIT_FAILURE, 0, "set_verbose not true");
   if (guestfs_set_verbose (g, 0) == -1)
     exit (EXIT_FAILURE);
   r = guestfs_get_verbose (g);
   if (r == -1)
     exit (EXIT_FAILURE);
-  if (r) {
-    fprintf (stderr, "set_verbose not false\n");
-    exit (EXIT_FAILURE);
-  }
+  if (r)
+    error (EXIT_FAILURE, 0, "set_verbose not false");
 
   guestfs_close (g);
 

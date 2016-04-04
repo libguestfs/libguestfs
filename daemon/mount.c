@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <mntent.h>
@@ -49,10 +51,8 @@ is_root_mounted (void)
    * that requires custom parsing code.
    */
   fp = setmntent ("/proc/mounts", "r");
-  if (fp == NULL) {
-    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
-    exit (EXIT_FAILURE);
-  }
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "setmntent: %s", "/proc/mounts");
 
   while ((m = getmntent (fp)) != NULL) {
     /* Allow a mount directory like "/sysroot". */
@@ -91,10 +91,8 @@ is_device_mounted (const char *device)
    * that requires custom parsing code.
    */
   fp = setmntent ("/proc/mounts", "r");
-  if (fp == NULL) {
-    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
-    exit (EXIT_FAILURE);
-  }
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "setmntent: %s", "/proc/mounts");
 
   while ((m = getmntent (fp)) != NULL) {
     if ((sysroot_len > 0 && STREQ (m->mnt_dir, sysroot)) ||
@@ -274,10 +272,8 @@ mounts_or_mountpoints (int mp)
    * that requires custom parsing code.
    */
   fp = setmntent ("/proc/mounts", "r");
-  if (fp == NULL) {
-    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
-    exit (EXIT_FAILURE);
-  }
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "setmntent: %s", "/proc/mounts");
 
   while ((m = getmntent (fp)) != NULL) {
     /* Allow a mount directory like "/sysroot". */
@@ -383,10 +379,8 @@ do_umount_all (void)
    * that requires custom parsing code.
    */
   fp = setmntent ("/proc/mounts", "r");
-  if (fp == NULL) {
-    fprintf (stderr, "setmntent: %s: %m\n", "/proc/mounts");
-    exit (EXIT_FAILURE);
-  }
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "setmntent: %s", "/proc/mounts");
 
   while ((m = getmntent (fp)) != NULL) {
     if (verbose) {

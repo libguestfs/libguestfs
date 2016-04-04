@@ -178,10 +178,8 @@ main (int argc, char *argv[])
   int mode = 0;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -227,11 +225,10 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "uid") ||
                  STREQ (long_options[option_index].name, "uids")) {
         enable_uids = 1;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -327,20 +324,16 @@ main (int argc, char *argv[])
   /* Many flags only apply to -lR mode. */
   if (mode != MODE_LS_LR &&
       (csv || human || enable_uids || enable_times || enable_extra_stats ||
-       checksum)) {
-    fprintf (stderr, _("%s: used a flag which can only be combined with -lR mode\nFor more information, read the virt-ls(1) man page.\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+       checksum))
+    error (EXIT_FAILURE, 0,
+           _("used a flag which can only be combined with -lR mode\nFor more information, read the virt-ls(1) man page."));
 
   /* CSV && human is unsafe because spreadsheets fail to parse these
    * fields correctly.  (RHBZ#600977).
    */
-  if (human && csv) {
-    fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (human && csv)
+    error (EXIT_FAILURE, 0,
+           _("you cannot use -h and --csv options together."));
 
   /* User must specify at least one directory name on the command line. */
   if (optind >= argc || argc - optind < 1)

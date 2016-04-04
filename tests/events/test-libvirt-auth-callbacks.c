@@ -55,22 +55,17 @@ main (int argc, char *argv[])
    * supports the new test-driver auth feature.
    */
   virGetVersion (&ver, NULL, NULL);
-  if (ver < 1002001) {
-    fprintf (stderr, "%s: test skipped because libvirt is too old (%lu)\n",
-             argv[0], ver);
-    exit (77);
-  }
+  if (ver < 1002001)
+    error (77, 0, "test skipped because libvirt is too old (%lu)", ver);
 
   /* $srcdir must have been passed (by automake). */
   srcdir = getenv ("srcdir");
-  if (!srcdir) {
-    fprintf (stderr,
-             "%s: environment variable $srcdir is not defined.\n"
-             "Normally it is defined by automake.  If you are running the\n"
-             "tests directly, set $srcdir to point to the source tests/events\n"
-             "directory.\n", argv[0]);
-    exit (EXIT_FAILURE);
-  }
+  if (!srcdir)
+    error (EXIT_FAILURE, 0,
+           "environment variable $srcdir is not defined.\n"
+           "Normally it is defined by automake.  If you are running the\n"
+           "tests directly, set $srcdir to point to the source tests/events\n"
+           "directory.");
 
   cwd = getcwd (NULL, 0);
   if (cwd == NULL)
@@ -107,7 +102,7 @@ do_test (const char *prog, const char *libvirt_uri,
 
   g = guestfs_create ();
   if (!g)
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   r = guestfs_set_libvirt_supported_credentials (g, (char **) creds);
   if (r == -1)
@@ -123,13 +118,11 @@ do_test (const char *prog, const char *libvirt_uri,
                           GUESTFS_ADD_DOMAIN_LIBVIRTURI, libvirt_uri,
                           GUESTFS_ADD_DOMAIN_READONLY, 1,
                           -1);
-  if (r != expected) {
-    fprintf (stderr,
-             "%s: test failed: u=%s p=%s: got %d expected %d\n",
-             prog, auth_data->username, auth_data->password ? : "(none)",
-             r, expected);
-    exit (EXIT_FAILURE);
-  }
+  if (r != expected)
+    error (EXIT_FAILURE, 0,
+           "test failed: u=%s p=%s: got %d expected %d",
+           auth_data->username, auth_data->password ? : "(none)",
+           r, expected);
 
   guestfs_close (g);
 }
@@ -161,18 +154,18 @@ auth_callback (guestfs_h *g, void *opaque,
     }
     else if (STREQ (creds[i], "passphrase") ||
              STREQ (creds[i], "noechoprompt")) {
-      if (!auth_data->password) {
-        fprintf (stderr, "test failed: libvirt asked for a password, but auth_data->password == NULL\n");
-        exit (EXIT_FAILURE);
-      }
+      if (!auth_data->password)
+        error (EXIT_FAILURE, 0,
+               "test failed: libvirt asked for a password, but auth_data->password == NULL");
 
       reply = auth_data->password;
       len = strlen (reply);
     }
     else {
-      fprintf (stderr, "test failed: libvirt asked for '%s' which is not in creds list\n(This is probably a libvirt bug)\n",
-               creds[i]);
-      exit (EXIT_FAILURE);
+      error (EXIT_FAILURE, 0,
+             "test failed: libvirt asked for '%s' which is not in creds list\n(This is probably a libvirt bug)",
+             creds[i]);
+      abort (); /* keeps GCC happy since error(3) is not marked noreturn */
     }
 
     r = guestfs_set_libvirt_requested_credential (g, i,

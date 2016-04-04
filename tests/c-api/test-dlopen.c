@@ -24,6 +24,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dlfcn.h>
+#include <errno.h>
+#include <error.h>
 
 /* We don't need the <guestfs.h> header file here. */
 typedef struct guestfs_h guestfs_h;
@@ -44,10 +46,9 @@ read_symbol (void *lib, const char *symbol)
 
   dlerror (); /* Clear error indicator. */
   symval = dlsym (lib, symbol);
-  if ((err = dlerror ()) != NULL) {
-    fprintf (stderr, "could not read symbol: %s: %s\n", symbol, err);
-    exit (EXIT_FAILURE);
-  }
+  if ((err = dlerror ()) != NULL)
+    error (EXIT_FAILURE, 0,
+           "could not read symbol: %s: %s", symbol, err);
   return symval;
 }
 
@@ -60,35 +61,26 @@ main (int argc, char *argv[])
   guestfs_close_t guestfs_close;
   guestfs_h *g;
 
-  if (access (LIBRARY, X_OK) == -1) {
-    fprintf (stderr, "test skipped because %s cannot be accessed: %m\n",
-             LIBRARY);
-    exit (77);
-  }
+  if (access (LIBRARY, X_OK) == -1)
+    error (77, errno, "test skipped because %s cannot be accessed", LIBRARY);
 
   lib = dlopen (LIBRARY, RTLD_LAZY);
-  if (lib == NULL) {
-    fprintf (stderr, "could not open %s: %s\n", LIBRARY, dlerror ());
-    exit (EXIT_FAILURE);
-  }
+  if (lib == NULL)
+    error (EXIT_FAILURE, 0, "could not open %s: %s", LIBRARY, dlerror ());
 
   guestfs_create = read_symbol (lib, "guestfs_create");
   guestfs_get_program = read_symbol (lib, "guestfs_get_program");
   guestfs_close = read_symbol (lib, "guestfs_close");
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
   printf ("program = %s\n", guestfs_get_program (g));
 
   guestfs_close (g);
 
-  if (dlclose (lib) != 0) {
-    fprintf (stderr, "could not close %s: %s\n", LIBRARY, dlerror ());
-    exit (EXIT_FAILURE);
-  }
+  if (dlclose (lib) != 0)
+    error (EXIT_FAILURE, 0, "could not close %s: %s", LIBRARY, dlerror ());
 
   exit (EXIT_SUCCESS);
 }

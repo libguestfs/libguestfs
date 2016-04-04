@@ -33,10 +33,13 @@ libguestfs_test_tool_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\"
 
 libguestfs_test_tool_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
 libguestfs_test_tool_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/src/libutils.la \
+	$(LIBXML2_LIBS) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 

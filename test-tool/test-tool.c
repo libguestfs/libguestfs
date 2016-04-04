@@ -35,7 +35,7 @@
 #include <limits.h>
 #include <libintl.h>
 
-#include <guestfs.h>
+#include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
@@ -111,35 +111,24 @@ main (int argc, char *argv[])
         qemu = optarg;
         qemu_use_wrapper = 1;
       }
-      else {
-        fprintf (stderr,
-                 _("libguestfs-test-tool: unknown long option: %s (%d)\n"),
-                 long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 't':
-      if (sscanf (optarg, "%d", &timeout) != 1 || timeout < 0) {
-        fprintf (stderr,
-                 _("libguestfs-test-tool: invalid timeout: %s\n"),
-                 optarg);
-        exit (EXIT_FAILURE);
-      }
+      if (sscanf (optarg, "%d", &timeout) != 1 || timeout < 0)
+        error (EXIT_FAILURE, 0, _("invalid timeout: %s"), optarg);
       break;
 
     case 'V':
       g = guestfs_create ();
-      if (g == NULL) {
-        fprintf (stderr,
-                 _("libguestfs-test-tool: failed to create libguestfs handle\n"));
-        exit (EXIT_FAILURE);
-      }
+      if (g == NULL)
+        error (EXIT_FAILURE, errno, "guestfs_create");
       vers = guestfs_version (g);
-      if (vers == NULL) {
-        fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
+      if (vers == NULL)
         exit (EXIT_FAILURE);
-      }
       printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
               "libguestfs-test-tool",
               vers->major, vers->minor, vers->release, vers->extra);
@@ -152,17 +141,12 @@ main (int argc, char *argv[])
       exit (EXIT_SUCCESS);
 
     default:
-      fprintf (stderr,
-               _("libguestfs-test-tool: unexpected command line option %d\n"),
-               c);
-      exit (EXIT_FAILURE);
+      error (EXIT_FAILURE, 0, _("unexpected command line option %d"), c);
     }
   }
 
-  if (optind < argc) {
-    fprintf (stderr, _("libguestfs-test-tool: extra arguments on the command line\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (optind < argc)
+    error (EXIT_FAILURE, 0, _("extra arguments on the command line"));
 
   /* Everyone ignores the documentation, so ... */
   printf ("     ************************************************************\n"
@@ -177,17 +161,12 @@ main (int argc, char *argv[])
 
   /* Create the handle. */
   g = guestfs_create_flags (GUESTFS_CREATE_NO_ENVIRONMENT);
-  if (g == NULL) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to create libguestfs handle\n"));
-    exit (EXIT_FAILURE);
-  }
-  if (guestfs_parse_environment (g) == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed parsing environment variables.\n"
-               "Check earlier messages, and the output of the 'printenv' command.\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create_flags");
+  if (guestfs_parse_environment (g) == -1)
+    error (EXIT_FAILURE, 0,
+           _("failed parsing environment variables.\n"
+             "Check earlier messages, and the output of the 'printenv' command."));
   guestfs_set_verbose (g, 1);
 
   if (qemu)
@@ -224,11 +203,8 @@ main (int argc, char *argv[])
   ignore_value (system ("getenforce"));
 
   /* Configure the handle. */
-  if (guestfs_add_drive_scratch (g, 100*1024*1024, -1) == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to add scratch drive\n"));
+  if (guestfs_add_drive_scratch (g, 100*1024*1024, -1) == -1)
     exit (EXIT_FAILURE);
-  }
 
   printf ("guestfs_get_append: %s\n", guestfs_get_append (g) ? : "(null)");
   printf ("guestfs_get_autosync: %d\n", guestfs_get_autosync (g));
@@ -277,11 +253,8 @@ main (int argc, char *argv[])
 
   alarm (timeout);
 
-  if (guestfs_launch (g) == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to launch appliance\n"));
+  if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
-  }
 
   alarm (0);
 
@@ -289,36 +262,22 @@ main (int argc, char *argv[])
   fflush (stdout);
 
   /* Create the filesystem and mount everything. */
-  if (guestfs_part_disk (g, "/dev/sda", "mbr") == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to run part-disk\n"));
+  if (guestfs_part_disk (g, "/dev/sda", "mbr") == -1)
     exit (EXIT_FAILURE);
-  }
 
-  if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to mkfs.ext2\n"));
+  if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1)
     exit (EXIT_FAILURE);
-  }
 
-  if (guestfs_mount (g, "/dev/sda1", "/") == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to mount /dev/sda1 on /\n"));
+  if (guestfs_mount (g, "/dev/sda1", "/") == -1)
     exit (EXIT_FAILURE);
-  }
 
   /* Touch a file. */
-  if (guestfs_touch (g, "/hello") == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to touch file\n"));
+  if (guestfs_touch (g, "/hello") == -1)
     exit (EXIT_FAILURE);
-  }
 
   /* Close the handle. */
-  if (guestfs_shutdown (g) == -1) {
-    fprintf (stderr, _("libguestfs-test-tool: shutdown failed\n"));
+  if (guestfs_shutdown (g) == -1)
     exit (EXIT_FAILURE);
-  }
 
   guestfs_close (g);
 
@@ -342,26 +301,21 @@ cleanup_wrapper (void)
 static void
 set_qemu (guestfs_h *g, const char *path, int use_wrapper)
 {
-  char *buffer;
+  CLEANUP_FREE char *buffer = NULL;
   struct stat statbuf;
   int fd;
   FILE *fp;
 
   if (getenv ("LIBGUESTFS_QEMU") != NULL ||
-      getenv ("LIBGUESTFS_HV") != NULL) {
-    fprintf (stderr,
-	     _("LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
-	       "--qemu/--qemudir options cannot be used.\n"));
-    exit (EXIT_FAILURE);
-  }
+      getenv ("LIBGUESTFS_HV") != NULL)
+    error (EXIT_FAILURE, 0,
+           _("LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
+             "--qemu/--qemudir options cannot be used."));
 
   if (!use_wrapper) {
-    if (access (path, X_OK) == -1) {
-      fprintf (stderr,
-               _("Binary '%s' does not exist or is not executable\n"),
-               path);
-      exit (EXIT_FAILURE);
-    }
+    if (access (path, X_OK) == -1)
+      error (EXIT_FAILURE, errno,
+             _("binary '%s' does not exist or is not executable"), path);
 
     guestfs_set_hv (g, path);
     return;
@@ -371,14 +325,9 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
   if (asprintf (&buffer, "%s/pc-bios", path) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
   if (stat (buffer, &statbuf) == -1 ||
-      !S_ISDIR (statbuf.st_mode)) {
-    fprintf (stderr,
-             _("%s: does not look like a qemu source directory\n"),
-             path);
-    free (buffer);
-    exit (EXIT_FAILURE);
-  }
-  free (buffer);
+      !S_ISDIR (statbuf.st_mode))
+    error (EXIT_FAILURE, errno,
+           _("path does not look like a qemu source directory: %s"), path);
 
   /* Make a wrapper script. */
   fd = mkstemp (qemuwrapper);

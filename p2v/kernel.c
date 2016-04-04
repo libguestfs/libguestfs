@@ -54,11 +54,9 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
 
   p = get_cmdline_key (cmdline, "p2v.port");
   if (p) {
-    if (sscanf (p, "%d", &config->port) != 1) {
-      fprintf (stderr, "%s: cannot parse p2v.port from kernel command line",
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+    if (sscanf (p, "%d", &config->port) != 1)
+      error (EXIT_FAILURE, 0,
+             "cannot parse p2v.port from kernel command line");
   }
 
   p = get_cmdline_key (cmdline, "p2v.username");
@@ -93,9 +91,9 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
     if (test_connection (config) == -1) {
       const char *err = get_ssh_error ();
 
-      fprintf (stderr, "%s: error opening control connection to %s:%d: %s\n",
-               guestfs_int_program_name, config->server, config->port, err);
-      exit (EXIT_FAILURE);
+      error (EXIT_FAILURE, 0,
+             "error opening control connection to %s:%d: %s",
+             config->server, config->port, err);
     }
   }
 
@@ -107,22 +105,18 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
 
   p = get_cmdline_key (cmdline, "p2v.vcpus");
   if (p) {
-    if (sscanf (p, "%d", &config->vcpus) != 1) {
-      fprintf (stderr, "%s: cannot parse p2v.vcpus from kernel command line\n",
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+    if (sscanf (p, "%d", &config->vcpus) != 1)
+      error (EXIT_FAILURE, 0,
+             "cannot parse p2v.vcpus from kernel command line");
   }
 
   p = get_cmdline_key (cmdline, "p2v.memory");
   if (p) {
     char mem_code;
 
-    if (sscanf (p, "%" SCNu64 "%c", &config->memory, &mem_code) != 2) {
-      fprintf (stderr, "%s: cannot parse p2v.memory from kernel command line\n",
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+    if (sscanf (p, "%" SCNu64 "%c", &config->memory, &mem_code) != 2)
+      error (EXIT_FAILURE, 0,
+             "cannot parse p2v.memory from kernel command line");
     config->memory *= 1024;
     if (mem_code == 'M' || mem_code == 'm'
         || mem_code == 'G' || mem_code == 'g')
@@ -130,11 +124,9 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
     if (mem_code == 'G' || mem_code == 'g')
       config->memory *= 1024;
     if (mem_code != 'M' && mem_code != 'm'
-        && mem_code != 'G' && mem_code != 'g') {
-      fprintf (stderr, "%s: p2v.memory on kernel command line must be followed by 'G' or 'M'\n",
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+        && mem_code != 'G' && mem_code != 'g')
+      error (EXIT_FAILURE, 0,
+             "p2v.memory on kernel command line must be followed by 'G' or 'M'");
   }
 
   p = get_cmdline_key (cmdline, "p2v.disks");
@@ -216,13 +208,11 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
   }
 
   /* Some disks must have been specified for conversion. */
-  if (config->disks == NULL || guestfs_int_count_strings (config->disks) == 0) {
-    fprintf (stderr, "%s: error: no non-removable disks were discovered on this machine.\n",
-             guestfs_int_program_name);
-    fprintf (stderr, "virt-p2v looked in /sys/block and in p2v.disks on the kernel command line.\n");
-    fprintf (stderr, "This is a fatal error and virt-p2v cannot continue.\n");
-    exit (EXIT_FAILURE);
-  }
+  if (config->disks == NULL || guestfs_int_count_strings (config->disks) == 0)
+    error (EXIT_FAILURE, 0,
+           "no non-removable disks were discovered on this machine.\n"
+           "virt-p2v looked in /sys/block and in p2v.disks on the kernel command line.\n"
+           "This is a fatal error and virt-p2v cannot continue.");
 
   /* Perform the conversion in text mode. */
   if (start_conversion (config, notify_ui_callback) == -1) {
@@ -285,9 +275,7 @@ run_command (int verbose, const char *stage, const char *command)
   r = system (command);
   if (r == -1)
     error (EXIT_FAILURE, errno, "system: %s", command);
-  if ((WIFEXITED (r) && WEXITSTATUS (r) != 0) || !WIFEXITED (r)) {
-    fprintf (stderr, "%s: %s: unexpected failure of external command\n",
-             guestfs_int_program_name, stage);
-    exit (EXIT_FAILURE);
-  }
+  if ((WIFEXITED (r) && WEXITSTATUS (r) != 0) || !WIFEXITED (r))
+    error (EXIT_FAILURE, 0,
+           "%s: unexpected failure of external command", stage);
 }

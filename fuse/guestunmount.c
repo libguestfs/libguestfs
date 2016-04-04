@@ -107,24 +107,19 @@ main (int argc, char *argv[])
     switch (c) {
     case 0:			/* options which are long only */
       if (STREQ (long_options[option_index].name, "fd")) {
-        if (sscanf (optarg, "%d", &fd) != 1 || fd < 0) {
-          fprintf (stderr, _("%s: cannot parse fd option '%s'\n"),
-                   guestfs_int_program_name, optarg);
-          exit (EXIT_FAILURE);
-        }
+        if (sscanf (optarg, "%d", &fd) != 1 || fd < 0)
+          error (EXIT_FAILURE, 0, _("cannot parse fd option '%s'"), optarg);
       } else if (STREQ (long_options[option_index].name, "no-retry")) {
         retries = 0;
       } else if (STREQ (long_options[option_index].name, "retry")) {
-        if (sscanf (optarg, "%zu", &retries) != 1 || retries >= 64) {
-          fprintf (stderr, _("%s: cannot parse retries option or value is too large '%s'\n"),
-                   guestfs_int_program_name, optarg);
-          exit (EXIT_FAILURE);
-        }
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+        if (sscanf (optarg, "%zu", &retries) != 1 || retries >= 64)
+          error (EXIT_FAILURE, 0,
+                 _("cannot parse retries option or value is too large '%s'"),
+                 optarg);
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'q':
@@ -148,12 +143,9 @@ main (int argc, char *argv[])
   }
 
   /* We'd better have a mountpoint. */
-  if (optind+1 != argc) {
-    fprintf (stderr,
-             _("%s: you must specify a mountpoint in the host filesystem\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (optind+1 != argc)
+    error (EXIT_FAILURE, 0,
+           _("you must specify a mountpoint in the host filesystem\n"));
 
   mountpoint = argv[optind];
 

@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <libintl.h>
@@ -130,10 +131,8 @@ main (int argc, char *argv[])
   int r;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -149,12 +148,10 @@ main (int argc, char *argv[])
         OPTION_format;
       } else if (STREQ (long_options[option_index].name, "uuid")) {
         uuid = 1;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name,
-                 long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -170,11 +167,8 @@ main (int argc, char *argv[])
       break;
 
     case 'P':
-      if (sscanf (optarg, "%zu", &max_threads) != 1) {
-        fprintf (stderr, _("%s: -P option is not numeric\n"),
-                 guestfs_int_program_name);
-        exit (EXIT_FAILURE);
-      }
+      if (sscanf (optarg, "%zu", &max_threads) != 1)
+        error (EXIT_FAILURE, 0, _("-P option is not numeric"));
       break;
 
     case 'q':
@@ -229,16 +223,11 @@ main (int argc, char *argv[])
     if (r == -1)
       exit (EXIT_FAILURE);
 #else
-    fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0, _("compiled without support for libvirt"));
 #endif
   } else {                      /* Single guest. */
-    if (uuid) {
-      fprintf (stderr, _("%s: --uuid option cannot be used with -a or -d\n"),
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+    if (uuid)
+      error (EXIT_FAILURE, 0, _("--uuid option cannot be used with -a or -d"));
 
     /* Add domains/drives from the command line (for a single guest). */
     add_drives (drvs, 'a');

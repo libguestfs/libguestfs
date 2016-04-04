@@ -128,10 +128,8 @@ main (int argc, char *argv[])
   int retry, retries;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -148,19 +146,14 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "filesystem")) {
         if (STREQ (optarg, "none"))
           filesystem = NULL;
-        else if (optarg[0] == '-') { /* eg: --filesystem --lvm */
-          fprintf (stderr, _("%s: no filesystem was specified\n"),
-                   guestfs_int_program_name);
-          exit (EXIT_FAILURE);
-        } else
+        else if (optarg[0] == '-') /* eg: --filesystem --lvm */
+          error (EXIT_FAILURE, 0, _("no filesystem was specified"));
+        else
           filesystem = optarg;
       } else if (STREQ (long_options[option_index].name, "lvm")) {
-        if (vg || lv) {
-          fprintf (stderr,
-                   _("%s: --lvm option cannot be given multiple times\n"),
-                   guestfs_int_program_name);
-          exit (EXIT_FAILURE);
-        }
+        if (vg || lv)
+          error (EXIT_FAILURE, 0,
+                 _("--lvm option cannot be given multiple times"));
         if (optarg == NULL) {
           vg = strdup ("VG");
           lv = strdup ("LV");
@@ -182,12 +175,10 @@ main (int argc, char *argv[])
         wipe = 1;
       } else if (STREQ (long_options[option_index].name, "label")) {
         label = optarg;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name,
-                 long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -271,16 +262,13 @@ main (int argc, char *argv[])
       guestfs_close (g);
       g = g2;
     }
-    else {
+    else
       /* Failed. */
-      fprintf (stderr,
-               _("%s: failed to rescan the disks after two attempts.  This\n"
-                 "may mean there is some sort of partition table or disk\n"
-                 "data which we are unable to remove.  If you think this\n"
-                 "is a bug, please file a bug at http://libguestfs.org/\n"),
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+      error (EXIT_FAILURE, 0,
+             _("failed to rescan the disks after two attempts.  This\n"
+               "may mean there is some sort of partition table or disk\n"
+               "data which we are unable to remove.  If you think this\n"
+               "is a bug, please file a bug at http://libguestfs.org/\n"));
   }
 
   /* Free up data structures. */
@@ -311,12 +299,9 @@ parse_vg_lv (const char *lvm)
 
     if (!vg || !lv)
       error (EXIT_FAILURE, errno, "strdup");
-  } else {
+  } else
   cannot_parse:
-    fprintf (stderr, _("%s: cannot parse --lvm option (%s)\n"),
-             guestfs_int_program_name, lvm);
-    exit (EXIT_FAILURE);
-  }
+    error (EXIT_FAILURE, 0, _("cannot parse --lvm option (%s)"), lvm);
 
   if (strchr (vg, '/') || strchr (lv, '/'))
     goto cannot_parse;

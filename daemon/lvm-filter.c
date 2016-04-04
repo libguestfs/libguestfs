@@ -23,6 +23,8 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 
@@ -72,10 +74,8 @@ copy_lvm (void)
     return;
   }
 
-  if (mkdtemp (lvm_system_dir) == NULL) {
-    fprintf (stderr, "mkdtemp: %s: %m\n", lvm_system_dir);
-    exit (EXIT_FAILURE);
-  }
+  if (mkdtemp (lvm_system_dir) == NULL)
+    error (EXIT_FAILURE, errno, "mkdtemp: %s", lvm_system_dir);
 
   /* Copy the entire directory */
   snprintf (cmd, sizeof cmd, "%s -a /etc/lvm/ %s", str_cp, lvm_system_dir);

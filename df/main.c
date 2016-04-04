@@ -131,10 +131,8 @@ main (int argc, char *argv[])
   int err;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -154,11 +152,10 @@ main (int argc, char *argv[])
         /* nothing - left for backwards compatibility */
       } else if (STREQ (long_options[option_index].name, "uuid")) {
         uuid = 1;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -182,11 +179,8 @@ main (int argc, char *argv[])
       break;
 
     case 'P':
-      if (sscanf (optarg, "%zu", &max_threads) != 1) {
-        fprintf (stderr, _("%s: -P option is not numeric\n"),
-                 guestfs_int_program_name);
-        exit (EXIT_FAILURE);
-      }
+      if (sscanf (optarg, "%zu", &max_threads) != 1)
+        error (EXIT_FAILURE, 0, _("-P option is not numeric"));
       break;
 
     case 'v':
@@ -256,11 +250,8 @@ main (int argc, char *argv[])
   /* -h and --csv doesn't make sense.  Spreadsheets will corrupt these
    * fields.  (RHBZ#600977).
    */
-  if (human && csv) {
-    fprintf (stderr, _("%s: you cannot use -h and --csv options together.\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (human && csv)
+    error (EXIT_FAILURE, 0, _("you cannot use -h and --csv options together."));
 
   /* virt-df has two modes.  If the user didn't specify any drives,
    * then we do the df on every libvirt guest.  That's the if-clause
@@ -274,9 +265,8 @@ main (int argc, char *argv[])
     err = start_threads (max_threads, g, df_work);
     free_domains ();
 #else
-    fprintf (stderr, _("%s: compiled without support for libvirt.\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
+    error (EXIT_FAILURE, 0,
+           _("compiled without support for libvirt."));
 #endif
   }
   else {                        /* Single guest. */

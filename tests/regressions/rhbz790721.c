@@ -90,10 +90,8 @@ main (int argc, char *argv[])
   for (i = 0; i < NR_THREADS; ++i) {
     data[i] = i;
     r = pthread_create (&thread[i], NULL, start_thread, &data[i]);
-    if (r != 0) {
-      fprintf (stderr, "pthread_create: %s\n", strerror (r));
-      exit (EXIT_FAILURE);
-    }
+    if (r != 0)
+      error (EXIT_FAILURE, r, "pthread_create");
   }
 
   /* Wait for the threads to exit. */
@@ -103,10 +101,8 @@ main (int argc, char *argv[])
     int *ret;
 
     r = pthread_join (thread[i], (void **) &ret);
-    if (r != 0) {
-      fprintf (stderr, "pthread_join: %s\n", strerror (r));
-      exit (EXIT_FAILURE);
-    }
+    if (r != 0)
+      error (EXIT_FAILURE, r, "pthread_join");
     if (*ret == -1)
       errors++;
   }

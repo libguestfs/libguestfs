@@ -51,18 +51,12 @@ main (int argc, char *argv[])
 
   /* Allow the test to be skipped. */
   skip = getenv ("SKIP_TEST_FUSE_SH");
-  if (skip && guestfs_int_is_true (skip) > 0) {
-    fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs_int_program_name);
-    exit (77);
-  }
+  if (skip && guestfs_int_is_true (skip) > 0)
+    error (77, 0, "test skipped because environment variable set");
 
   skip = getenv ("SKIP_TEST_GUESTMOUNT_FD");
-  if (skip && guestfs_int_is_true (skip) > 0) {
-    fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs_int_program_name);
-    exit (77);
-  }
+  if (skip && guestfs_int_is_true (skip) > 0)
+    error (77, 0, "test skipped because environment variable set");
 
   /* Skip the test if the test image can't be found. */
   if (access (TEST_IMAGE, R_OK) == -1)

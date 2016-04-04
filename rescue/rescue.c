@@ -133,10 +133,8 @@ main (int argc, char *argv[])
   int suggest = 0;
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -158,16 +156,12 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
       } else if (STREQ (long_options[option_index].name, "smp")) {
-        if (sscanf (optarg, "%d", &smp) != 1) {
-          fprintf (stderr, _("%s: could not parse --smp parameter '%s'\n"),
-                   guestfs_int_program_name, optarg);
-          exit (EXIT_FAILURE);
-        }
-        if (smp < 1) {
-          fprintf (stderr, _("%s: --smp parameter '%s' should be >= 1\n"),
-                   guestfs_int_program_name, optarg);
-          exit (EXIT_FAILURE);
-        }
+        if (sscanf (optarg, "%d", &smp) != 1)
+          error (EXIT_FAILURE, 0,
+                 _("could not parse --smp parameter '%s'"), optarg);
+        if (smp < 1)
+          error (EXIT_FAILURE, 0,
+                 _("--smp parameter '%s' should be >= 1"), optarg);
       } else if (STREQ (long_options[option_index].name, "suggest")) {
         suggest = 1;
       } else if (STREQ (long_options[option_index].name, "scratch")) {
@@ -175,25 +169,18 @@ main (int argc, char *argv[])
           add_scratch_disks (1, &drvs);
         else {
           int n;
-          if (sscanf (optarg, "%d", &n) != 1) {
-            fprintf (stderr,
-                     _("%s: could not parse --scratch parameter '%s'\n"),
-                     guestfs_int_program_name, optarg);
-            exit (EXIT_FAILURE);
-          }
-          if (n < 1) {
-            fprintf (stderr,
-                     _("%s: --scratch parameter '%s' should be >= 1\n"),
-                     guestfs_int_program_name, optarg);
-            exit (EXIT_FAILURE);
-          }
+          if (sscanf (optarg, "%d", &n) != 1)
+            error (EXIT_FAILURE, 0,
+                   _("could not parse --scratch parameter '%s'"), optarg);
+          if (n < 1)
+            error (EXIT_FAILURE, 0,
+                   _("--scratch parameter '%s' should be >= 1"), optarg);
           add_scratch_disks (n, &drvs);
         }
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -209,11 +196,9 @@ main (int argc, char *argv[])
       break;
 
     case 'm':
-      if (sscanf (optarg, "%d", &memsize) != 1) {
-        fprintf (stderr, _("%s: could not parse memory size '%s'\n"),
-                 guestfs_int_program_name, optarg);
-        exit (EXIT_FAILURE);
-      }
+      if (sscanf (optarg, "%d", &memsize) != 1)
+        error (EXIT_FAILURE, 0,
+               _("could not parse memory size '%s'"), optarg);
       break;
 
     case 'r':

@@ -60,10 +60,8 @@ main (int argc, char *argv[])
     error (EXIT_FAILURE, errno, "fopen: %s", filename);
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   if (guestfs_set_event_callback
       (g, debug_to_file,

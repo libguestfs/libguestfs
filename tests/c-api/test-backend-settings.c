@@ -25,6 +25,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <assert.h>
 
 #include "guestfs.h"
@@ -44,10 +45,8 @@ main (int argc, char *argv[])
   unsetenv ("LIBGUESTFS_BACKEND_SETTINGS");
 
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, "failed to create handle\n");
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   /* There should be no backend settings initially. */
   strs = guestfs_get_backend_settings (g);
@@ -82,10 +81,8 @@ main (int argc, char *argv[])
 
       setenv ("LIBGUESTFS_BACKEND_SETTINGS", initial_settings, 1);
       g = guestfs_create ();
-      if (g == NULL) {
-        fprintf (stderr, "failed to create handle\n");
-        exit (EXIT_FAILURE);
-      }
+      if (g == NULL)
+        error (EXIT_FAILURE, errno, "guestfs_create");
     }
 
     /* Check the settings are correct. */

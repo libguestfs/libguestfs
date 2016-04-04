@@ -234,10 +234,8 @@ main (int argc, char *argv[])
    * it's OK to do it early here.
    */
   g = guestfs_create ();
-  if (g == NULL) {
-    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (EXIT_FAILURE);
-  }
+  if (g == NULL)
+    error (EXIT_FAILURE, errno, "guestfs_create");
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -253,19 +251,15 @@ main (int argc, char *argv[])
         remote_control_listen = 1;
       else if (STREQ (long_options[option_index].name, "remote")) {
         if (optarg) {
-          if (sscanf (optarg, "%d", &remote_control) != 1) {
-            fprintf (stderr, _("%s: --listen=PID: PID was not a number: %s\n"),
-                     guestfs_int_program_name, optarg);
-            exit (EXIT_FAILURE);
-          }
+          if (sscanf (optarg, "%d", &remote_control) != 1)
+            error (EXIT_FAILURE, 0,
+                   _("--listen=PID: PID was not a number: %s"), optarg);
         } else {
           p = getenv ("GUESTFISH_PID");
-          if (!p || sscanf (p, "%d", &remote_control) != 1) {
-            fprintf (stderr, _("%s: remote: $GUESTFISH_PID must be set"
-                               " to the PID of the remote process\n"),
-                     guestfs_int_program_name);
-            exit (EXIT_FAILURE);
-          }
+          if (!p || sscanf (p, "%d", &remote_control) != 1)
+            error (EXIT_FAILURE, 0,
+                   _("remote: $GUESTFISH_PID must be set"
+                     " to the PID of the remote process"));
         }
       } else if (STREQ (long_options[option_index].name, "selinux")) {
         if (guestfs_set_selinux (g, 1) == -1)
@@ -291,11 +285,10 @@ main (int argc, char *argv[])
           exit (EXIT_FAILURE);
       } else if (STREQ (long_options[option_index].name, "no-dest-paths")) {
         complete_dest_paths = 0;
-      } else {
-        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
-                 guestfs_int_program_name, long_options[option_index].name, option_index);
-        exit (EXIT_FAILURE);
-      }
+      } else
+        error (EXIT_FAILURE, 0,
+               _("unknown long option: %s (%d)"),
+               long_options[option_index].name, option_index);
       break;
 
     case 'a':
@@ -317,11 +310,8 @@ main (int argc, char *argv[])
       break;
 
     case 'f':
-      if (file) {
-        fprintf (stderr, _("%s: only one -f parameter can be given\n"),
-                 guestfs_int_program_name);
-        exit (EXIT_FAILURE);
-      }
+      if (file)
+        error (EXIT_FAILURE, 0, _("only one -f parameter can be given"));
       file = optarg;
       break;
 
@@ -501,26 +491,17 @@ main (int argc, char *argv[])
   free_mps (mps);
 
   /* Remote control? */
-  if (remote_control_listen && remote_control) {
-    fprintf (stderr,
-             _("%s: cannot use --listen and --remote options at the same time\n"),
-             guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (remote_control_listen && remote_control)
+    error (EXIT_FAILURE, 0,
+           _("cannot use --listen and --remote options at the same time"));
 
   if (remote_control_listen) {
-    if (optind < argc) {
-      fprintf (stderr,
-               _("%s: extra parameters on the command line with --listen flag\n"),
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
-    if (file) {
-      fprintf (stderr,
-               _("%s: cannot use --listen and --file options at the same time\n"),
-               guestfs_int_program_name);
-      exit (EXIT_FAILURE);
-    }
+    if (optind < argc)
+      error (EXIT_FAILURE, 0,
+             _("extra parameters on the command line with --listen flag"));
+    if (file)
+      error (EXIT_FAILURE, 0,
+             _("cannot use --listen and --file options at the same time"));
     rc_listen ();
     goto out_after_handle_close;
   }
@@ -1055,10 +1036,8 @@ cmdline (char *argv[], size_t optind, size_t argc)
   if (optind >= argc) return;
 
   cmd = argv[optind++];
-  if (STREQ (cmd, ":")) {
-    fprintf (stderr, _("%s: empty command on command line\n"), guestfs_int_program_name);
-    exit (EXIT_FAILURE);
-  }
+  if (STREQ (cmd, ":"))
+    error (EXIT_FAILURE, 0, _("empty command on command line"));
 
   /* Allow -cmd on the command line to mean (temporarily) override
    * the normal exit on error (RHBZ#578407).

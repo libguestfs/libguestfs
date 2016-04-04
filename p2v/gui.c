@@ -322,10 +322,8 @@ test_connection_clicked (GtkWidget *w, gpointer data)
   pthread_attr_init (&attr);
   pthread_attr_setdetachstate (&attr, PTHREAD_CREATE_DETACHED);
   err = pthread_create (&tid, &attr, test_connection_thread, copy);
-  if (err != 0) {
-    fprintf (stderr, "pthread_create: %s\n", strerror (err));
-    exit (EXIT_FAILURE);
-  }
+  if (err != 0)
+    error (EXIT_FAILURE, err, "pthread_create");
   pthread_attr_destroy (&attr);
 }
 
@@ -1557,10 +1555,8 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
   pthread_attr_init (&attr);
   pthread_attr_setdetachstate (&attr, PTHREAD_CREATE_DETACHED);
   err = pthread_create (&tid, &attr, start_conversion_thread, copy);
-  if (err != 0) {
-    fprintf (stderr, "pthread_create: %s\n", strerror (err));
-    exit (EXIT_FAILURE);
-  }
+  if (err != 0)
+    error (EXIT_FAILURE, err, "pthread_create");
   pthread_attr_destroy (&attr);
 }
 
