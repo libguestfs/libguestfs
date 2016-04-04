@@ -115,7 +115,7 @@ main (int argc, char *argv[])
     { "long-options", 0, 0, 0 },
     { "quiet", 0, 0, 'q' },
     { "short-options", 0, 0, 0 },
-    { "uuid", 0, 0, 0, },
+    { "uuid", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
