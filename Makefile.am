@@ -533,7 +533,6 @@ help:
 	@echo
 	@echo "make installcheck                 Test installed libguestfs packages."
 	@echo
-	@echo "make syntax-check -j1 -k          Check syntax and style problems in the code."
 	@echo "make print-subdirs                Print subdirectories."
 	@echo
 	@echo "make install                      Install everything."

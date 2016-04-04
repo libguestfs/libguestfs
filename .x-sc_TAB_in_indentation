@@ -1,7 +1,0 @@
-^test-data/
-^COPYING(.LIB)?$
-^\.gitmodules$
-(^|\/)ChangeLog[^/]*$
-(^|\/)(?:GNU)?[Mm]akefile[^/]*$
-\.(am|mk)$
-^po/Rules-quot$
