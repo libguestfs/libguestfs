@@ -15,3 +15,12 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
+
+(** Convert an Enterprise Linux guest to run on KVM.
+
+    This module converts certain Enterprise Linux guests to run on
+    KVM.  Only RHEL, SuSE, Fedora and CentOS are supported.
+
+    No functions are exported.  When the module is linked to virt-v2v
+    it registers itself with
+    {!Modules_list.register_convert_module}. *)
