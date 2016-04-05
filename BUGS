@@ -748,12 +748,6 @@ These bugs are in the VERIFIED state.
 1296606 VERIFIED https://bugzilla.redhat.com/show_bug.cgi?id=1296606
   virt-v2v doesn't remove VirtualBox additions correctly because of file quoting
 
-1305526 VERIFIED https://bugzilla.redhat.com/show_bug.cgi?id=1305526
-  Backport virt-v2v pull dcpath from libvirt <vmware:datacenterpath>
-
-1316625 VERIFIED https://bugzilla.redhat.com/show_bug.cgi?id=1316625
-  virt-v2v does not copy additional disks to Glance
-
-(21 bugs)
+(19 bugs)
 
 End of BUGS file.

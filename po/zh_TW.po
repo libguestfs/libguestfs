@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-05 11:59+0100\n"
+"POT-Creation-Date: 2016-04-05 15:12+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -206,7 +206,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:449
+#: ../v2v/windows_virtio.ml:451
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -2619,7 +2619,7 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:252
+#: ../v2v/windows_virtio.ml:393
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr ""
 
@@ -8922,7 +8922,7 @@ msgstr ""
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1225 src/launch-libvirt.c:1393
+#: src/launch-direct.c:1225 src/launch-libvirt.c:1400
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -9019,52 +9019,52 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1347
+#: src/launch-libvirt.c:1354
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1476
+#: src/launch-libvirt.c:1483
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1501
+#: src/launch-libvirt.c:1508
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1508
+#: src/launch-libvirt.c:1515
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1838
+#: src/launch-libvirt.c:1845
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1849
+#: src/launch-libvirt.c:1856
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1853
+#: src/launch-libvirt.c:1860
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1874
+#: src/launch-libvirt.c:1881
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1887
+#: src/launch-libvirt.c:1894
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1997
+#: src/launch-libvirt.c:2004
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -9080,20 +9080,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2100
+#: src/launch-libvirt.c:2107
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2121 src/launch-libvirt.c:2154
+#: src/launch-libvirt.c:2128 src/launch-libvirt.c:2161
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2217
+#: src/launch-libvirt.c:2224
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2248
+#: src/launch-libvirt.c:2255
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 

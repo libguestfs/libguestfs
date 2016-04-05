@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-05 11:59+0100\n"
+"POT-Creation-Date: 2016-04-05 15:12+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -277,7 +277,7 @@ msgstr ""
 "Коротке резюме параметрів надано нижче. Докладніші довідкові дані\n"
 "можна знайти на сторінках підручника (man) virt-builder(1).\n"
 
-#: ../v2v/windows_virtio.ml:449
+#: ../v2v/windows_virtio.ml:451
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr "%s: не вдалося відкрити файл ISO virtio-win: %s"
 
@@ -3077,7 +3077,7 @@ msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
 
-#: ../v2v/windows_virtio.ml:252
+#: ../v2v/windows_virtio.ml:393
 msgid "cannot find HKLM\\SYSTEM\\%s in the guest registry"
 msgstr "не вдалося знайти HKLM\\SYSTEM\\%s у регістрі гостьової системи"
 
@@ -10212,7 +10212,7 @@ msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1225 src/launch-libvirt.c:1393
+#: src/launch-direct.c:1225 src/launch-libvirt.c:1400
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -10341,11 +10341,11 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1347
+#: src/launch-libvirt.c:1354
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1476
+#: src/launch-libvirt.c:1483
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -10353,7 +10353,7 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1501
+#: src/launch-libvirt.c:1508
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10365,7 +10365,7 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1508
+#: src/launch-libvirt.c:1515
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
@@ -10378,29 +10378,29 @@ msgstr ""
 "параметра «--format» або за допомогою додаткового параметра аргументу "
 "формату до «add-drive»."
 
-#: src/launch-libvirt.c:1838
+#: src/launch-libvirt.c:1845
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: src/launch-libvirt.c:1849
+#: src/launch-libvirt.c:1856
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: src/launch-libvirt.c:1853
+#: src/launch-libvirt.c:1860
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: src/launch-libvirt.c:1874
+#: src/launch-libvirt.c:1881
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1887
+#: src/launch-libvirt.c:1894
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1997
+#: src/launch-libvirt.c:2004
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -10428,20 +10428,20 @@ msgstr ""
 "Ймовірно, вам також слід дозволити місток у /etc/qemu/bridge.conf.\n"
 "Докладніший опис можна знайти на сторінці підручника guestfs(3)."
 
-#: src/launch-libvirt.c:2100
+#: src/launch-libvirt.c:2107
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2121 src/launch-libvirt.c:2154
+#: src/launch-libvirt.c:2128 src/launch-libvirt.c:2161
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2217
+#: src/launch-libvirt.c:2224
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2248
+#: src/launch-libvirt.c:2255
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
