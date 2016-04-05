@@ -31,7 +31,34 @@ val doc : string -> attr list -> node list -> doc
 (** A quick way to create a document. *)
 
 val e : string -> attr list -> node list -> node
-(** A quick way to create elements. *)
+(** A quick way to create elements.
+
+    Typical use is:
+{v
+  e "foo" [] [
+    e "bar" [] []
+    e "baz" [ "a", "b"; "c", "d"] []
+  ]
+v}
+    which creates the following OCaml tree structure:
+{v
+  Element {
+    e_name = "foo";
+    e_attrs = [];
+    e_children = [
+      Element { e_name = "bar"; ... };
+      Element { e_name = "baz"; e_attrs = [ "a", "b"; "c", "d" ]; ... };
+    ]
+  }
+v}
+    which corresponds to the following XML:
+{v
+  <foo>
+    <bar/>
+    <baz a="b" c="d"/>
+  </foo>
+v}
+*)
 
 val doc_to_chan : out_channel -> doc -> unit
 (** Write the XML document to an output channel. *)
