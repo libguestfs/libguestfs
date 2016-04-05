@@ -246,18 +246,7 @@ and add_viostor_to_driver_database g root arch current_cs =
    *)
   let controller_path =
     [ current_cs; "Control"; "Class"; scsi_adapter_guid ] in
-  let controller_offset =
-    match Windows.get_node g root controller_path with
-    | None ->
-       error (f_"cannot find HKLM\\SYSTEM\\%s in the guest registry")
-             (String.concat "\\" controller_path)
-    | Some node ->
-       let rec loop node i =
-         let controller_offset = sprintf "%04d" i in
-         let child = g#hivex_node_get_child node controller_offset in
-         if child = 0_L then controller_offset else loop node (i+1)
-       in
-       loop node 0 in
+  let controller_offset = get_controller_offset g root controller_path in
 
   let regedits = [
       controller_path @ [ controller_offset ],
@@ -397,6 +386,19 @@ and add_viostor_to_driver_database g root arch current_cs =
        [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\PCI\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\3&13c0b0c5&0&38\Properties\{a8b865dd-2e3d-4094-ad97-e593a70c75d6}\0005]
        @=hex(ffff0012):6f,00,65,00,6d,00,31,00,2e,00,69,00,6e,00,66,00,00,00
 *)
+
+and get_controller_offset g root controller_path =
+  match Windows.get_node g root controller_path with
+  | None ->
+     error (f_"cannot find HKLM\\SYSTEM\\%s in the guest registry")
+           (String.concat "\\" controller_path)
+  | Some node ->
+     let rec loop node i =
+       let controller_offset = sprintf "%04d" i in
+       let child = g#hivex_node_get_child node controller_offset in
+       if child = 0_L then controller_offset else loop node (i+1)
+     in
+     loop node 0
 
 (* Copy the matching drivers to the driverdir; return true if any have
  * been copied.
