@@ -40,7 +40,8 @@ EXTRA_DIST = \
 	rhel-ppc64le.sh \
 	scientificlinux.sh \
 	ubuntu.preseed \
-	ubuntu.sh
+	ubuntu.sh \
+	ubuntu-ppc64le.sh
 
 CLEANFILES = *~
 
