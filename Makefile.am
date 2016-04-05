@@ -230,14 +230,7 @@ EXTRA_DIST = \
 	website/pod.css \
 	website/standard.css \
 	zanata.xml \
-	zanata-pull.sh \
-	.x-sc_avoid_ctype_macros \
-	.x-sc_prohibit_have_config_h \
-	.x-sc_prohibit_magic_number_exit \
-	.x-sc_prohibit_strcmp \
-	.x-sc_prohibit_strcmp_and_strncmp \
-	.x-sc_TAB_in_indentation \
-	.x-sc_trailing_blank
+	zanata-pull.sh
 
 # XXX Eventually move builder/website under website/ top level directory.
 BUILDERFILES = \
