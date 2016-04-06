@@ -686,6 +686,8 @@ libvirt_log_hack (int argc, char **argv)
 
     /* Create the environment variables to enable logging in libvirt. */
     setenv ("LIBVIRT_DEBUG", "1", 1);
+    //setenv ("LIBVIRT_LOG_FILTERS",
+    //        "1:qemu 1:securit 3:file 3:event 3:object 1:util", 1);
     snprintf (log_outputs, sizeof log_outputs,
               "1:file:/dev/fd/%d", libvirt_pipe[1]);
     setenv ("LIBVIRT_LOG_OUTPUTS", log_outputs, 1);
