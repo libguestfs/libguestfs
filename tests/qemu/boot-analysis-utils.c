@@ -53,6 +53,7 @@ test_info (guestfs_h *g, int nr_test_passes)
 {
   const char *qemu = guestfs_get_hv (g);
   CLEANUP_FREE char *cmd = NULL;
+  CLEANUP_FREE char *backend = NULL;
 
   /* Related to the test program. */
   printf ("test version: %s %s\n", PACKAGE_NAME, PACKAGE_VERSION_FULL);
@@ -67,7 +68,8 @@ test_info (guestfs_h *g, int nr_test_passes)
   ignore_value (system ("perl -n -e 'if (/^model name.*: (.*)/) { print \"$1\\n\"; exit }' /proc/cpuinfo"));
 
   /* Related to qemu. */
-  printf ("     backend: %s\n", guestfs_get_backend (g));
+  backend = guestfs_get_backend (g);
+  printf ("     backend: %s\n", backend);
   printf ("        qemu: %s\n", qemu);
   printf ("qemu version: ");
   fflush (stdout);
