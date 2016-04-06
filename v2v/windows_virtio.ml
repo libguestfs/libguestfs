@@ -197,76 +197,15 @@ and add_viostor_to_driver_database g root arch current_cs =
          if value = 0_L then oem_inf else loop node (i+1)
        in
        let oem_inf = loop node 1 in
-       (* Create the key. *)
-       g#hivex_node_set_value node oem_inf (* REG_NONE *) 0_L "";
        oem_inf in
 
-  (* There should be a key
-   *   HKLM\SYSTEM\ControlSet001\Control\Class\<scsi_adapter_guid>
-   * There may be subkey(s) of this called "0000", "0001" etc.  We want
-   * to create the next free subkey.  MSFT covers the key here:
-   *   https://technet.microsoft.com/en-us/library/cc957341.aspx
-   * That page incorrectly states that the key has the form "000n".
-   * In fact we observed from real registries that the key is a
-   * decimal number that goes 0009 -> 0010 etc.
-   *)
-  let controller_path =
-    [ current_cs; "Control"; "Class"; scsi_adapter_guid ] in
-  let controller_offset = get_controller_offset g root controller_path in
-
   let regedits = [
-      controller_path @ [ controller_offset ],
-      [ "DriverDate", REG_SZ "6-4-2014";
-        "DriverDateData", REG_BINARY "\x00\x40\x90\xed\x87\x7f\xcf\x01";
-        "DriverDesc", REG_SZ "Red Hat VirtIO SCSI controller";
-        "DriverVersion", REG_SZ "62.71.104.8600" (* XXX *);
-        "InfPath", REG_SZ oem_inf;
-        "InfSection", REG_SZ "rhelscsi_inst";
-        "MatchingDeviceId", REG_SZ "PCI\\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00";
-        "ProviderName", REG_SZ "Red Hat, Inc." ];
-
-      [ current_cs; "Enum"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\\3&13c0b0c5&0&38" ],
-      [ "Capabilities", REG_DWORD 0x6_l;
-        "ClassGUID", REG_SZ scsi_adapter_guid;
-        "CompatibleIDs", REG_MULTI_SZ [
-                             "PCI\\VEN_1AF4&DEV_1001&REV_00";
-                             "PCI\\VEN_1AF4&DEV_1001";
-                             "PCI\\VEN_1AF4&CC_010000";
-                             "PCI\\VEN_1AF4&CC_0100";
-                             "PCI\\VEN_1AF4";
-                             "PCI\\CC_010000";
-                             "PCI\\CC_0100";
-                           ];
-        "ConfigFlags", REG_DWORD 0_l;
-        "ContainerID", REG_SZ "{00000000-0000-0000-ffff-ffffffffffff}";
-        "DeviceDesc", REG_SZ (sprintf "@%s,%%rhelscsi.devicedesc%%;Red Hat VirtIO SCSI controller" oem_inf);
-        "Driver", REG_SZ (sprintf "%s\\%s" scsi_adapter_guid controller_offset);
-        "HardwareID", REG_MULTI_SZ [
-                          "PCI\\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00";
-                          "PCI\\VEN_1AF4&DEV_1001&SUBSYS_00021AF4";
-                          "PCI\\VEN_1AF4&DEV_1001&CC_010000";
-                          "PCI\\VEN_1AF4&DEV_1001&CC_0100";
-                        ];
-        "LocationInformation", REG_SZ "@System32\\drivers\\pci.sys,#65536;PCI bus %1, device %2, function %3;(0,7,0)";
-        "Mfg", REG_SZ (sprintf "@%s,%%rhel%%;Red Hat, Inc." oem_inf);
-        "ParentIdPrefix", REG_SZ "4&87f7bfb&0";
-        "Service", REG_SZ "viostor";
-        "UINumber", REG_DWORD 0x7_l ];
-
       [ current_cs; "Services"; "viostor" ],
       [ "ErrorControl", REG_DWORD 0x1_l;
         "Group", REG_SZ "SCSI miniport";
         "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys";
-        "Owners", REG_MULTI_SZ [ oem_inf ];
         "Start", REG_DWORD 0x0_l;
-        "Tag", REG_DWORD 0x58_l;
         "Type", REG_DWORD 0x1_l ];
-
-      [ current_cs; "Services"; "viostor"; "Parameters" ],
-      [ "BusType", REG_DWORD 0x1_l ];
-
-      [ current_cs; "Services"; "viostor"; "Parameters"; "PnpInterface" ],
-      [ "5", REG_DWORD 0x1_l ];
 
       [ "DriverDatabase"; "DriverInfFiles"; oem_inf ],
       [ "", REG_MULTI_SZ [ viostor_inf ];
@@ -277,94 +216,15 @@ and add_viostor_to_driver_database g root arch current_cs =
       [ "DriverDatabase"; "DeviceIds"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
       [ oem_inf, REG_BINARY "\x01\xff\x00\x00" ];
 
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf ],
-      [ "", REG_SZ oem_inf;
-        "F6", REG_DWORD 0x1_l;
-        "InfName", REG_SZ "viostor.inf";
-        "OemPath", REG_SZ ("X:\\windows\\System32\\DriverStore\\FileRepository\\" ^ viostor_inf);
-        "Provider", REG_SZ "Red Hat, Inc.";
-        "SignerName", REG_SZ "Microsoft Windows Hardware Compatibility Publisher";
-        "SignerScore", REG_DWORD 0x0d000005_l;
-        "StatusFlags", REG_DWORD 0x00000012_l;
-        (* NB: scsi_adapter_guid appears inside this string. *)
-        "Version", REG_BINARY "\x00\xff\x09\x00\x00\x00\x00\x00\x7b\xe9\x36\x4d\x25\xe3\xce\x11\xbf\xc1\x08\x00\x2b\xe1\x03\x18\x00\x40\x90\xed\x87\x7f\xcf\x01\x98\x21\x68\x00\x47\x00\x3e\x00\x00\x00\x00\x00\x00\x00\x00\x00" ];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations" ],
-      [];
-
       [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst" ],
       [ "ConfigFlags", REG_DWORD 0_l;
         "Service", REG_SZ "viostor" ];
 
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Device" ],
-      [];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Device"; "Interrupt Management" ],
-      [];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Device"; "Interrupt Management"; "Affinity Policy" ],
-      [ "DevicePolicy", REG_DWORD 0x00000005_l ];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Device"; "Interrupt Management"; "MessageSignaledInterruptProperties" ],
-      [ "MSISupported", REG_DWORD 0x00000001_l;
-        "MessageNumberLimit", REG_DWORD 0x00000002_l ];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Services" ],
-      [];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Services"; "viostor" ],
-      [];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Services"; "viostor"; "Parameters" ],
-      [ "BusType", REG_DWORD 0x00000001_l ];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst"; "Services"; "viostor"; "Parameters"; "PnpInterface" ],
-      [ "5", REG_DWORD 0x00000001_l ];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Descriptors" ],
-      [];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Descriptors"; "PCI" ],
-      [];
-
       [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Descriptors"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
-      [ "Configuration", REG_SZ "rhelscsi_inst";
-        "Description", REG_SZ "%rhelscsi.devicedesc%";
-        "Manufacturer", REG_SZ "%rhel%" ];
-
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Strings" ],
-      [ "rhel", REG_SZ "Red Hat, Inc.";
-        "rhelscsi.devicedesc", REG_SZ "Red Hat VirtIO SCSI controller" ];
+      [ "Configuration", REG_SZ "rhelscsi_inst" ]
     ] in
 
-  reg_import g root regedits;
-
-(*
-       A few more keys which we don't add above.  Note that "oem1.inf" ==
-       6f,00,65,00,6d,00,31,00,2e,00,69,00,6e,00,66,00.
-
-       [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\PCI\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\3&13c0b0c5&0&38\Properties\{540b947e-8b40-45bc-a8a2-6a0b894cbda2}\0007]
-       @=hex(ffff0012):6f,00,65,00,6d,00,31,00,2e,00,69,00,6e,00,66,00,3a,00,50,00,43,00,49,00,5c,00,56,00,45,00,4e,00,5f,00,31,00,41,00,46,00,34,00,26,00,44,00,45,00,56,00,5f,00,31,00,30,00,30,00,31,00,26,00,53,00,55,00,42,00,53,00,59,00,53,00,5f,00,30,00,30,00,30,00,32,00,31,00,41,00,46,00,34,00,26,00,52,00,45,00,56,00,5f,00,30,00,30,00,2c,00,72,00,68,00,65,00,6c,00,73,00,63,00,73,00,69,00,5f,00,69,00,6e,00,73,00,74,00,00,00
-
-       [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\PCI\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\3&13c0b0c5&0&38\Properties\{83da6326-97a6-4088-9453-a1923f573b29}\0003]
-       @=hex(ffff0012):6f,00,65,00,6d,00,31,00,2e,00,69,00,6e,00,66,00,3a,00,32,00,65,00,35,00,31,00,37,00,32,00,63,00,33,00,62,00,33,00,37,00,62,00,65,00,39,00,39,00,38,00,3a,00,72,00,68,00,65,00,6c,00,73,00,63,00,73,00,69,00,5f,00,69,00,6e,00,73,00,74,00,3a,00,36,00,32,00,2e,00,37,00,31,00,2e,00,31,00,30,00,34,00,2e,00,38,00,36,00,30,00,30,00,3a,00,50,00,43,00,49,00,5c,00,56,00,45,00,4e,00,5f,00,31,00,41,00,46,00,34,00,26,00,44,00,45,00,56,00,5f,00,31,00,30,00,30,00,31,00,26,00,53,00,55,00,42,00,53,00,59,00,53,00,5f,00,30,00,30,00,30,00,32,00,31,00,41,00,46,00,34,00,26,00,52,00,45,00,56,00,5f,00,30,00,30,00,00,00
-
-       [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\PCI\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\3&13c0b0c5&0&38\Properties\{a8b865dd-2e3d-4094-ad97-e593a70c75d6}\0005]
-       @=hex(ffff0012):6f,00,65,00,6d,00,31,00,2e,00,69,00,6e,00,66,00,00,00
-*)
-
-and get_controller_offset g root controller_path =
-  match Windows.get_node g root controller_path with
-  | None ->
-     error (f_"cannot find HKLM\\SYSTEM\\%s in the guest registry")
-           (String.concat "\\" controller_path)
-  | Some node ->
-     let rec loop node i =
-       let controller_offset = sprintf "%04d" i in
-       let child = g#hivex_node_get_child node controller_offset in
-       if child = 0_L then controller_offset else loop node (i+1)
-     in
-     loop node 0
+  reg_import g root regedits
 
 (* Copy the matching drivers to the driverdir; return true if any have
  * been copied.
