@@ -147,18 +147,6 @@ and add_viostor_to_critical_device_database g root current_cs =
    * hive may be modified here.
    *)
   let regedits = [
-      [ current_cs; "Control"; "CriticalDeviceDatabase"; "pci#ven_1af4&dev_1001&subsys_00000000" ],
-      [ "Service", REG_SZ "viostor";
-        "ClassGUID", REG_SZ "{4D36E97B-E325-11CE-BFC1-08002BE10318}" ];
-
-      [ current_cs; "Control"; "CriticalDeviceDatabase"; "pci#ven_1af4&dev_1001&subsys_00020000" ],
-      [ "Service", REG_SZ "viostor";
-        "ClassGUID", REG_SZ "{4D36E97B-E325-11CE-BFC1-08002BE10318}" ];
-
-      [ current_cs; "Control"; "CriticalDeviceDatabase"; "pci#ven_1af4&dev_1001&subsys_00021af4" ],
-      [ "Service", REG_SZ "viostor";
-        "ClassGUID", REG_SZ "{4D36E97B-E325-11CE-BFC1-08002BE10318}" ];
-
       [ current_cs; "Control"; "CriticalDeviceDatabase"; "pci#ven_1af4&dev_1001&subsys_00021af4&rev_00" ],
       [ "Service", REG_SZ "viostor";
         "ClassGUID", REG_SZ "{4D36E97B-E325-11CE-BFC1-08002BE10318}" ];
@@ -168,29 +156,7 @@ and add_viostor_to_critical_device_database g root current_cs =
         "Start", REG_DWORD 0x0_l;
         "Group", REG_SZ "SCSI miniport";
         "ErrorControl", REG_DWORD 0x1_l;
-        "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys";
-        "Tag", REG_DWORD 0x21_l ];
-
-      [ current_cs; "Services"; "viostor"; "Parameters" ],
-      [ "BusType", REG_DWORD 0x1_l ];
-
-      [ current_cs; "Services"; "viostor"; "Parameters"; "MaxTransferSize" ],
-      [ "ParamDesc", REG_SZ "Maximum Transfer Size";
-        "type", REG_SZ "enum";
-        "default", REG_SZ "0" ];
-
-      [ current_cs; "Services"; "viostor"; "Parameters"; "MaxTransferSize"; "enum" ],
-      [ "0", REG_SZ "64  KB";
-        "1", REG_SZ "128 KB";
-        "2", REG_SZ "256 KB" ];
-
-      [ current_cs; "Services"; "viostor"; "Parameters"; "PnpInterface" ],
-      [ "5", REG_DWORD 0x1_l ];
-
-      [ current_cs; "Services"; "viostor"; "Enum" ],
-      [ "0", REG_SZ "PCI\\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\\3&13c0b0c5&0&20";
-        "Count", REG_DWORD 0x1_l;
-        "NextInstance", REG_DWORD 0x1_l ];
+        "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys" ];
     ] in
 
   reg_import g root regedits
