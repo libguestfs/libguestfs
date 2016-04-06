@@ -33,6 +33,9 @@ let virtio_win =
     with Not_found ->
       Guestfs_config.datadir // "virtio-win"
 
+let scsi_class_guid = "{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+let viostor_pciid = "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00"
+
 let rec install_drivers g inspect systemroot root current_cs rcaps =
   (* Copy the virtio drivers to the guest. *)
   let driverdir = sprintf "%s/Drivers/VirtIO" systemroot in
@@ -82,7 +85,8 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
         let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
         let target = g#case_sensitive_path target in
         g#cp source target;
-        add_viostor_to_registry g inspect root current_cs;
+        add_guestor_to_registry g root current_cs "viostor"
+                                viostor_pciid;
         Virtio_blk
 
       | Some IDE, _ ->
@@ -133,35 +137,40 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
     (block, net, video)
   )
 
-and add_viostor_to_registry g inspect root current_cs =
-  let { i_major_version = major; i_minor_version = minor;
-        i_arch = arch } = inspect in
-  if (major == 6 && minor >= 2) || major >= 7 then (* Windows >= 8 *)
-    add_viostor_to_driver_database g root arch current_cs
-  else                          (* Windows <= 7 *)
-    add_viostor_to_critical_device_database g root current_cs
+and add_guestor_to_registry g root current_cs drv_name drv_pciid =
+  let ddb_node = g#hivex_node_get_child root "DriverDatabase" in
 
-and add_viostor_to_critical_device_database g root current_cs =
-  (* See http://rwmj.wordpress.com/2010/04/30/tip-install-a-device-driver-in-a-windows-vm/
-   * NB: All these edits are in the HKLM\SYSTEM hive.  No other
-   * hive may be modified here.
-   *)
-  let regedits = [
-      [ current_cs; "Control"; "CriticalDeviceDatabase"; "pci#ven_1af4&dev_1001&subsys_00021af4&rev_00" ],
-      [ "Service", REG_SZ "viostor";
-        "ClassGUID", REG_SZ "{4D36E97B-E325-11CE-BFC1-08002BE10318}" ];
+  let regedits =
+    if ddb_node = 0L then
+      cdb_regedits current_cs drv_name drv_pciid
+    else
+      ddb_regedits current_cs drv_name drv_pciid in
 
-      [ current_cs; "Services"; "viostor" ],
+  let drv_sys_path = sprintf "system32\\drivers\\%s.sys" drv_name in
+  let common_regedits = [
+      [ current_cs; "Services"; drv_name ],
       [ "Type", REG_DWORD 0x1_l;
         "Start", REG_DWORD 0x0_l;
         "Group", REG_SZ "SCSI miniport";
         "ErrorControl", REG_DWORD 0x1_l;
-        "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys" ];
-    ] in
+        "ImagePath", REG_EXPAND_SZ drv_sys_path ];
+  ] in
 
-  reg_import g root regedits
+  reg_import g root (regedits @ common_regedits)
 
-and add_viostor_to_driver_database g root arch current_cs =
+and cdb_regedits current_cs drv_name drv_pciid =
+  (* See http://rwmj.wordpress.com/2010/04/30/tip-install-a-device-driver-in-a-windows-vm/
+   * NB: All these edits are in the HKLM\SYSTEM hive.  No other
+   * hive may be modified here.
+   *)
+  [
+    [ current_cs; "Control"; "CriticalDeviceDatabase";
+      "PCI#" ^ drv_pciid ],
+    [ "Service", REG_SZ drv_name;
+      "ClassGUID", REG_SZ scsi_class_guid ];
+  ]
+
+and ddb_regedits current_cs drv_name drv_pciid =
   (* Windows >= 8 doesn't use the CriticalDeviceDatabase.  Instead
    * one must add keys into the DriverDatabase.
    *)
@@ -170,32 +179,24 @@ and add_viostor_to_driver_database g root arch current_cs =
   let drv_inf_label = drv_inf ^ "_tmp" in
   let drv_config = "guestor_conf" in
 
-  let regedits = [
-      [ current_cs; "Services"; "viostor" ],
-      [ "ErrorControl", REG_DWORD 0x1_l;
-        "Group", REG_SZ "SCSI miniport";
-        "ImagePath", REG_EXPAND_SZ "system32\\drivers\\viostor.sys";
-        "Start", REG_DWORD 0x0_l;
-        "Type", REG_DWORD 0x1_l ];
+  [
+    [ "DriverDatabase"; "DriverInfFiles"; drv_inf ],
+    [ "", REG_MULTI_SZ [ drv_inf_label ];
+      "Active", REG_SZ drv_inf_label;
+      "Configurations", REG_MULTI_SZ [ drv_config ] ];
 
-      [ "DriverDatabase"; "DriverInfFiles"; drv_inf ],
-      [ "", REG_MULTI_SZ [ drv_inf_label ];
-        "Active", REG_SZ drv_inf_label;
-        "Configurations", REG_MULTI_SZ [ drv_config ]
-      ];
+    [ "DriverDatabase"; "DeviceIds"; "PCI"; drv_pciid ],
+    [ drv_inf, REG_BINARY "\x01\xff\x00\x00" ];
 
-      [ "DriverDatabase"; "DeviceIds"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
-      [ drv_inf, REG_BINARY "\x01\xff\x00\x00" ];
+    [ "DriverDatabase"; "DriverPackages"; drv_inf_label;
+      "Configurations"; drv_config ],
+    [ "ConfigFlags", REG_DWORD 0_l;
+      "Service", REG_SZ drv_name ];
 
-      [ "DriverDatabase"; "DriverPackages"; drv_inf_label; "Configurations"; drv_config ],
-      [ "ConfigFlags", REG_DWORD 0_l;
-        "Service", REG_SZ "viostor" ];
-
-      [ "DriverDatabase"; "DriverPackages"; drv_inf_label; "Descriptors"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
-      [ "Configuration", REG_SZ drv_config ]
-    ] in
-
-  reg_import g root regedits
+    [ "DriverDatabase"; "DriverPackages"; drv_inf_label;
+      "Descriptors"; "PCI"; drv_pciid ],
+    [ "Configuration", REG_SZ drv_config ];
+  ]
 
 (* Copy the matching drivers to the driverdir; return true if any have
  * been copied.
