@@ -166,38 +166,9 @@ and add_viostor_to_driver_database g root arch current_cs =
    * one must add keys into the DriverDatabase.
    *)
 
-  let viostor_inf =
-    let arch =
-      match arch with
-      | "x86_64" -> "amd64"
-      | "i386" | "i486" | "i585" | "i686" -> "x86"
-      | _ ->
-         error (f_"when adding viostor to the DriverDatabase, unknown architecture: %s") arch in
-    (* XXX I don't know what the significance of the c863.. string is.  It
-     * may even be random.
-     *)
-    sprintf "viostor.inf_%s_%s" arch "c86329aaeb0a7904" in
-
-  let scsi_adapter_guid = "{4d36e97b-e325-11ce-bfc1-08002be10318}" in
-  (* There should be a key
-   *   HKLM\SYSTEM\DriverDatabase\DeviceIds\<scsi_adapter_guid>
-   * We want to add:
-   *   "oem1.inf"=hex(0):
-   * but if we find "oem1.inf" we'll add "oem2.inf" (etc).
-   *)
-  let oem_inf =
-    let path = [ "DriverDatabase"; "DeviceIds"; scsi_adapter_guid ] in
-    match Windows.get_node g root path with
-    | None ->
-       error (f_"cannot find HKLM\\SYSTEM\\DriverDatabase\\DeviceIds\\%s in the guest registry") scsi_adapter_guid
-    | Some node ->
-       let rec loop node i =
-         let oem_inf = sprintf "oem%d.inf" i in
-         let value = g#hivex_node_get_value node oem_inf in
-         if value = 0_L then oem_inf else loop node (i+1)
-       in
-       let oem_inf = loop node 1 in
-       oem_inf in
+  let drv_inf = "guestor.inf" in
+  let drv_inf_label = drv_inf ^ "_tmp" in
+  let drv_config = "guestor_conf" in
 
   let regedits = [
       [ current_cs; "Services"; "viostor" ],
@@ -207,21 +178,21 @@ and add_viostor_to_driver_database g root arch current_cs =
         "Start", REG_DWORD 0x0_l;
         "Type", REG_DWORD 0x1_l ];
 
-      [ "DriverDatabase"; "DriverInfFiles"; oem_inf ],
-      [ "", REG_MULTI_SZ [ viostor_inf ];
-        "Active", REG_SZ viostor_inf;
-        "Configurations", REG_MULTI_SZ [ "rhelscsi_inst" ]
+      [ "DriverDatabase"; "DriverInfFiles"; drv_inf ],
+      [ "", REG_MULTI_SZ [ drv_inf_label ];
+        "Active", REG_SZ drv_inf_label;
+        "Configurations", REG_MULTI_SZ [ drv_config ]
       ];
 
       [ "DriverDatabase"; "DeviceIds"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
-      [ oem_inf, REG_BINARY "\x01\xff\x00\x00" ];
+      [ drv_inf, REG_BINARY "\x01\xff\x00\x00" ];
 
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Configurations"; "rhelscsi_inst" ],
+      [ "DriverDatabase"; "DriverPackages"; drv_inf_label; "Configurations"; drv_config ],
       [ "ConfigFlags", REG_DWORD 0_l;
         "Service", REG_SZ "viostor" ];
 
-      [ "DriverDatabase"; "DriverPackages"; viostor_inf; "Descriptors"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
-      [ "Configuration", REG_SZ "rhelscsi_inst" ]
+      [ "DriverDatabase"; "DriverPackages"; drv_inf_label; "Descriptors"; "PCI"; "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00" ],
+      [ "Configuration", REG_SZ drv_config ]
     ] in
 
   reg_import g root regedits
