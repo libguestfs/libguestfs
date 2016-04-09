@@ -320,6 +320,8 @@ Optional.  Used to run the Python testsuite.
 
 =item rubygem-minitest
 
+=item rubygem-rdoc
+
 Optional.  Used to build the Ruby bindings.
 
 =item Java E<ge> 1.6
