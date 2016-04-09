@@ -28,8 +28,8 @@
 # This works for any C program, virt tools, and most non-C bindings
 # and programs in the libguestfs distribution.
 #
-# For lots more ways to use this script, see the libguestfs README
-# file.
+# For lots more ways to use this script, see the libguestfs
+# guestfs-building(1) man page.
 #
 # The script should also be used for tests like this:
 #

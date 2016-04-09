@@ -298,7 +298,7 @@ install:
 	else \
 	    echo "***"; \
 	    echo "*** Using 'make install' is usually a very bad idea."; \
-	    echo "*** Use the './run' script instead - see the README."; \
+	    echo "*** Use the './run' script instead - see the guestfs-building(1) man page."; \
 	    echo "***"; \
 	    echo "*** You can override this by setting REALLY_INSTALL=yes, but don't do that."; \
 	    echo "***"; \
