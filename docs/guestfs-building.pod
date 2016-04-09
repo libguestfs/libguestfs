@@ -421,28 +421,34 @@ for details.
 
 B<Do not use C<make install>!>  You'll end up with conflicting versions
 of libguestfs installed, and this causes constant headaches for users.
+See the next section for how to use the F<./run> script instead.
 
 Distro packagers can use:
 
  make INSTALLDIRS=vendor DESTDIR=[temp-build-dir] install
 
+=head1 THE ./run SCRIPT
+
 You can run L<guestfish(1)>, L<guestmount(1)> and the virt tools
-without needing to install, using the F<./run> script in the top
-directory.  This script sets up some environment variables.  For
-example:
+without needing to install them by using the F<./run> script in the
+top directory.  This script works by setting several environment
+variables.
+
+For example:
 
  ./run guestfish [usual guestfish args ...]
 
  ./run virt-inspector [usual virt-inspector args ...]
 
-If you are already in the F<fish/> subdirectory, then the following
-command will also work:
-
- ../run guestfish [...]
-
 The F<./run> script adds every libguestfs binary to the C<$PATH>, so
-the above example runs guestfish from the build directory (not the
-globally installed guestfish if there is one).
+the above examples run guestfish and virt-inspector from the build
+directory (not the globally installed guestfish if there is one).
+
+You can use the script from any directory.  If you wanted to run your
+own libguestfs-using program, then the following command will also
+work:
+
+ /path/to/libguestfs/run ./my_program [...]
 
 You can also run the C programs under valgrind like this:
 
@@ -456,6 +462,14 @@ This also works with sudo (eg. if you need root access for libvirt or
 to access a block device):
 
  sudo ./run virt-cat -d LinuxGuest /etc/passwd
+
+To set environment variables, you can either do:
+
+ LIBGUESTFS_HV=/my/qemu ./run guestfish
+
+or:
+
+ ./run env LIBGUESTFS_HV=/my/qemu guestfish
 
 =head1 F<local*> FILES
 
