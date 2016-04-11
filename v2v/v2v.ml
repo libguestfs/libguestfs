@@ -179,12 +179,12 @@ and amend_source cmdline source =
         (* Look for a --network or --bridge parameter which names this
          * network/bridge (eg. --network in:out).
          *)
-        let new_name = List.assoc (t, vnet) cmdline.network_map in
+        let new_name = NetworkMap.find (t, Some vnet) cmdline.network_map in
         { nic with s_vnet = new_name }
       with Not_found ->
         try
           (* Not found, so look for a default mapping (eg. --network out). *)
-          let new_name = List.assoc (t, "") cmdline.network_map in
+          let new_name = NetworkMap.find (t, None) cmdline.network_map in
           { nic with s_vnet = new_name }
         with Not_found ->
           (* Not found, so return the original NIC unchanged. *)

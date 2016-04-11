@@ -292,7 +292,8 @@ TESTS = \
 	test-v2v-i-ova-formats.sh \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-two-disks.sh \
-	test-v2v-copy-to-local.sh
+	test-v2v-copy-to-local.sh \
+	test-v2v-bad-networks-and-bridges.sh
 
 if HAVE_OCAML_PKG_OUNIT
 TESTS += v2v_unit_tests
