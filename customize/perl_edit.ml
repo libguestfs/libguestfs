@@ -18,6 +18,12 @@
 
 open Common_utils
 
-external c_edit_file : verbose:bool -> Guestfs.t -> string -> string -> unit
+external c_edit_file : verbose:bool -> Guestfs.t -> int64 -> string -> string -> unit
   = "virt_customize_edit_file_perl"
-let edit_file g file expr = c_edit_file (verbose ()) g file expr
+let edit_file g file expr =
+  (* Note we pass original 'g' even though it is not used by the
+   * callee.  This is so that 'g' is kept as a root on the stack, and
+   * so cannot be garbage collected while we are in the c_edit_file
+   * function.
+   *)
+  c_edit_file (verbose ()) g (Guestfs.c_pointer g) file expr
