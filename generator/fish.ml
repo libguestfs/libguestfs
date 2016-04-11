@@ -71,6 +71,11 @@ let all_functions_commands_and_aliases_sorted =
     ) (fish_functions_sorted @ fish_commands) [] in
   List.sort func_compare all
 
+let c_quoted_indented ~indent str =
+  let str = c_quote str in
+  let str = replace_str str "\\n" ("\\n\"\n" ^ indent ^ "\"") in
+  str
+
 (* Generate a lot of different functions for guestfish. *)
 let generate_fish_cmds () =
   generate_header CStyle GPLv2plus;
@@ -138,7 +143,7 @@ let generate_fish_cmds () =
 
       pr "struct command_entry %s_cmd_entry = {\n" name;
       pr "  .name = \"%s\",\n" name2;
-      pr "  .help = \"%s\",\n" (c_quote text);
+      pr "  .help = \"%s\",\n" (c_quoted_indented ~indent:"          " text);
       pr "  .synopsis = NULL,\n";
       pr "  .run = run_%s\n" name;
       pr "};\n";
@@ -200,7 +205,7 @@ Guestfish will prompt for these separately."
 
       pr "struct command_entry %s_cmd_entry = {\n" name;
       pr "  .name = \"%s\",\n" name2;
-      pr "  .help = \"%s\",\n" (c_quote text);
+      pr "  .help = \"%s\",\n" (c_quoted_indented ~indent:"          " text);
       pr "  .synopsis = \"%s\",\n" (c_quote synopsis);
       pr "  .run = run_%s\n" name;
       pr "};\n";
