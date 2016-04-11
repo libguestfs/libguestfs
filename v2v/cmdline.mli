@@ -18,12 +18,26 @@
 
 (** Command line argument parsing. *)
 
+module NetTypeAndName : sig
+  type t = Types.vnet_type * string option
+  (** To find the mapping for a specific named network or bridge, use
+      the key [(Network|Bridge, Some name)].  To find the default mapping
+      use [(Network|Bridge, None)]. *)
+  val compare : t -> t -> int
+end
+module NetworkMap : sig
+  type key = NetTypeAndName.t
+  type 'a t = 'a Map.Make(NetTypeAndName).t
+  val mem : key -> 'a t -> bool
+  val find : key -> 'a t -> 'a
+end
+
 type cmdline = {
   compressed : bool;
   debug_overlays : bool;
   do_copy : bool;
   in_place : bool;
-  network_map : ((Types.vnet_type * string) * string) list;
+  network_map : string NetworkMap.t;
   no_trim : string list;
   output_alloc : Types.output_allocation;
   output_format : string option;
