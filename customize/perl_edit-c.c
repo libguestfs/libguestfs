@@ -25,30 +25,24 @@
 #include <caml/alloc.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/fail.h>
 
 #include "file-edit.h"
-
-/**
- * We try to reuse the internals of the OCaml binding (for extracting
- * the guestfs handle, and raising errors); hopefully this should be safe,
- * as long as it's kept internal within the libguestfs sources.
- */
-#include "../ocaml/guestfs-c.h"
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 value
-virt_customize_edit_file_perl (value verbosev, value gv, value filev,
-                               value exprv)
+virt_customize_edit_file_perl (value verbosev, value gv, value gpv,
+                               value filev, value exprv)
 {
-  CAMLparam4 (verbosev, gv, filev, exprv);
+  CAMLparam5 (verbosev, gv, gpv, filev, exprv);
   int r;
-  guestfs_h *g = Guestfs_val (gv);
+  guestfs_h *g = (guestfs_h *) Int64_val (gpv);
 
   r = edit_file_perl (g, String_val (filev), String_val (exprv), NULL,
                       Bool_val (verbosev));
   if (r == -1)
-    guestfs_int_ocaml_raise_error (g, "edit_file_perl");
+    caml_failwith (guestfs_last_error (g) ? : "edit_file_perl: unknown error");
 
   CAMLreturn (Val_unit);
 }
