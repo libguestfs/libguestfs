@@ -268,14 +268,16 @@ dist-hook:
 	mv AUTHORS-t AUTHORS
 	cp AUTHORS $(distdir)/AUTHORS
 
-# Update the list of translatable files.  These are separated into:
+# Update lists of files.  These are separated into:
 #
-#  po/POTFILES - files with ordinary extensions, but not OCaml files
+#  docs/C_SOURCE_FILES
+#                 - source files scanned for internal documentation
+#  po/POTFILES    - files with ordinary extensions, but not OCaml files
 #  po/POTFILES-pl - Perl files that don't end in *.pl, which need a
 #                   special xgettext option [not generated here]
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
 #
-# See po/Makefile.am.
+# For more information about translations, see po/Makefile.am.
 #
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.
@@ -286,6 +288,9 @@ all-local:
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	LC_ALL=C sort > po/POTFILES
+	find $(DIST_SUBDIRS) -name '*.c' | \
+	grep -v -E '^(builder/index-parse.c|builder/index-scan.c|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
+	LC_ALL=C sort > docs/C_SOURCE_FILES
 	cd $(srcdir); \
 	find builder customize dib get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
