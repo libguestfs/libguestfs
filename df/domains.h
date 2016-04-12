@@ -33,13 +33,8 @@ struct domain {
 extern struct domain *domains;
 extern size_t nr_domains;
 
-/* Frees up everything used by 'domains.c'. */
 extern void free_domains (void);
 
-/* Read all libguest guests into the global variables 'domains' and
- * 'nr_domains'.  The guests are ordered by name.  This exits on any
- * error.
- */
 extern void get_all_libvirt_domains (const char *libvirt_uri);
 
 #endif /* HAVE_LIBVIRT */

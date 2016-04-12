@@ -36,6 +36,11 @@ static char *read_line_from (const char *cmd);
  */
 #define MBYTES_PER_THREAD 650
 
+/**
+ * This function uses the output of C<free -m> to estimate how many
+ * libguestfs appliances could be safely started in parallel.  Note
+ * that it always returns E<ge> 1.
+ */
 size_t
 estimate_max_threads (void)
 {
@@ -54,7 +59,9 @@ estimate_max_threads (void)
   return MAX (1, mbytes / MBYTES_PER_THREAD);
 }
 
-/* Run external command and read the first line of output. */
+/**
+ * Run external command and read the first line of output.
+ */
 static char *
 read_line_from (const char *cmd)
 {

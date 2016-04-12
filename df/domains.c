@@ -16,6 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file is used by C<virt-df> and some of the other tools
+ * when they are implicitly asked to operate over all libvirt
+ * domains (VMs), for example when C<virt-df> is called without
+ * specifying any particular disk image.
+ *
+ * It hides the complexity of querying the list of domains from
+ * libvirt.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -49,6 +59,9 @@ compare_domain_names (const void *p1, const void *p2)
   return strcmp (d1->name, d2->name);
 }
 
+/**
+ * Frees up everything allocated by C<get_all_libvirt_domains>.
+ */
 void
 free_domains (void)
 {
@@ -70,6 +83,11 @@ static void add_domains_by_id (virConnectPtr conn, int *ids, size_t n);
 static void add_domains_by_name (virConnectPtr conn, char **names, size_t n);
 static void add_domain (virDomainPtr dom);
 
+/**
+ * Read all libguest guests into the global variables C<domains> and
+ * C<nr_domains>.  The guests are ordered by name.  This exits on any
+ * error.
+ */
 void
 get_all_libvirt_domains (const char *libvirt_uri)
 {

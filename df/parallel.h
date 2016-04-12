@@ -23,24 +23,8 @@
 
 #include "domains.h"
 
-/* The work function should do the work (inspecting the domain, etc.)
- * on domain index 'i'.  However it MUST NOT print out any result
- * directly.  Instead it prints anything it needs to the supplied
- * 'FILE *'.
- * Returns 0 on success or -1 on error.
- */
 typedef int (*work_fn) (guestfs_h *g, size_t i, FILE *fp);
 
-/* Run the threads and work through the global list of libvirt
- * domains.  'option_P' is whatever the user passed in the '-P'
- * option, or 0 if the user didn't use the '-P' option (in which case
- * the number of threads is chosen heuristically).  'options_handle'
- * (which may be NULL) is the global guestfs handle created by the
- * options mini-library.
- *
- * Returns 0 if all work items completed successfully, or -1 if there
- * was an error.
- */
 extern int start_threads (size_t option_P, guestfs_h *options_handle, work_fn work);
 
 #endif /* HAVE_LIBVIRT */

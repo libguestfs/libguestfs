@@ -19,10 +19,6 @@
 #ifndef GUESTFS_ESTIMATE_MAX_THREADS_H_
 #define GUESTFS_ESTIMATE_MAX_THREADS_H_
 
-/* This function uses the output of 'free -m' to estimate how many
- * libguestfs appliances could be safely started in parallel.  Note
- * that it always returns >= 1.
- */
 extern size_t estimate_max_threads (void);
 
 #endif /* GUESTFS_ESTIMATE_MAX_THREADS_H_ */

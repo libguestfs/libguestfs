@@ -16,6 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file is used by C<virt-df> and some of the other tools when
+ * they need to run multiple parallel libguestfs instances to operate
+ * on a large number of libvirt domains efficiently.
+ *
+ * It implements a multithreaded work queue.  In addition it reorders
+ * the output so the output still appears in the same order as the
+ * input (ie. still ordered alphabetically).
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -76,7 +86,26 @@ struct thread_data {
   int r;                        /* Used to store the error status. */
 };
 
-/* Start threads. */
+/**
+ * Run the threads and work through the global list of libvirt
+ * domains.
+ *
+ * C<option_P> is whatever the user passed in the I<-P> option, or
+ * C<0> if the user didn't use the I<-P> option (in which case the
+ * number of threads is chosen heuristically).
+ *
+ * C<options_handle> (which may be C<NULL>) is the global guestfs
+ * handle created by the options mini-library.
+ *
+ * The work function (C<work>) should do the work (inspecting the
+ * domain, etc.)  on domain index C<i>.  However it I<must not> print
+ * out any result directly.  Instead it prints anything it needs to
+ * the supplied C<FILE *>.  The work function should return C<0> on
+ * success or C<-1> on error.
+ *
+ * The C<start_threads> function returns C<0> if all work items
+ * completed successfully, or C<-1> if there was an error.
+ */
 int
 start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
 {
@@ -134,7 +163,6 @@ start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)
   return errors == 0 ? 0 : -1;
 }
 
-/* Worker thread. */
 static void *
 worker_thread (void *thread_data_vp)
 {
