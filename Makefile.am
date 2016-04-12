@@ -258,18 +258,10 @@ maintainer-upload-website:
 	cp $(BUILDERFILES) $(WEBSITEDIR)/download/builder/
 
 # When doing 'make dist' update a few files automatically.
-dist-hook:
-	git log --decorate=false > ChangeLog
-	cp ChangeLog $(distdir)/ChangeLog
-	$(top_srcdir)/update-bugs.sh > BUGS-t
-	mv BUGS-t BUGS
-	cp BUGS $(distdir)/BUGS
-	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > AUTHORS-t
-	mv AUTHORS-t AUTHORS
-	cp AUTHORS $(distdir)/AUTHORS
-
-# Update lists of files.  These are separated into:
 #
+#  AUTHORS        - list of authors (created from git)
+#  BUGS           - list of bugs (created from Bugzilla)
+#  ChangeLog      - changelog (created from git)
 #  docs/C_SOURCE_FILES
 #                 - source files scanned for internal documentation
 #  po/POTFILES    - files with ordinary extensions, but not OCaml files
@@ -281,16 +273,29 @@ dist-hook:
 #
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.
-all-local:
+dist-hook:
+	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > AUTHORS-t
+	mv AUTHORS-t AUTHORS
+	cp AUTHORS $(distdir)/AUTHORS
+
+	$(top_srcdir)/update-bugs.sh > BUGS-t
+	mv BUGS-t BUGS
+	cp BUGS $(distdir)/BUGS
+
+	git log --decorate=false > ChangeLog
+	cp ChangeLog $(distdir)/ChangeLog
+
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
 	grep -v -E '^(examples|gnulib|gobject/docs|perl/(blib|examples)|po-docs|tests|test-data)/' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	LC_ALL=C sort > po/POTFILES
+
 	find $(DIST_SUBDIRS) -name '*.c' | \
 	grep -v -E '^(builder/index-parse.c|builder/index-scan.c|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
 	LC_ALL=C sort > docs/C_SOURCE_FILES
+
 	cd $(srcdir); \
 	find builder customize dib get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
