@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * guestfish, the guest filesystem shell.  This file contains the
+ * main loop and utilities.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -720,17 +725,31 @@ script (int prompt)
 #endif /* HAVE_LIBREADLINE */
 }
 
-/* Parse a command string, splitting at whitespace, handling '!', '#' etc.
- * This destructively updates 'buf'.
+/**
+ * Parse a command string, splitting at whitespace, handling C<'!'>,
+ * C<'#'> etc.  This destructively updates C<buf>.
  *
- * 'exit_on_error_rtn' is used to pass in the global exit_on_error
+ * C<exit_on_error_rtn> is used to pass in the global C<exit_on_error>
  * setting and to return the local setting (eg. if the command begins
- * with '-').
+ * with C<'-'>).
  *
- * Returns in parsed_command.status:
- *   1 = got a guestfish command (returned in cmd_rtn/argv_rtn/pipe_rtn)
- *   0 = no guestfish command, but otherwise OK
- *  -1 = an error
+ * Returns in C<parsed_command.status>:
+ *
+ * =over 4
+ *
+ * =item C<1>
+ *
+ * got a guestfish command (returned in C<cmd_rtn>/C<argv_rtn>/C<pipe_rtn>)
+ *
+ * =item C<0>
+ *
+ * no guestfish command, but otherwise OK
+ *
+ * =item C<-1>
+ *
+ * an error
+ *
+ * =back
  */
 static struct parsed_command
 parse_command_line (char *buf, int *exit_on_error_rtn)
@@ -912,7 +931,8 @@ hexdigit (char d)
   }
 }
 
-/* Parse double-quoted strings, replacing backslash escape sequences
+/**
+ * Parse double-quoted strings, replacing backslash escape sequences
  * with the true character.  Since the string is returned in place,
  * the escapes must make the string shorter.
  */
@@ -982,7 +1002,9 @@ parse_quoted_string (char *p)
   return p - start;
 }
 
-/* Used to handle "<!" (execute command and inline result). */
+/**
+ * Used to handle C<E<lt>!> (execute command and inline result).
+ */
 static int
 execute_and_inline (const char *cmd, int global_exit_on_error)
 {
@@ -1064,9 +1086,12 @@ cmdline (char *argv[], size_t optind, size_t argc)
   }
 }
 
-/* Note: 'rc_exit_on_error_flag' is the exit_on_error flag that we
- * pass to the remote server (when issuing --remote commands).  It
- * does not cause issue_command itself to exit on error.
+/**
+ * Run a command.
+ *
+ * C<rc_exit_on_error_flag> is the C<exit_on_error> flag that we pass
+ * to the remote server (when issuing I<--remote> commands).  It does
+ * not cause C<issue_command> itself to exit on error.
  */
 int
 issue_command (const char *cmd, char *argv[], const char *pipecmd,
@@ -1225,11 +1250,15 @@ display_builtin_command (const char *cmd)
   }
 }
 
-/* This is printed when the user types in an unknown command for the
- * first command issued.  A common case is the user doing:
+/**
+ * Print an extended help message when the user types in an unknown
+ * command for the first command issued.  A common case is the user
+ * doing:
+ *
  *   guestfish disk.img
- * expecting guestfish to open 'disk.img' (in fact, this tried to
- * run a command 'disk.img').
+ *
+ * expecting guestfish to open F<disk.img> (in fact, this tried to run
+ * a non-existent command C<disk.img>).
  */
 void
 extended_help_message (void)
@@ -1240,7 +1269,9 @@ extended_help_message (void)
              "For complete documentation:         man guestfish\n"));
 }
 
-/* Error callback.  This replaces the standard libguestfs error handler. */
+/**
+ * Error callback.  This replaces the standard libguestfs error handler.
+ */
 static void
 error_cb (guestfs_h *g, void *data, const char *msg)
 {
@@ -1266,7 +1297,9 @@ print_table (char *const *argv)
     printf ("%s: %s\n", argv[i], argv[i+1]);
 }
 
-/* Free strings from a non-NULL terminated char** */
+/**
+ * Free strings from a non-NULL terminated C<char**>.
+ */
 static void
 free_n_strings (char **str, size_t len)
 {
@@ -1502,7 +1535,9 @@ add_history_line (const char *line)
 static int decode_ps1_octal (const char *s, size_t *i);
 static int decode_ps1_hex (const char *s, size_t *i);
 
-/* Decode 'str' into the final printable prompt string. */
+/**
+ * Decode C<str> into the final printable prompt string.
+ */
 static char *
 decode_ps1 (const char *str)
 {
@@ -1625,14 +1660,15 @@ xwrite (int fd, const void *v_buf, size_t len)
   return 0;
 }
 
-/* Resolve the special "win:..." form for Windows-specific paths.  The
- * generated code calls this for all device or path arguments.
- *
- * The function returns a newly allocated string, and the caller must
- * free this string; else display an error and return NULL.
- */
 static char *win_prefix_drive_letter (char drive_letter, const char *path);
 
+/**
+ * Resolve the special C<win:...> form for Windows-specific paths.
+ * The generated code calls this for all device or path arguments.
+ *
+ * The function returns a newly allocated string, and the caller must
+ * free this string; else display an error and return C<NULL>.
+ */
 char *
 win_prefix (const char *path)
 {
@@ -1752,13 +1788,15 @@ win_prefix_drive_letter (char drive_letter, const char *path)
   return ret;
 }
 
-/* Resolve the special FileIn paths ("-" or "-<<END" or filename).
- * The caller (cmds.c) will call free_file_in after the command has
- * run which should clean up resources.
- */
 static char *file_in_heredoc (const char *endmarker);
 static char *file_in_tmpfile = NULL;
 
+/**
+ * Resolve the special C<FileIn> paths (C<-> or C<-<<END> or filename).
+ *
+ * The caller (F<fish/cmds.c>) will call C<free_file_in> after the
+ * command has run which should clean up resources.
+ */
 char *
 file_in (const char *arg)
 {
@@ -1887,8 +1925,11 @@ free_file_in (char *s)
   free (s);
 }
 
-/* Resolve the special FileOut paths ("-" or filename).
- * The caller (cmds.c) will call free (str) after the command has run.
+/**
+ * Resolve the special C<FileOut> paths (C<-> or filename).
+ *
+ * The caller (F<fish/cmds.c>) will call S<C<free (str)>> after the
+ * command has run.
  */
 char *
 file_out (const char *arg)
@@ -1907,7 +1948,9 @@ file_out (const char *arg)
   return ret;
 }
 
-/* Callback which displays a progress bar. */
+/**
+ * Callback which displays a progress bar.
+ */
 void
 progress_callback (guestfs_h *g, void *data,
                    uint64_t event, int event_handle, int flags,
