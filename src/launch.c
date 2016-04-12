@@ -16,6 +16,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * This file implements L<guestfs(3)/guestfs_launch>.
+ *
+ * Most of the work is done by the backends (see
+ * L<guestfs(3)/BACKEND>), which are implemented in
+ * F<src/launch-direct.c>, F<src/launch-libvirt.c> etc, so this file
+ * mostly passes calls through to the current backend.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -119,9 +128,11 @@ guestfs_int_launch_send_progress (guestfs_h *g, int perdozen)
   }
 }
 
-/* Compute Y - X and return the result in milliseconds.
+/**
+ * Compute C<y - x> and return the result in milliseconds.
+ *
  * Approximately the same as this code:
- * http://www.mpp.mpg.de/~huber/util/timevaldiff.c
+ * L<http://www.mpp.mpg.de/~huber/util/timevaldiff.c>
  */
 int64_t
 guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y)
@@ -148,7 +159,10 @@ guestfs_impl_get_pid (guestfs_h *g)
   return g->backend_ops->get_pid (g, g->backend_data);
 }
 
-/* Maximum number of disks. */
+/**
+ * Returns the maximum number of disks allowed to be added to the
+ * backend (backend dependent).
+ */
 int
 guestfs_impl_max_disks (guestfs_h *g)
 {
@@ -159,8 +173,10 @@ guestfs_impl_max_disks (guestfs_h *g)
   return g->backend_ops->max_disks (g, g->backend_data);
 }
 
-/* You had to call this function after launch in versions <= 1.0.70,
- * but it is now a no-op.
+/**
+ * Implementation of L<guestfs(3)/guestfs_wait_ready>.  You had to
+ * call this function after launch in versions E<le> 1.0.70, but it is
+ * now an (almost) no-op.
  */
 int
 guestfs_impl_wait_ready (guestfs_h *g)
@@ -251,25 +267,6 @@ guestfs_impl_config (guestfs_h *g,
   return 0;
 }
 
-/* Construct the Linux command line passed to the appliance.  This is
- * used by the 'direct' and 'libvirt' backends, and is simply
- * located in this file because it's a convenient place for this
- * common code.
- *
- * The 'appliance_dev' parameter must be the full device name of the
- * appliance disk and must have already been adjusted to take into
- * account virtio-blk or virtio-scsi; eg "/dev/sdb".
- *
- * The 'flags' parameter can contain the following flags logically
- * or'd together (or 0):
- *
- * GUESTFS___APPLIANCE_COMMAND_LINE_IS_TCG: If we are launching a qemu
- * TCG guest (ie. KVM is known to be disabled or unavailable).  If you
- * don't know, don't pass this flag.
- *
- * Note that this returns a newly allocated buffer which must be freed
- * by the caller.
- */
 #if defined(__powerpc64__)
 #define SERIAL_CONSOLE "console=hvc0 console=ttyS0"
 #elif defined(__arm__) || defined(__aarch64__)
@@ -284,6 +281,31 @@ guestfs_impl_config (guestfs_h *g,
 #define EARLYPRINTK ""
 #endif
 
+/**
+ * Construct the Linux command line passed to the appliance.  This is
+ * used by the C<direct> and C<libvirt> backends, and is simply
+ * located in this file because it's a convenient place for this
+ * common code.
+ *
+ * The C<appliance_dev> parameter must be the full device name of the
+ * appliance disk and must have already been adjusted to take into
+ * account virtio-blk or virtio-scsi; eg C</dev/sdb>.
+ *
+ * The C<flags> parameter can contain the following flags logically
+ * or'd together (or 0):
+ *
+ * =over 4
+ *
+ * =item C<APPLIANCE_COMMAND_LINE_IS_TCG>
+ *
+ * If we are launching a qemu TCG guest (ie. KVM is known to be
+ * disabled or unavailable).  If you don't know, don't pass this flag.
+ *
+ * =back
+ *
+ * Note that this function returns a newly allocated buffer which must
+ * be freed by the caller.
+ */
 char *
 guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
 				    int flags)

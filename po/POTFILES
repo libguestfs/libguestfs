@@ -126,6 +126,7 @@ df/main.c
 df/output.c
 df/parallel.c
 diff/diff.c
+docs/make-internal-documentation.pl
 edit/edit.c
 erlang/erl-guestfs-proto.c
 erlang/erl-guestfs.c

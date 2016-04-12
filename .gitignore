@@ -153,6 +153,7 @@ Makefile.in
 /docs/guestfs-release-notes.1
 /docs/guestfs-security.1
 /docs/guestfs-testing.1
+/docs/internal-documentation.pod
 /docs/stamp-guestfs-building.pod
 /docs/stamp-guestfs-faq.pod
 /docs/stamp-guestfs-hacking.pod

@@ -397,6 +397,15 @@ on a platform that does support supermin using
 L<libguestfs-make-fixed-appliance(1)>, copy it over, and use that
 to run libguestfs.
 
+=head1 INTERNAL DOCUMENTATION
+
+This section documents internal functions inside libguestfs and
+various utilities.  It is intended for libguestfs developers only.
+These functions are not publicly exported, and may change or be
+removed at any time.
+
+__INTERNAL_DOCUMENTATION__
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,

@@ -27,6 +27,7 @@ EXTRA_DIST = \
 	guestfs-release-notes.pod \
 	guestfs-security.pod \
 	guestfs-testing.pod \
+	make-internal-documentation.pl \
 	README
 
 CLEANFILES = \
@@ -39,6 +40,7 @@ CLEANFILES = \
 	guestfs-release-notes.1 \
 	guestfs-security.1 \
 	guestfs-testing.1 \
+	internal-documentation.pod \
 	stamp-guestfs-building.pod \
 	stamp-guestfs-faq.pod \
 	stamp-guestfs-hacking.pod \
@@ -105,14 +107,25 @@ stamp-guestfs-hacking.pod: guestfs-hacking.pod
 
 guestfs-internals.1 $(top_builddir)/website/guestfs-internals.1.html: stamp-guestfs-internals.pod
 
-stamp-guestfs-internals.pod: guestfs-internals.pod
+stamp-guestfs-internals.pod: guestfs-internals.pod internal-documentation.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-internals.1 \
 	  --html $(top_builddir)/website/guestfs-internals.1.html \
+	  --insert internal-documentation.pod:__INTERNAL_DOCUMENTATION__ \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
+
+source_files := $(shell cd $(top_srcdir) && find -name '*.c' | grep -Ev '^(gobject/|builder/index-scan.c)')
+
+internal-documentation.pod: $(source_files:%=$(top_srcdir)/%)
+	rm -f $@ $@-t
+	./make-internal-documentation.pl \
+	    --srcdir $(top_srcdir) \
+	    -o $@-t \
+	    $(source_files)
+	mv $@-t $@
 
 guestfs-performance.1 $(top_builddir)/website/guestfs-performance.1.html: stamp-guestfs-performance.pod
 
