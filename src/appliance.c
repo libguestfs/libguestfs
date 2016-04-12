@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2010-2014 Red Hat Inc.
+ * Copyright (C) 2010-2016 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -14,6 +14,10 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/**
+ * This file deals with building the libguestfs appliance.
  */
 
 #include <config.h>
@@ -47,47 +51,59 @@ static int contains_supermin_appliance (guestfs_h *g, const char *path, void *da
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, uid_t uid, char **kernel, char **initrd, char **appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
 
-/* Locate or build the appliance.
+/**
+ * Locate or build the appliance.
  *
  * This function locates or builds the appliance as necessary,
  * handling the supermin appliance, caching of supermin-built
  * appliances, or using either a fixed or old-style appliance.
  *
- * The return value is 0 = good, -1 = error.  Returned in '*kernel'
- * will be the name of the kernel to use, '*initrd' the name of the
- * initrd, '*appliance' the name of the ext2 root filesystem.
- * '*appliance' can be NULL, meaning that we are using an old-style
- * (non-ext2) appliance.  All three strings must be freed by the
- * caller.  However the referenced files themselves must not be
- * deleted.
+ * The return value is C<0> = good, C<-1> = error.  Returned in
+ * C<*kernel> will be the name of the kernel to use, C<*initrd> the
+ * name of the initrd, C<*appliance> the name of the ext2 root
+ * filesystem.  C<*appliance> can be C<NULL>, meaning that we are
+ * using an old-style (non-ext2) appliance.  All three strings must be
+ * freed by the caller.  However the referenced files themselves must
+ * I<not> be deleted.
  *
  * The process is as follows:
  *
- * (1) Look for the first element of g->path which contains a
- * supermin appliance skeleton.  If no element has this, skip
- * straight to step (3).
+ * =over 4
  *
- * (2) Call 'supermin --build' to build the full appliance (if it
- * needs to be rebuilt).  If this is successful, return the full
- * appliance.
+ * =item 1.
  *
- * (3) Check each element of g->path, looking for a fixed appliance.
- * If one is found, return it.
+ * Look for the first element of C<g-E<gt>path> which contains a
+ * supermin appliance skeleton.  If no element has this, skip straight
+ * to step 3.
  *
- * (4) Check each element of g->path, looking for an old-style appliance.
- * If one is found, return it.
+ * =item 2.
+ *
+ * Call C<supermin --build> to build the full appliance (if it needs
+ * to be rebuilt).  If this is successful, return the full appliance.
+ *
+ * =item 3.
+ *
+ * Check each element of C<g-E<gt>path>, looking for a fixed
+ * appliance.  If one is found, return it.
+ *
+ * =item 4.
+ *
+ * Check each element of C<g-E<gt>path>, looking for an old-style
+ * appliance.  If one is found, return it.
+ *
+ * =back
  *
  * The supermin appliance cache directory lives in
- * $TMPDIR/.guestfs-$UID/ and consists of up to five files:
+ * F<$TMPDIR/.guestfs-$UID/> and consists of up to four files:
  *
- *   $TMPDIR/.guestfs-$UID/lock         - the supermin lock file
- *   $TMPDIR/.guestfs-$UID/appliance.d/kernel  - the kernel
- *   $TMPDIR/.guestfs-$UID/appliance.d/initrd  - the supermin initrd
- *   $TMPDIR/.guestfs-$UID/appliance.d/root    - the appliance
+ *   $TMPDIR/.guestfs-$UID/lock            - the supermin lock file
+ *   $TMPDIR/.guestfs-$UID/appliance.d/kernel - the kernel
+ *   $TMPDIR/.guestfs-$UID/appliance.d/initrd - the supermin initrd
+ *   $TMPDIR/.guestfs-$UID/appliance.d/root   - the appliance
  *
  * Multiple instances of libguestfs with the same UID may be racing to
- * create an appliance.  However (since supermin >= 5) supermin
- * provides a --lock flag and atomic update of the appliance.d
+ * create an appliance.  However (since supermin E<ge> 5) supermin
+ * provides a I<--lock> flag and atomic update of the F<appliance.d>
  * subdirectory.
  */
 int
@@ -187,11 +203,11 @@ contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
   return dir_contains_files (g, path, "supermin.d", NULL);
 }
 
-/* Build supermin appliance from supermin_path to $TMPDIR/.guestfs-$UID.
+/**
+ * Build supermin appliance from C<supermin_path> to
+ * F<$TMPDIR/.guestfs-$UID>.
  *
- * Returns:
- * 0 = built
- * -1 = error (aborts launch)
+ * Returns: C<0> = built or C<-1> = error (aborts launch).
  */
 static int
 build_supermin_appliance (guestfs_h *g,
@@ -270,8 +286,8 @@ build_supermin_appliance (guestfs_h *g,
   return 0;
 }
 
-/* Run supermin --build and tell it to generate the
- * appliance.
+/**
+ * Run C<supermin --build> and tell it to generate the appliance.
  */
 static int
 run_supermin_build (guestfs_h *g,
@@ -324,17 +340,19 @@ run_supermin_build (guestfs_h *g,
   return 0;
 }
 
-/* Search elements of g->path, returning the first path element which
- * matches the predicate function 'pred'.
+/**
+ * Search elements of C<g-E<gt>path>, returning the first path element
+ * which matches the predicate function C<pred>.
  *
- * Function 'pred' must return a true or false value.  If it returns
- * -1 then the entire search is aborted.
+ * Function C<pred> must return a true or false value.  If it returns
+ * C<-1> then the entire search is aborted.
  *
  * Return values:
- * 1 = a path element matched, it is returned in *pelem_ret and must be
- *     freed by the caller,
- * 0 = no path element matched, *pelem_ret is set to NULL, or
- * -1 = error which aborts the launch process
+ *
+ *   1 = a path element matched, it is returned in *pelem_ret and must be
+ *       freed by the caller,
+ *   0 = no path element matched, *pelem_ret is set to NULL, or
+ *  -1 = error which aborts the launch process
  */
 static int
 find_path (guestfs_h *g,
@@ -381,7 +399,9 @@ find_path (guestfs_h *g,
   return 0;
 }
 
-/* Returns true iff file is contained in dir. */
+/**
+ * Returns true iff C<file> is contained in C<dir>.
+ */
 static int
 dir_contains_file (guestfs_h *g, const char *dir, const char *file)
 {
@@ -391,7 +411,9 @@ dir_contains_file (guestfs_h *g, const char *dir, const char *file)
   return access (path, F_OK) == 0;
 }
 
-/* Returns true iff every listed file is contained in 'dir'. */
+/**
+ * Returns true iff every listed file is contained in C<dir>.
+ */
 static int
 dir_contains_files (guestfs_h *g, const char *dir, ...)
 {
@@ -409,23 +431,25 @@ dir_contains_files (guestfs_h *g, const char *dir, ...)
   return 1;
 }
 
-/* Return the location of firmware needed to boot the appliance.  This
+/**
+ * Return the location of firmware needed to boot the appliance.  This
  * is aarch64 only currently, since that's the only architecture where
  * UEFI is mandatory (and that only for RHEL).
  *
- * '*code' is initialized with the path to the read-only UEFI code
- * file.  '*vars' is initialized with the path to a copy of the UEFI
+ * C<*code> is initialized with the path to the read-only UEFI code
+ * file.  C<*vars> is initialized with the path to a copy of the UEFI
  * vars file (which is cleaned up automatically on exit).
  *
- * If *code == *vars == NULL then no UEFI firmware is available.
+ * If C<*code> == C<*vars> == C<NULL> then no UEFI firmware is
+ * available.
  *
- * '*code' and '*vars' should be freed by the caller.
+ * C<*code> and C<*vars> should be freed by the caller.
  *
- * If the function returns -1 then there was a real error which should
- * cause appliance building to fail (no UEFI firmware is not an
+ * If the function returns C<-1> then there was a real error which
+ * should cause appliance building to fail (no UEFI firmware is not an
  * error).
  *
- * XXX See also v2v/utils.ml:find_uefi_firmware
+ * XXX See also F<v2v/utils.ml>:find_uefi_firmware
  */
 int
 guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)

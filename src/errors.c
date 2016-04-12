@@ -16,6 +16,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * This file handles errors, and also debug, trace and warning messages.
+ *
+ * Errors in libguestfs API calls are handled by setting an error
+ * message and optional errno in the handle.  The caller has the
+ * choice of testing API calls to find out if they failed and then
+ * querying the last error from the handle, and/or getting a callback.
+ *
+ * From the point of view of the library source, generally you should
+ * use the C<error> or C<perrorf> macros along error paths, eg:
+ *
+ *  if (something_bad) {
+ *    error (g, "something bad happened");
+ *    return -1;
+ *  }
+ *
+ * Make sure to call the C<error> or C<perrorf> macro exactly once
+ * along each error path, since the handle can only store a single
+ * error and the previous error will be overwritten.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -50,7 +71,13 @@ set_last_error (guestfs_h *g, int errnum, const char *msg)
   g->last_errnum = errnum;
 }
 
-/* Warning are printed unconditionally.  We try to make these rare.
+/**
+ * Print a warning.
+ *
+ * Code should I<not> call this function directly.  Use the
+ * S<C<warning (g, fs, ...)>> macro.
+ *
+ * Warnings are printed unconditionally.  We try to make these rare:
  * Generally speaking, a warning should either be an error, or if it's
  * not important for end users then it should be a debug message.
  */
@@ -70,7 +97,14 @@ guestfs_int_warning (guestfs_h *g, const char *fs, ...)
   guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_WARNING, msg, len);
 }
 
-/* Debug messages. */
+/**
+ * Print a debug message.
+ *
+ * Code should I<not> call this function directly.  To add debug
+ * messages in the library, use the S<C<debug (g, fs, ...)>> macro.
+ * The macro checks if C<g-E<gt>verbose> is false and avoids the
+ * function call, meaning the macro is more efficient.
+ */
 void
 guestfs_int_debug (guestfs_h *g, const char *fs, ...)
 {
@@ -94,9 +128,10 @@ guestfs_int_debug (guestfs_h *g, const char *fs, ...)
   guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_LIBRARY, msg, len);
 }
 
-/* Call trace messages.  These are enabled by setting g->trace, and
- * calls to this function should only happen from the generated code
- * in src/actions.c
+/**
+ * Print a trace message.
+ *
+ * Do not call this function.  All calls are generated automatically.
  */
 void
 guestfs_int_trace (guestfs_h *g, const char *fs, ...)
@@ -114,6 +149,15 @@ guestfs_int_trace (guestfs_h *g, const char *fs, ...)
   guestfs_int_call_callbacks_message (g, GUESTFS_EVENT_TRACE, msg, len);
 }
 
+/**
+ * Set the last error and errno in the handle, and optionally raise
+ * the error callback if one is defined.
+ *
+ * If you don't need to set errno, use the S<C<error (g, fs, ...)>>
+ * macro instead of calling this directly.  If you need to set errno
+ * then there is no macro wrapper, so calling this function directly
+ * is fine.
+ */
 void
 guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 {
@@ -134,6 +178,14 @@ guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
 }
 
+/**
+ * Similar to L<perror(3)>, but it sets the last error in the handle,
+ * raises the error callback if one is defined, and supports format
+ * strings.
+ *
+ * You should probably use the S<C<perrorf (g, fs, ...)>> macro
+ * instead of calling this directly.
+ */
 void
 guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 {
@@ -279,10 +331,13 @@ guestfs_int_print_BufferOut (FILE *out, const char *buf, size_t buf_size)
   "You can also run 'libguestfs-test-tool' and post the *complete* output\n" \
   "into a bug report or message to the libguestfs mailing list."
 
-/* Launch failed.  Since this is the most common error seen by people
- * who have installation problems, buggy qemu, etc, and since no one
- * reads the FAQ, describe in this error message what resources are
- * available to debug launch problems.
+/**
+ * Raise a launch failed error in a standard format.
+ *
+ * Since this is the most common error seen by people who have
+ * installation problems, buggy qemu, etc, and since no one reads the
+ * FAQ, describe in this error message what resources are available to
+ * debug launch problems.
  */
 void
 guestfs_int_launch_failed_error (guestfs_h *g)
@@ -296,7 +351,9 @@ guestfs_int_launch_failed_error (guestfs_h *g)
 		DEBUG_ADVICE));
 }
 
-/* As above, but for crashes that occur after launch. */
+/**
+ * Raise an error if the appliance unexpectedly crashes after launch.
+ */
 void
 guestfs_int_unexpected_close_error (guestfs_h *g)
 {
@@ -309,7 +366,9 @@ guestfs_int_unexpected_close_error (guestfs_h *g)
 		DEBUG_ADVICE));
 }
 
-/* As above, but for appliance kernel hanging. */
+/**
+ * Raise an error if the appliance hangs during launch.
+ */
 void
 guestfs_int_launch_timeout (guestfs_h *g)
 {
@@ -322,7 +381,13 @@ guestfs_int_launch_timeout (guestfs_h *g)
 		DEBUG_ADVICE));
 }
 
-/* External command failed. */
+/**
+ * Raise an error if an external command fails.
+ *
+ * C<status> is the status code of the command (eg. returned from
+ * L<waitpid(2)> or L<system(3)>).  This function turns the status
+ * code into an explanatory string.
+ */
 void
 guestfs_int_external_command_failed (guestfs_h *g, int status,
 				     const char *cmd_name, const char *extra)

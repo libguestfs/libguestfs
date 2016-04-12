@@ -98,7 +98,10 @@ guestfs_impl_launch (guestfs_h *g)
   return 0;
 }
 
-/* launch (of the appliance) generates approximate progress
+/**
+ * This function sends a launch progress message.
+ *
+ * Launching the appliance generates approximate progress
  * messages.  Currently these are defined as follows:
  *
  *    0 / 12: launch clock starts
@@ -108,11 +111,24 @@ guestfs_impl_launch (guestfs_h *g)
  *   12 / 12: launch completed successfully
  *
  * Notes:
- * (1) This is not a documented ABI and the behaviour may be changed
+ *
+ * =over 4
+ *
+ * =item 1.
+ *
+ * This is not a documented ABI and the behaviour may be changed
  * or removed in future.
- * (2) Messages are only sent if more than 5 seconds has elapsed
+ *
+ * =item 2.
+ *
+ * Messages are only sent if more than 5 seconds has elapsed
  * since the launch clock started.
- * (3) There is a hack in proto.c to make this work.
+ *
+ * =item 3.
+ *
+ * There is a hack in F<src/proto.c> to make this work.
+ *
+ * =back
  */
 void
 guestfs_int_launch_send_progress (guestfs_h *g, int perdozen)
@@ -376,22 +392,44 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
   return ret;
 }
 
-/* Return the right CPU model to use as the -cpu parameter or its
- * equivalent in libvirt.  This returns:
+/**
+ * Return the right CPU model to use as the qemu C<-cpu> parameter or
+ * its equivalent in libvirt.  This returns:
  *
- * - "host" (means use -cpu host)
- * - some string such as "cortex-a57" (means use -cpu string)
- * - NULL (means no -cpu option at all)
+ * =over 4
+ *
+ * =item C<"host">
+ *
+ * The literal string C<"host"> means use C<-cpu host>.
+ *
+ * =item some string
+ *
+ * Some string such as C<"cortex-a57"> means use C<-cpu cortex-a57>.
+ *
+ * =item C<NULL>
+ *
+ * C<NULL> means no C<-cpu> option at all.  Note returning C<NULL>
+ * does not indicate an error.
+ *
+ * =back
  *
  * This is made unnecessarily hard and fragile because of two stupid
  * choices in QEMU:
  *
- * (1) The default for qemu-system-aarch64 -M virt is to emulate a
- * cortex-a15 (WTF?).
+ * =over 4
  *
- * (2) We don't know for sure if KVM will work, but -cpu host is
- * broken with TCG, so we almost always pass a broken -cpu flag if KVM
- * is semi-broken in any way.
+ * =item *
+ *
+ * The default for C<qemu-system-aarch64 -M virt> is to emulate a
+ * C<cortex-a15> (WTF?).
+ *
+ * =item *
+ *
+ * We don't know for sure if KVM will work, but C<-cpu host> is broken
+ * with TCG, so we almost always pass a broken C<-cpu> flag if KVM is
+ * semi-broken in any way.
+ *
+ * =back
  */
 const char *
 guestfs_int_get_cpu_model (int kvm)
@@ -415,7 +453,8 @@ guestfs_int_get_cpu_model (int kvm)
 #endif
 }
 
-/* Create the path for a socket with the selected filename in the
+/**
+ * Create the path for a socket with the selected filename in the
  * tmpdir.
  */
 int
@@ -435,10 +474,13 @@ guestfs_int_create_socketname (guestfs_h *g, const char *filename,
   return 0;
 }
 
-/* glibc documents, but does not actually implement, a 'getumask(3)'
- * call.  This implements a thread-safe way to get the umask.  Note
- * this is only called when g->verbose is true and after g->tmpdir
- * has been created.
+/**
+ * glibc documents, but does not actually implement, a L<getumask(3)>
+ * call.
+ *
+ * This function implements a thread-safe way to get the umask.  Note
+ * this is only called when C<g-E<gt>verbose> is true and after
+ * C<g-E<gt>tmpdir> has been created.
  */
 static mode_t
 get_umask (guestfs_h *g)
@@ -466,7 +508,10 @@ get_umask (guestfs_h *g)
   return ret;
 }
 
-/* Register backends in a global list when the library is loaded. */
+/**
+ * When the library is loaded, each backend calls this function to
+ * register itself in a global list.
+ */
 void
 guestfs_int_register_backend (const char *name, const struct backend_ops *ops)
 {
@@ -482,10 +527,21 @@ guestfs_int_register_backend (const char *name, const struct backend_ops *ops)
   backends = b;
 }
 
-/* Set the current backend.  Notes:
- * (1) Callers must ensure this is only called in the config state.
- * (2) This shouldn't call 'error' since it may be called early in
+/**
+ * Implementation of L<guestfs(3)/guestfs_set_backend>.
+ *
+ * =over 4
+ *
+ * =item *
+ *
+ * Callers must ensure this is only called in the config state.
+ *
+ * =item *
+ *
+ * This shouldn't call C<error> since it may be called early in
  * handle initialization.  It can return an error code however.
+ *
+ * =back
  */
 int
 guestfs_int_set_backend (guestfs_h *g, const char *method)

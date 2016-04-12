@@ -16,7 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* Helper functions for the actions defined in src/actions.c */
+/**
+ * Helper functions for the actions code in F<src/actions-*.c>.
+ */
 
 #include <config.h>
 

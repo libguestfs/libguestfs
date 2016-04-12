@@ -224,14 +224,14 @@ guestfs_int_call_callbacks_array (guestfs_h *g, uint64_t event,
    */
 }
 
-/* Emulate old-style callback API.
+/**
+ * Emulate old-style callback API.
  *
  * There were no event handles, so multiple callbacks per event were
- * not supported.  Calling the same 'guestfs_set_*_callback' function
- * would replace the existing event.  Calling it with cb == NULL meant
- * that the caller wanted to remove the callback.
+ * not supported.  Calling the same C<guestfs_set_*_callback> function
+ * would replace the existing event.  Calling it with C<cb == NULL>
+ * meant that the caller wanted to remove the callback.
  */
-
 static void
 replace_old_style_event_callback (guestfs_h *g,
                                   guestfs_event_callback cb,

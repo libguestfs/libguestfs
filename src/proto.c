@@ -16,6 +16,62 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * This is the code used to send and receive RPC messages and (for
+ * certain types of message) to perform file transfers.  This code is
+ * driven from the generated actions (F<src/actions-*.c>).  There
+ * are five different cases to consider:
+ *
+ * =over 4
+ *
+ * =item 1.
+ *
+ * A non-daemon function (eg. L<guestfs(3)/guestfs_set_verbose>).
+ * There is no RPC involved at all, it's all handled inside the
+ * library.
+ *
+ * =item 2.
+ *
+ * A simple RPC (eg. L<guestfs(3)/guestfs_mount>).  We write the
+ * request, then read the reply.  The sequence of calls is:
+ *
+ *   guestfs_int_send
+ *   guestfs_int_recv
+ *
+ * =item 3.
+ *
+ * An RPC with C<FileOut> parameters
+ * (eg. L<guestfs(3)/guestfs_upload>).  We write the request, then
+ * write the file(s), then read the reply.  The sequence of calls is:
+ *
+ *   guestfs_int_send
+ *   guestfs_int_send_file  (possibly multiple times)
+ *   guestfs_int_recv
+ *
+ * =item 4.
+ *
+ * An RPC with C<FileIn> parameters
+ * (eg. L<guestfs(3)/guestfs_download>).  We write the request, then
+ * read the reply, then read the file(s).  The sequence of calls is:
+ *
+ *   guestfs_int_send
+ *   guestfs_int_recv
+ *   guestfs_int_recv_file  (possibly multiple times)
+ *
+ * =item 5.
+ *
+ * Both C<FileOut> and C<FileIn> parameters.  There are no calls like
+ * this in the current API, but they would be implemented as a
+ * combination of cases 3 and 4.
+ *
+ * =back
+ *
+ * All read/write/etc operations are performed using the current
+ * connection module (C<g-E<gt>conn>).  During operations the
+ * connection module transparently handles log messages that appear on
+ * the console.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -42,47 +98,9 @@
 /* Size of guestfs_progress message on the wire. */
 #define PROGRESS_MESSAGE_SIZE 24
 
-/* This is the code used to send and receive RPC messages and (for
- * certain types of message) to perform file transfers.  This code is
- * driven from the generated actions (src/actions.c).  There
- * are five different cases to consider:
- *
- * (1) A non-daemon function.  There is no RPC involved at all, it's
- * all handled inside the library.
- *
- * (2) A simple RPC (eg. "mount").  We write the request, then read
- * the reply.  The sequence of calls is:
- *
- *   guestfs_int_send
- *   guestfs_int_recv
- *
- * (3) An RPC with FileOut parameters (eg. "upload").  We write the
- * request, then write the file(s), then read the reply.  The sequence
- * of calls is:
- *
- *   guestfs_int_send
- *   guestfs_int_send_file  (possibly multiple times)
- *   guestfs_int_recv
- *
- * (4) An RPC with FileIn parameters (eg. "download").  We write the
- * request, then read the reply, then read the file(s).  The sequence
- * of calls is:
- *
- *   guestfs_int_send
- *   guestfs_int_recv
- *   guestfs_int_recv_file  (possibly multiple times)
- *
- * (5) Both FileOut and FileIn parameters.  There are no calls like
- * this in the current API, but they would be implemented as a
- * combination of cases (3) and (4).
- *
- * All read/write/etc operations are performed using the current
- * connection module (g->conn).  During operations the connection
- * module transparently handles log messages that appear on the
- * console.
+/**
+ * This is called if we detect EOF, ie. qemu died.
  */
-
-/* This is called if we detect EOF, ie. qemu died. */
 static void
 child_cleanup (guestfs_h *g)
 {
@@ -99,7 +117,9 @@ child_cleanup (guestfs_h *g)
   guestfs_int_call_callbacks_void (g, GUESTFS_EVENT_SUBPROCESS_QUIT);
 }
 
-/* Convenient wrapper to generate a progress message callback. */
+/**
+ * Convenient wrapper to generate a progress message callback.
+ */
 void
 guestfs_int_progress_message_callback (guestfs_h *g,
 				       const guestfs_progress *message)
@@ -115,7 +135,9 @@ guestfs_int_progress_message_callback (guestfs_h *g,
 				    array, sizeof array / sizeof array[0]);
 }
 
-/* Connection modules call us back here when they get a log message. */
+/**
+ * Connection modules call us back here when they get a log message.
+ */
 void
 guestfs_int_log_message_callback (guestfs_h *g, const char *buf, size_t len)
 {
@@ -144,14 +166,33 @@ guestfs_int_log_message_callback (guestfs_h *g, const char *buf, size_t len)
   }
 }
 
-/* Before writing to the daemon socket, check the read side of the
+/**
+ * Before writing to the daemon socket, check the read side of the
  * daemon socket for any of these conditions:
  *
- *   - error:                       return -1
- *   - daemon cancellation message: return -2
- *   - progress message:            handle it here
- *   - end of input / appliance exited unexpectedly: return 0
- *   - anything else:               return 1
+ * =over 4
+ *
+ * =item error
+ *
+ * return -1
+ *
+ * =item daemon cancellation message
+ *
+ * return -2
+ *
+ * =item progress message
+ *
+ * handle it here
+ *
+ * =item end of input or appliance exited unexpectedly
+ *
+ * return 0
+ *
+ * =item anything else
+ *
+ * return 1
+ *
+ * =back
  */
 static ssize_t
 check_daemon_socket (guestfs_h *g)
@@ -310,11 +351,11 @@ static int send_file_data (guestfs_h *g, const char *buf, size_t len);
 static int send_file_cancellation (guestfs_h *g);
 static int send_file_complete (guestfs_h *g);
 
-/* Send a file.
- * Returns:
- *   0 OK
- *   -1 error
- *   -2 daemon cancelled (we must read the error message)
+/**
+ * Send a file.
+ *
+ * Returns C<0> on success, C<-1> for error, C<-2> if the daemon
+ * cancelled (we must read the error message).
  */
 int
 guestfs_int_send_file (guestfs_h *g, const char *filename)
@@ -381,21 +422,27 @@ guestfs_int_send_file (guestfs_h *g, const char *filename)
   return 0;
 }
 
-/* Send a chunk of file data. */
+/**
+ * Send a chunk of file data.
+ */
 static int
 send_file_data (guestfs_h *g, const char *buf, size_t len)
 {
   return send_file_chunk (g, 0, buf, len);
 }
 
-/* Send a cancellation message. */
+/**
+ * Send a cancellation message.
+ */
 static int
 send_file_cancellation (guestfs_h *g)
 {
   return send_file_chunk (g, 1, NULL, 0);
 }
 
-/* Send a file complete chunk. */
+/**
+ * Send a file complete chunk.
+ */
 static int
 send_file_complete (guestfs_h *g)
 {
@@ -468,24 +515,25 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   return 0;
 }
 
-/* guestfs_int_recv_from_daemon: This reads a single message, file
- * chunk, launch flag or cancellation flag from the daemon.  If
- * something was read, it returns 0, otherwise -1.
+/**
+ * This function reads a single message, file chunk, launch flag or
+ * cancellation flag from the daemon.  If something was read, it
+ * returns C<0>, otherwise C<-1>.
  *
- * Both size_rtn and buf_rtn must be passed by the caller as non-NULL.
+ * Both C<size_rtn> and C<buf_rtn> must be passed by the caller as
+ * non-NULL.
  *
- * *size_rtn returns the size of the returned message or it may be
- * GUESTFS_LAUNCH_FLAG or GUESTFS_CANCEL_FLAG.
+ * C<*size_rtn> returns the size of the returned message or it may be
+ * C<GUESTFS_LAUNCH_FLAG> or C<GUESTFS_CANCEL_FLAG>.
  *
- * *buf_rtn is returned containing the message (if any) or will be set
- * to NULL.  *buf_rtn must be freed by the caller.
+ * C<*buf_rtn> is returned containing the message (if any) or will be
+ * set to C<NULL>.  C<*buf_rtn> must be freed by the caller.
  *
  * This checks for EOF (appliance died) and passes that up through the
  * child_cleanup function above.
  *
  * Log message, progress messages are handled transparently here.
  */
-
 static int
 recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
@@ -633,7 +681,9 @@ guestfs_int_recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
   return 0;
 }
 
-/* Receive a reply. */
+/**
+ * Receive a reply.
+ */
 int
 guestfs_int_recv (guestfs_h *g, const char *fn,
 		  guestfs_message_header *hdr,
@@ -687,11 +737,22 @@ guestfs_int_recv (guestfs_h *g, const char *fn,
   return 0;
 }
 
-/* Same as guestfs_int_recv, but it discards the reply message.
+/**
+ * Same as C<guestfs_int_recv>, but it discards the reply message.
  *
  * Notes (XXX):
- * (1) This returns an int, but all current callers ignore it.
- * (2) The error string may end up being set twice on error paths.
+ *
+ * =over 4
+ *
+ * =item *
+ *
+ * This returns an int, but all current callers ignore it.
+ *
+ * =item *
+ *
+ * The error string may end up being set twice on error paths.
+ *
+ * =back
  */
 int
 guestfs_int_recv_discard (guestfs_h *g, const char *fn)
@@ -742,7 +803,9 @@ xwrite (int fd, const void *v_buf, size_t len)
 
 static ssize_t receive_file_data (guestfs_h *g, void **buf);
 
-/* Returns -1 = error, 0 = EOF, > 0 = more data */
+/**
+ * Returns C<-1> = error, C<0> = EOF, C<E<gt>0> = more data
+ */
 int
 guestfs_int_recv_file (guestfs_h *g, const char *filename)
 {
@@ -822,8 +885,11 @@ guestfs_int_recv_file (guestfs_h *g, const char *filename)
   return -1;
 }
 
-/* Receive a chunk of file data. */
-/* Returns -1 = error, 0 = EOF, > 0 = more data */
+/**
+ * Receive a chunk of file data.
+ *
+ * Returns C<-1> = error, C<0> = EOF, C<E<gt>0> = more data
+ */
 static ssize_t
 receive_file_data (guestfs_h *g, void **buf_r)
 {

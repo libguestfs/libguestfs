@@ -16,8 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* Drives added are stored in an array in the handle.  Code here
- * manages that array and the individual 'struct drive' data.
+/**
+ * Drives added are stored in an array in the handle.  Code here
+ * manages that array and the individual C<struct drive> data.
  */
 
 #include <config.h>
@@ -64,7 +65,8 @@ COMPILE_REGEXP (re_hostname_port, "(.*):(\\d+)$", 0)
 static void free_drive_struct (struct drive *drv);
 static void free_drive_source (struct drive_source *src);
 
-/* For readonly drives, create an overlay to protect the original
+/**
+ * For readonly drives, create an overlay to protect the original
  * drive content.  Note we never need to clean up these overlays since
  * they are created in the temporary directory and deleted when the
  * handle is closed.
@@ -92,7 +94,9 @@ create_overlay (guestfs_h *g, struct drive *drv)
   return 0;
 }
 
-/* Create and free the 'drive' struct. */
+/**
+ * Create and free the C<struct drive>.
+ */
 static struct drive *
 create_drive_file (guestfs_h *g,
                    const struct drive_create_data *data)
@@ -388,13 +392,17 @@ create_drive_iscsi (guestfs_h *g,
   return create_drive_non_file (g, data);
 }
 
-/* Traditionally you have been able to use /dev/null as a filename, as
- * many times as you like.  Ancient KVM (RHEL 5) cannot handle adding
- * /dev/null readonly.  qemu 1.2 + virtio-scsi segfaults when you use
- * any zero-sized file including /dev/null.  Therefore, we replace
- * /dev/null with a non-zero sized temporary file.  This shouldn't
- * make any difference since users are not supposed to try and access
- * a null drive.
+/**
+ * Create the special F</dev/null> drive.
+ *
+ * Traditionally you have been able to use F</dev/null> as a filename,
+ * as many times as you like.  Ancient KVM (RHEL 5) cannot handle
+ * adding F</dev/null> readonly.  qemu 1.2 + virtio-scsi segfaults
+ * when you use any zero-sized file including F</dev/null>.
+ *
+ * Because of these problems, we replace F</dev/null> with a non-zero
+ * sized temporary file.  This shouldn't make any difference since
+ * users are not supposed to try and access a null drive.
  */
 static struct drive *
 create_drive_dev_null (guestfs_h *g,
@@ -481,7 +489,8 @@ guestfs_int_drive_protocol_to_string (enum drive_protocol protocol)
   abort ();
 }
 
-/* Convert a struct drive to a string for debugging.  The caller
+/**
+ * Convert a C<struct drive> to a string for debugging.  The caller
  * must free this string.
  */
 static char *
@@ -507,7 +516,11 @@ drive_to_string (guestfs_h *g, const struct drive *drv)
      drv->copyonread ? " copyonread" : "");
 }
 
-/* Add struct drive to the g->drives vector at the given index. */
+/**
+ * Add C<struct drive> to the C<g-E<gt>drives> vector at the given
+ * index C<drv_index>.  If the array isn't large enough it is
+ * reallocated.  The index must not contain a drive already.
+ */
 static void
 add_drive_to_handle_at (guestfs_h *g, struct drive *d, size_t drv_index)
 {
@@ -525,14 +538,19 @@ add_drive_to_handle_at (guestfs_h *g, struct drive *d, size_t drv_index)
   g->drives[drv_index] = d;
 }
 
-/* Add struct drive to the end of the g->drives vector in the handle. */
+/**
+ * Add struct drive to the end of the C<g-E<gt>drives> vector in the
+ * handle.
+ */
 static void
 add_drive_to_handle (guestfs_h *g, struct drive *d)
 {
   add_drive_to_handle_at (g, d, g->nr_drives);
 }
 
-/* Called during launch to add a dummy slot to g->drives. */
+/**
+ * Called during launch to add a dummy slot to C<g-E<gt>drives>.
+ */
 void
 guestfs_int_add_dummy_appliance_drive (guestfs_h *g)
 {
@@ -542,7 +560,9 @@ guestfs_int_add_dummy_appliance_drive (guestfs_h *g)
   add_drive_to_handle (g, drv);
 }
 
-/* Free up all the drives in the handle. */
+/**
+ * Free up all the drives in the handle.
+ */
 void
 guestfs_int_free_drives (guestfs_h *g)
 {
@@ -559,7 +579,10 @@ guestfs_int_free_drives (guestfs_h *g)
   g->nr_drives = 0;
 }
 
-/* Check string parameter matches ^[-_[:alnum:]]+$ (in C locale). */
+/**
+ * Check string parameter matches regular expression
+ * C<^[-_[:alnum:]]+$> (in C locale).
+ */
 static int
 valid_format_iface (const char *str)
 {
@@ -577,9 +600,10 @@ valid_format_iface (const char *str)
   return 1;
 }
 
-/* Check the disk label is reasonable.  It can't contain certain
- * characters, eg. '/', ','.  However be stricter here and ensure it's
- * just alphabetic and <= 20 characters in length.
+/**
+ * Check the disk label is reasonable.  It can't contain certain
+ * characters, eg. C<'/'>, C<','>.  However be stricter here and
+ * ensure it's just alphabetic and E<le> 20 characters in length.
  */
 static int
 valid_disk_label (const char *str)
@@ -598,7 +622,9 @@ valid_disk_label (const char *str)
   return 1;
 }
 
-/* Check the server hostname is reasonable. */
+/**
+ * Check the server hostname is reasonable.
+ */
 static int
 valid_hostname (const char *str)
 {
@@ -617,7 +643,9 @@ valid_hostname (const char *str)
   return 1;
 }
 
-/* Check the port number is reasonable. */
+/**
+ * Check the port number is reasonable.
+ */
 static int
 valid_port (int port)
 {
@@ -1013,12 +1041,15 @@ guestfs_impl_add_cdrom (guestfs_h *g, const char *filename)
   return guestfs_impl_add_drive_ro (g, filename);
 }
 
-/* Depending on whether we are hotplugging or not, this function
- * does slightly different things: If not hotplugging, then the
- * drive just disappears as if it had never been added.  The later
- * drives "move up" to fill the space.  When hotplugging we have to
- * do some complex stuff, and we usually end up leaving an empty
- * (NULL) slot in the g->drives vector.
+/**
+ * This function implements L<guestfs(3)/guestfs_remove_drive>.
+ *
+ * Depending on whether we are hotplugging or not, this function does
+ * slightly different things: If not hotplugging, then the drive just
+ * disappears as if it had never been added.  The later drives "move
+ * up" to fill the space.  When hotplugging we have to do some complex
+ * stuff, and we usually end up leaving an empty (C<NULL>) slot in the
+ * C<g-E<gt>drives> vector.
  */
 int
 guestfs_impl_remove_drive (guestfs_h *g, const char *label)
@@ -1067,8 +1098,9 @@ guestfs_impl_remove_drive (guestfs_h *g, const char *label)
   }
 }
 
-/* Checkpoint and roll back drives, so that groups of drives can be
- * added atomicly.  Only used by guestfs_add_domain.
+/**
+ * Checkpoint and roll back drives, so that groups of drives can be
+ * added atomicly.  Only used by L<guestfs(3)/guestfs_add_domain>.
  */
 size_t
 guestfs_int_checkpoint_drives (guestfs_h *g)
@@ -1088,7 +1120,9 @@ guestfs_int_rollback_drives (guestfs_h *g, size_t old_i)
   g->nr_drives = old_i;
 }
 
-/* Internal command to return the list of drives. */
+/**
+ * Internal function to return the list of drives.
+ */
 char **
 guestfs_impl_debug_drives (guestfs_h *g)
 {

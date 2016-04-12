@@ -27,9 +27,11 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-/* Check whether a string supposed to contain a GUID actually contains it.
- * It can recognize strings either as '{21EC2020-3AEA-1069-A2DD-08002B30309D}'
- * or '21EC2020-3AEA-1069-A2DD-08002B30309D'.
+/**
+ * Check whether a string supposed to contain a GUID actually contains
+ * it.  It can recognize strings either as
+ * C<{21EC2020-3AEA-1069-A2DD-08002B30309D}> or
+ * C<21EC2020-3AEA-1069-A2DD-08002B30309D>.
  */
 int
 guestfs_int_validate_guid (const char *str)

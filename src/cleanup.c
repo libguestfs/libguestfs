@@ -16,6 +16,46 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * Libguestfs uses C<CLEANUP_*> macros to simplify temporary
+ * allocations.  They are implemented using the
+ * C<__attribute__((cleanup))> feature of gcc and clang.  Typical
+ * usage is:
+ *
+ *  fn ()
+ *  {
+ *    CLEANUP_FREE char *str = NULL;
+ *    str = safe_asprintf (g, "foo");
+ *    // str is freed automatically when the function returns
+ *  }
+ *
+ * There are a few catches to be aware of with the cleanup mechanism:
+ *
+ * =over 4
+ *
+ * =item *
+ *
+ * If a cleanup variable is not initialized, then you can end up
+ * calling L<free(3)> with an undefined value, resulting in the
+ * program crashing.  For this reason, you should usually initialize
+ * every cleanup variable with something, eg. C<NULL>
+ *
+ * =item *
+ *
+ * Don't mark variables holding return values as cleanup variables.
+ *
+ * =item *
+ *
+ * The C<main()> function shouldn't use cleanup variables since it is
+ * normally exited by calling L<exit(3)>, and that doesn't call the
+ * cleanup handlers.
+ *
+ * =back
+ *
+ * The functions in this file are used internally by the C<CLEANUP_*>
+ * macros.  Don't call them directly.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -32,10 +72,6 @@
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
-
-/* These functions are used internally by the CLEANUP_* macros.
- * Don't call them directly.
- */
 
 void
 guestfs_int_cleanup_free (void *ptr)
