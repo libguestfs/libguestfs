@@ -16,7 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* Internal functions are not part of the public API. */
+/**
+ * Internal functions that are not part of the public API.
+ */
 
 #include <config.h>
 

@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file contains a number of useful functions for running
+ * external commands and capturing their output.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -44,8 +49,16 @@ extern size_t sysroot_len;
 #define PIPE_READ 0
 #define PIPE_WRITE 1
 
-/* Easy ways to run external commands.  For full documentation, see
- * 'commandrvf' below.
+/**
+ * Run a command.  Optionally capture stdout and stderr as strings.
+ *
+ * Returns C<0> if the command ran successfully, or C<-1> if there was
+ * any error.
+ *
+ * For a description of the C<flags> see C<commandrvf>.
+ *
+ * There is also a macro C<command(out,err,name,...)> which calls
+ * C<commandf> with C<flags=0>.
  */
 int
 commandf (char **stdoutput, char **stderror, unsigned flags,
@@ -89,9 +102,14 @@ commandf (char **stdoutput, char **stderror, unsigned flags,
   return r;
 }
 
-/* Same as 'command', but we allow the status code from the
+/**
+ * Same as C<command>, but we allow the status code from the
  * subcommand to be non-zero, and return that status code.
- * We still return -1 if there was some other error.
+ *
+ * We still return C<-1> if there was some other error.
+ *
+ * There is also a macro C<commandr(out,err,name,...)> which calls
+ * C<commandrf> with C<flags=0>.
  */
 int
 commandrf (char **stdoutput, char **stderror, unsigned flags,
@@ -133,7 +151,12 @@ commandrf (char **stdoutput, char **stderror, unsigned flags,
   return r;
 }
 
-/* Same as 'command', but passing an argv. */
+/**
+ * Same as C<command>, but passing in an argv array.
+ *
+ * There is also a macro C<commandv(out,err,argv)> which calls
+ * C<commandvf> with C<flags=0>.
+ */
 int
 commandvf (char **stdoutput, char **stderror, unsigned flags,
            char const *const *argv)
@@ -147,35 +170,46 @@ commandvf (char **stdoutput, char **stderror, unsigned flags,
     return -1;
 }
 
-/* This is a more sane version of 'system(3)' for running external
+/**
+ * This is a more sane version of L<system(3)> for running external
  * commands.  It uses fork/execvp, so we don't need to worry about
  * quoting of parameters, and it allows us to capture any error
  * messages in a buffer.
  *
- * If stdoutput is not NULL, then *stdoutput will return the stdout
- * of the command.
+ * If C<stdoutput> is not C<NULL>, then C<*stdoutput> will return the
+ * stdout of the command as a string.
  *
- * If stderror is not NULL, then *stderror will return the stderr
- * of the command.  If there is a final \n character, it is removed
- * so you can use the error string directly in a call to
- * reply_with_error.
+ * If C<stderror> is not C<NULL>, then C<*stderror> will return the
+ * stderr of the command.  If there is a final \n character, it is
+ * removed so you can use the error string directly in a call to
+ * C<reply_with_error>.
  *
- * Flags:
+ * Flags are:
  *
- * COMMAND_FLAG_FOLD_STDOUT_ON_STDERR: For broken external commands
- * that send error messages to stdout (hello, parted) but that don't
- * have any useful stdout information, use this flag to capture the
- * error messages in the *stderror buffer.  If using this flag,
- * you should pass stdoutput as NULL because nothing could ever be
- * captured in that buffer.
+ * =over 4
  *
- * COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN: For running external
- * commands on chrooted files correctly (see RHBZ#579608) specifying
- * this flag causes another process to be forked which chroots into
- * sysroot and just copies the input file to stdin of the specified
- * command.  The file descriptor is ORed with the flags, and that file
- * descriptor is always closed by this function.  See hexdump.c for an
+ * =item C<COMMAND_FLAG_FOLD_STDOUT_ON_STDERR>
+ *
+ * For broken external commands that send error messages to stdout
+ * (hello, parted) but that don't have any useful stdout information,
+ * use this flag to capture the error messages in the C<*stderror>
+ * buffer.  If using this flag, you should pass C<stdoutput=NULL>
+ * because nothing could ever be captured in that buffer.
+ *
+ * =item C<COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN>
+ *
+ * For running external commands on chrooted files correctly (see
+ * L<https://bugzilla.redhat.com/579608>) specifying this flag causes
+ * another process to be forked which chroots into sysroot and just
+ * copies the input file to stdin of the specified command.  The file
+ * descriptor is ORed with the flags, and that file descriptor is
+ * always closed by this function.  See F<daemon/hexdump.c> for an
  * example of usage.
+ *
+ * =back
+ *
+ * There is also a macro C<commandrv(out,err,argv)> which calls
+ * C<commandrvf> with C<flags=0>.
  */
 int
 commandrvf (char **stdoutput, char **stderror, unsigned flags,
