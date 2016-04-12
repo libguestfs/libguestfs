@@ -144,10 +144,13 @@ let parse_cmdline () =
       error (f_"unknown -o option: %s") s
   in
 
-  let output_alloc = ref Sparse in
-  let set_output_alloc = function
-    | "sparse" -> output_alloc := Sparse
-    | "preallocated" -> output_alloc := Preallocated
+  let output_alloc = ref `Not_set in
+  let set_output_alloc mode =
+    if !output_alloc <> `Not_set then
+      error (f_"%s option used more than once on the command line") "-oa";
+    match mode with
+    | "sparse" -> output_alloc := `Sparse
+    | "preallocated" -> output_alloc := `Preallocated
     | s ->
       error (f_"unknown -oa option: %s") s
   in
@@ -262,7 +265,10 @@ read the man page virt-v2v(1).
   let machine_readable = !machine_readable in
   let network_map = !network_map in
   let no_trim = !no_trim in
-  let output_alloc = !output_alloc in
+  let output_alloc =
+    match !output_alloc with
+    | `Not_set | `Sparse -> Sparse
+    | `Preallocated -> Preallocated in
   let output_conn = !output_conn in
   let output_format = !output_format in
   let output_mode = !output_mode in
