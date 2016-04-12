@@ -35,6 +35,7 @@ let virtio_win =
 
 let scsi_class_guid = "{4D36E97B-E325-11CE-BFC1-08002BE10318}"
 let viostor_pciid = "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00"
+let vioscsi_pciid = "VEN_1AF4&DEV_1004&SUBSYS_00081AF4&REV_00"
 
 let rec install_drivers g inspect systemroot root current_cs rcaps =
   (* Copy the virtio drivers to the guest. *)
@@ -43,7 +44,7 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
 
   if not (copy_drivers g inspect driverdir) then (
     match rcaps with
-    | { rcaps_block_bus = Some Virtio_blk }
+    | { rcaps_block_bus = Some Virtio_blk | Some Virtio_SCSI }
     | { rcaps_net_bus = Some Virtio_net }
     | { rcaps_video = Some QXL } ->
       error (f_"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s")
@@ -66,19 +67,25 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
     (* Can we install the block driver? *)
     let block : guestcaps_block_type =
       let has_viostor = g#exists (driverdir // "viostor.inf") in
-      match rcaps.rcaps_block_bus, has_viostor with
-      | Some Virtio_blk, false ->
+      let has_vioscsi = g#exists (driverdir // "vioscsi.inf") in
+      match rcaps.rcaps_block_bus, has_viostor, has_vioscsi with
+      | Some Virtio_blk, false, _ ->
         error (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
               inspect.i_major_version inspect.i_minor_version
               inspect.i_arch virtio_win
 
-      | None, false ->
+      | Some Virtio_SCSI, _, false ->
+        error (f_"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+              inspect.i_major_version inspect.i_minor_version
+              inspect.i_arch virtio_win
+
+      | None, false, _ ->
         warning (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
                 inspect.i_major_version inspect.i_minor_version
                 inspect.i_arch virtio_win;
         IDE
 
-      | (Some Virtio_blk | None), true ->
+      | (Some Virtio_blk | None), true, _ ->
         (* Block driver needs tweaks to allow booting; the rest is set up by PnP
          * manager *)
         let source = driverdir // "viostor.sys" in
@@ -89,7 +96,18 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
                                 viostor_pciid;
         Virtio_blk
 
-      | Some IDE, _ ->
+      | Some Virtio_SCSI, _, true ->
+        (* Block driver needs tweaks to allow booting; the rest is set up by PnP
+         * manager *)
+        let source = driverdir // "vioscsi.sys" in
+        let target = sprintf "%s/system32/drivers/vioscsi.sys" systemroot in
+        let target = g#case_sensitive_path target in
+        g#cp source target;
+        add_guestor_to_registry g root current_cs "vioscsi"
+                                vioscsi_pciid;
+        Virtio_SCSI
+
+      | Some IDE, _, _ ->
         IDE in
 
     (* Can we install the virtio-net driver? *)

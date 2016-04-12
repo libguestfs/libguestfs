@@ -63,7 +63,7 @@ hypervisor type: test
           video: qxl
           sound: 
 disks:
-	/windows.img (raw) [virtio]
+	/windows.img (raw) [virtio-blk]
 removable media:
 NICs:
 	Network \"default\" mac: 00:11:22:33:44:55 [virtio]" ]; then

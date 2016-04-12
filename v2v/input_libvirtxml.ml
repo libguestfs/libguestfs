@@ -181,6 +181,12 @@ let parse_libvirt_xml ?conn xml =
          None
     ) in
 
+  (* Presence of virtio-scsi controller. *)
+  let has_virtio_scsi =
+    let obj = Xml.xpath_eval_expression xpathctx
+                "/domain/devices/controller[@model='virtio-scsi']" in
+    Xml.xpathobj_nr_nodes obj > 0 in
+
   (* Non-removable disk devices. *)
   let disks =
     let get_disks, add_disk =
@@ -208,12 +214,13 @@ let parse_libvirt_xml ?conn xml =
 
       let controller =
         let target_bus = xpath_string "target/@bus" in
-        match target_bus with
-        | None -> None
-        | Some "ide" -> Some Source_IDE
-        | Some "scsi" -> Some Source_SCSI
-        | Some "virtio" -> Some Source_virtio_blk
-        | Some _ -> None in
+        match target_bus, has_virtio_scsi with
+        | None, _ -> None
+        | Some "ide", _ -> Some Source_IDE
+        | Some "scsi", true -> Some Source_virtio_SCSI
+        | Some "scsi", false -> Some Source_SCSI
+        | Some "virtio", _ -> Some Source_virtio_blk
+        | Some _, _ -> None in
 
       let format =
         match xpath_string "driver/@type" with
@@ -297,12 +304,13 @@ let parse_libvirt_xml ?conn xml =
 
       let controller =
         let target_bus = xpath_string "target/@bus" in
-        match target_bus with
-        | None -> None
-        | Some "ide" -> Some Source_IDE
-        | Some "scsi" -> Some Source_SCSI
-        | Some "virtio" -> Some Source_virtio_blk
-        | Some _ -> None in
+        match target_bus, has_virtio_scsi with
+        | None, _ -> None
+        | Some "ide", _ -> Some Source_IDE
+        | Some "scsi", true -> Some Source_virtio_SCSI
+        | Some "scsi", false -> Some Source_SCSI
+        | Some "virtio", _ -> Some Source_virtio_blk
+        | Some _, _ -> None in
 
       let slot =
         let target_dev = xpath_string "target/@dev" in

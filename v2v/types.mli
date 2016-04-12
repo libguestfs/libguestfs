@@ -65,12 +65,9 @@ and source_disk = {
 }
 (** A source disk. *)
 
-and s_controller = Source_IDE | Source_SCSI | Source_virtio_blk
-(** Source disk controller.
-
-    For the purposes of this field, we can treat virtio-scsi as
-    [SCSI].  However we don't support conversions from virtio in any
-    case so virtio is here only to make it work for testing. *)
+and s_controller = Source_IDE | Source_SCSI |
+                   Source_virtio_blk | Source_virtio_SCSI
+(** Source disk controller. *)
 
 and source_removable = {
   s_removable_type : s_removable_type;  (** Type.  *)
@@ -218,7 +215,7 @@ and requested_guestcaps = {
 }
 (** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
 
-and guestcaps_block_type = Virtio_blk | IDE
+and guestcaps_block_type = Virtio_blk | Virtio_SCSI | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
 and guestcaps_video_type = QXL | Cirrus
 

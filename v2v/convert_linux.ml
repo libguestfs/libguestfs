@@ -803,8 +803,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
            * major number of vdX block devices. If we change it, RHEL 3
            * KVM guests won't boot.
            *)
-          [ "virtio"; "virtio_ring"; "virtio_blk"; "virtio_net";
-            "virtio_pci" ]
+          List.filter (fun m -> List.mem m kernel.ki_modules)
+                      [ "virtio"; "virtio_ring"; "virtio_blk";
+                        "virtio_scsi"; "virtio_net"; "virtio_pci" ]
         else
           [ "sym53c8xx" (* XXX why not "ide"? *) ] in
 
@@ -1134,7 +1135,13 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     (* Update 'alias scsi_hostadapter ...' *)
     let paths = augeas_modprobe ". =~ regexp('scsi_hostadapter.*')" in
     match block_type with
-    | Virtio_blk ->
+    | Virtio_blk | Virtio_SCSI ->
+      let block_module =
+        match block_type with
+        | Virtio_blk -> "virtio_blk"
+        | Virtio_SCSI -> "virtio_scsi"
+        | _ -> assert false in
+
       if paths <> [] then (
         (* There's only 1 scsi controller in the converted guest.
          * Convert only the first scsi_hostadapter entry to virtio
@@ -1148,14 +1155,14 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
         List.iter (fun path -> ignore (g#aug_rm path))
           (List.rev paths_to_delete);
 
-        g#aug_set (path ^ "/modulename") "virtio_blk"
+        g#aug_set (path ^ "/modulename") block_module
       ) else (
         (* We have to add a scsi_hostadapter. *)
         let modpath = discover_modpath () in
         g#aug_set (sprintf "/files%s/alias[last()+1]" modpath)
           "scsi_hostadapter";
         g#aug_set (sprintf "/files%s/alias[last()]/modulename" modpath)
-          "virtio_blk"
+          block_module
       )
     | IDE ->
       (* There is no scsi controller in an IDE guest. *)
@@ -1247,6 +1254,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     let block_prefix_after_conversion =
       match block_type with
       | Virtio_blk -> "vd"
+      | Virtio_SCSI -> "sd"
       | IDE -> ide_block_prefix in
 
     let map =
@@ -1255,7 +1263,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
           let block_prefix_before_conversion =
             match disk.s_controller with
             | Some Source_IDE -> ide_block_prefix
-            | Some Source_SCSI -> "sd"
+            | Some Source_virtio_SCSI | Some Source_SCSI -> "sd"
             | Some Source_virtio_blk -> "vd"
             | None ->
               (* This is basically a guess.  It assumes the source used IDE. *)

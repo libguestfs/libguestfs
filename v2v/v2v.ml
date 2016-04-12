@@ -731,10 +731,11 @@ and do_convert g inspect source keep_serial_console rcaps =
 
   (* Did we manage to install virtio drivers? *)
   if not (quiet ()) then (
-    if guestcaps.gcaps_block_bus = Virtio_blk then
-      info (f_"This guest has virtio drivers installed.")
-    else
-      info (f_"This guest does not have virtio drivers installed.");
+    match guestcaps.gcaps_block_bus with
+    | Virtio_blk | Virtio_SCSI ->
+        info (f_"This guest has virtio drivers installed.")
+    | IDE ->
+        info (f_"This guest does not have virtio drivers installed.")
   );
 
   guestcaps
@@ -939,6 +940,7 @@ and target_bus_assignment source targets guestcaps =
       let t = BusSlotTarget t in
       match guestcaps.gcaps_block_bus with
       | Virtio_blk -> insert virtio_blk_bus i t
+      | Virtio_SCSI -> insert scsi_bus i t
       | IDE -> insert ide_bus i t
   ) targets;
 
@@ -952,7 +954,7 @@ and target_bus_assignment source targets guestcaps =
         | None -> ide_bus (* Wild guess, but should be safe. *)
         | Some Source_virtio_blk -> virtio_blk_bus
         | Some Source_IDE -> ide_bus
-        | Some Source_SCSI -> scsi_bus in
+        | Some Source_virtio_SCSI | Some Source_SCSI -> scsi_bus in
       match r.s_removable_slot with
       | None -> ignore (insert_after bus 0 (BusSlotRemovable r))
       | Some desired_slot_nr ->
@@ -992,6 +994,7 @@ and rcaps_from_source source =
   let block_type =
     match source_block_type with
     | Some Source_virtio_blk -> Some Virtio_blk
+    | Some Source_virtio_SCSI -> Some Virtio_SCSI
     | Some Source_IDE -> Some IDE
     | Some t -> error (f_"source has unsupported hard disk type '%s'")
                       (string_of_controller t)

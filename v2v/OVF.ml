@@ -454,7 +454,9 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           "ovf:format", "http://en.wikipedia.org/wiki/Byte"; (* wtf? *)
           "ovf:disk-interface",
           (match guestcaps.gcaps_block_bus with
-          | Virtio_blk -> "VirtIO" | IDE -> "IDE");
+          | Virtio_blk -> "VirtIO"
+          | Virtio_SCSI -> "VirtIO_SCSI"
+          | IDE -> "IDE");
           "ovf:disk-type", "System"; (* RHBZ#744538 *)
           "ovf:boot", if is_boot_drive then "True" else "False";
         ] in

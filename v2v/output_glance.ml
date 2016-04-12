@@ -86,6 +86,7 @@ object
           "hw_disk_bus",
           (match guestcaps.gcaps_block_bus with
            | Virtio_blk -> "virtio"
+           | Virtio_SCSI -> "scsi"
            | IDE -> "ide");
           "hw_vif_model",
           (match guestcaps.gcaps_net_bus with
@@ -104,6 +105,10 @@ object
            | x -> x (* everything else is the same in libguestfs and OpenStack*)
           )
         ] in
+        let properties =
+          match guestcaps.gcaps_block_bus with
+          | Virtio_SCSI -> ("hw_scsi_model", "virtio-scsi") :: properties
+          | Virtio_blk | IDE -> properties in
         let properties =
           match inspect.i_major_version, inspect.i_minor_version with
           | 0, 0 -> properties
