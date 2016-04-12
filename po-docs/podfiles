@@ -22,6 +22,7 @@
 ../docs/guestfs-release-notes.pod
 ../docs/guestfs-security.pod
 ../docs/guestfs-testing.pod
+../docs/internal-documentation.pod
 ../edit/virt-edit.pod
 ../erlang/examples/guestfs-erlang.pod
 ../examples/guestfs-examples.pod

@@ -117,7 +117,7 @@ stamp-guestfs-internals.pod: guestfs-internals.pod internal-documentation.pod
 	  $<
 	touch $@
 
-source_files := $(shell cd $(top_srcdir) && find -name '*.c' | grep -Ev '^(gobject/|builder/index-scan.c)')
+source_files := $(shell cd $(top_srcdir) && find -name '*.c' | $(SED) 's,^\./,,' | grep -Ev '^(gobject/|builder/index-scan.c)')
 
 internal-documentation.pod: $(source_files:%=$(top_srcdir)/%)
 	rm -f $@ $@-t
