@@ -355,6 +355,7 @@ src/structs-free.c
 src/structs-print.c
 src/test-utils.c
 src/tmpdirs.c
+src/umask.c
 src/utils.c
 src/whole-file.c
 test-tool/test-tool.c

@@ -896,4 +896,7 @@ void guestfs_int_init_unix_backend (void) __attribute__((constructor));
 /* guid.c */
 extern int guestfs_int_validate_guid (const char *);
 
+/* umask.c */
+extern int guestfs_int_getumask (guestfs_h *g);
+
 #endif /* GUESTFS_INTERNAL_H_ */

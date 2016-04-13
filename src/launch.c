@@ -41,8 +41,6 @@ static struct backend {
   const struct backend_ops *ops;
 } *backends = NULL;
 
-static mode_t get_umask (guestfs_h *g);
-
 int
 guestfs_impl_launch (guestfs_h *g)
 {
@@ -73,6 +71,7 @@ guestfs_impl_launch (guestfs_h *g)
       guestfs_version (g);
     struct backend *b;
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
+    int mask;
 
     debug (g, "launch: program=%s", g->program);
     if (STRNEQ (g->identifier, ""))
@@ -85,7 +84,9 @@ guestfs_impl_launch (guestfs_h *g)
     debug (g, "launch: backend=%s", backend);
 
     debug (g, "launch: tmpdir=%s", g->tmpdir);
-    debug (g, "launch: umask=0%03o", get_umask (g));
+    mask = guestfs_int_getumask (g);
+    if (mask >= 0)
+      debug (g, "launch: umask=0%03o", (unsigned) mask);
     debug (g, "launch: euid=%ju", (uintmax_t) geteuid ());
   }
 
@@ -416,37 +417,6 @@ guestfs_int_get_cpu_model (int kvm)
   else
     return NULL;
 #endif
-}
-
-/* glibc documents, but does not actually implement, a 'getumask(3)'
- * call.  This implements a thread-safe way to get the umask.  Note
- * this is only called when g->verbose is true and after g->tmpdir
- * has been created.
- */
-static mode_t
-get_umask (guestfs_h *g)
-{
-  mode_t ret;
-  int fd;
-  struct stat statbuf;
-  CLEANUP_FREE char *filename = safe_asprintf (g, "%s/umask-check", g->tmpdir);
-
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, 0777);
-  if (fd == -1)
-    return -1;
-
-  if (fstat (fd, &statbuf) == -1) {
-    close (fd);
-    return -1;
-  }
-
-  close (fd);
-
-  ret = statbuf.st_mode;
-  ret &= 0777;
-  ret = ret ^ 0777;
-
-  return ret;
 }
 
 /* Register backends in a global list when the library is loaded. */
