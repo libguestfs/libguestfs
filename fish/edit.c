@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * guestfish edit command, suggested by Ján Ondrej.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -27,8 +31,6 @@
 
 #include "fish.h"
 #include "file-edit.h"
-
-/* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
 int
 run_edit (const char *cmd, size_t argc, char *argv[])

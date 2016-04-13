@@ -16,7 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* This module implements various [virsh]-like commands, but with
+/**
+ * This module implements various C<virsh>-like commands, but with
  * non-broken authentication handling.
  */
 

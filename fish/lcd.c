@@ -26,8 +26,9 @@
 
 #include "fish.h"
 
-/* guestfish lcd command (similar to the lcd command in BSD ftp) */
-
+/**
+ * guestfish C<lcd> command (similar to the C<lcd> command in BSD ftp).
+ */
 int
 run_lcd (const char *cmd, size_t argc, char *argv[])
 {

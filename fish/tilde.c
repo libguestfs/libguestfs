@@ -34,8 +34,9 @@ static char *expand_home (char *orig, const char *append);
 static const char *find_home_for_username (const char *, size_t);
 static const char *find_home_for_current_user (void);
 
-/* This is called from the script loop if we find a candidate for
- * ~username (tilde-expansion).
+/**
+ * This is called from the script loop if we find a candidate for
+ * C<~username> (tilde-expansion).
  */
 char *
 try_tilde_expansion (char *str)
@@ -73,7 +74,9 @@ try_tilde_expansion (char *str)
   return str;
 }
 
-/* Return $HOME + append string. */
+/**
+ * Return C<$HOME> + append string.
+ */
 static char *
 expand_home (char *orig, const char *append)
 {
@@ -103,8 +106,9 @@ expand_home (char *orig, const char *append)
   return str;
 }
 
-/* Lookup username (of length ulen), return home directory if found,
- * or NULL if not found.
+/**
+ * Lookup C<username> (of length C<ulen>), return home directory if
+ * found, or C<NULL> if not found.
  */
 static const char *
 find_home_for_username (const char *username, size_t ulen)

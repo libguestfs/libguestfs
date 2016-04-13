@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * Implements the guestfish (and other tools) I<-d> option.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -26,8 +30,10 @@
 
 #include "options.h"
 
-/* Implements the guts of the '-d' option.
- * Returns the number of drives added (> 0), or -1 for failure.
+/**
+ * This function is called when a user invokes S<C<guestfish -d guest>>.
+ *
+ * Returns the number of drives added (S<C<E<gt> 0>>), or C<-1> for failure.
  */
 int
 add_libvirt_drives (guestfs_h *g, const char *guest)

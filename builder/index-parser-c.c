@@ -16,9 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* This file handles the interface between the C/lex/yacc index file
- * parser, and the OCaml world.  See index_parser.ml for the OCaml
- * type definition.
+/**
+ * This file handles the interface between the C/lex/yacc index file
+ * parser, and the OCaml world.  See F<builder/index_parser.ml> for
+ * the OCaml type definition.
  */
 
 #include <config.h>

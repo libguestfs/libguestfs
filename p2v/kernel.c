@@ -16,7 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* Kernel-driven configuration, non-interactive. */
+/**
+ * Kernel-driven, non-interactive configuration of virt-p2v.
+ */
 
 #include <config.h>
 

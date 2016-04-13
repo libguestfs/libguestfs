@@ -27,8 +27,9 @@
 
 #include "fish.h"
 
-/* guestfish man command */
-
+/**
+ * guestfish C<man> command
+ */
 int
 run_man (const char *cmd, size_t argc, char *argv[])
 {

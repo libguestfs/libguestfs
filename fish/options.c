@@ -16,6 +16,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file contains common options parsing code used by guestfish
+ * and many other tools which share a common options syntax.
+ *
+ * For example, guestfish, virt-cat, virt-ls etc all support the I<-a>
+ * option, and that is handled in all of those tools using a macro
+ * C<OPTION_a> defined in C<"options.h">.
+ *
+ * There are a lot of common global variables used, C<drvs>
+ * accumulates the list of drives, C<verbose> for the I<-v> flag, and
+ * many more.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -30,7 +43,9 @@
 #include "options.h"
 #include "uri.h"
 
-/* Handle the '-a' option when passed on the command line. */
+/**
+ * Handle the guestfish I<-a> option on the command line.
+ */
 void
 option_a (const char *arg, const char *format, struct drv **drvsp)
 {

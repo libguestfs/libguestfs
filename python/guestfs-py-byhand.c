@@ -16,9 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* This file contains a small number of functions that are written by
+/**
+ * This file contains a small number of functions that are written by
  * hand.  The majority of the bindings are generated (see
- * guestfs-py.c).
+ * F<python/guestfs-py.c>).
  */
 
 /* This has to be included first, else definitions conflict with

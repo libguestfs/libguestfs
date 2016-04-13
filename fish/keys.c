@@ -29,9 +29,11 @@
 
 #include "options.h"
 
-/* Read a passphrase ('Key') from /dev/tty with echo off.
- * The caller (cmds.c) will call free on the string afterwards.
- * Based on the code in cryptsetup file lib/utils.c.
+/**
+ * Read a passphrase ('Key') from F</dev/tty> with echo off.
+ *
+ * The caller (F<fish/cmds.c>) will call free on the string
+ * afterwards.  Based on the code in cryptsetup file F<lib/utils.c>.
  */
 char *
 read_key (const char *param)

@@ -16,12 +16,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* This file handles the ssh connections to the conversion server.
+/**
+ * This file handles the ssh connections to the conversion server.
  *
  * virt-p2v will open several connections over the lifetime of
  * the conversion process.
  *
- * In 'test_connection', it will first open a connection (to check it
+ * In C<test_connection>, it will first open a connection (to check it
  * is possible) and query virt-v2v on the server to ensure it exists,
  * it is the right version, and so on.  This connection is then
  * closed, because in the GUI case we don't want to deal with keeping
@@ -30,10 +31,10 @@
  * Once we start conversion, we will open a control connection to send
  * the libvirt configuration data and to start up virt-v2v, and we
  * will open up one data connection per local hard disk.  The data
- * connection(s) have a reverse port forward to the local qemu-nbd
- * server which is serving the content of that hard disk.  The remote
- * port for each data connection is assigned by ssh.  See
- * 'open_data_connection' and 'start_remote_conversion'.
+ * connection(s) have a reverse port forward to the local
+ * L<qemu-nbd(8)> server which is serving the content of that hard
+ * disk.  The remote port for each data connection is assigned by ssh.
+ * See C<open_data_connection> and C<start_remote_conversion>.
  */
 
 #include <config.h>
@@ -164,7 +165,9 @@ free_regexps (void)
   pcre_free (portfwd_re);
 }
 
-/* Download URL to local file using the external 'curl' command. */
+/**
+ * Download URL to local file using the external 'curl' command.
+ */
 static int
 curl_download (const char *url, const char *local_file)
 {
@@ -223,7 +226,9 @@ curl_download (const char *url, const char *local_file)
   return 0;
 }
 
-/* Re-cache the identity_url if needed. */
+/**
+ * Re-cache the C<config-E<gt>identity_url> if needed.
+ */
 static int
 cache_ssh_identity (struct config *config)
 {
@@ -255,7 +260,8 @@ cache_ssh_identity (struct config *config)
   return 0;
 }
 
-/* Start ssh subprocess with the standard arguments and possibly some
+/**
+ * Start ssh subprocess with the standard arguments and possibly some
  * optional arguments.  Also handles authentication.
  */
 static mexp_h *

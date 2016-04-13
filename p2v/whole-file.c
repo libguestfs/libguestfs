@@ -27,7 +27,8 @@
 
 #include "p2v.h"
 
-/* Read the whole file into a memory buffer and return it.  The file
+/**
+ * Read the whole file into a memory buffer and return it.  The file
  * should be a regular, local, trusted file.
  */
 int
