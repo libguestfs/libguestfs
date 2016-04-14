@@ -87,6 +87,7 @@ extern int guestfs_int_is_true (const char *str);
 extern const char *guestfs_int_ovmf_i386_firmware[];
 extern const char *guestfs_int_ovmf_x86_64_firmware[];
 extern const char *guestfs_int_aavmf_firmware[];
+//extern void guestfs_int_fadvise_normal (int fd);
 extern void guestfs_int_fadvise_sequential (int fd);
 extern void guestfs_int_fadvise_random (int fd);
 extern void guestfs_int_fadvise_noreuse (int fd);
