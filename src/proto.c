@@ -289,19 +289,6 @@ guestfs_int_send (guestfs_h *g, int proc_nr,
   return serial;
 }
 
-static void
-fadvise_sequential (int fd)
-{
-#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_SEQUENTIAL)
-  /* Since the fd might be a non-file, eg. /dev/stdout, just ignore
-   * this when it fails.  It's not clear from the man page, but the
-   * 'advice' parameter is NOT a bitmask.  You can only pass one
-   * parameter with each call.
-   */
-  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_SEQUENTIAL));
-#endif
-}
-
 static int send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len);
 static int send_file_data (guestfs_h *g, const char *buf, size_t len);
 static int send_file_cancellation (guestfs_h *g);
@@ -328,7 +315,7 @@ guestfs_int_send_file (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  fadvise_sequential (fd);
+  guestfs_int_fadvise_sequential (fd);
 
   /* Send file in chunked encoding. */
   while (!g->user_cancel) {
@@ -763,7 +750,7 @@ guestfs_int_recv_file (guestfs_h *g, const char *filename)
     goto cancel;
   }
 
-  fadvise_sequential (fd);
+  guestfs_int_fadvise_sequential (fd);
 
   /* Receive the file in chunked encoding. */
   while ((r = receive_file_data (g, &buf)) > 0) {

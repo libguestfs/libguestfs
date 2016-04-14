@@ -28,6 +28,8 @@
 #include <sys/wait.h>
 #include <libintl.h>
 
+#include "ignore-value.h"
+
 /* NB: MUST NOT include "guestfs-internal.h" or gnulib headers. */
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -346,3 +348,90 @@ guestfs_int_aavmf_firmware[] = {
 
   NULL
 };
+
+/**
+ * Hint that we will read or write the file descriptor sequentially.
+ *
+ * It's OK to call this on a non-file since we ignore failure as it is
+ * only a hint.
+ */
+void
+guestfs_int_fadvise_sequential (int fd)
+{
+#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_SEQUENTIAL)
+  /* It's not clear from the man page, but the 'advice' parameter is
+   * NOT a bitmask.  You can only pass one parameter with each call.
+   */
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_SEQUENTIAL));
+#endif
+}
+
+/**
+ * Hint that we will read or write the file descriptor randomly.
+ *
+ * It's OK to call this on a non-file since we ignore failure as it is
+ * only a hint.
+ */
+void
+guestfs_int_fadvise_random (int fd)
+{
+#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_RANDOM)
+  /* It's not clear from the man page, but the 'advice' parameter is
+   * NOT a bitmask.  You can only pass one parameter with each call.
+   */
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_RANDOM));
+#endif
+}
+
+/**
+ * Hint that we will access the data only once.
+ *
+ * It's OK to call this on a non-file since we ignore failure as it is
+ * only a hint.
+ */
+void
+guestfs_int_fadvise_noreuse (int fd)
+{
+#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_NOREUSE)
+  /* It's not clear from the man page, but the 'advice' parameter is
+   * NOT a bitmask.  You can only pass one parameter with each call.
+   */
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_NOREUSE));
+#endif
+}
+
+#if 0 /* not used yet */
+/**
+ * Hint that we will not access the data in the near future.
+ *
+ * It's OK to call this on a non-file since we ignore failure as it is
+ * only a hint.
+ */
+void
+guestfs_int_fadvise_dontneed (int fd)
+{
+#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_DONTNEED)
+  /* It's not clear from the man page, but the 'advice' parameter is
+   * NOT a bitmask.  You can only pass one parameter with each call.
+   */
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_DONTNEED));
+#endif
+}
+#endif
+
+/**
+ * Hint that we will access the data in the near future.
+ *
+ * It's OK to call this on a non-file since we ignore failure as it is
+ * only a hint.
+ */
+void
+guestfs_int_fadvise_willneed (int fd)
+{
+#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_WILLNEED)
+  /* It's not clear from the man page, but the 'advice' parameter is
+   * NOT a bitmask.  You can only pass one parameter with each call.
+   */
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_WILLNEED));
+#endif
+}
