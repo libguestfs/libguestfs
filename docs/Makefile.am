@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	C_SOURCE_FILES \
 	guestfs-building.pod \
 	guestfs-faq.pod \
 	guestfs-hacking.pod \
