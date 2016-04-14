@@ -357,6 +357,7 @@ src/test-utils.c
 src/tmpdirs.c
 src/umask.c
 src/utils.c
+src/wait.c
 src/whole-file.c
 test-tool/test-tool.c
 v2v/changeuid-c.c

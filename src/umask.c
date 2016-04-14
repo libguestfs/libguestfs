@@ -29,7 +29,6 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 
 #include "ignore-value.h"
 
@@ -91,18 +90,13 @@ guestfs_int_getumask (guestfs_h *g)
   if (read (fd[0], &mask, sizeof mask) != sizeof mask) {
     perrorf (g, "read");
     close (fd[0]);
-    while (waitpid (pid, NULL, 0) == -1 && errno == EINTR)
-      ;
+    guestfs_int_waitpid_noerror (pid);
     return -1;
   }
   close (fd[0]);
 
- again:
-  if (waitpid (pid, &status, 0) == -1) {
-    if (errno == EINTR) goto again;
-    perrorf (g, "waitpid");
+  if (guestfs_int_waitpid (g, pid, &status, "umask") == -1)
     return -1;
-  }
   else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
     guestfs_int_external_command_failed (g, status, "umask", NULL);
     return -1;

@@ -74,7 +74,6 @@
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/wait.h>
 #include <sys/select.h>
 
 #ifdef HAVE_SYS_TIME_H
@@ -692,10 +691,8 @@ wait_command (struct command *cmd)
 {
   int status;
 
-  if (waitpid (cmd->pid, &status, 0) == -1) {
-    perrorf (cmd->g, "waitpid");
+  if (guestfs_int_waitpid (cmd->g, cmd->pid, &status, "command") == -1)
     return -1;
-  }
 
   cmd->pid = 0;
 
@@ -902,7 +899,7 @@ guestfs_int_cmd_close (struct command *cmd)
   free (cmd->outbuf.buffer);
 
   if (cmd->pid > 0)
-    waitpid (cmd->pid, NULL, 0);
+    guestfs_int_waitpid_noerror (cmd->pid);
 
   for (child_rlimit = cmd->child_rlimits; child_rlimit != NULL;
        child_rlimit = child_rlimit_next) {
