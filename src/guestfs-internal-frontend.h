@@ -92,7 +92,7 @@ extern void guestfs_int_fadvise_sequential (int fd);
 extern void guestfs_int_fadvise_random (int fd);
 extern void guestfs_int_fadvise_noreuse (int fd);
 //extern void guestfs_int_fadvise_dontneed (int fd);
-extern void guestfs_int_fadvise_willneed (int fd);
+//extern void guestfs_int_fadvise_willneed (int fd);
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
