@@ -227,6 +227,9 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
 
   if (close (fd) == -1)
     unix_error (errno, (char *) "close", filenamev);
+
+  if (close (ofd) == -1)
+    unix_error (errno, (char *) "close", outputfilev);
 }
 
 static int
