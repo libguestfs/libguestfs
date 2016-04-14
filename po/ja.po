@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-12 13:51+0100\n"
+"POT-Creation-Date: 2016-04-14 20:26+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1330
+#: ../v2v/convert_linux.ml:1338
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -208,7 +208,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:249
+#: ../v2v/windows_virtio.ml:267
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -736,23 +736,23 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:283 ../v2v/copy_to_local.ml:326
+#: ../v2v/input_libvirtxml.ml:290 ../v2v/copy_to_local.ml:326
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:256
+#: ../v2v/input_libvirtxml.ml:263
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:279
+#: ../v2v/input_libvirtxml.ml:286
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:250
+#: ../v2v/input_libvirtxml.ml:257
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:229 ../v2v/copy_to_local.ml:308
+#: ../v2v/input_libvirtxml.ml:236 ../v2v/copy_to_local.ml:308
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
@@ -760,7 +760,7 @@ msgstr ""
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:316
+#: ../v2v/input_libvirtxml.ml:324
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -855,7 +855,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:962
+#: ../v2v/v2v.ml:964
 msgid "CD-ROM"
 msgstr ""
 
@@ -899,7 +899,7 @@ msgstr ""
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:744
+#: ../v2v/v2v.ml:745
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -967,7 +967,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:780
+#: ../v2v/v2v.ml:781
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -1636,7 +1636,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:979
+#: ../v2v/v2v.ml:981
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -2269,7 +2269,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1115
+#: ../v2v/convert_linux.ml:1116
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2390,11 +2390,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:737
+#: ../v2v/v2v.ml:738
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:735
+#: ../v2v/v2v.ml:736
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2405,7 +2405,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:762
+#: ../v2v/v2v.ml:763
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2701,7 +2701,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1045
+#: ../v2v/convert_linux.ml:1046
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2755,7 +2755,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1063
+#: ../v2v/convert_linux.ml:1064
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2766,7 +2766,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1047
+#: ../v2v/convert_linux.ml:1048
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2859,7 +2859,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1177
+#: ../v2v/convert_linux.ml:1184
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2982,7 +2982,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:963
+#: ../v2v/v2v.ml:965
 msgid "floppy disk"
 msgstr ""
 
@@ -3008,7 +3008,7 @@ msgstr ""
 msgid "generated by %s %s"
 msgstr ""
 
-#: ../v2v/output_glance.ml:126
+#: ../v2v/output_glance.ml:131
 msgid "glance: failed to set image properties (ignored)"
 msgstr ""
 
@@ -3137,7 +3137,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:792
+#: ../v2v/v2v.ml:793
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -3337,7 +3337,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/OVF.ml:559
+#: ../v2v/OVF.ml:561
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -3467,7 +3467,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:833 ../v2v/v2v.ml:231
+#: ../v2v/v2v.ml:834 ../v2v/v2v.ml:231
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3483,7 +3483,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:960
+#: ../v2v/v2v.ml:962
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3536,31 +3536,31 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:991
+#: ../v2v/v2v.ml:993
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:1006
+#: ../v2v/v2v.ml:1009
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:989 ../v2v/v2v.ml:167
+#: ../v2v/v2v.ml:991 ../v2v/v2v.ml:167
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:998
+#: ../v2v/v2v.ml:1001
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:996
+#: ../v2v/v2v.ml:999
 msgid "source has unsupported hard disk type '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:1012
+#: ../v2v/v2v.ml:1015
 msgid "source has unsupported network adapter model '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:1020
+#: ../v2v/v2v.ml:1023
 msgid "source has unsupported video adapter model '%s'"
 msgstr ""
 
@@ -3686,13 +3686,13 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:49
+#: ../v2v/windows_virtio.ml:50
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:56
+#: ../v2v/windows_virtio.ml:57
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3700,13 +3700,13 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:121
+#: ../v2v/windows_virtio.ml:139
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:126
+#: ../v2v/windows_virtio.ml:144
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3722,7 +3722,15 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:76 ../v2v/windows_virtio.ml:71
+#: ../v2v/windows_virtio.ml:78
+msgid ""
+"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d "
+"%s).  virt-v2v looks for this driver in %s\n"
+"\n"
+"The guest will be configured to use a slower emulated device."
+msgstr ""
+
+#: ../v2v/windows_virtio.ml:83 ../v2v/windows_virtio.ml:73
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3730,13 +3738,13 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:100
+#: ../v2v/windows_virtio.ml:118
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:105
+#: ../v2v/windows_virtio.ml:123
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3744,7 +3752,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:753
+#: ../v2v/v2v.ml:754
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3766,7 +3774,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:204 ../v2v/copy_to_local.ml:297
+#: ../v2v/input_libvirtxml.ml:210 ../v2v/copy_to_local.ml:297
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3788,7 +3796,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1221
+#: ../v2v/convert_linux.ml:1228
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3803,7 +3811,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:912
+#: ../v2v/convert_linux.ml:913
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4056,7 +4064,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
-#: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:106
+#: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
 #: make-fs/make-fs.c:75 p2v/main.c:66 rescue/rescue.c:57
 #, c-format
@@ -4104,7 +4112,7 @@ msgstr ""
 
 #: align/scan.c:153 builder/index-validate.c:87 cat/cat.c:140
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:261 edit/edit.c:157 fish/fish.c:290 format/format.c:180
+#: diff/diff.c:261 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:248 fuse/guestunmount.c:121 inspector/inspector.c:161
 #: make-fs/make-fs.c:146 p2v/main.c:151 rescue/rescue.c:182
 #: test-tool/test-tool.c:116
@@ -4371,38 +4379,38 @@ msgid ""
 "For more information, read the virt-ls(1) man page."
 msgstr ""
 
-#: cat/visit.c:103
+#: cat/visit.c:130
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: %s %s に対する拡張属性を取得中にエラーが発生しました\n"
 
-#: cat/visit.c:117
+#: cat/visit.c:144
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 "%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
 
-#: df/domains.c:88 src/libvirt-domain.c:99
+#: df/domains.c:106 src/libvirt-domain.c:99
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "libvirt に接続できませんでした (コード %d, ドメイン %d): %s"
 
-#: df/domains.c:96
+#: df/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:107
+#: df/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:117
+#: df/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:128
+#: df/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
@@ -7010,7 +7018,7 @@ msgstr ""
 msgid "display filename\n"
 msgstr "ファイル名の表示\n"
 
-#: fish/edit.c:41
+#: fish/edit.c:43
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "ファイルを編集するには '%s filename' を使用します\n"
@@ -7042,7 +7050,7 @@ msgstr "delete-event: %s: そのようなイベントハンドラーはありま
 msgid "use 'list-events' to list event handlers\n"
 msgstr "イベントハンドラーを一覧表示するには 'list-events' を使用します\n"
 
-#: fish/fish.c:109
+#: fish/fish.c:114
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -7093,42 +7101,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:256
+#: fish/fish.c:261
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:261
+#: fish/fish.c:266
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:307
+#: fish/fish.c:312
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:314
+#: fish/fish.c:319
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:496
+#: fish/fish.c:501
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:501
+#: fish/fish.c:506
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:504
+#: fish/fish.c:509
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:676
+#: fish/fish.c:681
 #, c-format
 msgid ""
 "\n"
@@ -7149,51 +7157,51 @@ msgstr ""
 "      シェルを終了するには 'quit'\n"
 "\n"
 
-#: fish/fish.c:836 fish/fish.c:852
+#: fish/fish.c:855 fish/fish.c:871
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: コマンド引数が空白により分離されていません\n"
 
-#: fish/fish.c:846
+#: fish/fish.c:865
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: 終了していない引用符\n"
 
-#: fish/fish.c:876
+#: fish/fish.c:895
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' にある文字列を構文解析中に内部エラーが発生しました\n"
 
-#: fish/fish.c:893
+#: fish/fish.c:912
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: 引数が多すぎます\n"
 
-#: fish/fish.c:968
+#: fish/fish.c:988
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
 
-#: fish/fish.c:977
+#: fish/fish.c:997
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: 二重引用符が終了していません\n"
 
-#: fish/fish.c:1040
+#: fish/fish.c:1062
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1196
+#: fish/fish.c:1221
 msgid "display a list of commands or help on a command"
 msgstr "コマンドの一覧またはコマンドのヘルプを表示します"
 
-#: fish/fish.c:1198
+#: fish/fish.c:1223
 msgid "quit guestfish"
 msgstr "guestfish を終了する"
 
-#: fish/fish.c:1209
+#: fish/fish.c:1234
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -7204,7 +7212,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1217
+#: fish/fish.c:1242
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -7213,13 +7221,13 @@ msgstr ""
 "quit - guestfishを終了します。\n"
 "     quit\n"
 
-#: fish/fish.c:1222
+#: fish/fish.c:1247
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: 未知のコマンド、すべてのコマンドを一覧表示するには -h を使用します\n"
 
-#: fish/fish.c:1238
+#: fish/fish.c:1267
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -7230,19 +7238,19 @@ msgstr ""
 "コマンドの一覧には:                 guestfish -h\n"
 "完全なドキュメントには:             man guestfish\n"
 
-#: fish/fish.c:1247
+#: fish/fish.c:1278
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: エラー: %s\n"
 
-#: fish/fish.c:1372
+#: fish/fish.c:1405
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
 "文字列 \"%s\"\n"
 " にある引用符を取り外します\n"
 
-#: fish/fish.c:1701
+#: fish/fish.c:1737
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -7251,14 +7259,14 @@ msgstr ""
 "%s: Windows ドライブレターを使用するには、仮想マシンを検査する必要があります "
 "(\"-i\" オプションの使用または \"inspect-os\" コマンドの実行)\n"
 
-#: fish/fish.c:1707
+#: fish/fish.c:1743
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: Windows ドライブレターを使用するには、Windows ゲストでなければいけませ"
 "ん\n"
 
-#: fish/fish.c:1721
+#: fish/fish.c:1757
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -7267,7 +7275,7 @@ msgstr ""
 "%s: ドライブ '%c:' がありません。利用可能なドライブを一覧表示するには:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1740
+#: fish/fish.c:1776
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -7289,7 +7297,7 @@ msgstr "'glob command [args...]' を使用します\n"
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: guestfs_glob_expand の呼び出しに失敗しました: %s\n"
 
-#: fish/help.c:39
+#: fish/help.c:42
 #, c-format
 msgid ""
 "Add disk images to examine using the -a or -d options, or the 'add' "
@@ -7303,7 +7311,7 @@ msgstr ""
 "'sparse' コマンドを使用します。\n"
 "一度これを実行すると、 'run' コマンドを使用します。\n"
 
-#: fish/help.c:45
+#: fish/help.c:48
 #, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
@@ -7314,7 +7322,7 @@ msgstr ""
 "内容を検査または変更するために 'mount-ro' または 'mount' を\n"
 "使用してそれらをマウントします。\n"
 
-#: fish/help.c:53
+#: fish/help.c:56
 #, c-format
 msgid ""
 "For more information about a command, use 'help cmd'.\n"
@@ -7442,18 +7450,18 @@ msgstr "オペレーティングシステム: %s\n"
 msgid "%s mounted on %s\n"
 msgstr "%s を %s にマウントしました\n"
 
-#: fish/keys.c:57
+#: fish/keys.c:59
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "キーかパスフレーズを入力してください。(\"%s\"): "
 
-#: fish/lcd.c:35
+#: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
 msgstr ""
 "ローカルディレクトリを変更するには 'lcd directory' を使用してください\n"
 
-#: fish/man.c:36
+#: fish/man.c:37
 #, c-format
 msgid "use 'man' without parameters to open the manual\n"
 msgstr "マニュアルを開くにはパラメーターなしで 'man' を使用してください\n"
@@ -7463,17 +7471,17 @@ msgstr "マニュアルを開くにはパラメーターなしで 'man' を使�
 msgid "use '%s filename' to page a file\n"
 msgstr "ファイルを表示するには '%s filename' を使用します\n"
 
-#: fish/options.c:101
+#: fish/options.c:116
 #, c-format
 msgid "too many drives added on the command line"
 msgstr ""
 
-#: fish/options.c:260
+#: fish/options.c:275
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: '%s' をマウントできませんでした。\n"
 
-#: fish/options.c:264
+#: fish/options.c:279
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -7483,13 +7491,13 @@ msgstr ""
 "い。\n"
 "%s: これはマウントされているファイルシステムによりサポートされます。\n"
 
-#: fish/options.c:268
+#: fish/options.c:283
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
 "%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
 
-#: fish/options.c:281
+#: fish/options.c:296
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr ""
@@ -8529,7 +8537,7 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s が形式 '%s' を持ちます\n"
 
-#: src/appliance.c:165
+#: src/appliance.c:181
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -8538,19 +8546,19 @@ msgstr ""
 "LIBGUESTFS_PATH (検索パス: %s) において適切な libguestfs supermin、修正された"
 "または旧形式のアプライアンスを検索できません"
 
-#: src/appliance.c:220
+#: src/appliance.c:236
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: src/appliance.c:225
+#: src/appliance.c:241
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 "security: キャッシュされたアプライアンス %s がディレクトリではありません"
 "（モード %o）"
 
-#: src/appliance.c:230
+#: src/appliance.c:246
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -8705,274 +8713,274 @@ msgstr "db_dump コマンドからの予期しない行です、スペース接�
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr "db_dump コマンドの出力において予期しない非 16 進値がありました"
 
-#: src/drives.c:80
+#: src/drives.c:82
 msgid "this backend does not support adding read-only drives"
 msgstr ""
 
-#: src/drives.c:169
+#: src/drives.c:173
 msgid "curl: you must specify exactly one server"
 msgstr "curl: サーバーを一つだけ指定する必要があります"
 
-#: src/drives.c:175
+#: src/drives.c:179
 msgid "curl: only tcp transport is supported"
 msgstr "curl: TCP 転送のみがサポートされます"
 
-#: src/drives.c:180
+#: src/drives.c:184
 msgid "curl: pathname should not be an empty string"
 msgstr "curl: パス名を空文字列にできません"
 
-#: src/drives.c:185
+#: src/drives.c:189
 msgid "curl: pathname must begin with a '/'"
 msgstr "curl: パス名を '/' で始める必要があります"
 
-#: src/drives.c:197
+#: src/drives.c:201
 msgid "gluster: you cannot specify a username with this protocol"
 msgstr "gluster: このプロトコルでユーザー名を指定できません"
 
-#: src/drives.c:201
+#: src/drives.c:205
 msgid "gluster: you cannot specify a secret with this protocol"
 msgstr "gluster: このプロトコルでシークレットを指定できません"
 
-#: src/drives.c:206
+#: src/drives.c:210
 msgid "gluster: you must specify exactly one server"
 msgstr "gluster: ちょうど 1 つのサーバーを指定する必要があります"
 
-#: src/drives.c:211
+#: src/drives.c:215
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr "gluster: ボリューム名パラメーターを空文字列にできません"
 
-#: src/drives.c:216
+#: src/drives.c:220
 msgid "gluster: volume/image must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:240
+#: src/drives.c:244
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr "nbd: このプロトコルでユーザー名を指定できません"
 
-#: src/drives.c:244
+#: src/drives.c:248
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr "nbd: このプロトコルでシークレットを指定できません"
 
-#: src/drives.c:249
+#: src/drives.c:253
 msgid "nbd: you must specify exactly one server"
 msgstr "nbd: ちょうど 1 つのサーバーを指定する必要があります"
 
-#: src/drives.c:268
+#: src/drives.c:272
 msgid "rbd: only tcp transport is supported"
 msgstr "rbd: TCP 転送のみがサポートされます"
 
-#: src/drives.c:272
+#: src/drives.c:276
 msgid "rbd: port number must be specified"
 msgstr "rbd: ポート番号を指定する必要があります"
 
-#: src/drives.c:278
+#: src/drives.c:282
 msgid "rbd: image name parameter should not be an empty string"
 msgstr "rbd: イメージ名のパラメーターを空文字列にできません"
 
-#: src/drives.c:283
+#: src/drives.c:287
 msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:297
+#: src/drives.c:301
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr "sheepdog: このプロトコルでユーザー名を指定できません"
 
-#: src/drives.c:301
+#: src/drives.c:305
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr "sheepdog: このプロトコルでシークレットを指定できません"
 
-#: src/drives.c:308
+#: src/drives.c:312
 msgid "sheepdog: only tcp transport is supported"
 msgstr "sheepdog: TCP 転送のみがサポートされます"
 
-#: src/drives.c:312
+#: src/drives.c:316
 msgid "sheepdog: port number must be specified"
 msgstr "sheepdog: ポート番号を指定する必要があります"
 
-#: src/drives.c:318
+#: src/drives.c:322
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr "sheepdog: ボリュームパラメーターを空文字列にできません"
 
-#: src/drives.c:323
+#: src/drives.c:327
 msgid "sheepdog: volume parameter must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:335
+#: src/drives.c:339
 msgid "ssh: you must specify exactly one server"
 msgstr "ssh: ちょうど一つのサーバーを指定する必要があります"
 
-#: src/drives.c:341
+#: src/drives.c:345
 msgid "ssh: only tcp transport is supported"
 msgstr "ssh: TCP 転送のみがサポートされます"
 
-#: src/drives.c:346
+#: src/drives.c:350
 msgid "ssh: pathname should not be an empty string"
 msgstr "ssh: パス名を空文字列にできません"
 
-#: src/drives.c:351
+#: src/drives.c:355
 msgid "ssh: pathname must begin with a '/'"
 msgstr "ssh: パス名は '/' から始まる必要があります"
 
-#: src/drives.c:356
+#: src/drives.c:360
 msgid "ssh: username should not be an empty string"
 msgstr "ssh: ユーザー名を空文字列にできません"
 
-#: src/drives.c:368
+#: src/drives.c:372
 msgid "iscsi: you must specify exactly one server"
 msgstr "iscsi: ちょうど一つのサーバーを指定する必要があります"
 
-#: src/drives.c:374
+#: src/drives.c:378
 msgid "iscsi: only tcp transport is supported"
 msgstr "iscsi: TCP 転送のみがサポートされます"
 
-#: src/drives.c:379
+#: src/drives.c:383
 msgid "iscsi: target name should not be an empty string"
 msgstr "iscsi: ターゲット名を空文字列にできません"
 
-#: src/drives.c:384
+#: src/drives.c:388
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:406
+#: src/drives.c:414
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr "デバイス '/dev/null' に対して、形式は 'raw' は必須です"
 
-#: src/drives.c:652
+#: src/drives.c:680
 msgid "missing Unix domain socket path"
 msgstr "Unix ドメインのソケットパスがありません"
 
-#: src/drives.c:664
+#: src/drives.c:692
 #, c-format
 msgid "invalid port number '%s'"
 msgstr "無効なポート番号 '%s'"
 
-#: src/drives.c:671
+#: src/drives.c:699
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr "無効なホスト名 '%s'"
 
-#: src/drives.c:682
+#: src/drives.c:710
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr "無効なホスト名またはサーバー文字列 '%s'"
 
-#: src/drives.c:766
+#: src/drives.c:794
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:779
+#: src/drives.c:807
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:785 src/drives.c:791
+#: src/drives.c:813 src/drives.c:819
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s パラメーターが空です。もしくは、許可できない文字を含んでいます。"
 
-#: src/drives.c:797
+#: src/drives.c:825
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 "ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
 
-#: src/drives.c:803
+#: src/drives.c:831
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 "cachemode パラメーターは 'writeback' (標準値) または 'unsafe' にする必要があ"
 "ります"
 
-#: src/drives.c:810
+#: src/drives.c:838
 msgid "you cannot specify a server with file-backed disks"
 msgstr "ファイル形式のディスクと同時にサーバーを指定できません"
 
-#: src/drives.c:815
+#: src/drives.c:843
 msgid "you cannot specify a username with file-backed disks"
 msgstr "ファイル形式のディスクと同時にユーザー名を指定できません"
 
-#: src/drives.c:819
+#: src/drives.c:847
 msgid "you cannot specify a secret with file-backed disks"
 msgstr "ファイル形式のディスクと同時にシークレットを指定できません"
 
-#: src/drives.c:882
+#: src/drives.c:910
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr "未知のプロトコル '%s'"
 
-#: src/drives.c:900 src/drives.c:1048
+#: src/drives.c:928 src/drives.c:1079
 msgid "the current backend does not support hotplugging drives"
 msgstr "現在のバックエンドはホットプラグドライブをサポートしません"
 
-#: src/drives.c:906
+#: src/drives.c:934
 msgid "'label' is required when hotplugging drives"
 msgstr "ドライブを活性挿入するとき 'label' が必要です"
 
-#: src/drives.c:1033
+#: src/drives.c:1064
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr "ラベル '%s' を持つディスクがありませんでした"
 
-#: src/errors.c:235
+#: src/errors.c:287
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: エラー: %s\n"
 
-#: src/errors.c:263
+#: src/errors.c:315
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<切り詰められました、元の容量は %zu バイトです>"
 
-#: src/errors.c:291
+#: src/errors.c:346
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch に失敗しました、前のエラーメッセージを参照してください"
 
-#: src/errors.c:294
+#: src/errors.c:349
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 
-#: src/errors.c:304
+#: src/errors.c:361
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 "アプライアンスが予期せず接続を閉じました。これまでのエラーメッセージを参照し"
 "てください。"
 
-#: src/errors.c:307
+#: src/errors.c:364
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 
-#: src/errors.c:317
+#: src/errors.c:376
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 "アプライアンスの起動がタイムアウトしました。以前のエラーメッセージを参照して"
 "ください。"
 
-#: src/errors.c:320
+#: src/errors.c:379
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: src/errors.c:337
+#: src/errors.c:402
 #, c-format
 msgid "%s, see debug messages above"
 msgstr "%s, 上のデバッグメッセージを確認してください"
 
-#: src/errors.c:339
+#: src/errors.c:404
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr "%s: %s: %s, 上のデバッグメッセージを確認してください"
 
-#: src/errors.c:344
+#: src/errors.c:409
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: src/errors.c:349
+#: src/errors.c:414
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -9043,49 +9051,49 @@ msgstr ""
 "libguestfs がコンパイルされたときに、libfuse が見当たらなかったため、FUSE が"
 "このビルドの libguestfs においてサポートされません。"
 
-#: src/handle.c:132
+#: src/handle.c:138
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
 msgstr ""
 "libguestfs は 'direct' を使用する代わりに無効なデフォルトのバックエンドで構築"
 "されました。"
 
-#: src/handle.c:134
+#: src/handle.c:140
 msgid "'direct' backend does not work"
 msgstr "'direct' バックエンドが動作しません"
 
-#: src/handle.c:189 src/handle.c:199
+#: src/handle.c:195 src/handle.c:205
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: src/handle.c:241
+#: src/handle.c:247
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:322
+#: src/handle.c:328
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: 同じハンドルにおいて 2 回呼び出されました\n"
 
-#: src/handle.c:526
+#: src/handle.c:539
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:579
+#: src/handle.c:592
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:696
+#: src/handle.c:709
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: src/handle.c:802
+#: src/handle.c:815
 msgid "setting not found"
 msgstr ""
 
@@ -9130,7 +9138,7 @@ msgstr "リリースファイル %s が空または不正な形式です"
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:318
 #: src/inspect-fs-unix.c:405 src/inspect-fs-unix.c:1262
 #: src/inspect-fs-unix.c:2028 src/inspect-fs.c:620 src/inspect-fs.c:666
-#: src/inspect.c:653
+#: src/inspect.c:663
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
@@ -9145,21 +9153,21 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "バージョン番号のいて整数を構文解析できませんでした: %s"
 
-#: src/inspect.c:345
+#: src/inspect.c:354
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 "Windows ゲストではありません、またはシステムルートが決められませんでした"
 
-#: src/inspect.c:361
+#: src/inspect.c:370
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 "Windows ゲストではありません、または CurrentControlSet を決定できませんでした"
 
-#: src/inspect.c:691
+#: src/inspect.c:701
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "検査データがありません: まず guestfs_inspect_os を呼び出します"
 
-#: src/inspect.c:701
+#: src/inspect.c:711
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -9168,17 +9176,17 @@ msgstr ""
 "%s: ルートデバイスが見つかりませんでした: 前に guestfs_inspect_os により返さ"
 "れたルートデバイスとともにこの関数を呼び出してください。"
 
-#: src/launch-direct.c:133
+#: src/launch-direct.c:132
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr "引用が終了していない文字 (%c) が次のコマンドライン行近くにあります: %s"
 
-#: src/launch-direct.c:152
+#: src/launch-direct.c:151
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "次の近くにあるクォートされた文字列を構文解析できません: %s"
 
-#: src/launch-direct.c:219
+#: src/launch-direct.c:218
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -9187,48 +9195,48 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:255 src/launch-uml.c:156
+#: src/launch-direct.c:254 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch の前に guestfs_add_drive を呼び出す必要があります"
 
-#: src/launch-direct.c:836 src/launch-libvirt.c:596
+#: src/launch-direct.c:835 src/launch-libvirt.c:596
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "QEMU が起動され、デーモンに接続されましたが、state != READY です"
 
-#: src/launch-direct.c:1225 src/launch-libvirt.c:1400
+#: src/launch-direct.c:1224 src/launch-libvirt.c:1400
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: '%s' を絶対パスに変換できませんでした"
 
-#: src/launch-direct.c:1408
+#: src/launch-direct.c:1407
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1417
+#: src/launch-direct.c:1416
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1424
+#: src/launch-direct.c:1423
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1432
+#: src/launch-direct.c:1431
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1440
+#: src/launch-direct.c:1439
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1463
+#: src/launch-direct.c:1462
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -9392,38 +9400,38 @@ msgstr "libvirt 仮想マシンにディスクを接続できませんでした"
 msgid "could not detach disk from libvirt domain"
 msgstr "libvirt 仮想マシンからディスクを切断できませんでした"
 
-#: src/launch-uml.c:96
+#: src/launch-uml.c:95
 msgid "uml backend does not support networking"
 msgstr "uml バックエンドはネットワークをサポートしません"
 
-#: src/launch-uml.c:100
+#: src/launch-uml.c:99
 msgid "uml backend does not support SMP"
 msgstr "uml バックエンドは SMP をサポートしません"
 
-#: src/launch-uml.c:106
+#: src/launch-uml.c:105
 msgid "uml backend does not support remote drives"
 msgstr "uml バックエンドはリモートドライブをサポートしません"
 
-#: src/launch-uml.c:110
+#: src/launch-uml.c:109
 msgid "uml backend does not support non-raw-format drives"
 msgstr "uml バックエンドは raw 形式以外のドライブをサポートしません"
 
-#: src/launch-uml.c:115
+#: src/launch-uml.c:114
 msgid "uml backend does not support drives with 'iface' parameter"
 msgstr ""
 "uml バックエンドは 'iface' パラメーターを持つドライブをサポートしません"
 
-#: src/launch-uml.c:120
+#: src/launch-uml.c:119
 msgid "uml backend does not support drives with 'label' parameter"
 msgstr ""
 "uml バックエンドは 'label' パラメーターを持つドライブをサポートしません"
 
-#: src/launch-uml.c:126
+#: src/launch-uml.c:125
 msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: src/launch-uml.c:457
+#: src/launch-uml.c:456
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9444,32 +9452,32 @@ msgstr "guestfs_launch に失敗しました、guestfsd から予期しない初
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd に接続しましたが、state != READY です"
 
-#: src/launch.c:60
+#: src/launch.c:58
 msgid "the libguestfs handle has already been launched"
 msgstr "libguestfs ハンドルがすでに開始されています"
 
-#: src/launch.c:151
+#: src/launch.c:168
 msgid "get-pid can only be called after launch"
 msgstr "get-pid は launch 後にのみ呼び出せます"
 
-#: src/launch.c:157
+#: src/launch.c:174
 msgid "the current backend does not support 'get-pid'"
 msgstr "現在のバックエンドが 'get-pid' をサポートしません"
 
-#: src/launch.c:171
+#: src/launch.c:188
 msgid "the current backend does not allow max disks to be queried"
 msgstr "現在のバックエンドが最大ディスクを問い合わせできません"
 
-#: src/launch.c:185
+#: src/launch.c:202
 msgid "qemu has not been launched yet"
 msgstr "QEMU がまだ開始されていません"
 
-#: src/launch.c:256
+#: src/launch.c:273
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "パラメーター '%s' は許可されていません"
 
-#: src/launch.c:429
+#: src/launch.c:469
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9627,7 +9635,7 @@ msgstr "osinfo: 新しい XPath コンテキストを作成できません"
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr "osinfo: %s: XPath 表現を評価できません"
 
-#: src/proto.c:197
+#: src/proto.c:238
 #, c-format
 msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
@@ -9636,48 +9644,48 @@ msgstr ""
 "check_daemon_socket: デーモンから 0x%x を読み込みましたが、0x%x を期待されま"
 "す。プロトコルの同期が失われました (不良!)\n"
 
-#: src/proto.c:243
+#: src/proto.c:284
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header に失敗しました"
 
-#: src/proto.c:252
+#: src/proto.c:293
 msgid "dispatch failed to marshal args"
 msgstr "マーシャル引数の割り当てに失敗しました"
 
-#: src/proto.c:359 src/proto.c:856
+#: src/proto.c:387 src/proto.c:909
 msgid "operation cancelled by user"
 msgstr "操作がユーザーにより取り消されました"
 
-#: src/proto.c:428
+#: src/proto.c:462
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk に失敗しました (buf = %p, buflen = %zu)"
 
-#: src/proto.c:525
+#: src/proto.c:560
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd からマジックシグネチャーを受け取りましたが、状態は %d です。"
 
-#: src/proto.c:544
+#: src/proto.c:579
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "メッセージの長さ (%u) > 最大許容サイズ (%d)"
 
-#: src/proto.c:815
+#: src/proto.c:865
 msgid "write to daemon socket"
 msgstr "デーモンのソケットに書き込みます"
 
-#: src/proto.c:841
+#: src/proto.c:894
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: ファイルのチャンクの読み込み中に予期しないフラグを受信しま"
 "した"
 
-#: src/proto.c:849
+#: src/proto.c:902
 msgid "failed to parse file chunk"
 msgstr "ファイルのチャンクの解析に失敗しました"
 
-#: src/proto.c:858
+#: src/proto.c:911
 msgid "file receive cancelled by daemon"
 msgstr "ファイルの受信がデーモンにより取り消されました"
 
@@ -9696,27 +9704,27 @@ msgstr "一時ディレクトリー '%s' がディレクトリーではありま
 msgid "%s: cannot create temporary directory"
 msgstr "%s: 一時ディレクトリを作成できません"
 
-#: src/utils.c:194
+#: src/utils.c:217
 #, c-format
 msgid "%s exited successfully"
 msgstr "%s が正常に終了しました"
 
-#: src/utils.c:197
+#: src/utils.c:220
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "%s がエラーステータス %d で終了しました"
 
-#: src/utils.c:201
+#: src/utils.c:224
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "%s がシグナル %d (%s) によりキルされました"
 
-#: src/utils.c:205
+#: src/utils.c:228
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "%s がシグナル %d (%s) により停止しました"
 
-#: src/utils.c:209
+#: src/utils.c:232
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "%s が未知の理由で終了しました (ステータス %d)"
@@ -9777,19 +9785,19 @@ msgstr ""
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:139 v2v/domainxml-c.c:210 v2v/domainxml-c.c:394
-#: v2v/domainxml-c.c:451
+#: v2v/domainxml-c.c:140 v2v/domainxml-c.c:211 v2v/domainxml-c.c:395
+#: v2v/domainxml-c.c:452
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:141 v2v/domainxml-c.c:212 v2v/domainxml-c.c:396
-#: v2v/domainxml-c.c:453
+#: v2v/domainxml-c.c:142 v2v/domainxml-c.c:213 v2v/domainxml-c.c:397
+#: v2v/domainxml-c.c:454
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
 
-#: v2v/domainxml-c.c:162
+#: v2v/domainxml-c.c:163
 #, c-format
 msgid ""
 "cannot find libvirt pool '%s': %s\n"
@@ -9800,39 +9808,39 @@ msgid ""
 "To set the pool which virt-v2v uses, add the `-os <pool>' option."
 msgstr ""
 
-#: v2v/domainxml-c.c:233 v2v/domainxml-c.c:477
+#: v2v/domainxml-c.c:234 v2v/domainxml-c.c:478
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:248
+#: v2v/domainxml-c.c:249
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:261
+#: v2v/domainxml-c.c:262
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:298
+#: v2v/domainxml-c.c:299
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:341
+#: v2v/domainxml-c.c:342
 #, c-format
 msgid "cannot find libvirt volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:351
+#: v2v/domainxml-c.c:352
 #, c-format
 msgid "cannot fetch XML description of volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:410
+#: v2v/domainxml-c.c:411
 #, c-format
 msgid "cannot get libvirt hypervisor capabilities: %s"
 msgstr ""

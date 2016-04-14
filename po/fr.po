@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-12 13:51+0100\n"
+"POT-Creation-Date: 2016-04-14 20:26+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1330
+#: ../v2v/convert_linux.ml:1338
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -210,7 +210,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:249
+#: ../v2v/windows_virtio.ml:267
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -738,23 +738,23 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:283 ../v2v/copy_to_local.ml:326
+#: ../v2v/input_libvirtxml.ml:290 ../v2v/copy_to_local.ml:326
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:256
+#: ../v2v/input_libvirtxml.ml:263
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:279
+#: ../v2v/input_libvirtxml.ml:286
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:250
+#: ../v2v/input_libvirtxml.ml:257
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:229 ../v2v/copy_to_local.ml:308
+#: ../v2v/input_libvirtxml.ml:236 ../v2v/copy_to_local.ml:308
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
@@ -762,7 +762,7 @@ msgstr ""
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:316
+#: ../v2v/input_libvirtxml.ml:324
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -857,7 +857,7 @@ msgid ""
 "how to remove only some users, or to not remove some others."
 msgstr ""
 
-#: ../v2v/v2v.ml:962
+#: ../v2v/v2v.ml:964
 msgid "CD-ROM"
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:744
+#: ../v2v/v2v.ml:745
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -969,7 +969,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:780
+#: ../v2v/v2v.ml:781
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -1638,7 +1638,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:979
+#: ../v2v/v2v.ml:981
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -2271,7 +2271,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1115
+#: ../v2v/convert_linux.ml:1116
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2392,11 +2392,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:737
+#: ../v2v/v2v.ml:738
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:735
+#: ../v2v/v2v.ml:736
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2407,7 +2407,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:762
+#: ../v2v/v2v.ml:763
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2703,7 +2703,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1045
+#: ../v2v/convert_linux.ml:1046
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2757,7 +2757,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1063
+#: ../v2v/convert_linux.ml:1064
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2768,7 +2768,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1047
+#: ../v2v/convert_linux.ml:1048
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2861,7 +2861,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1177
+#: ../v2v/convert_linux.ml:1184
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2984,7 +2984,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../v2v/v2v.ml:963
+#: ../v2v/v2v.ml:965
 msgid "floppy disk"
 msgstr ""
 
@@ -3010,7 +3010,7 @@ msgstr ""
 msgid "generated by %s %s"
 msgstr ""
 
-#: ../v2v/output_glance.ml:126
+#: ../v2v/output_glance.ml:131
 msgid "glance: failed to set image properties (ignored)"
 msgstr ""
 
@@ -3139,7 +3139,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:792
+#: ../v2v/v2v.ml:793
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
@@ -3339,7 +3339,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/OVF.ml:559
+#: ../v2v/OVF.ml:561
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -3469,7 +3469,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:833 ../v2v/v2v.ml:231
+#: ../v2v/v2v.ml:834 ../v2v/v2v.ml:231
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3485,7 +3485,7 @@ msgstr ""
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:960
+#: ../v2v/v2v.ml:962
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
@@ -3538,31 +3538,31 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:991
+#: ../v2v/v2v.ml:993
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:1006
+#: ../v2v/v2v.ml:1009
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:989 ../v2v/v2v.ml:167
+#: ../v2v/v2v.ml:991 ../v2v/v2v.ml:167
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:998
+#: ../v2v/v2v.ml:1001
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:996
+#: ../v2v/v2v.ml:999
 msgid "source has unsupported hard disk type '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:1012
+#: ../v2v/v2v.ml:1015
 msgid "source has unsupported network adapter model '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:1020
+#: ../v2v/v2v.ml:1023
 msgid "source has unsupported video adapter model '%s'"
 msgstr ""
 
@@ -3688,13 +3688,13 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:49
+#: ../v2v/windows_virtio.ml:50
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:56
+#: ../v2v/windows_virtio.ml:57
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3702,13 +3702,13 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:121
+#: ../v2v/windows_virtio.ml:139
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:126
+#: ../v2v/windows_virtio.ml:144
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -3724,7 +3724,15 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:76 ../v2v/windows_virtio.ml:71
+#: ../v2v/windows_virtio.ml:78
+msgid ""
+"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d "
+"%s).  virt-v2v looks for this driver in %s\n"
+"\n"
+"The guest will be configured to use a slower emulated device."
+msgstr ""
+
+#: ../v2v/windows_virtio.ml:83 ../v2v/windows_virtio.ml:73
 msgid ""
 "there is no viostor (virtio block device) driver for this version of Windows "
 "(%d.%d %s).  virt-v2v looks for this driver in %s\n"
@@ -3732,13 +3740,13 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:100
+#: ../v2v/windows_virtio.ml:118
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:105
+#: ../v2v/windows_virtio.ml:123
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -3746,7 +3754,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:753
+#: ../v2v/v2v.ml:754
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3768,7 +3776,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:204 ../v2v/copy_to_local.ml:297
+#: ../v2v/input_libvirtxml.ml:210 ../v2v/copy_to_local.ml:297
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3790,7 +3798,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1221
+#: ../v2v/convert_linux.ml:1228
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3805,7 +3813,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:912
+#: ../v2v/convert_linux.ml:913
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4058,7 +4066,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
-#: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:106
+#: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
 #: make-fs/make-fs.c:75 p2v/main.c:66 rescue/rescue.c:57
 #, c-format
@@ -4106,7 +4114,7 @@ msgstr ""
 
 #: align/scan.c:153 builder/index-validate.c:87 cat/cat.c:140
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:261 edit/edit.c:157 fish/fish.c:290 format/format.c:180
+#: diff/diff.c:261 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:248 fuse/guestunmount.c:121 inspector/inspector.c:161
 #: make-fs/make-fs.c:146 p2v/main.c:151 rescue/rescue.c:182
 #: test-tool/test-tool.c:116
@@ -4376,37 +4384,37 @@ msgid ""
 "For more information, read the virt-ls(1) man page."
 msgstr ""
 
-#: cat/visit.c:103
+#: cat/visit.c:130
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s : Erreur d'obtention de l'attrs prolongée pour %s %s\n"
 
-#: cat/visit.c:117
+#: cat/visit.c:144
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s : erreur : impossible d'analyser le nombre d'xattr pour %s %s\n"
 
-#: df/domains.c:88 src/libvirt-domain.c:99
+#: df/domains.c:106 src/libvirt-domain.c:99
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr "impossible de se connecter à libvirt (code %d , domaine %d) : %s"
 
-#: df/domains.c:96
+#: df/domains.c:114
 #, c-format
 msgid "could not get number of running domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:107
+#: df/domains.c:125
 #, c-format
 msgid "could not list running domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:117
+#: df/domains.c:135
 #, c-format
 msgid "could not get number of inactive domains (code %d, domain %d): %s"
 msgstr ""
 
-#: df/domains.c:128
+#: df/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr ""
@@ -7050,7 +7058,7 @@ msgstr ""
 msgid "display filename\n"
 msgstr "affiche le nom du fichier\n"
 
-#: fish/edit.c:41
+#: fish/edit.c:43
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "utiliser « %s nom_de_fichier » pour éditer un fichier\n"
@@ -7085,7 +7093,7 @@ msgid "use 'list-events' to list event handlers\n"
 msgstr ""
 "utiliser « list-events » pour afficher les gestionnaires d'événements\n"
 
-#: fish/fish.c:109
+#: fish/fish.c:114
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -7136,42 +7144,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:256
+#: fish/fish.c:261
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:261
+#: fish/fish.c:266
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:307
+#: fish/fish.c:312
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:314
+#: fish/fish.c:319
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:496
+#: fish/fish.c:501
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:501
+#: fish/fish.c:506
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:504
+#: fish/fish.c:509
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:676
+#: fish/fish.c:681
 #, c-format
 msgid ""
 "\n"
@@ -7184,53 +7192,53 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:836 fish/fish.c:852
+#: fish/fish.c:855 fish/fish.c:871
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s : les arguments de la commande ne sont pas séparés par des espaces\n"
 
-#: fish/fish.c:846
+#: fish/fish.c:865
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s : guillemet simple non terminé\n"
 
-#: fish/fish.c:876
+#: fish/fish.c:895
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s : erreur interne lors de l'analyse de la chaîne à « %s »\n"
 
-#: fish/fish.c:893
+#: fish/fish.c:912
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s : trop d'arguments\n"
 
-#: fish/fish.c:968
+#: fish/fish.c:988
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s : séquence d'échappement invalide dans la chaîne (décalage commençant à "
 "%d)\n"
 
-#: fish/fish.c:977
+#: fish/fish.c:997
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s : guillemets non terminés\n"
 
-#: fish/fish.c:1040
+#: fish/fish.c:1062
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1196
+#: fish/fish.c:1221
 msgid "display a list of commands or help on a command"
 msgstr "afficher une liste de commandes ou de l'aide sur une commande"
 
-#: fish/fish.c:1198
+#: fish/fish.c:1223
 msgid "quit guestfish"
 msgstr "quitter guestfish"
 
-#: fish/fish.c:1209
+#: fish/fish.c:1234
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -7241,7 +7249,7 @@ msgstr ""
 "     help commande\n"
 "     help\n"
 
-#: fish/fish.c:1217
+#: fish/fish.c:1242
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -7250,14 +7258,14 @@ msgstr ""
 "quit - quitter guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1222
+#: fish/fish.c:1247
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s : commande inconnue, utilisez -h pour obtenir la liste de toutes les "
 "commandes\n"
 
-#: fish/fish.c:1238
+#: fish/fish.c:1267
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -7268,17 +7276,17 @@ msgstr ""
 "Pour la liste des commmandes :             guestfish -h\n"
 "Pour la documentation complète :           man guestfish\n"
 
-#: fish/fish.c:1247
+#: fish/fish.c:1278
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s : %d : libguestfs : erreur : %s\n"
 
-#: fish/fish.c:1372
+#: fish/fish.c:1405
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Un guillemet fermant s'est perdu dans la chaîne « %s »\n"
 
-#: fish/fish.c:1701
+#: fish/fish.c:1737
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -7287,14 +7295,14 @@ msgstr ""
 "%s : pour utiliser les lettres de disque Windows, vous devez inspecter "
 "l'invité (« -i » option ou exécuter la commande « inspect-os »)\n"
 
-#: fish/fish.c:1707
+#: fish/fish.c:1743
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s : pour utiliser les lettres désignant les disques sous Windows, il doit "
 "s'agir d'un invité Windows\n"
 
-#: fish/fish.c:1721
+#: fish/fish.c:1757
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -7304,7 +7312,7 @@ msgstr ""
 "disponibles, exécuter :\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1740
+#: fish/fish.c:1776
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -7326,7 +7334,7 @@ msgstr "utiliser « glob commande [arguments...] »\n"
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob : guestfs_glob_expand l'appel a échoué : %s\n"
 
-#: fish/help.c:39
+#: fish/help.c:42
 #, c-format
 msgid ""
 "Add disk images to examine using the -a or -d options, or the 'add' "
@@ -7340,7 +7348,7 @@ msgstr ""
 "« alloc » ou « sparse ».\n"
 "Une fois fait, utilisez la commande « run ».\n"
 
-#: fish/help.c:45
+#: fish/help.c:48
 #, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
@@ -7351,7 +7359,7 @@ msgstr ""
 "« list-filesystems » puis les monter afin d'examiner ou de modifier\n"
 "leur contenu en utilisant « mount-ro » ou « mount ».\n"
 
-#: fish/help.c:53
+#: fish/help.c:56
 #, c-format
 msgid ""
 "For more information about a command, use 'help cmd'.\n"
@@ -7484,17 +7492,17 @@ msgstr "Système d'exploitation : %s\n"
 msgid "%s mounted on %s\n"
 msgstr "%s monté sur %s\n"
 
-#: fish/keys.c:57
+#: fish/keys.c:59
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Saisir une phrase de passe (« %s ») : "
 
-#: fish/lcd.c:35
+#: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "utiliser « lcd répertoire » pour changer de répertoire local\n"
 
-#: fish/man.c:36
+#: fish/man.c:37
 #, c-format
 msgid "use 'man' without parameters to open the manual\n"
 msgstr "utiliser « man » sans paramètres pour ouvrir le manuel\n"
@@ -7504,17 +7512,17 @@ msgstr "utiliser « man » sans paramètres pour ouvrir le manuel\n"
 msgid "use '%s filename' to page a file\n"
 msgstr "utliser « %s nom_du_fichier » pour afficher un fichier\n"
 
-#: fish/options.c:101
+#: fish/options.c:116
 #, c-format
 msgid "too many drives added on the command line"
 msgstr ""
 
-#: fish/options.c:260
+#: fish/options.c:275
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s : « %s » ne peut pas être monté.\n"
 
-#: fish/options.c:264
+#: fish/options.c:279
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -7523,12 +7531,12 @@ msgstr ""
 "%s : Voir la page de manuel mount(8) pour valider les options « %s »\n"
 "%s : sont pris en charge par le système de fichiers qui est monté.\n"
 
-#: fish/options.c:268
+#: fish/options.c:283
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s : Vouliez-vous monter l'un de ces systèmes de fichiers ?\n"
 
-#: fish/options.c:281
+#: fish/options.c:296
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr ""
@@ -8551,7 +8559,7 @@ msgstr ""
 msgid "# %s has type '%s'\n"
 msgstr "# %s est de type « %s »\n"
 
-#: src/appliance.c:165
+#: src/appliance.c:181
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -8560,17 +8568,17 @@ msgstr ""
 "ne trouve aucun supermin adapté libguestfs, corrigé, ou d'appliance "
 "ordinaire dans LIBGUESTFS_PATH (chemin de recherche : %s)"
 
-#: src/appliance.c:220
+#: src/appliance.c:236
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: src/appliance.c:225
+#: src/appliance.c:241
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr "security : le cache de l'appareil %s n'est pas un répertoire (mode %o)"
 
-#: src/appliance.c:230
+#: src/appliance.c:246
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
@@ -8724,273 +8732,273 @@ msgstr "ligne de commande inattendue de db_dump, aucun espace en préfixe"
 msgid "unexpected non-hex digits in output of db_dump command"
 msgstr "chiffres non hexa inattendus en sortie de la commande db_dump"
 
-#: src/drives.c:80
+#: src/drives.c:82
 msgid "this backend does not support adding read-only drives"
 msgstr ""
 
-#: src/drives.c:169
+#: src/drives.c:173
 msgid "curl: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:175
+#: src/drives.c:179
 msgid "curl: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:180
+#: src/drives.c:184
 msgid "curl: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:185
+#: src/drives.c:189
 msgid "curl: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:197
+#: src/drives.c:201
 msgid "gluster: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:201
+#: src/drives.c:205
 msgid "gluster: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:206
+#: src/drives.c:210
 msgid "gluster: you must specify exactly one server"
 msgstr "gluster : vous devez indiquer un unique serveur"
 
-#: src/drives.c:211
+#: src/drives.c:215
 msgid "gluster: volume name parameter should not be an empty string"
 msgstr "gluster : le paramètre nom de volume ne peut être une chaîne vide"
 
-#: src/drives.c:216
+#: src/drives.c:220
 msgid "gluster: volume/image must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:240
+#: src/drives.c:244
 msgid "nbd: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:244
+#: src/drives.c:248
 msgid "nbd: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:249
+#: src/drives.c:253
 msgid "nbd: you must specify exactly one server"
 msgstr "nbd : vous devez indiquer un unique serveur"
 
-#: src/drives.c:268
+#: src/drives.c:272
 msgid "rbd: only tcp transport is supported"
 msgstr "rbd : seul le transport tcp est pris en charge"
 
-#: src/drives.c:272
+#: src/drives.c:276
 msgid "rbd: port number must be specified"
 msgstr "rbd : un numéro de port doit être indiqué"
 
-#: src/drives.c:278
+#: src/drives.c:282
 msgid "rbd: image name parameter should not be an empty string"
 msgstr "rbd : le paramètre nom de l'image ne peut être une chaîne vide"
 
-#: src/drives.c:283
+#: src/drives.c:287
 msgid "rbd: image name must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:297
+#: src/drives.c:301
 msgid "sheepdog: you cannot specify a username with this protocol"
 msgstr ""
 
-#: src/drives.c:301
+#: src/drives.c:305
 msgid "sheepdog: you cannot specify a secret with this protocol"
 msgstr ""
 
-#: src/drives.c:308
+#: src/drives.c:312
 msgid "sheepdog: only tcp transport is supported"
 msgstr "sheepdog : seul le transport tcp est pris en charge"
 
-#: src/drives.c:312
+#: src/drives.c:316
 msgid "sheepdog: port number must be specified"
 msgstr "sheepdog : un numéro de port doit être indiqué"
 
-#: src/drives.c:318
+#: src/drives.c:322
 msgid "sheepdog: volume parameter should not be an empty string"
 msgstr "sheepdog : le paramètre nom de volume ne peut être une chaîne vide"
 
-#: src/drives.c:323
+#: src/drives.c:327
 msgid "sheepdog: volume parameter must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:335
+#: src/drives.c:339
 msgid "ssh: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:341
+#: src/drives.c:345
 msgid "ssh: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:346
+#: src/drives.c:350
 msgid "ssh: pathname should not be an empty string"
 msgstr ""
 
-#: src/drives.c:351
+#: src/drives.c:355
 msgid "ssh: pathname must begin with a '/'"
 msgstr ""
 
-#: src/drives.c:356
+#: src/drives.c:360
 msgid "ssh: username should not be an empty string"
 msgstr ""
 
-#: src/drives.c:368
+#: src/drives.c:372
 msgid "iscsi: you must specify exactly one server"
 msgstr ""
 
-#: src/drives.c:374
+#: src/drives.c:378
 msgid "iscsi: only tcp transport is supported"
 msgstr ""
 
-#: src/drives.c:379
+#: src/drives.c:383
 msgid "iscsi: target name should not be an empty string"
 msgstr ""
 
-#: src/drives.c:384
+#: src/drives.c:388
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:406
+#: src/drives.c:414
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr "pour le périphérique « /dev/null », le format doit être « raw »"
 
-#: src/drives.c:652
+#: src/drives.c:680
 msgid "missing Unix domain socket path"
 msgstr "chemin de la socket du domaine Unix manquant"
 
-#: src/drives.c:664
+#: src/drives.c:692
 #, c-format
 msgid "invalid port number '%s'"
 msgstr "numéro de port « %s » invalide"
 
-#: src/drives.c:671
+#: src/drives.c:699
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr "nom d'hôte « %s » invalide"
 
-#: src/drives.c:682
+#: src/drives.c:710
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr "nom d'hôte ou chaîne de serveur « %s » invalide"
 
-#: src/drives.c:766
+#: src/drives.c:794
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:779
+#: src/drives.c:807
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:785 src/drives.c:791
+#: src/drives.c:813 src/drives.c:819
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "%s paramètre est vide ou contient des caractères non autorisés"
 
-#: src/drives.c:797
+#: src/drives.c:825
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 "le paramètre étiquette est vide, trop long, ou contient des caractères non-"
 "autorisés"
 
-#: src/drives.c:803
+#: src/drives.c:831
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:810
+#: src/drives.c:838
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 "vous ne pouvez indiquer un serveur avec des disques s'appuyant sur des "
 "fichiers"
 
-#: src/drives.c:815
+#: src/drives.c:843
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:819
+#: src/drives.c:847
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:882
+#: src/drives.c:910
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr "protocole inconnu « %s »"
 
-#: src/drives.c:900 src/drives.c:1048
+#: src/drives.c:928 src/drives.c:1079
 msgid "the current backend does not support hotplugging drives"
 msgstr "le moteur actuel ne permet pas de brancher des disques à chaud"
 
-#: src/drives.c:906
+#: src/drives.c:934
 msgid "'label' is required when hotplugging drives"
 msgstr "« label » est nécessaire lors du branchement de disques à chaud"
 
-#: src/drives.c:1033
+#: src/drives.c:1064
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr "le disque étiqueté « %s » introuvable"
 
-#: src/errors.c:235
+#: src/errors.c:287
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs : erreur  : %s\n"
 
-#: src/errors.c:263
+#: src/errors.c:315
 #, c-format
 msgid "<truncated, original size %zu bytes>"
 msgstr "<tronqué, taille originale %zu octets>"
 
-#: src/errors.c:291
+#: src/errors.c:346
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch a échoué, regarder les messages d'erreur antérieurs"
 
-#: src/errors.c:294
+#: src/errors.c:349
 msgid ""
 "guestfs_launch failed.\n"
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 
-#: src/errors.c:304
+#: src/errors.c:361
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 "l'appliance a fermé la connexion de façon inattendue, voir les messages "
 "d'erreur précédents"
 
-#: src/errors.c:307
+#: src/errors.c:364
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 
-#: src/errors.c:317
+#: src/errors.c:376
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 
-#: src/errors.c:320
+#: src/errors.c:379
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: src/errors.c:337
+#: src/errors.c:402
 #, c-format
 msgid "%s, see debug messages above"
 msgstr "%s, voir les messages de débogage ci-dessus"
 
-#: src/errors.c:339
+#: src/errors.c:404
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr "%s : %s : %s, voir les messages de débogage ci-dessus"
 
-#: src/errors.c:344
+#: src/errors.c:409
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: src/errors.c:349
+#: src/errors.c:414
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -9061,49 +9069,49 @@ msgstr ""
 "FUSE n'est pas pris en charge dans cette version de libguestfs, car libfuse "
 "n'était pas disponible lors de la compilation de libguestfs"
 
-#: src/handle.c:132
+#: src/handle.c:138
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
 msgstr ""
 "libguestfs a été compilé avec un moteur par défaut invalide, utilisation du "
 "moteur « direct »"
 
-#: src/handle.c:134
+#: src/handle.c:140
 msgid "'direct' backend does not work"
 msgstr ""
 
-#: src/handle.c:189 src/handle.c:199
+#: src/handle.c:195 src/handle.c:205
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr ""
 
-#: src/handle.c:241
+#: src/handle.c:247
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr ""
 
-#: src/handle.c:322
+#: src/handle.c:328
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close : appelé deux fois sur le même identificateur\n"
 
-#: src/handle.c:526
+#: src/handle.c:539
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
 msgstr ""
 
-#: src/handle.c:579
+#: src/handle.c:592
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr ""
 
-#: src/handle.c:696
+#: src/handle.c:709
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
 msgstr ""
 
-#: src/handle.c:802
+#: src/handle.c:815
 msgid "setting not found"
 msgstr ""
 
@@ -9151,7 +9159,7 @@ msgstr "le fichier release %s est vide ou malformé"
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:318
 #: src/inspect-fs-unix.c:405 src/inspect-fs-unix.c:1262
 #: src/inspect-fs-unix.c:2028 src/inspect-fs.c:620 src/inspect-fs.c:666
-#: src/inspect.c:653
+#: src/inspect.c:663
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "la taille de %s est déraisonnablement grande (%<PRIi64> octets)"
@@ -9166,19 +9174,19 @@ msgstr ""
 msgid "could not parse integer in version number: %s"
 msgstr "n'a pas pu analyser en entier dans le numéro de version : %s"
 
-#: src/inspect.c:345
+#: src/inspect.c:354
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr "aucun invité Windows ou système administrateur n'a pu être déterminé"
 
-#: src/inspect.c:361
+#: src/inspect.c:370
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr "aucun invité Windows ou CurrentControlSet n'a pu être déterminé"
 
-#: src/inspect.c:691
+#: src/inspect.c:701
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "pas de données d'inspection : appeler guestfs_inspect_os en premier"
 
-#: src/inspect.c:701
+#: src/inspect.c:711
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -9187,17 +9195,17 @@ msgstr ""
 "%s : périphérique racine non trouvé : appeler seulement cette fonction avec "
 "un périphérique racine renvoyé précédemment par guestfs_inspect_os"
 
-#: src/launch-direct.c:133
+#: src/launch-direct.c:132
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr "caractère « %c » non fermé dans la ligne de commande près de : %s"
 
-#: src/launch-direct.c:152
+#: src/launch-direct.c:151
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "impossible d'analyser la chaîne guillemetée près de : %s"
 
-#: src/launch-direct.c:219
+#: src/launch-direct.c:218
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -9206,48 +9214,48 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:255 src/launch-uml.c:156
+#: src/launch-direct.c:254 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "vous devez appeler guestfs_add_drive avant guestfs_launch"
 
-#: src/launch-direct.c:836 src/launch-libvirt.c:596
+#: src/launch-direct.c:835 src/launch-libvirt.c:596
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu est lancé et a contacté le démon, mais l'état est != PRÊT"
 
-#: src/launch-direct.c:1225 src/launch-libvirt.c:1400
+#: src/launch-direct.c:1224 src/launch-libvirt.c:1400
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath : impossible de convertir « %s » en chemin absolu"
 
-#: src/launch-direct.c:1408
+#: src/launch-direct.c:1407
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1417
+#: src/launch-direct.c:1416
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1424
+#: src/launch-direct.c:1423
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1432
+#: src/launch-direct.c:1431
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1440
+#: src/launch-direct.c:1439
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1463
+#: src/launch-direct.c:1462
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -9408,36 +9416,36 @@ msgstr "impossible d'attacher le disque au domaine libvirt"
 msgid "could not detach disk from libvirt domain"
 msgstr "impossible de détacher le disque du domaine libvirt"
 
-#: src/launch-uml.c:96
+#: src/launch-uml.c:95
 msgid "uml backend does not support networking"
 msgstr ""
 
-#: src/launch-uml.c:100
+#: src/launch-uml.c:99
 msgid "uml backend does not support SMP"
 msgstr ""
 
-#: src/launch-uml.c:106
+#: src/launch-uml.c:105
 msgid "uml backend does not support remote drives"
 msgstr ""
 
-#: src/launch-uml.c:110
+#: src/launch-uml.c:109
 msgid "uml backend does not support non-raw-format drives"
 msgstr ""
 
-#: src/launch-uml.c:115
+#: src/launch-uml.c:114
 msgid "uml backend does not support drives with 'iface' parameter"
 msgstr ""
 
-#: src/launch-uml.c:120
+#: src/launch-uml.c:119
 msgid "uml backend does not support drives with 'label' parameter"
 msgstr ""
 
-#: src/launch-uml.c:126
+#: src/launch-uml.c:125
 msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: src/launch-uml.c:457
+#: src/launch-uml.c:456
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9459,32 +9467,32 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr "guestfsd contacté, mais état != READY"
 
-#: src/launch.c:60
+#: src/launch.c:58
 msgid "the libguestfs handle has already been launched"
 msgstr "l'identificateur libguestfs a déjà été lancé"
 
-#: src/launch.c:151
+#: src/launch.c:168
 msgid "get-pid can only be called after launch"
 msgstr "get-pid ne peut être appelé qu'après l'exécution"
 
-#: src/launch.c:157
+#: src/launch.c:174
 msgid "the current backend does not support 'get-pid'"
 msgstr "le moteur actuel ne prend pas en charge « get-pid »"
 
-#: src/launch.c:171
+#: src/launch.c:188
 msgid "the current backend does not allow max disks to be queried"
 msgstr "le moteur actuel ne permet pas d'interroger le nombre max de disques"
 
-#: src/launch.c:185
+#: src/launch.c:202
 msgid "qemu has not been launched yet"
 msgstr "qemu n'a pas encore été lancé"
 
-#: src/launch.c:256
+#: src/launch.c:273
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr "le paramètre « %s » est interdit"
 
-#: src/launch.c:429
+#: src/launch.c:469
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9641,7 +9649,7 @@ msgstr "osinfo : impossible de créer un nouveau contexte XPath"
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr "osinfo : %s : impossible d'évaluer l'expression XPath"
 
-#: src/proto.c:197
+#: src/proto.c:238
 #, c-format
 msgid ""
 "check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
@@ -9650,48 +9658,48 @@ msgstr ""
 "check_daemon_socket : 0x%x lu du démon, 0x%x attendu. Synchronisation du "
 "protocole perdue (c'est mal !)\n"
 
-#: src/proto.c:243
+#: src/proto.c:284
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header échoué"
 
-#: src/proto.c:252
+#: src/proto.c:293
 msgid "dispatch failed to marshal args"
 msgstr "la distribution a échoué à rassembler les arguments"
 
-#: src/proto.c:359 src/proto.c:856
+#: src/proto.c:387 src/proto.c:909
 msgid "operation cancelled by user"
 msgstr "opération annulée par l'utilisateur"
 
-#: src/proto.c:428
+#: src/proto.c:462
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk échoué (buf = %p, buflen = %zu)"
 
-#: src/proto.c:525
+#: src/proto.c:560
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "a reçu la signature magique de guestfsd, mais dans l'état %d"
 
-#: src/proto.c:544
+#: src/proto.c:579
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longeur du message (%u) > taille maximale possible (%d)"
 
-#: src/proto.c:815
+#: src/proto.c:865
 msgid "write to daemon socket"
 msgstr "écrire au socket du démon"
 
-#: src/proto.c:841
+#: src/proto.c:894
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data : indicateur inattendus reçus lors de la lecture des blocs "
 "de fichiers"
 
-#: src/proto.c:849
+#: src/proto.c:902
 msgid "failed to parse file chunk"
 msgstr "impossible d'analyser le bloc de fichier"
 
-#: src/proto.c:858
+#: src/proto.c:911
 msgid "file receive cancelled by daemon"
 msgstr "le fichier a reçu l'annulation par le démon"
 
@@ -9710,27 +9718,27 @@ msgstr "le répertoire temporaire « %s » n'est pas un répertoire"
 msgid "%s: cannot create temporary directory"
 msgstr "%s : impossible de créer un répertoire temporaire"
 
-#: src/utils.c:194
+#: src/utils.c:217
 #, c-format
 msgid "%s exited successfully"
 msgstr "%s s'est terminé avec succès"
 
-#: src/utils.c:197
+#: src/utils.c:220
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "%s s'est terminé avec l'état d'erreur %d"
 
-#: src/utils.c:201
+#: src/utils.c:224
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "%s a été tué par le signal %d (%s) "
 
-#: src/utils.c:205
+#: src/utils.c:228
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "%s a été arrêté par le signal %d (%s)"
 
-#: src/utils.c:209
+#: src/utils.c:232
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "%s s'est terminé pour une raison inconnue (état %d)"
@@ -9791,19 +9799,19 @@ msgstr ""
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:139 v2v/domainxml-c.c:210 v2v/domainxml-c.c:394
-#: v2v/domainxml-c.c:451
+#: v2v/domainxml-c.c:140 v2v/domainxml-c.c:211 v2v/domainxml-c.c:395
+#: v2v/domainxml-c.c:452
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:141 v2v/domainxml-c.c:212 v2v/domainxml-c.c:396
-#: v2v/domainxml-c.c:453
+#: v2v/domainxml-c.c:142 v2v/domainxml-c.c:213 v2v/domainxml-c.c:397
+#: v2v/domainxml-c.c:454
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
 
-#: v2v/domainxml-c.c:162
+#: v2v/domainxml-c.c:163
 #, c-format
 msgid ""
 "cannot find libvirt pool '%s': %s\n"
@@ -9814,39 +9822,39 @@ msgid ""
 "To set the pool which virt-v2v uses, add the `-os <pool>' option."
 msgstr ""
 
-#: v2v/domainxml-c.c:233 v2v/domainxml-c.c:477
+#: v2v/domainxml-c.c:234 v2v/domainxml-c.c:478
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:248
+#: v2v/domainxml-c.c:249
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:261
+#: v2v/domainxml-c.c:262
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:298
+#: v2v/domainxml-c.c:299
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:341
+#: v2v/domainxml-c.c:342
 #, c-format
 msgid "cannot find libvirt volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:351
+#: v2v/domainxml-c.c:352
 #, c-format
 msgid "cannot fetch XML description of volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:410
+#: v2v/domainxml-c.c:411
 #, c-format
 msgid "cannot get libvirt hypervisor capabilities: %s"
 msgstr ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-04-12 13:51+0100\n"
+"POT-Creation-Date: 2016-04-14 20:26+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -1270,30 +1270,42 @@ msgstr ""
 #: ../docs/guestfs-testing.pod:73 ../docs/guestfs-testing.pod:84
 #: ../docs/guestfs-testing.pod:90 ../docs/guestfs-testing.pod:198
 #: ../docs/guestfs-testing.pod:202 ../docs/guestfs-testing.pod:206
-#: ../edit/virt-edit.pod:302 ../edit/virt-edit.pod:307
-#: ../edit/virt-edit.pod:312 ../edit/virt-edit.pod:323
-#: ../edit/virt-edit.pod:327 ../fish/guestfish-actions.pod:760
-#: ../fish/guestfish-actions.pod:766 ../fish/guestfish-actions.pod:774
-#: ../fish/guestfish-actions.pod:781 ../fish/guestfish-actions.pod:788
-#: ../fish/guestfish-actions.pod:2445 ../fish/guestfish-actions.pod:2449
-#: ../fish/guestfish-actions.pod:2453 ../fish/guestfish-actions.pod:2457
-#: ../fish/guestfish-actions.pod:2465 ../fish/guestfish-actions.pod:2469
-#: ../fish/guestfish-actions.pod:2473 ../fish/guestfish-actions.pod:2483
-#: ../fish/guestfish-actions.pod:2487 ../fish/guestfish-actions.pod:2491
-#: ../fish/guestfish-actions.pod:2605 ../fish/guestfish-actions.pod:2609
-#: ../fish/guestfish-actions.pod:2614 ../fish/guestfish-actions.pod:2656
-#: ../fish/guestfish-actions.pod:2660 ../fish/guestfish-actions.pod:2665
-#: ../fish/guestfish-actions.pod:3264 ../fish/guestfish-actions.pod:3271
-#: ../fish/guestfish-actions.pod:3278 ../fish/guestfish-actions.pod:3964
-#: ../fish/guestfish-actions.pod:3970 ../fish/guestfish-actions.pod:3978
-#: ../fish/guestfish-actions.pod:3985 ../fish/guestfish-actions.pod:3992
-#: ../fish/guestfish.pod:467 ../fish/guestfish.pod:471
-#: ../fish/guestfish.pod:475 ../fish/guestfish.pod:479
-#: ../fish/guestfish.pod:1323 ../fish/guestfish.pod:1329
-#: ../fish/libguestfs-tools.conf.pod:22 ../fish/libguestfs-tools.conf.pod:26
-#: ../fish/libguestfs-tools.conf.pod:30 ../fish/libguestfs-tools.conf.pod:60
-#: ../fish/libguestfs-tools.conf.pod:65 ../fish/libguestfs-tools.conf.pod:69
-#: ../fish/libguestfs-tools.conf.pod:75
+#: ../docs/internal-documentation.pod:811
+#: ../docs/internal-documentation.pod:818
+#: ../docs/internal-documentation.pod:822
+#: ../docs/internal-documentation.pod:1269
+#: ../docs/internal-documentation.pod:1274
+#: ../docs/internal-documentation.pod:1302
+#: ../docs/internal-documentation.pod:1306
+#: ../docs/internal-documentation.pod:1476
+#: ../docs/internal-documentation.pod:1480
+#: ../docs/internal-documentation.pod:1566
+#: ../docs/internal-documentation.pod:1571
+#: ../docs/internal-documentation.pod:1638
+#: ../docs/internal-documentation.pod:1642 ../edit/virt-edit.pod:302
+#: ../edit/virt-edit.pod:307 ../edit/virt-edit.pod:312
+#: ../edit/virt-edit.pod:323 ../edit/virt-edit.pod:327
+#: ../fish/guestfish-actions.pod:760 ../fish/guestfish-actions.pod:766
+#: ../fish/guestfish-actions.pod:774 ../fish/guestfish-actions.pod:781
+#: ../fish/guestfish-actions.pod:788 ../fish/guestfish-actions.pod:2445
+#: ../fish/guestfish-actions.pod:2449 ../fish/guestfish-actions.pod:2453
+#: ../fish/guestfish-actions.pod:2457 ../fish/guestfish-actions.pod:2465
+#: ../fish/guestfish-actions.pod:2469 ../fish/guestfish-actions.pod:2473
+#: ../fish/guestfish-actions.pod:2483 ../fish/guestfish-actions.pod:2487
+#: ../fish/guestfish-actions.pod:2491 ../fish/guestfish-actions.pod:2605
+#: ../fish/guestfish-actions.pod:2609 ../fish/guestfish-actions.pod:2614
+#: ../fish/guestfish-actions.pod:2656 ../fish/guestfish-actions.pod:2660
+#: ../fish/guestfish-actions.pod:2665 ../fish/guestfish-actions.pod:3264
+#: ../fish/guestfish-actions.pod:3271 ../fish/guestfish-actions.pod:3278
+#: ../fish/guestfish-actions.pod:3964 ../fish/guestfish-actions.pod:3970
+#: ../fish/guestfish-actions.pod:3978 ../fish/guestfish-actions.pod:3985
+#: ../fish/guestfish-actions.pod:3992 ../fish/guestfish.pod:467
+#: ../fish/guestfish.pod:471 ../fish/guestfish.pod:475
+#: ../fish/guestfish.pod:479 ../fish/guestfish.pod:1323
+#: ../fish/guestfish.pod:1329 ../fish/libguestfs-tools.conf.pod:22
+#: ../fish/libguestfs-tools.conf.pod:26 ../fish/libguestfs-tools.conf.pod:30
+#: ../fish/libguestfs-tools.conf.pod:60 ../fish/libguestfs-tools.conf.pod:65
+#: ../fish/libguestfs-tools.conf.pod:69 ../fish/libguestfs-tools.conf.pod:75
 #: ../golang/examples/guestfs-golang.pod:58
 #: ../golang/examples/guestfs-golang.pod:62 ../inspector/virt-inspector.pod:525
 #: ../inspector/virt-inspector.pod:529 ../p2v/virt-p2v-make-kickstart.pod:58
@@ -2875,7 +2887,9 @@ msgstr ""
 #: ../docs/guestfs-faq.pod:721 ../docs/guestfs-faq.pod:927
 #: ../docs/guestfs-hacking.pod:48 ../docs/guestfs-performance.pod:168
 #: ../docs/guestfs-performance.pod:210 ../docs/guestfs-recipes.pod:457
-#: ../docs/guestfs-security.pod:177 ../p2v/virt-p2v.pod:514
+#: ../docs/guestfs-security.pod:177 ../docs/internal-documentation.pod:686
+#: ../docs/internal-documentation.pod:1176
+#: ../docs/internal-documentation.pod:1322 ../p2v/virt-p2v.pod:514
 #: ../rescue/virt-rescue.pod:316 ../resize/virt-resize.pod:29
 #: ../resize/virt-resize.pod:649 ../resize/virt-resize.pod:762
 #: ../sparsify/virt-sparsify.pod:364 ../src/guestfs.pod:520
@@ -2897,7 +2911,9 @@ msgstr ""
 #: ../docs/guestfs-faq.pod:731 ../docs/guestfs-faq.pod:931
 #: ../docs/guestfs-hacking.pod:73 ../docs/guestfs-performance.pod:174
 #: ../docs/guestfs-performance.pod:217 ../docs/guestfs-recipes.pod:463
-#: ../docs/guestfs-security.pod:181 ../p2v/virt-p2v.pod:522
+#: ../docs/guestfs-security.pod:181 ../docs/internal-documentation.pod:692
+#: ../docs/internal-documentation.pod:1181
+#: ../docs/internal-documentation.pod:1328 ../p2v/virt-p2v.pod:522
 #: ../rescue/virt-rescue.pod:324 ../resize/virt-resize.pod:42
 #: ../resize/virt-resize.pod:656 ../resize/virt-resize.pod:780
 #: ../sparsify/virt-sparsify.pod:371 ../src/guestfs.pod:526
@@ -2918,11 +2934,13 @@ msgstr ""
 #: ../customize/virt-customize.pod:170 ../docs/guestfs-faq.pod:505
 #: ../docs/guestfs-faq.pod:736 ../docs/guestfs-faq.pod:935
 #: ../docs/guestfs-performance.pod:223 ../docs/guestfs-recipes.pod:469
-#: ../p2v/virt-p2v.pod:537 ../rescue/virt-rescue.pod:333
-#: ../resize/virt-resize.pod:50 ../resize/virt-resize.pod:662
-#: ../sparsify/virt-sparsify.pod:377 ../src/guestfs.pod:537
-#: ../src/guestfs.pod:1875 ../src/guestfs.pod:2217 ../v2v/virt-v2v.pod:1408
-#: ../v2v/virt-v2v.pod:1825
+#: ../docs/internal-documentation.pod:697
+#: ../docs/internal-documentation.pod:1186
+#: ../docs/internal-documentation.pod:1336 ../p2v/virt-p2v.pod:537
+#: ../rescue/virt-rescue.pod:333 ../resize/virt-resize.pod:50
+#: ../resize/virt-resize.pod:662 ../sparsify/virt-sparsify.pod:377
+#: ../src/guestfs.pod:537 ../src/guestfs.pod:1875 ../src/guestfs.pod:2217
+#: ../v2v/virt-v2v.pod:1408 ../v2v/virt-v2v.pod:1825
 msgid "3."
 msgstr "3."
 
@@ -2936,7 +2954,8 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:414 ../customize/virt-customize.pod:177
-#: ../docs/guestfs-faq.pod:939 ../p2v/virt-p2v.pod:554
+#: ../docs/guestfs-faq.pod:939 ../docs/internal-documentation.pod:702
+#: ../docs/internal-documentation.pod:1346 ../p2v/virt-p2v.pod:554
 #: ../rescue/virt-rescue.pod:342 ../resize/virt-resize.pod:59
 #: ../v2v/virt-v2v.pod:1429
 msgid "4."
@@ -4030,10 +4049,12 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:959 ../docs/guestfs-recipes.pod:310
-#: ../fish/guestfish-actions.pod:2652 ../fish/guestfish-actions.pod:3260
-#: ../fish/guestfish-actions.pod:3960 ../src/guestfs-actions.pod:4449
-#: ../src/guestfs-actions.pod:5442 ../src/guestfs-actions.pod:6431
-#: ../src/guestfs.pod:811 ../src/guestfs.pod:2487 ../tools/virt-win-reg:750
+#: ../docs/internal-documentation.pod:1172
+#: ../docs/internal-documentation.pod:1562 ../fish/guestfish-actions.pod:2652
+#: ../fish/guestfish-actions.pod:3260 ../fish/guestfish-actions.pod:3960
+#: ../src/guestfs-actions.pod:4449 ../src/guestfs-actions.pod:5442
+#: ../src/guestfs-actions.pod:6431 ../src/guestfs.pod:811
+#: ../src/guestfs.pod:2487 ../tools/virt-win-reg:750
 msgid "Notes:"
 msgstr ""
 
@@ -14482,7 +14503,8 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../docs/guestfs-faq.pod:947 ../rescue/virt-rescue.pod:350
+#: ../docs/guestfs-faq.pod:947 ../docs/internal-documentation.pod:1356
+#: ../rescue/virt-rescue.pod:350
 msgid "5."
 msgstr ""
 
@@ -34469,975 +34491,2962 @@ msgstr ""
 
 #. type: =head2
 #: ../docs/internal-documentation.pod:1
-msgid "F<.gnulib/lib/rijndael-alg-fst.c>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3 ../docs/internal-documentation.pod:740
-#, no-wrap
-msgid " \n"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:4
-#, fuzzy, no-wrap
-#| msgid ""
-#| " #include <guestfs.h>\n"
-#| " \n"
-msgid ""
-" #include \"rijndael-alg-fst.h\"\n"
-" \n"
-msgstr ""
-" #include <guestfs.h>\n"
-" \n"
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:6
-#, no-wrap
-msgid ""
-" /*\n"
-" Te0[x] = S [x].[02, 01, 01, 03];\n"
-" Te1[x] = S [x].[03, 02, 01, 01];\n"
-" Te2[x] = S [x].[01, 03, 02, 01];\n"
-" Te3[x] = S [x].[01, 01, 03, 02];\n"
-" Te4[x] = S [x].[01, 01, 01, 01];\n"
-" \n"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:13
-#, no-wrap
-msgid ""
-" Td0[x] = Si[x].[0e, 09, 0d, 0b];\n"
-" Td1[x] = Si[x].[0b, 0e, 09, 0d];\n"
-" Td2[x] = Si[x].[0d, 0b, 0e, 09];\n"
-" Td3[x] = Si[x].[09, 0d, 0b, 0e];\n"
-" Td4[x] = Si[x].[01, 01, 01, 01];\n"
-" */\n"
-" \n"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:20
-#, no-wrap
-msgid ""
-" static const uint32_t Te0[256] = {\n"
-"   0xc66363a5, 0xf87c7c84, 0xee777799, 0xf67b7b8d,\n"
-"   0xfff2f20d, 0xd66b6bbd, 0xde6f6fb1, 0x91c5c554,\n"
-"   0x60303050, 0x02010103, 0xce6767a9, 0x562b2b7d,\n"
-"   0xe7fefe19, 0xb5d7d762, 0x4dababe6, 0xec76769a,\n"
-"   0x8fcaca45, 0x1f82829d, 0x89c9c940, 0xfa7d7d87,\n"
-"   0xeffafa15, 0xb25959eb, 0x8e4747c9, 0xfbf0f00b,\n"
-"   0x41adadec, 0xb3d4d467, 0x5fa2a2fd, 0x45afafea,\n"
-"   0x239c9cbf, 0x53a4a4f7, 0xe4727296, 0x9bc0c05b,\n"
-"   0x75b7b7c2, 0xe1fdfd1c, 0x3d9393ae, 0x4c26266a,\n"
-"   0x6c36365a, 0x7e3f3f41, 0xf5f7f702, 0x83cccc4f,\n"
-"   0x6834345c, 0x51a5a5f4, 0xd1e5e534, 0xf9f1f108,\n"
-"   0xe2717193, 0xabd8d873, 0x62313153, 0x2a15153f,\n"
-"   0x0804040c, 0x95c7c752, 0x46232365, 0x9dc3c35e,\n"
-"   0x30181828, 0x379696a1, 0x0a05050f, 0x2f9a9ab5,\n"
-"   0x0e070709, 0x24121236, 0x1b80809b, 0xdfe2e23d,\n"
-"   0xcdebeb26, 0x4e272769, 0x7fb2b2cd, 0xea75759f,\n"
-"   0x1209091b, 0x1d83839e, 0x582c2c74, 0x341a1a2e,\n"
-"   0x361b1b2d, 0xdc6e6eb2, 0xb45a5aee, 0x5ba0a0fb,\n"
-"   0xa45252f6, 0x763b3b4d, 0xb7d6d661, 0x7db3b3ce,\n"
-"   0x5229297b, 0xdde3e33e, 0x5e2f2f71, 0x13848497,\n"
-"   0xa65353f5, 0xb9d1d168, 0x00000000, 0xc1eded2c,\n"
-"   0x40202060, 0xe3fcfc1f, 0x79b1b1c8, 0xb65b5bed,\n"
-"   0xd46a6abe, 0x8dcbcb46, 0x67bebed9, 0x7239394b,\n"
-"   0x944a4ade, 0x984c4cd4, 0xb05858e8, 0x85cfcf4a,\n"
-"   0xbbd0d06b, 0xc5efef2a, 0x4faaaae5, 0xedfbfb16,\n"
-"   0x864343c5, 0x9a4d4dd7, 0x66333355, 0x11858594,\n"
-"   0x8a4545cf, 0xe9f9f910, 0x04020206, 0xfe7f7f81,\n"
-"   0xa05050f0, 0x783c3c44, 0x259f9fba, 0x4ba8a8e3,\n"
-"   0xa25151f3, 0x5da3a3fe, 0x804040c0, 0x058f8f8a,\n"
-"   0x3f9292ad, 0x219d9dbc, 0x70383848, 0xf1f5f504,\n"
-"   0x63bcbcdf, 0x77b6b6c1, 0xafdada75, 0x42212163,\n"
-"   0x20101030, 0xe5ffff1a, 0xfdf3f30e, 0xbfd2d26d,\n"
-"   0x81cdcd4c, 0x180c0c14, 0x26131335, 0xc3ecec2f,\n"
-"   0xbe5f5fe1, 0x359797a2, 0x884444cc, 0x2e171739,\n"
-"   0x93c4c457, 0x55a7a7f2, 0xfc7e7e82, 0x7a3d3d47,\n"
-"   0xc86464ac, 0xba5d5de7, 0x3219192b, 0xe6737395,\n"
-"   0xc06060a0, 0x19818198, 0x9e4f4fd1, 0xa3dcdc7f,\n"
-"   0x44222266, 0x542a2a7e, 0x3b9090ab, 0x0b888883,\n"
-"   0x8c4646ca, 0xc7eeee29, 0x6bb8b8d3, 0x2814143c,\n"
-"   0xa7dede79, 0xbc5e5ee2, 0x160b0b1d, 0xaddbdb76,\n"
-"   0xdbe0e03b, 0x64323256, 0x743a3a4e, 0x140a0a1e,\n"
-"   0x924949db, 0x0c06060a, 0x4824246c, 0xb85c5ce4,\n"
-"   0x9fc2c25d, 0xbdd3d36e, 0x43acacef, 0xc46262a6,\n"
-"   0x399191a8, 0x319595a4, 0xd3e4e437, 0xf279798b,\n"
-"   0xd5e7e732, 0x8bc8c843, 0x6e373759, 0xda6d6db7,\n"
-"   0x018d8d8c, 0xb1d5d564, 0x9c4e4ed2, 0x49a9a9e0,\n"
-"   0xd86c6cb4, 0xac5656fa, 0xf3f4f407, 0xcfeaea25,\n"
-"   0xca6565af, 0xf47a7a8e, 0x47aeaee9, 0x10080818,\n"
-"   0x6fbabad5, 0xf0787888, 0x4a25256f, 0x5c2e2e72,\n"
-"   0x381c1c24, 0x57a6a6f1, 0x73b4b4c7, 0x97c6c651,\n"
-"   0xcbe8e823, 0xa1dddd7c, 0xe874749c, 0x3e1f1f21,\n"
-"   0x964b4bdd, 0x61bdbddc, 0x0d8b8b86, 0x0f8a8a85,\n"
-"   0xe0707090, 0x7c3e3e42, 0x71b5b5c4, 0xcc6666aa,\n"
-"   0x904848d8, 0x06030305, 0xf7f6f601, 0x1c0e0e12,\n"
-"   0xc26161a3, 0x6a35355f, 0xae5757f9, 0x69b9b9d0,\n"
-"   0x17868691, 0x99c1c158, 0x3a1d1d27, 0x279e9eb9,\n"
-"   0xd9e1e138, 0xebf8f813, 0x2b9898b3, 0x22111133,\n"
-"   0xd26969bb, 0xa9d9d970, 0x078e8e89, 0x339494a7,\n"
-"   0x2d9b9bb6, 0x3c1e1e22, 0x15878792, 0xc9e9e920,\n"
-"   0x87cece49, 0xaa5555ff, 0x50282878, 0xa5dfdf7a,\n"
-"   0x038c8c8f, 0x59a1a1f8, 0x09898980, 0x1a0d0d17,\n"
-"   0x65bfbfda, 0xd7e6e631, 0x844242c6, 0xd06868b8,\n"
-"   0x824141c3, 0x299999b0, 0x5a2d2d77, 0x1e0f0f11,\n"
-"   0x7bb0b0cb, 0xa85454fc, 0x6dbbbbd6, 0x2c16163a,\n"
-" };\n"
-" static const uint32_t Te1[256] = {\n"
-"   0xa5c66363, 0x84f87c7c, 0x99ee7777, 0x8df67b7b,\n"
-"   0x0dfff2f2, 0xbdd66b6b, 0xb1de6f6f, 0x5491c5c5,\n"
-"   0x50603030, 0x03020101, 0xa9ce6767, 0x7d562b2b,\n"
-"   0x19e7fefe, 0x62b5d7d7, 0xe64dabab, 0x9aec7676,\n"
-"   0x458fcaca, 0x9d1f8282, 0x4089c9c9, 0x87fa7d7d,\n"
-"   0x15effafa, 0xebb25959, 0xc98e4747, 0x0bfbf0f0,\n"
-"   0xec41adad, 0x67b3d4d4, 0xfd5fa2a2, 0xea45afaf,\n"
-"   0xbf239c9c, 0xf753a4a4, 0x96e47272, 0x5b9bc0c0,\n"
-"   0xc275b7b7, 0x1ce1fdfd, 0xae3d9393, 0x6a4c2626,\n"
-"   0x5a6c3636, 0x417e3f3f, 0x02f5f7f7, 0x4f83cccc,\n"
-"   0x5c683434, 0xf451a5a5, 0x34d1e5e5, 0x08f9f1f1,\n"
-"   0x93e27171, 0x73abd8d8, 0x53623131, 0x3f2a1515,\n"
-"   0x0c080404, 0x5295c7c7, 0x65462323, 0x5e9dc3c3,\n"
-"   0x28301818, 0xa1379696, 0x0f0a0505, 0xb52f9a9a,\n"
-"   0x090e0707, 0x36241212, 0x9b1b8080, 0x3ddfe2e2,\n"
-"   0x26cdebeb, 0x694e2727, 0xcd7fb2b2, 0x9fea7575,\n"
-"   0x1b120909, 0x9e1d8383, 0x74582c2c, 0x2e341a1a,\n"
-"   0x2d361b1b, 0xb2dc6e6e, 0xeeb45a5a, 0xfb5ba0a0,\n"
-"   0xf6a45252, 0x4d763b3b, 0x61b7d6d6, 0xce7db3b3,\n"
-"   0x7b522929, 0x3edde3e3, 0x715e2f2f, 0x97138484,\n"
-"   0xf5a65353, 0x68b9d1d1, 0x00000000, 0x2cc1eded,\n"
-"   0x60402020, 0x1fe3fcfc, 0xc879b1b1, 0xedb65b5b,\n"
-"   0xbed46a6a, 0x468dcbcb, 0xd967bebe, 0x4b723939,\n"
-"   0xde944a4a, 0xd4984c4c, 0xe8b05858, 0x4a85cfcf,\n"
-"   0x6bbbd0d0, 0x2ac5efef, 0xe54faaaa, 0x16edfbfb,\n"
-"   0xc5864343, 0xd79a4d4d, 0x55663333, 0x94118585,\n"
-"   0xcf8a4545, 0x10e9f9f9, 0x06040202, 0x81fe7f7f,\n"
-"   0xf0a05050, 0x44783c3c, 0xba259f9f, 0xe34ba8a8,\n"
-"   0xf3a25151, 0xfe5da3a3, 0xc0804040, 0x8a058f8f,\n"
-"   0xad3f9292, 0xbc219d9d, 0x48703838, 0x04f1f5f5,\n"
-"   0xdf63bcbc, 0xc177b6b6, 0x75afdada, 0x63422121,\n"
-"   0x30201010, 0x1ae5ffff, 0x0efdf3f3, 0x6dbfd2d2,\n"
-"   0x4c81cdcd, 0x14180c0c, 0x35261313, 0x2fc3ecec,\n"
-"   0xe1be5f5f, 0xa2359797, 0xcc884444, 0x392e1717,\n"
-"   0x5793c4c4, 0xf255a7a7, 0x82fc7e7e, 0x477a3d3d,\n"
-"   0xacc86464, 0xe7ba5d5d, 0x2b321919, 0x95e67373,\n"
-"   0xa0c06060, 0x98198181, 0xd19e4f4f, 0x7fa3dcdc,\n"
-"   0x66442222, 0x7e542a2a, 0xab3b9090, 0x830b8888,\n"
-"   0xca8c4646, 0x29c7eeee, 0xd36bb8b8, 0x3c281414,\n"
-"   0x79a7dede, 0xe2bc5e5e, 0x1d160b0b, 0x76addbdb,\n"
-"   0x3bdbe0e0, 0x56643232, 0x4e743a3a, 0x1e140a0a,\n"
-"   0xdb924949, 0x0a0c0606, 0x6c482424, 0xe4b85c5c,\n"
-"   0x5d9fc2c2, 0x6ebdd3d3, 0xef43acac, 0xa6c46262,\n"
-"   0xa8399191, 0xa4319595, 0x37d3e4e4, 0x8bf27979,\n"
-"   0x32d5e7e7, 0x438bc8c8, 0x596e3737, 0xb7da6d6d,\n"
-"   0x8c018d8d, 0x64b1d5d5, 0xd29c4e4e, 0xe049a9a9,\n"
-"   0xb4d86c6c, 0xfaac5656, 0x07f3f4f4, 0x25cfeaea,\n"
-"   0xafca6565, 0x8ef47a7a, 0xe947aeae, 0x18100808,\n"
-"   0xd56fbaba, 0x88f07878, 0x6f4a2525, 0x725c2e2e,\n"
-"   0x24381c1c, 0xf157a6a6, 0xc773b4b4, 0x5197c6c6,\n"
-"   0x23cbe8e8, 0x7ca1dddd, 0x9ce87474, 0x213e1f1f,\n"
-"   0xdd964b4b, 0xdc61bdbd, 0x860d8b8b, 0x850f8a8a,\n"
-"   0x90e07070, 0x427c3e3e, 0xc471b5b5, 0xaacc6666,\n"
-"   0xd8904848, 0x05060303, 0x01f7f6f6, 0x121c0e0e,\n"
-"   0xa3c26161, 0x5f6a3535, 0xf9ae5757, 0xd069b9b9,\n"
-"   0x91178686, 0x5899c1c1, 0x273a1d1d, 0xb9279e9e,\n"
-"   0x38d9e1e1, 0x13ebf8f8, 0xb32b9898, 0x33221111,\n"
-"   0xbbd26969, 0x70a9d9d9, 0x89078e8e, 0xa7339494,\n"
-"   0xb62d9b9b, 0x223c1e1e, 0x92158787, 0x20c9e9e9,\n"
-"   0x4987cece, 0xffaa5555, 0x78502828, 0x7aa5dfdf,\n"
-"   0x8f038c8c, 0xf859a1a1, 0x80098989, 0x171a0d0d,\n"
-"   0xda65bfbf, 0x31d7e6e6, 0xc6844242, 0xb8d06868,\n"
-"   0xc3824141, 0xb0299999, 0x775a2d2d, 0x111e0f0f,\n"
-"   0xcb7bb0b0, 0xfca85454, 0xd66dbbbb, 0x3a2c1616,\n"
-" };\n"
-" static const uint32_t Te2[256] = {\n"
-"   0x63a5c663, 0x7c84f87c, 0x7799ee77, 0x7b8df67b,\n"
-"   0xf20dfff2, 0x6bbdd66b, 0x6fb1de6f, 0xc55491c5,\n"
-"   0x30506030, 0x01030201, 0x67a9ce67, 0x2b7d562b,\n"
-"   0xfe19e7fe, 0xd762b5d7, 0xabe64dab, 0x769aec76,\n"
-"   0xca458fca, 0x829d1f82, 0xc94089c9, 0x7d87fa7d,\n"
-"   0xfa15effa, 0x59ebb259, 0x47c98e47, 0xf00bfbf0,\n"
-"   0xadec41ad, 0xd467b3d4, 0xa2fd5fa2, 0xafea45af,\n"
-"   0x9cbf239c, 0xa4f753a4, 0x7296e472, 0xc05b9bc0,\n"
-"   0xb7c275b7, 0xfd1ce1fd, 0x93ae3d93, 0x266a4c26,\n"
-"   0x365a6c36, 0x3f417e3f, 0xf702f5f7, 0xcc4f83cc,\n"
-"   0x345c6834, 0xa5f451a5, 0xe534d1e5, 0xf108f9f1,\n"
-"   0x7193e271, 0xd873abd8, 0x31536231, 0x153f2a15,\n"
-"   0x040c0804, 0xc75295c7, 0x23654623, 0xc35e9dc3,\n"
-"   0x18283018, 0x96a13796, 0x050f0a05, 0x9ab52f9a,\n"
-"   0x07090e07, 0x12362412, 0x809b1b80, 0xe23ddfe2,\n"
-"   0xeb26cdeb, 0x27694e27, 0xb2cd7fb2, 0x759fea75,\n"
-"   0x091b1209, 0x839e1d83, 0x2c74582c, 0x1a2e341a,\n"
-"   0x1b2d361b, 0x6eb2dc6e, 0x5aeeb45a, 0xa0fb5ba0,\n"
-"   0x52f6a452, 0x3b4d763b, 0xd661b7d6, 0xb3ce7db3,\n"
-"   0x297b5229, 0xe33edde3, 0x2f715e2f, 0x84971384,\n"
-"   0x53f5a653, 0xd168b9d1, 0x00000000, 0xed2cc1ed,\n"
-"   0x20604020, 0xfc1fe3fc, 0xb1c879b1, 0x5bedb65b,\n"
-"   0x6abed46a, 0xcb468dcb, 0xbed967be, 0x394b7239,\n"
-"   0x4ade944a, 0x4cd4984c, 0x58e8b058, 0xcf4a85cf,\n"
-"   0xd06bbbd0, 0xef2ac5ef, 0xaae54faa, 0xfb16edfb,\n"
-"   0x43c58643, 0x4dd79a4d, 0x33556633, 0x85941185,\n"
-"   0x45cf8a45, 0xf910e9f9, 0x02060402, 0x7f81fe7f,\n"
-"   0x50f0a050, 0x3c44783c, 0x9fba259f, 0xa8e34ba8,\n"
-"   0x51f3a251, 0xa3fe5da3, 0x40c08040, 0x8f8a058f,\n"
-"   0x92ad3f92, 0x9dbc219d, 0x38487038, 0xf504f1f5,\n"
-"   0xbcdf63bc, 0xb6c177b6, 0xda75afda, 0x21634221,\n"
-"   0x10302010, 0xff1ae5ff, 0xf30efdf3, 0xd26dbfd2,\n"
-"   0xcd4c81cd, 0x0c14180c, 0x13352613, 0xec2fc3ec,\n"
-"   0x5fe1be5f, 0x97a23597, 0x44cc8844, 0x17392e17,\n"
-"   0xc45793c4, 0xa7f255a7, 0x7e82fc7e, 0x3d477a3d,\n"
-"   0x64acc864, 0x5de7ba5d, 0x192b3219, 0x7395e673,\n"
-"   0x60a0c060, 0x81981981, 0x4fd19e4f, 0xdc7fa3dc,\n"
-"   0x22664422, 0x2a7e542a, 0x90ab3b90, 0x88830b88,\n"
-"   0x46ca8c46, 0xee29c7ee, 0xb8d36bb8, 0x143c2814,\n"
-"   0xde79a7de, 0x5ee2bc5e, 0x0b1d160b, 0xdb76addb,\n"
-"   0xe03bdbe0, 0x32566432, 0x3a4e743a, 0x0a1e140a,\n"
-"   0x49db9249, 0x060a0c06, 0x246c4824, 0x5ce4b85c,\n"
-"   0xc25d9fc2, 0xd36ebdd3, 0xacef43ac, 0x62a6c462,\n"
-"   0x91a83991, 0x95a43195, 0xe437d3e4, 0x798bf279,\n"
-"   0xe732d5e7, 0xc8438bc8, 0x37596e37, 0x6db7da6d,\n"
-"   0x8d8c018d, 0xd564b1d5, 0x4ed29c4e, 0xa9e049a9,\n"
-"   0x6cb4d86c, 0x56faac56, 0xf407f3f4, 0xea25cfea,\n"
-"   0x65afca65, 0x7a8ef47a, 0xaee947ae, 0x08181008,\n"
-"   0xbad56fba, 0x7888f078, 0x256f4a25, 0x2e725c2e,\n"
-"   0x1c24381c, 0xa6f157a6, 0xb4c773b4, 0xc65197c6,\n"
-"   0xe823cbe8, 0xdd7ca1dd, 0x749ce874, 0x1f213e1f,\n"
-"   0x4bdd964b, 0xbddc61bd, 0x8b860d8b, 0x8a850f8a,\n"
-"   0x7090e070, 0x3e427c3e, 0xb5c471b5, 0x66aacc66,\n"
-"   0x48d89048, 0x03050603, 0xf601f7f6, 0x0e121c0e,\n"
-"   0x61a3c261, 0x355f6a35, 0x57f9ae57, 0xb9d069b9,\n"
-"   0x86911786, 0xc15899c1, 0x1d273a1d, 0x9eb9279e,\n"
-"   0xe138d9e1, 0xf813ebf8, 0x98b32b98, 0x11332211,\n"
-"   0x69bbd269, 0xd970a9d9, 0x8e89078e, 0x94a73394,\n"
-"   0x9bb62d9b, 0x1e223c1e, 0x87921587, 0xe920c9e9,\n"
-"   0xce4987ce, 0x55ffaa55, 0x28785028, 0xdf7aa5df,\n"
-"   0x8c8f038c, 0xa1f859a1, 0x89800989, 0x0d171a0d,\n"
-"   0xbfda65bf, 0xe631d7e6, 0x42c68442, 0x68b8d068,\n"
-"   0x41c38241, 0x99b02999, 0x2d775a2d, 0x0f111e0f,\n"
-"   0xb0cb7bb0, 0x54fca854, 0xbbd66dbb, 0x163a2c16,\n"
-" };\n"
-" static const uint32_t Te3[256] = {\n"
-"   0x6363a5c6, 0x7c7c84f8, 0x777799ee, 0x7b7b8df6,\n"
-"   0xf2f20dff, 0x6b6bbdd6, 0x6f6fb1de, 0xc5c55491,\n"
-"   0x30305060, 0x01010302, 0x6767a9ce, 0x2b2b7d56,\n"
-"   0xfefe19e7, 0xd7d762b5, 0xababe64d, 0x76769aec,\n"
-"   0xcaca458f, 0x82829d1f, 0xc9c94089, 0x7d7d87fa,\n"
-"   0xfafa15ef, 0x5959ebb2, 0x4747c98e, 0xf0f00bfb,\n"
-"   0xadadec41, 0xd4d467b3, 0xa2a2fd5f, 0xafafea45,\n"
-"   0x9c9cbf23, 0xa4a4f753, 0x727296e4, 0xc0c05b9b,\n"
-"   0xb7b7c275, 0xfdfd1ce1, 0x9393ae3d, 0x26266a4c,\n"
-"   0x36365a6c, 0x3f3f417e, 0xf7f702f5, 0xcccc4f83,\n"
-"   0x34345c68, 0xa5a5f451, 0xe5e534d1, 0xf1f108f9,\n"
-"   0x717193e2, 0xd8d873ab, 0x31315362, 0x15153f2a,\n"
-"   0x04040c08, 0xc7c75295, 0x23236546, 0xc3c35e9d,\n"
-"   0x18182830, 0x9696a137, 0x05050f0a, 0x9a9ab52f,\n"
-"   0x0707090e, 0x12123624, 0x80809b1b, 0xe2e23ddf,\n"
-"   0xebeb26cd, 0x2727694e, 0xb2b2cd7f, 0x75759fea,\n"
-"   0x09091b12, 0x83839e1d, 0x2c2c7458, 0x1a1a2e34,\n"
-"   0x1b1b2d36, 0x6e6eb2dc, 0x5a5aeeb4, 0xa0a0fb5b,\n"
-"   0x5252f6a4, 0x3b3b4d76, 0xd6d661b7, 0xb3b3ce7d,\n"
-"   0x29297b52, 0xe3e33edd, 0x2f2f715e, 0x84849713,\n"
-"   0x5353f5a6, 0xd1d168b9, 0x00000000, 0xeded2cc1,\n"
-"   0x20206040, 0xfcfc1fe3, 0xb1b1c879, 0x5b5bedb6,\n"
-"   0x6a6abed4, 0xcbcb468d, 0xbebed967, 0x39394b72,\n"
-"   0x4a4ade94, 0x4c4cd498, 0x5858e8b0, 0xcfcf4a85,\n"
-"   0xd0d06bbb, 0xefef2ac5, 0xaaaae54f, 0xfbfb16ed,\n"
-"   0x4343c586, 0x4d4dd79a, 0x33335566, 0x85859411,\n"
-"   0x4545cf8a, 0xf9f910e9, 0x02020604, 0x7f7f81fe,\n"
-"   0x5050f0a0, 0x3c3c4478, 0x9f9fba25, 0xa8a8e34b,\n"
-"   0x5151f3a2, 0xa3a3fe5d, 0x4040c080, 0x8f8f8a05,\n"
-"   0x9292ad3f, 0x9d9dbc21, 0x38384870, 0xf5f504f1,\n"
-"   0xbcbcdf63, 0xb6b6c177, 0xdada75af, 0x21216342,\n"
-"   0x10103020, 0xffff1ae5, 0xf3f30efd, 0xd2d26dbf,\n"
-"   0xcdcd4c81, 0x0c0c1418, 0x13133526, 0xecec2fc3,\n"
-"   0x5f5fe1be, 0x9797a235, 0x4444cc88, 0x1717392e,\n"
-"   0xc4c45793, 0xa7a7f255, 0x7e7e82fc, 0x3d3d477a,\n"
-"   0x6464acc8, 0x5d5de7ba, 0x19192b32, 0x737395e6,\n"
-"   0x6060a0c0, 0x81819819, 0x4f4fd19e, 0xdcdc7fa3,\n"
-"   0x22226644, 0x2a2a7e54, 0x9090ab3b, 0x8888830b,\n"
-"   0x4646ca8c, 0xeeee29c7, 0xb8b8d36b, 0x14143c28,\n"
-"   0xdede79a7, 0x5e5ee2bc, 0x0b0b1d16, 0xdbdb76ad,\n"
-"   0xe0e03bdb, 0x32325664, 0x3a3a4e74, 0x0a0a1e14,\n"
-"   0x4949db92, 0x06060a0c, 0x24246c48, 0x5c5ce4b8,\n"
-"   0xc2c25d9f, 0xd3d36ebd, 0xacacef43, 0x6262a6c4,\n"
-"   0x9191a839, 0x9595a431, 0xe4e437d3, 0x79798bf2,\n"
-"   0xe7e732d5, 0xc8c8438b, 0x3737596e, 0x6d6db7da,\n"
-"   0x8d8d8c01, 0xd5d564b1, 0x4e4ed29c, 0xa9a9e049,\n"
-"   0x6c6cb4d8, 0x5656faac, 0xf4f407f3, 0xeaea25cf,\n"
-"   0x6565afca, 0x7a7a8ef4, 0xaeaee947, 0x08081810,\n"
-"   0xbabad56f, 0x787888f0, 0x25256f4a, 0x2e2e725c,\n"
-"   0x1c1c2438, 0xa6a6f157, 0xb4b4c773, 0xc6c65197,\n"
-"   0xe8e823cb, 0xdddd7ca1, 0x74749ce8, 0x1f1f213e,\n"
-"   0x4b4bdd96, 0xbdbddc61, 0x8b8b860d, 0x8a8a850f,\n"
-"   0x707090e0, 0x3e3e427c, 0xb5b5c471, 0x6666aacc,\n"
-"   0x4848d890, 0x03030506, 0xf6f601f7, 0x0e0e121c,\n"
-"   0x6161a3c2, 0x35355f6a, 0x5757f9ae, 0xb9b9d069,\n"
-"   0x86869117, 0xc1c15899, 0x1d1d273a, 0x9e9eb927,\n"
-"   0xe1e138d9, 0xf8f813eb, 0x9898b32b, 0x11113322,\n"
-"   0x6969bbd2, 0xd9d970a9, 0x8e8e8907, 0x9494a733,\n"
-"   0x9b9bb62d, 0x1e1e223c, 0x87879215, 0xe9e920c9,\n"
-"   0xcece4987, 0x5555ffaa, 0x28287850, 0xdfdf7aa5,\n"
-"   0x8c8c8f03, 0xa1a1f859, 0x89898009, 0x0d0d171a,\n"
-"   0xbfbfda65, 0xe6e631d7, 0x4242c684, 0x6868b8d0,\n"
-"   0x4141c382, 0x9999b029, 0x2d2d775a, 0x0f0f111e,\n"
-"   0xb0b0cb7b, 0x5454fca8, 0xbbbbd66d, 0x16163a2c,\n"
-" };\n"
-" static const uint32_t Te4[256] = {\n"
-"   0x63636363, 0x7c7c7c7c, 0x77777777, 0x7b7b7b7b,\n"
-"   0xf2f2f2f2, 0x6b6b6b6b, 0x6f6f6f6f, 0xc5c5c5c5,\n"
-"   0x30303030, 0x01010101, 0x67676767, 0x2b2b2b2b,\n"
-"   0xfefefefe, 0xd7d7d7d7, 0xabababab, 0x76767676,\n"
-"   0xcacacaca, 0x82828282, 0xc9c9c9c9, 0x7d7d7d7d,\n"
-"   0xfafafafa, 0x59595959, 0x47474747, 0xf0f0f0f0,\n"
-"   0xadadadad, 0xd4d4d4d4, 0xa2a2a2a2, 0xafafafaf,\n"
-"   0x9c9c9c9c, 0xa4a4a4a4, 0x72727272, 0xc0c0c0c0,\n"
-"   0xb7b7b7b7, 0xfdfdfdfd, 0x93939393, 0x26262626,\n"
-"   0x36363636, 0x3f3f3f3f, 0xf7f7f7f7, 0xcccccccc,\n"
-"   0x34343434, 0xa5a5a5a5, 0xe5e5e5e5, 0xf1f1f1f1,\n"
-"   0x71717171, 0xd8d8d8d8, 0x31313131, 0x15151515,\n"
-"   0x04040404, 0xc7c7c7c7, 0x23232323, 0xc3c3c3c3,\n"
-"   0x18181818, 0x96969696, 0x05050505, 0x9a9a9a9a,\n"
-"   0x07070707, 0x12121212, 0x80808080, 0xe2e2e2e2,\n"
-"   0xebebebeb, 0x27272727, 0xb2b2b2b2, 0x75757575,\n"
-"   0x09090909, 0x83838383, 0x2c2c2c2c, 0x1a1a1a1a,\n"
-"   0x1b1b1b1b, 0x6e6e6e6e, 0x5a5a5a5a, 0xa0a0a0a0,\n"
-"   0x52525252, 0x3b3b3b3b, 0xd6d6d6d6, 0xb3b3b3b3,\n"
-"   0x29292929, 0xe3e3e3e3, 0x2f2f2f2f, 0x84848484,\n"
-"   0x53535353, 0xd1d1d1d1, 0x00000000, 0xedededed,\n"
-"   0x20202020, 0xfcfcfcfc, 0xb1b1b1b1, 0x5b5b5b5b,\n"
-"   0x6a6a6a6a, 0xcbcbcbcb, 0xbebebebe, 0x39393939,\n"
-"   0x4a4a4a4a, 0x4c4c4c4c, 0x58585858, 0xcfcfcfcf,\n"
-"   0xd0d0d0d0, 0xefefefef, 0xaaaaaaaa, 0xfbfbfbfb,\n"
-"   0x43434343, 0x4d4d4d4d, 0x33333333, 0x85858585,\n"
-"   0x45454545, 0xf9f9f9f9, 0x02020202, 0x7f7f7f7f,\n"
-"   0x50505050, 0x3c3c3c3c, 0x9f9f9f9f, 0xa8a8a8a8,\n"
-"   0x51515151, 0xa3a3a3a3, 0x40404040, 0x8f8f8f8f,\n"
-"   0x92929292, 0x9d9d9d9d, 0x38383838, 0xf5f5f5f5,\n"
-"   0xbcbcbcbc, 0xb6b6b6b6, 0xdadadada, 0x21212121,\n"
-"   0x10101010, 0xffffffff, 0xf3f3f3f3, 0xd2d2d2d2,\n"
-"   0xcdcdcdcd, 0x0c0c0c0c, 0x13131313, 0xecececec,\n"
-"   0x5f5f5f5f, 0x97979797, 0x44444444, 0x17171717,\n"
-"   0xc4c4c4c4, 0xa7a7a7a7, 0x7e7e7e7e, 0x3d3d3d3d,\n"
-"   0x64646464, 0x5d5d5d5d, 0x19191919, 0x73737373,\n"
-"   0x60606060, 0x81818181, 0x4f4f4f4f, 0xdcdcdcdc,\n"
-"   0x22222222, 0x2a2a2a2a, 0x90909090, 0x88888888,\n"
-"   0x46464646, 0xeeeeeeee, 0xb8b8b8b8, 0x14141414,\n"
-"   0xdededede, 0x5e5e5e5e, 0x0b0b0b0b, 0xdbdbdbdb,\n"
-"   0xe0e0e0e0, 0x32323232, 0x3a3a3a3a, 0x0a0a0a0a,\n"
-"   0x49494949, 0x06060606, 0x24242424, 0x5c5c5c5c,\n"
-"   0xc2c2c2c2, 0xd3d3d3d3, 0xacacacac, 0x62626262,\n"
-"   0x91919191, 0x95959595, 0xe4e4e4e4, 0x79797979,\n"
-"   0xe7e7e7e7, 0xc8c8c8c8, 0x37373737, 0x6d6d6d6d,\n"
-"   0x8d8d8d8d, 0xd5d5d5d5, 0x4e4e4e4e, 0xa9a9a9a9,\n"
-"   0x6c6c6c6c, 0x56565656, 0xf4f4f4f4, 0xeaeaeaea,\n"
-"   0x65656565, 0x7a7a7a7a, 0xaeaeaeae, 0x08080808,\n"
-"   0xbabababa, 0x78787878, 0x25252525, 0x2e2e2e2e,\n"
-"   0x1c1c1c1c, 0xa6a6a6a6, 0xb4b4b4b4, 0xc6c6c6c6,\n"
-"   0xe8e8e8e8, 0xdddddddd, 0x74747474, 0x1f1f1f1f,\n"
-"   0x4b4b4b4b, 0xbdbdbdbd, 0x8b8b8b8b, 0x8a8a8a8a,\n"
-"   0x70707070, 0x3e3e3e3e, 0xb5b5b5b5, 0x66666666,\n"
-"   0x48484848, 0x03030303, 0xf6f6f6f6, 0x0e0e0e0e,\n"
-"   0x61616161, 0x35353535, 0x57575757, 0xb9b9b9b9,\n"
-"   0x86868686, 0xc1c1c1c1, 0x1d1d1d1d, 0x9e9e9e9e,\n"
-"   0xe1e1e1e1, 0xf8f8f8f8, 0x98989898, 0x11111111,\n"
-"   0x69696969, 0xd9d9d9d9, 0x8e8e8e8e, 0x94949494,\n"
-"   0x9b9b9b9b, 0x1e1e1e1e, 0x87878787, 0xe9e9e9e9,\n"
-"   0xcececece, 0x55555555, 0x28282828, 0xdfdfdfdf,\n"
-"   0x8c8c8c8c, 0xa1a1a1a1, 0x89898989, 0x0d0d0d0d,\n"
-"   0xbfbfbfbf, 0xe6e6e6e6, 0x42424242, 0x68686868,\n"
-"   0x41414141, 0x99999999, 0x2d2d2d2d, 0x0f0f0f0f,\n"
-"   0xb0b0b0b0, 0x54545454, 0xbbbbbbbb, 0x16161616,\n"
-" };\n"
-" static const uint32_t Td0[256] = {\n"
-"   0x51f4a750, 0x7e416553, 0x1a17a4c3, 0x3a275e96,\n"
-"   0x3bab6bcb, 0x1f9d45f1, 0xacfa58ab, 0x4be30393,\n"
-"   0x2030fa55, 0xad766df6, 0x88cc7691, 0xf5024c25,\n"
-"   0x4fe5d7fc, 0xc52acbd7, 0x26354480, 0xb562a38f,\n"
-"   0xdeb15a49, 0x25ba1b67, 0x45ea0e98, 0x5dfec0e1,\n"
-"   0xc32f7502, 0x814cf012, 0x8d4697a3, 0x6bd3f9c6,\n"
-"   0x038f5fe7, 0x15929c95, 0xbf6d7aeb, 0x955259da,\n"
-"   0xd4be832d, 0x587421d3, 0x49e06929, 0x8ec9c844,\n"
-"   0x75c2896a, 0xf48e7978, 0x99583e6b, 0x27b971dd,\n"
-"   0xbee14fb6, 0xf088ad17, 0xc920ac66, 0x7dce3ab4,\n"
-"   0x63df4a18, 0xe51a3182, 0x97513360, 0x62537f45,\n"
-"   0xb16477e0, 0xbb6bae84, 0xfe81a01c, 0xf9082b94,\n"
-"   0x70486858, 0x8f45fd19, 0x94de6c87, 0x527bf8b7,\n"
-"   0xab73d323, 0x724b02e2, 0xe31f8f57, 0x6655ab2a,\n"
-"   0xb2eb2807, 0x2fb5c203, 0x86c57b9a, 0xd33708a5,\n"
-"   0x302887f2, 0x23bfa5b2, 0x02036aba, 0xed16825c,\n"
-"   0x8acf1c2b, 0xa779b492, 0xf307f2f0, 0x4e69e2a1,\n"
-"   0x65daf4cd, 0x0605bed5, 0xd134621f, 0xc4a6fe8a,\n"
-"   0x342e539d, 0xa2f355a0, 0x058ae132, 0xa4f6eb75,\n"
-"   0x0b83ec39, 0x4060efaa, 0x5e719f06, 0xbd6e1051,\n"
-"   0x3e218af9, 0x96dd063d, 0xdd3e05ae, 0x4de6bd46,\n"
-"   0x91548db5, 0x71c45d05, 0x0406d46f, 0x605015ff,\n"
-"   0x1998fb24, 0xd6bde997, 0x894043cc, 0x67d99e77,\n"
-"   0xb0e842bd, 0x07898b88, 0xe7195b38, 0x79c8eedb,\n"
-"   0xa17c0a47, 0x7c420fe9, 0xf8841ec9, 0x00000000,\n"
-"   0x09808683, 0x322bed48, 0x1e1170ac, 0x6c5a724e,\n"
-"   0xfd0efffb, 0x0f853856, 0x3daed51e, 0x362d3927,\n"
-"   0x0a0fd964, 0x685ca621, 0x9b5b54d1, 0x24362e3a,\n"
-"   0x0c0a67b1, 0x9357e70f, 0xb4ee96d2, 0x1b9b919e,\n"
-"   0x80c0c54f, 0x61dc20a2, 0x5a774b69, 0x1c121a16,\n"
-"   0xe293ba0a, 0xc0a02ae5, 0x3c22e043, 0x121b171d,\n"
-"   0x0e090d0b, 0xf28bc7ad, 0x2db6a8b9, 0x141ea9c8,\n"
-"   0x57f11985, 0xaf75074c, 0xee99ddbb, 0xa37f60fd,\n"
-"   0xf701269f, 0x5c72f5bc, 0x44663bc5, 0x5bfb7e34,\n"
-"   0x8b432976, 0xcb23c6dc, 0xb6edfc68, 0xb8e4f163,\n"
-"   0xd731dcca, 0x42638510, 0x13972240, 0x84c61120,\n"
-"   0x854a247d, 0xd2bb3df8, 0xaef93211, 0xc729a16d,\n"
-"   0x1d9e2f4b, 0xdcb230f3, 0x0d8652ec, 0x77c1e3d0,\n"
-"   0x2bb3166c, 0xa970b999, 0x119448fa, 0x47e96422,\n"
-"   0xa8fc8cc4, 0xa0f03f1a, 0x567d2cd8, 0x223390ef,\n"
-"   0x87494ec7, 0xd938d1c1, 0x8ccaa2fe, 0x98d40b36,\n"
-"   0xa6f581cf, 0xa57ade28, 0xdab78e26, 0x3fadbfa4,\n"
-"   0x2c3a9de4, 0x5078920d, 0x6a5fcc9b, 0x547e4662,\n"
-"   0xf68d13c2, 0x90d8b8e8, 0x2e39f75e, 0x82c3aff5,\n"
-"   0x9f5d80be, 0x69d0937c, 0x6fd52da9, 0xcf2512b3,\n"
-"   0xc8ac993b, 0x10187da7, 0xe89c636e, 0xdb3bbb7b,\n"
-"   0xcd267809, 0x6e5918f4, 0xec9ab701, 0x834f9aa8,\n"
-"   0xe6956e65, 0xaaffe67e, 0x21bccf08, 0xef15e8e6,\n"
-"   0xbae79bd9, 0x4a6f36ce, 0xea9f09d4, 0x29b07cd6,\n"
-"   0x31a4b2af, 0x2a3f2331, 0xc6a59430, 0x35a266c0,\n"
-"   0x744ebc37, 0xfc82caa6, 0xe090d0b0, 0x33a7d815,\n"
-"   0xf104984a, 0x41ecdaf7, 0x7fcd500e, 0x1791f62f,\n"
-"   0x764dd68d, 0x43efb04d, 0xccaa4d54, 0xe49604df,\n"
-"   0x9ed1b5e3, 0x4c6a881b, 0xc12c1fb8, 0x4665517f,\n"
-"   0x9d5eea04, 0x018c355d, 0xfa877473, 0xfb0b412e,\n"
-"   0xb3671d5a, 0x92dbd252, 0xe9105633, 0x6dd64713,\n"
-"   0x9ad7618c, 0x37a10c7a, 0x59f8148e, 0xeb133c89,\n"
-"   0xcea927ee, 0xb761c935, 0xe11ce5ed, 0x7a47b13c,\n"
-"   0x9cd2df59, 0x55f2733f, 0x1814ce79, 0x73c737bf,\n"
-"   0x53f7cdea, 0x5ffdaa5b, 0xdf3d6f14, 0x7844db86,\n"
-"   0xcaaff381, 0xb968c43e, 0x3824342c, 0xc2a3405f,\n"
-"   0x161dc372, 0xbce2250c, 0x283c498b, 0xff0d9541,\n"
-"   0x39a80171, 0x080cb3de, 0xd8b4e49c, 0x6456c190,\n"
-"   0x7bcb8461, 0xd532b670, 0x486c5c74, 0xd0b85742,\n"
-" };\n"
-" static const uint32_t Td1[256] = {\n"
-"   0x5051f4a7, 0x537e4165, 0xc31a17a4, 0x963a275e,\n"
-"   0xcb3bab6b, 0xf11f9d45, 0xabacfa58, 0x934be303,\n"
-"   0x552030fa, 0xf6ad766d, 0x9188cc76, 0x25f5024c,\n"
-"   0xfc4fe5d7, 0xd7c52acb, 0x80263544, 0x8fb562a3,\n"
-"   0x49deb15a, 0x6725ba1b, 0x9845ea0e, 0xe15dfec0,\n"
-"   0x02c32f75, 0x12814cf0, 0xa38d4697, 0xc66bd3f9,\n"
-"   0xe7038f5f, 0x9515929c, 0xebbf6d7a, 0xda955259,\n"
-"   0x2dd4be83, 0xd3587421, 0x2949e069, 0x448ec9c8,\n"
-"   0x6a75c289, 0x78f48e79, 0x6b99583e, 0xdd27b971,\n"
-"   0xb6bee14f, 0x17f088ad, 0x66c920ac, 0xb47dce3a,\n"
-"   0x1863df4a, 0x82e51a31, 0x60975133, 0x4562537f,\n"
-"   0xe0b16477, 0x84bb6bae, 0x1cfe81a0, 0x94f9082b,\n"
-"   0x58704868, 0x198f45fd, 0x8794de6c, 0xb7527bf8,\n"
-"   0x23ab73d3, 0xe2724b02, 0x57e31f8f, 0x2a6655ab,\n"
-"   0x07b2eb28, 0x032fb5c2, 0x9a86c57b, 0xa5d33708,\n"
-"   0xf2302887, 0xb223bfa5, 0xba02036a, 0x5ced1682,\n"
-"   0x2b8acf1c, 0x92a779b4, 0xf0f307f2, 0xa14e69e2,\n"
-"   0xcd65daf4, 0xd50605be, 0x1fd13462, 0x8ac4a6fe,\n"
-"   0x9d342e53, 0xa0a2f355, 0x32058ae1, 0x75a4f6eb,\n"
-"   0x390b83ec, 0xaa4060ef, 0x065e719f, 0x51bd6e10,\n"
-"   0xf93e218a, 0x3d96dd06, 0xaedd3e05, 0x464de6bd,\n"
-"   0xb591548d, 0x0571c45d, 0x6f0406d4, 0xff605015,\n"
-"   0x241998fb, 0x97d6bde9, 0xcc894043, 0x7767d99e,\n"
-"   0xbdb0e842, 0x8807898b, 0x38e7195b, 0xdb79c8ee,\n"
-"   0x47a17c0a, 0xe97c420f, 0xc9f8841e, 0x00000000,\n"
-"   0x83098086, 0x48322bed, 0xac1e1170, 0x4e6c5a72,\n"
-"   0xfbfd0eff, 0x560f8538, 0x1e3daed5, 0x27362d39,\n"
-"   0x640a0fd9, 0x21685ca6, 0xd19b5b54, 0x3a24362e,\n"
-"   0xb10c0a67, 0x0f9357e7, 0xd2b4ee96, 0x9e1b9b91,\n"
-"   0x4f80c0c5, 0xa261dc20, 0x695a774b, 0x161c121a,\n"
-"   0x0ae293ba, 0xe5c0a02a, 0x433c22e0, 0x1d121b17,\n"
-"   0x0b0e090d, 0xadf28bc7, 0xb92db6a8, 0xc8141ea9,\n"
-"   0x8557f119, 0x4caf7507, 0xbbee99dd, 0xfda37f60,\n"
-"   0x9ff70126, 0xbc5c72f5, 0xc544663b, 0x345bfb7e,\n"
-"   0x768b4329, 0xdccb23c6, 0x68b6edfc, 0x63b8e4f1,\n"
-"   0xcad731dc, 0x10426385, 0x40139722, 0x2084c611,\n"
-"   0x7d854a24, 0xf8d2bb3d, 0x11aef932, 0x6dc729a1,\n"
-"   0x4b1d9e2f, 0xf3dcb230, 0xec0d8652, 0xd077c1e3,\n"
-"   0x6c2bb316, 0x99a970b9, 0xfa119448, 0x2247e964,\n"
-"   0xc4a8fc8c, 0x1aa0f03f, 0xd8567d2c, 0xef223390,\n"
-"   0xc787494e, 0xc1d938d1, 0xfe8ccaa2, 0x3698d40b,\n"
-"   0xcfa6f581, 0x28a57ade, 0x26dab78e, 0xa43fadbf,\n"
-"   0xe42c3a9d, 0x0d507892, 0x9b6a5fcc, 0x62547e46,\n"
-"   0xc2f68d13, 0xe890d8b8, 0x5e2e39f7, 0xf582c3af,\n"
-"   0xbe9f5d80, 0x7c69d093, 0xa96fd52d, 0xb3cf2512,\n"
-"   0x3bc8ac99, 0xa710187d, 0x6ee89c63, 0x7bdb3bbb,\n"
-"   0x09cd2678, 0xf46e5918, 0x01ec9ab7, 0xa8834f9a,\n"
-"   0x65e6956e, 0x7eaaffe6, 0x0821bccf, 0xe6ef15e8,\n"
-"   0xd9bae79b, 0xce4a6f36, 0xd4ea9f09, 0xd629b07c,\n"
-"   0xaf31a4b2, 0x312a3f23, 0x30c6a594, 0xc035a266,\n"
-"   0x37744ebc, 0xa6fc82ca, 0xb0e090d0, 0x1533a7d8,\n"
-"   0x4af10498, 0xf741ecda, 0x0e7fcd50, 0x2f1791f6,\n"
-"   0x8d764dd6, 0x4d43efb0, 0x54ccaa4d, 0xdfe49604,\n"
-"   0xe39ed1b5, 0x1b4c6a88, 0xb8c12c1f, 0x7f466551,\n"
-"   0x049d5eea, 0x5d018c35, 0x73fa8774, 0x2efb0b41,\n"
-"   0x5ab3671d, 0x5292dbd2, 0x33e91056, 0x136dd647,\n"
-"   0x8c9ad761, 0x7a37a10c, 0x8e59f814, 0x89eb133c,\n"
-"   0xeecea927, 0x35b761c9, 0xede11ce5, 0x3c7a47b1,\n"
-"   0x599cd2df, 0x3f55f273, 0x791814ce, 0xbf73c737,\n"
-"   0xea53f7cd, 0x5b5ffdaa, 0x14df3d6f, 0x867844db,\n"
-"   0x81caaff3, 0x3eb968c4, 0x2c382434, 0x5fc2a340,\n"
-"   0x72161dc3, 0x0cbce225, 0x8b283c49, 0x41ff0d95,\n"
-"   0x7139a801, 0xde080cb3, 0x9cd8b4e4, 0x906456c1,\n"
-"   0x617bcb84, 0x70d532b6, 0x74486c5c, 0x42d0b857,\n"
-" };\n"
-" static const uint32_t Td2[256] = {\n"
-"   0xa75051f4, 0x65537e41, 0xa4c31a17, 0x5e963a27,\n"
-"   0x6bcb3bab, 0x45f11f9d, 0x58abacfa, 0x03934be3,\n"
-"   0xfa552030, 0x6df6ad76, 0x769188cc, 0x4c25f502,\n"
-"   0xd7fc4fe5, 0xcbd7c52a, 0x44802635, 0xa38fb562,\n"
-"   0x5a49deb1, 0x1b6725ba, 0x0e9845ea, 0xc0e15dfe,\n"
-"   0x7502c32f, 0xf012814c, 0x97a38d46, 0xf9c66bd3,\n"
-"   0x5fe7038f, 0x9c951592, 0x7aebbf6d, 0x59da9552,\n"
-"   0x832dd4be, 0x21d35874, 0x692949e0, 0xc8448ec9,\n"
-"   0x896a75c2, 0x7978f48e, 0x3e6b9958, 0x71dd27b9,\n"
-"   0x4fb6bee1, 0xad17f088, 0xac66c920, 0x3ab47dce,\n"
-"   0x4a1863df, 0x3182e51a, 0x33609751, 0x7f456253,\n"
-"   0x77e0b164, 0xae84bb6b, 0xa01cfe81, 0x2b94f908,\n"
-"   0x68587048, 0xfd198f45, 0x6c8794de, 0xf8b7527b,\n"
-"   0xd323ab73, 0x02e2724b, 0x8f57e31f, 0xab2a6655,\n"
-"   0x2807b2eb, 0xc2032fb5, 0x7b9a86c5, 0x08a5d337,\n"
-"   0x87f23028, 0xa5b223bf, 0x6aba0203, 0x825ced16,\n"
-"   0x1c2b8acf, 0xb492a779, 0xf2f0f307, 0xe2a14e69,\n"
-"   0xf4cd65da, 0xbed50605, 0x621fd134, 0xfe8ac4a6,\n"
-"   0x539d342e, 0x55a0a2f3, 0xe132058a, 0xeb75a4f6,\n"
-"   0xec390b83, 0xefaa4060, 0x9f065e71, 0x1051bd6e,\n"
-"   0x8af93e21, 0x063d96dd, 0x05aedd3e, 0xbd464de6,\n"
-"   0x8db59154, 0x5d0571c4, 0xd46f0406, 0x15ff6050,\n"
-"   0xfb241998, 0xe997d6bd, 0x43cc8940, 0x9e7767d9,\n"
-"   0x42bdb0e8, 0x8b880789, 0x5b38e719, 0xeedb79c8,\n"
-"   0x0a47a17c, 0x0fe97c42, 0x1ec9f884, 0x00000000,\n"
-"   0x86830980, 0xed48322b, 0x70ac1e11, 0x724e6c5a,\n"
-"   0xfffbfd0e, 0x38560f85, 0xd51e3dae, 0x3927362d,\n"
-"   0xd9640a0f, 0xa621685c, 0x54d19b5b, 0x2e3a2436,\n"
-"   0x67b10c0a, 0xe70f9357, 0x96d2b4ee, 0x919e1b9b,\n"
-"   0xc54f80c0, 0x20a261dc, 0x4b695a77, 0x1a161c12,\n"
-"   0xba0ae293, 0x2ae5c0a0, 0xe0433c22, 0x171d121b,\n"
-"   0x0d0b0e09, 0xc7adf28b, 0xa8b92db6, 0xa9c8141e,\n"
-"   0x198557f1, 0x074caf75, 0xddbbee99, 0x60fda37f,\n"
-"   0x269ff701, 0xf5bc5c72, 0x3bc54466, 0x7e345bfb,\n"
-"   0x29768b43, 0xc6dccb23, 0xfc68b6ed, 0xf163b8e4,\n"
-"   0xdccad731, 0x85104263, 0x22401397, 0x112084c6,\n"
-"   0x247d854a, 0x3df8d2bb, 0x3211aef9, 0xa16dc729,\n"
-"   0x2f4b1d9e, 0x30f3dcb2, 0x52ec0d86, 0xe3d077c1,\n"
-"   0x166c2bb3, 0xb999a970, 0x48fa1194, 0x642247e9,\n"
-"   0x8cc4a8fc, 0x3f1aa0f0, 0x2cd8567d, 0x90ef2233,\n"
-"   0x4ec78749, 0xd1c1d938, 0xa2fe8cca, 0x0b3698d4,\n"
-"   0x81cfa6f5, 0xde28a57a, 0x8e26dab7, 0xbfa43fad,\n"
-"   0x9de42c3a, 0x920d5078, 0xcc9b6a5f, 0x4662547e,\n"
-"   0x13c2f68d, 0xb8e890d8, 0xf75e2e39, 0xaff582c3,\n"
-"   0x80be9f5d, 0x937c69d0, 0x2da96fd5, 0x12b3cf25,\n"
-"   0x993bc8ac, 0x7da71018, 0x636ee89c, 0xbb7bdb3b,\n"
-"   0x7809cd26, 0x18f46e59, 0xb701ec9a, 0x9aa8834f,\n"
-"   0x6e65e695, 0xe67eaaff, 0xcf0821bc, 0xe8e6ef15,\n"
-"   0x9bd9bae7, 0x36ce4a6f, 0x09d4ea9f, 0x7cd629b0,\n"
-"   0xb2af31a4, 0x23312a3f, 0x9430c6a5, 0x66c035a2,\n"
-"   0xbc37744e, 0xcaa6fc82, 0xd0b0e090, 0xd81533a7,\n"
-"   0x984af104, 0xdaf741ec, 0x500e7fcd, 0xf62f1791,\n"
-"   0xd68d764d, 0xb04d43ef, 0x4d54ccaa, 0x04dfe496,\n"
-"   0xb5e39ed1, 0x881b4c6a, 0x1fb8c12c, 0x517f4665,\n"
-"   0xea049d5e, 0x355d018c, 0x7473fa87, 0x412efb0b,\n"
-"   0x1d5ab367, 0xd25292db, 0x5633e910, 0x47136dd6,\n"
-"   0x618c9ad7, 0x0c7a37a1, 0x148e59f8, 0x3c89eb13,\n"
-"   0x27eecea9, 0xc935b761, 0xe5ede11c, 0xb13c7a47,\n"
-"   0xdf599cd2, 0x733f55f2, 0xce791814, 0x37bf73c7,\n"
-"   0xcdea53f7, 0xaa5b5ffd, 0x6f14df3d, 0xdb867844,\n"
-"   0xf381caaf, 0xc43eb968, 0x342c3824, 0x405fc2a3,\n"
-"   0xc372161d, 0x250cbce2, 0x498b283c, 0x9541ff0d,\n"
-"   0x017139a8, 0xb3de080c, 0xe49cd8b4, 0xc1906456,\n"
-"   0x84617bcb, 0xb670d532, 0x5c74486c, 0x5742d0b8,\n"
-" };\n"
-" static const uint32_t Td3[256] = {\n"
-"   0xf4a75051, 0x4165537e, 0x17a4c31a, 0x275e963a,\n"
-"   0xab6bcb3b, 0x9d45f11f, 0xfa58abac, 0xe303934b,\n"
-"   0x30fa5520, 0x766df6ad, 0xcc769188, 0x024c25f5,\n"
-"   0xe5d7fc4f, 0x2acbd7c5, 0x35448026, 0x62a38fb5,\n"
-"   0xb15a49de, 0xba1b6725, 0xea0e9845, 0xfec0e15d,\n"
-"   0x2f7502c3, 0x4cf01281, 0x4697a38d, 0xd3f9c66b,\n"
-"   0x8f5fe703, 0x929c9515, 0x6d7aebbf, 0x5259da95,\n"
-"   0xbe832dd4, 0x7421d358, 0xe0692949, 0xc9c8448e,\n"
-"   0xc2896a75, 0x8e7978f4, 0x583e6b99, 0xb971dd27,\n"
-"   0xe14fb6be, 0x88ad17f0, 0x20ac66c9, 0xce3ab47d,\n"
-"   0xdf4a1863, 0x1a3182e5, 0x51336097, 0x537f4562,\n"
-"   0x6477e0b1, 0x6bae84bb, 0x81a01cfe, 0x082b94f9,\n"
-"   0x48685870, 0x45fd198f, 0xde6c8794, 0x7bf8b752,\n"
-"   0x73d323ab, 0x4b02e272, 0x1f8f57e3, 0x55ab2a66,\n"
-"   0xeb2807b2, 0xb5c2032f, 0xc57b9a86, 0x3708a5d3,\n"
-"   0x2887f230, 0xbfa5b223, 0x036aba02, 0x16825ced,\n"
-"   0xcf1c2b8a, 0x79b492a7, 0x07f2f0f3, 0x69e2a14e,\n"
-"   0xdaf4cd65, 0x05bed506, 0x34621fd1, 0xa6fe8ac4,\n"
-"   0x2e539d34, 0xf355a0a2, 0x8ae13205, 0xf6eb75a4,\n"
-"   0x83ec390b, 0x60efaa40, 0x719f065e, 0x6e1051bd,\n"
-"   0x218af93e, 0xdd063d96, 0x3e05aedd, 0xe6bd464d,\n"
-"   0x548db591, 0xc45d0571, 0x06d46f04, 0x5015ff60,\n"
-"   0x98fb2419, 0xbde997d6, 0x4043cc89, 0xd99e7767,\n"
-"   0xe842bdb0, 0x898b8807, 0x195b38e7, 0xc8eedb79,\n"
-"   0x7c0a47a1, 0x420fe97c, 0x841ec9f8, 0x00000000,\n"
-"   0x80868309, 0x2bed4832, 0x1170ac1e, 0x5a724e6c,\n"
-"   0x0efffbfd, 0x8538560f, 0xaed51e3d, 0x2d392736,\n"
-"   0x0fd9640a, 0x5ca62168, 0x5b54d19b, 0x362e3a24,\n"
-"   0x0a67b10c, 0x57e70f93, 0xee96d2b4, 0x9b919e1b,\n"
-"   0xc0c54f80, 0xdc20a261, 0x774b695a, 0x121a161c,\n"
-"   0x93ba0ae2, 0xa02ae5c0, 0x22e0433c, 0x1b171d12,\n"
-"   0x090d0b0e, 0x8bc7adf2, 0xb6a8b92d, 0x1ea9c814,\n"
-"   0xf1198557, 0x75074caf, 0x99ddbbee, 0x7f60fda3,\n"
-"   0x01269ff7, 0x72f5bc5c, 0x663bc544, 0xfb7e345b,\n"
-"   0x4329768b, 0x23c6dccb, 0xedfc68b6, 0xe4f163b8,\n"
-"   0x31dccad7, 0x63851042, 0x97224013, 0xc6112084,\n"
-"   0x4a247d85, 0xbb3df8d2, 0xf93211ae, 0x29a16dc7,\n"
-"   0x9e2f4b1d, 0xb230f3dc, 0x8652ec0d, 0xc1e3d077,\n"
-"   0xb3166c2b, 0x70b999a9, 0x9448fa11, 0xe9642247,\n"
-"   0xfc8cc4a8, 0xf03f1aa0, 0x7d2cd856, 0x3390ef22,\n"
-"   0x494ec787, 0x38d1c1d9, 0xcaa2fe8c, 0xd40b3698,\n"
-"   0xf581cfa6, 0x7ade28a5, 0xb78e26da, 0xadbfa43f,\n"
-"   0x3a9de42c, 0x78920d50, 0x5fcc9b6a, 0x7e466254,\n"
-"   0x8d13c2f6, 0xd8b8e890, 0x39f75e2e, 0xc3aff582,\n"
-"   0x5d80be9f, 0xd0937c69, 0xd52da96f, 0x2512b3cf,\n"
-"   0xac993bc8, 0x187da710, 0x9c636ee8, 0x3bbb7bdb,\n"
-"   0x267809cd, 0x5918f46e, 0x9ab701ec, 0x4f9aa883,\n"
-"   0x956e65e6, 0xffe67eaa, 0xbccf0821, 0x15e8e6ef,\n"
-"   0xe79bd9ba, 0x6f36ce4a, 0x9f09d4ea, 0xb07cd629,\n"
-"   0xa4b2af31, 0x3f23312a, 0xa59430c6, 0xa266c035,\n"
-"   0x4ebc3774, 0x82caa6fc, 0x90d0b0e0, 0xa7d81533,\n"
-"   0x04984af1, 0xecdaf741, 0xcd500e7f, 0x91f62f17,\n"
-"   0x4dd68d76, 0xefb04d43, 0xaa4d54cc, 0x9604dfe4,\n"
-"   0xd1b5e39e, 0x6a881b4c, 0x2c1fb8c1, 0x65517f46,\n"
-"   0x5eea049d, 0x8c355d01, 0x877473fa, 0x0b412efb,\n"
-"   0x671d5ab3, 0xdbd25292, 0x105633e9, 0xd647136d,\n"
-"   0xd7618c9a, 0xa10c7a37, 0xf8148e59, 0x133c89eb,\n"
-"   0xa927eece, 0x61c935b7, 0x1ce5ede1, 0x47b13c7a,\n"
-"   0xd2df599c, 0xf2733f55, 0x14ce7918, 0xc737bf73,\n"
-"   0xf7cdea53, 0xfdaa5b5f, 0x3d6f14df, 0x44db8678,\n"
-"   0xaff381ca, 0x68c43eb9, 0x24342c38, 0xa3405fc2,\n"
-"   0x1dc37216, 0xe2250cbc, 0x3c498b28, 0x0d9541ff,\n"
-"   0xa8017139, 0x0cb3de08, 0xb4e49cd8, 0x56c19064,\n"
-"   0xcb84617b, 0x32b670d5, 0x6c5c7448, 0xb85742d0,\n"
-" };\n"
-" static const uint32_t Td4[256] = {\n"
-"   0x52525252, 0x09090909, 0x6a6a6a6a, 0xd5d5d5d5,\n"
-"   0x30303030, 0x36363636, 0xa5a5a5a5, 0x38383838,\n"
-"   0xbfbfbfbf, 0x40404040, 0xa3a3a3a3, 0x9e9e9e9e,\n"
-"   0x81818181, 0xf3f3f3f3, 0xd7d7d7d7, 0xfbfbfbfb,\n"
-"   0x7c7c7c7c, 0xe3e3e3e3, 0x39393939, 0x82828282,\n"
-"   0x9b9b9b9b, 0x2f2f2f2f, 0xffffffff, 0x87878787,\n"
-"   0x34343434, 0x8e8e8e8e, 0x43434343, 0x44444444,\n"
-"   0xc4c4c4c4, 0xdededede, 0xe9e9e9e9, 0xcbcbcbcb,\n"
-"   0x54545454, 0x7b7b7b7b, 0x94949494, 0x32323232,\n"
-"   0xa6a6a6a6, 0xc2c2c2c2, 0x23232323, 0x3d3d3d3d,\n"
-"   0xeeeeeeee, 0x4c4c4c4c, 0x95959595, 0x0b0b0b0b,\n"
-"   0x42424242, 0xfafafafa, 0xc3c3c3c3, 0x4e4e4e4e,\n"
-"   0x08080808, 0x2e2e2e2e, 0xa1a1a1a1, 0x66666666,\n"
-"   0x28282828, 0xd9d9d9d9, 0x24242424, 0xb2b2b2b2,\n"
-"   0x76767676, 0x5b5b5b5b, 0xa2a2a2a2, 0x49494949,\n"
-"   0x6d6d6d6d, 0x8b8b8b8b, 0xd1d1d1d1, 0x25252525,\n"
-"   0x72727272, 0xf8f8f8f8, 0xf6f6f6f6, 0x64646464,\n"
-"   0x86868686, 0x68686868, 0x98989898, 0x16161616,\n"
-"   0xd4d4d4d4, 0xa4a4a4a4, 0x5c5c5c5c, 0xcccccccc,\n"
-"   0x5d5d5d5d, 0x65656565, 0xb6b6b6b6, 0x92929292,\n"
-"   0x6c6c6c6c, 0x70707070, 0x48484848, 0x50505050,\n"
-"   0xfdfdfdfd, 0xedededed, 0xb9b9b9b9, 0xdadadada,\n"
-"   0x5e5e5e5e, 0x15151515, 0x46464646, 0x57575757,\n"
-"   0xa7a7a7a7, 0x8d8d8d8d, 0x9d9d9d9d, 0x84848484,\n"
-"   0x90909090, 0xd8d8d8d8, 0xabababab, 0x00000000,\n"
-"   0x8c8c8c8c, 0xbcbcbcbc, 0xd3d3d3d3, 0x0a0a0a0a,\n"
-"   0xf7f7f7f7, 0xe4e4e4e4, 0x58585858, 0x05050505,\n"
-"   0xb8b8b8b8, 0xb3b3b3b3, 0x45454545, 0x06060606,\n"
-"   0xd0d0d0d0, 0x2c2c2c2c, 0x1e1e1e1e, 0x8f8f8f8f,\n"
-"   0xcacacaca, 0x3f3f3f3f, 0x0f0f0f0f, 0x02020202,\n"
-"   0xc1c1c1c1, 0xafafafaf, 0xbdbdbdbd, 0x03030303,\n"
-"   0x01010101, 0x13131313, 0x8a8a8a8a, 0x6b6b6b6b,\n"
-"   0x3a3a3a3a, 0x91919191, 0x11111111, 0x41414141,\n"
-"   0x4f4f4f4f, 0x67676767, 0xdcdcdcdc, 0xeaeaeaea,\n"
-"   0x97979797, 0xf2f2f2f2, 0xcfcfcfcf, 0xcececece,\n"
-"   0xf0f0f0f0, 0xb4b4b4b4, 0xe6e6e6e6, 0x73737373,\n"
-"   0x96969696, 0xacacacac, 0x74747474, 0x22222222,\n"
-"   0xe7e7e7e7, 0xadadadad, 0x35353535, 0x85858585,\n"
-"   0xe2e2e2e2, 0xf9f9f9f9, 0x37373737, 0xe8e8e8e8,\n"
-"   0x1c1c1c1c, 0x75757575, 0xdfdfdfdf, 0x6e6e6e6e,\n"
-"   0x47474747, 0xf1f1f1f1, 0x1a1a1a1a, 0x71717171,\n"
-"   0x1d1d1d1d, 0x29292929, 0xc5c5c5c5, 0x89898989,\n"
-"   0x6f6f6f6f, 0xb7b7b7b7, 0x62626262, 0x0e0e0e0e,\n"
-"   0xaaaaaaaa, 0x18181818, 0xbebebebe, 0x1b1b1b1b,\n"
-"   0xfcfcfcfc, 0x56565656, 0x3e3e3e3e, 0x4b4b4b4b,\n"
-"   0xc6c6c6c6, 0xd2d2d2d2, 0x79797979, 0x20202020,\n"
-"   0x9a9a9a9a, 0xdbdbdbdb, 0xc0c0c0c0, 0xfefefefe,\n"
-"   0x78787878, 0xcdcdcdcd, 0x5a5a5a5a, 0xf4f4f4f4,\n"
-"   0x1f1f1f1f, 0xdddddddd, 0xa8a8a8a8, 0x33333333,\n"
-"   0x88888888, 0x07070707, 0xc7c7c7c7, 0x31313131,\n"
-"   0xb1b1b1b1, 0x12121212, 0x10101010, 0x59595959,\n"
-"   0x27272727, 0x80808080, 0xecececec, 0x5f5f5f5f,\n"
-"   0x60606060, 0x51515151, 0x7f7f7f7f, 0xa9a9a9a9,\n"
-"   0x19191919, 0xb5b5b5b5, 0x4a4a4a4a, 0x0d0d0d0d,\n"
-"   0x2d2d2d2d, 0xe5e5e5e5, 0x7a7a7a7a, 0x9f9f9f9f,\n"
-"   0x93939393, 0xc9c9c9c9, 0x9c9c9c9c, 0xefefefef,\n"
-"   0xa0a0a0a0, 0xe0e0e0e0, 0x3b3b3b3b, 0x4d4d4d4d,\n"
-"   0xaeaeaeae, 0x2a2a2a2a, 0xf5f5f5f5, 0xb0b0b0b0,\n"
-"   0xc8c8c8c8, 0xebebebeb, 0xbbbbbbbb, 0x3c3c3c3c,\n"
-"   0x83838383, 0x53535353, 0x99999999, 0x61616161,\n"
-"   0x17171717, 0x2b2b2b2b, 0x04040404, 0x7e7e7e7e,\n"
-"   0xbabababa, 0x77777777, 0xd6d6d6d6, 0x26262626,\n"
-"   0xe1e1e1e1, 0x69696969, 0x14141414, 0x63636363,\n"
-"   0x55555555, 0x21212121, 0x0c0c0c0c, 0x7d7d7d7d,\n"
-" };\n"
-" static const uint32_t rcon[] = {\n"
-"   0x01000000, 0x02000000, 0x04000000, 0x08000000,\n"
-"   0x10000000, 0x20000000, 0x40000000, 0x80000000,\n"
-"   0x1B000000, 0x36000000\n"
-"     /* for 128-bit blocks, Rijndael never uses more than 10 rcon values */\n"
-" };\n"
-" \n"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:687
-#, no-wrap
-msgid ""
-" #define GETU32(pt) (((uint32_t)((pt)[0] & 0xFF) << 24) ^ \\\n"
-"                     ((uint32_t)((pt)[1] & 0xFF) << 16) ^ \\\n"
-"                     ((uint32_t)((pt)[2] & 0xFF) <<  8) ^ \\\n"
-"                     ((uint32_t)((pt)[3] & 0xFF)))\n"
-" #define PUTU32(ct, st) {                                        \\\n"
-"     (ct)[0] = (char)((st) >> 24);                               \\\n"
-"     (ct)[1] = (char)((st) >> 16);                               \\\n"
-"     (ct)[2] = (char)((st) >>  8);                               \\\n"
-"     (ct)[3] = (char)(st); }\n"
-" \n"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:697
-#, no-wrap
-msgid ""
-" /**\n"
-"  * Expand the cipher key into the encryption key schedule.\n"
-"  *\n"
-"  * @return      the number of rounds for the given cipher key size.\n"
-"  */\n"
-" int\n"
-" rijndaelKeySetupEnc (uint32_t rk[ /*4*(Nr + 1) */ ],\n"
-"                      const char cipherKey[], size_t keyBits)\n"
-"\n"
+msgid "F<builder/index-parser-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:706
-msgid "rijndael-alg-fst.c"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:708
-msgid "@version 3.0 (December 2000)"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:710
-#: ../docs/internal-documentation.pod:756
-msgid "Optimised ANSI C code for the Rijndael cipher (now AES)"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:712
-#: ../docs/internal-documentation.pod:758
+#: ../docs/internal-documentation.pod:3
 msgid ""
-"@author Vincent Rijmen <vincent.rijmen@esat.kuleuven.ac.be> @author Antoon "
-"Bosselaers <antoon.bosselaers@esat.kuleuven.ac.be> @author Paulo Barreto "
-"<paulo.barreto@terra.com.br>"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:716
-#: ../docs/internal-documentation.pod:762
-msgid "This code is hereby placed in the public domain."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:718
-#: ../docs/internal-documentation.pod:764
-msgid ""
-"THIS SOFTWARE IS PROVIDED BY THE AUTHORS ''AS IS'' AND ANY EXPRESS OR "
-"IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF "
-"MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO "
-"EVENT SHALL THE AUTHORS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, "
-"INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT "
-"LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, "
-"OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF "
-"LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING "
-"NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, "
-"EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:730
-#, no-wrap
-msgid ""
-" int\n"
-" rijndaelKeySetupDec (uint32_t rk[ /*4*(Nr + 1) */ ],\n"
-"                      const char cipherKey[], size_t keyBits)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:734
-msgid "Expand the cipher key into the decryption key schedule."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:736
-msgid "@return the number of rounds for the given cipher key size."
+"This file handles the interface between the C/lex/yacc index file parser, "
+"and the OCaml world.  See F<builder/index_parser.ml> for the OCaml type "
+"definition."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:738
-msgid "F<.gnulib/lib/rijndael-api-fst.c>"
+#: ../docs/internal-documentation.pod:7
+msgid "F<cat/visit.c>"
 msgstr ""
 
-#. type: verbatim
-#: ../docs/internal-documentation.pod:741
-#, no-wrap
+#. type: textblock
+#: ../docs/internal-documentation.pod:9
 msgid ""
-" #include \"rijndael-alg-fst.h\"\n"
-" #include \"rijndael-api-fst.h\"\n"
-" \n"
+"This file contains a recursive function for visiting all files and "
+"directories in a guestfs filesystem."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:12
+msgid ""
+"Adapted from L<https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-"
+"machine-for-setuid-files/>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:744
+#: ../docs/internal-documentation.pod:15
 #, fuzzy, no-wrap
 #| msgid ""
-#| " #include <stdio.h>\n"
-#| " #include <stdlib.h>\n"
-#| " #include <unistd.h>\n"
-#| " #include <dlfcn.h>\n"
-#| " #include <guestfs.h>\n"
-#| " \n"
+#| " void guestfs_set_private (guestfs_h *g, const char *key, void *data);\n"
+#| "\n"
 msgid ""
-" #include <assert.h>\n"
-" #include <stdlib.h>\n"
-" #include <string.h>\n"
-" \n"
+" int\n"
+" visit (guestfs_h *g, const char *dir, visitor_function f, void *opaque)\n"
+"\n"
 msgstr ""
-" #include <stdio.h>\n"
-" #include <stdlib.h>\n"
-" #include <unistd.h>\n"
-" #include <dlfcn.h>\n"
-" #include <guestfs.h>\n"
-" \n"
+" void guestfs_set_private (guestfs_h *g, const char *key, void *data);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:18
+msgid ""
+"Visit every file and directory in a guestfs filesystem, starting at C<dir>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:21
+msgid ""
+"C<dir> may be C<\"/\"> to visit the entire filesystem, or may be some "
+"subdirectory.  Symbolic links are not followed."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:24
+msgid ""
+"The visitor function C<f> is called once for every directory and every "
+"file.  The parameters passed to C<f> include the current directory name, the "
+"current file name (or C<NULL> when we're visiting a directory), the "
+"C<guestfs_statns> (file permissions etc), and the list of extended "
+"attributes of the file.  The visitor function may return C<-1> which causes "
+"the whole recursion to stop with an error."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:32
+msgid ""
+"Also passed to this function is an C<opaque> pointer which is passed through "
+"to the visitor function."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:35
+msgid ""
+"Returns C<0> if everything went OK, or C<-1> if there was an error.  Error "
+"handling is not particularly well defined.  It will either set an error in "
+"the libguestfs handle or print an error on stderr, but there is no way for "
+"the caller to tell the difference."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:40
+msgid "F<daemon/command.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:42
+msgid ""
+"This file contains a number of useful functions for running external "
+"commands and capturing their output."
+msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:748
+#: ../docs/internal-documentation.pod:45
 #, no-wrap
 msgid ""
-" rijndael_rc\n"
-" rijndaelMakeKey (rijndaelKeyInstance *key, rijndael_direction direction,\n"
-"                  size_t keyLen, const char *keyMaterial)\n"
+" int\n"
+" commandf (char **stdoutput, char **stderror, unsigned flags,\n"
+"           const char *name, ...)\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:752
-msgid "rijndael-api-fst.c"
+#: ../docs/internal-documentation.pod:49
+msgid "Run a command.  Optionally capture stdout and stderr as strings."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:51
+msgid ""
+"Returns C<0> if the command ran successfully, or C<-1> if there was any "
+"error."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:54
+msgid "For a description of the C<flags> see C<commandrvf>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:56
+msgid ""
+"There is also a macro C<command(out,err,name,...)> which calls C<commandf> "
+"with C<flags=0>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:59
+#, no-wrap
+msgid ""
+" int\n"
+" commandrf (char **stdoutput, char **stderror, unsigned flags,\n"
+"            const char *name, ...)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:63
+msgid ""
+"Same as C<command>, but we allow the status code from the subcommand to be "
+"non-zero, and return that status code."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:66
+msgid "We still return C<-1> if there was some other error."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:68
+msgid ""
+"There is also a macro C<commandr(out,err,name,...)> which calls C<commandrf> "
+"with C<flags=0>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:71
+#, no-wrap
+msgid ""
+" int\n"
+" commandvf (char **stdoutput, char **stderror, unsigned flags,\n"
+"            char const *const *argv)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:75
+msgid "Same as C<command>, but passing in an argv array."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:77
+msgid ""
+"There is also a macro C<commandv(out,err,argv)> which calls C<commandvf> "
+"with C<flags=0>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:80
+#, no-wrap
+msgid ""
+" int\n"
+" commandrvf (char **stdoutput, char **stderror, unsigned flags,\n"
+"             char const* const *argv)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:84
+msgid ""
+"This is a more sane version of L<system(3)> for running external commands.  "
+"It uses fork/execvp, so we don't need to worry about quoting of parameters, "
+"and it allows us to capture any error messages in a buffer."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:89
+msgid ""
+"If C<stdoutput> is not C<NULL>, then C<*stdoutput> will return the stdout of "
+"the command as a string."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:92
+msgid ""
+"If C<stderror> is not C<NULL>, then C<*stderror> will return the stderr of "
+"the command.  If there is a final \\n character, it is removed so you can "
+"use the error string directly in a call to C<reply_with_error>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:97
+msgid "Flags are:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:101
+msgid "C<COMMAND_FLAG_FOLD_STDOUT_ON_STDERR>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:103
+msgid ""
+"For broken external commands that send error messages to stdout (hello, "
+"parted) but that don't have any useful stdout information, use this flag to "
+"capture the error messages in the C<*stderror> buffer.  If using this flag, "
+"you should pass C<stdoutput=NULL> because nothing could ever be captured in "
+"that buffer."
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:109
+msgid "C<COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:111
+msgid ""
+"For running external commands on chrooted files correctly (see L<https://"
+"bugzilla.redhat.com/579608>) specifying this flag causes another process to "
+"be forked which chroots into sysroot and just copies the input file to stdin "
+"of the specified command.  The file descriptor is ORed with the flags, and "
+"that file descriptor is always closed by this function.  See F<daemon/"
+"hexdump.c> for an example of usage."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:121
+msgid ""
+"There is also a macro C<commandrv(out,err,argv)> which calls C<commandrvf> "
+"with C<flags=0>."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:124
+msgid "F<daemon/guestfsd.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:126
+msgid ""
+"This is the guestfs daemon which runs inside the guestfs appliance.  This "
+"file handles start up, connecting back to the library, and has several "
+"utility functions."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:130
+#, no-wrap
+msgid ""
+" static int\n"
+" is_root_device_stat (struct stat *statbuf)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:133
+msgid ""
+"Return true iff device is the root device (and therefore should be ignored "
+"from the point of view of user calls)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:136
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *\n"
+#| " guestfs_cat (guestfs_h *g,\n"
+#| "              const char *path);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" sysroot_path (const char *path)\n"
+"\n"
+msgstr ""
+" char *\n"
+" guestfs_cat (guestfs_h *g,\n"
+"              const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:139
+msgid "Turn C<\"/path\"> into C<\"/sysroot/path\">."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:141
+#: ../docs/internal-documentation.pod:153
+msgid ""
+"Returns C<NULL> on failure.  The caller I<must> check for this and call "
+"S<C<reply_with_perror (\"malloc\")>>.  The caller must also free the "
+"returned string."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:145
+#: ../docs/internal-documentation.pod:157
+msgid ""
+"See also the custom C<%R> printf formatter which does shell quoting too."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:147
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *\n"
+#| " guestfs_realpath (guestfs_h *g,\n"
+#| "                   const char *path);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" sysroot_realpath (const char *path)\n"
+"\n"
+msgstr ""
+" char *\n"
+" guestfs_realpath (guestfs_h *g,\n"
+"                   const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:150
+msgid ""
+"Resolve path within sysroot, calling C<sysroot_path> on the resolved path."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:159
+#, no-wrap
+msgid ""
+" int\n"
+" is_power_of_2 (unsigned long v)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:162
+msgid "Returns true if C<v> is a power of 2."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:164
+msgid ""
+"Uses the algorithm described at L<http://graphics.stanford.edu/~seander/"
+"bithacks.html#DetermineIfPowerOf2>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:167
+#, no-wrap
+msgid ""
+" int\n"
+" compare_device_names (const char *a, const char *b)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:170
+msgid "Compare device names (including partition numbers if present)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:172
+#: ../docs/internal-documentation.pod:1588
+msgid ""
+"L<https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-"
+"drive-26-devsdz/>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:174
+#, no-wrap
+msgid ""
+" struct stringsbuf\n"
+" split_lines_sb (char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:177
+msgid ""
+"Split an output string into a NULL-terminated list of lines, wrapped into a "
+"stringsbuf."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:180
+msgid ""
+"Typically this is used where we have run an external command which has "
+"printed out a list of things, and we want to return an actual list."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:184
+msgid "The corner cases here are quite tricky.  Note in particular:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:188
+msgid "C<\"\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:190
+#: ../docs/internal-documentation.pod:1539
+msgid "returns C<[]>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:192
+msgid "C<\"\\n\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:194
+msgid "returns C<[\"\"]>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:196
+msgid "C<\"a\\nb\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:198
+#: ../docs/internal-documentation.pod:202
+msgid "returns C<[\"a\"; \"b\"]>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:200
+msgid "C<\"a\\nb\\n\">"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:204
+msgid "C<\"a\\nb\\n\\n\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:206
+msgid "returns C<[\"a\"; \"b\"; \"\"]>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:210
+msgid ""
+"The original string is written over and destroyed by this function (which is "
+"usually OK because it's the 'out' string from C<command*()>).  You can free "
+"the original string, because C<add_string()> strdups the strings."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:215
+msgid "C<argv> in the C<struct stringsbuf> will be C<NULL> in case of errors."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:217
+#, no-wrap
+msgid ""
+" void\n"
+" trim (char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:220
+msgid ""
+"Skip leading and trailing whitespace, updating the original string in-place."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:223
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_remount_va (guestfs_h *g,\n"
+#| "                     const char *mountpoint,\n"
+#| "                     va_list args);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" print_shell_quote (FILE *stream,\n"
+"                    const struct printf_info *info ATTRIBUTE_UNUSED,\n"
+"                    const void *const *args)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_remount_va (guestfs_h *g,\n"
+"                     const char *mountpoint,\n"
+"                     va_list args);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:228
+msgid ""
+"printf helper function so we can use C<%Q> (\"quoted\") and C<%R> to print "
+"shell-quoted strings.  See L<guestfs-hacking(1)> for more details."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:232
+#, no-wrap
+msgid ""
+" char *\n"
+" device_name_translation (const char *device)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:235
+msgid ""
+"Perform device name translation.  See L<guestfs(3)> for the algorithm.  "
+"Usually you should not call this directly."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:238
+msgid "It returns a newly allocated string which the caller must free."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:240
+msgid ""
+"It returns C<NULL> on error.  B<Note> it does I<not> call C<reply_with_*>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:243
+msgid ""
+"We have to open the device and test for C<ENXIO>, because the device nodes "
+"may exist in the appliance."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:246
+#, no-wrap
+msgid ""
+" int\n"
+" parse_btrfsvol (const char *desc_orig, mountable_t *mountable)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:249
+msgid ""
+"Parse the mountable descriptor for a btrfs subvolume.  Don't call this "
+"directly; it is only used from the stubs."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:252
+#, fuzzy
+#| msgid ""
+#| " btrfs-subvolume-list fs\n"
+#| "\n"
+msgid "A btrfs subvolume is given as:"
+msgstr ""
+" btrfs-subvolume-list fs\n"
+"\n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:254
+#, no-wrap
+msgid ""
+" btrfsvol:/dev/sda3/root\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:256
+msgid ""
+"where F</dev/sda3> is a block device containing a btrfs filesystem, and root "
+"is the name of a subvolume on it. This function is passed the string "
+"following C<\"btrfsvol:\">."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:260
+msgid ""
+"On success, C<mountable-E<gt>device> and C<mountable-E<gt>volume> must be "
+"freed by the caller."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:263
+#, fuzzy, no-wrap
+#| msgid ""
+#| " mount-options options mountable mountpoint\n"
+#| "\n"
+msgid ""
+" char *\n"
+" mountable_to_string (const mountable_t *mountable)\n"
+"\n"
+msgstr ""
+" mount-options options mountable mountpoint\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:266
+msgid "Convert a C<mountable_t> back to its string representation"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:268
+msgid ""
+"This function can be used in an error path, so must not call "
+"C<reply_with_error>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:271
+#, no-wrap
+msgid ""
+" int\n"
+" prog_exists (const char *prog)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:274
+msgid "Check program exists and is executable on C<$PATH>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:276
+#, no-wrap
+msgid ""
+" int\n"
+" random_name (char *template)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:279
+msgid ""
+"Pass a template such as C<\"/sysroot/XXXXXXXX.XXX\">.  This updates the "
+"template to contain a randomly named file.  Any C<'X'> characters after the "
+"final C<'/'> in the template are replaced with random characters."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:284
+msgid ""
+"Notes: You should probably use an 8.3 path, so it's compatible with all "
+"filesystems including basic FAT.  Also this only substitutes lowercase ASCII "
+"letters and numbers, again for compatibility with lowest common denominator "
+"filesystems."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:289
+msgid ""
+"This doesn't create a file or check whether or not the file exists (it would "
+"be extremely unlikely to exist as long as the RNG is working)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:293
+msgid "If there is an error, C<-1> is returned."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:295
+#, no-wrap
+msgid ""
+" void\n"
+" udev_settle (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:298
+msgid ""
+"LVM and other commands aren't synchronous, especially when udev is "
+"involved.  eg. You can create or remove some device, but the C</dev> device "
+"node won't appear until some time later.  This means that you get an error "
+"if you run one command followed by another."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:303
+msgid ""
+"Use C<udevadm settle> after certain commands, but don't be too fussed if it "
+"fails."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:306
+msgid "F<daemon/internal.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:308
+msgid "Internal functions that are not part of the public API."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:310
+msgid "F<df/domains.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:312
+msgid ""
+"This file is used by C<virt-df> and some of the other tools when they are "
+"implicitly asked to operate over all libvirt domains (VMs), for example when "
+"C<virt-df> is called without specifying any particular disk image."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:317
+msgid "It hides the complexity of querying the list of domains from libvirt."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:320
+#, no-wrap
+msgid ""
+" void\n"
+" free_domains (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:323
+msgid "Frees up everything allocated by C<get_all_libvirt_domains>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:325
+#, no-wrap
+msgid ""
+" void\n"
+" get_all_libvirt_domains (const char *libvirt_uri)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:328
+msgid ""
+"Read all libguest guests into the global variables C<domains> and "
+"C<nr_domains>.  The guests are ordered by name.  This exits on any error."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:332
+msgid "F<df/estimate-max-threads.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:334
+#, no-wrap
+msgid ""
+" size_t\n"
+" estimate_max_threads (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:337
+msgid ""
+"This function uses the output of C<free -m> to estimate how many libguestfs "
+"appliances could be safely started in parallel.  Note that it always returns "
+"E<ge> 1."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:341
+#, no-wrap
+msgid ""
+" static char *\n"
+" read_line_from (const char *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:344
+msgid "Run external command and read the first line of output."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:346
+msgid "F<df/parallel.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:348
+msgid ""
+"This file is used by C<virt-df> and some of the other tools when they need "
+"to run multiple parallel libguestfs instances to operate on a large number "
+"of libvirt domains efficiently."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:352
+msgid ""
+"It implements a multithreaded work queue.  In addition it reorders the "
+"output so the output still appears in the same order as the input (ie. still "
+"ordered alphabetically)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:356
+#, no-wrap
+msgid ""
+" int\n"
+" start_threads (size_t option_P, guestfs_h *options_handle, work_fn work)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:359
+msgid "Run the threads and work through the global list of libvirt domains."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:362
+msgid ""
+"C<option_P> is whatever the user passed in the I<-P> option, or C<0> if the "
+"user didn't use the I<-P> option (in which case the number of threads is "
+"chosen heuristically)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:366
+msgid ""
+"C<options_handle> (which may be C<NULL>) is the global guestfs handle "
+"created by the options mini-library."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:369
+msgid ""
+"The work function (C<work>) should do the work (inspecting the domain, "
+"etc.)  on domain index C<i>.  However it I<must not> print out any result "
+"directly.  Instead it prints anything it needs to the supplied C<FILE *>.  "
+"The work function should return C<0> on success or C<-1> on error."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:375
+msgid ""
+"The C<start_threads> function returns C<0> if all work items completed "
+"successfully, or C<-1> if there was an error."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:378
+msgid "F<fish/domain.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:380
+msgid "Implements the guestfish (and other tools) I<-d> option."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:382
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" int\n"
+" add_libvirt_drives (guestfs_h *g, const char *guest)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:385
+msgid "This function is called when a user invokes S<C<guestfish -d guest>>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:387
+msgid ""
+"Returns the number of drives added (S<C<E<gt> 0>>), or C<-1> for failure."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:389
+msgid "F<fish/edit.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:391
+msgid "guestfish edit command, suggested by Ján Ondrej."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:393
+msgid "F<fish/fish.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:395
+#, fuzzy
+#| msgid ""
+#| " Welcome to guestfish, the guest filesystem shell for\n"
+#| " editing virtual machine filesystems.\n"
+#| " \n"
+msgid ""
+"guestfish, the guest filesystem shell.  This file contains the main loop and "
+"utilities."
+msgstr ""
+" Welcome to guestfish, the guest filesystem shell for\n"
+" editing virtual machine filesystems.\n"
+" \n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:398
+#, no-wrap
+msgid ""
+" static struct parsed_command\n"
+" parse_command_line (char *buf, int *exit_on_error_rtn)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:401
+msgid ""
+"Parse a command string, splitting at whitespace, handling C<'!'>, C<'#'> "
+"etc.  This destructively updates C<buf>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:404
+msgid ""
+"C<exit_on_error_rtn> is used to pass in the global C<exit_on_error> setting "
+"and to return the local setting (eg. if the command begins with C<'-'>)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:408
+msgid "Returns in C<parsed_command.status>:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:412 ../fuse/guestunmount.pod:131
+msgid "C<1>"
+msgstr "C<1>"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:414
+msgid ""
+"got a guestfish command (returned in C<cmd_rtn>/C<argv_rtn>/C<pipe_rtn>)"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:416
+msgid "C<0>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:418
+msgid "no guestfish command, but otherwise OK"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:420
+msgid "C<-1>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:422
+msgid "an error"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:426
+#, no-wrap
+msgid ""
+" static ssize_t\n"
+" parse_quoted_string (char *p)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:429
+msgid ""
+"Parse double-quoted strings, replacing backslash escape sequences with the "
+"true character.  Since the string is returned in place, the escapes must "
+"make the string shorter."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:433
+#, no-wrap
+msgid ""
+" static int\n"
+" execute_and_inline (const char *cmd, int global_exit_on_error)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:436
+msgid "Used to handle C<E<lt>!> (execute command and inline result)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:438
+#, no-wrap
+msgid ""
+" int\n"
+" issue_command (const char *cmd, char *argv[], const char *pipecmd,\n"
+"                int rc_exit_on_error_flag)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:442
+#, fuzzy
+#| msgid ""
+#| " sh command\n"
+#| "\n"
+msgid "Run a command."
+msgstr ""
+" sh command\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:444
+msgid ""
+"C<rc_exit_on_error_flag> is the C<exit_on_error> flag that we pass to the "
+"remote server (when issuing I<--remote> commands).  It does not cause "
+"C<issue_command> itself to exit on error."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:448
+#, no-wrap
+msgid ""
+" void\n"
+" extended_help_message (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:451
+msgid ""
+"Print an extended help message when the user types in an unknown command for "
+"the first command issued.  A common case is the user doing:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:455
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfish -a disk.img -i\n"
+#| "\n"
+msgid ""
+"  guestfish disk.img\n"
+"\n"
+msgstr ""
+" guestfish -a disk.img -i\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:457
+msgid ""
+"expecting guestfish to open F<disk.img> (in fact, this tried to run a non-"
+"existent command C<disk.img>)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:460
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" error_cb (guestfs_h *g, void *data, const char *msg)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:463
+msgid "Error callback.  This replaces the standard libguestfs error handler."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:465
+#, no-wrap
+msgid ""
+" static void\n"
+" free_n_strings (char **str, size_t len)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:468
+msgid "Free strings from a non-NULL terminated C<char**>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:470
+#, no-wrap
+msgid ""
+" static char *\n"
+" decode_ps1 (const char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:473
+msgid "Decode C<str> into the final printable prompt string."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:475
+#, no-wrap
+msgid ""
+" char *\n"
+" win_prefix (const char *path)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:478
+msgid ""
+"Resolve the special C<win:...> form for Windows-specific paths.  The "
+"generated code calls this for all device or path arguments."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:481
+msgid ""
+"The function returns a newly allocated string, and the caller must free this "
+"string; else display an error and return C<NULL>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:484
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *\n"
+#| " guestfs_df (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" file_in (const char *arg)\n"
+"\n"
+msgstr ""
+" char *\n"
+" guestfs_df (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:487
+msgid "Resolve the special C<FileIn> paths (C<-> or C<-<<END> or filename)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:489
+msgid ""
+"The caller (F<fish/cmds.c>) will call C<free_file_in> after the command has "
+"run which should clean up resources."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:492
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_mounts (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" file_out (const char *arg)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_mounts (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:495
+msgid "Resolve the special C<FileOut> paths (C<-> or filename)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:497
+msgid ""
+"The caller (F<fish/cmds.c>) will call S<C<free (str)>> after the command has "
+"run."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:500
+#, fuzzy, no-wrap
+#| msgid ""
+#| " typedef void (*guestfs_event_callback) (\n"
+#| "                  guestfs_h *g,\n"
+#| "                  void *opaque,\n"
+#| "                  uint64_t event,\n"
+#| "                  int event_handle,\n"
+#| "                  int flags,\n"
+#| "                  const char *buf, size_t buf_len,\n"
+#| "                  const uint64_t *array, size_t array_len);\n"
+#| "\n"
+msgid ""
+" void\n"
+" progress_callback (guestfs_h *g, void *data,\n"
+"                    uint64_t event, int event_handle, int flags,\n"
+"                    const char *buf, size_t buf_len,\n"
+"                    const uint64_t *array, size_t array_len)\n"
+"\n"
+msgstr ""
+" typedef void (*guestfs_event_callback) (\n"
+"                  guestfs_h *g,\n"
+"                  void *opaque,\n"
+"                  uint64_t event,\n"
+"                  int event_handle,\n"
+"                  int flags,\n"
+"                  const char *buf, size_t buf_len,\n"
+"                  const uint64_t *array, size_t array_len);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:506
+msgid "Callback which displays a progress bar."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:508
+msgid "F<fish/help.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:510
+#, no-wrap
+msgid ""
+" void\n"
+" display_help (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:513
+#, fuzzy
+#| msgid ""
+#| " sh command\n"
+#| "\n"
+msgid "The C<help> command."
+msgstr ""
+" sh command\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:515
+msgid ""
+"This used to just list all commands, but that's not very useful.  Instead "
+"display some useful context-sensitive help.  This could be improved if we "
+"knew how many drives had been added already, and whether anything was "
+"mounted."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:520
+msgid "F<fish/keys.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:522
+#, no-wrap
+msgid ""
+" char *\n"
+" read_key (const char *param)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:525
+msgid "Read a passphrase ('Key') from F</dev/tty> with echo off."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:527
+msgid ""
+"The caller (F<fish/cmds.c>) will call free on the string afterwards.  Based "
+"on the code in cryptsetup file F<lib/utils.c>."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:530
+msgid "F<fish/lcd.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:532
+#, no-wrap
+msgid ""
+" int\n"
+" run_lcd (const char *cmd, size_t argc, char *argv[])\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:535
+msgid "guestfish C<lcd> command (similar to the C<lcd> command in BSD ftp)."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:537
+msgid "F<fish/man.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:539
+#, no-wrap
+msgid ""
+" int\n"
+" run_man (const char *cmd, size_t argc, char *argv[])\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:542
+#, fuzzy
+#| msgid ""
+#| " guestfish [--options] [commands]\n"
+#| "\n"
+msgid "guestfish C<man> command"
+msgstr ""
+" guestfish [--options] [commands]\n"
+"\n"
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:544
+msgid "F<fish/options.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:546
+msgid ""
+"This file contains common options parsing code used by guestfish and many "
+"other tools which share a common options syntax."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:549
+msgid ""
+"For example, guestfish, virt-cat, virt-ls etc all support the I<-a> option, "
+"and that is handled in all of those tools using a macro C<OPTION_a> defined "
+"in C<\"options.h\">."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:553
+msgid ""
+"There are a lot of common global variables used, C<drvs> accumulates the "
+"list of drives, C<verbose> for the I<-v> flag, and many more."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:557
+#, no-wrap
+msgid ""
+" void\n"
+" option_a (const char *arg, const char *format, struct drv **drvsp)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:560
+msgid "Handle the guestfish I<-a> option on the command line."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:562
+msgid "F<fish/tilde.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:564
+#, no-wrap
+msgid ""
+" char *\n"
+" try_tilde_expansion (char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:567
+msgid ""
+"This is called from the script loop if we find a candidate for C<~username> "
+"(tilde-expansion)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:570
+#, no-wrap
+msgid ""
+" static char *\n"
+" expand_home (char *orig, const char *append)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:573
+msgid "Return C<$HOME> + append string."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:575
+#, no-wrap
+msgid ""
+" static const char *\n"
+" find_home_for_username (const char *username, size_t ulen)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:578
+msgid ""
+"Lookup C<username> (of length C<ulen>), return home directory if found, or "
+"C<NULL> if not found."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:581
+msgid "F<p2v/kernel-cmdline.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:583
+msgid "Mini library to read and parse C</proc/cmdline>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:585
+#, no-wrap
+msgid ""
+" char **\n"
+" parse_cmdline_string (const char *cmdline)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:588
+msgid "Read and parse C</proc/cmdline>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:590
+msgid ""
+"We only support double quoting, consistent with the Linux documentation.  "
+"L<https://www.kernel.org/doc/Documentation/kernel-parameters.txt>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:594
+msgid ""
+"systemd supports single and double quoting and single character escaping, "
+"but we don't support all that."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:597
+msgid "Returns a list of key, value pairs, terminated by C<NULL>."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:599
+msgid "F<p2v/kernel.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:601
+msgid "Kernel-driven, non-interactive configuration of virt-p2v."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:603
+msgid "F<p2v/ssh.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:605
+msgid "This file handles the ssh connections to the conversion server."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:607
+msgid ""
+"virt-p2v will open several connections over the lifetime of the conversion "
+"process."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:610
+msgid ""
+"In C<test_connection>, it will first open a connection (to check it is "
+"possible) and query virt-v2v on the server to ensure it exists, it is the "
+"right version, and so on.  This connection is then closed, because in the "
+"GUI case we don't want to deal with keeping it alive in case the "
+"administrator has set up an autologout."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:616
+msgid ""
+"Once we start conversion, we will open a control connection to send the "
+"libvirt configuration data and to start up virt-v2v, and we will open up one "
+"data connection per local hard disk.  The data connection(s) have a reverse "
+"port forward to the local L<qemu-nbd(8)> server which is serving the content "
+"of that hard disk.  The remote port for each data connection is assigned by "
+"ssh.  See C<open_data_connection> and C<start_remote_conversion>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:624
+#, no-wrap
+msgid ""
+" static int\n"
+" curl_download (const char *url, const char *local_file)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:627
+msgid "Download URL to local file using the external 'curl' command."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:629
+#, no-wrap
+msgid ""
+" static int\n"
+" cache_ssh_identity (struct config *config)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:632
+msgid "Re-cache the C<config-E<gt>identity_url> if needed."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:634
+#, no-wrap
+msgid ""
+" static mexp_h *\n"
+" start_ssh (struct config *config, char **extra_args, int wait_prompt)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:637
+msgid ""
+"Start ssh subprocess with the standard arguments and possibly some optional "
+"arguments.  Also handles authentication."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:640
+msgid "F<p2v/whole-file.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:642
+#, no-wrap
+msgid ""
+" int\n"
+" read_whole_file (const char *filename, char **data_r, size_t *size_r)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:645
+msgid ""
+"Read the whole file into a memory buffer and return it.  The file should be "
+"a regular, local, trusted file."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:648
+msgid "F<python/guestfs-py-byhand.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:650
+msgid ""
+"This file contains a small number of functions that are written by hand.  "
+"The majority of the bindings are generated (see F<python/guestfs-py.c>)."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:654
+msgid "F<src/actions-support.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:656
+msgid "Helper functions for the actions code in F<src/actions-*.c>."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:658
+#, fuzzy
+#| msgid "C<appliance>"
+msgid "F<src/appliance.c>"
+msgstr "C<appliance>"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:660
+msgid "This file deals with building the libguestfs appliance."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:662
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_set_append (guestfs_h *g,\n"
+#| "                     const char *append);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_build_appliance (guestfs_h *g,\n"
+" \t\t\t     char **kernel_rtn,\n"
+" \t\t\t     char **initrd_rtn,\n"
+" \t\t\t     char **appliance_rtn)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_set_append (guestfs_h *g,\n"
+"                     const char *append);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:668
+msgid "Locate or build the appliance."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:670
+msgid ""
+"This function locates or builds the appliance as necessary, handling the "
+"supermin appliance, caching of supermin-built appliances, or using either a "
+"fixed or old-style appliance."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:674
+msgid ""
+"The return value is C<0> = good, C<-1> = error.  Returned in C<*kernel> will "
+"be the name of the kernel to use, C<*initrd> the name of the initrd, "
+"C<*appliance> the name of the ext2 root filesystem.  C<*appliance> can be "
+"C<NULL>, meaning that we are using an old-style (non-ext2) appliance.  All "
+"three strings must be freed by the caller.  However the referenced files "
+"themselves must I<not> be deleted."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:682
+msgid "The process is as follows:"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:688
+msgid ""
+"Look for the first element of C<g-E<gt>path> which contains a supermin "
+"appliance skeleton.  If no element has this, skip straight to step 3."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:694
+msgid ""
+"Call C<supermin --build> to build the full appliance (if it needs to be "
+"rebuilt).  If this is successful, return the full appliance."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:699
+msgid ""
+"Check each element of C<g-E<gt>path>, looking for a fixed appliance.  If one "
+"is found, return it."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:704
+msgid ""
+"Check each element of C<g-E<gt>path>, looking for an old-style appliance.  "
+"If one is found, return it."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:709
+msgid ""
+"The supermin appliance cache directory lives in F<$TMPDIR/.guestfs-$UID/> "
+"and consists of up to four files:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:712
+#, no-wrap
+msgid ""
+"  $TMPDIR/.guestfs-$UID/lock            - the supermin lock file\n"
+"  $TMPDIR/.guestfs-$UID/appliance.d/kernel - the kernel\n"
+"  $TMPDIR/.guestfs-$UID/appliance.d/initrd - the supermin initrd\n"
+"  $TMPDIR/.guestfs-$UID/appliance.d/root   - the appliance\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:717
+msgid ""
+"Multiple instances of libguestfs with the same UID may be racing to create "
+"an appliance.  However (since supermin E<ge> 5) supermin provides a I<--"
+"lock> flag and atomic update of the F<appliance.d> subdirectory."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:722
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_compress_out_va (guestfs_h *g,\n"
+#| "                          const char *ctype,\n"
+#| "                          const char *file,\n"
+#| "                          const char *zfile,\n"
+#| "                          va_list args);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" build_supermin_appliance (guestfs_h *g,\n"
+"                           const char *supermin_path,\n"
+"                           uid_t uid,\n"
+"                           char **kernel, char **initrd,\n"
+"                           char **appliance)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_compress_out_va (guestfs_h *g,\n"
+"                          const char *ctype,\n"
+"                          const char *file,\n"
+"                          const char *zfile,\n"
+"                          va_list args);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:729
+msgid ""
+"Build supermin appliance from C<supermin_path> to F<$TMPDIR/.guestfs-$UID>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:732
+msgid "Returns: C<0> = built or C<-1> = error (aborts launch)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:734
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_luks_open (guestfs_h *g,\n"
+#| "                    const char *device,\n"
+#| "                    const char *key,\n"
+#| "                    const char *mapname);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" run_supermin_build (guestfs_h *g,\n"
+"                     const char *lockfile,\n"
+"                     const char *appliancedir,\n"
+"                     const char *supermin_path)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_luks_open (guestfs_h *g,\n"
+"                    const char *device,\n"
+"                    const char *key,\n"
+"                    const char *mapname);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:740
+msgid "Run C<supermin --build> and tell it to generate the appliance."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:742
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_fill (guestfs_h *g,\n"
+#| "               int c,\n"
+#| "               int len,\n"
+#| "               const char *path);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" find_path (guestfs_h *g,\n"
+"            int (*pred) (guestfs_h *g, const char *pelem, void *data),\n"
+"            void *data,\n"
+"            char **pelem_ret)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_fill (guestfs_h *g,\n"
+"               int c,\n"
+"               int len,\n"
+"               const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:748
+msgid ""
+"Search elements of C<g-E<gt>path>, returning the first path element which "
+"matches the predicate function C<pred>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:751
+msgid ""
+"Function C<pred> must return a true or false value.  If it returns C<-1> "
+"then the entire search is aborted."
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:754
-msgid "@version 2.9 (December 2000)"
+msgid "Return values:"
 msgstr ""
 
+#. type: verbatim
+#: ../docs/internal-documentation.pod:756
+#, no-wrap
+msgid ""
+"  1 = a path element matched, it is returned in *pelem_ret and must be\n"
+"      freed by the caller,\n"
+"  0 = no path element matched, *pelem_ret is set to NULL, or\n"
+" -1 = error which aborts the launch process\n"
+"\n"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:761
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_ls0 (guestfs_h *g,\n"
+#| "              const char *dir,\n"
+#| "              const char *filenames);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" dir_contains_file (guestfs_h *g, const char *dir, const char *file)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_ls0 (guestfs_h *g,\n"
+"              const char *dir,\n"
+"              const char *filenames);\n"
+"\n"
+
 #. type: textblock
-#: ../docs/internal-documentation.pod:776
-msgid "Acknowledgements:"
+#: ../docs/internal-documentation.pod:764
+msgid "Returns true iff C<file> is contained in C<dir>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:766
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" dir_contains_files (guestfs_h *g, const char *dir, ...)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:769
+msgid "Returns true iff every listed file is contained in C<dir>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:771
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:774
+msgid ""
+"Return the location of firmware needed to boot the appliance.  This is "
+"aarch64 only currently, since that's the only architecture where UEFI is "
+"mandatory (and that only for RHEL)."
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:778
 msgid ""
-"We are deeply indebted to the following people for their bug reports, fixes, "
-"and improvement suggestions to this implementation. Though we tried to list "
-"all contributions, we apologise in advance for any missing reference."
+"C<*code> is initialized with the path to the read-only UEFI code file.  "
+"C<*vars> is initialized with the path to a copy of the UEFI vars file (which "
+"is cleaned up automatically on exit)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:783
+#: ../docs/internal-documentation.pod:782
+msgid "If C<*code> == C<*vars> == C<NULL> then no UEFI firmware is available."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:785
+msgid "C<*code> and C<*vars> should be freed by the caller."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:787
 msgid ""
-"Andrew Bales <Andrew.Bales@Honeywell.com> Markus Friedl <markus."
-"friedl@informatik.uni-erlangen.de> John Skodon <skodonj@webquill.com>"
+"If the function returns C<-1> then there was a real error which should cause "
+"appliance building to fail (no UEFI firmware is not an error)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:791
+msgid "XXX See also F<v2v/utils.ml>:find_uefi_firmware"
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:787
-msgid "F<.gnulib/lib/safe-alloc.c>"
+#: ../docs/internal-documentation.pod:793
+msgid "F<src/cleanup.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:795
+msgid ""
+"Libguestfs uses C<CLEANUP_*> macros to simplify temporary allocations.  They "
+"are implemented using the C<__attribute__((cleanup))> feature of gcc and "
+"clang.  Typical usage is:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:789
+#: ../docs/internal-documentation.pod:800
 #, no-wrap
 msgid ""
-" int\n"
-" safe_alloc_alloc_n (void *ptrptr, size_t size, size_t count, int zeroed)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:792
-msgid ""
-"safe_alloc_alloc_n: @ptrptr: pointer to pointer for address of allocated "
-"memory @size: number of bytes to allocate @count: number of elements to "
-"allocate"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:797
-msgid ""
-"Allocate an array of memory 'count' elements long, each with 'size' bytes. "
-"Return the address of the allocated memory in 'ptrptr'.  The newly allocated "
-"memory is filled with zeros."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:802
-#: ../docs/internal-documentation.pod:818
-msgid "Return -1 on failure to allocate, zero on success"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:804
-#, no-wrap
-msgid ""
-" int\n"
-" safe_alloc_realloc_n (void *ptrptr, size_t size, size_t count)\n"
+" fn ()\n"
+" {\n"
+"   CLEANUP_FREE char *str = NULL;\n"
+"   str = safe_asprintf (g, \"foo\");\n"
+"   // str is freed automatically when the function returns\n"
+" }\n"
 "\n"
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:807
-msgid ""
-"safe_alloc_realloc_n: @ptrptr: pointer to pointer for address of allocated "
-"memory @size: number of bytes to allocate @count: number of elements in array"
+msgid "There are a few catches to be aware of with the cleanup mechanism:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:812
+#: ../docs/internal-documentation.pod:813
 msgid ""
-"Resize the block of memory in 'ptrptr' to be an array of 'count' elements, "
-"each 'size' bytes in length. Update 'ptrptr' with the address of the newly "
-"allocated memory. On failure, 'ptrptr' is not changed and still points to "
-"the original memory block. The newly allocated memory is filled with zeros."
+"If a cleanup variable is not initialized, then you can end up calling "
+"L<free(3)> with an undefined value, resulting in the program crashing.  For "
+"this reason, you should usually initialize every cleanup variable with "
+"something, eg. C<NULL>"
 msgstr ""
 
-#. type: =head2
+#. type: textblock
 #: ../docs/internal-documentation.pod:820
-msgid "F<src/launch.c>"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:822
-msgid "This file implements L<guestfs(3)/guestfs_launch>."
+msgid "Don't mark variables holding return values as cleanup variables."
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:824
+msgid ""
+"The C<main()> function shouldn't use cleanup variables since it is normally "
+"exited by calling L<exit(3)>, and that doesn't call the cleanup handlers."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:830
+msgid ""
+"The functions in this file are used internally by the C<CLEANUP_*> macros.  "
+"Don't call them directly."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:833
+msgid "F<src/drives.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:835
+msgid ""
+"Drives added are stored in an array in the handle.  Code here manages that "
+"array and the individual C<struct drive> data."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:838
+#, no-wrap
+msgid ""
+" static int\n"
+" create_overlay (guestfs_h *g, struct drive *drv)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:841
+msgid ""
+"For readonly drives, create an overlay to protect the original drive "
+"content.  Note we never need to clean up these overlays since they are "
+"created in the temporary directory and deleted when the handle is closed."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:846
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_file (guestfs_h *g,\n"
+#| "                  const char *path);\n"
+#| "\n"
+msgid ""
+" static struct drive *\n"
+" create_drive_file (guestfs_h *g,\n"
+"                    const struct drive_create_data *data)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_file (guestfs_h *g,\n"
+"                  const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:850
+msgid "Create and free the C<struct drive>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:852
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *\n"
+#| " guestfs_hivex_node_name (guestfs_h *g,\n"
+#| "                          int64_t nodeh);\n"
+#| "\n"
+msgid ""
+" static struct drive *\n"
+" create_drive_dev_null (guestfs_h *g,\n"
+"                        struct drive_create_data *data)\n"
+"\n"
+msgstr ""
+" char *\n"
+" guestfs_hivex_node_name (guestfs_h *g,\n"
+"                          int64_t nodeh);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:856
+msgid "Create the special F</dev/null> drive."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:858
+msgid ""
+"Traditionally you have been able to use F</dev/null> as a filename, as many "
+"times as you like.  Ancient KVM (RHEL 5) cannot handle adding F</dev/null> "
+"readonly.  qemu 1.2 + virtio-scsi segfaults when you use any zero-sized file "
+"including F</dev/null>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:863
+msgid ""
+"Because of these problems, we replace F</dev/null> with a non-zero sized "
+"temporary file.  This shouldn't make any difference since users are not "
+"supposed to try and access a null drive."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:867
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_strings (guestfs_h *g,\n"
+#| "                  const char *path);\n"
+#| "\n"
+msgid ""
+" static char *\n"
+" drive_to_string (guestfs_h *g, const struct drive *drv)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_strings (guestfs_h *g,\n"
+"                  const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:870
+msgid ""
+"Convert a C<struct drive> to a string for debugging.  The caller must free "
+"this string."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:873
+#, no-wrap
+msgid ""
+" static void\n"
+" add_drive_to_handle_at (guestfs_h *g, struct drive *d, size_t drv_index)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:876
+msgid ""
+"Add C<struct drive> to the C<g-E<gt>drives> vector at the given index "
+"C<drv_index>.  If the array isn't large enough it is reallocated.  The index "
+"must not contain a drive already."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:880
+#, no-wrap
+msgid ""
+" static void\n"
+" add_drive_to_handle (guestfs_h *g, struct drive *d)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:883
+msgid ""
+"Add struct drive to the end of the C<g-E<gt>drives> vector in the handle."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:886
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_max_disks (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_add_dummy_appliance_drive (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_max_disks (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:889
+msgid "Called during launch to add a dummy slot to C<g-E<gt>drives>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:891
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_nr_devices (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_free_drives (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_nr_devices (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:894
+msgid "Free up all the drives in the handle."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:896
+#, no-wrap
+msgid ""
+" static int\n"
+" valid_format_iface (const char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:899
+msgid ""
+"Check string parameter matches regular expression C<^[-_[:alnum:]]+$> (in C "
+"locale)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:902
+#, no-wrap
+msgid ""
+" static int\n"
+" valid_disk_label (const char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:905
+msgid ""
+"Check the disk label is reasonable.  It can't contain certain characters, "
+"eg. C<'/'>, C<','>.  However be stricter here and ensure it's just "
+"alphabetic and E<le> 20 characters in length."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:909
+#, no-wrap
+msgid ""
+" static int\n"
+" valid_hostname (const char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:912
+msgid "Check the server hostname is reasonable."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:914
+#, no-wrap
+msgid ""
+" static int\n"
+" valid_port (int port)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:917
+msgid "Check the port number is reasonable."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:919
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_remove_drive (guestfs_h *g,\n"
+#| "                       const char *label);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_impl_remove_drive (guestfs_h *g, const char *label)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_remove_drive (guestfs_h *g,\n"
+"                       const char *label);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:922
+msgid "This function implements L<guestfs(3)/guestfs_remove_drive>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:924
+msgid ""
+"Depending on whether we are hotplugging or not, this function does slightly "
+"different things: If not hotplugging, then the drive just disappears as if "
+"it had never been added.  The later drives \"move up\" to fill the space.  "
+"When hotplugging we have to do some complex stuff, and we usually end up "
+"leaving an empty (C<NULL>) slot in the C<g-E<gt>drives> vector."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:931
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_config (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" size_t\n"
+" guestfs_int_checkpoint_drives (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_config (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:934
+msgid ""
+"Checkpoint and roll back drives, so that groups of drives can be added "
+"atomicly.  Only used by L<guestfs(3)/guestfs_add_domain>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:937
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_list_devices (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char **\n"
+" guestfs_impl_debug_drives (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_list_devices (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:940
+msgid "Internal function to return the list of drives."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:942
+msgid "F<src/errors.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:944
+msgid "This file handles errors, and also debug, trace and warning messages."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:946
+msgid ""
+"Errors in libguestfs API calls are handled by setting an error message and "
+"optional errno in the handle.  The caller has the choice of testing API "
+"calls to find out if they failed and then querying the last error from the "
+"handle, and/or getting a callback."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:951
+msgid ""
+"From the point of view of the library source, generally you should use the "
+"C<error> or C<perrorf> macros along error paths, eg:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:954
+#, no-wrap
+msgid ""
+" if (something_bad) {\n"
+"   error (g, \"something bad happened\");\n"
+"   return -1;\n"
+" }\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:959
+msgid ""
+"Make sure to call the C<error> or C<perrorf> macro exactly once along each "
+"error path, since the handle can only store a single error and the previous "
+"error will be overwritten."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:963
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_warning (guestfs_h *g, const char *fs, ...)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:966
+msgid "Print a warning."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:968
+msgid ""
+"Code should I<not> call this function directly.  Use the S<C<warning (g, "
+"fs, ...)>> macro."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:971
+msgid ""
+"Warnings are printed unconditionally.  We try to make these rare: Generally "
+"speaking, a warning should either be an error, or if it's not important for "
+"end users then it should be a debug message."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:975
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_debug (guestfs_h *g, const char *fs, ...)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:978
+msgid "Print a debug message."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:980
+msgid ""
+"Code should I<not> call this function directly.  To add debug messages in "
+"the library, use the S<C<debug (g, fs, ...)>> macro.  The macro checks if "
+"C<g-E<gt>verbose> is false and avoids the function call, meaning the macro "
+"is more efficient."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:985
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_trace (guestfs_h *g, const char *fs, ...)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:988
+msgid "Print a trace message."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:990
+msgid "Do not call this function.  All calls are generated automatically."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:992
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_error_errno (guestfs_h *g, int errnum, const char *fs, ...)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:995
+msgid ""
+"Set the last error and errno in the handle, and optionally raise the error "
+"callback if one is defined."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:998
+msgid ""
+"If you don't need to set errno, use the S<C<error (g, fs, ...)>> macro "
+"instead of calling this directly.  If you need to set errno then there is no "
+"macro wrapper, so calling this function directly is fine."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1003
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1006
+msgid ""
+"Similar to L<perror(3)>, but it sets the last error in the handle, raises "
+"the error callback if one is defined, and supports format strings."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1010
+msgid ""
+"You should probably use the S<C<perrorf (g, fs, ...)>> macro instead of "
+"calling this directly."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1013
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_launching (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_launch_failed_error (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_launching (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1016
+msgid "Raise a launch failed error in a standard format."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1018
+msgid ""
+"Since this is the most common error seen by people who have installation "
+"problems, buggy qemu, etc, and since no one reads the FAQ, describe in this "
+"error message what resources are available to debug launch problems."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1023
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void guestfs_close (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_unexpected_close_error (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" void guestfs_close (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1026
+msgid "Raise an error if the appliance unexpectedly crashes after launch."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1028
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_launching (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_launch_timeout (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_launching (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1031
+msgid "Raise an error if the appliance hangs during launch."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1033
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_dd (guestfs_h *g,\n"
+#| "             const char *src,\n"
+#| "             const char *dest);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_external_command_failed (guestfs_h *g, int status,\n"
+" \t\t\t\t     const char *cmd_name, const char *extra)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_dd (guestfs_h *g,\n"
+"             const char *src,\n"
+"             const char *dest);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1037
+msgid "Raise an error if an external command fails."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1039
+msgid ""
+"C<status> is the status code of the command (eg. returned from L<waitpid(2)> "
+"or L<system(3)>).  This function turns the status code into an explanatory "
+"string."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1043
+msgid "F<src/events.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1045
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_set_event_callback (guestfs_h *g,\n"
+#| "                                 guestfs_event_callback cb,\n"
+#| "                                 uint64_t event_bitmask,\n"
+#| "                                 int flags,\n"
+#| "                                 void *opaque);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" replace_old_style_event_callback (guestfs_h *g,\n"
+"                                   guestfs_event_callback cb,\n"
+"                                   uint64_t event_bitmask,\n"
+"                                   void *opaque,\n"
+"                                   void *opaque2)\n"
+"\n"
+msgstr ""
+" int guestfs_set_event_callback (guestfs_h *g,\n"
+"                                 guestfs_event_callback cb,\n"
+"                                 uint64_t event_bitmask,\n"
+"                                 int flags,\n"
+"                                 void *opaque);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1052
+msgid "Emulate old-style callback API."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1054
+msgid ""
+"There were no event handles, so multiple callbacks per event were not "
+"supported.  Calling the same C<guestfs_set_*_callback> function would "
+"replace the existing event.  Calling it with C<cb == NULL> meant that the "
+"caller wanted to remove the callback."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1059
+msgid "F<src/guid.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1061
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_wait_ready (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_validate_guid (const char *str)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_wait_ready (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1064
+msgid ""
+"Check whether a string supposed to contain a GUID actually contains it.  It "
+"can recognize strings either as C<{21EC2020-3AEA-1069-A2DD-08002B30309D}> or "
+"C<21EC2020-3AEA-1069-A2DD-08002B30309D>."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1069
+msgid "F<src/handle.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1071
+msgid ""
+"This file deals with the C<guestfs_h> handle, creating it, closing it, and "
+"initializing/setting/getting fields."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1074
+#, no-wrap
+msgid ""
+" static void\n"
+" init_libguestfs (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1077
+msgid ""
+"No initialization is required by libguestfs, but libvirt and libxml2 require "
+"initialization if they might be called from multiple threads.  Hence this "
+"constructor function which is called when libguestfs is first loaded."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1082
+#, no-wrap
+msgid ""
+" static int\n"
+" shutdown_backend (guestfs_h *g, int check_for_errors)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1085
+msgid ""
+"This function is the common path for shutting down the backend qemu process."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1088
+msgid ""
+"C<guestfs_shutdown> calls C<shutdown_backend> with C<check_for_errors=1>.  "
+"C<guestfs_close> calls C<shutdown_backend> with C<check_for_errors=0>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1092
+msgid ""
+"C<check_for_errors> is a hint to the backend about whether we care about "
+"errors or not.  In the libvirt case it can be used to optimize the shutdown "
+"for speed when we don't care."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1096
+#, no-wrap
+msgid ""
+" static void\n"
+" close_handles (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1099
+msgid "Close all open handles (called from L<atexit(3)>)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1101
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_get_backend_setting_bool (guestfs_h *g, const char *name)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1104
+msgid ""
+"This is a convenience function, but we might consider exporting it as an API "
+"in future."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1107
+msgid "F<src/inspect.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1109
+msgid ""
+"This file, and the other C<src/inspect*.c> files, handle inspection.  See "
+"L<guestfs(3)/INSPECTION>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1112
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_inspect_os (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char **\n"
+" guestfs_impl_inspect_os (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_inspect_os (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1115
+msgid "The main inspection API."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1117
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_inspect_os (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" collect_coreos_inspection_info (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_inspect_os (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1120
+msgid ""
+"Traverse through the filesystem list and find out if it contains the C</> "
+"and C</usr> filesystems of a CoreOS image. If this is the case, sum up all "
+"the collected information on the root fs."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1124
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int64_t\n"
+#| " guestfs_hivex_root (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" check_for_duplicated_bsd_root (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int64_t\n"
+" guestfs_hivex_root (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1127
+msgid ""
+"On *BSD systems, sometimes F</dev/sda[1234]> is a shadow of the real root "
+"filesystem that is probably F</dev/sda5> (see: L<http://www.freebsd.org/doc/"
+"handbook/disk-organization.html>)"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1131
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_download (guestfs_h *g,\n"
+#| "                   const char *remotefilename,\n"
+#| "                   const char *filename);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs,\n"
+" \t\t\t     const char *filename,\n"
+" \t\t\t     const char *basename, uint64_t max_size)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_download (guestfs_h *g,\n"
+"                   const char *remotefilename,\n"
+"                   const char *filename);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1136
+msgid ""
+"Download a guest file to a local temporary file.  The file is cached in the "
+"temporary directory, and is not downloaded again."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1139
+msgid ""
+"The name of the temporary (downloaded) file is returned.  The caller must "
+"free the pointer, but does I<not> need to delete the temporary file.  It "
+"will be deleted when the handle is closed."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1143
+msgid ""
+"Refuse to download the guest file if it is larger than C<max_size>.  On this "
+"and other errors, C<NULL> is returned."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1146
+msgid ""
+"There is actually one cache per C<struct inspect_fs *> in order to handle "
+"the case of multiple roots."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1149
+msgid "F<src/launch.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1151
+msgid "This file implements L<guestfs(3)/guestfs_launch>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1153
 msgid ""
 "Most of the work is done by the backends (see L<guestfs(3)/BACKEND>), which "
 "are implemented in F<src/launch-direct.c>, F<src/launch-libvirt.c> etc, so "
@@ -35445,7 +37454,66 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:829
+#: ../docs/internal-documentation.pod:1158
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_launching (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_launch_send_progress (guestfs_h *g, int perdozen)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_launching (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1161
+msgid "This function sends a launch progress message."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1163
+msgid ""
+"Launching the appliance generates approximate progress messages.  Currently "
+"these are defined as follows:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1166
+#, no-wrap
+msgid ""
+"   0 / 12: launch clock starts\n"
+"   3 / 12: appliance created\n"
+"   6 / 12: detected that guest kernel started\n"
+"   9 / 12: detected that /init script is running\n"
+"  12 / 12: launch completed successfully\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1178
+msgid ""
+"This is not a documented ABI and the behaviour may be changed or removed in "
+"future."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1183
+msgid ""
+"Messages are only sent if more than 5 seconds has elapsed since the launch "
+"clock started."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1188
+msgid "There is a hack in F<src/proto.c> to make this work."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1192
 #, no-wrap
 msgid ""
 " int64_t\n"
@@ -35454,19 +37522,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:832
+#: ../docs/internal-documentation.pod:1195
 msgid "Compute C<y - x> and return the result in milliseconds."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:834
+#: ../docs/internal-documentation.pod:1197
 msgid ""
 "Approximately the same as this code: L<http://www.mpp.mpg.de/~huber/util/"
 "timevaldiff.c>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:837
+#: ../docs/internal-documentation.pod:1200
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int\n"
@@ -35482,14 +37550,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:840
+#: ../docs/internal-documentation.pod:1203
 msgid ""
 "Returns the maximum number of disks allowed to be added to the backend "
 "(backend dependent)."
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:843
+#: ../docs/internal-documentation.pod:1206
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int\n"
@@ -35505,7 +37573,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:846
+#: ../docs/internal-documentation.pod:1209
 msgid ""
 "Implementation of L<guestfs(3)/guestfs_wait_ready>.  You had to call this "
 "function after launch in versions E<le> 1.0.70, but it is now an (almost) no-"
@@ -35513,7 +37581,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:850
+#: ../docs/internal-documentation.pod:1213
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -35532,7 +37600,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:854
+#: ../docs/internal-documentation.pod:1217
 msgid ""
 "Construct the Linux command line passed to the appliance.  This is used by "
 "the C<direct> and C<libvirt> backends, and is simply located in this file "
@@ -35540,7 +37608,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:859
+#: ../docs/internal-documentation.pod:1222
 msgid ""
 "The C<appliance_dev> parameter must be the full device name of the appliance "
 "disk and must have already been adjusted to take into account virtio-blk or "
@@ -35548,29 +37616,1151 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:863
+#: ../docs/internal-documentation.pod:1226
 msgid ""
 "The C<flags> parameter can contain the following flags logically or'd "
 "together (or 0):"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:868
+#: ../docs/internal-documentation.pod:1231
 msgid "C<APPLIANCE_COMMAND_LINE_IS_TCG>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:870
+#: ../docs/internal-documentation.pod:1233
 msgid ""
 "If we are launching a qemu TCG guest (ie. KVM is known to be disabled or "
 "unavailable).  If you don't know, don't pass this flag."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:875
+#: ../docs/internal-documentation.pod:1238
 msgid ""
 "Note that this function returns a newly allocated buffer which must be freed "
 "by the caller."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1241
+#, fuzzy, no-wrap
+#| msgid ""
+#| " const char *\n"
+#| " guestfs_get_append (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" const char *\n"
+" guestfs_int_get_cpu_model (int kvm)\n"
+"\n"
+msgstr ""
+" const char *\n"
+" guestfs_get_append (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1244
+msgid ""
+"Return the right CPU model to use as the qemu C<-cpu> parameter or its "
+"equivalent in libvirt.  This returns:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1249
+msgid "C<\"host\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1251
+msgid "The literal string C<\"host\"> means use C<-cpu host>."
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1253
+#, fuzzy
+#| msgid "strings"
+msgid "some string"
+msgstr "strings"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1255
+msgid "Some string such as C<\"cortex-a57\"> means use C<-cpu cortex-a57>."
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1257
+msgid "C<NULL>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1259
+msgid ""
+"C<NULL> means no C<-cpu> option at all.  Note returning C<NULL> does not "
+"indicate an error."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1264
+msgid ""
+"This is made unnecessarily hard and fragile because of two stupid choices in "
+"QEMU:"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1271
+msgid ""
+"The default for C<qemu-system-aarch64 -M virt> is to emulate a C<cortex-a15> "
+"(WTF?)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1276
+msgid ""
+"We don't know for sure if KVM will work, but C<-cpu host> is broken with "
+"TCG, so we almost always pass a broken C<-cpu> flag if KVM is semi-broken in "
+"any way."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1282
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts_va (guestfs_h *g, const char *filename,\n"
+#| "                                va_list args);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_create_socketname (guestfs_h *g, const char *filename,\n"
+"                                char (*sockpath)[UNIX_PATH_MAX])\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts_va (guestfs_h *g, const char *filename,\n"
+"                                va_list args);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1286
+msgid "Create the path for a socket with the selected filename in the tmpdir."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1289
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_register_backend (const char *name, const struct backend_ops *ops)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1292
+msgid ""
+"When the library is loaded, each backend calls this function to register "
+"itself in a global list."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1295
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_set_backend (guestfs_h *g,\n"
+#| "                      const char *backend);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_set_backend (guestfs_h *g, const char *method)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_set_backend (guestfs_h *g,\n"
+"                      const char *backend);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1298
+msgid "Implementation of L<guestfs(3)/guestfs_set_backend>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1304
+msgid "Callers must ensure this is only called in the config state."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1308
+msgid ""
+"This shouldn't call C<error> since it may be called early in handle "
+"initialization.  It can return an error code however."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1313
+#, fuzzy
+#| msgid "C<protocol>"
+msgid "F<src/proto.c>"
+msgstr "C<protocol>"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1315
+msgid ""
+"This is the code used to send and receive RPC messages and (for certain "
+"types of message) to perform file transfers.  This code is driven from the "
+"generated actions (F<src/actions-*.c>).  There are five different cases to "
+"consider:"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1324
+msgid ""
+"A non-daemon function (eg. L<guestfs(3)/guestfs_set_verbose>).  There is no "
+"RPC involved at all, it's all handled inside the library."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1330
+msgid ""
+"A simple RPC (eg. L<guestfs(3)/guestfs_mount>).  We write the request, then "
+"read the reply.  The sequence of calls is:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1333
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+"  guestfs_int_send\n"
+"  guestfs_int_recv\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1338
+msgid ""
+"An RPC with C<FileOut> parameters (eg. L<guestfs(3)/guestfs_upload>).  We "
+"write the request, then write the file(s), then read the reply.  The "
+"sequence of calls is:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1342
+#, no-wrap
+msgid ""
+"  guestfs_int_send\n"
+"  guestfs_int_send_file  (possibly multiple times)\n"
+"  guestfs_int_recv\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1348
+msgid ""
+"An RPC with C<FileIn> parameters (eg. L<guestfs(3)/guestfs_download>).  We "
+"write the request, then read the reply, then read the file(s).  The sequence "
+"of calls is:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1352
+#, no-wrap
+msgid ""
+"  guestfs_int_send\n"
+"  guestfs_int_recv\n"
+"  guestfs_int_recv_file  (possibly multiple times)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1358
+msgid ""
+"Both C<FileOut> and C<FileIn> parameters.  There are no calls like this in "
+"the current API, but they would be implemented as a combination of cases 3 "
+"and 4."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1364
+msgid ""
+"All read/write/etc operations are performed using the current connection "
+"module (C<g-E<gt>conn>).  During operations the connection module "
+"transparently handles log messages that appear on the console."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1369
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void guestfs_close (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" child_cleanup (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" void guestfs_close (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1372
+msgid "This is called if we detect EOF, ie. qemu died."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1374
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void guestfs_delete_event_callback (guestfs_h *g, int event_handle);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_progress_message_callback (guestfs_h *g,\n"
+" \t\t\t\t       const guestfs_progress *message)\n"
+"\n"
+msgstr ""
+" void guestfs_delete_event_callback (guestfs_h *g, int event_handle);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1378
+msgid "Convenient wrapper to generate a progress message callback."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1380
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_next_private (guestfs_h *g, const char **key_rtn);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_log_message_callback (guestfs_h *g, const char *buf, size_t len)\n"
+"\n"
+msgstr ""
+" void *guestfs_next_private (guestfs_h *g, const char **key_rtn);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1383
+msgid "Connection modules call us back here when they get a log message."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1385
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_ping_daemon (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" static ssize_t\n"
+" check_daemon_socket (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_ping_daemon (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1388
+msgid ""
+"Before writing to the daemon socket, check the read side of the daemon "
+"socket for any of these conditions:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1393
+msgid "error"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1395
+msgid "return -1"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1397
+msgid "daemon cancellation message"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1399
+msgid "return -2"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1401
+msgid "progress message"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1403
+msgid "handle it here"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1405
+msgid "end of input or appliance exited unexpectedly"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1407
+msgid "return 0"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1409
+msgid "anything else"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1411
+msgid "return 1"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1415
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_send_file (guestfs_h *g, const char *filename)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1418
+msgid "Send a file."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1420
+msgid ""
+"Returns C<0> on success, C<-1> for error, C<-2> if the daemon cancelled (we "
+"must read the error message)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1423
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" send_file_data (guestfs_h *g, const char *buf, size_t len)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1426
+msgid "Send a chunk of file data."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1428
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_user_cancel (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" send_file_cancellation (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_user_cancel (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1431
+msgid "Send a cancellation message."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1433
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_hivex_close (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" send_file_complete (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_hivex_close (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1436
+msgid "Send a file complete chunk."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1438
+#, no-wrap
+msgid ""
+" static int\n"
+" recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1441
+msgid ""
+"This function reads a single message, file chunk, launch flag or "
+"cancellation flag from the daemon.  If something was read, it returns C<0>, "
+"otherwise C<-1>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1445
+msgid ""
+"Both C<size_rtn> and C<buf_rtn> must be passed by the caller as non-NULL."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1448
+msgid ""
+"C<*size_rtn> returns the size of the returned message or it may be "
+"C<GUESTFS_LAUNCH_FLAG> or C<GUESTFS_CANCEL_FLAG>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1451
+msgid ""
+"C<*buf_rtn> is returned containing the message (if any) or will be set to "
+"C<NULL>.  C<*buf_rtn> must be freed by the caller."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1454
+msgid ""
+"This checks for EOF (appliance died) and passes that up through the "
+"child_cleanup function above."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1457
+msgid "Log message, progress messages are handled transparently here."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1459
+#, no-wrap
+msgid ""
+" int\n"
+" guestfs_int_recv (guestfs_h *g, const char *fn,\n"
+" \t\t  guestfs_message_header *hdr,\n"
+" \t\t  guestfs_message_error *err,\n"
+" \t\t  xdrproc_t xdrp, char *ret)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1465
+msgid "Receive a reply."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1467
+#, fuzzy, no-wrap
+#| msgid ""
+#| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_recv_discard (guestfs_h *g, const char *fn)\n"
+"\n"
+msgstr ""
+" void *guestfs_get_private (guestfs_h *g, const char *key);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1470
+msgid "Same as C<guestfs_int_recv>, but it discards the reply message."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1472
+msgid "Notes (XXX):"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1478
+msgid "This returns an int, but all current callers ignore it."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1482
+msgid "The error string may end up being set twice on error paths."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1486
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_recv_file (guestfs_h *g, const char *filename)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1489
+#: ../docs/internal-documentation.pod:1496
+msgid "Returns C<-1> = error, C<0> = EOF, C<E<gt>0> = more data"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1491
+#, no-wrap
+msgid ""
+" static ssize_t\n"
+" receive_file_data (guestfs_h *g, void **buf_r)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1494
+msgid "Receive a chunk of file data."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1498
+msgid "F<src/umask.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1500
+msgid "Return current umask in a thread-safe way."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1502
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_get_umask (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_getumask (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_get_umask (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1505
+msgid ""
+"glibc documents, but does not actually implement, a L<getumask(3)> call."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1508
+msgid ""
+"This function implements an expensive, but thread-safe way to get the "
+"current process's umask."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1511
+msgid ""
+"Returns the current process's umask.  On failure, returns C<-1> and sets the "
+"error in the guestfs handle."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1514
+msgid "Thanks to: Josh Stone, Jiri Jaburek, Eric Blake."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1516
+msgid "F<src/utils.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1518
+msgid "Utility functions used by the library, tools and language bindings."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1520
+msgid ""
+"These functions these I<must not> call internal library functions such as "
+"C<safe_*>, C<error> or C<perrorf>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1523
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_inspect_os (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char **\n"
+" guestfs_int_split_string (char sep, const char *str)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_inspect_os (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1526
+msgid ""
+"Split string at separator character C<sep>, returning the list of strings.  "
+"Returns C<NULL> on memory allocation failure."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1529
+msgid "Note (assuming C<sep> is C<:>):"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1533
+msgid "C<str == NULL>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1535
+msgid "aborts"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1537
+msgid "C<str == \"\">"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1541
+msgid "C<str == \"abc\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1543
+msgid "returns C<[\"abc\"]>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:1545
+msgid "C<str == \":\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1547
+msgid "returns C<[\"\", \"\"]>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1551
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_read_lines (guestfs_h *g,\n"
+#| "                     const char *path);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" guestfs_int_exit_status_to_string (int status, const char *cmd_name,\n"
+" \t\t\t\t   char *buffer, size_t buflen)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_read_lines (guestfs_h *g,\n"
+"                     const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1555
+msgid "Translate a wait/system exit status into a printable string."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1557
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_launching (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_random_string (char *ret, size_t len)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_launching (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1560
+msgid "Return a random string of characters."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1568
+msgid ""
+"The C<ret> buffer must have length C<len+1> in order to store the final C<"
+"\\0> character."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1573
+msgid ""
+"There is about 5 bits of randomness per output character (so about C<5*len> "
+"bits of randomness in the resulting string)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1578
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_list_disk_labels (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" guestfs_int_drive_name (size_t index, char *ret)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_list_disk_labels (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1581
+msgid "This turns a drive index (eg. C<27>) into a drive name (eg. C<\"ab\">)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1584
+msgid ""
+"Drive indexes count from C<0>.  The return buffer has to be large enough for "
+"the resulting string, and the returned pointer points to the *end* of the "
+"string."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1590
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" ssize_t\n"
+" guestfs_int_drive_index (const char *name)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1593
+msgid ""
+"The opposite of C<guestfs_int_drive_name>.  Take a string like C<\"ab\"> and "
+"return the index (eg C<27>)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1596
+msgid ""
+"Note that you must remove any prefix such as C<\"hd\">, C<\"sd\"> etc, or "
+"any partition number before calling the function."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1599
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_is_ready (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_is_true (const char *str)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_is_ready (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1602
+msgid "Similar to C<Tcl_GetBoolean>."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1604
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_fadvise_normal (int fd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1607
+msgid "Hint that we will read or write the file descriptor normally."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1609
+msgid ""
+"On Linux, this clears the C<FMODE_RANDOM> flag on the file [see below] and "
+"sets the per-file number of readahead pages to equal the block device "
+"readahead setting."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1613
+#: ../docs/internal-documentation.pod:1625
+#: ../docs/internal-documentation.pod:1650
+#: ../docs/internal-documentation.pod:1660
+#: ../docs/internal-documentation.pod:1675
+#: ../docs/internal-documentation.pod:1687
+msgid ""
+"It's OK to call this on a non-file since we ignore failure as it is only a "
+"hint."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1616
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_fadvise_sequential (int fd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1619
+msgid "Hint that we will read or write the file descriptor sequentially."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1621
+msgid ""
+"On Linux, this clears the C<FMODE_RANDOM> flag on the file [see below] and "
+"sets the per-file number of readahead pages to twice the block device "
+"readahead setting."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1628
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_wait_ready (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_fadvise_random (int fd)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_wait_ready (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1631
+msgid "Hint that we will read or write the file descriptor randomly."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1633
+msgid ""
+"On Linux, this sets the C<FMODE_RANDOM> flag on the file.  The effect of "
+"this flag is to:"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1640
+msgid "Disable normal sequential file readahead."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1644
+msgid ""
+"If any read of the file is done which misses in the page cache, 2MB are read "
+"into the page cache.  [I think - I'm not sure I totally understand what this "
+"is doing]"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1653
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_fadvise_noreuse (int fd)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1656
+msgid "Hint that we will access the data only once."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1658
+msgid "On Linux, this does nothing."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1663
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_fadvise_dontneed (int fd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1666
+msgid "Hint that we will not access the data in the near future."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1668
+msgid ""
+"On Linux, this immediately writes out any dirty pages in the page cache and "
+"then invalidates (drops) all pages associated with this file from the page "
+"cache.  Apparently it does this even if the file is opened or being used by "
+"other processes.  This setting is not persistent; if you subsequently read "
+"the file it will be cached in the page cache as normal."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1678
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_fadvise_willneed (int fd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1681
+msgid "Hint that we will access the data in the near future."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1683
+msgid ""
+"On Linux, this immediately reads the whole file into the page cache.  This "
+"setting is not persistent; subsequently pages may be dropped from the page "
+"cache as normal."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1690
+msgid "F<src/wait.c>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1692
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_md_stop (guestfs_h *g,\n"
+#| "                  const char *md);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_waitpid (guestfs_h *g, pid_t pid, int *status, const char *errmsg)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_md_stop (guestfs_h *g,\n"
+"                  const char *md);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1695
+msgid "A safe version of L<waitpid(3)> which retries if C<EINTR> is returned."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1698
+msgid ""
+"I<Note:> this only needs to be used in the library, or in programs that "
+"install a non-restartable C<SIGCHLD> handler (which is not the case for any "
+"current libguestfs virt tools)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1702
+msgid ""
+"If the main program installs a SIGCHLD handler and sets it to be non-"
+"restartable, then what can happen is the library is waiting in a wait "
+"syscall, the child exits, C<SIGCHLD> is sent to the process, and the wait "
+"syscall returns C<EINTR>.  Since the library cannot control the signal "
+"handler, we have to instead restart the wait syscall, which is the purpose "
+"of this wrapper."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1709
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_waitpid_noerror (pid_t pid)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1712
+msgid "Like C<guestfs_int_waitpid>, but ignore errors."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1714
+msgid "F<v2v/domainxml-c.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1716
+msgid ""
+"This module implements various C<virsh>-like commands, but with non-broken "
+"authentication handling."
+msgstr ""
+
+#. type: =head2
+#: ../docs/internal-documentation.pod:1719
+msgid "F<v2v/xml-c.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1721
+msgid "Mini interface to libxml2."
 msgstr ""
 
 #. type: textblock
@@ -63282,11 +66472,6 @@ msgstr ""
 msgid ""
 "This program returns 0 if successful, or one of the following error codes:"
 msgstr ""
-
-#. type: =item
-#: ../fuse/guestunmount.pod:131
-msgid "C<1>"
-msgstr "C<1>"
 
 #. type: textblock
 #: ../fuse/guestunmount.pod:133
@@ -107819,6 +111004,38 @@ msgstr ""
 
 #, fuzzy
 #~| msgid ""
+#~| " #include <guestfs.h>\n"
+#~| " \n"
+#~ msgid ""
+#~ " #include \"rijndael-alg-fst.h\"\n"
+#~ " \n"
+#~ msgstr ""
+#~ " #include <guestfs.h>\n"
+#~ " \n"
+
+#, fuzzy
+#~| msgid ""
+#~| " #include <stdio.h>\n"
+#~| " #include <stdlib.h>\n"
+#~| " #include <unistd.h>\n"
+#~| " #include <dlfcn.h>\n"
+#~| " #include <guestfs.h>\n"
+#~| " \n"
+#~ msgid ""
+#~ " #include <assert.h>\n"
+#~ " #include <stdlib.h>\n"
+#~ " #include <string.h>\n"
+#~ " \n"
+#~ msgstr ""
+#~ " #include <stdio.h>\n"
+#~ " #include <stdlib.h>\n"
+#~ " #include <unistd.h>\n"
+#~ " #include <dlfcn.h>\n"
+#~ " #include <guestfs.h>\n"
+#~ " \n"
+
+#, fuzzy
+#~| msgid ""
 #~| " $ guestfish\n"
 #~| " \n"
 #~ msgid ""
@@ -107837,29 +111054,6 @@ msgstr ""
 #~ "\n"
 #~ msgstr ""
 #~ " ls0 dir (filenames|-)\n"
-#~ "\n"
-
-#, fuzzy
-#~| msgid ""
-#~| " int\n"
-#~| " guestfs_fill (guestfs_h *g,\n"
-#~| "               int c,\n"
-#~| "               int len,\n"
-#~| "               const char *path);\n"
-#~| "\n"
-#~ msgid ""
-#~ " int\n"
-#~ " guestfs_icat (guestfs_h *g,\n"
-#~ "               const char *device,\n"
-#~ "               int64_t inode,\n"
-#~ "               const char *filename);\n"
-#~ "\n"
-#~ msgstr ""
-#~ " int\n"
-#~ " guestfs_fill (guestfs_h *g,\n"
-#~ "               int c,\n"
-#~ "               int len,\n"
-#~ "               const char *path);\n"
 #~ "\n"
 
 #~ msgid ""
