@@ -268,30 +268,26 @@ maintainer-upload-website:
 #  po/POTFILES-pl - Perl files that don't end in *.pl, which need a
 #                   special xgettext option [not generated here]
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
-#
-# For more information about translations, see po/Makefile.am.
-#
-# This has to be in the top-level Makefile.am so that we have access
-# to DIST_SUBDIRS.
-dist-hook:
-	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > AUTHORS-t
-	mv AUTHORS-t AUTHORS
+
+dist-hook: AUTHORS BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
 	cp AUTHORS $(distdir)/AUTHORS
-
-	$(top_srcdir)/update-bugs.sh > BUGS-t
-	mv BUGS-t BUGS
 	cp BUGS $(distdir)/BUGS
-
-	git log --decorate=false > ChangeLog
 	cp ChangeLog $(distdir)/ChangeLog
 
-	cd $(srcdir); \
-	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
-	grep -v -E '^(examples|gnulib|gobject/docs|perl/(blib|examples)|po-docs|tests|test-data)/' | \
-	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
-	grep -v -E '^python/utils\.c$$' | \
-	LC_ALL=C sort > po/POTFILES
+AUTHORS: configure.ac
+	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > AUTHORS-t
+	mv AUTHORS-t AUTHORS
 
+BUGS: configure.ac
+	$(top_srcdir)/update-bugs.sh > BUGS-t
+	mv BUGS-t BUGS
+
+ChangeLog: configure.ac
+	git log --decorate=false > ChangeLog
+
+# This has to be in the top-level Makefile.am so that we have access
+# to DIST_SUBDIRS.
+docs/C_SOURCE_FILES: configure.ac
 	find $(DIST_SUBDIRS) -name '*.c' | \
 	grep -v -E '^(builder/index-parse.c|builder/index-scan.c|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
@@ -299,6 +295,16 @@ dist-hook:
 	grep -v -E '.*-gperf\.c$$' | \
 	LC_ALL=C sort > docs/C_SOURCE_FILES
 
+# For more information about translations, see po/Makefile.am.
+po/POTFILES: configure.ac
+	cd $(srcdir); \
+	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
+	grep -v -E '^(examples|gnulib|gobject/docs|perl/(blib|examples)|po-docs|tests|test-data)/' | \
+	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
+	grep -v -E '^python/utils\.c$$' | \
+	LC_ALL=C sort > po/POTFILES
+
+po/POTFILES-ml: configure.ac
 	cd $(srcdir); \
 	find builder customize dib get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
 	LC_ALL=C sort > po/POTFILES-ml
