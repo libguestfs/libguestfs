@@ -26,7 +26,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <sys/wait.h>
 #include <sys/signal.h>
 #include <libintl.h>
 
@@ -470,8 +469,8 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     close (dsv[0]);
   if (data->pid > 0) kill (data->pid, SIGKILL);
   if (data->recoverypid > 0) kill (data->recoverypid, SIGKILL);
-  if (data->pid > 0) waitpid (data->pid, NULL, 0);
-  if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
+  if (data->pid > 0) guestfs_int_waitpid_noerror (data->pid);
+  if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
   data->pid = 0;
   data->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
@@ -535,10 +534,8 @@ shutdown_uml (guestfs_h *g, void *datav, int check_for_errors)
 
   /* Wait for subprocess(es) to exit. */
   if (data->pid > 0) {
-    if (waitpid (data->pid, &status, 0) == -1) {
-      perrorf (g, "waitpid (vmlinux)");
+    if (guestfs_int_waitpid (g, data->pid, &status, "vmlinux") == -1)
       ret = -1;
-    }
     /* Note it's normal for the pre-3.11 vmlinux process to exit with
      * status "killed by signal 15" (where 15 == SIGTERM).  Post 3.11
      * the exit status can normally be 1.
@@ -552,7 +549,7 @@ shutdown_uml (guestfs_h *g, void *datav, int check_for_errors)
       ret = -1;
     }
   }
-  if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
+  if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
 
   data->pid = data->recoverypid = 0;
 

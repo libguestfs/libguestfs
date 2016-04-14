@@ -131,6 +131,7 @@ libguestfs_la_SOURCES = \
 	structs-free.c \
 	tmpdirs.c \
 	umask.c \
+	wait.c \
 	whole-file.c \
 	libguestfs.syms
 

@@ -26,7 +26,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
 #include <sys/socket.h>
@@ -851,8 +850,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     close (sv[0]);
   if (data->pid > 0) kill (data->pid, 9);
   if (data->recoverypid > 0) kill (data->recoverypid, 9);
-  if (data->pid > 0) waitpid (data->pid, NULL, 0);
-  if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
+  if (data->pid > 0) guestfs_int_waitpid_noerror (data->pid);
+  if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
   data->pid = 0;
   data->recoverypid = 0;
   memset (&g->launch_t, 0, sizeof g->launch_t);
@@ -1484,16 +1483,14 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
 
   /* Wait for subprocess(es) to exit. */
   if (g->recovery_proc /* RHBZ#998482 */ && data->pid > 0) {
-    if (waitpid (data->pid, &status, 0) == -1) {
-      perrorf (g, "waitpid (qemu)");
+    if (guestfs_int_waitpid (g, data->pid, &status, "qemu") == -1)
       ret = -1;
-    }
     else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
       guestfs_int_external_command_failed (g, status, g->hv, NULL);
       ret = -1;
     }
   }
-  if (data->recoverypid > 0) waitpid (data->recoverypid, NULL, 0);
+  if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
 
   data->pid = data->recoverypid = 0;
 
