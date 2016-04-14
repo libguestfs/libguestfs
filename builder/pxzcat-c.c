@@ -194,7 +194,6 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
   }
 
   guestfs_int_fadvise_random (ofd);
-  guestfs_int_fadvise_willneed (ofd);
 
   if (ftruncate (ofd, 1) == -1) {
     int err = errno;

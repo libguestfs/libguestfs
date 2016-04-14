@@ -472,6 +472,7 @@ guestfs_int_fadvise_dontneed (int fd)
 }
 #endif
 
+#if 0 /* not used yet */
 /**
  * Hint that we will access the data in the near future.
  *
@@ -492,3 +493,4 @@ guestfs_int_fadvise_willneed (int fd)
   ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_WILLNEED));
 #endif
 }
+#endif
