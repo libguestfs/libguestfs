@@ -37,7 +37,7 @@ virt_customize_edit_file_perl (value verbosev, value gv, value gpv,
 {
   CAMLparam5 (verbosev, gv, gpv, filev, exprv);
   int r;
-  guestfs_h *g = (guestfs_h *) Int64_val (gpv);
+  guestfs_h *g = (guestfs_h *) (intptr_t) Int64_val (gpv);
 
   r = edit_file_perl (g, String_val (filev), String_val (exprv), NULL,
                       Bool_val (verbosev));
