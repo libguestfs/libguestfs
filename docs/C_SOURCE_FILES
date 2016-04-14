@@ -40,8 +40,6 @@ daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
 daemon/echo-daemon.c
-daemon/errnostring-gperf.c
-daemon/errnostring.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
@@ -55,7 +53,6 @@ daemon/fstrim.c
 daemon/glob.c
 daemon/grep.c
 daemon/grub.c
-daemon/guestfs_protocol.c
 daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
@@ -129,7 +126,6 @@ edit/edit.c
 erlang/erl-guestfs-proto.c
 erlang/erl-guestfs.c
 fish/alloc.c
-fish/cmds-gperf.c
 fish/cmds.c
 fish/completion.c
 fish/config.c
@@ -161,7 +157,6 @@ fish/prep.c
 fish/prepopts.c
 fish/progress.c
 fish/rc.c
-fish/rc_protocol.c
 fish/reopen.c
 fish/setenv.c
 fish/supported.c
@@ -226,15 +221,12 @@ src/copy-in-out.c
 src/create.c
 src/dbdump.c
 src/drives.c
-src/errnostring-gperf.c
-src/errnostring.c
 src/errors.c
 src/event-string.c
 src/events.c
 src/file.c
 src/filearch.c
 src/fuse.c
-src/guestfs_protocol.c
 src/guid.c
 src/handle.c
 src/info.c

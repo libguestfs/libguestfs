@@ -294,6 +294,9 @@ dist-hook:
 
 	find $(DIST_SUBDIRS) -name '*.c' | \
 	grep -v -E '^(builder/index-parse.c|builder/index-scan.c|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
+	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
+	grep -v -E '.*/errnostring\.c$$' | \
+	grep -v -E '.*-gperf\.c$$' | \
 	LC_ALL=C sort > docs/C_SOURCE_FILES
 
 	cd $(srcdir); \
