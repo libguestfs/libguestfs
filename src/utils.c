@@ -349,8 +349,35 @@ guestfs_int_aavmf_firmware[] = {
   NULL
 };
 
+#if 0 /* not used yet */
+/**
+ * Hint that we will read or write the file descriptor normally.
+ *
+ * On Linux, this clears the C<FMODE_RANDOM> flag on the file [see
+ * below] and sets the per-file number of readahead pages to equal the
+ * block device readahead setting.
+ *
+ * It's OK to call this on a non-file since we ignore failure as it is
+ * only a hint.
+ */
+void
+guestfs_int_fadvise_normal (int fd)
+{
+#if defined(HAVE_POSIX_FADVISE) && defined(POSIX_FADV_NORMAL)
+  /* It's not clear from the man page, but the 'advice' parameter is
+   * NOT a bitmask.  You can only pass one parameter with each call.
+   */
+  ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_NORMAL));
+#endif
+}
+#endif
+
 /**
  * Hint that we will read or write the file descriptor sequentially.
+ *
+ * On Linux, this clears the C<FMODE_RANDOM> flag on the file [see
+ * below] and sets the per-file number of readahead pages to twice the
+ * block device readahead setting.
  *
  * It's OK to call this on a non-file since we ignore failure as it is
  * only a hint.
@@ -369,6 +396,23 @@ guestfs_int_fadvise_sequential (int fd)
 /**
  * Hint that we will read or write the file descriptor randomly.
  *
+ * On Linux, this sets the C<FMODE_RANDOM> flag on the file.  The
+ * effect of this flag is to:
+ *
+ * =over 4
+ *
+ * =item *
+ *
+ * Disable normal sequential file readahead.
+ *
+ * =item *
+ *
+ * If any read of the file is done which misses in the page cache, 2MB
+ * are read into the page cache.  [I think - I'm not sure I totally
+ * understand what this is doing]
+ *
+ * =back
+ *
  * It's OK to call this on a non-file since we ignore failure as it is
  * only a hint.
  */
@@ -385,6 +429,8 @@ guestfs_int_fadvise_random (int fd)
 
 /**
  * Hint that we will access the data only once.
+ *
+ * On Linux, this does nothing.
  *
  * It's OK to call this on a non-file since we ignore failure as it is
  * only a hint.
@@ -404,6 +450,13 @@ guestfs_int_fadvise_noreuse (int fd)
 /**
  * Hint that we will not access the data in the near future.
  *
+ * On Linux, this immediately writes out any dirty pages in the page
+ * cache and then invalidates (drops) all pages associated with this
+ * file from the page cache.  Apparently it does this even if the file
+ * is opened or being used by other processes.  This setting is not
+ * persistent; if you subsequently read the file it will be cached in
+ * the page cache as normal.
+ *
  * It's OK to call this on a non-file since we ignore failure as it is
  * only a hint.
  */
@@ -421,6 +474,10 @@ guestfs_int_fadvise_dontneed (int fd)
 
 /**
  * Hint that we will access the data in the near future.
+ *
+ * On Linux, this immediately reads the whole file into the page
+ * cache.  This setting is not persistent; subsequently pages may be
+ * dropped from the page cache as normal.
  *
  * It's OK to call this on a non-file since we ignore failure as it is
  * only a hint.
