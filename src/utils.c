@@ -37,7 +37,7 @@
 
 #include "ignore-value.h"
 
-/* NB: MUST NOT include "guestfs-internal.h" or gnulib headers. */
+/* NB: MUST NOT include "guestfs-internal.h". */
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
