@@ -275,39 +275,49 @@ dist-hook: AUTHORS BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
 	cp ChangeLog $(distdir)/ChangeLog
 
 AUTHORS: configure.ac
-	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > AUTHORS-t
-	mv AUTHORS-t AUTHORS
+	rm -f $@ $@-t
+	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > $@-t
+	mv $@-t $@
 
 BUGS: configure.ac
-	$(top_srcdir)/update-bugs.sh > BUGS-t
-	mv BUGS-t BUGS
+	rm -f $@ $@-t
+	$(top_srcdir)/update-bugs.sh > $@-t
+	mv $@-t $@
 
 ChangeLog: configure.ac
-	git log --decorate=false > ChangeLog
+	rm -f $@ $@-t
+	git log --decorate=false > $@-t
+	mv $@-t $@
 
 # This has to be in the top-level Makefile.am so that we have access
 # to DIST_SUBDIRS.
 docs/C_SOURCE_FILES: configure.ac
+	rm -f $@ $@-t
 	find $(DIST_SUBDIRS) -name '*.c' | \
 	grep -v -E '^(builder/index-parse.c|builder/index-scan.c|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '.*/errnostring\.c$$' | \
 	grep -v -E '.*-gperf\.c$$' | \
-	LC_ALL=C sort > docs/C_SOURCE_FILES
+	LC_ALL=C sort > $@-t
+	mv $@-t $@
 
 # For more information about translations, see po/Makefile.am.
 po/POTFILES: configure.ac
+	rm -f $@ $@-t
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
 	grep -v -E '^(examples|gnulib|gobject/docs|perl/(blib|examples)|po-docs|tests|test-data)/' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
-	LC_ALL=C sort > po/POTFILES
+	LC_ALL=C sort > $@-t
+	mv $@-t $@
 
 po/POTFILES-ml: configure.ac
+	rm -f $@ $@-t
 	cd $(srcdir); \
 	find builder customize dib get-kernel mllib resize sparsify sysprep v2v -name '*.ml' | \
-	LC_ALL=C sort > po/POTFILES-ml
+	LC_ALL=C sort > $@-t
+	mv $@-t $@
 
 # Try to stop people using 'make install' without 'DESTDIR'.
 install:
