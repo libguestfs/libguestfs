@@ -188,6 +188,15 @@
    fun:expand_dynamic_string_token
 }
 
+# Not a real leak - glibc doesn't bother to free thread
+# data (TLS in this case).
+{
+   glibc_leak_1
+   Memcheck:Leak
+   fun:calloc
+   fun:allocate_dtv
+}
+
 # libvirt calls gnutls_global_init but doesn't call the
 # corresponding gnutls_global_deinit function because of
 # thread-safety issues (in GnuTLS).
