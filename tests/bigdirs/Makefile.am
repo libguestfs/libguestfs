@@ -17,14 +17,12 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-EXTRA_DIST = test-big-dirs.pl
+EXTRA_DIST = $(TESTS)
 
-# Don't run this test by default.  It takes a very long time to run
-# and is not especially informative.  However we have to have an empty
-# TESTS rule otherwise you can't run the test from the command line
-# using 'make TESTS=test-big-dirs.pl check'
-TESTS =
+TESTS = $(SLOW_TESTS)
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+SLOW_TESTS = test-big-dirs.pl
+
 check-slow:
-	$(MAKE) TESTS="test-big-dirs.pl" check
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1

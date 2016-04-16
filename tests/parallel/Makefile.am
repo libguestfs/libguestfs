@@ -17,11 +17,10 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-# Don't run this test by default.  However we have to have an empty
-# TESTS rule otherwise you can't run the test from the command line
-# using 'make TESTS=test-parallel check'
-TESTS =
+TESTS = $(SLOW_TESTS)
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
+
+SLOW_TESTS = test-parallel
 
 check_PROGRAMS = test-parallel
 
@@ -43,4 +42,4 @@ test_parallel_LDADD = \
 #	$(MAKE) VG="$(top_builddir)/run @VG@" TESTS="test-parallel" check
 
 check-slow:
-	$(MAKE) TESTS="test-parallel" check
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1

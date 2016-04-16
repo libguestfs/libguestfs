@@ -67,13 +67,21 @@ catch_sigint (int signal)
 int
 main (int argc, char *argv[])
 {
-  char *skip;
+  const char *skip, *slow;
   struct sigaction sa;
   int r;
   size_t i, errors = 0;
   void *status;
 
   srandom (time (NULL));
+
+  /* Only run this test when invoked by check-slow. */
+  slow = getenv ("SLOW");
+  if (!slow || guestfs_int_is_true (slow) <= 0) {
+    fprintf (stderr, "%s: use 'make check-slow' to run this test.\n",
+             guestfs_int_program_name);
+    exit (77);
+  }
 
   /* Allow the test to be skipped by setting an environment variable. */
   skip = getenv ("SKIP_TEST_PARALLEL");

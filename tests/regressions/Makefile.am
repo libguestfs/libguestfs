@@ -78,15 +78,15 @@ TESTS = \
 	rhbz1232192.sh \
 	rhbz1285847.sh \
 	test-big-heap \
-	test-noexec-stack.pl
+	test-noexec-stack.pl \
+	$(SLOW_TESTS)
 
 if HAVE_LIBVIRT
 TESTS += rhbz1044014.sh
 endif
 
 tests_not_run = \
-	rhbz727178.sh \
-	rhbz909624.sh
+	rhbz727178.sh
 
 TESTS_ENVIRONMENT = \
 	NOEXEC_CHECK="$(top_builddir)/src/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd" \
@@ -145,5 +145,8 @@ test_big_heap_CFLAGS = \
 test_big_heap_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
+SLOW_TESTS = \
+	rhbz909624.sh
+
 check-slow:
-	$(MAKE) TESTS="rhbz909624.sh" check
+	$(MAKE) check TESTS="$(CHECK_SLOW)" SLOW=1

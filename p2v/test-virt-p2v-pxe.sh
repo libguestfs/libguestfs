@@ -28,6 +28,11 @@ unset CDPATH
 export LANG=C
 set -e
 
+if [ -z "$SLOW" ]; then
+    echo "$0: use 'make check-slow' to run this test"
+    exit 77
+fi
+
 if [ -n "$SKIP_TEST_VIRT_P2V_PXE_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77

@@ -24,6 +24,11 @@ abs_builddir=$(pwd)
 export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
+if [ -z "$SLOW" ]; then
+    echo "$0: use 'make check-slow' to run this test"
+    exit 77
+fi
+
 if [ ! -f fedora.xz -o ! -f fedora.qcow2 -o ! -f fedora.qcow2.xz ]; then
     echo "$0: test skipped because there is no fedora.xz, fedora.qcow2 or fedora.qcow2.xz in the build directory"
     exit 77
