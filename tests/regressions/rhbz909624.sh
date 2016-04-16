@@ -26,6 +26,11 @@
 set -e
 export LANG=C
 
+if [ -z "$SLOW" ]; then
+    echo "$0: use 'make check-slow' to run this test"
+    exit 77
+fi
+
 guestfish <<EOF
 
 add-ro /dev/null

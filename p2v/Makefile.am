@@ -166,7 +166,8 @@ TESTS = \
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-virt-p2v.sh
+	test-virt-p2v.sh \
+	$(SLOW_TESTS)
 endif ENABLE_APPLIANCE
 
 SLOW_TESTS = \
@@ -178,7 +179,7 @@ check-slow: test-virt-p2v-pxe.img \
 	    test-virt-p2v-pxe.ssh_host_rsa_key \
 	    test-virt-p2v-pxe.ssh_host_rsa_key.pub \
 	    test-virt-p2v-pxe.id_rsa test-virt-p2v-pxe.id_rsa.pub
-	$(MAKE) check TESTS="$(SLOW_TESTS)"
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
 
 test-virt-p2v-pxe.img: virt-p2v-make-disk \
 	               virt-p2v \

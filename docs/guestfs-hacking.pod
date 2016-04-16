@@ -330,8 +330,33 @@ but you can set this to another directory on the command line, eg:
 
 Runs some slow/long-running tests which are not run by default.
 
-Any F<Makefile.am> in the tree that has a C<check-slow:> target will
-be run by this rule.
+To mark a test as slow/long-running:
+
+=over 4
+
+=item *
+
+Add it to the list of C<TESTS> in the F<Makefile.am>, just like a
+normal test.
+
+=item *
+
+Modify the test so it checks if the C<SLOW=1> environment variable is
+set, and if I<not> set it skips (ie. returns with exit code 77).
+
+=item *
+
+Add a variable C<SLOW_TESTS> to the F<Makefile.am> listing the slow
+tests.
+
+=item *
+
+Add a rule to the F<Makefile.am>:
+
+ check-slow:
+   $(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+
+=back
 
 =item C<make check-all>
 

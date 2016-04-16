@@ -21,7 +21,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	copy_to_local.ml \
 	v2v_unit_tests.ml \
-	$(TESTS) $(SLOW_TESTS) \
+	$(TESTS) \
 	test-v2v-cdrom.expected \
 	test-v2v-cdrom.xml \
 	test-v2v-i-ova.ovf \
@@ -319,7 +319,8 @@ TESTS += \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
 	test-v2v-virtio-win-iso.sh \
-	test-v2v-windows-conversion.sh
+	test-v2v-windows-conversion.sh \
+	$(SLOW_TESTS)
 endif ENABLE_APPLIANCE
 
 check-valgrind:
@@ -329,7 +330,7 @@ SLOW_TESTS = \
 	test-v2v-real-conversions.sh
 
 check-slow: $(real_guests:%=%.img)
-	$(MAKE) check TESTS="$(SLOW_TESTS)"
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
 
 # A selection of real guests that test-v2v-real-conversions.sh will
 # try to convert.  This is only used by 'make check-slow'.

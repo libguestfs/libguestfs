@@ -284,7 +284,8 @@ yajl_tests_LINK = \
 
 TESTS = \
 	test-virt-builder-list.sh \
-	test-virt-index-validate.sh
+	test-virt-index-validate.sh \
+	$(SLOW_TESTS)
 check_PROGRAMS =
 
 TESTS += test-virt-builder-list-simplestreams.sh
@@ -300,8 +301,10 @@ endif
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
 
+SLOW_TESTS = test-virt-builder-planner.sh
+
 check-slow:
-	$(MAKE) TESTS="test-virt-builder-planner.sh" check
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
 
 # Dependencies.
 depend: .depend

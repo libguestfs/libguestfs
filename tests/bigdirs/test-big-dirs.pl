@@ -22,6 +22,11 @@ use warnings;
 
 use Sys::Guestfs;
 
+unless ($ENV{SLOW}) {
+    print "$0: use 'make check-slow' to run this test\n";
+    exit 77;
+}
+
 my $g = Sys::Guestfs->new ();
 
 # Create a 2 GB test file.  Don't worry, it's sparse.
