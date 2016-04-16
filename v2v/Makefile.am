@@ -338,9 +338,11 @@ real_guests = \
 	centos-6 \
 	centos-7.0 \
 	fedora-20 \
+	fedora-23 \
 	rhel-5.10 \
 	rhel-6.5 \
-	rhel-7.0
+	rhel-7.0 \
+	rhel-7.2
 
 $(real_guests:%=%.img):
 	rm -f $@
