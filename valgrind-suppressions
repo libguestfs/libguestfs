@@ -197,6 +197,14 @@
    fun:allocate_dtv
 }
 
+# Not a real leak - same as above, but glibc renamed the function.
+{
+   glibc_leak_2
+   Memcheck:Leak
+   fun:calloc
+   fun:_dl_allocate_tls
+}
+
 # libvirt calls gnutls_global_init but doesn't call the
 # corresponding gnutls_global_deinit function because of
 # thread-safety issues (in GnuTLS).
