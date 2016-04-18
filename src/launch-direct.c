@@ -563,7 +563,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Add the ext2 appliance drive (after all the drives). */
   if (has_appliance_drive) {
     ADD_CMDLINE ("-drive");
-    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,cache=unsafe,if=none",
+    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,cache=unsafe,if=none,format=raw",
                         appliance);
 
     if (virtio_scsi) {
