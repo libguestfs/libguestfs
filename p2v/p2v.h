@@ -106,10 +106,11 @@ extern const char *get_cmdline_key (char **cmdline, const char *key);
 #define CMDLINE_SOURCE_PROC_CMDLINE 2 /* /proc/cmdline */
 
 /* kernel.c */
-extern void kernel_configuration (struct config *, char **cmdline, int cmdline_source);
+extern void update_config_from_kernel_cmdline (struct config *config, char **cmdline);
+extern void kernel_conversion (struct config *, char **cmdline, int cmdline_source);
 
 /* gui.c */
-extern void gui_application (struct config *);
+extern void gui_conversion (struct config *);
 
 /* conversion.c */
 extern int start_conversion (struct config *, void (*notify_ui) (int type, const char *data));

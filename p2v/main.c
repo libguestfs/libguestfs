@@ -191,25 +191,26 @@ main (int argc, char *argv[])
 
   set_config_defaults (config);
 
-  /* If /proc/cmdline exists and contains "p2v.server=" then we enable
-   * non-interactive configuration.
-   * If /proc/cmdline contains p2v.debug then we enable verbose mode
-   * even for interactive configuration.
+  /* Parse /proc/cmdline (if it exists) or use the --cmdline parameter
+   * to initialize the configuration.  This allows defaults to be pass
+   * using the kernel command line, with additional GUI configuration
+   * later.
    */
   if (cmdline == NULL) {
     cmdline = parse_proc_cmdline ();
-    if (cmdline == NULL)
-      goto gui;
-    cmdline_source = CMDLINE_SOURCE_PROC_CMDLINE;
+    if (cmdline != NULL)
+      cmdline_source = CMDLINE_SOURCE_PROC_CMDLINE;
   }
 
-  if (get_cmdline_key (cmdline, "p2v.debug") != NULL)
-    config->verbose = 1;
+  if (cmdline)
+    update_config_from_kernel_cmdline (config, cmdline);
 
-  if (get_cmdline_key (cmdline, "p2v.server") != NULL)
-    kernel_configuration (config, cmdline, cmdline_source);
+  /* If p2v.server exists, then we use the non-interactive kernel
+   * conversion.  Otherwise we run the GUI.
+   */
+  if (config->server != NULL)
+    kernel_conversion (config, cmdline, cmdline_source);
   else {
-  gui:
     if (!gui_possible) {
       fprintf (stderr,
                _("%s: gtk_init_check returned false, indicating that\n"
@@ -217,7 +218,7 @@ main (int argc, char *argv[])
                guestfs_int_program_name);
       exit (EXIT_FAILURE);
     }
-    gui_application (config);
+    gui_conversion (config);
   }
 
   guestfs_int_free_string_list (cmdline);

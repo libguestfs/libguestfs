@@ -38,18 +38,19 @@ static void notify_ui_callback (int type, const char *data);
 static void run_command (int verbose, const char *stage, const char *command);
 
 void
-kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
+update_config_from_kernel_cmdline (struct config *config, char **cmdline)
 {
   const char *p;
 
-  p = get_cmdline_key (cmdline, "p2v.pre");
+  p = get_cmdline_key (cmdline, "p2v.debug");
   if (p)
-    run_command (config->verbose, "p2v.pre", p);
+    config->verbose = 1;
 
   p = get_cmdline_key (cmdline, "p2v.server");
-  assert (p); /* checked by caller */
-  free (config->server);
-  config->server = strdup (p);
+  if (p) {
+    free (config->server);
+    config->server = strdup (p);
+  }
 
   p = get_cmdline_key (cmdline, "p2v.port");
   if (p) {
@@ -82,21 +83,6 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
   p = get_cmdline_key (cmdline, "p2v.sudo");
   if (p)
     config->sudo = 1;
-
-  /* We should now be able to connect and interrogate virt-v2v
-   * on the conversion server.
-   */
-  p = get_cmdline_key (cmdline, "p2v.skip_test_connection");
-  if (!p) {
-    wait_network_online (config);
-    if (test_connection (config) == -1) {
-      const char *err = get_ssh_error ();
-
-      fprintf (stderr, "%s: error opening control connection to %s:%d: %s\n",
-               guestfs_int_program_name, config->server, config->port, err);
-      exit (EXIT_FAILURE);
-    }
-  }
 
   p = get_cmdline_key (cmdline, "p2v.name");
   if (p) {
@@ -207,11 +193,38 @@ kernel_configuration (struct config *config, char **cmdline, int cmdline_source)
     config->output_storage = strdup (p);
   }
 
-  /* Undocumented command line tool used for testing command line parsing. */
+  /* Undocumented command line parameter used for testing command line
+   * parsing.
+   */
   p = get_cmdline_key (cmdline, "p2v.dump_config_and_exit");
   if (p) {
     print_config (config, stdout);
     exit (EXIT_SUCCESS);
+  }
+}
+
+/* Perform conversion using the kernel method. */
+void
+kernel_conversion (struct config *config, char **cmdline, int cmdline_source)
+{
+  const char *p;
+
+  /* Pre-conversion command. */
+  p = get_cmdline_key (cmdline, "p2v.pre");
+  if (p)
+    run_command (config->verbose, "p2v.pre", p);
+
+  /* Connect to and interrogate virt-v2v on the conversion server. */
+  p = get_cmdline_key (cmdline, "p2v.skip_test_connection");
+  if (!p) {
+    wait_network_online (config);
+    if (test_connection (config) == -1) {
+      const char *err = get_ssh_error ();
+
+      error (EXIT_FAILURE, 0,
+             "error opening control connection to %s:%d: %s",
+             config->server, config->port, err);
+    }
   }
 
   /* Some disks must have been specified for conversion. */

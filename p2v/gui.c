@@ -75,7 +75,7 @@ static GtkWidget *run_dlg,
  * Note that gtk_init etc have already been called in main.
  */
 void
-gui_application (struct config *config)
+gui_conversion (struct config *config)
 {
   /* Create the dialogs. */
   create_connection_dialog (config);
