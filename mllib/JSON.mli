@@ -18,19 +18,19 @@
 
 (** Simple JSON generator. *)
 
-type field = string * json_t
-and json_t =
-  | String of string
-  | Int of int
-  | Int64 of int64
-  | Bool of bool
-  | List of json_t list
-  | Dict of field list
-and doc = field list
+type field = string * json_t    (** ["field": "value"] *)
+and json_t =                    (** JSON value. *)
+  | String of string            (** string value, eg. ["string"] *)
+  | Int of int                  (** int value, eg. [99] *)
+  | Int64 of int64              (** int64 value, eg. [99] *)
+  | Bool of bool                (** boolean value, [true] or [false] *)
+  | List of json_t list         (** array value, eg. [[1,2,3]] *)
+  | Dict of field list          (** object, eg. [{ "a": 1, "b": "c" }] *)
+and doc = field list            (** JSON document. *)
 
 type output_format =
-  | Compact
-  | Indented
+  | Compact                     (** Output on a single line (if possible). *)
+  | Indented                    (** Output a multi-line document. *)
 
 val string_of_doc : ?fmt:output_format -> doc -> string
   (** Serialize {!doc} object as a string. *)

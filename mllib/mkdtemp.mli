@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+(** Functions to create temporary directories. *)
+
 val mkdtemp : string -> string
 (** [mkdtemp pattern] Tiny wrapper to the C [mkdtemp]. *)
 
