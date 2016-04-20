@@ -95,7 +95,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
-	$(top_builddir)/mllib/uRI.cmo \
+	$(top_builddir)/mllib/URI.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 

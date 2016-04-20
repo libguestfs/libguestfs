@@ -48,7 +48,7 @@ mllib/mkdtemp.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
-mllib/uRI.ml
+mllib/URI.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml
