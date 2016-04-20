@@ -38,6 +38,7 @@ dib/utils.ml
 get-kernel/get_kernel.ml
 mllib/JSON.ml
 mllib/JSON_tests.ml
+mllib/URI.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
@@ -48,7 +49,6 @@ mllib/mkdtemp.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
-mllib/uRI.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml

@@ -34,7 +34,7 @@ SOURCES_MLI = \
 	planner.mli \
 	progress.mli \
 	regedit.mli \
-	uRI.mli
+	URI.mli
 
 SOURCES_ML = \
 	guestfs_config.ml \
@@ -43,7 +43,7 @@ SOURCES_ML = \
 	common_utils.ml \
 	fsync.ml \
 	progress.ml \
-	uRI.ml \
+	URI.ml \
 	mkdtemp.ml \
 	planner.ml \
 	regedit.ml \
