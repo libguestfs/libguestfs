@@ -173,7 +173,7 @@ read the man page virt-sysprep(1).
                     ~readonly ?discard
                     ?libvirturi ~allowuuid ~readonlydisk
                     dom)
-      | _, Some _ ->
+      | _::_, Some _ ->
         error (f_"you cannot give -a and -d options together.  Read virt-sysprep(1) man page for further information.")
       | files, None ->
         fun g readonly ->

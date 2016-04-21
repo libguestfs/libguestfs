@@ -37,7 +37,7 @@ let package_manager_cache_perform (g : Guestfs.guestfs) root side_effects =
     | _ -> None in
   match cache_dirs with
   | Some dirs -> List.iter (rm_rf_only_files g) dirs
-  | _ -> ()
+  | None -> ()
 
 let op = {
   defaults with

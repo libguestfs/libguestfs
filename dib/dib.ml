@@ -365,7 +365,7 @@ let run_parts ~debug ~sysroot ~blockdev ~log_file ?(new_wd = "")
   let new_wd =
     match sysroot, new_wd with
     | (Out|Subroot), "" -> "''"
-    | _, dir -> dir in
+    | (In|Out|Subroot), dir -> dir in
   List.iter (
     fun x ->
       message (f_"Running: %s/%s") hook_name x;
