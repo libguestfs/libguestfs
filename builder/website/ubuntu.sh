@@ -72,4 +72,9 @@ virt-install \
     --nographics \
     --noreboot
 
+# In Ubuntu >= 14.04 you can't complete the install without creating
+# a user account.  We create one called 'builder', but we also
+# disable it.
+virt-customize -a $output --password builder:disabled
+
 source $(dirname "$0")/compress.sh $output
