@@ -736,3 +736,34 @@ notes=Ubuntu 14.04 (Trusty).
  image contains a user account 'builder'.  I have disabled it, so that
  people who don't read release notes don't get caught out, but you might
  still wish to delete it completely.
+
+[ubuntu-16.04]
+name=Ubuntu 16.04 (Xenial)
+osinfo=ubuntuxenial
+arch=x86_64
+file=ubuntu-16.04.xz
+checksum=56f9f7621fc5f60a01d0c2471fcddaa449979871aeaacb4d936b733f031dd40bb3c29fe73f8636dcaceb6c1413ebb1feff7381f1b24695e9750d106e243884d1
+format=raw
+size=4294967296
+compressed_size=232828552
+expand=/dev/sda1
+notes=Ubuntu 16.04 (Xenial).
+ 
+ This is a minimal Ubuntu 16.04 (Xenial) install.
+ 
+ Only the openssh-server package is selected in tasksel.
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
+ 
+ IMPORTANT NOTE: It seems to be impossible to create an Ubuntu >= 14.04
+ image using preseed without creating a user account.  Therefore this
+ image contains a user account 'builder'.  I have disabled it, so that
+ people who don't read release notes don't get caught out, but you might
+ still wish to delete it completely.
