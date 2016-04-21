@@ -1140,7 +1140,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
         match block_type with
         | Virtio_blk -> "virtio_blk"
         | Virtio_SCSI -> "virtio_scsi"
-        | _ -> assert false in
+        | IDE -> assert false in
 
       if paths <> [] then (
         (* There's only 1 scsi controller in the converted guest.

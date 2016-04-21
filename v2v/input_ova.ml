@@ -85,8 +85,7 @@ object
           let zcat, tar_fmt =
             match format with
             | `GZip -> "zcat", "z"
-            | `XZ -> "xzcat", "J"
-            | _ -> assert false in
+            | `XZ -> "xzcat", "J" in
           let tmpfile = uncompress_head zcat ova in
           let tmpfiletype = detect_file_type tmpfile in
           (* Remove tmpfile from tmpdir, to leave it empty. *)

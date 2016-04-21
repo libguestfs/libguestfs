@@ -135,9 +135,9 @@ read the man page virt-customize(1).
                   ~readonly ?discard
                   ?libvirturi ~allowuuid ~readonlydisk
                   dom)
-    | _, Some _ ->
+    | _::_, Some _ ->
       error (f_"you cannot give -a and -d options together. Read virt-customize(1) man page for further information.")
-    | files, None ->
+    | (_::_) as files, None ->
       fun g readonly ->
         List.iter (
           fun (uri, format) ->
