@@ -98,6 +98,7 @@ read the man page virt-sparsify(1).
   let check_tmpdir = !check_tmpdir in
   let compress = !compress in
   let convert = match !convert with "" -> None | str -> Some str in
+  let disks = List.rev !disks in
   let format = match !format with "" -> None | str -> Some str in
   let ignores = List.rev !ignores in
   let in_place = !in_place in
@@ -109,7 +110,7 @@ read the man page virt-sparsify(1).
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
    *)
-  if !disks = [] && machine_readable then (
+  if disks = [] && machine_readable then (
     printf "virt-sparsify\n";
     printf "linux-swap\n";
     printf "zero\n";
@@ -126,23 +127,19 @@ read the man page virt-sparsify(1).
     exit 0
   );
 
-  (* Verify we got exactly 1 or 2 disks, depending on the mode. *)
-  let indisk, outdisk =
-    match in_place, List.rev !disks with
-    | false, [indisk; outdisk] -> indisk, outdisk
-    | true, [disk] -> disk, ""
-    | _ ->
-      error "usage is: %s [--options] indisk outdisk OR %s --in-place disk"
-        prog prog in
+  let indisk, mode =
+    if not in_place then (      (* copying mode checks *)
+      let indisk, outdisk =
+        match disks with
+        | [indisk; outdisk] -> indisk, outdisk
+        | _ -> error (f_"usage: %s [--options] indisk outdisk") prog in
 
-  (* Simple-minded check that the user isn't trying to use the
-   * same disk for input and output.
-   *)
-  if indisk = outdisk then
-    error (f_"you cannot use the same disk image for input and output");
+      (* Simple-minded check that the user isn't trying to use the
+       * same disk for input and output.
+       *)
+      if indisk = outdisk then
+        error (f_"you cannot use the same disk image for input and output");
 
-  let indisk =
-    if not in_place then (
       (* The input disk must be an absolute path, so we can store the name
        * in the overlay disk.
        *)
@@ -155,11 +152,17 @@ read the man page virt-sparsify(1).
       (* Check the output is not a char special (RHBZ#1056290). *)
       if is_char_device outdisk then
         error (f_"output '%s' cannot be a character device, it must be a regular file")
-          outdisk;
+              outdisk;
 
-      indisk
+      indisk,
+      Mode_copying (outdisk, check_tmpdir, compress, convert, option, tmp)
     )
-    else (                              (* --in-place checks *)
+    else (                      (* --in-place checks *)
+      let indisk =
+        match disks with
+        | [indisk] -> indisk
+        | _ -> error "usage: %s --in-place [--options] indisk" prog in
+
       if check_tmpdir <> `Warn then
         error (f_"you cannot use --in-place and --check-tmpdir options together");
 
@@ -175,14 +178,8 @@ read the man page virt-sparsify(1).
       if tmp <> None then
         error (f_"you cannot use --in-place and --tmp options together");
 
-      indisk
+      indisk, Mode_in_place
     ) in
-
-  let mode =
-    if not in_place then
-      Mode_copying (outdisk, check_tmpdir, compress, convert, option, tmp)
-    else
-      Mode_in_place in
 
   { indisk = indisk;
     format = format;
