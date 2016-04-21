@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ version=$1
 dist=$2
 osvariant=$3
 if [ -z "$osvariant" ]; then osvariant=ubuntu$dist; fi
-location=http://archive.ubuntu.net/ubuntu/dists/$dist/main/installer-amd64
+location=http://archive.ubuntu.com/ubuntu/dists/$dist/main/installer-amd64
 output=ubuntu-$version
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
