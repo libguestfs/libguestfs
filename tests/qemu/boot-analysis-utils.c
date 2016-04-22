@@ -69,18 +69,22 @@ test_info (guestfs_h *g, int nr_test_passes)
 
   /* Related to qemu. */
   backend = guestfs_get_backend (g);
-  printf ("     backend: %s\n", backend);
-  printf ("        qemu: %s\n", qemu);
+  printf ("     backend: %-20s [to change set LIBGUESTFS_BACKEND]\n",
+          backend);
+  printf ("        qemu: %-20s [to change set $LIBGUESTFS_HV]\n", qemu);
   printf ("qemu version: ");
   fflush (stdout);
   if (asprintf (&cmd, "%s -version", qemu) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
   ignore_value (system (cmd));
-  printf ("         smp: %d\n", guestfs_get_smp (g));
-  printf ("     memsize: %d\n", guestfs_get_memsize (g));
+  printf ("         smp: %-20d [to change use --smp option]\n",
+          guestfs_get_smp (g));
+  printf ("     memsize: %-20d [to change use --memsize option]\n",
+          guestfs_get_memsize (g));
 
   /* Related to the guest kernel.  Be nice to get the guest
    * kernel version here somehow (XXX).
    */
-  printf ("      append: %s\n", guestfs_get_append (g) ? : "");
+  printf ("      append: %-20s [to change use --append option]\n",
+          guestfs_get_append (g) ? : "");
 }
