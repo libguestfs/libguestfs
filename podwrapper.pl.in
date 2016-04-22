@@ -508,12 +508,16 @@ if ($man) {
         stderr => 1, utf8 => 1
     );
     my $output;
+    $parser->no_errata_section (1);
+    $parser->complain_stderr (1);
     $parser->output_string (\$output);
     $parser->parse_string_document ($content)
         or die "$progname: could not parse input document";
     open OUT, ">$man" or die "$progname: $man: $!";
     print OUT $output or die "$progname: $man: $!";
     close OUT or die "$progname: $man: $!";
+    die "$input: errors or warnings in this POD file, see messages above\n"
+        if $parser->any_errata_seen;
     print "$progname: wrote $man\n";
 }
 
@@ -593,6 +597,8 @@ if ($html) {
 
     my $parser = Podwrapper::XHTML->new;
     my $output;
+    $parser->no_errata_section (1);
+    $parser->complain_stderr (1);
     $parser->output_string (\$output);
     # Added in Pod::Simple 3.16, 2011-03-14.
     eval { $parser->html_charset ("UTF-8") };
@@ -606,6 +612,8 @@ if ($html) {
     open OUT, ">$html" or die "$progname: $html: $!";
     print OUT $output or die "$progname: $html: $!";
     close OUT or die "$progname: $html: $!";
+    die "$input: errors or warnings in this POD file, see messages above\n"
+        if $parser->any_errata_seen;
     print "$progname: wrote $html\n";
 }
 
@@ -613,12 +621,16 @@ if ($html) {
 if ($text) {
     my $parser = Pod::Simple::Text->new;
     my $output;
+    $parser->no_errata_section (1);
+    $parser->complain_stderr (1);
     $parser->output_string (\$output);
     $parser->parse_string_document ($content);
     open OUT, ">$text" or die "$progname: $text: $!";
     binmode OUT, ":utf8";
     print OUT $output or die "$progname: $text: $!";
     close OUT or die "$progname: $text: $!";
+    die "$input: errors or warnings in this POD file, see messages above\n"
+        if $parser->any_errata_seen;
     print "$progname: wrote $text\n";
 }
 
