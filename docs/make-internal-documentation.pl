@@ -106,12 +106,12 @@ $progname =~ s{.*/}{};
 
 # Parse options.
 GetOptions ("help|?" => \$help,
-            "man|?" => \$man,
+            "man" => \$man,
             "output=s" => \$output,
             "srcdir=s" => \$srcdir,
     ) or pod2usage (2);
-pod2usage (1) if $help;
-pod2usage (-verbose => 2) if $man;
+pod2usage (-exitval => 0) if $help;
+pod2usage (-exitval => 0, -verbose => 2) if $man;
 
 die "$progname: missing -o/--output parameter\n" unless defined $output;
 
