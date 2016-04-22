@@ -589,6 +589,20 @@ breakpoints, etc.  Note that when you are past the BIOS and into the
 Linux kernel, you'll want to change the architecture back to 32 or 64
 bit.
 
+=head1 PERFORMANCE REGRESSIONS IN OTHER PROGRAMS
+
+Sometimes performance regressions happen in other programs (eg. qemu,
+the kernel) that cause problems for libguestfs.
+
+In the libguestfs source, F<tests/qemu/boot-benchmark-range.pl> is a
+script which can be used to benchmark libguestfs across a range of git
+commits in another project to find out if any commit is causing a
+slowdown (or speedup).
+
+To find out how to use this script, consult the manual:
+
+ ./tests/qemu/boot-benchmark-range.pl --man
+
 =head1 SEE ALSO
 
 L<supermin(1)>,
