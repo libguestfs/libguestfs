@@ -42,6 +42,7 @@ EXTRA_DIST = \
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
 
 SOURCES_MLI = \
+	changeuid.mli \
 	cmdline.mli \
 	convert_linux.mli \
 	convert_windows.mli \
@@ -55,7 +56,6 @@ SOURCES_MLI = \
 	input_libvirt_xen_ssh.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
-	changeuid.mli \
 	linux.mli \
 	modules_list.mli \
 	output_glance.mli \
