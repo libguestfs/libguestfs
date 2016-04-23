@@ -67,6 +67,7 @@ SOURCES_MLI = \
 	output_vdsm.mli \
 	OVF.mli \
 	stringMap.mli \
+	target_bus_assignment.mli \
 	types.mli \
 	utils.mli \
 	vCenter.mli \
@@ -105,6 +106,7 @@ SOURCES_ML = \
 	output_rhev.ml \
 	output_vdsm.ml \
 	inspect_source.ml \
+	target_bus_assignment.ml \
 	cmdline.ml \
 	v2v.ml
 

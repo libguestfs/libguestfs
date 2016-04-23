@@ -118,7 +118,9 @@ let rec main () =
          get_target_firmware inspect guestcaps source output in
 
        message (f_"Assigning disks to buses");
-       let target_buses = target_bus_assignment source targets guestcaps in
+       let target_buses =
+         Target_bus_assignment.target_bus_assignment source targets
+                                                     guestcaps in
        debug "%s" (string_of_target_buses target_buses);
 
        let targets =
@@ -715,81 +717,6 @@ and actual_target_size target =
     try Some (du target.target_file)
     with Failure _ | Invalid_argument _ -> None in
   { target with target_actual_size = size }
-
-(* Assign fixed and removable disks to target buses, as best we can.
- * This is not solvable for all guests, but at least avoid overlapping
- * disks (RHBZ#1238053).
- *
- * XXX This doesn't do the right thing for PC legacy floppy devices.
- * XXX This could handle slot assignment better when we have a mix of
- * devices desiring their own slot, and others that don't care.  Allocate
- * the first group in the first pass, then the second group afterwards.
- *)
-and target_bus_assignment source targets guestcaps =
-  let virtio_blk_bus = ref [| |]
-  and ide_bus = ref [| |]
-  and scsi_bus = ref [| |] in
-
-  (* Insert a slot into the bus array, making the array bigger if necessary. *)
-  let insert bus i slot =
-    let oldbus = !bus in
-    let oldlen = Array.length oldbus in
-    if i >= oldlen then (
-      bus := Array.make (i+1) BusSlotEmpty;
-      Array.blit oldbus 0 !bus 0 oldlen
-    );
-    Array.set !bus i slot
-  in
-
-  (* Insert a slot into the bus, but if the desired slot is not empty, then
-   * increment the slot number until we find an empty one.  Returns
-   * true if we got the desired slot.
-   *)
-  let rec insert_after bus i slot =
-    let len = Array.length !bus in
-    if i >= len || Array.get !bus i = BusSlotEmpty then (
-      insert bus i slot; true
-    ) else (
-      ignore (insert_after bus (i+1) slot); false
-    )
-  in
-
-  (* Add the fixed disks (targets) to either the virtio-blk or IDE bus,
-   * depending on whether the guest has virtio drivers or not.
-   *)
-  iteri (
-    fun i t ->
-      let t = BusSlotTarget t in
-      match guestcaps.gcaps_block_bus with
-      | Virtio_blk -> insert virtio_blk_bus i t
-      | IDE -> insert ide_bus i t
-  ) targets;
-
-  (* Now try to add the removable disks to the bus at the same slot
-   * they originally occupied, but if the slot is occupied, emit a
-   * a warning and insert the disk in the next empty slot in that bus.
-   *)
-  List.iter (
-    fun r ->
-      let bus = match r.s_removable_controller with
-        | None -> ide_bus (* Wild guess, but should be safe. *)
-        | Some Source_virtio_blk -> virtio_blk_bus
-        | Some Source_IDE -> ide_bus
-        | Some Source_SCSI -> scsi_bus in
-      match r.s_removable_slot with
-      | None -> ignore (insert_after bus 0 (BusSlotRemovable r))
-      | Some desired_slot_nr ->
-         if not (insert_after bus desired_slot_nr (BusSlotRemovable r)) then
-           warning (f_"removable %s device in slot %d clashes with another disk, so it has been moved to a higher numbered slot on the same bus.  This may mean that this removable device has a different name inside the guest (for example a CD-ROM originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a Windows guest).")
-                   (match r.s_removable_type with
-                    | CDROM -> s_"CD-ROM"
-                    | Floppy -> s_"floppy disk")
-                   desired_slot_nr
-  ) source.s_removables;
-
-  { target_virtio_blk_bus = !virtio_blk_bus;
-    target_ide_bus = !ide_bus;
-    target_scsi_bus = !scsi_bus }
 
 (* Save overlays if --debug-overlays option was used. *)
 and preserve_overlays overlays src_name =
