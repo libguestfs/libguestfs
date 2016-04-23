@@ -881,18 +881,11 @@ and copy_targets cmdline targets input output =
 
 (* Update the target_actual_size field in the target structure. *)
 and actual_target_size target =
-  { target with target_actual_size = du target.target_file }
-
-(* There's no OCaml binding for st_blocks, so run coreutils 'du'
- * to get the used size in bytes.
- *)
-and du filename =
-  let cmd = sprintf "du --block-size=1 %s | awk '{print $1}'" (quote filename) in
-  let lines = external_command cmd in
-  (* Ignore errors because we want to avoid failures after copying. *)
-  match lines with
-  | line::_ -> (try Some (Int64.of_string line) with _ -> None)
-  | [] -> None
+  let size =
+    (* Ignore errors because we want to avoid failures after copying. *)
+    try Some (du target.target_file)
+    with Failure _ | Invalid_argument _ -> None in
+  { target with target_actual_size = size }
 
 (* Assign fixed and removable disks to target buses, as best we can.
  * This is not solvable for all guests, but at least avoid overlapping

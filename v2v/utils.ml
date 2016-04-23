@@ -124,3 +124,15 @@ let remove_duplicates xs =
     | x :: xs -> Hashtbl.add h x true; x :: loop xs
   in
   loop xs
+
+let du filename =
+  (* There's no OCaml binding for st_blocks, so run coreutils 'du'. *)
+  let cmd =
+    sprintf "du --block-size=1 %s | awk '{print $1}'" (quote filename) in
+  (* XXX This can call error and so exit, but it would be preferable
+   * to raise an exception here.
+   *)
+  let lines = external_command cmd in
+  match lines with
+  | line::_ -> Int64.of_string line
+  | [] -> invalid_arg filename
