@@ -43,7 +43,7 @@ type cmdline = {
   output_format : string option;
   output_name : string option;
   print_source : bool;
-  root_choice : [`Ask|`Single|`First|`Dev of string];
+  root_choice : root_choice;
 }
 
 let parse_cmdline () =
@@ -155,12 +155,12 @@ let parse_cmdline () =
       error (f_"unknown -oa option: %s") s
   in
 
-  let root_choice = ref `Ask in
+  let root_choice = ref AskRoot in
   let set_root_choice = function
-    | "ask" -> root_choice := `Ask
-    | "single" -> root_choice := `Single
-    | "first" -> root_choice := `First
-    | dev when String.is_prefix dev "/dev/" -> root_choice := `Dev dev
+    | "ask" -> root_choice := AskRoot
+    | "single" -> root_choice := SingleRoot
+    | "first" -> root_choice := FirstRoot
+    | dev when String.is_prefix dev "/dev/" -> root_choice := RootDev dev
     | s ->
       error (f_"unknown --root option: %s") s
   in

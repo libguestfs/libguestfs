@@ -56,6 +56,7 @@ SOURCES_MLI = \
 	input_libvirt_xen_ssh.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
+	inspect_source.mli \
 	linux.mli \
 	modules_list.mli \
 	output_glance.mli \
@@ -105,6 +106,7 @@ SOURCES_ML = \
 	output_qemu.ml \
 	output_rhev.ml \
 	output_vdsm.ml \
+	inspect_source.ml \
 	cmdline.ml \
 	v2v.ml
 

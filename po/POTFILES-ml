@@ -111,6 +111,7 @@ v2v/input_libvirt_vcenter_https.ml
 v2v/input_libvirt_xen_ssh.ml
 v2v/input_libvirtxml.ml
 v2v/input_ova.ml
+v2v/inspect_source.ml
 v2v/linux.ml
 v2v/modules_list.ml
 v2v/output_glance.ml
