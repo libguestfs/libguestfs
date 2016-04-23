@@ -53,3 +53,11 @@ val compare_app2_versions : Guestfs.application2 -> Guestfs.application2 -> int
 
 val remove_duplicates : 'a list -> 'a list
 (** Remove duplicates from a list. *)
+
+val du : string -> int64
+(** Return the true size of a file in bytes, including any wasted
+    space caused by internal fragmentation (the overhead of using
+    blocks).
+
+    This can raise either [Failure] or [Invalid_argument] in case
+    of errors. *)
