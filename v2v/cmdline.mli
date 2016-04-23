@@ -43,7 +43,7 @@ type cmdline = {
   output_format : string option;
   output_name : string option;
   print_source : bool;
-  root_choice : [`Ask|`Single|`First|`Dev of string];
+  root_choice : Types.root_choice;
 }
 
 val parse_cmdline : unit -> cmdline * Types.input * Types.output

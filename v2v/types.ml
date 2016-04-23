@@ -444,6 +444,8 @@ let string_of_target_buses buses =
   string_of_target_bus_slots "ide" buses.target_ide_bus ^
   string_of_target_bus_slots "scsi" buses.target_scsi_bus
 
+type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
+
 type output_allocation = Sparse | Preallocated
 
 type vmtype = Desktop | Server

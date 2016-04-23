@@ -306,6 +306,9 @@ and target_bus_slot =
 
 val string_of_target_buses : target_buses -> string
 
+type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
+(** Type of [--root] (root choice) option. *)
+
 type output_allocation = Sparse | Preallocated
 (** Type of [-oa] (output allocation) option. *)
 
