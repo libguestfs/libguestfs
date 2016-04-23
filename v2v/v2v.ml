@@ -70,7 +70,10 @@ let rec main () =
   g#launch ();
 
   (* Inspection - this also mounts up the filesystems. *)
-  message (f_"Inspecting the overlay");
+  (match conversion_mode with
+   | Copying _ -> message (f_"Inspecting the overlay")
+   | In_place -> message (f_"Inspecting the source VM")
+  );
   let inspect = inspect_source cmdline g in
 
   let mpstats = get_mpstats g in
@@ -81,8 +84,10 @@ let rec main () =
    | In_place -> ()
   );
 
-  let keep_serial_console = output#keep_serial_console in
-  let guestcaps = do_convert g inspect source keep_serial_console in
+  (* Conversion. *)
+  let guestcaps =
+    let keep_serial_console = output#keep_serial_console in
+    do_convert g inspect source keep_serial_console in
 
   g#umount_all ();
 
@@ -104,6 +109,7 @@ let rec main () =
   g#shutdown ();
   g#close ();
 
+  (* Copy overlays to target (for [--in-place] this does nothing). *)
   (match conversion_mode with
    | In_place -> ()
    | Copying (overlays, targets) ->
@@ -193,14 +199,8 @@ and amend_source cmdline source =
 
   { source with s_nics = nics }
 
+(* Create a qcow2 v3 overlay to protect the source image(s). *)
 and create_overlays src_disks =
-  (* Create a qcow2 v3 overlay to protect the source image(s).  There
-   * is a specific reason to use the newer qcow2 variant: Because the
-   * L2 table can store zero clusters efficiently, and because
-   * discarded blocks are stored as zero clusters, this should allow us
-   * to fstrim/blkdiscard and avoid copying significant parts of the
-   * data over the wire.
-   *)
   message (f_"Creating an overlay to protect the source from being modified");
   let overlay_dir = (open_guestfs ())#get_cachedir () in
   List.mapi (
@@ -209,13 +209,19 @@ and create_overlays src_disks =
         Filename.temp_file ~temp_dir:overlay_dir "v2vovl" ".qcow2" in
       unlink_on_exit overlay_file;
 
+      (* There is a specific reason to use the newer qcow2 variant:
+       * Because the L2 table can store zero clusters efficiently, and
+       * because discarded blocks are stored as zero clusters, this
+       * should allow us to fstrim/blkdiscard and avoid copying
+       * significant parts of the data over the wire.
+       *)
       let options =
         "compat=1.1" ^
           (match format with None -> ""
-          | Some fmt -> ",backing_fmt=" ^ fmt) in
+                           | Some fmt -> ",backing_fmt=" ^ fmt) in
       let cmd =
         sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
-          (quote qemu_uri) (quote options) overlay_file in
+                (quote qemu_uri) (quote options) overlay_file in
       if verbose () then printf "%s\n%!" cmd;
       if Sys.command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
@@ -239,11 +245,11 @@ and create_overlays src_disks =
         ov_virtual_size = vsize; ov_source = source }
   ) src_disks
 
+(* Work out where we will write the final output.  Do this early
+ * just so we can display errors to the user before doing too much
+ * work.
+ *)
 and init_targets cmdline output source overlays =
-  (* Work out where we will write the final output.  Do this early
-   * just so we can display errors to the user before doing too much
-   * work.
-   *)
   message (f_"Initializing the target %s") output#as_options;
   let targets =
     List.map (
@@ -282,8 +288,8 @@ and init_targets cmdline output source overlays =
 
   output#prepare_targets source targets
 
+(* Populate guestfs handle with qcow2 overlays. *)
 and populate_overlays g overlays =
-  (* Populate guestfs handle with qcow2 overlays. *)
   List.iter (
     fun ({ov_overlay_file = overlay_file}) ->
       g#add_drive_opts overlay_file
@@ -291,6 +297,7 @@ and populate_overlays g overlays =
         ~copyonread:true
   ) overlays
 
+(* Populate guestfs handle with source disks.  Only used for [--in-place]. *)
 and populate_disks g src_disks =
   List.iter (
     fun ({s_qemu_uri = qemu_uri; s_format = format}) ->
@@ -452,8 +459,8 @@ and inspect_source cmdline g =
 
   inspect
 
+(* Collect statvfs information from the guest mountpoints. *)
 and get_mpstats g =
-  (* Collect statvfs information from the guest mountpoints. *)
   let mpstats = List.map (
     fun (dev, path) ->
       let statvfs = g#statvfs path in
@@ -692,15 +699,15 @@ and estimate_target_size mpstats targets =
     targets
   )
 
+(* Estimate space required on target for each disk.  Note this is a max. *)
 and check_target_free_space mpstats source targets output =
-  (* Estimate space required on target for each disk.  Note this is a max. *)
   message (f_"Estimating space required on target for each disk");
   let targets = estimate_target_size mpstats targets in
 
   output#check_target_free_space source targets
 
+(* Conversion. *)
 and do_convert g inspect source keep_serial_console =
-  (* Conversion. *)
   (match inspect.i_product_name with
   | "unknown" ->
     message (f_"Converting the guest to run on KVM")
@@ -727,8 +734,8 @@ and do_convert g inspect source keep_serial_console =
 
   guestcaps
 
+(* Does the guest require UEFI on the target? *)
 and get_target_firmware inspect guestcaps source output =
-  (* Does the guest require UEFI on the target? *)
   message (f_"Checking if the guest needs BIOS or UEFI to boot");
   let target_firmware =
     match source.s_firmware with
@@ -753,8 +760,8 @@ and get_target_firmware inspect guestcaps source output =
 
 and delete_target_on_exit = ref true
 
+(* Copy the source (really, the overlays) to the output. *)
 and copy_targets cmdline targets input output =
-  (* Copy the source to the output. *)
   at_exit (fun () ->
     if !delete_target_on_exit then (
       List.iter (
@@ -949,8 +956,8 @@ and target_bus_assignment source targets guestcaps =
     target_ide_bus = !ide_bus;
     target_scsi_bus = !scsi_bus }
 
+(* Save overlays if --debug-overlays option was used. *)
 and preserve_overlays overlays src_name =
-  (* Save overlays if --debug-overlays option was used. *)
   let overlay_dir = (open_guestfs ())#get_cachedir () in
   List.iter (
     fun ov ->

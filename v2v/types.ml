@@ -388,6 +388,10 @@ let string_of_target_buses buses =
   string_of_target_bus_slots "ide" buses.target_ide_bus ^
   string_of_target_bus_slots "scsi" buses.target_scsi_bus
 
+type output_allocation = Sparse | Preallocated
+
+type vmtype = Desktop | Server
+
 class virtual input = object
   method virtual as_options : string
   method virtual source : unit -> source
@@ -404,7 +408,3 @@ class virtual output = object
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
 end
-
-type output_allocation = Sparse | Preallocated
-
-type vmtype = Desktop | Server
