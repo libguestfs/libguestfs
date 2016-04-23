@@ -16,7 +16,45 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Types. *)
+(** Types.
+
+    This module contains the data types used throughout virt-v2v.
+
+    There is a progression during conversion: source -> overlay ->
+    target: We start with a description of the source VM (or physical
+    machine for virt-p2v) with one or more source disks.  We place
+    wriable overlay(s) on top of the source disk(s).  We do the
+    conversion into the overlay(s).  We copy the overlay(s) to the
+    target disk(s).
+
+    (This progression does not apply for [--in-place] conversions
+    which happen on the source only.)
+
+    Overlay disks contain a pointer back to source disks.
+    Target disks contain a pointer back to overlay disks.
+
+{v
+┌──────┐
+│source│
+│struct│
+└──┬───┘
+   │    ┌───────┐  ┌───────┐  ┌───────┐
+   └────┤ disk1 ├──┤ disk2 ├──┤ disk3 │  Source disks
+        └───▲───┘  └───▲───┘  └───▲───┘  (source.s_disks)
+            │          │          │
+            │          │          │ overlay.ov_source
+        ┌───┴───┐  ┌───┴───┐  ┌───┴───┐
+        │ ovl1  ├──┤ ovl2  ├──┤ ovl3  │  Overlay disks
+        └───▲───┘  └───▲───┘  └───▲───┘
+            │          │          │
+            │          │          │ target.target_overlay
+        ┌───┴───┐  ┌───┴───┐  ┌───┴───┐
+        │ targ1 ├──┤ targ2 ├──┤ targ3 │  Target disks
+        └───────┘  └───────┘  └───────┘
+v}
+*)
+
+(** {2 Source, source disks} *)
 
 type source = {
   s_hypervisor : source_hypervisor;     (** Source hypervisor. *)
@@ -125,6 +163,8 @@ val string_of_source_video : source_video -> string
 val string_of_source_hypervisor : source_hypervisor -> string
 val source_hypervisor_of_string : string -> source_hypervisor
 
+(** {2 Overlay disks} *)
+
 type overlay = {
   ov_overlay_file : string;  (** Local overlay file (qcow2 format). *)
   ov_sd : string;            (** "sda", "sdb" etc - canonical device name. *)
@@ -138,6 +178,8 @@ type overlay = {
 (** Overlay disk. *)
 
 val string_of_overlay : overlay -> string
+
+(** {2 Target disks} *)
 
 type target = {
   target_file : string;      (** Destination file. *)
@@ -155,6 +197,8 @@ type target = {
 (** Target disk. *)
 
 val string_of_target : target -> string
+
+(** {2 Other data structures} *)
 
 type target_firmware = TargetBIOS | TargetUEFI
 
@@ -206,14 +250,16 @@ type guestcaps = {
   gcaps_arch : string;      (** Architecture that KVM must emulate. *)
   gcaps_acpi : bool;        (** True if guest supports acpi. *)
 }
+(** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
+
 and requested_guestcaps = {
   rcaps_block_bus : guestcaps_block_type option;
   rcaps_net_bus : guestcaps_net_type option;
   rcaps_video : guestcaps_video_type option;
-  (** Requested guest capabilities, to allow the caller to affect converter
-      choices *)
 }
-(** Guest capabilities after conversion.  eg. Was virtio found or installed? *)
+(** For [--in-place] conversions, the requested guest capabilities, to
+    allow the caller to affect conversion choices.  [None] = no
+    preference, use the best available. *)
 
 and guestcaps_block_type = Virtio_blk | Virtio_SCSI | IDE
 and guestcaps_net_type = Virtio_net | E1000 | RTL8139
@@ -227,7 +273,31 @@ type target_buses = {
   target_ide_bus : target_bus_slot array;
   target_scsi_bus : target_bus_slot array;
 }
-(** Mapping of fixed and removable disks to buses. *)
+(** Mapping of fixed and removable disks to buses.
+
+    As shown in the diagram below, there are (currently) three buses
+    attached to the target VM.  Each contains a chain of fixed or
+    removable disks.  Slots can also be empty.
+
+    We try to assign disks to the same slot number as they would
+    occupy on the source, although that is not always possible.
+
+{v
+┌──────┐
+│Target│
+│  VM  │
+└──┬───┘
+   │    ┌─────┐   ┌─────┐   ┌─────┐
+   ├────┤ sda ├───┤  -  ├───┤ sdc │  SCSI bus
+   │    └─────┘   └─────┘   └─────┘
+   │    ┌─────┐   ┌─────┐   ┌─────┐   ┌─────┐
+   ├────┤ hda ├───┤ hdb ├───┤ hdc ├───┤ hdd │  IDE bus
+   │    └─────┘   └─────┘   └─────┘   └─────┘
+   │    ┌─────┐   ┌─────┐
+   └────┤  -  ├───┤ vdb │  Virtio-blk bus
+        └─────┘   └─────┘
+v}
+ *)
 
 and target_bus_slot =
 | BusSlotEmpty                  (** This bus slot is empty. *)
@@ -235,6 +305,16 @@ and target_bus_slot =
 | BusSlotRemovable of source_removable (** Contains a removable CD/floppy. *)
 
 val string_of_target_buses : target_buses -> string
+
+type output_allocation = Sparse | Preallocated
+(** Type of [-oa] (output allocation) option. *)
+
+type vmtype = Desktop | Server
+(** Type of [--vmtype] option. *)
+
+(** {2 Input object}
+
+    There is one of these used for the [-i] option. *)
 
 class virtual input : object
   method virtual as_options : string
@@ -247,6 +327,10 @@ class virtual input : object
       parameters of the overlay disk. *)
 end
 (** Encapsulates all [-i], etc input arguments as an object. *)
+
+(** {2 Output object}
+
+    There is one of these used for the [-o] option. *)
 
 class virtual output : object
   method virtual as_options : string
@@ -273,9 +357,3 @@ class virtual output : object
   (** Whether this output supports serial consoles (RHEV does not). *)
 end
 (** Encapsulates all [-o], etc output arguments as an object. *)
-
-type output_allocation = Sparse | Preallocated
-(** Type of [-oa] (output allocation) option. *)
-
-type vmtype = Desktop | Server
-(** Type of [--vmtype] option. *)
