@@ -516,8 +516,10 @@ if ($man) {
     open OUT, ">$man" or die "$progname: $man: $!";
     print OUT $output or die "$progname: $man: $!";
     close OUT or die "$progname: $man: $!";
-    die "$input: errors or warnings in this POD file, see messages above\n"
-        if $parser->any_errata_seen;
+    if ($parser->any_errata_seen) {
+        unlink $man;
+        die "$input: errors or warnings in this POD file, see messages above\n"
+    }
     print "$progname: wrote $man\n";
 }
 
@@ -612,8 +614,10 @@ if ($html) {
     open OUT, ">$html" or die "$progname: $html: $!";
     print OUT $output or die "$progname: $html: $!";
     close OUT or die "$progname: $html: $!";
-    die "$input: errors or warnings in this POD file, see messages above\n"
-        if $parser->any_errata_seen;
+    if ($parser->any_errata_seen) {
+        unlink $html;
+        die "$input: errors or warnings in this POD file, see messages above\n"
+    }
     print "$progname: wrote $html\n";
 }
 
@@ -629,8 +633,10 @@ if ($text) {
     binmode OUT, ":utf8";
     print OUT $output or die "$progname: $text: $!";
     close OUT or die "$progname: $text: $!";
-    die "$input: errors or warnings in this POD file, see messages above\n"
-        if $parser->any_errata_seen;
+    if ($parser->any_errata_seen) {
+        unlink $text;
+        die "$input: errors or warnings in this POD file, see messages above\n"
+    }
     print "$progname: wrote $text\n";
 }
 
