@@ -38,6 +38,7 @@ dib/utils.ml
 get-kernel/get_kernel.ml
 mllib/JSON.ml
 mllib/JSON_tests.ml
+mllib/URI.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
@@ -48,7 +49,6 @@ mllib/mkdtemp.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
-mllib/URI.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml
@@ -111,6 +111,7 @@ v2v/input_libvirt_vcenter_https.ml
 v2v/input_libvirt_xen_ssh.ml
 v2v/input_libvirtxml.ml
 v2v/input_ova.ml
+v2v/inspect_source.ml
 v2v/linux.ml
 v2v/modules_list.ml
 v2v/output_glance.ml
@@ -121,6 +122,7 @@ v2v/output_qemu.ml
 v2v/output_rhev.ml
 v2v/output_vdsm.ml
 v2v/stringMap.ml
+v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml
 v2v/types.ml
 v2v/utils.ml

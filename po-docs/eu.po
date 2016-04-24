@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-04-16 21:52+0100\n"
+"POT-Creation-Date: 2016-04-24 15:48+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -1375,7 +1375,7 @@ msgstr ""
 #: ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248
 #: ../docs/guestfs-building.pod:643 ../docs/guestfs-faq.pod:1392
 #: ../docs/guestfs-hacking.pod:860 ../docs/guestfs-internals.pod:409
-#: ../docs/guestfs-performance.pod:592 ../docs/guestfs-recipes.pod:719
+#: ../docs/guestfs-performance.pod:606 ../docs/guestfs-recipes.pod:719
 #: ../docs/guestfs-release-notes.pod:4813 ../docs/guestfs-security.pod:340
 #: ../docs/guestfs-testing.pod:399 ../edit/virt-edit.pod:383
 #: ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55
@@ -1451,7 +1451,7 @@ msgstr ""
 #: ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262
 #: ../docs/guestfs-building.pod:660 ../docs/guestfs-faq.pod:1402
 #: ../docs/guestfs-hacking.pod:877 ../docs/guestfs-internals.pod:422
-#: ../docs/guestfs-performance.pod:609 ../docs/guestfs-recipes.pod:738
+#: ../docs/guestfs-performance.pod:623 ../docs/guestfs-recipes.pod:738
 #: ../docs/guestfs-release-notes.pod:4828 ../docs/guestfs-security.pod:352
 #: ../docs/guestfs-testing.pod:410 ../edit/virt-edit.pod:398
 #: ../erlang/examples/guestfs-erlang.pod:114
@@ -1744,7 +1744,7 @@ msgstr ""
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
 #: ../customize/virt-customize.pod:276 ../docs/guestfs-building.pod:656
 #: ../docs/guestfs-faq.pod:1398 ../docs/guestfs-hacking.pod:873
-#: ../docs/guestfs-internals.pod:418 ../docs/guestfs-performance.pod:605
+#: ../docs/guestfs-internals.pod:418 ../docs/guestfs-performance.pod:619
 #: ../docs/guestfs-recipes.pod:734 ../docs/guestfs-security.pod:348
 #: ../docs/guestfs-testing.pod:406 ../erlang/examples/guestfs-erlang.pod:110
 #: ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1634
@@ -1768,7 +1768,7 @@ msgstr "EGILEAK"
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
 #: ../docs/guestfs-building.pod:658 ../docs/guestfs-faq.pod:1400
 #: ../docs/guestfs-hacking.pod:875 ../docs/guestfs-internals.pod:420
-#: ../docs/guestfs-performance.pod:607 ../docs/guestfs-recipes.pod:736
+#: ../docs/guestfs-performance.pod:621 ../docs/guestfs-recipes.pod:736
 #: ../docs/guestfs-security.pod:350 ../docs/guestfs-testing.pod:408
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:71 ../fish/guestfish.pod:1636
@@ -14865,7 +14865,7 @@ msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-faq.pod:1404 ../docs/guestfs-performance.pod:611
+#: ../docs/guestfs-faq.pod:1404 ../docs/guestfs-performance.pod:625
 msgid "Copyright (C) 2012-2016 Red Hat Inc."
 msgstr ""
 
@@ -18484,8 +18484,41 @@ msgid ""
 "to change the architecture back to 32 or 64 bit."
 msgstr ""
 
+#. type: =head1
+#: ../docs/guestfs-performance.pod:592
+msgid "PERFORMANCE REGRESSIONS IN OTHER PROGRAMS"
+msgstr ""
+
 #. type: textblock
 #: ../docs/guestfs-performance.pod:594
+msgid ""
+"Sometimes performance regressions happen in other programs (eg. qemu, the "
+"kernel) that cause problems for libguestfs."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-performance.pod:597
+msgid ""
+"In the libguestfs source, F<tests/qemu/boot-benchmark-range.pl> is a script "
+"which can be used to benchmark libguestfs across a range of git commits in "
+"another project to find out if any commit is causing a slowdown (or speedup)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-performance.pod:602
+msgid "To find out how to use this script, consult the manual:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/guestfs-performance.pod:604
+#, no-wrap
+msgid ""
+" ./tests/qemu/boot-benchmark-range.pl --man\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-performance.pod:608
 msgid ""
 "L<supermin(1)>, L<guestfish(1)>, L<guestfs(3)>, L<guestfs-examples(3)>, "
 "L<guestfs-internals(1)>, L<libguestfs-make-fixed-appliance(1)>, L<stap(1)>, "
