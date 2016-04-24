@@ -21,11 +21,7 @@ open Common_gettext.Gettext
 
 open Types
 
-(* XXX This doesn't do the right thing for PC legacy floppy devices.
- * XXX This could handle slot assignment better when we have a mix of
- * devices desiring their own slot, and others that don't care.  Allocate
- * the first group in the first pass, then the second group afterwards.
- *)
+(* XXX This doesn't do the right thing for PC legacy floppy devices. *)
 let rec target_bus_assignment source targets guestcaps =
   let virtio_blk_bus = ref [| |]
   and ide_bus = ref [| |]
@@ -45,28 +41,50 @@ let rec target_bus_assignment source targets guestcaps =
         insert bus i t
     ) targets in
 
-  (* Now try to add the removable disks to the bus at the same slot
-   * they originally occupied, but if the slot is occupied, emit a
-   * a warning and insert the disk in the next empty slot in that bus.
+  (* Now we have to assign the removable disks.  These go in the
+   * same slot they originally occupied, except in two cases: (1) That
+   * slot is now occupied by a target disk, or (2) we don't
+   * have information about the original slot.  In these cases
+   * insert the disk in the next empty slot in that bus.
    *)
-  List.iter (
-    fun r ->
-      let t = BusSlotRemovable r in
-      let bus = match r.s_removable_controller with
-        | None -> ide_bus (* Wild guess, but should be safe. *)
-        | Some Source_virtio_blk -> virtio_blk_bus
-        | Some Source_IDE -> ide_bus
-        | Some Source_SCSI -> scsi_bus in
-      match r.s_removable_slot with
-      | None -> ignore (insert_after bus 0 t)
-      | Some desired_slot_nr ->
-         if not (insert_after bus desired_slot_nr t) then
-           warning (f_"removable %s device in slot %d clashes with another disk, so it has been moved to a higher numbered slot on the same bus.  This may mean that this removable device has a different name inside the guest (for example a CD-ROM originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a Windows guest).")
-                   (match r.s_removable_type with
-                    | CDROM -> s_"CD-ROM"
-                    | Floppy -> s_"floppy disk")
-                   desired_slot_nr
-  ) source.s_removables;
+
+  (* Split the removables into a list of devices that desire a
+   * particular slot, and those that don't care.  Assign the first
+   * group first so they have a greater chance of getting the
+   * desired slot.
+   *)
+  let removables_desire, removables_no_desire =
+    List.partition (
+      function
+      | { s_removable_slot = Some _ } -> true
+      | { s_removable_slot = None } -> false
+    ) source.s_removables in
+
+  let assign_removables removables =
+    List.iter (
+      fun r ->
+        let t = BusSlotRemovable r in
+        let bus =
+          match r.s_removable_controller with
+          | None -> ide_bus (* Wild guess, but should be safe. *)
+          | Some Source_virtio_blk -> virtio_blk_bus
+          | Some Source_IDE -> ide_bus
+          | Some Source_SCSI -> scsi_bus in
+
+        match r.s_removable_slot with
+        | None ->
+           ignore (insert_after bus 0 t)
+        | Some desired_slot_nr ->
+           if not (insert_after bus desired_slot_nr t) then
+             warning (f_"removable %s device in slot %d clashes with another disk, so it has been moved to a higher numbered slot on the same bus.  This may mean that this removable device has a different name inside the guest (for example a CD-ROM originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a Windows guest).")
+                     (match r.s_removable_type with
+                      | CDROM -> s_"CD-ROM"
+                      | Floppy -> s_"floppy disk")
+                     desired_slot_nr
+    ) removables
+  in
+  assign_removables removables_desire;
+  assign_removables removables_no_desire;
 
   { target_virtio_blk_bus = !virtio_blk_bus;
     target_ide_bus = !ide_bus;
