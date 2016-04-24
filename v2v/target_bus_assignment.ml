@@ -34,13 +34,16 @@ let rec target_bus_assignment source targets guestcaps =
   (* Add the fixed disks (targets) to either the virtio-blk or IDE bus,
    * depending on whether the guest has virtio drivers or not.
    *)
-  iteri (
-    fun i t ->
-      let t = BusSlotTarget t in
+  let () =
+    let bus =
       match guestcaps.gcaps_block_bus with
-      | Virtio_blk -> insert virtio_blk_bus i t
-      | IDE -> insert ide_bus i t
-  ) targets;
+      | Virtio_blk -> virtio_blk_bus
+      | IDE -> ide_bus in
+    iteri (
+      fun i t ->
+        let t = BusSlotTarget t in
+        insert bus i t
+    ) targets in
 
   (* Now try to add the removable disks to the bus at the same slot
    * they originally occupied, but if the slot is occupied, emit a
@@ -48,15 +51,16 @@ let rec target_bus_assignment source targets guestcaps =
    *)
   List.iter (
     fun r ->
+      let t = BusSlotRemovable r in
       let bus = match r.s_removable_controller with
         | None -> ide_bus (* Wild guess, but should be safe. *)
         | Some Source_virtio_blk -> virtio_blk_bus
         | Some Source_IDE -> ide_bus
         | Some Source_SCSI -> scsi_bus in
       match r.s_removable_slot with
-      | None -> ignore (insert_after bus 0 (BusSlotRemovable r))
+      | None -> ignore (insert_after bus 0 t)
       | Some desired_slot_nr ->
-         if not (insert_after bus desired_slot_nr (BusSlotRemovable r)) then
+         if not (insert_after bus desired_slot_nr t) then
            warning (f_"removable %s device in slot %d clashes with another disk, so it has been moved to a higher numbered slot on the same bus.  This may mean that this removable device has a different name inside the guest (for example a CD-ROM originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a Windows guest).")
                    (match r.s_removable_type with
                     | CDROM -> s_"CD-ROM"
@@ -77,16 +81,18 @@ and insert bus i slot =
     Array.blit oldbus 0 !bus 0 oldlen
   );
   assert (!bus.(i) = BusSlotEmpty);
-  Array.set !bus i slot
+  !bus.(i) <- slot
 
 (* Insert a slot into the bus, but if the desired slot is not empty, then
  * increment the slot number until we find an empty one.  Returns
  * true if we got the desired slot.
  *)
 and insert_after bus i slot =
-  let len = Array.length !bus in
-  if i >= len || Array.get !bus i = BusSlotEmpty then (
+  if slot_is_empty bus i then (
     insert bus i slot; true
   ) else (
     ignore (insert_after bus (i+1) slot); false
   )
+
+(* Return true if slot i is empty in the bus. *)
+and slot_is_empty bus i = i >= Array.length !bus || !bus.(i) = BusSlotEmpty
