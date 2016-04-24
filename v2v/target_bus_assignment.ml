@@ -76,6 +76,7 @@ and insert bus i slot =
     bus := Array.make (i+1) BusSlotEmpty;
     Array.blit oldbus 0 !bus 0 oldlen
   );
+  assert (!bus.(i) = BusSlotEmpty);
   Array.set !bus i slot
 
 (* Insert a slot into the bus, but if the desired slot is not empty, then
