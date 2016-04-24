@@ -30,6 +30,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 EXTRA_DIST = \
 	$(TESTS) \
+	boot-benchmark-range.pl \
 	qemu-boot.c \
 	qemu-speed-test.c
 
