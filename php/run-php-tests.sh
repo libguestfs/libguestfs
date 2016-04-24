@@ -24,18 +24,6 @@ cd extension
 # therefore have to load the environment (from php/extension/env which
 # is generated below) at the start of each test script.
 
-# As a consequence of above, LIBGUESTFS_DEBUG=1 and LIBGUESTFS_TRACE=1
-# won't get passed down to the script.  Furthermore, setting debug or
-# trace isn't very useful anyway because the PHP test script mixes
-# stdout and stderr together and compares this to the expected output,
-# so you'd just get failures for every test.  So there is no good way
-# to debug libguestfs failures in PHP tests, but if an individual test
-# fails locally then you can edit the guestfs_php_*.phpt.in and
-# uncomment the putenv statement, then look at the output.
-
-unset LIBGUESTFS_DEBUG
-unset LIBGUESTFS_TRACE
-
 # This makes a file containing the environment variables we want to set.
 rm -f env
 echo "PATH=$PATH" > env

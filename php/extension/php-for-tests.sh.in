@@ -1,4 +1,16 @@
 #!/bin/sh
 
 . ./env
+
+# Setting debug or trace isn't very useful because the PHP test script
+# mixes stdout and stderr together and compares this to the expected
+# output, so you'd just get failures for every test.  So there is no
+# good way to debug libguestfs failures in PHP tests, but if an
+# individual test fails locally then you can edit the
+# guestfs_php_*.phpt.in and uncomment the putenv statement, then look
+# at the output.
+
+unset LIBGUESTFS_DEBUG
+unset LIBGUESTFS_TRACE
+
 @PHP@ $@
