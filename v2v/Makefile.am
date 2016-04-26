@@ -331,7 +331,8 @@ check-valgrind:
 	$(MAKE) VG="$(abs_top_builddir)/run @VG@" check
 
 SLOW_TESTS = \
-	test-v2v-real-conversions.sh
+	test-v2v-real-conversions.sh \
+	test-v2v-trim.sh
 
 check-slow: $(real_guests:%=%.img)
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
