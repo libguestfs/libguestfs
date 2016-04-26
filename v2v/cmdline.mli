@@ -38,7 +38,6 @@ type cmdline = {
   do_copy : bool;
   in_place : bool;
   network_map : string NetworkMap.t;
-  no_trim : string list;
   output_alloc : Types.output_allocation;
   output_format : string option;
   output_name : string option;

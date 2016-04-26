@@ -38,7 +38,6 @@ type cmdline = {
   do_copy : bool;
   in_place : bool;
   network_map : string NetworkMap.t;
-  no_trim : string list;
   output_alloc : output_allocation;
   output_format : string option;
   output_name : string option;
@@ -109,23 +108,8 @@ let parse_cmdline () =
     add_network, add_bridge
   in
 
-  let no_trim = ref [] in
-  let set_no_trim = function
-    | "all" | "ALL" | "*" ->
-      (* Note: this is a magic value tested in the main code.  The
-       * no_trim list does NOT support wildcards.
-       *)
-      no_trim := ["*"]
-    | mps ->
-      let mps = String.nsplit "," mps in
-      List.iter (
-        fun mp ->
-          if String.length mp = 0 then
-            error (f_"--no-trim: empty parameter");
-          if mp.[0] <> '/' then
-            error (f_"--no-trim: %s: mountpoint/device name does not begin with '/'") mp;
-      ) mps;
-      no_trim := mps
+  let no_trim_warning _ =
+    warning (f_"the --no-trim option has been removed and now does nothing")
   in
 
   let output_mode = ref `Not_set in
@@ -199,7 +183,8 @@ let parse_cmdline () =
     "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
     "--network", Arg.String add_network,    "in:out " ^ ditto;
     "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
-    "--no-trim", Arg.String set_no_trim,    "all|mp,mp,.." ^ " " ^ s_"Don't trim selected mounts";
+    "--no-trim", Arg.String no_trim_warning,
+                                            "-" ^ " " ^ s_"Ignored for backwards compatibility";
     "-o",        Arg.String set_output_mode, o_options ^ " " ^ s_"Set output mode (default: libvirt)";
     "-oa",       Arg.String set_output_alloc,
                                             "sparse|preallocated " ^ s_"Set output allocation mode";
@@ -264,7 +249,6 @@ read the man page virt-v2v(1).
   let in_place = !in_place in
   let machine_readable = !machine_readable in
   let network_map = !network_map in
-  let no_trim = !no_trim in
   let output_alloc =
     match !output_alloc with
     | `Not_set | `Sparse -> Sparse
@@ -454,7 +438,6 @@ read the man page virt-v2v(1).
   {
     compressed = compressed; debug_overlays = debug_overlays;
     do_copy = do_copy; in_place = in_place; network_map = network_map;
-    no_trim = no_trim;
     output_alloc = output_alloc; output_format = output_format;
     output_name = output_name;
     print_source = print_source; root_choice = root_choice;

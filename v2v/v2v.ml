@@ -98,14 +98,13 @@ let rec main () =
 
   g#umount_all ();
 
-  if cmdline.no_trim <> ["*"] &&
-       (cmdline.do_copy || cmdline.debug_overlays) then (
+  if cmdline.do_copy || cmdline.debug_overlays then (
     (* Doing fstrim on all the filesystems reduces the transfer size
      * because unused blocks are marked in the overlay and thus do
      * not have to be copied.
      *)
     message (f_"Mapping filesystem data to avoid copying unused and blank areas");
-    do_fstrim g cmdline.no_trim inspect;
+    do_fstrim g inspect;
   );
 
   (match conversion_mode with
@@ -367,10 +366,8 @@ and check_free_space mpstats =
       )
   ) mpstats
 
-(* Perform the fstrim.  The trimming bit is easy.  Dealing with the
- * [--no-trim] parameter .. not so much.
- *)
-and do_fstrim g no_trim inspect =
+(* Perform the fstrim. *)
+and do_fstrim g inspect =
   (* Get all filesystems. *)
   let fses = g#list_filesystems () in
 
@@ -378,39 +375,7 @@ and do_fstrim g no_trim inspect =
     function (_, ("unknown"|"swap")) -> None | (dev, _) -> Some dev
   ) fses in
 
-  let fses =
-    if no_trim = [] then fses
-    else (
-      if verbose () then (
-        printf "no_trim: %s\n" (String.concat " " no_trim);
-        printf "filesystems before considering no_trim: %s\n"
-          (String.concat " " fses)
-      );
-
-      (* Drop any filesystems that match a device name in the no_trim list. *)
-      let fses = List.filter (
-        fun dev ->
-          not (List.mem (g#canonical_device_name dev) no_trim)
-      ) fses in
-
-      (* Drop any mountpoints matching the no_trim list. *)
-      let dev_to_mp =
-        List.map (fun (mp, dev) -> g#canonical_device_name dev, mp)
-          inspect.i_mountpoints in
-      let fses = List.filter (
-        fun dev ->
-          try not (List.mem (List.assoc dev dev_to_mp) no_trim)
-          with Not_found -> true
-      ) fses in
-
-      if verbose () then
-        printf "filesystems after considering no_trim: %s\n%!"
-          (String.concat " " fses);
-
-      fses
-    ) in
-
-  (* Trim the remaining filesystems. *)
+  (* Trim the filesystems. *)
   List.iter (
     fun dev ->
       g#umount_all ();
