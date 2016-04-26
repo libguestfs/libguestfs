@@ -46,55 +46,34 @@ let iso_time =
  * when the [--vmtype] parameter is NOT passed.
  *)
 let get_vmtype = function
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
+  (* Special cases for RHEL 3 & RHEL 4. *)
+  | { i_type = "linux"; i_distro = "rhel"; i_major_version = (3|4);
       i_product_name = product }
-      when major >= 5 && String.find product "Server" >= 0 ->
-    Server
+       when String.find product "ES" >= 0 ->
+     Server
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = major }
-      when major >= 5 ->
-    Desktop
-
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
+  | { i_type = "linux"; i_distro = "rhel"; i_major_version = (3|4);
       i_product_name = product }
-      when major >= 3 && String.find product "ES" >= 0 ->
-    Server
+       when String.find product "AS" >= 0 ->
+     Server
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = major;
-      i_product_name = product }
-      when major >= 3 && String.find product "AS" >= 0 ->
-    Server
+  | { i_type = "linux"; i_distro = "rhel"; i_major_version = (3|4) } ->
+     Desktop
 
-  | { i_type = "linux"; i_distro = "rhel"; i_major_version = major }
-      when major >= 3 ->
-    Desktop
+  (* For Windows (and maybe Linux in future, but it is not set now),
+   * use the i_product_variant field.
+   *)
+  | { i_product_variant = ("Server"|"Server Core"|"Embedded") } -> Server
+  | { i_product_variant = "Client" } -> Desktop
 
-  | { i_type = "linux"; i_distro = "fedora" } -> Desktop
+  (* If the product name has "Server" or "Desktop" in it, use that. *)
+  | { i_product_name = product } when String.find product "Server" >= 0 ->
+     Server
 
-  | { i_type = "windows"; i_major_version = 5; i_minor_version = 1 } ->
-    Desktop                            (* Windows XP *)
+  | { i_product_name = product } when String.find product "Desktop" >= 0 ->
+     Desktop
 
-  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2;
-      i_product_name = product } when String.find product "XP" >= 0 ->
-    Desktop                            (* Windows XP *)
-
-  | { i_type = "windows"; i_major_version = 5; i_minor_version = 2 } ->
-    Server                             (* Windows 2003 *)
-
-  | { i_type = "windows"; i_major_version = 6; i_minor_version = 0;
-      i_product_name = product } when String.find product "Server" >= 0 ->
-    Server                             (* Windows 2008 *)
-
-  | { i_type = "windows"; i_major_version = 6; i_minor_version = 0 } ->
-    Desktop                            (* Vista *)
-
-  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1;
-      i_product_name = product } when String.find product "Server" >= 0 ->
-    Server                             (* Windows 2008R2 *)
-
-  | { i_type = "windows"; i_major_version = 6; i_minor_version = 1 } ->
-    Server                             (* Windows 7 *)
-
+  (* Otherwise return server, a safe choice. *)
   | _ -> Server
 
 (* Determine the ovf:OperatingSystemSection_Type from libguestfs
