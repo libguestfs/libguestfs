@@ -26,7 +26,7 @@ val create_meta_files : Types.output_allocation -> string -> string list -> Type
     file is returned (one per target), and they must be written to
     [target_file ^ ".meta"]. *)
 
-val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> Types.vmtype option -> string -> string list -> string list -> string -> DOM.doc
+val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> string -> string list -> string list -> string -> DOM.doc
 (** Create the OVF file. *)
 
 (**/**)

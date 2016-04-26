@@ -64,7 +64,7 @@ let parse_cmdline () =
   let password_file = ref None in
   let vdsm_vm_uuid = ref None in
   let vdsm_ovf_output = ref None in (* default "." *)
-  let vmtype = ref None in
+
   let set_string_option_once optname optref arg =
     match !optref with
     | Some _ ->
@@ -155,6 +155,10 @@ let parse_cmdline () =
   let vdsm_vol_uuids = ref [] in
   let add_vdsm_vol_uuid s = vdsm_vol_uuids := s :: !vdsm_vol_uuids in
 
+  let vmtype_warning _ =
+    warning (f_"the --vmtype option has been removed and now does nothing")
+  in
+
   let i_options =
     String.concat "|" (Modules_list.input_modules ())
   and o_options =
@@ -207,8 +211,8 @@ let parse_cmdline () =
                                             "uuid " ^ s_"Output VM UUID";
     "--vdsm-ovf-output", Arg.String (set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
                                             " " ^ s_"Output OVF file";
-    "--vmtype",  Arg.String (set_string_option_once "--vmtype" vmtype),
-                                            "server|desktop " ^ s_"Set vmtype (for RHEV)";
+    "--vmtype",  Arg.String vmtype_warning,
+                                            "- " ^ s_"Ignored for backwards compatibility";
   ] in
   let argspec = set_standard_options argspec in
   let args = ref [] in
@@ -267,13 +271,6 @@ read the man page virt-v2v(1).
   let vdsm_vm_uuid = !vdsm_vm_uuid in
   let vdsm_ovf_output =
     match !vdsm_ovf_output with None -> "." | Some s -> s in
-  let vmtype =
-    match !vmtype with
-    | Some "server" -> Some Server
-    | Some "desktop" -> Some Desktop
-    | None -> None
-    | _ ->
-      error (f_"unknown --vmtype option, must be \"server\" or \"desktop\"") in
 
   (* No arguments and machine-readable mode?  Print out some facts
    * about what this binary supports.
@@ -349,8 +346,6 @@ read the man page virt-v2v(1).
         error (f_"-o glance: -os option cannot be used in this output mode");
       if qemu_boot then
         error (f_"-o glance: --qemu-boot option cannot be used in this output mode");
-      if vmtype <> None then
-        error (f_"--vmtype option cannot be used with '-o glance'");
       if not do_copy then
         error (f_"--no-copy and '-o glance' cannot be used at the same time");
       Output_glance.output_glance ()
@@ -361,8 +356,6 @@ read the man page virt-v2v(1).
         match output_storage with None -> "default" | Some os -> os in
       if qemu_boot then
         error (f_"-o libvirt: --qemu-boot option cannot be used in this output mode");
-      if vmtype <> None then
-        error (f_"--vmtype option cannot be used with '-o libvirt'");
       if not do_copy then
         error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
       Output_libvirt.output_libvirt output_conn output_storage
@@ -377,8 +370,6 @@ read the man page virt-v2v(1).
         | Some d -> d in
       if qemu_boot then
         error (f_"-o local: --qemu-boot option cannot be used in this output mode");
-      if vmtype <> None then
-        error (f_"--vmtype option cannot be used with '-o local'");
       Output_local.output_local os
 
     | `Null ->
@@ -388,8 +379,6 @@ read the man page virt-v2v(1).
         error (f_"-o null: -os option cannot be used in this output mode");
       if qemu_boot then
         error (f_"-o null: --qemu-boot option cannot be used in this output mode");
-      if vmtype <> None then
-        error (f_"--vmtype option cannot be used with '-o null'");
       Output_null.output_null ()
 
     | `QEmu ->
@@ -410,7 +399,7 @@ read the man page virt-v2v(1).
         | Some d -> d in
       if qemu_boot then
         error (f_"-o rhev: --qemu-boot option cannot be used in this output mode");
-      Output_rhev.output_rhev os vmtype output_alloc
+      Output_rhev.output_rhev os output_alloc
 
     | `VDSM ->
       let os =
@@ -433,7 +422,7 @@ read the man page virt-v2v(1).
         vm_uuid = vdsm_vm_uuid;
         ovf_output = vdsm_ovf_output;
       } in
-      Output_vdsm.output_vdsm os vdsm_params vmtype output_alloc in
+      Output_vdsm.output_vdsm os vdsm_params output_alloc in
 
   {
     compressed = compressed; debug_overlays = debug_overlays;

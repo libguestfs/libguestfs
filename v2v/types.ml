@@ -448,8 +448,6 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 
 type output_allocation = Sparse | Preallocated
 
-type vmtype = Desktop | Server
-
 class virtual input = object
   method virtual as_options : string
   method virtual source : unit -> source

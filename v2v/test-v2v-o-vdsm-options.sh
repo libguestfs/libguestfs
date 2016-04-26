@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test -o vdsm options: --vmtype and --vdsm-*-uuid
+# Test -o vdsm options --vdsm-*-uuid
 
 unset CDPATH
 export LANG=C
@@ -61,7 +61,6 @@ mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms/VM
 $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o vdsm -os $d/12345678-1234-1234-1234-123456789abc \
-    --vmtype desktop \
     --vdsm-image-uuid IMAGE \
     --vdsm-vol-uuid VOL \
     --vdsm-vm-uuid VM \
@@ -69,10 +68,6 @@ $VG virt-v2v --debug-gc \
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf
-
-# Test the OVF metadata contains <VmType>0</VmType> (desktop).
-grep '<VmType>0</VmType>' \
-    $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf
 
 pushd $d/12345678-1234-1234-1234-123456789abc/images/IMAGE
 

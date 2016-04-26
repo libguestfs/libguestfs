@@ -651,15 +651,6 @@ Enable verbose messages for debugging.
 
 Display version number and exit.
 
-=item B<--vmtype desktop>
-
-=item B<--vmtype server>
-
-For the I<-o rhev> or I<-o vdsm> targets only, specify the type of
-guest.  You can set this to C<desktop> or C<server>.  If the option is
-not given, then a suitable default is chosen based on the detected
-guest operating system.
-
 =item B<-x>
 
 Enable tracing of libguestfs API calls.

@@ -312,9 +312,6 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 type output_allocation = Sparse | Preallocated
 (** Type of [-oa] (output allocation) option. *)
 
-type vmtype = Desktop | Server
-(** Type of [--vmtype] option. *)
-
 (** {2 Input object}
 
     There is one of these used for the [-i] option. *)

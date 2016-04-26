@@ -102,7 +102,7 @@ and check_storage_domain domain_class os mp =
 (* UID:GID required for files and directories when writing to ESD. *)
 let uid = 36 and gid = 36
 
-class output_rhev os vmtype output_alloc =
+class output_rhev os output_alloc =
   (* Create a UID-switching handle.  If we're not root, create a dummy
    * one because we cannot switch UIDs.
    *)
@@ -115,12 +115,7 @@ class output_rhev os vmtype output_alloc =
 object
   inherit output
 
-  method as_options =
-    sprintf "-o rhev -os %s%s" os
-      (match vmtype with
-      | None -> ""
-      | Some Server -> " --vmtype server"
-      | Some Desktop -> " --vmtype desktop")
+  method as_options = sprintf "-o rhev -os %s" os
 
   method supported_firmware = [ TargetBIOS ]
 
@@ -284,7 +279,7 @@ object
 
     (* Create the metadata. *)
     let ovf = OVF.create_ovf source targets guestcaps inspect
-      output_alloc vmtype esd_uuid image_uuids vol_uuids vm_uuid in
+      output_alloc esd_uuid image_uuids vol_uuids vm_uuid in
 
     (* Write it to the metadata file. *)
     let dir = esd_mp // esd_uuid // "master" // "vms" // vm_uuid in

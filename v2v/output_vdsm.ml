@@ -33,22 +33,18 @@ type vdsm_params = {
   ovf_output : string;
 }
 
-class output_vdsm os vdsm_params vmtype output_alloc =
+class output_vdsm os vdsm_params output_alloc =
 object
   inherit output
 
   method as_options =
-    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s" os
+    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s" os
       (String.concat ""
          (List.map (sprintf " --vdsm-image-uuid %s") vdsm_params.image_uuids))
       (String.concat ""
          (List.map (sprintf " --vdsm-vol-uuid %s") vdsm_params.vol_uuids))
       vdsm_params.vm_uuid
       vdsm_params.ovf_output
-      (match vmtype with
-      | None -> ""
-      | Some Server -> " --vmtype server"
-      | Some Desktop -> " --vmtype desktop")
 
   method supported_firmware = [ TargetBIOS ]
 
@@ -171,7 +167,7 @@ object
 
     (* Create the metadata. *)
     let ovf = OVF.create_ovf source targets guestcaps inspect
-      output_alloc vmtype dd_uuid
+      output_alloc dd_uuid
       vdsm_params.image_uuids
       vdsm_params.vol_uuids
       vdsm_params.vm_uuid in
