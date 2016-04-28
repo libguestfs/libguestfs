@@ -340,6 +340,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " printk.time=1"   /* display timestamp before kernel messages */
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
      " usbcore.nousb"           /* disable USB, only saves about 1ms */
+     " 8250.nr_uarts=1"         /* don't scan all 8250 UARTS */
      "%s"                       /* root=appliance_dev */
      " %s"                      /* selinux */
      " %s"                      /* quiet/verbose */
