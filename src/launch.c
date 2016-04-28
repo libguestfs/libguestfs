@@ -339,6 +339,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " acpi=off"        /* ACPI is slow - 150-200ms extra on my laptop */
      " printk.time=1"   /* display timestamp before kernel messages */
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
+     " usbcore.nousb"           /* disable USB, only saves about 1ms */
      "%s"                       /* root=appliance_dev */
      " %s"                      /* selinux */
      " %s"                      /* quiet/verbose */
