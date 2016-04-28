@@ -296,6 +296,13 @@ construct_timeline (void)
           strstr (data->events[j].message, "ftrace: allocating"),
           1);
 
+    /* All initcall functions, before we enter userspace. */
+    FIND ("kernel:initcalls-before-userspace", 0,
+          data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
+          strstr (data->events[j].message, "calling  "),
+          data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
+          strstr (data->events[k].message, "Freeing unused kernel memory"));
+
     /* Find where we run supermin mini-initrd. */
     FIND ("supermin:mini-initrd", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
