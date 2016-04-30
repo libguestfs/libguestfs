@@ -216,60 +216,73 @@ construct_timeline (void)
                    data->events[k].source == GUESTFS_EVENT_LIBRARY &&
                    strstr (data->events[k].message, "libvirt XML:"));
 
+#if defined(__aarch64__)
+#define FIRST_KERNEL_MESSAGE "Booting Linux on physical CPU"
+#define FIRST_FIRMWARE_MESSAGE "UEFI firmware starting"
+#else
 #define SGABIOS_STRING "\033[1;256r\033[256;256H\033[6n"
+#define FIRST_KERNEL_MESSAGE "Probing EDD"
+#define FIRST_FIRMWARE_MESSAGE SGABIOS_STRING
+#endif
 
     /* For the libvirt backend, find the overhead of libvirt. */
     FIND_OPTIONAL ("libvirt:overhead", 0,
                    data->events[j].source == GUESTFS_EVENT_LIBRARY &&
                    strstr (data->events[j].message, "launch libvirt guest"),
                    data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
-                   strstr (data->events[k].message, SGABIOS_STRING));
+                   strstr (data->events[k].message, FIRST_FIRMWARE_MESSAGE));
 
     /* From starting qemu up to entering the BIOS is the qemu overhead. */
     FIND_OPTIONAL ("qemu:overhead", 0,
                    data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
                    strstr (data->events[j].message, "-nodefconfig"),
                    data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
-                   strstr (data->events[k].message, SGABIOS_STRING));
+                   strstr (data->events[k].message, FIRST_FIRMWARE_MESSAGE));
 
     /* From entering the BIOS to starting the kernel is the BIOS overhead. */
     FIND_OPTIONAL ("bios:overhead", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[j].message, SGABIOS_STRING),
+          strstr (data->events[j].message, FIRST_FIRMWARE_MESSAGE),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[k].message, "Probing EDD"));
+          strstr (data->events[k].message, FIRST_KERNEL_MESSAGE));
 
+#if defined(__i386__) || defined(__x86_64__)
     /* SGABIOS (option ROM). */
     FIND_OPTIONAL ("sgabios", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[j].message, SGABIOS_STRING),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[k].message, "SeaBIOS (version"));
+#endif
 
+#if defined(__i386__) || defined(__x86_64__)
     /* SeaBIOS. */
     FIND ("seabios", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[j].message, "SeaBIOS (version"),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[k].message, "Probing EDD"));
+          strstr (data->events[k].message, FIRST_KERNEL_MESSAGE));
+#endif
 
+#if defined(__i386__) || defined(__x86_64__)
     /* SeaBIOS - only available when using debug messages. */
     FIND_OPTIONAL ("seabios:pci-probe", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[j].message, "Searching bootorder for: /pci@"),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[k].message, "Scan for option roms"));
+#endif
 
     /* Find where we run the guest kernel. */
     FIND ("kernel", LONG_ACTIVITY,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[j].message, "Probing EDD"),
+          strstr (data->events[j].message, FIRST_KERNEL_MESSAGE),
           data->events[k].source == GUESTFS_EVENT_CLOSE);
 
     /* Kernel startup to userspace. */
     FIND ("kernel:overhead", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[j].message, "Probing EDD"),
+          strstr (data->events[j].message, FIRST_KERNEL_MESSAGE),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[k].message, "supermin:") &&
           strstr (data->events[k].message, "starting up"));
@@ -277,10 +290,11 @@ construct_timeline (void)
     /* The time taken to get into start_kernel function. */
     FIND ("kernel:entry", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
-          strstr (data->events[j].message, "Probing EDD"),
+          strstr (data->events[j].message, FIRST_KERNEL_MESSAGE),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[k].message, "Linux version"));
 
+#if defined(__i386__) || defined(__x86_64__)
     /* Alternatives patching instructions (XXX not very accurate we
      * really need some debug messages inserted into the code).
      */
@@ -289,6 +303,7 @@ construct_timeline (void)
           strstr (data->events[j].message, "Last level dTLB entries"),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[k].message, "Freeing SMP alternatives"));
+#endif
 
     /* ftrace patching instructions. */
     FIND ("kernel:ftrace", 0,
