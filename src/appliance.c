@@ -459,6 +459,7 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 
   for (i = 0; guestfs_int_aavmf_firmware[i].code != NULL; ++i) {
     const char *codefile = guestfs_int_aavmf_firmware[i].code;
+    const char *code_debug_file = guestfs_int_aavmf_firmware[i].code_debug;
     const char *varsfile = guestfs_int_aavmf_firmware[i].vars;
 
     if (access (codefile, R_OK) == 0 && access (varsfile, R_OK) == 0) {
@@ -479,6 +480,12 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
         free (varst);
         return -1;
       }
+
+      /* If debugging is enabled and we can find the code file with
+       * debugging enabled, use that instead.
+       */
+      if (g->verbose && access (code_debug_file, R_OK) == 0)
+	codefile = code_debug_file;
 
       /* Caller frees. */
       *code = safe_strdup (g, codefile);
