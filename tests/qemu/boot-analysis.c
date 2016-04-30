@@ -863,12 +863,18 @@ dump_pass_data (void)
     printf ("    number of events collected %zu\n", pass_data[i].nr_events);
     printf ("    elapsed time %" PRIi64 " ns\n", pass_data[i].elapsed_ns);
     for (j = 0; j < pass_data[i].nr_events; ++j) {
-      int64_t ns;
+      int64_t ns, diff_ns;
       CLEANUP_FREE char *event_str = NULL;
 
       ns = timespec_diff (&pass_data[i].start_t, &pass_data[i].events[j].t);
       event_str = guestfs_event_to_string (pass_data[i].events[j].source);
-      printf ("    #%zu: +%" PRIi64 " [%s] \"", j, ns, event_str);
+      printf ("    %.1fms ", ns / 1000000.0);
+      if (j > 0) {
+	diff_ns = timespec_diff (&pass_data[i].events[j-1].t,
+				 &pass_data[i].events[j].t);
+	printf ("(+%.1f) ", diff_ns / 1000000.0);
+      }
+      printf ("[%s] \"", event_str);
       print_escaped_string (pass_data[i].events[j].message);
       printf ("\"\n");
     }
