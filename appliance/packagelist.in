@@ -232,6 +232,7 @@ dnl Enabling this pulls out 140 extra packages
 dnl into the appliance:
 dnl ocfs2-tools
 parted
+pciutils
 procps
 procps-ng
 psmisc
