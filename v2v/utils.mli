@@ -65,3 +65,12 @@ val du : string -> int64
 
     This can raise either [Failure] or [Invalid_argument] in case
     of errors. *)
+
+(**/**)
+
+(* The following functions are only exported for unit tests. *)
+module UNIT_TESTS : sig
+  val ovmf_i386_firmware : unit -> uefi_firmware list
+  val ovmf_x86_64_firmware : unit -> uefi_firmware list
+  val aavmf_firmware : unit -> uefi_firmware list
+end

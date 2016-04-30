@@ -141,3 +141,10 @@ let du filename =
   match lines with
   | line::_ -> Int64.of_string line
   | [] -> invalid_arg filename
+
+(* The following functions are only exported for unit tests. *)
+module UNIT_TESTS = struct
+  let ovmf_i386_firmware = ovmf_i386_firmware
+  let ovmf_x86_64_firmware = ovmf_x86_64_firmware
+  let aavmf_firmware = aavmf_firmware
+end
