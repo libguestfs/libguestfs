@@ -355,37 +355,37 @@ guestfs_int_is_true (const char *str)
 }
 
 /* See src/appliance.c:guestfs_int_get_uefi. */
-const char *
+struct uefi_firmware
 guestfs_int_ovmf_i386_firmware[] = {
-  "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd",
-  "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd",
+  { "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd",
+    "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd" },
 
-  NULL
+  { NULL }
 };
 
-const char *
+struct uefi_firmware
 guestfs_int_ovmf_x86_64_firmware[] = {
-  "/usr/share/OVMF/OVMF_CODE.fd",
-  "/usr/share/OVMF/OVMF_VARS.fd",
+  { "/usr/share/OVMF/OVMF_CODE.fd",
+    "/usr/share/OVMF/OVMF_VARS.fd" },
 
-  "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd",
-  "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd",
+  { "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd",
+    "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd" },
 
-  "/usr/share/qemu/ovmf-x86_64-code.bin",
-  "/usr/share/qemu/ovmf-x86_64-vars.bin",
+  { "/usr/share/qemu/ovmf-x86_64-code.bin",
+    "/usr/share/qemu/ovmf-x86_64-vars.bin" },
 
-  NULL
+  { NULL }
 };
 
-const char *
+struct uefi_firmware
 guestfs_int_aavmf_firmware[] = {
-  "/usr/share/AAVMF/AAVMF_CODE.fd",
-  "/usr/share/AAVMF/AAVMF_VARS.fd",
+  { "/usr/share/AAVMF/AAVMF_CODE.fd",
+    "/usr/share/AAVMF/AAVMF_VARS.fd" },
 
-  "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
-  "/usr/share/edk2.git/aarch64/vars-template-pflash.raw",
+  { "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
+    "/usr/share/edk2.git/aarch64/vars-template-pflash.raw" },
 
-  NULL
+  { NULL }
 };
 
 #if 0 /* not used yet */

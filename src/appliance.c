@@ -457,9 +457,9 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 #ifdef __aarch64__
   size_t i;
 
-  for (i = 0; guestfs_int_aavmf_firmware[i] != NULL; i += 2) {
-    const char *codefile = guestfs_int_aavmf_firmware[i];
-    const char *varsfile = guestfs_int_aavmf_firmware[i+1];
+  for (i = 0; guestfs_int_aavmf_firmware[i].code != NULL; ++i) {
+    const char *codefile = guestfs_int_aavmf_firmware[i].code;
+    const char *varsfile = guestfs_int_aavmf_firmware[i].vars;
 
     if (access (codefile, R_OK) == 0 && access (varsfile, R_OK) == 0) {
       CLEANUP_CMD_CLOSE struct command *copycmd = guestfs_int_new_command (g);

@@ -59,7 +59,7 @@ v2v_utils_drive_index (value strv)
 }
 
 static value
-get_firmware (char **firmware)
+get_firmware (struct uefi_firmware *firmware)
 {
   CAMLparam0 ();
   CAMLlocal5 (rv, v, v1, v2, cons);
@@ -68,11 +68,13 @@ get_firmware (char **firmware)
   rv = Val_int (0);
 
   /* Build the list backwards so we don't have to reverse it at the end. */
-  len = guestfs_int_count_strings (firmware);
+  len = 0;
+  for (i = 0; firmware[i].code != NULL; ++i)
+    ++len;
 
-  for (i = len; i > 0; i -= 2) {
-    v1 = caml_copy_string (firmware[i-2]);
-    v2 = caml_copy_string (firmware[i-1]);
+  for (i = len; i > 0; --i) {
+    v1 = caml_copy_string (firmware[i-1].code);
+    v2 = caml_copy_string (firmware[i-1].vars);
     v = caml_alloc (2, 0);
     Store_field (v, 0, v1);
     Store_field (v, 1, v2);
@@ -88,17 +90,17 @@ get_firmware (char **firmware)
 value
 v2v_utils_ovmf_i386_firmware (value unitv)
 {
-  return get_firmware ((char **) guestfs_int_ovmf_i386_firmware);
+  return get_firmware (guestfs_int_ovmf_i386_firmware);
 }
 
 value
 v2v_utils_ovmf_x86_64_firmware (value unitv)
 {
-  return get_firmware ((char **) guestfs_int_ovmf_x86_64_firmware);
+  return get_firmware (guestfs_int_ovmf_x86_64_firmware);
 }
 
 value
 v2v_utils_aavmf_firmware (value unitv)
 {
-  return get_firmware ((char **) guestfs_int_aavmf_firmware);
+  return get_firmware (guestfs_int_aavmf_firmware);
 }

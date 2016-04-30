@@ -118,7 +118,8 @@ let create_libvirt_xml ?pool source target_buses guestcaps
           * (https://bugzilla.redhat.com/show_bug.cgi?id=1217444#c6) but
           * until that day we have to use a bunch of heuristics. XXX
           *)
-         let code, vars_template = find_uefi_firmware guestcaps.gcaps_arch in
+         let { code = code; vars = vars_template } =
+           find_uefi_firmware guestcaps.gcaps_arch in
          [ e "loader" ["readonly", "yes"; "type", "pflash"] [ PCData code ];
            e "nvram" ["template", vars_template] [] ] in
 
