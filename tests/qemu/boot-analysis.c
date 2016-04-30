@@ -235,8 +235,8 @@ main (int argc, char *argv[])
 
   libvirt_log_hack (argc, argv);
 
-  if (STRNEQ (host_cpu, "x86_64"))
-    fprintf (stderr, "WARNING: host_cpu != x86_64: This program may not work or give bogus results.\n");
+  if (STRNEQ (host_cpu, "x86_64") && STRNEQ (host_cpu, "aarch64"))
+    fprintf (stderr, "WARNING: host_cpu != x86_64|aarch64: This program may not work or give bogus results.\n");
 
   run_test ();
 }
