@@ -46,6 +46,14 @@ struct pass_data {
   int seen_launch;
 };
 
+/* The 'source' field in the event is a guestfs event
+ * (GUESTFS_EVENT_*).  We also wish to encode libvirt as a source, so
+ * we use a magic/impossible value for that here.  Note that events
+ * are bitmasks, and normally no more than one bit may be set.
+ */
+#define SOURCE_LIBVIRT ((uint64_t)~0)
+extern char *source_to_string (uint64_t source);
+
 struct event {
   struct timespec t;
   uint64_t source;

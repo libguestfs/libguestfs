@@ -781,7 +781,7 @@ libvirt_log_thread (void *arg)
     pthread_mutex_lock (&pass_data_lock);
     if (libvirt_pass == -1) goto discard;
     event =
-      add_event_unlocked (&pass_data[libvirt_pass], GUESTFS_EVENT_LIBRARY);
+      add_event_unlocked (&pass_data[libvirt_pass], SOURCE_LIBVIRT);
     event->message = strndup (buf, r);
     if (event->message == NULL)
       error (EXIT_FAILURE, errno, "strndup");
@@ -864,21 +864,40 @@ dump_pass_data (void)
     printf ("    elapsed time %" PRIi64 " ns\n", pass_data[i].elapsed_ns);
     for (j = 0; j < pass_data[i].nr_events; ++j) {
       int64_t ns, diff_ns;
-      CLEANUP_FREE char *event_str = NULL;
+      CLEANUP_FREE char *source_str = NULL;
 
       ns = timespec_diff (&pass_data[i].start_t, &pass_data[i].events[j].t);
-      event_str = guestfs_event_to_string (pass_data[i].events[j].source);
+      source_str = source_to_string (pass_data[i].events[j].source);
       printf ("    %.1fms ", ns / 1000000.0);
       if (j > 0) {
 	diff_ns = timespec_diff (&pass_data[i].events[j-1].t,
 				 &pass_data[i].events[j].t);
 	printf ("(+%.1f) ", diff_ns / 1000000.0);
       }
-      printf ("[%s] \"", event_str);
+      printf ("[%s] \"", source_str);
       print_escaped_string (pass_data[i].events[j].message);
       printf ("\"\n");
     }
   }
+}
+
+/* Convert source to a printable string.  The caller must free the
+ * returned string.
+ */
+char *
+source_to_string (uint64_t source)
+{
+  char *ret;
+
+  if (source == SOURCE_LIBVIRT) {
+    ret = strdup ("libvirt");
+    if (ret == NULL)
+      error (EXIT_FAILURE, errno, "strdup");
+  }
+  else
+    ret = guestfs_event_to_string (source);
+
+  return ret;                   /* caller frees */
 }
 
 int
