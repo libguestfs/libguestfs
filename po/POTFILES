@@ -359,6 +359,13 @@ src/utils.c
 src/wait.c
 src/whole-file.c
 test-tool/test-tool.c
+utils/boot-analysis/boot-analysis-timeline.c
+utils/boot-analysis/boot-analysis-utils.c
+utils/boot-analysis/boot-analysis.c
+utils/boot-benchmark/boot-benchmark-range.pl
+utils/boot-benchmark/boot-benchmark.c
+utils/qemu-boot/qemu-boot.c
+utils/qemu-speed-test/qemu-speed-test.c
 v2v/changeuid-c.c
 v2v/domainxml-c.c
 v2v/utils-c.c

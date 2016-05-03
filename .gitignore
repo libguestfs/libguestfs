@@ -509,10 +509,6 @@ Makefile.in
 /tests/mountable/test-internal-parse-mountable
 /tests/parallel/test-parallel
 /tests/protocol/test-error-messages
-/tests/qemu/boot-analysis
-/tests/qemu/boot-benchmark
-/tests/qemu/qemu-boot
-/tests/qemu/qemu-speed-test
 /tests/regressions/rhbz501893
 /tests/regressions/rhbz790721
 /tests/regressions/rhbz914931
@@ -561,6 +557,10 @@ Makefile.in
 /test-tool/stamp-libguestfs-test-tool.pod
 /tools/stamp-virt-*.pod
 /tools/virt-*.1
+/utils/boot-analysis/boot-analysis
+/utils/boot-benchmark/boot-benchmark
+/utils/qemu-boot/qemu-boot
+/utils/qemu-speed-test/qemu-speed-test
 /v2v/.depend
 /v2v/centos-6.img
 /v2v/centos-7.0.img

@@ -165,6 +165,15 @@ if HAVE_FUSE
 SUBDIRS += fuse
 endif
 
+# Miscellaneous utilities.
+if HAVE_BOOT_ANALYSIS
+SUBDIRS += utils/boot-analysis
+endif
+SUBDIRS += \
+	utils/boot-benchmark \
+	utils/qemu-boot \
+	utils/qemu-speed-test
+
 # po-docs must come after tools, inspector.
 if HAVE_PO4A
 SUBDIRS += po-docs

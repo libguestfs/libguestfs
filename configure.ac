@@ -124,10 +124,8 @@ m4_include([m4/guestfs_gobject.m4])
 dnl Bash completion.
 m4_include([m4/guestfs_bash_completion.m4])
 
-dnl Replace libtool with a wrapper that clobbers dependency_libs in *.la files
-dnl http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
-LIBTOOL='bash $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
-AC_SUBST([LIBTOOL])
+dnl Miscellaneous configuration that doesn't fit anywhere else.
+m4_include([m4/guestfs_misc.m4])
 
 dnl Work around autoconf's lack of expanded variables.
 eval my_sysconfdir="\"[$]sysconfdir\""
@@ -283,6 +281,10 @@ AC_CONFIG_FILES([Makefile
                  tests/xfs/Makefile
                  tests/xml/Makefile
                  tools/Makefile
+                 utils/boot-analysis/Makefile
+                 utils/boot-benchmark/Makefile
+                 utils/qemu-boot/Makefile
+                 utils/qemu-speed-test/Makefile
                  v2v/Makefile
                  v2v/test-harness/Makefile
                  v2v/test-harness/META

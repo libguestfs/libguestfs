@@ -694,6 +694,10 @@ created by another.
 
 Command line tools written in Perl (L<virt-win-reg(1)> and many others).
 
+=item F<utils>
+
+Miscellaneous utilities, such as C<boot-benchmark>.
+
 =item F<v2v>
 
 L<virt-v2v(1)> command and documentation.

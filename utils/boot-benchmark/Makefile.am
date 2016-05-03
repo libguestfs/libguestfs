@@ -21,15 +21,24 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-TESTS = \
-	qemu-liveness.sh \
-	qemu-snapshot-isolation.sh \
-	qemu-force-tcg.sh
+noinst_PROGRAMS = boot-benchmark
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
+boot_benchmark_SOURCES = \
+	boot-benchmark.c \
+	../boot-analysis/boot-analysis-utils.c \
+	../boot-analysis/boot-analysis-utils.h
+boot_benchmark_CPPFLAGS = \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/utils/boot-analysis
+boot_benchmark_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+boot_benchmark_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LTLIBINTL) \
+	$(top_builddir)/gnulib/lib/libgnu.la \
+	-lm
 
-EXTRA_DIST = $(TESTS)
-
-# Don't run these tests in parallel, since they are designed to check
-# the integrity of qemu.
-.NOTPARALLEL:
+EXTRA_DIST = boot-benchmark-range.pl
