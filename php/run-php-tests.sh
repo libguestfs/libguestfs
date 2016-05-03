@@ -28,13 +28,10 @@ cd extension
 # won't get passed down to the script.  Furthermore, setting debug or
 # trace isn't very useful anyway because the PHP test script mixes
 # stdout and stderr together and compares this to the expected output,
-# so you'd just get failures for every test.
-#
-# So there is no good way to debug libguestfs failures in PHP tests,
-# but if an individual test fails and you want to find out more, you
-# can comment out the following two 'unset' statements.  The tests
-# will definitely fail if you do this, but you will be able to see the
-# debug output in the '*.out' files.
+# so you'd just get failures for every test.  So there is no good way
+# to debug libguestfs failures in PHP tests, but if an individual test
+# fails locally then you can edit the guestfs_php_*.phpt.in and
+# uncomment the putenv statement, then look at the output.
 
 unset LIBGUESTFS_DEBUG
 unset LIBGUESTFS_TRACE
@@ -47,8 +44,4 @@ printenv | grep -E '^(LIBGUESTFS|LIBVIRT|LIBVIRTD|VIRTLOCKD|LD|MALLOC)_' >> env
 TESTS=$(echo tests/guestfs_*.phpt)
 echo TESTS: $TESTS
 
-${MAKE:-make} test \
-              TESTS="$TESTS" \
-              TEST_PHP_EXECUTABLE="$PWD/php-for-tests.sh" \
-              REPORT_EXIT_STATUS=1 \
-              TEST_TIMEOUT=300
+${MAKE:-make} test TESTS="$TESTS" PHP_EXECUTABLE="$PWD/php-for-tests.sh" REPORT_EXIT_STATUS=1 TEST_TIMEOUT=300
