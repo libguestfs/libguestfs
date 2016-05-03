@@ -15,21 +15,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Safety and liveness tests of components that libguestfs depends upon
-# (not of libguestfs itself).  Mainly this is for qemu and the kernel.
-# This test is the first to run.
-
 include $(top_srcdir)/subdir-rules.mk
 
-TESTS = \
-	qemu-liveness.sh \
-	qemu-snapshot-isolation.sh \
-	qemu-force-tcg.sh
+noinst_PROGRAMS = qemu-speed-test
 
-TESTS_ENVIRONMENT = $(top_builddir)/run --test
-
-EXTRA_DIST = $(TESTS)
-
-# Don't run these tests in parallel, since they are designed to check
-# the integrity of qemu.
-.NOTPARALLEL:
+qemu_speed_test_SOURCES = \
+	qemu-speed-test.c
+qemu_speed_test_CPPFLAGS = \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/df
+qemu_speed_test_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+qemu_speed_test_LDADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la \
+	$(LIBXML2_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(LTLIBINTL) \
+	$(top_builddir)/gnulib/lib/libgnu.la

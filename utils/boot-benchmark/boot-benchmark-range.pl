@@ -31,14 +31,14 @@ from another project
  LIBGUESTFS_BACKEND=direct \
  LIBGUESTFS_HV=/path/to/qemu/x86_64-softmmu/qemu-system-x86_64 \
    ./run \
-   tests/qemu/boot-benchmark-range.pl /path/to/qemu HEAD~50..HEAD
+   utils/boot-benchmark/boot-benchmark-range.pl /path/to/qemu HEAD~50..HEAD
 
 =head1
 
-Run F<tests/qemu/boot-benchmark> across a range of commits in another
-project.  This is useful for finding performance regressions in other
-programs such as qemu or the Linux kernel which might be affecting
-libguestfs.
+Run F<utils/boot-benchmark/boot-benchmark> across a range of commits
+in another project.  This is useful for finding performance
+regressions in other programs such as qemu or the Linux kernel which
+might be affecting libguestfs.
 
 For example, suppose you suspect there has been a performance
 regression in qemu, somewhere between C<HEAD~50..HEAD>.  You could run
@@ -47,7 +47,7 @@ the script like this:
  LIBGUESTFS_BACKEND=direct \
  LIBGUESTFS_HV=/path/to/qemu/x86_64-softmmu/qemu-system-x86_64 \
    ./run \
-   tests/qemu/boot-benchmark-range.pl /path/to/qemu HEAD~50..HEAD
+   utils/boot-benchmark/boot-benchmark-range.pl /path/to/qemu HEAD~50..HEAD
 
 where F</path/to/qemu> is the path to the qemu git repository.
 
@@ -87,8 +87,8 @@ my $benchmark_command;
 
 Set the name of the benchmark to run.  You only need to use this if
 the script cannot find the right path to the libguestfs
-F<tests/qemu/boot-benchmark> program.  By default the script looks for
-this file in the same directory as its executable.
+F<utils/boot-benchmark/boot-benchmark> program.  By default the script
+looks for this file in the same directory as its executable.
 
 =cut
 

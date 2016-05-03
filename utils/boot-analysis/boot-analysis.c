@@ -28,8 +28,7 @@
  * You can run it from the build directory like this:
  *
  *   make
- *   make -C tests/qemu boot-analysis
- *   ./run tests/qemu/boot-analysis
+ *   ./run utils/boot-analysis/boot-analysis
  *
  * The way it works is roughly like this:
  *
