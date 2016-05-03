@@ -1,0 +1,99 @@
+=head1 NAME
+
+boot-analysis - Trace and analyze the appliance boot process
+
+=head1 SYNOPSIS
+
+ ./run utils/boot-analysis/boot-analysis
+
+=head1 DESCRIPTION
+
+Trace and analyze the appliance boot process to find out which steps
+are taking the most time.  It is not part of the standard tests.
+
+This needs to be run on a quiet machine, so that other processes
+disturb the timing as little as possible.  The program is completely
+safe to run at any time.  It doesn't read or write any external files,
+and it doesn't require root.
+
+You can run it from the build directory on the built copy of
+libguestfs like this:
+
+ make
+ ./run utils/boot-analysis/boot-analysis
+
+If you omit C<./run> then it is run on the installed copy of libguestfs.
+
+=head2 How it works
+
+We create a libguestfs handle and register callback handlers so we
+can see appliance messages, trace events and so on.
+
+We then launch the handle and shut it down as quickly as possible.
+
+While the handle is running, events (seen by the callback handlers)
+are written verbatim into an in-memory buffer, with timestamps.
+
+Afterwards we analyze the result using regular expressions to try to
+identify a "timeline" for the handle (eg. at what time did the BIOS
+hand control to the kernel).  This analysis is done in
+F<utils/boot-analysis/boot-analysis-timeline.c>.
+
+The whole process is repeated across a few runs, and the final
+timeline (including statistical analysis of the variation between
+runs) gets printed.
+
+The program is very sensitive to the specific messages printed by
+BIOS/kernel/supermin/userspace.  It only works on x86-64 or aarch64.
+It will require periodic adjustment of the regular expressions in
+order to keep things up to date.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<--append> "OPTIONS"
+
+Append C<OPTIONS> to the kernel command line.
+
+=item B<--color>
+
+=item B<--colour>
+
+Output colours (as ANSI escape sequences), even if the output is not a
+terminal.
+
+=item B<-m> MB
+
+=item B<--memsize> MB
+
+Set the appliance memory size in MB.
+
+=item B<--smp> N
+
+Enable C<N> virtual CPUs.
+
+=item B<-v>
+
+=item B<--verbose>
+
+More verbose output, useful for debugging problems.
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-performance(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2016 Red Hat Inc.

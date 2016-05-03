@@ -558,7 +558,9 @@ Makefile.in
 /tools/stamp-virt-*.pod
 /tools/virt-*.1
 /utils/boot-analysis/boot-analysis
+/utils/boot-analysis/boot-analysis.1
 /utils/boot-benchmark/boot-benchmark
+/utils/boot-benchmark/boot-benchmark.1
 /utils/qemu-boot/qemu-boot
 /utils/qemu-speed-test/qemu-speed-test
 /v2v/.depend

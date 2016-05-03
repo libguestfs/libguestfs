@@ -17,6 +17,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+EXTRA_DIST = boot-analysis.pod
+
 noinst_PROGRAMS = boot-analysis
 
 boot_analysis_SOURCES = \
@@ -41,3 +43,14 @@ boot_analysis_LDADD = \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la \
 	-lm
+
+# Manual page.
+# It should be noinst_MANS but that doesn't work.
+noinst_DATA = boot-analysis.1
+
+boot-analysis.1: boot-analysis.pod
+	$(PODWRAPPER) \
+	  --man $@ \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<

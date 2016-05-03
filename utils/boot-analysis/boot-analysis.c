@@ -16,44 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* Trace and analyze the appliance boot process to find out which
- * steps are taking the most time.  It is not part of the standard
- * tests.
- *
- * This needs to be run on a quiet machine, so that other processes
- * disturb the timing as little as possible.  The program is
- * completely safe to run at any time.  It doesn't read or write any
- * external files, and it doesn't require root.
- *
- * You can run it from the build directory like this:
- *
- *   make
- *   ./run utils/boot-analysis/boot-analysis
- *
- * The way it works is roughly like this:
- *
- * We create a libguestfs handle and register callback handlers so we
- * can see appliance messages, trace events and so on.
- *
- * We then launch the handle and shut it down as quickly as possible.
- *
- * While the handle is running, events (seen by the callback handlers)
- * are written verbatim into an in-memory buffer, with timestamps.
- *
- * Afterwards we analyze the result using regular expressions to try
- * to identify a "timeline" for the handle (eg. at what time did the
- * BIOS hand control to the kernel).  This analysis is done in
- * 'boot-analysis-timeline.c'.
- *
- * The whole process is repeated across a few runs, and the final
- * timeline (including statistical analysis of the variation between
- * runs) gets printed.
- *
- * The program is very sensitive to the specific messages printed by
- * BIOS/kernel/supermin/userspace, so it won't work on non-x86, and it
- * will require periodic adjustment of the regular expressions in
- * order to keep things up to date.
- */
+/* See instructions in boot-analysis.1 */
 
 #include <config.h>
 

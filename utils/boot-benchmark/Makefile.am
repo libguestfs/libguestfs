@@ -21,6 +21,8 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+EXTRA_DIST = boot-benchmark.pod boot-benchmark-range.pl
+
 noinst_PROGRAMS = boot-benchmark
 
 boot_benchmark_SOURCES = \
@@ -41,4 +43,13 @@ boot_benchmark_LDADD = \
 	$(top_builddir)/gnulib/lib/libgnu.la \
 	-lm
 
-EXTRA_DIST = boot-benchmark-range.pl
+# Manual page.
+# It should be noinst_MANS but that doesn't work.
+noinst_DATA = boot-benchmark.1
+
+boot-benchmark.1: boot-benchmark.pod
+	$(PODWRAPPER) \
+	  --man $@ \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
