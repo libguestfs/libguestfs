@@ -524,7 +524,7 @@ maintainer-commit:
 # Tag HEAD with current version (only for maintainer).
 
 maintainer-tag:
-	git tag -a $(VERSION) -m "Version $(VERSION) ($(BRANCH_TYPE))" -f
+	git tag -a "v$(VERSION)" -m "Version $(VERSION) ($(BRANCH_TYPE))" -f
 
 # Maintainer only: check EXTRA_DIST rule is complete.
 # (Note you must have done 'make dist')
