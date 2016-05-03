@@ -575,8 +575,8 @@ let set_standard_options argspec =
   let set_debug_gc () =
     at_exit (fun () -> Gc.compact()) in
   let argspec = [
-    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options";
-    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options";
+    "--short-options", Arg.Unit display_short_options, " " ^ s_"List short options (internal)";
+    "--long-options", Arg.Unit display_long_options, " " ^ s_"List long options (internal)";
     "-V",           Arg.Unit print_version_and_exit,
                                                " " ^ s_"Display version and exit";
     "--version",    Arg.Unit print_version_and_exit,
