@@ -1,0 +1,7 @@
+This directory contains miscellaneous utilities for profiling and
+testing libguestfs.  For more information see guestfs-performance(1).
+
+For libguestfs tools you should look in the specific tool directories
+such as cat/, df/, etc.
+
+For an overview of libguestfs directories, see guestfs-hacking(1).
