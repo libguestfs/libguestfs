@@ -24,7 +24,6 @@ ifelse(UBUNTU,1,`define(`DEBIAN',1)')
 
 ifelse(REDHAT,1,
   augeas-libs
-  btrfs-progs
   cryptsetup
   cryptsetup-luks      dnl old name used before Fedora 17
   dhclient
@@ -56,6 +55,7 @@ ifelse(REDHAT,1,
 
 ifelse(DEBIAN,1,
   bsdmainutils
+dnl old name used in Jessie and earlier
   btrfs-tools
   cryptsetup
   extlinux
@@ -100,7 +100,6 @@ dnl iproute has been renamed to iproute2
 
 ifelse(ARCHLINUX,1,
   augeas
-  btrfs-progs
   cdrkit
   cryptsetup
   dhcpcd
@@ -152,7 +151,6 @@ ifelse(SUSE,1,
 
 ifelse(FRUGALWARE,1,
   augeas
-  btrfs-progs
   cryptsetup-luks
   cdrkit
   dhclient
@@ -178,7 +176,6 @@ ifelse(FRUGALWARE,1,
 
 ifelse(MAGEIA,1,
   augeas
-  btrfs-progs
   cryptsetup
   chkconfig /* for /etc/init.d */
   cdrkit-genisoimage
@@ -212,6 +209,7 @@ acl
 attr
 bash
 binutils
+btrfs-progs
 bzip2
 coreutils
 cpio
