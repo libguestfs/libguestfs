@@ -97,22 +97,11 @@ stamp-guestfs-faq.pod: guestfs-faq.pod
 
 guestfs-hacking.1 $(top_builddir)/website/guestfs-hacking.1.html: stamp-guestfs-hacking.pod
 
-stamp-guestfs-hacking.pod: guestfs-hacking.pod
+stamp-guestfs-hacking.pod: guestfs-hacking.pod internal-documentation.pod
 	$(PODWRAPPER) \
 	  --section 1 \
 	  --man guestfs-hacking.1 \
 	  --html $(top_builddir)/website/guestfs-hacking.1.html \
-	  --license LGPLv2+ \
-	  $<
-	touch $@
-
-guestfs-internals.1 $(top_builddir)/website/guestfs-internals.1.html: stamp-guestfs-internals.pod
-
-stamp-guestfs-internals.pod: guestfs-internals.pod internal-documentation.pod
-	$(PODWRAPPER) \
-	  --section 1 \
-	  --man guestfs-internals.1 \
-	  --html $(top_builddir)/website/guestfs-internals.1.html \
 	  --insert internal-documentation.pod:__INTERNAL_DOCUMENTATION__ \
 	  --license LGPLv2+ \
 	  $<
@@ -127,6 +116,17 @@ internal-documentation.pod: $(source_files:%=$(top_srcdir)/%)
 	    -o $@-t \
 	    $(source_files)
 	mv $@-t $@
+
+guestfs-internals.1 $(top_builddir)/website/guestfs-internals.1.html: stamp-guestfs-internals.pod
+
+stamp-guestfs-internals.pod: guestfs-internals.pod
+	$(PODWRAPPER) \
+	  --section 1 \
+	  --man guestfs-internals.1 \
+	  --html $(top_builddir)/website/guestfs-internals.1.html \
+	  --license LGPLv2+ \
+	  $<
+	touch $@
 
 guestfs-performance.1 $(top_builddir)/website/guestfs-performance.1.html: stamp-guestfs-performance.pod
 

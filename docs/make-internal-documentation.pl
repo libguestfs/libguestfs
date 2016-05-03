@@ -33,7 +33,7 @@ make-internal-documentation.pl - Generate internal documentation from C files
 =head1 DESCRIPTION
 
 C<make-internal-documentation.pl> is a script that generates
-L<guestfs-internals(1)/INTERNAL DOCUMENTATION>.
+L<guestfs-hacking(1)/INTERNAL DOCUMENTATION>.
 
 You must specify the name of the output file using the I<-o> or
 I<--output> option, and a list of the C source files in the project.
@@ -233,7 +233,7 @@ exit 0;
 =head1 SEE ALSO
 
 L<perlpod(1)>,
-L<guestfs-internals(1)>.
+L<guestfs-hacking(1)>.
 
 =head1 AUTHOR
 
