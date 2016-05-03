@@ -320,7 +320,7 @@ exec >>%s 2>&1
       g#touch path
 
     | `Update ->
-      message (f_"Updating core packages");
+      message (f_"Updating packages");
       let cmd = guest_update_command () in
       do_run ~display:cmd cmd
 
