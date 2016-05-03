@@ -136,94 +136,127 @@ foreach $input (@ARGV) {
         }
     }
 }
-@inputs = sort @inputs;
+
+# Sort the input files into directory sections.  Put the 'src'
+# directory first, and the rest follow in alphabetical order.
+my %dirs = ();
+foreach $input (@inputs) {
+    die unless $input =~ m{^(.*)/([^/]+)$};
+    $dirs{$1} = [] unless exists $dirs{$1};
+    push @{$dirs{$1}}, $2
+}
+sub src_first {
+    if ($a eq "src" && $b eq "src") { return 0 }
+    elsif ($a eq "src") { return -1 }
+    elsif ($b eq "src") { return 1 }
+    else { return $a cmp $b }
+}
+my @dirs = sort src_first (keys %dirs);
 
 open OUTPUT, ">$output" or die "$progname: $output: $!";
 
-foreach $input (@inputs) {
-    $path = "$srcdir/$input";
+my $dir;
+foreach $dir (@dirs) {
+    print OUTPUT ("=head2 Subdirectory F<$dir>\n\n");
 
-    print OUTPUT ("=head2 F<$input>\n\n");
+    my $file;
+    foreach $file (sort @{$dirs{$dir}}) {
+        my $input = "$dir/$file";
+        $path = "$srcdir/$input";
 
-    open INPUT, $path or die "$progname: $input: $!";
+        print OUTPUT ("=head3 File F<$input>\n\n");
 
-    # A single special comment seen before any #includes can be used
-    # to outline the purpose of the source file.
-    my $seen_includes = 0;
-    my $lineno = 0;
+        open INPUT, $path or die "$progname: $input: $!";
 
-    while (<INPUT>) {
-        chomp;
-        $lineno++;
-        $seen_includes = 1 if /^#include/;
+        # A single special comment seen before any #includes can be
+        # used to outline the purpose of the source file.
+        my $seen_includes = 0;
+        my $lineno = 0;
 
-        if (m{^/\*\*$}) {
-            # Found a special comment.  Read the whole comment.
-            my @comment = ();
-            my $found_end = 0;
-            my $start_lineno = $lineno;
-            while (<INPUT>) {
-                chomp;
-                $lineno++;
+        while (<INPUT>) {
+            chomp;
+            $lineno++;
+            $seen_includes = 1 if /^#include/;
 
-                if (m{^ \*/$}) {
-                    $found_end = 1;
-                    last;
-                }
-                elsif (m{^ \* (.*)}) {
-                    push @comment, $1;
-                }
-                elsif (m{^ \*$}) {
-                    push @comment, "";
-                }
-                else {
-                    die "$progname: $input: $lineno: special comment with incorrect format\n";
-                }
-            }
-            die "$progname: $input: $start_lineno: unterminated special comment"
-                unless $found_end;
-
-            unless ($seen_includes) {
-                # If we've not seen the includes yet, then this is the
-                # top of file special comment, so we just write it out.
-                print OUTPUT join("\n", @comment), "\n";
-                print OUTPUT "\n";
-            }
-            else {
-                # Otherwise it's a function description, so now we
-                # need to read in the function definition.
-                my @function = ();
-                $found_end = 0;
-                $start_lineno = $lineno;
+            if (m{^/\*\*$}) {
+                # Found a special comment.  Read the whole comment.
+                my @comment = ();
+                my $found_end = 0;
+                my $start_lineno = $lineno;
                 while (<INPUT>) {
                     chomp;
                     $lineno++;
 
-                    if (m/^{/) {
+                    if (m{^ \*/$}) {
                         $found_end = 1;
                         last;
                     }
+                    elsif (m{^ \* (.*)}) {
+                        push @comment, $1;
+                    }
+                    elsif (m{^ \*$}) {
+                        push @comment, "";
+                    }
                     else {
-                        push @function, $_;
+                        die "$progname: $input: $lineno: special comment with incorrect format\n";
                     }
                 }
-
-                die "$progname: $input: $start_lineno: unterminated function definition"
+                die "$progname: $input: $start_lineno: unterminated special comment"
                     unless $found_end;
 
-                # Print the function definition, followed by the comment.
-                print OUTPUT " ", join ("\n ", @function), "\n";
-                print OUTPUT "\n";
-                print OUTPUT join("\n", @comment), "\n";
-                print OUTPUT "\n";
+                unless ($seen_includes) {
+                    # If we've not seen the includes yet, then this is
+                    # the top of file special comment, so we just
+                    # write it out.
+                    print OUTPUT join("\n", @comment), "\n";
+                    print OUTPUT "\n";
+                }
+                else {
+                    # Otherwise it's a function description, so now we
+                    # need to read in the function definition.
+                    my @function = ();
+                    $found_end = 0;
+                    $start_lineno = $lineno;
+                    while (<INPUT>) {
+                        chomp;
+                        $lineno++;
+
+                        if (m/^{/) {
+                            $found_end = 1;
+                            last;
+                        }
+                        else {
+                            push @function, $_;
+                        }
+                    }
+
+                    die "$progname: $input: $start_lineno: unterminated function definition"
+                        unless $found_end;
+
+                    # Try to determine the name of the function.
+                    my $function;
+                    foreach (@function) {
+                        $function = $1 if /^([\w_]+) \(/;
+                    }
+                    die "$progname: $input: $start_lineno: cannot find the name of this function"
+                        unless defined $function;
+
+                    # Print the function definition, followed by the
+                    # comment.
+                    print OUTPUT "=head4 Function C<$input:$function>\n\n";
+                    print OUTPUT " ", join ("\n ", @function), "\n";
+                    print OUTPUT "\n";
+                    print OUTPUT join("\n", @comment), "\n";
+                    print OUTPUT "\n";
+                }
+            }
+            elsif (m{^/\*\*}) {
+                die "$progname: $input: $lineno: special comment with incorrect format\n";
             }
         }
-        elsif (m{^/\*\*}) {
-            die "$progname: $input: $lineno: special comment with incorrect format\n";
-        }
-    }
 
-    close INPUT;
+        close INPUT;
+    }
 }
 
 close OUTPUT or die "$progname: $output: close: $!";
