@@ -66,6 +66,8 @@
 ../tools/virt-list-partitions
 ../tools/virt-tar
 ../tools/virt-win-reg
+../utils/boot-analysis/boot-analysis.pod
+../utils/boot-benchmark/boot-benchmark.pod
 ../v2v/test-harness/virt-v2v-test-harness.pod
 ../v2v/virt-v2v-copy-to-local.pod
 ../v2v/virt-v2v.pod

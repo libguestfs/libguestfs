@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-30 17:17+0100\n"
+"POT-Creation-Date: 2016-05-03 14:09+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -1445,11 +1445,11 @@ msgid "List available templates"
 msgstr ""
 
 #: ../mllib/common_utils.ml:579
-msgid "List long options"
+msgid "List long options (internal)"
 msgstr ""
 
 #: ../mllib/common_utils.ml:578
-msgid "List short options"
+msgid "List short options (internal)"
 msgstr ""
 
 #: ../sysprep/main.ml:132
@@ -2445,11 +2445,11 @@ msgid "Unregistering with subscription-manager"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:381
-msgid "Update core packages"
+msgid "Update packages"
 msgstr ""
 
 #: ../customize/customize_run.ml:323
-msgid "Updating core packages"
+msgid "Updating packages"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:391
@@ -9476,7 +9476,7 @@ msgstr "qemu n'a pas encore été lancé"
 msgid "parameter '%s' isn't allowed"
 msgstr "le paramètre « %s » est interdit"
 
-#: src/launch.c:471
+#: src/launch.c:472
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""

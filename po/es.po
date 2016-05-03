@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-30 17:17+0100\n"
+"POT-Creation-Date: 2016-05-03 14:09+0100\n"
 "PO-Revision-Date: 2015-03-18 06:06-0400\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -1607,12 +1607,12 @@ msgid "List available templates"
 msgstr "Mostrar las plantillas disponibles"
 
 #: ../mllib/common_utils.ml:579
-msgid "List long options"
-msgstr "Mostrar opciones largas"
+msgid "List long options (internal)"
+msgstr ""
 
 #: ../mllib/common_utils.ml:578
-msgid "List short options"
-msgstr "Mostrar opciones cortas"
+msgid "List short options (internal)"
+msgstr ""
 
 #: ../sysprep/main.ml:132
 msgid "List supported operations"
@@ -2625,11 +2625,11 @@ msgid "Unregistering with subscription-manager"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:381
-msgid "Update core packages"
+msgid "Update packages"
 msgstr ""
 
 #: ../customize/customize_run.ml:323
-msgid "Updating core packages"
+msgid "Updating packages"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:391
@@ -9486,7 +9486,7 @@ msgstr "todavía qemu no ha sido iniciado "
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:471
+#: src/launch.c:472
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9950,6 +9950,12 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
+
+#~ msgid "List long options"
+#~ msgstr "Mostrar opciones largas"
+
+#~ msgid "List short options"
+#~ msgstr "Mostrar opciones cortas"
 
 #~ msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 #~ msgstr ""

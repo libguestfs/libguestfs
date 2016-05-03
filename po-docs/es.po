@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-04-30 17:17+0100\n"
+"POT-Creation-Date: 2016-05-03 14:09+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -50,7 +50,9 @@ msgstr ""
 #: ../src/guestfs.pod:1 ../sysprep/virt-sysprep.pod:1
 #: ../test-tool/libguestfs-test-tool.pod:1 ../tools/virt-list-filesystems:27
 #: ../tools/virt-list-partitions:27 ../tools/virt-tar:28
-#: ../tools/virt-win-reg:32 ../v2v/test-harness/virt-v2v-test-harness.pod:1
+#: ../tools/virt-win-reg:32 ../utils/boot-analysis/boot-analysis.pod:1
+#: ../utils/boot-benchmark/boot-benchmark.pod:1
+#: ../v2v/test-harness/virt-v2v-test-harness.pod:1
 #: ../v2v/virt-v2v-copy-to-local.pod:1 ../v2v/virt-v2v.pod:1
 msgid "NAME"
 msgstr "NOMBRE"
@@ -85,6 +87,8 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:5 ../test-tool/libguestfs-test-tool.pod:5
 #: ../tools/virt-list-filesystems:31 ../tools/virt-list-partitions:31
 #: ../tools/virt-tar:32 ../tools/virt-win-reg:36
+#: ../utils/boot-analysis/boot-analysis.pod:5
+#: ../utils/boot-benchmark/boot-benchmark.pod:5
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:5
 #: ../v2v/virt-v2v-copy-to-local.pod:5 ../v2v/virt-v2v.pod:5
 msgid "SYNOPSIS"
@@ -143,6 +147,8 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:11 ../test-tool/libguestfs-test-tool.pod:9
 #: ../tools/virt-list-filesystems:42 ../tools/virt-list-partitions:42
 #: ../tools/virt-tar:74 ../tools/virt-win-reg:60
+#: ../utils/boot-analysis/boot-analysis.pod:9
+#: ../utils/boot-benchmark/boot-benchmark.pod:9
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:17
 #: ../v2v/virt-v2v-copy-to-local.pod:13 ../v2v/virt-v2v.pod:20
 msgid "DESCRIPTION"
@@ -351,6 +357,8 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:38 ../test-tool/libguestfs-test-tool.pod:34
 #: ../tools/virt-list-filesystems:52 ../tools/virt-list-partitions:53
 #: ../tools/virt-tar:100 ../tools/virt-win-reg:93
+#: ../utils/boot-analysis/boot-analysis.pod:51
+#: ../utils/boot-benchmark/boot-benchmark.pod:33
 #: ../v2v/virt-v2v-copy-to-local.pod:93 ../v2v/virt-v2v.pod:244
 msgid "OPTIONS"
 msgstr ""
@@ -372,6 +380,8 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:42 ../test-tool/libguestfs-test-tool.pod:38
 #: ../tools/virt-list-filesystems:60 ../tools/virt-list-partitions:61
 #: ../tools/virt-tar:108 ../tools/virt-win-reg:101
+#: ../utils/boot-analysis/boot-analysis.pod:55
+#: ../utils/boot-benchmark/boot-benchmark.pod:37
 #: ../v2v/virt-v2v-copy-to-local.pod:97 ../v2v/virt-v2v.pod:248
 msgid "B<--help>"
 msgstr ""
@@ -385,7 +395,8 @@ msgstr ""
 #: ../make-fs/virt-make-fs.pod:123 ../rescue/virt-rescue.pod:109
 #: ../sysprep/virt-sysprep.pod:44 ../tools/virt-list-filesystems:62
 #: ../tools/virt-list-partitions:63 ../tools/virt-tar:110
-#: ../tools/virt-win-reg:103
+#: ../tools/virt-win-reg:103 ../utils/boot-analysis/boot-analysis.pod:57
+#: ../utils/boot-benchmark/boot-benchmark.pod:39
 msgid "Display brief help."
 msgstr ""
 
@@ -715,6 +726,7 @@ msgstr ""
 #: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v.pod:584
 #: ../rescue/virt-rescue.pod:228 ../resize/virt-resize.pod:603
 #: ../sparsify/virt-sparsify.pod:292 ../sysprep/virt-sysprep.pod:222
+#: ../utils/boot-analysis/boot-analysis.pod:80
 #: ../v2v/virt-v2v-copy-to-local.pod:121 ../v2v/virt-v2v.pod:642
 msgid "B<-v>"
 msgstr ""
@@ -731,6 +743,7 @@ msgstr ""
 #: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v.pod:586
 #: ../rescue/virt-rescue.pod:230 ../resize/virt-resize.pod:605
 #: ../sparsify/virt-sparsify.pod:294 ../sysprep/virt-sysprep.pod:224
+#: ../utils/boot-analysis/boot-analysis.pod:82
 #: ../v2v/virt-v2v-copy-to-local.pod:123 ../v2v/virt-v2v.pod:644
 msgid "B<--verbose>"
 msgstr ""
@@ -1157,18 +1170,18 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:347 ../docs/guestfs-hacking.pod:352
 #: ../docs/guestfs-hacking.pod:372 ../docs/guestfs-hacking.pod:376
 #: ../docs/guestfs-hacking.pod:380 ../docs/guestfs-hacking.pod:384
-#: ../docs/guestfs-hacking.pod:388 ../docs/guestfs-hacking.pod:720
-#: ../docs/guestfs-hacking.pod:724 ../docs/guestfs-hacking.pod:790
-#: ../docs/guestfs-hacking.pod:795 ../docs/guestfs-hacking.pod:799
-#: ../docs/guestfs-hacking.pod:803 ../docs/guestfs-hacking.pod:817
-#: ../docs/guestfs-hacking.pod:821 ../docs/guestfs-hacking.pod:826
-#: ../docs/guestfs-hacking.pod:830 ../docs/guestfs-hacking.pod:842
-#: ../docs/guestfs-hacking.pod:849 ../docs/guestfs-hacking.pod:853
-#: ../docs/guestfs-performance.pod:114 ../docs/guestfs-performance.pod:120
-#: ../docs/guestfs-performance.pod:125 ../docs/guestfs-performance.pod:252
-#: ../docs/guestfs-performance.pod:257 ../docs/guestfs-performance.pod:262
-#: ../docs/guestfs-performance.pod:382 ../docs/guestfs-performance.pod:386
-#: ../docs/guestfs-performance.pod:392 ../docs/guestfs-performance.pod:398
+#: ../docs/guestfs-hacking.pod:388 ../docs/guestfs-hacking.pod:724
+#: ../docs/guestfs-hacking.pod:728 ../docs/guestfs-hacking.pod:794
+#: ../docs/guestfs-hacking.pod:799 ../docs/guestfs-hacking.pod:803
+#: ../docs/guestfs-hacking.pod:807 ../docs/guestfs-hacking.pod:821
+#: ../docs/guestfs-hacking.pod:825 ../docs/guestfs-hacking.pod:830
+#: ../docs/guestfs-hacking.pod:834 ../docs/guestfs-hacking.pod:846
+#: ../docs/guestfs-hacking.pod:853 ../docs/guestfs-hacking.pod:857
+#: ../docs/guestfs-performance.pod:116 ../docs/guestfs-performance.pod:122
+#: ../docs/guestfs-performance.pod:127 ../docs/guestfs-performance.pod:254
+#: ../docs/guestfs-performance.pod:259 ../docs/guestfs-performance.pod:264
+#: ../docs/guestfs-performance.pod:384 ../docs/guestfs-performance.pod:388
+#: ../docs/guestfs-performance.pod:394 ../docs/guestfs-performance.pod:400
 #: ../docs/guestfs-recipes.pod:280 ../docs/guestfs-recipes.pod:284
 #: ../docs/guestfs-recipes.pod:288 ../docs/guestfs-recipes.pod:314
 #: ../docs/guestfs-recipes.pod:319 ../docs/guestfs-recipes.pod:426
@@ -1375,8 +1388,8 @@ msgstr ""
 #: ../customize/virt-customize.pod:259 ../daemon/guestfsd.pod:143
 #: ../df/virt-df.pod:256 ../dib/virt-dib.pod:645 ../diff/virt-diff.pod:248
 #: ../docs/guestfs-building.pod:643 ../docs/guestfs-faq.pod:1392
-#: ../docs/guestfs-hacking.pod:860 ../docs/guestfs-internals.pod:409
-#: ../docs/guestfs-performance.pod:606 ../docs/guestfs-recipes.pod:719
+#: ../docs/guestfs-hacking.pod:864 ../docs/guestfs-internals.pod:409
+#: ../docs/guestfs-performance.pod:610 ../docs/guestfs-recipes.pod:719
 #: ../docs/guestfs-release-notes.pod:4813 ../docs/guestfs-security.pod:340
 #: ../docs/guestfs-testing.pod:399 ../edit/virt-edit.pod:383
 #: ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55
@@ -1396,6 +1409,8 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:559 ../test-tool/libguestfs-test-tool.pod:178
 #: ../tools/virt-list-filesystems:181 ../tools/virt-list-partitions:263
 #: ../tools/virt-tar:292 ../tools/virt-win-reg:785
+#: ../utils/boot-analysis/boot-analysis.pod:88
+#: ../utils/boot-benchmark/boot-benchmark.pod:57
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:263
 #: ../v2v/virt-v2v-copy-to-local.pod:135 ../v2v/virt-v2v.pod:1907
 msgid "SEE ALSO"
@@ -1420,6 +1435,8 @@ msgstr ""
 #: ../resize/virt-resize.pod:844 ../sparsify/virt-sparsify.pod:450
 #: ../tools/virt-list-filesystems:193 ../tools/virt-list-partitions:274
 #: ../tools/virt-tar:306 ../tools/virt-win-reg:799
+#: ../utils/boot-analysis/boot-analysis.pod:93
+#: ../utils/boot-benchmark/boot-benchmark.pod:62
 msgid "AUTHOR"
 msgstr ""
 
@@ -1437,6 +1454,8 @@ msgstr ""
 #: ../sparsify/virt-sparsify.pod:452 ../sysprep/virt-sysprep.pod:578
 #: ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276
 #: ../tools/virt-tar:308 ../tools/virt-win-reg:801
+#: ../utils/boot-analysis/boot-analysis.pod:95
+#: ../utils/boot-benchmark/boot-benchmark.pod:64
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:275
 #: ../v2v/virt-v2v-copy-to-local.pod:146 ../v2v/virt-v2v.pod:1926
 msgid "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
@@ -1451,8 +1470,8 @@ msgstr ""
 #: ../customize/virt-customize.pod:280 ../daemon/guestfsd.pod:152
 #: ../df/virt-df.pod:268 ../dib/virt-dib.pod:656 ../diff/virt-diff.pod:262
 #: ../docs/guestfs-building.pod:660 ../docs/guestfs-faq.pod:1402
-#: ../docs/guestfs-hacking.pod:877 ../docs/guestfs-internals.pod:422
-#: ../docs/guestfs-performance.pod:623 ../docs/guestfs-recipes.pod:738
+#: ../docs/guestfs-hacking.pod:881 ../docs/guestfs-internals.pod:422
+#: ../docs/guestfs-performance.pod:627 ../docs/guestfs-recipes.pod:738
 #: ../docs/guestfs-release-notes.pod:4828 ../docs/guestfs-security.pod:352
 #: ../docs/guestfs-testing.pod:410 ../edit/virt-edit.pod:398
 #: ../erlang/examples/guestfs-erlang.pod:114
@@ -1473,6 +1492,8 @@ msgstr ""
 #: ../sysprep/virt-sysprep.pod:582 ../test-tool/libguestfs-test-tool.pod:188
 #: ../tools/virt-list-filesystems:197 ../tools/virt-list-partitions:278
 #: ../tools/virt-tar:310 ../tools/virt-win-reg:803
+#: ../utils/boot-analysis/boot-analysis.pod:97
+#: ../utils/boot-benchmark/boot-benchmark.pod:66
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:277
 #: ../v2v/virt-v2v-copy-to-local.pod:148 ../v2v/virt-v2v.pod:1938
 msgid "COPYRIGHT"
@@ -1744,8 +1765,8 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:148
 #: ../customize/virt-customize.pod:276 ../docs/guestfs-building.pod:656
-#: ../docs/guestfs-faq.pod:1398 ../docs/guestfs-hacking.pod:873
-#: ../docs/guestfs-internals.pod:418 ../docs/guestfs-performance.pod:619
+#: ../docs/guestfs-faq.pod:1398 ../docs/guestfs-hacking.pod:877
+#: ../docs/guestfs-internals.pod:418 ../docs/guestfs-performance.pod:623
 #: ../docs/guestfs-recipes.pod:734 ../docs/guestfs-security.pod:348
 #: ../docs/guestfs-testing.pod:406 ../erlang/examples/guestfs-erlang.pod:110
 #: ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1634
@@ -1768,8 +1789,8 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:150
 #: ../docs/guestfs-building.pod:658 ../docs/guestfs-faq.pod:1400
-#: ../docs/guestfs-hacking.pod:875 ../docs/guestfs-internals.pod:420
-#: ../docs/guestfs-performance.pod:621 ../docs/guestfs-recipes.pod:736
+#: ../docs/guestfs-hacking.pod:879 ../docs/guestfs-internals.pod:420
+#: ../docs/guestfs-performance.pod:625 ../docs/guestfs-recipes.pod:736
 #: ../docs/guestfs-security.pod:350 ../docs/guestfs-testing.pod:408
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:71 ../fish/guestfish.pod:1636
@@ -1788,7 +1809,7 @@ msgstr ""
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534
 #: ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
-#: ../docs/guestfs-building.pod:662 ../docs/guestfs-hacking.pod:879
+#: ../docs/guestfs-building.pod:662 ../docs/guestfs-hacking.pod:883
 #: ../docs/guestfs-internals.pod:424 ../docs/guestfs-recipes.pod:740
 #: ../docs/guestfs-release-notes.pod:4830 ../docs/guestfs-security.pod:354
 #: ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1640
@@ -2664,13 +2685,15 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:362 ../customize/virt-customize.pod:125
-#: ../dib/virt-dib.pod:215
+#: ../dib/virt-dib.pod:215 ../utils/boot-analysis/boot-analysis.pod:70
+#: ../utils/boot-benchmark/boot-benchmark.pod:45
 msgid "B<-m> MB"
 msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:364 ../customize/virt-customize.pod:127
-#: ../dib/virt-dib.pod:217
+#: ../dib/virt-dib.pod:217 ../utils/boot-analysis/boot-analysis.pod:72
+#: ../utils/boot-benchmark/boot-benchmark.pod:47
 msgid "B<--memsize> MB"
 msgstr ""
 
@@ -2757,8 +2780,8 @@ msgstr ""
 #: ../builder/virt-builder.pod:397 ../builder/virt-builder.pod:963
 #: ../customize/virt-customize.pod:160 ../docs/guestfs-faq.pod:494
 #: ../docs/guestfs-faq.pod:721 ../docs/guestfs-faq.pod:927
-#: ../docs/guestfs-hacking.pod:48 ../docs/guestfs-performance.pod:168
-#: ../docs/guestfs-performance.pod:210 ../docs/guestfs-recipes.pod:457
+#: ../docs/guestfs-hacking.pod:48 ../docs/guestfs-performance.pod:170
+#: ../docs/guestfs-performance.pod:212 ../docs/guestfs-recipes.pod:457
 #: ../docs/guestfs-security.pod:177 ../docs/internal-documentation.pod:686
 #: ../docs/internal-documentation.pod:1176
 #: ../docs/internal-documentation.pod:1322 ../p2v/virt-p2v.pod:514
@@ -2781,8 +2804,8 @@ msgstr ""
 #: ../builder/virt-builder.pod:402 ../builder/virt-builder.pod:968
 #: ../customize/virt-customize.pod:165 ../docs/guestfs-faq.pod:499
 #: ../docs/guestfs-faq.pod:731 ../docs/guestfs-faq.pod:931
-#: ../docs/guestfs-hacking.pod:73 ../docs/guestfs-performance.pod:174
-#: ../docs/guestfs-performance.pod:217 ../docs/guestfs-recipes.pod:463
+#: ../docs/guestfs-hacking.pod:73 ../docs/guestfs-performance.pod:176
+#: ../docs/guestfs-performance.pod:219 ../docs/guestfs-recipes.pod:463
 #: ../docs/guestfs-security.pod:181 ../docs/internal-documentation.pod:692
 #: ../docs/internal-documentation.pod:1181
 #: ../docs/internal-documentation.pod:1328 ../p2v/virt-p2v.pod:522
@@ -2805,7 +2828,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:407 ../builder/virt-builder.pod:978
 #: ../customize/virt-customize.pod:170 ../docs/guestfs-faq.pod:505
 #: ../docs/guestfs-faq.pod:736 ../docs/guestfs-faq.pod:935
-#: ../docs/guestfs-performance.pod:223 ../docs/guestfs-recipes.pod:469
+#: ../docs/guestfs-performance.pod:225 ../docs/guestfs-recipes.pod:469
 #: ../docs/internal-documentation.pod:697
 #: ../docs/internal-documentation.pod:1186
 #: ../docs/internal-documentation.pod:1336 ../p2v/virt-p2v.pod:537
@@ -2966,6 +2989,8 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:483 ../customize/virt-customize.pod:191
 #: ../dib/virt-dib.pod:353 ../rescue/virt-rescue.pod:215
+#: ../utils/boot-analysis/boot-analysis.pod:76
+#: ../utils/boot-benchmark/boot-benchmark.pod:51
 msgid "B<--smp> N"
 msgstr ""
 
@@ -11968,7 +11993,7 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/guestfs-building.pod:563 ../docs/guestfs-faq.pod:567
-#: ../docs/guestfs-performance.pod:150
+#: ../docs/guestfs-performance.pod:152
 #, no-wrap
 msgid ""
 " export LIBGUESTFS_PATH=/usr/local/lib/guestfs/appliance\n"
@@ -14877,7 +14902,7 @@ msgid "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-faq.pod:1404 ../docs/guestfs-performance.pod:625
+#: ../docs/guestfs-faq.pod:1404 ../docs/guestfs-performance.pod:629
 msgid "Copyright (C) 2012-2016 Red Hat Inc."
 msgstr ""
 
@@ -16296,96 +16321,106 @@ msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:666
-msgid "F<v2v>"
+msgid "F<utils>"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:668
-msgid "L<virt-v2v(1)> command and documentation."
+msgid "Miscellaneous utilities, such as C<boot-benchmark>."
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:670
-msgid "F<website>"
+msgid "F<v2v>"
 msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:672
-msgid "The L<http://libguestfs.org> website files."
+msgid "L<virt-v2v(1)> command and documentation."
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:674
-msgid "F<csharp>"
+msgid "F<website>"
 msgstr ""
 
-#. type: =item
+#. type: textblock
 #: ../docs/guestfs-hacking.pod:676
-msgid "F<erlang>"
+msgid "The L<http://libguestfs.org> website files."
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:678
-msgid "F<gobject>"
+msgid "F<csharp>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:680
-msgid "F<golang>"
+msgid "F<erlang>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:682
-msgid "F<haskell>"
+msgid "F<gobject>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:684
-msgid "F<java>"
+msgid "F<golang>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:686
-msgid "F<lua>"
+msgid "F<haskell>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:688
-msgid "F<ocaml>"
+msgid "F<java>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:690
-msgid "F<php>"
+msgid "F<lua>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:692
-msgid "F<perl>"
+msgid "F<ocaml>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:694
-msgid "F<python>"
+msgid "F<php>"
 msgstr ""
 
 #. type: =item
 #: ../docs/guestfs-hacking.pod:696
+msgid "F<perl>"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-hacking.pod:698
+msgid "F<python>"
+msgstr ""
+
+#. type: =item
+#: ../docs/guestfs-hacking.pod:700
 msgid "F<ruby>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:698
+#: ../docs/guestfs-hacking.pod:702
 msgid "Language bindings."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-hacking.pod:702
+#: ../docs/guestfs-hacking.pod:706
 msgid "VIRT-V2V"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:704
+#: ../docs/guestfs-hacking.pod:708
 msgid ""
 "First a little history.  Virt-v2v has been through at least two complete "
 "rewrites, so this is probably about the third version (but we don't intend "
@@ -16394,7 +16429,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:710
+#: ../docs/guestfs-hacking.pod:714
 msgid ""
 "The current version started out as almost a line-for-line rewrite of the "
 "Perl code in OCaml + C, and it still has a fairly similar structure.  "
@@ -16404,22 +16439,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:716
+#: ../docs/guestfs-hacking.pod:720
 msgid "The files to start with when reading this code are:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:722
+#: ../docs/guestfs-hacking.pod:726
 msgid "F<types.mli>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:726
+#: ../docs/guestfs-hacking.pod:730
 msgid "F<v2v.ml>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:730
+#: ../docs/guestfs-hacking.pod:734
 msgid ""
 "F<types.mli> defines all the structures used and passed around when "
 "communicating between different bits of the program.  F<v2v.ml> controls how "
@@ -16427,7 +16462,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:734
+#: ../docs/guestfs-hacking.pod:738
 msgid ""
 "After studying those files, you may want to branch out into the input "
 "modules (F<input_*>), the output modules (F<output_*>) or the conversion "
@@ -16437,7 +16472,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:741
+#: ../docs/guestfs-hacking.pod:745
 msgid ""
 "Every other file in this directory is a support module / library of some "
 "sort.  Some code is written in C, especially where we want to use an "
@@ -16445,12 +16480,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-hacking.pod:745
+#: ../docs/guestfs-hacking.pod:749
 msgid "VIRT-P2V"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:747
+#: ../docs/guestfs-hacking.pod:751
 msgid ""
 "Virt-p2v is a front end on virt-v2v.  ie. All it does is act as a GUI front "
 "end, and it calls out to virt-v2v to perform the actual conversion.  "
@@ -16461,14 +16496,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:754
+#: ../docs/guestfs-hacking.pod:758
 msgid ""
 "There are two paths through the code, GUI or non-GUI (parsing the kernel "
 "command line):"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:757
+#: ../docs/guestfs-hacking.pod:761
 #, no-wrap
 msgid ""
 " main.c     --+---->   gui.c    -----+----> conversion.c\n"
@@ -16479,28 +16514,28 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:762
+#: ../docs/guestfs-hacking.pod:766
 msgid ""
 "but both paths call back to the F<conversion.c> function C<start_conversion> "
 "to run the remote virt-v2v."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:765
+#: ../docs/guestfs-hacking.pod:769
 msgid ""
 "The main task of F<gui.c>/F<kernel.c> is to populate the virt-v2v "
 "configuration (F<config.c>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:768
+#: ../docs/guestfs-hacking.pod:772
 msgid ""
 "During conversion, we need to establish ssh connections, and that is done "
 "using two libraries:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:771
+#: ../docs/guestfs-hacking.pod:775
 #, no-wrap
 msgid ""
 " conversion.c  ------>  ssh.c  ------>  miniexpect.c\n"
@@ -16508,7 +16543,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:773
+#: ../docs/guestfs-hacking.pod:777
 msgid ""
 "where F<ssh.c> is responsible for managing ssh connections overall, and "
 "F<miniexpect.c> implements \"expect-like\" functionality for talking "
@@ -16516,7 +16551,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:777
+#: ../docs/guestfs-hacking.pod:781
 msgid ""
 "(Note that miniexpect is a separate library with its own upstream, so if you "
 "patch miniexpect.c, then please make sure the changes get reflected in "
@@ -16525,12 +16560,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-hacking.pod:782
+#: ../docs/guestfs-hacking.pod:786
 msgid "MAKING A STABLE RELEASE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:784
+#: ../docs/guestfs-hacking.pod:788
 msgid ""
 "When we make a stable release, there are several steps documented here.  See "
 "L<guestfs(3)/LIBGUESTFS VERSION NUMBERS> for general information about the "
@@ -16538,34 +16573,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:792
+#: ../docs/guestfs-hacking.pod:796
 msgid ""
 "Check C<make && make check> works on at least Fedora, Debian and Ubuntu."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:797
+#: ../docs/guestfs-hacking.pod:801
 msgid "Check C<./configure --without-libvirt> works."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:801
+#: ../docs/guestfs-hacking.pod:805
 msgid "Finalize F<guestfs-release-notes.pod>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:805
+#: ../docs/guestfs-hacking.pod:809
 msgid "Push and pull from Zanata."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:807 ../docs/guestfs-testing.pod:30
+#: ../docs/guestfs-hacking.pod:811 ../docs/guestfs-testing.pod:30
 #: ../docs/guestfs-testing.pod:219
 msgid "Run:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:809
+#: ../docs/guestfs-hacking.pod:813
 #, no-wrap
 msgid ""
 " zanata push\n"
@@ -16573,12 +16608,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:811
+#: ../docs/guestfs-hacking.pod:815
 msgid "to push the latest POT files to Zanata.  Then run:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:813
+#: ../docs/guestfs-hacking.pod:817
 #, no-wrap
 msgid ""
 " ./zanata-pull.sh\n"
@@ -16586,36 +16621,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:815
+#: ../docs/guestfs-hacking.pod:819
 msgid "which is a wrapper to pull the latest translated F<*.po> files."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:819
+#: ../docs/guestfs-hacking.pod:823
 msgid "Consider updating gnulib to latest upstream version."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:823
+#: ../docs/guestfs-hacking.pod:827
 msgid ""
 "Create new stable and development directories under L<http://libguestfs.org/"
 "download>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:828
+#: ../docs/guestfs-hacking.pod:832
 msgid "Edit F<website/index.html.in>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:832
+#: ../docs/guestfs-hacking.pod:836
 msgid ""
 "Set the version (in F<configure.ac>) to the new I<stable> version, ie. 1."
 "XX.0, and commit it:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:835
+#: ../docs/guestfs-hacking.pod:839
 #, no-wrap
 msgid ""
 " ./localconfigure\n"
@@ -16628,12 +16663,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:844
+#: ../docs/guestfs-hacking.pod:848
 msgid "Create the stable branch in git:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:846
+#: ../docs/guestfs-hacking.pod:850
 #, no-wrap
 msgid ""
 " git branch stable-1.XX\n"
@@ -16642,19 +16677,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:851
+#: ../docs/guestfs-hacking.pod:855
 msgid "Do a full release of the stable branch."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:855
+#: ../docs/guestfs-hacking.pod:859
 msgid ""
 "Set the version to the next development version and commit that.  Optionally "
 "do a full release of the development branch."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-hacking.pod:862
+#: ../docs/guestfs-hacking.pod:866
 msgid ""
 "L<guestfs(3)>, L<guestfs-building(1)>, L<guestfs-examples(3)>, L<guestfs-"
 "internals(3)>, L<guestfs-performance(1)>, L<guestfs-release-notes(1)>, "
@@ -17478,8 +17513,8 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:27 ../docs/guestfs-performance.pod:178
-#: ../docs/guestfs-testing.pod:48
+#: ../docs/guestfs-performance.pod:27 ../docs/guestfs-performance.pod:180
+#: ../docs/guestfs-testing.pod:48 ../utils/boot-benchmark/boot-benchmark.pod:15
 #, no-wrap
 msgid ""
 " time guestfish -a /dev/null run\n"
@@ -17497,28 +17532,33 @@ msgstr ""
 #: ../docs/guestfs-performance.pod:32
 msgid ""
 "I<Side note for developers:> If you are compiling libguestfs from source, "
-"there is a program called F<tests/qemu/boot-benchmark> which does the same "
-"thing, but performs multiple runs and prints the mean and standard "
+"there is a program called F<utils/boot-benchmark/boot-benchmark> which does "
+"the same thing, but performs multiple runs and prints the mean and standard "
 "deviation.  To run it, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:37
+#: ../docs/guestfs-performance.pod:38
+#: ../utils/boot-benchmark/boot-benchmark.pod:28
 #, no-wrap
 msgid ""
 " make\n"
-" make -C tests/qemu boot-benchmark\n"
-" ./run ./tests/qemu/boot-benchmark\n"
+" ./run utils/boot-benchmark/boot-benchmark\n"
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../docs/guestfs-performance.pod:41
+msgid "There is a manual page F<utils/boot-benchmark/boot-benchmark.1>"
+msgstr ""
+
 #. type: =head3
-#: ../docs/guestfs-performance.pod:41 ../docs/guestfs-performance.pod:74
+#: ../docs/guestfs-performance.pod:43 ../docs/guestfs-performance.pod:76
 msgid "Explanation"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:43
+#: ../docs/guestfs-performance.pod:45
 msgid ""
 "The guestfish command above starts up the libguestfs appliance on a null "
 "disk, and then immediately shuts it down.  The first time you run the "
@@ -17527,12 +17567,12 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/guestfs-performance.pod:49 ../docs/guestfs-performance.pod:85
+#: ../docs/guestfs-performance.pod:51 ../docs/guestfs-performance.pod:87
 msgid "Expected results"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:51
+#: ../docs/guestfs-performance.pod:53
 msgid ""
 "You should expect to be getting times under 6 seconds.  If the times you see "
 "on an unloaded machine are above this, then see the section L</"
@@ -17540,12 +17580,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:55
+#: ../docs/guestfs-performance.pod:57
 msgid "Baseline: Performing inspection of a guest"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:57
+#: ../docs/guestfs-performance.pod:59
 msgid ""
 "For this test you will need an unloaded machine and at least one real guest "
 "or disk image.  If you are planning to use libguestfs against only X guests "
@@ -17555,7 +17595,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:63
+#: ../docs/guestfs-performance.pod:65
 msgid ""
 "Time how long it takes to perform inspection and mount the disks of the "
 "guest.  Use the first command if you will be using disk images, and the "
@@ -17563,7 +17603,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:67
+#: ../docs/guestfs-performance.pod:69
 #, no-wrap
 msgid ""
 " time guestfish --ro -a disk.img -i exit\n"
@@ -17571,7 +17611,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:69
+#: ../docs/guestfs-performance.pod:71
 #, no-wrap
 msgid ""
 " time guestfish --ro -d GuestName -i exit\n"
@@ -17579,14 +17619,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:71
+#: ../docs/guestfs-performance.pod:73
 msgid ""
 "Run the command several times in a row and discard the first few runs, so "
 "that you are measuring a typical \"hot cache\" case."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:76
+#: ../docs/guestfs-performance.pod:78
 msgid ""
 "This command starts up the libguestfs appliance on the named disk image or "
 "libvirt guest, performs libguestfs inspection on it (see L<guestfs(3)/"
@@ -17595,7 +17635,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:81
+#: ../docs/guestfs-performance.pod:83
 msgid ""
 "The first time you run the command, it will create an appliance and cache it "
 "(usually under F</var/tmp/.guestfs-*>).  Subsequent runs should reuse the "
@@ -17603,7 +17643,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:87
+#: ../docs/guestfs-performance.pod:89
 msgid ""
 "You should expect times which are E<le> 5 seconds greater than measured in "
 "the first baseline test above.  (For example, if the first baseline test ran "
@@ -17611,12 +17651,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:92
+#: ../docs/guestfs-performance.pod:94
 msgid "UNDERSTANDING THE APPLIANCE AND WHEN IT IS BUILT/CACHED"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:94
+#: ../docs/guestfs-performance.pod:96
 msgid ""
 "The first time you use libguestfs, it will build and cache an appliance.  "
 "This is usually in F</var/tmp/.guestfs-*>, unless you have set C<$TMPDIR> or "
@@ -17625,14 +17665,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:99
+#: ../docs/guestfs-performance.pod:101
 msgid ""
 "For more information about how the appliance is constructed, see "
 "L<supermin(1)/SUPERMIN APPLIANCES>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:102
+#: ../docs/guestfs-performance.pod:104
 msgid ""
 "Every time libguestfs runs it will check that no host files used by the "
 "appliance have changed.  If any have, then the appliance is rebuilt.  This "
@@ -17644,50 +17684,50 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:110
+#: ../docs/guestfs-performance.pod:112
 msgid "These are the performance implications:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:116
+#: ../docs/guestfs-performance.pod:118
 msgid ""
 "The process of building (or rebuilding) the cached appliance is slow, and "
 "you can avoid this happening by using a fixed appliance (see below)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:122
+#: ../docs/guestfs-performance.pod:124
 msgid ""
 "If not using a fixed appliance, be aware that updating software on the host "
 "will cause a one time rebuild of the appliance."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:127
+#: ../docs/guestfs-performance.pod:129
 msgid ""
 "F</var/tmp> (or C<$TMPDIR>, C<$LIBGUESTFS_CACHEDIR>) should be on a fast "
 "disk, and have plenty of space for the appliance."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:132
+#: ../docs/guestfs-performance.pod:134
 msgid "USING A FIXED APPLIANCE"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:134
+#: ../docs/guestfs-performance.pod:136
 msgid ""
 "To fully control when the appliance is built, you can build a fixed "
 "appliance.  This appliance should be stored on a fast local disk."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:137
+#: ../docs/guestfs-performance.pod:139
 msgid "To build the appliance, run the command:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:139
+#: ../docs/guestfs-performance.pod:141
 #, no-wrap
 msgid ""
 " libguestfs-make-fixed-appliance <directory>\n"
@@ -17695,7 +17735,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:141
+#: ../docs/guestfs-performance.pod:143
 msgid ""
 "replacing C<E<lt>directoryE<gt>> with the name of a directory where the "
 "appliance will be stored (normally you would name a subdirectory, for "
@@ -17703,7 +17743,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:146
+#: ../docs/guestfs-performance.pod:148
 msgid ""
 "Then set C<$LIBGUESTFS_PATH> (and ensure this environment variable is set in "
 "your libguestfs program), or modify your program so it calls "
@@ -17711,7 +17751,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:152
+#: ../docs/guestfs-performance.pod:154
 msgid ""
 "Now you can run libguestfs programs, virt tools, guestfish etc. as normal.  "
 "The programs will use your fixed appliance, and will not ever build, "
@@ -17719,19 +17759,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:156
+#: ../docs/guestfs-performance.pod:158
 msgid ""
 "(For detailed information on this subject, see: L<libguestfs-make-fixed-"
 "appliance(1)>)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:159
+#: ../docs/guestfs-performance.pod:161
 msgid "Performance of the fixed appliance"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:161
+#: ../docs/guestfs-performance.pod:163
 msgid ""
 "In our testing we did not find that using a fixed appliance gave any "
 "measurable performance benefit, even when the appliance was located in "
@@ -17739,19 +17779,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:170
+#: ../docs/guestfs-performance.pod:172
 msgid ""
 "Using a fixed appliance stops libguestfs from ever rebuilding the appliance, "
 "meaning that libguestfs will have more predictable start-up times."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:176
+#: ../docs/guestfs-performance.pod:178
 msgid "The appliance is loaded on demand.  A simple test such as:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:180
+#: ../docs/guestfs-performance.pod:182
 msgid ""
 "does not load very much of the appliance.  A real libguestfs program using "
 "complicated API calls would demand-load a lot more of the appliance.  Being "
@@ -17760,12 +17800,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:187
+#: ../docs/guestfs-performance.pod:189
 msgid "REDUCING THE NUMBER OF TIMES THE APPLIANCE IS LAUNCHED"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:189
+#: ../docs/guestfs-performance.pod:191
 msgid ""
 "By far the most effective, though not always the simplest way to get good "
 "performance is to ensure that the appliance is launched the minimum number "
@@ -17773,14 +17813,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:194
+#: ../docs/guestfs-performance.pod:196
 msgid ""
 "Try to call C<guestfs_launch> at most once per target virtual machine or "
 "disk image."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:197
+#: ../docs/guestfs-performance.pod:199
 msgid ""
 "Instead of using a separate instance of L<guestfish(1)> to make a series of "
 "changes to the same guest, use a single instance of guestfish and/or use the "
@@ -17788,7 +17828,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:201
+#: ../docs/guestfs-performance.pod:203
 msgid ""
 "Consider writing your program as a daemon which holds a guest open while "
 "making a series of changes.  Or marshal all the operations you want to "
@@ -17796,14 +17836,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:205
+#: ../docs/guestfs-performance.pod:207
 msgid ""
 "You can also try adding disks from multiple guests to a single appliance.  "
 "Before trying this, note the following points:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:212
+#: ../docs/guestfs-performance.pod:214
 msgid ""
 "Adding multiple guests to one appliance is a security problem because it may "
 "allow one guest to interfere with the disks of another guest.  Only do it if "
@@ -17811,7 +17851,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:219
+#: ../docs/guestfs-performance.pod:221
 msgid ""
 "There is a hard limit to the number of disks you can add to a single "
 "appliance.  Call L<guestfs(3)/guestfs_max_disks> to get this limit.  For "
@@ -17819,7 +17859,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:225
+#: ../docs/guestfs-performance.pod:227
 msgid ""
 "Using libguestfs this way is complicated.  Disks can have unexpected "
 "interactions: for example, if two guests use the same UUID for a filesystem "
@@ -17828,33 +17868,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:232
+#: ../docs/guestfs-performance.pod:234
 msgid ""
 "L<virt-df(1)> adds multiple disks by default, so the source code for this "
 "program would be a good place to start."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:235
+#: ../docs/guestfs-performance.pod:237
 msgid "SHORTENING THE TIME TAKEN FOR INSPECTION OF VMs"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:237
+#: ../docs/guestfs-performance.pod:239
 msgid ""
 "The main advice is obvious: Do not perform inspection (which is expensive) "
 "unless you need the results."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:240
+#: ../docs/guestfs-performance.pod:242
 msgid ""
 "If you previously performed inspection on the guest, then it may be safe to "
 "cache and reuse the results from last time."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:243
+#: ../docs/guestfs-performance.pod:245
 msgid ""
 "Some disks don't need to be inspected at all: for example, if you are "
 "creating a disk image, or if the disk image is not a VM, or if the disk "
@@ -17862,38 +17902,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:247
+#: ../docs/guestfs-performance.pod:249
 msgid ""
 "Even when basic inspection (C<guestfs_inspect_os>) is required, auxiliary "
 "inspection operations may be avoided:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:254
+#: ../docs/guestfs-performance.pod:256
 msgid "Mounting disks is only necessary to get further filesystem information."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:259
+#: ../docs/guestfs-performance.pod:261
 msgid ""
 "Listing applications (C<guestfs_inspect_list_applications>) is an expensive "
 "operation on Linux, but almost free on Windows."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:264
+#: ../docs/guestfs-performance.pod:266
 msgid ""
 "Generating a guest icon (C<guestfs_inspect_get_icon>) is cheap on Linux but "
 "expensive on Windows."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:269
+#: ../docs/guestfs-performance.pod:271
 msgid "PARALLEL APPLIANCES"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:271
+#: ../docs/guestfs-performance.pod:273
 msgid ""
 "Libguestfs appliances are mostly I/O bound and you can launch multiple "
 "appliances in parallel.  Provided there is enough free memory, there should "
@@ -17901,7 +17941,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:276
+#: ../docs/guestfs-performance.pod:278
 msgid ""
 "On a 2-core (4-thread) laptop with 16 GB of RAM, using the (not especially "
 "realistic) test Perl script below, the following plot shows excellent "
@@ -17909,7 +17949,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:281
+#: ../docs/guestfs-performance.pod:283
 #, no-wrap
 msgid ""
 "  12 ++---+----+----+----+-----+----+----+----+----+---++\n"
@@ -17954,7 +17994,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:320
+#: ../docs/guestfs-performance.pod:322
 msgid ""
 "It is possible to run many more than 20 appliances in parallel, but if you "
 "are using the libvirt backend then you should be aware that out of the box "
@@ -17962,7 +18002,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:324
+#: ../docs/guestfs-performance.pod:326
 msgid ""
 "The simple Perl script below was used to collect the data for the plot "
 "above, but there is much more information on this subject, including more "
@@ -17970,7 +18010,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:329
+#: ../docs/guestfs-performance.pod:331
 msgid ""
 "L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-appliances-in-"
 "parallel-part-1/> L<http://rwmj.wordpress.com/2013/02/25/multiple-libguestfs-"
@@ -17980,7 +18020,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:334
+#: ../docs/guestfs-performance.pod:336
 #, no-wrap
 msgid ""
 " #!/usr/bin/env perl\n"
@@ -17988,7 +18028,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:336
+#: ../docs/guestfs-performance.pod:338
 #, no-wrap
 msgid ""
 " use strict;\n"
@@ -18000,7 +18040,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:342
+#: ../docs/guestfs-performance.pod:344
 #, no-wrap
 msgid ""
 " sub test {\n"
@@ -18011,7 +18051,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:347
+#: ../docs/guestfs-performance.pod:349
 #, no-wrap
 msgid ""
 "     # You could add some work for libguestfs to do here.\n"
@@ -18019,7 +18059,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:349
+#: ../docs/guestfs-performance.pod:351
 #, no-wrap
 msgid ""
 "     $g->close ();\n"
@@ -18028,7 +18068,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:352
+#: ../docs/guestfs-performance.pod:354
 #, no-wrap
 msgid ""
 " # Get everything into cache.\n"
@@ -18037,7 +18077,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:355
+#: ../docs/guestfs-performance.pod:357
 #, no-wrap
 msgid ""
 " for my $nr_threads (1..20) {\n"
@@ -18059,12 +18099,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:371
+#: ../docs/guestfs-performance.pod:373
 msgid "USING USER-MODE LINUX"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:373
+#: ../docs/guestfs-performance.pod:375
 msgid ""
 "Since libguestfs 1.24, it has been possible to use the User-Mode Linux (uml) "
 "backend instead of KVM (see L<guestfs(3)/USER-MODE LINUX BACKEND>).  This "
@@ -18074,13 +18114,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:384
+#: ../docs/guestfs-performance.pod:386
 msgid ""
 "UML usually performs the same or slightly slower than KVM, on baremetal."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:388
+#: ../docs/guestfs-performance.pod:390
 msgid ""
 "However UML often performs the same under virtualization as it does on "
 "baremetal, whereas KVM can run much slower under virtualization (since "
@@ -18088,7 +18128,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:394
+#: ../docs/guestfs-performance.pod:396
 msgid ""
 "Upload and download is as much as 10 times slower on UML than KVM.  "
 "Libguestfs sends this data over the UML emulated serial port, which is far "
@@ -18096,48 +18136,48 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:400
+#: ../docs/guestfs-performance.pod:402
 msgid ""
 "UML lacks some features (eg. qcow2 support), so it may not be applicable at "
 "all."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:405
+#: ../docs/guestfs-performance.pod:407
 msgid ""
 "For some actual figures, see: L<http://rwmj.wordpress.com/2013/08/14/"
 "performance-of-user-mode-linux-as-a-libguestfs-backend/#content>"
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:408
+#: ../docs/guestfs-performance.pod:410
 msgid "TROUBLESHOOTING POOR PERFORMANCE"
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:410
+#: ../docs/guestfs-performance.pod:412
 msgid "Ensure hardware virtualization is available"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:412
+#: ../docs/guestfs-performance.pod:414
 msgid "Use F</proc/cpuinfo> and this page:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:414
+#: ../docs/guestfs-performance.pod:416
 msgid "http://virt-tools.org/learning/check-hardware-virt/"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:416
+#: ../docs/guestfs-performance.pod:418
 msgid ""
 "to ensure that hardware virtualization is available.  Note that you may need "
 "to enable it in your BIOS."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:419
+#: ../docs/guestfs-performance.pod:421
 msgid ""
 "Hardware virt is not usually available inside VMs, and libguestfs will run "
 "slowly inside another virtual machine whatever you do.  Nested "
@@ -18146,12 +18186,12 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:424
+#: ../docs/guestfs-performance.pod:426
 msgid "Ensure KVM is available"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:426
+#: ../docs/guestfs-performance.pod:428
 msgid ""
 "Ensure that KVM is enabled and available to the user that will run "
 "libguestfs.  It should be safe to set 0666 permissions on F</dev/kvm> and "
@@ -18159,75 +18199,80 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:430
+#: ../docs/guestfs-performance.pod:432
 msgid "Processors to avoid"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:432
+#: ../docs/guestfs-performance.pod:434
 msgid ""
 "Avoid processors that don't have hardware virtualization, and some "
 "processors which are simply very slow (AMD Geode being a great example)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:436
+#: ../docs/guestfs-performance.pod:438
 msgid "Xen dom0"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:438
+#: ../docs/guestfs-performance.pod:440
 msgid ""
 "In Xen, dom0 is a virtual machine, and so hardware virtualization is not "
 "available."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:441
+#: ../docs/guestfs-performance.pod:443
 msgid "DETAILED ANALYSIS"
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:443
+#: ../docs/guestfs-performance.pod:445
 msgid "Boot analysis"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:445
+#: ../docs/guestfs-performance.pod:447
 msgid ""
-"In the libguestfs source directory, in F<tests/qemu> is a program called "
-"C<boot-analysis>.  This program is able to produce a very detailed breakdown "
-"of the boot steps (eg. qemu, BIOS, kernel, libguestfs init script), and can "
-"measure how long it takes to perform each step."
+"In the libguestfs source directory, in F<utils/boot-analysis> is a program "
+"called C<boot-analysis>.  This program is able to produce a very detailed "
+"breakdown of the boot steps (eg. qemu, BIOS, kernel, libguestfs init "
+"script), and can measure how long it takes to perform each step."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:451
+#: ../docs/guestfs-performance.pod:453
 msgid "To run this program, do:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:453
+#: ../docs/guestfs-performance.pod:455
+#: ../utils/boot-analysis/boot-analysis.pod:22
 #, no-wrap
 msgid ""
 " make\n"
-" make -C tests/qemu boot-analysis\n"
-" ./run ./tests/qemu/boot-analysis\n"
+" ./run utils/boot-analysis/boot-analysis\n"
 "\n"
 msgstr ""
 
+#. type: textblock
+#: ../docs/guestfs-performance.pod:458
+msgid "There is a manual page F<utils/boot-benchmark/boot-analysis.1>"
+msgstr ""
+
 #. type: =head2
-#: ../docs/guestfs-performance.pod:457
+#: ../docs/guestfs-performance.pod:460
 msgid "Detailed timings using ts"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:459
+#: ../docs/guestfs-performance.pod:462
 msgid "Use the L<ts(1)> command (from moreutils) to show detailed timings:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:462
+#: ../docs/guestfs-performance.pod:465
 #, no-wrap
 msgid ""
 " $ guestfish -a /dev/null run -v |& ts -i '%.s'\n"
@@ -18247,29 +18292,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:476
+#: ../docs/guestfs-performance.pod:479
 msgid "The timestamps are seconds (incrementally since the previous line)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:478
+#: ../docs/guestfs-performance.pod:481
 msgid "Detailed timings using SystemTap"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:480
+#: ../docs/guestfs-performance.pod:483
 msgid ""
 "You can use SystemTap (L<stap(1)>) to get detailed timings from libguestfs "
 "programs."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:483
+#: ../docs/guestfs-performance.pod:486
 msgid "Save the following script as F<time.stap>:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:485 ../src/guestfs.pod:3148
+#: ../docs/guestfs-performance.pod:488 ../src/guestfs.pod:3148
 #, no-wrap
 msgid ""
 " global last;\n"
@@ -18279,7 +18324,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:487 ../src/guestfs.pod:3150
+#: ../docs/guestfs-performance.pod:490 ../src/guestfs.pod:3150
 #, no-wrap
 msgid ""
 " function display_time () {\n"
@@ -18299,7 +18344,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:494 ../src/guestfs.pod:3157
+#: ../docs/guestfs-performance.pod:497 ../src/guestfs.pod:3157
 #, no-wrap
 msgid ""
 "       printf (\"%d (+%d):\", now, delta);\n"
@@ -18311,7 +18356,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:497 ../src/guestfs.pod:3160
+#: ../docs/guestfs-performance.pod:500 ../src/guestfs.pod:3160
 #, no-wrap
 msgid ""
 " probe begin {\n"
@@ -18327,7 +18372,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:502 ../src/guestfs.pod:3165
+#: ../docs/guestfs-performance.pod:505 ../src/guestfs.pod:3165
 #, no-wrap
 msgid ""
 " /* Display all calls to static markers. */\n"
@@ -18340,7 +18385,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:509
+#: ../docs/guestfs-performance.pod:512
 #, no-wrap
 msgid ""
 " /* Display all calls to guestfs_* functions. */\n"
@@ -18353,12 +18398,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:516
+#: ../docs/guestfs-performance.pod:519
 msgid "Run it as root in one window:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:518
+#: ../docs/guestfs-performance.pod:521
 #, no-wrap
 msgid ""
 " # stap time.stap\n"
@@ -18367,14 +18412,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:521
+#: ../docs/guestfs-performance.pod:524
 msgid ""
 "It prints \"ready\" when SystemTap has loaded the program.  Run your "
 "libguestfs program, guestfish or a virt tool in another window.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:525
+#: ../docs/guestfs-performance.pod:528
 #, no-wrap
 msgid ""
 " $ guestfish -a /dev/null run\n"
@@ -18382,14 +18427,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:527
+#: ../docs/guestfs-performance.pod:530
 msgid ""
 "In the stap window you will see a large amount of output, with the time "
 "taken for each step shown (microseconds in parenthesis).  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:531
+#: ../docs/guestfs-performance.pod:534
 #, no-wrap
 msgid ""
 " xxxx (+0):\tguestfs_create \n"
@@ -18405,26 +18450,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:541
+#: ../docs/guestfs-performance.pod:544
 msgid ""
 "You will need to consult, and even modify, the source to libguestfs to fully "
 "understand the output."
 msgstr ""
 
 #. type: =head2
-#: ../docs/guestfs-performance.pod:544
+#: ../docs/guestfs-performance.pod:547
 msgid "Detailed debugging using gdb"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:546
+#: ../docs/guestfs-performance.pod:549
 msgid ""
 "You can attach to the appliance BIOS/kernel using gdb.  If you know what "
 "you're doing, this can be a useful way to diagnose boot regressions."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:550
+#: ../docs/guestfs-performance.pod:553
 msgid ""
 "Firstly, you have to change qemu so it runs with the C<-S> and C<-s> "
 "options.  These options cause qemu to pause at boot and allow you to attach "
@@ -18435,7 +18480,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:557 ../fish/guestfish.pod:1006
+#: ../docs/guestfs-performance.pod:560 ../fish/guestfish.pod:1006
 #: ../src/guestfs.pod:1418
 #, no-wrap
 msgid ""
@@ -18444,7 +18489,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:559
+#: ../docs/guestfs-performance.pod:562
 #, no-wrap
 msgid ""
 " # Set this to point to the real qemu binary.\n"
@@ -18453,7 +18498,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:562
+#: ../docs/guestfs-performance.pod:565
 #, no-wrap
 msgid ""
 " if [ \"$1\" != \"-global\" ]; then\n"
@@ -18467,14 +18512,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:570
+#: ../docs/guestfs-performance.pod:573
 msgid ""
 "Now run guestfish or another libguestfs tool with the qemu wrapper (see "
 "L<guestfs(3)/QEMU WRAPPERS> to understand what this is doing):"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:573
+#: ../docs/guestfs-performance.pod:576
 #, no-wrap
 msgid ""
 " LIBGUESTFS_HV=/path/to/qemu-wrapper guestfish -a /dev/null -v run\n"
@@ -18482,14 +18527,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:575
+#: ../docs/guestfs-performance.pod:578
 msgid ""
 "This should pause just after qemu launches.  In another window, attach to "
 "qemu using gdb:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:578
+#: ../docs/guestfs-performance.pod:581
 #, no-wrap
 msgid ""
 " $ gdb\n"
@@ -18503,7 +18548,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:586
+#: ../docs/guestfs-performance.pod:589
 msgid ""
 "At this point you can use standard gdb techniques, eg. hitting C<^C> to "
 "interrupt the boot and C<bt> get a stack trace, setting breakpoints, etc.  "
@@ -18512,40 +18557,41 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-performance.pod:592
+#: ../docs/guestfs-performance.pod:595
 msgid "PERFORMANCE REGRESSIONS IN OTHER PROGRAMS"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:594
+#: ../docs/guestfs-performance.pod:597
 msgid ""
 "Sometimes performance regressions happen in other programs (eg. qemu, the "
 "kernel) that cause problems for libguestfs."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:597
+#: ../docs/guestfs-performance.pod:600
 msgid ""
-"In the libguestfs source, F<tests/qemu/boot-benchmark-range.pl> is a script "
-"which can be used to benchmark libguestfs across a range of git commits in "
-"another project to find out if any commit is causing a slowdown (or speedup)."
+"In the libguestfs source, F<utils/boot-benchmark/boot-benchmark-range.pl> is "
+"a script which can be used to benchmark libguestfs across a range of git "
+"commits in another project to find out if any commit is causing a slowdown "
+"(or speedup)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:602
+#: ../docs/guestfs-performance.pod:606
 msgid "To find out how to use this script, consult the manual:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-performance.pod:604
+#: ../docs/guestfs-performance.pod:608
 #, no-wrap
 msgid ""
-" ./tests/qemu/boot-benchmark-range.pl --man\n"
+" ./utils/boot-benchmark/boot-benchmark-range.pl --man\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../docs/guestfs-performance.pod:608
+#: ../docs/guestfs-performance.pod:612
 msgid ""
 "L<supermin(1)>, L<guestfish(1)>, L<guestfs(3)>, L<guestfs-examples(3)>, "
 "L<guestfs-internals(1)>, L<libguestfs-make-fixed-appliance(1)>, L<stap(1)>, "
@@ -98628,6 +98674,193 @@ msgstr ""
 #. type: textblock
 #: ../tools/virt-win-reg:805
 msgid "Copyright (C) 2010 Red Hat Inc."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:3
+msgid "boot-analysis - Trace and analyze the appliance boot process"
+msgstr ""
+
+#. type: verbatim
+#: ../utils/boot-analysis/boot-analysis.pod:7
+#, no-wrap
+msgid ""
+" ./run utils/boot-analysis/boot-analysis\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:11
+msgid ""
+"Trace and analyze the appliance boot process to find out which steps are "
+"taking the most time.  It is not part of the standard tests."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:14
+#: ../utils/boot-benchmark/boot-benchmark.pod:20
+msgid ""
+"This needs to be run on a quiet machine, so that other processes disturb the "
+"timing as little as possible.  The program is completely safe to run at any "
+"time.  It doesn't read or write any external files, and it doesn't require "
+"root."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:19
+#: ../utils/boot-benchmark/boot-benchmark.pod:25
+msgid ""
+"You can run it from the build directory on the built copy of libguestfs like "
+"this:"
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:25
+#: ../utils/boot-benchmark/boot-benchmark.pod:31
+msgid ""
+"If you omit C<./run> then it is run on the installed copy of libguestfs."
+msgstr ""
+
+#. type: =head2
+#: ../utils/boot-analysis/boot-analysis.pod:27
+msgid "How it works"
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:29
+msgid ""
+"We create a libguestfs handle and register callback handlers so we can see "
+"appliance messages, trace events and so on."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:32
+msgid "We then launch the handle and shut it down as quickly as possible."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:34
+msgid ""
+"While the handle is running, events (seen by the callback handlers)  are "
+"written verbatim into an in-memory buffer, with timestamps."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:37
+msgid ""
+"Afterwards we analyze the result using regular expressions to try to "
+"identify a \"timeline\" for the handle (eg. at what time did the BIOS hand "
+"control to the kernel).  This analysis is done in F<utils/boot-analysis/boot-"
+"analysis-timeline.c>."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:42
+msgid ""
+"The whole process is repeated across a few runs, and the final timeline "
+"(including statistical analysis of the variation between runs) gets printed."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:46
+msgid ""
+"The program is very sensitive to the specific messages printed by BIOS/"
+"kernel/supermin/userspace.  It only works on x86-64 or aarch64.  It will "
+"require periodic adjustment of the regular expressions in order to keep "
+"things up to date."
+msgstr ""
+
+#. type: =item
+#: ../utils/boot-analysis/boot-analysis.pod:59
+#: ../utils/boot-benchmark/boot-benchmark.pod:41
+msgid "B<--append> \"OPTIONS\""
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:61
+#: ../utils/boot-benchmark/boot-benchmark.pod:43
+msgid "Append C<OPTIONS> to the kernel command line."
+msgstr ""
+
+#. type: =item
+#: ../utils/boot-analysis/boot-analysis.pod:63
+#, fuzzy
+#| msgid "B<--convert> raw"
+msgid "B<--color>"
+msgstr "B<--convert> raw"
+
+#. type: =item
+#: ../utils/boot-analysis/boot-analysis.pod:65
+msgid "B<--colour>"
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:67
+msgid ""
+"Output colours (as ANSI escape sequences), even if the output is not a "
+"terminal."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:74
+#: ../utils/boot-benchmark/boot-benchmark.pod:49
+msgid "Set the appliance memory size in MB."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:78
+#: ../utils/boot-benchmark/boot-benchmark.pod:53
+msgid "Enable C<N> virtual CPUs."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:84
+msgid "More verbose output, useful for debugging problems."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:90
+#: ../utils/boot-benchmark/boot-benchmark.pod:59
+#, fuzzy
+#| msgid "See L<guestfs-erlang(3)>."
+msgid "L<guestfs-performance(1)>, L<http://libguestfs.org/>."
+msgstr "Vea L<guestfs-erlang(3)>."
+
+#. type: textblock
+#: ../utils/boot-analysis/boot-analysis.pod:99
+#: ../utils/boot-benchmark/boot-benchmark.pod:68
+msgid "Copyright (C) 2016 Red Hat Inc."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-benchmark/boot-benchmark.pod:3
+msgid ""
+"boot-benchmark - Benchmark the time taken to boot the libguestfs appliance"
+msgstr ""
+
+#. type: verbatim
+#: ../utils/boot-benchmark/boot-benchmark.pod:7
+#, no-wrap
+msgid ""
+" ./run utils/boot-benchmark/boot-benchmark\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-benchmark/boot-benchmark.pod:11
+msgid "Benchmark the time taken to boot the libguestfs appliance."
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-benchmark/boot-benchmark.pod:13
+msgid "It is essentially the same as doing:"
+msgstr ""
+
+#. type: textblock
+#: ../utils/boot-benchmark/boot-benchmark.pod:17
+msgid ""
+"except that it warms up the caches and repeats the test many times, printing "
+"out the mean time and standard deviation."
 msgstr ""
 
 #. type: textblock

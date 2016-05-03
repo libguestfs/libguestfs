@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-04-30 17:17+0100\n"
+"POT-Creation-Date: 2016-05-03 14:09+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -1708,12 +1708,12 @@ msgid "List available templates"
 msgstr "Показати список доступних шаблонів"
 
 #: ../mllib/common_utils.ml:579
-msgid "List long options"
-msgstr "Вивести список довгих версій параметрів"
+msgid "List long options (internal)"
+msgstr ""
 
 #: ../mllib/common_utils.ml:578
-msgid "List short options"
-msgstr "Показати список скорочених параметрів"
+msgid "List short options (internal)"
+msgstr ""
 
 #: ../sysprep/main.ml:132
 msgid "List supported operations"
@@ -2868,12 +2868,12 @@ msgid "Unregistering with subscription-manager"
 msgstr "Скасовуємо реєстрацію за допомогою subscription-manager"
 
 #: ../customize/customize_cmdline.ml:381
-msgid "Update core packages"
-msgstr "Оновити основні пакунки"
+msgid "Update packages"
+msgstr ""
 
 #: ../customize/customize_run.ml:323
-msgid "Updating core packages"
-msgstr "Оновлюємо основні пакунки"
+msgid "Updating packages"
+msgstr ""
 
 #: ../customize/customize_cmdline.ml:391
 msgid "Upload local file to destination"
@@ -10521,7 +10521,7 @@ msgstr "qemu ще не запущено"
 msgid "parameter '%s' isn't allowed"
 msgstr "не можна використовувати параметр «%s»"
 
-#: src/launch.c:471
+#: src/launch.c:472
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -10989,6 +10989,18 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "List long options"
+#~ msgstr "Вивести список довгих версій параметрів"
+
+#~ msgid "List short options"
+#~ msgstr "Показати список скорочених параметрів"
+
+#~ msgid "Update core packages"
+#~ msgstr "Оновити основні пакунки"
+
+#~ msgid "Updating core packages"
+#~ msgstr "Оновлюємо основні пакунки"
 
 #~ msgid "--no-trim: %s: mountpoint/device name does not begin with '/'"
 #~ msgstr ""
