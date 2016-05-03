@@ -34,7 +34,7 @@ functions in files under F<src>.  Others are forwarded to the daemon
 where (after some generated RPC marshalling) they appear as C
 functions in files under F<daemon>.
 
-To build from source, first read the C<README> file.
+To build from source, first read the L<guestfs-building(1)>.
 
 =head1 ADDING A NEW API
 
