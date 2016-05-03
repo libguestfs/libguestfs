@@ -52,6 +52,7 @@ update-gmo: Makefile $(GMOFILES)
 
 XGETTEXT_ARGS = \
 	--default-domain=$(DOMAIN) \
+	--from-code=utf-8 \
 	--add-comments=TRANSLATORS: \
 	--keyword=_ --keyword=N_ --keyword=__ --keyword=__x \
 	--flag=error:3:c-format \
