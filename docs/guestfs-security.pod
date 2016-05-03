@@ -66,15 +66,15 @@ data, is thought to be extremely hard to do, although we never say
 'never' about security issues.
 
 Callers can also reduce the attack surface by forcing the filesystem
-type when mounting (use L</guestfs_mount_vfs>).
+type when mounting (use L<guestfs(3)/guestfs_mount_vfs>).
 
 =head2 General security considerations
 
 Be careful with any files or data that you download from a guest (by
-"download" we mean not just the L</guestfs_download> command but any
-command that reads files, filenames, directories or anything else from
-a disk image).  An attacker could manipulate the data to fool your
-program into doing the wrong thing.  Consider cases such as:
+"download" we mean not just the L<guestfs(3)/guestfs_download> command
+but any command that reads files, filenames, directories or anything
+else from a disk image).  An attacker could manipulate the data to
+fool your program into doing the wrong thing.  Consider cases such as:
 
 =over 4
 
@@ -114,11 +114,11 @@ no amount of protocol security will save you from the consequences.
 
 =head2 Inspection security
 
-Parts of the inspection API (see L</INSPECTION>) return untrusted
-strings directly from the guest, and these could contain any 8 bit
-data.  Callers should be careful to escape these before printing them
-to a structured file (for example, use HTML escaping if creating a web
-page).
+Parts of the inspection API (see L<guestfs(3)/INSPECTION>) return
+untrusted strings directly from the guest, and these could contain any
+8 bit data.  Callers should be careful to escape these before printing
+them to a structured file (for example, use HTML escaping if creating
+a web page).
 
 Guest configuration may be altered in unusual ways by the
 administrator of the virtual machine, and may not reflect reality
@@ -140,7 +140,7 @@ Be very cautious about running commands from the guest.  By running a
 command in the guest, you are giving CPU time to a binary that you do
 not control, under the same user account as the library, albeit
 wrapped in qemu virtualization.  More information and alternatives can
-be found in the section L</RUNNING COMMANDS>.
+be found in L<guestfs(3)/RUNNING COMMANDS>.
 
 =head1 HISTORICAL SECURITY ISSUES IN LIBGUESTFS
 
@@ -181,18 +181,19 @@ You have enabled the network or have opened the disk in write mode.
 =item 2.
 
 You are also running untrusted code from the guest (see
-L</RUNNING COMMANDS>).
+L<guestfs(3)/RUNNING COMMANDS>).
 
 =back
 
 The way to avoid this is to specify the expected disk format when
 adding disks (the optional C<format> option to
-L</guestfs_add_drive_opts>).  You should always do this if the disk is
-raw format, and it's a good idea for other cases too.
-(See also L</DISK IMAGE FORMATS>).
+L<guestfs(3)/guestfs_add_drive_opts>).  You should always do this if
+the disk is raw format, and it's a good idea for other cases too.
+(See also L<guestfs(3)/DISK IMAGE FORMATS>).
 
-For disks added from libvirt using calls like L</guestfs_add_domain>,
-the format is fetched from libvirt and passed through.
+For disks added from libvirt using calls like
+L<guestfs(3)/guestfs_add_domain>, the format is fetched from libvirt
+and passed through.
 
 For libguestfs tools, use the I<--format> command line parameter as
 appropriate.
@@ -288,9 +289,10 @@ L<https://www.redhat.com/archives/libguestfs/2014-September/msg00252.html>
 =head2 CVE-2014-8485
 
 These two bugs in binutils affect the GNU L<strings(1)> program, and
-thus the L</guestfs_strings> and L</guestfs_strings_e> APIs in
-libguestfs.  Running strings on an untrusted file could cause
-arbitrary code execution (confined to the libguestfs appliance).
+thus the L<guestfs(3)/guestfs_strings> and
+L<guestfs(3)/guestfs_strings_e> APIs in libguestfs.  Running strings
+on an untrusted file could cause arbitrary code execution (confined to
+the libguestfs appliance).
 
 In libguestfs E<ge> 1.29.5 and E<ge> 1.28.3, libguestfs uses the
 C<strings> I<-a> option to avoid BFD parsing on the file.
@@ -309,7 +311,7 @@ qemu process is possible.  This could affect you if:
 =item *
 
 your libguestfs program runs untrusted programs out of the guest
-(using L</guestfs_sh> etc), or
+(using L<guestfs(3)/guestfs_sh> etc), or
 
 =item *
 
