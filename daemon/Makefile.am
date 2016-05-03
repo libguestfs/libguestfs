@@ -227,10 +227,12 @@ guestfsd_CFLAGS = \
 # Manual pages and HTML files for the website.
 if INSTALL_DAEMON
 man_MANS = guestfsd.8
+noinst_DATA =
 else
-noinst_MANS = guestfsd.8
+# It should be noinst_MANS but that doesn't work.
+noinst_DATA = guestfsd.8
 endif
-noinst_DATA = $(top_builddir)/website/guestfsd.8.html
+noinst_DATA += $(top_builddir)/website/guestfsd.8.html
 
 guestfsd.8 $(top_builddir)/website/guestfsd.8.html: stamp-guestfsd.pod
 
