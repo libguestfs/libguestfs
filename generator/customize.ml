@@ -421,7 +421,7 @@ This command performs a L<touch(1)>-like operation on C<FILE>.";
   { op_name = "update";
     op_type = Unit;
     op_discrim = "`Update";
-    op_shortdesc = "Update core packages";
+    op_shortdesc = "Update packages";
     op_pod_longdesc = "\
 Do the equivalent of C<yum update>, C<apt-get upgrade>, or whatever
 command is required to update the packages already installed in the
