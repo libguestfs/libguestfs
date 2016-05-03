@@ -38,6 +38,8 @@ run it, do:
  make
  ./run utils/boot-benchmark/boot-benchmark
 
+There is a manual page F<utils/boot-benchmark/boot-benchmark.1>
+
 =head3 Explanation
 
 The guestfish command above starts up the libguestfs appliance on a
@@ -452,6 +454,8 @@ To run this program, do:
 
  make
  ./run utils/boot-analysis/boot-analysis
+
+There is a manual page F<utils/boot-benchmark/boot-analysis.1>
 
 =head2 Detailed timings using ts
 

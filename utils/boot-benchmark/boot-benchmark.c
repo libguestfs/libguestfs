@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* Benchmark the time taken to boot the libguestfs appliance. */
+/* See instructions in boot-benchmark.1 */
 
 #include <config.h>
 

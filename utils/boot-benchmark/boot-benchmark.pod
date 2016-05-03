@@ -1,0 +1,68 @@
+=head1 NAME
+
+boot-benchmark - Benchmark the time taken to boot the libguestfs appliance
+
+=head1 SYNOPSIS
+
+ ./run utils/boot-benchmark/boot-benchmark
+
+=head1 DESCRIPTION
+
+Benchmark the time taken to boot the libguestfs appliance.
+
+It is essentially the same as doing:
+
+ time guestfish -a /dev/null run
+
+except that it warms up the caches and repeats the test many times,
+printing out the mean time and standard deviation.
+
+This needs to be run on a quiet machine, so that other processes
+disturb the timing as little as possible.  The program is completely
+safe to run at any time.  It doesn't read or write any external files,
+and it doesn't require root.
+
+You can run it from the build directory on the built copy of
+libguestfs like this:
+
+ make
+ ./run utils/boot-benchmark/boot-benchmark
+
+If you omit C<./run> then it is run on the installed copy of libguestfs.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Display brief help.
+
+=item B<--append> "OPTIONS"
+
+Append C<OPTIONS> to the kernel command line.
+
+=item B<-m> MB
+
+=item B<--memsize> MB
+
+Set the appliance memory size in MB.
+
+=item B<--smp> N
+
+Enable C<N> virtual CPUs.
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfs-performance(1)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2016 Red Hat Inc.
