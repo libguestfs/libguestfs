@@ -222,6 +222,7 @@ EXTRA_DIST = \
 	tests/automake2junit.ml \
 	tmp/.gitignore \
 	update-bugs.sh \
+	utils/README \
 	valgrind-suppressions \
 	website/bugs.png \
 	website/communicate.png \
