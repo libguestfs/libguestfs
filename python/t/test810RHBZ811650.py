@@ -27,7 +27,7 @@ class Test810RHBZ811650(unittest.TestCase):
         g.disk_create("rhbz811650.img", "raw", 500 * 1024 * 1024)
 
         # Deliberate error: the disk format is supposed to be raw.
-        g.add_drive("rhbz811650.img", format="qcow2");
+        g.add_drive("rhbz811650.img", format="qcow2")
 
         # Because error() wasn't being called, guestfs_last_error
         # would return NULL, causing a segfault in the Python bindings
