@@ -39,7 +39,7 @@ def skipUnlessLibvirtHasCPointer():
         return unittest.skip("could not import libvirt")
     # Check we're using the version of libvirt-python that has
     # c_pointer() methods.
-    if not "c_pointer" in dir(libvirt.open(None)):
+    if "c_pointer" not in dir(libvirt.open(None)):
         return unittest.skip("libvirt-python doesn't support c_pointer()")
     return lambda func: func
 

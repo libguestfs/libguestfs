@@ -738,7 +738,7 @@ class GuestFS(object):
             raise ClosedHandle(\"GuestFS: method called on closed handle\")
 
     def _maybe_convert_to_dict(self, r):
-        if self._python_return_dict == True:
+        if self._python_return_dict:
             r = dict(r)
         return r
 
