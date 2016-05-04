@@ -227,7 +227,7 @@ set_config_defaults (struct config *config)
     perror ("gethostname");
     /* Generate a simple random name. */
     if (guestfs_int_random_string (hostname, 8) == -1)
-      error (EXIT_FAILURE, errno, "/dev/random");
+      error (EXIT_FAILURE, errno, "guestfs_int_random_string");
   } else {
     char *p;
 
