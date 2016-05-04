@@ -229,7 +229,7 @@ set_config_defaults (struct config *config)
     perror ("gethostname");
     /* Generate a simple random name. */
     if (guestfs_int_random_string (hostname, 8) == -1) {
-      perror ("/dev/urandom");
+      perror ("guestfs_int_random_string");
       exit (EXIT_FAILURE);
     }
   } else {
