@@ -28,19 +28,19 @@ import sys
 import guestfs
 from .tests_helper import *
 
-@skipUnlessArchMatches ("(i.86|x86_64)")   # If the architecture doesn't support IDE, skip the test.
-@skipUnlessGuestfsBackendIs ('libvirt')
-@skipUnlessLibvirtHasCPointer ()
-class Test820RHBZ912499 (unittest.TestCase):
-    def setUp (self):
+@skipUnlessArchMatches("(i.86|x86_64)")    # If the architecture doesn't support IDE, skip the test.
+@skipUnlessGuestfsBackendIs('libvirt')
+@skipUnlessLibvirtHasCPointer()
+class Test820RHBZ912499(unittest.TestCase):
+    def setUp(self):
         # Create a test disk.
-        self.filename = os.getcwd () + "/820-rhbz912499.img"
-        guestfs.GuestFS().disk_create (self.filename, "raw", 1024*1024*1024)
+        self.filename = os.getcwd() + "/820-rhbz912499.img"
+        guestfs.GuestFS().disk_create(self.filename, "raw", 1024*1024*1024)
 
         # Create a new domain.  This won't work, it will just hang when
         # booted.  But that's sufficient for the test.
-        self.domname = ''.join (random.choice (string.ascii_uppercase)
-                                for _ in range (8))
+        self.domname = ''.join(random.choice(string.ascii_uppercase)
+                               for _ in range(8))
         self.domname = "tmp-" + self.domname
 
         self.xml = """
@@ -62,33 +62,33 @@ class Test820RHBZ912499 (unittest.TestCase):
 </domain>
 """ % (self.domname, self.filename)
 
-    def test_rhbz912499 (self):
+    def test_rhbz912499(self):
         import libvirt
 
-        conn = libvirt.open (None)
-        dom = conn.createXML (self.xml,
-                              libvirt.VIR_DOMAIN_START_AUTODESTROY)
-        self.assertIsNotNone (dom)
+        conn = libvirt.open(None)
+        dom = conn.createXML(self.xml,
+                             libvirt.VIR_DOMAIN_START_AUTODESTROY)
+        self.assertIsNotNone(dom)
 
-        print ("temporary domain %s is running" % self.domname)
+        print("temporary domain %s is running" % self.domname)
 
         # Libvirt should have labelled the disk.
-        print ("before starting libguestfs")
-        before = check_output (["ls", "-Z", self.filename])
-        print ("disk label = %s" % before)
+        print("before starting libguestfs")
+        before = check_output(["ls", "-Z", self.filename])
+        print("disk label = %s" % before)
 
         # Now see if we can open the domain with libguestfs without
         # disturbing the label.
-        g = guestfs.GuestFS ()
-        r = g.add_libvirt_dom (dom, readonly = 1)
-        self.assertEqual (r, 1)
-        g.launch ()
+        g = guestfs.GuestFS()
+        r = g.add_libvirt_dom(dom, readonly=1)
+        self.assertEqual(r, 1)
+        g.launch()
 
-        print ("after starting libguestfs")
-        after = check_output (["ls", "-Z", self.filename])
-        print ("disk label = %s" % after)
+        print("after starting libguestfs")
+        after = check_output(["ls", "-Z", self.filename])
+        print("disk label = %s" % after)
 
-        self.assertEqual (before, after)
+        self.assertEqual(before, after)
 
-    def tearDown (self):
-        os.unlink (self.filename)
+    def tearDown(self):
+        os.unlink(self.filename)

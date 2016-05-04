@@ -632,10 +632,10 @@ and generate_python_py () =
 \"\"\"Python bindings for libguestfs
 
 import guestfs
-g = guestfs.GuestFS (python_return_dict=True)
-g.add_drive_opts (\"guest.img\", format=\"raw\")
-g.launch ()
-parts = g.list_partitions ()
+g = guestfs.GuestFS(python_return_dict=True)
+g.add_drive_opts(\"guest.img\", format=\"raw\")
+g.launch()
+parts = g.list_partitions()
 
 The guestfs module provides a Python binding to the libguestfs API
 for examining and modifying virtual machine disk images.
@@ -665,14 +665,14 @@ sequence of calls:
 
 # Create the handle, call add_drive* at least once, and possibly
 # several times if the guest has multiple block devices:
-g = guestfs.GuestFS ()
-g.add_drive_opts (\"guest.img\", format=\"raw\")
+g = guestfs.GuestFS()
+g.add_drive_opts(\"guest.img\", format=\"raw\")
 
 # Launch the qemu subprocess and wait for it to become ready:
-g.launch ()
+g.launch()
 
 # Now you can issue commands, for example:
-logvols = g.lvs ()
+logvols = g.lvs()
 
 \"\"\"
 
@@ -690,9 +690,9 @@ import libguestfsmod
   pr "\n";
   pr "\
 
-def event_to_string (events):
+def event_to_string(events):
     \"\"\"Return a printable string from an event or event bitmask\"\"\"
-    return libguestfsmod.event_to_string (events)
+    return libguestfsmod.event_to_string(events)
 
 class ClosedHandle(ValueError):
     pass
@@ -700,8 +700,8 @@ class ClosedHandle(ValueError):
 class GuestFS(object):
     \"\"\"Instances of this class are libguestfs API handles.\"\"\"
 
-    def __init__ (self, python_return_dict=False,
-                  environment=True, close_on_exit=True):
+    def __init__(self, python_return_dict=False,
+                 environment=True, close_on_exit=True):
         \"\"\"Create a new libguestfs handle.
 
         Note about \"python_return_dict\" flag:
@@ -718,27 +718,27 @@ class GuestFS(object):
         flags = 0
         if not environment: flags |= 1
         if not close_on_exit: flags |= 2
-        self._o = libguestfsmod.create (flags)
+        self._o = libguestfsmod.create(flags)
         self._python_return_dict = python_return_dict
 
         # If we don't do this, the program name is always set to 'python'.
-        program = os.path.basename (sys.argv[0])
-        libguestfsmod.set_program (self._o, program)
+        program = os.path.basename(sys.argv[0])
+        libguestfsmod.set_program(self._o, program)
 
-    def __del__ (self):
+    def __del__(self):
         if self._o:
-            libguestfsmod.close (self._o)
+            libguestfsmod.close(self._o)
 
-    def _check_not_closed (self):
+    def _check_not_closed(self):
         if not self._o:
-            raise ClosedHandle (\"GuestFS: method called on closed handle\")
+            raise ClosedHandle(\"GuestFS: method called on closed handle\")
 
-    def _maybe_convert_to_dict (self, r):
+    def _maybe_convert_to_dict(self, r):
         if self._python_return_dict == True:
-            r = dict (r)
+            r = dict(r)
         return r
 
-    def close (self):
+    def close(self):
         \"\"\"Explicitly close the guestfs handle.
 
         The handle is closed implicitly when its reference count goes
@@ -749,11 +749,11 @@ class GuestFS(object):
         any method on the handle (except the implicit call to
         __del__ which happens when the final reference is cleaned up).
         \"\"\"
-        self._check_not_closed ()
-        libguestfsmod.close (self._o)
+        self._check_not_closed()
+        libguestfsmod.close(self._o)
         self._o = None
 
-    def set_event_callback (self, cb, event_bitmask):
+    def set_event_callback(self, cb, event_bitmask):
         \"\"\"Register an event callback.
 
         Register \"cb\" as a callback function for all of the
@@ -775,20 +775,20 @@ class GuestFS(object):
         \"guestfs_set_event_callback\" in guestfs(3) before using
         this function.
         \"\"\"
-        self._check_not_closed ()
-        return libguestfsmod.set_event_callback (self._o, cb, event_bitmask)
+        self._check_not_closed()
+        return libguestfsmod.set_event_callback(self._o, cb, event_bitmask)
 
-    def delete_event_callback (self, event_handle):
+    def delete_event_callback(self, event_handle):
         \"\"\"Delete an event callback.\"\"\"
-        self._check_not_closed ()
-        libguestfsmod.delete_event_callback (self._o, event_handle)
+        self._check_not_closed()
+        libguestfsmod.delete_event_callback(self._o, event_handle)
 
 ";
 
   List.iter (
     fun f ->
       let ret, args, optargs = f.style in
-      pr "    def %s (self" f.name;
+      pr "    def %s(self" f.name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
       List.iter (
         fun optarg ->
@@ -840,12 +840,12 @@ class GuestFS(object):
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ | GUID _ -> ()
         | StringList n | DeviceList n | FilenameList n ->
-          pr "        %s = list (%s)\n" n n
+          pr "        %s = list(%s)\n" n n
         | Pointer (_, n) ->
           pr "        %s = %s.c_pointer()\n" n n
       ) args;
-      pr "        self._check_not_closed ()\n";
-      pr "        r = libguestfsmod.%s (self._o" f.name;
+      pr "        self._check_not_closed()\n";
+      pr "        r = libguestfsmod.%s(self._o" f.name;
       List.iter (fun arg -> pr ", %s" (name_of_argt arg))
         (args @ args_of_optargs optargs);
       pr ")\n";
@@ -855,7 +855,7 @@ class GuestFS(object):
        *)
       (match ret with
       | RHashtable _ ->
-        pr "        r = self._maybe_convert_to_dict (r)\n";
+        pr "        r = self._maybe_convert_to_dict(r)\n";
       | _ -> ()
       );
 

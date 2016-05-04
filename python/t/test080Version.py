@@ -21,19 +21,19 @@ import os
 import guestfs
 from .tests_helper import *
 
-class Test080Version (unittest.TestCase):
-    def setUp (self):
-        self.g = guestfs.GuestFS (python_return_dict=True)
-        self.version = self.g.version ()
+class Test080Version(unittest.TestCase):
+    def setUp(self):
+        self.g = guestfs.GuestFS(python_return_dict=True)
+        self.version = self.g.version()
 
-    def test_major (self):
-        self.assertEqual (self.version['major'], 1)
+    def test_major(self):
+        self.assertEqual(self.version['major'], 1)
 
-    def test_minor (self):
-        self.assertIsInstance (self.version['minor'], int_type)
+    def test_minor(self):
+        self.assertIsInstance(self.version['minor'], int_type)
 
-    def test_release (self):
-        self.assertIsInstance (self.version['release'], int_type)
+    def test_release(self):
+        self.assertIsInstance(self.version['release'], int_type)
 
-    def test_extra (self):
-        self.assertIsInstance (self.version['extra'], str)
+    def test_extra(self):
+        self.assertIsInstance(self.version['extra'], str)

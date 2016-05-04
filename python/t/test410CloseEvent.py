@@ -21,18 +21,18 @@ import guestfs
 
 close_invoked = 0
 
-def close_callback (ev, eh, buf, array):
+def close_callback(ev, eh, buf, array):
     global close_invoked
     close_invoked += 1
 
-class Test410CloseEvent (unittest.TestCase):
-    def test_close_event (self):
-        g = guestfs.GuestFS (python_return_dict=True)
+class Test410CloseEvent(unittest.TestCase):
+    def test_close_event(self):
+        g = guestfs.GuestFS(python_return_dict=True)
 
         # Register a callback for the close event.
-        g.set_event_callback (close_callback, guestfs.EVENT_CLOSE)
+        g.set_event_callback(close_callback, guestfs.EVENT_CLOSE)
 
         # Close the handle.  The close callback should be invoked.
-        self.assertEqual (close_invoked, 0)
-        g.close ()
-        self.assertEqual (close_invoked, 1)
+        self.assertEqual(close_invoked, 0)
+        g.close()
+        self.assertEqual(close_invoked, 1)

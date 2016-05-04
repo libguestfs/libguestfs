@@ -21,7 +21,7 @@ import guestfs
 
 log_invoked = 0
 
-def log_callback (ev,eh,buf,array):
+def log_callback(ev, eh, buf, array):
     global log_invoked
     log_invoked += 1
 
@@ -29,26 +29,26 @@ def log_callback (ev,eh,buf,array):
         buf = buf.rstrip()
 
     # Log what happened.
-    print ("python event logged: event=%s eh=%d buf='%s' array=%s" %
-           (guestfs.event_to_string (ev), eh, buf, array))
+    print("python event logged: event=%s eh=%d buf='%s' array=%s" %
+          (guestfs.event_to_string(ev), eh, buf, array))
 
-class Test420LogMessages (unittest.TestCase):
-    def test_log_messages (self):
-        g = guestfs.GuestFS (python_return_dict=True)
+class Test420LogMessages(unittest.TestCase):
+    def test_log_messages(self):
+        g = guestfs.GuestFS(python_return_dict=True)
 
         # Register an event callback for all log messages.
         events = guestfs.EVENT_APPLIANCE | guestfs.EVENT_LIBRARY \
                  | guestfs.EVENT_WARNING | guestfs.EVENT_TRACE
-        g.set_event_callback (log_callback, events)
+        g.set_event_callback(log_callback, events)
 
         # Now make sure we see some messages.
-        g.set_trace (1)
-        g.set_verbose (1)
+        g.set_trace(1)
+        g.set_verbose(1)
 
         # Do some stuff.
-        g.add_drive_ro ("/dev/null")
-        g.set_autosync (1)
+        g.add_drive_ro("/dev/null")
+        g.set_autosync(1)
 
-        g.close ()
+        g.close()
 
-        self.assertNotEqual (log_invoked, 0)
+        self.assertNotEqual(log_invoked, 0)

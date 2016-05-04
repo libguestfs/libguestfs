@@ -430,7 +430,7 @@ and generate_python_bindtests () =
   pr "\
 import guestfs
 
-g = guestfs.GuestFS ()
+g = guestfs.GuestFS()
 ";
 
   let mkargs args optargs =
@@ -446,7 +446,7 @@ g = guestfs.GuestFS ()
         | CallOptString None -> "None"
         | CallOptString (Some s) -> sprintf "\"%s\"" s
         | CallStringList xs ->
-            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+            "[" ^ String.concat ", " (List.map (sprintf "\"%s\"") xs) ^ "]"
         | CallInt i -> string_of_int i
         | CallInt64 i -> Int64.to_string i
         | CallBool b -> if b then "1" else "0"
@@ -461,16 +461,16 @@ g = guestfs.GuestFS ()
         | CallOString (n, v)  -> n ^ "=\"" ^ v ^ "\""
         | CallOStringList (n, xs) ->
           n ^ "=" ^
-            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+            "[" ^ String.concat ", " (List.map (sprintf "\"%s\"") xs) ^ "]"
       ) optargs
     )
   in
 
   generate_lang_bindtests (
-    fun f args optargs -> pr "g.%s (%s)\n" f (mkargs args optargs)
+    fun f args optargs -> pr "g.%s(%s)\n" f (mkargs args optargs)
   );
 
-  pr "print (\"EOF\")\n"
+  pr "print(\"EOF\")\n"
 
 and generate_ruby_bindtests () =
   generate_header HashStyle GPLv2plus;

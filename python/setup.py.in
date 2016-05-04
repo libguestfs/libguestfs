@@ -18,45 +18,45 @@
 
 from distutils.core import setup, Extension
 
-setup (name='guestfs',
-       version='@PACKAGE_VERSION@',
+setup(name='guestfs',
+      version='@PACKAGE_VERSION@',
 
-       description='access and modify virtual machine disk images',
-       long_description="""
+      description='access and modify virtual machine disk images',
+      long_description="""
 libguestfs is a library and set of tools for accessing and modifying
 virtual machine (VM) disk images.
 
 This package contains the Python bindings for libguestfs.
 """,
 
-       author='The @PACKAGE_NAME@ team',
-       author_email='libguestfs@redhat.com',
-       url='http://libguestfs.org',
+      author='The @PACKAGE_NAME@ team',
+      author_email='libguestfs@redhat.com',
+      url='http://libguestfs.org',
 
-       license='LGPLv2+',
+      license='LGPLv2+',
 
-       classifiers=[
-           'Development Status :: 5 - Production/Stable',
-           'Environment :: Console',
-           'Intended Audience :: Developers',
-           'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
-           'Operating System :: POSIX :: Linux',
-           'Programming Language :: C',
-           'Programming Language :: Python :: 2',
-           'Programming Language :: Python :: 3',
-           'Programming Language :: Python :: Implementation :: CPython',
-           'Topic :: Utilities',
-       ],
+      classifiers=[
+          'Development Status :: 5 - Production/Stable',
+          'Environment :: Console',
+          'Intended Audience :: Developers',
+          'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
+          'Operating System :: POSIX :: Linux',
+          'Programming Language :: C',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: Implementation :: CPython',
+          'Topic :: Utilities',
+      ],
 
-       py_modules=['guestfs'],
-       ext_modules=[
-           Extension (
-               'libguestfsmod',
-               ['guestfs-py-byhand.c', 'guestfs-py.c', 'utils.c'],
+      py_modules=['guestfs'],
+      ext_modules=[
+          Extension(
+              'libguestfsmod',
+              ['guestfs-py-byhand.c', 'guestfs-py.c', 'utils.c'],
 
-               include_dirs=['.', '../src'],
-               libraries=['guestfs'],
-               define_macros=[('GUESTFS_PRIVATE', '1')],
-           )
-       ]
-   )
+              include_dirs=['.', '../src'],
+              libraries=['guestfs'],
+              define_macros=[('GUESTFS_PRIVATE', '1')],
+          )
+      ]
+)

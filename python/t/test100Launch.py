@@ -19,16 +19,16 @@ import unittest
 import os
 import guestfs
 
-class Test100Launch (unittest.TestCase):
-    def test_launch (self):
-        g = guestfs.GuestFS (python_return_dict=True)
-        g.add_drive_scratch (500 * 1024 * 1024)
-        g.launch ()
+class Test100Launch(unittest.TestCase):
+    def test_launch(self):
+        g = guestfs.GuestFS(python_return_dict=True)
+        g.add_drive_scratch(500 * 1024 * 1024)
+        g.launch()
 
-        g.pvcreate ("/dev/sda")
-        g.vgcreate ("VG", ["/dev/sda"])
-        g.lvcreate ("LV1", "VG", 200)
-        g.lvcreate ("LV2", "VG", 200)
-        self.assertEqual (g.lvs (), ["/dev/VG/LV1", "/dev/VG/LV2"])
-        g.shutdown ()
-        g.close ()
+        g.pvcreate("/dev/sda")
+        g.vgcreate("VG", ["/dev/sda"])
+        g.lvcreate("LV1", "VG", 200)
+        g.lvcreate("LV2", "VG", 200)
+        self.assertEqual(g.lvs(), ["/dev/VG/LV1", "/dev/VG/LV2"])
+        g.shutdown()
+        g.close()

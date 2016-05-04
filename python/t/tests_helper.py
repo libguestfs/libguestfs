@@ -27,7 +27,7 @@ else:
     int_type = long
 
 
-def skipUnlessLibvirtHasCPointer ():
+def skipUnlessLibvirtHasCPointer():
     """
     Skip the current class/method if:
       (a) libvirt cannot be imported (e.g. not installed)
@@ -36,35 +36,35 @@ def skipUnlessLibvirtHasCPointer ():
     try:
         import libvirt
     except:
-        return unittest.skip ("could not import libvirt")
+        return unittest.skip("could not import libvirt")
     # Check we're using the version of libvirt-python that has c_pointer() methods.
-    if not "c_pointer" in dir (libvirt.open (None)):
-        return unittest.skip ("libvirt-python doesn't support c_pointer()")
+    if not "c_pointer" in dir(libvirt.open(None)):
+        return unittest.skip("libvirt-python doesn't support c_pointer()")
     return lambda func: func
 
 
-def skipUnlessGuestfsBackendIs (wanted):
+def skipUnlessGuestfsBackendIs(wanted):
     """
     Skip the current class/method if the default backend of libguestfs
     is not 'wanted'.
     """
     import guestfs
-    backend = guestfs.GuestFS ().get_backend ()
+    backend = guestfs.GuestFS().get_backend()
     # Match both "backend" and "backend:etc"
-    if not (backend == wanted or backend.startswith (wanted + ":")):
-        return unittest.skip ("the current backend is not %s" % wanted)
+    if not (backend == wanted or backend.startswith(wanted + ":")):
+        return unittest.skip("the current backend is not %s" % wanted)
     return lambda func: func
 
 
-def skipUnlessArchMatches (arch_re):
+def skipUnlessArchMatches(arch_re):
     """
     Skip the current class/method if the current architecture does not match
     the regexp specified.
     """
     import platform
     import re
-    machine = platform.machine ()
-    rex = re.compile (arch_re)
-    if not rex.match (machine):
-        return unittest.skip ("the current architecture (%s) does not match '%s'" % (machine, arch_re))
+    machine = platform.machine()
+    rex = re.compile(arch_re)
+    if not rex.match(machine):
+        return unittest.skip("the current architecture (%s) does not match '%s'" % (machine, arch_re))
     return lambda func: func

@@ -28,15 +28,15 @@ from .tests_helper import *
 
 guestsdir = os.environ['guestsdir']
 
-@skipUnlessLibvirtHasCPointer ()
-class Test910Libvirt (unittest.TestCase):
-    def test_libvirt (self):
+@skipUnlessLibvirtHasCPointer()
+class Test910Libvirt(unittest.TestCase):
+    def test_libvirt(self):
         import libvirt
 
-        conn = libvirt.open ("test:///%s/guests.xml" % guestsdir)
-        dom = conn.lookupByName ("blank-disk")
+        conn = libvirt.open("test:///%s/guests.xml" % guestsdir)
+        dom = conn.lookupByName("blank-disk")
 
-        g = guestfs.GuestFS ()
+        g = guestfs.GuestFS()
 
-        r = g.add_libvirt_dom (dom, readonly=1)
-        self.assertEqual (r, 1)
+        r = g.add_libvirt_dom(dom, readonly=1)
+        self.assertEqual(r, 1)
