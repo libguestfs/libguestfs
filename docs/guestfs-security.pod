@@ -339,6 +339,18 @@ F<~user/.ssh>) are wider than the permissions that OpenSSH uses.  In
 current libguestfs, the directory and file are created with mode
 C<0700> and mode C<0600>.
 
+=head2 CVE-2015-8869
+
+L<https://bugzilla.redhat.com/CVE-2015-8869>
+
+This vulnerability in OCaml might affect virt tools written in the
+OCaml programming language.  It affects only 64 bit platforms.
+Because this bug affects code generation it is difficult to predict
+which precise software could be affected, and therefore our
+recommendation is that you recompile libguestfs using a version of the
+OCaml compiler where this bug has been fixed (or ask your Linux distro
+to do the same).
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
