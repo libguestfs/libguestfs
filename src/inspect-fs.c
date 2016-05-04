@@ -531,8 +531,11 @@ guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
         guestfs_is_file_opts (g, "/usr/bin/dnf",
                               GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0)
       fs->package_management = OS_PACKAGE_MANAGEMENT_DNF;
-    else
+    else if (fs->major_version >= 1)
       fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
+    else
+      /* Probably parsing the release file failed, see RHBZ#1332025. */
+      fs->package_management = OS_PACKAGE_MANAGEMENT_UNKNOWN;
     break;
 
   case OS_DISTRO_REDHAT_BASED:
@@ -542,8 +545,11 @@ guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_ORACLE_LINUX:
     if (fs->major_version >= 5)
       fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
-    else
+    else if (fs->major_version >= 2)
       fs->package_management = OS_PACKAGE_MANAGEMENT_UP2DATE;
+    else
+      /* Probably parsing the release file failed, see RHBZ#1332025. */
+      fs->package_management = OS_PACKAGE_MANAGEMENT_UNKNOWN;
     break;
 
   case OS_DISTRO_DEBIAN:
