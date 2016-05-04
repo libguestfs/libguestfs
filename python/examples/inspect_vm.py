@@ -39,7 +39,8 @@ for root in roots:
     # Sort keys by length, shortest first, so that we end up
     # mounting the filesystems in the correct order.
     mps = g.inspect_get_mountpoints(root)
-    def compare(a, b): return len(a) - len(b)
+    def compare(a, b):
+        return len(a) - len(b)
     for device in sorted(mps.keys(), compare):
         try:
             g.mount_ro(mps[device], device)
@@ -51,7 +52,8 @@ for root in roots:
     if g.is_file(filename):
         print "--- %s ---" % filename
         lines = g.head_n(3, filename)
-        for line in lines: print line
+        for line in lines:
+            print line
 
     # Unmount everything.
     g.umount_all()

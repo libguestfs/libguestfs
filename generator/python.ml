@@ -718,8 +718,10 @@ class GuestFS(object):
         in libguestfs <= 1.20.
         \"\"\"
         flags = 0
-        if not environment: flags |= 1
-        if not close_on_exit: flags |= 2
+        if not environment:
+            flags |= 1
+        if not close_on_exit:
+            flags |= 2
         self._o = libguestfsmod.create(flags)
         self._python_return_dict = python_return_dict
 
