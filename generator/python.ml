@@ -836,7 +836,25 @@ class GuestFS(object):
             doc ^ sprintf "\n\nThis function depends on the feature C<%s>.  See also C<g.feature-available>." opt in
         let doc = pod2text ~width:60 f.name doc in
         let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
-        let doc = String.concat "\n        " doc in
+        let doc =
+          match doc with
+          | [] -> ""
+          | [line] -> line
+          | hd :: tl ->
+            let endpos = List.length tl - 1 in
+            (* Add indentation spaces, but only if the line is not empty or
+             * it is not the last one (since there will be the 3 dobule-quotes
+             * at the end.
+             *)
+            let lines =
+              mapi (
+                fun lineno line ->
+                  if line = "" && lineno <> endpos then
+                    ""
+                  else
+                    "        " ^ line
+              ) tl in
+            hd ^ "\n" ^ (String.concat "\n" lines) in
         pr "        \"\"\"%s\"\"\"\n" doc;
       );
       (* Callers might pass in iterables instead of plain lists;
