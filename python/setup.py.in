@@ -58,5 +58,4 @@ This package contains the Python bindings for libguestfs.
               libraries=['guestfs'],
               define_macros=[('GUESTFS_PRIVATE', '1')],
           )
-      ]
-)
+      ])

@@ -29,7 +29,8 @@ import guestfs
 from .tests_helper import *
 
 
-@skipUnlessArchMatches("(i.86|x86_64)")    # If the architecture doesn't support IDE, skip the test.
+# If the architecture doesn't support IDE, skip the test.
+@skipUnlessArchMatches("(i.86|x86_64)")
 @skipUnlessGuestfsBackendIs('libvirt')
 @skipUnlessLibvirtHasCPointer()
 class Test820RHBZ912499(unittest.TestCase):
