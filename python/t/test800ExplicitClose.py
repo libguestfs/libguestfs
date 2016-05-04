@@ -23,9 +23,11 @@ import guestfs
 
 close_invoked = 0
 
+
 def close_callback(ev, eh, buf, array):
     global close_invoked
     close_invoked += 1
+
 
 class Test800ExplicitClose(unittest.TestCase):
     def test_explicit_close(self):

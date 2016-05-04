@@ -21,6 +21,7 @@ import guestfs
 
 log_invoked = 0
 
+
 def log_callback(ev, eh, buf, array):
     global log_invoked
     log_invoked += 1
@@ -31,6 +32,7 @@ def log_callback(ev, eh, buf, array):
     # Log what happened.
     print("python event logged: event=%s eh=%d buf='%s' array=%s" %
           (guestfs.event_to_string(ev), eh, buf, array))
+
 
 class Test420LogMessages(unittest.TestCase):
     def test_log_messages(self):

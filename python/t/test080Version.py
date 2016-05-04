@@ -21,6 +21,7 @@ import os
 import guestfs
 from .tests_helper import *
 
+
 class Test080Version(unittest.TestCase):
     def setUp(self):
         self.g = guestfs.GuestFS(python_return_dict=True)

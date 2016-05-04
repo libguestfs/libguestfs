@@ -19,6 +19,7 @@ import unittest
 import os
 import guestfs
 
+
 class Test070OptArgs(unittest.TestCase):
     def setUp(self):
         self.g = guestfs.GuestFS(python_return_dict=True)

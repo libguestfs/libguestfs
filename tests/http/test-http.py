@@ -41,6 +41,7 @@ del os.environ['http_proxy']
 
 # Remove the stamp file.
 stampfile = "%s/stamp-test-http" % os.getcwd()
+
 def unlink_stampfile():
     try:
         os.unlink(stampfile)

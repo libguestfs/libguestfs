@@ -19,6 +19,7 @@ import unittest
 import os
 import guestfs
 
+
 class Test810RHBZ811650(unittest.TestCase):
     def test_rhbz811650(self):
         g = guestfs.GuestFS(python_return_dict=True)

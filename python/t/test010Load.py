@@ -17,6 +17,7 @@
 
 import unittest
 
+
 class Test010Load(unittest.TestCase):
     def test_import(self):
         import guestfs

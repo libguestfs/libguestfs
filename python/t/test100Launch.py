@@ -19,6 +19,7 @@ import unittest
 import os
 import guestfs
 
+
 class Test100Launch(unittest.TestCase):
     def test_launch(self):
         g = guestfs.GuestFS(python_return_dict=True)

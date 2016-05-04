@@ -694,8 +694,10 @@ def event_to_string(events):
     \"\"\"Return a printable string from an event or event bitmask\"\"\"
     return libguestfsmod.event_to_string(events)
 
+
 class ClosedHandle(ValueError):
     pass
+
 
 class GuestFS(object):
     \"\"\"Instances of this class are libguestfs API handles.\"\"\"

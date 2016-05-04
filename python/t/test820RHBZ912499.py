@@ -28,6 +28,7 @@ import sys
 import guestfs
 from .tests_helper import *
 
+
 @skipUnlessArchMatches("(i.86|x86_64)")    # If the architecture doesn't support IDE, skip the test.
 @skipUnlessGuestfsBackendIs('libvirt')
 @skipUnlessLibvirtHasCPointer()
