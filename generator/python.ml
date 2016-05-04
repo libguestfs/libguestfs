@@ -789,16 +789,22 @@ class GuestFS(object):
 
 ";
 
+  let map_join f l =
+    String.concat "" (List.map f l)
+  in
+
   List.iter (
     fun f ->
       let ret, args, optargs = f.style in
-      pr "    def %s(self" f.name;
-      List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
-      List.iter (
-        fun optarg ->
-          pr ", %s=None" (name_of_optargt optarg)
-      ) optargs;
-      pr "):\n";
+      let len_name = String.length f.name in
+      let decl_string =
+        "self" ^
+        map_join (fun arg ->sprintf ", %s" (name_of_argt arg))
+          args ^
+        map_join (fun optarg -> sprintf ", %s=None" (name_of_optargt optarg))
+          optargs in
+      pr "    def %s(%s):\n"
+        f.name (indent_python decl_string (9 + len_name) 78);
 
       if is_documented f then (
         let doc = replace_str f.longdesc "C<guestfs_" "C<g." in
@@ -849,10 +855,12 @@ class GuestFS(object):
           pr "        %s = %s.c_pointer()\n" n n
       ) args;
       pr "        self._check_not_closed()\n";
-      pr "        r = libguestfsmod.%s(self._o" f.name;
-      List.iter (fun arg -> pr ", %s" (name_of_argt arg))
-        (args @ args_of_optargs optargs);
-      pr ")\n";
+      let function_string =
+        "self._o" ^
+        map_join (fun arg -> sprintf ", %s" (name_of_argt arg))
+          (args @ args_of_optargs optargs) in
+      pr "        r = libguestfsmod.%s(%s)\n"
+        f.name (indent_python function_string (27 + len_name) 78);
 
       (* For RHashtable, if self._python_return_dict=True then we
        * have to convert the result to a dict.
@@ -872,3 +880,23 @@ class GuestFS(object):
           pr "    %s = %s\n\n" alias f.name
       ) f.non_c_aliases
   ) external_functions_sorted
+
+and indent_python str indent columns =
+  let rec loop str endpos =
+    let len = String.length str in
+    if len + indent > columns then
+      try
+        let pos = String.rindex_from str endpos ',' in
+        if pos + indent > columns then
+          loop str (pos - 1)
+        else (
+          let rest = String.sub str (pos + 2) (len - pos - 2) in
+          String.sub str 0 pos :: loop rest (String.length rest - 1)
+        )
+      with Not_found ->
+        [str]
+    else
+      [str]
+  in
+  let lines = loop str (String.length str - 1) in
+  String.concat (",\n" ^ String.make indent ' ') lines

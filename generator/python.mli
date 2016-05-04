@@ -18,3 +18,11 @@
 
 val generate_python_c : unit -> unit
 val generate_python_py : unit -> unit
+
+val indent_python : string -> int -> int -> string
+(** [indent_python str indent columns] indents a Python comma-based string
+    like "foo, bar, etc" (with space after the comma), splitting at commas
+    so each line does not take more than [columns] characters, including
+    [indent].
+
+    Lines after the first are indented with [indent] spaces. *)

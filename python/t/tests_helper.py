@@ -37,7 +37,8 @@ def skipUnlessLibvirtHasCPointer():
         import libvirt
     except:
         return unittest.skip("could not import libvirt")
-    # Check we're using the version of libvirt-python that has c_pointer() methods.
+    # Check we're using the version of libvirt-python that has
+    # c_pointer() methods.
     if not "c_pointer" in dir(libvirt.open(None)):
         return unittest.skip("libvirt-python doesn't support c_pointer()")
     return lambda func: func
@@ -66,5 +67,6 @@ def skipUnlessArchMatches(arch_re):
     machine = platform.machine()
     rex = re.compile(arch_re)
     if not rex.match(machine):
-        return unittest.skip("the current architecture (%s) does not match '%s'" % (machine, arch_re))
+        return unittest.skip("the current architecture (%s) does not match "
+                             "'%s'" % (machine, arch_re))
     return lambda func: func

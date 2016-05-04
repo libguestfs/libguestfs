@@ -33,7 +33,8 @@ class Test090PythonRetValues(unittest.TestCase):
     def test_rint64(self):
         g = guestfs.GuestFS()
 
-        self.assertAlmostEqual(g.internal_test_rint64("10"), int_type(10), places=1)
+        self.assertAlmostEqual(g.internal_test_rint64("10"),
+                               int_type(10), places=1)
 
         self.assertRaises(RuntimeError, g.internal_test_rint64err)
 
@@ -55,7 +56,8 @@ class Test090PythonRetValues(unittest.TestCase):
     def test_rconstoptstring(self):
         g = guestfs.GuestFS()
 
-        self.assertEqual(g.internal_test_rconstoptstring("test"), "static string")
+        self.assertEqual(g.internal_test_rconstoptstring("test"),
+                         "static string")
 
         # this never fails
         self.assertIsNone(g.internal_test_rconstoptstringerr())
@@ -71,7 +73,8 @@ class Test090PythonRetValues(unittest.TestCase):
         g = guestfs.GuestFS()
 
         self.assertEqual(g.internal_test_rstringlist("0"), [])
-        self.assertEqual(g.internal_test_rstringlist("5"), ["0", "1", "2", "3", "4"])
+        self.assertEqual(g.internal_test_rstringlist("5"),
+                         ["0", "1", "2", "3", "4"])
 
         self.assertRaises(RuntimeError, g.internal_test_rstringlisterr)
 

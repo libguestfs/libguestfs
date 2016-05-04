@@ -467,7 +467,9 @@ g = guestfs.GuestFS()
   in
 
   generate_lang_bindtests (
-    fun f args optargs -> pr "g.%s(%s)\n" f (mkargs args optargs)
+    fun f args optargs ->
+      pr "g.%s(%s)\n" f
+        (Python.indent_python (mkargs args optargs) (3 + String.length f) 78)
   );
 
   pr "print(\"EOF\")\n"

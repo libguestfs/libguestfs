@@ -95,8 +95,8 @@ if pid > 0:
         exit(1)
     if len(roots) > 1:
         print >>sys.stderr, \
-            ("%s: error: inspection found a multi-boot OS which is not expected" %
-             progname)
+            ("%s: error: inspection found a multi-boot OS which is not "
+             "expected" % progname)
         exit(1)
 
     type_ = g.inspect_get_type(roots[0])
