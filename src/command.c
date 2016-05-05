@@ -16,49 +16,66 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* Wrapper for running external command, loosely based on libvirt's
- * virCommand interface.  Read the comments at the top of each
- * function for detailed information on how to use this interface.  In
- * outline what you have to do is:
+/**
+ * A wrapper for running external commands, loosely based on libvirt's
+ * C<virCommand> interface.
  *
- * (1) Create a new command handle:
+ * In outline to use this interface you must:
  *
- *   struct command *cmd;
- *   cmd = guestfs_int_new_command (g);
+ * =over 4
  *
- * (2) EITHER add arguments:
+ * =item 1.
  *
- *   guestfs_int_cmd_add_arg (cmd, "qemu-img");
- *   guestfs_int_cmd_add_arg (cmd, "info");
- *   guestfs_int_cmd_add_arg (cmd, filename);
+ * Create a new command handle:
  *
- * NB: You don't need to add a NULL argument at the end.
+ *  struct command *cmd;
+ *  cmd = guestfs_int_new_command (g);
  *
- * (3) OR construct a command using a mix of quoted and unquoted
- * strings.  (This is useful for system(3)/popen("r")-style shell
- * commands, with the added safety of allowing args to be quoted
+ * =item 2.
+ *
+ * I<Either> add arguments:
+ *
+ *  guestfs_int_cmd_add_arg (cmd, "qemu-img");
+ *  guestfs_int_cmd_add_arg (cmd, "info");
+ *  guestfs_int_cmd_add_arg (cmd, filename);
+ *
+ * (B<NB:> You don't need to add a C<NULL> argument at the end.)
+ *
+ * =item 3.
+ *
+ * I<Or> construct a command using a mix of quoted and unquoted
+ * strings.  (This is useful for L<system(3)>/C<popen("r")>-style
+ * shell commands, with the added safety of allowing args to be quoted
  * properly).
  *
- *   guestfs_int_cmd_add_string_unquoted (cmd, "qemu-img info ");
- *   guestfs_int_cmd_add_string_quoted (cmd, filename);
+ *  guestfs_int_cmd_add_string_unquoted (cmd, "qemu-img info ");
+ *  guestfs_int_cmd_add_string_quoted (cmd, filename);
  *
- * (4) Set various flags, such as whether you want to capture
+ * =item 4.
+ *
+ * Set various flags, such as whether you want to capture
  * errors in the regular libguestfs error log.
  *
- * (5) Run the command.  This is what does the fork call, optionally
- * loops over the output, and then does a waitpid and returns the
+ * =item 5.
+ *
+ * Run the command.  This is what does the L<fork(2)> call, optionally
+ * loops over the output, and then does a L<waitpid(3)> and returns the
  * exit status of the command.
  *
- *   r = guestfs_int_cmd_run (cmd);
- *   if (r == -1)
- *     // error
- *   // else test r using the WIF* functions
+ *  r = guestfs_int_cmd_run (cmd);
+ *  if (r == -1)
+ *    // error
+ *  // else test r using the WIF* functions
  *
- * (6) Close the handle:
+ * =item 6.
  *
- *   guestfs_int_cmd_close (cmd);
+ * Close the handle:
  *
- * (or use CLEANUP_CMD_CLOSE).
+ *  guestfs_int_cmd_close (cmd);
+ *
+ * (or use C<CLEANUP_CMD_CLOSE>).
+ *
+ * =back
  */
 
 #include <config.h>
@@ -158,7 +175,9 @@ struct command
   struct child_rlimits *child_rlimits;
 };
 
-/* Create a new command handle. */
+/**
+ * Create a new command handle.
+ */
 struct command *
 guestfs_int_new_command (guestfs_h *g)
 {
@@ -173,7 +192,6 @@ guestfs_int_new_command (guestfs_h *g)
   return cmd;
 }
 
-/* Add single arg (for execv-style command execution). */
 static void
 add_arg_no_strdup (struct command *cmd, char *arg)
 {
@@ -190,12 +208,19 @@ add_arg (struct command *cmd, const char *arg)
   add_arg_no_strdup (cmd, safe_strdup (cmd->g, arg));
 }
 
+/**
+ * Add single arg (for C<execv>-style command execution).
+ */
 void
 guestfs_int_cmd_add_arg (struct command *cmd, const char *arg)
 {
   add_arg (cmd, arg);
 }
 
+/**
+ * Add single arg (for C<execv>-style command execution)
+ * using a L<printf(3)>-style format string.
+ */
 void
 guestfs_int_cmd_add_arg_format (struct command *cmd, const char *fs, ...)
 {
@@ -213,7 +238,6 @@ guestfs_int_cmd_add_arg_format (struct command *cmd, const char *fs, ...)
   add_arg_no_strdup (cmd, arg);
 }
 
-/* Add strings (for system(3)-style command execution). */
 static void
 add_string (struct command *cmd, const char *str, size_t len)
 {
@@ -232,15 +256,25 @@ add_string (struct command *cmd, const char *str, size_t len)
   cmd->string.len += len;
 }
 
+/**
+ * Add a string (for L<system(3)>-style command execution).
+ *
+ * This variant adds the strings without quoting them, which is
+ * dangerous if the string contains untrusted content.
+ */
 void
 guestfs_int_cmd_add_string_unquoted (struct command *cmd, const char *str)
 {
   add_string (cmd, str, strlen (str));
 }
 
-/* Add a string enclosed in double quotes, with any special characters
- * within the string which need escaping done.  This is used to add a
- * single argument to a system(3)-style command string.
+/**
+ * Add a string (for L<system(3)>-style command execution).
+ *
+ * The string is enclosed in double quotes, with any special
+ * characters within the string which need escaping done.  This is
+ * used to add a single argument to a L<system(3)>-style command
+ * string.
  */
 void
 guestfs_int_cmd_add_string_quoted (struct command *cmd, const char *str)
@@ -259,22 +293,23 @@ guestfs_int_cmd_add_string_quoted (struct command *cmd, const char *str)
   add_string (cmd, "\"", 1);
 }
 
-/* Set a callback which will capture stdout.
+/**
+ * Set a callback which will capture stdout.
  *
- * If flags contains CMD_STDOUT_FLAG_LINE_BUFFER (the default), then
- * the callback is called line by line on the output.  If there is a
- * trailing \n then it is automatically removed before the callback is
- * called.  The line buffer is \0-terminated.
+ * If flags contains C<CMD_STDOUT_FLAG_LINE_BUFFER> (the default),
+ * then the callback is called line by line on the output.  If there
+ * is a trailing C<\n> then it is automatically removed before the
+ * callback is called.  The line buffer is C<\0>-terminated.
  *
- * If flags contains CMD_STDOUT_FLAG_UNBUFFERED, then buffers are
+ * If flags contains C<CMD_STDOUT_FLAG_UNBUFFERED>, then buffers are
  * passed to the callback as it is received from the command.  Note in
- * this case the buffer is NOT \0-terminated, so you need to may
+ * this case the buffer is I<not> C<\0>-terminated, so you need to may
  * attention to the length field in the callback.
  *
- * If flags contains CMD_STDOUT_FLAG_WHOLE_BUFFER, then the callback
- * is called exactly once, with the entire buffer.  Note in this case
- * the buffer is NOT \0-terminated, so you need to may attention to
- * the length field in the callback.
+ * If flags contains C<CMD_STDOUT_FLAG_WHOLE_BUFFER>, then the
+ * callback is called exactly once, with the entire buffer.  Note in
+ * this case the buffer is I<not> C<\0>-terminated, so you need to may
+ * attention to the length field in the callback.
  */
 void
 guestfs_int_cmd_set_stdout_callback (struct command *cmd,
@@ -301,9 +336,10 @@ guestfs_int_cmd_set_stdout_callback (struct command *cmd,
     abort ();
 }
 
-/* Equivalent to adding 2>&1 to the end of the command.  This is
- * incompatible with the capture_errors flag, because it doesn't make
- * sense to combine them.
+/**
+ * Equivalent to adding C<2E<gt>&1> to the end of the command.  This
+ * is incompatible with the C<capture_errors> flag, because it doesn't
+ * make sense to combine them.
  */
 void
 guestfs_int_cmd_set_stderr_to_stdout (struct command *cmd)
@@ -311,9 +347,10 @@ guestfs_int_cmd_set_stderr_to_stdout (struct command *cmd)
   cmd->stderr_to_stdout = true;
 }
 
-/* Clear the capture_errors flag.  This means that any errors will go
- * to stderr, instead of being captured in the event log, and that is
- * usually undesirable.
+/**
+ * Clear the C<capture_errors> flag.  This means that any errors will
+ * go to stderr, instead of being captured in the event log, and that
+ * is usually undesirable.
  */
 void
 guestfs_int_cmd_clear_capture_errors (struct command *cmd)
@@ -321,8 +358,10 @@ guestfs_int_cmd_clear_capture_errors (struct command *cmd)
   cmd->capture_errors = false;
 }
 
-/* Don't close file descriptors after the fork.  XXX Should allow
- * single fds to be sent to child process.
+/**
+ * Don't close file descriptors after the fork.
+ *
+ * XXX Should allow single fds to be sent to child process.
  */
 void
 guestfs_int_cmd_clear_close_files (struct command *cmd)
@@ -330,7 +369,8 @@ guestfs_int_cmd_clear_close_files (struct command *cmd)
   cmd->close_files = false;
 }
 
-/* Set a function to be executed in the child, right before the
+/**
+ * Set a function to be executed in the child, right before the
  * execution.  Can be used to setup the child, for example changing
  * its current directory.
  */
@@ -343,7 +383,8 @@ guestfs_int_cmd_set_child_callback (struct command *cmd,
   cmd->child_callback_data = data;
 }
 
-/* Set up child rlimits, in case the process we are running could
+/**
+ * Set up child rlimits, in case the process we are running could
  * consume lots of space or time.
  */
 void
@@ -359,9 +400,10 @@ guestfs_int_cmd_set_child_rlimit (struct command *cmd, int resource, long limit)
 }
 
 
-/* Finish off the command by either NULL-terminating the argv array or
- * adding a terminating \0 to the string, or die with an internal
- * error if no command has been added.
+/**
+ * Finish off the command by either C<NULL>-terminating the argv array
+ * or adding a terminating C<\0> to the string, or die with an
+ * internal error if no command has been added.
  */
 static void
 finish_command (struct command *cmd)
@@ -597,8 +639,9 @@ run_child (struct command *cmd)
   abort ();
 }
 
-/* The loop which reads errors and output and directs it either
- * to the log or to the stdout callback as appropriate.
+/**
+ * The loop which reads errors and output and directs it either to the
+ * log or to the stdout callback as appropriate.
  */
 static int
 loop (struct command *cmd)
@@ -699,11 +742,12 @@ wait_command (struct command *cmd)
   return status;
 }
 
-/* Fork, run the command, loop over the output, and waitpid.
+/**
+ * Fork, run the command, loop over the output, and waitpid.
  *
- * Returns the exit status.  Test it using WIF* macros.
+ * Returns the exit status.  Test it using C<WIF*> macros.
  *
- * On error: Calls error(g) and returns -1.
+ * On error: Calls C<error> and returns C<-1>.
  */
 int
 guestfs_int_cmd_run (struct command *cmd)
@@ -722,19 +766,20 @@ guestfs_int_cmd_run (struct command *cmd)
   return wait_command (cmd);
 }
 
-/* Fork and run the command, but don't wait.  Roughly equivalent to
- * popen (..., "r"|"w").
+/**
+ * Fork and run the command, but don't wait.  Roughly equivalent to
+ * S<C<popen (..., "r"|"w")>>.
  *
- * Returns the file descriptor of the pipe, connected to stdout ("r")
- * or stdin ("w") of the child process.
+ * Returns the file descriptor of the pipe, connected to stdout
+ * (C<"r">) or stdin (C<"w">) of the child process.
  *
- * After reading/writing to this pipe, call guestfs_int_cmd_pipe_wait
- * to wait for the status of the child.
+ * After reading/writing to this pipe, call
+ * C<guestfs_int_cmd_pipe_wait> to wait for the status of the child.
  *
  * Errors from the subcommand cannot be captured to the error log
  * using this interface.  Instead the caller should call
- * guestfs_int_cmd_get_pipe_errors (after guestfs_int_cmd_pipe_wait
- * returns an error).
+ * C<guestfs_int_cmd_get_pipe_errors> (after
+ * C<guestfs_int_cmd_pipe_wait> returns an error).
  */
 int
 guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
@@ -827,11 +872,12 @@ guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)
   return -1;
 }
 
-/* Wait for a subprocess created by guestfs_int_cmd_pipe_run to
- * finish.  On error (eg. failed syscall) this returns -1 and sets the
- * error.  If the subcommand fails, then use WIF* macros to check
- * this, and call guestfs_int_cmd_get_pipe_errors to read the error
- * messages printed by the child.
+/**
+ * Wait for a subprocess created by C<guestfs_int_cmd_pipe_run> to
+ * finish.  On error (eg. failed syscall) this returns C<-1> and sets
+ * the error.  If the subcommand fails, then use C<WIF*> macros to
+ * check this, and call C<guestfs_int_cmd_get_pipe_errors> to read
+ * the error messages printed by the child.
  */
 int
 guestfs_int_cmd_pipe_wait (struct command *cmd)
@@ -839,7 +885,8 @@ guestfs_int_cmd_pipe_wait (struct command *cmd)
   return wait_command (cmd);
 }
 
-/* Read the error messages printed by the child.  The caller must free
+/**
+ * Read the error messages printed by the child.  The caller must free
  * the returned buffer after use.
  */
 char *
@@ -863,6 +910,9 @@ guestfs_int_cmd_get_pipe_errors (struct command *cmd)
   return ret;
 }
 
+/**
+ * Close the C<cmd> object and free all resources.
+ */
 void
 guestfs_int_cmd_close (struct command *cmd)
 {
@@ -916,7 +966,9 @@ guestfs_int_cleanup_cmd_close (struct command **ptr)
   guestfs_int_cmd_close (*ptr);
 }
 
-/* Deal with buffering stdout for the callback. */
+/**
+ * Deal with buffering stdout for the callback.
+ */
 static void
 process_line_buffer (struct command *cmd, int closed)
 {
