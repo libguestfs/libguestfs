@@ -59,6 +59,8 @@ put_handle (guestfs_h *g)
 #endif
 }
 
+extern void guestfs_int_py_extend_module (PyObject *module);
+
 extern PyObject *guestfs_int_py_create (PyObject *self, PyObject *args);
 extern PyObject *guestfs_int_py_close (PyObject *self, PyObject *args);
 extern PyObject *guestfs_int_py_set_event_callback (PyObject *self, PyObject *args);

@@ -597,6 +597,9 @@ moduleinit (void)
   m = Py_InitModule ((char *) \"libguestfsmod\", methods);
 #endif
 
+  if (m != NULL)
+    guestfs_int_py_extend_module (m);
+
   return m; /* m might be NULL if module init failed */
 }
 
@@ -719,9 +722,9 @@ class GuestFS(object):
         \"\"\"
         flags = 0
         if not environment:
-            flags |= 1
+            flags |= libguestfsmod.GUESTFS_CREATE_NO_ENVIRONMENT
         if not close_on_exit:
-            flags |= 2
+            flags |= libguestfsmod.GUESTFS_CREATE_NO_CLOSE_ON_EXIT
         self._o = libguestfsmod.create(flags)
         self._python_return_dict = python_return_dict
 

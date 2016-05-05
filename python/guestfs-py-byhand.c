@@ -37,6 +37,13 @@
 
 static PyObject **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
 
+void
+guestfs_int_py_extend_module (PyObject *module)
+{
+   PyModule_AddIntMacro(module, GUESTFS_CREATE_NO_ENVIRONMENT);
+   PyModule_AddIntMacro(module, GUESTFS_CREATE_NO_CLOSE_ON_EXIT);
+}
+
 PyObject *
 guestfs_int_py_create (PyObject *self, PyObject *args)
 {
