@@ -311,10 +311,14 @@ main (int argc, char *argv[])
     }
   }
 
-  if (drvs == NULL || drvs2 == NULL) {
-    fprintf (stderr,
-             _("%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"),
-             guestfs_int_program_name, guestfs_int_program_name);
+  if (drvs == NULL) {
+    fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
+             guestfs_int_program_name);
+    usage (EXIT_FAILURE);
+  }
+  if (drvs2 == NULL) {
+    fprintf (stderr, _("%s: error: you must specify at least one -A or -D option.\n"),
+             guestfs_int_program_name);
     usage (EXIT_FAILURE);
   }
 
@@ -324,8 +328,13 @@ main (int argc, char *argv[])
   if (human && csv)
     error (EXIT_FAILURE, 0, _("you cannot use -h and --csv options together."));
 
-  if (optind != argc)
-    error (EXIT_FAILURE, 0, _("extra arguments on the command line"));
+  if (optind != argc) {
+    fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
+             "Make sure to specify the argument for --checksum or --format "
+             "like '--format=%s'.\n"),
+             guestfs_int_program_name, argv[optind], argv[optind]);
+    usage (EXIT_FAILURE);
+  }
 
   /* These are really constants, but they have to be variables for the
    * options parsing code.  Assert here that they have known-good

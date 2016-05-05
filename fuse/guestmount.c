@@ -311,9 +311,16 @@ main (int argc, char *argv[])
 
   /* Check we have the right options. */
   if (!live) {
-    if (!drvs || !(mps || inspector))
-      error (EXIT_FAILURE, 0,
-             _("must have at least one -a/-d and at least one -m/-i option"));
+    if (drvs == NULL) {
+      fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
+               guestfs_int_program_name);
+      usage (EXIT_FAILURE);
+    }
+    if (!(mps || inspector)) {
+      fprintf (stderr, _("%s: error: you must specify either -i at least one -m option.\n"),
+               guestfs_int_program_name);
+      usage (EXIT_FAILURE);
+    }
   } else {
     size_t count_d = 0, count_other = 0;
     struct drv *drv;
