@@ -316,10 +316,14 @@ main (int argc, char *argv[])
     }
   }
 
-  if (drvs == NULL || drvs2 == NULL) {
-    fprintf (stderr,
-             _("%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"),
-             guestfs_int_program_name, guestfs_int_program_name);
+  if (drvs == NULL) {
+    fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
+             guestfs_int_program_name);
+    usage (EXIT_FAILURE);
+  }
+  if (drvs2 == NULL) {
+    fprintf (stderr, _("%s: error: you must specify at least one -A or -D option.\n"),
+             guestfs_int_program_name);
     usage (EXIT_FAILURE);
   }
 

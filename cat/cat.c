@@ -233,8 +233,11 @@ main (int argc, char *argv[])
   CHECK_OPTION_format_consumed;
 
   /* User must have specified some drives. */
-  if (drvs == NULL)
+  if (drvs == NULL) {
+    fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
+             guestfs_int_program_name);
     usage (EXIT_FAILURE);
+  }
 
   /* Add drives, inspect and mount. */
   add_drives (drvs, 'a');
