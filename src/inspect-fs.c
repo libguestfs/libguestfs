@@ -217,7 +217,8 @@ check_filesystem (guestfs_h *g, const char *mountable,
   else if (is_dir_etc &&
            (is_dir_bin ||
             is_symlink_to (g, "/bin", "usr/bin") > 0) &&
-           guestfs_is_file (g, "/etc/fstab") > 0) {
+           (guestfs_is_file (g, "/etc/fstab") > 0 ||
+            guestfs_is_file (g, "/etc/hosts") > 0)) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_linux_root (g, fs) == -1)
