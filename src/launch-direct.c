@@ -16,6 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * Implementation of the C<direct> backend.
+ *
+ * For more details see L<guestfs(3)/BACKENDS>.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -68,7 +74,6 @@ static void print_qemu_command_line (guestfs_h *g, char **argv);
 static int qemu_supports (guestfs_h *g, struct backend_direct_data *, const char *option);
 static int qemu_supports_device (guestfs_h *g, struct backend_direct_data *, const char *device_name);
 static int qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *);
-static char *qemu_escape_param (guestfs_h *g, const char *param);
 
 static char *
 create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
@@ -495,7 +500,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
       /* Make the file= parameter. */
       file = guestfs_int_drive_source_qemu_param (g, &drv->src);
-      escaped_file = qemu_escape_param (g, file);
+      escaped_file = guestfs_int_qemu_escape_param (g, file);
 
       /* Make the first part of the -drive parameter, everything up to
        * the if=... at the end.
@@ -515,7 +520,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     }
     else {
       /* Writable qcow2 overlay on top of read-only drive. */
-      escaped_file = qemu_escape_param (g, drv->overlay);
+      escaped_file = guestfs_int_qemu_escape_param (g, drv->overlay);
       param = safe_asprintf
         (g, "file=%s,cache=unsafe,format=qcow2%s%s,id=hd%zu",
          escaped_file,
@@ -1144,11 +1149,13 @@ qemu_supports_virtio_scsi (guestfs_h *g, struct backend_direct_data *data)
   return data->virtio_scsi == 1;
 }
 
-/* Escape a qemu parameter.  Every ',' becomes ',,'.  The caller must
- * free the returned string.
+/**
+ * Escape a qemu parameter.
+ *
+ * Every C<,> becomes C<,,>.  The caller must free the returned string.
  */
-static char *
-qemu_escape_param (guestfs_h *g, const char *param)
+char *
+guestfs_int_qemu_escape_param (guestfs_h *g, const char *param)
 {
   size_t i, len = strlen (param);
   char *p, *ret;
