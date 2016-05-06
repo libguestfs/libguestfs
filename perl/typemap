@@ -14,7 +14,7 @@ O_OBJECT_guestfs_h
         SV **svp = hv_fetch (hv, \"_g\", 2, 0);
         if (svp == NULL)
             croak (\"${Package}::$func_name(): called on a closed handle\");
-        $var = ($type) SvIV (*svp);
+        $var = INT2PTR ($type, SvIV (*svp));
     } else {
         croak (\"${Package}::$func_name(): $var is not a blessed HV reference\");
     }
