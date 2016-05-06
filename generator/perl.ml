@@ -241,7 +241,7 @@ DESTROY (sv)
       HV *hv = (HV *) SvRV (sv);
       SV **svp = hv_fetch (hv, \"_g\", 2, 0);
       if (svp != NULL) {
-        guestfs_h *g = (guestfs_h *) SvIV (*svp);
+        guestfs_h *g = INT2PTR (guestfs_h *, SvIV (*svp));
         _close_handle (g);
       }
 
