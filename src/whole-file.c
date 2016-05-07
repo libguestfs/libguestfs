@@ -28,8 +28,22 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-/* Read the whole file into a memory buffer and return it.  The file
- * should be a regular, local, trusted file.
+/**
+ * Read the whole file C<filename> into a memory buffer.
+ *
+ * The memory buffer is initialized and returned in C<data_r>.  The
+ * size of the file in bytes is returned in C<size_r>.  The return
+ * buffer must be freed by the caller.
+ *
+ * On error this sets the error in the handle and returns C<-1>.
+ *
+ * For the convenience of callers, the returned buffer is
+ * NUL-terminated (the NUL is not included in the size).
+ *
+ * The file must be a B<regular>, B<local>, B<trusted> file.  In
+ * particular, do not use this function to read files that might be
+ * under control of an untrusted user since that will lead to a
+ * denial-of-service attack.
  */
 int
 guestfs_int_read_whole_file (guestfs_h *g, const char *filename,
