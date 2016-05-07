@@ -471,7 +471,7 @@ Makefile.in
 /src/structs-free.c
 /src/structs-print.c
 /src/structs-print.h
-/src/test-utils
+/src/unit-tests
 /stamp-h1
 /sysprep/.depend
 /sysprep/stamp-script1.sh

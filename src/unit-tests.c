@@ -19,9 +19,6 @@
 /**
  * Unit tests of internal functions.
  *
- * This is not just a test of F<src/utils.c>.  We can test other
- * internal functions here too.
- *
  * These tests may use a libguestfs handle, but must not launch the
  * handle.  Also, avoid long-running tests.
  */
