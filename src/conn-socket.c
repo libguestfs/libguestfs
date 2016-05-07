@@ -16,7 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* Connection module for regular POSIX sockets. */
+/**
+ * This file handles connections to the child process where this is
+ * done over regular POSIX sockets.
+ */
 
 #include <config.h>
 
@@ -301,14 +304,28 @@ write_data (guestfs_h *g, struct connection *connv,
   return original_len;
 }
 
-/* This is called if conn->console_sock becomes ready to read while we
- * are doing one of the connection operations above.  It reads and
- * deals with the log message.
+/**
+ * This is called if C<conn-E<gt>console_sock> becomes ready to read
+ * while we are doing one of the connection operations above.  It
+ * reads and deals with the log message.
  *
  * Returns:
- *   1 = log message(s) were handled successfully
- *   0 = connection to appliance closed
- *  -1 = error
+ *
+ * =over 4
+ *
+ * =item C<1>
+ *
+ * log message(s) were handled successfully
+ *
+ * =item C<0>
+ *
+ * connection to appliance closed
+ *
+ * =item C<-1>
+ *
+ * error
+ *
+ * =back
  */
 static int
 handle_log_message (guestfs_h *g,
@@ -402,14 +419,15 @@ static struct connection_ops ops = {
   .can_read_data = can_read_data,
 };
 
-/* Create a new socket connection, listening.
+/**
+ * Create a new socket connection, listening.
  *
- * Note that it's OK for console_sock to be passed as -1, meaning
- * there's no console available for this appliance.
+ * Note that it's OK for C<console_sock> to be passed as C<-1>,
+ * meaning there's no console available for this appliance.
  *
- * After calling this, daemon_accept_sock is owned by the connection,
- * and will be closed properly either in accept_connection or
- * free_connection.
+ * After calling this, C<daemon_accept_sock> is owned by the
+ * connection, and will be closed properly either in
+ * C<accept_connection> or C<free_connection>.
  */
 struct connection *
 guestfs_int_new_conn_socket_listening (guestfs_h *g,
@@ -445,10 +463,11 @@ guestfs_int_new_conn_socket_listening (guestfs_h *g,
   return (struct connection *) conn;
 }
 
-/* Create a new socket connection, connected.
+/**
+ * Create a new socket connection, connected.
  *
- * As above, but the caller passes us a connected daemon_sock
- * and promises not to call accept_connection.
+ * As above, but the caller passes us a connected C<daemon_sock> and
+ * promises not to call C<accept_connection>.
  */
 struct connection *
 guestfs_int_new_conn_socket_connected (guestfs_h *g,
