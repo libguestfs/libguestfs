@@ -272,11 +272,12 @@ test_utils_CPPFLAGS = \
 	-I$(top_srcdir)/src -I.
 test_utils_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+# We have to link this to libguestfs, but because we want to test
+# non-exported functions we have to link with the objects not the
+# library.
 test_utils_LDADD = \
-	libguestfs_la-guid.lo \
-	libutils.la \
-	$(LTLIBINTL) \
-	$(top_builddir)/gnulib/lib/libgnu.la
+	$(libguestfs_la_OBJECTS) \
+	$(libguestfs_la_LIBADD)
 
 check-valgrind:
 	$(MAKE) VG="@VG@" check

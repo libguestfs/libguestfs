@@ -21,6 +21,9 @@
  *
  * This is not just a test of F<src/utils.c>.  We can test other
  * internal functions here too.
+ *
+ * These tests may use a libguestfs handle, but must not launch the
+ * handle.  Also, avoid long-running tests.
  */
 
 #include <config.h>
@@ -29,6 +32,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+
+#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -224,6 +233,209 @@ test_drive_index (void)
   assert (guestfs_int_drive_index ("aB") == -1);
 }
 
+/**
+ * Test C<guestfs_int_getumask>.
+ */
+static void
+test_getumask (void)
+{
+  guestfs_h *g;
+  int orig_umask = umask (0777);
+
+  g = guestfs_create ();
+  assert (g);
+
+  assert (guestfs_int_getumask (g) == 0777);
+  umask (0022);
+  assert (guestfs_int_getumask (g) == 0022);
+  assert (guestfs_int_getumask (g) == 0022);
+  umask (0222);
+  assert (guestfs_int_getumask (g) == 0222);
+  umask (0000);
+  assert (guestfs_int_getumask (g) == 0000);
+
+  umask (orig_umask);           /* Restore original umask. */
+  guestfs_close (g);
+}
+
+/**
+ * Test C<guestfs_int_new_command> etc.
+ *
+ * XXX These tests could be made much more thorough.  So far we simply
+ * test that it's not obviously broken.
+ */
+static void
+test_command (void)
+{
+  guestfs_h *g;
+  struct command *cmd;
+  int r;
+
+  g = guestfs_create ();
+  assert (g);
+
+  /* argv-style */
+  cmd = guestfs_int_new_command (g);
+  assert (cmd);
+  guestfs_int_cmd_add_arg (cmd, "touch");
+  guestfs_int_cmd_add_arg (cmd, "test-utils-test-command");
+  r = guestfs_int_cmd_run (cmd);
+  assert (r == 0);
+  guestfs_int_cmd_close (cmd);
+
+  /* system-style */
+  cmd = guestfs_int_new_command (g);
+  assert (cmd);
+  guestfs_int_cmd_add_string_unquoted (cmd, "rm ");
+  guestfs_int_cmd_add_string_quoted (cmd, "test-utils-test-command");
+  r = guestfs_int_cmd_run (cmd);
+  assert (r == 0);
+  guestfs_int_cmd_close (cmd);
+
+  guestfs_close (g);
+}
+
+/**
+ * Test C<guestfs_int_qemu_escape_param>
+ *
+ * XXX I wanted to make this test run qemu, passing some parameters
+ * which need to be escaped, but I cannot think of a way to do that
+ * without launching a VM.
+ */
+static void
+test_qemu_escape_param (void)
+{
+  CLEANUP_FREE char *ret1 = NULL, *ret2 = NULL, *ret3 = NULL;
+  guestfs_h *g;
+
+  g = guestfs_create ();
+  assert (g);
+
+  ret1 = guestfs_int_qemu_escape_param (g, "name,with,commas");
+  assert (STREQ (ret1, "name,,with,,commas"));
+
+  ret2 = guestfs_int_qemu_escape_param (g, ",,,,");
+  assert (STREQ (ret2, ",,,,,,,,"));
+
+  ret3 = guestfs_int_qemu_escape_param (g, "");
+  assert (STREQ (ret3, ""));
+
+  guestfs_close (g);
+}
+
+/**
+ * Test C<guestfs_int_timeval_diff>.
+ */
+static void
+test_timeval_diff (void)
+{
+  struct timeval x, y;
+  int64_t ms;
+
+  y.tv_sec = 1;
+  y.tv_usec = 0;
+  x.tv_sec = 0;
+  x.tv_usec = 0;
+  ms = guestfs_int_timeval_diff (&x, &y);
+  assert (ms == 1000);
+
+  y.tv_sec = 0;
+  y.tv_usec = 0;
+  x.tv_sec = 1;
+  x.tv_usec = 0;
+  ms = guestfs_int_timeval_diff (&x, &y);
+  assert (ms == -1000);
+
+  y.tv_sec = 1;
+  y.tv_usec = 0;
+  x.tv_sec = 0;
+  x.tv_usec = 900000;
+  ms = guestfs_int_timeval_diff (&x, &y);
+  assert (ms == 100);
+
+  y.tv_sec = 0;
+  y.tv_usec = 900000;
+  x.tv_sec = 1;
+  x.tv_usec = 0;
+  ms = guestfs_int_timeval_diff (&x, &y);
+  assert (ms == -100);
+
+  y.tv_sec = 1;
+  y.tv_usec = 100000;
+  x.tv_sec = 0;
+  x.tv_usec = 900000;
+  ms = guestfs_int_timeval_diff (&x, &y);
+  assert (ms == 200);
+
+  y.tv_sec = 0;
+  y.tv_usec = 900000;
+  x.tv_sec = 1;
+  x.tv_usec = 100000;
+  ms = guestfs_int_timeval_diff (&x, &y);
+  assert (ms == -200);
+}
+
+COMPILE_REGEXP (test_match_re, "a+b", 0)
+COMPILE_REGEXP (test_match1_re, "(a+)b", 0)
+COMPILE_REGEXP (test_match2_re, "(a+)(b)", 0)
+
+static void
+test_match (void)
+{
+  guestfs_h *g;
+  char *ret, *ret2;
+
+  g = guestfs_create ();
+  assert (g);
+
+  assert (match (g, "aaaaab", test_match_re));
+  assert (! match (g, "aaaaacb", test_match_re));
+  assert (! match (g, "", test_match_re));
+
+  ret = match1 (g, "aaab", test_match1_re);
+  assert (STREQ (ret, "aaa"));
+  free (ret);
+
+  assert (! match1 (g, "aaacb", test_match1_re));
+  assert (! match1 (g, "", test_match1_re));
+
+  assert (match2 (g, "aaabc", test_match2_re, &ret, &ret2));
+  assert (STREQ (ret, "aaa"));
+  assert (STREQ (ret2, "b"));
+  free (ret);
+  free (ret2);
+
+  guestfs_close (g);
+}
+
+static void
+test_stringsbuf (void)
+{
+  guestfs_h *g;
+  DECLARE_STRINGSBUF (sb);
+
+  g = guestfs_create ();
+  assert (g);
+
+  guestfs_int_add_string (g, &sb, "aaa");
+  guestfs_int_add_string (g, &sb, "bbb");
+  guestfs_int_add_string (g, &sb, "ccc");
+  guestfs_int_add_string (g, &sb, "");
+  guestfs_int_end_stringsbuf (g, &sb);
+
+  assert (sb.size == 5 /* 4 strings + terminating NULL */);
+  assert (STREQ (sb.argv[0], "aaa"));
+  assert (STREQ (sb.argv[1], "bbb"));
+  assert (STREQ (sb.argv[2], "ccc"));
+  assert (STREQ (sb.argv[3], ""));
+  assert (sb.argv[4] == NULL);
+
+  assert (guestfs_int_count_strings (sb.argv) == 4);
+
+  guestfs_int_free_stringsbuf (&sb);
+  guestfs_close (g);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -233,6 +445,12 @@ main (int argc, char *argv[])
   test_validate_guid ();
   test_drive_name ();
   test_drive_index ();
+  test_getumask ();
+  test_command ();
+  test_qemu_escape_param ();
+  test_timeval_diff ();
+  test_match ();
+  test_stringsbuf ();
 
   exit (EXIT_SUCCESS);
 }
