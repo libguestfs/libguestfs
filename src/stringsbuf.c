@@ -16,7 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* Note: Don't confuse this with stringsbuf in the daemon. */
+/**
+ * An expandable NULL-terminated vector of strings (like C<argv>).
+ *
+ * Use the C<DECLARE_STRINGSBUF> macro to declare the stringsbuf.
+ *
+ * Note: Don't confuse this with stringsbuf in the daemon which
+ * is a different type with different methods.
+ */
 
 #include <config.h>
 
@@ -27,6 +34,12 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
+/**
+ * Add a string to the end of the list.
+ *
+ * This doesn't call L<strdup(3)> on the string, so the string itself
+ * is stored inside the vector.
+ */
 void
 guestfs_int_add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str)
 {
@@ -39,12 +52,22 @@ guestfs_int_add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str)
   sb->size++;
 }
 
+/**
+ * Add a string to the end of the list.
+ *
+ * This makes a copy of the string.
+ */
 void
 guestfs_int_add_string (guestfs_h *g, struct stringsbuf *sb, const char *str)
 {
   guestfs_int_add_string_nodup (g, sb, safe_strdup (g, str));
 }
 
+/**
+ * Add a string to the end of the list.
+ *
+ * Uses an sprintf-like format string when creating the string.
+ */
 void
 guestfs_int_add_sprintf (guestfs_h *g, struct stringsbuf *sb,
 			 const char *fs, ...)
@@ -62,12 +85,20 @@ guestfs_int_add_sprintf (guestfs_h *g, struct stringsbuf *sb,
   guestfs_int_add_string_nodup (g, sb, str);
 }
 
+/**
+ * Finish the string buffer.
+ *
+ * This adds the terminating NULL to the end of the vector.
+ */
 void
 guestfs_int_end_stringsbuf (guestfs_h *g, struct stringsbuf *sb)
 {
   guestfs_int_add_string_nodup (g, sb, NULL);
 }
 
+/**
+ * Free the string buffer and the strings.
+ */
 void
 guestfs_int_free_stringsbuf (struct stringsbuf *sb)
 {
