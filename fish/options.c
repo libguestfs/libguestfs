@@ -22,7 +22,7 @@
  *
  * For example, guestfish, virt-cat, virt-ls etc all support the I<-a>
  * option, and that is handled in all of those tools using a macro
- * C<OPTION_a> defined in C<"options.h">.
+ * C<OPTION_a> defined in F<fish/options.h>.
  *
  * There are a lot of common global variables used, C<drvs>
  * accumulates the list of drives, C<verbose> for the I<-v> flag, and
@@ -88,7 +88,9 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
   *drvsp = drv;
 }
 
-/* Handle the '-d' option when passed on the command line. */
+/**
+ * Handle the I<-d> option when passed on the command line.
+ */
 void
 option_d (const char *arg, struct drv **drvsp)
 {
@@ -229,13 +231,13 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
 
 static void display_mountpoints_on_failure (const char *mp_device, const char *user_supplied_options);
 
-/* List is built in reverse order, so mount them in reverse order. */
 void
 mount_mps (struct mp *mp)
 {
   int r;
 
   if (mp) {
+    /* List is built in reverse order, so mount them in reverse order. */
     mount_mps (mp->next);
 
     const char *options;
@@ -259,7 +261,8 @@ mount_mps (struct mp *mp)
   }
 }
 
-/* If the -m option fails on any command, display a useful error
+/**
+ * If the I<-m> option fails on any command, display a useful error
  * message listing the mountpoints.
  */
 static void
@@ -365,7 +368,8 @@ free_mps (struct mp *mp)
   free (mp);
 }
 
-/* Implements the internal 'tool --short-options' flag, which just
+/**
+ * Implements the internal C<tool I<--short-options>> flag, which just
  * lists out the short options available.  Used by bash completion.
  */
 void
@@ -379,14 +383,16 @@ display_short_options (const char *format)
   exit (EXIT_SUCCESS);
 }
 
-/* Implements the internal 'tool --long-options' flag, which just
+/**
+ * Implements the internal C<tool I<--long-options>> flag, which just
  * lists out the long options available.  Used by bash completion.
  */
 void
 display_long_options (const struct option *long_options)
 {
   while (long_options->name) {
-    if (STRNEQ (long_options->name, "long-options") && STRNEQ (long_options->name, "short-options"))
+    if (STRNEQ (long_options->name, "long-options") &&
+        STRNEQ (long_options->name, "short-options"))
       printf ("--%s\n", long_options->name);
     long_options++;
   }

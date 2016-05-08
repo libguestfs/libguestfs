@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements the guestfish I<-N> option for creating
+ * pre-prepared disk layouts.
+ */
+
 #include <config.h>
 
 #include <stdio.h>

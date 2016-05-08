@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements guestfish remote (command) support.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -196,7 +200,9 @@ close_stdout (void)
   }
 }
 
-/* Remote control server. */
+/**
+ * The remote control server (ie. C<guestfish --listen>).
+ */
 void
 rc_listen (void)
 {
@@ -340,7 +346,9 @@ rc_listen (void)
   /* This returns to 'fish.c', where it jumps to global cleanups and exits. */
 }
 
-/* Remote control client. */
+/**
+ * The remote control client (ie. C<guestfish --remote>).
+ */
 int
 rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
            int exit_on_error)

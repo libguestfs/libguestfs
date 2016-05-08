@@ -17,7 +17,7 @@
  */
 
 /**
- * guestfish edit command, suggested by Ján Ondrej.
+ * guestfish C<edit> command, suggested by Ján Ondrej.
  */
 
 #include <config.h>

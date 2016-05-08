@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * The file implements the guestfish C<display> command, for
+ * displaying graphical files (icons, images) in disk images.
+ */
+
 #include <config.h>
 
 #include <stdio.h>

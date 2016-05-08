@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements the progress bar in L<guestfish(1)>,
+ * L<virt-resize(1)> and L<virt-sparsify(1)>.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -97,6 +102,13 @@ struct progress_bar {
   FILE *fp;             /* output device, only used when !dumb mode */
 };
 
+/**
+ * Initialize a progress bar struct.
+ *
+ * It is intended that you can reuse the same struct for multiple
+ * commands (but only in a single thread).  Call C<progress_bar_reset>
+ * before each new command.
+ */
 struct progress_bar *
 progress_bar_init (unsigned flags)
 {
@@ -136,6 +148,9 @@ progress_bar_init (unsigned flags)
   return bar;
 }
 
+/**
+ * Free a progress bar struct.
+ */
 void
 progress_bar_free (struct progress_bar *bar)
 {
@@ -144,7 +159,9 @@ progress_bar_free (struct progress_bar *bar)
   free (bar);
 }
 
-/* This function is called just before we issue any command. */
+/**
+ * This function should be called just before you issue any command.
+ */
 void
 progress_bar_reset (struct progress_bar *bar)
 {
@@ -207,13 +224,14 @@ spinner (struct progress_bar *bar, size_t count)
   return s[count % n];
 }
 
-/* Return remaining time estimate (in seconds) for current call.
+/**
+ * Return remaining time estimate (in seconds) for current call.
  *
  * This returns the running mean estimate of remaining time, but if
  * the latest estimate of total time is greater than two s.d.'s from
  * the running mean then we don't print anything because we're not
- * confident that the estimate is meaningful.  (Returned value is <0.0
- * when nothing should be printed).
+ * confident that the estimate is meaningful.  (Returned value is
+ * E<lt>0.0 when nothing should be printed).
  */
 static double
 estimate_remaining_time (struct progress_bar *bar, double ratio)
@@ -264,6 +282,12 @@ estimate_remaining_time (struct progress_bar *bar, double ratio)
  */
 #define COLS_OVERHEAD 15
 
+/**
+ * Set the position of the progress bar.
+ *
+ * This should be called from a C<GUESTFS_EVENT_PROGRESS> event
+ * callback.
+ */
 void
 progress_bar_set (struct progress_bar *bar,
                   uint64_t position, uint64_t total)

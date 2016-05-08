@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements C<win:> Windows file path support in
+ * L<guestfish(1)>.
+ */
+
 #include <config.h>
 
 #include "windows.h"

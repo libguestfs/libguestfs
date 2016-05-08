@@ -16,6 +16,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file parses the guestfish configuration file, usually
+ * F<~/.libguestfs-tools.rc> or F</etc/libguestfs-tools.conf>.
+ *
+ * Note that C<parse_config> is called very early, before command line
+ * parsing, before the C<verbose> flag has been set, even before the
+ * global handle C<g> is opened.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -38,11 +47,6 @@
 #define GLOBAL_CONFIG_FILENAME "libguestfs-tools.conf"
 static const char *home_filename = /* $HOME/ */ ".libguestfs-tools.rc";
 static const char *etc_filename = "/etc/" GLOBAL_CONFIG_FILENAME;
-
-/* Note that parse_config is called very early, before command line
- * parsing, before the verbose flag has been set, even before the
- * global handle 'g' is opened.
- */
 
 static void
 read_config_from_file (const char *filename)

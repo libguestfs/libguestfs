@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements the guestfish C<alloc> and C<sparse> commands.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -59,7 +63,8 @@ run_sparse (const char *cmd, size_t argc, char *argv[])
   return 0;
 }
 
-/* This is the underlying allocation function.  It's called from
+/**
+ * This is the underlying allocation function.  It's called from
  * a few other places in guestfish.
  */
 int

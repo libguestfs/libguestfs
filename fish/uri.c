@@ -16,6 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements URI parsing for the I<-a> option, in many
+ * utilities including L<guestfish(1)>, L<virt-cat(1)>,
+ * L<virt-builder(1)>, L<virt-customize(1)>, etc.
+ */
+
 #include <config.h>
 
 #include <stdio.h>

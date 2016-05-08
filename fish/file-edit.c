@@ -16,6 +16,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements common file editing in a range of utilities
+ * including L<guestfish(1)>, L<virt-edit(1)>, L<virt-customize(1)>
+ * and L<virt-builder(1)>.
+ *
+ * It contains the code for both interactive-(editor-)based editing
+ * and non-interactive editing using Perl snippets.
+ */
+
 #include <config.h>
 
 #include "file-edit.h"

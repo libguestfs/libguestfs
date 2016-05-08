@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements the guestfish C<glob> command.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -149,26 +153,38 @@ expand_pathname (guestfs_h *g, const char *path)
   return single_element_list (path);
 }
 
-/* Glob-expand device patterns, such as "/dev/sd*" (RHBZ#635971).
+/**
+ * Glob-expand device patterns, such as C</dev/sd*>
+ * (L<https://bugzilla.redhat.com/635971>).
  *
- * There is no 'guestfs_glob_expand_device' function because the
+ * There is no C<guestfs_glob_expand_device> function because the
  * equivalent can be implemented using functions like
- * 'guestfs_list_devices'.
+ * C<guestfs_list_devices>.
  *
  * It's not immediately clear what it means to expand a pattern like
- * "/dev/sd*".  Should that include device name translation?  Should
+ * C</dev/sd*>.  Should that include device name translation?  Should
  * the result include partitions as well as devices?
  *
- * Should "/dev/" + "*" return every possible device and filesystem?
- * How about VGs?  LVs?
+ * Should C<"/dev/"> + C<"*"> return every possible device and
+ * filesystem?  How about VGs?  LVs?
  *
  * To solve this what we do is build up a list of every device,
  * partition, etc., then glob against that list.
  *
  * Notes for future work (XXX):
- * - This doesn't handle device name translation.  It wouldn't be
- *   too hard to add.
- * - Could have an API function for returning all device-like things.
+ *
+ * =over 4
+ *
+ * =item *
+ *
+ * This doesn't handle device name translation.  It wouldn't be
+ * too hard to add.
+ *
+ * =item *
+ *
+ * Could have an API function for returning all device-like things.
+ *
+ * =back
  */
 static char **
 expand_devicename (guestfs_h *g, const char *device)
@@ -215,10 +231,11 @@ expand_devicename (guestfs_h *g, const char *device)
   return NULL;
 }
 
-/* Using fnmatch, find strings in the list 'pp' which match pattern
- * 'glob'.  Add strings which match to the 'ret' array.  '*size_r' is
- * the current size of the 'ret' array, which is updated with the new
- * size.
+/**
+ * Using POSIX L<fnmatch(3)>, find strings in the list C<pp> which
+ * match pattern C<glob>.  Add strings which match to the C<ret>
+ * array.  C<*size_r> is the current size of the C<ret> array, which
+ * is updated with the new size.
  */
 static int
 add_strings_matching (char **pp, const char *glob,
@@ -274,7 +291,9 @@ add_string (const char *str, char ***ret, size_t *size_r)
   return 0;
 }
 
-/* Return a single element list containing 'element'. */
+/**
+ * Return a single element list containing C<element>.
+ */
 static char **
 single_element_list (const char *element)
 {

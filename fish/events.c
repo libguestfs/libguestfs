@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements the guestfish event-related commands,
+ * C<event>, C<delete-event> and C<list-events>.
+ */
+
 #include <config.h>
 
 #include <stdio.h>

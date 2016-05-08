@@ -16,6 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements the guestfish commands C<copy-in> and
+ * C<copy-out>.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
