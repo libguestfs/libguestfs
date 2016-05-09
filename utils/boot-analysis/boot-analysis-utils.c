@@ -69,7 +69,7 @@ test_info (guestfs_h *g, int nr_test_passes)
 
   /* Related to qemu. */
   backend = guestfs_get_backend (g);
-  printf ("     backend: %-20s [to change set LIBGUESTFS_BACKEND]\n",
+  printf ("     backend: %-20s [to change set $LIBGUESTFS_BACKEND]\n",
           backend);
   printf ("        qemu: %-20s [to change set $LIBGUESTFS_HV]\n", qemu);
   printf ("qemu version: ");
