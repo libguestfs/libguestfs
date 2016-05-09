@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-05-04 18:14+0100\n"
+"POT-Creation-Date: 2016-05-09 09:51+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -1224,16 +1224,18 @@ msgstr ""
 #: ../docs/internal-documentation.pod:174
 #: ../docs/internal-documentation.pod:181
 #: ../docs/internal-documentation.pod:185
-#: ../docs/internal-documentation.pod:712
-#: ../docs/internal-documentation.pod:717
-#: ../docs/internal-documentation.pod:751
-#: ../docs/internal-documentation.pod:755
-#: ../docs/internal-documentation.pod:947
-#: ../docs/internal-documentation.pod:951
-#: ../docs/internal-documentation.pod:1049
-#: ../docs/internal-documentation.pod:1054
-#: ../docs/internal-documentation.pod:1133
-#: ../docs/internal-documentation.pod:1137 ../edit/virt-edit.pod:302
+#: ../docs/internal-documentation.pod:1050
+#: ../docs/internal-documentation.pod:1055
+#: ../docs/internal-documentation.pod:1089
+#: ../docs/internal-documentation.pod:1093
+#: ../docs/internal-documentation.pod:1285
+#: ../docs/internal-documentation.pod:1289
+#: ../docs/internal-documentation.pod:1525
+#: ../docs/internal-documentation.pod:1530
+#: ../docs/internal-documentation.pod:1609
+#: ../docs/internal-documentation.pod:1613
+#: ../docs/internal-documentation.pod:2393
+#: ../docs/internal-documentation.pod:2398 ../edit/virt-edit.pod:302
 #: ../edit/virt-edit.pod:307 ../edit/virt-edit.pod:312
 #: ../edit/virt-edit.pod:323 ../edit/virt-edit.pod:327
 #: ../fish/guestfish-actions.pod:760 ../fish/guestfish-actions.pod:766
@@ -2782,8 +2784,9 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:48 ../docs/guestfs-performance.pod:170
 #: ../docs/guestfs-performance.pod:212 ../docs/guestfs-recipes.pod:457
 #: ../docs/guestfs-security.pod:177 ../docs/internal-documentation.pod:37
-#: ../docs/internal-documentation.pod:609
-#: ../docs/internal-documentation.pod:771 ../p2v/virt-p2v.pod:514
+#: ../docs/internal-documentation.pod:205
+#: ../docs/internal-documentation.pod:947
+#: ../docs/internal-documentation.pod:1109 ../p2v/virt-p2v.pod:514
 #: ../rescue/virt-rescue.pod:316 ../resize/virt-resize.pod:29
 #: ../resize/virt-resize.pod:649 ../resize/virt-resize.pod:762
 #: ../sparsify/virt-sparsify.pod:364 ../src/guestfs.pod:520
@@ -2806,8 +2809,9 @@ msgstr ""
 #: ../docs/guestfs-hacking.pod:73 ../docs/guestfs-performance.pod:176
 #: ../docs/guestfs-performance.pod:219 ../docs/guestfs-recipes.pod:463
 #: ../docs/guestfs-security.pod:181 ../docs/internal-documentation.pod:43
-#: ../docs/internal-documentation.pod:614
-#: ../docs/internal-documentation.pod:777 ../p2v/virt-p2v.pod:522
+#: ../docs/internal-documentation.pod:212
+#: ../docs/internal-documentation.pod:952
+#: ../docs/internal-documentation.pod:1115 ../p2v/virt-p2v.pod:522
 #: ../rescue/virt-rescue.pod:324 ../resize/virt-resize.pod:42
 #: ../resize/virt-resize.pod:656 ../resize/virt-resize.pod:780
 #: ../sparsify/virt-sparsify.pod:371 ../src/guestfs.pod:526
@@ -2828,8 +2832,9 @@ msgstr ""
 #: ../customize/virt-customize.pod:170 ../docs/guestfs-faq.pod:505
 #: ../docs/guestfs-faq.pod:736 ../docs/guestfs-faq.pod:935
 #: ../docs/guestfs-performance.pod:225 ../docs/guestfs-recipes.pod:469
-#: ../docs/internal-documentation.pod:48 ../docs/internal-documentation.pod:619
-#: ../docs/internal-documentation.pod:785 ../p2v/virt-p2v.pod:537
+#: ../docs/internal-documentation.pod:48 ../docs/internal-documentation.pod:222
+#: ../docs/internal-documentation.pod:957
+#: ../docs/internal-documentation.pod:1123 ../p2v/virt-p2v.pod:537
 #: ../rescue/virt-rescue.pod:333 ../resize/virt-resize.pod:50
 #: ../resize/virt-resize.pod:662 ../sparsify/virt-sparsify.pod:377
 #: ../src/guestfs.pod:537 ../src/guestfs.pod:1875 ../src/guestfs.pod:2217
@@ -2848,7 +2853,8 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:414 ../customize/virt-customize.pod:177
 #: ../docs/guestfs-faq.pod:939 ../docs/internal-documentation.pod:53
-#: ../docs/internal-documentation.pod:795 ../p2v/virt-p2v.pod:554
+#: ../docs/internal-documentation.pod:232
+#: ../docs/internal-documentation.pod:1133 ../p2v/virt-p2v.pod:554
 #: ../rescue/virt-rescue.pod:342 ../resize/virt-resize.pod:59
 #: ../v2v/virt-v2v.pod:1397
 msgid "4."
@@ -3925,8 +3931,8 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:959 ../docs/guestfs-recipes.pod:310
-#: ../docs/internal-documentation.pod:605
-#: ../docs/internal-documentation.pod:1045 ../fish/guestfish-actions.pod:2652
+#: ../docs/internal-documentation.pod:943
+#: ../docs/internal-documentation.pod:1521 ../fish/guestfish-actions.pod:2652
 #: ../fish/guestfish-actions.pod:3260 ../fish/guestfish-actions.pod:3960
 #: ../src/guestfs-actions.pod:4449 ../src/guestfs-actions.pod:5442
 #: ../src/guestfs-actions.pod:6431 ../src/guestfs.pod:811
@@ -14033,8 +14039,8 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/guestfs-faq.pod:947 ../docs/internal-documentation.pod:805
-#: ../rescue/virt-rescue.pod:350
+#: ../docs/guestfs-faq.pod:947 ../docs/internal-documentation.pod:237
+#: ../docs/internal-documentation.pod:1143 ../rescue/virt-rescue.pod:350
 msgid "5."
 msgstr ""
 
@@ -32724,23 +32730,840 @@ msgstr ""
 
 #. type: =head3
 #: ../docs/internal-documentation.pod:196
-msgid "File F<src/drives.c>"
+msgid "File F<src/command.c>"
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:198
+msgid ""
+"A wrapper for running external commands, loosely based on libvirt's "
+"C<virCommand> interface."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:201
+msgid "In outline to use this interface you must:"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:207
+msgid "Create a new command handle:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:209
+#, no-wrap
+msgid ""
+" struct command *cmd;\n"
+" cmd = guestfs_int_new_command (g);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:214
+msgid "I<Either> add arguments:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:216
+#, no-wrap
+msgid ""
+" guestfs_int_cmd_add_arg (cmd, \"qemu-img\");\n"
+" guestfs_int_cmd_add_arg (cmd, \"info\");\n"
+" guestfs_int_cmd_add_arg (cmd, filename);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:220
+msgid "(B<NB:> You don't need to add a C<NULL> argument at the end.)"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:224
+msgid ""
+"I<Or> construct a command using a mix of quoted and unquoted strings.  (This "
+"is useful for L<system(3)>/C<popen(\"r\")>-style shell commands, with the "
+"added safety of allowing args to be quoted properly)."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:229
+#, no-wrap
+msgid ""
+" guestfs_int_cmd_add_string_unquoted (cmd, \"qemu-img info \");\n"
+" guestfs_int_cmd_add_string_quoted (cmd, filename);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:234
+msgid ""
+"Set various flags, such as whether you want to capture errors in the regular "
+"libguestfs error log."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:239
+msgid ""
+"Run the command.  This is what does the L<fork(2)> call, optionally loops "
+"over the output, and then does a L<waitpid(3)> and returns the exit status "
+"of the command."
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:243
+#, no-wrap
+msgid ""
+" r = guestfs_int_cmd_run (cmd);\n"
+" if (r == -1)\n"
+"   // error\n"
+" // else test r using the WIF* functions\n"
+"\n"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:248 ../rescue/virt-rescue.pod:360
+msgid "6."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:250
+msgid "Close the handle:"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:252
+#, no-wrap
+msgid ""
+" guestfs_int_cmd_close (cmd);\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:254
+msgid "(or use C<CLEANUP_CMD_CLOSE>)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:258
+msgid "Function C<src/command.c:guestfs_int_new_command>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:260
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" struct command *\n"
+" guestfs_int_new_command (guestfs_h *g)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:263
+msgid "Create a new command handle."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:265
+msgid "Function C<src/command.c:guestfs_int_cmd_add_arg>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:267
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_cmd_add_arg (struct command *cmd, const char *arg)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:270
+msgid "Add single arg (for C<execv>-style command execution)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:272
+msgid "Function C<src/command.c:guestfs_int_cmd_add_arg_format>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:274
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_cmd_add_arg_format (struct command *cmd, const char *fs, ...)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:277
+msgid ""
+"Add single arg (for C<execv>-style command execution)  using a L<printf(3)>-"
+"style format string."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:280
+msgid "Function C<src/command.c:guestfs_int_cmd_add_string_unquoted>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:282
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_cmd_add_string_unquoted (struct command *cmd, const char *str)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:285
+#: ../docs/internal-documentation.pod:295
+msgid "Add a string (for L<system(3)>-style command execution)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:287
+msgid ""
+"This variant adds the strings without quoting them, which is dangerous if "
+"the string contains untrusted content."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:290
+msgid "Function C<src/command.c:guestfs_int_cmd_add_string_quoted>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:292
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_cmd_add_string_quoted (struct command *cmd, const char *str)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:297
+msgid ""
+"The string is enclosed in double quotes, with any special characters within "
+"the string which need escaping done.  This is used to add a single argument "
+"to a L<system(3)>-style command string."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:302
+msgid "Function C<src/command.c:guestfs_int_cmd_set_stdout_callback>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:304
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_set_stdout_callback (struct command *cmd,\n"
+"                                      cmd_stdout_callback stdout_callback,\n"
+"                                      void *stdout_data, unsigned flags)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:309
+msgid "Set a callback which will capture stdout."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:311
+msgid ""
+"If flags contains C<CMD_STDOUT_FLAG_LINE_BUFFER> (the default), then the "
+"callback is called line by line on the output.  If there is a trailing C<"
+"\\n> then it is automatically removed before the callback is called.  The "
+"line buffer is C<\\0>-terminated."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:316
+msgid ""
+"If flags contains C<CMD_STDOUT_FLAG_UNBUFFERED>, then buffers are passed to "
+"the callback as it is received from the command.  Note in this case the "
+"buffer is I<not> C<\\0>-terminated, so you need to may attention to the "
+"length field in the callback."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:321
+msgid ""
+"If flags contains C<CMD_STDOUT_FLAG_WHOLE_BUFFER>, then the callback is "
+"called exactly once, with the entire buffer.  Note in this case the buffer "
+"is I<not> C<\\0>-terminated, so you need to may attention to the length "
+"field in the callback."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:326
+msgid "Function C<src/command.c:guestfs_int_cmd_set_stderr_to_stdout>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:328
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_set_stderr_to_stdout (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:331
+msgid ""
+"Equivalent to adding C<2E<gt>&1> to the end of the command.  This is "
+"incompatible with the C<capture_errors> flag, because it doesn't make sense "
+"to combine them."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:335
+msgid "Function C<src/command.c:guestfs_int_cmd_clear_capture_errors>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:337
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_clear_capture_errors (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:340
+msgid ""
+"Clear the C<capture_errors> flag.  This means that any errors will go to "
+"stderr, instead of being captured in the event log, and that is usually "
+"undesirable."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:344
+msgid "Function C<src/command.c:guestfs_int_cmd_clear_close_files>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:346
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_clear_close_files (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:349
+msgid "Don't close file descriptors after the fork."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:351
+msgid "XXX Should allow single fds to be sent to child process."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:353
+msgid "Function C<src/command.c:guestfs_int_cmd_set_child_callback>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:355
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_set_child_callback (struct command *cmd,\n"
+"                                     cmd_child_callback child_callback,\n"
+"                                     void *data)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:360
+msgid ""
+"Set a function to be executed in the child, right before the execution.  Can "
+"be used to setup the child, for example changing its current directory."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:364
+msgid "Function C<src/command.c:guestfs_int_cmd_set_child_rlimit>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:366
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_set_child_rlimit (struct command *cmd, int resource, long limit)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:369
+msgid ""
+"Set up child rlimits, in case the process we are running could consume lots "
+"of space or time."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:372
+msgid "Function C<src/command.c:finish_command>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:374
+#, no-wrap
+msgid ""
+" static void\n"
+" finish_command (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:377
+msgid ""
+"Finish off the command by either C<NULL>-terminating the argv array or "
+"adding a terminating C<\\0> to the string, or die with an internal error if "
+"no command has been added."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:381
+msgid "Function C<src/command.c:loop>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:383
+#, no-wrap
+msgid ""
+" static int\n"
+" loop (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:386
+msgid ""
+"The loop which reads errors and output and directs it either to the log or "
+"to the stdout callback as appropriate."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:389
+msgid "Function C<src/command.c:guestfs_int_cmd_run>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:391
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_cmd_run (struct command *cmd)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:394
+msgid "Fork, run the command, loop over the output, and waitpid."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:396
+msgid "Returns the exit status.  Test it using C<WIF*> macros."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:398
+msgid "On error: Calls C<error> and returns C<-1>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:400
+msgid "Function C<src/command.c:guestfs_int_cmd_pipe_run>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:402
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_cmd_pipe_run (struct command *cmd, const char *mode)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:405
+msgid ""
+"Fork and run the command, but don't wait.  Roughly equivalent to S<C<popen "
+"(..., \"r\"|\"w\")>>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:408
+msgid ""
+"Returns the file descriptor of the pipe, connected to stdout (C<\"r\">) or "
+"stdin (C<\"w\">) of the child process."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:411
+msgid ""
+"After reading/writing to this pipe, call C<guestfs_int_cmd_pipe_wait> to "
+"wait for the status of the child."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:414
+msgid ""
+"Errors from the subcommand cannot be captured to the error log using this "
+"interface.  Instead the caller should call "
+"C<guestfs_int_cmd_get_pipe_errors> (after C<guestfs_int_cmd_pipe_wait> "
+"returns an error)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:419
+msgid "Function C<src/command.c:guestfs_int_cmd_pipe_wait>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:421
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_cmd_pipe_wait (struct command *cmd)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:424
+msgid ""
+"Wait for a subprocess created by C<guestfs_int_cmd_pipe_run> to finish.  On "
+"error (eg. failed syscall) this returns C<-1> and sets the error.  If the "
+"subcommand fails, then use C<WIF*> macros to check this, and call "
+"C<guestfs_int_cmd_get_pipe_errors> to read the error messages printed by the "
+"child."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:430
+msgid "Function C<src/command.c:guestfs_int_cmd_get_pipe_errors>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:432
+#, no-wrap
+msgid ""
+" char *\n"
+" guestfs_int_cmd_get_pipe_errors (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:435
+msgid ""
+"Read the error messages printed by the child.  The caller must free the "
+"returned buffer after use."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:438
+msgid "Function C<src/command.c:guestfs_int_cmd_close>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:440
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_cmd_close (struct command *cmd)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:443
+msgid "Close the C<cmd> object and free all resources."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:445
+msgid "Function C<src/command.c:process_line_buffer>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:447
+#, no-wrap
+msgid ""
+" static void\n"
+" process_line_buffer (struct command *cmd, int closed)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:450
+msgid "Deal with buffering stdout for the callback."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:452
+msgid "File F<src/conn-socket.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:454
+msgid ""
+"This file handles connections to the child process where this is done over "
+"regular POSIX sockets."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:457
+msgid "Function C<src/conn-socket.c:handle_log_message>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:459
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" static int\n"
+" handle_log_message (guestfs_h *g,\n"
+"                     struct connection_socket *conn)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:463
+msgid ""
+"This is called if C<conn-E<gt>console_sock> becomes ready to read while we "
+"are doing one of the connection operations above.  It reads and deals with "
+"the log message."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:467
+msgid "Returns:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:471
+#: ../docs/internal-documentation.pod:2245 ../fuse/guestunmount.pod:131
+msgid "C<1>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:473
+msgid "log message(s) were handled successfully"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:475
+#: ../docs/internal-documentation.pod:2249
+msgid "C<0>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:477
+msgid "connection to appliance closed"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:479
+#: ../docs/internal-documentation.pod:2253
+msgid "C<-1>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:481
+#: ../docs/internal-documentation.pod:1188
+msgid "error"
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:485
+msgid "Function C<src/conn-socket.c:guestfs_int_new_conn_socket_listening>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:487
+#, no-wrap
+msgid ""
+" struct connection *\n"
+" guestfs_int_new_conn_socket_listening (guestfs_h *g,\n"
+" \t\t\t\t       int daemon_accept_sock,\n"
+" \t\t\t\t       int console_sock)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:492
+msgid "Create a new socket connection, listening."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:494
+msgid ""
+"Note that it's OK for C<console_sock> to be passed as C<-1>, meaning there's "
+"no console available for this appliance."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:497
+msgid ""
+"After calling this, C<daemon_accept_sock> is owned by the connection, and "
+"will be closed properly either in C<accept_connection> or C<free_connection>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:501
+msgid "Function C<src/conn-socket.c:guestfs_int_new_conn_socket_connected>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:503
+#, no-wrap
+msgid ""
+" struct connection *\n"
+" guestfs_int_new_conn_socket_connected (guestfs_h *g,\n"
+" \t\t\t\t       int daemon_sock,\n"
+" \t\t\t\t       int console_sock)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:508
+msgid "Create a new socket connection, connected."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:510
+msgid ""
+"As above, but the caller passes us a connected C<daemon_sock> and promises "
+"not to call C<accept_connection>."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:513
+msgid "File F<src/create.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:515
+msgid "APIs for creating empty disks."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:517
+msgid "Mostly this consists of wrappers around the L<qemu-img(1)> program."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:519
+msgid "File F<src/drives.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:521
 msgid ""
 "Drives added are stored in an array in the handle.  Code here manages that "
 "array and the individual C<struct drive> data."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:201
+#: ../docs/internal-documentation.pod:524
 msgid "Function C<src/drives.c:create_overlay>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:203
+#: ../docs/internal-documentation.pod:526
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32749,7 +33572,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:206
+#: ../docs/internal-documentation.pod:529
 msgid ""
 "For readonly drives, create an overlay to protect the original drive "
 "content.  Note we never need to clean up these overlays since they are "
@@ -32757,12 +33580,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:211
+#: ../docs/internal-documentation.pod:534
 msgid "Function C<src/drives.c:create_drive_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:213
+#: ../docs/internal-documentation.pod:536
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -32781,17 +33604,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:217
+#: ../docs/internal-documentation.pod:540
 msgid "Create and free the C<struct drive>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:219
+#: ../docs/internal-documentation.pod:542
 msgid "Function C<src/drives.c:create_drive_dev_null>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:221
+#: ../docs/internal-documentation.pod:544
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -32810,12 +33633,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:225
+#: ../docs/internal-documentation.pod:548
 msgid "Create the special F</dev/null> drive."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:227
+#: ../docs/internal-documentation.pod:550
 msgid ""
 "Traditionally you have been able to use F</dev/null> as a filename, as many "
 "times as you like.  Ancient KVM (RHEL 5) cannot handle adding F</dev/null> "
@@ -32824,7 +33647,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:232
+#: ../docs/internal-documentation.pod:555
 msgid ""
 "Because of these problems, we replace F</dev/null> with a non-zero sized "
 "temporary file.  This shouldn't make any difference since users are not "
@@ -32832,12 +33655,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:236
+#: ../docs/internal-documentation.pod:559
 msgid "Function C<src/drives.c:drive_to_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:238
+#: ../docs/internal-documentation.pod:561
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -32846,19 +33669,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:241
+#: ../docs/internal-documentation.pod:564
 msgid ""
 "Convert a C<struct drive> to a string for debugging.  The caller must free "
 "this string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:244
+#: ../docs/internal-documentation.pod:567
 msgid "Function C<src/drives.c:add_drive_to_handle_at>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:246
+#: ../docs/internal-documentation.pod:569
 #, no-wrap
 msgid ""
 " static void\n"
@@ -32867,7 +33690,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:249
+#: ../docs/internal-documentation.pod:572
 msgid ""
 "Add C<struct drive> to the C<g-E<gt>drives> vector at the given index "
 "C<drv_index>.  If the array isn't large enough it is reallocated.  The index "
@@ -32875,12 +33698,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:253
+#: ../docs/internal-documentation.pod:576
 msgid "Function C<src/drives.c:add_drive_to_handle>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:255
+#: ../docs/internal-documentation.pod:578
 #, no-wrap
 msgid ""
 " static void\n"
@@ -32889,18 +33712,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:258
+#: ../docs/internal-documentation.pod:581
 msgid ""
 "Add struct drive to the end of the C<g-E<gt>drives> vector in the handle."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:261
+#: ../docs/internal-documentation.pod:584
 msgid "Function C<src/drives.c:guestfs_int_add_dummy_appliance_drive>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:263
+#: ../docs/internal-documentation.pod:586
 #, no-wrap
 msgid ""
 " void\n"
@@ -32909,17 +33732,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:266
+#: ../docs/internal-documentation.pod:589
 msgid "Called during launch to add a dummy slot to C<g-E<gt>drives>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:268
+#: ../docs/internal-documentation.pod:591
 msgid "Function C<src/drives.c:guestfs_int_free_drives>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:270
+#: ../docs/internal-documentation.pod:593
 #, no-wrap
 msgid ""
 " void\n"
@@ -32928,17 +33751,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:273
+#: ../docs/internal-documentation.pod:596
 msgid "Free up all the drives in the handle."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:275
+#: ../docs/internal-documentation.pod:598
 msgid "Function C<src/drives.c:valid_format_iface>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:277
+#: ../docs/internal-documentation.pod:600
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32947,19 +33770,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:280
+#: ../docs/internal-documentation.pod:603
 msgid ""
 "Check string parameter matches regular expression C<^[-_[:alnum:]]+$> (in C "
 "locale)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:283
+#: ../docs/internal-documentation.pod:606
 msgid "Function C<src/drives.c:valid_disk_label>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:285
+#: ../docs/internal-documentation.pod:608
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32968,7 +33791,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:288
+#: ../docs/internal-documentation.pod:611
 msgid ""
 "Check the disk label is reasonable.  It can't contain certain characters, "
 "eg. C<'/'>, C<','>.  However be stricter here and ensure it's just "
@@ -32976,12 +33799,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:292
+#: ../docs/internal-documentation.pod:615
 msgid "Function C<src/drives.c:valid_hostname>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:294
+#: ../docs/internal-documentation.pod:617
 #, no-wrap
 msgid ""
 " static int\n"
@@ -32990,17 +33813,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:297
+#: ../docs/internal-documentation.pod:620
 msgid "Check the server hostname is reasonable."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:299
+#: ../docs/internal-documentation.pod:622
 msgid "Function C<src/drives.c:valid_port>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:301
+#: ../docs/internal-documentation.pod:624
 #, no-wrap
 msgid ""
 " static int\n"
@@ -33009,17 +33832,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:304
+#: ../docs/internal-documentation.pod:627
 msgid "Check the port number is reasonable."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:306
+#: ../docs/internal-documentation.pod:629
 msgid "Function C<src/drives.c:guestfs_impl_remove_drive>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:308
+#: ../docs/internal-documentation.pod:631
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -33037,12 +33860,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:311
+#: ../docs/internal-documentation.pod:634
 msgid "This function implements L<guestfs(3)/guestfs_remove_drive>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:313
+#: ../docs/internal-documentation.pod:636
 msgid ""
 "Depending on whether we are hotplugging or not, this function does slightly "
 "different things: If not hotplugging, then the drive just disappears as if "
@@ -33052,12 +33875,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:320
+#: ../docs/internal-documentation.pod:643
 msgid "Function C<src/drives.c:guestfs_int_checkpoint_drives>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:322
+#: ../docs/internal-documentation.pod:645
 #, no-wrap
 msgid ""
 " size_t\n"
@@ -33066,19 +33889,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:325
+#: ../docs/internal-documentation.pod:648
 msgid ""
 "Checkpoint and roll back drives, so that groups of drives can be added "
 "atomicly.  Only used by L<guestfs(3)/guestfs_add_domain>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:328
+#: ../docs/internal-documentation.pod:651
 msgid "Function C<src/drives.c:guestfs_impl_debug_drives>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:330
+#: ../docs/internal-documentation.pod:653
 #, no-wrap
 msgid ""
 " char **\n"
@@ -33087,22 +33910,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:333
+#: ../docs/internal-documentation.pod:656
 msgid "Internal function to return the list of drives."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:335
+#: ../docs/internal-documentation.pod:658
 msgid "File F<src/errors.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:337
+#: ../docs/internal-documentation.pod:660
 msgid "This file handles errors, and also debug, trace and warning messages."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:339
+#: ../docs/internal-documentation.pod:662
 msgid ""
 "Errors in libguestfs API calls are handled by setting an error message and "
 "optional errno in the handle.  The caller has the choice of testing API "
@@ -33111,14 +33934,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:344
+#: ../docs/internal-documentation.pod:667
 msgid ""
 "From the point of view of the library source, generally you should use the "
 "C<error> or C<perrorf> macros along error paths, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:347
+#: ../docs/internal-documentation.pod:670
 #, no-wrap
 msgid ""
 " if (something_bad) {\n"
@@ -33129,7 +33952,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:352
+#: ../docs/internal-documentation.pod:675
 msgid ""
 "Make sure to call the C<error> or C<perrorf> macro exactly once along each "
 "error path, since the handle can only store a single error and the previous "
@@ -33137,12 +33960,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:356
+#: ../docs/internal-documentation.pod:679
 msgid "Function C<src/errors.c:guestfs_int_warning>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:358
+#: ../docs/internal-documentation.pod:681
 #, no-wrap
 msgid ""
 " void\n"
@@ -33151,19 +33974,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:361
+#: ../docs/internal-documentation.pod:684
 msgid "Print a warning."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:363
+#: ../docs/internal-documentation.pod:686
 msgid ""
 "Code should I<not> call this function directly.  Use the S<C<warning (g, "
 "fs, ...)>> macro."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:366
+#: ../docs/internal-documentation.pod:689
 msgid ""
 "Warnings are printed unconditionally.  We try to make these rare: Generally "
 "speaking, a warning should either be an error, or if it's not important for "
@@ -33171,12 +33994,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:370
+#: ../docs/internal-documentation.pod:693
 msgid "Function C<src/errors.c:guestfs_int_debug>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:372
+#: ../docs/internal-documentation.pod:695
 #, no-wrap
 msgid ""
 " void\n"
@@ -33185,12 +34008,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:375
+#: ../docs/internal-documentation.pod:698
 msgid "Print a debug message."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:377
+#: ../docs/internal-documentation.pod:700
 msgid ""
 "Code should I<not> call this function directly.  To add debug messages in "
 "the library, use the S<C<debug (g, fs, ...)>> macro.  The macro checks if "
@@ -33199,12 +34022,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:382
+#: ../docs/internal-documentation.pod:705
 msgid "Function C<src/errors.c:guestfs_int_trace>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:384
+#: ../docs/internal-documentation.pod:707
 #, no-wrap
 msgid ""
 " void\n"
@@ -33213,22 +34036,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:387
+#: ../docs/internal-documentation.pod:710
 msgid "Print a trace message."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:389
+#: ../docs/internal-documentation.pod:712
 msgid "Do not call this function.  All calls are generated automatically."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:391
+#: ../docs/internal-documentation.pod:714
 msgid "Function C<src/errors.c:guestfs_int_error_errno>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:393
+#: ../docs/internal-documentation.pod:716
 #, no-wrap
 msgid ""
 " void\n"
@@ -33237,14 +34060,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:396
+#: ../docs/internal-documentation.pod:719
 msgid ""
 "Set the last error and errno in the handle, and optionally raise the error "
 "callback if one is defined."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:399
+#: ../docs/internal-documentation.pod:722
 msgid ""
 "If you don't need to set errno, use the S<C<error (g, fs, ...)>> macro "
 "instead of calling this directly.  If you need to set errno then there is no "
@@ -33252,12 +34075,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:404
+#: ../docs/internal-documentation.pod:727
 msgid "Function C<src/errors.c:guestfs_int_perrorf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:406
+#: ../docs/internal-documentation.pod:729
 #, no-wrap
 msgid ""
 " void\n"
@@ -33266,26 +34089,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:409
+#: ../docs/internal-documentation.pod:732
 msgid ""
 "Similar to L<perror(3)>, but it sets the last error in the handle, raises "
 "the error callback if one is defined, and supports format strings."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:413
+#: ../docs/internal-documentation.pod:736
 msgid ""
 "You should probably use the S<C<perrorf (g, fs, ...)>> macro instead of "
 "calling this directly."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:416
+#: ../docs/internal-documentation.pod:739
 msgid "Function C<src/errors.c:guestfs_int_launch_failed_error>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:418
+#: ../docs/internal-documentation.pod:741
 #, no-wrap
 msgid ""
 " void\n"
@@ -33294,12 +34117,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:421
+#: ../docs/internal-documentation.pod:744
 msgid "Raise a launch failed error in a standard format."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:423
+#: ../docs/internal-documentation.pod:746
 msgid ""
 "Since this is the most common error seen by people who have installation "
 "problems, buggy qemu, etc, and since no one reads the FAQ, describe in this "
@@ -33307,12 +34130,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:428
+#: ../docs/internal-documentation.pod:751
 msgid "Function C<src/errors.c:guestfs_int_unexpected_close_error>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:430
+#: ../docs/internal-documentation.pod:753
 #, no-wrap
 msgid ""
 " void\n"
@@ -33321,17 +34144,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:433
+#: ../docs/internal-documentation.pod:756
 msgid "Raise an error if the appliance unexpectedly crashes after launch."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:435
+#: ../docs/internal-documentation.pod:758
 msgid "Function C<src/errors.c:guestfs_int_launch_timeout>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:437
+#: ../docs/internal-documentation.pod:760
 #, no-wrap
 msgid ""
 " void\n"
@@ -33340,17 +34163,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:440
+#: ../docs/internal-documentation.pod:763
 msgid "Raise an error if the appliance hangs during launch."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:442
+#: ../docs/internal-documentation.pod:765
 msgid "Function C<src/errors.c:guestfs_int_external_command_failed>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:444
+#: ../docs/internal-documentation.pod:767
 #, no-wrap
 msgid ""
 " void\n"
@@ -33360,12 +34183,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:448
+#: ../docs/internal-documentation.pod:771
 msgid "Raise an error if an external command fails."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:450
+#: ../docs/internal-documentation.pod:773
 msgid ""
 "C<status> is the status code of the command (eg. returned from L<waitpid(2)> "
 "or L<system(3)>).  This function turns the status code into an explanatory "
@@ -33373,17 +34196,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:454
+#: ../docs/internal-documentation.pod:777
 msgid "File F<src/events.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:456
+#: ../docs/internal-documentation.pod:779
 msgid "Function C<src/events.c:replace_old_style_event_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:458
+#: ../docs/internal-documentation.pod:781
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33396,12 +34219,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:465
+#: ../docs/internal-documentation.pod:788
 msgid "Emulate old-style callback API."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:467
+#: ../docs/internal-documentation.pod:790
 msgid ""
 "There were no event handles, so multiple callbacks per event were not "
 "supported.  Calling the same C<guestfs_set_*_callback> function would "
@@ -33410,17 +34233,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:472
+#: ../docs/internal-documentation.pod:795
 msgid "File F<src/guid.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:474
+#: ../docs/internal-documentation.pod:797
 msgid "Function C<src/guid.c:guestfs_int_validate_guid>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:476
+#: ../docs/internal-documentation.pod:799
 #, no-wrap
 msgid ""
 " int\n"
@@ -33429,7 +34252,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:479
+#: ../docs/internal-documentation.pod:802
 msgid ""
 "Check whether a string supposed to contain a GUID actually contains it.  It "
 "can recognize strings either as C<{21EC2020-3AEA-1069-A2DD-08002B30309D}> or "
@@ -33437,24 +34260,24 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:484
+#: ../docs/internal-documentation.pod:807
 msgid "File F<src/handle.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:486
+#: ../docs/internal-documentation.pod:809
 msgid ""
 "This file deals with the C<guestfs_h> handle, creating it, closing it, and "
 "initializing/setting/getting fields."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:489
+#: ../docs/internal-documentation.pod:812
 msgid "Function C<src/handle.c:init_libguestfs>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:491
+#: ../docs/internal-documentation.pod:814
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33463,7 +34286,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:494
+#: ../docs/internal-documentation.pod:817
 msgid ""
 "No initialization is required by libguestfs, but libvirt and libxml2 require "
 "initialization if they might be called from multiple threads.  Hence this "
@@ -33471,12 +34294,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:499
+#: ../docs/internal-documentation.pod:822
 msgid "Function C<src/handle.c:shutdown_backend>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:501
+#: ../docs/internal-documentation.pod:824
 #, no-wrap
 msgid ""
 " static int\n"
@@ -33485,20 +34308,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:504
+#: ../docs/internal-documentation.pod:827
 msgid ""
 "This function is the common path for shutting down the backend qemu process."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:507
+#: ../docs/internal-documentation.pod:830
 msgid ""
 "C<guestfs_shutdown> calls C<shutdown_backend> with C<check_for_errors=1>.  "
 "C<guestfs_close> calls C<shutdown_backend> with C<check_for_errors=0>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:511
+#: ../docs/internal-documentation.pod:834
 msgid ""
 "C<check_for_errors> is a hint to the backend about whether we care about "
 "errors or not.  In the libvirt case it can be used to optimize the shutdown "
@@ -33506,12 +34329,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:515
+#: ../docs/internal-documentation.pod:838
 msgid "Function C<src/handle.c:close_handles>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:517
+#: ../docs/internal-documentation.pod:840
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33520,17 +34343,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:520
+#: ../docs/internal-documentation.pod:843
 msgid "Close all open handles (called from L<atexit(3)>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:522
+#: ../docs/internal-documentation.pod:845
 msgid "Function C<src/handle.c:guestfs_int_get_backend_setting_bool>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:524
+#: ../docs/internal-documentation.pod:847
 #, no-wrap
 msgid ""
 " int\n"
@@ -33539,31 +34362,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:527
+#: ../docs/internal-documentation.pod:850
 msgid ""
 "This is a convenience function, but we might consider exporting it as an API "
 "in future."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:530
+#: ../docs/internal-documentation.pod:853
 msgid "File F<src/inspect.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:532
+#: ../docs/internal-documentation.pod:855
 msgid ""
 "This file, and the other C<src/inspect*.c> files, handle inspection.  See "
 "L<guestfs(3)/INSPECTION>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:535
+#: ../docs/internal-documentation.pod:858
 msgid "Function C<src/inspect.c:guestfs_impl_inspect_os>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:537
+#: ../docs/internal-documentation.pod:860
 #, no-wrap
 msgid ""
 " char **\n"
@@ -33572,17 +34395,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:540
+#: ../docs/internal-documentation.pod:863
 msgid "The main inspection API."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:542
+#: ../docs/internal-documentation.pod:865
 msgid "Function C<src/inspect.c:collect_coreos_inspection_info>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:544
+#: ../docs/internal-documentation.pod:867
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33591,7 +34414,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:547
+#: ../docs/internal-documentation.pod:870
 msgid ""
 "Traverse through the filesystem list and find out if it contains the C</> "
 "and C</usr> filesystems of a CoreOS image. If this is the case, sum up all "
@@ -33599,12 +34422,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:551
+#: ../docs/internal-documentation.pod:874
 msgid "Function C<src/inspect.c:check_for_duplicated_bsd_root>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:553
+#: ../docs/internal-documentation.pod:876
 #, no-wrap
 msgid ""
 " static void\n"
@@ -33613,7 +34436,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:556
+#: ../docs/internal-documentation.pod:879
 msgid ""
 "On *BSD systems, sometimes F</dev/sda[1234]> is a shadow of the real root "
 "filesystem that is probably F</dev/sda5> (see: L<http://www.freebsd.org/doc/"
@@ -33621,12 +34444,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:560
+#: ../docs/internal-documentation.pod:883
 msgid "Function C<src/inspect.c:guestfs_int_download_to_tmp>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:562
+#: ../docs/internal-documentation.pod:885
 #, no-wrap
 msgid ""
 " char *\n"
@@ -33637,14 +34460,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:567
+#: ../docs/internal-documentation.pod:890
 msgid ""
 "Download a guest file to a local temporary file.  The file is cached in the "
 "temporary directory, and is not downloaded again."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:570
+#: ../docs/internal-documentation.pod:893
 msgid ""
 "The name of the temporary (downloaded) file is returned.  The caller must "
 "free the pointer, but does I<not> need to delete the temporary file.  It "
@@ -33652,31 +34475,79 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:574
+#: ../docs/internal-documentation.pod:897
 msgid ""
 "Refuse to download the guest file if it is larger than C<max_size>.  On this "
 "and other errors, C<NULL> is returned."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:577
+#: ../docs/internal-documentation.pod:900
 msgid ""
 "There is actually one cache per C<struct inspect_fs *> in order to handle "
 "the case of multiple roots."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:580
+#: ../docs/internal-documentation.pod:903
+msgid "File F<src/launch-direct.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:905
+msgid "Implementation of the C<direct> backend."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:907
+msgid "For more details see L<guestfs(3)/BACKENDS>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:909
+msgid "Function C<src/launch-direct.c:guestfs_int_qemu_escape_param>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:911
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" guestfs_int_qemu_escape_param (guestfs_h *g, const char *param)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:914
+msgid "Escape a qemu parameter."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:916
+msgid "Every C<,> becomes C<,,>.  The caller must free the returned string."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:918
 msgid "File F<src/launch.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:582
+#: ../docs/internal-documentation.pod:920
 msgid "This file implements L<guestfs(3)/guestfs_launch>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:584
+#: ../docs/internal-documentation.pod:922
 msgid ""
 "Most of the work is done by the backends (see L<guestfs(3)/BACKEND>), which "
 "are implemented in F<src/launch-direct.c>, F<src/launch-libvirt.c> etc, so "
@@ -33684,12 +34555,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:589
+#: ../docs/internal-documentation.pod:927
 msgid "Function C<src/launch.c:guestfs_int_launch_send_progress>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:591
+#: ../docs/internal-documentation.pod:929
 #, no-wrap
 msgid ""
 " void\n"
@@ -33698,19 +34569,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:594
+#: ../docs/internal-documentation.pod:932
 msgid "This function sends a launch progress message."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:596
+#: ../docs/internal-documentation.pod:934
 msgid ""
 "Launching the appliance generates approximate progress messages.  Currently "
 "these are defined as follows:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:599
+#: ../docs/internal-documentation.pod:937
 #, no-wrap
 msgid ""
 "   0 / 12: launch clock starts\n"
@@ -33722,31 +34593,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:611
+#: ../docs/internal-documentation.pod:949
 msgid ""
 "This is not a documented ABI and the behaviour may be changed or removed in "
 "future."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:616
+#: ../docs/internal-documentation.pod:954
 msgid ""
 "Messages are only sent if more than 5 seconds has elapsed since the launch "
 "clock started."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:621
+#: ../docs/internal-documentation.pod:959
 msgid "There is a hack in F<src/proto.c> to make this work."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:625
+#: ../docs/internal-documentation.pod:963
 msgid "Function C<src/launch.c:guestfs_int_timeval_diff>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:627
+#: ../docs/internal-documentation.pod:965
 #, no-wrap
 msgid ""
 " int64_t\n"
@@ -33755,24 +34626,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:630
+#: ../docs/internal-documentation.pod:968
 msgid "Compute C<y - x> and return the result in milliseconds."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:632
+#: ../docs/internal-documentation.pod:970
 msgid ""
 "Approximately the same as this code: L<http://www.mpp.mpg.de/~huber/util/"
 "timevaldiff.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:635
+#: ../docs/internal-documentation.pod:973
 msgid "Function C<src/launch.c:guestfs_impl_max_disks>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:637
+#: ../docs/internal-documentation.pod:975
 #, no-wrap
 msgid ""
 " int\n"
@@ -33781,19 +34652,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:640
+#: ../docs/internal-documentation.pod:978
 msgid ""
 "Returns the maximum number of disks allowed to be added to the backend "
 "(backend dependent)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:643
+#: ../docs/internal-documentation.pod:981
 msgid "Function C<src/launch.c:guestfs_impl_wait_ready>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:645
+#: ../docs/internal-documentation.pod:983
 #, no-wrap
 msgid ""
 " int\n"
@@ -33802,7 +34673,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:648
+#: ../docs/internal-documentation.pod:986
 msgid ""
 "Implementation of L<guestfs(3)/guestfs_wait_ready>.  You had to call this "
 "function after launch in versions E<le> 1.0.70, but it is now an (almost) no-"
@@ -33810,12 +34681,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:652
+#: ../docs/internal-documentation.pod:990
 msgid "Function C<src/launch.c:guestfs_int_appliance_command_line>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:654
+#: ../docs/internal-documentation.pod:992
 #, no-wrap
 msgid ""
 " char *\n"
@@ -33825,7 +34696,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:658
+#: ../docs/internal-documentation.pod:996
 msgid ""
 "Construct the Linux command line passed to the appliance.  This is used by "
 "the C<direct> and C<libvirt> backends, and is simply located in this file "
@@ -33833,7 +34704,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:663
+#: ../docs/internal-documentation.pod:1001
 msgid ""
 "The C<appliance_dev> parameter must be the full device name of the appliance "
 "disk and must have already been adjusted to take into account virtio-blk or "
@@ -33841,38 +34712,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:667
+#: ../docs/internal-documentation.pod:1005
 msgid ""
 "The C<flags> parameter can contain the following flags logically or'd "
 "together (or 0):"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:672
+#: ../docs/internal-documentation.pod:1010
 msgid "C<APPLIANCE_COMMAND_LINE_IS_TCG>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:674
+#: ../docs/internal-documentation.pod:1012
 msgid ""
 "If we are launching a qemu TCG guest (ie. KVM is known to be disabled or "
 "unavailable).  If you don't know, don't pass this flag."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:679
+#: ../docs/internal-documentation.pod:1017
 msgid ""
 "Note that this function returns a newly allocated buffer which must be freed "
 "by the caller."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:682
+#: ../docs/internal-documentation.pod:1020
 msgid "Function C<src/launch.c:guestfs_int_get_cpu_model>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:684
+#: ../docs/internal-documentation.pod:1022
 #, no-wrap
 msgid ""
 " const char *\n"
@@ -33881,60 +34752,60 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:687
+#: ../docs/internal-documentation.pod:1025
 msgid ""
 "Return the right CPU model to use as the qemu C<-cpu> parameter or its "
 "equivalent in libvirt.  This returns:"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:692
+#: ../docs/internal-documentation.pod:1030
 msgid "C<\"host\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:694
+#: ../docs/internal-documentation.pod:1032
 msgid "The literal string C<\"host\"> means use C<-cpu host>."
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:696
+#: ../docs/internal-documentation.pod:1034
 msgid "some string"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:698
+#: ../docs/internal-documentation.pod:1036
 msgid "Some string such as C<\"cortex-a57\"> means use C<-cpu cortex-a57>."
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:700
+#: ../docs/internal-documentation.pod:1038
 msgid "C<NULL>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:702
+#: ../docs/internal-documentation.pod:1040
 msgid ""
 "C<NULL> means no C<-cpu> option at all.  Note returning C<NULL> does not "
 "indicate an error."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:707
+#: ../docs/internal-documentation.pod:1045
 msgid ""
 "This is made unnecessarily hard and fragile because of two stupid choices in "
 "QEMU:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:714
+#: ../docs/internal-documentation.pod:1052
 msgid ""
 "The default for C<qemu-system-aarch64 -M virt> is to emulate a C<cortex-a15> "
 "(WTF?)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:719
+#: ../docs/internal-documentation.pod:1057
 msgid ""
 "We don't know for sure if KVM will work, but C<-cpu host> is broken with "
 "TCG, so we almost always pass a broken C<-cpu> flag if KVM is semi-broken in "
@@ -33942,12 +34813,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:725
+#: ../docs/internal-documentation.pod:1063
 msgid "Function C<src/launch.c:guestfs_int_create_socketname>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:727
+#: ../docs/internal-documentation.pod:1065
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -33966,17 +34837,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:731
+#: ../docs/internal-documentation.pod:1069
 msgid "Create the path for a socket with the selected filename in the tmpdir."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:734
+#: ../docs/internal-documentation.pod:1072
 msgid "Function C<src/launch.c:guestfs_int_register_backend>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:736
+#: ../docs/internal-documentation.pod:1074
 #, no-wrap
 msgid ""
 " void\n"
@@ -33985,19 +34856,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:739
+#: ../docs/internal-documentation.pod:1077
 msgid ""
 "When the library is loaded, each backend calls this function to register "
 "itself in a global list."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:742
+#: ../docs/internal-documentation.pod:1080
 msgid "Function C<src/launch.c:guestfs_int_set_backend>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:744
+#: ../docs/internal-documentation.pod:1082
 #, no-wrap
 msgid ""
 " int\n"
@@ -34006,29 +34877,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:747
+#: ../docs/internal-documentation.pod:1085
 msgid "Implementation of L<guestfs(3)/guestfs_set_backend>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:753
+#: ../docs/internal-documentation.pod:1091
 msgid "Callers must ensure this is only called in the config state."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:757
+#: ../docs/internal-documentation.pod:1095
 msgid ""
 "This shouldn't call C<error> since it may be called early in handle "
 "initialization.  It can return an error code however."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:762
+#: ../docs/internal-documentation.pod:1100
 msgid "File F<src/proto.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:764
+#: ../docs/internal-documentation.pod:1102
 msgid ""
 "This is the code used to send and receive RPC messages and (for certain "
 "types of message) to perform file transfers.  This code is driven from the "
@@ -34037,21 +34908,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:773
+#: ../docs/internal-documentation.pod:1111
 msgid ""
 "A non-daemon function (eg. L<guestfs(3)/guestfs_set_verbose>).  There is no "
 "RPC involved at all, it's all handled inside the library."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:779
+#: ../docs/internal-documentation.pod:1117
 msgid ""
 "A simple RPC (eg. L<guestfs(3)/guestfs_mount>).  We write the request, then "
 "read the reply.  The sequence of calls is:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:782
+#: ../docs/internal-documentation.pod:1120
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_h *g = guestfs_create ();\n"
@@ -34065,7 +34936,7 @@ msgstr ""
 " \n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:787
+#: ../docs/internal-documentation.pod:1125
 msgid ""
 "An RPC with C<FileOut> parameters (eg. L<guestfs(3)/guestfs_upload>).  We "
 "write the request, then write the file(s), then read the reply.  The "
@@ -34073,7 +34944,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:791
+#: ../docs/internal-documentation.pod:1129
 #, no-wrap
 msgid ""
 "  guestfs_int_send\n"
@@ -34083,7 +34954,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:797
+#: ../docs/internal-documentation.pod:1135
 msgid ""
 "An RPC with C<FileIn> parameters (eg. L<guestfs(3)/guestfs_download>).  We "
 "write the request, then read the reply, then read the file(s).  The sequence "
@@ -34091,7 +34962,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:801
+#: ../docs/internal-documentation.pod:1139
 #, no-wrap
 msgid ""
 "  guestfs_int_send\n"
@@ -34101,7 +34972,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:807
+#: ../docs/internal-documentation.pod:1145
 msgid ""
 "Both C<FileOut> and C<FileIn> parameters.  There are no calls like this in "
 "the current API, but they would be implemented as a combination of cases 3 "
@@ -34109,7 +34980,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:813
+#: ../docs/internal-documentation.pod:1151
 msgid ""
 "All read/write/etc operations are performed using the current connection "
 "module (C<g-E<gt>conn>).  During operations the connection module "
@@ -34117,12 +34988,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:818
+#: ../docs/internal-documentation.pod:1156
 msgid "Function C<src/proto.c:child_cleanup>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:820
+#: ../docs/internal-documentation.pod:1158
 #, no-wrap
 msgid ""
 " static void\n"
@@ -34131,17 +35002,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:823
+#: ../docs/internal-documentation.pod:1161
 msgid "This is called if we detect EOF, ie. qemu died."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:825
+#: ../docs/internal-documentation.pod:1163
 msgid "Function C<src/proto.c:guestfs_int_progress_message_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:827
+#: ../docs/internal-documentation.pod:1165
 #, no-wrap
 msgid ""
 " void\n"
@@ -34151,17 +35022,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:831
+#: ../docs/internal-documentation.pod:1169
 msgid "Convenient wrapper to generate a progress message callback."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:833
+#: ../docs/internal-documentation.pod:1171
 msgid "Function C<src/proto.c:guestfs_int_log_message_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:835
+#: ../docs/internal-documentation.pod:1173
 #, no-wrap
 msgid ""
 " void\n"
@@ -34170,17 +35041,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:838
+#: ../docs/internal-documentation.pod:1176
 msgid "Connection modules call us back here when they get a log message."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:840
+#: ../docs/internal-documentation.pod:1178
 msgid "Function C<src/proto.c:check_daemon_socket>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:842
+#: ../docs/internal-documentation.pod:1180
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -34189,69 +35060,64 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:845
+#: ../docs/internal-documentation.pod:1183
 msgid ""
 "Before writing to the daemon socket, check the read side of the daemon "
 "socket for any of these conditions:"
 msgstr ""
 
-#. type: =item
-#: ../docs/internal-documentation.pod:850
-msgid "error"
-msgstr ""
-
 #. type: textblock
-#: ../docs/internal-documentation.pod:852
+#: ../docs/internal-documentation.pod:1190
 msgid "return -1"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:854
+#: ../docs/internal-documentation.pod:1192
 msgid "daemon cancellation message"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:856
+#: ../docs/internal-documentation.pod:1194
 msgid "return -2"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:858
+#: ../docs/internal-documentation.pod:1196
 msgid "progress message"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:860
+#: ../docs/internal-documentation.pod:1198
 msgid "handle it here"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:862
+#: ../docs/internal-documentation.pod:1200
 msgid "end of input or appliance exited unexpectedly"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:864
+#: ../docs/internal-documentation.pod:1202
 msgid "return 0"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:866
+#: ../docs/internal-documentation.pod:1204
 msgid "anything else"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:868
+#: ../docs/internal-documentation.pod:1206
 msgid "return 1"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:872
+#: ../docs/internal-documentation.pod:1210
 msgid "Function C<src/proto.c:guestfs_int_send_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:874
+#: ../docs/internal-documentation.pod:1212
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -34269,24 +35135,24 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:877
+#: ../docs/internal-documentation.pod:1215
 msgid "Send a file."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:879
+#: ../docs/internal-documentation.pod:1217
 msgid ""
 "Returns C<0> on success, C<-1> for error, C<-2> if the daemon cancelled (we "
 "must read the error message)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:882
+#: ../docs/internal-documentation.pod:1220
 msgid "Function C<src/proto.c:send_file_data>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:884
+#: ../docs/internal-documentation.pod:1222
 #, no-wrap
 msgid ""
 " static int\n"
@@ -34295,17 +35161,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:887
+#: ../docs/internal-documentation.pod:1225
 msgid "Send a chunk of file data."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:889
+#: ../docs/internal-documentation.pod:1227
 msgid "Function C<src/proto.c:send_file_cancellation>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:891
+#: ../docs/internal-documentation.pod:1229
 #, no-wrap
 msgid ""
 " static int\n"
@@ -34314,17 +35180,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:894
+#: ../docs/internal-documentation.pod:1232
 msgid "Send a cancellation message."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:896
+#: ../docs/internal-documentation.pod:1234
 msgid "Function C<src/proto.c:send_file_complete>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:898
+#: ../docs/internal-documentation.pod:1236
 #, no-wrap
 msgid ""
 " static int\n"
@@ -34333,17 +35199,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:901
+#: ../docs/internal-documentation.pod:1239
 msgid "Send a file complete chunk."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:903
+#: ../docs/internal-documentation.pod:1241
 msgid "Function C<src/proto.c:recv_from_daemon>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:905
+#: ../docs/internal-documentation.pod:1243
 #, no-wrap
 msgid ""
 " static int\n"
@@ -34352,7 +35218,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:908
+#: ../docs/internal-documentation.pod:1246
 msgid ""
 "This function reads a single message, file chunk, launch flag or "
 "cancellation flag from the daemon.  If something was read, it returns C<0>, "
@@ -34360,44 +35226,44 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:912
+#: ../docs/internal-documentation.pod:1250
 msgid ""
 "Both C<size_rtn> and C<buf_rtn> must be passed by the caller as non-NULL."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:915
+#: ../docs/internal-documentation.pod:1253
 msgid ""
 "C<*size_rtn> returns the size of the returned message or it may be "
 "C<GUESTFS_LAUNCH_FLAG> or C<GUESTFS_CANCEL_FLAG>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:918
+#: ../docs/internal-documentation.pod:1256
 msgid ""
 "C<*buf_rtn> is returned containing the message (if any) or will be set to "
 "C<NULL>.  C<*buf_rtn> must be freed by the caller."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:921
+#: ../docs/internal-documentation.pod:1259
 msgid ""
 "This checks for EOF (appliance died) and passes that up through the "
 "child_cleanup function above."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:924
+#: ../docs/internal-documentation.pod:1262
 msgid "Log message, progress messages are handled transparently here."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:926
+#: ../docs/internal-documentation.pod:1264
 msgid "Function C<src/proto.c:guestfs_int_recv>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:928
+#: ../docs/internal-documentation.pod:1266
 #, no-wrap
 msgid ""
 " int\n"
@@ -34409,17 +35275,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:934
+#: ../docs/internal-documentation.pod:1272
 msgid "Receive a reply."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:936
+#: ../docs/internal-documentation.pod:1274
 msgid "Function C<src/proto.c:guestfs_int_recv_discard>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:938
+#: ../docs/internal-documentation.pod:1276
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -34437,32 +35303,32 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:941
+#: ../docs/internal-documentation.pod:1279
 msgid "Same as C<guestfs_int_recv>, but it discards the reply message."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:943
+#: ../docs/internal-documentation.pod:1281
 msgid "Notes (XXX):"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:949
+#: ../docs/internal-documentation.pod:1287
 msgid "This returns an int, but all current callers ignore it."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:953
+#: ../docs/internal-documentation.pod:1291
 msgid "The error string may end up being set twice on error paths."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:957
+#: ../docs/internal-documentation.pod:1295
 msgid "Function C<src/proto.c:guestfs_int_recv_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:959
+#: ../docs/internal-documentation.pod:1297
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -34480,18 +35346,18 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:962
-#: ../docs/internal-documentation.pod:971
+#: ../docs/internal-documentation.pod:1300
+#: ../docs/internal-documentation.pod:1309
 msgid "Returns C<-1> = error, C<0> = EOF, C<E<gt>0> = more data"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:964
+#: ../docs/internal-documentation.pod:1302
 msgid "Function C<src/proto.c:receive_file_data>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:966
+#: ../docs/internal-documentation.pod:1304
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -34500,27 +35366,195 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:969
+#: ../docs/internal-documentation.pod:1307
 msgid "Receive a chunk of file data."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:973
+#: ../docs/internal-documentation.pod:1311
+msgid "File F<src/stringsbuf.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1313
+msgid "An expandable NULL-terminated vector of strings (like C<argv>)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1315
+msgid "Use the C<DECLARE_STRINGSBUF> macro to declare the stringsbuf."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1317
+msgid ""
+"Note: Don't confuse this with stringsbuf in the daemon which is a different "
+"type with different methods."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1320
+msgid "Function C<src/stringsbuf.c:guestfs_int_add_string_nodup>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1322
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_add_string_nodup (guestfs_h *g, struct stringsbuf *sb, char *str)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1325
+#: ../docs/internal-documentation.pod:1335
+#: ../docs/internal-documentation.pod:1345
+msgid "Add a string to the end of the list."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1327
+msgid ""
+"This doesn't call L<strdup(3)> on the string, so the string itself is stored "
+"inside the vector."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1330
+msgid "Function C<src/stringsbuf.c:guestfs_int_add_string>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1332
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_add_string (guestfs_h *g, struct stringsbuf *sb, const char *str)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1337
+msgid "This makes a copy of the string."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1339
+msgid "Function C<src/stringsbuf.c:guestfs_int_add_sprintf>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1341
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_add_sprintf (guestfs_h *g, struct stringsbuf *sb,\n"
+" \t\t\t const char *fs, ...)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1347
+msgid "Uses an sprintf-like format string when creating the string."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1349
+msgid "Function C<src/stringsbuf.c:guestfs_int_end_stringsbuf>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1351
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" void\n"
+" guestfs_int_end_stringsbuf (guestfs_h *g, struct stringsbuf *sb)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1354
+msgid "Finish the string buffer."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1356
+msgid "This adds the terminating NULL to the end of the vector."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1358
+msgid "Function C<src/stringsbuf.c:guestfs_int_free_stringsbuf>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1360
+#, no-wrap
+msgid ""
+" void\n"
+" guestfs_int_free_stringsbuf (struct stringsbuf *sb)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1363
+msgid "Free the string buffer and the strings."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:1365
 msgid "File F<src/umask.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:975
+#: ../docs/internal-documentation.pod:1367
 msgid "Return current umask in a thread-safe way."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:977
+#: ../docs/internal-documentation.pod:1369
 msgid "Function C<src/umask.c:guestfs_int_getumask>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:979
+#: ../docs/internal-documentation.pod:1371
 #, no-wrap
 msgid ""
 " int\n"
@@ -34529,54 +35563,275 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:982
+#: ../docs/internal-documentation.pod:1374
 msgid ""
 "glibc documents, but does not actually implement, a L<getumask(3)> call."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:985
+#: ../docs/internal-documentation.pod:1377
 msgid ""
 "This function implements an expensive, but thread-safe way to get the "
 "current process's umask."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:988
+#: ../docs/internal-documentation.pod:1380
 msgid ""
 "Returns the current process's umask.  On failure, returns C<-1> and sets the "
 "error in the guestfs handle."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:991
+#: ../docs/internal-documentation.pod:1383
 msgid "Thanks to: Josh Stone, Jiri Jaburek, Eric Blake."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:993
+#: ../docs/internal-documentation.pod:1385
+msgid "File F<src/unit-tests.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1387
+msgid "Unit tests of internal functions."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1389
+msgid ""
+"These tests may use a libguestfs handle, but must not launch the handle.  "
+"Also, avoid long-running tests."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1392
+msgid "Function C<src/unit-tests.c:test_split>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1394
+#, no-wrap
+msgid ""
+" static void\n"
+" test_split (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1397
+msgid "Test C<guestfs_int_split_string>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1399
+msgid "Function C<src/unit-tests.c:test_concat>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1401
+#, no-wrap
+msgid ""
+" static void\n"
+" test_concat (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1404
+msgid "Test C<guestfs_int_concat_strings>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1406
+msgid "Function C<src/unit-tests.c:test_join>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1408
+#, no-wrap
+msgid ""
+" static void\n"
+" test_join (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1411
+msgid "Test C<guestfs_int_join_strings>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1413
+msgid "Function C<src/unit-tests.c:test_validate_guid>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1415
+#, no-wrap
+msgid ""
+" static void\n"
+" test_validate_guid (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1418
+msgid "Test C<guestfs_int_validate_guid>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1420
+msgid "Function C<src/unit-tests.c:test_drive_name>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1422
+#, no-wrap
+msgid ""
+" static void\n"
+" test_drive_name (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1425
+msgid "Test C<guestfs_int_drive_name>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1427
+msgid "Function C<src/unit-tests.c:test_drive_index>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1429
+#, no-wrap
+msgid ""
+" static void\n"
+" test_drive_index (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1432
+msgid "Test C<guestfs_int_drive_index>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1434
+msgid "Function C<src/unit-tests.c:test_getumask>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1436
+#, no-wrap
+msgid ""
+" static void\n"
+" test_getumask (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1439
+msgid "Test C<guestfs_int_getumask>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1441
+msgid "Function C<src/unit-tests.c:test_command>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1443
+#, no-wrap
+msgid ""
+" static void\n"
+" test_command (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1446
+msgid "Test C<guestfs_int_new_command> etc."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1448
+msgid ""
+"XXX These tests could be made much more thorough.  So far we simply test "
+"that it's not obviously broken."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1451
+msgid "Function C<src/unit-tests.c:test_qemu_escape_param>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1453
+#, no-wrap
+msgid ""
+" static void\n"
+" test_qemu_escape_param (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1456
+msgid "Test C<guestfs_int_qemu_escape_param>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1458
+msgid ""
+"XXX I wanted to make this test run qemu, passing some parameters which need "
+"to be escaped, but I cannot think of a way to do that without launching a VM."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1462
+msgid "Function C<src/unit-tests.c:test_timeval_diff>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1464
+#, no-wrap
+msgid ""
+" static void\n"
+" test_timeval_diff (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1467
+msgid "Test C<guestfs_int_timeval_diff>."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:1469
 msgid "File F<src/utils.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:995
+#: ../docs/internal-documentation.pod:1471
 msgid "Utility functions used by the library, tools and language bindings."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:997
+#: ../docs/internal-documentation.pod:1473
 msgid ""
 "These functions these I<must not> call internal library functions such as "
-"C<safe_*>, C<error> or C<perrorf>."
+"C<safe_*>, C<error> or C<perrorf>, or any C<guestfs_int_*>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1000
+#: ../docs/internal-documentation.pod:1476
 msgid "Function C<src/utils.c:guestfs_int_split_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1002
+#: ../docs/internal-documentation.pod:1478
 #, no-wrap
 msgid ""
 " char **\n"
@@ -34585,65 +35840,65 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1005
+#: ../docs/internal-documentation.pod:1481
 msgid ""
 "Split string at separator character C<sep>, returning the list of strings.  "
 "Returns C<NULL> on memory allocation failure."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1008
+#: ../docs/internal-documentation.pod:1484
 msgid "Note (assuming C<sep> is C<:>):"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1012
+#: ../docs/internal-documentation.pod:1488
 msgid "C<str == NULL>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1014
+#: ../docs/internal-documentation.pod:1490
 msgid "aborts"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1016
+#: ../docs/internal-documentation.pod:1492
 msgid "C<str == \"\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1018
-#: ../docs/internal-documentation.pod:1436
+#: ../docs/internal-documentation.pod:1494
+#: ../docs/internal-documentation.pod:1936
 msgid "returns C<[]>"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1020
+#: ../docs/internal-documentation.pod:1496
 msgid "C<str == \"abc\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1022
+#: ../docs/internal-documentation.pod:1498
 msgid "returns C<[\"abc\"]>"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1024
+#: ../docs/internal-documentation.pod:1500
 msgid "C<str == \":\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1026
+#: ../docs/internal-documentation.pod:1502
 msgid "returns C<[\"\", \"\"]>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1030
+#: ../docs/internal-documentation.pod:1506
 msgid "Function C<src/utils.c:guestfs_int_exit_status_to_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1032
+#: ../docs/internal-documentation.pod:1508
 #, no-wrap
 msgid ""
 " char *\n"
@@ -34653,17 +35908,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1036
+#: ../docs/internal-documentation.pod:1512
 msgid "Translate a wait/system exit status into a printable string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1038
+#: ../docs/internal-documentation.pod:1514
 msgid "Function C<src/utils.c:guestfs_int_random_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1040
+#: ../docs/internal-documentation.pod:1516
 #, no-wrap
 msgid ""
 " int\n"
@@ -34672,31 +35927,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1043
+#: ../docs/internal-documentation.pod:1519
 msgid "Return a random string of characters."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1051
+#: ../docs/internal-documentation.pod:1527
 msgid ""
 "The C<ret> buffer must have length C<len+1> in order to store the final C<"
 "\\0> character."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1056
+#: ../docs/internal-documentation.pod:1532
 msgid ""
 "There is about 5 bits of randomness per output character (so about C<5*len> "
 "bits of randomness in the resulting string)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1061
+#: ../docs/internal-documentation.pod:1537
 msgid "Function C<src/utils.c:guestfs_int_drive_name>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1063
+#: ../docs/internal-documentation.pod:1539
 #, no-wrap
 msgid ""
 " char *\n"
@@ -34705,12 +35960,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1066
+#: ../docs/internal-documentation.pod:1542
 msgid "This turns a drive index (eg. C<27>) into a drive name (eg. C<\"ab\">)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1069
+#: ../docs/internal-documentation.pod:1545
 msgid ""
 "Drive indexes count from C<0>.  The return buffer has to be large enough for "
 "the resulting string, and the returned pointer points to the *end* of the "
@@ -34718,20 +35973,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1073
-#: ../docs/internal-documentation.pod:1416
+#: ../docs/internal-documentation.pod:1549
+#: ../docs/internal-documentation.pod:1916
 msgid ""
 "L<https://rwmj.wordpress.com/2011/01/09/how-are-linux-drives-named-beyond-"
 "drive-26-devsdz/>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1075
+#: ../docs/internal-documentation.pod:1551
 msgid "Function C<src/utils.c:guestfs_int_drive_index>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1077
+#: ../docs/internal-documentation.pod:1553
 #, no-wrap
 msgid ""
 " ssize_t\n"
@@ -34740,26 +35995,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1080
+#: ../docs/internal-documentation.pod:1556
 msgid ""
 "The opposite of C<guestfs_int_drive_name>.  Take a string like C<\"ab\"> and "
 "return the index (eg C<27>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1083
+#: ../docs/internal-documentation.pod:1559
 msgid ""
 "Note that you must remove any prefix such as C<\"hd\">, C<\"sd\"> etc, or "
 "any partition number before calling the function."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1086
+#: ../docs/internal-documentation.pod:1562
 msgid "Function C<src/utils.c:guestfs_int_is_true>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1088
+#: ../docs/internal-documentation.pod:1564
 #, no-wrap
 msgid ""
 " int\n"
@@ -34768,17 +36023,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1091
+#: ../docs/internal-documentation.pod:1567
 msgid "Similar to C<Tcl_GetBoolean>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1093
+#: ../docs/internal-documentation.pod:1569
 msgid "Function C<src/utils.c:guestfs_int_fadvise_normal>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1095
+#: ../docs/internal-documentation.pod:1571
 #, no-wrap
 msgid ""
 " void\n"
@@ -34787,12 +36042,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1098
+#: ../docs/internal-documentation.pod:1574
 msgid "Hint that we will read or write the file descriptor normally."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1100
+#: ../docs/internal-documentation.pod:1576
 msgid ""
 "On Linux, this clears the C<FMODE_RANDOM> flag on the file [see below] and "
 "sets the per-file number of readahead pages to equal the block device "
@@ -34800,24 +36055,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1104
-#: ../docs/internal-documentation.pod:1118
-#: ../docs/internal-documentation.pod:1145
-#: ../docs/internal-documentation.pod:1157
-#: ../docs/internal-documentation.pod:1174
-#: ../docs/internal-documentation.pod:1188
+#: ../docs/internal-documentation.pod:1580
+#: ../docs/internal-documentation.pod:1594
+#: ../docs/internal-documentation.pod:1621
+#: ../docs/internal-documentation.pod:1633
+#: ../docs/internal-documentation.pod:1650
+#: ../docs/internal-documentation.pod:1664
 msgid ""
 "It's OK to call this on a non-file since we ignore failure as it is only a "
 "hint."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1107
+#: ../docs/internal-documentation.pod:1583
 msgid "Function C<src/utils.c:guestfs_int_fadvise_sequential>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1109
+#: ../docs/internal-documentation.pod:1585
 #, no-wrap
 msgid ""
 " void\n"
@@ -34826,12 +36081,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1112
+#: ../docs/internal-documentation.pod:1588
 msgid "Hint that we will read or write the file descriptor sequentially."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1114
+#: ../docs/internal-documentation.pod:1590
 msgid ""
 "On Linux, this clears the C<FMODE_RANDOM> flag on the file [see below] and "
 "sets the per-file number of readahead pages to twice the block device "
@@ -34839,12 +36094,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1121
+#: ../docs/internal-documentation.pod:1597
 msgid "Function C<src/utils.c:guestfs_int_fadvise_random>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1123
+#: ../docs/internal-documentation.pod:1599
 #, no-wrap
 msgid ""
 " void\n"
@@ -34853,24 +36108,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1126
+#: ../docs/internal-documentation.pod:1602
 msgid "Hint that we will read or write the file descriptor randomly."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1128
+#: ../docs/internal-documentation.pod:1604
 msgid ""
 "On Linux, this sets the C<FMODE_RANDOM> flag on the file.  The effect of "
 "this flag is to:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1135
+#: ../docs/internal-documentation.pod:1611
 msgid "Disable normal sequential file readahead."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1139
+#: ../docs/internal-documentation.pod:1615
 msgid ""
 "If any read of the file is done which misses in the page cache, 2MB are read "
 "into the page cache.  [I think - I'm not sure I totally understand what this "
@@ -34878,12 +36133,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1148
+#: ../docs/internal-documentation.pod:1624
 msgid "Function C<src/utils.c:guestfs_int_fadvise_noreuse>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1150
+#: ../docs/internal-documentation.pod:1626
 #, no-wrap
 msgid ""
 " void\n"
@@ -34892,22 +36147,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1153
+#: ../docs/internal-documentation.pod:1629
 msgid "Hint that we will access the data only once."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1155
+#: ../docs/internal-documentation.pod:1631
 msgid "On Linux, this does nothing."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1160
+#: ../docs/internal-documentation.pod:1636
 msgid "Function C<src/utils.c:guestfs_int_fadvise_dontneed>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1162
+#: ../docs/internal-documentation.pod:1638
 #, no-wrap
 msgid ""
 " void\n"
@@ -34916,12 +36171,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1165
+#: ../docs/internal-documentation.pod:1641
 msgid "Hint that we will not access the data in the near future."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1167
+#: ../docs/internal-documentation.pod:1643
 msgid ""
 "On Linux, this immediately writes out any dirty pages in the page cache and "
 "then invalidates (drops) all pages associated with this file from the page "
@@ -34931,12 +36186,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1177
+#: ../docs/internal-documentation.pod:1653
 msgid "Function C<src/utils.c:guestfs_int_fadvise_willneed>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1179
+#: ../docs/internal-documentation.pod:1655
 #, no-wrap
 msgid ""
 " void\n"
@@ -34945,12 +36200,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1182
+#: ../docs/internal-documentation.pod:1658
 msgid "Hint that we will access the data in the near future."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1184
+#: ../docs/internal-documentation.pod:1660
 msgid ""
 "On Linux, this immediately reads the whole file into the page cache.  This "
 "setting is not persistent; subsequently pages may be dropped from the page "
@@ -34958,17 +36213,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1191
+#: ../docs/internal-documentation.pod:1667
 msgid "File F<src/wait.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1193
+#: ../docs/internal-documentation.pod:1669
 msgid "Function C<src/wait.c:guestfs_int_waitpid>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1195
+#: ../docs/internal-documentation.pod:1671
 #, no-wrap
 msgid ""
 " int\n"
@@ -34977,12 +36232,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1198
+#: ../docs/internal-documentation.pod:1674
 msgid "A safe version of L<waitpid(3)> which retries if C<EINTR> is returned."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1201
+#: ../docs/internal-documentation.pod:1677
 msgid ""
 "I<Note:> this only needs to be used in the library, or in programs that "
 "install a non-restartable C<SIGCHLD> handler (which is not the case for any "
@@ -34990,7 +36245,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1205
+#: ../docs/internal-documentation.pod:1681
 msgid ""
 "If the main program installs a SIGCHLD handler and sets it to be non-"
 "restartable, then what can happen is the library is waiting in a wait "
@@ -35001,12 +36256,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1212
+#: ../docs/internal-documentation.pod:1688
 msgid "Function C<src/wait.c:guestfs_int_waitpid_noerror>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1214
+#: ../docs/internal-documentation.pod:1690
 #, no-wrap
 msgid ""
 " void\n"
@@ -35015,22 +36270,84 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1217
+#: ../docs/internal-documentation.pod:1693
 msgid "Like C<guestfs_int_waitpid>, but ignore errors."
 msgstr ""
 
+#. type: =head3
+#: ../docs/internal-documentation.pod:1695
+msgid "File F<src/whole-file.c>"
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:1697
+msgid "Function C<src/whole-file.c:guestfs_int_read_whole_file>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:1699
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" int\n"
+" guestfs_int_read_whole_file (guestfs_h *g, const char *filename,\n"
+"                              char **data_r, size_t *size_r)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1703
+msgid "Read the whole file C<filename> into a memory buffer."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1705
+msgid ""
+"The memory buffer is initialized and returned in C<data_r>.  The size of the "
+"file in bytes is returned in C<size_r>.  The return buffer must be freed by "
+"the caller."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1709
+msgid "On error this sets the error in the handle and returns C<-1>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1711
+msgid ""
+"For the convenience of callers, the returned buffer is NUL-terminated (the "
+"NUL is not included in the size)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:1714
+msgid ""
+"The file must be a B<regular>, B<local>, B<trusted> file.  In particular, do "
+"not use this function to read files that might be under control of an "
+"untrusted user since that will lead to a denial-of-service attack."
+msgstr ""
+
 #. type: =head2
-#: ../docs/internal-documentation.pod:1219
+#: ../docs/internal-documentation.pod:1719
 msgid "Subdirectory F<builder>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1221
+#: ../docs/internal-documentation.pod:1721
 msgid "File F<builder/index-parser-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1223
+#: ../docs/internal-documentation.pod:1723
 msgid ""
 "This file handles the interface between the C/lex/yacc index file parser, "
 "and the OCaml world.  See F<builder/index_parser.ml> for the OCaml type "
@@ -35038,36 +36355,36 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:1227
+#: ../docs/internal-documentation.pod:1727
 msgid "Subdirectory F<cat>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1229
+#: ../docs/internal-documentation.pod:1729
 msgid "File F<cat/visit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1231
+#: ../docs/internal-documentation.pod:1731
 msgid ""
 "This file contains a recursive function for visiting all files and "
 "directories in a guestfs filesystem."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1234
+#: ../docs/internal-documentation.pod:1734
 msgid ""
 "Adapted from L<https://rwmj.wordpress.com/2010/12/15/tip-audit-virtual-"
 "machine-for-setuid-files/>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1237
+#: ../docs/internal-documentation.pod:1737
 msgid "Function C<cat/visit.c:visit>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1239
+#: ../docs/internal-documentation.pod:1739
 #, no-wrap
 msgid ""
 " int\n"
@@ -35076,20 +36393,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1242
+#: ../docs/internal-documentation.pod:1742
 msgid ""
 "Visit every file and directory in a guestfs filesystem, starting at C<dir>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1245
+#: ../docs/internal-documentation.pod:1745
 msgid ""
 "C<dir> may be C<\"/\"> to visit the entire filesystem, or may be some "
 "subdirectory.  Symbolic links are not followed."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1248
+#: ../docs/internal-documentation.pod:1748
 msgid ""
 "The visitor function C<f> is called once for every directory and every "
 "file.  The parameters passed to C<f> include the current directory name, the "
@@ -35100,14 +36417,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1256
+#: ../docs/internal-documentation.pod:1756
 msgid ""
 "Also passed to this function is an C<opaque> pointer which is passed through "
 "to the visitor function."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1259
+#: ../docs/internal-documentation.pod:1759
 msgid ""
 "Returns C<0> if everything went OK, or C<-1> if there was an error.  Error "
 "handling is not particularly well defined.  It will either set an error in "
@@ -35116,29 +36433,29 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:1264
+#: ../docs/internal-documentation.pod:1764
 msgid "Subdirectory F<daemon>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1266
+#: ../docs/internal-documentation.pod:1766
 msgid "File F<daemon/command.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1268
+#: ../docs/internal-documentation.pod:1768
 msgid ""
 "This file contains a number of useful functions for running external "
 "commands and capturing their output."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1271
+#: ../docs/internal-documentation.pod:1771
 msgid "Function C<daemon/command.c:commandf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1273
+#: ../docs/internal-documentation.pod:1773
 #, no-wrap
 msgid ""
 " int\n"
@@ -35148,36 +36465,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1277
+#: ../docs/internal-documentation.pod:1777
 msgid "Run a command.  Optionally capture stdout and stderr as strings."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1279
+#: ../docs/internal-documentation.pod:1779
 msgid ""
 "Returns C<0> if the command ran successfully, or C<-1> if there was any "
 "error."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1282
+#: ../docs/internal-documentation.pod:1782
 msgid "For a description of the C<flags> see C<commandrvf>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1284
+#: ../docs/internal-documentation.pod:1784
 msgid ""
 "There is also a macro C<command(out,err,name,...)> which calls C<commandf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1287
+#: ../docs/internal-documentation.pod:1787
 msgid "Function C<daemon/command.c:commandrf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1289
+#: ../docs/internal-documentation.pod:1789
 #, no-wrap
 msgid ""
 " int\n"
@@ -35187,31 +36504,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1293
+#: ../docs/internal-documentation.pod:1793
 msgid ""
 "Same as C<command>, but we allow the status code from the subcommand to be "
 "non-zero, and return that status code."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1296
+#: ../docs/internal-documentation.pod:1796
 msgid "We still return C<-1> if there was some other error."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1298
+#: ../docs/internal-documentation.pod:1798
 msgid ""
 "There is also a macro C<commandr(out,err,name,...)> which calls C<commandrf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1301
+#: ../docs/internal-documentation.pod:1801
 msgid "Function C<daemon/command.c:commandvf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1303
+#: ../docs/internal-documentation.pod:1803
 #, no-wrap
 msgid ""
 " int\n"
@@ -35221,24 +36538,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1307
+#: ../docs/internal-documentation.pod:1807
 msgid "Same as C<command>, but passing in an argv array."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1309
+#: ../docs/internal-documentation.pod:1809
 msgid ""
 "There is also a macro C<commandv(out,err,argv)> which calls C<commandvf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1312
+#: ../docs/internal-documentation.pod:1812
 msgid "Function C<daemon/command.c:commandrvf>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1314
+#: ../docs/internal-documentation.pod:1814
 #, no-wrap
 msgid ""
 " int\n"
@@ -35248,7 +36565,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1318
+#: ../docs/internal-documentation.pod:1818
 msgid ""
 "This is a more sane version of L<system(3)> for running external commands.  "
 "It uses fork/execvp, so we don't need to worry about quoting of parameters, "
@@ -35256,14 +36573,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1323
+#: ../docs/internal-documentation.pod:1823
 msgid ""
 "If C<stdoutput> is not C<NULL>, then C<*stdoutput> will return the stdout of "
 "the command as a string."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1326
+#: ../docs/internal-documentation.pod:1826
 msgid ""
 "If C<stderror> is not C<NULL>, then C<*stderror> will return the stderr of "
 "the command.  If there is a final \\n character, it is removed so you can "
@@ -35271,17 +36588,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1331
+#: ../docs/internal-documentation.pod:1831
 msgid "Flags are:"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1335
+#: ../docs/internal-documentation.pod:1835
 msgid "C<COMMAND_FLAG_FOLD_STDOUT_ON_STDERR>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1337
+#: ../docs/internal-documentation.pod:1837
 msgid ""
 "For broken external commands that send error messages to stdout (hello, "
 "parted) but that don't have any useful stdout information, use this flag to "
@@ -35291,12 +36608,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1343
+#: ../docs/internal-documentation.pod:1843
 msgid "C<COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1345
+#: ../docs/internal-documentation.pod:1845
 msgid ""
 "For running external commands on chrooted files correctly (see L<https://"
 "bugzilla.redhat.com/579608>) specifying this flag causes another process to "
@@ -35307,19 +36624,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1355
+#: ../docs/internal-documentation.pod:1855
 msgid ""
 "There is also a macro C<commandrv(out,err,argv)> which calls C<commandrvf> "
 "with C<flags=0>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1358
+#: ../docs/internal-documentation.pod:1858
 msgid "File F<daemon/guestfsd.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1360
+#: ../docs/internal-documentation.pod:1860
 msgid ""
 "This is the guestfs daemon which runs inside the guestfs appliance.  This "
 "file handles start up, connecting back to the library, and has several "
@@ -35327,12 +36644,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1364
+#: ../docs/internal-documentation.pod:1864
 msgid "Function C<daemon/guestfsd.c:is_root_device_stat>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1366
+#: ../docs/internal-documentation.pod:1866
 #, no-wrap
 msgid ""
 " static int\n"
@@ -35341,19 +36658,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1369
+#: ../docs/internal-documentation.pod:1869
 msgid ""
 "Return true iff device is the root device (and therefore should be ignored "
 "from the point of view of user calls)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1372
+#: ../docs/internal-documentation.pod:1872
 msgid "Function C<daemon/guestfsd.c:sysroot_path>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1374
+#: ../docs/internal-documentation.pod:1874
 #, no-wrap
 msgid ""
 " char *\n"
@@ -35362,13 +36679,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1377
+#: ../docs/internal-documentation.pod:1877
 msgid "Turn C<\"/path\"> into C<\"/sysroot/path\">."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1379
-#: ../docs/internal-documentation.pod:1393
+#: ../docs/internal-documentation.pod:1879
+#: ../docs/internal-documentation.pod:1893
 msgid ""
 "Returns C<NULL> on failure.  The caller I<must> check for this and call "
 "S<C<reply_with_perror (\"malloc\")>>.  The caller must also free the "
@@ -35376,19 +36693,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1383
-#: ../docs/internal-documentation.pod:1397
+#: ../docs/internal-documentation.pod:1883
+#: ../docs/internal-documentation.pod:1897
 msgid ""
 "See also the custom C<%R> printf formatter which does shell quoting too."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1385
+#: ../docs/internal-documentation.pod:1885
 msgid "Function C<daemon/guestfsd.c:sysroot_realpath>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1387
+#: ../docs/internal-documentation.pod:1887
 #, no-wrap
 msgid ""
 " char *\n"
@@ -35397,18 +36714,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1390
+#: ../docs/internal-documentation.pod:1890
 msgid ""
 "Resolve path within sysroot, calling C<sysroot_path> on the resolved path."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1399
+#: ../docs/internal-documentation.pod:1899
 msgid "Function C<daemon/guestfsd.c:is_power_of_2>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1401
+#: ../docs/internal-documentation.pod:1901
 #, no-wrap
 msgid ""
 " int\n"
@@ -35417,24 +36734,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1404
+#: ../docs/internal-documentation.pod:1904
 msgid "Returns true if C<v> is a power of 2."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1406
+#: ../docs/internal-documentation.pod:1906
 msgid ""
 "Uses the algorithm described at L<http://graphics.stanford.edu/~seander/"
 "bithacks.html#DetermineIfPowerOf2>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1409
+#: ../docs/internal-documentation.pod:1909
 msgid "Function C<daemon/guestfsd.c:compare_device_names>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1411
+#: ../docs/internal-documentation.pod:1911
 #, no-wrap
 msgid ""
 " int\n"
@@ -35443,17 +36760,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1414
+#: ../docs/internal-documentation.pod:1914
 msgid "Compare device names (including partition numbers if present)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1418
+#: ../docs/internal-documentation.pod:1918
 msgid "Function C<daemon/guestfsd.c:split_lines_sb>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1420
+#: ../docs/internal-documentation.pod:1920
 #, no-wrap
 msgid ""
 " struct stringsbuf\n"
@@ -35462,67 +36779,67 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1423
+#: ../docs/internal-documentation.pod:1923
 msgid ""
 "Split an output string into a NULL-terminated list of lines, wrapped into a "
 "stringsbuf."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1426
+#: ../docs/internal-documentation.pod:1926
 msgid ""
 "Typically this is used where we have run an external command which has "
 "printed out a list of things, and we want to return an actual list."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1430
+#: ../docs/internal-documentation.pod:1930
 msgid "The corner cases here are quite tricky.  Note in particular:"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1434
+#: ../docs/internal-documentation.pod:1934
 msgid "C<\"\">"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1438
+#: ../docs/internal-documentation.pod:1938
 msgid "C<\"\\n\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1440
+#: ../docs/internal-documentation.pod:1940
 msgid "returns C<[\"\"]>"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1442
+#: ../docs/internal-documentation.pod:1942
 msgid "C<\"a\\nb\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1444
-#: ../docs/internal-documentation.pod:1448
+#: ../docs/internal-documentation.pod:1944
+#: ../docs/internal-documentation.pod:1948
 msgid "returns C<[\"a\"; \"b\"]>"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1446
+#: ../docs/internal-documentation.pod:1946
 msgid "C<\"a\\nb\\n\">"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:1450
+#: ../docs/internal-documentation.pod:1950
 msgid "C<\"a\\nb\\n\\n\">"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1452
+#: ../docs/internal-documentation.pod:1952
 msgid "returns C<[\"a\"; \"b\"; \"\"]>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1456
+#: ../docs/internal-documentation.pod:1956
 msgid ""
 "The original string is written over and destroyed by this function (which is "
 "usually OK because it's the 'out' string from C<command*()>).  You can free "
@@ -35530,17 +36847,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1461
+#: ../docs/internal-documentation.pod:1961
 msgid "C<argv> in the C<struct stringsbuf> will be C<NULL> in case of errors."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1463
+#: ../docs/internal-documentation.pod:1963
 msgid "Function C<daemon/guestfsd.c:trim>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1465
+#: ../docs/internal-documentation.pod:1965
 #, no-wrap
 msgid ""
 " void\n"
@@ -35549,18 +36866,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1468
+#: ../docs/internal-documentation.pod:1968
 msgid ""
 "Skip leading and trailing whitespace, updating the original string in-place."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1471
+#: ../docs/internal-documentation.pod:1971
 msgid "Function C<daemon/guestfsd.c:print_shell_quote>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1473
+#: ../docs/internal-documentation.pod:1973
 #, no-wrap
 msgid ""
 " static int\n"
@@ -35571,19 +36888,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1478
+#: ../docs/internal-documentation.pod:1978
 msgid ""
 "printf helper function so we can use C<%Q> (\"quoted\") and C<%R> to print "
 "shell-quoted strings.  See L<guestfs-hacking(1)> for more details."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1482
+#: ../docs/internal-documentation.pod:1982
 msgid "Function C<daemon/guestfsd.c:device_name_translation>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1484
+#: ../docs/internal-documentation.pod:1984
 #, no-wrap
 msgid ""
 " char *\n"
@@ -35592,37 +36909,37 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1487
+#: ../docs/internal-documentation.pod:1987
 msgid ""
 "Perform device name translation.  See L<guestfs(3)> for the algorithm.  "
 "Usually you should not call this directly."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1490
+#: ../docs/internal-documentation.pod:1990
 msgid "It returns a newly allocated string which the caller must free."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1492
+#: ../docs/internal-documentation.pod:1992
 msgid ""
 "It returns C<NULL> on error.  B<Note> it does I<not> call C<reply_with_*>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1495
+#: ../docs/internal-documentation.pod:1995
 msgid ""
 "We have to open the device and test for C<ENXIO>, because the device nodes "
 "may exist in the appliance."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1498
+#: ../docs/internal-documentation.pod:1998
 msgid "Function C<daemon/guestfsd.c:parse_btrfsvol>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1500
+#: ../docs/internal-documentation.pod:2000
 #, no-wrap
 msgid ""
 " int\n"
@@ -35631,19 +36948,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1503
+#: ../docs/internal-documentation.pod:2003
 msgid ""
 "Parse the mountable descriptor for a btrfs subvolume.  Don't call this "
 "directly; it is only used from the stubs."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1506
+#: ../docs/internal-documentation.pod:2006
 msgid "A btrfs subvolume is given as:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1508
+#: ../docs/internal-documentation.pod:2008
 #, no-wrap
 msgid ""
 " btrfsvol:/dev/sda3/root\n"
@@ -35651,7 +36968,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1510
+#: ../docs/internal-documentation.pod:2010
 msgid ""
 "where F</dev/sda3> is a block device containing a btrfs filesystem, and root "
 "is the name of a subvolume on it. This function is passed the string "
@@ -35659,19 +36976,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1514
+#: ../docs/internal-documentation.pod:2014
 msgid ""
 "On success, C<mountable-E<gt>device> and C<mountable-E<gt>volume> must be "
 "freed by the caller."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1517
+#: ../docs/internal-documentation.pod:2017
 msgid "Function C<daemon/guestfsd.c:mountable_to_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1519
+#: ../docs/internal-documentation.pod:2019
 #, no-wrap
 msgid ""
 " char *\n"
@@ -35680,24 +36997,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1522
+#: ../docs/internal-documentation.pod:2022
 msgid "Convert a C<mountable_t> back to its string representation"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1524
+#: ../docs/internal-documentation.pod:2024
 msgid ""
 "This function can be used in an error path, so must not call "
 "C<reply_with_error>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1527
+#: ../docs/internal-documentation.pod:2027
 msgid "Function C<daemon/guestfsd.c:prog_exists>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1529
+#: ../docs/internal-documentation.pod:2029
 #, no-wrap
 msgid ""
 " int\n"
@@ -35706,17 +37023,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1532
+#: ../docs/internal-documentation.pod:2032
 msgid "Check program exists and is executable on C<$PATH>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1534
+#: ../docs/internal-documentation.pod:2034
 msgid "Function C<daemon/guestfsd.c:random_name>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1536
+#: ../docs/internal-documentation.pod:2036
 #, no-wrap
 msgid ""
 " int\n"
@@ -35725,7 +37042,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1539
+#: ../docs/internal-documentation.pod:2039
 msgid ""
 "Pass a template such as C<\"/sysroot/XXXXXXXX.XXX\">.  This updates the "
 "template to contain a randomly named file.  Any C<'X'> characters after the "
@@ -35733,7 +37050,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1544
+#: ../docs/internal-documentation.pod:2044
 msgid ""
 "Notes: You should probably use an 8.3 path, so it's compatible with all "
 "filesystems including basic FAT.  Also this only substitutes lowercase ASCII "
@@ -35742,24 +37059,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1549
+#: ../docs/internal-documentation.pod:2049
 msgid ""
 "This doesn't create a file or check whether or not the file exists (it would "
 "be extremely unlikely to exist as long as the RNG is working)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1553
+#: ../docs/internal-documentation.pod:2053
 msgid "If there is an error, C<-1> is returned."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1555
+#: ../docs/internal-documentation.pod:2055
 msgid "Function C<daemon/guestfsd.c:udev_settle>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1557
+#: ../docs/internal-documentation.pod:2057
 #, no-wrap
 msgid ""
 " void\n"
@@ -35768,7 +37085,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1560
+#: ../docs/internal-documentation.pod:2060
 msgid ""
 "LVM and other commands aren't synchronous, especially when udev is "
 "involved.  eg. You can create or remove some device, but the C</dev> device "
@@ -35777,34 +37094,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1565
+#: ../docs/internal-documentation.pod:2065
 msgid ""
 "Use C<udevadm settle> after certain commands, but don't be too fussed if it "
 "fails."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1568
+#: ../docs/internal-documentation.pod:2068
 msgid "File F<daemon/internal.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1570
+#: ../docs/internal-documentation.pod:2070
 msgid "Internal functions that are not part of the public API."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:1572
+#: ../docs/internal-documentation.pod:2072
 msgid "Subdirectory F<df>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1574
+#: ../docs/internal-documentation.pod:2074
 msgid "File F<df/domains.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1576
+#: ../docs/internal-documentation.pod:2076
 msgid ""
 "This file is used by C<virt-df> and some of the other tools when they are "
 "implicitly asked to operate over all libvirt domains (VMs), for example when "
@@ -35812,17 +37129,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1581
+#: ../docs/internal-documentation.pod:2081
 msgid "It hides the complexity of querying the list of domains from libvirt."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1584
+#: ../docs/internal-documentation.pod:2084
 msgid "Function C<df/domains.c:free_domains>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1586
+#: ../docs/internal-documentation.pod:2086
 #, no-wrap
 msgid ""
 " void\n"
@@ -35831,17 +37148,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1589
+#: ../docs/internal-documentation.pod:2089
 msgid "Frees up everything allocated by C<get_all_libvirt_domains>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1591
+#: ../docs/internal-documentation.pod:2091
 msgid "Function C<df/domains.c:get_all_libvirt_domains>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1593
+#: ../docs/internal-documentation.pod:2093
 #, no-wrap
 msgid ""
 " void\n"
@@ -35850,24 +37167,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1596
+#: ../docs/internal-documentation.pod:2096
 msgid ""
 "Read all libguest guests into the global variables C<domains> and "
 "C<nr_domains>.  The guests are ordered by name.  This exits on any error."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1600
+#: ../docs/internal-documentation.pod:2100
 msgid "File F<df/estimate-max-threads.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1602
+#: ../docs/internal-documentation.pod:2102
 msgid "Function C<df/estimate-max-threads.c:estimate_max_threads>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1604
+#: ../docs/internal-documentation.pod:2104
 #, no-wrap
 msgid ""
 " size_t\n"
@@ -35876,7 +37193,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1607
+#: ../docs/internal-documentation.pod:2107
 msgid ""
 "This function uses the output of C<free -m> to estimate how many libguestfs "
 "appliances could be safely started in parallel.  Note that it always returns "
@@ -35884,12 +37201,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1611
+#: ../docs/internal-documentation.pod:2111
 msgid "Function C<df/estimate-max-threads.c:read_line_from>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1613
+#: ../docs/internal-documentation.pod:2113
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -35898,17 +37215,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1616
+#: ../docs/internal-documentation.pod:2116
 msgid "Run external command and read the first line of output."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1618
+#: ../docs/internal-documentation.pod:2118
 msgid "File F<df/parallel.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1620
+#: ../docs/internal-documentation.pod:2120
 msgid ""
 "This file is used by C<virt-df> and some of the other tools when they need "
 "to run multiple parallel libguestfs instances to operate on a large number "
@@ -35916,7 +37233,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1624
+#: ../docs/internal-documentation.pod:2124
 msgid ""
 "It implements a multithreaded work queue.  In addition it reorders the "
 "output so the output still appears in the same order as the input (ie. still "
@@ -35924,12 +37241,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1628
+#: ../docs/internal-documentation.pod:2128
 msgid "Function C<df/parallel.c:start_threads>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1630
+#: ../docs/internal-documentation.pod:2130
 #, no-wrap
 msgid ""
 " int\n"
@@ -35938,12 +37255,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1633
+#: ../docs/internal-documentation.pod:2133
 msgid "Run the threads and work through the global list of libvirt domains."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1636
+#: ../docs/internal-documentation.pod:2136
 msgid ""
 "C<option_P> is whatever the user passed in the I<-P> option, or C<0> if the "
 "user didn't use the I<-P> option (in which case the number of threads is "
@@ -35951,14 +37268,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1640
+#: ../docs/internal-documentation.pod:2140
 msgid ""
 "C<options_handle> (which may be C<NULL>) is the global guestfs handle "
 "created by the options mini-library."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1643
+#: ../docs/internal-documentation.pod:2143
 msgid ""
 "The work function (C<work>) should do the work (inspecting the domain, "
 "etc.)  on domain index C<i>.  However it I<must not> print out any result "
@@ -35967,34 +37284,117 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1649
+#: ../docs/internal-documentation.pod:2149
 msgid ""
 "The C<start_threads> function returns C<0> if all work items completed "
 "successfully, or C<-1> if there was an error."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:1652
+#: ../docs/internal-documentation.pod:2152
 msgid "Subdirectory F<fish>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1654
+#: ../docs/internal-documentation.pod:2154
+msgid "File F<fish/alloc.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2156
+msgid "This file implements the guestfish C<alloc> and C<sparse> commands."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2158
+msgid "Function C<fish/alloc.c:alloc_disk>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2160
+#, no-wrap
+msgid ""
+" int\n"
+" alloc_disk (const char *filename, const char *size_str, int add, int sparse)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2163
+msgid ""
+"This is the underlying allocation function.  It's called from a few other "
+"places in guestfish."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2166
+msgid "File F<fish/config.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2168
+msgid ""
+"This file parses the guestfish configuration file, usually F<~/.libguestfs-"
+"tools.rc> or F</etc/libguestfs-tools.conf>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2171
+msgid ""
+"Note that C<parse_config> is called very early, before command line parsing, "
+"before the C<verbose> flag has been set, even before the global handle C<g> "
+"is opened."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2175
+msgid "File F<fish/copy.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2177
+msgid "This file implements the guestfish commands C<copy-in> and C<copy-out>."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2180
+msgid "File F<fish/destpaths.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2182
+msgid "The file handles tab-completion of filesystem paths in guestfish."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2184
+msgid "File F<fish/display.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2186
+msgid ""
+"The file implements the guestfish C<display> command, for displaying "
+"graphical files (icons, images) in disk images."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2189
 msgid "File F<fish/domain.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1656
+#: ../docs/internal-documentation.pod:2191
 msgid "Implements the guestfish (and other tools) I<-d> option."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1658
+#: ../docs/internal-documentation.pod:2193
 msgid "Function C<fish/domain.c:add_libvirt_drives>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1660
+#: ../docs/internal-documentation.pod:2195
 #, no-wrap
 msgid ""
 " int\n"
@@ -36003,45 +37403,87 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1663
+#: ../docs/internal-documentation.pod:2198
 msgid "This function is called when a user invokes S<C<guestfish -d guest>>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1665
+#: ../docs/internal-documentation.pod:2200
 msgid ""
 "Returns the number of drives added (S<C<E<gt> 0>>), or C<-1> for failure."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1667
+#: ../docs/internal-documentation.pod:2202
+msgid "File F<fish/echo.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2204
+msgid "The file implements the guestfish C<echo> command."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2206
 msgid "File F<fish/edit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1669
-msgid "guestfish edit command, suggested by Ján Ondrej."
+#: ../docs/internal-documentation.pod:2208
+msgid "guestfish C<edit> command, suggested by Ján Ondrej."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1671
+#: ../docs/internal-documentation.pod:2210
+msgid "File F<fish/events.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2212
+msgid ""
+"This file implements the guestfish event-related commands, C<event>, "
+"C<delete-event> and C<list-events>."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2215
+msgid "File F<fish/file-edit.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2217
+msgid ""
+"This file implements common file editing in a range of utilities including "
+"L<guestfish(1)>, L<virt-edit(1)>, L<virt-customize(1)> and L<virt-"
+"builder(1)>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2221
+msgid ""
+"It contains the code for both interactive-(editor-)based editing and non-"
+"interactive editing using Perl snippets."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2224
 msgid "File F<fish/fish.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1673
+#: ../docs/internal-documentation.pod:2226
 msgid ""
 "guestfish, the guest filesystem shell.  This file contains the main loop and "
 "utilities."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1676
+#: ../docs/internal-documentation.pod:2229
 msgid "Function C<fish/fish.c:parse_command_line>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1678
+#: ../docs/internal-documentation.pod:2231
 #, no-wrap
 msgid ""
 " static struct parsed_command\n"
@@ -36050,62 +37492,47 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1681
+#: ../docs/internal-documentation.pod:2234
 msgid ""
 "Parse a command string, splitting at whitespace, handling C<'!'>, C<'#'> "
 "etc.  This destructively updates C<buf>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1684
+#: ../docs/internal-documentation.pod:2237
 msgid ""
 "C<exit_on_error_rtn> is used to pass in the global C<exit_on_error> setting "
 "and to return the local setting (eg. if the command begins with C<'-'>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1688
+#: ../docs/internal-documentation.pod:2241
 msgid "Returns in C<parsed_command.status>:"
 msgstr ""
 
-#. type: =item
-#: ../docs/internal-documentation.pod:1692 ../fuse/guestunmount.pod:131
-msgid "C<1>"
-msgstr ""
-
 #. type: textblock
-#: ../docs/internal-documentation.pod:1694
+#: ../docs/internal-documentation.pod:2247
 msgid ""
 "got a guestfish command (returned in C<cmd_rtn>/C<argv_rtn>/C<pipe_rtn>)"
 msgstr ""
 
-#. type: =item
-#: ../docs/internal-documentation.pod:1696
-msgid "C<0>"
-msgstr ""
-
 #. type: textblock
-#: ../docs/internal-documentation.pod:1698
+#: ../docs/internal-documentation.pod:2251
 msgid "no guestfish command, but otherwise OK"
 msgstr ""
 
-#. type: =item
-#: ../docs/internal-documentation.pod:1700
-msgid "C<-1>"
-msgstr ""
-
 #. type: textblock
-#: ../docs/internal-documentation.pod:1702
+#: ../docs/internal-documentation.pod:2255
 msgid "an error"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1706
+#: ../docs/internal-documentation.pod:2259
 msgid "Function C<fish/fish.c:parse_quoted_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1708
+#: ../docs/internal-documentation.pod:2261
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -36114,7 +37541,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1711
+#: ../docs/internal-documentation.pod:2264
 msgid ""
 "Parse double-quoted strings, replacing backslash escape sequences with the "
 "true character.  Since the string is returned in place, the escapes must "
@@ -36122,12 +37549,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1715
+#: ../docs/internal-documentation.pod:2268
 msgid "Function C<fish/fish.c:execute_and_inline>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1717
+#: ../docs/internal-documentation.pod:2270
 #, no-wrap
 msgid ""
 " static int\n"
@@ -36136,17 +37563,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1720
+#: ../docs/internal-documentation.pod:2273
 msgid "Used to handle C<E<lt>!> (execute command and inline result)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1722
+#: ../docs/internal-documentation.pod:2275
 msgid "Function C<fish/fish.c:issue_command>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1724
+#: ../docs/internal-documentation.pod:2277
 #, no-wrap
 msgid ""
 " int\n"
@@ -36156,12 +37583,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1728
+#: ../docs/internal-documentation.pod:2281
 msgid "Run a command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1730
+#: ../docs/internal-documentation.pod:2283
 msgid ""
 "C<rc_exit_on_error_flag> is the C<exit_on_error> flag that we pass to the "
 "remote server (when issuing I<--remote> commands).  It does not cause "
@@ -36169,12 +37596,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1734
+#: ../docs/internal-documentation.pod:2287
 msgid "Function C<fish/fish.c:extended_help_message>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1736
+#: ../docs/internal-documentation.pod:2289
 #, no-wrap
 msgid ""
 " void\n"
@@ -36183,14 +37610,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1739
+#: ../docs/internal-documentation.pod:2292
 msgid ""
 "Print an extended help message when the user types in an unknown command for "
 "the first command issued.  A common case is the user doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1743
+#: ../docs/internal-documentation.pod:2296
 #, no-wrap
 msgid ""
 "  guestfish disk.img\n"
@@ -36198,19 +37625,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1745
+#: ../docs/internal-documentation.pod:2298
 msgid ""
 "expecting guestfish to open F<disk.img> (in fact, this tried to run a non-"
 "existent command C<disk.img>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1748
+#: ../docs/internal-documentation.pod:2301
 msgid "Function C<fish/fish.c:error_cb>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1750
+#: ../docs/internal-documentation.pod:2303
 #, no-wrap
 msgid ""
 " static void\n"
@@ -36219,17 +37646,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1753
+#: ../docs/internal-documentation.pod:2306
 msgid "Error callback.  This replaces the standard libguestfs error handler."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1755
+#: ../docs/internal-documentation.pod:2308
 msgid "Function C<fish/fish.c:free_n_strings>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1757
+#: ../docs/internal-documentation.pod:2310
 #, no-wrap
 msgid ""
 " static void\n"
@@ -36238,17 +37665,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1760
+#: ../docs/internal-documentation.pod:2313
 msgid "Free strings from a non-NULL terminated C<char**>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1762
+#: ../docs/internal-documentation.pod:2315
 msgid "Function C<fish/fish.c:decode_ps1>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1764
+#: ../docs/internal-documentation.pod:2317
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -36257,17 +37684,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1767
+#: ../docs/internal-documentation.pod:2320
 msgid "Decode C<str> into the final printable prompt string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1769
+#: ../docs/internal-documentation.pod:2322
 msgid "Function C<fish/fish.c:win_prefix>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1771
+#: ../docs/internal-documentation.pod:2324
 #, no-wrap
 msgid ""
 " char *\n"
@@ -36276,26 +37703,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1774
+#: ../docs/internal-documentation.pod:2327
 msgid ""
 "Resolve the special C<win:...> form for Windows-specific paths.  The "
 "generated code calls this for all device or path arguments."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1777
+#: ../docs/internal-documentation.pod:2330
 msgid ""
 "The function returns a newly allocated string, and the caller must free this "
 "string; else display an error and return C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1780
+#: ../docs/internal-documentation.pod:2333
 msgid "Function C<fish/fish.c:file_in>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1782
+#: ../docs/internal-documentation.pod:2335
 #, no-wrap
 msgid ""
 " char *\n"
@@ -36304,24 +37731,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1785
+#: ../docs/internal-documentation.pod:2338
 msgid "Resolve the special C<FileIn> paths (C<-> or C<-<<END> or filename)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1787
+#: ../docs/internal-documentation.pod:2340
 msgid ""
 "The caller (F<fish/cmds.c>) will call C<free_file_in> after the command has "
 "run which should clean up resources."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1790
+#: ../docs/internal-documentation.pod:2343
 msgid "Function C<fish/fish.c:file_out>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1792
+#: ../docs/internal-documentation.pod:2345
 #, no-wrap
 msgid ""
 " char *\n"
@@ -36330,24 +37757,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1795
+#: ../docs/internal-documentation.pod:2348
 msgid "Resolve the special C<FileOut> paths (C<-> or filename)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1797
+#: ../docs/internal-documentation.pod:2350
 msgid ""
 "The caller (F<fish/cmds.c>) will call S<C<free (str)>> after the command has "
 "run."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1800
+#: ../docs/internal-documentation.pod:2353
 msgid "Function C<fish/fish.c:progress_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1802
+#: ../docs/internal-documentation.pod:2355
 #, fuzzy, no-wrap
 #| msgid ""
 #| " guestfs_add_drive_opts (g, filename,\n"
@@ -36368,22 +37795,154 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1808
+#: ../docs/internal-documentation.pod:2361
 msgid "Callback which displays a progress bar."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1810
-msgid "File F<fish/help.c>"
+#: ../docs/internal-documentation.pod:2363
+msgid "File F<fish/glob.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2365
+msgid "This file implements the guestfish C<glob> command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1812
+#: ../docs/internal-documentation.pod:2367
+msgid "Function C<fish/glob.c:expand_devicename>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2369
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" static char **\n"
+" expand_devicename (guestfs_h *g, const char *device)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2372
+msgid ""
+"Glob-expand device patterns, such as C</dev/sd*> (L<https://bugzilla.redhat."
+"com/635971>)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2375
+msgid ""
+"There is no C<guestfs_glob_expand_device> function because the equivalent "
+"can be implemented using functions like C<guestfs_list_devices>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2379
+msgid ""
+"It's not immediately clear what it means to expand a pattern like C</dev/"
+"sd*>.  Should that include device name translation? Should the result "
+"include partitions as well as devices?"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2383
+msgid ""
+"Should C<\"/dev/\"> + C<\"*\"> return every possible device and filesystem? "
+"How about VGs? LVs?"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2386
+msgid ""
+"To solve this what we do is build up a list of every device, partition, "
+"etc., then glob against that list."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2389
+msgid "Notes for future work (XXX):"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2395
+msgid ""
+"This doesn't handle device name translation.  It wouldn't be too hard to add."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2400
+msgid "Could have an API function for returning all device-like things."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2404
+msgid "Function C<fish/glob.c:add_strings_matching>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2406
+#, no-wrap
+msgid ""
+" static int\n"
+" add_strings_matching (char **pp, const char *glob,\n"
+"                       char ***ret, size_t *size_r)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2410
+msgid ""
+"Using POSIX L<fnmatch(3)>, find strings in the list C<pp> which match "
+"pattern C<glob>.  Add strings which match to the C<ret> array.  C<*size_r> "
+"is the current size of the C<ret> array, which is updated with the new size."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2415
+msgid "Function C<fish/glob.c:single_element_list>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2417
+#, no-wrap
+msgid ""
+" static char **\n"
+" single_element_list (const char *element)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2420
+msgid "Return a single element list containing C<element>."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2422
+msgid "File F<fish/help.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2424
+msgid "The file implements the guestfish C<help> command."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2426
 msgid "Function C<fish/help.c:display_help>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1814
+#: ../docs/internal-documentation.pod:2428
 #, no-wrap
 msgid ""
 " void\n"
@@ -36392,12 +37951,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1817
+#: ../docs/internal-documentation.pod:2431
 msgid "The C<help> command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1819
+#: ../docs/internal-documentation.pod:2433
 msgid ""
 "This used to just list all commands, but that's not very useful.  Instead "
 "display some useful context-sensitive help.  This could be improved if we "
@@ -36406,17 +37965,123 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1824
+#: ../docs/internal-documentation.pod:2438
+msgid "File F<fish/hexedit.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2440
+msgid "This file implements the guestfish C<hexedit> command."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2442
+msgid "File F<fish/inspect.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2444
+msgid ""
+"This file implements inspecting the guest and mounting the filesystems found "
+"in the right places.  It is used by the L<guestfish(1)> I<-i> option and "
+"some utilities such as L<virt-cat(1)>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2449
+msgid "Function C<fish/inspect.c:inspect_mount_handle>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2451
+#, no-wrap
+msgid ""
+" void\n"
+" inspect_mount_handle (guestfs_h *g)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2454
+msgid "This function implements the I<-i> option."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2456
+msgid "Function C<fish/inspect.c:print_inspect_prompt>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2458
+#, no-wrap
+msgid ""
+" void\n"
+" print_inspect_prompt (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2461
+msgid ""
+"This function is called only if C<inspect_mount_root> was called, and only "
+"after we've printed the prompt in interactive mode."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2464
+msgid "Function C<fish/inspect.c:make_mapname>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2466
+#, no-wrap
+msgid ""
+" static void\n"
+" make_mapname (const char *device, char *mapname, size_t len)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2469
+msgid ""
+"Make a LUKS map name from the partition name, eg. C<\"/dev/vda2\" =E<gt> "
+"\"luksvda2\">"
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2472
+msgid "Function C<fish/inspect.c:inspect_do_decrypt>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2474
+#, no-wrap
+msgid ""
+" void\n"
+" inspect_do_decrypt (guestfs_h *g)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2477
+msgid ""
+"Simple implementation of decryption: look for any C<crypto_LUKS> partitions "
+"and decrypt them, then rescan for VGs.  This only works for Fedora whole-"
+"disk encryption.  WIP to make this work for other encryption schemes."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2482
 msgid "File F<fish/keys.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1826
+#: ../docs/internal-documentation.pod:2484
 msgid "Function C<fish/keys.c:read_key>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1828
+#: ../docs/internal-documentation.pod:2486
 #, no-wrap
 msgid ""
 " char *\n"
@@ -36425,29 +38090,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1831
+#: ../docs/internal-documentation.pod:2489
 msgid "Read a passphrase ('Key') from F</dev/tty> with echo off."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1833
+#: ../docs/internal-documentation.pod:2491
 msgid ""
 "The caller (F<fish/cmds.c>) will call free on the string afterwards.  Based "
 "on the code in cryptsetup file F<lib/utils.c>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1836
+#: ../docs/internal-documentation.pod:2494
 msgid "File F<fish/lcd.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1838
+#: ../docs/internal-documentation.pod:2496
 msgid "Function C<fish/lcd.c:run_lcd>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1840
+#: ../docs/internal-documentation.pod:2498
 #, no-wrap
 msgid ""
 " int\n"
@@ -36456,22 +38121,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1843
+#: ../docs/internal-documentation.pod:2501
 msgid "guestfish C<lcd> command (similar to the C<lcd> command in BSD ftp)."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1845
+#: ../docs/internal-documentation.pod:2503
 msgid "File F<fish/man.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1847
+#: ../docs/internal-documentation.pod:2505
 msgid "Function C<fish/man.c:run_man>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1849
+#: ../docs/internal-documentation.pod:2507
 #, no-wrap
 msgid ""
 " int\n"
@@ -36480,44 +38145,54 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1852
+#: ../docs/internal-documentation.pod:2510
 msgid "guestfish C<man> command"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1854
+#: ../docs/internal-documentation.pod:2512
+msgid "File F<fish/more.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2514
+msgid "This file implements the guestfish C<more> command."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2516
 msgid "File F<fish/options.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1856
+#: ../docs/internal-documentation.pod:2518
 msgid ""
 "This file contains common options parsing code used by guestfish and many "
 "other tools which share a common options syntax."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1859
+#: ../docs/internal-documentation.pod:2521
 msgid ""
 "For example, guestfish, virt-cat, virt-ls etc all support the I<-a> option, "
 "and that is handled in all of those tools using a macro C<OPTION_a> defined "
-"in C<\"options.h\">."
+"in F<fish/options.h>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1863
+#: ../docs/internal-documentation.pod:2525
 msgid ""
 "There are a lot of common global variables used, C<drvs> accumulates the "
 "list of drives, C<verbose> for the I<-v> flag, and many more."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1867
+#: ../docs/internal-documentation.pod:2529
 msgid "Function C<fish/options.c:option_a>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1869
+#: ../docs/internal-documentation.pod:2531
 #, no-wrap
 msgid ""
 " void\n"
@@ -36526,22 +38201,342 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1872
+#: ../docs/internal-documentation.pod:2534
 msgid "Handle the guestfish I<-a> option on the command line."
 msgstr ""
 
-#. type: =head3
-#: ../docs/internal-documentation.pod:1874
-msgid "File F<fish/tilde.c>"
+#. type: =head4
+#: ../docs/internal-documentation.pod:2536
+msgid "Function C<fish/options.c:option_d>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2538
+#, no-wrap
+msgid ""
+" void\n"
+" option_d (const char *arg, struct drv **drvsp)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2541
+msgid "Handle the I<-d> option when passed on the command line."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1876
+#: ../docs/internal-documentation.pod:2543
+msgid "Function C<fish/options.c:display_mountpoints_on_failure>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2545
+#, fuzzy, no-wrap
+#| msgid ""
+#| " guestfs_add_drive_opts (g, filename,\n"
+#| "                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+#| "                         -1);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" display_mountpoints_on_failure (const char *mp_device,\n"
+"                                 const char *user_supplied_options)\n"
+"\n"
+msgstr ""
+" guestfs_add_drive_opts (g, filename,\n"
+"                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, \"raw\",\n"
+"                         -1);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2549
+msgid ""
+"If the I<-m> option fails on any command, display a useful error message "
+"listing the mountpoints."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2552
+msgid "Function C<fish/options.c:display_short_options>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2554
+#, no-wrap
+msgid ""
+" void\n"
+" display_short_options (const char *format)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2557
+msgid ""
+"Implements the internal C<tool I<--short-options>> flag, which just lists "
+"out the short options available.  Used by bash completion."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2560
+msgid "Function C<fish/options.c:display_long_options>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2562
+#, no-wrap
+msgid ""
+" void\n"
+" display_long_options (const struct option *long_options)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2565
+msgid ""
+"Implements the internal C<tool I<--long-options>> flag, which just lists out "
+"the long options available.  Used by bash completion."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2568
+msgid "File F<fish/prep.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2570
+msgid ""
+"This file implements the guestfish I<-N> option for creating pre-prepared "
+"disk layouts."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2573
+msgid "File F<fish/progress.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2575
+msgid ""
+"This file implements the progress bar in L<guestfish(1)>, L<virt-resize(1)> "
+"and L<virt-sparsify(1)>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2578
+msgid "Function C<fish/progress.c:progress_bar_init>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2580
+#, no-wrap
+msgid ""
+" struct progress_bar *\n"
+" progress_bar_init (unsigned flags)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2583
+msgid "Initialize a progress bar struct."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2585
+msgid ""
+"It is intended that you can reuse the same struct for multiple commands (but "
+"only in a single thread).  Call C<progress_bar_reset> before each new "
+"command."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2589
+msgid "Function C<fish/progress.c:progress_bar_free>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2591
+#, no-wrap
+msgid ""
+" void\n"
+" progress_bar_free (struct progress_bar *bar)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2594
+msgid "Free a progress bar struct."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2596
+msgid "Function C<fish/progress.c:progress_bar_reset>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2598
+#, no-wrap
+msgid ""
+" void\n"
+" progress_bar_reset (struct progress_bar *bar)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2601
+msgid "This function should be called just before you issue any command."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2603
+msgid "Function C<fish/progress.c:estimate_remaining_time>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2605
+#, no-wrap
+msgid ""
+" static double\n"
+" estimate_remaining_time (struct progress_bar *bar, double ratio)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2608
+msgid "Return remaining time estimate (in seconds) for current call."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2610
+msgid ""
+"This returns the running mean estimate of remaining time, but if the latest "
+"estimate of total time is greater than two s.d.'s from the running mean then "
+"we don't print anything because we're not confident that the estimate is "
+"meaningful.  (Returned value is E<lt>0.0 when nothing should be printed)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2616
+msgid "Function C<fish/progress.c:progress_bar_set>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2618
+#, no-wrap
+msgid ""
+" void\n"
+" progress_bar_set (struct progress_bar *bar,\n"
+"                   uint64_t position, uint64_t total)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2622
+msgid "Set the position of the progress bar."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2624
+msgid "This should be called from a C<GUESTFS_EVENT_PROGRESS> event callback."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2627
+msgid "File F<fish/rc.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2629
+msgid "This file implements guestfish remote (command) support."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2631
+msgid "Function C<fish/rc.c:rc_listen>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2633
+#, no-wrap
+msgid ""
+" void\n"
+" rc_listen (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2636
+msgid "The remote control server (ie. C<guestfish --listen>)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2638
+msgid "Function C<fish/rc.c:rc_remote>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:2640
+#, no-wrap
+msgid ""
+" int\n"
+" rc_remote (int pid, const char *cmd, size_t argc, char *argv[],\n"
+"            int exit_on_error)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2644
+msgid "The remote control client (ie. C<guestfish --remote>)."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2646
+msgid "File F<fish/reopen.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2648
+msgid "This file implements the guestfish C<reopen> command."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2650
+msgid "File F<fish/setenv.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2652
+msgid "This file implements the guestfish C<setenv> and C<unsetenv> commands."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2655
+msgid "File F<fish/supported.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2657
+msgid "This file implements the guestfish C<supported> command."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2659
+msgid "File F<fish/tilde.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2661
+msgid ""
+"This file implements tilde (C<~>) expansion of home directories in "
+"L<guestfish(1)>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:2664
 msgid "Function C<fish/tilde.c:try_tilde_expansion>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1878
+#: ../docs/internal-documentation.pod:2666
 #, no-wrap
 msgid ""
 " char *\n"
@@ -36550,19 +38545,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1881
+#: ../docs/internal-documentation.pod:2669
 msgid ""
 "This is called from the script loop if we find a candidate for C<~username> "
 "(tilde-expansion)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1884
+#: ../docs/internal-documentation.pod:2672
 msgid "Function C<fish/tilde.c:expand_home>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1886
+#: ../docs/internal-documentation.pod:2674
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -36571,17 +38566,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1889
+#: ../docs/internal-documentation.pod:2677
 msgid "Return C<$HOME> + append string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1891
+#: ../docs/internal-documentation.pod:2679
 msgid "Function C<fish/tilde.c:find_home_for_username>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1893
+#: ../docs/internal-documentation.pod:2681
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -36590,34 +38585,68 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1896
+#: ../docs/internal-documentation.pod:2684
 msgid ""
 "Lookup C<username> (of length C<ulen>), return home directory if found, or "
 "C<NULL> if not found."
 msgstr ""
 
+#. type: =head3
+#: ../docs/internal-documentation.pod:2687
+msgid "File F<fish/time.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2689
+msgid "This file implements the guestfish C<time> command."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2691
+msgid "File F<fish/uri.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2693
+msgid ""
+"This file implements URI parsing for the I<-a> option, in many utilities "
+"including L<guestfish(1)>, L<virt-cat(1)>, L<virt-builder(1)>, L<virt-"
+"customize(1)>, etc."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:2697
+msgid "File F<fish/windows.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:2699
+msgid ""
+"This file implements C<win:> Windows file path support in L<guestfish(1)>."
+msgstr ""
+
 #. type: =head2
-#: ../docs/internal-documentation.pod:1899
+#: ../docs/internal-documentation.pod:2702
 msgid "Subdirectory F<p2v>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1901
+#: ../docs/internal-documentation.pod:2704
 msgid "File F<p2v/kernel-cmdline.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1903
+#: ../docs/internal-documentation.pod:2706
 msgid "Mini library to read and parse C</proc/cmdline>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1905
+#: ../docs/internal-documentation.pod:2708
 msgid "Function C<p2v/kernel-cmdline.c:parse_cmdline_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1907
+#: ../docs/internal-documentation.pod:2710
 #, no-wrap
 msgid ""
 " char **\n"
@@ -36626,58 +38655,58 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1910
+#: ../docs/internal-documentation.pod:2713
 msgid "Read and parse C</proc/cmdline>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1912
+#: ../docs/internal-documentation.pod:2715
 msgid ""
 "We only support double quoting, consistent with the Linux documentation.  "
 "L<https://www.kernel.org/doc/Documentation/kernel-parameters.txt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1916
+#: ../docs/internal-documentation.pod:2719
 msgid ""
 "systemd supports single and double quoting and single character escaping, "
 "but we don't support all that."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1919
+#: ../docs/internal-documentation.pod:2722
 msgid "Returns a list of key, value pairs, terminated by C<NULL>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1921
+#: ../docs/internal-documentation.pod:2724
 msgid "File F<p2v/kernel.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1923
+#: ../docs/internal-documentation.pod:2726
 msgid "Kernel-driven, non-interactive configuration of virt-p2v."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1925
+#: ../docs/internal-documentation.pod:2728
 msgid "File F<p2v/ssh.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1927
+#: ../docs/internal-documentation.pod:2730
 msgid "This file handles the ssh connections to the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1929
+#: ../docs/internal-documentation.pod:2732
 msgid ""
 "virt-p2v will open several connections over the lifetime of the conversion "
 "process."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1932
+#: ../docs/internal-documentation.pod:2735
 msgid ""
 "In C<test_connection>, it will first open a connection (to check it is "
 "possible) and query virt-v2v on the server to ensure it exists, it is the "
@@ -36687,7 +38716,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1938
+#: ../docs/internal-documentation.pod:2741
 msgid ""
 "Once we start conversion, we will open a control connection to send the "
 "libvirt configuration data and to start up virt-v2v, and we will open up one "
@@ -36698,12 +38727,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1946
+#: ../docs/internal-documentation.pod:2749
 msgid "Function C<p2v/ssh.c:curl_download>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1948
+#: ../docs/internal-documentation.pod:2751
 #, no-wrap
 msgid ""
 " static int\n"
@@ -36712,17 +38741,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1951
+#: ../docs/internal-documentation.pod:2754
 msgid "Download URL to local file using the external 'curl' command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1953
+#: ../docs/internal-documentation.pod:2756
 msgid "Function C<p2v/ssh.c:cache_ssh_identity>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1955
+#: ../docs/internal-documentation.pod:2758
 #, no-wrap
 msgid ""
 " static int\n"
@@ -36731,17 +38760,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1958
+#: ../docs/internal-documentation.pod:2761
 msgid "Re-cache the C<config-E<gt>identity_url> if needed."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1960
+#: ../docs/internal-documentation.pod:2763
 msgid "Function C<p2v/ssh.c:start_ssh>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1962
+#: ../docs/internal-documentation.pod:2765
 #, no-wrap
 msgid ""
 " static mexp_h *\n"
@@ -36750,24 +38779,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1965
+#: ../docs/internal-documentation.pod:2768
 msgid ""
 "Start ssh subprocess with the standard arguments and possibly some optional "
 "arguments.  Also handles authentication."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1968
+#: ../docs/internal-documentation.pod:2771
 msgid "File F<p2v/whole-file.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:1970
+#: ../docs/internal-documentation.pod:2773
 msgid "Function C<p2v/whole-file.c:read_whole_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:1972
+#: ../docs/internal-documentation.pod:2775
 #, no-wrap
 msgid ""
 " int\n"
@@ -36776,53 +38805,53 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1975
+#: ../docs/internal-documentation.pod:2778
 msgid ""
 "Read the whole file into a memory buffer and return it.  The file should be "
 "a regular, local, trusted file."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:1978
+#: ../docs/internal-documentation.pod:2781
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1980
+#: ../docs/internal-documentation.pod:2783
 msgid "File F<python/guestfs-py-byhand.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1982
+#: ../docs/internal-documentation.pod:2785
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/guestfs-py.c>)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:1986
+#: ../docs/internal-documentation.pod:2789
 msgid "Subdirectory F<v2v>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1988
+#: ../docs/internal-documentation.pod:2791
 msgid "File F<v2v/domainxml-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1990
+#: ../docs/internal-documentation.pod:2793
 msgid ""
 "This module implements various C<virsh>-like commands, but with non-broken "
 "authentication handling."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:1993
+#: ../docs/internal-documentation.pod:2796
 msgid "File F<v2v/xml-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:1995
+#: ../docs/internal-documentation.pod:2798
 msgid "Mini interface to libxml2."
 msgstr ""
 
@@ -67950,11 +69979,6 @@ msgid ""
 " -rw------- 1 root root 1941504 Dec  7 13:13 core.130\n"
 " drwx------ 2 root root   16384 Dec  7 13:00 lost+found\n"
 "\n"
-msgstr ""
-
-#. type: =item
-#: ../rescue/virt-rescue.pod:360
-msgid "6."
 msgstr ""
 
 #. type: textblock

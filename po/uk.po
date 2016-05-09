@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-05-04 18:14+0100\n"
+"POT-Creation-Date: 2016-05-09 09:51+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -5001,6 +5001,13 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
+#: cat/cat.c:228 cat/filesystems.c:338 cat/log.c:199 cat/ls.c:344
+#: diff/diff.c:315 edit/edit.c:257 fuse/guestmount.c:315
+#: inspector/inspector.c:261 rescue/rescue.c:290
+#, c-format
+msgid "%s: error: you must specify at least one -a or -d option.\n"
+msgstr ""
+
 #: cat/filesystems.c:91
 #, c-format
 msgid ""
@@ -5078,7 +5085,14 @@ msgstr ""
 "  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: cat/filesystems.c:304 cat/ls.c:336 df/main.c:254 diff/diff.c:325
+#: cat/filesystems.c:295 cat/log.c:188 inspector/inspector.c:237
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --format like '--format=%s'.\n"
+msgstr ""
+
+#: cat/filesystems.c:309 cat/ls.c:336 df/main.c:254 diff/diff.c:329
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
@@ -5105,19 +5119,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/log.c:243
+#: cat/log.c:251
 #, c-format
 msgid "%s: Windows Event Log for pre-Vista guests is not supported.\n"
 msgstr ""
 "%s: підтримки Windows Event Log для гостьових систем, старіших за Vista не "
 "передбачено.\n"
 
-#: cat/log.c:351
+#: cat/log.c:359
 #, c-format
 msgid "%s: could not format journal entry timestamp\n"
 msgstr "%s: не вдалося виконати форматування часової позначки запису журналу\n"
 
-#: cat/log.c:417
+#: cat/log.c:425
 #, c-format
 msgid ""
 "%s: you need to install 'evtxdump.py' (from the python-evtx package)\n"
@@ -5132,7 +5146,7 @@ msgstr ""
 "цієї гостьової системи і вивчіть його у програмі для перегляду бінарних "
 "файлів.\n"
 
-#: cat/log.c:436
+#: cat/log.c:444
 #, c-format
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr "%s: не знайдено файла Windows Event Log (%s)\n"
@@ -5381,25 +5395,27 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:316
+#: diff/diff.c:320
 #, c-format
-msgid "%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"
-msgstr ""
-"%s: вам слід вказати якісь з параметрів -a, -A, -d або -D, див. %s(1)\n"
-
-#: diff/diff.c:328 test-tool/test-tool.c:149
-#, c-format
-msgid "extra arguments on the command line"
+msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:725
+#: diff/diff.c:332
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --checksum or --format like '--format="
+"%s'.\n"
+msgstr ""
+
+#: diff/diff.c:734
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 "%s: спроба використання зовнішньої програми визначення різниці (diff) "
 "зазнала невдачі\n"
 
-#: diff/diff.c:729
+#: diff/diff.c:738
 msgid "End of diff"
 msgstr "Кінець різниці"
 
@@ -5439,19 +5455,19 @@ msgstr ""
 msgid "-e option given multiple times"
 msgstr ""
 
-#: fish/alloc.c:38
+#: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
 msgstr "скористайтеся командою «alloc розмір_файла» для створення образу\n"
 
-#: fish/alloc.c:52
+#: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
 msgstr ""
 "скористайтеся командою «sparse розмір_файла» для створення розрідженого "
 "образу\n"
 
-#: fish/alloc.c:100
+#: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr "%s: некоректний цілий параметр (%s повернуто %u)\n"
@@ -7864,12 +7880,12 @@ msgstr "введіть «help %s», щоб отримати додаткові �
 msgid "%s: unknown command\n"
 msgstr "%s: невідома команда\n"
 
-#: fish/config.c:66
+#: fish/config.c:70
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr ""
 
-#: fish/copy.c:37
+#: fish/copy.c:42
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
@@ -7877,7 +7893,7 @@ msgstr ""
 "скористайтеся командою «copy-in <локальний файл> [<локальний файл>...] "
 "<віддалений каталог>» для копіювання файлів на образ\n"
 
-#: fish/copy.c:66
+#: fish/copy.c:71
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
@@ -7886,7 +7902,7 @@ msgstr ""
 "скористайтеся командою «copy-out <віддалений файл> [<віддалений файл>...] "
 "<локальний каталог>» для копіювання файлів з образу\n"
 
-#: fish/display.c:43
+#: fish/display.c:48
 #, c-format
 msgid "display filename\n"
 msgstr "показати назву файла\n"
@@ -7901,25 +7917,25 @@ msgstr "скористайтеся командою «%s назва_файла»
 msgid "unknown event name: %s\n"
 msgstr "невідома назва події: %s\n"
 
-#: fish/events.c:174
+#: fish/events.c:179
 #, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
 msgstr ""
 "щоб зареєструвати обробник події, скористайтеся командою «event <назва> "
 "<набір_подій> <скрипт>»\n"
 
-#: fish/events.c:233
+#: fish/events.c:238
 #, c-format
 msgid "use 'delete-event <name>' to delete an event handler\n"
 msgstr ""
 "щоб вилучити обробник події, скористайтеся командою «delete-event <назва>»\n"
 
-#: fish/events.c:242
+#: fish/events.c:247
 #, c-format
 msgid "delete-event: %s: no such event handler\n"
 msgstr "delete-event: %s: такого обробника подій не виявлено\n"
 
-#: fish/events.c:292
+#: fish/events.c:297
 #, c-format
 msgid "use 'list-events' to list event handlers\n"
 msgstr ""
@@ -8165,17 +8181,17 @@ msgstr ""
 "  umount-all\n"
 "  mount %s /\n"
 
-#: fish/glob.c:70
+#: fish/glob.c:74
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "скористайтеся «glob команда [аргументи...]»\n"
 
-#: fish/glob.c:138
+#: fish/glob.c:142
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: помилка під час виклику guestfs_glob_expand: %s\n"
 
-#: fish/help.c:42
+#: fish/help.c:46
 #, c-format
 msgid ""
 "Add disk images to examine using the -a or -d options, or the 'add' "
@@ -8189,7 +8205,7 @@ msgstr ""
 "команд «alloc» і «sparse».\n"
 "Після додавання або створення образів скористайтеся командою «run».\n"
 
-#: fish/help.c:48
+#: fish/help.c:52
 #, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
@@ -8201,7 +8217,7 @@ msgstr ""
 "або внесення змін до вмісту за допомогою команди «mount-ro» або\n"
 "«mount».\n"
 
-#: fish/help.c:56
+#: fish/help.c:60
 #, c-format
 msgid ""
 "For more information about a command, use 'help cmd'.\n"
@@ -8212,17 +8228,17 @@ msgstr ""
 "\n"
 "Щоб ознайомитися зі сторінкою довідника (man), відайте команду «man».\n"
 
-#: fish/hexedit.c:42
+#: fish/hexedit.c:46
 #, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
 msgstr "hexedit (пристрій|назва файла) [максимум | початок максимум]\n"
 
-#: fish/hexedit.c:53
+#: fish/hexedit.c:57
 #, c-format
 msgid "hexedit: %s is a zero length file or device\n"
 msgstr "hexedit: %s є файлом або пристроєм нульового розміру\n"
 
-#: fish/hexedit.c:64
+#: fish/hexedit.c:68
 #, c-format
 msgid ""
 "hexedit: %s is larger than %s. You must supply a limit using\n"
@@ -8234,17 +8250,17 @@ msgstr ""
 "допомогою\n"
 "  «hexedit %s <початок> <максимум>».\n"
 
-#: fish/hexedit.c:93
+#: fish/hexedit.c:97
 #, c-format
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: некоректний діапазон\n"
 
-#: fish/inspect.c:63
+#: fish/inspect.c:72
 #, c-format
 msgid "don't use --live and -i options together"
 msgstr ""
 
-#: fish/inspect.c:73
+#: fish/inspect.c:82
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -8281,7 +8297,7 @@ msgstr ""
 "відповідними командами guestfish (докладний опис можна знайти\n"
 "на сторінках довідника (man) щодо інструмента віртуалізації).\n"
 
-#: fish/inspect.c:94
+#: fish/inspect.c:103
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -8320,17 +8336,17 @@ msgstr ""
 "(докладний опис можна знайти на сторінках довідника (man)\n"
 "щодо інструмента віртуалізації).\n"
 
-#: fish/inspect.c:156
+#: fish/inspect.c:165
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: деякі з файлових систем не вдалося змонтувати (проігноровано)\n"
 
-#: fish/inspect.c:172
+#: fish/inspect.c:182
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Операційна система: %s\n"
 
-#: fish/inspect.c:190
+#: fish/inspect.c:200
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s змонтовано до %s\n"
@@ -8350,24 +8366,24 @@ msgstr "скористайтеся командою «lcd каталог», що
 msgid "use 'man' without parameters to open the manual\n"
 msgstr "скористайтеся «man» без параметрів, щоб відкрити сторінку довідника\n"
 
-#: fish/more.c:42
+#: fish/more.c:46
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr ""
 "скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
 "перегляду на сторінки\n"
 
-#: fish/options.c:116
+#: fish/options.c:118
 #, c-format
 msgid "too many drives added on the command line"
 msgstr ""
 
-#: fish/options.c:275
+#: fish/options.c:278
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: не вдалося змонтувати «%s».\n"
 
-#: fish/options.c:279
+#: fish/options.c:282
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -8377,12 +8393,12 @@ msgstr ""
 "параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
-#: fish/options.c:283
+#: fish/options.c:286
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s: ви хотіли змонтувати одну з цих файлових систем?\n"
 
-#: fish/options.c:296
+#: fish/options.c:299
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr ""
@@ -8454,7 +8470,7 @@ msgstr "не вдалося створити логічний том: /dev/%s/%s
 msgid "failed to create filesystem (%s): %s"
 msgstr "не вдалося створити файлову систему (%s): %s"
 
-#: fish/prep.c:40
+#: fish/prep.c:45
 #, c-format
 msgid ""
 "List of available prepared disk images:\n"
@@ -8463,7 +8479,7 @@ msgstr ""
 "Список доступних приготованих образів дисків:\n"
 "\n"
 
-#: fish/prep.c:43
+#: fish/prep.c:48
 #, c-format
 msgid ""
 "guestfish -N %-8s - %s\n"
@@ -8474,17 +8490,17 @@ msgstr ""
 "\n"
 "%s\n"
 
-#: fish/prep.c:51
+#: fish/prep.c:56
 #, c-format
 msgid "  Optional parameters:\n"
 msgstr "  Додаткові параметри:\n"
 
-#: fish/prep.c:58
+#: fish/prep.c:63
 #, c-format
 msgid "<%s> %s (default: %s)\n"
 msgstr "<%s> %s (типове значення: %s)\n"
 
-#: fish/prep.c:68
+#: fish/prep.c:73
 #, c-format
 msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
@@ -8503,32 +8519,32 @@ msgstr ""
 "\n"
 "Докладніший опис можна знайти у підручнику (man) до guestfish(1).\n"
 
-#: fish/prep.c:104
+#: fish/prep.c:109
 #, c-format
 msgid ""
 "-N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter."
 msgstr ""
 
-#: fish/prep.c:157
+#: fish/prep.c:162
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 "guestfish: помилка під час спроби створення приготованого образу диска «%s» "
 "на «%s»: "
 
-#: fish/rc.c:67
+#: fish/rc.c:71
 #, c-format
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:276
+#: fish/rc.c:282
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 "guestfish: помилка протоколу: не вдалося прочитати вітальне повідомлення\n"
 
-#: fish/rc.c:281
+#: fish/rc.c:287
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -8537,84 +8553,84 @@ msgstr ""
 "guestfish: помилка протоколу: версії не збігаються: версія сервера «%s» не "
 "збігається з версією клієнтської частини, «%s». Версії мають збігатися.\n"
 
-#: fish/rc.c:364 fish/rc.c:378
+#: fish/rc.c:372 fish/rc.c:386
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: здається, сервер не працює\n"
 
-#: fish/rc.c:390 fish/rc.c:404
+#: fish/rc.c:398 fish/rc.c:412
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: помилка протоколу: не вдалося надіслати початкове вітальне "
 "повідомлення до сервера\n"
 
-#: fish/rc.c:415
+#: fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
 "guestfish: помилка протоколу: не вдалося декодувати відповідь сервера\n"
 
-#: fish/reopen.c:39
+#: fish/reopen.c:43
 #, c-format
 msgid "'reopen' command takes no parameters\n"
 msgstr "для команди «reopen» не передбачено жодних параметрів\n"
 
-#: fish/reopen.c:52
+#: fish/reopen.c:56
 #, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
 msgstr "reopen: guestfs_create: не вдалося створити елемент керування\n"
 
-#: fish/setenv.c:35
+#: fish/setenv.c:40
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
 msgstr ""
 "скористайтеся командою «%s ЗМІННА значення» для встановлення змінної "
 "середовища\n"
 
-#: fish/setenv.c:57
+#: fish/setenv.c:62
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
 msgstr ""
 "скористайтеся командою «%s ЗМІННА», щоб скасувати визначення змінної "
 "середовища\n"
 
-#: fish/supported.c:54
+#: fish/supported.c:58
 msgid "yes"
 msgstr "так"
 
-#: fish/supported.c:54
+#: fish/supported.c:58
 msgid "no"
 msgstr "ні"
 
-#: fish/time.c:37
+#: fish/time.c:41
 #, c-format
 msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
 
-#: fish/uri.c:112
+#: fish/uri.c:118
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr "%s: --add: не вдалося обробити адресу «%s»\n"
 
-#: fish/uri.c:123
+#: fish/uri.c:129
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
 msgstr "%s: %s: схема адреси є нульовою або порожньою\n"
 
-#: fish/uri.c:131
+#: fish/uri.c:137
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 "%s: %s: не можна вказувати одразу назву сервера та параметр запиту до "
 "сокета\n"
 
-#: fish/windows.c:102
+#: fish/windows.c:107
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: fish/windows.c:113
+#: fish/windows.c:118
 #, c-format
 msgid "drive '%c:' not found."
 msgstr ""
@@ -8693,7 +8709,20 @@ msgstr ""
 msgid "--lvm option cannot be given multiple times"
 msgstr ""
 
-#: format/format.c:268
+#: format/format.c:223
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--"
+"format=%s'.\n"
+msgstr ""
+
+#: format/format.c:234
+#, c-format
+msgid "%s: error: you must specify at least one -a option.\n"
+msgstr ""
+
+#: format/format.c:276
 #, c-format
 msgid ""
 "failed to rescan the disks after two attempts.  This\n"
@@ -8702,7 +8731,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:304
+#: format/format.c:312
 #, c-format
 msgid "cannot parse --lvm option (%s)"
 msgstr ""
@@ -8746,32 +8775,32 @@ msgstr ""
 msgid "unable to parse --fd option value: %s"
 msgstr ""
 
-#: fuse/guestmount.c:316
+#: fuse/guestmount.c:320
 #, c-format
-msgid "must have at least one -a/-d and at least one -m/-i option"
+msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:322
+#: fuse/guestmount.c:329
 #, c-format
 msgid "--live is not compatible with --ro option"
 msgstr ""
 
-#: fuse/guestmount.c:325
+#: fuse/guestmount.c:332
 #, c-format
 msgid "--live is not compatible with -i option"
 msgstr ""
 
-#: fuse/guestmount.c:337
+#: fuse/guestmount.c:344
 #, c-format
 msgid "with --live, you must use exactly one -d option"
 msgstr ""
 
-#: fuse/guestmount.c:340
+#: fuse/guestmount.c:347
 #, c-format
 msgid "--live is not compatible with -a option"
 msgstr ""
 
-#: fuse/guestmount.c:346
+#: fuse/guestmount.c:353
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
@@ -8856,12 +8885,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/inspector.c:247
+#: inspector/inspector.c:252
 #, c-format
 msgid "cannot use --xpath together with other options."
 msgstr ""
 
-#: inspector/inspector.c:279
+#: inspector/inspector.c:287
 #, c-format
 msgid ""
 "no operating system could be detected inside this disk image.\n"
@@ -8878,54 +8907,54 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/inspector.c:291
+#: inspector/inspector.c:299
 #, c-format
 msgid "XML write error at \"%s\""
 msgstr ""
 
-#: inspector/inspector.c:300
+#: inspector/inspector.c:308
 #, c-format
 msgid "xmlOutputBufferCreateFd: failed to open stdout"
 msgstr ""
 
-#: inspector/inspector.c:306
+#: inspector/inspector.c:314
 #, c-format
 msgid "xmlNewTextWriter: failed to create libxml2 writer"
 msgstr ""
 
-#: inspector/inspector.c:767
+#: inspector/inspector.c:775
 #, c-format
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:771 src/launch-libvirt.c:668 src/libvirt-domain.c:405
+#: inspector/inspector.c:779 src/launch-libvirt.c:668 src/libvirt-domain.c:405
 #: src/libvirt-domain.c:488 src/libvirt-domain.c:701
 #, c-format
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: inspector/inspector.c:775 src/libvirt-domain.c:423 src/libvirt-domain.c:495
+#: inspector/inspector.c:783 src/libvirt-domain.c:423 src/libvirt-domain.c:495
 #: src/libvirt-domain.c:716
 #, c-format
 msgid "unable to evaluate XPath expression"
 msgstr "не вдалося сформувати вираз XPath"
 
-#: inspector/inspector.c:786
+#: inspector/inspector.c:794
 #, c-format
 msgid "xmlSaveToFd failed"
 msgstr ""
 
-#: inspector/inspector.c:791
+#: inspector/inspector.c:799
 #, c-format
 msgid "xmlNewDoc failed"
 msgstr ""
 
-#: inspector/inspector.c:794
+#: inspector/inspector.c:802
 #, c-format
 msgid "xmlCopyNode failed"
 msgstr ""
 
-#: inspector/inspector.c:799
+#: inspector/inspector.c:807
 #, c-format
 msgid "xmlSaveDoc failed"
 msgstr ""
@@ -9411,7 +9440,15 @@ msgstr ""
 msgid "could not parse memory size '%s'"
 msgstr ""
 
-#: rescue/rescue.c:299
+#: rescue/rescue.c:279
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --format or --scratch like '--format="
+"%s'.\n"
+msgstr ""
+
+#: rescue/rescue.c:307
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
@@ -9420,7 +9457,7 @@ msgstr ""
 "%s: попередження: у поточній версії virt-rescue не може працювати з модулем\n"
 "libvirt Щоб усунути цю незручність, буде примусово вибрано модуль «direct».\n"
 
-#: rescue/rescue.c:380
+#: rescue/rescue.c:388
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -9429,7 +9466,7 @@ msgstr ""
 "Вивчення віртуальної машини або образу диска...\n"
 "\n"
 
-#: rescue/rescue.c:399
+#: rescue/rescue.c:407
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -9442,7 +9479,7 @@ msgstr ""
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
 
-#: rescue/rescue.c:414
+#: rescue/rescue.c:422
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -9455,7 +9492,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/rescue.c:473
+#: rescue/rescue.c:481
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -9472,7 +9509,7 @@ msgstr ""
 "створити розділи, логічні томи та файлові системи на порожньому\n"
 "диску.\n"
 
-#: rescue/rescue.c:480
+#: rescue/rescue.c:488
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -9486,7 +9523,7 @@ msgstr ""
 "відповідь на запит ><rescue>) для монтування цих файлових систем.\n"
 "\n"
 
-#: rescue/rescue.c:485
+#: rescue/rescue.c:493
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
@@ -9528,23 +9565,23 @@ msgstr "%s: невідома група"
 msgid "%s: group not available"
 msgstr "%s: недоступна група"
 
-#: src/conn-socket.c:66
+#: src/conn-socket.c:69
 msgid "accept_connection called twice"
 msgstr "accept_connection викликано двічі"
 
-#: src/conn-socket.c:145
+#: src/conn-socket.c:148
 msgid "read_data: socket not connected"
 msgstr "read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:220
+#: src/conn-socket.c:223
 msgid "can_read_data: socket not connected"
 msgstr "can_read_data: сокет не з’єднано"
 
-#: src/conn-socket.c:249
+#: src/conn-socket.c:252
 msgid "write_data: socket not connected"
 msgstr "write_data: сокет не з’єднано"
 
-#: src/conn-socket.c:345
+#: src/conn-socket.c:362
 msgid "error reading console messages from the appliance"
 msgstr "помилка під час читання повідомлень консолі з базової системи"
 
@@ -9568,93 +9605,93 @@ msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 "помилка: аргумент має нульову довжину або є довшим за максимальне значення"
 
-#: src/create.c:60
+#: src/create.c:65
 msgid "if using a backing file, size must be passed as -1"
 msgstr ""
 "якщо використовується файл резервної копії, розмір має бути передано як -1"
 
-#: src/create.c:68
+#: src/create.c:73
 #, c-format
 msgid "invalid size: %<PRIi64>"
 msgstr "некоректний розмір: %<PRIi64>"
 
-#: src/create.c:76
+#: src/create.c:81
 msgid "backingfile cannot be used for raw format disks"
 msgstr "backingfile не можна використовувати для неформатованих дисків (raw)"
 
-#: src/create.c:91
+#: src/create.c:96
 #, c-format
 msgid "unsupported format '%s'"
 msgstr "непідтримуваний формат «%s»"
 
-#: src/create.c:105
+#: src/create.c:110
 #, c-format
 msgid "cannot open block device: %s"
 msgstr "не вдалося відкрити блоковий пристрій: %s"
 
-#: src/create.c:139
+#: src/create.c:144
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 "параметр backingformat не можна використовувати, якщо використовується "
 "формат raw"
 
-#: src/create.c:149 src/create.c:286
+#: src/create.c:154 src/create.c:291
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr "некоректне значення для параметра preallocation, «%s»"
 
-#: src/create.c:155
+#: src/create.c:160
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 "параметр compat не можна використовувати, якщо використовується формат raw"
 
-#: src/create.c:159
+#: src/create.c:164
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 "параметр clustersize не можна використовувати, якщо використовується формат "
 "raw"
 
-#: src/create.c:166
+#: src/create.c:171
 #, c-format
 msgid "refusing to overwrite char device '%s'"
 msgstr "відмова у перезаписі символьного пристрою «%s»"
 
-#: src/create.c:176
+#: src/create.c:181
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr "не вдалося створити файл raw: %s"
 
-#: src/create.c:182
+#: src/create.c:187
 #, c-format
 msgid "%s: truncate"
 msgstr "%s: обрізати"
 
-#: src/create.c:195
+#: src/create.c:200
 #, c-format
 msgid "%s: fallocate"
 msgstr "%s: fallocate"
 
-#: src/create.c:213
+#: src/create.c:218
 #, c-format
 msgid "%s: write"
 msgstr "%s: записати"
 
-#: src/create.c:224
+#: src/create.c:229
 #, c-format
 msgid "%s: close"
 msgstr "%s: закрити"
 
-#: src/create.c:271
+#: src/create.c:276
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr "некоректне значення для параметра backingformat, «%s»"
 
-#: src/create.c:294
+#: src/create.c:299
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr "некоректне значення для параметра compat, «%s»"
 
-#: src/create.c:302
+#: src/create.c:307
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr "некоректне значення для параметра clustersize, «%d»"
@@ -10137,7 +10174,7 @@ msgstr "файл випуску %s є порожнім або форматова
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:318
 #: src/inspect-fs-unix.c:405 src/inspect-fs-unix.c:1262
-#: src/inspect-fs-unix.c:2028 src/inspect-fs.c:626 src/inspect-fs.c:672
+#: src/inspect-fs-unix.c:2028 src/inspect-fs.c:627 src/inspect-fs.c:673
 #: src/inspect.c:663
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
@@ -10148,7 +10185,7 @@ msgstr "розмір %s неймовірно великий (%<PRIi64> байт�
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr "%s:%s:%s: помилка під час обробки augeas: %s"
 
-#: src/inspect-fs.c:418 src/inspect-fs.c:431
+#: src/inspect-fs.c:419 src/inspect-fs.c:432
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr "не вдалося обробити ціле число у номері версії: %s"
@@ -10176,17 +10213,17 @@ msgstr ""
 "кореневого пристрою, дані якого раніше було повернуто функцією "
 "guestfs_inspect_os"
 
-#: src/launch-direct.c:132
+#: src/launch-direct.c:137
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr "неврівноважений символ лапки (%c) у командному рядку поблизу від %s"
 
-#: src/launch-direct.c:151
+#: src/launch-direct.c:156
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr "не вдалося обробити рядок у лапках поблизу від %s"
 
-#: src/launch-direct.c:218
+#: src/launch-direct.c:223
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -10200,40 +10237,40 @@ msgstr ""
 "kvm» або додати поточного користувача до групи KVM (ймовірно, вам доведеться "
 "вийти і знову увійти до облікового запису цього користувача)."
 
-#: src/launch-direct.c:254 src/launch-uml.c:155
+#: src/launch-direct.c:259 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:835 src/launch-libvirt.c:598
+#: src/launch-direct.c:840 src/launch-libvirt.c:598
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1224 src/launch-libvirt.c:1395
+#: src/launch-direct.c:1231 src/launch-libvirt.c:1395
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-direct.c:1407
+#: src/launch-direct.c:1414
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr "не можна вмикати discard для цього диска: qemu < 1.5"
 
-#: src/launch-direct.c:1416
+#: src/launch-direct.c:1423
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 "не можна вмикати discard для цього диска: на диску є призначена лише для "
 "читання накладка"
 
-#: src/launch-direct.c:1423
+#: src/launch-direct.c:1430
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 "не можна вмикати discard для цього диска: вам слід вказати формат файла"
 
-#: src/launch-direct.c:1431
+#: src/launch-direct.c:1438
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
@@ -10241,7 +10278,7 @@ msgstr ""
 "не можна вмикати discard для цього диска: у qemu < 1.6  не передбачено "
 "підтримки discard для файлів qcow2"
 
-#: src/launch-direct.c:1439
+#: src/launch-direct.c:1446
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
@@ -10250,7 +10287,7 @@ msgstr ""
 "не можна вмикати discard для цього диска: у qemu не передбачено підтримки "
 "discard для файлів у форматі «%s»"
 
-#: src/launch-direct.c:1462
+#: src/launch-direct.c:1469
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -10784,7 +10821,7 @@ msgstr "Роботу %s завершено за допомогою сигнал�
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
 
-#: src/whole-file.c:70
+#: src/whole-file.c:84
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr "читання: %s: неочікуваний кінець файла"
@@ -10814,6 +10851,11 @@ msgstr ""
 #: test-tool/test-tool.c:144
 #, c-format
 msgid "unexpected command line option %d"
+msgstr ""
+
+#: test-tool/test-tool.c:149
+#, c-format
+msgid "extra arguments on the command line"
 msgstr ""
 
 #: test-tool/test-tool.c:168
@@ -10995,6 +11037,10 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"
+#~ msgstr ""
+#~ "%s: вам слід вказати якісь з параметрів -a, -A, -d або -D, див. %s(1)\n"
 
 #~ msgid "--install is not supported for this guest operating system"
 #~ msgstr ""

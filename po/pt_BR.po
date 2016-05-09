@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-05-04 18:14+0100\n"
+"POT-Creation-Date: 2016-05-09 09:51+0100\n"
 "PO-Revision-Date: 2015-10-28 05:01-0400\n"
 "Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -4189,6 +4189,13 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
+#: cat/cat.c:228 cat/filesystems.c:338 cat/log.c:199 cat/ls.c:344
+#: diff/diff.c:315 edit/edit.c:257 fuse/guestmount.c:315
+#: inspector/inspector.c:261 rescue/rescue.c:290
+#, c-format
+msgid "%s: error: you must specify at least one -a or -d option.\n"
+msgstr ""
+
 #: cat/filesystems.c:91
 #, c-format
 msgid ""
@@ -4228,7 +4235,14 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/filesystems.c:304 cat/ls.c:336 df/main.c:254 diff/diff.c:325
+#: cat/filesystems.c:295 cat/log.c:188 inspector/inspector.c:237
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --format like '--format=%s'.\n"
+msgstr ""
+
+#: cat/filesystems.c:309 cat/ls.c:336 df/main.c:254 diff/diff.c:329
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
@@ -4255,17 +4269,17 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/log.c:243
+#: cat/log.c:251
 #, c-format
 msgid "%s: Windows Event Log for pre-Vista guests is not supported.\n"
 msgstr ""
 
-#: cat/log.c:351
+#: cat/log.c:359
 #, c-format
 msgid "%s: could not format journal entry timestamp\n"
 msgstr ""
 
-#: cat/log.c:417
+#: cat/log.c:425
 #, c-format
 msgid ""
 "%s: you need to install 'evtxdump.py' (from the python-evtx package)\n"
@@ -4274,7 +4288,7 @@ msgid ""
 "from this guest, and examine in a binary file viewer.\n"
 msgstr ""
 
-#: cat/log.c:436
+#: cat/log.c:444
 #, c-format
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
@@ -4469,22 +4483,25 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:316
+#: diff/diff.c:320
 #, c-format
-msgid "%s: you must specify some -a|-A|-d|-D options, see %s(1)\n"
+msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:328 test-tool/test-tool.c:149
+#: diff/diff.c:332
 #, c-format
-msgid "extra arguments on the command line"
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --checksum or --format like '--format="
+"%s'.\n"
 msgstr ""
 
-#: diff/diff.c:725
+#: diff/diff.c:734
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:729
+#: diff/diff.c:738
 msgid "End of diff"
 msgstr ""
 
@@ -4524,17 +4541,17 @@ msgstr ""
 msgid "-e option given multiple times"
 msgstr ""
 
-#: fish/alloc.c:38
+#: fish/alloc.c:42
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
 msgstr ""
 
-#: fish/alloc.c:52
+#: fish/alloc.c:56
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
 msgstr ""
 
-#: fish/alloc.c:100
+#: fish/alloc.c:105
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -6895,25 +6912,25 @@ msgstr ""
 msgid "%s: unknown command\n"
 msgstr ""
 
-#: fish/config.c:66
+#: fish/config.c:70
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr ""
 
-#: fish/copy.c:37
+#: fish/copy.c:42
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
-#: fish/copy.c:66
+#: fish/copy.c:71
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
 
-#: fish/display.c:43
+#: fish/display.c:48
 #, c-format
 msgid "display filename\n"
 msgstr ""
@@ -6928,22 +6945,22 @@ msgstr ""
 msgid "unknown event name: %s\n"
 msgstr ""
 
-#: fish/events.c:174
+#: fish/events.c:179
 #, c-format
 msgid "use 'event <name> <eventset> <script>' to register an event handler\n"
 msgstr ""
 
-#: fish/events.c:233
+#: fish/events.c:238
 #, c-format
 msgid "use 'delete-event <name>' to delete an event handler\n"
 msgstr ""
 
-#: fish/events.c:242
+#: fish/events.c:247
 #, c-format
 msgid "delete-event: %s: no such event handler\n"
 msgstr ""
 
-#: fish/events.c:292
+#: fish/events.c:297
 #, c-format
 msgid "use 'list-events' to list event handlers\n"
 msgstr ""
@@ -7155,17 +7172,17 @@ msgid ""
 "  mount %s /\n"
 msgstr ""
 
-#: fish/glob.c:70
+#: fish/glob.c:74
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr ""
 
-#: fish/glob.c:138
+#: fish/glob.c:142
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr ""
 
-#: fish/help.c:42
+#: fish/help.c:46
 #, c-format
 msgid ""
 "Add disk images to examine using the -a or -d options, or the 'add' "
@@ -7174,7 +7191,7 @@ msgid ""
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
 
-#: fish/help.c:48
+#: fish/help.c:52
 #, c-format
 msgid ""
 "Find out what filesystems are available using 'list-filesystems' and then\n"
@@ -7182,7 +7199,7 @@ msgid ""
 "'mount'.\n"
 msgstr ""
 
-#: fish/help.c:56
+#: fish/help.c:60
 #, c-format
 msgid ""
 "For more information about a command, use 'help cmd'.\n"
@@ -7190,17 +7207,17 @@ msgid ""
 "To read the manual, type 'man'.\n"
 msgstr ""
 
-#: fish/hexedit.c:42
+#: fish/hexedit.c:46
 #, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
 msgstr ""
 
-#: fish/hexedit.c:53
+#: fish/hexedit.c:57
 #, c-format
 msgid "hexedit: %s is a zero length file or device\n"
 msgstr ""
 
-#: fish/hexedit.c:64
+#: fish/hexedit.c:68
 #, c-format
 msgid ""
 "hexedit: %s is larger than %s. You must supply a limit using\n"
@@ -7208,17 +7225,17 @@ msgid ""
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
 
-#: fish/hexedit.c:93
+#: fish/hexedit.c:97
 #, c-format
 msgid "hexedit: invalid range\n"
 msgstr ""
 
-#: fish/inspect.c:63
+#: fish/inspect.c:72
 #, c-format
 msgid "don't use --live and -i options together"
 msgstr ""
 
-#: fish/inspect.c:73
+#: fish/inspect.c:82
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -7237,7 +7254,7 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:94
+#: fish/inspect.c:103
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -7256,17 +7273,17 @@ msgid ""
 "(see the virt tool manual page).\n"
 msgstr ""
 
-#: fish/inspect.c:156
+#: fish/inspect.c:165
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr ""
 
-#: fish/inspect.c:172
+#: fish/inspect.c:182
 #, c-format
 msgid "Operating system: %s\n"
 msgstr ""
 
-#: fish/inspect.c:190
+#: fish/inspect.c:200
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr ""
@@ -7286,34 +7303,34 @@ msgstr ""
 msgid "use 'man' without parameters to open the manual\n"
 msgstr ""
 
-#: fish/more.c:42
+#: fish/more.c:46
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr ""
 
-#: fish/options.c:116
+#: fish/options.c:118
 #, c-format
 msgid "too many drives added on the command line"
 msgstr ""
 
-#: fish/options.c:275
+#: fish/options.c:278
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr ""
 
-#: fish/options.c:279
+#: fish/options.c:282
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: fish/options.c:283
+#: fish/options.c:286
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
 
-#: fish/options.c:296
+#: fish/options.c:299
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr ""
@@ -7383,14 +7400,14 @@ msgstr ""
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/prep.c:40
+#: fish/prep.c:45
 #, c-format
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
 
-#: fish/prep.c:43
+#: fish/prep.c:48
 #, c-format
 msgid ""
 "guestfish -N %-8s - %s\n"
@@ -7398,17 +7415,17 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: fish/prep.c:51
+#: fish/prep.c:56
 #, c-format
 msgid "  Optional parameters:\n"
 msgstr ""
 
-#: fish/prep.c:58
+#: fish/prep.c:63
 #, c-format
 msgid "<%s> %s (default: %s)\n"
 msgstr ""
 
-#: fish/prep.c:68
+#: fish/prep.c:73
 #, c-format
 msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
@@ -7420,104 +7437,104 @@ msgid ""
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
 
-#: fish/prep.c:104
+#: fish/prep.c:109
 #, c-format
 msgid ""
 "-N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter."
 msgstr ""
 
-#: fish/prep.c:157
+#: fish/prep.c:162
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/rc.c:67
+#: fish/rc.c:71
 #, c-format
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:276
+#: fish/rc.c:282
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 
-#: fish/rc.c:281
+#: fish/rc.c:287
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:364 fish/rc.c:378
+#: fish/rc.c:372 fish/rc.c:386
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:390 fish/rc.c:404
+#: fish/rc.c:398 fish/rc.c:412
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:415
+#: fish/rc.c:423
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
 
-#: fish/reopen.c:39
+#: fish/reopen.c:43
 #, c-format
 msgid "'reopen' command takes no parameters\n"
 msgstr ""
 
-#: fish/reopen.c:52
+#: fish/reopen.c:56
 #, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: fish/setenv.c:35
+#: fish/setenv.c:40
 #, c-format
 msgid "use '%s VAR value' to set an environment variable\n"
 msgstr ""
 
-#: fish/setenv.c:57
+#: fish/setenv.c:62
 #, c-format
 msgid "use '%s VAR' to unset an environment variable\n"
 msgstr ""
 
-#: fish/supported.c:54
+#: fish/supported.c:58
 msgid "yes"
 msgstr ""
 
-#: fish/supported.c:54
+#: fish/supported.c:58
 msgid "no"
 msgstr ""
 
-#: fish/time.c:37
+#: fish/time.c:41
 #, c-format
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: fish/uri.c:112
+#: fish/uri.c:118
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr ""
 
-#: fish/uri.c:123
+#: fish/uri.c:129
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
 msgstr ""
 
-#: fish/uri.c:131
+#: fish/uri.c:137
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: fish/windows.c:102
+#: fish/windows.c:107
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: fish/windows.c:113
+#: fish/windows.c:118
 #, c-format
 msgid "drive '%c:' not found."
 msgstr ""
@@ -7571,7 +7588,20 @@ msgstr ""
 msgid "--lvm option cannot be given multiple times"
 msgstr ""
 
-#: format/format.c:268
+#: format/format.c:223
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--"
+"format=%s'.\n"
+msgstr ""
+
+#: format/format.c:234
+#, c-format
+msgid "%s: error: you must specify at least one -a option.\n"
+msgstr ""
+
+#: format/format.c:276
 #, c-format
 msgid ""
 "failed to rescan the disks after two attempts.  This\n"
@@ -7580,7 +7610,7 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:304
+#: format/format.c:312
 #, c-format
 msgid "cannot parse --lvm option (%s)"
 msgstr ""
@@ -7624,32 +7654,32 @@ msgstr ""
 msgid "unable to parse --fd option value: %s"
 msgstr ""
 
-#: fuse/guestmount.c:316
+#: fuse/guestmount.c:320
 #, c-format
-msgid "must have at least one -a/-d and at least one -m/-i option"
+msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:322
+#: fuse/guestmount.c:329
 #, c-format
 msgid "--live is not compatible with --ro option"
 msgstr ""
 
-#: fuse/guestmount.c:325
+#: fuse/guestmount.c:332
 #, c-format
 msgid "--live is not compatible with -i option"
 msgstr ""
 
-#: fuse/guestmount.c:337
+#: fuse/guestmount.c:344
 #, c-format
 msgid "with --live, you must use exactly one -d option"
 msgstr ""
 
-#: fuse/guestmount.c:340
+#: fuse/guestmount.c:347
 #, c-format
 msgid "--live is not compatible with -a option"
 msgstr ""
 
-#: fuse/guestmount.c:346
+#: fuse/guestmount.c:353
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
@@ -7721,12 +7751,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/inspector.c:247
+#: inspector/inspector.c:252
 #, c-format
 msgid "cannot use --xpath together with other options."
 msgstr ""
 
-#: inspector/inspector.c:279
+#: inspector/inspector.c:287
 #, c-format
 msgid ""
 "no operating system could be detected inside this disk image.\n"
@@ -7743,54 +7773,54 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/inspector.c:291
+#: inspector/inspector.c:299
 #, c-format
 msgid "XML write error at \"%s\""
 msgstr ""
 
-#: inspector/inspector.c:300
+#: inspector/inspector.c:308
 #, c-format
 msgid "xmlOutputBufferCreateFd: failed to open stdout"
 msgstr ""
 
-#: inspector/inspector.c:306
+#: inspector/inspector.c:314
 #, c-format
 msgid "xmlNewTextWriter: failed to create libxml2 writer"
 msgstr ""
 
-#: inspector/inspector.c:767
+#: inspector/inspector.c:775
 #, c-format
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:771 src/launch-libvirt.c:668 src/libvirt-domain.c:405
+#: inspector/inspector.c:779 src/launch-libvirt.c:668 src/libvirt-domain.c:405
 #: src/libvirt-domain.c:488 src/libvirt-domain.c:701
 #, c-format
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: inspector/inspector.c:775 src/libvirt-domain.c:423 src/libvirt-domain.c:495
+#: inspector/inspector.c:783 src/libvirt-domain.c:423 src/libvirt-domain.c:495
 #: src/libvirt-domain.c:716
 #, c-format
 msgid "unable to evaluate XPath expression"
 msgstr ""
 
-#: inspector/inspector.c:786
+#: inspector/inspector.c:794
 #, c-format
 msgid "xmlSaveToFd failed"
 msgstr ""
 
-#: inspector/inspector.c:791
+#: inspector/inspector.c:799
 #, c-format
 msgid "xmlNewDoc failed"
 msgstr ""
 
-#: inspector/inspector.c:794
+#: inspector/inspector.c:802
 #, c-format
 msgid "xmlCopyNode failed"
 msgstr ""
 
-#: inspector/inspector.c:799
+#: inspector/inspector.c:807
 #, c-format
 msgid "xmlSaveDoc failed"
 msgstr ""
@@ -8236,21 +8266,29 @@ msgstr ""
 msgid "could not parse memory size '%s'"
 msgstr ""
 
-#: rescue/rescue.c:299
+#: rescue/rescue.c:279
+#, c-format
+msgid ""
+"%s: error: extra argument '%s' on command line.\n"
+"Make sure to specify the argument for --format or --scratch like '--format="
+"%s'.\n"
+msgstr ""
+
+#: rescue/rescue.c:307
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
 "at the moment.  As a workaround, forcing backend = 'direct'.\n"
 msgstr ""
 
-#: rescue/rescue.c:380
+#: rescue/rescue.c:388
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:399
+#: rescue/rescue.c:407
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -8258,7 +8296,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:414
+#: rescue/rescue.c:422
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -8267,7 +8305,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:473
+#: rescue/rescue.c:481
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -8277,7 +8315,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/rescue.c:480
+#: rescue/rescue.c:488
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -8286,7 +8324,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:485
+#: rescue/rescue.c:493
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
@@ -8323,23 +8361,23 @@ msgstr ""
 msgid "%s: group not available"
 msgstr ""
 
-#: src/conn-socket.c:66
+#: src/conn-socket.c:69
 msgid "accept_connection called twice"
 msgstr ""
 
-#: src/conn-socket.c:145
+#: src/conn-socket.c:148
 msgid "read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:220
+#: src/conn-socket.c:223
 msgid "can_read_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:249
+#: src/conn-socket.c:252
 msgid "write_data: socket not connected"
 msgstr ""
 
-#: src/conn-socket.c:345
+#: src/conn-socket.c:362
 msgid "error reading console messages from the appliance"
 msgstr ""
 
@@ -8362,87 +8400,87 @@ msgstr ""
 msgid "error: argument is zero length or longer than maximum permitted"
 msgstr ""
 
-#: src/create.c:60
+#: src/create.c:65
 msgid "if using a backing file, size must be passed as -1"
 msgstr ""
 
-#: src/create.c:68
+#: src/create.c:73
 #, c-format
 msgid "invalid size: %<PRIi64>"
 msgstr ""
 
-#: src/create.c:76
+#: src/create.c:81
 msgid "backingfile cannot be used for raw format disks"
 msgstr ""
 
-#: src/create.c:91
+#: src/create.c:96
 #, c-format
 msgid "unsupported format '%s'"
 msgstr ""
 
-#: src/create.c:105
+#: src/create.c:110
 #, c-format
 msgid "cannot open block device: %s"
 msgstr ""
 
-#: src/create.c:139
+#: src/create.c:144
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:149 src/create.c:286
+#: src/create.c:154 src/create.c:291
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr ""
 
-#: src/create.c:155
+#: src/create.c:160
 msgid "compat parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:159
+#: src/create.c:164
 msgid "clustersize parameter cannot be used with raw format"
 msgstr ""
 
-#: src/create.c:166
+#: src/create.c:171
 #, c-format
 msgid "refusing to overwrite char device '%s'"
 msgstr ""
 
-#: src/create.c:176
+#: src/create.c:181
 #, c-format
 msgid "cannot create raw file: %s"
 msgstr ""
 
-#: src/create.c:182
+#: src/create.c:187
 #, c-format
 msgid "%s: truncate"
 msgstr ""
 
-#: src/create.c:195
+#: src/create.c:200
 #, c-format
 msgid "%s: fallocate"
 msgstr ""
 
-#: src/create.c:213
+#: src/create.c:218
 #, c-format
 msgid "%s: write"
 msgstr ""
 
-#: src/create.c:224
+#: src/create.c:229
 #, c-format
 msgid "%s: close"
 msgstr ""
 
-#: src/create.c:271
+#: src/create.c:276
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr ""
 
-#: src/create.c:294
+#: src/create.c:299
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr ""
 
-#: src/create.c:302
+#: src/create.c:307
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr ""
@@ -8869,7 +8907,7 @@ msgstr ""
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:318
 #: src/inspect-fs-unix.c:405 src/inspect-fs-unix.c:1262
-#: src/inspect-fs-unix.c:2028 src/inspect-fs.c:626 src/inspect-fs.c:672
+#: src/inspect-fs-unix.c:2028 src/inspect-fs.c:627 src/inspect-fs.c:673
 #: src/inspect.c:663
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
@@ -8880,7 +8918,7 @@ msgstr ""
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr ""
 
-#: src/inspect-fs.c:418 src/inspect-fs.c:431
+#: src/inspect-fs.c:419 src/inspect-fs.c:432
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
@@ -8904,17 +8942,17 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:132
+#: src/launch-direct.c:137
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:151
+#: src/launch-direct.c:156
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:218
+#: src/launch-direct.c:223
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8923,48 +8961,48 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:254 src/launch-uml.c:155
+#: src/launch-direct.c:259 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/launch-direct.c:835 src/launch-libvirt.c:598
+#: src/launch-direct.c:840 src/launch-libvirt.c:598
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1224 src/launch-libvirt.c:1395
+#: src/launch-direct.c:1231 src/launch-libvirt.c:1395
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
 
-#: src/launch-direct.c:1407
+#: src/launch-direct.c:1414
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/launch-direct.c:1416
+#: src/launch-direct.c:1423
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/launch-direct.c:1423
+#: src/launch-direct.c:1430
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/launch-direct.c:1431
+#: src/launch-direct.c:1438
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/launch-direct.c:1439
+#: src/launch-direct.c:1446
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/launch-direct.c:1462
+#: src/launch-direct.c:1469
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -9413,7 +9451,7 @@ msgstr ""
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
 
-#: src/whole-file.c:70
+#: src/whole-file.c:84
 #, c-format
 msgid "read: %s: unexpected end of file"
 msgstr ""
@@ -9443,6 +9481,11 @@ msgstr ""
 #: test-tool/test-tool.c:144
 #, c-format
 msgid "unexpected command line option %d"
+msgstr ""
+
+#: test-tool/test-tool.c:149
+#, c-format
+msgid "extra arguments on the command line"
 msgstr ""
 
 #: test-tool/test-tool.c:168
