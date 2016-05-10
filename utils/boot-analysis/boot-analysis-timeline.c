@@ -306,7 +306,7 @@ construct_timeline (void)
 #endif
 
     /* ftrace patching instructions. */
-    FIND ("kernel:ftrace", 0,
+    FIND_OPTIONAL ("kernel:ftrace", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[j].message, "ftrace: allocating"),
           1);
