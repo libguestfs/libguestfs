@@ -103,4 +103,6 @@ virt-install \
 cp $vars $output-nvram
 xz --best $output-nvram
 
+DO_RELABEL=1
+
 source $(dirname "$0")/compress.sh $output

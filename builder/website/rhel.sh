@@ -225,4 +225,6 @@ guestfish --rw -a $output -m $guestroot \
   upload $yum /etc/yum.repos.d/download.devel.redhat.com.repo
 fi
 
+DO_RELABEL=1
+
 source $(dirname "$0")/compress.sh $output
