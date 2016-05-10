@@ -100,4 +100,6 @@ virt-install \
     --nographics \
     --noreboot
 
+DO_RELABEL=1
+
 source $(dirname "$0")/compress.sh $output
