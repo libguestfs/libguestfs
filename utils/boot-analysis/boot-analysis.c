@@ -841,6 +841,8 @@ dump_pass_data (void)
       printf ("\"\n");
     }
   }
+
+  fflush (stdout);
 }
 
 /* Convert source to a printable string.  The caller must free the
@@ -1018,6 +1020,8 @@ dump_timeline (void)
     printf ("    s.d = %.1f\n", activities[i].sd);
     printf ("    percent = %.1f\n", activities[i].percent);
   }
+
+  fflush (stdout);
 }
 
 static void
