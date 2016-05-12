@@ -17,10 +17,6 @@ if [ ! -d /tmp ] || [ ! -d /var/tmp ]; then
     chmod 1777 /tmp /var/tmp
 fi
 
-# Make sure to find all the libraries, also those in non-standard place
-# but with a proper ld.so configuration pointing at them
-ldconfig
-
 # Try to print a stack trace for segfaults inside the appliance.
 for d in /lib64 /lib; do
   f=$d/libSegFault.so
