@@ -12958,6 +12958,33 @@ and save it as F<filename> on the local machine.
 
 This allows to download deleted or inaccessible files." };
 
+  { defaults with
+    name = "btrfs_filesystem_show"; added = (1, 33, 29);
+    style = RStringList "devices", [Device "device"], [];
+    proc_nr = Some 465;
+    optional = Some "btrfs"; camel_name = "BTRFSFilesystemsShow";
+    tests = [
+      InitScratchFS, Always, TestLastFail (
+        [["btrfs_filesystem_show"; "/dev/sdb"]]), [];
+      InitPartition, Always, TestResult (
+        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_filesystem_show"; "/dev/sda1"]],
+         "is_string_list (ret, 1, \"/dev/sda1\")"), [];
+      InitEmpty, Always, TestResult (
+        [["part_init"; "/dev/sda"; "mbr"];
+         ["part_add"; "/dev/sda"; "p"; "64"; "2047999"];
+         ["part_add"; "/dev/sda"; "p"; "2048000"; "4095999"];
+         ["mkfs_btrfs"; "/dev/sda1 /dev/sda2"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
+         ["btrfs_filesystem_show"; "/dev/sda1"]],
+         "is_string_list (ret, 2, \"/dev/sda1\", \"/dev/sda2\")"), [];
+    ];
+    shortdesc = "list devices for btrfs filesystem";
+    longdesc = "\
+Show all the devices where the filesystems in C<device> is spanned over.
+
+If not all the devices for the filesystems are present, then this function
+fails and the C<errno> is set to C<ENODEV>." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

@@ -2203,6 +2203,84 @@ do_btrfs_replace (const char *srcdev, const char *targetdev,
   return 0;
 }
 
+char **
+do_btrfs_filesystem_show (const char *device)
+{
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
+  const size_t MAX_ARGS = 16;
+  const char *argv[MAX_ARGS];
+  size_t i = 0;
+  CLEANUP_FREE char *out = NULL;
+  CLEANUP_FREE char *err = NULL;
+  CLEANUP_FREE_STRING_LIST char **lines = NULL;
+  int r;
+
+  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "filesystem");
+  ADD_ARG (argv, i, "show");
+  ADD_ARG (argv, i, device);
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    return NULL;
+  }
+
+  lines = split_lines (out);
+  if (!lines)
+    return NULL;
+
+  if (count_strings (lines) < 3) {
+    reply_with_error ("truncated output from 'btrfs filesystem show' command");
+    return NULL;
+  }
+
+  /* Output of `btrfs filesystem show' is like:
+   *
+   *   Label: none  uuid: 99a1b6ba-de46-4a93-8f91-7d7685970a6c
+   *           Total devices 3 FS bytes used 1.12MiB
+   *           devid    1 size 10.00GiB used 2.00GiB path /dev/sda
+   *           [...]
+   *
+   * or:
+   *
+   *   Label: none  uuid: 99a1b6ba-de46-4a93-8f91-7d7685970a6c
+   *           Total devices 3 FS bytes used 1.12MiB
+   *           devid    1 size 10.00GiB used 2.00GiB path /dev/sda
+   *           [...]
+   *           *** Some devices missing
+   */
+  for (i = 1; lines[i] != NULL; ++i) {
+    if (lines[i][0] == 0)
+      continue;
+    if (STRPREFIX (lines[i], "Label: "))
+      continue;
+    else if (STRPREFIX (lines[i], "\tTotal devices "))
+      continue;
+    else if (STRPREFIX (lines[i], "\tdevid ")) {
+      const char *p = strstr (lines[i], " path ");
+      const char *end;
+      if (!p)
+        continue;
+
+      p += strlen (" path ");
+      end = strchrnul (p, ' ');
+      add_sprintf (&ret, "%.*s", (int) (end - p), p);
+    } else if (STRPREFIX (lines[i], "\t*** Some devices missing")) {
+      reply_with_error_errno (ENODEV, "%s: missing devices", device);
+      return NULL;
+    } else {
+      reply_with_error ("unrecognized line in output from 'btrfs filesystem show': %s", lines[i]);
+      return NULL;
+    }
+  }
+
+  end_stringsbuf (&ret);
+
+  return take_stringsbuf (&ret);
+}
+
 /* btrfs command add a new command
  * inspect-internal min-dev-size <path>
  * since v4.2
