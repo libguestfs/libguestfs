@@ -13,5 +13,6 @@ dnl   SUSE=1       For OpenSUSE.
 dnl   FRUGALWARE=1 For Frugalware.
 dnl   MAGEIA=1     For Mageia.
 
+/etc/ld.so.cache
 /lib/lsb/*
 /usr/share/augeas/lenses/*.aug
