@@ -55,8 +55,16 @@ struct qemu_data {
                                    guestfs_int_qemu_supports_virtio_scsi */
 };
 
+static int test_qemu (guestfs_h *g, struct qemu_data *data, struct version *qemu_version);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
+
+/* This is saved in the qemu.stat file, so if we decide to change the
+ * test_qemu memoization format/data in future, we should increment
+ * this to discard any memoized data cached by previous versions of
+ * libguestfs.
+ */
+#define MEMO_GENERATION 1
 
 /**
  * Test qemu binary (or wrapper) runs, and do C<qemu -help> so we know
@@ -65,16 +73,148 @@ static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
  *
  * The version number of qemu (from the C<-help> output) is saved in
  * C<&qemu_version>.
+ *
+ * This caches the results in the cachedir so that as long as the qemu
+ * binary does not change, calling this is effectively free.
  */
 struct qemu_data *
 guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
 {
+  struct qemu_data *data;
+  struct stat statbuf;
+  CLEANUP_FREE char *cachedir = NULL, *qemu_stat_filename = NULL,
+    *qemu_help_filename = NULL, *qemu_devices_filename = NULL;
+  FILE *fp;
+  int generation;
+  uint64_t prev_size, prev_mtime;
+
+  if (stat (g->hv, &statbuf) == -1) {
+    perrorf (g, "stat: %s", g->hv);
+    return NULL;
+  }
+
+  cachedir = guestfs_int_lazy_make_supermin_appliance_dir (g);
+  if (cachedir == NULL)
+    return NULL;
+
+  qemu_stat_filename = safe_asprintf (g, "%s/qemu.stat", cachedir);
+  qemu_help_filename = safe_asprintf (g, "%s/qemu.help", cachedir);
+  qemu_devices_filename = safe_asprintf (g, "%s/qemu.devices", cachedir);
+
+  /* Did we previously test the same version of qemu? */
+  debug (g, "checking for previously cached test results of %s, in %s",
+         g->hv, cachedir);
+
+  fp = fopen (qemu_stat_filename, "r");
+  if (fp == NULL)
+    goto do_test;
+  if (fscanf (fp, "%d %" SCNu64 " %" SCNu64,
+              &generation, &prev_size, &prev_mtime) != 3) {
+    fclose (fp);
+    goto do_test;
+  }
+  fclose (fp);
+
+  if (generation == MEMO_GENERATION &&
+      (uint64_t) statbuf.st_size == prev_size &&
+      (uint64_t) statbuf.st_mtime == prev_mtime) {
+    /* Same binary as before, so read the previously cached qemu -help
+     * and qemu -devices ? output.
+     */
+    if (access (qemu_help_filename, R_OK) == -1 ||
+        access (qemu_devices_filename, R_OK) == -1)
+      goto do_test;
+
+    debug (g, "loading previously cached test results");
+
+    data = safe_calloc (g, 1, sizeof *data);
+
+    if (guestfs_int_read_whole_file (g, qemu_help_filename,
+                                     &data->qemu_help, NULL) == -1) {
+      guestfs_int_free_qemu_data (data);
+      return NULL;
+    }
+
+    parse_qemu_version (g, data->qemu_help, qemu_version);
+
+    if (guestfs_int_read_whole_file (g, qemu_devices_filename,
+                                     &data->qemu_devices, NULL) == -1) {
+      guestfs_int_free_qemu_data (data);
+      return NULL;
+    }
+
+    return data;
+  }
+
+ do_test:
+  data = safe_calloc (g, 1, sizeof *data);
+
+  if (test_qemu (g, data, qemu_version) == -1) {
+    guestfs_int_free_qemu_data (data);
+    return NULL;
+  }
+
+  /* Now memoize the qemu output in the cache directory. */
+  debug (g, "saving test results");
+
+  fp = fopen (qemu_help_filename, "w");
+  if (fp == NULL) {
+  help_error:
+    perrorf (g, "%s", qemu_help_filename);
+    if (fp != NULL) fclose (fp);
+    guestfs_int_free_qemu_data (data);
+    return NULL;
+  }
+  if (fprintf (fp, "%s", data->qemu_help) == -1)
+    goto help_error;
+  if (fclose (fp) == -1)
+    goto help_error;
+
+  fp = fopen (qemu_devices_filename, "w");
+  if (fp == NULL) {
+  devices_error:
+    perrorf (g, "%s", qemu_devices_filename);
+    if (fp != NULL) fclose (fp);
+    guestfs_int_free_qemu_data (data);
+    return NULL;
+  }
+  if (fprintf (fp, "%s", data->qemu_devices) == -1)
+    goto devices_error;
+  if (fclose (fp) == -1)
+    goto devices_error;
+
+  /* Write the qemu.stat file last so that its presence indicates that
+   * the qemu.help and qemu.devices files ought to exist.
+   */
+  fp = fopen (qemu_stat_filename, "w");
+  if (fp == NULL) {
+  stat_error:
+    perrorf (g, "%s", qemu_stat_filename);
+    if (fp != NULL) fclose (fp);
+    guestfs_int_free_qemu_data (data);
+    return NULL;
+  }
+  /* The path to qemu is stored for information only, it is not
+   * used when we parse the file.
+   */
+  if (fprintf (fp, "%d %" PRIu64 " %" PRIu64 " %s\n",
+               MEMO_GENERATION,
+               (uint64_t) statbuf.st_size,
+               (uint64_t) statbuf.st_mtime,
+               g->hv) == -1)
+    goto stat_error;
+  if (fclose (fp) == -1)
+    goto stat_error;
+
+  return data;
+}
+
+static int
+test_qemu (guestfs_h *g, struct qemu_data *data, struct version *qemu_version)
+{
   CLEANUP_CMD_CLOSE struct command *cmd1 = guestfs_int_new_command (g);
   CLEANUP_CMD_CLOSE struct command *cmd2 = guestfs_int_new_command (g);
   int r;
-  struct qemu_data *data;
-
-  data = safe_calloc (g, 1, sizeof *data);
 
   guestfs_int_cmd_add_arg (cmd1, g->hv);
   guestfs_int_cmd_add_arg (cmd1, "-display");
@@ -107,16 +247,14 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
 
-  return data;
+  return 0;
 
  error:
-  free (data);
-
   if (r == -1)
-    return NULL;
+    return -1;
 
   guestfs_int_external_command_failed (g, r, g->hv, NULL);
-  return NULL;
+  return -1;
 }
 
 /**
