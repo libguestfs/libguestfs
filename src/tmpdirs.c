@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * Handle temporary directories.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -31,9 +35,10 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 
-/* We need to make all tmpdir paths absolute because lots of places in
+/**
+ * We need to make all tmpdir paths absolute because lots of places in
  * the code assume this.  Do it at the time we set the path or read
- * the environment variable (RHBZ#882417).
+ * the environment variable (L<https://bugzilla.redhat.com/882417>).
  */
 static int
 set_abs_path (guestfs_h *g, const char *tmpdir, char **tmpdir_ret)
@@ -88,7 +93,12 @@ guestfs_impl_set_tmpdir (guestfs_h *g, const char *tmpdir)
   return set_abs_path (g, tmpdir, &g->int_tmpdir);
 }
 
-/* Note this actually calculates the tmpdir, so it never returns NULL. */
+/**
+ * Implements the C<guestfs_get_tmpdir> API.
+ *
+ * Note this actually calculates the tmpdir, so it never returns
+ * C<NULL>.
+ */
 char *
 guestfs_impl_get_tmpdir (guestfs_h *g)
 {
@@ -110,7 +120,11 @@ guestfs_impl_set_cachedir (guestfs_h *g, const char *cachedir)
   return set_abs_path (g, cachedir, &g->int_cachedir);
 }
 
-/* Note this actually calculates the cachedir, so it never returns NULL. */
+/**
+ * Implements the C<guestfs_get_cachedir> API.
+ *
+ * Note this actually calculates the cachedir, so it never returns C<NULL>.
+ */
 char *
 guestfs_impl_get_cachedir (guestfs_h *g)
 {
@@ -126,7 +140,12 @@ guestfs_impl_get_cachedir (guestfs_h *g)
   return safe_strdup (g, str);
 }
 
-/* Note this actually calculates the sockdir, so it never returns NULL. */
+/**
+ * Implements the C<guestfs_get_sockdir> API.
+ *
+ * Note this actually calculates the sockdir, so it never returns
+ * C<NULL>.
+ */
 char *
 guestfs_impl_get_sockdir (guestfs_h *g)
 {
@@ -176,9 +195,10 @@ lazy_make_tmpdir (guestfs_h *g, char *(*getdir) (guestfs_h *g), char **dest)
   return 0;
 }
 
-/* The g->tmpdir (per-handle temporary directory) is not created when
- * the handle is created.  Instead we create it lazily before the
- * first time it is used, or during launch.
+/**
+ * The C<g-E<gt>tmpdir> (per-handle temporary directory) is not
+ * created when the handle is created.  Instead we create it lazily
+ * before the first time it is used, or during launch.
  */
 int
 guestfs_int_lazy_make_tmpdir (guestfs_h *g)
@@ -192,10 +212,13 @@ guestfs_int_lazy_make_sockdir (guestfs_h *g)
   return lazy_make_tmpdir (g, guestfs_get_sockdir, &g->sockdir);
 }
 
-/* Recursively remove a temporary directory.  If removal fails, just
+/**
+ * Recursively remove a temporary directory.  If removal fails, just
  * return (it's a temporary directory so it'll eventually be cleaned
- * up by a temp cleaner).  This is done using "rm -rf" because that's
- * simpler and safer.
+ * up by a temp cleaner).
+ *
+ * This is implemented using C<rm -rf> because that's simpler and
+ * safer.
  */
 void
 guestfs_int_recursive_remove_dir (guestfs_h *g, const char *dir)
