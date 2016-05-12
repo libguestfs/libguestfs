@@ -906,11 +906,6 @@ extern char *guestfs_int_cmd_get_pipe_errors (struct command *cmd);
 #endif
 extern void guestfs_int_cleanup_cmd_close (struct command **);
 
-/* launch-direct.c */
-extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
-extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, const struct version *qemu_version);
-extern char *guestfs_int_qemu_escape_param (guestfs_h *g, const char *param);
-
 /* launch-*.c constructors */
 void guestfs_int_init_direct_backend (void) __attribute__((constructor));
 #ifdef HAVE_LIBVIRT_BACKEND
@@ -918,6 +913,17 @@ void guestfs_int_init_libvirt_backend (void) __attribute__((constructor));
 #endif
 void guestfs_int_init_uml_backend (void) __attribute__((constructor));
 void guestfs_int_init_unix_backend (void) __attribute__((constructor));
+
+/* qemu.c */
+struct qemu_data;
+extern struct qemu_data *guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version);
+extern int guestfs_int_qemu_supports (guestfs_h *g, const struct qemu_data *, const char *option);
+extern int guestfs_int_qemu_supports_device (guestfs_h *g, const struct qemu_data *, const char *device_name);
+extern int guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *, const struct version *qemu_version);
+extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
+extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, const struct version *qemu_version);
+extern char *guestfs_int_qemu_escape_param (guestfs_h *g, const char *param);
+extern void guestfs_int_free_qemu_data (struct qemu_data *);
 
 /* guid.c */
 extern int guestfs_int_validate_guid (const char *);

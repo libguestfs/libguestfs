@@ -253,6 +253,7 @@ src/mountable.c
 src/osinfo.c
 src/private-data.c
 src/proto.c
+src/qemu.c
 src/stringsbuf.c
 src/structs-cleanup.c
 src/structs-compare.c

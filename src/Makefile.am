@@ -125,6 +125,7 @@ libguestfs_la_SOURCES = \
 	osinfo.c \
 	private-data.c \
 	proto.c \
+	qemu.c \
 	stringsbuf.c \
 	structs-compare.c \
 	structs-copy.c \
