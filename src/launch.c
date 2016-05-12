@@ -372,6 +372,8 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
      " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
      " usbcore.nousb"           /* disable USB, only saves about 1ms */
      " cryptomgr.notests"       /* disable crypto tests, saves 28ms */
+     " tsc=reliable"            /* don't synch TSCs when using SMP,
+                                   saves 21ms for each secondary vCPU */
      " 8250.nr_uarts=1"         /* don't scan all 8250 UARTS */
      "%s"                       /* root=appliance_dev */
      " %s"                      /* selinux */
