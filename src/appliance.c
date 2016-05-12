@@ -48,7 +48,7 @@ static int dir_contains_files (guestfs_h *g, const char *dir, ...);
 static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
-static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, uid_t uid, char **kernel, char **initrd, char **appliance);
+static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, char **kernel, char **initrd, char **appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
 
 /**
@@ -133,7 +133,6 @@ build_appliance (guestfs_h *g,
                  char **appliance)
 {
   int r;
-  uid_t uid = geteuid ();
   CLEANUP_FREE char *supermin_path = NULL;
   CLEANUP_FREE char *path = NULL;
 
@@ -144,7 +143,7 @@ build_appliance (guestfs_h *g,
 
   if (r == 1)
     /* Step (2): build supermin appliance. */
-    return build_supermin_appliance (g, supermin_path, uid,
+    return build_supermin_appliance (g, supermin_path,
                                      kernel, initrd, appliance);
 
   /* Step (3). */
@@ -212,43 +211,18 @@ contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 static int
 build_supermin_appliance (guestfs_h *g,
                           const char *supermin_path,
-                          uid_t uid,
                           char **kernel, char **initrd,
                           char **appliance)
 {
-  CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
   CLEANUP_FREE char *cachedir = NULL, *lockfile = NULL, *appliancedir = NULL;
-  struct stat statbuf;
 
-  cachedir = safe_asprintf (g, "%s/.guestfs-%ju", tmpdir, (uintmax_t) uid);
-  lockfile = safe_asprintf (g, "%s/lock", cachedir);
+  cachedir = guestfs_int_lazy_make_supermin_appliance_dir (g);
+  if (cachedir == NULL)
+    return -1;
+
   appliancedir = safe_asprintf (g, "%s/appliance.d", cachedir);
+  lockfile = safe_asprintf (g, "%s/lock", cachedir);
 
-  ignore_value (mkdir (cachedir, 0755));
-  ignore_value (chmod (cachedir, 0755)); /* RHBZ#921292 */
-
-  /* See if the cache directory exists and passes some simple checks
-   * to make sure it has not been tampered with.
-   */
-  if (lstat (cachedir, &statbuf) == -1)
-    return 0;
-  if (statbuf.st_uid != uid) {
-    error (g, _("security: cached appliance %s is not owned by UID %ju"),
-           cachedir, (uintmax_t) uid);
-    return -1;
-  }
-  if (!S_ISDIR (statbuf.st_mode)) {
-    error (g, _("security: cached appliance %s is not a directory (mode %o)"),
-           cachedir, statbuf.st_mode);
-    return -1;
-  }
-  if ((statbuf.st_mode & 0022) != 0) {
-    error (g, _("security: cached appliance %s is writable by group or other (mode %o)"),
-           cachedir, statbuf.st_mode);
-    return -1;
-  }
-
-  (void) utimes (cachedir, NULL);
   debug (g, "begin building supermin appliance");
 
   /* Build the appliance if it needs to be built. */

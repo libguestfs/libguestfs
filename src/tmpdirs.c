@@ -213,6 +213,61 @@ guestfs_int_lazy_make_sockdir (guestfs_h *g)
 }
 
 /**
+ * Create the supermin appliance directory under cachedir, if it does
+ * not exist.
+ *
+ * Sanity-check that the permissions on the cachedir are safe, in case
+ * it has been pre-created maliciously or tampered with.
+ *
+ * Returns the directory name which the caller must free.
+ */
+char *
+guestfs_int_lazy_make_supermin_appliance_dir (guestfs_h *g)
+{
+  CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
+  char *ret = NULL;
+  struct stat statbuf;
+  uid_t uid = geteuid ();
+
+  ret = safe_asprintf (g, "%s/.guestfs-%ju", tmpdir, (uintmax_t) uid);
+
+  ignore_value (mkdir (ret, 0755));
+  ignore_value (chmod (ret, 0755)); /* RHBZ#921292 */
+
+  /* See if the cache directory exists and passes some simple checks
+   * to make sure it has not been tampered with.
+   */
+  if (lstat (ret, &statbuf) == -1) {
+    perrorf (g, _("stat: %s"), ret);
+    free (ret);
+    return NULL;
+  }
+  if (statbuf.st_uid != uid) {
+    error (g, _("security: cached appliance %s is not owned by UID %ju"),
+           ret, (uintmax_t) uid);
+    free (ret);
+    return NULL;
+  }
+  if (!S_ISDIR (statbuf.st_mode)) {
+    error (g, _("security: cached appliance %s is not a directory (mode %o)"),
+           ret, statbuf.st_mode);
+    free (ret);
+    return NULL;
+  }
+  if ((statbuf.st_mode & 0022) != 0) {
+    error (g, _("security: cached appliance %s is writable by group or other (mode %o)"),
+           ret, statbuf.st_mode);
+    free (ret);
+    return NULL;
+  }
+
+  /* "Touch" the directory. */
+  ignore_value (utimes (ret, NULL));
+
+  return ret;
+}
+
+/**
  * Recursively remove a temporary directory.  If removal fails, just
  * return (it's a temporary directory so it'll eventually be cleaned
  * up by a temp cleaner).

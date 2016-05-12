@@ -758,6 +758,7 @@ extern int guestfs_int_set_env_tmpdir (guestfs_h *g, const char *tmpdir);
 extern int guestfs_int_set_env_runtimedir (guestfs_h *g, const char *runtimedir);
 extern int guestfs_int_lazy_make_tmpdir (guestfs_h *g);
 extern int guestfs_int_lazy_make_sockdir (guestfs_h *g);
+extern char *guestfs_int_lazy_make_supermin_appliance_dir (guestfs_h *g);
 extern void guestfs_int_remove_tmpdir (guestfs_h *g);
 extern void guestfs_int_remove_sockdir (guestfs_h *g);
 extern void guestfs_int_recursive_remove_dir (guestfs_h *g, const char *dir);
