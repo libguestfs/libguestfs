@@ -44,7 +44,7 @@ static int dir_contains_files (const char *dir, ...);
 static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
-static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, uid_t uid, char **kernel, char **dtb, char **initrd, char **appliance);
+static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, char **kernel, char **dtb, char **initrd, char **appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
 
 /* Locate or build the appliance.
@@ -121,7 +121,6 @@ build_appliance (guestfs_h *g,
                  char **appliance)
 {
   int r;
-  uid_t uid = geteuid ();
   CLEANUP_FREE char *supermin_path = NULL;
   CLEANUP_FREE char *path = NULL;
 
@@ -132,7 +131,7 @@ build_appliance (guestfs_h *g,
 
   if (r == 1)
     /* Step (2): build supermin appliance. */
-    return build_supermin_appliance (g, supermin_path, uid,
+    return build_supermin_appliance (g, supermin_path,
                                      kernel, dtb, initrd, appliance);
 
   /* Step (3). */
@@ -209,50 +208,18 @@ contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 static int
 build_supermin_appliance (guestfs_h *g,
                           const char *supermin_path,
-                          uid_t uid,
                           char **kernel, char **dtb,
 			  char **initrd, char **appliance)
 {
-  CLEANUP_FREE char *tmpdir = guestfs_get_cachedir (g);
-  struct stat statbuf;
-  size_t len;
+  CLEANUP_FREE char *cachedir = NULL, *lockfile = NULL, *appliancedir = NULL;
 
-  /* len must be longer than the length of any pathname we can
-   * generate in this function.
-   */
-  len = strlen (tmpdir) + 128;
-  char cachedir[len];
-  snprintf (cachedir, len, "%s/.guestfs-%ju", tmpdir, (uintmax_t) uid);
-  char lockfile[len];
-  snprintf (lockfile, len, "%s/lock", cachedir);
-  char appliancedir[len];
-  snprintf (appliancedir, len, "%s/appliance.d", cachedir);
-
-  ignore_value (mkdir (cachedir, 0755));
-  ignore_value (chmod (cachedir, 0755)); /* RHBZ#921292 */
-
-  /* See if the cache directory exists and passes some simple checks
-   * to make sure it has not been tampered with.
-   */
-  if (lstat (cachedir, &statbuf) == -1)
-    return 0;
-  if (statbuf.st_uid != uid) {
-    error (g, _("security: cached appliance %s is not owned by UID %ju"),
-           cachedir, (uintmax_t) uid);
+  cachedir = guestfs_int_lazy_make_supermin_appliance_dir (g);
+  if (cachedir == NULL)
     return -1;
-  }
-  if (!S_ISDIR (statbuf.st_mode)) {
-    error (g, _("security: cached appliance %s is not a directory (mode %o)"),
-           cachedir, statbuf.st_mode);
-    return -1;
-  }
-  if ((statbuf.st_mode & 0022) != 0) {
-    error (g, _("security: cached appliance %s is writable by group or other (mode %o)"),
-           cachedir, statbuf.st_mode);
-    return -1;
-  }
 
-  (void) utimes (cachedir, NULL);
+  appliancedir = safe_asprintf (g, "%s/appliance.d", cachedir);
+  lockfile = safe_asprintf (g, "%s/lock", cachedir);
+
   if (g->verbose)
     guestfs_int_print_timestamped_message (g, "begin building supermin appliance");
 
@@ -267,20 +234,14 @@ build_supermin_appliance (guestfs_h *g,
     guestfs_int_print_timestamped_message (g, "finished building supermin appliance");
 
   /* Return the appliance filenames. */
-  *kernel = safe_malloc (g, len);
+  *kernel = safe_asprintf (g, "%s/kernel", appliancedir);
 #ifdef DTB_WILDCARD
-  *dtb = safe_malloc (g, len);
+  *dtb = safe_asprintf (g, "%s/dtb", appliancedir);
 #else
   *dtb = NULL;
 #endif
-  *initrd = safe_malloc (g, len);
-  *appliance = safe_malloc (g, len);
-  snprintf (*kernel, len, "%s/kernel", appliancedir);
-#ifdef DTB_WILDCARD
-  snprintf (*dtb, len, "%s/dtb", appliancedir);
-#endif
-  snprintf (*initrd, len, "%s/initrd", appliancedir);
-  snprintf (*appliance, len, "%s/root", appliancedir);
+  *initrd = safe_asprintf (g, "%s/initrd", appliancedir);
+  *appliance = safe_asprintf (g, "%s/root", appliancedir);
 
   /* Touch the files so they don't get deleted (as they are in /var/tmp). */
   (void) utimes (*kernel, NULL);
