@@ -1157,7 +1157,16 @@ compare_activities_pointers_by_mean (const void *av, const void *bv)
 
   assert ((*a)->magic == ACTIVITY_MAGIC);
   assert ((*b)->magic == ACTIVITY_MAGIC);
-  return (*b)->mean - (*a)->mean;
+
+  /* The mean field is a double in nanoseconds.  For the result of the
+   * comparison we want an integer.  If it is larger than around 2^32,
+   * the following will produce an incorrect result.  Therefore we use
+   * this trick.  Note we want to return largest first.
+   */
+  double a_mean = (*a)->mean;
+  double b_mean = (*b)->mean;
+
+  return (b_mean > a_mean) - (b_mean < a_mean);
 }
 
 static void
