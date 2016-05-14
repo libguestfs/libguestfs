@@ -571,6 +571,7 @@ set_up_event_handlers (guestfs_h *g, size_t pass)
   assert (/* 0 <= pass && */ pass < NR_TEST_PASSES);
 
   data = &pass_data[pass];
+  data->magic = PASS_MAGIC;
   data->pass = pass;
   data->nr_events = 0;
   data->events = NULL;
@@ -779,6 +780,7 @@ check_pass_data (void)
   const char *message;
 
   for (i = 0; i < NR_TEST_PASSES; ++i) {
+    assert (pass_data[i].magic == PASS_MAGIC);
     assert (pass_data[i].pass == i);
     assert (pass_data[i].elapsed_ns > 1000);
     assert (pass_data[i].nr_events > 0);
@@ -890,6 +892,7 @@ add_activity (const char *name, int flags)
   if (activities == NULL)
     error (EXIT_FAILURE, errno, "realloc");
   ret = &activities[nr_activities-1];
+  ret->magic = ACTIVITY_MAGIC;
   ret->name = strdup (name);
   if (ret->name == NULL)
     error (EXIT_FAILURE, errno, "strdup");
@@ -933,6 +936,9 @@ compare_activities_by_t (const void *av, const void *bv)
 {
   const struct activity *a = av;
   const struct activity *b = bv;
+
+  assert (a->magic == ACTIVITY_MAGIC);
+  assert (b->magic == ACTIVITY_MAGIC);
 
   return a->t - b->t;
 }
@@ -1028,6 +1034,7 @@ static void
 print_activity (struct activity *activity)
 {
   if (activity->warning) ansi_red (); else ansi_green ();
+  assert (activity->magic == ACTIVITY_MAGIC);
   print_escaped_string (activity->name);
   ansi_restore ();
   printf (" %.1fms ±%.1fms ",
@@ -1148,6 +1155,8 @@ compare_activities_pointers_by_mean (const void *av, const void *bv)
   const struct activity * const *a = av;
   const struct activity * const *b = bv;
 
+  assert ((*a)->magic == ACTIVITY_MAGIC);
+  assert ((*b)->magic == ACTIVITY_MAGIC);
   return (*b)->mean - (*a)->mean;
 }
 

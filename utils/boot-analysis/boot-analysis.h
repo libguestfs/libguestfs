@@ -24,6 +24,9 @@
 
 /* Per-pass data collected. */
 struct pass_data {
+#define PASS_MAGIC 0x45545545
+  uint32_t magic;		/* Struct magic. */
+
   size_t pass;
   struct timespec start_t;
   struct timespec end_t;
@@ -67,6 +70,9 @@ extern struct pass_data pass_data[NR_TEST_PASSES];
  * long they take (mean, variance, standard deviation of length).
  */
 struct activity {
+#define ACTIVITY_MAGIC 0xAC1AC1AC
+  uint32_t magic;		/* Struct magic. */
+
   char *name;                   /* Name of this activity. */
   int flags;
 #define LONG_ACTIVITY 1         /* Expected to take a long time. */
