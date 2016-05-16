@@ -568,7 +568,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Add the ext2 appliance drive (after all the drives). */
   if (has_appliance_drive) {
     ADD_CMDLINE ("-drive");
-    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,cache=unsafe,if=none,format=raw",
+    ADD_CMDLINE_PRINTF ("file=%s,snapshot=on,id=appliance,"
+                        "cache=unsafe,if=none,format=raw",
                         appliance);
 
     if (virtio_scsi) {
@@ -621,8 +622,8 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   flags = 0;
   if (!has_kvm || force_tcg)
     flags |= APPLIANCE_COMMAND_LINE_IS_TCG;
-  ADD_CMDLINE_STRING_NODUP (guestfs_int_appliance_command_line (g, appliance_dev,
-								flags));
+  ADD_CMDLINE_STRING_NODUP
+    (guestfs_int_appliance_command_line (g, appliance_dev, flags));
 
   /* Note: custom command line parameters must come last so that
    * qemu -set parameters can modify previously added options.
