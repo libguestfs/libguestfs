@@ -1329,10 +1329,16 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       continue;
 
     /* Resolve UUID= and LABEL= to the actual device. */
-    if (STRPREFIX (spec, "UUID="))
-      mountable = guestfs_findfs_uuid (g, &spec[5]);
-    else if (STRPREFIX (spec, "LABEL="))
-      mountable = guestfs_findfs_label (g, &spec[6]);
+    if (STRPREFIX (spec, "UUID=")) {
+      CLEANUP_FREE char *s = guestfs_int_shell_unquote (&spec[5]);
+      if (s == NULL) { perrorf (g, "guestfs_int_shell_unquote"); return -1; }
+      mountable = guestfs_findfs_uuid (g, s);
+    }
+    else if (STRPREFIX (spec, "LABEL=")) {
+      CLEANUP_FREE char *s = guestfs_int_shell_unquote (&spec[6]);
+      if (s == NULL) { perrorf (g, "guestfs_int_shell_unquote"); return -1; }
+      mountable = guestfs_findfs_label (g, s);
+    }
     /* Ignore "/.swap" (Pardus) and pseudo-devices like "tmpfs". */
     else if (STREQ (spec, "/dev/root") || (is_bsd && STREQ (mp, "/")))
       /* Resolve /dev/root to the current device.
