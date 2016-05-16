@@ -62,7 +62,7 @@ struct backend_direct_data {
   char *qemu_devices;         /* Output of qemu -device ? */
 
   /* qemu version (0, 0 if unable to parse). */
-  int qemu_version_major, qemu_version_minor;
+  struct version qemu_version;
 
   int virtio_scsi;        /* See function qemu_supports_virtio_scsi */
 
@@ -420,8 +420,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (qemu_supports (g, data, "-no-hpet")) {
     ADD_CMDLINE ("-no-hpet");
   }
-  if (data->qemu_version_major < 1 ||
-      (data->qemu_version_major == 1 && data->qemu_version_minor <= 2))
+  if (!guestfs_int_version_ge (&data->qemu_version, 1, 3, 0))
     ADD_CMDLINE ("-no-kvm-pit-reinjection");
   else {
     /* New non-deprecated way, added in qemu >= 1.3. */
@@ -472,8 +471,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
     if (!drv->overlay) {
       const char *discard_mode = "";
-      int major = data->qemu_version_major, minor = data->qemu_version_minor;
-      unsigned long qemu_version = major * 1000000 + minor * 1000;
 
       switch (drv->discard) {
       case discard_disable:
@@ -483,14 +480,14 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
          */
         break;
       case discard_enable:
-        if (!guestfs_int_discard_possible (g, drv, qemu_version))
+        if (!guestfs_int_discard_possible (g, drv, &data->qemu_version))
           goto cleanup0;
         /*FALLTHROUGH*/
       case discard_besteffort:
         /* I believe from reading the code that this is always safe as
          * long as qemu >= 1.5.
          */
-        if (major > 1 || (major == 1 && minor >= 5))
+        if (guestfs_int_version_ge (&data->qemu_version, 1, 5, 0))
           discard_mode = ",discard=unmap";
         break;
       }
@@ -1002,8 +999,7 @@ parse_qemu_version (guestfs_h *g, struct backend_direct_data *data)
   CLEANUP_FREE char *major_s = NULL, *minor_s = NULL;
   int major_i, minor_i;
 
-  data->qemu_version_major = 0;
-  data->qemu_version_minor = 0;
+  version_init_null (&data->qemu_version);
 
   if (!data->qemu_help)
     return;
@@ -1023,8 +1019,7 @@ parse_qemu_version (guestfs_h *g, struct backend_direct_data *data)
   if (minor_i == -1)
     goto parse_failed;
 
-  data->qemu_version_major = major_i;
-  data->qemu_version_minor = minor_i;
+  guestfs_int_version_from_values (&data->qemu_version, major_i, minor_i, 0);
 
   debug (g, "qemu version %d.%d", major_i, minor_i);
 }
@@ -1094,7 +1089,7 @@ static int
 old_or_broken_virtio_scsi (guestfs_h *g, struct backend_direct_data *data)
 {
   /* qemu 1.1 claims to support virtio-scsi but in reality it's broken. */
-  if (data->qemu_version_major == 1 && data->qemu_version_minor < 2)
+  if (!guestfs_int_version_ge (&data->qemu_version, 1, 2, 0))
     return 1;
 
   return 0;
@@ -1384,22 +1379,19 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *sr
  * It returns 0 if not possible and sets the error to the reason why.
  *
  * This function is called when the user set discard == "enable".
- *
- * qemu_version is the version of qemu in the form returned by libvirt:
- * major * 1,000,000 + minor * 1,000 + release
  */
 bool
 guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
-			      unsigned long qemu_version)
+			      const struct version *qemu_version)
 {
   /* qemu >= 1.5.  This was the first version that supported the
    * discard option on -drive at all.
    */
-  bool qemu15 = qemu_version >= 1005000;
+  bool qemu15 = guestfs_int_version_ge (qemu_version, 1, 5, 0);
   /* qemu >= 1.6.  This was the first version that supported unmap on
    * qcow2 backing files.
    */
-  bool qemu16 = qemu_version >= 1006000;
+  bool qemu16 = guestfs_int_version_ge (qemu_version, 1, 6, 0);
 
   if (!qemu15)
     NOT_SUPPORTED (g, false,

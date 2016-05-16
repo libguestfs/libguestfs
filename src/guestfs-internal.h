@@ -509,6 +509,12 @@ struct guestfs_h
   size_t nr_features;
 };
 
+struct version {
+  int v_major;
+  int v_minor;
+  int v_micro;
+};
+
 /* Per-filesystem data stored for inspect_os. */
 enum inspect_os_format {
   OS_FORMAT_UNKNOWN = 0,
@@ -903,7 +909,7 @@ extern void guestfs_int_cleanup_cmd_close (struct command **);
 
 /* launch-direct.c */
 extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
-extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, unsigned long qemu_version);
+extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, const struct version *qemu_version);
 extern char *guestfs_int_qemu_escape_param (guestfs_h *g, const char *param);
 
 /* launch-*.c constructors */
@@ -923,5 +929,11 @@ extern int guestfs_int_getumask (guestfs_h *g);
 /* wait.c */
 extern int guestfs_int_waitpid (guestfs_h *g, pid_t pid, int *status, const char *errmsg);
 extern void guestfs_int_waitpid_noerror (pid_t pid);
+
+/* version.c */
+extern void guestfs_int_version_from_libvirt (struct version *v, int vernum);
+extern void guestfs_int_version_from_values (struct version *v, int maj, int min, int mic);
+extern bool guestfs_int_version_ge (const struct version *v, int maj, int min, int mic);
+#define version_init_null(v) guestfs_int_version_from_values (v, 0, 0, 0)
 
 #endif /* GUESTFS_INTERNAL_H_ */

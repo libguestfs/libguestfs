@@ -133,6 +133,7 @@ libguestfs_la_SOURCES = \
 	umask.c \
 	wait.c \
 	whole-file.c \
+	version.c \
 	libguestfs.syms
 
 libguestfs_la_CPPFLAGS = \
