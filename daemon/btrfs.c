@@ -2270,6 +2270,12 @@ do_btrfs_filesystem_show (const char *device)
     } else if (STRPREFIX (lines[i], "\t*** Some devices missing")) {
       reply_with_error_errno (ENODEV, "%s: missing devices", device);
       return NULL;
+    } else if (STRPREFIX (lines[i], "btrfs-progs v")) {
+      /* Older versions of btrfs-progs output also the version string
+       * (the same as `btrfs --version`.  This has been fixed upstream
+       * since v4.3.1, commit e29ec82e4e66042ca55bf8cd9ef609e3b21a7eb7.
+       * To support these older versions, ignore the version line.  */
+      continue;
     } else {
       reply_with_error ("unrecognized line in output from 'btrfs filesystem show': %s", lines[i]);
       return NULL;
