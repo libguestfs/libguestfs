@@ -388,24 +388,15 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   ADD_CMDLINE ("-machine");
-  if (!force_tcg)
-    ADD_CMDLINE (
+  ADD_CMDLINE_PRINTF (
 #ifdef MACHINE_TYPE
-                 MACHINE_TYPE ","
+                      MACHINE_TYPE ","
 #endif
 #ifdef __aarch64__
-		 "gic-version=host,"
+                      "gic-version=host,"
 #endif
-                 "accel=kvm:tcg");
-  else
-    ADD_CMDLINE (
-#ifdef MACHINE_TYPE
-                 MACHINE_TYPE ","
-#endif
-#ifdef __aarch64__
-		 "gic-version=host,"
-#endif
-                 "accel=tcg");
+                      "accel=%s",
+                      !force_tcg ? "kvm:tcg" : "tcg");
 
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
   if (cpu_model) {
