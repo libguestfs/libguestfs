@@ -309,7 +309,7 @@ installcheck-local: installcheck.sh
 
 # NB. podwrapper is an internal tool, so the man page mustn't be installed.
 # It should be noinst_MANS but that doesn't work.
-noinst_DATA = podwrapper.1
+noinst_DATA += podwrapper.1
 podwrapper.1: podwrapper.pl
 	$(PODWRAPPER) \
 	  --section 1 \
