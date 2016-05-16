@@ -21,11 +21,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+
+#ifdef HAVE_CAML_UNIXSUPPORT_H
+#include <caml/unixsupport.h>
+#else
+#define Nothing ((value) 0)
+extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
+#endif
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -101,4 +109,20 @@ value
 v2v_utils_aavmf_firmware (value unitv)
 {
   return get_firmware ((char **) guestfs_int_aavmf_firmware);
+}
+
+value
+v2v_utils_shell_unquote (value strv)
+{
+  CAMLparam1 (strv);
+  CAMLlocal1 (retv);
+  char *ret;
+
+  ret = guestfs_int_shell_unquote (String_val (strv));
+  if (ret == NULL)
+    unix_error (errno, (char *) "guestfs_int_shell_unquote", Nothing);
+
+  retv = caml_copy_string (ret);
+  free (ret);
+  CAMLreturn (retv);
 }

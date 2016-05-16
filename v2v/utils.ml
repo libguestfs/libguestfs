@@ -136,3 +136,5 @@ let du filename =
   match lines with
   | line::_ -> Int64.of_string line
   | [] -> invalid_arg filename
+
+external shell_unquote : string -> string = "v2v_utils_shell_unquote"

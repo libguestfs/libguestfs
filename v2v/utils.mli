@@ -61,3 +61,11 @@ val du : string -> int64
 
     This can raise either [Failure] or [Invalid_argument] in case
     of errors. *)
+
+val shell_unquote : string -> string
+(** If the string looks like a shell quoted string, then attempt to
+    unquote it.
+
+    This is just intended to deal with quoting in configuration files
+    (like ones under /etc/sysconfig), and it doesn't deal with some
+    situations such as $variable interpolation. *)
