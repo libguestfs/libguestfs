@@ -516,7 +516,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
         fun line ->
           if Str.string_match rex line 0 then (
             let path = Str.matched_group 1 line in
-            let path = Linux.shell_unquote path in
+            let path = Utils.shell_unquote path in
             if String.length path >= 1 && path.[0] = '/' then (
               let vboxuninstall = path ^ "/uninstall.sh" in
               Some vboxuninstall

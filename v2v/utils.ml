@@ -142,6 +142,8 @@ let du filename =
   | line::_ -> Int64.of_string line
   | [] -> invalid_arg filename
 
+external shell_unquote : string -> string = "v2v_utils_shell_unquote"
+
 (* The following functions are only exported for unit tests. *)
 module UNIT_TESTS = struct
   let ovmf_i386_firmware = ovmf_i386_firmware

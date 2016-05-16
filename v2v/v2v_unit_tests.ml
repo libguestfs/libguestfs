@@ -767,16 +767,16 @@ let test_virtio_iso_path_matches_guest_os ctx =
 
 let test_shell_unquote ctx =
   let printer = identity in
-  assert_equal ~printer "a" (Linux.shell_unquote "a");
-  assert_equal ~printer "b" (Linux.shell_unquote "'b'");
-  assert_equal ~printer "c" (Linux.shell_unquote "\"c\"");
-  assert_equal ~printer "dd" (Linux.shell_unquote "\"dd\"");
-  assert_equal ~printer "e\\e" (Linux.shell_unquote "\"e\\\\e\"");
-  assert_equal ~printer "f\\" (Linux.shell_unquote "\"f\\\\\"");
-  assert_equal ~printer "\\g" (Linux.shell_unquote "\"\\\\g\"");
-  assert_equal ~printer "h\\-h" (Linux.shell_unquote "\"h\\-h\"");
-  assert_equal ~printer "i`" (Linux.shell_unquote "\"i\\`\"");
-  assert_equal ~printer "j\"" (Linux.shell_unquote "\"j\\\"\"")
+  assert_equal ~printer "a" (Utils.shell_unquote "a");
+  assert_equal ~printer "b" (Utils.shell_unquote "'b'");
+  assert_equal ~printer "c" (Utils.shell_unquote "\"c\"");
+  assert_equal ~printer "dd" (Utils.shell_unquote "\"dd\"");
+  assert_equal ~printer "e\\e" (Utils.shell_unquote "\"e\\\\e\"");
+  assert_equal ~printer "f\\" (Utils.shell_unquote "\"f\\\\\"");
+  assert_equal ~printer "\\g" (Utils.shell_unquote "\"\\\\g\"");
+  assert_equal ~printer "h\\-h" (Utils.shell_unquote "\"h\\-h\"");
+  assert_equal ~printer "i`" (Utils.shell_unquote "\"i\\`\"");
+  assert_equal ~printer "j\"" (Utils.shell_unquote "\"j\\\"\"")
 
 let test_find_uefi_firmware ctx =
   let rec printer = function
@@ -815,7 +815,7 @@ let suite =
       "Utils.drive_index" >:: test_drive_index;
       "Windows_virtio.virtio_iso_path_matches_guest_os" >::
         test_virtio_iso_path_matches_guest_os;
-      "Linux.shell_unquote" >:: test_shell_unquote;
+      "Utils.shell_unquote" >:: test_shell_unquote;
       "Utils.find_uefi_firmware" >:: test_find_uefi_firmware;
     ]
 

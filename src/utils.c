@@ -539,3 +539,63 @@ guestfs_int_fadvise_willneed (int fd)
 #endif
 }
 #endif
+
+/**
+ * Unquote a shell-quoted string.
+ *
+ * Augeas passes strings to us which may be quoted, eg. if they come
+ * from files in F</etc/sysconfig>.  This function can do simple
+ * unquoting of these strings.
+ *
+ * Note this function does not do variable substitution, since that is
+ * impossible without knowing the file context and indeed the
+ * environment under which the shell script is run.  Configuration
+ * files should not use complex quoting.
+ *
+ * C<str> is the input string from Augeas, a string that may be
+ * single- or double-quoted or may not be quoted.  The returned string
+ * is unquoted, and must be freed by the caller.  C<NULL> is returned
+ * on error and C<errno> is set accordingly.
+ *
+ * For information on double-quoting in bash, see
+ * L<https://www.gnu.org/software/bash/manual/html_node/Double-Quotes.html>
+ */
+char *
+guestfs_int_shell_unquote (const char *str)
+{
+  size_t len = strlen (str);
+  char *ret;
+
+  if (len >= 2) {
+    if (str[0] == '\'' && str[len-1] == '\'') {
+                                /* single quoting */
+      ret = strndup (&str[1], len-2);
+      if (ret == NULL)
+        return NULL;
+      return ret;
+    }
+    else if (str[0] == '"' && str[len-1] == '"') {
+                                /* double quoting */
+      size_t i, j;
+
+      ret = malloc (len + 1);   /* strings always get smaller */
+      if (ret == NULL)
+        return NULL;
+
+      for (i = 1, j = 0; i < len-1 /* ignore final quote */; ++i, ++j) {
+        if (i < len-2 /* ignore final char before final quote */ &&
+            str[i] == '\\' &&
+            (str[i+1] == '$' || str[i+1] == '`' || str[i+1] == '"' ||
+             str[i+1] == '\\' || str[i+1] == '\n'))
+          ++i;
+        ret[j] = str[i];
+      }
+
+      ret[j] = '\0';
+
+      return ret;
+    }
+  }
+
+  return strdup (str);
+}
