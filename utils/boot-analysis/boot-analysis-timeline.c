@@ -48,13 +48,20 @@ static void construct_initcall_timeline (void);
 static char *
 translate_supermin_insmod_message (const char *message)
 {
+  const char *p, *q;
   char *ret;
 
   assert (STRPREFIX (message, "supermin: internal "));
+  p = message       + strlen ("supermin: internal ");
 
-  ret = strdup (message + strlen ("supermin: internal "));
+  /* Strip off the .ko and anything that follows. */
+  q = strstr (p, ".ko");
+  if (q == NULL)
+    error (EXIT_FAILURE, 0, "cannot find '.ko' suffix in '%s'", message);
+
+  ret = strndup (p, q-p);
   if (ret == NULL)
-    error (EXIT_FAILURE, errno, "strdup");
+    error (EXIT_FAILURE, errno, "strndup");
   return ret;
 }
 
