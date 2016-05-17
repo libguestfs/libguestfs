@@ -136,10 +136,7 @@ collect_coreos_inspection_info (guestfs_h *g)
      * the boot loader. As a workaround, we check the OS versions and pick the
      * one with the higher version as active.
      */
-    if (usr &&
-        (usr->major_version > fs->major_version ||
-         (usr->major_version == fs->major_version &&
-          usr->minor_version > fs->minor_version)))
+    if (usr && guestfs_int_version_cmp_ge (&usr->version, &fs->version))
       continue;
 
     usr = fs;
@@ -310,7 +307,7 @@ guestfs_impl_inspect_get_major_version (guestfs_h *g, const char *root)
   if (!fs)
     return -1;
 
-  return fs->major_version;
+  return fs->version.v_major;
 }
 
 int
@@ -320,7 +317,7 @@ guestfs_impl_inspect_get_minor_version (guestfs_h *g, const char *root)
   if (!fs)
     return -1;
 
-  return fs->minor_version;
+  return fs->version.v_minor;
 }
 
 char *

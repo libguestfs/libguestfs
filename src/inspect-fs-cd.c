@@ -217,9 +217,9 @@ check_fedora_installer_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   if (r > 0) {
     v = find_value (str);
-    fs->major_version = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
+    fs->version.v_major = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
     free (str);
-    if (fs->major_version == -1)
+    if (fs->version.v_major == -1)
       return -1;
   }
 
@@ -286,10 +286,10 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   if (r > 0) {
     fs->distro = OS_DISTRO_FEDORA;
-    fs->major_version =
+    fs->version.v_major =
       guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[29]);
     free (str);
-    if (fs->major_version == -1)
+    if (fs->version.v_major == -1)
       return -1;
   }
 
@@ -301,10 +301,10 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   if (r > 0) {
     fs->distro = OS_DISTRO_RHEL;
-    fs->major_version =
+    fs->version.v_major =
       guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[47]);
     free (str);
-    if (fs->major_version == -1)
+    if (fs->version.v_major == -1)
       return -1;
   }
 
@@ -316,10 +316,10 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   if (r > 0) {
     fs->distro = OS_DISTRO_RHEL;
-    fs->major_version =
+    fs->version.v_major =
       guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[26]);
     free (str);
-    if (fs->major_version == -1)
+    if (fs->version.v_major == -1)
       return -1;
   }
 
@@ -331,10 +331,10 @@ check_isolinux_installer_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   if (r > 0) {
     fs->distro = OS_DISTRO_ORACLE_LINUX;
-    fs->major_version =
+    fs->version.v_major =
       guestfs_int_parse_unsigned_int_ignore_trailing (g, &str[42]);
     free (str);
-    if (fs->major_version == -1)
+    if (fs->version.v_major == -1)
       return -1;
   }
 
@@ -393,9 +393,9 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   if (r > 0) {
     trim_cr (str);
     v = find_value (str);
-    fs->major_version = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
+    fs->version.v_major = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
     free (str);
-    if (fs->major_version == -1)
+    if (fs->version.v_major == -1)
       return -1;
   }
 
@@ -407,9 +407,9 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   if (r > 0) {
     trim_cr (str);
     v = find_value (str);
-    fs->minor_version = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
+    fs->version.v_minor = guestfs_int_parse_unsigned_int_ignore_trailing (g, v);
     free (str);
-    if (fs->minor_version == -1)
+    if (fs->version.v_minor == -1)
       return -1;
   }
 
@@ -531,8 +531,8 @@ guestfs_int_check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
   fs->distro = osinfo->distro;
   fs->product_name =
     osinfo->product_name ? safe_strdup (g, osinfo->product_name) : NULL;
-  fs->major_version = osinfo->major_version;
-  fs->minor_version = osinfo->minor_version;
+  guestfs_int_version_from_values (&fs->version, osinfo->major_version,
+                                   osinfo->minor_version, 0);
   fs->arch = osinfo->arch ? safe_strdup (g, osinfo->arch) : NULL;
   fs->is_live_disk = osinfo->is_live_disk;
 

@@ -324,7 +324,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
         goto out;
       }
 
-      fs->major_version = le32toh (*(int32_t *)vbuf);
+      fs->version.v_major = le32toh (*(int32_t *)vbuf);
 
       /* Ignore CurrentVersion if we see it after this key. */
       ignore_currentversion = true;
@@ -342,7 +342,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
         goto out;
       }
 
-      fs->minor_version = le32toh (*(int32_t *)vbuf);
+      fs->version.v_minor = le32toh (*(int32_t *)vbuf);
 
       /* Ignore CurrentVersion if we see it after this key. */
       ignore_currentversion = true;
@@ -351,19 +351,9 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
       CLEANUP_FREE char *version = guestfs_hivex_value_utf8 (g, value);
       if (!version)
         goto out;
-      char *major, *minor;
-      if (match2 (g, version, re_windows_version, &major, &minor)) {
-        fs->major_version = guestfs_int_parse_unsigned_int (g, major);
-        free (major);
-        if (fs->major_version == -1) {
-          free (minor);
-          goto out;
-        }
-        fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
-        free (minor);
-        if (fs->minor_version == -1)
-          goto out;
-      }
+      if (guestfs_int_version_from_x_y_re (g, &fs->version, version,
+                                           re_windows_version) == -1)
+        goto out;
     }
     else if (STRCASEEQ (key, "InstallationType")) {
       fs->product_variant = guestfs_hivex_value_utf8 (g, value);

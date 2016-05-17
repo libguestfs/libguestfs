@@ -36,8 +36,6 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
-
 static int check_filesystem (guestfs_h *g, const char *mountable,
                              const struct guestfs_internal_mountable *m,
                              int whole_device);
@@ -439,25 +437,14 @@ guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
 int
 guestfs_int_parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
 {
-  char *major, *minor;
+  if (guestfs_int_version_from_x_y (g, &fs->version, fs->product_name) == -1)
+    return -1;
 
-  if (match2 (g, fs->product_name, re_major_minor, &major, &minor)) {
-    fs->major_version = guestfs_int_parse_unsigned_int (g, major);
-    free (major);
-    if (fs->major_version == -1) {
-      free (minor);
-      return -1;
-    }
-    fs->minor_version = guestfs_int_parse_unsigned_int (g, minor);
-    free (minor);
-    if (fs->minor_version == -1)
-      return -1;
-  }
   return 0;
 }
 
 /* At the moment, package format and package management is just a
- * simple function of the distro and major_version fields, so these
+ * simple function of the distro and version.v_major fields, so these
  * can never return an error.  We might be cleverer in future.
  */
 void
@@ -528,11 +515,11 @@ guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
 
   case OS_DISTRO_FEDORA:
     /* If Fedora >= 22 and dnf is installed, say "dnf". */
-    if (fs->major_version >= 22 &&
+    if (guestfs_int_version_ge (&fs->version, 22, 0, 0) &&
         guestfs_is_file_opts (g, "/usr/bin/dnf",
                               GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0)
       fs->package_management = OS_PACKAGE_MANAGEMENT_DNF;
-    else if (fs->major_version >= 1)
+    else if (guestfs_int_version_ge (&fs->version, 1, 0, 0))
       fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
     else
       /* Probably parsing the release file failed, see RHBZ#1332025. */
@@ -544,9 +531,9 @@ guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs)
   case OS_DISTRO_CENTOS:
   case OS_DISTRO_SCIENTIFIC_LINUX:
   case OS_DISTRO_ORACLE_LINUX:
-    if (fs->major_version >= 5)
+    if (guestfs_int_version_ge (&fs->version, 5, 0, 0))
       fs->package_management = OS_PACKAGE_MANAGEMENT_YUM;
-    else if (fs->major_version >= 2)
+    else if (guestfs_int_version_ge (&fs->version, 2, 0, 0))
       fs->package_management = OS_PACKAGE_MANAGEMENT_UP2DATE;
     else
       /* Probably parsing the release file failed, see RHBZ#1332025. */
@@ -732,10 +719,8 @@ guestfs_int_merge_fs_inspections (guestfs_h *g, struct inspect_fs *dst, struct i
     src->product_variant = NULL;
   }
 
-  if (dst->major_version == 0 && dst->minor_version == 0) {
-    dst->major_version = src->major_version;
-    dst->minor_version = src->minor_version;
-  }
+  if (version_is_null (&dst->version))
+    dst->version = src->version;
 
   if (dst->arch == NULL) {
     dst->arch = src->arch;

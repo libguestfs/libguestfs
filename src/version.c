@@ -18,12 +18,21 @@
 
 #include <config.h>
 
+#include <string.h>
+#include <unistd.h>
+
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
 /**
  * This file provides simple version number management.
  */
+
+COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
+
+static int version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str, const pcre *re, bool allow_only_x);
 
 void
 guestfs_int_version_from_libvirt (struct version *v, int vernum)
@@ -41,6 +50,49 @@ guestfs_int_version_from_values (struct version *v, int maj, int min, int mic)
   v->v_micro = mic;
 }
 
+/**
+ * Parses a version from a string, looking for a C<X.Y> pattern.
+ *
+ * Returns C<-1> on failure (like failed integer parsing), C<0> on missing
+ * match, and C<1> on match and successful parsing.  C<v> is changed only
+ * on successful match.
+ */
+int
+guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char *str)
+{
+  return version_from_x_y_or_x (g, v, str, re_major_minor, false);
+}
+
+/**
+ * Parses a version from a string, using the specified C<re> as regular
+ * expression which I<must> provide (at least) two matches.
+ *
+ * Returns C<-1> on failure (like failed integer parsing), C<0> on missing
+ * match, and C<1> on match and successful parsing.  C<v> is changed only
+ * on successful match.
+ */
+int
+guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v,
+                                 const char *str, const pcre *re)
+{
+  return version_from_x_y_or_x (g, v, str, re, false);
+}
+
+/**
+ * Parses a version from a string, either looking for a C<X.Y> pattern or
+ * considering it as whole integer.
+ *
+ * Returns C<-1> on failure (like failed integer parsing), C<0> on missing
+ * match, and C<1> on match and successful parsing.  C<v> is changed only
+ * on successful match.
+ */
+int
+guestfs_int_version_from_x_y_or_x (guestfs_h *g, struct version *v,
+                                   const char *str)
+{
+  return version_from_x_y_or_x (g, v, str, re_major_minor, true);
+}
+
 bool
 guestfs_int_version_ge (const struct version *v, int maj, int min, int mic)
 {
@@ -49,4 +101,46 @@ guestfs_int_version_ge (const struct version *v, int maj, int min, int mic)
           ((v->v_minor > min) ||
            ((v->v_minor == min) &&
             (v->v_micro >= mic))));
+}
+
+bool
+guestfs_int_version_cmp_ge (const struct version *a, const struct version *b)
+{
+  return guestfs_int_version_ge (a, b->v_major, b->v_minor, b->v_micro);
+}
+
+static int
+version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str,
+                       const pcre *re, bool allow_only_x)
+{
+  CLEANUP_FREE char *major = NULL;
+  CLEANUP_FREE char *minor = NULL;
+
+  if (match2 (g, str, re, &major, &minor)) {
+    int major_version, minor_version;
+
+    major_version = guestfs_int_parse_unsigned_int (g, major);
+    if (major_version == -1)
+      return -1;
+    minor_version = guestfs_int_parse_unsigned_int (g, minor);
+    if (minor_version == -1)
+      return -1;
+
+    v->v_major = major_version;
+    v->v_minor = minor_version;
+    v->v_micro = 0;
+
+    return 1;
+  } else if (allow_only_x) {
+    int  major_version = guestfs_int_parse_unsigned_int (g, str);
+    if (major_version == -1)
+      return -1;
+
+    v->v_major = major_version;
+    v->v_minor = 0;
+    v->v_micro = 0;
+
+    return 1;
+  }
+  return 0;
 }

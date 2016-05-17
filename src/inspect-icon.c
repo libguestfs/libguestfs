@@ -324,7 +324,7 @@ icon_rhel (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
   const char *shadowman;
 
-  if (fs->major_version <= 6)
+  if (!guestfs_int_version_ge (&fs->version, 7, 0, 0))
     shadowman = "/usr/share/pixmaps/redhat/shadowman-transparent.png";
   else
     shadowman = "/usr/share/pixmaps/fedora-logo-sprite.png";
@@ -583,15 +583,15 @@ icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
     return NOT_FOUND;
 
   /* Windows XP. */
-  if (fs->major_version == 5 && fs->minor_version == 1)
+  if (fs->version.v_major == 5 && fs->version.v_minor == 1)
     return icon_windows_xp (g, fs, size_r);
 
   /* Windows 7. */
-  else if (fs->major_version == 6 && fs->minor_version == 1)
+  else if (fs->version.v_major == 6 && fs->version.v_minor == 1)
     return icon_windows_7 (g, fs, size_r);
 
   /* Windows 8. */
-  else if (fs->major_version == 6 && fs->minor_version == 2)
+  else if (fs->version.v_major == 6 && fs->version.v_minor == 2)
     return icon_windows_8 (g, fs, size_r);
 
   /* Not (yet) a supported version of Windows. */

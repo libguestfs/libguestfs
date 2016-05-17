@@ -605,8 +605,7 @@ struct inspect_fs {
   enum inspect_os_package_management package_management;
   char *product_name;
   char *product_variant;
-  int major_version;
-  int minor_version;
+  struct version version;
   char *arch;
   char *hostname;
   char *windows_systemroot;
@@ -933,7 +932,12 @@ extern void guestfs_int_waitpid_noerror (pid_t pid);
 /* version.c */
 extern void guestfs_int_version_from_libvirt (struct version *v, int vernum);
 extern void guestfs_int_version_from_values (struct version *v, int maj, int min, int mic);
+extern int guestfs_int_version_from_x_y (guestfs_h *g, struct version *v, const char *str);
+extern int guestfs_int_version_from_x_y_re (guestfs_h *g, struct version *v, const char *str, const pcre *re);
+extern int guestfs_int_version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str);
 extern bool guestfs_int_version_ge (const struct version *v, int maj, int min, int mic);
+extern bool guestfs_int_version_cmp_ge (const struct version *a, const struct version *b);
 #define version_init_null(v) guestfs_int_version_from_values (v, 0, 0, 0)
+#define version_is_null(v) ((v)->v_major == 0 && (v)->v_minor == 0 && (v)->v_micro == 0)
 
 #endif /* GUESTFS_INTERNAL_H_ */
