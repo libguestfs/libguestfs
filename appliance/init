@@ -91,13 +91,13 @@ echo "${machine_id// /}" > /etc/machine-id
 systemd-tmpfiles --prefix=/dev --create --boot
 
 # Find udevd and run it directly.
-for f in /sbin/udevd /lib/udev/udevd \
-    /lib/systemd/systemd-udevd /usr/lib/systemd/systemd-udevd \
+for f in /lib/systemd/systemd-udevd /usr/lib/systemd/systemd-udevd \
+    /sbin/udevd /lib/udev/udevd \
     /usr/lib/udev/udevd; do
-  if [ -x "$f" ]; then UDEVD="$f"; fi
+  if [ -x "$f" ]; then UDEVD="$f"; break; fi
 done
 if [ -z "$UDEVD" ]; then
-  echo "udev not found!  Things will probably not work ..."
+  echo "error: udev not found!  Things will probably not work ..."
 fi
 
 $UDEVD --daemon #--debug
