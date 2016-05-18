@@ -47,7 +47,9 @@ ln -s ../run/lock /var/lock
 
 # On Fedora 23, util-linux creates /etc/mtab in %post .. stupid
 # and e2fsprogs fails if the link doesn't exist .. stupid stupid
-ln -s /proc/mounts /etc/mtab
+if ! test -e /etc/mtab; then
+  ln -s /proc/mounts /etc/mtab
+fi
 
 # devtmpfs is required since udev 176
 mount -t devtmpfs /dev /dev
