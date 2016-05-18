@@ -125,7 +125,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let installed_kernels : kernel_info list =
     let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
     let rex_ko_extract = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
-    let rex_initrd = Str.regexp "^initr\\(d\\|amfs\\)-.*\\.img$" in
+    let rex_initrd = Str.regexp "^initr\\(d\\|amfs\\)-.*\\(\\.img\\)?$" in
     filter_map (
       function
       | { G.app2_name = name } as app
@@ -158,7 +158,8 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
              (* Get/construct the version.  XXX Read this from kernel file. *)
              let version =
-               sprintf "%s-%s" app.G.app2_version app.G.app2_release in
+               let prefix_len = String.length "/lib/modules/" in
+               String.sub modpath prefix_len (String.length modpath - prefix_len) in
 
              (* Find the initramfs which corresponds to the kernel.
               * Since the initramfs is built at runtime, and doesn't have
@@ -173,12 +174,11 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
                let files =
                  List.filter (
                    fun n ->
-                     String.find n app.G.app2_version >= 0 &&
-                       String.find n app.G.app2_release >= 0
+                     String.find n version >= 0
                  ) files in
                (* Don't consider kdump initramfs images (RHBZ#1138184). *)
                let files =
-                 List.filter (fun n -> String.find n "kdump.img" == -1) files in
+                 List.filter (fun n -> String.find n "kdump" == -1) files in
                (* If several files match, take the shortest match.  This
                 * handles the case where we have a mix of same-version non-Xen
                 * and Xen kernels:
