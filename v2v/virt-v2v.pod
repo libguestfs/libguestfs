@@ -167,6 +167,8 @@ OVAs from other hypervisors will not work.
 
 =item RHEL 5 Xen
 
+=item SUSE Xen
+
 =item Citrix Xen
 
 Citrix Xen has not been recently tested.
