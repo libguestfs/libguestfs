@@ -32,6 +32,8 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 #include <sys/stat.h>
 #include <signal.h>
 #include <sys/socket.h>
@@ -1464,6 +1466,7 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
   struct backend_direct_data *data = datav;
   int ret = 0;
   int status;
+  struct rusage rusage;
 
   /* Signal qemu to shutdown cleanly, and kill the recovery process. */
   if (data->pid > 0) {
@@ -1474,12 +1477,17 @@ shutdown_direct (guestfs_h *g, void *datav, int check_for_errors)
 
   /* Wait for subprocess(es) to exit. */
   if (g->recovery_proc /* RHBZ#998482 */ && data->pid > 0) {
-    if (guestfs_int_waitpid (g, data->pid, &status, "qemu") == -1)
+    if (guestfs_int_wait4 (g, data->pid, &status, &rusage, "qemu") == -1)
       ret = -1;
     else if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
       guestfs_int_external_command_failed (g, status, g->hv, NULL);
       ret = -1;
     }
+    else
+      /* Print the actual memory usage of qemu, useful for seeing
+       * if techniques like DAX are having any effect.
+       */
+      debug (g, "qemu maxrss %ldK", rusage.ru_maxrss);
   }
   if (data->recoverypid > 0) guestfs_int_waitpid_noerror (data->recoverypid);
 
