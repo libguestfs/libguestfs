@@ -410,9 +410,15 @@ create_drive_dev_null (guestfs_h *g,
 {
   CLEANUP_FREE char *tmpfile = NULL;
 
-  if (data->format && STRNEQ (data->format, "raw")) {
-    error (g, _("for device '/dev/null', format must be 'raw'"));
-    return NULL;
+  if (data->format) {
+    if (STRNEQ (data->format, "raw")) {
+      error (g, _("for device '/dev/null', format must be 'raw'"));
+      return NULL;
+    }
+  } else {
+    /* Manual set format=raw for /dev/null drives, if that was not
+     * already manually specified.  */
+    data->format = "raw";
   }
 
   if (guestfs_int_lazy_make_tmpdir (g) == -1)
