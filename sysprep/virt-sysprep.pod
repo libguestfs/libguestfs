@@ -550,6 +550,12 @@ I<--firstboot> or I<--firstboot-command> options with Windows guests.
 
 See also: C<https://github.com/rwmjones/rhsrvany>
 
+=item F<pvvxsvc.exe>
+
+This is a Windows binary shipped with SUSE VMDP, used to install a "firstboot"
+script in Windows guests.  It is required if you intend to use the
+I<--firstboot> or I<--firstboot-command> options with Windows guests.
+
 =back
 
 =back

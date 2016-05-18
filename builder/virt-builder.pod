@@ -840,11 +840,12 @@ F<~root/virt-sysprep-firstboot.log>.
 =item Windows
 
 F<rhsrvany.exe>, available from sources at
-L<https://github.com/rwmjones/rhsrvany>, is installed to run the
+L<https://github.com/rwmjones/rhsrvany>, or F<pvvxsvc.exe>, available
+with SUSE VMDP is installed to run the
 first boot scripts.  It is required, and the setup of first boot
 scripts will fail if it is not present.
 
-F<rhsrvany.exe> is copied from the location pointed to by the
+F<rhsrvany.exe> or F<pvvxsvc.exe> is copied from the location pointed to by the
 C<VIRT_TOOLS_DATA_DIR> environment variable; if not set, a compiled-in
 default will be used (something like F</usr/share/virt-tools>).
 
@@ -1819,6 +1820,12 @@ script in Windows guests.  It is required if you intend to use the
 I<--firstboot> or I<--firstboot-command> options with Windows guests.
 
 See also: C<https://github.com/rwmjones/rhsrvany>
+
+=item F<pvvxsvc.exe>
+
+This is a Windows binary shipped with SUSE VMDP, used to install a "firstboot"
+script in Windows guests.  It is required if you intend to use the
+I<--firstboot> or I<--firstboot-command> options with Windows guests.
 
 =back
 

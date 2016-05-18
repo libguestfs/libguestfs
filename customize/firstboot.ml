@@ -185,19 +185,25 @@ module Windows = struct
       try Sys.getenv "VIRT_TOOLS_DATA_DIR"
       with Not_found -> Guestfs_config.datadir // "virt-tools" in
 
-    (* rhsrvany.exe must exist.
+    (* Either rhsrvany.exe or pvvxsvc.exe must exist.
      *
      * (Check also that it's not a dangling symlink but a real file).
      *)
-    let rhsrvany_exe = virt_tools_data_dir // "rhsrvany.exe" in
-    (try
-       let chan = open_in rhsrvany_exe in
-       close_in chan
-     with
-       Sys_error msg ->
-         error (f_"'%s' is missing.  This file is required in order to install Windows firstboot scripts.  You can get it by building rhsrvany (https://github.com/rwmjones/rhsrvany).  Original error: %s")
-           rhsrvany_exe msg
-    );
+    let services = ["rhsrvany.exe"; "pvvxsvc.exe"] in
+    let srvany =
+      try
+        List.find (
+          fun service ->
+            try
+              let chan = open_in (virt_tools_data_dir // service) in
+              close_in chan;
+              true
+            with _ ->
+              false
+        ) services
+      with Not_found ->
+       error (f_"One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is required in order to install Windows firstboot scripts.  You can get one by building rhsrvany (https://github.com/rwmjones/rhsrvany)")
+         virt_tools_data_dir in
 
     (* Create a directory for firstboot files in the guest. *)
     let firstboot_dir, firstboot_dir_win =
@@ -215,8 +221,8 @@ module Windows = struct
 
     g#mkdir_p (firstboot_dir // "scripts");
 
-    (* Copy rhsrvany to the guest. *)
-    g#upload rhsrvany_exe (firstboot_dir // "rhsrvany.exe");
+    (* Copy pvvxsvc or rhsrvany to the guest. *)
+    g#upload (virt_tools_data_dir // srvany) (firstboot_dir // srvany);
 
     (* Write a firstboot.bat control script which just runs the other
      * scripts in the directory.  Note we need to use CRLF line endings
@@ -253,8 +259,8 @@ for %%%%f in (\"%%scripts%%\"\\*.bat) do (
 )
 
 echo uninstalling firstboot service
-rhsrvany.exe -s firstboot uninstall
-" firstboot_dir_win in
+%s -s firstboot uninstall
+" firstboot_dir_win srvany in
 
     g#write (firstboot_dir // "firstboot.bat") (unix2dos firstboot_script);
 
@@ -283,7 +289,7 @@ rhsrvany.exe -s firstboot uninstall
         "Start", REG_DWORD 0x2_l;
         "ErrorControl", REG_DWORD 0x1_l;
         "ImagePath",
-          REG_SZ (firstboot_dir_win ^ "\\rhsrvany.exe -s firstboot");
+          REG_SZ (sprintf "%s\\%s -s firstboot" firstboot_dir_win srvany);
         "DisplayName", REG_SZ "Virt tools firstboot service";
         "ObjectName", REG_SZ "LocalSystem" ];
 
