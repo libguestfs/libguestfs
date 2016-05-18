@@ -338,7 +338,7 @@ Xen remote connections can be used.  Other remote libvirt connections
 will not work in general.
 
 See also L</INPUT FROM VMWARE VCENTER SERVER>,
-L</INPUT FROM RHEL 5 XEN> below.
+L</INPUT FROM XEN> below.
 
 =item B<-if> format
 
@@ -1228,9 +1228,10 @@ Perform the conversion of the guest using virt-v2v:
 
 Remove the F<guest.xml> and F<guest-disk*> files.
 
-=head1 INPUT FROM RHEL 5 XEN
+=head1 INPUT FROM XEN
 
-Virt-v2v is able to import Xen guests from RHEL 5 Xen hosts.
+Virt-v2v is able to import Xen guests from RHEL 5 Xen or SLES and
+openSUSE Xen hosts.
 
 Virt-v2v uses libvirt for access to the remote Xen host, and therefore
 the input mode should be I<-i libvirt>.  As this is the default, you
