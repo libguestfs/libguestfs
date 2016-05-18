@@ -904,5 +904,7 @@ extern int guestfs_int_getumask (guestfs_h *g);
 /* wait.c */
 extern int guestfs_int_waitpid (guestfs_h *g, pid_t pid, int *status, const char *errmsg);
 extern void guestfs_int_waitpid_noerror (pid_t pid);
+struct rusage;
+extern int guestfs_int_wait4 (guestfs_h *g, pid_t pid, int *status, struct rusage *rusage, const char *errmsg);
 
 #endif /* GUESTFS_INTERNAL_H_ */

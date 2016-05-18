@@ -23,6 +23,8 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/types.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 #include <sys/wait.h>
 
 #include "guestfs.h"
@@ -64,4 +66,22 @@ guestfs_int_waitpid_noerror (pid_t pid)
 {
   while (waitpid (pid, NULL, 0) == -1 && errno == EINTR)
     ;
+}
+
+/**
+ * A safe version of L<wait4(2)> which retries if C<EINTR> is
+ * returned.
+ */
+int
+guestfs_int_wait4 (guestfs_h *g, pid_t pid, int *status,
+                   struct rusage *rusage, const char *errmsg)
+{
+ again:
+  if (wait4 (pid, status, 0, rusage) == -1) {
+    if (errno == EINTR)
+      goto again;
+    perrorf (g, "%s: wait4", errmsg);
+    return -1;
+  }
+  return 0;
 }
