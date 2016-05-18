@@ -222,7 +222,7 @@ and ddb_regedits current_cs drv_name drv_pciid =
 and copy_drivers g inspect driverdir =
   let ret = ref false in
   if is_directory virtio_win then (
-    let cmd = sprintf "cd %s && find -type f" (quote virtio_win) in
+    let cmd = sprintf "cd %s && find -L -type f" (quote virtio_win) in
     let paths = external_command cmd in
     List.iter (
       fun path ->
