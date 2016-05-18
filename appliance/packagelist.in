@@ -133,6 +133,7 @@ ifelse(SUSE,1,
   btrfsprogs
   cryptsetup
   dhcpcd
+  dhcp-client
   genisoimage
   glibc-locale
   gptfdisk
@@ -140,9 +141,12 @@ ifelse(SUSE,1,
   iproute2
   iputils
   libcap2
+  libhivex0
   libselinux1
   libyajl2
   mkisofs
+  ntfsprogs
+  ntfs-3g
   reiserfs
   systemd
   vim
