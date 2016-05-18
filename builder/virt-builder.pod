@@ -850,7 +850,7 @@ C<VIRT_TOOLS_DATA_DIR> environment variable; if not set, a compiled-in
 default will be used (something like F</usr/share/virt-tools>).
 
 The output of the first boot scripts is available in the guest as
-F<C:\Program Files\Red Hat\Firstboot\log.txt>.
+F<C:\Program Files\Guestfs\Firstboot\log.txt>.
 
 =back
 

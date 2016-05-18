@@ -86,7 +86,7 @@ mktest ()
 :> "$script"
 :> "$expected"
 
-firstboot_dir="/Program Files/Red Hat/Firstboot"
+firstboot_dir="/Program Files/Guestfs/Firstboot"
 mktest "is-dir \"$firstboot_dir\"" true
 mktest "is-file \"$firstboot_dir/firstboot.bat\"" true
 mktest "is-dir \"$firstboot_dir/scripts\"" true

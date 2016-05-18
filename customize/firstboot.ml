@@ -217,7 +217,7 @@ module Windows = struct
           g#mkdir_p firstboot_dir;
           loop firstboot_dir firstboot_dir_win path
       in
-      loop "" "C:" ["Program Files"; "Red Hat"; "Firstboot"] in
+      loop "" "C:" ["Program Files"; "Guestfs"; "Firstboot"] in
 
     g#mkdir_p (firstboot_dir // "scripts");
 
