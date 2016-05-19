@@ -124,6 +124,7 @@ Run it from the top source directory using the command
   output_to "fish/prepopts.c" generate_fish_prep_options_c;
   output_to "fish/prepopts.h" generate_fish_prep_options_h;
   output_to "fish/guestfish-prepopts.pod" generate_fish_prep_options_pod;
+  output_to ~perm:0o555 "fish/test-prep.sh" generate_fish_test_prep_sh;
   output_to "ocaml/guestfs.mli" generate_ocaml_mli;
   output_to "ocaml/guestfs.ml" generate_ocaml_ml;
   output_to "ocaml/guestfs-c-actions.c" generate_ocaml_c;

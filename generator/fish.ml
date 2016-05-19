@@ -1106,3 +1106,36 @@ event_bitmask_of_event_set (const char *arg, uint64_t *eventset_r)
   return 0;
 }
 "
+
+and generate_fish_test_prep_sh () =
+  pr "#!/bin/bash -\n";
+  generate_header HashStyle GPLv2plus;
+
+  let all_disks = sprintf "prep{1..%d}.img" (List.length prepopts) in
+
+  pr "\
+set -e
+
+rm -f %s
+
+$VG guestfish \\
+" all_disks;
+
+  let vg_count = ref 0 in
+
+  iteri (
+    fun i (name, _, _, _) ->
+      let params = [name] in
+      let params =
+        if find name "lv" <> -1 then (
+          incr vg_count;
+          sprintf "/dev/VG%d/LV" !vg_count :: params
+        ) else params in
+      let params = List.rev params in
+      pr "    -N prep%d.img=%s \\\n" (i + 1) (String.concat ":" params)
+  ) prepopts;
+
+  pr "    exit
+
+rm %s
+" all_disks
