@@ -106,13 +106,15 @@ let do_ssh_inject_unix (g : Guestfs.guestfs) user selector =
 
   (* Get user's home directory. *)
   g#aug_init "/" 0;
-  let home_dir =
+  let read_user_detail what =
     try
-      let expr = sprintf "/files/etc/passwd/%s/home" user in
+      let expr = sprintf "/files/etc/passwd/%s/%s" user what in
       g#aug_get expr
     with G.Error _ ->
       error (f_"ssh-inject: the user %s does not exist on the guest")
-        user in
+        user
+  in
+  let home_dir = read_user_detail "home" in
   g#aug_close ();
 
   (* Create ~user/.ssh if it doesn't exist. *)
