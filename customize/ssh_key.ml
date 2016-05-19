@@ -115,20 +115,24 @@ let do_ssh_inject_unix (g : Guestfs.guestfs) user selector =
         user
   in
   let home_dir = read_user_detail "home" in
+  let uid = int_of_string (read_user_detail "uid") in
+  let gid = int_of_string (read_user_detail "gid") in
   g#aug_close ();
 
   (* Create ~user/.ssh if it doesn't exist. *)
   let ssh_dir = sprintf "%s/.ssh" home_dir in
   if not (g#exists ssh_dir) then (
     g#mkdir ssh_dir;
-    g#chmod 0o700 ssh_dir
+    g#chmod 0o700 ssh_dir;
+    g#chown uid gid ssh_dir;
   );
 
   (* Create ~user/.ssh/authorized_keys if it doesn't exist. *)
   let auth_keys = sprintf "%s/authorized_keys" ssh_dir in
   if not (g#exists auth_keys) then (
     g#touch auth_keys;
-    g#chmod 0o600 auth_keys
+    g#chmod 0o600 auth_keys;
+    g#chown uid gid auth_keys;
   );
 
   (* Append the key. *)
