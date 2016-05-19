@@ -48,7 +48,7 @@ guestfish -- \
 
 # Test that basic inspection works and the expected filesystems are
 # found
-guestfish -a test.qcow2 -i <<'EOF' | sort | $canonical > test.output
+guestfish --format=qcow2 -a test.qcow2 -i <<'EOF' | sort | $canonical > test.output
   inspect-get-roots | head -1 > root.tmp
   <! echo inspect-get-mountpoints "`cat root.tmp`"
 EOF
@@ -62,7 +62,7 @@ if [ "$(cat test.output)" != "/: btrfsvol:/dev/sda2/root
 fi
 
 # Additional sanity check: did we get the release name right?
-guestfish -a test.qcow2 -i <<'EOF' > test.output
+guestfish --format=qcow2 -a test.qcow2 -i <<'EOF' > test.output
   inspect-get-roots | head -1 > root.tmp
   <! echo inspect-get-product-name "`cat root.tmp`"
 EOF

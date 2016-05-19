@@ -47,7 +47,7 @@ for f in ../test-data/phony-guests/{fedora,debian,ubuntu}.img; do
         echo
         continue
     fi
-    $VG virt-log -a "$f" &> $tmpfile
+    $VG virt-log --format=raw -a "$f" &> $tmpfile
     cat $tmpfile
     echo
 done

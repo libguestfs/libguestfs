@@ -35,7 +35,7 @@ guestfish -- \
 # Edit interactively.  We have to simulate this by setting $EDITOR.
 # The command will be: echo newline >> /tmp/file
 export EDITOR='echo newline >>'
-virt-edit -a test.qcow2 /etc/test3
+virt-edit --format=qcow2 -a test.qcow2 /etc/test3
 if [ "$(virt-cat -a test.qcow2 /etc/test3)" != "a
 b
 c
@@ -50,7 +50,7 @@ unset EDITOR
 
 # Edit non-interactively, only if we have 'perl' binary.
 if perl --version >/dev/null 2>&1; then
-    virt-edit -a test.qcow2 /etc/test3 -e 's/^[a-f]/$lineno/'
+    virt-edit --format=qcow2 -a test.qcow2 /etc/test3 -e 's/^[a-f]/$lineno/'
     if [ "$(virt-cat -a test.qcow2 /etc/test3)" != "1
 2
 3
@@ -65,7 +65,7 @@ fi
 
 # Verify the mode of /etc/test3 is still 0600 and the UID:GID is 10:11.
 # See test-data/phony-guests/make-fedora-img.pl and RHBZ#788641.
-if [ "$(guestfish -i -a test.qcow2 --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
+if [ "$(guestfish -i --format=qcow2 -a test.qcow2 --ro lstat /etc/test3 | grep -E '^(mode|uid|gid):' | sort)" != "gid: 11
 mode: 33152
 uid: 10" ]; then
     echo "$0: error: editing /etc/test3 did not preserve permissions or ownership"

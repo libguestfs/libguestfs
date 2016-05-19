@@ -18,4 +18,4 @@
 
 set -e
 
-$VG guestfish --ro -a ../test-data/phony-guests/fedora.img -i exit
+$VG guestfish --ro --format=raw -a ../test-data/phony-guests/fedora.img -i exit

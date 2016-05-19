@@ -35,7 +35,7 @@ rm -f rhbz1011907-1165785-loop.img rhbz1011907-1165785.img
 qemu-img create rhbz1011907-1165785-loop.img 100M
 qemu-img create rhbz1011907-1165785.img 300M
 
-guestfish -a rhbz1011907-1165785-loop.img <<EOF
+guestfish --format=raw -a rhbz1011907-1165785-loop.img <<EOF
 run
 part-disk /dev/sda mbr
 mkfs ext3 /dev/sda
@@ -44,7 +44,7 @@ touch /in-loop
 EOF
 
 output=$(
-guestfish -a rhbz1011907-1165785.img <<EOF
+guestfish --format=raw -a rhbz1011907-1165785.img <<EOF
 run
 part-disk /dev/sda mbr
 mkfs ext3 /dev/sda1

@@ -41,7 +41,7 @@ for f in ../test-data/phony-guests/{debian,fedora,ubuntu,windows}.img; do
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
 	echo "Running virt-sysprep on $f ..."
-	$VG virt-sysprep -q -n --enable "$operations" -a $f
+	$VG virt-sysprep -q -n --enable "$operations" --format raw -a $f
 	echo
     fi
 done

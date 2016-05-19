@@ -49,7 +49,7 @@ fi
 
 # Ensure list-md-devices now returns the newly created md device
 output=$(
-guestfish -a list-md-devices-1.img -a list-md-devices-2.img <<EOF
+guestfish --format=raw -a list-md-devices-1.img --format=raw -a list-md-devices-2.img <<EOF
 run
 list-md-devices
 EOF

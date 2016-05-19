@@ -36,12 +36,12 @@ guestfish -- \
   disk-create fedora.qcow2 qcow2 -1 \
     backingfile:../test-data/phony-guests/fedora.img backingformat:raw
 
-guestfish -a fedora.qcow2 -i <<EOF
+guestfish --format=qcow2 -a fedora.qcow2 -i <<EOF
 touch /diff
 write-append /etc/motd "Testing virt-diff\n"
 EOF
 
-output="$($VG virt-diff -a ../test-data/phony-guests/fedora.img -A fedora.qcow2)"
+output="$($VG virt-diff --format=raw -a ../test-data/phony-guests/fedora.img --format=qcow2 -A fedora.qcow2)"
 
 expected="\
 + - 0644          0 /diff

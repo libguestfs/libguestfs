@@ -33,7 +33,7 @@ for f in ../test-data/phony-guests/{debian,fedora,ubuntu,archlinux,coreos,window
     # Ignore zero-sized windows.img if ntfs-3g is not installed.
     if [ -s "$f" ]; then
         b=$(basename "$f" .xml)
-	$VG virt-inspector -a "$f" > "actual-$b.xml"
+	$VG virt-inspector --format=raw -a "$f" > "actual-$b.xml"
         # This 'diff' command will fail (because of -e option) if there
         # are any differences.
         diff -ur $diff_ignore "expected-$b.xml" "actual-$b.xml"

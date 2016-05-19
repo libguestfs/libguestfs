@@ -41,7 +41,7 @@ guestfish sparse rhbz811649.img 10M
 for f in "${filenames[@]}"; do
     ln -- rhbz811649.img "$f"
     guestfish <<EOF
-add "$f"
+add "$f" format:raw
 run
 EOF
 done

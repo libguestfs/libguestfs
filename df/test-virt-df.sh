@@ -20,7 +20,7 @@ export LANG=C
 set -e
 
 # Run virt-df.
-output=$($VG virt-df ../test-data/phony-guests/fedora.img)
+output=$($VG virt-df --format=raw -a ../test-data/phony-guests/fedora.img)
 
 # Check title is the first line.
 if [[ ! $output =~ ^Filesystem.* ]]; then

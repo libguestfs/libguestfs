@@ -49,7 +49,7 @@ EOF
 
 size_before=$(du -s test-virt-sparsify-in-place.img | awk '{print $1}')
 
-$VG virt-sparsify --debug-gc --in-place test-virt-sparsify-in-place.img || {
+$VG virt-sparsify --debug-gc --in-place --format raw test-virt-sparsify-in-place.img || {
     if [ "$?" -eq 3 ]; then
         rm test-virt-sparsify-in-place.img
         echo "$0: discard not supported in virt-sparsify"
