@@ -36,12 +36,14 @@
 #pragma GCC diagnostic ignored "-Wstrict-prototypes" /* error in <gtk.h> */
 #include <gtk/gtk.h>
 
+#include "ignore-value.h"
 #include "p2v.h"
 
 char **all_disks;
 char **all_removable;
 char **all_interfaces;
 
+static void udevadm_settle (void);
 static void set_config_defaults (struct config *config);
 static void find_all_disks (void);
 static void find_all_interfaces (void);
@@ -118,6 +120,13 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
+
+  /* There is some raciness between slow devices being discovered by
+   * the kernel and udev and virt-p2v running.  This is a partial
+   * workaround, but a real fix involves handling hotplug events
+   * (possible in GUI mode, not easy in kernel mode).
+   */
+  udevadm_settle ();
 
 #if ! GLIB_CHECK_VERSION(2,32,0)
   /* In glib2 < 2.32 you had to call g_thread_init().  In later glib2
@@ -208,6 +217,12 @@ main (int argc, char *argv[])
   guestfs_int_free_string_list (cmdline);
 
   exit (EXIT_SUCCESS);
+}
+
+static void
+udevadm_settle (void)
+{
+  ignore_value (system ("udevadm settle"));
 }
 
 static void
