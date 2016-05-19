@@ -206,6 +206,7 @@ Makefile.in
 /fish/stamp-virt-copy-out.pod
 /fish/stamp-virt-tar-in.pod
 /fish/stamp-virt-tar-out.pod
+/fish/test-prep.sh
 /fish/virt-copy-in.1
 /fish/virt-copy-out.1
 /fish/virt-tar-in.1

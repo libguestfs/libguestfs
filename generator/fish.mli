@@ -26,3 +26,4 @@ val generate_fish_event_names : unit -> unit
 val generate_fish_prep_options_c : unit -> unit
 val generate_fish_prep_options_h : unit -> unit
 val generate_fish_prep_options_pod : unit -> unit
+val generate_fish_test_prep_sh : unit -> unit
