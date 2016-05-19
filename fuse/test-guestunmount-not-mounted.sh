@@ -40,7 +40,7 @@ if [ ! -w /dev/fuse ]; then
 fi
 
 # Not expecting cwd to be a FUSE mountpoint.
-./guestunmount --quiet $(pwd)
+guestunmount --quiet $(pwd)
 r=$?
 case $r in
     0)

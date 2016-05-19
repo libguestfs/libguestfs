@@ -214,5 +214,5 @@ check-valgrind:
 
 check-valgrind-local-guests:
 	for g in $(GUESTS); do \
-	  $(top_builddir)/run --test @VG@ ./virt-filesystems -c "$(libvirt_ro_uri)" -d "$$g" --all --long -h --uuid || exit $$?; \
+	  $(top_builddir)/run --test @VG@ virt-filesystems -c "$(libvirt_ro_uri)" -d "$$g" --all --long -h --uuid || exit $$?; \
 	done

@@ -57,7 +57,7 @@ guestfish -- \
       backingfile:../test-data/phony-guests/fedora.img backingformat:raw
 
 mkdir mp
-./guestmount --format=qcow2 -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp
+guestmount --format=qcow2 -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp
 cp $0 mp/test-umount
 
 # Save the PID of guestmount.
@@ -66,7 +66,7 @@ pid="$(cat test.pid)"
 timeout=10
 
 # Unmount the mountpoint.
-./guestunmount -v mp
+guestunmount -v mp
 
 # Wait for guestmount to exit.
 count=$timeout

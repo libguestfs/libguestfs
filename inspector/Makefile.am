@@ -117,5 +117,5 @@ check-valgrind:
 
 check-valgrind-local-guests:
 	for g in $(GUESTS); do \
-	  $(top_builddir)/run --test @VG@ ./virt-inspector -c "$(libvirt_ro_uri)" -d "$$g" || exit $$?; \
+	  $(top_builddir)/run --test @VG@ virt-inspector -c "$(libvirt_ro_uri)" -d "$$g" || exit $$?; \
 	done
