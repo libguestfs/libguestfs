@@ -30,9 +30,9 @@ fi
 rm -f rhbz563450.out
 
 guestfish --ro > rhbz563450.out <<EOF
-add-drive-ro ../../test-data/phony-guests/fedora.img
+add ../../test-data/phony-guests/fedora.img readonly:true format:raw
 add-cdrom ../../test-data/test.iso
-add-drive-ro ../../test-data/phony-guests/debian.img
+add ../../test-data/phony-guests/debian.img readonly:true format:raw
 
 run
 

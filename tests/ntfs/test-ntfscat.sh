@@ -39,7 +39,7 @@ if [ ! -s ../../test-data/phony-guests/windows.img ]; then
 fi
 
 # download Master File Table ($MFT).
-guestfish --ro -a ../../test-data/phony-guests/windows.img <<EOF
+guestfish --ro --format=raw -a ../../test-data/phony-guests/windows.img <<EOF
 run
 ntfscat-i /dev/sda2 0 test-mft.bin
 EOF

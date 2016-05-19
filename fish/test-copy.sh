@@ -63,7 +63,7 @@ fi
 
 mkdir test-copy-copy
 
-$VG guestfish --ro -a test-copy.img -m /dev/sda1 <<EOF
+$VG guestfish --ro --format=raw -a test-copy.img -m /dev/sda1 <<EOF
 copy-out /data/test-copy-original test-copy-copy
 EOF
 

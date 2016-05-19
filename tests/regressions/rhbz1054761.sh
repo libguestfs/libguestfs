@@ -37,7 +37,7 @@ vgcreate VG "/dev/sda /dev/sdb"
 EOF
 
 output="$(
-    guestfish -a rhbz1054761-a.img run : pvs |
+    guestfish --format=raw -a rhbz1054761-a.img run : pvs |
         sed -r 's,^/dev/[abce-ln-z]+d,/dev/sd,'
 )"
 if [ "$output" != "/dev/sda" ]; then

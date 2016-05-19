@@ -42,7 +42,7 @@ rm /boot/big
 umount-all
 EOF
 
-$VG virt-sparsify --debug-gc test-virt-sparsify-1.img --convert qcow2 test-virt-sparsify-2.img
+$VG virt-sparsify --debug-gc --format raw test-virt-sparsify-1.img --convert qcow2 test-virt-sparsify-2.img
 
 size_before=$(du -s test-virt-sparsify-1.img | awk '{print $1}')
 size_after=$(du -s test-virt-sparsify-2.img | awk '{print $1}')

@@ -32,7 +32,7 @@ rm -f inspect-fstab-md-{1,2}.img inspect-fstab-md.fstab inspect-fstab-md.output
 cp ../../test-data/phony-guests/fedora-md1.img inspect-fstab-md-1.img
 cp ../../test-data/phony-guests/fedora-md2.img inspect-fstab-md-2.img
 
-guestfish -i inspect-fstab-md-[12].img <<'EOF' | sort > inspect-fstab-md.output
+guestfish -i --format=raw -a inspect-fstab-md-1.img --format=raw -a inspect-fstab-md-2.img <<'EOF' | sort > inspect-fstab-md.output
   exists /boot/grub/grub.conf
 EOF
 
@@ -47,13 +47,13 @@ cat <<'EOF' > inspect-fstab-md.fstab
 /dev/md/boot /boot ext2 default 0 0
 EOF
 
-guestfish -a inspect-fstab-md-1.img -a inspect-fstab-md-2.img <<'EOF'
+guestfish --format=raw -a inspect-fstab-md-1.img --format=raw -a inspect-fstab-md-2.img <<'EOF'
   run
   mount /dev/VG/Root /
   upload inspect-fstab-md.fstab /etc/fstab
 EOF
 
-guestfish -i inspect-fstab-md-[12].img <<'EOF' | sort > inspect-fstab-md.output
+guestfish -i --format=raw -a inspect-fstab-md-1.img --format=raw -a inspect-fstab-md-2.img <<'EOF' | sort > inspect-fstab-md.output
   exists /boot/grub/grub.conf
 EOF
 

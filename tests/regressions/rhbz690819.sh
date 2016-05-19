@@ -54,7 +54,7 @@ rm -f rhbz690819.img
 guestfish sparse rhbz690819.img 100M
 
 guestfish <<EOF
-add-drive-with-if rhbz690819.img ide
+add rhbz690819.img iface:ide format:raw
 run
 mkfs ext3 /dev/sda
 mount /dev/sda /

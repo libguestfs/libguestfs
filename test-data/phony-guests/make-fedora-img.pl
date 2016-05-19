@@ -62,7 +62,7 @@ EOF
 
   $g->disk_create ("fedora.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora.img-t");
+  $g->add_drive ("fedora.img-t", format => "raw");
   $g->launch ();
 
   $g->part_init ('/dev/sda', 'mbr');
@@ -87,7 +87,7 @@ EOF
 
   foreach my $img (@images) {
       $g->disk_create ($img, "raw", $IMAGE_SIZE);
-      $g->add_drive ($img);
+      $g->add_drive ($img, format => "raw");
   }
 
   $g->launch ();
@@ -137,7 +137,7 @@ EOF
 
   $g->disk_create ("fedora-btrfs.img-t", "raw", $IMAGE_SIZE);
 
-  $g->add_drive ("fedora-btrfs.img-t");
+  $g->add_drive ("fedora-btrfs.img-t", format => "raw");
   $g->launch ();
 
   $g->part_init ('/dev/sda', 'mbr');

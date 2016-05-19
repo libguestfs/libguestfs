@@ -57,7 +57,7 @@ guestfish -- \
       backingfile:../test-data/phony-guests/fedora.img backingformat:raw
 
 mkdir mp
-./guestmount -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp
+./guestmount --format=qcow2 -a test.qcow2 -m /dev/VG/Root --pid-file test.pid mp
 cp $0 mp/test-umount
 
 # Save the PID of guestmount.
@@ -82,7 +82,7 @@ fi
 # It should now be safe to copy and read the disk image.
 cp test.qcow2 test-copy.qcow2
 
-if [ "$(guestfish -a test-copy.qcow2 --ro -i is-file /test-umount)" != "true" ]; then
+if [ "$(guestfish --format=qcow2 -a test-copy.qcow2 --ro -i is-file /test-umount)" != "true" ]; then
     echo "$0: test failed"
     exit 1
 fi

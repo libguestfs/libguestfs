@@ -58,6 +58,7 @@ echo 123456 > password
 # Run virt-sysprep password operation.
 
 virt-sysprep \
+    --format qcow2 \
     -a passwords.qcow2 \
     --enable customize \
     --password test01:password:123456 \

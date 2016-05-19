@@ -59,7 +59,7 @@ truncate -s 10G rhbz1285847-2.img
 virt-resize rhbz1285847.img rhbz1285847-2.img --expand /dev/sda2
 
 # Check that the filesystems made it across.
-guestfish -a rhbz1285847-2.img run : list-filesystems > rhbz1285847.out
+guestfish --format=raw -a rhbz1285847-2.img run : list-filesystems > rhbz1285847.out
 
 if [ "$(cat rhbz1285847.out)" != "/dev/sda1: ext4
 /dev/sda2: unknown

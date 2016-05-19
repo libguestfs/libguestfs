@@ -60,9 +60,9 @@ guestfish sparse rhbz975797-2.img 1G
 guestfish sparse rhbz975797-3.img 1G
 
 $timeout guestfish <<EOF
-add-drive rhbz975797-1.img iface:virtio
-add-drive rhbz975797-2.img iface:ide
-add-drive rhbz975797-3.img
+add-drive rhbz975797-1.img iface:virtio format:raw
+add-drive rhbz975797-2.img iface:ide format:raw
+add-drive rhbz975797-3.img format:raw
 run
 EOF
 

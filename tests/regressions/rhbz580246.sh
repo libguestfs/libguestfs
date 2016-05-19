@@ -30,7 +30,7 @@ tar cf rhbz580246.tar rhbz580246.img
 
 output=$(
 guestfish 2>&1 <<'EOF'
-add rhbz580246.img
+add rhbz580246.img format:raw
 run
 mkfs ext2 /dev/sda
 mount /dev/sda /

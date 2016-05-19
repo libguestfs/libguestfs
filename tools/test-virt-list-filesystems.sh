@@ -21,7 +21,7 @@ set -e
 
 # Run virt-list-filesystems.
 # Only columns 1 & 2 are guaranteed, we may add more in future.
-if [ "$($srcdir/virt-list-filesystems -l ../test-data/phony-guests/fedora.img |
+if [ "$($srcdir/virt-list-filesystems --format=raw -l ../test-data/phony-guests/fedora.img |
         sort | awk '{print $1 $2}')" \
     != \
 "/dev/VG/LV1ext2

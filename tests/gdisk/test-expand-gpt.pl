@@ -25,7 +25,7 @@ sub tests {
 
 	foreach ("gpt", "mbr") {
 		$g->disk_create ("disk_$_.img", "qcow2", 50 * 1024 * 1024);
-		$g->add_drive ("disk_$_.img");
+		$g->add_drive ("disk_$_.img", format => "qcow2");
 	}
 
 	$g->launch ();
@@ -40,7 +40,7 @@ sub tests {
 	$g = Sys::Guestfs->new ();
 
 	foreach ("gpt", "mbr") {
-		$g->add_drive ("disk_$_.img");
+		$g->add_drive ("disk_$_.img", format => "qcow2");
 	}
 
 	$g->launch ();
