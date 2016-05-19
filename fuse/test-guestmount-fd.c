@@ -34,8 +34,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
-#define GUESTMOUNT_BINARY "./guestmount"
-#define GUESTUNMOUNT_BINARY "./guestunmount"
+#define GUESTMOUNT_BINARY "guestmount"
+#define GUESTUNMOUNT_BINARY "guestunmount"
 #define TEST_IMAGE "../test-data/phony-guests/fedora.img"
 #define MOUNTPOINT "test-guestmount-fd.d"
 #define TEST_FILE MOUNTPOINT "/etc/fstab"

@@ -70,7 +70,7 @@ main (int argc, char *argv[])
 
     snprintf (fd_str, sizeof fd_str, "%d", pipefd[0]);
 
-    execlp ("./guestunmount", "guestunmount", "--fd", fd_str, "/", NULL);
+    execlp ("guestunmount", "guestunmount", "--fd", fd_str, "/", NULL);
     perror ("execlp");
     _exit (EXIT_FAILURE);
   }
