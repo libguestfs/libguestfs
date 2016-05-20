@@ -16,6 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * This file provides simple version number management.
+ */
+
 #include <config.h>
 
 #include <string.h>
@@ -25,10 +29,6 @@
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-
-/**
- * This file provides simple version number management.
- */
 
 COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 

@@ -264,6 +264,7 @@ src/tmpdirs.c
 src/umask.c
 src/unit-tests.c
 src/utils.c
+src/version.c
 src/wait.c
 src/whole-file.c
 test-tool/test-tool.c
