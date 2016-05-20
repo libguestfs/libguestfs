@@ -5349,14 +5349,13 @@ of a filesystem." };
     style = RString "uuid", [Device "device"], [];
     proc_nr = Some 83;
     deprecated_by = Some "vfs_uuid";
-    tests =
-      (* Regression test for RHBZ#597112. *)
-      (let uuid = uuidgen () in [
-        InitNone, Always, TestResultString (
-          [["mke2journal"; "1024"; "/dev/sdc"];
-           ["set_e2uuid"; "/dev/sdc"; uuid];
-           ["get_e2uuid"; "/dev/sdc"]], uuid), []
-      ]);
+    tests = [
+      (* We can't predict what UUID will be, so just check
+         the command run; regression test for RHBZ#597112. *)
+      InitNone, Always, TestRun (
+        [["mke2journal"; "1024"; "/dev/sdc"];
+         ["get_e2uuid"; "/dev/sdc"]]), []
+    ];
     shortdesc = "get the ext2/3/4 filesystem UUID";
     longdesc = "\
 This returns the ext2/3/4 filesystem UUID of the filesystem on
