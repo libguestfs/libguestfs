@@ -43,7 +43,7 @@ let verify_checksum csum filename =
   in
 
   let cmd = sprintf "%s %s" prog (quote filename) in
-  if verbose () then printf "%s\n%!" cmd;
+  debug "%s" cmd;
   let lines = external_command cmd in
   match lines with
   | [] ->

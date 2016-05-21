@@ -42,9 +42,8 @@ object
   val mutable dcPath = ""
 
   method source () =
-    if verbose () then
-      printf "input_libvirt_vcenter_https: source: scheme %s server %s\n%!"
-        scheme server;
+    debug "input_libvirt_vcenter_https: source: scheme %s server %s"
+          scheme server;
 
     error_if_libvirt_backend ();
 
@@ -72,17 +71,14 @@ object
        * users to correct any mistakes in v2v or libvirt.
        *)
       | Some p, (None|Some _) ->
-         if verbose () then
-           printf "vcenter: using --dcpath from the command line: %s\n" p;
+         debug "vcenter: using --dcpath from the command line: %s" p;
          p
       | None, Some p ->
-         if verbose () then
-           printf "vcenter: using <vmware:datacenterpath> from libvirt: %s\n" p;
+         debug "vcenter: using <vmware:datacenterpath> from libvirt: %s" p;
          p
       | None, None ->
          let p = VCenter.guess_dcPath parsed_uri scheme in
-         if verbose () then
-           printf "vcenter: guessed dcPath from URI: %s\n" p;
+         debug "vcenter: guessed dcPath from URI: %s" p;
          p
     );
 
@@ -135,7 +131,7 @@ object
       let cmd =
         sprintf "qemu-img rebase -u -b %s %s"
           (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then
         warning (f_"qemu-img rebase failed (ignored)")
 end

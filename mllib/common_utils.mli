@@ -185,6 +185,13 @@ val warning : ('a, unit, string, unit) format4 -> 'a
 val info : ('a, unit, string, unit) format4 -> 'a
 (** Standard info function.  Note: Use full sentences for this. *)
 
+val debug : ('a, unit, string, unit) format4 -> 'a
+(** Standard debug function.
+
+    The message is only emitted if the verbose ([-v]) flag was set on
+    the command line.  As with libguestfs debugging messages, it is
+    sent to [stderr]. *)
+
 val open_guestfs : ?identifier:string -> unit -> Guestfs.guestfs
 (** Common function to create a new Guestfs handle, with common options
     (e.g. debug, tracing) already set. *)

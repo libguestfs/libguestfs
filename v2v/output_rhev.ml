@@ -45,14 +45,14 @@ let rec mount_and_check_storage_domain domain_class os =
     (* Try mounting it. *)
     let cmd =
       sprintf "mount %s:%s %s" (quote server) (quote export) (quote mp) in
-    if verbose () then printf "%s\n%!" cmd;
+    debug "%s" cmd;
     if Sys.command cmd <> 0 then
       error (f_"mount command failed, see earlier errors.\n\nThis probably means you didn't specify the right %s path [-os %s], or else you need to rerun virt-v2v as root.") domain_class os;
 
     (* Make sure it is unmounted at exit. *)
     at_exit (fun () ->
       let cmd = sprintf "umount %s" (quote mp) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       ignore (Sys.command cmd);
       try rmdir mp with _ -> ()
     );
@@ -166,9 +166,7 @@ object
       mount_and_check_storage_domain (s_"Export Storage Domain") os in
     esd_mp <- mp;
     esd_uuid <- uuid;
-    if verbose () then
-      eprintf "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s\n%!"
-        esd_mp esd_uuid;
+    debug "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s" esd_mp esd_uuid;
 
     (* See if we can write files as UID:GID 36:36. *)
     let () =
@@ -177,9 +175,7 @@ object
       let stat = stat testfile in
       Changeuid.unlink changeuid_t testfile;
       let actual_uid = stat.st_uid and actual_gid = stat.st_gid in
-      if verbose () then
-        eprintf "RHEV: actual UID:GID of new files is %d:%d\n"
-          actual_uid actual_gid;
+      debug "RHEV: actual UID:GID of new files is %d:%d" actual_uid actual_gid;
       if uid <> actual_uid || gid <> actual_gid then (
         if running_as_root then
           warning (f_"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n\nYou will have to chown the files that virt-v2v creates after the run, otherwise RHEV-M will not be able to import the VM.") uid gid
@@ -238,9 +234,7 @@ object
         fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
           let ov_sd = ov.ov_sd in
           let target_file = images_dir // image_uuid // vol_uuid in
-
-          if verbose () then
-            eprintf "RHEV: will export %s to %s\n%!" ov_sd target_file;
+          debug "RHEV: will export %s to %s" ov_sd target_file;
 
           { t with target_file = target_file }
       ) (combine3 targets image_uuids vol_uuids) in

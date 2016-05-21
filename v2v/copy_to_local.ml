@@ -122,23 +122,21 @@ read the man page virt-v2v-copy-to-local(1).
        error (f_"too many command line parameters.  See the virt-v2v-copy-to-local(1) manual page.") in
 
   (* Print the version, easier than asking users to tell us. *)
-  if verbose () then
-    printf "%s: %s %s (%s)\n%!"
-      prog Guestfs_config.package_name Guestfs_config.package_version Guestfs_config.host_cpu;
+  debug "%s: %s %s (%s)"
+        prog Guestfs_config.package_name
+        Guestfs_config.package_version Guestfs_config.host_cpu;
 
   (* Get the remote libvirt XML. *)
   message (f_"Fetching the remote libvirt XML metadata ...");
   let xml = Domainxml.dumpxml ?password ~conn:input_conn guest_name in
 
-  if verbose () then
-    printf "libvirt XML from remote server:\n%s\n" xml;
+  debug "libvirt XML from remote server:\n%s" xml;
 
   (* Get the disk remote paths from the XML. *)
   message (f_"Parsing the remote libvirt XML metadata ...");
   let disks, dcpath, xml = parse_libvirt_xml guest_name xml in
 
-  if verbose () then
-    printf "libvirt XML after modifying for local disks:\n%s\n" xml;
+  debug "libvirt XML after modifying for local disks:\n%s" xml;
 
   (* For VMware ESXi source, we have to massage the disk path. *)
   let disks =
@@ -149,8 +147,7 @@ read the man page virt-v2v-copy-to-local(1).
            let url, sslverify =
              VCenter.map_source_to_https dcpath parsed_uri
                                          server remote_disk in
-           if verbose () then
-             printf "esxi: source disk %s (sslverify=%b)\n" url sslverify;
+           debug "esxi: source disk %s (sslverify=%b)" url sslverify;
            let cookie =
              VCenter.get_session_cookie password "esx"
                                         parsed_uri sslverify url in
@@ -197,8 +194,7 @@ read the man page virt-v2v-copy-to-local(1).
                  (if quiet () then ""
                   else " status=progress")
                  (quote local_disk) in
-       if verbose () then
-         printf "%s\n%!" cmd;
+       debug "%s" cmd;
        if Sys.command cmd <> 0 then
          error (f_"ssh copy command failed, see earlier errors");
 
@@ -219,13 +215,12 @@ read the man page virt-v2v-copy-to-local(1).
          else curl_args in
 
        if verbose () then
-         Curl.print_curl_command stdout curl_args;
+         Curl.print_curl_command stderr curl_args;
        ignore (Curl.run curl_args)
 
     | Test ->
        let cmd = sprintf "cp %s %s" (quote remote_disk) (quote local_disk) in
-       if verbose () then
-         printf "%s\n%!" cmd;
+       debug "%s" cmd;
        if Sys.command cmd <> 0 then
          error (f_"copy command failed, see earlier errors");
   ) disks;

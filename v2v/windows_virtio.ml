@@ -369,9 +369,8 @@ and copy_drivers g inspect driverdir =
           let source = virtio_win // path in
           let target = driverdir //
                          String.lowercase_ascii (Filename.basename path) in
-          if verbose () then
-            printf "Copying virtio driver bits: 'host:%s' -> '%s'\n"
-                   source target;
+          debug "copying virtio driver bits: 'host:%s' -> '%s'"
+                source target;
 
           g#write target (read_whole_file source);
           ret := true
@@ -393,9 +392,8 @@ and copy_drivers g inspect driverdir =
                virtio_iso_path_matches_guest_os path inspect then (
             let target = driverdir //
                            String.lowercase_ascii (Filename.basename path) in
-            if verbose () then
-              printf "Copying virtio driver bits: '%s:%s' -> '%s'\n"
-                     virtio_win path target;
+            debug "copying virtio driver bits: '%s:%s' -> '%s'"
+                  virtio_win path target;
 
             g#write target (g2#read_file source);
             ret := true

@@ -207,7 +207,7 @@ echo uninstalling Xen PV driver
       let value = int_of_le32 (g#hivex_value_value valueh) in
       sprintf "ControlSet%03Ld" value in
 
-    if verbose () then printf "current ControlSet is %s\n%!" current_cs;
+    debug "current ControlSet is %s" current_cs;
 
     disable_services root current_cs;
     disable_autoreboot root current_cs;

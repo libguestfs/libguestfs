@@ -63,7 +63,7 @@ object
   inherit input_libvirt password libvirt_uri guest
 
   method source () =
-    if verbose () then printf "input_libvirt_other: source()\n%!";
+    debug "input_libvirt_other: source()";
 
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)

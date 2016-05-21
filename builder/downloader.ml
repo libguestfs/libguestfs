@@ -99,7 +99,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       t.curl
       (if verbose () then "" else " -s -S")
       (quote uri) in
-    if verbose () then printf "%s\n%!" cmd;
+    debug "%s" cmd;
     let lines = external_command cmd in
     if List.length lines < 1 then
       error (f_"unexpected output from curl command, enable debug and look at previous messages");
@@ -119,7 +119,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       t.curl
       (if verbose () then "" else if progress_bar then " -#" else " -s -S")
       (quote filename_new) (quote uri) in
-    if verbose () then printf "%s\n%!" cmd;
+    debug "%s" cmd;
     let r = Sys.command cmd in
     if r <> 0 then
       error (f_"curl (download) command failed downloading '%s'") uri;

@@ -61,7 +61,7 @@ object
 
         let untar ?(format = "") file outdir =
           let cmd = sprintf "tar -x%sf %s -C %s" format (quote file) (quote outdir) in
-          if verbose () then printf "%s\n%!" cmd;
+          debug "%s" cmd;
           if Sys.command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova in
 
@@ -77,7 +77,7 @@ object
           let cmd = sprintf "unzip%s -j -d %s %s"
             (if verbose () then "" else " -q")
             (quote tmpdir) (quote ova) in
-          if verbose () then printf "%s\n%!" cmd;
+          debug "%s" cmd;
           if Sys.command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir
@@ -154,9 +154,7 @@ object
               if actual <> expected then
                 error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
                   disk mf disk actual disk expected;
-              if verbose () then
-                printf "sha1 of %s matches expected checksum %s\n%!"
-                  disk expected
+              debug "sha1 of %s matches expected checksum %s" disk expected
             | _::_ -> error (f_"cannot parse output of sha1sum command")
           )
         in
@@ -276,7 +274,7 @@ object
               let new_filename = tmpdir // String.random8 () ^ ".vmdk" in
               let cmd =
                 sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
-              if verbose () then printf "%s\n%!" cmd;
+              debug "%s" cmd;
               if Sys.command cmd <> 0 then
                 error (f_"error uncompressing %s, see earlier error messages")
                   filename;

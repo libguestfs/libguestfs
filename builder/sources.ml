@@ -36,9 +36,7 @@ and source_format =
 module StringSet = Set.Make (String)
 
 let parse_conf file =
-  if verbose () then (
-    printf (f_"%s: trying to read %s\n") prog file;
-  );
+  debug "trying to read %s" file;
   let sections = Ini_reader.read_ini ~error_suffix:"[ignored]" file in
 
   let sources = List.fold_right (
@@ -55,20 +53,16 @@ let parse_conf file =
             try Some (URI.parse_uri (List.assoc ("gpgkey", None) fields)) with
             | Not_found -> None
             | Invalid_argument "URI.parse_uri" as ex ->
-              if verbose () then (
-                printf (f_"%s: '%s' has invalid gpgkey URI\n") prog n;
-              );
-              raise ex in
+               debug "'%s' has invalid gpgkey URI" n;
+               raise ex in
           match k with
           | None -> Utils.No_Key
           | Some uri ->
             (match uri.URI.protocol with
             | "file" -> Utils.KeyFile uri.URI.path
             | _ ->
-              if verbose () then (
-                printf (f_"%s: '%s' has non-local gpgkey URI\n") prog n;
-              );
-              Utils.No_Key
+               debug "'%s' has non-local gpgkey URI" n;
+               Utils.No_Key
             ) in
         let proxy =
           try
@@ -92,10 +86,8 @@ let parse_conf file =
               ) else
                 FormatSimpleStreams
             | fmt ->
-              if verbose () then (
-                eprintf (f_"%s: unknown repository type '%s' in %s, skipping it\n") prog fmt file;
-              );
-              invalid_arg fmt
+               debug "unknown repository type '%s' in %s, skipping it" fmt file;
+               invalid_arg fmt
             )
           with
             Not_found -> FormatNative in
@@ -108,9 +100,7 @@ let parse_conf file =
       with Not_found | Invalid_argument _ -> acc
   ) sections [] in
 
-  if verbose () then (
-    printf (f_"%s: ... read %d sources\n") prog (List.length sources);
-  );
+  debug "read %d sources" (List.length sources);
 
   sources
 
@@ -151,14 +141,10 @@ let read_sources () =
             s
           ) with
           | Unix_error (code, fname, _) ->
-            if verbose () then (
-              printf (f_"%s: file error: %s: %s\n") prog fname (error_message code)
-            );
-            acc
+             debug "file error: %s: %s\n" fname (error_message code);
+             acc
           | Invalid_argument msg ->
-            if verbose () then (
-              printf (f_"%s: internal error: invalid argument: %s\n") prog msg
-            );
-            acc
+             debug "internal error: invalid argument: %s" msg;
+             acc
       ) acc files
   ) [] dirs

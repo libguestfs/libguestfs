@@ -47,8 +47,7 @@ let get_drive_slot str offset =
        None
 
 let parse_libvirt_xml ?conn xml =
-  if verbose () then
-    printf "libvirt xml is:\n%s\n" xml;
+  debug "libvirt xml is:\n%s" xml;
 
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
