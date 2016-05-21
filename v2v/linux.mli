@@ -24,10 +24,6 @@ val augeas_reload : Guestfs.guestfs -> unit
     provide additional debugging information about parsing problems
     that augeas found. *)
 
-val install : Guestfs.guestfs -> Types.inspect -> string list -> unit
-(** Install package(s) from the list in the guest (or ensure they are
-    installed). *)
-
 val remove : Guestfs.guestfs -> Types.inspect -> string list -> unit
 (** Uninstall package(s). *)
 
