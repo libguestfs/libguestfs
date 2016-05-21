@@ -97,9 +97,6 @@ and augeas_debug_errors g =
   with
     Guestfs.Error msg -> eprintf "%s: augeas: %s (ignored)\n" prog msg
 
-let install g inspect packages =
-  assert false
-
 let remove g inspect packages =
   if packages <> [] then (
     let package_format = inspect.i_package_format in
