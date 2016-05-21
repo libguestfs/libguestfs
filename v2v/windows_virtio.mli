@@ -22,7 +22,7 @@ val install_drivers
     : Guestfs.guestfs -> Types.inspect -> string -> int64 -> string ->
       Types.requested_guestcaps ->
       Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type
-(** [install_drivers g inspect systemroot root current_cs]
+(** [install_drivers g inspect systemroot root current_cs rcaps]
     installs virtio drivers from the driver directory or driver
     ISO into the guest driver directory and updates the registry
     so that the [viostor.sys] driver gets loaded by Windows at boot.

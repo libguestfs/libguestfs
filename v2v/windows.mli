@@ -24,8 +24,9 @@ val detect_antivirus : Types.inspect -> bool
 
 val with_hive_readonly : Guestfs.guestfs -> string -> (int64 -> 'a) -> 'a
 val with_hive_write : Guestfs.guestfs -> string -> (int64 -> 'a) -> 'a
-(** These are wrappers that handle opening and closing the hive
-    properly around a function [f].
+(** [with_hive_(readonly|write) g hive_filename f]
+    are wrappers that handle opening and closing the hive
+    named [hive_filename] around a function [f].
 
     [with_hive_readonly] opens the hive for read-only (attempts
     to write will throw an error).  [with_hive_write] opens the
