@@ -18,12 +18,22 @@
 
 /**
  * Return current umask in a thread-safe way.
+ *
+ * glibc documents, but does not actually implement, a "getumask(3)"
+ * call.
+ *
+ * We use C<Umask> from F</proc/I<PID>/status> for Linux E<ge> 4.7.
+ * For older Linux and other Unix, this file implements an expensive
+ * but thread-safe way to get the current process's umask.
+ *
+ * Thanks to: Josh Stone, Jiri Jaburek, Eric Blake.
  */
 
 #include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -35,20 +45,76 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
+static int get_umask_from_proc (guestfs_h *g);
+static int get_umask_from_fork (guestfs_h *g);
+
 /**
- * glibc documents, but does not actually implement, a L<getumask(3)>
- * call.
- *
- * This function implements an expensive, but thread-safe way to get
- * the current process's umask.
- *
  * Returns the current process's umask.  On failure, returns C<-1> and
  * sets the error in the guestfs handle.
- *
- * Thanks to: Josh Stone, Jiri Jaburek, Eric Blake.
  */
 int
 guestfs_int_getumask (guestfs_h *g)
+{
+  int mask;
+
+  mask = get_umask_from_proc (g);
+  if (mask == -1)
+    return -1;
+  if (mask >= 0)
+    return mask;
+
+  return get_umask_from_fork (g);
+}
+
+/**
+ * For Linux E<ge> 4.7 get the umask from F</proc/I<PID>/status>.
+ *
+ * On failure this returns C<-1>.  However if we could not open the
+ * F</proc> file or find the C<Umask> entry in it, return C<-2> which
+ * causes the fallback path to run.
+ */
+static int
+get_umask_from_proc (guestfs_h *g)
+{
+  CLEANUP_FCLOSE FILE *fp = NULL;
+  char path[sizeof "/proc//status" + sizeof (pid_t) * 3 + 1];
+  CLEANUP_FREE char *line = NULL;
+  size_t allocsize = 0;
+  ssize_t len;
+  unsigned int mask;
+  bool found = false;
+
+  snprintf (path, sizeof path, "/proc/%d/status", getpid ());
+  fp = fopen (path, "r");
+  if (fp == NULL) {
+    if (errno == ENOENT || errno == ENOTDIR)
+      return -2;                /* fallback */
+    perrorf (g, "open: %s", path);
+    return -1;
+  }
+
+  while ((len = getline (&line, &allocsize, fp)) != -1) {
+    if (len > 0 && line[len-1] == '\n')
+      line[--len] = '\0';
+
+    /* Looking for: "Umask:  0022" */
+    if (sscanf (line, "Umask: %o", &mask) == 1) {
+      found = true;
+      break;
+    }
+  }
+
+  if (!found)
+    return -2;                  /* fallback */
+
+  return (int) mask;
+}
+
+/**
+ * Fallback method of getting the umask using fork.
+ */
+static int
+get_umask_from_fork (guestfs_h *g)
 {
   pid_t pid;
   int fd[2], r;
