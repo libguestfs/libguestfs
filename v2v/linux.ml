@@ -144,7 +144,7 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
       ) else
         pkg_name in
     let cmd = [| "rpm"; "-ql"; pkg_name |] in
-    if verbose () then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
+    debug "%s" (String.concat " " (Array.to_list cmd));
     let files = g#command_lines cmd in
     let files = Array.to_list files in
     List.sort compare files
@@ -160,7 +160,7 @@ let rec file_owner g inspect path =
        * a file, this deliberately only returns one package.
        *)
       let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}"; path |] in
-      if verbose () then eprintf "%s\n%!" (String.concat " " (Array.to_list cmd));
+      debug "%s" (String.concat " " (Array.to_list cmd));
       (try g#command cmd
        with Guestfs.Error msg as exn ->
          if String.find msg "is not owned" >= 0 then

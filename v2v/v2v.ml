@@ -40,9 +40,9 @@ let rec main () =
   let cmdline, input, output = parse_cmdline () in
 
   (* Print the version, easier than asking users to tell us. *)
-  if verbose () then
-    printf "%s: %s %s (%s)\n%!"
-      prog Guestfs_config.package_name Guestfs_config.package_version Guestfs_config.host_cpu;
+  debug "%s: %s %s (%s)"
+        prog Guestfs_config.package_name
+        Guestfs_config.package_version Guestfs_config.host_cpu;
 
   let source = open_source cmdline input in
   let source = amend_source cmdline source in
@@ -126,8 +126,7 @@ let rec main () =
        let target_buses =
          Target_bus_assignment.target_bus_assignment source targets
                                                      guestcaps in
-       if verbose () then
-         printf "%s%!" (string_of_target_buses target_buses);
+       debug "%s" (string_of_target_buses target_buses);
 
        let targets =
          if not cmdline.do_copy then targets
@@ -156,7 +155,7 @@ and open_source cmdline input =
     exit 0
   );
 
-  if verbose () then printf "%s%!" (string_of_source source);
+  debug "%s" (string_of_source source);
 
   (match source.s_hypervisor with
   | OtherHV hv ->
@@ -230,7 +229,7 @@ and create_overlays src_disks =
       let cmd =
         sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
                 (quote qemu_uri) (quote options) overlay_file in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
 
@@ -453,16 +452,14 @@ and estimate_target_size mpstats targets =
     sum (
       List.map (fun { mp_statvfs = s } -> s.G.blocks *^ s.G.bsize) mpstats
     ) in
-  if verbose () then
-    printf "estimate_target_size: fs_total_size = %Ld [%s]\n%!"
-      fs_total_size (human_size fs_total_size);
+  debug "estimate_target_size: fs_total_size = %Ld [%s]"
+        fs_total_size (human_size fs_total_size);
 
   (* (2) *)
   let source_total_size =
     sum (List.map (fun t -> t.target_overlay.ov_virtual_size) targets) in
-  if verbose () then
-    printf "estimate_target_size: source_total_size = %Ld [%s]\n%!"
-      source_total_size (human_size source_total_size);
+  debug "estimate_target_size: source_total_size = %Ld [%s]"
+        source_total_size (human_size source_total_size);
 
   if source_total_size = 0L then     (* Avoid divide by zero error. *)
     targets
@@ -470,8 +467,7 @@ and estimate_target_size mpstats targets =
     (* (3) Store the ratio as a float to avoid overflows later. *)
     let ratio =
       Int64.to_float fs_total_size /. Int64.to_float source_total_size in
-    if verbose () then
-      printf "estimate_target_size: ratio = %.3f\n%!" ratio;
+    debug "estimate_target_size: ratio = %.3f" ratio;
 
     (* (4) *)
     let fs_free =
@@ -494,13 +490,11 @@ and estimate_target_size mpstats targets =
           | _ -> 0L
         ) mpstats
       ) in
-    if verbose () then
-      printf "estimate_target_size: fs_free = %Ld [%s]\n%!"
-        fs_free (human_size fs_free);
+    debug "estimate_target_size: fs_free = %Ld [%s]"
+          fs_free (human_size fs_free);
     let scaled_saving = Int64.of_float (Int64.to_float fs_free *. ratio) in
-    if verbose () then
-      printf "estimate_target_size: scaled_saving = %Ld [%s]\n%!"
-        scaled_saving (human_size scaled_saving);
+    debug "estimate_target_size: scaled_saving = %Ld [%s]"
+          scaled_saving (human_size scaled_saving);
 
     (* (5) *)
     let targets = List.map (
@@ -510,9 +504,8 @@ and estimate_target_size mpstats targets =
           Int64.to_float size /. Int64.to_float source_total_size in
         let estimated_size =
           size -^ Int64.of_float (proportion *. Int64.to_float scaled_saving) in
-        if verbose () then
-          printf "estimate_target_size: %s: %Ld [%s]\n%!"
-            ov.ov_sd estimated_size (human_size estimated_size);
+        debug "estimate_target_size: %s: %Ld [%s]"
+              ov.ov_sd estimated_size (human_size estimated_size);
         { t with target_estimated_size = Some estimated_size }
     ) targets in
 
@@ -540,11 +533,10 @@ and do_convert g inspect source keep_serial_console rcaps =
     with Not_found ->
       error (f_"virt-v2v is unable to convert this guest type (%s/%s)")
         inspect.i_type inspect.i_distro in
-  if verbose () then printf "picked conversion module %s\n%!" conversion_name;
-  if verbose () then printf "requested caps: %s%!"
-    (string_of_requested_guestcaps rcaps);
+  debug "picked conversion module %s" conversion_name;
+  debug "requested caps: %s" (string_of_requested_guestcaps rcaps);
   let guestcaps = convert ~keep_serial_console g inspect source rcaps in
-  if verbose () then printf "%s%!" (string_of_guestcaps guestcaps);
+  debug "%s" (string_of_guestcaps guestcaps);
 
   (* Did we manage to install virtio drivers? *)
   if not (quiet ()) then (
@@ -597,7 +589,7 @@ and copy_targets cmdline targets input output =
     fun i t ->
       message (f_"Copying disk %d/%d to %s (%s)")
         (i+1) nr_disks t.target_file t.target_format;
-      if verbose () then printf "%s%!" (string_of_target t);
+      debug "%s" (string_of_target t);
 
       (* We noticed that qemu sometimes corrupts the qcow2 file on
        * exit.  This only seemed to happen with lazy_refcounts was
@@ -645,7 +637,7 @@ and copy_targets cmdline targets input output =
           (if cmdline.compressed then " -c" else "")
           (quote overlay_file)
           (quote t.target_file) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       let start_time = gettimeofday () in
       if Sys.command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");

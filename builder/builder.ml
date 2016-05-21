@@ -129,7 +129,7 @@ let main () =
           | None -> ""
           | Some output -> sprintf " --output %s" (quote output))
           (quote cmdline.arg) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       exit (Sys.command cmd)
 
     | `Delete_cache ->                  (* --delete-cache *)
@@ -552,14 +552,14 @@ let main () =
       let ofile = List.assoc `Filename otags in
       message (f_"Copying");
       let cmd = sprintf "cp %s %s" (quote ifile) (quote ofile) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Rename, otags ->
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
       let cmd = sprintf "mv %s %s" (quote ifile) (quote ofile) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Pxzcat, otags ->
@@ -598,7 +598,7 @@ let main () =
           | None -> ""
           | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
           (quote ifile) (quote ofile) in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Disk_resize, otags ->
@@ -609,7 +609,7 @@ let main () =
         (human_size osize);
       let cmd = sprintf "qemu-img resize %s %Ld%s"
         (quote ofile) osize (if verbose () then "" else " >/dev/null") in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then exit 1
 
     | itags, `Convert, otags ->
@@ -628,7 +628,7 @@ let main () =
         | Some iformat -> sprintf " -f %s" (quote iformat))
         (quote ifile) (quote oformat) (quote (qemu_input_filename ofile))
         (if verbose () then "" else " >/dev/null 2>&1") in
-      if verbose () then printf "%s\n%!" cmd;
+      debug "%s" cmd;
       if Sys.command cmd <> 0 then exit 1
   ) plan;
 

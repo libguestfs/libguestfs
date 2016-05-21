@@ -86,7 +86,7 @@ let rec inspect_source root_choice g =
     i_apps_map = apps_map;
     i_uefi = uefi
   } in
-  if verbose () then printf "%s%!" (string_of_inspect inspect);
+  debug "%s" (string_of_inspect inspect);
 
   sanity_check_inspection inspect;
 
@@ -162,7 +162,7 @@ and has_uefi_bootable_device g =
     with G.Error msg as exn ->
          (* If it's _not_ "unrecognised disk label" then re-raise it. *)
          if g#last_errno () <> G.Errno.errno_EINVAL then raise exn;
-         if verbose () then printf "%s (ignored)\n" msg;
+         debug "%s (ignored)" msg;
          false
   and is_uefi_bootable_device dev =
     parttype_is_gpt dev && (

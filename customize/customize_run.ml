@@ -85,7 +85,7 @@ exec >>%s 2>&1
 %s
 " (quote logfile) env_vars cmd in
 
-    if verbose () then printf "running command:\n%s\n%!" cmd;
+    debug "running command:\n%s" cmd;
     try ignore (g#sh cmd)
     with
       Guestfs.Error msg ->

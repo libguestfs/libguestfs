@@ -73,7 +73,7 @@ let get_session_cookie password scheme uri sslverify url =
       flush chan
     in
 
-    if verbose () then dump_response stdout;
+    if verbose () then dump_response stderr;
 
     (* Look for the last HTTP/x.y NNN status code in the output. *)
     let status = ref "" in
@@ -240,8 +240,7 @@ let map_source_to_uri readahead dcPath password uri scheme server path =
     | None -> json_params
     | Some cookie -> ("file.cookie", JSON.String cookie) :: json_params in
 
-  if verbose () then
-    printf "vcenter: json parameters: %s\n" (JSON.string_of_doc json_params);
+  debug "vcenter: json parameters: %s" (JSON.string_of_doc json_params);
 
   (* Turn the JSON parameters into a 'json:' protocol string.
    * Note this requires qemu-img >= 2.1.0.

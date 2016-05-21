@@ -318,7 +318,7 @@ class output_libvirt oc output_pool = object
   method prepare_targets source targets =
     (* Get the capabilities from libvirt. *)
     let xml = Domainxml.capabilities ?conn:oc () in
-    if verbose () then printf "libvirt capabilities XML:\n%s\n%!" xml;
+    debug "libvirt capabilities XML:\n%s" xml;
 
     (* This just checks that the capabilities XML is well-formed,
      * early so that we catch parsing errors before conversion.
@@ -390,7 +390,7 @@ class output_libvirt oc output_pool = object
       | Some uri ->
         sprintf "virsh -c %s pool-refresh %s"
           (quote uri) (quote output_pool) in
-    if verbose () then printf "%s\n%!" cmd;
+    debug "%s" cmd;
     if Sys.command cmd <> 0 then
       warning (f_"could not refresh libvirt pool %s") output_pool;
 
@@ -412,9 +412,9 @@ class output_libvirt oc output_pool = object
     close_out chan;
 
     if verbose () then (
-      printf "resulting XML for libvirt:\n%!";
-      DOM.doc_to_chan stdout doc;
-      printf "\n%!";
+      eprintf "resulting XML for libvirt:\n%!";
+      DOM.doc_to_chan stderr doc;
+      eprintf "\n%!";
     );
 
     (* Define the domain in libvirt. *)

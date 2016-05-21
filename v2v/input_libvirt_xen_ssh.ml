@@ -35,9 +35,8 @@ object
   inherit input_libvirt password libvirt_uri guest
 
   method source () =
-    if verbose () then
-      printf "input_libvirt_xen_ssh: source: scheme %s server %s\n%!"
-        scheme server;
+    debug "input_libvirt_xen_ssh: source: scheme %s server %s"
+          scheme server;
 
     error_if_libvirt_backend ();
     error_if_no_ssh_agent ();
@@ -88,8 +87,7 @@ object
           | None -> json_params
           | Some user -> ("file.user", JSON.String user) :: json_params in
 
-        if verbose () then
-          printf "ssh: json parameters: %s\n" (JSON.string_of_doc json_params);
+        debug "ssh: json parameters: %s" (JSON.string_of_doc json_params);
 
         (* Turn the JSON parameters into a 'json:' protocol string. *)
         let qemu_uri = "json: " ^ JSON.string_of_doc json_params in

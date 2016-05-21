@@ -368,10 +368,8 @@ read the man page virt-resize(1).
     let sectsize = Int64.of_int (g#blockdev_getss "/dev/sdb") in
     let insize = g#blockdev_getsize64 "/dev/sda" in
     let outsize = g#blockdev_getsize64 "/dev/sdb" in
-    if verbose () then (
-      printf "%s size %Ld bytes\n" (fst infile) insize;
-      printf "%s size %Ld bytes\n" outfile outsize
-    );
+    debug "%s size %Ld bytes" (fst infile) insize;
+    debug "%s size %Ld bytes" outfile outsize;
     sectsize, insize, outsize in
 
   let max_bootloader =
@@ -398,7 +396,7 @@ read the man page virt-resize(1).
   (* Get the source partition type. *)
   let parttype, parttype_string =
     let pt = g#part_get_parttype "/dev/sda" in
-    if verbose () then printf "partition table type: %s\n%!" pt;
+    debug "partition table type: %s" pt;
 
     match pt with
     | "msdos" -> MBR, "msdos"
@@ -753,9 +751,8 @@ read the man page virt-resize(1).
 
     let surplus = outsize -^ (required +^ overhead) in
 
-    if verbose () then
-      printf "calculate surplus: outsize=%Ld required=%Ld overhead=%Ld surplus=%Ld\n%!"
-        outsize required overhead surplus;
+    debug "calculate surplus: outsize=%Ld required=%Ld overhead=%Ld surplus=%Ld"
+          outsize required overhead surplus;
 
     surplus
   in
@@ -767,8 +764,7 @@ read the man page virt-resize(1).
   if expand <> None || shrink <> None then (
     let surplus = calculate_surplus () in
 
-    if verbose () then
-      printf "surplus before --expand or --shrink: %Ld\n" surplus;
+    debug "surplus before --expand or --shrink: %Ld" surplus;
 
     (match expand with
      | None -> ()
@@ -1075,9 +1071,8 @@ read the man page virt-resize(1).
     | `Always, _
     | `Auto, true -> true in
 
-  if verbose () then
-    printf "align_first_partition_and_fix_bootloader = %b\n%!"
-      align_first_partition_and_fix_bootloader;
+  debug "align_first_partition_and_fix_bootloader = %b"
+        align_first_partition_and_fix_bootloader;
 
   (* Repartition the target disk. *)
 
@@ -1099,9 +1094,8 @@ read the man page virt-resize(1).
         let end_ = start +^ size in
         let next = roundup64 end_ alignment in
 
-        if verbose () then
-          printf "target partition %d: ignore or copy: start=%Ld end=%Ld\n%!"
-            partnum start (end_ -^ 1L);
+        debug "target partition %d: ignore or copy: start=%Ld end=%Ld"
+              partnum start (end_ -^ 1L);
 
         { p with p_target_start = start; p_target_end = end_ -^ 1L;
           p_target_partnum = partnum } :: loop (partnum+1) next ps
@@ -1113,9 +1107,8 @@ read the man page virt-resize(1).
         let next = start +^ size in
         let next = roundup64 next alignment in
 
-        if verbose () then
-          printf "target partition %d: resize: newsize=%Ld start=%Ld end=%Ld\n%!"
-            partnum newsize start (next -^ 1L);
+        debug "target partition %d: resize: newsize=%Ld start=%Ld end=%Ld"
+              partnum newsize start (next -^ 1L);
 
         { p with p_target_start = start; p_target_end = next -^ 1L;
           p_target_partnum = partnum } :: loop (partnum+1) next ps
@@ -1259,7 +1252,7 @@ read the man page virt-resize(1).
 
         if verbose () then (
           let old_hidden = int_of_le32 (g#pread_device target 4 0x1c_L) in
-          printf "old hidden sectors value: 0x%Lx\n%!" old_hidden
+          debug "old hidden sectors value: 0x%Lx" old_hidden
         );
 
         let new_hidden = le32_of_int start in

@@ -96,9 +96,8 @@ let run indisk outdisk check_tmpdir compress convert
   | Directory tmpdir ->
     (* Get virtual size of the input disk. *)
     let virtual_size = (open_guestfs ())#disk_virtual_size indisk in
-    if verbose () then
-      printf "input disk virtual size is %Ld bytes (%s)\n%!"
-             virtual_size (human_size virtual_size);
+    debug "input disk virtual size is %Ld bytes (%s)"
+          virtual_size (human_size virtual_size);
 
     let print_warning () =
       let free_space = statvfs_free_space tmpdir in
@@ -327,8 +326,7 @@ You can ignore this warning or change it to a hard failure using the
       | None -> ""
       | Some option -> " -o " ^ quote option)
       (quote overlaydisk) (quote (qemu_input_filename outdisk)) in
-  if verbose () then
-    printf "%s\n%!" cmd;
+  debug "%s" cmd;
   if Sys.command cmd <> 0 then
     error (f_"external command failed: %s") cmd;
 

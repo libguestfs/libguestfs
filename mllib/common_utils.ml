@@ -384,6 +384,11 @@ let info fs =
   in
   ksprintf display fs
 
+(* Print a debug message. *)
+let debug fs =
+  let display str = if verbose () then prerr_endline str in
+  ksprintf display fs
+
 (* Common function to create a new Guestfs handle, with common options
  * (e.g. debug, tracing) already set.
  *)

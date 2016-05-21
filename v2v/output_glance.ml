@@ -76,7 +76,7 @@ object
         let cmd =
           sprintf "glance image-create --name %s --disk-format=%s --container-format=bare --file %s"
                   (quote name) (quote target_format) target_file in
-        if verbose () then printf "%s\n%!" cmd;
+        debug "%s" cmd;
         if Sys.command cmd <> 0 then
           error (f_"glance: image upload to glance failed, see earlier errors");
 
@@ -126,7 +126,7 @@ object
                     ) properties
                   ))
                   (quote name) in
-        if verbose () then printf "%s\n%!" cmd;
+        debug "%s" cmd;
         if Sys.command cmd <> 0 then (
           warning (f_"glance: failed to set image properties (ignored)");
           (* Dump out the image properties so the user can set them. *)
