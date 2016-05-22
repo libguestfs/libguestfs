@@ -415,6 +415,6 @@ exec >>%s 2>&1
   (try ignore (g#debug "sh" [| "fuser"; "-k"; "/sysroot" |])
    with exn ->
      if verbose () then
-       printf (f_"%s: %s (ignored)\n") prog (Printexc.to_string exn)
+       warning (f_"%s (ignored)") (Printexc.to_string exn)
   );
   g#ping_daemon () (* tiny delay after kill *)
