@@ -93,7 +93,7 @@ external aavmf_firmware : unit -> uefi_firmware list = "v2v_utils_aavmf_firmware
 (* Find the UEFI firmware. *)
 let find_uefi_firmware guest_arch =
   let files =
-    (* The lists of firmware are actually defined in src/utils.c. *)
+    (* The lists of firmware are actually defined in src/uefi.c. *)
     match guest_arch with
     | "i386" | "i486" | "i586" | "i686" -> ovmf_i386_firmware ()
     | "x86_64" -> ovmf_x86_64_firmware ()

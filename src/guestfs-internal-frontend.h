@@ -92,6 +92,7 @@ extern void guestfs_int_fadvise_noreuse (int fd);
 //extern void guestfs_int_fadvise_willneed (int fd);
 extern char *guestfs_int_shell_unquote (const char *str);
 
+/* uefi.c */
 struct uefi_firmware {
   const char *code;		/* code file (NULL = end of list) */
   const char *code_debug;	/* code file with debugging msgs (may be NULL)*/

@@ -235,6 +235,7 @@ libutils_la_SOURCES = \
 	structs-cleanup.c \
 	structs-print.c \
 	structs-print.h \
+	uefi.c \
 	utils.c
 libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
 libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)

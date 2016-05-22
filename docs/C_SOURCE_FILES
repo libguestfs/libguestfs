@@ -261,6 +261,7 @@ src/structs-copy.c
 src/structs-free.c
 src/structs-print.c
 src/tmpdirs.c
+src/uefi.c
 src/umask.c
 src/unit-tests.c
 src/utils.c
