@@ -30,6 +30,7 @@
 /* See src/appliance.c:guestfs_int_get_uefi. */
 struct uefi_firmware
 guestfs_int_ovmf_i386_firmware[] = {
+  /* kraxel's old repository, these will be removed by end of 2016. */
   { "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd",
     NULL,
     "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd" },
@@ -43,6 +44,11 @@ guestfs_int_ovmf_x86_64_firmware[] = {
     NULL,
     "/usr/share/OVMF/OVMF_VARS.fd" },
 
+  { "/usr/share/edk2/ovmf/OVMF_CODE.fd",
+    NULL,
+    "/usr/share/edk2/ovmf/OVMF_VARS.fd" },
+
+  /* kraxel's old repository, these will be removed by end of 2016. */
   { "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd",
     NULL,
     "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd" },
@@ -60,6 +66,11 @@ guestfs_int_aavmf_firmware[] = {
     "/usr/share/AAVMF/AAVMF_CODE.verbose.fd",
     "/usr/share/AAVMF/AAVMF_VARS.fd" },
 
+  { "/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw",
+    NULL,
+    "/usr/share/edk2/aarch64/vars-template-pflash.raw" },
+
+  /* kraxel's old repository, these will be removed by end of 2016. */
   { "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw",
     NULL,
     "/usr/share/edk2.git/aarch64/vars-template-pflash.raw" },
