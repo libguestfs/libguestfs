@@ -90,9 +90,7 @@ object
 
     dd_mp <- mp;
     dd_uuid <- uuid;
-    if verbose () then
-      eprintf "VDSM: DD mountpoint: %s\nVDSM: DD UUID: %s\n%!"
-        dd_mp dd_uuid;
+    debug "VDSM: DD mountpoint: %s\nVDSM: DD UUID: %s" dd_mp dd_uuid;
 
     (* Note that VDSM has to create all these directories. *)
     let images_dir = dd_mp // dd_uuid // "images" in
@@ -109,8 +107,7 @@ object
       error (f_"OVF (metadata) directory (%s) does not exist or is not a directory")
         vdsm_params.ovf_output;
 
-    if verbose () then
-      eprintf "VDSM: OVF (metadata) directory: %s\n%!" vdsm_params.ovf_output;
+    debug "VDSM: OVF (metadata) directory: %s" vdsm_params.ovf_output;
 
     (* The final directory structure should look like this:
      *   /<MP>/<ESD_UUID>/images/
@@ -129,8 +126,7 @@ object
           let ov_sd = ov.ov_sd in
           let target_file = images_dir // image_uuid // vol_uuid in
 
-          if verbose () then
-            eprintf "VDSM: will export %s to %s\n%!" ov_sd target_file;
+          debug "VDSM: will export %s to %s" ov_sd target_file;
 
           { t with target_file = target_file }
       ) (combine3 targets vdsm_params.image_uuids vdsm_params.vol_uuids) in
