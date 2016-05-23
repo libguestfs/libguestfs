@@ -386,11 +386,9 @@ class output_libvirt oc output_pool = object
      *)
     let cmd =
       match oc with
-      | None -> sprintf "virsh pool-refresh %s" (quote output_pool)
-      | Some uri ->
-        sprintf "virsh -c %s pool-refresh %s"
-          (quote uri) (quote output_pool) in
-    if shell_command cmd <> 0 then
+      | None -> [ "virsh"; "pool-refresh"; output_pool ]
+      | Some uri -> [ "virsh"; "-c"; uri; "pool-refresh"; output_pool ] in
+    if run_command cmd <> 0 then
       warning (f_"could not refresh libvirt pool %s") output_pool;
 
     (* Parse the capabilities XML in order to get the supported features. *)
@@ -419,10 +417,9 @@ class output_libvirt oc output_pool = object
     (* Define the domain in libvirt. *)
     let cmd =
       match oc with
-      | None -> sprintf "virsh define %s" (quote tmpfile)
-      | Some uri ->
-        sprintf "virsh -c %s define %s" (quote uri) (quote tmpfile) in
-    if shell_command cmd = 0 then (
+      | None -> [ "virsh"; "define"; tmpfile ]
+      | Some uri -> [ "virsh"; "-c"; uri; "define"; tmpfile ] in
+    if run_command cmd = 0 then (
       try Unix.unlink tmpfile with _ -> ()
     ) else (
       warning (f_"could not define libvirt domain.  The libvirt XML is still available in '%s'.  Try running 'virsh define %s' yourself instead.")

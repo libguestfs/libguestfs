@@ -60,8 +60,8 @@ object
           tmpfile in
 
         let untar ?(format = "") file outdir =
-          let cmd = sprintf "tar -x%sf %s -C %s" format (quote file) (quote outdir) in
-          if shell_command cmd <> 0 then
+          let cmd = [ "tar"; sprintf "-x%sf" format; file; "-C"; outdir ] in
+          if run_command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova in
 
         match detect_file_type ova with
@@ -73,10 +73,10 @@ object
           (* However, although not permitted by the spec, people ship
            * zip files as ova too.
            *)
-          let cmd = sprintf "unzip%s -j -d %s %s"
-            (if verbose () then "" else " -q")
-            (quote tmpdir) (quote ova) in
-          if shell_command cmd <> 0 then
+          let cmd = [ "unzip" ] @
+            (if verbose () then [] else [ "-q" ]) @
+            [ "-j"; "-d"; tmpdir; ova ] in
+          if run_command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir
         | (`GZip|`XZ) as format ->

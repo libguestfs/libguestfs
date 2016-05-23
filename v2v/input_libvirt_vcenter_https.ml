@@ -128,10 +128,9 @@ object
                                   parsed_uri scheme server orig_path in
 
       (* Rebase the qcow2 overlay to adjust the readahead parameter. *)
-      let cmd =
-        sprintf "qemu-img rebase -u -b %s %s"
-          (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
-      if shell_command cmd <> 0 then
+      let cmd = [ "qemu-img"; "rebase"; "-u"; "-b"; backing_qemu_uri;
+                  overlay.ov_overlay_file ] in
+      if run_command cmd <> 0 then
         warning (f_"qemu-img rebase failed (ignored)")
 end
 

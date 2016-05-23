@@ -43,15 +43,14 @@ let rec mount_and_check_storage_domain domain_class os =
     chmod mp 0o755;
 
     (* Try mounting it. *)
-    let cmd =
-      sprintf "mount %s:%s %s" (quote server) (quote export) (quote mp) in
-    if shell_command cmd <> 0 then
+    let cmd = [ "mount"; sprintf "%s:%s" server export; mp ] in
+    if run_command cmd <> 0 then
       error (f_"mount command failed, see earlier errors.\n\nThis probably means you didn't specify the right %s path [-os %s], or else you need to rerun virt-v2v as root.") domain_class os;
 
     (* Make sure it is unmounted at exit. *)
     at_exit (fun () ->
-      let cmd = sprintf "umount %s" (quote mp) in
-      ignore (shell_command cmd);
+      let cmd = [ "umount"; mp ] in
+      ignore (run_command cmd);
       try rmdir mp with _ -> ()
     );
 

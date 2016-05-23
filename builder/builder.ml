@@ -118,18 +118,17 @@ let main () =
   let mode =
     match cmdline.mode with
     | `Get_kernel -> (* --get-kernel is really a different program ... *)
-      let cmd =
-        sprintf "virt-get-kernel%s%s%s%s --add %s"
-          (if verbose () then " --verbose" else "")
-          (if trace () then " -x" else "")
-          (match cmdline.format with
-          | None -> ""
-          | Some format -> sprintf " --format %s" (quote format))
-          (match cmdline.output with
-          | None -> ""
-          | Some output -> sprintf " --output %s" (quote output))
-          (quote cmdline.arg) in
-      exit (shell_command cmd)
+      let cmd = [ "virt-get-kernel" ] @
+        (if verbose () then [ "--verbose" ] else []) @
+        (if trace () then [ "-x" ] else []) @
+        (match cmdline.format with
+        | None -> []
+        | Some format -> [ "--format"; format ]) @
+        (match cmdline.output with
+        | None -> []
+        | Some output -> [ "--output"; output ]) @
+        [ "--add"; cmdline.arg ] in
+      exit (run_command cmd)
 
     | `Delete_cache ->                  (* --delete-cache *)
       (match cmdline.cache with
@@ -550,14 +549,14 @@ let main () =
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
       message (f_"Copying");
-      let cmd = sprintf "cp %s %s" (quote ifile) (quote ofile) in
-      if shell_command cmd <> 0 then exit 1
+      let cmd = [ "cp"; ifile; ofile ] in
+      if run_command cmd <> 0 then exit 1
 
     | itags, `Rename, otags ->
       let ifile = List.assoc `Filename itags in
       let ofile = List.assoc `Filename otags in
-      let cmd = sprintf "mv %s %s" (quote ifile) (quote ofile) in
-      if shell_command cmd <> 0 then exit 1
+      let cmd = [ "mv"; ifile; ofile ] in
+      if run_command cmd <> 0 then exit 1
 
     | itags, `Pxzcat, otags ->
       let ifile = List.assoc `Filename itags in
@@ -580,22 +579,21 @@ let main () =
       let () =
         let g = open_guestfs () in
         g#disk_create ?preallocation ofile oformat osize in
-      let cmd =
-        sprintf "virt-resize%s%s%s --output-format %s%s%s --unknown-filesystems error %s %s"
-          (if verbose () then " --verbose" else " --quiet")
-          (if is_block_device ofile then " --no-sparse" else "")
-          (match iformat with
-          | None -> ""
-          | Some iformat -> sprintf " --format %s" (quote iformat))
-          (quote oformat)
-          (match expand with
-          | None -> ""
-          | Some expand -> sprintf " --expand %s" (quote expand))
-          (match lvexpand with
-          | None -> ""
-          | Some lvexpand -> sprintf " --lv-expand %s" (quote lvexpand))
-          (quote ifile) (quote ofile) in
-      if shell_command cmd <> 0 then exit 1
+      let cmd = [ "virt-resize" ] @
+        (if verbose () then [ "--verbose" ] else [ "--quiet" ]) @
+        (if is_block_device ofile then [ "--no-sparse" ] else []) @
+        (match iformat with
+        | None -> []
+        | Some iformat -> [ "--format"; iformat ]) @
+        [ "--output-format"; oformat ] @
+        (match expand with
+        | None -> []
+        | Some expand -> [ "--expand"; expand ]) @
+        (match lvexpand with
+        | None -> []
+        | Some lvexpand -> [ "--lv-expand"; lvexpand ]) @
+        [ "--unknown-filesystems"; "error"; ifile; ofile ] in
+      if run_command cmd <> 0 then exit 1
 
     | itags, `Disk_resize, otags ->
       let ofile = List.assoc `Filename otags in
