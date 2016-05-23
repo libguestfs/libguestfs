@@ -662,6 +662,22 @@ let external_command ?(echo_cmd = true) cmd =
   );
   lines
 
+let run_command ?(echo_cmd = true) args =
+  if echo_cmd then
+    debug "%s" (stringify_args args);
+  let pid =
+    Unix.create_process (List.hd args) (Array.of_list args) Unix.stdin
+      Unix.stdout Unix.stderr in
+  let _, stat = Unix.waitpid [] pid in
+  match stat with
+  | Unix.WEXITED i -> i
+  | Unix.WSIGNALED i ->
+    error (f_"external command '%s' killed by signal %d")
+      (stringify_args args) i
+  | Unix.WSTOPPED i ->
+    error (f_"external command '%s' stopped by signal %d")
+      (stringify_args args) i
+
 let shell_command ?(echo_cmd = true) cmd =
   if echo_cmd then
     debug "%s" cmd;

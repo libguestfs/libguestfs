@@ -183,8 +183,8 @@ and verify_and_remove_signature t filename =
      * so gpg recognises that format. *)
     let asc_file = Filename.temp_file "vbfile" ".asc" in
     unlink_on_exit asc_file;
-    let cmd = sprintf "cp %s %s" (quote filename) (quote asc_file) in
-    if shell_command cmd <> 0 then exit 1;
+    let cmd = [ "cp"; filename; asc_file ] in
+    if run_command cmd <> 0 then exit 1;
     let out_file = Filename.temp_file "vbfile" "" in
     unlink_on_exit out_file;
     let args = sprintf "--yes --output %s %s" (quote out_file) (quote filename) in

@@ -218,8 +218,8 @@ read the man page virt-v2v-copy-to-local(1).
        ignore (Curl.run curl_args)
 
     | Test ->
-       let cmd = sprintf "cp %s %s" (quote remote_disk) (quote local_disk) in
-       if shell_command cmd <> 0 then
+       let cmd = [ "cp"; remote_disk; local_disk ] in
+       if run_command cmd <> 0 then
          error (f_"copy command failed, see earlier errors");
   ) disks;
 

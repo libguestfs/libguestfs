@@ -109,16 +109,14 @@ let which tool =
   | [] -> raise (Tool_not_found tool)
   | x :: _ -> x
 
-let run_command cmd =
-  ignore (external_command cmd)
-
 let require_tool tool =
   try ignore (which tool)
   with Tool_not_found tool ->
     error (f_"%s needed but not found") tool
 
 let do_cp src destdir =
-  run_command (sprintf "cp -t %s -a %s" (quote destdir) (quote src))
+  let cmd = [ "cp"; "-t"; destdir; "-a"; src ] in
+  if run_command cmd <> 0 then exit 1
 
 let ensure_trailing_newline str =
   if String.length str > 0 && str.[String.length str - 1] <> '\n' then str ^ "\n"

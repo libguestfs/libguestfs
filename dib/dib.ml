@@ -392,7 +392,7 @@ let run_parts_host ~debug hooks_dir hook_name scripts run_script =
   List.iter (
     fun x ->
       message (f_"Running: %s/%s") hook_name x;
-      let cmd = sprintf "%s %s %s" (quote run_script) (quote hook_dir) (quote x) in
+      let cmd = [ run_script; hook_dir; x ] in
       let run () =
         run_command cmd in
       let delta_t = timed_run run in
@@ -594,9 +594,9 @@ let main () =
 
   let copy_in (g : Guestfs.guestfs) srcdir destdir =
     let desttar = Filename.temp_file ~temp_dir:tmpdir "virt-dib." ".tar.gz" in
-    let cmd = sprintf "tar czf %s -C %s --owner=root --group=root ."
-      (quote desttar) (quote srcdir) in
-    run_command cmd;
+    let cmd = [ "tar"; "czf"; desttar; "-C"; srcdir; "--owner=root";
+                "--group=root"; "." ] in
+    if run_command cmd <> 0 then exit 1;
     g#mkdir_p destdir;
     g#tar_in ~compress:"gzip" desttar destdir;
     Sys.remove desttar in
@@ -604,9 +604,9 @@ let main () =
   let copy_preserve_in (g : Guestfs.guestfs) srcdir destdir =
     let desttar = Filename.temp_file ~temp_dir:tmpdir "virt-dib." ".tar.gz" in
     let remotetar = "/tmp/aux/" ^ (Filename.basename desttar) in
-    let cmd = sprintf "tar czf %s -C %s --owner=root --group=root ."
-      (quote desttar) (quote srcdir) in
-    run_command cmd;
+    let cmd = [ "tar"; "czf"; desttar; "-C"; srcdir; "--owner=root";
+                "--group=root"; "." ] in
+    if run_command cmd <> 0 then exit 1;
     g#upload desttar remotetar;
     let verbose_flag = if debug > 0 then "v" else "" in
     ignore (g#debug "sh" [| "tar"; "-C"; "/sysroot" ^ destdir; "--no-overwrite-dir"; "-x" ^ verbose_flag ^ "zf"; "/sysroot" ^ remotetar |]);
@@ -614,7 +614,7 @@ let main () =
     g#rm remotetar in
 
   if debug >= 1 then
-    ignore (shell_command (sprintf "tree -ps %s" (quote tmpdir)));
+    ignore (run_command [ "tree"; "-ps"; tmpdir ]);
 
   message (f_"Opening the disks");
 
@@ -877,35 +877,22 @@ let main () =
         message (f_"Converting to %s") fmt;
         match fmt with
         | "qcow2" ->
-          let cmd =
-            sprintf "qemu-img convert%s -f %s %s -O %s%s %s"
-              (if cmdline.compressed then " -c" else "")
-              tmpdiskfmt
-              (quote tmpdisk)
-              fmt
-              (match cmdline.qemu_img_options with
-              | None -> ""
-              | Some opt -> " -o " ^ quote opt)
-              (quote (qemu_input_filename fn)) in
-          if debug >= 1 then
-            printf "%s\n%!" cmd;
-          run_command cmd
+          let cmd = [ "qemu-img"; "convert" ] @
+            (if cmdline.compressed then [ "-c" ] else []) @
+            [ "-f"; tmpdiskfmt; tmpdisk; "-O"; fmt ] @
+            (match cmdline.qemu_img_options with
+            | None -> []
+            | Some opt -> [ "-o"; opt ]) @
+            [ qemu_input_filename fn ] in
+          if run_command cmd <> 0 then exit 1;
         | "vhd" ->
           let fn_intermediate = Filename.temp_file ~temp_dir:tmpdir "vhd-intermediate." "" in
-          let cmd =
-            sprintf "vhd-util convert -s 0 -t 1 -i %s -o %s"
-              (quote tmpdisk)
-              (quote fn_intermediate) in
-          if debug >= 1 then
-            printf "%s\n%!" cmd;
-          run_command cmd;
-          let cmd =
-            sprintf "vhd-util convert -s 1 -t 2 -i %s -o %s"
-              (quote fn_intermediate)
-              (quote fn) in
-          if debug >= 1 then
-            printf "%s\n%!" cmd;
-          run_command cmd;
+          let cmd = [ "vhd-util"; "convert"; "-s"; "0"; "-t"; "1";
+                      "-i"; tmpdisk; "-o"; fn_intermediate ] in
+          if run_command cmd <> 0 then exit 1;
+          let cmd = [ "vhd-util"; "convert"; "-s"; "1"; "-t"; "2";
+                      "-i"; fn_intermediate; "-o"; fn ] in
+          if run_command cmd <> 0 then exit 1;
           if not (Sys.file_exists fn) then
             error (f_"VHD output not produced, most probably vhd-util is old or not patched for 'convert'")
         | _ as fmt -> error "unhandled format: %s" fmt

@@ -218,10 +218,9 @@ and create_overlays src_disks =
         "compat=1.1" ^
           (match format with None -> ""
                            | Some fmt -> ",backing_fmt=" ^ fmt) in
-      let cmd =
-        sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
-                (quote qemu_uri) (quote options) overlay_file in
-      if shell_command cmd <> 0 then
+      let cmd = [ "qemu-img"; "create"; "-q"; "-f"; "qcow2"; "-b"; qemu_uri;
+                  "-o"; options; overlay_file ] in
+      if run_command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
 
       (* Sanity check created overlay (see below). *)
@@ -653,15 +652,13 @@ and copy_targets cmdline targets input output =
         t.target_file t.target_format t.target_overlay.ov_virtual_size
         ?preallocation ?compat;
 
-      let cmd =
-        sprintf "qemu-img convert%s -n -f qcow2 -O %s%s %s %s"
-          (if not (quiet ()) then " -p" else "")
-          (quote t.target_format)
-          (if cmdline.compressed then " -c" else "")
-          (quote overlay_file)
-          (quote t.target_file) in
+      let cmd = [ "qemu-img"; "convert" ] @
+        (if not (quiet ()) then [ "-p" ] else []) @
+        [ "-n"; "-f"; "qcow2"; "-O"; t.target_format ] @
+        (if cmdline.compressed then [ "-c" ] else []) @
+        [ overlay_file; t.target_file ] in
       let start_time = gettimeofday () in
-      if shell_command cmd <> 0 then
+      if run_command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
       let end_time = gettimeofday () in
 
