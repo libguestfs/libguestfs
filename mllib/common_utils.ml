@@ -649,7 +649,9 @@ let compare_lvm2_uuids uuid1 uuid2 =
   loop 0 0
 
 (* Run an external command, slurp up the output as a list of lines. *)
-let external_command cmd =
+let external_command ?(echo_cmd = true) cmd =
+  if echo_cmd then
+    debug "%s" cmd;
   let chan = Unix.open_process_in cmd in
   let lines = ref [] in
   (try while true do lines := input_line chan :: !lines done

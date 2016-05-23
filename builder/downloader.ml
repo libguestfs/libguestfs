@@ -99,7 +99,6 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       t.curl
       (if verbose () then "" else " -s -S")
       (quote uri) in
-    debug "%s" cmd;
     let lines = external_command cmd in
     if List.length lines < 1 then
       error (f_"unexpected output from curl command, enable debug and look at previous messages");

@@ -239,8 +239,11 @@ val compare_version : string -> string -> int
 val compare_lvm2_uuids : string -> string -> int
 (** Compare two LVM2 UUIDs, ignoring '-' characters. *)
 
-val external_command : string -> string list
-(** Run an external command, slurp up the output as a list of lines. *)
+val external_command : ?echo_cmd:bool -> string -> string list
+(** Run an external command, slurp up the output as a list of lines.
+
+    [echo_cmd] specifies whether to output the full command on verbose
+    mode, and it's on by default. *)
 
 val uuidgen : unit -> string
 (** Run uuidgen to return a random UUID. *)
