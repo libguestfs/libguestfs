@@ -61,8 +61,7 @@ object
 
         let untar ?(format = "") file outdir =
           let cmd = sprintf "tar -x%sf %s -C %s" format (quote file) (quote outdir) in
-          debug "%s" cmd;
-          if Sys.command cmd <> 0 then
+          if shell_command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova in
 
         match detect_file_type ova with
@@ -77,8 +76,7 @@ object
           let cmd = sprintf "unzip%s -j -d %s %s"
             (if verbose () then "" else " -q")
             (quote tmpdir) (quote ova) in
-          debug "%s" cmd;
-          if Sys.command cmd <> 0 then
+          if shell_command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir
         | (`GZip|`XZ) as format ->
@@ -276,8 +274,7 @@ object
               let new_filename = tmpdir // String.random8 () ^ ".vmdk" in
               let cmd =
                 sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
-              debug "%s" cmd;
-              if Sys.command cmd <> 0 then
+              if shell_command cmd <> 0 then
                 error (f_"error uncompressing %s, see earlier error messages")
                   filename;
               new_filename

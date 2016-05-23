@@ -624,7 +624,7 @@ let main () =
     g#rm remotetar in
 
   if debug >= 1 then
-    ignore (Sys.command (sprintf "tree -ps %s" (quote tmpdir)));
+    ignore (shell_command (sprintf "tree -ps %s" (quote tmpdir)));
 
   message (f_"Opening the disks");
 

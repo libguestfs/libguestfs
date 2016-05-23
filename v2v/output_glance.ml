@@ -48,7 +48,7 @@ object
      * 'glance' commands work as the current user.  If not then the
      * program exits early.
      *)
-    if Sys.command "glance image-list > /dev/null" <> 0 then
+    if shell_command "glance image-list > /dev/null" <> 0 then
       error (f_"glance: glance client is not installed or set up correctly.  You may need to set environment variables or source a script to enable authentication.  See preceding messages for details.");
 
     (* Write targets to a temporary local file - see above for reason. *)
@@ -76,8 +76,7 @@ object
         let cmd =
           sprintf "glance image-create --name %s --disk-format=%s --container-format=bare --file %s"
                   (quote name) (quote target_format) target_file in
-        debug "%s" cmd;
-        if Sys.command cmd <> 0 then
+        if shell_command cmd <> 0 then
           error (f_"glance: image upload to glance failed, see earlier errors");
 
         (* Set the properties (ie. metadata). *)
@@ -126,8 +125,7 @@ object
                     ) properties
                   ))
                   (quote name) in
-        debug "%s" cmd;
-        if Sys.command cmd <> 0 then (
+        if shell_command cmd <> 0 then (
           warning (f_"glance: failed to set image properties (ignored)");
           (* Dump out the image properties so the user can set them. *)
           printf "Image properties:\n";

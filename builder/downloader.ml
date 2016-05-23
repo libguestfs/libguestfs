@@ -88,7 +88,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
     let cmd = sprintf "cp%s %s %s"
       (if verbose () then " -v" else "")
       (quote path) (quote filename_new) in
-    let r = Sys.command cmd in
+    let r = shell_command cmd in
     if r <> 0 then
       error (f_"cp (download) command failed copying '%s'") path;
   | _ as protocol -> (* Any other protocol. *)
@@ -118,8 +118,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       t.curl
       (if verbose () then "" else if progress_bar then " -#" else " -s -S")
       (quote filename_new) (quote uri) in
-    debug "%s" cmd;
-    let r = Sys.command cmd in
+    let r = shell_command cmd in
     if r <> 0 then
       error (f_"curl (download) command failed downloading '%s'") uri;
   );
