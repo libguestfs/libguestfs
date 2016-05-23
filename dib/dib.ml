@@ -53,16 +53,6 @@ let read_dib_envvars () =
   let vars = List.map (fun x -> x ^ "\n") vars in
   String.concat "" vars
 
-let make_dib_args args =
-  let args = Array.to_list args in
-  let rec quote_args = function
-    | [] -> ""
-    | x :: xs -> " " ^ (quote x) ^ quote_args xs
-  in
-  match args with
-  | [] -> ""
-  | app :: xs -> app ^ quote_args xs
-
 let write_script fn text =
   let oc = open_out fn in
   output_string oc text;
@@ -507,7 +497,7 @@ let main () =
       printf "  (none)\n";
     printf "\n";
   );
-  let dib_args = make_dib_args Sys.argv in
+  let dib_args = stringify_args (Array.to_list Sys.argv) in
   let dib_vars = read_dib_envvars () in
   if debug >= 1 then (
     printf "DIB args:\n%s\n" dib_args;

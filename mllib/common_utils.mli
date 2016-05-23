@@ -233,6 +233,10 @@ val compare_version : string -> string -> int
 val compare_lvm2_uuids : string -> string -> int
 (** Compare two LVM2 UUIDs, ignoring '-' characters. *)
 
+val stringify_args : string list -> string
+(** Create a "pretty-print" representation of a program invocation
+    (i.e. executable and its arguments). *)
+
 val external_command : ?echo_cmd:bool -> string -> string list
 (** Run an external command, slurp up the output as a list of lines.
 
