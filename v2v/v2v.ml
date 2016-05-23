@@ -221,8 +221,7 @@ and create_overlays src_disks =
       let cmd =
         sprintf "qemu-img create -q -f qcow2 -b %s -o %s %s"
                 (quote qemu_uri) (quote options) overlay_file in
-      debug "%s" cmd;
-      if Sys.command cmd <> 0 then
+      if shell_command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
 
       (* Sanity check created overlay (see below). *)
@@ -661,9 +660,8 @@ and copy_targets cmdline targets input output =
           (if cmdline.compressed then " -c" else "")
           (quote overlay_file)
           (quote t.target_file) in
-      debug "%s" cmd;
       let start_time = gettimeofday () in
-      if Sys.command cmd <> 0 then
+      if shell_command cmd <> 0 then
         error (f_"qemu-img command failed, see earlier errors");
       let end_time = gettimeofday () in
 

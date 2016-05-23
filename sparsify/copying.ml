@@ -326,8 +326,7 @@ You can ignore this warning or change it to a hard failure using the
       | None -> ""
       | Some option -> " -o " ^ quote option)
       (quote overlaydisk) (quote (qemu_input_filename outdisk)) in
-  debug "%s" cmd;
-  if Sys.command cmd <> 0 then
+  if shell_command cmd <> 0 then
     error (f_"external command failed: %s") cmd;
 
   (* Finished. *)

@@ -195,7 +195,7 @@ object
     (* If --qemu-boot option was specified then we should boot the guest. *)
     if qemu_boot then (
       let cmd = sprintf "%s &" (quote file) in
-      ignore (Sys.command cmd)
+      ignore (shell_command cmd)
     )
 end
 

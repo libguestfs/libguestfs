@@ -239,6 +239,12 @@ val external_command : ?echo_cmd:bool -> string -> string list
     [echo_cmd] specifies whether to output the full command on verbose
     mode, and it's on by default. *)
 
+val shell_command : ?echo_cmd:bool -> string -> int
+(** Run an external shell command, and return its exit code.
+
+    [echo_cmd] specifies whether to output the full command on verbose
+    mode, and it's on by default. *)
+
 val uuidgen : unit -> string
 (** Run uuidgen to return a random UUID. *)
 

@@ -131,8 +131,7 @@ object
       let cmd =
         sprintf "qemu-img rebase -u -b %s %s"
           (quote backing_qemu_uri) (quote overlay.ov_overlay_file) in
-      debug "%s" cmd;
-      if Sys.command cmd <> 0 then
+      if shell_command cmd <> 0 then
         warning (f_"qemu-img rebase failed (ignored)")
 end
 

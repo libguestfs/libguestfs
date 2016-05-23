@@ -653,6 +653,11 @@ let external_command ?(echo_cmd = true) cmd =
   );
   lines
 
+let shell_command ?(echo_cmd = true) cmd =
+  if echo_cmd then
+    debug "%s" cmd;
+  Sys.command cmd
+
 (* Run uuidgen to return a random UUID. *)
 let uuidgen () =
   let lines = external_command "uuidgen -r" in
@@ -697,7 +702,7 @@ let rmdir_on_exit =
     List.iter (
       fun dir ->
         let cmd = sprintf "rm -rf %s" (Filename.quote dir) in
-        ignore (Sys.command cmd)
+        ignore (shell_command cmd)
     ) !dirs
   and register_handlers () =
     (* Remove on exit. *)

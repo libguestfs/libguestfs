@@ -39,8 +39,7 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
   let cmd = sprintf "%s --homedir %s --status-file %s --import %s%s"
     gpg gpghome (quote status_file) (quote keyfile)
     (if verbose () then "" else " >/dev/null 2>&1") in
-  debug "%s" cmd;
-  let r = Sys.command cmd in
+  let r = shell_command cmd in
   if r <> 0 then
     error (f_"could not import public key\nUse the '-v' option and look for earlier error messages.");
   let status = read_whole_file status_file in
@@ -59,8 +58,7 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
     let cmd = sprintf "%s --homedir %s --trusted-key %s --list-keys%s"
       gpg gpghome (quote !key_id)
       (if verbose () then "" else " >/dev/null 2>&1") in
-    debug "%s" cmd;
-    let r = Sys.command cmd in
+    let r = shell_command cmd in
     if r <> 0 then
       error (f_"GPG failure: could not trust the imported key\nUse the '-v' option and look for earlier error messages.");
   );
@@ -108,8 +106,7 @@ let rec create ~gpg ~gpgkey ~check_signature =
        *)
       let cmd = sprintf "%s --homedir %s --list-keys%s"
         gpg tmpdir (if verbose () then "" else " >/dev/null 2>&1") in
-      debug "%s" cmd;
-      let r = Sys.command cmd in
+      let r = shell_command cmd in
       if r <> 0 then
         error (f_"GPG failure: could not run GPG the first time\nUse the '-v' option and look for earlier error messages.");
       match gpgkey with
@@ -123,8 +120,7 @@ let rec create ~gpg ~gpgkey ~check_signature =
         let cmd = sprintf "%s --yes --armor --output %s --export %s%s"
           gpg (quote filename) (quote fp)
           (if verbose () then "" else " >/dev/null 2>&1") in
-        debug "%s" cmd;
-        let r = Sys.command cmd in
+        let r = shell_command cmd in
         if r <> 0 then
           error (f_"could not export public key\nUse the '-v' option and look for earlier error messages.");
         import_keyfile gpg tmpdir filename
@@ -188,8 +184,7 @@ and verify_and_remove_signature t filename =
     let asc_file = Filename.temp_file "vbfile" ".asc" in
     unlink_on_exit asc_file;
     let cmd = sprintf "cp %s %s" (quote filename) (quote asc_file) in
-    debug "%s" cmd;
-    if Sys.command cmd <> 0 then exit 1;
+    if shell_command cmd <> 0 then exit 1;
     let out_file = Filename.temp_file "vbfile" "" in
     unlink_on_exit out_file;
     let args = sprintf "--yes --output %s %s" (quote out_file) (quote filename) in
@@ -207,8 +202,7 @@ and do_verify ?(verify_only = true) t args =
         (if verify_only then "--verify" else "")
         (if verbose () then "" else " --batch -q --logger-file /dev/null")
         (quote status_file) args in
-  debug "%s" cmd;
-  let r = Sys.command cmd in
+  let r = shell_command cmd in
   if r <> 0 then
     error (f_"GPG failure: could not verify digital signature of file\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!");
 

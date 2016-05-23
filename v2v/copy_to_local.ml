@@ -194,8 +194,7 @@ read the man page virt-v2v-copy-to-local(1).
                  (if quiet () then ""
                   else " status=progress")
                  (quote local_disk) in
-       debug "%s" cmd;
-       if Sys.command cmd <> 0 then
+       if shell_command cmd <> 0 then
          error (f_"ssh copy command failed, see earlier errors");
 
     | ESXi _ ->
@@ -220,8 +219,7 @@ read the man page virt-v2v-copy-to-local(1).
 
     | Test ->
        let cmd = sprintf "cp %s %s" (quote remote_disk) (quote local_disk) in
-       debug "%s" cmd;
-       if Sys.command cmd <> 0 then
+       if shell_command cmd <> 0 then
          error (f_"copy command failed, see earlier errors");
   ) disks;
 
