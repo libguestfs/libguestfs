@@ -282,6 +282,7 @@ ifelse(MAGEIA,1,
   which
 )
 curl
+kpartx
 dnl (virt-dib) tools optionally used for elements
 debootstrap
 
