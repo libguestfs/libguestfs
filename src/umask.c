@@ -22,7 +22,7 @@
  * glibc documents, but does not actually implement, a "getumask(3)"
  * call.
  *
- * We use C<Umask> from F</proc/I<PID>/status> for Linux E<ge> 4.7.
+ * We use C<Umask> from F</proc/self/status> for Linux E<ge> 4.7.
  * For older Linux and other Unix, this file implements an expensive
  * but thread-safe way to get the current process's umask.
  *
@@ -67,7 +67,7 @@ guestfs_int_getumask (guestfs_h *g)
 }
 
 /**
- * For Linux E<ge> 4.7 get the umask from F</proc/I<PID>/status>.
+ * For Linux E<ge> 4.7 get the umask from F</proc/self/status>.
  *
  * On failure this returns C<-1>.  However if we could not open the
  * F</proc> file or find the C<Umask> entry in it, return C<-2> which
@@ -77,19 +77,17 @@ static int
 get_umask_from_proc (guestfs_h *g)
 {
   CLEANUP_FCLOSE FILE *fp = NULL;
-  char path[sizeof "/proc//status" + sizeof (pid_t) * 3 + 1];
   CLEANUP_FREE char *line = NULL;
   size_t allocsize = 0;
   ssize_t len;
   unsigned int mask;
   bool found = false;
 
-  snprintf (path, sizeof path, "/proc/%d/status", getpid ());
-  fp = fopen (path, "r");
+  fp = fopen ("/proc/self/status", "r");
   if (fp == NULL) {
     if (errno == ENOENT || errno == ENOTDIR)
       return -2;                /* fallback */
-    perrorf (g, "open: %s", path);
+    perrorf (g, "open: /proc/self/status");
     return -1;
   }
 
