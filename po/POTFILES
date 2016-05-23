@@ -351,6 +351,7 @@ src/mountable.c
 src/osinfo.c
 src/private-data.c
 src/proto.c
+src/qemu.c
 src/stringsbuf.c
 src/structs-cleanup.c
 src/structs-compare.c
@@ -358,9 +359,11 @@ src/structs-copy.c
 src/structs-free.c
 src/structs-print.c
 src/tmpdirs.c
+src/uefi.c
 src/umask.c
 src/unit-tests.c
 src/utils.c
+src/version.c
 src/wait.c
 src/whole-file.c
 test-tool/test-tool.c

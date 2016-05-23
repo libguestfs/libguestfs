@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-05-17 16:55+0100\n"
+"POT-Creation-Date: 2016-05-23 12:01+0100\n"
 "PO-Revision-Date: 2015-01-10 08:39-0500\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/libguestfs/"
@@ -23,31 +23,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.7.3\n"
 
-#: ../resize/resize.ml:945
+#: ../resize/resize.ml:941
 msgid "  An extra partition will be created for the surplus."
 msgstr ""
 
-#: ../resize/resize.ml:920 ../resize/resize.ml:890
+#: ../resize/resize.ml:916 ../resize/resize.ml:886
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr ""
 
-#: ../resize/resize.ml:947
+#: ../resize/resize.ml:943
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
 msgstr ""
 
-#: ../resize/resize.ml:949
+#: ../resize/resize.ml:945
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:408
+#: ../mllib/common_utils.ml:413
 msgid "%s"
 msgstr "%s"
 
-#: ../v2v/v2v.ml:390 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:862
+#. ../customize/customize_run.ml:418
+#: ../v2v/v2v.ml:389 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:867
 msgid "%s (ignored)"
 msgstr "%s (ignoriert)"
 
@@ -112,31 +113,15 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:404 ../mllib/common_utils.ml:381
+#: ../mllib/common_utils.ml:409 ../mllib/common_utils.ml:381
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../customize/customize_run.ml:418
-msgid "%s: %s (ignored)\n"
-msgstr "%s: %s (ignoriert)\n"
-
-#: ../mllib/common_utils.ml:406
+#: ../mllib/common_utils.ml:411
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
-#: ../builder/sources.ml:59
-msgid "%s: '%s' has invalid gpgkey URI\n"
-msgstr ""
-
-#: ../builder/sources.ml:69
-msgid "%s: '%s' has non-local gpgkey URI\n"
-msgstr ""
-
-#: ../builder/sources.ml:105
-msgid "%s: ... read %d sources\n"
-msgstr ""
-
-#: ../resize/resize.ml:674
+#: ../resize/resize.ml:672
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -145,11 +130,11 @@ msgid ""
 "line.)"
 msgstr ""
 
-#: ../resize/resize.ml:917
+#: ../resize/resize.ml:913
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr ""
 
-#: ../resize/resize.ml:670
+#: ../resize/resize.ml:668
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -158,7 +143,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:666
+#: ../resize/resize.ml:664
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -167,7 +152,7 @@ msgid ""
 "'%s' option on the command line.)"
 msgstr ""
 
-#: ../resize/resize.ml:663
+#: ../resize/resize.ml:661
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -180,21 +165,21 @@ msgstr ""
 "auf dieser Partition zerstört werden (diese Fehlermeldung wird durch die "
 "Angabe der Option »%s« in der Befehlszeile verursacht)."
 
-#: ../resize/resize.ml:883
+#: ../resize/resize.ml:879
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
 msgstr ""
 
-#: ../resize/resize.ml:885
+#: ../resize/resize.ml:881
 msgid "%s: This partition will be deleted."
 msgstr "%s: Diese Partition wird gelöscht."
 
-#: ../resize/resize.ml:881
+#: ../resize/resize.ml:877
 msgid "%s: This partition will be left alone."
 msgstr ""
 
-#: ../resize/resize.ml:887
+#: ../resize/resize.ml:883
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: Die Größe dieser Partition wird von %s auf %s geändert."
 
@@ -214,7 +199,7 @@ msgid ""
 "read the man page virt-builder(1).\n"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:267
+#: ../v2v/windows_virtio.ml:265
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -311,11 +296,7 @@ msgid ""
 "read the man page virt-get-kernel(1).\n"
 msgstr ""
 
-#: ../builder/sources.ml:148
-msgid "%s: file error: %s: %s\n"
-msgstr "%s: Dateifehler: %s: %s\n"
-
-#: ../resize/resize.ml:395 ../resize/resize.ml:392
+#: ../resize/resize.ml:393 ../resize/resize.ml:390
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
@@ -333,22 +314,18 @@ msgid ""
 "more times\n"
 msgstr ""
 
-#: ../builder/sources.ml:153
-msgid "%s: internal error: invalid argument: %s\n"
-msgstr "%s: interner Fehler: ungültiges Argument: %s\n"
-
-#: ../resize/resize.ml:821
+#: ../resize/resize.ml:817
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
 "filesystems --logical-volumes --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:692
+#: ../resize/resize.ml:690
 msgid "%s: missing size field in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:701
+#: ../resize/resize.ml:699
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: Größe der neuen Partition ist Null oder negativ"
 
@@ -364,34 +341,34 @@ msgstr ""
 msgid "%s: no 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/sources.ml:51
+#: ../builder/sources.ml:49
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr ""
 
-#: ../resize/resize.ml:614
+#: ../resize/resize.ml:612
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:610
+#: ../resize/resize.ml:608
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 
-#: ../resize/resize.ml:606
+#: ../resize/resize.ml:604
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
 "partitions --long -a %s"
 msgstr ""
 
-#: ../resize/resize.ml:515
+#: ../resize/resize.ml:513
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:510
+#: ../resize/resize.ml:508
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr ""
 
-#: ../resize/resize.ml:428
+#: ../resize/resize.ml:426
 msgid "%s: physical volume not returned by pvs_full"
 msgstr ""
 
@@ -437,30 +414,22 @@ msgid ""
 "read the man page virt-sparsify(1).\n"
 msgstr ""
 
-#: ../resize/resize.ml:648
+#: ../resize/resize.ml:646
 msgid "%s: this partition has already been ignored or deleted"
 msgstr ""
 
-#: ../resize/resize.ml:644
+#: ../resize/resize.ml:642
 msgid "%s: this partition has already been marked for resizing"
 msgstr ""
 
-#: ../resize/resize.ml:525
+#: ../resize/resize.ml:523
 msgid "%s: this partition overlaps the previous one"
 msgstr ""
 
-#: ../builder/sources.ml:40
-msgid "%s: trying to read %s\n"
-msgstr "%s: Es wird versucht, %s zu lesen\n"
-
-#: ../resize/resize.ml:407
+#: ../resize/resize.ml:405
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
-msgstr ""
-
-#: ../builder/sources.ml:89
-msgid "%s: unknown repository type '%s' in %s, skipping it\n"
 msgstr ""
 
 #: ../v2v/input_ova.ml:101 ../v2v/input_ova.ml:98
@@ -481,13 +450,6 @@ msgstr ""
 
 #: ../builder/index_parser.ml:209
 msgid "%s: zero length path in the index file\n"
-msgstr ""
-
-#: ../customize/firstboot.ml:198
-msgid ""
-"'%s' is missing.  This file is required in order to install Windows "
-"firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
-"rwmjones/rhsrvany).  Original error: %s"
 msgstr ""
 
 #: ../v2v/convert_windows.ml:55
@@ -718,31 +680,31 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: Ausgabeverzeichnis existiert nicht oder ist kein Verzeichnis"
 
-#: ../v2v/input_libvirtxml.ml:290 ../v2v/copy_to_local.ml:326
+#: ../v2v/input_libvirtxml.ml:289 ../v2v/copy_to_local.ml:321
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> wurde ignoriert"
 
-#: ../v2v/input_libvirtxml.ml:263
+#: ../v2v/input_libvirtxml.ml:262
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:286
+#: ../v2v/input_libvirtxml.ml:285
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:257
+#: ../v2v/input_libvirtxml.ml:256
 msgid "<disk type=network> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:236 ../v2v/copy_to_local.ml:308
+#: ../v2v/input_libvirtxml.ml:235 ../v2v/copy_to_local.ml:303
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:115
+#: ../v2v/input_libvirtxml.ml:114
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:324
+#: ../v2v/input_libvirtxml.ml:323
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -814,7 +776,7 @@ msgstr ""
 msgid "Base path of diskimage-builder library"
 msgstr ""
 
-#: ../sparsify/copying.ml:338
+#: ../sparsify/copying.ml:336
 msgid ""
 "Before deleting the old disk, carefully check that the target disk boots and "
 "works correctly."
@@ -877,15 +839,15 @@ msgstr "Digitale Signaturen überprüfen"
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:338
+#: ../v2v/v2v.ml:337
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:562
+#: ../v2v/v2v.ml:554
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
-#: ../sparsify/in_place.ml:110 ../sparsify/copying.ml:267
+#: ../sparsify/in_place.ml:110 ../sparsify/copying.ml:266
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
@@ -917,11 +879,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:535
+#: ../v2v/v2v.ml:528
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:533
+#: ../v2v/v2v.ml:526
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -941,7 +903,7 @@ msgstr ""
 msgid "Copying"
 msgstr ""
 
-#: ../resize/resize.ml:1212
+#: ../resize/resize.ml:1205
 msgid "Copying %s"
 msgstr ""
 
@@ -949,11 +911,11 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:598
+#: ../v2v/v2v.ml:590
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:179
+#: ../v2v/copy_to_local.ml:176
 msgid "Copying remote disk %d/%d to %s"
 msgstr ""
 
@@ -965,11 +927,11 @@ msgstr ""
 msgid "Create a directory"
 msgstr "Ein Verzeichnis erstellen"
 
-#: ../sparsify/copying.ml:147
+#: ../sparsify/copying.ml:146
 msgid "Create overlay device %s to protect source disk"
 msgstr ""
 
-#: ../sparsify/copying.ml:145
+#: ../sparsify/copying.ml:144
 msgid "Create overlay file in %s to protect source disk"
 msgstr ""
 
@@ -977,11 +939,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:212
+#: ../v2v/v2v.ml:211
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:137
+#: ../v2v/v2v.ml:136
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1017,7 +979,7 @@ msgstr ""
 msgid "DIR"
 msgstr "VERZ"
 
-#: ../mllib/common_utils.ml:587
+#: ../mllib/common_utils.ml:592
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -1058,7 +1020,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr "Installationshinweise anzeigen"
 
-#: ../mllib/common_utils.ml:583 ../mllib/common_utils.ml:581
+#: ../mllib/common_utils.ml:588 ../mllib/common_utils.ml:586
 msgid "Display version and exit"
 msgstr "Versionsnummer anzeigen und beenden"
 
@@ -1086,7 +1048,7 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr "Änderungen nicht anwenden"
 
-#: ../mllib/common_utils.ml:589 ../mllib/common_utils.ml:588
+#: ../mllib/common_utils.ml:594 ../mllib/common_utils.ml:593
 msgid "Don't print progress messages"
 msgstr ""
 
@@ -1141,7 +1103,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:585 ../mllib/common_utils.ml:584
+#: ../mllib/common_utils.ml:590 ../mllib/common_utils.ml:589
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1149,7 +1111,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:586
+#: ../mllib/common_utils.ml:591
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1161,11 +1123,11 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:524
+#: ../v2v/v2v.ml:517
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
-#: ../sparsify/copying.ml:175
+#: ../sparsify/copying.ml:174
 msgid "Examine source disk"
 msgstr ""
 
@@ -1197,11 +1159,11 @@ msgstr ""
 msgid "Expanded elements: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1357
+#: ../resize/resize.ml:1350
 msgid "Expanding %s using the '%s' method"
 msgstr ""
 
-#: ../resize/resize.ml:1338
+#: ../resize/resize.ml:1331
 msgid "Expanding %s%s using the '%s' method"
 msgstr ""
 
@@ -1234,7 +1196,7 @@ msgstr "DATEI:AUSDRUCK"
 msgid "FILENAME"
 msgstr ""
 
-#: ../resize/resize.ml:1006
+#: ../resize/resize.ml:1002
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1250,11 +1212,11 @@ msgstr ""
 msgid "Filesystem for the image"
 msgstr ""
 
-#: ../sparsify/copying.ml:252
+#: ../sparsify/copying.ml:251
 msgid "Fill free space in %s with zero"
 msgstr ""
 
-#: ../sparsify/copying.ml:300
+#: ../sparsify/copying.ml:299
 msgid "Fill free space in volgroup %s with zero"
 msgstr ""
 
@@ -1268,11 +1230,11 @@ msgstr "Fingerabdruck: %s\n"
 
 #. ../customize/customize_main.ml:209
 #. ../builder/builder.ml:715
-#: ../v2v/v2v.ml:145 ../v2v/copy_to_local.ml:240
+#: ../v2v/v2v.ml:144 ../v2v/copy_to_local.ml:235
 msgid "Finishing off"
 msgstr ""
 
-#: ../resize/resize.ml:1258
+#: ../resize/resize.ml:1251
 msgid "Fixing first NTFS partition boot record"
 msgstr ""
 
@@ -1376,7 +1338,7 @@ msgstr "Partition ignorieren"
 msgid "Ignored for backwards compatibility"
 msgstr ""
 
-#: ../v2v/v2v.ml:261
+#: ../v2v/v2v.ml:260
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1448,11 +1410,11 @@ msgstr ""
 msgid "List available templates"
 msgstr "Verfügbare Vorlagen auflisten"
 
-#: ../mllib/common_utils.ml:579
+#: ../mllib/common_utils.ml:584
 msgid "List long options (internal)"
 msgstr ""
 
-#: ../mllib/common_utils.ml:578
+#: ../mllib/common_utils.ml:583
 msgid "List short options (internal)"
 msgstr ""
 
@@ -1553,6 +1515,13 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
+#: ../customize/firstboot.ml:205
+msgid ""
+"One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
+"required in order to install Windows firstboot scripts.  You can get one by "
+"building rhsrvany (https://github.com/rwmjones/rhsrvany)"
+msgstr ""
+
 #: ../v2v/cmdline.ml:185
 msgid "Only tune the guest in the input VM"
 msgstr ""
@@ -1569,7 +1538,7 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:148
+#: ../v2v/v2v.ml:147
 msgid "Opening the source %s"
 msgstr ""
 
@@ -1625,7 +1594,7 @@ msgstr "Ausgabegröße"
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:715
+#: ../v2v/v2v.ml:707
 msgid "Overlay saved as %s [--debug-overlays]\n"
 msgstr ""
 
@@ -1653,7 +1622,7 @@ msgstr ""
 msgid "POD notes for %s must not end with newline"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:137
+#: ../v2v/copy_to_local.ml:136
 msgid "Parsing the remote libvirt XML metadata ..."
 msgstr ""
 
@@ -1907,7 +1876,7 @@ msgstr ""
 msgid "Rename guest when converting"
 msgstr ""
 
-#: ../resize/resize.ml:1383
+#: ../resize/resize.ml:1376
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -2162,7 +2131,7 @@ msgstr "Rechnername wird gesetzt: %s"
 msgid "Setting the timezone: %s"
 msgstr "Zeitzone wird gesetzt: %s"
 
-#: ../resize/resize.ml:982
+#: ../resize/resize.ml:978
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
@@ -2182,11 +2151,11 @@ msgstr "Partition verkleinern"
 msgid "Skip the inclusion of the 'base' element"
 msgstr ""
 
-#: ../sparsify/copying.ml:248
+#: ../sparsify/copying.ml:247
 msgid "Skipping %s, as it is a read-only btrfs snapshot."
 msgstr ""
 
-#: ../sparsify/copying.ml:250
+#: ../sparsify/copying.ml:249
 msgid "Skipping %s, as it is a read-only device."
 msgstr ""
 
@@ -2194,7 +2163,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:153
+#: ../v2v/v2v.ml:152
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2202,7 +2171,7 @@ msgstr ""
 msgid "Sparsify in-place operation completed with no errors"
 msgstr ""
 
-#: ../sparsify/copying.ml:336
+#: ../sparsify/copying.ml:334
 msgid "Sparsify operation completed with no errors."
 msgstr ""
 
@@ -2336,7 +2305,7 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr ""
 
-#: ../resize/resize.ml:806
+#: ../resize/resize.ml:802
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -2348,11 +2317,11 @@ msgid ""
 "%s/%s in: %s"
 msgstr ""
 
-#: ../resize/resize.ml:942
+#: ../resize/resize.ml:938
 msgid "There is a surplus of %s."
 msgstr ""
 
-#: ../sparsify/copying.ml:107
+#: ../sparsify/copying.ml:106
 msgid ""
 "There may not be enough free space on %s.\n"
 "You may need to set TMPDIR to point to a directory with more free space.\n"
@@ -2375,11 +2344,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:555
+#: ../v2v/v2v.ml:547
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:553
+#: ../v2v/v2v.ml:545
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2390,7 +2359,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:580
+#: ../v2v/v2v.ml:572
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2483,7 +2452,7 @@ msgstr ""
 msgid "Users to remove"
 msgstr ""
 
-#: ../sparsify/copying.ml:149
+#: ../sparsify/copying.ml:148
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
@@ -2509,7 +2478,7 @@ msgstr ""
 msgid "Write file"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:234
+#: ../v2v/copy_to_local.ml:229
 msgid "Writing libvirt XML metadata to %s ..."
 msgstr ""
 
@@ -2517,13 +2486,13 @@ msgstr ""
 msgid "Writing: %s"
 msgstr ""
 
-#: ../resize/resize.ml:777
+#: ../resize/resize.ml:773
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
 msgstr ""
 
-#: ../resize/resize.ml:789
+#: ../resize/resize.ml:785
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -2539,7 +2508,7 @@ msgstr ""
 msgid "Zero filesystem"
 msgstr ""
 
-#: ../sparsify/in_place.ml:84 ../sparsify/copying.ml:238
+#: ../sparsify/in_place.ml:84 ../sparsify/copying.ml:237
 msgid "Zeroing %s"
 msgstr ""
 
@@ -2628,7 +2597,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
-#: ../v2v/input_ova.ml:160
+#: ../v2v/input_ova.ml:158
 msgid "cannot parse output of sha1sum command"
 msgstr ""
 
@@ -2661,7 +2630,7 @@ msgid ""
 "the manual)."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:180
+#: ../v2v/output_rhev.ml:176
 msgid ""
 "cannot write files to the NFS server as %d:%d, even though we appear to be "
 "running as root. This probably means the NFS client or idmapd is not "
@@ -2671,7 +2640,7 @@ msgid ""
 "otherwise RHEV-M will not be able to import the VM."
 msgstr ""
 
-#: ../v2v/output_rhev.ml:182
+#: ../v2v/output_rhev.ml:178
 msgid ""
 "cannot write files to the NFS server as %d:%d. You might want to stop virt-"
 "v2v (^C) and rerun it as root."
@@ -2695,7 +2664,7 @@ msgstr ""
 msgid "connection closed"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:230
+#: ../v2v/copy_to_local.ml:225
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
@@ -2739,11 +2708,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:295
+#: ../v2v/input_ova.ml:293
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:192
+#: ../v2v/input_ova.ml:190
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2816,7 +2785,7 @@ msgstr ""
 msgid "discard/trim is not supported: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:271
+#: ../v2v/v2v.ml:270
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2830,7 +2799,7 @@ msgid ""
 "format."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:139
+#: ../v2v/input_libvirtxml.ml:138
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2845,15 +2814,15 @@ msgstr ""
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
-#: ../v2v/linux.ml:176
+#: ../v2v/linux.ml:173
 msgid "don't know how to find file owner using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:155
+#: ../v2v/linux.ml:152
 msgid "don't know how to get list of files from package using %s"
 msgstr ""
 
-#: ../v2v/linux.ml:116
+#: ../v2v/linux.ml:113
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
@@ -2895,11 +2864,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:259
+#: ../v2v/input_ova.ml:257
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:281
+#: ../v2v/input_ova.ml:279
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -2907,7 +2876,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:421
+#: ../mllib/common_utils.ml:426
 msgid "exception: %s"
 msgstr ""
 
@@ -2933,19 +2902,19 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:657
+#: ../mllib/common_utils.ml:662
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:659
+#: ../mllib/common_utils.ml:664
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:661
+#: ../mllib/common_utils.ml:666
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
-#: ../sparsify/copying.ml:333
+#: ../sparsify/copying.ml:331
 msgid "external command failed: %s"
 msgstr ""
 
@@ -2958,7 +2927,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:412
+#: ../mllib/common_utils.ml:417
 msgid "failure: %s"
 msgstr ""
 
@@ -2976,7 +2945,7 @@ msgid ""
 "  expected fingerprint: %s"
 msgstr ""
 
-#: ../resize/resize.ml:1256
+#: ../resize/resize.ml:1249
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
@@ -3002,7 +2971,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../mllib/common_utils.ml:431
+#: ../mllib/common_utils.ml:436
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3031,7 +3000,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../v2v/v2v.ml:249
+#: ../v2v/v2v.ml:248
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3050,7 +3019,7 @@ msgstr ""
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:324
+#: ../customize/firstboot.ml:330
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3087,11 +3056,11 @@ msgid ""
 "Requested size = %s, minimum size = %s"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:63
+#: ../v2v/input_libvirtxml.ml:62
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:68
+#: ../v2v/input_libvirtxml.ml:67
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
@@ -3123,23 +3092,23 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../mllib/common_utils.ml:419
+#: ../mllib/common_utils.ml:424
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:416
+#: ../mllib/common_utils.ml:421
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:414
+#: ../mllib/common_utils.ml:419
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:610
+#: ../v2v/v2v.ml:602
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:239
+#: ../v2v/v2v.ml:238
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3183,7 +3152,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:410
+#: ../mllib/common_utils.ml:415
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3269,7 +3238,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:264
+#: ../v2v/input_ova.ml:262
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3325,7 +3294,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:364
+#: ../v2v/v2v.ml:363
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3391,7 +3360,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../v2v/v2v.ml:281
+#: ../v2v/v2v.ml:280
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3408,13 +3377,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:224
+#: ../v2v/input_ova.ml:222
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:221
+#: ../v2v/input_ova.ml:219
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3453,7 +3422,7 @@ msgstr ""
 msgid "please include an operating system element"
 msgstr ""
 
-#: ../resize/resize.ml:1042 ../resize/resize.ml:1018
+#: ../resize/resize.ml:1038 ../resize/resize.ml:1014
 msgid "pread-device: short read"
 msgstr ""
 
@@ -3461,15 +3430,15 @@ msgstr ""
 msgid "pvresize"
 msgstr ""
 
-#: ../sparsify/in_place.ml:119 ../sparsify/copying.ml:276
+#: ../sparsify/in_place.ml:119 ../sparsify/copying.ml:275
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:651 ../v2v/v2v.ml:235
+#: ../v2v/v2v.ml:643 ../v2v/v2v.ml:234
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:140
+#: ../v2v/input_libvirt_vcenter_https.ml:136
 msgid "qemu-img rebase failed (ignored)"
 msgstr ""
 
@@ -3530,39 +3499,39 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
-#: ../v2v/input_libvirt_vcenter_https.ml:96
+#: ../v2v/input_libvirt_vcenter_https.ml:92
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:726
+#: ../v2v/v2v.ml:718
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:742
+#: ../v2v/v2v.ml:734
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:724 ../v2v/v2v.ml:171
+#: ../v2v/v2v.ml:716 ../v2v/v2v.ml:170
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:734
+#: ../v2v/v2v.ml:726
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:732
+#: ../v2v/v2v.ml:724
 msgid "source has unsupported hard disk type '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:748
+#: ../v2v/v2v.ml:740
 msgid "source has unsupported network adapter model '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:756
+#: ../v2v/v2v.ml:748
 msgid "source has unsupported video adapter model '%s'"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:203
+#: ../v2v/copy_to_local.ml:199
 msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 
@@ -3604,7 +3573,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:285
+#: ../v2v/v2v.ml:284
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -3637,7 +3606,7 @@ msgid ""
 "guest: %d)"
 msgstr ""
 
-#: ../resize/resize.ml:455
+#: ../resize/resize.ml:453
 msgid "the source disk has no partitions"
 msgstr ""
 
@@ -3758,7 +3727,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:571
+#: ../v2v/v2v.ml:563
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3780,7 +3749,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:210 ../v2v/copy_to_local.ml:297
+#: ../v2v/input_libvirtxml.ml:209 ../v2v/copy_to_local.ml:292
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3853,7 +3822,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:209
+#: ../v2v/input_ova.ml:207
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -3861,16 +3830,16 @@ msgstr ""
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:180
+#: ../v2v/input_libvirtxml.ml:179
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:163
+#: ../v2v/v2v.ml:162
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
-#. ../resize/resize.ml:846
-#: ../resize/resize.ml:931 ../resize/resize.ml:901 ../resize/resize.ml:863
+#. ../resize/resize.ml:842
+#: ../resize/resize.ml:927 ../resize/resize.ml:897 ../resize/resize.ml:859
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
@@ -3987,13 +3956,13 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:136
+#: ../v2v/input_libvirtxml.ml:135
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:541
+#: ../v2v/v2v.ml:534
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -4043,7 +4012,7 @@ msgstr ""
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
-#: ../resize/resize.ml:765
+#: ../resize/resize.ml:762
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 
@@ -4072,7 +4041,7 @@ msgstr ""
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
 #: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
-#: make-fs/make-fs.c:75 p2v/main.c:66 rescue/rescue.c:57
+#: make-fs/make-fs.c:75 p2v/main.c:68 rescue/rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Versuchen Sie `%s --help' für mehr Information.\n"
@@ -4103,7 +4072,7 @@ msgstr ""
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:261 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:248 fuse/guestunmount.c:121 inspector/inspector.c:161
-#: make-fs/make-fs.c:146 p2v/main.c:151 rescue/rescue.c:182
+#: make-fs/make-fs.c:146 p2v/main.c:160 rescue/rescue.c:182
 #: test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -7816,7 +7785,7 @@ msgstr ""
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:779 src/launch-libvirt.c:668 src/libvirt-domain.c:405
+#: inspector/inspector.c:779 src/launch-libvirt.c:673 src/libvirt-domain.c:405
 #: src/libvirt-domain.c:488 src/libvirt-domain.c:701
 #, c-format
 msgid "unable to create new XPath context"
@@ -8210,7 +8179,7 @@ msgstr "Die Umwandlung war erfolgreich."
 msgid "Conversion was successful"
 msgstr "Die Umwandlung war erfolgreich"
 
-#: p2v/main.c:69
+#: p2v/main.c:71
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8225,12 +8194,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:174
+#: p2v/main.c:183
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:203
+#: p2v/main.c:212
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -8636,76 +8605,76 @@ msgstr ""
 msgid "iscsi: target string must not begin with a '/'"
 msgstr ""
 
-#: src/drives.c:414
+#: src/drives.c:415
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:680
+#: src/drives.c:686
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:692
+#: src/drives.c:698
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:699
+#: src/drives.c:705
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr "Ungültiger Rechnername »%s«"
 
-#: src/drives.c:710
+#: src/drives.c:716
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:794
+#: src/drives.c:800
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:807
+#: src/drives.c:813
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:813 src/drives.c:819
+#: src/drives.c:819 src/drives.c:825
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr "Parameter %s ist leer oder enthält unzulässige Zeichen"
 
-#: src/drives.c:825
+#: src/drives.c:831
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:831
+#: src/drives.c:837
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:838
+#: src/drives.c:844
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:843
+#: src/drives.c:849
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:847
+#: src/drives.c:853
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:910
+#: src/drives.c:916
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr "unbekanntes Protokoll »%s«"
 
-#: src/drives.c:928 src/drives.c:1079
+#: src/drives.c:934 src/drives.c:1085
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:934
+#: src/drives.c:940
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1064
+#: src/drives.c:1070
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -8910,59 +8879,59 @@ msgstr ""
 msgid "qemu-img info: unknown JSON parse error"
 msgstr ""
 
-#: src/inspect-fs-unix.c:129
+#: src/inspect-fs-unix.c:128
 #, c-format
 msgid "release file %s is empty or malformed"
 msgstr ""
 
-#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:318
-#: src/inspect-fs-unix.c:405 src/inspect-fs-unix.c:1262
-#: src/inspect-fs-unix.c:2034 src/inspect-fs.c:627 src/inspect-fs.c:673
-#: src/inspect.c:663
+#: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:301
+#: src/inspect-fs-unix.c:376 src/inspect-fs-unix.c:1196
+#: src/inspect-fs-unix.c:1968 src/inspect-fs.c:614 src/inspect-fs.c:660
+#: src/inspect.c:660
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs-unix.c:2081
+#: src/inspect-fs-unix.c:2015
 #, c-format
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr ""
 
-#: src/inspect-fs.c:419 src/inspect-fs.c:432
+#: src/inspect-fs.c:417 src/inspect-fs.c:430
 #, c-format
 msgid "could not parse integer in version number: %s"
 msgstr ""
 
-#: src/inspect.c:354
+#: src/inspect.c:351
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
-#: src/inspect.c:370
+#: src/inspect.c:367
 msgid "not a Windows guest, or CurrentControlSet could not be determined"
 msgstr ""
 
-#: src/inspect.c:701
+#: src/inspect.c:698
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:711
+#: src/inspect.c:708
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch-direct.c:137
+#: src/launch-direct.c:124
 #, c-format
 msgid "unclosed quote character (%c) in command line near: %s"
 msgstr ""
 
-#: src/launch-direct.c:156
+#: src/launch-direct.c:143
 #, c-format
 msgid "cannot parse quoted string near: %s"
 msgstr ""
 
-#: src/launch-direct.c:223
+#: src/launch-direct.c:210
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8971,73 +8940,33 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: src/launch-direct.c:259 src/launch-uml.c:155
+#: src/launch-direct.c:246 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "Sie müssen guestfs_add_drive vor guestfs_launch aufrufen"
 
-#: src/launch-direct.c:832 src/launch-libvirt.c:598
+#: src/launch-direct.c:822 src/launch-libvirt.c:603
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/launch-direct.c:1223 src/launch-libvirt.c:1395
-#, c-format
-msgid "realpath: could not convert '%s' to absolute path"
-msgstr ""
-
-#: src/launch-direct.c:1406
-msgid "discard cannot be enabled on this drive: qemu < 1.5"
-msgstr ""
-
-#: src/launch-direct.c:1415
-msgid ""
-"discard cannot be enabled on this drive: the drive has a read-only overlay"
-msgstr ""
-
-#: src/launch-direct.c:1422
-msgid ""
-"discard cannot be enabled on this drive: you have to specify the format of "
-"the file"
-msgstr ""
-
-#: src/launch-direct.c:1430
-msgid ""
-"discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
-"qcow2 files"
-msgstr ""
-
-#: src/launch-direct.c:1438
-#, c-format
-msgid ""
-"discard cannot be enabled on this drive: qemu does not support discard for "
-"'%s' format files"
-msgstr ""
-
-#: src/launch-direct.c:1461
-#, c-format
-msgid ""
-"discard cannot be enabled on this drive: protocol '%s' does not support "
-"discard"
-msgstr ""
-
-#: src/launch-libvirt.c:261
+#: src/launch-libvirt.c:262
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:272
+#: src/launch-libvirt.c:276
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:306
+#: src/launch-libvirt.c:310
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:334
+#: src/launch-libvirt.c:339
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:527
+#: src/launch-libvirt.c:532
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9047,16 +8976,16 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:662
+#: src/launch-libvirt.c:667
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:678
+#: src/launch-libvirt.c:683
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:713
+#: src/launch-libvirt.c:718
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -9071,57 +9000,62 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:949
+#: src/launch-libvirt.c:954
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1349
+#: src/launch-libvirt.c:1354
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "Der Parameter »iface« wird vom libvirt-Backend nicht unterstützt."
 
-#: src/launch-libvirt.c:1478
+#: src/launch-libvirt.c:1400
+#, c-format
+msgid "realpath: could not convert '%s' to absolute path"
+msgstr ""
+
+#: src/launch-libvirt.c:1483
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1503
+#: src/launch-libvirt.c:1508
 msgid ""
 "could not auto-detect the format.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1510
+#: src/launch-libvirt.c:1515
 msgid ""
 "could not auto-detect the format when using a non-file protocol.\n"
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 
-#: src/launch-libvirt.c:1840
+#: src/launch-libvirt.c:1845
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1851
+#: src/launch-libvirt.c:1856
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1855
+#: src/launch-libvirt.c:1860
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1876
+#: src/launch-libvirt.c:1881
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1889
+#: src/launch-libvirt.c:1894
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1999
+#: src/launch-libvirt.c:2004
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -9137,20 +9071,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2102
+#: src/launch-libvirt.c:2107
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2123 src/launch-libvirt.c:2156
+#: src/launch-libvirt.c:2128 src/launch-libvirt.c:2161
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2219
+#: src/launch-libvirt.c:2224
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2250
+#: src/launch-libvirt.c:2255
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9687,6 +9621,18 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: Registry-Datei konnte nicht hochgeladen werden: {err}\n"
+
+#~ msgid "%s: %s (ignored)\n"
+#~ msgstr "%s: %s (ignoriert)\n"
+
+#~ msgid "%s: file error: %s: %s\n"
+#~ msgstr "%s: Dateifehler: %s: %s\n"
+
+#~ msgid "%s: internal error: invalid argument: %s\n"
+#~ msgstr "%s: interner Fehler: ungültiges Argument: %s\n"
+
+#~ msgid "%s: trying to read %s\n"
+#~ msgstr "%s: Es wird versucht, %s zu lesen\n"
 
 #~ msgid "List long options"
 #~ msgstr "Lange Optionen auflisten"
