@@ -285,6 +285,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = \
 	test-v2v-i-ova-formats.sh \
 	test-v2v-i-ova-gz.sh \
+	test-v2v-i-ova-subfolders.sh \
 	test-v2v-i-ova-two-disks.sh \
 	test-v2v-copy-to-local.sh \
 	test-v2v-bad-networks-and-bridges.sh
