@@ -69,7 +69,6 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
      * fingerprint of the subkeys. *)
     let cmd = sprintf "%s --homedir %s --with-colons --with-fingerprint --with-fingerprint --list-keys %s"
       gpg gpghome !fingerprint in
-    debug "%s" cmd;
     let lines = external_command cmd in
     let current = ref None in
     let subkeys = ref [] in

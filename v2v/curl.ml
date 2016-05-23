@@ -48,7 +48,7 @@ let run curl_args =
   close_out chan;
 
   let cmd = sprintf "curl -q --config %s" (Filename.quote config_file) in
-  let lines = external_command cmd in
+  let lines = external_command ~echo_cmd:false cmd in
   Unix.unlink config_file;
   lines
 
