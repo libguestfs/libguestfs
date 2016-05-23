@@ -238,7 +238,7 @@ set log=%%firstboot%%\\log.txt
 set scripts=%%firstboot%%\\scripts
 set scripts_done=%%firstboot%%\\scripts-done
 
-call :main > \"%%log%%\" 2>&1
+call :main >> \"%%log%%\" 2>&1
 exit /b
 
 :main
@@ -250,12 +250,12 @@ if not exist \"%%scripts_done%%\" (
 
 for %%%%f in (\"%%scripts%%\"\\*.bat) do (
   echo running \"%%%%f\"
-  call \"%%%%f\"
+  move \"%%%%f\" \"%%scripts_done%%\"
+  pushd \"%%scripts_done%%\"
+  call \"%%%%~nf\"
   set elvl=!errorlevel!
   echo .... exit code !elvl!
-  if !elvl! equ 0 (
-    move \"%%%%f\" \"%%scripts_done%%\"
-  )
+  popd
 )
 
 echo uninstalling firstboot service
