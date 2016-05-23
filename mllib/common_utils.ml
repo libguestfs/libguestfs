@@ -648,6 +648,15 @@ let compare_lvm2_uuids uuid1 uuid2 =
   in
   loop 0 0
 
+let stringify_args args =
+  let rec quote_args = function
+    | [] -> ""
+    | x :: xs -> " " ^ Filename.quote x ^ quote_args xs
+  in
+  match args with
+  | [] -> ""
+  | app :: xs -> app ^ quote_args xs
+
 (* Run an external command, slurp up the output as a list of lines. *)
 let external_command ?(echo_cmd = true) cmd =
   if echo_cmd then
