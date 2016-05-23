@@ -43,18 +43,25 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
     with Not_found -> Guestfs_config.datadir // "virt-tools" in
 
-  (* Check if RHEV-APT exists.  This is optional. *)
-  let rhev_apt_exe = virt_tools_data_dir // "rhev-apt.exe" in
-  let rhev_apt_exe =
+  (* Check if either RHEV-APT or VMDP exists.  This is optional. *)
+  let tools = [`RhevApt, "rhev-apt.exe"; `VmdpExe, "vmdp.exe"] in
+  let installer =
     try
-      let chan = open_in rhev_apt_exe in
-      close_in chan;
-      Some rhev_apt_exe
-    with
-      Sys_error msg ->
-        warning (f_"'%s' is missing.  Unable to install RHEV-APT (RHEV guest agent).  Original error: %s")
-          rhev_apt_exe msg;
-        None in
+      let t, tool = List.find (
+        fun (_, tool) ->
+          try (
+            let exe_path = virt_tools_data_dir // tool in
+            let chan = open_in exe_path in
+            close_in chan;
+            true
+          ) with _ ->
+            false
+      ) tools in
+      Some (t, virt_tools_data_dir // tool)
+    with Not_found -> (
+      warning (f_"Neither rhev-apt.exe nor vmdp.exe can be found.  Unable to install one of them.");
+      None
+    ) in
 
   (* Get the Windows %systemroot%. *)
   let systemroot = g#inspect_get_windows_systemroot inspect.i_root in
@@ -211,20 +218,20 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (* Perform the conversion of the Windows guest. *)
 
   let rec configure_firstboot () =
-    configure_rhev_apt ();
+    match installer with
+    | None -> ()
+    | Some (`RhevApt, tool_path) -> configure_rhev_apt tool_path
+    | Some (`VmdpExe, tool_path) -> configure_vmdp tool_path;
     unconfigure_xenpv ();
     unconfigure_prltools ()
 
-  and configure_rhev_apt () =
+  and configure_rhev_apt tool_path =
     (* Configure RHEV-APT (the RHEV guest agent).  However if it doesn't
      * exist just warn about it and continue.
      *)
-    match rhev_apt_exe with
-    | None -> ()
-    | Some rhev_apt_exe ->
-      g#upload rhev_apt_exe "/rhev-apt.exe"; (* XXX *)
+    g#upload tool_path "/rhev-apt.exe"; (* XXX *)
 
-      let fb_script = "\
+    let fb_script = "\
 @echo off
 
 echo installing rhev-apt
@@ -233,8 +240,38 @@ echo installing rhev-apt
 echo starting rhev-apt
 net start rhev-apt
 " in
-      Firstboot.add_firstboot_script g inspect.i_root
-        "configure rhev-apt" fb_script
+    Firstboot.add_firstboot_script g inspect.i_root
+      "configure rhev-apt" fb_script
+
+  and configure_vmdp tool_path =
+    (* Configure VMDP if possible *)
+    g#upload tool_path "/vmdp.exe";
+
+    let fb_script = "\
+echo V2V first boot script started
+echo Decompressing VMDP installer
+\"\\vmdp.exe\"
+pushd \"VMDP-*\"
+echo Installing VMDP
+setup.exe /eula_accepted /no_reboot
+popd
+" in
+
+    let fb_recover_script = "\
+echo Finishing VMDP installation
+if not exist VMDP-* (
+  \"\\vmdp.exe\"
+)
+pushd \"VMDP-*\"
+setup.exe /eula_accepted /no_reboot
+popd
+" in
+
+    Firstboot.add_firstboot_script g inspect.i_root
+      "configure vmdp" fb_script;
+
+    Firstboot.add_firstboot_script g inspect.i_root
+      "finish vmdp setup" fb_recover_script
 
   and unconfigure_xenpv () =
     match xenpv_uninst with

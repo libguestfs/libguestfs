@@ -66,11 +66,20 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
   else (
     (* Can we install the block driver? *)
     let block : guestcaps_block_type =
-      let has_viostor = g#exists (driverdir // "viostor.inf") in
+      let filenames = ["virtio_blk"; "vrtioblk"; "viostor"] in
+      let viostor_driver = try (
+        Some (
+          List.find (
+            fun driver_file ->
+              let source = driverdir // driver_file ^ ".sys" in
+              g#exists source
+          ) filenames
+        )
+      ) with Not_found -> None in
       let has_vioscsi = g#exists (driverdir // "vioscsi.inf") in
-      match rcaps.rcaps_block_bus, has_viostor, has_vioscsi with
-      | Some Virtio_blk, false, _ ->
-        error (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+      match rcaps.rcaps_block_bus, viostor_driver, has_vioscsi with
+      | Some Virtio_blk, None, _ ->
+        error (f_"there is no virtio block device driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
               inspect.i_major_version inspect.i_minor_version
               inspect.i_arch virtio_win
 
@@ -79,20 +88,20 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
               inspect.i_major_version inspect.i_minor_version
               inspect.i_arch virtio_win
 
-      | None, false, _ ->
-        warning (f_"there is no viostor (virtio block device) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
+      | None, None, _ ->
+        warning (f_"there is no virtio block device driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n\nThe guest will be configured to use a slower emulated device.")
                 inspect.i_major_version inspect.i_minor_version
                 inspect.i_arch virtio_win;
         IDE
 
-      | (Some Virtio_blk | None), true, _ ->
+      | (Some Virtio_blk | None), Some driver_name, _ ->
         (* Block driver needs tweaks to allow booting; the rest is set up by PnP
          * manager *)
-        let source = driverdir // "viostor.sys" in
-        let target = sprintf "%s/system32/drivers/viostor.sys" systemroot in
+        let source = driverdir // (driver_name ^ ".sys") in
+        let target = sprintf "%s/system32/drivers/%s.sys" systemroot driver_name in
         let target = g#case_sensitive_path target in
         g#cp source target;
-        add_guestor_to_registry g root current_cs "viostor"
+        add_guestor_to_registry g root current_cs driver_name
                                 viostor_pciid;
         Virtio_blk
 
@@ -112,7 +121,11 @@ let rec install_drivers g inspect systemroot root current_cs rcaps =
 
     (* Can we install the virtio-net driver? *)
     let net : guestcaps_net_type =
-      let has_netkvm = g#exists (driverdir // "netkvm.inf") in
+      let filenames = ["virtio_net.inf"; "netkvm.inf"] in
+      let has_netkvm =
+        List.exists (
+          fun driver_file -> g#exists (driverdir // driver_file)
+        ) filenames in
       match rcaps.rcaps_net_bus, has_netkvm with
       | Some Virtio_net, false ->
         error (f_"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s")
