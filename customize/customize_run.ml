@@ -114,6 +114,7 @@ exec >>%s 2>&1
     | "pisi" ->   sprintf "pisi it %s" quoted_args
     | "pacman" -> sprintf "pacman -S %s" quoted_args
     | "urpmi" ->  sprintf "urpmi %s" quoted_args
+    | "xbps" ->   sprintf "xbps-install -Sy %s" quoted_args
     | "yum" ->    sprintf "yum -y install %s" quoted_args
     | "zypper" -> sprintf "zypper -n in -l %s" quoted_args
 
@@ -141,6 +142,7 @@ exec >>%s 2>&1
     | "pisi" ->   "pisi upgrade"
     | "pacman" -> "pacman -Su"
     | "urpmi" ->  "urpmi --auto-select"
+    | "xbps" ->   "xbps-install -Suy"
     | "yum" ->    "yum -y update"
     | "zypper" -> "zypper -n update -l"
 
