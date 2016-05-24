@@ -334,7 +334,7 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
       r = 1;
     }
     else if (STRPREFIX (lines[i], "DISTRIB_RELEASE=")) {
-      if (guestfs_int_version_from_x_y (g, &fs->version, &lines[i][16]) == -1)
+      if (guestfs_int_version_from_x_y_or_x (g, &fs->version, &lines[i][16]) == -1)
         return -1;
     }
     else if (fs->product_name == NULL &&
