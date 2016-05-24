@@ -281,7 +281,7 @@ construct_timeline (void)
 
 #if defined(__i386__) || defined(__x86_64__)
     /* SeaBIOS. */
-    FIND ("seabios", 0,
+    FIND_OPTIONAL ("seabios", 0,
           data->events[j].source == GUESTFS_EVENT_APPLIANCE &&
           strstr (data->events[j].message, "SeaBIOS (version"),
           data->events[k].source == GUESTFS_EVENT_APPLIANCE &&
