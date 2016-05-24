@@ -61,6 +61,7 @@ static char *icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 #if CAN_DO_CIRROS
 static char *icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 #endif
+static char *icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 #if CAN_DO_WINDOWS
 static char *icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 #endif
@@ -156,6 +157,10 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
 #if CAN_DO_CIRROS
       r = icon_cirros (g, fs, &size);
 #endif
+      break;
+
+    case OS_DISTRO_VOID_LINUX:
+      r = icon_voidlinux (g, fs, &size);
       break;
 
       /* These are just to keep gcc warnings happy. */
@@ -419,6 +424,14 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 }
 
 #endif /* CAN_DO_CIRROS */
+
+#define VOIDLINUX_ICON "/usr/share/void-artwork/void-logo.png"
+
+static char *
+icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+{
+  return get_png (g, fs, VOIDLINUX_ICON, size_r, 20480);
+}
 
 #if CAN_DO_WINDOWS
 

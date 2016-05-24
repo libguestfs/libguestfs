@@ -1183,6 +1183,10 @@ Ubuntu.
 
 The distro could not be determined.
 
+=item \"voidlinux\"
+
+Void Linux.
+
 =item \"windows\"
 
 Windows does not have distributions.  This string is

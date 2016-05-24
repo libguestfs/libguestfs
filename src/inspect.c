@@ -291,6 +291,7 @@ guestfs_impl_inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_TTYLINUX: ret = safe_strdup (g, "ttylinux"); break;
   case OS_DISTRO_WINDOWS: ret = safe_strdup (g, "windows"); break;
   case OS_DISTRO_UBUNTU: ret = safe_strdup (g, "ubuntu"); break;
+  case OS_DISTRO_VOID_LINUX: ret = safe_strdup (g, "voidlinux"); break;
   case OS_DISTRO_UNKNOWN: ret = safe_strdup (g, "unknown"); break;
   }
 

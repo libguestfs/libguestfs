@@ -108,6 +108,7 @@
         <value>suse-based</value>
         <value>ttylinux</value>
         <value>ubuntu</value>
+        <value>voidlinux</value>
         <value>windows</value>
         <!-- "unknown" is intentionally left out -->
       </choice>

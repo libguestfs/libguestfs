@@ -569,6 +569,7 @@ enum inspect_os_distro {
   OS_DISTRO_ALTLINUX,
   OS_DISTRO_FRUGALWARE,
   OS_DISTRO_PLD_LINUX,
+  OS_DISTRO_VOID_LINUX,
 };
 
 enum inspect_os_package_format {

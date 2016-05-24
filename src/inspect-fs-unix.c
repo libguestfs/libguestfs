@@ -216,6 +216,8 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
         distro = OS_DISTRO_SLES;
       else if (VALUE_IS ("ubuntu"))
         distro = OS_DISTRO_UBUNTU;
+      else if (VALUE_IS ("void"))
+        distro = OS_DISTRO_VOID_LINUX;
     } else if (STRPREFIX (line, "PRETTY_NAME=")) {
       free (product_name);
       product_name = safe_strndup (g, value, value_len);
@@ -229,9 +231,17 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
   }
 
   /* If we haven't got all the fields, exit right away. */
-  if (distro == OS_DISTRO_UNKNOWN || product_name == NULL ||
-      version.v_major == -1 || version.v_minor == -1)
+  if (distro == OS_DISTRO_UNKNOWN || product_name == NULL)
     return 0;
+
+  if (version.v_major == -1 || version.v_minor == -1) {
+    /* Void Linux has no VERSION_ID (yet), but since it's a rolling
+     * distro and has no other version/release-like file. */
+    if (distro == OS_DISTRO_VOID_LINUX)
+      version_init_null (&version);
+    else
+      return 0;
+  }
 
   /* Apparently, os-release in Debian and CentOS does not provide the full
    * version number in VERSION_ID, but just the "major" part of it.
