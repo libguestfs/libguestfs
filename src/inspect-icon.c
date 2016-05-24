@@ -62,6 +62,7 @@ static char *icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 static char *icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 #endif
 static char *icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+static char *icon_altlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 #if CAN_DO_WINDOWS
 static char *icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
 #endif
@@ -163,6 +164,10 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
       r = icon_voidlinux (g, fs, &size);
       break;
 
+    case OS_DISTRO_ALTLINUX:
+      r = icon_altlinux (g, fs, &size);
+      break;
+
       /* These are just to keep gcc warnings happy. */
     case OS_DISTRO_ARCHLINUX:
     case OS_DISTRO_BUILDROOT:
@@ -180,7 +185,6 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
     case OS_DISTRO_NETBSD:
     case OS_DISTRO_OPENBSD:
     case OS_DISTRO_ALPINE_LINUX:
-    case OS_DISTRO_ALTLINUX:
     case OS_DISTRO_FRUGALWARE:
     case OS_DISTRO_PLD_LINUX:
     case OS_DISTRO_UNKNOWN:
@@ -431,6 +435,14 @@ static char *
 icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
   return get_png (g, fs, VOIDLINUX_ICON, size_r, 20480);
+}
+
+#define ALTLINUX_ICON "/usr/share/doc/alt-docs/altlogo.png"
+
+static char *
+icon_altlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+{
+  return get_png (g, fs, ALTLINUX_ICON, size_r, 20480);
 }
 
 #if CAN_DO_WINDOWS
