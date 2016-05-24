@@ -1826,7 +1826,8 @@ package format I<or> if the operating system does not have
 a real packaging system (eg. Windows).
 
 Possible strings include:
-C<rpm>, C<deb>, C<ebuild>, C<pisi>, C<pacman>, C<pkgsrc>, C<apk>.
+C<rpm>, C<deb>, C<ebuild>, C<pisi>, C<pacman>, C<pkgsrc>, C<apk>,
+C<xbps>.
 Future versions of libguestfs may return other strings.
 
 Please read L<guestfs(3)/INSPECTION> for more details." };
@@ -1848,7 +1849,7 @@ a real packaging system (eg. Windows).
 
 Possible strings include: C<yum>, C<dnf>, C<up2date>,
 C<apt> (for all Debian derivatives),
-C<portage>, C<pisi>, C<pacman>, C<urpmi>, C<zypper>, C<apk>.
+C<portage>, C<pisi>, C<pacman>, C<urpmi>, C<zypper>, C<apk>, C<xbps>.
 Future versions of libguestfs may return other strings.
 
 Please read L<guestfs(3)/INSPECTION> for more details." };

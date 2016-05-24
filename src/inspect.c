@@ -539,6 +539,7 @@ guestfs_impl_inspect_get_package_format (guestfs_h *g, const char *root)
   case OS_PACKAGE_FORMAT_PISI: ret = safe_strdup (g, "pisi"); break;
   case OS_PACKAGE_FORMAT_PKGSRC: ret = safe_strdup (g, "pkgsrc"); break;
   case OS_PACKAGE_FORMAT_APK: ret = safe_strdup (g, "apk"); break;
+  case OS_PACKAGE_FORMAT_XBPS: ret = safe_strdup (g, "xbps"); break;
   case OS_PACKAGE_FORMAT_UNKNOWN:
     ret = safe_strdup (g, "unknown");
     break;
@@ -567,6 +568,7 @@ guestfs_impl_inspect_get_package_management (guestfs_h *g, const char *root)
   case OS_PACKAGE_MANAGEMENT_PORTAGE: ret = safe_strdup (g, "portage"); break;
   case OS_PACKAGE_MANAGEMENT_UP2DATE: ret = safe_strdup (g, "up2date"); break;
   case OS_PACKAGE_MANAGEMENT_URPMI: ret = safe_strdup (g, "urpmi"); break;
+  case OS_PACKAGE_MANAGEMENT_XBPS: ret = safe_strdup (g, "xbps"); break;
   case OS_PACKAGE_MANAGEMENT_YUM: ret = safe_strdup (g, "yum"); break;
   case OS_PACKAGE_MANAGEMENT_ZYPPER: ret = safe_strdup (g, "zypper"); break;
   case OS_PACKAGE_MANAGEMENT_UNKNOWN:
