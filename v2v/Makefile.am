@@ -31,6 +31,8 @@ EXTRA_DIST = \
 	test-v2v-i-ova-formats.ovf \
 	test-v2v-i-ova-gz.expected \
 	test-v2v-i-ova-gz.ovf \
+	test-v2v-i-ova-subfolders.expected \
+	test-v2v-i-ova-subfolders.ovf \
 	test-v2v-i-ova-two-disks.expected \
 	test-v2v-i-ova-two-disks.ovf \
 	test-v2v-networks-and-bridges-expected.xml \
