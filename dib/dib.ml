@@ -60,8 +60,15 @@ let write_script fn text =
   close_out oc;
   Unix.chmod fn 0o755
 
-let prepare_external ~dib_args ~dib_vars ~out_name ~root_label ~rootfs_uuid
-  ~image_cache ~arch ~network ~debug
+let envvars_string l =
+  let l = List.map (
+    fun (var, value) ->
+      sprintf "export %s=%s" var (quote value)
+  ) l in
+  String.concat "\n" l
+
+let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
+  ~rootfs_uuid ~image_cache ~arch ~network ~debug
   destdir libdir hooksdir tmpdir fakebindir all_elements element_paths =
   let network_string = if network then "" else "1" in
 
@@ -73,6 +80,9 @@ target_dir=$1
 shift
 script=$1
 shift
+
+# user variables
+%s
 
 export PATH=%s:$PATH
 
@@ -108,6 +118,7 @@ fi
 $target_dir/$script
 "
     (if debug >= 1 then "set -x\n" else "")
+    (envvars_string envvars)
     fakebindir
     (quote tmpdir)
     network_string
@@ -131,10 +142,6 @@ $target_dir/$script
 let prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name ~rootfs_uuid
   ~arch ~network ~root_label ~install_type ~debug ~extra_packages
   destdir all_elements =
-  let envvars_string = List.map (
-    fun (var, value) ->
-      sprintf "export %s=%s" var (quote value)
-  ) envvars in
   let network_string = if network then "" else "1" in
 
   let script_run_part = sprintf "\
@@ -211,7 +218,7 @@ fi
 $target_dir/$script
 "
     (if debug >= 1 then "set -x\n" else "")
-    (String.concat "\n" envvars_string)
+    (envvars_string envvars)
     network_string
     out_name
     rootfs_uuid
@@ -565,9 +572,9 @@ let main () =
   in
   at_exit delete_file;
 
-  prepare_external ~dib_args ~dib_vars ~out_name:image_basename ~root_label
-                   ~rootfs_uuid ~image_cache ~arch ~network:cmdline.network
-                   ~debug
+  prepare_external ~envvars ~dib_args ~dib_vars ~out_name:image_basename
+                   ~root_label ~rootfs_uuid ~image_cache ~arch
+                   ~network:cmdline.network ~debug
                    tmpdir cmdline.basepath hookstmpdir extradatatmpdir
                    (auxtmpdir // "fake-bin")
                    all_elements cmdline.element_paths;
