@@ -382,9 +382,12 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
                       MACHINE_TYPE ","
 #endif
 #ifdef __aarch64__
-                      "gic-version=host,"
+                      "%s"      /* gic-version */
 #endif
                       "accel=%s",
+#ifdef __aarch64__
+                      has_kvm && !force_tcg ? "gic-version=host," : "",
+#endif
                       !force_tcg ? "kvm:tcg" : "tcg");
 
   cpu_model = guestfs_int_get_cpu_model (has_kvm && !force_tcg);
