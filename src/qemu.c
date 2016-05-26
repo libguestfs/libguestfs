@@ -37,15 +37,11 @@
 
 #include <libxml/uri.h>
 
-#include <pcre.h>
-
 #include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs_protocol.h"
-
-COMPILE_REGEXP (re_major_minor, "(\\d+)\\.(\\d+)", 0)
 
 struct qemu_data {
   char *qemu_help;              /* Output of qemu -help. */
@@ -265,29 +261,15 @@ static void
 parse_qemu_version (guestfs_h *g, const char *qemu_help,
                     struct version *qemu_version)
 {
-  CLEANUP_FREE char *major_s = NULL, *minor_s = NULL;
-  int major_i, minor_i;
-
   version_init_null (qemu_version);
 
-  if (!match2 (g, qemu_help, re_major_minor, &major_s, &minor_s)) {
-  parse_failed:
+  if (guestfs_int_version_from_x_y (g, qemu_version, qemu_help) < 1) {
     debug (g, "%s: failed to parse qemu version string from the first line of the output of '%s -help'.  When reporting this bug please include the -help output.",
            __func__, g->hv);
     return;
   }
 
-  major_i = guestfs_int_parse_unsigned_int (g, major_s);
-  if (major_i == -1)
-    goto parse_failed;
-
-  minor_i = guestfs_int_parse_unsigned_int (g, minor_s);
-  if (minor_i == -1)
-    goto parse_failed;
-
-  guestfs_int_version_from_values (qemu_version, major_i, minor_i, 0);
-
-  debug (g, "qemu version %d.%d", major_i, minor_i);
+  debug (g, "qemu version %d.%d", qemu_version->v_major, qemu_version->v_minor);
 }
 
 static void
