@@ -35,7 +35,7 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
     List.iter (
       fun file ->
         if g#is_file file then (
-          make_random_seed_file g file;
+          make_random_seed_file g file ~exists:true;
           created := true
         )
     ) files;
@@ -71,8 +71,11 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
 
   !created
 
-and make_random_seed_file g file =
-  let file_exists = g#is_file file in
+and make_random_seed_file ?exists g file =
+  let file_exists =
+    match exists with
+    | None -> g#is_file file
+    | Some b -> b in
   let n =
     if file_exists then (
       let n = Int64.to_int (g#filesize file) in
