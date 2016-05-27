@@ -169,24 +169,25 @@ stamp-virt-p2v-make-kickstart.pod: virt-p2v-make-kickstart.pod
 	touch $@
 
 # Run virt-p2v locally.
-#
-# You can run the virt-p2v binary directly, although it's not really
-# recommended, but it's OK for quick tests of the GUI (don't try doing
-# a conversion).  A better way is to run virt-p2v inside a VM on the
-# local machine, which the following rule automates.
-
 PHYSICAL_MACHINE = $(top_builddir)/test-data/phony-guests/windows.img
 
 run-virt-p2v: virt-p2v.img
-# Unfortunately you have to hit F12 quickly after the boot and select
-# the second (USB) drive.  I cannot work out how to get qemu/seabios
-# to boot directly from the USB drive.  XXX
-	$(QEMU) -m 1024 \
+	$(QEMU) \
+	  -M pc,accel=kvm:tcg \
+	  -cpu host \
+	  -m 1024 \
 	  -drive id=hd0,file=$(PHYSICAL_MACHINE),format=raw,if=ide \
 	  -device piix3-usb-uhci \
 	  -drive id=usb0,file=$<,format=raw,snapshot=on,if=none \
 	  -device usb-storage,drive=usb0 \
-	  -boot menu=on &
+	  -boot menu=on \
+	  -netdev user,id=net0,net=169.254.0.0/16 \
+	  -device virtio-net-pci,netdev=net0 \
+	  -netdev user,id=net1 \
+	  -device rtl8139,netdev=net1 \
+	  -netdev user,id=net2 \
+	  -device e1000,netdev=net2 \
+	  &
 
 $(top_builddir)/test-data/phony-guests/windows.img:
 	$(MAKE) -C $(top_builddir)/test-data/phony-guests windows.img
