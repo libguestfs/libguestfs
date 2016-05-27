@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-05-26 12:51+0100\n"
+"POT-Creation-Date: 2016-05-26 19:25+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/libguestfs/"
@@ -794,7 +794,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
-#: ../dib/dib.ml:487
+#: ../dib/dib.ml:494
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -858,7 +858,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../dib/dib.ml:853
+#: ../dib/dib.ml:860
 msgid "Compressing the image as tar"
 msgstr ""
 
@@ -874,7 +874,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:877 ../builder/builder.ml:615
+#: ../dib/dib.ml:884 ../builder/builder.ml:615
 msgid "Converting to %s"
 msgstr ""
 
@@ -1039,7 +1039,7 @@ msgstr ""
 msgid "Don't print progress messages"
 msgstr ""
 
-#: ../dib/dib.ml:902
+#: ../dib/dib.ml:909
 msgid "Done"
 msgstr ""
 
@@ -1077,7 +1077,7 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../dib/dib.ml:460
+#: ../dib/dib.ml:467
 msgid "Elements: %s"
 msgstr ""
 
@@ -1142,7 +1142,7 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../dib/dib.ml:483
+#: ../dib/dib.ml:490
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1158,7 +1158,7 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:832
+#: ../dib/dib.ml:839
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1365,7 +1365,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../dib/dib.ml:413
+#: ../dib/dib.ml:420
 msgid "Installing: %s"
 msgstr ""
 
@@ -1516,7 +1516,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr ""
 
-#: ../dib/dib.ml:619
+#: ../dib/dib.ml:626
 msgid "Opening the disks"
 msgstr ""
 
@@ -1643,7 +1643,7 @@ msgstr ""
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:507
+#: ../dib/dib.ml:514
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -1926,7 +1926,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../dib/dib.ml:394 ../dib/dib.ml:361
+#: ../dib/dib.ml:401 ../dib/dib.ml:368
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -2125,7 +2125,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:755
+#: ../dib/dib.ml:762
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2394,7 +2394,7 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../dib/dib.ml:858
+#: ../dib/dib.ml:865
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2446,7 +2446,7 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../dib/dib.ml:897
+#: ../dib/dib.ml:904
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -3267,7 +3267,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../dib/dib.ml:684
+#: ../dib/dib.ml:691
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3600,7 +3600,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../dib/dib.ml:433
+#: ../dib/dib.ml:440
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
@@ -8933,7 +8933,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch-direct.c:822 src/launch-libvirt.c:603
+#: src/launch-direct.c:825 src/launch-libvirt.c:603
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
@@ -8998,7 +8998,7 @@ msgstr ""
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1400 src/qemu.c:455
+#: src/launch-libvirt.c:1400 src/qemu.c:437
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -9285,11 +9285,11 @@ msgid ""
 "without libvirt"
 msgstr ""
 
-#: src/osinfo.c:251
+#: src/osinfo.c:249
 msgid "osinfo: unable to create new XPath context"
 msgstr ""
 
-#: src/osinfo.c:261
+#: src/osinfo.c:259
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
@@ -9344,35 +9344,35 @@ msgstr "கோப்பு சங்க்கை பகுக்க முடி
 msgid "file receive cancelled by daemon"
 msgstr "கோப்பினை பெறுதல் டொமைனால் ரத்து செய்யப்பட்டது"
 
-#: src/qemu.c:637
+#: src/qemu.c:619
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/qemu.c:646
+#: src/qemu.c:628
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/qemu.c:653
+#: src/qemu.c:635
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/qemu.c:661
+#: src/qemu.c:643
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/qemu.c:669
+#: src/qemu.c:651
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/qemu.c:692
+#: src/qemu.c:674
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
