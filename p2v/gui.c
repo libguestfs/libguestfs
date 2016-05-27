@@ -839,6 +839,7 @@ populate_disks (GtkTreeView *disks_list)
                                                disks_col_convert,
                                                "active", DISKS_COL_CONVERT,
                                                NULL);
+  gtk_cell_renderer_set_alignment (disks_col_convert, 0.5, 0.0);
   disks_col_device = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (disks_list,
                                                -1,
@@ -846,6 +847,7 @@ populate_disks (GtkTreeView *disks_list)
                                                disks_col_device,
                                                "text", DISKS_COL_DEVICE,
                                                NULL);
+  gtk_cell_renderer_set_alignment (disks_col_device, 0.0, 0.0);
   disks_col_size = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (disks_list,
                                                -1,
@@ -853,6 +855,7 @@ populate_disks (GtkTreeView *disks_list)
                                                disks_col_size,
                                                "text", DISKS_COL_SIZE,
                                                NULL);
+  gtk_cell_renderer_set_alignment (disks_col_size, 0.0, 0.0);
   disks_col_model = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (disks_list,
                                                -1,
@@ -860,6 +863,7 @@ populate_disks (GtkTreeView *disks_list)
                                                disks_col_model,
                                                "text", DISKS_COL_MODEL,
                                                NULL);
+  gtk_cell_renderer_set_alignment (disks_col_model, 0.0, 0.0);
 
   g_signal_connect (disks_col_convert, "toggled",
                     G_CALLBACK (toggled), disks_store);
@@ -894,6 +898,7 @@ populate_removable (GtkTreeView *removable_list)
                                                removable_col_convert,
                                                "active", REMOVABLE_COL_CONVERT,
                                                NULL);
+  gtk_cell_renderer_set_alignment (removable_col_convert, 0.5, 0.0);
   removable_col_device = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (removable_list,
                                                -1,
@@ -901,6 +906,7 @@ populate_removable (GtkTreeView *removable_list)
                                                removable_col_device,
                                                "text", REMOVABLE_COL_DEVICE,
                                                NULL);
+  gtk_cell_renderer_set_alignment (removable_col_device, 0.0, 0.0);
 
   g_signal_connect (removable_col_convert, "toggled",
                     G_CALLBACK (toggled), removable_store);
@@ -967,7 +973,7 @@ populate_interfaces (GtkTreeView *interfaces_list)
                                                interfaces_col_device,
                                                "markup", INTERFACES_COL_DEVICE,
                                                NULL);
-  gtk_cell_renderer_set_alignment (interfaces_col_device, 0.5, 0.0);
+  gtk_cell_renderer_set_alignment (interfaces_col_device, 0.0, 0.0);
   interfaces_col_network = gtk_cell_renderer_text_new ();
   gtk_tree_view_insert_column_with_attributes (interfaces_list,
                                                -1,
@@ -975,7 +981,7 @@ populate_interfaces (GtkTreeView *interfaces_list)
                                                interfaces_col_network,
                                                "text", INTERFACES_COL_NETWORK,
                                                NULL);
-  gtk_cell_renderer_set_alignment (interfaces_col_network, 0.5, 0.0);
+  gtk_cell_renderer_set_alignment (interfaces_col_network, 0.0, 0.0);
 
   g_signal_connect (interfaces_col_convert, "toggled",
                     G_CALLBACK (toggled), interfaces_store);
