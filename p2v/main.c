@@ -324,8 +324,10 @@ compare (const void *vp1, const void *vp2)
   return strcmp (*p1, *p2);
 }
 
-/* Get parent device of a partition.  Returns 0 if no parent device
- * could be found.
+/**
+ * Get parent device of a partition.
+ *
+ * Returns C<0> if no parent device could be found.
  */
 static dev_t
 partition_parent (dev_t part_dev)
@@ -353,9 +355,10 @@ partition_parent (dev_t part_dev)
   return makedev (parent_major, parent_minor);
 }
 
-/* Return true if the named device (eg. dev == "sda") contains the
- * root filesystem.  root_device is the major:minor of the root
- * filesystem (eg. 8:1 if the root filesystem was /dev/sda1).
+/**
+ * Return true if the named device (eg. C<dev == "sda">) contains the
+ * root filesystem.  C<root_device> is the major:minor of the root
+ * filesystem (eg. C<8:1> if the root filesystem was F</dev/sda1>).
  *
  * This doesn't work for LVs and so on.  However we only really care
  * if this test works on the P2V ISO where the root device is a
@@ -388,6 +391,10 @@ device_contains (const char *dev, dev_t root_device)
   return 0;
 }
 
+/**
+ * Enumerate all disks in F</sys/block> and add them to the global
+ * C<all_disks> and C<all_removable> arrays.
+ */
 static void
 find_all_disks (void)
 {
@@ -461,6 +468,10 @@ find_all_disks (void)
     qsort (all_removable, nr_removable, sizeof (char *), compare);
 }
 
+/**
+ * Enumerate all network interfaces in F</sys/class/net> and add them
+ * to the global C<all_interfaces> array.
+ */
 static void
 find_all_interfaces (void)
 {
@@ -511,7 +522,9 @@ find_all_interfaces (void)
     qsort (all_interfaces, nr_interfaces, sizeof (char *), compare);
 }
 
-/* Read the list of flags from /proc/cpuinfo. */
+/**
+ * Read the list of flags from F</proc/cpuinfo>.
+ */
 static int
 cpuinfo_flags (void)
 {

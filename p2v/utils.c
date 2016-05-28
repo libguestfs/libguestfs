@@ -40,7 +40,9 @@
     }                                           \
   } while (0)
 
-/* Return contents of /sys/class/net/<if_name>/address (if found). */
+/**
+ * Return contents of F</sys/class/net/I<if_name>/address> (if found).
+ */
 char *
 get_if_addr (const char *if_name)
 {
@@ -64,9 +66,10 @@ get_if_addr (const char *if_name)
   return content;
 }
 
-/* Return contents of /sys/class/net/<if_name>/device/vendor (if found),
- * mapped to the PCI vendor.  See:
- * http://pjwelsh.blogspot.co.uk/2011/11/howto-get-network-card-vendor-device-or.html
+/**
+ * Return contents of F</sys/class/net/I<if_name>/device/vendor> (if
+ * found), mapped to the PCI vendor.  See:
+ * L<http://pjwelsh.blogspot.co.uk/2011/11/howto-get-network-card-vendor-device-or.html>
  */
 char *
 get_if_vendor (const char *if_name, int truncate)
@@ -135,14 +138,14 @@ get_if_vendor (const char *if_name, int truncate)
   return NULL;
 }
 
-/* Wait for the network to come online, but don't error out if that
- * fails.  The caller will call test_connection immediately after this
- * which will fail if the network didn't come online.
- */
-
 /* XXX We could make this configurable. */
 #define NETWORK_ONLINE_COMMAND "nm-online -t 30"
 
+/**
+ * Wait for the network to come online, but don't error out if that
+ * fails.  The caller will call C<test_connection> immediately after
+ * this which will fail if the network didn't come online.
+ */
 void
 wait_network_online (const struct config *config)
 {

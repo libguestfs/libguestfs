@@ -109,7 +109,9 @@ free_config (struct config *c)
   free (c);
 }
 
-/* Print the conversion parameters and other important information. */
+/**
+ * Print the conversion parameters and other important information.
+ */
 void
 print_config (struct config *config, FILE *fp)
 {

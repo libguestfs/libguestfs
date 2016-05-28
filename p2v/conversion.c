@@ -16,6 +16,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file manages the p2v conversion.
+ *
+ * The conversion is actually done by L<virt-v2v(1)> running on the
+ * remote conversion server.  This file manages running the remote
+ * command and provides callbacks for displaying the output.
+ *
+ * When virt-p2v operates in GUI mode, this code runs in a separate
+ * thread.  When virt-p2v operates in kernel mode, this runs
+ * synchronously in the main thread.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -443,7 +455,9 @@ cancel_conversion (void)
   set_cancel_requested (1);
 }
 
-/* Send a shell-quoted string to remote. */
+/**
+ * Send a shell-quoted string to remote.
+ */
 static int
 send_quoted (mexp_h *h, const char *s)
 {
@@ -463,7 +477,11 @@ send_quoted (mexp_h *h, const char *s)
   return 0;
 }
 
-/* Note: returns process ID (> 0) or 0 if there is an error. */
+/**
+ * Start a local L<qemu-nbd(1)> process.
+ *
+ * Returns the process ID (E<gt> 0) or C<0> if there is an error.
+ */
 static pid_t
 start_qemu_nbd (int port, const char *device)
 {
@@ -500,12 +518,18 @@ start_qemu_nbd (int port, const char *device)
   return pid;
 }
 
-/* Connect to a host/port, resolving the address using getaddrinfo and
- * setting the source port kernel hint.  This may involve multiple
- * connections - to IPv4 and IPv6 for instance.
- */
 static int bind_source_port (int sockfd, int family, int source_port);
 
+/**
+ * Connect to C<hostname:dest_port>, resolving the address using
+ * L<getaddrinfo(3)>.
+ *
+ * This also sets the source port of the connection to the first free
+ * port number E<ge> C<source_port>.
+ *
+ * This may involve multiple connections - to IPv4 and IPv6 for
+ * instance.
+ */
 static int
 connect_with_source_port (const char *hostname, int dest_port, int source_port)
 {
@@ -753,10 +777,12 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
     return NULL;						\
   }
 
-/* Write the libvirt XML for this physical machine.  Note this is not
- * actually input for libvirt.  It's input for virt-v2v on the
- * conversion server, and virt-v2v will (if necessary) generate the
- * final libvirt XML.
+/**
+ * Write the libvirt XML for this physical machine.
+ *
+ * Note this is not actually input for libvirt.  It's input for
+ * virt-v2v on the conversion server.  Virt-v2v will (if necessary)
+ * generate the final libvirt XML.
  */
 static char *
 generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
@@ -948,12 +974,14 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
   return ret;
 }
 
-/* Using config->network_map, map the interface to a target network
- * name.  If no map is found, return "default".  See virt-p2v(1)
- * documentation of "p2v.network" for how the network map works.
+/**
+ * Using C<config-E<gt>network_map>, map the interface to a target
+ * network name.  If no map is found, return C<default>.  See
+ * L<virt-p2v(1)> documentation of C<"p2v.network"> for how the
+ * network map works.
  *
  * Note this returns a static string which is only valid as long as
- * config->network_map is not freed.
+ * C<config-E<gt>network_map> is not freed.
  */
 static const char *
 map_interface_to_network (struct config *config, const char *interface)
