@@ -272,9 +272,15 @@ Optional.  Used by virt-builder for checking digital signatures.
 Optional.  If available, virt-builder will use this library
 for fast, parallel uncompression of templates.
 
-=item gtk2 E<ge> 2.24
+=item Gtk E<ge> 2.24, or 3
 
-Optional.  Used by the virt-p2v user interface.
+Optional.
+
+Used by the virt-p2v graphical user interface.
+
+Either Gtk 2 or Gtk 3 can be used.  If you want to select a specific
+version of Gtk, use S<C<./configure --with-gtk=2>> or
+S<C<./configure --with-gtk=3>>.
 
 =item zip
 

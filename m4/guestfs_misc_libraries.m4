@@ -74,12 +74,41 @@ PKG_CHECK_MODULES([LIBCONFIG], [libconfig],[
     [AC_MSG_WARN([libconfig not found, some features will be disabled])])
 AM_CONDITIONAL([HAVE_LIBCONFIG],[test "x$LIBCONFIG_LIBS" != "x"])
 
-dnl Check for gtk2 library, used by virt-p2v.
-PKG_CHECK_MODULES([GTK2], [gtk+-2.0], [
-    AC_SUBST([GTK2_CFLAGS])
-    AC_SUBST([GTK2_LIBS])
-],
-    [AC_MSG_WARN([gtk2 not found, virt-p2v will be disabled])])
+dnl Check for Gtk 2 or 3 library, used by virt-p2v.
+AC_MSG_CHECKING([for --with-gtk option])
+AC_ARG_WITH([gtk],
+    [AS_HELP_STRING([--with-gtk=2|3|check|no],
+        [prefer Gtk version 2 or 3. @<:@default=check@:>@])],
+    [with_gtk="$withval"
+     AC_MSG_RESULT([$withval])],
+    [with_gtk="check"
+     AC_MSG_RESULT([not set, will check for installed Gtk])]
+)
+
+if test "x$GTK_LIBS" = "x" && \
+        ( test "x$with_gtk" = "x3" || test "x$with_gtk" = "xcheck" ) ; then
+    PKG_CHECK_MODULES([GTK], [gtk+-3.0], [
+        AC_SUBST([GTK_CFLAGS])
+        AC_SUBST([GTK_LIBS])
+        GTK_VERSION=3
+        AC_SUBST([GTK_VERSION])
+    ], [])
+fi
+if test "x$GTK_LIBS" = "x" && \
+        ( test "x$with_gtk" = "x2" || test "x$with_gtk" = "xcheck" ) ; then
+    PKG_CHECK_MODULES([GTK], [gtk+-2.0], [
+        AC_SUBST([GTK_CFLAGS])
+        AC_SUBST([GTK_LIBS])
+        GTK_VERSION=2
+        AC_SUBST([GTK_VERSION])
+    ], [])
+fi
 
 dnl Can we build virt-p2v?
-AM_CONDITIONAL([HAVE_P2V], [test "x$GTK2_LIBS" != "x"])
+AC_MSG_CHECKING([if we can build virt-p2v])
+if test "x$GTK_LIBS" != "x"; then
+    AC_MSG_RESULT([yes, with Gtk $GTK_VERSION])
+else
+    AC_MSG_RESULT([no])
+fi
+AM_CONDITIONAL([HAVE_P2V], [test "x$GTK_LIBS" != "x"])

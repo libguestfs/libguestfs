@@ -23,7 +23,7 @@ ifelse(REDHAT,1,
   dnl Used by the virt-p2v binary.
   pcre
   libxml2
-  gtk2
+  gtk`'GTK_VERSION
 
   dnl Run as external programs by the p2v binary.
   /usr/bin/ssh
@@ -56,7 +56,7 @@ ifelse(REDHAT,1,
 ifelse(DEBIAN,1,
   libpcre3
   libxml2
-  libgtk2.0-0
+  libgtk`'GTK_VERSION`'.0-0
   openssh-client
   qemu-utils
   curl
@@ -75,7 +75,7 @@ ifelse(DEBIAN,1,
 ifelse(ARCHLINUX,1,
   pcre
   libxml2
-  gtk2
+  gtk`'GTK_VERSION
   openssh
   qemu
   curl
@@ -95,7 +95,7 @@ ifelse(ARCHLINUX,1,
 ifelse(SUSE,1,
   pcre
   libxml2
-  gtk2
+  gtk`'GTK_VERSION
   /usr/bin/ssh
   /usr/bin/qemu-nbd
   curl

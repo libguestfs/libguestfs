@@ -84,13 +84,13 @@ virt_p2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(PCRE_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
-	$(GTK2_CFLAGS)
+	$(GTK_CFLAGS)
 
 virt_p2v_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(PCRE_LIBS) \
 	$(LIBXML2_LIBS) \
-	$(GTK2_LIBS) \
+	$(GTK_LIBS) \
 	../gnulib/lib/libgnu.la
 
 # Scripts to build the disk image, USB key, or kickstart.
@@ -104,7 +104,7 @@ dependencies_files = \
 
 $(dependencies_files): dependencies.m4
 	define=`echo $@ | $(SED) 's/dependencies.//;y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/'`; \
-	m4 -D$$define=1 $< > $@-t
+	m4 -D$$define=1 -DGTK_VERSION=$(GTK_VERSION) $< > $@-t
 	mv $@-t $@
 
 # Support files needed by the virt-p2v-make-* scripts.

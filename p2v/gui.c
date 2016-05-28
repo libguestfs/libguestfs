@@ -80,6 +80,104 @@
 #define MAX_SUPPORTED_VCPUS 160
 #define MAX_SUPPORTED_MEMORY_MB (UINT64_C (4000 * 1024))
 
+/* Backwards compatibility for some deprecated functions in Gtk 3. */
+#if GTK_CHECK_VERSION(3,2,0)   /* gtk >= 3.2 */
+#define hbox_new(box, homogeneous, spacing)                    \
+  do {                                                         \
+    (box) = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, spacing); \
+    if (homogeneous)                                           \
+      gtk_box_set_homogeneous (GTK_BOX (box), TRUE);           \
+  } while (0)
+#define vbox_new(box, homogeneous, spacing)                    \
+  do {                                                         \
+    (box) = gtk_box_new (GTK_ORIENTATION_VERTICAL, spacing);   \
+    if (homogeneous)                                           \
+      gtk_box_set_homogeneous (GTK_BOX (box), TRUE);           \
+  } while (0)
+#else /* gtk < 3.2 */
+#define hbox_new(box, homogeneous, spacing)             \
+  (box) = gtk_hbox_new ((homogeneous), (spacing))
+#define vbox_new(box, homogeneous, spacing)             \
+  (box) = gtk_vbox_new ((homogeneous), (spacing))
+#endif
+
+#if GTK_CHECK_VERSION(3,4,0)   /* gtk >= 3.4 */
+/* GtkGrid is sufficiently similar to GtkTable that we can just
+ * redefine these functions.
+ */
+#define table_new(grid, rows, columns)          \
+  (grid) = gtk_grid_new ()
+#define table_attach(grid, child, left, right, top, bottom, xoptions, yoptions, xpadding, ypadding) \
+  do {                                                                  \
+    if ((xoptions) == GTK_FILL) {                                       \
+      gtk_widget_set_hexpand ((child), TRUE);                           \
+      gtk_widget_set_halign ((child), GTK_ALIGN_FILL);                  \
+    }                                                                   \
+    if ((yoptions) == GTK_FILL) {                                       \
+      gtk_widget_set_vexpand ((child), TRUE);                           \
+      gtk_widget_set_valign ((child), GTK_ALIGN_FILL);                  \
+    }                                                                   \
+    set_padding ((child), (xpadding), (ypadding));                      \
+    gtk_grid_attach (GTK_GRID (grid), (child),                          \
+                     (left), (top), (right)-(left), (bottom)-(top));    \
+  } while (0)
+#else
+#define table_new(table, rows, columns)                 \
+  (table) = gtk_table_new ((rows), (columns), FALSE)
+#define table_attach(table, child, left, right,top, bottom, xoptions, yoptions, xpadding, ypadding) \
+  gtk_table_attach (GTK_TABLE (table), (child),                         \
+                    (left), (right), (top), (bottom),                   \
+                    (xoptions), (yoptions), (xpadding), (ypadding))
+#endif
+
+#if GTK_CHECK_VERSION(3,8,0)   /* gtk >= 3.8 */
+#define scrolled_window_add_with_viewport(container, child)     \
+  gtk_container_add (GTK_CONTAINER (container), child)
+#else
+#define scrolled_window_add_with_viewport(container, child)             \
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (container), child)
+#endif
+
+#if GTK_CHECK_VERSION(3,10,0)   /* gtk >= 3.10 */
+#undef GTK_STOCK_DIALOG_WARNING
+#define GTK_STOCK_DIALOG_WARNING "dialog-warning"
+#define gtk_image_new_from_stock gtk_image_new_from_icon_name
+#endif
+
+#if GTK_CHECK_VERSION(3,14,0)   /* gtk >= 3.14 */
+#define set_padding(widget, xpad, ypad)                               \
+  do {                                                                \
+    if ((xpad) != 0) {                                                \
+      gtk_widget_set_margin_start ((widget), (xpad));                 \
+      gtk_widget_set_margin_end ((widget), (xpad));                   \
+    }                                                                 \
+    if ((ypad) != 0) {                                                \
+      gtk_widget_set_margin_top ((widget), (ypad));                   \
+      gtk_widget_set_margin_bottom ((widget), (ypad));                \
+    }                                                                 \
+  } while (0)
+#define set_alignment(widget, xalign, yalign)                   \
+  do {                                                          \
+    if ((xalign) == 0.)                                         \
+      gtk_widget_set_halign ((widget), GTK_ALIGN_START);        \
+    else if ((xalign) == 1.)                                    \
+      gtk_widget_set_halign ((widget), GTK_ALIGN_END);          \
+    else                                                        \
+      gtk_widget_set_halign ((widget), GTK_ALIGN_CENTER);       \
+    if ((yalign) == 0.)                                         \
+      gtk_widget_set_valign ((widget), GTK_ALIGN_START);        \
+    else if ((xalign) == 1.)                                    \
+      gtk_widget_set_valign ((widget), GTK_ALIGN_END);          \
+    else                                                        \
+      gtk_widget_set_valign ((widget), GTK_ALIGN_CENTER);       \
+  } while (0)
+#else  /* gtk < 3.14 */
+#define set_padding(widget, xpad, ypad)                 \
+  gtk_misc_set_padding(GTK_MISC(widget),(xpad),(ypad))
+#define set_alignment(widget, xalign, yalign)                   \
+  gtk_misc_set_alignment(GTK_MISC(widget),(xalign),(yalign))
+#endif
+
 static void create_connection_dialog (struct config *);
 static void create_conversion_dialog (struct config *);
 static void create_running_dialog (void);
@@ -171,46 +269,46 @@ create_connection_dialog (struct config *config)
   /* The main dialog area. */
   intro = gtk_label_new (_("Connect to a virt-v2v conversion server over SSH:"));
   gtk_label_set_line_wrap (GTK_LABEL (intro), TRUE);
-  gtk_misc_set_padding (GTK_MISC (intro), 10, 10);
+  set_padding (intro, 10, 10);
 
-  table = gtk_table_new (7, 2, FALSE);
+  table_new (table, 7, 2);
   server_label = gtk_label_new (_("Conversion server:"));
-  gtk_misc_set_alignment (GTK_MISC (server_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (table), server_label,
-                    0, 1, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, server_label,
+                0, 1, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
+  set_alignment (server_label, 1., 0.5);
   server_entry = gtk_entry_new ();
   if (config->server != NULL)
     gtk_entry_set_text (GTK_ENTRY (server_entry), config->server);
-  gtk_table_attach (GTK_TABLE (table), server_entry,
-                    1, 2, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, server_entry,
+                1, 2, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
 
   port_label = gtk_label_new (_("SSH port:"));
-  gtk_misc_set_alignment (GTK_MISC (port_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (table), port_label,
-                    0, 1, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, port_label,
+                0, 1, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
+  set_alignment (port_label, 1., 0.5);
   port_entry = gtk_entry_new ();
   gtk_entry_set_width_chars (GTK_ENTRY (port_entry), 6);
   snprintf (port_str, sizeof port_str, "%d", config->port);
   gtk_entry_set_text (GTK_ENTRY (port_entry), port_str);
-  gtk_table_attach (GTK_TABLE (table), port_entry,
-                    1, 2, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, port_entry,
+                1, 2, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
 
   username_label = gtk_label_new (_("User name:"));
-  gtk_misc_set_alignment (GTK_MISC (username_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (table), username_label,
-                    0, 1, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, username_label,
+                0, 1, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
+  set_alignment (username_label, 1., 0.5);
   username_entry = gtk_entry_new ();
   if (config->username != NULL)
     gtk_entry_set_text (GTK_ENTRY (username_entry), config->username);
   else
     gtk_entry_set_text (GTK_ENTRY (username_entry), "root");
-  gtk_table_attach (GTK_TABLE (table), username_entry,
-                    1, 2, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, username_entry,
+                1, 2, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
 
   password_label = gtk_label_new (_("Password:"));
-  gtk_misc_set_alignment (GTK_MISC (password_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (table), password_label,
-                    0, 1, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, password_label,
+                0, 1, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
+  set_alignment (password_label, 1., 0.5);
   password_entry = gtk_entry_new ();
   gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 #ifdef GTK_INPUT_PURPOSE_PASSWORD
@@ -219,53 +317,57 @@ create_connection_dialog (struct config *config)
 #endif
   if (config->password != NULL)
     gtk_entry_set_text (GTK_ENTRY (password_entry), config->password);
-  gtk_table_attach (GTK_TABLE (table), password_entry,
-                    1, 2, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, password_entry,
+                1, 2, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
 
   identity_label = gtk_label_new (_("SSH Identity URL:"));
-  gtk_misc_set_alignment (GTK_MISC (identity_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (table), identity_label,
-                    0, 1, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, identity_label,
+                0, 1, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+  set_alignment (identity_label, 1., 0.5);
   identity_entry = gtk_entry_new ();
   if (config->identity_url != NULL)
     gtk_entry_set_text (GTK_ENTRY (identity_entry), config->identity_url);
-  gtk_table_attach (GTK_TABLE (table), identity_entry,
-                    1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, identity_entry,
+                1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
 
   identity_tip_label = gtk_label_new (NULL);
   gtk_label_set_markup (GTK_LABEL (identity_tip_label),
                         _("<i>If using password authentication, leave the SSH Identity URL blank</i>"));
   gtk_label_set_line_wrap (GTK_LABEL (identity_tip_label), TRUE);
-  gtk_table_attach (GTK_TABLE (table), identity_tip_label,
-                    1, 2, 5, 6, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, identity_tip_label,
+                1, 2, 5, 6, GTK_FILL, GTK_FILL, 4, 4);
 
   sudo_button =
     gtk_check_button_new_with_label (_("Use sudo when running virt-v2v"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sudo_button),
                                 config->sudo);
-  gtk_table_attach (GTK_TABLE (table), sudo_button,
-                    1, 2, 6, 7, GTK_FILL, GTK_FILL, 4, 4);
+  table_attach (table, sudo_button,
+                1, 2, 6, 7, GTK_FILL, GTK_FILL, 4, 4);
 
-  test_hbox = gtk_hbox_new (FALSE, 0);
+  hbox_new (test_hbox, FALSE, 0);
   test = gtk_button_new_with_label (_("Test connection"));
   gtk_box_pack_start (GTK_BOX (test_hbox), test, TRUE, FALSE, 0);
 
-  spinner_hbox = gtk_hbox_new (FALSE, 10);
+  hbox_new (spinner_hbox, FALSE, 10);
   spinner = gtk_spinner_new ();
   gtk_box_pack_start (GTK_BOX (spinner_hbox), spinner, FALSE, FALSE, 0);
   spinner_message = gtk_label_new (NULL);
   gtk_label_set_line_wrap (GTK_LABEL (spinner_message), TRUE);
-  gtk_misc_set_padding (GTK_MISC (spinner_message), 10, 10);
+  set_padding (spinner_message, 10, 10);
   gtk_box_pack_start (GTK_BOX (spinner_hbox), spinner_message, TRUE, TRUE, 0);
 
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (conn_dlg)->vbox),
-                      intro, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (conn_dlg)->vbox),
-                      table, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (conn_dlg)->vbox),
-                      test_hbox, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (conn_dlg)->vbox),
-                      spinner_hbox, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (conn_dlg))),
+     intro, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (conn_dlg))),
+     table, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (conn_dlg))),
+     test_hbox, FALSE, FALSE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (conn_dlg))),
+     spinner_hbox, TRUE, TRUE, 0);
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conn_dlg),
@@ -306,7 +408,7 @@ show_connection_dialog (void)
 
   /* Show everything except the spinner. */
   gtk_widget_show_all (conn_dlg);
-  gtk_widget_hide_all (spinner_hbox);
+  gtk_widget_hide (spinner_hbox);
 }
 
 /**
@@ -593,55 +695,55 @@ create_conversion_dialog (struct config *config)
   gtk_widget_set_size_request (conv_dlg, 900, 560);
 
   /* The main dialog area. */
-  hbox = gtk_hbox_new (TRUE, 1);
-  left_vbox = gtk_vbox_new (FALSE, 1);
-  right_vbox = gtk_vbox_new (TRUE, 1);
+  hbox_new (hbox, TRUE, 1);
+  vbox_new (left_vbox, FALSE, 1);
+  vbox_new (right_vbox, TRUE, 1);
 
   /* The left column: target properties and output options. */
   target_frame = gtk_frame_new (_("Target properties"));
   gtk_container_set_border_width (GTK_CONTAINER (target_frame), 4);
 
-  target_vbox = gtk_vbox_new (FALSE, 1);
+  vbox_new (target_vbox, FALSE, 1);
 
-  target_tbl = gtk_table_new (3, 3, FALSE);
+  table_new (target_tbl, 3, 3);
   guestname_label = gtk_label_new (_("Name:"));
-  gtk_misc_set_alignment (GTK_MISC (guestname_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (target_tbl), guestname_label,
-                    0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (target_tbl, guestname_label,
+                0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (guestname_label, 1., 0.5);
   guestname_entry = gtk_entry_new ();
   if (config->guestname != NULL)
     gtk_entry_set_text (GTK_ENTRY (guestname_entry), config->guestname);
-  gtk_table_attach (GTK_TABLE (target_tbl), guestname_entry,
-                    1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (target_tbl, guestname_entry,
+                1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
 
   vcpus_label = gtk_label_new (_("# vCPUs:"));
-  gtk_misc_set_alignment (GTK_MISC (vcpus_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (target_tbl), vcpus_label,
-                    0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (target_tbl, vcpus_label,
+                0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (vcpus_label, 1., 0.5);
   vcpus_entry = gtk_entry_new ();
   snprintf (vcpus_str, sizeof vcpus_str, "%d", config->vcpus);
   gtk_entry_set_text (GTK_ENTRY (vcpus_entry), vcpus_str);
-  gtk_table_attach (GTK_TABLE (target_tbl), vcpus_entry,
-                    1, 2, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (target_tbl, vcpus_entry,
+                1, 2, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
   vcpus_warning = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING,
                                             GTK_ICON_SIZE_BUTTON);
-  gtk_table_attach (GTK_TABLE (target_tbl), vcpus_warning,
-                    2, 3, 1, 2, 0, 0, 1, 1);
+  table_attach (target_tbl, vcpus_warning,
+                2, 3, 1, 2, 0, 0, 1, 1);
 
   memory_label = gtk_label_new (_("Memory (MB):"));
-  gtk_misc_set_alignment (GTK_MISC (memory_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (target_tbl), memory_label,
-                    0, 1, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (target_tbl, memory_label,
+                0, 1, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (memory_label, 1., 0.5);
   memory_entry = gtk_entry_new ();
   snprintf (memory_str, sizeof memory_str, "%" PRIu64,
             config->memory / 1024 / 1024);
   gtk_entry_set_text (GTK_ENTRY (memory_entry), memory_str);
-  gtk_table_attach (GTK_TABLE (target_tbl), memory_entry,
-                    1, 2, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (target_tbl, memory_entry,
+                1, 2, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
   memory_warning = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING,
                                              GTK_ICON_SIZE_BUTTON);
-  gtk_table_attach (GTK_TABLE (target_tbl), memory_warning,
-                    2, 3, 2, 3, 0, 0, 1, 1);
+  table_attach (target_tbl, memory_warning,
+                2, 3, 2, 3, 0, 0, 1, 1);
 
   gtk_box_pack_start (GTK_BOX (target_vbox), target_tbl, TRUE, TRUE, 0);
 
@@ -657,56 +759,56 @@ create_conversion_dialog (struct config *config)
   output_frame = gtk_frame_new (_("Virt-v2v output options"));
   gtk_container_set_border_width (GTK_CONTAINER (output_frame), 4);
 
-  output_vbox = gtk_vbox_new (FALSE, 1);
+  vbox_new (output_vbox, FALSE, 1);
 
-  output_tbl = gtk_table_new (5, 2, FALSE);
+  table_new (output_tbl, 5, 2);
   o_label = gtk_label_new (_("Output to (-o):"));
-  gtk_misc_set_alignment (GTK_MISC (o_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (output_tbl), o_label,
-                    0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, o_label,
+                0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (o_label, 1., 0.5);
   o_combo = gtk_combo_box_text_new ();
   gtk_widget_set_tooltip_markup (o_combo, _("<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the conversion server.  <b>local</b> means put it in a directory on the conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for more information about output options."));
   repopulate_output_combo (config);
-  gtk_table_attach (GTK_TABLE (output_tbl), o_combo,
-                    1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, o_combo,
+                1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
 
   oc_label = gtk_label_new (_("Output conn. (-oc):"));
-  gtk_misc_set_alignment (GTK_MISC (oc_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (output_tbl), oc_label,
-                    0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, oc_label,
+                0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (oc_label, 1., 0.5);
   oc_entry = gtk_entry_new ();
   gtk_widget_set_tooltip_markup (oc_entry, _("For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add the guest to the default libvirt instance on the conversion server.  For others, leave this field blank."));
   if (config->output_connection != NULL)
     gtk_entry_set_text (GTK_ENTRY (oc_entry), config->output_connection);
-  gtk_table_attach (GTK_TABLE (output_tbl), oc_entry,
-                    1, 2, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, oc_entry,
+                1, 2, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
 
   os_label = gtk_label_new (_("Output storage (-os):"));
-  gtk_misc_set_alignment (GTK_MISC (os_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (output_tbl), os_label,
-                    0, 1, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, os_label,
+                0, 1, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (os_label, 1., 0.5);
   os_entry = gtk_entry_new ();
   gtk_widget_set_tooltip_markup (os_entry, _("For <b>local</b>, put the directory name on the conversion server.  For <b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For others, leave this field blank."));
   if (config->output_storage != NULL)
     gtk_entry_set_text (GTK_ENTRY (os_entry), config->output_storage);
-  gtk_table_attach (GTK_TABLE (output_tbl), os_entry,
-                    1, 2, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, os_entry,
+                1, 2, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
 
   of_label = gtk_label_new (_("Output format (-of):"));
-  gtk_misc_set_alignment (GTK_MISC (of_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (output_tbl), of_label,
-                    0, 1, 3, 4, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, of_label,
+                0, 1, 3, 4, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (of_label, 1., 0.5);
   of_entry = gtk_entry_new ();
   gtk_widget_set_tooltip_markup (of_entry, _("The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, defaults to <b>raw</b>."));
   if (config->output_format != NULL)
     gtk_entry_set_text (GTK_ENTRY (of_entry), config->output_format);
-  gtk_table_attach (GTK_TABLE (output_tbl), of_entry,
-                    1, 2, 3, 4, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, of_entry,
+                1, 2, 3, 4, GTK_FILL, GTK_FILL, 1, 1);
 
   oa_label = gtk_label_new (_("Output allocation (-oa):"));
-  gtk_misc_set_alignment (GTK_MISC (oa_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (output_tbl), oa_label,
-                    0, 1, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, oa_label,
+                0, 1, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
+  set_alignment (oa_label, 1., 0.5);
   oa_combo = gtk_combo_box_text_new ();
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (oa_combo),
                                   "sparse");
@@ -720,8 +822,8 @@ create_conversion_dialog (struct config *config)
     gtk_combo_box_set_active (GTK_COMBO_BOX (oa_combo), 0);
     break;
   }
-  gtk_table_attach (GTK_TABLE (output_tbl), oa_combo,
-                    1, 2, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
+  table_attach (output_tbl, oa_combo,
+                1, 2, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
 
   debug_button =
     gtk_check_button_new_with_label (_("Enable server-side debugging\n"
@@ -736,7 +838,7 @@ create_conversion_dialog (struct config *config)
   info_frame = gtk_frame_new (_("Information"));
   gtk_container_set_border_width (GTK_CONTAINER (info_frame), 4);
   info_label = gtk_label_new (NULL);
-  gtk_misc_set_alignment (GTK_MISC (info_label), 0.1, 0.5);
+  set_alignment (info_label, 0.1, 0.5);
   set_info_label ();
   gtk_container_add (GTK_CONTAINER (info_frame), info_label);
 
@@ -749,8 +851,7 @@ create_conversion_dialog (struct config *config)
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   disks_list = gtk_tree_view_new ();
   populate_disks (GTK_TREE_VIEW (disks_list));
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (disks_sw),
-                                         disks_list);
+  scrolled_window_add_with_viewport (disks_sw, disks_list);
   gtk_container_add (GTK_CONTAINER (disks_frame), disks_sw);
 
   removable_frame = gtk_frame_new (_("Removable media"));
@@ -761,8 +862,7 @@ create_conversion_dialog (struct config *config)
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   removable_list = gtk_tree_view_new ();
   populate_removable (GTK_TREE_VIEW (removable_list));
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (removable_sw),
-                                         removable_list);
+  scrolled_window_add_with_viewport (removable_sw,  removable_list);
   gtk_container_add (GTK_CONTAINER (removable_frame), removable_sw);
 
   interfaces_frame = gtk_frame_new (_("Network interfaces"));
@@ -777,8 +877,7 @@ create_conversion_dialog (struct config *config)
                     G_CALLBACK (maybe_identify_click), NULL);
   gtk_widget_set_tooltip_markup (interfaces_list, _("Left click on an interface name to flash the light on the physical interface."));
   populate_interfaces (GTK_TREE_VIEW (interfaces_list));
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (interfaces_sw),
-                                         interfaces_list);
+  scrolled_window_add_with_viewport (interfaces_sw, interfaces_list);
   gtk_container_add (GTK_CONTAINER (interfaces_frame), interfaces_sw);
 
   /* Pack the top level dialog. */
@@ -792,8 +891,9 @@ create_conversion_dialog (struct config *config)
 
   gtk_box_pack_start (GTK_BOX (hbox), left_vbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (hbox), right_vbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (conv_dlg)->vbox),
-                      hbox, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (conv_dlg))),
+     hbox, TRUE, TRUE, 0);
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conv_dlg),
@@ -1490,23 +1590,27 @@ create_running_dialog (void)
   v2v_output = gtk_text_view_new ();
   gtk_text_view_set_editable (GTK_TEXT_VIEW (v2v_output), FALSE);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (v2v_output), GTK_WRAP_CHAR);
+  /* XXX Gtk3 ignores this, why? */
   gtk_widget_set_size_request (v2v_output, 700, 400);
   log_label = gtk_label_new (NULL);
-  gtk_misc_set_alignment (GTK_MISC (log_label), 0., 0.5);
-  gtk_misc_set_padding (GTK_MISC (log_label), 10, 10);
+  set_alignment (log_label, 0., 0.5);
+  set_padding (log_label, 10, 10);
   set_log_dir (NULL);
   status_label = gtk_label_new (NULL);
-  gtk_misc_set_alignment (GTK_MISC (status_label), 0., 0.5);
-  gtk_misc_set_padding (GTK_MISC (status_label), 10, 10);
+  set_alignment (status_label, 0., 0.5);
+  set_padding (status_label, 10, 10);
 
   gtk_container_add (GTK_CONTAINER (v2v_output_sw), v2v_output);
 
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (run_dlg)->vbox),
-                      v2v_output_sw, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (run_dlg)->vbox),
-                      log_label, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (run_dlg)->vbox),
-                      status_label, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (run_dlg))),
+     v2v_output_sw, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (run_dlg))),
+     log_label, TRUE, TRUE, 0);
+  gtk_box_pack_start
+    (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (run_dlg))),
+     status_label, TRUE, TRUE, 0);
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (run_dlg),
