@@ -456,7 +456,7 @@ about_button_clicked (GtkWidget *w, gpointer data)
 {
   gtk_show_about_dialog (GTK_WINDOW (conn_dlg),
                          "program-name", guestfs_int_program_name,
-                         "version", PACKAGE_VERSION " (" host_cpu ")",
+                         "version", PACKAGE_VERSION_FULL " (" host_cpu ")",
                          "copyright", "\u00A9 2009-2016 Red Hat Inc.",
                          "comments",
                            _("Virtualize a physical machine to run on KVM"),
@@ -793,8 +793,8 @@ show_conversion_dialog (void)
 /**
  * Update the C<Information> section in the conversion dialog.
  *
- * Note that C<v2v_major> etc (the remote virt-v2v version) are read
- * from the remote virt-v2v in the C<test_connection> function.
+ * Note that C<v2v_version> (the remote virt-v2v version) is read from
+ * the remote virt-v2v in the C<test_connection> function.
  */
 static void
 set_info_label (void)
@@ -802,13 +802,15 @@ set_info_label (void)
   CLEANUP_FREE char *text;
   int r;
 
-  if (!v2v_major)
-    r = asprintf (&text, _("virt-p2v (client) %s"), PACKAGE_VERSION);
+  if (!v2v_version)
+    r = asprintf (&text, _("virt-p2v (client):\n%s"), PACKAGE_VERSION);
   else
     r = asprintf (&text,
-                  _("virt-p2v (client) %s\n"
-                    "virt-v2v (conversion server) %d.%d.%d"),
-                  PACKAGE_VERSION, v2v_major, v2v_minor, v2v_release);
+                  _("virt-p2v (client):\n"
+                    "%s\n"
+                    "virt-v2v (conversion server):\n"
+                    "%s"),
+                  PACKAGE_VERSION_FULL, v2v_version);
   if (r == -1) {
     perror ("asprintf");
     return;

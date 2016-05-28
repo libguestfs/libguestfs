@@ -117,9 +117,9 @@ print_config (struct config *config, FILE *fp)
 {
   size_t i;
 
-  fprintf (fp, "local version   .  %s\n", PACKAGE_VERSION);
-  fprintf (fp, "remote version  .  %d.%d.%d\n",
-           v2v_major, v2v_minor, v2v_release);
+  fprintf (fp, "local version   .  %s\n", PACKAGE_VERSION_FULL);
+  fprintf (fp, "remote version  .  %s\n",
+           v2v_version ? v2v_version : "unknown");
   fprintf (fp, "remote debugging   %s\n",
            config->verbose ? "true" : "false");
   fprintf (fp, "conversion server  %s\n",
