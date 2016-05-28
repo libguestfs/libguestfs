@@ -129,9 +129,7 @@ extern void wait_network_online (const struct config *);
 extern int read_whole_file (const char *filename, char **data_r, size_t *size_r);
 
 /* virt-v2v version and features (read from remote). */
-extern int v2v_major;
-extern int v2v_minor;
-extern int v2v_release;
+extern char *v2v_version;
 
 /* input and output drivers (read from remote). */
 extern char **input_drivers;
