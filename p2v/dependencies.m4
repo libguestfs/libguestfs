@@ -42,6 +42,7 @@ ifelse(REDHAT,1,
   util-linux
 
   dnl X11 environment
+  xterm
   /usr/bin/xinit
   /usr/bin/Xorg
   xorg-x11-drivers
@@ -77,6 +78,7 @@ ifelse(DEBIAN,1,
   smartmontools
   util-linux
   xorg
+  xterm
   xserver-xorg-video-all
   fonts-dejavu
   metacity
@@ -100,6 +102,7 @@ ifelse(ARCHLINUX,1,
   hdparm
   smartmontools
   util-linux
+  xterm
   xorg-xinit
   xorg-server
   xf86-video-*
@@ -127,6 +130,7 @@ ifelse(SUSE,1,
   util-linux
   xinit
   xorg-x11-server
+  xterm
   xf86-video-*
   dejavu-fonts
   NetworkManager
