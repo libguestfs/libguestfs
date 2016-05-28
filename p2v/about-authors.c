@@ -28,6 +28,7 @@ const char *authors[] = {
   "Richard W.M. Jones",
   "Mike Latimer",
   "Pino Toscano",
+  "Ming Xie",
   "Tingting Zheng",
   NULL
 };
