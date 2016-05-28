@@ -16,6 +16,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/**
+ * This file implements almost all of the virt-p2v graphical user
+ * interface (GUI).
+ *
+ * The GUI has three main dialogs:
+ *
+ * =over 4
+ *
+ * =item Connection dialog
+ *
+ * The connection dialog is the one shown initially.  It asks the user
+ * to type in the login details for the remote conversion server and
+ * invites the user to test the ssh connection.
+ *
+ * =item Conversion dialog
+ *
+ * The conversion dialog asks for information about the target VM
+ * (eg. the number of vCPUs required), and about what to convert
+ * (eg. which network interfaces should be copied and which should be
+ * ignored).
+ *
+ * =item Running dialog
+ *
+ * The running dialog is displayed when the P2V process is underway.
+ * It mainly displays the virt-v2v debug messages.
+ *
+ * =back
+ *
+ * Note that the other major dialog (C<"Configure network ...">) is
+ * handled entirely by NetworkManager's L<nm-connection-editor(1)>
+ * program and has nothing to do with this code.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -40,7 +73,12 @@
 
 #include "p2v.h"
 
-/* Interactive GUI configuration. */
+/* Maximum vCPUs and guest memory that we will allow users to set.
+ * These limits come from
+ * https://access.redhat.com/articles/rhel-kvm-limits
+ */
+#define MAX_SUPPORTED_VCPUS 160
+#define MAX_SUPPORTED_MEMORY_MB (UINT64_C (4000 * 1024))
 
 static void create_connection_dialog (struct config *);
 static void create_conversion_dialog (struct config *);
@@ -72,8 +110,10 @@ static GtkWidget *run_dlg,
   *v2v_output_sw, *v2v_output, *log_label, *status_label,
   *cancel_button, *reboot_button;
 
-/* The entry point from the main program.
- * Note that gtk_init etc have already been called in main.
+/**
+ * The entry point from the main program.
+ *
+ * Note that C<gtk_init> etc have already been called in C<main>.
  */
 void
 gui_conversion (struct config *config)
@@ -100,6 +140,12 @@ static void about_button_clicked (GtkWidget *w, gpointer data);
 static void connection_next_clicked (GtkWidget *w, gpointer data);
 static void repopulate_output_combo (struct config *config);
 
+/**
+ * Create the connection dialog.
+ *
+ * This creates the dialog, but it is not displayed.  See
+ * C<show_connection_dialog>.
+ */
 static void
 create_connection_dialog (struct config *config)
 {
@@ -245,6 +291,9 @@ create_connection_dialog (struct config *config)
                     G_CALLBACK (connection_next_clicked), NULL);
 }
 
+/**
+ * Hide all other dialogs and show the connection dialog.
+ */
 static void
 show_connection_dialog (void)
 {
@@ -257,6 +306,13 @@ show_connection_dialog (void)
   gtk_widget_hide_all (spinner_hbox);
 }
 
+/**
+ * Callback from the C<Test connection> button.
+ *
+ * This initiates a background thread which actually does the ssh to
+ * the conversion server and the rest of the testing (see
+ * C<test_connection_thread>).
+ */
 static void
 test_connection_clicked (GtkWidget *w, gpointer data)
 {
@@ -327,10 +383,12 @@ test_connection_clicked (GtkWidget *w, gpointer data)
   pthread_attr_destroy (&attr);
 }
 
-/* Run test_connection (in a detached background thread).  Once it
+/**
+ * Run C<test_connection> (in a detached background thread).  Once it
  * finishes stop the spinner and set the spinner message
- * appropriately.  If the test is successful then we enable the "Next"
- * button.
+ * appropriately.  If the test is successful then we enable the
+ * C<Next> button.  If unsuccessful, an error is shown in the
+ * connection dialog.
  */
 static void *
 test_connection_thread (void *data)
@@ -377,12 +435,22 @@ test_connection_thread (void *data)
   return NULL;
 }
 
+/**
+ * Callback from the C<Configure network ...> button.  This dialog is
+ * handled entirely by an external program which is part of
+ * NetworkManager.
+ */
 static void
 configure_network_button_clicked (GtkWidget *w, gpointer data)
 {
   ignore_value (system ("nm-connection-editor &"));
 }
 
+/**
+ * Callback from the C<About virt-p2v ...> button.
+ *
+ * See also F<p2v/about-authors.c> and F<p2v/about-license.c>.
+ */
 static void
 about_button_clicked (GtkWidget *w, gpointer data)
 {
@@ -397,7 +465,10 @@ about_button_clicked (GtkWidget *w, gpointer data)
                          NULL);
 }
 
-/* The connection dialog Next button has been clicked. */
+/**
+ * Callback when the connection dialog C<Next> button has been
+ * clicked.
+ */
 static void
 connection_next_clicked (GtkWidget *w, gpointer data)
 {
@@ -445,6 +516,12 @@ enum {
   NUM_INTERFACES_COLS,
 };
 
+/**
+ * Create the conversion dialog.
+ *
+ * This creates the dialog, but it is not displayed.  See
+ * C<show_conversion_dialog>.
+ */
 static void
 create_conversion_dialog (struct config *config)
 {
@@ -693,6 +770,9 @@ create_conversion_dialog (struct config *config)
                     G_CALLBACK (vcpus_or_memory_check_callback), NULL);
 }
 
+/**
+ * Hide all other dialogs and show the conversion dialog.
+ */
 static void
 show_conversion_dialog (void)
 {
@@ -709,7 +789,12 @@ show_conversion_dialog (void)
   repopulate_output_combo (NULL);
 }
 
-/* Update the information in the conversion dialog. */
+/**
+ * Update the C<Information> section in the conversion dialog.
+ *
+ * Note that C<v2v_major> etc (the remote virt-v2v version) are read
+ * from the remote virt-v2v in the C<test_connection> function.
+ */
 static void
 set_info_label (void)
 {
@@ -731,6 +816,11 @@ set_info_label (void)
   gtk_label_set_text (GTK_LABEL (info_label), text);
 }
 
+/**
+ * Repopulate the list of output drivers in the C<Output to (-o)>
+ * combo.  The list of drivers is read from the remote virt-v2v
+ * instance in C<test_connection>.
+ */
 static void
 repopulate_output_combo (struct config *config)
 {
@@ -777,6 +867,9 @@ repopulate_output_combo (struct config *config)
   }
 }
 
+/**
+ * Populate the C<Fixed hard disks> treeview.
+ */
 static void
 populate_disks (GtkTreeView *disks_list)
 {
@@ -869,6 +962,9 @@ populate_disks (GtkTreeView *disks_list)
                     G_CALLBACK (toggled), disks_store);
 }
 
+/**
+ * Populate the C<Removable media> treeview.
+ */
 static void
 populate_removable (GtkTreeView *removable_list)
 {
@@ -912,6 +1008,9 @@ populate_removable (GtkTreeView *removable_list)
                     G_CALLBACK (toggled), removable_store);
 }
 
+/**
+ * Populate the C<Network interfaces> treeview.
+ */
 static void
 populate_interfaces (GtkTreeView *interfaces_list)
 {
@@ -1025,12 +1124,14 @@ network_edited_callback (GtkCellRendererToggle *cell, gchar *path_str,
   gtk_tree_path_free (path);
 }
 
-/* When the user clicks on the interface name on the list of
- * interfaces, we want to run 'ethtool --identify', which usually
- * makes some lights flash on the physical interface.  We cannot catch
- * clicks on the cell itself, so we have to go via a more obscure
- * route.  See http://stackoverflow.com/a/27207433 and
- * https://en.wikibooks.org/wiki/GTK%2B_By_Example/Tree_View/Events
+/**
+ * When the user clicks on the interface name on the list of
+ * interfaces, we want to run C<ethtool --identify>, which usually
+ * makes some lights flash on the physical interface.
+ *
+ * We cannot catch clicks on the cell itself, so we have to go via a
+ * more obscure route.  See L<http://stackoverflow.com/a/27207433> and
+ * L<https://en.wikibooks.org/wiki/GTK%2B_By_Example/Tree_View/Events>
  */
 static gboolean
 maybe_identify_click (GtkWidget *interfaces_list, GdkEventButton *event,
@@ -1186,7 +1287,9 @@ set_network_map_from_ui (struct config *config)
   config->network_map[j] = NULL;
 }
 
-/* The conversion dialog Back button has been clicked. */
+/**
+ * The conversion dialog C<Back> button has been clicked.
+ */
 static void
 conversion_back_clicked (GtkWidget *w, gpointer data)
 {
@@ -1198,13 +1301,6 @@ conversion_back_clicked (GtkWidget *w, gpointer data)
    */
   gtk_widget_set_sensitive (next_button, FALSE);
 }
-
-/* Display a warning if the vCPUs or memory is outside the supported
- * range.  (RHBZ#823758).  See also:
- * https://access.redhat.com/articles/rhel-kvm-limits
- */
-#define MAX_SUPPORTED_VCPUS 160
-#define MAX_SUPPORTED_MEMORY_MB (UINT64_C (4000 * 1024))
 
 static char *concat_warning (char *warning, const char *fs, ...)
   __attribute__((format (printf,2,3)));
@@ -1244,6 +1340,10 @@ concat_warning (char *warning, const char *fs, ...)
   return warning;
 }
 
+/**
+ * Display a warning if the vCPUs or memory is outside the supported
+ * range (L<https://bugzilla.redhat.com/823758>).
+ */
 static void
 vcpus_or_memory_check_callback (GtkWidget *w, gpointer data)
 {
@@ -1321,6 +1421,12 @@ static void cancel_conversion_clicked (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
 static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data);
 
+/**
+ * Create the running dialog.
+ *
+ * This creates the dialog, but it is not displayed.  See
+ * C<show_running_dialog>.
+ */
 static void
 create_running_dialog (void)
 {
@@ -1374,6 +1480,9 @@ create_running_dialog (void)
                     G_CALLBACK (reboot_clicked), NULL);
 }
 
+/**
+ * Hide all other dialogs and show the running dialog.
+ */
 static void
 show_running_dialog (void)
 {
@@ -1409,7 +1518,8 @@ set_status (const char *msg)
   gtk_label_set_text (GTK_LABEL (status_label), msg);
 }
 
-/* Append output from the virt-v2v process to the buffer, and scroll
+/**
+ * Append output from the virt-v2v process to the buffer, and scroll
  * to ensure it is visible.
  */
 static void
@@ -1454,7 +1564,9 @@ add_v2v_output_2 (const char *msg, size_t len)
                                 0, FALSE, 0., 1.);
 }
 
-/* User clicked the Start conversion button. */
+/**
+ * Callback when the C<Start conversion> button is clicked.
+ */
 static void
 start_conversion_clicked (GtkWidget *w, gpointer data)
 {
@@ -1566,6 +1678,9 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
   pthread_attr_destroy (&attr);
 }
 
+/**
+ * This is the background thread which performs the conversion.
+ */
 static void *
 start_conversion_thread (void *data)
 {
