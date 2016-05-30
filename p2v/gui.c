@@ -127,7 +127,6 @@ gui_conversion (struct config *config)
   show_connection_dialog ();
 
   gtk_main ();
-  gdk_threads_leave ();
 }
 
 /*----------------------------------------------------------------------*/
@@ -135,6 +134,10 @@ gui_conversion (struct config *config)
 
 static void test_connection_clicked (GtkWidget *w, gpointer data);
 static void *test_connection_thread (void *data);
+static gboolean start_spinner (gpointer user_data);
+static gboolean stop_spinner (gpointer user_data);
+static gboolean test_connection_error (gpointer user_data);
+static gboolean test_connection_ok (gpointer user_data);
 static void configure_network_button_clicked (GtkWidget *w, gpointer data);
 static void about_button_clicked (GtkWidget *w, gpointer data);
 static void connection_next_clicked (GtkWidget *w, gpointer data);
@@ -396,44 +399,85 @@ test_connection_thread (void *data)
   struct config *copy = data;
   int r;
 
-  gdk_threads_enter ();
-  gtk_label_set_text (GTK_LABEL (spinner_message),
-                      _("Testing the connection to the conversion server ..."));
-  gtk_spinner_start (GTK_SPINNER (spinner));
-  gdk_threads_leave ();
+  g_idle_add (start_spinner, NULL);
 
   wait_network_online (copy);
   r = test_connection (copy);
   free_config (copy);
 
-  gdk_threads_enter ();
-  gtk_spinner_stop (GTK_SPINNER (spinner));
-  gtk_widget_hide (spinner);
+  g_idle_add (stop_spinner, NULL);
 
-  if (r == -1) {
-    /* Error testing the connection. */
-    const char *err = get_ssh_error ();
-
-    gtk_label_set_text (GTK_LABEL (spinner_message), err);
-    /* Disable the Next button. */
-    gtk_widget_set_sensitive (next_button, FALSE);
-  }
-  else {
-    /* Connection is good. */
-    gtk_label_set_text (GTK_LABEL (spinner_message),
-                        _("Connected to the conversion server.\n"
-                          "Press the \"Next\" button to configure the conversion process."));
-    /* Enable the Next button. */
-    gtk_widget_set_sensitive (next_button, TRUE);
-    gtk_widget_grab_focus (next_button);
-
-    /* Update the information in the conversion dialog. */
-    set_info_label ();
-  }
-  gdk_threads_leave ();
+  if (r == -1)
+    g_idle_add (test_connection_error, NULL);
+  else
+    g_idle_add (test_connection_ok, NULL);
 
   /* Thread is detached anyway, so no one is waiting for the status. */
   return NULL;
+}
+
+/**
+ * Idle task called from C<test_connection_thread> (but run on the
+ * main thread) to start the spinner in the connection dialog.
+ */
+static gboolean
+start_spinner (gpointer user_data)
+{
+  gtk_label_set_text (GTK_LABEL (spinner_message),
+                      _("Testing the connection to the conversion server ..."));
+  gtk_spinner_start (GTK_SPINNER (spinner));
+  return FALSE;
+}
+
+/**
+ * Idle task called from C<test_connection_thread> (but run on the
+ * main thread) to stop the spinner in the connection dialog.
+ */
+static gboolean
+stop_spinner (gpointer user_data)
+{
+  gtk_spinner_stop (GTK_SPINNER (spinner));
+  gtk_widget_hide (spinner);
+  return FALSE;
+}
+
+/**
+ * Idle task called from C<test_connection_thread> (but run on the
+ * main thread) when there is an error.  Display the error message and
+ * disable the C<Next> button so the user is forced to correct it.
+ */
+static gboolean
+test_connection_error (gpointer user_data)
+{
+  const char *err = get_ssh_error ();
+
+  gtk_label_set_text (GTK_LABEL (spinner_message), err);
+  /* Disable the Next button. */
+  gtk_widget_set_sensitive (next_button, FALSE);
+
+  return FALSE;
+}
+
+/**
+ * Idle task called from C<test_connection_thread> (but run on the
+ * main thread) when the connection test was successful.
+ */
+static gboolean
+test_connection_ok (gpointer user_data)
+{
+  gtk_label_set_text
+    (GTK_LABEL (spinner_message),
+     _("Connected to the conversion server.\n"
+       "Press the \"Next\" button to configure the conversion process."));
+
+  /* Enable the Next button. */
+  gtk_widget_set_sensitive (next_button, TRUE);
+  gtk_widget_grab_focus (next_button);
+
+  /* Update the information in the conversion dialog. */
+  set_info_label ();
+
+  return FALSE;
 }
 
 /**
@@ -1416,11 +1460,12 @@ get_memory_from_conv_dlg (void)
 /*----------------------------------------------------------------------*/
 /* Running dialog. */
 
-static void set_log_dir (const char *remote_dir);
-static void set_status (const char *msg);
-static void add_v2v_output (const char *msg);
-static void add_v2v_output_2 (const char *msg, size_t len);
+static gboolean set_log_dir (gpointer remote_dir);
+static gboolean set_status (gpointer msg);
+static gboolean add_v2v_output (gpointer msg);
 static void *start_conversion_thread (void *data);
+static gboolean conversion_error (gpointer user_data);
+static gboolean conversion_finished (gpointer user_data);
 static void cancel_conversion_clicked (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
 static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data);
@@ -1500,9 +1545,19 @@ show_running_dialog (void)
   gtk_widget_set_sensitive (reboot_button, FALSE);
 }
 
-static void
-set_log_dir (const char *remote_dir)
+/**
+ * Display the remote log directory in the running dialog.
+ *
+ * If this isn't called from the main thread, then you must only
+ * call it via an idle task (C<g_idle_add>).
+ *
+ * B<NB:> This frees the remote_dir (C<user_data> pointer) which was
+ * strdup'd in C<notify_ui_callback>.
+ */
+static gboolean
+set_log_dir (gpointer user_data)
 {
+  CLEANUP_FREE const char *remote_dir = user_data;
   CLEANUP_FREE char *msg;
 
   if (asprintf (&msg,
@@ -1514,45 +1569,70 @@ set_log_dir (const char *remote_dir)
     error (EXIT_FAILURE, errno, "asprintf");
 
   gtk_label_set_text (GTK_LABEL (log_label), msg);
+
+  return FALSE;
 }
 
-static void
-set_status (const char *msg)
+/**
+ * Display the conversion status in the running dialog.
+ *
+ * If this isn't called from the main thread, then you must only
+ * call it via an idle task (C<g_idle_add>).
+ *
+ * B<NB:> This frees the message (C<user_data> pointer) which was
+ * strdup'd in C<notify_ui_callback>.
+ */
+static gboolean
+set_status (gpointer user_data)
 {
+  CLEANUP_FREE const char *msg = user_data;
+
   gtk_label_set_text (GTK_LABEL (status_label), msg);
+
+  return FALSE;
 }
+
+static void add_v2v_output_helper (const char *msg, size_t len);
 
 /**
  * Append output from the virt-v2v process to the buffer, and scroll
  * to ensure it is visible.
+ *
+ * If this isn't called from the main thread, then you must only
+ * call it via an idle task (C<g_idle_add>).
+ *
+ * B<NB:> This frees the message (C<user_data> pointer) which was
+ * strdup'd in C<notify_ui_callback>.
  */
-static void
-add_v2v_output (const char *msg)
+static gboolean
+add_v2v_output (gpointer user_data)
 {
+  CLEANUP_FREE const char *msg = user_data;
   static size_t linelen = 0;
   const char *p0, *p;
 
-  /* Gtk2 (in ~ Fedora 23) has a regression where it takes much
-   * longer to display long lines, to the point where the virt-p2v
-   * UI would still be slowly display kernel modules while the
-   * conversion had finished.  For this reason, arbitrarily break
-   * long lines.
+  /* Gtk2 (in ~ Fedora 23) has a regression where it takes much longer
+   * to display long lines, to the point where the virt-p2v UI would
+   * still be slowly displaying kernel modules while the conversion
+   * had finished.  For this reason, arbitrarily break long lines.
    */
   for (p0 = p = msg; *p; ++p) {
     linelen++;
     if (*p == '\n' || linelen > 1024) {
-      add_v2v_output_2 (p0, p-p0+1);
+      add_v2v_output_helper (p0, p-p0+1);
       if (*p != '\n')
-        add_v2v_output_2 ("\n", 1);
+        add_v2v_output_helper ("\n", 1);
       linelen = 0;
       p0 = p+1;
     }
   }
-  add_v2v_output_2 (p0, p-p0);
+  add_v2v_output_helper (p0, p-p0);
+
+  return FALSE;
 }
 
 static void
-add_v2v_output_2 (const char *msg, size_t len)
+add_v2v_output_helper (const char *msg, size_t len)
 {
   GtkTextBuffer *buf;
   GtkTextIter iter;
@@ -1690,35 +1770,37 @@ start_conversion_thread (void *data)
 {
   struct config *copy = data;
   int r;
-  GtkWidget *dlg;
 
   r = start_conversion (copy, notify_ui_callback);
   free_config (copy);
 
-  gdk_threads_enter ();
+  if (r == -1)
+    g_idle_add (conversion_error, NULL);
+  else
+    g_idle_add (conversion_finished, NULL);
 
-  if (r == -1) {
-    const char *err = get_conversion_error ();
+  /* Thread is detached anyway, so no one is waiting for the status. */
+  return NULL;
+}
 
-    dlg = gtk_message_dialog_new (GTK_WINDOW (run_dlg),
-                                  GTK_DIALOG_DESTROY_WITH_PARENT,
-                                  GTK_MESSAGE_ERROR,
-                                  GTK_BUTTONS_OK,
-                                  _("Conversion failed: %s"), err);
-    gtk_window_set_title (GTK_WINDOW (dlg), _("Conversion failed"));
-    gtk_dialog_run (GTK_DIALOG (dlg));
-    gtk_widget_destroy (dlg);
-  }
-  else {
-    dlg = gtk_message_dialog_new (GTK_WINDOW (run_dlg),
-                                  GTK_DIALOG_DESTROY_WITH_PARENT,
-                                  GTK_MESSAGE_INFO,
-                                  GTK_BUTTONS_OK,
-                                  _("The conversion was successful."));
-    gtk_window_set_title (GTK_WINDOW (dlg), _("Conversion was successful"));
-    gtk_dialog_run (GTK_DIALOG (dlg));
-    gtk_widget_destroy (dlg);
-  }
+/**
+ * Idle task called from C<start_conversion_thread> (but run on the
+ * main thread) when there was an error during the conversion.
+ */
+static gboolean
+conversion_error (gpointer user_data)
+{
+  const char *err = get_conversion_error ();
+  GtkWidget *dlg;
+
+  dlg = gtk_message_dialog_new (GTK_WINDOW (run_dlg),
+                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_ERROR,
+                                GTK_BUTTONS_OK,
+                                _("Conversion failed: %s"), err);
+  gtk_window_set_title (GTK_WINDOW (dlg), _("Conversion failed"));
+  gtk_dialog_run (GTK_DIALOG (dlg));
+  gtk_widget_destroy (dlg);
 
   /* Disable the cancel button. */
   gtk_widget_set_sensitive (cancel_button, FALSE);
@@ -1726,37 +1808,70 @@ start_conversion_thread (void *data)
   /* Enable the reboot button. */
   gtk_widget_set_sensitive (reboot_button, TRUE);
 
-  gdk_threads_leave ();
-
-  /* Thread is detached anyway, so no one is waiting for the status. */
-  return NULL;
+  return FALSE;
 }
 
+/**
+ * Idle task called from C<start_conversion_thread> (but run on the
+ * main thread) when the conversion completed without errors.
+ */
+static gboolean
+conversion_finished (gpointer user_data)
+{
+  GtkWidget *dlg;
+
+  dlg = gtk_message_dialog_new (GTK_WINDOW (run_dlg),
+                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_INFO,
+                                GTK_BUTTONS_OK,
+                                _("The conversion was successful."));
+  gtk_window_set_title (GTK_WINDOW (dlg), _("Conversion was successful"));
+  gtk_dialog_run (GTK_DIALOG (dlg));
+  gtk_widget_destroy (dlg);
+
+  /* Disable the cancel button. */
+  gtk_widget_set_sensitive (cancel_button, FALSE);
+
+  /* Enable the reboot button. */
+  gtk_widget_set_sensitive (reboot_button, TRUE);
+
+  return FALSE;
+}
+
+/**
+ * This is called from F<conversion.c>:C<start_conversion>
+ * when there is a status change or a log message.
+ */
 static void
 notify_ui_callback (int type, const char *data)
 {
-  gdk_threads_enter ();
+  /* Because we call the functions as idle callbacks which run
+   * in the main thread some time later, we must duplicate the
+   * 'data' parameter (which is always a \0-terminated string).
+   *
+   * This is freed by the idle task function.
+   */
+  char *copy = strdup (data);
 
   switch (type) {
   case NOTIFY_LOG_DIR:
-    set_log_dir (data);
+    g_idle_add (set_log_dir, (gpointer) copy);
     break;
 
   case NOTIFY_REMOTE_MESSAGE:
-    add_v2v_output (data);
+    g_idle_add (add_v2v_output, (gpointer) copy);
     break;
 
   case NOTIFY_STATUS:
-    set_status (data);
+    g_idle_add (set_status, (gpointer) copy);
     break;
 
   default:
     fprintf (stderr,
              "%s: unknown message during conversion: type=%d data=%s\n",
              guestfs_int_program_name, type, data);
+    free (copy);
   }
-
-  gdk_threads_leave ();
 }
 
 static gboolean
