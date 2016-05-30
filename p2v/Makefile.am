@@ -168,8 +168,13 @@ stamp-virt-p2v-make-kickstart.pod: virt-p2v-make-kickstart.pod
 	  $<
 	touch $@
 
-# Run virt-p2v locally.
-PHYSICAL_MACHINE = $(top_builddir)/test-data/phony-guests/windows.img
+# Run virt-p2v locally either directly or in a VM.
+# See guestfs-hacking(1) section "Running virt-p2v"
+
+PHYSICAL_MACHINE = $(abs_top_builddir)/test-data/phony-guests/windows.img
+
+run-virt-p2v-directly: $(PHYSICAL_MACHINE)
+	$(top_builddir)/run virt-p2v --test-disk=$(PHYSICAL_MACHINE)
 
 run-virt-p2v: virt-p2v.img
 	$(QEMU) \

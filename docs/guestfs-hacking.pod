@@ -757,18 +757,25 @@ in virt-v2v.  They are converted in the same way as foreign VMs.
 
 =head2 Running virt-p2v
 
-You can run the F<p2v/virt-p2v> binary directly, although it's not
-really recommended, but it's OK for quick tests of the GUI (but don't
-try doing a conversion that way).
+You can run the F<p2v/virt-p2v> binary directly, but it will try to
+convert your machine's real F</dev/sda> which is unlikely to work
+well.  However virt-p2v also has a test mode in which you can supply a
+test disk:
 
-A better way is to run virt-p2v inside a VM on the local machine.  To
-do that, do:
+ make -C p2v run-virt-p2v-directly
+
+This is a wrapper around the L<virt-p2v(1)> I<--test-disk> option.
+You can control the "physical machine" disk by setting
+C<PHYSICAL_MACHINE> to point to a disk image.
+
+A more realistic test is to run virt-p2v inside a VM on the local
+machine.  To do that, do:
 
  make -C p2v run-virt-p2v
 
-This runs qemu with the "physical machine" disk (which you can set by
-setting C<PHYSICAL_MACHINE>), a virtual CD, and a variety of network
-cards for testing.
+This also runs qemu with the "physical machine" disk (which you can
+set by setting C<PHYSICAL_MACHINE>), a virtual CD, and a variety of
+network cards for testing.
 
 Unfortunately you have to hit C<F12> quickly after the boot and select
 the second (USB) drive, since it's not possible to force qemu/seabios

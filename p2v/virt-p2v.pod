@@ -581,6 +581,11 @@ Display help.
 This is used for debugging. Instead of parsing the kernel command line
 from F</proc/cmdline>, parse the string parameter C<CMDLINE>.
 
+=item B<--test-disk=/PATH/TO/DISK.IMG>
+
+For testing or debugging purposes, replace F</dev/sda> with a local
+file.  You must use an absolute path.
+
 =item B<-v>
 
 =item B<--verbose>
