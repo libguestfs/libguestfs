@@ -321,7 +321,7 @@ start_conversion (struct config *config,
    * slightly more sane.
    */
   if (mexp_printf (control_h, "( %s virt-v2v%s -i libvirtxml",
-                   config->sudo ? "sudo " : "",
+                   config->sudo ? "sudo -n " : "",
                    config->verbose ? " -v -x" : "") == -1) {
   printf_fail:
     set_conversion_error ("mexp_printf: virt-v2v command: %m");

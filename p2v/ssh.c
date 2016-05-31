@@ -501,7 +501,7 @@ test_connection (struct config *config)
    */
   if (mexp_printf (h,
                    "%svirt-v2v --version\n",
-                   config->sudo ? "sudo " : "") == -1) {
+                   config->sudo ? "sudo -n " : "") == -1) {
     set_ssh_error ("mexp_printf: %m");
     mexp_close (h);
     return -1;
@@ -572,7 +572,7 @@ test_connection (struct config *config)
 
   /* Get virt-v2v features.  See: v2v/cmdline.ml */
   if (mexp_printf (h, "%svirt-v2v --machine-readable\n",
-                   config->sudo ? "sudo " : "") == -1) {
+                   config->sudo ? "sudo -n " : "") == -1) {
     set_ssh_error ("mexp_printf: %m");
     mexp_close (h);
     return -1;
