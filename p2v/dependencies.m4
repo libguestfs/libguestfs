@@ -29,6 +29,7 @@ ifelse(REDHAT,1,
   /usr/bin/ssh
   /usr/bin/qemu-nbd
   curl
+  ethtool
 
   dnl The hwdata package contains PCI IDs, used by virt-p2v to display
   dnl network vendor information (RHBZ#855059).
@@ -58,6 +59,7 @@ ifelse(DEBIAN,1,
   openssh-client
   qemu-utils
   curl
+  ethtool
   hwdata
   xorg
   xserver-xorg-video-all
@@ -75,6 +77,7 @@ ifelse(ARCHLINUX,1,
   openssh
   qemu
   curl
+  ethtool
   hwdata
   xorg-xinit
   xorg-server
@@ -93,6 +96,7 @@ ifelse(SUSE,1,
   /usr/bin/ssh
   /usr/bin/qemu-nbd
   curl
+  ethtool
   hwdata
   /usr/bin/xinit
   /usr/bin/Xorg
