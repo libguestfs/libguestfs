@@ -408,6 +408,7 @@ test_connection_thread (void *data)
 
   gdk_threads_enter ();
   gtk_spinner_stop (GTK_SPINNER (spinner));
+  gtk_widget_hide (spinner);
 
   if (r == -1) {
     /* Error testing the connection. */
