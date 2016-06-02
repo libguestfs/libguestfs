@@ -777,9 +777,10 @@ This also runs qemu with the "physical machine" disk (which you can
 set by setting C<PHYSICAL_MACHINE>), a virtual CD, and a variety of
 network cards for testing.
 
-Unfortunately you have to hit C<F12> quickly after the boot and select
-the second (USB) drive, since it's not possible to force qemu/seabios
-to boot automatically from the USB drive containing virt-p2v.
+Unfortunately you have to hit C<Esc> or C<F12> (depending on the
+version of qemu) quickly after the boot and select the second (USB)
+drive, since it's not possible to force qemu/seabios to boot
+automatically from the USB drive containing virt-p2v.
 
 =head2 Understanding the virt-p2v code
 
