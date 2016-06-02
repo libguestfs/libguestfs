@@ -69,6 +69,7 @@ SOURCES_C = \
 	../fish/uri.c \
 	../fish/file-edit.c \
 	../fish/file-edit.h \
+	../mllib/dev_t-c.c \
 	../mllib/uri-c.c \
 	crypt-c.c \
 	perl_edit-c.c
@@ -93,6 +94,7 @@ virt_customize_CFLAGS = \
 BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/dev_t.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/mllib/URI.cmo \

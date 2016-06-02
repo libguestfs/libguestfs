@@ -327,6 +327,10 @@ val is_char_device : string -> bool
 val is_directory : string -> bool
 (** These don't throw exceptions, unlike the [Sys] functions. *)
 
+val is_partition : string -> bool
+(** Return true if the host device [dev] is a partition.  If it's
+    anything else, or missing, returns false. *)
+
 val absolute_path : string -> string
 (** Convert any path to an absolute path. *)
 

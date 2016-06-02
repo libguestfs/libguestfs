@@ -819,6 +819,19 @@ let is_char_device file =
   try (Unix.stat file).Unix.st_kind = Unix.S_CHR
   with Unix.Unix_error _ -> false
 
+let is_partition dev =
+  try
+    if not (is_block_device dev) then false
+    else (
+      let rdev = (Unix.stat dev).Unix.st_rdev in
+      let major = Dev_t.major rdev in
+      let minor = Dev_t.minor rdev in
+      let path = sprintf "/sys/dev/block/%d:%d/partition" major minor in
+      Unix.access path [F_OK];
+      true
+    )
+  with Unix.Unix_error _ -> false
+
 (* Annoyingly Sys.is_directory throws an exception on failure
  * (RHBZ#1022431).
  *)
