@@ -254,6 +254,13 @@ F<p2v.ks> in the current directory.
 
 Tell the kickstart to use a proxy server or web cache for downloads.
 
+=item B<-v>
+
+=item B<--verbose>
+
+Enable verbose output.  Use this if you need to debug problems with
+the script or if you are filing a bug.
+
 =item B<-V>
 
 =item B<--version>
