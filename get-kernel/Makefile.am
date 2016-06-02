@@ -27,6 +27,7 @@ SOURCES_ML = \
 	get_kernel.ml
 
 SOURCES_C = \
+	../mllib/dev_t-c.c \
 	../mllib/uri-c.c \
 	../fish/uri.c
 
@@ -56,6 +57,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/libdir.cmo \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/dev_t.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/URI.cmo \
 	$(SOURCES_ML:.ml=.cmo)

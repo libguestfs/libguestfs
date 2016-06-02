@@ -80,6 +80,7 @@ SOURCES_ML = \
 	main.ml
 
 SOURCES_C = \
+	../mllib/dev_t-c.c \
 	../mllib/uri-c.c \
 	../mllib/mkdtemp-c.c \
 	../customize/crypt-c.c \
@@ -106,6 +107,7 @@ virt_sysprep_CFLAGS = \
 BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/dev_t.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/URI.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
