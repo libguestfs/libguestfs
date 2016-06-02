@@ -51,6 +51,7 @@ type cmdline = {
   smp : int option;
   sources : (string * string) list;
   sync : bool;
+  warn_if_partition : bool;
 }
 
 let parse_cmdline () =
@@ -115,6 +116,7 @@ let parse_cmdline () =
   let add_source arg = push_front arg sources in
 
   let sync = ref true in
+  let warn_if_partition = ref true in
 
   let argspec = [
     "--arch",    Arg.Set_string arch,       "arch" ^ " " ^ s_"Set the output architecture";
@@ -163,6 +165,8 @@ let parse_cmdline () =
     "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
     "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
     "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
+    "--no-warn-if-partition", Arg.Clear warn_if_partition,
+                                            " " ^ s_"Do not warn if writing to a partition";
   ] in
   let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
   let customize_argspec =
@@ -212,6 +216,7 @@ read the man page virt-builder(1).
   let smp = !smp in
   let sources = List.rev !sources in
   let sync = !sync in
+  let warn_if_partition = !warn_if_partition in
 
   (* No arguments and machine-readable mode?  Print some facts. *)
   if args = [] && machine_readable then (
@@ -323,4 +328,5 @@ read the man page virt-builder(1).
     gpg = gpg; list_format = list_format; memsize = memsize;
     network = network; ops = ops; output = output;
     size = size; smp = smp; sources = sources; sync = sync;
+    warn_if_partition = warn_if_partition;
   }

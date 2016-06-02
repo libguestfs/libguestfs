@@ -268,6 +268,15 @@ let main () =
 
   (* --- If we get here, we want to create a guest. --- *)
 
+  (* Warn if the user might be writing to a partition on a USB key. *)
+  (match cmdline.output with
+   | Some device when is_partition device ->
+      if cmdline.warn_if_partition then
+        warning (f_"output device (%s) is a partition.  If you are writing to a USB key or external drive then you probably need to write to the whole device, not to a partition.  If this warning is wrong then you can disable it with --no-warn-if-partition")
+                device;
+   | Some _ | None -> ()
+  );
+
   (* Download the template, or it may be in the cache. *)
   let template =
     let template, delete_on_exit =

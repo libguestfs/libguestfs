@@ -495,6 +495,15 @@ Note that you should not point I<--source> to sources that you don't
 trust (unless the source is signed by someone you do trust).  See also
 the I<--no-network> option.
 
+=item B<--no-warn-if-partition>
+
+Do not emit a warning if the output device is a partition.  This
+warning avoids a common user error when writing to a USB key or
+external drive, when you should normally write to the whole device
+(S<I<--output /dev/sdX>>), not to a partition on the device
+(S<I<--output /dev/sdX1>>).  Use this option to I<suppress> this
+warning.
+
 =item B<-v>
 
 =item B<--verbose>

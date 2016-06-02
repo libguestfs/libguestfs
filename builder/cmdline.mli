@@ -39,6 +39,7 @@ type cmdline = {
   smp : int option;
   sources : (string * string) list;
   sync : bool;
+  warn_if_partition : bool;
 }
 
 val parse_cmdline : unit -> cmdline
