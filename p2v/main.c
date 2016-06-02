@@ -41,6 +41,7 @@
 char **all_disks;
 char **all_removable;
 char **all_interfaces;
+int is_iso_environment = 0;
 
 static void udevadm_settle (void);
 static void set_config_defaults (struct config *config);
@@ -53,6 +54,7 @@ static const char *options = "Vv";
 static const struct option long_options[] = {
   { "help", 0, 0, HELP_OPTION },
   { "cmdline", 1, 0, 0 },
+  { "iso", 0, 0, 0 },
   { "long-options", 0, 0, 0 },
   { "short-options", 0, 0, 0 },
   { "verbose", 0, 0, 'v' },
@@ -74,6 +76,7 @@ usage (int status)
               "Options:\n"
               "  --help                 Display brief help\n"
               " --cmdline=CMDLINE       Used to debug command line parsing\n"
+              " --iso                   Running in the ISO environment\n"
               "  -v|--verbose           Verbose messages\n"
               "  -V|--version           Display version and exit\n"
               "For more information, see the manpage %s(1).\n"),
@@ -153,6 +156,9 @@ main (int argc, char *argv[])
       else if (STREQ (long_options[option_index].name, "cmdline")) {
         cmdline = parse_cmdline_string (optarg);
         cmdline_source = CMDLINE_SOURCE_COMMAND_LINE;
+      }
+      else if (STREQ (long_options[option_index].name, "iso")) {
+        is_iso_environment = 1;
       }
       else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
