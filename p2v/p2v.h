@@ -52,6 +52,12 @@ extern char **all_disks;
 extern char **all_removable;
 extern char **all_interfaces;
 
+/* True if running inside the virt-p2v ISO environment.  Various
+ * dangerous functions such as the "Reboot" button are disabled if
+ * this is false.
+ */
+extern int is_iso_environment;
+
 /* config.c */
 struct config {
   int verbose;

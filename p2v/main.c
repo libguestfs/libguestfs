@@ -42,6 +42,7 @@
 char **all_disks;
 char **all_removable;
 char **all_interfaces;
+int is_iso_environment = 0;
 
 static const char *test_disk = NULL;
 
@@ -56,6 +57,7 @@ static const char *options = "Vv";
 static const struct option long_options[] = {
   { "help", 0, 0, HELP_OPTION },
   { "cmdline", 1, 0, 0 },
+  { "iso", 0, 0, 0 },
   { "long-options", 0, 0, 0 },
   { "short-options", 0, 0, 0 },
   { "test-disk", 1, 0, 0 },
@@ -78,6 +80,7 @@ usage (int status)
               "Options:\n"
               "  --help                 Display brief help\n"
               " --cmdline=CMDLINE       Used to debug command line parsing\n"
+              " --iso                   Running in the ISO environment\n"
               " --test-disk=DISK.IMG    For testing, use disk as /dev/sda\n"
               "  -v|--verbose           Verbose messages\n"
               "  -V|--version           Display version and exit\n"
@@ -149,6 +152,9 @@ main (int argc, char *argv[])
       else if (STREQ (long_options[option_index].name, "cmdline")) {
         cmdline = parse_cmdline_string (optarg);
         cmdline_source = CMDLINE_SOURCE_COMMAND_LINE;
+      }
+      else if (STREQ (long_options[option_index].name, "iso")) {
+        is_iso_environment = 1;
       }
       else if (STREQ (long_options[option_index].name, "test-disk")) {
         if (test_disk != NULL)
