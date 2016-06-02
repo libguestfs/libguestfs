@@ -23,8 +23,8 @@ program="virt-p2v-make-kickstart"
 version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
-        -o o:V \
-        --long help,inject-ssh-identity:,output:,proxy:,version \
+        -o o:vV \
+        --long help,inject-ssh-identity:,output:,proxy:,verbose,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -44,6 +44,7 @@ usage ()
 output=p2v.ks
 proxy=
 ssh_identity=
+verbose=
 
 while true; do
     case "$1" in
@@ -59,6 +60,10 @@ while true; do
         --repo)
             repo="$2"
             shift 2;;
+        -v|--verbose)
+            set +x
+            verbose=1
+            shift;;
         -V|--version)
             echo "$program $version"
             exit 0;;

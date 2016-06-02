@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:V \
-        --long help,inject-ssh-identity:,output:,version \
+        --long help,inject-ssh-identity:,output:,verbose,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -34,6 +34,7 @@ eval set -- "$TEMP"
 
 output=
 upload=
+verbose=
 
 usage ()
 {
@@ -52,6 +53,10 @@ while true; do
         -o|--output)
             output="$2"
             shift 2;;
+        -v|--verbose)
+            set +x
+            verbose=1
+            shift;;
         -V|--version)
             echo "$program $version"
             exit 0;;
@@ -170,9 +175,15 @@ while read line; do
     fi
 done < $depsfile
 
+# Add -v -x if we're in verbose mode.
+if [ "x$verbose" = "x1" ]; then
+    verbose_option="-v -x"
+fi
+
 # Run virt-builder.  Note we controversially assume systemd here.  We
 # could provide a sysvinit fallback if required.
 virt-builder "$osversion"                                       \
+    $verbose_option						\
     --output "$output"                                          \
     --update                                                    \
     --install "$install"                                        \
