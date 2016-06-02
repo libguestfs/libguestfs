@@ -29,6 +29,7 @@ CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o
 SOURCES_MLI = \
 	common_utils.mli \
 	curl.mli \
+	dev_t.mli \
 	fsync.mli \
 	JSON.mli \
 	mkdtemp.mli \
@@ -41,6 +42,7 @@ SOURCES_ML = \
 	guestfs_config.ml \
 	libdir.ml \
 	common_gettext.ml \
+	dev_t.ml \
 	common_utils.ml \
 	fsync.ml \
 	progress.ml \
@@ -54,6 +56,7 @@ SOURCES_ML = \
 SOURCES_C = \
 	../fish/progress.c \
 	../fish/uri.c \
+	dev_t-c.c \
 	fsync-c.c \
 	mkdtemp-c.c \
 	progress-c.c \

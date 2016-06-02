@@ -43,6 +43,7 @@ mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
 mllib/curl.ml
+mllib/dev_t.ml
 mllib/fsync.ml
 mllib/guestfs_config.ml
 mllib/libdir.ml
