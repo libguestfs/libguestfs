@@ -60,6 +60,7 @@ OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
+	$(top_builddir)/mllib/dev_t.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/v2v/xml.cmo \
 	$(SOURCES_ML:.ml=.cmo) \
@@ -94,6 +95,7 @@ libv2vth_a_CFLAGS = \
 	-fPIC
 
 libv2vth_a_SOURCES = \
+	../../mllib/dev_t-c.c \
 	../xml-c.c
 
 v2v_test_harness.cmi: $(top_builddir)/ocaml/guestfs.cmi

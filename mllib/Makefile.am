@@ -136,10 +136,17 @@ libdir.ml: Makefile
 
 # Tests.
 
-common_utils_tests_SOURCES = dummy.c
+common_utils_tests_SOURCES = \
+	dev_t-c.c \
+	dummy.c
+common_utils_tests_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where)
 common_utils_tests_BOBJECTS = \
 	guestfs_config.cmo \
 	common_gettext.cmo \
+	dev_t.cmo \
 	common_utils.cmo \
 	common_utils_tests.cmo
 common_utils_tests_XOBJECTS = $(common_utils_tests_BOBJECTS:.cmo=.cmx)
