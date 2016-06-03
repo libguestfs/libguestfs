@@ -183,7 +183,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
                  raise Not_found;
 
                let dispname = g#hivex_value_utf8 valueh in
-               if not (Str.string_match (Str.regexp ".*Parallels Tools.*")
+               if not (Str.string_match (Str.regexp ".*\\(Parallels\\|Virtuozzo\\) Tools.*")
                                         dispname 0) then
                  raise Not_found;
 
