@@ -46,7 +46,10 @@ ifelse(REDHAT,1,
   NetworkManager
   nm-connection-editor
   network-manager-applet
-  dbus-x11        dnl required by nm-applet, but not a dependency in Fedora
+  dnl dbus is required by nm-applet, but not a dependency in Fedora
+  dbus-x11
+  dnl sysadmins prefer ifconfig
+  net-tools
 
   dnl RHBZ#1157679
   @hardware-support
@@ -68,6 +71,7 @@ ifelse(DEBIAN,1,
   network-manager-gnome
   network-manager-applet
   dbus-x11
+  net-tools
 )
 
 ifelse(ARCHLINUX,1,
@@ -87,6 +91,7 @@ ifelse(ARCHLINUX,1,
   nm-connection-editor
   network-manager-applet
   dbus-x11
+  net-tools
 )
 
 ifelse(SUSE,1,
@@ -106,4 +111,5 @@ ifelse(SUSE,1,
   nm-connection-editor
   network-manager-applet
   dbus-x11
+  net-tools-deprecated
 )
