@@ -771,7 +771,7 @@ C<PHYSICAL_MACHINE> to point to a disk image.
 A more realistic test is to run virt-p2v inside a VM on the local
 machine.  To do that, do:
 
- make -C p2v run-virt-p2v
+ make -C p2v run-virt-p2v-in-a-vm
 
 This also runs qemu with the "physical machine" disk (which you can
 set by setting C<PHYSICAL_MACHINE>), a virtual CD, and a variety of

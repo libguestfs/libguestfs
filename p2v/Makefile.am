@@ -176,7 +176,7 @@ PHYSICAL_MACHINE = $(abs_top_builddir)/test-data/phony-guests/windows.img
 run-virt-p2v-directly: $(PHYSICAL_MACHINE)
 	$(top_builddir)/run virt-p2v --test-disk=$(PHYSICAL_MACHINE)
 
-run-virt-p2v: virt-p2v.img $(PHYSICAL_MACHINE)
+run-virt-p2v-in-a-vm: virt-p2v.img $(PHYSICAL_MACHINE)
 	$(QEMU) \
 	  -M pc,accel=kvm:tcg \
 	  -cpu host \
