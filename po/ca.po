@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-05-26 19:25+0100\n"
+"POT-Creation-Date: 2016-06-03 12:55+0100\n"
 "PO-Revision-Date: 2015-09-30 09:24-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -44,7 +44,7 @@ msgid "%s"
 msgstr "%s"
 
 #. ../customize/customize_run.ml:420
-#: ../v2v/v2v.ml:387 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:899
+#: ../v2v/v2v.ml:387 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:912
 msgid "%s (ignored)"
 msgstr "%s (s'ignora)"
 
@@ -207,7 +207,7 @@ msgstr "%s: Aquesta partició es quedarà sola."
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: Es canviarà la mida d'aquesta partició de %s a %s."
 
-#: ../builder/cmdline.ml:176
+#: ../builder/cmdline.ml:180
 msgid ""
 "%s: build virtual machine images quickly\n"
 "\n"
@@ -519,7 +519,7 @@ msgstr ""
 msgid "--attach-format parameter must appear before --attach parameter"
 msgstr ""
 
-#: ../builder/cmdline.ml:261
+#: ../builder/cmdline.ml:266
 msgid ""
 "--cache-all-templates/--print-cache/--delete-cache does not need any extra "
 "arguments"
@@ -560,7 +560,7 @@ msgstr ""
 msgid "--format parameter must appear before -a parameter"
 msgstr ""
 
-#: ../builder/cmdline.ml:269
+#: ../builder/cmdline.ml:274
 msgid "--get-kernel: too many parameters"
 msgstr ""
 
@@ -568,7 +568,7 @@ msgstr ""
 msgid "--install"
 msgstr ""
 
-#: ../builder/cmdline.ml:240
+#: ../builder/cmdline.ml:245
 msgid "--list: use '--list-format', not '--format'"
 msgstr ""
 
@@ -580,7 +580,7 @@ msgstr ""
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
-#: ../builder/cmdline.ml:253
+#: ../builder/cmdline.ml:258
 msgid "--notes: too many parameters, expecting 'os-version'"
 msgstr ""
 
@@ -805,7 +805,7 @@ msgstr ""
 msgid "Assigning disks to buses"
 msgstr ""
 
-#: ../customize/customize_main.ml:76 ../builder/cmdline.ml:121
+#: ../customize/customize_main.ml:76 ../builder/cmdline.ml:123
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
@@ -880,7 +880,7 @@ msgstr ""
 msgid "Changing permissions of %s to %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:131 ../builder/cmdline.ml:129
+#: ../builder/cmdline.ml:133 ../builder/cmdline.ml:131
 msgid "Check digital signatures"
 msgstr ""
 
@@ -924,7 +924,7 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:616
+#: ../builder/builder.ml:625
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -936,7 +936,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:884 ../builder/builder.ml:615
+#: ../dib/dib.ml:884 ../builder/builder.ml:624
 msgid "Converting to %s"
 msgstr ""
 
@@ -948,7 +948,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:551
+#: ../builder/builder.ml:560
 msgid "Copying"
 msgstr ""
 
@@ -1040,7 +1040,7 @@ msgstr ""
 msgid "Delete partition"
 msgstr ""
 
-#: ../builder/cmdline.ml:138
+#: ../builder/cmdline.ml:140
 msgid "Delete the template cache"
 msgstr ""
 
@@ -1048,16 +1048,16 @@ msgstr ""
 msgid "Deleting: %s"
 msgstr ""
 
-#. ../builder/cmdline.ml:156
+#. ../builder/cmdline.ml:158
 #: ../dib/cmdline.ml:191 ../customize/customize_main.ml:90
 msgid "Disable appliance network"
 msgstr ""
 
-#: ../builder/cmdline.ml:135 ../builder/cmdline.ml:133
+#: ../builder/cmdline.ml:137 ../builder/cmdline.ml:135
 msgid "Disable digital signatures"
 msgstr ""
 
-#: ../builder/cmdline.ml:125
+#: ../builder/cmdline.ml:127
 msgid "Disable template cache"
 msgstr ""
 
@@ -1065,7 +1065,7 @@ msgstr ""
 msgid "Discard space in volgroup %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:157
+#: ../builder/cmdline.ml:159
 msgid "Display installation notes"
 msgstr ""
 
@@ -1073,8 +1073,12 @@ msgstr ""
 msgid "Display version and exit"
 msgstr ""
 
-#: ../builder/cmdline.ml:165
+#: ../builder/cmdline.ml:167
 msgid "Do not fsync output file on exit"
+msgstr ""
+
+#: ../builder/cmdline.ml:169
+msgid "Do not warn if writing to a partition"
 msgstr ""
 
 #: ../resize/resize.ml:189
@@ -1085,7 +1089,7 @@ msgstr ""
 msgid "Don't create extra partition"
 msgstr ""
 
-#: ../dib/cmdline.ml:194 ../builder/cmdline.ml:140
+#: ../dib/cmdline.ml:194 ../builder/cmdline.ml:142
 msgid "Don't delete output file on failure"
 msgstr ""
 
@@ -1105,7 +1109,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: ../builder/cmdline.ml:127
+#: ../builder/cmdline.ml:129
 msgid "Download all templates to the cache"
 msgstr ""
 
@@ -1113,7 +1117,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:289 ../builder/builder.ml:249
+#: ../builder/builder.ml:298 ../builder/builder.ml:249
 msgid "Downloading: %s"
 msgstr ""
 
@@ -1143,7 +1147,7 @@ msgstr ""
 msgid "Elements: %s"
 msgstr ""
 
-#. ../builder/cmdline.ml:155
+#. ../builder/cmdline.ml:157
 #: ../dib/cmdline.ml:190 ../customize/customize_main.ml:89
 msgid "Enable appliance network (default)"
 msgstr ""
@@ -1269,7 +1273,7 @@ msgstr ""
 msgid "Fill free space in volgroup %s with zero"
 msgstr ""
 
-#: ../builder/cmdline.ml:142
+#: ../builder/cmdline.ml:144
 msgid "Fingerprint of valid signing key"
 msgstr ""
 
@@ -1278,7 +1282,7 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:209
-#. ../builder/builder.ml:707
+#. ../builder/builder.ml:716
 #: ../v2v/v2v.ml:144 ../v2v/copy_to_local.ml:233
 msgid "Finishing off"
 msgstr ""
@@ -1326,7 +1330,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:697
+#: ../builder/builder.ml:706
 msgid "Free space"
 msgstr ""
 
@@ -1355,7 +1359,7 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../builder/cmdline.ml:145
+#: ../builder/cmdline.ml:147
 msgid "Get kernel from image"
 msgstr ""
 
@@ -1455,7 +1459,7 @@ msgstr ""
 msgid "Linking: %s -> %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:148 ../builder/cmdline.ml:147
+#: ../builder/cmdline.ml:150 ../builder/cmdline.ml:149
 msgid "List available templates"
 msgstr ""
 
@@ -1481,7 +1485,7 @@ msgstr ""
 
 #. ../get-kernel/get_kernel.ml:62
 #. ../dib/cmdline.ml:195
-#. ../builder/cmdline.ml:152
+#. ../builder/cmdline.ml:154
 #: ../v2v/cmdline.ml:186 ../sparsify/cmdline.ml:75 ../resize/resize.ml:202
 msgid "Make output machine readable"
 msgstr ""
@@ -1582,7 +1586,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:628
+#: ../builder/builder.ml:637
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1618,15 +1622,15 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:692
+#: ../builder/builder.ml:701
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:694
+#: ../builder/builder.ml:703
 msgid "Output format"
 msgstr ""
 
-#: ../builder/cmdline.ml:143
+#: ../builder/cmdline.ml:145
 msgid "Output format (default: raw)"
 msgstr ""
 
@@ -1638,7 +1642,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:693
+#: ../builder/builder.ml:702
 msgid "Output size"
 msgstr ""
 
@@ -1697,7 +1701,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:488
+#: ../builder/builder.ml:497
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1709,7 +1713,7 @@ msgstr ""
 msgid "Preparing auxiliary data"
 msgstr ""
 
-#: ../builder/cmdline.ml:161
+#: ../builder/cmdline.ml:163
 msgid "Print info about template cache"
 msgstr ""
 
@@ -1938,11 +1942,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:576
+#: ../builder/builder.ml:585
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:602
+#: ../builder/builder.ml:611
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2040,15 +2044,15 @@ msgstr ""
 msgid "Scrubbing: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:146
+#: ../builder/cmdline.ml:148
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../customize/customize_main.ml:78 ../builder/cmdline.ml:123
+#: ../customize/customize_main.ml:78 ../builder/cmdline.ml:125
 msgid "Set attach disk format"
 msgstr ""
 
-#: ../builder/cmdline.ml:136
+#: ../builder/cmdline.ml:138
 msgid "Set curl binary/command"
 msgstr ""
 
@@ -2079,8 +2083,8 @@ msgid "Set libvirt guest name"
 msgstr ""
 
 #. ../customize/customize_main.ml:87
-#. ../builder/cmdline.ml:154
-#. ../builder/cmdline.ml:153
+#. ../builder/cmdline.ml:156
+#. ../builder/cmdline.ml:155
 #: ../dib/cmdline.ml:189 ../dib/cmdline.ml:188
 #: ../customize/customize_main.ml:88
 msgid "Set memory size"
@@ -2090,7 +2094,7 @@ msgstr ""
 msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
-#. ../builder/cmdline.ml:163
+#. ../builder/cmdline.ml:165
 #: ../dib/cmdline.ml:192 ../customize/customize_main.ml:91
 msgid "Set number of vCPUs"
 msgstr ""
@@ -2099,11 +2103,11 @@ msgstr ""
 msgid "Set output allocation mode"
 msgstr ""
 
-#: ../dib/cmdline.ml:183 ../builder/cmdline.ml:162
+#: ../dib/cmdline.ml:183 ../builder/cmdline.ml:164
 msgid "Set output disk size"
 msgstr ""
 
-#: ../builder/cmdline.ml:159 ../builder/cmdline.ml:158
+#: ../builder/cmdline.ml:161 ../builder/cmdline.ml:160
 msgid "Set output filename"
 msgstr ""
 
@@ -2131,11 +2135,11 @@ msgstr ""
 msgid "Set root password"
 msgstr ""
 
-#: ../builder/cmdline.ml:164
+#: ../builder/cmdline.ml:166
 msgid "Set source URL"
 msgstr ""
 
-#: ../builder/cmdline.ml:124
+#: ../builder/cmdline.ml:126
 msgid "Set template cache dir"
 msgstr ""
 
@@ -2147,7 +2151,7 @@ msgstr ""
 msgid "Set the default timezone"
 msgstr ""
 
-#: ../builder/cmdline.ml:151
+#: ../builder/cmdline.ml:153
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
@@ -2155,7 +2159,7 @@ msgstr ""
 msgid "Set the hostname"
 msgstr ""
 
-#: ../builder/cmdline.ml:120
+#: ../builder/cmdline.ml:122
 msgid "Set the output architecture"
 msgstr ""
 
@@ -2191,7 +2195,7 @@ msgstr ""
 msgid "Setting up the destination root"
 msgstr ""
 
-#: ../builder/cmdline.ml:149
+#: ../builder/cmdline.ml:151
 msgid "Shortcut for --list-format short"
 msgstr ""
 
@@ -2428,7 +2432,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:695
+#: ../builder/builder.ml:704
 msgid "Total usable space"
 msgstr ""
 
@@ -2460,7 +2464,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:564
+#: ../builder/builder.ml:573
 msgid "Uncompressing"
 msgstr ""
 
@@ -2645,7 +2649,7 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../builder/builder.ml:346
+#: ../builder/builder.ml:355
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
@@ -3102,7 +3106,7 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../builder/builder.ml:371
+#: ../builder/builder.ml:380
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -3116,7 +3120,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../builder/builder.ml:331
+#: ../builder/builder.ml:340
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
@@ -3172,7 +3176,7 @@ msgstr ""
 msgid "invalid %s parameter"
 msgstr ""
 
-#: ../builder/cmdline.ml:98
+#: ../builder/cmdline.ml:99
 msgid "invalid --list-format type '%s', see the man page"
 msgstr ""
 
@@ -3284,7 +3288,7 @@ msgstr ""
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
-#: ../builder/builder.ml:662
+#: ../builder/builder.ml:671
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3333,7 +3337,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:493
+#: ../builder/builder.ml:502
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3412,6 +3416,14 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
+#: ../builder/builder.ml:287
+msgid ""
+"output device (%s) is a partition.  If you are writing to a USB key or "
+"external drive then you probably need to write to the whole device, not to a "
+"partition.  If this warning is wrong then you can disable it with --no-warn-"
+"if-partition"
+msgstr ""
+
 #: ../v2v/v2v.ml:278
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
@@ -3423,7 +3435,7 @@ msgid ""
 "considered in future."
 msgstr ""
 
-#: ../builder/builder.ml:374
+#: ../builder/builder.ml:383
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -3547,7 +3559,7 @@ msgid ""
 "options instead (described in the manual)."
 msgstr ""
 
-#: ../builder/cmdline.ml:295
+#: ../builder/cmdline.ml:300
 msgid "source and fingerprint lists are not the same length"
 msgstr ""
 
@@ -3815,11 +3827,11 @@ msgid ""
 "page."
 msgstr ""
 
-#: ../builder/cmdline.ml:245
+#: ../builder/cmdline.ml:250
 msgid "too many parameters, at most one 'os-version' is allowed for --list"
 msgstr ""
 
-#: ../builder/cmdline.ml:236
+#: ../builder/cmdline.ml:241
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
@@ -3986,19 +3998,19 @@ msgstr ""
 msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
 msgstr ""
 
-#: ../builder/cmdline.ml:267
+#: ../builder/cmdline.ml:272
 msgid ""
 "virt-builder --get-kernel image\n"
 "Missing 'image' (disk image file) argument"
 msgstr ""
 
-#: ../builder/cmdline.ml:251
+#: ../builder/cmdline.ml:256
 msgid ""
 "virt-builder --notes os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names."
 msgstr ""
 
-#: ../builder/cmdline.ml:234
+#: ../builder/cmdline.ml:239
 msgid ""
 "virt-builder os-version\n"
 "Missing 'os-version'. Use '--list' to list available template names."
@@ -4093,7 +4105,7 @@ msgstr ""
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
 #: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
-#: make-fs/make-fs.c:75 p2v/main.c:68 rescue/rescue.c:57
+#: make-fs/make-fs.c:75 p2v/main.c:73 rescue/rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -4124,7 +4136,7 @@ msgstr ""
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:261 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:248 fuse/guestunmount.c:121 inspector/inspector.c:161
-#: make-fs/make-fs.c:146 p2v/main.c:160 rescue/rescue.c:182
+#: make-fs/make-fs.c:146 p2v/main.c:170 rescue/rescue.c:182
 #: test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -7924,123 +7936,127 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:204
+#: p2v/conversion.c:216
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:307
+#: p2v/conversion.c:319
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:319
+#: p2v/conversion.c:331
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:406
+#: p2v/conversion.c:418
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:411
+#: p2v/conversion.c:423
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:123
+#: p2v/gui.c:273
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:128
+#: p2v/gui.c:278
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:138
-msgid "SSH port:"
-msgstr ""
-
-#: p2v/gui.c:149
+#: p2v/gui.c:298
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:161
+#: p2v/gui.c:310
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:176
+#: p2v/gui.c:325
 msgid "SSH Identity URL:"
 msgstr ""
 
-#: p2v/gui.c:188
+#: p2v/gui.c:337
 msgid ""
 "<i>If using password authentication, leave the SSH Identity URL blank</i>"
 msgstr ""
 
-#: p2v/gui.c:194
+#: p2v/gui.c:343
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:201
+#: p2v/gui.c:350
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:223
+#: p2v/gui.c:376
 msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:224
+#: p2v/gui.c:377
+msgid "XTerm ..."
+msgstr ""
+
+#: p2v/gui.c:378
 msgid "About virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:225
+#: p2v/gui.c:379
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:280
+#: p2v/gui.c:447
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:288
+#: p2v/gui.c:455
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:296
+#: p2v/gui.c:463
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:343
+#: p2v/gui.c:535
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:365
+#: p2v/gui.c:578
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:478
+#: p2v/gui.c:624
+msgid "Virtualize a physical machine to run on KVM"
+msgstr ""
+
+#: p2v/gui.c:718
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:484
+#: p2v/gui.c:724
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:494
+#: p2v/gui.c:734
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:508
+#: p2v/gui.c:748
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:534
+#: p2v/gui.c:774
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:540
+#: p2v/gui.c:780
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:545
+#: p2v/gui.c:785
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8049,139 +8065,143 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:550
+#: p2v/gui.c:790
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:555
+#: p2v/gui.c:795
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:561
+#: p2v/gui.c:801
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:566
+#: p2v/gui.c:806
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:572
+#: p2v/gui.c:812
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:577
+#: p2v/gui.c:817
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:583
+#: p2v/gui.c:823
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:604
+#: p2v/gui.c:844
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:613
+#: p2v/gui.c:853
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:621
+#: p2v/gui.c:861
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:633
+#: p2v/gui.c:872
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:645
+#: p2v/gui.c:883
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:655
+#: p2v/gui.c:893
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:677
+#: p2v/gui.c:915
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:678
+#: p2v/gui.c:916
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:720
-#, c-format
-msgid "virt-p2v (client) %s"
-msgstr ""
-
-#: p2v/gui.c:723
+#: p2v/gui.c:966
 #, c-format
 msgid ""
-"virt-p2v (client) %s\n"
-"virt-v2v (conversion server) %d.%d.%d"
+"virt-p2v (client):\n"
+"%s"
 msgstr ""
 
-#: p2v/gui.c:838 p2v/gui.c:893 p2v/gui.c:958
+#: p2v/gui.c:969
+#, c-format
+msgid ""
+"virt-p2v (client):\n"
+"%s\n"
+"virt-v2v (conversion server):\n"
+"%s"
+msgstr ""
+
+#: p2v/gui.c:1094 p2v/gui.c:1156 p2v/gui.c:1226
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:845 p2v/gui.c:900 p2v/gui.c:966
+#: p2v/gui.c:1102 p2v/gui.c:1164 p2v/gui.c:1234
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:852
+#: p2v/gui.c:1110
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:859
+#: p2v/gui.c:1118
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:936 p2v/gui.c:937
+#: p2v/gui.c:1204 p2v/gui.c:1205
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:974
+#: p2v/gui.c:1242
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1255
+#: p2v/gui.c:1524
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1265
+#: p2v/gui.c:1534
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1273
+#: p2v/gui.c:1542
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1352
+#: p2v/gui.c:1632
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1353
+#: p2v/gui.c:1633
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1390
+#: p2v/gui.c:1684
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -8189,38 +8209,38 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1473
+#: p2v/gui.c:1795
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1474 p2v/gui.c:1498
+#: p2v/gui.c:1796 p2v/gui.c:1820
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1496
+#: p2v/gui.c:1818
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1582
+#: p2v/gui.c:1920
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1583
+#: p2v/gui.c:1921
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1592
+#: p2v/gui.c:1948
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1593
+#: p2v/gui.c:1949
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:71
+#: p2v/main.c:76
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8230,17 +8250,29 @@ msgid ""
 "Options:\n"
 "  --help                 Display brief help\n"
 " --cmdline=CMDLINE       Used to debug command line parsing\n"
+" --iso                   Running in the ISO environment\n"
+" --test-disk=DISK.IMG    For testing, use disk as /dev/sda\n"
 "  -v|--verbose           Verbose messages\n"
 "  -V|--version           Display version and exit\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:183
+#: p2v/main.c:162
+#, c-format
+msgid "only a single --test-disk option can be used"
+msgstr ""
+
+#: p2v/main.c:165
+#, c-format
+msgid "--test-disk must be an absolute path"
+msgstr ""
+
+#: p2v/main.c:191
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:212
+#: p2v/main.c:220
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
