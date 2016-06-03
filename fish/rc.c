@@ -92,10 +92,11 @@ static void
 receive_stdout (int s)
 {
   static struct cmsghdr *cmptr = NULL, *h;
-  struct msghdr         msg;
-  struct iovec          iov[1];
-
-  /* Our 1 byte buffer */
+  struct msghdr msg;
+  struct iovec iov[1];
+  ssize_t n;
+  void *data;
+  int fd;
   char buf[1];
 
   if (NULL == cmptr) {
@@ -120,24 +121,21 @@ receive_stdout (int s)
   msg.msg_controllen  = controllen;
 
   /* Read a message from the socket */
-  ssize_t n = recvmsg (s, &msg, 0);
+  n = recvmsg (s, &msg, 0);
   if (n < 0)
     error (EXIT_FAILURE, errno, "recvmsg stdout fd");
 
-  h = CMSG_FIRSTHDR(&msg);
-  if (NULL == h) {
-    fprintf (stderr, "didn't receive a stdout file descriptor\n");
-  }
+  h = CMSG_FIRSTHDR (&msg);
+  if (NULL == h)
+    error (EXIT_FAILURE, errno, "didn't receive a stdout file descriptor");
 
-  else {
-    /* Extract the transferred file descriptor from the control data */
-    void *data = CMSG_DATA (h);
-    int fd = *(int *)data;
+  /* Extract the transferred file descriptor from the control data */
+  data = CMSG_DATA (h);
+  fd = *(int *)data;
 
-    /* Duplicate the received file descriptor to stdout */
-    dup2 (fd, STDOUT_FILENO);
-    close (fd);
-  }
+  /* Duplicate the received file descriptor to stdout */
+  dup2 (fd, STDOUT_FILENO);
+  close (fd);
 }
 
 static void
