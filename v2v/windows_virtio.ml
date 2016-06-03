@@ -417,17 +417,6 @@ and virtio_iso_path_matches_guest_os path inspect =
      * elements.
      *)
     let lc_path = String.lowercase_ascii path in
-    let lc_basename = Filename.basename lc_path in
-
-    let extension =
-      match last_part_of lc_basename '.' with
-      | Some x -> x
-      | None -> raise Not_found
-    in
-
-    (* Skip files without specific extensions. *)
-    let extensions = ["cat"; "inf"; "pdb"; "sys"] in
-    if not (List.mem extension extensions) then raise Not_found;
 
     (* Using the full path, work out what version of Windows
      * this driver is for.  Paths can be things like:
