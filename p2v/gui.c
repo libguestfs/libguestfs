@@ -237,6 +237,7 @@ static gboolean stop_spinner (gpointer user_data);
 static gboolean test_connection_error (gpointer user_data);
 static gboolean test_connection_ok (gpointer user_data);
 static void configure_network_button_clicked (GtkWidget *w, gpointer data);
+static void xterm_button_clicked (GtkWidget *w, gpointer data);
 static void about_button_clicked (GtkWidget *w, gpointer data);
 static void connection_next_clicked (GtkWidget *w, gpointer data);
 static void repopulate_output_combo (struct config *config);
@@ -260,6 +261,7 @@ create_connection_dialog (struct config *config)
   GtkWidget *test_hbox, *test;
   GtkWidget *about;
   GtkWidget *configure_network;
+  GtkWidget *xterm;
   char port_str[64];
 
   conn_dlg = gtk_dialog_new ();
@@ -372,16 +374,18 @@ create_connection_dialog (struct config *config)
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conn_dlg),
                           _("Configure network ..."), 1,
-                          _("About virt-p2v " PACKAGE_VERSION " ..."), 2,
-                          _("Next"), 3,
+                          _("XTerm ..."), 2,
+                          _("About virt-p2v " PACKAGE_VERSION " ..."), 3,
+                          _("Next"), 4,
                           NULL);
 
-  next_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 3);
+  next_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 4);
   gtk_widget_set_sensitive (next_button, FALSE);
 
   configure_network =
     gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 1);
-  about = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 2);
+  xterm = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 2);
+  about = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 3);
 
   /* Signals. */
   g_signal_connect_swapped (G_OBJECT (conn_dlg), "destroy",
@@ -390,6 +394,8 @@ create_connection_dialog (struct config *config)
                     G_CALLBACK (test_connection_clicked), config);
   g_signal_connect (G_OBJECT (configure_network), "clicked",
                     G_CALLBACK (configure_network_button_clicked), NULL);
+  g_signal_connect (G_OBJECT (xterm), "clicked",
+                    G_CALLBACK (xterm_button_clicked), NULL);
   g_signal_connect (G_OBJECT (about), "clicked",
                     G_CALLBACK (about_button_clicked), NULL);
   g_signal_connect (G_OBJECT (next_button), "clicked",
@@ -591,6 +597,15 @@ static void
 configure_network_button_clicked (GtkWidget *w, gpointer data)
 {
   ignore_value (system ("nm-connection-editor &"));
+}
+
+/**
+ * Callback from the C<XTerm ...> button.
+ */
+static void
+xterm_button_clicked (GtkWidget *w, gpointer data)
+{
+  ignore_value (system ("xterm &"));
 }
 
 /**
