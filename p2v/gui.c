@@ -105,7 +105,8 @@ create_connection_dialog (struct config *config)
 {
   GtkWidget *intro, *table;
   GtkWidget *server_label;
-  GtkWidget *port_label;
+  GtkWidget *server_hbox;
+  GtkWidget *port_colon_label;
   GtkWidget *username_label;
   GtkWidget *password_label;
   GtkWidget *identity_label;
@@ -125,44 +126,42 @@ create_connection_dialog (struct config *config)
   gtk_label_set_line_wrap (GTK_LABEL (intro), TRUE);
   gtk_misc_set_padding (GTK_MISC (intro), 10, 10);
 
-  table = gtk_table_new (7, 2, FALSE);
+  table = gtk_table_new (6, 2, FALSE);
   server_label = gtk_label_new (_("Conversion server:"));
   gtk_misc_set_alignment (GTK_MISC (server_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (table), server_label,
                     0, 1, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
+  server_hbox = gtk_hbox_new (FALSE, 4);
   server_entry = gtk_entry_new ();
   if (config->server != NULL)
     gtk_entry_set_text (GTK_ENTRY (server_entry), config->server);
-  gtk_table_attach (GTK_TABLE (table), server_entry,
-                    1, 2, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
-
-  port_label = gtk_label_new (_("SSH port:"));
-  gtk_misc_set_alignment (GTK_MISC (port_label), 1., 0.5);
-  gtk_table_attach (GTK_TABLE (table), port_label,
-                    0, 1, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
+  port_colon_label = gtk_label_new (":");
   port_entry = gtk_entry_new ();
   gtk_entry_set_width_chars (GTK_ENTRY (port_entry), 6);
   snprintf (port_str, sizeof port_str, "%d", config->port);
   gtk_entry_set_text (GTK_ENTRY (port_entry), port_str);
-  gtk_table_attach (GTK_TABLE (table), port_entry,
-                    1, 2, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
+  gtk_box_pack_start (GTK_BOX (server_hbox), server_entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (server_hbox), port_colon_label, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (server_hbox), port_entry, FALSE, FALSE, 0);
+  gtk_table_attach (GTK_TABLE (table), server_hbox,
+                    1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
   username_label = gtk_label_new (_("User name:"));
   gtk_misc_set_alignment (GTK_MISC (username_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (table), username_label,
-                    0, 1, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
+                    0, 1, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
   username_entry = gtk_entry_new ();
   if (config->username != NULL)
     gtk_entry_set_text (GTK_ENTRY (username_entry), config->username);
   else
     gtk_entry_set_text (GTK_ENTRY (username_entry), "root");
   gtk_table_attach (GTK_TABLE (table), username_entry,
-                    1, 2, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
+                    1, 2, 1, 2, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
   password_label = gtk_label_new (_("Password:"));
   gtk_misc_set_alignment (GTK_MISC (password_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (table), password_label,
-                    0, 1, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
+                    0, 1, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
   password_entry = gtk_entry_new ();
   gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 #ifdef GTK_INPUT_PURPOSE_PASSWORD
@@ -172,31 +171,31 @@ create_connection_dialog (struct config *config)
   if (config->password != NULL)
     gtk_entry_set_text (GTK_ENTRY (password_entry), config->password);
   gtk_table_attach (GTK_TABLE (table), password_entry,
-                    1, 2, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
+                    1, 2, 2, 3, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
   identity_label = gtk_label_new (_("SSH Identity URL:"));
   gtk_misc_set_alignment (GTK_MISC (identity_label), 1., 0.5);
   gtk_table_attach (GTK_TABLE (table), identity_label,
-                    0, 1, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+                    0, 1, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
   identity_entry = gtk_entry_new ();
   if (config->identity_url != NULL)
     gtk_entry_set_text (GTK_ENTRY (identity_entry), config->identity_url);
   gtk_table_attach (GTK_TABLE (table), identity_entry,
-                    1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
+                    1, 2, 3, 4, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
   identity_tip_label = gtk_label_new (NULL);
   gtk_label_set_markup (GTK_LABEL (identity_tip_label),
                         _("<i>If using password authentication, leave the SSH Identity URL blank</i>"));
   gtk_label_set_line_wrap (GTK_LABEL (identity_tip_label), TRUE);
   gtk_table_attach (GTK_TABLE (table), identity_tip_label,
-                    1, 2, 5, 6, GTK_FILL, GTK_FILL, 4, 4);
+                    1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
 
   sudo_button =
     gtk_check_button_new_with_label (_("Use sudo when running virt-v2v"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sudo_button),
                                 config->sudo);
   gtk_table_attach (GTK_TABLE (table), sudo_button,
-                    1, 2, 6, 7, GTK_FILL, GTK_FILL, 4, 4);
+                    1, 2, 5, 6, GTK_FILL, GTK_FILL, 4, 4);
 
   test_hbox = gtk_hbox_new (FALSE, 0);
   test = gtk_button_new_with_label (_("Test connection"));

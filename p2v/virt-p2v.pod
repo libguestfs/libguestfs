@@ -81,9 +81,7 @@ When virt-p2v starts up in GUI mode, the first dialog looks like this:
  ┌────────────────────────────────────────────────────────┐
  │                      virt-p2v                          │
  │                                                        │
- │ Conversion server: [_________________________________] │
- │                                                        │
- │          SSH port: [22_______________________________] │
+ │ Conversion server: [_______________________] : [22___] │
  │                                                        │
  │         User name: [root_____________________________] │
  │                                                        │
