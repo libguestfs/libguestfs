@@ -21,22 +21,6 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	copy_to_local.ml \
 	v2v_unit_tests.ml \
-	$(TESTS) \
-	test-v2v-cdrom.expected \
-	test-v2v-cdrom.xml \
-	test-v2v-i-ova.ovf \
-	test-v2v-i-ova.xml \
-	test-v2v-i-ova-formats.expected \
-	test-v2v-i-ova-formats.ovf \
-	test-v2v-i-ova-gz.expected \
-	test-v2v-i-ova-gz.ovf \
-	test-v2v-i-ova-subfolders.expected \
-	test-v2v-i-ova-subfolders.ovf \
-	test-v2v-i-ova-two-disks.expected \
-	test-v2v-i-ova-two-disks.ovf \
-	test-v2v-networks-and-bridges-expected.xml \
-	test-v2v-networks-and-bridges.xml \
-	test-v2v-sound.xml \
 	virt-v2v.pod \
 	virt-v2v-copy-to-local.pod
 
@@ -368,6 +352,51 @@ $(real_guests:%=%.img):
 	fi
 
 CLEANFILES += $(real_guests:%=%.img)
+
+EXTRA_DIST += \
+	test-v2v-bad-networks-and-bridges.sh \
+	test-v2v-cdrom.expected \
+	test-v2v-cdrom.sh \
+	test-v2v-cdrom.xml \
+	test-v2v-copy-to-local.sh \
+	test-v2v-i-disk.sh \
+	test-v2v-i-ova-formats.expected \
+	test-v2v-i-ova-formats.ovf \
+	test-v2v-i-ova-formats.sh \
+	test-v2v-i-ova-gz.expected \
+	test-v2v-i-ova-gz.ovf \
+	test-v2v-i-ova-gz.sh \
+	test-v2v-i-ova-subfolders.expected \
+	test-v2v-i-ova-subfolders.ovf \
+	test-v2v-i-ova-subfolders.sh \
+	test-v2v-i-ova-two-disks.expected \
+	test-v2v-i-ova-two-disks.ovf \
+	test-v2v-i-ova-two-disks.sh \
+	test-v2v-i-ova.ovf \
+	test-v2v-i-ova.sh \
+	test-v2v-i-ova.xml \
+	test-v2v-in-place.sh \
+	test-v2v-machine-readable.sh \
+	test-v2v-networks-and-bridges-expected.xml \
+	test-v2v-networks-and-bridges.sh \
+	test-v2v-networks-and-bridges.xml \
+	test-v2v-no-copy.sh \
+	test-v2v-o-glance.sh \
+	test-v2v-o-libvirt.sh \
+	test-v2v-o-null.sh \
+	test-v2v-o-qemu.sh \
+	test-v2v-o-rhev.sh \
+	test-v2v-o-vdsm-options.sh \
+	test-v2v-oa-option.sh \
+	test-v2v-of-option.sh \
+	test-v2v-on-option.sh \
+	test-v2v-print-source.sh \
+	test-v2v-real-conversions.sh \
+	test-v2v-sound.sh \
+	test-v2v-sound.xml \
+	test-v2v-trim.sh \
+	test-v2v-virtio-win-iso.sh \
+	test-v2v-windows-conversion.sh
 
 # Unit tests.
 check_PROGRAMS =
