@@ -401,9 +401,6 @@ Note on using clang (from LLVM) instead of GCC
 SystemTap/DTrace-style userspace probe points don't work under the
 clang compiler, which is why you may need to disable them.
 
-Don't enable GCC warnings (ie. *don't* use
-'./configure --enable-gcc-warnings').
-
 
 Copyright and license information
 ----------------------------------------------------------------------

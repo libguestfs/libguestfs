@@ -288,10 +288,10 @@ If you use Emacs, add the following to one of one of your start-up files
 
 =head2 TESTING YOUR CHANGES
 
-Enable warnings when compiling (and fix any problems this
-finds):
+Turn warnings into errors when developing to make warnings hard to
+ignore:
 
- ./configure --enable-gcc-warnings
+ ./configure --enable-werror
 
 Useful targets are:
 
