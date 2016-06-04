@@ -492,7 +492,6 @@ need.  It looks like this:
  . localenv
  ./autogen.sh \
      -C \
-     --enable-gcc-warnings \
      "$@"
 
 So I can use this to build libguestfs:
@@ -543,9 +542,6 @@ need to make edits to the udev configuration.
  export CC=clang
  ./configure
  make
-
-Don't enable GCC warnings (ie. I<don't> use
-C<./configure --enable-gcc-warnings>).
 
 =head1 USING A PREBUILT BINARY APPLIANCE
 
