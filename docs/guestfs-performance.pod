@@ -440,6 +440,15 @@ example).
 In Xen, dom0 is a virtual machine, and so hardware virtualization is
 not available.
 
+=head2 Use libguestfs E<ge> 1.34 and qemu E<ge> 2.7
+
+During the libguestfs 1.33 development cycle, we spent a large amount
+of time concentrating on boot performance, and added some patches to
+libguestfs, qemu and Linux which in some cases can reduce boot times
+to well under 1 second.  You may therefore get much better performance
+by moving to the versions of libguestfs or qemu mentioned in the
+heading.
+
 =head1 DETAILED ANALYSIS
 
 =head2 Boot analysis
