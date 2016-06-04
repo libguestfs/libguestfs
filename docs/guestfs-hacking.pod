@@ -36,6 +36,220 @@ functions in files under F<daemon>.
 
 To build from source, first read the L<guestfs-building(1)>.
 
+=head1 SOURCE CODE SUBDIRECTORIES
+
+=over 4
+
+=item F<align>
+
+L<virt-alignment-scan(1)> command and documentation.
+
+=item F<appliance>
+
+The libguestfs appliance, build scripts and so on.
+
+=item F<bash>
+
+Bash tab-completion scripts.
+
+=item F<build-aux>
+
+Various build scripts used by autotools.
+
+=item F<builder>
+
+L<virt-builder(1)> command and documentation.
+
+=item F<cat>
+
+The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>
+and L<virt-ls(1)> commands and documentation.
+
+=item F<contrib>
+
+Outside contributions, experimental parts.
+
+=item F<customize>
+
+L<virt-customize(1)> command and documentation.
+
+=item F<daemon>
+
+The daemon that runs inside the libguestfs appliance and carries out
+actions.
+
+=item F<df>
+
+L<virt-df(1)> command and documentation.
+
+=item F<dib>
+
+L<virt-dib(1)> command and documentation.
+
+=item F<diff>
+
+L<virt-diff(1)> command and documentation.
+
+=item F<doc>
+
+Miscellaneous manual pages.
+
+=item F<edit>
+
+L<virt-edit(1)> command and documentation.
+
+=item F<examples>
+
+C API example code.
+
+=item F<fish>
+
+L<guestfish(1)>, the command-line shell, and various shell scripts
+built on top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>,
+L<virt-tar-in(1)>, L<virt-tar-out(1)>.
+
+=item F<format>
+
+L<virt-format(1)> command and documentation.
+
+=item F<fuse>
+
+L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
+
+=item F<generator>
+
+The crucially important generator, used to automatically generate
+large amounts of boilerplate C code for things like RPC and bindings.
+
+=item F<get-kernel>
+
+L<virt-get-kernel(1)> command and documentation.
+
+=item F<gnulib>
+
+Gnulib is used as a portability library.  A copy of gnulib is included
+under here.
+
+=item F<inspector>
+
+L<virt-inspector(1)>, the virtual machine image inspector.
+
+=item F<logo>
+
+Logo used on the website.  The fish is called Arthur by the way.
+
+=item F<m4>
+
+M4 macros used by autoconf.
+
+=item F<make-fs>
+
+L<virt-make-fs(1)> command and documentation.
+
+=item F<mllib>
+
+Various libraries and common code used by L<virt-resize(1)> and
+the other tools which are written in OCaml.
+
+=item F<p2v>
+
+L<virt-p2v(1)> command, documentation and scripts for building the
+virt-p2v ISO or disk image.
+
+=item F<po>
+
+Translations of simple gettext strings.
+
+=item F<po-docs>
+
+The build infrastructure and PO files for translations of manpages and
+POD files.  Eventually this will be combined with the F<po> directory,
+but that is rather complicated.
+
+=item F<rescue>
+
+L<virt-rescue(1)> command and documentation.
+
+=item F<resize>
+
+L<virt-resize(1)> command and documentation.
+
+=item F<sparsify>
+
+L<virt-sparsify(1)> command and documentation.
+
+=item F<src>
+
+Source code to the C library.
+
+=item F<sysprep>
+
+L<virt-sysprep(1)> command and documentation.
+
+=item F<tests>
+
+Tests.
+
+=item F<test-data>
+
+Files and other test data used by the tests.
+
+=item F<test-tool>
+
+Test tool for end users to test if their qemu/kernel combination
+will work with libguestfs.
+
+=item F<tmp>
+
+Used for temporary files when running the tests (instead of F</tmp>
+etc).  The reason is so that you can run multiple parallel tests of
+libguestfs without having one set of tests overwriting the appliance
+created by another.
+
+=item F<tools>
+
+Command line tools written in Perl (L<virt-win-reg(1)> and many others).
+
+=item F<utils>
+
+Miscellaneous utilities, such as C<boot-benchmark>.
+
+=item F<v2v>
+
+L<virt-v2v(1)> command and documentation.
+
+=item F<website>
+
+The L<http://libguestfs.org> website files.
+
+=item F<csharp>
+
+=item F<erlang>
+
+=item F<gobject>
+
+=item F<golang>
+
+=item F<haskell>
+
+=item F<java>
+
+=item F<lua>
+
+=item F<ocaml>
+
+=item F<php>
+
+=item F<perl>
+
+=item F<python>
+
+=item F<ruby>
+
+Language bindings.
+
+=back
+
 =head1 ADDING A NEW API
 
 Because large amounts of boilerplate code in libguestfs are generated,
@@ -488,220 +702,6 @@ into the appliance.
 
 Debugging messages are never translated, since they are intended for
 the programmers.
-
-=head1 SOURCE CODE SUBDIRECTORIES
-
-=over 4
-
-=item F<align>
-
-L<virt-alignment-scan(1)> command and documentation.
-
-=item F<appliance>
-
-The libguestfs appliance, build scripts and so on.
-
-=item F<bash>
-
-Bash tab-completion scripts.
-
-=item F<build-aux>
-
-Various build scripts used by autotools.
-
-=item F<builder>
-
-L<virt-builder(1)> command and documentation.
-
-=item F<cat>
-
-The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>
-and L<virt-ls(1)> commands and documentation.
-
-=item F<contrib>
-
-Outside contributions, experimental parts.
-
-=item F<customize>
-
-L<virt-customize(1)> command and documentation.
-
-=item F<daemon>
-
-The daemon that runs inside the libguestfs appliance and carries out
-actions.
-
-=item F<df>
-
-L<virt-df(1)> command and documentation.
-
-=item F<dib>
-
-L<virt-dib(1)> command and documentation.
-
-=item F<diff>
-
-L<virt-diff(1)> command and documentation.
-
-=item F<doc>
-
-Miscellaneous manual pages.
-
-=item F<edit>
-
-L<virt-edit(1)> command and documentation.
-
-=item F<examples>
-
-C API example code.
-
-=item F<fish>
-
-L<guestfish(1)>, the command-line shell, and various shell scripts
-built on top such as L<virt-copy-in(1)>, L<virt-copy-out(1)>,
-L<virt-tar-in(1)>, L<virt-tar-out(1)>.
-
-=item F<format>
-
-L<virt-format(1)> command and documentation.
-
-=item F<fuse>
-
-L<guestmount(1)>, FUSE (userspace filesystem) built on top of libguestfs.
-
-=item F<generator>
-
-The crucially important generator, used to automatically generate
-large amounts of boilerplate C code for things like RPC and bindings.
-
-=item F<get-kernel>
-
-L<virt-get-kernel(1)> command and documentation.
-
-=item F<gnulib>
-
-Gnulib is used as a portability library.  A copy of gnulib is included
-under here.
-
-=item F<inspector>
-
-L<virt-inspector(1)>, the virtual machine image inspector.
-
-=item F<logo>
-
-Logo used on the website.  The fish is called Arthur by the way.
-
-=item F<m4>
-
-M4 macros used by autoconf.
-
-=item F<make-fs>
-
-L<virt-make-fs(1)> command and documentation.
-
-=item F<mllib>
-
-Various libraries and common code used by L<virt-resize(1)> and
-the other tools which are written in OCaml.
-
-=item F<p2v>
-
-L<virt-p2v(1)> command, documentation and scripts for building the
-virt-p2v ISO or disk image.
-
-=item F<po>
-
-Translations of simple gettext strings.
-
-=item F<po-docs>
-
-The build infrastructure and PO files for translations of manpages and
-POD files.  Eventually this will be combined with the F<po> directory,
-but that is rather complicated.
-
-=item F<rescue>
-
-L<virt-rescue(1)> command and documentation.
-
-=item F<resize>
-
-L<virt-resize(1)> command and documentation.
-
-=item F<sparsify>
-
-L<virt-sparsify(1)> command and documentation.
-
-=item F<src>
-
-Source code to the C library.
-
-=item F<sysprep>
-
-L<virt-sysprep(1)> command and documentation.
-
-=item F<tests>
-
-Tests.
-
-=item F<test-data>
-
-Files and other test data used by the tests.
-
-=item F<test-tool>
-
-Test tool for end users to test if their qemu/kernel combination
-will work with libguestfs.
-
-=item F<tmp>
-
-Used for temporary files when running the tests (instead of F</tmp>
-etc).  The reason is so that you can run multiple parallel tests of
-libguestfs without having one set of tests overwriting the appliance
-created by another.
-
-=item F<tools>
-
-Command line tools written in Perl (L<virt-win-reg(1)> and many others).
-
-=item F<utils>
-
-Miscellaneous utilities, such as C<boot-benchmark>.
-
-=item F<v2v>
-
-L<virt-v2v(1)> command and documentation.
-
-=item F<website>
-
-The L<http://libguestfs.org> website files.
-
-=item F<csharp>
-
-=item F<erlang>
-
-=item F<gobject>
-
-=item F<golang>
-
-=item F<haskell>
-
-=item F<java>
-
-=item F<lua>
-
-=item F<ocaml>
-
-=item F<php>
-
-=item F<perl>
-
-=item F<python>
-
-=item F<ruby>
-
-Language bindings.
-
-=back
 
 =head1 VIRT-V2V
 
