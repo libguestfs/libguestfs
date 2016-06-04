@@ -617,7 +617,8 @@ For example, the RHEL 7.3 patches are available here:
 L<https://github.com/libguestfs/libguestfs/commits/rhel-7.3>
 
 The sources and spec files for RHEL versions of libguestfs are
-available on L<ftp://ftp.redhat.com/>
+available on L<https://git.centos.org/project/rpms>, and see also
+L<https://wiki.centos.org/Sources>.
 
 =head1 BUILDING i686 32 BIT VIRT-P2V
 
