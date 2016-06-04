@@ -90,7 +90,7 @@ L<virt-dib(1)> command and documentation.
 
 L<virt-diff(1)> command and documentation.
 
-=item F<doc>
+=item F<docs>
 
 Miscellaneous manual pages.
 
