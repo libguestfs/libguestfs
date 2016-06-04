@@ -414,6 +414,10 @@ Download and unpack the tarball.
 
 =head1 RUNNING THE TESTS
 
+B<DO NOT run the tests as root!>  Libguestfs can be built and tested as
+non-root.  Running the tests as root could even be dangerous, don't do
+it.
+
 To sanity check that the build worked, do:
 
  make quickcheck
@@ -427,7 +431,7 @@ for details.
 
 =head1 INSTALLING
 
-B<Do not use C<make install>!>  You'll end up with conflicting versions
+B<DO NOT use C<make install>!>  You'll end up with conflicting versions
 of libguestfs installed, and this causes constant headaches for users.
 See the next section for how to use the F<./run> script instead.
 
