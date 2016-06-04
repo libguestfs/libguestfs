@@ -20,12 +20,18 @@
 
 #include "p2v.h"
 
-/* The list of authors of virt-p2v and virt-v2v, for the About dialog. */
+/* The list of authors of virt-p2v and virt-v2v, for the About dialog.
+ *
+ * Note: In alphabetical order of surname / family name.
+ */
 
 const char *authors[] = {
   "Matthew Booth",
+  "Cédric Bosdonnat",
   "John Eckersberg",
   "Richard W.M. Jones",
+  "Shahar Havivi",
+  "Roman Kagan",
   "Mike Latimer",
   "Pino Toscano",
   "Ming Xie",
