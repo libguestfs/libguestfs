@@ -496,6 +496,7 @@ need.  It looks like this:
  . localenv
  ./autogen.sh \
      -C \
+     --enable-werror \
      "$@"
 
 So I can use this to build libguestfs:
@@ -514,6 +515,157 @@ environment variables needed, eg. for skipping tests:
 Note that F<localenv> is included by the top Makefile (so it's a
 Makefile fragment).  But if it is also sourced by your
 F<localconfigure> script then it is used as a shell script.
+
+=head1 SELECTED ./configure SETTINGS
+
+There are many C<./configure> options.  Use:
+
+ ./configure --help
+
+to list them all.  This section covers some of the more important
+ones.
+
+=over 4
+
+=item B<--disable-appliance --disable-daemon>
+
+See L</USING A PREBUILT BINARY APPLIANCE> below.
+
+=item B<--disable-erlang>
+
+=item B<--disable-gobject>
+
+=item B<--disable-golang>
+
+=item B<--disable-haskell>
+
+=item B<--disable-lua>
+
+=item B<--disable-ocaml>
+
+=item B<--disable-perl>
+
+=item B<--disable-php>
+
+=item B<--disable-python>
+
+=item B<--disable-ruby>
+
+Disable specific language bindings, even if C<./configure> finds all
+the necessary libraries are installed so that they could be compiled.
+
+Note that disabling OCaml or Perl will have the knock-on effect of
+disabling large numbers of virt tools and parts of the test suite.
+
+=item B<--disable-fuse>
+
+Disable FUSE support in the API and the L<guestmount(1)> tool.
+
+=item B<--disable-gnulib-tests>
+
+On some platforms the GNUlib test suite can be flaky.  This disables
+it, since errors in the GNUlib test suite are often not important.
+
+=item B<--disable-static>
+
+Don't build a static linked version of the libguestfs library.
+
+=item B<--enable-install-daemon>
+
+Normally L<guestfsd(8)> is not installed by C<make install>, since
+that wouldn't be useful (instead it is "installed" inside the supermin
+appliance).  However if packagers are building "libguestfs live" then
+they should use this option.
+
+=item B<--enable-werror>
+
+This turns compiler warnings into errors (ie. C<-Werror>).  Use this
+for development, especially when submitting patches.  It should
+generally I<not> be used for production or distro builds.
+
+=item B<--with-default-backend=libvirt>
+
+This controls the default method that libguestfs uses to run qemu (see
+L<guestfs(3)/BACKEND>).  If not specified, the default backend is
+C<direct>, which means libguestfs runs qemu directly.
+
+Fedora and Red Hat Enterprise Linux (RHEL) E<ge> 7 use this flag to
+change the default backend to C<libvirt>, because (especially in RHEL)
+the policy is not to allow any program to run qemu except via libvirt.
+
+Note that despite this setting, all backends are built into
+libguestfs, and you can override the backend at runtime by setting the
+C<$LIBGUESTFS_BACKEND> environment variable (or using API methods).
+
+=item B<--with-extra=">I<distroname>=I<version>,libvirt,...B<">
+
+=item B<--with-extra="local">
+
+This option controls the "extra" field returned by
+L<guestfs(3)/guestfs_version> and also printed by virt tools'
+I<--version> option.  It is a free text field, but a good idea is to
+encode a comma-separated list of facts such as the distro name and
+version, whether libvirt is the default backend, and anything else
+that may help with debugging problems raised by users.
+
+For custom and/or local builds, this can be set to C<local> to
+indicate this is I<not> a distro build.
+
+=item B<--without-libvirt>
+
+Compile libguestfs without libvirt support, even if libvirt
+development libraries are installed.
+
+=item B<--with-gtk=2>
+
+This option forces virt-p2v to be built against Gtk 2, which is
+currently the most widely tested configuration.
+
+=item B<--with-qemu=">bin1 bin2 ...B<">
+
+Provide an alternate qemu binary (or list of binaries).  This can be
+overridden at runtime by setting the C<LIBGUESTFS_HV> environment
+variable.
+
+=item B<--with-qemu-options=">-M ... -cpu ...B<">
+
+If qemu requires extra options to work on this platform, you can pass
+them here, and they will be used both when testing and running qemu.
+
+=item B<--with-supermin-packager-config=>I<yum.conf>
+
+This passes the I<--packager-config> option to L<supermin(1)>.
+
+The most common use for this is to build the appliance using an
+alternate repository (instead of using the installed yum/dnf/apt/etc
+configuration to find and download packages).  You might need to use
+this if you want to build libguestfs without having a network
+connection.  Examples of using this can be found in the Fedora
+C<libguestfs.spec> file (see L</BUILDING A PACKAGE FOR FEDORA> below
+for resources).
+
+=item B<--with-supermin-extra-options=">--opt1 --opt2 ...B<">
+
+Pass additional options to L<supermin(1)>.  See
+F<appliance/make.sh.in> to understand precisely what this does.
+
+=item B<PYTHON>
+
+This environment variable may be set to point to a python binary
+(eg. C<python3>).  When C<./configure> runs, it inspects this python
+binary to find the version of Python, the location of Python libraries
+and so on.  See
+L</BUILDING PYTHON 2 AND PYTHON 3 BINDINGS> below.
+
+=item B<SUPERMIN>
+
+This environment variable can be set to choose an alternative
+L<supermin(1)> binary.  This might be used, for example, if you want
+to use a newer upstream version of supermin than is packaged for your
+distro, or if supermin is not packaged at all.  On RHEL 7, you must
+set C<SUPERMIN=/usr/bin/supermin5> when compiling libguestfs.
+
+=back
 
 =head1 NOTES ABOUT QEMU AND KVM
 
