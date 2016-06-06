@@ -318,6 +318,7 @@ if errorlevel 3010 exit /b 0
     debug "current ControlSet is %s" current_cs;
 
     disable_services root current_cs;
+    disable_prl_drivers root current_cs;
     disable_autoreboot root current_cs;
     Windows_virtio.install_drivers g inspect systemroot
                                    root current_cs rcaps
@@ -343,6 +344,51 @@ if errorlevel 3010 exit /b 0
              g#hivex_node_delete_child node
            )
          ) disable
+
+  and disable_prl_drivers root current_cs =
+    (* Prevent Parallels drivers from loading at boot. *)
+    let services = Windows.get_node g root [current_cs; "Services"] in
+    let prl_svcs = [ "prl_boot"; "prl_dd"; "prl_eth5"; "prl_fs"; "prl_memdev";
+                     "prl_mouf"; "prl_pv32"; "prl_pv64"; "prl_scsi";
+                     "prl_sound"; "prl_strg"; "prl_tg"; "prl_time";
+                     "prl_uprof"; "prl_va" ] in
+
+    match services with
+    | None -> ()
+    | Some services ->
+        List.iter (
+          fun svc ->
+            let svc_node = g#hivex_node_get_child services svc in
+            if svc_node <> 0L then (
+              (* Disable the service rather than delete the node as it would
+               * confuse the uninstaller called from firstboot script. *)
+              g#hivex_node_set_value svc_node "Start" 4_L (le32_of_int 4_L)
+            )
+        ) prl_svcs;
+
+    (* perfrom the equivalent of DelReg from prl_strg.inf:
+     * HKLM, System\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}, LowerFilters, 0x00018002, prl_strg
+     *)
+    let strg_cls = Windows.get_node g root
+                        [current_cs; "Control"; "Class";
+                         "{4d36e967-e325-11ce-bfc1-08002be10318}"] in
+    match strg_cls with
+    | None -> ()
+    | Some strg_cls ->
+        let lfkey = "LowerFilters" in
+        let valueh = g#hivex_node_get_value strg_cls lfkey in
+        if valueh <> 0L then (
+          let data = g#hivex_value_value valueh in
+          let filters = String.nsplit "\000" (Regedit.decode_utf16le data) in
+          let filters = List.filter (
+            fun x -> x <> "prl_strg" && x <> ""
+          ) filters in
+          let filters = List.map (
+            fun x -> Regedit.encode_utf16le x ^ "\000\000"
+          ) (filters @ [""]) in
+          let data = String.concat "" filters in
+          g#hivex_node_set_value strg_cls lfkey 7_L data
+        )
 
   and disable_autoreboot root current_cs =
     (* If the guest reboots after a crash, it's hard to see the original
