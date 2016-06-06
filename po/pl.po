@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-06-03 12:55+0100\n"
+"POT-Creation-Date: 2016-06-06 11:48+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -7584,12 +7584,12 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:282
+#: fish/rc.c:280
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: błąd protokołu: nie można odczytać komunikatu \"hello\"\n"
 
-#: fish/rc.c:287
+#: fish/rc.c:285
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -7599,19 +7599,19 @@ msgstr ""
 "zgadza się z wersją klienta \"%s\". Obie wersje muszą się dokładnie "
 "zgadzać.\n"
 
-#: fish/rc.c:372 fish/rc.c:386
+#: fish/rc.c:370 fish/rc.c:384
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: zdalnie: serwer nie jest uruchomiony\n"
 
-#: fish/rc.c:398 fish/rc.c:412
+#: fish/rc.c:396 fish/rc.c:410
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: błąd protokołu: nie można wysłać początkowego powitania do "
 "serwera\n"
 
-#: fish/rc.c:423
+#: fish/rc.c:421
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""

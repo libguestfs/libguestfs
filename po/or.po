@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-06-03 12:55+0100\n"
+"POT-Creation-Date: 2016-06-06 11:48+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Oriya (http://www.transifex.com/projects/p/libguestfs/"
@@ -7446,12 +7446,12 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:282
+#: fish/rc.c:280
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: 'hello' ସନ୍ଦେଶ ପଢ଼ିପାରିଲା ନାହିଁ\n"
 
-#: fish/rc.c:287
+#: fish/rc.c:285
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -7460,17 +7460,17 @@ msgstr ""
 "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସଂସ୍କରଣ ଅମେଳ, ସର୍ଭର ସଂସ୍କରଣ '%s' କ୍ଲାଏଣ୍ଟ ସଂସ୍କରଣ '%s' ସହିତ "
 "ମେଳଖାଉନାହିଁ।  ଦୁଇଟି ସଂସ୍କରଣ ମେଳଖାଉଥିବା ଉଚିତ।\n"
 
-#: fish/rc.c:372 fish/rc.c:386
+#: fish/rc.c:370 fish/rc.c:384
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: ସର୍ଭର ଚାଲୁନଥିବା ପରି ଲାଗୁଅଛି\n"
 
-#: fish/rc.c:398 fish/rc.c:412
+#: fish/rc.c:396 fish/rc.c:410
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରକୁ ପ୍ରାରମ୍ଭିକ ଆମନ୍ତ୍ରଣ ପଠାଇପାରିଲା ନାହିଁ\n"
 
-#: fish/rc.c:423
+#: fish/rc.c:421
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: ପ୍ରଟୋକଲ ତ୍ରୁଟି: ସର୍ଭରରୁ ଉତ୍ତରକୁ ସଙ୍କେତହୀନ କରିପାରିଲା ନାହିଁ\n"

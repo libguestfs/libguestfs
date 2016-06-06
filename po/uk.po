@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-06-03 12:55+0100\n"
+"POT-Creation-Date: 2016-06-06 11:48+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -8513,13 +8513,13 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:282
+#: fish/rc.c:280
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 "guestfish: помилка протоколу: не вдалося прочитати вітальне повідомлення\n"
 
-#: fish/rc.c:287
+#: fish/rc.c:285
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -8528,19 +8528,19 @@ msgstr ""
 "guestfish: помилка протоколу: версії не збігаються: версія сервера «%s» не "
 "збігається з версією клієнтської частини, «%s». Версії мають збігатися.\n"
 
-#: fish/rc.c:372 fish/rc.c:386
+#: fish/rc.c:370 fish/rc.c:384
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: здається, сервер не працює\n"
 
-#: fish/rc.c:398 fish/rc.c:412
+#: fish/rc.c:396 fish/rc.c:410
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: помилка протоколу: не вдалося надіслати початкове вітальне "
 "повідомлення до сервера\n"
 
-#: fish/rc.c:423
+#: fish/rc.c:421
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-06-03 12:55+0100\n"
+"POT-Creation-Date: 2016-06-06 11:48+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Malayalam (http://www.transifex.com/projects/p/libguestfs/"
@@ -7447,12 +7447,12 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:282
+#: fish/rc.c:280
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: protocol error: 'hello' സന്ദേശം വായിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/rc.c:287
+#: fish/rc.c:285
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -7461,18 +7461,18 @@ msgstr ""
 "guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
 "പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
-#: fish/rc.c:372 fish/rc.c:386
+#: fish/rc.c:370 fish/rc.c:384
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: fish/rc.c:398 fish/rc.c:412
+#: fish/rc.c:396 fish/rc.c:410
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
-#: fish/rc.c:423
+#: fish/rc.c:421
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"
