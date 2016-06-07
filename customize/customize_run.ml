@@ -154,6 +154,30 @@ exec >>%s 2>&1
     | pm ->
       error_unimplemented_package_manager (s_"--update") pm
 
+  and guest_uninstall_command packages =
+    let quoted_args = String.concat " " (List.map quote packages) in
+    match g#inspect_get_package_management root with
+    | "apk" -> sprintf "apk del %s" quoted_args
+    | "apt" ->
+      (* http://unix.stackexchange.com/questions/22820 *)
+      sprintf "
+        export DEBIAN_FRONTEND=noninteractive
+        apt_opts='-q -y -o Dpkg::Options::=--force-confnew'
+        apt-get $apt_opts remove %s
+      " quoted_args
+    | "dnf" ->    sprintf "dnf -y remove %s" quoted_args
+    | "pisi" ->   sprintf "pisi rm %s" quoted_args
+    | "pacman" -> sprintf "pacman -R %s" quoted_args
+    | "urpmi" ->  sprintf "urpme %s" quoted_args
+    | "xbps" ->   sprintf "xbps-remove -Sy %s" quoted_args
+    | "yum" ->    sprintf "yum -y remove %s" quoted_args
+    | "zypper" -> sprintf "zypper -n rm -l %s" quoted_args
+
+    | "unknown" ->
+      error_unknown_package_manager (s_"--uninstall")
+    | pm ->
+      error_unimplemented_package_manager (s_"--uninstall") pm
+
   (* Windows has package_management == "unknown". *)
   and error_unknown_package_manager flag =
     error (f_"cannot use '%s' because no package manager has been detected for this guest OS.\n\nIf this guest OS is a common one with ordinary package management then this may have been caused by a failure of libguestfs inspection.\n\nFor OSes such as Windows that lack package management, this is not possible.  Try using one of the '--firstboot*' flags instead (described in the manual).") flag
@@ -333,6 +357,11 @@ exec >>%s 2>&1
     | `Touch path ->
       message (f_"Running touch: %s") path;
       g#touch path
+
+    | `UninstallPackages pkgs ->
+      message (f_"Uninstalling packages: %s") (String.concat " " pkgs);
+      let cmd = guest_uninstall_command pkgs in
+      do_run ~display:cmd cmd
 
     | `Update ->
       message (f_"Updating packages");
