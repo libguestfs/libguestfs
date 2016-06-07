@@ -17,8 +17,8 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
-  def test_rint
+class Test090RetValues < MiniTest::Unit::TestCase
+  def test_090_retvalues
     g = Guestfs::Guestfs.new()
 
     assert_equal 10, g.internal_test_rint("10")

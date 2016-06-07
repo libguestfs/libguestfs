@@ -17,8 +17,8 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
-  def test_create_multiple
+class Test040CreateMultiple < MiniTest::Unit::TestCase
+  def test_040_create_multiple
     g1 = Guestfs::Guestfs.new()
     g2 = Guestfs::Guestfs.new()
     g3 = Guestfs::Guestfs.new()

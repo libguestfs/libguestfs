@@ -17,8 +17,8 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
-  def test_handle_properties
+class Test050HandleProperties < MiniTest::Unit::TestCase
+  def test_050_handle_properties
     g = Guestfs::Guestfs.new()
     refute_nil (g)
     v = g.get_verbose()

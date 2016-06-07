@@ -17,8 +17,8 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
-  def test_events
+class Test410CloseEvent < MiniTest::Unit::TestCase
+  def test_410_close_event
     g = Guestfs::Guestfs.new()
 
     close_invoked = 0

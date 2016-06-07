@@ -17,8 +17,8 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
-  def test_optargs
+class Test070Optargs < MiniTest::Unit::TestCase
+  def test_070_optargs
     g = Guestfs::Guestfs.new()
 
     g.add_drive("/dev/null", {})

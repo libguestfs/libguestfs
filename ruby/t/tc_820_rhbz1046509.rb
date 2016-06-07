@@ -20,13 +20,13 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
+class Test820RHBZ1046509 < MiniTest::Unit::TestCase
   def _handleok(g)
     g.add_drive("/dev/null")
     g.close()
   end
 
-  def test_rhbz1046509
+  def test_820_rhbz1046509
     g = Guestfs::create()
     _handleok(g)
 
