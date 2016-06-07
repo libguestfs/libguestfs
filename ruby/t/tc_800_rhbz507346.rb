@@ -17,8 +17,8 @@
 
 require File::join(File::dirname(__FILE__), 'test_helper')
 
-class TestLoad < MiniTest::Unit::TestCase
-  def test_rhbz507346
+class Test800RHBZ507346 < MiniTest::Unit::TestCase
+  def test_800_rhbz507346
     g = Guestfs::Guestfs.new()
     g.add_drive_scratch(10*1024*1024)
     g.launch()
