@@ -402,15 +402,17 @@ event_callback_wrapper_wrapper (VALUE argvv)
   return Qnil;
 }
 
+/* Callbacks aren't supposed to throw exceptions.  We just print the
+ * exception on stderr and hope for the best.
+ */
 static VALUE
 event_callback_handle_exception (VALUE not_used, VALUE exn)
 {
-  /* Callbacks aren't supposed to throw exceptions. */
-  fprintf (stderr, \"libguestfs: exception in callback!\\n\");
+  volatile VALUE message;
 
-  /* XXX We could print the exception, but it's very difficult from
-   * a Ruby extension.
-   */
+  message = rb_funcall (exn, rb_intern (\"to_s\"), 0);
+  fprintf (stderr, \"libguestfs: exception in callback: %%s\\n\",
+           StringValueCStr (message));
 
   return Qnil;
 }
