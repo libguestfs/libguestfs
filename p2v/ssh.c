@@ -45,6 +45,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <assert.h>
 #include <libintl.h>
@@ -168,10 +169,17 @@ static int
 curl_download (const char *url, const char *local_file)
 {
   char curl_config_file[] = "/tmp/curl.XXXXXX";
+  char error_file[] = "/tmp/curlerr.XXXXXX";
+  CLEANUP_FREE char *error_message = NULL;
   int fd, r;
   size_t i, len;
   FILE *fp;
   CLEANUP_FREE char *curl_cmd = NULL;
+
+  fd = mkstemp (error_file);
+  if (fd == -1)
+    error (EXIT_FAILURE, errno, "mkstemp: %s", error_file);
+  close (fd);
 
   /* Use a secure curl config file because escaping is easier. */
   fd = mkstemp (curl_config_file);
@@ -201,8 +209,8 @@ curl_download (const char *url, const char *local_file)
   fclose (fp);
 
   /* Run curl to download the URL to a file. */
-  if (asprintf (&curl_cmd, "curl -f -o %s -K %s",
-                local_file, curl_config_file) == -1) {
+  if (asprintf (&curl_cmd, "curl -f -s -S -o %s -K %s 2>%s",
+                local_file, curl_config_file, error_file) == -1) {
     perror ("asprintf");
     exit (EXIT_FAILURE);
   }
@@ -216,17 +224,20 @@ curl_download (const char *url, const char *local_file)
 
   /* Did curl subprocess fail? */
   if (WIFEXITED (r) && WEXITSTATUS (r) != 0) {
-    /* XXX Better error handling.  The codes can be looked up in
-     * the curl(1) man page.
-     */
-    set_ssh_error ("%s: curl error %d", url, WEXITSTATUS (r));
+    if (read_whole_file (error_file, &error_message, NULL) == 0)
+      set_ssh_error ("%s: %s", url, error_message);
+    else
+      set_ssh_error ("%s: curl error %d", url, WEXITSTATUS (r));
+    unlink (error_file);
     return -1;
   }
   else if (!WIFEXITED (r)) {
     set_ssh_error ("curl subprocess got a signal (%d)", r);
+    unlink (error_file);
     return -1;
   }
 
+  unlink (error_file);
   return 0;
 }
 
