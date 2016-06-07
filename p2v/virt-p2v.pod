@@ -549,6 +549,14 @@ the virt-v2v conversion server, but you could provide some extra
 security by configuring the web server to only allow connections from
 P2V machines.
 
+Note that L<ssh-keygen(1)> creates the C<id_rsa> (private key) file
+with mode 0600.  If you simply copy the file to a webserver, the
+webserver will not serve it.  It will reply with "403 Forbidden"
+errors.  You will need to change the mode of the file to make it
+publicly readable, for example by using:
+
+ chmod 0644 id_rsa
+
 =item 4.
 
 SSH identity embedded in the virt-p2v ISO or disk image (like 2.),
