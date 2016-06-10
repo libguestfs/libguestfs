@@ -23,9 +23,9 @@ type doc = element
 type attr = string * string
 
 type node =
-  | PCData of string                    (** Text. *)
-  | Comment of string                   (** <!-- comment --> *)
-  | Element of element                  (** <element/> with attrs and children *)
+  | PCData of string         (** Text. *)
+  | Comment of string        (** <!-- comment --> *)
+  | Element of element       (** <element/> with attrs and children *)
 
 val doc : string -> attr list -> node list -> doc
 (** A quick way to create a document. *)
