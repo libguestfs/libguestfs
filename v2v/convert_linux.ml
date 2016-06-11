@@ -695,6 +695,20 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
         ignore (g#command [| "/sbin/chkconfig"; "kudzu"; "off" |])
       )
 
+  and unconfigure_prltools () =
+    let prltools_path = "/usr/lib/parallels-tools/install" in
+    if g#is_file ~followsymlinks:true prltools_path then (
+      try
+        ignore (g#command [| prltools_path; "-r" |]);
+
+        (* Reload Augeas to detect changes made by prltools uninst. *)
+        Linux.augeas_reload g
+      with
+        G.Error msg ->
+          warning (f_"Parallels tools was detected, but uninstallation failed. The error message was: %s (ignored)")
+            msg
+    )
+
   and configure_kernel () =
     (* Previously this function would try to install kernels, but we
      * don't do that any longer.
@@ -1415,6 +1429,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   unconfigure_vmware ();
   unconfigure_citrix ();
   unconfigure_kudzu ();
+  unconfigure_prltools ();
 
   let kernel, virtio = configure_kernel () in
 
