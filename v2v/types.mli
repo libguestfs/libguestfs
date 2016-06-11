@@ -204,6 +204,10 @@ type target_firmware = TargetBIOS | TargetUEFI
 
 val string_of_target_firmware : target_firmware -> string
 
+type i_firmware =
+  | I_BIOS
+  | I_UEFI of string list
+
 type inspect = {
   i_root : string;                      (** Root device. *)
   i_type : string;                      (** Usual inspection fields. *)
@@ -221,7 +225,9 @@ type inspect = {
     (** This is a map from the app name to the application object.
         Since RPM allows multiple packages with the same name to be
         installed, the value is a list. *)
-  i_uefi : bool;        (** True if the guest could boot with UEFI. *)
+  i_firmware : i_firmware;
+    (** The list of EFI system partitions for the guest with UEFI,
+        otherwise the BIOS identifier. *)
 }
 (** Inspection information. *)
 

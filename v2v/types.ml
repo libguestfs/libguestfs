@@ -301,6 +301,10 @@ let string_of_target_firmware = function
   | TargetBIOS -> "bios"
   | TargetUEFI -> "uefi"
 
+type i_firmware =
+  | I_BIOS
+  | I_UEFI of string list
+
 type inspect = {
   i_root : string;
   i_type : string;
@@ -315,7 +319,7 @@ type inspect = {
   i_mountpoints : (string * string) list;
   i_apps : Guestfs.application2 list;
   i_apps_map : Guestfs.application2 list StringMap.t;
-  i_uefi : bool;
+  i_firmware : i_firmware;
 }
 
 let string_of_inspect inspect =
@@ -330,7 +334,7 @@ i_package_format = %s
 i_package_management = %s
 i_product_name = %s
 i_product_variant = %s
-i_uefi = %b
+i_firmware = %s
 " inspect.i_root
   inspect.i_type
   inspect.i_distro
@@ -341,7 +345,9 @@ i_uefi = %b
   inspect.i_package_management
   inspect.i_product_name
   inspect.i_product_variant
-  inspect.i_uefi
+  (match inspect.i_firmware with
+   | I_BIOS -> "BIOS"
+   | I_UEFI devices -> sprintf "UEFI [%s]" (String.concat ", " devices))
 
 type mpstat = {
   mp_dev : string;

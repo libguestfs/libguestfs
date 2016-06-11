@@ -555,7 +555,10 @@ and get_target_firmware inspect guestcaps source output =
     | BIOS -> TargetBIOS
     | UEFI -> TargetUEFI
     | UnknownFirmware ->
-       if inspect.i_uefi then TargetUEFI else TargetBIOS in
+       match inspect.i_firmware with
+       | I_BIOS -> TargetBIOS
+       | I_UEFI devs -> TargetUEFI
+  in
   let supported_firmware = output#supported_firmware in
   if not (List.mem target_firmware supported_firmware) then
     error (f_"this guest cannot run on the target, because the target does not support %s firmware (supported firmware on target: %s)")

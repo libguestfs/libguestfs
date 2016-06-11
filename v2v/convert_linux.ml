@@ -97,10 +97,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
       "/boot/grub/grub.conf", `Grub1;
     ] in
     let locations =
-      if inspect.i_uefi then
-        ("/boot/efi/EFI/redhat/grub.cfg", `Grub2) :: locations
-      else
-        locations in
+      match inspect.i_firmware with
+      | I_UEFI _ -> ("/boot/efi/EFI/redhat/grub.cfg", `Grub2) :: locations
+      | I_BIOS -> locations in
     try
       List.find (
         fun (grub_config, _) -> g#is_file ~followsymlinks:true grub_config
