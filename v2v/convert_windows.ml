@@ -512,6 +512,45 @@ if errorlevel 3010 exit /b 0
         ignore (g#pwrite_device rootpart bytes 0x1a_L)
       )
     )
+
+  and fix_win_esp () =
+    let fix_win_uefi_bcd esp_path =
+      try
+        let bcd_path = "/EFI/Microsoft/Boot/BCD" in
+        Windows.with_hive_write g (esp_path ^ bcd_path) (
+          (* Remove the 'graphicsmodedisabled' key in BCD *)
+          fun root ->
+          let path = ["Objects"; "{9dea862c-5cdd-4e70-acc1-f32b344d4795}";
+                      "Elements"; "23000003"] in
+          let boot_mgr_default_link =
+            match Windows.get_node g root path with
+            | None -> raise Not_found
+            | Some node -> node in
+          let current_boot_entry = g#hivex_value_utf8 (
+            g#hivex_node_get_value boot_mgr_default_link "Element") in
+          let path = ["Objects"; current_boot_entry; "Elements"; "16000046"] in
+          match Windows.get_node g root path with
+          | None -> raise Not_found
+          | Some graphics_mode_disabled ->
+            g#hivex_node_delete_child graphics_mode_disabled
+        );
+      with
+        Not_found -> ()
+    in
+
+    match inspect.i_firmware with
+    | I_BIOS -> ()
+    | I_UEFI esp_list ->
+      let esp_temp_path = g#mkdtemp "/Windows/Temp/ESP_XXXXXX" in
+
+      List.iter (
+        fun dev_path ->
+        g#mount dev_path esp_temp_path;
+        fix_win_uefi_bcd esp_temp_path;
+        g#umount esp_temp_path;
+      ) esp_list;
+
+      g#rmdir esp_temp_path
   in
 
   (* Firstboot configuration. *)
@@ -525,6 +564,8 @@ if errorlevel 3010 exit /b 0
   Windows.with_hive_write g software_hive_filename update_software_hive;
 
   fix_ntfs_heads ();
+
+  fix_win_esp ();
 
   (* Warn if installation of virtio block drivers might conflict with
    * group policy or AV software causing a boot 0x7B error (RHBZ#1260689).
