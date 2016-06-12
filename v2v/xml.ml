@@ -80,51 +80,62 @@ let xpath_new_context docptr =
   Gc.finalise free_xpathctxptr xpathctxptr;
   docptr, xpathctxptr
 
-external xpathctxptr_register_ns : xpathctxptr -> string -> string -> unit = "v2v_xml_xpathctxptr_register_ns"
+external xpathctxptr_register_ns : xpathctxptr -> string -> string -> unit
+  = "v2v_xml_xpathctxptr_register_ns"
 let xpath_register_ns (_, xpathctxptr) prefix uri =
   xpathctxptr_register_ns xpathctxptr prefix uri
 
-external xpathctxptr_eval_expression : xpathctxptr -> string -> xpathobjptr = "v2v_xml_xpathctxptr_eval_expression"
+external xpathctxptr_eval_expression : xpathctxptr -> string -> xpathobjptr
+  = "v2v_xml_xpathctxptr_eval_expression"
 let xpath_eval_expression ((_, xpathctxptr) as xpathctx) expr =
   let xpathobjptr = xpathctxptr_eval_expression xpathctxptr expr in
   Gc.finalise free_xpathobjptr xpathobjptr;
   xpathctx, xpathobjptr
 
-external xpathobjptr_nr_nodes : xpathobjptr -> int = "v2v_xml_xpathobjptr_nr_nodes"
+external xpathobjptr_nr_nodes : xpathobjptr -> int
+  = "v2v_xml_xpathobjptr_nr_nodes"
 let xpathobj_nr_nodes (_, xpathobjptr) =
   xpathobjptr_nr_nodes xpathobjptr
 
-external xpathobjptr_get_nodeptr : xpathobjptr -> int -> nodeptr = "v2v_xml_xpathobjptr_get_nodeptr"
+external xpathobjptr_get_nodeptr : xpathobjptr -> int -> nodeptr
+  = "v2v_xml_xpathobjptr_get_nodeptr"
 let xpathobj_node ((docptr, _), xpathobjptr) i =
   docptr, xpathobjptr_get_nodeptr xpathobjptr i
 
-external xpathctxptr_set_nodeptr : xpathctxptr -> nodeptr -> unit = "v2v_xml_xpathctx_set_nodeptr"
+external xpathctxptr_set_nodeptr : xpathctxptr -> nodeptr -> unit
+  = "v2v_xml_xpathctx_set_nodeptr"
 let xpathctx_set_current_context (_, xpathctxptr) (_, nodeptr) =
   xpathctxptr_set_nodeptr xpathctxptr nodeptr
 
 external nodeptr_name : nodeptr -> string = "v2v_xml_nodeptr_name"
 let node_name (_, nodeptr) = nodeptr_name nodeptr
 
-external nodeptr_as_string : docptr -> nodeptr -> string = "v2v_xml_nodeptr_as_string"
+external nodeptr_as_string : docptr -> nodeptr -> string
+  = "v2v_xml_nodeptr_as_string"
 let node_as_string (docptr, nodeptr) = nodeptr_as_string docptr nodeptr
 
-external nodeptr_set_content : nodeptr -> string -> unit = "v2v_xml_nodeptr_set_content"
+external nodeptr_set_content : nodeptr -> string -> unit
+  = "v2v_xml_nodeptr_set_content"
 let node_set_content (_, nodeptr) = nodeptr_set_content nodeptr
 
-external nodeptr_new_text_child : nodeptr -> string -> string -> nodeptr = "v2v_xml_nodeptr_new_text_child"
+external nodeptr_new_text_child : nodeptr -> string -> string -> nodeptr
+  = "v2v_xml_nodeptr_new_text_child"
 let new_text_child (docptr, nodeptr) name content =
   docptr, nodeptr_new_text_child nodeptr name content
 
-external nodeptr_set_prop : nodeptr -> string -> string -> unit = "v2v_xml_nodeptr_set_prop"
+external nodeptr_set_prop : nodeptr -> string -> string -> unit
+  = "v2v_xml_nodeptr_set_prop"
 let set_prop (_, nodeptr) = nodeptr_set_prop nodeptr
 
-external nodeptr_unset_prop : nodeptr -> string -> bool = "v2v_xml_nodeptr_unset_prop"
+external nodeptr_unset_prop : nodeptr -> string -> bool
+  = "v2v_xml_nodeptr_unset_prop"
 let unset_prop (_, nodeptr) = nodeptr_unset_prop nodeptr
 
 external nodeptr_unlink_node : nodeptr -> unit = "v2v_xml_nodeptr_unlink_node"
 let unlink_node (_, nodeptr) = nodeptr_unlink_node nodeptr
 
-external _doc_get_root_element : docptr -> nodeptr option = "v2v_xml_doc_get_root_element"
+external _doc_get_root_element : docptr -> nodeptr option
+  = "v2v_xml_doc_get_root_element"
 let doc_get_root_element docptr =
   match _doc_get_root_element docptr with
   | None -> None

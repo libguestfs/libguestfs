@@ -193,7 +193,9 @@ v2v_xml_xpathctxptr_register_ns (value xpathctxv, value prefix, value uri)
   int r;
 
   xpathctx = xpathctxptr_val (xpathctxv);
-  r = xmlXPathRegisterNs (xpathctx, BAD_CAST String_val (prefix), BAD_CAST String_val (uri));
+  r = xmlXPathRegisterNs (xpathctx,
+                          BAD_CAST String_val (prefix),
+                          BAD_CAST String_val (uri));
   if (r == -1)
     caml_invalid_argument ("xpath_register_ns: unable to register namespace");
 
@@ -349,8 +351,9 @@ v2v_xml_nodeptr_set_prop (value nodev, value namev, value valv)
   CAMLparam3 (nodev, namev, valv);
   xmlNodePtr node = (xmlNodePtr) nodev;
 
-  if (xmlSetProp (node, BAD_CAST String_val (namev), BAD_CAST String_val (valv))
-      == NULL)
+  if (xmlSetProp (node,
+                  BAD_CAST String_val (namev),
+                  BAD_CAST String_val (valv)) == NULL)
     caml_invalid_argument ("nodeptr_set_prop: failed to set property");
 
   CAMLreturn (Val_unit);
