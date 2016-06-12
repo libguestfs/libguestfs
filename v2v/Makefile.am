@@ -214,15 +214,6 @@ virt_v2v_copy_to_local_LINK = \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(COPY_TO_LOCAL_OBJECTS) -o $@
 
-.mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-.ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-if HAVE_OCAMLOPT
-.ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-endif
-
 # Data directory.
 
 virttoolsdatadir = $(datadir)/virt-tools

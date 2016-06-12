@@ -98,17 +98,6 @@ libv2vth_a_SOURCES = \
 	../../mllib/dev_t-c.c \
 	../xml-c.c
 
-# Dependencies.
-
-.mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-.ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-if HAVE_OCAMLOPT
-.ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
-endif
-
 v2v_test_harness.cmi: $(top_builddir)/ocaml/guestfs.cmi
 
 # Run ocamlfind to perform the install.  ocamlfind refuses to install
