@@ -1,6 +1,5 @@
-#!/bin/bash
-
-# (C) Copyright 2015 Red Hat Inc.
+#!/bin/bash -
+# (C) Copyright 2015-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+# See guestfs-hacking(1) section "HOW OCAML PROGRAMS ARE COMPILED AND LINKED"
 
 # Hack automake to link OCaml-based binaries properly.
 # There is no other way to add the -cclib parameter to the end of

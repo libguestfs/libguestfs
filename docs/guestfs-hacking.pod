@@ -713,6 +713,55 @@ into the appliance.
 Debugging messages are never translated, since they are intended for
 the programmers.
 
+=head1 HOW OCAML PROGRAMS ARE COMPILED AND LINKED
+
+Mostly this section is "how we make automake & ocamlopt work together"
+since OCaml programs themselves are easy to compile.
+
+Automake has no native support for OCaml programs, ocamlc nor
+ocamlopt.  What we do instead is to treat OCaml programs as C programs
+which happen to contain these "other objects" (C<"DEPENDENCIES"> in
+automake-speak) that happen to be the OCaml objects.  This works
+because all the OCaml programs contain at least 1 C object used for
+native bindings etc.
+
+So a typical program is described as just its C sources:
+
+ virt_v2v_SOURCES = ... list of C files ...
+
+The OCaml objects which contain most of the code are listed as
+automake dependencies:
+
+ virt_v2v_DEPENDENCIES = ... cmdline.cmx v2v.cmx
+
+The only other special thing we need to do is to provide a custom link
+command.  This is needed because automake won't assemble the ocamlopt
+command, the list of objects and the C<-cclib> libraries in the
+correct order otherwise.
+
+ virt_v2v_LINK = $(top_srcdir)/ocaml-link.sh -cclib ... -- ...
+
+The actual rules, which you can examine in F<v2v/Makefile.am>, are a
+little bit more complicated than this because they have to handle:
+
+=over 4
+
+=item *
+
+Compiling for byte code or native code.
+
+=item *
+
+The pattern rules needed to compile the OCaml sources to objects.
+
+=item *
+
+Adding OCaml sources files to C<EXTRA_DIST>.  Automake isn't aware of
+the complete list of sources for a binary, so it will not add them all
+automatically.
+
+=back
+
 =head1 VIRT-V2V
 
 First a little history.  Virt-v2v has been through at least two
