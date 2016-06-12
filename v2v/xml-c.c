@@ -38,10 +38,10 @@
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 /* xmlDocPtr type */
-#define Doc_val(v) (*((xmlDocPtr *)Data_custom_val(v)))
+#define docptr_val(v) (*((xmlDocPtr *)Data_custom_val(v)))
 
-static struct custom_operations doc_custom_operations = {
-  (char *) "doc_custom_operations",
+static struct custom_operations docptr_custom_operations = {
+  (char *) "docptr_custom_operations",
   custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
@@ -50,20 +50,20 @@ static struct custom_operations doc_custom_operations = {
 };
 
 value
-v2v_xml_free_doc_ptr (value docv)
+v2v_xml_free_docptr (value docv)
 {
   CAMLparam1 (docv);
-  xmlDocPtr doc = Doc_val (docv);
+  xmlDocPtr doc = docptr_val (docv);
 
   xmlFreeDoc (doc);
   CAMLreturn (Val_unit);
 }
 
 /* xmlXPathContextPtr type */
-#define Xpathctx_ptr_val(v) (*((xmlXPathContextPtr *)Data_custom_val(v)))
+#define xpathctxptr_val(v) (*((xmlXPathContextPtr *)Data_custom_val(v)))
 
-static struct custom_operations xpathctx_ptr_custom_operations = {
-  (char *) "xpathctx_ptr_custom_operations",
+static struct custom_operations xpathctxptr_custom_operations = {
+  (char *) "xpathctxptr_custom_operations",
   custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
@@ -72,20 +72,20 @@ static struct custom_operations xpathctx_ptr_custom_operations = {
 };
 
 value
-v2v_xml_free_xpathctx_ptr (value xpathctxv)
+v2v_xml_free_xpathctxptr (value xpathctxv)
 {
   CAMLparam1 (xpathctxv);
-  xmlXPathContextPtr xpathctx = Xpathctx_ptr_val (xpathctxv);
+  xmlXPathContextPtr xpathctx = xpathctxptr_val (xpathctxv);
 
   xmlXPathFreeContext (xpathctx);
   CAMLreturn (Val_unit);
 }
 
 /* xmlXPathObjectPtr type */
-#define Xpathobj_ptr_val(v) (*((xmlXPathObjectPtr *)Data_custom_val(v)))
+#define xpathobjptr_val(v) (*((xmlXPathObjectPtr *)Data_custom_val(v)))
 
-static struct custom_operations xpathobj_ptr_custom_operations = {
-  (char *) "xpathobj_ptr_custom_operations",
+static struct custom_operations xpathobjptr_custom_operations = {
+  (char *) "xpathobjptr_custom_operations",
   custom_finalize_default,
   custom_compare_default,
   custom_hash_default,
@@ -94,10 +94,10 @@ static struct custom_operations xpathobj_ptr_custom_operations = {
 };
 
 value
-v2v_xml_free_xpathobj_ptr (value xpathobjv)
+v2v_xml_free_xpathobjptr (value xpathobjv)
 {
   CAMLparam1 (xpathobjv);
-  xmlXPathObjectPtr xpathobj = Xpathobj_ptr_val (xpathobjv);
+  xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
 
   xmlXPathFreeObject (xpathobj);
   CAMLreturn (Val_unit);
@@ -118,8 +118,9 @@ v2v_xml_parse_memory (value xmlv)
   if (doc == NULL)
     caml_invalid_argument ("parse_memory: unable to parse XML from libvirt");
 
-  docv = caml_alloc_custom (&doc_custom_operations, sizeof (xmlDocPtr), 0, 1);
-  Doc_val (docv) = doc;
+  docv = caml_alloc_custom (&docptr_custom_operations, sizeof (xmlDocPtr),
+                            0, 1);
+  docptr_val (docv) = doc;
 
   CAMLreturn (docv);
 }
@@ -131,13 +132,14 @@ v2v_xml_copy_doc (value docv, value recursivev)
   CAMLlocal1 (copyv);
   xmlDocPtr doc, copy;
 
-  doc = Doc_val (docv);
+  doc = docptr_val (docv);
   copy = xmlCopyDoc (doc, Bool_val (recursivev));
   if (copy == NULL)
     caml_invalid_argument ("copy_doc: failed to copy");
 
-  copyv = caml_alloc_custom (&doc_custom_operations, sizeof (xmlDocPtr), 0, 1);
-  Doc_val (copyv) = copy;
+  copyv = caml_alloc_custom (&docptr_custom_operations, sizeof (xmlDocPtr),
+                             0, 1);
+  docptr_val (copyv) = copy;
 
   CAMLreturn (copyv);
 }
@@ -151,7 +153,7 @@ v2v_xml_to_string (value docv, value formatv)
   xmlChar *mem;
   int size;
 
-  doc = Doc_val (docv);
+  doc = docptr_val (docv);
   xmlDocDumpFormatMemory (doc, &mem, &size, Bool_val (formatv));
 
   strv = caml_alloc_string (size);
@@ -162,33 +164,33 @@ v2v_xml_to_string (value docv, value formatv)
 }
 
 value
-v2v_xml_xpath_new_context_ptr (value docv)
+v2v_xml_xpath_new_context (value docv)
 {
   CAMLparam1 (docv);
   CAMLlocal1 (xpathctxv);
   xmlDocPtr doc;
   xmlXPathContextPtr xpathctx;
 
-  doc = Doc_val (docv);
+  doc = docptr_val (docv);
   xpathctx = xmlXPathNewContext (doc);
   if (xpathctx == NULL)
     caml_invalid_argument ("xpath_new_context: unable to create xmlXPathNewContext");
 
-  xpathctxv = caml_alloc_custom (&xpathctx_ptr_custom_operations,
+  xpathctxv = caml_alloc_custom (&xpathctxptr_custom_operations,
                                  sizeof (xmlXPathContextPtr), 0, 1);
-  Xpathctx_ptr_val (xpathctxv) = xpathctx;
+  xpathctxptr_val (xpathctxv) = xpathctx;
 
   CAMLreturn (xpathctxv);
 }
 
 value
-v2v_xml_xpathctx_ptr_register_ns (value xpathctxv, value prefix, value uri)
+v2v_xml_xpathctxptr_register_ns (value xpathctxv, value prefix, value uri)
 {
   CAMLparam3 (xpathctxv, prefix, uri);
   xmlXPathContextPtr xpathctx;
   int r;
 
-  xpathctx = Xpathctx_ptr_val (xpathctxv);
+  xpathctx = xpathctxptr_val (xpathctxv);
   r = xmlXPathRegisterNs (xpathctx, BAD_CAST String_val (prefix), BAD_CAST String_val (uri));
   if (r == -1)
     caml_invalid_argument ("xpath_register_ns: unable to register namespace");
@@ -197,30 +199,30 @@ v2v_xml_xpathctx_ptr_register_ns (value xpathctxv, value prefix, value uri)
 }
 
 value
-v2v_xml_xpathctx_ptr_eval_expression (value xpathctxv, value exprv)
+v2v_xml_xpathctxptr_eval_expression (value xpathctxv, value exprv)
 {
   CAMLparam2 (xpathctxv, exprv);
   CAMLlocal1 (xpathobjv);
   xmlXPathContextPtr xpathctx;
   xmlXPathObjectPtr xpathobj;
 
-  xpathctx = Xpathctx_ptr_val (xpathctxv);
+  xpathctx = xpathctxptr_val (xpathctxv);
   xpathobj = xmlXPathEvalExpression (BAD_CAST String_val (exprv), xpathctx);
   if (xpathobj == NULL)
     caml_invalid_argument ("xpath_eval_expression: unable to evaluate XPath expression");
 
-  xpathobjv = caml_alloc_custom (&xpathobj_ptr_custom_operations,
+  xpathobjv = caml_alloc_custom (&xpathobjptr_custom_operations,
                                  sizeof (xmlXPathObjectPtr), 0, 1);
-  Xpathobj_ptr_val (xpathobjv) = xpathobj;
+  xpathobjptr_val (xpathobjv) = xpathobj;
 
   CAMLreturn (xpathobjv);
 }
 
 value
-v2v_xml_xpathobj_ptr_nr_nodes (value xpathobjv)
+v2v_xml_xpathobjptr_nr_nodes (value xpathobjv)
 {
   CAMLparam1 (xpathobjv);
-  xmlXPathObjectPtr xpathobj = Xpathobj_ptr_val (xpathobjv);
+  xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
 
   if (xpathobj->nodesetval == NULL)
     CAMLreturn (Val_int (0));
@@ -229,14 +231,14 @@ v2v_xml_xpathobj_ptr_nr_nodes (value xpathobjv)
 }
 
 value
-v2v_xml_xpathobj_ptr_get_node_ptr (value xpathobjv, value iv)
+v2v_xml_xpathobjptr_get_nodeptr (value xpathobjv, value iv)
 {
   CAMLparam2 (xpathobjv, iv);
-  xmlXPathObjectPtr xpathobj = Xpathobj_ptr_val (xpathobjv);
+  xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
   int i = Int_val (iv);
 
   if (i < 0 || i >= xpathobj->nodesetval->nodeNr)
-    caml_invalid_argument ("get_node_ptr: node number out of range");
+    caml_invalid_argument ("get_nodeptr: node number out of range");
 
   /* Because xmlNodePtrs are owned by the document, we don't want to
    * wrap this up with a finalizer, so just pass the pointer straight
@@ -250,10 +252,10 @@ v2v_xml_xpathobj_ptr_get_node_ptr (value xpathobjv, value iv)
 }
 
 value
-v2v_xml_xpathctx_set_node_ptr (value xpathctxv, value nodev)
+v2v_xml_xpathctx_set_nodeptr (value xpathctxv, value nodev)
 {
   CAMLparam2 (xpathctxv, nodev);
-  xmlXPathContextPtr xpathctx = Xpathctx_ptr_val (xpathctxv);
+  xmlXPathContextPtr xpathctx = xpathctxptr_val (xpathctxv);
   xmlNodePtr node = (xmlNodePtr) nodev;
 
   xpathctx->node = node;
@@ -262,7 +264,7 @@ v2v_xml_xpathctx_set_node_ptr (value xpathctxv, value nodev)
 }
 
 value
-v2v_xml_node_ptr_name (value nodev)
+v2v_xml_nodeptr_name (value nodev)
 {
   CAMLparam1 (nodev);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -278,11 +280,11 @@ v2v_xml_node_ptr_name (value nodev)
 }
 
 value
-v2v_xml_node_ptr_as_string (value docv, value nodev)
+v2v_xml_nodeptr_as_string (value docv, value nodev)
 {
   CAMLparam2 (docv, nodev);
   CAMLlocal1 (strv);
-  xmlDocPtr doc = Doc_val (docv);
+  xmlDocPtr doc = docptr_val (docv);
   xmlNodePtr node = (xmlNodePtr) nodev;
   char *str;
 
@@ -310,7 +312,7 @@ v2v_xml_node_ptr_as_string (value docv, value nodev)
 }
 
 value
-v2v_xml_node_ptr_set_content (value nodev, value contentv)
+v2v_xml_nodeptr_set_content (value nodev, value contentv)
 {
   CAMLparam2 (nodev, contentv);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -321,7 +323,7 @@ v2v_xml_node_ptr_set_content (value nodev, value contentv)
 }
 
 value
-v2v_xml_node_ptr_new_text_child (value nodev, value namev, value contentv)
+v2v_xml_nodeptr_new_text_child (value nodev, value namev, value contentv)
 {
   CAMLparam3 (nodev, namev, contentv);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -331,29 +333,29 @@ v2v_xml_node_ptr_new_text_child (value nodev, value namev, value contentv)
                               BAD_CAST String_val (namev),
                               BAD_CAST String_val (contentv));
   if (new_node == NULL)
-    caml_invalid_argument ("node_ptr_new_text_child: failed to create new node");
+    caml_invalid_argument ("nodeptr_new_text_child: failed to create new node");
 
-  /* See comment in v2v_xml_xpathobj_ptr_get_node_ptr about returning
+  /* See comment in v2v_xml_xpathobjptr_get_nodeptr about returning
    * named xmlNodePtr here.
    */
   CAMLreturn ((value) new_node);
 }
 
 value
-v2v_xml_node_ptr_set_prop (value nodev, value namev, value valv)
+v2v_xml_nodeptr_set_prop (value nodev, value namev, value valv)
 {
   CAMLparam3 (nodev, namev, valv);
   xmlNodePtr node = (xmlNodePtr) nodev;
 
   if (xmlSetProp (node, BAD_CAST String_val (namev), BAD_CAST String_val (valv))
       == NULL)
-    caml_invalid_argument ("node_ptr_set_prop: failed to set property");
+    caml_invalid_argument ("nodeptr_set_prop: failed to set property");
 
   CAMLreturn (Val_unit);
 }
 
 value
-v2v_xml_node_ptr_unset_prop (value nodev, value namev)
+v2v_xml_nodeptr_unset_prop (value nodev, value namev)
 {
   CAMLparam2 (nodev, namev);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -365,7 +367,7 @@ v2v_xml_node_ptr_unset_prop (value nodev, value namev)
 }
 
 value
-v2v_xml_node_ptr_unlink_node (value nodev)
+v2v_xml_nodeptr_unlink_node (value nodev)
 {
   CAMLparam1 (nodev);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -381,7 +383,7 @@ v2v_xml_doc_get_root_element (value docv)
 {
   CAMLparam1 (docv);
   CAMLlocal1 (v);
-  xmlDocPtr doc = Doc_val (docv);
+  xmlDocPtr doc = docptr_val (docv);
   xmlNodePtr root;
 
   root = xmlDocGetRootElement (doc);
@@ -390,7 +392,7 @@ v2v_xml_doc_get_root_element (value docv)
   else {
     v = caml_alloc (1, 0);
     Store_field (v, 0, (value) root);
-    CAMLreturn (v);             /* Some node_ptr */
+    CAMLreturn (v);             /* Some nodeptr */
   }
 }
 
