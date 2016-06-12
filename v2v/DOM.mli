@@ -19,7 +19,7 @@
 (** Poor man's XML DOM, mutable for ease of modification. *)
 
 type element
-type doc = element
+type doc = Doc of element
 type attr = string * string
 
 type node =

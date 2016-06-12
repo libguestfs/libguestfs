@@ -32,10 +32,10 @@ and element = {
   mutable e_children : node list;       (* Child elements. *)
 }
 and attr = string * string
-and doc = element
+and doc = Doc of element
 
 let doc name attrs children =
-  { e_name = name; e_attrs = attrs; e_children = children }
+  Doc { e_name = name; e_attrs = attrs; e_children = children }
 
 let e name attrs children =
   Element { e_name = name; e_attrs = attrs; e_children = children }
@@ -98,12 +98,12 @@ and xml_quote_pcdata str =
   let str = String.replace str ">" "&gt;" in
   str
 
-let doc_to_chan chan doc =
+let doc_to_chan chan (Doc doc) =
   fprintf chan "<?xml version='1.0' encoding='utf-8'?>\n";
   element_to_chan chan doc;
   fprintf chan "\n"
 
-let path_to_nodes doc path =
+let path_to_nodes (Doc doc) path =
   match path with
   | [] -> invalid_arg "path_to_nodes: empty path"
   | top_name :: path ->
