@@ -843,13 +843,15 @@ automatically from the USB drive containing virt-p2v.
 
 =head2 Understanding the virt-p2v code
 
+I<See also:> L<virt-p2v(1)/HOW VIRT-P2V WORKS>
+
 There are two paths through the code, GUI or non-GUI (parsing the
 kernel command line):
 
- main.c     --+---->   gui.c    -----+----> conversion.c
-              |                      |
-              |                      |
-              `---->  kernel.c  -----'
+ main.c ──────┬─────▶ gui.c ──────┬─────▶ conversion.c
+              │                   │
+              │                   │
+              └────▶ kernel.c ────┘
 
 but both paths call back to the F<conversion.c> function
 C<start_conversion> to run the remote virt-v2v.
@@ -860,7 +862,7 @@ configuration (F<config.c>).
 During conversion, we need to establish ssh connections, and that is
 done using two libraries:
 
- conversion.c  ------>  ssh.c  ------>  miniexpect.c
+ conversion.c ──────▶ ssh.c ──────▶ miniexpect.c
 
 where F<ssh.c> is responsible for managing ssh connections overall,
 and F<miniexpect.c> implements "expect-like" functionality for talking
