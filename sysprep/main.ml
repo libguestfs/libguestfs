@@ -40,6 +40,7 @@ let main () =
     let files = ref [] in
     let libvirturi = ref "" in
     let mount_opts = ref "" in
+    let network = ref false in
     let operations = ref None in
 
     let format = ref "auto" in
@@ -131,6 +132,8 @@ let main () =
       "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
       "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
       "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
+      "--network", Arg.Set network,           " " ^ s_"Enable appliance network";
+      "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network (default)";
       "--no-selinux-relabel", Arg.Unit (fun () -> ()),
                                               " " ^ s_"Compatibility option, does nothing";
       "--operation",  Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
@@ -192,6 +195,7 @@ read the man page virt-sysprep(1).
 
     (* Dereference the rest of the args. *)
     let dryrun = !dryrun in
+    let network = !network in
     let operations = !operations in
 
     (* At this point we know which operations are enabled.  So call the
@@ -212,6 +216,7 @@ read the man page virt-sysprep(1).
 
     (* Connect to libguestfs. *)
     let g = open_guestfs () in
+    g#set_network network;
     add g dryrun;
     g#launch ();
 

@@ -50,7 +50,7 @@ let run (g : Guestfs.guestfs) root (ops : ops) =
       warning (f_"log file %s: %s (ignored)") logfile (Printexc.to_string exn) in
 
   (* Useful wrapper for scripts. *)
-  let do_run ~display cmd =
+  let do_run ~display ?(warn_failed_no_network = false) cmd =
     if not guest_arch_compatible then
       error (f_"host cpu (%s) and guest arch (%s) are not compatible, so you cannot use command line options that involve running commands in the guest.  Use --firstboot scripts instead.")
             Guestfs_config.host_cpu guest_arch;
@@ -90,6 +90,11 @@ exec >>%s 2>&1
     with
       Guestfs.Error msg ->
         debug_logfile ();
+        if warn_failed_no_network && not (g#get_network ()) then (
+          prerr_newline ();
+          warning (f_"the command may have failed because the network is disabled.  Try either removing '--no-network' or adding '--network' on the command line.");
+          prerr_newline ()
+        );
         error (f_"%s: command exited with an error") display
   in
 
@@ -237,7 +242,7 @@ exec >>%s 2>&1
     | `InstallPackages pkgs ->
       message (f_"Installing packages: %s") (String.concat " " pkgs);
       let cmd = guest_install_command pkgs in
-      do_run ~display:cmd cmd
+      do_run ~display:cmd ~warn_failed_no_network:true cmd
 
     | `Link (target, links) ->
       List.iter (
@@ -274,11 +279,11 @@ exec >>%s 2>&1
       | Subscription_manager.PoolAuto ->
         message (f_"Attaching to compatible subscriptions");
         let cmd = "subscription-manager attach --auto" in
-        do_run ~display:cmd cmd
+        do_run ~display:cmd ~warn_failed_no_network:true cmd
       | Subscription_manager.PoolId id ->
         message (f_"Attaching to the pool %s") id;
         let cmd = sprintf "subscription-manager attach --pool=%s" (quote id) in
-        do_run ~display:cmd cmd
+        do_run ~display:cmd ~warn_failed_no_network:true cmd
       )
 
     | `SMRegister ->
@@ -291,17 +296,18 @@ exec >>%s 2>&1
       let cmd = sprintf "subscription-manager register --username=%s --password=%s"
                   (quote creds.Subscription_manager.sm_username)
                   (quote creds.Subscription_manager.sm_password) in
-      do_run ~display:"subscription-manager register" cmd
+      do_run ~display:"subscription-manager register"
+             ~warn_failed_no_network:true cmd
 
     | `SMRemove ->
       message (f_"Removing all the subscriptions");
       let cmd = "subscription-manager remove --all" in
-      do_run ~display:cmd cmd
+      do_run ~display:cmd ~warn_failed_no_network:true cmd
 
     | `SMUnregister ->
       message (f_"Unregistering with subscription-manager");
       let cmd = "subscription-manager unregister" in
-      do_run ~display:cmd cmd
+      do_run ~display:cmd ~warn_failed_no_network:true cmd
 
     | `SSHInject (user, selector) ->
       (match g#inspect_get_type root with
@@ -331,7 +337,7 @@ exec >>%s 2>&1
     | `Update ->
       message (f_"Updating packages");
       let cmd = guest_update_command () in
-      do_run ~display:cmd cmd
+      do_run ~display:cmd ~warn_failed_no_network:true cmd
 
     | `Upload (path, dest) ->
       message (f_"Uploading: %s to %s") path dest;

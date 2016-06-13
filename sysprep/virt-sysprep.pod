@@ -219,6 +219,19 @@ Don't print log messages.
 
 To enable detailed logging of individual file operations, use I<-x>.
 
+=item B<--network>
+
+=item B<--no-network>
+
+Enable or disable network access from the guest during the installation.
+
+In virt-sysprep, the network is I<disabled> by default.  You must use
+I<--network> to enable it, in order that options such as I<--install>
+or I<--update> will work.
+
+L<virt-builder(1)> has more information about the security advantages
+of disabling the network.
+
 =item B<-v>
 
 =item B<--verbose>
