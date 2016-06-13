@@ -395,7 +395,7 @@ and also for more keys for each user."
     op_discrim = "`Truncate";
     op_shortdesc = "Truncate a file to zero size";
     op_pod_longdesc = "\
-This command truncates \"path\" to a zero-length file. The file must exist
+This command truncates C<FILE> to a zero-length file. The file must exist
 already.";
   };
 
@@ -404,7 +404,7 @@ already.";
     op_discrim = "`TruncateRecursive";
     op_shortdesc = "Recursively truncate all files in directory";
     op_pod_longdesc = "\
-This command recursively truncates all files under \"path\" to zero-length.";
+This command recursively truncates all files under C<PATH> to zero-length.";
   };
 
   { op_name = "timezone";
