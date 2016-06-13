@@ -194,7 +194,9 @@ val debug : ('a, unit, string, unit) format4 -> 'a
 
 val open_guestfs : ?identifier:string -> unit -> Guestfs.guestfs
 (** Common function to create a new Guestfs handle, with common options
-    (e.g. debug, tracing) already set. *)
+    (e.g. debug, tracing) already set.
+
+    The optional [?identifier] parameter sets the handle identifier. *)
 
 val run_main_and_handle_errors : (unit -> unit) -> unit
 (** Common function for handling pretty-printing exceptions. *)
