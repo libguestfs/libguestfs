@@ -558,7 +558,7 @@ and get_target_firmware inspect guestcaps source output =
     | UnknownFirmware ->
        match inspect.i_firmware with
        | I_BIOS -> TargetBIOS
-       | I_UEFI devs -> TargetUEFI
+       | I_UEFI _ -> TargetUEFI
   in
   let supported_firmware = output#supported_firmware in
   if not (List.mem target_firmware supported_firmware) then

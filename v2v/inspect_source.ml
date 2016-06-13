@@ -158,10 +158,9 @@ and reject_if_not_installed_image g root =
  *)
 and get_firmware_bootable_device g =
   let rec uefi_ESP_guid = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
-  and is_uefi_ESP dev { G.part_num = partnum } =
-    g#part_get_gpt_type dev (Int32.to_int partnum) = uefi_ESP_guid
-  and part_dev_name dev { G.part_num = partnum } =
-    sprintf "%s%d" dev (Int32.to_int partnum)
+  and is_uefi_ESP dev part =
+    let partnum = g#part_to_partnum part in
+    g#part_get_gpt_type dev partnum = uefi_ESP_guid
   and parttype_is_gpt dev =
     try g#part_get_parttype dev = "gpt"
     with G.Error msg as exn ->
@@ -169,24 +168,17 @@ and get_firmware_bootable_device g =
          if g#last_errno () <> G.Errno.errno_EINVAL then raise exn;
          debug "%s (ignored)" msg;
          false
-  and is_uefi_bootable_part dev part =
+  and is_uefi_bootable_part part =
+    let dev = g#part_to_dev part in
     parttype_is_gpt dev && is_uefi_ESP dev part
   in
-  let devices = Array.to_list (g#list_devices ()) in
-  let uefi_list = ref [] in
 
-  List.iter (
-    fun dev ->
-    Array.iter (
-      fun part ->
-      if is_uefi_bootable_part dev part then
-        uefi_list := part_dev_name dev part :: !uefi_list
-    ) (g#part_list dev)
-  ) devices;
+  let partitions = Array.to_list (g#list_partitions ()) in
+  let partitions = List.filter is_uefi_bootable_part partitions in
 
-  match !uefi_list with
+  match partitions with
   | [] -> I_BIOS
-  | devices -> I_UEFI devices
+  | partitions -> I_UEFI partitions
 
 (* If some inspection fields are "unknown", then that indicates a
  * failure in inspection, and we shouldn't continue.  For an example
