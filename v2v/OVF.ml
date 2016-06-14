@@ -186,11 +186,15 @@ and get_ostype = function
 
 (* Set the <Origin/> element based on the source hypervisor.
  * https://bugzilla.redhat.com/show_bug.cgi?id=1342398#c6
+ * https://gerrit.ovirt.org/#/c/59147/
+ * ovirt-engine.git: backend/manager/modules/common/src/main/java/org/ovirt/engine/core/common/businessentities/OriginType.java
  *)
 let origin_of_source_hypervisor = function
   | VMware -> Some 1
   | Xen -> Some 2
   | QEmu | KVM -> Some 7
+  | Physical -> Some 8
+  | HyperV -> Some 9
 
   (* Anything else is mapped to None, which causes the <Origin/>
    * element to be omitted from the OVF output, which causes oVirt
