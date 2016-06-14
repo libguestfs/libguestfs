@@ -35,11 +35,11 @@ and regtype =
 (* Take a 7 bit ASCII string and encode it as UTF16LE. *)
 let encode_utf16le str =
   let len = String.length str in
-  let copy = String.make (len*2) '\000' in
+  let copy = Bytes.make (len*2) '\000' in
   for i = 0 to len-1 do
-    String.unsafe_set copy (i*2) (String.unsafe_get str i)
+    Bytes.unsafe_set copy (i*2) (String.unsafe_get str i)
   done;
-  copy
+  Bytes.to_string copy
 
 (* Take a UTF16LE string and decode it to UTF-8.  Actually this
  * fails if the string is not 7 bit ASCII.  XXX Use iconv here.
@@ -48,15 +48,15 @@ let decode_utf16le str =
   let len = String.length str in
   if len mod 2 <> 0 then
     error (f_"decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  This could be a bug in %s.") prog;
-  let copy = String.create (len/2) in
+  let copy = Bytes.create (len/2) in
   for i = 0 to (len/2)-1 do
     let cl = String.unsafe_get str (i*2) in
     let ch = String.unsafe_get str ((i*2)+1) in
     if ch != '\000' || Char.code cl >= 127 then
       error (f_"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This is a bug in %s, please report it.") prog;
-    String.unsafe_set copy i cl
+    Bytes.unsafe_set copy i cl
   done;
-  copy
+  Bytes.to_string copy
 
 let rec import_key (g : Guestfs.guestfs) root (path, values) =
   (* Create the path starting at the root node. *)

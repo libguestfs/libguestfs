@@ -54,6 +54,7 @@ virt_get_kernel_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 BOBJECTS = \
+	$(OCAML_BYTES_COMPAT_CMO) \
 	$(top_builddir)/mllib/libdir.cmo \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \

@@ -29,23 +29,23 @@ open Unix
 let open_urandom_fd () = openfile "/dev/urandom" [O_RDONLY] 0
 
 let read_byte fd =
-  let s = String.make 1 ' ' in
+  let b = Bytes.make 1 ' ' in
   fun () ->
-    if read fd s 0 1 = 0 then (
+    if read fd b 0 1 = 0 then (
       close fd;
       raise End_of_file
     );
-    Char.code s.[0]
+    Char.code (Bytes.unsafe_get b 0)
 
 let urandom_bytes n =
   assert (n > 0);
-  let ret = String.make n ' ' in
+  let ret = Bytes.make n ' ' in
   let fd = open_urandom_fd () in
   for i = 0 to n-1 do
-    ret.[i] <- Char.chr (read_byte fd ())
+    Bytes.unsafe_set ret i (Char.chr (read_byte fd ()))
   done;
   close fd;
-  ret
+  Bytes.to_string ret
 
 (* Return a random number uniformly distributed in [0, upper_bound)
  * avoiding modulo bias.
@@ -60,10 +60,10 @@ let urandom_uniform n chars =
   let nr_chars = String.length chars in
   assert (nr_chars > 0);
 
-  let ret = String.make n ' ' in
+  let ret = Bytes.make n ' ' in
   let fd = open_urandom_fd () in
   for i = 0 to n-1 do
-    ret.[i] <- chars.[uniform_random (read_byte fd) nr_chars]
+    Bytes.unsafe_set ret i (chars.[uniform_random (read_byte fd) nr_chars])
   done;
   close fd;
-  ret
+  Bytes.to_string ret

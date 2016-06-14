@@ -82,6 +82,7 @@ sources = \
 
 # In build dependency order.
 objects = \
+	$(OCAML_GENERATOR_BYTES_COMPAT_CMO) \
 	types.cmo \
 	utils.cmo \
 	actions.cmo \

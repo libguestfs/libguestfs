@@ -224,6 +224,7 @@ Makefile.in
 /fuse/test-guestmount-fd
 /fuse/test-guestunmount-fd
 /generator/.depend
+/generator/bytes.ml
 /generator/files-generated.txt
 /generator/generator
 /generator/.pod2text.data*
@@ -289,6 +290,7 @@ Makefile.in
 /make-fs/virt-make-fs.1
 /missing
 /mllib/.depend
+/mllib/bytes.ml
 /mllib/common_gettext.ml
 /mllib/common_utils_tests
 /mllib/dummy

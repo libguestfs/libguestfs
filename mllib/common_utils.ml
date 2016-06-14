@@ -169,12 +169,12 @@ let le32_of_int i =
   let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
   let c2 = Int64.shift_right (i &^ 0xff0000L) 16 in
   let c3 = Int64.shift_right (i &^ 0xff000000L) 24 in
-  let s = String.create 4 in
-  String.unsafe_set s 0 (Char.unsafe_chr (Int64.to_int c0));
-  String.unsafe_set s 1 (Char.unsafe_chr (Int64.to_int c1));
-  String.unsafe_set s 2 (Char.unsafe_chr (Int64.to_int c2));
-  String.unsafe_set s 3 (Char.unsafe_chr (Int64.to_int c3));
-  s
+  let b = Bytes.create 4 in
+  Bytes.unsafe_set b 0 (Char.unsafe_chr (Int64.to_int c0));
+  Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c1));
+  Bytes.unsafe_set b 2 (Char.unsafe_chr (Int64.to_int c2));
+  Bytes.unsafe_set b 3 (Char.unsafe_chr (Int64.to_int c3));
+  Bytes.to_string b
 
 let isdigit = function
   | '0'..'9' -> true
@@ -202,7 +202,7 @@ and _wrap chan indent column i len str =
         indent + (j-i) + 1
       )
       else column + (j-i) + 1 in
-    output chan str i (j-i);
+    output chan (Bytes.of_string str) i (j-i);
     match break with
     | WrapEOS -> ()
     | WrapSpace ->
@@ -439,11 +439,11 @@ let read_whole_file path =
   let buf = Buffer.create 16384 in
   let chan = open_in path in
   let maxlen = 16384 in
-  let s = String.create maxlen in
+  let b = Bytes.create maxlen in
   let rec loop () =
-    let r = input chan s 0 maxlen in
+    let r = input chan b 0 maxlen in
     if r > 0 then (
-      Buffer.add_substring buf s 0 r;
+      Buffer.add_substring buf (Bytes.to_string b) 0 r;
       loop ()
     )
   in
@@ -790,9 +790,9 @@ let detect_file_type filename =
   let get start size =
     try
       seek_in chan start;
-      let buf = String.create size in
-      really_input chan buf 0 size;
-      Some buf
+      let b = Bytes.create size in
+      really_input chan b 0 size;
+      Some (Bytes.to_string b)
     with End_of_file | Invalid_argument _ -> None
   in
   let ret =

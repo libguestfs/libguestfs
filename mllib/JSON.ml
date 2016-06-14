@@ -35,9 +35,9 @@ type output_format =
 
 let spaces_for_indent level =
   let len = level * 2 in
-  let s = String.create len in
-  String.fill s 0 len ' ';
-  s
+  let b = Bytes.create len in
+  Bytes.fill b 0 len ' ';
+  Bytes.to_string b
 
 let print_dict_after_start ~fmt ~indent ~size =
   match size, fmt with

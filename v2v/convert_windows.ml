@@ -506,10 +506,10 @@ if errorlevel 3010 exit /b 0
          * unsigned 16 bit little-endian integer, offset 0x1a from the
          * beginning of the partition.
          *)
-        let bytes = String.create 2 in
-        bytes.[0] <- Char.chr heads;
-        bytes.[1] <- '\000';
-        ignore (g#pwrite_device rootpart bytes 0x1a_L)
+        let b = Bytes.create 2 in
+        Bytes.unsafe_set b 0 (Char.chr heads);
+        Bytes.unsafe_set b 1 '\000';
+        ignore (g#pwrite_device rootpart (Bytes.to_string b) 0x1a_L)
       )
     )
 

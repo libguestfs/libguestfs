@@ -54,6 +54,7 @@ virt_resize_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 BOBJECTS = \
+	$(OCAML_BYTES_COMPAT_CMO) \
 	$(top_builddir)/mllib/fsync.cmo \
 	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/URI.cmo \

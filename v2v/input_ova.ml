@@ -46,15 +46,15 @@ object
         let uncompress_head zcat file =
           let cmd = sprintf "%s %s" zcat (quote file) in
           let chan_out, chan_in, chan_err = Unix.open_process_full cmd [||] in
-          let buf = String.create 512 in
-          let len = input chan_out buf 0 (String.length buf) in
+          let b = Bytes.create 512 in
+          let len = input chan_out b 0 (Bytes.length b) in
           (* We're expecting the subprocess to fail because we close
            * the pipe early, so:
            *)
           ignore (Unix.close_process_full (chan_out, chan_in, chan_err));
 
           let tmpfile, chan = Filename.open_temp_file ~temp_dir:tmpdir "ova.file." "" in
-          output chan buf 0 len;
+          output chan b 0 len;
           close_out chan;
 
           tmpfile in

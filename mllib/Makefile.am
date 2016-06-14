@@ -39,6 +39,7 @@ SOURCES_MLI = \
 
 SOURCES_ML = \
 	guestfs_config.ml \
+	$(OCAML_BYTES_COMPAT_ML) \
 	libdir.ml \
 	common_gettext.ml \
 	dev_t.ml \
