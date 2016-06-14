@@ -356,14 +356,7 @@ let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
 (* Compare two actions (for sorting). *)
 let action_compare { name = n1 } { name = n2 } = compare n1 n2
 
-let chars c n =
-  let str = String.create n in
-  for i = 0 to n-1 do
-    String.unsafe_set str i c
-  done;
-  str
-
-let spaces n = chars ' ' n
+let spaces n = String.make n ' '
 
 let args_of_optargs optargs =
   List.map (
