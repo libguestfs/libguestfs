@@ -214,6 +214,12 @@ let origin_of_source_hypervisor = function
   | VMware -> Some 1
   | Xen -> Some 2
   | QEmu | KVM -> Some 7
+
+  (* Anything else is mapped to None, which causes the <Origin/>
+   * element to be omitted from the OVF output, which causes oVirt
+   * to select 0 as the source (which happens to display as "RHEV"
+   * in the UI).
+   *)
   | _ -> None
 
 (* Generate the .meta file associated with each volume. *)
