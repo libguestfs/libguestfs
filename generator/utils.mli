@@ -123,9 +123,6 @@ val pod2text : ?width:int -> ?trim:bool -> ?discard:bool -> string -> string -> 
 val action_compare : Types.action -> Types.action -> int
   (** Compare the names of two actions, for sorting. *)
 
-val chars : char -> int -> string
-(** [chars c n] creates a string containing character c repeated n times. *)
-
 val spaces : int -> string
 (** [spaces n] creates a string of n spaces. *)
 
