@@ -827,7 +827,7 @@ let is_partition dev =
       let major = Dev_t.major rdev in
       let minor = Dev_t.minor rdev in
       let path = sprintf "/sys/dev/block/%d:%d/partition" major minor in
-      Unix.access path [F_OK];
+      Unix.access path [Unix.F_OK];
       true
     )
   with Unix.Unix_error _ -> false
