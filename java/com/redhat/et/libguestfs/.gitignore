@@ -17,6 +17,7 @@ Partition.java
 Stat.java
 StatNS.java
 StatVFS.java
+TSKDirent.java
 UTSName.java
 VG.java
 Version.java

@@ -179,6 +179,7 @@ guestfsd_SOURCES = \
 	sync.c \
 	syslinux.c \
 	tar.c \
+	tsk.c \
 	truncate.c \
 	umask.c \
 	upload.c \
@@ -209,7 +210,8 @@ guestfsd_LDADD = \
 	$(LIB_CLOCK_GETTIME) \
 	$(LIBINTL) \
 	$(SERVENT_LIB) \
-	$(PCRE_LIBS)
+	$(PCRE_LIBS) \
+	$(TSK_LIBS)
 
 guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \

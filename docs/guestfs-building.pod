@@ -395,6 +395,10 @@ Optional.
 
 Optional.  For tab-completion of commands in bash.
 
+=item libtsk
+
+Optional.  Library for filesystem forensics analysis.
+
 =back
 
 =head1 BUILDING FROM GIT

@@ -12991,6 +12991,15 @@ Show all the devices where the filesystems in C<device> is spanned over.
 If not all the devices for the filesystems are present, then this function
 fails and the C<errno> is set to C<ENODEV>." };
 
+  { defaults with
+    name = "internal_filesystem_walk"; added = (1, 33, 37);
+    style = RErr, [Mountable "device"; FileOut "filename"], [];
+    proc_nr = Some 466;
+    visibility = VInternal;
+    optional = Some "libtsk";
+    shortdesc = "walk through the filesystem content";
+    longdesc = "Internal function for filesystem_walk." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

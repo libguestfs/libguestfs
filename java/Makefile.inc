@@ -40,6 +40,7 @@ java_built_sources = \
 	com/redhat/et/libguestfs/Stat.java \
 	com/redhat/et/libguestfs/StatNS.java \
 	com/redhat/et/libguestfs/StatVFS.java \
+	com/redhat/et/libguestfs/TSKDirent.java \
 	com/redhat/et/libguestfs/UTSName.java \
 	com/redhat/et/libguestfs/VG.java \
 	com/redhat/et/libguestfs/Version.java \

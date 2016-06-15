@@ -118,3 +118,11 @@ PKG_CHECK_MODULES([SD_JOURNAL], [libsystemd],[
         AC_MSG_WARN([systemd journal library not found, some features will be disabled])
     ])
 ])
+
+dnl libtsk sleuthkit library (optional)
+AC_CHECK_LIB([tsk],[tsk_version_print],[
+    AC_CHECK_HEADER([tsk/libtsk.h],[
+        AC_SUBST([TSK_LIBS], [-ltsk])
+        AC_DEFINE([HAVE_LIBTSK], [1], [Define to 1 if The Sleuth Kit library (libtsk) is available.])
+    ], [])
+],[AC_MSG_WARN([The Sleuth Kit library (libtsk) not found])])
