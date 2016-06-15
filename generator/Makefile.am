@@ -116,23 +116,17 @@ objects = \
 
 EXTRA_DIST = $(sources) files-generated.txt
 
-OCAMLCFLAGS = $(OCAML_WARN_ERROR) -I $(srcdir) -I . -package unix,str
+OCAMLPACKAGES = -package unix,str -I $(srcdir) -I .
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 noinst_PROGRAM = generator
 
 if HAVE_OCAML
 
 generator: $(objects)
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -linkpkg $^ -o $@
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -linkpkg $^ -o $@
 
 # Dependencies.
-%.cmi: %.mli
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
-%.cmi: %.ml
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
-%.cmo: %.ml
-	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -c $< -o $@
-
 depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
