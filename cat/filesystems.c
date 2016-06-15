@@ -476,9 +476,28 @@ do_output_filesystems (void)
       }
     }
     if ((columns & COLUMN_SIZE)) {
-      size = guestfs_blockdev_getsize64 (g, fses[i]);
-      if (size == -1)
+      CLEANUP_FREE char *device = guestfs_mountable_device (g, fses[i]);
+      CLEANUP_FREE char *subvolume = NULL;
+
+      guestfs_push_error_handler (g, NULL, NULL);
+
+      subvolume = guestfs_mountable_subvolume (g, fses[i]);
+      if (subvolume == NULL && guestfs_last_errno (g) != EINVAL) {
+        fprintf (stderr,
+                 _("%s: cannot determine the subvolume for %s: %s: %s\n"),
+                guestfs_int_program_name, fses[i],
+                guestfs_last_error (g),
+                strerror (guestfs_last_errno (g)));
         exit (EXIT_FAILURE);
+      }
+
+      guestfs_pop_error_handler (g);
+
+      if (!device || !subvolume) {
+        size = guestfs_blockdev_getsize64 (g, fses[i]);
+        if (size == -1)
+          exit (EXIT_FAILURE);
+      }
     }
 
     if (is_md (fses[i]))
