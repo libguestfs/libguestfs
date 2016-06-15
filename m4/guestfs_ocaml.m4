@@ -125,10 +125,12 @@ EOF
     OCAML_GENERATOR_BYTES_COMPAT_CMO='$(top_builddir)/generator/bytes.cmo'
     OCAML_BYTES_COMPAT_CMO='$(top_builddir)/mllib/bytes.cmo'
     OCAML_BYTES_COMPAT_ML='$(top_builddir)/mllib/bytes.ml'
+    safe_string_option=
 ],[
     OCAML_GENERATOR_BYTES_COMPAT_CMO=
     OCAML_BYTES_COMPAT_CMO=
     OCAML_BYTES_COMPAT_ML=
+    safe_string_option="-safe-string"
 ])
 AC_SUBST([OCAML_GENERATOR_BYTES_COMPAT_CMO])
 AC_SUBST([OCAML_BYTES_COMPAT_CMO])
@@ -137,5 +139,5 @@ AC_SUBST([OCAML_BYTES_COMPAT_ML])
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX-3"
 AC_SUBST([OCAML_WARN_ERROR])
-OCAML_FLAGS="-g -annot"
+OCAML_FLAGS="-g -annot $safe_string_option"
 AC_SUBST([OCAML_FLAGS])
