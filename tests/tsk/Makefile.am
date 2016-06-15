@@ -18,7 +18,8 @@
 include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
-	test-download-inode.sh
+	test-download-inode.sh \
+	test-filesystem-walk.sh
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
