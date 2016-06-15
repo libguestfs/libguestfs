@@ -3551,6 +3551,120 @@ The environment variable C<XDG_RUNTIME_DIR> controls the default
 value: If C<XDG_RUNTIME_DIR> is set, then that is the default.
 Else F</tmp> is the default." };
 
+  { defaults with
+    name = "filesystem_walk"; added = (1, 33, 37);
+    style = RStructList ("dirents", "tsk_dirent"), [Mountable "device";], [];
+    optional = Some "libtsk";
+    progress = true; cancellable = true;
+    shortdesc = "walk through the filesystem content";
+    longdesc = "\
+Walk through the internal structures of a disk partition
+(eg. F</dev/sda1>) in order to return a list of all the files
+and directories stored within.
+
+It is not necessary to mount the disk partition to run this command.
+
+All entries in the filesystem are returned, excluding C<.> and
+C<..>. This function can list deleted or unaccessible files.
+The entries are I<not> sorted.
+
+The C<tsk_dirent> structure contains the following fields.
+
+=over 4
+
+=item 'tsk_inode'
+
+Filesystem reference number of the node. It migh be C<0>
+if the node has been deleted.
+
+=item 'tsk_type'
+
+Basic file type information.
+See below for a detailed list of values.
+
+=item 'tsk_size'
+
+File size in bytes. It migh be C<-1>
+if the node has been deleted.
+
+=item 'tsk_name'
+
+The file path relative to its directory.
+
+=item 'tsk_flags'
+
+Bitfield containing extra information regarding the entry.
+It contains the logical OR of the following values:
+
+=over 4
+
+=item 0x0001
+
+If set to C<1>, the file is allocated and visible within the filesystem.
+Otherwise, the file has been deleted.
+Under certain circumstances, the function C<download_inode>
+can be used to recover deleted files.
+
+=item 0x0002
+
+Filesystem such as NTFS and Ext2 or greater, separate the file name
+from the metadata structure.
+The bit is set to C<1> when the file name is in an unallocated state
+and the metadata structure is in an allocated one.
+This generally implies the metadata has been reallocated to a new file.
+Therefore, information such as file type and file size
+might not correspond with the ones of the original deleted entry.
+
+=back
+
+=back
+
+The C<tsk_type> field will contain one of the following characters:
+
+=over 4
+
+=item 'b'
+
+Block special
+
+=item 'c'
+
+Char special
+
+=item 'd'
+
+Directory
+
+=item 'f'
+
+FIFO (named pipe)
+
+=item 'l'
+
+Symbolic link
+
+=item 'r'
+
+Regular file
+
+=item 's'
+
+Socket
+
+=item 'h'
+
+Shadow inode (Solaris)
+
+=item 'w'
+
+Whiteout inode (BSD)
+
+=item 'u'
+
+Unknown file type
+
+=back" };
+
 ]
 
 (* daemon_functions are any functions which cause some action
