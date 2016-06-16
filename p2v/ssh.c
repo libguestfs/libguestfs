@@ -416,12 +416,9 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                    /* Got password prompt unexpectedly. */
-      if (mexp_printf (h, "%s\n", config->password) == -1) {
-        mexp_close (h);
-        set_ssh_error ("unexpected password prompt: probably the password supplied is wrong");
-        return NULL;
-      }
-      break;
+      mexp_close (h);
+      set_ssh_error ("unexpected password prompt: probably the password supplied is wrong");
+      return NULL;
 
     case 101:
       /* Got a prompt.  However it might be an earlier prompt.  If it
