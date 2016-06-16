@@ -97,6 +97,7 @@ static void compile_regexps (void) __attribute__((constructor));
 static void free_regexps (void) __attribute__((destructor));
 
 static pcre *password_re;
+static pcre *ssh_message_re;
 static pcre *prompt_re;
 static pcre *version_re;
 static pcre *feature_libguestfs_rewrite_re;
@@ -138,6 +139,7 @@ compile_regexps (void)
   } while (0)
 
   COMPILE (password_re, "password:", 0);
+  COMPILE (ssh_message_re, "(ssh: .*)", 0);
   /* The magic synchronization strings all match this expression.  See
    * start_ssh function below.
    */
@@ -156,6 +158,7 @@ static void
 free_regexps (void)
 {
   pcre_free (password_re);
+  pcre_free (ssh_message_re);
   pcre_free (prompt_re);
   pcre_free (version_re);
   pcre_free (feature_libguestfs_rewrite_re);
@@ -350,10 +353,14 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
 
   if (using_password_auth &&
       config->password && strlen (config->password) > 0) {
+    CLEANUP_FREE char *ssh_message = NULL;
+
     /* Wait for the password prompt. */
+  wait_password_again:
     switch (mexp_expect (h,
                          (mexp_regexp[]) {
                            { 100, .re = password_re },
+                           { 101, .re = ssh_message_re },
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got password prompt. */
@@ -364,9 +371,23 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       }
       break;
 
+    case 101:
+      free (ssh_message);
+      ssh_message = strndup (&h->buffer[ovector[2]], ovector[3]-ovector[2]);
+      goto wait_password_again;
+
     case MEXP_EOF:
       mexp_close (h);
-      set_ssh_error ("unexpected end of file waiting for password prompt");
+      /* This is where we get to if the user enters an incorrect or
+       * impossible hostname or port number.  Hopefully ssh printed an
+       * error message, and we picked it up and put it in
+       * 'ssh_message' in case 101 above.  If not we have to print a
+       * generic error instead.
+       */
+      if (ssh_message)
+        set_ssh_error ("%s", ssh_message);
+      else
+        set_ssh_error ("unknown ssh error");
       return NULL;
 
     case MEXP_TIMEOUT:
