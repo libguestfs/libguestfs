@@ -35,6 +35,12 @@ ifelse(REDHAT,1,
   dnl network vendor information (RHBZ#855059).
   hwdata
 
+  dnl Useful disk and diagnostic utilities.
+  pciutils
+  hdparm
+  smartmontools
+  util-linux
+
   dnl X11 environment
   xterm
   /usr/bin/xinit
@@ -65,8 +71,12 @@ ifelse(DEBIAN,1,
   curl
   ethtool
   hwdata
-  xorg
+  pciutils
+  hdparm
+  smartmontools
+  util-linux
   xterm
+  xorg
   xserver-xorg-video-all
   metacity
   network-manager
@@ -85,6 +95,10 @@ ifelse(ARCHLINUX,1,
   curl
   ethtool
   hwdata
+  pciutils
+  hdparm
+  smartmontools
+  util-linux
   xterm
   xorg-xinit
   xorg-server
@@ -106,6 +120,10 @@ ifelse(SUSE,1,
   curl
   ethtool
   hwdata
+  pciutils
+  hdparm
+  smartmontools
+  util-linux
   xterm
   /usr/bin/xinit
   /usr/bin/Xorg
