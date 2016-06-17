@@ -31,6 +31,8 @@ After=network.target
 Type=oneshot
 ExecStart=/usr/bin/launch-virt-p2v
 RemainAfterExit=yes
+StandardOutput=journal+console
+StandardError=inherit
 
 [Install]
 WantedBy=multi-user.target
