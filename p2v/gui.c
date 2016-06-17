@@ -438,6 +438,7 @@ test_connection_clicked (GtkWidget *w, gpointer data)
 
   gtk_label_set_text (GTK_LABEL (spinner_message), "");
   gtk_widget_show_all (spinner_hbox);
+  gtk_widget_hide (spinner);
 
   /* Get the fields from the various widgets. */
   free (config->server);
@@ -533,6 +534,7 @@ start_spinner (gpointer user_data)
 {
   gtk_label_set_text (GTK_LABEL (spinner_message),
                       _("Testing the connection to the conversion server ..."));
+  gtk_widget_show (spinner);
   gtk_spinner_start (GTK_SPINNER (spinner));
   return FALSE;
 }
