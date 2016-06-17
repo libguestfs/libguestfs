@@ -92,6 +92,7 @@ gui_conversion (struct config *config)
 /*----------------------------------------------------------------------*/
 /* Connection dialog. */
 
+static void username_changed_callback (GtkWidget *w, gpointer data);
 static void password_or_identity_changed_callback (GtkWidget *w, gpointer data);
 static void test_connection_clicked (GtkWidget *w, gpointer data);
 static void *test_connection_thread (void *data);
@@ -240,10 +241,38 @@ create_connection_dialog (struct config *config)
                     G_CALLBACK (about_button_clicked), NULL);
   g_signal_connect (G_OBJECT (next_button), "clicked",
                     G_CALLBACK (connection_next_clicked), NULL);
+  g_signal_connect (G_OBJECT (username_entry), "changed",
+                    G_CALLBACK (username_changed_callback), NULL);
   g_signal_connect (G_OBJECT (password_entry), "changed",
                     G_CALLBACK (password_or_identity_changed_callback), NULL);
   g_signal_connect (G_OBJECT (identity_entry), "changed",
                     G_CALLBACK (password_or_identity_changed_callback), NULL);
+
+  /* Call this signal to initialize the sensitivity of the sudo
+   * button correctly.
+   */
+  username_changed_callback (NULL, NULL);
+}
+
+/**
+ * If the username is "root", disable the sudo button.
+ */
+static void
+username_changed_callback (GtkWidget *w, gpointer data)
+{
+  const char *str;
+  int username_is_root;
+  int sudo_is_set;
+
+  str = gtk_entry_get_text (GTK_ENTRY (username_entry));
+  username_is_root = str != NULL && STREQ (str, "root");
+  sudo_is_set = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (sudo_button));
+
+  /* The sudo button is sensitive if:
+   * - The username is not "root", or
+   * - The button is not already checked (to allow the user to uncheck it)
+   */
+  gtk_widget_set_sensitive (sudo_button, !username_is_root || sudo_is_set);
 }
 
 /**
