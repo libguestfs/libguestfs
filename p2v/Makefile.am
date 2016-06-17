@@ -185,7 +185,7 @@ run-virt-p2v-in-a-vm: virt-p2v.img $(PHYSICAL_MACHINE)
 	  -drive id=hd0,file=$(PHYSICAL_MACHINE),format=raw,if=ide \
 	  -device piix3-usb-uhci \
 	  -drive id=usb0,file=$<,format=raw,snapshot=on,if=none \
-	  -device usb-storage,drive=usb0 \
+	  -device usb-storage,bootindex=1,drive=usb0 \
 	  -boot menu=on \
 	  -netdev user,id=net0,net=169.254.0.0/16 \
 	  -device virtio-net-pci,netdev=net0 \
