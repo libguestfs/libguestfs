@@ -192,9 +192,14 @@ check-slow: test-virt-p2v-pxe.img \
 	    test-virt-p2v-pxe.id_rsa test-virt-p2v-pxe.id_rsa.pub
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
 
-test-virt-p2v-pxe.img: virt-p2v-make-disk \
-	               virt-p2v \
-	               test-virt-p2v-pxe.id_rsa
+test-virt-p2v-pxe.img: \
+	    dependencies.m4 \
+	    issue \
+	    launch-virt-p2v \
+	    p2v.service \
+	    test-virt-p2v-pxe.id_rsa \
+	    virt-p2v \
+	    virt-p2v-make-disk
 	$(top_builddir)/run virt-p2v-make-disk \
 	    --inject-ssh-identity=test-virt-p2v-pxe.id_rsa \
 	    -o $@-t \
