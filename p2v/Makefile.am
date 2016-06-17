@@ -36,6 +36,7 @@ EXTRA_DIST = \
 # consume system entropy to regenerate.
 CLEANFILES = \
 	$(dependencies_files) \
+	stamp-test-virt-p2v-pxe-data-files \
 	stamp-test-virt-p2v-pxe-kernel \
 	stamp-virt-p2v.pod \
 	stamp-virt-p2v-make-disk.pod \
@@ -194,6 +195,9 @@ run-virt-p2v-in-a-vm: virt-p2v.img $(PHYSICAL_MACHINE)
 	  -device e1000,netdev=net2 \
 	  &
 
+run-virt-p2v-non-gui-conversion: stamp-test-virt-p2v-pxe-data-files
+	SLOW=1 $(top_builddir)/run ./test-virt-p2v-pxe.sh
+
 $(top_builddir)/test-data/phony-guests/windows.img:
 	$(MAKE) -C $(top_builddir)/test-data/phony-guests windows.img
 
@@ -216,13 +220,17 @@ endif ENABLE_APPLIANCE
 SLOW_TESTS = \
 	test-virt-p2v-pxe.sh
 
-check-slow: test-virt-p2v-pxe.img \
+check-slow: stamp-test-virt-p2v-pxe-data-files
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+
+stamp-test-virt-p2v-pxe-data-files: \
+	    test-virt-p2v-pxe.img \
 	    test-virt-p2v-pxe.vmlinuz test-virt-p2v-pxe.initramfs \
 	    test-virt-p2v-pxe.sshd_config \
 	    test-virt-p2v-pxe.ssh_host_rsa_key \
 	    test-virt-p2v-pxe.ssh_host_rsa_key.pub \
 	    test-virt-p2v-pxe.id_rsa test-virt-p2v-pxe.id_rsa.pub
-	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+	touch $@
 
 test-virt-p2v-pxe.img: virt-p2v-make-disk \
 	               virt-p2v \

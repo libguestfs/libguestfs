@@ -841,6 +841,13 @@ version of qemu) quickly after the boot and select the second (USB)
 drive, since it's not possible to force qemu/seabios to boot
 automatically from the USB drive containing virt-p2v.
 
+A third way to run virt-p2v simulates fairly accurately the program
+being downloaded over PXE and then doing an automatic conversion of
+the source physical machine (the non-GUI path -- see next section
+below):
+
+ make -C p2v run-virt-p2v-non-gui-conversion
+
 =head2 Understanding the virt-p2v code
 
 I<See also:> L<virt-p2v(1)/HOW VIRT-P2V WORKS>

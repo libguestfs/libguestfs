@@ -322,6 +322,7 @@ Makefile.in
 /p2v/dependencies.redhat
 /p2v/dependencies.suse
 /p2v/launch-virt-p2v
+/p2v/stamp-test-virt-p2v-pxe-data-files
 /p2v/stamp-test-virt-p2v-pxe-hostkey
 /p2v/stamp-test-virt-p2v-pxe-kernel
 /p2v/stamp-test-virt-p2v-pxe-userkey
