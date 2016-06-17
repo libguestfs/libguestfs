@@ -230,6 +230,7 @@ gui_conversion (struct config *config)
 /*----------------------------------------------------------------------*/
 /* Connection dialog. */
 
+static void password_or_identity_changed_callback (GtkWidget *w, gpointer data);
 static void test_connection_clicked (GtkWidget *w, gpointer data);
 static void *test_connection_thread (void *data);
 static gboolean start_spinner (gpointer user_data);
@@ -258,7 +259,6 @@ create_connection_dialog (struct config *config)
   GtkWidget *username_label;
   GtkWidget *password_label;
   GtkWidget *identity_label;
-  GtkWidget *identity_tip_label;
   GtkWidget *test_hbox, *test;
   GtkWidget *about;
   GtkWidget *configure_network;
@@ -274,7 +274,7 @@ create_connection_dialog (struct config *config)
   gtk_label_set_line_wrap (GTK_LABEL (intro), TRUE);
   set_padding (intro, 10, 10);
 
-  table_new (table, 6, 2);
+  table_new (table, 5, 2);
   server_label = gtk_label_new (_("Conversion server:"));
   table_attach (table, server_label,
                 0, 1, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
@@ -332,19 +332,12 @@ create_connection_dialog (struct config *config)
   table_attach (table, identity_entry,
                 1, 2, 3, 4, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
-  identity_tip_label = gtk_label_new (NULL);
-  gtk_label_set_markup (GTK_LABEL (identity_tip_label),
-                        _("<i>If using password authentication, leave the SSH Identity URL blank</i>"));
-  gtk_label_set_line_wrap (GTK_LABEL (identity_tip_label), FALSE);
-  table_attach (table, identity_tip_label,
-                1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
-
   sudo_button =
     gtk_check_button_new_with_label (_("Use sudo when running virt-v2v"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sudo_button),
                                 config->sudo);
   table_attach (table, sudo_button,
-                1, 2, 5, 6, GTK_FILL, GTK_FILL, 4, 4);
+                1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
 
   hbox_new (test_hbox, FALSE, 0);
   test = gtk_button_new_with_label (_("Test connection"));
@@ -400,6 +393,37 @@ create_connection_dialog (struct config *config)
                     G_CALLBACK (about_button_clicked), NULL);
   g_signal_connect (G_OBJECT (next_button), "clicked",
                     G_CALLBACK (connection_next_clicked), NULL);
+  g_signal_connect (G_OBJECT (password_entry), "changed",
+                    G_CALLBACK (password_or_identity_changed_callback), NULL);
+  g_signal_connect (G_OBJECT (identity_entry), "changed",
+                    G_CALLBACK (password_or_identity_changed_callback), NULL);
+}
+
+/**
+ * The password or SSH identity URL entries are mutually exclusive, so
+ * if one contains text then disable the other.  This function is
+ * called when the "changed" signal is received on either.
+ */
+static void
+password_or_identity_changed_callback (GtkWidget *w, gpointer data)
+{
+  const char *str;
+  int password_set;
+  int identity_set;
+
+  str = gtk_entry_get_text (GTK_ENTRY (password_entry));
+  password_set = str != NULL && STRNEQ (str, "");
+  str = gtk_entry_get_text (GTK_ENTRY (identity_entry));
+  identity_set = str != NULL && STRNEQ (str, "");
+
+  if (!password_set && !identity_set) {
+    gtk_widget_set_sensitive (password_entry, TRUE);
+    gtk_widget_set_sensitive (identity_entry, TRUE);
+  }
+  else if (identity_set)
+    gtk_widget_set_sensitive (password_entry, FALSE);
+  else if (password_set)
+    gtk_widget_set_sensitive (identity_entry, FALSE);
 }
 
 /**
