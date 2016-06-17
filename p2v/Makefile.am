@@ -201,7 +201,13 @@ run-virt-p2v-non-gui-conversion: stamp-test-virt-p2v-pxe-data-files
 $(top_builddir)/test-data/phony-guests/windows.img:
 	$(MAKE) -C $(top_builddir)/test-data/phony-guests windows.img
 
-virt-p2v.img: dependencies.m4 issue launch-virt-p2v p2v.service virt-p2v virt-p2v-make-disk
+virt-p2v.img: \
+	    dependencies.m4 \
+	    issue \
+	    launch-virt-p2v \
+	    p2v.service \
+	    virt-p2v \
+	    virt-p2v-make-disk
 	$(top_builddir)/run virt-p2v-make-disk -o $@
 
 # Tests.
