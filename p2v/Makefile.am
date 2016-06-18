@@ -199,7 +199,7 @@ run-virt-p2v-in-a-vm: virt-p2v.img $(PHYSICAL_MACHINE)
 run-virt-p2v-non-gui-conversion: stamp-test-virt-p2v-pxe-data-files
 	SLOW=1 $(top_builddir)/run ./test-virt-p2v-pxe.sh
 
-$(top_builddir)/test-data/phony-guests/windows.img:
+$(abs_top_builddir)/test-data/phony-guests/windows.img:
 	$(MAKE) -C $(top_builddir)/test-data/phony-guests windows.img
 
 virt-p2v.img: \
