@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <libintl.h>
 #include <netdb.h>
@@ -78,11 +79,11 @@ struct data_conn {
   int nbd_remote_port;      /* remote NBD port on conversion server */
 };
 
-static int send_quoted (mexp_h *, const char *s);
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
 static int wait_qemu_nbd (int nbd_local_port, int timeout_seconds);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static char *generate_libvirt_xml (struct config *, struct data_conn *);
+static char *generate_wrapper_script (struct config *, const char *remote_dir);
 static const char *map_interface_to_network (struct config *, const char *interface);
 
 static char *conversion_error;
@@ -168,7 +169,8 @@ start_conversion (struct config *config,
   size_t i, len;
   const size_t nr_disks = guestfs_int_count_strings (config->disks);
   struct data_conn data_conns[nr_disks];
-  CLEANUP_FREE char *remote_dir = NULL, *libvirt_xml = NULL;
+  CLEANUP_FREE char *remote_dir = NULL, *libvirt_xml = NULL,
+    *wrapper_script = NULL;
   time_t now;
   struct tm tm;
   mexp_h *control_h = NULL;
@@ -276,7 +278,18 @@ start_conversion (struct config *config,
     goto out;
 
 #if DEBUG_STDERR
-  fprintf (stderr, "%s: libvirt XML:\n%s", guestfs_int_program_name, libvirt_xml);
+  fprintf (stderr, "%s: libvirt XML:\n%s",
+           guestfs_int_program_name, libvirt_xml);
+#endif
+
+  /* Generate the virt-v2v wrapper script. */
+  wrapper_script = generate_wrapper_script (config, remote_dir);
+  if (wrapper_script == NULL)
+    goto out;
+
+#if DEBUG_STDERR
+  fprintf (stderr, "%s: wrapper script:\n%s",
+           guestfs_int_program_name, wrapper_script);
 #endif
 
   /* Get the output from the 'dmesg' command.  We will store this
@@ -305,7 +318,9 @@ start_conversion (struct config *config,
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Setting up the control connection ..."));
 
-  control_h = start_remote_connection (config, remote_dir, libvirt_xml, dmesg);
+  control_h = start_remote_connection (config,
+                                       remote_dir, libvirt_xml,
+                                       wrapper_script, dmesg);
   if (control_h == NULL) {
     const char *err = get_ssh_error ();
 
@@ -317,66 +332,18 @@ start_conversion (struct config *config,
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Doing conversion ..."));
 
-  /* Build the virt-v2v command up in pieces to make the quoting
-   * slightly more sane.
-   */
-  if (mexp_printf (control_h, "( %s virt-v2v%s%s -i libvirtxml",
-                   config->sudo ? "sudo -n " : "",
-                   config->verbose ? " -v -x" : "",
-                   feature_colours_option ? " --colours" : "") == -1) {
-  printf_fail:
-    set_conversion_error ("mexp_printf: virt-v2v command: %m");
+  if (mexp_printf (control_h,
+                   /* To simplify things in the wrapper script, it
+                    * writes virt-v2v's exit status to
+                    * /remote_dir/status, and here we read that and
+                    * exit the ssh shell with the same status.
+                    */
+                   "%s/virt-v2v-wrapper.sh; "
+                   "exit $(< %s/status)\n",
+                   remote_dir, remote_dir) == -1) {
+    set_conversion_error ("mexp_printf: virt-v2v: %m");
     goto out;
   }
-  if (config->output) {         /* -o */
-    if (mexp_printf (control_h, " -o ") == -1)
-      goto printf_fail;
-    if (send_quoted (control_h, config->output) == -1)
-      goto printf_fail;
-  }
-  switch (config->output_allocation) { /* -oa */
-  case OUTPUT_ALLOCATION_NONE:
-    /* nothing */
-    break;
-  case OUTPUT_ALLOCATION_SPARSE:
-    if (mexp_printf (control_h, " -oa sparse") == -1)
-      goto printf_fail;
-    break;
-  case OUTPUT_ALLOCATION_PREALLOCATED:
-    if (mexp_printf (control_h, " -oa preallocated") == -1)
-      goto printf_fail;
-    break;
-  default:
-    abort ();
-  }
-  if (config->output_format) {  /* -of */
-    if (mexp_printf (control_h, " -of ") == -1)
-      goto printf_fail;
-    if (send_quoted (control_h, config->output_format) == -1)
-      goto printf_fail;
-  }
-  if (config->output_storage) { /* -os */
-    if (mexp_printf (control_h, " -os ") == -1)
-      goto printf_fail;
-    if (send_quoted (control_h, config->output_storage) == -1)
-      goto printf_fail;
-  }
-  if (mexp_printf (control_h, " --root first") == -1)
-    goto printf_fail;
-  if (mexp_printf (control_h, " %s/physical.xml", remote_dir) == -1)
-    goto printf_fail;
-  /* no stdin, and send stdout and stderr to the same place */
-  if (mexp_printf (control_h, " </dev/null 2>&1") == -1)
-    goto printf_fail;
-  if (mexp_printf (control_h, " ; echo $? > %s/status", remote_dir) == -1)
-    goto printf_fail;
-  if (mexp_printf (control_h, " ) | tee %s/virt-v2v-conversion-log.txt",
-                   remote_dir) == -1)
-    goto printf_fail;
-  if (mexp_printf (control_h, "; exit $(< %s/status)", remote_dir) == -1)
-    goto printf_fail;
-  if (mexp_printf (control_h, "\n") == -1)
-    goto printf_fail;
 
   /* Read output from the virt-v2v process and echo it through the
    * notify function, until virt-v2v closes the connection.
@@ -441,26 +408,6 @@ void
 cancel_conversion (void)
 {
   set_cancel_requested (1);
-}
-
-/* Send a shell-quoted string to remote. */
-static int
-send_quoted (mexp_h *h, const char *s)
-{
-  if (mexp_printf (h, "\"") == -1)
-    return -1;
-  while (*s) {
-    if (*s == '$' || *s == '`' || *s == '\\' || *s == '"') {
-      if (mexp_printf (h, "\\") == -1)
-        return -1;
-    }
-    if (mexp_printf (h, "%c", *s) == -1)
-      return -1;
-    ++s;
-  }
-  if (mexp_printf (h, "\"") == -1)
-    return -1;
-  return 0;
 }
 
 /* Note: returns process ID (> 0) or 0 if there is an error. */
@@ -979,4 +926,96 @@ map_interface_to_network (struct config *config, const char *interface)
 
   /* No mapping found. */
   return "default";
+}
+
+/**
+ * Print a shell-quoted string on C<fp>.
+ */
+static void
+print_quoted (FILE *fp, const char *s)
+{
+  fprintf (fp, "\"");
+  while (*s) {
+    if (*s == '$' || *s == '`' || *s == '\\' || *s == '"')
+      fprintf (fp, "\\");
+    fprintf (fp, "%c", *s);
+    ++s;
+  }
+  fprintf (fp, "\"");
+}
+
+/**
+ * Construct the virt-v2v wrapper script.
+ *
+ * This will be sent to the remote server, and is easier than trying
+ * to "type" a long and complex single command line into the ssh
+ * connection when we start the conversion.
+ */
+static char *
+generate_wrapper_script (struct config *config, const char *remote_dir)
+{
+  FILE *fp;
+  char *output = NULL;
+  size_t output_len = 0;
+
+  fp = open_memstream (&output, &output_len);
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "open_memstream");
+
+  fprintf (fp, "#!/bin/sh -\n");
+  fprintf (fp, "\n");
+
+  /* The virt-v2v command. */
+  fprintf (fp, "(\n");
+  if (config->sudo)
+    fprintf (fp, "sudo -n ");
+  fprintf (fp, "virt-v2v");
+  if (config->verbose)
+    fprintf (fp, " -v -x");
+  if (feature_colours_option)
+    fprintf (fp, " --colours");
+  fprintf (fp, " -i libvirtxml");
+
+  if (config->output) {         /* -o */
+    fprintf (fp, " -o ");
+    print_quoted (fp, config->output);
+  }
+
+  switch (config->output_allocation) { /* -oa */
+  case OUTPUT_ALLOCATION_NONE:
+    /* nothing */
+    break;
+  case OUTPUT_ALLOCATION_SPARSE:
+    fprintf (fp, " -oa sparse");
+    break;
+  case OUTPUT_ALLOCATION_PREALLOCATED:
+    fprintf (fp, " -oa preallocated");
+    break;
+  default:
+    abort ();
+  }
+
+  if (config->output_format) {  /* -of */
+    fprintf (fp, " -of ");
+    print_quoted (fp, config->output_format);
+  }
+
+  if (config->output_storage) { /* -os */
+    fprintf (fp, " -os ");
+    print_quoted (fp, config->output_storage);
+  }
+
+  fprintf (fp, " --root first");
+  fprintf (fp, " %s/physical.xml", remote_dir);
+  /* no stdin, and send stdout and stderr to the same place */
+  fprintf (fp, " </dev/null 2>&1");
+  fprintf (fp, "\n");
+  fprintf (fp, "echo $? > %s/status", remote_dir);
+  fprintf (fp, "\n");
+  fprintf (fp, " ) | tee %s/virt-v2v-conversion-log.txt", remote_dir);
+  fprintf (fp, "\n");
+
+  fclose (fp);
+
+  return output;                /* caller frees */
 }

@@ -693,6 +693,13 @@ on the conversion server.  If conversion fails, you should examine
 this log file, and you may be asked to supply the B<complete>,
 B<unedited> log file in any bug reports or support tickets.
 
+=item F<virt-v2v-wrapper.sh>
+
+I<(during/after conversion)>
+
+This is the wrapper script which is used when running virt-v2v.  For
+interest only, do not attempt to run this script yourself.
+
 =back
 
 Before conversion actually begins, virt-p2v then makes one or more
@@ -729,10 +736,12 @@ used.  Secondly libguestfs creates an overlay on top of the NBD
 connection which stores writes in a temporary file on the conversion
 file.
 
-The final step is to send the S<C<virt-v2v -i libvirtxml physical.xml ...>>
-command to the conversion server over the control connection.  This
-references the F<physical.xml> file (see above), which in turn
-references the NBD listening port(s) of the data connection(s).
+The long S<C<virt-v2v -i libvirtxml physical.xml ...>> command is
+wrapped inside a wrapper script and uploaded to the conversion server.
+The final step is to run this wrapper script, in turn running the
+virt-v2v command.  The virt-v2v command references the F<physical.xml>
+file (see above), which in turn references the NBD listening port(s)
+of the data connection(s).
 
 Output from the virt-v2v command (messages, debugging etc) is saved
 both in the log file on the conversion server, and sent over the
