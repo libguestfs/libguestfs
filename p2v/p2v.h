@@ -127,7 +127,7 @@ extern int conversion_is_running (void);
 /* ssh.c */
 extern int test_connection (struct config *);
 extern mexp_h *open_data_connection (struct config *, int *local_port, int *remote_port);
-extern mexp_h *start_remote_connection (struct config *, const char *remote_dir, const char *libvirt_xml, const char *dmesg);
+extern mexp_h *start_remote_connection (struct config *, const char *remote_dir, const char *libvirt_xml, const char *wrapper_script, const char *dmesg);
 extern const char *get_ssh_error (void);
 
 /* utils.c */
