@@ -44,6 +44,15 @@ force a particular format use the I<--format> option.
 Add a remote disk.  The URI format is compatible with guestfish.
 See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
+=item B<--colors>
+
+=item B<--colours>
+
+Use ANSI colour sequences to colourize messages.  This is the default
+when the output is a tty.  If the output of the program is redirected
+to a file, ANSI colour sequences are disabled unless you use this
+option.
+
 =item B<-c> URI
 
 =item B<--connect> URI

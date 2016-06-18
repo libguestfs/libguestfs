@@ -299,27 +299,16 @@ let protect ~f ~finally =
   finally ();
   match r with Either ret -> ret | Or exn -> raise exn
 
-let istty chan =
-  Unix.isatty (Unix.descr_of_out_channel chan)
-
-(* ANSI terminal colours. *)
-let ansi_green ?(chan = stdout) () =
-  if istty chan then output_string chan "\x1b[0;32m"
-let ansi_red ?(chan = stdout) () =
-  if istty chan then output_string chan "\x1b[1;31m"
-let ansi_blue ?(chan = stdout) () =
-  if istty chan then output_string chan "\x1b[1;34m"
-let ansi_magenta ?(chan = stdout) () =
-  if istty chan then output_string chan "\x1b[1;35m"
-let ansi_restore ?(chan = stdout) () =
-  if istty chan then output_string chan "\x1b[0m"
-
 (* Program name. *)
 let prog = Filename.basename Sys.executable_name
 
-(* Stores the quiet (--quiet), trace (-x) and verbose (-v) flags in a
- * global variable.
+(* Stores the colours (--colours), quiet (--quiet), trace (-x) and
+ * verbose (-v) flags in a global variable.
  *)
+let colours = ref false
+let set_colours () = colours := true
+let colours () = !colours
+
 let quiet = ref false
 let set_quiet () = quiet := true
 let quiet () = !quiet
@@ -331,6 +320,21 @@ let trace () = !trace
 let verbose = ref false
 let set_verbose () = verbose := true
 let verbose () = !verbose
+
+(* ANSI terminal colours. *)
+let istty chan =
+  Unix.isatty (Unix.descr_of_out_channel chan)
+
+let ansi_green ?(chan = stdout) () =
+  if colours () || istty chan then output_string chan "\x1b[0;32m"
+let ansi_red ?(chan = stdout) () =
+  if colours () || istty chan then output_string chan "\x1b[1;31m"
+let ansi_blue ?(chan = stdout) () =
+  if colours () || istty chan then output_string chan "\x1b[1;34m"
+let ansi_magenta ?(chan = stdout) () =
+  if colours () || istty chan then output_string chan "\x1b[1;35m"
+let ansi_restore ?(chan = stdout) () =
+  if colours () || istty chan then output_string chan "\x1b[0m"
 
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
@@ -596,6 +600,10 @@ let set_standard_options argspec =
     "--debug-gc",   Arg.Unit set_debug_gc,     " " ^ s_"Debug GC and memory allocations (internal)";
     "-q",           Arg.Unit set_quiet,        " " ^ s_"Don't print progress messages";
     "--quiet",      Arg.Unit set_quiet,        " " ^ s_"Don't print progress messages";
+    "--color",      Arg.Unit set_colours,      " " ^ s_"Use ANSI colour sequences even if not tty";
+    "--colors",     Arg.Unit set_colours,      " " ^ s_"Use ANSI colour sequences even if not tty";
+    "--colour",     Arg.Unit set_colours,      " " ^ s_"Use ANSI colour sequences even if not tty";
+    "--colours",    Arg.Unit set_colours,      " " ^ s_"Use ANSI colour sequences even if not tty";
   ] @ argspec in
   let argspec =
     let cmp (arg1, _, _) (arg2, _, _) = compare_command_line_args arg1 arg2 in
