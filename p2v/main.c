@@ -42,6 +42,7 @@ char **all_disks;
 char **all_removable;
 char **all_interfaces;
 int is_iso_environment = 0;
+int feature_colours_option = 0;
 
 static void udevadm_settle (void);
 static void set_config_defaults (struct config *config);

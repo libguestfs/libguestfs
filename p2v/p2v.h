@@ -58,6 +58,9 @@ extern char **all_interfaces;
  */
 extern int is_iso_environment;
 
+/* True if virt-v2v supports the --colours option. */
+extern int feature_colours_option;
+
 /* config.c */
 struct config {
   int verbose;

@@ -101,6 +101,7 @@ static pcre *ssh_message_re;
 static pcre *prompt_re;
 static pcre *version_re;
 static pcre *feature_libguestfs_rewrite_re;
+static pcre *feature_colours_option_re;
 static pcre *feature_input_re;
 static pcre *feature_output_re;
 static pcre *portfwd_re;
@@ -149,6 +150,7 @@ compile_regexps (void)
            "virt-v2v ([1-9].*)",
 	   0);
   COMPILE (feature_libguestfs_rewrite_re, "libguestfs-rewrite", 0);
+  COMPILE (feature_colours_option_re, "colours-option", 0);
   COMPILE (feature_input_re, "input:((?:\\w)*)", 0);
   COMPILE (feature_output_re, "output:((?:\\w)*)", 0);
   COMPILE (portfwd_re, "Allocated port ((?:\\d)+) for remote forward", 0);
@@ -162,6 +164,7 @@ free_regexps (void)
   pcre_free (prompt_re);
   pcre_free (version_re);
   pcre_free (feature_libguestfs_rewrite_re);
+  pcre_free (feature_colours_option_re);
   pcre_free (feature_input_re);
   pcre_free (feature_output_re);
   pcre_free (portfwd_re);
@@ -613,28 +616,37 @@ test_connection (struct config *config)
     switch (mexp_expect (h,
                          (mexp_regexp[]) {
                            { 100, .re = feature_libguestfs_rewrite_re },
-                           { 101, .re = feature_input_re },
-                           { 102, .re = feature_output_re },
-                           { 103, .re = prompt_re },
+                           { 101, .re = feature_colours_option_re },
+                           { 102, .re = feature_input_re },
+                           { 103, .re = feature_output_re },
+                           { 104, .re = prompt_re },
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* libguestfs-rewrite. */
       feature_libguestfs_rewrite = 1;
       break;
 
-    case 101:
+    case 101:                   /* virt-v2v supports --colours option */
+#if DEBUG_STDERR
+  fprintf (stderr, "%s: remote virt-v2v supports --colours option\n",
+           guestfs_int_program_name);
+#endif
+      feature_colours_option = 1;
+      break;
+
+    case 102:
       /* input:<driver-name> corresponds to an -i option in virt-v2v. */
       add_input_driver (&h->buffer[ovector[2]],
                         (size_t) (ovector[3]-ovector[2]));
       break;
 
-    case 102:
+    case 103:
       /* output:<driver-name> corresponds to an -o option in virt-v2v. */
       add_output_driver (&h->buffer[ovector[2]],
                          (size_t) (ovector[3]-ovector[2]));
       break;
 
-    case 103:                   /* Got prompt, so end of output. */
+    case 104:                   /* Got prompt, so end of output. */
       goto end_of_machine_readable;
 
     case MEXP_EOF:
