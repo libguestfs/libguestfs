@@ -208,6 +208,9 @@ static GtkWidget *run_dlg,
   *v2v_output_sw, *v2v_output, *log_label, *status_label,
   *cancel_button, *reboot_button;
 
+/* Colour tags used in the v2v_output GtkTextBuffer. */
+static GtkTextTag *v2v_output_tags[16];
+
 /**
  * The entry point from the main program.
  *
@@ -1649,6 +1652,12 @@ static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer da
 static void
 create_running_dialog (void)
 {
+  size_t i;
+  static const char *tags[16] =
+    { "black", "maroon", "green", "olive", "navy", "purple", "teal", "silver",
+      "gray", "red", "lime", "yellow", "blue", "fuchsia", "cyan", "white" };
+  GtkTextBuffer *buf;
+
   run_dlg = gtk_dialog_new ();
   gtk_window_set_title (GTK_WINDOW (run_dlg), guestfs_int_program_name);
   gtk_window_set_resizable (GTK_WINDOW (run_dlg), FALSE);
@@ -1662,6 +1671,17 @@ create_running_dialog (void)
   v2v_output = gtk_text_view_new ();
   gtk_text_view_set_editable (GTK_TEXT_VIEW (v2v_output), FALSE);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (v2v_output), GTK_WRAP_CHAR);
+
+  buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (v2v_output));
+  for (i = 0; i < 16; ++i) {
+    CLEANUP_FREE char *tag_name;
+
+    if (asprintf (&tag_name, "tag_%s", tags[i]) == -1)
+      error (EXIT_FAILURE, errno, "asprintf");
+    v2v_output_tags[i] =
+      gtk_text_buffer_create_tag (buf, tag_name, "foreground", tags[i], NULL);
+  }
+
   log_label = gtk_label_new (NULL);
   set_alignment (log_label, 0., 0.5);
   set_padding (log_label, 10, 10);
@@ -1767,11 +1787,11 @@ set_status (gpointer user_data)
   return FALSE;
 }
 
-static void add_v2v_output_helper (const char *msg, size_t len);
-
 /**
  * Append output from the virt-v2v process to the buffer, and scroll
  * to ensure it is visible.
+ *
+ * This function is able to parse ANSI colour sequences and more.
  *
  * If this isn't called from the main thread, then you must only
  * call it via an idle task (C<g_idle_add>).
@@ -1783,44 +1803,140 @@ static gboolean
 add_v2v_output (gpointer user_data)
 {
   CLEANUP_FREE const char *msg = user_data;
+  const char *p;
   static size_t linelen = 0;
-  const char *p0, *p;
+  static enum {
+    state_normal,
+    state_escape1,       /* seen ESC, expecting [ */
+    state_escape2,       /* seen ESC [, expecting 0 or 1 */
+    state_escape3,       /* seen ESC [ 0/1, expecting ; or m */
+    state_escape4,       /* seen ESC [ 0/1 ;, expecting 3 */
+    state_escape5,       /* seen ESC [ 0/1 ; 3, expecting 1/2/4/5 */
+    state_escape6,       /* seen ESC [ 0/1 ; 3 1/2/5/5, expecting m */
+    state_cr,            /* seen CR */
+    state_truncating,    /* truncating line until next \n */
+  } state = state_normal;
+  static int colour = 0;
+  static GtkTextTag *tag = NULL;
+  GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (v2v_output));
+  GtkTextIter iter, iter2;
+  const char *dots = " [...]";
 
-  /* Gtk2 (in ~ Fedora 23) has a regression where it takes much longer
-   * to display long lines, to the point where the virt-p2v UI would
-   * still be slowly displaying kernel modules while the conversion
-   * had finished.  For this reason, arbitrarily break long lines.
-   */
-  for (p0 = p = msg; *p; ++p) {
-    linelen++;
-    if (*p == '\n' || linelen > 1024) {
-      add_v2v_output_helper (p0, p-p0+1);
-      if (*p != '\n')
-        add_v2v_output_helper ("\n", 1);
-      linelen = 0;
-      p0 = p+1;
-    }
-  }
-  add_v2v_output_helper (p0, p-p0);
+  for (p = msg; *p != '\0'; ++p) {
+    char c = *p;
 
-  return FALSE;
-}
+    switch (state) {
+    case state_normal:
+      if (c == '\r')            /* Start of possible CRLF sequence. */
+        state = state_cr;
+      else if (c == '\x1b') {   /* Start of an escape sequence. */
+        state = state_escape1;
+        colour = 0;
+      }
+      else if (c != '\n' && linelen >= 256) {
+        /* Gtk2 (in ~ Fedora 23) has a regression where it takes much
+         * longer to display long lines, to the point where the
+         * virt-p2v UI would still be slowly displaying kernel modules
+         * while the conversion had finished.  For this reason,
+         * arbitrarily truncate very long lines.
+         */
+        gtk_text_buffer_get_end_iter (buf, &iter);
+        gtk_text_buffer_insert_with_tags (buf, &iter,
+                                          dots, strlen (dots), tag, NULL);
+        state = state_truncating;
+        colour = 0;
+        tag = NULL;
+      }
+      else {             /* Treat everything else as a normal char. */
+        if (c != '\n') linelen++; else linelen = 0;
+        gtk_text_buffer_get_end_iter (buf, &iter);
+        gtk_text_buffer_insert_with_tags (buf, &iter, &c, 1, tag, NULL);
+      }
+      break;
 
-static void
-add_v2v_output_helper (const char *msg, size_t len)
-{
-  GtkTextBuffer *buf;
-  GtkTextIter iter;
+    case state_escape1:
+      if (c == '[')
+        state = state_escape2;
+      else
+        state = state_normal;
+      break;
 
-  /* Insert it at the end. */
-  buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (v2v_output));
-  gtk_text_buffer_get_end_iter (buf, &iter);
-  gtk_text_buffer_insert (buf, &iter, msg, len);
+    case state_escape2:
+      if (c == '0')
+        state = state_escape3;
+      else if (c == '1') {
+        state = state_escape3;
+        colour += 8;
+      }
+      else
+        state = state_normal;
+      break;
+
+    case state_escape3:
+      if (c == ';')
+        state = state_escape4;
+      else if (c == 'm') {
+        tag = NULL;             /* restore text colour */
+        state = state_normal;
+      }
+      else
+        state = state_normal;
+      break;
+
+    case state_escape4:
+      if (c == '3')
+        state = state_escape5;
+      else
+        state = state_normal;
+      break;
+
+    case state_escape5:
+      if (c >= '0' && c <= '7') {
+        state = state_escape6;
+        colour += c - '0';
+      }
+      else
+        state = state_normal;
+      break;
+
+    case state_escape6:
+      if (c == 'm') {
+        assert (colour >= 0 && colour <= 15);
+        tag = v2v_output_tags[colour]; /* set colour tag */
+      }
+      state = state_normal;
+      break;
+
+    case state_cr:
+      if (c == '\n')
+        /* Process CRLF as single a newline character. */
+        p--;
+      else {                    /* Delete current (== last) line. */
+        linelen = 0;
+        gtk_text_buffer_get_end_iter (buf, &iter);
+        iter2 = iter;
+        gtk_text_iter_set_line_offset (&iter, 0);
+        /* Delete from iter..iter2 */
+        gtk_text_buffer_delete (buf, &iter, &iter2);
+      }
+      state = state_normal;
+      break;
+
+    case state_truncating:
+      if (c == '\n') {
+        p--;
+        state = state_normal;
+      }
+      break;
+    } /* switch (state) */
+  } /* for */
 
   /* Scroll to the end of the buffer. */
   gtk_text_buffer_get_end_iter (buf, &iter);
   gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (v2v_output), &iter,
                                 0, FALSE, 0., 1.);
+
+  return FALSE;
 }
 
 /**
