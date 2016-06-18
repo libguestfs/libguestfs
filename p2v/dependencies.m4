@@ -46,6 +46,8 @@ ifelse(REDHAT,1,
   /usr/bin/Xorg
   xorg-x11-drivers
   xorg-x11-fonts-Type1
+  dejavu-sans-fonts
+  dejavu-sans-mono-fonts
   mesa-dri-drivers
   metacity
 
@@ -76,6 +78,7 @@ ifelse(DEBIAN,1,
   util-linux
   xorg
   xserver-xorg-video-all
+  fonts-dejavu
   metacity
   network-manager
   network-manager-gnome
@@ -100,6 +103,7 @@ ifelse(ARCHLINUX,1,
   xorg-xinit
   xorg-server
   xf86-video-*
+  ttf-dejavu
   metacity
   NetworkManager
   nm-connection-editor
@@ -124,6 +128,7 @@ ifelse(SUSE,1,
   /usr/bin/xinit
   /usr/bin/Xorg
   xf86-video-*
+  dejavu-fonts
   metacity
   NetworkManager
   nm-connection-editor
