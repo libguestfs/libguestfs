@@ -72,6 +72,15 @@ Right now this option does nothing more than setting the C<ARCH>
 environment variable for the elements, and it's up to them to
 produce an image for the requested architecture.
 
+=item B<--colors>
+
+=item B<--colours>
+
+Use ANSI colour sequences to colourize messages.  This is the default
+when the output is a tty.  If the output of the program is redirected
+to a file, ANSI colour sequences are disabled unless you use this
+option.
+
 =item B<--debug> LEVEL
 
 Set the debug level to C<LEVEL>, which is a non-negative integer

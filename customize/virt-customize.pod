@@ -74,6 +74,15 @@ disk format (not just an ISO).
 Specify the disk format for the next I<--attach> option.  The
 C<FORMAT> is usually C<raw> or C<qcow2>.  Use C<raw> for ISOs.
 
+=item B<--colors>
+
+=item B<--colours>
+
+Use ANSI colour sequences to colourize messages.  This is the default
+when the output is a tty.  If the output of the program is redirected
+to a file, ANSI colour sequences are disabled unless you use this
+option.
+
 =item B<-c> URI
 
 =item B<--connect> URI

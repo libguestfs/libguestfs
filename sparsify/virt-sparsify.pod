@@ -155,6 +155,15 @@ B<fail> and exit.
 
 You cannot use this option and I<--in-place> together.
 
+=item B<--colors>
+
+=item B<--colours>
+
+Use ANSI colour sequences to colourize messages.  This is the default
+when the output is a tty.  If the output of the program is redirected
+to a file, ANSI colour sequences are disabled unless you use this
+option.
+
 =item B<--compress>
 
 Compress the output file.  This I<only> works if the output format is
