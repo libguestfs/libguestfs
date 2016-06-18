@@ -1448,6 +1448,20 @@ create_running_dialog (void)
       gtk_text_buffer_create_tag (buf, tag_name, "foreground", tags[i], NULL);
   }
 
+#if GTK_CHECK_VERSION(3,16,0)   /* gtk >= 3.16 */
+  /* XXX This only sets the "CSS" style.  It's not clear how to set
+   * the particular font.  However (by accident) this does at least
+   * set the widget to use a monospace font.
+   */
+  GtkStyleContext *context = gtk_widget_get_style_context (v2v_output);
+  gtk_style_context_add_class (context, "monospace");
+#else
+  PangoFontDescription *font;
+  font = pango_font_description_from_string ("Monospace 11");
+  gtk_widget_modify_font (v2v_output, font);
+  pango_font_description_free (font);
+#endif
+
   log_label = gtk_label_new (NULL);
   gtk_misc_set_alignment (GTK_MISC (log_label), 0., 0.5);
   gtk_misc_set_padding (GTK_MISC (log_label), 10, 10);
