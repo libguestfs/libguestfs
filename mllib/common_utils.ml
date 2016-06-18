@@ -350,11 +350,11 @@ let error ?(exit_code = 1) fs =
 
 let warning fs =
   let display str =
-    let chan = stderr in
+    let chan = stdout in
     ansi_blue ~chan ();
     wrap ~chan (sprintf (f_"%s: warning: %s") prog str);
     ansi_restore ~chan ();
-    prerr_newline ();
+    print_newline ();
   in
   ksprintf display fs
 
