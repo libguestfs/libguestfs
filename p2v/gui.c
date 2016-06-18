@@ -1409,7 +1409,7 @@ static void set_status (const char *msg);
 static void add_v2v_output (const char *msg);
 static void add_v2v_output_2 (const char *msg, size_t len);
 static void *start_conversion_thread (void *data);
-static void cancel_conversion_clicked (GtkWidget *w, gpointer data);
+static void cancel_conversion_dialog (GtkWidget *w, gpointer data);
 static void reboot_clicked (GtkWidget *w, gpointer data);
 static gboolean close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data);
 
@@ -1447,7 +1447,7 @@ create_running_dialog (void)
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (run_dlg),
-                          _("Cancel conversion"), 1,
+                          _("Cancel conversion ..."), 1,
                           _("Reboot"), 2,
                           NULL);
   cancel_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (run_dlg), 1);
@@ -1461,7 +1461,7 @@ create_running_dialog (void)
   g_signal_connect_swapped (G_OBJECT (run_dlg), "destroy",
                             G_CALLBACK (gtk_main_quit), NULL);
   g_signal_connect (G_OBJECT (cancel_button), "clicked",
-                    G_CALLBACK (cancel_conversion_clicked), NULL);
+                    G_CALLBACK (cancel_conversion_dialog), NULL);
   g_signal_connect (G_OBJECT (reboot_button), "clicked",
                     G_CALLBACK (reboot_clicked), NULL);
 }
@@ -1753,11 +1753,33 @@ close_running_dialog (GtkWidget *w, GdkEvent *event, gpointer data)
     return FALSE;
 }
 
+/**
+ * This is called when the user clicks on the "Cancel conversion"
+ * button.  Since conversions can run for a long time, and cancelling
+ * the conversion is non-recoverable, this function displays a
+ * confirmation dialog before cancelling the conversion.
+ */
 static void
-cancel_conversion_clicked (GtkWidget *w, gpointer data)
+cancel_conversion_dialog (GtkWidget *w, gpointer data)
 {
-  /* This makes start_conversion return an error (eventually). */
-  cancel_conversion ();
+  GtkWidget *dlg;
+
+  if (!conversion_is_running ())
+    return;
+
+  dlg = gtk_message_dialog_new (GTK_WINDOW (run_dlg),
+                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                GTK_MESSAGE_QUESTION,
+                                GTK_BUTTONS_YES_NO,
+                                _("Really cancel the conversion? "
+                                  "To convert this machine you will need to "
+                                  "re-run the conversion from the beginning."));
+  gtk_window_set_title (GTK_WINDOW (dlg), _("Cancel the conversion"));
+  if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
+    /* This makes start_conversion return an error (eventually). */
+    cancel_conversion ();
+
+  gtk_widget_destroy (dlg);
 }
 
 static void
