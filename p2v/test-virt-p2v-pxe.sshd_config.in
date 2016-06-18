@@ -1,5 +1,4 @@
 # libguestfs virt-p2v test script
-# @configure_input@
 # Copyright (C) 2014-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,6 +17,8 @@
 
 # Minimal sshd_config used by test-virt-p2v-pxe.ssh when it runs
 # a captive sshd.
+#
+# This file is processed by awk.  See p2v/Makefile.am.
 
 # Choose a random high port number.
 Port __RANDOM_PORT__
