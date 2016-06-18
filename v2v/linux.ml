@@ -72,28 +72,28 @@ and augeas_debug_errors g =
 
     List.iter (
       fun filename ->
-        printf "augeas failed to parse %s:\n" filename;
+        eprintf "augeas failed to parse %s:\n" filename;
         let fmap = StringMap.find filename map in
         (try
            let msg = StringMap.find "message" fmap in
-           printf " error \"%s\"" msg
+           eprintf " error \"%s\"" msg
          with Not_found -> ()
         );
         (try
            let line = StringMap.find "line" fmap
            and char = StringMap.find "char" fmap in
-           printf " at line %s char %s" line char
+           eprintf " at line %s char %s" line char
          with Not_found -> ()
         );
         (try
            let lens = StringMap.find "lens" fmap in
-           printf " in lens %s" lens
+           eprintf " in lens %s" lens
          with Not_found -> ()
         );
-        printf "\n"
+        eprintf "\n"
     ) filenames;
 
-    flush stdout
+    flush stderr
   with
     Guestfs.Error msg -> eprintf "%s: augeas: %s (ignored)\n" prog msg
 
