@@ -1657,11 +1657,11 @@ create_running_dialog (void)
   v2v_output_sw = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (v2v_output_sw),
                                   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+  gtk_widget_set_size_request (v2v_output_sw, 700, 400);
+
   v2v_output = gtk_text_view_new ();
   gtk_text_view_set_editable (GTK_TEXT_VIEW (v2v_output), FALSE);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (v2v_output), GTK_WRAP_CHAR);
-  /* XXX Gtk3 ignores this, why? */
-  gtk_widget_set_size_request (v2v_output, 700, 400);
   log_label = gtk_label_new (NULL);
   set_alignment (log_label, 0., 0.5);
   set_padding (log_label, 10, 10);
