@@ -122,11 +122,11 @@ object
         if run_command cmd <> 0 then (
           warning (f_"glance: failed to set image properties (ignored)");
           (* Dump out the image properties so the user can set them. *)
-          printf "Image properties:\n";
-          printf "  --min-ram %Ld\n" min_ram;
+          eprintf "Image properties:\n";
+          eprintf "  --min-ram %Ld\n" min_ram;
           List.iter (
 	    fun (k, v) ->
-	      printf "  --property %s=%s" (quote k) (quote v)
+	      eprintf "  --property %s=%s" (quote k) (quote v)
           ) properties
         )
       ) targets

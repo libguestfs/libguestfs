@@ -314,8 +314,8 @@ and get_mpstats g =
 
   if verbose () then (
     (* This is useful for debugging speed / fstrim issues. *)
-    printf "mpstats:\n";
-    List.iter (print_mpstat Pervasives.stdout) mpstats
+    eprintf "mpstats:\n";
+    List.iter (print_mpstat Pervasives.stderr) mpstats
   );
 
   mpstats
@@ -675,14 +675,14 @@ and copy_targets cmdline targets input output =
           Int64.to_float size /. 1024. /. 1024. *. 10. /. time
         in
 
-        printf "virtual copying rate: %.1f M bits/sec\n%!"
+        eprintf "virtual copying rate: %.1f M bits/sec\n%!"
           (mbps t.target_overlay.ov_virtual_size elapsed_time);
 
         match t.target_actual_size with
         | None -> ()
         | Some actual ->
-          printf "real copying rate: %.1f M bits/sec\n%!"
-            (mbps actual elapsed_time)
+           eprintf "real copying rate: %.1f M bits/sec\n%!"
+                   (mbps actual elapsed_time)
       );
 
       (* If verbose, find out how close the estimate was.  This is
@@ -696,13 +696,13 @@ and copy_targets cmdline targets input output =
           let pc =
             100. *. Int64.to_float estimate /. Int64.to_float actual
             -. 100. in
-          printf "%s: estimate %Ld (%s) versus actual %Ld (%s): %.1f%%"
+          eprintf "%s: estimate %Ld (%s) versus actual %Ld (%s): %.1f%%"
             t.target_overlay.ov_sd
             estimate (human_size estimate)
             actual (human_size actual)
             pc;
-          if pc < 0. then printf " ! ESTIMATE TOO LOW !";
-          printf "\n%!";
+          if pc < 0. then eprintf " ! ESTIMATE TOO LOW !";
+          eprintf "\n%!";
       );
 
       t
@@ -799,7 +799,7 @@ and preserve_overlays overlays src_name =
       let saved_filename =
         sprintf "%s/%s-%s.qcow2" overlay_dir src_name ov.ov_sd in
       rename ov.ov_overlay_file saved_filename;
-      printf (f_"Overlay saved as %s [--debug-overlays]\n") saved_filename
+      info (f_"Overlay saved as %s [--debug-overlays]") saved_filename
   ) overlays
 
 let () = run_main_and_handle_errors main

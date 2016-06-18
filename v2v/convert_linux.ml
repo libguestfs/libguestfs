@@ -255,11 +255,11 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     ) inspect.i_apps in
 
   if verbose () then (
-    printf "installed kernel packages in this guest:\n";
+    eprintf "installed kernel packages in this guest:\n";
     List.iter (
-      fun kernel -> printf "\t%s\n" (string_of_kernel_info kernel)
+      fun kernel -> eprintf "\t%s\n" (string_of_kernel_info kernel)
     ) installed_kernels;
-    flush stdout
+    flush stderr
   );
 
   if installed_kernels = [] then
@@ -375,11 +375,11 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     ) vmlinuzes in
 
   if verbose () then (
-    printf "grub kernels in this guest (first in list is default):\n";
+    eprintf "grub kernels in this guest (first in list is default):\n";
     List.iter (
-      fun kernel -> printf "\t%s\n" (string_of_kernel_info kernel)
+      fun kernel -> eprintf "\t%s\n" (string_of_kernel_info kernel)
     ) grub_kernels;
-    flush stdout
+    flush stderr
   );
 
   if grub_kernels = [] then
@@ -1271,12 +1271,12 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
       ) source.s_disks in
 
     if verbose () then (
-      printf "block device map:\n";
+      eprintf "block device map:\n";
       List.iter (
         fun (source_dev, target_dev) ->
-          printf "\t%s\t-> %s\n" source_dev target_dev
+          eprintf "\t%s\t-> %s\n" source_dev target_dev
       ) (List.sort (fun (a,_) (b,_) -> compare a b) map);
-      flush stdout
+      flush stderr
     );
 
     (* Possible Augeas paths to search for device names. *)
