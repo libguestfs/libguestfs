@@ -962,11 +962,15 @@ generate_wrapper_script (struct config *config, const char *remote_dir)
   if (fp == NULL)
     error (EXIT_FAILURE, errno, "open_memstream");
 
-  fprintf (fp, "#!/bin/sh -\n");
+  fprintf (fp, "#!/bin/bash -\n");
   fprintf (fp, "\n");
 
-  /* The virt-v2v command. */
-  fprintf (fp, "(\n");
+  fprintf (fp, "cd %s\n", remote_dir);
+  fprintf (fp, "\n");
+
+  /* The virt-v2v command, as a shell function called "v2v". */
+  fprintf (fp, "v2v ()\n");
+  fprintf (fp, "{\n");
   if (config->sudo)
     fprintf (fp, "sudo -n ");
   fprintf (fp, "virt-v2v");
@@ -1006,14 +1010,44 @@ generate_wrapper_script (struct config *config, const char *remote_dir)
   }
 
   fprintf (fp, " --root first");
-  fprintf (fp, " %s/physical.xml", remote_dir);
-  /* no stdin, and send stdout and stderr to the same place */
-  fprintf (fp, " </dev/null 2>&1");
+  fprintf (fp, " physical.xml");
+  fprintf (fp, " </dev/null");  /* no stdin */
   fprintf (fp, "\n");
-  fprintf (fp, "echo $? > %s/status", remote_dir);
+  fprintf (fp,
+           "# Save the exit code of virt-v2v into the 'status' file.\n");
+  fprintf (fp, "echo $? > status\n");
+  fprintf (fp, "}\n");
   fprintf (fp, "\n");
-  fprintf (fp, " ) | tee %s/virt-v2v-conversion-log.txt", remote_dir);
+
+  fprintf (fp,
+           "# Write a pre-emptive error status, in case the virt-v2v\n"
+           "# command doesn't get to run at all.  This will be\n"
+           "# overwritten with the true exit code when virt-v2v runs.\n");
+  fprintf (fp, "echo 99 > status\n");
   fprintf (fp, "\n");
+
+  fprintf (fp, "log=virt-v2v-conversion-log.txt\n");
+  fprintf (fp, "rm -f $log\n");
+  fprintf (fp, "\n");
+
+  fprintf (fp,
+           "# Run virt-v2v.  Send stdout back to virt-p2v.  Send stdout\n"
+           "# and stderr (debugging info) to the log file.\n");
+  fprintf (fp, "v2v 2>> $log | tee -a $log\n");
+  fprintf (fp, "\n");
+
+  fprintf (fp,
+           "# If virt-v2v failed then the error message (sent to stderr)\n"
+           "# will not be seen in virt-p2v.  Send the last few lines of\n"
+           "# the log back to virt-p2v in this case.\n");
+  fprintf (fp,
+           "if [ \"$(< status)\" -ne 0 ]; then\n"
+           "    echo\n"
+           "    echo\n"
+           "    echo\n"
+           "    echo '*** virt-v2v command failed ***'\n"
+           "    tail -30 $log\n"
+           "fi\n");
 
   fclose (fp);
 
