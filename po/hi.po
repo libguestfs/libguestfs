@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-06-17 15:11+0100\n"
+"POT-Creation-Date: 2016-06-18 22:10+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/"
@@ -42,12 +42,12 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:413
+#: ../mllib/common_utils.ml:417
 msgid "%s"
 msgstr ""
 
 #. ../customize/customize_run.ml:455
-#: ../v2v/v2v.ml:388 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:910
+#: ../v2v/v2v.ml:388 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:918
 msgid "%s (ignored)"
 msgstr ""
 
@@ -112,11 +112,11 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:409 ../mllib/common_utils.ml:381
+#: ../mllib/common_utils.ml:413 ../mllib/common_utils.ml:385
 msgid "%s: %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:411
+#: ../mllib/common_utils.ml:415
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:353
+#: ../mllib/common_utils.ml:357
 msgid "%s: error: %s"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:371
+#: ../mllib/common_utils.ml:375
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -511,11 +511,11 @@ msgstr ""
 msgid "--list: use '--list-format', not '--format'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:350
+#: ../v2v/cmdline.ml:351
 msgid "--no-copy and '-o glance' cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:360
+#: ../v2v/cmdline.ml:361
 msgid "--no-copy and '-o libvirt' cannot be used at the same time"
 msgstr ""
 
@@ -581,23 +581,23 @@ msgstr ""
 msgid "-i disk: invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:339
+#: ../v2v/cmdline.ml:340
 msgid "-o and --in-place cannot be used at the same time"
 msgstr ""
 
-#: ../v2v/cmdline.ml:348
+#: ../v2v/cmdline.ml:349
 msgid "-o glance: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:344
+#: ../v2v/cmdline.ml:345
 msgid "-o glance: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:346
+#: ../v2v/cmdline.ml:347
 msgid "-o glance: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:358
+#: ../v2v/cmdline.ml:359
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
@@ -620,55 +620,55 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:372
+#: ../v2v/cmdline.ml:373
 msgid "-o local: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:367
+#: ../v2v/cmdline.ml:368
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:381
+#: ../v2v/cmdline.ml:382
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:377
+#: ../v2v/cmdline.ml:378
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:379
+#: ../v2v/cmdline.ml:380
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:388
+#: ../v2v/cmdline.ml:389
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:401
+#: ../v2v/cmdline.ml:402
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:398
+#: ../v2v/cmdline.ml:399
 msgid "-o rhev: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:411
+#: ../v2v/cmdline.ml:412
 msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:415
+#: ../v2v/cmdline.ml:416
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:418
+#: ../v2v/cmdline.ml:419
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:408
+#: ../v2v/cmdline.ml:409
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:390 ../v2v/cmdline.ml:369
+#: ../v2v/cmdline.ml:391 ../v2v/cmdline.ml:370
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -971,7 +971,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../mllib/common_utils.ml:592
+#: ../mllib/common_utils.ml:596
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -1016,7 +1016,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:588 ../mllib/common_utils.ml:586
+#: ../mllib/common_utils.ml:592 ../mllib/common_utils.ml:590
 msgid "Display version and exit"
 msgstr ""
 
@@ -1048,7 +1048,7 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:594 ../mllib/common_utils.ml:593
+#: ../mllib/common_utils.ml:598 ../mllib/common_utils.ml:597
 msgid "Don't print progress messages"
 msgstr ""
 
@@ -1107,7 +1107,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:590 ../mllib/common_utils.ml:589
+#: ../mllib/common_utils.ml:594 ../mllib/common_utils.ml:593
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1115,7 +1115,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:591
+#: ../mllib/common_utils.ml:595
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1322,7 +1322,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:358
+#: ../mllib/common_utils.ml:362
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1414,11 +1414,11 @@ msgstr ""
 msgid "List available templates"
 msgstr ""
 
-#: ../mllib/common_utils.ml:584
+#: ../mllib/common_utils.ml:588
 msgid "List long options (internal)"
 msgstr ""
 
-#: ../mllib/common_utils.ml:583
+#: ../mllib/common_utils.ml:587
 msgid "List short options (internal)"
 msgstr ""
 
@@ -1602,7 +1602,7 @@ msgid "Output vol UUID(s)"
 msgstr ""
 
 #: ../v2v/v2v.ml:706
-msgid "Overlay saved as %s [--debug-overlays]\n"
+msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
 #: ../v2v/cmdline.ml:173
@@ -2458,6 +2458,12 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
+#. ../mllib/common_utils.ml:600
+#. ../mllib/common_utils.ml:599
+#: ../mllib/common_utils.ml:602 ../mllib/common_utils.ml:601
+msgid "Use ANSI colour sequences even if not tty"
+msgstr ""
+
 #: ../v2v/copy_to_local.ml:47 ../v2v/cmdline.ml:204
 msgid "Use password from file"
 msgstr ""
@@ -2898,7 +2904,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:426
+#: ../mllib/common_utils.ml:430
 msgid "exception: %s"
 msgstr ""
 
@@ -2908,31 +2914,31 @@ msgid ""
 "string: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:304
+#: ../v2v/cmdline.ml:305
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:325
+#: ../v2v/cmdline.ml:326
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:316
+#: ../v2v/cmdline.ml:317
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:334
+#: ../v2v/cmdline.ml:335
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:673
+#: ../mllib/common_utils.ml:681
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:691 ../mllib/common_utils.ml:675
+#: ../mllib/common_utils.ml:699 ../mllib/common_utils.ml:683
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:694 ../mllib/common_utils.ml:677
+#: ../mllib/common_utils.ml:702 ../mllib/common_utils.ml:685
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2949,7 +2955,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:417
+#: ../mllib/common_utils.ml:421
 msgid "failure: %s"
 msgstr ""
 
@@ -2993,7 +2999,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../mllib/common_utils.ml:436
+#: ../mllib/common_utils.ml:440
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3114,15 +3120,15 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../mllib/common_utils.ml:424
+#: ../mllib/common_utils.ml:428
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:421
+#: ../mllib/common_utils.ml:425
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:419
+#: ../mllib/common_utils.ml:423
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3174,7 +3180,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:415
+#: ../mllib/common_utils.ml:419
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -4077,7 +4083,7 @@ msgstr ""
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
 #: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
-#: make-fs/make-fs.c:75 p2v/main.c:73 rescue/rescue.c:57
+#: make-fs/make-fs.c:75 p2v/main.c:74 rescue/rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक सूचना के लिए `%s --help' आजमाएँ.\n"
@@ -4108,7 +4114,7 @@ msgstr ""
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:261 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:248 fuse/guestunmount.c:121 inspector/inspector.c:161
-#: make-fs/make-fs.c:146 p2v/main.c:170 rescue/rescue.c:182
+#: make-fs/make-fs.c:146 p2v/main.c:171 rescue/rescue.c:182
 #: test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -7920,127 +7926,122 @@ msgstr ""
 msgid "%s: subprocess failed\n"
 msgstr ""
 
-#: p2v/conversion.c:216
+#: p2v/conversion.c:217
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:319
+#: p2v/conversion.c:331
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:331
+#: p2v/conversion.c:345
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:418
+#: p2v/conversion.c:385
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:423
+#: p2v/conversion.c:390
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:273
+#: p2v/gui.c:277
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:278
+#: p2v/gui.c:282
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:298
+#: p2v/gui.c:302
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:310
+#: p2v/gui.c:314
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:325
+#: p2v/gui.c:329
 msgid "SSH Identity URL:"
 msgstr ""
 
-#: p2v/gui.c:337
-msgid ""
-"<i>If using password authentication, leave the SSH Identity URL blank</i>"
-msgstr ""
-
-#: p2v/gui.c:343
+#: p2v/gui.c:340
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:350
+#: p2v/gui.c:347
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:376
+#: p2v/gui.c:373
 msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:377
+#: p2v/gui.c:374
 msgid "XTerm ..."
 msgstr ""
 
-#: p2v/gui.c:378
+#: p2v/gui.c:375
 msgid "About virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:379
+#: p2v/gui.c:376
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:447
+#: p2v/gui.c:504
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:455
+#: p2v/gui.c:512
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:463
+#: p2v/gui.c:520
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:535
+#: p2v/gui.c:592
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:578
+#: p2v/gui.c:636
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:624
+#: p2v/gui.c:682
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:718
+#: p2v/gui.c:776
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:724
+#: p2v/gui.c:782
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:734
+#: p2v/gui.c:792
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:748
+#: p2v/gui.c:806
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:774
+#: p2v/gui.c:832
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:780
+#: p2v/gui.c:838
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:785
+#: p2v/gui.c:843
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8049,85 +8050,85 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:790
+#: p2v/gui.c:848
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:795
+#: p2v/gui.c:853
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:801
+#: p2v/gui.c:859
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:806
+#: p2v/gui.c:864
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:812
+#: p2v/gui.c:870
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:817
+#: p2v/gui.c:875
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:823
+#: p2v/gui.c:881
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:844
+#: p2v/gui.c:902
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:853
+#: p2v/gui.c:911
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:861
+#: p2v/gui.c:919
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:872
+#: p2v/gui.c:930
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:883
+#: p2v/gui.c:941
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:893
+#: p2v/gui.c:951
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:915
+#: p2v/gui.c:973
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:916
+#: p2v/gui.c:974
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:966
+#: p2v/gui.c:1024
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:969
+#: p2v/gui.c:1027
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -8136,56 +8137,56 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1094 p2v/gui.c:1156 p2v/gui.c:1226
+#: p2v/gui.c:1152 p2v/gui.c:1214 p2v/gui.c:1284
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:1102 p2v/gui.c:1164 p2v/gui.c:1234
+#: p2v/gui.c:1160 p2v/gui.c:1222 p2v/gui.c:1292
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:1110
+#: p2v/gui.c:1168
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:1118
+#: p2v/gui.c:1176
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:1204 p2v/gui.c:1205
+#: p2v/gui.c:1262 p2v/gui.c:1263
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:1242
+#: p2v/gui.c:1300
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1524
+#: p2v/gui.c:1582
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1534
+#: p2v/gui.c:1592
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1542
+#: p2v/gui.c:1600
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1632
-msgid "Cancel conversion"
+#: p2v/gui.c:1721
+msgid "Cancel conversion ..."
 msgstr ""
 
-#: p2v/gui.c:1633
+#: p2v/gui.c:1722
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1684
+#: p2v/gui.c:1773
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -8193,38 +8194,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1795
+#: p2v/gui.c:1980
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1796 p2v/gui.c:1820
+#: p2v/gui.c:1981 p2v/gui.c:2005
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1818
+#: p2v/gui.c:2003
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1920
+#: p2v/gui.c:2105
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1921
+#: p2v/gui.c:2106
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1948
+#: p2v/gui.c:2133
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1949
+#: p2v/gui.c:2134
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:76
+#: p2v/gui.c:2217
+msgid ""
+"Really cancel the conversion? To convert this machine you will need to re-"
+"run the conversion from the beginning."
+msgstr ""
+
+#: p2v/gui.c:2220
+msgid "Cancel the conversion"
+msgstr ""
+
+#: p2v/main.c:77
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8241,22 +8252,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:162
+#: p2v/main.c:163
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:165
+#: p2v/main.c:166
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:191
+#: p2v/main.c:192
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:220
+#: p2v/main.c:221
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
