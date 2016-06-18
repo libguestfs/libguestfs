@@ -329,6 +329,7 @@ Makefile.in
 /p2v/stamp-virt-p2v.pod
 /p2v/stamp-virt-p2v-make-disk.pod
 /p2v/stamp-virt-p2v-make-kickstart.pod
+/p2v/test-virt-p2v-pxe.authorized_keys
 /p2v/test-virt-p2v-pxe.id_rsa
 /p2v/test-virt-p2v-pxe.id_rsa.pub
 /p2v/test-virt-p2v-pxe.img

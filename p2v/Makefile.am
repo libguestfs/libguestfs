@@ -41,6 +41,7 @@ CLEANFILES = \
 	stamp-virt-p2v.pod \
 	stamp-virt-p2v-make-disk.pod \
 	stamp-virt-p2v-make-kickstart.pod \
+	test-virt-p2v-pxe.authorized_keys \
 	test-virt-p2v-pxe.img \
 	test-virt-p2v-pxe.vmlinuz \
 	test-virt-p2v-pxe.initramfs \
@@ -230,6 +231,7 @@ check-slow: stamp-test-virt-p2v-pxe-data-files
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
 
 stamp-test-virt-p2v-pxe-data-files: \
+	    test-virt-p2v-pxe.authorized_keys \
 	    test-virt-p2v-pxe.img \
 	    test-virt-p2v-pxe.vmlinuz test-virt-p2v-pxe.initramfs \
 	    test-virt-p2v-pxe.sshd_config \
@@ -270,6 +272,12 @@ test-virt-p2v-pxe.sshd_config: test-virt-p2v-pxe.sshd_config.in
 	    print; \
 	  }' < $< > $@-t
 	chmod 0444 $@-t
+	mv $@-t $@
+
+test-virt-p2v-pxe.authorized_keys: test-virt-p2v-pxe.id_rsa.pub $(top_builddir)/run
+	rm -f $@ $@-t
+	$(top_builddir)/run sh -c 'echo -n environment=\"PATH=$$PATH\"\ ' > $@-t
+	cat $< >> $@-t
 	mv $@-t $@
 
 test-virt-p2v-pxe.ssh_host_rsa_key test-virt-p2v-pxe.ssh_host_rsa_key.pub: stamp-test-virt-p2v-pxe-hostkey
