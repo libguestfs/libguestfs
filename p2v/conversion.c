@@ -289,7 +289,7 @@ start_conversion (struct config *config,
   if (libvirt_xml == NULL)
     goto out;
 
-#if DEBUG_STDERR
+#if DEBUG_STDERR && 0
   fprintf (stderr, "%s: libvirt XML:\n%s",
            guestfs_int_program_name, libvirt_xml);
 #endif
@@ -299,7 +299,7 @@ start_conversion (struct config *config,
   if (wrapper_script == NULL)
     goto out;
 
-#if DEBUG_STDERR
+#if DEBUG_STDERR && 0
   fprintf (stderr, "%s: wrapper script:\n%s",
            guestfs_int_program_name, wrapper_script);
 #endif
