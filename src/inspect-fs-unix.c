@@ -76,6 +76,7 @@ COMPILE_REGEXP (re_openbsd_dev, "^/dev/(s|w)d([0-9])([a-z])$", 0)
 COMPILE_REGEXP (re_netbsd_dev, "^/dev/(l|s)d([0-9])([a-z])$", 0)
 COMPILE_REGEXP (re_altlinux, " (?:(\\d+)(?:\\.(\\d+)(?:[\\.\\d]+)?)?)\\s+\\((?:[^)]+)\\)$", 0)
 COMPILE_REGEXP (re_frugalware, "Frugalware (\\d+)\\.(\\d+)", 0)
+COMPILE_REGEXP (re_pldlinux, "(\\d+)\\.(\\d+) PLD Linux", 0)
 
 static void check_architecture (guestfs_h *g, struct inspect_fs *fs);
 static int check_hostname_unix (guestfs_h *g, struct inspect_fs *fs);
@@ -750,6 +751,17 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 
     if (guestfs_int_version_from_x_y_re (g, &fs->version, fs->product_name,
                                          re_frugalware) == -1)
+      return -1;
+  }
+  else if (guestfs_is_file_opts (g, "/etc/pld-release",
+                                 GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    fs->distro = OS_DISTRO_PLD_LINUX;
+
+    if (parse_release_file (g, fs, "/etc/pld-release") == -1)
+      return -1;
+
+    if (guestfs_int_version_from_x_y_re (g, &fs->version, fs->product_name,
+                                         re_pldlinux) == -1)
       return -1;
   }
 
