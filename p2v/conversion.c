@@ -25,6 +25,7 @@
 #include <fcntl.h>
 #include <inttypes.h>
 #include <unistd.h>
+#include <poll.h>
 #include <time.h>
 #include <errno.h>
 #include <error.h>
@@ -346,13 +347,35 @@ start_conversion (struct config *config,
   }
 
   /* Read output from the virt-v2v process and echo it through the
-   * notify function, until virt-v2v closes the connection.
+   * notify function, until virt-v2v closes the connection.  We
+   * actually poll in this loop (albeit it only every 2 seconds) so
+   * that the user won't have to wait too long between pressing the
+   * cancel button and having the conversion cancelled.
    */
   while (!is_cancel_requested ()) {
+    int fd = mexp_get_fd (control_h);
+    struct pollfd fds[1];
+    int rp;
     char buf[257];
     ssize_t r;
 
-    r = read (mexp_get_fd (control_h), buf, sizeof buf - 1);
+    fds[0].fd = fd;
+    fds[0].events = POLLIN;
+    fds[0].revents = 0;
+    rp = poll (fds, 1, 2000 /* ms */);
+    if (rp == -1) {
+      /* See comment about this in miniexpect.c. */
+      if (errno == EIO)
+        break;
+      set_conversion_error ("poll: %m");
+      goto out;
+    }
+    else if (rp == 0)
+      /* Timeout. */
+      continue;
+    /* ... else rp == 1, ignore revents and just do the read. */
+
+    r = read (fd, buf, sizeof buf - 1);
     if (r == -1) {
       /* See comment about this in miniexpect.c. */
       if (errno == EIO)
