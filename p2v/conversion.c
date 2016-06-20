@@ -1045,9 +1045,19 @@ generate_wrapper_script (struct config *config, const char *remote_dir)
            "    echo\n"
            "    echo\n"
            "    echo\n"
-           "    echo '*** virt-v2v command failed ***'\n"
-           "    tail -30 $log\n"
-           "fi\n");
+           "    echo -ne '\\e[1;31m'\n"
+           "    echo '***' virt-v2v command failed '***'\n"
+           "    echo\n"
+           "    echo The full log is available on the conversion server in:\n"
+           "    echo '   ' %s/$log\n"
+           "    echo Only the last 50 lines are shown below.\n"
+           "    echo -ne '\\e[0m'\n"
+           "    echo\n"
+           "    echo\n"
+           "    echo\n"
+           "    tail -50 $log\n"
+           "fi\n",
+           remote_dir);
 
   fclose (fp);
 
