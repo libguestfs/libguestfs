@@ -1458,7 +1458,11 @@ create_running_dialog (void)
 #else
   PangoFontDescription *font;
   font = pango_font_description_from_string ("Monospace 11");
+#if GTK_CHECK_VERSION(3,0,0)	/* gtk >= 3 */
+  gtk_widget_override_font (v2v_output, font);
+#else
   gtk_widget_modify_font (v2v_output, font);
+#endif
   pango_font_description_free (font);
 #endif
 
