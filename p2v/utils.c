@@ -139,7 +139,7 @@ get_if_vendor (const char *if_name, int truncate)
 }
 
 /* XXX We could make this configurable. */
-#define NETWORK_ONLINE_COMMAND "nm-online -t 30"
+#define NETWORK_ONLINE_COMMAND "nm-online -t 30 -x"
 
 /**
  * Wait for the network to come online, but don't error out if that
