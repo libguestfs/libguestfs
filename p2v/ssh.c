@@ -416,7 +416,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
                          }, ovector, ovecsize)) {
     case 100:                    /* Got password prompt unexpectedly. */
       mexp_close (h);
-      set_ssh_error ("unexpected password prompt: probably the password supplied is wrong");
+      set_ssh_error ("login failed - probably the username and/or password is wrong");
       return NULL;
 
     case 101:
