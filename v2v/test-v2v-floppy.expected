@@ -1,0 +1,8 @@
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    <disk device='floppy' type='file'>
+      <driver name='qemu' type='raw'/>
+      <target dev='fda'/>
+    </disk>
