@@ -363,6 +363,7 @@ type target_buses = {
   target_virtio_blk_bus : target_bus_slot array;
   target_ide_bus : target_bus_slot array;
   target_scsi_bus : target_bus_slot array;
+  target_floppy_bus : target_bus_slot array;
 }
 
 and target_bus_slot =

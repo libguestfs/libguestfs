@@ -254,10 +254,11 @@ type target_buses = {
   target_virtio_blk_bus : target_bus_slot array;
   target_ide_bus : target_bus_slot array;
   target_scsi_bus : target_bus_slot array;
+  target_floppy_bus : target_bus_slot array;
 }
 (** Mapping of fixed and removable disks to buses.
 
-    As shown in the diagram below, there are (currently) three buses
+    As shown in the diagram below, there are (currently) four buses
     attached to the target VM.  Each contains a chain of fixed or
     removable disks.  Slots can also be empty.
 
@@ -276,8 +277,11 @@ type target_buses = {
    ├────┤ hda ├───┤ hdb ├───┤ hdc ├───┤ hdd │  IDE bus
    │    └─────┘   └─────┘   └─────┘   └─────┘
    │    ┌─────┐   ┌─────┐
-   └────┤  -  ├───┤ vdb │  Virtio-blk bus
-        └─────┘   └─────┘
+   ├────┤  -  ├───┤ vdb │  Virtio-blk bus
+   │    └─────┘   └─────┘
+   │    ┌─────┐
+   └────┤ fda │  Floppy disks
+        └─────┘
 v}
  *)
 

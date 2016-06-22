@@ -173,7 +173,6 @@ let create_libvirt_xml ?pool source target_buses guestcaps
           e "driver" [ "name", "qemu"; "type", "raw" ] [];
           e "target" [
             "dev", drive_prefix ^ drive_name i;
-            "bus", bus_name
           ] []
         ]
     in
@@ -187,7 +186,10 @@ let create_libvirt_xml ?pool source target_buses guestcaps
                     target_buses.target_ide_bus);
       Array.to_list
         (Array.mapi (make_disk "scsi" "sd")
-                    target_buses.target_scsi_bus)
+                    target_buses.target_scsi_bus);
+      Array.to_list
+        (Array.mapi (make_disk "floppy" "fd")
+                    target_buses.target_floppy_bus)
     ] in
   append devices disks;
 

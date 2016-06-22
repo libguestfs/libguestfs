@@ -21,11 +21,11 @@ open Common_gettext.Gettext
 
 open Types
 
-(* XXX This doesn't do the right thing for PC legacy floppy devices. *)
 let rec target_bus_assignment source targets guestcaps =
   let virtio_blk_bus = ref [| |]
   and ide_bus = ref [| |]
-  and scsi_bus = ref [| |] in
+  and scsi_bus = ref [| |]
+  and floppy_bus = ref [| |] in
 
   (* Add the fixed disks (targets) to either the virtio-blk or IDE bus,
    * depending on whether the guest has virtio drivers or not.
@@ -65,11 +65,14 @@ let rec target_bus_assignment source targets guestcaps =
       fun r ->
         let t = BusSlotRemovable r in
         let bus =
-          match r.s_removable_controller with
-          | None -> ide_bus (* Wild guess, but should be safe. *)
-          | Some Source_virtio_blk -> virtio_blk_bus
-          | Some Source_IDE -> ide_bus
-          | Some Source_SCSI -> scsi_bus in
+          match r.s_removable_type with
+          | Floppy -> floppy_bus
+          | CDROM ->
+             match r.s_removable_controller with
+             | None -> ide_bus (* Wild guess, but should be safe. *)
+             | Some Source_virtio_blk -> virtio_blk_bus
+             | Some Source_IDE -> ide_bus
+             | Some Source_SCSI -> scsi_bus in
 
         match r.s_removable_slot with
         | None ->
@@ -88,7 +91,8 @@ let rec target_bus_assignment source targets guestcaps =
 
   { target_virtio_blk_bus = !virtio_blk_bus;
     target_ide_bus = !ide_bus;
-    target_scsi_bus = !scsi_bus }
+    target_scsi_bus = !scsi_bus;
+    target_floppy_bus = !floppy_bus }
 
 (* Insert a slot into the bus array, making the array bigger if necessary. *)
 and insert bus i slot =
