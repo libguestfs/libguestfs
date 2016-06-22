@@ -192,24 +192,18 @@ do_get_e2uuid (const char *device)
 static int
 if_not_mounted_run_e2fsck (const char *device)
 {
-  CLEANUP_FREE char *err = NULL;
-  int r, mounted;
+  int r = 0, mounted;
 
   mounted = is_device_mounted (device);
   if (mounted == -1)
     return -1;
 
   if (!mounted) {
-    r = commandf (NULL, &err,
-                  COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                  str_e2fsck, "-fy", device, NULL);
-    if (r == -1) {
-      reply_with_error ("%s", err);
-      return -1;
-    }
+    optargs_bitmask = GUESTFS_E2FSCK_FORCEALL_BITMASK;
+    r = do_e2fsck (device, 0, 1);
   }
 
-  return 0;
+  return r;
 }
 
 int
