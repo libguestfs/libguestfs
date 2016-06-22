@@ -27,7 +27,7 @@
     </disk>
     <disk device='floppy' type='file'>
       <driver name='qemu' type='raw'/>
-      <target dev='hdb' bus='ide'/>
+      <target dev='fda'/>
     </disk>
     <interface type='network'>
       <source network='Ethernet 1'/>
