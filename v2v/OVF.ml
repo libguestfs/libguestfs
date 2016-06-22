@@ -394,7 +394,14 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
   (* Iterate over the disks, adding them to the OVF document. *)
   iteri (
     fun i ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
-      let is_boot_drive = i == 0 in
+      (* This sets the boot order to boot the first disk first.  This
+       * isn't generally correct.  We should copy over the boot order
+       * from the source hypervisor.  See long discussion in
+       * https://bugzilla.redhat.com/show_bug.cgi?id=1308535 for
+       * what we should be doing.  (XXX)
+       *)
+      let is_bootable_drive = i == 0 in
+      let boot_order = i+1 in
 
       let fileref = sprintf "%s/%s" image_uuid vol_uuid in
 
@@ -456,7 +463,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           | Virtio_SCSI -> "VirtIO_SCSI"
           | IDE -> "IDE");
           "ovf:disk-type", "System"; (* RHBZ#744538 *)
-          "ovf:boot", if is_boot_drive then "True" else "False";
+          "ovf:boot", if is_bootable_drive then "True" else "False";
         ] in
         let attrs =
           match actual_size_gb with
@@ -476,7 +483,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
          * will not parse.
          *)
         let caption = sprintf "Drive %d" (i+1) in
-        e "Item" [] [
+        e "Item" [] ([
           e "rasd:Caption" [] [PCData caption];
           e "rasd:InstanceId" [] [PCData vol_uuid];
           e "rasd:ResourceType" [] [PCData "17"];
@@ -490,7 +497,12 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           e "rasd:CreationDate" [] [PCData iso_time];
           e "rasd:LastModified" [] [PCData iso_time];
           e "rasd:last_modified_date" [] [PCData iso_time];
-        ] in
+        ] @
+          if is_bootable_drive then
+            [e "BootOrder" [] [PCData (string_of_int boot_order)]]
+          else
+            []
+        ) in
       append_child item virtualhardware_section;
   ) (combine3 targets image_uuids vol_uuids)
 
