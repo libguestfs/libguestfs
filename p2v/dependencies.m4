@@ -119,8 +119,8 @@ ifelse(SUSE,1,
   pcre
   libxml2
   gtk`'GTK_VERSION
-  /usr/bin/ssh
-  /usr/bin/qemu-nbd
+  qemu-tools
+  openssh
   curl
   ethtool
   hwdata
@@ -129,14 +129,15 @@ ifelse(SUSE,1,
   smartmontools
   util-linux
   xterm
-  /usr/bin/xinit
-  /usr/bin/Xorg
+  xinit
+  xorg-x11-server
   xf86-video-*
   dejavu-fonts
-  metacity
   NetworkManager
-  nm-connection-editor
-  network-manager-applet
-  dbus-x11
-  net-tools-deprecated
+  xf86-input-*
+  icewm-lite
+  dbus-1-x11
+  yast2-network
+  libyui-qt
+  SuSEfirewall2
 )
