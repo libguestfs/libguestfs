@@ -30,8 +30,21 @@ else
     # self again to run the window manager and virt-p2v.
     if [ "$1" = "run" ]; then
         cd /
-        metacity &
-        nm-applet &
+
+        ID=
+        if test -f /etc/os-release; then
+            . /etc/os-release
+        fi
+
+        case "$ID" in
+            sles|opensuse)
+                # not all versions of SLE / openSUSE ship metacity and nm-applet
+                icewm &
+                ;;
+            *)
+                metacity &
+                nm-applet &
+        esac
         exec @libexecdir@/virt-p2v --iso
     else
         xinit "$0" run

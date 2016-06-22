@@ -329,6 +329,7 @@ Makefile.in
 /p2v/stamp-virt-p2v.pod
 /p2v/stamp-virt-p2v-make-disk.pod
 /p2v/stamp-virt-p2v-make-kickstart.pod
+/p2v/stamp-virt-p2v-make-kiwi.pod
 /p2v/test-virt-p2v-pxe.authorized_keys
 /p2v/test-virt-p2v-pxe.id_rsa
 /p2v/test-virt-p2v-pxe.id_rsa.pub
@@ -346,6 +347,8 @@ Makefile.in
 /p2v/virt-p2v-make-disk.1
 /p2v/virt-p2v-make-kickstart
 /p2v/virt-p2v-make-kickstart.1
+/p2v/virt-p2v-make-kiwi
+/p2v/virt-p2v-make-kiwi.1
 /perl/_build
 /perl/bindtests.pl
 /perl/blib

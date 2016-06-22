@@ -157,6 +157,8 @@ AC_CONFIG_FILES([p2v/virt-p2v-make-disk],
                 [chmod +x,-w p2v/virt-p2v-make-disk])
 AC_CONFIG_FILES([p2v/virt-p2v-make-kickstart],
                 [chmod +x,-w p2v/virt-p2v-make-kickstart])
+AC_CONFIG_FILES([p2v/virt-p2v-make-kiwi],
+                [chmod +x,-w p2v/virt-p2v-make-kiwi])
 AC_CONFIG_FILES([php/extension/php-for-tests.sh],
                 [chmod +x,-w php/extension/php-for-tests.sh])
 AC_CONFIG_FILES([pick-guests.pl],

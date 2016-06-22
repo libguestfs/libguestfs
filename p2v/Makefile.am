@@ -21,6 +21,8 @@ EXTRA_DIST = \
 	$(TESTS) $(SLOW_TESTS) \
 	dependencies.m4 \
 	issue \
+	kiwi-config.sh \
+	kiwi-config.xml.in \
 	launch-virt-p2v.in \
 	p2v.ks.in \
 	p2v.service \
@@ -30,7 +32,9 @@ EXTRA_DIST = \
 	virt-p2v-make-disk.in \
 	virt-p2v-make-disk.pod \
 	virt-p2v-make-kickstart.in \
-	virt-p2v-make-kickstart.pod
+	virt-p2v-make-kickstart.pod \
+	virt-p2v-make-kiwi.in \
+	virt-p2v-make-kiwi.pod
 
 # Don't clean ssh_host_rsa_key{,.pub} or id_rsa{,.pub} since those
 # consume system entropy to regenerate.
@@ -41,6 +45,7 @@ CLEANFILES = \
 	stamp-virt-p2v.pod \
 	stamp-virt-p2v-make-disk.pod \
 	stamp-virt-p2v-make-kickstart.pod \
+	stamp-virt-p2v-make-kiwi.pod \
 	test-virt-p2v-pxe.authorized_keys \
 	test-virt-p2v-pxe.img \
 	test-virt-p2v-pxe.vmlinuz \
@@ -49,7 +54,8 @@ CLEANFILES = \
 	virt-p2v.1 \
 	virt-p2v.img \
 	virt-p2v-make-disk.1 \
-	virt-p2v-make-kickstart.1
+	virt-p2v-make-kickstart.1 \
+	virt-p2v-make-kiwi.1
 
 # Although virt-p2v is a regular binary, it is not usually installed
 # in /usr/bin since it only functions when contained in an ISO or PXE
@@ -96,7 +102,7 @@ virt_p2v_LDADD = \
 	../gnulib/lib/libgnu.la
 
 # Scripts to build the disk image, USB key, or kickstart.
-bin_SCRIPTS = virt-p2v-make-disk virt-p2v-make-kickstart
+bin_SCRIPTS = virt-p2v-make-disk virt-p2v-make-kickstart virt-p2v-make-kiwi
 
 dependencies_files = \
 	dependencies.archlinux \
@@ -115,6 +121,8 @@ virtp2vdatadir = $(datadir)/virt-p2v
 virtp2vdata_DATA = \
 	$(dependencies_files) \
 	issue \
+	kiwi-config.sh \
+	kiwi-config.xml.in \
 	launch-virt-p2v \
 	p2v.ks.in \
 	p2v.service
@@ -130,12 +138,14 @@ launch-virt-p2v: launch-virt-p2v.in
 man_MANS = \
 	virt-p2v.1 \
 	virt-p2v-make-disk.1 \
-	virt-p2v-make-kickstart.1
+	virt-p2v-make-kickstart.1 \
+	virt-p2v-make-kiwi.1
 
 noinst_DATA = \
 	$(top_builddir)/website/virt-p2v.1.html \
 	$(top_builddir)/website/virt-p2v-make-disk.1.html \
-	$(top_builddir)/website/virt-p2v-make-kickstart.1.html
+	$(top_builddir)/website/virt-p2v-make-kickstart.1.html \
+	$(top_builddir)/website/virt-p2v-make-kiwi.1.html
 
 virt-p2v.1 $(top_builddir)/website/virt-p2v.1.html: stamp-virt-p2v.pod
 
@@ -165,6 +175,17 @@ stamp-virt-p2v-make-kickstart.pod: virt-p2v-make-kickstart.pod
 	$(PODWRAPPER) \
 	  --man virt-p2v-make-kickstart.1 \
 	  --html $(top_builddir)/website/virt-p2v-make-kickstart.1.html \
+	  --license GPLv2+ \
+	  --warning safe \
+	  $<
+	touch $@
+
+virt-p2v-make-kiwi.1 $(top_builddir)/website/virt-p2v-make-kiwi.1.html: stamp-virt-p2v-make-kiwi.pod
+
+stamp-virt-p2v-make-kiwi.pod: virt-p2v-make-kiwi.pod
+	$(PODWRAPPER) \
+	  --man virt-p2v-make-kiwi.1 \
+	  --html $(top_builddir)/website/virt-p2v-make-kiwi.1.html \
 	  --license GPLv2+ \
 	  --warning safe \
 	  $<

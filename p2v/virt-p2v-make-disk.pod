@@ -184,6 +184,7 @@ L</FILES> above).  If not set, a compiled-in location is used.
 
 L<virt-p2v(1)>,
 L<virt-p2v-make-kickstart(1)>,
+L<virt-p2v-make-kiwi(1)>,
 L<virt-v2v(1)>,
 L<http://libguestfs.org/>.
 
