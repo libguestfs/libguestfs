@@ -654,7 +654,10 @@ test_connection_ok (gpointer user_data)
 static void
 configure_network_button_clicked (GtkWidget *w, gpointer data)
 {
-  ignore_value (system ("nm-connection-editor &"));
+  if (access ("/sbin/yast2", X_OK) >= 0)
+    ignore_value (system ("yast2 lan &"));
+  else
+    ignore_value (system ("nm-connection-editor &"));
 }
 
 /**
