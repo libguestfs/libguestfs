@@ -138,7 +138,7 @@ compile_regexps (void)
     CHECK_PARTIAL_OK ((pattern), re);					\
   } while (0)
 
-  COMPILE (password_re, "assword", 0);
+  COMPILE (password_re, "password:", 0);
   COMPILE (ssh_message_re, "(ssh: .*)", 0);
   /* The magic synchronization strings all match this expression.  See
    * start_ssh function below.
