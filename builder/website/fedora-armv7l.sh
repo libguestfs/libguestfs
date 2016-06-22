@@ -29,7 +29,7 @@ if [ $# -ne 1 ]; then
 fi
 
 version=$1
-tree=http://mirror.ox.ac.uk/sites/download.fedora.redhat.com/pub/fedora/linux/releases/$version/Server/armhfp/os/
+tree=http://mirror.bytemark.co.uk/fedora/linux/releases/$version/Server/armhfp/os/
 output=fedora-$version-armv7l
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
