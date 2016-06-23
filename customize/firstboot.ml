@@ -193,13 +193,7 @@ module Windows = struct
     let srvany =
       try
         List.find (
-          fun service ->
-            try
-              let chan = open_in (virt_tools_data_dir // service) in
-              close_in chan;
-              true
-            with _ ->
-              false
+          fun service -> Sys.file_exists (virt_tools_data_dir // service)
         ) services
       with Not_found ->
        error (f_"One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is required in order to install Windows firstboot scripts.  You can get one by building rhsrvany (https://github.com/rwmjones/rhsrvany)")

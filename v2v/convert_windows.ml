@@ -48,14 +48,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let installer =
     try
       let t, tool = List.find (
-        fun (_, tool) ->
-          try (
-            let exe_path = virt_tools_data_dir // tool in
-            let chan = open_in exe_path in
-            close_in chan;
-            true
-          ) with _ ->
-            false
+        fun (_, tool) -> Sys.file_exists (virt_tools_data_dir // tool)
       ) tools in
       Some (t, virt_tools_data_dir // tool)
     with Not_found -> (
