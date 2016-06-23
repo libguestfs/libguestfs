@@ -169,19 +169,6 @@ Write a compressed output file.  This is only allowed if the output
 format is qcow2 (see I<-of> below), and is equivalent to the I<-c>
 option of L<qemu-img(1)>.
 
-=item B<--dcpath> Folder/Datacenter
-
-B<NB:> You don't need to use this parameter if you have
-S<libvirt E<ge> 1.2.20>.
-
-For VMware vCenter, override the C<dcPath=...> parameter used to
-select the datacenter.  Virt-v2v can usually calculate this from the
-C<vpx://> URI, but if it gets it wrong, then you can override it using
-this setting.  Go to your vCenter web folder interface, eg.
-C<https://vcenter.example.com/folder> (I<without> a trailing slash),
-and examine the C<dcPath=> parameter in the URLs that appear on this
-page.
-
 =item B<--debug-gc>
 
 Debug garbage collection and memory allocation.  This is only useful
