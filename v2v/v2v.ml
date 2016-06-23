@@ -201,10 +201,11 @@ and amend_source cmdline source =
 
   { source with s_nics = nics }
 
+and overlay_dir = (open_guestfs ())#get_cachedir ()
+
 (* Create a qcow2 v3 overlay to protect the source image(s). *)
 and create_overlays src_disks =
   message (f_"Creating an overlay to protect the source from being modified");
-  let overlay_dir = (open_guestfs ())#get_cachedir () in
   List.mapi (
     fun i ({ s_qemu_uri = qemu_uri; s_format = format } as source) ->
       let overlay_file =
@@ -720,7 +721,6 @@ and actual_target_size target =
 
 (* Save overlays if --debug-overlays option was used. *)
 and preserve_overlays overlays src_name =
-  let overlay_dir = (open_guestfs ())#get_cachedir () in
   List.iter (
     fun ov ->
       let saved_filename =
