@@ -98,6 +98,7 @@ static void free_regexps (void) __attribute__((destructor));
 
 static pcre *password_re;
 static pcre *ssh_message_re;
+static pcre *sudo_password_re;
 static pcre *prompt_re;
 static pcre *version_re;
 static pcre *feature_libguestfs_rewrite_re;
@@ -141,6 +142,7 @@ compile_regexps (void)
 
   COMPILE (password_re, "password:", 0);
   COMPILE (ssh_message_re, "(ssh: .*)", 0);
+  COMPILE (sudo_password_re, "sudo: a password is required", 0);
   /* The magic synchronization strings all match this expression.  See
    * start_ssh function below.
    */
@@ -161,6 +163,7 @@ free_regexps (void)
 {
   pcre_free (password_re);
   pcre_free (ssh_message_re);
+  pcre_free (sudo_password_re);
   pcre_free (prompt_re);
   pcre_free (version_re);
   pcre_free (feature_libguestfs_rewrite_re);
@@ -546,6 +549,7 @@ test_connection (struct config *config)
                          (mexp_regexp[]) {
                            { 100, .re = version_re },
                            { 101, .re = prompt_re },
+                           { 102, .re = sudo_password_re },
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                   /* Got version string. */
@@ -559,6 +563,11 @@ test_connection (struct config *config)
 
     case 101:             /* Got the prompt. */
       goto end_of_version;
+
+    case 102:
+      mexp_close (h);
+      set_ssh_error ("sudo for user '%s' requires a password", config->username);
+      return -1;
 
     case MEXP_EOF:
       mexp_close (h);
