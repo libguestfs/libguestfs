@@ -3552,7 +3552,7 @@ value: If C<XDG_RUNTIME_DIR> is set, then that is the default.
 Else F</tmp> is the default." };
 
   { defaults with
-    name = "filesystem_walk"; added = (1, 33, 37);
+    name = "filesystem_walk"; added = (1, 33, 39);
     style = RStructList ("dirents", "tsk_dirent"), [Mountable "device";], [];
     optional = Some "libtsk";
     progress = true; cancellable = true;
@@ -13106,7 +13106,7 @@ If not all the devices for the filesystems are present, then this function
 fails and the C<errno> is set to C<ENODEV>." };
 
   { defaults with
-    name = "internal_filesystem_walk"; added = (1, 33, 37);
+    name = "internal_filesystem_walk"; added = (1, 33, 39);
     style = RErr, [Mountable "device"; FileOut "filename"], [];
     proc_nr = Some 466;
     visibility = VInternal;
