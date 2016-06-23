@@ -35,6 +35,7 @@ SOURCES_MLI = \
 	planner.mli \
 	progress.mli \
 	regedit.mli \
+	StatVFS.mli \
 	URI.mli
 
 SOURCES_ML = \
@@ -50,6 +51,7 @@ SOURCES_ML = \
 	mkdtemp.ml \
 	planner.ml \
 	regedit.ml \
+	StatVFS.ml \
 	JSON.ml
 
 SOURCES_C = \
@@ -59,6 +61,7 @@ SOURCES_C = \
 	fsync-c.c \
 	mkdtemp-c.c \
 	progress-c.c \
+	statvfs-c.c \
 	uri-c.c
 
 if HAVE_OCAML

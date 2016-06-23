@@ -1,5 +1,5 @@
-/* virt-sparsify - interface to statvfs
- * Copyright (C) 2013 Red Hat Inc.
+/* virt tools interface to statvfs
+ * Copyright (C) 2013-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,10 +28,10 @@
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
-#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+extern value guestfs_int_mllib_statvfs_free_space (value pathv);
 
 value
-virt_sparsify_statvfs_free_space (value pathv)
+guestfs_int_mllib_statvfs_free_space (value pathv)
 {
   CAMLparam1 (pathv);
   CAMLlocal1 (rv);

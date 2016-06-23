@@ -179,6 +179,7 @@ mllib/dummy.c
 mllib/fsync-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
+mllib/statvfs-c.c
 mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
@@ -200,7 +201,6 @@ python/guestfs-py-byhand.c
 python/guestfs-py.c
 rescue/rescue.c
 ruby/ext/guestfs/_guestfs.c
-sparsify/statvfs-c.c
 src/actions-0.c
 src/actions-1.c
 src/actions-2.c
