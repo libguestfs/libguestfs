@@ -416,13 +416,28 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   if (!wait_prompt)
     return h;
 
-  /* Synchronize with the command prompt and set it to a known string. */
-
-  /* Note that we cannot control the initial prompt.  It would involve
+  /* Ensure we are running bash, set environment variables, and
+   * synchronize with the command prompt and set it to a known
+   * string.  There are multiple issues being solved here:
+   *
+   * We cannot control the initial shell prompt.  It would involve
    * changing the remote SSH configuration (AcceptEnv).  However what
    * we can do is to repeatedly send 'export PS1=<magic>' commands
    * until we synchronize with the remote shell.
+   *
+   * We don't know if the user is using a Bourne-like shell (eg sh,
+   * bash) or csh/tcsh.  Setting environment variables works
+   * differently.
+   *
+   * We don't know how command line editing is set up
+   * (https://bugzilla.redhat.com/1314244#c9).
    */
+  if (mexp_printf (h, "exec bash --noediting --noprofile\n") == -1) {
+    set_ssh_error ("setting bash as remote shell: %m");
+    mexp_close (h);
+    return NULL;
+  }
+
   saved_timeout = mexp_get_timeout_ms (h);
   mexp_set_timeout (h, 2);
 
