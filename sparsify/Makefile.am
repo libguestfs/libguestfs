@@ -39,7 +39,7 @@ SOURCES_C = \
 	../fish/progress.c \
 	../mllib/dev_t-c.c \
 	../mllib/progress-c.c \
-	statvfs-c.c
+	../mllib/statvfs-c.c
 
 if HAVE_OCAML
 
@@ -61,6 +61,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/dev_t.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/progress.cmo \
+	$(top_builddir)/mllib/StatVFS.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
