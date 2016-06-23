@@ -49,6 +49,7 @@ let rec main () =
 
   let conversion_mode =
     if not cmdline.in_place then (
+      check_host_free_space ();
       let overlays = create_overlays source.s_disks in
       let targets = init_targets cmdline output source overlays in
       Copying (overlays, targets)
@@ -202,6 +203,20 @@ and amend_source cmdline source =
   { source with s_nics = nics }
 
 and overlay_dir = (open_guestfs ())#get_cachedir ()
+
+(* Conversion can fail or hang if there is insufficient free space in
+ * the temporary directory used to store overlays on the host
+ * (RHBZ#1316479).  Although only a few hundred MB is actually
+ * required, make the minimum be 1 GB to allow for the possible 500 MB
+ * guestfs appliance which is also stored here.
+ *)
+and check_host_free_space () =
+  let free_space = StatVFS.free_space overlay_dir in
+  debug "check_host_free_space: overlay_dir=%s free_space=%Ld"
+        overlay_dir free_space;
+  if free_space < 1_073_741_824L then
+    error (f_"insufficient free space in the conversion server temporary directory %s (%s).\n\nEither free up space in that directory, or set the LIBGUESTFS_CACHEDIR environment variable to point to another directory with more than 1GB of free space.\n\nSee also the virt-v2v(1) manual, section \"Minimum free space check in the host\".")
+          overlay_dir (human_size free_space)
 
 (* Create a qcow2 v3 overlay to protect the source image(s). *)
 and create_overlays src_disks =

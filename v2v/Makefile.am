@@ -117,6 +117,7 @@ SOURCES_ML = \
 SOURCES_C = \
 	../mllib/dev_t-c.c \
 	../mllib/mkdtemp-c.c \
+	../mllib/statvfs-c.c \
 	domainxml-c.c \
 	changeuid-c.c \
 	utils-c.c \
@@ -145,6 +146,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
+	$(top_builddir)/mllib/StatVFS.cmo \
 	$(top_builddir)/mllib/curl.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/firstboot.cmo \
@@ -192,6 +194,7 @@ virt_v2v_LINK = \
 
 virt_v2v_copy_to_local_SOURCES = \
 	../mllib/dev_t-c.c \
+	../mllib/statvfs-c.c \
 	domainxml-c.c \
 	utils-c.c \
 	xml-c.c
@@ -211,6 +214,7 @@ COPY_TO_LOCAL_BOBJECTS = \
 	$(top_builddir)/mllib/dev_t.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
+	$(top_builddir)/mllib/StatVFS.cmo \
 	$(top_builddir)/mllib/curl.cmo \
 	xml.cmo \
 	utils.cmo \

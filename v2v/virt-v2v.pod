@@ -1495,6 +1495,8 @@ This temporarily places a full copy of the output disks in C<$TMPDIR>.
 
 =back
 
+See also L</Minimum free space check in the host> below.
+
 =head2 VMware vCenter resources
 
 Copying from VMware vCenter is currently quite slow, but we believe
@@ -1546,6 +1548,8 @@ prevent the guest from subsequently booting correctly.
 
 =head1 FREE SPACE FOR CONVERSION
 
+=head2 Free space in the guest
+
 Virt-v2v checks there is sufficient free space in the guest filesystem
 to perform the conversion.  Currently it checks:
 
@@ -1567,6 +1571,21 @@ Linux conversions.
 Minimum free space: 10 MB
 
 =back
+
+=head2 Minimum free space check in the host
+
+You must have sufficient free space in the host directory used to
+store temporary overlays (except in [--in-place] mode).  To find out
+which directory this is, use:
+
+ $ df -h "`guestfish get-cachedir`"
+ Filesystem        Size  Used Avail Use% Mounted on
+ /dev/mapper/root   50G   40G  6.8G  86% /
+
+and look under the C<Avail> column.  Virt-v2v will refuse to do the
+conversion at all unless at least 1GB is available there.
+
+See also L</RESOURCE REQUIREMENTS> above.
 
 =head1 RUNNING VIRT-V2V AS ROOT OR NON-ROOT
 
