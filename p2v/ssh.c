@@ -93,6 +93,21 @@ get_ssh_error (void)
   return ssh_error;
 }
 
+/* Like set_ssh_error, but for errors that aren't supposed to happen. */
+#define set_ssh_internal_error(fs, ...) \
+  set_ssh_error ("internal error: " fs, ##__VA_ARGS__)
+#define set_ssh_mexp_error(fn) \
+  set_ssh_internal_error ("%s: %m", fn)
+#define set_ssh_pcre_error() \
+  set_ssh_internal_error ("pcre error: %d\n", mexp_get_pcre_error (h))
+
+#define set_ssh_unexpected_eof(fs, ...)                               \
+  set_ssh_error ("remote server closed the connection unexpectedly, " \
+                 "waiting for: " fs, ##__VA_ARGS__)
+#define set_ssh_unexpected_timeout(fs, ...)               \
+  set_ssh_error ("remote server timed out unexpectedly, " \
+                 "waiting for: " fs, ##__VA_ARGS__)
+
 static void compile_regexps (void) __attribute__((constructor));
 static void free_regexps (void) __attribute__((destructor));
 
@@ -241,7 +256,7 @@ curl_download (const char *url, const char *local_file)
     return -1;
   }
   else if (!WIFEXITED (r)) {
-    set_ssh_error ("curl subprocess got a signal (%d)", r);
+    set_ssh_internal_error ("curl subprocess got a signal (%d)", r);
     unlink (error_file);
     return -1;
   }
@@ -353,7 +368,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
 
   h = mexp_spawnv ("ssh", (char **) args);
   if (h == NULL) {
-    set_ssh_error ("internal error: ssh: mexp_spawnv: %m");
+    set_ssh_internal_error ("ssh: mexp_spawnv: %m");
     return NULL;
   }
 
@@ -371,7 +386,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
                          }, ovector, ovecsize)) {
     case 100:                   /* Got password prompt. */
       if (mexp_printf (h, "%s\n", config->password) == -1) {
-        set_ssh_error ("mexp_printf: %m");
+        set_ssh_mexp_error ("mexp_printf");
         mexp_close (h);
         return NULL;
       }
@@ -383,7 +398,6 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       goto wait_password_again;
 
     case MEXP_EOF:
-      mexp_close (h);
       /* This is where we get to if the user enters an incorrect or
        * impossible hostname or port number.  Hopefully ssh printed an
        * error message, and we picked it up and put it in
@@ -393,21 +407,22 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       if (ssh_message)
         set_ssh_error ("%s", ssh_message);
       else
-        set_ssh_error ("unknown ssh error");
+        set_ssh_error ("ssh closed the connection without printing an error.");
+      mexp_close (h);
       return NULL;
 
     case MEXP_TIMEOUT:
+      set_ssh_unexpected_timeout ("password prompt");
       mexp_close (h);
-      set_ssh_error ("timeout waiting for password prompt");
       return NULL;
 
     case MEXP_ERROR:
-      set_ssh_error ("mexp_expect: %m");
+      set_ssh_mexp_error ("mexp_expect");
       mexp_close (h);
       return NULL;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+      set_ssh_pcre_error ();
       mexp_close (h);
       return NULL;
     }
@@ -435,7 +450,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
    * (https://bugzilla.redhat.com/1314244#c9).
    */
   if (mexp_printf (h, "exec bash --noediting --noprofile\n") == -1) {
-    set_ssh_error ("setting bash as remote shell: %m");
+    set_ssh_mexp_error ("mexp_printf");
     mexp_close (h);
     return NULL;
   }
@@ -449,7 +464,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
     int r;
 
     if (guestfs_int_random_string (magic, 8) == -1) {
-      set_ssh_error ("random_string: %m");
+      set_ssh_internal_error ("random_string: %m");
       mexp_close (h);
       return NULL;
     }
@@ -458,7 +473,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
      * mistake the command echo for the prompt.
      */
     if (mexp_printf (h, "export LANG=C PS1='###''%s''### '\n", magic) == -1) {
-      set_ssh_error ("random_string: %m");
+      set_ssh_mexp_error ("mexp_printf");
       mexp_close (h);
       return NULL;
     }
@@ -472,8 +487,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
                            { 0 }
                          }, ovector, ovecsize)) {
     case 100:                    /* Got password prompt unexpectedly. */
+      set_ssh_error ("Login failed.  Probably the username and/or password is wrong.");
       mexp_close (h);
-      set_ssh_error ("login failed - probably the username and/or password is wrong");
       return NULL;
 
     case 101:
@@ -483,7 +498,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       r = pcre_get_substring (h->buffer, ovector,
                               mexp_get_pcre_error (h), 1, &matched);
       if (r < 0) {
-        fprintf (stderr, "error: PCRE error reading substring (%d)\n", r);
+        fprintf (stderr, "error: pcre error reading substring (%d)\n", r);
         exit (EXIT_FAILURE);
       }
       r = STREQ (magic, matched);
@@ -493,8 +508,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       goto got_prompt;
 
     case MEXP_EOF:
+      set_ssh_unexpected_eof ("the command prompt");
       mexp_close (h);
-      set_ssh_error ("unexpected end of file waiting for command prompt");
       return NULL;
 
     case MEXP_TIMEOUT:
@@ -504,19 +519,19 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
       break;
 
     case MEXP_ERROR:
-      set_ssh_error ("mexp_expect: %m");
+      set_ssh_mexp_error ("mexp_expect");
       mexp_close (h);
       return NULL;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+      set_ssh_pcre_error ();
       mexp_close (h);
       return NULL;
     }
   }
 
+  set_ssh_error ("Failed to synchronize with remote shell after 60 seconds.");
   mexp_close (h);
-  set_ssh_error ("failed to synchronize with remote shell after 60 seconds");
   return NULL;
 
  got_prompt:
@@ -556,7 +571,7 @@ test_connection (struct config *config)
   if (mexp_printf (h,
                    "%svirt-v2v --version\n",
                    config->sudo ? "sudo -n " : "") == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     mexp_close (h);
     return -1;
   }
@@ -582,28 +597,28 @@ test_connection (struct config *config)
       goto end_of_version;
 
     case 102:
-      mexp_close (h);
       set_ssh_error ("sudo for user \"%s\" requires a password.  Edit /etc/sudoers on the conversion server to ensure the \"NOPASSWD:\" option is set for this user.",
                      config->username);
+      mexp_close (h);
       return -1;
 
     case MEXP_EOF:
+      set_ssh_unexpected_eof ("\"virt-v2v --version\" output");
       mexp_close (h);
-      set_ssh_error ("unexpected end of file waiting virt-v2v --version output");
       return -1;
 
     case MEXP_TIMEOUT:
+      set_ssh_unexpected_timeout ("\"virt-v2v --version\" output");
       mexp_close (h);
-      set_ssh_error ("timeout waiting for virt-v2v --version output");
       return -1;
 
     case MEXP_ERROR:
-      set_ssh_error ("mexp_expect: %m");
+      set_ssh_mexp_error ("mexp_expect");
       mexp_close (h);
       return -1;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+      set_ssh_pcre_error ();
       mexp_close (h);
       return -1;
     }
@@ -612,9 +627,9 @@ test_connection (struct config *config)
 
   /* Got the prompt but no version number. */
   if (v2v_version == NULL) {
-    mexp_close (h);
     set_ssh_error ("virt-v2v is not installed on the conversion server, "
-                   "or it might be a too old version");
+                   "or it might be a too old version.");
+    mexp_close (h);
     return -1;
   }
 
@@ -634,7 +649,7 @@ test_connection (struct config *config)
   /* Get virt-v2v features.  See: v2v/cmdline.ml */
   if (mexp_printf (h, "%svirt-v2v --machine-readable\n",
                    config->sudo ? "sudo -n " : "") == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     mexp_close (h);
     return -1;
   }
@@ -677,22 +692,22 @@ test_connection (struct config *config)
       goto end_of_machine_readable;
 
     case MEXP_EOF:
+      set_ssh_unexpected_eof ("\"virt-v2v --machine-readable\" output");
       mexp_close (h);
-      set_ssh_error ("unexpected end of file waiting virt-v2v --machine-readable output");
       return -1;
 
     case MEXP_TIMEOUT:
+      set_ssh_unexpected_timeout ("\"virt-v2v --machine-readable\" output");
       mexp_close (h);
-      set_ssh_error ("timeout waiting virt-v2v --machine-readable output");
       return -1;
 
     case MEXP_ERROR:
-      set_ssh_error ("mexp_expect: %m");
+      set_ssh_mexp_error ("mexp_expect");
       mexp_close (h);
       return -1;
 
     case MEXP_PCRE_ERROR:
-      set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+      set_ssh_pcre_error ();
       mexp_close (h);
       return -1;
     }
@@ -700,14 +715,14 @@ test_connection (struct config *config)
  end_of_machine_readable:
 
   if (!feature_libguestfs_rewrite) {
+    set_ssh_error ("Invalid output of \"virt-v2v --machine-readable\" command.");
     mexp_close (h);
-    set_ssh_error ("invalid output of virt-v2v --machine-readable command");
     return -1;
   }
 
   /* Test finished, shut down ssh. */
   if (mexp_printf (h, "exit\n") == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     mexp_close (h);
     return -1;
   }
@@ -717,30 +732,31 @@ test_connection (struct config *config)
     break;
 
   case MEXP_TIMEOUT:
+    set_ssh_unexpected_timeout ("end of ssh session");
     mexp_close (h);
-    set_ssh_error ("timeout waiting for end of ssh session");
     return -1;
 
   case MEXP_ERROR:
-    set_ssh_error ("mexp_expect: %m");
+    set_ssh_mexp_error ("mexp_expect");
     mexp_close (h);
     return -1;
 
   case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+    set_ssh_pcre_error ();
     mexp_close (h);
     return -1;
   }
 
   status = mexp_close (h);
   if (status == -1) {
-    set_ssh_error ("mexp_close: %m");
+    set_ssh_internal_error ("mexp_close: %m");
     return -1;
   }
   if (WIFSIGNALED (status) && WTERMSIG (status) == SIGHUP)
     return 0; /* not an error */
   if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
-    set_ssh_error ("unexpected close status from ssh subprocess (%d)", status);
+    set_ssh_internal_error ("unexpected close status from ssh subprocess (%d)",
+                            status);
     return -1;
   }
   return 0;
@@ -799,7 +815,7 @@ compatible_version (const char *v2v_version)
   /* The major version must always be 1. */
   if (!STRPREFIX (v2v_version, "1.")) {
     set_ssh_error ("virt-v2v major version is not 1 (\"%s\"), "
-                   "this version of virt-p2v is not compatible",
+                   "this version of virt-p2v is not compatible.",
                    v2v_version);
     return 0;
   }
@@ -810,15 +826,15 @@ compatible_version (const char *v2v_version)
    * We should remain compatible with any virt-v2v after 1.28.
    */
   if (sscanf (v2v_version, "1.%u", &v2v_minor) != 1) {
-    set_ssh_error ("cannot parse virt-v2v version string (\"%s\")",
-                   v2v_version);
+    set_ssh_internal_error ("cannot parse virt-v2v version string (\"%s\")",
+                            v2v_version);
     return 0;
   }
 
   if (v2v_minor < 28) {
     set_ssh_error ("virt-v2v version is < 1.28 (\"%s\"), "
                    "you must upgrade to virt-v2v >= 1.28 on "
-                   "the conversion server", v2v_version);
+                   "the conversion server.", v2v_version);
     return 0;
   }
 
@@ -858,34 +874,35 @@ open_data_connection (struct config *config, int *local_port, int *remote_port)
   case 100:                     /* Ephemeral port. */
     port_str = strndup (&h->buffer[ovector[2]], ovector[3]-ovector[2]);
     if (port_str == NULL) {
-      set_ssh_error ("not enough memory for strndup");
+      set_ssh_internal_error ("strndup: %m");
       mexp_close (h);
       return NULL;
     }
     if (sscanf (port_str, "%d", remote_port) != 1) {
-      set_ssh_error ("cannot extract the port number from '%s'", port_str);
+      set_ssh_internal_error ("cannot extract the port number from '%s'",
+                              port_str);
       mexp_close (h);
       return NULL;
     }
     break;
 
   case MEXP_EOF:
+    set_ssh_unexpected_eof ("\"ssh -R\" output");
     mexp_close (h);
-    set_ssh_error ("unexpected end of file waiting ssh -R output");
     return NULL;
 
   case MEXP_TIMEOUT:
+    set_ssh_unexpected_timeout ("\"ssh -R\" output");
     mexp_close (h);
-    set_ssh_error ("timeout waiting for ssh -R output");
     return NULL;
 
   case MEXP_ERROR:
-    set_ssh_error ("mexp_expect: %m");
+    set_ssh_mexp_error ("mexp_expect");
     mexp_close (h);
     return NULL;
 
   case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+    set_ssh_pcre_error ();
     mexp_close (h);
     return NULL;
   }
@@ -909,19 +926,19 @@ wait_for_prompt (mexp_h *h)
     return 0;
 
   case MEXP_EOF:
-    set_ssh_error ("unexpected end of file waiting for prompt");
+    set_ssh_unexpected_eof ("command prompt");
     return -1;
 
   case MEXP_TIMEOUT:
-    set_ssh_error ("timeout waiting for prompt");
+    set_ssh_unexpected_timeout ("command prompt");
     return -1;
 
   case MEXP_ERROR:
-    set_ssh_error ("mexp_expect: %m");
+    set_ssh_mexp_error ("mexp_expect");
     return -1;
 
   case MEXP_PCRE_ERROR:
-    set_ssh_error ("PCRE error: %d\n", mexp_get_pcre_error (h));
+    set_ssh_pcre_error ();
     return -1;
   }
 
@@ -947,7 +964,7 @@ start_remote_connection (struct config *config,
 
   /* Create the remote directory. */
   if (mexp_printf (h, "mkdir %s\n", remote_dir) == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     goto error;
   }
 
@@ -957,7 +974,7 @@ start_remote_connection (struct config *config,
   /* Write some useful config information to files in the remote directory. */
   if (mexp_printf (h, "echo '%s' > %s/name\n",
                    config->guestname, remote_dir) == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     goto error;
   }
 
@@ -965,7 +982,7 @@ start_remote_connection (struct config *config,
     goto error;
 
   if (mexp_printf (h, "date > %s/time\n", remote_dir) == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     goto error;
   }
 
@@ -980,7 +997,7 @@ start_remote_connection (struct config *config,
                    remote_dir, magic,
                    libvirt_xml,
                    magic) == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     goto error;
   }
 
@@ -995,7 +1012,7 @@ start_remote_connection (struct config *config,
                    remote_dir, magic,
                    wrapper_script,
                    magic) == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     goto error;
   }
 
@@ -1003,7 +1020,7 @@ start_remote_connection (struct config *config,
     goto error;
 
   if (mexp_printf (h, "chmod +x %s/virt-v2v-wrapper.sh\n", remote_dir) == -1) {
-    set_ssh_error ("mexp_printf: %m");
+    set_ssh_mexp_error ("mexp_printf");
     goto error;
   }
 
@@ -1020,7 +1037,7 @@ start_remote_connection (struct config *config,
                      remote_dir, magic,
                      dmesg,
                      magic) == -1) {
-      set_ssh_error ("mexp_printf: %m");
+      set_ssh_mexp_error ("mexp_printf");
       goto error;
     }
 
