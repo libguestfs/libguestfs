@@ -583,7 +583,8 @@ test_connection (struct config *config)
 
     case 102:
       mexp_close (h);
-      set_ssh_error ("sudo for user '%s' requires a password", config->username);
+      set_ssh_error ("sudo for user \"%s\" requires a password.  Edit /etc/sudoers on the conversion server to ensure the \"NOPASSWD:\" option is set for this user.",
+                     config->username);
       return -1;
 
     case MEXP_EOF:
