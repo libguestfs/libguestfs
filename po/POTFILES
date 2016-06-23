@@ -109,6 +109,7 @@ daemon/sync.c
 daemon/syslinux.c
 daemon/tar.c
 daemon/truncate.c
+daemon/tsk.c
 daemon/umask.c
 daemon/upload.c
 daemon/utimens.c
@@ -256,6 +257,7 @@ gobject/src/struct-partition.c
 gobject/src/struct-stat.c
 gobject/src/struct-statns.c
 gobject/src/struct-statvfs.c
+gobject/src/struct-tsk_dirent.c
 gobject/src/struct-utsname.c
 gobject/src/struct-version.c
 gobject/src/struct-xattr.c
@@ -270,6 +272,7 @@ mllib/dummy.c
 mllib/fsync-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
+mllib/statvfs-c.c
 mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
@@ -296,7 +299,6 @@ rescue/rescue.c
 rescue/test-virt-rescue.pl
 resize/test-virt-resize.pl
 ruby/ext/guestfs/_guestfs.c
-sparsify/statvfs-c.c
 src/actions-0.c
 src/actions-1.c
 src/actions-2.c
@@ -360,6 +362,7 @@ src/structs-copy.c
 src/structs-free.c
 src/structs-print.c
 src/tmpdirs.c
+src/tsk.c
 src/uefi.c
 src/umask.c
 src/unit-tests.c

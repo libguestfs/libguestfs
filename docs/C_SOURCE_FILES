@@ -105,6 +105,7 @@ daemon/sync.c
 daemon/syslinux.c
 daemon/tar.c
 daemon/truncate.c
+daemon/tsk.c
 daemon/umask.c
 daemon/upload.c
 daemon/utimens.c
@@ -262,6 +263,7 @@ src/structs-copy.c
 src/structs-free.c
 src/structs-print.c
 src/tmpdirs.c
+src/tsk.c
 src/uefi.c
 src/umask.c
 src/unit-tests.c

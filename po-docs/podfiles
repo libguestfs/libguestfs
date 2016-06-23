@@ -47,6 +47,7 @@
 ../ocaml/examples/guestfs-ocaml.pod
 ../p2v/virt-p2v-make-disk.pod
 ../p2v/virt-p2v-make-kickstart.pod
+../p2v/virt-p2v-make-kiwi.pod
 ../p2v/virt-p2v.pod
 ../perl/examples/guestfs-perl.pod
 ../python/examples/guestfs-python.pod

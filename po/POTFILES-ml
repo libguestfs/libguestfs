@@ -38,6 +38,7 @@ dib/utils.ml
 get-kernel/get_kernel.ml
 mllib/JSON.ml
 mllib/JSON_tests.ml
+mllib/StatVFS.ml
 mllib/URI.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
