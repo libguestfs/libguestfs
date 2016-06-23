@@ -211,10 +211,11 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (* Perform the conversion of the Windows guest. *)
 
   let rec configure_firstboot () =
-    match installer with
-    | None -> ()
-    | Some (`RhevApt, tool_path) -> configure_rhev_apt tool_path
-    | Some (`VmdpExe, tool_path) -> configure_vmdp tool_path;
+    (match installer with
+     | None -> ()
+     | Some (`RhevApt, tool_path) -> configure_rhev_apt tool_path
+     | Some (`VmdpExe, tool_path) -> configure_vmdp tool_path
+    );
     unconfigure_xenpv ();
     unconfigure_prltools ()
 
