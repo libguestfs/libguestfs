@@ -22,4 +22,4 @@ $TEST_FUNCTIONS
 skip_if_skipped
 
 $top_srcdir/podcheck.pl virt-v2v.pod virt-v2v \
-  --ignore=--dcPath,--debug-overlay,--ic,--if,--in-place,--no-trim,--oa,--oc,--of,--on,--os,--vmtype
+  --ignore=--dcpath,--dcPath,--debug-overlay,--ic,--if,--in-place,--no-trim,--oa,--oc,--of,--on,--os,--vmtype
