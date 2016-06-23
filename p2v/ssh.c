@@ -425,6 +425,8 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
    * we can do is to repeatedly send 'export PS1=<magic>' commands
    * until we synchronize with the remote shell.
    *
+   * Since we parse error messages, we must set LANG=C.
+   *
    * We don't know if the user is using a Bourne-like shell (eg sh,
    * bash) or csh/tcsh.  Setting environment variables works
    * differently.
@@ -455,7 +457,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
     /* The purpose of the '' inside the string is to ensure we don't
      * mistake the command echo for the prompt.
      */
-    if (mexp_printf (h, "export PS1='###''%s''### '\n", magic) == -1) {
+    if (mexp_printf (h, "export LANG=C PS1='###''%s''### '\n", magic) == -1) {
       set_ssh_error ("random_string: %m");
       mexp_close (h);
       return NULL;
