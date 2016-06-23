@@ -78,7 +78,7 @@ let rec main () =
   let inspect = Inspect_source.inspect_source cmdline.root_choice g in
 
   let mpstats = get_mpstats g in
-  check_free_space mpstats;
+  check_guest_free_space mpstats;
   (match conversion_mode with
    | Copying (_, targets) ->
        check_target_free_space mpstats source targets output
@@ -327,7 +327,7 @@ and get_mpstats g =
  * (RHBZ#1139543).  To avoid this situation, check there is some
  * headroom.  Mainly we care about the root filesystem.
  *)
-and check_free_space mpstats =
+and check_guest_free_space mpstats =
   message (f_"Checking for sufficient free disk space in the guest");
   List.iter (
     fun { mp_path = mp;
