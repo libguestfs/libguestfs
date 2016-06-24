@@ -541,7 +541,7 @@ create_conversion_dialog (struct config *config)
   /* XXX It would be nice not to have to set this explicitly, but
    * if we don't then Gtk chooses a very small window.
    */
-  gtk_widget_set_size_request (conv_dlg, 900, 560);
+  gtk_widget_set_size_request (conv_dlg, 900, 600);
 
   /* The main dialog area. */
   hbox = gtk_hbox_new (TRUE, 1);
