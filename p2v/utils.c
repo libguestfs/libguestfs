@@ -20,9 +20,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <errno.h>
+#include <error.h>
 #include <locale.h>
 #include <libintl.h>
 
@@ -37,6 +40,68 @@
       len--;                                    \
     }                                           \
   } while (0)
+
+/**
+ * Return size of a block device, from F</sys/block/I<dev>/size>.
+ *
+ * This function always succeeds, or else exits (since we expect
+ * C<dev> to always be valid and the C<size> file to always exist).
+ */
+uint64_t
+get_blockdev_size (const char *dev)
+{
+  CLEANUP_FCLOSE FILE *fp = NULL;
+  CLEANUP_FREE char *path = NULL;
+  CLEANUP_FREE char *size_str = NULL;
+  size_t len;
+  uint64_t size;
+
+  if (asprintf (&path, "/sys/block/%s/size", dev) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
+
+  fp = fopen (path, "r");
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "fopen: %s", path);
+  if (getline (&size_str, &len, fp) == -1)
+    error (EXIT_FAILURE, errno, "getline: %s", path);
+
+  if (sscanf (size_str, "%" SCNu64, &size) != 1)
+    error (EXIT_FAILURE, 0, "cannot parse %s: %s", path, size_str);
+
+  size /= 2*1024*1024;     /* size from kernel is given in sectors? */
+  return size;
+}
+
+/**
+ * Return model of a block device, from F</sys/block/I<dev>/device/model>.
+ *
+ * Returns C<NULL> if the file was not found.  The caller must
+ * free the returned string.
+ */
+char *
+get_blockdev_model (const char *dev)
+{
+  CLEANUP_FCLOSE FILE *fp = NULL;
+  CLEANUP_FREE char *path = NULL;
+  char *model = NULL;
+  size_t len = 0;
+  ssize_t n;
+
+  if (asprintf (&path, "/sys/block/%s/device/model", dev) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
+  fp = fopen (path, "r");
+  if (fp == NULL) {
+    perror (path);
+    return NULL;
+  }
+  if ((n = getline (&model, &len, fp)) == -1) {
+    perror (path);
+    free (model);
+    return NULL;
+  }
+  CHOMP (model, n);
+  return model;
+}
 
 /* Return contents of /sys/class/net/<if_name>/address (if found). */
 char *

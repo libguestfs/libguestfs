@@ -869,47 +869,23 @@ populate_disks (GtkTreeView *disks_list)
                                     G_TYPE_STRING, G_TYPE_STRING);
   if (all_disks != NULL) {
     for (i = 0; all_disks[i] != NULL; ++i) {
-      CLEANUP_FREE char *size_filename = NULL;
-      CLEANUP_FREE char *model_filename = NULL;
-      CLEANUP_FREE char *size_str = NULL;
+      uint64_t size;
       CLEANUP_FREE char *size_gb = NULL;
       CLEANUP_FREE char *model = NULL;
-      uint64_t size;
 
-      if (asprintf (&size_filename, "/sys/block/%s/size",
-                    all_disks[i]) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-      if (g_file_get_contents (size_filename, &size_str, NULL, NULL) &&
-          sscanf (size_str, "%" SCNu64, &size) == 1) {
-        size /= 2*1024*1024; /* size from kernel is given in sectors? */
-        if (asprintf (&size_gb, "%" PRIu64, size) == -1) {
-          perror ("asprintf");
-          exit (EXIT_FAILURE);
-        }
-      }
-
-      if (asprintf (&model_filename, "/sys/block/%s/device/model",
-                    all_disks[i]) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-      if (g_file_get_contents (model_filename, &model, NULL, NULL)) {
-        /* Need to chomp trailing \n from the content. */
-        size_t len = strlen (model);
-        if (len > 0 && model[len-1] == '\n')
-          model[len-1] = '\0';
-      } else {
-        model = strdup ("");
+      if (all_disks[i][0] != '/') { /* not using --test-disk */
+        size = get_blockdev_size (all_disks[i]);
+        if (asprintf (&size_gb, "%" PRIu64, size) == -1)
+          error (EXIT_FAILURE, errno, "asprintf");
+        model = get_blockdev_model (all_disks[i]);
       }
 
       gtk_list_store_append (disks_store, &iter);
       gtk_list_store_set (disks_store, &iter,
                           DISKS_COL_CONVERT, TRUE,
                           DISKS_COL_DEVICE, all_disks[i],
-                          DISKS_COL_SIZE, size_gb,
-                          DISKS_COL_MODEL, model,
+                          DISKS_COL_SIZE, size_gb ? size_gb : "",
+                          DISKS_COL_MODEL, model ? model : "",
                           -1);
     }
   }
