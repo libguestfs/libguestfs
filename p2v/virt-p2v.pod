@@ -197,8 +197,10 @@ settings is fine.
      Convert  Device                        │
      [✔]      sda                           │
               1024G HITACHI                 │
+              s/n 12345                     │
      [✔]      sdb                           │
               119G HITACHI                  │
+              s/n 12346                     │
                                             │
 
 Normally you would want to convert all hard disks.  If you want

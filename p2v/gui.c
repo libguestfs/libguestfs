@@ -868,6 +868,7 @@ populate_disks (GtkTreeView *disks_list)
       uint64_t size;
       CLEANUP_FREE char *size_gb = NULL;
       CLEANUP_FREE char *model = NULL;
+      CLEANUP_FREE char *serial = NULL;
       CLEANUP_FREE char *device_descr = NULL;
 
       if (all_disks[i][0] != '/') { /* not using --test-disk */
@@ -875,15 +876,18 @@ populate_disks (GtkTreeView *disks_list)
         if (asprintf (&size_gb, "%" PRIu64 "G", size) == -1)
           error (EXIT_FAILURE, errno, "asprintf");
         model = get_blockdev_model (all_disks[i]);
+        serial = get_blockdev_serial (all_disks[i]);
       }
 
       if (asprintf (&device_descr,
                     "<b>%s</b>\n"
                     "<small>"
-                    "%s %s"
+                    "%s %s\n"
+                    "%s%s"
                     "</small>\n",
                     all_disks[i],
-                    size_gb ? size_gb : "", model ? model : "") == -1)
+                    size_gb ? size_gb : "", model ? model : "",
+                    serial ? "s/n " : "", serial ? serial : "") == -1)
         error (EXIT_FAILURE, errno, "asprintf");
 
       gtk_list_store_append (disks_store, &iter);

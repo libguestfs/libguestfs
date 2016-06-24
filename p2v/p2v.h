@@ -133,6 +133,7 @@ extern const char *get_ssh_error (void);
 /* utils.c */
 extern uint64_t get_blockdev_size (const char *dev);
 extern char *get_blockdev_model (const char *dev);
+extern char *get_blockdev_serial (const char *dev);
 extern char *get_if_addr (const char *if_name);
 extern char *get_if_vendor (const char *if_name, int truncate);
 extern void wait_network_online (const struct config *);

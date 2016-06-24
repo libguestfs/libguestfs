@@ -103,6 +103,40 @@ get_blockdev_model (const char *dev)
   return model;
 }
 
+/**
+ * Return the serial number of a block device.
+ *
+ * This is found using the lsblk command.
+ *
+ * Returns C<NULL> if we could not get the serial number.  The caller
+ * must free the returned string.
+ */
+char *
+get_blockdev_serial (const char *dev)
+{
+  CLEANUP_PCLOSE FILE *fp = NULL;
+  CLEANUP_FREE char *cmd = NULL;
+  char *serial = NULL;
+  size_t len = 0;
+  ssize_t n;
+
+  if (asprintf (&cmd, "lsblk -o serial /dev/%s --nodeps --noheadings",
+                dev) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
+  fp = popen (cmd, "r");
+  if (fp == NULL) {
+    perror (cmd);
+    return NULL;
+  }
+  if ((n = getline (&serial, &len, fp)) == -1) {
+    perror (cmd);
+    free (serial);
+    return NULL;
+  }
+  CHOMP (serial, n);
+  return serial;
+}
+
 /* Return contents of /sys/class/net/<if_name>/address (if found). */
 char *
 get_if_addr (const char *if_name)
