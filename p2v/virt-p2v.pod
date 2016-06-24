@@ -194,9 +194,11 @@ settings is fine.
  ─ ─ ───────────────────────────────────────┐
      Fixed hard disks                       │
                                             │
-     Convert  Device  Size (GB)  Model      │
-     [✔]      sda     1024       HITACHI    │
-     [✔]      sdb     119        HITACHI    │
+     Convert  Device                        │
+     [✔]      sda                           │
+              1024G HITACHI                 │
+     [✔]      sdb                           │
+              119G HITACHI                  │
                                             │
 
 Normally you would want to convert all hard disks.  If you want

@@ -503,8 +503,6 @@ static uint64_t get_memory_from_conv_dlg (void);
 enum {
   DISKS_COL_CONVERT = 0,
   DISKS_COL_DEVICE,
-  DISKS_COL_SIZE,
-  DISKS_COL_MODEL,
   NUM_DISKS_COLS,
 };
 
@@ -859,33 +857,39 @@ static void
 populate_disks (GtkTreeView *disks_list)
 {
   GtkListStore *disks_store;
-  GtkCellRenderer *disks_col_convert, *disks_col_device,
-    *disks_col_size, *disks_col_model;
+  GtkCellRenderer *disks_col_convert, *disks_col_device;
   GtkTreeIter iter;
   size_t i;
 
   disks_store = gtk_list_store_new (NUM_DISKS_COLS,
-                                    G_TYPE_BOOLEAN, G_TYPE_STRING,
-                                    G_TYPE_STRING, G_TYPE_STRING);
+                                    G_TYPE_BOOLEAN, G_TYPE_STRING);
   if (all_disks != NULL) {
     for (i = 0; all_disks[i] != NULL; ++i) {
       uint64_t size;
       CLEANUP_FREE char *size_gb = NULL;
       CLEANUP_FREE char *model = NULL;
+      CLEANUP_FREE char *device_descr = NULL;
 
       if (all_disks[i][0] != '/') { /* not using --test-disk */
         size = get_blockdev_size (all_disks[i]);
-        if (asprintf (&size_gb, "%" PRIu64, size) == -1)
+        if (asprintf (&size_gb, "%" PRIu64 "G", size) == -1)
           error (EXIT_FAILURE, errno, "asprintf");
         model = get_blockdev_model (all_disks[i]);
       }
 
+      if (asprintf (&device_descr,
+                    "<b>%s</b>\n"
+                    "<small>"
+                    "%s %s"
+                    "</small>\n",
+                    all_disks[i],
+                    size_gb ? size_gb : "", model ? model : "") == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
+
       gtk_list_store_append (disks_store, &iter);
       gtk_list_store_set (disks_store, &iter,
                           DISKS_COL_CONVERT, TRUE,
-                          DISKS_COL_DEVICE, all_disks[i],
-                          DISKS_COL_SIZE, size_gb ? size_gb : "",
-                          DISKS_COL_MODEL, model ? model : "",
+                          DISKS_COL_DEVICE, device_descr,
                           -1);
     }
   }
@@ -905,25 +909,9 @@ populate_disks (GtkTreeView *disks_list)
                                                -1,
                                                _("Device"),
                                                disks_col_device,
-                                               "text", DISKS_COL_DEVICE,
+                                               "markup", DISKS_COL_DEVICE,
                                                NULL);
   gtk_cell_renderer_set_alignment (disks_col_device, 0.0, 0.0);
-  disks_col_size = gtk_cell_renderer_text_new ();
-  gtk_tree_view_insert_column_with_attributes (disks_list,
-                                               -1,
-                                               _("Size (GB)"),
-                                               disks_col_size,
-                                               "text", DISKS_COL_SIZE,
-                                               NULL);
-  gtk_cell_renderer_set_alignment (disks_col_size, 0.0, 0.0);
-  disks_col_model = gtk_cell_renderer_text_new ();
-  gtk_tree_view_insert_column_with_attributes (disks_list,
-                                               -1,
-                                               _("Model"),
-                                               disks_col_model,
-                                               "text", DISKS_COL_MODEL,
-                                               NULL);
-  gtk_cell_renderer_set_alignment (disks_col_model, 0.0, 0.0);
 
   g_signal_connect (disks_col_convert, "toggled",
                     G_CALLBACK (toggled), disks_store);
@@ -941,10 +929,15 @@ populate_removable (GtkTreeView *removable_list)
                                         G_TYPE_BOOLEAN, G_TYPE_STRING);
   if (all_removable != NULL) {
     for (i = 0; all_removable[i] != NULL; ++i) {
+      CLEANUP_FREE char *device_descr = NULL;
+
+      if (asprintf (&device_descr, "<b>%s</b>\n", all_removable[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
+
       gtk_list_store_append (removable_store, &iter);
       gtk_list_store_set (removable_store, &iter,
                           REMOVABLE_COL_CONVERT, TRUE,
-                          REMOVABLE_COL_DEVICE, all_removable[i],
+                          REMOVABLE_COL_DEVICE, device_descr,
                           -1);
     }
   }
@@ -964,7 +957,7 @@ populate_removable (GtkTreeView *removable_list)
                                                -1,
                                                _("Device"),
                                                removable_col_device,
-                                               "text", REMOVABLE_COL_DEVICE,
+                                               "markup", REMOVABLE_COL_DEVICE,
                                                NULL);
   gtk_cell_renderer_set_alignment (removable_col_device, 0.0, 0.0);
 
