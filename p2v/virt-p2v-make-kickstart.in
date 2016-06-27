@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:vV \
-        --long help,inject-ssh-identity:,output:,proxy:,verbose,version \
+        --long help,inject-ssh-identity:,install:,output:,proxy:,verbose,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -41,6 +41,7 @@ usage ()
     exit $1
 }
 
+extra_packages=
 output=p2v.ks
 proxy=
 ssh_identity=
@@ -50,6 +51,9 @@ while true; do
     case "$1" in
         --inject-ssh-identity)
             ssh_identity="$2"
+            shift 2;;
+        --install)
+            extra_packages="${extra_packages:+${extra_packages},}$2"
             shift 2;;
         -o|--output)
             output="$2"
@@ -186,6 +190,7 @@ done < $depsfile
   -v "base64_ssh_identity=$base64_ssh_identity" \
   -v "base64_virt_p2v=$base64_virt_p2v" \
   -v "dependencies=$dependencies" \
+  -v "extra_packages=$extra_packages" \
   -v "md5sum_virt_p2v=$md5sum_virt_p2v" \
   -v "repos=$repos" \
   -v "libexecdir=$libexecdir" \
@@ -199,6 +204,7 @@ done < $depsfile
     gsub (/__BASE64_SSH_IDENTITY__/, base64_ssh_identity);
     gsub (/__BASE64_VIRT_P2V__/, base64_virt_p2v);
     gsub (/__DEPENDENCIES__/, dependencies);
+    gsub (/__EXTRA_PACKAGES__/, gensub (/,/, "\n", "g", extra_packages));
     gsub (/__MD5SUM_VIRT_P2V__/, md5sum_virt_p2v);
     gsub (/__REPOS__/, repos);
     gsub (/__LIBEXECDIR__/, libexecdir);

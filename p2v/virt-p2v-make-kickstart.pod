@@ -191,6 +191,15 @@ pxelinux starts up.
 
 =back
 
+=head1 ADDING EXTRA PACKAGES
+
+You can install extra packages using the I<--install> option.  This
+can be useful for making a more fully-featured virt-p2v disk with
+extra tools for debugging and troubleshooting.  Give a list of
+packages, separated by commas.  For example:
+
+ virt-p2v-make-kickstart [...] --install tcpdump,traceroute
+
 =head1 ADDING AN SSH IDENTITY
 
 You can inject an SSH identity (private key) file to the kickstart and
@@ -242,6 +251,11 @@ Display help.
 
 Add an SSH identity (private key) file into the kickstart.
 See L</ADDING AN SSH IDENTITY> above.
+
+=item B<--install> pkg,pkg,...
+
+Add extra packages to the kickstart C<%packages> section.
+See L</ADDING EXTRA PACKAGES> above.
 
 =item B<-o> OUTPUT
 
