@@ -57,6 +57,8 @@
 #include "miniexpect.h"
 #include "p2v.h"
 
+#define SSH_TIMEOUT 60          /* seconds */
+
 char *v2v_version = NULL;
 char **input_drivers = NULL;
 char **output_drivers = NULL;
@@ -309,6 +311,7 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
 {
   size_t i, j, nr_args, count;
   char port_str[64];
+  char connect_timeout_str[128];
   CLEANUP_FREE /* [sic] */ const char **args = NULL;
   mexp_h *h;
   const int ovecsize = 12;
@@ -328,9 +331,9 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
     nr_args = guestfs_int_count_strings (extra_args);
 
   if (using_password_auth)
-    nr_args += 11;
-  else
     nr_args += 13;
+  else
+    nr_args += 15;
   args = malloc (sizeof (char *) * nr_args);
   if (args == NULL) {
     perror ("malloc");
@@ -346,6 +349,10 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   args[j++] = config->username ? config->username : "root";
   args[j++] = "-o";             /* Host key will always be novel. */
   args[j++] = "StrictHostKeyChecking=no";
+  args[j++] = "-o";             /* ConnectTimeout */
+  snprintf (connect_timeout_str, sizeof connect_timeout_str,
+            "ConnectTimeout=%d", SSH_TIMEOUT);
+  args[j++] = connect_timeout_str;
   if (using_password_auth) {
     /* Only use password authentication. */
     args[j++] = "-o";
@@ -366,11 +373,29 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   args[j++] = NULL;
   assert (j == nr_args);
 
+#if DEBUG_STDERR && 0
+  fputs ("ssh command: ", stderr);
+  for (i = 0; i < nr_args - 1; ++i) {
+    if (i > 0) fputc (' ', stderr);
+    fputs (args[i], stderr);
+  }
+  fputc ('\n', stderr);
+#endif
+
+  /* Create the miniexpect handle. */
   h = mexp_spawnv ("ssh", (char **) args);
   if (h == NULL) {
     set_ssh_internal_error ("ssh: mexp_spawnv: %m");
     return NULL;
   }
+
+  /* We want the ssh ConnectTimeout to be less than the miniexpect
+   * timeout, so that if the server is completely unresponsive we
+   * still see the error from ssh, not a timeout from miniexpect.  The
+   * obvious solution to this is to set ConnectTimeout (above) and to
+   * set the miniexpect timeout to be a little bit larger.
+   */
+  mexp_set_timeout (h, SSH_TIMEOUT + 20);
 
   if (using_password_auth &&
       config->password && strlen (config->password) > 0) {
