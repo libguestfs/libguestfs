@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:V \
-        --long help,inject-ssh-identity:,no-warn-if-partition,output:,verbose,version \
+        --long help,inject-ssh-identity:,install:,no-warn-if-partition,output:,verbose,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -60,6 +60,11 @@ while true; do
             shift;;
 
         # virt-builder parameters that are passed through.
+        --install)
+            passthru[${#passthru[*]}]="$1"
+            passthru[${#passthru[*]}]="$2"
+            shift 2;;
+
         --no-warn-if-partition)
             passthru[${#passthru[*]}]="$1"
             shift;;

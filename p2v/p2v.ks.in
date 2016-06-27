@@ -76,6 +76,10 @@ dracut-live
 # The dependencies of virt-p2v.
 __DEPENDENCIES__
 
+# Extra packages requested by the user via the virt-p2v-make-kickstart
+# --install option (if any).
+__EXTRA_PACKAGES__
+
 %end
 
 # Post-install configuration.

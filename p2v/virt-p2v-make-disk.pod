@@ -52,6 +52,15 @@ Write a virt-p2v bootable virtual disk image, and boot it under qemu:
 where F</var/tmp/guest.img> would be the disk image of some guest that
 you want to convert (for testing only).
 
+=head1 ADDING EXTRA PACKAGES
+
+You can install extra packages using the I<--install> option.  This
+can be useful for making a more fully-featured virt-p2v disk with
+extra tools for debugging and troubleshooting.  Give a list of
+packages, separated by commas.  For example:
+
+ virt-p2v-make-disk -o /var/tmp/p2v.img --install tcpdump,traceroute
+
 =head1 ADDING AN SSH IDENTITY
 
 You can inject an SSH identity (private key) file to the image using
@@ -98,6 +107,11 @@ Display help.
 
 Add an SSH identity (private key) file into the image.
 See L</ADDING AN SSH IDENTITY> above.
+
+=item B<--install> pkg,pkg,...
+
+Add extra packages to the image.
+See L</ADDING EXTRA PACKAGES> above.
 
 =item B<--no-warn-if-partition>
 
