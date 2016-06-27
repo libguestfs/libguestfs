@@ -99,6 +99,13 @@ Display help.
 Add an SSH identity (private key) file into the image.
 See L</ADDING AN SSH IDENTITY> above.
 
+=item B<--no-warn-if-partition>
+
+Normally you should not write to a partition on a USB drive (ie. don't
+use S<C<-o /dev/sdX1>>, use S<C<-o /dev/sdX>> to make a bootable USB
+drive).  If you do this, virt-builder prints a warning.  This option
+suppresses that warning.
+
 =item B<-o> OUTPUT
 
 =item B<--output> OUTPUT

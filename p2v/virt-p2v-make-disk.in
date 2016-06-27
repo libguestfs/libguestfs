@@ -24,7 +24,7 @@ version="@PACKAGE_VERSION@"
 
 TEMP=`getopt \
         -o o:V \
-        --long help,inject-ssh-identity:,output:,verbose,version \
+        --long help,inject-ssh-identity:,no-warn-if-partition,output:,verbose,version \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -35,6 +35,7 @@ eval set -- "$TEMP"
 output=
 upload=
 verbose=
+declare -a passthru
 
 usage ()
 {
@@ -57,11 +58,18 @@ while true; do
             set +x
             verbose=1
             shift;;
+
+        # virt-builder parameters that are passed through.
+        --no-warn-if-partition)
+            passthru[${#passthru[*]}]="$1"
+            shift;;
+
+        # help etc.
+        --help)
+            usage 0;;
         -V|--version)
             echo "$program $version"
             exit 0;;
-        --help)
-            usage 0;;
         --)
             shift
             break;;
@@ -206,7 +214,8 @@ virt-builder "$osversion"                                       \
         s/^[Login]/[Login]\nReserveVT=1\n/
     '                                                           \
     $upload                                                     \
-    $extra_args
+    $extra_args                                                 \
+    "${passthru[@]}"
 
 # We have to do this so the cleanup() handler runs.
 exit $?
