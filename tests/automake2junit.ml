@@ -49,6 +49,36 @@ let read_whole_file path =
 let string_charsplit sep =
   Str.split (Str.regexp_string sep)
 
+let rec string_find s sub =
+  let len = String.length s in
+  let sublen = String.length sub in
+  let rec loop i =
+    if i <= len-sublen then (
+      let rec loop2 j =
+        if j < sublen then (
+          if s.[i+j] = sub.[j] then loop2 (j+1)
+          else -1
+        ) else
+          i (* found *)
+      in
+      let r = loop2 0 in
+      if r = -1 then loop (i+1) else r
+    ) else
+      -1 (* not found *)
+  in
+  loop 0
+
+let rec string_replace s s1 s2 =
+  let len = String.length s in
+  let sublen = String.length s1 in
+  let i = string_find s s1 in
+  if i = -1 then s
+  else (
+    let s' = String.sub s 0 i in
+    let s'' = String.sub s (i+sublen) (len-i-sublen) in
+    s' ^ s2 ^ string_replace s'' s1 s2
+  )
+
 let find_trs basedir =
   let rec internal_find_trs basedir stack =
     let items = Array.to_list (Sys.readdir basedir) in
@@ -68,6 +98,15 @@ let find_trs basedir =
     List.concat (files :: subdirs_files)
   in
   internal_find_trs basedir ["tests"]
+
+let sanitize_log log =
+  let log = string_replace log "\x1b[0;32m" "" in
+  let log = string_replace log "\x1b[1;31m" "" in
+  let log = string_replace log "\x1b[1;34m" "" in
+  let log = string_replace log "\x1b[1;35m" "" in
+  let log = string_replace log "\x1b[0m" "" in
+  let log = string_replace log "\x0d" "" in
+  log
 
 let iterate_results trs_files =
   let total = ref 0 in
@@ -107,10 +146,8 @@ let iterate_results trs_files =
   List.iter (
     fun (stack, file) ->
       let testname, result, time, log_filename = read_trs file in
-      let log =
-        match testname with
-        | "test-virt-rescue.pl" -> ""  (* Non-printable chars in output. *)
-        | _ -> try read_whole_file log_filename with _ -> "" in
+      let log = try read_whole_file log_filename with _ -> "" in
+      let log = sanitize_log log in
       let print_tag_with_log tag =
         Buffer.add_string buf (sprintf "  <testcase name=\"%s\" classname=\"%s\" time=\"%d\">\n" testname (String.concat "." (List.rev stack)) time);
         Buffer.add_string buf (sprintf "    <%s><![CDATA[%s]]></%s>\n" tag log tag);
@@ -121,7 +158,9 @@ let iterate_results trs_files =
         print_tag_with_log "system-out"
       | Skip ->
         skipped := !skipped + 1;
-        print_tag_with_log "skipped"
+        Buffer.add_string buf (sprintf "  <testcase name=\"%s\" classname=\"%s\" time=\"%d\">\n" testname (String.concat "." (List.rev stack)) time);
+        Buffer.add_string buf (sprintf "    <skipped message=\"%s\"></skipped>\n" log);
+        Buffer.add_string buf (sprintf "  </testcase>\n")
       | XFail | Fail | XPass ->
         failures := !failures + 1;
         print_tag_with_log "error"
@@ -149,5 +188,6 @@ let () =
     iterate_results trs_files in
   printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <testsuite name=\"%s\" tests=\"%d\" failures=\"%d\" skipped=\"%d\" errors=\"%d\" time=\"%d\">
+<properties />
 %s</testsuite>
 " name total failures skipped errors time buf
