@@ -884,7 +884,7 @@ populate_disks (GtkTreeView *disks_list)
                     "<small>"
                     "%s %s\n"
                     "%s%s"
-                    "</small>\n",
+                    "</small>",
                     all_disks[i],
                     size_gb ? size_gb : "", model ? model : "",
                     serial ? "s/n " : "", serial ? serial : "") == -1)
