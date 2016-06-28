@@ -128,7 +128,9 @@ fswalk_callback (TSK_FS_FILE *fsfile, const char *path, void *data)
   dirent.tsk_name = fname;
   dirent.tsk_flags = file_flags (fsfile);
   dirent.tsk_spare1 = dirent.tsk_spare2 = dirent.tsk_spare3 =
-    dirent.tsk_spare4 = dirent.tsk_spare5 = 0;
+    dirent.tsk_spare4 = dirent.tsk_spare5 = dirent.tsk_spare6 =
+    dirent.tsk_spare7 = dirent.tsk_spare8 = dirent.tsk_spare9 =
+    dirent.tsk_spare10 = dirent.tsk_spare11 = 0;
 
   ret = send_dirent_info (&dirent);
   ret = (ret == 0) ? TSK_WALK_CONT : TSK_WALK_ERROR;

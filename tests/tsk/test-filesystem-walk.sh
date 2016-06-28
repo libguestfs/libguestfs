@@ -55,7 +55,13 @@ tsk_spare1: 0
 tsk_spare2: 0
 tsk_spare3: 0
 tsk_spare4: 0
-tsk_spare5: 0 }'
+tsk_spare5: 0
+tsk_spare6: 0
+tsk_spare7: 0
+tsk_spare8: 0
+tsk_spare9: 0
+tsk_spare10: 0
+tsk_spare11: 0 }'
 if [ $? != 0 ]; then
     echo "$0: \$MFT not found in files list."
     echo "File list:"
@@ -73,7 +79,13 @@ tsk_spare1: 0
 tsk_spare2: 0
 tsk_spare3: 0
 tsk_spare4: 0
-tsk_spare5: 0 }'
+tsk_spare5: 0
+tsk_spare6: 0
+tsk_spare7: 0
+tsk_spare8: 0
+tsk_spare9: 0
+tsk_spare10: 0
+tsk_spare11: 0 }'
 if [ $? != 0 ]; then
     echo "$0: /test.txt not found in files list."
     echo "File list:"

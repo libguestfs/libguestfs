@@ -459,6 +459,12 @@ let structs = [
     "tsk_spare3", FInt64;
     "tsk_spare4", FInt64;
     "tsk_spare5", FInt64;
+    "tsk_spare6", FInt64;
+    "tsk_spare7", FInt64;
+    "tsk_spare8", FInt64;
+    "tsk_spare9", FInt64;
+    "tsk_spare10", FInt64;
+    "tsk_spare11", FInt64;
     ];
     s_camel_name = "TSKDirent" };
 
