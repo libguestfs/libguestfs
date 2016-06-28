@@ -257,7 +257,8 @@ notify_ui_callback (int type, const char *data)
 {
   switch (type) {
   case NOTIFY_LOG_DIR:
-    printf ("%s: remote log directory location: %s\n", guestfs_int_program_name, data);
+    printf ("%s: remote log directory location: %s\n",
+            guestfs_int_program_name, data);
     break;
 
   case NOTIFY_REMOTE_MESSAGE:
@@ -272,6 +273,8 @@ notify_ui_callback (int type, const char *data)
     printf ("%s: unknown message during conversion: type=%d data=%s\n",
             guestfs_int_program_name, type, data);
   }
+
+  fflush (stdout);
 }
 
 static void
