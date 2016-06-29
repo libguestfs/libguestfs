@@ -250,6 +250,11 @@ kernel_conversion (struct config *config, char **cmdline, int cmdline_source)
     exit (EXIT_FAILURE);
   }
 
+  ansi_green (stdout);
+  printf ("Conversion finished successfully.");
+  ansi_restore (stdout);
+  putchar ('\n');
+
   p = get_cmdline_key (cmdline, "p2v.post");
   if (!p) {
     if (geteuid () == 0 && cmdline_source == CMDLINE_SOURCE_PROC_CMDLINE)
@@ -264,8 +269,12 @@ notify_ui_callback (int type, const char *data)
 {
   switch (type) {
   case NOTIFY_LOG_DIR:
-    printf ("%s: remote log directory location: %s\n",
-            guestfs_int_program_name, data);
+    ansi_magenta (stdout);
+    printf ("%s: remote log directory location: ", guestfs_int_program_name);
+    ansi_red (stdout);
+    fputs (data, stdout);
+    ansi_restore (stdout);
+    putchar ('\n');
     break;
 
   case NOTIFY_REMOTE_MESSAGE:
@@ -273,12 +282,18 @@ notify_ui_callback (int type, const char *data)
     break;
 
   case NOTIFY_STATUS:
-    printf ("%s: %s\n", guestfs_int_program_name, data);
+    ansi_magenta (stdout);
+    printf ("%s: %s", guestfs_int_program_name, data);
+    ansi_restore (stdout);
+    putchar ('\n');
     break;
 
   default:
-    printf ("%s: unknown message during conversion: type=%d data=%s\n",
+    ansi_red (stdout);
+    printf ("%s: unknown message during conversion: type=%d data=%s",
             guestfs_int_program_name, type, data);
+    ansi_restore (stdout);
+    putchar ('\n');
   }
 
   fflush (stdout);

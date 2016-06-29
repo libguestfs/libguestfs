@@ -23,7 +23,7 @@
 cmdline=$(</proc/cmdline)
 if [[ $cmdline == *p2v.server=* ]]; then
     # Non-GUI mode, don't run X.  Just run virt-p2v directly.
-    exec @libexecdir@/virt-p2v --iso
+    exec @libexecdir@/virt-p2v --iso --colours
 
 else
     # GUI mode.  Run xinit to start X.  To save one script, we invoke
@@ -32,7 +32,7 @@ else
         cd /
         metacity &
         nm-applet &
-        exec @libexecdir@/virt-p2v --iso
+        exec @libexecdir@/virt-p2v --iso --colours
     else
         xinit "$0" run
     fi
