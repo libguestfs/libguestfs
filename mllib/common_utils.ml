@@ -833,9 +833,11 @@ let rec mkdir_p path permissions =
     Unix.mkdir path permissions
 
 let normalize_arch = function
-  | "i386" | "i486" | "i586" | "i686" -> "i386"
-  | "amd64" | "x86_64" -> "x86_64"
-  | "powerpc" | "ppc" -> "ppc"
+  | "i486" | "i586" | "i686" -> "i386"
+  | "amd64" -> "x86_64"
+  | "powerpc" -> "ppc"
+  | "powerpc64" -> "ppc64"
+  | "powerpc64le" -> "ppc64le"
   | arch -> arch
 
 (* Are guest arch and host_cpu compatible, in terms of being able
