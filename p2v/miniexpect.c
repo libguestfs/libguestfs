@@ -24,6 +24,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <signal.h>
 #include <poll.h>
 #include <errno.h>
 #include <termios.h>
@@ -161,7 +162,20 @@ mexp_spawnv (const char *file, char **argv)
 
   if (pid == 0) {               /* Child. */
     struct termios terminal_settings;
-    int slave_fd;
+    struct sigaction sa;
+    int i, slave_fd, max_fd;
+
+    /* Remove all signal handlers.  See the justification here:
+     * https://www.redhat.com/archives/libvir-list/2008-August/msg00303.html
+     * We don't mask signal handlers yet, so this isn't completely
+     * race-free, but better than not doing it at all.
+     */
+    memset (&sa, 0, sizeof sa);
+    sa.sa_handler = SIG_DFL;
+    sa.sa_flags = 0;
+    sigemptyset (&sa.sa_mask);
+    for (i = 1; i < NSIG; ++i)
+      sigaction (i, &sa, NULL);
 
     setsid ();
 
@@ -187,6 +201,17 @@ mexp_spawnv (const char *file, char **argv)
      * kernel bug, see sshpass source code.
      */
     close (fd);
+
+    /* Close all other file descriptors.  This ensures that we don't
+     * hold open (eg) pipes from the parent process.
+     */
+    max_fd = sysconf (_SC_OPEN_MAX);
+    if (max_fd == -1)
+      max_fd = 1024;
+    if (max_fd > 65536)
+      max_fd = 65536;        /* bound the amount of work we do here */
+    for (fd = 3; fd < max_fd; ++fd)
+      close (fd);
 
     /* Run the subprocess. */
     execvp (file, argv);
