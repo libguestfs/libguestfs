@@ -64,8 +64,15 @@ typedef struct mexp_h mexp_h;
 #define mexp_get_pcre_error(h) ((h)->pcre_error)
 
 /* Spawn a subprocess. */
-extern mexp_h *mexp_spawnv (const char *file, char **argv);
-extern mexp_h *mexp_spawnl (const char *file, const char *arg, ...);
+extern mexp_h *mexp_spawnvf (unsigned flags, const char *file, char **argv);
+extern mexp_h *mexp_spawnlf (unsigned flags, const char *file, const char *arg, ...);
+#define mexp_spawnv(file,argv) mexp_spawnvf (0, (file), (argv))
+#define mexp_spawnl(file,...) mexp_spawnlf (0, (file), __VA_ARGS__)
+
+#define MEXP_SPAWN_KEEP_SIGNALS 1
+#define MEXP_SPAWN_KEEP_FDS     2
+#define MEXP_SPAWN_COOKED_MODE  4
+#define MEXP_SPAWN_RAW_MODE     0
 
 /* Close the handle. */
 extern int mexp_close (mexp_h *h);
@@ -89,7 +96,9 @@ enum mexp_status {
 extern int mexp_expect (mexp_h *h, const mexp_regexp *regexps,
                         int *ovector, int ovecsize);
 
+/* Sending commands, keypresses. */
 extern int mexp_printf (mexp_h *h, const char *fs, ...)
   __attribute__((format(printf,2,3)));
+extern int mexp_send_interrupt (mexp_h *h);
 
 #endif /* MINIEXPECT_H_ */
