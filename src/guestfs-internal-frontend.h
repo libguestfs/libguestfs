@@ -179,4 +179,33 @@ extern void guestfs_int_cleanup_pclose (void *ptr);
    NULL                                                                 \
 )
 
+/* ANSI colours.  These are defined as macros so that we don't have to
+ * define the force_colour global variable in the library.
+ */
+#define ansi_green(fp)                           \
+  do {                                           \
+    if (force_colour || isatty (fileno (fp)))    \
+      fputs ("\033[0;32m", (fp));                \
+  } while (0)
+#define ansi_red(fp)                             \
+  do {                                           \
+    if (force_colour || isatty (fileno (fp)))    \
+      fputs ("\033[1;31m", (fp));                \
+  } while (0)
+#define ansi_blue(fp)                            \
+  do {                                           \
+    if (force_colour || isatty (fileno (fp)))    \
+      fputs ("\033[1;34m", (fp));                \
+  } while (0)
+#define ansi_magenta(fp)                         \
+  do {                                           \
+    if (force_colour || isatty (fileno (fp)))    \
+      fputs ("\033[1;35m", (fp));                \
+  } while (0)
+#define ansi_restore(fp)                         \
+  do {                                           \
+    if (force_colour || isatty (fileno (fp)))    \
+      fputs ("\033[0m", (fp));                   \
+  } while (0)
+
 #endif /* GUESTFS_INTERNAL_FRONTEND_H_ */
