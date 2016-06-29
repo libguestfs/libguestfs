@@ -44,6 +44,7 @@ char **all_removable;
 char **all_interfaces;
 int is_iso_environment = 0;
 int feature_colours_option = 0;
+int force_colour = 0;
 
 static const char *test_disk = NULL;
 
@@ -58,6 +59,10 @@ static const char *options = "Vv";
 static const struct option long_options[] = {
   { "help", 0, 0, HELP_OPTION },
   { "cmdline", 1, 0, 0 },
+  { "color", 0, 0, 0 },
+  { "colors", 0, 0, 0 },
+  { "colour", 0, 0, 0 },
+  { "colours", 0, 0, 0 },
   { "iso", 0, 0, 0 },
   { "long-options", 0, 0, 0 },
   { "short-options", 0, 0, 0 },
@@ -81,6 +86,7 @@ usage (int status)
               "Options:\n"
               "  --help                 Display brief help\n"
               " --cmdline=CMDLINE       Used to debug command line parsing\n"
+              " --colours               Use ANSI colour sequences even if not tty\n"
               " --iso                   Running in the ISO environment\n"
               " --test-disk=DISK.IMG    For testing, use disk as /dev/sda\n"
               "  -v|--verbose           Verbose messages\n"
@@ -153,6 +159,12 @@ main (int argc, char *argv[])
       else if (STREQ (long_options[option_index].name, "cmdline")) {
         cmdline = parse_cmdline_string (optarg);
         cmdline_source = CMDLINE_SOURCE_COMMAND_LINE;
+      }
+      else if (STREQ (long_options[option_index].name, "color") ||
+               STREQ (long_options[option_index].name, "colour") ||
+               STREQ (long_options[option_index].name, "colors") ||
+               STREQ (long_options[option_index].name, "colours")) {
+        force_colour = 1;
       }
       else if (STREQ (long_options[option_index].name, "iso")) {
         is_iso_environment = 1;

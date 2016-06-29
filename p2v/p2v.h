@@ -61,6 +61,9 @@ extern int is_iso_environment;
 /* True if virt-v2v supports the --colours option. */
 extern int feature_colours_option;
 
+/* virt-p2v --colours option (used by ansi_* macros). */
+extern int force_colour;
+
 /* config.c */
 struct config {
   int verbose;
