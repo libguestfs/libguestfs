@@ -51,7 +51,7 @@
 #define WARNING_THRESHOLD 1.0
 
 static const char *append = NULL;
-static int force_colour = 0;
+static int force_colour = 0;    /* used by ansi_* macros */
 static int memsize = 0;
 static int smp = 1;
 static int verbose = 0;
@@ -85,11 +85,6 @@ static void print_analysis (void);
 static void print_longest_to_shortest (void);
 static void free_pass_data (void);
 static void free_final_timeline (void);
-static void ansi_green (void);
-static void ansi_red (void);
-static void ansi_blue (void);
-static void ansi_magenta (void);
-static void ansi_restore (void);
 
 static void
 usage (int exitcode)
@@ -1033,15 +1028,15 @@ dump_timeline (void)
 static void
 print_activity (struct activity *activity)
 {
-  if (activity->warning) ansi_red (); else ansi_green ();
+  if (activity->warning) ansi_red (stdout); else ansi_green (stdout);
   assert (activity->magic == ACTIVITY_MAGIC);
   print_escaped_string (activity->name);
-  ansi_restore ();
+  ansi_restore (stdout);
   printf (" %.1fms ±%.1fms ",
           activity->mean / 1000000, activity->sd / 1000000);
-  if (activity->warning) ansi_red (); else ansi_green ();
+  if (activity->warning) ansi_red (stdout); else ansi_green (stdout);
   printf ("(%.1f%%) ", activity->percent);
-  ansi_restore ();
+  ansi_restore (stdout);
 }
 
 static void
@@ -1084,7 +1079,7 @@ print_analysis (void)
     /* Draw a spacer line, but only if last_t -> t is a large jump. */
     if (t - last_t >= 1000000 /* ns */) {
       printf ("          ");
-      ansi_magenta ();
+      ansi_magenta (stdout);
       for (j = 0; j < last_free_column; ++j) {
         if (columns[j] >= 0 &&
             activities[columns[j]].end_t != last_t /* !▼ */)
@@ -1092,7 +1087,7 @@ print_analysis (void)
         else
           printf ("  ");
       }
-      ansi_restore ();
+      ansi_restore (stdout);
       printf ("\n");
     }
 
@@ -1122,10 +1117,10 @@ print_analysis (void)
     }
 
     /* Draw the line. */
-    ansi_blue ();
+    ansi_blue (stdout);
     printf ("%6.1fms: ", t / 1000000);
 
-    ansi_magenta ();
+    ansi_magenta (stdout);
     for (j = 0; j < last_free_column; ++j) {
       if (columns[j] >= 0) {
         if (activities[columns[j]].t == t)
@@ -1138,7 +1133,7 @@ print_analysis (void)
       else
         printf ("  ");
     }
-    ansi_restore ();
+    ansi_restore (stdout);
 
     for (j = 0; j < last_free_column; ++j) {
       if (columns[j] >= 0 && activities[columns[j]].t == t) /* ▲ */
@@ -1214,40 +1209,4 @@ free_final_timeline (void)
   for (i = 0; i < nr_activities; ++i)
     free (activities[i].name);
   free (activities);
-}
-
-/* Colours. */
-static void
-ansi_green (void)
-{
-  if (force_colour || isatty (1))
-    fputs ("\033[0;32m", stdout);
-}
-
-static void
-ansi_red (void)
-{
-  if (force_colour || isatty (1))
-    fputs ("\033[1;31m", stdout);
-}
-
-static void
-ansi_blue (void)
-{
-  if (force_colour || isatty (1))
-    fputs ("\033[1;34m", stdout);
-}
-
-static void
-ansi_magenta (void)
-{
-  if (force_colour || isatty (1))
-    fputs ("\033[1;35m", stdout);
-}
-
-static void
-ansi_restore (void)
-{
-  if (force_colour || isatty (1))
-    fputs ("\033[0m", stdout);
 }
