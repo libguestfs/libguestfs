@@ -37,7 +37,6 @@
 #include <fcntl.h>
 #include <inttypes.h>
 #include <unistd.h>
-#include <poll.h>
 #include <time.h>
 #include <errno.h>
 #include <error.h>
@@ -137,6 +136,7 @@ static pthread_mutex_t running_mutex = PTHREAD_MUTEX_INITIALIZER;
 static int running = 0;
 static pthread_mutex_t cancel_requested_mutex = PTHREAD_MUTEX_INITIALIZER;
 static int cancel_requested = 0;
+static mexp_h *control_h = NULL;
 
 static int
 is_running (void)
@@ -171,6 +171,21 @@ set_cancel_requested (int r)
 {
   pthread_mutex_lock (&cancel_requested_mutex);
   cancel_requested = r;
+
+  /* Send ^C to the remote so that virt-v2v "knows" the connection has
+   * been cancelled.  mexp_send_interrupt is a single write(2) call.
+   */
+  if (r && control_h)
+    ignore_value (mexp_send_interrupt (control_h));
+
+  pthread_mutex_unlock (&cancel_requested_mutex);
+}
+
+static void
+set_control_h (mexp_h *new_h)
+{
+  pthread_mutex_lock (&cancel_requested_mutex);
+  control_h = new_h;
   pthread_mutex_unlock (&cancel_requested_mutex);
 }
 
@@ -185,7 +200,6 @@ start_conversion (struct config *config,
   size_t nr_disks = guestfs_int_count_strings (config->disks);
   time_t now;
   struct tm tm;
-  mexp_h *control_h = NULL;
   CLEANUP_FREE struct data_conn *data_conns = NULL;
   CLEANUP_FREE char *remote_dir = NULL;
   char tmpdir[]           = "/tmp/p2v.XXXXXX";
@@ -199,6 +213,7 @@ start_conversion (struct config *config,
   fprintf (stderr, "\n");
 #endif
 
+  set_control_h (NULL);
   set_running (1);
   set_cancel_requested (0);
 
@@ -311,7 +326,7 @@ start_conversion (struct config *config,
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Setting up the control connection ..."));
 
-  control_h = start_remote_connection (config, remote_dir);
+  set_control_h (start_remote_connection (config, remote_dir));
   if (control_h == NULL) {
     set_conversion_error ("could not open control connection over SSH to the conversion server: %s",
                           get_ssh_error ());
@@ -358,35 +373,13 @@ start_conversion (struct config *config,
   }
 
   /* Read output from the virt-v2v process and echo it through the
-   * notify function, until virt-v2v closes the connection.  We
-   * actually poll in this loop (albeit it only every 2 seconds) so
-   * that the user won't have to wait too long between pressing the
-   * cancel button and having the conversion cancelled.
+   * notify function, until virt-v2v closes the connection.
    */
   while (!is_cancel_requested ()) {
-    int fd = mexp_get_fd (control_h);
-    struct pollfd fds[1];
-    int rp;
     char buf[257];
     ssize_t r;
 
-    fds[0].fd = fd;
-    fds[0].events = POLLIN;
-    fds[0].revents = 0;
-    rp = poll (fds, 1, 2000 /* ms */);
-    if (rp == -1) {
-      /* See comment about this in miniexpect.c. */
-      if (errno == EIO)
-        break;
-      set_conversion_error ("poll: %m");
-      goto out;
-    }
-    else if (rp == 0)
-      /* Timeout. */
-      continue;
-    /* ... else rp == 1, ignore revents and just do the read. */
-
-    r = read (fd, buf, sizeof buf - 1);
+    r = read (mexp_get_fd (control_h), buf, sizeof buf - 1);
     if (r == -1) {
       /* See comment about this in miniexpect.c. */
       if (errno == EIO)
@@ -414,12 +407,17 @@ start_conversion (struct config *config,
   ret = 0;
  out:
   if (control_h) {
-    if ((status = mexp_close (control_h)) == -1) {
+    mexp_h *h = control_h;
+    set_control_h (NULL);
+    status = mexp_close (h);
+
+    if (status == -1) {
       set_conversion_error ("mexp_close: %m");
       ret = -1;
-    } else if (ret == 0 &&
-               WIFEXITED (status) &&
-               WEXITSTATUS (status) != 0) {
+    }
+    else if (ret == 0 &&
+             WIFEXITED (status) &&
+             WEXITSTATUS (status) != 0) {
       set_conversion_error ("virt-v2v exited with status %d",
                             WEXITSTATUS (status));
       ret = -1;
