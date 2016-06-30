@@ -307,7 +307,8 @@ cache_ssh_identity (struct config *config)
  * optional arguments.  Also handles authentication.
  */
 static mexp_h *
-start_ssh (struct config *config, char **extra_args, int wait_prompt)
+start_ssh (unsigned spawn_flags, struct config *config,
+           char **extra_args, int wait_prompt)
 {
   size_t i, j, nr_args, count;
   char port_str[64];
@@ -383,9 +384,9 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
 #endif
 
   /* Create the miniexpect handle. */
-  h = mexp_spawnv ("ssh", (char **) args);
+  h = mexp_spawnvf (spawn_flags, "ssh", (char **) args);
   if (h == NULL) {
-    set_ssh_internal_error ("ssh: mexp_spawnv: %m");
+    set_ssh_internal_error ("ssh: mexp_spawnvf: %m");
     return NULL;
   }
 
@@ -756,7 +757,7 @@ test_connection (struct config *config)
   const int ovecsize = 12;
   int ovector[ovecsize];
 
-  h = start_ssh (config, NULL, 1);
+  h = start_ssh (0, config, NULL, 1);
   if (h == NULL)
     return -1;
 
@@ -1063,7 +1064,7 @@ open_data_connection (struct config *config, int *local_port, int *remote_port)
   *local_port = nbd_local_port;
   nbd_local_port++;
 
-  h = start_ssh (config, (char **) extra_args, 0);
+  h = start_ssh (0, config, (char **) extra_args, 0);
   if (h == NULL)
     return NULL;
 
@@ -1151,7 +1152,12 @@ start_remote_connection (struct config *config, const char *remote_dir)
 {
   mexp_h *h;
 
-  h = start_ssh (config, NULL, 1);
+  /* This connection is opened in cooked mode so that we can send ^C
+   * if the conversion needs to be cancelled.  However that also means
+   * we must be careful not to accidentally send any control
+   * characters over this connection at other times.
+   */
+  h = start_ssh (MEXP_SPAWN_COOKED_MODE, config, NULL, 1);
   if (h == NULL)
     return NULL;
 
