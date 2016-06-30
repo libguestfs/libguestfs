@@ -374,8 +374,10 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
 
   /* Create the miniexpect handle. */
   h = mexp_spawnv ("ssh", (char **) args);
-  if (h == NULL)
+  if (h == NULL) {
+    set_ssh_internal_error ("ssh: mexp_spawnv: %m");
     return NULL;
+  }
 
   /* We want the ssh ConnectTimeout to be less than the miniexpect
    * timeout, so that if the server is completely unresponsive we
