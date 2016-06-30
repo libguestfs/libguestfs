@@ -26,6 +26,7 @@ EXTRA_DIST = \
 	p2v.ks.in \
 	p2v.service \
 	test-virt-p2v-pxe.sshd_config.in \
+	test-virt-p2v-scp.sh \
 	test-virt-p2v-ssh.sh \
 	virt-p2v.pod \
 	virt-p2v-make-disk.in \

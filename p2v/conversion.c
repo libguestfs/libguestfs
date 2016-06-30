@@ -32,6 +32,7 @@
 #include <locale.h>
 #include <libintl.h>
 #include <netdb.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -83,9 +84,12 @@ struct data_conn {
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
 static int wait_qemu_nbd (int nbd_local_port, int timeout_seconds);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
-static char *generate_libvirt_xml (struct config *, struct data_conn *);
-static char *generate_wrapper_script (struct config *, const char *remote_dir);
+static void generate_name (struct config *, const char *filename);
+static void generate_libvirt_xml (struct config *, struct data_conn *, const char *filename);
+static void generate_wrapper_script (struct config *, const char *remote_dir, const char *filename);
+static void generate_dmesg_file (const char *filename);
 static const char *map_interface_to_network (struct config *, const char *interface);
+static void print_quoted (FILE *fp, const char *s);
 
 static char *conversion_error;
 
@@ -169,15 +173,16 @@ start_conversion (struct config *config,
   int status;
   size_t i, len;
   const size_t nr_disks = guestfs_int_count_strings (config->disks);
-  struct data_conn data_conns[nr_disks];
-  CLEANUP_FREE char *remote_dir = NULL, *libvirt_xml = NULL,
-    *wrapper_script = NULL;
   time_t now;
   struct tm tm;
   mexp_h *control_h = NULL;
-  char dmesg_cmd[] = "dmesg > /tmp/dmesg.XXXXXX", *dmesg_file = &dmesg_cmd[8];
-  CLEANUP_FREE char *dmesg = NULL;
-  int fd, r;
+  struct data_conn data_conns[nr_disks];
+  CLEANUP_FREE char *remote_dir = NULL;
+  char tmpdir[]           = "/tmp/p2v.XXXXXX";
+  char name_file[]        = "/tmp/p2v.XXXXXX/name";
+  char libvirt_xml_file[] = "/tmp/p2v.XXXXXX/physical.xml";
+  char wrapper_script[]   = "/tmp/p2v.XXXXXX/virt-v2v-wrapper.sh";
+  char dmesg_file[]       = "/tmp/p2v.XXXXXX/dmesg";
 
 #if DEBUG_STDERR
   print_config (config, stderr);
@@ -273,59 +278,53 @@ start_conversion (struct config *config,
   if (notify_ui)
     notify_ui (NOTIFY_LOG_DIR, remote_dir);
 
-  /* Generate the libvirt XML. */
-  libvirt_xml = generate_libvirt_xml (config, data_conns);
-  if (libvirt_xml == NULL)
-    goto out;
-
-#if DEBUG_STDERR && 0
-  fprintf (stderr, "%s: libvirt XML:\n%s",
-           guestfs_int_program_name, libvirt_xml);
-#endif
-
-  /* Generate the virt-v2v wrapper script. */
-  wrapper_script = generate_wrapper_script (config, remote_dir);
-  if (wrapper_script == NULL)
-    goto out;
-
-#if DEBUG_STDERR && 0
-  fprintf (stderr, "%s: wrapper script:\n%s",
-           guestfs_int_program_name, wrapper_script);
-#endif
-
-  /* Get the output from the 'dmesg' command.  We will store this
-   * on the remote server.
-   */
-  fd = mkstemp (dmesg_file);
-  if (fd == -1) {
-    perror ("mkstemp");
-    goto skip_dmesg;
+  /* Generate the local temporary directory. */
+  if (mkdtemp (tmpdir) == NULL) {
+    perror ("mkdtemp");
+    cleanup_data_conns (data_conns, nr_disks);
+    exit (EXIT_FAILURE);
   }
-  close (fd);
-  r = system (dmesg_cmd);
-  if (r == -1) {
-    perror ("system");
-    goto skip_dmesg;
-  }
-  if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    fprintf (stderr, "'dmesg' failed (ignored)\n");
-    goto skip_dmesg;
-  }
+  memcpy (name_file, tmpdir, strlen (tmpdir));
+  memcpy (libvirt_xml_file, tmpdir, strlen (tmpdir));
+  memcpy (wrapper_script, tmpdir, strlen (tmpdir));
+  memcpy (dmesg_file, tmpdir, strlen (tmpdir));
 
-  ignore_value (read_whole_file (dmesg_file, &dmesg, NULL));
- skip_dmesg:
+  /* Generate the static files. */
+  generate_name (config, name_file);
+  generate_libvirt_xml (config, data_conns, libvirt_xml_file);
+  generate_wrapper_script (config, remote_dir, wrapper_script);
+  generate_dmesg_file (dmesg_file);
 
-  /* Open the control connection and start conversion */
+  /* Open the control connection.  This also creates remote_dir. */
   if (notify_ui)
     notify_ui (NOTIFY_STATUS, _("Setting up the control connection ..."));
 
-  control_h = start_remote_connection (config,
-                                       remote_dir, libvirt_xml,
-                                       wrapper_script, dmesg);
+  control_h = start_remote_connection (config, remote_dir);
   if (control_h == NULL) {
-    const char *err = get_ssh_error ();
+    set_conversion_error ("could not open control connection over SSH to the conversion server: %s",
+                          get_ssh_error ());
+    goto out;
+  }
 
-    set_conversion_error ("could not open control connection over SSH to the conversion server: %s", err);
+  /* Copy the static files to the remote dir. */
+  if (scp_file (config, name_file, remote_dir) == -1) {
+    set_conversion_error ("scp: %s to %s: %s",
+                          name_file, remote_dir, get_ssh_error ());
+    goto out;
+  }
+  if (scp_file (config, libvirt_xml_file, remote_dir) == -1) {
+    set_conversion_error ("scp: %s to %s: %s",
+                          libvirt_xml_file, remote_dir, get_ssh_error ());
+    goto out;
+  }
+  if (scp_file (config, wrapper_script, remote_dir) == -1) {
+    set_conversion_error ("scp: %s to %s: %s",
+                          wrapper_script, remote_dir, get_ssh_error ());
+    goto out;
+  }
+  if (scp_file (config, dmesg_file, remote_dir) == -1) {
+    set_conversion_error ("scp: %s to %s: %s",
+                          dmesg_file, remote_dir, get_ssh_error ());
     goto out;
   }
 
@@ -667,20 +666,16 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
 /* Macros "inspired" by src/launch-libvirt.c */
 /* <element */
 #define start_element(element)						\
-  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1) {	\
-    set_conversion_error ("xmlTextWriterStartElement: %m");		\
-    return NULL;							\
-  }									\
+  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1)         \
+    error (EXIT_FAILURE, errno, "xmlTextWriterStartElement");		\
   do
 
 /* finish current </element> */
 #define end_element()						\
   while (0);							\
   do {								\
-    if (xmlTextWriterEndElement (xo) == -1) {			\
-      set_conversion_error ("xmlTextWriterEndElement: %m");	\
-      return NULL;						\
-    }								\
+    if (xmlTextWriterEndElement (xo) == -1)			\
+      error (EXIT_FAILURE, errno, "xmlTextWriterEndElement");	\
   } while (0)
 
 /* <element/> */
@@ -689,80 +684,62 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
 
 /* key=value attribute of the current element. */
 #define attribute(key,value)                                            \
-  if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1) { \
-    set_conversion_error ("xmlTextWriterWriteAttribute: %m");           \
-    return NULL;                                                        \
-  }
+  do {                                                                  \
+    if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1) \
+    error (EXIT_FAILURE, errno, "xmlTextWriterWriteAttribute");         \
+  } while (0)
 
 /* key=value, but value is a printf-style format string. */
 #define attribute_format(key,fs,...)                                    \
-  if (xmlTextWriterWriteFormatAttribute (xo, BAD_CAST (key),            \
-					 fs, ##__VA_ARGS__) == -1) {	\
-    set_conversion_error ("xmlTextWriterWriteFormatAttribute: %m");     \
-    return NULL;                                                        \
-  }
+  do {                                                                  \
+    if (xmlTextWriterWriteFormatAttribute (xo, BAD_CAST (key),          \
+                                           fs, ##__VA_ARGS__) == -1)	\
+      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatAttribute"); \
+  } while (0)
 
 /* A string, eg. within an element. */
-#define string(str)						\
-  if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1) {	\
-    set_conversion_error ("xmlTextWriterWriteString: %m");	\
-    return NULL;						\
-  }
+#define string(str)                                             \
+  do {                                                          \
+    if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1)	\
+      error (EXIT_FAILURE, errno, "xmlTextWriterWriteString");	\
+  } while (0)
 
 /* A string, using printf-style formatting. */
 #define string_format(fs,...)                                           \
-  if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1) {   \
-    set_conversion_error ("xmlTextWriterWriteFormatString: %m");        \
-    return NULL;                                                        \
-  }
+  do {                                                                  \
+    if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1)   \
+      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatString");    \
+  } while (0)
 
 /* An XML comment. */
 #define comment(str)						\
-  if (xmlTextWriterWriteComment (xo, BAD_CAST (str)) == -1) {	\
-    set_conversion_error ("xmlTextWriterWriteComment: %m");	\
-    return NULL;						\
-  }
+  do {                                                          \
+    if (xmlTextWriterWriteComment (xo, BAD_CAST (str)) == -1)	\
+      error (EXIT_FAILURE, errno, "xmlTextWriterWriteComment");	\
+  } while (0)
 
 /* Write the libvirt XML for this physical machine.  Note this is not
  * actually input for libvirt.  It's input for virt-v2v on the
  * conversion server, and virt-v2v will (if necessary) generate the
  * final libvirt XML.
  */
-static char *
-generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
+static void
+generate_libvirt_xml (struct config *config, struct data_conn *data_conns,
+                      const char *filename)
 {
   uint64_t memkb;
-  char *ret;
-  CLEANUP_XMLBUFFERFREE xmlBufferPtr xb = NULL;
-  xmlOutputBufferPtr ob;
   CLEANUP_XMLFREETEXTWRITER xmlTextWriterPtr xo = NULL;
   size_t i;
 
-  xb = xmlBufferCreate ();
-  if (xb == NULL) {
-    set_conversion_error ("xmlBufferCreate: %m");
-    return NULL;
-  }
-  ob = xmlOutputBufferCreateBuffer (xb, NULL);
-  if (ob == NULL) {
-    set_conversion_error ("xmlOutputBufferCreateBuffer: %m");
-    return NULL;
-  }
-  xo = xmlNewTextWriter (ob);
-  if (xo == NULL) {
-    set_conversion_error ("xmlNewTextWriter: %m");
-    return NULL;
-  }
+  xo = xmlNewTextWriterFilename (filename, 0);
+  if (xo == NULL)
+    error (EXIT_FAILURE, errno, "xmlNewTextWriterFilename");
 
   if (xmlTextWriterSetIndent (xo, 1) == -1 ||
-      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1) {
-    set_conversion_error ("could not set XML indent: %m");
-    return NULL;
-  }
-  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1) {
-    set_conversion_error ("xmlTextWriterStartDocument: %m");
-    return NULL;
-  }
+      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1)
+    error (EXIT_FAILURE, errno, "could not set XML indent");
+  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1)
+    error (EXIT_FAILURE, errno, "xmlTextWriterStartDocument");
 
   memkb = config->memory / 1024;
 
@@ -907,17 +884,8 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
 
   } end_element (); /* </domain> */
 
-  if (xmlTextWriterEndDocument (xo) == -1) {
-    set_conversion_error ("xmlTextWriterEndDocument: %m");
-    return NULL;
-  }
-  ret = (char *) xmlBufferDetach (xb); /* caller frees */
-  if (ret == NULL) {
-    set_conversion_error ("xmlBufferDetach: %m");
-    return NULL;
-  }
-
-  return ret;
+  if (xmlTextWriterEndDocument (xo) == -1)
+    error (EXIT_FAILURE, errno, "xmlTextWriterEndDocument");
 }
 
 /* Using config->network_map, map the interface to a target network
@@ -952,19 +920,18 @@ map_interface_to_network (struct config *config, const char *interface)
 }
 
 /**
- * Print a shell-quoted string on C<fp>.
+ * Write the guest name into C<filename>.
  */
 static void
-print_quoted (FILE *fp, const char *s)
+generate_name (struct config *config, const char *filename)
 {
-  fprintf (fp, "\"");
-  while (*s) {
-    if (*s == '$' || *s == '`' || *s == '\\' || *s == '"')
-      fprintf (fp, "\\");
-    fprintf (fp, "%c", *s);
-    ++s;
-  }
-  fprintf (fp, "\"");
+  FILE *fp;
+
+  fp = fopen (filename, "w");
+  if (fp == NULL)
+    error (EXIT_FAILURE, errno, "fopen: %s", filename);
+  fprintf (fp, "%s\n", config->guestname);
+  fclose (fp);
 }
 
 /**
@@ -974,16 +941,15 @@ print_quoted (FILE *fp, const char *s)
  * to "type" a long and complex single command line into the ssh
  * connection when we start the conversion.
  */
-static char *
-generate_wrapper_script (struct config *config, const char *remote_dir)
+static void
+generate_wrapper_script (struct config *config, const char *remote_dir,
+                         const char *filename)
 {
   FILE *fp;
-  char *output = NULL;
-  size_t output_len = 0;
 
-  fp = open_memstream (&output, &output_len);
+  fp = fopen (filename, "w");
   if (fp == NULL)
-    error (EXIT_FAILURE, errno, "open_memstream");
+    error (EXIT_FAILURE, errno, "fopen: %s", filename);
 
   fprintf (fp, "#!/bin/bash -\n");
   fprintf (fp, "\n");
@@ -1082,7 +1048,42 @@ generate_wrapper_script (struct config *config, const char *remote_dir)
            "fi\n",
            remote_dir);
 
+  fprintf (fp, "\n");
+  fprintf (fp, "# EOF\n");
   fclose (fp);
 
-  return output;                /* caller frees */
+  if (chmod (filename, 0755) == -1)
+    error (EXIT_FAILURE, errno, "chmod: %s", filename);
+}
+
+/**
+ * Print a shell-quoted string on C<fp>.
+ */
+static void
+print_quoted (FILE *fp, const char *s)
+{
+  fprintf (fp, "\"");
+  while (*s) {
+    if (*s == '$' || *s == '`' || *s == '\\' || *s == '"')
+      fprintf (fp, "\\");
+    fprintf (fp, "%c", *s);
+    ++s;
+  }
+  fprintf (fp, "\"");
+}
+
+/**
+ * Put the output of the C<dmesg> command into C<filename>.
+ *
+ * If the command fails, this is non-fatal.
+ */
+static void
+generate_dmesg_file (const char *filename)
+{
+  CLEANUP_FREE char *cmd = NULL;
+
+  if (asprintf (&cmd, "dmesg >%s 2>&1", filename) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
+
+  ignore_value (system (cmd));
 }
