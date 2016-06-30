@@ -332,8 +332,10 @@ start_ssh (struct config *config, char **extra_args, int wait_prompt)
   assert (j == nr_args);
 
   h = mexp_spawnv ("ssh", (char **) args);
-  if (h == NULL)
+  if (h == NULL) {
+    set_ssh_error ("internal error: ssh: mexp_spawnv: %m");
     return NULL;
+  }
 
   if (using_password_auth &&
       config->password && strlen (config->password) > 0) {
