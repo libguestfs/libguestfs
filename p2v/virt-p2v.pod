@@ -56,6 +56,10 @@ by virt-p2v, and it will not work if this is disabled on the
 conversion server.  (C<AllowTcpForwarding> must be C<yes> in the
 L<sshd_config(5)> file on the conversion server).
 
+The scp (secure copy) feature of ssh is required by virt-p2v so it can
+send over small files (this is I<not> the method by which disks are
+copied).
+
 The conversion server does not need to be a physical machine.  It
 could be a virtual machine, as long as it has sufficient memory and
 disk space to do the conversion, and as long as the physical machine
