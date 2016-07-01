@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-06-23 23:08+0100\n"
+"POT-Creation-Date: 2016-07-01 12:01+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -381,8 +381,8 @@ msgstr ""
 #: ../format/virt-format.pod:57 ../fuse/guestmount.pod:154
 #: ../fuse/guestunmount.pod:70 ../get-kernel/virt-get-kernel.pod:23
 #: ../inspector/virt-inspector.pod:52 ../make-fs/virt-make-fs.pod:117
-#: ../p2v/virt-p2v-make-disk.pod:105 ../p2v/virt-p2v-make-kickstart.pod:233
-#: ../p2v/virt-p2v-make-kiwi.pod:104 ../p2v/virt-p2v.pod:577
+#: ../p2v/virt-p2v-make-disk.pod:114 ../p2v/virt-p2v-make-kickstart.pod:242
+#: ../p2v/virt-p2v-make-kiwi.pod:104 ../p2v/virt-p2v.pod:585
 #: ../rescue/virt-rescue.pod:103 ../resize/virt-resize.pod:266
 #: ../sparsify/virt-sparsify.pod:114 ../sysprep/virt-sysprep.pod:38
 #: ../test-tool/libguestfs-test-tool.pod:34 ../tools/virt-list-filesystems:52
@@ -404,8 +404,8 @@ msgstr ""
 #: ../format/virt-format.pod:61 ../fuse/guestmount.pod:235
 #: ../fuse/guestunmount.pod:79 ../get-kernel/virt-get-kernel.pod:27
 #: ../inspector/virt-inspector.pod:56 ../make-fs/virt-make-fs.pod:121
-#: ../p2v/virt-p2v-make-disk.pod:109 ../p2v/virt-p2v-make-kickstart.pod:237
-#: ../p2v/virt-p2v-make-kiwi.pod:108 ../p2v/virt-p2v.pod:581
+#: ../p2v/virt-p2v-make-disk.pod:118 ../p2v/virt-p2v-make-kickstart.pod:246
+#: ../p2v/virt-p2v-make-kiwi.pod:108 ../p2v/virt-p2v.pod:589
 #: ../rescue/virt-rescue.pod:107 ../resize/virt-resize.pod:270
 #: ../sparsify/virt-sparsify.pod:118 ../sysprep/virt-sysprep.pod:42
 #: ../test-tool/libguestfs-test-tool.pod:38 ../tools/virt-list-filesystems:60
@@ -757,8 +757,8 @@ msgstr ""
 #: ../edit/virt-edit.pod:197 ../fish/guestfish.pod:412
 #: ../format/virt-format.pod:153 ../fuse/guestmount.pod:367
 #: ../get-kernel/virt-get-kernel.pod:128 ../inspector/virt-inspector.pod:136
-#: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v-make-disk.pod:132
-#: ../p2v/virt-p2v-make-kickstart.pod:257 ../p2v/virt-p2v.pod:602
+#: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v-make-disk.pod:153
+#: ../p2v/virt-p2v-make-kickstart.pod:271 ../p2v/virt-p2v.pod:619
 #: ../rescue/virt-rescue.pod:228 ../resize/virt-resize.pod:612
 #: ../sparsify/virt-sparsify.pod:301 ../sysprep/virt-sysprep.pod:244
 #: ../utils/boot-analysis/boot-analysis.pod:80
@@ -775,8 +775,8 @@ msgstr ""
 #: ../edit/virt-edit.pod:199 ../fish/guestfish.pod:414
 #: ../format/virt-format.pod:155 ../fuse/guestmount.pod:369
 #: ../get-kernel/virt-get-kernel.pod:130 ../inspector/virt-inspector.pod:138
-#: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v-make-disk.pod:134
-#: ../p2v/virt-p2v-make-kickstart.pod:259 ../p2v/virt-p2v.pod:604
+#: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v-make-disk.pod:155
+#: ../p2v/virt-p2v-make-kickstart.pod:273 ../p2v/virt-p2v.pod:621
 #: ../rescue/virt-rescue.pod:230 ../resize/virt-resize.pod:614
 #: ../sparsify/virt-sparsify.pod:303 ../sysprep/virt-sysprep.pod:246
 #: ../utils/boot-analysis/boot-analysis.pod:82
@@ -808,9 +808,9 @@ msgstr ""
 #: ../fish/guestfish.pod:419 ../format/virt-format.pod:159
 #: ../fuse/guestmount.pod:373 ../fuse/guestunmount.pod:105
 #: ../get-kernel/virt-get-kernel.pod:134 ../inspector/virt-inspector.pod:142
-#: ../make-fs/virt-make-fs.pod:203 ../p2v/virt-p2v-make-disk.pod:139
-#: ../p2v/virt-p2v-make-kickstart.pod:264 ../p2v/virt-p2v-make-kiwi.pod:124
-#: ../p2v/virt-p2v.pod:608 ../rescue/virt-rescue.pod:234
+#: ../make-fs/virt-make-fs.pod:203 ../p2v/virt-p2v-make-disk.pod:160
+#: ../p2v/virt-p2v-make-kickstart.pod:278 ../p2v/virt-p2v-make-kiwi.pod:124
+#: ../p2v/virt-p2v.pod:625 ../rescue/virt-rescue.pod:234
 #: ../resize/virt-resize.pod:618 ../sparsify/virt-sparsify.pod:307
 #: ../sysprep/virt-sysprep.pod:250 ../test-tool/libguestfs-test-tool.pod:59
 #: ../v2v/virt-v2v-copy-to-local.pod:127 ../v2v/virt-v2v.pod:659
@@ -828,9 +828,9 @@ msgstr ""
 #: ../fish/guestfish.pod:421 ../format/virt-format.pod:161
 #: ../fuse/guestmount.pod:375 ../fuse/guestunmount.pod:107
 #: ../get-kernel/virt-get-kernel.pod:136 ../inspector/virt-inspector.pod:144
-#: ../make-fs/virt-make-fs.pod:205 ../p2v/virt-p2v-make-disk.pod:141
-#: ../p2v/virt-p2v-make-kickstart.pod:266 ../p2v/virt-p2v-make-kiwi.pod:126
-#: ../p2v/virt-p2v.pod:610 ../rescue/virt-rescue.pod:236
+#: ../make-fs/virt-make-fs.pod:205 ../p2v/virt-p2v-make-disk.pod:162
+#: ../p2v/virt-p2v-make-kickstart.pod:280 ../p2v/virt-p2v-make-kiwi.pod:126
+#: ../p2v/virt-p2v.pod:627 ../rescue/virt-rescue.pod:236
 #: ../resize/virt-resize.pod:620 ../sparsify/virt-sparsify.pod:309
 #: ../sysprep/virt-sysprep.pod:252 ../test-tool/libguestfs-test-tool.pod:61
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
@@ -847,9 +847,9 @@ msgstr ""
 #: ../df/virt-df.pod:193 ../dib/virt-dib.pod:381 ../diff/virt-diff.pod:207
 #: ../edit/virt-edit.pod:207 ../format/virt-format.pod:163
 #: ../get-kernel/virt-get-kernel.pod:138 ../inspector/virt-inspector.pod:146
-#: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v-make-disk.pod:143
-#: ../p2v/virt-p2v-make-kickstart.pod:268 ../p2v/virt-p2v-make-kiwi.pod:128
-#: ../p2v/virt-p2v.pod:612 ../rescue/virt-rescue.pod:238
+#: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v-make-disk.pod:164
+#: ../p2v/virt-p2v-make-kickstart.pod:282 ../p2v/virt-p2v-make-kiwi.pod:128
+#: ../p2v/virt-p2v.pod:629 ../rescue/virt-rescue.pod:238
 #: ../resize/virt-resize.pod:622 ../sparsify/virt-sparsify.pod:311
 #: ../sysprep/virt-sysprep.pod:254 ../tools/virt-list-filesystems:70
 #: ../tools/virt-list-partitions:71 ../tools/virt-tar:118
@@ -1472,8 +1472,8 @@ msgstr ""
 #: ../golang/examples/guestfs-golang.pod:76 ../inspector/virt-inspector.pod:512
 #: ../java/examples/guestfs-java.pod:159 ../lua/examples/guestfs-lua.pod:136
 #: ../make-fs/virt-make-fs.pod:215 ../ocaml/examples/guestfs-ocaml.pod:80
-#: ../p2v/virt-p2v-make-disk.pod:183 ../p2v/virt-p2v-make-kickstart.pod:310
-#: ../p2v/virt-p2v-make-kiwi.pod:170 ../p2v/virt-p2v.pod:756
+#: ../p2v/virt-p2v-make-disk.pod:204 ../p2v/virt-p2v-make-kickstart.pod:324
+#: ../p2v/virt-p2v-make-kiwi.pod:170 ../p2v/virt-p2v.pod:773
 #: ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:51 ../rescue/virt-rescue.pod:402
 #: ../resize/virt-resize.pod:829 ../ruby/examples/guestfs-ruby.pod:34
@@ -1520,8 +1520,8 @@ msgstr ""
 #: ../daemon/guestfsd.pod:150 ../df/virt-df.pod:266 ../diff/virt-diff.pod:260
 #: ../edit/virt-edit.pod:396 ../format/virt-format.pod:197
 #: ../get-kernel/virt-get-kernel.pod:181 ../inspector/virt-inspector.pod:527
-#: ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v-make-disk.pod:193
-#: ../p2v/virt-p2v-make-kickstart.pod:321 ../p2v/virt-p2v.pod:774
+#: ../make-fs/virt-make-fs.pod:231 ../p2v/virt-p2v-make-disk.pod:214
+#: ../p2v/virt-p2v-make-kickstart.pod:335 ../p2v/virt-p2v.pod:791
 #: ../rescue/virt-rescue.pod:414 ../resize/virt-resize.pod:855
 #: ../sparsify/virt-sparsify.pod:461 ../sysprep/virt-sysprep.pod:606
 #: ../tools/virt-list-filesystems:195 ../tools/virt-list-partitions:276
@@ -1556,8 +1556,8 @@ msgstr ""
 #: ../golang/examples/guestfs-golang.pod:95 ../inspector/virt-inspector.pod:535
 #: ../java/examples/guestfs-java.pod:178 ../lua/examples/guestfs-lua.pod:155
 #: ../make-fs/virt-make-fs.pod:233 ../ocaml/examples/guestfs-ocaml.pod:99
-#: ../p2v/virt-p2v-make-disk.pod:195 ../p2v/virt-p2v-make-kickstart.pod:323
-#: ../p2v/virt-p2v-make-kiwi.pod:182 ../p2v/virt-p2v.pod:782
+#: ../p2v/virt-p2v-make-disk.pod:216 ../p2v/virt-p2v-make-kickstart.pod:337
+#: ../p2v/virt-p2v-make-kiwi.pod:182 ../p2v/virt-p2v.pod:799
 #: ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:69 ../rescue/virt-rescue.pod:416
 #: ../resize/virt-resize.pod:857 ../ruby/examples/guestfs-ruby.pod:52
@@ -1833,7 +1833,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1801 ../customize/virt-customize.pod:238
 #: ../dib/virt-dib.pod:389 ../edit/virt-edit.pod:365 ../fish/guestfish.pod:1378
 #: ../fuse/guestunmount.pod:113 ../get-kernel/virt-get-kernel.pod:161
-#: ../p2v/virt-p2v-make-disk.pod:172 ../p2v/virt-p2v-make-kickstart.pod:298
+#: ../p2v/virt-p2v-make-disk.pod:193 ../p2v/virt-p2v-make-kickstart.pod:312
 #: ../p2v/virt-p2v-make-kiwi.pod:158 ../rescue/virt-rescue.pod:378
 #: ../sparsify/virt-sparsify.pod:402 ../src/guestfs.pod:3385
 #: ../sysprep/virt-sysprep.pod:551 ../test-tool/libguestfs-test-tool.pod:173
@@ -1870,8 +1870,8 @@ msgstr ""
 #: ../fuse/guestunmount.pod:156 ../golang/examples/guestfs-golang.pod:91
 #: ../inspector/virt-inspector.pod:521 ../java/examples/guestfs-java.pod:174
 #: ../lua/examples/guestfs-lua.pod:151 ../ocaml/examples/guestfs-ocaml.pod:95
-#: ../p2v/virt-p2v-make-disk.pod:191 ../p2v/virt-p2v-make-kickstart.pod:319
-#: ../p2v/virt-p2v-make-kiwi.pod:178 ../p2v/virt-p2v.pod:768
+#: ../p2v/virt-p2v-make-disk.pod:212 ../p2v/virt-p2v-make-kickstart.pod:333
+#: ../p2v/virt-p2v-make-kiwi.pod:178 ../p2v/virt-p2v.pod:785
 #: ../perl/examples/guestfs-perl.pod:53
 #: ../python/examples/guestfs-python.pod:65
 #: ../ruby/examples/guestfs-ruby.pod:48 ../src/guestfs.pod:3573
@@ -1908,8 +1908,8 @@ msgstr ""
 #: ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:740
 #: ../docs/guestfs-release-notes.pod:4830 ../docs/guestfs-security.pod:368
 #: ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1640
-#: ../fuse/guestmount.pod:443 ../p2v/virt-p2v-make-disk.pod:197
-#: ../p2v/virt-p2v-make-kickstart.pod:325 ../p2v/virt-p2v.pod:784
+#: ../fuse/guestmount.pod:443 ../p2v/virt-p2v-make-disk.pod:218
+#: ../p2v/virt-p2v-make-kickstart.pod:339 ../p2v/virt-p2v.pod:801
 #: ../rescue/virt-rescue.pod:418 ../src/guestfs.pod:3579
 #: ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280
 #: ../v2v/virt-v2v-copy-to-local.pod:150 ../v2v/virt-v2v.pod:1977
@@ -2403,8 +2403,8 @@ msgstr ""
 #. type: textblock
 #: ../builder/virt-builder.pod:182 ../builder/virt-index-validate.pod:64
 #: ../dib/virt-dib.pod:54 ../get-kernel/virt-get-kernel.pod:29
-#: ../p2v/virt-p2v-make-disk.pod:111 ../p2v/virt-p2v-make-kickstart.pod:239
-#: ../p2v/virt-p2v-make-kiwi.pod:110 ../p2v/virt-p2v.pod:583
+#: ../p2v/virt-p2v-make-disk.pod:120 ../p2v/virt-p2v-make-kickstart.pod:248
+#: ../p2v/virt-p2v-make-kiwi.pod:110 ../p2v/virt-p2v.pod:591
 #: ../resize/virt-resize.pod:272 ../sparsify/virt-sparsify.pod:120
 #: ../v2v/virt-v2v-copy-to-local.pod:99 ../v2v/virt-v2v.pod:252
 msgid "Display help."
@@ -2552,8 +2552,9 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:244 ../customize/virt-customize.pod:77
 #: ../dib/virt-dib.pod:75 ../get-kernel/virt-get-kernel.pod:47
-#: ../resize/virt-resize.pod:330 ../sparsify/virt-sparsify.pod:158
-#: ../sysprep/virt-sysprep.pod:62 ../v2v/virt-v2v.pod:260
+#: ../p2v/virt-p2v.pod:598 ../resize/virt-resize.pod:330
+#: ../sparsify/virt-sparsify.pod:158 ../sysprep/virt-sysprep.pod:62
+#: ../v2v/virt-v2v.pod:260
 #, fuzzy
 #| msgid "B<--option option>"
 msgid "B<--colors>"
@@ -2562,8 +2563,9 @@ msgstr "B<--option option>"
 #. type: =item
 #: ../builder/virt-builder.pod:246 ../customize/virt-customize.pod:79
 #: ../dib/virt-dib.pod:77 ../get-kernel/virt-get-kernel.pod:49
-#: ../resize/virt-resize.pod:332 ../sparsify/virt-sparsify.pod:160
-#: ../sysprep/virt-sysprep.pod:64 ../v2v/virt-v2v.pod:262
+#: ../p2v/virt-p2v.pod:600 ../resize/virt-resize.pod:332
+#: ../sparsify/virt-sparsify.pod:160 ../sysprep/virt-sysprep.pod:64
+#: ../v2v/virt-v2v.pod:262
 #, fuzzy
 #| msgid "B<--option option>"
 msgid "B<--colours>"
@@ -2572,8 +2574,9 @@ msgstr "B<--option option>"
 #. type: textblock
 #: ../builder/virt-builder.pod:248 ../customize/virt-customize.pod:81
 #: ../dib/virt-dib.pod:79 ../get-kernel/virt-get-kernel.pod:51
-#: ../resize/virt-resize.pod:334 ../sparsify/virt-sparsify.pod:162
-#: ../sysprep/virt-sysprep.pod:66 ../v2v/virt-v2v.pod:264
+#: ../p2v/virt-p2v.pod:602 ../resize/virt-resize.pod:334
+#: ../sparsify/virt-sparsify.pod:162 ../sysprep/virt-sysprep.pod:66
+#: ../v2v/virt-v2v.pod:264
 msgid ""
 "Use ANSI colour sequences to colourize messages.  This is the default when "
 "the output is a tty.  If the output of the program is redirected to a file, "
@@ -2958,7 +2961,7 @@ msgstr ""
 #: ../docs/guestfs-security.pod:177 ../docs/internal-documentation.pod:37
 #: ../docs/internal-documentation.pod:204
 #: ../docs/internal-documentation.pod:937
-#: ../docs/internal-documentation.pod:1099 ../p2v/virt-p2v.pod:512
+#: ../docs/internal-documentation.pod:1099 ../p2v/virt-p2v.pod:520
 #: ../rescue/virt-rescue.pod:316 ../resize/virt-resize.pod:29
 #: ../resize/virt-resize.pod:658 ../resize/virt-resize.pod:771
 #: ../sparsify/virt-sparsify.pod:373 ../src/guestfs.pod:520
@@ -2983,7 +2986,7 @@ msgstr ""
 #: ../docs/guestfs-security.pod:181 ../docs/internal-documentation.pod:43
 #: ../docs/internal-documentation.pod:211
 #: ../docs/internal-documentation.pod:942
-#: ../docs/internal-documentation.pod:1105 ../p2v/virt-p2v.pod:520
+#: ../docs/internal-documentation.pod:1105 ../p2v/virt-p2v.pod:528
 #: ../rescue/virt-rescue.pod:324 ../resize/virt-resize.pod:42
 #: ../resize/virt-resize.pod:665 ../resize/virt-resize.pod:789
 #: ../sparsify/virt-sparsify.pod:380 ../src/guestfs.pod:526
@@ -3006,7 +3009,7 @@ msgstr ""
 #: ../docs/guestfs-performance.pod:225 ../docs/guestfs-recipes.pod:469
 #: ../docs/internal-documentation.pod:48 ../docs/internal-documentation.pod:221
 #: ../docs/internal-documentation.pod:947
-#: ../docs/internal-documentation.pod:1113 ../p2v/virt-p2v.pod:535
+#: ../docs/internal-documentation.pod:1113 ../p2v/virt-p2v.pod:543
 #: ../rescue/virt-rescue.pod:333 ../resize/virt-resize.pod:50
 #: ../resize/virt-resize.pod:671 ../sparsify/virt-sparsify.pod:386
 #: ../src/guestfs.pod:537 ../src/guestfs.pod:1875 ../src/guestfs.pod:2217
@@ -3026,7 +3029,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:423 ../customize/virt-customize.pod:186
 #: ../docs/guestfs-faq.pod:939 ../docs/internal-documentation.pod:53
 #: ../docs/internal-documentation.pod:231
-#: ../docs/internal-documentation.pod:1123 ../p2v/virt-p2v.pod:560
+#: ../docs/internal-documentation.pod:1123 ../p2v/virt-p2v.pod:568
 #: ../rescue/virt-rescue.pod:342 ../resize/virt-resize.pod:59
 #: ../v2v/virt-v2v.pod:1409
 msgid "4."
@@ -3204,7 +3207,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../builder/virt-builder.pod:508
+#: ../builder/virt-builder.pod:508 ../p2v/virt-p2v-make-disk.pod:139
 #, fuzzy
 #| msgid "B<--option option>"
 msgid "B<--no-warn-if-partition>"
@@ -8201,8 +8204,8 @@ msgstr ""
 #: ../docs/guestfs-release-notes.pod:3288 ../fish/guestfish-actions.pod:1
 #: ../fish/guestfish-actions.pod:25 ../fish/guestfish-commands.pod:1
 #: ../fish/guestfish-commands.pod:25 ../fish/guestfish-prepopts.pod:1
-#: ../fish/guestfish-prepopts.pod:25 ../p2v/virt-p2v.pod:481
-#: ../p2v/virt-p2v.pod:487 ../src/guestfs-actions.pod:1
+#: ../fish/guestfish-prepopts.pod:25 ../p2v/virt-p2v.pod:489
+#: ../p2v/virt-p2v.pod:495 ../src/guestfs-actions.pod:1
 #: ../src/guestfs-actions.pod:25 ../src/guestfs-availability.pod:1
 #: ../src/guestfs-availability.pod:25 ../src/guestfs-structs.pod:1
 #: ../src/guestfs-structs.pod:25
@@ -9462,8 +9465,8 @@ msgstr ""
 
 #. type: =head1
 #: ../daemon/guestfsd.pod:104 ../fish/guestfish.pod:1535
-#: ../fuse/guestmount.pod:399 ../p2v/virt-p2v-make-disk.pod:147
-#: ../p2v/virt-p2v-make-kickstart.pod:272 ../p2v/virt-p2v-make-kiwi.pod:132
+#: ../fuse/guestmount.pod:399 ../p2v/virt-p2v-make-disk.pod:168
+#: ../p2v/virt-p2v-make-kickstart.pod:286 ../p2v/virt-p2v-make-kiwi.pod:132
 #: ../rescue/virt-rescue.pod:383
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:245 ../v2v/virt-v2v.pod:1835
 msgid "FILES"
@@ -43729,20 +43732,30 @@ msgstr ""
 
 #. type: verbatim
 #: ../docs/internal-documentation.pod:3011
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_inspect_is_multipart (guestfs_h *g,\n"
+#| "                               const char *root);\n"
+#| "\n"
 msgid ""
-" static char *\n"
-" generate_libvirt_xml (struct config *config, struct data_conn *data_conns)\n"
+" static void\n"
+" generate_libvirt_xml (struct config *config, struct data_conn *data_conns,\n"
+"                       const char *filename)\n"
 "\n"
 msgstr ""
+" int\n"
+" guestfs_inspect_is_multipart (guestfs_h *g,\n"
+"                               const char *root);\n"
+"\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3014
+#: ../docs/internal-documentation.pod:3015
 msgid "Write the libvirt XML for this physical machine."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3016
+#: ../docs/internal-documentation.pod:3017
 msgid ""
 "Note this is not actually input for libvirt.  It's input for virt-v2v on the "
 "conversion server.  Virt-v2v will (if necessary)  generate the final libvirt "
@@ -43750,7 +43763,7 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3020
+#: ../docs/internal-documentation.pod:3021
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -43763,7 +43776,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3022
+#: ../docs/internal-documentation.pod:3023
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -43781,7 +43794,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3025
+#: ../docs/internal-documentation.pod:3026
 msgid ""
 "Using C<config-E<gt>network_map>, map the interface to a target network "
 "name.  If no map is found, return C<default>.  See L<virt-p2v(1)> "
@@ -43789,21 +43802,102 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3030
+#: ../docs/internal-documentation.pod:3031
 msgid ""
 "Note this returns a static string which is only valid as long as C<config-"
 "E<gt>network_map> is not freed."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3033
+#: ../docs/internal-documentation.pod:3034
+#, fuzzy
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid "Function C<p2v/conversion.c:generate_name>"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3036
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_strings (guestfs_h *g,\n"
+#| "                  const char *path);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" generate_name (struct config *config, const char *filename)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_strings (guestfs_h *g,\n"
+"                  const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3039
+msgid "Write the guest name into C<filename>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3041
+#, fuzzy
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid "Function C<p2v/conversion.c:generate_wrapper_script>"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3043
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char **\n"
+#| " guestfs_strings (guestfs_h *g,\n"
+#| "                  const char *path);\n"
+#| "\n"
+msgid ""
+" static void\n"
+" generate_wrapper_script (struct config *config, const char *remote_dir,\n"
+"                          const char *filename)\n"
+"\n"
+msgstr ""
+" char **\n"
+" guestfs_strings (guestfs_h *g,\n"
+"                  const char *path);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3047
+msgid "Construct the virt-v2v wrapper script."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3049
+msgid ""
+"This will be sent to the remote server, and is easier than trying to \"type"
+"\" a long and complex single command line into the ssh connection when we "
+"start the conversion."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3053
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/conversion.c:print_quoted>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3035
+#: ../docs/internal-documentation.pod:3055
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
@@ -43817,80 +43911,75 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3038
+#: ../docs/internal-documentation.pod:3058
 msgid "Print a shell-quoted string on C<fp>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3040
+#: ../docs/internal-documentation.pod:3060
 #, fuzzy
 #| msgid ""
 #| " int\n"
 #| " guestfs_inotify_close (guestfs_h *g);\n"
 #| "\n"
-msgid "Function C<p2v/conversion.c:generate_wrapper_script>"
+msgid "Function C<p2v/conversion.c:generate_dmesg_file>"
 msgstr ""
 " int\n"
 " guestfs_inotify_close (guestfs_h *g);\n"
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3042
+#: ../docs/internal-documentation.pod:3062
 #, fuzzy, no-wrap
 #| msgid ""
-#| " char **\n"
-#| " guestfs_strings (guestfs_h *g,\n"
-#| "                  const char *path);\n"
+#| " char *\n"
+#| " guestfs_df (guestfs_h *g);\n"
 #| "\n"
 msgid ""
-" static char *\n"
-" generate_wrapper_script (struct config *config, const char *remote_dir)\n"
+" static void\n"
+" generate_dmesg_file (const char *filename)\n"
 "\n"
 msgstr ""
-" char **\n"
-" guestfs_strings (guestfs_h *g,\n"
-"                  const char *path);\n"
+" char *\n"
+" guestfs_df (guestfs_h *g);\n"
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3045
-msgid "Construct the virt-v2v wrapper script."
+#: ../docs/internal-documentation.pod:3065
+msgid "Put the output of the C<dmesg> command into C<filename>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3047
-msgid ""
-"This will be sent to the remote server, and is easier than trying to \"type"
-"\" a long and complex single command line into the ssh connection when we "
-"start the conversion."
+#: ../docs/internal-documentation.pod:3067
+msgid "If the command fails, this is non-fatal."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3051
+#: ../docs/internal-documentation.pod:3069
 #, fuzzy
 #| msgid "C<protocol>"
 msgid "File F<p2v/gui.c>"
 msgstr "C<protocol>"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3053
+#: ../docs/internal-documentation.pod:3071
 msgid ""
 "This file implements almost all of the virt-p2v graphical user interface "
 "(GUI)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3056
+#: ../docs/internal-documentation.pod:3074
 msgid "The GUI has three main dialogs:"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:3060
+#: ../docs/internal-documentation.pod:3078
 msgid "Connection dialog"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3062
+#: ../docs/internal-documentation.pod:3080
 msgid ""
 "The connection dialog is the one shown initially.  It asks the user to type "
 "in the login details for the remote conversion server and invites the user "
@@ -43898,12 +43987,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:3066
+#: ../docs/internal-documentation.pod:3084
 msgid "Conversion dialog"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3068
+#: ../docs/internal-documentation.pod:3086
 msgid ""
 "The conversion dialog asks for information about the target VM (eg. the "
 "number of vCPUs required), and about what to convert (eg. which network "
@@ -43911,19 +44000,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:3073
+#: ../docs/internal-documentation.pod:3091
 msgid "Running dialog"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3075
+#: ../docs/internal-documentation.pod:3093
 msgid ""
 "The running dialog is displayed when the P2V process is underway.  It mainly "
 "displays the virt-v2v debug messages."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3080
+#: ../docs/internal-documentation.pod:3098
 msgid ""
 "Note that the other major dialog (C<\"Configure network ...\">) is handled "
 "entirely by NetworkManager's L<nm-connection-editor(1)> program and has "
@@ -43931,7 +44020,7 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3084
+#: ../docs/internal-documentation.pod:3102
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -43944,7 +44033,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3086
+#: ../docs/internal-documentation.pod:3104
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int\n"
@@ -43960,17 +44049,17 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3089
+#: ../docs/internal-documentation.pod:3107
 msgid "The entry point from the main program."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3091
+#: ../docs/internal-documentation.pod:3109
 msgid "Note that C<gtk_init> etc have already been called in C<main>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3093
+#: ../docs/internal-documentation.pod:3111
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -43983,7 +44072,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3095
+#: ../docs/internal-documentation.pod:3113
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -43999,19 +44088,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3098
+#: ../docs/internal-documentation.pod:3116
 msgid "Create the connection dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3100
+#: ../docs/internal-documentation.pod:3118
 msgid ""
 "This creates the dialog, but it is not displayed.  See "
 "C<show_connection_dialog>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3103
+#: ../docs/internal-documentation.pod:3121
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44024,7 +44113,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3105
+#: ../docs/internal-documentation.pod:3123
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -44040,12 +44129,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3108
+#: ../docs/internal-documentation.pod:3126
 msgid "If the username is \"root\", disable the sudo button."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3110
+#: ../docs/internal-documentation.pod:3128
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44058,7 +44147,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3112
+#: ../docs/internal-documentation.pod:3130
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -44074,7 +44163,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3115
+#: ../docs/internal-documentation.pod:3133
 msgid ""
 "The password or SSH identity URL entries are mutually exclusive, so if one "
 "contains text then disable the other.  This function is called when the "
@@ -44082,14 +44171,14 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3119
+#: ../docs/internal-documentation.pod:3137
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/gui.c:show_connection_dialog>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3121
+#: ../docs/internal-documentation.pod:3139
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -44105,12 +44194,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3124
+#: ../docs/internal-documentation.pod:3142
 msgid "Hide all other dialogs and show the connection dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3126
+#: ../docs/internal-documentation.pod:3144
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44123,7 +44212,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3128
+#: ../docs/internal-documentation.pod:3146
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -44139,12 +44228,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3131
+#: ../docs/internal-documentation.pod:3149
 msgid "Callback from the C<Test connection> button."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3133
+#: ../docs/internal-documentation.pod:3151
 msgid ""
 "This initiates a background thread which actually does the ssh to the "
 "conversion server and the rest of the testing (see "
@@ -44152,7 +44241,7 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3137
+#: ../docs/internal-documentation.pod:3155
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44165,7 +44254,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3139
+#: ../docs/internal-documentation.pod:3157
 #, no-wrap
 msgid ""
 " static void *\n"
@@ -44174,7 +44263,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3142
+#: ../docs/internal-documentation.pod:3160
 msgid ""
 "Run C<test_connection> (in a detached background thread).  Once it finishes "
 "stop the spinner and set the spinner message appropriately.  If the test is "
@@ -44183,14 +44272,14 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3148
+#: ../docs/internal-documentation.pod:3166
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/gui.c:start_spinner>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3150
+#: ../docs/internal-documentation.pod:3168
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44199,21 +44288,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3153
+#: ../docs/internal-documentation.pod:3171
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "to start the spinner in the connection dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3156
+#: ../docs/internal-documentation.pod:3174
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/gui.c:stop_spinner>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3158
+#: ../docs/internal-documentation.pod:3176
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44222,14 +44311,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3161
+#: ../docs/internal-documentation.pod:3179
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "to stop the spinner in the connection dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3164
+#: ../docs/internal-documentation.pod:3182
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44242,7 +44331,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3166
+#: ../docs/internal-documentation.pod:3184
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44251,7 +44340,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3169
+#: ../docs/internal-documentation.pod:3187
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "when there is an error.  Display the error message and disable the C<Next> "
@@ -44259,7 +44348,7 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3173
+#: ../docs/internal-documentation.pod:3191
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44272,7 +44361,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3175
+#: ../docs/internal-documentation.pod:3193
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44281,19 +44370,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3178
+#: ../docs/internal-documentation.pod:3196
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "when the connection test was successful."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3181
+#: ../docs/internal-documentation.pod:3199
 msgid "Function C<p2v/gui.c:configure_network_button_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3183
+#: ../docs/internal-documentation.pod:3201
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44302,19 +44391,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3186
+#: ../docs/internal-documentation.pod:3204
 msgid ""
 "Callback from the C<Configure network ...> button.  This dialog is handled "
 "entirely by an external program which is part of NetworkManager."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3190
+#: ../docs/internal-documentation.pod:3208
 msgid "Function C<p2v/gui.c:xterm_button_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3192
+#: ../docs/internal-documentation.pod:3210
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44323,17 +44412,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3195
+#: ../docs/internal-documentation.pod:3213
 msgid "Callback from the C<XTerm ...> button."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3197
+#: ../docs/internal-documentation.pod:3215
 msgid "Function C<p2v/gui.c:about_button_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3199
+#: ../docs/internal-documentation.pod:3217
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44342,24 +44431,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3202
+#: ../docs/internal-documentation.pod:3220
 msgid "Callback from the C<About virt-p2v ...> button."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3204
+#: ../docs/internal-documentation.pod:3222
 msgid "See also F<p2v/about-authors.c> and F<p2v/about-license.c>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3206
+#: ../docs/internal-documentation.pod:3224
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/gui.c:connection_next_clicked>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3208
+#: ../docs/internal-documentation.pod:3226
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44368,12 +44457,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3211
+#: ../docs/internal-documentation.pod:3229
 msgid "Callback when the connection dialog C<Next> button has been clicked."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3214
+#: ../docs/internal-documentation.pod:3232
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44386,7 +44475,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3216
+#: ../docs/internal-documentation.pod:3234
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -44402,19 +44491,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3219
+#: ../docs/internal-documentation.pod:3237
 msgid "Create the conversion dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3221
+#: ../docs/internal-documentation.pod:3239
 msgid ""
 "This creates the dialog, but it is not displayed.  See "
 "C<show_conversion_dialog>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3224
+#: ../docs/internal-documentation.pod:3242
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44427,7 +44516,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3226
+#: ../docs/internal-documentation.pod:3244
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44436,12 +44525,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3229
+#: ../docs/internal-documentation.pod:3247
 msgid "Hide all other dialogs and show the conversion dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3231
+#: ../docs/internal-documentation.pod:3249
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44454,7 +44543,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3233
+#: ../docs/internal-documentation.pod:3251
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44463,24 +44552,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3236
+#: ../docs/internal-documentation.pod:3254
 msgid "Update the C<Information> section in the conversion dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3238
+#: ../docs/internal-documentation.pod:3256
 msgid ""
 "Note that C<v2v_version> (the remote virt-v2v version) is read from the "
 "remote virt-v2v in the C<test_connection> function."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3241
+#: ../docs/internal-documentation.pod:3259
 msgid "Function C<p2v/gui.c:repopulate_output_combo>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3243
+#: ../docs/internal-documentation.pod:3261
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44489,7 +44578,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3246
+#: ../docs/internal-documentation.pod:3264
 msgid ""
 "Repopulate the list of output drivers in the C<Output to (-o)> combo.  The "
 "list of drivers is read from the remote virt-v2v instance in "
@@ -44497,14 +44586,14 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3250
+#: ../docs/internal-documentation.pod:3268
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/gui.c:populate_disks>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3252
+#: ../docs/internal-documentation.pod:3270
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44513,12 +44602,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3255
+#: ../docs/internal-documentation.pod:3273
 msgid "Populate the C<Fixed hard disks> treeview."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3257
+#: ../docs/internal-documentation.pod:3275
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44531,7 +44620,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3259
+#: ../docs/internal-documentation.pod:3277
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44540,12 +44629,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3262
+#: ../docs/internal-documentation.pod:3280
 msgid "Populate the C<Removable media> treeview."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3264
+#: ../docs/internal-documentation.pod:3282
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44558,7 +44647,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3266
+#: ../docs/internal-documentation.pod:3284
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44567,17 +44656,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3269
+#: ../docs/internal-documentation.pod:3287
 msgid "Populate the C<Network interfaces> treeview."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3271
+#: ../docs/internal-documentation.pod:3289
 msgid "Function C<p2v/gui.c:maybe_identify_click>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3273
+#: ../docs/internal-documentation.pod:3291
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44587,7 +44676,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3277
+#: ../docs/internal-documentation.pod:3295
 msgid ""
 "When the user clicks on the interface name on the list of interfaces, we "
 "want to run C<ethtool --identify>, which usually makes some lights flash on "
@@ -44595,7 +44684,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3281
+#: ../docs/internal-documentation.pod:3299
 msgid ""
 "We cannot catch clicks on the cell itself, so we have to go via a more "
 "obscure route.  See L<http://stackoverflow.com/a/27207433> and L<https://en."
@@ -44603,12 +44692,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3285
+#: ../docs/internal-documentation.pod:3303
 msgid "Function C<p2v/gui.c:conversion_back_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3287
+#: ../docs/internal-documentation.pod:3305
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44617,12 +44706,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3290
+#: ../docs/internal-documentation.pod:3308
 msgid "The conversion dialog C<Back> button has been clicked."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3292
+#: ../docs/internal-documentation.pod:3310
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44635,7 +44724,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3294
+#: ../docs/internal-documentation.pod:3312
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44644,14 +44733,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3297
+#: ../docs/internal-documentation.pod:3315
 msgid ""
 "Display a warning if the vCPUs or memory is outside the supported range "
 "(L<https://bugzilla.redhat.com/823758>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3300
+#: ../docs/internal-documentation.pod:3318
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44664,7 +44753,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3302
+#: ../docs/internal-documentation.pod:3320
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44673,24 +44762,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3305
+#: ../docs/internal-documentation.pod:3323
 msgid "Create the running dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3307
+#: ../docs/internal-documentation.pod:3325
 msgid ""
 "This creates the dialog, but it is not displayed.  See "
 "C<show_running_dialog>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3310
+#: ../docs/internal-documentation.pod:3328
 msgid "Function C<p2v/gui.c:show_running_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3312
+#: ../docs/internal-documentation.pod:3330
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44699,12 +44788,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3315
+#: ../docs/internal-documentation.pod:3333
 msgid "Hide all other dialogs and show the running dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3317
+#: ../docs/internal-documentation.pod:3335
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44717,7 +44806,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3319
+#: ../docs/internal-documentation.pod:3337
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44726,35 +44815,35 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3322
+#: ../docs/internal-documentation.pod:3340
 msgid "Display the remote log directory in the running dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3324
-#: ../docs/internal-documentation.pod:3337
-#: ../docs/internal-documentation.pod:3353
+#: ../docs/internal-documentation.pod:3342
+#: ../docs/internal-documentation.pod:3355
+#: ../docs/internal-documentation.pod:3371
 msgid ""
 "If this isn't called from the main thread, then you must only call it via an "
 "idle task (C<g_idle_add>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3327
+#: ../docs/internal-documentation.pod:3345
 msgid ""
 "B<NB:> This frees the remote_dir (C<user_data> pointer) which was strdup'd "
 "in C<notify_ui_callback>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3330
+#: ../docs/internal-documentation.pod:3348
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/gui.c:set_status>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3332
+#: ../docs/internal-documentation.pod:3350
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44763,25 +44852,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3335
+#: ../docs/internal-documentation.pod:3353
 msgid "Display the conversion status in the running dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3340
-#: ../docs/internal-documentation.pod:3356
+#: ../docs/internal-documentation.pod:3358
+#: ../docs/internal-documentation.pod:3374
 msgid ""
 "B<NB:> This frees the message (C<user_data> pointer) which was strdup'd in "
 "C<notify_ui_callback>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3343
+#: ../docs/internal-documentation.pod:3361
 msgid "Function C<p2v/gui.c:add_v2v_output>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3345
+#: ../docs/internal-documentation.pod:3363
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44790,19 +44879,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3348
+#: ../docs/internal-documentation.pod:3366
 msgid ""
 "Append output from the virt-v2v process to the buffer, and scroll to ensure "
 "it is visible."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3351
+#: ../docs/internal-documentation.pod:3369
 msgid "This function is able to parse ANSI colour sequences and more."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3359
+#: ../docs/internal-documentation.pod:3377
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44815,7 +44904,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3361
+#: ../docs/internal-documentation.pod:3379
 #, no-wrap
 msgid ""
 " static void\n"
@@ -44824,12 +44913,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3364
+#: ../docs/internal-documentation.pod:3382
 msgid "Callback when the C<Start conversion> button is clicked."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3366
+#: ../docs/internal-documentation.pod:3384
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44842,7 +44931,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3368
+#: ../docs/internal-documentation.pod:3386
 #, no-wrap
 msgid ""
 " static void *\n"
@@ -44851,12 +44940,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3371
+#: ../docs/internal-documentation.pod:3389
 msgid "This is the background thread which performs the conversion."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3373
+#: ../docs/internal-documentation.pod:3391
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44869,7 +44958,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3375
+#: ../docs/internal-documentation.pod:3393
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44878,14 +44967,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3378
+#: ../docs/internal-documentation.pod:3396
 msgid ""
 "Idle task called from C<start_conversion_thread> (but run on the main "
 "thread) when there was an error during the conversion."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3381
+#: ../docs/internal-documentation.pod:3399
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -44898,7 +44987,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3383
+#: ../docs/internal-documentation.pod:3401
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -44907,19 +44996,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3386
+#: ../docs/internal-documentation.pod:3404
 msgid ""
 "Idle task called from C<start_conversion_thread> (but run on the main "
 "thread) when the conversion completed without errors."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3389
+#: ../docs/internal-documentation.pod:3407
 msgid "Function C<p2v/gui.c:notify_ui_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3391
+#: ../docs/internal-documentation.pod:3409
 #, fuzzy, no-wrap
 #| msgid ""
 #| " void *guestfs_get_private (guestfs_h *g, const char *key);\n"
@@ -44933,14 +45022,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3394
+#: ../docs/internal-documentation.pod:3412
 msgid ""
 "This is called from F<conversion.c>:C<start_conversion> when there is a "
 "status change or a log message."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3397
+#: ../docs/internal-documentation.pod:3415
 #, fuzzy
 #| msgid ""
 #| " const char *\n"
@@ -44953,7 +45042,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3399
+#: ../docs/internal-documentation.pod:3417
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char **\n"
@@ -44969,7 +45058,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3402
+#: ../docs/internal-documentation.pod:3420
 msgid ""
 "This is called when the user clicks on the \"Cancel conversion\" button.  "
 "Since conversions can run for a long time, and cancelling the conversion is "
@@ -44978,22 +45067,22 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3407
+#: ../docs/internal-documentation.pod:3425
 msgid "File F<p2v/kernel-cmdline.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3409
+#: ../docs/internal-documentation.pod:3427
 msgid "Mini library to read and parse C</proc/cmdline>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3411
+#: ../docs/internal-documentation.pod:3429
 msgid "Function C<p2v/kernel-cmdline.c:parse_cmdline_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3413
+#: ../docs/internal-documentation.pod:3431
 #, no-wrap
 msgid ""
 " char **\n"
@@ -45002,55 +45091,55 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3416
+#: ../docs/internal-documentation.pod:3434
 msgid "Read and parse C</proc/cmdline>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3418
+#: ../docs/internal-documentation.pod:3436
 msgid ""
 "We only support double quoting, consistent with the Linux documentation.  "
 "L<https://www.kernel.org/doc/Documentation/kernel-parameters.txt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3422
+#: ../docs/internal-documentation.pod:3440
 msgid ""
 "systemd supports single and double quoting and single character escaping, "
 "but we don't support all that."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3425
+#: ../docs/internal-documentation.pod:3443
 msgid "Returns a list of key, value pairs, terminated by C<NULL>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3427
+#: ../docs/internal-documentation.pod:3445
 msgid "File F<p2v/kernel.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3429
+#: ../docs/internal-documentation.pod:3447
 msgid "Kernel-driven, non-interactive configuration of virt-p2v."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3431
+#: ../docs/internal-documentation.pod:3449
 #, fuzzy
 #| msgid "C<protocol>"
 msgid "File F<p2v/main.c>"
 msgstr "C<protocol>"
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3433
+#: ../docs/internal-documentation.pod:3451
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/main.c:partition_parent>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3435
+#: ../docs/internal-documentation.pod:3453
 #, no-wrap
 msgid ""
 " static dev_t\n"
@@ -45059,7 +45148,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3438
+#: ../docs/internal-documentation.pod:3456
 #, fuzzy
 #| msgid ""
 #| " part-to-dev partition\n"
@@ -45070,19 +45159,19 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3440
+#: ../docs/internal-documentation.pod:3458
 msgid "Returns C<0> if no parent device could be found."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3442
+#: ../docs/internal-documentation.pod:3460
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/main.c:device_contains>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3444
+#: ../docs/internal-documentation.pod:3462
 #, fuzzy, no-wrap
 #| msgid ""
 #| " int\n"
@@ -45102,7 +45191,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3447
+#: ../docs/internal-documentation.pod:3465
 msgid ""
 "Return true if the named device (eg. C<dev == \"sda\">) contains the root "
 "filesystem.  C<root_device> is the major:minor of the root filesystem (eg. "
@@ -45110,21 +45199,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3451
+#: ../docs/internal-documentation.pod:3469
 msgid ""
 "This doesn't work for LVs and so on.  However we only really care if this "
 "test works on the P2V ISO where the root device is a regular partition."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3455
+#: ../docs/internal-documentation.pod:3473
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/main.c:find_all_disks>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3457
+#: ../docs/internal-documentation.pod:3475
 #, no-wrap
 msgid ""
 " static void\n"
@@ -45133,21 +45222,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3460
+#: ../docs/internal-documentation.pod:3478
 msgid ""
 "Enumerate all disks in F</sys/block> and add them to the global C<all_disks> "
 "and C<all_removable> arrays."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3463
+#: ../docs/internal-documentation.pod:3481
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/main.c:find_all_interfaces>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3465
+#: ../docs/internal-documentation.pod:3483
 #, fuzzy, no-wrap
 #| msgid ""
 #| " void guestfs_close (guestfs_h *g);\n"
@@ -45161,21 +45250,21 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3468
+#: ../docs/internal-documentation.pod:3486
 msgid ""
 "Enumerate all network interfaces in F</sys/class/net> and add them to the "
 "global C<all_interfaces> array."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3471
+#: ../docs/internal-documentation.pod:3489
 #, fuzzy
 #| msgid "C<appliance>"
 msgid "Function C<p2v/main.c:cpuinfo_flags>"
 msgstr "C<appliance>"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3473
+#: ../docs/internal-documentation.pod:3491
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45184,29 +45273,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3476
+#: ../docs/internal-documentation.pod:3494
 msgid "Read the list of flags from F</proc/cpuinfo>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3478
+#: ../docs/internal-documentation.pod:3496
 msgid "File F<p2v/ssh.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3480
+#: ../docs/internal-documentation.pod:3498
 msgid "This file handles the ssh connections to the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3482
+#: ../docs/internal-documentation.pod:3500
 msgid ""
 "virt-p2v will open several connections over the lifetime of the conversion "
 "process."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3485
+#: ../docs/internal-documentation.pod:3503
 msgid ""
 "In C<test_connection>, it will first open a connection (to check it is "
 "possible) and query virt-v2v on the server to ensure it exists, it is the "
@@ -45216,7 +45305,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3491
+#: ../docs/internal-documentation.pod:3509
 msgid ""
 "Once we start conversion, we will open a control connection to send the "
 "libvirt configuration data and to start up virt-v2v, and we will open up one "
@@ -45227,12 +45316,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3499
+#: ../docs/internal-documentation.pod:3517
 msgid "Function C<p2v/ssh.c:curl_download>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3501
+#: ../docs/internal-documentation.pod:3519
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45241,17 +45330,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3504
+#: ../docs/internal-documentation.pod:3522
 msgid "Download URL to local file using the external 'curl' command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3506
+#: ../docs/internal-documentation.pod:3524
 msgid "Function C<p2v/ssh.c:cache_ssh_identity>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3508
+#: ../docs/internal-documentation.pod:3526
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45260,40 +45349,204 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3511
+#: ../docs/internal-documentation.pod:3529
 msgid "Re-cache the C<config-E<gt>identity_url> if needed."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3513
+#: ../docs/internal-documentation.pod:3531
 msgid "Function C<p2v/ssh.c:start_ssh>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3515
+#: ../docs/internal-documentation.pod:3533
 #, no-wrap
 msgid ""
 " static mexp_h *\n"
-" start_ssh (struct config *config, char **extra_args, int wait_prompt)\n"
+" start_ssh (unsigned spawn_flags, struct config *config,\n"
+"            char **extra_args, int wait_prompt)\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3518
+#: ../docs/internal-documentation.pod:3537
 msgid ""
 "Start ssh subprocess with the standard arguments and possibly some optional "
 "arguments.  Also handles authentication."
 msgstr ""
 
+#. type: =head4
+#: ../docs/internal-documentation.pod:3540
+#, fuzzy
+#| msgid "C<appliance>"
+msgid "Function C<p2v/ssh.c:scp_file>"
+msgstr "C<appliance>"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3542
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int\n"
+#| " guestfs_ls0 (guestfs_h *g,\n"
+#| "              const char *dir,\n"
+#| "              const char *filenames);\n"
+#| "\n"
+msgid ""
+" int\n"
+" scp_file (struct config *config, const char *localfile, const char *remotefile)\n"
+"\n"
+msgstr ""
+" int\n"
+" guestfs_ls0 (guestfs_h *g,\n"
+"              const char *dir,\n"
+"              const char *filenames);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3545
+msgid "Upload a file to remote using L<scp(1)>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3547
+msgid "This is a simplified version of L</start_ssh> above."
+msgstr ""
+
 #. type: =head3
-#: ../docs/internal-documentation.pod:3521
+#: ../docs/internal-documentation.pod:3549
 #, fuzzy
 #| msgid "C<protocol>"
 msgid "File F<p2v/utils.c>"
 msgstr "C<protocol>"
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3523
+#: ../docs/internal-documentation.pod:3551
+#, fuzzy
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid "Function C<p2v/utils.c:get_blockdev_size>"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3553
+#, fuzzy, no-wrap
+#| msgid ""
+#| " int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+#| "\n"
+msgid ""
+" uint64_t\n"
+" get_blockdev_size (const char *dev)\n"
+"\n"
+msgstr ""
+" int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3556
+msgid "Return size of a block device, from F</sys/block/I<dev>/size>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3558
+msgid ""
+"This function always succeeds, or else exits (since we expect C<dev> to "
+"always be valid and the C<size> file to always exist)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3561
+#, fuzzy
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid "Function C<p2v/utils.c:get_blockdev_model>"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3563
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *\n"
+#| " guestfs_df (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" get_blockdev_model (const char *dev)\n"
+"\n"
+msgstr ""
+" char *\n"
+" guestfs_df (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3566
+msgid "Return model of a block device, from F</sys/block/I<dev>/device/model>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3568
+msgid ""
+"Returns C<NULL> if the file was not found.  The caller must free the "
+"returned string."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3571
+#, fuzzy
+#| msgid ""
+#| " int\n"
+#| " guestfs_inotify_close (guestfs_h *g);\n"
+#| "\n"
+msgid "Function C<p2v/utils.c:get_blockdev_serial>"
+msgstr ""
+" int\n"
+" guestfs_inotify_close (guestfs_h *g);\n"
+"\n"
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3573
+#, fuzzy, no-wrap
+#| msgid ""
+#| " char *\n"
+#| " guestfs_df (guestfs_h *g);\n"
+#| "\n"
+msgid ""
+" char *\n"
+" get_blockdev_serial (const char *dev)\n"
+"\n"
+msgstr ""
+" char *\n"
+" guestfs_df (guestfs_h *g);\n"
+"\n"
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3576
+msgid "Return the serial number of a block device."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3578
+msgid "This is found using the lsblk command."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3580
+msgid ""
+"Returns C<NULL> if we could not get the serial number.  The caller must free "
+"the returned string."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3583
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -45306,7 +45559,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3525
+#: ../docs/internal-documentation.pod:3585
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char *\n"
@@ -45322,12 +45575,12 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3528
+#: ../docs/internal-documentation.pod:3588
 msgid "Return contents of F</sys/class/net/I<if_name>/address> (if found)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3530
+#: ../docs/internal-documentation.pod:3590
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -45340,7 +45593,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3532
+#: ../docs/internal-documentation.pod:3592
 #, fuzzy, no-wrap
 #| msgid ""
 #| " char *\n"
@@ -45356,7 +45609,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3535
+#: ../docs/internal-documentation.pod:3595
 msgid ""
 "Return contents of F</sys/class/net/I<if_name>/device/vendor> (if found), "
 "mapped to the PCI vendor.  See: L<http://pjwelsh.blogspot.co.uk/2011/11/"
@@ -45364,7 +45617,7 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3539
+#: ../docs/internal-documentation.pod:3599
 #, fuzzy
 #| msgid ""
 #| " int\n"
@@ -45377,7 +45630,7 @@ msgstr ""
 "\n"
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3541
+#: ../docs/internal-documentation.pod:3601
 #, no-wrap
 msgid ""
 " void\n"
@@ -45386,7 +45639,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3544
+#: ../docs/internal-documentation.pod:3604
 msgid ""
 "Wait for the network to come online, but don't error out if that fails.  The "
 "caller will call C<test_connection> immediately after this which will fail "
@@ -45394,17 +45647,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3548
+#: ../docs/internal-documentation.pod:3608
 msgid "File F<p2v/whole-file.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3550
+#: ../docs/internal-documentation.pod:3610
 msgid "Function C<p2v/whole-file.c:read_whole_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3552
+#: ../docs/internal-documentation.pod:3612
 #, no-wrap
 msgid ""
 " int\n"
@@ -45413,53 +45666,53 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3555
+#: ../docs/internal-documentation.pod:3615
 msgid ""
 "Read the whole file into a memory buffer and return it.  The file should be "
 "a regular, local, trusted file."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:3558
+#: ../docs/internal-documentation.pod:3618
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3560
+#: ../docs/internal-documentation.pod:3620
 msgid "File F<python/guestfs-py-byhand.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3562
+#: ../docs/internal-documentation.pod:3622
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/guestfs-py.c>)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:3566
+#: ../docs/internal-documentation.pod:3626
 msgid "Subdirectory F<v2v>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3568
+#: ../docs/internal-documentation.pod:3628
 msgid "File F<v2v/domainxml-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3570
+#: ../docs/internal-documentation.pod:3630
 msgid ""
 "This module implements various C<virsh>-like commands, but with non-broken "
 "authentication handling."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3573
+#: ../docs/internal-documentation.pod:3633
 msgid "File F<v2v/xml-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3575
+#: ../docs/internal-documentation.pod:3635
 msgid "Mini interface to libxml2."
 msgstr ""
 
@@ -76045,26 +76298,48 @@ msgstr ""
 
 #. type: =head1
 #: ../p2v/virt-p2v-make-disk.pod:55 ../p2v/virt-p2v-make-kickstart.pod:194
+msgid "ADDING EXTRA PACKAGES"
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v-make-disk.pod:57 ../p2v/virt-p2v-make-kickstart.pod:196
+msgid ""
+"You can install extra packages using the I<--install> option.  This can be "
+"useful for making a more fully-featured virt-p2v disk with extra tools for "
+"debugging and troubleshooting.  Give a list of packages, separated by "
+"commas.  For example:"
+msgstr ""
+
+#. type: verbatim
+#: ../p2v/virt-p2v-make-disk.pod:62
+#, no-wrap
+msgid ""
+" virt-p2v-make-disk -o /var/tmp/p2v.img --install tcpdump,traceroute\n"
+"\n"
+msgstr ""
+
+#. type: =head1
+#: ../p2v/virt-p2v-make-disk.pod:64 ../p2v/virt-p2v-make-kickstart.pod:203
 #: ../p2v/virt-p2v-make-kiwi.pod:65
 msgid "ADDING AN SSH IDENTITY"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:57
+#: ../p2v/virt-p2v-make-disk.pod:66
 msgid ""
 "You can inject an SSH identity (private key) file to the image using the I<--"
 "inject-ssh-identity> option."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:60 ../p2v/virt-p2v-make-kickstart.pod:200
-#: ../p2v/virt-p2v-make-kiwi.pod:71 ../p2v/virt-p2v.pod:496
+#: ../p2v/virt-p2v-make-disk.pod:69 ../p2v/virt-p2v-make-kickstart.pod:209
+#: ../p2v/virt-p2v-make-kiwi.pod:71 ../p2v/virt-p2v.pod:504
 msgid "First create a key pair.  It must have an empty passphrase:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v-make-disk.pod:62 ../p2v/virt-p2v-make-kickstart.pod:202
-#: ../p2v/virt-p2v-make-kiwi.pod:73 ../p2v/virt-p2v.pod:498
+#: ../p2v/virt-p2v-make-disk.pod:71 ../p2v/virt-p2v-make-kickstart.pod:211
+#: ../p2v/virt-p2v-make-kiwi.pod:73 ../p2v/virt-p2v.pod:506
 #, no-wrap
 msgid ""
 " ssh-keygen -t rsa -N '' -f id_rsa\n"
@@ -76072,7 +76347,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:64 ../p2v/virt-p2v-make-kickstart.pod:204
+#: ../p2v/virt-p2v-make-disk.pod:73 ../p2v/virt-p2v-make-kickstart.pod:213
 #: ../p2v/virt-p2v-make-kiwi.pod:75
 msgid ""
 "This creates a private key (C<id_rsa>) and a public key (C<id_rsa.pub>) "
@@ -76081,13 +76356,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:69
+#: ../p2v/virt-p2v-make-disk.pod:78
 msgid ""
 "The private key should be injected into the disk image and then discarded:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v-make-disk.pod:72
+#: ../p2v/virt-p2v-make-disk.pod:81
 #, no-wrap
 msgid ""
 " virt-p2v-make-disk [...] --inject-ssh-identity id_rsa\n"
@@ -76096,13 +76371,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:75 ../p2v/virt-p2v-make-kickstart.pod:219
+#: ../p2v/virt-p2v-make-disk.pod:84 ../p2v/virt-p2v-make-kickstart.pod:228
 #: ../p2v/virt-p2v-make-kiwi.pod:90
 msgid "When booting virt-p2v, specify the URL of the injected file like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v-make-disk.pod:77 ../p2v/virt-p2v-make-kickstart.pod:221
+#: ../p2v/virt-p2v-make-disk.pod:86 ../p2v/virt-p2v-make-kickstart.pod:230
 #: ../p2v/virt-p2v-make-kiwi.pod:92
 #, no-wrap
 msgid ""
@@ -76115,14 +76390,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:83 ../p2v/virt-p2v-make-kickstart.pod:227
+#: ../p2v/virt-p2v-make-disk.pod:92 ../p2v/virt-p2v-make-kickstart.pod:236
 #: ../p2v/virt-p2v-make-kiwi.pod:98
 msgid "or if using the kernel command line, add:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v-make-disk.pod:85 ../p2v/virt-p2v-make-kickstart.pod:229
-#: ../p2v/virt-p2v-make-kiwi.pod:100 ../p2v/virt-p2v.pod:530
+#: ../p2v/virt-p2v-make-disk.pod:94 ../p2v/virt-p2v-make-kickstart.pod:238
+#: ../p2v/virt-p2v-make-kiwi.pod:100 ../p2v/virt-p2v.pod:538
 #, no-wrap
 msgid ""
 " p2v.identity=file:///var/tmp/id_rsa\n"
@@ -76130,18 +76405,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:87 ../p2v/virt-p2v-make-kickstart.pod:231
+#: ../p2v/virt-p2v-make-disk.pod:96 ../p2v/virt-p2v-make-kickstart.pod:240
 #: ../p2v/virt-p2v-make-kiwi.pod:102
 msgid "For more information, see L<virt-p2v(1)/SSH IDENTITIES>."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v-make-disk.pod:89
+#: ../p2v/virt-p2v-make-disk.pod:98
 msgid "32 BIT VIRT-P2V"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:91
+#: ../p2v/virt-p2v-make-disk.pod:100
 msgid ""
 "For improved compatibility with older hardware, virt-p2v-make-disk has an "
 "I<--arch> option.  The most useful setting (on x86-64 hosts) is I<--arch "
@@ -76151,7 +76426,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:98
+#: ../p2v/virt-p2v-make-disk.pod:107
 msgid ""
 "This option requires that you have built F<virt-p2v.$arch> (ie.  usually "
 "F<virt-p2v.i686>) by some means, and that you install it next to the "
@@ -76161,75 +76436,94 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:113
+#: ../p2v/virt-p2v-make-disk.pod:122
 msgid "B<--arch> ARCH"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:115
+#: ../p2v/virt-p2v-make-disk.pod:124
 msgid ""
 "Set the architecture of the virt-p2v ISO.  See L</32 BIT VIRT-P2V> above."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:117
+#: ../p2v/virt-p2v-make-disk.pod:126
 msgid ""
 "If this option is not supplied, then the default is to use the same "
 "architecture as the host that is running virt-p2v-make-disk."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:120 ../p2v/virt-p2v-make-kickstart.pod:241
+#: ../p2v/virt-p2v-make-disk.pod:129 ../p2v/virt-p2v-make-kickstart.pod:250
 #: ../p2v/virt-p2v-make-kiwi.pod:112
 msgid "B<--inject-ssh-identity> id_rsa"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:122
+#: ../p2v/virt-p2v-make-disk.pod:131
 msgid ""
 "Add an SSH identity (private key) file into the image.  See L</ADDING AN SSH "
 "IDENTITY> above."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:125 ../p2v/virt-p2v-make-kickstart.pod:246
+#: ../p2v/virt-p2v-make-disk.pod:134 ../p2v/virt-p2v-make-kickstart.pod:255
+msgid "B<--install> pkg,pkg,..."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v-make-disk.pod:136
+msgid "Add extra packages to the image.  See L</ADDING EXTRA PACKAGES> above."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v-make-disk.pod:141
+msgid ""
+"Normally you should not write to a partition on a USB drive (ie. don't use "
+"S<C<-o /dev/sdX1>>, use S<C<-o /dev/sdX>> to make a bootable USB drive).  If "
+"you do this, virt-builder prints a warning.  This option suppresses that "
+"warning."
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v-make-disk.pod:146 ../p2v/virt-p2v-make-kickstart.pod:260
 #: ../p2v/virt-p2v-make-kiwi.pod:117
 msgid "B<-o> OUTPUT"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:127 ../p2v/virt-p2v-make-kickstart.pod:248
+#: ../p2v/virt-p2v-make-disk.pod:148 ../p2v/virt-p2v-make-kickstart.pod:262
 #: ../p2v/virt-p2v-make-kiwi.pod:119
 msgid "B<--output> OUTPUT"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:129
+#: ../p2v/virt-p2v-make-disk.pod:150
 msgid ""
 "Write output to C<OUTPUT>, which can be a local file or block device.  B<The "
 "existing contents of the device will be erased>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:136 ../p2v/virt-p2v-make-kickstart.pod:261
+#: ../p2v/virt-p2v-make-disk.pod:157 ../p2v/virt-p2v-make-kickstart.pod:275
 msgid ""
 "Enable verbose output.  Use this if you need to debug problems with the "
 "script or if you are filing a bug."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:151 ../p2v/virt-p2v-make-kickstart.pod:276
+#: ../p2v/virt-p2v-make-disk.pod:172 ../p2v/virt-p2v-make-kickstart.pod:290
 #: ../p2v/virt-p2v-make-kiwi.pod:136
 msgid "F<$libexecdir/virt-p2v>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:153
+#: ../p2v/virt-p2v-make-disk.pod:174
 msgid "The L<virt-p2v(1)> binary which is copied into the bootable disk image."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:156 ../p2v/virt-p2v-make-kickstart.pod:280
+#: ../p2v/virt-p2v-make-disk.pod:177 ../p2v/virt-p2v-make-kickstart.pod:294
 #: ../p2v/virt-p2v-make-kiwi.pod:140
 msgid ""
 "The location of the binary can be changed by setting the "
@@ -76237,30 +76531,30 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:159 ../p2v/virt-p2v-make-kickstart.pod:283
+#: ../p2v/virt-p2v-make-disk.pod:180 ../p2v/virt-p2v-make-kickstart.pod:297
 #: ../p2v/virt-p2v-make-kiwi.pod:143
 msgid "F<$datadir/virt-p2v/issue>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:161 ../p2v/virt-p2v-make-kickstart.pod:285
+#: ../p2v/virt-p2v-make-disk.pod:182 ../p2v/virt-p2v-make-kickstart.pod:299
 #: ../p2v/virt-p2v-make-kiwi.pod:145
 msgid "F<$datadir/virt-p2v/launch-virt-p2v.in>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:163 ../p2v/virt-p2v-make-kickstart.pod:289
+#: ../p2v/virt-p2v-make-disk.pod:184 ../p2v/virt-p2v-make-kickstart.pod:303
 #: ../p2v/virt-p2v-make-kiwi.pod:149
 msgid "F<$datadir/virt-p2v/p2v.service>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:165
+#: ../p2v/virt-p2v-make-disk.pod:186
 msgid "Various data files that are copied into the bootable disk image."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:167 ../p2v/virt-p2v-make-kickstart.pod:293
+#: ../p2v/virt-p2v-make-disk.pod:188 ../p2v/virt-p2v-make-kickstart.pod:307
 #: ../p2v/virt-p2v-make-kiwi.pod:153
 msgid ""
 "The location of these files can be changed by setting the "
@@ -76268,20 +76562,20 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-disk.pod:176 ../p2v/virt-p2v-make-kickstart.pod:302
+#: ../p2v/virt-p2v-make-disk.pod:197 ../p2v/virt-p2v-make-kickstart.pod:316
 #: ../p2v/virt-p2v-make-kiwi.pod:162
 msgid "C<VIRT_P2V_DATA_DIR>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:178
+#: ../p2v/virt-p2v-make-disk.pod:199
 msgid ""
 "The directory where virt-p2v-make-disk looks for data files (see L</FILES> "
 "above).  If not set, a compiled-in location is used."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-disk.pod:185
+#: ../p2v/virt-p2v-make-disk.pod:206
 msgid ""
 "L<virt-p2v(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-p2v-make-kiwi(1)>, "
 "L<virt-v2v(1)>, L<http://libguestfs.org/>."
@@ -76640,8 +76934,16 @@ msgid ""
 "starts up."
 msgstr ""
 
+#. type: verbatim
+#: ../p2v/virt-p2v-make-kickstart.pod:201
+#, no-wrap
+msgid ""
+" virt-p2v-make-kickstart [...] --install tcpdump,traceroute\n"
+"\n"
+msgstr ""
+
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:196
+#: ../p2v/virt-p2v-make-kickstart.pod:205
 msgid ""
 "You can inject an SSH identity (private key) file to the kickstart and hence "
 "into the ISO using the I<--inject-ssh-identity> option.  Note that you "
@@ -76649,13 +76951,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:209
+#: ../p2v/virt-p2v-make-kickstart.pod:218
 msgid ""
 "The private key should be added to the kickstart file and then discarded:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v-make-kickstart.pod:212
+#: ../p2v/virt-p2v-make-kickstart.pod:221
 #, no-wrap
 msgid ""
 " virt-p2v-make-kickstart [...] --inject-ssh-identity id_rsa\n"
@@ -76664,53 +76966,60 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:215 ../p2v/virt-p2v-make-kiwi.pod:86
+#: ../p2v/virt-p2v-make-kickstart.pod:224 ../p2v/virt-p2v-make-kiwi.pod:86
 msgid ""
 "The ISO can then be built from the kickstart in the usual way (see above), "
 "and it will contain the embedded SSH identity (F</var/tmp/id_rsa>)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:243 ../p2v/virt-p2v-make-kiwi.pod:114
+#: ../p2v/virt-p2v-make-kickstart.pod:252 ../p2v/virt-p2v-make-kiwi.pod:114
 msgid ""
 "Add an SSH identity (private key) file into the kickstart.  See L</ADDING AN "
 "SSH IDENTITY> above."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:250
+#: ../p2v/virt-p2v-make-kickstart.pod:257
+msgid ""
+"Add extra packages to the kickstart C<%packages> section.  See L</ADDING "
+"EXTRA PACKAGES> above."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v-make-kickstart.pod:264
 msgid ""
 "Write kickstart to C<OUTPUT>.  If not specified, the default is F<p2v.ks> in "
 "the current directory."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-kickstart.pod:253
+#: ../p2v/virt-p2v-make-kickstart.pod:267
 msgid "B<--proxy> URL"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:255
+#: ../p2v/virt-p2v-make-kickstart.pod:269
 msgid "Tell the kickstart to use a proxy server or web cache for downloads."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:278
+#: ../p2v/virt-p2v-make-kickstart.pod:292
 msgid "The L<virt-p2v(1)> binary which is copied into the kickstart file."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v-make-kickstart.pod:287
+#: ../p2v/virt-p2v-make-kickstart.pod:301
 msgid "F<$datadir/virt-p2v/p2v.ks.in>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:291
+#: ../p2v/virt-p2v-make-kickstart.pod:305
 msgid "Various data files that are used to make the kickstart."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:304
+#: ../p2v/virt-p2v-make-kickstart.pod:318
 msgid ""
 "The directory where virt-p2v-make-kickstart looks for data files and the "
 "virt-p2v binary (see L</FILES> above).  If not set, a compiled-in location "
@@ -76718,7 +77027,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v-make-kickstart.pod:312
+#: ../p2v/virt-p2v-make-kickstart.pod:326
 msgid ""
 "L<virt-p2v(1)>, L<virt-p2v-make-disk(1)>, L<virt-v2v(1)>, L<livecd-"
 "creator(8)>, L<livecd-iso-to-disk(8)>, L<http://libguestfs.org/>."
@@ -77029,6 +77338,13 @@ msgstr ""
 #. type: textblock
 #: ../p2v/virt-p2v.pod:59
 msgid ""
+"The scp (secure copy) feature of ssh is required by virt-p2v so it can send "
+"over small files (this is I<not> the method by which disks are copied)."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:63
+msgid ""
 "The conversion server does not need to be a physical machine.  It could be a "
 "virtual machine, as long as it has sufficient memory and disk space to do "
 "the conversion, and as long as the physical machine can connect directly to "
@@ -77036,7 +77352,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:65
+#: ../p2v/virt-p2v.pod:69
 msgid ""
 "Because all of the data on the physical server's hard drive(s) has to be "
 "copied over the network, the speed of conversion is largely determined by "
@@ -77044,12 +77360,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:69
+#: ../p2v/virt-p2v.pod:73
 msgid "GUI INTERACTIVE CONFIGURATION"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:71
+#: ../p2v/virt-p2v.pod:75
 msgid ""
 "When you start virt-p2v, you'll see a graphical configuration dialog that "
 "walks you through connection to the conversion server, asks for the "
@@ -77058,17 +77374,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../p2v/virt-p2v.pod:77
+#: ../p2v/virt-p2v.pod:81
 msgid "SSH CONFIGURATION DIALOG"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:79
+#: ../p2v/virt-p2v.pod:83
 msgid "When virt-p2v starts up in GUI mode, the first dialog looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:81
+#: ../p2v/virt-p2v.pod:85
 #, no-wrap
 msgid ""
 " ┌────────────────────────────────────────────────────────┐\n"
@@ -77086,7 +77402,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:93
+#: ../p2v/virt-p2v.pod:97
 msgid ""
 "In the fields above, you must enter the details of the conversion server: "
 "the hostname, SSH port number, remote user name, and either the password or "
@@ -77095,14 +77411,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:98
+#: ../p2v/virt-p2v.pod:102
 msgid ""
 "Normally you must log in to the conversion server as root, but if you check "
 "the following box:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:101
+#: ../p2v/virt-p2v.pod:105
 #, no-wrap
 msgid ""
 " │                                                        │\n"
@@ -77112,7 +77428,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:105
+#: ../p2v/virt-p2v.pod:109
 msgid ""
 "then you can log in as another user, and virt-p2v will use the L<sudo(8)> "
 "command to elevate privileges to root.  Note that sudo must not require a "
@@ -77120,7 +77436,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:109
+#: ../p2v/virt-p2v.pod:113
 msgid ""
 "It is also possible to run virt-v2v on the conversion server entirely as non-"
 "root, but output modes may be limited.  Consult the L<virt-v2v(1)> manual "
@@ -77128,12 +77444,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:113
+#: ../p2v/virt-p2v.pod:117
 msgid "At the bottom of the dialog are these buttons:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:115
+#: ../p2v/virt-p2v.pod:119
 #, no-wrap
 msgid ""
 " │                                                        │\n"
@@ -77146,7 +77462,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:122
+#: ../p2v/virt-p2v.pod:126
 msgid ""
 "You must press the C<Test connection> button first to test the SSH "
 "connection to the conversion server.  If that is successful (ie. you have "
@@ -77156,7 +77472,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:128
+#: ../p2v/virt-p2v.pod:132
 msgid ""
 "You can use the C<Configure network> button if you need to assign a static "
 "IP address to the physical machine, or use Wifi, bonding or other network "
@@ -77164,19 +77480,19 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../p2v/virt-p2v.pod:132
+#: ../p2v/virt-p2v.pod:136
 msgid "DISK AND NETWORK CONFIGURATION DIALOG"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:134
+#: ../p2v/virt-p2v.pod:138
 msgid ""
 "The second configuration dialog lets you configure the details of "
 "conversion, including what to convert and where to send the guest."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:137
+#: ../p2v/virt-p2v.pod:141
 msgid ""
 "In the left hand column, starting at the top, the target properties let you "
 "select the name of the guest (ie. after conversion) and how many virtual "
@@ -77185,7 +77501,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:142
+#: ../p2v/virt-p2v.pod:146
 #, no-wrap
 msgid ""
 " ┌─────────────────────────────────────── ─ ─ ─ ─\n"
@@ -77201,7 +77517,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:152
+#: ../p2v/virt-p2v.pod:156
 msgid ""
 "The second panel on the left controls the virt-v2v output options.  To "
 "understand these options it is a really good idea to read the L<virt-v2v(1)> "
@@ -77211,7 +77527,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:159
+#: ../p2v/virt-p2v.pod:163
 #, no-wrap
 msgid ""
 " │\n"
@@ -77231,14 +77547,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:173
+#: ../p2v/virt-p2v.pod:177
 msgid ""
 "All output options and paths are relative to the conversion server (I<not> "
 "to the physical server)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:176
+#: ../p2v/virt-p2v.pod:180
 msgid ""
 "The final option in this panel enables server-side debugging.  This produces "
 "a lot of output, but is essential if you are tracking down virt-p2v or virt-"
@@ -77246,7 +77562,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:180
+#: ../p2v/virt-p2v.pod:184
 #, no-wrap
 msgid ""
 " │\n"
@@ -77256,7 +77572,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:184
+#: ../p2v/virt-p2v.pod:188
 msgid ""
 "Finally in the left hand column is an information box giving the version of "
 "virt-p2v (on the physical server) and virt-v2v (on the conversion server).  "
@@ -77264,7 +77580,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:189
+#: ../p2v/virt-p2v.pod:193
 msgid ""
 "In the right hand column are three panels which control what hard disks, "
 "removable media devices, and network interfaces, will be created in the "
@@ -77272,21 +77588,25 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:194
+#: ../p2v/virt-p2v.pod:198
 #, no-wrap
 msgid ""
 " ─ ─ ───────────────────────────────────────┐\n"
 "     Fixed hard disks                       │\n"
 "                                            │\n"
-"     Convert  Device  Size (GB)  Model      │\n"
-"     [✔]      sda     1024       HITACHI    │\n"
-"     [✔]      sdb     119        HITACHI    │\n"
+"     Convert  Device                        │\n"
+"     [✔]      sda                           │\n"
+"              1024G HITACHI                 │\n"
+"              s/n 12345                     │\n"
+"     [✔]      sdb                           │\n"
+"              119G HITACHI                  │\n"
+"              s/n 12346                     │\n"
 "                                            │\n"
 "\n"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:202
+#: ../p2v/virt-p2v.pod:210
 msgid ""
 "Normally you would want to convert all hard disks.  If you want virt-p2v to "
 "completely ignore a local hard disk, uncheck it.  The hard disk that "
@@ -77296,7 +77616,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:208
+#: ../p2v/virt-p2v.pod:216
 #, no-wrap
 msgid ""
 "                                            │\n"
@@ -77309,7 +77629,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:215
+#: ../p2v/virt-p2v.pod:223
 msgid ""
 "If the physical machine has CD or DVD drives, then you can use the Removable "
 "media panel to create corresponding drives on the guest after conversion.  "
@@ -77318,7 +77638,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:220
+#: ../p2v/virt-p2v.pod:228
 #, no-wrap
 msgid ""
 "                                            │\n"
@@ -77332,7 +77652,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:228
+#: ../p2v/virt-p2v.pod:236
 msgid ""
 "In the Network interfaces panel, select the network interfaces that should "
 "be created in the guest after conversion.  You can also connect these to "
@@ -77341,7 +77661,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:233
+#: ../p2v/virt-p2v.pod:241
 msgid ""
 "On supported hardware, left-clicking on the device name (eg. C<em1>)  causes "
 "a light to start flashing on the physical interface, allowing the interface "
@@ -77349,14 +77669,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:237
+#: ../p2v/virt-p2v.pod:245
 msgid ""
 "When you are ready to begin the conversion, press the C<Start conversion> "
 "button:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:240
+#: ../p2v/virt-p2v.pod:248
 #, no-wrap
 msgid ""
 "                                            │\n"
@@ -77367,17 +77687,17 @@ msgid ""
 msgstr ""
 
 #. type: =head2
-#: ../p2v/virt-p2v.pod:245
+#: ../p2v/virt-p2v.pod:253
 msgid "CONVERSION RUNNING DIALOG"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:247
+#: ../p2v/virt-p2v.pod:255
 msgid "When conversion is running you will see this dialog:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:249
+#: ../p2v/virt-p2v.pod:257
 #, no-wrap
 msgid ""
 " ┌────────────────────────────────────────────────────────┐\n"
@@ -77404,13 +77724,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:270
+#: ../p2v/virt-p2v.pod:278
 msgid ""
 "In the main scrolling area you will see messages from the virt-v2v process."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:273
+#: ../p2v/virt-p2v.pod:281
 msgid ""
 "Below the main area, virt-p2v shows you the location of the directory on the "
 "conversion server that contains log files and other debugging information.  "
@@ -77418,19 +77738,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:278
+#: ../p2v/virt-p2v.pod:286
 msgid ""
 "Once conversion has finished, you should shut down the physical machine.  If "
 "conversion is successful, you should never reboot it."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:281
+#: ../p2v/virt-p2v.pod:289
 msgid "KERNEL COMMAND LINE CONFIGURATION"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:283
+#: ../p2v/virt-p2v.pod:291
 msgid ""
 "If you don't want to configure things using the graphical UI, an alternative "
 "is to configure through the kernel command line.  This is especially "
@@ -77439,7 +77759,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:288
+#: ../p2v/virt-p2v.pod:296
 msgid ""
 "Where exactly you set command line arguments depends on your PXE "
 "implementation, but for pxelinux you put them in the C<APPEND> field in the "
@@ -77447,7 +77767,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:292
+#: ../p2v/virt-p2v.pod:300
 #, no-wrap
 msgid ""
 " DEFAULT p2v\n"
@@ -77460,22 +77780,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:299
+#: ../p2v/virt-p2v.pod:307
 msgid "You have to set some or all of the following command line arguments:"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:303
+#: ../p2v/virt-p2v.pod:311
 msgid "B<p2v.server=SERVER>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:305
+#: ../p2v/virt-p2v.pod:313
 msgid "The name or IP address of the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:307
+#: ../p2v/virt-p2v.pod:315
 msgid ""
 "This is always required if you are using the kernel configuration method.  "
 "If virt-p2v does not find this on the kernel command line then it switches "
@@ -77483,56 +77803,56 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:311
+#: ../p2v/virt-p2v.pod:319
 msgid "B<p2v.port=NN>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:313
+#: ../p2v/virt-p2v.pod:321
 msgid "The SSH port number on the conversion server (default: C<22>)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:315
+#: ../p2v/virt-p2v.pod:323
 msgid "B<p2v.username=USERNAME>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:317
+#: ../p2v/virt-p2v.pod:325
 msgid ""
 "The SSH username that we log in as on the conversion server (default: "
 "C<root>)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:320
+#: ../p2v/virt-p2v.pod:328
 msgid "B<p2v.password=PASSWORD>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:322
+#: ../p2v/virt-p2v.pod:330
 msgid "The SSH password that we use to log in to the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:324
+#: ../p2v/virt-p2v.pod:332
 msgid ""
 "The default is to try with no password.  If this fails then virt-p2v will "
 "ask the user to type the password (probably several times during conversion)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:328
+#: ../p2v/virt-p2v.pod:336
 msgid "This setting is ignored if C<p2v.identity> is present."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:330
+#: ../p2v/virt-p2v.pod:338
 msgid "B<p2v.identity=URL>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:332
+#: ../p2v/virt-p2v.pod:340
 msgid ""
 "Provide a URL pointing to an SSH identity (private key) file.  The URL is "
 "interpreted by L<curl(1)> so any URL that curl supports can be used here, "
@@ -77541,19 +77861,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:337
+#: ../p2v/virt-p2v.pod:345
 msgid ""
 "If C<p2v.identity> is present, it overrides C<p2v.password>.  There is no "
 "fallback."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:340
+#: ../p2v/virt-p2v.pod:348
 msgid "B<p2v.sudo>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:342
+#: ../p2v/virt-p2v.pod:350
 msgid ""
 "Use C<p2v.sudo> to tell virt-p2v to use L<sudo(8)> to gain root privileges "
 "on the conversion server after logging in as a non-root user (default: do "
@@ -77561,12 +77881,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:346
+#: ../p2v/virt-p2v.pod:354
 msgid "B<p2v.name=GUESTNAME>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:348
+#: ../p2v/virt-p2v.pod:356
 msgid ""
 "The name of the guest that is created.  The default is to try to derive a "
 "name from the physical machine's hostname (if possible) else use a randomly "
@@ -77574,47 +77894,47 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:352
+#: ../p2v/virt-p2v.pod:360
 msgid "B<p2v.vcpus=NN>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:354
+#: ../p2v/virt-p2v.pod:362
 msgid ""
 "The number of virtual CPUs to give to the guest.  The default is to use the "
 "same as the number of physical CPUs."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:357
+#: ../p2v/virt-p2v.pod:365
 msgid "B<p2v.memory=NN(M|G)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:359
+#: ../p2v/virt-p2v.pod:367
 msgid ""
 "The size of the guest memory.  You must specify the unit as either megabytes "
 "or gigabytes by using (eg) C<p2v.memory=1024M> or C<p2v.memory=1G>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:363
+#: ../p2v/virt-p2v.pod:371
 msgid ""
 "The default is to use the same amount of RAM as on the physical machine."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:366
+#: ../p2v/virt-p2v.pod:374
 msgid "B<p2v.debug>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:368
+#: ../p2v/virt-p2v.pod:376
 msgid "Use this to enable full debugging of virt-v2v."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:370
+#: ../p2v/virt-p2v.pod:378
 msgid ""
 "If asked to diagnose a problem with virt-p2v, you should add C<p2v.debug> to "
 "the kernel command line, and examine the log file which is left in F</tmp> "
@@ -77622,17 +77942,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:374
+#: ../p2v/virt-p2v.pod:382
 msgid "B<p2v.disks=sdX,sdY,..>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:376
+#: ../p2v/virt-p2v.pod:384
 msgid "A list of physical hard disks to convert, for example:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:378
+#: ../p2v/virt-p2v.pod:386
 #, no-wrap
 msgid ""
 " p2v.disks=sda,sdc\n"
@@ -77640,17 +77960,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:380
+#: ../p2v/virt-p2v.pod:388
 msgid "The default is to convert all local hard disks that are found."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:382
+#: ../p2v/virt-p2v.pod:390
 msgid "B<p2v.removable=srX,srY,..>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:384
+#: ../p2v/virt-p2v.pod:392
 msgid ""
 "A list of removable media to convert.  The default is to create virtual "
 "removable devices for every physical removable device found.  Note that the "
@@ -77658,24 +77978,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:388
+#: ../p2v/virt-p2v.pod:396
 msgid "B<p2v.interfaces=em1,..>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:390
+#: ../p2v/virt-p2v.pod:398
 msgid ""
 "A list of network interfaces to convert.  The default is to create virtual "
 "network interfaces for every physical network interface found."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:393
+#: ../p2v/virt-p2v.pod:401
 msgid "B<p2v.network=interface:target,...>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:395
+#: ../p2v/virt-p2v.pod:403
 msgid ""
 "Controls how network interfaces are connected to virtual networks on the "
 "target hypervisor.  The default is to connect all network interfaces to the "
@@ -77683,14 +78003,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:399
+#: ../p2v/virt-p2v.pod:407
 msgid ""
 "You give a comma-separated list of C<interface:target> pairs, plus "
 "optionally a default target.  For example:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:402
+#: ../p2v/virt-p2v.pod:410
 #, no-wrap
 msgid ""
 " p2v.network=em1:rhevm\n"
@@ -77698,12 +78018,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:404
+#: ../p2v/virt-p2v.pod:412
 msgid "maps interface C<em1> to target network C<rhevm>."
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:406
+#: ../p2v/virt-p2v.pod:414
 #, no-wrap
 msgid ""
 " p2v.network=em1:rhevm,em2:management,other\n"
@@ -77711,97 +78031,97 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:408
+#: ../p2v/virt-p2v.pod:416
 msgid ""
 "maps interface C<em1> to C<rhevm>, and C<em2> to C<management>, and any "
 "other interface that is found to C<other>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:411
+#: ../p2v/virt-p2v.pod:419
 msgid "B<p2v.o=[libvirt|local|...]>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:413
+#: ../p2v/virt-p2v.pod:421
 msgid ""
 "Set the output mode.  This is the same as the virt-v2v I<-o> option.  See "
 "L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:416
+#: ../p2v/virt-p2v.pod:424
 msgid ""
 "If not specified, the default is C<local>, and the converted guest is "
 "written to F</var/tmp>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:419
+#: ../p2v/virt-p2v.pod:427
 msgid "B<p2v.oa=sparse|preallocated>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:421
+#: ../p2v/virt-p2v.pod:429
 msgid ""
 "Set the output allocation mode.  This is the same as the virt-v2v I<-oa> "
 "option.  See L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:424
+#: ../p2v/virt-p2v.pod:432
 msgid "B<p2v.oc=...>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:426
+#: ../p2v/virt-p2v.pod:434
 msgid ""
 "Set the output connection libvirt URI.  This is the same as the virt-v2v I<-"
 "oc> option.  See L<virt-v2v(1)/OPTIONS> and L<http://libvirt.org/uri.html>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:430
+#: ../p2v/virt-p2v.pod:438
 msgid "B<p2v.of=raw|qcow2|...>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:432
+#: ../p2v/virt-p2v.pod:440
 msgid ""
 "Set the output format.  This is the same as the virt-v2v I<-of> option.  See "
 "L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:435
+#: ../p2v/virt-p2v.pod:443
 msgid "B<p2v.os=...>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:437
+#: ../p2v/virt-p2v.pod:445
 msgid ""
 "Set the output storage.  This is the same as the virt-v2v I<-os> option.  "
 "See L<virt-v2v(1)/OPTIONS>."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:440
+#: ../p2v/virt-p2v.pod:448
 msgid ""
 "If not specified, the default is F</var/tmp> (on the conversion server)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:442
+#: ../p2v/virt-p2v.pod:450
 msgid "B<p2v.pre=COMMAND>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:444
+#: ../p2v/virt-p2v.pod:452
 msgid "B<p2v.pre=\"COMMAND ARG ...\">"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:446
+#: ../p2v/virt-p2v.pod:454
 msgid ""
 "Select a pre-conversion command to run.  Any command or script can be "
 "specified here.  If the command contains spaces, you must quote the whole "
@@ -77809,27 +78129,27 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:451
+#: ../p2v/virt-p2v.pod:459
 msgid "B<p2v.post=poweroff>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:453
+#: ../p2v/virt-p2v.pod:461
 msgid "B<p2v.post=reboot>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:455
+#: ../p2v/virt-p2v.pod:463
 msgid "B<p2v.post=COMMAND>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:457
+#: ../p2v/virt-p2v.pod:465
 msgid "B<p2v.post=\"COMMAND ARG ...\">"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:459
+#: ../p2v/virt-p2v.pod:467
 msgid ""
 "Select a post-conversion command to run if conversion is successful.  This "
 "can be any command or script.  If the command contains spaces, you must "
@@ -77837,7 +78157,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:463
+#: ../p2v/virt-p2v.pod:471
 msgid ""
 "I<If> virt-p2v is running as root, I<and> the command line was set from F</"
 "proc/cmdline> (not I<--cmdline>), then the default is to run the "
@@ -77845,17 +78165,17 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:468
+#: ../p2v/virt-p2v.pod:476
 msgid "B<p2v.fail=COMMAND>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:470
+#: ../p2v/virt-p2v.pod:478
 msgid "B<p2v.fail=\"COMMAND ARG ...\">"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:472
+#: ../p2v/virt-p2v.pod:480
 msgid ""
 "Select a post-conversion command to run if conversion fails.  Any command or "
 "script can be specified here.  If the command contains spaces, you must "
@@ -77864,77 +78184,77 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:477
+#: ../p2v/virt-p2v.pod:485
 msgid "B<ip=dhcp>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:479
+#: ../p2v/virt-p2v.pod:487
 msgid "Use DHCP for configuring the network interface (this is the default)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:483
+#: ../p2v/virt-p2v.pod:491
 msgid "B<ip=ADDR:GATEWAY:NETMASK>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:485
+#: ../p2v/virt-p2v.pod:493
 msgid "Set up a static IPv4 network configuration."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:491
+#: ../p2v/virt-p2v.pod:499
 msgid "SSH IDENTITIES"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:493
+#: ../p2v/virt-p2v.pod:501
 msgid ""
 "As a somewhat more secure alternative to password authentication, you can "
 "use an SSH identity (private key) for authentication."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:500
+#: ../p2v/virt-p2v.pod:508
 msgid ""
 "This creates a private key (C<id_rsa>) and a public key (C<id_rsa.pub>) pair."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:503
+#: ../p2v/virt-p2v.pod:511
 msgid ""
 "The public key should be appended to the C<authorized_keys> file on the virt-"
 "v2v conversion server (usually to C</root/.ssh/authorized_keys>)."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:507
+#: ../p2v/virt-p2v.pod:515
 msgid ""
 "For distributing the private key, there are four scenarios from least secure "
 "to most secure:"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:514
+#: ../p2v/virt-p2v.pod:522
 msgid "Not using SSH identities at all, ie. password authentication."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:516
+#: ../p2v/virt-p2v.pod:524
 msgid ""
 "Anyone who can sniff the PXE boot parameters from the network or observe the "
 "password some other way can log in to the virt-v2v conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:522
+#: ../p2v/virt-p2v.pod:530
 msgid ""
 "SSH identity embedded in the virt-p2v ISO or disk image.  In the GUI, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:524
+#: ../p2v/virt-p2v.pod:532
 #, no-wrap
 msgid ""
 " │          Password: [    <leave this field blank>       ] │\n"
@@ -77944,24 +78264,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:528 ../p2v/virt-p2v.pod:543
+#: ../p2v/virt-p2v.pod:536 ../p2v/virt-p2v.pod:551
 msgid "or on the kernel command line:"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:532
+#: ../p2v/virt-p2v.pod:540
 msgid ""
 "The SSH private key can still be sniffed from the network if using standard "
 "PXE."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:537
+#: ../p2v/virt-p2v.pod:545
 msgid "SSH identity downloaded from a website.  In the GUI, use:"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:539
+#: ../p2v/virt-p2v.pod:547
 #, no-wrap
 msgid ""
 " │          Password: [    <leave this field blank>       ] │\n"
@@ -77971,7 +78291,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:545
+#: ../p2v/virt-p2v.pod:553
 #, no-wrap
 msgid ""
 " p2v.identity=https://internal.example.com/id_rsa\n"
@@ -77979,7 +78299,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:547
+#: ../p2v/virt-p2v.pod:555
 msgid ""
 "Anyone could still download the private key and use it to log in to the virt-"
 "v2v conversion server, but you could provide some extra security by "
@@ -77987,7 +78307,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:552
+#: ../p2v/virt-p2v.pod:560
 msgid ""
 "Note that L<ssh-keygen(1)> creates the C<id_rsa> (private key) file with "
 "mode 0600.  If you simply copy the file to a webserver, the webserver will "
@@ -77997,7 +78317,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:558
+#: ../p2v/virt-p2v.pod:566
 #, fuzzy, no-wrap
 #| msgid ""
 #| " (hd0) /dev/vda\n"
@@ -78010,7 +78330,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:562
+#: ../p2v/virt-p2v.pod:570
 msgid ""
 "SSH identity embedded in the virt-p2v ISO or disk image (like 2.), I<and> "
 "use of secure PXE, PXE over separate physical network, or sneakernet to "
@@ -78018,7 +78338,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:568
+#: ../p2v/virt-p2v.pod:576
 msgid ""
 "Both L<virt-p2v-make-disk(1)> and L<virt-p2v-make-kickstart(1)> have the "
 "same option I<--inject-ssh-identity> for injecting the private key into the "
@@ -78026,36 +78346,36 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:573
+#: ../p2v/virt-p2v.pod:581
 msgid "L<virt-p2v-make-disk(1)/ADDING AN SSH IDENTITY>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:575
+#: ../p2v/virt-p2v.pod:583
 msgid "L<virt-p2v-make-kickstart(1)/ADDING AN SSH IDENTITY>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:585
+#: ../p2v/virt-p2v.pod:593
 msgid "B<--cmdline=CMDLINE>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:587
+#: ../p2v/virt-p2v.pod:595
 msgid ""
 "This is used for debugging. Instead of parsing the kernel command line from "
 "F</proc/cmdline>, parse the string parameter C<CMDLINE>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:590
+#: ../p2v/virt-p2v.pod:607
 #, fuzzy
 #| msgid "B<--option option>"
 msgid "B<--iso>"
 msgstr "B<--option option>"
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:592
+#: ../p2v/virt-p2v.pod:609
 msgid ""
 "This flag is passed to virt-p2v when it is launched inside the virt-p2v ISO "
 "environment, ie. when it is running on a real physical machine (and thus not "
@@ -78064,36 +78384,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:597
+#: ../p2v/virt-p2v.pod:614
 msgid "B<--test-disk=/PATH/TO/DISK.IMG>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:599
+#: ../p2v/virt-p2v.pod:616
 msgid ""
 "For testing or debugging purposes, replace F</dev/sda> with a local file.  "
 "You must use an absolute path."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:606
+#: ../p2v/virt-p2v.pod:623
 msgid "Enable debugging (on the conversion server)."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:616
+#: ../p2v/virt-p2v.pod:633
 msgid "HOW VIRT-P2V WORKS"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:618
+#: ../p2v/virt-p2v.pod:635
 msgid ""
 "B<Note this section is not normative.> We may change how virt-p2v works at "
 "any time in the future."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:621
+#: ../p2v/virt-p2v.pod:638
 msgid ""
 "As described above, virt-p2v runs on a physical machine, interrogates the "
 "user or the kernel command line for configuration, and then establishes one "
@@ -78105,7 +78425,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:629
+#: ../p2v/virt-p2v.pod:646
 msgid ""
 "It will first make one or more test connections, which are used to query the "
 "remote version of virt-v2v and its features.  The test connections are "
@@ -78113,7 +78433,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:633
+#: ../p2v/virt-p2v.pod:650
 #, no-wrap
 msgid ""
 " ┌──────────────┐                      ┌─────────────────┐\n"
@@ -78125,7 +78445,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:639
+#: ../p2v/virt-p2v.pod:656
 msgid ""
 "Once virt-p2v is ready to start conversion, it will open a single ssh "
 "control connection.  It first sends a mkdir command to create a temporary "
@@ -78134,7 +78454,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:644
+#: ../p2v/virt-p2v.pod:661
 #, no-wrap
 msgid ""
 " /tmp/virt-p2v-YYYYMMDD-XXXXXXXX\n"
@@ -78142,58 +78462,58 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:646
+#: ../p2v/virt-p2v.pod:663
 msgid ""
 "where C<YYYYMMDD> is the current date, and the X's are random characters."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:649
+#: ../p2v/virt-p2v.pod:666
 msgid "Into this directory are written various files which include:"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:653
+#: ../p2v/virt-p2v.pod:670
 msgid "F<dmesg>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:655 ../p2v/virt-p2v.pod:663 ../p2v/virt-p2v.pod:669
-#: ../p2v/virt-p2v.pod:688
+#: ../p2v/virt-p2v.pod:672 ../p2v/virt-p2v.pod:680 ../p2v/virt-p2v.pod:686
+#: ../p2v/virt-p2v.pod:705
 msgid "I<(before conversion)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:657
+#: ../p2v/virt-p2v.pod:674
 msgid ""
 "The dmesg output from the physical machine.  Useful for detecting problems "
 "such as missing device drivers or firmware on the virt-p2v ISO."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:661
+#: ../p2v/virt-p2v.pod:678
 msgid "F<name>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:665
+#: ../p2v/virt-p2v.pod:682
 msgid "The name (usually the hostname) of the physical machine."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:667
+#: ../p2v/virt-p2v.pod:684
 msgid "F<physical.xml>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:671
+#: ../p2v/virt-p2v.pod:688
 msgid ""
 "Libvirt XML describing the physical machine.  It is used to pass data about "
 "the physical source host to L<virt-v2v(1)> via the I<-i libvirtxml> option."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:675
+#: ../p2v/virt-p2v.pod:692
 msgid ""
 "Note this is not \"real\" libvirt XML (and must B<never> be loaded into "
 "libvirt, which would reject it anyhow).  Also it is not the same as the "
@@ -78201,44 +78521,44 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:679
+#: ../p2v/virt-p2v.pod:696
 msgid "F<status>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:681
+#: ../p2v/virt-p2v.pod:698
 msgid "I<(after conversion)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:683
+#: ../p2v/virt-p2v.pod:700
 msgid ""
 "The final status of the conversion.  C<0> if the conversion was successful.  "
 "Non-zero if the conversion failed."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:686
+#: ../p2v/virt-p2v.pod:703
 msgid "F<time>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:690
+#: ../p2v/virt-p2v.pod:707
 msgid "The start date/time of conversion."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:692
+#: ../p2v/virt-p2v.pod:709
 msgid "F<virt-v2v-conversion-log.txt>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:694 ../p2v/virt-p2v.pod:703
+#: ../p2v/virt-p2v.pod:711 ../p2v/virt-p2v.pod:720
 msgid "I<(during/after conversion)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:696
+#: ../p2v/virt-p2v.pod:713
 msgid ""
 "The conversion log.  This is just the output of the virt-v2v command on the "
 "conversion server.  If conversion fails, you should examine this log file, "
@@ -78247,19 +78567,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:701
+#: ../p2v/virt-p2v.pod:718
 msgid "F<virt-v2v-wrapper.sh>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:705
+#: ../p2v/virt-p2v.pod:722
 msgid ""
 "This is the wrapper script which is used when running virt-v2v.  For "
 "interest only, do not attempt to run this script yourself."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:710
+#: ../p2v/virt-p2v.pod:727
 msgid ""
 "Before conversion actually begins, virt-p2v then makes one or more further "
 "ssh connections to the server for data transfer.  The transfer protocol used "
@@ -78270,7 +78590,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:717
+#: ../p2v/virt-p2v.pod:734
 #, no-wrap
 msgid ""
 " ┌──────────────┐                      ┌─────────────────┐\n"
@@ -78288,7 +78608,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:729
+#: ../p2v/virt-p2v.pod:746
 msgid ""
 "Although the ssh data connection is originated from the physical server and "
 "terminates on the conversion server, in fact NBD requests flow in the "
@@ -78301,7 +78621,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:738
+#: ../p2v/virt-p2v.pod:755
 msgid ""
 "Two layers of protection are used to ensure that there are no writes to the "
 "hard disks: Firstly, the qemu-nbd I<-r> (readonly) option is used.  Secondly "
@@ -78310,7 +78630,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:744
+#: ../p2v/virt-p2v.pod:761
 msgid ""
 "The long S<C<virt-v2v -i libvirtxml physical.xml ...>> command is wrapped "
 "inside a wrapper script and uploaded to the conversion server.  The final "
@@ -78320,7 +78640,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:751
+#: ../p2v/virt-p2v.pod:768
 msgid ""
 "Output from the virt-v2v command (messages, debugging etc) is saved both in "
 "the log file on the conversion server.  Only informational messages are sent "
@@ -78328,7 +78648,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:758
+#: ../p2v/virt-p2v.pod:775
 msgid ""
 "L<virt-p2v-make-disk(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-p2v-make-"
 "kiwi(1)>, L<virt-v2v(1)>, L<qemu-nbd(1)>, L<ssh(1)>, L<sshd(8)>, "
@@ -78336,27 +78656,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:770 ../v2v/virt-v2v.pod:1965
+#: ../p2v/virt-p2v.pod:787 ../v2v/virt-v2v.pod:1965
 msgid "Matthew Booth"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:772
+#: ../p2v/virt-p2v.pod:789
 msgid "John Eckersberg"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:776 ../v2v/virt-v2v.pod:1967
+#: ../p2v/virt-p2v.pod:793 ../v2v/virt-v2v.pod:1967
 msgid "Mike Latimer"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:778 ../v2v/virt-v2v.pod:1969
+#: ../p2v/virt-p2v.pod:795 ../v2v/virt-v2v.pod:1969
 msgid "Pino Toscano"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:780 ../v2v/virt-v2v.pod:1973
+#: ../p2v/virt-p2v.pod:797 ../v2v/virt-v2v.pod:1973
 msgid "Tingting Zheng"
 msgstr ""
 
@@ -103561,6 +103881,12 @@ msgid ""
 "   int64_t tsk_spare3;\n"
 "   int64_t tsk_spare4;\n"
 "   int64_t tsk_spare5;\n"
+"   int64_t tsk_spare6;\n"
+"   int64_t tsk_spare7;\n"
+"   int64_t tsk_spare8;\n"
+"   int64_t tsk_spare9;\n"
+"   int64_t tsk_spare10;\n"
+"   int64_t tsk_spare11;\n"
 " };\n"
 " \n"
 msgstr ""
@@ -103580,7 +103906,7 @@ msgstr ""
 " \n"
 
 #. type: verbatim
-#: ../src/guestfs-structs.pod:747
+#: ../src/guestfs-structs.pod:753
 #, no-wrap
 msgid ""
 " struct guestfs_tsk_dirent_list {\n"
@@ -103591,7 +103917,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs-structs.pod:752
+#: ../src/guestfs-structs.pod:758
 #, no-wrap
 msgid ""
 " int guestfs_compare_tsk_dirent (const struct guestfs_tsk_dirent *, const struct guestfs_tsk_dirent *);\n"
@@ -103600,7 +103926,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs-structs.pod:755
+#: ../src/guestfs-structs.pod:761
 #, no-wrap
 msgid ""
 " struct guestfs_tsk_dirent *guestfs_copy_tsk_dirent (const struct guestfs_tsk_dirent *);\n"
@@ -103609,7 +103935,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../src/guestfs-structs.pod:758
+#: ../src/guestfs-structs.pod:764
 #, no-wrap
 msgid ""
 " void guestfs_free_tsk_dirent (struct guestfs_tsk_dirent *);\n"

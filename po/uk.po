@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-06-23 23:08+0100\n"
+"POT-Creation-Date: 2016-07-01 12:01+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -54,7 +54,7 @@ msgid "%s"
 msgstr "%s"
 
 #. ../customize/customize_run.ml:455
-#: ../v2v/v2v.ml:404 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:918
+#: ../v2v/v2v.ml:404 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:920
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -4857,7 +4857,7 @@ msgstr ""
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
 #: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
-#: make-fs/make-fs.c:75 p2v/main.c:74 rescue/rescue.c:57
+#: make-fs/make-fs.c:75 p2v/main.c:79 rescue/rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -4906,7 +4906,7 @@ msgstr ""
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:261 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:248 fuse/guestunmount.c:121 inspector/inspector.c:161
-#: make-fs/make-fs.c:146 p2v/main.c:171 rescue/rescue.c:182
+#: make-fs/make-fs.c:146 p2v/main.c:183 rescue/rescue.c:182
 #: test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -9062,24 +9062,24 @@ msgstr "%s: %s: некоректний параметр розміру «%s» (%
 msgid "%s: subprocess failed\n"
 msgstr "%s: помилка підпроцесу\n"
 
-#: p2v/conversion.c:218
+#: p2v/conversion.c:238
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr "Відкриваємо з’єднання для обміну даними для %s…"
 
-#: p2v/conversion.c:332
+#: p2v/conversion.c:327
 msgid "Setting up the control connection ..."
 msgstr "Налаштовуємо контрольне з’єднання…"
 
-#: p2v/conversion.c:346
+#: p2v/conversion.c:360
 msgid "Doing conversion ..."
 msgstr "Виконуємо перетворення…"
 
-#: p2v/conversion.c:408
+#: p2v/conversion.c:400
 msgid "Conversion cancelled by user."
 msgstr "Перетворення скасовано користувачем."
 
-#: p2v/conversion.c:413
+#: p2v/conversion.c:405
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
 
@@ -9159,31 +9159,31 @@ msgstr ""
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:779
+#: p2v/gui.c:777
 msgid "Target properties"
 msgstr "Властивості цілі"
 
-#: p2v/gui.c:785
+#: p2v/gui.c:783
 msgid "Name:"
 msgstr "Назва:"
 
-#: p2v/gui.c:795
+#: p2v/gui.c:793
 msgid "# vCPUs:"
 msgstr "К-ть вірт. проц.:"
 
-#: p2v/gui.c:809
+#: p2v/gui.c:807
 msgid "Memory (MB):"
 msgstr "Пам’ять (МБ):"
 
-#: p2v/gui.c:835
+#: p2v/gui.c:833
 msgid "Virt-v2v output options"
 msgstr "Параметри виведення virt-v2v"
 
-#: p2v/gui.c:841
+#: p2v/gui.c:839
 msgid "Output to (-o):"
 msgstr "Виводити до (-o):"
 
-#: p2v/gui.c:846
+#: p2v/gui.c:844
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -9198,11 +9198,11 @@ msgstr ""
 "запису системи до OpenStack Glance. Див. сторінку підручника (man) virt-"
 "v2v(1), щоб дізнатися більше про параметри виведення даних."
 
-#: p2v/gui.c:851
+#: p2v/gui.c:849
 msgid "Output conn. (-oc):"
 msgstr "З’єднання виведення (-oc):"
 
-#: p2v/gui.c:856
+#: p2v/gui.c:854
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
@@ -9212,11 +9212,11 @@ msgstr ""
 "слід додати гостьову систему до типового екземпляра libvirt на сервері "
 "перетворення. Для інших варіантів це поле слід залишити порожнім."
 
-#: p2v/gui.c:862
+#: p2v/gui.c:860
 msgid "Output storage (-os):"
 msgstr "Сховище виведення (-os):"
 
-#: p2v/gui.c:867
+#: p2v/gui.c:865
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
@@ -9226,11 +9226,11 @@ msgstr ""
 "<b>rhev</b>, вказати домен сховища для експортування (сервер:/точка "
 "монтування). Для інших варіантів, не заповнюйте це поле."
 
-#: p2v/gui.c:873
+#: p2v/gui.c:871
 msgid "Output format (-of):"
 msgstr "Формат виведення (-of):"
 
-#: p2v/gui.c:878
+#: p2v/gui.c:876
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
@@ -9238,11 +9238,11 @@ msgstr ""
 "Формат диска виведення даних, типово <b>raw</b> або <b>qcow2</b>. Якщо "
 "порожнє, типовим значенням вважається <b>raw</b>."
 
-#: p2v/gui.c:884
+#: p2v/gui.c:882
 msgid "Output allocation (-oa):"
 msgstr "Розташовування виведення (-oa):"
 
-#: p2v/gui.c:905
+#: p2v/gui.c:903
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
@@ -9250,43 +9250,43 @@ msgstr ""
 "Увімкнути діагностику на боці сервера\n"
 "(Дані зберігаються у каталозі /tmp сервера перетворення)"
 
-#: p2v/gui.c:914
+#: p2v/gui.c:912
 msgid "Information"
 msgstr "Інформація"
 
-#: p2v/gui.c:922
+#: p2v/gui.c:920
 msgid "Fixed hard disks"
 msgstr "Стаціонарні жорсткі диски"
 
-#: p2v/gui.c:933
+#: p2v/gui.c:931
 msgid "Removable media"
 msgstr "Портативний носій"
 
-#: p2v/gui.c:944
+#: p2v/gui.c:942
 msgid "Network interfaces"
 msgstr "Мережеві інтерфейси"
 
-#: p2v/gui.c:954
+#: p2v/gui.c:952
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:976
+#: p2v/gui.c:974
 msgid "Back"
 msgstr "Назад"
 
-#: p2v/gui.c:977
+#: p2v/gui.c:975
 msgid "Start conversion"
 msgstr "Розпочати перетворення"
 
-#: p2v/gui.c:1027
+#: p2v/gui.c:1025
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1030
+#: p2v/gui.c:1028
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -9295,31 +9295,23 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1155 p2v/gui.c:1217 p2v/gui.c:1287
+#: p2v/gui.c:1145 p2v/gui.c:1196 p2v/gui.c:1266
 msgid "Convert"
 msgstr "Перетворити"
 
-#: p2v/gui.c:1163 p2v/gui.c:1225 p2v/gui.c:1295
+#: p2v/gui.c:1153 p2v/gui.c:1204 p2v/gui.c:1274
 msgid "Device"
 msgstr "Пристрій"
 
-#: p2v/gui.c:1171
-msgid "Size (GB)"
-msgstr "Розмір (ГБ)"
-
-#: p2v/gui.c:1179
-msgid "Model"
-msgstr "Модель"
-
-#: p2v/gui.c:1265 p2v/gui.c:1266
+#: p2v/gui.c:1244 p2v/gui.c:1245
 msgid "Unknown"
 msgstr "Невідомий"
 
-#: p2v/gui.c:1303
+#: p2v/gui.c:1282
 msgid "Connect to virtual network"
 msgstr "Встановити з’єднання із віртуальною мережею"
 
-#: p2v/gui.c:1585
+#: p2v/gui.c:1564
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
@@ -9327,13 +9319,13 @@ msgstr ""
 "Кількість віртуальних процесорів перевищує максимальну підтримувану KVM "
 "(максимум: %d)."
 
-#: p2v/gui.c:1595
+#: p2v/gui.c:1574
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 "Об’єм пам’яті перевищує максимальний підтримуваний KVM (максимум: %<PRIu64>)."
 
-#: p2v/gui.c:1603
+#: p2v/gui.c:1582
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
@@ -9342,15 +9334,15 @@ msgstr ""
 "виконано, але гостьова система може виявитися непрацездатною або "
 "непідтримуваною на системі призначення."
 
-#: p2v/gui.c:1728
+#: p2v/gui.c:1707
 msgid "Cancel conversion ..."
 msgstr ""
 
-#: p2v/gui.c:1729
+#: p2v/gui.c:1708
 msgid "Reboot"
 msgstr "Перезавантажити"
 
-#: p2v/gui.c:1780
+#: p2v/gui.c:1759
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -9361,15 +9353,15 @@ msgstr ""
 "цього каталогу:\n"
 "%s"
 
-#: p2v/gui.c:1987
+#: p2v/gui.c:1966
 msgid "The guest \"Name\" field is empty."
 msgstr "Порожнє поле «Назва» гостьової системи."
 
-#: p2v/gui.c:1988 p2v/gui.c:2012
+#: p2v/gui.c:1967 p2v/gui.c:1991
 msgid "Error"
 msgstr "Помилка"
 
-#: p2v/gui.c:2010
+#: p2v/gui.c:1989
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
@@ -9377,34 +9369,34 @@ msgstr ""
 "Не вказано дисків для перетворення.\n"
 "Слід вказати принаймні один стаціонарний жорсткий диск.\n"
 
-#: p2v/gui.c:2112
+#: p2v/gui.c:2091
 #, c-format
 msgid "Conversion failed: %s"
 msgstr "Помилка під час перетворення: %s"
 
-#: p2v/gui.c:2113
+#: p2v/gui.c:2092
 msgid "Conversion failed"
 msgstr "Перетворення не вдалося"
 
-#: p2v/gui.c:2140
+#: p2v/gui.c:2119
 msgid "The conversion was successful."
 msgstr "Перетворення виконано успішно."
 
-#: p2v/gui.c:2141
+#: p2v/gui.c:2120
 msgid "Conversion was successful"
 msgstr "Успішне перетворення"
 
-#: p2v/gui.c:2224
+#: p2v/gui.c:2203
 msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
 msgstr ""
 
-#: p2v/gui.c:2227
+#: p2v/gui.c:2206
 msgid "Cancel the conversion"
 msgstr ""
 
-#: p2v/main.c:77
+#: p2v/main.c:82
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -9414,6 +9406,7 @@ msgid ""
 "Options:\n"
 "  --help                 Display brief help\n"
 " --cmdline=CMDLINE       Used to debug command line parsing\n"
+" --colours               Use ANSI colour sequences even if not tty\n"
 " --iso                   Running in the ISO environment\n"
 " --test-disk=DISK.IMG    For testing, use disk as /dev/sda\n"
 "  -v|--verbose           Verbose messages\n"
@@ -9421,22 +9414,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:163
+#: p2v/main.c:175
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:166
+#: p2v/main.c:178
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:192
+#: p2v/main.c:204
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
 
-#: p2v/main.c:221
+#: p2v/main.c:233
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -11099,6 +11092,12 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "Size (GB)"
+#~ msgstr "Розмір (ГБ)"
+
+#~ msgid "Model"
+#~ msgstr "Модель"
 
 #~ msgid "Overlay saved as %s [--debug-overlays]\n"
 #~ msgstr "Оверлей збережено як %s [--debug-overlays]\n"
