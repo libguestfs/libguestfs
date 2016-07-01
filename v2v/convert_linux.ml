@@ -1219,28 +1219,18 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
   and discover_modpath () =
     (* Find what /etc/modprobe.conf is called today. *)
-    let modpath = ref "" in
-
-    (* Note that we're checking in ascending order of preference so
-     * that the last discovered method will be chosen.
-     *)
-    List.iter (
-      fun file ->
-        if g#is_file ~followsymlinks:true file then
-          modpath := file
-    ) [ "/etc/conf.modules"; "/etc/modules.conf" ];
-
-    if g#is_file ~followsymlinks:true "/etc/modprobe.conf" then
-      modpath := "modprobe.conf";
-
-    if g#is_dir ~followsymlinks:true "/etc/modprobe.d" then
+    if g#is_dir ~followsymlinks:true "/etc/modprobe.d" then (
       (* Create a new file /etc/modprobe.d/virt-v2v-added.conf. *)
-      modpath := "modprobe.d/virt-v2v-added.conf";
+      "/etc/modprobe.d/virt-v2v-added.conf"
+    ) else (
+      (* List of methods, in order of preference. *)
+      let paths = [ "/etc/modprobe.conf"; "/etc/modules.conf"; "/etc/conf.modules" ] in
 
-    if !modpath = "" then
-      error (f_"unable to find any valid modprobe configuration file such as /etc/modprobe.conf");
-
-    !modpath
+      try
+        List.find (g#is_file ~followsymlinks:true) paths
+      with Not_found ->
+        error (f_"unable to find any valid modprobe configuration file such as /etc/modprobe.conf");
+    )
 
   and remap_block_devices block_type =
     (* This function's job is to iterate over boot configuration
