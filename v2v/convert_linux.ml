@@ -1147,7 +1147,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
     (* Update 'alias scsi_hostadapter ...' *)
     let paths = augeas_modprobe ". =~ regexp('scsi_hostadapter.*')" in
-    match block_type with
+    (match block_type with
     | Virtio_blk | Virtio_SCSI ->
       let block_module =
         match block_type with
@@ -1180,7 +1180,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     | IDE ->
       (* There is no scsi controller in an IDE guest. *)
       List.iter (fun path -> ignore (g#aug_rm path)) (List.rev paths)
-    ;
+    );
 
     (* Display a warning about any leftover Xen modules which we
      * haven't converted.  These are likely to cause an error when
