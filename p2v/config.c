@@ -39,9 +39,6 @@ new_config (void)
   if (c == NULL)
     error (EXIT_FAILURE, errno, "calloc");
 
-#if FORCE_REMOTE_DEBUG
-  c->verbose = 1;
-#endif
   c->port = 22;
 
   c->output_allocation = OUTPUT_ALLOCATION_NONE;
@@ -120,8 +117,6 @@ print_config (struct config *config, FILE *fp)
   fprintf (fp, "local version   .  %s\n", PACKAGE_VERSION_FULL);
   fprintf (fp, "remote version  .  %s\n",
            v2v_version ? v2v_version : "unknown");
-  fprintf (fp, "remote debugging   %s\n",
-           config->verbose ? "true" : "false");
   fprintf (fp, "conversion server  %s\n",
            config->server ? config->server : "none");
   fprintf (fp, "port . . . . . .   %d\n", config->port);
