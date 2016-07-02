@@ -97,7 +97,7 @@ username="$(id -un)"
 os="$(cd $d; pwd)"
 
 # The Linux kernel command line.
-cmdline="root=/dev/sda3 ro console=ttyS0 printk.time=1 p2v.debug p2v.server=10.0.2.2 p2v.port=$port p2v.username=$username p2v.identity=file:///var/tmp/id_rsa p2v.name=windows p2v.o=local p2v.os=$os"
+cmdline="root=/dev/sda3 ro console=ttyS0 printk.time=1 p2v.server=10.0.2.2 p2v.port=$port p2v.username=$username p2v.identity=file:///var/tmp/id_rsa p2v.name=windows p2v.o=local p2v.os=$os"
 
 # Run virt-p2v inside qemu.
 $qemu \
