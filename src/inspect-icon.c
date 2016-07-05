@@ -139,7 +139,8 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
       break;
 
     case OS_DISTRO_UBUNTU:
-      r = icon_ubuntu (g, fs, &size);
+      if (!highquality)
+        r = icon_ubuntu (g, fs, &size);
       break;
 
     case OS_DISTRO_MAGEIA:
@@ -340,12 +341,29 @@ icon_debian (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   return get_png (g, fs, DEBIAN_ICON, size_r, 2048);
 }
 
-#define UBUNTU_ICON "/usr/share/icons/gnome/24x24/places/ubuntu-logo.png"
-
 static char *
 icon_ubuntu (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 {
-  return get_png (g, fs, UBUNTU_ICON, size_r, 2048);
+  const char *icons[] = {
+    "/usr/share/icons/gnome/24x24/places/ubuntu-logo.png",
+
+    /* Very low quality and only present when ubuntu-desktop packages
+     * have been installed.
+     */
+    "/usr/share/help/C/ubuntu-help/figures/ubuntu-logo.png",
+    NULL
+  };
+  size_t i;
+  char *ret;
+
+  for (i = 0; icons[i] != NULL; ++i) {
+    ret = get_png (g, fs, icons[i], size_r, 2048);
+    if (ret == NULL)
+      return NULL;
+    if (ret != NOT_FOUND)
+      return ret;
+  }
+  return NOT_FOUND;
 }
 
 #define MAGEIA_ICON "/usr/share/icons/mageia.png"
