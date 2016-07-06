@@ -1575,7 +1575,7 @@ Minimum free space: 10 MB
 =head2 Minimum free space check in the host
 
 You must have sufficient free space in the host directory used to
-store temporary overlays (except in [--in-place] mode).  To find out
+store temporary overlays (except in I<--in-place> mode).  To find out
 which directory this is, use:
 
  $ df -h "`guestfish get-cachedir`"
