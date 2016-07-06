@@ -247,11 +247,11 @@ get_if_vendor (const char *if_name, int truncate)
 void
 wait_network_online (const struct config *config)
 {
-  if (config->verbose) {
-    printf ("waiting for the network to come online ...\n");
-    printf ("%s\n", NETWORK_ONLINE_COMMAND);
-    fflush (stdout);
-  }
+#ifdef DEBUG_STDERR
+  fprintf (stderr, "waiting for the network to come online ...\n");
+  fprintf (stderr, "%s\n", NETWORK_ONLINE_COMMAND);
+  fflush (stderr);
+#endif
 
   ignore_value (system (NETWORK_ONLINE_COMMAND));
 }

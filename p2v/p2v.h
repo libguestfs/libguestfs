@@ -26,12 +26,6 @@
  */
 #define DEBUG_STDERR 1
 
-/* Force remote debugging even if user doesn't enable it.  Since
- * remote debugging is mostly free, we might as well enable this even
- * in production.
- */
-#define FORCE_REMOTE_DEBUG 1
-
 #include "miniexpect.h"
 
 /* We don't use libguestfs directly here, and we don't link to it
@@ -66,7 +60,6 @@ extern int force_colour;
 
 /* config.c */
 struct config {
-  int verbose;
   char *server;
   int port;
   char *username;

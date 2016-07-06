@@ -960,9 +960,7 @@ generate_wrapper_script (struct config *config, const char *remote_dir,
   fprintf (fp, "{\n");
   if (config->sudo)
     fprintf (fp, "sudo -n ");
-  fprintf (fp, "virt-v2v");
-  if (config->verbose)
-    fprintf (fp, " -v -x");
+  fprintf (fp, "virt-v2v -v -x");
   if (feature_colours_option)
     fprintf (fp, " --colours");
   fprintf (fp, " -i libvirtxml");

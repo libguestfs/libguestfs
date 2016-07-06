@@ -181,7 +181,9 @@ main (int argc, char *argv[])
       break;
 
     case 'v':
-      config->verbose = 1;
+      /* This option does nothing since 1.33.41.  Verbose is always
+       * enabled.
+       */
       break;
 
     case 'V':

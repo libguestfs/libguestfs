@@ -374,7 +374,7 @@ start_ssh (unsigned spawn_flags, struct config *config,
   args[j++] = NULL;
   assert (j == nr_args);
 
-#if DEBUG_STDERR && 0
+#if DEBUG_STDERR
   fputs ("ssh command: ", stderr);
   for (i = 0; i < nr_args - 1; ++i) {
     if (i > 0) fputc (' ', stderr);
@@ -583,6 +583,7 @@ scp_file (struct config *config, const char *localfile, const char *remotefile)
   const int ovecsize = 12;
   int ovector[ovecsize];
   int using_password_auth;
+  size_t i;
 
   if (cache_ssh_identity (config) == -1)
     return -1;
@@ -631,9 +632,7 @@ scp_file (struct config *config, const char *localfile, const char *remotefile)
   args[j++] = NULL;
   assert (j == nr_args);
 
-#if DEBUG_STDERR && 0
-  size_t i;
-
+#if DEBUG_STDERR
   fputs ("scp command: ", stderr);
   for (i = 0; i < nr_args - 1; ++i) {
     if (i > 0) fputc (' ', stderr);

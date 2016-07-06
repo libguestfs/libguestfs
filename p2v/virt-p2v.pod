@@ -177,14 +177,6 @@ first-time virt-p2v user.
 All output options and paths are relative to the conversion server
 (I<not> to the physical server).
 
-The final option in this panel enables server-side debugging.  This
-produces a lot of output, but is essential if you are tracking down
-virt-p2v or virt-v2v problems, and can generally be left enabled:
-
- │
- │ [✔] Enable server-side debugging
- │
-
 Finally in the left hand column is an information box giving the
 version of virt-p2v (on the physical server) and virt-v2v (on the
 conversion server).  You should supply this information when reporting
@@ -370,14 +362,6 @@ C<p2v.memory=1G>.
 
 The default is to use the same amount of RAM as on the physical
 machine.
-
-=item B<p2v.debug>
-
-Use this to enable full debugging of virt-v2v.
-
-If asked to diagnose a problem with virt-p2v, you should add
-C<p2v.debug> to the kernel command line, and examine the log file
-which is left in F</tmp> on the conversion server.
 
 =item B<p2v.disks=sdX,sdY,..>
 
@@ -615,7 +599,8 @@ features such as the Reboot button.
 
 =item B<--verbose>
 
-Enable debugging (on the conversion server).
+In libguestfs E<ge> 1.33.41, debugging is always enabled on the
+conversion server, and this option does nothing.
 
 =item B<-V>
 

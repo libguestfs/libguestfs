@@ -63,7 +63,6 @@ static GtkWidget *conv_dlg,
   *vcpus_warning, *memory_warning, *target_warning_label,
   *o_combo, *oc_entry, *os_entry, *of_entry, *oa_combo,
   *info_label,
-  *debug_button,
   *disks_list, *removable_list, *interfaces_list,
   *start_button;
 
@@ -674,14 +673,7 @@ create_conversion_dialog (struct config *config)
   gtk_table_attach (GTK_TABLE (output_tbl), oa_combo,
                     1, 2, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
 
-  debug_button =
-    gtk_check_button_new_with_label (_("Enable server-side debugging\n"
-                                       "(This is saved in /tmp on the conversion server)"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (debug_button),
-                                config->verbose);
-
   gtk_box_pack_start (GTK_BOX (output_vbox), output_tbl, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (output_vbox), debug_button, TRUE, TRUE, 0);
   gtk_container_add (GTK_CONTAINER (output_frame), output_vbox);
 
   info_frame = gtk_frame_new (_("Information"));
@@ -1687,9 +1679,6 @@ start_conversion_clicked (GtkWidget *w, gpointer data)
 
   config->vcpus = get_vcpus_from_conv_dlg ();
   config->memory = get_memory_from_conv_dlg ();
-
-  config->verbose =
-    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (debug_button));
 
   /* Get the list of disks to be converted. */
   set_disks_from_ui (config);
