@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-01 12:01+0100\n"
+"POT-Creation-Date: 2016-07-06 14:55+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/libguestfs/"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1351
+#: ../v2v/convert_linux.ml:1341
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -3825,7 +3825,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1241
+#: ../v2v/convert_linux.ml:1232
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -7966,101 +7966,101 @@ msgstr ""
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:277
+#: p2v/gui.c:276
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:282
+#: p2v/gui.c:281
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:302
+#: p2v/gui.c:301
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:314
+#: p2v/gui.c:313
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:329
+#: p2v/gui.c:328
 msgid "SSH Identity URL:"
 msgstr ""
 
-#: p2v/gui.c:340
+#: p2v/gui.c:339
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:347
+#: p2v/gui.c:346
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:373
+#: p2v/gui.c:372
 msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:374
+#: p2v/gui.c:373
 msgid "XTerm ..."
 msgstr ""
 
-#: p2v/gui.c:375
+#: p2v/gui.c:374
 msgid "About virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:376
+#: p2v/gui.c:375
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:504
+#: p2v/gui.c:503
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:512
+#: p2v/gui.c:511
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:520
+#: p2v/gui.c:519
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:592
+#: p2v/gui.c:591
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:636
+#: p2v/gui.c:635
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:685
+#: p2v/gui.c:684
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:777
+#: p2v/gui.c:776
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:783
+#: p2v/gui.c:782
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:793
+#: p2v/gui.c:792
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:807
+#: p2v/gui.c:806
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:833
+#: p2v/gui.c:832
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:839
+#: p2v/gui.c:838
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:844
+#: p2v/gui.c:843
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8069,85 +8069,79 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:849
+#: p2v/gui.c:848
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:854
+#: p2v/gui.c:853
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:860
+#: p2v/gui.c:859
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:865
+#: p2v/gui.c:864
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:871
+#: p2v/gui.c:870
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:876
+#: p2v/gui.c:875
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:882
+#: p2v/gui.c:881
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:903
-msgid ""
-"Enable server-side debugging\n"
-"(This is saved in /tmp on the conversion server)"
-msgstr ""
-
-#: p2v/gui.c:912
+#: p2v/gui.c:904
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:920
+#: p2v/gui.c:912
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:931
+#: p2v/gui.c:923
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:942
+#: p2v/gui.c:934
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:952
+#: p2v/gui.c:944
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:974
+#: p2v/gui.c:966
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:975
+#: p2v/gui.c:967
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:1025
+#: p2v/gui.c:1017
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1028
+#: p2v/gui.c:1020
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -8156,48 +8150,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1145 p2v/gui.c:1196 p2v/gui.c:1266
+#: p2v/gui.c:1137 p2v/gui.c:1188 p2v/gui.c:1258
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:1153 p2v/gui.c:1204 p2v/gui.c:1274
+#: p2v/gui.c:1145 p2v/gui.c:1196 p2v/gui.c:1266
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:1244 p2v/gui.c:1245
+#: p2v/gui.c:1236 p2v/gui.c:1237
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:1282
+#: p2v/gui.c:1274
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1564
+#: p2v/gui.c:1556
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1574
+#: p2v/gui.c:1566
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1582
+#: p2v/gui.c:1574
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1707
+#: p2v/gui.c:1699
 msgid "Cancel conversion ..."
 msgstr ""
 
-#: p2v/gui.c:1708
+#: p2v/gui.c:1700
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1759
+#: p2v/gui.c:1751
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -8205,44 +8199,44 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1966
+#: p2v/gui.c:1958
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1967 p2v/gui.c:1991
+#: p2v/gui.c:1959 p2v/gui.c:1980
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1989
+#: p2v/gui.c:1978
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:2091
+#: p2v/gui.c:2080
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:2092
+#: p2v/gui.c:2081
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:2119
+#: p2v/gui.c:2108
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:2120
+#: p2v/gui.c:2109
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/gui.c:2203
+#: p2v/gui.c:2192
 msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
 msgstr ""
 
-#: p2v/gui.c:2206
+#: p2v/gui.c:2195
 msgid "Cancel the conversion"
 msgstr ""
 
@@ -8274,12 +8268,12 @@ msgstr ""
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:204
+#: p2v/main.c:206
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:233
+#: p2v/main.c:235
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
