@@ -196,7 +196,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
                       * uninstaller still shows a no-way-out reboot dialog *)
                      " PREVENT_REBOOT=Yes LAUNCHED_BY_SETUP_EXE=Yes" in
 
-               uninsts := uninst :: !uninsts
+               unshift uninst uninsts
              with
                Not_found -> ()
          ) uninstnodes

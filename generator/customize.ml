@@ -653,7 +653,7 @@ let rec argspec () =
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      \"--%s\",\n" name;
-      pr "      Arg.Unit (fun () -> ops := %s :: !ops),\n" discrim;
+      pr "      Arg.Unit (fun () -> unshift %s ops),\n" discrim;
       pr "      \" \" ^ s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    None, %S;\n" longdesc
@@ -661,7 +661,7 @@ let rec argspec () =
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
       pr "      \"--%s\",\n" name;
-      pr "      Arg.String (fun s -> ops := %s s :: !ops),\n" discrim;
+      pr "      Arg.String (fun s -> unshift (%s s) ops),\n" discrim;
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
@@ -672,7 +672,7 @@ let rec argspec () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          let p = split_string_pair \"%s\" s in\n" name;
-      pr "          ops := %s p :: !ops\n" discrim;
+      pr "          unshift (%s p) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -684,7 +684,7 @@ let rec argspec () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          let ss = split_string_list s in\n";
-      pr "          ops := %s ss :: !ops\n" discrim;
+      pr "          unshift (%s ss) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -696,7 +696,7 @@ let rec argspec () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          let ss = split_links_list \"%s\" s in\n" name;
-      pr "          ops := %s ss :: !ops\n" discrim;
+      pr "          unshift (%s ss) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -708,7 +708,7 @@ let rec argspec () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          let sel = Password.parse_selector s in\n";
-      pr "          ops := %s sel :: !ops\n" discrim;
+      pr "          unshift (%s sel) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -721,7 +721,7 @@ let rec argspec () =
       pr "        fun s ->\n";
       pr "          let user, sel = split_string_pair \"%s\" s in\n" name;
       pr "          let sel = Password.parse_selector sel in\n";
-      pr "          ops := %s (user, sel) :: !ops\n" discrim;
+      pr "          unshift (%s (user, sel)) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -734,7 +734,7 @@ let rec argspec () =
       pr "        fun s ->\n";
       pr "          let user, selstr = String.split \":\" s in\n";
       pr "          let sel = Ssh_key.parse_selector selstr in\n";
-      pr "          ops := %s (user, sel) :: !ops\n" discrim;
+      pr "          unshift (%s (user, sel)) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -746,7 +746,7 @@ let rec argspec () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          %s s;\n" fn;
-      pr "          ops := %s s :: !ops\n" discrim;
+      pr "          unshift (%s s) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";
@@ -758,7 +758,7 @@ let rec argspec () =
       pr "      Arg.String (\n";
       pr "        fun s ->\n";
       pr "          let sel = Subscription_manager.parse_pool_selector s in\n";
-      pr "          ops := %s sel :: !ops\n" discrim;
+      pr "          unshift (%s sel) ops\n" discrim;
       pr "      ),\n";
       pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
       pr "    ),\n";

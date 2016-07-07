@@ -71,7 +71,7 @@ let parse_cmdline () =
     | "auto" -> attach_format := None
     | s -> attach_format := Some s
   in
-  let attach_disk s = attach := (!attach_format, s) :: !attach in
+  let attach_disk s = unshift (!attach_format, s) attach in
 
   let cache = ref Paths.xdg_cache_home in
   let set_cache arg = cache := Some arg in
@@ -83,7 +83,7 @@ let parse_cmdline () =
   let delete_on_failure = ref true in
 
   let fingerprints = ref [] in
-  let add_fingerprint arg = fingerprints := arg :: !fingerprints in
+  let add_fingerprint arg = unshift arg fingerprints in
 
   let format = ref "" in
   let gpg = ref "gpg" in
@@ -113,7 +113,7 @@ let parse_cmdline () =
   let set_smp arg = smp := Some arg in
 
   let sources = ref [] in
-  let add_source arg = sources := arg :: !sources in
+  let add_source arg = unshift arg sources in
 
   let sync = ref true in
   let warn_if_partition = ref true in
@@ -175,7 +175,7 @@ let parse_cmdline () =
   let argspec = set_standard_options argspec in
 
   let args = ref [] in
-  let anon_fun s = args := s :: !args in
+  let anon_fun s = unshift s args in
   let usage_msg =
     sprintf (f_"\
 %s: build virtual machine images quickly

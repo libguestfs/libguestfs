@@ -16,13 +16,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Common_utils
+
 let input_modules = ref []
 and output_modules = ref []
 
-let register_input_module name =
-  input_modules := name :: !input_modules
-and register_output_module name =
-  output_modules := name :: !output_modules
+let register_input_module name = unshift name input_modules
+and register_output_module name = unshift name output_modules
 
 let input_modules () = List.sort compare !input_modules
 and output_modules () = List.sort compare !output_modules
@@ -35,7 +35,7 @@ type conversion_fn =
 let convert_modules = ref []
 
 let register_convert_module inspect_fn name conversion_fn =
-  convert_modules := (inspect_fn, (name, conversion_fn)) :: !convert_modules
+  unshift (inspect_fn, (name, conversion_fn)) convert_modules
 
 let find_convert_module inspect =
   let rec loop = function

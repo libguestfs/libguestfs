@@ -64,7 +64,7 @@ let target_features_of_capabilities_doc doc arch =
     for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
       let feature_node = Xml.xpathobj_node obj i in
       let feature_name = Xml.node_name feature_node in
-      features := feature_name :: !features
+      unshift feature_name features
     done;
     !features
   )
