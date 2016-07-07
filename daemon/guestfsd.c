@@ -503,6 +503,7 @@ add_string_nodup (struct stringsbuf *sb, char *str)
       reply_with_perror ("realloc");
       free_stringslen (sb->argv, sb->size);
       sb->argv = NULL;
+      free (str);
       return -1;
     }
     sb->argv = new_argv;

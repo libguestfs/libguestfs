@@ -1105,10 +1105,8 @@ do_btrfs_subvolume_show (const char *subvolume)
       }
 
       if (ss) {
-        if (add_string_nodup (&ret, ss) == -1) {
-          free (ss);
+        if (add_string_nodup (&ret, ss) == -1)
           return NULL;
-        }
       } else {
         if (add_string (&ret, "") == -1)
           return NULL;
