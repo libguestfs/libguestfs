@@ -45,25 +45,23 @@ let get_session_cookie password scheme uri sslverify url =
   if !session_cookie <> "" then
     Some !session_cookie
   else (
-    let curl_args = [
-        "head", None;
-        "silent", None;
-        "url", Some url;
-      ] in
-    let curl_args =
-      match uri.uri_user, password with
-      | None, None -> curl_args
-      | None, Some _ ->
-         warning (f_"--password-file parameter ignored because 'user@' was not given in the URL");
-         curl_args
-      | Some user, None ->
-         ("user", Some user) :: curl_args
-      | Some user, Some password ->
-         ("user", Some (user ^ ":" ^ password)) :: curl_args in
-    let curl_args =
-      if not sslverify then ("insecure", None) :: curl_args else curl_args in
+    let curl_args = ref [
+      "head", None;
+      "silent", None;
+      "url", Some url;
+    ] in
+    (match uri.uri_user, password with
+     | None, None -> ()
+     | None, Some _ ->
+        warning (f_"--password-file parameter ignored because 'user@' was not given in the URL")
+     | Some user, None ->
+        push curl_args ("user", Some user)
+     | Some user, Some password ->
+        push curl_args ("user", Some (user ^ ":" ^ password))
+    );
+    if not sslverify then push curl_args ("insecure", None);
 
-    let curl_h = Curl.create curl_args in
+    let curl_h = Curl.create !curl_args in
     let lines = Curl.run curl_h in
 
     let dump_response chan =
