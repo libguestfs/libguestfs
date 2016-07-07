@@ -266,6 +266,26 @@ let rec assoc ?(cmp = compare) ~default x = function
   | (y, y') :: _ when cmp x y = 0 -> y'
   | _ :: ys -> assoc ~cmp ~default x ys
 
+let push xsp x = xsp := !xsp @ [x]
+let unshift x xsp = xsp := x :: !xsp
+let pop xsp =
+  let x, xs =
+    match List.rev !xsp with
+    | x :: xs -> x, xs
+    | [] -> failwith "pop" in
+  xsp := List.rev xs;
+  x
+let shift xsp =
+  let x, xs =
+    match !xsp with
+    | x :: xs -> x, xs
+    | [] -> failwith "shift" in
+  xsp := xs;
+  x
+
+let append xsp xs = xsp := !xsp @ xs
+let prepend xs xsp = xsp := xs @ !xsp
+
 let may f = function
   | None -> ()
   | Some x -> f x

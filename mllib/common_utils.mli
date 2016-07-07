@@ -142,6 +142,42 @@ val assoc : ?cmp:('a -> 'a -> int) -> default:'b -> 'a -> ('a * 'b) list -> 'b
 (** Like {!List.assoc} but with a user-defined comparison function, and
     instead of raising [Not_found], it returns the [~default] value. *)
 
+val push : 'a list ref -> 'a -> unit
+val unshift : 'a -> 'a list ref -> unit
+val pop : 'a list ref -> 'a
+val shift : 'a list ref -> 'a
+(** Imperative list manipulation functions, similar to the Perl
+    functions described in http://perlmaven.com/manipulating-perl-arrays
+
+    These operate on list references, and each function modifies the
+    list reference that is passed to it.
+
+    [push xsp x] appends the element [x] to the end of the list [xsp].
+    This function is not tail-recursive.
+
+    [unshift x xsp] prepends the element [x] to the head of the list [xsp].
+    (The arguments are reversed compared to the same Perl function, but
+    OCaml is type safe so that's OK.)
+
+    [pop xsp] removes the last element of the list [xsp] and returns it.
+    The list is modified to become the list minus the final element.
+    If a zero-length list is passed in, this raises [Failure "pop"].
+    This function is not tail-recursive.
+
+    [shift xsp] removes the head element of the list [xsp] and returns it.
+    The list is modified to become the tail of the list.  If a zero-length
+    list is passed in, this raises [Failure "shift"]. *)
+
+val append : 'a list ref -> 'a list -> unit
+val prepend : 'a list -> 'a list ref -> unit
+(** More imperative list manipulation functions.
+
+    [append] is like {!push} above, except it appends a list to
+    the list reference.  This function is not tail-recursive.
+
+    [prepend] is like {!unshift} above, except it prepends a list
+    to the list reference. *)
+
 val may : ('a -> unit) -> 'a option -> unit
 (** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
 
