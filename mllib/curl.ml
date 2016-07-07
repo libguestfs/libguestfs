@@ -20,10 +20,32 @@ open Printf
 
 open Common_utils
 
-type curl_args = (string * string option) list
+let quote = Filename.quote
 
-let run curl_args =
-  let config_file, chan = Filename.open_temp_file "v2vcurl" ".conf" in
+type t = {
+  curl : string;
+  args : args;
+}
+and args = (string * string option) list
+
+let safe_args = [
+  "max-redirs", Some "5";
+  "globoff", None;         (* Don't glob URLs. *)
+]
+
+type proxy = UnsetProxy | SystemProxy | ForcedProxy of string
+
+let args_of_proxy = function
+  | UnsetProxy ->      [ "proxy", Some "" ; "noproxy", Some "*" ]
+  | SystemProxy ->     []
+  | ForcedProxy url -> [ "proxy", Some url; "noproxy", Some "" ]
+
+let create ?(curl = "curl") ?(proxy = SystemProxy) args =
+  let args = safe_args @ args_of_proxy proxy @ args in
+  { curl = curl; args = args }
+
+let run { curl = curl; args = args } =
+  let config_file, chan = Filename.open_temp_file "guestfscurl" ".conf" in
   List.iter (
     function
     | name, None -> fprintf chan "%s\n" name
@@ -44,21 +66,25 @@ let run curl_args =
         | c -> output_char chan c
       done;
       fprintf chan "\"\n"
-  ) curl_args;
+  ) args;
   close_out chan;
 
-  let cmd = sprintf "curl -q --config %s" (Filename.quote config_file) in
+  let cmd = sprintf "%s -q --config %s" (quote curl) (quote config_file) in
   let lines = external_command ~echo_cmd:false cmd in
   Unix.unlink config_file;
   lines
 
-let print_curl_command chan curl_args =
-  fprintf chan "curl -q";
+let to_string { curl = curl; args = args } =
+  let b = Buffer.create 128 in
+  bprintf b "%s -q" (quote curl);
   List.iter (
     function
-    | name, None -> fprintf chan " --%s" name
+    | name, None -> bprintf b " --%s" name
     (* Don't print passwords in the debug output. *)
-    | "user", Some _ -> fprintf chan " --user <hidden>"
-    | name, Some value -> fprintf chan " --%s %s" name (Filename.quote value)
-  ) curl_args;
-  fprintf chan "\n";
+    | "user", Some _ -> bprintf b " --user <hidden>"
+    | name, Some value -> bprintf b " --%s %s" name (quote value)
+  ) args;
+  bprintf b "\n";
+  Buffer.contents b
+
+let print chan t = output_string chan (to_string t)

@@ -199,9 +199,9 @@ read the man page virt-v2v-copy-to-local(1).
 
     | ESXi _ ->
        let curl_args = [
-         "url", Some remote_disk;
-         "output", Some local_disk;
-       ] in
+           "url", Some remote_disk;
+           "output", Some local_disk;
+         ] in
        let curl_args =
          if sslverify then curl_args
          else ("insecure", None) :: curl_args in
@@ -213,9 +213,10 @@ read the man page virt-v2v-copy-to-local(1).
          if quiet () then ("silent", None) :: curl_args
          else curl_args in
 
+       let curl_h = Curl.create curl_args in
        if verbose () then
-         Curl.print_curl_command stderr curl_args;
-       ignore (Curl.run curl_args)
+         Curl.print stderr curl_h;
+       ignore (Curl.run curl_h)
 
     | Test ->
        let cmd = [ "cp"; remote_disk; local_disk ] in

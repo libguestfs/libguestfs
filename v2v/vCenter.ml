@@ -46,10 +46,10 @@ let get_session_cookie password scheme uri sslverify url =
     Some !session_cookie
   else (
     let curl_args = [
-      "head", None;
-      "silent", None;
-      "url", Some url;
-    ] in
+        "head", None;
+        "silent", None;
+        "url", Some url;
+      ] in
     let curl_args =
       match uri.uri_user, password with
       | None, None -> curl_args
@@ -63,10 +63,11 @@ let get_session_cookie password scheme uri sslverify url =
     let curl_args =
       if not sslverify then ("insecure", None) :: curl_args else curl_args in
 
-    let lines = Curl.run curl_args in
+    let curl_h = Curl.create curl_args in
+    let lines = Curl.run curl_h in
 
     let dump_response chan =
-      Curl.print_curl_command chan curl_args;
+      Curl.print chan curl_h;
 
       (* Dump out the output of the command. *)
       List.iter (fun x -> fprintf chan "%s\n" x) lines;
