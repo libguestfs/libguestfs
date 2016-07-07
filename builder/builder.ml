@@ -185,7 +185,7 @@ let main () =
       {
         Sources.name = source; uri = source;
         gpgkey = Utils.Fingerprint fingerprint;
-        proxy = Downloader.SystemProxy;
+        proxy = Curl.SystemProxy;
         format = Sources.FormatNative;
       }
   ) cmdline.sources in

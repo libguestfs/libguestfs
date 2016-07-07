@@ -43,7 +43,7 @@ and entry = {
   aliases : string list option;
 
   sigchecker : Sigchecker.t;
-  proxy : Downloader.proxy_mode;
+  proxy : Curl.proxy;
 }
 
 let print_entry chan (name, { printable_name = printable_name;

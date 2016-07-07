@@ -35,7 +35,7 @@ and entry = {
   aliases : string list option;
 
   sigchecker : Sigchecker.t;
-  proxy : Downloader.proxy_mode;
+  proxy : Curl.proxy;
 }
 
 val print_entry : out_channel -> (string * entry) -> unit

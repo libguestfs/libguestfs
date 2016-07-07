@@ -20,7 +20,7 @@ type source = {
   name : string;
   uri : string;
   gpgkey : Utils.gpgkey_type;
-  proxy : Downloader.proxy_mode;
+  proxy : Curl.proxy;
   format : source_format;
 }
 and source_format =

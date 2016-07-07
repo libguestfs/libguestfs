@@ -32,17 +32,12 @@ type t = {
   cache : Cache.t option;               (* cache for templates *)
 }
 
-type proxy_mode =
-  | UnsetProxy
-  | SystemProxy
-  | ForcedProxy of string
-
 let create ~curl ~cache = {
   curl = curl;
   cache = cache;
 }
 
-let rec download t ?template ?progress_bar ?(proxy = SystemProxy) uri =
+let rec download t ?template ?progress_bar ?(proxy = Curl.SystemProxy) uri =
   match template with
   | None ->                       (* no cache, simple download *)
     (* Create a temporary name. *)
@@ -83,6 +78,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
   unlink_on_exit filename_new;
 
   (match parseduri.URI.protocol with
+  (* Download (ie. copy) from a local file. *)
   | "file" ->
     let path = parseduri.URI.path in
     let cmd = [ "cp" ] @
@@ -91,15 +87,27 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
     let r = run_command cmd in
     if r <> 0 then
       error (f_"cp (download) command failed copying '%s'") path;
-  | _ as protocol -> (* Any other protocol. *)
-    let outenv = proxy_envvar protocol proxy in
+
+  (* Any other protocol. *)
+  | _ ->
+    let common_args = [ "location", None ] (* Follow 3XX redirects. *) in
+    let quiet_args = [ "silent", None; "show-error", None ] in
+
     (* Get the status code first to ensure the file exists. *)
-    let cmd = sprintf "%s%s%s -L --max-redirs 5 -g -o /dev/null -I -w '%%{http_code}' %s"
-      outenv
-      t.curl
-      (if verbose () then "" else " -s -S")
-      (quote uri) in
-    let lines = external_command cmd in
+    let curl_h =
+      let curl_args =
+        common_args @
+        (if verbose () then [] else quiet_args) @ [
+          "output", Some "/dev/null"; (* Write output to /dev/null. *)
+          "head", None;               (* Request only HEAD. *)
+          (* Write HTTP status code to stdout. *)
+          "write-out", Some "%{http_code}";
+          "url", Some uri
+        ] in
+
+      Curl.create ~curl:t.curl curl_args in
+
+    let lines = Curl.run curl_h in
     if List.length lines < 1 then
       error (f_"unexpected output from curl command, enable debug and look at previous messages");
     let status_code = List.hd lines in
@@ -113,35 +121,23 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       error (f_"failed to download %s: HTTP status code %s") uri status_code;
 
     (* Now download the file. *)
-    let cmd = sprintf "%s%s%s -L --max-redirs 5 -g -o %s %s"
-      outenv
-      t.curl
-      (if verbose () then "" else if progress_bar then " -#" else " -s -S")
-      (quote filename_new) (quote uri) in
-    let r = shell_command cmd in
-    if r <> 0 then
-      error (f_"curl (download) command failed downloading '%s'") uri;
+    let curl_h =
+      let curl_args =
+        common_args @ [
+          "output", Some filename_new;
+          "url", Some uri
+        ] in
+
+      let curl_args =
+        curl_args @
+          if verbose () then []
+          else if progress_bar then [ "progress-bar", None ]
+          else quiet_args in
+
+      Curl.create ~curl:t.curl curl_args in
+
+    ignore (Curl.run curl_h)
   );
 
   (* Rename the file if the download was successful. *)
   rename filename_new filename
-
-and proxy_envvar protocol = function
-  | UnsetProxy ->
-    (match protocol with
-    | "http" -> "env http_proxy= no_proxy=* "
-    | "https" -> "env https_proxy= no_proxy=* "
-    | "ftp" -> "env ftp_proxy= no_proxy=* "
-    | _ -> "env no_proxy=* "
-    )
-  | SystemProxy ->
-    (* No changes required. *)
-    ""
-  | ForcedProxy proxy ->
-    let proxy = quote proxy in
-    (match protocol with
-    | "http" -> sprintf "env http_proxy=%s no_proxy= " proxy
-    | "https" -> sprintf "env https_proxy=%s no_proxy= " proxy
-    | "ftp" -> sprintf "env ftp_proxy=%s no_proxy= " proxy
-    | _ -> ""
-    )
