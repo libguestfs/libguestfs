@@ -124,6 +124,9 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
     (e "type" ["arch", guestcaps.gcaps_arch] [PCData "hvm"]) :: loader in
 
+  (* The devices. *)
+  let devices = ref [] in
+
   (* Fixed and removable disks. *)
   let disks =
     let make_disk bus_name drive_prefix i = function
@@ -186,6 +189,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
         (Array.mapi (make_disk "scsi" "sd")
                     target_buses.target_scsi_bus)
     ] in
+  append devices disks;
 
   let nics =
     let net_model =
@@ -218,6 +222,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
         nic
     ) source.s_nics in
+  append devices nics;
 
   (* Same as old virt-v2v, we always add a display here even if it was
    * missing from the old metadata.
@@ -229,6 +234,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
       | Cirrus -> e "model" [ "type", "cirrus"; "vram", "9216" ] [] in
     append_attr ("heads", "1") video_model;
     e "video" [] [ video_model ] in
+  push devices video;
 
   let graphics =
     match source.s_display with
@@ -264,6 +270,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
    | Some { s_port = None } | None ->
       append_attr ("autoport", "yes") graphics;
       append_attr ("port", "-1") graphics);
+  push devices graphics;
 
   let sound =
     match source.s_sound with
@@ -273,13 +280,14 @@ let create_libvirt_xml ?pool source target_buses guestcaps
          [ e "sound" [ "model", string_of_source_sound_model model ] [] ]
        else
          [] in
+  append devices sound;
 
-  let devices = disks @ nics @ [video] @ [graphics] @ sound @
-  (* Standard devices added to every guest. *) [
+  (* Standard devices added to every guest. *)
+  append devices [
     e "input" ["type", "tablet"; "bus", "usb"] [];
     e "input" ["type", "mouse"; "bus", "ps2"] [];
     e "console" ["type", "pty"] [];
-  ] in
+  ];
 
   let doc : doc =
     doc "domain" [
@@ -297,7 +305,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
       e "on_reboot" [] [PCData "restart"];
       e "on_crash" [] [PCData "restart"];
 
-      e "devices" [] devices;
+      e "devices" [] !devices;
     ] in
 
   doc
