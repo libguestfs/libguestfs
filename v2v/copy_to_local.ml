@@ -198,22 +198,18 @@ read the man page virt-v2v-copy-to-local(1).
          error (f_"ssh copy command failed, see earlier errors");
 
     | ESXi _ ->
-       let curl_args = [
-           "url", Some remote_disk;
-           "output", Some local_disk;
-         ] in
-       let curl_args =
-         if sslverify then curl_args
-         else ("insecure", None) :: curl_args in
-       let curl_args =
-         match cookie with
-         | None -> curl_args
-         | Some cookie -> ("cookie", Some cookie) :: curl_args in
-       let curl_args =
-         if quiet () then ("silent", None) :: curl_args
-         else curl_args in
+       let curl_args = ref [
+         "url", Some remote_disk;
+         "output", Some local_disk;
+       ] in
+       if not sslverify then push curl_args ("insecure", None);
+       (match cookie with
+        | None -> ()
+        | Some cookie -> push curl_args ("cookie", Some cookie)
+       );
+       if quiet () then push curl_args ("silent", None);
 
-       let curl_h = Curl.create curl_args in
+       let curl_h = Curl.create !curl_args in
        if verbose () then
          Curl.print stderr curl_h;
        ignore (Curl.run curl_h)
