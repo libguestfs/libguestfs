@@ -28,6 +28,7 @@ CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o
 
 SOURCES_MLI = \
 	common_utils.mli \
+	curl.mli \
 	fsync.mli \
 	JSON.mli \
 	mkdtemp.mli \
@@ -47,7 +48,8 @@ SOURCES_ML = \
 	mkdtemp.ml \
 	planner.ml \
 	regedit.ml \
-	JSON.ml
+	JSON.ml \
+	curl.ml
 
 SOURCES_C = \
 	../fish/progress.c \

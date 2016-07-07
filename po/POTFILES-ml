@@ -42,6 +42,7 @@ mllib/URI.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
+mllib/curl.ml
 mllib/fsync.ml
 mllib/guestfs_config.ml
 mllib/libdir.ml
@@ -102,7 +103,6 @@ v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
 v2v/copy_to_local.ml
-v2v/curl.ml
 v2v/domainxml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
