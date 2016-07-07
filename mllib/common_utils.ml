@@ -282,6 +282,26 @@ let sort_uniq ?(cmp = Pervasives.compare) xs =
   let xs = uniq ~cmp xs in
   xs
 
+let push xsp x = xsp := !xsp @ [x]
+let unshift x xsp = xsp := x :: !xsp
+let pop xsp =
+  let x, xs =
+    match List.rev !xsp with
+    | x :: xs -> x, xs
+    | [] -> failwith "pop" in
+  xsp := List.rev xs;
+  x
+let shift xsp =
+  let x, xs =
+    match !xsp with
+    | x :: xs -> x, xs
+    | [] -> failwith "shift" in
+  xsp := xs;
+  x
+
+let append xsp xs = xsp := !xsp @ xs
+let prepend xs xsp = xsp := xs @ !xsp
+
 let may f = function
   | None -> ()
   | Some x -> f x
