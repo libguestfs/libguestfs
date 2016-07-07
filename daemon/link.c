@@ -53,7 +53,7 @@ do_internal_readlinklist (const char *path, char *const *names)
 {
   int fd_cwd;
   size_t i;
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
 
   CHROOT_IN;
   fd_cwd = open (path, O_RDONLY|O_DIRECTORY|O_CLOEXEC);
@@ -87,7 +87,7 @@ do_internal_readlinklist (const char *path, char *const *names)
   if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  return ret.argv;
+  return take_stringsbuf (&ret);
 }
 
 int

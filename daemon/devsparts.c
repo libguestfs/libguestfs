@@ -38,7 +38,7 @@ typedef int (*block_dev_func_t) (const char *dev, struct stringsbuf *r);
 static char **
 foreach_block_device (block_dev_func_t func)
 {
-  DECLARE_STRINGSBUF (r);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (r);
   DIR *dir;
   int err = 0;
   struct dirent *d;
@@ -89,7 +89,6 @@ foreach_block_device (block_dev_func_t func)
   /* Check readdir didn't fail */
   if (errno != 0) {
     reply_with_perror ("readdir: /sys/block");
-    free_stringslen (r.argv, r.size);
     closedir (dir);
     return NULL;
   }
@@ -97,15 +96,11 @@ foreach_block_device (block_dev_func_t func)
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /sys/block");
-    free_stringslen (r.argv, r.size);
     return NULL;
   }
 
-  /* Free the result list on error */
-  if (err) {
-    free_stringslen (r.argv, r.size);
+  if (err)
     return NULL;
-  }
 
   /* Sort the devices. */
   if (r.size > 0)
@@ -116,7 +111,7 @@ foreach_block_device (block_dev_func_t func)
     return NULL;
   }
 
-  return r.argv;
+  return take_stringsbuf (&r);
 }
 
 /* Add a device to the list of devices */
@@ -150,7 +145,6 @@ add_partitions (const char *device, struct stringsbuf *r)
   DIR *dir = opendir (devdir);
   if (!dir) {
     reply_with_perror ("opendir: %s", devdir);
-    free_stringslen (r->argv, r->size);
     return -1;
   }
 
@@ -174,7 +168,6 @@ add_partitions (const char *device, struct stringsbuf *r)
   /* Check if readdir failed */
   if (0 != errno) {
     reply_with_perror ("readdir: %s", devdir);
-    free_stringslen (r->argv, r->size);
     closedir (dir);
     return -1;
   }
@@ -182,7 +175,6 @@ add_partitions (const char *device, struct stringsbuf *r)
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /sys/block/%s", device);
-    free_stringslen (r->argv, r->size);
     return -1;
   }
 
@@ -311,7 +303,7 @@ do_list_disk_labels (void)
 {
   DIR *dir = NULL;
   struct dirent *d;
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
 
   dir = opendir (GUESTFSDIR);
   if (!dir) {
@@ -336,14 +328,12 @@ do_list_disk_labels (void)
 
     if (asprintf (&path, "%s/%s", GUESTFSDIR, d->d_name) == -1) {
       reply_with_perror ("asprintf");
-      free_stringslen (ret.argv, ret.size);
       goto error;
     }
 
     rawdev = realpath (path, NULL);
     if (rawdev == NULL) {
       reply_with_perror ("realpath: %s", path);
-      free_stringslen (ret.argv, ret.size);
       goto error;
     }
 
@@ -359,14 +349,12 @@ do_list_disk_labels (void)
   /* Check readdir didn't fail */
   if (errno != 0) {
     reply_with_perror ("readdir: %s", GUESTFSDIR);
-    free_stringslen (ret.argv, ret.size);
     goto error;
   }
 
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: %s", GUESTFSDIR);
-    free_stringslen (ret.argv, ret.size);
     dir = NULL;
     goto error;
   }
@@ -376,7 +364,7 @@ do_list_disk_labels (void)
   if (end_stringsbuf (&ret) == -1)
     goto error;
 
-  return ret.argv;              /* caller frees */
+  return take_stringsbuf (&ret);              /* caller frees */
 
  error:
   if (dir)

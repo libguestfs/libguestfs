@@ -50,7 +50,7 @@ glob_errfunc (const char *epath, int eerrno)
 static char **
 get_devices (const char *pattern)
 {
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
   glob_t devs;
   int err;
   size_t i;
@@ -76,12 +76,10 @@ get_devices (const char *pattern)
   if (end_stringsbuf (&ret) == -1) goto error;
 
   globfree (&devs);
-  return ret.argv;
+  return take_stringsbuf (&ret);
 
  error:
   globfree (&devs);
-  if (ret.argv != NULL)
-    free_stringslen (ret.argv, ret.size);
 
   return NULL;
 }
@@ -176,7 +174,7 @@ parse_json (const char *json, const char *func)
 static char **
 json_value_to_string_list (yajl_val node)
 {
-  DECLARE_STRINGSBUF (strs);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (strs);
   yajl_val n;
   size_t i, len;
 
@@ -194,7 +192,7 @@ json_value_to_string_list (yajl_val node)
   if (end_stringsbuf (&strs) == -1)
     return NULL;
 
-  return strs.argv;
+  return take_stringsbuf (&strs);
 }
 
 static char **
