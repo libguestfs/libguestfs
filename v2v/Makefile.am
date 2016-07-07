@@ -31,7 +31,6 @@ SOURCES_MLI = \
 	cmdline.mli \
 	convert_linux.mli \
 	convert_windows.mli \
-	curl.mli \
 	DOM.mli \
 	domainxml.mli \
 	input_disk.mli \
@@ -66,7 +65,6 @@ SOURCES_ML = \
 	types.ml \
 	xml.ml \
 	utils.ml \
-	curl.ml \
 	vCenter.ml \
 	domainxml.ml \
 	DOM.ml \
@@ -131,6 +129,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/mkdtemp.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/mllib/StatVFS.cmo \
+	$(top_builddir)/mllib/curl.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/firstboot.cmo \
 	$(SOURCES_ML:.ml=.cmo)
@@ -199,9 +198,9 @@ COPY_TO_LOCAL_BOBJECTS = \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/mllib/StatVFS.cmo \
+	$(top_builddir)/mllib/curl.cmo \
 	xml.cmo \
 	utils.cmo \
-	curl.cmo \
 	vCenter.cmo \
 	domainxml.cmo \
 	copy_to_local.cmo
