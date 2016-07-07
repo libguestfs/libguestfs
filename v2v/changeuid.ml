@@ -36,19 +36,22 @@ let create ?uid ?gid () = { uid = uid; gid = gid }
 (* Call _exit directly, ie. do not run OCaml atexit handlers. *)
 external _exit : int -> unit = "v2v_exit" "noalloc"
 
-let with_fork { uid = uid; gid = gid } f =
+let with_fork { uid = uid; gid = gid } name f =
   let pid = fork () in
-  if pid = 0 then ( (* child *)
+
+  if pid = 0 then (
+    (* Child. *)
     may setgid gid;
     may setuid uid;
     (try f ()
      with exn ->
-       eprintf "%s: KVM uid wrapper: %s\n%!" prog (Printexc.to_string exn);
+       eprintf "%s: changeuid: %s: %s\n%!" prog name (Printexc.to_string exn);
        _exit 1
     );
     _exit 0
   );
-  (* parent *)
+
+  (* Parent. *)
   let _, status = waitpid [] pid in
   match status with
   | WEXITED 0 -> ()
@@ -58,13 +61,13 @@ let with_fork { uid = uid; gid = gid } f =
     error (f_"subprocess signalled or stopped by signal %d") i
 
 let mkdir t path perm =
-  with_fork t (fun () -> mkdir path perm)
+  with_fork t (sprintf "mkdir: %s" path) (fun () -> mkdir path perm)
 
 let rmdir t path =
-  with_fork t (fun () -> rmdir path)
+  with_fork t (sprintf "rmdir: %s" path) (fun () -> rmdir path)
 
 let output t path f =
-  with_fork t (
+  with_fork t path (
     fun () ->
       let chan = open_out path in
       f chan;
@@ -75,12 +78,12 @@ let make_file t path content =
   output t path (fun chan -> output_string chan content)
 
 let unlink t path =
-  with_fork t (fun () -> unlink path)
+  with_fork t (sprintf "unlink: %s" path) (fun () -> unlink path)
 
-let func = with_fork
+let func t = with_fork t "func"
 
 let command t cmd =
-  with_fork t (
+  with_fork t cmd (
     fun () ->
       let r = Sys.command cmd in
       if r <> 0 then failwith "external command failed"
