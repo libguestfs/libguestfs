@@ -166,10 +166,10 @@ let parse_cmdline () =
   in
 
   let vdsm_image_uuids = ref [] in
-  let add_vdsm_image_uuid s = vdsm_image_uuids := s :: !vdsm_image_uuids in
+  let add_vdsm_image_uuid s = unshift s vdsm_image_uuids in
 
   let vdsm_vol_uuids = ref [] in
-  let add_vdsm_vol_uuid s = vdsm_vol_uuids := s :: !vdsm_vol_uuids in
+  let add_vdsm_vol_uuid s = unshift s vdsm_vol_uuids in
 
   let i_options =
     String.concat "|" (Modules_list.input_modules ())
@@ -227,7 +227,7 @@ let parse_cmdline () =
   ] in
   let argspec = set_standard_options argspec in
   let args = ref [] in
-  let anon_fun s = args := s :: !args in
+  let anon_fun s = unshift s args in
   let usage_msg =
     sprintf (f_"\
 %s: convert a guest to use KVM

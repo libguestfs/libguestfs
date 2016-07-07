@@ -80,9 +80,7 @@ let import_keyfile ~gpg ~gpghome ?(trust = true) keyfile =
           (match !current with
           | None -> ()
           | Some k ->
-            if String.is_suffix id k then (
-              subkeys := id :: !subkeys;
-            );
+            if String.is_suffix id k then unshift id subkeys;
             current := None
           )
         | _ -> ()

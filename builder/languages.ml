@@ -30,10 +30,10 @@ let split_locale loc =
     let territory = match_or_empty 3 in
     (match territory with
     | "" -> ()
-    | territory -> l := (lang ^ "_" ^ territory) :: !l);
-    l := lang :: !l;
+    | territory -> unshift (lang ^ "_" ^ territory) l);
+    unshift lang l;
   );
-  l := "" :: !l;
+  unshift "" l;
   List.rev !l
 
 let languages () =

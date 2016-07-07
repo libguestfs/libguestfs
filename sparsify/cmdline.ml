@@ -41,7 +41,7 @@ and mode_t =
 and check_t = [`Ignore|`Continue|`Warn|`Fail]
 
 let parse_cmdline () =
-  let add xs s = xs := s :: !xs in
+  let add xs s = unshift s xs in
 
   let check_tmpdir = ref `Warn in
   let set_check_tmpdir = function
@@ -79,7 +79,7 @@ let parse_cmdline () =
   ] in
   let argspec = set_standard_options argspec in
   let disks = ref [] in
-  let anon_fun s = disks := s :: !disks in
+  let anon_fun s = unshift s disks in
   let usage_msg =
     sprintf (f_"\
 %s: sparsify a virtual machine disk

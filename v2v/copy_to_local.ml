@@ -48,7 +48,7 @@ let rec main () =
   ] in
   let argspec = set_standard_options argspec in
   let args = ref [] in
-  let anon_fun s = args := s :: !args in
+  let anon_fun s = unshift s args in
   let usage_msg =
     sprintf (f_"\
 %s: copy a remote guest to the local machine
@@ -258,7 +258,7 @@ and parse_libvirt_xml guest_name xml =
       incr i;
       let local_disk = sprintf "%s-disk%d" guest_name !i in
 
-      disks := (remote_disk, local_disk) :: !disks;
+      unshift (remote_disk, local_disk) disks;
       local_disk
     in
     get_disks, add_disk

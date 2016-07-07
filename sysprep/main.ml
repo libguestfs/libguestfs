@@ -56,7 +56,7 @@ let main () =
         with Invalid_argument "URI.parse_uri" ->
           error (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
-      files := (uri, format) :: !files;
+      unshift (uri, format) files;
       format_consumed := true
     and set_domain dom =
       if !domain <> None then

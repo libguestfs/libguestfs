@@ -68,20 +68,16 @@ read the man page virt-dib(1).
       prog in
 
   let elements = ref [] in
-  let append_element element =
-    elements := element :: !elements in
+  let append_element element = unshift element elements in
 
   let excluded_elements = ref [] in
-  let append_excluded_element element =
-    excluded_elements := element :: !excluded_elements in
+  let append_excluded_element element = unshift element excluded_elements in
 
   let element_paths = ref [] in
-  let append_element_path arg =
-    element_paths := arg :: !element_paths in
+  let append_element_path arg = unshift arg element_paths in
 
   let excluded_scripts = ref [] in
-  let append_excluded_script arg =
-    excluded_scripts := arg :: !excluded_scripts in
+  let append_excluded_script arg = unshift arg excluded_scripts in
 
   let debug = ref 0 in
   let set_debug arg =
@@ -118,8 +114,7 @@ read the man page virt-dib(1).
     formats := fmts in
 
   let envvars = ref [] in
-  let append_envvar arg =
-    envvars := arg :: !envvars in
+  let append_envvar arg = unshift arg envvars in
 
   let use_base = ref true in
 
@@ -153,7 +148,7 @@ read the man page virt-dib(1).
 
   let extra_packages = ref [] in
   let append_extra_packages arg =
-    extra_packages := List.rev (String.nsplit "," arg) @ !extra_packages in
+    prepend (List.rev (String.nsplit "," arg)) extra_packages in
 
   let argspec = [
     "-p",           Arg.String append_element_path, "path" ^ " " ^ s_"Add new a elements location";

@@ -109,9 +109,9 @@ let remove_all_from_set set =
   empty_set
 
 let register_operation op =
-  all_operations := op :: !all_operations;
+  unshift op all_operations;
   if op.enabled_by_default then
-    enabled_by_default_operations := op :: !enabled_by_default_operations
+    unshift op enabled_by_default_operations
 
 let baked = ref false
 let rec bake () =
