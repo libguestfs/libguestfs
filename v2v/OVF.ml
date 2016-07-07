@@ -274,76 +274,77 @@ let rec create_ovf source targets guestcaps inspect
         e "Info" [] [PCData "List of Virtual Disks"]
       ];
 
-      e "Content" ["ovf:id", "out"; "xsi:type", "ovf:VirtualSystem_Type"] (
-        let es = [
-          e "Name" [] [PCData source.s_name];
-          e "TemplateId" [] [PCData "00000000-0000-0000-0000-000000000000"];
-          e "TemplateName" [] [PCData "Blank"];
-          e "Description" [] [PCData generated_by];
-          e "Domain" [] [];
-          e "CreationDate" [] [PCData iso_time];
-          e "IsInitilized" (* sic *) [] [PCData "True"];
-          e "IsAutoSuspend" [] [PCData "False"];
-          e "TimeZone" [] [];
-          e "IsStateless" [] [PCData "False"];
-          e "VmType" [] [PCData vmtype];
-          (* See https://bugzilla.redhat.com/show_bug.cgi?id=1260590#c17 *)
-          e "DefaultDisplayType" [] [PCData "1"];
-        ] in
+      let content_subnodes = ref [
+        e "Name" [] [PCData source.s_name];
+        e "TemplateId" [] [PCData "00000000-0000-0000-0000-000000000000"];
+        e "TemplateName" [] [PCData "Blank"];
+        e "Description" [] [PCData generated_by];
+        e "Domain" [] [];
+        e "CreationDate" [] [PCData iso_time];
+        e "IsInitilized" (* sic *) [] [PCData "True"];
+        e "IsAutoSuspend" [] [PCData "False"];
+        e "TimeZone" [] [];
+        e "IsStateless" [] [PCData "False"];
+        e "VmType" [] [PCData vmtype];
+        (* See https://bugzilla.redhat.com/show_bug.cgi?id=1260590#c17 *)
+        e "DefaultDisplayType" [] [PCData "1"];
+      ] in
 
-        (* Add the <Origin/> element if we can. *)
-        let es =
-          match origin_of_source_hypervisor source.s_hypervisor with
-          | None -> es
-          | Some origin ->
-             es @ [e "Origin" [] [PCData (string_of_int origin)]] in
+      (* Add the <Origin/> element if we can. *)
+      (match origin_of_source_hypervisor source.s_hypervisor with
+       | None -> ()
+       | Some origin ->
+          push content_subnodes (e "Origin" [] [PCData (string_of_int origin)])
+      );
 
-        es @ [
-          e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
-                       "xsi:type", "ovf:OperatingSystemSection_Type"] [
-            e "Info" [] [PCData inspect.i_product_name];
-            e "Description" [] [PCData ostype];
+      append content_subnodes [
+        e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
+                     "xsi:type", "ovf:OperatingSystemSection_Type"] [
+          e "Info" [] [PCData inspect.i_product_name];
+          e "Description" [] [PCData ostype];
+        ];
+
+        e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"] [
+          e "Info" [] [PCData (sprintf "%d CPU, %Ld Memory" source.s_vcpu memsize_mb)];
+          e "Item" [] [
+            e "rasd:Caption" [] [PCData (sprintf "%d virtual cpu" source.s_vcpu)];
+            e "rasd:Description" [] [PCData "Number of virtual CPU"];
+            e "rasd:InstanceId" [] [PCData "1"];
+            e "rasd:ResourceType" [] [PCData "3"];
+            e "rasd:num_of_sockets" [] [PCData (string_of_int source.s_vcpu)];
+            e "rasd:cpu_per_socket"[] [PCData "1"];
           ];
-
-          e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"] [
-            e "Info" [] [PCData (sprintf "%d CPU, %Ld Memory" source.s_vcpu memsize_mb)];
-            e "Item" [] [
-              e "rasd:Caption" [] [PCData (sprintf "%d virtual cpu" source.s_vcpu)];
-              e "rasd:Description" [] [PCData "Number of virtual CPU"];
-              e "rasd:InstanceId" [] [PCData "1"];
-              e "rasd:ResourceType" [] [PCData "3"];
-              e "rasd:num_of_sockets" [] [PCData (string_of_int source.s_vcpu)];
-              e "rasd:cpu_per_socket"[] [PCData "1"];
-            ];
-            e "Item" [] [
-              e "rasd:Caption" [] [PCData (sprintf "%Ld MB of memory" memsize_mb)];
-              e "rasd:Description" [] [PCData "Memory Size"];
-              e "rasd:InstanceId" [] [PCData "2"];
-              e "rasd:ResourceType" [] [PCData "4"];
-              e "rasd:AllocationUnits" [] [PCData "MegaBytes"];
-              e "rasd:VirtualQuantity" [] [PCData (Int64.to_string memsize_mb)];
-            ];
-            e "Item" [] [
-              e "rasd:Caption" [] [PCData "USB Controller"];
-              e "rasd:InstanceId" [] [PCData "3"];
-              e "rasd:ResourceType" [] [PCData "23"];
-              e "rasd:UsbPolicy" [] [PCData "Disabled"];
-            ];
-            (* We always add a qxl device when outputting to RHEV.
-             * See RHBZ#1213701 and RHBZ#1211231 for the reasoning
-             * behind that.
-             *)
-            e "Item" [] [
-              e "rasd:Caption" [] [PCData "Graphical Controller"];
-              e "rasd:InstanceId" [] [PCData (uuidgen ())];
-              e "rasd:ResourceType" [] [PCData "20"];
-              e "Type" [] [PCData "video"];
-              e "rasd:VirtualQuantity" [] [PCData "1"];
-              e "rasd:Device" [] [PCData "qxl"];
-            ]
+          e "Item" [] [
+            e "rasd:Caption" [] [PCData (sprintf "%Ld MB of memory" memsize_mb)];
+            e "rasd:Description" [] [PCData "Memory Size"];
+            e "rasd:InstanceId" [] [PCData "2"];
+            e "rasd:ResourceType" [] [PCData "4"];
+            e "rasd:AllocationUnits" [] [PCData "MegaBytes"];
+            e "rasd:VirtualQuantity" [] [PCData (Int64.to_string memsize_mb)];
+          ];
+          e "Item" [] [
+            e "rasd:Caption" [] [PCData "USB Controller"];
+            e "rasd:InstanceId" [] [PCData "3"];
+            e "rasd:ResourceType" [] [PCData "23"];
+            e "rasd:UsbPolicy" [] [PCData "Disabled"];
+          ];
+          (* We always add a qxl device when outputting to RHEV.
+           * See RHBZ#1213701 and RHBZ#1211231 for the reasoning
+           * behind that.
+           *)
+          e "Item" [] [
+            e "rasd:Caption" [] [PCData "Graphical Controller"];
+            e "rasd:InstanceId" [] [PCData (uuidgen ())];
+            e "rasd:ResourceType" [] [PCData "20"];
+            e "Type" [] [PCData "video"];
+            e "rasd:VirtualQuantity" [] [PCData "1"];
+            e "rasd:Device" [] [PCData "qxl"];
           ]
         ]
-      )
+      ];
+
+      e "Content" ["ovf:id", "out"; "xsi:type", "ovf:VirtualSystem_Type"]
+        !content_subnodes
     ] in
 
   (* Add disks to the OVF XML. *)
@@ -448,7 +449,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
 
       (* Add disk to DiskSection. *)
       let disk =
-        let attrs = [
+        let attrs = ref [
           "ovf:diskId", vol_uuid;
           "ovf:size", Int64.to_string size_gb;
           "ovf:fileRef", fileref;
@@ -465,12 +466,12 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           "ovf:disk-type", "System"; (* RHBZ#744538 *)
           "ovf:boot", if is_bootable_drive then "True" else "False";
         ] in
-        let attrs =
-          match actual_size_gb with
-          | None -> attrs
-          | Some actual_size_gb ->
-            ("ovf:actual_size", Int64.to_string actual_size_gb) :: attrs in
-        e "Disk" attrs [] in
+        (match actual_size_gb with
+         | None -> ()
+         | Some actual_size_gb ->
+            push attrs ("ovf:actual_size", Int64.to_string actual_size_gb)
+        );
+        e "Disk" !attrs [] in
       if is_estimate then (
         let comment = Comment "note: actual_size field is estimated" in
         append_child comment disk_section
@@ -483,7 +484,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
          * will not parse.
          *)
         let caption = sprintf "Drive %d" (i+1) in
-        e "Item" [] ([
+        let item_subnodes = ref [
           e "rasd:Caption" [] [PCData caption];
           e "rasd:InstanceId" [] [PCData vol_uuid];
           e "rasd:ResourceType" [] [PCData "17"];
@@ -497,12 +498,12 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
           e "rasd:CreationDate" [] [PCData iso_time];
           e "rasd:LastModified" [] [PCData iso_time];
           e "rasd:last_modified_date" [] [PCData iso_time];
-        ] @
-          if is_bootable_drive then
-            [e "BootOrder" [] [PCData (string_of_int boot_order)]]
-          else
-            []
-        ) in
+        ] in
+        if is_bootable_drive then
+          push item_subnodes
+               (e "BootOrder" [] [PCData (string_of_int boot_order)]);
+
+        e "Item" [] !item_subnodes in
       append_child item virtualhardware_section;
   ) (combine3 targets image_uuids vol_uuids)
 
@@ -543,7 +544,7 @@ and add_networks nics guestcaps ovf =
       append_child network network_section;
 
       let item =
-        let children = [
+        let item_subnodes = ref [
           e "rasd:InstanceId" [] [PCData (uuidgen ())];
           e "rasd:Caption" [] [PCData (sprintf "Ethernet adapter on %s" vnet)];
           e "rasd:ResourceType" [] [PCData "10"];
@@ -552,11 +553,13 @@ and add_networks nics guestcaps ovf =
           e "rasd:Connection" [] [PCData vnet];
           e "rasd:Name" [] [PCData dev];
         ] in
-        let children =
-          match mac with
-          | None -> children
-          | Some mac -> children @ [e "rasd:MACAddress" [] [PCData mac]] in
-        e "Item" [] children in
+        (match mac with
+         | None -> ()
+         | Some mac ->
+            push item_subnodes
+                 (e "rasd:MACAddress" [] [PCData mac])
+        );
+        e "Item" [] !item_subnodes in
       append_child item virtualhardware_section;
   ) nics
 
