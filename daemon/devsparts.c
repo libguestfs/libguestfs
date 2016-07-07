@@ -311,7 +311,6 @@ do_list_disk_labels (void)
 {
   DIR *dir = NULL;
   struct dirent *d;
-  char *rawdev = NULL;
   DECLARE_STRINGSBUF (ret);
 
   dir = opendir (GUESTFSDIR);
@@ -330,6 +329,7 @@ do_list_disk_labels (void)
   errno = 0;
   while ((d = readdir (dir)) != NULL) {
     CLEANUP_FREE char *path = NULL;
+    char *rawdev;
 
     if (d->d_name[0] == '.')
       continue;
@@ -347,12 +347,13 @@ do_list_disk_labels (void)
       goto error;
     }
 
-    if (add_string (&ret, d->d_name) == -1)
+    if (add_string (&ret, d->d_name) == -1) {
+      free (rawdev);
       goto error;
+    }
 
     if (add_string_nodup (&ret, rawdev) == -1)
       goto error;
-    rawdev = NULL;            /* buffer now owned by the stringsbuf */
   }
 
   /* Check readdir didn't fail */
@@ -380,6 +381,5 @@ do_list_disk_labels (void)
  error:
   if (dir)
     closedir (dir);
-  free (rawdev);
   return NULL;
 }
