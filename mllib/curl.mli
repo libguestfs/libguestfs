@@ -18,21 +18,53 @@
 
 (** Functions for dealing with [curl]. *)
 
-type curl_args = (string * string option) list
+type t
 
-val run : curl_args -> string list
-(** [run curl_args] runs the [curl] command.
+type args = (string * string option) list
 
-    It actually uses the [curl --config] option to pass the arguments
-    securely to curl through an external file.  Thus passwords etc are
-    not exposed to other users on the same machine.
+type proxy =
+  | UnsetProxy            (** The proxy is forced off. *)
+  | SystemProxy           (** Use the system settings. *)
+  | ForcedProxy of string (** The proxy is forced to the specified URL. *)
+
+val create : ?curl:string -> ?proxy:proxy -> args -> t
+(** Create a curl command handle.
 
     The curl arguments are a list of key, value pairs corresponding
     to curl command line parameters, without leading dashes,
     eg. [("user", Some "user:password")].
 
+    The optional [?curl] parameter controls the name of the curl
+    binary (default ["curl"]).
+
+    The optional [?proxy] parameter adds extra arguments to
+    control the proxy.
+
+    Note that some extra arguments are added implicitly:
+
+    - [--max-redirs 5] Only follow 3XX redirects up to 5 times.
+    - [--globoff] Disable URL globbing.
+
+    Note this does {b not} enable redirects.  If you want to follow
+    redirects you have to add the ["location"] parameter yourself. *)
+
+val run : t -> string list
+(** [run t] runs previously constructed the curl command.
+
+    It actually uses the [curl --config] option to pass the arguments
+    securely to curl through an external file.  Thus passwords etc are
+    not exposed to other users on the same machine.
+
     The result is the output of curl as a list of lines. *)
 
-val print_curl_command : out_channel -> curl_args -> unit
-(** Print the curl command line.  This elides any arguments that
-    might contain passwords, so is useful for debugging. *)
+val to_string : t -> string
+(** Convert the curl command line to a string.
+
+    This elides any arguments that might contain passwords, so is
+    useful for debugging. *)
+
+val print : out_channel -> t -> unit
+(** Print the curl command line.
+
+    This elides any arguments that might contain passwords, so is
+    useful for debugging. *)
