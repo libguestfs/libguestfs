@@ -51,17 +51,17 @@ tsk_type: r
 tsk_size: .*
 tsk_name: \$MFT
 tsk_flags: 1
-tsk_spare1: 0
-tsk_spare2: 0
-tsk_spare3: 0
-tsk_spare4: 0
-tsk_spare5: 0
-tsk_spare6: 0
-tsk_spare7: 0
-tsk_spare8: 0
-tsk_spare9: 0
-tsk_spare10: 0
-tsk_spare11: 0 }'
+tsk_atime_sec: .*
+tsk_atime_nsec: .*
+tsk_mtime_sec: .*
+tsk_mtime_nsec: .*
+tsk_ctime_sec: .*
+tsk_ctime_nsec: .*
+tsk_crtime_sec: .*
+tsk_crtime_nsec: .*
+tsk_nlink: 1
+tsk_link:
+tsk_spare1: 0 }'
 if [ $? != 0 ]; then
     echo "$0: \$MFT not found in files list."
     echo "File list:"
@@ -75,17 +75,17 @@ tsk_type: [ru]
 tsk_size: .*
 tsk_name: test.txt
 tsk_flags: 0
-tsk_spare1: 0
-tsk_spare2: 0
-tsk_spare3: 0
-tsk_spare4: 0
-tsk_spare5: 0
-tsk_spare6: 0
-tsk_spare7: 0
-tsk_spare8: 0
-tsk_spare9: 0
-tsk_spare10: 0
-tsk_spare11: 0 }'
+tsk_atime_sec: .*
+tsk_atime_nsec: .*
+tsk_mtime_sec: .*
+tsk_mtime_nsec: .*
+tsk_ctime_sec: .*
+tsk_ctime_nsec: .*
+tsk_crtime_sec: .*
+tsk_crtime_nsec: .*
+tsk_nlink: .*
+tsk_link:
+tsk_spare1: 0 }'
 if [ $? != 0 ]; then
     echo "$0: /test.txt not found in files list."
     echo "File list:"

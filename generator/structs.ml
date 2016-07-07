@@ -454,17 +454,17 @@ let structs = [
     "tsk_size", FInt64;
     "tsk_name", FString;
     "tsk_flags", FUInt32;
+    "tsk_atime_sec", FInt64;
+    "tsk_atime_nsec", FInt64;
+    "tsk_mtime_sec", FInt64;
+    "tsk_mtime_nsec", FInt64;
+    "tsk_ctime_sec", FInt64;
+    "tsk_ctime_nsec", FInt64;
+    "tsk_crtime_sec", FInt64;
+    "tsk_crtime_nsec", FInt64;
+    "tsk_nlink", FInt64;
+    "tsk_link", FString;
     "tsk_spare1", FInt64;
-    "tsk_spare2", FInt64;
-    "tsk_spare3", FInt64;
-    "tsk_spare4", FInt64;
-    "tsk_spare5", FInt64;
-    "tsk_spare6", FInt64;
-    "tsk_spare7", FInt64;
-    "tsk_spare8", FInt64;
-    "tsk_spare9", FInt64;
-    "tsk_spare10", FInt64;
-    "tsk_spare11", FInt64;
     ];
     s_camel_name = "TSKDirent" };
 

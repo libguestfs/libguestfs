@@ -38,13 +38,15 @@
 enum tsk_dirent_flags {
   DIRENT_UNALLOC = 0x00,
   DIRENT_ALLOC = 0x01,
-  DIRENT_REALLOC = 0x02
+  DIRENT_REALLOC = 0x02,
+  DIRENT_COMPRESSED = 0x04
 };
 
 static int open_filesystem (const char *, TSK_IMG_INFO **, TSK_FS_INFO **);
 static TSK_WALK_RET_ENUM fswalk_callback (TSK_FS_FILE *, const char *, void *);
 static char file_type (TSK_FS_FILE *);
 static int file_flags (TSK_FS_FILE *fsfile);
+static void file_metadata (TSK_FS_META *, guestfs_int_tsk_dirent *);
 static int send_dirent_info (guestfs_int_tsk_dirent *);
 static void reply_with_tsk_error (const char *);
 
@@ -122,15 +124,15 @@ fswalk_callback (TSK_FS_FILE *fsfile, const char *path, void *data)
     return TSK_WALK_ERROR;
   }
 
+  /* Set dirent fields */
+  memset (&dirent, 0, sizeof dirent);
+
   dirent.tsk_inode = fsfile->name->meta_addr;
   dirent.tsk_type = file_type (fsfile);
-  dirent.tsk_size = (fsfile->meta != NULL) ? fsfile->meta->size : -1;
   dirent.tsk_name = fname;
   dirent.tsk_flags = file_flags (fsfile);
-  dirent.tsk_spare1 = dirent.tsk_spare2 = dirent.tsk_spare3 =
-    dirent.tsk_spare4 = dirent.tsk_spare5 = dirent.tsk_spare6 =
-    dirent.tsk_spare7 = dirent.tsk_spare8 = dirent.tsk_spare9 =
-    dirent.tsk_spare10 = dirent.tsk_spare11 = 0;
+
+  file_metadata (fsfile->meta, &dirent);
 
   ret = send_dirent_info (&dirent);
   ret = (ret == 0) ? TSK_WALK_CONT : TSK_WALK_ERROR;
@@ -175,7 +177,7 @@ file_type (TSK_FS_FILE *fsfile)
   return 'u';
 }
 
-/* Inspect fsfile to retrieve the file allocation state. */
+/* Inspect fsfile to retrieve file flags. */
 static int
 file_flags (TSK_FS_FILE *fsfile)
 {
@@ -188,7 +190,35 @@ file_flags (TSK_FS_FILE *fsfile)
   else
     flags |= DIRENT_ALLOC;
 
+  if (fsfile->meta && fsfile->meta->flags & TSK_FS_META_FLAG_COMP)
+    flags |= DIRENT_COMPRESSED;
+
   return flags;
+}
+
+/* Inspect fsfile to retrieve file metadata. */
+static void
+file_metadata (TSK_FS_META *fsmeta, guestfs_int_tsk_dirent *dirent)
+{
+  if (fsmeta != NULL) {
+    dirent->tsk_size = fsmeta->size;
+    dirent->tsk_nlink = fsmeta->nlink;
+    dirent->tsk_atime_sec = fsmeta->atime;
+    dirent->tsk_atime_nsec = fsmeta->atime_nano;
+    dirent->tsk_mtime_sec = fsmeta->mtime;
+    dirent->tsk_mtime_nsec = fsmeta->mtime_nano;
+    dirent->tsk_ctime_sec = fsmeta->ctime;
+    dirent->tsk_ctime_nsec = fsmeta->ctime_nano;
+    dirent->tsk_crtime_sec = fsmeta->crtime;
+    dirent->tsk_crtime_nsec = fsmeta->crtime_nano;
+    /* tsk_link never changes */
+    dirent->tsk_link = (fsmeta->link != NULL) ? fsmeta->link : (char *) "";
+  }
+  else {
+    dirent->tsk_size = -1;
+    /* tsk_link never changes */
+    dirent->tsk_link = (char *) "";
+  }
 }
 
 /* Serialise dirent into XDR stream and send it to the appliance.
