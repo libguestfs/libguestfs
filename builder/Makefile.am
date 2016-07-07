@@ -141,6 +141,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/mllib/URI.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
+	$(top_builddir)/mllib/curl.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/urandom.cmo \
 	$(top_builddir)/customize/random_seed.cmo \

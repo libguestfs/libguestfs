@@ -26,7 +26,7 @@ type source = {
   name : string;
   uri : string;
   gpgkey : Utils.gpgkey_type;
-  proxy : Downloader.proxy_mode;
+  proxy : Curl.proxy;
   format : source_format;
 }
 and source_format =
@@ -67,12 +67,12 @@ let parse_conf file =
         let proxy =
           try
             (match (List.assoc ("proxy", None) fields) with
-            | "no" | "off" -> Downloader.UnsetProxy
-            | "system" -> Downloader.SystemProxy
-            | _ as proxy -> Downloader.ForcedProxy proxy
+            | "no" | "off" -> Curl.UnsetProxy
+            | "system" -> Curl.SystemProxy
+            | _ as proxy -> Curl.ForcedProxy proxy
             )
           with
-            Not_found -> Downloader.SystemProxy in
+            Not_found -> Curl.SystemProxy in
         let format =
           try
             (match (List.assoc ("format", None) fields) with
