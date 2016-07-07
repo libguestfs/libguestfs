@@ -24,7 +24,6 @@ open Printf
 
 open Types
 open Utils
-open DOM
 
 type vdsm_params = {
   image_uuids : string list;
@@ -171,7 +170,7 @@ object
     (* Write it to the metadata file. *)
     let file = vdsm_params.ovf_output // vdsm_params.vm_uuid ^ ".ovf" in
     let chan = open_out file in
-    doc_to_chan chan ovf;
+    DOM.doc_to_chan chan ovf;
     close_out chan
 end
 

@@ -24,7 +24,6 @@ open Printf
 
 open Types
 open Utils
-open DOM
 
 let rec mount_and_check_storage_domain domain_class os =
   (* The user can either specify -os nfs:/export, or a local directory
@@ -276,7 +275,7 @@ object
     let dir = esd_mp // esd_uuid // "master" // "vms" // vm_uuid in
     Changeuid.mkdir changeuid_t dir 0o755;
     let file = dir // vm_uuid ^ ".ovf" in
-    Changeuid.output changeuid_t file (fun chan -> doc_to_chan chan ovf);
+    Changeuid.output changeuid_t file (fun chan -> DOM.doc_to_chan chan ovf);
 
     (* Finished, so don't delete the target directory on exit. *)
     delete_target_directory <- false
