@@ -211,7 +211,7 @@ is_raid_device (const char *dev)
 char **
 do_list_md_devices (void)
 {
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
   glob_t mds;
 
   memset (&mds, 0, sizeof mds);
@@ -262,12 +262,10 @@ do_list_md_devices (void)
   if (end_stringsbuf (&ret) == -1) goto error;
   globfree (&mds);
 
-  return ret.argv;
+  return take_stringsbuf (&ret);
 
  error:
   globfree (&mds);
-  if (ret.argv != NULL)
-    free_stringslen (ret.argv, ret.size);
 
   return NULL;
 }
@@ -281,19 +279,19 @@ do_md_detail (const char *md)
   CLEANUP_FREE char *out = NULL, *err = NULL;
   CLEANUP_FREE_STRING_LIST char **lines = NULL;
 
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
 
   const char *mdadm[] = { str_mdadm, "-D", "--export", md, NULL };
   r = commandv (&out, &err, mdadm);
   if (r == -1) {
     reply_with_error ("%s", err);
-    goto error;
+    return NULL;
   }
 
   /* Split the command output into lines */
   lines = split_lines (out);
   if (lines == NULL)
-    goto error;
+    return NULL;
 
   /* Parse the output of mdadm -D --export:
    * MD_LEVEL=raid1
@@ -324,7 +322,7 @@ do_md_detail (const char *md)
 
       /* Add the key/value pair to the output */
       if (add_string (&ret, line) == -1 ||
-          add_string (&ret, eq) == -1) goto error;
+          add_string (&ret, eq) == -1) return NULL;
     } else {
       /* Ignore lines with no equals sign (shouldn't happen). Log to stderr so
        * it will show up in LIBGUESTFS_DEBUG. */
@@ -335,13 +333,7 @@ do_md_detail (const char *md)
   if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  return ret.argv;
-
- error:
-  if (ret.argv != NULL)
-    free_stringslen (ret.argv, ret.size);
-
-  return NULL;
+  return take_stringsbuf (&ret);
 }
 
 int

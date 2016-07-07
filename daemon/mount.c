@@ -266,7 +266,7 @@ mounts_or_mountpoints (int mp)
 {
   FILE *fp;
   struct mntent *m;
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
   size_t i;
   int r;
 
@@ -312,10 +312,8 @@ mounts_or_mountpoints (int mp)
         STRPREFIX (ret.argv[i], "/dev/dm-")) {
       char *canonical;
       r = lv_canonical (ret.argv[i], &canonical);
-      if (r == -1) {
-        free_stringslen (ret.argv, ret.size);
+      if (r == -1)
         return NULL;
-      }
       if (r == 1) {
         free (ret.argv[i]);
         ret.argv[i] = canonical;
@@ -327,7 +325,7 @@ mounts_or_mountpoints (int mp)
     }
   }
 
-  return ret.argv;
+  return take_stringsbuf (&ret);
 }
 
 char **
@@ -367,7 +365,7 @@ do_umount_all (void)
 {
   FILE *fp;
   struct mntent *m;
-  DECLARE_STRINGSBUF (mounts);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (mounts);
   size_t i;
   int r;
 
@@ -423,12 +421,9 @@ do_umount_all (void)
     r = command (NULL, &err, str_umount, mounts.argv[i], NULL);
     if (r == -1) {
       reply_with_error ("umount: %s: %s", mounts.argv[i], err);
-      free_stringslen (mounts.argv, mounts.size);
       return -1;
     }
   }
-
-  free_stringslen (mounts.argv, mounts.size);
 
   return 0;
 }

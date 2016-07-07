@@ -501,8 +501,6 @@ add_string_nodup (struct stringsbuf *sb, char *str)
     new_argv = realloc (sb->argv, sb->alloc * sizeof (char *));
     if (new_argv == NULL) {
       reply_with_perror ("realloc");
-      free_stringslen (sb->argv, sb->size);
-      sb->argv = NULL;
       free (str);
       return -1;
     }
@@ -524,8 +522,6 @@ add_string (struct stringsbuf *sb, const char *str)
     new_str = strdup (str);
     if (new_str == NULL) {
       reply_with_perror ("strdup");
-      free_stringslen (sb->argv, sb->size);
-      sb->argv = NULL;
       return -1;
     }
   }
@@ -545,8 +541,6 @@ add_sprintf (struct stringsbuf *sb, const char *fs, ...)
   va_end (args);
   if (r == -1) {
     reply_with_perror ("vasprintf");
-    free_stringslen (sb->argv, sb->size);
-    sb->argv = NULL;
     return -1;
   }
 

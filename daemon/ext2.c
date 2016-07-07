@@ -55,7 +55,7 @@ do_tune2fs_l (const char *device)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
   char *p, *pend, *colon;
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
 
   r = command (&out, &err, str_tune2fs, "-l", device, NULL);
   if (r == -1) {
@@ -121,7 +121,7 @@ do_tune2fs_l (const char *device)
   if (end_stringsbuf (&ret) == -1)
     return NULL;
 
-  return ret.argv;
+  return take_stringsbuf (&ret);
 }
 
 int

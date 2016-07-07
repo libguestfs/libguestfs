@@ -240,7 +240,7 @@ static char **
 make_filter_strings (char *const *devices)
 {
   size_t i;
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
 
   for (i = 0; devices[i] != NULL; ++i) {
     /* Because of the way matching works in LVM (yes, they wrote their
@@ -254,26 +254,21 @@ make_filter_strings (char *const *devices)
     size_t slen = strlen (devices[i]);
 
     if (add_sprintf (&ret, "a|^%s$|", devices[i]) == -1)
-      goto error;
+      return NULL;
 
     if (!c_isdigit (devices[i][slen-1])) {
       /* whole block device */
       if (add_sprintf (&ret, "a|^%s[0-9]|", devices[i]) == -1)
-        goto error;
+        return NULL;
     }
   }
   if (add_string (&ret, "r|.*|") == -1)
-    goto error;
+    return NULL;
 
   if (end_stringsbuf (&ret) == -1)
-    goto error;
+    return NULL;
 
-  return ret.argv;
-
- error:
-  if (ret.argv)
-    free_stringslen (ret.argv, ret.size);
-  return NULL;
+  return take_stringsbuf (&ret);
 }
 
 int

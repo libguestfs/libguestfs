@@ -307,7 +307,7 @@ do_inotify_read (void)
 char **
 do_inotify_files (void)
 {
-  DECLARE_STRINGSBUF (ret);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
   unsigned int i;
   FILE *fp = NULL;
   guestfs_int_inotify_event_list *events;
@@ -380,7 +380,7 @@ do_inotify_files (void)
     goto error;
 
   unlink (tempfile);
-  return ret.argv;
+  return take_stringsbuf (&ret);
 
  error:
   if (fp != NULL)

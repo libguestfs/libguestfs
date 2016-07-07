@@ -41,7 +41,7 @@ static char *read_whole_file (const char *filename);
 char **
 do_list_9p (void)
 {
-  DECLARE_STRINGSBUF (r);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (r);
 
   DIR *dir;
 
@@ -60,7 +60,7 @@ do_list_9p (void)
     if (end_stringsbuf (&r) == -1)
       return NULL;
 
-    return r.argv;
+    return take_stringsbuf (&r);
   }
 
   while (1) {
@@ -93,7 +93,6 @@ do_list_9p (void)
   /* Check readdir didn't fail */
   if (errno != 0) {
     reply_with_perror ("readdir: /sys/block");
-    free_stringslen (r.argv, r.size);
     closedir (dir);
     return NULL;
   }
@@ -101,7 +100,6 @@ do_list_9p (void)
   /* Close the directory handle */
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir: /sys/block");
-    free_stringslen (r.argv, r.size);
     return NULL;
   }
 
@@ -113,7 +111,7 @@ do_list_9p (void)
   if (end_stringsbuf (&r) == -1)
     return NULL;
 
-  return r.argv;
+  return take_stringsbuf (&r);
 }
 
 /* Read whole file into dynamically allocated array.  If there is an

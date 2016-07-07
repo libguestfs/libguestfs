@@ -53,7 +53,7 @@ char **
 do_available_all_groups (void)
 {
   size_t i;
-  DECLARE_STRINGSBUF (groups);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (groups);
 
   for (i = 0; optgroups[i].group != NULL; ++i) {
     if (add_string (&groups, optgroups[i].group) == -1)
@@ -63,7 +63,7 @@ do_available_all_groups (void)
   if (end_stringsbuf (&groups) == -1)
     return NULL;
 
-  return groups.argv;           /* caller frees */
+  return take_stringsbuf (&groups);           /* caller frees */
 }
 
 /* Search for filesystem in /proc/filesystems, ignoring "nodev". */

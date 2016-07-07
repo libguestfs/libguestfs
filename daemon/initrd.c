@@ -39,7 +39,7 @@ do_initrd_list (const char *path)
 {
   FILE *fp;
   CLEANUP_FREE char *cmd = NULL;
-  DECLARE_STRINGSBUF (filenames);
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (filenames);
   CLEANUP_FREE char *filename = NULL;
   size_t allocsize;
   ssize_t len;
@@ -84,11 +84,10 @@ do_initrd_list (const char *path)
         ret = WEXITSTATUS (ret);
       reply_with_error ("pclose: command failed with return code %d", ret);
     }
-    free_stringslen (filenames.argv, filenames.size);
     return NULL;
   }
 
-  return filenames.argv;
+  return take_stringsbuf (&filenames);
 }
 
 char *
