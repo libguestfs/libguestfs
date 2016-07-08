@@ -64,7 +64,7 @@ let target_features_of_capabilities_doc doc arch =
     for i = 0 to Xml.xpathobj_nr_nodes obj - 1 do
       let feature_node = Xml.xpathobj_node obj i in
       let feature_name = Xml.node_name feature_node in
-      unshift feature_name features
+      push_front feature_name features
     done;
     !features
   )
@@ -237,7 +237,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
       | Cirrus -> e "model" [ "type", "cirrus"; "vram", "9216" ] [] in
     append_attr ("heads", "1") video_model;
     e "video" [] [ video_model ] in
-  push devices video;
+  push_back devices video;
 
   let graphics =
     match source.s_display with
@@ -273,7 +273,7 @@ let create_libvirt_xml ?pool source target_buses guestcaps
    | Some { s_port = None } | None ->
       append_attr ("autoport", "yes") graphics;
       append_attr ("port", "-1") graphics);
-  push devices graphics;
+  push_back devices graphics;
 
   let sound =
     match source.s_sound with

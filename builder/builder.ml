@@ -405,7 +405,7 @@ let main () =
     let is_not t = not (is t) in
     let remove = List.remove_assoc in
     let ret = ref [] in
-    let tr task weight otags = unshift (task, weight, otags) ret in
+    let tr task weight otags = push_front (task, weight, otags) ret in
 
     (* XXX Weights are not very smartly chosen.  At the moment I'm
      * using a range [0..100] where 0 = free and 100 = expensive.  We
