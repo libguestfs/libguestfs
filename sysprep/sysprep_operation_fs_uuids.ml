@@ -30,13 +30,15 @@ let rec fs_uuids_perform g root side_effects =
   List.iter (function
   | _, "unknown" -> ()
   | dev, typ ->
-    let new_uuid = Common_utils.uuidgen () in
-    try
-      g#set_uuid dev new_uuid
-    with
-      G.Error msg ->
-        warning (f_"cannot set random UUID on filesystem %s type %s: %s")
-          dev typ msg
+    if not (is_btrfs_subvolume g dev) then (
+      let new_uuid = Common_utils.uuidgen () in
+      try
+        g#set_uuid dev new_uuid
+      with
+        G.Error msg ->
+          warning (f_"cannot set random UUID on filesystem %s type %s: %s")
+            dev typ msg
+    )
   ) fses
 
 let op = {
