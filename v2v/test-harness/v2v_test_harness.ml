@@ -101,7 +101,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
   let nodes_of_xpathobj doc xpathobj =
     let nodes = ref [] in
     for i = 0 to Xml.xpathobj_nr_nodes xpathobj - 1 do
-      unshift (Xml.xpathobj_node xpathobj i) nodes
+      push_front (Xml.xpathobj_node xpathobj i) nodes
     done;
     List.rev !nodes
   in
@@ -217,7 +217,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       printf "%s\n%!" cmd;
       let chan = open_process_in cmd in
       let lines = ref [] in
-      (try while true do unshift (input_line chan) lines done
+      (try while true do push_front (input_line chan) lines done
        with End_of_file -> ());
       let lines = List.rev !lines in
       let stat = close_process_in chan in
@@ -290,7 +290,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
       printf "%s\n%!" cmd;
       let chan = open_process_in cmd in
       let lines = ref [] in
-      (try while true do unshift (input_line chan) lines done
+      (try while true do push_front (input_line chan) lines done
        with End_of_file -> ());
       let lines = List.rev !lines in
       let stat = close_process_in chan in

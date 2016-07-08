@@ -125,10 +125,10 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
     (* Now download the file. *)
     let curl_h =
       let curl_args = ref common_args in
-      push curl_args ("output", Some filename_new);
+      push_back curl_args ("output", Some filename_new);
 
       if not (verbose ()) then (
-        if progress_bar then push curl_args ("progress-bar", None)
+        if progress_bar then push_back curl_args ("progress-bar", None)
         else append curl_args quiet_args
       );
 

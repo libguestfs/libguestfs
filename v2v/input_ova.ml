@@ -285,7 +285,7 @@ object
             s_format = Some "vmdk";
             s_controller = controller;
           } in
-          unshift disk disks;
+          push_front disk disks;
         ) else
           error (f_"could not parse disk rasd:HostResource from OVF document")
       done in
@@ -329,7 +329,7 @@ object
           s_removable_controller = controller;
           s_removable_slot = slot;
         } in
-        unshift disk removables;
+        push_front disk removables;
       done in
     let removables = List.rev !removables in
 
@@ -348,7 +348,7 @@ object
         s_vnet_orig = vnet;
         s_vnet_type = Network;
       } in
-      unshift nic nics
+      push_front nic nics
     done;
 
     let source = {

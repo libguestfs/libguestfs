@@ -320,7 +320,8 @@ let rec create_ovf source targets guestcaps inspect
       (match origin_of_source_hypervisor source.s_hypervisor with
        | None -> ()
        | Some origin ->
-          push content_subnodes (e "Origin" [] [PCData (string_of_int origin)])
+          push_back content_subnodes
+                    (e "Origin" [] [PCData (string_of_int origin)])
       );
 
       append content_subnodes [
@@ -486,7 +487,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
         (match actual_size_gb with
          | None -> ()
          | Some actual_size_gb ->
-            push attrs ("ovf:actual_size", Int64.to_string actual_size_gb)
+            push_back attrs ("ovf:actual_size", Int64.to_string actual_size_gb)
         );
         e "Disk" !attrs [] in
       if is_estimate then (
@@ -570,8 +571,8 @@ and add_networks nics guestcaps ovf =
         (match mac with
          | None -> ()
          | Some mac ->
-            push item_subnodes
-                 (e "rasd:MACAddress" [] [PCData mac])
+            push_back item_subnodes
+                      (e "rasd:MACAddress" [] [PCData mac])
         );
         e "Item" [] !item_subnodes in
       append_child item virtualhardware_section;

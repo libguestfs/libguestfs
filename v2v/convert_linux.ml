@@ -556,13 +556,13 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
     List.iter (
       fun { G.app2_name = name } ->
         if String.is_prefix name "vmware-tools-libraries-" then
-          unshift name libraries
+          push_front name libraries
         else if String.is_prefix name "vmware-tools-" then
-          unshift name remove
+          push_front name remove
         else if name = "VMwareTools" then
-          unshift name remove
+          push_front name remove
         else if String.is_prefix name "kmod-vmware-tools" then
-          unshift name remove
+          push_front name remove
     ) inspect.i_apps;
     let libraries = !libraries in
 
@@ -602,7 +602,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
             let cmd = Array.of_list cmd in
             (try
                ignore (g#command cmd);
-               unshift library remove
+               push_front library remove
              with G.Error msg ->
                eprintf "%s: could not install replacement for %s.  Error was: %s.  %s was not removed.\n"
                  prog library msg library
