@@ -9103,7 +9103,7 @@ I<other> keys." };
 
   { defaults with
     name = "is_lv"; added = (1, 5, 3);
-    style = RBool "lvflag", [Device "device"], [];
+    style = RBool "lvflag", [Mountable "mountable"], [];
     proc_nr = Some 264;
     tests = [
       InitBasicFSonLVM, Always, TestResultTrue (
@@ -9111,9 +9111,9 @@ I<other> keys." };
       InitBasicFSonLVM, Always, TestResultFalse (
         [["is_lv"; "/dev/sda1"]]), []
     ];
-    shortdesc = "test if device is a logical volume";
+    shortdesc = "test if mountable is a logical volume";
     longdesc = "\
-This command tests whether C<device> is a logical volume, and
+This command tests whether C<mountable> is a logical volume, and
 returns true iff this is the case." };
 
   { defaults with

@@ -863,9 +863,11 @@ lv_canonical (const char *device, char **ret)
 
 /* Test if a device is a logical volume (RHBZ#619793). */
 int
-do_is_lv (const char *device)
+do_is_lv (const mountable_t *mountable)
 {
-  return lv_canonical (device, NULL);
+  if (mountable->type != MOUNTABLE_DEVICE)
+    return 0;
+  return lv_canonical (mountable->device, NULL);
 }
 
 /* Return canonical name of LV to caller (RHBZ#638899). */
