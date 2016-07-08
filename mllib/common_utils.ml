@@ -942,3 +942,10 @@ let inspect_mount_root g ?mount_opts_fn root =
 
 let inspect_mount_root_ro =
   inspect_mount_root ~mount_opts_fn:(fun _ -> "ro")
+
+let is_btrfs_subvolume g fs =
+  try
+    ignore (g#mountable_subvolume fs); true
+  with Guestfs.Error msg as exn ->
+    if g#last_errno () = Guestfs.Errno.errno_EINVAL then false
+    else raise exn

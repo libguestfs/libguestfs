@@ -368,3 +368,6 @@ val inspect_mount_root : Guestfs.guestfs -> ?mount_opts_fn:(string -> string) ->
 val inspect_mount_root_ro : Guestfs.guestfs -> string -> unit
 (** Like [inspect_mount_root], but mounting every mount point as
     read-only. *)
+
+val is_btrfs_subvolume : Guestfs.guestfs -> string -> bool
+(** Checks if a filesystem is a btrfs subvolume. *)
