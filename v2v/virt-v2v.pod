@@ -1138,6 +1138,58 @@ Enable (check) the following objects:
 
 =back
 
+=head2 VCENTER: FIREWALL AND PROXY SETTINGS
+
+=head3 vCenter: Ports
+
+If there is a firewall between the virt-v2v conversion server and the
+vCenter server, then you will need to open port 443 (https) and port
+5480.
+
+Port 443 is used to copy the guest disk image(s).  Port 5480 is used
+to query vCenter for guest metadata.
+
+These port numbers are only the defaults.  It is possible to
+reconfigure vCenter to use other port numbers.  In that case you would
+need to specify those ports in the C<vpx://> URI.
+See L</VCENTER: URI> above.
+
+These ports only apply to virt-v2v conversions.  You may have to open
+other ports for other vCenter functionality, for example the web user
+interface.  VMware documents the required ports for vCenter in their
+online documentation.
+
+ ┌────────────┐   port 443 ┌────────────┐        ┌────────────┐
+ │ virt-v2v   │────────────▶ vCenter    │────────▶ ESXi       │
+ │ conversion │────────────▶ server     │        │ hypervisor │
+ │ server     │  port 5480 │            │        │   ┌─────┐  │
+ └────────────┘            └────────────┘        │   │guest│  │
+                                                 └───┴─────┴──┘
+
+(In the diagram above the arrows show the direction in which the TCP
+connection is initiated, I<not> necessarily the direction of data
+transfer.)
+
+Virt-v2v itself does not connect directly to the ESXi hypervisor
+containing the guest.  However vCenter connects to the hypervisor and
+forwards the information, so if you have a firewall between vCenter
+and its hypervisors you may need to open additional ports (consult
+VMware documentation).
+
+=head3 vCenter: Proxy settings
+
+To copy the disks, virt-v2v uses L<libcurl(3)>.  The Curl library
+obeys the proxy environment variables, in particular C<https_proxy>,
+C<all_proxy> and C<no_proxy> (C<HTTPS_PROXY>, C<ALL_PROXY> and
+C<NO_PROXY> can also be used, but the lowercase named environment
+variables take precedence).
+
+If these environment variables are set then copying may happen via the
+proxy, and so a different set of ports may need to be opened in the
+firewall.
+
+The port 5480 connection never uses a proxy.
+
 =head1 INPUT FROM VMWARE OVA
 
 Virt-v2v is able to import guests from VMware's OVA (Open
