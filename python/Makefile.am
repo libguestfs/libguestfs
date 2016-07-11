@@ -78,11 +78,15 @@ stamp-extra-files: \
 	  guestfs-internal-all.h \
 	  guestfs-internal-frontend-cleanups.h \
 	  guestfs-internal-frontend.h \
+	  ignore-value.h \
 	  utils.c
 	touch $@
 
 config.h:
 	ln ../config.h $@
+
+ignore-value.h:
+	ln $(top_srcdir)/gnulib/lib/ignore-value.h $@
 
 guestfs-internal-all.h:
 	ln $(top_srcdir)/src/guestfs-internal-all.h $@
@@ -118,6 +122,7 @@ CLEANFILES = \
 	guestfs-internal-all.h \
 	guestfs-internal-frontend-cleanups.h \
 	guestfs-internal-frontend.h \
+	ignore-value.h \
 	stamp-extra-files \
 	utils.c
 
