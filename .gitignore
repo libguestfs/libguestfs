@@ -421,6 +421,7 @@ Makefile.in
 /python/guestfs-internal-all.h
 /python/guestfs-internal-frontend-cleanups.h
 /python/guestfs-internal-frontend.h
+/python/ignore-value.h
 /python/MANIFEST
 /python/__pycache__
 /python/setup.py

@@ -20,3 +20,4 @@ include config.h
 include guestfs-internal-all.h
 include guestfs-internal-frontend-cleanups.h
 include guestfs-internal-frontend.h
+include ignore-value.h
