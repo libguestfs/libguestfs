@@ -28,9 +28,14 @@
 #include <sys/wait.h>
 #include <libintl.h>
 
+/* NB: MUST NOT require linking to gnulib, because that will break the
+ * Python 'sdist' which includes a copy of this file.  It's OK to
+ * include "ignore-value.h" here (since it is a header only with no
+ * other code), but we also had to copy this file to the Python sdist.
+ */
 #include "ignore-value.h"
 
-/* NB: MUST NOT include "guestfs-internal.h" or gnulib headers. */
+/* NB: MUST NOT include "guestfs-internal.h". */
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
