@@ -253,8 +253,9 @@ put_table (char * const * const argv)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
           blocking = blocking;
+          c_name = c_name;
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
-      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase name);
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
       pr "static PyObject *\n";
       pr "guestfs_int_py_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -560,8 +561,8 @@ put_table (char * const * const argv)
   pr "  { (char *) \"event_to_string\",\n";
   pr "    guestfs_int_py_event_to_string, METH_VARARGS, NULL },\n";
   List.iter (
-    fun { name = name } ->
-      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase name);
+    fun { name = name; c_name = c_name } ->
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
       pr "  { (char *) \"%s\", guestfs_int_py_%s, METH_VARARGS, NULL },\n"
         name name;
       pr "#endif\n"
