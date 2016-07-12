@@ -456,6 +456,8 @@ and virtio_iso_path_matches_guest_os path inspect =
         (6, 3, not_client)
       else if pathelem "w10" || pathelem "win10" then
         (10, 0, is_client)
+      else if pathelem "2k16" || pathelem "win2016" then
+        (10, 0, not_client)
       else
         raise Not_found in
 
