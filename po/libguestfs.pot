@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.42\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-09 09:35+0100\n"
+"POT-Creation-Date: 2016-07-12 21:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9482,27 +9482,27 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/utils.c:217
+#: src/utils.c:222
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:220
+#: src/utils.c:225
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:224
+#: src/utils.c:229
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:228
+#: src/utils.c:233
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:232
+#: src/utils.c:237
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
