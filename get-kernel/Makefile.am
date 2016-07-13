@@ -60,6 +60,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/stringMap.cmo \
 	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/URI.cmo \

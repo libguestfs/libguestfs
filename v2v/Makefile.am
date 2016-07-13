@@ -51,7 +51,6 @@ SOURCES_MLI = \
 	output_rhev.mli \
 	output_vdsm.mli \
 	OVF.mli \
-	stringMap.mli \
 	target_bus_assignment.mli \
 	types.mli \
 	utils.mli \
@@ -61,7 +60,6 @@ SOURCES_MLI = \
 	xml.mli
 
 SOURCES_ML = \
-	stringMap.ml \
 	types.ml \
 	xml.ml \
 	utils.ml \
@@ -125,6 +123,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/stringMap.cmo \
 	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
@@ -198,6 +197,7 @@ COPY_TO_LOCAL_BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/stringMap.cmo \
 	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
@@ -413,10 +413,10 @@ v2v_unit_tests_BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/stringMap.cmo \
 	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
-	stringMap.cmo \
 	types.cmo \
 	xml.cmo \
 	utils.cmo \

@@ -31,71 +31,11 @@ module G = Guestfs
  *)
 let rec augeas_init g =
   g#aug_init "/" 1;
-  if verbose () then augeas_debug_errors g
+  debug_augeas_errors g
 
 and augeas_reload g =
   g#aug_load ();
-  if verbose () then augeas_debug_errors g
-
-and augeas_debug_errors g =
-  try
-    let errors = g#aug_match "/augeas/files//error" in
-    let errors = Array.to_list errors in
-    let map =
-      List.fold_left (
-        fun map error ->
-          let detail_paths = g#aug_match (error ^ "//*") in
-          let detail_paths = Array.to_list detail_paths in
-          List.fold_left (
-            fun map path ->
-              (* path is "/augeas/files/<filename>/error/<field>".  Put
-               * <filename>, <field> and the value of this Augeas field
-               * into a map.
-               *)
-              let i = String.find path "/error/" in
-              assert (i >= 0);
-              let filename = String.sub path 13 (i-13) in
-              let field = String.sub path (i+7) (String.length path - (i+7)) in
-
-              let detail = g#aug_get path in
-
-              let fmap : string StringMap.t =
-                try StringMap.find filename map
-                with Not_found -> StringMap.empty in
-              let fmap = StringMap.add field detail fmap in
-              StringMap.add filename fmap map
-          ) map detail_paths
-      ) StringMap.empty errors in
-
-    let filenames = StringMap.keys map in
-    let filenames = List.sort compare filenames in
-
-    List.iter (
-      fun filename ->
-        eprintf "augeas failed to parse %s:\n" filename;
-        let fmap = StringMap.find filename map in
-        (try
-           let msg = StringMap.find "message" fmap in
-           eprintf " error \"%s\"" msg
-         with Not_found -> ()
-        );
-        (try
-           let line = StringMap.find "line" fmap
-           and char = StringMap.find "char" fmap in
-           eprintf " at line %s char %s" line char
-         with Not_found -> ()
-        );
-        (try
-           let lens = StringMap.find "lens" fmap in
-           eprintf " in lens %s" lens
-         with Not_found -> ()
-        );
-        eprintf "\n"
-    ) filenames;
-
-    flush stderr
-  with
-    Guestfs.Error msg -> eprintf "%s: augeas: %s (ignored)\n" prog msg
+  debug_augeas_errors g
 
 let remove g inspect packages =
   if packages <> [] then (
