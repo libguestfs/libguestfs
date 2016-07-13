@@ -13149,6 +13149,29 @@ fails and the C<errno> is set to C<ENODEV>." };
     shortdesc = "walk through the filesystem content";
     longdesc = "Internal function for filesystem_walk." };
 
+  { defaults with
+    name = "selinux_relabel"; added = (1, 33, 43);
+    style = RErr, [String "specfile"; Pathname "path"], [OBool "force"];
+    proc_nr = Some 467;
+    optional = Some "selinuxrelabel";
+    test_excuse = "tests are in the tests/relabel directory";
+    shortdesc = "relabel parts of the filesystem";
+    longdesc = "\
+SELinux relabel parts of the filesystem.
+
+The C<specfile> parameter controls the policy spec file used.
+You have to parse C</etc/selinux/config> to find the correct
+SELinux policy and then pass the spec file, usually:
+C</etc/selinux/> + I<selinuxtype> + C</contexts/files/file_contexts>.
+
+The required C<path> parameter is the top level directory where
+relabelling starts.  Normally you should pass C<path> as C</>
+to relabel the whole guest filesystem.
+
+The optional C<force> boolean controls whether the context
+is reset for customizable files, and also whether the
+user, role and range parts of the file context is changed." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

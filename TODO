@@ -59,12 +59,6 @@ Ideas for extra commands
 
   SELinux:
     chcat
-    restorecon
-      [Wanlong Gao submitted patches for restorecon, but
-       there are problems with using the restorecon binary
-       from the host on the guest.  Most of the time it
-       would do more harm than good.]
-    setfiles
 
   Oddball:
     pivot_root

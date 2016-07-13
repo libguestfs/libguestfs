@@ -168,6 +168,7 @@ guestfsd_SOURCES = \
 	rsync.c \
 	scrub.c \
 	selinux.c \
+	selinux-relabel.c \
 	sfdisk.c \
 	sh.c \
 	sleep.c \
