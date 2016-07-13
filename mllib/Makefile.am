@@ -37,11 +37,13 @@ SOURCES_MLI = \
 	progress.mli \
 	regedit.mli \
 	StatVFS.mli \
+	stringMap.mli \
 	URI.mli
 
 SOURCES_ML = \
 	guestfs_config.ml \
 	libdir.ml \
+	stringMap.ml \
 	common_gettext.ml \
 	dev_t.ml \
 	common_utils.ml \
@@ -150,6 +152,7 @@ common_utils_tests_BOBJECTS = \
 	guestfs_config.cmo \
 	common_gettext.cmo \
 	dev_t.cmo \
+	stringMap.cmo \
 	common_utils.cmo \
 	common_utils_tests.cmo
 common_utils_tests_XOBJECTS = $(common_utils_tests_BOBJECTS:.cmo=.cmx)

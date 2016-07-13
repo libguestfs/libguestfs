@@ -319,6 +319,20 @@ val truncate_recursive : Guestfs.guestfs -> string -> unit
 (** Using the libguestfs API, recurse into the given directory and
     truncate all files found to zero size. *)
 
+val debug_augeas_errors : Guestfs.guestfs -> unit
+(** In verbose mode, any Augeas errors which happened most recently
+    on the handle and printed on standard error.  You should usually
+    call this just after either [g#aug_init] or [g#aug_load].
+
+    Note this doesn't call {!error} if there were any errors on the
+    handle.  It is just for debugging.  It is expected that a
+    subsequent Augeas command will fail, eg. when trying to match
+    an Augeas path which is expected to exist but does not exist
+    because of a parsing error.  In that case turning on debugging
+    will reveal the parse error.
+
+    If not in verbose mode, this does nothing. *)
+
 val detect_file_type : string -> [`GZip | `Tar | `XZ | `Zip | `Unknown]
 (** Detect type of a file (for a very limited range of file types). *)
 

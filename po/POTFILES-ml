@@ -52,6 +52,7 @@ mllib/mkdtemp.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
+mllib/stringMap.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml
@@ -123,7 +124,6 @@ v2v/output_null.ml
 v2v/output_qemu.ml
 v2v/output_rhev.ml
 v2v/output_vdsm.ml
-v2v/stringMap.ml
 v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml
 v2v/types.ml
