@@ -142,7 +142,7 @@ usage (int status)
               "  --no-progress-bars   Disable progress bars\n"
               "  --remote[=pid]       Send commands to remote %s\n"
               "  -r|--ro              Mount read-only\n"
-              "  --selinux            Enable SELinux support\n"
+              "  --selinux            For backwards compat only, does nothing\n"
               "  -v|--verbose         Verbose messages\n"
               "  -V|--version         Display version and exit\n"
               "  -w|--rw              Mount read-write\n"
@@ -267,8 +267,7 @@ main (int argc, char *argv[])
                      " to the PID of the remote process"));
         }
       } else if (STREQ (long_options[option_index].name, "selinux")) {
-        if (guestfs_set_selinux (g, 1) == -1)
-          exit (EXIT_FAILURE);
+        /* nothing */
       } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
       } else if (STREQ (long_options[option_index].name, "progress-bars")) {

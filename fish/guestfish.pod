@@ -407,7 +407,7 @@ See also L</OPENING DISKS FOR READ AND WRITE> below.
 
 =item B<--selinux>
 
-Enable SELinux support for the guest.  See L<guestfs(3)/SELINUX>.
+This option is provided for backwards compatibility and does nothing.
 
 =item B<-v>
 

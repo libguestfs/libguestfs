@@ -209,8 +209,7 @@ command line.
 
 =item B<--selinux>
 
-Enable SELinux in the rescue appliance.  You should read
-L<guestfs(3)/SELINUX> before using this option.
+This option is provided for backwards compatibility and does nothing.
 
 =item B<--smp> N
 

@@ -362,7 +362,7 @@ See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 =item B<--selinux>
 
-Enable SELinux support for the guest.
+This option is provided for backwards compatibility and does nothing.
 
 =item B<-v>
 

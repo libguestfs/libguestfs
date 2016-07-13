@@ -458,8 +458,8 @@ an X86 host).
 
 =item *
 
-For SELinux guests, you may need to enable SELinux and load policy
-first.  See L</SELINUX> in this manpage.
+For SELinux guests, you may need to relabel the guest after
+creating new files.  See L</SELINUX> below.
 
 =item *
 
@@ -511,44 +511,23 @@ L<sd-journal(3)>, L<sd_journal_open(3)>.
 
 =head2 SELINUX
 
-We support SELinux guests.  To ensure that labeling happens correctly
-in SELinux guests, you need to enable SELinux and load the guest's
-policy:
+We support SELinux guests.  However it is not possible to load the
+SELinux policy of the guest into the appliance kernel.  Therefore the
+strategy for dealing with SELinux guests is to relabel them after
+making changes.
 
-=over 4
+In libguestfs E<ge> 1.34 there is a new API, L</guestfs_setfiles>,
+which can be used for this.  To properly use this API you have to
+parse the guest SELinux configuration.  See the L<virt-customize(1)>
+module F<customize/SELinux_relabel.ml> for how to do this.
 
-=item 1.
+A simpler but slower alternative is to touch F</.autorelabel> in the
+guest, which means that the guest will relabel itself at next boot.
 
-Before launching, do:
-
- guestfs_set_selinux (g, 1);
-
-=item 2.
-
-After mounting the guest's filesystem(s), load the policy.  This
-is best done by running the L<load_policy(8)> command in the
-guest itself:
-
- guestfs_sh (g, "/usr/sbin/load_policy");
-
-(Older versions of C<load_policy> require you to specify the
-name of the policy file).
-
-=item 3.
-
-Optionally, set the security context for the API.  The correct
-security context to use can only be known by inspecting the
-guest.  As an example:
-
- guestfs_setcon (g, "unconfined_u:unconfined_r:unconfined_t:s0");
-
-=back
-
-This will work for running commands and editing existing files.
-
-When new files are created, you may need to label them explicitly,
-for example by running the external command
-C<restorecon pathname>.
+Libguestfs E<le> 1.32 had APIs C<guestfs_set_selinux>,
+C<guestfs_get_selinux>, C<guestfs_setcon> and C<guestfs_getcon>.
+These did not work properly, are deprecated, and should not be used in
+new code.
 
 =head2 UMASK
 
