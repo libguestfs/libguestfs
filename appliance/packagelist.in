@@ -42,6 +42,7 @@ ifelse(REDHAT,1,
   ntfs-3g
   openssh-clients
   pcre
+  policycoreutils
   reiserfs-utils
   libselinux
   syslinux-extlinux

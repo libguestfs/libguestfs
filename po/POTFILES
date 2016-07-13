@@ -94,6 +94,7 @@ daemon/realpath.c
 daemon/rename.c
 daemon/rsync.c
 daemon/scrub.c
+daemon/selinux-relabel.c
 daemon/selinux.c
 daemon/sfdisk.c
 daemon/sh.c
@@ -221,6 +222,7 @@ gobject/src/optargs-remount.c
 gobject/src/optargs-rsync.c
 gobject/src/optargs-rsync_in.c
 gobject/src/optargs-rsync_out.c
+gobject/src/optargs-selinux_relabel.c
 gobject/src/optargs-set_e2attrs.c
 gobject/src/optargs-syslinux.c
 gobject/src/optargs-tar_in.c

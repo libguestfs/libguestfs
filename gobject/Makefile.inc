@@ -96,6 +96,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-rsync.h \
   include/guestfs-gobject/optargs-rsync_in.h \
   include/guestfs-gobject/optargs-rsync_out.h \
+  include/guestfs-gobject/optargs-selinux_relabel.h \
   include/guestfs-gobject/optargs-set_e2attrs.h \
   include/guestfs-gobject/optargs-syslinux.h \
   include/guestfs-gobject/optargs-tar_in.h \
@@ -182,6 +183,7 @@ guestfs_gobject_sources= \
   src/optargs-rsync.c \
   src/optargs-rsync_in.c \
   src/optargs-rsync_out.c \
+  src/optargs-selinux_relabel.c \
   src/optargs-set_e2attrs.c \
   src/optargs-syslinux.c \
   src/optargs-tar_in.c \
