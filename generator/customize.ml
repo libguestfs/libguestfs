@@ -568,7 +568,7 @@ let rec generate_customize_cmdline_mli () =
   pr "\n";
 
   pr "\
-type argspec = Arg.key * Arg.spec * Arg.doc
+type argspec = Getopt.keys * Getopt.spec * Getopt.doc
 val argspec : unit -> (argspec * string option * string) list * (unit -> ops)
 (** This returns a pair [(list, get_ops)].
 
@@ -598,7 +598,7 @@ open Customize_utils
   pr "\n";
 
   pr "\
-type argspec = Arg.key * Arg.spec * Arg.doc
+type argspec = Getopt.keys * Getopt.spec * Getopt.doc
 
 let rec argspec () =
   let ops = ref [] in
@@ -652,115 +652,123 @@ let rec argspec () =
     | { op_type = Unit; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.Unit (fun () -> push_front %s ops),\n" discrim;
-      pr "      \" \" ^ s_\"%s\"\n" shortdesc;
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.Unit (fun () -> push_front %s ops),\n" discrim;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    None, %S;\n" longdesc
     | { op_type = String v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (fun s -> push_front (%s s) ops),\n" discrim;
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (s_\"%s\", fun s -> push_front (%s s) ops),\n" v discrim;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = StringPair v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let p = split_string_pair \"%s\" s in\n" name;
       pr "          push_front (%s p) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = StringList v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let ss = split_string_list s in\n";
       pr "          push_front (%s ss) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = TargetLinks v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let ss = split_links_list \"%s\" s in\n" name;
       pr "          push_front (%s ss) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = PasswordSelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let sel = Password.parse_selector s in\n";
       pr "          push_front (%s sel) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = UserPasswordSelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let user, sel = split_string_pair \"%s\" s in\n" name;
       pr "          let sel = Password.parse_selector sel in\n";
       pr "          push_front (%s (user, sel)) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = SSHKeySelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let user, selstr = String.split \":\" s in\n";
       pr "          let sel = Ssh_key.parse_selector selstr in\n";
       pr "          push_front (%s (user, sel)) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = StringFn (v, fn); op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          %s s;\n" fn;
       pr "          push_front (%s s) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { op_type = SMPoolSelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          let sel = Subscription_manager.parse_pool_selector s in\n";
       pr "          push_front (%s sel) ops\n" discrim;
       pr "      ),\n";
-      pr "      s_\"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
   ) ops;
@@ -770,37 +778,39 @@ let rec argspec () =
     | { flag_type = FlagBool default; flag_ml_var = var; flag_name = name;
         flag_shortdesc = shortdesc; flag_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
+      pr "      [ \"--%s\" ],\n" name;
       if default (* is true *) then
-        pr "      Arg.Clear %s,\n" var
+        pr "      Getopt.Clear %s,\n" var
       else
-        pr "      Arg.Set %s,\n" var;
-      pr "      \" \" ^ s_\"%s\"\n" shortdesc;
+        pr "      Getopt.Set %s,\n" var;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    None, %S;\n" longdesc
     | { flag_type = FlagPasswordCrypto v; flag_ml_var = var;
         flag_name = name; flag_shortdesc = shortdesc;
         flag_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          %s := Some (Password.password_crypto_of_string s)\n" var;
       pr "      ),\n";
-      pr "      \"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
     | { flag_type = FlagSMCredentials v; flag_ml_var = var;
         flag_name = name; flag_shortdesc = shortdesc;
         flag_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      \"--%s\",\n" name;
-      pr "      Arg.String (\n";
+      pr "      [ \"--%s\" ],\n" name;
+      pr "      Getopt.String (\n";
+      pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
       pr "          %s := Some (Subscription_manager.parse_credentials_selector s)\n"
         var;
       pr "      ),\n";
-      pr "      \"%s\" ^ \" \" ^ s_\"%s\"\n" v shortdesc;
+      pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
       pr "    Some %S, %S;\n" v longdesc
   ) flags;
@@ -844,13 +854,13 @@ pr "    ] in
       fun (cmd, arg) ->
         try
           let ((_, spec, _), _, _) = List.find (
-            fun ((key, _, _), _, _) ->
-              key = \"--\" ^ cmd
+            fun ((keys, _, _), _, _) ->
+              List.mem (\"--\" ^ cmd) keys
           ) argspec in
           (match spec with
-          | Arg.Unit fn -> fn ()
-          | Arg.String fn -> fn arg
-          | Arg.Set varref -> varref := true
+          | Getopt.Unit fn -> fn ()
+          | Getopt.String (_, fn) -> fn arg
+          | Getopt.Set varref -> varref := true
           | _ -> error \"INTERNAL error: spec not handled for %%s\" cmd
           )
         with Not_found ->

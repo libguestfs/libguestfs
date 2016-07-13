@@ -49,7 +49,7 @@ type operation = {
   perform_on_devices : device_side_effects callback option;
 }
 and extra_arg = {
-  extra_argspec : Arg.key * Arg.spec * Arg.doc;
+  extra_argspec : Getopt.keys * Getopt.spec * Getopt.doc;
   extra_pod_argval : string option;
   extra_pod_description : string;
 }
@@ -208,30 +208,37 @@ let dump_pod_options () =
   let args = List.map (
     function
     | (op_name,
-       { extra_argspec = (arg_name,
-                          (Arg.Unit _ | Arg.Bool _ | Arg.Set _ | Arg.Clear _),
+       { extra_argspec = (arg_names,
+                          (Getopt.Unit _ | Getopt.Set _ | Getopt.Clear _),
                           _);
          extra_pod_argval = None;
          extra_pod_description = pod }) ->
-      let heading = sprintf "B<%s>" arg_name in
-      arg_name, (op_name, heading, pod)
+      List.map (
+        fun arg_name ->
+          let heading = sprintf "B<%s>" arg_name in
+          arg_name, (op_name, heading, pod)
+      ) arg_names
 
     | (op_name,
-       { extra_argspec = (arg_name,
-                          (Arg.String _ | Arg.Set_string _ | Arg.Int _ |
-                           Arg.Set_int _ | Arg.Float _ | Arg.Set_float _),
+       { extra_argspec = (arg_names,
+                          (Getopt.String _ | Getopt.Set_string _ | Getopt.Int _ |
+                           Getopt.Set_int _),
                           _);
          extra_pod_argval = Some arg_val;
          extra_pod_description = pod }) ->
-      let heading = sprintf "B<%s> %s" arg_name arg_val in
-      arg_name, (op_name, heading, pod)
+      List.map (
+        fun arg_name ->
+          let heading = sprintf "B<%s> %s" arg_name arg_val in
+          arg_name, (op_name, heading, pod)
+      ) arg_names
 
     | _ ->
       failwith "sysprep_operation.ml: argument type not implemented"
   ) args in
+  let args = List.flatten args in
 
   let args =
-    List.sort (fun (a, _) (b, _) -> compare_command_line_args a b) args in
+    List.sort (fun (a, _) (b, _) -> Getopt.compare_command_line_args a b) args in
 
   List.iter (
     fun (arg_name, (op_name, heading, pod)) ->

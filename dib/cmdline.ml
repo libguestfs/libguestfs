@@ -151,51 +151,48 @@ read the man page virt-dib(1).
     prepend (List.rev (String.nsplit "," arg)) extra_packages in
 
   let argspec = [
-    "-p",           Arg.String append_element_path, "path" ^ " " ^ s_"Add new a elements location";
-    "--element-path", Arg.String append_element_path, "path" ^ " " ^ s_"Add new a elements location";
-    "--exclude-element", Arg.String append_excluded_element,
-      "element" ^ " " ^ s_"Exclude the specified element";
-    "--exclude-script", Arg.String append_excluded_script,
-      "script" ^ " " ^ s_"Exclude the specified script";
-    "--envvar",     Arg.String append_envvar,  "envvar[=value]" ^ " " ^ s_"Carry/set this environment variable";
-    "--skip-base",  Arg.Clear use_base,        " " ^ s_"Skip the inclusion of the 'base' element";
-    "--root-label", Arg.String set_root_label, "label" ^ " " ^ s_"Label for the root fs";
-    "--install-type", Arg.Set_string install_type, "type" ^ " " ^ s_"Installation type";
-    "--image-cache", Arg.String set_image_cache, "directory" ^ " " ^ s_"Location for cached images";
-    "-u",           Arg.Clear compressed,      " " ^ "Do not compress the qcow2 image";
-    "--qemu-img-options", Arg.String set_qemu_img_options,
-                                              "option" ^ " " ^ s_"Add qemu-img options";
-    "--mkfs-options", Arg.String set_mkfs_options,
-                                              "option" ^ " " ^ s_"Add mkfs options";
-    "--extra-packages", Arg.String append_extra_packages,
-      "pkg,..." ^ " " ^ s_"Add extra packages to install";
+    [ "-p"; "--element-path" ],           Getopt.String ("path", append_element_path),  s_"Add new a elements location";
+    [ "--exclude-element" ], Getopt.String ("element", append_excluded_element),
+      s_"Exclude the specified element";
+    [ "--exclude-script" ], Getopt.String ("script", append_excluded_script),
+      s_"Exclude the specified script";
+    [ "--envvar" ],     Getopt.String ("envvar[=value]", append_envvar),   s_"Carry/set this environment variable";
+    [ "--skip-base" ],  Getopt.Clear use_base,        s_"Skip the inclusion of the 'base' element";
+    [ "--root-label" ], Getopt.String ("label", set_root_label), s_"Label for the root fs";
+    [ "--install-type" ], Getopt.Set_string ("type", install_type),  s_"Installation type";
+    [ "--image-cache" ], Getopt.String ("directory", set_image_cache), s_"Location for cached images";
+    [ "-u" ],           Getopt.Clear compressed,      "Do not compress the qcow2 image";
+    [ "--qemu-img-options" ], Getopt.String ("option", set_qemu_img_options),
+                                              s_"Add qemu-img options";
+    [ "--mkfs-options" ], Getopt.String ("option", set_mkfs_options),
+                                              s_"Add mkfs options";
+    [ "--extra-packages" ], Getopt.String ("pkg,...", append_extra_packages),
+      s_"Add extra packages to install";
 
-    "--ramdisk",    Arg.Set is_ramdisk,        " " ^ "Switch to a ramdisk build";
-    "--ramdisk-element", Arg.Set_string ramdisk_element, "name" ^ " " ^ s_"Main element for building ramdisks";
+    [ "--ramdisk" ],    Getopt.Set is_ramdisk,        "Switch to a ramdisk build";
+    [ "--ramdisk-element" ], Getopt.Set_string ("name", ramdisk_element), s_"Main element for building ramdisks";
 
-    "--name",       Arg.Set_string image_name, "name" ^ " " ^ s_"Name of the image";
-    "--fs-type",    Arg.Set_string fs_type,    "fs" ^ " " ^ s_"Filesystem for the image";
-    "--size",       Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
-    "--formats",    Arg.String set_format,     "qcow2,tgz,..." ^ " " ^ s_"Output formats";
-    "--arch",       Arg.Set_string arch,       "arch" ^ " " ^ s_"Output architecture";
-    "--drive",      Arg.String set_drive,      "path" ^ " " ^ s_"Optional drive for caches";
+    [ "--name" ],       Getopt.Set_string ("name", image_name), s_"Name of the image";
+    [ "--fs-type" ],    Getopt.Set_string ("fs", fs_type),    s_"Filesystem for the image";
+    [ "--size" ],       Getopt.String ("size", set_size),       s_"Set output disk size";
+    [ "--formats" ],    Getopt.String ("qcow2,tgz,...", set_format),     s_"Output formats";
+    [ "--arch" ],       Getopt.Set_string ("arch", arch),       s_"Output architecture";
+    [ "--drive" ],      Getopt.String ("path", set_drive),      s_"Optional drive for caches";
 
-    "-m",           Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--memsize",    Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--network",    Arg.Set network,           " " ^ s_"Enable appliance network (default)";
-    "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
-    "--smp",        Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
-    "--no-delete-on-failure", Arg.Clear delete_on_failure,
-                                               " " ^ s_"Don't delete output file on failure";
-    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
+    [ "-m"; "--memsize" ],           Getopt.Int ("mb", set_memsize),       s_"Set memory size";
+    [ "--network" ],    Getopt.Set network,           s_"Enable appliance network (default)";
+    [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network";
+    [ "--smp" ],        Getopt.Int ("vcpus", set_smp),           s_"Set number of vCPUs";
+    [ "--no-delete-on-failure" ], Getopt.Clear delete_on_failure,
+                                               s_"Don't delete output file on failure";
+    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
 
-    "--debug",      Arg.Int set_debug,         "level" ^ " " ^ s_"Set debug level";
-    "-B",           Arg.Set_string basepath,   "path" ^ " " ^ s_"Base path of diskimage-builder library";
+    [ "--debug" ],      Getopt.Int ("level", set_debug),         s_"Set debug level";
+    [ "-B" ],           Getopt.Set_string ("path", basepath),   s_"Base path of diskimage-builder library";
   ] in
 
-  let argspec = set_standard_options argspec in
-
-  Arg.parse argspec append_element usage_msg;
+  let opthandle = create_standard_options argspec ~anon_fun:append_element usage_msg in
+  Getopt.parse opthandle;
 
   let debug = !debug in
   let basepath = !basepath in

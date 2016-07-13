@@ -81,6 +81,7 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	../mllib/dev_t-c.c \
+	../mllib/getopt-c.c \
 	../mllib/uri-c.c \
 	../mllib/mkdtemp-c.c \
 	../customize/crypt-c.c \
@@ -109,6 +110,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/URI.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \

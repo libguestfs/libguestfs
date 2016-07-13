@@ -119,60 +119,52 @@ let parse_cmdline () =
   let warn_if_partition = ref true in
 
   let argspec = [
-    "--arch",    Arg.Set_string arch,       "arch" ^ " " ^ s_"Set the output architecture";
-    "--attach",  Arg.String attach_disk,    "iso" ^ " " ^ s_"Attach data disk/ISO during install";
-    "--attach-format",  Arg.String set_attach_format,
-                                            "format" ^ " " ^ s_"Set attach disk format";
-    "--cache",   Arg.String set_cache,      "dir" ^ " " ^ s_"Set template cache dir";
-    "--no-cache", Arg.Unit no_cache,        " " ^ s_"Disable template cache";
-    "--cache-all-templates", Arg.Unit cache_all_mode,
-                                            " " ^ s_"Download all templates to the cache";
-    "--check-signature", Arg.Set check_signature,
-                                            " " ^ s_"Check digital signatures";
-    "--check-signatures", Arg.Set check_signature,
-                                            " " ^ s_"Check digital signatures";
-    "--no-check-signature", Arg.Clear check_signature,
-                                            " " ^ s_"Disable digital signatures";
-    "--no-check-signatures", Arg.Clear check_signature,
-                                            " " ^ s_"Disable digital signatures";
-    "--curl",    Arg.Set_string curl,       "curl" ^ " " ^ s_"Set curl binary/command";
-    "--delete-cache", Arg.Unit delete_cache_mode,
-                                            " " ^ s_"Delete the template cache";
-    "--no-delete-on-failure", Arg.Clear delete_on_failure,
-                                            " " ^ s_"Don't delete output file on failure";
-    "--fingerprint", Arg.String add_fingerprint,
-                                            "AAAA.." ^ " " ^ s_"Fingerprint of valid signing key";
-    "--format",  Arg.Set_string format,     "raw|qcow2" ^ " " ^ s_"Output format (default: raw)";
-    "--get-kernel", Arg.Unit get_kernel_mode,
-                                            "image" ^ " " ^ s_"Get kernel from image";
-    "--gpg",    Arg.Set_string gpg,         "gpg" ^ " " ^ s_"Set GPG binary/command";
-    "-l",        Arg.Unit list_mode,        " " ^ s_"List available templates";
-    "--list",    Arg.Unit list_mode,        " " ^ s_"List available templates";
-    "--long",    Arg.Unit list_set_long,    " " ^ s_"Shortcut for --list-format long";
-    "--list-format", Arg.String list_set_format,
-                                            "short|long|json" ^ " " ^ s_"Set the format for --list (default: short)";
-    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
-    "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
-    "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
-    "--notes",   Arg.Unit notes_mode,       " " ^ s_"Display installation notes";
-    "-o",        Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
-    "--output",  Arg.Set_string output,     "file" ^ " " ^ s_"Set output filename";
-    "--print-cache", Arg.Unit print_cache_mode,
-                                            " " ^ s_"Print info about template cache";
-    "--size",    Arg.String set_size,       "size" ^ " " ^ s_"Set output disk size";
-    "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
-    "--source",  Arg.String add_source,     "URL" ^ " " ^ s_"Set source URL";
-    "--no-sync", Arg.Clear sync,            " " ^ s_"Do not fsync output file on exit";
-    "--no-warn-if-partition", Arg.Clear warn_if_partition,
-                                            " " ^ s_"Do not warn if writing to a partition";
+    [ "--arch" ],    Getopt.Set_string ("arch", arch),        s_"Set the output architecture";
+    [ "--attach" ],  Getopt.String ("iso", attach_disk),     s_"Attach data disk/ISO during install";
+    [ "--attach-format" ],  Getopt.String ("format", set_attach_format),
+                                             s_"Set attach disk format";
+    [ "--cache" ],   Getopt.String ("dir", set_cache),       s_"Set template cache dir";
+    [ "--no-cache" ], Getopt.Unit no_cache,        s_"Disable template cache";
+    [ "--cache-all-templates" ], Getopt.Unit cache_all_mode,
+                                            s_"Download all templates to the cache";
+    [ "--check-signature"; "--check-signatures" ], Getopt.Set check_signature,
+                                            s_"Check digital signatures";
+    [ "--no-check-signature"; "--no-check-signatures" ], Getopt.Clear check_signature,
+                                            s_"Disable digital signatures";
+    [ "--curl" ],    Getopt.Set_string ("curl", curl),        s_"Set curl binary/command";
+    [ "--delete-cache" ], Getopt.Unit delete_cache_mode,
+                                            s_"Delete the template cache";
+    [ "--no-delete-on-failure" ], Getopt.Clear delete_on_failure,
+                                            s_"Don't delete output file on failure";
+    [ "--fingerprint" ], Getopt.String ("AAAA..", add_fingerprint),
+                                             s_"Fingerprint of valid signing key";
+    [ "--format" ],  Getopt.Set_string ("raw|qcow2", format),      s_"Output format (default: raw)";
+    [ "--get-kernel" ], Getopt.Unit get_kernel_mode,
+                                            s_"Get kernel from image";
+    [ "--gpg" ],    Getopt.Set_string ("gpg", gpg),          s_"Set GPG binary/command";
+    [ "-l"; "--list" ],        Getopt.Unit list_mode,        s_"List available templates";
+    [ "--long" ],    Getopt.Unit list_set_long,    s_"Shortcut for --list-format long";
+    [ "--list-format" ], Getopt.String ("short|long|json", list_set_format),
+                                             s_"Set the format for --list (default: short)";
+    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+    [ "-m"; "--memsize" ],        Getopt.Int ("mb", set_memsize),        s_"Set memory size";
+    [ "--network" ], Getopt.Set network,           s_"Enable appliance network (default)";
+    [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network";
+    [ "--notes" ],   Getopt.Unit notes_mode,       s_"Display installation notes";
+    [ "-o"; "--output" ],        Getopt.Set_string ("file", output),      s_"Set output filename";
+    [ "--print-cache" ], Getopt.Unit print_cache_mode,
+                                            s_"Print info about template cache";
+    [ "--size" ],    Getopt.String ("size", set_size),        s_"Set output disk size";
+    [ "--smp" ],     Getopt.Int ("vcpus", set_smp),            s_"Set number of vCPUs";
+    [ "--source" ],  Getopt.String ("URL", add_source),      s_"Set source URL";
+    [ "--no-sync" ], Getopt.Clear sync,            s_"Do not fsync output file on exit";
+    [ "--no-warn-if-partition" ], Getopt.Clear warn_if_partition,
+                                            s_"Do not warn if writing to a partition";
   ] in
   let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
   let customize_argspec =
     List.map (fun (spec, _, _) -> spec) customize_argspec in
   let argspec = argspec @ customize_argspec in
-  let argspec = set_standard_options argspec in
 
   let args = ref [] in
   let anon_fun s = push_front s args in
@@ -192,7 +184,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-builder(1).
 ")
       prog in
-  Arg.parse argspec anon_fun usage_msg;
+  let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+  Getopt.parse opthandle;
 
   (* Dereference options. *)
   let args = List.rev !args in

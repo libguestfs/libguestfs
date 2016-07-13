@@ -71,33 +71,25 @@ let main () =
   in
 
   let argspec = [
-    "-a",        Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
-    "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
-    "--attach",  Arg.String attach_disk,    "iso" ^ " " ^ s_"Attach data disk/ISO during install";
-    "--attach-format",  Arg.String set_attach_format,
-                                            "format" ^ " " ^ s_"Set attach disk format";
-    "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-    "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-    "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-    "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-    "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-    "--dryrun",  Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-    "--dry-run", Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-    "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
-    "-m",        Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--memsize", Arg.Int set_memsize,       "mb" ^ " " ^ s_"Set memory size";
-    "--network", Arg.Set network,           " " ^ s_"Enable appliance network (default)";
-    "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network";
-    "--smp",     Arg.Int set_smp,           "vcpus" ^ " " ^ s_"Set number of vCPUs";
+    [ "-a"; "--add" ],        Getopt.String (s_"file", add_file),        s_"Add disk image file";
+    [ "--attach" ],  Getopt.String ("iso", attach_disk),     s_"Attach data disk/ISO during install";
+    [ "--attach-format" ],  Getopt.String ("format", set_attach_format),
+                                             s_"Set attach disk format";
+    [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
+    [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
+    [ "-n"; "--dryrun"; "--dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
+    [ "--format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
+    [ "-m"; "--memsize" ],        Getopt.Int ("mb", set_memsize),        s_"Set memory size";
+    [ "--network" ], Getopt.Set network,           s_"Enable appliance network (default)";
+    [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network";
+    [ "--smp" ],     Getopt.Int ("vcpus", set_smp),            s_"Set number of vCPUs";
   ] in
   let customize_argspec, get_customize_ops =
     Customize_cmdline.argspec () in
   let customize_argspec =
     List.map (fun (spec, _, _) -> spec) customize_argspec in
   let argspec = argspec @ customize_argspec in
-  let argspec = set_standard_options argspec in
 
-  let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
   let usage_msg =
     sprintf (f_"\
 %s: customize a virtual machine
@@ -110,7 +102,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-customize(1).
 ")
       prog in
-  Arg.parse argspec anon_fun usage_msg;
+  let opthandle = create_standard_options argspec usage_msg in
+  Getopt.parse opthandle;
 
   if not !format_consumed then
     error (f_"--format parameter must appear before -a parameter");

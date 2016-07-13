@@ -31,6 +31,7 @@ SOURCES_MLI = \
 	curl.mli \
 	dev_t.mli \
 	fsync.mli \
+	getopt.mli \
 	JSON.mli \
 	mkdtemp.mli \
 	planner.mli \
@@ -44,6 +45,7 @@ SOURCES_ML = \
 	$(OCAML_BYTES_COMPAT_ML) \
 	libdir.ml \
 	common_gettext.ml \
+	getopt.ml \
 	dev_t.ml \
 	common_utils.ml \
 	fsync.ml \
@@ -61,6 +63,7 @@ SOURCES_C = \
 	../fish/uri.c \
 	dev_t-c.c \
 	fsync-c.c \
+	getopt-c.c \
 	mkdtemp-c.c \
 	progress-c.c \
 	statvfs-c.c \
@@ -142,15 +145,18 @@ libdir.ml: Makefile
 
 common_utils_tests_SOURCES = \
 	dev_t-c.c \
+	getopt-c.c \
 	dummy.c
 common_utils_tests_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
-	-I$(shell $(OCAMLC) -where)
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src
 common_utils_tests_BOBJECTS = \
 	guestfs_config.cmo \
 	common_gettext.cmo \
 	dev_t.cmo \
+	getopt.cmo \
 	common_utils.cmo \
 	common_utils_tests.cmo
 common_utils_tests_XOBJECTS = $(common_utils_tests_BOBJECTS:.cmo=.cmx)
@@ -178,7 +184,7 @@ endif
 
 common_utils_tests_DEPENDENCIES = $(common_utils_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
 common_utils_tests_LINK = \
-	$(top_srcdir)/ocaml-link.sh -- \
+	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \
 	  $(common_utils_tests_THEOBJECTS) -o $@
 

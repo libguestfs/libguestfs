@@ -117,31 +117,23 @@ let main () =
     in
 
     let basic_args = [
-      "-a",        Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
-      "--add",     Arg.String add_file,       s_"file" ^ " " ^ s_"Add disk image file";
-      "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-      "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-      "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-      "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-      "-n",        Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-      "--dryrun",  Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-      "--dry-run", Arg.Set dryrun,            " " ^ s_"Perform a dry run";
-      "--dump-pod", Arg.Unit dump_pod,        " " ^ s_"Dump POD (internal)";
-      "--dump-pod-options", Arg.Unit dump_pod_options, " " ^ s_"Dump POD for options (internal)";
-      "--enable",  Arg.String set_enable,     s_"operations" ^ " " ^ s_"Enable specific operations";
-      "--format",  Arg.String set_format,     s_"format" ^ " " ^ s_"Set format (default: auto)";
-      "--list-operations", Arg.Unit list_operations, " " ^ s_"List supported operations";
-      "--mount-options", Arg.Set_string mount_opts, s_"opts" ^ " " ^ s_"Set mount options (eg /:noatime;/var:rw,noatime)";
-      "--network", Arg.Set network,           " " ^ s_"Enable appliance network";
-      "--no-network", Arg.Clear network,      " " ^ s_"Disable appliance network (default)";
-      "--no-selinux-relabel", Arg.Unit (fun () -> ()),
-                                              " " ^ s_"Compatibility option, does nothing";
-      "--operation",  Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
-      "--operations", Arg.String set_operations, " " ^ s_"Enable/disable specific operations";
+      [ "-a"; "--add" ],        Getopt.String (s_"file", add_file),        s_"Add disk image file";
+      [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
+      [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
+      [ "-n"; "--dryrun"; "--dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
+      [ "--dump-pod" ], Getopt.Unit dump_pod,        s_"Dump POD (internal)";
+      [ "--dump-pod-options" ], Getopt.Unit dump_pod_options, s_"Dump POD for options (internal)";
+      [ "--enable" ],  Getopt.String (s_"operations", set_enable),      s_"Enable specific operations";
+      [ "--format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
+      [ "--list-operations" ], Getopt.Unit list_operations, s_"List supported operations";
+      [ "--mount-options" ], Getopt.Set_string (s_"opts", mount_opts),  s_"Set mount options (eg /:noatime;/var:rw,noatime)";
+      [ "--network" ], Getopt.Set network,           s_"Enable appliance network";
+      [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network (default)";
+      [ "--no-selinux-relabel" ], Getopt.Unit (fun () -> ()),
+                                              s_"Compatibility option, does nothing";
+      [ "--operation"; "--operations" ],  Getopt.String (s_"operations", set_operations), s_"Enable/disable specific operations";
     ] in
     let args = basic_args @ Sysprep_operation.extra_args () in
-    let argspec = set_standard_options args in
-    let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
     let usage_msg =
       sprintf (f_"\
 %s: reset or unconfigure a virtual machine so clones can be made
@@ -154,7 +146,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-sysprep(1).
 ")
         prog in
-    Arg.parse argspec anon_fun usage_msg;
+    let opthandle = create_standard_options args usage_msg in
+    Getopt.parse opthandle;
 
     if not !format_consumed then
       error (f_"--format parameter must appear before -a parameter");

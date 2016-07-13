@@ -182,37 +182,29 @@ let main () =
     let sparse = ref true in
     let unknown_fs_mode = ref "warn" in
 
-    let ditto = " -\"-" in
     let argspec = [
-      "--align-first", Arg.Set_string align_first, s_"never|always|auto" ^ " " ^ s_"Align first partition (default: auto)";
-      "--alignment", Arg.Set_int alignment,   s_"sectors" ^ " " ^ s_"Set partition alignment (default: 128 sectors)";
-      "--no-copy-boot-loader", Arg.Clear copy_boot_loader, " " ^ s_"Don't copy boot loader";
-      "-d",        Arg.Unit set_verbose,      " " ^ s_"Enable debugging messages";
-      "--debug",   Arg.Unit set_verbose,      ditto;
-      "--delete",  Arg.String (add deletes),  s_"part" ^ " " ^ s_"Delete partition";
-      "--expand",  Arg.String set_expand,     s_"part" ^ " " ^ s_"Expand partition";
-      "--no-expand-content", Arg.Clear expand_content, " " ^ s_"Don't expand content";
-      "--no-extra-partition", Arg.Clear extra_partition, " " ^ s_"Don't create extra partition";
-      "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
-      "--ignore",  Arg.String (add ignores),  s_"part" ^ " " ^ s_"Ignore partition";
-      "--lv-expand", Arg.String (add lv_expands), s_"lv" ^ " " ^ s_"Expand logical volume";
-      "--LV-expand", Arg.String (add lv_expands), s_"lv" ^ ditto;
-      "--lvexpand", Arg.String (add lv_expands), s_"lv" ^ ditto;
-      "--LVexpand", Arg.String (add lv_expands), s_"lv" ^ ditto;
-      "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
-      "-n",        Arg.Set dryrun,            " " ^ s_"Don't perform changes";
-      "--dry-run", Arg.Set dryrun,            " " ^ s_"Don't perform changes";
-      "--dryrun",  Arg.Set dryrun,            ditto;
-      "--ntfsresize-force", Arg.Set ntfsresize_force, " " ^ s_"Force ntfsresize";
-      "--output-format", Arg.Set_string output_format, s_"format" ^ " " ^ s_"Format of output disk";
-      "--resize",  Arg.String (add resizes),  s_"part=size" ^ " " ^ s_"Resize partition";
-      "--resize-force", Arg.String (add resizes_force), s_"part=size" ^ " " ^ s_"Forcefully resize partition";
-      "--shrink",  Arg.String set_shrink,     s_"part" ^ " " ^ s_"Shrink partition";
-      "--no-sparse", Arg.Clear sparse,        " " ^ s_"Turn off sparse copying";
-      "--unknown-filesystems", Arg.Set_string unknown_fs_mode,
-                                              s_"ignore|warn|error" ^ " " ^ s_"Behaviour on expand unknown filesystems (default: warn)";
+      [ "--align-first" ], Getopt.Set_string (s_"never|always|auto", align_first), s_"Align first partition (default: auto)";
+      [ "--alignment" ], Getopt.Set_int (s_"sectors", alignment),   s_"Set partition alignment (default: 128 sectors)";
+      [ "--no-copy-boot-loader" ], Getopt.Clear copy_boot_loader, s_"Don't copy boot loader";
+      [ "-d"; "--debug" ],        Getopt.Unit set_verbose,      s_"Enable debugging messages";
+      [ "--delete" ],  Getopt.String (s_"part", add deletes),  s_"Delete partition";
+      [ "--expand" ],  Getopt.String (s_"part", set_expand),     s_"Expand partition";
+      [ "--no-expand-content" ], Getopt.Clear expand_content, s_"Don't expand content";
+      [ "--no-extra-partition" ], Getopt.Clear extra_partition, s_"Don't create extra partition";
+      [ "--format" ],  Getopt.Set_string (s_"format", format),     s_"Format of input disk";
+      [ "--ignore" ],  Getopt.String (s_"part", add ignores),  s_"Ignore partition";
+      [ "--lv-expand"; "--LV-expand"; "--lvexpand"; "--LVexpand" ], Getopt.String (s_"lv", add lv_expands), s_"Expand logical volume";
+      [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+      [ "-n"; "--dry-run"; "--dryrun" ],        Getopt.Set dryrun,            s_"Don't perform changes";
+      [ "--ntfsresize-force" ], Getopt.Set ntfsresize_force, s_"Force ntfsresize";
+      [ "--output-format" ], Getopt.Set_string (s_"format", output_format), s_"Format of output disk";
+      [ "--resize" ],  Getopt.String (s_"part=size", add resizes),  s_"Resize partition";
+      [ "--resize-force" ], Getopt.String (s_"part=size", add resizes_force), s_"Forcefully resize partition";
+      [ "--shrink" ],  Getopt.String (s_"part", set_shrink),     s_"Shrink partition";
+      [ "--no-sparse" ], Getopt.Clear sparse,        s_"Turn off sparse copying";
+      [ "--unknown-filesystems" ], Getopt.Set_string (s_"ignore|warn|error", unknown_fs_mode),
+                                              s_"Behaviour on expand unknown filesystems (default: warn)";
     ] in
-    let argspec = set_standard_options argspec in
     let disks = ref [] in
     let anon_fun s = push_front s disks in
     let usage_msg =
@@ -223,7 +215,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-resize(1).
 ")
         prog in
-    Arg.parse argspec anon_fun usage_msg;
+    let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+    Getopt.parse opthandle;
 
     if verbose () then (
       printf "command line:";

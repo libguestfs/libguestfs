@@ -50,24 +50,17 @@ let parse_cmdline () =
       error (f_"--prefix option can only be given once");
     prefix := Some p in
 
-  let ditto = " -\"-" in
   let argspec = [
-    "-a",        Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
-    "--add",     Arg.String set_file,       s_"file" ^ " " ^ s_"Add disk image file";
-    "-c",        Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-    "--connect", Arg.Set_string libvirturi, s_"uri" ^ " " ^ s_"Set libvirt URI";
-    "-d",        Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-    "--domain",  Arg.String set_domain,     s_"domain" ^ " " ^ s_"Set libvirt guest name";
-    "--format",  Arg.Set_string format,     s_"format" ^ " " ^ s_"Format of input disk";
-    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
-    "-o",        Arg.Set_string output, s_"directory" ^ " " ^ s_"Output directory";
-    "--output",  Arg.Set_string output,     ditto;
-    "--unversioned-names", Arg.Set unversioned,
-                                            " " ^ s_"Use unversioned names for files";
-    "--prefix",  Arg.String set_prefix,     "prefix" ^ " " ^ s_"Prefix for files";
+    [ "-a"; "--add" ],        Getopt.String (s_"file", set_file),        s_"Add disk image file";
+    [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi), s_"Set libvirt URI";
+    [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
+    [ "--format" ],  Getopt.Set_string (s_"format", format),      s_"Format of input disk";
+    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+    [ "-o"; "--output" ],        Getopt.Set_string (s_"directory", output),  s_"Output directory";
+    [ "--unversioned-names" ], Getopt.Set unversioned,
+                                            s_"Use unversioned names for files";
+    [ "--prefix" ],  Getopt.String (s_"prefix", set_prefix),      s_"Prefix for files";
   ] in
-  let argspec = set_standard_options argspec in
-  let anon_fun _ = raise (Arg.Bad (s_"extra parameter on the command line")) in
   let usage_msg =
     sprintf (f_"\
 %s: extract kernel and ramdisk from a guest
@@ -76,7 +69,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-get-kernel(1).
 ")
       prog in
-  Arg.parse argspec anon_fun usage_msg;
+  let opthandle = create_standard_options argspec usage_msg in
+  Getopt.parse opthandle;
 
   (* Machine-readable mode?  Print out some facts about what
    * this binary supports.

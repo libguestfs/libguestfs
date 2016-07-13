@@ -41,12 +41,11 @@ let rec main () =
 
   (* Handle the command line. *)
   let argspec = [
-    "-ic",       Arg.String (set_string_option_once "-ic" input_conn),
-                                            "uri " ^ s_"Libvirt URI";
-    "--password-file", Arg.String (set_string_option_once "--password-file" password_file),
-                                            "file " ^ s_"Use password from file";
+    [ "-ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
+                                            s_"Libvirt URI";
+    [ "--password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
+                                            s_"Use password from file";
   ] in
-  let argspec = set_standard_options argspec in
   let args = ref [] in
   let anon_fun s = push_front s args in
   let usage_msg =
@@ -71,7 +70,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-v2v-copy-to-local(1).
 ")
       prog in
-  Arg.parse argspec anon_fun usage_msg;
+  let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+  Getopt.parse opthandle;
 
   let args = !args in
   let input_conn = !input_conn in

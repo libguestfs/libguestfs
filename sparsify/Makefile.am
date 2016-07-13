@@ -38,6 +38,7 @@ SOURCES_ML = \
 SOURCES_C = \
 	../fish/progress.c \
 	../mllib/dev_t-c.c \
+	../mllib/getopt-c.c \
 	../mllib/progress-c.c \
 	../mllib/statvfs-c.c
 
@@ -60,6 +61,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/progress.cmo \
 	$(top_builddir)/mllib/StatVFS.cmo \
@@ -72,6 +74,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/src/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
@@ -79,7 +82,11 @@ OCAMLPACKAGES += -package gettext-stub
 endif
 
 OCAMLCLIBS = \
-	$(LIBTINFO_LIBS)
+	-lutils \
+	$(LIBTINFO_LIBS) \
+	$(LIBXML2_LIBS) \
+	$(LIBINTL) \
+	-lgnu
 
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 

@@ -32,6 +32,7 @@ SOURCES_ML = \
 SOURCES_C = \
 	../mllib/dev_t-c.c \
 	../mllib/fsync-c.c \
+	../mllib/getopt-c.c \
 	../fish/progress.c \
 	../mllib/progress-c.c \
 	../fish/uri.c \
@@ -61,6 +62,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)

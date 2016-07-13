@@ -97,6 +97,7 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	../mllib/dev_t-c.c \
+	../mllib/getopt-c.c \
 	../mllib/mkdtemp-c.c \
 	../mllib/statvfs-c.c \
 	domainxml-c.c \
@@ -124,6 +125,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
@@ -177,6 +179,7 @@ virt_v2v_LINK = \
 virt_v2v_copy_to_local_SOURCES = \
 	../mllib/dev_t-c.c \
 	../mllib/statvfs-c.c \
+	../mllib/getopt-c.c \
 	domainxml-c.c \
 	utils-c.c \
 	xml-c.c
@@ -195,6 +198,7 @@ COPY_TO_LOCAL_BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/mllib/StatVFS.cmo \
@@ -409,6 +413,7 @@ v2v_unit_tests_BOBJECTS = \
 	$(top_builddir)/mllib/guestfs_config.cmo \
 	$(top_builddir)/mllib/common_gettext.cmo \
 	$(top_builddir)/mllib/dev_t.cmo \
+	$(top_builddir)/mllib/getopt.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/regedit.cmo \
 	stringMap.cmo \

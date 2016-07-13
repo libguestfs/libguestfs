@@ -106,8 +106,8 @@ type operation = {
 }
 
 and extra_arg = {
-  extra_argspec : Arg.key * Arg.spec * Arg.doc;
-  (** The argspec.  See OCaml [Arg] module. *)
+  extra_argspec : Getopt.keys * Getopt.spec * Getopt.doc;
+  (** The argspec.  See [Getopt] module in [mllib]. *)
 
   extra_pod_argval : string option;
   (** The argument value, used only in the virt-sysprep man page. *)
@@ -126,7 +126,7 @@ val bake : unit -> unit
 (** 'Bake' is called after all modules have been registered.  We
     finalize the list of operations, sort it, and run some checks. *)
 
-val extra_args : unit -> (Arg.key * Arg.spec * Arg.doc) list
+val extra_args : unit -> Getopt.speclist
 (** Get the list of extra arguments for the command line. *)
 
 val dump_pod : unit -> unit

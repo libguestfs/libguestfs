@@ -164,57 +164,48 @@ let parse_cmdline () =
   and o_options =
     String.concat "|" (Modules_list.output_modules ()) in
 
-  let ditto = " -\"-" in
   let argspec = [
-    "-b",        Arg.String add_bridge,     "in:out " ^ s_"Map bridge 'in' to 'out'";
-    "--bridge",  Arg.String add_bridge,     "in:out " ^ ditto;
-    "--compressed", Arg.Set compressed,     " " ^ s_"Compress output file";
-    "--dcpath",  Arg.String (set_string_option_once "--dcpath" dcpath),
-                                            "path " ^ s_"Override dcPath (for vCenter)";
-    "--dcPath",  Arg.String (set_string_option_once "--dcPath" dcpath),
-                                            "path " ^ ditto;
-    "--debug-overlay",Arg.Set debug_overlays,
-    " " ^ s_"Save overlay files";
-    "--debug-overlays",Arg.Set debug_overlays,
-    ditto;
-    "-i",        Arg.String set_input_mode, i_options ^ " " ^ s_"Set input mode (default: libvirt)";
-    "-ic",       Arg.String (set_string_option_once "-ic" input_conn),
-                                            "uri " ^ s_"Libvirt URI";
-    "-if",       Arg.String (set_string_option_once "-if" input_format),
-                                            "format " ^ s_"Input format (for -i disk)";
-    "--in-place", Arg.Set in_place,         " " ^ s_"Only tune the guest in the input VM";
-    "--machine-readable", Arg.Set machine_readable, " " ^ s_"Make output machine readable";
-    "-n",        Arg.String add_network,    "in:out " ^ s_"Map network 'in' to 'out'";
-    "--network", Arg.String add_network,    "in:out " ^ ditto;
-    "--no-copy", Arg.Clear do_copy,         " " ^ s_"Just write the metadata";
-    "--no-trim", Arg.String no_trim_warning,
-                                            "-" ^ " " ^ s_"Ignored for backwards compatibility";
-    "-o",        Arg.String set_output_mode, o_options ^ " " ^ s_"Set output mode (default: libvirt)";
-    "-oa",       Arg.String set_output_alloc,
-                                            "sparse|preallocated " ^ s_"Set output allocation mode";
-    "-oc",       Arg.String (set_string_option_once "-oc" output_conn),
-                                            "uri " ^ s_"Libvirt URI";
-    "-of",       Arg.String (set_string_option_once "-of" output_format),
-                                            "raw|qcow2 " ^ s_"Set output format";
-    "-on",       Arg.String (set_string_option_once "-on" output_name),
-                                            "name " ^ s_"Rename guest when converting";
-    "-os",       Arg.String (set_string_option_once "-os" output_storage),
-                                            "storage " ^ s_"Set output storage location";
-    "--password-file", Arg.String (set_string_option_once "--password-file" password_file),
-                                            "file " ^ s_"Use password from file";
-    "--print-source", Arg.Set print_source, " " ^ s_"Print source and stop";
-    "--qemu-boot", Arg.Set qemu_boot,       " " ^ s_"Boot in qemu (-o qemu only)";
-    "--root",    Arg.String set_root_choice,"ask|... " ^ s_"How to choose root filesystem";
-    "--vdsm-image-uuid", Arg.String add_vdsm_image_uuid, "uuid " ^ s_"Output image UUID(s)";
-    "--vdsm-vol-uuid", Arg.String add_vdsm_vol_uuid, "uuid " ^ s_"Output vol UUID(s)";
-    "--vdsm-vm-uuid", Arg.String (set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
-                                            "uuid " ^ s_"Output VM UUID";
-    "--vdsm-ovf-output", Arg.String (set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
-                                            " " ^ s_"Output OVF file";
-    "--vmtype",  Arg.String vmtype_warning,
-                                            "- " ^ s_"Ignored for backwards compatibility";
+    [ "-b"; "--bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge 'in' to 'out'";
+    [ "--compressed" ], Getopt.Set compressed,     s_"Compress output file";
+    [ "--dcpath"; "--dcPath" ],  Getopt.String ("path", set_string_option_once "--dcpath" dcpath),
+                                            s_"Override dcPath (for vCenter)";
+    [ "--debug-overlay"; "--debug-overlays" ], Getopt.Set debug_overlays, s_"Save overlay files";
+    [ "-i" ],        Getopt.String (i_options, set_input_mode), s_"Set input mode (default: libvirt)";
+    [ "-ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
+                                            s_"Libvirt URI";
+    [ "-if" ],       Getopt.String ("format", set_string_option_once "-if" input_format),
+                                            s_"Input format (for -i disk)";
+    [ "--in-place" ], Getopt.Set in_place,         s_"Only tune the guest in the input VM";
+    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+    [ "-n"; "--network" ],        Getopt.String ("in:out", add_network),    s_"Map network 'in' to 'out'";
+    [ "--no-copy" ], Getopt.Clear do_copy,         s_"Just write the metadata";
+    [ "--no-trim" ], Getopt.String ("-", no_trim_warning),
+                                            s_"Ignored for backwards compatibility";
+    [ "-o" ],        Getopt.String (o_options, set_output_mode), s_"Set output mode (default: libvirt)";
+    [ "-oa" ],       Getopt.String ("sparse|preallocated", set_output_alloc),
+                                            s_"Set output allocation mode";
+    [ "-oc" ],       Getopt.String ("uri", set_string_option_once "-oc" output_conn),
+                                            s_"Libvirt URI";
+    [ "-of" ],       Getopt.String ("raw|qcow2", set_string_option_once "-of" output_format),
+                                            s_"Set output format";
+    [ "-on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),
+                                            s_"Rename guest when converting";
+    [ "-os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
+                                            s_"Set output storage location";
+    [ "--password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
+                                            s_"Use password from file";
+    [ "--print-source" ], Getopt.Set print_source, s_"Print source and stop";
+    [ "--qemu-boot" ], Getopt.Set qemu_boot,       s_"Boot in qemu (-o qemu only)";
+    [ "--root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
+    [ "--vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid), s_"Output image UUID(s)";
+    [ "--vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid), s_"Output vol UUID(s)";
+    [ "--vdsm-vm-uuid" ], Getopt.String ("uuid", set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
+                                            s_"Output VM UUID";
+    [ "--vdsm-ovf-output" ], Getopt.String ("-", set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
+                                            s_"Output OVF file";
+    [ "--vmtype" ],  Getopt.String ("-", vmtype_warning),
+                                            s_"Ignored for backwards compatibility";
   ] in
-  let argspec = set_standard_options argspec in
   let args = ref [] in
   let anon_fun s = push_front s args in
   let usage_msg =
@@ -239,7 +230,8 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-v2v(1).
 ")
       prog in
-  Arg.parse argspec anon_fun usage_msg;
+  let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+  Getopt.parse opthandle;
 
   (* Dereference the arguments. *)
   let args = List.rev !args in

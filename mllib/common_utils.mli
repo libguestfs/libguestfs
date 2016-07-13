@@ -254,17 +254,11 @@ val parse_resize : int64 -> string -> int64
 val human_size : int64 -> string
 (** Converts a size in bytes to a human-readable string. *)
 
-val skip_dashes : string -> string
-(** Skip any leading '-' characters when comparing command line args. *)
-
-val compare_command_line_args : string -> string -> int
-(** Compare command line arguments for equality, ignoring any leading [-]s. *)
-
-val set_standard_options : (Arg.key * Arg.spec * Arg.doc) list -> (Arg.key * Arg.spec * Arg.doc) list
+val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> Getopt.usage_msg -> Getopt.t
 (** Adds the standard libguestfs command line options to the specified ones,
     sorting them, and setting [long_options] to them.
 
-    Returns the resulting options. *)
+    Returns a new [Getopt.t] handle. *)
 
 val compare_version : string -> string -> int
 (** Compare two version strings. *)
