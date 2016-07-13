@@ -105,8 +105,6 @@ if ($test_type eq "selinux" && $test_via eq "fuse") {
 # Create a filesystem that could support xattrs and SELinux labels.
 my $g = Sys::Guestfs->new ();
 
-#$g->set_selinux (1) if $test_type eq "selinux";
-
 $g->add_drive_scratch (256*1024*1024);
 $g->launch ();
 

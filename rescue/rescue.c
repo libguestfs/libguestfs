@@ -72,7 +72,7 @@ usage (int status)
               "  --network            Enable network\n"
               "  -r|--ro              Access read-only\n"
               "  --scratch[=N]        Add scratch disk(s)\n"
-              "  --selinux            Enable SELinux\n"
+              "  --selinux            For backwards compat only, does nothing\n"
               "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
               "  --suggest            Suggest mount commands for this guest\n"
               "  -v|--verbose         Verbose messages\n"
@@ -148,8 +148,7 @@ main (int argc, char *argv[])
       else if (STREQ (long_options[option_index].name, "short-options"))
         display_short_options (options);
       else if (STREQ (long_options[option_index].name, "selinux")) {
-        if (guestfs_set_selinux (g, 1) == -1)
-          exit (EXIT_FAILURE);
+        /* nothing */
       } else if (STREQ (long_options[option_index].name, "append")) {
         append = optarg;
       } else if (STREQ (long_options[option_index].name, "network")) {

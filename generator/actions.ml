@@ -645,6 +645,7 @@ Use C<guestfs_available> or C<guestfs_feature_available> instead." };
     style = RErr, [Bool "selinux"], [];
     fish_alias = ["selinux"]; config_only = true;
     blocking = false;
+    deprecated_by = Some "selinux_relabel";
     shortdesc = "set SELinux enabled or disabled at appliance boot";
     longdesc = "\
 This sets the selinux flag that is passed to the appliance
@@ -660,6 +661,7 @@ see L<guestfs(3)>." };
     name = "get_selinux"; added = (1, 0, 67);
     style = RBool "selinux", [], [];
     blocking = false;
+    deprecated_by = Some "selinux_relabel";
     shortdesc = "get SELinux enabled flag";
     longdesc = "\
 This returns the current setting of the selinux flag which
@@ -7315,6 +7317,7 @@ away any pending events, and deallocates all resources." };
     style = RErr, [String "context"], [];
     proc_nr = Some 185;
     optional = Some "selinux";
+    deprecated_by = Some "selinux_relabel";
     shortdesc = "set SELinux security context";
     longdesc = "\
 This sets the SELinux security context of the daemon
@@ -7327,6 +7330,7 @@ See the documentation about SELINUX in L<guestfs(3)>." };
     style = RString "context", [], [];
     proc_nr = Some 186;
     optional = Some "selinux";
+    deprecated_by = Some "selinux_relabel";
     shortdesc = "get SELinux security context";
     longdesc = "\
 This gets the SELinux security context of the daemon.
@@ -9863,6 +9867,7 @@ This option may not be specified at the same time as the C<correct> option.
     name = "llz"; added = (1, 17, 6);
     style = RString "listing", [Pathname "directory"], [];
     proc_nr = Some 305;
+    deprecated_by = Some "lgetxattrs";
     shortdesc = "list the files in a directory (long format with SELinux contexts)";
     longdesc = "\
 List the files in F<directory> in the format of 'ls -laZ'.

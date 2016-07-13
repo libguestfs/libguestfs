@@ -124,7 +124,7 @@ usage (int status)
               "  -o|--option opt      Pass extra option to FUSE\n"
               "  --pid-file filename  Write PID to filename\n"
               "  -r|--ro              Mount read-only\n"
-              "  --selinux            Enable SELinux support\n"
+              "  --selinux            For backwards compat only, does nothing\n"
               "  -v|--verbose         Verbose messages\n"
               "  -V|--version         Display version and exit\n"
               "  -w|--rw              Mount read-write\n"
@@ -228,8 +228,7 @@ main (int argc, char *argv[])
       else if (STREQ (long_options[option_index].name, "fuse-help"))
         fuse_help ();
       else if (STREQ (long_options[option_index].name, "selinux")) {
-        if (guestfs_set_selinux (g, 1) == -1)
-          exit (EXIT_FAILURE);
+        /* nothing */
       } else if (STREQ (long_options[option_index].name, "format")) {
         OPTION_format;
       } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {

@@ -630,12 +630,6 @@ let main () =
     may g#set_smp cmdline.smp;
     g#set_network cmdline.network;
 
-    (* Make sure to turn SELinux off to avoid awkward interactions
-     * between the appliance kernel and applications/libraries interacting
-     * with SELinux xattrs.
-     *)
-    g#set_selinux false;
-
     (* The output disk is being created, so use cache=unsafe here. *)
     g#add_drive_opts ~format:output_format ~cachemode:"unsafe" output_filename;
 

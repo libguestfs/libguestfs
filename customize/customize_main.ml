@@ -169,11 +169,6 @@ read the man page virt-customize(1).
     may g#set_memsize memsize;
     may g#set_smp smp;
     g#set_network network;
-    (* Make sure to turn SELinux off to avoid awkward interactions
-     * between the appliance kernel and applications/libraries interacting
-     * with SELinux xattrs.
-     *)
-    g#set_selinux false;
 
     (* Add disks. *)
     add g dryrun;
