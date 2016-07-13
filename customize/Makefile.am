@@ -43,6 +43,7 @@ SOURCES_MLI = \
 	password.mli \
 	perl_edit.mli \
 	random_seed.mli \
+	SELinux_relabel.mli \
 	ssh_key.mli \
 	subscription_manager.mli \
 	timezone.mli \
@@ -58,6 +59,7 @@ SOURCES_ML = \
 	password.ml \
 	perl_edit.ml \
 	random_seed.ml \
+	SELinux_relabel.ml \
 	ssh_key.ml \
 	subscription_manager.ml \
 	timezone.ml \

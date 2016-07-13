@@ -412,19 +412,7 @@ exec >>%s 2>&1
 
   if ops.flags.selinux_relabel then (
     message (f_"SELinux relabelling");
-    if guest_arch_compatible then (
-      let cmd = sprintf "
-        if load_policy && fixfiles restore; then
-          rm -f /.autorelabel
-        else
-          touch /.autorelabel
-          echo '%s: SELinux relabelling failed, will relabel at boot instead.'
-        fi
-      " prog in
-      do_run ~display:"load_policy && fixfiles restore" cmd
-    ) else (
-      g#touch "/.autorelabel"
-    )
+    SELinux_relabel.relabel g
   );
 
   (* Clean up the log file:

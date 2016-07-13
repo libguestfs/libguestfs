@@ -154,6 +154,7 @@ BOBJECTS = \
 	$(top_builddir)/customize/perl_edit.cmo \
 	$(top_builddir)/customize/crypt.cmo \
 	$(top_builddir)/customize/password.cmo \
+	$(top_builddir)/customize/SELinux_relabel.cmo \
 	$(top_builddir)/customize/ssh_key.cmo \
 	$(top_builddir)/customize/subscription_manager.cmo \
 	$(top_builddir)/customize/customize_cmdline.cmo \

@@ -17,6 +17,7 @@ builder/sources.ml
 builder/utils.ml
 builder/yajl.ml
 builder/yajl_tests.ml
+customize/SELinux_relabel.ml
 customize/crypt.ml
 customize/customize_cmdline.ml
 customize/customize_main.ml

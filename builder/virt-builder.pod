@@ -1754,20 +1754,19 @@ two possible strategies it can use to ensure correct labelling:
 
 =item Using I<--selinux-relabel>
 
-This runs L<fixfiles(8)> just before finalizing the guest, which sets
+This runs L<setfiles(8)> just before finalizing the guest, which sets
 SELinux labels correctly in the disk image.
 
-Sometimes fixfiles is not possible during installation, in which case
-this option falls back on:
+This is the recommended method.
 
-=item Touching F</.autorelabel>
+=item I<--touch> F</.autorelabel>
 
-Guest templates may already contain a file called F</.autorelabel>, or
-it is touched if I<--selinux-relabel> cannot run fixfiles.
+Guest templates may already contain a file called F</.autorelabel> or
+you may touch it.
 
-For guests that use SELinux, this causes fixfiles to run at first
-boot.  Guests will reboot themselves once the first time you use them,
-which is normal and harmless.
+For guests that use SELinux, this causes L<restorecon(8)> to run at
+first boot.  Guests will reboot themselves once the first time you use
+them, which is normal and harmless.
 
 =back
 
@@ -1876,7 +1875,6 @@ L<gpg(1)>,
 L<curl(1)>,
 L<virt-make-fs(1)>,
 L<genisoimage(1)>,
-L<fixfiles(8)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR
