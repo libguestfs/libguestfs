@@ -23,22 +23,11 @@ output=$1
 relabel_args=()
 
 if [ -n "$DO_RELABEL" ]; then
-    os_arch=$(uname -m)
-    guest_arch=$(virt-inspector -a "$output" | virt-inspector --xpath "string(/operatingsystems/operatingsystem/arch)")
-
-    if [ "$os_arch" = "$guest_arch" ] || [ "$os_arch" = "x86_64" -a "$guest_arch" = "i386" ]; then
-        # this is what --selinux-relabel should really do, but do it ourselves
-        # in the meanwhile -- see RHBZ#1089100.
-        relabel_args+=(--run-command "setfiles /etc/selinux/targeted/contexts/files/file_contexts /")
-    else
-        relabel_args+=(--selinux-relabel)
-    fi
+    relabel_args="--selinux-relabel"
 fi
 
 # Sysprep (removes logfiles and so on).
-# Note this also touches /.autorelabel so the further installation
-# changes that we make will be labelled properly at first boot.
-virt-sysprep -a $output "${relabel_args[@]}"
+virt-sysprep -a $output $relabel_args
 
 # Sparsify.
 mv $output $output.old
