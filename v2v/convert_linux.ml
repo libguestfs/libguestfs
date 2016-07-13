@@ -406,13 +406,6 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
 
     | `Grub2 -> () (* Not necessary for grub2. *)
 
-  and autorelabel () =
-    (* Only do autorelabel if load_policy binary exists.  Actually
-     * loading the policy is problematic.
-     *)
-    if g#is_file ~followsymlinks:true "/usr/sbin/load_policy" then
-      g#touch "/.autorelabel";
-
   and unconfigure_xen () =
     (* Remove kmod-xenpv-* (RHEL 3). *)
     let xenmods =
@@ -1383,7 +1376,6 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
   in
 
   augeas_grub_configuration ();
-  autorelabel ();
 
   unconfigure_xen ();
   unconfigure_vbox ();
@@ -1408,6 +1400,8 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
   remap_block_devices virtio;
   configure_kernel_modules virtio;
   rebuild_initrd kernel;
+
+  SELinux_relabel.relabel g;
 
   let guestcaps = {
     gcaps_block_bus = if virtio then Virtio_blk else IDE;

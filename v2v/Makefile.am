@@ -149,6 +149,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/curl.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/firstboot.cmo \
+	$(top_builddir)/customize/SELinux_relabel.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
