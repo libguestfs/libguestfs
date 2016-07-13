@@ -43,6 +43,8 @@ type t = {
   usage_msg : usage_msg;
 }
 
+let hidden_option_description = ""
+
 external getopt_parse : string array -> (c_keys * spec * doc) array -> ?anon_fun:anon_fun -> usage_msg -> unit = "guestfs_int_mllib_getopt_parse"
 
 let column_wrap = 38
@@ -55,6 +57,11 @@ let show_help h () =
 
   let prologue = sprintf (f_"%s\nOptions:\n") h.usage_msg in
   Buffer.add_string b prologue;
+
+  let specs = List.filter (
+    fun (_, _, doc) ->
+      doc <> hidden_option_description
+  ) h.specs in
 
   List.iter (
     fun (keys, spec, doc) ->
@@ -88,7 +95,7 @@ let show_help h () =
       );
       Buffer.add_string b doc;
       Buffer.add_char b '\n';
-  ) h.specs;
+  ) specs;
 
   Buffer.output_buffer stdout b;
   exit 0
@@ -158,8 +165,8 @@ let create specs ?anon_fun usage_msg =
     } in
 
   let specs = specs @ [
-    [ "--short-options" ], Unit (display_short_options t), s_"List short options (internal)";
-    [ "--long-options" ], Unit (display_long_options t), s_"List long options (internal)";
+    [ "--short-options" ], Unit (display_short_options t), hidden_option_description;
+    [ "--long-options" ], Unit (display_long_options t), hidden_option_description;
   ] in
 
   (* Decide whether the help option can be added, and which switches use.  *)

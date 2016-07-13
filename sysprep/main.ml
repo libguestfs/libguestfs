@@ -121,8 +121,8 @@ let main () =
       [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
       [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
       [ "-n"; "--dryrun"; "--dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
-      [ "--dump-pod" ], Getopt.Unit dump_pod,        s_"Dump POD (internal)";
-      [ "--dump-pod-options" ], Getopt.Unit dump_pod_options, s_"Dump POD for options (internal)";
+      [ "--dump-pod" ], Getopt.Unit dump_pod,        Getopt.hidden_option_description;
+      [ "--dump-pod-options" ], Getopt.Unit dump_pod_options, Getopt.hidden_option_description;
       [ "--enable" ],  Getopt.String (s_"operations", set_enable),      s_"Enable specific operations";
       [ "--format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
       [ "--list-operations" ], Getopt.Unit list_operations, s_"List supported operations";

@@ -47,6 +47,8 @@ type anon_fun = (string -> unit)
 
 type speclist = (keys * spec * doc) list
 
+val hidden_option_description : string
+
 val compare_command_line_args : string -> string -> int
 (** Compare command line arguments for equality, ignoring any leading [-]s. *)
 
@@ -60,6 +62,8 @@ val create : speclist -> ?anon_fun:anon_fun -> usage_msg -> t
     [speclist] is a list of triples [(keys, spec, doc)]: [keys] is a
     list of options, [spec] is the associated action, and [doc] is
     the help text.
+    If [doc] is [Getopt.hidden_option_description], then the option
+    is considered internal, and it is not shown in the help text.
 
     [anon_fun] is an optional function to handle non-option arguments;
     not specifying one means that only options are allowed, and

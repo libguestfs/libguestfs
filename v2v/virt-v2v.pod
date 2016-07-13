@@ -285,12 +285,6 @@ C<https://vcenter.example.com/folder> (I<without> a trailing slash),
 and examine the C<dcPath=> parameter in the URLs that appear on this
 page.
 
-=item B<--debug-gc>
-
-Debug garbage collection and memory allocation.  This is only useful
-when debugging memory problems in virt-v2v or the OCaml libguestfs
-bindings.
-
 =item B<--debug-overlays>
 
 Save the overlay file(s) created during conversion.  This option is

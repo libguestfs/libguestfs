@@ -192,12 +192,6 @@ For fine-tuning the output format, see: I<--compress>, I<-o>.
 
 You cannot use this option and I<--in-place> together.
 
-=item B<--debug-gc>
-
-Debug garbage collection and memory allocation.  This is only useful
-when debugging memory problems in virt-sparsify or the OCaml libguestfs
-bindings.
-
 =item B<--format> raw
 
 =item B<--format> qcow2

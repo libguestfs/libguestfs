@@ -574,7 +574,7 @@ let create_standard_options argspec ?anon_fun usage_msg =
     [ "-V"; "--version" ], Getopt.Unit print_version_and_exit, s_"Display version and exit";
     [ "-v"; "--verbose" ], Getopt.Unit set_verbose,  s_"Enable libguestfs debugging messages";
     [ "-x" ],              Getopt.Unit set_trace,    s_"Enable tracing of libguestfs calls";
-    [ "--debug-gc" ],      Getopt.Unit set_debug_gc, s_"Debug GC and memory allocations (internal)";
+    [ "--debug-gc" ],      Getopt.Unit set_debug_gc, Getopt.hidden_option_description;
     [ "-q"; "--quiet" ],   Getopt.Unit set_quiet,    s_"Don't print progress messages";
     [ "--color"; "--colors";
       "--colour"; "--colours" ], Getopt.Unit set_colours, s_"Use ANSI colour sequences even if not tty";
