@@ -26,6 +26,7 @@ EXTRA_DIST = \
 	index \
 	index.asc \
 	centos.sh \
+	centos-aarch64.sh \
 	debian.preseed \
 	debian.sh \
 	fedora.sh \
