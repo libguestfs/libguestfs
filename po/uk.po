@@ -968,7 +968,7 @@ msgid ""
 " works correctly."
 msgstr ""
 "Перш ніж вилучати старий диск, ретельно перевірте, чи може диск призначення "
-"завантажується і працює належним чином.\n"
+"завантажується і працює належним чином."
 
 #: ../resize/resize.ml:213
 msgid "Behaviour on expand unknown filesystems (default: warn)"
@@ -10937,7 +10937,7 @@ msgstr ""
 #: src/tmpdirs.c:246
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
-msgstr "безпека: кешований пристрій %s не належить UID %u"
+msgstr "безпека: кешований пристрій %s не належить UID %ju"
 
 #: src/tmpdirs.c:252
 #, c-format
