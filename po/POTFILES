@@ -13,6 +13,7 @@ cat/log.c
 cat/ls.c
 cat/visit.c
 customize/crypt-c.c
+customize/dummy.c
 customize/perl_edit-c.c
 daemon/9p.c
 daemon/acl.c
@@ -95,6 +96,7 @@ daemon/realpath.c
 daemon/rename.c
 daemon/rsync.c
 daemon/scrub.c
+daemon/selinux-relabel.c
 daemon/selinux.c
 daemon/sfdisk.c
 daemon/sh.c
@@ -126,6 +128,7 @@ df/estimate-max-threads.c
 df/main.c
 df/output.c
 df/parallel.c
+dib/dummy.c
 diff/diff.c
 docs/make-internal-documentation.pl
 edit/edit.c
@@ -177,6 +180,7 @@ fuse/guestunmount.c
 fuse/test-fuse.c
 fuse/test-guestmount-fd.c
 fuse/test-guestunmount-fd.c
+get-kernel/dummy.c
 gobject/src/optargs-add_domain.c
 gobject/src/optargs-add_drive.c
 gobject/src/optargs-add_drive_scratch.c
@@ -226,6 +230,7 @@ gobject/src/optargs-remount.c
 gobject/src/optargs-rsync.c
 gobject/src/optargs-rsync_in.c
 gobject/src/optargs-rsync_out.c
+gobject/src/optargs-selinux_relabel.c
 gobject/src/optargs-set_e2attrs.c
 gobject/src/optargs-syslinux.c
 gobject/src/optargs-tar_in.c
@@ -270,6 +275,7 @@ make-fs/make-fs.c
 mllib/dev_t-c.c
 mllib/dummy.c
 mllib/fsync-c.c
+mllib/getopt-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
 mllib/statvfs-c.c
@@ -297,8 +303,10 @@ python/guestfs-py-byhand.c
 python/guestfs-py.c
 rescue/rescue.c
 rescue/test-virt-rescue.pl
+resize/dummy.c
 resize/test-virt-resize.pl
 ruby/ext/guestfs/_guestfs.c
+sparsify/dummy.c
 src/actions-0.c
 src/actions-1.c
 src/actions-2.c
@@ -370,6 +378,7 @@ src/utils.c
 src/version.c
 src/wait.c
 src/whole-file.c
+sysprep/dummy.c
 test-tool/test-tool.c
 utils/boot-analysis/boot-analysis-timeline.c
 utils/boot-analysis/boot-analysis-utils.c
