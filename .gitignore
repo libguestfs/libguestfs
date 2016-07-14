@@ -27,6 +27,7 @@ bindtests.tmp
 cscope.out
 .deps
 .dirstamp
+dll*.so
 .gdb_history
 .libs
 Makefile
@@ -590,7 +591,6 @@ Makefile.in
 /v2v/stamp-virt-v2v-copy-to-local.pod
 /v2v/test-harness/.depend
 /v2v/test-harness/META
-/v2v/test-harness/dllv2v_test_harness.so
 /v2v/test-harness/stamp-virt-v2v-test-harness.pod
 /v2v/test-harness/virt-v2v-test-harness.1
 /v2v/v2v_unit_tests

@@ -89,15 +89,10 @@ SOURCES_ML = \
 	builder.ml
 
 SOURCES_C = \
-	../mllib/dev_t-c.c \
-	../mllib/fsync-c.c \
-	../mllib/getopt-c.c \
-	../mllib/uri-c.c \
-	../mllib/mkdtemp-c.c \
 	../customize/perl_edit-c.c \
 	../customize/crypt-c.c \
-	../fish/uri.c \
 	../fish/file-edit.c \
+	../fish/file-edit.h \
 	index-scan.c \
 	index-struct.c \
 	index-parse.c \
@@ -133,21 +128,6 @@ virt_builder_CFLAGS = \
 	$(YAJL_CFLAGS)
 
 BOBJECTS = \
-	$(OCAML_BYTES_COMPAT_CMO) \
-	$(top_builddir)/mllib/libdir.cmo \
-	$(top_builddir)/mllib/guestfs_config.cmo \
-	$(top_builddir)/mllib/common_gettext.cmo \
-	$(top_builddir)/mllib/dev_t.cmo \
-	$(top_builddir)/mllib/stringMap.cmo \
-	$(top_builddir)/mllib/getopt.cmo \
-	$(top_builddir)/mllib/common_utils.cmo \
-	$(top_builddir)/mllib/fsync.cmo \
-	$(top_builddir)/mllib/planner.cmo \
-	$(top_builddir)/mllib/regedit.cmo \
-	$(top_builddir)/mllib/JSON.cmo \
-	$(top_builddir)/mllib/URI.cmo \
-	$(top_builddir)/mllib/mkdtemp.cmo \
-	$(top_builddir)/mllib/curl.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/urandom.cmo \
 	$(top_builddir)/customize/random_seed.cmo \
@@ -199,11 +179,11 @@ OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 if !HAVE_OCAMLOPT
 OBJECTS = $(BOBJECTS)
 BEST    = c
-OCAMLLINKFLAGS = mlguestfs.cma -custom
+OCAMLLINKFLAGS = mlguestfs.cma mllib.cma -custom
 else
 OBJECTS = $(XOBJECTS)
 BEST    = opt
-OCAMLLINKFLAGS = mlguestfs.cmxa
+OCAMLLINKFLAGS = mlguestfs.cmxa mllib.cmxa
 endif
 
 virt_builder_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
