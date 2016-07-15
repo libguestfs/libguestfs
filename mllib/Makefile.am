@@ -162,6 +162,15 @@ common_utils_tests_CPPFLAGS = \
 common_utils_tests_BOBJECTS = common_utils_tests.cmo
 common_utils_tests_XOBJECTS = $(common_utils_tests_BOBJECTS:.cmo=.cmx)
 
+getopt_tests_SOURCES = dummy.c
+getopt_tests_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/src
+getopt_tests_BOBJECTS = getopt_tests.cmo
+getopt_tests_XOBJECTS = $(getopt_tests_BOBJECTS:.cmo=.cmx)
+
 JSON_tests_SOURCES = dummy.c
 JSON_tests_BOBJECTS = JSON_tests.cmo
 JSON_tests_XOBJECTS = $(JSON_tests_BOBJECTS:.cmo=.cmx)
@@ -171,11 +180,17 @@ if !HAVE_OCAMLOPT
 common_utils_tests_THEOBJECTS = $(common_utils_tests_BOBJECTS)
 common_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
+getopt_tests_THEOBJECTS = $(getopt_tests_BOBJECTS)
+getopt_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
 JSON_tests_THEOBJECTS = $(JSON_tests_BOBJECTS)
 JSON_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 else
 common_utils_tests_THEOBJECTS = $(common_utils_tests_XOBJECTS)
 common_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+getopt_tests_THEOBJECTS = $(getopt_tests_XOBJECTS)
+getopt_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 JSON_tests_THEOBJECTS = $(JSON_tests_XOBJECTS)
 JSON_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
@@ -193,6 +208,16 @@ common_utils_tests_LINK = \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  $(common_utils_tests_THEOBJECTS) -o $@
 
+getopt_tests_DEPENDENCIES = \
+	$(getopt_tests_THEOBJECTS) \
+	$(MLLIB_CMA) \
+	$(top_srcdir)/ocaml-link.sh
+getopt_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
+	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
+	  $(getopt_tests_THEOBJECTS) -o $@
+
 JSON_tests_DEPENDENCIES = \
 	$(JSON_tests_THEOBJECTS) \
 	$(MLLIB_CMA) \
@@ -205,8 +230,10 @@ JSON_tests_LINK = \
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-TESTS =
-check_PROGRAMS =
+TESTS = \
+	test-getopt.sh
+check_PROGRAMS = \
+	getopt_tests
 
 if HAVE_OCAML_PKG_OUNIT
 check_PROGRAMS += common_utils_tests JSON_tests
