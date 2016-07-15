@@ -189,7 +189,9 @@ COPY_TO_LOCAL_OBJECTS = $(COPY_TO_LOCAL_XOBJECTS)
 endif
 
 virt_v2v_copy_to_local_DEPENDENCIES = \
-	$(COPY_TO_LOCAL_OBJECTS) $(top_srcdir)/ocaml-link.sh
+	$(COPY_TO_LOCAL_OBJECTS) \
+	../mllib/mllib.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
 virt_v2v_copy_to_local_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
@@ -405,7 +407,10 @@ v2v_unit_tests_THEOBJECTS = $(v2v_unit_tests_XOBJECTS)
 v2v_unit_tests.cmx: OCAMLPACKAGES += -package oUnit
 endif
 
-v2v_unit_tests_DEPENDENCIES = $(v2v_unit_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+v2v_unit_tests_DEPENDENCIES = \
+	$(v2v_unit_tests_THEOBJECTS) \
+	../mllib/mllib.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
 v2v_unit_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) \

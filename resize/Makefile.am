@@ -83,7 +83,10 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa mllib.cmxa
 endif
 
-virt_resize_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
+virt_resize_DEPENDENCIES = \
+	$(OBJECTS) \
+	../mllib/mllib.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
 virt_resize_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \

@@ -167,7 +167,11 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa mllib.cmxa customize.cmxa
 endif
 
-virt_builder_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
+virt_builder_DEPENDENCIES = \
+	$(OBJECTS) \
+	../mllib/mllib.$(MLARCHIVE) \
+	../customize/customize.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
 virt_builder_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
@@ -236,7 +240,11 @@ yajl_tests_THEOBJECTS = $(yajl_tests_BOBJECTS)
 yajl_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
 
-yajl_tests_DEPENDENCIES = $(yajl_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+yajl_tests_DEPENDENCIES = \
+	$(yajl_tests_THEOBJECTS) \
+	../mllib/mllib.$(MLARCHIVE) \
+	../customize/customize.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
 yajl_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) $(OCAMLLINKFLAGS) \

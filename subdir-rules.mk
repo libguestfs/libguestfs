@@ -47,6 +47,12 @@ LOG_DRIVER = env $(SHELL) $(top_srcdir)/build-aux/guestfs-test-driver
 # See also:
 # guestfs-hacking(1) section "HOW OCAML PROGRAMS ARE COMPILED AND LINKED"
 
+if !HAVE_OCAMLOPT
+MLARCHIVE = cma
+else
+MLARCHIVE = cmxa
+endif
+
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:

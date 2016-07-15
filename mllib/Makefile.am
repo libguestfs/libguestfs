@@ -185,14 +185,20 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
 
-common_utils_tests_DEPENDENCIES = $(common_utils_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+common_utils_tests_DEPENDENCIES = \
+	$(common_utils_tests_THEOBJECTS) \
+	$(MLLIB_CMA) \
+	$(top_srcdir)/ocaml-link.sh
 common_utils_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  $(common_utils_tests_THEOBJECTS) -o $@
 
-JSON_tests_DEPENDENCIES = $(JSON_tests_THEOBJECTS) $(top_srcdir)/ocaml-link.sh
+JSON_tests_DEPENDENCIES = \
+	$(JSON_tests_THEOBJECTS) \
+	$(MLLIB_CMA) \
+	$(top_srcdir)/ocaml-link.sh
 JSON_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \

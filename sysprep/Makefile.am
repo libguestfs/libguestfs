@@ -135,7 +135,11 @@ BEST    = opt
 OCAMLLINKFLAGS = mlguestfs.cmxa mllib.cmxa customize.cmxa
 endif
 
-virt_sysprep_DEPENDENCIES = $(OBJECTS) $(top_srcdir)/ocaml-link.sh
+virt_sysprep_DEPENDENCIES = \
+	$(OBJECTS) \
+	../mllib/mllib.$(MLARCHIVE) \
+	../customize/customize.$(MLARCHIVE) \
+	$(top_srcdir)/ocaml-link.sh
 virt_sysprep_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \

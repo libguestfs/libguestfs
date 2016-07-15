@@ -165,7 +165,8 @@ OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 virt_customize_DEPENDENCIES = \
 	$(top_srcdir)/ocaml-link.sh \
 	$(CUSTOMIZE_THEOBJECTS) \
-	$(CUSTOMIZE_CMA)
+	$(CUSTOMIZE_CMA) \
+	../mllib/mllib.$(MLARCHIVE)
 virt_customize_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
