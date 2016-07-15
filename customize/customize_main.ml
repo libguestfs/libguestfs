@@ -18,6 +18,7 @@
 
 open Common_gettext.Gettext
 open Common_utils
+open Getopt.OptionName
 
 open Customize_utils
 open Customize_cmdline
@@ -71,21 +72,20 @@ let main () =
   in
 
   let argspec = [
-    [ "-a"; "--add" ],        Getopt.String (s_"file", add_file),        s_"Add disk image file";
-    [ "--attach" ],  Getopt.String ("iso", attach_disk),     s_"Attach data disk/ISO during install";
-    [ "--attach-format" ],  Getopt.String ("format", set_attach_format),
+    [ S 'a'; L"add" ],        Getopt.String (s_"file", add_file),        s_"Add disk image file";
+    [ L"attach" ],  Getopt.String ("iso", attach_disk),     s_"Attach data disk/ISO during install";
+    [ L"attach-format" ],  Getopt.String ("format", set_attach_format),
                                              s_"Set attach disk format";
-    [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
-    [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
-    [ "-n"; "--dryrun"; "--dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
-    [ "--format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
-    [ "-m"; "--memsize" ],        Getopt.Int ("mb", set_memsize),        s_"Set memory size";
-    [ "--network" ], Getopt.Set network,           s_"Enable appliance network (default)";
-    [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network";
-    [ "--smp" ],     Getopt.Int ("vcpus", set_smp),            s_"Set number of vCPUs";
+    [ S 'c'; L"connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
+    [ S 'd'; L"domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
+    [ S 'n'; L"dryrun"; L"dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
+    [ L"format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
+    [ S 'm'; L"memsize" ],        Getopt.Int ("mb", set_memsize),        s_"Set memory size";
+    [ L"network" ], Getopt.Set network,           s_"Enable appliance network (default)";
+    [ L"no-network" ], Getopt.Clear network,      s_"Disable appliance network";
+    [ L"smp" ],     Getopt.Int ("vcpus", set_smp),            s_"Set number of vCPUs";
   ] in
-  let customize_argspec, get_customize_ops =
-    Customize_cmdline.argspec () in
+  let customize_argspec, get_customize_ops = Customize_cmdline.argspec () in
   let customize_argspec =
     List.map (fun (spec, _, _) -> spec) customize_argspec in
   let argspec = argspec @ customize_argspec in

@@ -22,6 +22,7 @@ open Printf
 
 open Common_gettext.Gettext
 open Common_utils
+open Getopt.OptionName
 
 open Types
 open Utils
@@ -165,45 +166,45 @@ let parse_cmdline () =
     String.concat "|" (Modules_list.output_modules ()) in
 
   let argspec = [
-    [ "-b"; "--bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge 'in' to 'out'";
-    [ "--compressed" ], Getopt.Set compressed,     s_"Compress output file";
-    [ "--dcpath"; "--dcPath" ],  Getopt.String ("path", set_string_option_once "--dcpath" dcpath),
+    [ S 'b'; L"bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge 'in' to 'out'";
+    [ L"compressed" ], Getopt.Set compressed,     s_"Compress output file";
+    [ L"dcpath"; L"dcPath" ],  Getopt.String ("path", set_string_option_once "--dcpath" dcpath),
                                             s_"Override dcPath (for vCenter)";
-    [ "--debug-overlay"; "--debug-overlays" ], Getopt.Set debug_overlays, s_"Save overlay files";
-    [ "-i" ],        Getopt.String (i_options, set_input_mode), s_"Set input mode (default: libvirt)";
-    [ "-ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
+    [ L"debug-overlay"; L"debug-overlays" ], Getopt.Set debug_overlays, s_"Save overlay files";
+    [ S 'i' ],        Getopt.String (i_options, set_input_mode), s_"Set input mode (default: libvirt)";
+    [ M"ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
                                             s_"Libvirt URI";
-    [ "-if" ],       Getopt.String ("format", set_string_option_once "-if" input_format),
+    [ M"if" ],       Getopt.String ("format", set_string_option_once "-if" input_format),
                                             s_"Input format (for -i disk)";
-    [ "--in-place" ], Getopt.Set in_place,         s_"Only tune the guest in the input VM";
-    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
-    [ "-n"; "--network" ],        Getopt.String ("in:out", add_network),    s_"Map network 'in' to 'out'";
-    [ "--no-copy" ], Getopt.Clear do_copy,         s_"Just write the metadata";
-    [ "--no-trim" ], Getopt.String ("-", no_trim_warning),
+    [ L"in-place" ], Getopt.Set in_place,         s_"Only tune the guest in the input VM";
+    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+    [ S 'n'; L"network" ],        Getopt.String ("in:out", add_network),    s_"Map network 'in' to 'out'";
+    [ L"no-copy" ], Getopt.Clear do_copy,         s_"Just write the metadata";
+    [ L"no-trim" ], Getopt.String ("-", no_trim_warning),
                                             s_"Ignored for backwards compatibility";
-    [ "-o" ],        Getopt.String (o_options, set_output_mode), s_"Set output mode (default: libvirt)";
-    [ "-oa" ],       Getopt.String ("sparse|preallocated", set_output_alloc),
+    [ S 'o' ],        Getopt.String (o_options, set_output_mode), s_"Set output mode (default: libvirt)";
+    [ M"oa" ],       Getopt.String ("sparse|preallocated", set_output_alloc),
                                             s_"Set output allocation mode";
-    [ "-oc" ],       Getopt.String ("uri", set_string_option_once "-oc" output_conn),
+    [ M"oc" ],       Getopt.String ("uri", set_string_option_once "-oc" output_conn),
                                             s_"Libvirt URI";
-    [ "-of" ],       Getopt.String ("raw|qcow2", set_string_option_once "-of" output_format),
+    [ M"of" ],       Getopt.String ("raw|qcow2", set_string_option_once "-of" output_format),
                                             s_"Set output format";
-    [ "-on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),
+    [ M"on" ],       Getopt.String ("name", set_string_option_once "-on" output_name),
                                             s_"Rename guest when converting";
-    [ "-os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
+    [ M"os" ],       Getopt.String ("storage", set_string_option_once "-os" output_storage),
                                             s_"Set output storage location";
-    [ "--password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
+    [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
                                             s_"Use password from file";
-    [ "--print-source" ], Getopt.Set print_source, s_"Print source and stop";
-    [ "--qemu-boot" ], Getopt.Set qemu_boot,       s_"Boot in qemu (-o qemu only)";
-    [ "--root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
-    [ "--vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid), s_"Output image UUID(s)";
-    [ "--vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid), s_"Output vol UUID(s)";
-    [ "--vdsm-vm-uuid" ], Getopt.String ("uuid", set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
+    [ L"print-source" ], Getopt.Set print_source, s_"Print source and stop";
+    [ L"qemu-boot" ], Getopt.Set qemu_boot,       s_"Boot in qemu (-o qemu only)";
+    [ L"root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
+    [ L"vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid), s_"Output image UUID(s)";
+    [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid), s_"Output vol UUID(s)";
+    [ L"vdsm-vm-uuid" ], Getopt.String ("uuid", set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
                                             s_"Output VM UUID";
-    [ "--vdsm-ovf-output" ], Getopt.String ("-", set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
+    [ L"vdsm-ovf-output" ], Getopt.String ("-", set_string_option_once "--vdsm-ovf-output" vdsm_ovf_output),
                                             s_"Output OVF file";
-    [ "--vmtype" ],  Getopt.String ("-", vmtype_warning),
+    [ L"vmtype" ],  Getopt.String ("-", vmtype_warning),
                                             s_"Ignored for backwards compatibility";
   ] in
   let args = ref [] in

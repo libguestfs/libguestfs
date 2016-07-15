@@ -22,6 +22,7 @@ open Printf
 
 open Common_gettext.Gettext
 open Common_utils
+open Getopt.OptionName
 
 open Utils
 
@@ -41,9 +42,9 @@ let rec main () =
 
   (* Handle the command line. *)
   let argspec = [
-    [ "-ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
+    [ L"ic" ],       Getopt.String ("uri", set_string_option_once "-ic" input_conn),
                                             s_"Libvirt URI";
-    [ "--password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
+    [ L"password-file" ], Getopt.String ("file", set_string_option_once "--password-file" password_file),
                                             s_"Use password from file";
   ] in
   let args = ref [] in

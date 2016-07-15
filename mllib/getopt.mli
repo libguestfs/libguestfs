@@ -18,29 +18,39 @@
 
 type spec =
   | Unit of (unit -> unit)
-    (* Simple option with no argument; call the function. *)
+    (** Simple option with no argument; call the function. *)
   | Set of bool ref
-    (* Simple option with no argument; set the reference to true. *)
+    (** Simple option with no argument; set the reference to true. *)
   | Clear of bool ref
-    (* Simple option with no argument; set the reference to false. *)
+    (** Simple option with no argument; set the reference to false. *)
   | String of string * (string -> unit)
-    (* Option requiring an argument; the first element in the tuple
-       is the documentation string of the argument, and the second
-       is the function to call. *)
+    (** Option requiring an argument; the first element in the tuple
+        is the documentation string of the argument, and the second
+        is the function to call. *)
   | Set_string of string * string ref
-    (* Option requiring an argument; the first element in the tuple
-       is the documentation string of the argument, and the second
-       is the reference to be set. *)
+    (** Option requiring an argument; the first element in the tuple
+        is the documentation string of the argument, and the second
+        is the reference to be set. *)
   | Int of string * (int -> unit)
-    (* Option requiring an integer value as argument; the first
-       element in the tuple is the documentation string of the
-       argument, and the second is the function to call. *)
+    (** Option requiring an integer value as argument; the first
+        element in the tuple is the documentation string of the
+        argument, and the second is the function to call. *)
   | Set_int of string * int ref
-    (* Option requiring an integer value as argument; the first
-       element in the tuple is the documentation string of the
-       argument, and the second is the reference to be set. *)
+    (** Option requiring an integer value as argument; the first
+        element in the tuple is the documentation string of the
+        argument, and the second is the reference to be set. *)
 
-type keys = string list
+module OptionName : sig
+  type option_name =
+    | S of char           (** short option like -a *)
+    | L of string         (** long option like --add *)
+    | M of string
+  (** [M] should only be used in virt-v2v.  Handle options like [-os].
+      This works exactly like [L] except for changing the output of
+      [--help], and that [M] options appear in [--short-options] and
+      [--long-options]. *)
+end
+type keys = OptionName.option_name list
 type doc = string
 type usage_msg = string
 type anon_fun = (string -> unit)
@@ -49,8 +59,12 @@ type speclist = (keys * spec * doc) list
 
 val hidden_option_description : string
 
-val compare_command_line_args : string -> string -> int
+val compare_command_line_args : OptionName.option_name -> OptionName.option_name -> int
 (** Compare command line arguments for equality, ignoring any leading [-]s. *)
+
+val string_of_option_name : OptionName.option_name -> string
+(** Convert an {!OptionName.option_name} to a string for [--help] output
+    and man pages.  For instance [L"foo"] is converted to ["--foo"]. *)
 
 type t
 (** The abstract data type. *)

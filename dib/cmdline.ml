@@ -20,6 +20,7 @@
 
 open Common_gettext.Gettext
 open Common_utils
+open Getopt.OptionName
 
 open Utils
 
@@ -151,44 +152,44 @@ read the man page virt-dib(1).
     prepend (List.rev (String.nsplit "," arg)) extra_packages in
 
   let argspec = [
-    [ "-p"; "--element-path" ],           Getopt.String ("path", append_element_path),  s_"Add new a elements location";
-    [ "--exclude-element" ], Getopt.String ("element", append_excluded_element),
+    [ S 'p'; L"element-path" ],           Getopt.String ("path", append_element_path),  s_"Add new a elements location";
+    [ L"exclude-element" ], Getopt.String ("element", append_excluded_element),
       s_"Exclude the specified element";
-    [ "--exclude-script" ], Getopt.String ("script", append_excluded_script),
+    [ L"exclude-script" ], Getopt.String ("script", append_excluded_script),
       s_"Exclude the specified script";
-    [ "--envvar" ],     Getopt.String ("envvar[=value]", append_envvar),   s_"Carry/set this environment variable";
-    [ "--skip-base" ],  Getopt.Clear use_base,        s_"Skip the inclusion of the 'base' element";
-    [ "--root-label" ], Getopt.String ("label", set_root_label), s_"Label for the root fs";
-    [ "--install-type" ], Getopt.Set_string ("type", install_type),  s_"Installation type";
-    [ "--image-cache" ], Getopt.String ("directory", set_image_cache), s_"Location for cached images";
-    [ "-u" ],           Getopt.Clear compressed,      "Do not compress the qcow2 image";
-    [ "--qemu-img-options" ], Getopt.String ("option", set_qemu_img_options),
+    [ L"envvar" ],     Getopt.String ("envvar[=value]", append_envvar),   s_"Carry/set this environment variable";
+    [ L"skip-base" ],  Getopt.Clear use_base,        s_"Skip the inclusion of the 'base' element";
+    [ L"root-label" ], Getopt.String ("label", set_root_label), s_"Label for the root fs";
+    [ L"install-type" ], Getopt.Set_string ("type", install_type),  s_"Installation type";
+    [ L"image-cache" ], Getopt.String ("directory", set_image_cache), s_"Location for cached images";
+    [ S 'u' ],           Getopt.Clear compressed,      "Do not compress the qcow2 image";
+    [ L"qemu-img-options" ], Getopt.String ("option", set_qemu_img_options),
                                               s_"Add qemu-img options";
-    [ "--mkfs-options" ], Getopt.String ("option", set_mkfs_options),
+    [ L"mkfs-options" ], Getopt.String ("option", set_mkfs_options),
                                               s_"Add mkfs options";
-    [ "--extra-packages" ], Getopt.String ("pkg,...", append_extra_packages),
+    [ L"extra-packages" ], Getopt.String ("pkg,...", append_extra_packages),
       s_"Add extra packages to install";
 
-    [ "--ramdisk" ],    Getopt.Set is_ramdisk,        "Switch to a ramdisk build";
-    [ "--ramdisk-element" ], Getopt.Set_string ("name", ramdisk_element), s_"Main element for building ramdisks";
+    [ L"ramdisk" ],    Getopt.Set is_ramdisk,        "Switch to a ramdisk build";
+    [ L"ramdisk-element" ], Getopt.Set_string ("name", ramdisk_element), s_"Main element for building ramdisks";
 
-    [ "--name" ],       Getopt.Set_string ("name", image_name), s_"Name of the image";
-    [ "--fs-type" ],    Getopt.Set_string ("fs", fs_type),    s_"Filesystem for the image";
-    [ "--size" ],       Getopt.String ("size", set_size),       s_"Set output disk size";
-    [ "--formats" ],    Getopt.String ("qcow2,tgz,...", set_format),     s_"Output formats";
-    [ "--arch" ],       Getopt.Set_string ("arch", arch),       s_"Output architecture";
-    [ "--drive" ],      Getopt.String ("path", set_drive),      s_"Optional drive for caches";
+    [ L"name" ],       Getopt.Set_string ("name", image_name), s_"Name of the image";
+    [ L"fs-type" ],    Getopt.Set_string ("fs", fs_type),    s_"Filesystem for the image";
+    [ L"size" ],       Getopt.String ("size", set_size),       s_"Set output disk size";
+    [ L"formats" ],    Getopt.String ("qcow2,tgz,...", set_format),     s_"Output formats";
+    [ L"arch" ],       Getopt.Set_string ("arch", arch),       s_"Output architecture";
+    [ L"drive" ],      Getopt.String ("path", set_drive),      s_"Optional drive for caches";
 
-    [ "-m"; "--memsize" ],           Getopt.Int ("mb", set_memsize),       s_"Set memory size";
-    [ "--network" ],    Getopt.Set network,           s_"Enable appliance network (default)";
-    [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network";
-    [ "--smp" ],        Getopt.Int ("vcpus", set_smp),           s_"Set number of vCPUs";
-    [ "--no-delete-on-failure" ], Getopt.Clear delete_on_failure,
+    [ S 'm'; L"memsize" ],           Getopt.Int ("mb", set_memsize),       s_"Set memory size";
+    [ L"network" ],    Getopt.Set network,           s_"Enable appliance network (default)";
+    [ L"no-network" ], Getopt.Clear network,      s_"Disable appliance network";
+    [ L"smp" ],        Getopt.Int ("vcpus", set_smp),           s_"Set number of vCPUs";
+    [ L"no-delete-on-failure" ], Getopt.Clear delete_on_failure,
                                                s_"Don't delete output file on failure";
-    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
 
-    [ "--debug" ],      Getopt.Int ("level", set_debug),         s_"Set debug level";
-    [ "-B" ],           Getopt.Set_string ("path", basepath),   s_"Base path of diskimage-builder library";
+    [ L"debug" ],      Getopt.Int ("level", set_debug),         s_"Set debug level";
+    [ S 'B' ],           Getopt.Set_string ("path", basepath),   s_"Base path of diskimage-builder library";
   ] in
 
   let opthandle = create_standard_options argspec ~anon_fun:append_element usage_msg in

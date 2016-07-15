@@ -19,6 +19,7 @@
 open Printf
 
 open Common_gettext.Gettext
+open Getopt.OptionName
 
 module Char = struct
     include Char
@@ -571,13 +572,13 @@ let create_standard_options argspec ?anon_fun usage_msg =
   let set_debug_gc () =
     at_exit (fun () -> Gc.compact()) in
   let argspec = [
-    [ "-V"; "--version" ], Getopt.Unit print_version_and_exit, s_"Display version and exit";
-    [ "-v"; "--verbose" ], Getopt.Unit set_verbose,  s_"Enable libguestfs debugging messages";
-    [ "-x" ],              Getopt.Unit set_trace,    s_"Enable tracing of libguestfs calls";
-    [ "--debug-gc" ],      Getopt.Unit set_debug_gc, Getopt.hidden_option_description;
-    [ "-q"; "--quiet" ],   Getopt.Unit set_quiet,    s_"Don't print progress messages";
-    [ "--color"; "--colors";
-      "--colour"; "--colours" ], Getopt.Unit set_colours, s_"Use ANSI colour sequences even if not tty";
+    [ S 'V'; L"version" ], Getopt.Unit print_version_and_exit, s_"Display version and exit";
+    [ S 'v'; L"verbose" ], Getopt.Unit set_verbose,  s_"Enable libguestfs debugging messages";
+    [ S 'x' ],             Getopt.Unit set_trace,    s_"Enable tracing of libguestfs calls";
+    [ L"debug-gc" ],       Getopt.Unit set_debug_gc, Getopt.hidden_option_description;
+    [ S 'q'; L"quiet" ],   Getopt.Unit set_quiet,    s_"Don't print progress messages";
+    [ L"color"; L"colors";
+      L"colour"; L"colours" ], Getopt.Unit set_colours, s_"Use ANSI colour sequences even if not tty";
   ] @ argspec in
   Getopt.create argspec ?anon_fun usage_msg
 

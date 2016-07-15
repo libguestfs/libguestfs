@@ -590,6 +590,7 @@ open Printf
 
 open Common_utils
 open Common_gettext.Gettext
+open Getopt.OptionName
 
 open Customize_utils
 
@@ -652,7 +653,7 @@ let rec argspec () =
     | { op_type = Unit; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.Unit (fun () -> push_front %s ops),\n" discrim;
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
@@ -660,7 +661,7 @@ let rec argspec () =
     | { op_type = String v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (s_\"%s\", fun s -> push_front (%s s) ops),\n" v discrim;
       pr "      s_\"%s\"\n" shortdesc;
       pr "    ),\n";
@@ -668,7 +669,7 @@ let rec argspec () =
     | { op_type = StringPair v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -681,7 +682,7 @@ let rec argspec () =
     | { op_type = StringList v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -694,7 +695,7 @@ let rec argspec () =
     | { op_type = TargetLinks v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -707,7 +708,7 @@ let rec argspec () =
     | { op_type = PasswordSelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -720,7 +721,7 @@ let rec argspec () =
     | { op_type = UserPasswordSelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -734,7 +735,7 @@ let rec argspec () =
     | { op_type = SSHKeySelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -748,7 +749,7 @@ let rec argspec () =
     | { op_type = StringFn (v, fn); op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -761,7 +762,7 @@ let rec argspec () =
     | { op_type = SMPoolSelector v; op_name = name; op_discrim = discrim;
         op_shortdesc = shortdesc; op_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -778,7 +779,7 @@ let rec argspec () =
     | { flag_type = FlagBool default; flag_ml_var = var; flag_name = name;
         flag_shortdesc = shortdesc; flag_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       if default (* is true *) then
         pr "      Getopt.Clear %s,\n" var
       else
@@ -790,7 +791,7 @@ let rec argspec () =
         flag_name = name; flag_shortdesc = shortdesc;
         flag_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -803,7 +804,7 @@ let rec argspec () =
         flag_name = name; flag_shortdesc = shortdesc;
         flag_pod_longdesc = longdesc } ->
       pr "    (\n";
-      pr "      [ \"--%s\" ],\n" name;
+      pr "      [ L\"%s\" ],\n" name;
       pr "      Getopt.String (\n";
       pr "        s_\"%s\",\n" v;
       pr "        fun s ->\n";
@@ -855,7 +856,7 @@ pr "    ] in
         try
           let ((_, spec, _), _, _) = List.find (
             fun ((keys, _, _), _, _) ->
-              List.mem (\"--\" ^ cmd) keys
+              List.mem (L cmd) keys
           ) argspec in
           (match spec with
           | Getopt.Unit fn -> fn ()

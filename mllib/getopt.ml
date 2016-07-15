@@ -29,7 +29,12 @@ type spec =
   | Int of string * (int -> unit)
   | Set_int of string * int ref
 
-type keys = string list
+module OptionName = struct
+  type option_name = S of char | L of string | M of string
+end
+open OptionName
+
+type keys = option_name list
 type doc = string
 type usage_msg = string
 type anon_fun = (string -> unit)
@@ -49,6 +54,12 @@ external getopt_parse : string array -> (c_keys * spec * doc) array -> ?anon_fun
 
 let column_wrap = 38
 
+(* This should only be used for --help and man pages. *)
+let string_of_option_name = function
+  | S c -> sprintf "-%c" c
+  | L s -> "--" ^ s
+  | M s -> "-" ^ s
+
 let show_help h () =
   let b = Buffer.create 1024 in
 
@@ -58,10 +69,11 @@ let show_help h () =
   let prologue = sprintf (f_"%s\nOptions:\n") h.usage_msg in
   Buffer.add_string b prologue;
 
-  let specs = List.filter (
-    fun (_, _, doc) ->
+  let specs =
+    List.filter (
+      fun (_, _, doc) ->
       doc <> hidden_option_description
-  ) h.specs in
+    ) h.specs in
 
   List.iter (
     fun (keys, spec, doc) ->
@@ -72,7 +84,7 @@ let show_help h () =
       in
 
       add "  ";
-      add (String.concat ", " keys);
+      add (String.concat ", " (List.map string_of_option_name keys));
       let arg =
         match spec with
         | Unit _
@@ -109,9 +121,10 @@ let display_short_options h () =
   List.iter (
     fun (args, _, _) ->
       List.iter (
-        fun arg ->
-          if is_prefix arg "-" && not (is_prefix arg "--") then
-            printf "%s\n" arg
+        function
+        | S c -> printf "-%c\n" c
+        | M s -> printf "-%s\n" s
+        | L _ -> ()
       ) args
   ) h.specs;
   exit 0
@@ -119,73 +132,65 @@ let display_long_options h () =
   List.iter (
     fun (args, _, _) ->
       List.iter (
-        fun arg ->
-          if is_prefix arg "--" && arg <> "--long-options" &&
-               arg <> "--short-options" then
-            printf "%s\n" arg
+        function
+        | L "short-options" | L "long-options"
+        | S _ -> ()
+        | L s | M s -> printf "--%s\n" s
       ) args
   ) h.specs;
   exit 0
 
-(* Skip any leading '-' characters when comparing command line args. *)
-let skip_dashes str =
-  let n = String.length str in
-  let rec loop i =
-    if i >= n then invalid_arg "skip_dashes"
-    else if String.unsafe_get str i = '-' then loop (i+1)
-    else i
-  in
-  let i = loop 0 in
-  if i = 0 then str
-  else String.sub str i (n-i)
-
 let compare_command_line_args a b =
-  compare (String.lowercase (skip_dashes a)) (String.lowercase (skip_dashes b))
+  let string_of_option_name_no_dashes = function
+    | S c -> String.make 1 c
+    | L s | M s -> s
+  in
+  let a = String.lowercase (string_of_option_name_no_dashes a) in
+  let b = String.lowercase (string_of_option_name_no_dashes b) in
+  compare a b
 
 let create specs ?anon_fun usage_msg =
   (* Sanity check the input *)
-  let validate_key key =
-    if String.length key == 0 || key == "-" || key == "--"
-       || key.[0] != '-' then
-      invalid_arg (sprintf "invalid option key: '%s'" key)
+  let validate_key = function
+    | M s when String.length s <> 2 || (s.[0] <> 'i' && s.[0] <> 'o') ->
+       invalid_arg "Getopt spec: invalid use of M\"...\" option - only use this for virt-v2v -iX and -oX options"
+    | L"" -> invalid_arg "Getopt spec: invalid empty long option"
+    | L"help" -> invalid_arg "Getopt spec: should not have L\"help\""
+    | L"short-options" ->
+       invalid_arg "Getopt spec: should not have L\"short-options\""
+    | L"long-options" ->
+       invalid_arg "Getopt spec: should not have L\"long-options\""
+    | L s when s.[0] = '-' ->
+       invalid_arg (sprintf "Getopt spec: L%S should not begin with a dash"
+                            s)
+    | L s when String.contains s '_' ->
+       invalid_arg (sprintf "Getopt spec: L%S should not contain '_'"
+                            s)
+    | _ -> ()
   in
-
   List.iter (
     fun (keys, spec, doc) ->
       if keys == [] then
         invalid_arg "empty keys for Getopt spec";
-      List.iter validate_key keys;
+      List.iter validate_key keys
   ) specs;
 
-  let t =
-    {
-      specs = [];  (* Set it later, with own options, and sorted.  *)
-      anon_fun = anon_fun;
-      usage_msg = usage_msg;
-    } in
+  let t = {
+    specs = [];      (* Set it later, with own options, and sorted. *)
+    anon_fun = anon_fun;
+    usage_msg = usage_msg;
+  } in
 
-  let specs = specs @ [
-    [ "--short-options" ], Unit (display_short_options t), hidden_option_description;
-    [ "--long-options" ], Unit (display_long_options t), hidden_option_description;
+  let added_options = [
+    [ L"short-options" ], Unit (display_short_options t),
+                                         hidden_option_description;
+    [ L"long-options" ], Unit (display_long_options t),
+                                         hidden_option_description;
+    [ L"help" ], Unit (show_help t),     s_"Display brief help";
   ] in
+  let specs = added_options @ specs in
 
-  (* Decide whether the help option can be added, and which switches use.  *)
-  let has_dash_help = ref false in
-  let has_dash_dash_help = ref false in
-  List.iter (
-    fun (keys, _, _) ->
-      if not (!has_dash_help) then
-        has_dash_help := List.mem "-help" keys;
-      if not (!has_dash_dash_help) then
-        has_dash_dash_help := List.mem "--help" keys;
-  ) specs;
-  let help_keys = [] @
-    (if !has_dash_help then [] else [ "-help" ]) @
-    (if !has_dash_dash_help then [] else [ "--help" ]) in
-  let specs = specs @
-    (if help_keys <> [] then [ help_keys, Unit (show_help t), s_"Display brief help"; ] else []) in
-
-  (* Sort the specs, and set them in the handle.  *)
+  (* Sort the specs.  *)
   let specs = List.map (
     fun (keys, action, doc) ->
       List.hd (List.sort compare_command_line_args keys), (keys, action, doc)
@@ -194,14 +199,20 @@ let create specs ?anon_fun usage_msg =
     let cmp (arg1, _) (arg2, _) = compare_command_line_args arg1 arg2 in
     List.sort cmp specs in
   let specs = List.map snd specs in
-  t.specs <- specs;
 
+  t.specs <- specs;
   t
 
 let parse_argv t argv =
   let specs = List.map (
     fun (keys, spec, doc) ->
-      Array.of_list keys, spec, doc
+      let keys = List.map (
+        function
+        | S c -> sprintf "-%c" c
+        | L s | M s -> sprintf "--%s" s
+      ) keys in
+      let keys = Array.of_list keys in
+      keys, spec, doc
   ) t.specs in
   let specs = Array.of_list specs in
   getopt_parse argv specs ?anon_fun:t.anon_fun t.usage_msg

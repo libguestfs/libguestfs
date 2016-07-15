@@ -20,6 +20,7 @@ open Printf
 
 open Common_utils
 open Common_gettext.Gettext
+open Getopt.OptionName
 
 module G = Guestfs
 
@@ -183,26 +184,26 @@ let main () =
     let unknown_fs_mode = ref "warn" in
 
     let argspec = [
-      [ "--align-first" ], Getopt.Set_string (s_"never|always|auto", align_first), s_"Align first partition (default: auto)";
-      [ "--alignment" ], Getopt.Set_int (s_"sectors", alignment),   s_"Set partition alignment (default: 128 sectors)";
-      [ "--no-copy-boot-loader" ], Getopt.Clear copy_boot_loader, s_"Don't copy boot loader";
-      [ "-d"; "--debug" ],        Getopt.Unit set_verbose,      s_"Enable debugging messages";
-      [ "--delete" ],  Getopt.String (s_"part", add deletes),  s_"Delete partition";
-      [ "--expand" ],  Getopt.String (s_"part", set_expand),     s_"Expand partition";
-      [ "--no-expand-content" ], Getopt.Clear expand_content, s_"Don't expand content";
-      [ "--no-extra-partition" ], Getopt.Clear extra_partition, s_"Don't create extra partition";
-      [ "--format" ],  Getopt.Set_string (s_"format", format),     s_"Format of input disk";
-      [ "--ignore" ],  Getopt.String (s_"part", add ignores),  s_"Ignore partition";
-      [ "--lv-expand"; "--LV-expand"; "--lvexpand"; "--LVexpand" ], Getopt.String (s_"lv", add lv_expands), s_"Expand logical volume";
-      [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
-      [ "-n"; "--dry-run"; "--dryrun" ],        Getopt.Set dryrun,            s_"Don't perform changes";
-      [ "--ntfsresize-force" ], Getopt.Set ntfsresize_force, s_"Force ntfsresize";
-      [ "--output-format" ], Getopt.Set_string (s_"format", output_format), s_"Format of output disk";
-      [ "--resize" ],  Getopt.String (s_"part=size", add resizes),  s_"Resize partition";
-      [ "--resize-force" ], Getopt.String (s_"part=size", add resizes_force), s_"Forcefully resize partition";
-      [ "--shrink" ],  Getopt.String (s_"part", set_shrink),     s_"Shrink partition";
-      [ "--no-sparse" ], Getopt.Clear sparse,        s_"Turn off sparse copying";
-      [ "--unknown-filesystems" ], Getopt.Set_string (s_"ignore|warn|error", unknown_fs_mode),
+      [ L"align-first" ], Getopt.Set_string (s_"never|always|auto", align_first), s_"Align first partition (default: auto)";
+      [ L"alignment" ], Getopt.Set_int (s_"sectors", alignment),   s_"Set partition alignment (default: 128 sectors)";
+      [ L"no-copy-boot-loader" ], Getopt.Clear copy_boot_loader, s_"Don't copy boot loader";
+      [ S 'd'; L"debug" ],        Getopt.Unit set_verbose,      s_"Enable debugging messages";
+      [ L"delete" ],  Getopt.String (s_"part", add deletes),  s_"Delete partition";
+      [ L"expand" ],  Getopt.String (s_"part", set_expand),     s_"Expand partition";
+      [ L"no-expand-content" ], Getopt.Clear expand_content, s_"Don't expand content";
+      [ L"no-extra-partition" ], Getopt.Clear extra_partition, s_"Don't create extra partition";
+      [ L"format" ],  Getopt.Set_string (s_"format", format),     s_"Format of input disk";
+      [ L"ignore" ],  Getopt.String (s_"part", add ignores),  s_"Ignore partition";
+      [ L"lv-expand"; L"LV-expand"; L"lvexpand"; L"LVexpand" ], Getopt.String (s_"lv", add lv_expands), s_"Expand logical volume";
+      [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+      [ S 'n'; L"dry-run"; L"dryrun" ],        Getopt.Set dryrun,            s_"Don't perform changes";
+      [ L"ntfsresize-force" ], Getopt.Set ntfsresize_force, s_"Force ntfsresize";
+      [ L"output-format" ], Getopt.Set_string (s_"format", output_format), s_"Format of output disk";
+      [ L"resize" ],  Getopt.String (s_"part=size", add resizes),  s_"Resize partition";
+      [ L"resize-force" ], Getopt.String (s_"part=size", add resizes_force), s_"Forcefully resize partition";
+      [ L"shrink" ],  Getopt.String (s_"part", set_shrink),     s_"Shrink partition";
+      [ L"no-sparse" ], Getopt.Clear sparse,        s_"Turn off sparse copying";
+      [ L"unknown-filesystems" ], Getopt.Set_string (s_"ignore|warn|error", unknown_fs_mode),
                                               s_"Behaviour on expand unknown filesystems (default: warn)";
     ] in
     let disks = ref [] in

@@ -18,6 +18,7 @@
 
 open Common_gettext.Gettext
 open Common_utils
+open Getopt.OptionName
 
 module G = Guestfs
 
@@ -51,15 +52,15 @@ let parse_cmdline () =
     prefix := Some p in
 
   let argspec = [
-    [ "-a"; "--add" ],        Getopt.String (s_"file", set_file),        s_"Add disk image file";
-    [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi), s_"Set libvirt URI";
-    [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
-    [ "--format" ],  Getopt.Set_string (s_"format", format),      s_"Format of input disk";
-    [ "--machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
-    [ "-o"; "--output" ],        Getopt.Set_string (s_"directory", output),  s_"Output directory";
-    [ "--unversioned-names" ], Getopt.Set unversioned,
+    [ S 'a'; L"add" ],        Getopt.String (s_"file", set_file),        s_"Add disk image file";
+    [ S 'c'; L"connect" ],        Getopt.Set_string (s_"uri", libvirturi), s_"Set libvirt URI";
+    [ S 'd'; L"domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
+    [ L"format" ],  Getopt.Set_string (s_"format", format),      s_"Format of input disk";
+    [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
+    [ S 'o'; L"output" ],        Getopt.Set_string (s_"directory", output),  s_"Output directory";
+    [ L"unversioned-names" ], Getopt.Set unversioned,
                                             s_"Use unversioned names for files";
-    [ "--prefix" ],  Getopt.String (s_"prefix", set_prefix),      s_"Prefix for files";
+    [ L"prefix" ],  Getopt.String (s_"prefix", set_prefix),      s_"Prefix for files";
   ] in
   let usage_msg =
     sprintf (f_"\

@@ -21,6 +21,7 @@ open Printf
 
 open Common_utils
 open Common_gettext.Gettext
+open Getopt.OptionName
 
 open Sysprep_operation
 
@@ -117,21 +118,21 @@ let main () =
     in
 
     let basic_args = [
-      [ "-a"; "--add" ],        Getopt.String (s_"file", add_file),        s_"Add disk image file";
-      [ "-c"; "--connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
-      [ "-d"; "--domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
-      [ "-n"; "--dryrun"; "--dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
-      [ "--dump-pod" ], Getopt.Unit dump_pod,        Getopt.hidden_option_description;
-      [ "--dump-pod-options" ], Getopt.Unit dump_pod_options, Getopt.hidden_option_description;
-      [ "--enable" ],  Getopt.String (s_"operations", set_enable),      s_"Enable specific operations";
-      [ "--format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
-      [ "--list-operations" ], Getopt.Unit list_operations, s_"List supported operations";
-      [ "--mount-options" ], Getopt.Set_string (s_"opts", mount_opts),  s_"Set mount options (eg /:noatime;/var:rw,noatime)";
-      [ "--network" ], Getopt.Set network,           s_"Enable appliance network";
-      [ "--no-network" ], Getopt.Clear network,      s_"Disable appliance network (default)";
-      [ "--no-selinux-relabel" ], Getopt.Unit (fun () -> ()),
+      [ S 'a'; L"add" ],        Getopt.String (s_"file", add_file),        s_"Add disk image file";
+      [ S 'c'; L"connect" ],        Getopt.Set_string (s_"uri", libvirturi),  s_"Set libvirt URI";
+      [ S 'd'; L"domain" ],        Getopt.String (s_"domain", set_domain),      s_"Set libvirt guest name";
+      [ S 'n'; L"dryrun"; L"dry-run" ],        Getopt.Set dryrun,            s_"Perform a dry run";
+      [ L"dump-pod" ], Getopt.Unit dump_pod,        Getopt.hidden_option_description;
+      [ L"dump-pod-options" ], Getopt.Unit dump_pod_options, Getopt.hidden_option_description;
+      [ L"enable" ],  Getopt.String (s_"operations", set_enable),      s_"Enable specific operations";
+      [ L"format" ],  Getopt.String (s_"format", set_format),      s_"Set format (default: auto)";
+      [ L"list-operations" ], Getopt.Unit list_operations, s_"List supported operations";
+      [ L"mount-options" ], Getopt.Set_string (s_"opts", mount_opts),  s_"Set mount options (eg /:noatime;/var:rw,noatime)";
+      [ L"network" ], Getopt.Set network,           s_"Enable appliance network";
+      [ L"no-network" ], Getopt.Clear network,      s_"Disable appliance network (default)";
+      [ L"no-selinux-relabel" ], Getopt.Unit (fun () -> ()),
                                               s_"Compatibility option, does nothing";
-      [ "--operation"; "--operations" ],  Getopt.String (s_"operations", set_operations), s_"Enable/disable specific operations";
+      [ L"operation"; L"operations" ],  Getopt.String (s_"operations", set_operations), s_"Enable/disable specific operations";
     ] in
     let args = basic_args @ Sysprep_operation.extra_args () in
     let usage_msg =

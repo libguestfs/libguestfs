@@ -21,6 +21,7 @@ open Printf
 
 open Common_utils
 open Common_gettext.Gettext
+open Getopt.OptionName
 
 open Sysprep_operation
 
@@ -109,7 +110,7 @@ The \"root\" account is not removed.
 See the I<--remove-user-accounts> parameter for a way to specify
 how to remove only some users, or to not remove some others.");
     extra_args = [
-      { extra_argspec = [ "--remove-user-accounts" ], Getopt.String (s_"users", add_users remove_users), s_"Users to remove";
+      { extra_argspec = [ L"remove-user-accounts" ], Getopt.String (s_"users", add_users remove_users), s_"Users to remove";
         extra_pod_argval = Some "USERS";
         extra_pod_description = s_"\
 The user accounts to be removed from the guest.
@@ -124,7 +125,7 @@ would only remove the user accounts C<bob> and C<eve>.
 This option can be specified multiple times."
       };
 
-      { extra_argspec = [ "--keep-user-accounts" ], Getopt.String (s_"users", add_users keep_users), s_"Users to keep";
+      { extra_argspec = [ L"keep-user-accounts" ], Getopt.String (s_"users", add_users keep_users), s_"Users to keep";
         extra_pod_argval = Some "USERS";
         extra_pod_description = s_"\
 The user accounts to be kept in the guest.
