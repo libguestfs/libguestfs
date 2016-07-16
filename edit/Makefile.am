@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	test-virt-edit.sh \
+	test-virt-edit-docs.sh \
 	virt-edit.pod
 
 CLEANFILES = \
@@ -85,6 +86,10 @@ stamp-virt-edit.pod: virt-edit.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+TESTS = \
+	test-virt-edit-docs.sh
+
 if ENABLE_APPLIANCE
-TESTS = test-virt-edit.sh
+TESTS += \
+	test-virt-edit.sh
 endif ENABLE_APPLIANCE

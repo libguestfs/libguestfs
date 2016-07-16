@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	README \
 	test-virt-df.sh \
+	test-virt-df-docs.sh \
 	test-virt-df-guests.sh \
 	virt-df.pod
 
@@ -95,7 +96,8 @@ stamp-virt-df.pod: virt-df.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-TESTS =
+TESTS = \
+	test-virt-df-docs.sh
 
 if ENABLE_APPLIANCE
 TESTS += \

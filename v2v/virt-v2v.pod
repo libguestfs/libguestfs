@@ -291,7 +291,7 @@ Save the overlay file(s) created during conversion.  This option is
 only used for debugging virt-v2v and may be removed in a future
 version.
 
-=item B<-i disk>
+=item B<-i> B<disk>
 
 Set the input method to I<disk>.
 
@@ -301,7 +301,7 @@ usually adequate but you can get finer control (eg. of memory and
 vCPUs) by using I<-i libvirtxml> instead.  Only guests that use a single
 disk can be imported this way.
 
-=item B<-i libvirt>
+=item B<-i> B<libvirt>
 
 Set the input method to I<libvirt>.  This is the default.
 
@@ -309,7 +309,7 @@ In this mode you have to specify a libvirt guest name or UUID on the
 command line.  You may also specify a libvirt connection URI (see
 I<-ic>).
 
-=item B<-i libvirtxml>
+=item B<-i> B<libvirtxml>
 
 Set the input method to I<libvirtxml>.
 
@@ -318,11 +318,11 @@ This file is read in order to get metadata about the source guest
 (such as its name, amount of memory), and also to locate the input
 disks.  See L</MINIMAL XML FOR -i libvirtxml OPTION> below.
 
-=item B<-i local>
+=item B<-i> B<local>
 
 This is the same as I<-i disk>.
 
-=item B<-i ova>
+=item B<-i> B<ova>
 
 Set the input method to I<ova>.
 
@@ -406,16 +406,16 @@ a faulty guest (one with no disks).
 
 This option is not compatible with I<-o glance> for technical reasons.
 
-=item B<-o disk>
+=item B<-o> B<disk>
 
 This is the same as I<-o local>.
 
-=item B<-o glance>
+=item B<-o> B<glance>
 
 Set the output method to OpenStack Glance.  In this mode the converted
 guest is uploaded to Glance.  See L</OUTPUT TO GLANCE> below.
 
-=item B<-o libvirt>
+=item B<-o> B<libvirt>
 
 Set the output method to I<libvirt>.  This is the default.
 
@@ -424,7 +424,7 @@ may also specify a libvirt connection URI (see I<-oc>).
 
 See L</OUTPUT TO LIBVIRT> below.
 
-=item B<-o local>
+=item B<-o> B<local>
 
 Set the output method to I<local>.
 
@@ -442,7 +442,7 @@ and a libvirt XML file is created containing guest metadata:
 
 where C<name> is the guest name.
 
-=item B<-o null>
+=item B<-o> B<null>
 
 Set the output method to I<null>.
 
@@ -450,11 +450,11 @@ The guest is converted and copied (unless you also specify
 I<--no-copy>), but the results are thrown away and no metadata is
 written.
 
-=item B<-o ovirt>
+=item B<-o> B<ovirt>
 
 This is the same as I<-o rhev>.
 
-=item B<-o qemu>
+=item B<-o> B<qemu>
 
 Set the output method to I<qemu>.
 
@@ -465,7 +465,7 @@ shell script are written to the directory specified by I<-os>.
 When using this output mode, you can also specify the I<--qemu-boot>
 option which boots the guest under qemu immediately.
 
-=item B<-o rhev>
+=item B<-o> B<rhev>
 
 Set the output method to I<rhev>.
 
@@ -476,7 +476,7 @@ into RHEV.  You have to do that manually later using the UI.
 
 See L</OUTPUT TO RHEV> below.
 
-=item B<-o vdsm>
+=item B<-o> B<vdsm>
 
 Set the output method to I<vdsm>.
 
@@ -485,9 +485,9 @@ data domain must be given:
 F</rhev/data-center/E<lt>data-center-uuidE<gt>/E<lt>data-domain-uuidE<gt>>.
 This mode is only used when virt-v2v runs under VDSM control.
 
-=item B<-oa sparse>
+=item B<-oa> B<sparse>
 
-=item B<-oa preallocated>
+=item B<-oa> B<preallocated>
 
 Set the output file allocation mode.  The default is C<sparse>.
 

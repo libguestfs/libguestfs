@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	test-virt-alignment-scan.sh \
+	test-virt-alignment-scan-docs.sh \
 	test-virt-alignment-scan-guests.sh \
 	virt-alignment-scan.pod
 
@@ -92,7 +93,8 @@ stamp-virt-alignment-scan.pod: virt-alignment-scan.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-TESTS =
+TESTS = \
+	test-virt-alignment-scan-docs.sh
 
 if ENABLE_APPLIANCE
 TESTS += \

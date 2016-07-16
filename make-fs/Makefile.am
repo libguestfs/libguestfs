@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	test-virt-make-fs.sh \
+	test-virt-make-fs-docs.sh \
 	virt-make-fs.pod
 
 CLEANFILES = \
@@ -76,8 +77,11 @@ stamp-virt-make-fs.pod: virt-make-fs.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
 TESTS = \
+	test-virt-make-fs-docs.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
 	test-virt-make-fs.sh
 endif ENABLE_APPLIANCE
 

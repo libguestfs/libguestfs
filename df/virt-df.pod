@@ -76,20 +76,20 @@ not do this with unrelated guest disks.>
 
 Display brief help.
 
-=item B<-a> file
+=item B<-a> FILE
 
-=item B<--add> file
+=item B<--add> FILE
 
-Add I<file> which should be a disk image from a virtual machine.  If
+Add C<FILE> which should be a disk image from a virtual machine.  If
 the virtual machine has multiple block devices, you must supply all of
 them with separate I<-a> options.
 
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 

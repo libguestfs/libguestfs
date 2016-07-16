@@ -222,6 +222,7 @@ EXTRA_DIST = \
 	logo/virt-builder.svg \
 	m4/.gitignore \
 	ocaml-link.sh \
+	podcheck.pl \
 	tests/automake2junit.ml \
 	tmp/.gitignore \
 	update-bugs.sh \

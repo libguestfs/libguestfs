@@ -271,11 +271,11 @@ command line.  Doing so will give an error.
 
 Display help.
 
-=item B<--align-first auto>
+=item B<--align-first> B<auto>
 
-=item B<--align-first never>
+=item B<--align-first> B<never>
 
-=item B<--align-first always>
+=item B<--align-first> B<always>
 
 Align the first partition for improved performance (see also the
 I<--alignment> option).
@@ -293,7 +293,7 @@ I<--align-first always> means we always align the first partition (if
 it needs to be aligned).  For some guests this will break the
 bootloader, making the guest unbootable.
 
-=item B<--alignment N>
+=item B<--alignment> N
 
 Set the alignment of partitions to C<N> sectors.  The default in
 virt-resize E<lt> 1.13.19 was 64 sectors, and after that is 128
@@ -344,7 +344,7 @@ option.
 
 Enable debugging messages.
 
-=item B<--delete part>
+=item B<--delete> PART
 
 Delete the named partition.  It would be more accurate to describe
 this as "don't copy it over", since virt-resize doesn't do in-place
@@ -357,7 +357,7 @@ unbootable.
 
 You can give this option multiple times.
 
-=item B<--expand part>
+=item B<--expand> PART
 
 Expand the named partition so it uses up all extra space (space left
 over after any other resize changes that you request have been done).
@@ -402,7 +402,7 @@ XFS filesystems, if libguestfs was compiled with support for XFS.
 
 Note that you cannot use I<--expand> and I<--shrink> together.
 
-=item B<--format> raw
+=item B<--format> B<raw>
 
 Specify the format of the input disk image.  If this flag is not
 given then it is auto-detected from the image itself.
@@ -413,7 +413,7 @@ ensure the format is always specified.
 Note that this option I<does not> affect the output format.
 See L</QCOW2 AND NON-SPARSE RAW FORMATS>.
 
-=item B<--ignore part>
+=item B<--ignore> PART
 
 Ignore the named partition.  Effectively this means the partition is
 allocated on the destination disk, but the content is not copied
@@ -422,7 +422,7 @@ blank (all zero bytes).
 
 You can give this option multiple times.
 
-=item B<--LV-expand logvol>
+=item B<--LV-expand> LOGVOL
 
 This takes the logical volume and, as a final step, expands it to fill
 all the space available in its volume group.  A typical usage,
@@ -453,7 +453,7 @@ L</MACHINE READABLE OUTPUT> below.
 
 =item B<-n>
 
-=item B<--dryrun>
+=item B<--dry-run>
 
 Print a summary of what would be done, but don't do anything.
 
@@ -498,7 +498,7 @@ You have to use this option if you want to resize a Windows
 guest multiple times without booting into Windows between each
 resize.
 
-=item B<--output-format> raw
+=item B<--output-format> B<raw>
 
 Specify the format of the output disk image.  If this flag is not
 given then it is auto-detected from the image itself.
@@ -517,12 +517,12 @@ L</QCOW2 AND NON-SPARSE RAW FORMATS>.
 
 Don't print the summary.
 
-=item B<--resize part=size>
+=item B<--resize> PART=SIZE
 
 Resize the named partition (expanding or shrinking it) so that it has
 the given size.
 
-C<size> can be expressed as an absolute number followed by
+C<SIZE> can be expressed as an absolute number followed by
 b/K/M/G to mean bytes, Kilobytes, Megabytes, or Gigabytes;
 or as a percentage of the current size;
 or as a relative number or percentage.
@@ -553,7 +553,7 @@ error (see also I<--resize-force>).
 
 You can give this option multiple times.
 
-=item B<--resize-force part=size>
+=item B<--resize-force> PART=SIZE
 
 This is the same as I<--resize> except that it will let you decrease
 the size of any partition.  Generally this means you will lose any
@@ -563,7 +563,7 @@ easily recreate it such as a swap partition).
 
 See also the I<--ignore> option.
 
-=item B<--shrink part>
+=item B<--shrink> PART
 
 Shrink the named partition until the overall disk image fits in the
 destination.  The named partition B<must> contain a filesystem or PV
@@ -581,11 +581,11 @@ gigabyte of free space.
 
 Note that you cannot use I<--expand> and I<--shrink> together.
 
-=item B<--unknown-filesystems ignore>
+=item B<--unknown-filesystems> B<ignore>
 
-=item B<--unknown-filesystems warn>
+=item B<--unknown-filesystems> B<warn>
 
-=item B<--unknown-filesystems error>
+=item B<--unknown-filesystems> B<error>
 
 Configure the behaviour of virt-resize when asking to expand a
 filesystem, and neither libguestfs has the support it, nor virt-resize

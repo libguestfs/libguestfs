@@ -129,13 +129,13 @@ Create a virtual floppy disk.
 Currently this preselects the size (1440K), partition type (MBR) and
 filesystem type (VFAT).  In future it may also choose the geometry.
 
-=item B<--size=E<lt>NE<gt>>
+=item B<--size=>N
 
-=item B<--size=+E<lt>NE<gt>>
+=item B<--size=+>N
 
-=item B<-s E<lt>NE<gt>>
+=item B<-s> N
 
-=item B<-s +E<lt>NE<gt>>
+=item B<-s> B<+>N
 
 Use the I<--size> (or I<-s>) option to choose the size of the output
 image.
@@ -159,17 +159,17 @@ produce filesystems containing precisely the free space requested.
 (It is much more expensive and time-consuming to produce a filesystem
 which has precisely the desired free space).
 
-=item B<--format=E<lt>fmtE<gt>>
+=item B<--format=>FMT
 
-=item B<-F E<lt>fmtE<gt>>
+=item B<-F> FMT
 
 Choose the output disk image format.
 
 The default is C<raw> (raw sparse disk image).
 
-=item B<--type=E<lt>fsE<gt>>
+=item B<--type=>FS
 
-=item B<-t E<lt>fsE<gt>>
+=item B<-t> FS
 
 Choose the output filesystem type.
 
@@ -178,13 +178,13 @@ The default is C<ext2>.
 Any filesystem which is supported read-write by libguestfs can be used
 here.
 
-=item B<--label=E<lt>LABELE<gt>>
+=item B<--label=>LABEL
 
 Set the filesystem label.
 
 =item B<--partition>
 
-=item B<--partition=E<lt>parttypeE<gt>>
+=item B<--partition=>PARTTYPE
 
 If specified, this flag adds an MBR partition table to the output disk
 image.

@@ -156,15 +156,15 @@ Displays general help on options.
 
 Lists all available guestfish commands.
 
-=item B<-h cmd>
+=item B<-h> CMD
 
-=item B<--cmd-help cmd>
+=item B<--cmd-help> CMD
 
 Displays detailed help on a single command C<cmd>.
 
-=item B<-a image>
+=item B<-a> IMAGE
 
-=item B<--add image>
+=item B<--add> IMAGE
 
 Add a block device or virtual machine image to the shell.
 
@@ -175,15 +175,15 @@ Using this flag is mostly equivalent to using the C<add> command,
 with C<readonly:true> if the I<--ro> flag was given, and
 with C<format:...> if the I<--format=...> flag was given.
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  See L</ADDING REMOTE STORAGE>.
 
-=item B<-c URI>
+=item B<-c> URI
 
-=item B<--connect URI>
+=item B<--connect> URI
 
 When used in conjunction with the I<-d> option, this specifies
 the libvirt URI to use.  The default is to use the default libvirt
@@ -194,9 +194,9 @@ connection.
 If using the I<--listen> option and a csh-like shell, use this option.
 See section L</REMOTE CONTROL AND CSH> below.
 
-=item B<-d libvirt-domain>
+=item B<-d> LIBVIRT-DOMAIN
 
-=item B<--domain libvirt-domain>
+=item B<--domain> LIBVIRT-DOMAIN
 
 Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
@@ -215,11 +215,11 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room
 you can specify this flag to see what you are typing.
 
-=item B<-f file>
+=item B<-f> FILE
 
-=item B<--file file>
+=item B<--file> FILE
 
-Read commands from C<file>.  To write pure guestfish
+Read commands from C<FILE>.  To write pure guestfish
 scripts, use:
 
  #!/usr/bin/guestfish -f
@@ -295,9 +295,9 @@ L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 Connect to a live virtual machine.
 (Experimental, see L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>).
 
-=item B<-m dev[:mountpoint[:options[:fstype]]]>
+=item B<-m> dev[:mountpoint[:options[:fstype]]]
 
-=item B<--mount dev[:mountpoint[:options[:fstype]]]>
+=item B<--mount> dev[:mountpoint[:options[:fstype]]]
 
 Mount the named partition or logical volume on the given mountpoint.
 
@@ -335,13 +335,13 @@ or if libguestfs misidentifies a filesystem.
 
 Enable QEMU user networking in the guest.
 
-=item B<-N [filename=]type>
+=item B<-N> [FILENAME=]TYPE
 
-=item B<--new [filename=]type>
+=item B<--new> [FILENAME=]TYPE
 
-=item B<-N help>
+=item B<-N> B<help>
 
-Prepare a fresh disk image formatted as "type".  This is an
+Prepare a fresh disk image formatted as C<TYPE>.  This is an
 alternative to the I<-a> option: whereas I<-a> adds an existing disk,
 I<-N> creates a preformatted disk with a filesystem and adds it.
 See L</PREPARED DISK IMAGES> below.
@@ -383,7 +383,9 @@ interactive shell.
 
 Disable progress bars.
 
-=item B<--remote[=pid]>
+=item B<--remote>
+
+=item B<--remote=>PID
 
 Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section
 L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.

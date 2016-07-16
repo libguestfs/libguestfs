@@ -285,6 +285,7 @@ TESTS = \
 	test-add-domain.sh \
 	test-add-uri.sh \
 	test-d.sh \
+	test-docs.sh \
 	test-escapes.sh \
 	test-events.sh \
 	test-invalid-params.sh \
@@ -323,6 +324,7 @@ EXTRA_DIST += \
 	test-alloc.sh \
 	test-copy.sh \
 	test-d.sh \
+	test-docs.sh \
 	test-edit.sh \
 	test-escapes.sh \
 	test-events.sh \

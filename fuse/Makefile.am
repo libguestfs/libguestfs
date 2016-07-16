@@ -20,6 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	guestmount.pod \
 	guestunmount.pod \
+	test-docs.sh \
 	test-fuse-umount-race.sh \
 	test-guestunmount-not-mounted.sh
 
@@ -131,6 +132,7 @@ stamp-guestunmount.pod: guestunmount.pod
 # Tests.
 
 TESTS = \
+	test-docs.sh \
 	test-guestunmount-fd \
 	test-guestunmount-not-mounted.sh
 

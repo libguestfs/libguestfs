@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
+	test-virt-dib-docs.sh \
         virt-dib.pod
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-dib
@@ -95,6 +96,12 @@ virt_dib_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
+
+# Tests.
+
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+
+TESTS = test-virt-dib-docs.sh
 
 # Manual pages and HTML files for the website.
 

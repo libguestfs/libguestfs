@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	test-virt-diff.sh \
+	test-virt-diff-docs.sh \
 	virt-diff.pod
 
 CLEANFILES = \
@@ -82,8 +83,11 @@ stamp-virt-diff.pod: virt-diff.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
 TESTS = \
+	test-virt-diff-docs.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
 	test-virt-diff.sh
 endif ENABLE_APPLIANCE
 

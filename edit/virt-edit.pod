@@ -70,15 +70,15 @@ them with separate I<-a> options.
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
-=item B<-b> extension
+=item B<-b> EXTENSION
 
-=item B<--backup> extension
+=item B<--backup> EXTENSION
 
 Create a backup of the original file I<in the guest disk image>.
 The backup has the original filename with C<extension> added.
@@ -90,9 +90,9 @@ so you would write:
 
 By default, no backup file is made.
 
-=item B<-c URI>
+=item B<-c> URI
 
-=item B<--connect URI>
+=item B<--connect> URI
 
 If using libvirt, connect to the given I<URI>.  If omitted, then we
 connect to the default libvirt hypervisor.
@@ -100,9 +100,9 @@ connect to the default libvirt hypervisor.
 If you specify guest block devices directly, then libvirt is not used
 at all.
 
-=item B<-d> guest
+=item B<-d> GUEST
 
-=item B<--domain> guest
+=item B<--domain> GUEST
 
 Add all the disks from the named libvirt guest.  Domain UUIDs can be
 used instead of names.
@@ -158,9 +158,9 @@ security problem with malicious guests (CVE-2010-3851).
 Read key or passphrase parameters from stdin.  The default is
 to try to read passphrases from the user by opening F</dev/tty>.
 
-=item B<-m dev[:mountpoint[:options[:fstype]]]>
+=item B<-m> dev[:mountpoint[:options[:fstype]]]
 
-=item B<--mount dev[:mountpoint[:options[:fstype]]]>
+=item B<--mount> dev[:mountpoint[:options[:fstype]]]
 
 Mount the named partition or logical volume on the given mountpoint.
 

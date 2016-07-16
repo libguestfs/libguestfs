@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	script1.sh script2.sh script3.sh script4.sh \
 	test-virt-sysprep.sh \
+	test-virt-sysprep-docs.sh \
 	test-virt-sysprep-passwords.sh \
 	test-virt-sysprep-script.sh \
 	virt-sysprep.pod
@@ -178,8 +179,11 @@ TESTS_ENVIRONMENT = \
 	PATH=$(abs_top_builddir)/fuse:$(PATH) \
 	$(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
 TESTS = \
+	test-virt-sysprep-docs.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
 	test-virt-sysprep.sh \
 	test-virt-sysprep-passwords.sh
 

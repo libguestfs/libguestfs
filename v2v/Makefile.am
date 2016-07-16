@@ -254,6 +254,7 @@ CLEANFILES += \
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
+	test-v2v-docs.sh \
 	test-v2v-i-ova-formats.sh \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-subfolders.sh \
@@ -332,6 +333,7 @@ EXTRA_DIST += \
 	test-v2v-cdrom.sh \
 	test-v2v-cdrom.xml \
 	test-v2v-copy-to-local.sh \
+	test-v2v-docs.sh \
 	test-v2v-floppy.expected \
 	test-v2v-floppy.sh \
 	test-v2v-floppy.xml \

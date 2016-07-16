@@ -35,11 +35,11 @@ partitions, filesystems, etc.  The most commonly used options are:
 
 =over 4
 
-=item I<--filesystem=[ext3|ntfs|vfat|...]>
+=item B<--filesystem=[ext3|ntfs|vfat|...]>
 
 Create an empty filesystem (C<ext3>, C<ntfs> etc) inside the partition.
 
-=item I<--lvm[=/dev/VG/LV]>
+=item B<--lvm[=/dev/VG/LV]>
 
 Create a Linux LVM2 logical volume on the disk.  When used with
 I<--filesystem>, the filesystem is created inside the LV.
@@ -73,9 +73,9 @@ force a particular format use the I<--format=..> option.
 
 B<Any existing data on the disk is erased.>
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
@@ -112,7 +112,7 @@ If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
 
-=item B<--label=LABEL>
+=item B<--label=>LABEL
 
 Set the filesystem label.
 

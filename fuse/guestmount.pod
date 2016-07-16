@@ -155,32 +155,32 @@ race-free program.
 
 =over 4
 
-=item B<-a image>
+=item B<-a> IMAGE
 
-=item B<--add image>
+=item B<--add> IMAGE
 
 Add a block device or virtual machine image.
 
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
-=item B<-c URI>
+=item B<-c> URI
 
-=item B<--connect URI>
+=item B<--connect> URI
 
 When used in conjunction with the I<-d> option, this specifies
 the libvirt URI to use.  The default is to use the default libvirt
 connection.
 
-=item B<-d libvirt-domain>
+=item B<-d> LIBVIRT-DOMAIN
 
-=item B<--domain libvirt-domain>
+=item B<--domain> LIBVIRT-DOMAIN
 
 Add disks from the named libvirt domain.  If the I<--ro> option is
 also used, then any libvirt domain can be used.  However in write
@@ -188,7 +188,7 @@ mode, only libvirt domains which are shut down can be named here.
 
 Domain UUIDs can be used instead of names.
 
-=item B<--dir-cache-timeout N>
+=item B<--dir-cache-timeout> N
 
 Set the readdir cache timeout to I<N> seconds, the default being 60
 seconds.  The readdir cache [actually, there are several
@@ -207,7 +207,7 @@ echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room
 you can specify this flag to see what you are typing.
 
-=item B<--fd=FD>
+=item B<--fd=>FD
 
 Specify a pipe or eventfd file descriptor.  When the mountpoint is
 ready to be used, guestmount writes a single byte to this file
@@ -254,9 +254,9 @@ to try to read passphrases from the user by opening F</dev/tty>.
 Connect to a live virtual machine.
 (Experimental, see L<guestfs(3)/ATTACHING TO RUNNING DAEMONS>).
 
-=item B<-m dev[:mountpoint[:options[:fstype]]>
+=item B<-m> dev[:mountpoint[:options[:fstype]]
 
-=item B<--mount dev[:mountpoint[:options[:fstype]]]>
+=item B<--mount> dev[:mountpoint[:options[:fstype]]]
 
 Mount the named partition or logical volume on the given mountpoint
 B<in the guest> (this has nothing to do with mountpoints in the host).
@@ -292,9 +292,9 @@ is unmounted.  If you specify this option, then we don't attempt to
 sync the disk.  See the discussion of autosync in the L<guestfs(3)>
 manpage.
 
-=item B<-o option>
+=item B<-o> OPTION
 
-=item B<--option option>
+=item B<--option> OPTION
 
 Pass extra options to FUSE.
 
@@ -308,26 +308,26 @@ Some potentially useful FUSE options:
 
 =over 4
 
-=item B<-o allow_other>
+=item B<-o> B<allow_other>
 
 Allow other users to see the filesystem.
 
-=item B<-o attr_timeout=N>
+=item B<-o> B<attr_timeout=N>
 
 Enable attribute caching by FUSE, and set the timeout to I<N> seconds.
 
-=item B<-o kernel_cache>
+=item B<-o> B<kernel_cache>
 
 Allow the kernel to cache files (reduces the number of reads
 that have to go through the L<guestfs(3)> API).  This is generally
 a good idea if you can afford the extra memory usage.
 
-=item B<-o uid=N> B<-o gid=N>
+=item B<-o> B<uid=N> B<-o> B<gid=N>
 
 Use these options to map all UIDs and GIDs inside the guest filesystem
 to the chosen values.
 
-=item B<-o use_ino>
+=item B<-o> B<use_ino>
 
 Preserve inode numbers from the underlying filesystem.
 
@@ -342,7 +342,7 @@ some software.
 
 =back
 
-=item B<--pid-file filename>
+=item B<--pid-file> FILENAME
 
 Write the PID of the guestmount worker process to C<filename>.
 

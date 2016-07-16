@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	customize_main.ml \
 	test-virt-customize.sh \
+	test-virt-customize-docs.sh \
 	virt-customize.pod
 
 CLEANFILES = \
@@ -191,8 +192,12 @@ stamp-virt-customize.pod: virt-customize.pod $(top_srcdir)/customize/customize-s
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+TESTS = \
+	test-virt-customize-docs.sh
+
 if ENABLE_APPLIANCE
-TESTS = test-virt-customize.sh
+TESTS += \
+	test-virt-customize.sh
 endif
 
 check-valgrind:

@@ -108,24 +108,24 @@ use to make scripted changes to guests, use L<guestfish(1)>.
 
 Display brief help.
 
-=item B<-a> file
+=item B<-a> FILE
 
-=item B<--add> file
+=item B<--add> FILE
 
-Add I<file> which should be a disk image from a virtual machine.  If
+Add C<FILE> which should be a disk image from a virtual machine.  If
 the virtual machine has multiple block devices, you must supply all of
 them with separate I<-a> options.
 
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
 
-=item B<-a URI>
+=item B<-a> URI
 
-=item B<--add URI>
+=item B<--add> URI
 
 Add a remote disk.  See L<guestfish(1)/ADDING REMOTE STORAGE>.
 
-=item B<--append kernelopts>
+=item B<--append> KERNELOPTS
 
 Pass additional options to the rescue kernel.
 
@@ -170,9 +170,9 @@ If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
 
-=item B<-m MB>
+=item B<-m> MB
 
-=item B<--memsize MB>
+=item B<--memsize> MB
 
 Change the amount of memory allocated to the rescue system.  The
 default is set by libguestfs and is small but adequate for running

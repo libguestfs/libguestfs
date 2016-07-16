@@ -119,13 +119,13 @@ in place by doing:
 
 Display help.
 
-=item B<--check-tmpdir ignore>
+=item B<--check-tmpdir> B<ignore>
 
-=item B<--check-tmpdir continue>
+=item B<--check-tmpdir> B<continue>
 
-=item B<--check-tmpdir warn>
+=item B<--check-tmpdir> B<warn>
 
-=item B<--check-tmpdir fail>
+=item B<--check-tmpdir> B<fail>
 
 Check if L</TMPDIR> or I<--tmp> directory has enough space to complete
 the operation.  This is just an estimate.

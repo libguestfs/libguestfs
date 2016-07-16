@@ -18,6 +18,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	test-docs.sh \
 	test-virt-cat.sh \
 	virt-cat.pod \
 	test-virt-filesystems.sh \
@@ -201,8 +202,11 @@ stamp-virt-ls.pod: virt-ls.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
-if ENABLE_APPLIANCE
 TESTS = \
+	test-docs.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
 	test-virt-cat.sh \
 	test-virt-filesystems.sh \
 	test-virt-log.sh \

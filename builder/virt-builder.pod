@@ -324,9 +324,9 @@ alternate home directory:
 
 =item B<--list> [os-version]
 
-=item B<--list --list-format> format [os-version]
+=item B<--list> B<--list-format> format [os-version]
 
-=item B<--list --long> [os-version]
+=item B<--list> B<--long> [os-version]
 
 List all the available templates if no guest is specified, or only for the
 specified one.

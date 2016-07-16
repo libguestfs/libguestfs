@@ -18,6 +18,8 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	test-virt-format-docs.sh \
+	test-virt-format.sh \
 	virt-format.pod
 
 CLEANFILES = \
@@ -81,11 +83,13 @@ stamp-virt-format.pod: virt-format.pod
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
+TESTS = \
+	test-virt-format-docs.sh
+
 if ENABLE_APPLIANCE
-TESTS = test-virt-format.sh
+TESTS += \
+	test-virt-format.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
-
-EXTRA_DIST += test-virt-format.sh

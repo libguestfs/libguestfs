@@ -19,6 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	$(SOURCES_ML) $(SOURCES_C) \
+	test-virt-get-kernel-docs.sh \
 	virt-get-kernel.pod
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-get-kernel
@@ -92,6 +93,12 @@ virt_get_kernel_LINK = \
 	$(top_srcdir)/ocaml-link.sh -cclib '$(OCAMLCLIBS)' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) $(OCAMLLINKFLAGS) \
 	  $(OBJECTS) -o $@
+
+# Tests.
+
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+
+TESTS = test-virt-get-kernel-docs.sh
 
 # Manual pages and HTML files for the website.
 
