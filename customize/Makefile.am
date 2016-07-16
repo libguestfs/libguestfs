@@ -143,13 +143,11 @@ CUSTOMIZE_XOBJECTS = $(CUSTOMIZE_BOBJECTS:.cmo=.cmx)
 
 if !HAVE_OCAMLOPT
 CUSTOMIZE_THEOBJECTS = $(CUSTOMIZE_BOBJECTS)
-BEST    = c
-OCAMLLINKFLAGS = mlguestfs.cma mllib.cma customize.cma -custom
 else
 CUSTOMIZE_THEOBJECTS = $(CUSTOMIZE_XOBJECTS)
-BEST    = opt
-OCAMLLINKFLAGS = mlguestfs.cmxa mllib.cmxa customize.cmxa
 endif
+
+OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) mllib.$(MLARCHIVE) customize.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
 
 OCAMLCLIBS = \
 	-lutils \

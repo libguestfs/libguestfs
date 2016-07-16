@@ -49,8 +49,11 @@ LOG_DRIVER = env $(SHELL) $(top_srcdir)/build-aux/guestfs-test-driver
 
 if !HAVE_OCAMLOPT
 MLARCHIVE = cma
+LINK_CUSTOM_OCAMLC_ONLY = -custom
+BEST = c
 else
 MLARCHIVE = cmxa
+BEST = opt
 endif
 
 .mli.cmi:

@@ -173,17 +173,15 @@ common_utils_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 JSON_tests_THEOBJECTS = $(JSON_tests_BOBJECTS)
 JSON_tests.cmo: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-BEST    = c
-OCAMLLINKFLAGS = mlguestfs.cma -custom
 else
 common_utils_tests_THEOBJECTS = $(common_utils_tests_XOBJECTS)
 common_utils_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 JSON_tests_THEOBJECTS = $(JSON_tests_XOBJECTS)
 JSON_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
-BEST    = opt
-OCAMLLINKFLAGS = mlguestfs.cmxa
 endif
+
+OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
 
 common_utils_tests_DEPENDENCIES = \
 	$(common_utils_tests_THEOBJECTS) \
