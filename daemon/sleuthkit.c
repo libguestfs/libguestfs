@@ -32,6 +32,7 @@
 static int send_command_output (const char *cmd);
 
 GUESTFSD_EXT_CMD(str_icat, icat);
+GUESTFSD_EXT_CMD(str_blkls, blkls);
 
 int
 do_download_inode (const mountable_t *mountable, int64_t inode)
@@ -48,6 +49,43 @@ do_download_inode (const mountable_t *mountable, int64_t inode)
   /* Construct the command. */
   ret = asprintf(&cmd, "%s -r %s %" PRIi64, str_icat, mountable->device, inode);
   if (ret < 0) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
+
+  return send_command_output (cmd);
+}
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_download_blocks (const mountable_t *mountable, int64_t start, int64_t stop,
+                    int unallocated)
+{
+  int ret;
+  const char *params;
+  CLEANUP_FREE char *cmd = NULL;
+
+  /* Data unit address start must be greater than 0 */
+  if (start < 0) {
+    reply_with_error ("starting address must be greater than zero");
+    return -1;
+  }
+
+  /* Data unit address end must be greater than start */
+  if (stop <= start) {
+    reply_with_error ("stopping address must greater than starting address");
+    return -1;
+  }
+
+  if (!(optargs_bitmask & GUESTFS_DOWNLOAD_BLOCKS_UNALLOCATED_BITMASK))
+    params = " -e";
+  else
+    params = "";
+
+  /* Construct the command. */
+  ret = asprintf (&cmd, "%s %s %s %" PRIi64 "-%" PRIi64,
+                  str_blkls, mountable->device, params, start, stop);
+  if (ret < -0) {
     reply_with_perror ("asprintf");
     return -1;
   }
