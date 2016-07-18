@@ -150,7 +150,7 @@ main (int argc, char *argv[])
   /* The command line arguments are broadly compatible with (a subset
    * of) guestfish.  Thus we have to deal mainly with -a, -m and --ro.
    */
-  static const char *options = "a:c:d:im:no:rv?Vwx";
+  static const char *options = "a:c:d:im:no:rvVwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "connect", 1, 0, 'c' },
