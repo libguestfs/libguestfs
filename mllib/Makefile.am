@@ -22,7 +22,9 @@ EXTRA_DIST = \
 	$(filter-out guestfs_config.ml libdir.ml,$(SOURCES_ML)) \
 	$(SOURCES_C) \
 	common_utils_tests.ml \
-	JSON_tests.ml
+	getopt_tests.ml \
+	JSON_tests.ml \
+	test-getopt.sh
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o dll*.so
 
