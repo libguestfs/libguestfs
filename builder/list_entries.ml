@@ -21,11 +21,24 @@ open Common_utils
 
 open Printf
 
+type format =
+  | Short
+  | Long
+  | Json
+
+let list_formats = [ "short"; "long"; "json" ]
+
+let list_format_of_string = function
+  | "short" -> Short
+  | "long" -> Long
+  | "json" -> Json
+  | fmt -> invalid_arg fmt
+
 let rec list_entries ~list_format ~sources index =
   match list_format with
-  | `Short -> list_entries_short index
-  | `Long -> list_entries_long ~sources index
-  | `Json -> list_entries_json ~sources index
+  | Short -> list_entries_short index
+  | Long -> list_entries_long ~sources index
+  | Json -> list_entries_json ~sources index
 
 and list_entries_short index =
   List.iter (

@@ -16,4 +16,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val list_entries : list_format:([ `Short | `Long | `Json ]) -> sources:Sources.source list -> Index.index -> unit
+type format =
+  | Short
+  | Long
+  | Json
+
+val list_formats : string list
+(** The string representation of the available formats. *)
+
+val list_format_of_string : string -> format
+(** Convert from a string to the corresponding format.
+
+    Throw [Invalid_argument] if the string does not match any
+    valid format. *)
+
+val list_entries : list_format:format -> sources:Sources.source list -> Index.index -> unit

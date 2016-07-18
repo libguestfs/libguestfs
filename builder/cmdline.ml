@@ -43,7 +43,7 @@ type cmdline = {
   delete_on_failure : bool;
   format : string option;
   gpg : string;
-  list_format : [`Short|`Long|`Json];
+  list_format : List_entries.format;
   memsize : int option;
   network : bool;
   ops : Customize_cmdline.ops;
@@ -89,15 +89,13 @@ let parse_cmdline () =
   let format = ref "" in
   let gpg = ref "gpg" in
 
-  let list_format = ref `Short in
-  let list_set_long () = list_format := `Long in
+  let list_format = ref List_entries.Short in
+  let list_set_long () = list_format := List_entries.Long in
   let list_set_format arg =
-    list_format := match arg with
-    | "short" -> `Short
-    | "long" -> `Long
-    | "json" -> `Json
-    | fmt ->
-      error (f_"invalid --list-format type '%s', see the man page") fmt in
+    (* Do not catch the Invalid_argument that list_format_of_string
+     * throws on invalid input, as it is already checked by the
+     * Getopt handling of Symbol. *)
+    list_format := List_entries.list_format_of_string arg in
 
   let machine_readable = ref false in
 
@@ -118,6 +116,9 @@ let parse_cmdline () =
 
   let sync = ref true in
   let warn_if_partition = ref true in
+
+  let formats = List_entries.list_formats
+  and formats_string = String.concat "|" List_entries.list_formats in
 
   let argspec = [
     [ L"arch" ],    Getopt.Set_string ("arch", arch),        s_"Set the output architecture";
@@ -145,7 +146,7 @@ let parse_cmdline () =
     [ L"gpg" ],    Getopt.Set_string ("gpg", gpg),          s_"Set GPG binary/command";
     [ S 'l'; L"list" ],        Getopt.Unit list_mode,        s_"List available templates";
     [ L"long" ],    Getopt.Unit list_set_long,    s_"Shortcut for --list-format long";
-    [ L"list-format" ], Getopt.String ("short|long|json", list_set_format),
+    [ L"list-format" ], Getopt.Symbol (formats_string, formats, list_set_format),
                                              s_"Set the format for --list (default: short)";
     [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
     [ S 'm'; L"memsize" ],        Getopt.Int ("mb", set_memsize),        s_"Set memory size";
