@@ -39,6 +39,11 @@ type spec =
     (** Option requiring an integer value as argument; the first
         element in the tuple is the documentation string of the
         argument, and the second is the reference to be set. *)
+  | Symbol of string * string list * (string -> unit)
+    (** Option requiring an argument among a fixed set; the first
+        element in the tuple is the documentation string of the
+        argument, the second is the list of allowed strings,
+        and the third is the function to call. *)
 
 module OptionName : sig
   type option_name =

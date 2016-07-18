@@ -28,6 +28,7 @@ type spec =
   | Set_string of string * string ref
   | Int of string * (int -> unit)
   | Set_int of string * int ref
+  | Symbol of string * string list * (string -> unit)
 
 module OptionName = struct
   type option_name = S of char | L of string | M of string
@@ -93,7 +94,8 @@ let show_help h () =
         | String (arg, _)
         | Set_string (arg, _)
         | Int (arg, _)
-        | Set_int (arg, _) -> Some arg in
+        | Set_int (arg, _)
+        | Symbol (arg, _, _) -> Some arg in
       (match arg with
       | None -> ()
       | Some arg ->
@@ -168,11 +170,29 @@ let create specs ?anon_fun usage_msg =
                             s)
     | _ -> ()
   in
+
+  let validate_spec = function
+    | Unit _ -> ()
+    | Set _ -> ()
+    | Clear _ -> ()
+    | String _ -> ()
+    | Set_string _ -> ()
+    | Int _ -> ()
+    | Set_int _ -> ()
+    | Symbol (_, elements, _) ->
+      List.iter (
+        fun e ->
+          if String.length e == 0 || is_prefix e "-" then
+            invalid_arg (sprintf "invalid element in Symbol: '%s'" e);
+      ) elements;
+  in
+
   List.iter (
     fun (keys, spec, doc) ->
       if keys == [] then
         invalid_arg "empty keys for Getopt spec";
-      List.iter validate_key keys
+      List.iter validate_key keys;
+      validate_spec spec;
   ) specs;
 
   let t = {
