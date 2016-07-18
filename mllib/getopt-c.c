@@ -30,6 +30,8 @@
 #include <error.h>
 #include <assert.h>
 
+#include "xstrtol.h"
+
 #include <caml/alloc.h>
 #include <caml/fail.h>
 #include <caml/memory.h>
@@ -115,6 +117,26 @@ do_call1 (value funv, value paramv)
              caml_format_exception (Extract_exception (rv)));
 
   CAMLreturn0;
+}
+
+static int
+strtoint (const char *arg)
+{
+  long int num;
+
+  if (xstrtol (arg, NULL, 0, &num, NULL) != LONGINT_OK) {
+    fprintf (stderr, _("%s: '%s' is not a numeric value.\n"),
+             guestfs_int_program_name, arg);
+    show_error (EXIT_FAILURE);
+  }
+
+  if (num <= -(2LL<<30) || num >= ((2LL<<30)-1)) {
+    fprintf (stderr, _("%s: %s: integer out of range\n"),
+             guestfs_int_program_name, arg);
+    show_error (EXIT_FAILURE);
+  }
+
+  return (int) num;
 }
 
 value
@@ -274,21 +296,13 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
       break;
 
     case 5:  /* Int of string * (int -> unit) */
-      if (sscanf (optarg, "%d", &num) != 1) {
-        fprintf (stderr, _("'%s' is not a numeric value.\n"),
-                 guestfs_int_program_name);
-        show_error (EXIT_FAILURE);
-      }
+      num = strtoint (optarg);
       v = Field (actionv, 1);
       do_call1 (v, Val_int (num));
       break;
 
     case 6:  /* Set_int of string * int ref */
-      if (sscanf (optarg, "%d", &num) != 1) {
-        fprintf (stderr, _("'%s' is not a numeric value.\n"),
-                 guestfs_int_program_name);
-        show_error (EXIT_FAILURE);
-      }
+      num = strtoint (optarg);
       caml_modify (&Field (Field (actionv, 1), 0), Val_int (num));
       break;
 
