@@ -165,6 +165,7 @@ main (int argc, char *argv[])
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "human-readable", 0, 0, 'h' },
+    { "long-options", 0, 0, 0 },
     { "keys-from-stdin", 0, 0, 0 },
     { "short-options", 0, 0, 0 },
     { "time", 0, 0, 0 },
