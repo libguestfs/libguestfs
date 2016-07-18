@@ -124,13 +124,13 @@ strtoint (const char *arg)
 {
   long int num;
 
-  if (xstrtol (arg, NULL, 0, &num, NULL) != LONGINT_OK) {
+  if (xstrtol (arg, NULL, 0, &num, "") != LONGINT_OK) {
     fprintf (stderr, _("%s: '%s' is not a numeric value.\n"),
              guestfs_int_program_name, arg);
     show_error (EXIT_FAILURE);
   }
 
-  if (num <= -(2LL<<30) || num >= ((2LL<<30)-1)) {
+  if (num < -(1<<30) || num > (1<<30)-1) {
     fprintf (stderr, _("%s: %s: integer out of range\n"),
              guestfs_int_program_name, arg);
     show_error (EXIT_FAILURE);
