@@ -37,7 +37,7 @@ guestroot=/dev/rhel-l/root
 case $version in
     7.*)
         major=7
-        topurl=http://download.devel.redhat.com/released/RHEL-LE-$major/$version
+        topurl=http://download.devel.redhat.com/released/RHEL-$major/$version
         tree=$topurl/Server/ppc64le/os
         baseurl=$tree
         srpms=$topurl/Server/source/tree
