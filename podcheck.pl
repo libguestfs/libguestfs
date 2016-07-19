@@ -153,6 +153,17 @@ delete $tool_option_exists{"--color"};
 delete $tool_option_exists{"--colour"};
 delete $tool_option_exists{"--debug-gc"};
 
+# Run the tool with --help.
+my $help_content;
+open PIPE, "LANG=C $tool --help |"
+    or die "$progname: $tool --help: $!";
+{
+    local $/ = undef;
+    $help_content = <PIPE>;
+}
+close PIPE;
+
+# Do the tests.
 my $errors = 0;
 
 # Check each option exists in the manual.
@@ -184,9 +195,43 @@ foreach (sort keys %pod_options) {
     }
 }
 
+# Check the tool's --help output mentions all the options.  (For OCaml
+# tools this is a waste of time since the --help output is generated,
+# but for C tools it is a genuine test).
+my $help_options_checked = 0;
+
+my %help_options = ();
+$help_options{$_} = 1 foreach ( $help_content =~ /(?<!\w)(-[-\w]+)/g );
+
+# There are some help options which we automatically ignore.
+delete $help_options{"--color"};
+delete $help_options{"--colour"};
+# "[--options]" is used as a placeholder for options in the synopsis
+# text, so ignore it.
+delete $help_options{"--options"};
+
+foreach (sort keys %tool_option_exists) {
+    unless ($ignore{$_}) {
+        unless (exists $help_options{$_}) {
+            $errors++;
+            warn "$progname: $tool: option $_ does not appear in --help output\n"
+        }
+    }
+}
+
+foreach (sort keys %help_options) {
+    unless ($ignore{$_}) {
+        $help_options_checked++;
+        unless (exists $tool_option_exists{$_}) {
+            $errors++;
+            warn "$progname: $tool: unknown option $_ appears in --help output\n"
+        }
+    }
+}
+
 exit 1 if $errors > 0;
 
-printf "$progname: $tool: checked $tool_options_checked tool options against $pod_options_checked documented options\n";
+printf "$progname: $tool: checked $tool_options_checked tool options, $pod_options_checked documented options, $help_options_checked help options\n";
 
 exit 0;
 
