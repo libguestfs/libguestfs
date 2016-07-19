@@ -131,7 +131,7 @@ endif
 libcustomize_a_DEPENDENCIES = $(OBJECTS)
 
 $(CUSTOMIZE_CMA): $(OBJECTS) libcustomize.a
-	$(OCAMLFIND) mklib -g $(OCAMLPACKAGES) \
+	$(OCAMLFIND) mklib $(OCAMLPACKAGES) \
 	    $(OBJECTS) $(libcustomize_a_OBJECTS) -o customize
 
 # Build the virt-customize program.
