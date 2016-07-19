@@ -26,6 +26,7 @@ EXTRA_DIST = \
 	launch-virt-p2v.in \
 	p2v.ks.in \
 	p2v.service \
+	test-virt-p2v-docs.sh \
 	test-virt-p2v-pxe.sshd_config.in \
 	test-virt-p2v-scp.sh \
 	test-virt-p2v-ssh.sh \
@@ -238,7 +239,8 @@ virt-p2v.img: \
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
-	test-virt-p2v-cmdline.sh
+	test-virt-p2v-cmdline.sh \
+	test-virt-p2v-docs.sh
 
 if ENABLE_APPLIANCE
 TESTS += \
