@@ -82,7 +82,7 @@ usage (int status)
               "Options:\n"
               "  --help                 Display brief help\n"
               " --cmdline=CMDLINE       Used to debug command line parsing\n"
-              " --colours               Use ANSI colour sequences even if not tty\n"
+              " --colors|--colours      Use ANSI colour sequences even if not tty\n"
               " --iso                   Running in the ISO environment\n"
               "  -v|--verbose           Verbose messages\n"
               "  -V|--version           Display version and exit\n"
