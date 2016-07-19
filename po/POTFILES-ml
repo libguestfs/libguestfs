@@ -48,6 +48,7 @@ mllib/curl.ml
 mllib/dev_t.ml
 mllib/fsync.ml
 mllib/getopt.ml
+mllib/getopt_tests.ml
 mllib/guestfs_config.ml
 mllib/libdir.ml
 mllib/mkdtemp.ml
