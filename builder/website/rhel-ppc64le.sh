@@ -32,7 +32,7 @@ fi
 version=$1
 output=rhel-$version-ppc64le
 tmpname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
-guestroot=/dev/rhel-l/root
+guestroot=/dev/rhel/root
 
 case $version in
     7.*)
