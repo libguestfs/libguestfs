@@ -120,6 +120,7 @@ usage (int status)
               "  --echo-keys          Don't turn off echo for passphrases\n"
               "  -f|--file file       Read commands from file\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
+              "  --help               Display brief help\n"
               "  -i|--inspector       Automatically mount filesystems\n"
               "  --keys-from-stdin    Read passphrases from stdin\n"
               "  --listen             Listen for remote commands\n"

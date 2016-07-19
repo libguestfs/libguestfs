@@ -86,6 +86,7 @@ usage (int status)
               "  --help               Display brief help\n"
               "  -P nr_threads        Use at most nr_threads\n"
               "  -q|--quiet           No output, just exit code\n"
+              "  --uuid               Print UUIDs instead of names\n"
               "  -v|--verbose         Verbose messages\n"
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
