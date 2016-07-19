@@ -18,18 +18,42 @@
 
 export LANG=C
 set -e
+set -x
 
-# virt-customize with the -n option doesn't modify the guest.  It ought
-# to be able to customize any of our Linux-like test guests.
+if [ -n "$SKIP_TEST_VIRT_CUSTOMIZE_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
 
-for f in ../test-data/phony-guests/{debian,fedora,ubuntu}.img; do
-    # Ignore zero-sized windows.img if ntfs-3g is not installed.
-    if [ -s "$f" ]; then
-        # Add --no-network so UML works.
-	$VG virt-customize -n --format raw -a $f \
-            --no-network \
-            --write /etc/motd:HELLO \
-            --chmod 0600:/etc/motd \
-            --delete /etc/motd
-    fi
-done
+f=../test-data/phony-guests/fedora.img
+if [ ! -s $f ]; then
+    echo "$0: test skipped because there is no fedora.img"
+    exit 77
+fi
+
+fq=test-virt-customize-img.qcow
+out=test-virt-customize.out
+rm -f $fq $out
+qemu-img create -f qcow2 -b $f $fq
+
+# Add --no-network so UML works.
+$VG virt-customize --format qcow2 -a $fq --no-network \
+    --write /etc/motd:MOTD \
+    --write /etc/motd2:MOTD2 \
+    --write /etc/motd3:MOTD3 \
+    --delete /etc/motd3
+
+# Verify that the changes were made.
+guestfish --ro -a $fq -i <<EOF >$out
+!echo -n "motd: "
+cat /etc/motd
+!echo -n "motd2: "
+cat /etc/motd2
+is-file /etc/motd3
+EOF
+
+grep -sq '^motd: MOTD' $out
+grep -sq '^motd2: MOTD2' $out
+grep -sq false $out
+
+rm $fq $out
