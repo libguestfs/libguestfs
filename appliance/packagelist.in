@@ -221,6 +221,7 @@ cpio
 diffutils
 dosfstools
 e2fsprogs
+f2fs-tools
 file
 findutils
 gawk
