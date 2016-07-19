@@ -228,6 +228,10 @@ do_mkfs (const char *fstype, const char *device, int blocksize,
       ADD_ARG (argv, i, "-L");
       ADD_ARG (argv, i, label);
     }
+    else if (STREQ (fstype, "f2fs")) {
+      ADD_ARG (argv, i, "-l");
+      ADD_ARG (argv, i, label);
+    }
     else {
       reply_with_error ("don't know how to set the label for '%s' filesystems",
                         fstype);
