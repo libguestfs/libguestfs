@@ -394,10 +394,12 @@ class output_libvirt oc output_pool = object
     (* We copied directly into the final pool directory.  However we
      * have to tell libvirt.
      *)
-    let cmd =
-      match oc with
-      | None -> [ "virsh"; "pool-refresh"; output_pool ]
-      | Some uri -> [ "virsh"; "-c"; uri; "pool-refresh"; output_pool ] in
+    let cmd = [ "virsh" ] @
+      (if quiet () then [ "-q" ] else []) @
+      (match oc with
+      | None -> []
+      | Some uri -> [ "-c"; uri; ]) @
+      [ "pool-refresh"; output_pool ] in
     if run_command cmd <> 0 then
       warning (f_"could not refresh libvirt pool %s") output_pool;
 
@@ -425,10 +427,12 @@ class output_libvirt oc output_pool = object
     );
 
     (* Define the domain in libvirt. *)
-    let cmd =
-      match oc with
-      | None -> [ "virsh"; "define"; tmpfile ]
-      | Some uri -> [ "virsh"; "-c"; uri; "define"; tmpfile ] in
+    let cmd = [ "virsh" ] @
+      (if quiet () then [ "-q" ] else []) @
+      (match oc with
+      | None -> []
+      | Some uri -> [ "-c"; uri; ]) @
+      [ "define"; tmpfile ] in
     if run_command cmd = 0 then (
       try Unix.unlink tmpfile with _ -> ()
     ) else (
