@@ -117,7 +117,7 @@ exec >>%s 2>&1
       " quoted_args
     | "dnf" ->    sprintf "dnf -y install %s" quoted_args
     | "pisi" ->   sprintf "pisi it %s" quoted_args
-    | "pacman" -> sprintf "pacman -S %s" quoted_args
+    | "pacman" -> sprintf "pacman -S --noconfirm %s" quoted_args
     | "urpmi" ->  sprintf "urpmi %s" quoted_args
     | "xbps" ->   sprintf "xbps-install -Sy %s" quoted_args
     | "yum" ->    sprintf "yum -y install %s" quoted_args
