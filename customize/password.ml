@@ -165,6 +165,9 @@ and default_crypto g root =
   | ("opensuse"|"sles"), v when v >= 11 -> `SHA512
   | ("opensuse"|"sles"), _ -> `MD5
 
+  (* Rolling distributions, which hopefully should be updated enough. *)
+  | ("archlinux"|"voidlinux"), _ -> `SHA512
+
   | _, _ ->
     let minor = g#inspect_get_minor_version root in
     warning (f_"password: using insecure md5 password encryption for guest of type %s version %d.%d.
