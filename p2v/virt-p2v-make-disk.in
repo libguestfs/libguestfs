@@ -149,10 +149,9 @@ EOF
 latest_version="$(cd /lib/modules; ls -1vr | head -1)"
 dracut -f --kver $latest_version
 EOF
-        # Double quotes because we want $tmpdir to be expanded.
-        # Disable SELinux for consistency with virt-p2v-make-kickstart.
+        # Double quotes because we want $tmpdir to be expanded:
         extra_args="
-          --edit /etc/selinux/config:s/^SELINUX=.*/SELINUX=disabled/g
+          --selinux-relabel
           --upload $tmpdir/p2v.conf:/etc/dracut.conf.d/
           --run $tmpdir/post-install
         "
