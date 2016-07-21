@@ -115,7 +115,7 @@ exec >>%s 2>&1
     | "pisi" ->
       sprintf "pisi it %s" quoted_args
     | "pacman" ->
-      sprintf "pacman -S %s" quoted_args
+      sprintf "pacman -S --noconfirm %s" quoted_args
     | "urpmi" ->
       sprintf "urpmi %s" quoted_args
     | "yum" ->
