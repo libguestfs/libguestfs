@@ -165,21 +165,9 @@ sed -i -e '
 # Remove any existing menu title
 /^menu title .*/d
 
-# Remove quiet bootparam
-#s/ quiet//
-
-# Disable selinux.
-#/^\s*append\s/ s/\s*$/ selinux=0/
-
-# Remove Verify and Boot option
-#/label check0/{N;N;N;d;}
-
 # Set the default timeout to 60 seconds
 s/^timeout .*/timeout 600/
 ' $LIVE_ROOT/isolinux/isolinux.cfg
-
-# TODO: Replace the splash screen with something P2V appropriate
-#cp $INSTALL_ROOT//syslinux-vesa-splash.jpg $LIVE_ROOT/isolinux/splash.jpg
 
 # store image version info in the ISO
 cat > $LIVE_ROOT/isolinux/version <<EOF
@@ -196,8 +184,6 @@ EOF
 cat > $INSTALL_ROOT/etc/$PACKAGE-release <<EOF
 $PRODUCT release $VERSION
 EOF
-#ln -snf $PACKAGE-release $INSTALL_ROOT/etc/redhat-release
-#ln -snf $PACKAGE-release $INSTALL_ROOT/etc/system-release
 
 # replace initramfs if regenerated
 if [ -f "$INSTALL_ROOT/initrd0.img" ]; then
