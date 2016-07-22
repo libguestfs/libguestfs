@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.42\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-19 14:03+0100\n"
+"POT-Creation-Date: 2016-07-22 17:32+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -2676,7 +2676,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:435
+#: ../v2v/output_libvirt.ml:439
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2733,7 +2733,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:402
+#: ../v2v/output_libvirt.ml:404
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -3418,7 +3418,7 @@ msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:170
+#: ../customize/password.ml:173
 msgid ""
 "password: using insecure md5 password encryption for guest of type %s "
 "version %d.%d.\n"
@@ -4081,15 +4081,16 @@ msgid ""
 "  --help               Display brief help\n"
 "  -P nr_threads        Use at most nr_threads\n"
 "  -q|--quiet           No output, just exit code\n"
+"  --uuid               Print UUIDs instead of names\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:153 builder/index-validate.c:87 cat/cat.c:140
+#: align/scan.c:154 builder/index-validate.c:87 cat/cat.c:140
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:262 edit/edit.c:157 fish/fish.c:294 format/format.c:180
+#: diff/diff.c:262 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:247 fuse/guestunmount.c:121 inspector/inspector.c:161
 #: make-fs/make-fs.c:146 p2v/main.c:183 rescue/rescue.c:181
 #: test-tool/test-tool.c:116
@@ -4097,26 +4098,26 @@ msgstr ""
 msgid "unknown long option: %s (%d)"
 msgstr ""
 
-#: align/scan.c:171 df/main.c:183
+#: align/scan.c:172 df/main.c:183
 #, c-format
 msgid "-P option is not numeric"
 msgstr ""
 
-#: align/scan.c:226
+#: align/scan.c:227
 #, c-format
 msgid "compiled without support for libvirt"
 msgstr ""
 
-#: align/scan.c:230
+#: align/scan.c:231
 #, c-format
 msgid "--uuid option cannot be used with -a or -d"
 msgstr ""
 
-#: align/scan.c:329
+#: align/scan.c:330
 msgid "alignment < 4K"
 msgstr ""
 
-#: align/scan.c:332
+#: align/scan.c:333
 msgid "alignment < 64K"
 msgstr ""
 
@@ -4387,12 +4388,12 @@ msgid ""
 "  --csv                Output as Comma-Separated Values\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
-"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  -h|--human-readable  Print sizes in human-readable format\n"
 "  --help               Display brief help\n"
 "  -i|--inodes          Display inodes\n"
 "  --one-per-guest      Separate appliance per guest\n"
 "  -P nr_threads        Use at most nr_threads\n"
-"  --uuid               Add UUIDs to --long output\n"
+"  --uuid               Print UUIDs instead of names\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
@@ -4517,20 +4518,20 @@ msgid ""
 "  %s [--options] -d domname file [file ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
 "Options:\n"
-"  -a|--add image       Add image\n"
-"  -b|--backup .ext     Backup original as original.ext\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  -d|--domain guest    Add disks from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  -e|--expr expr       Non-interactive editing using Perl expr\n"
-"  --format[=raw|..]    Force disk format for -a option\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -a|--add image        Add image\n"
+"  -b|--backup .ext      Backup original as original.ext\n"
+"  -c|--connect uri      Specify libvirt URI for -d option\n"
+"  -d|--domain guest     Add disks from libvirt guest\n"
+"  --echo-keys           Don't turn off echo for passphrases\n"
+"  -e|--edit|--expr expr Non-interactive editing using Perl expr\n"
+"  --format[=raw|..]     Force disk format for -a option\n"
+"  --help                Display brief help\n"
+"  --keys-from-stdin     Read passphrases from stdin\n"
 "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
-"                       Mount dev on mnt (if omitted, /)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
+"                        Mount dev on mnt (if omitted, /)\n"
+"  -v|--verbose          Verbose messages\n"
+"  -V|--version          Display version and exit\n"
+"  -x                    Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
@@ -4559,2375 +4560,2381 @@ msgstr "ಒಂದು ಚದುರಿದ(ಸ್ಪಾರ್ಸ್) ಚಿತ್�
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: fish/cmds.c:14840
+#: fish/cmds.c:14871
 msgid "Command"
 msgstr "ಆಜ್ಞೆ"
 
-#: fish/cmds.c:14840
+#: fish/cmds.c:14871
 msgid "Description"
 msgstr "ವಿವರಣೆ"
 
-#: fish/cmds.c:14842
+#: fish/cmds.c:14873
 msgid "delete the default POSIX ACL of a directory"
 msgstr ""
 
-#: fish/cmds.c:14843
+#: fish/cmds.c:14874
 msgid "get the POSIX ACL attached to a file"
 msgstr ""
 
-#: fish/cmds.c:14844
+#: fish/cmds.c:14875
 msgid "set the POSIX ACL attached to a file"
 msgstr ""
 
-#: fish/cmds.c:14846 fish/cmds.c:14849 fish/cmds.c:14860 fish/cmds.c:14863
-#: fish/cmds.c:14866 fish/cmds.c:14885 fish/cmds.c:14890 fish/cmds.c:14909
-#: fish/cmds.c:14952 fish/cmds.c:14991 fish/cmds.c:15000 fish/cmds.c:15015
-#: fish/cmds.c:15041 fish/cmds.c:15106 fish/cmds.c:15109 fish/cmds.c:15181
-#: fish/cmds.c:15232 fish/cmds.c:15240 fish/cmds.c:15283 fish/cmds.c:15319
-#: fish/cmds.c:15322 fish/cmds.c:15325 fish/cmds.c:15331 fish/cmds.c:15345
-#: fish/cmds.c:15354 fish/cmds.c:15373 fish/cmds.c:15376 fish/cmds.c:15382
-#: fish/cmds.c:15430 fish/cmds.c:15457 fish/cmds.c:15461 fish/cmds.c:15474
-#: fish/cmds.c:15477 fish/cmds.c:15486 fish/cmds.c:15508
+#: fish/cmds.c:14877 fish/cmds.c:14880 fish/cmds.c:14891 fish/cmds.c:14894
+#: fish/cmds.c:14897 fish/cmds.c:14916 fish/cmds.c:14921 fish/cmds.c:14940
+#: fish/cmds.c:14983 fish/cmds.c:15022 fish/cmds.c:15031 fish/cmds.c:15047
+#: fish/cmds.c:15073 fish/cmds.c:15138 fish/cmds.c:15141 fish/cmds.c:15213
+#: fish/cmds.c:15264 fish/cmds.c:15272 fish/cmds.c:15315 fish/cmds.c:15351
+#: fish/cmds.c:15354 fish/cmds.c:15357 fish/cmds.c:15363 fish/cmds.c:15377
+#: fish/cmds.c:15386 fish/cmds.c:15405 fish/cmds.c:15408 fish/cmds.c:15414
+#: fish/cmds.c:15462 fish/cmds.c:15489 fish/cmds.c:15493 fish/cmds.c:15506
+#: fish/cmds.c:15509 fish/cmds.c:15518 fish/cmds.c:15540
 #, c-format
 msgid "alias for '%s'"
 msgstr ""
 
-#: fish/cmds.c:14851
+#: fish/cmds.c:14882
 msgid "add a CD-ROM disk image to examine"
 msgstr "ಪರಿಶೀಲಿಸಲು CD-ROM ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ"
 
-#: fish/cmds.c:14852
+#: fish/cmds.c:14883
 msgid "add the disk(s) from a named libvirt domain"
 msgstr ""
 
-#: fish/cmds.c:14853
+#: fish/cmds.c:14884
 msgid "add an image to examine or modify"
 msgstr "ಪರಿಶೀಲಿಸಲು ಅಥವ ಮಾರ್ಪಡಿಸಲು ಒಂದು ಚಿತ್ರಿಕೆಯನ್ನು ಸೇರಿಸಿ"
 
-#: fish/cmds.c:14854
+#: fish/cmds.c:14885
 msgid "add a drive in snapshot mode (read-only)"
 msgstr "ಒಂದು ಡ್ರೈವನ್ನು ಸ್ನಾಪ್‌ಶಾಟ್ ಕ್ರಮದಲ್ಲಿ ಸೇರಿಸು (ಓದಲು-ಮಾತ್ರ)"
 
-#: fish/cmds.c:14855
+#: fish/cmds.c:14886
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
 "ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಓದಲು ಮಾತ್ರ "
 "ಸೂಚಿಸು"
 
-#: fish/cmds.c:14856
+#: fish/cmds.c:14887
 msgid "add a temporary scratch drive"
 msgstr ""
 
-#: fish/cmds.c:14857
+#: fish/cmds.c:14888
 msgid "add a drive specifying the QEMU block emulation to use"
 msgstr ""
 "ಬಳಸಬೇಕಿರುವ QEMU ಖಂಡ ಅನುಕರಣೆಯನ್ನು(ಎಮ್ಯುಲೇಶನ್) ಸೂಚಿಸುವ ಒಂದು ಡ್ರೈವ್ ಅನ್ನು ಸೂಚಿಸು"
 
-#: fish/cmds.c:14858
+#: fish/cmds.c:14889
 msgid "allocate and add a disk file"
 msgstr ""
 
-#: fish/cmds.c:14868
+#: fish/cmds.c:14899
 msgid "clear Augeas path"
 msgstr ""
 
-#: fish/cmds.c:14869
+#: fish/cmds.c:14900
 msgid "close the current Augeas handle"
 msgstr "ಪ್ರಸಕ್ತ Augeas ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು"
 
-#: fish/cmds.c:14870
+#: fish/cmds.c:14901
 msgid "define an Augeas node"
 msgstr "ಒಂದು Augeas ನೋಡ್ ಅನ್ನು ಸೂಚಿಸು"
 
-#: fish/cmds.c:14871
+#: fish/cmds.c:14902
 msgid "define an Augeas variable"
 msgstr "ಒಂದು Augeas ವೇರಿಯೇಬಲ್ ಅನ್ನು ಸೂಚಿಸು"
 
-#: fish/cmds.c:14872
+#: fish/cmds.c:14903
 msgid "look up the value of an Augeas path"
 msgstr "ಒಂದು Augeas ಮಾರ್ಗದ ಮೌಲ್ಯಕ್ಕಾಗಿ ಹುಡುಕು"
 
-#: fish/cmds.c:14873
+#: fish/cmds.c:14904
 msgid "create a new Augeas handle"
 msgstr "ಹೊಸ Augeas ಹ್ಯಾಂಡಲ್ ಅನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:14874
+#: fish/cmds.c:14905
 msgid "insert a sibling Augeas node"
 msgstr "ಜೋಡಿ Augeas ನೋಡ್ ಅನ್ನು ಸೇರಿಸು"
 
-#: fish/cmds.c:14875
+#: fish/cmds.c:14906
 msgid "return the label from an Augeas path expression"
 msgstr ""
 
-#: fish/cmds.c:14876
+#: fish/cmds.c:14907
 msgid "load files into the tree"
 msgstr "ಕಡತಗಳನ್ನು ವೃಕ್ಷಕ್ಕೆ ಲೋಡ್ ಮಾಡು"
 
-#: fish/cmds.c:14877
+#: fish/cmds.c:14908
 msgid "list Augeas nodes under augpath"
 msgstr "Augeas ನೋಡ್‌ಗಳನ್ನು augpath ನಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡು"
 
-#: fish/cmds.c:14878
+#: fish/cmds.c:14909
 msgid "return Augeas nodes which match augpath"
 msgstr "augpath ಗೆ ತಾಳೆಯಾಗುವ Augeas ಗೆ ಮರಳು"
 
-#: fish/cmds.c:14879
+#: fish/cmds.c:14910
 msgid "move Augeas node"
 msgstr "Augeas ನೋಡ್ ಅನ್ನು ಸ್ಥಳಾಂತರಿಸು"
 
-#: fish/cmds.c:14880
+#: fish/cmds.c:14911
 msgid "remove an Augeas path"
 msgstr "ಒಂದು Augeas ಮಾರ್ಗವನ್ನು ತೆಗೆದುಹಾಕು"
 
-#: fish/cmds.c:14881
+#: fish/cmds.c:14912
 msgid "write all pending Augeas changes to disk"
 msgstr "ಬಾಕಿ ಇರುವ ಎಲ್ಲಾ Augeas ಬದಲಾವಣೆಗಳನ್ನು ಡಿಸ್ಕಿಗೆ ಬರೆ"
 
-#: fish/cmds.c:14882
+#: fish/cmds.c:14913
 msgid "set Augeas path to value"
 msgstr "Augeas ಮಾರ್ಗವನ್ನು ಮೌಲ್ಯಕ್ಕೆ ಹೊಂದಿಸು"
 
-#: fish/cmds.c:14883
+#: fish/cmds.c:14914
 msgid "set multiple Augeas nodes"
 msgstr ""
 
-#: fish/cmds.c:14887 fish/cmds.c:15023
+#: fish/cmds.c:14918 fish/cmds.c:15055
 msgid "test availability of some parts of the API"
 msgstr "API ನ ಕೆಲವು ಭಾಗಗಳು ಲಭ್ಯವಿದೆಯೆ ಎಂದು ಪರಿಶೀಲಿಸು"
 
-#: fish/cmds.c:14888
+#: fish/cmds.c:14919
 msgid "return a list of all optional groups"
 msgstr ""
 
-#: fish/cmds.c:14892
+#: fish/cmds.c:14923
 msgid "upload base64-encoded data to file"
 msgstr ""
 
-#: fish/cmds.c:14893
+#: fish/cmds.c:14924
 msgid "download file and encode as base64"
 msgstr ""
 
-#: fish/cmds.c:14894
+#: fish/cmds.c:14925
 msgid "discard all blocks on a device"
 msgstr ""
 
-#: fish/cmds.c:14895
+#: fish/cmds.c:14926
 msgid "return true if discarded blocks are read as zeroes"
 msgstr ""
 
-#: fish/cmds.c:14896
+#: fish/cmds.c:14927
 msgid "print block device attributes"
 msgstr ""
 
-#: fish/cmds.c:14897
+#: fish/cmds.c:14928
 msgid "flush device buffers"
 msgstr "ಸಾಧನದ ಬಫರುಗಳನ್ನು ಖಾಲಿ ಮಾಡು"
 
-#: fish/cmds.c:14898
+#: fish/cmds.c:14929
 msgid "get blocksize of block device"
 msgstr "ಖಂಡ ಸಾಧನದ ಖಂಡಗಾತ್ರವನ್ನು ಒದಗಿಸು"
 
-#: fish/cmds.c:14899
+#: fish/cmds.c:14930
 msgid "is block device set to read-only"
 msgstr "ಖಂಡ ಸಾಧನವನ್ನು ಓದಲು-ಮಾತ್ರ ಎಂದು ಹೊಂದಿಸಲಾಗಿದೆಯೆ"
 
-#: fish/cmds.c:14900
+#: fish/cmds.c:14931
 msgid "get total size of device in bytes"
 msgstr "ಸಾಧನದ ಒಟ್ಟು ಗಾತ್ರವನ್ನು ಬೈಟ್‌ಗಳಲ್ಲಿ ಒದಗಿಸು"
 
-#: fish/cmds.c:14901
+#: fish/cmds.c:14932
 msgid "get sectorsize of block device"
 msgstr "ಖಂಡ ಸಾಧನದಲ್ಲಿ ಘಟಕದಗಾತ್ರ(ಸೆಕ್ಟರ್ ಸೈಝ್) ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:14902
+#: fish/cmds.c:14933
 msgid "get total size of device in 512-byte sectors"
 msgstr "ಸಾಧನದ ಒಟ್ಟು ಗಾತ್ರವನ್ನು 512-ಬೈಟ್‌ನ ಘಟಕದಲ್ಲಿ ಒದಗಿಸು"
 
-#: fish/cmds.c:14903
+#: fish/cmds.c:14934
 msgid "reread partition table"
 msgstr "ವಿಭಜನಾ ಕೋಷ್ಟಕವನ್ನು ಮರಳಿ ಓದು"
 
-#: fish/cmds.c:14904
+#: fish/cmds.c:14935
 msgid "set blocksize of block device"
 msgstr "ಖಂಡ ಸಾಧನದ ಖಂಡಗಾತ್ರವನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:14905
+#: fish/cmds.c:14936
 msgid "set readahead"
 msgstr ""
 
-#: fish/cmds.c:14906
+#: fish/cmds.c:14937
 msgid "set block device to read-only"
 msgstr "ಖಂಡ ಸಾಧನಗಳನ್ನು ಓದಲು-ಮಾತ್ರ ಹೊಂದಿಸು"
 
-#: fish/cmds.c:14907
+#: fish/cmds.c:14938
 msgid "set block device to read-write"
 msgstr "ಖಂಡ ಸಾಧನಗಳನ್ನು ಓದಲು-ಬರೆಯಲು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:14911
+#: fish/cmds.c:14942
 msgid "cancel a running or paused balance"
 msgstr ""
 
-#: fish/cmds.c:14912
+#: fish/cmds.c:14943
 msgid "pause a running balance"
 msgstr ""
 
-#: fish/cmds.c:14913
+#: fish/cmds.c:14944
 msgid "resume a paused balance"
 msgstr ""
 
-#: fish/cmds.c:14914
+#: fish/cmds.c:14945
 msgid "show the status of a running or paused balance"
 msgstr ""
 
-#: fish/cmds.c:14915
+#: fish/cmds.c:14946
 msgid "add devices to a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14916
+#: fish/cmds.c:14947
 msgid "remove devices from a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14917
+#: fish/cmds.c:14948
 msgid "balance a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14918
+#: fish/cmds.c:14949
 msgid "defragment a file or directory"
 msgstr ""
 
-#: fish/cmds.c:14919
+#: fish/cmds.c:14950
 msgid "resize a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14920
+#: fish/cmds.c:14951
 msgid "list devices for btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14921
+#: fish/cmds.c:14952
 msgid "sync a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14922
+#: fish/cmds.c:14953
 msgid "check a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14923
+#: fish/cmds.c:14954
 msgid "create an image of a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14924
+#: fish/cmds.c:14955
 msgid "add a qgroup to a parent qgroup"
 msgstr ""
 
-#: fish/cmds.c:14925
+#: fish/cmds.c:14956
 msgid "create a subvolume quota group"
 msgstr ""
 
-#: fish/cmds.c:14926
+#: fish/cmds.c:14957
 msgid "destroy a subvolume quota group"
 msgstr ""
 
-#: fish/cmds.c:14927
+#: fish/cmds.c:14958
 msgid "limit the size of a subvolume"
 msgstr ""
 
-#: fish/cmds.c:14928
+#: fish/cmds.c:14959
 msgid "remove a qgroup from its parent qgroup"
 msgstr ""
 
-#: fish/cmds.c:14929
+#: fish/cmds.c:14960
 msgid "show subvolume quota groups"
 msgstr ""
 
-#: fish/cmds.c:14930
+#: fish/cmds.c:14961
 msgid "enable or disable subvolume quota support"
 msgstr ""
 
-#: fish/cmds.c:14931
+#: fish/cmds.c:14962
 msgid ""
 "trash all qgroup numbers and scan the metadata again with the current config"
 msgstr ""
 
-#: fish/cmds.c:14932
+#: fish/cmds.c:14963
 msgid "replace a btrfs managed device with another device"
 msgstr ""
 
-#: fish/cmds.c:14933
+#: fish/cmds.c:14964
 msgid "recover the chunk tree of btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:14934
+#: fish/cmds.c:14965
 msgid "recover bad superblocks from good copies"
 msgstr ""
 
-#: fish/cmds.c:14935
+#: fish/cmds.c:14966
 msgid "cancel a running scrub"
 msgstr ""
 
-#: fish/cmds.c:14936
+#: fish/cmds.c:14967
 msgid "resume a previously canceled or interrupted scrub"
 msgstr ""
 
-#: fish/cmds.c:14937
+#: fish/cmds.c:14968
 msgid "read all data from all disks and verify checksums"
 msgstr ""
 
-#: fish/cmds.c:14938
+#: fish/cmds.c:14969
 msgid "show status of running or finished scrub"
 msgstr ""
 
-#: fish/cmds.c:14939
+#: fish/cmds.c:14970
 msgid "enable or disable the seeding feature of device"
 msgstr ""
 
-#: fish/cmds.c:14940
+#: fish/cmds.c:14971
 msgid "create a btrfs subvolume"
 msgstr ""
 
-#: fish/cmds.c:14941
+#: fish/cmds.c:14972
 msgid "delete a btrfs subvolume or snapshot"
 msgstr ""
 
-#: fish/cmds.c:14942
+#: fish/cmds.c:14973
 msgid "get the default subvolume or snapshot of a filesystem"
 msgstr ""
 
-#: fish/cmds.c:14943
+#: fish/cmds.c:14974
 msgid "list btrfs snapshots and subvolumes"
 msgstr ""
 
-#: fish/cmds.c:14944
+#: fish/cmds.c:14975
 msgid "set default btrfs subvolume"
 msgstr ""
 
-#: fish/cmds.c:14945
+#: fish/cmds.c:14976
 msgid "return detailed information of the subvolume"
 msgstr ""
 
-#: fish/cmds.c:14946
+#: fish/cmds.c:14977
 msgid "create a btrfs snapshot"
 msgstr ""
 
-#: fish/cmds.c:14947
+#: fish/cmds.c:14978
 msgid "enable extended inode refs"
 msgstr ""
 
-#: fish/cmds.c:14948
+#: fish/cmds.c:14979
 msgid "enable skinny metadata extent refs"
 msgstr ""
 
-#: fish/cmds.c:14949
+#: fish/cmds.c:14980
 msgid "enable or disable seeding of a btrfs device"
 msgstr ""
 
-#: fish/cmds.c:14950
+#: fish/cmds.c:14981
 msgid "return the C pointer to the guestfs_h handle"
 msgstr ""
 
-#: fish/cmds.c:14954
+#: fish/cmds.c:14985
 msgid "return canonical device name"
 msgstr ""
 
-#: fish/cmds.c:14955
+#: fish/cmds.c:14986
 msgid "get the Linux capabilities attached to a file"
 msgstr ""
 
-#: fish/cmds.c:14956
+#: fish/cmds.c:14987
 msgid "set the Linux capabilities attached to a file"
 msgstr ""
 
-#: fish/cmds.c:14957
+#: fish/cmds.c:14988
 msgid "return true path on case-insensitive filesystem"
 msgstr "ಕೇಸ್-ಸಂವೇದಿ ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿ ನಿಜವಾದ ಮಾರ್ಗವನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:14958
+#: fish/cmds.c:14989
 msgid "list the contents of a file"
 msgstr "ಕಡತದಲ್ಲಿರುವ ವಿಷಯಗಳ ಪಟ್ಟಿ"
 
-#: fish/cmds.c:14959
+#: fish/cmds.c:14990
 msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "ಒಂದು MD5, SHAx ಅಥವ CRC checksum ಅನ್ನು ಗಣಿಸು"
 
-#: fish/cmds.c:14960
+#: fish/cmds.c:14991
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
 msgstr ""
 
-#: fish/cmds.c:14961
+#: fish/cmds.c:14992
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
 msgstr ""
 
-#: fish/cmds.c:14962
+#: fish/cmds.c:14993
 msgid "change file mode"
 msgstr "ಕಡತದ ಕ್ರಮವನ್ನು ಬದಲಾಯಿಸು"
 
-#: fish/cmds.c:14963 fish/cmds.c:15169
+#: fish/cmds.c:14994 fish/cmds.c:15201
 msgid "change file owner and group"
 msgstr "ಕಡತದ ಮಾಲಿಕ ಹಾಗು ಗುಂಪನ್ನು ಬದಲಾಯಿಸು"
 
-#: fish/cmds.c:14964
+#: fish/cmds.c:14995
 msgid "remove a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:14965
+#: fish/cmds.c:14996
 msgid "run a command from the guest filesystem"
 msgstr "ಆತಿಥೇಯ ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿ ಒಂದು ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸು"
 
-#: fish/cmds.c:14966
+#: fish/cmds.c:14997
 msgid "run a command, returning lines"
 msgstr "ಸಾಲುಗಳನ್ನು ಮರಳಿಸುವ ಒಂದು ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸು"
 
-#: fish/cmds.c:14967
+#: fish/cmds.c:14998
 msgid "output compressed device"
 msgstr ""
 
-#: fish/cmds.c:14968
+#: fish/cmds.c:14999
 msgid "output compressed file"
 msgstr ""
 
-#: fish/cmds.c:14969
+#: fish/cmds.c:15000
 msgid "add hypervisor parameters"
 msgstr ""
 
-#: fish/cmds.c:14970
+#: fish/cmds.c:15001
 msgid "copy the attributes of a path (file/directory) to another"
 msgstr ""
 
-#: fish/cmds.c:14971
+#: fish/cmds.c:15002
 msgid "copy from source device to destination device"
 msgstr ""
 
-#: fish/cmds.c:14972
+#: fish/cmds.c:15003
 msgid "copy from source device to destination file"
 msgstr ""
 
-#: fish/cmds.c:14973
+#: fish/cmds.c:15004
 msgid "copy from source file to destination device"
 msgstr ""
 
-#: fish/cmds.c:14974
+#: fish/cmds.c:15005
 msgid "copy from source file to destination file"
 msgstr ""
 
-#: fish/cmds.c:14975
+#: fish/cmds.c:15006
 msgid "copy local files or directories into an image"
 msgstr ""
 
-#: fish/cmds.c:14976
+#: fish/cmds.c:15007
 msgid "copy remote files or directories out of an image"
 msgstr ""
 
-#: fish/cmds.c:14977
+#: fish/cmds.c:15008
 msgid "copy size bytes from source to destination using dd"
 msgstr ""
 
-#: fish/cmds.c:14978
+#: fish/cmds.c:15009
 msgid "copy a file"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಕಾಪಿ ಮಾಡು"
 
-#: fish/cmds.c:14979 fish/cmds.c:14980
+#: fish/cmds.c:15010 fish/cmds.c:15011
 msgid "copy a file or directory recursively"
 msgstr "ಕಡತ ಅಥವ ಕೋಶವನ್ನು ಪುನರಾವರ್ತಿತವಾಗಿ ಕಾಪಿ ಮಾಡು"
 
-#: fish/cmds.c:14981
+#: fish/cmds.c:15012
 msgid "pack directory into cpio file"
 msgstr ""
 
-#: fish/cmds.c:14982
+#: fish/cmds.c:15013
 msgid "copy from source to destination using dd"
 msgstr "dd ಅನ್ನು ಬಳಸಿಕೊಂಡು ಮೂಲದಿಂದ ಗುರಿಗೆ ಕಾಪಿ ಮಾಡು"
 
-#: fish/cmds.c:14983
+#: fish/cmds.c:15014
 msgid "debugging and internals"
 msgstr "ದೋಷನಿವಾರಣೆ ಹಾಗು ಆಂತರಿಕಗಳು"
 
-#: fish/cmds.c:14984
+#: fish/cmds.c:15015
 msgid "debug the drives (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:14985
+#: fish/cmds.c:15016
 msgid "upload a file to the appliance (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:14986
+#: fish/cmds.c:15017
 msgid "delete a previously registered event handler"
 msgstr ""
 
-#: fish/cmds.c:14987
+#: fish/cmds.c:15018
 msgid "convert device to index"
 msgstr ""
 
-#: fish/cmds.c:14988
+#: fish/cmds.c:15019
 msgid "report file system disk space usage"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆ ಡಿಸ್ಕ್ ಸ್ಥಳದ ಬಳಕೆಯನ್ನು ವರದಿ ಮಾಡು"
 
-#: fish/cmds.c:14989
+#: fish/cmds.c:15020
 msgid "report file system disk space usage (human readable)"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆ ಡಿಸ್ಕ್ ಸ್ಥಳದ ಬಳಕೆಯನ್ನು ವರದಿ ಮಾಡು (ಮನುಷ್ಯರು ಓದುವ ರೂಪದಲ್ಲಿ)"
 
-#: fish/cmds.c:14993
+#: fish/cmds.c:15024
 msgid "create a blank disk image"
 msgstr ""
 
-#: fish/cmds.c:14994
+#: fish/cmds.c:15025
 msgid "detect the disk format of a disk image"
 msgstr ""
 
-#: fish/cmds.c:14995
+#: fish/cmds.c:15026
 msgid "return whether disk has a backing file"
 msgstr ""
 
-#: fish/cmds.c:14996
+#: fish/cmds.c:15027
 msgid "return virtual size of a disk"
 msgstr ""
 
-#: fish/cmds.c:14997
+#: fish/cmds.c:15028
 msgid "display an image"
 msgstr ""
 
-#: fish/cmds.c:14998
+#: fish/cmds.c:15029
 msgid "return kernel messages"
 msgstr "ಕರ್ನಲ್ ಸಂದೇಶಗಳನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15002
+#: fish/cmds.c:15033
 msgid "download a file to the local machine"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಸ್ಥಳೀಯ ಗಣಕಕ್ಕೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡು"
 
-#: fish/cmds.c:15003 fish/cmds.c:15287
+#: fish/cmds.c:15034
+msgid "download the given data units from the disk"
+msgstr ""
+
+#: fish/cmds.c:15035 fish/cmds.c:15319
 msgid "download a file to the local machine given its inode"
 msgstr ""
 
-#: fish/cmds.c:15004
+#: fish/cmds.c:15036
 msgid "download a file to the local machine with offset and size"
 msgstr ""
 
-#: fish/cmds.c:15005
+#: fish/cmds.c:15037
 msgid "drop kernel page cache, dentries and inodes"
 msgstr "ಕರ್ನಲ್ ಪುಟದ ಕ್ಯಾಶೆ, ಡೆಂಟ್ರೀಸ್ ಹಾಗು ಐನೋಡ್‌ಗಳು"
 
-#: fish/cmds.c:15006
+#: fish/cmds.c:15038
 msgid "estimate file space usage"
 msgstr "ಕಡತದ ಸ್ಥಳವನ್ನು ಅಂದಾಜು ಮಾಡು"
 
-#: fish/cmds.c:15007 fish/cmds.c:15008
+#: fish/cmds.c:15039 fish/cmds.c:15040
 msgid "check an ext2/ext3 filesystem"
 msgstr "ಒಂದು ext2/ext3 ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಪರೀಕ್ಷಿಸು"
 
-#: fish/cmds.c:15009
+#: fish/cmds.c:15041
 msgid "display a line of text"
 msgstr "ಪಠ್ಯದ ಒಂದು ಸಾಲನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15010
+#: fish/cmds.c:15042
 msgid "echo arguments back to the client"
 msgstr "ಆರ್ಗುಮೆಂಟ್‌ಗಳನ್ನು ಕ್ಲೈಂಟ್‌ನತ್ತ ಮರಳಿ ಕಳುಹಿಸು"
 
-#: fish/cmds.c:15011
+#: fish/cmds.c:15043
 msgid "edit a file"
 msgstr ""
 
-#: fish/cmds.c:15012 fish/cmds.c:15013 fish/cmds.c:15024 fish/cmds.c:15025
-#: fish/cmds.c:15081 fish/cmds.c:15082 fish/cmds.c:15521 fish/cmds.c:15522
-#: fish/cmds.c:15527 fish/cmds.c:15528 fish/cmds.c:15530 fish/cmds.c:15531
+#: fish/cmds.c:15044 fish/cmds.c:15045 fish/cmds.c:15056 fish/cmds.c:15057
+#: fish/cmds.c:15113 fish/cmds.c:15114 fish/cmds.c:15553 fish/cmds.c:15554
+#: fish/cmds.c:15559 fish/cmds.c:15560 fish/cmds.c:15562 fish/cmds.c:15563
 msgid "return lines matching a pattern"
 msgstr "ಒಂದು ವಿನ್ಯಾಸಕ್ಕೆ ತಾಳೆಯಾಗುವ ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15017
+#: fish/cmds.c:15049
 msgid "test if two files have equal contents"
 msgstr "ಎರಡು ಕಡತಗಳು ಒಂದೇ ರೀತಿಯ ವಿಷಯಗಳನ್ನು ಹೊಂದಿವೆಯೆ ಎಂದು ಪರೀಕ್ಷಿಸು"
 
-#: fish/cmds.c:15018
+#: fish/cmds.c:15050
 msgid "register a handler for an event or events"
 msgstr ""
 
-#: fish/cmds.c:15019
+#: fish/cmds.c:15051
 msgid "test if file or directory exists"
 msgstr "ಕಡತವು ಅಥವ ಕೋಶವು ಅಸ್ತಿತ್ವದಲ್ಲಿದ್ದರೆ ಪರೀಕ್ಷಿಸು"
 
-#: fish/cmds.c:15020
+#: fish/cmds.c:15052
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:15021 fish/cmds.c:15022
+#: fish/cmds.c:15053 fish/cmds.c:15054
 msgid "preallocate a file in the guest filesystem"
 msgstr "ಆತಿಥೇಯ ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿ ಒಂದು ಕಡತವನ್ನು ಮೊದಲೆ ನಿಯೋಜಿಸು"
 
-#: fish/cmds.c:15026
+#: fish/cmds.c:15058
 msgid "determine file type"
 msgstr "ಕಡತದ ಬಗೆಯನ್ನು ನಿರ್ಧರಿಸು"
 
-#: fish/cmds.c:15027
+#: fish/cmds.c:15059
 msgid "detect the architecture of a binary file"
 msgstr ""
 
-#: fish/cmds.c:15028
+#: fish/cmds.c:15060
 msgid "return the size of the file in bytes"
 msgstr "ಕಡತದ ಗಾತ್ರವನ್ನು ಬೈಟ್‌ಗಳಲ್ಲಿ ಮರಳಿಸು"
 
-#: fish/cmds.c:15029
+#: fish/cmds.c:15061
 msgid "check if filesystem is available"
 msgstr ""
 
-#: fish/cmds.c:15030
+#: fish/cmds.c:15062
 msgid "walk through the filesystem content"
 msgstr ""
 
-#: fish/cmds.c:15031
+#: fish/cmds.c:15063
 msgid "fill a file with octets"
 msgstr "ಆಕ್ಟೆಟ್‌ಗಳೊಂದಿಗೆ ಒಂದು ಕಡತವನ್ನು ತುಂಬಿಸು"
 
-#: fish/cmds.c:15032
+#: fish/cmds.c:15064
 msgid "fill a directory with empty files"
 msgstr ""
 
-#: fish/cmds.c:15033
+#: fish/cmds.c:15065
 msgid "fill a file with a repeating pattern of bytes"
 msgstr ""
 
-#: fish/cmds.c:15034
+#: fish/cmds.c:15066
 msgid "find all files and directories"
 msgstr "ಎಲ್ಲಾ ಕಡತಗಳನ್ನು ಹಾಗು ಕೋಶಗಳನ್ನು ಪತ್ತೆ ಮಾಡು"
 
-#: fish/cmds.c:15035
+#: fish/cmds.c:15067
 msgid "find all files and directories, returning NUL-separated list"
 msgstr "ಎಲ್ಲಾ ಕಡತಗಳನ್ನು ಹಾಗು ಕೋಶಗಳನ್ನು, NUL- ಇಂದ ಬೇರ್ಪಡಿಸಲಾದ ಪಟ್ಟಿಯಲ್ಲಿ ಮರಳಿಸು"
 
-#: fish/cmds.c:15036
+#: fish/cmds.c:15068
 msgid "find a filesystem by label"
 msgstr ""
 
-#: fish/cmds.c:15037
+#: fish/cmds.c:15069
 msgid "find a filesystem by UUID"
 msgstr ""
 
-#: fish/cmds.c:15038
+#: fish/cmds.c:15070
 msgid "run the filesystem checker"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯ ಪರೀಕ್ಷಕವನ್ನು ಚಲಾಯಿಸು"
 
-#: fish/cmds.c:15039
+#: fish/cmds.c:15071
 msgid "trim free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:15043
+#: fish/cmds.c:15075
 msgid "get the additional kernel options"
 msgstr "ಹೆಚ್ಚುವರಿ ಕರ್ನಲ್ ಆಯ್ಕೆಗಳನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15044 fish/cmds.c:15046
+#: fish/cmds.c:15076 fish/cmds.c:15078
 msgid "get the backend"
 msgstr ""
 
-#: fish/cmds.c:15045
+#: fish/cmds.c:15077
 msgid "get autosync mode"
 msgstr "ಸ್ವಯಂಹೊಂದಿಕಾ(ಆಟೊಸಿಂಕ್) ಕ್ರಮವನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15047
+#: fish/cmds.c:15079
 msgid "get a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:15048
+#: fish/cmds.c:15080
 msgid "get per-backend settings"
 msgstr ""
 
-#: fish/cmds.c:15049
+#: fish/cmds.c:15081
 msgid "get the appliance cache directory"
 msgstr ""
 
-#: fish/cmds.c:15050
+#: fish/cmds.c:15082
 msgid "get direct appliance mode flag"
 msgstr "ನೇರ ಅಪ್ಲೈಯನ್ಸ್ ಕ್ರಮದ ಗುರುತನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15051
+#: fish/cmds.c:15083
 msgid "get ext2 file attributes of a file"
 msgstr ""
 
-#: fish/cmds.c:15052
+#: fish/cmds.c:15084
 msgid "get ext2 file generation of a file"
 msgstr ""
 
-#: fish/cmds.c:15053
+#: fish/cmds.c:15085
 msgid "get the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ ಲೇಬಲ್ ಅನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15054
+#: fish/cmds.c:15086
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ UUID ಅನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15055
+#: fish/cmds.c:15087
 msgid "get the hypervisor binary"
 msgstr ""
 
-#: fish/cmds.c:15056
+#: fish/cmds.c:15088
 msgid "get the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:15057
+#: fish/cmds.c:15089
 msgid "challenge of i'th requested credential"
 msgstr ""
 
-#: fish/cmds.c:15058
+#: fish/cmds.c:15090
 msgid "default result of i'th requested credential"
 msgstr ""
 
-#: fish/cmds.c:15059
+#: fish/cmds.c:15091
 msgid "prompt of i'th requested credential"
 msgstr ""
 
-#: fish/cmds.c:15060
+#: fish/cmds.c:15092
 msgid "get list of credentials requested by libvirt"
 msgstr ""
 
-#: fish/cmds.c:15061
+#: fish/cmds.c:15093
 msgid "get memory allocated to the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:15062
+#: fish/cmds.c:15094
 msgid "get enable network flag"
 msgstr ""
 
-#: fish/cmds.c:15063
+#: fish/cmds.c:15095
 msgid "get the search path"
 msgstr "ಹುಡುಕು ಮಾರ್ಗವನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15064
+#: fish/cmds.c:15096
 msgid "get process group flag"
 msgstr ""
 
-#: fish/cmds.c:15065
+#: fish/cmds.c:15097
 msgid "get PID of hypervisor"
 msgstr ""
 
-#: fish/cmds.c:15066
+#: fish/cmds.c:15098
 msgid "get the program name"
 msgstr ""
 
-#: fish/cmds.c:15067
+#: fish/cmds.c:15099
 msgid "get the hypervisor binary (usually qemu)"
 msgstr ""
 
-#: fish/cmds.c:15068
+#: fish/cmds.c:15100
 msgid "get recovery process enabled flag"
 msgstr "ಪುನಶ್ಚೇತನ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಶಕ್ತಗೊಳಿಸಲಾದ ಗುರುತನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15069
+#: fish/cmds.c:15101
 msgid "get SELinux enabled flag"
 msgstr "SELinux ಶಕ್ತಗೊಂಡ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15070
+#: fish/cmds.c:15102
 msgid "get number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:15071
+#: fish/cmds.c:15103
 msgid "get the temporary directory for sockets"
 msgstr ""
 
-#: fish/cmds.c:15072
+#: fish/cmds.c:15104
 msgid "get the temporary directory"
 msgstr ""
 
-#: fish/cmds.c:15073
+#: fish/cmds.c:15105
 msgid "get command trace enabled flag"
 msgstr "ಆಜ್ಞೆಯ ಜಾಡನ್ನು ಇರಿಸುವಂತೆ ಶಕ್ತಗೊಳಿಸಲಾದ ಫ್ಲಾಗನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15074
+#: fish/cmds.c:15106
 msgid "get the current umask"
 msgstr ""
 
-#: fish/cmds.c:15075
+#: fish/cmds.c:15107
 msgid "get verbose mode"
 msgstr "ವರ್ಬೋಸ್ ಕ್ರಮವನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15076
+#: fish/cmds.c:15108
 msgid "get SELinux security context"
 msgstr "SELinux ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶವನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15077 fish/cmds.c:15183
+#: fish/cmds.c:15109 fish/cmds.c:15215
 msgid "get a single extended attribute"
 msgstr ""
 
-#: fish/cmds.c:15078 fish/cmds.c:15184
+#: fish/cmds.c:15110 fish/cmds.c:15216
 msgid "list extended attributes of a file or directory"
 msgstr "ಒಂದು ಕಡತ ಅಥವ ಕೋಶದ ವಿಸ್ತರಿಸಲಾದ ಲಕ್ಷಣಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡು"
 
-#: fish/cmds.c:15079
+#: fish/cmds.c:15111
 msgid "expand wildcards in command"
 msgstr "ಆಜ್ಞೆಯಲ್ಲಿನ ವೈಲ್ಡ್‌ಕಾರ್ಡುಗಳನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15080
+#: fish/cmds.c:15112
 msgid "expand a wildcard path"
 msgstr "ವೈಲ್ಡ್‌ಕಾರ್ಡ್ ಮಾರ್ಗವನ್ನು ಹಿಗ್ಗಿಸು"
 
-#: fish/cmds.c:15083
+#: fish/cmds.c:15115
 msgid "install GRUB 1"
 msgstr ""
 
-#: fish/cmds.c:15084
+#: fish/cmds.c:15116
 msgid "return first 10 lines of a file"
 msgstr "ಒಂದು ಕಡತದ ಮೊದಲ 10 ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15085
+#: fish/cmds.c:15117
 msgid "return first N lines of a file"
 msgstr "ಒಂದು ಕಡತದ ಮೊದಲ N ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15086
+#: fish/cmds.c:15118
 msgid "dump a file in hexadecimal"
 msgstr "ಹೆಕ್ಸಾಡೆಸಿಮಲ್‌ನಲ್ಲಿ ಒಂದು ಕಡತವನ್ನು ಹಾಕು"
 
-#: fish/cmds.c:15087
+#: fish/cmds.c:15119
 msgid "edit with a hex editor"
 msgstr ""
 
-#: fish/cmds.c:15088
+#: fish/cmds.c:15120
 msgid "close the current hivex handle"
 msgstr ""
 
-#: fish/cmds.c:15089
+#: fish/cmds.c:15121
 msgid "commit (write) changes back to the hive"
 msgstr ""
 
-#: fish/cmds.c:15090
+#: fish/cmds.c:15122
 msgid "add a child node"
 msgstr ""
 
-#: fish/cmds.c:15091
+#: fish/cmds.c:15123
 msgid "return list of nodes which are subkeys of node"
 msgstr ""
 
-#: fish/cmds.c:15092
+#: fish/cmds.c:15124
 msgid "delete a node (recursively)"
 msgstr ""
 
-#: fish/cmds.c:15093
+#: fish/cmds.c:15125
 msgid "return the named child of node"
 msgstr ""
 
-#: fish/cmds.c:15094
+#: fish/cmds.c:15126
 msgid "return the named value"
 msgstr ""
 
-#: fish/cmds.c:15095
+#: fish/cmds.c:15127
 msgid "return the name of the node"
 msgstr ""
 
-#: fish/cmds.c:15096
+#: fish/cmds.c:15128
 msgid "return the parent of node"
 msgstr ""
 
-#: fish/cmds.c:15097
+#: fish/cmds.c:15129
 msgid "set or replace a single value in a node"
 msgstr ""
 
-#: fish/cmds.c:15098
+#: fish/cmds.c:15130
 msgid "return list of values attached to node"
 msgstr ""
 
-#: fish/cmds.c:15099
+#: fish/cmds.c:15131
 msgid "open a Windows Registry hive file"
 msgstr ""
 
-#: fish/cmds.c:15100
+#: fish/cmds.c:15132
 msgid "return the root node of the hive"
 msgstr ""
 
-#: fish/cmds.c:15101
+#: fish/cmds.c:15133
 msgid "return the key field from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:15102
+#: fish/cmds.c:15134
 msgid "return the data type from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:15103 fish/cmds.c:15104
+#: fish/cmds.c:15135 fish/cmds.c:15136
 msgid "return the data field from the (key, datatype, data) tuple"
 msgstr ""
 
-#: fish/cmds.c:15111
+#: fish/cmds.c:15143
 msgid "list the contents of a single file in an initrd"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿರುವ ವಿಷಯಗಳನ್ನು initrd ಯಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡು"
 
-#: fish/cmds.c:15112
+#: fish/cmds.c:15144
 msgid "list files in an initrd"
 msgstr "ಒಂದು initrd ಯ ಕಡತಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15113
+#: fish/cmds.c:15145
 msgid "add an inotify watch"
 msgstr "inotify ವೀಕ್ಷಣೆಯನ್ನು ಸೇರಿಸು"
 
-#: fish/cmds.c:15114
+#: fish/cmds.c:15146
 msgid "close the inotify handle"
 msgstr "inotify ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು"
 
-#: fish/cmds.c:15115
+#: fish/cmds.c:15147
 msgid "return list of watched files that had events"
 msgstr "ಘಟನೆಗಳನ್ನು ಹೊಂದಿರುವ ವೀಕ್ಷಿಸಲಾಗುವ ಕಡತಗಳ ಪಟ್ಟಿಯನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15116
+#: fish/cmds.c:15148
 msgid "create an inotify handle"
 msgstr "ಒಂದು inotify ಹ್ಯಾಂಡಲ್ ಅನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15117
+#: fish/cmds.c:15149
 msgid "return list of inotify events"
 msgstr "inotify ಘಟನೆಗಳ ಪಟ್ಟಿಯನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15118
+#: fish/cmds.c:15150
 msgid "remove an inotify watch"
 msgstr "ಒಂದು inotify ವೀಕ್ಷಣೆಯನ್ನು ತೆಗೆದುಹಾಕು"
 
-#: fish/cmds.c:15119
+#: fish/cmds.c:15151
 msgid "get architecture of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15120
+#: fish/cmds.c:15152
 msgid "get distro of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15121
+#: fish/cmds.c:15153
 msgid "get drive letter mappings"
 msgstr ""
 
-#: fish/cmds.c:15122
+#: fish/cmds.c:15154
 msgid "get filesystems associated with inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15123
+#: fish/cmds.c:15155
 msgid "get format of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15124
+#: fish/cmds.c:15156
 msgid "get hostname of the operating system"
 msgstr ""
 
-#: fish/cmds.c:15125
+#: fish/cmds.c:15157
 msgid "get the icon corresponding to this operating system"
 msgstr ""
 
-#: fish/cmds.c:15126
+#: fish/cmds.c:15158
 msgid "get major version of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15127
+#: fish/cmds.c:15159
 msgid "get minor version of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15128
+#: fish/cmds.c:15160
 msgid "get mountpoints of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15129
+#: fish/cmds.c:15161
 msgid "get package format used by the operating system"
 msgstr ""
 
-#: fish/cmds.c:15130
+#: fish/cmds.c:15162
 msgid "get package management tool used by the operating system"
 msgstr ""
 
-#: fish/cmds.c:15131
+#: fish/cmds.c:15163
 msgid "get product name of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15132
+#: fish/cmds.c:15164
 msgid "get product variant of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15133
+#: fish/cmds.c:15165
 msgid "return list of operating systems found by last inspection"
 msgstr ""
 
-#: fish/cmds.c:15134
+#: fish/cmds.c:15166
 msgid "get type of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15135
+#: fish/cmds.c:15167
 msgid "get Windows CurrentControlSet of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15136
+#: fish/cmds.c:15168
 msgid "get Windows systemroot of inspected operating system"
 msgstr ""
 
-#: fish/cmds.c:15137
+#: fish/cmds.c:15169
 msgid "get live flag for install disk"
 msgstr ""
 
-#: fish/cmds.c:15138
+#: fish/cmds.c:15170
 msgid "get multipart flag for install disk"
 msgstr ""
 
-#: fish/cmds.c:15139
+#: fish/cmds.c:15171
 msgid "get netinst (network installer) flag for install disk"
 msgstr ""
 
-#: fish/cmds.c:15140 fish/cmds.c:15141
+#: fish/cmds.c:15172 fish/cmds.c:15173
 msgid "get list of applications installed in the operating system"
 msgstr ""
 
-#: fish/cmds.c:15142
+#: fish/cmds.c:15174
 msgid "inspect disk and return list of operating systems found"
 msgstr ""
 
-#: fish/cmds.c:15143
+#: fish/cmds.c:15175
 msgid "cause the daemon to exit (internal use only)"
 msgstr ""
 
-#: fish/cmds.c:15144
+#: fish/cmds.c:15176
 msgid "test if block device"
 msgstr ""
 
-#: fish/cmds.c:15145
+#: fish/cmds.c:15177
 msgid "test if character device"
 msgstr ""
 
-#: fish/cmds.c:15146
+#: fish/cmds.c:15178
 msgid "is in configuration state"
 msgstr "ಸಂರಚನೆಯ ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: fish/cmds.c:15147
+#: fish/cmds.c:15179
 msgid "test if a directory"
 msgstr ""
 
-#: fish/cmds.c:15148
+#: fish/cmds.c:15180
 msgid "test if FIFO (named pipe)"
 msgstr ""
 
-#: fish/cmds.c:15149
+#: fish/cmds.c:15181
 msgid "test if a regular file"
 msgstr ""
 
-#: fish/cmds.c:15150
+#: fish/cmds.c:15182
 msgid "test if mountable is a logical volume"
 msgstr ""
 
-#: fish/cmds.c:15151
+#: fish/cmds.c:15183
 msgid "test if socket"
 msgstr ""
 
-#: fish/cmds.c:15152
+#: fish/cmds.c:15184
 msgid "test if symbolic link"
 msgstr ""
 
-#: fish/cmds.c:15153
+#: fish/cmds.c:15185
 msgid "test if a device is a whole device"
 msgstr ""
 
-#: fish/cmds.c:15154
+#: fish/cmds.c:15186
 msgid "test if a file contains all zero bytes"
 msgstr ""
 
-#: fish/cmds.c:15155
+#: fish/cmds.c:15187
 msgid "test if a device contains all zero bytes"
 msgstr ""
 
-#: fish/cmds.c:15156
+#: fish/cmds.c:15188
 msgid "get ISO information from primary volume descriptor of ISO file"
 msgstr ""
 
-#: fish/cmds.c:15157
+#: fish/cmds.c:15189
 msgid "get ISO information from primary volume descriptor of device"
 msgstr ""
 
-#: fish/cmds.c:15158
+#: fish/cmds.c:15190
 msgid "close the systemd journal"
 msgstr ""
 
-#: fish/cmds.c:15159
+#: fish/cmds.c:15191
 msgid "read the current journal entry"
 msgstr ""
 
-#: fish/cmds.c:15160
+#: fish/cmds.c:15192
 msgid "get the data threshold for reading journal entries"
 msgstr ""
 
-#: fish/cmds.c:15161
+#: fish/cmds.c:15193
 msgid "get the timestamp of the current journal entry"
 msgstr ""
 
-#: fish/cmds.c:15162
+#: fish/cmds.c:15194
 msgid "move to the next journal entry"
 msgstr ""
 
-#: fish/cmds.c:15163
+#: fish/cmds.c:15195
 msgid "open the systemd journal"
 msgstr ""
 
-#: fish/cmds.c:15164
+#: fish/cmds.c:15196
 msgid "set the data threshold for reading journal entries"
 msgstr ""
 
-#: fish/cmds.c:15165
+#: fish/cmds.c:15197
 msgid "skip forwards or backwards in the journal"
 msgstr ""
 
-#: fish/cmds.c:15166
+#: fish/cmds.c:15198
 msgid "kill the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:15167
+#: fish/cmds.c:15199
 msgid "launch the backend"
 msgstr ""
 
-#: fish/cmds.c:15168
+#: fish/cmds.c:15200
 msgid "change working directory"
 msgstr ""
 
-#: fish/cmds.c:15170
+#: fish/cmds.c:15202
 msgid "scan and create Windows dynamic disk volumes"
 msgstr ""
 
-#: fish/cmds.c:15171
+#: fish/cmds.c:15203
 msgid "return the disks in a Windows dynamic disk group"
 msgstr ""
 
-#: fish/cmds.c:15172
+#: fish/cmds.c:15204
 msgid "return the name of a Windows dynamic disk group"
 msgstr ""
 
-#: fish/cmds.c:15173
+#: fish/cmds.c:15205
 msgid "return the volumes in a Windows dynamic disk group"
 msgstr ""
 
-#: fish/cmds.c:15174
+#: fish/cmds.c:15206
 msgid "remove all Windows dynamic disk volumes"
 msgstr ""
 
-#: fish/cmds.c:15175 fish/cmds.c:15176
+#: fish/cmds.c:15207 fish/cmds.c:15208
 msgid "scan for Windows dynamic disks"
 msgstr ""
 
-#: fish/cmds.c:15177
+#: fish/cmds.c:15209
 msgid "return the hint field of a Windows dynamic disk volume"
 msgstr ""
 
-#: fish/cmds.c:15178
+#: fish/cmds.c:15210
 msgid "return the partitions in a Windows dynamic disk volume"
 msgstr ""
 
-#: fish/cmds.c:15179
+#: fish/cmds.c:15211
 msgid "return the type of a Windows dynamic disk volume"
 msgstr ""
 
-#: fish/cmds.c:15185
+#: fish/cmds.c:15217
 msgid "list 9p filesystems"
 msgstr ""
 
-#: fish/cmds.c:15186
+#: fish/cmds.c:15218
 msgid "list the block devices"
 msgstr "ಖಂಡ ಸಾಧನಗಳ ಪಟ್ಟಿ"
 
-#: fish/cmds.c:15187
+#: fish/cmds.c:15219
 msgid "mapping of disk labels to devices"
 msgstr ""
 
-#: fish/cmds.c:15188
+#: fish/cmds.c:15220
 msgid "list device mapper devices"
 msgstr ""
 
-#: fish/cmds.c:15189
+#: fish/cmds.c:15221
 msgid "list event handlers"
 msgstr ""
 
-#: fish/cmds.c:15190
+#: fish/cmds.c:15222
 msgid "list filesystems"
 msgstr ""
 
-#: fish/cmds.c:15191
+#: fish/cmds.c:15223
 msgid "list all Windows dynamic disk partitions"
 msgstr ""
 
-#: fish/cmds.c:15192
+#: fish/cmds.c:15224
 msgid "list all Windows dynamic disk volumes"
 msgstr ""
 
-#: fish/cmds.c:15193
+#: fish/cmds.c:15225
 msgid "list Linux md (RAID) devices"
 msgstr ""
 
-#: fish/cmds.c:15194
+#: fish/cmds.c:15226
 msgid "list the partitions"
 msgstr "ವಿಭಾಗಗಳ ಪಟ್ಟಿ"
 
-#: fish/cmds.c:15195
+#: fish/cmds.c:15227
 msgid "list the files in a directory (long format)"
 msgstr "ಕೋಶದಲ್ಲಿನ ಕಡತಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡು (ಉದ್ದನೆಯ ವಿನ್ಯಾಸದಲ್ಲಿ)"
 
-#: fish/cmds.c:15196
+#: fish/cmds.c:15228
 msgid "list the files in a directory (long format with SELinux contexts)"
 msgstr ""
 
-#: fish/cmds.c:15197 fish/cmds.c:15198
+#: fish/cmds.c:15229 fish/cmds.c:15230
 msgid "create a hard link"
 msgstr "ದೃಢ(ಹಾರ್ಡ್) ಕೊಂಡಿಯನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15199 fish/cmds.c:15200
+#: fish/cmds.c:15231 fish/cmds.c:15232
 msgid "create a symbolic link"
 msgstr "ಸಾಂಕೇತಿಕ ಕೊಂಡಿಯನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15201 fish/cmds.c:15358
+#: fish/cmds.c:15233 fish/cmds.c:15390
 msgid "remove extended attribute of a file or directory"
 msgstr "ಒಂದು ಕಡತ ಅಥವ ಕೋಶದ ವಿಸ್ತರಿಸಲಾದ ಲಕ್ಷಣಗಳನ್ನು ತೆಗೆದು ಹಾಕು"
 
-#: fish/cmds.c:15202
+#: fish/cmds.c:15234
 msgid "list the files in a directory"
 msgstr "ಕೋಶದಲ್ಲಿನ ಕಡತಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15203
+#: fish/cmds.c:15235
 msgid "get list of files in a directory"
 msgstr ""
 
-#: fish/cmds.c:15204 fish/cmds.c:15418
+#: fish/cmds.c:15236 fish/cmds.c:15450
 msgid "set extended attribute of a file or directory"
 msgstr "ಒಂದು ಕಡತ ಅಥವ ಕೋಶದ ವಿಸ್ತರಿಸಲಾದ ಲಕ್ಷಣಗಳನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15205 fish/cmds.c:15207
+#: fish/cmds.c:15237 fish/cmds.c:15239
 msgid "get file information for a symbolic link"
 msgstr "ಒಂದು ಸಾಂಕೇತಿಕ ಕೊಂಡಿಯ ಕಡತದ ಮಾಹಿತಿಯನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15206 fish/cmds.c:15208
+#: fish/cmds.c:15238 fish/cmds.c:15240
 msgid "lstat on multiple files"
 msgstr "ಅನೇಕ ಕಡತಗಳ ಮೇಲೆ lstat ಮಾಡು"
 
-#: fish/cmds.c:15209
+#: fish/cmds.c:15241
 msgid "add a key on a LUKS encrypted device"
 msgstr ""
 
-#: fish/cmds.c:15210
+#: fish/cmds.c:15242
 msgid "close a LUKS device"
 msgstr ""
 
-#: fish/cmds.c:15211 fish/cmds.c:15212
+#: fish/cmds.c:15243 fish/cmds.c:15244
 msgid "format a block device as a LUKS encrypted device"
 msgstr ""
 
-#: fish/cmds.c:15213
+#: fish/cmds.c:15245
 msgid "remove a key from a LUKS encrypted device"
 msgstr ""
 
-#: fish/cmds.c:15214
+#: fish/cmds.c:15246
 msgid "open a LUKS-encrypted block device"
 msgstr ""
 
-#: fish/cmds.c:15215
+#: fish/cmds.c:15247
 msgid "open a LUKS-encrypted block device read-only"
 msgstr ""
 
-#: fish/cmds.c:15216
+#: fish/cmds.c:15248
 msgid "create an LVM logical volume"
 msgstr ""
 
-#: fish/cmds.c:15217
+#: fish/cmds.c:15249
 msgid "create an LVM logical volume in % remaining free space"
 msgstr ""
 
-#: fish/cmds.c:15218
+#: fish/cmds.c:15250
 msgid "get canonical name of an LV"
 msgstr ""
 
-#: fish/cmds.c:15219
+#: fish/cmds.c:15251
 msgid "clear LVM device filter"
 msgstr ""
 
-#: fish/cmds.c:15220
+#: fish/cmds.c:15252
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr "ಎಲ್ಲಾ LVM LVಗಳನ್ನು, VGಗಳನ್ನು ಹಾಗು PVಗಳನ್ನು ತೆಗೆದು ಹಾಕು"
 
-#: fish/cmds.c:15221
+#: fish/cmds.c:15253
 msgid "set LVM device filter"
 msgstr ""
 
-#: fish/cmds.c:15222
+#: fish/cmds.c:15254
 msgid "remove an LVM logical volume"
 msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣವನ್ನು ತೆಗೆದು ಹಾಕು"
 
-#: fish/cmds.c:15223
+#: fish/cmds.c:15255
 msgid "rename an LVM logical volume"
 msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಹೆಸರನ್ನು ಬದಲಾಯಿಸು"
 
-#: fish/cmds.c:15224
+#: fish/cmds.c:15256
 msgid "resize an LVM logical volume"
 msgstr "ಒಂದು LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
 
-#: fish/cmds.c:15225
+#: fish/cmds.c:15257
 msgid "expand an LV to fill free space"
 msgstr ""
 
-#: fish/cmds.c:15226 fish/cmds.c:15227
+#: fish/cmds.c:15258 fish/cmds.c:15259
 msgid "list the LVM logical volumes (LVs)"
 msgstr "LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳ (LVಗಳು) ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15228
+#: fish/cmds.c:15260
 msgid "get the UUID of a logical volume"
 msgstr ""
 
-#: fish/cmds.c:15229
+#: fish/cmds.c:15261
 msgid "lgetxattr on multiple files"
 msgstr "ವಿವಿಧ ಕಡತದಲ್ಲಿ lgetxattr"
 
-#: fish/cmds.c:15230
+#: fish/cmds.c:15262
 msgid "open the manual"
 msgstr ""
 
-#: fish/cmds.c:15234
+#: fish/cmds.c:15266
 msgid "maximum number of disks that may be added"
 msgstr ""
 
-#: fish/cmds.c:15235
+#: fish/cmds.c:15267
 msgid "create a Linux md (RAID) device"
 msgstr ""
 
-#: fish/cmds.c:15236
+#: fish/cmds.c:15268
 msgid "obtain metadata for an MD device"
 msgstr ""
 
-#: fish/cmds.c:15237
+#: fish/cmds.c:15269
 msgid "get underlying devices from an MD device"
 msgstr ""
 
-#: fish/cmds.c:15238
+#: fish/cmds.c:15270
 msgid "stop a Linux md (RAID) device"
 msgstr ""
 
-#: fish/cmds.c:15242
+#: fish/cmds.c:15274
 msgid "create a directory"
 msgstr "ಒಂದು ಕೋಶವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15243
+#: fish/cmds.c:15275
 msgid "create a directory with a particular mode"
 msgstr "ಒಂದು ನಿರ್ದಿಷ್ಟ ಕ್ರಮದಲ್ಲಿ ಒಂದು ಕೋಶವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15244
+#: fish/cmds.c:15276
 msgid "create a directory and parents"
 msgstr "ಕೋಶ ಹಾಗು ಅದರ ಮೂಲಗಳನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15245
+#: fish/cmds.c:15277
 msgid "create a temporary directory"
 msgstr "ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15246
+#: fish/cmds.c:15278
 msgid "create an ext2/ext3/ext4 filesystem on device"
 msgstr ""
 
-#: fish/cmds.c:15247 fish/cmds.c:15248 fish/cmds.c:15249
+#: fish/cmds.c:15279 fish/cmds.c:15280 fish/cmds.c:15281
 msgid "make ext2/3/4 filesystem with external journal"
 msgstr "ಬಾಹ್ಯ ಜರ್ನಲ್‌ನೊಂದಿಗೆ ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15250
+#: fish/cmds.c:15282
 msgid "make ext2/3/4 external journal"
 msgstr "ext2/3/4 ಬಾಹ್ಯ ಜರ್ನಲ್‌ ಅನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15251
+#: fish/cmds.c:15283
 msgid "make ext2/3/4 external journal with label"
 msgstr "ಲೇಬಲ್‌ನೊಂದಿಗೆ ext2/3/4 ಬಾಹ್ಯ ಜರ್ನಲ್‌ ಅನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15252
+#: fish/cmds.c:15284
 msgid "make ext2/3/4 external journal with UUID"
 msgstr "UUID ಯೊಂದಿಗೆ ext2/3/4 ಬಾಹ್ಯ ಜರ್ನಲ್‌ ಅನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15253
+#: fish/cmds.c:15285
 msgid "make FIFO (named pipe)"
 msgstr "FIFO ಅನ್ನು ನಿರ್ಮಿಸು (ನೇಮ್ಡ್ ಪೈಪ್)"
 
-#: fish/cmds.c:15254
+#: fish/cmds.c:15286
 msgid "make a filesystem"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15255
+#: fish/cmds.c:15287
 msgid "make a filesystem with block size"
 msgstr "ಖಂಡ ಸಾಧನದೊಂದಿಗೆ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15256
+#: fish/cmds.c:15288
 msgid "create a btrfs filesystem"
 msgstr ""
 
-#: fish/cmds.c:15257
+#: fish/cmds.c:15289
 msgid "make lost+found directory on an ext2/3/4 filesystem"
 msgstr ""
 
-#: fish/cmds.c:15258
+#: fish/cmds.c:15290
 msgid "create a mountpoint"
 msgstr "ಆರೋಹಣಾ ತಾಣವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15259
+#: fish/cmds.c:15291
 msgid "make block, character or FIFO devices"
 msgstr "ಖಂಡ, ಚಿಹ್ನೆ ಅಥವ FIFO ಸಾಧನಗಳನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15260
+#: fish/cmds.c:15292
 msgid "make block device node"
 msgstr "ಖಂಡ ಸಾಧನದ ನೋಡ್‌ ಅನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15261
+#: fish/cmds.c:15293
 msgid "make char device node"
 msgstr "char ಸಾಧನ ನೋಡ್ ಅನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15262
+#: fish/cmds.c:15294
 msgid "create a swap partition"
 msgstr "ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ನಿರ್ಮಿಸು"
 
-#: fish/cmds.c:15263
+#: fish/cmds.c:15295
 msgid "create a swap partition with a label"
 msgstr "ಒಂದು ಲೇಬಲ್‌ನೊಂದಿಗೆ ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15264
+#: fish/cmds.c:15296
 msgid "create a swap partition with an explicit UUID"
 msgstr "ಒಂದು ವಿಶಿಷ್ಟವಾದ UUID ಯೊಂದಿಗೆ ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15265
+#: fish/cmds.c:15297
 msgid "create a swap file"
 msgstr "ಒಂದು ಸ್ವಾಪ್ ಕಡತವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15266
+#: fish/cmds.c:15298
 msgid "create a temporary file"
 msgstr ""
 
-#: fish/cmds.c:15267
+#: fish/cmds.c:15299
 msgid "load a kernel module"
 msgstr "ಒಂದು ಕರ್ನಲ್ ಘಟಕವನ್ನು ಲೋಡ್ ಮಾಡು"
 
-#: fish/cmds.c:15268
+#: fish/cmds.c:15300
 msgid "view a file"
 msgstr ""
 
-#: fish/cmds.c:15269
+#: fish/cmds.c:15301
 msgid "mount a guest disk at a position in the filesystem"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯ ಒಂದು ಸ್ಥಳದಲ್ಲಿ ಒಂದು ಅತಿಥಿ ಡಿಸ್ಕನ್ನು ಆರೋಹಿಸು"
 
-#: fish/cmds.c:15270
+#: fish/cmds.c:15302
 msgid "mount 9p filesystem"
 msgstr ""
 
-#: fish/cmds.c:15271
+#: fish/cmds.c:15303
 msgid "mount on the local filesystem"
 msgstr ""
 
-#: fish/cmds.c:15272
+#: fish/cmds.c:15304
 msgid "run main loop of mount on the local filesystem"
 msgstr ""
 
-#: fish/cmds.c:15273
+#: fish/cmds.c:15305
 msgid "mount a file using the loop device"
 msgstr "ಒಂದು ಲೂಪ್ ಸಾಧನವನ್ನು ಬಳಸಿಕೊಂಡು ಒಂದು ಕಡತವನ್ನು ಆರೋಹಿಸು"
 
-#: fish/cmds.c:15274
+#: fish/cmds.c:15306
 msgid "mount a guest disk with mount options"
 msgstr "ಆರೋಹಣಾ ಆಯ್ಕೆಗಳೊಂದಿಗೆ ಒಂದು ಅತಿಥಿ ಡಿಸ್ಕನ್ನು ಆರೋಹಿಸು"
 
-#: fish/cmds.c:15275
+#: fish/cmds.c:15307
 msgid "mount a guest disk, read-only"
 msgstr "ಒಂದು ಅತಿಥಿ ಡಿಸ್ಕನ್ನು ಆರೋಹಿಸು, ಓದಲು ಮಾತ್ರ"
 
-#: fish/cmds.c:15276
+#: fish/cmds.c:15308
 msgid "mount a guest disk with mount options and vfstype"
 msgstr "ಆರೋಹಣಾ ಆಯ್ಕೆಗಳು ಹಾಗು vfstype ನೊಂದಿಗೆ ಒಂದು ಅತಿಥಿ ಡಿಸ್ಕನ್ನು ಆರೋಹಿಸು"
 
-#: fish/cmds.c:15277
+#: fish/cmds.c:15309
 msgid "extract the device part of a mountable"
 msgstr ""
 
-#: fish/cmds.c:15278
+#: fish/cmds.c:15310
 msgid "extract the subvolume part of a mountable"
 msgstr ""
 
-#: fish/cmds.c:15279
+#: fish/cmds.c:15311
 msgid "show mountpoints"
 msgstr "ಆರೋಹಣಾತಾಣವನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15280
+#: fish/cmds.c:15312
 msgid "show mounted filesystems"
 msgstr "ಆರೋಹಿಸಲಾದ ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15281
+#: fish/cmds.c:15313
 msgid "move a file"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಜರುಗಿಸು"
 
-#: fish/cmds.c:15285
+#: fish/cmds.c:15317
 msgid "return number of whole block devices (disks) added"
 msgstr ""
 
-#: fish/cmds.c:15286
+#: fish/cmds.c:15318
 msgid "probe NTFS volume"
 msgstr "NTFS ಪರಿಮಾಣವನ್ನು ತನಿಖೆ ನಡೆಸು"
 
-#: fish/cmds.c:15288
+#: fish/cmds.c:15320
 msgid "restore NTFS from backup file"
 msgstr ""
 
-#: fish/cmds.c:15289
+#: fish/cmds.c:15321
 msgid "save NTFS to backup file"
 msgstr ""
 
-#: fish/cmds.c:15290
+#: fish/cmds.c:15322
 msgid "fix common errors and force Windows to check NTFS"
 msgstr ""
 
-#: fish/cmds.c:15291
+#: fish/cmds.c:15323
 msgid "resize an NTFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:15292
+#: fish/cmds.c:15324
 msgid "resize an NTFS filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:15293 fish/cmds.c:15294
+#: fish/cmds.c:15325 fish/cmds.c:15326
 msgid "parse the environment and set handle flags accordingly"
 msgstr ""
 
-#: fish/cmds.c:15295
+#: fish/cmds.c:15327
 msgid "add a partition to the device"
 msgstr "ಸಾಧನಕ್ಕೆ ಒಂದು ವಿಭಾಗವನ್ನು ಸೇರಿಸು"
 
-#: fish/cmds.c:15296
+#: fish/cmds.c:15328
 msgid "delete a partition"
 msgstr ""
 
-#: fish/cmds.c:15297
+#: fish/cmds.c:15329
 msgid "partition whole disk with a single primary partition"
 msgstr "ಸಂಪೂರ್ಣ ಡಿಸ್ಕನ್ನು ಒಂದೆ ಒಂದು ಪ್ರಾಥಮಿಕ ವಿಭಾಗವಾಗಿ ವಿಭಜಿಸು"
 
-#: fish/cmds.c:15298
+#: fish/cmds.c:15330
 msgid "move backup GPT header to the end of the disk"
 msgstr ""
 
-#: fish/cmds.c:15299
+#: fish/cmds.c:15331
 msgid "return true if a partition is bootable"
 msgstr ""
 
-#: fish/cmds.c:15300
+#: fish/cmds.c:15332
 msgid "get the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:15301
+#: fish/cmds.c:15333
 msgid "get the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:15302
+#: fish/cmds.c:15334
 msgid "get the type GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:15303
+#: fish/cmds.c:15335
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr ""
 
-#: fish/cmds.c:15304
+#: fish/cmds.c:15336
 msgid "get the MBR partition type"
 msgstr ""
 
-#: fish/cmds.c:15305
+#: fish/cmds.c:15337
 msgid "get partition name"
 msgstr ""
 
-#: fish/cmds.c:15306
+#: fish/cmds.c:15338
 msgid "get the partition table type"
 msgstr "ವಿಭಜನಾ ಕೋಷ್ಟಕದ ಪ್ರಕಾರವನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15307
+#: fish/cmds.c:15339
 msgid "create an empty partition table"
 msgstr "ಒಂದು ಖಾಲಿ ವಿಭಜನಾ ಕೋಷ್ಟಕವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15308
+#: fish/cmds.c:15340
 msgid "list partitions on a device"
 msgstr "ಒಂದು ಸಾಧನದಲ್ಲಿರುವ ವಿಭಾಗಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡು"
 
-#: fish/cmds.c:15309
+#: fish/cmds.c:15341
 msgid "make a partition bootable"
 msgstr "ಒಂದು ವಿಭಾಗವನ್ನು ಬೂಟ್ ಆಗುವಂತೆ ಮಾಡು"
 
-#: fish/cmds.c:15310
+#: fish/cmds.c:15342
 msgid "set the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:15311
+#: fish/cmds.c:15343
 msgid "set the GUID of a GPT-partitioned disk to random value"
 msgstr ""
 
-#: fish/cmds.c:15312
+#: fish/cmds.c:15344
 msgid "set the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:15313
+#: fish/cmds.c:15345
 msgid "set the type GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:15314
+#: fish/cmds.c:15346
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr ""
 
-#: fish/cmds.c:15315
+#: fish/cmds.c:15347
 msgid "set partition name"
 msgstr "ವಿಭಾಗಕ್ಕೆ ಒಂದು ಹೆಸರನ್ನು ಸೂಚಿಸು"
 
-#: fish/cmds.c:15316
+#: fish/cmds.c:15348
 msgid "convert partition name to device name"
 msgstr ""
 
-#: fish/cmds.c:15317
+#: fish/cmds.c:15349
 msgid "convert partition name to partition number"
 msgstr ""
 
-#: fish/cmds.c:15327
+#: fish/cmds.c:15359
 msgid "ping the guest daemon"
 msgstr "ಅತಿಥಿ ಡೀಮನ್ ಅನ್ನು ಪಿಂಗ್ ಮಾಡು"
 
-#: fish/cmds.c:15328
+#: fish/cmds.c:15360
 msgid "read part of a file"
 msgstr "ಒಂದು ಕಡತದ ಭಾಗವನ್ನು ಓದು"
 
-#: fish/cmds.c:15329
+#: fish/cmds.c:15361
 msgid "read part of a device"
 msgstr ""
 
-#: fish/cmds.c:15333
+#: fish/cmds.c:15365
 msgid "generate a new random UUID for a physical volume"
 msgstr ""
 
-#: fish/cmds.c:15334
+#: fish/cmds.c:15366
 msgid "generate new random UUIDs for all physical volumes"
 msgstr ""
 
-#: fish/cmds.c:15335
+#: fish/cmds.c:15367
 msgid "create an LVM physical volume"
 msgstr "ಒಂದು LVM ಭೌತಿಕ ಪರಿಮಾಣವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15336
+#: fish/cmds.c:15368
 msgid "remove an LVM physical volume"
 msgstr "LVM ಭೌತಿಕ ಪರಿಮಾಣವನ್ನು ತೆಗೆದು ಹಾಕು"
 
-#: fish/cmds.c:15337
+#: fish/cmds.c:15369
 msgid "resize an LVM physical volume"
 msgstr "LVM ಭೌತಿಕ ಪರಿಮಾಣದ ಗಾತ್ರವನ್ನು ಬದಲಾಯಿಸು"
 
-#: fish/cmds.c:15338
+#: fish/cmds.c:15370
 msgid "resize an LVM physical volume (with size)"
 msgstr ""
 
-#: fish/cmds.c:15339 fish/cmds.c:15340
+#: fish/cmds.c:15371 fish/cmds.c:15372
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM ತಾರ್ಕಿಕ ಪರಿಮಾಣಗಳ (PVಗಳು) ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15341
+#: fish/cmds.c:15373
 msgid "get the UUID of a physical volume"
 msgstr ""
 
-#: fish/cmds.c:15342
+#: fish/cmds.c:15374
 msgid "write to part of a file"
 msgstr ""
 
-#: fish/cmds.c:15343
+#: fish/cmds.c:15375
 msgid "write to part of a device"
 msgstr ""
 
-#: fish/cmds.c:15347
+#: fish/cmds.c:15379
 msgid "read a file"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಓದು"
 
-#: fish/cmds.c:15348
+#: fish/cmds.c:15380
 msgid "read file as lines"
 msgstr "ಕಡತವನ್ನು ಸಾಲುಗಳಂತೆ ಓದು"
 
-#: fish/cmds.c:15349
+#: fish/cmds.c:15381
 msgid "read directories entries"
 msgstr "ಕೋಶಗಳ ನಮೂದುಗಳನ್ನು ಓದು"
 
-#: fish/cmds.c:15350
+#: fish/cmds.c:15382
 msgid "read the target of a symbolic link"
 msgstr "ಒಂದು ಸಾಂಕೇತಿಕ ಕೊಂಡಿಯ ಗುರಿಯನ್ನು ಓದು"
 
-#: fish/cmds.c:15351
+#: fish/cmds.c:15383
 msgid "readlink on multiple files"
 msgstr "ವಿವಿಧ ಕಡತದಗಳಲ್ಲಿನ readlink"
 
-#: fish/cmds.c:15352
+#: fish/cmds.c:15384
 msgid "canonicalized absolute pathname"
 msgstr "ಸಂಪೂರ್ಣ ಮಾರ್ಗದ ಹೆಸರನ್ನು ಕನೋನಿಲ್ ಆಗಿಸು"
 
-#: fish/cmds.c:15356
+#: fish/cmds.c:15388
 msgid "remount a filesystem with different options"
 msgstr ""
 
-#: fish/cmds.c:15357
+#: fish/cmds.c:15389
 msgid "remove a disk image"
 msgstr ""
 
-#: fish/cmds.c:15359
+#: fish/cmds.c:15391
 msgid "rename a file on the same filesystem"
 msgstr ""
 
-#: fish/cmds.c:15360
+#: fish/cmds.c:15392
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು ಅಥವ ಮರಳಿ ತೆರೆ"
 
-#: fish/cmds.c:15361
+#: fish/cmds.c:15393
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr ""
 
-#: fish/cmds.c:15362
+#: fish/cmds.c:15394
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
 
-#: fish/cmds.c:15363
+#: fish/cmds.c:15395
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:15364
+#: fish/cmds.c:15396
 msgid "remove a file"
 msgstr "ಒಂದು ಕಡತವನ್ನು ತೆಗೆದುಹಾಕು"
 
-#: fish/cmds.c:15365
+#: fish/cmds.c:15397
 msgid "remove a file ignoring errors"
 msgstr ""
 
-#: fish/cmds.c:15366
+#: fish/cmds.c:15398
 msgid "remove a file or directory recursively"
 msgstr "ಕಡತ ಅಥವ ಕೋಶವನ್ನು ಪುನರಾವರ್ತಿತವಾಗಿ ತೆಗೆದು ಹಾಕು"
 
-#: fish/cmds.c:15367
+#: fish/cmds.c:15399
 msgid "remove a directory"
 msgstr "ಒಂದು ಕೋಶವನ್ನು ತೆಗೆದುಹಾಕು"
 
-#: fish/cmds.c:15368
+#: fish/cmds.c:15400
 msgid "remove a mountpoint"
 msgstr "ಒಂದು ಆರೋಹಣಾ ತಾಣವನ್ನು ತೆಗೆದುಹಾಕು"
 
-#: fish/cmds.c:15369
+#: fish/cmds.c:15401
 msgid "synchronize the contents of two directories"
 msgstr ""
 
-#: fish/cmds.c:15370
+#: fish/cmds.c:15402
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr ""
 
-#: fish/cmds.c:15371
+#: fish/cmds.c:15403
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 
-#: fish/cmds.c:15378
+#: fish/cmds.c:15410
 msgid "scrub (securely wipe) a device"
 msgstr "ಒಂದು ಸಾಧನವನ್ನು ಉಜ್ಜು (ಪದೆ ಪದೆ ಅಳಿಸು)"
 
-#: fish/cmds.c:15379
+#: fish/cmds.c:15411
 msgid "scrub (securely wipe) a file"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಉಜ್ಜು (ಪದೆ ಪದೆ ಅಳಿಸು)"
 
-#: fish/cmds.c:15380
+#: fish/cmds.c:15412
 msgid "scrub (securely wipe) free space"
 msgstr "ಉಕ್ತ ಸ್ಥಳವನ್ನು ಉಜ್ಜು (ಪದೆ ಪದೆ ಅಳಿಸು)"
 
-#: fish/cmds.c:15384
+#: fish/cmds.c:15416
 msgid "relabel parts of the filesystem"
 msgstr ""
 
-#: fish/cmds.c:15385
+#: fish/cmds.c:15417
 msgid "add options to kernel command line"
 msgstr "ಕರ್ನಲ್ ಆಜ್ಞಾ ಸಾಲಿಗೆ ಆಯ್ಕೆಗಳನ್ನು ಸೇರಿಸು"
 
-#: fish/cmds.c:15386 fish/cmds.c:15388
+#: fish/cmds.c:15418 fish/cmds.c:15420
 msgid "set the backend"
 msgstr ""
 
-#: fish/cmds.c:15387
+#: fish/cmds.c:15419
 msgid "set autosync mode"
 msgstr "ಸ್ವಯಂಹೊಂದಿಕಾ(ಆಟೊಸಿಂಕ್) ಕ್ರಮವನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15389
+#: fish/cmds.c:15421
 msgid "set a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:15390
+#: fish/cmds.c:15422
 msgid "replace per-backend settings strings"
 msgstr ""
 
-#: fish/cmds.c:15391
+#: fish/cmds.c:15423
 msgid "set the appliance cache directory"
 msgstr ""
 
-#: fish/cmds.c:15392
+#: fish/cmds.c:15424
 msgid "enable or disable direct appliance mode"
 msgstr "ನೇರ ಅಪ್ಲೈಯನ್ಸ್ ಕ್ರಮವನ್ನು ಶಕ್ತ ಅಥವ ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15393
+#: fish/cmds.c:15425
 msgid "set ext2 file attributes of a file"
 msgstr ""
 
-#: fish/cmds.c:15394
+#: fish/cmds.c:15426
 msgid "set ext2 file generation of a file"
 msgstr ""
 
-#: fish/cmds.c:15395
+#: fish/cmds.c:15427
 msgid "set the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆ ಲೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15396
+#: fish/cmds.c:15428
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 ಕಡತವ್ಯವಸ್ಥೆಯ UUID ಅನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15397
+#: fish/cmds.c:15429
 msgid "set the hypervisor binary"
 msgstr ""
 
-#: fish/cmds.c:15398
+#: fish/cmds.c:15430
 msgid "set the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:15399
+#: fish/cmds.c:15431
 msgid "set filesystem label"
 msgstr ""
 
-#: fish/cmds.c:15400
+#: fish/cmds.c:15432
 msgid "pass requested credential back to libvirt"
 msgstr ""
 
-#: fish/cmds.c:15401
+#: fish/cmds.c:15433
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 
-#: fish/cmds.c:15402
+#: fish/cmds.c:15434
 msgid "set memory allocated to the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:15403
+#: fish/cmds.c:15435
 msgid "set enable network flag"
 msgstr ""
 
-#: fish/cmds.c:15404
+#: fish/cmds.c:15436
 msgid "set the search path"
 msgstr "ಹುಡುಕು ಮಾರ್ಗವನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15405
+#: fish/cmds.c:15437
 msgid "set process group flag"
 msgstr ""
 
-#: fish/cmds.c:15406
+#: fish/cmds.c:15438
 msgid "set the program name"
 msgstr ""
 
-#: fish/cmds.c:15407
+#: fish/cmds.c:15439
 msgid "set the hypervisor binary (usually qemu)"
 msgstr ""
 
-#: fish/cmds.c:15408
+#: fish/cmds.c:15440
 msgid "enable or disable the recovery process"
 msgstr "ಪುನಶ್ಚೇತನ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಶಕ್ತಗೊಳಿಸು ಅಥವ ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15409
+#: fish/cmds.c:15441
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr "ಅಪ್ಲೈಯನ್ಸ್ ಬೂಟ್‌ ಸಮಯದಲ್ಲಿ SELinux ಅನ್ನು ಶಕ್ತಗೊಳಿಸು ಅಥವ ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15410
+#: fish/cmds.c:15442
 msgid "set number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:15411
+#: fish/cmds.c:15443
 msgid "set the temporary directory"
 msgstr ""
 
-#: fish/cmds.c:15412
+#: fish/cmds.c:15444
 msgid "enable or disable command traces"
 msgstr "ಆಜ್ಞೆಯ ಜಾಡನ್ನು ಇರಿಸುವಿಕೆಯನ್ನು ಶಕ್ತಗೊಳಿಸು ಅಥವ ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15413
+#: fish/cmds.c:15445
 msgid "set the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:15414
+#: fish/cmds.c:15446
 msgid "set a random UUID for the filesystem"
 msgstr ""
 
-#: fish/cmds.c:15415
+#: fish/cmds.c:15447
 msgid "set verbose mode"
 msgstr "ವರ್ಬೋಸ್ ಕ್ರಮವನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15416
+#: fish/cmds.c:15448
 msgid "set SELinux security context"
 msgstr "SELinux ಸುರಕ್ಷತಾ ಸನ್ನಿವೇಶವನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15417
+#: fish/cmds.c:15449
 msgid "set an environment variable"
 msgstr ""
 
-#: fish/cmds.c:15419 fish/cmds.c:15420
+#: fish/cmds.c:15451 fish/cmds.c:15452
 msgid "create partitions on a block device"
 msgstr "ಒಂದು ಖಂಡ ಸಾಧನದಲ್ಲಿ ವಿಭಾಗಗಳನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15421
+#: fish/cmds.c:15453
 msgid "modify a single partition on a block device"
 msgstr "ಒಂದು ಖಂಡ ಸಾಧನದಲ್ಲಿರುವ ಒಂದೆ ಒಂದು ವಿಭಾಗವನ್ನು ಮಾರ್ಪಡಿಸು"
 
-#: fish/cmds.c:15422
+#: fish/cmds.c:15454
 msgid "display the disk geometry from the partition table"
 msgstr "ವಿಭಜನಾ ಕೋಷ್ಟಕದಿಂದ ಡಿಸ್ಕಿನ ಜ್ಯಾಮಿತಿಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15423
+#: fish/cmds.c:15455
 msgid "display the kernel geometry"
 msgstr "ಕರ್ನಲ್ ಜ್ಯಾಮಿತಿಯನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15424
+#: fish/cmds.c:15456
 msgid "display the partition table"
 msgstr "ವಿಭಜನಾ ಕೋಷ್ಟಕವನ್ನು ತೋರಿಸು"
 
-#: fish/cmds.c:15425
+#: fish/cmds.c:15457
 msgid "run a command via the shell"
 msgstr "ಶೆಲ್‌ನ ಮೂಲಕ ಒಂದು ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸು"
 
-#: fish/cmds.c:15426
+#: fish/cmds.c:15458
 msgid "run a command via the shell returning lines"
 msgstr "ಸಾಲುಗಳನ್ನು ಮರಳಿಸುವ ಶೆಲ್‌ನ ಮೂಲಕ ಒಂದು ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸು"
 
-#: fish/cmds.c:15427
+#: fish/cmds.c:15459
 msgid "shutdown the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:15428
+#: fish/cmds.c:15460
 msgid "sleep for some seconds"
 msgstr "ಕೆಲವು ಕ್ಷಣಗಳ ಕಾಲ ಜಡವಾಗಿರು"
 
-#: fish/cmds.c:15432
+#: fish/cmds.c:15464
 msgid "create a sparse disk image and add"
 msgstr ""
 
-#: fish/cmds.c:15433 fish/cmds.c:15434
+#: fish/cmds.c:15465 fish/cmds.c:15466
 msgid "get file information"
 msgstr "ಕಡತದ ಮಾಹಿತಿಯನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15435
+#: fish/cmds.c:15467
 msgid "get file system statistics"
 msgstr "ಕಡತ ವ್ಯವಸ್ಥೆಯ ಅಂಕಿಅಂಶಗಳನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15436 fish/cmds.c:15437
+#: fish/cmds.c:15468 fish/cmds.c:15469
 msgid "print the printable strings in a file"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿ ಮುದ್ರಿಸಬಹುದಾದ ವಾಕ್ಯಗಳನ್ನು ಮುದ್ರಿಸು"
 
-#: fish/cmds.c:15438
+#: fish/cmds.c:15470
 msgid "list supported groups of commands"
 msgstr ""
 
-#: fish/cmds.c:15439
+#: fish/cmds.c:15471
 msgid "disable swap on device"
 msgstr "ಸಾಧನದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15440
+#: fish/cmds.c:15472
 msgid "disable swap on file"
 msgstr "ಕಡತದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15441
+#: fish/cmds.c:15473
 msgid "disable swap on labeled swap partition"
 msgstr "ಲೇಬಲ್ ಮಾಡಲಾದ ಸ್ವಾಪ್ ವಿಭಾಗದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15442
+#: fish/cmds.c:15474
 msgid "disable swap on swap partition by UUID"
 msgstr "UUID ಮೂಲಕ ಸ್ವಾಪ್ ವಿಭಾಗದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15443
+#: fish/cmds.c:15475
 msgid "enable swap on device"
 msgstr "ಸಾಧನದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15444
+#: fish/cmds.c:15476
 msgid "enable swap on file"
 msgstr "ಕಡತದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15445
+#: fish/cmds.c:15477
 msgid "enable swap on labeled swap partition"
 msgstr "ಲೇಬಲ್ ಮಾಡಲಾದ ಸ್ವಾಪ್ ವಿಭಾಗದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15446
+#: fish/cmds.c:15478
 msgid "enable swap on swap partition by UUID"
 msgstr "UUID ಮೂಲಕ ಸ್ವಾಪ್ ವಿಭಾಗದಲ್ಲಿ ಸ್ವಾಪ್ ಅನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: fish/cmds.c:15447
+#: fish/cmds.c:15479
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "ಸಿಂಕ್ ಡಿಸ್ಕುಗಳನ್ನು, ಬರೆಯವಿಕೆಗಳನ್ನು ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ ಮೂಲಕ ಹೊರತಳ್ಳಲಾಗುತ್ತದೆ"
 
-#: fish/cmds.c:15448
+#: fish/cmds.c:15480
 msgid "install the SYSLINUX bootloader"
 msgstr ""
 
-#: fish/cmds.c:15449
+#: fish/cmds.c:15481
 msgid "return last 10 lines of a file"
 msgstr "ಒಂದು ಕಡತದ ಕೊನೆಯ 10 ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15450
+#: fish/cmds.c:15482
 msgid "return last N lines of a file"
 msgstr "ಒಂದು ಕಡತದ ಕೊನೆಯ N ಸಾಲುಗಳನ್ನು ಮರಳಿಸು"
 
-#: fish/cmds.c:15451
+#: fish/cmds.c:15483
 msgid "unpack tarfile to directory"
 msgstr "tar ಕಡತದಲ್ಲಿರುವುದನ್ನು ಕೋಶಕ್ಕೆ ಹೊರತೆಗೆ"
 
-#: fish/cmds.c:15452
+#: fish/cmds.c:15484
 msgid "pack directory into tarfile"
 msgstr "tar ಕಡತದಲ್ಲಿರುವುದನ್ನು ಕೋಶದಲ್ಲಿ ಸೇರಿಸು"
 
-#: fish/cmds.c:15453 fish/cmds.c:15467
+#: fish/cmds.c:15485 fish/cmds.c:15499
 msgid "unpack compressed tarball to directory"
 msgstr "ಸಂಕುಚನಗೊಳಿಸಲಾದ tarball ನಲ್ಲಿರುವುದನ್ನು ಕೋಶಕ್ಕೆ ಹೊರತೆಗೆ"
 
-#: fish/cmds.c:15454 fish/cmds.c:15468
+#: fish/cmds.c:15486 fish/cmds.c:15500
 msgid "pack directory into compressed tarball"
 msgstr "ಕೋಶದಲ್ಲಿರುವುದನ್ನು  ಸಂಕುಚನಗೊಳಿಸಲಾದ tarball ನಲ್ಲಿ ಸೇರಿಸು"
 
-#: fish/cmds.c:15455
+#: fish/cmds.c:15487
 msgid "print elapsed time taken to run a command"
 msgstr ""
 
-#: fish/cmds.c:15459
+#: fish/cmds.c:15491
 msgid "update file timestamps or create a new file"
 msgstr "ಕಡತದ ಸಮಯ ಮುದ್ರೆಗಳನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡು ಅಥವ ಒಂದು ಹೊಸ ಕಡತವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15463
+#: fish/cmds.c:15495
 msgid "truncate a file to zero size"
 msgstr "ಒಂದು ಕಡತದ ಗಾತ್ರವನ್ನು ಶೂನ್ಯ ಗಾತ್ರಕ್ಕೆ ಕಡಿತಗೊಳಿಸು"
 
-#: fish/cmds.c:15464
+#: fish/cmds.c:15496
 msgid "truncate a file to a particular size"
 msgstr "ಒಂದು ಕಡತದ ಗಾತ್ರವನ್ನು ನಿಶ್ಚಿತ ಗಾತ್ರಕ್ಕೆ ಕಡಿತಗೊಳಿಸು"
 
-#: fish/cmds.c:15465
+#: fish/cmds.c:15497
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr ""
 
-#: fish/cmds.c:15466
+#: fish/cmds.c:15498
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "ext2/ext3/ext4 ಸೂಪರ್-ಬ್ಲಾಕ್ ವಿವರಗಳನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15469
+#: fish/cmds.c:15501
 msgid "set file mode creation mask (umask)"
 msgstr "ಕಡತ ಕ್ರಮದ ರಚನೆಯ ಮುಸುಕನ್ನು ಹೊಂದಿಸು (umask)"
 
-#: fish/cmds.c:15470
+#: fish/cmds.c:15502
 msgid "unmount a filesystem"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಅವರೋಹಿಸಿ"
 
-#: fish/cmds.c:15471
+#: fish/cmds.c:15503
 msgid "unmount all filesystems"
 msgstr "ಎಲ್ಲಾ ಕಡತವ್ಯವಸ್ಥೆಗಳನ್ನು ಅವರೋಹಿಸಿ"
 
-#: fish/cmds.c:15472
+#: fish/cmds.c:15504
 msgid "unmount a locally mounted filesystem"
 msgstr ""
 
-#: fish/cmds.c:15479
+#: fish/cmds.c:15511
 msgid "unset an environment variable"
 msgstr ""
 
-#: fish/cmds.c:15480
+#: fish/cmds.c:15512
 msgid "upload a file from the local machine"
 msgstr "ಸ್ಥಳೀಯ ಗಣಕದಿಂದ ಕಡತವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
 
-#: fish/cmds.c:15481
+#: fish/cmds.c:15513
 msgid "upload a file from the local machine with offset"
 msgstr ""
 
-#: fish/cmds.c:15482
+#: fish/cmds.c:15514
 msgid "cancel the current upload or download operation"
 msgstr ""
 
-#: fish/cmds.c:15483
+#: fish/cmds.c:15515
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "ನ್ಯಾನೊಸೆಕೆಂಡಿನ ನಿಖರತೆಯೊಂದಿಗೆ ಒಂದು ಕಡತದ ಸಮಯಮುದ್ರೆಯನ್ನು ಹೊಂದಿಸು"
 
-#: fish/cmds.c:15484
+#: fish/cmds.c:15516
 msgid "appliance kernel version"
 msgstr ""
 
-#: fish/cmds.c:15488
+#: fish/cmds.c:15520
 msgid "get the library version number"
 msgstr "ಲೈಬ್ರರಿ ಆವೃತ್ತಿ ಸಂಖ್ಯೆಯನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15489
+#: fish/cmds.c:15521
 msgid "get the filesystem label"
 msgstr ""
 
-#: fish/cmds.c:15490
+#: fish/cmds.c:15522
 msgid "get minimum filesystem size"
 msgstr ""
 
-#: fish/cmds.c:15491
+#: fish/cmds.c:15523
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "ಆರೋಹಿಸಲಾದ ಸಾಧನಕ್ಕೆ ಸಂಬಂಧಿಸಿದ Linux VFS ಬಗೆಯನ್ನು ಪಡೆದುಕೊ"
 
-#: fish/cmds.c:15492
+#: fish/cmds.c:15524
 msgid "get the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:15493
+#: fish/cmds.c:15525
 msgid "activate or deactivate some volume groups"
 msgstr "ಕೆಲವು ಪರಿಮಾಣ ಗುಂಪುಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸು ಅಥವ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು"
 
-#: fish/cmds.c:15494
+#: fish/cmds.c:15526
 msgid "activate or deactivate all volume groups"
 msgstr "ಎಲ್ಲಾ ಪರಿಮಾಣ ಗುಂಪುಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸು ಅಥವ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು"
 
-#: fish/cmds.c:15495
+#: fish/cmds.c:15527
 msgid "generate a new random UUID for a volume group"
 msgstr ""
 
-#: fish/cmds.c:15496
+#: fish/cmds.c:15528
 msgid "generate new random UUIDs for all volume groups"
 msgstr ""
 
-#: fish/cmds.c:15497
+#: fish/cmds.c:15529
 msgid "create an LVM volume group"
 msgstr "ಒಂದು LVM ಪರಿಮಾಣ ಸಮೂಹವನ್ನು ರಚಿಸು"
 
-#: fish/cmds.c:15498
+#: fish/cmds.c:15530
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
 
-#: fish/cmds.c:15499
+#: fish/cmds.c:15531
 msgid "get volume group metadata"
 msgstr ""
 
-#: fish/cmds.c:15500
+#: fish/cmds.c:15532
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
 
-#: fish/cmds.c:15501
+#: fish/cmds.c:15533
 msgid "remove an LVM volume group"
 msgstr "ಒಂದು LVM ಪರಿಮಾಣ ಗುಂಪನ್ನು ತೆಗೆದು ಹಾಕು"
 
-#: fish/cmds.c:15502
+#: fish/cmds.c:15534
 msgid "rename an LVM volume group"
 msgstr "ಒಂದು LVM ಪರಿಮಾಣ ಗುಂಪಿನ ಹೆಸರನ್ನು ಬದಲಾಯಿಸು"
 
-#: fish/cmds.c:15503 fish/cmds.c:15504
+#: fish/cmds.c:15535 fish/cmds.c:15536
 msgid "list the LVM volume groups (VGs)"
 msgstr "LVM ಪರಿಮಾಣ ಗುಂಪುಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡು (VGಗಳು)"
 
-#: fish/cmds.c:15505
+#: fish/cmds.c:15537
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
-#: fish/cmds.c:15506
+#: fish/cmds.c:15538
 msgid "get the UUID of a volume group"
 msgstr ""
 
-#: fish/cmds.c:15510
+#: fish/cmds.c:15542
 msgid "count characters in a file"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿನ ಅಕ್ಷರಗಳನ್ನು ಎಣಿಸಿ"
 
-#: fish/cmds.c:15511
+#: fish/cmds.c:15543
 msgid "count lines in a file"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿನ ಸಾಲುಗಳನ್ನು ಎಣಿಸಿ"
 
-#: fish/cmds.c:15512
+#: fish/cmds.c:15544
 msgid "count words in a file"
 msgstr "ಒಂದು ಕಡತದಲ್ಲಿನ ಪದಗಳನ್ನು ಎಣಿಸಿ"
 
-#: fish/cmds.c:15513
+#: fish/cmds.c:15545
 msgid "wipe a filesystem signature from a device"
 msgstr ""
 
-#: fish/cmds.c:15514
+#: fish/cmds.c:15546
 msgid "create a new file"
 msgstr ""
 
-#: fish/cmds.c:15515
+#: fish/cmds.c:15547
 msgid "append content to end of file"
 msgstr ""
 
-#: fish/cmds.c:15516
+#: fish/cmds.c:15548
 msgid "create a file"
 msgstr "ಒಂದು ಕಡತವನ್ನು ನಿರ್ಮಿಸಿ"
 
-#: fish/cmds.c:15517
+#: fish/cmds.c:15549
 msgid "change parameters of an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:15518
+#: fish/cmds.c:15550
 msgid "expand an existing XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:15519
+#: fish/cmds.c:15551
 msgid "get geometry of XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:15520
+#: fish/cmds.c:15552
 msgid "repair an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:15523
+#: fish/cmds.c:15555
 msgid "write zeroes to the device"
 msgstr "ಸಾಧನಕ್ಕೆ ಶೂನ್ಯಗಳನ್ನು ಬರೆ"
 
-#: fish/cmds.c:15524
+#: fish/cmds.c:15556
 msgid "write zeroes to an entire device"
 msgstr ""
 
-#: fish/cmds.c:15525
+#: fish/cmds.c:15557
 msgid "zero free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:15526
+#: fish/cmds.c:15558
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr "ext2/3 ಕಡತವ್ಯವಸ್ಥೆಯಲ್ಲಿ ಬಳಸದೆ ಇರುವ ಶೂನ್ಯ ಐನೋಡ್‌ಗಳು ಹಾಗು ಡಿಸ್ಕ್ ಖಂಡಗಳು"
 
-#: fish/cmds.c:15529
+#: fish/cmds.c:15561
 msgid "determine file type inside a compressed file"
 msgstr "ಸಂಕುಚನಗೊಳಿಸಲಾದ ಒಂದು ಕಡತದಲ್ಲಿರುವ ಕಡತದ ಬಗೆಯನ್ನು ನಿರ್ಧರಿಸಿ"
 
-#: fish/cmds.c:15532
+#: fish/cmds.c:15564
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "ಒಂದು ಆಜ್ಞೆಯ ವಿವರವಾದ ನೆರವನ್ನು ಪಡೆದುಕೊಳ್ಳಲು -h <cmd> / help <cmd> ಅನ್ನು ಬಳಸಿ."
 
-#: fish/cmds.c:15943 fish/cmds.c:15961 fish/cmds.c:15974 fish/cmds.c:16002
-#: fish/cmds.c:16058 fish/cmds.c:16122 fish/cmds.c:16466 fish/cmds.c:17332
-#: fish/cmds.c:17520 fish/cmds.c:17815 fish/cmds.c:18041 fish/cmds.c:18274
-#: fish/cmds.c:18373 fish/cmds.c:19002 fish/cmds.c:19015 fish/cmds.c:19028
-#: fish/cmds.c:19041 fish/cmds.c:19153 fish/cmds.c:19166 fish/cmds.c:19275
-#: fish/cmds.c:19288 fish/cmds.c:19399 fish/cmds.c:19412 fish/cmds.c:19524
-#: fish/cmds.c:19537 fish/cmds.c:20348 fish/cmds.c:20361 fish/cmds.c:22071
-#: fish/cmds.c:22133 fish/cmds.c:22146 fish/cmds.c:22159 fish/cmds.c:22172
-#: fish/cmds.c:22769 fish/cmds.c:22782 fish/cmds.c:22795 fish/cmds.c:23401
-#: fish/cmds.c:23414 fish/cmds.c:23874 fish/cmds.c:23933 fish/cmds.c:24011
-#: fish/cmds.c:24070 fish/cmds.c:24129 fish/cmds.c:24210 fish/cmds.c:26867
-#: fish/cmds.c:26880 fish/cmds.c:26893 fish/cmds.c:26906 fish/cmds.c:26919
-#: fish/cmds.c:26932 fish/cmds.c:26945 fish/cmds.c:26958 fish/cmds.c:26971
-#: fish/cmds.c:26984 fish/cmds.c:26997 fish/cmds.c:27010 fish/cmds.c:27023
-#: fish/cmds.c:27036 fish/cmds.c:27049 fish/cmds.c:27062 fish/cmds.c:27075
-#: fish/cmds.c:28346 fish/cmds.c:28387 fish/cmds.c:28690 fish/cmds.c:28801
-#: fish/cmds.c:28814 fish/cmds.c:28827 fish/cmds.c:28840 fish/cmds.c:28853
-#: fish/cmds.c:28910 fish/cmds.c:28982 fish/cmds.c:29621 fish/cmds.c:30549
-#: fish/cmds.c:30881 fish/cmds.c:30894 fish/cmds.c:30956 fish/cmds.c:30969
-#: fish/cmds.c:31029 fish/cmds.c:31042 fish/cmds.c:31171 fish/cmds.c:31262
-#: fish/cmds.c:31382 fish/cmds.c:31424 fish/cmds.c:31731 fish/cmds.c:31783
-#: fish/cmds.c:31856 fish/cmds.c:31886 fish/cmds.c:31978 fish/cmds.c:32052
-#: fish/cmds.c:33009 fish/cmds.c:33022 fish/cmds.c:33035 fish/cmds.c:33102
-#: fish/cmds.c:33121 fish/cmds.c:33134 fish/cmds.c:33147 fish/cmds.c:33352
-#: fish/cmds.c:33683 fish/cmds.c:33696 fish/cmds.c:33769 fish/cmds.c:34122
-#: fish/cmds.c:34156 fish/cmds.c:34660 fish/cmds.c:34673 fish/cmds.c:34686
-#: fish/cmds.c:34699 fish/cmds.c:34712 fish/cmds.c:34778 fish/cmds.c:34791
-#: fish/cmds.c:34804 fish/cmds.c:34979 fish/cmds.c:34992 fish/cmds.c:35005
-#: fish/cmds.c:35018
+#: fish/cmds.c:15975 fish/cmds.c:15993 fish/cmds.c:16006 fish/cmds.c:16034
+#: fish/cmds.c:16090 fish/cmds.c:16154 fish/cmds.c:16498 fish/cmds.c:17364
+#: fish/cmds.c:17552 fish/cmds.c:17847 fish/cmds.c:18073 fish/cmds.c:18306
+#: fish/cmds.c:18405 fish/cmds.c:19034 fish/cmds.c:19047 fish/cmds.c:19060
+#: fish/cmds.c:19073 fish/cmds.c:19185 fish/cmds.c:19198 fish/cmds.c:19307
+#: fish/cmds.c:19320 fish/cmds.c:19431 fish/cmds.c:19444 fish/cmds.c:19556
+#: fish/cmds.c:19569 fish/cmds.c:20246 fish/cmds.c:20470 fish/cmds.c:20483
+#: fish/cmds.c:22193 fish/cmds.c:22255 fish/cmds.c:22268 fish/cmds.c:22281
+#: fish/cmds.c:22294 fish/cmds.c:22891 fish/cmds.c:22904 fish/cmds.c:22917
+#: fish/cmds.c:23523 fish/cmds.c:23536 fish/cmds.c:23996 fish/cmds.c:24055
+#: fish/cmds.c:24133 fish/cmds.c:24192 fish/cmds.c:24251 fish/cmds.c:24332
+#: fish/cmds.c:26989 fish/cmds.c:27002 fish/cmds.c:27015 fish/cmds.c:27028
+#: fish/cmds.c:27041 fish/cmds.c:27054 fish/cmds.c:27067 fish/cmds.c:27080
+#: fish/cmds.c:27093 fish/cmds.c:27106 fish/cmds.c:27119 fish/cmds.c:27132
+#: fish/cmds.c:27145 fish/cmds.c:27158 fish/cmds.c:27171 fish/cmds.c:27184
+#: fish/cmds.c:27197 fish/cmds.c:28468 fish/cmds.c:28509 fish/cmds.c:28812
+#: fish/cmds.c:28923 fish/cmds.c:28936 fish/cmds.c:28949 fish/cmds.c:28962
+#: fish/cmds.c:28975 fish/cmds.c:29032 fish/cmds.c:29104 fish/cmds.c:29743
+#: fish/cmds.c:30671 fish/cmds.c:31003 fish/cmds.c:31016 fish/cmds.c:31078
+#: fish/cmds.c:31091 fish/cmds.c:31151 fish/cmds.c:31164 fish/cmds.c:31293
+#: fish/cmds.c:31384 fish/cmds.c:31504 fish/cmds.c:31546 fish/cmds.c:31853
+#: fish/cmds.c:31905 fish/cmds.c:31978 fish/cmds.c:32008 fish/cmds.c:32100
+#: fish/cmds.c:32174 fish/cmds.c:33131 fish/cmds.c:33144 fish/cmds.c:33157
+#: fish/cmds.c:33224 fish/cmds.c:33243 fish/cmds.c:33256 fish/cmds.c:33269
+#: fish/cmds.c:33474 fish/cmds.c:33805 fish/cmds.c:33818 fish/cmds.c:33891
+#: fish/cmds.c:34244 fish/cmds.c:34278 fish/cmds.c:34782 fish/cmds.c:34795
+#: fish/cmds.c:34808 fish/cmds.c:34821 fish/cmds.c:34834 fish/cmds.c:34900
+#: fish/cmds.c:34913 fish/cmds.c:34926 fish/cmds.c:35101 fish/cmds.c:35114
+#: fish/cmds.c:35127 fish/cmds.c:35140
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr ""
 
-#: fish/cmds.c:16012 fish/cmds.c:16132 fish/cmds.c:16243 fish/cmds.c:17347
-#: fish/cmds.c:17409 fish/cmds.c:17530 fish/cmds.c:17599 fish/cmds.c:18083
-#: fish/cmds.c:18289 fish/cmds.c:18852 fish/cmds.c:18925 fish/cmds.c:19051
-#: fish/cmds.c:19176 fish/cmds.c:19298 fish/cmds.c:19422 fish/cmds.c:19547
-#: fish/cmds.c:19732 fish/cmds.c:20021 fish/cmds.c:20371 fish/cmds.c:21217
-#: fish/cmds.c:22081 fish/cmds.c:22182 fish/cmds.c:22805 fish/cmds.c:23424
-#: fish/cmds.c:23884 fish/cmds.c:23943 fish/cmds.c:24021 fish/cmds.c:24080
-#: fish/cmds.c:24139 fish/cmds.c:24220 fish/cmds.c:26349 fish/cmds.c:27085
-#: fish/cmds.c:27521 fish/cmds.c:27726 fish/cmds.c:28086 fish/cmds.c:28204
-#: fish/cmds.c:28301 fish/cmds.c:28397 fish/cmds.c:28863 fish/cmds.c:28920
-#: fish/cmds.c:28992 fish/cmds.c:30559 fish/cmds.c:30904 fish/cmds.c:30979
-#: fish/cmds.c:31052 fish/cmds.c:31181 fish/cmds.c:31434 fish/cmds.c:32882
-#: fish/cmds.c:33045 fish/cmds.c:33157 fish/cmds.c:33515 fish/cmds.c:33706
-#: fish/cmds.c:33779 fish/cmds.c:34732 fish/cmds.c:34905 fish/cmds.c:35106
+#: fish/cmds.c:16044 fish/cmds.c:16164 fish/cmds.c:16275 fish/cmds.c:17379
+#: fish/cmds.c:17441 fish/cmds.c:17562 fish/cmds.c:17631 fish/cmds.c:18115
+#: fish/cmds.c:18321 fish/cmds.c:18884 fish/cmds.c:18957 fish/cmds.c:19083
+#: fish/cmds.c:19208 fish/cmds.c:19330 fish/cmds.c:19454 fish/cmds.c:19579
+#: fish/cmds.c:19764 fish/cmds.c:20053 fish/cmds.c:20256 fish/cmds.c:20493
+#: fish/cmds.c:21339 fish/cmds.c:22203 fish/cmds.c:22304 fish/cmds.c:22927
+#: fish/cmds.c:23546 fish/cmds.c:24006 fish/cmds.c:24065 fish/cmds.c:24143
+#: fish/cmds.c:24202 fish/cmds.c:24261 fish/cmds.c:24342 fish/cmds.c:26471
+#: fish/cmds.c:27207 fish/cmds.c:27643 fish/cmds.c:27848 fish/cmds.c:28208
+#: fish/cmds.c:28326 fish/cmds.c:28423 fish/cmds.c:28519 fish/cmds.c:28985
+#: fish/cmds.c:29042 fish/cmds.c:29114 fish/cmds.c:30681 fish/cmds.c:31026
+#: fish/cmds.c:31101 fish/cmds.c:31174 fish/cmds.c:31303 fish/cmds.c:31556
+#: fish/cmds.c:33004 fish/cmds.c:33167 fish/cmds.c:33279 fish/cmds.c:33637
+#: fish/cmds.c:33828 fish/cmds.c:33901 fish/cmds.c:34854 fish/cmds.c:35027
+#: fish/cmds.c:35228
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr ""
 
-#: fish/cmds.c:16018 fish/cmds.c:16138 fish/cmds.c:16249 fish/cmds.c:17353
-#: fish/cmds.c:17415 fish/cmds.c:17536 fish/cmds.c:17605 fish/cmds.c:18089
-#: fish/cmds.c:18295 fish/cmds.c:18858 fish/cmds.c:18931 fish/cmds.c:19057
-#: fish/cmds.c:19182 fish/cmds.c:19304 fish/cmds.c:19428 fish/cmds.c:19553
-#: fish/cmds.c:19738 fish/cmds.c:20027 fish/cmds.c:20377 fish/cmds.c:21223
-#: fish/cmds.c:22087 fish/cmds.c:22188 fish/cmds.c:22811 fish/cmds.c:23430
-#: fish/cmds.c:23890 fish/cmds.c:23949 fish/cmds.c:24027 fish/cmds.c:24086
-#: fish/cmds.c:24145 fish/cmds.c:24226 fish/cmds.c:26355 fish/cmds.c:27091
-#: fish/cmds.c:27527 fish/cmds.c:27732 fish/cmds.c:28092 fish/cmds.c:28210
-#: fish/cmds.c:28307 fish/cmds.c:28403 fish/cmds.c:28869 fish/cmds.c:28926
-#: fish/cmds.c:28998 fish/cmds.c:30565 fish/cmds.c:30910 fish/cmds.c:30985
-#: fish/cmds.c:31058 fish/cmds.c:31187 fish/cmds.c:31440 fish/cmds.c:32888
-#: fish/cmds.c:33051 fish/cmds.c:33163 fish/cmds.c:33521 fish/cmds.c:33712
-#: fish/cmds.c:33785 fish/cmds.c:34738 fish/cmds.c:34911 fish/cmds.c:35112
+#: fish/cmds.c:16050 fish/cmds.c:16170 fish/cmds.c:16281 fish/cmds.c:17385
+#: fish/cmds.c:17447 fish/cmds.c:17568 fish/cmds.c:17637 fish/cmds.c:18121
+#: fish/cmds.c:18327 fish/cmds.c:18890 fish/cmds.c:18963 fish/cmds.c:19089
+#: fish/cmds.c:19214 fish/cmds.c:19336 fish/cmds.c:19460 fish/cmds.c:19585
+#: fish/cmds.c:19770 fish/cmds.c:20059 fish/cmds.c:20262 fish/cmds.c:20499
+#: fish/cmds.c:21345 fish/cmds.c:22209 fish/cmds.c:22310 fish/cmds.c:22933
+#: fish/cmds.c:23552 fish/cmds.c:24012 fish/cmds.c:24071 fish/cmds.c:24149
+#: fish/cmds.c:24208 fish/cmds.c:24267 fish/cmds.c:24348 fish/cmds.c:26477
+#: fish/cmds.c:27213 fish/cmds.c:27649 fish/cmds.c:27854 fish/cmds.c:28214
+#: fish/cmds.c:28332 fish/cmds.c:28429 fish/cmds.c:28525 fish/cmds.c:28991
+#: fish/cmds.c:29048 fish/cmds.c:29120 fish/cmds.c:30687 fish/cmds.c:31032
+#: fish/cmds.c:31107 fish/cmds.c:31180 fish/cmds.c:31309 fish/cmds.c:31562
+#: fish/cmds.c:33010 fish/cmds.c:33173 fish/cmds.c:33285 fish/cmds.c:33643
+#: fish/cmds.c:33834 fish/cmds.c:33907 fish/cmds.c:34860 fish/cmds.c:35033
+#: fish/cmds.c:35234
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr ""
 
-#: fish/cmds.c:16221 fish/cmds.c:16424 fish/cmds.c:17022 fish/cmds.c:17064
-#: fish/cmds.c:17399 fish/cmds.c:17507 fish/cmds.c:17583 fish/cmds.c:17726
-#: fish/cmds.c:18201 fish/cmds.c:18638 fish/cmds.c:18684 fish/cmds.c:18703
-#: fish/cmds.c:18836 fish/cmds.c:18909 fish/cmds.c:19106 fish/cmds.c:19123
-#: fish/cmds.c:19140 fish/cmds.c:19228 fish/cmds.c:19245 fish/cmds.c:19262
-#: fish/cmds.c:19352 fish/cmds.c:19369 fish/cmds.c:19386 fish/cmds.c:19477
-#: fish/cmds.c:19494 fish/cmds.c:19511 fish/cmds.c:19597 fish/cmds.c:19856
-#: fish/cmds.c:19966 fish/cmds.c:20005 fish/cmds.c:20181 fish/cmds.c:20226
-#: fish/cmds.c:20239 fish/cmds.c:20278 fish/cmds.c:20596 fish/cmds.c:20641
-#: fish/cmds.c:20882 fish/cmds.c:20901 fish/cmds.c:20949 fish/cmds.c:20994
-#: fish/cmds.c:21173 fish/cmds.c:21190 fish/cmds.c:21207 fish/cmds.c:21553
-#: fish/cmds.c:21595 fish/cmds.c:21637 fish/cmds.c:22307 fish/cmds.c:22420
-#: fish/cmds.c:22456 fish/cmds.c:22492 fish/cmds.c:22527 fish/cmds.c:22564
-#: fish/cmds.c:22600 fish/cmds.c:22636 fish/cmds.c:22675 fish/cmds.c:22689
-#: fish/cmds.c:22727 fish/cmds.c:22866 fish/cmds.c:22902 fish/cmds.c:22937
-#: fish/cmds.c:22974 fish/cmds.c:23076 fish/cmds.c:23157 fish/cmds.c:23217
-#: fish/cmds.c:24525 fish/cmds.c:24559 fish/cmds.c:24632 fish/cmds.c:24651
-#: fish/cmds.c:25403 fish/cmds.c:25573 fish/cmds.c:25645 fish/cmds.c:25695
-#: fish/cmds.c:25745 fish/cmds.c:25851 fish/cmds.c:25895 fish/cmds.c:26064
-#: fish/cmds.c:26106 fish/cmds.c:26271 fish/cmds.c:26288 fish/cmds.c:26311
-#: fish/cmds.c:26334 fish/cmds.c:26485 fish/cmds.c:26586 fish/cmds.c:26603
-#: fish/cmds.c:26620 fish/cmds.c:26637 fish/cmds.c:26654 fish/cmds.c:26671
-#: fish/cmds.c:26688 fish/cmds.c:26705 fish/cmds.c:26722 fish/cmds.c:26739
-#: fish/cmds.c:26756 fish/cmds.c:26773 fish/cmds.c:26790 fish/cmds.c:26813
-#: fish/cmds.c:27129 fish/cmds.c:27175 fish/cmds.c:27221 fish/cmds.c:27264
-#: fish/cmds.c:27307 fish/cmds.c:27351 fish/cmds.c:27394 fish/cmds.c:27449
-#: fish/cmds.c:27477 fish/cmds.c:27500 fish/cmds.c:27564 fish/cmds.c:27615
-#: fish/cmds.c:27632 fish/cmds.c:27654 fish/cmds.c:27687 fish/cmds.c:27710
-#: fish/cmds.c:27816 fish/cmds.c:27835 fish/cmds.c:27854 fish/cmds.c:27903
-#: fish/cmds.c:27922 fish/cmds.c:27941 fish/cmds.c:27990 fish/cmds.c:28009
-#: fish/cmds.c:28028 fish/cmds.c:28368 fish/cmds.c:28729 fish/cmds.c:28969
-#: fish/cmds.c:29034 fish/cmds.c:29115 fish/cmds.c:29128 fish/cmds.c:29165
-#: fish/cmds.c:29251 fish/cmds.c:29317 fish/cmds.c:29361 fish/cmds.c:29405
-#: fish/cmds.c:29448 fish/cmds.c:29492 fish/cmds.c:29606 fish/cmds.c:29703
-#: fish/cmds.c:29747 fish/cmds.c:29791 fish/cmds.c:29810 fish/cmds.c:29854
-#: fish/cmds.c:29963 fish/cmds.c:29982 fish/cmds.c:30029 fish/cmds.c:30048
-#: fish/cmds.c:30193 fish/cmds.c:30298 fish/cmds.c:30342 fish/cmds.c:30721
-#: fish/cmds.c:31479 fish/cmds.c:31628 fish/cmds.c:31695 fish/cmds.c:31920
-#: fish/cmds.c:32112 fish/cmds.c:32161 fish/cmds.c:32180 fish/cmds.c:32199
-#: fish/cmds.c:32277 fish/cmds.c:32296 fish/cmds.c:32315 fish/cmds.c:32334
-#: fish/cmds.c:32511 fish/cmds.c:32949 fish/cmds.c:33311 fish/cmds.c:33369
-#: fish/cmds.c:33392 fish/cmds.c:33420 fish/cmds.c:33437 fish/cmds.c:33460
-#: fish/cmds.c:33488 fish/cmds.c:33505 fish/cmds.c:33636 fish/cmds.c:33854
-#: fish/cmds.c:33916 fish/cmds.c:33929 fish/cmds.c:33942 fish/cmds.c:33955
-#: fish/cmds.c:34613 fish/cmds.c:34821 fish/cmds.c:34838 fish/cmds.c:34855
-#: fish/cmds.c:34872 fish/cmds.c:34889 fish/cmds.c:35035 fish/cmds.c:35052
-#: fish/cmds.c:35069 fish/cmds.c:35086
+#: fish/cmds.c:16253 fish/cmds.c:16456 fish/cmds.c:17054 fish/cmds.c:17096
+#: fish/cmds.c:17431 fish/cmds.c:17539 fish/cmds.c:17615 fish/cmds.c:17758
+#: fish/cmds.c:18233 fish/cmds.c:18670 fish/cmds.c:18716 fish/cmds.c:18735
+#: fish/cmds.c:18868 fish/cmds.c:18941 fish/cmds.c:19138 fish/cmds.c:19155
+#: fish/cmds.c:19172 fish/cmds.c:19260 fish/cmds.c:19277 fish/cmds.c:19294
+#: fish/cmds.c:19384 fish/cmds.c:19401 fish/cmds.c:19418 fish/cmds.c:19509
+#: fish/cmds.c:19526 fish/cmds.c:19543 fish/cmds.c:19629 fish/cmds.c:19888
+#: fish/cmds.c:19998 fish/cmds.c:20037 fish/cmds.c:20216 fish/cmds.c:20229
+#: fish/cmds.c:20303 fish/cmds.c:20348 fish/cmds.c:20361 fish/cmds.c:20400
+#: fish/cmds.c:20718 fish/cmds.c:20763 fish/cmds.c:21004 fish/cmds.c:21023
+#: fish/cmds.c:21071 fish/cmds.c:21116 fish/cmds.c:21295 fish/cmds.c:21312
+#: fish/cmds.c:21329 fish/cmds.c:21675 fish/cmds.c:21717 fish/cmds.c:21759
+#: fish/cmds.c:22429 fish/cmds.c:22542 fish/cmds.c:22578 fish/cmds.c:22614
+#: fish/cmds.c:22649 fish/cmds.c:22686 fish/cmds.c:22722 fish/cmds.c:22758
+#: fish/cmds.c:22797 fish/cmds.c:22811 fish/cmds.c:22849 fish/cmds.c:22988
+#: fish/cmds.c:23024 fish/cmds.c:23059 fish/cmds.c:23096 fish/cmds.c:23198
+#: fish/cmds.c:23279 fish/cmds.c:23339 fish/cmds.c:24647 fish/cmds.c:24681
+#: fish/cmds.c:24754 fish/cmds.c:24773 fish/cmds.c:25525 fish/cmds.c:25695
+#: fish/cmds.c:25767 fish/cmds.c:25817 fish/cmds.c:25867 fish/cmds.c:25973
+#: fish/cmds.c:26017 fish/cmds.c:26186 fish/cmds.c:26228 fish/cmds.c:26393
+#: fish/cmds.c:26410 fish/cmds.c:26433 fish/cmds.c:26456 fish/cmds.c:26607
+#: fish/cmds.c:26708 fish/cmds.c:26725 fish/cmds.c:26742 fish/cmds.c:26759
+#: fish/cmds.c:26776 fish/cmds.c:26793 fish/cmds.c:26810 fish/cmds.c:26827
+#: fish/cmds.c:26844 fish/cmds.c:26861 fish/cmds.c:26878 fish/cmds.c:26895
+#: fish/cmds.c:26912 fish/cmds.c:26935 fish/cmds.c:27251 fish/cmds.c:27297
+#: fish/cmds.c:27343 fish/cmds.c:27386 fish/cmds.c:27429 fish/cmds.c:27473
+#: fish/cmds.c:27516 fish/cmds.c:27571 fish/cmds.c:27599 fish/cmds.c:27622
+#: fish/cmds.c:27686 fish/cmds.c:27737 fish/cmds.c:27754 fish/cmds.c:27776
+#: fish/cmds.c:27809 fish/cmds.c:27832 fish/cmds.c:27938 fish/cmds.c:27957
+#: fish/cmds.c:27976 fish/cmds.c:28025 fish/cmds.c:28044 fish/cmds.c:28063
+#: fish/cmds.c:28112 fish/cmds.c:28131 fish/cmds.c:28150 fish/cmds.c:28490
+#: fish/cmds.c:28851 fish/cmds.c:29091 fish/cmds.c:29156 fish/cmds.c:29237
+#: fish/cmds.c:29250 fish/cmds.c:29287 fish/cmds.c:29373 fish/cmds.c:29439
+#: fish/cmds.c:29483 fish/cmds.c:29527 fish/cmds.c:29570 fish/cmds.c:29614
+#: fish/cmds.c:29728 fish/cmds.c:29825 fish/cmds.c:29869 fish/cmds.c:29913
+#: fish/cmds.c:29932 fish/cmds.c:29976 fish/cmds.c:30085 fish/cmds.c:30104
+#: fish/cmds.c:30151 fish/cmds.c:30170 fish/cmds.c:30315 fish/cmds.c:30420
+#: fish/cmds.c:30464 fish/cmds.c:30843 fish/cmds.c:31601 fish/cmds.c:31750
+#: fish/cmds.c:31817 fish/cmds.c:32042 fish/cmds.c:32234 fish/cmds.c:32283
+#: fish/cmds.c:32302 fish/cmds.c:32321 fish/cmds.c:32399 fish/cmds.c:32418
+#: fish/cmds.c:32437 fish/cmds.c:32456 fish/cmds.c:32633 fish/cmds.c:33071
+#: fish/cmds.c:33433 fish/cmds.c:33491 fish/cmds.c:33514 fish/cmds.c:33542
+#: fish/cmds.c:33559 fish/cmds.c:33582 fish/cmds.c:33610 fish/cmds.c:33627
+#: fish/cmds.c:33758 fish/cmds.c:33976 fish/cmds.c:34038 fish/cmds.c:34051
+#: fish/cmds.c:34064 fish/cmds.c:34077 fish/cmds.c:34735 fish/cmds.c:34943
+#: fish/cmds.c:34960 fish/cmds.c:34977 fish/cmds.c:34994 fish/cmds.c:35011
+#: fish/cmds.c:35157 fish/cmds.c:35174 fish/cmds.c:35191 fish/cmds.c:35208
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: fish/cmds.c:16430 fish/cmds.c:17028 fish/cmds.c:17070 fish/cmds.c:17589
-#: fish/cmds.c:18644 fish/cmds.c:18690 fish/cmds.c:18709 fish/cmds.c:18842
-#: fish/cmds.c:18915 fish/cmds.c:19862 fish/cmds.c:20011 fish/cmds.c:20284
-#: fish/cmds.c:20602 fish/cmds.c:20888 fish/cmds.c:20907 fish/cmds.c:20955
-#: fish/cmds.c:21000 fish/cmds.c:21559 fish/cmds.c:21601 fish/cmds.c:21643
-#: fish/cmds.c:22313 fish/cmds.c:23082 fish/cmds.c:23163 fish/cmds.c:23223
-#: fish/cmds.c:24638 fish/cmds.c:24657 fish/cmds.c:25409 fish/cmds.c:25579
-#: fish/cmds.c:25651 fish/cmds.c:25701 fish/cmds.c:25751 fish/cmds.c:25857
-#: fish/cmds.c:25901 fish/cmds.c:26070 fish/cmds.c:26112 fish/cmds.c:26294
-#: fish/cmds.c:26317 fish/cmds.c:26491 fish/cmds.c:26796 fish/cmds.c:26819
-#: fish/cmds.c:27135 fish/cmds.c:27181 fish/cmds.c:27227 fish/cmds.c:27270
-#: fish/cmds.c:27313 fish/cmds.c:27357 fish/cmds.c:27400 fish/cmds.c:27455
-#: fish/cmds.c:27483 fish/cmds.c:27506 fish/cmds.c:27570 fish/cmds.c:27660
-#: fish/cmds.c:27693 fish/cmds.c:27716 fish/cmds.c:27822 fish/cmds.c:27841
-#: fish/cmds.c:27860 fish/cmds.c:27909 fish/cmds.c:27928 fish/cmds.c:27947
-#: fish/cmds.c:27996 fish/cmds.c:28015 fish/cmds.c:28034 fish/cmds.c:28374
-#: fish/cmds.c:29171 fish/cmds.c:29257 fish/cmds.c:29323 fish/cmds.c:29367
-#: fish/cmds.c:29411 fish/cmds.c:29454 fish/cmds.c:29498 fish/cmds.c:29612
-#: fish/cmds.c:29709 fish/cmds.c:29753 fish/cmds.c:29797 fish/cmds.c:29816
-#: fish/cmds.c:29860 fish/cmds.c:29969 fish/cmds.c:30035 fish/cmds.c:31634
-#: fish/cmds.c:31701 fish/cmds.c:31926 fish/cmds.c:32118 fish/cmds.c:32167
-#: fish/cmds.c:32186 fish/cmds.c:32205 fish/cmds.c:32283 fish/cmds.c:32302
-#: fish/cmds.c:32321 fish/cmds.c:32340 fish/cmds.c:32517 fish/cmds.c:32955
-#: fish/cmds.c:33375 fish/cmds.c:33398 fish/cmds.c:33443 fish/cmds.c:33466
-#: fish/cmds.c:33642 fish/cmds.c:34619 fish/cmds.c:34895 mllib/getopt-c.c:197
+#: fish/cmds.c:16462 fish/cmds.c:17060 fish/cmds.c:17102 fish/cmds.c:17621
+#: fish/cmds.c:18676 fish/cmds.c:18722 fish/cmds.c:18741 fish/cmds.c:18874
+#: fish/cmds.c:18947 fish/cmds.c:19894 fish/cmds.c:20043 fish/cmds.c:20406
+#: fish/cmds.c:20724 fish/cmds.c:21010 fish/cmds.c:21029 fish/cmds.c:21077
+#: fish/cmds.c:21122 fish/cmds.c:21681 fish/cmds.c:21723 fish/cmds.c:21765
+#: fish/cmds.c:22435 fish/cmds.c:23204 fish/cmds.c:23285 fish/cmds.c:23345
+#: fish/cmds.c:24760 fish/cmds.c:24779 fish/cmds.c:25531 fish/cmds.c:25701
+#: fish/cmds.c:25773 fish/cmds.c:25823 fish/cmds.c:25873 fish/cmds.c:25979
+#: fish/cmds.c:26023 fish/cmds.c:26192 fish/cmds.c:26234 fish/cmds.c:26416
+#: fish/cmds.c:26439 fish/cmds.c:26613 fish/cmds.c:26918 fish/cmds.c:26941
+#: fish/cmds.c:27257 fish/cmds.c:27303 fish/cmds.c:27349 fish/cmds.c:27392
+#: fish/cmds.c:27435 fish/cmds.c:27479 fish/cmds.c:27522 fish/cmds.c:27577
+#: fish/cmds.c:27605 fish/cmds.c:27628 fish/cmds.c:27692 fish/cmds.c:27782
+#: fish/cmds.c:27815 fish/cmds.c:27838 fish/cmds.c:27944 fish/cmds.c:27963
+#: fish/cmds.c:27982 fish/cmds.c:28031 fish/cmds.c:28050 fish/cmds.c:28069
+#: fish/cmds.c:28118 fish/cmds.c:28137 fish/cmds.c:28156 fish/cmds.c:28496
+#: fish/cmds.c:29293 fish/cmds.c:29379 fish/cmds.c:29445 fish/cmds.c:29489
+#: fish/cmds.c:29533 fish/cmds.c:29576 fish/cmds.c:29620 fish/cmds.c:29734
+#: fish/cmds.c:29831 fish/cmds.c:29875 fish/cmds.c:29919 fish/cmds.c:29938
+#: fish/cmds.c:29982 fish/cmds.c:30091 fish/cmds.c:30157 fish/cmds.c:31756
+#: fish/cmds.c:31823 fish/cmds.c:32048 fish/cmds.c:32240 fish/cmds.c:32289
+#: fish/cmds.c:32308 fish/cmds.c:32327 fish/cmds.c:32405 fish/cmds.c:32424
+#: fish/cmds.c:32443 fish/cmds.c:32462 fish/cmds.c:32639 fish/cmds.c:33077
+#: fish/cmds.c:33497 fish/cmds.c:33520 fish/cmds.c:33565 fish/cmds.c:33588
+#: fish/cmds.c:33764 fish/cmds.c:34741 fish/cmds.c:35017 mllib/getopt-c.c:197
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: ಪೂರ್ಣಾಂಕವು ವ್ಯಾಪ್ತಿಯ ಹೊರಗಿದೆ\n"
 
-#: fish/cmds.c:35426
+#: fish/cmds.c:35548
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: fish/cmds.c:35428
+#: fish/cmds.c:35550
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: fish/cmds.c:35429
+#: fish/cmds.c:35551
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: fish/cmds.c:35434
+#: fish/cmds.c:35556
 #, c-format
 msgid "%s: unknown command\n"
 msgstr ""
@@ -7003,6 +7010,7 @@ msgid ""
 "  --echo-keys          Don't turn off echo for passphrases\n"
 "  -f|--file file       Read commands from file\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
 "  -i|--inspector       Automatically mount filesystems\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
@@ -7036,42 +7044,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:261
+#: fish/fish.c:262
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:266
+#: fish/fish.c:267
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:311
+#: fish/fish.c:312
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:318
+#: fish/fish.c:319
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:500
+#: fish/fish.c:501
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:505
+#: fish/fish.c:506
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:508
+#: fish/fish.c:509
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:680
+#: fish/fish.c:681
 #, c-format
 msgid ""
 "\n"
@@ -7084,50 +7092,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:854 fish/fish.c:870
+#: fish/fish.c:855 fish/fish.c:871
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ಆಜ್ಞೆಯ ಆರ್ಗುಮೆಂಟ್‌ಗಳ ನಡುವೆ ಖಾಲಿ ಜಾಗಗಳು ಇರುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:864
+#: fish/fish.c:865
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಒಂದೆ ಒಂದು ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:894
+#: fish/fish.c:895
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ನಲ್ಲಿ ವಾಕ್ಯವನ್ನು ಪಾರ್ಸ್ ಮಾಡುವಲ್ಲಿ ಆಂತರಿಕ ದೋಷ\n"
 
-#: fish/fish.c:911
+#: fish/fish.c:912
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ಅಗತ್ಯಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು   ಚರಪರಿಮಾಣಗಳು (ಆರ್ಗ್ಯೂಮೆಂಟ್)\n"
 
-#: fish/fish.c:987
+#: fish/fish.c:988
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 
-#: fish/fish.c:996
+#: fish/fish.c:997
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಜೋಡಿ ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:1061
+#: fish/fish.c:1062
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1220
+#: fish/fish.c:1221
 msgid "display a list of commands or help on a command"
 msgstr "ಆಜ್ಞೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಅಥವ ಒಂದು ಆಜ್ಞೆಯ ನೆರವನ್ನು ತೋರಿಸು"
 
-#: fish/fish.c:1222
+#: fish/fish.c:1223
 msgid "quit guestfish"
 msgstr "guestfish ಇಂದ ನಿರ್ಗಮಿಸು"
 
-#: fish/fish.c:1233
+#: fish/fish.c:1234
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -7138,7 +7146,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1241
+#: fish/fish.c:1242
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -7147,12 +7155,12 @@ msgstr ""
 "quit - guestfish ಇಂದ ನಿರ್ಗಮಿಸು \n"
 "     quit\n"
 
-#: fish/fish.c:1246
+#: fish/fish.c:1247
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: ಆಜ್ಞೆಯು ತಿಳಿದಿಲ್ಲ, ಎಲ್ಲಾ ಆಜ್ಞೆಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸಲು -h ಉಪಯೋಗಿಸಿ\n"
 
-#: fish/fish.c:1266
+#: fish/fish.c:1267
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -7160,36 +7168,36 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1277
+#: fish/fish.c:1278
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr ""
 
-#: fish/fish.c:1404
+#: fish/fish.c:1405
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" ಎಂಬ ವಾಕ್ಯದಲ್ಲಿ ರನ್‌ಅವೆ ಕೋಟ್\n"
 
-#: fish/fish.c:1736
+#: fish/fish.c:1737
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
 
-#: fish/fish.c:1742
+#: fish/fish.c:1743
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 
-#: fish/fish.c:1756
+#: fish/fish.c:1757
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
 
-#: fish/fish.c:1775
+#: fish/fish.c:1776
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -7866,16 +7874,16 @@ msgid ""
 "  %s [--options] input.tar.gz output.img\n"
 "  %s [--options] directory output.img\n"
 "Options:\n"
-"  --floppy               Make a virtual floppy disk\n"
-"  --format=raw|qcow2|..  Set output format\n"
-"  --help                 Display brief help\n"
-"  --label=label          Filesystem label\n"
-"  --partition=mbr|gpt|.. Set partition type\n"
-"  --size=size|+size      Set size of output disk\n"
-"  --type=ext4|..         Set filesystem type\n"
-"  -v|--verbose           Verbose messages\n"
-"  -V|--version           Display version and exit\n"
-"  -x                     Trace libguestfs API calls\n"
+"  --floppy                 Make a virtual floppy disk\n"
+"  -F|--format=raw|qcow2|.. Set output format\n"
+"  --help                   Display brief help\n"
+"  --label=label            Filesystem label\n"
+"  --partition=mbr|gpt|..   Set partition type\n"
+"  -s|--size=size|+size     Set size of output disk\n"
+"  -t|--type=ext4|..        Set filesystem type\n"
+"  -v|--verbose             Verbose messages\n"
+"  -V|--version             Display version and exit\n"
+"  -x                       Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
@@ -8250,7 +8258,7 @@ msgid ""
 "Options:\n"
 "  --help                 Display brief help\n"
 " --cmdline=CMDLINE       Used to debug command line parsing\n"
-" --colours               Use ANSI colour sequences even if not tty\n"
+" --colors|--colours      Use ANSI colour sequences even if not tty\n"
 " --iso                   Running in the ISO environment\n"
 " --test-disk=DISK.IMG    For testing, use disk as /dev/sda\n"
 "  -v|--verbose           Verbose messages\n"
