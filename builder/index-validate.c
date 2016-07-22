@@ -47,7 +47,7 @@ int
 main (int argc, char *argv[])
 {
   enum { HELP_OPTION = CHAR_MAX + 1 };
-  static const char *options = "V";
+  static const char options[] = "V";
   static const struct option long_options[] = {
     { "help", 0, 0, HELP_OPTION },
     { "compat-1.24.0", 0, 0, 0 },

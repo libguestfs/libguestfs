@@ -535,7 +535,7 @@ cleanup_free_mountable (mountable_t *mountable)
   List.iter (
     function
     | typ, cols ->
-        pr "static const char *lvm_%s_cols = \"%s\";\n"
+        pr "static const char lvm_%s_cols[] = \"%s\";\n"
           typ (String.concat "," (List.map fst cols));
         pr "\n";
 

@@ -50,7 +50,7 @@ static void find_all_interfaces (void);
 static int cpuinfo_flags (void);
 
 enum { HELP_OPTION = CHAR_MAX + 1 };
-static const char *options = "Vv";
+static const char options[] = "Vv";
 static const struct option long_options[] = {
   { "help", 0, 0, HELP_OPTION },
   { "cmdline", 1, 0, 0 },

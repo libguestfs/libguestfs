@@ -50,7 +50,7 @@ static const char *format = "raw", *label = NULL,
   *partition = NULL, *size_str = NULL, *type = "ext2";
 
 enum { HELP_OPTION = CHAR_MAX + 1 };
-static const char *options = "F:s:t:Vvx";
+static const char options[] = "F:s:t:Vvx";
 static const struct option long_options[] = {
   { "debug", 0, 0, 'v' }, /* for compat with Perl tool */
   { "floppy", 0, 0, 0 },

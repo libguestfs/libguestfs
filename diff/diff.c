@@ -143,7 +143,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:A:c:d:D:hvVx";
+  static const char options[] = "a:A:c:d:D:hvVx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "all", 0, 0, 0 },

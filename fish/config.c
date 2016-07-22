@@ -35,8 +35,8 @@
 #ifdef HAVE_LIBCONFIG
 
 #define GLOBAL_CONFIG_FILENAME "libguestfs-tools.conf"
-static const char *home_filename = /* $HOME/ */ ".libguestfs-tools.rc";
-static const char *etc_filename = "/etc/" GLOBAL_CONFIG_FILENAME;
+static const char home_filename[] = /* $HOME/ */ ".libguestfs-tools.rc";
+static const char etc_filename[] = "/etc/" GLOBAL_CONFIG_FILENAME;
 
 /* Note that parse_config is called very early, before command line
  * parsing, before the verbose flag has been set, even before the
