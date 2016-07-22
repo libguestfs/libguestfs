@@ -107,7 +107,7 @@ let generate_fish_cmds () =
   pr "#include \"cmds-gperf.h\"\n";
   pr "\n";
   pr "/* Valid suffixes allowed for numbers.  See Gnulib xstrtol function. */\n";
-  pr "static const char *xstrtol_suffixes = \"0kKMGTPEZY\";\n";
+  pr "static const char xstrtol_suffixes[] = \"0kKMGTPEZY\";\n";
   pr "\n";
   pr "/* Return these errors from run_* functions. */\n";
   pr "#define RUN_ERROR -1\n";

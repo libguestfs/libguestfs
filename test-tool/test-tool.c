@@ -78,7 +78,7 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
 
-  static const char *options = "t:V?";
+  static const char options[] = "t:V?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
     { "qemu", 1, 0, 0 },

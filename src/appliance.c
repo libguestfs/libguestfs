@@ -38,8 +38,8 @@
 #include "guestfs-internal.h"
 
 /* Old-style appliance is going to be obsoleted. */
-static const char *kernel_name = "vmlinuz." host_cpu;
-static const char *initrd_name = "initramfs." host_cpu ".img";
+static const char kernel_name[] = "vmlinuz." host_cpu;
+static const char initrd_name[] = "initramfs." host_cpu ".img";
 
 static int build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);

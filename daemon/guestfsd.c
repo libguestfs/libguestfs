@@ -141,7 +141,7 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "c:lnrtv?";
+  static const char options[] = "c:lnrtv?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
     { "channel", 1, 0, 'c' },

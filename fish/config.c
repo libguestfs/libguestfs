@@ -45,8 +45,8 @@
 #ifdef HAVE_LIBCONFIG
 
 #define GLOBAL_CONFIG_FILENAME "libguestfs-tools.conf"
-static const char *home_filename = /* $HOME/ */ ".libguestfs-tools.rc";
-static const char *etc_filename = "/etc/" GLOBAL_CONFIG_FILENAME;
+static const char home_filename[] = /* $HOME/ */ ".libguestfs-tools.rc";
+static const char etc_filename[] = "/etc/" GLOBAL_CONFIG_FILENAME;
 
 static void
 read_config_from_file (const char *filename)
