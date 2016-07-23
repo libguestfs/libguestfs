@@ -128,7 +128,7 @@ main (int argc, char *argv[])
   int c;
   int option_index;
   size_t max_threads = 0;
-  int err;
+  int err = 0;
 
   g = guestfs_create ();
   if (g == NULL)
