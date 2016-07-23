@@ -9,21 +9,18 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.33.42\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
+"Project-Id-Version: libguestfs 1.33.45\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2016-07-22 17:32+0100\n"
-"PO-Revision-Date: 2016-04-24 02:58-0400\n"
+"PO-Revision-Date: 2016-07-14 05:51-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
-"language/uk/)\n"
-"Language: uk\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.8.4\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 3.9.1\n"
 
 #: ../resize/resize.ml:935
 msgid "  An extra partition will be created for the surplus."
@@ -35,8 +32,8 @@ msgstr "  %s на %s буде розширено за допомогою мет�
 
 #: ../resize/resize.ml:937
 msgid ""
-"  The surplus space is not large enough for an extra partition to be created "
-"and so it will just be ignored."
+"  The surplus space is not large enough for an extra partition to be created"
+" and so it will just be ignored."
 msgstr ""
 "  Додатковий простір не є достатньо великим для створення додаткового "
 "розділу, отже, його буде просто проігноровано."
@@ -79,8 +76,7 @@ msgstr ""
 "  знайдена контрольна сума: %s\n"
 "  очікувана контрольна сума: %s\n"
 "Спробуйте:\n"
-" - Скористатися параметром «-v» і ознайомтеся з усіма попередніми "
-"повідомленнями щодо помилок.\n"
+" - Скористатися параметром «-v» і ознайомтеся з усіма попередніми повідомленнями щодо помилок.\n"
 " - Вилучити кеш: virt-builder --delete-cache\n"
 " - Перевірте, чи не втрутився хтось до даних вашого сайта або мережі!"
 
@@ -96,25 +92,19 @@ msgstr "%s не існує у гостьовій системі"
 msgid ""
 "%s does not exist or is not a directory.\n"
 "\n"
-"Most likely cause: Either the %s (%s) has not been attached to any Data "
-"Center, or the path %s is not an %s at all.\n"
+"Most likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n"
 "\n"
-"You have to attach the %s to a Data Center using the RHEV-M / OVirt user "
-"interface first.\n"
+"You have to attach the %s to a Data Center using the RHEV-M / OVirt user interface first.\n"
 "\n"
-"If you don't know what the %s mount point should be then you can also find "
-"this out through the RHEV-M user interface."
+"If you don't know what the %s mount point should be then you can also find this out through the RHEV-M user interface."
 msgstr ""
 "%s не існує або не є каталогом.\n"
 "\n"
-"Найімовірніша причина: %s (%s) не було долучено до жодного Data Center або "
-"шлях %s взагалі не є %s.\n"
+"Найімовірніша причина: %s (%s) не було долучено до жодного Data Center або шлях %s взагалі не є %s.\n"
 "\n"
-"Спочатку вам слід долучити %s до Data Center за допомогою інтерфейсу "
-"користувача RHEV-M / OVirt.\n"
+"Спочатку вам слід долучити %s до Data Center за допомогою інтерфейсу користувача RHEV-M / OVirt.\n"
 "\n"
-"Якщо вам не вдається встановити, якою має бути точка монтування %s, ви "
-"можете скористатися для цього інтерфейсом користувача RHEV-M."
+"Якщо вам не вдається встановити, якою має бути точка монтування %s, ви можете скористатися для цього інтерфейсом користувача RHEV-M."
 
 #: ../builder/simplestreams_parser.ml:113
 msgid "%s is not a Simple Streams (index) v1.0 JSON file (format: %s)"
@@ -168,8 +158,8 @@ msgid ""
 msgstr ""
 "%s: цей розширений розділ містить логічні розділи, які може бути пошкоджено "
 "у результаті стискання розширеного розділу. Якщо вам потрібно стиснути "
-"розділ, скористайтеся параметром «--resize-force». Втім, таке стискання може "
-"призвести до руйнування даних логічних розділів на розширеному розділі. "
+"розділ, скористайтеся параметром «--resize-force». Втім, таке стискання може"
+" призвести до руйнування даних логічних розділів на розширеному розділі. "
 "(Причиною появи цього повідомлення про помилку є використання параметра "
 "командного рядка «%s».)"
 
@@ -180,33 +170,33 @@ msgstr "%s: цей логічний том буде розширено до ма
 #: ../resize/resize.ml:662
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the '--resize-force' option,"
+" but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 "%s: цей розділ містить файлову систему %s, яку може бути пошкоджено у "
 "результаті стискання до розміру, меншого за %Ld байтів (користувачем "
 "надіслано запит щодо стискання до %Ld байтів). Якщо вам все ж потрібно "
 "стиснути цей розділ, вам слід скористатися параметром «--resize-force». "
-"Втім, це може призвести до руйнування усіх даних на розділі. (Причиною появи "
-"цього повідомлення про помилку є використання параметра командного рядка "
+"Втім, це може призвести до руйнування усіх даних на розділі. (Причиною появи"
+" цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
 #: ../resize/resize.ml:658
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
-"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
-"want to shrink this partition, you need to use the '--resize-force' option, "
-"but that could destroy any data on this partition.  (This error came from "
+"shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you"
+" want to shrink this partition, you need to use the '--resize-force' option,"
+" but that could destroy any data on this partition.  (This error came from "
 "'%s' option on the command line.)"
 msgstr ""
 "s: цей розділ містить фізичний том LVM, яку може бути пошкоджено у "
 "результаті стискання до розміру, меншого за %Ld байтів (користувачем "
 "надіслано запит щодо стискання до %Ld байтів). Якщо вам все ж потрібно "
 "стиснути цей розділ, вам слід скористатися параметром «--resize-force». "
-"Втім, це може призвести до руйнування усіх даних на розділі. (Причиною появи "
-"цього повідомлення про помилку є використання параметра командного рядка "
+"Втім, це може призвести до руйнування усіх даних на розділі. (Причиною появи"
+" цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
 #: ../resize/resize.ml:655
@@ -302,11 +292,9 @@ msgstr "%s: виконання команди завершилося повід�
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported "
-"esx_guest\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest\n"
 "\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -"
-"os rhev.nfs:/export_domain --network rhevm\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -os rhev.nfs:/export_domain --network rhevm\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -322,11 +310,9 @@ msgid ""
 msgstr ""
 "%s: перетворити гостьову систему для використання з KVM\n"
 "\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported "
-"esx_guest\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest\n"
 "\n"
-" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -"
-"os rhev.nfs:/export_domain --network rhevm\n"
+" virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhev -os rhev.nfs:/export_domain --network rhevm\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -337,8 +323,7 @@ msgstr ""
 "Передбачено супутню програму з назвою «virt-p2v, яка постачається у форматі\n"
 "образу ISO або компакт-диска, який можна завантажити на фізичній машині.\n"
 "\n"
-"Коротке резюме щодо параметрів наведено нижче. Докладний опис можна знайти "
-"на\n"
+"Коротке резюме щодо параметрів наведено нижче. Докладний опис можна знайти на\n"
 "сторінці підручника virt-v2v(1).\n"
 
 #: ../v2v/copy_to_local.ml:53
@@ -429,7 +414,8 @@ msgstr ""
 #: ../builder/index_parser.ml:78
 msgid "%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n"
 msgstr ""
-"%s: покажчик пошкоджено: %s: поле «%s[%s]» використано два або більше разів\n"
+"%s: покажчик пошкоджено: %s: поле «%s[%s]» використано два або більше "
+"разів\n"
 
 #: ../builder/index_parser.ml:62
 msgid ""
@@ -487,8 +473,8 @@ msgstr ""
 #: ../resize/resize.ml:598
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
-"option on the command line).  Try running this command: virt-filesystems --"
-"partitions --long -a %s"
+"option on the command line).  Try running this command: virt-filesystems "
+"--partitions --long -a %s"
 msgstr ""
 "%s: у образі диска-джерела не знайдено розділу (ця помилка є наслідком "
 "використання параметра командного рядка «%s»). Спробуйте віддати таку "
@@ -517,8 +503,7 @@ msgid ""
 "A short summary of the options is given below.  For detailed help please\n"
 "read the man page virt-sysprep(1).\n"
 msgstr ""
-"%s: відновити початковий стан або скинути налаштування віртуальної машини "
-"для створення клонів\n"
+"%s: відновити початковий стан або скинути налаштування віртуальної машини для створення клонів\n"
 "\n"
 " virt-sysprep [--параметри] -d назва_домену\n"
 "\n"
@@ -599,13 +584,11 @@ msgstr ""
 msgid ""
 "%s: unsupported file format\n"
 "\n"
-"Formats which we currently understand for '-i ova' are: tar (uncompressed, "
-"compress with gzip or xz), zip"
+"Formats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip"
 msgstr ""
 "%s: непідтримуваний формат файлів\n"
 "\n"
-"У поточній версії передбачено підтримку таких форматів для «-i ova»: "
-"нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
+"У поточній версії передбачено підтримку таких форматів для «-i ova»: нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
 
 #: ../mllib/common_utils.ml:396
 msgid "%s: warning: %s"
@@ -646,8 +629,8 @@ msgstr "--check-tmpdir: невідомий аргумент «%s»"
 
 #: ../sparsify/copying.ml:67
 msgid ""
-"--compress cannot be used for raw output.  Remove this option or use --"
-"convert qcow2."
+"--compress cannot be used for raw output.  Remove this option or use "
+"--convert qcow2."
 msgstr ""
 "--compress не можна використовувати для необроблених вихідних даних. "
 "Вилучіть цей параметр або скористайтеся параметром --convert qcow2."
@@ -683,7 +666,7 @@ msgstr "--get-kernel: забагато параметрів"
 
 #: ../customize/customize_run.ml:129 ../customize/customize_run.ml:127
 msgid "--install"
-msgstr ""
+msgstr "--install"
 
 #: ../builder/cmdline.ml:240
 msgid "--list: use '--list-format', not '--format'"
@@ -713,8 +696,8 @@ msgstr "--operations: порожня назва операції"
 msgid ""
 "--password-file parameter ignored because 'user@' was not given in the URL"
 msgstr ""
-"параметр --password-file проігноровано, оскільки у адресі не вказано частини "
-"«користувач@»"
+"параметр --password-file проігноровано, оскільки у адресі не вказано частини"
+" «користувач@»"
 
 #: ../get-kernel/get_kernel.ml:51
 msgid "--prefix option can only be given once"
@@ -749,11 +732,11 @@ msgstr "--tmp prebuilt:file: %s: форматом файла не є qcow2"
 
 #: ../customize/customize_run.ml:181 ../customize/customize_run.ml:179
 msgid "--uninstall"
-msgstr ""
+msgstr "--uninstall"
 
 #: ../customize/customize_run.ml:157 ../customize/customize_run.ml:155
 msgid "--update"
-msgstr ""
+msgstr "--update"
 
 #: ../dib/cmdline.ml:238
 msgid "-B must be specified"
@@ -805,9 +788,9 @@ msgid ""
 "element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO "
 "LIBVIRT\""
 msgstr ""
-"-o libvirt: буфер виведення «%s» належить до типу «dir», але елемент /pool/"
-"target/path не є локальним каталогом. Див. розділ «ВИВЕДЕННЯ ДО LIBVIRT» у "
-"підручнику virt-v2v(1)."
+"-o libvirt: буфер виведення «%s» належить до типу «dir», але елемент "
+"/pool/target/path не є локальним каталогом. Див. розділ «ВИВЕДЕННЯ ДО "
+"LIBVIRT» у підручнику virt-v2v(1)."
 
 #: ../v2v/output_libvirt.ml:364
 msgid ""
@@ -826,8 +809,8 @@ msgstr ""
 #: ../v2v/cmdline.ml:361
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
-"-o local: каталог виведення даних не вказано, скористайтеся параметром «-os /"
-"каталог»"
+"-o local: каталог виведення даних не вказано, скористайтеся параметром «-os "
+"/каталог»"
 
 #: ../v2v/cmdline.ml:375
 msgid "-o null: --qemu-boot option cannot be used in this output mode"
@@ -838,18 +821,20 @@ msgstr ""
 #: ../v2v/cmdline.ml:371
 msgid "-o null: -oc option cannot be used in this output mode"
 msgstr ""
-"-o null: параметр -oc не можна використовувати у цьому режимі виведення даних"
+"-o null: параметр -oc не можна використовувати у цьому режимі виведення "
+"даних"
 
 #: ../v2v/cmdline.ml:373
 msgid "-o null: -os option cannot be used in this output mode"
 msgstr ""
-"-o null: параметр -os не можна використовувати у цьому режимі виведення даних"
+"-o null: параметр -os не можна використовувати у цьому режимі виведення "
+"даних"
 
 #: ../v2v/cmdline.ml:382
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
-"-o qemu: не вказано каталогу для виведення даних, скористайтеся «-os /"
-"каталог»"
+"-o qemu: не вказано каталогу для виведення даних, скористайтеся «-os "
+"/каталог»"
 
 #: ../v2v/cmdline.ml:395
 msgid "-o rhev: --qemu-boot option cannot be used in this output mode"
@@ -909,7 +894,8 @@ msgstr "<listen type='%s'> у вхідних даних XML libvirt було п�
 
 #: ../v2v/input_libvirtxml.ml:327
 msgid ""
-"<target dev='%s'> was ignored because the device name could not be recognized"
+"<target dev='%s'> was ignored because the device name could not be "
+"recognized"
 msgstr ""
 "<target dev='%s'> було проігноровано, оскільки не вдалося визначити назву "
 "пристрою"
@@ -981,8 +967,8 @@ msgstr "Базовий шлях бібліотеки diskimage-builder"
 
 #: ../sparsify/copying.ml:332
 msgid ""
-"Before deleting the old disk, carefully check that the target disk boots and "
-"works correctly."
+"Before deleting the old disk, carefully check that the target disk boots and"
+" works correctly."
 msgstr ""
 "Перш ніж вилучати старий диск, ретельно перевірте, чи може диск призначення "
 "завантажується і працює належним чином."
@@ -1005,12 +991,10 @@ msgid ""
 "See the I<--remove-user-accounts> parameter for a way to specify\n"
 "how to remove only some users, or to not remove some others."
 msgstr ""
-"Типово вилучити всі облікові записи користувачів та відповідні домашні "
-"каталоги.\n"
+"Типово вилучити всі облікові записи користувачів та відповідні домашні каталоги.\n"
 "Обліковий запис «root» вилучено не буде.\n"
 "\n"
-"Див. опис параметра I<--remove-user-accounts>, щоб дізнатися про те, як "
-"наказати\n"
+"Див. опис параметра I<--remove-user-accounts>, щоб дізнатися про те, як наказати\n"
 "програмі вилучити лише деяких з користувачів і не вилучати інших."
 
 #: ../v2v/target_bus_assignment.ml:85
@@ -1225,7 +1209,7 @@ msgstr "Вимкнути мережу у системі для розгорта�
 
 #: ../sysprep/main.ml:132
 msgid "Disable appliance network (default)"
-msgstr ""
+msgstr "Вимкнути мережу у системі для розгортання (типова поведінка)"
 
 #: ../builder/cmdline.ml:135
 msgid "Disable digital signatures"
@@ -1257,7 +1241,7 @@ msgstr "Не виконувати fsync для файла результатів
 
 #: ../builder/cmdline.ml:164
 msgid "Do not warn if writing to a partition"
-msgstr ""
+msgstr "Не попереджати про запис на розділ"
 
 #: ../resize/resize.ml:189
 msgid "Don't copy boot loader"
@@ -1304,8 +1288,7 @@ msgid ""
 "Dual- or multi-boot operating system detected.  Choose the root filesystem\n"
 "that contains the main operating system from the list below:\n"
 msgstr ""
-"Виявлено операційну систему із варіантами завантаження. Виберіть кореневу "
-"файлову\n"
+"Виявлено операційну систему із варіантами завантаження. Виберіть кореневу файлову\n"
 "систему, що містить основну операційну систему зі списку, наведеного нижче:\n"
 
 #: ../customize/customize_cmdline.ml:217
@@ -1322,7 +1305,7 @@ msgstr "Елементи: %s"
 
 #: ../sysprep/main.ml:131
 msgid "Enable appliance network"
-msgstr ""
+msgstr "Увімкнути мережу у системі для розгортання"
 
 #. ../builder/cmdline.ml:153
 #: ../dib/cmdline.ml:184 ../customize/customize_main.ml:84
@@ -1355,7 +1338,8 @@ msgstr "Вкажіть число від 1 до %d або введіть «'exit
 
 #: ../v2v/v2v.ml:532
 msgid "Estimating space required on target for each disk"
-msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
+msgstr ""
+"Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
 #: ../sparsify/copying.ml:171
 msgid "Examine source disk"
@@ -1428,14 +1412,11 @@ msgstr "НАЗВА_ФАЙЛА"
 
 #: ../resize/resize.ml:996
 msgid ""
-"Failed to initialize the partition table on the target disk.  You need to "
-"wipe or recreate the target disk and then run virt-resize again.\n"
+"Failed to initialize the partition table on the target disk.  You need to wipe or recreate the target disk and then run virt-resize again.\n"
 "\n"
 "The underlying error was: %s"
 msgstr ""
-"Не вдалося ініціалізувати таблицю розділів на диску призначення. Вам слід "
-"витерти або створити повторно диск призначення, а потім запустити virt-"
-"resize ще раз.\n"
+"Не вдалося ініціалізувати таблицю розділів на диску призначення. Вам слід витерти або створити повторно диск призначення, а потім запустити virt-resize ще раз.\n"
 "\n"
 "Початкове повідомлення про помилку: %s"
 
@@ -1533,8 +1514,7 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 "Помилка GPG: не вдалося запустити GPG уперше\n"
-"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про "
-"помилки."
+"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про помилки."
 
 #: ../builder/sigchecker.ml:63
 msgid ""
@@ -1542,8 +1522,7 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 "Помилка GPG: не вдалося встановити довіру до імпортованого ключа\n"
-"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про "
-"помилки."
+"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про помилки."
 
 #: ../builder/sigchecker.ml:205
 msgid ""
@@ -1555,8 +1534,7 @@ msgid ""
 msgstr ""
 "Помилка GPG: не вдалося перевірити цифровий підпис файла\n"
 "Спробуйте:\n"
-" - Скористатися параметром «-v» і ознайомтеся з усіма попередніми "
-"повідомленнями щодо помилок.\n"
+" - Скористатися параметром «-v» і ознайомтеся з усіма попередніми повідомленнями щодо помилок.\n"
 " - Вилучити кеш: virt-builder --delete-cache\n"
 " - Перевірте, чи не втрутився хтось до даних вашого сайта або мережі!"
 
@@ -1574,13 +1552,11 @@ msgstr "Як вибрати кореневу файлову систему"
 
 #: ../mllib/common_utils.ml:383
 msgid ""
-"If reporting bugs, run %s with debugging enabled and include the complete "
-"output:\n"
+"If reporting bugs, run %s with debugging enabled and include the complete output:\n"
 "\n"
 "  %s -v -x [...]"
 msgstr ""
-"Якщо звітуєте про вади, запустіть %s з увімкненою діагностикою і включіть "
-"виведені дані повністю:\n"
+"Якщо звітуєте про вади, запустіть %s з увімкненою діагностикою і включіть виведені дані повністю:\n"
 "\n"
 "  %s -v -x [...]"
 
@@ -1594,7 +1570,7 @@ msgstr "Ігнорувати розділ"
 
 #: ../v2v/cmdline.ml:208 ../v2v/cmdline.ml:184
 msgid "Ignored for backwards compatibility"
-msgstr ""
+msgstr "Ігноровано, для зворотної сумісності"
 
 #: ../v2v/v2v.ml:275
 msgid "Initializing the target %s"
@@ -1734,6 +1710,8 @@ msgid ""
 "Neither rhev-apt.exe nor vmdp.exe can be found.  Unable to install one of "
 "them."
 msgstr ""
+"Не знайдено ні rhev-apt.exe, ні vmdp.exe. Не вдалося встановити одну з цих "
+"програм."
 
 #: ../sysprep/sysprep_operation.ml:195
 msgid "Notes on %s"
@@ -1755,8 +1733,7 @@ msgstr "Каталогу OVF (метаданих) (%s) не існує або ц
 
 #: ../sysprep/sysprep_operation_lvm_uuids.ml:45
 msgid ""
-"On Linux guests that have LVM2 physical volumes (PVs) or volume groups "
-"(VGs),\n"
+"On Linux guests that have LVM2 physical volumes (PVs) or volume groups (VGs),\n"
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 "Для гостьових систем Linux, які містять фізичні томи (ФТ) або групи томів \n"
@@ -1777,8 +1754,7 @@ msgid ""
 "On guests and filesystem types where this is supported,\n"
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
-"У гостьових системах та типах файлових систем, де передбачено таку "
-"підтримку,\n"
+"У гостьових системах та типах файлових систем, де передбачено таку підтримку,\n"
 "буде створено нові випадкові UUID, які буде пов’язано з файловими системами."
 
 #: ../customize/firstboot.ml:199
@@ -1787,6 +1763,10 @@ msgid ""
 "required in order to install Windows firstboot scripts.  You can get one by "
 "building rhsrvany (https://github.com/rwmjones/rhsrvany)"
 msgstr ""
+"На «%s» не знайдено хоча б одного з файлів rhsrvany.exe або pvvxsvc.exe. "
+"Один із цих файлів потрібен для встановлення скриптів першого завантаження "
+"Windows. Отримати цей файл можна зібравши rhsrvany "
+"(https://github.com/rwmjones/rhsrvany)."
 
 #: ../v2v/cmdline.ml:179
 msgid "Only tune the guest in the input VM"
@@ -1862,7 +1842,7 @@ msgstr "UUID виведених томів"
 
 #: ../v2v/v2v.ml:721
 msgid "Overlay saved as %s [--debug-overlays]"
-msgstr ""
+msgstr "Накладку збережено як %s [--debug-overlays]"
 
 #: ../v2v/cmdline.ml:172
 msgid "Override dcPath (for vCenter)"
@@ -1894,6 +1874,8 @@ msgid ""
 "Parallels tools was detected, but uninstallation failed. The error message "
 "was: %s (ignored)"
 msgstr ""
+"Виявлено інструменти Parallels, але спроба вилучення зазнала невдачі. "
+"Повідомлення про помилку: %s (ignored)"
 
 #: ../v2v/copy_to_local.ml:137
 msgid "Parsing the remote libvirt XML metadata ..."
@@ -1938,7 +1920,8 @@ msgstr "Вивести джерело і припинити обробку"
 #: ../v2v/OVF.ml:433 ../v2v/OVF.ml:228
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
-"У RHEV не передбачено формату виведення даних «%s», лише формати raw та qcow2"
+"У RHEV не передбачено формату виведення даних «%s», лише формати raw та "
+"qcow2"
 
 #: ../customize/customize_cmdline.ml:178
 msgid "Read customize commands from file"
@@ -2177,7 +2160,8 @@ msgstr "Змінити розміри розділу"
 
 #: ../builder/builder.ml:585
 msgid "Resizing (using virt-resize) to expand the disk to %s"
-msgstr "Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
+msgstr ""
+"Змінюємо розміри (за допомогою virt-resize) для розширення диска до %s"
 
 #: ../builder/builder.ml:611
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
@@ -2382,7 +2366,8 @@ msgstr "Встановити каталог кешу шаблонів"
 #: ../sparsify/cmdline.ml:76
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
-"Встановити тимчасовий блоковий пристрій, каталог або попередньо зібраний файл"
+"Встановити тимчасовий блоковий пристрій, каталог або попередньо зібраний "
+"файл"
 
 #: ../customize/customize_cmdline.ml:385
 msgid "Set the default timezone"
@@ -2434,7 +2419,7 @@ msgstr "Встановлюємо корінь призначення"
 
 #: ../builder/cmdline.ml:148
 msgid "Shortcut for --list-format long"
-msgstr ""
+msgstr "Скорочення для --list-format long"
 
 #: ../resize/resize.ml:204
 msgid "Shrink partition"
@@ -2560,8 +2545,8 @@ msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
 msgstr ""
-"Графічний драйвер було оновлено до «%s». Втім, здається, у гостьовій системі "
-"не встановлено X11. Графічний сервер не зможе працювати належним чином."
+"Графічний драйвер було оновлено до «%s». Втім, здається, у гостьовій системі"
+" не встановлено X11. Графічний сервер не зможе працювати належним чином."
 
 #: ../sysprep/sysprep_operation_fs_uuids.ml:52
 msgid ""
@@ -2584,12 +2569,10 @@ msgstr ""
 #: ../builder/index_parser.ml:30
 msgid ""
 "The index file downloaded from '%s' is corrupt.\n"
-"You need to ask the supplier of this file to fix it and upload a fixed "
-"version."
+"You need to ask the supplier of this file to fix it and upload a fixed version."
 msgstr ""
 "Файл покажчика, отриманий з «%s», пошкоджено.\n"
-"Вам слід попросити постачальника виправити цю помилку і вивантажити "
-"виправлену версію."
+"Вам слід попросити постачальника виправити цю помилку і вивантажити виправлену версію."
 
 #: ../sysprep/sysprep_operation_machine_id.ml:38
 msgid ""
@@ -2690,8 +2673,8 @@ msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
-"Маємо дефіцит у %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
-"принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
+"Маємо дефіцит у %Ld байтів (%s). Вам слід збільшити розмір диска призначення"
+" принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
 
 #: ../dib/elements.ml:182
 msgid ""
@@ -2730,8 +2713,7 @@ msgstr ""
 "переповнено даними, потрібно буде не стільки вільного місця.\n"
 "\n"
 "Ви можете ігнорувати це попередження або замінити його на повідомлення\n"
-"про помилку за допомогою параметра --check-tmpdir=(ignore|continue|warn|"
-"fail).\n"
+"про помилку за допомогою параметра --check-tmpdir=(ignore|continue|warn|fail).\n"
 "Див. virt-sparsify(1).\n"
 "\n"
 "%!"
@@ -2825,11 +2807,11 @@ msgstr "Розпаковуємо"
 
 #: ../customize/customize_cmdline.ml:402
 msgid "Uninstall package(s)"
-msgstr ""
+msgstr "Вилучити пакунки"
 
 #: ../customize/customize_run.ml:364
 msgid "Uninstalling packages: %s"
-msgstr ""
+msgstr "Вилучаємо пакунки: %s"
 
 #: ../customize/customize_cmdline.ml:355
 msgid "Unregister using subscription-manager"
@@ -2841,11 +2823,11 @@ msgstr "Скасовуємо реєстрацію за допомогою subscr
 
 #: ../customize/customize_cmdline.ml:408
 msgid "Update packages"
-msgstr ""
+msgstr "Оновити пакунки"
 
 #: ../customize/customize_run.ml:369
 msgid "Updating packages"
-msgstr ""
+msgstr "Оновлюємо пакунки"
 
 #: ../customize/customize_cmdline.ml:419
 msgid "Upload local file to destination"
@@ -2858,6 +2840,7 @@ msgstr "Вивантажуємо: %s до %s"
 #: ../mllib/common_utils.ml:581
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
+"Використовувати послідовності ANSI для кольорів, навіть якщо це не tty"
 
 #: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:197
 msgid "Use password from file"
@@ -2951,28 +2934,21 @@ msgstr "Занулюємо %s"
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
-"If using virt-p2v, select a different 'Name' in the 'Target properties'. Or "
-"delete the existing domain on the target using the 'virsh undefine' command."
+"If using virt-p2v, select a different 'Name' in the 'Target properties'. Or delete the existing domain on the target using the 'virsh undefine' command."
 msgstr ""
 "у призначенні вже є домен libvirt із назвою «%s».\n"
 "\n"
-"Якщо використовуєте virt-p2v, виберіть іншу «Назву» у «Властивостях "
-"призначення». Або вилучіть наявний домен на призначенні за допомогою команди "
-"«virsh undefine»."
+"Якщо використовуєте virt-p2v, виберіть іншу «Назву» у «Властивостях призначення». Або вилучіть наявний домен на призначенні за допомогою команди «virsh undefine»."
 
 #: ../v2v/output_libvirt.ml:350
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
-"If using virt-v2v directly, use the '-on' option to select a different name. "
-"Or delete the existing domain on the target using the 'virsh undefine' "
-"command."
+"If using virt-v2v directly, use the '-on' option to select a different name. Or delete the existing domain on the target using the 'virsh undefine' command."
 msgstr ""
 "у призначенні вже є домен libvirt із назвою «%s».\n"
 "\n"
-"Якщо використовуєте virt-v2v безпосередньо, скористайтеся параметром «-on» "
-"для вибору іншої назви. Або вилучіть наявний домен на призначенні за "
-"допомогою команди «virsh undefine»."
+"Якщо використовуєте virt-v2v безпосередньо, скористайтеся параметром «-on» для вибору іншої назви. Або вилучіть наявний домен на призначенні за допомогою команди «virsh undefine»."
 
 #: ../resize/resize.ml:249
 msgid "alignment cannot be < 1"
@@ -2984,15 +2960,13 @@ msgstr "має бути вказано принаймні один корене�
 
 #: ../v2v/input_libvirt_other.ml:33
 msgid ""
-"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 "
-"you must set this environment variable:\n"
+"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n"
 "\n"
 "export LIBGUESTFS_BACKEND=direct\n"
 "\n"
 "and then rerun the virt-v2v command."
 msgstr ""
-"через ваду у libvirt, https://bugzilla.redhat.com/show_bug.cgi?id=1134592 "
-"вам слід встановити таке значення змінної середовища:\n"
+"через ваду у libvirt, https://bugzilla.redhat.com/show_bug.cgi?id=1134592 вам слід встановити таке значення змінної середовища:\n"
 "\n"
 "export LIBGUESTFS_BACKEND=direct\n"
 "\n"
@@ -3025,25 +2999,24 @@ msgstr "кешовано"
 #: ../sparsify/copying.ml:62
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
-"не вдалося визначити формат диска вхідних даних; скористайтеся параметром --"
-"format"
+"не вдалося визначити формат диска вхідних даних; скористайтеся параметром "
+"--format"
 
 #: ../v2v/input_disk.ml:65
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
-"не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
+"не вдалося визначити формат диска вхідних даних; скористайтеся параметром "
+"-if"
 
 #: ../v2v/utils.ml:106
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
-"You probably need to install OVMF, or Gerd's firmware repo (https://www."
-"kraxel.org/repos/), or AAVMF (if using aarch64)"
+"You probably need to install OVMF, or Gerd's firmware repo (https://www.kraxel.org/repos/), or AAVMF (if using aarch64)"
 msgstr ""
 "не вдалося знайти мікропрограму для гостьових систем UEFI.\n"
 "\n"
-"Ймовірно, вам слід встановити OVMF або сховище мікропрограм Gerd (https://"
-"www.kraxel.org/repos/) або AAVMF (якщо використовується aarch64)"
+"Ймовірно, вам слід встановити OVMF або сховище мікропрограм Gerd (https://www.kraxel.org/repos/) або AAVMF (якщо використовується aarch64)"
 
 #: ../builder/builder.ml:98
 msgid ""
@@ -3051,8 +3024,7 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 "не вдалося знайти версію ОС «%s» з архітектурою «%s».\n"
-"Скористайтеся параметром --list, щоб отримати список усіх доступних типів "
-"гостьових систем."
+"Скористайтеся параметром --list, щоб отримати список усіх доступних типів гостьових систем."
 
 #: ../builder/builder.ml:355
 msgid "cannot output to a character device or /dev/null"
@@ -3069,48 +3041,45 @@ msgstr ""
 
 #: ../v2v/convert_windows.ml:187
 msgid ""
-"cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
-"DisplayName '%s' doesn't contain value '%s'"
+"cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with"
+" DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
-"не вдалося вилучити Parallels Tools: у ключі реєстру «HKLM\\SOFTWARE\\%s\\"
-"%s» із DisplayName «%s» не міститься значення «%s»"
+"не вдалося вилучити Parallels Tools: у ключі реєстру "
+"«HKLM\\SOFTWARE\\%s\\%s» із DisplayName «%s» не міститься значення «%s»"
 
 #: ../v2v/convert_windows.ml:132
 msgid ""
-"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
-"\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
+"cannot uninstall Xen PV drivers: registry key "
+"'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not"
+" contain an '%s' key"
 msgstr ""
-"неможливо вилучити драйвери Xen PV: ключ реєстру «HKLM\\SOFTWARE\\Microsoft"
-"\\Windows\\CurrentVersion\\Uninstall\\%s» не містить ключа «%s»"
+"неможливо вилучити драйвери Xen PV: ключ реєстру "
+"«HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s» не "
+"містить ключа «%s»"
 
 #: ../customize/customize_run.ml:185
 msgid ""
-"cannot use '%s' because no package manager has been detected for this guest "
-"OS.\n"
+"cannot use '%s' because no package manager has been detected for this guest OS.\n"
 "\n"
-"If this guest OS is a common one with ordinary package management then this "
-"may have been caused by a failure of libguestfs inspection.\n"
+"If this guest OS is a common one with ordinary package management then this may have been caused by a failure of libguestfs inspection.\n"
 "\n"
-"For OSes such as Windows that lack package management, this is not "
-"possible.  Try using one of the '--firstboot*' flags instead (described in "
-"the manual)."
+"For OSes such as Windows that lack package management, this is not possible.  Try using one of the '--firstboot*' flags instead (described in the manual)."
 msgstr ""
+"використання «%s» неможливе, оскільки у гостьовій системі не виявлено програми для керування пакунками.\n"
+"\n"
+"Якщо ця гостьова операційна система є типовою, із звичайним керуванням пакунками, ця помилка, ймовірно, спричинена помилкою у засобі інспектування libguestfs.\n"
+"\n"
+"Для операційних систем без засобів керування пакунками, зокрема Windows, це неможливо. Спробуйте скористатися одним із прапорців «--firstboot*» (описано у підручнику)."
 
 #: ../v2v/output_rhev.ml:172
 msgid ""
-"cannot write files to the NFS server as %d:%d, even though we appear to be "
-"running as root. This probably means the NFS client or idmapd is not "
-"configured properly.\n"
+"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n"
 "\n"
-"You will have to chown the files that virt-v2v creates after the run, "
-"otherwise RHEV-M will not be able to import the VM."
+"You will have to chown the files that virt-v2v creates after the run, otherwise RHEV-M will not be able to import the VM."
 msgstr ""
-"запис файлів на сервер NFS неможливий від імені %d:%d, хоча програма і "
-"працювала від імені користувача root. Це, ймовірно, означає, що клієнт NFS "
-"або idmapd налаштовано неналежним чином.\n"
+"запис файлів на сервер NFS неможливий від імені %d:%d, хоча програма і працювала від імені користувача root. Це, ймовірно, означає, що клієнт NFS або idmapd налаштовано неналежним чином.\n"
 "\n"
-"Вам доведеться змінити власника файлів, які virt-v2v створює після запуску, "
-"інакше RHEV-M не зможе імпортувати віртуальну машину."
+"Вам доведеться змінити власника файлів, які virt-v2v створює після запуску, інакше RHEV-M не зможе імпортувати віртуальну машину."
 
 #: ../v2v/output_rhev.ml:174
 msgid ""
@@ -3166,8 +3135,7 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 "не вдалося експортувати відкритий ключ\n"
-"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про "
-"помилки."
+"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про помилки."
 
 #: ../builder/builder.ml:140
 msgid "could not find cache directory. Is $HOME set?"
@@ -3175,12 +3143,10 @@ msgstr ""
 "не вдалося знайти каталог кешування. Чи встановлено значення змінної $HOME?"
 
 #: ../v2v/convert_windows.ml:445
-msgid ""
-"could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
-"\\CurrentVersion"
+msgid "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion"
 msgstr ""
-"не вдалося знайти ключ реєстру HKLM\\SOFTWARE\\Microsoft\\Windows"
-"\\CurrentVersion"
+"не вдалося знайти ключ реєстру "
+"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion"
 
 #: ../builder/sigchecker.ml:44
 msgid ""
@@ -3188,8 +3154,7 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 "не вдалося імпортувати відкритий ключ\n"
-"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про "
-"помилки."
+"Скористайтеся параметром «-v» і перегляньте попередні повідомлення про помилки."
 
 #: ../v2v/input_libvirt.ml:39 ../v2v/copy_to_local.ml:99
 msgid "could not parse '-ic %s'.  Original error message was: %s"
@@ -3246,19 +3211,19 @@ msgstr "curl не встановлено (або програма непраце
 
 #: ../mllib/regedit.ml:56
 msgid ""
-"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This "
-"is a bug in %s, please report it."
+"decode_utf16le: Windows UTF16-LE string contains non-7-bit characters.  This"
+" is a bug in %s, please report it."
 msgstr ""
-"decode_utf16le: рядок Windows UTF16-LE містить символи, які не є 7-бітовими. "
-"Це вада у %s. Будь ласка, повідомте про неї розробникам."
+"decode_utf16le: рядок Windows UTF16-LE містить символи, які не є 7-бітовими."
+" Це вада у %s. Будь ласка, повідомте про неї розробникам."
 
 #: ../mllib/regedit.ml:50
 msgid ""
 "decode_utf16le: Windows string does not appear to be in UTF16-LE encoding.  "
 "This could be a bug in %s."
 msgstr ""
-"decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
-"LE. Ймовірно, це вада у %s."
+"decode_utf16le: рядок Windows, здається, не містить даних у кодуванні "
+"UTF16-LE. Ймовірно, це вада у %s."
 
 #: ../v2v/convert_linux.ml:770
 msgid "didn't find grub entry for kernel %s"
@@ -3288,26 +3253,15 @@ msgstr "підтримки відкидання або обрізання не �
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
-"The input metadata did not define the disk format (eg. raw/qcow2/etc) of "
-"this disk, and so virt-v2v will try to autodetect the format when reading "
-"it.\n"
+"The input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n"
 "\n"
-"However because the input format was not defined, we do not know what output "
-"format you want to use.  You have two choices: either define the original "
-"format in the source metadata, or use the '-of' option to force the output "
-"format."
+"However because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the '-of' option to force the output format."
 msgstr ""
 "диск %s (%s) не має визначеного формату.\n"
 "\n"
-"Вхідні метадані не визначають формату цього диска (наприклад raw/qcow2/"
-"тощо), отже virt-v2v спробує автоматично визначити формат під час читання "
-"диска.\n"
+"Вхідні метадані не визначають формату цього диска (наприклад raw/qcow2/тощо), отже virt-v2v спробує автоматично визначити формат під час читання диска.\n"
 "\n"
-"Втім, оскільки вхідний формат не визначено, програмі невідомий формат "
-"виведення, яким ви хочете скористатися. Ви можете скористатися одним із "
-"таких варіантів: визначити початковий формат у метаданих джерела, "
-"використати параметр «-of» для примусового визначення формату виведення "
-"даних."
+"Втім, оскільки вхідний формат не визначено, програмі невідомий формат виведення, яким ви хочете скористатися. Ви можете скористатися одним із таких варіантів: визначити початковий формат у метаданих джерела, використати параметр «-of» для примусового визначення формату виведення даних."
 
 #: ../v2v/input_libvirtxml.ml:138
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
@@ -3320,7 +3274,8 @@ msgstr "домен"
 
 #: ../v2v/utils.ml:102
 msgid "don't know how to convert UEFI guests for architecture %s"
-msgstr "спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
+msgstr ""
+"спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
 
 #: ../v2v/linux.ml:113
 msgid "don't know how to find file owner using %s"
@@ -3374,7 +3329,8 @@ msgstr "порожній параметр --shrink"
 
 #. ../customize/customize_main.ml:63
 #. ../builder/downloader.ml:69
-#: ../sysprep/main.ml:58 ../resize/resize.ml:310 ../get-kernel/get_kernel.ml:43
+#: ../sysprep/main.ml:58 ../resize/resize.ml:310
+#: ../get-kernel/get_kernel.ml:43
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
@@ -3500,14 +3456,14 @@ msgstr "glance: не вдалося встановити властивості 
 
 #: ../v2v/output_glance.ml:52
 msgid ""
-"glance: glance client is not installed or set up correctly.  You may need to "
-"set environment variables or source a script to enable authentication.  See "
-"preceding messages for details."
+"glance: glance client is not installed or set up correctly.  You may need to"
+" set environment variables or source a script to enable authentication.  See"
+" preceding messages for details."
 msgstr ""
 "glance: клієнт glance не встановлено або не налаштовано належним чином. "
 "Ймовірно, вам слід встановити належні значення змінних середовища або "
-"створити скрипт для уможливлення розпізнавання. Див. попередні повідомлення, "
-"щоб дізнатися більше."
+"створити скрипт для уможливлення розпізнавання. Див. попередні повідомлення,"
+" щоб дізнатися більше."
 
 #: ../v2v/output_glance.ml:80
 msgid "glance: image upload to glance failed, see earlier errors"
@@ -3521,8 +3477,7 @@ msgid ""
 "You should install gpg, or use --gpg option, or use --no-check-signature."
 msgstr ""
 "gpg не встановлено (або програма непридатна до використання)\n"
-"Вам слід встановити gpg, скористатися параметром --gpg або скористатися "
-"параметром --no-check-signature."
+"Вам слід встановити gpg, скористатися параметром --gpg або скористатися параметром --no-check-signature."
 
 #: ../builder/builder.ml:155
 msgid "gpg program is not available"
@@ -3534,28 +3489,17 @@ msgid ""
 "\n"
 "There could be several reasons for this:\n"
 "\n"
-"Check that the guest doesn't really have a zero-sized disk.  virt-v2v cannot "
-"convert such a guest.\n"
+"Check that the guest doesn't really have a zero-sized disk.  virt-v2v cannot convert such a guest.\n"
 "\n"
-"If you are converting a guest from an ssh source and the guest has a disk on "
-"a block device (eg. on a host partition or host LVM LV), then conversions of "
-"this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES"
-"\" in the virt-v2v(1) manual for a workaround."
+"If you are converting a guest from an ssh source and the guest has a disk on a block device (eg. on a host partition or host LVM LV), then conversions of this type are not supported.  See \"XEN OR SSH CONVERSIONS FROM BLOCK DEVICES\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 "Розмір диска %s у гостьовій системі дорівнює нулеві.\n"
 "\n"
 "Може бути декілька причин:\n"
 "\n"
-"Перевірте, чи й справді у гостьовій системі немає дисків із нульовим "
-"розміром. virt-v2v не здатна перетворювати гостьові системи із такими "
-"дисками.\n"
+"Перевірте, чи й справді у гостьовій системі немає дисків із нульовим розміром. virt-v2v не здатна перетворювати гостьові системи із такими дисками.\n"
 "\n"
-"Якщо виконується перетворення гостьової системи із джерела з ssh і у "
-"гостьовій системі є диск із блоковим пристроєм (наприклад розділ основної "
-"системи або логічний том LVM основної системи), перетворення такого типу не "
-"може бути виконано. Способи обійти проблему описано у розділі «XEN OR SSH "
-"CONVERSIONS FROM BLOCK DEVICES» («ПЕРЕТВОРЕННЯ XEN АБО SSH З БЛОКОВИХ "
-"ПРИСТРОЇВ») сторінки підручника virt-v2v(1)."
+"Якщо виконується перетворення гостьової системи із джерела з ssh і у гостьовій системі є диск із блоковим пристроєм (наприклад розділ основної системи або логічний том LVM основної системи), перетворення такого типу не може бути виконано. Способи обійти проблему описано у розділі «XEN OR SSH CONVERSIONS FROM BLOCK DEVICES» («ПЕРЕТВОРЕННЯ XEN АБО SSH З БЛОКОВИХ ПРИСТРОЇВ») сторінки підручника virt-v2v(1)."
 
 #: ../customize/firstboot.ml:138
 msgid "guest type %s is not supported"
@@ -3573,8 +3517,8 @@ msgstr ""
 #: ../customize/customize_run.ml:55
 msgid ""
 "host cpu (%s) and guest arch (%s) are not compatible, so you cannot use "
-"command line options that involve running commands in the guest.  Use --"
-"firstboot scripts instead."
+"command line options that involve running commands in the guest.  Use "
+"--firstboot scripts instead."
 msgstr ""
 "процесор основної системи (%s) і архітектура гостьової системи (%s) є "
 "несумісними, отже ви не можете скористатися параметрами командного рядка, "
@@ -3623,20 +3567,13 @@ msgstr "файл вхідних даних (%s) належить до непід
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
-"Assuming that you are running virt-v2v/virt-p2v on a source which is "
-"supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"Assuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n"
 "\n"
 "Inspection field '%s' was 'unknown'."
 msgstr ""
-"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) "
-"джерела.\n"
+"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) джерела.\n"
 "\n"
-"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого "
-"передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. "
-"Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл "
-"журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
+"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
 "\n"
 "Значенням визначеного поля «%s» було «unknown»."
 
@@ -3644,35 +3581,29 @@ msgstr ""
 msgid ""
 "inspection could not detect the source guest (or physical machine).\n"
 "\n"
-"Assuming that you are running virt-v2v/virt-p2v on a source which is "
-"supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"Assuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n"
 "\n"
 "No root device found in this operating system image."
 msgstr ""
-"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) "
-"джерела.\n"
+"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) джерела.\n"
 "\n"
-"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого "
-"передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. "
-"Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл "
-"журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
+"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
 "\n"
 "У образі операційної системи не виявлено кореневого пристрою."
 
 #: ../v2v/v2v.ml:224
 msgid ""
-"insufficient free space in the conversion server temporary directory %s "
-"(%s).\n"
+"insufficient free space in the conversion server temporary directory %s (%s).\n"
 "\n"
-"Either free up space in that directory, or set the LIBGUESTFS_CACHEDIR "
-"environment variable to point to another directory with more than 1GB of "
-"free space.\n"
+"Either free up space in that directory, or set the LIBGUESTFS_CACHEDIR environment variable to point to another directory with more than 1GB of free space.\n"
 "\n"
-"See also the virt-v2v(1) manual, section \"Minimum free space check in the "
-"host\"."
+"See also the virt-v2v(1) manual, section \"Minimum free space check in the host\"."
 msgstr ""
+"недостатньо вільного місця у тимчасовому каталозі сервера перетворення %s (%s).\n"
+"\n"
+"Або вивільніть місце у цьому каталозі, або встановіть значення для змінної середовища LIBGUESTFS_CACHEDIR так, щоб вона вказувала на інший каталог, де є понад 1 ГБ вільного місця.\n"
+"\n"
+"Також ознайомтеся із підручником з virt-v2v(1), розділ «Minimum free space check in the host» («Мінімальний розмір вільного місця у основній системі»)."
 
 #: ../mllib/common_utils.ml:449
 msgid "internal error: Not_found exception was thrown"
@@ -3779,14 +3710,11 @@ msgstr "декілька значень для ключа «%s»"
 msgid ""
 "mount command failed, see earlier errors.\n"
 "\n"
-"This probably means you didn't specify the right %s path [-os %s], or else "
-"you need to rerun virt-v2v as root."
+"This probably means you didn't specify the right %s path [-os %s], or else you need to rerun virt-v2v as root."
 msgstr ""
 "помилка команди монтування, див. попередні повідомлення щодо помилки.\n"
 "\n"
-"Ймовірно, це означає, що вами не вказано належного шляху %s [-os %s]. Крім "
-"того, можливо, вам слід повторно запустити virt-v2v від імені користувача "
-"root."
+"Ймовірно, це означає, що вами не вказано належного шляху %s [-os %s]. Крім того, можливо, вам слід повторно запустити virt-v2v від імені користувача root."
 
 #: ../v2v/inspect_source.ml:129
 msgid ""
@@ -3834,10 +3762,8 @@ msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
-"у цьому образі диска немає гостьових систем або ОС із варіантами "
-"завантаження.\n"
-"Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
-"додаткових даних."
+"у цьому образі диска немає гостьових систем або ОС із варіантами завантаження.\n"
+"Це помилка сховища-джерела. Скористайтеся параметром -v для отримання додаткових даних."
 
 #: ../v2v/input_ova.ml:262
 msgid "no href in ovf:File (id=%s)"
@@ -3855,8 +3781,7 @@ msgid ""
 msgstr ""
 "не знайдено встановлених пакунків ядра.\n"
 "\n"
-"Це, ймовірно, означає, що %s не вдасться вивчити належним чином гостьову "
-"систему."
+"Це, ймовірно, означає, що %s не вдасться вивчити належним чином гостьову систему."
 
 #: ../get-kernel/get_kernel.ml:157
 msgid "no kernel found in %s"
@@ -3866,13 +3791,11 @@ msgstr "не знайдено ядра у %s"
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
-"This probably indicates that %s was unable to parse the grub configuration "
-"of this guest."
+"This probably indicates that %s was unable to parse the grub configuration of this guest."
 msgstr ""
 "У налаштуваннях grub не знайдено записів ядер.\n"
 "\n"
-"Це, ймовірно, означає, що %s не вдалося обробити налаштування grub цієї "
-"гостьової системи."
+"Це, ймовірно, означає, що %s не вдалося обробити налаштування grub цієї гостьової системи."
 
 #: ../get-kernel/get_kernel.ml:179
 msgid "no operating system found"
@@ -3880,7 +3803,8 @@ msgstr "не знайдено операційної системи"
 
 #: ../sysprep/main.ml:222 ../customize/customize_main.ml:181
 msgid "no operating systems were found in the guest image"
-msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
+msgstr ""
+"у образі гостьової системи не було знайдено жодної операційної системи"
 
 #: ../v2v/input_ova.ml:150
 msgid "no output from sha1sum command, see previous errors"
@@ -3900,8 +3824,7 @@ msgid ""
 msgstr ""
 "е вдалося знайти плану створення образу диска з потрібним\n"
 "розміром, форматом тощо. Це вада у libguestfs!\n"
-"Будь ласка, створіть повідомлення щодо вади, вказавши використані вами "
-"аргументи командного рядка."
+"Будь ласка, створіть повідомлення щодо вади, вказавши використані вами аргументи командного рядка."
 
 #: ../v2v/input_libvirt.ml:64
 msgid ""
@@ -3925,8 +3848,8 @@ msgstr "ntfsresize"
 
 #: ../v2v/OVF.ml:575
 msgid ""
-"oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
-"the output."
+"oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from"
+" the output."
 msgstr ""
 "Система oVirt не здатна емулювати звукові картки «%s». Цю звукову картку "
 "буде викинуто з виведених даних."
@@ -3935,13 +3858,11 @@ msgstr ""
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
-"Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what "
-"to do."
+"Read the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do."
 msgstr ""
 "у цій гостьовій системі встановлено лише ядра Xen.\n"
 "\n"
-"Ознайомтеся із підручником з %s(1), розділ «ПАРАВІРТУАЛІЗОВАНІ ГОСТЬОВІ "
-"СИСТЕМИ XEN», щоб дізнатися про подальші дії."
+"Ознайомтеся із підручником з %s(1), розділ «ПАРАВІРТУАЛІЗОВАНІ ГОСТЬОВІ СИСТЕМИ XEN», щоб дізнатися про подальші дії."
 
 #: ../v2v/copy_to_local.ml:114
 msgid ""
@@ -3992,33 +3913,33 @@ msgstr ""
 #: ../builder/builder.ml:287
 msgid ""
 "output device (%s) is a partition.  If you are writing to a USB key or "
-"external drive then you probably need to write to the whole device, not to a "
-"partition.  If this warning is wrong then you can disable it with --no-warn-"
-"if-partition"
+"external drive then you probably need to write to the whole device, not to a"
+" partition.  If this warning is wrong then you can disable it with --no-"
+"warn-if-partition"
 msgstr ""
+"пристрій виведення даних (%s) є розділом. Якщо запис виконується на флеш-"
+"диск USB або зовнішній диск, вам, ймовірно, слід записувати на цілий "
+"пристрій, а не на розділ. Якщо це попередження ви вважаєте помилковим, ви "
+"можете вимкнути його за допомогою параметра --no-warn-if-partition"
 
 #: ../v2v/v2v.ml:295
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
-"Use the '-of <format>' option to select a different output format for the "
-"converted guest.\n"
+"Use the '-of <format>' option to select a different output format for the converted guest.\n"
 "\n"
-"Other output formats are not supported at the moment, although might be "
-"considered in future."
+"Other output formats are not supported at the moment, although might be considered in future."
 msgstr ""
 "форматом виведення має бути «raw» або «qcow2».\n"
 "\n"
-"Скористайтеся параметром «-of <формат>» для вибору іншого формату виведення "
-"для перетвореної гостьової системи.\n"
+"Скористайтеся параметром «-of <формат>» для вибору іншого формату виведення для перетвореної гостьової системи.\n"
 "\n"
-"Підтримки інших форматів виведення у поточній версії ще не передбачено, хоча "
-"їхню підтримку може бути реалізовано у майбутньому."
+"Підтримки інших форматів виведення у поточній версії ще не передбачено, хоча їхню підтримку може бути реалізовано у майбутньому."
 
 #: ../builder/builder.ml:383
 msgid ""
-"output size is too large for this block device.  Requested size = %s, output "
-"block device = %s, output block device size = %s"
+"output size is too large for this block device.  Requested size = %s, output"
+" block device = %s, output block device size = %s"
 msgstr ""
 "розмір виведених даних є надто великим для цього блокового пристрою. "
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
@@ -4026,19 +3947,19 @@ msgstr ""
 
 #: ../v2v/input_ova.ml:222
 msgid ""
-"ova disk has an unknown VMware controller type (%d), please report this as a "
-"bug supplying the *.ovf file extracted from the ova"
+"ova disk has an unknown VMware controller type (%d), please report this as a"
+" bug supplying the *.ovf file extracted from the ova"
 msgstr ""
-"Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
-"цю ваду, додавши файл *.ovf, видобутий з ova"
+"Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про"
+" цю ваду, додавши файл *.ovf, видобутий з ova"
 
 #: ../v2v/input_ova.ml:219
 msgid ""
-"ova disk has no parent controller, please report this as a bug supplying the "
-"*.ovf file extracted from the ova"
+"ova disk has no parent controller, please report this as a bug supplying the"
+" *.ovf file extracted from the ova"
 msgstr ""
-"Диск ova не має батьківського контролера. Будь ласка, повідомте про цю ваду, "
-"додавши файл *.ovf, видобутий з ova"
+"Диск ova не має батьківського контролера. Будь ласка, повідомте про цю ваду,"
+" додавши файл *.ovf, видобутий з ova"
 
 #: ../v2v/convert_linux.ml:137
 msgid "package '%s' contains no files"
@@ -4054,22 +3975,18 @@ msgid "part=size"
 msgstr "частина=розмір"
 
 #: ../customize/password.ml:51
-msgid ""
-"password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
+msgid "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 "password-crypto: невідомий алгоритм %s, мало бути використано один з таких "
 "варіантів: «md5», «sha256» або «sha512»"
 
 #: ../customize/password.ml:173
 msgid ""
-"password: using insecure md5 password encryption for guest of type %s "
-"version %d.%d.\n"
+"password: using insecure md5 password encryption for guest of type %s version %d.%d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
-"пароль: використано незахищене шифрування пароля md5 для гостьової системи "
-"типу %s, версія %d.%d.\n"
-"Якщо це не так, скористайтеся параметром --password-crypto і створіть "
-"повідомлення щодо вади."
+"пароль: використано незахищене шифрування пароля md5 для гостьової системи типу %s, версія %d.%d.\n"
+"Якщо це не так, скористайтеся параметром --password-crypto і створіть повідомлення щодо вади."
 
 #: ../customize/customize_run.ml:412
 msgid "passwords could not be set for this type of guest"
@@ -4120,15 +4037,15 @@ msgstr ""
 msgid ""
 "removable %s device in slot %d clashes with another disk, so it has been "
 "moved to a higher numbered slot on the same bus.  This may mean that this "
-"removable device has a different name inside the guest (for example a CD-ROM "
-"originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a "
+"removable device has a different name inside the guest (for example a CD-ROM"
+" originally called /dev/hdc might move to /dev/hdd, or from D: to E: on a "
 "Windows guest)."
 msgstr ""
 "портативний пристрій %s у слоті %d конфліктує з іншим диском, отже його "
 "пересунуто до вищого нумерованого слоту на тому самому каналі. Це може "
 "означати, що цей портативний пристрій має нішу назву у гостьовій системі "
-"(наприклад CD-ROM із початковою назвою /dev/hdc може бути пересунуто до /dev/"
-"hdd, або з D: до E: у гостьовій системі Windows)."
+"(наприклад CD-ROM із початковою назвою /dev/hdc може бути пересунуто до "
+"/dev/hdd, або з D: до E: у гостьовій системі Windows)."
 
 #: ../resize/resize.ml:136
 msgid "resize2fs"
@@ -4163,9 +4080,11 @@ msgstr "сектори"
 msgid ""
 "sorry, '%s' with the '%s' package manager has not been implemented yet.\n"
 "\n"
-"You can work around this by using one of the '--run*' or '--firstboot*' "
-"options instead (described in the manual)."
+"You can work around this by using one of the '--run*' or '--firstboot*' options instead (described in the manual)."
 msgstr ""
+"вибачте, «%s» із засобом керування пакунками «%s» ще не реалізовано.\n"
+"\n"
+"Ви можете усунути цю проблему використанням одного з параметрів, «--run*» або «--firstboot*» (описано у підручнику)."
 
 #: ../builder/cmdline.ml:295
 msgid "source and fingerprint lists are not the same length"
@@ -4261,10 +4180,12 @@ msgstr ""
 #: ../v2v/cmdline.ml:113
 msgid "the --no-trim option has been removed and now does nothing"
 msgstr ""
+"параметр --no-trim вилучено зі списку параметрів, тепер він не потрібен"
 
 #: ../v2v/cmdline.ml:160
 msgid "the --vmtype option has been removed and now does nothing"
 msgstr ""
+"параметр --vmtype вилучено зі списку параметрів, тепер він не потрібен"
 
 #: ../v2v/copy_to_local.ml:84
 msgid "the -ic parameter is required"
@@ -4275,6 +4196,9 @@ msgid ""
 "the command may have failed because the network is disabled.  Try either "
 "removing '--no-network' or adding '--network' on the command line."
 msgstr ""
+"спроба виконання команди зазнала невдачі, можливо через вимикання мережі. "
+"Спробуйте або вилучити параметр «--no-network», або додати параметр "
+"«--network» до рядка команди."
 
 #: ../builder/simplestreams_parser.ml:81
 msgid "the key '%s' was not found in a list of objects"
@@ -4286,8 +4210,8 @@ msgstr "список форматів виведення даних не мож�
 
 #: ../v2v/output_vdsm.ml:74
 msgid ""
-"the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on "
-"the command line has to match the number of guest disk images (for this "
+"the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on"
+" the command line has to match the number of guest disk images (for this "
 "guest: %d)"
 msgstr ""
 "кількість параметрів «--vdsm-image-uuid» і «--vdsm-vol-uuid», переданих за "
@@ -4333,17 +4257,13 @@ msgstr "значенням ключа «%s» не є об’єкт"
 
 #: ../v2v/OVF.ml:218
 msgid ""
-"the virtual size of the input disk %s is not an exact multiple of 512 "
-"bytes.  The virtual size is: %Ld.\n"
+"the virtual size of the input disk %s is not an exact multiple of 512 bytes.  The virtual size is: %Ld.\n"
 "\n"
-"This probably means something unexpected is going on, so please file a bug "
-"about this issue."
+"This probably means something unexpected is going on, so please file a bug about this issue."
 msgstr ""
-"віртуальний розмір диска вхідних даних %s не є точно кратним до 512 байтів. "
-"Віртуальний розмір: %Ld.\n"
+"віртуальний розмір диска вхідних даних %s не є точно кратним до 512 байтів. Віртуальний розмір: %Ld.\n"
 "\n"
-"Ймовірно, це означає, що відбувається щось неочікуване. Будь ласка, створіть "
-"повідомлення щодо цієї вади."
+"Ймовірно, це означає, що відбувається щось неочікуване. Будь ласка, створіть повідомлення щодо цієї вади."
 
 #: ../v2v/output_rhev.ml:83
 msgid ""
@@ -4354,7 +4274,8 @@ msgstr ""
 "пов’язано із вадою у virt-v2v або OVirt."
 
 #: ../v2v/output_rhev.ml:81
-msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
+msgid ""
+"there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?"
 msgstr "у %s (%s) немає UUID. Це справді OVirt чи RHEV-M %s?"
 
 #: ../v2v/windows_virtio.ml:50
@@ -4362,21 +4283,18 @@ msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s"
 msgstr ""
-"немає драйверів virtio для цієї версії Windows (%d.%d %s %s). virt-v2v шукає "
-"драйвери у %s"
+"немає драйверів virtio для цієї версії Windows (%d.%d %s %s). virt-v2v шукає"
+" драйвери у %s"
 
 #: ../v2v/windows_virtio.ml:57
 msgid ""
-"there are no virtio drivers available for this version of Windows (%d.%d %s "
-"%s).  virt-v2v looks for drivers in %s\n"
+"there are no virtio drivers available for this version of Windows (%d.%d %s %s).  virt-v2v looks for drivers in %s\n"
 "\n"
 "The guest will be configured to use slower emulated devices."
 msgstr ""
-"немає драйверів virtio для цієї версії Windows (%d.%d %s %s). virt-v2v шукає "
-"драйвери у %s\n"
+"немає драйверів virtio для цієї версії Windows (%d.%d %s %s). virt-v2v шукає драйвери у %s\n"
 "\n"
-"Гостьову систему буде налаштовано на використання повільніших емульованих "
-"пристроїв."
+"Гостьову систему буде налаштовано на використання повільніших емульованих пристроїв."
 
 #: ../v2v/windows_virtio.ml:152
 msgid ""
@@ -4388,50 +4306,43 @@ msgstr ""
 
 #: ../v2v/windows_virtio.ml:157
 msgid ""
-"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
-"looks for this driver in %s\n"
+"there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a basic VGA display driver."
 msgstr ""
-"немає драйвера QXL для цієї версії Windows (d.%d %s). virt-v2v шукає цей "
-"драйвер у %s\n"
+"немає драйвера QXL для цієї версії Windows (d.%d %s). virt-v2v шукає цей драйвер у %s\n"
 "\n"
-"Гостьову систему буде налаштовано на використання базового драйвера дисплеїв "
-"VGA."
+"Гостьову систему буде налаштовано на використання базового драйвера дисплеїв VGA."
 
 #: ../builder/sigchecker.ml:172
 msgid ""
 "there is no detached signature file\n"
 "This probably means the index file is missing a sig=... line.\n"
-"You can use --no-check-signature to ignore this error, but that means you "
-"are susceptible to man-in-the-middle attacks."
+"You can use --no-check-signature to ignore this error, but that means you are susceptible to man-in-the-middle attacks."
 msgstr ""
 "немає окремого файла підпису\n"
 "Ймовірно, це означає, що у файлі покажчика немає рядка sig=...\n"
-"Ви можете скористатися --no-check-signature, щоб проігнорувати цю помилку, "
-"але це означатиме, що ваша система стане вразливою до нападів man-in-the-"
-"middle."
+"Ви можете скористатися --no-check-signature, щоб проігнорувати цю помилку, але це означатиме, що ваша система стане вразливою до нападів man-in-the-middle."
 
 #: ../v2v/windows_virtio.ml:87
 msgid ""
-"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d "
-"%s).  virt-v2v looks for this driver in %s\n"
+"there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a slower emulated device."
 msgstr ""
-"немає драйвера vioscsi (virtio SCSI) для цієї версії Windows (d.%d %s). virt-"
-"v2v шукає цей драйвер у %s\n"
+"немає драйвера vioscsi (virtio SCSI) для цієї версії Windows (d.%d %s). virt-v2v шукає цей драйвер у %s\n"
 "\n"
-"Гостьову систему буде налаштовано на використання повільнішого емульованого "
-"пристрою."
+"Гостьову систему буде налаштовано на використання повільнішого емульованого пристрою."
 
 #: ../v2v/windows_virtio.ml:92 ../v2v/windows_virtio.ml:82
 msgid ""
-"there is no virtio block device driver for this version of Windows (%d.%d "
-"%s).  virt-v2v looks for this driver in %s\n"
+"there is no virtio block device driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a slower emulated device."
 msgstr ""
+"немає драйвера драйвера блокового пристрою virtio для цієї версії Windows (d.%d %s). virt-v2v шукає цей драйвер у %s\n"
+"\n"
+"Гостьову систему буде налаштовано на використання повільнішого емульованого пристрою."
 
 #: ../v2v/windows_virtio.ml:131
 msgid ""
@@ -4443,16 +4354,13 @@ msgstr ""
 
 #: ../v2v/windows_virtio.ml:136
 msgid ""
-"there is no virtio network driver for this version of Windows (%d.%d %s).  "
-"virt-v2v looks for this driver in %s\n"
+"there is no virtio network driver for this version of Windows (%d.%d %s).  virt-v2v looks for this driver in %s\n"
 "\n"
 "The guest will be configured to use a slower emulated device."
 msgstr ""
-"немає драйвера мережі virtio для цієї версії Windows (d.%d %s). virt-v2v "
-"шукає цей драйвер у %s\n"
+"немає драйвера мережі virtio для цієї версії Windows (d.%d %s). virt-v2v шукає цей драйвер у %s\n"
 "\n"
-"Гостьову систему буде налаштовано на використання повільнішого емульованого "
-"пристрою."
+"Гостьову систему буде налаштовано на використання повільнішого емульованого пристрою."
 
 #: ../v2v/v2v.ml:581
 msgid ""
@@ -4465,8 +4373,8 @@ msgstr ""
 
 #: ../v2v/convert_windows.ml:572
 msgid ""
-"this guest has Anti-Virus (AV) software and a new virtio block device driver "
-"was installed.  In some circumstances, AV may prevent new drivers from "
+"this guest has Anti-Virus (AV) software and a new virtio block device driver"
+" was installed.  In some circumstances, AV may prevent new drivers from "
 "working (resulting in a 7B boot error).  If this happens, try disabling AV "
 "before doing the conversion."
 msgstr ""
@@ -4502,8 +4410,8 @@ msgid ""
 "too many command line parameters.  See the virt-v2v-copy-to-local(1) manual "
 "page."
 msgstr ""
-"забагато параметрів командного рядка. Див. сторінку підручника virt-v2v-copy-"
-"to-local(1)."
+"забагато параметрів командного рядка. Див. сторінку підручника virt-v2v-"
+"copy-to-local(1)."
 
 #: ../builder/cmdline.ml:245
 msgid "too many parameters, at most one 'os-version' is allowed for --list"
@@ -4516,24 +4424,19 @@ msgstr "забагато параметрів, мало бути «версія-
 
 #: ../v2v/convert_linux.ml:1225
 msgid ""
-"unable to find any valid modprobe configuration file such as /etc/modprobe."
-"conf"
+"unable to find any valid modprobe configuration file such as "
+"/etc/modprobe.conf"
 msgstr ""
-"не вдалося знайти жодного коректного файла налаштувань modprobe, зокрема /"
-"etc/modprobe.conf"
+"не вдалося знайти жодного коректного файла налаштувань modprobe, зокрема "
+"/etc/modprobe.conf"
 
 #: ../v2v/inspect_source.ml:45
 msgid ""
-"unable to mount the disk image for writing. This has probably happened "
-"because Windows Hibernation or Fast Restart is being used in this guest. You "
-"have to disable this (in the guest) in order to use virt-v2v.\n"
+"unable to mount the disk image for writing. This has probably happened because Windows Hibernation or Fast Restart is being used in this guest. You have to disable this (in the guest) in order to use virt-v2v.\n"
 "\n"
 "Original error message: %s"
 msgstr ""
-"не вдалося змонтувати образ диска для запису. Ймовірно, це сталося через те, "
-"що у гостьовій системі використано Windows Hibernation або Fast Restart. Вам "
-"слід вимкнути ці можливості (у гостьовій системі), щоб скористатися virt-"
-"v2v.\n"
+"не вдалося змонтувати образ диска для запису. Ймовірно, це сталося через те, що у гостьовій системі використано Windows Hibernation або Fast Restart. Вам слід вимкнути ці можливості (у гостьовій системі), щоб скористатися virt-v2v.\n"
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
@@ -4555,7 +4458,8 @@ msgstr ""
 
 #: ../resize/resize.ml:258
 msgid "unknown --align-first option: use never|always|auto"
-msgstr "невідомий параметр --align-first: можливі варіанти — never|always|auto"
+msgstr ""
+"невідомий параметр --align-first: можливі варіанти — never|always|auto"
 
 #: ../v2v/cmdline.ml:150
 msgid "unknown --root option: %s"
@@ -4617,8 +4521,8 @@ msgid ""
 "user-accounts: --keep-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
 msgstr ""
-"user-accounts: використано параметр --keep-user-accounts, але операцію «user-"
-"account» не увімкнено"
+"user-accounts: використано параметр --keep-user-accounts, але операцію "
+"«user-account» не увімкнено"
 
 #: ../sysprep/sysprep_operation_user_account.ml:148
 msgid ""
@@ -4665,13 +4569,11 @@ msgstr ""
 msgid ""
 "vcenter: URL not found: %s\n"
 "\n"
-"The '--dcpath' parameter may be useful.  See the explanation in the virt-"
-"v2v(1) man page OPTIONS section."
+"The '--dcpath' parameter may be useful.  See the explanation in the virt-v2v(1) man page OPTIONS section."
 msgstr ""
 "vcenter: не знайдено адреси: %s\n"
 "\n"
-"Можливо, варто скористатися параметром «--dcpath». Див. пояснення у розділі "
-"«ПАРАМЕТРИ» сторінки підручника (man) v2v(1)."
+"Можливо, варто скористатися параметром «--dcpath». Див. пояснення у розділі «ПАРАМЕТРИ» сторінки підручника (man) v2v(1)."
 
 #: ../v2v/vCenter.ml:122
 msgid ""
@@ -4701,8 +4603,8 @@ msgstr "vcenter: некоректна відповідь від сервера"
 msgid ""
 "vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
-"vcenter: у виведених програмою «curl» даних немає коду стану. Чи встановлено "
-"програму «curl»?"
+"vcenter: у виведених програмою «curl» даних немає коду стану. Чи встановлено"
+" програму «curl»?"
 
 #: ../v2v/output_vdsm.ml:87
 msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
@@ -4722,8 +4624,7 @@ msgid ""
 "Missing 'os-version'. Use '--list' to list available template names."
 msgstr ""
 "virt-builder --notes ОС-версія\n"
-"Пропущено аргумент «ОС-версія». Скористайтеся параметром «--list» для "
-"отримання списку доступних шаблонів назв."
+"Пропущено аргумент «ОС-версія». Скористайтеся параметром «--list» для отримання списку доступних шаблонів назв."
 
 #: ../builder/cmdline.ml:234
 msgid ""
@@ -4731,8 +4632,7 @@ msgid ""
 "Missing 'os-version'. Use '--list' to list available template names."
 msgstr ""
 "virt-builder ОС-версія\n"
-"Пропущено аргумент «ОС-версія». Скористайтеся параметром «--list» для "
-"отримання списку доступних шаблонів назв."
+"Пропущено аргумент «ОС-версія». Скористайтеся параметром «--list» для отримання списку доступних шаблонів назв."
 
 #: ../builder/builder.ml:166
 msgid "virt-resize is not installed (or does not work)"
@@ -4817,8 +4717,8 @@ msgstr ""
 
 #: ../get-kernel/get_kernel.ml:91
 msgid ""
-"you must give either -a or -d options.  Read virt-get-kernel(1) man page for "
-"further information."
+"you must give either -a or -d options.  Read virt-get-kernel(1) man page for"
+" further information."
 msgstr ""
 "вам слід вказати параметр -a або -d. Ознайомтеся із сторінкою підручника "
 "(man) virt-get-kernel(1), щоб дізнатися більше."
@@ -4934,8 +4834,8 @@ msgstr ""
 #: builder/index-validate.c:154
 #, c-format
 msgid ""
-"%s: section [%s], field '%s' has invalid characters which will not work with "
-"virt-builder 1.24.0"
+"%s: section [%s], field '%s' has invalid characters which will not work with"
+" virt-builder 1.24.0"
 msgstr ""
 "%s: розділ [%s], поле «%s» містить некоректні символи, його не можна "
 "використовувати у virt-builder 1.24.0"
@@ -4943,8 +4843,8 @@ msgstr ""
 #: builder/index-validate.c:163
 #, c-format
 msgid ""
-"%s: section [%s], field '%s' has invalid characters which will not work with "
-"virt-builder 1.24.1"
+"%s: section [%s], field '%s' has invalid characters which will not work with"
+" virt-builder 1.24.1"
 msgstr ""
 "%s: розділ [%s], поле «%s» містить некоректні символи, його не можна "
 "використовувати у virt-builder 1.24.1"
@@ -4995,8 +4895,7 @@ msgstr ""
 "  --help               Показати короткі довідкові дані\n"
 "  --keys-from-stdin    Прочитати паролі зі stdin\n"
 "  -m|--mount пристрій[:монт[:параметри[:тип_фс]]]\n"
-"                       Змонтувати пристрій до точки монтування (якщо не "
-"вказано, до /)\n"
+"                       Змонтувати пристрій до точки монтування (якщо не вказано, до /)\n"
 "  -v|--verbose         Докладні повідомлення\n"
 "  -V|--version         Показати дані щодо версії і завершити роботу\n"
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
@@ -5007,7 +4906,7 @@ msgstr ""
 #: inspector/inspector.c:261 rescue/rescue.c:289
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
-msgstr ""
+msgstr "%s: помилка: вам слід вказати один із параметрів, -a або -d.\n"
 
 #: cat/filesystems.c:91
 #, c-format
@@ -5047,8 +4946,7 @@ msgid ""
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: показ даних щодо файлових системи, розділів, блокових пристроїв, LVM у "
-"віртуальній машині\n"
+"%s: показ даних щодо файлових системи, розділів, блокових пристроїв, LVM у віртуальній машині\n"
 "© Red Hat Inc., 2010\n"
 "Використання:\n"
 "  %s [--параметри] -d назва_домену\n"
@@ -5062,13 +4960,10 @@ msgstr ""
 "  --csv                Вивести дані у форматі записів, відокремлених комами\n"
 "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
 "  --echo-keys          Не вимикати показ символів паролів\n"
-"  --extra              Показати дані щодо файлових систем даних і резервної "
-"пам’яті\n"
-"  --filesystems        Показати дані щодо придатних до монтування файлових "
-"систем\n"
+"  --extra              Показати дані щодо файлових систем даних і резервної пам’яті\n"
+"  --filesystems        Показати дані щодо придатних до монтування файлових систем\n"
 "  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
-"  -h|--human-readable  Зручні для читання записи розмірів у даних, виведених "
-"--long\n"
+"  -h|--human-readable  Зручні для читання записи розмірів у даних, виведених --long\n"
 "  --help               Показати коротеньку довідкову інформацію\n"
 "  --keys-from-stdin    Читати паролі stdin\n"
 "  -l|--long            Виводити докладні дані\n"
@@ -5092,6 +4987,8 @@ msgid ""
 "%s: error: extra argument '%s' on command line.\n"
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
+"%s: помилка: зайвий аргумент «%s» у рядку команди.\n"
+"Переконайтеся, що вказано аргумент до --format, наприклад «--format=%s».\n"
 
 #: cat/filesystems.c:309 cat/ls.c:336 df/main.c:254 diff/diff.c:330
 #, c-format
@@ -5101,7 +4998,7 @@ msgstr "не можна одночасно використовувати пар
 #: cat/filesystems.c:487
 #, c-format
 msgid "%s: cannot determine the subvolume for %s: %s: %s\n"
-msgstr ""
+msgstr "%s: не вдалося визначити підтом для %s: %s: %s\n"
 
 #: cat/log.c:66
 #, c-format
@@ -5138,8 +5035,7 @@ msgstr ""
 "  --help               Показати короткі довідкові дані\n"
 "  --keys-from-stdin    Прочитати паролі зі stdin\n"
 "  -m|--mount пристрій[:монт[:параметри[:тип_фс]]]\n"
-"                       Змонтувати пристрій до точки монтування (якщо не "
-"вказано, до /)\n"
+"                       Змонтувати пристрій до точки монтування (якщо не вказано, до /)\n"
 "  -v|--verbose         Докладні повідомлення\n"
 "  -V|--version         Показати дані щодо версії і завершити роботу\n"
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
@@ -5167,10 +5063,8 @@ msgid ""
 msgstr ""
 "%s: вам слід встановити програму evtxdump.py з пакунка python-evtx для\n"
 "того, щоб обробляти журнали подій Windows. Якщо ви не можете встановити\n"
-"цю програму, скористайтеся virt-copy-out(1) для копіювання вмісту /Windows/"
-"System32/winevt/Logs\n"
-"цієї гостьової системи і вивчіть його у програмі для перегляду бінарних "
-"файлів.\n"
+"цю програму, скористайтеся virt-copy-out(1) для копіювання вмісту /Windows/System32/winevt/Logs\n"
+"цієї гостьової системи і вивчіть його у програмі для перегляду бінарних файлів.\n"
 
 #: cat/log.c:444
 #, c-format
@@ -5230,8 +5124,7 @@ msgstr ""
 "  --keys-from-stdin    Читати паролі з stdin\n"
 "  -l|--long            Довгий список\n"
 "  -m|--mount пристрій[:монт[:параметри[:тип_фс]]]\n"
-"                       Змонтувати пристрій до точки монтування (якщо не "
-"вказано, до /)\n"
+"                       Змонтувати пристрій до точки монтування (якщо не вказано, до /)\n"
 "  -R|--recursive       Рекурсивний список\n"
 "  --times              Показувати час створення файлів\n"
 "  --time-days          Показувати час створення у днях до поточного\n"
@@ -5288,7 +5181,8 @@ msgstr ""
 #: df/domains.c:146
 #, c-format
 msgid "could not list inactive domains (code %d, domain %d): %s"
-msgstr "не вдалося побудувати список неактивних доменів (код %d, домен %d): %s"
+msgstr ""
+"не вдалося побудувати список неактивних доменів (код %d, домен %d): %s"
 
 #: df/main.c:70
 #, c-format
@@ -5439,15 +5333,16 @@ msgstr ""
 #: diff/diff.c:321
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
-msgstr ""
+msgstr "%s: помилка: вам слід вказати один із параметрів, -A або -D.\n"
 
 #: diff/diff.c:333
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
-"Make sure to specify the argument for --checksum or --format like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --checksum or --format like '--format=%s'.\n"
 msgstr ""
+"%s: помилка: зайвий параметр «%s».\n"
+"Переконайтеся, що вказано аргумент до --checksum або --format, наприклад «--format=%s».\n"
 
 #: diff/diff.c:735
 #, c-format
@@ -5755,7 +5650,7 @@ msgstr "змінити розмір файлової системи btrfs"
 
 #: fish/cmds.c:14951
 msgid "list devices for btrfs filesystem"
-msgstr ""
+msgstr "вивести список пристроїв для файлової системи btrfs"
 
 #: fish/cmds.c:14952
 msgid "sync a btrfs filesystem"
@@ -5895,7 +5790,8 @@ msgstr "встановити можливості Linux, пов’язані з 
 #: fish/cmds.c:14988
 msgid "return true path on case-insensitive filesystem"
 msgstr ""
-"повернути справжню адресу у файловій системі без врахування регістру символів"
+"повернути справжню адресу у файловій системі без врахування регістру "
+"символів"
 
 #: fish/cmds.c:14989
 msgid "list the contents of a file"
@@ -6021,7 +5917,8 @@ msgstr "повідомити про використання файлової с
 #: fish/cmds.c:15020
 msgid "report file system disk space usage (human readable)"
 msgstr ""
-"повідомити про використання файлової системи (у зручному для читання форматі)"
+"повідомити про використання файлової системи (у зручному для читання "
+"форматі)"
 
 #: fish/cmds.c:15024
 msgid "create a blank disk image"
@@ -6107,7 +6004,8 @@ msgstr "перевірити, чи існує файл або каталог"
 
 #: fish/cmds.c:15052
 msgid "install the SYSLINUX bootloader on an ext2/3/4 or btrfs filesystem"
-msgstr "встановити завантажувач SYSLINUX на файлову систему ext2/3/4 або btrfs"
+msgstr ""
+"встановити завантажувач SYSLINUX на файлову систему ext2/3/4 або btrfs"
 
 #: fish/cmds.c:15053 fish/cmds.c:15054
 msgid "preallocate a file in the guest filesystem"
@@ -6131,7 +6029,7 @@ msgstr "перевірити, чи є доступною файлова сист
 
 #: fish/cmds.c:15062
 msgid "walk through the filesystem content"
-msgstr ""
+msgstr "пройти вмістом файлової системи"
 
 #: fish/cmds.c:15063
 msgid "fill a file with octets"
@@ -6479,7 +6377,8 @@ msgstr ""
 
 #: fish/cmds.c:15160
 msgid "get mountpoints of inspected operating system"
-msgstr "отримати значення точок монтування операційної системи, яка вивчається"
+msgstr ""
+"отримати значення точок монтування операційної системи, яка вивчається"
 
 #: fish/cmds.c:15161
 msgid "get package format used by the operating system"
@@ -6578,7 +6477,7 @@ msgstr "перевірити, чи є звичайним файлом"
 
 #: fish/cmds.c:15182
 msgid "test if mountable is a logical volume"
-msgstr ""
+msgstr "перевірити, чи є придатний до монтування том логічним"
 
 #: fish/cmds.c:15183
 msgid "test if socket"
@@ -6792,7 +6691,8 @@ msgstr "відкрити зашифрований LUKS блоковий прис
 
 #: fish/cmds.c:15247
 msgid "open a LUKS-encrypted block device read-only"
-msgstr "відкрити зашифрований LUKS блоковий пристрій у режимі лише для читання"
+msgstr ""
+"відкрити зашифрований LUKS блоковий пристрій у режимі лише для читання"
 
 #: fish/cmds.c:15248
 msgid "create an LVM logical volume"
@@ -7055,7 +6955,8 @@ msgstr "змінити розміри файлової системи NTFS (з �
 #: fish/cmds.c:15325 fish/cmds.c:15326
 msgid "parse the environment and set handle flags accordingly"
 msgstr ""
-"обробити параметри середовища і встановити прапорці обробки відповідним чином"
+"обробити параметри середовища і встановити прапорці обробки відповідним "
+"чином"
 
 #: fish/cmds.c:15327
 msgid "add a partition to the device"
@@ -7280,7 +7181,8 @@ msgstr "синхронізувати вміст двох каталогів"
 
 #: fish/cmds.c:15402
 msgid "synchronize host or remote filesystem with filesystem"
-msgstr "синхронізувати вузол або віддалену файлову систему з файловою системою"
+msgstr ""
+"синхронізувати вузол або віддалену файлову систему з файловою системою"
 
 #: fish/cmds.c:15403
 msgid "synchronize filesystem with host or remote filesystem"
@@ -7638,8 +7540,8 @@ msgstr "отримати мінімальний розмір файлової с
 #: fish/cmds.c:15523
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
-"отримати тип віртуальної файлової системи Linux, відповідний до змонтованого "
-"пристрою"
+"отримати тип віртуальної файлової системи Linux, відповідний до змонтованого"
+" пристрою"
 
 #: fish/cmds.c:15524
 msgid "get the filesystem UUID"
@@ -7692,7 +7594,8 @@ msgstr "показати список груп томів LVM"
 #: fish/cmds.c:15537
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
-"виконати повторне сканування фізичних томів, груп томів та логічних томів LVM"
+"виконати повторне сканування фізичних томів, груп томів та логічних томів "
+"LVM"
 
 #: fish/cmds.c:15538
 msgid "get the UUID of a volume group"
@@ -7948,7 +7851,8 @@ msgstr "%s: рядок %d: помилка під час спроби оброб�
 #: fish/copy.c:42
 #, c-format
 msgid ""
-"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
+"use 'copy-in <local> [<local>...] <remotedir>' to copy files into the "
+"image\n"
 msgstr ""
 "скористайтеся командою «copy-in <локальний файл> [<локальний файл>...] "
 "<віддалений каталог>» для копіювання файлів на образ\n"
@@ -8068,8 +7972,8 @@ msgstr "remote: для ідентифікатора віддаленого пр�
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
-"%s: попередження: параметр -D застарів, замість нього слід користуватися --"
-"no-dest-paths\n"
+"%s: попередження: параметр -D застарів, замість нього слід користуватися "
+"--no-dest-paths\n"
 
 #: fish/fish.c:319
 #, c-format
@@ -8135,8 +8039,7 @@ msgstr "%s: занадто багато аргументів\n"
 #: fish/fish.c:988
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
-msgstr ""
-"%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
+msgstr "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
 #: fish/fish.c:997
 #, c-format
@@ -8209,16 +8112,16 @@ msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
 "or run \"inspect-os\" command)\n"
 msgstr ""
-"%s: щоб скористатися літерними позначеннями дисків Windows, вам слід вивчити "
-"гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
-"os\")\n"
+"%s: щоб скористатися літерними позначеннями дисків Windows, вам слід вивчити"
+" гостьову систему (використати параметр \"-i\" або виконати команду "
+"\"inspect-os\")\n"
 
 #: fish/fish.c:1743
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
-"%s: для використання літерних позначень дисків Windows ваша система має бути "
-"гостьовою системою Windows\n"
+"%s: для використання літерних позначень дисків Windows ваша система має бути"
+" гостьовою системою Windows\n"
 
 #: fish/fish.c:1757
 #, c-format
@@ -8226,8 +8129,7 @@ msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
 "  inspect-get-drive-mappings %s\n"
 msgstr ""
-"%s: диска '%c:' не знайдено. Для перегляду доступних дисків віддайте "
-"команду\n"
+"%s: диска '%c:' не знайдено. Для перегляду доступних дисків віддайте команду\n"
 "  inspect-get-drive-mappings %s\n"
 
 #: fish/fish.c:1776
@@ -8237,8 +8139,7 @@ msgid ""
 "  umount-all\n"
 "  mount %s /\n"
 msgstr ""
-"%s: для доступу до '%c:' спочатку змонтуйте %s. Один зі способів це "
-"зробити:\n"
+"%s: для доступу до '%c:' спочатку змонтуйте %s. Один зі способів це зробити:\n"
 "  umount-all\n"
 "  mount %s /\n"
 
@@ -8255,15 +8156,12 @@ msgstr "glob: помилка під час виклику guestfs_glob_expand: %
 #: fish/help.c:46
 #, c-format
 msgid ""
-"Add disk images to examine using the -a or -d options, or the 'add' "
-"command.\n"
+"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
 "Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
 "Once you have done this, use the 'run' command.\n"
 msgstr ""
-"Додайте образи дисків для вивчення за допомогою параметра -a або -d чи "
-"команди «add».\n"
-"Ви також можете створити новий образ диска за допомогою параметра -N або "
-"команд «alloc» і «sparse».\n"
+"Додайте образи дисків для вивчення за допомогою параметра -a або -d чи команди «add».\n"
+"Ви також можете створити новий образ диска за допомогою параметра -N або команд «alloc» і «sparse».\n"
 "Після додавання або створення образів скористайтеся командою «run».\n"
 
 #: fish/help.c:52
@@ -8307,8 +8205,7 @@ msgid ""
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
 "hexedit: %s більше за %s. Вам слід вказати обмеження за допомогою команди\n"
-"  «hexedit %s <максимум>» (наприклад, «hexedit %s 1M») або діапазон за "
-"допомогою\n"
+"  «hexedit %s <максимум>» (наприклад, «hexedit %s 1M») або діапазон за допомогою\n"
 "  «hexedit %s <початок> <максимум>».\n"
 
 #: fish/hexedit.c:97
@@ -8450,8 +8347,7 @@ msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
-"%s: зверніться до сторінки довідника mount(8), щоб ознайомитися з "
-"параметрами «%s»\n"
+"%s: зверніться до сторінки довідника mount(8), щоб ознайомитися з параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
 #: fish/options.c:286
@@ -8478,8 +8374,8 @@ msgstr "не вдалося обробити розмір завантажува
 msgid "failed to get sector size of disk: %s"
 msgstr "не вдалося отримати розмір сектора диска: %s"
 
-#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44 fish/prep-lv.c:75
-#: fish/prep-lv.c:116 fish/prep-part.c:42
+#: fish/prep-boot.c:53 fish/prep-boot.c:103 fish/prep-fs.c:44
+#: fish/prep-lv.c:75 fish/prep-lv.c:116 fish/prep-part.c:42
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr "не вдалося поділити диск на розділи: %s"
@@ -8504,12 +8400,12 @@ msgstr "не вдалося створити файлову систему за�
 msgid "failed to create root filesystem: %s"
 msgstr "не вдалося створити кореневу файлову систему: %s"
 
-#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65 fish/prep-lv.c:81
-#: fish/prep-lv.c:106 fish/prep-lv.c:122
+#: fish/prep-boot.c:84 fish/prep-boot.c:118 fish/prep-lv.c:65
+#: fish/prep-lv.c:81 fish/prep-lv.c:106 fish/prep-lv.c:122
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
-"некоректний формат назви логічного тому, має бути «/dev/група_томів/"
-"логічний_том»"
+"некоректний формат назви логічного тому, має бути "
+"«/dev/група_томів/логічний_том»"
 
 #: fish/prep-boot.c:131 fish/prep-lv.c:88 fish/prep-lv.c:129
 #, c-format
@@ -8587,8 +8483,7 @@ msgid ""
 "Use 'guestfish -N help' to list possible values for the -N parameter."
 msgstr ""
 "у параметрі -N, «%s»: невідомий приготований диск.\n"
-"Скористайтеся командою «guestfish -N help», щоб переглянути список можливих "
-"значень для параметра -N."
+"Скористайтеся командою «guestfish -N help», щоб переглянути список можливих значень для параметра -N."
 
 #: fish/prep.c:162
 #, c-format
@@ -8634,8 +8529,7 @@ msgstr ""
 #: fish/rc.c:421
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr ""
-"guestfish: помилка протоколу: не вдалося декодувати відповідь сервера\n"
+msgstr "guestfish: помилка протоколу: не вдалося декодувати відповідь сервера\n"
 
 #: fish/reopen.c:43
 #, c-format
@@ -8781,14 +8675,15 @@ msgstr "параметр --lvm можна визначати лише один �
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
-"Make sure to specify the argument for --format, --lvm or --partition like '--"
-"format=%s'.\n"
+"Make sure to specify the argument for --format, --lvm or --partition like '--format=%s'.\n"
 msgstr ""
+"%s: помилка: зайвий аргумент «%s» у командному рядку.\n"
+"Переконайтеся, що вказано аргумент до --format, --lvm або --partition, наприклад «--format=%s».\n"
 
 #: format/format.c:234
 #, c-format
 msgid "%s: error: you must specify at least one -a option.\n"
-msgstr ""
+msgstr "%s: помилка: вам слід вказати принаймні параметр -a.\n"
 
 #: format/format.c:276
 #, c-format
@@ -8852,6 +8747,8 @@ msgstr "не вдалося обробити значення параметра
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
+"%s: помилка: вам слід вказати або параметр -i, або принаймні один параметр "
+"-m.\n"
 
 #: fuse/guestmount.c:328
 #, c-format
@@ -8903,8 +8800,7 @@ msgstr ""
 "  --help               показати довідкове повідомлення і завершити роботу\n"
 "  -q|--quiet           не виводити повідомлень про помилки fusermount\n"
 "  --no-retry           не виконувати повторних спроб з fusermount\n"
-"  --retry=N            виконати повторні спроби з fusermount N разів (типово "
-"5)\n"
+"  --retry=N            виконати повторні спроби з fusermount N разів (типово 5)\n"
 "  -v|--verbose         режим докладних повідомлень\n"
 "  -V|--version         вивести дані щодо версії і завершити роботу\n"
 
@@ -8990,12 +8886,10 @@ msgstr "не можна використовувати --xpath разом з і�
 msgid ""
 "no operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
-"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you "
-"must\n"
+"NOTE for Red Hat Enterprise Linux 6 users: for Windows guest support you must\n"
 "install the separate libguestfs-winsupport package.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -9003,16 +8897,13 @@ msgid ""
 msgstr ""
 "у цьому образі диска не вдалося виявити операційної системи.\n"
 "\n"
-"Причиною може бути те, що файл не є файлом образу диска, не є образом "
-"віртуальної\n"
+"Причиною може бути те, що файл не є файлом образу диска, не є образом віртуальної\n"
 "машини або його тип ОС не підтримується libguestfs.\n"
 "\n"
-"Зауваження для користувачів Red Hat Enterprise Linux 6: щоб скористатися "
-"підтримкою гостьових систем Windows,\n"
+"Зауваження для користувачів Red Hat Enterprise Linux 6: щоб скористатися підтримкою гостьових систем Windows,\n"
 "вам слід встановити окремий пакунок libguestfs-winsupport.\n"
 "\n"
-"Якщо вам здається, що сталася якась помилка, будь ласка, створіть "
-"повідомлення про ваду,\n"
+"Якщо вам здається, що сталася якась помилка, будь ласка, створіть повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
 #: inspector/inspector.c:299
@@ -9215,7 +9106,7 @@ msgstr "Налаштувати мережу…"
 
 #: p2v/gui.c:373
 msgid "XTerm ..."
-msgstr ""
+msgstr "XTerm ..."
 
 #: p2v/gui.c:374
 msgid "About virt-p2v "
@@ -9254,7 +9145,7 @@ msgstr ""
 
 #: p2v/gui.c:684
 msgid "Virtualize a physical machine to run on KVM"
-msgstr ""
+msgstr "Віртуалізувати фізичний комп’ютер для запуску у KVM"
 
 #: p2v/gui.c:776
 msgid "Target properties"
@@ -9284,15 +9175,15 @@ msgstr "Виводити до (-o):"
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
-"conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</"
-"b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for "
-"more information about output options."
+"conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  "
+"<b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) "
+"manual page for more information about output options."
 msgstr ""
 "<b>libvirt</b> призначено для надсилання перетвореної гостьової системи до "
 "керованої libvirt KVM на сервері перетворення. <b>local</b> призначено для "
-"збереження гостьової системи у каталозі на сервері перетворення. <b>rhev</b> "
-"призначено для запису системи до RHEV-M/oVirt. <b>glance</b> призначено для "
-"запису системи до OpenStack Glance. Див. сторінку підручника (man) virt-"
+"збереження гостьової системи у каталозі на сервері перетворення. <b>rhev</b>"
+" призначено для запису системи до RHEV-M/oVirt. <b>glance</b> призначено для"
+" запису системи до OpenStack Glance. Див. сторінку підручника (man) virt-"
 "v2v(1), щоб дізнатися більше про параметри виведення даних."
 
 #: p2v/gui.c:848
@@ -9305,8 +9196,8 @@ msgid ""
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
-"Лише для <b>libvirt</b>, адреса з’єднання libvirt або порожнє значення, якщо "
-"слід додати гостьову систему до типового екземпляра libvirt на сервері "
+"Лише для <b>libvirt</b>, адреса з’єднання libvirt або порожнє значення, якщо"
+" слід додати гостьову систему до типового екземпляра libvirt на сервері "
 "перетворення. Для інших варіантів це поле слід залишити порожнім."
 
 #: p2v/gui.c:859
@@ -9357,7 +9248,8 @@ msgstr "Мережеві інтерфейси"
 
 #: p2v/gui.c:944
 msgid ""
-"Left click on an interface name to flash the light on the physical interface."
+"Left click on an interface name to flash the light on the physical "
+"interface."
 msgstr ""
 "Клацніть лівою на пункті інтерфейсу, щоб запалити світло на фізичному "
 "інтерфейсі."
@@ -9376,6 +9268,8 @@ msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
+"virt-p2v (клієнт):\n"
+"%s"
 
 #: p2v/gui.c:1020
 #, c-format
@@ -9385,6 +9279,10 @@ msgid ""
 "virt-v2v (conversion server):\n"
 "%s"
 msgstr ""
+"virt-p2v (клієнт):\n"
+"%s\n"
+"virt-v2v (сервер перетворення):\n"
+"%s"
 
 #: p2v/gui.c:1137 p2v/gui.c:1188 p2v/gui.c:1258
 msgid "Convert"
@@ -9414,7 +9312,8 @@ msgstr ""
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
-"Об’єм пам’яті перевищує максимальний підтримуваний KVM (максимум: %<PRIu64>)."
+"Об’єм пам’яті перевищує максимальний підтримуваний KVM (максимум: "
+"%<PRIu64>)."
 
 #: p2v/gui.c:1574
 msgid ""
@@ -9427,7 +9326,7 @@ msgstr ""
 
 #: p2v/gui.c:1699
 msgid "Cancel conversion ..."
-msgstr ""
+msgstr "Скасувати перетворення ..."
 
 #: p2v/gui.c:1700
 msgid "Reboot"
@@ -9436,12 +9335,10 @@ msgstr "Перезавантажити"
 #: p2v/gui.c:1751
 #, c-format
 msgid ""
-"Log files and debug information is saved to this directory on the conversion "
-"server:\n"
+"Log files and debug information is saved to this directory on the conversion server:\n"
 "%s"
 msgstr ""
-"Файли журналу та діагностичні дані буде збережено на сервері перетворення до "
-"цього каталогу:\n"
+"Файли журналу та діагностичні дані буде збережено на сервері перетворення до цього каталогу:\n"
 "%s"
 
 #: p2v/gui.c:1958
@@ -9482,10 +9379,12 @@ msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
 msgstr ""
+"Справді скасувати перетворення? Для перетворення цієї машини вад доведеться "
+"перезапускати перетворення із самого початку."
 
 #: p2v/gui.c:2195
 msgid "Cancel the conversion"
-msgstr ""
+msgstr "Скасувати перетворення"
 
 #: p2v/main.c:82
 #, c-format
@@ -9508,12 +9407,12 @@ msgstr ""
 #: p2v/main.c:175
 #, c-format
 msgid "only a single --test-disk option can be used"
-msgstr ""
+msgstr "параметр --test-disk можна використовувати лише один раз"
 
 #: p2v/main.c:178
 #, c-format
 msgid "--test-disk must be an absolute path"
-msgstr ""
+msgstr "шлях у --test-disk слід вказувати як абсолютний"
 
 #: p2v/main.c:206
 #, c-format
@@ -9527,8 +9426,7 @@ msgid ""
 "a GUI is not possible on this host.  Check X11, $DISPLAY etc."
 msgstr ""
 "gtk_init_check повернуто false, що вказує на те, що\n"
-"на цій основній системі графічний інтерфейс неможливий. Перевірте наявність "
-"X11, $DISPLAY тощо."
+"на цій основній системі графічний інтерфейс неможливий. Перевірте наявність X11, $DISPLAY тощо."
 
 #: rescue/rescue.c:60
 #, c-format
@@ -9588,9 +9486,10 @@ msgstr "не вдалося обробити запис об’єму пам’�
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
-"Make sure to specify the argument for --format or --scratch like '--format="
-"%s'.\n"
+"Make sure to specify the argument for --format or --scratch like '--format=%s'.\n"
 msgstr ""
+"%s: помилка: зайвий аргумент «%s» у рядку команди.\n"
+"Переконайтеся, що вказано аргумент до --format або --scratch, наприклад «--format=%s».\n"
 
 #: rescue/rescue.c:306
 #, c-format
@@ -9617,8 +9516,7 @@ msgid ""
 "commands in virt-rescue (at the ><rescue> prompt) to mount the filesystems.\n"
 "\n"
 msgstr ""
-"На цьому диску зберігаються дані однієї або декількох операційних систем. "
-"Ви\n"
+"На цьому диску зберігаються дані однієї або декількох операційних систем. Ви\n"
 "можете скористатися цими командами монтування у virt-rescue (у відповідь на\n"
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
@@ -9840,8 +9738,8 @@ msgstr "неочікувані не шістнадцяткові цифри у �
 #: src/drives.c:82
 msgid "this backend does not support adding read-only drives"
 msgstr ""
-"у цьому модулі обробки не передбачено підтримки додавання пристроїв лише для "
-"читання"
+"у цьому модулі обробки не передбачено підтримки додавання пристроїв лише для"
+" читання"
 
 #: src/drives.c:173
 msgid "curl: you must specify exactly one server"
@@ -10020,7 +9918,8 @@ msgstr ""
 
 #: src/drives.c:837
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
-msgstr "параметром режиму кешування має бути «writeback» (типово) або «unsafe»"
+msgstr ""
+"параметром режиму кешування має бути «writeback» (типово) або «unsafe»"
 
 #: src/drives.c:844
 msgid "you cannot specify a server with file-backed disks"
@@ -10076,8 +9975,7 @@ msgid ""
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 "Не вдалося виконати guestfs_launch.\n"
-"Це, зазвичай означає, що не вдалося запустити базову систему libguestfs або "
-"система завершила роботу у аварійному режимі.\n"
+"Це, зазвичай означає, що не вдалося запустити базову систему libguestfs або система завершила роботу у аварійному режимі.\n"
 
 #: src/errors.c:361
 msgid ""
@@ -10092,8 +9990,7 @@ msgid ""
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 "базова система несподівано розірвала з’єднання.\n"
-"Це, зазвичай, означає, що базова система libguestfs завершила роботу у "
-"аварійному режимі.\n"
+"Це, зазвичай, означає, що базова система libguestfs завершила роботу у аварійному режимі.\n"
 
 #: src/errors.c:376
 msgid "appliance launch timed out, see earlier error messages"
@@ -10126,8 +10023,7 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 "%s.\n"
-"Щоб переглянути повідомлення щодо помилок повністю, вам, можливо, слід "
-"увімкнути діагностику.\n"
+"Щоб переглянути повідомлення щодо помилок повністю, вам, можливо, слід увімкнути діагностику.\n"
 
 #: src/errors.c:414
 #, c-format
@@ -10136,8 +10032,7 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 "%s: %s: %s.\n"
-"Щоб переглянути повідомлення щодо помилок повністю, вам, можливо, слід "
-"увімкнути діагностику.\n"
+"Щоб переглянути повідомлення щодо помилок повністю, вам, можливо, слід увімкнути діагностику.\n"
 
 #: src/filearch.c:205 src/filearch.c:277
 #, c-format
@@ -10181,10 +10076,8 @@ msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
 "Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
 msgstr ""
-"спочатку вам слід викликати «guestfs_mount» для монтування файлової системи "
-"на «/».\n"
-"Зауваження: «%s» все ще змонтовано. Скористайтеся командою «guestunmount %s» "
-"для чищення списку монтування."
+"спочатку вам слід викликати «guestfs_mount» для монтування файлової системи на «/».\n"
+"Зауваження: «%s» все ще змонтовано. Скористайтеся командою «guestunmount %s» для чищення списку монтування."
 
 #: src/fuse.c:1079
 #, c-format
@@ -10271,7 +10164,8 @@ msgstr ""
 #: src/info.c:123
 msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
 msgstr ""
-"Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-size»"
+"Інформація від qemu-img: дані, виведені JSON, не містять ключа «virtual-"
+"size»"
 
 #: src/info.c:155
 msgid "qemu-img info: JSON output was not an object"
@@ -10328,7 +10222,8 @@ msgstr ""
 
 #: src/inspect.c:701
 msgid "no inspection data: call guestfs_inspect_os first"
-msgstr "немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
+msgstr ""
+"немає даних для вивчення: спочатку виконайте виклик guestfs_inspect_os"
 
 #: src/inspect.c:711
 #, c-format
@@ -10354,15 +10249,15 @@ msgstr "не вдалося обробити рядок у лапках побл
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended"
+" that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group "
+"(you might need to log out and log in again)."
 msgstr ""
 "поточний користувач не є учасником групи KVM (ідентифікатор групи ID %d). "
 "Цей користувач не зможе отримати доступ до /dev/kvm, отже libguestfs може "
-"працювати дуже повільно. Рекомендуємо вам виконати команду «chmod 0666 /dev/"
-"kvm» або додати поточного користувача до групи KVM (ймовірно, вам доведеться "
-"вийти і знову увійти до облікового запису цього користувача)."
+"працювати дуже повільно. Рекомендуємо вам виконати команду «chmod 0666 "
+"/dev/kvm» або додати поточного користувача до групи KVM (ймовірно, вам "
+"доведеться вийти і знову увійти до облікового запису цього користувача)."
 
 #: src/launch-direct.c:246 src/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
@@ -10405,8 +10300,7 @@ msgid ""
 msgstr ""
 "не вдалося створити базову систему засобами libvirt.\n"
 "\n"
-"Спробуйте запустити qemu безпосередньо без libvirt з використанням такого "
-"значення змінної середовища:\n"
+"Спробуйте запустити qemu безпосередньо без libvirt з використанням такого значення змінної середовища:\n"
 "export LIBGUESTFS_BACKEND=direct\n"
 "\n"
 "Початкове повідомлення від libvirt"
@@ -10468,8 +10362,8 @@ msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
-"у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
-"тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
+"у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http"
+" тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
 #: src/launch-libvirt.c:1501
 msgid ""
@@ -10478,10 +10372,8 @@ msgid ""
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
 "не вдалося автоматично визначити формат.\n"
-"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
-"допомогою\n"
-"параметра «--format» або за допомогою додаткового параметра аргументу "
-"формату до «add-drive»."
+"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за допомогою\n"
+"параметра «--format» або за допомогою додаткового параметра аргументу формату до «add-drive»."
 
 #: src/launch-libvirt.c:1508
 msgid ""
@@ -10489,12 +10381,9 @@ msgid ""
 "If the format is known, pass the format to libguestfs, eg. using the\n"
 "'--format' option, or via the optional 'format' argument to 'add-drive'."
 msgstr ""
-"не вдалося автоматично визначити формат у разі використання нефайлового "
-"протоколу.\n"
-"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
-"допомогою\n"
-"параметра «--format» або за допомогою додаткового параметра аргументу "
-"формату до «add-drive»."
+"не вдалося автоматично визначити формат у разі використання нефайлового протоколу.\n"
+"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за допомогою\n"
+"параметра «--format» або за допомогою додаткового параметра аргументу формату до «add-drive»."
 
 #: src/launch-libvirt.c:1822
 msgid "could not define libvirt secret"
@@ -10579,7 +10468,8 @@ msgstr "у модулі uml не передбачено підтримки ві�
 
 #: src/launch-uml.c:109
 msgid "uml backend does not support non-raw-format drives"
-msgstr "у модулі uml не передбачено підтримки дисків з особливим форматуванням"
+msgstr ""
+"у модулі uml не передбачено підтримки дисків з особливим форматуванням"
 
 #: src/launch-uml.c:114
 msgid "uml backend does not support drives with 'iface' parameter"
@@ -10599,8 +10489,8 @@ msgstr ""
 #: src/launch-uml.c:456
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
-"vmlinux запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
-"дорівнює READY"
+"vmlinux запущено, встановлено зв’язок з фоновою службою, але стан процесу не"
+" дорівнює READY"
 
 #: src/launch-unix.c:46
 msgid "cannot set hv parameters with the 'unix:' backend"
@@ -10712,21 +10602,16 @@ msgstr "помилка під час отримання даних щодо до
 #: src/libvirt-domain.c:262
 msgid ""
 "error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
+"Writing to the disks of a running virtual machine can cause disk corruption.\n"
 "Either use read-only access, or if the guest is running the guestfsd daemon\n"
 "specify live access.  In most libguestfs tools these options are --ro or\n"
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 "помилка: домен є запущеною віртуальною машиною.\n"
-"Запис на диски запущеної віртуальної машини може призвести до пошкодження "
-"диска.\n"
-"Ви можете або скористатися доступом лише для читання, або, якщо у гостьовій "
-"системі\n"
-"працює фонова служба guestfsd, вказати інтерактивний доступ. Відповідними "
-"параметрами\n"
-"інструментів libguestfs є --ro і --live. Докладніші дані можна знайти у "
-"документації."
+"Запис на диски запущеної віртуальної машини може призвести до пошкодження диска.\n"
+"Ви можете або скористатися доступом лише для читання, або, якщо у гостьовій системі\n"
+"працює фонова служба guestfsd, вказати інтерактивний доступ. Відповідними параметрами\n"
+"інструментів libguestfs є --ro і --live. Докладніші дані можна знайти у документації."
 
 #: src/libvirt-domain.c:355
 #, c-format
@@ -10780,10 +10665,8 @@ msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
-"для цієї гостьової системи не вказано визначення <channel> libvirt для "
-"guestfsd\n"
-"Докладнішу довідкову інформацію можна знайти у розділі ATTACHING TO RUNNING "
-"DAEMONS сторінки довідника (man) guestfs(3)."
+"для цієї гостьової системи не вказано визначення <channel> libvirt для guestfsd\n"
+"Докладнішу довідкову інформацію можна знайти у розділі ATTACHING TO RUNNING DAEMONS сторінки довідника (man) guestfs(3)."
 
 #: src/libvirt-domain.c:765
 #, c-format
@@ -10927,7 +10810,7 @@ msgstr "%s: не вдалося створити тимчасовий катал
 #: src/tmpdirs.c:241
 #, c-format
 msgid "stat: %s"
-msgstr ""
+msgstr "статистика: %s"
 
 #: src/tmpdirs.c:246
 #, c-format
@@ -11027,8 +10910,7 @@ msgid ""
 "Check earlier messages, and the output of the 'printenv' command."
 msgstr ""
 "не вдалося обробити змінні середовища.\n"
-"Ознайомтеся з попередніми повідомленнями та даними, виведеними командою "
-"«printenv»."
+"Ознайомтеся з попередніми повідомленнями та даними, виведеними командою «printenv»."
 
 #: test-tool/test-tool.c:311
 #, c-format
@@ -11036,8 +10918,7 @@ msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used."
 msgstr ""
-"Значення змінної середовища LIBGUESTFS_HV або LIBGUESTFS_QEMU вже "
-"встановлено, отже\n"
+"Значення змінної середовища LIBGUESTFS_HV або LIBGUESTFS_QEMU вже встановлено, отже\n"
 "не можна використовувати параметри --qemu/--qemudir."
 
 #: test-tool/test-tool.c:317
@@ -11067,19 +10948,15 @@ msgstr "не вдалося відкрити з’єднання libvirt"
 msgid ""
 "cannot find libvirt pool '%s': %s\n"
 "\n"
-"Use `virsh pool-list --all' to list all available pools, and `virsh pool-"
-"dumpxml <pool>' to display details about a particular pool.\n"
+"Use `virsh pool-list --all' to list all available pools, and `virsh pool-dumpxml <pool>' to display details about a particular pool.\n"
 "\n"
 "To set the pool which virt-v2v uses, add the `-os <pool>' option."
 msgstr ""
 "не вдалося знайти буфер libvirt «%s»: %s\n"
 "\n"
-"Скористайтеся командою «virsh pool-list --all», щоб отримати список усіх "
-"доступних буферів, і командою «virsh pool-dumpxml <буфер>», щоб переглянути "
-"параметри певного буфера.\n"
+"Скористайтеся командою «virsh pool-list --all», щоб отримати список усіх доступних буферів, і командою «virsh pool-dumpxml <буфер>», щоб переглянути параметри певного буфера.\n"
 "\n"
-"Щоб встановити буфер, який має використовувати virt-v2v, додайте параметр «-"
-"os <буфер>»."
+"Щоб встановити буфер, який має використовувати virt-v2v, додайте параметр «-os <буфер>»."
 
 #: v2v/domainxml-c.c:234 v2v/domainxml-c.c:478
 #, c-format
@@ -11092,8 +10969,8 @@ msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
-"Домен libvirt «%s» працює або його призупинено. Роботу домену слід завершити "
-"для виконання перетворення virt-v2v"
+"Домен libvirt «%s» працює або його призупинено. Роботу домену слід завершити"
+" для виконання перетворення virt-v2v"
 
 #: v2v/domainxml-c.c:262
 #, c-format
@@ -11137,7 +11014,8 @@ msgstr ""
 #: tools/virt-tar:219
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
-"virt-tar: не вказано образу, назв віртуальних машин, каталогу або назви файла"
+"virt-tar: не вказано образу, назв віртуальних машин, каталогу або назви "
+"файла"
 
 #: tools/virt-tar:222
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
@@ -11158,8 +11036,7 @@ msgstr "virt-tar: {dir}: запис каталогу має починатися
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
 "\n"
-"This may be because the file is not a disk image, or is not a virtual "
-"machine\n"
+"This may be because the file is not a disk image, or is not a virtual machine\n"
 "image, or because the OS type is not understood by libguestfs.\n"
 "\n"
 "If you feel this is an error, please file a bug report including as much\n"
@@ -11167,12 +11044,10 @@ msgid ""
 msgstr ""
 "{prog}: у цьому образі диска не вдалося виявити операційної системи\n"
 "\n"
-"Причиною може бути те, що файл не є файлом образу диска, не є образом "
-"віртуальної\n"
+"Причиною може бути те, що файл не є файлом образу диска, не є образом віртуальної\n"
 "машини або його тип ОС не підтримується libguestfs.\n"
 "\n"
-"Якщо вам здається, що сталася якась помилка, будь ласка, створіть "
-"повідомлення про ваду,\n"
+"Якщо вам здається, що сталася якась помилка, будь ласка, створіть повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
 #: tools/virt-tar:262 tools/virt-win-reg:302
@@ -11213,417 +11088,3 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
-
-#~ msgid ""
-#~ "%s: check alignment of virtual machine partitions\n"
-#~ "Copyright (C) 2011 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] -d domname\n"
-#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
-#~ "Options:\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  --help               Display brief help\n"
-#~ "  -P nr_threads        Use at most nr_threads\n"
-#~ "  -q|--quiet           No output, just exit code\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -x                   Trace libguestfs API calls\n"
-#~ "For more information, see the manpage %s(1).\n"
-#~ msgstr ""
-#~ "%s: перевірка вирівнювання розділів віртуальної машини\n"
-#~ "© Red Hat Inc., 2011\n"
-#~ "Використання:\n"
-#~ "  %s [--параметри] -d назва_домену\n"
-#~ "  %s [--параметри] -a диск.img [-a диск.img ...]\n"
-#~ "Параметри:\n"
-#~ "  -a|--add образ       Додати образ\n"
-#~ "  -c|--connect uri     Вказати адресу libvirt для параметра -d\n"
-#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-#~ "  --format[=raw|..]    Вказати формат диска для параметра -a\n"
-#~ "  --help               Показати коротку довідку\n"
-#~ "  -P кількість         Використовувати не більше вказаної кількості "
-#~ "потоків обробки\n"
-#~ "  -q|--quiet           Не виводити повідомлень, лише код виходу\n"
-#~ "  -v|--verbose         Режим докладних повідомлень\n"
-#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
-#~ "  -x                   Трасувати виклики API libguestfs\n"
-#~ "З докладнішими даними можна ознайомитися на сторінці довідника (man) "
-#~ "%s(1).\n"
-
-#~ msgid ""
-#~ "%s: display free space on virtual filesystems\n"
-#~ "Copyright (C) 2010 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] -d domname\n"
-#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
-#~ "Options:\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  --csv                Output as Comma-Separated Values\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  -h|--human-readable  Human-readable sizes in --long output\n"
-#~ "  --help               Display brief help\n"
-#~ "  -i|--inodes          Display inodes\n"
-#~ "  --one-per-guest      Separate appliance per guest\n"
-#~ "  -P nr_threads        Use at most nr_threads\n"
-#~ "  --uuid               Add UUIDs to --long output\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -x                   Trace libguestfs API calls\n"
-#~ "For more information, see the manpage %s(1).\n"
-#~ msgstr ""
-#~ "%s: показ даних щодо вільного місця на віртуальних файлових системах\n"
-#~ "© Red Hat Inc., 2010\n"
-#~ "Використання:\n"
-#~ "  %s [--параметри] -d назва_домену\n"
-#~ "  %s [--параметри] -a диск.img [-a диск.img ...]\n"
-#~ "Параметри:\n"
-#~ "  -a|--add image       Додати образ\n"
-#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-#~ "  --csv                Вивести дані у форматі записів, відокремлених "
-#~ "комами\n"
-#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-#~ "  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
-#~ "  -h|--human-readable  Зручні для читання записи розмірів у даних, "
-#~ "виведених --long\n"
-#~ "  --help               Показати коротеньку довідкову інформацію\n"
-#~ "  -i|--inodes          Показати inode-и\n"
-#~ "  --one-per-guest      Окремий пристрій для кожної гостьової системи\n"
-#~ "  -P кількість         Використовувати не більше вказаної кількості "
-#~ "потоків обробки\n"
-#~ "  --uuid               Додати UUID до даних, виведених --long\n"
-#~ "  -v|--verbose         Докладні повідомлення\n"
-#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
-#~ "  -x                   Трасувати виклики програмного інтерфейсу "
-#~ "libguestfs\n"
-#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
-
-#~ msgid ""
-#~ "%s: Edit a file in a virtual machine\n"
-#~ "Copyright (C) 2009-2016 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] -d domname file [file ...]\n"
-#~ "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
-#~ "Options:\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -b|--backup .ext     Backup original as original.ext\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  --echo-keys          Don't turn off echo for passphrases\n"
-#~ "  -e|--expr expr       Non-interactive editing using Perl expr\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  --help               Display brief help\n"
-#~ "  --keys-from-stdin    Read passphrases from stdin\n"
-#~ "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
-#~ "                       Mount dev on mnt (if omitted, /)\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -x                   Trace libguestfs API calls\n"
-#~ "For more information, see the manpage %s(1).\n"
-#~ msgstr ""
-#~ "%s: редагування файла у віртуальній машині\n"
-#~ "© Red Hat Inc., 2009–2016\n"
-#~ "Використання:\n"
-#~ "  %s [--параметри] -d назва_домену файл [файл ...]\n"
-#~ "  %s [--параметри] -a образ.img [-a образ.img ...] файл [файл ...]\n"
-#~ "Параметри:\n"
-#~ "  -a|--add образ       Додати образ\n"
-#~ "  -b|--backup .ext     Створити резервну копію початкового файла з назвою "
-#~ "поч_файл.ext\n"
-#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-#~ "  --echo-keys          Не вимикати показ символів паролів\n"
-#~ "  -e|--expr вираз      Неінтерактивне редагування за допомогою "
-#~ "формального виразу Perl\n"
-#~ "  --format[=raw|..]    Примусово встановити формат диска для параметра -"
-#~ "a\n"
-#~ "  --help               Показати коротку довідку\n"
-#~ "  --keys-from-stdin    Читати паролі з stdin\n"
-#~ "  -m|--mount пристрій[:монт[:параметри[:тип_фс]]]\n"
-#~ "                       Змонтувати пристрій до точки монтування (якщо не "
-#~ "вказано, до /)\n"
-#~ "  -v|--verbose         Докладні повідомлення\n"
-#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
-#~ "  -x                   Трасувати виклики API libguestfs\n"
-#~ "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
-
-#~ msgid ""
-#~ "%s: make a filesystem from a tar archive or files\n"
-#~ "Copyright (C) 2010-2016 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] input.tar output.img\n"
-#~ "  %s [--options] input.tar.gz output.img\n"
-#~ "  %s [--options] directory output.img\n"
-#~ "Options:\n"
-#~ "  --floppy               Make a virtual floppy disk\n"
-#~ "  --format=raw|qcow2|..  Set output format\n"
-#~ "  --help                 Display brief help\n"
-#~ "  --label=label          Filesystem label\n"
-#~ "  --partition=mbr|gpt|.. Set partition type\n"
-#~ "  --size=size|+size      Set size of output disk\n"
-#~ "  --type=ext4|..         Set filesystem type\n"
-#~ "  -v|--verbose           Verbose messages\n"
-#~ "  -V|--version           Display version and exit\n"
-#~ "  -x                     Trace libguestfs API calls\n"
-#~ "For more information, see the manpage %s(1).\n"
-#~ msgstr ""
-#~ "%s: створення файлової системи на основі архіву tar або файлів\n"
-#~ "© Red Hat Inc., 2010–2016\n"
-#~ "Користування:\n"
-#~ "  %s [--параметри] вхідний.tar результат.img\n"
-#~ "  %s [--параметри] вхідний.tar.gz результат.img\n"
-#~ "  %s [--параметри] каталог результат.img\n"
-#~ "Параметри:\n"
-#~ "  --floppy               Створити віртуальну дискету\n"
-#~ "  --format[=raw|..]      Встановити формат диска для параметра -a\n"
-#~ "  --help                 Показати коротку довідку\n"
-#~ "  --label=мітка          Встановити мітку файлової системи\n"
-#~ "  --partition=mbr|gpt..  Встановити тип розділу\n"
-#~ "  --size=розмір|+розмір  Встановити розмір диска результатів\n"
-#~ "  --type=ext4|..         Встановити тип файлової системи\n"
-#~ "  -v|--verbose           Докладні повідомлення\n"
-#~ "  -V|--version           Показати дані щодо версії і завершити роботу\n"
-#~ "  -x                     Трасувати виклики інтерфейсу libguestfs\n"
-#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
-
-#~ msgid "invalid --list-format type '%s', see the man page"
-#~ msgstr "некоректний тип --list-format, «%s», див. сторінку man"
-
-#~ msgid "Debug GC and memory allocations (internal)"
-#~ msgstr "Діагностувати збиральник сміття та розподіл пам’яті (внутрішньо)"
-
-#~ msgid "Dump POD (internal)"
-#~ msgstr "Створити дамп POD (внутрішньо)"
-
-#~ msgid "Dump POD for options (internal)"
-#~ msgstr "Створити дамп POD для параметрів (внутрішньо)"
-
-#~ msgid "extra parameter on the command line"
-#~ msgstr "додатковий параметр у командному рядку"
-
-#~ msgid ""
-#~ "%s: guest filesystem shell\n"
-#~ "%s lets you edit virtual machine filesystems\n"
-#~ "Copyright (C) 2009-2016 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] cmd [: cmd : cmd ...]\n"
-#~ "Options:\n"
-#~ "  -h|--cmd-help        List available commands\n"
-#~ "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  --csh                Make --listen csh-compatible\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  --echo-keys          Don't turn off echo for passphrases\n"
-#~ "  -f|--file file       Read commands from file\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  -i|--inspector       Automatically mount filesystems\n"
-#~ "  --keys-from-stdin    Read passphrases from stdin\n"
-#~ "  --listen             Listen for remote commands\n"
-#~ "  --live               Connect to a live virtual machine\n"
-#~ "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
-#~ "                       Mount dev on mnt (if omitted, /)\n"
-#~ "  --network            Enable network\n"
-#~ "  -N|--new [filename=]type\n"
-#~ "                       Create prepared disk (test<N>.img or filename)\n"
-#~ "  -n|--no-sync         Don't autosync\n"
-#~ "  --no-dest-paths      Don't tab-complete paths from guest fs\n"
-#~ "  --pipe-error         Pipe commands can detect write errors\n"
-#~ "  --progress-bars      Enable progress bars even when not interactive\n"
-#~ "  --no-progress-bars   Disable progress bars\n"
-#~ "  --remote[=pid]       Send commands to remote %s\n"
-#~ "  -r|--ro              Mount read-only\n"
-#~ "  --selinux            Enable SELinux support\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -w|--rw              Mount read-write\n"
-#~ "  -x                   Echo each command before executing it\n"
-#~ "\n"
-#~ "To examine a disk image, ISO, hard disk, filesystem etc:\n"
-#~ "  %s [--ro|--rw] -i -a /path/to/disk.img\n"
-#~ "or\n"
-#~ "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
-#~ "\n"
-#~ "--ro recommended to avoid any writes to the disk image.  If -i option "
-#~ "fails\n"
-#~ "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
-#~ "\n"
-#~ "For more information, see the manpage %s(1).\n"
-#~ msgstr ""
-#~ "%s: командна оболонка гостьової файлової системи\n"
-#~ "%s надає вам змогу редагувати файлові системи віртуальної машини\n"
-#~ "© Red Hat Inc., 2009–2016\n"
-#~ "Використання:\n"
-#~ "  %s [--параметри] команда [: команда : команда ...]\n"
-#~ "Параметри:\n"
-#~ "  -h|--cmd-help        Показати список доступних команд\n"
-#~ "  -h|--cmd-help cmd    Показати докладну довіку з команди «cmd»\n"
-#~ "  -a|--add образ       Додати образ\n"
-#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-#~ "  --csh                Використовувати --listen у режимі сумісності з "
-#~ "csh\n"
-#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-#~ "  --echo-keys          Не вимикати показ символів паролів\n"
-#~ "  -f|--file файл       Прочитати команди з файла\n"
-#~ "  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
-#~ "  -i|--inspector       Автоматично монтувати файлові системи\n"
-#~ "  --keys-from-stdin    Читати паролі зі stdin\n"
-#~ "  --listen             Очікувати на віддалені команди\n"
-#~ "  --live               З’єднатися з вже запущеною віртуальною машиною\n"
-#~ "  -m|--mount dev[:mnt[:параметри]] Змонтувати dev до mnt (якщо пропущено, "
-#~ "до /)\n"
-#~ "  --network            Увімкнути роботу у мережі\n"
-#~ "  -N|--new [назва файла=]тип\n"
-#~ "                       Створити приготований диск (test<N>.img або «назва "
-#~ "файла»)\n"
-#~ "  -n|--no-sync         Не виконувати автоматичної синхронізації\n"
-#~ "  --no-dest-paths      Не виконувати доповнення шляхів за допомогою Tab у "
-#~ "гостьовій ФС\n"
-#~ "  --pipe-error         Команди послідовності обробки здатні виявляти "
-#~ "помилки запису\n"
-#~ "  --progress-bars      Увімкнути смужки поступу, навіть якщо режим "
-#~ "неінтерактивний\n"
-#~ "  --no-progress-bars   Вимкнути смужки поступу\n"
-#~ "  --remote[=pid]       Надіслати команди до віддаленої %s\n"
-#~ "  -r|--ro              Змонтувати у режимі лише читання\n"
-#~ "  --selinux            Увімкнути підтримку SELinux\n"
-#~ "  -v|--verbose         Докладні повідомлення\n"
-#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
-#~ "  -w|--rw              Змонтувати у режимі читання-запису\n"
-#~ "  -x                   Показувати кожну команду до її виконання\n"
-#~ "\n"
-#~ "Для вивчення образу диска, ISO, жорсткого диска, файлової системи "
-#~ "віддайте команду\n"
-#~ "  %s [--ro|--rw] -i -a /шлях/до/диск.img\n"
-#~ "або\n"
-#~ "  %s [--ro|--rw] -i -d назва-домену-libvirt\n"
-#~ "\n"
-#~ "Рекомендуємо скористатися параметром --ro, щоб уникнути записів до образу "
-#~ "диска.\n"
-#~ "Якщо у разі використання параметра -i ви бачите повідомлення про "
-#~ "помилку,\n"
-#~ "віддайте команду без -i, а потім скористайтеся командами 'run' + 'list-"
-#~ "filesystems' + 'mount'.\n"
-#~ "\n"
-#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
-
-#~ msgid ""
-#~ "%s: FUSE module for libguestfs\n"
-#~ "%s lets you mount a virtual machine filesystem\n"
-#~ "Copyright (C) 2009-2016 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] mountpoint\n"
-#~ "Options:\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  --echo-keys          Don't turn off echo for passphrases\n"
-#~ "  --fd=FD              Write to pipe FD when mountpoint is ready\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  --fuse-help          Display extra FUSE options\n"
-#~ "  -i|--inspector       Automatically mount filesystems\n"
-#~ "  --help               Display help message and exit\n"
-#~ "  --keys-from-stdin    Read passphrases from stdin\n"
-#~ "  --live               Connect to a live virtual machine\n"
-#~ "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
-#~ "  --no-fork            Don't daemonize\n"
-#~ "  -n|--no-sync         Don't autosync\n"
-#~ "  -o|--option opt      Pass extra option to FUSE\n"
-#~ "  --pid-file filename  Write PID to filename\n"
-#~ "  -r|--ro              Mount read-only\n"
-#~ "  --selinux            Enable SELinux support\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -w|--rw              Mount read-write\n"
-#~ "  -x|--trace           Trace guestfs API calls\n"
-#~ msgstr ""
-#~ "%s: модуль FUSE для libguestfs\n"
-#~ "%s надає змогу монтувати файлові системи віртуальних машин\n"
-#~ "© Red Hat Inc., 2009–2016\n"
-#~ "Користування:\n"
-#~ "  %s [--параметри] точка_монтування\n"
-#~ "Параметри:\n"
-#~ "  -a|--add образ       додати образ\n"
-#~ "  -c|--connect адреса  вказати адресу libvirt для параметра -d\n"
-#~ "  --dir-cache-timeout  встановити час очікування кешу readdir (типовим є "
-#~ "5 с)\n"
-#~ "  -d|--domain гість    додати диски із вказаної гостьової системи "
-#~ "libvirt\n"
-#~ "  --echo-keys          не вимикати показ паролів\n"
-#~ "  --fd=FD              записати до каналу FD, коли буде готова точка "
-#~ "монтування\n"
-#~ "  --format[=raw|..]    примусово вказати формат диска для параметра -a\n"
-#~ "  --fuse-help          показати додаткові параметри FUSE\n"
-#~ "  -i|--inspector       автоматично монтувати файлові системи\n"
-#~ "  --help               показати довідкове повідомлення і вийти\n"
-#~ "  --keys-from-stdin    читати паролі зі stdin\n"
-#~ "  --live               з’єднатися із запущеною віртуальною машиною\n"
-#~ "  -m|--mount dev[:mnt[:opts[:fstype]] змонтувати dev до mnt (якщо "
-#~ "пропущено, до /)\n"
-#~ "  --no-fork            не створювати фонової служби\n"
-#~ "  -n|--no-sync         не виконувати автосинхронізації\n"
-#~ "  -o|--option парам    передати додатковий параметр FUSE\n"
-#~ "  --pid-file файл      записати PID до файла із вказаною назвою\n"
-#~ "  -r|--ro              змонтувати у режимі лише читання\n"
-#~ "  --selinux            увімкнути підтримку SELinux\n"
-#~ "  -v|--verbose         режим докладних повідомлень\n"
-#~ "  -V|--version         показати дані щодо версії і вийти\n"
-#~ "  -w|--rw              змонтувати для читання і запису\n"
-#~ "  -x|--trace           трасувати виклики програмного інтерфейсу guestfs\n"
-
-#~ msgid ""
-#~ "%s: Run a rescue shell on a virtual machine\n"
-#~ "Copyright (C) 2009-2016 Red Hat Inc.\n"
-#~ "Usage:\n"
-#~ "  %s [--options] -d domname\n"
-#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
-#~ "Options:\n"
-#~ "  -a|--add image       Add image\n"
-#~ "  --append kernelopts  Append kernel options\n"
-#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
-#~ "  -d|--domain guest    Add disks from libvirt guest\n"
-#~ "  --format[=raw|..]    Force disk format for -a option\n"
-#~ "  --help               Display brief help\n"
-#~ "  -m|--memsize MB      Set memory size in megabytes\n"
-#~ "  --network            Enable network\n"
-#~ "  -r|--ro              Access read-only\n"
-#~ "  --scratch[=N]        Add scratch disk(s)\n"
-#~ "  --selinux            Enable SELinux\n"
-#~ "  --smp N              Enable SMP with N >= 2 virtual CPUs\n"
-#~ "  --suggest            Suggest mount commands for this guest\n"
-#~ "  -v|--verbose         Verbose messages\n"
-#~ "  -V|--version         Display version and exit\n"
-#~ "  -w|--rw              Mount read-write\n"
-#~ "  -x                   Trace libguestfs API calls\n"
-#~ "For more information, see the manpage %s(1).\n"
-#~ msgstr ""
-#~ "%s: запуск оболонки відновлення на віртуальній машині\n"
-#~ "© Red Hat Inc., 2009–2016\n"
-#~ "Використання:\n"
-#~ "  %s [--параметри] -d назва-домену\n"
-#~ "  %s [--параметри] -a диск.img [-a диск.img ...]\n"
-#~ "Параметри:\n"
-#~ "  -a|--add образ       Додати образ\n"
-#~ "  --append пар_ядра    Додати параметри запуску ядра\n"
-#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-#~ "  --format[=raw|..]    Вказати формат диска для параметра -a\n"
-#~ "  --help               Показати коротку довідку\n"
-#~ "  -m|--memsize МБ      Вказати розмір пам’яті у мегабайтах\n"
-#~ "  --network            Увімкнути мережу\n"
-#~ "  -r|--ro              Доступ у режимі лише читання\n"
-#~ "  --selinux            Увімкнути SELinux\n"
-#~ "  --smp N              Увімкнути SMP з N >= 2 віртуальних процесорів\n"
-#~ "  --suggest            Пропонувати команди монтування для гостьової "
-#~ "системи\n"
-#~ "  -v|--verbose         Докладні повідомлення\n"
-#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
-#~ "  -w|--rw              Змонтувати у режимі читання-запису\n"
-#~ "  -x                   Трасувати виклики програмного інтерфейсу "
-#~ "libguestfs\n"
-#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
