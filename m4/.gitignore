@@ -77,17 +77,16 @@
 /getlogin_r.m4
 /getopt.m4
 /getpagesize.m4
-/gettext.m4
 /gettime.m4
 /gettimeofday.m4
 /getugroups.m4
 /glibc21.m4
-/glibc2.m4
 /glob.m4
 /gnulib-common.m4
 /gnulib-comp.m4
 /gnulib-tool.m4
 /gnu-make.m4
+/hard-locale.m4
 /hash.m4
 /hostent.m4
 /human.m4
@@ -95,11 +94,7 @@
 /include_next.m4
 /inet_ntop.m4
 /inet_pton.m4
-/intdiv0.m4
-/intldir.m4
-/intl.m4
 /intlmacosx.m4
-/intmax.m4
 /intmax_t.m4
 /inttostr.m4
 /inttypes_h.m4
@@ -154,7 +149,6 @@
 /nanosleep.m4
 /netdb_h.m4
 /netinet_in_h.m4
-/nls.m4
 /nocrash.m4
 /off_t.m4
 /onceonly.m4
@@ -165,12 +159,9 @@
 /perror.m4
 /pipe2.m4
 /pipe.m4
-/po.m4
 /pread.m4
 /printf.m4
-/printf-posix.m4
 /priv-set.m4
-/progtest.m4
 /ptsname_r.m4
 /putenv.m4
 /quotearg.m4
@@ -244,7 +235,6 @@
 /time_h.m4
 /timespec.m4
 /ttyname_r.m4
-/uintmax_t.m4
 /ulonglong.m4
 /ungetc.m4
 /unistd_h.m4
@@ -258,7 +248,6 @@
 /utimes.m4
 /vasnprintf.m4
 /vasprintf.m4
-/visibility.m4
 /warnings.m4
 /warn-on-use.m4
 /wchar_h.m4
