@@ -36,6 +36,11 @@
 
 #if HAVE_YAJL
 
+/* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
+ * ensure that YAJL_GET_<foo> later doesn't return NULL.
+ */
+#pragma GCC diagnostic ignored "-Wnull-dereference"
+
 GUESTFSD_EXT_CMD(str_ldmtool, ldmtool);
 
 int

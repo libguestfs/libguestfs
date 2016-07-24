@@ -33,8 +33,12 @@
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
 
-#pragma GCC diagnostic ignored "-Wstrict-prototypes" /* error in <gtk.h> */
+/* errors in <gtk.h> */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-prototypes"
+#pragma GCC diagnostic ignored "-Wshift-overflow"
 #include <gtk/gtk.h>
+#pragma GCC diagnostic pop
 
 #include "ignore-value.h"
 #include "p2v.h"

@@ -30,6 +30,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
+ * ensure that YAJL_GET_<foo> later doesn't return NULL.
+ */
+#pragma GCC diagnostic ignored "-Wnull-dereference"
+
 #define Val_none (Val_int (0))
 
 value virt_builder_yajl_is_available (value unit);
