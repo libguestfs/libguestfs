@@ -989,6 +989,9 @@ do_internal_rhbz914931 (int count)
   return 0;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
+
 static void
 deliberately_cause_a_segfault (void)
 {
@@ -1001,3 +1004,5 @@ deliberately_cause_a_segfault (void)
   /* coverity[var_deref_op] */
   *ptr = 1;
 }
+
+#pragma GCC diagnostic pop

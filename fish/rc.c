@@ -122,8 +122,14 @@ receive_stdout (int s)
     error (EXIT_FAILURE, errno, "recvmsg stdout fd");
 
   cmptr = CMSG_FIRSTHDR (&msg);
-  if (cmptr == NULL)
+  if (cmptr == NULL) {
     error (EXIT_FAILURE, errno, "didn't receive a stdout file descriptor");
+    /* Makes GCC happy.  error() cannot be declared as noreturn, so
+     * GCC doesn't know that the subsequent dereference of cmptr isn't
+     * reachable when cmptr is NULL.
+     */
+    abort ();
+  }
   if (cmptr->cmsg_len != CMSG_LEN (sizeof (int)))
     error (EXIT_FAILURE, 0, "cmsg_len != CMSG_LEN (sizeof (int))");
   if (cmptr->cmsg_level != SOL_SOCKET)
