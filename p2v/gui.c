@@ -35,7 +35,9 @@
 /* errors in <gtk.h> */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-prototypes"
+#if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
 #pragma GCC diagnostic ignored "-Wshift-overflow"
+#endif
 #include <gtk/gtk.h>
 #pragma GCC diagnostic pop
 

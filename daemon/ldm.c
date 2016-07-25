@@ -39,7 +39,9 @@
 /* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
  * ensure that YAJL_GET_<foo> later doesn't return NULL.
  */
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 60000 /* gcc >= 6 */
 #pragma GCC diagnostic ignored "-Wnull-dereference"
+#endif
 
 GUESTFSD_EXT_CMD(str_ldmtool, ldmtool);
 
