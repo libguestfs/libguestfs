@@ -62,6 +62,7 @@
 
 #include "ignore-value.h"
 #include "glthread/lock.h"
+#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -548,9 +549,12 @@ parse_version (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
   CLEANUP_FREE char *content = NULL;
 
   content = (char *) xmlNodeGetContent (node);
-  if (content) {
+  /* We parse either "X.Y" or "X" as version strings, so try to parse
+   * only if the first character is a digit.
+   */
+  if (content && c_isdigit (content[0])) {
     struct version version;
-    const int res = guestfs_int_version_from_x_y (g, &version, content);
+    const int res = guestfs_int_version_from_x_y_or_x (g, &version, content);
     if (res < 0)
       return -1;
     else if (res > 0) {
