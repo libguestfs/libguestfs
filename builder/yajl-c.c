@@ -31,7 +31,9 @@
 /* GCC can't work out that the YAJL_IS_<foo> test is sufficient to
  * ensure that YAJL_GET_<foo> later doesn't return NULL.
  */
+#if defined(__GNUC__) && __GNUC__ >= 6 /* gcc >= 6 */
 #pragma GCC diagnostic ignored "-Wnull-dereference"
+#endif
 
 #define Val_none (Val_int (0))
 

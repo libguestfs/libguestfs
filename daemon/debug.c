@@ -990,7 +990,9 @@ do_internal_rhbz914931 (int count)
 }
 
 #pragma GCC diagnostic push
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 60000 /* gcc >= 6 */
 #pragma GCC diagnostic ignored "-Wnull-dereference"
+#endif
 
 static void
 deliberately_cause_a_segfault (void)
