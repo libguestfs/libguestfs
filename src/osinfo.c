@@ -625,7 +625,7 @@ parse_distro (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
       osinfo->distro = OS_DISTRO_OPENSUSE;
     else if (STREQ (content, "rhel"))
       osinfo->distro = OS_DISTRO_RHEL;
-    else if (STREQ (content, "sles"))
+    else if (STREQ (content, "sled") || STREQ (content, "sles"))
       osinfo->distro = OS_DISTRO_SLES;
     else if (STREQ (content, "ubuntu"))
       osinfo->distro = OS_DISTRO_UBUNTU;
