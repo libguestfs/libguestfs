@@ -71,7 +71,7 @@ guestfs_int_count_strings (char *const *argv)
 char **
 guestfs_int_copy_string_list (char *const *argv)
 {
-  size_t n = guestfs_int_count_strings (argv);
+  const size_t n = guestfs_int_count_strings (argv);
   size_t i, j;
   char **ret;
 
@@ -147,7 +147,8 @@ guestfs_int_join_strings (const char *sep, char *const *argv)
 char **
 guestfs_int_split_string (char sep, const char *str)
 {
-  size_t i, n, c, len = strlen (str);
+  size_t i, n, c;
+  const size_t len = strlen (str);
   char reject[2] = { sep, '\0' };
   char **ret;
 

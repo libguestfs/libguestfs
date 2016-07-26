@@ -107,7 +107,7 @@ do_find0 (const char *dir)
    * we'll need to modify the code to handle it.  XXX
    */
   while ((r = input_to_nul (fp, str, GUESTFS_MAX_CHUNK_SIZE)) > 0) {
-    size_t len = strlen (str);
+    const size_t len = strlen (str);
     if (len <= sysrootdirlen)
       continue;
 

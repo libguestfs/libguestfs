@@ -696,7 +696,7 @@ static void
 script (int prompt)
 {
   char *buf;
-  int global_exit_on_error = !prompt;
+  const int global_exit_on_error = !prompt;
   int exit_on_error;
   struct parsed_command pcmd;
 
@@ -815,7 +815,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
    * popen(3), read the result and execute it as guestfish commands.
    */
   if (buf[0] == '<' && buf[1] == '!') {
-    int r = execute_and_inline (&buf[2], *exit_on_error_rtn);
+    const int r = execute_and_inline (&buf[2], *exit_on_error_rtn);
     if (r == -1)
       pcmd.status = -1;
     else
@@ -1373,7 +1373,7 @@ parse_string_list (const char *str)
       }
 
       /* Grow the token to accommodate the fragment */
-      size_t tok_end = tok_len;
+      const size_t tok_end = tok_len;
       tok_len += end - p;
       char *tok_new = realloc (tok, tok_len + 1);
       if (NULL == tok_new) {
@@ -1550,7 +1550,7 @@ static char *
 decode_ps1 (const char *str)
 {
   char *ret;
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   size_t i, j;
 
   /* Result string is always smaller than the input string.  This will
@@ -1868,7 +1868,7 @@ file_in_heredoc (const char *endmarker)
 
   while (fgets (buffer, sizeof buffer, stdin) != NULL) {
     /* Look for "END"<EOF> or "END\n" in input. */
-    size_t blen = strlen (buffer);
+    const size_t blen = strlen (buffer);
     if (STREQLEN (buffer, endmarker, markerlen) &&
         (blen == markerlen ||
          (blen == markerlen+1 && buffer[markerlen] == '\n')))

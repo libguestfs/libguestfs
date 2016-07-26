@@ -163,8 +163,8 @@ write_reply (ETERM *term)
 int
 atom_equals (ETERM *atom, const char *name)
 {
-  size_t namelen = strlen (name);
-  size_t atomlen = ERL_ATOM_SIZE (atom);
+  const size_t namelen = strlen (name);
+  const size_t atomlen = ERL_ATOM_SIZE (atom);
   if (namelen != atomlen) return 0;
   return strncmp (ERL_ATOM_PTR (atom), name, atomlen) == 0;
 }

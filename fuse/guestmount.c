@@ -52,7 +52,7 @@ static int write_pid_file (const char *pid_file, pid_t pid);
 static void
 fuse_opt_add_opt_escaped (char **opts, const char *opt)
 {
-  unsigned oldlen = *opts ? strlen(*opts) : 0;
+  const unsigned oldlen = *opts ? strlen(*opts) : 0;
   char *d = realloc (*opts, oldlen + 1 + strlen(opt) * 2 + 1);
 
   if (!d) {

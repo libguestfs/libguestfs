@@ -150,7 +150,8 @@ emptylines:
 void
 yyerror (YYLTYPE * yylloc, yyscan_t scanner, struct parse_context *context, const char *msg)
 {
-  int has_suffix = context->error_suffix != NULL && context->error_suffix[0] != 0;
+  const int has_suffix =
+    context->error_suffix != NULL && context->error_suffix[0] != 0;
 
   fprintf (stderr, "%s%s%s%ssyntax error at line %d: %s%s%s\n",
            context->progname ? context->progname : "",

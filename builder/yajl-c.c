@@ -47,7 +47,7 @@ convert_yajl_value (yajl_val val, int level)
     caml_invalid_argument ("too many levels of object/array nesting");
 
   if (YAJL_IS_OBJECT (val)) {
-    size_t len = YAJL_GET_OBJECT(val)->len;
+    const size_t len = YAJL_GET_OBJECT(val)->len;
     size_t i;
     rv = caml_alloc (1, 3);
     lv = caml_alloc_tuple (len);
@@ -61,7 +61,7 @@ convert_yajl_value (yajl_val val, int level)
     }
     Store_field (rv, 0, lv);
   } else if (YAJL_IS_ARRAY (val)) {
-    size_t len = YAJL_GET_ARRAY(val)->len;
+    const size_t len = YAJL_GET_ARRAY(val)->len;
     size_t i;
     rv = caml_alloc (1, 4);
     lv = caml_alloc_tuple (len);

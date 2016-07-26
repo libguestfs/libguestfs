@@ -166,7 +166,7 @@ start_conversion (struct config *config,
   int ret = -1;
   int status;
   size_t i, len;
-  size_t nr_disks = guestfs_int_count_strings (config->disks);
+  const size_t nr_disks = guestfs_int_count_strings (config->disks);
   struct data_conn data_conns[nr_disks];
   CLEANUP_FREE char *remote_dir = NULL, *libvirt_xml = NULL;
   time_t now;
@@ -909,7 +909,7 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns)
             exit (EXIT_FAILURE);
           }
           if (g_file_get_contents (mac_filename, &mac, NULL, NULL)) {
-            size_t len = strlen (mac);
+            const size_t len = strlen (mac);
 
             if (len > 0 && mac[len-1] == '\n')
               mac[len-1] = '\0';

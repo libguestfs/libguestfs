@@ -436,7 +436,7 @@ debug_ldd (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_ls (const char *subcmd, size_t argc, char *const *const argv)
 {
-  size_t len = count_strings (argv);
+  const size_t len = count_strings (argv);
   const char *cargv[len+3];
   size_t i;
   int r;
@@ -463,7 +463,7 @@ debug_ls (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_ll (const char *subcmd, size_t argc, char *const *const argv)
 {
-  size_t len = count_strings (argv);
+  const size_t len = count_strings (argv);
   const char *cargv[len+3];
   size_t i;
   int r;
@@ -663,7 +663,7 @@ debug_spew (const char *subcmd, size_t argc, char *const *const argv)
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
 {
-  int fd = *(int *)fd_ptr;
+  const int fd = *(int *)fd_ptr;
   return xwrite (fd, buf, len);
 }
 
@@ -888,7 +888,7 @@ do_debug_upload (const char *filename, int mode)
   int fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY|O_CLOEXEC, mode);
 
   if (fd == -1) {
-    int err = errno;
+    const int err = errno;
     cancel_receive ();
     errno = err;
     reply_with_perror ("%s", filename);
@@ -897,7 +897,7 @@ do_debug_upload (const char *filename, int mode)
 
   int r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
-    int err = errno;
+    const int err = errno;
     cancel_receive ();
     errno = err;
     reply_with_error ("write error: %s", filename);
@@ -960,7 +960,7 @@ do_internal_rhbz914931 (int count)
 
   r = receive_file (crash_cb, &count);
   if (r == -1) {		/* write error */
-    int err = errno;
+    const int err = errno;
     cancel_receive ();
     errno = err;
     reply_with_error ("write error");

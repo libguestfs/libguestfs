@@ -127,7 +127,7 @@ do_md_create (const char *name, char *const *devices,
     return -1;
   }
 
-  size_t MAX_ARGS = nrdevices + 16;
+  const size_t MAX_ARGS = nrdevices + 16;
   const char *argv[MAX_ARGS];
   size_t i = 0;
 
@@ -222,7 +222,7 @@ do_list_md_devices (void)
   /* Look for directories under /sys/block matching md[0-9]*
    * As an additional check, we also make sure they have a md subdirectory.
    */
-  int err = glob (PREFIX "[0-9]*" SUFFIX, GLOB_ERR, glob_errfunc, &mds);
+  const int err = glob (PREFIX "[0-9]*" SUFFIX, GLOB_ERR, glob_errfunc, &mds);
   if (err == GLOB_NOSPACE) {
     reply_with_error ("glob: returned GLOB_NOSPACE: "
                       "rerun with LIBGUESTFS_DEBUG=1");

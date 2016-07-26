@@ -225,7 +225,7 @@ static void
 test_getumask (void)
 {
   guestfs_h *g;
-  int orig_umask = umask (0777);
+  const int orig_umask = umask (0777);
 
   g = guestfs_create ();
   assert (g);

@@ -207,7 +207,7 @@ guestfs_int_send (guestfs_h *g, int proc_nr,
   struct guestfs_message_header hdr;
   XDR xdr;
   uint32_t len;
-  int serial = g->msg_next_serial++;
+  const int serial = g->msg_next_serial++;
   ssize_t r;
   CLEANUP_FREE char *msg_out = NULL;
   size_t msg_out_size;

@@ -615,8 +615,8 @@ send_chunk (const guestfs_chunk *chunk)
   xdr_u_int (&xdr, &len);
   xdr_destroy (&xdr);
 
-  int err = (xwrite (sock, lenbuf, 4) == 0
-             && xwrite (sock, buf, len) == 0 ? 0 : -1);
+  const int err = (xwrite (sock, lenbuf, 4) == 0
+                   && xwrite (sock, buf, len) == 0 ? 0 : -1);
   if (err) {
     fprintf (stderr, "guestfsd: send_chunk: write failed\n");
     exit (EXIT_FAILURE);
@@ -750,7 +750,7 @@ pulse_mode_end (void)
 void
 pulse_mode_cancel (void)
 {
-  int err = errno;              /* Function must preserve errno. */
+  const int err = errno;        /* Function must preserve errno. */
   struct itimerval it;
   struct sigaction act;
 
@@ -780,7 +780,7 @@ static void
 async_safe_send_pulse (int sig)
 {
   /* XDR is a RFC ... */
-  unsigned char msg[] = {
+  const unsigned char msg[] = {
     (GUESTFS_PROGRESS_FLAG & 0xff000000) >> 24,
     (GUESTFS_PROGRESS_FLAG & 0x00ff0000) >> 16,
     (GUESTFS_PROGRESS_FLAG & 0x0000ff00) >> 8,

@@ -139,7 +139,7 @@ guestfs_int_perrorf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   CLEANUP_FREE char *msg = NULL;
-  int errnum = errno;
+  const int errnum = errno;
   int err;
   char buf[256];
 
@@ -242,7 +242,7 @@ void
 guestfs_int_print_BufferIn (FILE *out, const char *buf, size_t buf_size)
 {
   size_t i;
-  size_t orig_size = buf_size;
+  const size_t orig_size = buf_size;
 
   if (buf_size > 256)
     buf_size = 256;
@@ -327,7 +327,7 @@ void
 guestfs_int_external_command_failed (guestfs_h *g, int status,
 				     const char *cmd_name, const char *extra)
 {
-  size_t len = 80 + strlen (cmd_name);
+  const size_t len = 80 + strlen (cmd_name);
   char status_string[len];
 
   guestfs_int_exit_status_to_string (status, cmd_name, status_string, len);

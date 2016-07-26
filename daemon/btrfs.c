@@ -147,8 +147,8 @@ do_mkfs_btrfs (char *const *devices,
                int leafsize, const char *label, const char *metadata,
                int nodesize, int sectorsize)
 {
-  size_t nr_devices = count_strings (devices);
-  size_t MAX_ARGS = nr_devices + 64;
+  const size_t nr_devices = count_strings (devices);
+  const size_t MAX_ARGS = nr_devices + 64;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
   int r;
@@ -491,7 +491,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 
   guestfs_int_btrfssubvolume_list *ret = NULL;
 
-  size_t nr_subvolumes = count_strings (lines);
+  const size_t nr_subvolumes = count_strings (lines);
 
   ret = malloc (sizeof *ret);
   if (!ret) {
@@ -719,8 +719,8 @@ int
 do_btrfs_device_add (char *const *devices, const char *fs)
 {
   static int btrfs_device_add_needs_force = -1;
-  size_t nr_devices = count_strings (devices);
-  size_t MAX_ARGS = nr_devices + 8;
+  const size_t nr_devices = count_strings (devices);
+  const size_t MAX_ARGS = nr_devices + 8;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
   CLEANUP_FREE char *fs_buf = NULL;
@@ -767,12 +767,12 @@ do_btrfs_device_add (char *const *devices, const char *fs)
 int
 do_btrfs_device_delete (char *const *devices, const char *fs)
 {
-  size_t nr_devices = count_strings (devices);
+  const size_t nr_devices = count_strings (devices);
 
   if (nr_devices == 0)
     return 0;
 
-  size_t MAX_ARGS = nr_devices + 8;
+  const size_t MAX_ARGS = nr_devices + 8;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
   CLEANUP_FREE char *fs_buf = NULL;
@@ -864,7 +864,7 @@ btrfs_set_uuid (const char *device, const char *uuid)
 {
   CLEANUP_FREE char *err = NULL;
   int r;
-  int has_uuid_opts = test_btrfstune_uuid_opt ();
+  const int has_uuid_opts = test_btrfstune_uuid_opt ();
 
   if (has_uuid_opts <= 0)
     NOT_SUPPORTED (-1, "btrfs filesystems' UUID cannot be changed");
@@ -884,7 +884,7 @@ btrfs_set_uuid_random (const char *device)
 {
   CLEANUP_FREE char *err = NULL;
   int r;
-  int has_uuid_opts = test_btrfstune_uuid_opt ();
+  const int has_uuid_opts = test_btrfstune_uuid_opt ();
 
   if (has_uuid_opts <= 0)
     NOT_SUPPORTED (-1, "btrfs filesystems' UUID cannot be changed");
@@ -1335,7 +1335,7 @@ do_btrfs_qgroup_show (const char *path)
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   size_t i = 0;
-  int has_raw_opt = test_btrfs_qgroup_show_raw_opt ();
+  const int has_raw_opt = test_btrfs_qgroup_show_raw_opt ();
   CLEANUP_FREE char *path_buf = NULL;
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE char *out = NULL;
@@ -1373,7 +1373,7 @@ do_btrfs_qgroup_show (const char *path)
    *  0/5        9249849344   9249849344
    *
    */
-  size_t nr_qgroups = count_strings (lines) - 2;
+  const size_t nr_qgroups = count_strings (lines) - 2;
   guestfs_int_btrfsqgroup_list *ret = NULL;
   ret = malloc (sizeof *ret);
   if (!ret) {
@@ -2101,7 +2101,7 @@ int
 do_btrfs_image (char *const *sources, const char *image,
 		int compresslevel)
 {
-  size_t nr_sources =  count_strings (sources);
+  const size_t nr_sources =  count_strings (sources);
   const size_t MAX_ARGS = 64 + nr_sources;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
@@ -2213,7 +2213,7 @@ btrfs_minimum_size (const char *path)
   CLEANUP_FREE char *buf = NULL, *err = NULL, *out = NULL;
   int64_t ret = 0;
   int r;
-  int min_size_supported = test_btrfs_min_dev_size ();
+  const int min_size_supported = test_btrfs_min_dev_size ();
 
   if (min_size_supported == -1)
     return -1;

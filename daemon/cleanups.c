@@ -55,7 +55,7 @@ cleanup_unlink_free (void *ptr)
 void
 cleanup_close (void *ptr)
 {
-  int fd = * (int *) ptr;
+  const int fd = * (int *) ptr;
 
   if (fd >= 0)
     close (fd);

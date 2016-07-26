@@ -239,7 +239,7 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
    * this is only appropriate for virt-v2v.  (RHBZ#1138586)
    */
   if (!is_test_uri) {
-    int state = get_dom_state (dom);
+    const int state = get_dom_state (dom);
 
     if (state == VIR_DOMAIN_RUNNING ||
         state == VIR_DOMAIN_BLOCKED ||

@@ -251,7 +251,7 @@ make_filter_strings (char *const *devices)
      *   for whole block devices:
      *     "a|^/dev/sda$|", "a|^/dev/sda[0-9]|",
      */
-    size_t slen = strlen (devices[i]);
+    const size_t slen = strlen (devices[i]);
 
     if (add_sprintf (&ret, "a|^%s$|", devices[i]) == -1)
       return NULL;

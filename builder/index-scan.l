@@ -82,7 +82,7 @@ extern void scanner_destroy (yyscan_t scanner);
                       yylval->field->next = NULL;
                       yylval->field->key = strndup (yytext, i);
                       if (yytext[i] == '[') {
-                        size_t j = strcspn (yytext+i+1, "]");
+                        const size_t j = strcspn (yytext+i+1, "]");
                         yylval->field->subkey = strndup (yytext+i+1, j);
                         i += 1+j+1;
                       } else {

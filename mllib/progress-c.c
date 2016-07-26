@@ -61,7 +61,7 @@ guestfs_int_mllib_progress_bar_init (value machine_readablev)
   CAMLparam1 (machine_readablev);
   CAMLlocal1 (barv);
   struct progress_bar *bar;
-  int machine_readable = Bool_val (machine_readablev);
+  const int machine_readable = Bool_val (machine_readablev);
   unsigned flags = 0;
 
   /* XXX Have to do this to get nl_langinfo to work properly.  However

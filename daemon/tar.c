@@ -122,7 +122,7 @@ read_error_file (char *error_file)
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
 {
-  int fd = *(int *)fd_ptr;
+  const int fd = *(int *)fd_ptr;
   return xwrite (fd, buf, len);
 }
 

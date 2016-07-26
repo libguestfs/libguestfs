@@ -40,7 +40,7 @@ do_internal_feature_available (const char *group)
 
   for (i = 0; optgroups[i].group != NULL; ++i) {
     if (STREQ (group, optgroups[i].group)) {
-      int av = optgroups[i].available ();
+      const int av = optgroups[i].available ();
       return av ? 0 : 1;
     }
   }
@@ -120,7 +120,8 @@ filesystem_available (const char *filesystem)
 int
 do_filesystem_available (const char *filesystem)
 {
-  size_t i, len = strlen (filesystem);
+  size_t i;
+  const size_t len = strlen (filesystem);
   int r;
 
   for (i = 0; i < len; ++i) {

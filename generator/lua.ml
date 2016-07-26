@@ -643,7 +643,7 @@ get_handle (lua_State *L, int index)
 static char **
 get_string_list (lua_State *L, int index)
 {
-  size_t len = lua_objlen (L, index);
+  const size_t len = lua_objlen (L, index);
   size_t i;
   char **strs;
 
@@ -786,8 +786,7 @@ get_event_bitmask (lua_State *L, int index)
 static uint64_t
 get_event (lua_State *L, int index)
 {
-  int r = luaL_checkoption (L, index, NULL, event_all);
-
+  const int r = luaL_checkoption (L, index, NULL, event_all);
   return UINT64_C(1) << r;
 }
 

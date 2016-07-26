@@ -44,9 +44,9 @@ guestfs_impl_list_filesystems (guestfs_h *g)
   DECLARE_STRINGSBUF (ret);
 
   const char *lvm2[] = { "lvm2", NULL };
-  int has_lvm2 = guestfs_feature_available (g, (char **) lvm2);
+  const int has_lvm2 = guestfs_feature_available (g, (char **) lvm2);
   const char *ldm[] = { "ldm", NULL };
-  int has_ldm = guestfs_feature_available (g, (char **) ldm);
+  const int has_ldm = guestfs_feature_available (g, (char **) ldm);
 
   CLEANUP_FREE_STRING_LIST char **devices = NULL;
   CLEANUP_FREE_STRING_LIST char **partitions = NULL;
@@ -169,7 +169,8 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
     if (vols == NULL)
       return -1;
 
-    int64_t default_volume = guestfs_btrfs_subvolume_get_default (g, device);
+    const int64_t default_volume =
+      guestfs_btrfs_subvolume_get_default (g, device);
 
     for (size_t i = 0; i < vols->len; i++) {
       struct guestfs_btrfssubvolume *this = &vols->val[i];
@@ -193,7 +194,7 @@ check_with_vfs_type (guestfs_h *g, const char *device, struct stringsbuf *sb)
      * for things which are members of some RAID or LVM set, most
      * importantly "LVM2_member" which is a PV.
      */
-    size_t n = strlen (vfs_type);
+    const size_t n = strlen (vfs_type);
     if (n >= 7 && STREQ (&vfs_type[n-7], "_member"))
       return 0;
 

@@ -303,7 +303,7 @@ get_table_field (const char *line, int n)
     return NULL;
   }
 
-  size_t len = strcspn (p, ":;");
+  const size_t len = strcspn (p, ":;");
   char *q = strndup (p, len);
   if (q == NULL) {
     reply_with_perror ("strndup");
@@ -681,7 +681,7 @@ sgdisk_info_extract_field (const char *device, int partnum, const char *field,
     return NULL;
   }
 
-  int fieldlen = strlen (field);
+  const int fieldlen = strlen (field);
 
   /* Parse the output of sgdisk -i:
    * Partition GUID code: 21686148-6449-6E6F-744E-656564454649 (BIOS boot partition)
@@ -739,7 +739,7 @@ static char *
 extract_uuid (const char *value)
 {
   /* The value contains only valid GUID characters */
-  size_t value_len = strspn (value, "-0123456789ABCDEF");
+  const size_t value_len = strspn (value, "-0123456789ABCDEF");
 
   char *ret = malloc (value_len + 1);
   if (ret == NULL) {

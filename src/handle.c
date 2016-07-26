@@ -292,7 +292,7 @@ static char *
 getenv_from_strings (const void *stringsv, const char *name)
 {
   char **strings = (char **) stringsv;
-  size_t len = strlen (name);
+  const size_t len = strlen (name);
   size_t i;
 
   for (i = 0; strings[i] != NULL; ++i)
@@ -776,7 +776,7 @@ char *
 guestfs_impl_get_backend_setting (guestfs_h *g, const char *name)
 {
   char **settings = g->backend_settings;
-  size_t namelen = strlen (name);
+  const size_t namelen = strlen (name);
   size_t i;
 
   if (settings == NULL)
@@ -800,7 +800,7 @@ int
 guestfs_impl_clear_backend_setting (guestfs_h *g, const char *name)
 {
   char **settings = g->backend_settings;
-  size_t namelen = strlen (name);
+  const size_t namelen = strlen (name);
   size_t i, j;
   int count = 0;
 

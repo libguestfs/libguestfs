@@ -277,7 +277,7 @@ start_thread (void *statevp)
 static void
 test_mountpoint (const char *mp)
 {
-  int nr_passes = 5 + (random () & 31);
+  const int nr_passes = 5 + (random () & 31);
   int pass;
   int ret = EXIT_FAILURE;
   FILE *fp;

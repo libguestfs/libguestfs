@@ -141,7 +141,7 @@ main (int argc, char *argv[])
       /* Set a magic prompt.  We only know how to do this for bash. */
       p = strrchr (shell, '/');
       if (p && strcmp (p+1, "bash") == 0) {
-        size_t len = 64 + strlen (shell);
+        const size_t len = 64 + strlen (shell);
         char buf[len];
 
         snprintf (buf, len, "PS1='mount-local-shell> ' %s --norc -i", shell);

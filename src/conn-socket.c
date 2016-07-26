@@ -137,7 +137,7 @@ read_data (guestfs_h *g, struct connection *connv, void *bufv, size_t len)
 {
   char *buf = bufv;
   struct connection_socket *conn = (struct connection_socket *) connv;
-  size_t original_len = len;
+  const size_t original_len = len;
 
   if (conn->daemon_sock == -1) {
     error (g, _("read_data: socket not connected"));
@@ -241,7 +241,7 @@ write_data (guestfs_h *g, struct connection *connv,
 {
   const char *buf = bufv;
   struct connection_socket *conn = (struct connection_socket *) connv;
-  size_t original_len = len;
+  const size_t original_len = len;
 
   if (conn->daemon_sock == -1) {
     error (g, _("write_data: socket not connected"));

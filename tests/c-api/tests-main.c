@@ -345,7 +345,7 @@ match_re (const char *str, const char *pattern)
   const char *err;
   int offset;
   pcre *re;
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   re = pcre_compile (pattern, 0, &err, &offset, NULL);

@@ -31,7 +31,7 @@
 
 #define FPRINTF_AUGEAS_ERROR(aug,fs,...)                                \
   do {                                                                  \
-    int code = aug_error (aug);                                         \
+    const int code = aug_error (aug);                                   \
     if (code == AUG_ENOMEM)                                             \
       reply_with_error (fs ": augeas out of memory", ##__VA_ARGS__);    \
     else {                                                              \

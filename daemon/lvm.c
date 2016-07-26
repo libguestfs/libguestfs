@@ -255,7 +255,7 @@ do_lvs (void)
   char *out;
   CLEANUP_FREE char *err = NULL;
   int r;
-  int has_S = test_lvs_has_S_opt ();
+  const int has_S = test_lvs_has_S_opt ();
 
   if (has_S < 0)
     return NULL;

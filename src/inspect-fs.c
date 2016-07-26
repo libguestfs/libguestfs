@@ -152,9 +152,9 @@ check_filesystem (guestfs_h *g, const char *mountable,
   fs->mountable = safe_strdup (g, mountable);
 
   /* Optimize some of the tests by avoiding multiple tests of the same thing. */
-  int is_dir_etc = guestfs_is_dir (g, "/etc") > 0;
-  int is_dir_bin = guestfs_is_dir (g, "/bin") > 0;
-  int is_dir_share = guestfs_is_dir (g, "/share") > 0;
+  const int is_dir_etc = guestfs_is_dir (g, "/etc") > 0;
+  const int is_dir_bin = guestfs_is_dir (g, "/bin") > 0;
+  const int is_dir_share = guestfs_is_dir (g, "/share") > 0;
 
   /* Grub /boot? */
   if (guestfs_is_file (g, "/grub/menu.lst") > 0 ||
@@ -326,7 +326,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
 static void
 extend_fses (guestfs_h *g)
 {
-  size_t n = g->nr_fses + 1;
+  const size_t n = g->nr_fses + 1;
   struct inspect_fs *p;
 
   p = safe_realloc (g, g->fses, n * sizeof (struct inspect_fs));
@@ -414,7 +414,7 @@ int
 guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str)
 {
   long ret;
-  int r = xstrtol (str, NULL, 10, &ret, "");
+  const int r = xstrtol (str, NULL, 10, &ret, "");
   if (r != LONGINT_OK) {
     error (g, _("could not parse integer in version number: %s"), str);
     return -1;
@@ -427,7 +427,7 @@ int
 guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
 {
   long ret;
-  int r = xstrtol (str, NULL, 10, &ret, NULL);
+  const int r = xstrtol (str, NULL, 10, &ret, NULL);
   if (r != LONGINT_OK) {
     error (g, _("could not parse integer in version number: %s"), str);
     return -1;

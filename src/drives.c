@@ -699,7 +699,7 @@ parse_servers (guestfs_h *g, char *const *strs,
                struct drive_server **servers_rtn)
 {
   size_t i;
-  size_t n = guestfs_int_count_strings (strs);
+  const size_t n = guestfs_int_count_strings (strs);
   struct drive_server *servers;
 
   if (n == 0) {
