@@ -345,7 +345,7 @@ mexp_expect (mexp_h *h, const mexp_regexp *regexps, int *ovector, int ovecsize)
       assert (h->buffer != NULL);
 
       for (i = 0; regexps[i].r > 0; ++i) {
-        int options = regexps[i].options | PCRE_PARTIAL_SOFT;
+        const int options = regexps[i].options | PCRE_PARTIAL_SOFT;
 
         r = pcre_exec (regexps[i].re, regexps[i].extra,
                        h->buffer, (int)h->len, 0,

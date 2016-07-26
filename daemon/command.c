@@ -217,9 +217,10 @@ commandrvf (char **stdoutput, char **stderror, unsigned flags,
 {
   size_t so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
-  unsigned flag_copy_stdin = flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
-  int flag_copy_fd = (int) (flags & COMMAND_FLAG_FD_MASK);
-  unsigned flag_out_on_err = flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR;
+  const unsigned flag_copy_stdin =
+    flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
+  const int flag_copy_fd = (int) (flags & COMMAND_FLAG_FD_MASK);
+  const unsigned flag_out_on_err = flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR;
   pid_t pid;
   int r, quit, i;
   fd_set rset, rset2;

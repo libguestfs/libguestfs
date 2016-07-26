@@ -35,7 +35,7 @@ GUESTFSD_EXT_CMD(str_base64, base64);
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
 {
-  int fd = *(int *)fd_ptr;
+  const int fd = *(int *)fd_ptr;
   return xwrite (fd, buf, len);
 }
 

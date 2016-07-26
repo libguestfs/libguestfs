@@ -97,7 +97,8 @@ print_stat (FILE *fp,
   const char *cols[4];
   int64_t factor, v;
   float percent;
-  int hopts = human_round_to_nearest|human_autoscale|human_base_1024|human_SI;
+  const int hopts =
+    human_round_to_nearest|human_autoscale|human_base_1024|human_SI;
   size_t i, len;
   char *dev;
 

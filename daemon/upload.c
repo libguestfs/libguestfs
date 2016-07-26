@@ -186,7 +186,7 @@ do_download (const char *filename)
     }
     total = statbuf.st_size;
   } else {
-    int64_t size = do_blockdev_getsize64 (filename);
+    const int64_t size = do_blockdev_getsize64 (filename);
     if (size == -1) {
       /* do_blockdev_getsize64 has already sent a reply. */
       close (fd);

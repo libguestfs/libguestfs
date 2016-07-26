@@ -110,7 +110,7 @@ virt_builder_pxzcat (value inputfilev, value outputfilev)
 
   pid = fork ();
   if (pid == -1) {
-    int err = errno;
+    const int err = errno;
     close (fd);
     unix_error (err, (char *) "fork", Nothing);
   }
@@ -188,7 +188,7 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
    */
   ofd = open (String_val (outputfilev), O_WRONLY|O_CREAT|O_NOCTTY, 0644);
   if (ofd == -1) {
-    int err = errno;
+    const int err = errno;
     close (fd);
     unix_error (err, (char *) "open", outputfilev);
   }
@@ -196,25 +196,25 @@ pxzcat (value filenamev, value outputfilev, unsigned nr_threads)
   guestfs_int_fadvise_random (ofd);
 
   if (ftruncate (ofd, 1) == -1) {
-    int err = errno;
+    const int err = errno;
     close (fd);
     unix_error (err, (char *) "ftruncate", outputfilev);
   }
 
   if (lseek (ofd, 0, SEEK_SET) == -1) {
-    int err = errno;
+    const int err = errno;
     close (fd);
     unix_error (err, (char *) "lseek", outputfilev);
   }
 
   if (write (ofd, "\0", 1) == -1) {
-    int err = errno;
+    const int err = errno;
     close (fd);
     unix_error (err, (char *) "write", outputfilev);
   }
 
   if (ftruncate (ofd, size) == -1) {
-    int err = errno;
+    const int err = errno;
     close (fd);
     unix_error (err, (char *) "ftruncate", outputfilev);
   }

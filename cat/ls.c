@@ -550,7 +550,7 @@ static int field;
 static void
 next_field (void)
 {
-  int c = csv ? ',' : ' ';
+  const int c = csv ? ',' : ' ';
 
   field++;
   if (field == 1) return;
@@ -643,7 +643,8 @@ static void
 output_int64_size (int64_t size)
 {
   char buf[LONGEST_HUMAN_READABLE];
-  int hopts = human_round_to_nearest|human_autoscale|human_base_1024|human_SI;
+  const int hopts =
+    human_round_to_nearest|human_autoscale|human_base_1024|human_SI;
   int r;
 
   next_field ();

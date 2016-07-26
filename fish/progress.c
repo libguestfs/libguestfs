@@ -332,7 +332,7 @@ progress_bar_set (struct progress_bar *bar,
       fprintf (fp, "%s --- ", spinner (bar, bar->count));
     }
     else if (ratio < 1) {
-      int percent = 100.0 * ratio;
+      const int percent = 100.0 * ratio;
       fprintf (fp, "%s%3d%% ", spinner (bar, bar->count), percent);
     }
     else {
@@ -351,7 +351,7 @@ progress_bar_set (struct progress_bar *bar,
     fputs (s_open, fp);
 
     if (!pulse_mode) {
-      size_t dots = ratio * (double) (cols - COLS_OVERHEAD);
+      const size_t dots = ratio * (double) (cols - COLS_OVERHEAD);
 
       for (i = 0; i < dots; ++i)
         fputs (s_dot, fp);
@@ -360,7 +360,7 @@ progress_bar_set (struct progress_bar *bar,
     }
     else {           /* "Pulse mode": the progress bar just pulses. */
       for (i = 0; i < cols - COLS_OVERHEAD; ++i) {
-        int cc = (bar->count * 3 - i) % (cols - COLS_OVERHEAD);
+        const int cc = (bar->count * 3 - i) % (cols - COLS_OVERHEAD);
         if (cc >= 0 && cc <= 3)
           fputs (s_dot, fp);
         else
@@ -376,21 +376,21 @@ progress_bar_set (struct progress_bar *bar,
     if (estimate >= 100.0 * 60.0 * 60.0 /* >= 100 hours */) {
       /* Display hours<h> */
       estimate /= 60. * 60.;
-      int hh = floor (estimate);
+      const int hh = floor (estimate);
       fprintf (fp, ">%dh", hh);
     } else if (estimate >= 100.0 * 60.0 /* >= 100 minutes */) {
       /* Display hours<h>minutes */
       estimate /= 60. * 60.;
-      int hh = floor (estimate);
+      const int hh = floor (estimate);
       double ignore;
-      int mm = floor (modf (estimate, &ignore) * 60.);
+      const int mm = floor (modf (estimate, &ignore) * 60.);
       fprintf (fp, "%02dh%02d", hh, mm);
     } else if (estimate >= 0.0) {
       /* Display minutes:seconds */
       estimate /= 60.;
-      int mm = floor (estimate);
+      const int mm = floor (estimate);
       double ignore;
-      int ss = floor (modf (estimate, &ignore) * 60.);
+      const int ss = floor (modf (estimate, &ignore) * 60.);
       fprintf (fp, "%02d:%02d", mm, ss);
     }
     else /* < 0 means estimate was not meaningful */

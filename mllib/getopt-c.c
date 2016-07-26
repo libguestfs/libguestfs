@@ -249,7 +249,7 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
 
     for (j = 0; j < len; ++j) {
       const char *key = String_val (Field (keysv, j));
-      size_t key_len = strlen (key);
+      const size_t key_len = strlen (key);
       int has_arg = 0;
 
       /* We assume that the key is valid, with the checks done in the

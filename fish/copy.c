@@ -50,7 +50,7 @@ run_copy_in (const char *cmd, size_t argc, char *argv[])
   if (remote == NULL)
     return -1;
 
-  int nr_locals = argc-1;
+  const int nr_locals = argc-1;
 
   /* Upload each local one at a time using copy-in. */
   int i;
@@ -74,7 +74,7 @@ run_copy_out (const char *cmd, size_t argc, char *argv[])
 
   /* Local directory is always the last arg. */
   const char *local = argv[argc-1];
-  int nr_remotes = argc-1;
+  const int nr_remotes = argc-1;
 
   /* Download each remote one at a time using copy-out. */
   int i, r;

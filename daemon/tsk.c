@@ -56,7 +56,8 @@ do_internal_filesystem_walk (const mountable_t *mountable)
   int ret = -1;
   TSK_FS_INFO *fs = NULL;
   TSK_IMG_INFO *img = NULL;  /* Used internally by tsk_fs_dir_walk */
-  int flags = TSK_FS_DIR_WALK_FLAG_ALLOC | TSK_FS_DIR_WALK_FLAG_UNALLOC |
+  const int flags =
+    TSK_FS_DIR_WALK_FLAG_ALLOC | TSK_FS_DIR_WALK_FLAG_UNALLOC |
     TSK_FS_DIR_WALK_FLAG_RECURSE | TSK_FS_DIR_WALK_FLAG_NOORPHAN;
 
   ret = open_filesystem (mountable->device, &img, &fs);

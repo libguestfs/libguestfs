@@ -628,7 +628,7 @@ mount_local_utimens (const char *path, const struct timespec ts[2])
 static int
 mount_local_open (const char *path, struct fuse_file_info *fi)
 {
-  int flags = fi->flags & O_ACCMODE;
+  const int flags = fi->flags & O_ACCMODE;
   DECL_G ();
   DEBUG_CALL ("%s, 0%o", path, (unsigned) fi->flags);
 

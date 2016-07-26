@@ -378,7 +378,8 @@ test_block_device (void)
   CLEANUP_FREE char **devices = NULL;
   char *r;
   const char *argv[4];
-  int t = max_time_override > 0 ? max_time_override : TEST_BLOCK_DEVICE_TIME;
+  const int t =
+    max_time_override > 0 ? max_time_override : TEST_BLOCK_DEVICE_TIME;
   char tbuf[64];
   int64_t bytes_written, bytes_read;
 

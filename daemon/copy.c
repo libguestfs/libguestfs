@@ -48,7 +48,7 @@ copy (const char *src, const char *src_display,
       int flags,
       int64_t srcoffset, int64_t destoffset, int64_t size, int sparse)
 {
-  int64_t saved_size = size;
+  const int64_t saved_size = size;
   int src_fd, dest_fd;
   CLEANUP_FREE char *buf = NULL;
   size_t n;

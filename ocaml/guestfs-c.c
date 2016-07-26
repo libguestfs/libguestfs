@@ -256,7 +256,7 @@ guestfs_int_ocaml_delete_event_callback (value gv, value ehv)
 {
   CAMLparam2 (gv, ehv);
   char key[64];
-  int eh = Int_val (ehv);
+  const int eh = Int_val (ehv);
 
   guestfs_h *g = Guestfs_val (gv);
 

@@ -337,7 +337,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
     snprintf (root, sizeof root, " root=%s", appliance_dev);
 
   if (tcg) {
-    int lpj = guestfs_int_get_lpj (g);
+    const int lpj = guestfs_int_get_lpj (g);
     if (lpj > 0)
       snprintf (lpj_s, sizeof lpj_s, " lpj=%d", lpj);
   }

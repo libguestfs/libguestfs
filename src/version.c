@@ -132,7 +132,7 @@ version_from_x_y_or_x (guestfs_h *g, struct version *v, const char *str,
 
     return 1;
   } else if (allow_only_x) {
-    int  major_version = guestfs_int_parse_unsigned_int (g, str);
+    const int major_version = guestfs_int_parse_unsigned_int (g, str);
     if (major_version == -1)
       return -1;
 

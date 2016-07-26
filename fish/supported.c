@@ -47,14 +47,14 @@ run_supported (const char *cmd, size_t argc, char *argv[])
   size_t i;
   size_t len = 0;
   for (i = 0; groups[i] != NULL; ++i) {
-    size_t l = strlen (groups[i]);
+    const size_t l = strlen (groups[i]);
     if (l > len)
       len = l;
   }
 
   for (i = 0; groups[i] != NULL; ++i) {
     char *gg[] = { groups[i], NULL };
-    int r = guestfs_available (g, gg);
+    const int r = guestfs_available (g, gg);
     const char *str = r == 0 ? _("yes") : _("no");
 
     printf ("%*s %s\n", (int) len, groups[i], str);

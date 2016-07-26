@@ -844,7 +844,7 @@ list_applications_windows_from_path (guestfs_h *g,
    * http://nsis.sourceforge.net/Add_uninstall_information_to_Add/Remove_Programs#Optional_values
    */
   for (i = 0; i < children->len; ++i) {
-    int64_t child = children->val[i].hivex_node_h;
+    const int64_t child = children->val[i].hivex_node_h;
     int64_t value;
     CLEANUP_FREE char *name = NULL, *display_name = NULL, *version = NULL,
       *install_path = NULL, *publisher = NULL, *url = NULL, *comments = NULL;

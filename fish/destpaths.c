@@ -198,8 +198,10 @@ complete_dest_paths_generator (const char *text, int state)
                     if (dirents->val[i].ftyp == 'u'
                         || dirents->val[i].ftyp == 'l'
                         || dirents->val[i].ftyp == '?') {
-                      int is_dir = guestfs_is_dir_opts (g, words[nr_words].name,
-                        GUESTFS_IS_DIR_OPTS_FOLLOWSYMLINKS, 1, -1);
+                      const int is_dir =
+                        guestfs_is_dir_opts (g, words[nr_words].name,
+                                             GUESTFS_IS_DIR_OPTS_FOLLOWSYMLINKS,
+                                             1, -1);
                       words[nr_words].is_dir = is_dir;
                     } else
                       words[nr_words].is_dir = dirents->val[i].ftyp == 'd';
@@ -245,7 +247,7 @@ complete_dest_paths_generator (const char *text, int state)
     if (cic_var && STREQ (cic_var, "off"))
       cic = 0;
 
-    int matches =
+    const int matches =
       cic ? STRCASEEQLEN (word->name, text, len)
           : STREQLEN (word->name, text, len);
 

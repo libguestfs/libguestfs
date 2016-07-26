@@ -351,8 +351,8 @@ compare_longest_first (const void *vp1, const void *vp2)
 {
   char * const *p1 = (char * const *) vp1;
   char * const *p2 = (char * const *) vp2;
-  int n1 = strlen (*p1);
-  int n2 = strlen (*p2);
+  const int n1 = strlen (*p1);
+  const int n2 = strlen (*p2);
   return n2 - n1;
 }
 

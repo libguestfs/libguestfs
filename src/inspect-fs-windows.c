@@ -301,7 +301,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   values = guestfs_hivex_node_values (g, node);
 
   for (i = 0; i < values->len; ++i) {
-    int64_t value = values->val[i].hivex_value_h;
+    const int64_t value = values->val[i].hivex_value_h;
     CLEANUP_FREE char *key = guestfs_hivex_value_key (g, value);
     if (key == NULL)
       goto out;
@@ -313,7 +313,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
     }
     else if (STRCASEEQ (key, "CurrentMajorVersionNumber")) {
       size_t vsize;
-      int64_t vtype = guestfs_hivex_value_type (g, value);
+      const int64_t vtype = guestfs_hivex_value_type (g, value);
       CLEANUP_FREE char *vbuf = guestfs_hivex_value_value (g, value, &vsize);
 
       if (vbuf == NULL)
@@ -331,7 +331,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
     }
     else if (STRCASEEQ (key, "CurrentMinorVersionNumber")) {
       size_t vsize;
-      int64_t vtype = guestfs_hivex_value_type (g, value);
+      const int64_t vtype = guestfs_hivex_value_type (g, value);
       CLEANUP_FREE char *vbuf = guestfs_hivex_value_value (g, value, &vsize);
 
       if (vbuf == NULL)
@@ -471,7 +471,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   fs->drive_mappings = safe_calloc (g, 2*count + 1, sizeof (char *));
 
   for (i = count = 0; i < values->len; ++i) {
-    int64_t v = values->val[i].hivex_value_h;
+    const int64_t v = values->val[i].hivex_value_h;
     CLEANUP_FREE char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
       goto out;
@@ -525,7 +525,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     goto out;
 
   for (i = 0; i < values2->len; ++i) {
-    int64_t v = values2->val[i].hivex_value_h;
+    const int64_t v = values2->val[i].hivex_value_h;
     CLEANUP_FREE char *key = guestfs_hivex_value_key (g, v);
     if (key == NULL)
       goto out;
@@ -752,11 +752,12 @@ utf16_to_utf8 (/* const */ char *input, size_t len)
   char *inp = input;
   char *outp = out;
 
-  size_t r = iconv (ic, (ICONV_CONST char **) &inp, &inlen, &outp, &outlen);
+  const size_t r =
+    iconv (ic, (ICONV_CONST char **) &inp, &inlen, &outp, &outlen);
   if (r == (size_t) -1) {
     if (errno == E2BIG) {
-      int err = errno;
-      size_t prev = outalloc;
+      const int err = errno;
+      const size_t prev = outalloc;
       /* Try again with a larger output buffer. */
       free (out);
       outalloc *= 2;
@@ -769,7 +770,7 @@ utf16_to_utf8 (/* const */ char *input, size_t len)
     }
     else {
       /* Else some conversion failure, eg. EILSEQ, EINVAL. */
-      int err = errno;
+      const int err = errno;
       iconv_close (ic);
       free (out);
       errno = err;

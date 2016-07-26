@@ -355,7 +355,8 @@ guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *data,
 char *
 guestfs_int_qemu_escape_param (guestfs_h *g, const char *param)
 {
-  size_t i, len = strlen (param);
+  size_t i;
+  const size_t len = strlen (param);
   char *p, *ret;
 
   ret = p = safe_malloc (g, len*2 + 1); /* max length of escaped name*/

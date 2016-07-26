@@ -53,7 +53,7 @@ do_fallocate64 (const char *path, int64_t len)
   }
 
 #ifdef HAVE_POSIX_FALLOCATE
-  int err = posix_fallocate (fd, 0, len);
+  const int err = posix_fallocate (fd, 0, len);
   if (err != 0) {
     errno = err;
     reply_with_perror ("%s", path);

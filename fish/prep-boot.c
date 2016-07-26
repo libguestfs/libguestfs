@@ -44,7 +44,7 @@ prep_postlaunch_bootroot (const char *filename, prep_data *data, const char *dev
   if (parse_size (data->params[3], &bootsize) == -1)
     prep_error (data, filename, _("could not parse boot size"));
 
-  int sector = guestfs_blockdev_getss (g, device);
+  const int sector = guestfs_blockdev_getss (g, device);
   if (sector == -1)
     prep_error (data, filename, _("failed to get sector size of disk: %s"),
                 guestfs_last_error (g));
@@ -94,7 +94,7 @@ prep_postlaunch_bootrootlv (const char *filename, prep_data *data, const char *d
   if (parse_size (data->params[4], &bootsize) == -1)
     prep_error (data, filename, _("could not parse boot size"));
 
-  int sector = guestfs_blockdev_getss (g, device);
+  const int sector = guestfs_blockdev_getss (g, device);
   if (sector == -1)
     prep_error (data, filename, _("failed to get sector size of disk: %s"),
                 guestfs_last_error (g));

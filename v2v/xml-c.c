@@ -239,7 +239,7 @@ v2v_xml_xpathobjptr_get_nodeptr (value xpathobjv, value iv)
 {
   CAMLparam2 (xpathobjv, iv);
   xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
-  int i = Int_val (iv);
+  const int i = Int_val (iv);
 
   if (i < 0 || i >= xpathobj->nodesetval->nodeNr)
     caml_invalid_argument ("get_nodeptr: node number out of range");

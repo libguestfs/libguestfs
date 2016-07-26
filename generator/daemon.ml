@@ -118,7 +118,7 @@ and generate_daemon_actions () =
     }                                                                   \\
     (path_out) = device_name_translation ((path));                      \\
     if ((path_out) == NULL) {                                           \\
-      int err = errno;                                                  \\
+      const int err = errno;                                            \\
       cancel_stmt;                                                      \\
       errno = err;                                                      \\
       reply_with_perror (\"%%s: %%s\", __func__, path);                     \\

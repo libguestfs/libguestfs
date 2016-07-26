@@ -33,7 +33,7 @@
 int
 guestfs_int_match (guestfs_h *g, const char *str, const pcre *re)
 {
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
@@ -50,7 +50,7 @@ guestfs_int_match (guestfs_h *g, const char *str, const pcre *re)
 char *
 guestfs_int_match1 (guestfs_h *g, const char *str, const pcre *re)
 {
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
@@ -65,7 +65,7 @@ int
 guestfs_int_match2 (guestfs_h *g, const char *str, const pcre *re,
 		    char **ret1, char **ret2)
 {
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
@@ -86,7 +86,7 @@ int
 guestfs_int_match3 (guestfs_h *g, const char *str, const pcre *re,
 		    char **ret1, char **ret2, char **ret3)
 {
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
@@ -109,7 +109,7 @@ int
 guestfs_int_match4 (guestfs_h *g, const char *str, const pcre *re,
 		    char **ret1, char **ret2, char **ret3, char **ret4)
 {
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
@@ -135,7 +135,7 @@ guestfs_int_match6 (guestfs_h *g, const char *str, const pcre *re,
 		    char **ret1, char **ret2, char **ret3, char **ret4,
 		    char **ret5, char **ret6)
 {
-  size_t len = strlen (str);
+  const size_t len = strlen (str);
   int vec[30], r;
 
   r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);

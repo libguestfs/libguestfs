@@ -201,7 +201,7 @@ do_write_file (const char *path, const char *content, int size)
   /* Note content_len must be small because of the limits on protocol
    * message size.
    */
-  int content_len = (int) strlen (content);
+  const int content_len = (int) strlen (content);
 
   if (size == 0)
     size = content_len;
@@ -455,8 +455,8 @@ do_file (const char *path)
 {
   CLEANUP_FREE char *buf = NULL;
   const char *display_path = path;
-
-  int is_dev = STRPREFIX (path, "/dev/");
+  const int is_dev = STRPREFIX (path, "/dev/");
+  struct stat statbuf;
 
   if (!is_dev) {
     buf = sysroot_path (path);
@@ -469,7 +469,6 @@ do_file (const char *path)
     /* For non-dev, check this is a regular file, else just return the
      * file type as a string (RHBZ#582484).
      */
-    struct stat statbuf;
     if (lstat (path, &statbuf) == -1) {
       reply_with_perror ("lstat: %s", display_path);
       return NULL;

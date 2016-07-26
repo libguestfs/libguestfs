@@ -351,13 +351,13 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
     else if (fs->product_name == NULL &&
              (STRPREFIX (lines[i], "DISTRIB_DESCRIPTION=\"") ||
               STRPREFIX (lines[i], "DISTRIB_DESCRIPTION='"))) {
-      size_t len = strlen (lines[i]) - 21 - 1;
+      const size_t len = strlen (lines[i]) - 21 - 1;
       fs->product_name = safe_strndup (g, &lines[i][21], len);
       r = 1;
     }
     else if (fs->product_name == NULL &&
              STRPREFIX (lines[i], "DISTRIB_DESCRIPTION=")) {
-      size_t len = strlen (lines[i]) - 20;
+      const size_t len = strlen (lines[i]) - 20;
       fs->product_name = safe_strndup (g, &lines[i][20], len);
       r = 1;
     }
@@ -1227,11 +1227,11 @@ check_hostname_freebsd (guestfs_h *g, struct inspect_fs *fs)
   for (i = 0; lines[i] != NULL; ++i) {
     if (STRPREFIX (lines[i], "hostname=\"") ||
         STRPREFIX (lines[i], "hostname='")) {
-      size_t len = strlen (lines[i]) - 10 - 1;
+      const size_t len = strlen (lines[i]) - 10 - 1;
       fs->hostname = safe_strndup (g, &lines[i][10], len);
       break;
     } else if (STRPREFIX (lines[i], "hostname=")) {
-      size_t len = strlen (lines[i]) - 9;
+      const size_t len = strlen (lines[i]) - 9;
       fs->hostname = safe_strndup (g, &lines[i][9], len);
       break;
     }
@@ -1394,7 +1394,7 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
    * Note these are further filtered by guestfs_inspect_get_mountpoints
    * and guestfs_inspect_get_filesystems.
    */
-  size_t n = fs->nr_fstab + 1;
+  const size_t n = fs->nr_fstab + 1;
   struct inspect_fstab_entry *p;
 
   p = safe_realloc (g, fs->fstab, n * sizeof (struct inspect_fstab_entry));
@@ -1861,8 +1861,8 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
      * prefixed with vtbd. IDE hard drives used to be prefixed with ad and now
      * are with ada.
      */
-    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
-    int part_i = guestfs_int_parse_unsigned_int (g, part);
+    const int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    const int part_i = guestfs_int_parse_unsigned_int (g, part);
     free (type);
     free (disk);
     free (part);
@@ -1877,8 +1877,8 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
      * numbered from 5 in Linux.  I have no idea what happens when you
      * have multiple "slices" (the FreeBSD term for MBR partitions).
      */
-    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
-    int slice_i = guestfs_int_parse_unsigned_int (g, slice);
+    const int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    const int slice_i = guestfs_int_parse_unsigned_int (g, slice);
     int part_i = part[0] - 'a' /* counting from 0 */;
     free (type);
     free (disk);
@@ -1897,7 +1897,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
   }
   else if ((os_type == OS_TYPE_NETBSD) &&
            match3 (g, spec, re_netbsd_dev, &type, &disk, &part)) {
-    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    const int disk_i = guestfs_int_parse_unsigned_int (g, disk);
     int part_i = part[0] - 'a'; /* counting from 0 */
     free (type);
     free (disk);
@@ -1914,7 +1914,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
   }
   else if ((os_type == OS_TYPE_OPENBSD) &&
            match3 (g, spec, re_openbsd_dev, &type, &disk, &part)) {
-    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    const int disk_i = guestfs_int_parse_unsigned_int (g, disk);
     int part_i = part[0] - 'a'; /* counting from 0 */
     free (type);
     free (disk);
@@ -1940,7 +1940,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
      * Turn the disk number into a letter-based identifier, so
      * we can resolve it easily.
      */
-    int disk_i = guestfs_int_parse_unsigned_int (g, disk);
+    const int disk_i = guestfs_int_parse_unsigned_int (g, disk);
     const char disk_as_letter[2] = { disk_i + 'a', 0 };
     r = resolve_fstab_device_xdev (g, type, disk_as_letter, part, &device);
     free (type);

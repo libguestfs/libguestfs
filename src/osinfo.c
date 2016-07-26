@@ -438,7 +438,7 @@ parse_version (guestfs_h *g, xmlNodePtr node, struct osinfo *osinfo)
   content = (char *) xmlNodeGetContent (node);
   if (content) {
     struct version version;
-    int res = guestfs_int_version_from_x_y (g, &version, content);
+    const int res = guestfs_int_version_from_x_y (g, &version, content);
     if (res < 0)
       return -1;
     else if (res > 0) {

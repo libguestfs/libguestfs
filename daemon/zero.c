@@ -137,7 +137,7 @@ do_wipefs (const char *device)
 int
 do_zero_device (const char *device)
 {
-  int64_t ssize = do_blockdev_getsize64 (device);
+  const int64_t ssize = do_blockdev_getsize64 (device);
   if (ssize == -1)
     return -1;
   uint64_t size = (uint64_t) ssize;
