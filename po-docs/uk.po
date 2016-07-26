@@ -2074,7 +2074,7 @@ msgstr ""
 " virt-builder ОС-версія\n"
 "    [-o|--output ОБРАЗ ДИСКА] [--size РОЗМІР] [--format raw|qcow2]\n"
 "    [--arch АРХІТЕКТУРА] [--attach ФАЙЛ ISO]\n"
-"__РЕЗЮМЕ_НАЛАШТОВУВАННЯ__\n"
+"__CUSTOMIZE_SYNOPSIS__\n"
 "\n"
 
 #. type: verbatim
