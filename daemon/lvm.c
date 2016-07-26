@@ -794,7 +794,7 @@ do_vgscan (void)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "vgscan", NULL);
+               str_lvm, "vgscan", "--cache", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;

@@ -39,6 +39,7 @@
 GUESTFSD_EXT_CMD(str_lvm, lvm);
 GUESTFSD_EXT_CMD(str_cp, cp);
 GUESTFSD_EXT_CMD(str_rm, rm);
+GUESTFSD_EXT_CMD(str_lvmetad, lvmetad);
 
 /* This runs during daemon start up and creates a complete copy of
  * /etc/lvm so that we can modify it as we desire.  We set
@@ -99,6 +100,23 @@ copy_lvm (void)
 
   /* Set a handler to remove the temporary directory at exit. */
   atexit (rm_lvm_system_dir);
+}
+
+/* Try to run lvmetad, without failing if it couldn't. */
+void
+start_lvmetad (void)
+{
+  char cmd[64];
+  int r;
+
+  snprintf (cmd, sizeof cmd, "%s", str_lvmetad);
+  if (verbose)
+    printf ("%s\n", cmd);
+  r = system (cmd);
+  if (r == -1)
+    perror ("system/lvmetad");
+  else if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
+    fprintf (stderr, "warning: lvmetad command failed\n");
 }
 
 static void
@@ -247,7 +265,7 @@ rescan (void)
   unlink (lvm_cache);
 
   CLEANUP_FREE char *err = NULL;
-  int r = command (NULL, &err, str_lvm, "vgscan", NULL);
+  int r = command (NULL, &err, str_lvm, "vgscan", "--cache", NULL);
   if (r == -1) {
     reply_with_error ("vgscan: %s", err);
     return -1;
