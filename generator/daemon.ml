@@ -563,7 +563,7 @@ cleanup_free_mountable (mountable_t *mountable)
             pr "    fprintf (stderr, \"%%s: failed: string finished early, around token %%s\\n\", __func__, \"%s\");\n" name;
             pr "    return -1;\n";
             pr "  }\n";
-            pr "  p = strchrnul (tok, ':');\n";
+            pr "  p = strchrnul (tok, '\\r');\n";
             pr "  if (*p) next = p+1; else next = NULL;\n";
             pr "  *p = '\\0';\n";
             (match coltype with
@@ -633,7 +633,7 @@ cleanup_free_mountable (mountable_t *mountable)
         pr "  r = command (&out, &err,\n";
         pr "	       \"lvm\", \"%ss\",\n" typ;
         pr "	       \"-o\", lvm_%s_cols, \"--unbuffered\", \"--noheadings\",\n" typ;
-        pr "	       \"--nosuffix\", \"--separator\", \":\", \"--units\", \"b\", NULL);\n";
+        pr "	       \"--nosuffix\", \"--separator\", \"\\r\", \"--units\", \"b\", NULL);\n";
         pr "  if (r == -1) {\n";
         pr "    reply_with_error (\"%%s\", err);\n";
         pr "    free (out);\n";
