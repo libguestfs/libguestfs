@@ -148,7 +148,12 @@ set_filter (char *const *filters)
   /* Remove all the old filters ... */
   r = aug_rm (aug, "/files/lvm/lvm.conf/devices/dict/filter/list/*");
   if (r == -1) {
-    AUGEAS_ERROR ("aug_rm");
+    AUGEAS_ERROR ("aug_rm/filter");
+    return -1;
+  }
+  r = aug_rm (aug, "/files/lvm/lvm.conf/devices/dict/global_filter/list/*");
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_rm/global_filter");
     return -1;
   }
 
@@ -161,7 +166,16 @@ set_filter (char *const *filters)
               count + 1);
 
     if (aug_set (aug, buf, filters[count]) == -1) {
-      AUGEAS_ERROR ("aug_set: %d: %s", count, filters[count]);
+      AUGEAS_ERROR ("aug_set/filter: %d: %s", count, filters[count]);
+      return -1;
+    }
+
+    snprintf (buf, sizeof buf,
+              "/files/lvm/lvm.conf/devices/dict/global_filter/list/%d/str",
+              count + 1);
+
+    if (aug_set (aug, buf, filters[count]) == -1) {
+      AUGEAS_ERROR ("aug_set/global_filter: %d: %s", count, filters[count]);
       return -1;
     }
   }
@@ -170,11 +184,21 @@ set_filter (char *const *filters)
   r = aug_match (aug, "/files/lvm/lvm.conf/devices/dict/filter/list/*/str",
                  NULL);
   if (r == -1) {
-    AUGEAS_ERROR ("aug_match");
+    AUGEAS_ERROR ("aug_match/filter");
     return -1;
   }
   if (r != count) {
     reply_with_error ("filters# vs matches mismatch: %d vs %d", count, r);
+    return -1;
+  }
+  r = aug_match (aug, "/files/lvm/lvm.conf/devices/dict/global_filter/list/*/str",
+                 NULL);
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_match/global_filter");
+    return -1;
+  }
+  if (r != count) {
+    reply_with_error ("global_filter# vs matches mismatch: %d vs %d", count, r);
     return -1;
   }
 
