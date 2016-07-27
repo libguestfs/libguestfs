@@ -722,15 +722,19 @@ Automake has no native support for OCaml programs, ocamlc nor
 ocamlopt.  What we do instead is to treat OCaml programs as C programs
 which happen to contain these "other objects" (C<"DEPENDENCIES"> in
 automake-speak) that happen to be the OCaml objects.  This works
-because all the OCaml programs contain at least 1 C object used for
-native bindings etc.
+because OCaml programs usually have C files for native bindings etc.
 
 So a typical program is described as just its C sources:
 
- virt_v2v_SOURCES = ... list of C files ...
+ virt_v2v_SOURCES = ... utils-c.c xml-c.c
+
+For programs that have no explicit C sources, we create an empty
+F<dummy.c> file, and list that instead:
+
+ virt_resize_SOURCES = dummy.c
 
 The OCaml objects which contain most of the code are listed as
-automake dependencies:
+automake dependencies (other dependencies may also be listed):
 
  virt_v2v_DEPENDENCIES = ... cmdline.cmx v2v.cmx
 
@@ -739,7 +743,8 @@ command.  This is needed because automake won't assemble the ocamlopt
 command, the list of objects and the C<-cclib> libraries in the
 correct order otherwise.
 
- virt_v2v_LINK = $(top_srcdir)/ocaml-link.sh -cclib ... -- ...
+ virt_v2v_LINK = \
+     $(top_srcdir)/ocaml-link.sh -cclib '-lutils -lgnu' -- ...
 
 The actual rules, which you can examine in F<v2v/Makefile.am>, are a
 little bit more complicated than this because they have to handle:
@@ -754,11 +759,15 @@ Compiling for byte code or native code.
 
 The pattern rules needed to compile the OCaml sources to objects.
 
+These are now kept in F<subdir-rules.mk> at the top level, which is
+included in every subdirectory F<Makefile.am>.
+
 =item *
 
-Adding OCaml sources files to C<EXTRA_DIST>.  Automake isn't aware of
-the complete list of sources for a binary, so it will not add them all
-automatically.
+Adding OCaml sources files to C<EXTRA_DIST>.
+
+Automake isn't aware of the complete list of sources for a binary, so
+it will not add them all automatically.
 
 =back
 
