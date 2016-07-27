@@ -45,6 +45,14 @@
 extern void scanner_init (yyscan_t *scanner, struct parse_context *context, FILE *in);
 extern void scanner_destroy (yyscan_t scanner);
 
+#if (YY_FLEX_MAJOR_VERSION > 2) \
+  || ((YY_FLEX_MAJOR_VERSION == 2) && (YY_FLEX_MINOR_VERSION > 6)) \
+  || ((YY_FLEX_MAJOR_VERSION == 2) && (YY_FLEX_MINOR_VERSION == 6) && (YY_FLEX_SUBMINOR_VERSION >= 1))
+#define IS_EOF 0
+#else
+#define IS_EOF EOF
+#endif
+
 %}
 
 %option nounput
@@ -104,7 +112,7 @@ extern void scanner_destroy (yyscan_t scanner);
   int c, prevnl = 0;
 
   /* Eat everything to the first blank line. */
-  while ((c = input (yyscanner)) != EOF) {
+  while ((c = input (yyscanner)) != IS_EOF) {
     if (c == '\n' && prevnl)
       break;
     prevnl = c == '\n';
@@ -116,7 +124,7 @@ extern void scanner_destroy (yyscan_t scanner);
  /* Hack to eat the PGP epilogue. */
 ^"-----BEGIN PGP SIGNATURE-----\n"  {
   /* Eat everything to the end of the file. */
-  while (input (yyscanner) != EOF)
+  while (input (yyscanner) != IS_EOF)
     ;
 
   return PGP_EPILOGUE;
