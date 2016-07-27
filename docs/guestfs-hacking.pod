@@ -18,13 +18,14 @@ run the generator (C<./autogen.sh && make -C generator>) in order to
 create those files.
 
 Libguestfs uses an autotools-based build system, with the main files
-being F<configure.ac> and F<Makefile.am>.  The F<generator>
-subdirectory contains the generator, plus files describing the API.
-The F<src> subdirectory contains source for the library.  The
-F<appliance> and F<daemon> subdirectories contain the source for the
-code that builds the appliance, and the code that runs in the
-appliance respectively.  Other directories are covered in the section
-L<SOURCE CODE SUBDIRECTORIES> below.
+being F<configure.ac> and F<Makefile.am>.  See L</THE BUILD SYSTEM>.
+
+The F<generator> subdirectory contains the generator, plus files
+describing the API.  The F<src> subdirectory contains source for the
+library.  The F<appliance> and F<daemon> subdirectories contain the
+source for the code that builds the appliance, and the code that runs
+in the appliance respectively.  Other directories are covered in the
+section L<SOURCE CODE SUBDIRECTORIES> below.
 
 Apart from the fact that all API entry points go via some generated
 code, the library is straightforward.  (In fact, even the generated
@@ -150,7 +151,7 @@ Logo used on the website.  The fish is called Arthur by the way.
 
 =item F<m4>
 
-M4 macros used by autoconf.
+M4 macros used by autoconf.  See L</THE BUILD SYSTEM>.
 
 =item F<make-fs>
 
@@ -259,6 +260,27 @@ The L<http://libguestfs.org> website files.
 Language bindings.
 
 =back
+
+=head1 THE BUILD SYSTEM
+
+Libguestfs uses the GNU autotools build system (autoconf, automake,
+libtool).
+
+The F<./configure> script is generated from F<configure.ac> and
+F<m4/guestfs_*.m4>.  Most of the configure script is split over many
+m4 macro files by topic, for example F<m4/guestfs_daemon.m4> deals
+with the dependencies of the daemon.
+
+The job of the top level F<Makefile.am> is mainly to list the
+subdirectories (C<SUBDIRS>) in the order they should be compiled.
+
+F<common-rules.mk> is included in every F<Makefile.am> (top level and
+subdirectories).  F<subdir-rules.mk> is included only in subdirectory
+F<Makefile.am> files.
+
+There are many make targets.  Use this command to list them all:
+
+ make help
 
 =head1 ADDING A NEW API
 
