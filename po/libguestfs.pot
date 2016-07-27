@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.33.45\n"
+"Project-Id-Version: libguestfs 1.33.46\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-22 17:32+0100\n"
+"POT-Creation-Date: 2016-07-27 15:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4057,7 +4057,7 @@ msgstr ""
 #: align/scan.c:74 cat/cat.c:54 cat/filesystems.c:88 cat/log.c:63 cat/ls.c:84
 #: df/main.c:67 diff/diff.c:93 edit/edit.c:64 fish/fish.c:111
 #: fuse/guestmount.c:99 fuse/guestunmount.c:53 inspector/inspector.c:70
-#: make-fs/make-fs.c:75 p2v/main.c:79 rescue/rescue.c:57
+#: make-fs/make-fs.c:75 p2v/main.c:85 rescue/rescue.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -4089,7 +4089,7 @@ msgstr ""
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
 #: diff/diff.c:262 edit/edit.c:157 fish/fish.c:295 format/format.c:180
 #: fuse/guestmount.c:247 fuse/guestunmount.c:121 inspector/inspector.c:161
-#: make-fs/make-fs.c:146 p2v/main.c:183 rescue/rescue.c:181
+#: make-fs/make-fs.c:146 p2v/main.c:189 rescue/rescue.c:181
 #: test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -7475,29 +7475,29 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:280
+#: fish/rc.c:286
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 
-#: fish/rc.c:285
+#: fish/rc.c:291
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:370 fish/rc.c:384
+#: fish/rc.c:376 fish/rc.c:390
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:396 fish/rc.c:410
+#: fish/rc.c:402 fish/rc.c:416
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:421
+#: fish/rc.c:427
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -7956,101 +7956,101 @@ msgstr ""
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:276
+#: p2v/gui.c:282
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:281
+#: p2v/gui.c:287
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:301
+#: p2v/gui.c:307
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:313
+#: p2v/gui.c:319
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:328
+#: p2v/gui.c:334
 msgid "SSH Identity URL:"
 msgstr ""
 
-#: p2v/gui.c:339
+#: p2v/gui.c:345
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:346
+#: p2v/gui.c:352
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:372
+#: p2v/gui.c:378
 msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:373
+#: p2v/gui.c:379
 msgid "XTerm ..."
 msgstr ""
 
-#: p2v/gui.c:374
+#: p2v/gui.c:380
 msgid "About virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:375
+#: p2v/gui.c:381
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:503
+#: p2v/gui.c:509
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:511
+#: p2v/gui.c:517
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:519
+#: p2v/gui.c:525
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:591
+#: p2v/gui.c:597
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:635
+#: p2v/gui.c:641
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:684
+#: p2v/gui.c:690
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:776
+#: p2v/gui.c:782
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:782
+#: p2v/gui.c:788
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:792
+#: p2v/gui.c:798
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:806
+#: p2v/gui.c:812
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:832
+#: p2v/gui.c:838
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:838
+#: p2v/gui.c:844
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:843
+#: p2v/gui.c:849
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8059,79 +8059,79 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:848
+#: p2v/gui.c:854
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:853
+#: p2v/gui.c:859
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:859
+#: p2v/gui.c:865
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:864
+#: p2v/gui.c:870
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:870
+#: p2v/gui.c:876
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:875
+#: p2v/gui.c:881
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:881
+#: p2v/gui.c:887
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:904
+#: p2v/gui.c:910
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:912
+#: p2v/gui.c:918
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:923
+#: p2v/gui.c:929
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:934
+#: p2v/gui.c:940
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:944
+#: p2v/gui.c:950
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:966
+#: p2v/gui.c:972
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:967
+#: p2v/gui.c:973
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:1017
+#: p2v/gui.c:1023
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1020
+#: p2v/gui.c:1026
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -8140,48 +8140,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1137 p2v/gui.c:1188 p2v/gui.c:1258
+#: p2v/gui.c:1143 p2v/gui.c:1194 p2v/gui.c:1264
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:1145 p2v/gui.c:1196 p2v/gui.c:1266
+#: p2v/gui.c:1151 p2v/gui.c:1202 p2v/gui.c:1272
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:1236 p2v/gui.c:1237
+#: p2v/gui.c:1242 p2v/gui.c:1243
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:1274
+#: p2v/gui.c:1280
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1556
+#: p2v/gui.c:1562
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1566
+#: p2v/gui.c:1572
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1574
+#: p2v/gui.c:1580
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1699
+#: p2v/gui.c:1705
 msgid "Cancel conversion ..."
 msgstr ""
 
-#: p2v/gui.c:1700
+#: p2v/gui.c:1706
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1751
+#: p2v/gui.c:1757
 #, c-format
 msgid ""
 "Log files and debug information is saved to this directory on the conversion "
@@ -8189,48 +8189,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1958
+#: p2v/gui.c:1964
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1959 p2v/gui.c:1980
+#: p2v/gui.c:1965 p2v/gui.c:1986
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1978
+#: p2v/gui.c:1984
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:2080
+#: p2v/gui.c:2086
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:2081
+#: p2v/gui.c:2087
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:2108
+#: p2v/gui.c:2114
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:2109
+#: p2v/gui.c:2115
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/gui.c:2192
+#: p2v/gui.c:2198
 msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
 msgstr ""
 
-#: p2v/gui.c:2195
+#: p2v/gui.c:2201
 msgid "Cancel the conversion"
 msgstr ""
 
-#: p2v/main.c:82
+#: p2v/main.c:88
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8248,22 +8248,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:175
+#: p2v/main.c:181
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:178
+#: p2v/main.c:184
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:206
+#: p2v/main.c:212
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:235
+#: p2v/main.c:241
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -9073,7 +9073,7 @@ msgstr ""
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1393 src/qemu.c:437
+#: src/launch-libvirt.c:1393 src/qemu.c:438
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -9360,11 +9360,11 @@ msgid ""
 "without libvirt"
 msgstr ""
 
-#: src/osinfo.c:249
+#: src/osinfo.c:362
 msgid "osinfo: unable to create new XPath context"
 msgstr ""
 
-#: src/osinfo.c:259
+#: src/osinfo.c:372
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
@@ -9419,35 +9419,35 @@ msgstr ""
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/qemu.c:619
+#: src/qemu.c:620
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: src/qemu.c:628
+#: src/qemu.c:629
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: src/qemu.c:635
+#: src/qemu.c:636
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: src/qemu.c:643
+#: src/qemu.c:644
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: src/qemu.c:651
+#: src/qemu.c:652
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "'%s' format files"
 msgstr ""
 
-#: src/qemu.c:674
+#: src/qemu.c:675
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol '%s' does not support "
@@ -9489,27 +9489,27 @@ msgstr ""
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
 
-#: src/utils.c:222
+#: src/utils.c:223
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:225
+#: src/utils.c:226
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:229
+#: src/utils.c:230
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:233
+#: src/utils.c:234
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:237
+#: src/utils.c:238
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""
