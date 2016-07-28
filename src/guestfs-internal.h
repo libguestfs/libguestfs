@@ -834,6 +834,7 @@ struct osinfo {
   int minor_version;
   char *arch;
   int is_live_disk;
+  bool is_installer;
 
 #if 0
   /* Not yet available in libosinfo database. */
