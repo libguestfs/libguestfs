@@ -412,7 +412,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *pathname)
       }
 
 #if 0
-      debug (g, "osinfo: %s: %s%s%s%s=> arch %s live %s product %s type %d distro %d version %d.%d",
+      debug (g, "osinfo: %s: %s%s%s%s=> arch %s live %s installer %s product %s type %d distro %d version %d.%d",
              pathname,
              osinfo->re_system_id ? "<system-id/> " : "",
              osinfo->re_volume_id ? "<volume-id/> " : "",
@@ -420,6 +420,7 @@ read_osinfo_db_xml (guestfs_h *g, const char *pathname)
              osinfo->re_application_id ? "<application-id/> " : "",
              osinfo->arch ? osinfo->arch : "(none)",
              osinfo->is_live_disk ? "true" : "false",
+             osinfo->is_installer ? "true" : "false",
              osinfo->product_name ? osinfo->product_name : "(none)",
              (int) osinfo->type, (int) osinfo->distro,
              osinfo->major_version, osinfo->minor_version);
@@ -493,6 +494,14 @@ read_media_node (guestfs_h *g, xmlXPathContextPtr xpathCtx,
     content = xmlGetProp (media_node, BAD_CAST "live");
     if (content)
       osinfo->is_live_disk = XMLSTREQ (content, BAD_CAST "true");
+  }
+
+  osinfo->is_installer = true; /* If no 'installer' attr, defaults to true. */
+  {
+    CLEANUP_XMLFREE xmlChar *content = NULL;
+    content = xmlGetProp (media_node, BAD_CAST "installer");
+    if (content)
+      osinfo->is_installer = XMLSTREQ (content, BAD_CAST "true");
   }
 
   return 0;
