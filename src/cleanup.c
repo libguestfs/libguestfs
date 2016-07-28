@@ -70,6 +70,15 @@ guestfs_int_cleanup_unlink_free (char **ptr)
 }
 
 void
+guestfs_int_cleanup_xmlFree (void *ptr)
+{
+  xmlChar *buf = * (xmlChar **) ptr;
+
+  if (buf)
+    xmlFree (buf);
+}
+
+void
 guestfs_int_cleanup_xmlBufferFree (void *ptr)
 {
   xmlBufferPtr xb = * (xmlBufferPtr *) ptr;
