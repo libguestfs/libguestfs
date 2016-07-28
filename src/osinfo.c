@@ -75,6 +75,8 @@ static struct osinfo *osinfo_db = NULL;
 static int read_osinfo_db (guestfs_h *g);
 static void free_osinfo_db_entry (struct osinfo *);
 
+#define XMLSTREQ(a,b) (xmlStrEqual((a),(b)) == 1)
+
 /* Given one or more fields from the header of a CD/DVD/ISO, look up
  * the media in the libosinfo database and return our best guess for
  * the operating system.
@@ -484,30 +486,14 @@ static int
 read_media_node (guestfs_h *g, xmlXPathContextPtr xpathCtx,
                  xmlNodePtr media_node, struct osinfo *osinfo)
 {
-  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xp = NULL, xp2 = NULL;
-  xmlNodePtr attr;
-
-  xpathCtx->node = media_node;
-  xp = xmlXPathEvalExpression (BAD_CAST "./@arch", xpathCtx);
-  if (xp && xp->nodesetval && xp->nodesetval->nodeNr > 0) {
-    attr = xp->nodesetval->nodeTab[0];
-    assert (attr);
-    assert (attr->type == XML_ATTRIBUTE_NODE);
-    osinfo->arch = (char *) xmlNodeGetContent (attr);
-  }
+  osinfo->arch = (char *) xmlGetProp (media_node, BAD_CAST "arch");
 
   osinfo->is_live_disk = 0; /* If no 'live' attr, defaults to false. */
-
-  xpathCtx->node = media_node;
-  xp2 = xmlXPathEvalExpression (BAD_CAST "./@live", xpathCtx);
-  if (xp2 && xp2->nodesetval && xp2->nodesetval->nodeNr > 0) {
-    CLEANUP_FREE char *content = NULL;
-
-    attr = xp2->nodesetval->nodeTab[0];
-    assert (attr);
-    assert (attr->type == XML_ATTRIBUTE_NODE);
-    content = (char *) xmlNodeGetContent (attr);
-    osinfo->is_live_disk = STREQ (content, "true");
+  {
+    CLEANUP_XMLFREE xmlChar *content = NULL;
+    content = xmlGetProp (media_node, BAD_CAST "live");
+    if (content)
+      osinfo->is_live_disk = XMLSTREQ (content, BAD_CAST "true");
   }
 
   return 0;
