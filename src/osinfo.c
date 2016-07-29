@@ -168,17 +168,22 @@ read_osinfo_db (guestfs_h *g)
 {
   int r;
   size_t i;
-  const char *path;
 
   assert (osinfo_db_size == 0);
 
   /* (1) Try the shared osinfo directory, using either the
    * $OSINFO_SYSTEM_DIR envvar or its default value.
    */
-  path = getenv ("OSINFO_SYSTEM_DIR");
-  if (path == NULL)
-    path = "/usr/share/osinfo";
-  r = read_osinfo_db_three_levels (g, path);
+  {
+    const char *path;
+    CLEANUP_FREE char *os_path = NULL;
+
+    path = getenv ("OSINFO_SYSTEM_DIR");
+    if (path == NULL)
+      path = "/usr/share/osinfo";
+    os_path = safe_asprintf (g, "%s/os", path);
+    r = read_osinfo_db_three_levels (g, os_path);
+  }
   if (r == -1)
     goto error;
   else if (r == 1)
