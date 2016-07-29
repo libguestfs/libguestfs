@@ -138,8 +138,13 @@ functions that return integers return C<-1> on error, and all
 functions that return pointers return C<NULL> on error.  See section
 L</ERROR HANDLING> below for how to handle errors, and consult the
 documentation for each function call below to see precisely how they
-return error indications.  See L<guestfs-examples(3)> for fully worked
-examples.
+return error indications.
+
+The code above does not L<free(3)> the strings and arrays returned
+from functions.  Consult the documentation for each function to find
+out how to free the return value.
+
+See L<guestfs-examples(3)> for fully worked examples.
 
 =head2 DISK IMAGES
 
