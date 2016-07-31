@@ -18,25 +18,33 @@
 
 (** Mini interface to libxml2. *)
 
-type doc                                (** xmlDocPtr *)
-type node                               (** xmlNodePtr *)
-type xpathctx                           (** xmlXPathContextPtr *)
-type xpathobj                           (** xmlXPathObjectPtr *)
+type doc
+(** http://xmlsoft.org/html/libxml-tree.html#xmlDocPtr *)
+type node
+(** http://xmlsoft.org/html/libxml-tree.html#xmlNodePtr *)
+type xpathctx
+(** http://xmlsoft.org/html/libxml-xpath.html#xmlXPathContextPtr *)
+type xpathobj
+(** http://xmlsoft.org/html/libxml-xpath.html#xmlXPathObjectPtr *)
 
 val parse_memory : string -> doc
-(** xmlParseMemory (for security reasons it actually calls xmlReadMemory) *)
+(** http://xmlsoft.org/html/libxml-parser.html#xmlParseMemory
+
+    For security reasons it actually calls xmlReadMemory with the
+    [XML_PARSE_NONET] option set. *)
+
 val copy_doc : doc -> recursive:bool -> doc
-(** xmlCopyDoc *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlCopyDoc *)
 
 val to_string : doc -> format:bool -> string
-(** xmlDocDumpFormatMemory *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlDocDumpFormatMemory *)
 
 val xpath_new_context : doc -> xpathctx
-(** xmlXPathNewContext *)
+(** http://xmlsoft.org/html/libxml-xpath.html#xmlXPathNewContext *)
 val xpath_eval_expression : xpathctx -> string -> xpathobj
-(** xmlXPathEvalExpression *)
+(** http://xmlsoft.org/html/libxml-xpath.html#xmlXPathEvalExpression *)
 val xpath_register_ns : xpathctx -> string -> string -> unit
-(** xmlXPathRegisterNs *)
+(** http://xmlsoft.org/html/libxml-xpathInternals.html#xmlXPathRegisterNs *)
 
 val xpathobj_nr_nodes : xpathobj -> int
 (** Get the number of nodes in the nodeset of the xmlXPathObjectPtr. *)
@@ -65,23 +73,24 @@ val node_as_string : node -> string
 (** Converter to turn a node into a string *)
 
 val node_set_content : node -> string -> unit
-(** xmlNodeSetContent *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlNodeSetContent *)
 
 val new_text_child : node -> string -> string -> node
-(** xmlNewTextChild *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlNewTextChild *)
 
 val set_prop : node -> string -> string -> unit
-(** xmlSetProp *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlSetProp *)
 
 val unset_prop : node -> string -> bool
-(** xmlUnsetProp (returns [true] if the property was removed) *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlUnsetProp
+    Returns [true] if the property was removed. *)
 
 val unlink_node : node -> unit
-(** xmlUnlinkNode
+(** http://xmlsoft.org/html/libxml-tree.html#xmlUnlinkNode
     {b NB:} This frees the [node], do not use it afterwards. *)
 
 val doc_get_root_element : doc -> node option
-(** xmlDocGetRootElement *)
+(** http://xmlsoft.org/html/libxml-tree.html#xmlDocGetRootElement *)
 
 type uri = {
   uri_scheme : string option;
@@ -96,7 +105,9 @@ type uri = {
 }
 
 val parse_uri : string -> uri
-(** Parse URI.
+(** http://xmlsoft.org/html/libxml-uri.html#xmlParseURI
+
+    Parse URI.
 
     Note this is different from the {!URI} module which is specialized
     for parsing the [-a] parameter on the command line.  This function
