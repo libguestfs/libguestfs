@@ -74,9 +74,10 @@ let copy_doc docptr ~recursive =
 
 external to_string : docptr -> format:bool -> string = "v2v_xml_to_string"
 
-external xpath_new_context : docptr -> xpathctxptr = "v2v_xml_xpath_new_context"
+external _xpath_new_context : docptr -> xpathctxptr
+  = "v2v_xml_xpath_new_context"
 let xpath_new_context docptr =
-  let xpathctxptr = xpath_new_context docptr in
+  let xpathctxptr = _xpath_new_context docptr in
   Gc.finalise free_xpathctxptr xpathctxptr;
   docptr, xpathctxptr
 
