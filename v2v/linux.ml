@@ -99,14 +99,18 @@ let rec file_owner g inspect path =
       (* Although it is possible in RPM for multiple packages to own
        * a file, this deliberately only returns one package.
        *)
-      let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}"; path |] in
+      let cmd = [| "rpm"; "-qf"; "--qf"; "%{NAME}\\n"; path |] in
       debug "%s" (String.concat " " (Array.to_list cmd));
-      (try g#command cmd
+      (try
+         let pkgs = g#command_lines cmd in
+         pkgs.(0)
        with Guestfs.Error msg as exn ->
          if String.find msg "is not owned" >= 0 then
            raise Not_found
          else
            raise exn
+       | Invalid_argument msg ->
+         raise Not_found
       )
 
   | format ->
