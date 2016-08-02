@@ -152,7 +152,7 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
     error (f_"don't know how to get list of files from package using %s")
       format
 
-let rec file_owner g inspect path =
+let rec file_owner (g : G.guestfs) inspect path =
   let package_format = inspect.i_package_format in
   match package_format with
   | "rpm" ->
@@ -177,5 +177,5 @@ let rec file_owner g inspect path =
     error (f_"don't know how to find file owner using %s") format
 
 and is_file_owned g inspect path =
-  try file_owner g inspect path; true
+  try ignore (file_owner g inspect path); true
   with Not_found -> false
