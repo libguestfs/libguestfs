@@ -163,12 +163,68 @@ static int check_bridge_exists (guestfs_h *g, const char *brname);
 static void selinux_warning (guestfs_h *g, const char *func, const char *selinux_op, const char *data);
 #endif
 
+/**
+ * Return C<drv-E<gt>src.format>, but if it is C<NULL>, autodetect the
+ * format.
+ *
+ * libvirt has disabled the feature of detecting the disk format,
+ * unless the administrator sets C<allow_disk_format_probing=1> in
+ * F</etc/libvirt/qemu.conf>.  There is no way to detect if this
+ * option is set, so we have to do format detection here using
+ * C<qemu-img> and pass that to libvirt.
+ *
+ * This can still be a security issue, so in most cases it is
+ * recommended the users pass the format to libguestfs which will
+ * faithfully pass that straight through to libvirt without doing
+ * autodetection.
+ *
+ * Caller must free the returned string.  On error this function sets
+ * the error in the handle and returns C<NULL>.
+ */
+static char *
+get_source_format_or_autodetect (guestfs_h *g, struct drive *drv)
+{
+  if (drv->src.format)
+    return safe_strdup (g, drv->src.format);
+
+  if (drv->src.protocol == drive_protocol_file) {
+    char *format;
+
+    format = guestfs_disk_format (g, drv->src.u.path);
+    if (!format)
+      return NULL;
+
+    if (STREQ (format, "unknown")) {
+      error (g, _("could not auto-detect the format.\n"
+                  "If the format is known, pass the format to libguestfs, eg. using the\n"
+                  "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+      return NULL;
+    }
+
+    return format;
+  }
+
+  /* Non-file protocol. */
+  error (g, _("could not auto-detect the format when using a non-file protocol.\n"
+              "If the format is known, pass the format to libguestfs, eg. using the\n"
+              "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+  return NULL;
+}
+
+/**
+ * Create a qcow2 format overlay, with the given C<backing_drive>
+ * (file).  The C<format> parameter, which must be non-NULL, is the
+ * backing file format.  This is used to create the appliance overlay,
+ * and also for read-only drives.
+ */
 static char *
 make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
                     const char *format)
 {
   char *overlay;
   struct guestfs_disk_create_argv optargs;
+
+  assert (format != NULL);
 
   if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return NULL;
@@ -177,10 +233,8 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
 
   optargs.bitmask = GUESTFS_DISK_CREATE_BACKINGFILE_BITMASK;
   optargs.backingfile = backing_drive;
-  if (format) {
-    optargs.bitmask |= GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK;
-    optargs.backingformat = format;
-  }
+  optargs.bitmask |= GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK;
+  optargs.backingformat = format;
 
   if (guestfs_disk_create_argv (g, overlay, "qcow2", -1, &optargs) == -1) {
     free (overlay);
@@ -197,13 +251,18 @@ create_cow_overlay_libvirt (guestfs_h *g, void *datav, struct drive *drv)
   struct backend_libvirt_data *data = datav;
 #endif
   CLEANUP_FREE char *backing_drive = NULL;
+  CLEANUP_FREE char *format = NULL;
   char *overlay;
 
   backing_drive = guestfs_int_drive_source_qemu_param (g, &drv->src);
   if (!backing_drive)
     return NULL;
 
-  overlay = make_qcow2_overlay (g, backing_drive, drv->src.format);
+  format = get_source_format_or_autodetect (g, drv);
+  if (!format)
+    return NULL;
+
+  overlay = make_qcow2_overlay (g, backing_drive, format);
   if (!overlay)
     return NULL;
 
@@ -1476,36 +1535,9 @@ construct_libvirt_xml_disk (guestfs_h *g,
       if (construct_libvirt_xml_disk_target (g, xo, drv_index) == -1)
         return -1;
 
-      if (drv->src.format)
-        format = safe_strdup (g, drv->src.format);
-      else if (drv->src.protocol == drive_protocol_file) {
-        /* libvirt has disabled the feature of detecting the disk format,
-         * unless the administrator sets allow_disk_format_probing=1 in
-         * qemu.conf.  There is no way to detect if this option is set, so we
-         * have to do format detection here using qemu-img and pass that to
-         * libvirt.
-         *
-         * This is still a security issue, so in most cases it is recommended
-         * the users pass the format to libguestfs which will faithfully pass
-         * that to libvirt and this function won't be used.
-         */
-        format = guestfs_disk_format (g, drv->src.u.path);
-        if (!format)
-          return -1;
-
-        if (STREQ (format, "unknown")) {
-          error (g, _("could not auto-detect the format.\n"
-                      "If the format is known, pass the format to libguestfs, eg. using the\n"
-                      "'--format' option, or via the optional 'format' argument to 'add-drive'."));
-          return -1;
-        }
-      }
-      else {
-        error (g, _("could not auto-detect the format when using a non-file protocol.\n"
-                    "If the format is known, pass the format to libguestfs, eg. using the\n"
-                    "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+      format = get_source_format_or_autodetect (g, drv);
+      if (!format)
         return -1;
-      }
 
       if (construct_libvirt_xml_disk_driver_qemu (g, data, drv, xo, format,
                                                   drv->cachemode ? : "writeback",
