@@ -78,6 +78,10 @@ module String : sig
 end
 (** Override the String module from stdlib. *)
 
+(** Exception thrown by [which] when the specified executable is not found
+    in [$PATH]. *)
+exception Executable_not_found of string (* executable *)
+
 val ( // ) : string -> string -> string
 (** Concatenate directory and filename. *)
 
@@ -379,3 +383,8 @@ val inspect_mount_root_ro : Guestfs.guestfs -> string -> unit
 
 val is_btrfs_subvolume : Guestfs.guestfs -> string -> bool
 (** Checks if a filesystem is a btrfs subvolume. *)
+
+val which : string -> string
+(** Return the full path of the specified executable from [$PATH].
+
+    Throw [Executable_not_found] if not available. *)
