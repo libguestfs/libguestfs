@@ -141,6 +141,8 @@ module String = struct
       )
 end
 
+exception Executable_not_found of string (* executable *)
+
 let (//) = Filename.concat
 
 let ( +^ ) = Int64.add
@@ -298,6 +300,18 @@ let protect ~f ~finally =
     with exn -> Or exn in
   finally ();
   match r with Either ret -> ret | Or exn -> raise exn
+
+let which executable =
+  let paths = String.nsplit ":" (Sys.getenv "PATH") in
+  let paths = filter_map (
+    fun p ->
+      let path = p // executable in
+      try Unix.access path [Unix.X_OK]; Some path
+      with Unix.Unix_error _ -> None
+  ) paths in
+  match paths with
+  | [] -> raise (Executable_not_found executable)
+  | x :: _ -> x
 
 (* Program name. *)
 let prog = Filename.basename Sys.executable_name

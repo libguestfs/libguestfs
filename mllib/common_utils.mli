@@ -85,6 +85,10 @@ module String : sig
 end
 (** Override the String module from stdlib. *)
 
+(** Exception thrown by [which] when the specified executable is not found
+    in [$PATH]. *)
+exception Executable_not_found of string (* executable *)
+
 val ( // ) : string -> string -> string
 (** Concatenate directory and filename. *)
 
@@ -372,3 +376,8 @@ val read_first_line_from_file : string -> string
 
 val is_regular_file : string -> bool
 (** Checks whether the file is a regular file. *)
+
+val which : string -> string
+(** Return the full path of the specified executable from [$PATH].
+
+    Throw [Executable_not_found] if not available. *)

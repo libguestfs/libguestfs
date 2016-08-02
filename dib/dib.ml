@@ -297,7 +297,7 @@ $cmd \"$@\"
   (try
     let loc = which "dib-run-parts" in
     do_cp loc (destdir // "fake-bin")
-  with Tool_not_found _ ->
+  with Executable_not_found _ ->
     let fake_dib_run_parts = "\
 #!/bin/sh
 echo \"Please install dib-run-parts on the host\"

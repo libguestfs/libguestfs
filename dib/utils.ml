@@ -21,8 +21,6 @@ open Common_utils
 
 open Printf
 
-exception Tool_not_found of string (* tool *)
-
 let quote = Filename.quote
 
 let unit_GB howmany =
@@ -97,21 +95,9 @@ let rec remove_dups = function
   | [] -> []
   | x :: xs -> x :: (remove_dups (List.filter ((<>) x) xs))
 
-let which tool =
-  let paths = String.nsplit ":" (Sys.getenv "PATH") in
-  let paths = filter_map (
-    fun p ->
-      let path = p // tool in
-      try Unix.access path [Unix.X_OK]; Some path
-      with Unix.Unix_error _ -> None
-  ) paths in
-  match paths with
-  | [] -> raise (Tool_not_found tool)
-  | x :: _ -> x
-
 let require_tool tool =
   try ignore (which tool)
-  with Tool_not_found tool ->
+  with Executable_not_found tool ->
     error (f_"%s needed but not found") tool
 
 let do_cp src destdir =
