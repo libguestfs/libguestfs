@@ -707,18 +707,26 @@ let external_command ?(echo_cmd = true) cmd =
 let run_command ?(echo_cmd = true) args =
   if echo_cmd then
     debug "%s" (stringify_args args);
-  let pid =
-    Unix.create_process (List.hd args) (Array.of_list args) Unix.stdin
-      Unix.stdout Unix.stderr in
-  let _, stat = Unix.waitpid [] pid in
-  match stat with
-  | Unix.WEXITED i -> i
-  | Unix.WSIGNALED i ->
-    error (f_"external command '%s' killed by signal %d")
-      (stringify_args args) i
-  | Unix.WSTOPPED i ->
-    error (f_"external command '%s' stopped by signal %d")
-      (stringify_args args) i
+  let app = List.hd args in
+  try
+    let app =
+      if Filename.is_relative app then which app
+      else (Unix.access app [Unix.X_OK]; app) in
+    let pid =
+      Unix.create_process app (Array.of_list args) Unix.stdin
+        Unix.stdout Unix.stderr in
+    let _, stat = Unix.waitpid [] pid in
+    match stat with
+    | Unix.WEXITED i -> i
+    | Unix.WSIGNALED i ->
+      error (f_"external command '%s' killed by signal %d")
+        (stringify_args args) i
+    | Unix.WSTOPPED i ->
+      error (f_"external command '%s' stopped by signal %d")
+        (stringify_args args) i
+  with
+  | Executable_not_found tool -> 127
+  | Unix.Unix_error (errcode, _, _) when errcode = Unix.ENOENT -> 127
 
 let shell_command ?(echo_cmd = true) cmd =
   if echo_cmd then
