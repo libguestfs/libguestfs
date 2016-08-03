@@ -34,7 +34,8 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	../mllib/dev_t-c.c \
-	../mllib/mkdtemp-c.c
+	../mllib/mkdtemp-c.c \
+	../mllib/exit-c.c
 
 bin_PROGRAMS =
 
@@ -62,6 +63,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/stringMap.cmo \
 	$(top_builddir)/mllib/common_utils.cmo \
 	$(top_builddir)/mllib/mkdtemp.cmo \
+	$(top_builddir)/mllib/exit.cmo \
 	$(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 

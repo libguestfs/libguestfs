@@ -577,29 +577,6 @@ arguments
 
 =item
 
-C<extra-data.d> scripts run in the host environment, before all the
-other ones (even C<root.d>); this means that, depending on the
-configuration for the elements, some of them may fail due to missing
-content (usually directories) in C<TMP_HOOKS_PATH>.
-
-Workarounds for this may be either:
-
-=over 4
-
-=item
-
-fix the C<extra-data.d> scripts to create the missing directories
-
-=item
-
-create (and use) a simple element with a C<extra-data.d> script
-named e.g. F<00-create-missing-dirs> to create the missing
-directories
-
-=back
-
-=item
-
 extra tools needed on some out-of-chroot phases need to be available
 in the appliance, see L</EXTRA DEPENDENCIES>.
 
