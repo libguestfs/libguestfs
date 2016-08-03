@@ -265,6 +265,7 @@ lua/lua-guestfs.c
 make-fs/make-fs.c
 mllib/dev_t-c.c
 mllib/dummy.c
+mllib/exit-c.c
 mllib/fsync-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
@@ -369,7 +370,6 @@ utils/boot-benchmark/boot-benchmark-range.pl
 utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
-v2v/changeuid-c.c
 v2v/domainxml-c.c
 v2v/utils-c.c
 v2v/xml-c.c

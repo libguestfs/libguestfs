@@ -116,8 +116,8 @@ SOURCES_C = \
 	../mllib/dev_t-c.c \
 	../mllib/mkdtemp-c.c \
 	../mllib/statvfs-c.c \
+	../mllib/exit-c.c \
 	domainxml-c.c \
-	changeuid-c.c \
 	utils-c.c \
 	xml-c.c
 
@@ -146,6 +146,7 @@ BOBJECTS = \
 	$(top_builddir)/mllib/mkdtemp.cmo \
 	$(top_builddir)/mllib/JSON.cmo \
 	$(top_builddir)/mllib/StatVFS.cmo \
+	$(top_builddir)/mllib/exit.cmo \
 	$(top_builddir)/mllib/curl.cmo \
 	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/firstboot.cmo \

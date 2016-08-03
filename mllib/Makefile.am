@@ -30,6 +30,7 @@ SOURCES_MLI = \
 	common_utils.mli \
 	curl.mli \
 	dev_t.mli \
+	exit.mli \
 	fsync.mli \
 	JSON.mli \
 	mkdtemp.mli \
@@ -55,12 +56,14 @@ SOURCES_ML = \
 	regedit.ml \
 	StatVFS.ml \
 	JSON.ml \
-	curl.ml
+	curl.ml \
+	exit.ml
 
 SOURCES_C = \
 	../fish/progress.c \
 	../fish/uri.c \
 	dev_t-c.c \
+	exit-c.c \
 	fsync-c.c \
 	mkdtemp-c.c \
 	progress-c.c \
