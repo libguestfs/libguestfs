@@ -147,7 +147,6 @@ SUBDIRS += \
 	mllib \
 	customize \
 	builder builder/website \
-	dib \
 	get-kernel \
 	resize \
 	sparsify \
@@ -155,6 +154,9 @@ SUBDIRS += \
 	v2v
 if HAVE_OCAML_PKG_LIBVIRT
 SUBDIRS += v2v/test-harness
+endif
+if HAVE_FUSE
+SUBDIRS += dib
 endif
 endif
 

@@ -69,13 +69,15 @@ let envvars_string l =
 
 let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
   ~rootfs_uuid ~image_cache ~arch ~network ~debug
-  destdir libdir hooksdir tmpdir fakebindir all_elements element_paths =
+  destdir libdir hooksdir fakebindir all_elements element_paths =
   let network_string = if network then "" else "1" in
 
   let run_extra = sprintf "\
 #!/bin/bash
 set -e
 %s
+mount_dir=$1
+shift
 target_dir=$1
 shift
 script=$1
@@ -87,7 +89,7 @@ shift
 export PATH=%s:$PATH
 
 # d-i-b variables
-export TMP_MOUNT_PATH=%s
+export TMP_MOUNT_PATH=\"$mount_dir\"
 export DIB_OFFLINE=%s
 export IMAGE_NAME=\"%s\"
 export DIB_ROOT_LABEL=\"%s\"
@@ -120,7 +122,6 @@ $target_dir/$script
     (if debug >= 1 then "set -x\n" else "")
     (envvars_string envvars)
     fakebindir
-    (quote tmpdir)
     network_string
     out_name
     root_label
@@ -134,10 +135,7 @@ $target_dir/$script
     (String.concat ":" element_paths)
     (quote dib_vars)
     debug in
-  write_script (destdir // "run-part-extra.sh") run_extra;
-
-  (* Needed as TMPDIR for the extra-data hooks *)
-  do_mkdir (tmpdir // "tmp")
+  write_script (destdir // "run-part-extra.sh") run_extra
 
 let prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name ~rootfs_uuid
   ~arch ~network ~root_label ~install_type ~debug ~extra_packages
@@ -392,26 +390,61 @@ let run_parts ~debug ~sysroot ~blockdev ~log_file ?(new_wd = "")
   flush_all ();
   Buffer.contents outbuf
 
-let run_parts_host ~debug hooks_dir hook_name scripts run_script =
+let run_parts_host ~debug (g : Guestfs.guestfs) hooks_dir hook_name base_mount_dir scripts run_script =
   let hook_dir = hooks_dir // hook_name in
   let scripts = List.sort digit_prefix_compare scripts in
-  let timings = Hashtbl.create 13 in
-  List.iter (
-    fun x ->
-      message (f_"Running: %s/%s") hook_name x;
-      let cmd = [ run_script; hook_dir; x ] in
-      let run () =
-        run_command cmd in
-      let delta_t = timed_run run in
-      if debug >= 1 then (
-        printf "\n";
-        printf "%s completed after %.3f s\n" x delta_t
-      );
-      Hashtbl.add timings x delta_t;
-  ) scripts;
-  if debug >= 1 then (
-    print_string (timing_output ~target_name:hook_name scripts timings)
+  let mount_dir = base_mount_dir // hook_name in
+  do_mkdir mount_dir;
+
+  let rec fork_and_run () =
+    let pid = Unix.fork () in
+    if pid = 0 then ( (* child *)
+      let retcode = run_scripts () in
+      flush_all ();
+      let cmd = [ "guestunmount"; mount_dir ] in
+      ignore (run_command cmd);
+      Exit._exit retcode
+    );
+    pid
+  and run_scripts () =
+    let timings = Hashtbl.create 13 in
+    let rec loop = function
+      | x :: xs ->
+        message (f_"Running: %s/%s") hook_name x;
+        let cmd = [ run_script; mount_dir; hook_dir; x ] in
+        let retcode = ref 0 in
+        let run () =
+          retcode := run_command cmd in
+        let delta_t = timed_run run in
+        if debug >= 1 then (
+          printf "\n";
+          printf "%s completed after %.3f s\n" x delta_t
+        );
+        Hashtbl.add timings x delta_t;
+        let retcode = !retcode in
+        if retcode <> 0 then retcode
+        else loop xs
+      | [] -> 0
+    in
+    let retcode = loop scripts in
+    if debug >= 1 then (
+      print_string (timing_output ~target_name:hook_name scripts timings)
+    );
+    retcode
+  in
+
+  g#mount_local mount_dir;
+  let pid = fork_and_run () in
+  g#mount_local_run ();
+
+  (match snd (Unix.waitpid [] pid) with
+  | Unix.WEXITED 0 -> ()
+  | Unix.WEXITED i -> exit i
+  | Unix.WSIGNALED i
+  | Unix.WSTOPPED i ->
+    error (f_"sub-process killed by signal (%d)") i
   );
+
   flush_all ()
 
 let run_install_packages ~debug ~blockdev ~log_file
@@ -455,8 +488,6 @@ let main () =
   do_mkdir auxtmpdir;
   let hookstmpdir = auxtmpdir // "hooks" in
   do_mkdir (hookstmpdir // "environment.d");    (* Just like d-i-b does. *)
-  let extradatatmpdir = tmpdir // "extra-data" in
-  do_mkdir extradatatmpdir;
   do_mkdir (auxtmpdir // "out" // image_basename_d);
   let elements =
     if cmdline.use_base then ["base"] @ cmdline.elements
@@ -575,20 +606,11 @@ let main () =
   prepare_external ~envvars ~dib_args ~dib_vars ~out_name:image_basename
                    ~root_label ~rootfs_uuid ~image_cache ~arch
                    ~network:cmdline.network ~debug
-                   tmpdir cmdline.basepath hookstmpdir extradatatmpdir
+                   tmpdir cmdline.basepath hookstmpdir
                    (auxtmpdir // "fake-bin")
                    all_elements cmdline.element_paths;
 
-  let run_hook_host hook =
-    try
-      let scripts = Hashtbl.find final_hooks hook in
-      if debug >= 1 then (
-        printf "Running hooks for %s...\n%!" hook;
-      );
-      run_parts_host ~debug hookstmpdir hook scripts
-        (tmpdir // "run-part-extra.sh")
-    with Not_found -> ()
-  and run_hook ~blockdev ~sysroot ?(new_wd = "") (g : Guestfs.guestfs) hook =
+  let run_hook ~blockdev ~sysroot ?(new_wd = "") (g : Guestfs.guestfs) hook =
     try
       let scripts = Hashtbl.find final_hooks hook in
       if debug >= 1 then (
@@ -596,8 +618,6 @@ let main () =
       );
       run_parts ~debug ~sysroot ~blockdev ~log_file ~new_wd g hook scripts
     with Not_found -> "" in
-
-  run_hook_host "extra-data.d";
 
   let copy_in (g : Guestfs.guestfs) srcdir destdir =
     let desttar = Filename.temp_file ~temp_dir:tmpdir "virt-dib." ".tar.gz" in
@@ -607,18 +627,6 @@ let main () =
     g#mkdir_p destdir;
     g#tar_in ~compress:"gzip" desttar destdir;
     Sys.remove desttar in
-
-  let copy_preserve_in (g : Guestfs.guestfs) srcdir destdir =
-    let desttar = Filename.temp_file ~temp_dir:tmpdir "virt-dib." ".tar.gz" in
-    let remotetar = "/tmp/aux/" ^ (Filename.basename desttar) in
-    let cmd = [ "tar"; "czf"; desttar; "-C"; srcdir; "--owner=root";
-                "--group=root"; "." ] in
-    if run_command cmd <> 0 then exit 1;
-    g#upload desttar remotetar;
-    let verbose_flag = if debug > 0 then "v" else "" in
-    ignore (g#debug "sh" [| "tar"; "-C"; "/sysroot" ^ destdir; "--no-overwrite-dir"; "-x" ^ verbose_flag ^ "zf"; "/sysroot" ^ remotetar |]);
-    Sys.remove desttar;
-    g#rm remotetar in
 
   if debug >= 1 then
     ignore (run_command [ "tree"; "-ps"; tmpdir ]);
@@ -747,7 +755,16 @@ let main () =
   and run_hook_subroot hook =
     do_run_hooks_noout ~sysroot:Subroot hook
   and do_run_hooks_noout ~sysroot ?(new_wd = "") hook =
-    ignore (run_hook ~sysroot ~blockdev ~new_wd g hook) in
+    ignore (run_hook ~sysroot ~blockdev ~new_wd g hook)
+  and run_hook_host hook =
+    try
+      let scripts = Hashtbl.find final_hooks hook in
+      if debug >= 1 then (
+        printf "Running hooks for %s...\n%!" hook;
+      );
+      run_parts_host ~debug g hookstmpdir hook tmpdir scripts
+        (tmpdir // "run-part-extra.sh")
+    with Not_found -> () in
 
   g#sync ();
   checked_umount_all ();
@@ -799,7 +816,7 @@ let main () =
   mount_aux ();
   g#ln_s "aux/hooks" "/tmp/in_target.d";
 
-  copy_preserve_in g extradatatmpdir "/";
+  run_hook_host "extra-data.d";
 
   run_hook_in "pre-install.d";
 
