@@ -1,5 +1,5 @@
-/* virt-v2v
- * Copyright (C) 2009-2016 Red Hat Inc.
+(* libguestfs OCaml tools common code
+ * Copyright (C) 2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,20 +14,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
+ *)
 
-#include <config.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include <caml/mlvalues.h>
-
-extern int v2v_exit (value rv) __attribute__((noreturn));
-
-int
-v2v_exit (value rv)
-{
-  _exit (Int_val (rv));
-}
+val _exit : int -> unit
+(** Call _exit directly, ie. do not run OCaml atexit handlers. *)

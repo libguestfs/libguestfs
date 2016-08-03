@@ -95,7 +95,6 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	domainxml-c.c \
-	changeuid-c.c \
 	utils-c.c \
 	xml-c.c
 

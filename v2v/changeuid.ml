@@ -33,9 +33,6 @@ type t = {
 
 let create ?uid ?gid () = { uid = uid; gid = gid }
 
-(* Call _exit directly, ie. do not run OCaml atexit handlers. *)
-external _exit : int -> unit = "v2v_exit" "noalloc"
-
 let with_fork { uid = uid; gid = gid } name f =
   let pid = fork () in
 
@@ -46,9 +43,9 @@ let with_fork { uid = uid; gid = gid } name f =
     (try f ()
      with exn ->
        eprintf "%s: changeuid: %s: %s\n%!" prog name (Printexc.to_string exn);
-       _exit 1
+       Exit._exit 1
     );
-    _exit 0
+    Exit._exit 0
   );
 
   (* Parent. *)
