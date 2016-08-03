@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-27 15:07+0100\n"
+"POT-Creation-Date: 2016-08-03 16:38+0100\n"
 "PO-Revision-Date: 2016-07-14 05:51-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -50,7 +50,7 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../mllib/common_utils.ml:438
+#: ../mllib/common_utils.ml:452
 msgid "%s"
 msgstr "%s"
 
@@ -61,7 +61,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:443
-#: ../v2v/v2v.ml:404 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:957
+#: ../v2v/v2v.ml:404 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:979
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "%s is not a regular file in the guest"
 msgstr "%s не є звичайним файлом у гостьовій системі"
 
-#: ../dib/utils.ml:115
+#: ../dib/utils.ml:101
 msgid "%s needed but not found"
 msgstr "Потрібен %s, але його не знайдено"
 
@@ -150,11 +150,11 @@ msgstr ""
 "%s посилається на невідомий пристрій «%s». Ймовірно, вам доведеться "
 "виправити цей запис після перетворення."
 
-#: ../mllib/common_utils.ml:434 ../mllib/common_utils.ml:406
+#: ../mllib/common_utils.ml:448 ../mllib/common_utils.ml:420
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../mllib/common_utils.ml:436
+#: ../mllib/common_utils.ml:450
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -401,7 +401,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис\n"
 "можна знайти на сторінці підручника (man) virt-customize(1).\n"
 
-#: ../mllib/common_utils.ml:378
+#: ../mllib/common_utils.ml:392
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
@@ -607,7 +607,7 @@ msgstr ""
 "У поточній версії передбачено підтримку таких форматів для «-i ova»: "
 "нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
 
-#: ../mllib/common_utils.ml:396
+#: ../mllib/common_utils.ml:410
 msgid "%s: warning: %s"
 msgstr "%s: попередження: %s"
 
@@ -1247,7 +1247,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr "Показати нотатки щодо встановлення"
 
-#: ../mllib/common_utils.ml:575
+#: ../mllib/common_utils.ml:589
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
 
@@ -1279,7 +1279,7 @@ msgstr "Не розгортати вміст"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../mllib/common_utils.ml:579
+#: ../mllib/common_utils.ml:593
 msgid "Don't print progress messages"
 msgstr "Не виводити повідомлень щодо поступу"
 
@@ -1333,7 +1333,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../mllib/common_utils.ml:576
+#: ../mllib/common_utils.ml:590
 msgid "Enable libguestfs debugging messages"
 msgstr "Увімкнути діагностичні повідомлення libguestfs"
 
@@ -1341,7 +1341,7 @@ msgstr "Увімкнути діагностичні повідомлення lib
 msgid "Enable specific operations"
 msgstr "Увімкнути специфічні операції"
 
-#: ../mllib/common_utils.ml:577
+#: ../mllib/common_utils.ml:591
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1572,7 +1572,7 @@ msgstr "НАЗВА_ВУЗЛА"
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
-#: ../mllib/common_utils.ml:383
+#: ../mllib/common_utils.ml:397
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -2863,7 +2863,7 @@ msgstr "Вивантажити локальний файл у систему п�
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
-#: ../mllib/common_utils.ml:581
+#: ../mllib/common_utils.ml:595
 msgid "Use ANSI colour sequences even if not tty"
 msgstr "Використовувати послідовності ANSI для кольорів, навіть якщо це не tty"
 
@@ -3340,7 +3340,7 @@ msgstr "домен"
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr "спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
 
-#: ../v2v/linux.ml:113
+#: ../v2v/linux.ml:117
 msgid "don't know how to find file owner using %s"
 msgstr ""
 "спосіб отримання даних щодо власника файла за допомогою %s є невідомим "
@@ -3412,7 +3412,7 @@ msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../mllib/common_utils.ml:451
+#: ../mllib/common_utils.ml:465
 msgid "exception: %s"
 msgstr "виключення: %s"
 
@@ -3439,15 +3439,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:655
+#: ../mllib/common_utils.ml:669
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:673 ../mllib/common_utils.ml:657
+#: ../mllib/common_utils.ml:692 ../mllib/common_utils.ml:671
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:676 ../mllib/common_utils.ml:659
+#: ../mllib/common_utils.ml:695 ../mllib/common_utils.ml:673
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3459,7 +3459,7 @@ msgstr "помилка під час виконання зовнішньої к�
 msgid "failed to download %s: HTTP status code %s"
 msgstr "не вдалося отримати %s: код стану HTTP %s"
 
-#: ../mllib/common_utils.ml:442
+#: ../mllib/common_utils.ml:456
 msgid "failure: %s"
 msgstr "помилка: %s"
 
@@ -3508,7 +3508,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "fs"
 
-#: ../mllib/common_utils.ml:461
+#: ../mllib/common_utils.ml:475
 msgid "generated by %s %s"
 msgstr "створено за допомогою %s %s"
 
@@ -3701,15 +3701,15 @@ msgstr ""
 "Також ознайомтеся із підручником з virt-v2v(1), розділ «Minimum free space "
 "check in the host» («Мінімальний розмір вільного місця у основній системі»)."
 
-#: ../mllib/common_utils.ml:449
+#: ../mllib/common_utils.ml:463
 msgid "internal error: Not_found exception was thrown"
 msgstr "внутрішня помилка: надіслано виключення Not_found"
 
-#: ../mllib/common_utils.ml:446
+#: ../mllib/common_utils.ml:460
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr "внутрішня помилка: помилка оцінки у %s, рядок %d, символ %d"
 
-#: ../mllib/common_utils.ml:444
+#: ../mllib/common_utils.ml:458
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
@@ -3757,7 +3757,7 @@ msgstr "некоректний варіант ssh-inject «%s»; див. сто�
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
-#: ../mllib/common_utils.ml:440
+#: ../mllib/common_utils.ml:454
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
@@ -4681,7 +4681,7 @@ msgstr "user-accounts: порожнє ім’я користувача"
 msgid "users"
 msgstr "користувачі"
 
-#: ../dib/utils.ml:57
+#: ../dib/utils.ml:55
 msgid ""
 "variable '%s' has more than one occurrency in lines:\n"
 "%s"
@@ -4689,7 +4689,7 @@ msgstr ""
 "змінну «%s» використано декілька разів у таких рядках:\n"
 "%s"
 
-#: ../dib/utils.ml:53
+#: ../dib/utils.ml:51
 msgid ""
 "variable '%s' not found in lines:\n"
 "%s"
@@ -9089,7 +9089,7 @@ msgstr "xmlNewTextWriter: не вдалося створити процес за
 msgid "unable to parse XML from stdin"
 msgstr "не вдалося обробити код XML з stdin"
 
-#: inspector/inspector.c:779 src/launch-libvirt.c:673 src/libvirt-domain.c:405
+#: inspector/inspector.c:779 src/launch-libvirt.c:732 src/libvirt-domain.c:405
 #: src/libvirt-domain.c:488 src/libvirt-domain.c:701
 #, c-format
 msgid "unable to create new XPath context"
@@ -10433,33 +10433,58 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:825 src/launch-libvirt.c:603
+#: src/launch-direct.c:825 src/launch-libvirt.c:662
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-libvirt.c:262
+#: src/launch-libvirt.c:197
+msgid ""
+"could not auto-detect the format.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+"не вдалося автоматично визначити формат.\n"
+"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
+"допомогою\n"
+"параметра «--format» або за допомогою додаткового параметра аргументу "
+"формату до «add-drive»."
+
+#: src/launch-libvirt.c:207
+msgid ""
+"could not auto-detect the format when using a non-file protocol.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+"не вдалося автоматично визначити формат у разі використання нефайлового "
+"протоколу.\n"
+"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
+"допомогою\n"
+"параметра «--format» або за допомогою додаткового параметра аргументу "
+"формату до «add-drive»."
+
+#: src/launch-libvirt.c:321
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:276
+#: src/launch-libvirt.c:335
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:310
+#: src/launch-libvirt.c:369
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:339
+#: src/launch-libvirt.c:398
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:532
+#: src/launch-libvirt.c:591
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -10476,17 +10501,17 @@ msgstr ""
 "\n"
 "Початкове повідомлення від libvirt"
 
-#: src/launch-libvirt.c:667
+#: src/launch-libvirt.c:726
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:683
+#: src/launch-libvirt.c:742
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:718
+#: src/launch-libvirt.c:777
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -10514,21 +10539,21 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:954
+#: src/launch-libvirt.c:1013
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1347
+#: src/launch-libvirt.c:1406
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1393 src/qemu.c:438
+#: src/launch-libvirt.c:1452 src/qemu.c:438
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
 
-#: src/launch-libvirt.c:1476
+#: src/launch-libvirt.c:1535
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -10536,54 +10561,29 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1501
-msgid ""
-"could not auto-detect the format.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-"не вдалося автоматично визначити формат.\n"
-"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
-"допомогою\n"
-"параметра «--format» або за допомогою додаткового параметра аргументу "
-"формату до «add-drive»."
-
-#: src/launch-libvirt.c:1508
-msgid ""
-"could not auto-detect the format when using a non-file protocol.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-"не вдалося автоматично визначити формат у разі використання нефайлового "
-"протоколу.\n"
-"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
-"допомогою\n"
-"параметра «--format» або за допомогою додаткового параметра аргументу "
-"формату до «add-drive»."
-
-#: src/launch-libvirt.c:1822
+#: src/launch-libvirt.c:1854
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: src/launch-libvirt.c:1833
+#: src/launch-libvirt.c:1865
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: src/launch-libvirt.c:1837
+#: src/launch-libvirt.c:1869
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: src/launch-libvirt.c:1858
+#: src/launch-libvirt.c:1890
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1871
+#: src/launch-libvirt.c:1903
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1981
+#: src/launch-libvirt.c:2013
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -10611,20 +10611,20 @@ msgstr ""
 "Ймовірно, вам також слід дозволити місток у /etc/qemu/bridge.conf.\n"
 "Докладніший опис можна знайти на сторінці підручника guestfs(3)."
 
-#: src/launch-libvirt.c:2084
+#: src/launch-libvirt.c:2116
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2105 src/launch-libvirt.c:2138
+#: src/launch-libvirt.c:2137 src/launch-libvirt.c:2170
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2201
+#: src/launch-libvirt.c:2233
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2232
+#: src/launch-libvirt.c:2264
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -10867,11 +10867,11 @@ msgstr ""
 "програмний інтерфейс add-domain недоступний, оскільки цю версію libguestfs "
 "було зібрано без підтримки бібліотеки libvirt"
 
-#: src/osinfo.c:362
+#: src/osinfo.c:369
 msgid "osinfo: unable to create new XPath context"
 msgstr "osinfo: не вдалося створити контекст XPath"
 
-#: src/osinfo.c:372
+#: src/osinfo.c:379
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr "osinfo: %s: не вдалося обробити вираз XPath"
