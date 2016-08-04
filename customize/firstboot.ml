@@ -197,11 +197,11 @@ WantedBy=default.target
     g#mkdir_p "/etc/rc5.d";
     g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
       "/etc/init.d/guestfs-firstboot";
-    g#ln_sf "/etc/init.d/guestfs-firstboot"
+    g#ln_sf "../init.d/guestfs-firstboot"
       "/etc/rc2.d/S99guestfs-firstboot";
-    g#ln_sf "/etc/init.d/guestfs-firstboot"
+    g#ln_sf "../init.d/guestfs-firstboot"
       "/etc/rc3.d/S99guestfs-firstboot";
-    g#ln_sf "/etc/init.d/guestfs-firstboot"
+    g#ln_sf "../init.d/guestfs-firstboot"
       "/etc/rc5.d/S99guestfs-firstboot";
 
     (* Try to remove the files of the old service. *)
