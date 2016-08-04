@@ -91,6 +91,13 @@ and it increases the debugging information printed out.
 Specifically, this sets the C<DIB_DEBUG_TRACE>, and any value
 E<gt> C<0> enables tracing in the scripts executed.
 
+=item B<--docker-target> TARGET
+
+Set the repository and tag for docker.
+
+This is used only when the formats include C<docker>, and it is
+required in that case.
+
 =item B<--drive> DISK
 
 Add the specified disk to be used as helper drive where to cache
@@ -167,6 +174,16 @@ Set the list of output formats, separating them with comma.
 Supported formats are:
 
 =over 4
+
+=item C<docker>
+
+Import the image to docker, running B<docker import>.  The target for
+the image B<must> be specified using I<--docker-target>.
+
+Please note this operation usually requires the docker service to be
+enabled, otherwise it will fail.  Furthermore, B<docker> is run using
+L<sudo(8)>, so make sure the user has the permissions to run at least
+B<docker>.
 
 =item C<qcow2> (enabled by default)
 

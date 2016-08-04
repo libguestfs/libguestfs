@@ -474,6 +474,11 @@ let main () =
 
   (* Check for required tools. *)
   require_tool "uuidgen";
+  if List.mem "docker" cmdline.formats then (
+    require_tool "docker";
+    if cmdline.docker_target = None then
+      error (f_"docker: a target was not specified, use '--docker-target'");
+  );
   if List.mem "qcow2" cmdline.formats then
     require_tool "qemu-img";
   if List.mem "vhd" cmdline.formats then
@@ -870,6 +875,17 @@ let main () =
       | "tar" ->
         message (f_"Compressing the image as tar");
         g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] "/" fn
+      | "docker" ->
+        let docker_target =
+          match cmdline.docker_target with
+          | None -> assert false (* checked earlier *)
+          | Some t -> t in
+        message (f_"Importing the image to docker as '%s'") docker_target;
+        let dockertmp =
+          Filename.temp_file ~temp_dir:tmpdir "docker." ".tar" in
+        g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] "/" dockertmp;
+        let cmd = [ "sudo"; "docker"; "import"; dockertmp; docker_target ] in
+        if run_command cmd <> 0 then exit 1
       | _ as fmt -> error "unhandled format: %s" fmt
   ) formats_archive;
 

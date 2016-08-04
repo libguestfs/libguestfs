@@ -46,6 +46,7 @@ type cmdline = {
   formats : string list;
   arch : string;
   envvars : string list;
+  docker_target : string option;
 }
 
 val parse_cmdline : unit -> cmdline

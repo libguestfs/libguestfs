@@ -54,6 +54,7 @@ type cmdline = {
   formats : string list;
   arch : string;
   envvars : string list;
+  docker_target : string option;
 }
 
 let parse_cmdline () =
@@ -108,7 +109,7 @@ read the man page virt-dib(1).
     let fmts = remove_dups (String.nsplit "," arg) in
     List.iter (
       function
-      | "qcow2" | "tar" | "raw" | "vhd" -> ()
+      | "qcow2" | "tar" | "raw" | "vhd" | "docker" -> ()
       | fmt ->
         error (f_"invalid format '%s' in --formats") fmt
     ) fmts;
@@ -151,6 +152,9 @@ read the man page virt-dib(1).
   let append_extra_packages arg =
     prepend (List.rev (String.nsplit "," arg)) extra_packages in
 
+  let docker_target = ref None in
+  let set_docker_target arg = docker_target := Some arg in
+
   let argspec = [
     [ S 'p'; L"element-path" ],           Getopt.String ("path", append_element_path),  s_"Add new a elements location";
     [ L"exclude-element" ], Getopt.String ("element", append_excluded_element),
@@ -169,6 +173,7 @@ read the man page virt-dib(1).
                                               s_"Add mkfs options";
     [ L"extra-packages" ], Getopt.String ("pkg,...", append_extra_packages),
       s_"Add extra packages to install";
+    [ L"docker-target" ], Getopt.String ("target", set_docker_target), s_"Repo and tag for docker";
 
     [ L"ramdisk" ],    Getopt.Set is_ramdisk,        "Switch to a ramdisk build";
     [ L"ramdisk-element" ], Getopt.Set_string ("name", ramdisk_element), s_"Main element for building ramdisks";
@@ -223,6 +228,7 @@ read the man page virt-dib(1).
   let mkfs_options = !mkfs_options in
   let machine_readable = !machine_readable in
   let extra_packages = List.rev !extra_packages in
+  let docker_target = !docker_target in
 
   (* No elements and machine-readable mode?  Print some facts. *)
   if elements = [] && machine_readable then (
@@ -231,6 +237,7 @@ read the man page virt-dib(1).
     printf "output:tar\n";
     printf "output:raw\n";
     printf "output:vhd\n";
+    printf "output:docker\n";
     exit 0
   );
 
@@ -254,4 +261,5 @@ read the man page virt-dib(1).
     extra_packages = extra_packages; memsize = memsize; network = network;
     smp = smp; delete_on_failure = delete_on_failure;
     formats = formats; arch = arch; envvars = envvars;
+    docker_target = docker_target;
   }
