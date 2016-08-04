@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-08-04 09:58+0100\n"
+"POT-Creation-Date: 2016-08-04 22:27+0100\n"
 "PO-Revision-Date: 2015-02-21 10:55-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -391,7 +391,7 @@ msgid ""
 "read the man page virt-resize(1).\n"
 msgstr ""
 
-#: ../dib/cmdline.ml:61
+#: ../dib/cmdline.ml:63
 msgid ""
 "%s: run diskimage-builder elements to generate images\n"
 "\n"
@@ -479,7 +479,7 @@ msgid ""
 "convert qcow2."
 msgstr ""
 
-#: ../dib/cmdline.ml:86
+#: ../dib/cmdline.ml:88
 msgid "--debug parameter must be >= 0"
 msgstr ""
 
@@ -578,7 +578,7 @@ msgstr ""
 msgid "--update"
 msgstr ""
 
-#: ../dib/cmdline.ml:238
+#: ../dib/cmdline.ml:250
 msgid "-B must be specified"
 msgstr ""
 
@@ -711,15 +711,15 @@ msgstr ""
 msgid "Add disk image file"
 msgstr ""
 
-#: ../dib/cmdline.ml:171
+#: ../dib/cmdline.ml:178
 msgid "Add extra packages to install"
 msgstr ""
 
-#: ../dib/cmdline.ml:169
+#: ../dib/cmdline.ml:176
 msgid "Add mkfs options"
 msgstr ""
 
-#: ../dib/cmdline.ml:155
+#: ../dib/cmdline.ml:162
 msgid "Add new a elements location"
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:75 ../dib/cmdline.ml:167
+#: ../sparsify/cmdline.ml:75 ../dib/cmdline.ml:174
 msgid "Add qemu-img options"
 msgstr ""
 
@@ -767,7 +767,7 @@ msgstr ""
 msgid "Attaching to the pool %s"
 msgstr ""
 
-#: ../dib/cmdline.ml:192
+#: ../dib/cmdline.ml:201
 msgid "Base path of diskimage-builder library"
 msgstr ""
 
@@ -802,11 +802,11 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
-#: ../dib/dib.ml:525
+#: ../dib/dib.ml:534
 msgid "Carried environment variables: %s"
 msgstr ""
 
-#: ../dib/cmdline.ml:160
+#: ../dib/cmdline.ml:167
 msgid "Carry/set this environment variable"
 msgstr ""
 
@@ -866,7 +866,7 @@ msgstr ""
 msgid "Compressed output format"
 msgstr ""
 
-#: ../dib/dib.ml:871
+#: ../dib/dib.ml:882
 msgid "Compressing the image as tar"
 msgstr ""
 
@@ -882,7 +882,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:895 ../builder/builder.ml:624
+#: ../dib/dib.ml:917 ../builder/builder.ml:624
 msgid "Converting to %s"
 msgstr ""
 
@@ -991,7 +991,7 @@ msgid "Deleting: %s"
 msgstr ""
 
 #. ../builder/cmdline.ml:154
-#: ../dib/cmdline.ml:185 ../customize/customize_main.ml:85
+#: ../dib/cmdline.ml:194 ../customize/customize_main.ml:85
 msgid "Disable appliance network"
 msgstr ""
 
@@ -1039,7 +1039,7 @@ msgstr ""
 msgid "Don't create extra partition"
 msgstr ""
 
-#: ../dib/cmdline.ml:188 ../builder/cmdline.ml:140
+#: ../dib/cmdline.ml:197 ../builder/cmdline.ml:140
 msgid "Don't delete output file on failure"
 msgstr ""
 
@@ -1055,7 +1055,7 @@ msgstr ""
 msgid "Don't print progress messages"
 msgstr ""
 
-#: ../dib/dib.ml:920
+#: ../dib/dib.ml:942
 msgid "Done"
 msgstr ""
 
@@ -1085,7 +1085,7 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../dib/dib.ml:498
+#: ../dib/dib.ml:507
 msgid "Elements: %s"
 msgstr ""
 
@@ -1094,7 +1094,7 @@ msgid "Enable appliance network"
 msgstr ""
 
 #. ../builder/cmdline.ml:153
-#: ../dib/cmdline.ml:184 ../customize/customize_main.ml:84
+#: ../dib/cmdline.ml:193 ../customize/customize_main.ml:84
 msgid "Enable appliance network (default)"
 msgstr ""
 
@@ -1138,11 +1138,11 @@ msgstr ""
 msgid "Examining the guest ..."
 msgstr ""
 
-#: ../dib/cmdline.ml:157
+#: ../dib/cmdline.ml:164
 msgid "Exclude the specified element"
 msgstr ""
 
-#: ../dib/cmdline.ml:159
+#: ../dib/cmdline.ml:166
 msgid "Exclude the specified script"
 msgstr ""
 
@@ -1154,7 +1154,7 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../dib/dib.ml:521
+#: ../dib/dib.ml:530
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1170,7 +1170,7 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:850
+#: ../dib/dib.ml:861
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1207,7 +1207,7 @@ msgstr ""
 msgid "Fetching the remote libvirt XML metadata ..."
 msgstr ""
 
-#: ../dib/cmdline.ml:177
+#: ../dib/cmdline.ml:185
 msgid "Filesystem for the image"
 msgstr ""
 
@@ -1266,6 +1266,10 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:58
 #: ../sparsify/cmdline.ml:71 ../resize/resize.ml:195
 msgid "Format of input disk"
+msgstr ""
+
+#: ../dib/cmdline.ml:190
+msgid "Format of optional drive"
 msgstr ""
 
 #: ../resize/resize.ml:201
@@ -1337,6 +1341,10 @@ msgstr ""
 msgid "Ignored for backwards compatibility"
 msgstr ""
 
+#: ../dib/dib.ml:889
+msgid "Importing the image to docker as '%s'"
+msgstr ""
+
 #: ../v2v/v2v.ml:275
 msgid "Initializing the target %s"
 msgstr ""
@@ -1357,7 +1365,7 @@ msgstr ""
 msgid "Inspecting the source VM"
 msgstr ""
 
-#: ../dib/cmdline.ml:163
+#: ../dib/cmdline.ml:170
 msgid "Installation type"
 msgstr ""
 
@@ -1377,7 +1385,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../dib/dib.ml:453
+#: ../dib/dib.ml:457
 msgid "Installing: %s"
 msgstr ""
 
@@ -1393,7 +1401,7 @@ msgstr ""
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
 
-#: ../dib/cmdline.ml:162
+#: ../dib/cmdline.ml:169
 msgid "Label for the root fs"
 msgstr ""
 
@@ -1413,16 +1421,16 @@ msgstr ""
 msgid "List supported operations"
 msgstr ""
 
-#: ../dib/cmdline.ml:164
+#: ../dib/cmdline.ml:171
 msgid "Location for cached images"
 msgstr ""
 
-#: ../dib/cmdline.ml:174
+#: ../dib/cmdline.ml:182
 msgid "Main element for building ramdisks"
 msgstr ""
 
 #. ../get-kernel/get_kernel.ml:59
-#. ../dib/cmdline.ml:189
+#. ../dib/cmdline.ml:198
 #. ../builder/cmdline.ml:151
 #: ../v2v/cmdline.ml:180 ../sparsify/cmdline.ml:74 ../resize/resize.ml:198
 msgid "Make output machine readable"
@@ -1464,7 +1472,7 @@ msgstr ""
 msgid "Moving: %s -> %s"
 msgstr ""
 
-#: ../dib/cmdline.ml:176
+#: ../dib/cmdline.ml:184
 msgid "Name of the image"
 msgstr ""
 
@@ -1509,7 +1517,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../customize/firstboot.ml:199
+#: ../customize/firstboot.ml:233
 msgid ""
 "One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
 "required in order to install Windows firstboot scripts.  You can get one by "
@@ -1520,7 +1528,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr ""
 
-#: ../dib/dib.ml:634
+#: ../dib/dib.ml:645
 msgid "Opening the disks"
 msgstr ""
 
@@ -1540,7 +1548,7 @@ msgstr ""
 msgid "Opening the source VM"
 msgstr ""
 
-#: ../dib/cmdline.ml:181
+#: ../dib/cmdline.ml:189
 msgid "Optional drive for caches"
 msgstr ""
 
@@ -1552,7 +1560,7 @@ msgstr ""
 msgid "Output VM UUID"
 msgstr ""
 
-#: ../dib/cmdline.ml:180
+#: ../dib/cmdline.ml:188
 msgid "Output architecture"
 msgstr ""
 
@@ -1572,7 +1580,7 @@ msgstr ""
 msgid "Output format (default: raw)"
 msgstr ""
 
-#: ../dib/cmdline.ml:179
+#: ../dib/cmdline.ml:187
 msgid "Output formats"
 msgstr ""
 
@@ -1651,7 +1659,7 @@ msgstr ""
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:545
+#: ../dib/dib.ml:554
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -1874,6 +1882,10 @@ msgstr ""
 msgid "Rename guest when converting"
 msgstr ""
 
+#: ../dib/cmdline.ml:179
+msgid "Repo and tag for docker"
+msgstr ""
+
 #: ../resize/resize.ml:1370
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
@@ -1934,7 +1946,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../dib/dib.ml:413 ../dib/dib.ml:366
+#: ../dib/dib.ml:417 ../dib/dib.ml:370
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -1999,7 +2011,7 @@ msgstr ""
 msgid "Set curl binary/command"
 msgstr ""
 
-#: ../dib/cmdline.ml:191
+#: ../dib/cmdline.ml:200
 msgid "Set debug level"
 msgstr ""
 
@@ -2022,7 +2034,7 @@ msgid "Set libvirt guest name"
 msgstr ""
 
 #. ../builder/cmdline.ml:152
-#: ../dib/cmdline.ml:183 ../customize/customize_main.ml:83
+#: ../dib/cmdline.ml:192 ../customize/customize_main.ml:83
 msgid "Set memory size"
 msgstr ""
 
@@ -2031,7 +2043,7 @@ msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
 #. ../builder/cmdline.ml:160
-#: ../dib/cmdline.ml:186 ../customize/customize_main.ml:86
+#: ../dib/cmdline.ml:195 ../customize/customize_main.ml:86
 msgid "Set number of vCPUs"
 msgstr ""
 
@@ -2039,7 +2051,7 @@ msgstr ""
 msgid "Set output allocation mode"
 msgstr ""
 
-#: ../dib/cmdline.ml:178 ../builder/cmdline.ml:159
+#: ../dib/cmdline.ml:186 ../builder/cmdline.ml:159
 msgid "Set output disk size"
 msgstr ""
 
@@ -2127,7 +2139,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:773
+#: ../dib/dib.ml:784
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2139,7 +2151,7 @@ msgstr ""
 msgid "Shrink partition"
 msgstr ""
 
-#: ../dib/cmdline.ml:161
+#: ../dib/cmdline.ml:168
 msgid "Skip the inclusion of the 'base' element"
 msgstr ""
 
@@ -2396,7 +2408,7 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../dib/dib.ml:876
+#: ../dib/dib.ml:898
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2460,7 +2472,7 @@ msgstr ""
 msgid "Using prebuilt file %s as overlay"
 msgstr ""
 
-#: ../dib/dib.ml:915
+#: ../dib/dib.ml:937
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -2537,7 +2549,7 @@ msgstr ""
 msgid "alignment cannot be < 1"
 msgstr ""
 
-#: ../dib/cmdline.ml:244
+#: ../dib/cmdline.ml:256
 msgid "at least one distribution root element must be specified"
 msgstr ""
 
@@ -2803,6 +2815,10 @@ msgstr ""
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
+#: ../dib/dib.ml:484
+msgid "docker: a target was not specified, use '--docker-target'"
+msgstr ""
+
 #. ../customize/customize_main.ml:80
 #: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:57
 msgid "domain"
@@ -2940,6 +2956,12 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
+#: ../customize/firstboot.ml:143
+msgid ""
+"firstboot: unknown version for old firstboot.service file %s (md5=%s), it "
+"will not be removed"
+msgstr ""
+
 #: ../v2v/target_bus_assignment.ml:86
 msgid "floppy disk"
 msgstr ""
@@ -2953,6 +2975,7 @@ msgstr ""
 #. ../resize/resize.ml:201
 #. ../resize/resize.ml:195
 #. ../get-kernel/get_kernel.ml:58
+#. ../dib/cmdline.ml:190
 #. ../customize/customize_main.ml:82
 #: ../sysprep/main.ml:128 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
 msgid "format"
@@ -3006,11 +3029,11 @@ msgid ""
 "\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 
-#: ../customize/firstboot.ml:138
+#: ../customize/firstboot.ml:155
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:324
+#: ../customize/firstboot.ml:358
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3124,7 +3147,7 @@ msgstr ""
 msgid "invalid %s parameter"
 msgstr ""
 
-#: ../dib/cmdline.ml:113
+#: ../dib/cmdline.ml:115
 msgid "invalid format '%s' in --formats"
 msgstr ""
 
@@ -3280,7 +3303,7 @@ msgstr ""
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
-#: ../dib/dib.ml:693
+#: ../dib/dib.ml:704
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3576,7 +3599,7 @@ msgstr ""
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr ""
 
-#: ../dib/dib.ml:445
+#: ../dib/dib.ml:449
 msgid "sub-process killed by signal (%d)"
 msgstr ""
 
@@ -3620,7 +3643,7 @@ msgstr ""
 msgid "the key '%s' was not found in a list of objects"
 msgstr ""
 
-#: ../dib/cmdline.ml:241
+#: ../dib/cmdline.ml:253
 msgid "the list of output formats cannot be empty"
 msgstr ""
 
@@ -3635,7 +3658,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../dib/dib.ml:473
+#: ../dib/dib.ml:477
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-08-04 09:58+0100\n"
+"POT-Creation-Date: 2016-08-04 22:27+0100\n"
 "PO-Revision-Date: 2016-07-14 07:20-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -766,7 +766,7 @@ msgstr ""
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:177 ../builder/virt-builder.pod:470
-#: ../customize/virt-customize.pod:192 ../dib/virt-dib.pod:302
+#: ../customize/virt-customize.pod:192 ../dib/virt-dib.pod:333
 #: ../fuse/guestunmount.pod:83 ../get-kernel/virt-get-kernel.pod:111
 #: ../resize/virt-resize.pod:514 ../sparsify/virt-sparsify.pod:246
 #: ../sysprep/virt-sysprep.pod:223 ../v2v/virt-v2v-copy-to-local.pod:115
@@ -776,7 +776,7 @@ msgstr "B<-q>"
 
 #. type: =item
 #: ../align/virt-alignment-scan.pod:179 ../builder/virt-builder.pod:472
-#: ../customize/virt-customize.pod:194 ../dib/virt-dib.pod:304
+#: ../customize/virt-customize.pod:194 ../dib/virt-dib.pod:335
 #: ../fuse/guestunmount.pod:85 ../get-kernel/virt-get-kernel.pod:113
 #: ../resize/virt-resize.pod:516 ../sparsify/virt-sparsify.pod:248
 #: ../sysprep/virt-sysprep.pod:225 ../v2v/virt-v2v-copy-to-local.pod:117
@@ -824,7 +824,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:165 ../cat/virt-filesystems.pod:265
 #: ../cat/virt-log.pod:112 ../cat/virt-ls.pod:455
 #: ../customize/virt-customize.pod:204 ../daemon/guestfsd.pod:88
-#: ../df/virt-df.pod:183 ../dib/virt-dib.pod:371 ../diff/virt-diff.pod:197
+#: ../df/virt-df.pod:183 ../dib/virt-dib.pod:402 ../diff/virt-diff.pod:197
 #: ../edit/virt-edit.pod:197 ../fish/guestfish.pod:414
 #: ../format/virt-format.pod:153 ../fuse/guestmount.pod:367
 #: ../get-kernel/virt-get-kernel.pod:128 ../inspector/virt-inspector.pod:136
@@ -842,7 +842,7 @@ msgstr "B<-v>"
 #: ../cat/virt-cat.pod:167 ../cat/virt-filesystems.pod:267
 #: ../cat/virt-log.pod:114 ../cat/virt-ls.pod:457
 #: ../customize/virt-customize.pod:206 ../daemon/guestfsd.pod:90
-#: ../df/virt-df.pod:185 ../dib/virt-dib.pod:373 ../diff/virt-diff.pod:199
+#: ../df/virt-df.pod:185 ../dib/virt-dib.pod:404 ../diff/virt-diff.pod:199
 #: ../edit/virt-edit.pod:199 ../fish/guestfish.pod:416
 #: ../format/virt-format.pod:155 ../fuse/guestmount.pod:369
 #: ../get-kernel/virt-get-kernel.pod:130 ../inspector/virt-inspector.pod:138
@@ -875,7 +875,7 @@ msgstr "Увімкнути докладний показ повідомлень 
 #: ../cat/virt-cat.pod:171 ../cat/virt-filesystems.pod:271
 #: ../cat/virt-log.pod:118 ../cat/virt-ls.pod:461
 #: ../customize/virt-customize.pod:210 ../df/virt-df.pod:189
-#: ../dib/virt-dib.pod:377 ../diff/virt-diff.pod:203 ../edit/virt-edit.pod:203
+#: ../dib/virt-dib.pod:408 ../diff/virt-diff.pod:203 ../edit/virt-edit.pod:203
 #: ../fish/guestfish.pod:421 ../format/virt-format.pod:159
 #: ../fuse/guestmount.pod:373 ../fuse/guestunmount.pod:105
 #: ../get-kernel/virt-get-kernel.pod:134 ../inspector/virt-inspector.pod:142
@@ -895,7 +895,7 @@ msgstr "B<-V>"
 #: ../cat/virt-cat.pod:173 ../cat/virt-filesystems.pod:273
 #: ../cat/virt-log.pod:120 ../cat/virt-ls.pod:463
 #: ../customize/virt-customize.pod:212 ../df/virt-df.pod:191
-#: ../dib/virt-dib.pod:379 ../diff/virt-diff.pod:205 ../edit/virt-edit.pod:205
+#: ../dib/virt-dib.pod:410 ../diff/virt-diff.pod:205 ../edit/virt-edit.pod:205
 #: ../fish/guestfish.pod:423 ../format/virt-format.pod:161
 #: ../fuse/guestmount.pod:375 ../fuse/guestunmount.pod:107
 #: ../get-kernel/virt-get-kernel.pod:136 ../inspector/virt-inspector.pod:144
@@ -915,7 +915,7 @@ msgstr "B<--version>"
 #: ../builder/virt-index-validate.pod:70 ../cat/virt-cat.pod:175
 #: ../cat/virt-filesystems.pod:275 ../cat/virt-log.pod:122
 #: ../cat/virt-ls.pod:465 ../customize/virt-customize.pod:214
-#: ../df/virt-df.pod:193 ../dib/virt-dib.pod:381 ../diff/virt-diff.pod:207
+#: ../df/virt-df.pod:193 ../dib/virt-dib.pod:412 ../diff/virt-diff.pod:207
 #: ../edit/virt-edit.pod:207 ../format/virt-format.pod:163
 #: ../get-kernel/virt-get-kernel.pod:138 ../inspector/virt-inspector.pod:146
 #: ../make-fs/virt-make-fs.pod:207 ../p2v/virt-p2v-make-disk.pod:164
@@ -934,7 +934,7 @@ msgstr "Показати дані щодо версії і завершити р
 #: ../cat/virt-cat.pod:177 ../cat/virt-filesystems.pod:285
 #: ../cat/virt-log.pod:124 ../cat/virt-ls.pod:467
 #: ../customize/virt-customize.pod:216 ../df/virt-df.pod:195
-#: ../dib/virt-dib.pod:383 ../diff/virt-diff.pod:209 ../edit/virt-edit.pod:209
+#: ../dib/virt-dib.pod:414 ../diff/virt-diff.pod:209 ../edit/virt-edit.pod:209
 #: ../fish/guestfish.pod:436 ../format/virt-format.pod:175
 #: ../fuse/guestmount.pod:388 ../get-kernel/virt-get-kernel.pod:140
 #: ../inspector/virt-inspector.pod:148 ../make-fs/virt-make-fs.pod:209
@@ -949,7 +949,7 @@ msgstr "B<-x>"
 #: ../cat/virt-cat.pod:179 ../cat/virt-filesystems.pod:287
 #: ../cat/virt-log.pod:126 ../cat/virt-ls.pod:469
 #: ../customize/virt-customize.pod:218 ../df/virt-df.pod:197
-#: ../dib/virt-dib.pod:385 ../diff/virt-diff.pod:211 ../edit/virt-edit.pod:211
+#: ../dib/virt-dib.pod:416 ../diff/virt-diff.pod:211 ../edit/virt-edit.pod:211
 #: ../format/virt-format.pod:177 ../get-kernel/virt-get-kernel.pod:142
 #: ../inspector/virt-inspector.pod:150 ../rescue/virt-rescue.pod:250
 #: ../resize/virt-resize.pod:620 ../sparsify/virt-sparsify.pod:309
@@ -1276,7 +1276,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:268 ../cat/virt-filesystems.pod:381
 #: ../cat/virt-log.pod:130 ../cat/virt-ls.pod:513
 #: ../customize/virt-customize.pod:234 ../daemon/guestfsd.pod:99
-#: ../df/virt-df.pod:251 ../dib/virt-dib.pod:626 ../diff/virt-diff.pod:243
+#: ../df/virt-df.pod:251 ../dib/virt-dib.pod:657 ../diff/virt-diff.pod:243
 #: ../edit/virt-edit.pod:378 ../fish/guestfish.pod:1375
 #: ../format/virt-format.pod:181 ../fuse/guestmount.pod:418
 #: ../fuse/guestunmount.pod:124 ../get-kernel/virt-get-kernel.pod:166
@@ -1549,7 +1549,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386
 #: ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518
 #: ../customize/virt-customize.pod:274 ../daemon/guestfsd.pod:143
-#: ../df/virt-df.pod:256 ../dib/virt-dib.pod:631 ../diff/virt-diff.pod:248
+#: ../df/virt-df.pod:256 ../dib/virt-dib.pod:662 ../diff/virt-diff.pod:248
 #: ../docs/guestfs-building.pod:806 ../docs/guestfs-faq.pod:1392
 #: ../docs/guestfs-hacking.pod:1000 ../docs/guestfs-internals.pod:400
 #: ../docs/guestfs-performance.pod:619 ../docs/guestfs-recipes.pod:719
@@ -1594,7 +1594,7 @@ msgstr ""
 #: ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:283
 #: ../cat/virt-filesystems.pod:397 ../cat/virt-log.pod:145
 #: ../cat/virt-ls.pod:528 ../daemon/guestfsd.pod:148 ../df/virt-df.pod:264
-#: ../dib/virt-dib.pod:638 ../diff/virt-diff.pod:258
+#: ../dib/virt-dib.pod:669 ../diff/virt-diff.pod:258
 #: ../docs/guestfs-release-notes.pod:5489 ../edit/virt-edit.pod:394
 #: ../format/virt-format.pod:195 ../get-kernel/virt-get-kernel.pod:179
 #: ../make-fs/virt-make-fs.pod:229 ../rescue/virt-rescue.pod:411
@@ -1634,7 +1634,7 @@ msgstr "Richard W.M. Jones L<http://people.redhat.com/~rjones/>"
 #: ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401
 #: ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532
 #: ../customize/virt-customize.pod:295 ../daemon/guestfsd.pod:152
-#: ../df/virt-df.pod:268 ../dib/virt-dib.pod:642 ../diff/virt-diff.pod:262
+#: ../df/virt-df.pod:268 ../dib/virt-dib.pod:673 ../diff/virt-diff.pod:262
 #: ../docs/guestfs-building.pod:823 ../docs/guestfs-faq.pod:1402
 #: ../docs/guestfs-hacking.pod:1017 ../docs/guestfs-internals.pod:413
 #: ../docs/guestfs-performance.pod:636 ../docs/guestfs-recipes.pod:738
@@ -1937,7 +1937,7 @@ msgstr ""
 #. type: =head1
 #: ../appliance/libguestfs-make-fixed-appliance.pod:135
 #: ../builder/virt-builder.pod:1800 ../customize/virt-customize.pod:238
-#: ../dib/virt-dib.pod:389 ../edit/virt-edit.pod:365 ../fish/guestfish.pod:1380
+#: ../dib/virt-dib.pod:420 ../edit/virt-edit.pod:365 ../fish/guestfish.pod:1380
 #: ../fuse/guestunmount.pod:113 ../get-kernel/virt-get-kernel.pod:161
 #: ../p2v/virt-p2v-make-disk.pod:193 ../p2v/virt-p2v-make-kickstart.pod:312
 #: ../p2v/virt-p2v-make-kiwi.pod:158 ../rescue/virt-rescue.pod:377
@@ -2747,7 +2747,7 @@ msgid "Delete the template cache.  See L</CACHING>."
 msgstr "Вилучити кеш шаблонів. Див. L</КЕШУВАННЯ>."
 
 #. type: =item
-#: ../builder/virt-builder.pod:264 ../dib/virt-dib.pod:294
+#: ../builder/virt-builder.pod:264 ../dib/virt-dib.pod:325
 msgid "B<--no-delete-on-failure>"
 msgstr "B<--no-delete-on-failure>"
 
@@ -2978,14 +2978,14 @@ msgid "See also: I<--source>, I<--notes>, L</SOURCES OF TEMPLATES>."
 msgstr "Див також: I<--source>, I<--notes>, L</ДЖЕРЕЛА ШАБЛОНІВ>."
 
 #. type: =item
-#: ../builder/virt-builder.pod:365 ../dib/virt-dib.pod:218
+#: ../builder/virt-builder.pod:365 ../dib/virt-dib.pod:249
 #: ../get-kernel/virt-get-kernel.pod:85 ../resize/virt-resize.pod:448
 #: ../sparsify/virt-sparsify.pod:226 ../v2v/virt-v2v.pod:366
 msgid "B<--machine-readable>"
 msgstr "B<--machine-readable>"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:367 ../dib/virt-dib.pod:220
+#: ../builder/virt-builder.pod:367 ../dib/virt-dib.pod:251
 #: ../get-kernel/virt-get-kernel.pod:87 ../resize/virt-resize.pod:450
 #: ../sparsify/virt-sparsify.pod:228 ../v2v/virt-v2v.pod:368
 msgid ""
@@ -2995,7 +2995,7 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:371 ../customize/virt-customize.pod:134
-#: ../dib/virt-dib.pod:224 ../rescue/virt-rescue.pod:173
+#: ../dib/virt-dib.pod:255 ../rescue/virt-rescue.pod:173
 #: ../utils/boot-analysis/boot-analysis.pod:70
 #: ../utils/boot-benchmark/boot-benchmark.pod:45
 msgid "B<-m> MB"
@@ -3003,7 +3003,7 @@ msgstr "B<-m> МБ"
 
 #. type: =item
 #: ../builder/virt-builder.pod:373 ../customize/virt-customize.pod:136
-#: ../dib/virt-dib.pod:226 ../rescue/virt-rescue.pod:175
+#: ../dib/virt-dib.pod:257 ../rescue/virt-rescue.pod:175
 #: ../utils/boot-analysis/boot-analysis.pod:72
 #: ../utils/boot-benchmark/boot-benchmark.pod:47
 msgid "B<--memsize> MB"
@@ -3019,13 +3019,13 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:379 ../customize/virt-customize.pod:142
-#: ../dib/virt-dib.pod:231
+#: ../dib/virt-dib.pod:262
 msgid "The default can be found with this command:"
 msgstr "Типові значення можна визначити за допомогою такої команди:"
 
 #. type: verbatim
 #: ../builder/virt-builder.pod:381 ../customize/virt-customize.pod:144
-#: ../dib/virt-dib.pod:233
+#: ../dib/virt-dib.pod:264
 #, no-wrap
 msgid ""
 " guestfish get-memsize\n"
@@ -3036,20 +3036,20 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:383 ../customize/virt-customize.pod:146
-#: ../daemon/guestfsd.pod:77 ../dib/virt-dib.pod:246 ../fish/guestfish.pod:334
+#: ../daemon/guestfsd.pod:77 ../dib/virt-dib.pod:277 ../fish/guestfish.pod:334
 #: ../rescue/virt-rescue.pod:182 ../sysprep/virt-sysprep.pod:231
 msgid "B<--network>"
 msgstr "B<--network>"
 
 #. type: =item
 #: ../builder/virt-builder.pod:385 ../customize/virt-customize.pod:148
-#: ../dib/virt-dib.pod:248 ../sysprep/virt-sysprep.pod:233
+#: ../dib/virt-dib.pod:279 ../sysprep/virt-sysprep.pod:233
 msgid "B<--no-network>"
 msgstr "B<--no-network>"
 
 #. type: textblock
 #: ../builder/virt-builder.pod:387 ../customize/virt-customize.pod:150
-#: ../dib/virt-dib.pod:250 ../sysprep/virt-sysprep.pod:235
+#: ../dib/virt-dib.pod:281 ../sysprep/virt-sysprep.pod:235
 msgid ""
 "Enable or disable network access from the guest during the installation."
 msgstr ""
@@ -3058,7 +3058,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:389 ../customize/virt-customize.pod:152
-#: ../dib/virt-dib.pod:253
+#: ../dib/virt-dib.pod:284
 msgid "Enabled is the default.  Use I<--no-network> to disable access."
 msgstr ""
 "Типово увімкнено. Скористайтеся параметром I<--no-network>, щоб вимкнути "
@@ -3066,7 +3066,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder.pod:391 ../customize/virt-customize.pod:154
-#: ../dib/virt-dib.pod:255
+#: ../dib/virt-dib.pod:286
 msgid ""
 "The network only allows outgoing connections and has other minor "
 "limitations.  See L<virt-rescue(1)/NETWORK>."
@@ -3269,13 +3269,13 @@ msgid "Print information about the template cache.  See L</CACHING>."
 msgstr "Вивести інформацію щодо кешу шаблонів. Див. L</КЕШУВАННЯ>."
 
 #. type: textblock
-#: ../builder/virt-builder.pod:474 ../dib/virt-dib.pod:306
+#: ../builder/virt-builder.pod:474 ../dib/virt-dib.pod:337
 #: ../get-kernel/virt-get-kernel.pod:115
 msgid "Don't print ordinary progress messages."
 msgstr "Не виводити звичайних повідомлень щодо поступу."
 
 #. type: =item
-#: ../builder/virt-builder.pod:476 ../dib/virt-dib.pod:346
+#: ../builder/virt-builder.pod:476 ../dib/virt-dib.pod:377
 msgid "B<--size> SIZE"
 msgstr "B<--size> РОЗМІР"
 
@@ -3301,7 +3301,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:489 ../dib/virt-dib.pod:352
+#: ../builder/virt-builder.pod:489 ../dib/virt-dib.pod:383
 msgid ""
 "To specify size in bytes, the number must be followed by the lowercase "
 "letter I<b>, eg: S<C<--size 10737418240b>>."
@@ -3309,7 +3309,7 @@ msgstr ""
 
 #. type: =item
 #: ../builder/virt-builder.pod:492 ../customize/virt-customize.pod:200
-#: ../dib/virt-dib.pod:362 ../rescue/virt-rescue.pod:214
+#: ../dib/virt-dib.pod:393 ../rescue/virt-rescue.pod:214
 #: ../utils/boot-analysis/boot-analysis.pod:76
 #: ../utils/boot-benchmark/boot-benchmark.pod:51
 msgid "B<--smp> N"
@@ -6069,7 +6069,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:1780 ../dib/virt-dib.pod:599
+#: ../builder/virt-builder.pod:1780 ../dib/virt-dib.pod:630
 #: ../get-kernel/virt-get-kernel.pod:146 ../resize/virt-resize.pod:624
 #: ../sparsify/virt-sparsify.pod:341 ../v2v/virt-v2v.pod:1822
 msgid "MACHINE READABLE OUTPUT"
@@ -6113,7 +6113,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1797 ../dib/virt-dib.pod:615
+#: ../builder/virt-builder.pod:1797 ../dib/virt-dib.pod:646
 #: ../get-kernel/virt-get-kernel.pod:158 ../resize/virt-resize.pod:642
 #: ../sparsify/virt-sparsify.pod:357 ../v2v/virt-v2v.pod:1843
 msgid ""
@@ -6271,7 +6271,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1867 ../cat/virt-cat.pod:270
 #: ../cat/virt-filesystems.pod:383 ../cat/virt-log.pod:132
 #: ../cat/virt-ls.pod:515 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:253
-#: ../dib/virt-dib.pod:628 ../diff/virt-diff.pod:245 ../edit/virt-edit.pod:380
+#: ../dib/virt-dib.pod:659 ../diff/virt-diff.pod:245 ../edit/virt-edit.pod:380
 #: ../fuse/guestmount.pod:420 ../get-kernel/virt-get-kernel.pod:168
 #: ../inspector/virt-inspector.pod:509 ../resize/virt-resize.pod:820
 msgid ""
@@ -6706,7 +6706,7 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../cat/virt-cat.pod:189 ../cat/virt-ls.pod:479 ../dib/virt-dib.pod:407
+#: ../cat/virt-cat.pod:189 ../cat/virt-ls.pod:479 ../dib/virt-dib.pod:438
 #: ../edit/virt-edit.pod:221 ../inspector/virt-inspector.pod:167
 #: ../rescue/virt-rescue.pod:260
 msgid "or"
@@ -10371,105 +10371,159 @@ msgstr ""
 
 #. type: =item
 #: ../dib/virt-dib.pod:94
+msgid "B<--docker-target> TARGET"
+msgstr ""
+
+#. type: textblock
+#: ../dib/virt-dib.pod:96
+msgid "Set the repository and tag for docker."
+msgstr ""
+
+#. type: textblock
+#: ../dib/virt-dib.pod:98
+msgid ""
+"This is used only when the formats include C<docker>, and it is required in "
+"that case."
+msgstr ""
+
+#. type: =item
+#: ../dib/virt-dib.pod:101
 msgid "B<--drive> DISK"
 msgstr "B<--drive> ДИСК"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:96
+#: ../dib/virt-dib.pod:103
 msgid ""
 "Add the specified disk to be used as helper drive where to cache files of "
 "the elements, like disk images, distribution packages, etc."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:99
+#: ../dib/virt-dib.pod:106 ../dib/virt-dib.pod:120
 msgid "See L</HELPER DRIVE>."
 msgstr "Див. L</ДОПОМІЖНИЙ ДИСК>."
 
 #. type: =item
-#: ../dib/virt-dib.pod:101
+#: ../dib/virt-dib.pod:108
+#, fuzzy
+#| msgid "B<--format> raw"
+msgid "B<--drive-format> raw"
+msgstr "B<--format> raw"
+
+#. type: =item
+#: ../dib/virt-dib.pod:110
+#, fuzzy
+#| msgid "B<--format> qcow2"
+msgid "B<--drive-format> qcow2"
+msgstr "B<--format> qcow2"
+
+#. type: textblock
+#: ../dib/virt-dib.pod:112
+msgid ""
+"Specify the format of the helper drive.  If this flag is not given then it "
+"is auto-detected from the drive itself."
+msgstr ""
+
+#. type: textblock
+#: ../dib/virt-dib.pod:115 ../inspector/virt-inspector.pod:114
+#: ../resize/virt-resize.pod:410 ../resize/virt-resize.pod:506
+#: ../sparsify/virt-sparsify.pod:202 ../tools/virt-list-filesystems:100
+#: ../tools/virt-list-partitions:101 ../tools/virt-tar:148
+#: ../tools/virt-win-reg:149
+msgid ""
+"If working with untrusted raw-format guest disk images, you should ensure "
+"the format is always specified."
+msgstr ""
+
+#. type: textblock
+#: ../dib/virt-dib.pod:118
+msgid "This option is used only if I<--drive> is specified."
+msgstr ""
+
+#. type: =item
+#: ../dib/virt-dib.pod:122
 msgid "B<-p> PATH"
 msgstr "B<-p> ШЛЯХ"
 
 #. type: =item
-#: ../dib/virt-dib.pod:103
+#: ../dib/virt-dib.pod:124
 msgid "B<--element-path> PATH"
 msgstr "B<--element-path> ШЛЯХ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:105
+#: ../dib/virt-dib.pod:126
 msgid ""
 "Add a new path with elements.  Paths are used in the same order as the I<-p> "
 "parameters appear, so a path specified first is looked first, and so on."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:109
+#: ../dib/virt-dib.pod:130
 msgid ""
 "Obviously, it is recommended to add the path to the own elements of "
 "C<diskimage-builder>, as most of the other elements will rely on them."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:112
+#: ../dib/virt-dib.pod:133
 msgid "B<--extra-packages> PACKAGE,..."
 msgstr "B<--extra-packages> ПАКУНОК,..."
 
 #. type: textblock
-#: ../dib/virt-dib.pod:114
+#: ../dib/virt-dib.pod:135
 msgid "Install additional packages in the image being built."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:116
+#: ../dib/virt-dib.pod:137
 msgid ""
 "This relies on the C<install-packages> binary provided by the package "
 "management elements."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:119
+#: ../dib/virt-dib.pod:140
 msgid ""
 "This option can be specified multiple times, each time with multiple "
 "packages separated by comma."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:122 ../dib/virt-dib.pod:135
+#: ../dib/virt-dib.pod:143 ../dib/virt-dib.pod:156
 msgid "B<--envvar> VARIABLE"
 msgstr "B<--envvar> ЗМІННА"
 
 #. type: =item
-#: ../dib/virt-dib.pod:124 ../dib/virt-dib.pod:140
+#: ../dib/virt-dib.pod:145 ../dib/virt-dib.pod:161
 msgid "B<--envvar> VARIABLE=VALUE"
 msgstr "B<--envvar> ЗМІННА=ЗНАЧЕННЯ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:126
+#: ../dib/virt-dib.pod:147
 msgid "Carry or set an environment variable for the elements."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:128
+#: ../dib/virt-dib.pod:149
 msgid ""
 "See L</ENVIRONMENT VARIABLES> below for more information on the interaction "
 "and usage of environment variables."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:131
+#: ../dib/virt-dib.pod:152
 msgid "This option can be used in two ways:"
 msgstr "Цим параметром можна скористатися у декілька способів:"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:137
+#: ../dib/virt-dib.pod:158
 msgid ""
 "Carry the environment variable C<VARIABLE>. If it is not set, nothing is "
 "exported to the elements."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:142
+#: ../dib/virt-dib.pod:163
 msgid ""
 "Set the environment variable C<VARIABLE> with value C<VALUE> for the "
 "elements, regardless whether an environment variable with the same name "
@@ -10477,98 +10531,121 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:146
+#: ../dib/virt-dib.pod:167
 msgid ""
 "This can be useful to pass environment variable without exporting them in "
 "the environment where virt-dib runs."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:151
+#: ../dib/virt-dib.pod:172
 msgid "B<--exclude-element> ELEMENT"
 msgstr "B<--exclude-element> ЕЛЕМЕНТ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:153
+#: ../dib/virt-dib.pod:174
 msgid "Ignore the specified element."
 msgstr "Ігнорувати вказаний елемент."
 
 #. type: =item
-#: ../dib/virt-dib.pod:155
+#: ../dib/virt-dib.pod:176
 msgid "B<--exclude-script> SCRIPT"
 msgstr "B<--exclude-script> СКРИПТ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:157
+#: ../dib/virt-dib.pod:178
 msgid "Ignore any element script named C<SCRIPT>, whichever element it is in."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:159
+#: ../dib/virt-dib.pod:180
 msgid ""
 "This can be useful in case some script does not run well with virt-dib, for "
 "example when they really need C<diskimage-builder>'s environment."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:163
+#: ../dib/virt-dib.pod:184
 msgid "B<--formats> FORMAT,..."
 msgstr "B<--formats> ФОРМАТ,..."
 
 #. type: textblock
-#: ../dib/virt-dib.pod:165
+#: ../dib/virt-dib.pod:186
 msgid "Set the list of output formats, separating them with comma."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:167
+#: ../dib/virt-dib.pod:188
 msgid "Supported formats are:"
 msgstr "Підтримувані формати:"
 
 #. type: =item
-#: ../dib/virt-dib.pod:171
+#: ../dib/virt-dib.pod:192
+#, fuzzy
+#| msgid "F<docs>"
+msgid "C<docker>"
+msgstr "F<docs>"
+
+#. type: textblock
+#: ../dib/virt-dib.pod:194
+msgid ""
+"Import the image to docker, running B<docker import>.  The target for the "
+"image B<must> be specified using I<--docker-target>."
+msgstr ""
+
+#. type: textblock
+#: ../dib/virt-dib.pod:197
+msgid ""
+"Please note this operation usually requires the docker service to be "
+"enabled, otherwise it will fail.  Furthermore, B<docker> is run using "
+"L<sudo(8)>, so make sure the user has the permissions to run at least "
+"B<docker>."
+msgstr ""
+
+#. type: =item
+#: ../dib/virt-dib.pod:202
 msgid "C<qcow2> (enabled by default)"
 msgstr "C<qcow2> (типово увімкнено)"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:173
+#: ../dib/virt-dib.pod:204
 msgid "QEMU's qcow2."
 msgstr "qcow2 QEMU."
 
 #. type: =item
-#: ../dib/virt-dib.pod:175
+#: ../dib/virt-dib.pod:206
 msgid "C<raw>"
 msgstr "C<raw>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:177
+#: ../dib/virt-dib.pod:208
 msgid "Raw disk format."
 msgstr "Формат даних диска без обробки."
 
 #. type: =item
-#: ../dib/virt-dib.pod:179
+#: ../dib/virt-dib.pod:210
 msgid "C<tar>"
 msgstr "C<tar>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:181
+#: ../dib/virt-dib.pod:212
 msgid "An uncompressed tarball."
 msgstr "Архів без стискання."
 
 #. type: =item
-#: ../dib/virt-dib.pod:183
+#: ../dib/virt-dib.pod:214
 msgid "C<vhd>"
 msgstr "C<vhd>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:185
+#: ../dib/virt-dib.pod:216
 msgid ""
 "C<Virtual Hard Disk> disk image.  This output format requires the C<vhd-"
 "util> tool."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:188
+#: ../dib/virt-dib.pod:219
 msgid ""
 "Please note that the version of C<vhd-util> tool needs to be patched to "
 "support the C<convert> subcommand, and to be bootable.  The patch is "
@@ -10577,36 +10654,36 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:195
+#: ../dib/virt-dib.pod:226
 msgid "B<--fs-type> FILESYSTEM"
 msgstr "B<--fs-type> ФАЙЛОВА СИСТЕМА"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:197
+#: ../dib/virt-dib.pod:228
 msgid ""
 "Set the filesystem type to use for the root filesystem.  The default is "
 "C<ext4>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:200
+#: ../dib/virt-dib.pod:231
 msgid "See also L<guestfs(3)/guestfs_filesystem_available>."
 msgstr "Див. також L<guestfs(3)/guestfs_filesystem_available>"
 
 #. type: =item
-#: ../dib/virt-dib.pod:202
+#: ../dib/virt-dib.pod:233
 msgid "B<--image-cache> DIRECTORY"
 msgstr "B<--image-cache> КАТАЛОГ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:204
+#: ../dib/virt-dib.pod:235
 msgid ""
 "Set the path in the host where cache the resources used by the elements of "
 "the C<extra-data.d> phase.  The default is F<~/.cache/image-create>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:208
+#: ../dib/virt-dib.pod:239
 msgid ""
 "Please note that most of the resources fetched after C<extra-data> will be "
 "cached in the helper drive specified with I<--drive>; see also L</HELPER "
@@ -10614,34 +10691,34 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:212
+#: ../dib/virt-dib.pod:243
 msgid "B<--install-type> TYPE"
 msgstr "B<--install-type> ТИП"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:214
+#: ../dib/virt-dib.pod:245
 msgid "Specify the default installation type.  Defaults to C<source>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:216
+#: ../dib/virt-dib.pod:247
 msgid "Set to C<package> to use package based installations by default."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:228
+#: ../dib/virt-dib.pod:259
 msgid ""
 "Change the amount of memory allocated to the appliance. Increase this if you "
 "find that the virt-dib execution runs out of memory."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:235
+#: ../dib/virt-dib.pod:266
 msgid "B<--mkfs-options> C<OPTION STRING>"
 msgstr "B<--mkfs-options> C<РЯДОК ПАРАМЕТРІВ>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:237
+#: ../dib/virt-dib.pod:268
 msgid ""
 "Add the specified options to L<mkfs(1)>, to be able to fine-tune the root "
 "filesystem creation.  Note that this is not possible to override the "
@@ -10649,14 +10726,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:241
+#: ../dib/virt-dib.pod:272
 msgid ""
 "You should use I<--mkfs-options> at most once.  To pass multiple options, "
 "separate them with space, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:244
+#: ../dib/virt-dib.pod:275
 #, no-wrap
 msgid ""
 " virt-dib ... --mkfs-options '-O someopt -I foo'\n"
@@ -10664,7 +10741,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:258
+#: ../dib/virt-dib.pod:289
 msgid ""
 "This does not affect whether the guest can access the network once it has "
 "been booted, because that is controlled by your hypervisor or cloud "
@@ -10672,7 +10749,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:262
+#: ../dib/virt-dib.pod:293
 msgid ""
 "If you use I<--no-network>, then the environment variable C<DIB_OFFLINE> is "
 "set to C<1>, signaling the elements that they should use only cached "
@@ -10682,29 +10759,29 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:269
+#: ../dib/virt-dib.pod:300
 msgid "B<--name> NAME"
 msgstr "B<--name> НАЗВА"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:271
+#: ../dib/virt-dib.pod:302
 msgid "Set the name of the output image file.  The default is C<image>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:273
+#: ../dib/virt-dib.pod:304
 msgid ""
 "According to the chosen name, there will be the following in the current "
 "directory:"
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:278
+#: ../dib/virt-dib.pod:309
 msgid "F<$NAME.ext>"
 msgstr "F<$NAME.ext>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:280
+#: ../dib/virt-dib.pod:311
 msgid ""
 "For each output format, a disk image named after the outout image with the "
 "extension depending on the format; for example: F<$NAME.qcow2>, F<$NAME."
@@ -10712,17 +10789,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:284
+#: ../dib/virt-dib.pod:315
 msgid "Not applicable in ramdisk mode, see L</RAMDISK BUILDING>."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:286
+#: ../dib/virt-dib.pod:317
 msgid "F<$NAME.d>"
 msgstr "F<$NAME.d>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:288
+#: ../dib/virt-dib.pod:319
 msgid ""
 "A directory containing any files created by the elements, for example F<dib-"
 "manifests> directory (created by the C<manifests> element), ramdisks and "
@@ -10730,26 +10807,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:296
+#: ../dib/virt-dib.pod:327
 msgid ""
 "Don't delete the output files on failure to build.  You can use this to "
 "debug failures to run scripts."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:299
+#: ../dib/virt-dib.pod:330
 msgid ""
 "The default is to delete the output file if virt-dib fails (or, for example, "
 "some script that it runs fails)."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:308
+#: ../dib/virt-dib.pod:339
 msgid "B<--qemu-img-options> option[,option,...]"
 msgstr "B<--qemu-img-options> параметр[,параметр,...]"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:310
+#: ../dib/virt-dib.pod:341
 msgid ""
 "Pass I<--qemu-img-options> option(s) to the L<qemu-img(1)> command to fine-"
 "tune the output format.  Options available depend on the output format (see "
@@ -10757,14 +10834,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:315
+#: ../dib/virt-dib.pod:346
 msgid ""
 "You should use I<--qemu-img-options> at most once.  To pass multiple "
 "options, separate them with commas, eg:"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:318
+#: ../dib/virt-dib.pod:349
 #, no-wrap
 msgid ""
 " virt-dib ... --qemu-img-options cluster_size=512,preallocation=metadata ...\n"
@@ -10774,44 +10851,44 @@ msgstr ""
 "\n"
 
 #. type: =item
-#: ../dib/virt-dib.pod:320
+#: ../dib/virt-dib.pod:351
 msgid "B<--ramdisk>"
 msgstr "B<--ramdisk>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:322
+#: ../dib/virt-dib.pod:353
 msgid "Set the ramdisk building mode."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:324 ../dib/virt-dib.pod:331
+#: ../dib/virt-dib.pod:355 ../dib/virt-dib.pod:362
 msgid "See L</RAMDISK BUILDING>."
 msgstr "Див. L</ЗБИРАННЯ ДИСКА У ПАМ'ЯТІ>."
 
 #. type: =item
-#: ../dib/virt-dib.pod:326
+#: ../dib/virt-dib.pod:357
 msgid "B<--ramdisk-element> NAME"
 msgstr "B<--ramdisk-element> НАЗВА"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:328
+#: ../dib/virt-dib.pod:359
 msgid ""
 "Set the name for the additional element added in ramdisk building mode.  The "
 "default is C<ramdisk>."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:333
+#: ../dib/virt-dib.pod:364
 msgid "B<--root-label> LABEL"
 msgstr "B<--root-label> МІТКА"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:335
+#: ../dib/virt-dib.pod:366
 msgid "Set the label for the root filesystem in the created image."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:337
+#: ../dib/virt-dib.pod:368
 msgid ""
 "Please note that some filesystems have different restrictions on the length "
 "of their labels; for example, on C<ext2/3/4> filesystems labels cannot be "
@@ -10819,7 +10896,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:342
+#: ../dib/virt-dib.pod:373
 msgid ""
 "The default depends on the actual filesystem for the root partition (see I<--"
 "fs-type>): on C<xfs> is C<img-rootfs>, while C<cloudimg-rootfs> on any other "
@@ -10827,52 +10904,52 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:348
+#: ../dib/virt-dib.pod:379
 msgid ""
 "Select the size of the output disk, where the size can be specified using "
 "common names such as C<32G> (32 gigabytes) etc.  The default size is C<5G>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:355
+#: ../dib/virt-dib.pod:386
 msgid ""
 "See also L<virt-resize(1)> for resizing partitions of an existing disk image."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:358
+#: ../dib/virt-dib.pod:389
 msgid "B<--skip-base>"
 msgstr "B<--skip-base>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:360
+#: ../dib/virt-dib.pod:391
 msgid "Skip the inclusion of the C<base> element."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:364
+#: ../dib/virt-dib.pod:395
 msgid "Enable N E<ge> 2 virtual CPUs for scripts to use."
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:366 ../tools/virt-tar:161
+#: ../dib/virt-dib.pod:397 ../tools/virt-tar:161
 msgid "B<-u>"
 msgstr "B<-u>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:368
+#: ../dib/virt-dib.pod:399
 msgid ""
 "Do not compress resulting qcow2 images.  The default is to compress them."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:375 ../resize/virt-resize.pod:345
+#: ../dib/virt-dib.pod:406 ../resize/virt-resize.pod:345
 #: ../resize/virt-resize.pod:610 ../tools/virt-win-reg:119
 msgid "Enable debugging messages."
 msgstr "Увімкнути показ діагностичних повідомлень."
 
 #. type: textblock
-#: ../dib/virt-dib.pod:391
+#: ../dib/virt-dib.pod:422
 msgid ""
 "Unlike with C<diskimage-builder>, the environment of the host is B<not> "
 "inherited in the appliance when running most of the elements (i.e. all the "
@@ -10880,7 +10957,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:395
+#: ../dib/virt-dib.pod:426
 msgid ""
 "To set environment for the elements being run, it is necessary to tell virt-"
 "dib to use them, with the option I<--envvar>.  Such option allows to "
@@ -10889,14 +10966,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:401
+#: ../dib/virt-dib.pod:432
 msgid ""
 "To recap: if you want the environment variable C<MYVAR> (and its content) to "
 "be available to the elements, you can do either"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:404
+#: ../dib/virt-dib.pod:435
 #, no-wrap
 msgid ""
 " export MYVAR   # whichever is its value\n"
@@ -10905,7 +10982,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:409
+#: ../dib/virt-dib.pod:440
 #, no-wrap
 msgid ""
 " virt-dib ... --envvar MYVAR=value_of_it ...\n"
@@ -10913,12 +10990,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../dib/virt-dib.pod:411
+#: ../dib/virt-dib.pod:442
 msgid "HELPER DRIVE"
 msgstr "ДОПОМІЖНИЙ ДИСК"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:413
+#: ../dib/virt-dib.pod:444
 msgid ""
 "Virt-dib runs most of the element in its own appliance, and thus not on the "
 "host.  Because of this, there is no possibility for elements to cache "
@@ -10926,7 +11003,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:417
+#: ../dib/virt-dib.pod:448
 msgid ""
 "To solve this issue, virt-dib allows the usage of an helper drive where to "
 "store cached resources, like disk images, distribution packages, etc. While "
@@ -10936,7 +11013,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:424
+#: ../dib/virt-dib.pod:455
 msgid ""
 "Currently this disk is either required to have a single partition on it, or "
 "the first partition on it will be used.  A disk with the latter "
@@ -10944,7 +11021,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:429
+#: ../dib/virt-dib.pod:460
 #, no-wrap
 msgid ""
 " guestfish -N filename.img=fs:ext4:10G\n"
@@ -10954,14 +11031,14 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:431
+#: ../dib/virt-dib.pod:462
 msgid ""
 "The above will create a disk image called F<filename.img>, 10G big, with a "
 "single partition of type ext4; see L<guestfish(1)/PREPARED DISK IMAGES>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:435
+#: ../dib/virt-dib.pod:466
 msgid ""
 "It is recommended for it to be E<ge> 10G or even more, as elements will "
 "cache disk images, distribution packages, etc.  As with any disk image, the "
@@ -10970,14 +11047,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:440
+#: ../dib/virt-dib.pod:471
 msgid ""
 "The drive can be accessed like any other disk image, for example using other "
 "tools of libguestfs such as L<guestfish(1)>:"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:443
+#: ../dib/virt-dib.pod:474
 #, no-wrap
 msgid ""
 " guestfish -a filename.img -m /dev/sda1\n"
@@ -10987,30 +11064,30 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:445
+#: ../dib/virt-dib.pod:476
 msgid ""
 "If no helper drive is specified with I<--drive>, all the resources cached "
 "during a virt-dib run will be discarded."
 msgstr ""
 
 #. type: =head2
-#: ../dib/virt-dib.pod:448
+#: ../dib/virt-dib.pod:479
 msgid "RESOURCES INSIDE THE DRIVE"
 msgstr "РЕСУРСИ НА ДИСКУ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:450
+#: ../dib/virt-dib.pod:481
 msgid ""
 "Inside the helper drive, it is possible to find the following resources:"
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:455
+#: ../dib/virt-dib.pod:486
 msgid "F</home>"
 msgstr "F</home>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:457
+#: ../dib/virt-dib.pod:488
 msgid ""
 "This directory is set as C<HOME> environment variable during the build.  It "
 "contains mostly the image cache (saved as F</home/.cache/image-create>), and "
@@ -11019,24 +11096,24 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../dib/virt-dib.pod:462
+#: ../dib/virt-dib.pod:493
 msgid "F</virt-dib-*.log>"
 msgstr "F</virt-dib-*.log>"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:464
+#: ../dib/virt-dib.pod:495
 msgid ""
 "These are the logs of the elements being run within the libguestfs "
 "appliance, which means all the hooks except C<extra-data.d>."
 msgstr ""
 
 #. type: =head1
-#: ../dib/virt-dib.pod:469
+#: ../dib/virt-dib.pod:500
 msgid "RAMDISK BUILDING"
 msgstr "ЗБИРАННЯ ДИСКА У ПАМ'ЯТІ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:471
+#: ../dib/virt-dib.pod:502
 msgid ""
 "Virt-dib can emulate also C<ramdisk-image-create>, which is a secondary "
 "operation mode of C<diskimage-builder>.  Instead of being a different tool "
@@ -11045,39 +11122,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:476
+#: ../dib/virt-dib.pod:507
 msgid "In this mode:"
 msgstr "У цьому режимі:"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:482
+#: ../dib/virt-dib.pod:513
 msgid "there is an additional ramdisk element added (see I<--ramdisk-element>)"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:487
+#: ../dib/virt-dib.pod:518
 msgid "no image is produced (so I<--formats> is ignored)"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:491
+#: ../dib/virt-dib.pod:522
 msgid "F<$NAME.d> (see I<--name>) will contain initrd, kernel, etc"
 msgstr ""
 
 #. type: =head1
-#: ../dib/virt-dib.pod:495
+#: ../dib/virt-dib.pod:526
 msgid "TEMPORARY DIRECTORY"
 msgstr "ТИМЧАСОВИЙ КАТАЛОГ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:497
+#: ../dib/virt-dib.pod:528
 msgid ""
 "Virt-dib uses the standard temporary directory used by libguestfs, see "
 "L<guestfs(3)/ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:500
+#: ../dib/virt-dib.pod:531
 msgid ""
 "By default this location is F</tmp> (default value for C<TMPDIR>), which on "
 "some systems may be on a tmpfs filesystem, and thus defaulting to a maximum "
@@ -11087,7 +11164,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:507
+#: ../dib/virt-dib.pod:538
 #, no-wrap
 msgid ""
 " mkdir local-tmp\n"
@@ -11101,12 +11178,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../dib/virt-dib.pod:511
+#: ../dib/virt-dib.pod:542
 msgid "EXTRA DEPENDENCIES"
 msgstr "ДОДАТКОВІ ЗАЛЕЖНОСТІ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:513
+#: ../dib/virt-dib.pod:544
 msgid ""
 "Because of virt-dib runs most of the elements in its own appliance, all the "
 "tools and libraries used by elements running outside the guest (typically "
@@ -11116,7 +11193,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:519
+#: ../dib/virt-dib.pod:550
 msgid ""
 "For tools and libraries packaged by the distribution, the easy solution is "
 "to tell libguestfs to include additional packages in the appliance.  This is "
@@ -11124,7 +11201,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:524
+#: ../dib/virt-dib.pod:555
 #, no-wrap
 msgid ""
 " # echo wget > /usr/lib64/guestfs/supermin.d/dib-my-extra\n"
@@ -11134,33 +11211,33 @@ msgstr ""
 "\n"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:526
+#: ../dib/virt-dib.pod:557
 msgid ""
 "The actual path to the F<supermin.d> directory depends on the distribution; "
 "additional files can list more packages, each in its own line."
 msgstr ""
 
 #. type: =head1
-#: ../dib/virt-dib.pod:530
+#: ../dib/virt-dib.pod:561
 msgid "COMPARISON WITH DISKIMAGE-BUILDER"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:532
+#: ../dib/virt-dib.pod:563
 msgid ""
 "Virt-dib is intended as safe replacement for C<diskimage-builder> and its "
 "C<ramdisk-image-create> mode; the user-notable differences consist in:"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:540
+#: ../dib/virt-dib.pod:571
 msgid ""
 "the command line arguments; some of the arguments are the same as available "
 "in C<diskimage-builder>, while some have different names:"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:543
+#: ../dib/virt-dib.pod:574
 #, no-wrap
 msgid ""
 " disk-image-create             virt-dib\n"
@@ -11177,31 +11254,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:556
+#: ../dib/virt-dib.pod:587
 msgid "the location of non-image output files (like ramdisks and kernels)"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:560
+#: ../dib/virt-dib.pod:591
 msgid ""
 "the way some of the cached resources are saved: using an helper drive, not "
 "directly on the disk where virt-dib is run"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:565
+#: ../dib/virt-dib.pod:596
 msgid ""
 "the need to specify a target size for the output disk, as opposed to "
 "C<diskimage-builder> calculating an optimal one"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:570
+#: ../dib/virt-dib.pod:601
 msgid "the handling of environment variables, see L</ENVIRONMENT VARIABLES>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:572
+#: ../dib/virt-dib.pod:603
 msgid ""
 "Furthermore, other than the libguestfs own environment variables (see "
 "L<guestfs(3)/ENVIRONMENT VARIABLES>), virt-dib does not read any other "
@@ -11210,14 +11287,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:580
+#: ../dib/virt-dib.pod:611
 msgid ""
 "extra tools needed on some out-of-chroot phases need to be available in the "
 "appliance, see L</EXTRA DEPENDENCIES>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:585
+#: ../dib/virt-dib.pod:616
 msgid ""
 "Elements themselves should notice no difference in they way they are run; "
 "behaviour differences may due to wrong assumptions in elements, or not "
@@ -11225,17 +11302,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:589
+#: ../dib/virt-dib.pod:620
 msgid "Known issues at the moment:"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:595
+#: ../dib/virt-dib.pod:626
 msgid "(none)"
 msgstr "(немає)"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:601
+#: ../dib/virt-dib.pod:632
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-dib from other programs, GUIs "
@@ -11243,14 +11320,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:605
+#: ../dib/virt-dib.pod:636
 msgid ""
 "Use the option on its own to query the capabilities of the virt-dib binary.  "
 "Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:608
+#: ../dib/virt-dib.pod:639
 #, no-wrap
 msgid ""
 " $ virt-dib --machine-readable\n"
@@ -11270,12 +11347,12 @@ msgstr ""
 "\n"
 
 #. type: =head1
-#: ../dib/virt-dib.pod:618
+#: ../dib/virt-dib.pod:649
 msgid "TESTING"
 msgstr "ТЕСТУВАННЯ"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:620
+#: ../dib/virt-dib.pod:651
 msgid ""
 "Virt-dib has been tested with C<diskimage-builder> (and its elements)  E<ge> "
 "0.1.43; from time to time also with C<tripleo-image-elements> and C<sahara-"
@@ -11283,24 +11360,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:624
+#: ../dib/virt-dib.pod:655
 msgid "Previous versions may work, but it is not guaranteed."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:633
+#: ../dib/virt-dib.pod:664
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-resize(1)>, L<http://libguestfs.org/>."
 msgstr ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-resize(1)>, L<http://libguestfs.org/>."
 
 #. type: textblock
-#: ../dib/virt-dib.pod:640
+#: ../dib/virt-dib.pod:671
 msgid "Pino Toscano (C<ptoscano at redhat dot com>)"
 msgstr "Pino Toscano (C<ptoscano at redhat dot com>)"
 
 #. type: textblock
-#: ../dib/virt-dib.pod:644
+#: ../dib/virt-dib.pod:675
 msgid "Copyright (C) 2015 Red Hat Inc."
 msgstr "© Red Hat Inc., 2015"
 
@@ -73047,16 +73124,6 @@ msgid ""
 "If disk images are requested from libvirt, then this program asks libvirt "
 "for this information.  In this case, the value of the format parameter is "
 "ignored."
-msgstr ""
-
-#. type: textblock
-#: ../inspector/virt-inspector.pod:114 ../resize/virt-resize.pod:410
-#: ../resize/virt-resize.pod:506 ../sparsify/virt-sparsify.pod:202
-#: ../tools/virt-list-filesystems:100 ../tools/virt-list-partitions:101
-#: ../tools/virt-tar:148 ../tools/virt-win-reg:149
-msgid ""
-"If working with untrusted raw-format guest disk images, you should ensure "
-"the format is always specified."
 msgstr ""
 
 #. type: =item
