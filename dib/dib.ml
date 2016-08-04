@@ -68,7 +68,7 @@ let envvars_string l =
   String.concat "\n" l
 
 let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
-  ~rootfs_uuid ~image_cache ~arch ~network ~debug
+  ~rootfs_uuid ~image_cache ~arch ~network ~debug ~fs_type
   destdir libdir hooksdir fakebindir all_elements element_paths =
   let network_string = if network then "" else "1" in
 
@@ -105,6 +105,7 @@ export DIB_ENV=%s
 export TMPDIR=\"${TMP_MOUNT_PATH}/tmp\"
 export TMP_DIR=\"${TMPDIR}\"
 export DIB_DEBUG_TRACE=%d
+export FS_TYPE=%s
 
 ENVIRONMENT_D_DIR=$target_dir/../environment.d
 
@@ -134,11 +135,12 @@ $target_dir/$script
     (String.concat " " (StringSet.elements all_elements))
     (String.concat ":" element_paths)
     (quote dib_vars)
-    debug in
+    debug
+    fs_type in
   write_script (destdir // "run-part-extra.sh") run_extra
 
 let prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name ~rootfs_uuid
-  ~arch ~network ~root_label ~install_type ~debug ~extra_packages
+  ~arch ~network ~root_label ~install_type ~debug ~extra_packages ~fs_type
   destdir all_elements =
   let network_string = if network then "" else "1" in
 
@@ -188,6 +190,7 @@ export IMAGE_ELEMENT=\"%s\"
 export DIB_ENV=%s
 export DIB_DEBUG_TRACE=%d
 export DIB_NO_TMPFS=1
+export FS_TYPE=%s
 
 export TMP_BUILD_DIR=$mysysroot/tmp/aux
 export TMP_IMAGE_DIR=$mysysroot/tmp/aux
@@ -225,7 +228,8 @@ $target_dir/$script
     dib_args
     (String.concat " " (StringSet.elements all_elements))
     (quote dib_vars)
-    debug in
+    debug
+    fs_type in
   write_script (destdir // "run-part.sh") script_run_part;
   let script_run_and_log = "\
 #!/bin/bash
@@ -595,6 +599,7 @@ let main () =
               ~rootfs_uuid ~arch ~network:cmdline.network ~root_label
               ~install_type:cmdline.install_type ~debug
               ~extra_packages:cmdline.extra_packages
+              ~fs_type:cmdline.fs_type
               auxtmpdir all_elements;
 
   let delete_output_file = ref cmdline.delete_on_failure in
@@ -611,6 +616,7 @@ let main () =
   prepare_external ~envvars ~dib_args ~dib_vars ~out_name:image_basename
                    ~root_label ~rootfs_uuid ~image_cache ~arch
                    ~network:cmdline.network ~debug
+                   ~fs_type:cmdline.fs_type
                    tmpdir cmdline.basepath hookstmpdir
                    (auxtmpdir // "fake-bin")
                    all_elements cmdline.element_paths;
