@@ -82,7 +82,7 @@ fi
 
   let firstboot_service = sprintf "\
 [Unit]
-Description=virt-sysprep firstboot service
+Description=libguestfs firstboot service
 After=network.target
 Before=prefdm.service
 
@@ -122,10 +122,27 @@ WantedBy=default.target
      *)
     let unitdir = "/usr/lib/systemd/system" in
     g#mkdir_p unitdir;
-    let unitfile = sprintf "%s/firstboot.service" unitdir in
+    let unitfile = sprintf "%s/guestfs-firstboot.service" unitdir in
     g#write unitfile firstboot_service;
     g#mkdir_p "/etc/systemd/system/default.target.wants";
-    g#ln_sf unitfile "/etc/systemd/system/default.target.wants"
+    g#ln_sf unitfile "/etc/systemd/system/default.target.wants";
+
+    (* Try to remove the old firstboot.service files. *)
+    let oldunitfile = sprintf "%s/firstboot.service" unitdir in
+    if g#is_file oldunitfile then (
+      g#rm_f "/etc/systemd/system/default.target.wants/firstboot.service";
+      (* Remove the old firstboot.service only if it is one of our
+       * versions. *)
+      match g#checksum "md5" oldunitfile with
+      | "6923781f7a1851b40b32b4960eb9a0fc"  (* < 1.23.24 *)
+      | "56fafd8c990fc9d24e5b8497f3582e8d"  (* < 1.23.32 *)
+      | "a83767e01cf398e2fd7c8f59d65d320a"  (* < 1.25.2 *)
+      | "39aeb10df29104797e3a9aca4db37a6e" ->
+        g#rm oldunitfile
+      | csum ->
+        warning (f_"firstboot: unknown version for old firstboot.service file %s (md5=%s), it will not be removed")
+          oldunitfile csum
+    )
 
   and install_sysvinit_service g = function
     | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
@@ -142,11 +159,16 @@ WantedBy=default.target
     g#mkdir_p "/etc/rc.d/rc3.d";
     g#mkdir_p "/etc/rc.d/rc5.d";
     g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-      "/etc/rc.d/rc2.d/S99virt-sysprep-firstboot";
+      "/etc/rc.d/rc2.d/S99guestfs-firstboot";
     g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-      "/etc/rc.d/rc3.d/S99virt-sysprep-firstboot";
+      "/etc/rc.d/rc3.d/S99guestfs-firstboot";
     g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-      "/etc/rc.d/rc5.d/S99virt-sysprep-firstboot"
+      "/etc/rc.d/rc5.d/S99guestfs-firstboot";
+
+    (* Try to remove the files of the old service. *)
+    g#rm_f "/etc/rc.d/rc2.d/S99virt-sysprep-firstboot";
+    g#rm_f "/etc/rc.d/rc3.d/S99virt-sysprep-firstboot";
+    g#rm_f "/etc/rc.d/rc5.d/S99virt-sysprep-firstboot"
 
   (* Make firstboot.sh look like a runlevel script to avoid insserv warnings. *)
   and install_sysvinit_suse g =
@@ -154,13 +176,19 @@ WantedBy=default.target
     g#mkdir_p "/etc/init.d/rc3.d";
     g#mkdir_p "/etc/init.d/rc5.d";
     g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-      "/etc/init.d/virt-sysprep-firstboot";
-    g#ln_sf "../virt-sysprep-firstboot"
-      "/etc/init.d/rc2.d/S99virt-sysprep-firstboot";
-    g#ln_sf "../virt-sysprep-firstboot"
-      "/etc/init.d/rc3.d/S99virt-sysprep-firstboot";
-    g#ln_sf "../virt-sysprep-firstboot"
-      "/etc/init.d/rc5.d/S99virt-sysprep-firstboot"
+      "/etc/init.d/guestfs-firstboot";
+    g#ln_sf "../guestfs-firstboot"
+      "/etc/init.d/rc2.d/S99guestfs-firstboot";
+    g#ln_sf "../guestfs-firstboot"
+      "/etc/init.d/rc3.d/S99guestfs-firstboot";
+    g#ln_sf "../guestfs-firstboot"
+      "/etc/init.d/rc5.d/S99guestfs-firstboot";
+
+    (* Try to remove the files of the old service. *)
+    g#rm_f "/etc/init.d/virt-sysprep-firstboot";
+    g#rm_f "/etc/init.d/rc2.d/S99virt-sysprep-firstboot";
+    g#rm_f "/etc/init.d/rc3.d/S99virt-sysprep-firstboot";
+    g#rm_f "/etc/init.d/rc5.d/S99virt-sysprep-firstboot"
 
   and install_sysvinit_debian g =
     g#mkdir_p "/etc/init.d";
@@ -168,13 +196,19 @@ WantedBy=default.target
     g#mkdir_p "/etc/rc3.d";
     g#mkdir_p "/etc/rc5.d";
     g#ln_sf (sprintf "%s/firstboot.sh" firstboot_dir)
-      "/etc/init.d/virt-sysprep-firstboot";
-    g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
-      "/etc/rc2.d/S99virt-sysprep-firstboot";
-    g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
-      "/etc/rc3.d/S99virt-sysprep-firstboot";
-    g#ln_sf "/etc/init.d/virt-sysprep-firstboot"
-      "/etc/rc5.d/S99virt-sysprep-firstboot"
+      "/etc/init.d/guestfs-firstboot";
+    g#ln_sf "/etc/init.d/guestfs-firstboot"
+      "/etc/rc2.d/S99guestfs-firstboot";
+    g#ln_sf "/etc/init.d/guestfs-firstboot"
+      "/etc/rc3.d/S99guestfs-firstboot";
+    g#ln_sf "/etc/init.d/guestfs-firstboot"
+      "/etc/rc5.d/S99guestfs-firstboot";
+
+    (* Try to remove the files of the old service. *)
+    g#rm_f "/etc/init.d/virt-sysprep-firstboot";
+    g#rm_f "/etc/rc2.d/S99virt-sysprep-firstboot";
+    g#rm_f "/etc/rc3.d/S99virt-sysprep-firstboot";
+    g#rm_f "/etc/rc5.d/S99virt-sysprep-firstboot"
 end
 
 module Windows = struct
