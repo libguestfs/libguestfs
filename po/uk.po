@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-08-03 16:38+0100\n"
+"POT-Creation-Date: 2016-08-04 09:58+0100\n"
 "PO-Revision-Date: 2016-07-14 05:51-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -1021,7 +1021,7 @@ msgstr "CD-ROM"
 msgid "Cannot get the home directory for %s"
 msgstr "Не вдалося отримати домашній каталог для %s"
 
-#: ../dib/dib.ml:494
+#: ../dib/dib.ml:525
 msgid "Carried environment variables: %s"
 msgstr "Обслуговувані змінні середовища: %s"
 
@@ -1086,7 +1086,7 @@ msgstr "Стиснути файл виведених даних"
 msgid "Compressed output format"
 msgstr "Стиснутий формат виведення даних"
 
-#: ../dib/dib.ml:854
+#: ../dib/dib.ml:871
 msgid "Compressing the image as tar"
 msgstr "Стискаємо образ за допомогою tar"
 
@@ -1102,7 +1102,7 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../dib/dib.ml:878 ../builder/builder.ml:624
+#: ../dib/dib.ml:895 ../builder/builder.ml:624
 msgid "Converting to %s"
 msgstr "Перетворюємо на %s"
 
@@ -1283,7 +1283,7 @@ msgstr "Не вносити змін"
 msgid "Don't print progress messages"
 msgstr "Не виводити повідомлень щодо поступу"
 
-#: ../dib/dib.ml:903
+#: ../dib/dib.ml:920
 msgid "Done"
 msgstr "Виконано"
 
@@ -1316,7 +1316,7 @@ msgstr "Редагувати файл за допомогою виразу Perl"
 msgid "Editing: %s"
 msgstr "Редагування: %s"
 
-#: ../dib/dib.ml:467
+#: ../dib/dib.ml:498
 msgid "Elements: %s"
 msgstr "Елементи: %s"
 
@@ -1385,7 +1385,7 @@ msgstr "Розгорнути логічний том"
 msgid "Expand partition"
 msgstr "Розгорнути розділ"
 
-#: ../dib/dib.ml:490
+#: ../dib/dib.ml:521
 msgid "Expanded elements: %s"
 msgstr "Розгорнуті елементи: %s"
 
@@ -1401,7 +1401,7 @@ msgstr "Розширюємо %s%s з використанням методу «%
 msgid "Export Storage Domain"
 msgstr "Експортувати домен сховища"
 
-#: ../dib/dib.ml:833
+#: ../dib/dib.ml:850
 msgid "Extracting data out of the image"
 msgstr "Видобуваємо дані з образу"
 
@@ -1636,7 +1636,7 @@ msgstr "Встановлюємо скрипт firstboot: %s"
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
-#: ../dib/dib.ml:420
+#: ../dib/dib.ml:453
 msgid "Installing: %s"
 msgstr "Встановлюємо: %s"
 
@@ -1798,7 +1798,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr "Лише скоригувати гостьову систему у вхідній ВМ"
 
-#: ../dib/dib.ml:626
+#: ../dib/dib.ml:634
 msgid "Opening the disks"
 msgstr "Відкриваємо диски"
 
@@ -1931,7 +1931,7 @@ msgstr "Плануємо побудову цього образу"
 msgid "Prefix for files"
 msgstr "Префікс для файлів"
 
-#: ../dib/dib.ml:514
+#: ../dib/dib.ml:545
 msgid "Preparing auxiliary data"
 msgstr "Готуємо допоміжні дані"
 
@@ -2242,7 +2242,7 @@ msgstr "Виконуємо touch: %s"
 msgid "Running: %s"
 msgstr "Виконуємо: %s"
 
-#: ../dib/dib.ml:401 ../dib/dib.ml:368
+#: ../dib/dib.ml:413 ../dib/dib.ml:366
 msgid "Running: %s/%s"
 msgstr "Виконуємо: %s/%s"
 
@@ -2436,7 +2436,7 @@ msgstr "Встановлюємо часовий пояс: %s"
 msgid "Setting up initial partition table on %s"
 msgstr "Встановлюємо початкову таблицю розділів на %s"
 
-#: ../dib/dib.ml:756
+#: ../dib/dib.ml:773
 msgid "Setting up the destination root"
 msgstr "Встановлюємо корінь призначення"
 
@@ -2823,7 +2823,7 @@ msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 msgid "USER[:SELECTOR]"
 msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 
-#: ../dib/dib.ml:859
+#: ../dib/dib.ml:876
 msgid "Umounting the disks"
 msgstr "Демонтуємо диски"
 
@@ -2887,7 +2887,7 @@ msgstr "Користувачі, записи яких слід вилучити"
 msgid "Using prebuilt file %s as overlay"
 msgstr "Використовуємо попередньо зібраний файл %s як оверлей"
 
-#: ../dib/dib.ml:898
+#: ../dib/dib.ml:915
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -3915,7 +3915,7 @@ msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../dib/dib.ml:685
+#: ../dib/dib.ml:693
 msgid "no partitions found in the helper drive"
 msgstr "на допоміжному диску не знайдено розділів"
 
@@ -4273,11 +4273,15 @@ msgstr "ssh-inject: файл відкритого ключа (%s) є порож�
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr "ssh-inject: запису користувача %s у гостьовій системі не існує"
 
-#: ../v2v/changeuid.ml:59
+#: ../dib/dib.ml:445
+msgid "sub-process killed by signal (%d)"
+msgstr ""
+
+#: ../v2v/changeuid.ml:56
 msgid "subprocess exited with non-zero error code %d"
 msgstr "підпроцес завершив роботу з ненульовим кодом виходу %d"
 
-#: ../v2v/changeuid.ml:61
+#: ../v2v/changeuid.ml:58
 msgid "subprocess signalled or stopped by signal %d"
 msgstr "підпроцес надіслав сигнал або зупинив роботу внаслідок сигналу %d"
 
@@ -4337,7 +4341,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr "на диску джерела немає розділів"
 
-#: ../dib/dib.ml:440
+#: ../dib/dib.ml:473
 msgid "the specified base path is not the diskimage-builder library"
 msgstr "вказаний базовий шлях не є шляхом до бібліотеки diskimage-builder"
 

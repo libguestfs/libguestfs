@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-08-03 16:38+0100\n"
+"POT-Creation-Date: 2016-08-04 09:58+0100\n"
 "PO-Revision-Date: 2015-10-28 05:02-0400\n"
 "Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -1117,7 +1117,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:268 ../cat/virt-filesystems.pod:381
 #: ../cat/virt-log.pod:130 ../cat/virt-ls.pod:513
 #: ../customize/virt-customize.pod:234 ../daemon/guestfsd.pod:99
-#: ../df/virt-df.pod:251 ../dib/virt-dib.pod:649 ../diff/virt-diff.pod:243
+#: ../df/virt-df.pod:251 ../dib/virt-dib.pod:626 ../diff/virt-diff.pod:243
 #: ../edit/virt-edit.pod:378 ../fish/guestfish.pod:1375
 #: ../format/virt-format.pod:181 ../fuse/guestmount.pod:418
 #: ../fuse/guestunmount.pod:124 ../get-kernel/virt-get-kernel.pod:166
@@ -1383,7 +1383,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:273 ../cat/virt-filesystems.pod:386
 #: ../cat/virt-log.pod:135 ../cat/virt-ls.pod:518
 #: ../customize/virt-customize.pod:274 ../daemon/guestfsd.pod:143
-#: ../df/virt-df.pod:256 ../dib/virt-dib.pod:654 ../diff/virt-diff.pod:248
+#: ../df/virt-df.pod:256 ../dib/virt-dib.pod:631 ../diff/virt-diff.pod:248
 #: ../docs/guestfs-building.pod:806 ../docs/guestfs-faq.pod:1392
 #: ../docs/guestfs-hacking.pod:1000 ../docs/guestfs-internals.pod:400
 #: ../docs/guestfs-performance.pod:619 ../docs/guestfs-recipes.pod:719
@@ -1426,7 +1426,7 @@ msgstr ""
 #: ../builder/virt-index-validate.pod:84 ../cat/virt-cat.pod:283
 #: ../cat/virt-filesystems.pod:397 ../cat/virt-log.pod:145
 #: ../cat/virt-ls.pod:528 ../daemon/guestfsd.pod:148 ../df/virt-df.pod:264
-#: ../dib/virt-dib.pod:661 ../diff/virt-diff.pod:258
+#: ../dib/virt-dib.pod:638 ../diff/virt-diff.pod:258
 #: ../docs/guestfs-release-notes.pod:5489 ../edit/virt-edit.pod:394
 #: ../format/virt-format.pod:195 ../get-kernel/virt-get-kernel.pod:179
 #: ../make-fs/virt-make-fs.pod:229 ../rescue/virt-rescue.pod:411
@@ -1466,7 +1466,7 @@ msgstr ""
 #: ../cat/virt-cat.pod:287 ../cat/virt-filesystems.pod:401
 #: ../cat/virt-log.pod:149 ../cat/virt-ls.pod:532
 #: ../customize/virt-customize.pod:295 ../daemon/guestfsd.pod:152
-#: ../df/virt-df.pod:268 ../dib/virt-dib.pod:665 ../diff/virt-diff.pod:262
+#: ../df/virt-df.pod:268 ../dib/virt-dib.pod:642 ../diff/virt-diff.pod:262
 #: ../docs/guestfs-building.pod:823 ../docs/guestfs-faq.pod:1402
 #: ../docs/guestfs-hacking.pod:1017 ../docs/guestfs-internals.pod:413
 #: ../docs/guestfs-performance.pod:636 ../docs/guestfs-recipes.pod:738
@@ -5600,7 +5600,7 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../builder/virt-builder.pod:1780 ../dib/virt-dib.pod:622
+#: ../builder/virt-builder.pod:1780 ../dib/virt-dib.pod:599
 #: ../get-kernel/virt-get-kernel.pod:146 ../resize/virt-resize.pod:624
 #: ../sparsify/virt-sparsify.pod:341 ../v2v/virt-v2v.pod:1822
 msgid "MACHINE READABLE OUTPUT"
@@ -5636,7 +5636,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../builder/virt-builder.pod:1797 ../dib/virt-dib.pod:638
+#: ../builder/virt-builder.pod:1797 ../dib/virt-dib.pod:615
 #: ../get-kernel/virt-get-kernel.pod:158 ../resize/virt-resize.pod:642
 #: ../sparsify/virt-sparsify.pod:357 ../v2v/virt-v2v.pod:1843
 msgid ""
@@ -5787,7 +5787,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:1867 ../cat/virt-cat.pod:270
 #: ../cat/virt-filesystems.pod:383 ../cat/virt-log.pod:132
 #: ../cat/virt-ls.pod:515 ../daemon/guestfsd.pod:101 ../df/virt-df.pod:253
-#: ../dib/virt-dib.pod:651 ../diff/virt-diff.pod:245 ../edit/virt-edit.pod:380
+#: ../dib/virt-dib.pod:628 ../diff/virt-diff.pod:245 ../edit/virt-edit.pod:380
 #: ../fuse/guestmount.pod:420 ../get-kernel/virt-get-kernel.pod:168
 #: ../inspector/virt-inspector.pod:509 ../resize/virt-resize.pod:820
 msgid ""
@@ -10472,38 +10472,12 @@ msgstr ""
 #. type: textblock
 #: ../dib/virt-dib.pod:580
 msgid ""
-"C<extra-data.d> scripts run in the host environment, before all the other "
-"ones (even C<root.d>); this means that, depending on the configuration for "
-"the elements, some of them may fail due to missing content (usually "
-"directories) in C<TMP_HOOKS_PATH>."
-msgstr ""
-
-#. type: textblock
-#: ../dib/virt-dib.pod:585
-msgid "Workarounds for this may be either:"
-msgstr ""
-
-#. type: textblock
-#: ../dib/virt-dib.pod:591
-msgid "fix the C<extra-data.d> scripts to create the missing directories"
-msgstr ""
-
-#. type: textblock
-#: ../dib/virt-dib.pod:595
-msgid ""
-"create (and use) a simple element with a C<extra-data.d> script named e.g. "
-"F<00-create-missing-dirs> to create the missing directories"
-msgstr ""
-
-#. type: textblock
-#: ../dib/virt-dib.pod:603
-msgid ""
 "extra tools needed on some out-of-chroot phases need to be available in the "
 "appliance, see L</EXTRA DEPENDENCIES>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:608
+#: ../dib/virt-dib.pod:585
 msgid ""
 "Elements themselves should notice no difference in they way they are run; "
 "behaviour differences may due to wrong assumptions in elements, or not "
@@ -10511,17 +10485,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:612
+#: ../dib/virt-dib.pod:589
 msgid "Known issues at the moment:"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:618
+#: ../dib/virt-dib.pod:595
 msgid "(none)"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:624
+#: ../dib/virt-dib.pod:601
 msgid ""
 "The I<--machine-readable> option can be used to make the output more machine "
 "friendly, which is useful when calling virt-dib from other programs, GUIs "
@@ -10529,14 +10503,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:628
+#: ../dib/virt-dib.pod:605
 msgid ""
 "Use the option on its own to query the capabilities of the virt-dib binary.  "
 "Typical output looks like this:"
 msgstr ""
 
 #. type: verbatim
-#: ../dib/virt-dib.pod:631
+#: ../dib/virt-dib.pod:608
 #, no-wrap
 msgid ""
 " $ virt-dib --machine-readable\n"
@@ -10549,12 +10523,12 @@ msgid ""
 msgstr ""
 
 #. type: =head1
-#: ../dib/virt-dib.pod:641
+#: ../dib/virt-dib.pod:618
 msgid "TESTING"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:643
+#: ../dib/virt-dib.pod:620
 msgid ""
 "Virt-dib has been tested with C<diskimage-builder> (and its elements)  E<ge> "
 "0.1.43; from time to time also with C<tripleo-image-elements> and C<sahara-"
@@ -10562,23 +10536,23 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:647
+#: ../dib/virt-dib.pod:624
 msgid "Previous versions may work, but it is not guaranteed."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:656
+#: ../dib/virt-dib.pod:633
 msgid ""
 "L<guestfs(3)>, L<guestfish(1)>, L<virt-resize(1)>, L<http://libguestfs.org/>."
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:663
+#: ../dib/virt-dib.pod:640
 msgid "Pino Toscano (C<ptoscano at redhat dot com>)"
 msgstr ""
 
 #. type: textblock
-#: ../dib/virt-dib.pod:667
+#: ../dib/virt-dib.pod:644
 msgid "Copyright (C) 2015 Red Hat Inc."
 msgstr ""
 
