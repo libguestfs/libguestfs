@@ -56,11 +56,25 @@ MLARCHIVE = cmxa
 BEST = opt
 endif
 
+# custom silent rules
+guestfs_am_v_ocamlc = $(guestfs_am_v_ocamlc_@AM_V@)
+guestfs_am_v_ocamlc_ = $(guestfs_am_v_ocamlc_@AM_DEFAULT_V@)
+guestfs_am_v_ocamlc_0 = @echo "  OCAMLC  " $@;
+guestfs_am_v_ocamlopt = $(guestfs_am_v_ocamlopt_@AM_V@)
+guestfs_am_v_ocamlopt_ = $(guestfs_am_v_ocamlopt_@AM_DEFAULT_V@)
+guestfs_am_v_ocamlopt_0 = @echo " OCAMLOPT " $@;
+guestfs_am_v_javac = $(guestfs_am_v_javac_@AM_V@)
+guestfs_am_v_javac_ = $(guestfs_am_v_javac_@AM_DEFAULT_V@)
+guestfs_am_v_javac_0 = @echo "  JAVAC   " $@;
+guestfs_am_v_erlc = $(guestfs_am_v_erlc_@AM_V@)
+guestfs_am_v_erlc_ = $(guestfs_am_v_erlc_@AM_DEFAULT_V@)
+guestfs_am_v_erlc_0 = @echo "  ERLC    " $@;
+
 .mli.cmi:
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
+	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
+	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 if HAVE_OCAMLOPT
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
+	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif

@@ -52,7 +52,7 @@ erlang_bin_DATA = guestfs.beam
 # The ./run script will set $ERL_LIBS to point to $(builddir)/erlang.
 # (See: http://www.erlang.org/doc/man/code.html)
 guestfs.beam: guestfs.erl
-	$(ERLC) +debug_info $^
+	$(guestfs_am_v_erlc)$(ERLC) +debug_info $^
 	mkdir -p $(PACKAGE)-$(VERSION)/ebin
 	cp $@ $(PACKAGE)-$(VERSION)/ebin
 

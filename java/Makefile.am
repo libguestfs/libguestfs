@@ -79,7 +79,7 @@ libguestfs_jardir = $(JAR_INSTALL_DIR)
 libguestfs_jar_DATA = libguestfs-${VERSION}.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -d . -classpath $(srcdir):. $<
+	$(guestfs_am_v_javac)$(JAVAC) $(JAVAC_FLAGS) -d . -classpath $(srcdir):. $<
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
@@ -140,9 +140,9 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 check_DATA = Bindtests.class $(java_tests:.java=.class)
 
 t/%.class: t/%.java libguestfs-$(VERSION).jar
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d t $<
+	$(guestfs_am_v_javac)$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d t $<
 
 Bindtests.class: Bindtests.java libguestfs-$(VERSION).jar
-	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d . $<
+	$(guestfs_am_v_javac)$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar -d . $<
 
 endif
