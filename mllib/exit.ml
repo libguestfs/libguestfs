@@ -16,4 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-external _exit : int -> unit = "guestfs_int_mllib_exit" "noalloc"
+external _exit : int -> 'a = "guestfs_int_mllib_exit" "noalloc"
