@@ -27,6 +27,7 @@ type cmdline = {
   excluded_scripts : string list;
   use_base : bool;
   drive : string option;
+  drive_format : string option;
   image_name : string;
   fs_type : string;
   size : int64;

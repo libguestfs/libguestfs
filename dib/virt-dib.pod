@@ -105,6 +105,20 @@ files of the elements, like disk images, distribution packages, etc.
 
 See L</HELPER DRIVE>.
 
+=item B<--drive-format> raw
+
+=item B<--drive-format> qcow2
+
+Specify the format of the helper drive.  If this flag is not given
+then it is auto-detected from the drive itself.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+This option is used only if I<--drive> is specified.
+
+See L</HELPER DRIVE>.
+
 =item B<-p> PATH
 
 =item B<--element-path> PATH

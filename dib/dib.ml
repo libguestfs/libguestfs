@@ -675,7 +675,7 @@ let main () =
     | None ->
       g#add_drive_scratch (unit_GB 5)
     | Some drive ->
-      g#add_drive drive;
+      g#add_drive ?format:cmdline.drive_format drive;
     );
 
     g#launch ();

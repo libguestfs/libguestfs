@@ -35,6 +35,7 @@ type cmdline = {
   excluded_scripts : string list;
   use_base : bool;
   drive : string option;
+  drive_format : string option;
   image_name : string;
   fs_type : string;
   size : int64;
@@ -124,6 +125,8 @@ read the man page virt-dib(1).
 
   let drive = ref None in
   let set_drive arg = drive := Some arg in
+  let drive_format = ref None in
+  let set_drive_format arg = drive_format := Some arg in
 
   let root_label = ref None in
   let set_root_label arg = root_label := Some arg in
@@ -184,6 +187,7 @@ read the man page virt-dib(1).
     [ L"formats" ],    Getopt.String ("qcow2,tgz,...", set_format),     s_"Output formats";
     [ L"arch" ],       Getopt.Set_string ("arch", arch),       s_"Output architecture";
     [ L"drive" ],      Getopt.String ("path", set_drive),      s_"Optional drive for caches";
+    [ L"drive-format" ], Getopt.String (s_"format", set_drive_format), s_"Format of optional drive";
 
     [ S 'm'; L"memsize" ],           Getopt.Int ("mb", set_memsize),       s_"Set memory size";
     [ L"network" ],    Getopt.Set network,           s_"Enable appliance network (default)";
@@ -217,6 +221,7 @@ read the man page virt-dib(1).
   let use_base = !use_base in
   let arch = !arch in
   let drive = !drive in
+  let drive_format = !drive_format in
   let root_label = !root_label in
   let install_type = !install_type in
   let image_cache = !image_cache in
@@ -253,8 +258,8 @@ read the man page virt-dib(1).
   { debug = debug; basepath = basepath; elements = elements;
     excluded_elements = excluded_elements; element_paths = element_paths;
     excluded_scripts = excluded_scripts; use_base = use_base; drive = drive;
-    image_name = image_name; fs_type = fs_type; size = size;
-    root_label = root_label; install_type = install_type;
+    drive_format = drive_format; image_name = image_name; fs_type = fs_type;
+    size = size; root_label = root_label; install_type = install_type;
     image_cache = image_cache; compressed = compressed;
     qemu_img_options = qemu_img_options; mkfs_options = mkfs_options;
     is_ramdisk = is_ramdisk; ramdisk_element = ramdisk_element;
