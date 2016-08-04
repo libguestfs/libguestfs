@@ -16,5 +16,5 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val _exit : int -> unit
+val _exit : int -> 'a
 (** Call _exit directly, ie. do not run OCaml atexit handlers. *)
