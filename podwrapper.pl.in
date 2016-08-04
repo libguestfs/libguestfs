@@ -520,7 +520,7 @@ if ($man) {
         unlink $man;
         die "$input: errors or warnings in this POD file, see messages above\n"
     }
-    print "$progname: wrote $man\n";
+    #print "$progname: wrote $man\n";
 }
 
 # Output HTML.
@@ -618,7 +618,7 @@ if ($html) {
         unlink $html;
         die "$input: errors or warnings in this POD file, see messages above\n"
     }
-    print "$progname: wrote $html\n";
+    #print "$progname: wrote $html\n";
 }
 
 # Output text.
@@ -637,7 +637,7 @@ if ($text) {
         unlink $text;
         die "$input: errors or warnings in this POD file, see messages above\n"
     }
-    print "$progname: wrote $text\n";
+    #print "$progname: wrote $text\n";
 }
 
 sub read_whole_file

@@ -35,7 +35,7 @@ else
 fi
 
 dnl Define the path to the podwrapper program.
-PODWRAPPER="$PERL $(pwd)/podwrapper.pl"
+PODWRAPPER="\$(guestfs_am_v_podwrapper)$PERL $(pwd)/podwrapper.pl"
 AC_SUBST([PODWRAPPER])
 
 dnl Check for Perl for Perl bindings and Perl tools.
