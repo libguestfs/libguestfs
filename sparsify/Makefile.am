@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	test-virt-sparsify.sh \
 	test-virt-sparsify-docs.sh \
 	test-virt-sparsify-in-place.sh \
+	test-virt-sparsify-in-place-fstrim-unsupported.sh \
 	virt-sparsify.pod
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
@@ -126,7 +127,8 @@ TESTS = \
 if ENABLE_APPLIANCE
 TESTS += \
 	test-virt-sparsify.sh \
-	test-virt-sparsify-in-place.sh
+	test-virt-sparsify-in-place.sh \
+	test-virt-sparsify-in-place-fstrim-unsupported.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
