@@ -109,8 +109,8 @@ let rec file_owner (g : G.guestfs) inspect path =
            raise Not_found
          else
            raise exn
-       | Invalid_argument msg ->
-         raise Not_found
+       | Invalid_argument "index out of bounds" ->
+         error (f_"internal error: file_owner: rpm command returned no output")
       )
 
   | format ->
