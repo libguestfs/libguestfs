@@ -29,7 +29,7 @@ open Cmdline
 
 module G = Guestfs
 
-let rec run disk format ignores machine_readable zeroes =
+let run disk format ignores machine_readable zeroes =
   (* Connect to libguestfs. *)
   let g = open_guestfs () in
 
@@ -40,17 +40,6 @@ let rec run disk format ignores machine_readable zeroes =
   Sys.set_signal Sys.sigquit (Sys.Signal_handle set_quit);
   g#set_pgroup true;
 
-  try
-    perform g disk format ignores machine_readable zeroes quit
-  with
-    G.Error msg as exn ->
-      if g#last_errno () = G.Errno.errno_ENOTSUP then (
-        (* for exit code 3, see man page *)
-        error ~exit_code:3 (f_"discard/trim is not supported: %s") msg;
-      )
-      else raise exn
-
-and perform g disk format ignores machine_readable zeroes quit =
   (* XXX Current limitation of the API.  Can remove this hunk in future. *)
   let format =
     match format with
@@ -61,6 +50,12 @@ and perform g disk format ignores machine_readable zeroes quit =
 
   if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
   g#launch ();
+
+  (* If discard is not supported in the appliance, we must return exit
+   * code 3.  See the man page.
+   *)
+  if not (g#feature_available [|"fstrim"|]) then
+    error ~exit_code:3 (f_"discard/trim is not supported");
 
   (* Discard non-ignored filesystems that we are able to mount, and
    * selected swap partitions.
