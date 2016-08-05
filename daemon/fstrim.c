@@ -105,7 +105,13 @@ do_fstrim (const char *path,
 
   r = commandv (&out, &err, argv);
   if (r == -1) {
-    reply_with_error ("%s", err);
+    /* If the error is about the kernel operation not being supported
+     * for this filesystem type, then return errno ENOTSUP here.
+     */
+    if (strstr (err, "discard operation is not supported"))
+      reply_with_error_errno (ENOTSUP, "%s", err);
+    else
+      reply_with_error ("%s", err);
     return -1;
   }
 
