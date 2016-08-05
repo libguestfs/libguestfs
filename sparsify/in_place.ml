@@ -89,7 +89,14 @@ let run disk format ignores machine_readable zeroes =
             if mounted then (
               message (f_"Trimming %s") fs;
 
-              g#fstrim "/"
+              try g#fstrim "/"
+              with G.Error msg as exn ->
+                if g#last_errno () = G.Errno.errno_ENOTSUP then (
+                  let vfs_type = try g#vfs_type fs with _ -> "unknown" in
+                  warning (f_"fstrim operation is not supported on %s (%s).  Suppress this warning using '--ignore %s', or use copying mode instead.")
+                          fs vfs_type fs
+                )
+                else raise exn
             ) else (
               let is_linux_x86_swap =
                 (* Look for the signature for Linux swap on i386.
