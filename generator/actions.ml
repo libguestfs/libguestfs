@@ -10588,6 +10588,10 @@ filesystem, the host filesystem, qemu and the host kernel.
 If this support isn't present it may give an error or even
 appear to run but do nothing.
 
+In the case where the kernel vfs driver does not support
+trimming, this call will fail with errno set to C<ENOTSUP>.
+Currently this happens when trying to trim FAT filesystems.
+
 See also C<guestfs_zero_free_space>.  That is a slightly
 different operation that turns free space in the filesystem
 into zeroes.  It is valid to call C<guestfs_fstrim> either
