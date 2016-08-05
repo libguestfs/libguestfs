@@ -21,7 +21,9 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	virt-sparsify.pod \
 	test-virt-sparsify.sh \
-	test-virt-sparsify-in-place.sh
+	test-virt-sparsify-in-place.sh \
+	test-virt-sparsify-in-place-fstrim-unsupported.sh \
+	virt-sparsify.pod
 
 CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
 
@@ -128,7 +130,8 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 if ENABLE_APPLIANCE
 TESTS = \
 	test-virt-sparsify.sh \
-	test-virt-sparsify-in-place.sh
+	test-virt-sparsify-in-place.sh \
+	test-virt-sparsify-in-place-fstrim-unsupported.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
