@@ -1050,9 +1050,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
       if Str.string_match rex grub_cmdline 0 then (
         let new_grub_cmdline =
           if not remove then
-            Str.global_replace rex "\\1console=ttyS0\\3" grub_cmdline
+            Str.global_replace rex "\\1console=ttyS0\\2" grub_cmdline
           else
-            Str.global_replace rex "\\1\\3" grub_cmdline in
+            Str.global_replace rex "\\1\\2" grub_cmdline in
         g#aug_set path new_grub_cmdline;
         g#aug_save ();
 
