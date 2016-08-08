@@ -77,6 +77,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     | "rhel" | "centos" | "scientificlinux" | "redhat-based"
     | "oraclelinux" -> `RHEL_family
     | "sles" | "suse-based" | "opensuse" -> `SUSE_family
+    | "debian" | "ubuntu" | "linuxmint" -> `Debian_family
     | _ -> assert false in
 
   assert (inspect.i_package_format = "rpm" || inspect.i_package_format = "deb");
