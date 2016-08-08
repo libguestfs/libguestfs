@@ -189,15 +189,6 @@ LATEST-VERSION: @PACKAGE_VERSION@
   <strong>
   <a href="download/1.34-stable/">1.34.x</a>,
   <a href="download/1.32-stable/">1.32.x</a>,
-  <a href="download/1.30-stable/">1.30.x</a>,
-  </strong>
-  Old stable:
-  <strong>
-  <a href="download/1.28-stable/">1.28.x</a>,
-  <a href="download/1.26-stable/">1.26.x</a>,
-  <a href="download/1.24-stable/">1.24.x</a>,
-  <a href="download/1.22-stable/">1.22.x</a>,
-  <a href="download/1.20-stable/">1.20.x</a>
   </strong>
 </small></em>
 </p>
