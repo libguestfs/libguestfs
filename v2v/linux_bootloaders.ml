@@ -299,6 +299,7 @@ let detect_bootloader (g : G.guestfs) inspect =
   let config_file, typ =
     let locations = [
       "/boot/grub2/grub.cfg", Grub2;
+      "/boot/grub/grub.cfg", Grub2;
       "/boot/grub/menu.lst", Grub1;
       "/boot/grub/grub.conf", Grub1;
     ] in
