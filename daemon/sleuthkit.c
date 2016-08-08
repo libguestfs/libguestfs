@@ -47,7 +47,8 @@ do_download_inode (const mountable_t *mountable, int64_t inode)
   }
 
   /* Construct the command. */
-  ret = asprintf(&cmd, "%s -r %s %" PRIi64, str_icat, mountable->device, inode);
+  ret = asprintf (&cmd, "%s -r %s %" PRIi64,
+                  str_icat, mountable->device, inode);
   if (ret < 0) {
     reply_with_perror ("asprintf");
     return -1;
@@ -85,7 +86,7 @@ do_download_blocks (const mountable_t *mountable, int64_t start, int64_t stop,
   /* Construct the command. */
   ret = asprintf (&cmd, "%s %s %s %" PRIi64 "-%" PRIi64,
                   str_blkls, mountable->device, params, start, stop);
-  if (ret < -0) {
+  if (ret < 0) {
     reply_with_perror ("asprintf");
     return -1;
   }
