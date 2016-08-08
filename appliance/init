@@ -124,7 +124,7 @@ mdadm -As --auto=yes --run
 
 # Scan for LVM.
 modprobe dm_mod ||:
-lvmetad ||:
+#lvmetad ||:
 
 lvm vgchange -aay --sysinit
 
