@@ -100,7 +100,8 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     filter_map (
       function
       | { G.app2_name = name } as app
-          when name = "kernel" || String.is_prefix name "kernel-" ->
+          when name = "kernel" || String.is_prefix name "kernel-"
+               || String.is_prefix name "linux-image-" ->
         (try
            (* For each kernel, list the files directly owned by the kernel. *)
            let files = Linux.file_list_of_package g inspect app in
