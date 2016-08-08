@@ -79,7 +79,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     | "sles" | "suse-based" | "opensuse" -> `SUSE_family
     | _ -> assert false in
 
-  assert (inspect.i_package_format = "rpm");
+  assert (inspect.i_package_format = "rpm" || inspect.i_package_format = "deb");
 
   (* We use Augeas for inspection and conversion, so initialize it early. *)
   Linux.augeas_init g;

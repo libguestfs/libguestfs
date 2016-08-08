@@ -48,6 +48,10 @@ and do_remove g inspect packages =
   assert (List.length packages > 0);
   let package_format = inspect.i_package_format in
   match package_format with
+  | "deb" ->
+    let cmd = [ "dpkg"; "--purge" ] @ packages in
+    let cmd = Array.of_list cmd in
+    ignore (g#command cmd);
   | "rpm" ->
     let cmd = [ "rpm"; "-e" ] @ packages in
     let cmd = Array.of_list cmd in
@@ -61,6 +65,12 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
   let package_format = inspect.i_package_format in
 
   match package_format with
+  | "deb" ->
+    let cmd = [| "dpkg"; "-L"; app.G.app2_name |] in
+    debug "%s" (String.concat " " (Array.to_list cmd));
+    let files = g#command_lines cmd in
+    let files = Array.to_list files in
+    List.sort compare files
   | "rpm" ->
     (* Since RPM allows multiple packages installed with the same
      * name, always check the full ENVR here (RHBZ#1161250).
@@ -98,6 +108,29 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
 let rec file_owner (g : G.guestfs) inspect path =
   let package_format = inspect.i_package_format in
   match package_format with
+  | "deb" ->
+      (* With dpkg usually the directories are owned by all the packages
+       * that install anything in them.  Also with multiarch the same
+       * package is allowed (although with different architectures).
+       * This function returns only one package in all the cases.
+       *)
+      let cmd = [| "dpkg"; "-S"; path |] in
+      debug "%s" (String.concat " " (Array.to_list cmd));
+      let lines =
+        try g#command_lines cmd
+        with Guestfs.Error msg as exn ->
+          if String.find msg "no path found matching pattern" >= 0 then
+            raise Not_found
+          else
+            raise exn in
+      if Array.length lines = 0 then
+        error (f_"internal error: file_owner: dpkg command returned no output");
+      let line = lines.(0) in
+      let line =
+        try String.sub line 0 (String.rindex line ':')
+        with Invalid_argument _ ->
+          error (f_"internal error: file_owner: invalid dpkg output: '%s'") line in
+      fst (String.split "," line)
   | "rpm" ->
       (* Although it is possible in RPM for multiple packages to own
        * a file, this deliberately only returns one package.
