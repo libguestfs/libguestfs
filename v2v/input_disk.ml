@@ -42,9 +42,23 @@ class input_disk input_format disk = object
      * the filename passed in.  Users can override this using the
      * `-on name' option.
      *)
-    let name = Filename.basename disk in
     let name =
-      try Filename.chop_extension name with Invalid_argument _ -> name in
+      let name = Filename.basename disk in
+      (* Remove the extension (or suffix), only if it's one usually
+       * used for disk images. *)
+      let suffixes = [
+        ".img"; ".qcow2"; ".raw"; ".vmdk";
+        "-sda";
+      ] in
+      let rec loop = function
+        | suff :: xs ->
+          if Filename.check_suffix name suff then
+            Filename.chop_suffix name suff
+          else
+            loop xs
+        | [] -> name
+      in
+      loop suffixes in
     if name = "" then
       error (f_"-i disk: invalid input filename (%s)") disk;
 
