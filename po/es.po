@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-12 15:29+0100\n"
+"POT-Creation-Date: 2016-08-08 21:54+0100\n"
 "PO-Revision-Date: 2015-03-18 06:06-0400\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -752,7 +752,7 @@ msgstr "la opción --vmtype no puede usarse con '-o null'"
 msgid "-B must be specified"
 msgstr ""
 
-#: ../v2v/input_disk.ml:49
+#: ../v2v/input_disk.ml:63
 msgid "-i disk: invalid input filename (%s)"
 msgstr "-i disco: nombre de archivo de entrada inválido (%s)"
 
@@ -2797,7 +2797,7 @@ msgstr ""
 msgid "cannot detect input disk format; use the --format parameter"
 msgstr ""
 
-#: ../v2v/input_disk.ml:65
+#: ../v2v/input_disk.ml:77
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
@@ -2828,7 +2828,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
-#: ../v2v/input_ova.ml:156
+#: ../v2v/input_ova.ml:154
 msgid "cannot parse output of sha1sum command"
 msgstr ""
 
@@ -2871,7 +2871,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:153
+#: ../v2v/input_ova.ml:151
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
@@ -2899,7 +2899,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:432
+#: ../v2v/output_libvirt.ml:436
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2935,11 +2935,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:290
+#: ../v2v/input_ova.ml:288
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:188
+#: ../v2v/input_ova.ml:186
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2956,7 +2956,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:399
+#: ../v2v/output_libvirt.ml:401
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -3037,7 +3037,7 @@ msgstr ""
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
-#: ../v2v/linux.ml:173
+#: ../v2v/linux.ml:177
 msgid "don't know how to find file owner using %s"
 msgstr ""
 
@@ -3087,11 +3087,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:255
+#: ../v2v/input_ova.ml:253
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:276
+#: ../v2v/input_ova.ml:274
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -3323,6 +3323,10 @@ msgstr ""
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
+#: ../v2v/linux.ml:173
+msgid "internal error: file_owner: rpm command returned no output"
+msgstr ""
+
 #: ../mllib/common_utils.ml:423
 msgid "internal error: invalid argument: %s"
 msgstr ""
@@ -3403,7 +3407,7 @@ msgstr ""
 msgid "missing value for the key '%s'"
 msgstr ""
 
-#: ../v2v/input_ova.ml:132
+#: ../v2v/input_ova.ml:130
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3439,7 +3443,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:129
+#: ../v2v/input_ova.ml:127
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3461,7 +3465,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:260
+#: ../v2v/input_ova.ml:258
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3496,7 +3500,7 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
-#: ../v2v/input_ova.ml:149
+#: ../v2v/input_ova.ml:147
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 
@@ -3579,7 +3583,7 @@ msgstr ""
 msgid "opts"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:154
+#: ../sparsify/cmdline.ml:150
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
@@ -3600,13 +3604,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:220
+#: ../v2v/input_ova.ml:218
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:217
+#: ../v2v/input_ova.ml:215
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3630,7 +3634,7 @@ msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:170
+#: ../customize/password.ml:173
 msgid ""
 "password: using insecure md5 password encryption for guest of type %s "
 "version %d.%d.\n"
@@ -3993,7 +3997,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:205
+#: ../v2v/input_ova.ml:203
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -4167,23 +4171,23 @@ msgstr ""
 msgid "you cannot pass an empty argument to --enable"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:167
+#: ../sparsify/cmdline.ml:163
 msgid "you cannot use --in-place and --check-tmpdir options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:170
+#: ../sparsify/cmdline.ml:166
 msgid "you cannot use --in-place and --compress options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:173
+#: ../sparsify/cmdline.ml:169
 msgid "you cannot use --in-place and --convert options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:179
+#: ../sparsify/cmdline.ml:175
 msgid "you cannot use --in-place and --tmp options together"
 msgstr ""
 
-#: ../sparsify/cmdline.ml:176
+#: ../sparsify/cmdline.ml:172
 msgid "you cannot use --in-place and -o options together"
 msgstr ""
 
@@ -4237,49 +4241,50 @@ msgid ""
 "  --help               Display brief help\n"
 "  -P nr_threads        Use at most nr_threads\n"
 "  -q|--quiet           No output, just exit code\n"
+"  --uuid               Print UUIDs instead of names\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:134 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
-#: cat/ls.c:181 df/main.c:134 diff/diff.c:193 diff/diff.c:199 edit/edit.c:136
-#: fish/fish.c:237 format/format.c:131 fuse/guestmount.c:212
+#: align/scan.c:135 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
+#: cat/ls.c:181 df/main.c:134 diff/diff.c:194 diff/diff.c:200 edit/edit.c:136
+#: fish/fish.c:238 format/format.c:131 fuse/guestmount.c:212
 #: inspector/inspector.c:128 make-fs/make-fs.c:116 rescue/rescue.c:136
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
-#: align/scan.c:153 builder/index-validate.c:85 cat/cat.c:140
+#: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:140
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:263 edit/edit.c:157 fish/fish.c:294 format/format.c:184
+#: diff/diff.c:264 edit/edit.c:157 fish/fish.c:295 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:123 inspector/inspector.c:151
 #: make-fs/make-fs.c:146 p2v/main.c:164 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
 
-#: align/scan.c:174 df/main.c:185
+#: align/scan.c:175 df/main.c:185
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr ""
 
-#: align/scan.c:232 df/main.c:282
+#: align/scan.c:233 df/main.c:282
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr ""
 
-#: align/scan.c:238
+#: align/scan.c:239
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr "%s: la opción --uuid no puede usarse con -a o -d\n"
 
-#: align/scan.c:340
+#: align/scan.c:341
 msgid "alignment < 4K"
 msgstr "alineamiento <4K"
 
-#: align/scan.c:343
+#: align/scan.c:344
 msgid "alignment < 64K"
 msgstr "alineamiento <64K"
 
@@ -4351,7 +4356,7 @@ msgid ""
 msgstr ""
 
 #: cat/cat.c:237 cat/filesystems.c:343 cat/log.c:202 cat/ls.c:356
-#: diff/diff.c:320 edit/edit.c:272 inspector/inspector.c:262
+#: diff/diff.c:321 edit/edit.c:272 inspector/inspector.c:262
 #: rescue/rescue.c:310
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -4441,7 +4446,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:311 cat/ls.c:345 df/main.c:265 diff/diff.c:334
+#: cat/filesystems.c:311 cat/ls.c:345 df/main.c:265 diff/diff.c:335
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: no puede utilizar al mismo tiempo las opciones -h y -cvs.\n"
@@ -4585,12 +4590,12 @@ msgid ""
 "  --csv                Output as Comma-Separated Values\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
-"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  -h|--human-readable  Print sizes in human-readable format\n"
 "  --help               Display brief help\n"
 "  -i|--inodes          Display inodes\n"
 "  --one-per-guest      Separate appliance per guest\n"
 "  -P nr_threads        Use at most nr_threads\n"
-"  --uuid               Add UUIDs to --long output\n"
+"  --uuid               Print UUIDs instead of names\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
@@ -4679,22 +4684,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:325
+#: diff/diff.c:326
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:340
+#: diff/diff.c:341
 #, c-format
 msgid "%s: extra arguments on the command line\n"
 msgstr ""
 
-#: diff/diff.c:748
+#: diff/diff.c:749
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:752
+#: diff/diff.c:753
 msgid "End of diff"
 msgstr ""
 
@@ -4707,20 +4712,20 @@ msgid ""
 "  %s [--options] -d domname file [file ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
 "Options:\n"
-"  -a|--add image       Add image\n"
-"  -b|--backup .ext     Backup original as original.ext\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  -d|--domain guest    Add disks from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  -e|--expr expr       Non-interactive editing using Perl expr\n"
-"  --format[=raw|..]    Force disk format for -a option\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -a|--add image        Add image\n"
+"  -b|--backup .ext      Backup original as original.ext\n"
+"  -c|--connect uri      Specify libvirt URI for -d option\n"
+"  -d|--domain guest     Add disks from libvirt guest\n"
+"  --echo-keys           Don't turn off echo for passphrases\n"
+"  -e|--edit|--expr expr Non-interactive editing using Perl expr\n"
+"  --format[=raw|..]     Force disk format for -a option\n"
+"  --help                Display brief help\n"
+"  --keys-from-stdin     Read passphrases from stdin\n"
 "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
-"                       Mount dev on mnt (if omitted, /)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
+"                        Mount dev on mnt (if omitted, /)\n"
+"  -v|--verbose          Verbose messages\n"
+"  -V|--version          Display version and exit\n"
+"  -x                    Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
@@ -7186,6 +7191,7 @@ msgid ""
 "  --echo-keys          Don't turn off echo for passphrases\n"
 "  -f|--file file       Read commands from file\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
 "  -i|--inspector       Automatically mount filesystems\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
@@ -7219,12 +7225,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:256
+#: fish/fish.c:257
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID no era un número: %s\n"
 
-#: fish/fish.c:263
+#: fish/fish.c:264
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
@@ -7232,34 +7238,34 @@ msgstr ""
 "%s: remote: $GUESTFISH_PID debe estar definido con el PID del proceso "
 "remoto\n"
 
-#: fish/fish.c:313
+#: fish/fish.c:314
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:320
+#: fish/fish.c:321
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 
-#: fish/fish.c:517
+#: fish/fish.c:518
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:525
+#: fish/fish.c:526
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:531
+#: fish/fish.c:532
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:710
+#: fish/fish.c:711
 #, c-format
 msgid ""
 "\n"
@@ -7272,51 +7278,51 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:870 fish/fish.c:886
+#: fish/fish.c:871 fish/fish.c:887
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:880
+#: fish/fish.c:881
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:910
+#: fish/fish.c:911
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:927
+#: fish/fish.c:928
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:1002
+#: fish/fish.c:1003
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr "%s: secuencia no válida en la cadena (empezando en el offset %d)\n"
 
-#: fish/fish.c:1011
+#: fish/fish.c:1012
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:1074
+#: fish/fish.c:1075
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:1232
+#: fish/fish.c:1233
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:1234
+#: fish/fish.c:1235
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:1245
+#: fish/fish.c:1246
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -7327,7 +7333,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1253
+#: fish/fish.c:1254
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -7336,12 +7342,12 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1258
+#: fish/fish.c:1259
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1274
+#: fish/fish.c:1275
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -7352,17 +7358,17 @@ msgstr ""
 "Para obtener una lista de comandos:             guestfish -h\n"
 "Para obtener la documentación completa:         man guestfish\n"
 
-#: fish/fish.c:1283
+#: fish/fish.c:1284
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: error: %s\n"
 
-#: fish/fish.c:1408
+#: fish/fish.c:1409
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1745
+#: fish/fish.c:1746
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -7371,14 +7377,14 @@ msgstr ""
 "%s: para utilizar letras de unidad Windows, debe inspeccionar el huésped  "
 "(opción \"-i\"o ejecute el comando \"inspect-os\")\n"
 
-#: fish/fish.c:1751 fish/windows.c:106
+#: fish/fish.c:1752 fish/windows.c:106
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s para utilizar una letra de unidad de Windows, este debe ser un huésped "
 "Windows\n"
 
-#: fish/fish.c:1765
+#: fish/fish.c:1766
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -7388,7 +7394,7 @@ msgstr ""
 "disponibles ejecute:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1784
+#: fish/fish.c:1785
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -8091,16 +8097,16 @@ msgid ""
 "  %s [--options] input.tar.gz output.img\n"
 "  %s [--options] directory output.img\n"
 "Options:\n"
-"  --floppy               Make a virtual floppy disk\n"
-"  --format=raw|qcow2|..  Set output format\n"
-"  --help                 Display brief help\n"
-"  --label=label          Filesystem label\n"
-"  --partition=mbr|gpt|.. Set partition type\n"
-"  --size=size|+size      Set size of output disk\n"
-"  --type=ext4|..         Set filesystem type\n"
-"  -v|--verbose           Verbose messages\n"
-"  -V|--version           Display version and exit\n"
-"  -x                     Trace libguestfs API calls\n"
+"  --floppy                 Make a virtual floppy disk\n"
+"  -F|--format=raw|qcow2|.. Set output format\n"
+"  --help                   Display brief help\n"
+"  --label=label            Filesystem label\n"
+"  --partition=mbr|gpt|..   Set partition type\n"
+"  -s|--size=size|+size     Set size of output disk\n"
+"  -t|--type=ext4|..        Set filesystem type\n"
+"  -v|--verbose             Verbose messages\n"
+"  -V|--version             Display version and exit\n"
+"  -x                       Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
@@ -9219,12 +9225,12 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch-direct.c:831 src/launch-libvirt.c:607
+#: src/launch-direct.c:831 src/launch-libvirt.c:666
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch-direct.c:1235 src/launch-libvirt.c:1389
+#: src/launch-direct.c:1235 src/launch-libvirt.c:1448
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr ""
@@ -9264,25 +9270,39 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/launch-libvirt.c:263
+#: src/launch-libvirt.c:198
+msgid ""
+"could not auto-detect the format.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+
+#: src/launch-libvirt.c:208
+msgid ""
+"could not auto-detect the format when using a non-file protocol.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+
+#: src/launch-libvirt.c:322
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:274
+#: src/launch-libvirt.c:333
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 
-#: src/launch-libvirt.c:309
+#: src/launch-libvirt.c:368
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: src/launch-libvirt.c:338
+#: src/launch-libvirt.c:397
 msgid "could not get libvirt capabilities"
 msgstr ""
 
-#: src/launch-libvirt.c:535
+#: src/launch-libvirt.c:594
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -9292,21 +9312,21 @@ msgid ""
 "Original error from libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:673
+#: src/launch-libvirt.c:732
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
-#: src/launch-libvirt.c:679 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:738 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr "no es posible crear un nuevo contexto XPath"
 
-#: src/launch-libvirt.c:689
+#: src/launch-libvirt.c:748
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr ""
 
-#: src/launch-libvirt.c:724
+#: src/launch-libvirt.c:783
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -9321,57 +9341,43 @@ msgid ""
 "For further help, read the guestfs(3) man page and libguestfs FAQ."
 msgstr ""
 
-#: src/launch-libvirt.c:960
+#: src/launch-libvirt.c:1019
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: src/launch-libvirt.c:1343
+#: src/launch-libvirt.c:1402
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: src/launch-libvirt.c:1472
+#: src/launch-libvirt.c:1531
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: src/launch-libvirt.c:1497
-msgid ""
-"could not auto-detect the format.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-
-#: src/launch-libvirt.c:1504
-msgid ""
-"could not auto-detect the format when using a non-file protocol.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-
-#: src/launch-libvirt.c:1818
+#: src/launch-libvirt.c:1850
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1829
+#: src/launch-libvirt.c:1861
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: src/launch-libvirt.c:1833
+#: src/launch-libvirt.c:1865
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: src/launch-libvirt.c:1854
+#: src/launch-libvirt.c:1886
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: src/launch-libvirt.c:1867
+#: src/launch-libvirt.c:1899
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: src/launch-libvirt.c:1977
+#: src/launch-libvirt.c:2009
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -9387,20 +9393,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: src/launch-libvirt.c:2070
+#: src/launch-libvirt.c:2102
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2091 src/launch-libvirt.c:2124
+#: src/launch-libvirt.c:2123 src/launch-libvirt.c:2156
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: src/launch-libvirt.c:2187
+#: src/launch-libvirt.c:2219
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: src/launch-libvirt.c:2218
+#: src/launch-libvirt.c:2250
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9631,11 +9637,11 @@ msgid ""
 "without libvirt"
 msgstr ""
 
-#: src/osinfo.c:253
+#: src/osinfo.c:370
 msgid "osinfo: unable to create new XPath context"
 msgstr ""
 
-#: src/osinfo.c:263
+#: src/osinfo.c:380
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr ""
@@ -9730,27 +9736,27 @@ msgstr ""
 "seguridad: el dispositivo cacheado %s es modificable por el grupo u otros "
 "(modo %o)"
 
-#: src/utils.c:201
+#: src/utils.c:202
 #, c-format
 msgid "%s exited successfully"
 msgstr ""
 
-#: src/utils.c:204
+#: src/utils.c:205
 #, c-format
 msgid "%s exited with error status %d"
 msgstr ""
 
-#: src/utils.c:208
+#: src/utils.c:209
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:212
+#: src/utils.c:213
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr ""
 
-#: src/utils.c:216
+#: src/utils.c:217
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr ""

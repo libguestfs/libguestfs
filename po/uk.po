@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-07-12 15:29+0100\n"
+"POT-Creation-Date: 2016-08-08 21:54+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -805,7 +805,7 @@ msgstr "Параметр --vmtype не можна використовувати
 msgid "-B must be specified"
 msgstr "слід вказати -B"
 
-#: ../v2v/input_disk.ml:49
+#: ../v2v/input_disk.ml:63
 msgid "-i disk: invalid input filename (%s)"
 msgstr "-i диск: некоректна назва файла вхідних даних (%s)"
 
@@ -3069,7 +3069,7 @@ msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром --"
 "format"
 
-#: ../v2v/input_disk.ml:65
+#: ../v2v/input_disk.ml:77
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
@@ -3110,7 +3110,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr "неможливо вивести дані до символьного пристрою або /dev/null"
 
-#: ../v2v/input_ova.ml:156
+#: ../v2v/input_ova.ml:154
 msgid "cannot parse output of sha1sum command"
 msgstr "не вдалося обробити дані, виведені програмою sha1sum"
 
@@ -3165,7 +3165,7 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:153
+#: ../v2v/input_ova.ml:151
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
@@ -3196,7 +3196,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
-#: ../v2v/output_libvirt.ml:432
+#: ../v2v/output_libvirt.ml:436
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -3245,11 +3245,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:290
+#: ../v2v/input_ova.ml:288
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:188
+#: ../v2v/input_ova.ml:186
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3272,7 +3272,7 @@ msgstr ""
 "виведені grub дані не буде надіслано до послідовного порту, але, окрім "
 "цього, не зашкодить. Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/output_libvirt.ml:399
+#: ../v2v/output_libvirt.ml:401
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
@@ -3368,7 +3368,7 @@ msgstr "домен"
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr "спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
 
-#: ../v2v/linux.ml:173
+#: ../v2v/linux.ml:177
 msgid "don't know how to find file owner using %s"
 msgstr ""
 "спосіб отримання даних щодо власника файла за допомогою %s є невідомим "
@@ -3426,11 +3426,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:255
+#: ../v2v/input_ova.ml:253
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
-#: ../v2v/input_ova.ml:276
+#: ../v2v/input_ova.ml:274
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3722,6 +3722,10 @@ msgstr "внутрішня помилка: надіслано виключенн
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr "внутрішня помилка: помилка оцінки у %s, рядок %d, символ %d"
 
+#: ../v2v/linux.ml:173
+msgid "internal error: file_owner: rpm command returned no output"
+msgstr ""
+
 #: ../mllib/common_utils.ml:423
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
@@ -3808,7 +3812,7 @@ msgstr ""
 msgid "missing value for the key '%s'"
 msgstr "немає значення для ключа «%s»"
 
-#: ../v2v/input_ova.ml:132
+#: ../v2v/input_ova.ml:130
 msgid "more than one .ovf file was found in %s"
 msgstr "у %s виявлено декілька файлів .ovf"
 
@@ -3854,7 +3858,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:129
+#: ../v2v/input_ova.ml:127
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
@@ -3880,7 +3884,7 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/input_ova.ml:260
+#: ../v2v/input_ova.ml:258
 msgid "no href in ovf:File (id=%s)"
 msgstr "немає href у ovf:File (id=%s)"
 
@@ -3923,7 +3927,7 @@ msgstr "не знайдено операційної системи"
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../v2v/input_ova.ml:149
+#: ../v2v/input_ova.ml:147
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
@@ -4024,7 +4028,7 @@ msgstr "параметр"
 msgid "opts"
 msgstr "параметри"
 
-#: ../sparsify/cmdline.ml:154
+#: ../sparsify/cmdline.ml:150
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 "виведенням «%s» не може бути символьний пристрій, виводити дані можна лише "
@@ -4057,7 +4061,7 @@ msgstr ""
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
 
-#: ../v2v/input_ova.ml:220
+#: ../v2v/input_ova.ml:218
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -4065,7 +4069,7 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/input_ova.ml:217
+#: ../v2v/input_ova.ml:215
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4093,7 +4097,7 @@ msgstr ""
 "password-crypto: невідомий алгоритм %s, мало бути використано один з таких "
 "варіантів: «md5», «sha256» або «sha512»"
 
-#: ../customize/password.ml:170
+#: ../customize/password.ml:173
 msgid ""
 "password: using insecure md5 password encryption for guest of type %s "
 "version %d.%d.\n"
@@ -4538,7 +4542,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:205
+#: ../v2v/input_ova.ml:203
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
@@ -4749,24 +4753,24 @@ msgstr ""
 msgid "you cannot pass an empty argument to --enable"
 msgstr "не можна передавати порожній аргумент параметру --enable"
 
-#: ../sparsify/cmdline.ml:167
+#: ../sparsify/cmdline.ml:163
 msgid "you cannot use --in-place and --check-tmpdir options together"
 msgstr ""
 "не можна одночасно використовувати параметри --in-place і --check-tmpdir"
 
-#: ../sparsify/cmdline.ml:170
+#: ../sparsify/cmdline.ml:166
 msgid "you cannot use --in-place and --compress options together"
 msgstr "не можна одночасно використовувати параметри --in-place і --compress"
 
-#: ../sparsify/cmdline.ml:173
+#: ../sparsify/cmdline.ml:169
 msgid "you cannot use --in-place and --convert options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -convert"
 
-#: ../sparsify/cmdline.ml:179
+#: ../sparsify/cmdline.ml:175
 msgid "you cannot use --in-place and --tmp options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -tmp"
 
-#: ../sparsify/cmdline.ml:176
+#: ../sparsify/cmdline.ml:172
 msgid "you cannot use --in-place and -o options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -o"
 
@@ -4829,67 +4833,50 @@ msgid ""
 "  --help               Display brief help\n"
 "  -P nr_threads        Use at most nr_threads\n"
 "  -q|--quiet           No output, just exit code\n"
+"  --uuid               Print UUIDs instead of names\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: перевірка вирівнювання розділів віртуальної машини\n"
-"© Red Hat Inc., 2011\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену\n"
-"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
-"Параметри:\n"
-"  -a|--add образ       Додати образ\n"
-"  -c|--connect uri     Вказати адресу libvirt для параметра -d\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --format[=raw|..]    Вказати формат диска для параметра -a\n"
-"  --help               Показати коротку довідку\n"
-"  -P кількість         Використовувати не більше вказаної кількості потоків "
-"обробки\n"
-"  -q|--quiet           Не виводити повідомлень, лише код виходу\n"
-"  -v|--verbose         Режим докладних повідомлень\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики API libguestfs\n"
-"З докладнішими даними можна ознайомитися на сторінці довідника (man) %s(1).\n"
 
-#: align/scan.c:134 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
-#: cat/ls.c:181 df/main.c:134 diff/diff.c:193 diff/diff.c:199 edit/edit.c:136
-#: fish/fish.c:237 format/format.c:131 fuse/guestmount.c:212
+#: align/scan.c:135 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
+#: cat/ls.c:181 df/main.c:134 diff/diff.c:194 diff/diff.c:200 edit/edit.c:136
+#: fish/fish.c:238 format/format.c:131 fuse/guestmount.c:212
 #: inspector/inspector.c:128 make-fs/make-fs.c:116 rescue/rescue.c:136
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
-#: align/scan.c:153 builder/index-validate.c:85 cat/cat.c:140
+#: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:140
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:263 edit/edit.c:157 fish/fish.c:294 format/format.c:184
+#: diff/diff.c:264 edit/edit.c:157 fish/fish.c:295 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:123 inspector/inspector.c:151
 #: make-fs/make-fs.c:146 p2v/main.c:164 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
 
-#: align/scan.c:174 df/main.c:185
+#: align/scan.c:175 df/main.c:185
 #, c-format
 msgid "%s: -P option is not numeric\n"
 msgstr "%s: аргумент параметра -P не є числом\n"
 
-#: align/scan.c:232 df/main.c:282
+#: align/scan.c:233 df/main.c:282
 #, c-format
 msgid "%s: compiled without support for libvirt.\n"
 msgstr "%s: зібрано без підтримки libvirt.\n"
 
-#: align/scan.c:238
+#: align/scan.c:239
 #, c-format
 msgid "%s: --uuid option cannot be used with -a or -d\n"
 msgstr "%s: параметр --uuid не можна використовувати разом з -a або -d\n"
 
-#: align/scan.c:340
+#: align/scan.c:341
 msgid "alignment < 4K"
 msgstr "вирівнювання < 4кБ"
 
-#: align/scan.c:343
+#: align/scan.c:344
 msgid "alignment < 64K"
 msgstr "вирівнювання < 64кБ"
 
@@ -4995,7 +4982,7 @@ msgstr ""
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
 #: cat/cat.c:237 cat/filesystems.c:343 cat/log.c:202 cat/ls.c:356
-#: diff/diff.c:320 edit/edit.c:272 inspector/inspector.c:262
+#: diff/diff.c:321 edit/edit.c:272 inspector/inspector.c:262
 #: rescue/rescue.c:310
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -5085,7 +5072,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:311 cat/ls.c:345 df/main.c:265 diff/diff.c:334
+#: cat/filesystems.c:311 cat/ls.c:345 df/main.c:265 diff/diff.c:335
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
@@ -5274,40 +5261,17 @@ msgid ""
 "  --csv                Output as Comma-Separated Values\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
-"  -h|--human-readable  Human-readable sizes in --long output\n"
+"  -h|--human-readable  Print sizes in human-readable format\n"
 "  --help               Display brief help\n"
 "  -i|--inodes          Display inodes\n"
 "  --one-per-guest      Separate appliance per guest\n"
 "  -P nr_threads        Use at most nr_threads\n"
-"  --uuid               Add UUIDs to --long output\n"
+"  --uuid               Print UUIDs instead of names\n"
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 "  -x                   Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
-"%s: показ даних щодо вільного місця на віртуальних файлових системах\n"
-"© Red Hat Inc., 2010\n"
-"Використання:\n"
-"  %s [--параметри] -d назва_домену\n"
-"  %s [--параметри] -a диск.img [-a диск.img ...]\n"
-"Параметри:\n"
-"  -a|--add image       Додати образ\n"
-"  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
-"  --csv                Вивести дані у форматі записів, відокремлених комами\n"
-"  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
-"  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
-"  -h|--human-readable  Зручні для читання записи розмірів у даних, виведених "
-"--long\n"
-"  --help               Показати коротеньку довідкову інформацію\n"
-"  -i|--inodes          Показати inode-и\n"
-"  --one-per-guest      Окремий пристрій для кожної гостьової системи\n"
-"  -P кількість         Використовувати не більше вказаної кількості потоків "
-"обробки\n"
-"  --uuid               Додати UUID до даних, виведених --long\n"
-"  -v|--verbose         Докладні повідомлення\n"
-"  -V|--version         Показати дані щодо версії і завершити роботу\n"
-"  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
-"Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
 #: df/output.c:49
 msgid "VirtualMachine"
@@ -5391,24 +5355,24 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:325
+#: diff/diff.c:326
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:340
+#: diff/diff.c:341
 #, c-format
 msgid "%s: extra arguments on the command line\n"
 msgstr "%s: зайві аргументи у командному рядку\n"
 
-#: diff/diff.c:748
+#: diff/diff.c:749
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 "%s: спроба використання зовнішньої програми визначення різниці (diff) "
 "зазнала невдачі\n"
 
-#: diff/diff.c:752
+#: diff/diff.c:753
 msgid "End of diff"
 msgstr "Кінець різниці"
 
@@ -5421,20 +5385,20 @@ msgid ""
 "  %s [--options] -d domname file [file ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
 "Options:\n"
-"  -a|--add image       Add image\n"
-"  -b|--backup .ext     Backup original as original.ext\n"
-"  -c|--connect uri     Specify libvirt URI for -d option\n"
-"  -d|--domain guest    Add disks from libvirt guest\n"
-"  --echo-keys          Don't turn off echo for passphrases\n"
-"  -e|--expr expr       Non-interactive editing using Perl expr\n"
-"  --format[=raw|..]    Force disk format for -a option\n"
-"  --help               Display brief help\n"
-"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -a|--add image        Add image\n"
+"  -b|--backup .ext      Backup original as original.ext\n"
+"  -c|--connect uri      Specify libvirt URI for -d option\n"
+"  -d|--domain guest     Add disks from libvirt guest\n"
+"  --echo-keys           Don't turn off echo for passphrases\n"
+"  -e|--edit|--expr expr Non-interactive editing using Perl expr\n"
+"  --format[=raw|..]     Force disk format for -a option\n"
+"  --help                Display brief help\n"
+"  --keys-from-stdin     Read passphrases from stdin\n"
 "  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
-"                       Mount dev on mnt (if omitted, /)\n"
-"  -v|--verbose         Verbose messages\n"
-"  -V|--version         Display version and exit\n"
-"  -x                   Trace libguestfs API calls\n"
+"                        Mount dev on mnt (if omitted, /)\n"
+"  -v|--verbose          Verbose messages\n"
+"  -V|--version          Display version and exit\n"
+"  -x                    Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
@@ -7921,6 +7885,7 @@ msgid ""
 "  --echo-keys          Don't turn off echo for passphrases\n"
 "  -f|--file file       Read commands from file\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
 "  -i|--inspector       Automatically mount filesystems\n"
 "  --keys-from-stdin    Read passphrases from stdin\n"
 "  --listen             Listen for remote commands\n"
@@ -7954,46 +7919,46 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:256
+#: fish/fish.c:257
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID не був числом: %s\n"
 
-#: fish/fish.c:263
+#: fish/fish.c:264
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: remote: для ідентифікатора віддаленого процесу має $GUESTFISH_PID\n"
 
-#: fish/fish.c:313
+#: fish/fish.c:314
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 "%s: попередження: параметр -D застарів, замість нього слід користуватися --"
 "no-dest-paths\n"
 
-#: fish/fish.c:320
+#: fish/fish.c:321
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: можна вказувати лише один параметр -f\n"
 
-#: fish/fish.c:517
+#: fish/fish.c:518
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --remote\n"
 
-#: fish/fish.c:525
+#: fish/fish.c:526
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: зайві параметри у командному рядку з прапорцем --listen\n"
 
-#: fish/fish.c:531
+#: fish/fish.c:532
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: не можна одночасно використовувати параметри --listen і --file\n"
 
-#: fish/fish.c:710
+#: fish/fish.c:711
 #, c-format
 msgid ""
 "\n"
@@ -8014,51 +7979,51 @@ msgstr ""
 "      «quit», щоб вийти з оболонки\n"
 "\n"
 
-#: fish/fish.c:870 fish/fish.c:886
+#: fish/fish.c:871 fish/fish.c:887
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:880
+#: fish/fish.c:881
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:910
+#: fish/fish.c:911
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:927
+#: fish/fish.c:928
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:1002
+#: fish/fish.c:1003
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:1011
+#: fish/fish.c:1012
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1074
+#: fish/fish.c:1075
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: порожня команда або командний рядок\n"
 
-#: fish/fish.c:1232
+#: fish/fish.c:1233
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1234
+#: fish/fish.c:1235
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1245
+#: fish/fish.c:1246
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -8069,7 +8034,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1253
+#: fish/fish.c:1254
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -8078,13 +8043,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1258
+#: fish/fish.c:1259
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1274
+#: fish/fish.c:1275
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -8095,17 +8060,17 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1283
+#: fish/fish.c:1284
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1408
+#: fish/fish.c:1409
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1745
+#: fish/fish.c:1746
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -8115,14 +8080,14 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1751 fish/windows.c:106
+#: fish/fish.c:1752 fish/windows.c:106
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: fish/fish.c:1765
+#: fish/fish.c:1766
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -8132,7 +8097,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1784
+#: fish/fish.c:1785
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -8959,16 +8924,16 @@ msgid ""
 "  %s [--options] input.tar.gz output.img\n"
 "  %s [--options] directory output.img\n"
 "Options:\n"
-"  --floppy               Make a virtual floppy disk\n"
-"  --format=raw|qcow2|..  Set output format\n"
-"  --help                 Display brief help\n"
-"  --label=label          Filesystem label\n"
-"  --partition=mbr|gpt|.. Set partition type\n"
-"  --size=size|+size      Set size of output disk\n"
-"  --type=ext4|..         Set filesystem type\n"
-"  -v|--verbose           Verbose messages\n"
-"  -V|--version           Display version and exit\n"
-"  -x                     Trace libguestfs API calls\n"
+"  --floppy                 Make a virtual floppy disk\n"
+"  -F|--format=raw|qcow2|.. Set output format\n"
+"  --help                   Display brief help\n"
+"  --label=label            Filesystem label\n"
+"  --partition=mbr|gpt|..   Set partition type\n"
+"  -s|--size=size|+size     Set size of output disk\n"
+"  -t|--type=ext4|..        Set filesystem type\n"
+"  -v|--verbose             Verbose messages\n"
+"  -V|--version             Display version and exit\n"
+"  -x                       Trace libguestfs API calls\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
@@ -10224,13 +10189,13 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: src/launch-direct.c:831 src/launch-libvirt.c:607
+#: src/launch-direct.c:831 src/launch-libvirt.c:666
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
 "дорівнює READY"
 
-#: src/launch-direct.c:1235 src/launch-libvirt.c:1389
+#: src/launch-direct.c:1235 src/launch-libvirt.c:1448
 #, c-format
 msgid "realpath: could not convert '%s' to absolute path"
 msgstr "realpath: не вдалося перетворити «%s» на абсолютний шлях"
@@ -10279,27 +10244,52 @@ msgstr ""
 "не можна вмикати discard для цього диска: у протоколі «%s» не передбачено "
 "підтримки discard"
 
-#: src/launch-libvirt.c:263
+#: src/launch-libvirt.c:198
+msgid ""
+"could not auto-detect the format.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+"не вдалося автоматично визначити формат.\n"
+"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
+"допомогою\n"
+"параметра «--format» або за допомогою додаткового параметра аргументу "
+"формату до «add-drive»."
+
+#: src/launch-libvirt.c:208
+msgid ""
+"could not auto-detect the format when using a non-file protocol.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+"не вдалося автоматично визначити формат у разі використання нефайлового "
+"протоколу.\n"
+"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
+"допомогою\n"
+"параметра «--format» або за допомогою додаткового параметра аргументу "
+"формату до «add-drive»."
+
+#: src/launch-libvirt.c:322
 msgid "direct mode flag is not supported yet for libvirt backend"
 msgstr ""
 "у модулі libvirt ще не передбачено підтримки прапорця безпосереднього режиму"
 
-#: src/launch-libvirt.c:274
+#: src/launch-libvirt.c:333
 #, c-format
 msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
 msgstr ""
 "щоб скористатися модулем «libvirt», вам слід встановити libvirt >= %d.%d.%d"
 
-#: src/launch-libvirt.c:309
+#: src/launch-libvirt.c:368
 #, c-format
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: src/launch-libvirt.c:338
+#: src/launch-libvirt.c:397
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
-#: src/launch-libvirt.c:535
+#: src/launch-libvirt.c:594
 msgid ""
 "could not create appliance through libvirt.\n"
 "\n"
@@ -10316,22 +10306,22 @@ msgstr ""
 "\n"
 "Початкове повідомлення від libvirt"
 
-#: src/launch-libvirt.c:673
+#: src/launch-libvirt.c:732
 msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
-#: src/launch-libvirt.c:679 src/libvirt-domain.c:405 src/libvirt-domain.c:488
+#: src/launch-libvirt.c:738 src/libvirt-domain.c:405 src/libvirt-domain.c:488
 #: src/libvirt-domain.c:701
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: src/launch-libvirt.c:689
+#: src/launch-libvirt.c:748
 #, c-format
 msgid "unable to evaluate XPath expression: %s"
 msgstr "не вдалося обробити вираз XPath: %s"
 
-#: src/launch-libvirt.c:724
+#: src/launch-libvirt.c:783
 #, c-format
 msgid ""
 "libvirt hypervisor doesn't support qemu or KVM,\n"
@@ -10359,16 +10349,16 @@ msgstr ""
 "guestfs(3) та списком поширених питань щодо libguestfs та відповідей\n"
 "на ці питання."
 
-#: src/launch-libvirt.c:960
+#: src/launch-libvirt.c:1019
 #, c-format
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr "%s:%d: помилка під час побудови XML для libvirt поряд з викликом «%s»"
 
-#: src/launch-libvirt.c:1343
+#: src/launch-libvirt.c:1402
 msgid "'iface' parameter is not supported by the libvirt backend"
 msgstr "підтримки параметра «iface» у модулі libvirt не передбачено"
 
-#: src/launch-libvirt.c:1472
+#: src/launch-libvirt.c:1531
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
@@ -10376,54 +10366,29 @@ msgstr ""
 "у libvirt не передбачено підтримки драйверів протоколів curl qemu (ftp, http "
 "тощо); спробуйте встановити LIBGUESTFS_BACKEND=direct"
 
-#: src/launch-libvirt.c:1497
-msgid ""
-"could not auto-detect the format.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-"не вдалося автоматично визначити формат.\n"
-"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
-"допомогою\n"
-"параметра «--format» або за допомогою додаткового параметра аргументу "
-"формату до «add-drive»."
-
-#: src/launch-libvirt.c:1504
-msgid ""
-"could not auto-detect the format when using a non-file protocol.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-"не вдалося автоматично визначити формат у разі використання нефайлового "
-"протоколу.\n"
-"Якщо вам відомий формат, передайте його назву libguestfs, наприклад за "
-"допомогою\n"
-"параметра «--format» або за допомогою додаткового параметра аргументу "
-"формату до «add-drive»."
-
-#: src/launch-libvirt.c:1818
+#: src/launch-libvirt.c:1850
 msgid "could not define libvirt secret"
 msgstr "не вдалося визначити реєстраційні дані libvirt"
 
-#: src/launch-libvirt.c:1829
+#: src/launch-libvirt.c:1861
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 "реєстраційні дані протоколу rbd має бути закодовано за допомогою base64"
 
-#: src/launch-libvirt.c:1833
+#: src/launch-libvirt.c:1865
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr "base64_decode_alloc: %m"
 
-#: src/launch-libvirt.c:1854
+#: src/launch-libvirt.c:1886
 msgid "could not set libvirt secret value"
 msgstr "не вдалося встановити значення реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1867
+#: src/launch-libvirt.c:1899
 msgid "could not get UUID from libvirt secret"
 msgstr "не вдалося отримати UUID із реєстраційних даних libvirt"
 
-#: src/launch-libvirt.c:1977
+#: src/launch-libvirt.c:2009
 #, c-format
 msgid ""
 "bridge '%s' not found.  Try running:\n"
@@ -10451,20 +10416,20 @@ msgstr ""
 "Ймовірно, вам також слід дозволити місток у /etc/qemu/bridge.conf.\n"
 "Докладніший опис можна знайти на сторінці підручника guestfs(3)."
 
-#: src/launch-libvirt.c:2070
+#: src/launch-libvirt.c:2102
 msgid "could not destroy libvirt domain"
 msgstr "не вдалося знищити домен libvirt"
 
-#: src/launch-libvirt.c:2091 src/launch-libvirt.c:2124
+#: src/launch-libvirt.c:2123 src/launch-libvirt.c:2156
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr "%s: внутрішня помилка формування повідомлення щодо помилки"
 
-#: src/launch-libvirt.c:2187
+#: src/launch-libvirt.c:2219
 msgid "could not attach disk to libvirt domain"
 msgstr "не вдалося долучити диск до домену libvirt"
 
-#: src/launch-libvirt.c:2218
+#: src/launch-libvirt.c:2250
 msgid "could not detach disk from libvirt domain"
 msgstr "не вдалося від’єднати диск від домену libvirt"
 
@@ -10710,11 +10675,11 @@ msgstr ""
 "програмний інтерфейс add-domain недоступний, оскільки цю версію libguestfs "
 "було зібрано без підтримки бібліотеки libvirt"
 
-#: src/osinfo.c:253
+#: src/osinfo.c:370
 msgid "osinfo: unable to create new XPath context"
 msgstr "osinfo: не вдалося створити контекст XPath"
 
-#: src/osinfo.c:263
+#: src/osinfo.c:380
 #, c-format
 msgid "osinfo: %s: unable to evaluate XPath expression"
 msgstr "osinfo: %s: не вдалося обробити вираз XPath"
@@ -10810,27 +10775,27 @@ msgstr ""
 "безпека: кешований пристрій %s доступний для запису учасниками групи або "
 "іншими користувачами (режим %o)"
 
-#: src/utils.c:201
+#: src/utils.c:202
 #, c-format
 msgid "%s exited successfully"
 msgstr "Успішно завершено роботу %s"
 
-#: src/utils.c:204
+#: src/utils.c:205
 #, c-format
 msgid "%s exited with error status %d"
 msgstr "Роботу %s завершено зі станом виходу %d"
 
-#: src/utils.c:208
+#: src/utils.c:209
 #, c-format
 msgid "%s killed by signal %d (%s)"
 msgstr "Роботу %s припинено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:212
+#: src/utils.c:213
 #, c-format
 msgid "%s stopped by signal %d (%s)"
 msgstr "Роботу %s завершено за допомогою сигналу %d (%s)"
 
-#: src/utils.c:216
+#: src/utils.c:217
 #, c-format
 msgid "%s exited for an unknown reason (status %d)"
 msgstr "Роботу %s завершено з невідомої причини (стан %d)"
@@ -11108,6 +11073,94 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "%s: check alignment of virtual machine partitions\n"
+#~ "Copyright (C) 2011 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  --help               Display brief help\n"
+#~ "  -P nr_threads        Use at most nr_threads\n"
+#~ "  -q|--quiet           No output, just exit code\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: перевірка вирівнювання розділів віртуальної машини\n"
+#~ "© Red Hat Inc., 2011\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену\n"
+#~ "  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add образ       Додати образ\n"
+#~ "  -c|--connect uri     Вказати адресу libvirt для параметра -d\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --format[=raw|..]    Вказати формат диска для параметра -a\n"
+#~ "  --help               Показати коротку довідку\n"
+#~ "  -P кількість         Використовувати не більше вказаної кількості "
+#~ "потоків обробки\n"
+#~ "  -q|--quiet           Не виводити повідомлень, лише код виходу\n"
+#~ "  -v|--verbose         Режим докладних повідомлень\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики API libguestfs\n"
+#~ "З докладнішими даними можна ознайомитися на сторінці довідника (man) "
+#~ "%s(1).\n"
+
+#~ msgid ""
+#~ "%s: display free space on virtual filesystems\n"
+#~ "Copyright (C) 2010 Red Hat Inc.\n"
+#~ "Usage:\n"
+#~ "  %s [--options] -d domname\n"
+#~ "  %s [--options] -a disk.img [-a disk.img ...]\n"
+#~ "Options:\n"
+#~ "  -a|--add image       Add image\n"
+#~ "  -c|--connect uri     Specify libvirt URI for -d option\n"
+#~ "  --csv                Output as Comma-Separated Values\n"
+#~ "  -d|--domain guest    Add disks from libvirt guest\n"
+#~ "  --format[=raw|..]    Force disk format for -a option\n"
+#~ "  -h|--human-readable  Human-readable sizes in --long output\n"
+#~ "  --help               Display brief help\n"
+#~ "  -i|--inodes          Display inodes\n"
+#~ "  --one-per-guest      Separate appliance per guest\n"
+#~ "  -P nr_threads        Use at most nr_threads\n"
+#~ "  --uuid               Add UUIDs to --long output\n"
+#~ "  -v|--verbose         Verbose messages\n"
+#~ "  -V|--version         Display version and exit\n"
+#~ "  -x                   Trace libguestfs API calls\n"
+#~ "For more information, see the manpage %s(1).\n"
+#~ msgstr ""
+#~ "%s: показ даних щодо вільного місця на віртуальних файлових системах\n"
+#~ "© Red Hat Inc., 2010\n"
+#~ "Використання:\n"
+#~ "  %s [--параметри] -d назва_домену\n"
+#~ "  %s [--параметри] -a диск.img [-a диск.img ...]\n"
+#~ "Параметри:\n"
+#~ "  -a|--add image       Додати образ\n"
+#~ "  -c|--connect адреса  Вказати адресу libvirt для параметра -d\n"
+#~ "  --csv                Вивести дані у форматі записів, відокремлених "
+#~ "комами\n"
+#~ "  -d|--domain гість    Додати диски з гостьової системи libvirt\n"
+#~ "  --format[=raw|..]    Вказати формат дисків для параметра -a\n"
+#~ "  -h|--human-readable  Зручні для читання записи розмірів у даних, "
+#~ "виведених --long\n"
+#~ "  --help               Показати коротеньку довідкову інформацію\n"
+#~ "  -i|--inodes          Показати inode-и\n"
+#~ "  --one-per-guest      Окремий пристрій для кожної гостьової системи\n"
+#~ "  -P кількість         Використовувати не більше вказаної кількості "
+#~ "потоків обробки\n"
+#~ "  --uuid               Додати UUID до даних, виведених --long\n"
+#~ "  -v|--verbose         Докладні повідомлення\n"
+#~ "  -V|--version         Показати дані щодо версії і завершити роботу\n"
+#~ "  -x                   Трасувати виклики програмного інтерфейсу "
+#~ "libguestfs\n"
+#~ "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
 #~ msgid "Overlay saved as %s [--debug-overlays]\n"
 #~ msgstr "Оверлей збережено як %s [--debug-overlays]\n"
