@@ -100,9 +100,7 @@ object
       ) in
 
     (* Exploded path must be absolute (RHBZ#1155121). *)
-    let exploded =
-      if not (Filename.is_relative exploded) then exploded
-      else Sys.getcwd () // exploded in
+    let exploded = absolute_path exploded in
 
     (* Find files in [dir] ending with [ext]. *)
     let find_files dir ext =

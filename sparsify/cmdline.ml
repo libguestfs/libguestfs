@@ -143,11 +143,7 @@ read the man page virt-sparsify(1).
       (* The input disk must be an absolute path, so we can store the name
        * in the overlay disk.
        *)
-      let indisk =
-        if not (Filename.is_relative indisk) then
-          indisk
-        else
-          Sys.getcwd () // indisk in
+      let indisk = absolute_path indisk in
 
       (* Check the output is not a char special (RHBZ#1056290). *)
       if is_char_device outdisk then

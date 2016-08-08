@@ -63,9 +63,7 @@ class input_disk input_format disk = object
       error (f_"-i disk: invalid input filename (%s)") disk;
 
     (* Get the absolute path to the disk file. *)
-    let disk_absolute =
-      if not (Filename.is_relative disk) then disk
-      else Sys.getcwd () // disk in
+    let disk_absolute = absolute_path disk in
 
     (* The rest of virt-v2v doesn't actually work unless we detect
      * the format of the input, so:
