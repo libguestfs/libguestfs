@@ -43,6 +43,18 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
     with Not_found -> Guestfs_config.datadir // "virt-tools" in
 
+  let pnp_wait_exe = virt_tools_data_dir // "pnp_wait.exe" in
+  let pnp_wait_exe =
+    try
+      let chan = open_in pnp_wait_exe in
+      close_in chan;
+      Some pnp_wait_exe
+    with
+      Sys_error msg ->
+        warning (f_"'%s' is missing.  Firstboot scripts may conflict with PnP.  Original error: %s")
+          pnp_wait_exe msg;
+        None in
+
   (* Check if either RHEV-APT or VMDP exists.  This is optional. *)
   let tools = [`RhevApt, "rhev-apt.exe"; `VmdpExe, "vmdp.exe"] in
   let installer =
@@ -218,6 +230,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     sprintf "ControlSet%03Ld" value in
 
   let rec configure_firstboot () =
+    wait_pnp ();
     (match installer with
      | None -> ()
      | Some (`RhevApt, tool_path) -> configure_rhev_apt tool_path
@@ -225,6 +238,85 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     );
     unconfigure_xenpv ();
     unconfigure_prltools ()
+
+  and set_reg_val_dword_1 root key_path name =
+    (* set reg value to REG_DWORD 1, creating intermediate keys if needed *)
+    let node =
+      let rec loop parent = function
+        | [] -> parent
+        | x :: xs ->
+          let node =
+            match g#hivex_node_get_child parent x with
+            | 0L -> g#hivex_node_add_child parent x (* not found, create *)
+            | node -> node in
+          loop node xs
+      in
+      loop root key_path in
+    let valueh = g#hivex_node_get_value node name in
+    let value =
+      match valueh with
+      | 0L -> None
+      | _ -> Some (int_of_le32 (g#hivex_value_value valueh)) in
+    g#hivex_node_set_value node name 4_L (le32_of_int 1_L);
+    value
+
+  and reg_restore key name value =
+    let strkey = String.concat "\\" key in
+    match value with
+    | Some value -> sprintf "\
+reg add \"%s\" /v %s /t REG_DWORD /d %Ld /f" strkey name value
+    | None -> sprintf "\
+reg delete \"%s\" /v %s /f" strkey name
+
+  and wait_pnp () =
+    (* prevent destructive interactions of firstboot with PnP *)
+    match pnp_wait_exe with
+    | None -> ()
+    | Some pnp_wait_exe ->
+      let pnp_wait_path = [""; "Program Files"; "Guestfs"; "Firstboot";
+                           "pnp_wait.exe"] in
+      (* suppress "New Hardware Wizard" until PnP settles (see
+       * https://support.microsoft.com/en-us/kb/938596) and restore it
+       * afterwards *)
+      let reg_restore_str =
+        match inspect.i_major_version, inspect.i_minor_version with
+        (* WinXP 32bit *)
+        | 5, 1 ->
+          let key_path = ["Policies"; "Microsoft"; "Windows"; "DeviceInstall";
+                          "Settings"] in
+          let name = "SuppressNewHWUI" in
+          let value = Windows.with_hive_write g software_hive_filename (
+            fun root ->
+              set_reg_val_dword_1 root key_path name
+          ) in
+          reg_restore ("HKLM\\Software" :: key_path) name value
+
+        (* WinXP 64bit / Win2k3 *)
+        | 5, 2 ->
+          let key_path = ["Services"; "PlugPlay"; "Parameters"] in
+          let name = "SuppressUI" in
+          let value = Windows.with_hive_write g system_hive_filename (
+            fun root ->
+              let current_cs = get_current_cs root in
+              set_reg_val_dword_1 root (current_cs :: key_path) name
+          ) in
+          reg_restore ("HKLM\\SYSTEM\\CurrentControlSet" :: key_path) name
+                      value
+
+        (* any later Windows *)
+        | _ -> "" in
+
+      let fb_script = sprintf "\
+@echo off
+
+echo Wait for PnP to complete
+\"%s\" >\"%%~dpn0.log\" 2>&1
+%s" (String.concat "\\" pnp_wait_path) reg_restore_str in
+
+      Firstboot.add_firstboot_script g inspect.i_root "wait pnp" fb_script;
+      (* add_firstboot_script has created the path already *)
+      g#upload pnp_wait_exe (g#case_sensitive_path
+                              (String.concat "/" pnp_wait_path))
 
   and configure_rhev_apt tool_path =
     (* Configure RHEV-APT (the RHEV guest agent).  However if it doesn't
