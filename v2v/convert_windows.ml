@@ -210,6 +210,13 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
 
+  (* Find the 'Current' ControlSet. *)
+  let get_current_cs root =
+    let select = g#hivex_node_get_child root "Select" in
+    let valueh = g#hivex_node_get_value select "Current" in
+    let value = int_of_le32 (g#hivex_value_value valueh) in
+    sprintf "ControlSet%03Ld" value in
+
   let rec configure_firstboot () =
     (match installer with
      | None -> ()
@@ -302,13 +309,7 @@ if errorlevel 3010 exit /b 0
     (* Update the SYSTEM hive.  When this function is called the hive has
      * already been opened as a hivex handle inside guestfs.
      *)
-    (* Find the 'Current' ControlSet. *)
-    let current_cs =
-      let select = g#hivex_node_get_child root "Select" in
-      let valueh = g#hivex_node_get_value select "Current" in
-      let value = int_of_le32 (g#hivex_value_value valueh) in
-      sprintf "ControlSet%03Ld" value in
-
+    let current_cs = get_current_cs root in
     debug "current ControlSet is %s" current_cs;
 
     disable_services root current_cs;
