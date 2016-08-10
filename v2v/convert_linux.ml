@@ -1306,8 +1306,10 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
       let replace device =
         try List.assoc device map
         with Not_found ->
-          if String.find device "md" = -1 && String.find device "fd" = -1 &&
-            device <> "cdrom" then
+          if not (String.is_prefix device "md") &&
+             not (String.is_prefix device "fd") &&
+             not (String.is_prefix device "sr") &&
+             device <> "cdrom" then
             warning (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
               path device;
           device
