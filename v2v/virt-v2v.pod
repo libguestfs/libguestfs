@@ -1512,6 +1512,32 @@ one CPU core and between 512 MB and 1 GB of RAM per running instance.
 
 Virt-v2v can be run in a virtual machine.
 
+=head2 Trimming
+
+Virt-v2v attempts to optimize the speed of conversion by ignoring
+guest filesystem data which is not used.  This would include unused
+filesystem blocks, blocks containing zeroes, and deleted files.
+
+To do this, virt-v2v issues a non-destructive L<fstrim(8)> operation.
+As this happens to an overlay placed over the guest data, it does
+B<not> affect the source in any way.
+
+If this fstrim operation fails, you will see a warning, but virt-v2v
+will continue anyway.  It may run more slowly (in some cases much more
+slowly), because it is copying the unused parts of the disk.
+
+Unfortunately support for fstrim is not universal, and it also depends
+on specific details of the filesystem, partition alignment, and
+backing storage.  As an example, NTFS filesystems cannot be fstrimmed
+if they occupy a partition which is not aligned to the underlying
+storage.  That was the default on Windows before Vista.  As another
+example, VFAT filesystems (used by UEFI guests) cannot be trimmed at
+all.
+
+fstrim support in the Linux kernel is improving gradually, so over
+time some of these restrictions will be lifted and virt-v2v will work
+faster.
+
 =head1 POST-CONVERSION TASKS
 
 =head2 Guest network configuration

@@ -425,11 +425,7 @@ and do_fstrim g no_trim inspect =
       if mounted then (
         try g#fstrim "/"
         with G.Error msg ->
-          (* Only emit this warning when debugging, because otherwise
-           * it causes distress (RHBZ#1168144).
-           *)
-          if verbose () then
-            warning (f_"%s (ignored)") msg
+          warning (f_"fstrim on guest filesystem %s failed.  Usually you can ignore this message.  To find out more read \"Trimming\" in virt-v2v(1).\n\nOriginal message: %s") dev msg
       )
   ) fses
 
