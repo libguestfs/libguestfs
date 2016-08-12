@@ -1489,8 +1489,8 @@ set_log_dir (const char *remote_dir)
   CLEANUP_FREE char *msg;
 
   if (asprintf (&msg,
-                _("Log files and debug information "
-                  "is saved to this directory "
+                _("Debug information and log files "
+                  "are saved to this directory "
                   "on the conversion server:\n"
                   "%s"),
                 remote_dir ? remote_dir : "") == -1) {
