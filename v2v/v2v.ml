@@ -421,7 +421,10 @@ and do_fstrim g no_trim inspect =
   List.iter (
     fun dev ->
       g#umount_all ();
-      let mounted = try g#mount dev "/"; true with G.Error _ -> false in
+      let mounted =
+        try g#mount_options "discard" dev "/"; true
+        with G.Error _ -> false in
+
       if mounted then (
         try g#fstrim "/"
         with G.Error msg ->
