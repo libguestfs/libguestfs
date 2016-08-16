@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-08-08 12:46+0100\n"
+"POT-Creation-Date: 2016-08-16 14:53+0100\n"
 "PO-Revision-Date: 2016-07-14 05:51-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -61,7 +61,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:443
-#: ../v2v/v2v.ml:404 ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:979
+#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:979
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -142,7 +142,7 @@ msgstr "Потрібен %s, але його не знайдено"
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1334
+#: ../v2v/convert_linux.ml:1336
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -759,7 +759,7 @@ msgstr "--update"
 msgid "-B must be specified"
 msgstr "слід вказати -B"
 
-#: ../v2v/input_disk.ml:49
+#: ../v2v/input_disk.ml:63
 msgid "-i disk: invalid input filename (%s)"
 msgstr "-i диск: некоректна назва файла вхідних даних (%s)"
 
@@ -1057,7 +1057,7 @@ msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
-#: ../v2v/v2v.ml:569
+#: ../v2v/v2v.ml:568
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 "Перевіряємо, чи потрібні гостьовій системі BIOS або UEFI для завантаження"
@@ -1094,11 +1094,11 @@ msgstr "Стискаємо образ за допомогою tar"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:543
+#: ../v2v/v2v.ml:542
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:541
+#: ../v2v/v2v.ml:540
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -1126,7 +1126,7 @@ msgstr "Копіюємо %s"
 msgid "Copying (in image): %s to %s"
 msgstr "Копіюємо (на образ): %s у %s"
 
-#: ../v2v/v2v.ml:608
+#: ../v2v/v2v.ml:607
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
@@ -1353,7 +1353,7 @@ msgstr "Увімкнути або вимкнути специфічні опер
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr "Вкажіть число від 1 до %d або введіть «'exit»: "
 
-#: ../v2v/v2v.ml:532
+#: ../v2v/v2v.ml:531
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1874,7 +1874,7 @@ msgstr "Розмір виведення"
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
-#: ../v2v/v2v.ml:721
+#: ../v2v/v2v.ml:720
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr "Накладку збережено як %s [--debug-overlays]"
 
@@ -2767,11 +2767,11 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:562
+#: ../v2v/v2v.ml:561
 msgid "This guest does not have virtio drivers installed."
 msgstr "У цій гостьовій системі не встановлено драйверів virtio."
 
-#: ../v2v/v2v.ml:560
+#: ../v2v/v2v.ml:559
 msgid "This guest has virtio drivers installed."
 msgstr "У цій гостьовій системі встановлено драйвери virtio."
 
@@ -2785,7 +2785,7 @@ msgstr ""
 "передавання паролів не передбачено у RHEV. Тому перетворений дисплей "
 "гостьової системи не вимагатиме окремого пароля для встановлення з’єднання."
 
-#: ../v2v/v2v.ml:590
+#: ../v2v/v2v.ml:589
 msgid "This guest requires UEFI on the target to boot."
 msgstr "Ця гостьова система потребує UEFI на призначенні для завантаження."
 
@@ -3048,7 +3048,7 @@ msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром --"
 "format"
 
-#: ../v2v/input_disk.ml:65
+#: ../v2v/input_disk.ml:77
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
@@ -3078,7 +3078,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr "неможливо вивести дані до символьного пристрою або /dev/null"
 
-#: ../v2v/input_ova.ml:157
+#: ../v2v/input_ova.ml:155
 msgid "cannot parse output of sha1sum command"
 msgstr "не вдалося обробити дані, виведені програмою sha1sum"
 
@@ -3151,7 +3151,7 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:154
+#: ../v2v/input_ova.ml:152
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
@@ -3231,11 +3231,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:292
+#: ../v2v/input_ova.ml:290
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:190
+#: ../v2v/input_ova.ml:188
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3414,11 +3414,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:257
+#: ../v2v/input_ova.ml:255
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
-#: ../v2v/input_ova.ml:278
+#: ../v2v/input_ova.ml:276
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3530,6 +3530,14 @@ msgstr "формат"
 #: ../sparsify/cmdline.ml:77 ../sparsify/cmdline.ml:72
 msgid "fs"
 msgstr "fs"
+
+#: ../v2v/v2v.ml:403
+msgid ""
+"fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
+"To find out more read \"Trimming\" in virt-v2v(1).\n"
+"\n"
+"Original message: %s"
+msgstr ""
 
 #: ../sparsify/in_place.ml:96
 msgid ""
@@ -3746,7 +3754,7 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
-#: ../v2v/v2v.ml:620
+#: ../v2v/v2v.ml:619
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
@@ -3827,7 +3835,7 @@ msgstr ""
 msgid "missing value for the key '%s'"
 msgstr "немає значення для ключа «%s»"
 
-#: ../v2v/input_ova.ml:132
+#: ../v2v/input_ova.ml:130
 msgid "more than one .ovf file was found in %s"
 msgstr "у %s виявлено декілька файлів .ovf"
 
@@ -3873,7 +3881,7 @@ msgstr "мережа"
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:129
+#: ../v2v/input_ova.ml:127
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
@@ -3899,7 +3907,7 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/input_ova.ml:262
+#: ../v2v/input_ova.ml:260
 msgid "no href in ovf:File (id=%s)"
 msgstr "немає href у ovf:File (id=%s)"
 
@@ -3942,7 +3950,7 @@ msgstr "не знайдено операційної системи"
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../v2v/input_ova.ml:150
+#: ../v2v/input_ova.ml:148
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
@@ -4043,7 +4051,7 @@ msgstr "параметр"
 msgid "opts"
 msgstr "параметри"
 
-#: ../sparsify/cmdline.ml:153
+#: ../sparsify/cmdline.ml:149
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 "виведенням «%s» не може бути символьний пристрій, виводити дані можна лише "
@@ -4088,7 +4096,7 @@ msgstr ""
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
 
-#: ../v2v/input_ova.ml:222
+#: ../v2v/input_ova.ml:220
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -4096,7 +4104,7 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/input_ova.ml:219
+#: ../v2v/input_ova.ml:217
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4161,7 +4169,7 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:658 ../v2v/v2v.ml:249
+#: ../v2v/v2v.ml:657 ../v2v/v2v.ml:249
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
@@ -4243,31 +4251,31 @@ msgstr "списки джерел і відбитків мають різну д
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr "диск джерела має атрибут <source dev=...> у XML"
 
-#: ../v2v/v2v.ml:732
+#: ../v2v/v2v.ml:731
 msgid "source has multiple hard disk types!"
 msgstr "у джерела декілька типів жорстких дисків!"
 
-#: ../v2v/v2v.ml:748
+#: ../v2v/v2v.ml:747
 msgid "source has multiple network adapter model!"
 msgstr "у джерела декілька моделей адаптера мережі!"
 
-#: ../v2v/v2v.ml:730 ../v2v/v2v.ml:172
+#: ../v2v/v2v.ml:729 ../v2v/v2v.ml:172
 msgid "source has no hard disks!"
 msgstr "у джерелі немає жорстких дисків!"
 
-#: ../v2v/v2v.ml:740
+#: ../v2v/v2v.ml:739
 msgid "source has unrecognized hard disk type"
 msgstr "у джерела нерозпізнаний тип жорсткого диска"
 
-#: ../v2v/v2v.ml:738
+#: ../v2v/v2v.ml:737
 msgid "source has unsupported hard disk type '%s'"
 msgstr "у джерела непідтримуваний тип жорсткого диска, «%s»"
 
-#: ../v2v/v2v.ml:754
+#: ../v2v/v2v.ml:753
 msgid "source has unsupported network adapter model '%s'"
 msgstr "у джерела непідтримувана модель адаптера мережі, «%s»"
 
-#: ../v2v/v2v.ml:762
+#: ../v2v/v2v.ml:761
 msgid "source has unsupported video adapter model '%s'"
 msgstr "у джерела непідтримувана модель відеоадаптера, «%s»"
 
@@ -4535,7 +4543,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/v2v.ml:581
+#: ../v2v/v2v.ml:580
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -4659,7 +4667,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:207
+#: ../v2v/input_ova.ml:205
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
@@ -4827,7 +4835,7 @@ msgstr ""
 "У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
 "type='%s'> у вхідних даних XML libvirt проігноровано"
 
-#: ../v2v/v2v.ml:549
+#: ../v2v/v2v.ml:548
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -4864,24 +4872,24 @@ msgstr ""
 msgid "you cannot pass an empty argument to --enable"
 msgstr "не можна передавати порожній аргумент параметру --enable"
 
-#: ../sparsify/cmdline.ml:166
+#: ../sparsify/cmdline.ml:162
 msgid "you cannot use --in-place and --check-tmpdir options together"
 msgstr ""
 "не можна одночасно використовувати параметри --in-place і --check-tmpdir"
 
-#: ../sparsify/cmdline.ml:169
+#: ../sparsify/cmdline.ml:165
 msgid "you cannot use --in-place and --compress options together"
 msgstr "не можна одночасно використовувати параметри --in-place і --compress"
 
-#: ../sparsify/cmdline.ml:172
+#: ../sparsify/cmdline.ml:168
 msgid "you cannot use --in-place and --convert options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -convert"
 
-#: ../sparsify/cmdline.ml:178
+#: ../sparsify/cmdline.ml:174
 msgid "you cannot use --in-place and --tmp options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -tmp"
 
-#: ../sparsify/cmdline.ml:175
+#: ../sparsify/cmdline.ml:171
 msgid "you cannot use --in-place and -o options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -o"
 
@@ -9533,13 +9541,10 @@ msgstr "Перезавантажити"
 #: p2v/gui.c:1757
 #, c-format
 msgid ""
-"Log files and debug information is saved to this directory on the conversion "
-"server:\n"
+"Debug information and log files are saved to this directory on the "
+"conversion server:\n"
 "%s"
 msgstr ""
-"Файли журналу та діагностичні дані буде збережено на сервері перетворення до "
-"цього каталогу:\n"
-"%s"
 
 #: p2v/gui.c:1964
 msgid "The guest \"Name\" field is empty."
@@ -11315,6 +11320,15 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "Log files and debug information is saved to this directory on the "
+#~ "conversion server:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Файли журналу та діагностичні дані буде збережено на сервері перетворення "
+#~ "до цього каталогу:\n"
+#~ "%s"
 
 #~ msgid "discard/trim is not supported: %s"
 #~ msgstr "підтримки відкидання або обрізання не передбачено: %s"
