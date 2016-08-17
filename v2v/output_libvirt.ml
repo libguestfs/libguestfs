@@ -71,6 +71,16 @@ let target_features_of_capabilities_doc doc arch =
 
 let create_libvirt_xml ?pool source target_buses guestcaps
                        target_features target_firmware =
+  let uefi_firmware =
+    match target_firmware with
+    | TargetBIOS -> None
+    | TargetUEFI -> Some (find_uefi_firmware guestcaps.gcaps_arch) in
+  let secure_boot_required =
+    match uefi_firmware with
+    | Some { Uefi.flags = flags }
+         when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags -> true
+    | _ -> false in
+
   let memory_k = source.s_memory /^ 1024L in
 
   (* We have the machine features of the guest when it was on the
@@ -106,24 +116,32 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     StringSet.inter(*section*) force_features target_features in
   let features = StringSet.union features force_features in
 
+  (* Add <smm> feature if UEFI requires it.  Note that libvirt
+   * capabilities doesn't list this feature even if it is supported
+   * by qemu, so we have to blindly add it, which might cause libvirt
+   * to fail. (XXX)
+   *)
+  let features =
+    if secure_boot_required then StringSet.add "smm" features else features in
+
   let features = List.sort compare (StringSet.elements features) in
 
   (* The <os> section subelements. *)
   let os_section =
+    let machine = if secure_boot_required then [ "machine", "q35" ] else [] in
+
     let loader =
-      match target_firmware with
-      | TargetBIOS -> []
-      | TargetUEFI ->
-         (* danpb is proposing that libvirt supports <loader type="efi"/>,
-          * (https://bugzilla.redhat.com/show_bug.cgi?id=1217444#c6) but
-          * until that day we have to use a bunch of heuristics. XXX
-          *)
-         let { Uefi.code = code; vars = vars_template } =
-           find_uefi_firmware guestcaps.gcaps_arch in
-         [ e "loader" ["readonly", "yes"; "type", "pflash"] [ PCData code ];
+      match uefi_firmware with
+      | None -> []
+      | Some { Uefi.code = code; vars = vars_template } ->
+         let secure =
+           if secure_boot_required then [ "secure", "yes" ] else [] in
+         [ e "loader" (["readonly", "yes"; "type", "pflash"] @ secure)
+             [ PCData code ];
            e "nvram" ["template", vars_template] [] ] in
 
-    (e "type" ["arch", guestcaps.gcaps_arch] [PCData "hvm"]) :: loader in
+    (e "type" (["arch", guestcaps.gcaps_arch] @ machine) [PCData "hvm"])
+    :: loader in
 
   (* The devices. *)
   let devices = ref [] in
