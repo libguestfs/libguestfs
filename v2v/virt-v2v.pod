@@ -768,8 +768,8 @@ VMware allows you to present UEFI firmware to guests (instead of the
 ordinary PC BIOS).  Virt-v2v can convert these guests, but requires
 that UEFI is supported by the target hypervisor.
 
-Currently KVM supports OVMF, a partially open source UEFI firmware,
-and can run these guests.
+Currently KVM supports OVMF, an open source UEFI firmware, and can run
+these guests.
 
 Since OVMF support was only recently added to KVM (in 2014/2015), not
 all target environments support UEFI guests yet:
