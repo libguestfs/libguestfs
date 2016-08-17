@@ -313,6 +313,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
   uint32_t size;
   CLEANUP_FREE void *buf = NULL;
   unsigned long version_number;
+  int uefi_flags;
 
   params.current_proc_is_root = geteuid () == 0;
 
@@ -409,8 +410,21 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
     goto cleanup;
 
   /* UEFI code and variables, on architectures where that is required. */
-  if (guestfs_int_get_uefi (g, &data->uefi_code, &data->uefi_vars) == -1)
+  if (guestfs_int_get_uefi (g, &data->uefi_code, &data->uefi_vars,
+                            &uefi_flags) == -1)
     goto cleanup;
+  if (uefi_flags & UEFI_FLAG_SECURE_BOOT_REQUIRED) {
+    /* Implementing this requires changes to the libvirt XML.  See
+     * RHBZ#1367615 for details.  As the guestfs_int_get_uefi function
+     * is only implemented for aarch64, and UEFI secure boot is some
+     * way off on aarch64 (2017/2018), we only need to worry about
+     * this later.
+     */
+    error (g, "internal error: libvirt backend "
+           "does not implement UEFI secure boot, "
+           "see comments in the code");
+    goto cleanup;
+  }
 
   /* Misc backend settings. */
   guestfs_push_error_handler (g, NULL, NULL);

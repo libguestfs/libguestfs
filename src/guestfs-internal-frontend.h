@@ -100,7 +100,8 @@ struct uefi_firmware {
   const char *code;		/* code file (NULL = end of list) */
   const char *code_debug;	/* code file with debugging msgs (may be NULL)*/
   const char *vars;		/* vars template file */
-  int flags;                    /* flags */
+  int flags;                    /* various flags, see below */
+#define UEFI_FLAG_SECURE_BOOT_REQUIRED 1 /* secure boot (see RHBZ#1367615) */
 };
 extern struct uefi_firmware guestfs_int_ovmf_i386_firmware[];
 extern struct uefi_firmware guestfs_int_ovmf_x86_64_firmware[];
