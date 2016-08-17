@@ -444,6 +444,7 @@ let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
   in
 
   printf "v2v_test_harness: starting test: %s\n%!" test;
+  printf "testing: %!"; ignore (Sys.command "which virt-v2v");
 
   (* Check we are started in the correct directory.
    *)
