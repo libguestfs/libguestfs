@@ -35,6 +35,16 @@ let firmware = [
     "/usr/share/OVMF/OVMF_VARS.fd",
     [];
 
+    (* From RHEL 7.3, only secure boot variants of UEFI are shipped.
+     * This requires additional qemu options, see RHBZ#1367615 for
+     * details.
+     *)
+    "x86_64",
+    "/usr/share/OVMF/OVMF_CODE.secboot.fd",
+    None,
+    "/usr/share/OVMF/OVMF_VARS.fd",
+    [ "UEFI_FLAG_SECURE_BOOT_REQUIRED" ];
+
     "aarch64",
     "/usr/share/AAVMF/AAVMF_CODE.fd",
     None,
@@ -63,14 +73,13 @@ let generate_uefi_c () =
       pr "guestfs_int_uefi_%s_firmware[] = {\n" arch;
       List.iter (
         fun (_, code, code_debug, vars, flags) ->
-          assert (flags = []);
           pr "  { \"%s\",\n" (c_quote code);
           (match code_debug with
            | None -> pr "    NULL,\n"
            | Some code_debug -> pr "    \"%s\",\n" (c_quote code_debug)
           );
           pr "    \"%s\",\n" (c_quote vars);
-          pr "    0\n";
+          pr "    %s\n" (if flags <> [] then String.concat "|" flags else "0");
           pr "  },\n";
       ) firmware;
       pr "};\n";
@@ -84,8 +93,10 @@ type uefi_firmware = {
   code : string;
   code_debug : string option;
   vars : string;
-  flags : unit list;
+  flags : uefi_flags;
 }
+and uefi_flags = uefi_flag list
+and uefi_flag = UEFI_FLAG_SECURE_BOOT_REQUIRED
 ";
   List.iter (
     fun arch ->
@@ -95,14 +106,13 @@ type uefi_firmware = {
       pr "let uefi_%s_firmware = [\n" arch;
       List.iter (
         fun (_, code, code_debug, vars, flags) ->
-          assert (flags = []);
           pr "  { code = %S;\n" code;
           (match code_debug with
            | None -> pr "    code_debug = None;\n"
            | Some code_debug -> pr "    code_debug = Some %S;\n" code_debug
           );
           pr "    vars = %S;\n" vars;
-          pr "    flags = [];\n";
+          pr "    flags = [%s];\n" (String.concat "; " flags);
           pr "  };\n";
       ) firmware;
       pr "]\n";
@@ -118,8 +128,10 @@ type uefi_firmware = {
   code : string;                (** code file *)
   code_debug : string option;   (** code debug file *)
   vars : string;                (** vars template file *)
-  flags : unit list;            (** flags *)
+  flags : uefi_flags;           (** flags *)
 }
+and uefi_flags = uefi_flag list
+and uefi_flag = UEFI_FLAG_SECURE_BOOT_REQUIRED
 
 ";
 

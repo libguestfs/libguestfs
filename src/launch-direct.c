@@ -242,6 +242,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   CLEANUP_FREE char *uefi_code = NULL, *uefi_vars = NULL;
   CLEANUP_FREE char *kernel = NULL, *dtb = NULL,
     *initrd = NULL, *appliance = NULL;
+  int uefi_flags;
   int has_appliance_drive;
   CLEANUP_FREE char *appliance_dev = NULL;
   uint32_t size;
@@ -434,8 +435,20 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   /* UEFI (firmware) if required. */
-  if (guestfs_int_get_uefi (g, &uefi_code, &uefi_vars) == -1)
+  if (guestfs_int_get_uefi (g, &uefi_code, &uefi_vars, &uefi_flags) == -1)
     goto cleanup0;
+  if (uefi_flags & UEFI_FLAG_SECURE_BOOT_REQUIRED) {
+    /* Implementing this requires changes to the qemu command line.
+     * See RHBZ#1367615 for details.  As the guestfs_int_get_uefi
+     * function is only implemented for aarch64, and UEFI secure boot
+     * is some way off on aarch64 (2017/2018), we only need to worry
+     * about this later.
+     */
+    error (g, "internal error: direct backend "
+           "does not implement UEFI secure boot, "
+           "see comments in the code");
+    goto cleanup0;
+  }
   if (uefi_code) {
     ADD_CMDLINE ("-drive");
     ADD_CMDLINE_PRINTF ("if=pflash,format=raw,file=%s,readonly", uefi_code);

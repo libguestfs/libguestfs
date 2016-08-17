@@ -756,7 +756,7 @@ extern const char *guestfs_int_drive_protocol_to_string (enum drive_protocol pro
 
 /* appliance.c */
 extern int guestfs_int_build_appliance (guestfs_h *g, char **kernel, char **dtb, char **initrd, char **appliance);
-extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars);
+extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags);
 
 /* launch.c */
 extern int64_t guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y);

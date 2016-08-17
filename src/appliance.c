@@ -427,10 +427,10 @@ dir_contains_files (const char *dir, ...)
  * cause appliance building to fail (no UEFI firmware is not an
  * error).
  *
- * XXX See also v2v/utils.ml:find_uefi_firmware
+ * See also v2v/utils.ml:find_uefi_firmware
  */
 int
-guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
+guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
 {
 #ifdef __aarch64__
   size_t i;
@@ -468,6 +468,7 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
       /* Caller frees. */
       *code = safe_strdup (g, codefile);
       *vars = varst;
+      *flags = guestfs_int_aavmf_firmware[i].flags;
       return 0;
     }
   }
@@ -475,5 +476,6 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars)
 
   /* Not found. */
   *code = *vars = NULL;
+  *flags = 0;
   return 0;
 }
