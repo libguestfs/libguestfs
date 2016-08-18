@@ -72,6 +72,9 @@ guestfs_am_v_erlc_0 = @echo "  ERLC    " $@;
 guestfs_am_v_podwrapper = $(guestfs_am_v_podwrapper_@AM_V@)
 guestfs_am_v_podwrapper_ = $(guestfs_am_v_podwrapper_@AM_DEFAULT_V@)
 guestfs_am_v_podwrapper_0 = @echo "  POD     " $@;
+guestfs_am_v_jar = $(guestfs_am_v_jar_@AM_V@)
+guestfs_am_v_jar_ = $(guestfs_am_v_jar_@AM_DEFAULT_V@)
+guestfs_am_v_jar_0 = @echo "  JAR     " $@;
 
 .mli.cmi:
 	$(guestfs_am_v_ocamlc)$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@

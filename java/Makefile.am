@@ -82,7 +82,7 @@ $(libguestfs_jar_class_files): %.class: %.java
 	$(guestfs_am_v_javac)$(JAVAC) $(JAVAC_FLAGS) -d . -classpath $(srcdir):. $<
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
-	$(JAR) cf $@ $^
+	$(guestfs_am_v_jar)$(JAR) cf $@ $^
 
 # JNI source.
 
