@@ -431,10 +431,11 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
 #ifdef __aarch64__
   size_t i;
 
-  for (i = 0; guestfs_int_aavmf_firmware[i].code != NULL; ++i) {
-    const char *codefile = guestfs_int_aavmf_firmware[i].code;
-    const char *code_debug_file = guestfs_int_aavmf_firmware[i].code_debug;
-    const char *varsfile = guestfs_int_aavmf_firmware[i].vars;
+  for (i = 0; guestfs_int_uefi_aarch64_firmware[i].code != NULL; ++i) {
+    const char *codefile = guestfs_int_uefi_aarch64_firmware[i].code;
+    const char *code_debug_file =
+      guestfs_int_uefi_aarch64_firmware[i].code_debug;
+    const char *varsfile = guestfs_int_uefi_aarch64_firmware[i].vars;
 
     if (access (codefile, R_OK) == 0 && access (varsfile, R_OK) == 0) {
       CLEANUP_CMD_CLOSE struct command *copycmd = guestfs_int_new_command (g);
@@ -464,7 +465,7 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
       /* Caller frees. */
       *code = safe_strdup (g, codefile);
       *vars = varst;
-      *flags = guestfs_int_aavmf_firmware[i].flags;
+      *flags = guestfs_int_uefi_aarch64_firmware[i].flags;
       return 0;
     }
   }

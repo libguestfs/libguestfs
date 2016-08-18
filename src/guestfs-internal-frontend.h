@@ -103,9 +103,9 @@ struct uefi_firmware {
   int flags;                    /* various flags, see below */
 #define UEFI_FLAG_SECURE_BOOT_REQUIRED 1 /* secure boot (see RHBZ#1367615) */
 };
-extern struct uefi_firmware guestfs_int_ovmf_i386_firmware[];
-extern struct uefi_firmware guestfs_int_ovmf_x86_64_firmware[];
-extern struct uefi_firmware guestfs_int_aavmf_firmware[];
+extern struct uefi_firmware guestfs_int_uefi_i386_firmware[];
+extern struct uefi_firmware guestfs_int_uefi_x86_64_firmware[];
+extern struct uefi_firmware guestfs_int_uefi_aarch64_firmware[];
 
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
