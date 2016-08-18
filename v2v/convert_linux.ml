@@ -85,9 +85,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source =
   Linux.augeas_init g;
 
   (* Clean RPM database.  This must be done early to avoid RHBZ#1143866. *)
-  let dbfiles = g#glob_expand "/var/lib/rpm/__db.00?" in
-  let dbfiles = Array.to_list dbfiles in
-  List.iter g#rm_f dbfiles;
+  Array.iter g#rm_f (g#glob_expand "/var/lib/rpm/__db.00?");
 
   (* What grub is installed? *)
   let grub_config, grub =
