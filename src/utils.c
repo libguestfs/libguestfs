@@ -321,28 +321,6 @@ guestfs_int_is_true (const char *str)
   return -1;
 }
 
-/* See src/appliance.c:guestfs_int_get_uefi. */
-const char *
-guestfs_int_ovmf_i386_firmware[] = {
-  NULL
-};
-
-const char *
-guestfs_int_ovmf_x86_64_firmware[] = {
-  "/usr/share/OVMF/OVMF_CODE.fd",
-  "/usr/share/OVMF/OVMF_VARS.fd",
-
-  NULL
-};
-
-const char *
-guestfs_int_aavmf_firmware[] = {
-  "/usr/share/AAVMF/AAVMF_CODE.fd",
-  "/usr/share/AAVMF/AAVMF_VARS.fd",
-
-  NULL
-};
-
 #if 0 /* not used yet */
 /**
  * Hint that we will read or write the file descriptor normally.

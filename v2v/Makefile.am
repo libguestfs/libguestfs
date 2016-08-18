@@ -72,6 +72,7 @@ SOURCES_MLI = \
 	OVF.mli \
 	target_bus_assignment.mli \
 	types.mli \
+	uefi.mli \
 	utils.mli \
 	vCenter.mli \
 	windows.mli \
@@ -81,6 +82,7 @@ SOURCES_MLI = \
 SOURCES_ML = \
 	types.ml \
 	xml.ml \
+	uefi.ml \
 	utils.ml \
 	vCenter.ml \
 	domainxml.ml \
@@ -219,6 +221,7 @@ COPY_TO_LOCAL_BOBJECTS = \
 	$(top_builddir)/mllib/StatVFS.cmo \
 	$(top_builddir)/mllib/curl.cmo \
 	xml.cmo \
+	uefi.cmo \
 	utils.cmo \
 	vCenter.cmo \
 	domainxml.cmo \
@@ -380,6 +383,7 @@ v2v_unit_tests_BOBJECTS = \
 	$(top_builddir)/mllib/regedit.cmo \
 	types.cmo \
 	xml.cmo \
+	uefi.cmo \
 	utils.cmo \
 	DOM.cmo \
 	OVF.cmo \

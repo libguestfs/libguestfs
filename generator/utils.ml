@@ -231,6 +231,22 @@ let mapi f xs =
   in
   loop 0 xs
 
+let uniq ?(cmp = Pervasives.compare) xs =
+  let rec loop acc = function
+    | [] -> acc
+    | [x] -> x :: acc
+    | x :: (y :: _ as xs) when cmp x y = 0 ->
+       loop acc xs
+    | x :: (y :: _ as xs) ->
+       loop (x :: acc) xs
+  in
+  List.rev (loop [] xs)
+
+let sort_uniq ?(cmp = Pervasives.compare) xs =
+  let xs = List.sort cmp xs in
+  let xs = uniq ~cmp xs in
+  xs
+
 let count_chars c str =
   let count = ref 0 in
   for i = 0 to String.length str - 1 do

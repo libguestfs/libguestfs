@@ -43,10 +43,9 @@ val kvm_arch : string -> string
 val qemu_supports_sound_card : Types.source_sound_model -> bool
 (** Does qemu support the given sound card? *)
 
-val find_uefi_firmware : string -> string * string
-(** Find the UEFI firmware for the guest architecture.  Returns a
-    pair [(code_file, vars_file)].  This cannot return an error, it
-    calls [error] and fails instead. *)
+val find_uefi_firmware : string -> Uefi.uefi_firmware
+(** Find the UEFI firmware for the guest architecture.
+    This cannot return an error, it calls [error] and fails instead. *)
 
 val compare_app2_versions : Guestfs.application2 -> Guestfs.application2 -> int
 (** Compare two app versions. *)

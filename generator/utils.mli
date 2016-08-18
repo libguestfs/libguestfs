@@ -84,6 +84,12 @@ val iteri : (int -> 'a -> unit) -> 'a list -> unit
 
 val mapi : (int -> 'a -> 'b) -> 'a list -> 'b list
 
+val uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
+(** Uniquify a list (the list must be sorted first). *)
+
+val sort_uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
+(** Sort and uniquify a list. *)
+
 val count_chars : char -> string -> int
 (** Count number of times the character occurs in string. *)
 
