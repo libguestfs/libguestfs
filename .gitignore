@@ -483,6 +483,7 @@ Makefile.in
 /src/structs-free.c
 /src/structs-print.c
 /src/structs-print.h
+/src/uefi.c
 /src/unit-tests
 /stamp-h1
 /sysprep/.depend
@@ -594,6 +595,8 @@ Makefile.in
 /v2v/test-harness/META
 /v2v/test-harness/stamp-virt-v2v-test-harness.pod
 /v2v/test-harness/virt-v2v-test-harness.1
+/v2v/uefi.ml
+/v2v/uefi.mli
 /v2v/v2v_unit_tests
 /v2v/virt-v2v
 /v2v/virt-v2v.1

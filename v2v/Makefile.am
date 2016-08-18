@@ -53,6 +53,7 @@ SOURCES_MLI = \
 	OVF.mli \
 	target_bus_assignment.mli \
 	types.mli \
+	uefi.mli \
 	utils.mli \
 	vCenter.mli \
 	windows.mli \
@@ -62,6 +63,7 @@ SOURCES_MLI = \
 SOURCES_ML = \
 	types.ml \
 	xml.ml \
+	uefi.ml \
 	utils.ml \
 	vCenter.ml \
 	domainxml.ml \
@@ -173,6 +175,7 @@ virt_v2v_copy_to_local_CFLAGS = \
 
 COPY_TO_LOCAL_BOBJECTS = \
 	xml.cmo \
+	uefi.cmo \
 	utils.cmo \
 	vCenter.cmo \
 	domainxml.cmo \
@@ -384,6 +387,7 @@ endif
 v2v_unit_tests_BOBJECTS = \
 	types.cmo \
 	xml.cmo \
+	uefi.cmo \
 	utils.cmo \
 	DOM.cmo \
 	OVF.cmo \

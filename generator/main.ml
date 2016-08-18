@@ -45,6 +45,7 @@ open Gobject
 open Golang
 open Bindtests
 open Errnostring
+open Uefi
 open Customize
 
 let perror msg = function
@@ -210,6 +211,10 @@ Run it from the top source directory using the command
   output_to "gobject/include/guestfs-gobject/session.h"
     generate_gobject_session_header;
   output_to "gobject/src/session.c" generate_gobject_session_source;
+
+  output_to "src/uefi.c" generate_uefi_c;
+  output_to "v2v/uefi.ml" generate_uefi_ml;
+  output_to "v2v/uefi.mli" generate_uefi_mli;
 
   output_to "customize/customize_cmdline.mli" generate_customize_cmdline_mli;
   output_to "customize/customize_cmdline.ml" generate_customize_cmdline_ml;

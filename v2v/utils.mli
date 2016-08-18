@@ -43,12 +43,7 @@ val kvm_arch : string -> string
 val qemu_supports_sound_card : Types.source_sound_model -> bool
 (** Does qemu support the given sound card? *)
 
-type uefi_firmware = {
-  code : string;       (** code file *)
-  vars : string;       (** vars template file *)
-}
-
-val find_uefi_firmware : string -> uefi_firmware
+val find_uefi_firmware : string -> Uefi.uefi_firmware
 (** Find the UEFI firmware for the guest architecture.
     This cannot return an error, it calls [error] and fails instead. *)
 
@@ -73,12 +68,3 @@ val shell_unquote : string -> string
     This is just intended to deal with quoting in configuration files
     (like ones under /etc/sysconfig), and it doesn't deal with some
     situations such as $variable interpolation. *)
-
-(**/**)
-
-(* The following functions are only exported for unit tests. *)
-module UNIT_TESTS : sig
-  val ovmf_i386_firmware : unit -> uefi_firmware list
-  val ovmf_x86_64_firmware : unit -> uefi_firmware list
-  val aavmf_firmware : unit -> uefi_firmware list
-end

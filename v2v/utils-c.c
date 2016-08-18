@@ -66,53 +66,6 @@ v2v_utils_drive_index (value strv)
   CAMLreturn (Val_int (r));
 }
 
-static value
-get_firmware (struct uefi_firmware *firmware)
-{
-  CAMLparam0 ();
-  CAMLlocal5 (rv, v, v1, v2, cons);
-  size_t i, len;
-
-  rv = Val_int (0);
-
-  /* Build the list backwards so we don't have to reverse it at the end. */
-  len = 0;
-  for (i = 0; firmware[i].code != NULL; ++i)
-    ++len;
-
-  for (i = len; i > 0; --i) {
-    v1 = caml_copy_string (firmware[i-1].code);
-    v2 = caml_copy_string (firmware[i-1].vars);
-    v = caml_alloc (2, 0);
-    Store_field (v, 0, v1);
-    Store_field (v, 1, v2);
-    cons = caml_alloc (2, 0);
-    Store_field (cons, 1, rv);
-    rv = cons;
-    Store_field (cons, 0, v);
-  }
-
-  CAMLreturn (rv);
-}
-
-value
-v2v_utils_ovmf_i386_firmware (value unitv)
-{
-  return get_firmware (guestfs_int_ovmf_i386_firmware);
-}
-
-value
-v2v_utils_ovmf_x86_64_firmware (value unitv)
-{
-  return get_firmware (guestfs_int_ovmf_x86_64_firmware);
-}
-
-value
-v2v_utils_aavmf_firmware (value unitv)
-{
-  return get_firmware (guestfs_int_aavmf_firmware);
-}
-
 value
 v2v_utils_shell_unquote (value strv)
 {
