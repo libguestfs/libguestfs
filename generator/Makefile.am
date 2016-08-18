@@ -75,6 +75,8 @@ sources = \
 	tests_c_api.ml \
 	tests_c_api.mli \
 	types.ml \
+	uefi.ml \
+	uefi.mli \
 	utils.ml \
 	utils.mli \
 	xdr.ml \
@@ -113,6 +115,7 @@ objects = \
 	bindtests.cmo \
 	errnostring.cmo \
 	customize.cmo \
+	uefi.cmo \
 	main.cmo
 
 EXTRA_DIST = $(sources) files-generated.txt

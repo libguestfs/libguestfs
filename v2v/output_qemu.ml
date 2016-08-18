@@ -83,7 +83,7 @@ object
 
     (match uefi_firmware with
      | None -> ()
-     | Some { code = code } ->
+     | Some { Uefi.code = code } ->
         fpf "%s-drive if=pflash,format=raw,file=%s,readonly" nl (quote code);
         fpf "%s-drive if=pflash,format=raw,file=\"$uefi_vars\"" nl
     );

@@ -81,30 +81,21 @@ let qemu_supports_sound_card = function
   | Types.USBAudio
     -> true
 
-type uefi_firmware = {
-  code : string;       (* code file *)
-  vars : string;       (* vars template file *)
-}
-
-external ovmf_i386_firmware : unit -> uefi_firmware list = "v2v_utils_ovmf_i386_firmware"
-external ovmf_x86_64_firmware : unit -> uefi_firmware list = "v2v_utils_ovmf_x86_64_firmware"
-external aavmf_firmware : unit -> uefi_firmware list = "v2v_utils_aavmf_firmware"
-
 (* Find the UEFI firmware. *)
 let find_uefi_firmware guest_arch =
   let files =
     (* The lists of firmware are actually defined in src/uefi.c. *)
     match guest_arch with
-    | "i386" | "i486" | "i586" | "i686" -> ovmf_i386_firmware ()
-    | "x86_64" -> ovmf_x86_64_firmware ()
-    | "aarch64" -> aavmf_firmware ()
+    | "i386" | "i486" | "i586" | "i686" -> Uefi.uefi_i386_firmware
+    | "x86_64" -> Uefi.uefi_x86_64_firmware
+    | "aarch64" -> Uefi.uefi_aarch64_firmware
     | arch ->
        error (f_"don't know how to convert UEFI guests for architecture %s")
              guest_arch in
   let rec loop = function
     | [] ->
        error (f_"cannot find firmware for UEFI guests.\n\nYou probably need to install OVMF, or Gerd's firmware repo (https://www.kraxel.org/repos/), or AAVMF (if using aarch64)")
-    | ({ code = code; vars = vars_template } as ret) :: rest ->
+    | ({ Uefi.code = code; vars = vars_template } as ret) :: rest ->
        if Sys.file_exists code && Sys.file_exists vars_template then ret
        else loop rest
   in
@@ -143,10 +134,3 @@ let du filename =
   | [] -> invalid_arg filename
 
 external shell_unquote : string -> string = "v2v_utils_shell_unquote"
-
-(* The following functions are only exported for unit tests. *)
-module UNIT_TESTS = struct
-  let ovmf_i386_firmware = ovmf_i386_firmware
-  let ovmf_x86_64_firmware = ovmf_x86_64_firmware
-  let aavmf_firmware = aavmf_firmware
-end

@@ -778,36 +778,6 @@ let test_shell_unquote ctx =
   assert_equal ~printer "i`" (Utils.shell_unquote "\"i\\`\"");
   assert_equal ~printer "j\"" (Utils.shell_unquote "\"j\\\"\"")
 
-(* XXX These tests contain the same strings as found in src/uefi.c. *)
-let test_find_uefi_firmware ctx =
-  let rec printer = function
-  | [] -> ""
-  | { Utils.code = code; vars = vars } :: xs ->
-    sprintf "code=%s vars=%s\n%s" code vars (printer xs)
-  in
-  assert_equal ~printer
-    [ { Utils.code = "/usr/share/edk2.git/ovmf-ia32/OVMF_CODE-pure-efi.fd";
-              vars = "/usr/share/edk2.git/ovmf-ia32/OVMF_VARS-pure-efi.fd" } ]
-    (Utils.UNIT_TESTS.ovmf_i386_firmware ());
-  assert_equal ~printer
-    [ { Utils.code = "/usr/share/OVMF/OVMF_CODE.fd";
-              vars = "/usr/share/OVMF/OVMF_VARS.fd" };
-      { Utils.code = "/usr/share/edk2/ovmf/OVMF_CODE.fd";
-              vars = "/usr/share/edk2/ovmf/OVMF_VARS.fd" };
-      { Utils.code = "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd";
-              vars = "/usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd" };
-      { Utils.code = "/usr/share/qemu/ovmf-x86_64-code.bin";
-              vars = "/usr/share/qemu/ovmf-x86_64-vars.bin" } ]
-    (Utils.UNIT_TESTS.ovmf_x86_64_firmware ());
-  assert_equal ~printer
-    [ { Utils.code = "/usr/share/AAVMF/AAVMF_CODE.fd";
-              vars = "/usr/share/AAVMF/AAVMF_VARS.fd" };
-      { Utils.code = "/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw";
-              vars = "/usr/share/edk2/aarch64/vars-template-pflash.raw" };
-      { Utils.code = "/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw";
-              vars = "/usr/share/edk2.git/aarch64/vars-template-pflash.raw" } ]
-    (Utils.UNIT_TESTS.aavmf_firmware ())
-
 (* Suites declaration. *)
 let suite =
   "virt-v2v" >:::
@@ -818,7 +788,6 @@ let suite =
       "Windows_virtio.virtio_iso_path_matches_guest_os" >::
         test_virtio_iso_path_matches_guest_os;
       "Utils.shell_unquote" >:: test_shell_unquote;
-      "Utils.find_uefi_firmware" >:: test_find_uefi_firmware;
     ]
 
 let () =
