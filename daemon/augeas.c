@@ -491,3 +491,24 @@ do_aug_label (const char *augpath)
 
   return ret;                   /* caller frees */
 }
+
+/* Takes optional arguments, consult optargs_bitmask. */
+int
+do_aug_transform (const char *lens, const char *file, int remove)
+{
+  int r;
+  int excl = 0; /* add by default */
+
+  NEED_AUG (-1);
+
+  if (optargs_bitmask & GUESTFS_AUG_TRANSFORM_REMOVE_BITMASK)
+    excl = remove;
+
+  r = aug_transform (aug, lens, file, excl);
+  if (r == -1) {
+    AUGEAS_ERROR ("aug_transform: %s: %s: %s", lens, file, excl ? "excl" : "incl");
+    return -1;
+  }
+
+  return r;
+}

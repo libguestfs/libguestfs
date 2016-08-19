@@ -13205,6 +13205,18 @@ only the unallocated blocks will be extracted.
 This is useful to detect hidden data or to retrieve deleted files
 which data units have not been overwritten yet." };
 
+  { defaults with
+    name = "aug_transform"; added = (1, 35, 2);
+    style = RErr, [String "lens"; String "file"], [ OBool "remove"];
+    proc_nr = Some 469;
+    shortdesc = "add/remove an Augeas lens transformation";
+    longdesc = "\
+Add an Augeas transformation for the specified C<lens> so it can
+handle C<file>.
+
+If C<remove> is true (C<false> by default), then the transformation
+is removed." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.
