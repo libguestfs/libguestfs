@@ -96,7 +96,11 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     ] in
     let locations =
       match inspect.i_firmware with
-      | I_UEFI _ -> ("/boot/efi/EFI/redhat/grub.cfg", `Grub2) :: locations
+      | I_UEFI _ ->
+        [
+          "/boot/efi/EFI/redhat/grub.cfg", `Grub2;
+          "/boot/efi/EFI/redhat/grub.conf", `Grub1;
+        ] @ locations
       | I_BIOS -> locations in
     try
       List.find (
@@ -111,6 +115,11 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     match grub with
     | `Grub2 -> ""
     | `Grub1 ->
+      if grub_config = "/boot/efi/EFI/redhat/grub.conf" then (
+        g#aug_transform "grub" "/boot/efi/EFI/redhat/grub.conf";
+        Linux.augeas_reload g;
+      );
+
       let mounts = g#inspect_get_mountpoints inspect.i_root in
       try
         List.find (
