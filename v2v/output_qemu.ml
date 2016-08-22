@@ -63,6 +63,11 @@ object
       | Some { Uefi.flags = flags }
            when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags -> true
       | _ -> false in
+    (* Currently these are required by secure boot, but in theory they
+     * might be independent properties.
+     *)
+    let machine_q35 = secure_boot_required in
+    let smm = secure_boot_required in
 
     let chan = open_out file in
 
@@ -83,8 +88,9 @@ object
     fpf "qemu-system-%s" guestcaps.gcaps_arch;
     fpf "%s-no-user-config -nodefaults" nl;
     fpf "%s-name %s" nl (quote source.s_name);
-    fpf "%s-machine %saccel=kvm:tcg" nl
-        (if secure_boot_required then "q35,smm=on," else "");
+    fpf "%s-machine %s%saccel=kvm:tcg" nl
+        (if machine_q35 then "q35," else "")
+        (if smm then "smm=on," else "");
 
     (match uefi_firmware with
      | None -> ()

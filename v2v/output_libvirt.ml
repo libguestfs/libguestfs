@@ -80,6 +80,11 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     | Some { Uefi.flags = flags }
          when List.mem Uefi.UEFI_FLAG_SECURE_BOOT_REQUIRED flags -> true
     | _ -> false in
+  (* Currently these are required by secure boot, but in theory they
+   * might be independent properties.
+   *)
+  let machine_q35 = secure_boot_required in
+  let smm = secure_boot_required in
 
   let memory_k = source.s_memory /^ 1024L in
 
@@ -121,14 +126,13 @@ let create_libvirt_xml ?pool source target_buses guestcaps
    * by qemu, so we have to blindly add it, which might cause libvirt
    * to fail. (XXX)
    *)
-  let features =
-    if secure_boot_required then StringSet.add "smm" features else features in
+  let features = if smm then StringSet.add "smm" features else features in
 
   let features = List.sort compare (StringSet.elements features) in
 
   (* The <os> section subelements. *)
   let os_section =
-    let machine = if secure_boot_required then [ "machine", "q35" ] else [] in
+    let machine = if machine_q35 then [ "machine", "q35" ] else [] in
 
     let loader =
       match uefi_firmware with
