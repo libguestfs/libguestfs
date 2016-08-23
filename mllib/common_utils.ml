@@ -319,7 +319,9 @@ let protect ~f ~finally =
   match r with Either ret -> ret | Or exn -> raise exn
 
 let which executable =
-  let paths = String.nsplit ":" (Sys.getenv "PATH") in
+  let paths =
+    try String.nsplit ":" (Sys.getenv "PATH")
+    with Not_found -> [] in
   let paths = filter_map (
     fun p ->
       let path = p // executable in
