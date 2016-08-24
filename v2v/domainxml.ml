@@ -26,3 +26,6 @@ external vol_dumpxml : ?conn:string -> string -> string -> string = "v2v_vol_dum
 external capabilities : ?conn:string -> unit -> string = "v2v_capabilities"
 
 external domain_exists : ?conn:string -> string -> bool = "v2v_domain_exists"
+
+external libvirt_get_version : unit -> int * int * int
+  = "v2v_libvirt_get_version"

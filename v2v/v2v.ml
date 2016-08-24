@@ -44,6 +44,18 @@ let rec main () =
         prog Guestfs_config.package_name
         Guestfs_config.package_version Guestfs_config.host_cpu;
 
+  (* Print the libvirt version if debugging.  Note that if
+   * we're configured --without-libvirt, then this will throw
+   * an exception, but some conversions should still be possible,
+   * hence the try block.
+   *)
+  if verbose () then (
+    try
+      let major, minor, release = Domainxml.libvirt_get_version () in
+      debug "libvirt version: %d.%d.%d" major minor release
+    with _ -> ()
+  );
+
   let source = open_source cmdline input in
   let source = amend_source cmdline source in
 

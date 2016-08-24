@@ -24,13 +24,20 @@ open Common_utils
 open Types
 open Utils
 
-(* Check the backend is not libvirt.  Works around a libvirt bug
- * (RHBZ#1134592).  This can be removed once the libvirt bug is fixed.
+(* Libvirt < 2.1.0 did not support the "json:" pseudo-URLs that
+ * we use as backingfiles, when accessing Xen over SSH or vCenter
+ * over HTTPS.  Check this and print a workaround.
+ *
+ * We can remove this when/if we ever require libvirt >= 2.1.0 as
+ * a minimum version.
+ *
+ * See also RHBZ#1134878.
  *)
-let error_if_libvirt_backend () =
+let error_if_libvirt_does_not_support_json_backingfile () =
   let libguestfs_backend = (open_guestfs ())#get_backend () in
   if libguestfs_backend = "libvirt" then (
-    error (f_"because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?id=1134592 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
+    if Domainxml.libvirt_get_version () < (2, 1, 0) then
+      error (f_"because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER upgrade to libvirt >= 2.1.0 OR set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
   )
 
 (* xen+ssh URLs use the SSH driver in CURL.  Currently this requires

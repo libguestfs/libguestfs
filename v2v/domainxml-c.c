@@ -487,6 +487,43 @@ v2v_domain_exists (value connv, value domnamev)
   CAMLreturn (Val_bool (domain_exists));
 }
 
+/* XXX This function is stuffed here for convenience (accessing
+ * libvirt), not because it belongs logically with the rest of the
+ * functions in this file.
+ */
+value
+v2v_libvirt_get_version (value unitv)
+{
+  CAMLparam1 (unitv);
+  CAMLlocal1 (rv);
+  int major, minor, release;
+  /* We have to assemble the error on the stack because a dynamic
+   * string couldn't be freed.
+   */
+  char errmsg[ERROR_MESSAGE_LEN];
+  unsigned long ver;
+  virErrorPtr err;
+
+  if (virGetVersion (&ver, NULL, NULL) == -1) {
+    err = virGetLastError ();
+    snprintf (errmsg, sizeof errmsg,
+              _("cannot get libvirt library version: %s"),
+              err->message);
+    caml_invalid_argument (errmsg);
+  }
+
+  major = ver / 1000000UL;
+  minor = ver / 1000UL % 1000UL;
+  release = ver % 1000UL;
+
+  rv = caml_alloc (3, 0);
+  Store_field (rv, 0, Val_int (major));
+  Store_field (rv, 1, Val_int (minor));
+  Store_field (rv, 2, Val_int (release));
+
+  CAMLreturn (rv);
+}
+
 #else /* !HAVE_LIBVIRT */
 
 #define NO_LIBVIRT(proto)                                               \
@@ -501,5 +538,6 @@ NO_LIBVIRT (value v2v_pool_dumpxml (value connv, value poolv))
 NO_LIBVIRT (value v2v_vol_dumpxml (value connv, value poolnamev, value volnamev))
 NO_LIBVIRT (value v2v_capabilities (value connv, value unitv))
 NO_LIBVIRT (value v2v_domain_exists (value connv, value domnamev))
+NO_LIBVIRT (value v2v_libvirt_get_version (value unitv))
 
 #endif /* !HAVE_LIBVIRT */

@@ -49,3 +49,7 @@ val domain_exists : ?conn:string -> string -> bool
     the libvirt XML domain [dom] exists.
     The optional [?conn] parameter is the libvirt connection URI.
     [dom] may be a guest name, but not a UUID. *)
+
+val libvirt_get_version : unit -> int * int * int
+(** [libvirt_get_version] returns the triple [(major, minor, release)]
+    version number of the libvirt library that we are linked against. *)
