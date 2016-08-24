@@ -45,7 +45,7 @@ object
     debug "input_libvirt_vcenter_https: source: scheme %s server %s"
           scheme server;
 
-    error_if_libvirt_backend ();
+    error_if_libvirt_does_not_support_json_backingfile ();
 
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
