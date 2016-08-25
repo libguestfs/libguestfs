@@ -1347,27 +1347,28 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
     if (vfstype == NULL) return -1;
 
     if (STREQ (vfstype, "btrfs")) {
-      char **opt;
+      size_t i;
 
       snprintf (augpath, sizeof augpath, "%s/opt", *entry);
       CLEANUP_FREE_STRING_LIST char **opts = guestfs_aug_match (g, augpath);
       if (opts == NULL) return -1;
 
-      for (opt = opts; *opt; opt++) {
-        CLEANUP_FREE char *optname = guestfs_aug_get (g, augpath);
+      for (i = 0; opts[i] != NULL; ++i) {
+        CLEANUP_FREE char *optname = NULL, *optvalue = NULL, *subvol = NULL;
+        char *old_mountable;
+
+        optname = guestfs_aug_get (g, opts[i]);
         if (optname == NULL) return -1;
 
         if (STREQ (optname, "subvol")) {
-          CLEANUP_FREE char *subvol = NULL;
-          char *new;
+          optvalue = safe_asprintf (g, "%s/value", opts[i]);
 
-          snprintf (augpath, sizeof augpath, "%s/value", *opt);
-          subvol = guestfs_aug_get (g, augpath);
+          subvol = guestfs_aug_get (g, optvalue);
           if (subvol == NULL) return -1;
 
-          new = safe_asprintf (g, "btrfsvol:%s/%s", mountable, subvol);
-          free (mountable);
-          mountable = new;
+          old_mountable = mountable;
+          mountable = safe_asprintf (g, "btrfsvol:%s/%s", mountable, subvol);
+          free (old_mountable);
         }
       }
     }
