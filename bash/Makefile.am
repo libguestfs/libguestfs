@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2013 Red Hat Inc.
+# Copyright (C) 2013-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,21 +22,34 @@ scripts = \
 	guestmount \
 	virt-alignment-scan \
 	virt-rescue \
-	virt-resize \
 	virt-v2v
 
+# Some of the scripts are simply symbolic links.
 symlinks = \
+	guestunmount \
 	virt-builder \
 	virt-cat \
+	virt-copy-in \
+	virt-copy-out \
+	virt-customize \
+	virt-diff \
 	virt-df \
+	virt-dib \
 	virt-edit \
 	virt-filesystems \
 	virt-format \
+	virt-get-kernel \
 	virt-inspector \
 	virt-log \
 	virt-ls \
+	virt-p2v-make-disk \
+	virt-p2v-make-kickstart \
+	virt-p2v-make-kiwi \
+	virt-resize \
 	virt-sparsify \
-	virt-sysprep
+	virt-sysprep \
+	virt-tar-in \
+	virt-tar-out
 
 # Note: Don't distribute the symbolic links, only the real files.
 EXTRA_DIST = \
@@ -46,15 +59,24 @@ EXTRA_DIST = \
 CLEANFILES = \
 	$(symlinks)
 
-# Some of the scripts are simply symbolic links.
-virt-cat virt-df virt-edit virt-filesystems virt-format virt-inspector \
-virt-log virt-ls virt-sysprep:
+# Any tool that has --short-options and --long-options is handled by
+# this common script.  However this script cannot deal with commands
+# that use --ro/--rw (eg. virt-rescue), nor commands that have lots of
+# exceptions (eg. guestfish).  Those tools have to be handled
+# individually.
+guestunmount \
+virt-builder virt-cat virt-customize virt-df virt-dib virt-diff \
+virt-edit virt-filesystems virt-format virt-get-kernel virt-inspector \
+virt-log virt-ls \
+virt-p2v-make-disk virt-p2v-make-kickstart virt-p2v-make-kiwi \
+virt-resize virt-sparsify virt-sysprep:
 	rm -f $@
 	$(LN_S) virt-alignment-scan $@
 
-virt-builder virt-sparsify:
+# guestfish is handled specially.
+virt-copy-in virt-copy-out virt-tar-in virt-tar-out:
 	rm -f $@
-	$(LN_S) virt-resize $@
+	$(LN_S) guestfish $@
 
 if HAVE_BASH_COMPLETION
 
