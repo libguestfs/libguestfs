@@ -49,6 +49,8 @@ module String : sig
     val sub : string -> int -> int -> string
     val unsafe_get : string -> int -> char
 
+    val map : (char -> char) -> string -> string
+
     val lowercase_ascii : string -> string
     val uppercase_ascii : string -> string
 
