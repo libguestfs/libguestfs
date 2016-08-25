@@ -82,11 +82,14 @@ guestmount_LDADD = \
 # guestunmount
 
 guestunmount_SOURCES = \
+	../fish/display-options.c \
+	../fish/display-options.h \
 	guestunmount.c
 
 guestunmount_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 guestunmount_CFLAGS = \
