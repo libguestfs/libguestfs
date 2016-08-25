@@ -38,6 +38,14 @@ end
 module String = struct
     include String
 
+    let map f s =
+      let len = String.length s in
+      let b = Bytes.create len in
+      for i = 0 to len-1 do
+        Bytes.unsafe_set b i (f (unsafe_get s i))
+      done;
+      Bytes.to_string b
+
     let lowercase_ascii s = map Char.lowercase_ascii s
     let uppercase_ascii s = map Char.uppercase_ascii s
 
