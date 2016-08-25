@@ -22,9 +22,12 @@ unset CDPATH
 program="virt-p2v-make-kiwi"
 version="@PACKAGE_VERSION@"
 
+# Parse the command line arguments.
+shortopts=o:V
+longopts=help,inject-ssh-identity:,long-options,output:,short-options,version
 TEMP=`getopt \
-        -o o:V \
-        --long help,inject-ssh-identity:,output:,version \
+        -o "$shortopts" \
+        --long "$longopts" \
         -n $program -- "$@"`
 if [ $? != 0 ]; then
     echo "$program: problem parsing the command line arguments"
@@ -52,11 +55,22 @@ while true; do
         -o|--output)
             output="$2"
             shift 2;;
+
+        # help etc.
+        --help)
+            usage 0;;
         -V|--version)
             echo "$program $version"
             exit 0;;
-        --help)
-            usage 0;;
+        --short-options)
+            echo -n "$shortopts" |
+                @SED@ -e 's/://g' -e 's/\(.\)/-\1\n/g'
+            exit 0;;
+        --long-options)
+            echo "$longopts" |
+                @SED@ -e 's/,/\n/g' -e 's/:$//mg' -e 's/\(.*\)/--\1/mg' |
+                grep -v -E -- "--(short|long)-options"
+            exit 0;;
         --)
             shift
             break;;
