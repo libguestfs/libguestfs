@@ -73,5 +73,12 @@ _guestfish ()
             COMPREPLY=( $(compgen -W "$cmds" -- "$cur") )
             return ;;
     esac
-} &&
+}
+
 complete -o default -F _guestfish guestfish
+
+# virt-copy-in etc are literally the same as guestfish
+complete -o default -F _guestfish virt-copy-in
+complete -o default -F _guestfish virt-copy-out
+complete -o default -F _guestfish virt-tar-in
+complete -o default -F _guestfish virt-tar-out

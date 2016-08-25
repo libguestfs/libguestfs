@@ -36,9 +36,28 @@ _guestfs_virttools ()
     _init_completion -s || return
 
     case "$prev" in
+        --align-first)
+            COMPREPLY=( $( compgen -W "never always auto" -- "$cur") )
+            return ;;
+        --check-tmpdir)
+            COMPREPLY=( $( compgen -W "ignore i continue cont c warn warning w fail f error" -- "$cur") )
+            return ;;
         -d|--domain)
             doms=$(_guestfs_virsh_list "$flag_ro")
             COMPREPLY=( $(compgen -W "$doms" -- "$cur") )
+            return ;;
+        -D)
+            doms=$(_guestfs_virsh_list "$flag_ro")
+            COMPREPLY=( $(compgen -W "$doms" -- "$cur") )
+            return ;;
+        --list-format)
+            COMPREPLY=( $( compgen -W "short long json" -- "$cur") )
+            return ;;
+        --password-crypto)
+            COMPREPLY=( $( compgen -W "md5 sha256 sha512" -- "$cur") )
+            return ;;
+        --unknown-filesystems)
+            COMPREPLY=( $( compgen -W "ignore warn error" -- "$cur") )
             return ;;
     esac
 
@@ -60,11 +79,23 @@ _guestfs_virttools ()
     esac
 }
 
+_guestunmount ()
+{
+    _guestfs_virttools "guestunmount" 1
+} &&
+complete -o default -F _guestunmount guestunmount
+
 _virt_alignment_scan ()
 {
     _guestfs_virttools "virt-alignment-scan" 1
 } &&
 complete -o default -F _virt_alignment_scan virt-alignment-scan
+
+_virt_builder ()
+{
+    _guestfs_virttools "virt-builder" 0
+} &&
+complete -o default -F _virt_builder virt-builder
 
 _virt_cat ()
 {
@@ -72,11 +103,29 @@ _virt_cat ()
 } &&
 complete -o default -F _virt_cat virt-cat
 
+_virt_customize ()
+{
+    _guestfs_virttools "virt-customize" 0
+} &&
+complete -o default -F _virt_customize virt-customize
+
+_virt_dib ()
+{
+    _guestfs_virttools "virt-dib" 0
+} &&
+complete -o default -F _virt_dib virt-dib
+
 _virt_df ()
 {
     _guestfs_virttools "virt-df" 1
 } &&
 complete -o default -F _virt_df virt-df
+
+_virt_diff ()
+{
+    _guestfs_virttools "virt-diff" 1
+} &&
+complete -o default -F _virt_diff virt-diff
 
 _virt_edit ()
 {
@@ -96,11 +145,23 @@ _virt_format ()
 } &&
 complete -o default -F _virt_format virt-format
 
+_virt_get_kernel ()
+{
+    _guestfs_virttools "virt-get-kernel" 1
+} &&
+complete -o default -F _virt_get_kernel virt-get-kernel
+
 _virt_inspector ()
 {
     _guestfs_virttools "virt-inspector" 1
 } &&
 complete -o default -F _virt_inspector virt-inspector
+
+_virt_log ()
+{
+    _guestfs_virttools "virt-log" 1
+} &&
+complete -o default -F _virt_log virt-log
 
 _virt_ls ()
 {
@@ -108,14 +169,38 @@ _virt_ls ()
 } &&
 complete -o default -F _virt_ls virt-ls
 
+_virt_p2v_make_disk ()
+{
+    _guestfs_virttools "virt-p2v-make-disk" 1
+} &&
+complete -o default -F _virt_p2v_make_disk virt-p2v-make-disk
+
+_virt_p2v_make_kickstart ()
+{
+    _guestfs_virttools "virt-p2v-make-kickstart" 1
+} &&
+complete -o default -F _virt_p2v_make_kickstart virt-p2v-make-kickstart
+
+_virt_p2v_make_kiwi ()
+{
+    _guestfs_virttools "virt-p2v-make-kiwi" 1
+} &&
+complete -o default -F _virt_p2v_make_kiwi virt-p2v-make-kiwi
+
+_virt_resize ()
+{
+    _guestfs_virttools "virt-resize" 0
+} &&
+complete -o default -F _virt_resize virt-resize
+
+_virt_sparsify ()
+{
+    _guestfs_virttools "virt-sparsify" 0
+} &&
+complete -o default -F _virt_sparsify virt-sparsify
+
 _virt_sysprep ()
 {
     _guestfs_virttools "virt-sysprep" 0
 } &&
 complete -o default -F _virt_sysprep virt-sysprep
-
-_virt_log ()
-{
-    _guestfs_virttools "virt-log" 1
-} &&
-complete -o default -F _virt_log virt-log
