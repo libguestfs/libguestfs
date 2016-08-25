@@ -54,7 +54,8 @@ symlinks = \
 # Note: Don't distribute the symbolic links, only the real files.
 EXTRA_DIST = \
 	README \
-	$(scripts)
+	$(scripts) \
+	$(TESTS)
 
 CLEANFILES = \
 	$(symlinks)
@@ -96,3 +97,13 @@ clean-local:
 	-test $(srcdir) != $(builddir) && rm -f $(scripts)
 
 endif
+
+# Tests.
+TESTS_ENVIRONMENT = \
+	scripts="$(scripts)" \
+	symlinks="$(scripts)" \
+	commands="$(scripts) $(symlinks)" \
+	$(top_builddir)/run --test
+
+TESTS = \
+	test-complete-in-script.sh
