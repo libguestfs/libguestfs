@@ -123,16 +123,6 @@ if test "x$with_java" != "xno"; then
         fi
         AC_MSG_RESULT([$JNI_CFLAGS])
 
-        dnl Need extra version flag?
-        AC_MSG_CHECKING([extra javac flags])
-        EXTRA_JAVAC_FLAGS=
-        javac_version=`$JAVAC -version 2>&1`
-        case "$javac_version" in
-        *Eclipse*)
-            EXTRA_JAVAC_FLAGS="-source 1.5" ;;
-        esac
-        AC_MSG_RESULT([$EXTRA_JAVAC_FLAGS])
-
         dnl Extra lint flags?
         AC_MSG_CHECKING([extra javac lint flags])
         if $JAVAC -X >/dev/null 2>&1 && \
