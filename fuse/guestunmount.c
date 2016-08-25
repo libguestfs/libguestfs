@@ -39,6 +39,8 @@
 
 #include "ignore-value.h"
 
+#include "display-options.h"
+
 static int do_fusermount (const char *mountpoint, char **error_rtn);
 static void do_fuser (const char *mountpoint);
 
@@ -81,8 +83,10 @@ main (int argc, char *argv[])
     { "fd", 1, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "quiet", 0, 0, 'q' },
+    { "long-options", 0, 0, 0 },
     { "no-retry", 0, 0, 0 },
     { "retry", 1, 0, 0 },
+    { "short-options", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -106,7 +110,11 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (STREQ (long_options[option_index].name, "fd")) {
+      if (STREQ (long_options[option_index].name, "long-options"))
+        display_long_options (long_options);
+      else if (STREQ (long_options[option_index].name, "short-options"))
+        display_short_options (options);
+      else if (STREQ (long_options[option_index].name, "fd")) {
         if (sscanf (optarg, "%d", &fd) != 1 || fd < 0)
           error (EXIT_FAILURE, 0, _("cannot parse fd option '%s'"), optarg);
       } else if (STREQ (long_options[option_index].name, "no-retry")) {
