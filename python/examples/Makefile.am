@@ -23,11 +23,9 @@ EXTRA_DIST = \
 	inspect_vm.py \
 	guestfs-python.pod
 
-CLEANFILES = \
+CLEANFILES += \
 	*.pyc \
-	*.pyo \
-	guestfs-python.3 \
-	stamp-guestfs-python.pod
+	*.pyo
 
 man_MANS = guestfs-python.3
 noinst_DATA = $(top_builddir)/website/guestfs-python.3.html

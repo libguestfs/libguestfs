@@ -23,8 +23,6 @@ EXTRA_DIST = \
 	test-virt-resize-docs.sh \
 	virt-resize.pod
 
-CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-resize
-
 SOURCES_MLI =
 
 SOURCES_ML = \
@@ -108,10 +106,6 @@ stamp-virt-resize.pod: virt-resize.pod
 	  $<
 	touch $@
 
-CLEANFILES += \
-	stamp-virt-resize.pod \
-	virt-resize.1
-
 # Tests.
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
@@ -142,7 +136,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

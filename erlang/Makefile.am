@@ -28,10 +28,8 @@ EXTRA_DIST = \
 	tests/*.erl \
 	README
 
-CLEANFILES = \
-	$(erlang_bin_DATA) \
-	$(bin_PROGRAMS) \
-	bindtests.tmp
+CLEANFILES += \
+	$(erlang_bin_DATA)
 
 # Erlang makes a new libguestfs-<VERSION>/ebin subdirectory each time
 # we build, so we have to remove that and any previous copies.

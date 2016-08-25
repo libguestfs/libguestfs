@@ -19,8 +19,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 noinst_PROGRAMS =
 
-CLEANFILES = stamp-guestfs.pod
-
 generator_built = \
 	guestfs_protocol.x \
 	guestfs.h \
@@ -59,7 +57,6 @@ BUILT_SOURCES = \
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
-	libguestfs.3 \
 	libguestfs.pc.in \
 	guestfs.pod
 
@@ -311,3 +308,10 @@ stamp-guestfs.pod: guestfs.pod \
 	  --license LGPLv2+ \
 	  $<
 	touch $@
+
+# The only reason we have to generate this from the Makefile is
+# because the global CLEANFILES rule deletes it.
+libguestfs.3: Makefile.am
+	rm -f $@ $@-t
+	echo '.so man3/guestfs.3' > $@-t
+	mv $@-t $@

@@ -22,10 +22,6 @@ EXTRA_DIST = \
 	test-virt-format.sh \
 	virt-format.pod
 
-CLEANFILES = \
-	stamp-virt-format.pod \
-	virt-format.1
-
 bin_PROGRAMS = virt-format
 
 SHARED_SOURCE_FILES = \

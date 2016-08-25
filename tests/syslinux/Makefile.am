@@ -27,4 +27,4 @@ EXTRA_DIST = \
 	$(TESTS) \
 	test-syslinux.pl
 
-CLEANFILES = syslinux-guest.img extlinux-guest.img
+CLEANFILES += syslinux-guest.img extlinux-guest.img

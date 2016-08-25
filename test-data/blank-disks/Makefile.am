@@ -28,7 +28,7 @@ files = \
 
 noinst_DATA = $(files)
 
-CLEANFILES = $(files)
+CLEANFILES += $(files)
 
 # Blank disk images in various sizes and formats.
 blank-disk-1s.raw:

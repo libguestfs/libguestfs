@@ -366,10 +366,8 @@ podwrapper.1: podwrapper.pl
 
 # Make clean.
 
-CLEANFILES = \
-	*~ \
+CLEANFILES += \
 	pod2htm?.tmp \
-	podwrapper.1 \
 	qemu-wrapper.sh \
 	tmp/disk* \
 	tmp/run-* \
@@ -384,8 +382,6 @@ clean-local:
 	-rm -rf tmp/null.*
 	-find tmp -type s -delete
 	-find . -name '*~' -delete
-	-find . -name '*.bak' -delete
-	-find . -name '*.orig' -delete
 
 # If you don't want to run all of the tests ('make check') then this
 # will just run libguestfs-test-tool for a quick check.  Note this

@@ -24,11 +24,8 @@ EXTRA_DIST = \
 	inspect_vm.ml \
 	guestfs-ocaml.pod
 
-CLEANFILES = \
-	$(noinst_SCRIPTS) \
-	*.cmi *.cmo *.cmx *.o \
-	guestfs-ocaml.3 \
-	stamp-guestfs-ocaml.pod
+CLEANFILES += \
+	$(noinst_SCRIPTS)
 
 man_MANS = guestfs-ocaml.3
 noinst_DATA = $(top_builddir)/website/guestfs-ocaml.3.html

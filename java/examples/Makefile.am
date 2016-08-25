@@ -23,10 +23,8 @@ EXTRA_DIST = \
 	InspectVM.java \
 	guestfs-java.pod
 
-CLEANFILES = \
-	*.class \
-	guestfs-java.3 \
-	stamp-guestfs-java.pod
+CLEANFILES += \
+	*.class
 
 man_MANS = guestfs-java.3
 noinst_DATA = $(top_builddir)/website/guestfs-java.3.html

@@ -89,7 +89,7 @@ image_files = \
 
 noinst_DATA = test.iso
 
-CLEANFILES = test.iso
+CLEANFILES += test.iso
 
 test.iso: $(images_files)
 	rm -rf d

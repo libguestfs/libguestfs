@@ -23,7 +23,7 @@ BUILT_SOURCES = $(generator_built)
 
 EXTRA_DIST = $(BUILT_SOURCES)
 
-CLEANFILES = \
+CLEANFILES += \
 	test.log \
 	testdownload.tmp
 

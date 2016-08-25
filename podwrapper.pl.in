@@ -50,8 +50,6 @@ podwrapper.pl - Generate libguestfs documentation from POD input files
            --warning general \
            $<
          touch $@
- 
- CLEANFILES += stamp-virt-foo.pod
 
 =head1 DESCRIPTION
 

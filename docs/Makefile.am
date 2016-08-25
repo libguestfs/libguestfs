@@ -31,26 +31,8 @@ EXTRA_DIST = \
 	make-internal-documentation.pl \
 	README
 
-CLEANFILES = \
-	guestfs-building.1 \
-	guestfs-faq.1 \
-	guestfs-hacking.1 \
-	guestfs-internals.1 \
-	guestfs-performance.1 \
-	guestfs-recipes.1 \
-	guestfs-release-notes.1 \
-	guestfs-security.1 \
-	guestfs-testing.1 \
-	internal-documentation.pod \
-	stamp-guestfs-building.pod \
-	stamp-guestfs-faq.pod \
-	stamp-guestfs-hacking.pod \
-	stamp-guestfs-internals.pod \
-	stamp-guestfs-performance.pod \
-	stamp-guestfs-recipes.pod \
-	stamp-guestfs-release-notes.pod \
-	stamp-guestfs-security.pod \
-	stamp-guestfs-testing.pod
+CLEANFILES += \
+	internal-documentation.pod
 
 man_MANS = \
 	guestfs-building.1 \

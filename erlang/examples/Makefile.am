@@ -23,10 +23,6 @@ EXTRA_DIST = \
 	inspect_vm.erl \
 	guestfs-erlang.pod
 
-CLEANFILES = \
-	guestfs-erlang.3 \
-	stamp-guestfs-erlang.pod
-
 man_MANS = guestfs-erlang.3
 noinst_DATA = $(top_builddir)/website/guestfs-erlang.3.html
 

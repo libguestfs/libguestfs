@@ -60,7 +60,7 @@ disk_images = \
 # time and we need the tools we have built in order to make it.
 check_DATA = $(disk_images) guests-all-good.xml
 
-CLEANFILES = \
+CLEANFILES += \
 	$(check_DATA) \
 	guests-all-good.xml \
 	stamp-fedora-md.img
@@ -150,7 +150,7 @@ windows-system: windows-system.reg
 	hivexregedit --merge $@-t --prefix 'HKEY_LOCAL_MACHINE\SYSTEM' $<
 	mv $@-t $@
 
-DISTCLEANFILES = \
+DISTCLEANFILES += \
 	fedora-name.db \
 	fedora-packages.db \
 	windows-software \

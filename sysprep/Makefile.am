@@ -26,12 +26,6 @@ EXTRA_DIST = \
 	test-virt-sysprep-script.sh \
 	virt-sysprep.pod
 
-CLEANFILES = \
-	*~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o \
-	stamp-virt-sysprep.pod \
-	virt-sysprep \
-	virt-sysprep.1
-
 # Filenames sysprep_operation_<name>.ml in alphabetical order.
 operations = \
 	abrt_data \
@@ -216,7 +210,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

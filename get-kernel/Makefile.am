@@ -22,8 +22,6 @@ EXTRA_DIST = \
 	test-virt-get-kernel-docs.sh \
 	virt-get-kernel.pod
 
-CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-get-kernel
-
 SOURCES_ML = \
 	get_kernel.ml
 
@@ -116,10 +114,6 @@ stamp-virt-get-kernel.pod: virt-get-kernel.pod
 	  $<
 	touch $@
 
-CLEANFILES += \
-	stamp-virt-get-kernel.pod \
-	virt-get-kernel.1
-
 # Dependencies.
 depend: .depend
 
@@ -135,7 +129,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend

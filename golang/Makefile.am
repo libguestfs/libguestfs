@@ -59,7 +59,7 @@ TESTS = run-bindtests run-tests
 
 endif
 
-CLEANFILES = *~ src/$(pkg)/*~
+CLEANFILES += src/$(pkg)/*~
 
 clean-local:
 	rm -rf pkg

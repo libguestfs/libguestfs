@@ -174,8 +174,8 @@ stamp-generator: generator
 	cd $(top_srcdir) && $(abs_builddir)/generator
 	touch $@
 
-CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
+CLEANFILES += $(noinst_DATA) $(noinst_PROGRAM)
 
-DISTCLEANFILES = .depend .pod2text.data.version.2
+DISTCLEANFILES += .pod2text.data.version.2
 
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly

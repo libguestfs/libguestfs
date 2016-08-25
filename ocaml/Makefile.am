@@ -33,7 +33,7 @@ EXTRA_DIST = \
 	run-bindtests \
 	t/*.ml
 
-CLEANFILES = *.annot *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
+CLEANFILES += *.so
 CLEANFILES += t/*.annot t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
@@ -168,8 +168,6 @@ endif
 
 check-valgrind:
 	$(MAKE) VG="@VG@" TESTS="$(test_progs_all)" check
-
-CLEANFILES += bindtests.tmp
 
 # Dependencies.
 %.cmi: %.mli

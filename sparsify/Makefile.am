@@ -25,8 +25,6 @@ EXTRA_DIST = \
 	test-virt-sparsify-in-place-fstrim-unsupported.sh \
 	virt-sparsify.pod
 
-CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-sparsify
-
 SOURCES_MLI = \
 	cmdline.mli
 
@@ -113,10 +111,6 @@ stamp-virt-sparsify.pod: virt-sparsify.pod
 	  $<
 	touch $@
 
-CLEANFILES += \
-	stamp-virt-sparsify.pod \
-	virt-sparsify.1
-
 # Tests.
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
@@ -149,7 +143,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

@@ -114,11 +114,10 @@ endif ENABLE_APPLIANCE
 endif HAVE_PYTHON
 
 # Extra clean.
-CLEANFILES = \
-	*~ *.pyc \
+CLEANFILES += \
+	*.pyc \
 	examples/*~ examples/*.pyc \
 	t/*~ t/*.pyc \
-	bindtests.tmp \
 	config.h \
 	guestfs-internal-all.h \
 	guestfs-internal-frontend-cleanups.h \

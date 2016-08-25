@@ -40,18 +40,6 @@ EXTRA_DIST = \
 	virt-index-validate.pod \
 	yajl_tests.ml
 
-CLEANFILES = \
-	*~ \
-	*.annot \
-	*.cache \
-	*.cmi \
-	*.cmo \
-	*.cmx \
-	*.cmxa \
-	*.log \
-	*.o \
-	virt-builder
-
 SOURCES_MLI = \
 	cache.mli \
 	cmdline.mli \
@@ -194,8 +182,6 @@ stamp-virt-builder.pod: virt-builder.pod $(top_srcdir)/customize/customize-synop
 	  $<
 	touch $@
 
-CLEANFILES += stamp-virt-builder.pod virt-builder.1
-
 # Tests.
 
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
@@ -290,8 +276,6 @@ depend: .depend
 
 endif
 
-DISTCLEANFILES = .depend
-
 .PHONY: depend docs
 
 # virt-builder's default repository
@@ -343,9 +327,7 @@ stamp-virt-index-validate.pod: virt-index-validate.pod
 CLEANFILES += \
 	index-parse.c \
 	index-parse.h \
-	index-scan.c \
-	stamp-virt-index-validate.pod \
-	virt-index-validate.1
+	index-scan.c
 
 if HAVE_OCAML
 # Automake-generated makefile has a rule ".y.c" but lacks a rule ".y.h".

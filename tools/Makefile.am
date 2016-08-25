@@ -23,12 +23,6 @@ tools = \
 	tar \
 	win-reg
 
-CLEANFILES = \
-	virt-list-filesystems.1 \
-	virt-list-partitions.1 \
-	virt-tar.1 \
-	virt-win-reg.1
-
 EXTRA_DIST = \
 	$(tools:%=virt-%) \
 	test-virt-*.sh

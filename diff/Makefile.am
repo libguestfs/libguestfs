@@ -22,10 +22,6 @@ EXTRA_DIST = \
 	test-virt-diff-docs.sh \
 	virt-diff.pod
 
-CLEANFILES = \
-	stamp-virt-diff.pod \
-	virt-diff.1
-
 bin_PROGRAMS = virt-diff
 
 SHARED_SOURCE_FILES = \

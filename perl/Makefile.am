@@ -34,12 +34,10 @@ EXTRA_DIST = \
 	t/*.t \
 	typemap
 
-DISTCLEANFILES = Build
+DISTCLEANFILES += Build
 
 # Some files are not removed by './Build clean' below.
-CLEANFILES = \
-	*.o \
-	bindtests.tmp \
+CLEANFILES += \
 	MYMETA.json \
 	MYMETA.yml \
 	pm_to_blib

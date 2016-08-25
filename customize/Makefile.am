@@ -25,11 +25,6 @@ EXTRA_DIST = \
 	test-virt-customize-docs.sh \
 	virt-customize.pod
 
-CLEANFILES = \
-	*~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o dll*.so \
-	stamp-virt-customize.pod \
-	virt-customize virt-customize.1
-
 generator_built = \
 	customize_cmdline.mli \
 	customize_cmdline.ml \
@@ -218,7 +213,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

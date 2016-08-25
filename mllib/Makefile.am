@@ -26,8 +26,6 @@ EXTRA_DIST = \
 	JSON_tests.ml \
 	test-getopt.sh
 
-CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o dll*.so
-
 SOURCES_MLI = \
 	common_utils.mli \
 	curl.mli \
@@ -245,8 +243,6 @@ check_PROGRAMS += common_utils_tests JSON_tests
 TESTS += common_utils_tests JSON_tests
 endif
 
-CLEANFILES += oUnit-*
-
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
 
@@ -265,7 +261,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs
