@@ -24,17 +24,6 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) \
 	virt-v2v-test-harness.pod
 
-CLEANFILES = \
-	*~ \
-	*.a \
-	*.annot \
-	*.cmi \
-	*.cmo \
-	*.cmx \
-	*.cmxa \
-	*.o \
-	*.so
-
 SOURCES_MLI = \
 	v2v_test_harness.mli
 
@@ -133,10 +122,6 @@ stamp-virt-v2v-test-harness.pod: virt-v2v-test-harness.pod
 	  $<
 	touch $@
 
-CLEANFILES += \
-	stamp-virt-v2v-test-harness.pod \
-	virt-v2v-test-harness.1
-
 # Dependencies.
 depend: .depend
 
@@ -153,7 +138,5 @@ depend: .depend
 
 endif
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

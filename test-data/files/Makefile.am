@@ -42,7 +42,7 @@ noinst_DATA = \
 	lib-i586.so.xz \
 	test-grep.txt.gz
 
-CLEANFILES = $(noinst_DATA)
+CLEANFILES += $(noinst_DATA)
 
 100kallzeroes:
 	rm -f $@ $@-t

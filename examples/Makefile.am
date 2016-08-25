@@ -29,10 +29,6 @@ EXTRA_DIST = \
 	mount-local.c \
 	virt-dhcp-address.c
 
-CLEANFILES = \
-	guestfs-examples.3 \
-	stamp-guestfs-examples.pod
-
 noinst_PROGRAMS = create-disk debug-logging display-icon inspect-vm
 if HAVE_LIBVIRT
 noinst_PROGRAMS += copy-over libvirt-auth

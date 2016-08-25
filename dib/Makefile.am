@@ -22,8 +22,6 @@ EXTRA_DIST = \
 	test-virt-dib-docs.sh \
         virt-dib.pod
 
-CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-dib
-
 SOURCES_MLI = \
 	cmdline.mli
 
@@ -120,10 +118,6 @@ stamp-virt-dib.pod: virt-dib.pod
 	  $<
 	touch $@
 
-CLEANFILES += \
-	stamp-virt-dib.pod \
-	virt-dib.1
-
 # Dependencies.
 depend: .depend
 
@@ -139,7 +133,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

@@ -57,7 +57,7 @@ EXTRA_DIST = \
 	$(scripts) \
 	$(TESTS)
 
-CLEANFILES = \
+CLEANFILES += \
 	$(symlinks)
 
 # Any tool that has --short-options and --long-options is handled by

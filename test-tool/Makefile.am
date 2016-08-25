@@ -19,8 +19,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = libguestfs-test-tool.pod
 
-CLEANFILES = libguestfs-test-tool.1 stamp-libguestfs-test-tool.pod
-
 bin_PROGRAMS = libguestfs-test-tool
 man_MANS = libguestfs-test-tool.1
 

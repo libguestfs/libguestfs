@@ -35,7 +35,7 @@ EXTRA_DIST = \
 	$(linguas_not_translated:%=%.po) \
 	podfiles
 
-CLEANFILES = po4a.conf
+CLEANFILES += po4a.conf
 
 # Build the final man pages from the translated POD files.  Each
 # language directory contains a Makefile.am that we need to keep up to

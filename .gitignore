@@ -485,6 +485,7 @@ Makefile.in
 /src/guestfs_protocol.h
 /src/guestfs_protocol.x
 /src/guestfs-structs.pod
+/src/libguestfs.3
 /src/libguestfs.pc
 /src/libguestfs.syms
 /src/.libs/libguestfs.so

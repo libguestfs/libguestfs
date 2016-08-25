@@ -19,3 +19,35 @@
 # cf. 'subdir-rules.mk'
 
 -include $(top_builddir)/localenv
+
+# Files that should universally be removed by 'make clean'.  Note if
+# there is any case in any subdirectory where a file should not be
+# removed by 'make clean', it should not be listed here!
+
+# Editor backup files
+CLEANFILES = *~ *.bak
+
+# Patch original and reject files.
+CLEANFILES += *.orig *.rej
+
+# OCaml intermediate and generated files.
+CLEANFILES += *.cmi *.cmo *.cma *.cmx *.cmxa dll*.so *.a
+
+# OCaml -annot files (used for displaying types in some IDEs).
+CLEANFILES += *.annot
+
+# OCaml oUnit generated files.
+CLEANFILES += oUnit-*.cache oUnit-*.log
+
+# Manual pages - these are all generated from *.pod, so the
+# pages themselves should all be removed by 'make clean'.
+CLEANFILES += *.1 *.3 *.5 *.8
+
+# Stamp files used when generating man pages.
+CLEANFILES += stamp-*.pod
+
+# Bindtests temporary files used in many language bindings.
+CLEANFILES += bindtests.tmp
+
+# Files that should be universally removed by 'make distclean'.
+DISTCLEANFILES = .depend stamp-*

@@ -87,7 +87,7 @@ built_tests = Bindtests Guestfs010Load Guestfs030Config Guestfs050LVCreate
 $(built_tests): %: %.hs Guestfs.hs
 	$(GHC)  $(GHCFLAGS) --make -main-is $@ -odir .$@ -o $@ $< $(srcdir)/Guestfs.hs -lguestfs
 
-CLEANFILES = $(all_targets) *~ *.hi *.o test-lv-create.img
+CLEANFILES += $(all_targets) *.hi test-lv-create.img
 
 clean-local:
 	-rm -rf $(built_tests:%=.%)

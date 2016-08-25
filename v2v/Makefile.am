@@ -24,8 +24,6 @@ EXTRA_DIST = \
 	virt-v2v.pod \
 	virt-v2v-copy-to-local.pod
 
-CLEANFILES = *~ *.annot *.cmi *.cmo *.cmx *.cmxa *.o virt-v2v
-
 SOURCES_MLI = \
 	changeuid.mli \
 	cmdline.mli \
@@ -231,12 +229,6 @@ stamp-virt-v2v-copy-to-local.pod: virt-v2v-copy-to-local.pod
 	  $<
 	touch $@
 
-CLEANFILES += \
-	stamp-virt-v2v.pod \
-	stamp-virt-v2v-copy-to-local.pod \
-	virt-v2v.1 \
-	virt-v2v-copy-to-local.1
-
 # Tests.
 
 # The virt-v2v tests here are not meant to be thorough tests of guest
@@ -421,8 +413,6 @@ v2v_unit_tests_LINK = \
 	  $(OCAMLLINKFLAGS) \
 	  $(v2v_unit_tests_THEOBJECTS) -o $@
 
-CLEANFILES += oUnit-*
-
 # Dependencies.
 depend: .depend
 
@@ -438,7 +428,5 @@ depend: .depend
 -include .depend
 
 endif
-
-DISTCLEANFILES = .depend
 
 .PHONY: depend docs

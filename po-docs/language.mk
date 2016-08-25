@@ -21,8 +21,6 @@ include $(top_srcdir)/subdir-rules.mk
 
 LINGUA = $(shell basename -- `pwd`)
 
-CLEANFILES = *.1 *.3 *.5
-
 # Before 1.23.23, the old Perl tools were called *.pl.
 CLEANFILES += *.pl
 

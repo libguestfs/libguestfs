@@ -44,8 +44,6 @@ EXTRA_DIST = \
 	ubuntu.sh \
 	ubuntu-ppc64le.sh
 
-CLEANFILES = *~
-
 # Validates the index file.
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = validate.sh

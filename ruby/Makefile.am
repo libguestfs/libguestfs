@@ -34,7 +34,7 @@ EXTRA_DIST = \
 	t/tc_*.rb \
 	t/test_helper.rb
 
-CLEANFILES = \
+CLEANFILES += \
 	lib/*~ \
 	t/*~ \
 	ext/guestfs/*~ \

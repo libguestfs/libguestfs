@@ -42,5 +42,3 @@ EXTRA_DIST = \
 	rhbz701814.pl \
 	rhbz701814-faked.xml \
 	rhbz701814-node.xml
-
-CLEANFILES = *~

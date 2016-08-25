@@ -24,12 +24,6 @@ EXTRA_DIST = \
 	test-fuse-umount-race.sh \
 	test-guestunmount-not-mounted.sh
 
-CLEANFILES = \
-	guestmount.1 \
-	guestunmount.1 \
-	stamp-guestmount.pod \
-	stamp-guestunmount.pod
-
 if HAVE_FUSE
 
 bin_PROGRAMS = \

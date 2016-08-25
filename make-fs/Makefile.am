@@ -22,10 +22,6 @@ EXTRA_DIST = \
 	test-virt-make-fs-docs.sh \
 	virt-make-fs.pod
 
-CLEANFILES = \
-	stamp-virt-make-fs.pod \
-	virt-make-fs.1
-
 bin_PROGRAMS = virt-make-fs
 
 SHARED_SOURCE_FILES = \

@@ -17,20 +17,6 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-CLEANFILES = \
-	guestfish.1 \
-	libguestfs-tools.conf.5 \
-	stamp-guestfish.pod \
-	stamp-libguestfs-tools.conf.pod \
-	stamp-virt-copy-in.pod \
-	stamp-virt-copy-out.pod \
-	stamp-virt-tar-in.pod \
-	stamp-virt-tar-out.pod \
-	virt-copy-in.1 \
-	virt-copy-out.1 \
-	virt-tar-in.1 \
-	virt-tar-out.1
-
 bin_PROGRAMS = guestfish
 
 generator_built = \

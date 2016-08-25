@@ -40,24 +40,16 @@ EXTRA_DIST = \
 
 # Don't clean ssh_host_rsa_key{,.pub} or id_rsa{,.pub} since those
 # consume system entropy to regenerate.
-CLEANFILES = \
+CLEANFILES += \
 	$(dependencies_files) \
 	stamp-test-virt-p2v-pxe-data-files \
 	stamp-test-virt-p2v-pxe-kernel \
-	stamp-virt-p2v.pod \
-	stamp-virt-p2v-make-disk.pod \
-	stamp-virt-p2v-make-kickstart.pod \
-	stamp-virt-p2v-make-kiwi.pod \
 	test-virt-p2v-pxe.authorized_keys \
 	test-virt-p2v-pxe.img \
 	test-virt-p2v-pxe.vmlinuz \
 	test-virt-p2v-pxe.initramfs \
 	test-virt-p2v-pxe.sshd_config \
-	virt-p2v.1 \
-	virt-p2v.img \
-	virt-p2v-make-disk.1 \
-	virt-p2v-make-kickstart.1 \
-	virt-p2v-make-kiwi.1
+	virt-p2v.img
 
 # Although virt-p2v is a regular binary, it is not usually installed
 # in /usr/bin since it only functions when contained in an ISO or PXE

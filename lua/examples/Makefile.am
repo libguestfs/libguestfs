@@ -23,10 +23,6 @@ EXTRA_DIST = \
 	inspect_vm.lua \
 	guestfs-lua.pod
 
-CLEANFILES = \
-	guestfs-lua.3 \
-	stamp-guestfs-lua.pod
-
 man_MANS = guestfs-lua.3
 noinst_DATA = $(top_builddir)/website/guestfs-lua.3.html
 

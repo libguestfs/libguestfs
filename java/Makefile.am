@@ -56,8 +56,7 @@ EXTRA_DIST = \
 	run-java-tests \
 	Makefile.inc
 
-CLEANFILES = \
-	bindtests.tmp \
+CLEANFILES += \
 	com/redhat/et/libguestfs/*.class \
 	com_redhat_et_libguestfs_GuestFS.h \
 	doc-stamp \

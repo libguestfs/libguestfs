@@ -45,10 +45,6 @@ EXTRA_DIST = \
 	test-xmllint.sh.in \
 	virt-inspector.pod
 
-CLEANFILES = \
-	stamp-virt-inspector.pod \
-	virt-inspector.1
-
 docdir = @docdir@
 dist_doc_DATA = \
 	virt-inspector.rng \
