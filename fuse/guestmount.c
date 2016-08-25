@@ -41,6 +41,7 @@
 #include "ignore-value.h"
 
 #include "options.h"
+#include "display-options.h"
 
 static int write_pipe_fd (int fd);
 static int write_pid_file (const char *pid_file, pid_t pid);

@@ -40,6 +40,7 @@
 #include "xstrtol.h"
 
 #include "options.h"
+#include "display-options.h"
 
 guestfs_h *g;
 const char *libvirt_uri;

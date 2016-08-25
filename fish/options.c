@@ -367,34 +367,3 @@ free_mps (struct mp *mp)
 
   free (mp);
 }
-
-/**
- * Implements the internal C<tool I<--short-options>> flag, which just
- * lists out the short options available.  Used by bash completion.
- */
-void
-display_short_options (const char *format)
-{
-  while (*format) {
-    if (*format != ':')
-      printf ("-%c\n", *format);
-    ++format;
-  }
-  exit (EXIT_SUCCESS);
-}
-
-/**
- * Implements the internal C<tool I<--long-options>> flag, which just
- * lists out the long options available.  Used by bash completion.
- */
-void
-display_long_options (const struct option *long_options)
-{
-  while (long_options->name) {
-    if (STRNEQ (long_options->name, "long-options") &&
-        STRNEQ (long_options->name, "short-options"))
-      printf ("--%s\n", long_options->name);
-    long_options++;
-  }
-  exit (EXIT_SUCCESS);
-}

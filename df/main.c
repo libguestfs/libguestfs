@@ -38,6 +38,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "display-options.h"
 #include "domains.h"
 #include "parallel.h"
 #include "virt-df.h"

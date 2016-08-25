@@ -48,6 +48,7 @@
 
 #include "fish.h"
 #include "options.h"
+#include "display-options.h"
 #include "progress.h"
 
 #include "c-ctype.h"

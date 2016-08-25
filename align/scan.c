@@ -40,6 +40,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "display-options.h"
 #include "parallel.h"
 #include "domains.h"
 

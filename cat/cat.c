@@ -32,6 +32,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "display-options.h"
 #include "windows.h"
 
 /* Currently open libguestfs handle. */

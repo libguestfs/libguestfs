@@ -37,6 +37,8 @@ SHARED_SOURCE_FILES = \
 	../df/parallel.c \
 	../df/parallel.h \
 	../fish/config.c \
+	../fish/display-options.h \
+	../fish/display-options.c \
 	../fish/domain.c \
 	../fish/inspect.c \
 	../fish/keys.c \
