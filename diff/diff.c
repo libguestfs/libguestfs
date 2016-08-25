@@ -39,6 +39,7 @@
 #include "guestfs.h"
 
 #include "options.h"
+#include "display-options.h"
 #include "visit.h"
 
 /* Internal tree structure built for each guest. */

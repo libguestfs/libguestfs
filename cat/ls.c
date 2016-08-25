@@ -37,6 +37,7 @@
 #include "guestfs.h"
 
 #include "options.h"
+#include "display-options.h"
 #include "visit.h"
 
 /* Currently open libguestfs handle. */

@@ -37,6 +37,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "display-options.h"
 #include "windows.h"
 #include "file-edit.h"
 

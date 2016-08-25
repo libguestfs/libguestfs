@@ -36,6 +36,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "display-options.h"
 
 /* These globals are shared with options.c. */
 guestfs_h *g;

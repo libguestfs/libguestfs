@@ -29,9 +29,11 @@ CLEANFILES = \
 bin_PROGRAMS = virt-make-fs
 
 SHARED_SOURCE_FILES = \
+	../fish/display-options.h \
+	../fish/display-options.c \
+	../fish/domain.c \
 	../fish/options.h \
 	../fish/options.c \
-	../fish/domain.c \
 	../fish/uri.c
 
 virt_make_fs_SOURCES = \

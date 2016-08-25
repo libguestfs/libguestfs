@@ -35,6 +35,7 @@
 
 #include "guestfs.h"
 #include "options.h"
+#include "display-options.h"
 
 static void add_scratch_disks (int n, struct drv **drvs);
 static void do_suggestion (struct drv *drvs);
