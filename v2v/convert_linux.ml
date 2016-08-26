@@ -246,7 +246,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
    * list is the default booting kernel.
    *)
   let grub_kernels : kernel_info list =
-    let vmlinuzes = bootloader#list_kernels () in
+    let vmlinuzes = bootloader#list_kernels in
 
     (* Map these to installed kernels. *)
     filter_map (
