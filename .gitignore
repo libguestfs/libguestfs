@@ -113,6 +113,7 @@ Makefile.in
 /customize/customize-options.pod
 /customize/customize-synopsis.pod
 /customize/stamp-virt-customize.pod
+/customize/test-firstboot-*.sh
 /customize/virt-customize
 /customize/virt-customize.1
 /daemon/actions.h
