@@ -40,6 +40,7 @@ SOURCES_MLI = \
 	input_ova.mli \
 	inspect_source.mli \
 	linux.mli \
+	linux_bootloaders.mli \
 	modules_list.mli \
 	output_glance.mli \
 	output_libvirt.mli \
@@ -79,6 +80,7 @@ SOURCES_ML = \
 	input_libvirt_xen_ssh.ml \
 	input_libvirt.ml \
 	input_ova.ml \
+	linux_bootloaders.ml \
 	convert_linux.ml \
 	convert_windows.ml \
 	output_null.ml \

@@ -87,36 +87,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (* Clean RPM database.  This must be done early to avoid RHBZ#1143866. *)
   Array.iter g#rm_f (g#glob_expand "/var/lib/rpm/__db.00?");
 
-  (* What grub is installed? *)
-  let grub_config, grub =
-    let locations = [
-      "/boot/grub2/grub.cfg", `Grub2;
-      "/boot/grub/menu.lst", `Grub1;
-      "/boot/grub/grub.conf", `Grub1;
-    ] in
-    let locations =
-      match inspect.i_firmware with
-      | I_UEFI _ -> ("/boot/efi/EFI/redhat/grub.cfg", `Grub2) :: locations
-      | I_BIOS -> locations in
-    try
-      List.find (
-        fun (grub_config, _) -> g#is_file ~followsymlinks:true grub_config
-      ) locations
-    with
-      Not_found ->
-        error (f_"no grub1/grub-legacy or grub2 configuration file was found") in
-
-  (* Grub prefix?  Usually "/boot". *)
-  let grub_prefix =
-    match grub with
-    | `Grub2 -> ""
-    | `Grub1 ->
-      let mounts = g#inspect_get_mountpoints inspect.i_root in
-      try
-        List.find (
-          fun path -> List.mem_assoc path mounts
-        ) [ "/boot/grub"; "/boot" ]
-      with Not_found -> "" in
+  (* Detect the installed bootloader. *)
+  let bootloader = Linux_bootloaders.detect_bootloader g inspect in
+  Linux.augeas_reload g;
 
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
@@ -267,88 +240,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
    * list is the default booting kernel.
    *)
   let grub_kernels : kernel_info list =
-    (* Helper function for SUSE: remove (hdX,X) prefix from a path. *)
-    let remove_hd_prefix  =
-      let rex = Str.regexp "^(hd.*)\\(.*\\)" in
-      Str.replace_first rex "\\1"
-    in
-
-    let vmlinuzes =
-      match grub with
-      | `Grub1 ->
-        let paths =
-          let expr = sprintf "/files%s/title/kernel" grub_config in
-          let paths = g#aug_match expr in
-          let paths = Array.to_list paths in
-
-          (* Remove duplicates. *)
-          let paths = remove_duplicates paths in
-
-          (* Get the default kernel from grub if it's set. *)
-          let default =
-            let expr = sprintf "/files%s/default" grub_config in
-            try
-              let idx = g#aug_get expr in
-              let idx = int_of_string idx in
-              (* Grub indices are zero-based, augeas is 1-based. *)
-              let expr =
-                sprintf "/files%s/title[%d]/kernel" grub_config (idx+1) in
-              Some expr
-            with G.Error msg
-                 when String.find msg "aug_get: no matching node" >= 0 ->
-              None in
-
-          (* If a default kernel was set, put it at the beginning of the paths
-           * list.  If not set, assume the first kernel always boots (?)
-           *)
-          match default with
-          | None -> paths
-          | Some p -> p :: List.filter ((<>) p) paths in
-
-        (* Resolve the Augeas paths to kernel filenames. *)
-        let vmlinuzes = List.map g#aug_get paths in
-
-        (* Make sure kernel does not begin with (hdX,X). *)
-        let vmlinuzes = List.map remove_hd_prefix vmlinuzes in
-
-        (* Prepend grub filesystem. *)
-        List.map ((^) grub_prefix) vmlinuzes
-
-      | `Grub2 ->
-        let get_default_image () =
-          let cmd =
-            if g#exists "/sbin/grubby" then
-              [| "grubby"; "--default-kernel" |]
-            else
-              [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; "
-                    InitLibrary();
-                    my $default = Bootloader::Tools::GetDefaultSection();
-                    print $default->{image};
-                 " |] in
-          match g#command cmd with
-          | "" -> None
-          | k ->
-            let len = String.length k in
-            let k =
-              if len > 0 && k.[len-1] = '\n' then
-                String.sub k 0 (len-1)
-              else k in
-            Some (remove_hd_prefix k)
-        in
-
-        let vmlinuzes =
-          (match get_default_image () with
-          | None -> []
-          | Some k -> [k]) @
-            (* This is how the grub2 config generator enumerates kernels. *)
-            Array.to_list (g#glob_expand "/boot/kernel-*") @
-            Array.to_list (g#glob_expand "/boot/vmlinuz-*") @
-            Array.to_list (g#glob_expand "/vmlinuz-*") in
-        let rex = Str.regexp ".*\\.\\(dpkg-.*|rpmsave|rpmnew\\)$" in
-        let vmlinuzes = List.filter (
-          fun file -> not (Str.string_match rex file 0)
-        ) vmlinuzes in
-        vmlinuzes in
+    let vmlinuzes = bootloader#list_kernels () in
 
     (* Map these to installed kernels. *)
     filter_map (
@@ -387,21 +279,8 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (* Conversion step. *)
 
   let rec augeas_grub_configuration () =
-    match grub with
-    | `Grub1 ->
-      (* Ensure Augeas is reading the grub configuration file, and if not
-       * then add it.
-       *)
-      let incls = g#aug_match "/augeas/load/Grub/incl" in
-      let incls = Array.to_list incls in
-      let incls_contains_conf =
-        List.exists (fun incl -> g#aug_get incl = grub_config) incls in
-      if not incls_contains_conf then (
-        g#aug_set "/augeas/load/Grub/incl[last()+1]" grub_config;
-        Linux.augeas_reload g;
-      )
-
-    | `Grub2 -> () (* Not necessary for grub2. *)
+    if bootloader#set_augeas_configuration () then
+      Linux.augeas_reload g
 
   and unconfigure_xen () =
     (* Remove kmod-xenpv-* (RHEL 3). *)
@@ -731,7 +610,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
       let kernels = List.rev kernels (* so best is first *) in
       List.hd kernels in
     if best_kernel <> List.hd grub_kernels then
-      grub_set_bootable best_kernel;
+      bootloader#set_default_kernel best_kernel.ki_vmlinuz;
 
     (* Does the best/bootable kernel support virtio? *)
     let virtio = best_kernel.ki_supports_virtio in
@@ -748,46 +627,6 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     );
 
     best_kernel, virtio
-
-  and grub_set_bootable kernel =
-    match grub with
-    | `Grub1 ->
-      if not (String.is_prefix kernel.ki_vmlinuz grub_prefix) then
-        error (f_"kernel %s is not under grub tree %s")
-          kernel.ki_vmlinuz grub_prefix;
-      let kernel_under_grub_prefix =
-        let prefix_len = String.length grub_prefix in
-        let kernel_len = String.length kernel.ki_vmlinuz in
-        String.sub kernel.ki_vmlinuz prefix_len (kernel_len - prefix_len) in
-
-      (* Find the grub entry for the given kernel. *)
-      let paths = g#aug_match (sprintf "/files%s/title/kernel[. = '%s']"
-                                 grub_config kernel_under_grub_prefix) in
-      let paths = Array.to_list paths in
-      if paths = [] then
-        error (f_"didn't find grub entry for kernel %s") kernel.ki_vmlinuz;
-      let path = List.hd paths in
-      let rex = Str.regexp ".*/title\\[\\([1-9][0-9]*\\)\\]/kernel" in
-      if not (Str.string_match rex path 0) then
-        error (f_"internal error: regular expression did not match '%s'")
-          path;
-      let index = int_of_string (Str.matched_group 1 path) - 1 in
-      g#aug_set (sprintf "/files%s/default" grub_config) (string_of_int index);
-      g#aug_save ()
-
-    | `Grub2 ->
-      let cmd =
-        if g#exists "/sbin/grubby" then
-          [| "grubby"; "--set-default"; kernel.ki_vmlinuz |]
-        else
-          [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; sprintf "
-              InitLibrary();
-              my @sections = GetSectionList(type=>image, image=>\"%s\");
-              my $section = GetSection(@sections);
-              my $newdefault = $section->{name};
-              SetGlobals(default, \"$newdefault\");
-            " kernel.ki_vmlinuz |] in
-      ignore (g#command cmd)
 
   (* Even though the kernel was already installed (this version of
    * virt-v2v does not install new kernels), it could have an
@@ -954,28 +793,6 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
     g#aug_save ()
 
-  and grub_configure_console () =
-    match grub with
-    | `Grub1 ->
-      let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
-      let expr = sprintf "/files%s/title/kernel/console" grub_config in
-
-      let paths = g#aug_match expr in
-      let paths = Array.to_list paths in
-      List.iter (
-        fun path ->
-          let console = g#aug_get path in
-          if Str.string_match rex console 0 then (
-            let console = Str.global_replace rex "\\1ttyS0\\3" console in
-            g#aug_set path console
-          )
-      ) paths;
-
-      g#aug_save ()
-
-    | `Grub2 ->
-      grub2_update_console ~remove:false
-
   (* If the target doesn't support a serial console, we want to remove
    * all references to it instead.
    *)
@@ -1003,71 +820,6 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     ) paths;
 
     g#aug_save ()
-
-  and grub_remove_console () =
-    match grub with
-    | `Grub1 ->
-      let rex = Str.regexp "\\(.*\\)\\b\\([xh]vc0\\)\\b\\(.*\\)" in
-      let expr = sprintf "/files%s/title/kernel/console" grub_config in
-
-      let rec loop = function
-        | [] -> ()
-        | path :: paths ->
-          let console = g#aug_get path in
-          if Str.string_match rex console 0 then (
-            ignore (g#aug_rm path);
-            (* All the paths are invalid, restart the loop. *)
-            let paths = g#aug_match expr in
-            let paths = Array.to_list paths in
-            loop paths
-          )
-          else
-            loop paths
-      in
-      let paths = g#aug_match expr in
-      let paths = Array.to_list paths in
-      loop paths;
-
-      g#aug_save ()
-
-    | `Grub2 ->
-      grub2_update_console ~remove:true
-
-  and grub2_update_console ~remove =
-    let rex = Str.regexp "\\(.*\\)\\bconsole=[xh]vc0\\b\\(.*\\)" in
-
-    let paths = [
-      "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
-      "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
-      "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT"
-    ] in
-    let paths = List.map g#aug_match paths in
-    let paths = List.map Array.to_list paths in
-    let paths = List.flatten paths in
-    match paths with
-    | [] ->
-      if not remove then
-        warning (f_"could not add grub2 serial console (ignored)")
-      else
-        warning (f_"could not remove grub2 serial console (ignored)")
-    | path :: _ ->
-      let grub_cmdline = g#aug_get path in
-      if Str.string_match rex grub_cmdline 0 then (
-        let new_grub_cmdline =
-          if not remove then
-            Str.global_replace rex "\\1console=ttyS0\\2" grub_cmdline
-          else
-            Str.global_replace rex "\\1\\2" grub_cmdline in
-        g#aug_set path new_grub_cmdline;
-        g#aug_save ();
-
-        try
-          ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
-        with
-          G.Error msg ->
-            warning (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
-              grub_config msg
-      )
 
   and supports_acpi () =
     (* ACPI known to cause RHEL 3 to fail. *)
@@ -1294,19 +1046,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     let paths = [
       (* /etc/fstab *)
       "/files/etc/fstab/*/spec";
-
-      (* grub-legacy config *)
-      "/files" ^ grub_config ^ "/*/kernel/root";
-      "/files" ^ grub_config ^ "/*/kernel/resume";
-      "/files/boot/grub/device.map/*[label() != \"#comment\"]";
-      "/files/etc/sysconfig/grub/boot";
-
-      (* grub2 config *)
-      "/files/etc/sysconfig/grub/GRUB_CMDLINE_LINUX";
-      "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
-      "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT";
-      "/files/boot/grub2/device.map/*[label() != \"#comment\"]";
     ] in
+    (* Bootloader config *)
+    let paths = paths @ bootloader#augeas_device_patterns in
 
     (* Which of these paths actually exist? *)
     let paths =
@@ -1384,9 +1126,8 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     if !changed then (
       g#aug_save ();
 
-      (* If it's grub2, we have to regenerate the config files. *)
-      if grub = `Grub2 then
-        ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |]);
+      (* Make sure the bootloader is up-to-date. *)
+      bootloader#update ();
 
       Linux.augeas_reload g
     );
@@ -1416,10 +1157,10 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
   if keep_serial_console then (
     configure_console ();
-    grub_configure_console ();
+    bootloader#configure_console ();
   ) else (
     remove_console ();
-    grub_remove_console ();
+    bootloader#remove_console ();
   );
 
   let acpi = supports_acpi () in
