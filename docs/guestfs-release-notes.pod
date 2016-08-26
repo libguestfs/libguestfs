@@ -97,7 +97,7 @@ The virt-v2v I<--no-trim> and I<--vmtype> options are now no-ops.
 They will print a warning but are otherwise ignored.  virt-v2v can now
 generate the OVF vmtype correctly without user intervention.
 
-virt-v2v has now been tested against Citrix Xen as a source hypervisor
+virt-v2v has now been tested against SUSE Xen as a source hypervisor
 (Cédric Bosdonnat).
 
 virt-v2v adds support for SUSE VMDP drivers (Cédric Bosdonnat).
