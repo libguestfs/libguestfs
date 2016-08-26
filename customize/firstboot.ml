@@ -97,7 +97,7 @@ StandardError=inherit
 WantedBy=default.target
 " firstboot_dir
 
-  let rec install_service (g : Guestfs.guestfs) distro =
+  let rec install_service (g : Guestfs.guestfs) root distro major =
     g#mkdir_p firstboot_dir;
     g#mkdir_p (sprintf "%s/scripts" firstboot_dir);
     g#write (sprintf "%s/firstboot.sh" firstboot_dir) firstboot_sh;
@@ -113,7 +113,7 @@ WantedBy=default.target
     if g#is_dir "/etc/systemd/system" then
       install_systemd_service g;
     if g#is_dir "/etc/rc.d" || g#is_dir "/etc/init.d" then
-      install_sysvinit_service g distro
+      install_sysvinit_service g root distro major
 
   (* Install the systemd firstboot service, if not installed already. *)
   and install_systemd_service g =
@@ -144,12 +144,16 @@ WantedBy=default.target
           oldunitfile csum
     )
 
-  and install_sysvinit_service g = function
+  and install_sysvinit_service g root distro major =
+    match distro with
     | "fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based" ->
       install_sysvinit_redhat g
     | "opensuse"|"sles"|"suse-based" ->
       install_sysvinit_suse g
-    | "debian"|"ubuntu" ->
+    | "debian" ->
+      install_sysvinit_debian g;
+      if major <= 7 then try_update_rc_d g root
+    | "ubuntu" ->
       install_sysvinit_debian g
     | distro ->
       error (f_"guest type %s is not supported") distro
@@ -209,6 +213,23 @@ WantedBy=default.target
     g#rm_f "/etc/rc2.d/S99virt-sysprep-firstboot";
     g#rm_f "/etc/rc3.d/S99virt-sysprep-firstboot";
     g#rm_f "/etc/rc5.d/S99virt-sysprep-firstboot"
+
+  (* On Debian 6 & 7 you have to run: update-rc.d guestfs-firstboot defaults
+   * RHBZ#1019388.
+   *)
+  and try_update_rc_d g root =
+    let guest_arch = g#inspect_get_arch root in
+    let guest_arch_compatible = guest_arch_compatible guest_arch in
+    let cmd = "update-rc.d guestfs-firstboot defaults" in
+    if guest_arch_compatible then
+      try ignore (g#sh cmd)
+      with Guestfs.Error msg ->
+        warning (f_"could not finish firstboot installation by running '%s' because the command failed: %s")
+                cmd msg
+    else (
+      warning (f_"cannot finish firstboot installation by running '%s' because host cpu (%s) and guest arch (%s) are not compatible.  The firstboot service may not run at boot.")
+              cmd Guestfs_config.host_cpu guest_arch
+    )
 end
 
 module Windows = struct
@@ -340,11 +361,12 @@ let script_count = ref 0
 let add_firstboot_script (g : Guestfs.guestfs) root name content =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
+  let major = g#inspect_get_major_version root in
   incr script_count;
   let filename = sprintf "%04d-%s" !script_count (sanitize_name name) in
   match typ, distro with
   | "linux", _ ->
-    Linux.install_service g distro;
+    Linux.install_service g root distro major;
     let filename = Linux.firstboot_dir // "scripts" // filename in
     g#write filename content;
     g#chmod 0o755 filename
