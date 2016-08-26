@@ -21,7 +21,7 @@ class virtual bootloader : object
   (** The name of the bootloader. *)
   method virtual augeas_device_patterns : string list
   (** A list of Augeas patterns to search for device names. *)
-  method virtual list_kernels : unit -> string list
+  method virtual list_kernels : string list
   (** Lists all the kernels configured in the bootloader. *)
   method virtual set_default_kernel : string -> unit
   (** Sets the specified vmlinuz path as default bootloader entry. *)

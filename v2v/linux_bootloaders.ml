@@ -29,7 +29,7 @@ module G = Guestfs
 class virtual bootloader = object
   method virtual name : string
   method virtual augeas_device_patterns : string list
-  method virtual list_kernels : unit -> string list
+  method virtual list_kernels : string list
   method virtual set_default_kernel : string -> unit
   method set_augeas_configuration () = false
   method virtual configure_console : unit -> unit
@@ -69,7 +69,7 @@ object
     "/files/etc/sysconfig/grub/boot";
   ]
 
-  method list_kernels () =
+  method list_kernels =
     let paths =
       let expr = sprintf "/files%s/title/kernel" grub_config in
       let paths = g#aug_match expr in
@@ -189,7 +189,7 @@ class bootloader_grub2 (g : G.guestfs) grub_config =
 object (self)
   inherit bootloader
 
-  method private grub2_update_console ~remove =
+  method private grub2_update_console ~remove () =
     let rex = Str.regexp "\\(.*\\)\\bconsole=[xh]vc0\\b\\(.*\\)" in
 
     let paths = [
@@ -235,7 +235,7 @@ object (self)
     "/files/boot/grub2/device.map/*[label() != \"#comment\"]";
   ]
 
-  method list_kernels () =
+  method list_kernels =
     let get_default_image () =
       let cmd =
         if g#exists "/sbin/grubby" then
@@ -285,11 +285,9 @@ object (self)
           " vmlinuz |] in
     ignore (g#command cmd)
 
-  method configure_console () =
-    self#grub2_update_console ~remove:false
+  method configure_console = self#grub2_update_console ~remove:false
 
-  method remove_console () =
-    self#grub2_update_console ~remove:true
+  method remove_console = self#grub2_update_console ~remove:true
 
   method update () =
     ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
