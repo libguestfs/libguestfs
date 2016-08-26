@@ -1796,7 +1796,7 @@ you're doing!>  If you have libvirt metadata for the guest, always use
 that instead.
 
  <domain type='kvm'>
-   <name>NAME</name>
+   <name> NAME </name>
    <memory>1048576</memory>
    <vcpu>2</vcpu>
    <os>
