@@ -39,13 +39,13 @@ type cmdline = {
   cache : string option;
   check_signature : bool;
   curl : string;
+  customize_ops : Customize_cmdline.ops;
   delete_on_failure : bool;
   format : string option;
   gpg : string;
   list_format : [`Short|`Long|`Json];
   memsize : int option;
   network : bool;
-  ops : Customize_cmdline.ops;
   output : string option;
   size : int64 option;
   smp : int option;
@@ -306,7 +306,7 @@ read the man page virt-builder(1).
   (* If user didn't elect any root password, that means we set a random
    * root password.
    *)
-  let ops =
+  let customize_ops =
     let has_set_root_password = List.exists (
       function `RootPassword _ -> true | _ -> false
     ) ops.ops in
@@ -319,8 +319,9 @@ read the man page virt-builder(1).
   { mode = mode; arg = arg;
     arch = arch; attach = attach; cache = cache;
     check_signature = check_signature; curl = curl;
+    customize_ops = customize_ops;
     delete_on_failure = delete_on_failure; format = format;
     gpg = gpg; list_format = list_format; memsize = memsize;
-    network = network; ops = ops; output = output;
+    network = network; output = output;
     size = size; smp = smp; sources = sources; sync = sync;
   }

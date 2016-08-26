@@ -27,13 +27,13 @@ type cmdline = {
   cache : string option;
   check_signature : bool;
   curl : string;
+  customize_ops : Customize_cmdline.ops;
   delete_on_failure : bool;
   format : string option;
   gpg : string;
   list_format : [`Short|`Long|`Json];
   memsize : int option;
   network : bool;
-  ops : Customize_cmdline.ops;
   output : string option;
   size : int64 option;
   smp : int option;
