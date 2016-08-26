@@ -665,7 +665,7 @@ let main () =
       error (f_"no guest operating systems or multiboot OS found in this disk image\nThis is a failure of the source repository.  Use -v for more information.")
   in
 
-  Customize_run.run g root cmdline.ops;
+  Customize_run.run g root cmdline.customize_ops;
 
   (* Collect some stats about the final output file.
    * Notes:
