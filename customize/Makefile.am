@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	$(generator_built) \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	customize_main.ml \
+	test-firstboot.sh \
 	test-virt-customize.sh \
 	test-virt-customize-docs.sh \
 	virt-customize.pod
@@ -192,11 +193,47 @@ TESTS = \
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-virt-customize.sh
+	test-virt-customize.sh \
+	$(SLOW_TESTS)
 endif
 
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
+
+# Slow tests of firstboot functionality in real guests.
+
+SLOW_TESTS = \
+	$(firstboot_test_scripts)
+
+check-slow:
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+
+firstboot_test_scripts := \
+	test-firstboot-rhel-4.9.sh \
+	test-firstboot-rhel-5.11.sh \
+	test-firstboot-rhel-6.8.sh \
+	test-firstboot-rhel-7.2.sh \
+	test-firstboot-debian-6.sh \
+	test-firstboot-debian-7.sh \
+	test-firstboot-debian-8.sh \
+	test-firstboot-fedora-24.sh \
+	test-firstboot-ubuntu-10.04.sh \
+	test-firstboot-ubuntu-12.04.sh \
+	test-firstboot-ubuntu-14.04.sh \
+	test-firstboot-ubuntu-16.04.sh
+# Firstboot is known-broken on RHEL 3:
+#	test-firstboot-rhel-3.9.sh
+
+test-firstboot-%.sh:
+	rm -f $@ $@-t
+	f=`echo "$@" | $(SED) 's/test-firstboot-\(.*\).sh/\1/'`; \
+	echo 'exec $$srcdir/test-firstboot.sh' "$$f" > $@-t
+	chmod 0755 $@-t
+	mv $@-t $@
+
+CLEANFILES += \
+	$(firstboot_test_scripts) \
+	firstboot-*.img
 
 # Dependencies.
 depend: .depend
