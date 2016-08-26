@@ -249,7 +249,7 @@ AC_ARG_WITH([libvirt],[
     [],
     [with_libvirt=check])
 AS_IF([test "$with_libvirt" != "no"],[
-    PKG_CHECK_MODULES([LIBVIRT], [libvirt],[
+    PKG_CHECK_MODULES([LIBVIRT], [libvirt >= 0.10.2],[
         AC_SUBST([LIBVIRT_CFLAGS])
         AC_SUBST([LIBVIRT_LIBS])
         AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
