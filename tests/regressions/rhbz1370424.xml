@@ -1,0 +1,28 @@
+<node>
+  <domain type='test'>
+    <name>rhbz1370424</name>
+    <memory>1048576</memory>
+    <vcpu>2</vcpu>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <features>
+      <acpi/>
+      <apic/>
+      <pae/>
+    </features>
+    <devices>
+      <disk type='network' device='disk'>
+        <driver name='qemu' type='raw'/>
+        <source protocol='gluster' name='gluster-vol/test.qcow2'>
+          <host name='localhost'/>
+        </source>
+        <backingStore/>
+        <target dev='vda' bus='virtio'/>
+        <alias name='virtio-disk0'/>
+        <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+      </disk>
+    </devices>
+  </domain>
+</node>
