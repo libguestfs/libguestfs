@@ -604,15 +604,20 @@ for_each_disk (guestfs_h *g,
         for (hi = 0; hi < xphost->nodesetval->nodeNr ; hi++) {
           xmlChar *name, *port;
           xmlNodePtr h = xphost->nodesetval->nodeTab[hi];
+          int r;
 
           assert (h);
           assert (h->type == XML_ELEMENT_NODE);
-          name = xmlGetProp(h, BAD_CAST "name");
-          assert(name);
-          port = xmlGetProp(h, BAD_CAST "port");
-          assert (port);
-          debug (g, _("disk[%zu]: host: %s:%s"), i, name, port);
-          if (asprintf(&server[hi], "%s:%s", name, port) == -1) {
+          name = xmlGetProp (h, BAD_CAST "name");
+          assert (name);        // libvirt checks this
+          port = xmlGetProp (h, BAD_CAST "port");
+          debug (g, "disk[%zu]: hostname: %s port: %s",
+                 i, name, port ? (char *) port : "(not set)");
+          if (port)
+            r = asprintf (&server[hi], "%s:%s", name, port);
+          else
+            r = asprintf (&server[hi], "%s", name);
+          if (r == -1) {
             perrorf (g, "asprintf");
             return -1;
           }
