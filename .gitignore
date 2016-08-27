@@ -561,14 +561,11 @@ Makefile.in
 /tools/stamp-virt-*.pod
 /tools/virt-*.1
 /v2v/.depend
-/v2v/centos-6.img
-/v2v/centos-7.0.img
-/v2v/fedora-20.img
 /v2v/fake-virtio-win.iso
 /v2v/oUnit-*
-/v2v/rhel-5.10.img
-/v2v/rhel-6.5.img
-/v2v/rhel-7.0.img
+/v2v/real-*.d/
+/v2v/real-*.img
+/v2v/real-*.xml
 /v2v/stamp-virt-v2v.pod
 /v2v/stamp-virt-v2v-copy-to-local.pod
 /v2v/test-harness/.depend
@@ -576,6 +573,7 @@ Makefile.in
 /v2v/test-harness/dllv2v_test_harness.so
 /v2v/test-harness/stamp-virt-v2v-test-harness.pod
 /v2v/test-harness/virt-v2v-test-harness.1
+/v2v/test-v2v-conversion-of-*.sh
 /v2v/v2v_unit_tests
 /v2v/virt-v2v
 /v2v/virt-v2v.1
