@@ -292,36 +292,36 @@ check-valgrind:
 	$(MAKE) VG="$(abs_top_builddir)/run @VG@" check
 
 SLOW_TESTS = \
-	test-v2v-real-conversions.sh \
+	$(real_guests_scripts) \
 	test-v2v-trim.sh
 
-check-slow: $(real_guests:%=%.img)
+check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
 
-# A selection of real guests that test-v2v-real-conversions.sh will
+# A selection of real guests that test-v2v-conversion-of.sh will
 # try to convert.  This is only used by 'make check-slow'.
 
-real_guests = \
-	centos-6 \
-	centos-7.0 \
-	fedora-20 \
-	fedora-23 \
-	rhel-5.10 \
-	rhel-6.5 \
-	rhel-7.0 \
-	rhel-7.2
+real_guests_scripts = \
+	test-v2v-conversion-of-centos-6.sh \
+	test-v2v-conversion-of-centos-7.0.sh \
+	test-v2v-conversion-of-fedora-20.sh \
+	test-v2v-conversion-of-fedora-23.sh \
+	test-v2v-conversion-of-rhel-5.10.sh \
+	test-v2v-conversion-of-rhel-6.8.sh \
+	test-v2v-conversion-of-rhel-7.0.sh \
+	test-v2v-conversion-of-rhel-7.2.sh
 
-$(real_guests:%=%.img):
-	rm -f $@
-	n=`basename $@ .img`;                                            \
-	vb="$(top_builddir)/run $(top_builddir)/builder/virt-builder";   \
-	if $$vb --help >/dev/null && $$vb --notes $$n >/dev/null; then   \
-	  $$vb $$n;                                                      \
-	else                                                             \
-	  touch $$n.img;                                                 \
-	fi
+test-v2v-conversion-of-%.sh:
+	rm -f $@ $@-t
+	f=`echo "$@" | $(SED) 's/test-v2v-conversion-of-\(.*\).sh/\1/'`; \
+	echo 'exec $$srcdir/test-v2v-conversion-of.sh' "$$f" > $@-t
+	chmod 0755 $@-t
+	mv $@-t $@
 
-CLEANFILES += $(real_guests:%=%.img)
+CLEANFILES += \
+	$(real_guests_scripts) \
+	real-*.img \
+	real-*.xml
 
 EXTRA_DIST += \
 	test-v2v-bad-networks-and-bridges.sh \
@@ -365,7 +365,7 @@ EXTRA_DIST += \
 	test-v2v-of-option.sh \
 	test-v2v-on-option.sh \
 	test-v2v-print-source.sh \
-	test-v2v-real-conversions.sh \
+	test-v2v-conversion-of.sh \
 	test-v2v-sound.sh \
 	test-v2v-sound.xml \
 	test-v2v-trim.sh \

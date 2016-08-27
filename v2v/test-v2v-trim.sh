@@ -39,18 +39,18 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
     exit 77
 fi
 
-# This should be created by Makefile.am when doing 'make check-slow'.
-# If this fails it's probably because you're not running the test with
-# 'make check-slow' but running it directly.
-f="$(pwd)/fedora-20.img"
-if ! test -f "$f" || ! test -s "$f"; then
-    echo "$0: Fedora 20 guest image was not created by Makefile"
-    exit 1
-fi
-
 d=test-v2v-trim.d
 rm -rf $d
 mkdir $d
+
+n=fedora-20
+
+f="$(pwd)/$d/$n.img"
+if ! virt-builder -l "$n"; then
+    echo "$0: virt-builder $n image not found"
+    exit 77
+fi
+virt-builder "$n" --quiet -o "$f"
 
 qemu-img create -f qcow2 -b "$f" $d/fedora.qcow2
 
