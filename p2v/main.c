@@ -31,6 +31,7 @@
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/sysmacros.h>
 
 #pragma GCC diagnostic ignored "-Wstrict-prototypes" /* error in <gtk.h> */
 #include <gtk/gtk.h>

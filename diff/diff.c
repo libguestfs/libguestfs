@@ -31,6 +31,7 @@
 #include <time.h>
 #include <libintl.h>
 #include <sys/wait.h>
+#include <sys/sysmacros.h>
 
 #include "c-ctype.h"
 #include "human.h"
