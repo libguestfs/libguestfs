@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <sys/sysmacros.h>
 
 #include <caml/mlvalues.h>
 
