@@ -32,6 +32,7 @@
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/sysmacros.h>
 
 /* errors in <gtk.h> */
 #pragma GCC diagnostic push

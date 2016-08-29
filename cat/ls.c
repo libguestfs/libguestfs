@@ -31,6 +31,7 @@
 #include <assert.h>
 #include <time.h>
 #include <libintl.h>
+#include <sys/sysmacros.h>
 
 #include "human.h"
 
