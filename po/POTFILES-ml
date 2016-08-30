@@ -132,6 +132,7 @@ v2v/output_vdsm.ml
 v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml
 v2v/types.ml
+v2v/uefi.ml
 v2v/utils.ml
 v2v/v2v.ml
 v2v/v2v_unit_tests.ml

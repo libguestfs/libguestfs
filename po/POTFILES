@@ -141,6 +141,7 @@ fish/completion.c
 fish/config.c
 fish/copy.c
 fish/destpaths.c
+fish/display-options.c
 fish/display.c
 fish/domain.c
 fish/echo.c
