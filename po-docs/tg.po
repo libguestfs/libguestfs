@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-08-08 21:54+0100\n"
+"POT-Creation-Date: 2016-08-30 15:50+0100\n"
 "PO-Revision-Date: 2014-10-18 04:01-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Tajik (http://www.transifex.com/projects/p/libguestfs/"
@@ -93963,8 +93963,8 @@ msgstr ""
 #. type: textblock
 #: ../v2v/virt-v2v.pod:896
 msgid ""
-"Currently KVM supports OVMF, a partially open source UEFI firmware, and can "
-"run these guests."
+"Currently KVM supports OVMF, an open source UEFI firmware, and can run these "
+"guests."
 msgstr ""
 
 #. type: textblock
@@ -95662,7 +95662,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 " <domain type='kvm'>\n"
-"   <name>NAME</name>\n"
+"   <name> NAME </name>\n"
 "   <memory>1048576</memory>\n"
 "   <vcpu>2</vcpu>\n"
 "   <os>\n"

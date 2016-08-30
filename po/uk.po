@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-08-08 21:54+0100\n"
+"POT-Creation-Date: 2016-08-30 15:25+0100\n"
 "PO-Revision-Date: 2015-03-17 03:21-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -49,7 +49,7 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../mllib/common_utils.ml:417
+#: ../mllib/common_utils.ml:425
 msgid "%s"
 msgstr "%s"
 
@@ -146,11 +146,11 @@ msgstr ""
 "%s посилається на невідомий пристрій «%s». Ймовірно, вам доведеться "
 "виправити цей запис після перетворення."
 
-#: ../mllib/common_utils.ml:413 ../mllib/common_utils.ml:385
+#: ../mllib/common_utils.ml:421 ../mllib/common_utils.ml:393
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../mllib/common_utils.ml:415
+#: ../mllib/common_utils.ml:423
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -397,7 +397,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис\n"
 "можна знайти на сторінці підручника (man) virt-customize(1).\n"
 
-#: ../mllib/common_utils.ml:357
+#: ../mllib/common_utils.ml:365
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
@@ -610,7 +610,7 @@ msgstr ""
 "У поточній версії передбачено підтримку таких форматів для «-i ova»: "
 "нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
 
-#: ../mllib/common_utils.ml:375
+#: ../mllib/common_utils.ml:383
 msgid "%s: warning: %s"
 msgstr "%s: попередження: %s"
 
@@ -623,7 +623,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr "%s: шлях нульової довжини у файлі покажчика\n"
 
-#: ../customize/firstboot.ml:198
+#: ../customize/firstboot.ml:219
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -1250,7 +1250,7 @@ msgstr ""
 msgid "DIR"
 msgstr "КАТАЛОГ"
 
-#: ../mllib/common_utils.ml:596
+#: ../mllib/common_utils.ml:604
 msgid "Debug GC and memory allocations (internal)"
 msgstr "Діагностувати збиральник сміття та розподіл пам’яті (внутрішньо)"
 
@@ -1295,7 +1295,7 @@ msgstr "Відкинути місце у групі томів %s"
 msgid "Display installation notes"
 msgstr "Показати нотатки щодо встановлення"
 
-#: ../mllib/common_utils.ml:592 ../mllib/common_utils.ml:590
+#: ../mllib/common_utils.ml:600 ../mllib/common_utils.ml:598
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
 
@@ -1323,7 +1323,7 @@ msgstr "Не розгортати вміст"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../mllib/common_utils.ml:598 ../mllib/common_utils.ml:597
+#: ../mllib/common_utils.ml:606 ../mllib/common_utils.ml:605
 msgid "Don't print progress messages"
 msgstr "Не виводити повідомлень щодо поступу"
 
@@ -1389,7 +1389,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../mllib/common_utils.ml:594 ../mllib/common_utils.ml:593
+#: ../mllib/common_utils.ml:602 ../mllib/common_utils.ml:601
 msgid "Enable libguestfs debugging messages"
 msgstr "Увімкнути діагностичні повідомлення libguestfs"
 
@@ -1397,7 +1397,7 @@ msgstr "Увімкнути діагностичні повідомлення lib
 msgid "Enable specific operations"
 msgstr "Увімкнути специфічні операції"
 
-#: ../mllib/common_utils.ml:595
+#: ../mllib/common_utils.ml:603
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1628,7 +1628,7 @@ msgstr "НАЗВА_ВУЗЛА"
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
-#: ../mllib/common_utils.ml:362
+#: ../mllib/common_utils.ml:370
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1720,11 +1720,11 @@ msgstr "Компонування: %s -> %s"
 msgid "List available templates"
 msgstr "Показати список доступних шаблонів"
 
-#: ../mllib/common_utils.ml:588
+#: ../mllib/common_utils.ml:596
 msgid "List long options (internal)"
 msgstr ""
 
-#: ../mllib/common_utils.ml:587
+#: ../mllib/common_utils.ml:595
 msgid "List short options (internal)"
 msgstr ""
 
@@ -2608,7 +2608,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:1115
+#: ../v2v/convert_linux.ml:1113
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2928,7 +2928,7 @@ msgstr ""
 "Виведені дані VHD не створено, найімовірніше vhd-util є застарілим і "
 "незалатаним для «convert»"
 
-#: ../v2v/convert_linux.ml:630
+#: ../v2v/convert_linux.ml:628
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2936,7 +2936,7 @@ msgstr ""
 "Виявлено засоби VMware, але спроба вилучення зазнала невдачі. Повідомлення "
 "щодо помилки: %s (проігноровано)"
 
-#: ../v2v/convert_linux.ml:539
+#: ../v2v/convert_linux.ml:537
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -3106,6 +3106,13 @@ msgstr ""
 "Скористайтеся параметром --list, щоб отримати список усіх доступних типів "
 "гостьових систем."
 
+#: ../customize/firstboot.ml:196
+msgid ""
+"cannot finish firstboot installation by running '%s' because host cpu (%s) "
+"and guest arch (%s) are not compatible.  The firstboot service may not run "
+"at boot."
+msgstr ""
+
 #: ../builder/builder.ml:334
 msgid "cannot output to a character device or /dev/null"
 msgstr "неможливо вивести дані до символьного пристрою або /dev/null"
@@ -3192,7 +3199,7 @@ msgstr ""
 "помилка під час спроби виконати copy, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/convert_linux.ml:1045
+#: ../v2v/convert_linux.ml:1043
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
@@ -3225,6 +3232,12 @@ msgid ""
 msgstr ""
 "не вдалося знайти ключ реєстру HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
+
+#: ../customize/firstboot.ml:193
+msgid ""
+"could not finish firstboot installation by running '%s' because the command "
+"failed: %s"
+msgstr ""
 
 #: ../builder/sigchecker.ml:44
 msgid ""
@@ -3262,7 +3275,7 @@ msgstr ""
 "командному рядку. Чи справді це %s OVirt або RHEV-M? Початкове повідомлення "
 "щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:1063
+#: ../v2v/convert_linux.ml:1061
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -3276,7 +3289,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
-#: ../v2v/convert_linux.ml:1047
+#: ../v2v/convert_linux.ml:1045
 msgid "could not remove grub2 serial console (ignored)"
 msgstr "не вдалося вилучити послідовну консоль grub2 (проігноровано)"
 
@@ -3304,7 +3317,7 @@ msgstr ""
 "decode_utf16le: рядок Windows, здається, не містить даних у кодуванні UTF16-"
 "LE. Ймовірно, це вада у %s."
 
-#: ../v2v/convert_linux.ml:764
+#: ../v2v/convert_linux.ml:762
 msgid "didn't find grub entry for kernel %s"
 msgstr "не знайдено запис grub для ядра %s"
 
@@ -3384,7 +3397,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:1170
+#: ../v2v/convert_linux.ml:1168
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -3440,7 +3453,7 @@ msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../mllib/common_utils.ml:430
+#: ../mllib/common_utils.ml:438
 msgid "exception: %s"
 msgstr "виключення: %s"
 
@@ -3467,15 +3480,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:677
+#: ../mllib/common_utils.ml:685
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:695 ../mllib/common_utils.ml:679
+#: ../mllib/common_utils.ml:703 ../mllib/common_utils.ml:687
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:698 ../mllib/common_utils.ml:681
+#: ../mllib/common_utils.ml:706 ../mllib/common_utils.ml:689
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3492,7 +3505,7 @@ msgstr "додатковий параметр у командному рядку
 msgid "failed to download %s: HTTP status code %s"
 msgstr "не вдалося отримати %s: код стану HTTP %s"
 
-#: ../mllib/common_utils.ml:421
+#: ../mllib/common_utils.ml:429
 msgid "failure: %s"
 msgstr "помилка: %s"
 
@@ -3543,7 +3556,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "fs"
 
-#: ../mllib/common_utils.ml:440
+#: ../mllib/common_utils.ml:448
 msgid "generated by %s %s"
 msgstr "створено за допомогою %s %s"
 
@@ -3610,11 +3623,11 @@ msgstr ""
 "CONVERSIONS FROM BLOCK DEVICES» («ПЕРЕТВОРЕННЯ XEN АБО SSH З БЛОКОВИХ "
 "ПРИСТРОЇВ») сторінки підручника virt-v2v(1)."
 
-#: ../customize/firstboot.ml:138
+#: ../customize/firstboot.ml:142
 msgid "guest type %s is not supported"
 msgstr "підтримки типу гостьової системи %s не передбачено"
 
-#: ../customize/firstboot.ml:324
+#: ../customize/firstboot.ml:346
 msgid "guest type %s/%s is not supported"
 msgstr "підтримки типу гостьової системи %s/%s не передбачено"
 
@@ -3642,7 +3655,7 @@ msgstr "для цього типу гостьових систем не можн
 msgid "ignore|warn|error"
 msgstr "ignore|warn|error"
 
-#: ../v2v/convert_linux.ml:372
+#: ../v2v/convert_linux.ml:370
 msgid "ignoring kernel %s in grub, as it does not exist."
 msgstr "ігноруємо ядро %s у grub, оскільки його не існує."
 
@@ -3714,11 +3727,11 @@ msgstr ""
 "\n"
 "У образі операційної системи не виявлено кореневого пристрою."
 
-#: ../mllib/common_utils.ml:428
+#: ../mllib/common_utils.ml:436
 msgid "internal error: Not_found exception was thrown"
 msgstr "внутрішня помилка: надіслано виключення Not_found"
 
-#: ../mllib/common_utils.ml:425
+#: ../mllib/common_utils.ml:433
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr "внутрішня помилка: помилка оцінки у %s, рядок %d, символ %d"
 
@@ -3726,7 +3739,7 @@ msgstr "внутрішня помилка: помилка оцінки у %s, р
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:423
+#: ../mllib/common_utils.ml:431
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
@@ -3738,7 +3751,7 @@ msgstr "внутрішня помилка: файл оверлею пошкод�
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
-#: ../v2v/convert_linux.ml:768
+#: ../v2v/convert_linux.ml:766
 msgid "internal error: regular expression did not match '%s'"
 msgstr "внутрішня помилка: формальний вираз не відповідає «%s»"
 
@@ -3774,11 +3787,11 @@ msgstr "некоректний варіант sm-credentials «%s»; див. с�
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr "некоректний варіант ssh-inject «%s»; див. сторінку man"
 
-#: ../v2v/convert_linux.ml:752
+#: ../v2v/convert_linux.ml:750
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
-#: ../mllib/common_utils.ml:419
+#: ../mllib/common_utils.ml:427
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
@@ -3870,7 +3883,7 @@ msgstr "немає каталогу кешування"
 msgid "no cache directory\n"
 msgstr "немає каталогу кешування\n"
 
-#: ../v2v/convert_linux.ml:110
+#: ../v2v/convert_linux.ml:108
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr "не знайдено файла налаштувань grub1/grub-legacy або grub2"
 
@@ -3888,11 +3901,11 @@ msgstr ""
 msgid "no href in ovf:File (id=%s)"
 msgstr "немає href у ovf:File (id=%s)"
 
-#: ../v2v/convert_linux.ml:194
+#: ../v2v/convert_linux.ml:192
 msgid "no initrd was found in /boot matching %s %s."
 msgstr "у /boot не знайдено initrd, що відповідає %s %s."
 
-#: ../v2v/convert_linux.ml:266
+#: ../v2v/convert_linux.ml:264
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
@@ -3907,7 +3920,7 @@ msgstr ""
 msgid "no kernel found in %s"
 msgstr "не знайдено ядра у %s"
 
-#: ../v2v/convert_linux.ml:386
+#: ../v2v/convert_linux.ml:384
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -3976,7 +3989,7 @@ msgstr ""
 "Система oVirt не здатна емулювати звукові картки «%s». Цю звукову картку "
 "буде викинуто з виведених даних."
 
-#: ../v2v/convert_linux.ml:708
+#: ../v2v/convert_linux.ml:706
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -4077,7 +4090,7 @@ msgstr ""
 "Диск ova не має батьківського контролера. Будь ласка, повідомте про цю ваду, "
 "додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/convert_linux.ml:138
+#: ../v2v/convert_linux.ml:136
 msgid "package '%s' contains no files"
 msgstr "у пакунку «%s» не міститься файлів"
 
@@ -4473,7 +4486,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:1205
+#: ../v2v/convert_linux.ml:1203
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4496,7 +4509,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:912
+#: ../v2v/convert_linux.ml:910
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4809,10 +4822,10 @@ msgstr ""
 "вам слід вказати параметр -a або -d. Ознайомтеся із сторінкою підручника "
 "(man) virt-customize(1), щоб дізнатися більше."
 
-#: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:83
-#: df/main.c:66 diff/diff.c:92 edit/edit.c:63 fish/fish.c:105
+#: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:84
+#: df/main.c:66 diff/diff.c:93 edit/edit.c:63 fish/fish.c:105
 #: fuse/guestmount.c:100 fuse/guestunmount.c:52 inspector/inspector.c:67
-#: make-fs/make-fs.c:74 p2v/main.c:69 rescue/rescue.c:56
+#: make-fs/make-fs.c:74 p2v/main.c:70 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -4841,7 +4854,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:135 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
-#: cat/ls.c:181 df/main.c:134 diff/diff.c:194 diff/diff.c:200 edit/edit.c:136
+#: cat/ls.c:182 df/main.c:134 diff/diff.c:195 diff/diff.c:201 edit/edit.c:136
 #: fish/fish.c:238 format/format.c:131 fuse/guestmount.c:212
 #: inspector/inspector.c:128 make-fs/make-fs.c:116 rescue/rescue.c:136
 #, c-format
@@ -4849,10 +4862,10 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: не вдалося створити елемент керування\n"
 
 #: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:140
-#: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:264 edit/edit.c:157 fish/fish.c:295 format/format.c:184
+#: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:231 df/main.c:157
+#: diff/diff.c:265 edit/edit.c:157 fish/fish.c:295 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:123 inspector/inspector.c:151
-#: make-fs/make-fs.c:146 p2v/main.c:164 rescue/rescue.c:192
+#: make-fs/make-fs.c:146 p2v/main.c:165 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: невідомий довгий запис параметра: %s (%d)\n"
@@ -4981,8 +4994,8 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/cat.c:237 cat/filesystems.c:343 cat/log.c:202 cat/ls.c:356
-#: diff/diff.c:321 edit/edit.c:272 inspector/inspector.c:262
+#: cat/cat.c:237 cat/filesystems.c:343 cat/log.c:202 cat/ls.c:357
+#: diff/diff.c:322 edit/edit.c:272 inspector/inspector.c:262
 #: rescue/rescue.c:310
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -5072,7 +5085,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:311 cat/ls.c:345 df/main.c:265 diff/diff.c:335
+#: cat/filesystems.c:311 cat/ls.c:346 df/main.c:265 diff/diff.c:336
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr "%s: не можна одночасно використовувати параметри -h та --csv.\n"
@@ -5131,7 +5144,7 @@ msgstr ""
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr "%s: не знайдено файла Windows Event Log (%s)\n"
 
-#: cat/ls.c:86
+#: cat/ls.c:87
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -5197,7 +5210,7 @@ msgstr ""
 "  -x                   Трасувати виклики API libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/ls.c:336
+#: cat/ls.c:337
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -5317,7 +5330,7 @@ msgstr "IВільно"
 msgid "IUse%"
 msgstr "% IВикористання"
 
-#: diff/diff.c:95
+#: diff/diff.c:96
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
@@ -5355,24 +5368,24 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:326
+#: diff/diff.c:327
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:341
+#: diff/diff.c:342
 #, c-format
 msgid "%s: extra arguments on the command line\n"
 msgstr "%s: зайві аргументи у командному рядку\n"
 
-#: diff/diff.c:749
+#: diff/diff.c:750
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 "%s: спроба використання зовнішньої програми визначення різниці (diff) "
 "зазнала невдачі\n"
 
-#: diff/diff.c:753
+#: diff/diff.c:754
 msgid "End of diff"
 msgstr "Кінець різниці"
 
@@ -9274,13 +9287,10 @@ msgstr "Перезавантажити"
 #: p2v/gui.c:1354
 #, c-format
 msgid ""
-"Log files and debug information is saved to this directory on the conversion "
-"server:\n"
+"Debug information and log files are saved to this directory on the "
+"conversion server:\n"
 "%s"
 msgstr ""
-"Файли журналу та діагностичні дані буде збережено на сервері перетворення до "
-"цього каталогу:\n"
-"%s"
 
 #: p2v/gui.c:1439
 msgid "The guest \"Name\" field is empty."
@@ -9315,7 +9325,7 @@ msgstr "Перетворення виконано успішно."
 msgid "Conversion was successful"
 msgstr "Успішне перетворення"
 
-#: p2v/main.c:72
+#: p2v/main.c:73
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -9331,12 +9341,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:187
+#: p2v/main.c:188
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
 
-#: p2v/main.c:215
+#: p2v/main.c:216
 #, c-format
 msgid ""
 "%s: gtk_init_check returned false, indicating that\n"
@@ -9968,30 +9978,30 @@ msgstr ""
 "файлово-архітектурний програмний інтерфейс недоступний, оскільки цю версію "
 "libguestfs було зібрано без підтримки бібліотеки libmagic"
 
-#: src/fuse.c:969
+#: src/fuse.c:970
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
 
-#: src/fuse.c:994
+#: src/fuse.c:995
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: src/fuse.c:1011
+#: src/fuse.c:1012
 #, c-format
 msgid "fuse_mount: %s"
 msgstr "fuse_mount: %s"
 
-#: src/fuse.c:1029
+#: src/fuse.c:1030
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: src/fuse.c:1058
+#: src/fuse.c:1059
 msgid "you must call guestfs_mount_local first"
 msgstr "вам слід спочатку викликати guestfs_mount_local"
 
-#: src/fuse.c:1069
+#: src/fuse.c:1070
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
@@ -10002,20 +10012,20 @@ msgstr ""
 "Зауваження: «%s» все ще змонтовано. Скористайтеся командою «guestunmount %s» "
 "для чищення списку монтування."
 
-#: src/fuse.c:1079
+#: src/fuse.c:1080
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: src/fuse.c:1129
+#: src/fuse.c:1130
 msgid "no filesystem is mounted"
 msgstr "не змонтовано жодної файлової системи"
 
-#: src/fuse.c:1247
+#: src/fuse.c:1248
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: src/fuse.c:1502
+#: src/fuse.c:1503
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -10122,13 +10132,13 @@ msgstr "файл випуску %s є порожнім або форматова
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:316
 #: src/inspect-fs-unix.c:403 src/inspect-fs-unix.c:1248
-#: src/inspect-fs-unix.c:2020 src/inspect-fs.c:627 src/inspect-fs.c:673
+#: src/inspect-fs-unix.c:2021 src/inspect-fs.c:627 src/inspect-fs.c:673
 #: src/inspect.c:653
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr "розмір %s неймовірно великий (%<PRIi64> байтів)"
 
-#: src/inspect-fs-unix.c:2067
+#: src/inspect-fs-unix.c:2068
 #, c-format
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr "%s:%s:%s: помилка під час обробки augeas: %s"
@@ -10312,7 +10322,7 @@ msgstr ""
 "не вдалося обробити запис можливостей у форматі XML, повернутий libvirt"
 
 #: src/launch-libvirt.c:738 src/libvirt-domain.c:405 src/libvirt-domain.c:488
-#: src/libvirt-domain.c:701
+#: src/libvirt-domain.c:706
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
@@ -10606,49 +10616,19 @@ msgstr ""
 "%s: диск позначено теґом <readonly/> у XML libvirt, readonlydisk було "
 "встановлено у значення «error»"
 
-#: src/libvirt-domain.c:423 src/libvirt-domain.c:495 src/libvirt-domain.c:716
+#: src/libvirt-domain.c:423 src/libvirt-domain.c:495 src/libvirt-domain.c:721
 msgid "unable to evaluate XPath expression"
 msgstr "не вдалося сформувати вираз XPath"
-
-#: src/libvirt-domain.c:436
-#, c-format
-msgid "ignoring %zu nodes matching '%s'"
-msgstr "ігноруємо %zu вузлів, що відповідають «%s»"
 
 #: src/libvirt-domain.c:442
 msgid "expected <seclabel/> to be an XML element"
 msgstr "очікувалося, що <seclabel/> має бути елементом XML"
 
-#: src/libvirt-domain.c:555
-#, c-format
-msgid "disk[%zu]: network device"
-msgstr "диск[%zu]: мережевий пристрій"
-
-#: src/libvirt-domain.c:570
-#, c-format
-msgid "disk[%zu]: protocol: %s"
-msgstr "диск[%zu]: протокол: %s"
-
-#: src/libvirt-domain.c:589
-#, c-format
-msgid "disk[%zu]: username: %s"
-msgstr "диск[%zu]: користувач: %s"
-
-#: src/libvirt-domain.c:614
-#, c-format
-msgid "disk[%zu]: host: %s:%s"
-msgstr "диск[%zu]: вузол: %s:%s"
-
-#: src/libvirt-domain.c:637
-#, c-format
-msgid "disk[%zu]: filename: %s"
-msgstr "диск[%zu]: назва файла: %s"
-
-#: src/libvirt-domain.c:677
+#: src/libvirt-domain.c:682
 msgid "libvirt domain has no disks"
 msgstr "у домені libvirt немає дисків"
 
-#: src/libvirt-domain.c:746
+#: src/libvirt-domain.c:751
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
@@ -10658,16 +10638,16 @@ msgstr ""
 "Докладнішу довідкову інформацію можна знайти у розділі ATTACHING TO RUNNING "
 "DAEMONS сторінки довідника (man) guestfs(3)."
 
-#: src/libvirt-domain.c:765
+#: src/libvirt-domain.c:770
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr "помилка під час читання XML-даних libvirt: %s"
 
-#: src/libvirt-domain.c:775
+#: src/libvirt-domain.c:780
 msgid "unable to parse XML information returned by libvirt"
 msgstr "не вдалося обробити дані XML, повернуті libvirt"
 
-#: src/libvirt-domain.c:785
+#: src/libvirt-domain.c:790
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
@@ -11073,6 +11053,33 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "Log files and debug information is saved to this directory on the "
+#~ "conversion server:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Файли журналу та діагностичні дані буде збережено на сервері перетворення "
+#~ "до цього каталогу:\n"
+#~ "%s"
+
+#~ msgid "ignoring %zu nodes matching '%s'"
+#~ msgstr "ігноруємо %zu вузлів, що відповідають «%s»"
+
+#~ msgid "disk[%zu]: network device"
+#~ msgstr "диск[%zu]: мережевий пристрій"
+
+#~ msgid "disk[%zu]: protocol: %s"
+#~ msgstr "диск[%zu]: протокол: %s"
+
+#~ msgid "disk[%zu]: username: %s"
+#~ msgstr "диск[%zu]: користувач: %s"
+
+#~ msgid "disk[%zu]: host: %s:%s"
+#~ msgstr "диск[%zu]: вузол: %s:%s"
+
+#~ msgid "disk[%zu]: filename: %s"
+#~ msgstr "диск[%zu]: назва файла: %s"
 
 #~ msgid ""
 #~ "%s: check alignment of virtual machine partitions\n"

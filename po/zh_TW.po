@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-08-08 21:54+0100\n"
+"POT-Creation-Date: 2016-08-30 15:25+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -41,7 +41,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:417
+#: ../mllib/common_utils.ml:425
 msgid "%s"
 msgstr ""
 
@@ -114,11 +114,11 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:413 ../mllib/common_utils.ml:385
+#: ../mllib/common_utils.ml:421 ../mllib/common_utils.ml:393
 msgid "%s: %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:415
+#: ../mllib/common_utils.ml:423
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -280,7 +280,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:357
+#: ../mllib/common_utils.ml:365
 msgid "%s: error: %s"
 msgstr ""
 
@@ -441,7 +441,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:375
+#: ../mllib/common_utils.ml:383
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -453,7 +453,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/firstboot.ml:198
+#: ../customize/firstboot.ml:219
 msgid ""
 "'%s' is missing.  This file is required in order to install Windows "
 "firstboot scripts.  You can get it by building rhsrvany (https://github.com/"
@@ -1015,7 +1015,7 @@ msgstr ""
 msgid "DIR"
 msgstr ""
 
-#: ../mllib/common_utils.ml:596
+#: ../mllib/common_utils.ml:604
 msgid "Debug GC and memory allocations (internal)"
 msgstr ""
 
@@ -1060,7 +1060,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:592 ../mllib/common_utils.ml:590
+#: ../mllib/common_utils.ml:600 ../mllib/common_utils.ml:598
 msgid "Display version and exit"
 msgstr ""
 
@@ -1088,7 +1088,7 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:598 ../mllib/common_utils.ml:597
+#: ../mllib/common_utils.ml:606 ../mllib/common_utils.ml:605
 msgid "Don't print progress messages"
 msgstr ""
 
@@ -1151,7 +1151,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:594 ../mllib/common_utils.ml:593
+#: ../mllib/common_utils.ml:602 ../mllib/common_utils.ml:601
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1159,7 +1159,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:595
+#: ../mllib/common_utils.ml:603
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1366,7 +1366,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:362
+#: ../mllib/common_utils.ml:370
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1454,11 +1454,11 @@ msgstr ""
 msgid "List available templates"
 msgstr ""
 
-#: ../mllib/common_utils.ml:588
+#: ../mllib/common_utils.ml:596
 msgid "List long options (internal)"
 msgstr ""
 
-#: ../mllib/common_utils.ml:587
+#: ../mllib/common_utils.ml:595
 msgid "List short options (internal)"
 msgstr ""
 
@@ -2261,7 +2261,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1115
+#: ../v2v/convert_linux.ml:1113
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2500,13 +2500,13 @@ msgid ""
 "'convert'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:630
+#: ../v2v/convert_linux.ml:628
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:539
+#: ../v2v/convert_linux.ml:537
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2640,6 +2640,13 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 
+#: ../customize/firstboot.ml:196
+msgid ""
+"cannot finish firstboot installation by running '%s' because host cpu (%s) "
+"and guest arch (%s) are not compatible.  The firstboot service may not run "
+"at boot."
+msgstr ""
+
 #: ../builder/builder.ml:334
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
@@ -2709,7 +2716,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1045
+#: ../v2v/convert_linux.ml:1043
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2733,6 +2740,12 @@ msgstr ""
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
+msgstr ""
+
+#: ../customize/firstboot.ml:193
+msgid ""
+"could not finish firstboot installation by running '%s' because the command "
+"failed: %s"
 msgstr ""
 
 #: ../builder/sigchecker.ml:44
@@ -2763,7 +2776,7 @@ msgid ""
 "line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1063
+#: ../v2v/convert_linux.ml:1061
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2774,7 +2787,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1047
+#: ../v2v/convert_linux.ml:1045
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2798,7 +2811,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:764
+#: ../v2v/convert_linux.ml:762
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -2863,7 +2876,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1170
+#: ../v2v/convert_linux.ml:1168
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -2913,7 +2926,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:430
+#: ../mllib/common_utils.ml:438
 msgid "exception: %s"
 msgstr ""
 
@@ -2939,15 +2952,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:677
+#: ../mllib/common_utils.ml:685
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:695 ../mllib/common_utils.ml:679
+#: ../mllib/common_utils.ml:703 ../mllib/common_utils.ml:687
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:698 ../mllib/common_utils.ml:681
+#: ../mllib/common_utils.ml:706 ../mllib/common_utils.ml:689
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2964,7 +2977,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:421
+#: ../mllib/common_utils.ml:429
 msgid "failure: %s"
 msgstr ""
 
@@ -3008,7 +3021,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../mllib/common_utils.ml:440
+#: ../mllib/common_utils.ml:448
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3052,11 +3065,11 @@ msgid ""
 "\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 
-#: ../customize/firstboot.ml:138
+#: ../customize/firstboot.ml:142
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:324
+#: ../customize/firstboot.ml:346
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3079,7 +3092,7 @@ msgstr ""
 msgid "ignore|warn|error"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:372
+#: ../v2v/convert_linux.ml:370
 msgid "ignoring kernel %s in grub, as it does not exist."
 msgstr ""
 
@@ -3129,11 +3142,11 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../mllib/common_utils.ml:428
+#: ../mllib/common_utils.ml:436
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:425
+#: ../mllib/common_utils.ml:433
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
@@ -3141,7 +3154,7 @@ msgstr ""
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:423
+#: ../mllib/common_utils.ml:431
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3153,7 +3166,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:768
+#: ../v2v/convert_linux.ml:766
 msgid "internal error: regular expression did not match '%s'"
 msgstr ""
 
@@ -3189,11 +3202,11 @@ msgstr ""
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:752
+#: ../v2v/convert_linux.ml:750
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:419
+#: ../mllib/common_utils.ml:427
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3269,7 +3282,7 @@ msgstr ""
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:110
+#: ../v2v/convert_linux.ml:108
 msgid "no grub1/grub-legacy or grub2 configuration file was found"
 msgstr ""
 
@@ -3283,11 +3296,11 @@ msgstr ""
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:194
+#: ../v2v/convert_linux.ml:192
 msgid "no initrd was found in /boot matching %s %s."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:266
+#: ../v2v/convert_linux.ml:264
 msgid ""
 "no installed kernel packages were found.\n"
 "\n"
@@ -3298,7 +3311,7 @@ msgstr ""
 msgid "no kernel found in %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:386
+#: ../v2v/convert_linux.ml:384
 msgid ""
 "no kernels were found in the grub configuration.\n"
 "\n"
@@ -3351,7 +3364,7 @@ msgid ""
 "the output."
 msgstr ""
 
-#: ../v2v/convert_linux.ml:708
+#: ../v2v/convert_linux.ml:706
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -3430,7 +3443,7 @@ msgid ""
 "*.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:138
+#: ../v2v/convert_linux.ml:136
 msgid "package '%s' contains no files"
 msgstr ""
 
@@ -3756,7 +3769,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:1205
+#: ../v2v/convert_linux.ml:1203
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3771,7 +3784,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:912
+#: ../v2v/convert_linux.ml:910
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4031,10 +4044,10 @@ msgid ""
 "further information."
 msgstr ""
 
-#: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:83
-#: df/main.c:66 diff/diff.c:92 edit/edit.c:63 fish/fish.c:105
+#: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:84
+#: df/main.c:66 diff/diff.c:93 edit/edit.c:63 fish/fish.c:105
 #: fuse/guestmount.c:100 fuse/guestunmount.c:52 inspector/inspector.c:67
-#: make-fs/make-fs.c:74 p2v/main.c:69 rescue/rescue.c:56
+#: make-fs/make-fs.c:74 p2v/main.c:70 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "輸入 '%s --help' 以瞭解更多資訊。\n"
@@ -4063,7 +4076,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:135 cat/cat.c:119 cat/filesystems.c:188 cat/log.c:121
-#: cat/ls.c:181 df/main.c:134 diff/diff.c:194 diff/diff.c:200 edit/edit.c:136
+#: cat/ls.c:182 df/main.c:134 diff/diff.c:195 diff/diff.c:201 edit/edit.c:136
 #: fish/fish.c:238 format/format.c:131 fuse/guestmount.c:212
 #: inspector/inspector.c:128 make-fs/make-fs.c:116 rescue/rescue.c:136
 #, c-format
@@ -4071,10 +4084,10 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
 #: align/scan.c:154 builder/index-validate.c:85 cat/cat.c:140
-#: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:230 df/main.c:157
-#: diff/diff.c:264 edit/edit.c:157 fish/fish.c:295 format/format.c:184
+#: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:231 df/main.c:157
+#: diff/diff.c:265 edit/edit.c:157 fish/fish.c:295 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:123 inspector/inspector.c:151
-#: make-fs/make-fs.c:146 p2v/main.c:164 rescue/rescue.c:192
+#: make-fs/make-fs.c:146 p2v/main.c:165 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
@@ -4169,8 +4182,8 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:237 cat/filesystems.c:343 cat/log.c:202 cat/ls.c:356
-#: diff/diff.c:321 edit/edit.c:272 inspector/inspector.c:262
+#: cat/cat.c:237 cat/filesystems.c:343 cat/log.c:202 cat/ls.c:357
+#: diff/diff.c:322 edit/edit.c:272 inspector/inspector.c:262
 #: rescue/rescue.c:310
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -4222,7 +4235,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:311 cat/ls.c:345 df/main.c:265 diff/diff.c:335
+#: cat/filesystems.c:311 cat/ls.c:346 df/main.c:265 diff/diff.c:336
 #, c-format
 msgid "%s: you cannot use -h and --csv options together.\n"
 msgstr ""
@@ -4273,7 +4286,7 @@ msgstr ""
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
 
-#: cat/ls.c:86
+#: cat/ls.c:87
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -4308,7 +4321,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/ls.c:336
+#: cat/ls.c:337
 #, c-format
 msgid ""
 "%s: used a flag which can only be combined with -lR mode\n"
@@ -4420,7 +4433,7 @@ msgstr ""
 msgid "IUse%"
 msgstr ""
 
-#: diff/diff.c:95
+#: diff/diff.c:96
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
@@ -4458,22 +4471,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:326
+#: diff/diff.c:327
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:341
+#: diff/diff.c:342
 #, c-format
 msgid "%s: extra arguments on the command line\n"
 msgstr ""
 
-#: diff/diff.c:749
+#: diff/diff.c:750
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:753
+#: diff/diff.c:754
 msgid "End of diff"
 msgstr ""
 
@@ -8075,8 +8088,8 @@ msgstr ""
 #: p2v/gui.c:1354
 #, c-format
 msgid ""
-"Log files and debug information is saved to this directory on the conversion "
-"server:\n"
+"Debug information and log files are saved to this directory on the "
+"conversion server:\n"
 "%s"
 msgstr ""
 
@@ -8111,7 +8124,7 @@ msgstr ""
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:72
+#: p2v/main.c:73
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8127,12 +8140,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:187
+#: p2v/main.c:188
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:215
+#: p2v/main.c:216
 #, c-format
 msgid ""
 "%s: gtk_init_check returned false, indicating that\n"
@@ -8688,50 +8701,50 @@ msgid ""
 "compiled without the libmagic library"
 msgstr ""
 
-#: src/fuse.c:969
+#: src/fuse.c:970
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: src/fuse.c:994
+#: src/fuse.c:995
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: src/fuse.c:1011
+#: src/fuse.c:1012
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: src/fuse.c:1029
+#: src/fuse.c:1030
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: src/fuse.c:1058
+#: src/fuse.c:1059
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: src/fuse.c:1069
+#: src/fuse.c:1070
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
 "Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
 msgstr ""
 
-#: src/fuse.c:1079
+#: src/fuse.c:1080
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: src/fuse.c:1129
+#: src/fuse.c:1130
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: src/fuse.c:1247
+#: src/fuse.c:1248
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: src/fuse.c:1502
+#: src/fuse.c:1503
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -8824,13 +8837,13 @@ msgstr ""
 
 #: src/inspect-fs-unix.c:161 src/inspect-fs-unix.c:316
 #: src/inspect-fs-unix.c:403 src/inspect-fs-unix.c:1248
-#: src/inspect-fs-unix.c:2020 src/inspect-fs.c:627 src/inspect-fs.c:673
+#: src/inspect-fs-unix.c:2021 src/inspect-fs.c:627 src/inspect-fs.c:673
 #: src/inspect.c:653
 #, c-format
 msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
 msgstr ""
 
-#: src/inspect-fs-unix.c:2067
+#: src/inspect-fs-unix.c:2068
 #, c-format
 msgid "%s:%s:%s: augeas parse failure: %s"
 msgstr ""
@@ -8973,7 +8986,7 @@ msgid "unable to parse capabilities XML returned by libvirt"
 msgstr ""
 
 #: src/launch-libvirt.c:738 src/libvirt-domain.c:405 src/libvirt-domain.c:488
-#: src/libvirt-domain.c:701
+#: src/libvirt-domain.c:706
 msgid "unable to create new XPath context"
 msgstr ""
 
@@ -9215,64 +9228,34 @@ msgid ""
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:423 src/libvirt-domain.c:495 src/libvirt-domain.c:716
+#: src/libvirt-domain.c:423 src/libvirt-domain.c:495 src/libvirt-domain.c:721
 msgid "unable to evaluate XPath expression"
-msgstr ""
-
-#: src/libvirt-domain.c:436
-#, c-format
-msgid "ignoring %zu nodes matching '%s'"
 msgstr ""
 
 #: src/libvirt-domain.c:442
 msgid "expected <seclabel/> to be an XML element"
 msgstr ""
 
-#: src/libvirt-domain.c:555
-#, c-format
-msgid "disk[%zu]: network device"
-msgstr ""
-
-#: src/libvirt-domain.c:570
-#, c-format
-msgid "disk[%zu]: protocol: %s"
-msgstr ""
-
-#: src/libvirt-domain.c:589
-#, c-format
-msgid "disk[%zu]: username: %s"
-msgstr ""
-
-#: src/libvirt-domain.c:614
-#, c-format
-msgid "disk[%zu]: host: %s:%s"
-msgstr ""
-
-#: src/libvirt-domain.c:637
-#, c-format
-msgid "disk[%zu]: filename: %s"
-msgstr ""
-
-#: src/libvirt-domain.c:677
+#: src/libvirt-domain.c:682
 msgid "libvirt domain has no disks"
 msgstr ""
 
-#: src/libvirt-domain.c:746
+#: src/libvirt-domain.c:751
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:765
+#: src/libvirt-domain.c:770
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:775
+#: src/libvirt-domain.c:780
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/libvirt-domain.c:785
+#: src/libvirt-domain.c:790
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
