@@ -141,6 +141,7 @@ fish/completion.c
 fish/config.c
 fish/copy.c
 fish/destpaths.c
+fish/display-options.c
 fish/display.c
 fish/domain.c
 fish/echo.c
@@ -185,6 +186,7 @@ gobject/src/optargs-add_domain.c
 gobject/src/optargs-add_drive.c
 gobject/src/optargs-add_drive_scratch.c
 gobject/src/optargs-add_libvirt_dom.c
+gobject/src/optargs-aug_transform.c
 gobject/src/optargs-btrfs_filesystem_defragment.c
 gobject/src/optargs-btrfs_filesystem_resize.c
 gobject/src/optargs-btrfs_fsck.c
