@@ -40,7 +40,7 @@
  *
  * =item 3.
  *
- * An RPC with C<FileOut> parameters
+ * An RPC with C<FileIn> parameters
  * (eg. L<guestfs(3)/guestfs_upload>).  We write the request, then
  * write the file(s), then read the reply.  The sequence of calls is:
  *
@@ -50,7 +50,7 @@
  *
  * =item 4.
  *
- * An RPC with C<FileIn> parameters
+ * An RPC with C<FileOut> parameters
  * (eg. L<guestfs(3)/guestfs_download>).  We write the request, then
  * read the reply, then read the file(s).  The sequence of calls is:
  *
@@ -60,7 +60,7 @@
  *
  * =item 5.
  *
- * Both C<FileOut> and C<FileIn> parameters.  There are no calls like
+ * Both C<FileIn> and C<FileOut> parameters.  There are no calls like
  * this in the current API, but they would be implemented as a
  * combination of cases 3 and 4.
  *
