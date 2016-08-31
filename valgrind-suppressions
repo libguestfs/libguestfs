@@ -205,6 +205,15 @@
    fun:_dl_allocate_tls
 }
 
+# Not a real leak.
+{
+   glibc_leak_3
+   Memcheck:Leak
+   ...
+   fun:__add_to_environ
+   fun:setenv
+}
+
 # libvirt calls gnutls_global_init but doesn't call the
 # corresponding gnutls_global_deinit function because of
 # thread-safety issues (in GnuTLS).
