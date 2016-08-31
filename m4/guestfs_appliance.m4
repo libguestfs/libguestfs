@@ -94,24 +94,29 @@ dnl names vary slightly across distros.  (See
 dnl appliance/packagelist.in, appliance/excludefiles.in,
 dnl appliance/hostfiles.in)
 AC_MSG_CHECKING([which Linux distro for package names])
-DISTRO=REDHAT
-if test -f /etc/debian_version; then
+if test -f /etc/os-release; then
+    ( . /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@' ) >&AS_MESSAGE_LOG_FD
+    DISTRO="`. /etc/os-release && echo $ID | tr '@<:@:lower:@:>@' '@<:@:upper:@:>@'`"
+    AS_CASE([$DISTRO],
+            [FEDORA | RHEL | CENTOS],[DISTRO=REDHAT],
+            [OPENSUSE | SLED | SLES],[DISTRO=SUSE],
+            [ARCH],[DISTRO=ARCHLINUX])
+elif test -f /etc/debian_version; then
     DISTRO=DEBIAN
     if grep -q 'DISTRIB_ID=Ubuntu' /etc/lsb-release 2>&AS_MESSAGE_LOG_FD; then
         DISTRO=UBUNTU
     fi
-fi
-if test -f /etc/arch-release; then
+elif test -f /etc/arch-release; then
     DISTRO=ARCHLINUX
-fi
-if test -f /etc/SuSE-release; then
+elif test -f /etc/SuSE-release; then
     DISTRO=SUSE
-fi
-if test -f /etc/frugalware-release; then
+elif test -f /etc/frugalware-release; then
     DISTRO=FRUGALWARE
-fi
-if test -f /etc/mageia-release; then
+elif test -f /etc/mageia-release; then
     DISTRO=MAGEIA
+else
+dnl fallback option
+    DISTRO=REDHAT
 fi
 AC_MSG_RESULT([$DISTRO])
 AC_SUBST([DISTRO])
