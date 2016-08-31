@@ -118,7 +118,7 @@ v2v_xml_parse_memory (value xmlv)
   doc = xmlReadMemory (String_val (xmlv), caml_string_length (xmlv),
                        NULL, NULL, XML_PARSE_NONET);
   if (doc == NULL)
-    caml_invalid_argument ("parse_memory: unable to parse XML from libvirt");
+    caml_invalid_argument ("parse_memory: unable to parse XML");
 
   docv = caml_alloc_custom (&docptr_custom_operations, sizeof (xmlDocPtr),
                             0, 1);
