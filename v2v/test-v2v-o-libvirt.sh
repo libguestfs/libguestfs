@@ -63,17 +63,20 @@ export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 # Generate a random guest name.
 guestname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
 
+# Generate a random pool name.
+poolname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)
+
 d=test-v2v-o-libvirt.d
 rm -rf $d
 mkdir $d
 
 # Set up the output directory as a libvirt storage pool.
-virsh pool-destroy test-v2v-libvirt ||:
-virsh pool-create-as test-v2v-libvirt dir - - - - $(pwd)/$d
+virsh pool-destroy $poolname ||:
+virsh pool-create-as $poolname dir - - - - $(pwd)/$d
 
 $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
-    -o libvirt -os test-v2v-libvirt -on $guestname
+    -o libvirt -os $poolname -on $guestname
 
 # Test the disk was created.
 test -f $d/$guestname-sda
@@ -82,6 +85,6 @@ test -f $d/$guestname-sda
 virsh dumpxml $guestname
 
 # Clean up.
-virsh pool-destroy test-v2v-libvirt ||:
+virsh pool-destroy $poolname ||:
 virsh undefine $guestname ||:
 rm -r $d
