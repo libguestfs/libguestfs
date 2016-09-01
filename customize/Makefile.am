@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	customize_main.ml \
 	test-firstboot.sh \
+	test-settings.sh \
 	test-virt-customize.sh \
 	test-virt-customize-docs.sh \
 	virt-customize.pod
@@ -200,10 +201,11 @@ endif
 check-valgrind:
 	$(MAKE) VG="$(top_builddir)/run @VG@" check
 
-# Slow tests of firstboot functionality in real guests.
+# Slow tests of virt-customize functionality in real guests.
 
 SLOW_TESTS = \
-	$(firstboot_test_scripts)
+	$(firstboot_test_scripts) \
+	$(settings_test_scripts)
 
 check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
@@ -231,9 +233,34 @@ test-firstboot-%.sh:
 	chmod 0755 $@-t
 	mv $@-t $@
 
+settings_test_scripts := \
+	test-settings-rhel-4.9.sh \
+	test-settings-rhel-5.11.sh \
+	test-settings-rhel-6.8.sh \
+	test-settings-rhel-7.2.sh \
+	test-settings-debian-6.sh \
+	test-settings-debian-7.sh \
+	test-settings-debian-8.sh \
+	test-settings-fedora-24.sh \
+	test-settings-ubuntu-10.04.sh \
+	test-settings-ubuntu-12.04.sh \
+	test-settings-ubuntu-14.04.sh \
+	test-settings-ubuntu-16.04.sh
+# Since firstboot is broken, we cannot test settings in RHEL 3:
+#	test-settings-rhel-3.9.sh
+
+test-settings-%.sh:
+	rm -f $@ $@-t
+	f=`echo "$@" | $(SED) 's/test-settings-\(.*\).sh/\1/'`; \
+	echo 'exec $$srcdir/test-settings.sh' "$$f" > $@-t
+	chmod 0755 $@-t
+	mv $@-t $@
+
 CLEANFILES += \
 	$(firstboot_test_scripts) \
-	firstboot-*.img
+	$(settings_test_scripts) \
+	firstboot-*.img \
+	settings-*.img
 
 # Dependencies.
 depend: .depend
