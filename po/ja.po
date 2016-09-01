@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.31.29\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-08-30 15:25+0100\n"
+"POT-Creation-Date: 2016-09-01 09:52+0100\n"
 "PO-Revision-Date: 2014-10-18 04:00-0400\n"
 "Last-Translator: rjones <rjones@redhat.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -4048,7 +4048,7 @@ msgstr ""
 #: align/scan.c:73 cat/cat.c:53 cat/filesystems.c:87 cat/log.c:62 cat/ls.c:84
 #: df/main.c:66 diff/diff.c:93 edit/edit.c:63 fish/fish.c:105
 #: fuse/guestmount.c:100 fuse/guestunmount.c:52 inspector/inspector.c:67
-#: make-fs/make-fs.c:74 p2v/main.c:70 rescue/rescue.c:56
+#: make-fs/make-fs.c:74 p2v/main.c:76 rescue/rescue.c:56
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "詳細は `%s --help' を確認してください。\n"
@@ -4088,7 +4088,7 @@ msgstr "guestfs_create: ハンドルの作成に失敗しました\n"
 #: cat/filesystems.c:241 cat/log.c:142 cat/ls.c:231 df/main.c:157
 #: diff/diff.c:265 edit/edit.c:157 fish/fish.c:295 format/format.c:184
 #: fuse/guestmount.c:252 fuse/guestunmount.c:123 inspector/inspector.c:151
-#: make-fs/make-fs.c:146 p2v/main.c:165 rescue/rescue.c:192
+#: make-fs/make-fs.c:146 p2v/main.c:171 rescue/rescue.c:192
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: 未知のロングオプション: %s (%d)\n"
@@ -8091,106 +8091,106 @@ msgstr ""
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:122
+#: p2v/gui.c:128
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:127
+#: p2v/gui.c:133
 msgid "Conversion server:"
 msgstr ""
 
-#: p2v/gui.c:137
+#: p2v/gui.c:143
 msgid "SSH port:"
 msgstr ""
 
-#: p2v/gui.c:148
+#: p2v/gui.c:154
 msgid "User name:"
 msgstr ""
 
-#: p2v/gui.c:160
+#: p2v/gui.c:166
 msgid "Password:"
 msgstr ""
 
-#: p2v/gui.c:175
+#: p2v/gui.c:181
 msgid "SSH Identity URL:"
 msgstr ""
 
-#: p2v/gui.c:187
+#: p2v/gui.c:193
 msgid ""
 "<i>If using password authentication, leave the SSH Identity URL blank</i>"
 msgstr ""
 
-#: p2v/gui.c:193
+#: p2v/gui.c:199
 msgid "Use sudo when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:200
+#: p2v/gui.c:206
 msgid "Test connection"
 msgstr ""
 
-#: p2v/gui.c:222
+#: p2v/gui.c:228
 msgid "Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:223
+#: p2v/gui.c:229
 msgid "About virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:224
+#: p2v/gui.c:230
 msgid "Next"
 msgstr ""
 
-#: p2v/gui.c:280
+#: p2v/gui.c:286
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:288
+#: p2v/gui.c:294
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:296
+#: p2v/gui.c:302
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:345
+#: p2v/gui.c:351
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:369
+#: p2v/gui.c:375
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:398
+#: p2v/gui.c:404
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:482
+#: p2v/gui.c:488
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:488
+#: p2v/gui.c:494
 msgid "Name:"
 msgstr ""
 
-#: p2v/gui.c:498
+#: p2v/gui.c:504
 msgid "# vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:512
+#: p2v/gui.c:518
 msgid "Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:538
+#: p2v/gui.c:544
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:544
+#: p2v/gui.c:550
 msgid "Output to (-o):"
 msgstr ""
 
-#: p2v/gui.c:549
+#: p2v/gui.c:555
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8199,80 +8199,80 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:554
+#: p2v/gui.c:560
 msgid "Output conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:559
+#: p2v/gui.c:565
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:565
+#: p2v/gui.c:571
 msgid "Output storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:570
+#: p2v/gui.c:576
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:576
+#: p2v/gui.c:582
 msgid "Output format (-of):"
 msgstr ""
 
-#: p2v/gui.c:581
+#: p2v/gui.c:587
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:587
+#: p2v/gui.c:593
 msgid "Output allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:608
+#: p2v/gui.c:614
 msgid ""
 "Enable server-side debugging\n"
 "(This is saved in /tmp on the conversion server)"
 msgstr ""
 
-#: p2v/gui.c:617
+#: p2v/gui.c:623
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:625
+#: p2v/gui.c:631
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:637
+#: p2v/gui.c:643
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:649
+#: p2v/gui.c:655
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:677
+#: p2v/gui.c:683
 msgid "Back"
 msgstr ""
 
-#: p2v/gui.c:678
+#: p2v/gui.c:684
 msgid "Start conversion"
 msgstr ""
 
-#: p2v/gui.c:720
+#: p2v/gui.c:726
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:723
+#: p2v/gui.c:729
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -8281,56 +8281,56 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:846 p2v/gui.c:905 p2v/gui.c:973
+#: p2v/gui.c:852 p2v/gui.c:911 p2v/gui.c:979
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:854 p2v/gui.c:913 p2v/gui.c:981
+#: p2v/gui.c:860 p2v/gui.c:919 p2v/gui.c:987
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:862
+#: p2v/gui.c:868
 msgid "Size (GB)"
 msgstr ""
 
-#: p2v/gui.c:870
+#: p2v/gui.c:876
 msgid "Model"
 msgstr ""
 
-#: p2v/gui.c:949 p2v/gui.c:950
+#: p2v/gui.c:955 p2v/gui.c:956
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:989
+#: p2v/gui.c:995
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1218
+#: p2v/gui.c:1224
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1228
+#: p2v/gui.c:1234
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1236
+#: p2v/gui.c:1242
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1315
+#: p2v/gui.c:1321
 msgid "Cancel conversion"
 msgstr ""
 
-#: p2v/gui.c:1316
+#: p2v/gui.c:1322
 msgid "Reboot"
 msgstr ""
 
-#: p2v/gui.c:1354
+#: p2v/gui.c:1360
 #, c-format
 msgid ""
 "Debug information and log files are saved to this directory on the "
@@ -8338,38 +8338,38 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1439
+#: p2v/gui.c:1445
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1440 p2v/gui.c:1464
+#: p2v/gui.c:1446 p2v/gui.c:1470
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1462
+#: p2v/gui.c:1468
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:1550
+#: p2v/gui.c:1556
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:1551
+#: p2v/gui.c:1557
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:1560
+#: p2v/gui.c:1566
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:1561
+#: p2v/gui.c:1567
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/main.c:73
+#: p2v/main.c:79
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -8385,12 +8385,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:188
+#: p2v/main.c:194
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:216
+#: p2v/main.c:222
 #, c-format
 msgid ""
 "%s: gtk_init_check returned false, indicating that\n"
