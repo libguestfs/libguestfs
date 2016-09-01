@@ -44,10 +44,7 @@ let rec set_hostname (g : Guestfs.guestfs) root hostname =
   | "linux", ("debian"|"ubuntu"), _ ->
     let old_hostname = read_etc_hostname g in
     update_etc_hostname g hostname;
-    (match old_hostname with
-    | Some old_hostname -> replace_host_in_etc_hosts g old_hostname hostname
-    | None -> ()
-    );
+    replace_host_in_etc_hosts g old_hostname hostname;
     true
 
   | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
@@ -94,17 +91,44 @@ and read_etc_hostname g =
   ) else
     None
 
+and aug_hosts_expr =
+  (* Matches everything in /etc/hosts except the IP address and comments. *)
+  "/files/etc/hosts/*[label() != '#comment']/*[label() != 'ipaddr']"
+
 and replace_host_in_etc_hosts g oldhost newhost =
   if g#is_file "/etc/hosts" then (
-    let expr = "/files/etc/hosts/*[label() != '#comment']/*[label() != 'ipaddr']" in
+    let oldshortname, olddomainname =
+      match oldhost with
+      | None -> None, None
+      | Some oldhost ->
+         let s, d = String.split "." oldhost in Some s, Some d in
+    let newshortname, newdomainname = String.split "." newhost in
+
     g#aug_init "/" 0;
-    let matches = Array.to_list (g#aug_match expr) in
+    let matches = Array.to_list (g#aug_match aug_hosts_expr) in
+
     List.iter (
       fun m ->
         let value = g#aug_get m in
-        if value = oldhost then (
+
+        (* Replace either "oldhostname" or "oldhostname.olddomainname". *)
+        if oldhost = Some value then
           g#aug_set m newhost
-        )
+
+        else if oldshortname = Some value then
+          g#aug_set m newshortname
+
+        (* On Debian/Ubuntu we also may find "unassigned-hostname"
+         * which has to be replaced with the short hostname.
+         *)
+        else if value = "unassigned-hostname" then
+          g#aug_set m newshortname
+
+        (* Or we may find "unassigned-hostname.unassigned-domain". *)
+        else if value = "unassigned-hostname.unassigned-domain" &&
+                  newdomainname <> "" then
+          g#aug_set m newhost
     ) matches;
+
     g#aug_save ()
   )
