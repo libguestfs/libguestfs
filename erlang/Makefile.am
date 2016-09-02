@@ -19,7 +19,16 @@ include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
 	bindtests.erl \
-	erl-guestfs.c \
+	actions-0.c \
+	actions-1.c \
+	actions-2.c \
+	actions-3.c \
+	actions-4.c \
+	actions-5.c \
+	actions-6.c \
+	actions.h \
+	dispatch.c \
+	structs.c \
 	guestfs.erl
 
 EXTRA_DIST = \
@@ -56,7 +65,18 @@ guestfs.beam: guestfs.erl
 
 bin_PROGRAMS = erl-guestfs
 
-erl_guestfs_SOURCES = erl-guestfs.c erl-guestfs-proto.c
+erl_guestfs_SOURCES = \
+	actions-0.c \
+	actions-1.c \
+	actions-2.c \
+	actions-3.c \
+	actions-4.c \
+	actions-5.c \
+	actions-6.c \
+	actions.h \
+	dispatch.c \
+	structs.c \
+	main.c
 
 erl_guestfs_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \

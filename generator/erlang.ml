@@ -182,26 +182,12 @@ loop(Port) ->
       pr "\n"
   ) (actions |> external_functions |> sort)
 
-and generate_erlang_c () =
+and generate_erlang_actions_h () =
   generate_header CStyle GPLv2plus;
 
   pr "\
-#include <config.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <errno.h>
-
-#include <erl_interface.h>
-/* We should switch over to using
-  #include <ei.h>
-instead of erl_interface.
-*/
-
-#include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\"
+#ifndef GUESTFS_ERLANG_ACTIONS_H_
+#define GUESTFS_ERLANG_ACTIONS_H_
 
 extern guestfs_h *g;
 
@@ -222,9 +208,60 @@ extern int64_t get_int64 (ETERM *term);
 
 ";
 
+  let emit_copy_list_decl typ =
+    pr "ETERM *make_%s_list (const struct guestfs_%s_list *%ss);\n"
+       typ typ typ;
+  in
+  List.iter (
+    fun { s_name = typ; s_cols = cols } ->
+      pr "ETERM *make_%s (const struct guestfs_%s *%s);\n" typ typ typ;
+  ) external_structs;
+
+  List.iter (
+    function
+    | typ, (RStructListOnly | RStructAndList) ->
+        emit_copy_list_decl typ
+    | typ, _ -> () (* empty *)
+  ) (rstructs_used_by (actions |> external_functions));
+
+  pr "\n";
+
+  List.iter (
+    fun { name = name } ->
+      pr "ETERM *run_%s (ETERM *message);\n" name
+  ) (actions |> external_functions |> sort);
+
+  pr "\n";
+  pr "#endif /* GUESTFS_ERLANG_ACTIONS_H_ */\n"
+
+and generate_erlang_structs () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <errno.h>
+
+#include <erl_interface.h>
+/* We should switch over to using
+  #include <ei.h>
+instead of erl_interface.
+*/
+
+#include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
+
+#include \"actions.h\"
+";
+
   (* Struct copy functions. *)
   let emit_copy_list_function typ =
-    pr "static ETERM *\n";
+    pr "\n";
+    pr "ETERM *\n";
     pr "make_%s_list (const struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
     pr "  size_t len = %ss->len;\n" typ;
@@ -240,12 +277,12 @@ extern int64_t get_int64 (ETERM *term);
     pr "\n";
     pr "  return erl_mk_list (t, len);\n";
     pr "}\n";
-    pr "\n";
   in
 
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
-      pr "static ETERM *\n";
+      pr "\n";
+      pr "ETERM *\n";
       pr "make_%s (const struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
       pr "  ETERM *t[%d];\n" (List.length cols);
@@ -276,7 +313,6 @@ extern int64_t get_int64 (ETERM *term);
       pr "\n";
       pr "  return erl_mk_list (t, %d);\n" (List.length cols);
       pr "}\n";
-      pr "\n";
   ) external_structs;
 
   (* Emit a copy_TYPE_list function definition only if that function is used. *)
@@ -288,11 +324,36 @@ extern int64_t get_int64 (ETERM *term);
     | typ, _ -> () (* empty *)
   ) (rstructs_used_by (actions |> external_functions));
 
+and generate_erlang_actions actions () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <errno.h>
+
+#include <erl_interface.h>
+/* We should switch over to using
+  #include <ei.h>
+instead of erl_interface.
+*/
+
+#include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
+
+#include \"actions.h\"
+";
+
   (* The wrapper functions. *)
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
-      pr "static ETERM *\n";
+      pr "\n";
+      pr "ETERM *\n";
       pr "run_%s (ETERM *message)\n" name;
       pr "{\n";
 
@@ -458,10 +519,30 @@ extern int64_t get_int64 (ETERM *term);
       );
 
       pr "}\n";
-      pr "\n";
   ) (actions |> external_functions |> sort);
 
+and generate_erlang_dispatch () =
+  generate_header CStyle GPLv2plus;
+
   pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <errno.h>
+
+#include <erl_interface.h>
+/* We should switch over to using
+  #include <ei.h>
+instead of erl_interface.
+*/
+
+#include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
+
+#include \"actions.h\"
 
 ETERM *
 dispatch (ETERM *message)

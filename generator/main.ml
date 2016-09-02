@@ -184,7 +184,10 @@ Run it from the top source directory using the command
   output_to "php/extension/guestfs_php.c" generate_php_c;
   output_to "php/extension/tests/guestfs_090_bindtests.phpt" generate_php_bindtests;
   output_to "erlang/guestfs.erl" generate_erlang_erl;
-  output_to "erlang/erl-guestfs.c" generate_erlang_c;
+  output_to "erlang/actions.h" generate_erlang_actions_h;
+  output_to_subset "erlang/actions-%d.c" generate_erlang_actions;
+  output_to "erlang/dispatch.c" generate_erlang_dispatch;
+  output_to "erlang/structs.c" generate_erlang_structs;
   output_to ~perm:0o555 "erlang/bindtests.erl" generate_erlang_bindtests;
   output_to "lua/lua-guestfs.c" generate_lua_c;
   output_to "lua/bindtests.lua" generate_lua_bindtests;

@@ -16,5 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *)
 
-val generate_erlang_c : unit -> unit
+val generate_erlang_actions_h : unit -> unit
+val generate_erlang_actions : Types.action list -> unit -> unit
+val generate_erlang_dispatch : unit -> unit
+val generate_erlang_structs : unit -> unit
 val generate_erlang_erl : unit -> unit
