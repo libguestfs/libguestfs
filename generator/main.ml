@@ -174,7 +174,7 @@ Run it from the top source directory using the command
     "java/com/redhat/et/libguestfs/*.java";
 
   output_to "java/Makefile.inc" generate_java_makefile_inc;
-  output_to "java/com_redhat_et_libguestfs_GuestFS.c" generate_java_c;
+  output_to_subset "java/actions-%d.c" generate_java_c;
   output_to "java/com/redhat/et/libguestfs/.gitignore" generate_java_gitignore;
   output_to "java/Bindtests.java" generate_java_bindtests;
   output_to "haskell/Guestfs.hs" generate_haskell_hs;

@@ -22,7 +22,13 @@ java_prefix = com/redhat/et/libguestfs
 generator_built = \
 	Makefile.inc \
 	$(java_built_sources) \
-	com_redhat_et_libguestfs_GuestFS.c \
+	actions-0.c \
+	actions-1.c \
+	actions-2.c \
+	actions-3.c \
+	actions-4.c \
+	actions-5.c \
+	actions-6.c \
 	$(srcdir)/Bindtests.java
 
 # Pull in automatically generated built sources
@@ -91,7 +97,14 @@ jnilibdir = $(JNI_INSTALL_DIR)
 
 libguestfs_jni_la_SOURCES = \
 	com_redhat_et_libguestfs_GuestFS.h \
-	com_redhat_et_libguestfs_GuestFS.c
+	actions-0.c \
+	actions-1.c \
+	actions-2.c \
+	actions-3.c \
+	actions-4.c \
+	actions-5.c \
+	actions-6.c \
+	handle.c
 
 libguestfs_jni_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
