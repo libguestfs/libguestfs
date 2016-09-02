@@ -116,7 +116,7 @@ static void push_event (lua_State *L, uint64_t event);
     | typ, (RStructListOnly | RStructAndList) ->
       pr "static void push_%s (lua_State *L, struct guestfs_%s *v);\n" typ typ;
       pr "static void push_%s_list (lua_State *L, struct guestfs_%s_list *v);\n" typ typ
-  ) (rstructs_used_by external_functions);
+  ) (rstructs_used_by (actions |> external_functions));
 
   pr "\
 
@@ -627,7 +627,7 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
         pr "  return 1;\n";
       pr "}\n";
       pr "\n"
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "\
 static struct userdata *
@@ -863,7 +863,7 @@ push_event (lua_State *L, uint64_t event)
     | typ, (RStructListOnly | RStructAndList) ->
       generate_push_struct typ;
       generate_push_struct_list typ
-  ) (rstructs_used_by external_functions);
+  ) (rstructs_used_by (actions |> external_functions));
 
   pr "\
 /* Metamethods.
@@ -890,7 +890,7 @@ static luaL_Reg methods[] = {
 
   List.iter (
     fun { name = name } -> pr "  { \"%s\", guestfs_int_lua_%s },\n" name name
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "\
 

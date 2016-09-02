@@ -58,7 +58,7 @@ let () =
       if len >= 5 && String.sub name (len-5) 5 = "_opts" then
         failwithf "function name %s cannot end with _opts" name
 *)
-  ) (all_functions @ fish_commands);
+  ) (actions @ fish_commands);
 
   (* Check added field was set to something. *)
   List.iter (
@@ -67,7 +67,7 @@ let () =
         added = (-1, _, _) } ->
        failwithf "function %s has no 'added' (version when added) field" name
     | _ -> ()
-  ) all_functions;
+  ) actions;
 
   (* Check function parameter/return names. *)
   List.iter (
@@ -131,14 +131,14 @@ let () =
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) args;
       List.iter (fun arg -> check_arg_ret_name (name_of_optargt arg)) optargs;
-  ) all_functions;
+  ) actions;
 
   (* Maximum of 63 optargs permitted. *)
   List.iter (
     fun { name = name; style = _, _, optargs } ->
       if List.length optargs > 63 then
         failwithf "maximum of 63 optional args allowed for %s" name;
-  ) all_functions;
+  ) actions;
 
   (* Some parameter types not supported for daemon functions. *)
   List.iter (
@@ -150,7 +150,7 @@ let () =
         | _ -> ()
       in
       List.iter check_arg_type args;
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   (* Check short descriptions. *)
   List.iter (
@@ -160,7 +160,7 @@ let () =
       let c = shortdesc.[String.length shortdesc-1] in
       if c = '\n' || c = '.' then
         failwithf "short description of %s should not end with . or \\n." name
-  ) (all_functions @ fish_commands);
+  ) (actions @ fish_commands);
 
   (* Check long descriptions. *)
   List.iter (
@@ -169,31 +169,15 @@ let () =
         failwithf "long description of %s should not end with \\n." name;
       if longdesc.[0] <> Char.uppercase longdesc.[0] then
         failwithf "long description of %s should begin with uppercase." name
-  ) (all_functions @ fish_commands);
+  ) (actions @ fish_commands);
 
-  (* Check proc_nrs. *)
-  List.iter (
-    function
-    | { name = name; proc_nr = None } ->
-      failwithf "daemon function %s should have proc_nr = Some n > 0" name
-    | { name = name; proc_nr = Some n } when n <= 0 ->
-      failwithf "daemon function %s should have proc_nr = Some n > 0" name
-    | { proc_nr = Some _ } -> ()
-  ) daemon_functions;
-
-  List.iter (
-    function
-    | { name = name; proc_nr = Some _ } ->
-      failwithf "non-daemon function %s should have proc_nr = None" name
-    | { proc_nr = None } -> ()
-  ) non_daemon_functions;
-
+  (* Check proc_nrs don't overlap. *)
   let proc_nrs =
     List.map (
       function
       | { name = name; proc_nr = Some proc_nr } -> (name, proc_nr)
       | _ -> assert false
-    ) daemon_functions in
+    ) (actions |> daemon_functions) in
   let proc_nrs =
     List.sort (fun (_,nr1) (_,nr2) -> compare nr1 nr2) proc_nrs in
   let rec loop = function
@@ -224,7 +208,7 @@ let () =
           function
           | { name = n' } when n = n' -> true
           | _ -> false
-        ) all_functions) then
+        ) actions) then
           failwithf "%s: deprecated_by flag must be cross-reference to another action" name
       | None -> ()
       );
@@ -243,7 +227,7 @@ let () =
             name
         | _ -> ()
       )
-  ) (all_functions @ fish_commands);
+  ) (actions @ fish_commands);
 
   (* Check blocking flag is set on all daemon functions. *)
   List.iter (
@@ -252,7 +236,7 @@ let () =
       failwithf "%s: blocking flag should be 'true' on this daemon function"
         name
     | { blocking = true } -> ()
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   (* Check wrapper flag is set on all daemon functions. *)
   List.iter (
@@ -261,7 +245,7 @@ let () =
       failwithf "%s: wrapper flag should be 'true' on this daemon function"
         name
     | { wrapper = true } -> ()
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   (* Non-fish functions must have correct camel_name. *)
   List.iter (
@@ -271,7 +255,7 @@ let () =
           name;
       if String.contains camel_name '_' then
         failwithf "%s: camel case name must not contain '_'" name;
-  ) all_functions;
+  ) actions;
 
   (* ConfigOnly should only be specified on non_daemon_functions. *)
   List.iter (
@@ -279,7 +263,7 @@ let () =
     | { name = name; config_only = true } ->
       failwithf "%s cannot have ConfigOnly flag" name
     | { config_only = false } -> ()
-  ) (daemon_functions @ fish_commands);
+  ) ((actions |> daemon_functions) @ fish_commands);
 
   (* once_had_no_optargs can only apply if the function now has optargs. *)
   List.iter (
@@ -287,7 +271,7 @@ let () =
     | { name = name; once_had_no_optargs = true; style = _, _, [] } ->
       failwithf "%s cannot have once_had_no_optargs flag and no optargs" name
     | { once_had_no_optargs = false } | { style = _, _, (_::_) } -> ()
-  ) all_functions;
+  ) actions;
 
   (* Check tests. *)
   List.iter (
@@ -311,7 +295,7 @@ let () =
 
       if not tested then
         failwithf "function %s has tests but does not test itself" name
-  ) all_functions;
+  ) actions;
 
   List.iter (
     function
@@ -324,4 +308,4 @@ let () =
           failwithf "%s test is marked 'IfAvailable %S', but since this function is in the %S optgroup, this is unnecessary; use 'Always' instead" name o optgroup
         | _ -> ()
       ) tests
-  ) all_functions
+  ) actions

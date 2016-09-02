@@ -20,60 +20,42 @@
 
 (** The libguestfs API. *)
 
-val non_daemon_functions : Types.action list
-(** API actions which are implemented within the library itself. *)
+val actions : Types.action list
+(** The list of functions in the libguestfs API. *)
 
-val daemon_functions : Types.action list
-(** API actions which are implemented by the daemon. *)
+val daemon_functions : Types.action list -> Types.action list
+val non_daemon_functions : Types.action list -> Types.action list
+(** Filter {!actions}, returning only daemon function /
+    non-daemon function respectively.
 
-val all_functions : Types.action list
-(** Concatenation of [non_daemon_functions] and [daemon_functions] lists. *)
+    The difference is that a daemon function is handled directly by
+    the daemon.  A non-daemon function is implemented in the library side. *)
 
-val is_external : Types.action -> bool
-(** Returns true if function is external, false otherwise *)
+val external_functions : Types.action list -> Types.action list
+(** Filter {!actions}, returning only external functions. *)
 
-val is_internal : Types.action -> bool
-(** Returns true if function is internal, false otherwise *)
+val internal_functions : Types.action list -> Types.action list
+(** Filter {!actions}, returning only internal functions. *)
+
+val fish_functions : Types.action list -> Types.action list
+(** Filter {!actions}, returning only functions in guestfish. *)
+
+val documented_functions : Types.action list -> Types.action list
+(** Filter {!actions}, returning only functions requiring documentation. *)
+
+val sort : Types.action list -> Types.action list
+(** Sort the functions alphabetically by name
+    (see also {!Utils.action_compare}). *)
 
 val is_documented : Types.action -> bool
-(** Returns true if function should be documented, false otherwise *)
-
-val is_fish : Types.action -> bool
-(** Returns true if function should be in guestfish, false otherwise *)
-
-val external_functions : Types.action list
-(** [all_functions] filtered for external functions **)
-
-val internal_functions : Types.action list
-(** [all_functions] filtered for internal functions **)
-
-val documented_functions : Types.action list
-(** [all_functions] filtered for functions requiring documentation **)
-
-val fish_functions : Types.action list
-(** [all_functions] filtered for functions in guestfish **)
-
-val all_functions_sorted : Types.action list
-(** [all_functions] but sorted by name. *)
-
-val external_functions_sorted : Types.action list
-(** [external_functions] but sorted by name. *)
-
-val internal_functions_sorted : Types.action list
-(** [internal_functions] but sorted by name. *)
-
-val documented_functions_sorted : Types.action list
-(** [documented_functions] but sorted by name. *)
-
-val fish_functions_sorted : Types.action list
-(** [fish_functions] but sorted by name. *)
+(** Returns true if function should be documented, false otherwise. *)
 
 val test_functions : Types.action list
 (** Internal test functions used to test the language bindings. *)
 
+val fish_commands : Types.action list
+(** Non-API meta-commands available only in guestfish. *)
+
 val max_proc_nr : int
 (** The largest procedure number used (also saved in [src/MAX_PROC_NR] and
     used as the minor version number of the shared library). *)
-
-val fish_commands : Types.action list
-(** Non-API meta-commands available only in guestfish. *)

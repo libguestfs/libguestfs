@@ -76,13 +76,13 @@ let rec generate_c_api_tests () =
       ) tests in
       let cmds_tested = List.map List.hd (List.concat seqs) in
       List.iter (fun cmd -> Hashtbl.replace hash cmd true) cmds_tested
-  ) all_functions;
+  ) actions;
 
   List.iter (
     fun { name = name } ->
       if not (Hashtbl.mem hash name) then
         pr "    \"%s\",\n" name
-  ) all_functions_sorted;
+  ) (actions |> sort);
 
   pr "    NULL\n";
   pr "  };\n";
@@ -102,7 +102,7 @@ let rec generate_c_api_tests () =
     List.map (
       fun { name = name; optional = optional; tests = tests } ->
         mapi (generate_one_test name optional) tests
-    ) (List.rev all_functions) in
+    ) (List.rev actions) in
   let test_names = List.concat test_names in
 
   let nr_tests = List.length test_names in
@@ -382,7 +382,7 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
 
   (* Look up the function. *)
   let f =
-    try List.find (fun { name = n } -> n = name) all_functions
+    try List.find (fun { name = n } -> n = name) actions
     with Not_found ->
       failwithf "%s: in test, command %s was not found" test_name name in
 

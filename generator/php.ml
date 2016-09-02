@@ -55,7 +55,7 @@ PHP_FUNCTION (guestfs_last_error);
 
   List.iter (
     fun { name = name } -> pr "PHP_FUNCTION (guestfs_%s);\n" name
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "\
 
@@ -199,7 +199,7 @@ static zend_function_entry guestfs_php_functions[] = {
 
   List.iter (
     fun { name = name } -> pr "  PHP_FE (guestfs_%s, NULL)\n" name
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "  { NULL, NULL, NULL }
 };
@@ -585,7 +585,7 @@ PHP_FUNCTION (guestfs_last_error)
 
       pr "}\n";
       pr "\n"
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 and generate_php_struct_code typ cols =
   pr "  array_init (return_value);\n";

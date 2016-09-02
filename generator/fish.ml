@@ -42,7 +42,7 @@ type func =
 let func_compare (n1, _) (n2, _) = compare n1 n2
 
 let fish_functions_and_commands_sorted =
-  List.sort action_compare (fish_functions_sorted @ fish_commands)
+  List.sort action_compare ((actions |> fish_functions |> sort) @ fish_commands)
 
 let doc_opttype_of = function
   | OBool n -> "true|false"
@@ -68,7 +68,7 @@ let all_functions_commands_and_aliases_sorted =
         let aliases = List.map (fun x -> x, Alias name) aliases in
         let foo = (name, Function shortdesc) :: aliases in
         foo @ acc
-    ) (fish_functions_sorted @ fish_commands) [] in
+    ) ((actions |> fish_functions |> sort) @ fish_commands) [] in
   List.sort func_compare all
 
 let c_quoted_indented ~indent str =
@@ -118,7 +118,7 @@ let generate_fish_cmds () =
     fun { name = name } ->
       pr "static int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
         name
-  ) fish_functions_sorted;
+  ) (actions |> fish_functions |> sort);
 
   pr "\n";
 
@@ -210,7 +210,7 @@ Guestfish will prompt for these separately."
       pr "  .run = run_%s\n" name;
       pr "};\n";
       pr "\n";
-  ) fish_functions_sorted;
+  ) (actions |> fish_functions |> sort);
 
   (* list_commands function, which implements guestfish -h *)
   pr "void\n";
@@ -276,7 +276,7 @@ Guestfish will prompt for these separately."
         (* generate the function for typ *)
         emit_print_list_function typ
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by fish_functions);
+  ) (rstructs_used_by (actions |> fish_functions));
 
   (* Emit a print_TYPE function definition only if that function is used. *)
   List.iter (
@@ -290,7 +290,7 @@ Guestfish will prompt for these separately."
         pr "}\n";
         pr "\n";
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by fish_functions);
+  ) (rstructs_used_by (actions |> fish_functions));
 
   (* run_<action> actions *)
   List.iter (
@@ -643,7 +643,7 @@ Guestfish will prompt for these separately."
       pr "  return ret;\n";
       pr "}\n";
       pr "\n"
-  ) fish_functions_sorted;
+  ) (actions |> fish_functions |> sort);
 
   (* run_action function *)
   pr "int\n";
@@ -838,10 +838,6 @@ do_completion (const char *text, int start, int end)
 and generate_fish_actions_pod () =
   generate_header PODStyle GPLv2plus;
 
-  let fishdoc_functions_sorted =
-    List.filter is_documented fish_functions_sorted
-  in
-
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
 
   List.iter (
@@ -913,7 +909,7 @@ Guestfish will prompt for these separately.\n\n";
         pr "This command depends on the feature C<%s>.   See also
 L</feature-available>.\n\n" opt
       );
-  ) fishdoc_functions_sorted
+  ) (actions |> fish_functions |> documented_functions |> sort)
 
 (* Generate documentation for guestfish-only commands. *)
 and generate_fish_commands_pod () =

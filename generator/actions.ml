@@ -13560,18 +13560,62 @@ let non_daemon_functions, daemon_functions =
     List.map make_camel_case_if_not_set daemon_functions in
   non_daemon_functions, daemon_functions
 
+(* Before we add the non_daemon_functions and daemon_functions to
+ * a single list, verify the proc_nr field which should be the only
+ * difference between them.  (Note more detailed checking is done
+ * in checks.ml).
+ *)
+let () =
+  List.iter (
+    function
+    | { name = name; proc_nr = None } ->
+      failwithf "daemon function %s should have proc_nr = Some n > 0" name
+    | { name = name; proc_nr = Some n } when n <= 0 ->
+      failwithf "daemon function %s should have proc_nr = Some n > 0" name
+    | { proc_nr = Some _ } -> ()
+  ) daemon_functions;
+
+  List.iter (
+    function
+    | { name = name; proc_nr = Some _ } ->
+      failwithf "non-daemon function %s should have proc_nr = None" name
+    | { proc_nr = None } -> ()
+  ) non_daemon_functions
+
+(* This is used to generate the src/MAX_PROC_NR file which
+ * contains the maximum procedure number, a surrogate for the
+ * ABI version number.  See src/Makefile.am for the details.
+ *)
+let max_proc_nr =
+  let proc_nrs = List.map (
+    function { proc_nr = Some n } -> n | { proc_nr = None } -> assert false
+  ) daemon_functions in
+  List.fold_left max 0 proc_nrs
+
 (* All functions. *)
-let all_functions = non_daemon_functions @ daemon_functions
+let actions = non_daemon_functions @ daemon_functions
+
+(* Filters which can be applied. *)
+let is_non_daemon_function = function
+  | { proc_nr = None } -> true
+  | { proc_nr = Some _ } -> false
+let non_daemon_functions = List.filter is_non_daemon_function
+
+let is_daemon_function f = not (is_non_daemon_function f)
+let daemon_functions = List.filter is_daemon_function
 
 let is_external { visibility = v } = match v with
   | VPublic | VPublicNoFish | VStateTest | VBindTest | VDebug -> true
   | VInternal -> false
+let external_functions = List.filter is_external
 
 let is_internal f = not (is_external f)
+let internal_functions = List.filter is_internal
 
 let is_documented { visibility = v } = match v with
   | VPublic | VPublicNoFish | VStateTest -> true
   | VBindTest | VDebug | VInternal -> false
+let documented_functions = List.filter is_documented
 
 let is_fish { visibility = v; style = (_, args, _) } =
   (* Internal functions are not exported to guestfish. *)
@@ -13583,42 +13627,9 @@ let is_fish { visibility = v; style = (_, args, _) } =
      * generate a pointer.
      *)
     not (List.exists (function Pointer _ -> true | _ -> false) args)
-
-let external_functions =
-  List.filter is_external all_functions
-
-let internal_functions =
-  List.filter is_internal all_functions
-
-let documented_functions =
-  List.filter is_documented all_functions
-
-let fish_functions =
-  List.filter is_fish all_functions
+let fish_functions = List.filter is_fish
 
 (* In some places we want the functions to be displayed sorted
  * alphabetically, so this is useful:
  *)
-let all_functions_sorted = List.sort action_compare all_functions
-
-let external_functions_sorted =
-  List.sort action_compare external_functions
-
-let internal_functions_sorted =
-  List.sort action_compare internal_functions
-
-let documented_functions_sorted =
-  List.sort action_compare documented_functions
-
-let fish_functions_sorted =
-  List.sort action_compare fish_functions
-
-(* This is used to generate the src/MAX_PROC_NR file which
- * contains the maximum procedure number, a surrogate for the
- * ABI version number.  See src/Makefile.am for the details.
- *)
-let max_proc_nr =
-  let proc_nrs = List.map (
-    function { proc_nr = Some n } -> n | { proc_nr = None } -> 0
-  ) daemon_functions in
-  List.fold_left max 0 proc_nrs
+let sort = List.sort action_compare

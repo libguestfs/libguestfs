@@ -433,7 +433,7 @@ public class GuestFS {
       generate_java_prototype ~privat:true ~native:true f.name f.style;
       pr "\n";
       pr "\n";
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "}\n"
 
@@ -1197,7 +1197,7 @@ get_all_event_callbacks (JNIEnv *env, guestfs_h *g, size_t *len_rtn)
 
       pr "}\n";
       pr "\n"
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 and generate_java_struct_return typ jtyp cols =
   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;

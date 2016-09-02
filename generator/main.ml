@@ -200,7 +200,7 @@ Run it from the top source directory using the command
       output_to filename
         (generate_gobject_optargs_source short name optargs f)
     | { style = _, _, [] } -> ()
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
   delete_except_generated "gobject/include/guestfs-gobject/optargs-*.h";
   delete_except_generated "gobject/src/optargs-*.c";
 

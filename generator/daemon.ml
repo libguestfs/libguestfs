@@ -55,7 +55,7 @@ let generate_daemon_actions_h () =
             pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n"
               uc_shortname uc_n i
         ) optargs
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   List.iter (
     fun { name = name; style = ret, args, optargs } ->
@@ -67,7 +67,7 @@ let generate_daemon_actions_h () =
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
         name style;
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   pr "\n";
   pr "#endif /* GUESTFSD_ACTIONS_H */\n"
@@ -508,7 +508,7 @@ cleanup_free_mountable (mountable_t *mountable)
       pr "done_no_free:\n";
       pr "  return;\n";
       pr "}\n\n";
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   (* Dispatch function. *)
   pr "void dispatch_incoming_message (XDR *xdr_in)\n";
@@ -520,7 +520,7 @@ cleanup_free_mountable (mountable_t *mountable)
       pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
       pr "      %s_stub (xdr_in);\n" name;
       pr "      break;\n"
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   pr "    default:\n";
   pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory\", proc_nr);\n";
@@ -712,7 +712,7 @@ and generate_daemon_names () =
     | { name = name; proc_nr = Some proc_nr } ->
       pr "  [%d] = \"%s\",\n" proc_nr name
     | { proc_nr = None } -> assert false
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
   pr "};\n";
 
 (* Generate the optional groups for the daemon to implement

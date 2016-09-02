@@ -290,7 +290,7 @@ namespace Guestfs
       pr "\n";
 
       List.iter generate_alias non_c_aliases
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "  }
 }

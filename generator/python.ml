@@ -247,7 +247,7 @@ put_table (char * const * const argv)
         (* generate the function for typ *)
         emit_put_list_function typ
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by external_functions);
+  ) (rstructs_used_by (actions |> external_functions));
 
   (* Python wrapper functions. *)
   List.iter (
@@ -548,7 +548,7 @@ put_table (char * const * const argv)
       pr "}\n";
       pr "#endif\n";
       pr "\n"
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   (* Table of functions. *)
   pr "static PyMethodDef methods[] = {\n";
@@ -566,7 +566,7 @@ put_table (char * const * const argv)
       pr "  { (char *) \"%s\", guestfs_int_py_%s, METH_VARARGS, NULL },\n"
         name name;
       pr "#endif\n"
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
   pr "  { NULL, NULL, 0, NULL }\n";
   pr "};\n";
   pr "\n";
@@ -901,7 +901,7 @@ class GuestFS(object):
         fun alias ->
           pr "    %s = %s\n\n" alias f.name
       ) f.non_c_aliases
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 and indent_python str indent columns =
   let rec loop str endpos =

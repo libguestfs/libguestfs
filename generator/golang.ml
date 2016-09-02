@@ -522,4 +522,4 @@ func return_hashtable (argv **C.char) map[string]string {
         pr "    return C.GoBytes (unsafe.Pointer (r), C.int (size)), nil\n"
       );
       pr "}\n";
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
