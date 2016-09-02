@@ -19,7 +19,7 @@
 /**
  * This file contains a small number of functions that are written by
  * hand.  The majority of the bindings are generated (see
- * F<python/guestfs-py.c>).
+ * F<python/actions-*.c>).
  */
 
 /* This has to be included first, else definitions conflict with
@@ -33,7 +33,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "guestfs-py.h"
+#include "actions.h"
 
 static PyObject **get_all_event_callbacks (guestfs_h *g, size_t *len_rtn);
 
@@ -278,4 +278,92 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   }
 
   return r;
+}
+
+/* This list should be freed (but not the strings) after use. */
+char **
+guestfs_int_py_get_string_list (PyObject *obj)
+{
+  size_t i, len;
+  char **r;
+#ifndef HAVE_PYSTRING_ASSTRING
+  PyObject *bytes;
+#endif
+
+  assert (obj);
+
+  if (!PyList_Check (obj)) {
+    PyErr_SetString (PyExc_RuntimeError, "expecting a list parameter");
+    return NULL;
+  }
+
+  Py_ssize_t slen = PyList_Size (obj);
+  if (slen == -1) {
+    PyErr_SetString (PyExc_RuntimeError, "get_string_list: PyList_Size failure");
+    return NULL;
+  }
+  len = (size_t) slen;
+  r = malloc (sizeof (char *) * (len+1));
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, "get_string_list: out of memory");
+    return NULL;
+  }
+
+  for (i = 0; i < len; ++i) {
+#ifdef HAVE_PYSTRING_ASSTRING
+    r[i] = PyString_AsString (PyList_GetItem (obj, i));
+#else
+    bytes = PyUnicode_AsUTF8String (PyList_GetItem (obj, i));
+    r[i] = PyBytes_AS_STRING (bytes);
+#endif
+  }
+  r[len] = NULL;
+
+  return r;
+}
+
+PyObject *
+guestfs_int_py_put_string_list (char * const * const argv)
+{
+  PyObject *list;
+  size_t argc, i;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
+
+  list = PyList_New (argc);
+  for (i = 0; i < argc; ++i) {
+#ifdef HAVE_PYSTRING_ASSTRING
+    PyList_SetItem (list, i, PyString_FromString (argv[i]));
+#else
+    PyList_SetItem (list, i, PyUnicode_FromString (argv[i]));
+#endif
+  }
+
+  return list;
+}
+
+PyObject *
+guestfs_int_py_put_table (char * const * const argv)
+{
+  PyObject *list, *item;
+  size_t argc, i;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
+
+  list = PyList_New (argc >> 1);
+  for (i = 0; i < argc; i += 2) {
+    item = PyTuple_New (2);
+#ifdef HAVE_PYSTRING_ASSTRING
+    PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
+    PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
+#else
+    PyTuple_SetItem (item, 0, PyUnicode_FromString (argv[i]));
+    PyTuple_SetItem (item, 1, PyUnicode_FromString (argv[i+1]));
+#endif
+    PyList_SetItem (list, i >> 1, item);
+  }
+
+  return list;
 }

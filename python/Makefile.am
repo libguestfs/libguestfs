@@ -18,7 +18,16 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	guestfs-py.c \
+	actions-0.c \
+	actions-1.c \
+	actions-2.c \
+	actions-3.c \
+	actions-4.c \
+	actions-5.c \
+	actions-6.c \
+	actions.h \
+	module.c \
+	structs.c \
 	guestfs.py \
 	bindtests.py
 
@@ -42,7 +51,18 @@ python_DATA = guestfs.py
 
 python_LTLIBRARIES = libguestfsmod.la
 
-libguestfsmod_la_SOURCES = guestfs-py.c guestfs-py.h guestfs-py-byhand.c
+libguestfsmod_la_SOURCES = \
+	actions-0.c \
+	actions-1.c \
+	actions-2.c \
+	actions-3.c \
+	actions-4.c \
+	actions-5.c \
+	actions-6.c \
+	actions.h \
+	handle.c \
+	module.c \
+	structs.c
 
 libguestfsmod_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \

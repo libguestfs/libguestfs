@@ -149,7 +149,10 @@ Run it from the top source directory using the command
   output_to "perl/lib/Sys/Guestfs.xs" generate_perl_xs;
   output_to "perl/lib/Sys/Guestfs.pm" generate_perl_pm;
   output_to "perl/bindtests.pl" generate_perl_bindtests;
-  output_to "python/guestfs-py.c" generate_python_c;
+  output_to "python/actions.h" generate_python_actions_h;
+  output_to_subset "python/actions-%d.c" generate_python_actions;
+  output_to "python/module.c" generate_python_module;
+  output_to "python/structs.c" generate_python_structs;
   output_to "python/guestfs.py" generate_python_py;
   output_to "python/bindtests.py" generate_python_bindtests;
   output_to "ruby/ext/guestfs/actions.h" generate_ruby_h;
