@@ -404,33 +404,22 @@ if errorlevel 3010 exit /b 0
     let current_cs = get_current_cs root in
     debug "current ControlSet is %s" current_cs;
 
-    disable_services root current_cs;
+    disable_xenpv_win_drivers root current_cs;
     disable_prl_drivers root current_cs;
     disable_autoreboot root current_cs;
     Windows_virtio.install_drivers g inspect systemroot
                                    root current_cs rcaps
 
-  and disable_services root current_cs =
-    (* Disable miscellaneous services. *)
+  and disable_xenpv_win_drivers root current_cs =
+    (* Disable xenpv-win service (RHBZ#809273). *)
     let services = Windows.get_node g root [current_cs; "Services"] in
 
     match services with
     | None -> ()
     | Some services ->
-       (* Disable the Processor and Intelppm services
-        * http://blogs.msdn.com/b/virtual_pc_guy/archive/2005/10/24/484461.aspx
-        *
-        * Disable the rhelscsi service (RHBZ#809273).
-        *)
-       let disable = [ "Processor"; "Intelppm"; "rhelscsi" ] in
-       List.iter (
-           fun name ->
-           let node = g#hivex_node_get_child services name in
-           if node <> 0L then (
-             (* Delete the node instead of trying to disable it (RHBZ#737600) *)
-             g#hivex_node_delete_child node
-           )
-         ) disable
+       let node = g#hivex_node_get_child services "rhelscsi" in
+       if node <> 0L then
+         g#hivex_node_set_value node "Start" 4_L (le32_of_int 4_L)
 
   and disable_prl_drivers root current_cs =
     (* Prevent Parallels drivers from loading at boot. *)
