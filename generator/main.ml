@@ -152,7 +152,9 @@ Run it from the top source directory using the command
   output_to "python/guestfs-py.c" generate_python_c;
   output_to "python/guestfs.py" generate_python_py;
   output_to "python/bindtests.py" generate_python_bindtests;
-  output_to "ruby/ext/guestfs/_guestfs.c" generate_ruby_c;
+  output_to "ruby/ext/guestfs/actions.h" generate_ruby_h;
+  output_to_subset "ruby/ext/guestfs/actions-%d.c" generate_ruby_c;
+  output_to "ruby/ext/guestfs/module.c" generate_ruby_module;
   output_to "ruby/bindtests.rb" generate_ruby_bindtests;
   output_to "java/com/redhat/et/libguestfs/GuestFS.java" generate_java_java;
 

@@ -462,11 +462,13 @@ Makefile.in
 /ruby/doc/site/api
 /ruby/examples/guestfs-ruby.3
 /ruby/examples/stamp-guestfs-ruby.pod
+/ruby/ext/guestfs/actions-?.c
+/ruby/ext/guestfs/actions.h
 /ruby/ext/guestfs/extconf.h
 /ruby/ext/guestfs/extconf.rb
 /ruby/ext/guestfs/_guestfs.bundle
-/ruby/ext/guestfs/_guestfs.c
 /ruby/ext/guestfs/_guestfs.so
+/ruby/ext/guestfs/module.c
 /ruby/ext/guestfs/mkmf.log
 /ruby/Rakefile
 /ruby/stamp-rdoc

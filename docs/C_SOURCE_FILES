@@ -231,7 +231,15 @@ python/guestfs-py-byhand.c
 python/guestfs-py.c
 rescue/rescue.c
 resize/dummy.c
-ruby/ext/guestfs/_guestfs.c
+ruby/ext/guestfs/actions-0.c
+ruby/ext/guestfs/actions-1.c
+ruby/ext/guestfs/actions-2.c
+ruby/ext/guestfs/actions-3.c
+ruby/ext/guestfs/actions-4.c
+ruby/ext/guestfs/actions-5.c
+ruby/ext/guestfs/actions-6.c
+ruby/ext/guestfs/handle.c
+ruby/ext/guestfs/module.c
 sparsify/dummy.c
 src/actions-0.c
 src/actions-1.c

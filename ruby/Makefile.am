@@ -18,7 +18,15 @@
 include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
-	ext/guestfs/_guestfs.c \
+	ext/guestfs/actions-0.c \
+	ext/guestfs/actions-1.c \
+	ext/guestfs/actions-2.c \
+	ext/guestfs/actions-3.c \
+	ext/guestfs/actions-4.c \
+	ext/guestfs/actions-5.c \
+	ext/guestfs/actions-6.c \
+	ext/guestfs/actions.h \
+	ext/guestfs/module.c \
 	bindtests.rb
 
 DLEXT := $(shell $(RUBY) -rrbconfig -e "puts RbConfig::CONFIG['DLEXT']")
@@ -28,6 +36,7 @@ EXTRA_DIST = \
 	Rakefile.in \
 	README.rdoc \
 	doc/site/index.html \
+	ext/guestfs/handle.c \
 	lib/guestfs.rb \
 	run-bindtests \
 	run-ruby-tests \
@@ -53,7 +62,7 @@ all: $(generator_built) doc/site/index.html
 # it when the ruby bindings change.
 doc/site/index.html doc/site/api/table_of_contents.html: stamp-rdoc
 
-stamp-rdoc: ext/guestfs/_guestfs.c
+stamp-rdoc: $(generator_built)
 	$(RAKE) rdoc
 	touch $@
 
