@@ -39,6 +39,7 @@ daemon/debug.c
 daemon/devsparts.c
 daemon/df.c
 daemon/dir.c
+daemon/dispatch.c
 daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
@@ -76,6 +77,7 @@ daemon/link.c
 daemon/ls.c
 daemon/luks.c
 daemon/lvm-filter.c
+daemon/lvm-tokenization.c
 daemon/lvm.c
 daemon/md.c
 daemon/mkfs.c
@@ -105,7 +107,13 @@ daemon/sleuthkit.c
 daemon/stat.c
 daemon/statvfs.c
 daemon/strings.c
-daemon/stubs.c
+daemon/stubs-0.c
+daemon/stubs-1.c
+daemon/stubs-2.c
+daemon/stubs-3.c
+daemon/stubs-4.c
+daemon/stubs-5.c
+daemon/stubs-6.c
 daemon/swap.c
 daemon/sync.c
 daemon/syslinux.c

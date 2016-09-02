@@ -16,8 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *)
 
-val generate_daemon_actions : unit -> unit
 val generate_daemon_actions_h : unit -> unit
+val generate_daemon_stubs_h : unit -> unit
+val generate_daemon_stubs : Types.action list -> unit -> unit
+val generate_daemon_dispatch : unit -> unit
+val generate_daemon_lvm_tokenization : unit -> unit
 val generate_daemon_names : unit -> unit
 val generate_daemon_optgroups_c : unit -> unit
 val generate_daemon_optgroups_h : unit -> unit

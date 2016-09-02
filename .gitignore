@@ -132,6 +132,7 @@ Makefile.in
 /customize/virt-customize
 /customize/virt-customize.1
 /daemon/actions.h
+/daemon/dispatch.c
 /daemon/errnostring.c
 /daemon/errnostring-gperf.c
 /daemon/errnostring-gperf.gperf
@@ -146,8 +147,10 @@ Makefile.in
 /daemon/names.c
 /daemon/optgroups.c
 /daemon/optgroups.h
+/daemon/lvm-tokenization.c
 /daemon/stamp-guestfsd.pod
-/daemon/stubs.c
+/daemon/stubs-?.c
+/daemon/stubs.h
 /depcomp
 /df/stamp-virt-df.pod
 /df/virt-df
