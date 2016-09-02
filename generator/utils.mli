@@ -76,6 +76,10 @@ val files_equal : string -> string -> bool
 (** [files_equal filename1 filename2] returns true if the files contain
     the same content. *)
 
+val (|>) : 'a -> ('a -> 'b) -> 'b
+(** Added in OCaml 4.01, we can remove our definition when we
+    can assume this minimum version of OCaml. *)
+
 val filter_map : ('a -> 'b option) -> 'a list -> 'b list
 
 val find_map : ('a -> 'b option) -> 'a list -> 'b
