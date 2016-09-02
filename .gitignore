@@ -279,9 +279,9 @@ Makefile.in
 /inspector/virt-inspector.1
 /installcheck.sh
 /install-sh
+/java/actions-?.c
 /java/api
 /java/Bindtests.java
-/java/com_redhat_et_libguestfs_GuestFS.c
 /java/com_redhat_et_libguestfs_GuestFS.h
 /java/com/redhat/et/libguestfs/GuestFS.java
 /java/doc-stamp

@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *)
 
-val generate_java_c : unit -> unit
+val generate_java_c : Types.action list -> unit -> unit
 val generate_java_gitignore : unit -> unit
 val generate_java_java : unit -> unit
 val generate_java_makefile_inc : unit -> unit
