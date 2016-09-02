@@ -126,6 +126,9 @@ Run it from the top source directory using the command
   output_to "tests/c-api/tests.c" generate_c_api_tests;
   output_to "fish/cmds-gperf.gperf" generate_fish_cmds_gperf;
   output_to "fish/cmds.c" generate_fish_cmds;
+  output_to_subset "fish/entries-%d.c" generate_fish_cmd_entries;
+  output_to_subset "fish/run-%d.c" generate_fish_run_cmds;
+  output_to "fish/run.h" generate_fish_run_header;
   output_to "fish/completion.c" generate_fish_completion;
   output_to "fish/event-names.c" generate_fish_event_names;
   output_to "fish/fish-cmds.h" generate_fish_cmds_h;

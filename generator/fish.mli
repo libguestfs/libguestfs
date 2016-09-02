@@ -17,6 +17,9 @@
  *)
 
 val generate_fish_actions_pod : unit -> unit
+val generate_fish_run_cmds : Types.action list -> unit -> unit
+val generate_fish_run_header : unit -> unit
+val generate_fish_cmd_entries : Types.action list -> unit -> unit
 val generate_fish_cmds : unit -> unit
 val generate_fish_cmds_gperf : unit -> unit
 val generate_fish_cmds_h : unit -> unit
