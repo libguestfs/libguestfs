@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-09-01 08:48+0100\n"
+"POT-Creation-Date: 2016-09-02 23:29+0100\n"
 "PO-Revision-Date: 2015-02-21 10:34-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Tajik (http://www.transifex.com/projects/p/libguestfs/"
@@ -42967,14 +42967,14 @@ msgstr ""
 
 #. type: =head3
 #: ../docs/internal-documentation.pod:3659
-msgid "File F<python/guestfs-py-byhand.c>"
+msgid "File F<python/handle.c>"
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:3661
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
-"The majority of the bindings are generated (see F<python/guestfs-py.c>)."
+"The majority of the bindings are generated (see F<python/actions-*.c>)."
 msgstr ""
 
 #. type: =head2
