@@ -52,7 +52,17 @@ This package contains the Python bindings for libguestfs.
       ext_modules=[
           Extension(
               'libguestfsmod',
-              ['guestfs-py-byhand.c', 'guestfs-py.c', 'utils.c'],
+              ['actions-0.c',
+               'actions-1.c',
+               'actions-2.c',
+               'actions-3.c',
+               'actions-4.c',
+               'actions-5.c',
+               'actions-6.c',
+               'handle.c',
+               'module.c',
+               'structs.c',
+               'utils.c'],
 
               include_dirs=['.', '../src'],
               libraries=['guestfs'],

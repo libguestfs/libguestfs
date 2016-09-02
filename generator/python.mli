@@ -16,7 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *)
 
-val generate_python_c : unit -> unit
+val generate_python_actions_h : unit -> unit
+val generate_python_structs : unit -> unit
+val generate_python_actions : Types.action list -> unit -> unit
+val generate_python_module : unit -> unit
 val generate_python_py : unit -> unit
 
 val indent_python : string -> int -> int -> string

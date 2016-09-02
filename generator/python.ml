@@ -32,8 +32,101 @@ open Events
 
 let generate_header = generate_header ~inputs:["generator/python.ml"]
 
-(* Generate Python C module. *)
-let rec generate_python_c () =
+(* Generate Python C actions. *)
+let rec generate_python_actions_h () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+#ifndef GUESTFS_PYTHON_ACTIONS_H_
+#define GUESTFS_PYTHON_ACTIONS_H_
+
+#include \"guestfs.h\"
+#include \"guestfs-internal-frontend.h\"
+
+#if PY_VERSION_HEX < 0x02050000
+typedef int Py_ssize_t;
+#define PY_SSIZE_T_MAX INT_MAX
+#define PY_SSIZE_T_MIN INT_MIN
+#endif
+
+#ifndef HAVE_PYCAPSULE_NEW
+typedef struct {
+  PyObject_HEAD
+  guestfs_h *g;
+} Pyguestfs_Object;
+#endif
+
+static inline guestfs_h *
+get_handle (PyObject *obj)
+{
+  assert (obj);
+  assert (obj != Py_None);
+#ifndef HAVE_PYCAPSULE_NEW
+  return ((Pyguestfs_Object *) obj)->g;
+#else
+  return (guestfs_h*) PyCapsule_GetPointer(obj, \"guestfs_h\");
+#endif
+}
+
+static inline PyObject *
+put_handle (guestfs_h *g)
+{
+  assert (g);
+#ifndef HAVE_PYCAPSULE_NEW
+  return
+    PyCObject_FromVoidPtrAndDesc ((void *) g, (char *) \"guestfs_h\", NULL);
+#else
+  return PyCapsule_New ((void *) g, \"guestfs_h\", NULL);
+#endif
+}
+
+extern void guestfs_int_py_extend_module (PyObject *module);
+
+extern PyObject *guestfs_int_py_create (PyObject *self, PyObject *args);
+extern PyObject *guestfs_int_py_close (PyObject *self, PyObject *args);
+extern PyObject *guestfs_int_py_set_event_callback (PyObject *self, PyObject *args);
+extern PyObject *guestfs_int_py_delete_event_callback (PyObject *self, PyObject *args);
+extern PyObject *guestfs_int_py_event_to_string (PyObject *self, PyObject *args);
+extern char **guestfs_int_py_get_string_list (PyObject *obj);
+extern PyObject *guestfs_int_py_put_string_list (char * const * const argv);
+extern PyObject *guestfs_int_py_put_table (char * const * const argv);
+
+";
+
+  let emit_put_list_decl typ =
+    pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
+    pr "extern PyObject *guestfs_int_py_put_%s_list (struct guestfs_%s_list *%ss);\n" typ typ typ;
+    pr "#endif\n";
+  in
+
+  List.iter (
+    fun { s_name = typ } ->
+      pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
+      pr "extern PyObject *guestfs_int_py_put_%s (struct guestfs_%s *%s);\n" typ typ typ;
+      pr "#endif\n";
+  ) external_structs;
+
+  List.iter (
+    function
+    | typ, (RStructListOnly | RStructAndList) ->
+        (* generate the function for typ *)
+        emit_put_list_decl typ
+    | typ, _ -> () (* empty *)
+  ) (rstructs_used_by (actions |> external_functions));
+
+  pr "\n";
+
+  List.iter (
+    fun { name = name; c_name = c_name } ->
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
+      pr "extern PyObject *guestfs_int_py_%s (PyObject *self, PyObject *args);\n" name;
+      pr "#endif\n"
+  ) (actions |> external_functions |> sort);
+
+  pr "\n";
+  pr "#endif /* GUESTFS_PYTHON_ACTIONS_H_ */\n"
+
+and generate_python_structs () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
@@ -49,109 +142,21 @@ let rec generate_python_c () =
 #include <stdlib.h>
 #include <assert.h>
 
-#include \"guestfs-py.h\"
-
-/* This list should be freed (but not the strings) after use. */
-static char **
-get_string_list (PyObject *obj)
-{
-  size_t i, len;
-  char **r;
-#ifndef HAVE_PYSTRING_ASSTRING
-  PyObject *bytes;
-#endif
-
-  assert (obj);
-
-  if (!PyList_Check (obj)) {
-    PyErr_SetString (PyExc_RuntimeError, \"expecting a list parameter\");
-    return NULL;
-  }
-
-  Py_ssize_t slen = PyList_Size (obj);
-  if (slen == -1) {
-    PyErr_SetString (PyExc_RuntimeError, \"get_string_list: PyList_Size failure\");
-    return NULL;
-  }
-  len = (size_t) slen;
-  r = malloc (sizeof (char *) * (len+1));
-  if (r == NULL) {
-    PyErr_SetString (PyExc_RuntimeError, \"get_string_list: out of memory\");
-    return NULL;
-  }
-
-  for (i = 0; i < len; ++i) {
-#ifdef HAVE_PYSTRING_ASSTRING
-    r[i] = PyString_AsString (PyList_GetItem (obj, i));
-#else
-    bytes = PyUnicode_AsUTF8String (PyList_GetItem (obj, i));
-    r[i] = PyBytes_AS_STRING (bytes);
-#endif
-  }
-  r[len] = NULL;
-
-  return r;
-}
-
-static PyObject *
-put_string_list (char * const * const argv)
-{
-  PyObject *list;
-  size_t argc, i;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    ;
-
-  list = PyList_New (argc);
-  for (i = 0; i < argc; ++i) {
-#ifdef HAVE_PYSTRING_ASSTRING
-    PyList_SetItem (list, i, PyString_FromString (argv[i]));
-#else
-    PyList_SetItem (list, i, PyUnicode_FromString (argv[i]));
-#endif
-  }
-
-  return list;
-}
-
-static PyObject *
-put_table (char * const * const argv)
-{
-  PyObject *list, *item;
-  size_t argc, i;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    ;
-
-  list = PyList_New (argc >> 1);
-  for (i = 0; i < argc; i += 2) {
-    item = PyTuple_New (2);
-#ifdef HAVE_PYSTRING_ASSTRING
-    PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
-    PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
-#else
-    PyTuple_SetItem (item, 0, PyUnicode_FromString (argv[i]));
-    PyTuple_SetItem (item, 1, PyUnicode_FromString (argv[i+1]));
-#endif
-    PyList_SetItem (list, i >> 1, item);
-  }
-
-  return list;
-}
+#include \"actions.h\"
 
 ";
 
   let emit_put_list_function typ =
     pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
-    pr "static PyObject *\n";
-    pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
+    pr "PyObject *\n";
+    pr "guestfs_int_py_put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
     pr "  PyObject *list;\n";
     pr "  size_t i;\n";
     pr "\n";
     pr "  list = PyList_New (%ss->len);\n" typ;
     pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-    pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
+    pr "    PyList_SetItem (list, i, guestfs_int_py_put_%s (&%ss->val[i]));\n" typ typ;
     pr "  return list;\n";
     pr "};\n";
     pr "#endif\n";
@@ -162,8 +167,8 @@ put_table (char * const * const argv)
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
       pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
-      pr "static PyObject *\n";
-      pr "put_%s (struct guestfs_%s *%s)\n" typ typ typ;
+      pr "PyObject *\n";
+      pr "guestfs_int_py_put_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
       pr "  PyObject *dict;\n";
       pr "\n";
@@ -249,14 +254,33 @@ put_table (char * const * const argv)
     | typ, _ -> () (* empty *)
   ) (rstructs_used_by (actions |> external_functions));
 
-  (* Python wrapper functions. *)
+and generate_python_actions actions () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+/* This has to be included first, else definitions conflict with
+ * glibc header files.  Python is broken.
+ */
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+#include \"actions.h\"
+
+";
+
   List.iter (
     fun { name = name; style = (ret, args, optargs as style);
           blocking = blocking;
           c_name = c_name;
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
-      pr "static PyObject *\n";
+      pr "PyObject *\n";
       pr "guestfs_int_py_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
 
@@ -379,7 +403,7 @@ put_table (char * const * const argv)
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ | GUID _ -> ()
         | StringList n | DeviceList n | FilenameList n ->
-            pr "  %s = get_string_list (py_%s);\n" n n;
+            pr "  %s = guestfs_int_py_get_string_list (py_%s);\n" n n;
             pr "  if (!%s) goto out;\n" n
         | Pointer (_, n) ->
             pr "  %s = PyLong_AsVoidPtr (%s_long);\n" n n
@@ -411,7 +435,7 @@ put_table (char * const * const argv)
               pr "    optargs_s.%s = PyBytes_AS_STRING (bytes);\n" n;
               pr "#endif\n";
             | OStringList _ ->
-              pr "    optargs_s.%s = get_string_list (py_%s);\n" n n;
+              pr "    optargs_s.%s = guestfs_int_py_get_string_list (py_%s);\n" n n;
               pr "    if (!optargs_s.%s) goto out;\n" n;
             );
             pr "  }\n";
@@ -491,16 +515,16 @@ put_table (char * const * const argv)
            pr "  free (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
        | RStringList _ ->
-           pr "  py_r = put_string_list (r);\n";
+           pr "  py_r = guestfs_int_py_put_string_list (r);\n";
            pr "  guestfs_int_free_string_list (r);\n"
        | RStruct (_, typ) ->
-           pr "  py_r = put_%s (r);\n" typ;
+           pr "  py_r = guestfs_int_py_put_%s (r);\n" typ;
            pr "  guestfs_free_%s (r);\n" typ
        | RStructList (_, typ) ->
-           pr "  py_r = put_%s_list (r);\n" typ;
+           pr "  py_r = guestfs_int_py_put_%s_list (r);\n" typ;
            pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable n ->
-           pr "  py_r = put_table (r);\n";
+           pr "  py_r = guestfs_int_py_put_table (r);\n";
            pr "  guestfs_int_free_string_list (r);\n"
        | RBufferOut _ ->
            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
@@ -548,7 +572,27 @@ put_table (char * const * const argv)
       pr "}\n";
       pr "#endif\n";
       pr "\n"
-  ) (actions |> external_functions |> sort);
+  ) (actions |> external_functions |> sort)
+
+and generate_python_module () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+/* This has to be included first, else definitions conflict with
+ * glibc header files.  Python is broken.
+ */
+#define PY_SSIZE_T_CLEAN 1
+#include <Python.h>
+
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+#include \"actions.h\"
+
+";
 
   (* Table of functions. *)
   pr "static PyMethodDef methods[] = {\n";

@@ -430,6 +430,8 @@ Makefile.in
 /podwrapper.1
 /podwrapper.pl
 /po/*.gmo
+/python/actions-?.c
+/python/actions.h
 /python/bindtests.py
 /python/build
 /python/config.h
@@ -437,7 +439,6 @@ Makefile.in
 /python/examples/guestfs-python.3
 /python/examples/stamp-guestfs-python.pod
 /python/guestfs.py
-/python/guestfs-py.c
 /python/guestfs.pyc
 /python/guestfs.pyo
 /python/guestfs-internal-all.h
@@ -445,6 +446,8 @@ Makefile.in
 /python/guestfs-internal-frontend.h
 /python/ignore-value.h
 /python/MANIFEST
+/python/module.c
+/python/structs.c
 /python/__pycache__
 /python/setup.py
 /python/stamp-extra-files
