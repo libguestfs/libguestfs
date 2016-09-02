@@ -205,6 +205,8 @@ let files_equal n1 n2 =
   | 1 -> false
   | i -> failwithf "%s: failed with error code %d" cmd i
 
+let (|>) x f = f x
+
 let rec filter_map f = function
   | [] -> []
   | x :: xs ->
