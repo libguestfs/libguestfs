@@ -33,16 +33,6 @@ let generate_header = generate_header ~inputs:["generator/c.ml"]
 
 (* Generate C API. *)
 
-(* The actions are split across this many C files.  You can increase
- * this number in order to reduce the number of lines in each file
- * (hence making compilation faster), but you also have to modify
- * src/Makefile.am.
- *)
-let nr_actions_files = 7
-let hash_matches h { name = name } =
-  let h' = Hashtbl.hash name mod nr_actions_files in
-  h = h'
-
 type optarg_proto = Dots | VA | Argv
 
 let is_public { visibility = v } = match v with
@@ -1335,7 +1325,7 @@ and generate_client_structs_print_h () =
 "
 
 (* Generate the client-side dispatch stubs. *)
-and generate_client_actions hash () =
+and generate_client_actions actions () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
@@ -1782,7 +1772,7 @@ and generate_client_actions hash () =
   List.iter (
     function
     | { wrapper = true } as f ->
-      if hash_matches hash f then generate_non_daemon_wrapper f
+      generate_non_daemon_wrapper f
     | { wrapper = false } ->
       () (* no wrapper *)
   ) (actions |> non_daemon_functions);
@@ -2082,7 +2072,7 @@ and generate_client_actions hash () =
 
   List.iter (
     fun f ->
-      if hash_matches hash f then generate_daemon_stub f
+      generate_daemon_stub f
   ) (actions |> daemon_functions)
 
 (* Functions which have optional arguments have two or three

@@ -54,6 +54,20 @@ let perror msg = function
   | exn ->
       eprintf "%s: %s\n" msg (Printexc.to_string exn)
 
+(* In some directories the actions are split across this many C
+ * files.  You can increase this number in order to reduce the number
+ * of lines in each file (hence making compilation faster), but you
+ * also have to modify .../Makefile.am.
+ *)
+let nr_actions_files = 7
+let actions_subsets =
+  let h i { name = name } = i = Hashtbl.hash name mod nr_actions_files in
+  Array.init nr_actions_files (fun i -> List.filter (h i) actions)
+let output_to_subset fs f =
+  for i = 0 to nr_actions_files-1 do
+    ksprintf (fun filename -> output_to filename (f actions_subsets.(i))) fs i
+  done
+
 (* Main program. *)
 let () =
   let lock_fd =
@@ -103,12 +117,7 @@ Run it from the top source directory using the command
   output_to "src/structs-print.c" generate_client_structs_print_c;
   output_to "src/structs-print.h" generate_client_structs_print_h;
   output_to "src/actions-variants.c" generate_client_actions_variants;
-
-  for i = 0 to nr_actions_files-1 do
-    let filename = sprintf "src/actions-%d.c" i in
-    output_to filename (generate_client_actions i)
-  done;
-
+  output_to_subset "src/actions-%d.c" generate_client_actions;
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;
   output_to "daemon/names.c" generate_daemon_names;

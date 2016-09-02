@@ -22,11 +22,9 @@ val generate_prototype : ?extern:bool -> ?static:bool -> ?semicolon:bool -> ?sin
 
 val generate_c_call_args : ?handle:string -> ?implicit_size_ptr:string -> ?in_daemon:bool -> Types.ret * Types.args * Types.optargs -> unit
 
-val nr_actions_files : int
-
 val generate_actions_pod : unit -> unit
 val generate_availability_pod : unit -> unit
-val generate_client_actions : int -> unit -> unit
+val generate_client_actions : Types.action list -> unit -> unit
 val generate_client_actions_variants : unit -> unit
 val generate_client_structs_cleanup : unit -> unit
 val generate_client_structs_compare : unit -> unit
