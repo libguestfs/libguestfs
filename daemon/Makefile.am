@@ -19,8 +19,16 @@ include $(top_srcdir)/subdir-rules.mk
 
 generator_built = \
 	actions.h \
-	stubs.c \
-	names.c
+	dispatch.c \
+	names.c \
+	lvm-tokenization.c \
+	stubs-0.c \
+	stubs-1.c \
+	stubs-2.c \
+	stubs-3.c \
+	stubs-4.c \
+	stubs-5.c \
+	stubs-6.c
 
 shared_with_library = \
 	guestfs_protocol.c \
@@ -74,11 +82,7 @@ else
 noinst_PROGRAMS = guestfsd
 endif
 
-# Compile the largest file (stubs.c) first.  The other files are
-# listed alphabetically.  See also:
-# https://rwmj.wordpress.com/2015/09/30/make-and-queuing-theory/#content
 guestfsd_SOURCES = \
-	stubs.c \
 	9p.c \
 	acl.c \
 	actions.h \
@@ -107,6 +111,7 @@ guestfsd_SOURCES = \
 	devsparts.c \
 	df.c \
 	dir.c \
+	dispatch.c \
 	dmesg.c \
 	dropcaches.c \
 	du.c \
@@ -143,6 +148,7 @@ guestfsd_SOURCES = \
 	luks.c \
 	lvm.c \
 	lvm-filter.c \
+	lvm-tokenization.c \
 	md.c \
 	mkfs.c \
 	mknod.c \
@@ -172,6 +178,14 @@ guestfsd_SOURCES = \
 	stat.c \
 	statvfs.c \
 	strings.c \
+	stubs-0.c \
+	stubs-1.c \
+	stubs-2.c \
+	stubs-3.c \
+	stubs-4.c \
+	stubs-5.c \
+	stubs-6.c \
+	stubs.h \
 	swap.c \
 	sync.c \
 	syslinux.c \

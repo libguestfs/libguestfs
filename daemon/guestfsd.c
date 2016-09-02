@@ -1249,3 +1249,12 @@ get_random_uuid (void)
   return out;
 
 }
+
+void
+cleanup_free_mountable (mountable_t *mountable)
+{
+  if (mountable) {
+    free (mountable->device);
+    free (mountable->volume);
+  }
+}

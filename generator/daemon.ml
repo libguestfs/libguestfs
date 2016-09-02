@@ -72,26 +72,12 @@ let generate_daemon_actions_h () =
   pr "\n";
   pr "#endif /* GUESTFSD_ACTIONS_H */\n"
 
-(* Generate the server-side stubs. *)
-and generate_daemon_actions () =
+let generate_daemon_stubs_h () =
   generate_header CStyle GPLv2plus;
 
   pr "\
-#include <config.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <inttypes.h>
-#include <errno.h>
-#include <rpc/types.h>
-#include <rpc/xdr.h>
-
-#include \"daemon.h\"
-#include \"c-ctype.h\"
-#include \"guestfs_protocol.h\"
-#include \"actions.h\"
-#include \"optgroups.h\"
+#ifndef GUESTFSD_STUBS_H
+#define GUESTFSD_STUBS_H
 
 /* Some macros to make resolving devices easier.  These used to
  * be available in daemon.h but now they are only used by stubs.
@@ -201,30 +187,44 @@ and generate_daemon_actions () =
     }                                                                   \\
   } while (0)                                                           \\
 
-/* Free the mountable.device & mountable.volume fields which are
- * allocated by the above macros.
- */
-#ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_FREE_MOUNTABLE __attribute__((cleanup(cleanup_free_mountable)))
-#else
-#define CLEANUP_FREE_MOUNTABLE
-#endif
+";
 
-static void
-cleanup_free_mountable (mountable_t *mountable)
-{
-  if (mountable) {
-    free (mountable->device);
-    free (mountable->volume);
-  }
-}
+  List.iter (
+    fun { name = name } ->
+      pr "extern void %s_stub (XDR *xdr_in);\n" name;
+  ) (actions |> daemon_functions);
+
+  pr "\n";
+  pr "#endif /* GUESTFSD_STUBS_H */\n"
+
+(* Generate the server-side stubs. *)
+let generate_daemon_stubs actions () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
+#include <errno.h>
+#include <rpc/types.h>
+#include <rpc/xdr.h>
+
+#include \"daemon.h\"
+#include \"c-ctype.h\"
+#include \"guestfs_protocol.h\"
+#include \"actions.h\"
+#include \"optgroups.h\"
+#include \"stubs.h\"
 
 ";
 
   List.iter (
     fun { name = name; style = ret, args, optargs; optional = optional } ->
       (* Generate server-side stubs. *)
-      pr "static void\n";
+      pr "void\n";
       pr "%s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
       (match ret with
@@ -508,10 +508,34 @@ cleanup_free_mountable (mountable_t *mountable)
       pr "done_no_free:\n";
       pr "  return;\n";
       pr "}\n\n";
-  ) (actions |> daemon_functions);
+  ) (actions |> daemon_functions)
+
+let generate_daemon_dispatch () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
+#include <errno.h>
+#include <rpc/types.h>
+#include <rpc/xdr.h>
+
+#include \"daemon.h\"
+#include \"c-ctype.h\"
+#include \"guestfs_protocol.h\"
+#include \"actions.h\"
+#include \"optgroups.h\"
+#include \"stubs.h\"
+
+";
 
   (* Dispatch function. *)
-  pr "void dispatch_incoming_message (XDR *xdr_in)\n";
+  pr "void\n";
+  pr "dispatch_incoming_message (XDR *xdr_in)\n";
   pr "{\n";
   pr "  switch (proc_nr) {\n";
 
@@ -526,7 +550,29 @@ cleanup_free_mountable (mountable_t *mountable)
   pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory\", proc_nr);\n";
   pr "  }\n";
   pr "}\n";
-  pr "\n";
+  pr "\n"
+
+let generate_daemon_lvm_tokenization () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
+#include <errno.h>
+#include <rpc/types.h>
+#include <rpc/xdr.h>
+
+#include \"daemon.h\"
+#include \"c-ctype.h\"
+#include \"guestfs_protocol.h\"
+#include \"actions.h\"
+#include \"optgroups.h\"
+
+";
 
   (* LVM columns and tokenization functions. *)
   (* XXX This generates crap code.  We should rethink how we
@@ -697,7 +743,7 @@ cleanup_free_mountable (mountable_t *mountable)
   ) ["pv", lvm_pv_cols; "vg", lvm_vg_cols; "lv", lvm_lv_cols]
 
 (* Generate a list of function names, for debugging in the daemon.. *)
-and generate_daemon_names () =
+let generate_daemon_names () =
   generate_header CStyle GPLv2plus;
 
   pr "#include <config.h>\n";
@@ -713,12 +759,12 @@ and generate_daemon_names () =
       pr "  [%d] = \"%s\",\n" proc_nr name
     | { proc_nr = None } -> assert false
   ) (actions |> daemon_functions);
-  pr "};\n";
+  pr "};\n"
 
 (* Generate the optional groups for the daemon to implement
  * guestfs_available.
  *)
-and generate_daemon_optgroups_c () =
+let generate_daemon_optgroups_c () =
   generate_header CStyle GPLv2plus;
 
   pr "#include <config.h>\n";
@@ -747,7 +793,7 @@ and generate_daemon_optgroups_c () =
   pr "  { NULL, NULL }\n";
   pr "};\n"
 
-and generate_daemon_optgroups_h () =
+let generate_daemon_optgroups_h () =
   generate_header CStyle GPLv2plus;
 
   pr "#ifndef GUESTFSD_OPTGROUPS_H\n";

@@ -43,6 +43,14 @@ typedef struct {
   char *volume;
 } mountable_t;
 
+extern void cleanup_free_mountable (mountable_t *mountable);
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_FREE_MOUNTABLE __attribute__((cleanup(cleanup_free_mountable)))
+#else
+#define CLEANUP_FREE_MOUNTABLE
+#endif
+
 /*-- in guestfsd.c --*/
 extern int verbose;
 
