@@ -16,4 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *)
 
-val generate_ruby_c : unit -> unit
+val generate_ruby_h : unit -> unit
+val generate_ruby_c : Types.action list -> unit -> unit
+val generate_ruby_module : unit -> unit

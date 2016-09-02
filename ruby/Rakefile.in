@@ -45,7 +45,16 @@ DLEXT=RbConfig::CONFIG['DLEXT']
 EXT_CONF='@abs_builddir@/ext/guestfs/extconf.rb'
 MAKEFILE='@builddir@/ext/guestfs/Makefile'
 GUESTFS_MODULE="@builddir@/ext/guestfs/_guestfs.#{DLEXT}"
-GUESTFS_SRC='@srcdir@/ext/guestfs/_guestfs.c'
+GUESTFS_SRCS=[ '@srcdir@/ext/guestfs/handle.c',
+               '@srcdir@/ext/guestfs/module.c',
+               '@srcdir@/ext/guestfs/actions.h',
+               '@srcdir@/ext/guestfs/actions-0.c',
+               '@srcdir@/ext/guestfs/actions-1.c',
+               '@srcdir@/ext/guestfs/actions-2.c',
+               '@srcdir@/ext/guestfs/actions-3.c',
+               '@srcdir@/ext/guestfs/actions-4.c',
+               '@srcdir@/ext/guestfs/actions-5.c',
+               '@srcdir@/ext/guestfs/actions-6.c' ]
 
 CLEAN.include [ "@builddir@/ext/**/*.o", GUESTFS_MODULE,
                 "@builddir@/ext/**/depend" ]
@@ -61,7 +70,7 @@ file MAKEFILE => EXT_CONF do |t|
          break
      end
 end
-file GUESTFS_MODULE => [ MAKEFILE, GUESTFS_SRC ] do |t|
+file GUESTFS_MODULE => [ MAKEFILE ] + GUESTFS_SRCS do |t|
     Dir::chdir("@builddir@/ext/guestfs") do
          unless sh "make"
              $stderr.puts "make failed"
