@@ -204,6 +204,7 @@ Makefile.in
 /fish/cmds-gperf.c
 /fish/cmds-gperf.gperf
 /fish/completion.c
+/fish/entries-?.c
 /fish/event-names.c
 /fish/fish-cmds.h
 /fish/guestfish
@@ -216,6 +217,8 @@ Makefile.in
 /fish/prepopts.h
 /fish/rc_protocol.c
 /fish/rc_protocol.h
+/fish/run-?.c
+/fish/run.h
 /fish/stamp-guestfish.pod
 /fish/stamp-libguestfs-tools.conf.pod
 /fish/stamp-virt-copy-in.pod

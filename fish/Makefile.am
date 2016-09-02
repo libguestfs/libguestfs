@@ -23,13 +23,28 @@ generator_built = \
 	cmds.c \
 	cmds-gperf.gperf \
 	completion.c \
+	entries-0.c \
+	entries-1.c \
+	entries-2.c \
+	entries-3.c \
+	entries-4.c \
+	entries-5.c \
+	entries-6.c \
 	event-names.c \
 	fish-cmds.h \
 	guestfish-actions.pod \
 	guestfish-commands.pod \
 	guestfish-prepopts.pod \
 	prepopts.h \
-	prepopts.c
+	prepopts.c \
+	run-0.c \
+	run-1.c \
+	run-2.c \
+	run-3.c \
+	run-4.c \
+	run-5.c \
+	run-6.c \
+	run.h
 
 BUILT_SOURCES = \
 	$(generator_built) \

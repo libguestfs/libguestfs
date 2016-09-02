@@ -146,6 +146,13 @@ fish/display.c
 fish/domain.c
 fish/echo.c
 fish/edit.c
+fish/entries-0.c
+fish/entries-1.c
+fish/entries-2.c
+fish/entries-3.c
+fish/entries-4.c
+fish/entries-5.c
+fish/entries-6.c
 fish/event-names.c
 fish/events.c
 fish/file-edit.c
@@ -169,6 +176,13 @@ fish/prepopts.c
 fish/progress.c
 fish/rc.c
 fish/reopen.c
+fish/run-0.c
+fish/run-1.c
+fish/run-2.c
+fish/run-3.c
+fish/run-4.c
+fish/run-5.c
+fish/run-6.c
 fish/setenv.c
 fish/supported.c
 fish/tilde.c
