@@ -583,7 +583,7 @@ PREINIT:
       );
 
       pr "\n"
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 and generate_perl_struct_list_code typ cols name style n =
   pr "      if (r == NULL)\n";
@@ -923,7 +923,7 @@ C<$g-E<gt>feature-available>.\n\n" opt
           pr "=pod\n";
           pr "\n";
       ) non_c_aliases
-  ) documented_functions_sorted;
+  ) (actions |> documented_functions |> sort);
 
   pr "=cut\n\n";
 
@@ -989,7 +989,7 @@ C<$g-E<gt>feature-available>.\n\n" opt
       pr "    name => \"%s\",\n" name;
       pr "    description => %S,\n" shortdesc;
       pr "  },\n";
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
   pr ");\n\n";
 
   pr "# Add aliases to the introspection hash.\n";
@@ -1002,7 +1002,7 @@ C<$g-E<gt>feature-available>.\n\n" opt
           pr "$guestfs_introspection{%s} = \\%%ielem%d;\n" alias !i;
           incr i
       ) non_c_aliases
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
   pr "\n";
 
   (* End of file. *)

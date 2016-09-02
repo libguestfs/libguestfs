@@ -40,7 +40,7 @@ let optgroups =
       let fns = try Hashtbl.find h group with Not_found -> [] in
       Hashtbl.replace h group (fn :: fns)
     | _ -> ()
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
   let groups = Hashtbl.fold (fun k _ ks -> k :: ks) h [] in
   let groups =
     List.map (

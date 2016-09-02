@@ -52,7 +52,7 @@ let rec generate_erlang_erl () =
       in
       export name;
       List.iter export aliases
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "\n";
 
@@ -180,7 +180,7 @@ loop(Port) ->
       ) aliases;
 
       pr "\n"
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 and generate_erlang_c () =
   generate_header CStyle GPLv2plus;
@@ -286,7 +286,7 @@ extern int64_t get_int64 (ETERM *term);
         (* generate the function for typ *)
         emit_copy_list_function typ
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by external_functions);
+  ) (rstructs_used_by (actions |> external_functions));
 
   (* The wrapper functions. *)
   List.iter (
@@ -459,7 +459,7 @@ extern int64_t get_int64 (ETERM *term);
 
       pr "}\n";
       pr "\n";
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "\
 
@@ -478,7 +478,7 @@ dispatch (ETERM *message)
       pr "if (atom_equals (fun, \"%s\"))\n" name;
       pr "    return run_%s (message);\n" name;
       pr "  else ";
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "return unknown_function (fun);
 }

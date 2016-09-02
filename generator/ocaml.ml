@@ -222,7 +222,7 @@ end
       ) non_c_aliases;
 
       pr "\n";
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "\
 (** {2 Object-oriented API}
@@ -288,7 +288,7 @@ class guestfs : ?environment:bool -> ?close_on_exit:bool -> unit -> object
             pr "\n"
         )
       ) non_c_aliases
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "end\n"
 
@@ -364,7 +364,7 @@ let () =
     fun { name = name; style = style; non_c_aliases = non_c_aliases } ->
       generate_ocaml_prototype ~is_external:true name style;
       List.iter (fun alias -> pr "let %s = %s\n" alias name) non_c_aliases
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   (* OO API. *)
   pr "
@@ -392,7 +392,7 @@ class guestfs ?environment ?close_on_exit () =
       );
       List.iter
         (fun alias -> pr "    method %s = self#%s\n" alias name) non_c_aliases
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "  end\n"
 
@@ -528,7 +528,7 @@ copy_table (char * const * argv)
         (* generate the function for typ *)
         emit_ocaml_copy_list_function typ
     | typ, _ -> () (* empty *)
-  ) (rstructs_used_by external_functions);
+  ) (rstructs_used_by (actions |> external_functions));
 
   (* The wrappers. *)
   List.iter (
@@ -779,7 +779,7 @@ copy_table (char * const * argv)
         pr "}\n";
         pr "\n"
       )
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 (* Generate the OCaml bindings C errnos. *)
 and generate_ocaml_c_errnos () =

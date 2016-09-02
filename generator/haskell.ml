@@ -62,7 +62,7 @@ module Guestfs (
   List.iter (
     fun { name = name; style = style } ->
       if can_generate style then pr ",\n  %s" name
-  ) external_functions_sorted;
+  ) (actions |> external_functions |> sort);
 
   pr "
   ) where
@@ -211,7 +211,7 @@ assocListOfHashtable (a:b:rest) = (a,b) : assocListOfHashtable rest
         );
         pr "\n";
       )
-  ) external_functions_sorted
+  ) (actions |> external_functions |> sort)
 
 and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
   pr "%s -> " handle;

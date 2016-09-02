@@ -52,10 +52,10 @@ let is_public { visibility = v } = match v with
 let is_private f = not (is_public f)
 
 let public_functions_sorted =
-  List.filter is_public all_functions_sorted
+  List.filter is_public (actions |> sort)
 
 let private_functions_sorted =
-  List.filter is_private all_functions_sorted
+  List.filter is_private (actions |> sort)
 
 (* Generate a C function prototype. *)
 let rec generate_prototype ?(extern = true) ?(static = false)
@@ -218,7 +218,7 @@ and generate_actions_pod () =
     | ({ once_had_no_optargs = true } as f) ->
       generate_actions_pod_back_compat_entry f;
       generate_actions_pod_entry f
-  ) documented_functions_sorted
+  ) (actions |> documented_functions |> sort)
 
 and generate_actions_pod_entry ({ c_name = c_name;
                                   style = ret, args, optargs as style } as f) =
@@ -795,7 +795,7 @@ and generate_internal_actions_h () =
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         ~prefix:"guestfs_impl_" ~optarg_proto:Argv
         c_name style
-  ) non_daemon_functions;
+  ) (actions |> non_daemon_functions);
 
   pr "\n";
   pr "#endif /* GUESTFS_INTERNAL_ACTIONS_H_ */\n"
@@ -1785,7 +1785,7 @@ and generate_client_actions hash () =
       if hash_matches hash f then generate_non_daemon_wrapper f
     | { wrapper = false } ->
       () (* no wrapper *)
-  ) non_daemon_functions;
+  ) (actions |> non_daemon_functions);
 
   (* Client-side stubs for each function. *)
   let generate_daemon_stub { name = name; c_name = c_name;
@@ -2083,7 +2083,7 @@ and generate_client_actions hash () =
   List.iter (
     fun f ->
       if hash_matches hash f then generate_daemon_stub f
-  ) daemon_functions
+  ) (actions |> daemon_functions)
 
 (* Functions which have optional arguments have two or three
  * generated variants.
@@ -2231,7 +2231,7 @@ and generate_client_actions_variants () =
     | ({ style = _, _, (_::_); once_had_no_optargs = true } as f) ->
       generate_va_variants f;
       generate_back_compat_wrapper f
-  ) all_functions_sorted
+  ) (actions |> sort)
 
 (* Code for turning events and event bitmasks into printable strings. *)
 and generate_event_string_c () =
@@ -2347,7 +2347,7 @@ and generate_linker_script () =
              "guestfs_" ^ c_name;
              "guestfs_" ^ c_name ^ "_va";
              "guestfs_" ^ c_name ^ "_argv"]
-      ) all_functions
+      ) actions
     ) in
   let struct_frees =
     List.concat (

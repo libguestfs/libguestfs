@@ -169,7 +169,7 @@ let generate_xdr () =
            pr "  opaque %s<>;\n" n;
            pr "};\n\n"
       );
-  ) daemon_functions;
+  ) (actions |> daemon_functions);
 
   pr "/* Table of procedure numbers. */\n";
   pr "enum guestfs_procedure {\n";
@@ -182,7 +182,7 @@ let generate_xdr () =
       pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr;
       loop rest
   in
-  loop daemon_functions;
+  loop (actions |> daemon_functions);
   pr "};\n";
   pr "\n";
 
