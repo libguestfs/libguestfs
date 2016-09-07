@@ -94,6 +94,7 @@ let generate_fish_run_cmds actions () =
   pr "\n";
   pr "#include \"full-write.h\"\n";
   pr "#include \"xstrtol.h\"\n";
+  pr "#include \"getprogname.h\"\n";
   pr "\n";
   pr "#include \"guestfs.h\"\n";
   pr "#include \"guestfs-internal-frontend.h\"\n";
@@ -287,7 +288,7 @@ let generate_fish_run_cmds actions () =
             pr "    case -1:\n";
             pr "      fprintf (stderr,\n";
             pr "               _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
-            pr "               guestfs_int_program_name, argv[i-1]);\n";
+            pr "               getprogname (), argv[i-1]);\n";
             pr "      goto out_%s;\n" name;
             pr "    case 0:  %s = 0; break;\n" name;
             pr "    default: %s = 1;\n" name;
@@ -330,7 +331,7 @@ let generate_fish_run_cmds actions () =
                  pr "        case -1:\n";
                  pr "          fprintf (stderr,\n";
                  pr "                   _(\"%%s: '%%s': invalid boolean value, use 'true' or 'false'\\n\"),\n";
-                 pr "                   guestfs_int_program_name, &argv[i][%d]);\n" (len+1);
+                 pr "                   getprogname (), &argv[i][%d]);\n" (len+1);
                  pr "          goto out;\n";
                  pr "        case 0:  optargs_s.%s = 0; break;\n" n;
                  pr "        default: optargs_s.%s = 1;\n" n;

@@ -44,6 +44,7 @@
 #endif
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -298,7 +299,7 @@ static void
 thread_failure (const char *fn, int err)
 {
   fprintf (stderr, "%s: %s: %s\n",
-           guestfs_int_program_name, fn, strerror (err));
+           getprogname (), fn, strerror (err));
 }
 
 #endif /* HAVE_LIBVIRT */

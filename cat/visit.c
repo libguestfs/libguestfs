@@ -33,6 +33,8 @@
 #include <assert.h>
 #include <libintl.h>
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
@@ -128,7 +130,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
 
     if (xattrs->val[xattrp].attrval_len == 0) {
       fprintf (stderr, _("%s: error getting extended attrs for %s %s\n"),
-               guestfs_int_program_name, dir, names[i]);
+               getprogname (), dir, names[i]);
       return -1;
     }
     /* attrval is not \0-terminated. */
@@ -142,7 +144,7 @@ _visit (guestfs_h *g, int depth, const char *dir,
     attrval[xattrs->val[xattrp].attrval_len] = '\0';
     if (sscanf (attrval, "%zu", &nr_xattrs) != 1) {
       fprintf (stderr, _("%s: error: cannot parse xattr count for %s %s\n"),
-               guestfs_int_program_name, dir, names[i]);
+               getprogname (), dir, names[i]);
       return -1;
     }
 

@@ -77,6 +77,7 @@
 /getlogin_r.m4
 /getopt.m4
 /getpagesize.m4
+/getprogname.m4
 /gettime.m4
 /gettimeofday.m4
 /getugroups.m4

@@ -31,6 +31,7 @@
 #include <assert.h>
 
 #include "xstrtol.h"
+#include "getprogname.h"
 
 #include <caml/alloc.h>
 #include <caml/fail.h>
@@ -70,7 +71,7 @@ static void __attribute__((noreturn))
 show_error (int status)
 {
   fprintf (stderr, _("Try `%s --help' or consult %s(1) for more information.\n"),
-           guestfs_int_program_name, guestfs_int_program_name);
+           getprogname (), getprogname ());
   exit (status);
 }
 
@@ -189,13 +190,13 @@ strtoint (const char *arg)
 
   if (xstrtol (arg, NULL, 0, &num, "") != LONGINT_OK) {
     fprintf (stderr, _("%s: '%s' is not a numeric value.\n"),
-             guestfs_int_program_name, arg);
+             getprogname (), arg);
     show_error (EXIT_FAILURE);
   }
 
   if (num < -(1<<30) || num > (1<<30)-1) {
     fprintf (stderr, _("%s: %s: integer out of range\n"),
-             guestfs_int_program_name, arg);
+             getprogname (), arg);
     show_error (EXIT_FAILURE);
   }
 
@@ -375,10 +376,10 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
       if (!list_mem (v, optarg)) {
         if (c != 0) {
           fprintf (stderr, _("%s: '%s' is not allowed for -%c; allowed values are:\n"),
-                   guestfs_int_program_name, optarg, c);
+                   getprogname (), optarg, c);
         } else {
           fprintf (stderr, _("%s: '%s' is not allowed for %s%s; allowed values are:\n"),
-                   guestfs_int_program_name, optarg,
+                   getprogname (), optarg,
                    vector_has_dashdash_opt (specv, longopts[option_index].name) ? "--" : "-",
                    longopts[option_index].name);
         }

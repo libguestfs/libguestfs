@@ -76,6 +76,7 @@
 #pragma GCC diagnostic pop
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #include "p2v.h"
 
@@ -275,7 +276,7 @@ create_connection_dialog (struct config *config)
   char port_str[64];
 
   conn_dlg = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (conn_dlg), guestfs_int_program_name);
+  gtk_window_set_title (GTK_WINDOW (conn_dlg), getprogname ());
   gtk_window_set_resizable (GTK_WINDOW (conn_dlg), FALSE);
 
   /* The main dialog area. */
@@ -683,7 +684,7 @@ static void
 about_button_clicked (GtkWidget *w, gpointer data)
 {
   gtk_show_about_dialog (GTK_WINDOW (conn_dlg),
-                         "program-name", guestfs_int_program_name,
+                         "program-name", getprogname (),
                          "version", PACKAGE_VERSION_FULL " (" host_cpu ")",
                          "copyright", "\u00A9 2009-2016 Red Hat Inc.",
                          "comments",
@@ -766,7 +767,7 @@ create_conversion_dialog (struct config *config)
   char memory_str[64];
 
   conv_dlg = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (conv_dlg), guestfs_int_program_name);
+  gtk_window_set_title (GTK_WINDOW (conv_dlg), getprogname ());
   gtk_window_set_resizable (GTK_WINDOW (conv_dlg), FALSE);
   /* XXX It would be nice not to have to set this explicitly, but
    * if we don't then Gtk chooses a very small window.
@@ -1639,7 +1640,7 @@ create_running_dialog (void)
   GtkTextBuffer *buf;
 
   run_dlg = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (run_dlg), guestfs_int_program_name);
+  gtk_window_set_title (GTK_WINDOW (run_dlg), getprogname ());
   gtk_window_set_resizable (GTK_WINDOW (run_dlg), FALSE);
 
   /* The main dialog area. */
@@ -2157,7 +2158,7 @@ notify_ui_callback (int type, const char *data)
   default:
     fprintf (stderr,
              "%s: unknown message during conversion: type=%d data=%s\n",
-             guestfs_int_program_name, type, data);
+             getprogname (), type, data);
     free (copy);
   }
 }

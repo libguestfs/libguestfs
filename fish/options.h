@@ -215,7 +215,7 @@ extern void free_mps (struct mp *mp);
 #define OPTION_V                                                        \
   {                                                                     \
     printf ("%s %s\n",                                                  \
-            guestfs_int_program_name,                                   \
+            getprogname (),                                             \
             PACKAGE_VERSION_FULL);                                      \
     exit (EXIT_SUCCESS);                                                \
   }
@@ -223,7 +223,7 @@ extern void free_mps (struct mp *mp);
 #define OPTION_w                                                        \
   if (read_only) {                                                      \
     fprintf (stderr, _("%s: cannot mix --ro and --rw options\n"),       \
-             guestfs_int_program_name);                                 \
+             getprogname ());                                           \
     exit (EXIT_FAILURE);                                                \
   }
 
@@ -235,7 +235,7 @@ extern void free_mps (struct mp *mp);
     if (!format_consumed) {                                             \
       fprintf (stderr,                                                  \
                _("%s: --format parameter must appear before -a parameter\n"), \
-               guestfs_int_program_name);                               \
+               getprogname ());                                         \
       exit (EXIT_FAILURE);                                              \
     }                                                                   \
   } while (0)

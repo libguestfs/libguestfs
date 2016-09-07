@@ -37,6 +37,8 @@
 #include <libxml/tree.h>
 #include <libxml/xmlsave.h>
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "options.h"
 #include "display-options.h"
@@ -69,7 +71,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: display information about a virtual machine\n"
               "Copyright (C) 2010 Red Hat Inc.\n"
@@ -91,8 +93,8 @@ usage (int status)
               "  -x                   Trace libguestfs API calls\n"
               "  --xpath query        Perform an XPath query\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname ());
   }
   exit (status);
 }
@@ -238,7 +240,7 @@ main (int argc, char *argv[])
     fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
              "Make sure to specify the argument for --format "
              "like '--format=%s'.\n"),
-             guestfs_int_program_name, argv[optind], argv[optind]);
+             getprogname (), argv[optind], argv[optind]);
     usage (EXIT_FAILURE);
   }
 
@@ -260,7 +262,7 @@ main (int argc, char *argv[])
   /* User must have specified some drives. */
   if (drvs == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 

@@ -42,6 +42,7 @@
 #include "estimate-max-threads.h"
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #define TOTAL_TIME 60           /* Seconds, excluding launch. */
 #define DEBUG 1                 /* Print overview debugging messages. */
@@ -96,13 +97,13 @@ main (int argc, char *argv[])
   skip = getenv ("SKIP_TEST_PARALLEL_MOUNT_LOCAL");
   if (skip && guestfs_int_is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs_int_program_name);
+             getprogname ());
     exit (77);
   }
 
   if (access ("/dev/fuse", W_OK) == -1) {
     fprintf (stderr, "%s: test skipped because /dev/fuse is not writable.\n",
-             guestfs_int_program_name);
+             getprogname ());
     exit (77);
   }
 

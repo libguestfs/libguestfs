@@ -33,6 +33,7 @@
 
 #include "c-ctype.h"
 #include "human.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 #include "options.h"
@@ -87,7 +88,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: list filesystems, partitions, block devices, LVM in a VM\n"
               "Copyright (C) 2010 Red Hat Inc.\n"
@@ -123,8 +124,8 @@ usage (int status)
               "                       Display LVM volume groups\n"
               "  -x                   Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname ());
   }
   exit (status);
 }
@@ -296,7 +297,7 @@ main (int argc, char *argv[])
     fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
              "Make sure to specify the argument for --format "
              "like '--format=%s'.\n"),
-             guestfs_int_program_name, argv[optind], argv[optind]);
+             getprogname (), argv[optind], argv[optind]);
     usage (EXIT_FAILURE);
   }
 
@@ -337,7 +338,7 @@ main (int argc, char *argv[])
   /* User must have specified some drives. */
   if (drvs == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 
@@ -486,7 +487,7 @@ do_output_filesystems (void)
       if (subvolume == NULL && guestfs_last_errno (g) != EINVAL) {
         fprintf (stderr,
                  _("%s: cannot determine the subvolume for %s: %s: %s\n"),
-                guestfs_int_program_name, fses[i],
+                getprogname (), fses[i],
                 guestfs_last_error (g),
                 strerror (guestfs_last_errno (g)));
         exit (EXIT_FAILURE);

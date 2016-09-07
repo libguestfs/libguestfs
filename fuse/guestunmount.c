@@ -38,6 +38,7 @@
 #include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #include "display-options.h"
 
@@ -53,7 +54,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: clean up a mounted filesystem\n"
               "Copyright (C) 2013 Red Hat Inc.\n"
@@ -68,7 +69,7 @@ usage (int status)
               "  -v|--verbose         Verbose messages\n"
               "  -V|--version         Display version and exit\n"
               ),
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname ());
   }
   exit (status);
 }
@@ -204,7 +205,7 @@ main (int argc, char *argv[])
   /* fusermount failed after N retries */
   if (!quiet) {
     fprintf (stderr, _("%s: failed to unmount %s: %s\n"),
-             guestfs_int_program_name, mountpoint, error_str);
+             getprogname (), mountpoint, error_str);
     do_fuser (mountpoint);
   }
   free (error_str);
@@ -215,7 +216,7 @@ main (int argc, char *argv[])
  not_mounted:
   if (!quiet)
     fprintf (stderr, _("%s: %s is not mounted: %s\n"),
-             guestfs_int_program_name, mountpoint, error_str);
+             getprogname (), mountpoint, error_str);
 
   free (error_str);
 
@@ -240,7 +241,7 @@ do_fusermount (const char *mountpoint, char **error_rtn)
 
   if (verbose)
     fprintf (stderr, "%s: running: fusermount -u %s\n",
-             guestfs_int_program_name, mountpoint);
+             getprogname (), mountpoint);
 
   pid = fork ();
   if (pid == -1)
@@ -315,7 +316,7 @@ do_fusermount (const char *mountpoint, char **error_rtn)
 
   if (verbose)
     fprintf (stderr, "%s: fusermount successful\n",
-             guestfs_int_program_name);
+             getprogname ());
 
   free (buf);
   return 0;                     /* fusermount successful */

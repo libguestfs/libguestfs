@@ -33,6 +33,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+#include "getprogname.h"
+
 static const char ourenvvar[] = "SKIP_TEST_CHARSET_FIDELITY";
 
 struct filesystem {
@@ -83,7 +85,7 @@ main (int argc, char *argv[])
   str = getenv (ourenvvar);
   if (str && guestfs_int_is_true (str) > 0) {
     printf ("%s: test skipped because environment variable is set.\n",
-            guestfs_int_program_name);
+            getprogname ());
     exit (77);
   }
 

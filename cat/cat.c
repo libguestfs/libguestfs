@@ -30,6 +30,8 @@
 #include <assert.h>
 #include <libintl.h>
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "options.h"
 #include "display-options.h"
@@ -53,7 +55,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: display files in a virtual machine\n"
               "Copyright (C) 2010 Red Hat Inc.\n"
@@ -74,8 +76,8 @@ usage (int status)
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname ());
   }
   exit (status);
 }
@@ -227,7 +229,7 @@ main (int argc, char *argv[])
   /* User must have specified some drives. */
   if (drvs == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 

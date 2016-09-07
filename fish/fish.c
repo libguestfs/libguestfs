@@ -54,6 +54,7 @@
 #include "c-ctype.h"
 #include "closeout.h"
 #include "ignore-value.h"
+#include "getprogname.h"
 
 /* Return from parse_command_line.  See description below. */
 struct parsed_command {
@@ -110,7 +111,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: guest filesystem shell\n"
               "%s lets you edit virtual machine filesystems\n"
@@ -159,10 +160,10 @@ usage (int status)
               "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
               "\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname (),
+            getprogname (), getprogname (),
+            getprogname ());
   }
   exit (status);
 }
@@ -311,7 +312,7 @@ main (int argc, char *argv[])
 
     case 'D':
       fprintf (stderr, _("%s: warning: -D option is deprecated, use --no-dest-paths instead\n"),
-               guestfs_int_program_name);
+               getprogname ());
       complete_dest_paths = 0;
       break;
 
@@ -854,7 +855,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
       if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
         fprintf (stderr,
                  _("%s: command arguments not separated by whitespace\n"),
-                 guestfs_int_program_name);
+                 getprogname ());
         pcmd.status = -1;
         return pcmd;
       }
@@ -863,14 +864,14 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
       p++;
       len = strcspn (p, "'");
       if (p[len] == '\0') {
-        fprintf (stderr, _("%s: unterminated single quote\n"), guestfs_int_program_name);
+        fprintf (stderr, _("%s: unterminated single quote\n"), getprogname ());
         pcmd.status = -1;
         return pcmd;
       }
       if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
         fprintf (stderr,
                  _("%s: command arguments not separated by whitespace\n"),
-                 guestfs_int_program_name);
+                 getprogname ());
         pcmd.status = -1;
         return pcmd;
       }
@@ -894,7 +895,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
         pend = &p[len];
     } else {
       fprintf (stderr, _("%s: internal error parsing string at '%s'\n"),
-               guestfs_int_program_name, p);
+               getprogname (), p);
       abort ();
     }
 
@@ -910,7 +911,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
   }
 
   if (i == argv_len) {
-    fprintf (stderr, _("%s: too many arguments\n"), guestfs_int_program_name);
+    fprintf (stderr, _("%s: too many arguments\n"), getprogname ());
     pcmd.status = -1;
     return pcmd;
   }
@@ -987,7 +988,7 @@ parse_quoted_string (char *p)
       default:
       error:
         fprintf (stderr, _("%s: invalid escape sequence in string (starting at offset %d)\n"),
-                 guestfs_int_program_name, (int) (p - start));
+                 getprogname (), (int) (p - start));
         return -1;
       }
       memmove (p+1, p+1+m, strlen (p+1+m) + 1);
@@ -995,7 +996,7 @@ parse_quoted_string (char *p)
   }
 
   if (!*p) {
-    fprintf (stderr, _("%s: unterminated double quote\n"), guestfs_int_program_name);
+    fprintf (stderr, _("%s: unterminated double quote\n"), getprogname ());
     return -1;
   }
 
@@ -1190,7 +1191,7 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd,
   }
   if (ferror (stdout)) {
     if (!pipecmd || pipe_error) {
-      fprintf (stderr, "%s: write error%s\n", guestfs_int_program_name,
+      fprintf (stderr, "%s: write error%s\n", getprogname (),
                pipecmd ? " on pipe" : "");
       r = -1;
     }
@@ -1736,13 +1737,13 @@ win_prefix_drive_letter (char drive_letter, const char *path)
     return NULL;
   if (roots[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, you must inspect the guest (\"-i\" option or run \"inspect-os\" command)\n"),
-             guestfs_int_program_name);
+             getprogname ());
     return NULL;
   }
   drives = guestfs_inspect_get_drive_mappings (g, roots[0]);
   if (drives == NULL || drives[0] == NULL) {
     fprintf (stderr, _("%s: to use Windows drive letters, this must be a Windows guest\n"),
-             guestfs_int_program_name);
+             getprogname ());
     return NULL;
   }
 
@@ -1756,7 +1757,7 @@ win_prefix_drive_letter (char drive_letter, const char *path)
 
   if (device == NULL) {
     fprintf (stderr, _("%s: drive '%c:' not found.  To list available drives do:\n  inspect-get-drive-mappings %s\n"),
-             guestfs_int_program_name, drive_letter, roots[0]);
+             getprogname (), drive_letter, roots[0]);
     return NULL;
   }
 
@@ -1775,7 +1776,7 @@ win_prefix_drive_letter (char drive_letter, const char *path)
 
   if (mountpoint == NULL) {
     fprintf (stderr, _("%s: to access '%c:', mount %s first.  One way to do this is:\n  umount-all\n  mount %s /\n"),
-             guestfs_int_program_name, drive_letter, device, device);
+             getprogname (), drive_letter, device, device);
     return NULL;
   }
 
@@ -1814,7 +1815,7 @@ file_in (const char *arg)
     const char *endmarker = &arg[3];
     if (*endmarker == '\0') {
       fprintf (stderr, "%s: missing end marker in -<< expression\n",
-               guestfs_int_program_name);
+               getprogname ());
       return NULL;
     }
     ret = file_in_heredoc (endmarker);
@@ -1885,7 +1886,7 @@ file_in_heredoc (const char *endmarker)
    * is likely to be an error.
    */
   fprintf (stderr, "%s: end of input reached without finding '%s'\n",
-           guestfs_int_program_name, endmarker);
+           getprogname (), endmarker);
   goto error2;
 
  found_end:

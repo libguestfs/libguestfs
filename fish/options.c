@@ -39,6 +39,8 @@
 #include <error.h>
 #include <libintl.h>
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "options.h"
 #include "uri.h"
@@ -276,15 +278,15 @@ display_mountpoints_on_failure (const char *mp_device,
     return;
 
   fprintf (stderr, _("%s: '%s' could not be mounted.\n"),
-           guestfs_int_program_name, mp_device);
+           getprogname (), mp_device);
 
   if (user_supplied_options)
     fprintf (stderr, _("%s: Check mount(8) man page to ensure options '%s'\n"
                        "%s: are supported by the filesystem that is being mounted.\n"),
-             guestfs_int_program_name, user_supplied_options, guestfs_int_program_name);
+             getprogname (), user_supplied_options, getprogname ());
 
   fprintf (stderr, _("%s: Did you mean to mount one of these filesystems?\n"),
-           guestfs_int_program_name);
+           getprogname ());
 
   for (i = 0; fses[i] != NULL; i += 2) {
     CLEANUP_FREE char *p = NULL;
@@ -309,7 +311,7 @@ display_mountpoints_on_failure (const char *mp_device,
       p = guestfs_canonical_device_name (g, fses[i]);
     }
 
-    fprintf (stderr, "%s: \t%s (%s)\n", guestfs_int_program_name,
+    fprintf (stderr, "%s: \t%s (%s)\n", getprogname (),
              p ? p : fses[i], fses[i+1]);
   }
 }

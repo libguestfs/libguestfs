@@ -33,6 +33,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+#include "getprogname.h"
+
 int
 main (int argc, char *argv[])
 {
@@ -44,7 +46,7 @@ main (int argc, char *argv[])
   str = getenv ("SKIP_TEST_RHBZ914931");
   if (str && guestfs_int_is_true (str) > 0) {
     printf ("%s: test skipped because environment variable is set.\n",
-            guestfs_int_program_name);
+            getprogname ());
     exit (77);
   }
 

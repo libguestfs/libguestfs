@@ -36,6 +36,8 @@
 #include <libvirt/virterror.h>
 #endif
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "options.h"
 #include "display-options.h"
@@ -66,7 +68,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: display free space on virtual filesystems\n"
               "Copyright (C) 2010 Red Hat Inc.\n"
@@ -89,8 +91,8 @@ usage (int status)
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname ());
   }
   exit (status);
 }

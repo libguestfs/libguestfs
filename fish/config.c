@@ -38,6 +38,8 @@
 #include <libconfig.h>
 #endif
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 
 #include "options.h"
@@ -62,7 +64,7 @@ read_config_from_file (const char *filename)
     /*
     if (verbose)
       fprintf (stderr, "%s: reading configuration from %s\n",
-               guestfs_int_program_name, filename);
+               getprogname (), filename);
     */
 
     if (config_read (&conf, fp) == CONFIG_FALSE)
@@ -155,7 +157,7 @@ parse_config (void)
   if (verbose)
     fprintf (stderr,
              _("%s: compiled without libconfig, guestfish configuration file ignored\n"),
-             guestfs_int_program_name);
+             getprogname ());
   */
 }
 

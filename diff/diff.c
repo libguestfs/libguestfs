@@ -36,6 +36,7 @@
 
 #include "c-ctype.h"
 #include "human.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 
@@ -93,7 +94,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: list differences between virtual machines\n"
               "Copyright (C) 2010-2016 Red Hat Inc.\n"
@@ -128,8 +129,8 @@ usage (int status)
               "  -x                   Trace libguestfs API calls\n"
               "  --xattrs             Display extended attributes\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname ());
   }
   exit (status);
 }
@@ -316,12 +317,12 @@ main (int argc, char *argv[])
 
   if (drvs == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
   if (drvs2 == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -A or -D option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 
@@ -335,7 +336,7 @@ main (int argc, char *argv[])
     fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
              "Make sure to specify the argument for --checksum or --format "
              "like '--format=%s'.\n"),
-             guestfs_int_program_name, argv[optind], argv[optind]);
+             getprogname (), argv[optind], argv[optind]);
     usage (EXIT_FAILURE);
   }
 
@@ -734,7 +735,7 @@ diff (struct file *file1, guestfs_h *g1, struct file *file2, guestfs_h *g2)
     fprintf (stderr, "%s\n", cmd);
   r = system (cmd);
   if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
-    fprintf (stderr, _("%s: external diff command failed\n"), guestfs_int_program_name);
+    fprintf (stderr, _("%s: external diff command failed\n"), getprogname ());
     goto out;
   }
 

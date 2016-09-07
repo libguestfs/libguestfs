@@ -44,6 +44,7 @@
 #pragma GCC diagnostic pop
 
 #include "ignore-value.h"
+#include "getprogname.h"
 #include "p2v.h"
 
 char **all_disks;
@@ -84,7 +85,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: Convert a physical machine to use KVM\n"
               "Copyright (C) 2009-2016 Red Hat Inc.\n"
@@ -99,8 +100,8 @@ usage (int status)
               "  -v|--verbose           Verbose messages\n"
               "  -V|--version           Display version and exit\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname ());
   }
   exit (status);
 }
@@ -198,7 +199,7 @@ main (int argc, char *argv[])
       break;
 
     case 'V':
-      printf ("%s %s\n", guestfs_int_program_name, PACKAGE_VERSION_FULL);
+      printf ("%s %s\n", getprogname (), PACKAGE_VERSION_FULL);
       exit (EXIT_SUCCESS);
 
     case HELP_OPTION:
@@ -211,7 +212,7 @@ main (int argc, char *argv[])
 
   if (optind != argc) {
     fprintf (stderr, _("%s: unused arguments on the command line\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 

@@ -30,6 +30,7 @@
 
 #include <guestfs.h>
 
+#include "getprogname.h"
 #include "guestfs-internal-frontend.h"
 
 #include "index-struct.h"
@@ -40,7 +41,7 @@ extern int do_parse (struct parse_context *context, FILE *in);
 static void
 usage (int exit_status)
 {
-  printf ("%s index\n", guestfs_int_program_name);
+  printf ("%s index\n", getprogname ());
   exit (exit_status);
 }
 
@@ -90,7 +91,7 @@ main (int argc, char *argv[])
 
     case 'V':
       printf ("%s %s%s\n",
-              guestfs_int_program_name,
+              getprogname (),
               PACKAGE_VERSION, PACKAGE_VERSION_EXTRA);
       exit (EXIT_SUCCESS);
 
@@ -115,7 +116,7 @@ main (int argc, char *argv[])
 
   if (fclose (in) == EOF) {
     fprintf (stderr, _("%s: %s: error closing input file: %m (ignored)\n"),
-             guestfs_int_program_name, input);
+             getprogname (), input);
   }
 
   if (ret != 0) {

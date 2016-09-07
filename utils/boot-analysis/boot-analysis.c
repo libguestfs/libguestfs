@@ -45,6 +45,8 @@
 #include "boot-analysis.h"
 #include "boot-analysis-utils.h"
 
+#include "getprogname.h"
+
 /* Activities taking longer than this % of the total time, except
  * those flagged as LONG_ACTIVITY, are highlighted in red.
  */
@@ -167,13 +169,13 @@ main (int argc, char *argv[])
         break;
       }
       fprintf (stderr, "%s: unknown long option: %s (%d)\n",
-               guestfs_int_program_name, long_options[option_index].name, option_index);
+               getprogname (), long_options[option_index].name, option_index);
       exit (EXIT_FAILURE);
 
     case 'm':
       if (sscanf (optarg, "%d", &memsize) != 1) {
         fprintf (stderr, "%s: could not parse memsize parameter: %s\n",
-                 guestfs_int_program_name, optarg);
+                 getprogname (), optarg);
         exit (EXIT_FAILURE);
       }
       break;

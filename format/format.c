@@ -31,6 +31,8 @@
 #include <assert.h>
 #include <libintl.h>
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "options.h"
 #include "display-options.h"
@@ -65,7 +67,7 @@ usage (int status)
 
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n%s\n"),
-             guestfs_int_program_name, warning);
+             getprogname (), warning);
   else {
     printf (_("%s: erase and make a blank disk\n"
               "Copyright (C) 2012 Red Hat Inc.\n"
@@ -89,8 +91,8 @@ usage (int status)
               "For more information, see the manpage %s(1).\n"
               "\n"
               "%s\n\n"),
-            guestfs_int_program_name, warning,
-            guestfs_int_program_name, guestfs_int_program_name,
+            getprogname (), warning,
+            getprogname (), getprogname (),
             warning);
   }
   exit (status);
@@ -224,7 +226,7 @@ main (int argc, char *argv[])
     fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
              "Make sure to specify the argument for --format, --lvm "
              "or --partition like '--format=%s'.\n"),
-             guestfs_int_program_name, argv[optind], argv[optind]);
+             getprogname (), argv[optind], argv[optind]);
     usage (EXIT_FAILURE);
   }
 
@@ -233,7 +235,7 @@ main (int argc, char *argv[])
   /* The user didn't specify any drives to format. */
   if (drvs == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -a option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 

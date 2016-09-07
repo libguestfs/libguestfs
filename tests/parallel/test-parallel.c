@@ -38,6 +38,7 @@
 #include "guestfs-internal-frontend.h"
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #define TOTAL_TIME 600          /* Seconds, excluding launch. */
 #define NR_THREADS 5
@@ -79,7 +80,7 @@ main (int argc, char *argv[])
   slow = getenv ("SLOW");
   if (!slow || guestfs_int_is_true (slow) <= 0) {
     fprintf (stderr, "%s: use 'make check-slow' to run this test.\n",
-             guestfs_int_program_name);
+             getprogname ());
     exit (77);
   }
 
@@ -87,7 +88,7 @@ main (int argc, char *argv[])
   skip = getenv ("SKIP_TEST_PARALLEL");
   if (skip && guestfs_int_is_true (skip) > 0) {
     fprintf (stderr, "%s: test skipped because environment variable set.\n",
-             guestfs_int_program_name);
+             getprogname ());
     exit (77);
   }
 

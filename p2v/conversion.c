@@ -54,6 +54,7 @@
 #include <libxml/xmlwriter.h>
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #include "miniexpect.h"
 #include "p2v.h"
@@ -268,7 +269,7 @@ start_conversion (struct config *config,
 #if DEBUG_STDERR
     fprintf (stderr,
              "%s: data connection for %s: SSH remote port %d, local port %d\n",
-             guestfs_int_program_name, device,
+             getprogname (), device,
              data_conns[i].nbd_remote_port, data_conns[i].nbd_local_port);
 #endif
 

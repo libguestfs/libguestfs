@@ -35,6 +35,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#include "getprogname.h"
+
 #include "p2v.h"
 
 static void notify_ui_callback (int type, const char *data);
@@ -163,7 +165,7 @@ update_config_from_kernel_cmdline (struct config *config, char **cmdline)
       config->output_allocation = OUTPUT_ALLOCATION_PREALLOCATED;
     else
       fprintf (stderr, "%s: warning: don't know what p2v.oa=%s means\n",
-               guestfs_int_program_name, p);
+               getprogname (), p);
   }
 
   p = get_cmdline_key (cmdline, "p2v.oc");
@@ -230,7 +232,7 @@ kernel_conversion (struct config *config, char **cmdline, int cmdline_source)
     const char *err = get_conversion_error ();
 
     fprintf (stderr, "%s: error during conversion: %s\n",
-             guestfs_int_program_name, err);
+             getprogname (), err);
 
     p = get_cmdline_key (cmdline, "p2v.fail");
     if (p)
@@ -259,7 +261,7 @@ notify_ui_callback (int type, const char *data)
   switch (type) {
   case NOTIFY_LOG_DIR:
     ansi_magenta (stdout);
-    printf ("%s: remote log directory location: ", guestfs_int_program_name);
+    printf ("%s: remote log directory location: ", getprogname ());
     ansi_red (stdout);
     fputs (data, stdout);
     ansi_restore (stdout);
@@ -272,7 +274,7 @@ notify_ui_callback (int type, const char *data)
 
   case NOTIFY_STATUS:
     ansi_magenta (stdout);
-    printf ("%s: %s", guestfs_int_program_name, data);
+    printf ("%s: %s", getprogname (), data);
     ansi_restore (stdout);
     putchar ('\n');
     break;
@@ -280,7 +282,7 @@ notify_ui_callback (int type, const char *data)
   default:
     ansi_red (stdout);
     printf ("%s: unknown message during conversion: type=%d data=%s",
-            guestfs_int_program_name, type, data);
+            getprogname (), type, data);
     ansi_restore (stdout);
     putchar ('\n');
   }

@@ -129,17 +129,6 @@ extern void guestfs_int_cleanup_pclose (void *ptr);
  */
 #include "guestfs-internal-frontend-cleanups.h"
 
-/* Current program name.  Note <errno.h> must be included in all files
- * that want to use 'guestfs_int_program_name'.
- */
-#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
-#  define guestfs_int_program_name program_invocation_short_name
-#elif HAVE_GETPROGNAME
-#  define guestfs_int_program_name getprogname()
-#else
-#  define guestfs_int_program_name "libguestfs"
-#endif
-
 /* Close all file descriptors matching the condition. */
 #define close_file_descriptors(cond) do {                               \
     int max_fd = sysconf (_SC_OPEN_MAX);                                \
