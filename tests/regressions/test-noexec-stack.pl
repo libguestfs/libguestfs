@@ -18,6 +18,9 @@
 use strict;
 use warnings;
 
+# the output of readelf is parsed
+$ENV{LANG} = "C";
+
 if ($ENV{SKIP_TEST_NOEXEC_STACK_PL}) {
     print "$0: skipped test because environment variable is set\n";
     exit 77;
