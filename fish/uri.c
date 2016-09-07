@@ -34,6 +34,7 @@
 #include <libxml/uri.h>
 
 #include "c-ctype.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -116,7 +117,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   uri = xmlParseURI (arg);
   if (!uri) {
     fprintf (stderr, _("%s: --add: could not parse URI '%s'\n"),
-             guestfs_int_program_name, arg);
+             getprogname (), arg);
     return -1;
   }
 
@@ -127,7 +128,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
   if (uri->scheme == NULL || STREQ (uri->scheme, "")) {
     /* Probably can never happen. */
     fprintf (stderr, _("%s: %s: scheme of URI is NULL or empty\n"),
-             guestfs_int_program_name, arg);
+             getprogname (), arg);
     return -1;
   }
 
@@ -135,14 +136,14 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
 
   if (uri->server && STRNEQ (uri->server, "") && socket) {
     fprintf (stderr, _("%s: %s: cannot both a server name and a socket query parameter\n"),
-             guestfs_int_program_name, arg);
+             getprogname (), arg);
     return -1;
   }
 
   /* Is this needed? XXX
   if (socket && socket[0] != '/') {
     fprintf (stderr, _("%s: --add %s: socket query parameter must be an absolute path\n"),
-             guestfs_int_program_name, arg);
+             getprogname (), arg);
     return -1;
   }
   */

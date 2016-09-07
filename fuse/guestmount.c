@@ -39,6 +39,7 @@
 #include "guestfs.h"
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #include "options.h"
 #include "display-options.h"
@@ -88,7 +89,7 @@ static void __attribute__((noreturn))
 fuse_help (void)
 {
   static struct fuse_operations null_operations;
-  const char *tmp_argv[] = { guestfs_int_program_name, "--help", NULL };
+  const char *tmp_argv[] = { getprogname (), "--help", NULL };
   fuse_main (2, (char **) tmp_argv, &null_operations, NULL);
   exit (EXIT_SUCCESS);
 }
@@ -98,7 +99,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: FUSE module for libguestfs\n"
               "%s lets you mount a virtual machine filesystem\n"
@@ -130,8 +131,8 @@ usage (int status)
               "  -w|--rw              Mount read-write\n"
               "  -x|--trace           Trace guestfs API calls\n"
               ),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname ());
   }
   exit (status);
 }
@@ -313,12 +314,12 @@ main (int argc, char *argv[])
   if (!live) {
     if (drvs == NULL) {
       fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-               guestfs_int_program_name);
+               getprogname ());
       usage (EXIT_FAILURE);
     }
     if (!(mps || inspector)) {
       fprintf (stderr, _("%s: error: you must specify either -i at least one -m option.\n"),
-               guestfs_int_program_name);
+               getprogname ());
       usage (EXIT_FAILURE);
     }
   } else {

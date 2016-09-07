@@ -34,6 +34,7 @@
 #include "glthread/lock.h"
 #include "ignore-value.h"
 #include "c-ctype.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -120,15 +121,11 @@ guestfs_create_flags (unsigned flags, ...)
   if (!g->hv) goto error;
 
   /* Get program name. */
-#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME == 1
-  if (STRPREFIX (program_invocation_short_name, "lt-"))
+  if (STRPREFIX (getprogname (), "lt-"))
     /* Remove libtool (lt-*) prefix from short name. */
-    g->program = strdup (program_invocation_short_name + 3);
+    g->program = strdup (getprogname () + 3);
   else
-    g->program = strdup (program_invocation_short_name);
-#else
-  g->program = strdup ("");
-#endif
+    g->program = strdup (getprogname ());
   if (!g->program) goto error;
 
   g->identifier = strdup ("");

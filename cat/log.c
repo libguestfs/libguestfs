@@ -35,6 +35,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#include "getprogname.h"
+
 #include "guestfs.h"
 #include "options.h"
 #include "display-options.h"
@@ -62,7 +64,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             guestfs_int_program_name);
+             getprogname ());
   else {
     printf (_("%s: display log files in a virtual machine\n"
               "Copyright (C) 2010-2016 Red Hat Inc.\n"
@@ -81,8 +83,8 @@ usage (int status)
               "  -V|--version         Display version and exit\n"
               "  -x                   Trace libguestfs API calls\n"
               "For more information, see the manpage %s(1).\n"),
-            guestfs_int_program_name, guestfs_int_program_name,
-            guestfs_int_program_name, guestfs_int_program_name);
+            getprogname (), getprogname (),
+            getprogname (), getprogname ());
   }
   exit (status);
 }
@@ -189,7 +191,7 @@ main (int argc, char *argv[])
     fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
              "Make sure to specify the argument for --format "
              "like '--format=%s'.\n"),
-             guestfs_int_program_name, argv[optind], argv[optind]);
+             getprogname (), argv[optind], argv[optind]);
     usage (EXIT_FAILURE);
   }
 
@@ -198,7 +200,7 @@ main (int argc, char *argv[])
   /* User must have specified some drives. */
   if (drvs == NULL) {
     fprintf (stderr, _("%s: error: you must specify at least one -a or -d option.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     usage (EXIT_FAILURE);
   }
 
@@ -250,7 +252,7 @@ do_log (void)
 
     fprintf (stderr,
              _("%s: Windows Event Log for pre-Vista guests is not supported.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     return -1;
   }
 
@@ -358,7 +360,7 @@ do_log_journal (void)
       if (strftime (buf, sizeof buf, "%b %d %H:%M:%S",
                     localtime_r (&t, &tm)) <= 0) {
         fprintf (stderr, _("%s: could not format journal entry timestamp\n"),
-                 guestfs_int_program_name);
+                 getprogname ());
         errors++;
         continue;
       }
@@ -427,7 +429,7 @@ do_log_windows_evtx (void)
                        "in order to parse Windows Event Logs.  If you cannot install this, then\n"
                        "use virt-copy-out(1) to copy the contents of /Windows/System32/winevt/Logs\n"
                        "from this guest, and examine in a binary file viewer.\n"),
-             guestfs_int_program_name);
+             getprogname ());
     return -1;
   }
 
@@ -443,7 +445,7 @@ do_log_windows_evtx (void)
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1,
                             -1) <= 0) {
     fprintf (stderr, _("%s: Windows Event Log file (%s) not found\n"),
-             guestfs_int_program_name, filename);
+             getprogname (), filename);
     return -1;
   }
 
@@ -475,7 +477,7 @@ do_log_windows_evtx (void)
   if (status) {
     char buf[256];
     fprintf (stderr, "%s: %s\n",
-             guestfs_int_program_name,
+             getprogname (),
              guestfs_int_exit_status_to_string (status, "evtxdump.py",
                                                 buf, sizeof buf));
     return -1;

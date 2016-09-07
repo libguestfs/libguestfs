@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 
 #include "ignore-value.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -109,7 +110,7 @@ main (int argc, char *argv[])
   }
   if (r == 0) {
     fprintf (stderr, "%s: unexpected end of file on pipe fd.\n",
-             guestfs_int_program_name);
+             getprogname ());
     ignore_value (rmdir (MOUNTPOINT));
     exit (EXIT_FAILURE);
   }
@@ -117,7 +118,7 @@ main (int argc, char *argv[])
   /* Check that the test image was mounted. */
   if (access (TEST_FILE, R_OK) == -1) {
     fprintf (stderr, "%s: test failed because test image is not mounted and ready.",
-             guestfs_int_program_name);
+             getprogname ());
     ignore_value (rmdir (MOUNTPOINT));
     exit (EXIT_FAILURE);
   }
@@ -127,7 +128,7 @@ main (int argc, char *argv[])
   if (r != 0) {
     char status_string[80];
 
-    fprintf (stderr, "%s: test failed: %s\n", guestfs_int_program_name,
+    fprintf (stderr, "%s: test failed: %s\n", getprogname (),
              guestfs_int_exit_status_to_string (r, GUESTUNMOUNT_BINARY,
 						status_string,
 						sizeof status_string));
@@ -148,7 +149,7 @@ main (int argc, char *argv[])
     char status_string[80];
 
     fprintf (stderr, "%s: test failed: %s\n",
-             guestfs_int_program_name,
+             getprogname (),
              guestfs_int_exit_status_to_string (status, GUESTMOUNT_BINARY,
 						status_string,
 						sizeof status_string));

@@ -45,6 +45,8 @@
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
+#include "getprogname.h"
+
 /* Number of worker threads running the test. */
 #define NR_THREADS 20
 
@@ -71,7 +73,7 @@ main (int argc, char *argv[])
   }
   if (STRNEQ (backend, "direct")) {
     fprintf (stderr, "%s: test skipped because backend isn't 'direct'.\n",
-             guestfs_int_program_name);
+             getprogname ());
     free (backend);
     guestfs_close (g);
     exit (77);

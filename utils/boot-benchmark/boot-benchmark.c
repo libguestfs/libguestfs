@@ -38,6 +38,8 @@
 
 #include "boot-analysis-utils.h"
 
+#include "getprogname.h"
+
 #define NR_WARMUP_PASSES 3
 #define NR_TEST_PASSES   10
 
@@ -102,19 +104,19 @@ main (int argc, char *argv[])
       else if (STREQ (long_options[option_index].name, "smp")) {
         if (sscanf (optarg, "%d", &smp) != 1) {
           fprintf (stderr, "%s: could not parse smp parameter: %s\n",
-                   guestfs_int_program_name, optarg);
+                   getprogname (), optarg);
           exit (EXIT_FAILURE);
         }
         break;
       }
       fprintf (stderr, "%s: unknown long option: %s (%d)\n",
-               guestfs_int_program_name, long_options[option_index].name, option_index);
+               getprogname (), long_options[option_index].name, option_index);
       exit (EXIT_FAILURE);
 
     case 'm':
       if (sscanf (optarg, "%d", &memsize) != 1) {
         fprintf (stderr, "%s: could not parse memsize parameter: %s\n",
-                 guestfs_int_program_name, optarg);
+                 getprogname (), optarg);
         exit (EXIT_FAILURE);
       }
       break;

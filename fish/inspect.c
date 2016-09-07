@@ -33,6 +33,7 @@
 #include <libintl.h>
 
 #include "c-ctype.h"
+#include "getprogname.h"
 
 #include "guestfs.h"
 
@@ -93,7 +94,7 @@ inspect_mount_handle (guestfs_h *g)
 	       "If using other virt tools, this disk image won't work\n"
 	       "with these tools.  Use the guestfish equivalent commands\n"
 	       "(see the virt tool manual page).\n"),
-             guestfs_int_program_name);
+             getprogname ());
     guestfs_int_free_string_list (roots);
     exit (EXIT_FAILURE);
   }
@@ -114,7 +115,7 @@ inspect_mount_handle (guestfs_h *g)
 	       "If using other virt tools, multi-boot operating systems won't work\n"
 	       "with these tools.  Use the guestfish equivalent commands\n"
 	       "(see the virt tool manual page).\n"),
-             guestfs_int_program_name);
+             getprogname ());
     guestfs_int_free_string_list (roots);
     exit (EXIT_FAILURE);
   }
@@ -163,7 +164,7 @@ inspect_mount_root (guestfs_h *g, const char *root)
 
   if (mount_errors)
     fprintf (stderr, _("%s: some filesystems could not be mounted (ignored)\n"),
-             guestfs_int_program_name);
+             getprogname ());
 }
 
 /**

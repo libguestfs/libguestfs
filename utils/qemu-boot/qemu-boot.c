@@ -39,6 +39,8 @@
 #include "guestfs-internal-frontend.h"
 #include "estimate-max-threads.h"
 
+#include "getprogname.h"
+
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
 /* Maximum number of threads we would ever run.  Note this should not
@@ -204,7 +206,7 @@ run_test (size_t P)
     err = pthread_join (threads[i], &status);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_join[%zu]: %s\n",
-               guestfs_int_program_name, i, strerror (err));
+               getprogname (), i, strerror (err));
       errors++;
     }
     if (*(int *)status == -1)
@@ -235,7 +237,7 @@ start_thread (void *thread_data_vp)
     err = pthread_mutex_lock (&mutex);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_mutex_lock: %s",
-               guestfs_int_program_name, strerror (err));
+               getprogname (), strerror (err));
       goto error;
     }
 
@@ -252,7 +254,7 @@ start_thread (void *thread_data_vp)
     err = pthread_mutex_unlock (&mutex);
     if (err != 0) {
       fprintf (stderr, "%s: pthread_mutex_unlock: %s",
-               guestfs_int_program_name, strerror (err));
+               getprogname (), strerror (err));
       goto error;
     }
 
@@ -320,7 +322,7 @@ start_thread (void *thread_data_vp)
 
   if (errors > 0) {
     fprintf (stderr, "%s: thread %d: %u errors were ignored\n",
-             guestfs_int_program_name, thread_data->thread_num, errors);
+             getprogname (), thread_data->thread_num, errors);
     goto error;
   }
 
