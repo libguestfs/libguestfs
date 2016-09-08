@@ -185,7 +185,8 @@ object
     let name =
       match xpath_string "/ovf:Envelope/ovf:VirtualSystem/ovf:Name/text()" with
       | None | Some "" ->
-        error (f_"could not parse ovf:Name from OVF document")
+        warning (f_"could not parse ovf:Name from OVF document");
+        "default"
       | Some name -> name in
 
     (* Search for memory. *)
@@ -245,10 +246,10 @@ object
 
         Xml.xpathctx_set_current_context xpathctx n;
         let file_id = xpath_string_default "rasd:HostResource/text()" "" in
-        let rex = Str.regexp "^ovf:/disk/\\(.*\\)" in
+        let rex = Str.regexp "^\\(ovf:\\)?/disk/\\(.*\\)" in
         if Str.string_match rex file_id 0 then (
           (* Chase the references through to the actual file name. *)
-          let file_id = Str.matched_group 1 file_id in
+          let file_id = Str.matched_group 2 file_id in
           let expr = sprintf "/ovf:Envelope/ovf:DiskSection/ovf:Disk[@ovf:diskId='%s']/@ovf:fileRef" file_id in
           let file_ref =
             match xpath_string expr with
