@@ -23,6 +23,7 @@ open Common_utils
 
 open Types
 open Utils
+open Name_from_disk
 
 class input_ova ova =
   let tmpdir =
@@ -186,7 +187,7 @@ object
       match xpath_string "/ovf:Envelope/ovf:VirtualSystem/ovf:Name/text()" with
       | None | Some "" ->
         warning (f_"could not parse ovf:Name from OVF document");
-        "default"
+        name_from_disk ova
       | Some name -> name in
 
     (* Search for memory. *)
