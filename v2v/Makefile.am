@@ -42,6 +42,7 @@ SOURCES_MLI = \
 	linux.mli \
 	linux_bootloaders.mli \
 	modules_list.mli \
+	name_from_disk.mli \
 	output_glance.mli \
 	output_libvirt.mli \
 	output_local.mli \
@@ -64,6 +65,7 @@ SOURCES_ML = \
 	xml.ml \
 	uefi.ml \
 	utils.ml \
+	name_from_disk.ml \
 	vCenter.ml \
 	domainxml.ml \
 	DOM.ml \
