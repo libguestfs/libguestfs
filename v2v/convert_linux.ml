@@ -78,7 +78,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (*----------------------------------------------------------------------*)
   (* Conversion step. *)
 
-  let rec augeas_grub_configuration () =
+  let augeas_grub_configuration () =
     if bootloader#set_augeas_configuration () then
       Linux.augeas_reload g
 
@@ -675,6 +675,41 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   and configure_kernel_modules block_type net_type =
     (* This function modifies modules.conf (and its various aliases). *)
 
+    let augeas_modprobe query =
+      (* Execute g#aug_match, but against every known location of
+         modules.conf. *)
+      let paths = [
+        "/files/etc/conf.modules/alias";
+        "/files/etc/modules.conf/alias";
+        "/files/etc/modprobe.conf/alias";
+        "/files/etc/modprobe.d/*/alias";
+      ] in
+      let paths =
+        List.map (
+          fun p ->
+            let p = sprintf "%s[%s]" p query in
+            Array.to_list (g#aug_match p)
+        ) paths in
+      List.flatten paths
+
+    and discover_modpath () =
+      (* Find what /etc/modprobe.conf is called today. *)
+      if g#is_dir ~followsymlinks:true "/etc/modprobe.d" then (
+        (* Create a new file /etc/modprobe.d/virt-v2v-added.conf. *)
+        "/etc/modprobe.d/virt-v2v-added.conf"
+      ) else (
+        (* List of methods, in order of preference. *)
+        let paths = [
+          "/etc/modprobe.conf";
+          "/etc/modules.conf";
+          "/etc/conf.modules"
+        ] in
+        try List.find (g#is_file ~followsymlinks:true) paths
+        with Not_found ->
+          error (f_"unable to find any valid modprobe configuration file such as /etc/modprobe.conf");
+      )
+    in
+
     (* Update 'alias eth0 ...'. *)
     let paths = augeas_modprobe ". =~ regexp('eth[0-9]+')" in
     let net_device =
@@ -743,37 +778,6 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
     (* Update files. *)
     g#aug_save ()
-
-  and augeas_modprobe query =
-    (* Execute g#aug_match, but against every known location of modules.conf. *)
-    let paths = [
-      "/files/etc/conf.modules/alias";
-      "/files/etc/modules.conf/alias";
-      "/files/etc/modprobe.conf/alias";
-      "/files/etc/modprobe.d/*/alias";
-    ] in
-    let paths =
-      List.map (
-        fun p ->
-          let p = sprintf "%s[%s]" p query in
-          Array.to_list (g#aug_match p)
-      ) paths in
-    List.flatten paths
-
-  and discover_modpath () =
-    (* Find what /etc/modprobe.conf is called today. *)
-    if g#is_dir ~followsymlinks:true "/etc/modprobe.d" then (
-      (* Create a new file /etc/modprobe.d/virt-v2v-added.conf. *)
-      "/etc/modprobe.d/virt-v2v-added.conf"
-    ) else (
-      (* List of methods, in order of preference. *)
-      let paths = [ "/etc/modprobe.conf"; "/etc/modules.conf"; "/etc/conf.modules" ] in
-
-      try
-        List.find (g#is_file ~followsymlinks:true) paths
-      with Not_found ->
-        error (f_"unable to find any valid modprobe configuration file such as /etc/modprobe.conf");
-    )
 
   and remap_block_devices block_type =
     (* This function's job is to iterate over boot configuration
