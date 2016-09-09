@@ -92,7 +92,7 @@ do_selinux_relabel (const char *specfile, const char *path,
   ADD_ARG (argv, i, NULL);
 
   if (commandv (NULL, &err, argv) == -1) {
-    reply_with_perror ("%s", err);
+    reply_with_error ("%s", err);
     return -1;
   }
 
