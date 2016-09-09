@@ -23,7 +23,7 @@ use warnings;
 
 use File::Temp qw/tempdir/;
 
-require 'captive-daemon.pm';
+require './captive-daemon.pm';
 
 # Set $PATH to include directory that will have phony 'btrfs' binary.
 my $bindir = tempdir (CLEANUP => 1);
