@@ -57,7 +57,8 @@ let rec main () =
   );
 
   let source = open_source cmdline input in
-  let source = amend_source cmdline source in
+  let source = set_source_name cmdline source in
+  let source = set_source_networks_and_bridges cmdline source in
 
   let conversion_mode =
     if not cmdline.in_place then (
@@ -189,17 +190,17 @@ and open_source cmdline input =
 
   source
 
-and amend_source cmdline source =
-  (* Map source name. *)
-  let source =
-    match cmdline.output_name with
-    | None -> source
-    (* Note the s_orig_name field retains the original name in case we
-     * need it for some reason.
-     *)
-    | Some name -> { source with s_name = name } in
+(* Map source name. *)
+and set_source_name cmdline source =
+  match cmdline.output_name with
+  | None -> source
+  (* Note the s_orig_name field retains the original name in case we
+   * need it for some reason.
+   *)
+  | Some name -> { source with s_name = name }
 
-  (* Map networks and bridges. *)
+(* Map networks and bridges. *)
+and set_source_networks_and_bridges cmdline source =
   let nics = List.map (
     fun ({ s_vnet_type = t; s_vnet = vnet } as nic) ->
       try
