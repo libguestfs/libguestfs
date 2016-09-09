@@ -121,7 +121,9 @@ v2v/input_ova.ml
 v2v/inspect_source.ml
 v2v/linux.ml
 v2v/linux_bootloaders.ml
+v2v/linux_kernels.ml
 v2v/modules_list.ml
+v2v/name_from_disk.ml
 v2v/output_glance.ml
 v2v/output_libvirt.ml
 v2v/output_local.ml
@@ -140,3 +142,4 @@ v2v/vCenter.ml
 v2v/windows.ml
 v2v/windows_virtio.ml
 v2v/xml.ml
+v2v/xpath_helpers.ml

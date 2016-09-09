@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-09-02 23:29+0100\n"
+"POT-Creation-Date: 2016-09-09 17:41+0100\n"
 "PO-Revision-Date: 2016-07-14 05:51-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -138,11 +138,11 @@ msgstr "Потрібен %s, але його не знайдено"
 
 #. ../v2v/cmdline.ml:80
 #. ../v2v/cmdline.ml:72
-#: ../v2v/copy_to_local.ml:38 ../v2v/cmdline.ml:135 ../v2v/cmdline.ml:119
+#: ../v2v/copy_to_local.ml:39 ../v2v/cmdline.ml:135 ../v2v/cmdline.ml:119
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:1082
+#: ../v2v/convert_linux.ml:882
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -341,7 +341,7 @@ msgstr ""
 "на\n"
 "сторінці підручника virt-v2v(1).\n"
 
-#: ../v2v/copy_to_local.ml:53
+#: ../v2v/copy_to_local.ml:54
 msgid ""
 "%s: copy a remote guest to the local machine\n"
 "\n"
@@ -595,7 +595,7 @@ msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
 
-#: ../v2v/input_ova.ml:99 ../v2v/input_ova.ml:96
+#: ../v2v/input_ova.ml:101 ../v2v/input_ova.ml:98
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -765,10 +765,6 @@ msgstr "--update"
 msgid "-B must be specified"
 msgstr "слід вказати -B"
 
-#: ../v2v/input_disk.ml:63
-msgid "-i disk: invalid input filename (%s)"
-msgstr "-i диск: некоректна назва файла вхідних даних (%s)"
-
 #: ../v2v/cmdline.ml:333
 msgid "-o and --in-place cannot be used at the same time"
 msgstr "-o і --in-place не можна використовувати одночасно"
@@ -797,7 +793,7 @@ msgstr ""
 "-o libvirt: параметр --qemu-boot не можна використовувати у цьому режимі "
 "виведення даних"
 
-#: ../v2v/output_libvirt.ml:390
+#: ../v2v/output_libvirt.ml:391
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/target/path element.  See "
 "virt-v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -805,7 +801,7 @@ msgstr ""
 "-o libvirt: у буфері виведення «%s» немає елемента /pool/target/path. Див. "
 "розділ «ВИВЕДЕННЯ ДО LIBVIRT» у підручнику з virt-v2v(1)"
 
-#: ../v2v/output_libvirt.ml:392
+#: ../v2v/output_libvirt.ml:393
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO "
@@ -815,7 +811,7 @@ msgstr ""
 "target/path не є локальним каталогом. Див. розділ «ВИВЕДЕННЯ ДО LIBVIRT» у "
 "підручнику virt-v2v(1)."
 
-#: ../v2v/output_libvirt.ml:386
+#: ../v2v/output_libvirt.ml:387
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -889,31 +885,31 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/input_libvirtxml.ml:292 ../v2v/copy_to_local.ml:317
+#: ../v2v/input_libvirtxml.ml:293 ../v2v/copy_to_local.ml:318
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:265
+#: ../v2v/input_libvirtxml.ml:266
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:288
+#: ../v2v/input_libvirtxml.ml:289
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr "<disk type='volume'> з <volume type='%s'> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:259
+#: ../v2v/input_libvirtxml.ml:260
 msgid "<disk type=network> was ignored"
 msgstr "<disk type=network> проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:238 ../v2v/copy_to_local.ml:299
+#: ../v2v/input_libvirtxml.ml:239 ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
 msgstr "проігноровано елемент <disk> без атрибута типу (type)"
 
-#: ../v2v/input_libvirtxml.ml:114
+#: ../v2v/input_libvirtxml.ml:115
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr "<listen type='%s'> у вхідних даних XML libvirt було проігноровано"
 
-#: ../v2v/input_libvirtxml.ml:327
+#: ../v2v/input_libvirtxml.ml:328
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -961,7 +957,7 @@ msgstr "Вирівняти перший розділ (типове значен�
 msgid "Architecture:"
 msgstr "Архітектура:"
 
-#: ../v2v/v2v.ml:139
+#: ../v2v/v2v.ml:140
 msgid "Assigning disks to buses"
 msgstr "Пов’язування дисків із каналами"
 
@@ -1059,11 +1055,11 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:364
+#: ../v2v/v2v.ml:365
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
-#: ../v2v/v2v.ml:580
+#: ../v2v/v2v.ml:581
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 "Перевіряємо, чи потрібні гостьовій системі BIOS або UEFI для завантаження"
@@ -1072,11 +1068,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr "Спорожнюємо резервну пам’ять Linux на %s"
 
-#: ../v2v/v2v.ml:125
+#: ../v2v/v2v.ml:126
 msgid "Closing the overlay"
 msgstr "Закриваємо оверлей"
 
-#: ../v2v/v2v.ml:126
+#: ../v2v/v2v.ml:127
 msgid "Closing the source VM"
 msgstr "Закриваємо ВМ джерела"
 
@@ -1100,11 +1096,11 @@ msgstr "Стискаємо образ за допомогою tar"
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:554
+#: ../v2v/v2v.ml:555
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:552
+#: ../v2v/v2v.ml:553
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -1132,11 +1128,11 @@ msgstr "Копіюємо %s"
 msgid "Copying (in image): %s to %s"
 msgstr "Копіюємо (на образ): %s у %s"
 
-#: ../v2v/v2v.ml:619
+#: ../v2v/v2v.ml:620
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
-#: ../v2v/copy_to_local.ml:177
+#: ../v2v/copy_to_local.ml:178
 msgid "Copying remote disk %d/%d to %s"
 msgstr "Копіюємо віддалений диск %d з %d до %s"
 
@@ -1160,11 +1156,11 @@ msgstr "Створити файл оверлею на %s для захисту �
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:241
+#: ../v2v/v2v.ml:242
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
-#: ../v2v/v2v.ml:150
+#: ../v2v/v2v.ml:151
 msgid "Creating output metadata"
 msgstr "Створюємо метадані результатів"
 
@@ -1359,7 +1355,7 @@ msgstr "Увімкнути або вимкнути специфічні опер
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr "Вкажіть число від 1 до %d або введіть «'exit»: "
 
-#: ../v2v/v2v.ml:543
+#: ../v2v/v2v.ml:544
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1445,7 +1441,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення про помилку: %s"
 
-#: ../v2v/copy_to_local.ml:131
+#: ../v2v/copy_to_local.ml:132
 msgid "Fetching the remote libvirt XML metadata ..."
 msgstr "Отримуємо метадані XML віддаленої libvirt…"
 
@@ -1471,7 +1467,7 @@ msgstr "Відбиток: %s\n"
 
 #. ../customize/customize_main.ml:197
 #. ../builder/builder.ml:710
-#: ../v2v/v2v.ml:158 ../v2v/copy_to_local.ml:231
+#: ../v2v/v2v.ml:159 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr "Завершуємо"
 
@@ -1610,7 +1606,7 @@ msgstr "Ігноровано, для зворотної сумісності"
 msgid "Importing the image to docker as '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:287
+#: ../v2v/v2v.ml:288
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1622,11 +1618,11 @@ msgstr "Вставити відкритий ключ до гостьової с�
 msgid "Input format (for -i disk)"
 msgstr "Формат вхідних даних (для -i диск)"
 
-#: ../v2v/v2v.ml:88
+#: ../v2v/v2v.ml:89
 msgid "Inspecting the overlay"
 msgstr "Вивчаємо оверлей"
 
-#: ../v2v/v2v.ml:89
+#: ../v2v/v2v.ml:90
 msgid "Inspecting the source VM"
 msgstr "Вивчаємо ВМ джерела"
 
@@ -1670,7 +1666,7 @@ msgstr "ЛОКАЛЬНИЙШЛЯХ:ВІДДАЛЕНИЙКАТАЛОГ"
 msgid "Label for the root fs"
 msgstr "Мітка для кореневої файлової системи"
 
-#: ../v2v/copy_to_local.ml:46 ../v2v/cmdline.ml:189 ../v2v/cmdline.ml:176
+#: ../v2v/copy_to_local.ml:47 ../v2v/cmdline.ml:189 ../v2v/cmdline.ml:176
 msgid "Libvirt URI"
 msgstr "Адреса libvirt"
 
@@ -1713,7 +1709,7 @@ msgstr "Відобразити місток «in» на «out»"
 msgid "Map network 'in' to 'out'"
 msgstr "Відобразити мережу «in» на «out»"
 
-#: ../v2v/v2v.ml:120
+#: ../v2v/v2v.ml:121
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 "Виконуємо прив’язку даних файлової системи для уникнення копіювання "
@@ -1820,15 +1816,15 @@ msgstr "Відкриваємо диски"
 msgid "Opening the new disk"
 msgstr "Відкриваємо новий диск"
 
-#: ../v2v/v2v.ml:72
+#: ../v2v/v2v.ml:73
 msgid "Opening the overlay"
 msgstr "Відкриваємо оверлей"
 
-#: ../v2v/v2v.ml:161
+#: ../v2v/v2v.ml:162
 msgid "Opening the source %s"
 msgstr "Відкриваємо джерело %s"
 
-#: ../v2v/v2v.ml:73
+#: ../v2v/v2v.ml:74
 msgid "Opening the source VM"
 msgstr "Відкриваємо ВМ джерела"
 
@@ -1880,7 +1876,7 @@ msgstr "Розмір виведення"
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
-#: ../v2v/v2v.ml:732
+#: ../v2v/v2v.ml:733
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr "Накладку збережено як %s [--debug-overlays]"
 
@@ -1909,7 +1905,7 @@ msgstr "POD для %s не повинен завершуватися симво�
 msgid "POD notes for %s must not end with newline"
 msgstr "Нотатки POD для %s не повинні завершуватися символом нового рядка"
 
-#: ../v2v/convert_linux.ml:583
+#: ../v2v/convert_linux.ml:377
 msgid ""
 "Parallels tools was detected, but uninstallation failed. The error message "
 "was: %s (ignored)"
@@ -1917,7 +1913,7 @@ msgstr ""
 "Виявлено інструменти Parallels, але спроба вилучення зазнала невдачі. "
 "Повідомлення про помилку: %s (ignored)"
 
-#: ../v2v/copy_to_local.ml:137
+#: ../v2v/copy_to_local.ml:138
 msgid "Parsing the remote libvirt XML metadata ..."
 msgstr "Обробляємо метадані XML віддаленої libvirt…"
 
@@ -2484,7 +2480,7 @@ msgstr "Пропускаємо %s, оскільки це пристрій, пр�
 msgid "Source URI: %s\n"
 msgstr "Адреса джерела: %s\n"
 
-#: ../v2v/v2v.ml:166
+#: ../v2v/v2v.ml:167
 msgid "Source guest information (--print-source option):\n"
 msgstr "Дані щодо гостьової системи джерела (параметр --print-source):\n"
 
@@ -2581,7 +2577,7 @@ msgstr ""
 " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 
-#: ../v2v/convert_linux.ml:878
+#: ../v2v/convert_linux.ml:672
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2773,11 +2769,11 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:573
+#: ../v2v/v2v.ml:574
 msgid "This guest does not have virtio drivers installed."
 msgstr "У цій гостьовій системі не встановлено драйверів virtio."
 
-#: ../v2v/v2v.ml:571
+#: ../v2v/v2v.ml:572
 msgid "This guest has virtio drivers installed."
 msgstr "У цій гостьовій системі встановлено драйвери virtio."
 
@@ -2791,7 +2787,7 @@ msgstr ""
 "передавання паролів не передбачено у RHEV. Тому перетворений дисплей "
 "гостьової системи не вимагатиме окремого пароля для встановлення з’єднання."
 
-#: ../v2v/v2v.ml:601
+#: ../v2v/v2v.ml:602
 msgid "This guest requires UEFI on the target to boot."
 msgstr "Ця гостьова система потребує UEFI на призначенні для завантаження."
 
@@ -2885,7 +2881,7 @@ msgstr "Вивантажуємо: %s до %s"
 msgid "Use ANSI colour sequences even if not tty"
 msgstr "Використовувати послідовності ANSI для кольорів, навіть якщо це не tty"
 
-#: ../v2v/copy_to_local.ml:48 ../v2v/cmdline.ml:197
+#: ../v2v/copy_to_local.ml:49 ../v2v/cmdline.ml:197
 msgid "Use password from file"
 msgstr "Скористатися паролем із файла"
 
@@ -2913,7 +2909,7 @@ msgstr ""
 "Виведені дані VHD не створено, найімовірніше vhd-util є застарілим і "
 "незалатаним для «convert»"
 
-#: ../v2v/convert_linux.ml:505
+#: ../v2v/convert_linux.ml:299
 msgid ""
 "VMware tools was detected, but uninstallation failed.  The error message "
 "was: %s (ignored)"
@@ -2921,7 +2917,7 @@ msgstr ""
 "Виявлено засоби VMware, але спроба вилучення зазнала невдачі. Повідомлення "
 "щодо помилки: %s (проігноровано)"
 
-#: ../v2v/convert_linux.ml:414
+#: ../v2v/convert_linux.ml:208
 msgid ""
 "VirtualBox Guest Additions were detected, but uninstallation failed.  The "
 "error message was: %s (ignored)"
@@ -2933,7 +2929,7 @@ msgstr ""
 msgid "Write file"
 msgstr "Записати файл"
 
-#: ../v2v/copy_to_local.ml:225
+#: ../v2v/copy_to_local.ml:226
 msgid "Writing libvirt XML metadata to %s ..."
 msgstr "Записуємо метадані XML libvirt до %s…"
 
@@ -2973,7 +2969,7 @@ msgstr "Занулити файлову систему"
 msgid "Zeroing %s"
 msgstr "Занулюємо %s"
 
-#: ../v2v/output_libvirt.ml:369
+#: ../v2v/output_libvirt.ml:370
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -2986,7 +2982,7 @@ msgstr ""
 "призначення». Або вилучіть наявний домен на призначенні за допомогою команди "
 "«virsh undefine»."
 
-#: ../v2v/output_libvirt.ml:372
+#: ../v2v/output_libvirt.ml:373
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -3048,12 +3044,12 @@ msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром --"
 "format"
 
-#: ../v2v/input_disk.ml:77
+#: ../v2v/input_disk.ml:60
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 "не вдалося визначити формат диска вхідних даних; скористайтеся параметром -if"
 
-#: ../v2v/utils.ml:97
+#: ../v2v/utils.ml:66
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -3085,7 +3081,7 @@ msgstr ""
 msgid "cannot output to a character device or /dev/null"
 msgstr "неможливо вивести дані до символьного пристрою або /dev/null"
 
-#: ../v2v/input_ova.ml:155
+#: ../v2v/input_ova.ml:157
 msgid "cannot parse output of sha1sum command"
 msgstr "не вдалося обробити дані, виведені програмою sha1sum"
 
@@ -3158,7 +3154,7 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:152
+#: ../v2v/input_ova.ml:154
 msgid ""
 "checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, "
 "expected sha1 (%s) = %s)"
@@ -3179,7 +3175,7 @@ msgstr "команда «%s» є некоректною, див. сторінк�
 msgid "connection closed"
 msgstr "з'єднання закрито"
 
-#: ../v2v/copy_to_local.ml:221
+#: ../v2v/copy_to_local.ml:222
 msgid "copy command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати copy, див. попередні повідомлення щодо "
@@ -3189,7 +3185,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
-#: ../v2v/output_libvirt.ml:461
+#: ../v2v/output_libvirt.ml:462
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -3234,21 +3230,21 @@ msgstr ""
 "Скористайтеся параметром «-v» і перегляньте попередні повідомлення про "
 "помилки."
 
-#: ../v2v/input_libvirt.ml:39 ../v2v/copy_to_local.ml:99
+#: ../v2v/input_libvirt.ml:39 ../v2v/copy_to_local.ml:100
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 "не вдалося обробити параметр «-ic %s». Початкове повідомлення щодо помилки: "
 "%s"
 
-#: ../v2v/input_libvirtxml.ml:46
+#: ../v2v/input_libvirtxml.ml:47
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:290
+#: ../v2v/input_ova.ml:293
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:188
+#: ../v2v/input_ova.ml:190
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3271,7 +3267,7 @@ msgstr ""
 "виведені grub дані не буде надіслано до послідовного порту, але, окрім "
 "цього, не зашкодить. Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/output_libvirt.ml:426
+#: ../v2v/output_libvirt.ml:427
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
@@ -3327,7 +3323,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:297
+#: ../v2v/v2v.ml:298
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3352,7 +3348,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/input_libvirtxml.ml:138
+#: ../v2v/input_libvirtxml.ml:139
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
@@ -3365,7 +3361,7 @@ msgstr ""
 msgid "domain"
 msgstr "домен"
 
-#: ../v2v/utils.ml:93
+#: ../v2v/utils.ml:62
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr "спосіб перетворення гостьових систем UEFI для архітектури %s невідомий"
 
@@ -3385,7 +3381,7 @@ msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 "спосіб вилучення пакунків за допомогою %s невідомий програмі: пакунки: %s"
 
-#: ../v2v/convert_linux.ml:946
+#: ../v2v/convert_linux.ml:777
 msgid "don't know how to update %s which loads the %s module"
 msgstr "спосіб оновлення %s, який завантажує модуль %s, невідомий програмі"
 
@@ -3427,16 +3423,16 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:255
+#: ../v2v/input_ova.ml:258
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
-#: ../v2v/input_ova.ml:276
+#: ../v2v/input_ova.ml:279
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../v2v/input_ova.ml:80 ../v2v/input_ova.ml:65
+#: ../v2v/input_ova.ml:82 ../v2v/input_ova.ml:67
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3444,13 +3440,6 @@ msgstr ""
 #: ../mllib/common_utils.ml:475
 msgid "exception: %s"
 msgstr "виключення: %s"
-
-#: ../v2v/utils.ml:39
-msgid ""
-"expecting XML expression to return an integer (expression: %s, matching "
-"string: %s)"
-msgstr ""
-"очікуємо, що вираз XML поверне ціле число (вираз: %s, відповідний рядок: %s)"
 
 #: ../v2v/cmdline.ml:298
 msgid "expecting a disk image (filename) on the command line"
@@ -3544,7 +3533,7 @@ msgstr "формат"
 msgid "fs"
 msgstr "fs"
 
-#: ../v2v/v2v.ml:415
+#: ../v2v/v2v.ml:416
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3596,7 +3585,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr "немає доступу до програми gpg"
 
-#: ../v2v/v2v.ml:275
+#: ../v2v/v2v.ml:276
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3657,10 +3646,6 @@ msgstr "для цього типу гостьових систем не можн
 msgid "ignore|warn|error"
 msgstr "ignore|warn|error"
 
-#: ../v2v/convert_linux.ml:267
-msgid "ignoring kernel %s in grub, as it does not exist."
-msgstr "ігноруємо ядро %s у grub, оскільки його не існує."
-
 #: ../v2v/output_vdsm.ml:100
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr "каталогу образу (%s) не існує, або ж це не каталог"
@@ -3673,13 +3658,13 @@ msgstr ""
 "образи не можна стискати, розмір результату надто малий для цього образу. "
 "Потрібний розмір = %s, мінімальний розмір = %s"
 
-#: ../v2v/input_libvirtxml.ml:62
+#: ../v2v/input_libvirtxml.ml:63
 msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
 msgstr ""
 "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
 "значення"
 
-#: ../v2v/input_libvirtxml.ml:67
+#: ../v2v/input_libvirtxml.ml:68
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
@@ -3729,7 +3714,7 @@ msgstr ""
 "\n"
 "У образі операційної системи не виявлено кореневого пристрою."
 
-#: ../v2v/v2v.ml:236
+#: ../v2v/v2v.ml:237
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3775,11 +3760,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
-#: ../v2v/v2v.ml:631
+#: ../v2v/v2v.ml:632
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:265
+#: ../v2v/v2v.ml:266
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -3846,7 +3831,7 @@ msgstr "lv"
 msgid "md5|sha256|sha512"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:120
+#: ../v2v/copy_to_local.ml:121
 msgid "missing guest name.  See the virt-v2v-copy-to-local(1) manual page."
 msgstr ""
 "не вказано назви гостьової системи. Див. сторінку підручника virt-v2v-copy-"
@@ -3856,7 +3841,7 @@ msgstr ""
 msgid "missing value for the key '%s'"
 msgstr "немає значення для ключа «%s»"
 
-#: ../v2v/input_ova.ml:130
+#: ../v2v/input_ova.ml:132
 msgid "more than one .ovf file was found in %s"
 msgstr "у %s виявлено декілька файлів .ovf"
 
@@ -3902,7 +3887,7 @@ msgstr "мережа"
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:127
+#: ../v2v/input_ova.ml:129
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
@@ -3928,40 +3913,13 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/input_ova.ml:260
+#: ../v2v/input_ova.ml:263
 msgid "no href in ovf:File (id=%s)"
 msgstr "немає href у ovf:File (id=%s)"
-
-#: ../v2v/convert_linux.ml:170
-msgid "no initrd was found in /boot matching %s %s."
-msgstr "у /boot не знайдено initrd, що відповідає %s %s."
-
-#: ../v2v/convert_linux.ml:242
-msgid ""
-"no installed kernel packages were found.\n"
-"\n"
-"This probably indicates that %s was unable to inspect this guest properly."
-msgstr ""
-"не знайдено встановлених пакунків ядра.\n"
-"\n"
-"Це, ймовірно, означає, що %s не вдасться вивчити належним чином гостьову "
-"систему."
 
 #: ../get-kernel/get_kernel.ml:157
 msgid "no kernel found in %s"
 msgstr "не знайдено ядра у %s"
-
-#: ../v2v/convert_linux.ml:281
-msgid ""
-"no kernels were found in the grub configuration.\n"
-"\n"
-"This probably indicates that %s was unable to parse the grub configuration "
-"of this guest."
-msgstr ""
-"У налаштуваннях grub не знайдено записів ядер.\n"
-"\n"
-"Це, ймовірно, означає, що %s не вдалося обробити налаштування grub цієї "
-"гостьової системи."
 
 #: ../get-kernel/get_kernel.ml:179
 msgid "no operating system found"
@@ -3971,7 +3929,7 @@ msgstr "не знайдено операційної системи"
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../v2v/input_ova.ml:148
+#: ../v2v/input_ova.ml:150
 msgid "no output from sha1sum command, see previous errors"
 msgstr ""
 "немає даних, виведених програмою sha1sum, див. попередні повідомлення щодо "
@@ -4000,7 +3958,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:390
+#: ../v2v/v2v.ml:391
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -4020,7 +3978,7 @@ msgstr ""
 "Система oVirt не здатна емулювати звукові картки «%s». Цю звукову картку "
 "буде викинуто з виведених даних."
 
-#: ../v2v/convert_linux.ml:597
+#: ../v2v/convert_linux.ml:391
 msgid ""
 "only Xen kernels are installed in this guest.\n"
 "\n"
@@ -4032,7 +3990,7 @@ msgstr ""
 "Ознайомтеся із підручником з %s(1), розділ «ПАРАВІРТУАЛІЗОВАНІ ГОСТЬОВІ "
 "СИСТЕМИ XEN», щоб дізнатися про подальші дії."
 
-#: ../v2v/copy_to_local.ml:114
+#: ../v2v/copy_to_local.ml:115
 msgid ""
 "only copies from VMware ESXi or Xen over SSH are supported.  See the virt-"
 "v2v-copy-to-local(1) manual page."
@@ -4090,7 +4048,7 @@ msgstr ""
 "пристрій, а не на розділ. Якщо це попередження ви вважаєте помилковим, ви "
 "можете вимкнути його за допомогою параметра --no-warn-if-partition"
 
-#: ../v2v/v2v.ml:307
+#: ../v2v/v2v.ml:308
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -4117,7 +4075,7 @@ msgstr ""
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
 
-#: ../v2v/input_ova.ml:220
+#: ../v2v/input_ova.ml:223
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -4125,17 +4083,13 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/input_ova.ml:217
+#: ../v2v/input_ova.ml:220
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
 msgstr ""
 "Диск ova не має батьківського контролера. Будь ласка, повідомте про цю ваду, "
 "додавши файл *.ovf, видобутий з ova"
-
-#: ../v2v/convert_linux.ml:114
-msgid "package '%s' contains no files"
-msgstr "у пакунку «%s» не міститься файлів"
 
 #. ../resize/resize.ml:191
 #: ../resize/resize.ml:204 ../resize/resize.ml:196 ../resize/resize.ml:192
@@ -4190,13 +4144,13 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:669 ../v2v/v2v.ml:261
+#: ../v2v/v2v.ml:670 ../v2v/v2v.ml:262
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
 "помилок"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:134
+#: ../v2v/input_libvirt_vcenter_https.ml:135
 msgid "qemu-img rebase failed (ignored)"
 msgstr "помилка пересування qemu-img (проігноровано)"
 
@@ -4268,39 +4222,39 @@ msgstr ""
 msgid "source and fingerprint lists are not the same length"
 msgstr "списки джерел і відбитків мають різну довжину"
 
-#: ../v2v/input_libvirt_vcenter_https.ml:92
+#: ../v2v/input_libvirt_vcenter_https.ml:93
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr "диск джерела має атрибут <source dev=...> у XML"
 
-#: ../v2v/v2v.ml:743
+#: ../v2v/v2v.ml:744
 msgid "source has multiple hard disk types!"
 msgstr "у джерела декілька типів жорстких дисків!"
 
-#: ../v2v/v2v.ml:759
+#: ../v2v/v2v.ml:760
 msgid "source has multiple network adapter model!"
 msgstr "у джерела декілька моделей адаптера мережі!"
 
-#: ../v2v/v2v.ml:741 ../v2v/v2v.ml:184
+#: ../v2v/v2v.ml:742 ../v2v/v2v.ml:185
 msgid "source has no hard disks!"
 msgstr "у джерелі немає жорстких дисків!"
 
-#: ../v2v/v2v.ml:751
+#: ../v2v/v2v.ml:752
 msgid "source has unrecognized hard disk type"
 msgstr "у джерела нерозпізнаний тип жорсткого диска"
 
-#: ../v2v/v2v.ml:749
+#: ../v2v/v2v.ml:750
 msgid "source has unsupported hard disk type '%s'"
 msgstr "у джерела непідтримуваний тип жорсткого диска, «%s»"
 
-#: ../v2v/v2v.ml:765
+#: ../v2v/v2v.ml:766
 msgid "source has unsupported network adapter model '%s'"
 msgstr "у джерела непідтримувана модель адаптера мережі, «%s»"
 
-#: ../v2v/v2v.ml:773
+#: ../v2v/v2v.ml:774
 msgid "source has unsupported video adapter model '%s'"
 msgstr "у джерела непідтримувана модель відеоадаптера, «%s»"
 
-#: ../v2v/copy_to_local.ml:199
+#: ../v2v/copy_to_local.ml:200
 msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати copy для ssh, див. попередні повідомлення "
@@ -4351,7 +4305,7 @@ msgstr "підпроцес надіслав сигнал або зупинив �
 msgid "subscription-manager credentials required for --sm-register"
 msgstr "для --sm-register потрібні реєстраційні дані subscription-manager"
 
-#: ../v2v/v2v.ml:311
+#: ../v2v/v2v.ml:312
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4368,7 +4322,7 @@ msgstr ""
 msgid "the --vmtype option has been removed and now does nothing"
 msgstr "параметр --vmtype вилучено зі списку параметрів, тепер він не потрібен"
 
-#: ../v2v/copy_to_local.ml:84
+#: ../v2v/copy_to_local.ml:85
 msgid "the -ic parameter is required"
 msgstr "слід вказати параметр -ic"
 
@@ -4407,7 +4361,7 @@ msgstr "на диску джерела немає розділів"
 msgid "the specified base path is not the diskimage-builder library"
 msgstr "вказаний базовий шлях не є шляхом до бібліотеки diskimage-builder"
 
-#: ../v2v/output_libvirt.ml:54
+#: ../v2v/output_libvirt.ml:55
 msgid "the target hypervisor does not support a %s KVM guest"
 msgstr ""
 "у гіпервізорі призначення не передбачено підтримки гостьових систем KVM %s"
@@ -4564,7 +4518,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/v2v.ml:592
+#: ../v2v/v2v.ml:593
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -4599,7 +4553,7 @@ msgstr ""
 "помилка завантаження 7B). Якщо таке трапляється, спробуйте вимкнути групові "
 "правила до перетворення."
 
-#: ../v2v/input_libvirtxml.ml:212 ../v2v/copy_to_local.ml:288
+#: ../v2v/input_libvirtxml.ml:213 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -4607,7 +4561,7 @@ msgstr "у цій гостьовій системі немає непортат�
 msgid "timezone could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати часовий пояс"
 
-#: ../v2v/copy_to_local.ml:123
+#: ../v2v/copy_to_local.ml:124
 msgid ""
 "too many command line parameters.  See the virt-v2v-copy-to-local(1) manual "
 "page."
@@ -4624,7 +4578,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr "забагато параметрів, мало бути «версія-ОС»"
 
-#: ../v2v/convert_linux.ml:981
+#: ../v2v/convert_linux.ml:711
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4647,7 +4601,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/convert_linux.ml:762
+#: ../v2v/convert_linux.ml:556
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
@@ -4688,7 +4642,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:205
+#: ../v2v/input_ova.ml:208
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
@@ -4696,11 +4650,11 @@ msgstr "невідоме значення Config:firmware %s (мало бути 
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
 
-#: ../v2v/input_libvirtxml.ml:179
+#: ../v2v/input_libvirtxml.ml:180
 msgid "unknown sound model %s ignored"
 msgstr "невідому звукову модель %s проігноровано"
 
-#: ../v2v/v2v.ml:176
+#: ../v2v/v2v.ml:177
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr "невідомий гіпервізор джерела («%s») у метаданих"
 
@@ -4848,7 +4802,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
 
-#: ../v2v/input_libvirtxml.ml:135
+#: ../v2v/input_libvirtxml.ml:136
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -4856,7 +4810,7 @@ msgstr ""
 "У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
 "type='%s'> у вхідних даних XML libvirt проігноровано"
 
-#: ../v2v/v2v.ml:560
+#: ../v2v/v2v.ml:561
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -4949,15 +4903,15 @@ msgstr ""
 "вам слід вказати параметр -a або -d. Ознайомтеся із сторінкою підручника "
 "(man) virt-customize(1), щоб дізнатися більше."
 
-#: align/scan.c:75 cat/cat.c:55 cat/filesystems.c:89 cat/log.c:64 cat/ls.c:86
-#: df/main.c:68 diff/diff.c:95 edit/edit.c:65 fish/fish.c:112
-#: fuse/guestmount.c:100 fuse/guestunmount.c:55 inspector/inspector.c:71
-#: make-fs/make-fs.c:76 p2v/main.c:86 rescue/rescue.c:58
+#: align/scan.c:77 cat/cat.c:57 cat/filesystems.c:90 cat/log.c:66 cat/ls.c:87
+#: df/main.c:70 diff/diff.c:96 edit/edit.c:66 fish/fish.c:113
+#: fuse/guestmount.c:101 fuse/guestunmount.c:56 inspector/inspector.c:73
+#: make-fs/make-fs.c:77 p2v/main.c:87 rescue/rescue.c:59
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
 
-#: align/scan.c:78
+#: align/scan.c:80
 #, c-format
 msgid ""
 "%s: check alignment of virtual machine partitions\n"
@@ -4980,59 +4934,59 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:155 builder/index-validate.c:87 cat/cat.c:141
-#: cat/filesystems.c:242 cat/log.c:143 cat/ls.c:232 df/main.c:158
-#: diff/diff.c:264 edit/edit.c:158 fish/fish.c:296 format/format.c:181
-#: fuse/guestmount.c:248 fuse/guestunmount.c:129 inspector/inspector.c:162
-#: make-fs/make-fs.c:147 p2v/main.c:190 rescue/rescue.c:182
+#: align/scan.c:157 builder/index-validate.c:88 cat/cat.c:143
+#: cat/filesystems.c:243 cat/log.c:145 cat/ls.c:233 df/main.c:160
+#: diff/diff.c:265 edit/edit.c:159 fish/fish.c:297 format/format.c:183
+#: fuse/guestmount.c:249 fuse/guestunmount.c:130 inspector/inspector.c:164
+#: make-fs/make-fs.c:148 p2v/main.c:191 rescue/rescue.c:183
 #: test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr "невідомий довгий варіант параметра: %s (%d)"
 
-#: align/scan.c:173 df/main.c:184
+#: align/scan.c:175 df/main.c:186
 #, c-format
 msgid "-P option is not numeric"
 msgstr "Аргумент параметра -P не є числовим"
 
-#: align/scan.c:228
+#: align/scan.c:230
 #, c-format
 msgid "compiled without support for libvirt"
 msgstr "зібрано без підтримки libvirt"
 
-#: align/scan.c:232
+#: align/scan.c:234
 #, c-format
 msgid "--uuid option cannot be used with -a or -d"
 msgstr "Параметр --uuid не можна використовувати разом із -a або -d"
 
-#: align/scan.c:331
+#: align/scan.c:333
 msgid "alignment < 4K"
 msgstr "вирівнювання < 4кБ"
 
-#: align/scan.c:334
+#: align/scan.c:336
 msgid "alignment < 64K"
 msgstr "вирівнювання < 64кБ"
 
-#: builder/index-validate.c:117
+#: builder/index-validate.c:118
 #, c-format
 msgid "%s: %s: error closing input file: %m (ignored)\n"
 msgstr ""
 "%s: %s: помилка під час спроби закрити файл вхідних даних: %m "
 "(проігноровано)\n"
 
-#: builder/index-validate.c:124
+#: builder/index-validate.c:125
 #, c-format
 msgid "'%s' could not be validated, see errors above"
 msgstr ""
 "«%s» не може бути визначено, див. повідомлення про помилки, наведені вище"
 
-#: builder/index-validate.c:130
+#: builder/index-validate.c:131
 #, c-format
 msgid "%s contains comments which will not work with virt-builder 1.24.1"
 msgstr ""
 "%s містить коментарі, у virt-builder 1.24.1 такі коментарі не працюватимуть"
 
-#: builder/index-validate.c:143
+#: builder/index-validate.c:144
 #, c-format
 msgid ""
 "%s: section [%s] has invalid characters which will not work with virt-"
@@ -5041,7 +4995,7 @@ msgstr ""
 "%s: розділ [%s] містить некоректні символи, його не можна використовувати у "
 "virt-builder 1.24.0"
 
-#: builder/index-validate.c:154
+#: builder/index-validate.c:155
 #, c-format
 msgid ""
 "%s: section [%s], field '%s' has invalid characters which will not work with "
@@ -5050,7 +5004,7 @@ msgstr ""
 "%s: розділ [%s], поле «%s» містить некоректні символи, його не можна "
 "використовувати у virt-builder 1.24.0"
 
-#: builder/index-validate.c:163
+#: builder/index-validate.c:164
 #, c-format
 msgid ""
 "%s: section [%s], field '%s' has invalid characters which will not work with "
@@ -5059,7 +5013,7 @@ msgstr ""
 "%s: розділ [%s], поле «%s» містить некоректні символи, його не можна "
 "використовувати у virt-builder 1.24.1"
 
-#: builder/index-validate.c:174
+#: builder/index-validate.c:175
 #, c-format
 msgid ""
 "%s: section [%s] is missing a 'sig' field which will not work with virt-"
@@ -5068,7 +5022,7 @@ msgstr ""
 "%s: у розділі [%s] пропущено поле «sig», так не можна робити у virt-builder "
 "1.24.0"
 
-#: cat/cat.c:58
+#: cat/cat.c:60
 #, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -5112,14 +5066,14 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/cat.c:229 cat/filesystems.c:339 cat/log.c:200 cat/ls.c:346
-#: diff/diff.c:318 edit/edit.c:258 fuse/guestmount.c:315
-#: inspector/inspector.c:262 rescue/rescue.c:290
+#: cat/cat.c:231 cat/filesystems.c:340 cat/log.c:202 cat/ls.c:347
+#: diff/diff.c:319 edit/edit.c:259 fuse/guestmount.c:316
+#: inspector/inspector.c:264 rescue/rescue.c:291
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr "%s: помилка: вам слід вказати один із параметрів, -a або -d.\n"
 
-#: cat/filesystems.c:92
+#: cat/filesystems.c:93
 #, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -5196,7 +5150,7 @@ msgstr ""
 "  -x                   Показати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, ознайомтеся зі сторінкою довідника (man) %s(1).\n"
 
-#: cat/filesystems.c:296 cat/log.c:189 inspector/inspector.c:238
+#: cat/filesystems.c:297 cat/log.c:191 inspector/inspector.c:240
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -5205,17 +5159,17 @@ msgstr ""
 "%s: помилка: зайвий аргумент «%s» у рядку команди.\n"
 "Переконайтеся, що вказано аргумент до --format, наприклад «--format=%s».\n"
 
-#: cat/filesystems.c:310 cat/ls.c:338 df/main.c:255 diff/diff.c:332
+#: cat/filesystems.c:311 cat/ls.c:339 df/main.c:257 diff/diff.c:333
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr "не можна одночасно використовувати параметри -h та --csv."
 
-#: cat/filesystems.c:488
+#: cat/filesystems.c:489
 #, c-format
 msgid "%s: cannot determine the subvolume for %s: %s: %s\n"
 msgstr "%s: не вдалося визначити підтом для %s: %s: %s\n"
 
-#: cat/log.c:67
+#: cat/log.c:69
 #, c-format
 msgid ""
 "%s: display log files in a virtual machine\n"
@@ -5257,19 +5211,19 @@ msgstr ""
 "  -x                   Трасувати виклики програмного інтерфейсу libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/log.c:252
+#: cat/log.c:254
 #, c-format
 msgid "%s: Windows Event Log for pre-Vista guests is not supported.\n"
 msgstr ""
 "%s: підтримки Windows Event Log для гостьових систем, старіших за Vista не "
 "передбачено.\n"
 
-#: cat/log.c:360
+#: cat/log.c:362
 #, c-format
 msgid "%s: could not format journal entry timestamp\n"
 msgstr "%s: не вдалося виконати форматування часової позначки запису журналу\n"
 
-#: cat/log.c:426
+#: cat/log.c:428
 #, c-format
 msgid ""
 "%s: you need to install 'evtxdump.py' (from the python-evtx package)\n"
@@ -5284,12 +5238,12 @@ msgstr ""
 "цієї гостьової системи і вивчіть його у програмі для перегляду бінарних "
 "файлів.\n"
 
-#: cat/log.c:445
+#: cat/log.c:447
 #, c-format
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr "%s: не знайдено файла Windows Event Log (%s)\n"
 
-#: cat/ls.c:89
+#: cat/ls.c:90
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -5355,7 +5309,7 @@ msgstr ""
 "  -x                   Трасувати виклики API libguestfs\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: cat/ls.c:331
+#: cat/ls.c:332
 #, c-format
 msgid ""
 "used a flag which can only be combined with -lR mode\n"
@@ -5364,12 +5318,12 @@ msgstr ""
 "використано прапорець, який можна використовувати лише разом з режимом -lR\n"
 "Докладніші дані наведено на сторінці довідника (man) virt-ls(1)."
 
-#: cat/visit.c:130
+#: cat/visit.c:132
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: помилка під час спроби отримання розширених атрибутів %s %s\n"
 
-#: cat/visit.c:144
+#: cat/visit.c:146
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr "%s: помилка: не вдалося обробити числове значення xattr для %s %s\n"
@@ -5402,7 +5356,7 @@ msgstr ""
 msgid "could not list inactive domains (code %d, domain %d): %s"
 msgstr "не вдалося побудувати список неактивних доменів (код %d, домен %d): %s"
 
-#: df/main.c:71
+#: df/main.c:73
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -5428,7 +5382,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: df/main.c:270
+#: df/main.c:272
 #, c-format
 msgid "compiled without support for libvirt."
 msgstr "зібрано без підтримки libvirt."
@@ -5477,7 +5431,7 @@ msgstr "IВільно"
 msgid "IUse%"
 msgstr "% IВикористання"
 
-#: diff/diff.c:98
+#: diff/diff.c:99
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
@@ -5548,12 +5502,12 @@ msgstr ""
 "  --xattrs             Вивести розширені записи атрибутів\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: diff/diff.c:323
+#: diff/diff.c:324
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr "%s: помилка: вам слід вказати один із параметрів, -A або -D.\n"
 
-#: diff/diff.c:335
+#: diff/diff.c:336
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -5564,18 +5518,18 @@ msgstr ""
 "Переконайтеся, що вказано аргумент до --checksum або --format, наприклад «--"
 "format=%s».\n"
 
-#: diff/diff.c:737
+#: diff/diff.c:738
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 "%s: спроба використання зовнішньої програми визначення різниці (diff) "
 "зазнала невдачі\n"
 
-#: diff/diff.c:741
+#: diff/diff.c:742
 msgid "End of diff"
 msgstr "Кінець різниці"
 
-#: edit/edit.c:68
+#: edit/edit.c:69
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
@@ -5601,12 +5555,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/edit.c:168
+#: edit/edit.c:169
 #, c-format
 msgid "-b option given multiple times"
 msgstr "параметр -b вказано декілька разів"
 
-#: edit/edit.c:182
+#: edit/edit.c:183
 #, c-format
 msgid "-e option given multiple times"
 msgstr "параметр -e вказано декілька разів"
@@ -7908,7 +7862,7 @@ msgstr "введіть «help %s», щоб отримати додаткові �
 msgid "%s: unknown command\n"
 msgstr "%s: невідома команда\n"
 
-#: fish/config.c:70
+#: fish/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
 msgstr "%s: рядок %d: помилка під час спроби обробки файла налаштувань: %s"
@@ -7970,7 +7924,7 @@ msgstr ""
 "щоб переглянути список обробників подій, скористайтеся командою «list-"
 "events»\n"
 
-#: fish/fish.c:115
+#: fish/fish.c:116
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -8022,44 +7976,44 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:263
+#: fish/fish.c:264
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr "--listen=PID: PID не є числом: %s"
 
-#: fish/fish.c:268
+#: fish/fish.c:269
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr "remote: для ідентифікатора віддаленого процесу має $GUESTFISH_PID"
 
-#: fish/fish.c:313
+#: fish/fish.c:314
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 "%s: попередження: параметр -D застарів, замість нього слід користуватися --"
 "no-dest-paths\n"
 
-#: fish/fish.c:320
+#: fish/fish.c:321
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr "можна вказувати лише один параметр -f"
 
-#: fish/fish.c:502
+#: fish/fish.c:503
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr "не можна одночасно використовувати параметри --listen і --remote"
 
-#: fish/fish.c:507
+#: fish/fish.c:508
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr "зайві параметри у командному рядку з прапорцем --listen"
 
-#: fish/fish.c:510
+#: fish/fish.c:511
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr "не можна одночасно використовувати параметри --listen і --file"
 
-#: fish/fish.c:682
+#: fish/fish.c:683
 #, c-format
 msgid ""
 "\n"
@@ -8080,51 +8034,51 @@ msgstr ""
 "      «quit», щоб вийти з оболонки\n"
 "\n"
 
-#: fish/fish.c:856 fish/fish.c:872
+#: fish/fish.c:857 fish/fish.c:873
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: аргументи команди не відокремлено пробілами\n"
 
-#: fish/fish.c:866
+#: fish/fish.c:867
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: не виявлено завершальних одинарних лапок\n"
 
-#: fish/fish.c:896
+#: fish/fish.c:897
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: внутрішня помилка під час обробки рядка, «%s»\n"
 
-#: fish/fish.c:913
+#: fish/fish.c:914
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: занадто багато аргументів\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:990
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: некоректна керівна послідовність у рядку (починаючи з позиції %d)\n"
 
-#: fish/fish.c:998
+#: fish/fish.c:999
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: не виявлено завершальних подвійних лапок\n"
 
-#: fish/fish.c:1063
+#: fish/fish.c:1064
 #, c-format
 msgid "empty command on command line"
 msgstr "порожня команда у командному рядку"
 
-#: fish/fish.c:1222
+#: fish/fish.c:1223
 msgid "display a list of commands or help on a command"
 msgstr "показати список команд або довідку щодо команди"
 
-#: fish/fish.c:1224
+#: fish/fish.c:1225
 msgid "quit guestfish"
 msgstr "вийти з guestfish"
 
-#: fish/fish.c:1235
+#: fish/fish.c:1236
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -8135,7 +8089,7 @@ msgstr ""
 "     help команда\n"
 "     help\n"
 
-#: fish/fish.c:1243
+#: fish/fish.c:1244
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -8144,13 +8098,13 @@ msgstr ""
 "quit — завершити роботу guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1248
+#: fish/fish.c:1249
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: невідома команда, скористайтеся -h, щоб отримати список всіх команд\n"
 
-#: fish/fish.c:1268
+#: fish/fish.c:1269
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -8161,17 +8115,17 @@ msgstr ""
 "Отримати список команд:             guestfish -h\n"
 "Ознайомитися з документацією:       man guestfish\n"
 
-#: fish/fish.c:1279
+#: fish/fish.c:1280
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: помилка: %s\n"
 
-#: fish/fish.c:1406
+#: fish/fish.c:1407
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "У рядку «%s» не вистачає лапок\n"
 
-#: fish/fish.c:1738
+#: fish/fish.c:1739
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -8181,14 +8135,14 @@ msgstr ""
 "гостьову систему (використати параметр \"-i\" або виконати команду \"inspect-"
 "os\")\n"
 
-#: fish/fish.c:1744
+#: fish/fish.c:1745
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: для використання літерних позначень дисків Windows ваша система має бути "
 "гостьовою системою Windows\n"
 
-#: fish/fish.c:1758
+#: fish/fish.c:1759
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -8198,7 +8152,7 @@ msgstr ""
 "команду\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1777
+#: fish/fish.c:1778
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -8284,12 +8238,12 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: некоректний діапазон\n"
 
-#: fish/inspect.c:72
+#: fish/inspect.c:73
 #, c-format
 msgid "don't use --live and -i options together"
 msgstr "не використовуйте одразу параметри --live і -i"
 
-#: fish/inspect.c:82
+#: fish/inspect.c:83
 #, c-format
 msgid ""
 "%s: no operating system was found on this disk\n"
@@ -8326,7 +8280,7 @@ msgstr ""
 "відповідними командами guestfish (докладний опис можна знайти\n"
 "на сторінках довідника (man) щодо інструмента віртуалізації).\n"
 
-#: fish/inspect.c:103
+#: fish/inspect.c:104
 #, c-format
 msgid ""
 "%s: multi-boot operating systems are not supported\n"
@@ -8365,17 +8319,17 @@ msgstr ""
 "(докладний опис можна знайти на сторінках довідника (man)\n"
 "щодо інструмента віртуалізації).\n"
 
-#: fish/inspect.c:165
+#: fish/inspect.c:166
 #, c-format
 msgid "%s: some filesystems could not be mounted (ignored)\n"
 msgstr "%s: деякі з файлових систем не вдалося змонтувати (проігноровано)\n"
 
-#: fish/inspect.c:182
+#: fish/inspect.c:183
 #, c-format
 msgid "Operating system: %s\n"
 msgstr "Операційна система: %s\n"
 
-#: fish/inspect.c:200
+#: fish/inspect.c:201
 #, c-format
 msgid "%s mounted on %s\n"
 msgstr "%s змонтовано до %s\n"
@@ -8402,17 +8356,17 @@ msgstr ""
 "скористайтеся командою «%s назва_файла» для поділу вмісту файла під час "
 "перегляду на сторінки\n"
 
-#: fish/options.c:118
+#: fish/options.c:120
 #, c-format
 msgid "too many drives added on the command line"
 msgstr "у командному рядку вказано занадто багато пристроїв"
 
-#: fish/options.c:278
+#: fish/options.c:280
 #, c-format
 msgid "%s: '%s' could not be mounted.\n"
 msgstr "%s: не вдалося змонтувати «%s».\n"
 
-#: fish/options.c:282
+#: fish/options.c:284
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options '%s'\n"
@@ -8422,12 +8376,12 @@ msgstr ""
 "параметрами «%s»\n"
 "%s: підтримуються файловою системою, яка монтується.\n"
 
-#: fish/options.c:286
+#: fish/options.c:288
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr "%s: ви хотіли змонтувати одну з цих файлових систем?\n"
 
-#: fish/options.c:299
+#: fish/options.c:301
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr "не вдалося визначити підтом для %s: %s (%d)"
@@ -8615,153 +8569,153 @@ msgstr "для команди «reopen» не передбачено жодни�
 msgid "reopen: guestfs_create: failed to create handle\n"
 msgstr "reopen: guestfs_create: не вдалося створити елемент керування\n"
 
-#: fish/run-0.c:141 fish/run-0.c:159 fish/run-0.c:172 fish/run-0.c:200
-#: fish/run-0.c:348 fish/run-0.c:715 fish/run-0.c:728 fish/run-0.c:1963
-#: fish/run-0.c:2334 fish/run-0.c:2425 fish/run-0.c:2534 fish/run-0.c:2603
-#: fish/run-1.c:299 fish/run-1.c:526 fish/run-1.c:539 fish/run-1.c:552
-#: fish/run-1.c:565 fish/run-1.c:677 fish/run-1.c:690 fish/run-1.c:1139
-#: fish/run-1.c:1152 fish/run-1.c:1165 fish/run-1.c:1178 fish/run-1.c:1419
-#: fish/run-1.c:1432 fish/run-1.c:2262 fish/run-1.c:2306 fish/run-1.c:2319
-#: fish/run-1.c:2332 fish/run-1.c:2345 fish/run-1.c:2358 fish/run-1.c:2555
-#: fish/run-1.c:2603 fish/run-1.c:2677 fish/run-1.c:2861 fish/run-1.c:2874
-#: fish/run-1.c:2923 fish/run-1.c:3004 fish/run-1.c:3017 fish/run-1.c:3030
-#: fish/run-1.c:3043 fish/run-1.c:3056 fish/run-2.c:124 fish/run-2.c:188
-#: fish/run-2.c:501 fish/run-2.c:712 fish/run-2.c:725 fish/run-2.c:1005
-#: fish/run-2.c:1257 fish/run-2.c:1338 fish/run-2.c:1770 fish/run-2.c:2036
-#: fish/run-2.c:2049 fish/run-2.c:2211 fish/run-3.c:415 fish/run-3.c:985
-#: fish/run-3.c:1351 fish/run-3.c:1364 fish/run-3.c:1377 fish/run-3.c:1620
-#: fish/run-3.c:1679 fish/run-3.c:2426 fish/run-3.c:2439 fish/run-3.c:2452
-#: fish/run-3.c:2465 fish/run-3.c:2478 fish/run-3.c:2491 fish/run-3.c:2504
-#: fish/run-3.c:2517 fish/run-3.c:2530 fish/run-3.c:2543 fish/run-3.c:2556
-#: fish/run-3.c:2569 fish/run-3.c:2582 fish/run-3.c:2595 fish/run-3.c:2608
-#: fish/run-3.c:2621 fish/run-3.c:2634 fish/run-3.c:2910 fish/run-3.c:2951
-#: fish/run-3.c:3219 fish/run-3.c:3232 fish/run-3.c:3349 fish/run-3.c:3535
-#: fish/run-3.c:3548 fish/run-3.c:3561 fish/run-3.c:3644 fish/run-4.c:167
-#: fish/run-4.c:477 fish/run-4.c:1587 fish/run-4.c:2036 fish/run-5.c:409
-#: fish/run-5.c:547 fish/run-5.c:560 fish/run-5.c:672 fish/run-5.c:685
-#: fish/run-5.c:1200 fish/run-5.c:1278 fish/run-5.c:2208 fish/run-5.c:2300
-#: fish/run-5.c:2877 fish/run-5.c:2890 fish/run-5.c:2903 fish/run-5.c:3078
-#: fish/run-5.c:3091 fish/run-5.c:3104 fish/run-5.c:3117 fish/run-6.c:257
-#: fish/run-6.c:1656 fish/run-6.c:1802 fish/run-6.c:1815 fish/run-6.c:2098
-#: fish/run-6.c:2117 fish/run-6.c:2130 fish/run-6.c:2143
+#: fish/run-0.c:142 fish/run-0.c:160 fish/run-0.c:173 fish/run-0.c:201
+#: fish/run-0.c:349 fish/run-0.c:716 fish/run-0.c:729 fish/run-0.c:1964
+#: fish/run-0.c:2335 fish/run-0.c:2426 fish/run-0.c:2535 fish/run-0.c:2604
+#: fish/run-1.c:300 fish/run-1.c:527 fish/run-1.c:540 fish/run-1.c:553
+#: fish/run-1.c:566 fish/run-1.c:678 fish/run-1.c:691 fish/run-1.c:1140
+#: fish/run-1.c:1153 fish/run-1.c:1166 fish/run-1.c:1179 fish/run-1.c:1420
+#: fish/run-1.c:1433 fish/run-1.c:2263 fish/run-1.c:2307 fish/run-1.c:2320
+#: fish/run-1.c:2333 fish/run-1.c:2346 fish/run-1.c:2359 fish/run-1.c:2556
+#: fish/run-1.c:2604 fish/run-1.c:2678 fish/run-1.c:2862 fish/run-1.c:2875
+#: fish/run-1.c:2924 fish/run-1.c:3005 fish/run-1.c:3018 fish/run-1.c:3031
+#: fish/run-1.c:3044 fish/run-1.c:3057 fish/run-2.c:125 fish/run-2.c:189
+#: fish/run-2.c:502 fish/run-2.c:713 fish/run-2.c:726 fish/run-2.c:1006
+#: fish/run-2.c:1258 fish/run-2.c:1339 fish/run-2.c:1771 fish/run-2.c:2037
+#: fish/run-2.c:2050 fish/run-2.c:2212 fish/run-3.c:416 fish/run-3.c:986
+#: fish/run-3.c:1352 fish/run-3.c:1365 fish/run-3.c:1378 fish/run-3.c:1621
+#: fish/run-3.c:1680 fish/run-3.c:2427 fish/run-3.c:2440 fish/run-3.c:2453
+#: fish/run-3.c:2466 fish/run-3.c:2479 fish/run-3.c:2492 fish/run-3.c:2505
+#: fish/run-3.c:2518 fish/run-3.c:2531 fish/run-3.c:2544 fish/run-3.c:2557
+#: fish/run-3.c:2570 fish/run-3.c:2583 fish/run-3.c:2596 fish/run-3.c:2609
+#: fish/run-3.c:2622 fish/run-3.c:2635 fish/run-3.c:2911 fish/run-3.c:2952
+#: fish/run-3.c:3220 fish/run-3.c:3233 fish/run-3.c:3350 fish/run-3.c:3536
+#: fish/run-3.c:3549 fish/run-3.c:3562 fish/run-3.c:3645 fish/run-4.c:168
+#: fish/run-4.c:478 fish/run-4.c:1588 fish/run-4.c:2037 fish/run-5.c:410
+#: fish/run-5.c:548 fish/run-5.c:561 fish/run-5.c:673 fish/run-5.c:686
+#: fish/run-5.c:1201 fish/run-5.c:1279 fish/run-5.c:2209 fish/run-5.c:2301
+#: fish/run-5.c:2878 fish/run-5.c:2891 fish/run-5.c:2904 fish/run-5.c:3079
+#: fish/run-5.c:3092 fish/run-5.c:3105 fish/run-5.c:3118 fish/run-6.c:258
+#: fish/run-6.c:1657 fish/run-6.c:1803 fish/run-6.c:1816 fish/run-6.c:2099
+#: fish/run-6.c:2118 fish/run-6.c:2131 fish/run-6.c:2144
 #, c-format
 msgid "%s: '%s': invalid boolean value, use 'true' or 'false'\n"
 msgstr "%s: «%s»: некоректне булеве значення, має бути 'true' або 'false'\n"
 
-#: fish/run-0.c:210 fish/run-0.c:358 fish/run-0.c:522 fish/run-0.c:595
-#: fish/run-0.c:738 fish/run-0.c:1729 fish/run-0.c:1849 fish/run-0.c:1973
-#: fish/run-0.c:2544 fish/run-1.c:309 fish/run-1.c:575 fish/run-1.c:700
-#: fish/run-1.c:1188 fish/run-1.c:1442 fish/run-1.c:2003 fish/run-1.c:2368
-#: fish/run-1.c:2565 fish/run-1.c:2742 fish/run-1.c:2884 fish/run-1.c:3076
-#: fish/run-2.c:198 fish/run-2.c:265 fish/run-2.c:735 fish/run-2.c:1015
-#: fish/run-2.c:1267 fish/run-2.c:1348 fish/run-2.c:2059 fish/run-3.c:430
-#: fish/run-3.c:492 fish/run-3.c:587 fish/run-3.c:888 fish/run-3.c:995
-#: fish/run-3.c:1387 fish/run-3.c:1630 fish/run-3.c:1689 fish/run-3.c:2644
-#: fish/run-3.c:2961 fish/run-3.c:3242 fish/run-3.c:3571 fish/run-3.c:3807
-#: fish/run-4.c:387 fish/run-4.c:492 fish/run-4.c:812 fish/run-4.c:1597
-#: fish/run-4.c:2046 fish/run-5.c:570 fish/run-5.c:695 fish/run-5.c:749
-#: fish/run-5.c:1210 fish/run-5.c:1288 fish/run-5.c:1819 fish/run-5.c:3004
-#: fish/run-5.c:3205 fish/run-6.c:1251 fish/run-6.c:1322 fish/run-6.c:1666
-#: fish/run-6.c:1825 fish/run-6.c:2153
+#: fish/run-0.c:211 fish/run-0.c:359 fish/run-0.c:523 fish/run-0.c:596
+#: fish/run-0.c:739 fish/run-0.c:1730 fish/run-0.c:1850 fish/run-0.c:1974
+#: fish/run-0.c:2545 fish/run-1.c:310 fish/run-1.c:576 fish/run-1.c:701
+#: fish/run-1.c:1189 fish/run-1.c:1443 fish/run-1.c:2004 fish/run-1.c:2369
+#: fish/run-1.c:2566 fish/run-1.c:2743 fish/run-1.c:2885 fish/run-1.c:3077
+#: fish/run-2.c:199 fish/run-2.c:266 fish/run-2.c:736 fish/run-2.c:1016
+#: fish/run-2.c:1268 fish/run-2.c:1349 fish/run-2.c:2060 fish/run-3.c:431
+#: fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889 fish/run-3.c:996
+#: fish/run-3.c:1388 fish/run-3.c:1631 fish/run-3.c:1690 fish/run-3.c:2645
+#: fish/run-3.c:2962 fish/run-3.c:3243 fish/run-3.c:3572 fish/run-3.c:3808
+#: fish/run-4.c:388 fish/run-4.c:493 fish/run-4.c:813 fish/run-4.c:1598
+#: fish/run-4.c:2047 fish/run-5.c:571 fish/run-5.c:696 fish/run-5.c:750
+#: fish/run-5.c:1211 fish/run-5.c:1289 fish/run-5.c:1820 fish/run-5.c:3005
+#: fish/run-5.c:3206 fish/run-6.c:1252 fish/run-6.c:1323 fish/run-6.c:1667
+#: fish/run-6.c:1826 fish/run-6.c:2154
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr "%s: невідомий додатковий аргумент «%s»\n"
 
-#: fish/run-0.c:216 fish/run-0.c:364 fish/run-0.c:528 fish/run-0.c:601
-#: fish/run-0.c:744 fish/run-0.c:1735 fish/run-0.c:1855 fish/run-0.c:1979
-#: fish/run-0.c:2550 fish/run-1.c:315 fish/run-1.c:581 fish/run-1.c:706
-#: fish/run-1.c:1194 fish/run-1.c:1448 fish/run-1.c:2009 fish/run-1.c:2374
-#: fish/run-1.c:2571 fish/run-1.c:2748 fish/run-1.c:2890 fish/run-1.c:3082
-#: fish/run-2.c:204 fish/run-2.c:271 fish/run-2.c:741 fish/run-2.c:1021
-#: fish/run-2.c:1273 fish/run-2.c:1354 fish/run-2.c:2065 fish/run-3.c:436
-#: fish/run-3.c:498 fish/run-3.c:593 fish/run-3.c:894 fish/run-3.c:1001
-#: fish/run-3.c:1393 fish/run-3.c:1636 fish/run-3.c:1695 fish/run-3.c:2650
-#: fish/run-3.c:2967 fish/run-3.c:3248 fish/run-3.c:3577 fish/run-3.c:3813
-#: fish/run-4.c:393 fish/run-4.c:498 fish/run-4.c:818 fish/run-4.c:1603
-#: fish/run-4.c:2052 fish/run-5.c:576 fish/run-5.c:701 fish/run-5.c:755
-#: fish/run-5.c:1216 fish/run-5.c:1294 fish/run-5.c:1825 fish/run-5.c:3010
-#: fish/run-5.c:3211 fish/run-6.c:1257 fish/run-6.c:1328 fish/run-6.c:1672
-#: fish/run-6.c:1831 fish/run-6.c:2159
+#: fish/run-0.c:217 fish/run-0.c:365 fish/run-0.c:529 fish/run-0.c:602
+#: fish/run-0.c:745 fish/run-0.c:1736 fish/run-0.c:1856 fish/run-0.c:1980
+#: fish/run-0.c:2551 fish/run-1.c:316 fish/run-1.c:582 fish/run-1.c:707
+#: fish/run-1.c:1195 fish/run-1.c:1449 fish/run-1.c:2010 fish/run-1.c:2375
+#: fish/run-1.c:2572 fish/run-1.c:2749 fish/run-1.c:2891 fish/run-1.c:3083
+#: fish/run-2.c:205 fish/run-2.c:272 fish/run-2.c:742 fish/run-2.c:1022
+#: fish/run-2.c:1274 fish/run-2.c:1355 fish/run-2.c:2066 fish/run-3.c:437
+#: fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895 fish/run-3.c:1002
+#: fish/run-3.c:1394 fish/run-3.c:1637 fish/run-3.c:1696 fish/run-3.c:2651
+#: fish/run-3.c:2968 fish/run-3.c:3249 fish/run-3.c:3578 fish/run-3.c:3814
+#: fish/run-4.c:394 fish/run-4.c:499 fish/run-4.c:819 fish/run-4.c:1604
+#: fish/run-4.c:2053 fish/run-5.c:577 fish/run-5.c:702 fish/run-5.c:756
+#: fish/run-5.c:1217 fish/run-5.c:1295 fish/run-5.c:1826 fish/run-5.c:3011
+#: fish/run-5.c:3212 fish/run-6.c:1258 fish/run-6.c:1329 fish/run-6.c:1673
+#: fish/run-6.c:1832 fish/run-6.c:2160
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr "%s: додатковий аргумент «%s» вказано двічі\n"
 
-#: fish/run-0.c:506 fish/run-0.c:579 fish/run-0.c:866 fish/run-0.c:1005
-#: fish/run-0.c:1045 fish/run-0.c:1059 fish/run-0.c:1097 fish/run-0.c:1133
-#: fish/run-0.c:1618 fish/run-0.c:1635 fish/run-0.c:1657 fish/run-0.c:1690
-#: fish/run-0.c:1713 fish/run-0.c:1950 fish/run-0.c:2129 fish/run-0.c:2368
-#: fish/run-0.c:2464 fish/run-1.c:286 fish/run-1.c:630 fish/run-1.c:647
-#: fish/run-1.c:664 fish/run-1.c:814 fish/run-1.c:903 fish/run-1.c:987
-#: fish/run-1.c:1232 fish/run-1.c:1287 fish/run-1.c:1373 fish/run-1.c:1585
-#: fish/run-1.c:1604 fish/run-1.c:1873 fish/run-1.c:1925 fish/run-1.c:1942
-#: fish/run-1.c:1965 fish/run-1.c:1988 fish/run-1.c:2074 fish/run-1.c:2093
-#: fish/run-1.c:2112 fish/run-1.c:2459 fish/run-1.c:2478 fish/run-2.c:243
-#: fish/run-2.c:443 fish/run-2.c:563 fish/run-2.c:582 fish/run-2.c:665
-#: fish/run-2.c:682 fish/run-2.c:699 fish/run-2.c:834 fish/run-2.c:1086
-#: fish/run-2.c:1123 fish/run-2.c:1464 fish/run-2.c:1515 fish/run-2.c:1582
-#: fish/run-2.c:1650 fish/run-2.c:1755 fish/run-2.c:1808 fish/run-2.c:1920
-#: fish/run-2.c:2126 fish/run-2.c:2391 fish/run-3.c:482 fish/run-3.c:571
-#: fish/run-3.c:783 fish/run-3.c:833 fish/run-3.c:872 fish/run-3.c:955
-#: fish/run-3.c:968 fish/run-3.c:1429 fish/run-3.c:1468 fish/run-3.c:1511
-#: fish/run-3.c:1795 fish/run-3.c:2070 fish/run-3.c:2145 fish/run-3.c:2162
-#: fish/run-3.c:2179 fish/run-3.c:2196 fish/run-3.c:2213 fish/run-3.c:2230
-#: fish/run-3.c:2247 fish/run-3.c:2264 fish/run-3.c:2281 fish/run-3.c:2298
-#: fish/run-3.c:2315 fish/run-3.c:2332 fish/run-3.c:2349 fish/run-3.c:2372
-#: fish/run-3.c:2688 fish/run-3.c:2734 fish/run-3.c:2777 fish/run-3.c:2821
-#: fish/run-3.c:2840 fish/run-3.c:2859 fish/run-3.c:2932 fish/run-3.c:3003
-#: fish/run-3.c:3039 fish/run-3.c:3081 fish/run-3.c:3661 fish/run-3.c:3684
-#: fish/run-3.c:3712 fish/run-3.c:3729 fish/run-3.c:3752 fish/run-3.c:3780
-#: fish/run-3.c:3797 fish/run-3.c:3882 fish/run-3.c:3895 fish/run-3.c:3908
-#: fish/run-3.c:3921 fish/run-3.c:4050 fish/run-4.c:125 fish/run-4.c:289
-#: fish/run-4.c:430 fish/run-4.c:591 fish/run-4.c:634 fish/run-4.c:683
-#: fish/run-4.c:696 fish/run-4.c:768 fish/run-4.c:785 fish/run-4.c:802
-#: fish/run-4.c:896 fish/run-4.c:1030 fish/run-4.c:1227 fish/run-4.c:1317
-#: fish/run-4.c:1384 fish/run-4.c:1428 fish/run-4.c:1473 fish/run-4.c:1492
-#: fish/run-4.c:1511 fish/run-4.c:1642 fish/run-4.c:1655 fish/run-4.c:1692
-#: fish/run-4.c:1736 fish/run-4.c:1779 fish/run-4.c:1823 fish/run-4.c:2205
-#: fish/run-5.c:500 fish/run-5.c:517 fish/run-5.c:534 fish/run-5.c:625
-#: fish/run-5.c:642 fish/run-5.c:659 fish/run-5.c:870 fish/run-5.c:999
-#: fish/run-5.c:1067 fish/run-5.c:1373 fish/run-5.c:1537 fish/run-5.c:1585
-#: fish/run-5.c:1629 fish/run-5.c:1747 fish/run-5.c:1775 fish/run-5.c:1798
-#: fish/run-5.c:1862 fish/run-5.c:2017 fish/run-5.c:2061 fish/run-5.c:2105
-#: fish/run-5.c:2242 fish/run-5.c:2360 fish/run-5.c:2379 fish/run-5.c:2398
-#: fish/run-5.c:2476 fish/run-5.c:2495 fish/run-5.c:2514 fish/run-5.c:2533
-#: fish/run-5.c:2698 fish/run-5.c:2920 fish/run-5.c:2937 fish/run-5.c:2954
-#: fish/run-5.c:2971 fish/run-5.c:2988 fish/run-5.c:3134 fish/run-5.c:3151
-#: fish/run-5.c:3168 fish/run-5.c:3185 fish/run-6.c:190 fish/run-6.c:427
-#: fish/run-6.c:472 fish/run-6.c:611 fish/run-6.c:630 fish/run-6.c:786
-#: fish/run-6.c:822 fish/run-6.c:1072 fish/run-6.c:1197 fish/run-6.c:1425
-#: fish/run-6.c:1444 fish/run-6.c:1489 fish/run-6.c:1508 fish/run-6.c:1590
-#: fish/run-6.c:1736 fish/run-6.c:1870 fish/run-6.c:1952 fish/run-6.c:2039
+#: fish/run-0.c:507 fish/run-0.c:580 fish/run-0.c:867 fish/run-0.c:1006
+#: fish/run-0.c:1046 fish/run-0.c:1060 fish/run-0.c:1098 fish/run-0.c:1134
+#: fish/run-0.c:1619 fish/run-0.c:1636 fish/run-0.c:1658 fish/run-0.c:1691
+#: fish/run-0.c:1714 fish/run-0.c:1951 fish/run-0.c:2130 fish/run-0.c:2369
+#: fish/run-0.c:2465 fish/run-1.c:287 fish/run-1.c:631 fish/run-1.c:648
+#: fish/run-1.c:665 fish/run-1.c:815 fish/run-1.c:904 fish/run-1.c:988
+#: fish/run-1.c:1233 fish/run-1.c:1288 fish/run-1.c:1374 fish/run-1.c:1586
+#: fish/run-1.c:1605 fish/run-1.c:1874 fish/run-1.c:1926 fish/run-1.c:1943
+#: fish/run-1.c:1966 fish/run-1.c:1989 fish/run-1.c:2075 fish/run-1.c:2094
+#: fish/run-1.c:2113 fish/run-1.c:2460 fish/run-1.c:2479 fish/run-2.c:244
+#: fish/run-2.c:444 fish/run-2.c:564 fish/run-2.c:583 fish/run-2.c:666
+#: fish/run-2.c:683 fish/run-2.c:700 fish/run-2.c:835 fish/run-2.c:1087
+#: fish/run-2.c:1124 fish/run-2.c:1465 fish/run-2.c:1516 fish/run-2.c:1583
+#: fish/run-2.c:1651 fish/run-2.c:1756 fish/run-2.c:1809 fish/run-2.c:1921
+#: fish/run-2.c:2127 fish/run-2.c:2392 fish/run-3.c:483 fish/run-3.c:572
+#: fish/run-3.c:784 fish/run-3.c:834 fish/run-3.c:873 fish/run-3.c:956
+#: fish/run-3.c:969 fish/run-3.c:1430 fish/run-3.c:1469 fish/run-3.c:1512
+#: fish/run-3.c:1796 fish/run-3.c:2071 fish/run-3.c:2146 fish/run-3.c:2163
+#: fish/run-3.c:2180 fish/run-3.c:2197 fish/run-3.c:2214 fish/run-3.c:2231
+#: fish/run-3.c:2248 fish/run-3.c:2265 fish/run-3.c:2282 fish/run-3.c:2299
+#: fish/run-3.c:2316 fish/run-3.c:2333 fish/run-3.c:2350 fish/run-3.c:2373
+#: fish/run-3.c:2689 fish/run-3.c:2735 fish/run-3.c:2778 fish/run-3.c:2822
+#: fish/run-3.c:2841 fish/run-3.c:2860 fish/run-3.c:2933 fish/run-3.c:3004
+#: fish/run-3.c:3040 fish/run-3.c:3082 fish/run-3.c:3662 fish/run-3.c:3685
+#: fish/run-3.c:3713 fish/run-3.c:3730 fish/run-3.c:3753 fish/run-3.c:3781
+#: fish/run-3.c:3798 fish/run-3.c:3883 fish/run-3.c:3896 fish/run-3.c:3909
+#: fish/run-3.c:3922 fish/run-3.c:4051 fish/run-4.c:126 fish/run-4.c:290
+#: fish/run-4.c:431 fish/run-4.c:592 fish/run-4.c:635 fish/run-4.c:684
+#: fish/run-4.c:697 fish/run-4.c:769 fish/run-4.c:786 fish/run-4.c:803
+#: fish/run-4.c:897 fish/run-4.c:1031 fish/run-4.c:1228 fish/run-4.c:1318
+#: fish/run-4.c:1385 fish/run-4.c:1429 fish/run-4.c:1474 fish/run-4.c:1493
+#: fish/run-4.c:1512 fish/run-4.c:1643 fish/run-4.c:1656 fish/run-4.c:1693
+#: fish/run-4.c:1737 fish/run-4.c:1780 fish/run-4.c:1824 fish/run-4.c:2206
+#: fish/run-5.c:501 fish/run-5.c:518 fish/run-5.c:535 fish/run-5.c:626
+#: fish/run-5.c:643 fish/run-5.c:660 fish/run-5.c:871 fish/run-5.c:1000
+#: fish/run-5.c:1068 fish/run-5.c:1374 fish/run-5.c:1538 fish/run-5.c:1586
+#: fish/run-5.c:1630 fish/run-5.c:1748 fish/run-5.c:1776 fish/run-5.c:1799
+#: fish/run-5.c:1863 fish/run-5.c:2018 fish/run-5.c:2062 fish/run-5.c:2106
+#: fish/run-5.c:2243 fish/run-5.c:2361 fish/run-5.c:2380 fish/run-5.c:2399
+#: fish/run-5.c:2477 fish/run-5.c:2496 fish/run-5.c:2515 fish/run-5.c:2534
+#: fish/run-5.c:2699 fish/run-5.c:2921 fish/run-5.c:2938 fish/run-5.c:2955
+#: fish/run-5.c:2972 fish/run-5.c:2989 fish/run-5.c:3135 fish/run-5.c:3152
+#: fish/run-5.c:3169 fish/run-5.c:3186 fish/run-6.c:191 fish/run-6.c:428
+#: fish/run-6.c:473 fish/run-6.c:612 fish/run-6.c:631 fish/run-6.c:787
+#: fish/run-6.c:823 fish/run-6.c:1073 fish/run-6.c:1198 fish/run-6.c:1426
+#: fish/run-6.c:1445 fish/run-6.c:1490 fish/run-6.c:1509 fish/run-6.c:1591
+#: fish/run-6.c:1737 fish/run-6.c:1871 fish/run-6.c:1953 fish/run-6.c:2040
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr "%s: %s: некоректний цілий параметр (%s повернуто %u)\n"
 
-#: fish/run-0.c:512 fish/run-0.c:585 fish/run-0.c:872 fish/run-0.c:1663
-#: fish/run-0.c:1696 fish/run-0.c:1719 fish/run-0.c:2374 fish/run-0.c:2470
-#: fish/run-1.c:909 fish/run-1.c:993 fish/run-1.c:1379 fish/run-1.c:1591
-#: fish/run-1.c:1610 fish/run-1.c:1879 fish/run-1.c:1948 fish/run-1.c:1971
-#: fish/run-1.c:2080 fish/run-1.c:2099 fish/run-1.c:2118 fish/run-1.c:2465
-#: fish/run-2.c:569 fish/run-2.c:588 fish/run-2.c:840 fish/run-2.c:1470
-#: fish/run-2.c:1521 fish/run-2.c:1588 fish/run-2.c:1761 fish/run-2.c:1814
-#: fish/run-2.c:2132 fish/run-3.c:577 fish/run-3.c:789 fish/run-3.c:878
-#: fish/run-3.c:1474 fish/run-3.c:1517 fish/run-3.c:2076 fish/run-3.c:2355
-#: fish/run-3.c:2378 fish/run-3.c:2694 fish/run-3.c:2740 fish/run-3.c:2783
-#: fish/run-3.c:2827 fish/run-3.c:2846 fish/run-3.c:2865 fish/run-3.c:2938
-#: fish/run-3.c:3045 fish/run-3.c:3087 fish/run-3.c:3667 fish/run-3.c:3690
-#: fish/run-3.c:3735 fish/run-3.c:3758 fish/run-3.c:4056 fish/run-4.c:131
-#: fish/run-4.c:295 fish/run-4.c:640 fish/run-4.c:902 fish/run-4.c:1233
-#: fish/run-4.c:1323 fish/run-4.c:1390 fish/run-4.c:1434 fish/run-4.c:1479
-#: fish/run-4.c:1498 fish/run-4.c:1517 fish/run-4.c:1698 fish/run-4.c:1742
-#: fish/run-4.c:1785 fish/run-4.c:1829 fish/run-4.c:2211 fish/run-5.c:876
-#: fish/run-5.c:1005 fish/run-5.c:1543 fish/run-5.c:1591 fish/run-5.c:1635
-#: fish/run-5.c:1753 fish/run-5.c:1781 fish/run-5.c:1804 fish/run-5.c:1868
-#: fish/run-5.c:2023 fish/run-5.c:2067 fish/run-5.c:2111 fish/run-5.c:2248
-#: fish/run-5.c:2366 fish/run-5.c:2385 fish/run-5.c:2404 fish/run-5.c:2482
-#: fish/run-5.c:2501 fish/run-5.c:2520 fish/run-5.c:2539 fish/run-5.c:2994
-#: fish/run-6.c:196 fish/run-6.c:433 fish/run-6.c:617 fish/run-6.c:636
-#: fish/run-6.c:1078 fish/run-6.c:1203 fish/run-6.c:1431 fish/run-6.c:1450
-#: fish/run-6.c:1495 fish/run-6.c:1958 fish/run-6.c:2045 mllib/getopt-c.c:197
+#: fish/run-0.c:513 fish/run-0.c:586 fish/run-0.c:873 fish/run-0.c:1664
+#: fish/run-0.c:1697 fish/run-0.c:1720 fish/run-0.c:2375 fish/run-0.c:2471
+#: fish/run-1.c:910 fish/run-1.c:994 fish/run-1.c:1380 fish/run-1.c:1592
+#: fish/run-1.c:1611 fish/run-1.c:1880 fish/run-1.c:1949 fish/run-1.c:1972
+#: fish/run-1.c:2081 fish/run-1.c:2100 fish/run-1.c:2119 fish/run-1.c:2466
+#: fish/run-2.c:570 fish/run-2.c:589 fish/run-2.c:841 fish/run-2.c:1471
+#: fish/run-2.c:1522 fish/run-2.c:1589 fish/run-2.c:1762 fish/run-2.c:1815
+#: fish/run-2.c:2133 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
+#: fish/run-3.c:1475 fish/run-3.c:1518 fish/run-3.c:2077 fish/run-3.c:2356
+#: fish/run-3.c:2379 fish/run-3.c:2695 fish/run-3.c:2741 fish/run-3.c:2784
+#: fish/run-3.c:2828 fish/run-3.c:2847 fish/run-3.c:2866 fish/run-3.c:2939
+#: fish/run-3.c:3046 fish/run-3.c:3088 fish/run-3.c:3668 fish/run-3.c:3691
+#: fish/run-3.c:3736 fish/run-3.c:3759 fish/run-3.c:4057 fish/run-4.c:132
+#: fish/run-4.c:296 fish/run-4.c:641 fish/run-4.c:903 fish/run-4.c:1234
+#: fish/run-4.c:1324 fish/run-4.c:1391 fish/run-4.c:1435 fish/run-4.c:1480
+#: fish/run-4.c:1499 fish/run-4.c:1518 fish/run-4.c:1699 fish/run-4.c:1743
+#: fish/run-4.c:1786 fish/run-4.c:1830 fish/run-4.c:2212 fish/run-5.c:877
+#: fish/run-5.c:1006 fish/run-5.c:1544 fish/run-5.c:1592 fish/run-5.c:1636
+#: fish/run-5.c:1754 fish/run-5.c:1782 fish/run-5.c:1805 fish/run-5.c:1869
+#: fish/run-5.c:2024 fish/run-5.c:2068 fish/run-5.c:2112 fish/run-5.c:2249
+#: fish/run-5.c:2367 fish/run-5.c:2386 fish/run-5.c:2405 fish/run-5.c:2483
+#: fish/run-5.c:2502 fish/run-5.c:2521 fish/run-5.c:2540 fish/run-5.c:2995
+#: fish/run-6.c:197 fish/run-6.c:434 fish/run-6.c:618 fish/run-6.c:637
+#: fish/run-6.c:1079 fish/run-6.c:1204 fish/run-6.c:1432 fish/run-6.c:1451
+#: fish/run-6.c:1496 fish/run-6.c:1959 fish/run-6.c:2046 mllib/getopt-c.c:198
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: ціле значення поза межами діапазону\n"
@@ -8793,17 +8747,17 @@ msgstr "ні"
 msgid "use 'time command [args...]'\n"
 msgstr "скористайтеся командою «time команда [аргументи...]»\n"
 
-#: fish/uri.c:118
+#: fish/uri.c:119
 #, c-format
 msgid "%s: --add: could not parse URI '%s'\n"
 msgstr "%s: --add: не вдалося обробити адресу «%s»\n"
 
-#: fish/uri.c:129
+#: fish/uri.c:130
 #, c-format
 msgid "%s: %s: scheme of URI is NULL or empty\n"
 msgstr "%s: %s: схема адреси є нульовою або порожньою\n"
 
-#: fish/uri.c:137
+#: fish/uri.c:138
 #, c-format
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
@@ -8822,11 +8776,11 @@ msgstr ""
 msgid "drive '%c:' not found."
 msgstr "диска «%c:» не знайдено."
 
-#: format/format.c:64
+#: format/format.c:66
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr "ВАЖЛИВЕ ЗАУВАЖЕННЯ: ця програма ВИТИРАЄ ВСІ ДАНІ з дисків."
 
-#: format/format.c:67
+#: format/format.c:69
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
@@ -8835,7 +8789,7 @@ msgstr ""
 "Щоб дізнатися більше, віддайте команду «%s --help».\n"
 "%s\n"
 
-#: format/format.c:70
+#: format/format.c:72
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -8886,17 +8840,17 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: format/format.c:151
+#: format/format.c:153
 #, c-format
 msgid "no filesystem was specified"
 msgstr "не вказано файлової системи"
 
-#: format/format.c:157
+#: format/format.c:159
 #, c-format
 msgid "--lvm option cannot be given multiple times"
 msgstr "параметр --lvm можна визначати лише один раз"
 
-#: format/format.c:224
+#: format/format.c:226
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -8907,12 +8861,12 @@ msgstr ""
 "Переконайтеся, що вказано аргумент до --format, --lvm або --partition, "
 "наприклад «--format=%s».\n"
 
-#: format/format.c:235
+#: format/format.c:237
 #, c-format
 msgid "%s: error: you must specify at least one -a option.\n"
 msgstr "%s: помилка: вам слід вказати принаймні параметр -a.\n"
 
-#: format/format.c:277
+#: format/format.c:279
 #, c-format
 msgid ""
 "failed to rescan the disks after two attempts.  This\n"
@@ -8926,12 +8880,12 @@ msgstr ""
 "Якщо ви вважаєте, що зіткнулися з вадою, будь ласка,\n"
 "повідомте про це на сайті http://libguestfs.org/\n"
 
-#: format/format.c:313
+#: format/format.c:315
 #, c-format
 msgid "cannot parse --lvm option (%s)"
 msgstr "не вдалося обробити параметр --lvm (%s)"
 
-#: fuse/guestmount.c:103
+#: fuse/guestmount.c:104
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -8965,44 +8919,44 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:245
+#: fuse/guestmount.c:246
 #, c-format
 msgid "unable to parse --fd option value: %s"
 msgstr "не вдалося обробити значення параметра --fd: %s"
 
-#: fuse/guestmount.c:320
+#: fuse/guestmount.c:321
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 "%s: помилка: вам слід вказати або параметр -i, або принаймні один параметр -"
 "m.\n"
 
-#: fuse/guestmount.c:329
+#: fuse/guestmount.c:330
 #, c-format
 msgid "--live is not compatible with --ro option"
 msgstr "параметр --live несумісний з параметром --ro"
 
-#: fuse/guestmount.c:332
+#: fuse/guestmount.c:333
 #, c-format
 msgid "--live is not compatible with -i option"
 msgstr "параметр --live несумісний з параметром -i"
 
-#: fuse/guestmount.c:344
+#: fuse/guestmount.c:345
 #, c-format
 msgid "with --live, you must use exactly one -d option"
 msgstr "з параметром --live можна вказувати лише один параметр -d"
 
-#: fuse/guestmount.c:347
+#: fuse/guestmount.c:348
 #, c-format
 msgid "--live is not compatible with -a option"
 msgstr "параметр --live несумісний з параметром -a"
 
-#: fuse/guestmount.c:353
+#: fuse/guestmount.c:354
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr "вам слід вказати точку монтування у основній файловій системі"
 
-#: fuse/guestunmount.c:58
+#: fuse/guestunmount.c:59
 #, c-format
 msgid ""
 "%s: clean up a mounted filesystem\n"
@@ -9032,34 +8986,34 @@ msgstr ""
 "  -v|--verbose         режим докладних повідомлень\n"
 "  -V|--version         вивести дані щодо версії і завершити роботу\n"
 
-#: fuse/guestunmount.c:119
+#: fuse/guestunmount.c:120
 #, c-format
 msgid "cannot parse fd option '%s'"
 msgstr "не вдалося обробити параметр дескриптора файла, «%s»"
 
-#: fuse/guestunmount.c:125
+#: fuse/guestunmount.c:126
 #, c-format
 msgid "cannot parse retries option or value is too large '%s'"
 msgstr ""
 "не вдалося обробити параметр повторних спроб або маємо надто велике "
 "значення, «%s»"
 
-#: fuse/guestunmount.c:156
+#: fuse/guestunmount.c:157
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem\n"
 msgstr "вам слід вказати точку монтування у основній файловій системі\n"
 
-#: fuse/guestunmount.c:206
+#: fuse/guestunmount.c:207
 #, c-format
 msgid "%s: failed to unmount %s: %s\n"
 msgstr "%s: не вдалося демонтувати %s: %s\n"
 
-#: fuse/guestunmount.c:217
+#: fuse/guestunmount.c:218
 #, c-format
 msgid "%s: %s is not mounted: %s\n"
 msgstr "%s: %s не змонтовано: %s\n"
 
-#: inspector/inspector.c:74
+#: inspector/inspector.c:76
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -9104,12 +9058,12 @@ msgstr ""
 "  --xpath query        Виконати запит XPath\n"
 "Щоб дізнатися більше, скористайтеся сторінкою довідника (man) %s(1).\n"
 
-#: inspector/inspector.c:253
+#: inspector/inspector.c:255
 #, c-format
 msgid "cannot use --xpath together with other options."
 msgstr "не можна використовувати --xpath разом з іншими параметрами."
 
-#: inspector/inspector.c:288
+#: inspector/inspector.c:290
 #, c-format
 msgid ""
 "no operating system could be detected inside this disk image.\n"
@@ -9139,59 +9093,59 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: inspector/inspector.c:300
+#: inspector/inspector.c:302
 #, c-format
 msgid "XML write error at \"%s\""
 msgstr "помилка запису XML у «%s»"
 
-#: inspector/inspector.c:309
+#: inspector/inspector.c:311
 #, c-format
 msgid "xmlOutputBufferCreateFd: failed to open stdout"
 msgstr "xmlOutputBufferCreateFd: не вдалося відкрити stdout"
 
-#: inspector/inspector.c:315
+#: inspector/inspector.c:317
 #, c-format
 msgid "xmlNewTextWriter: failed to create libxml2 writer"
 msgstr "xmlNewTextWriter: не вдалося створити процес запису libxml2"
 
-#: inspector/inspector.c:776
+#: inspector/inspector.c:778
 #, c-format
 msgid "unable to parse XML from stdin"
 msgstr "не вдалося обробити код XML з stdin"
 
-#: inspector/inspector.c:780 src/launch-libvirt.c:746 src/libvirt-domain.c:405
+#: inspector/inspector.c:782 src/launch-libvirt.c:746 src/libvirt-domain.c:405
 #: src/libvirt-domain.c:488 src/libvirt-domain.c:706
 #, c-format
 msgid "unable to create new XPath context"
 msgstr "не вдалося створити контекст XPath"
 
-#: inspector/inspector.c:784 src/libvirt-domain.c:423 src/libvirt-domain.c:495
+#: inspector/inspector.c:786 src/libvirt-domain.c:423 src/libvirt-domain.c:495
 #: src/libvirt-domain.c:721
 #, c-format
 msgid "unable to evaluate XPath expression"
 msgstr "не вдалося сформувати вираз XPath"
 
-#: inspector/inspector.c:795
+#: inspector/inspector.c:797
 #, c-format
 msgid "xmlSaveToFd failed"
 msgstr "помилка xmlSaveToFd"
 
-#: inspector/inspector.c:800
+#: inspector/inspector.c:802
 #, c-format
 msgid "xmlNewDoc failed"
 msgstr "помилка xmlNewDoc"
 
-#: inspector/inspector.c:803
+#: inspector/inspector.c:805
 #, c-format
 msgid "xmlCopyNode failed"
 msgstr "помилка xmlCopyNode"
 
-#: inspector/inspector.c:808
+#: inspector/inspector.c:810
 #, c-format
 msgid "xmlSaveDoc failed"
 msgstr "помилка xmlSaveDoc"
 
-#: make-fs/make-fs.c:79
+#: make-fs/make-fs.c:80
 #, c-format
 msgid ""
 "%s: make a filesystem from a tar archive or files\n"
@@ -9214,28 +9168,28 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: make-fs/make-fs.c:185
+#: make-fs/make-fs.c:186
 #, c-format
 msgid "%s: missing input and output arguments on the command line\n"
 msgstr ""
 "%s: у командному рядку не вказано аргументів вхідних даних і результату\n"
 
-#: make-fs/make-fs.c:204
+#: make-fs/make-fs.c:205
 #, c-format
 msgid "%s: NTFS support was disabled when libguestfs was compiled\n"
 msgstr "%s: підтримку NTFS було вимкнено під час збирання libguestfs\n"
 
-#: make-fs/make-fs.c:254 make-fs/make-fs.c:318
+#: make-fs/make-fs.c:255 make-fs/make-fs.c:319
 #, c-format
 msgid "%s: %s command failed\n"
 msgstr "%s: не вдалося виконати команду %s\n"
 
-#: make-fs/make-fs.c:443
+#: make-fs/make-fs.c:444
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr "%s: не вдалося виконати обробку результатів виконання команди du: %s\n"
 
-#: make-fs/make-fs.c:478
+#: make-fs/make-fs.c:479
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
@@ -9243,132 +9197,132 @@ msgstr ""
 "%s: %s: вхідний об’єкт не є каталогом, архівом tar або стисненим архівом "
 "tar\n"
 
-#: make-fs/make-fs.c:509
+#: make-fs/make-fs.c:510
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr "%s: %s: невідомий формат стискання вхідних даних (%s)\n"
 
-#: make-fs/make-fs.c:632
+#: make-fs/make-fs.c:633
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %u)\n"
 msgstr "%s: %s: некоректний параметр розміру «%s» (%s повернуто %u)\n"
 
-#: make-fs/make-fs.c:838
+#: make-fs/make-fs.c:839
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr "%s: помилка підпроцесу\n"
 
-#: mllib/getopt-c.c:72
+#: mllib/getopt-c.c:73
 #, c-format
 msgid "Try `%s --help' or consult %s(1) for more information.\n"
 msgstr ""
 
-#: mllib/getopt-c.c:191
+#: mllib/getopt-c.c:192
 #, c-format
 msgid "%s: '%s' is not a numeric value.\n"
 msgstr ""
 
-#: mllib/getopt-c.c:377
+#: mllib/getopt-c.c:378
 #, c-format
 msgid "%s: '%s' is not allowed for -%c; allowed values are:\n"
 msgstr ""
 
-#: mllib/getopt-c.c:380
+#: mllib/getopt-c.c:381
 #, c-format
 msgid "%s: '%s' is not allowed for %s%s; allowed values are:\n"
 msgstr ""
 
-#: mllib/getopt-c.c:404
+#: mllib/getopt-c.c:405
 #, c-format
 msgid "Extra parameter on the command line: '%s'.\n"
 msgstr ""
 
-#: p2v/conversion.c:238
+#: p2v/conversion.c:239
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr "Відкриваємо з’єднання для обміну даними для %s…"
 
-#: p2v/conversion.c:327
+#: p2v/conversion.c:328
 msgid "Setting up the control connection ..."
 msgstr "Налаштовуємо контрольне з’єднання…"
 
-#: p2v/conversion.c:360
+#: p2v/conversion.c:361
 msgid "Doing conversion ..."
 msgstr "Виконуємо перетворення…"
 
-#: p2v/conversion.c:400
+#: p2v/conversion.c:401
 msgid "Conversion cancelled by user."
 msgstr "Перетворення скасовано користувачем."
 
-#: p2v/conversion.c:405
+#: p2v/conversion.c:406
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
 
-#: p2v/gui.c:282
+#: p2v/gui.c:283
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 "Встановити з’єднання із сервером перетворення virt-v2v за допомогою SSH:"
 
-#: p2v/gui.c:287
+#: p2v/gui.c:288
 msgid "Conversion server:"
 msgstr "Сервер перетворення:"
 
-#: p2v/gui.c:307
+#: p2v/gui.c:308
 msgid "User name:"
 msgstr "Користувач:"
 
-#: p2v/gui.c:319
+#: p2v/gui.c:320
 msgid "Password:"
 msgstr "Пароль:"
 
-#: p2v/gui.c:334
+#: p2v/gui.c:335
 msgid "SSH Identity URL:"
 msgstr "Адреса профілю SSH:"
 
-#: p2v/gui.c:345
+#: p2v/gui.c:346
 msgid "Use sudo when running virt-v2v"
 msgstr "Використовувати sudo для запуску virt-v2v"
 
-#: p2v/gui.c:352
+#: p2v/gui.c:353
 msgid "Test connection"
 msgstr "Перевірка з'єднання"
 
-#: p2v/gui.c:378
+#: p2v/gui.c:379
 msgid "Configure network ..."
 msgstr "Налаштувати мережу…"
 
-#: p2v/gui.c:379
+#: p2v/gui.c:380
 msgid "XTerm ..."
 msgstr "XTerm ..."
 
-#: p2v/gui.c:380
+#: p2v/gui.c:381
 msgid "About virt-p2v "
 msgstr "Про virt-p2v "
 
-#: p2v/gui.c:381
+#: p2v/gui.c:382
 msgid "Next"
 msgstr "Далі"
 
-#: p2v/gui.c:509
+#: p2v/gui.c:510
 msgid "error: No conversion server given."
 msgstr "помилка: не вказано сервер перетворення."
 
-#: p2v/gui.c:517
+#: p2v/gui.c:518
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 "помилка: некоректний номер порту. Якщо не знаєте, що вибрати, вкажіть «22»."
 
-#: p2v/gui.c:525
+#: p2v/gui.c:526
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 "помилка: не вказано імені користувача. Якщо не знаєте, що вказати, вкажіть "
 "«root»."
 
-#: p2v/gui.c:597
+#: p2v/gui.c:598
 msgid "Testing the connection to the conversion server ..."
 msgstr "Перевіряємо з’єднання із сервером перетворення…"
 
-#: p2v/gui.c:641
+#: p2v/gui.c:642
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
@@ -9376,35 +9330,35 @@ msgstr ""
 "Встановлено з’єднання із сервером перетворення.\n"
 "Натисніть кнопку «Далі», щоб налаштувати процедуру перетворення."
 
-#: p2v/gui.c:690
+#: p2v/gui.c:691
 msgid "Virtualize a physical machine to run on KVM"
 msgstr "Віртуалізувати фізичний комп’ютер для запуску у KVM"
 
-#: p2v/gui.c:782
+#: p2v/gui.c:783
 msgid "Target properties"
 msgstr "Властивості цілі"
 
-#: p2v/gui.c:788
+#: p2v/gui.c:789
 msgid "Name:"
 msgstr "Назва:"
 
-#: p2v/gui.c:798
+#: p2v/gui.c:799
 msgid "# vCPUs:"
 msgstr "К-ть вірт. проц.:"
 
-#: p2v/gui.c:812
+#: p2v/gui.c:813
 msgid "Memory (MB):"
 msgstr "Пам’ять (МБ):"
 
-#: p2v/gui.c:838
+#: p2v/gui.c:839
 msgid "Virt-v2v output options"
 msgstr "Параметри виведення virt-v2v"
 
-#: p2v/gui.c:844
+#: p2v/gui.c:845
 msgid "Output to (-o):"
 msgstr "Виводити до (-o):"
 
-#: p2v/gui.c:849
+#: p2v/gui.c:850
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -9419,11 +9373,11 @@ msgstr ""
 "запису системи до OpenStack Glance. Див. сторінку підручника (man) virt-"
 "v2v(1), щоб дізнатися більше про параметри виведення даних."
 
-#: p2v/gui.c:854
+#: p2v/gui.c:855
 msgid "Output conn. (-oc):"
 msgstr "З’єднання виведення (-oc):"
 
-#: p2v/gui.c:859
+#: p2v/gui.c:860
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
@@ -9433,11 +9387,11 @@ msgstr ""
 "слід додати гостьову систему до типового екземпляра libvirt на сервері "
 "перетворення. Для інших варіантів це поле слід залишити порожнім."
 
-#: p2v/gui.c:865
+#: p2v/gui.c:866
 msgid "Output storage (-os):"
 msgstr "Сховище виведення (-os):"
 
-#: p2v/gui.c:870
+#: p2v/gui.c:871
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For "
@@ -9447,11 +9401,11 @@ msgstr ""
 "<b>rhev</b>, вказати домен сховища для експортування (сервер:/точка "
 "монтування). Для інших варіантів, не заповнюйте це поле."
 
-#: p2v/gui.c:876
+#: p2v/gui.c:877
 msgid "Output format (-of):"
 msgstr "Формат виведення (-of):"
 
-#: p2v/gui.c:881
+#: p2v/gui.c:882
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
@@ -9459,42 +9413,42 @@ msgstr ""
 "Формат диска виведення даних, типово <b>raw</b> або <b>qcow2</b>. Якщо "
 "порожнє, типовим значенням вважається <b>raw</b>."
 
-#: p2v/gui.c:887
+#: p2v/gui.c:888
 msgid "Output allocation (-oa):"
 msgstr "Розташовування виведення (-oa):"
 
-#: p2v/gui.c:910
+#: p2v/gui.c:911
 msgid "Information"
 msgstr "Інформація"
 
-#: p2v/gui.c:918
+#: p2v/gui.c:919
 msgid "Fixed hard disks"
 msgstr "Стаціонарні жорсткі диски"
 
-#: p2v/gui.c:929
+#: p2v/gui.c:930
 msgid "Removable media"
 msgstr "Портативний носій"
 
-#: p2v/gui.c:940
+#: p2v/gui.c:941
 msgid "Network interfaces"
 msgstr "Мережеві інтерфейси"
 
-#: p2v/gui.c:950
+#: p2v/gui.c:951
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 "Клацніть лівою на пункті інтерфейсу, щоб запалити світло на фізичному "
 "інтерфейсі."
 
-#: p2v/gui.c:972
+#: p2v/gui.c:973
 msgid "Back"
 msgstr "Назад"
 
-#: p2v/gui.c:973
+#: p2v/gui.c:974
 msgid "Start conversion"
 msgstr "Розпочати перетворення"
 
-#: p2v/gui.c:1023
+#: p2v/gui.c:1024
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -9503,7 +9457,7 @@ msgstr ""
 "virt-p2v (клієнт):\n"
 "%s"
 
-#: p2v/gui.c:1026
+#: p2v/gui.c:1027
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -9516,23 +9470,23 @@ msgstr ""
 "virt-v2v (сервер перетворення):\n"
 "%s"
 
-#: p2v/gui.c:1143 p2v/gui.c:1194 p2v/gui.c:1264
+#: p2v/gui.c:1144 p2v/gui.c:1195 p2v/gui.c:1265
 msgid "Convert"
 msgstr "Перетворити"
 
-#: p2v/gui.c:1151 p2v/gui.c:1202 p2v/gui.c:1272
+#: p2v/gui.c:1152 p2v/gui.c:1203 p2v/gui.c:1273
 msgid "Device"
 msgstr "Пристрій"
 
-#: p2v/gui.c:1242 p2v/gui.c:1243
+#: p2v/gui.c:1243 p2v/gui.c:1244
 msgid "Unknown"
 msgstr "Невідомий"
 
-#: p2v/gui.c:1280
+#: p2v/gui.c:1281
 msgid "Connect to virtual network"
 msgstr "Встановити з’єднання із віртуальною мережею"
 
-#: p2v/gui.c:1562
+#: p2v/gui.c:1563
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
@@ -9540,13 +9494,13 @@ msgstr ""
 "Кількість віртуальних процесорів перевищує максимальну підтримувану KVM "
 "(максимум: %d)."
 
-#: p2v/gui.c:1572
+#: p2v/gui.c:1573
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 "Об’єм пам’яті перевищує максимальний підтримуваний KVM (максимум: %<PRIu64>)."
 
-#: p2v/gui.c:1580
+#: p2v/gui.c:1581
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
@@ -9555,15 +9509,15 @@ msgstr ""
 "виконано, але гостьова система може виявитися непрацездатною або "
 "непідтримуваною на системі призначення."
 
-#: p2v/gui.c:1705
+#: p2v/gui.c:1706
 msgid "Cancel conversion ..."
 msgstr "Скасувати перетворення ..."
 
-#: p2v/gui.c:1706
+#: p2v/gui.c:1707
 msgid "Reboot"
 msgstr "Перезавантажити"
 
-#: p2v/gui.c:1757
+#: p2v/gui.c:1758
 #, c-format
 msgid ""
 "Debug information and log files are saved to this directory on the "
@@ -9571,15 +9525,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1964
+#: p2v/gui.c:1965
 msgid "The guest \"Name\" field is empty."
 msgstr "Порожнє поле «Назва» гостьової системи."
 
-#: p2v/gui.c:1965 p2v/gui.c:1986
+#: p2v/gui.c:1966 p2v/gui.c:1987
 msgid "Error"
 msgstr "Помилка"
 
-#: p2v/gui.c:1984
+#: p2v/gui.c:1985
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
@@ -9587,24 +9541,24 @@ msgstr ""
 "Не вказано дисків для перетворення.\n"
 "Слід вказати принаймні один стаціонарний жорсткий диск.\n"
 
-#: p2v/gui.c:2086
+#: p2v/gui.c:2087
 #, c-format
 msgid "Conversion failed: %s"
 msgstr "Помилка під час перетворення: %s"
 
-#: p2v/gui.c:2087
+#: p2v/gui.c:2088
 msgid "Conversion failed"
 msgstr "Перетворення не вдалося"
 
-#: p2v/gui.c:2114
+#: p2v/gui.c:2115
 msgid "The conversion was successful."
 msgstr "Перетворення виконано успішно."
 
-#: p2v/gui.c:2115
+#: p2v/gui.c:2116
 msgid "Conversion was successful"
 msgstr "Успішне перетворення"
 
-#: p2v/gui.c:2198
+#: p2v/gui.c:2199
 msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
@@ -9612,11 +9566,11 @@ msgstr ""
 "Справді скасувати перетворення? Для перетворення цієї машини вад доведеться "
 "перезапускати перетворення із самого початку."
 
-#: p2v/gui.c:2201
+#: p2v/gui.c:2202
 msgid "Cancel the conversion"
 msgstr "Скасувати перетворення"
 
-#: p2v/main.c:89
+#: p2v/main.c:90
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -9634,22 +9588,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:182
+#: p2v/main.c:183
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr "параметр --test-disk можна використовувати лише один раз"
 
-#: p2v/main.c:185
+#: p2v/main.c:186
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr "шлях у --test-disk слід вказувати як абсолютний"
 
-#: p2v/main.c:213
+#: p2v/main.c:214
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
 
-#: p2v/main.c:242
+#: p2v/main.c:243
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -9659,7 +9613,7 @@ msgstr ""
 "на цій основній системі графічний інтерфейс неможливий. Перевірте наявність "
 "X11, $DISPLAY тощо."
 
-#: rescue/rescue.c:61
+#: rescue/rescue.c:62
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -9688,32 +9642,32 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/rescue.c:161
+#: rescue/rescue.c:162
 #, c-format
 msgid "could not parse --smp parameter '%s'"
 msgstr "не вдалося обробити параметр --smp «%s»"
 
-#: rescue/rescue.c:164
+#: rescue/rescue.c:165
 #, c-format
 msgid "--smp parameter '%s' should be >= 1"
 msgstr "значенням параметра --smp «%s» має бути число >= 1"
 
-#: rescue/rescue.c:174
+#: rescue/rescue.c:175
 #, c-format
 msgid "could not parse --scratch parameter '%s'"
 msgstr "не вдалося обробити параметр --scratch, «%s»"
 
-#: rescue/rescue.c:177
+#: rescue/rescue.c:178
 #, c-format
 msgid "--scratch parameter '%s' should be >= 1"
 msgstr "значенням у параметрі --scratch «%s» має бути число >= 1"
 
-#: rescue/rescue.c:201
+#: rescue/rescue.c:202
 #, c-format
 msgid "could not parse memory size '%s'"
 msgstr "не вдалося обробити запис об’єму пам’яті «%s»"
 
-#: rescue/rescue.c:279
+#: rescue/rescue.c:280
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -9724,7 +9678,7 @@ msgstr ""
 "Переконайтеся, що вказано аргумент до --format або --scratch, наприклад «--"
 "format=%s».\n"
 
-#: rescue/rescue.c:307
+#: rescue/rescue.c:308
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
@@ -9733,7 +9687,7 @@ msgstr ""
 "%s: попередження: у поточній версії virt-rescue не може працювати з модулем\n"
 "libvirt Щоб усунути цю незручність, буде примусово вибрано модуль «direct».\n"
 
-#: rescue/rescue.c:388
+#: rescue/rescue.c:389
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -9742,7 +9696,7 @@ msgstr ""
 "Вивчення віртуальної машини або образу диска...\n"
 "\n"
 
-#: rescue/rescue.c:407
+#: rescue/rescue.c:408
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -9755,7 +9709,7 @@ msgstr ""
 "запит ><rescue>) для монтування файлових систем.\n"
 "\n"
 
-#: rescue/rescue.c:422
+#: rescue/rescue.c:423
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -9768,7 +9722,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/rescue.c:481
+#: rescue/rescue.c:482
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -9785,7 +9739,7 @@ msgstr ""
 "створити розділи, логічні томи та файлові системи на порожньому\n"
 "диску.\n"
 
-#: rescue/rescue.c:488
+#: rescue/rescue.c:489
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -9799,7 +9753,7 @@ msgstr ""
 "відповідь на запит ><rescue>) для монтування цих файлових систем.\n"
 "\n"
 
-#: rescue/rescue.c:493
+#: rescue/rescue.c:494
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s належить до типу «%s»\n"
@@ -10339,32 +10293,32 @@ msgstr ""
 "У цій збірці libguestfs не підтримується FUSE, оскільки під час збирання "
 "libguestfs не було виявлено libfuse"
 
-#: src/handle.c:138
+#: src/handle.c:135
 msgid ""
 "libguestfs was built with an invalid default backend, using 'direct' instead"
 msgstr ""
 "libguestfs було зібрано з некоректним типовим модулем, будемо "
 "використовувати замість нього модуль «direct»"
 
-#: src/handle.c:140
+#: src/handle.c:137
 msgid "'direct' backend does not work"
 msgstr "модуль «direct» не працює"
 
-#: src/handle.c:195 src/handle.c:205
+#: src/handle.c:192 src/handle.c:202
 #, c-format
 msgid "%s=%s: non-boolean value"
 msgstr "%s=%s: не булеве значення"
 
-#: src/handle.c:247
+#: src/handle.c:244
 msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
 msgstr "нечислове значення LIBGUESTFS_MEMSIZE"
 
-#: src/handle.c:328
+#: src/handle.c:325
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: викликано двічі для того самого елемента керування\n"
 
-#: src/handle.c:539
+#: src/handle.c:536
 msgid ""
 "configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
 "an error"
@@ -10372,12 +10326,12 @@ msgstr ""
 "зібрано з --without-qemu, отже спроба виклику guestfs_set_qemu з qemu == "
 "NULL призводить до помилки"
 
-#: src/handle.c:592
+#: src/handle.c:589
 #, c-format
 msgid "too small value for memsize (must be at least %d)"
 msgstr "надто мале значення для розміру пам’яті (має бути принаймні %d)"
 
-#: src/handle.c:709
+#: src/handle.c:706
 msgid ""
 "identifier must contain only alphanumeric characters, underscore or minus "
 "sign"
@@ -10385,7 +10339,7 @@ msgstr ""
 "ідентифікатор має складатися із літер латинської абетки, цифр, символів "
 "підкреслювання або дефісів"
 
-#: src/handle.c:815
+#: src/handle.c:812
 msgid "setting not found"
 msgstr "параметра не знайдено"
 
@@ -11320,6 +11274,46 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "-i disk: invalid input filename (%s)"
+#~ msgstr "-i диск: некоректна назва файла вхідних даних (%s)"
+
+#~ msgid ""
+#~ "expecting XML expression to return an integer (expression: %s, matching "
+#~ "string: %s)"
+#~ msgstr ""
+#~ "очікуємо, що вираз XML поверне ціле число (вираз: %s, відповідний рядок: "
+#~ "%s)"
+
+#~ msgid "ignoring kernel %s in grub, as it does not exist."
+#~ msgstr "ігноруємо ядро %s у grub, оскільки його не існує."
+
+#~ msgid "no initrd was found in /boot matching %s %s."
+#~ msgstr "у /boot не знайдено initrd, що відповідає %s %s."
+
+#~ msgid ""
+#~ "no installed kernel packages were found.\n"
+#~ "\n"
+#~ "This probably indicates that %s was unable to inspect this guest properly."
+#~ msgstr ""
+#~ "не знайдено встановлених пакунків ядра.\n"
+#~ "\n"
+#~ "Це, ймовірно, означає, що %s не вдасться вивчити належним чином гостьову "
+#~ "систему."
+
+#~ msgid ""
+#~ "no kernels were found in the grub configuration.\n"
+#~ "\n"
+#~ "This probably indicates that %s was unable to parse the grub "
+#~ "configuration of this guest."
+#~ msgstr ""
+#~ "У налаштуваннях grub не знайдено записів ядер.\n"
+#~ "\n"
+#~ "Це, ймовірно, означає, що %s не вдалося обробити налаштування grub цієї "
+#~ "гостьової системи."
+
+#~ msgid "package '%s' contains no files"
+#~ msgstr "у пакунку «%s» не міститься файлів"
 
 #~ msgid ""
 #~ "because of libvirt bug https://bugzilla.redhat.com/show_bug.cgi?"
