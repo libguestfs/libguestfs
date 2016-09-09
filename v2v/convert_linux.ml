@@ -33,30 +33,9 @@ open Common_utils
 
 open Utils
 open Types
+open Linux_kernels
 
 module G = Guestfs
-
-(* Kernel information. *)
-type kernel_info = {
-  ki_app : G.application2;         (* The RPM package data. *)
-  ki_name : string;                (* eg. "kernel-PAE" *)
-  ki_version : string;             (* version-release *)
-  ki_arch : string;                (* Kernel architecture. *)
-  ki_vmlinuz : string;             (* The path of the vmlinuz file. *)
-  ki_vmlinuz_stat : G.statns;      (* stat(2) of vmlinuz *)
-  ki_initrd : string option;       (* Path of initramfs, if found. *)
-  ki_modpath : string;             (* The module path. *)
-  ki_modules : string list;        (* The list of module names. *)
-  ki_supports_virtio : bool;       (* Kernel has virtio drivers? *)
-  ki_is_xen_kernel : bool;         (* Is a Xen paravirt kernel? *)
-  ki_is_debug : bool;              (* Is debug kernel? *)
-}
-
-let string_of_kernel_info ki =
-  sprintf "(%s, %s, %s, %s, %s, virtio=%b, xen=%b, debug=%b)"
-    ki.ki_name ki.ki_version ki.ki_arch ki.ki_vmlinuz
-    (match ki.ki_initrd with None -> "None" | Some f -> f)
-    ki.ki_supports_virtio ki.ki_is_xen_kernel ki.ki_is_debug
 
 (* The conversion function. *)
 let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
@@ -91,189 +70,9 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let bootloader = Linux_bootloaders.detect_bootloader g inspect in
   Linux.augeas_reload g;
 
-  (* What kernel/kernel-like packages are installed on the current guest? *)
-  let installed_kernels : kernel_info list =
-    let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
-    let rex_ko_extract = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
-    let rex_initrd = Str.regexp "^initr\\(d\\|amfs\\)-.*\\(\\.img\\)?$" in
-    filter_map (
-      function
-      | { G.app2_name = name } as app
-          when name = "kernel" || String.is_prefix name "kernel-" ->
-        (try
-           (* For each kernel, list the files directly owned by the kernel. *)
-           let files = Linux.file_list_of_package g inspect app in
-
-           if files = [] then (
-             warning (f_"package '%s' contains no files") name;
-             None
-           )
-           else (
-             (* Which of these is the kernel itself? *)
-             let vmlinuz = List.find (
-               fun filename -> String.is_prefix filename "/boot/vmlinuz-"
-             ) files in
-             (* Which of these is the modpath? *)
-             let modpath = List.find (
-               fun filename ->
-                 String.length filename >= 14 &&
-                   String.is_prefix filename "/lib/modules/"
-             ) files in
-
-             (* Check vmlinuz & modpath exist. *)
-             if not (g#is_dir ~followsymlinks:true modpath) then
-               raise Not_found;
-             let vmlinuz_stat =
-               try g#statns vmlinuz with G.Error _ -> raise Not_found in
-
-             (* Get/construct the version.  XXX Read this from kernel file. *)
-             let version =
-               let prefix_len = String.length "/lib/modules/" in
-               String.sub modpath prefix_len (String.length modpath - prefix_len) in
-
-             (* Find the initramfs which corresponds to the kernel.
-              * Since the initramfs is built at runtime, and doesn't have
-              * to be covered by the RPM file list, this is basically
-              * guesswork.
-              *)
-             let initrd =
-               let files = g#ls "/boot" in
-               let files = Array.to_list files in
-               let files =
-                 List.filter (fun n -> Str.string_match rex_initrd n 0) files in
-               let files =
-                 List.filter (
-                   fun n ->
-                     String.find n version >= 0
-                 ) files in
-               (* Don't consider kdump initramfs images (RHBZ#1138184). *)
-               let files =
-                 List.filter (fun n -> String.find n "kdump" == -1) files in
-               (* If several files match, take the shortest match.  This
-                * handles the case where we have a mix of same-version non-Xen
-                * and Xen kernels:
-                *   initrd-2.6.18-308.el5.img
-                *   initrd-2.6.18-308.el5xen.img
-                * and kernel 2.6.18-308.el5 (non-Xen) will match both
-                * (RHBZ#1141145).
-                *)
-               let cmp a b = compare (String.length a) (String.length b) in
-               let files = List.sort cmp files in
-               match files with
-               | [] ->
-                 warning (f_"no initrd was found in /boot matching %s %s.")
-                   name version;
-                 None
-               | x :: _ -> Some ("/boot/" ^ x) in
-
-             (* Get all modules, which might include custom-installed
-              * modules that don't appear in 'files' list above.
-              *)
-             let modules = g#find modpath in
-             let modules = Array.to_list modules in
-             let modules =
-               List.filter (fun m -> Str.string_match rex_ko m 0) modules in
-             assert (List.length modules > 0);
-
-             (* Determine the kernel architecture by looking at the
-              * architecture of an arbitrary kernel module.
-              *)
-             let arch =
-               let any_module = modpath ^ List.hd modules in
-               g#file_architecture any_module in
-
-             (* Just return the module names, without path or extension. *)
-             let modules = filter_map (
-               fun m ->
-                 if Str.string_match rex_ko_extract m 0 then
-                   Some (Str.matched_group 1 m)
-                 else
-                   None
-             ) modules in
-             assert (List.length modules > 0);
-
-             let supports_virtio = List.mem "virtio_net" modules in
-             let is_xen_kernel = List.mem "xennet" modules in
-
-             (* If the package name is like "kernel-debug", then it's
-              * a debug kernel.
-              *)
-             let is_debug =
-               String.is_suffix app.G.app2_name "-debug" ||
-               String.is_suffix app.G.app2_name "-dbg" in
-
-             Some {
-               ki_app  = app;
-               ki_name = name;
-               ki_version = version;
-               ki_arch = arch;
-               ki_vmlinuz = vmlinuz;
-               ki_vmlinuz_stat = vmlinuz_stat;
-               ki_initrd = initrd;
-               ki_modpath = modpath;
-               ki_modules = modules;
-               ki_supports_virtio = supports_virtio;
-               ki_is_xen_kernel = is_xen_kernel;
-               ki_is_debug = is_debug;
-             }
-           )
-
-         with Not_found -> None
-        )
-
-      | _ -> None
-    ) inspect.i_apps in
-
-  if verbose () then (
-    eprintf "installed kernel packages in this guest:\n";
-    List.iter (
-      fun kernel -> eprintf "\t%s\n" (string_of_kernel_info kernel)
-    ) installed_kernels;
-    flush stderr
-  );
-
-  if installed_kernels = [] then
-    error (f_"no installed kernel packages were found.\n\nThis probably indicates that %s was unable to inspect this guest properly.")
-      prog;
-
-  (* Now the difficult bit.  Get the grub kernels.  The first in this
-   * list is the default booting kernel.
-   *)
-  let grub_kernels : kernel_info list =
-    let vmlinuzes = bootloader#list_kernels in
-
-    (* Map these to installed kernels. *)
-    filter_map (
-      fun vmlinuz ->
-        try
-          let statbuf = g#statns vmlinuz in
-          let kernel =
-            List.find (
-              fun { ki_vmlinuz_stat = s } ->
-                statbuf.G.st_dev = s.G.st_dev && statbuf.G.st_ino = s.G.st_ino
-            ) installed_kernels in
-          Some kernel
-        with
-        | Not_found -> None
-        | G.Error msg as exn ->
-          (* If it isn't "no such file or directory", then re-raise it. *)
-          if g#last_errno () <> G.Errno.errno_ENOENT then raise exn;
-          warning (f_"ignoring kernel %s in grub, as it does not exist.")
-            vmlinuz;
-          None
-    ) vmlinuzes in
-
-  if verbose () then (
-    eprintf "grub kernels in this guest (first in list is default):\n";
-    List.iter (
-      fun kernel -> eprintf "\t%s\n" (string_of_kernel_info kernel)
-    ) grub_kernels;
-    flush stderr
-  );
-
-  if grub_kernels = [] then
-    error (f_"no kernels were found in the grub configuration.\n\nThis probably indicates that %s was unable to parse the grub configuration of this guest.")
-      prog;
+  (* Detect which kernels are installed and offered by the bootloader. *)
+  let bootloader_kernels =
+    Linux_kernels.detect_kernels g inspect family bootloader in
 
   (*----------------------------------------------------------------------*)
   (* Conversion step. *)
@@ -586,7 +385,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     (* Check a non-Xen kernel exists. *)
     let only_xen_kernels = List.for_all (
       fun { ki_is_xen_kernel = is_xen_kernel } -> is_xen_kernel
-    ) grub_kernels in
+    ) bootloader_kernels in
     if only_xen_kernels then
       error (f_"only Xen kernels are installed in this guest.\n\nRead the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do.") prog;
 
@@ -604,12 +403,12 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
           else compare k2.ki_is_debug k1.ki_is_debug
         )
       in
-      let kernels = grub_kernels in
+      let kernels = bootloader_kernels in
       let kernels = List.filter (fun { ki_is_xen_kernel = is_xen_kernel } -> not is_xen_kernel) kernels in
       let kernels = List.sort compare_best_kernels kernels in
       let kernels = List.rev kernels (* so best is first *) in
       List.hd kernels in
-    if best_kernel <> List.hd grub_kernels then
+    if best_kernel <> List.hd bootloader_kernels then
       bootloader#set_default_kernel best_kernel.ki_vmlinuz;
 
     (* Does the best/bootable kernel support virtio? *)
