@@ -41,6 +41,7 @@ SOURCES_MLI = \
 	inspect_source.mli \
 	linux.mli \
 	linux_bootloaders.mli \
+	linux_kernels.mli \
 	modules_list.mli \
 	name_from_disk.mli \
 	output_glance.mli \
@@ -85,6 +86,7 @@ SOURCES_ML = \
 	input_libvirt.ml \
 	input_ova.ml \
 	linux_bootloaders.ml \
+	linux_kernels.ml \
 	convert_linux.ml \
 	convert_windows.ml \
 	output_null.ml \
