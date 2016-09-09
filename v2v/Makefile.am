@@ -58,11 +58,13 @@ SOURCES_MLI = \
 	vCenter.mli \
 	windows.mli \
 	windows_virtio.mli \
-	xml.mli
+	xml.mli \
+	xpath_helpers.mli
 
 SOURCES_ML = \
 	types.ml \
 	xml.ml \
+	xpath_helpers.ml \
 	uefi.ml \
 	utils.ml \
 	name_from_disk.ml \
@@ -177,6 +179,7 @@ virt_v2v_copy_to_local_CFLAGS = \
 
 COPY_TO_LOCAL_BOBJECTS = \
 	xml.cmo \
+	xpath_helpers.cmo \
 	uefi.cmo \
 	utils.cmo \
 	vCenter.cmo \

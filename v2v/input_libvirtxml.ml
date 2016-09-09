@@ -23,6 +23,7 @@ open Common_utils
 
 open Types
 open Utils
+open Xpath_helpers
 
 type parsed_disk = {
   p_source_disk : source_disk;
@@ -272,7 +273,7 @@ let parse_libvirt_xml ?conn xml =
           let xml = Domainxml.vol_dumpxml ?conn pool vol in
           let doc = Xml.parse_memory xml in
           let xpathctx = Xml.xpath_new_context doc in
-          let xpath_string = Utils.xpath_string xpathctx in
+          let xpath_string = Xpath_helpers.xpath_string xpathctx in
 
           (* Use the format specified in the volume itself. *)
           let format = xpath_string "/volume/target/format/@type" in
