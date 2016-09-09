@@ -678,9 +678,10 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
       (* Execute g#aug_match, but against every known location of
          modules.conf. *)
       let paths = [
-        "/files/etc/conf.modules/alias";
+        "/files/etc/conf.modules/alias";        (* modules_conf.aug *)
         "/files/etc/modules.conf/alias";
-        "/files/etc/modprobe.conf/alias";
+        "/files/etc/modprobe.conf/alias";       (* modprobe.aug *)
+        "/files/etc/modprobe.conf.local/alias";
         "/files/etc/modprobe.d/*/alias";
       ] in
       let paths =
@@ -699,6 +700,7 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
       ) else (
         (* List of methods, in order of preference. *)
         let paths = [
+          "/etc/modprobe.conf.local";
           "/etc/modprobe.conf";
           "/etc/modules.conf";
           "/etc/conf.modules"
