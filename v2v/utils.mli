@@ -24,6 +24,14 @@ val quote : string -> string
 val drive_name : int -> string
 val drive_index : string -> int
 
+val shell_unquote : string -> string
+(** If the string looks like a shell quoted string, then attempt to
+    unquote it.
+
+    This is just intended to deal with quoting in configuration files
+    (like ones under /etc/sysconfig), and it doesn't deal with some
+    situations such as $variable interpolation. *)
+
 val kvm_arch : string -> string
 (** Map guest architecture found by inspection to the architecture
     that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor. *)
@@ -48,11 +56,3 @@ val du : string -> int64
 
     This can raise either [Failure] or [Invalid_argument] in case
     of errors. *)
-
-val shell_unquote : string -> string
-(** If the string looks like a shell quoted string, then attempt to
-    unquote it.
-
-    This is just intended to deal with quoting in configuration files
-    (like ones under /etc/sysconfig), and it doesn't deal with some
-    situations such as $variable interpolation. *)
