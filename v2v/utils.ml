@@ -25,39 +25,6 @@ open Common_utils
 
 let quote = Filename.quote
 
-(* Parse an xpath expression and return a string/int.  Returns
- * [Some v], or [None] if the expression doesn't match.
- *)
-let xpath_eval parsefn xpathctx expr =
-  let obj = Xml.xpath_eval_expression xpathctx expr in
-  if Xml.xpathobj_nr_nodes obj < 1 then None
-  else (
-    let node = Xml.xpathobj_node obj 0 in
-    let str = Xml.node_as_string node in
-    try Some (parsefn str)
-    with Failure "int_of_string" ->
-      error (f_"expecting XML expression to return an integer (expression: %s, matching string: %s)")
-            expr str
-  )
-
-external identity : 'a -> 'a = "%identity"
-
-let xpath_string = xpath_eval identity
-let xpath_int = xpath_eval int_of_string
-let xpath_int64 = xpath_eval Int64.of_string
-
-(* Parse an xpath expression and return a string/int; if the expression
- * doesn't match, return the default.
- *)
-let xpath_eval_default parsefn xpath expr default =
-  match xpath_eval parsefn xpath expr with
-  | None -> default
-  | Some s -> s
-
-let xpath_string_default = xpath_eval_default identity
-let xpath_int_default = xpath_eval_default int_of_string
-let xpath_int64_default = xpath_eval_default Int64.of_string
-
 external drive_name : int -> string = "v2v_utils_drive_name"
 external drive_index : string -> int = "v2v_utils_drive_index"
 

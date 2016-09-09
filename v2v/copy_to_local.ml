@@ -25,6 +25,7 @@ open Common_utils
 open Getopt.OptionName
 
 open Utils
+open Xpath_helpers
 
 type source_t = Xen_ssh of string | ESXi of string | Test
 

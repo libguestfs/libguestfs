@@ -23,6 +23,7 @@ open Common_utils
 
 open Types
 open Utils
+open Xpath_helpers
 open Name_from_disk
 
 class input_ova ova =

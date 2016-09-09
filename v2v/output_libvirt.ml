@@ -23,6 +23,7 @@ open Common_utils
 
 open Types
 open Utils
+open Xpath_helpers
 open DOM
 
 module StringSet = Set.Make (String)
