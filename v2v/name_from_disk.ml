@@ -24,7 +24,7 @@ let name_from_disk disk =
   (* Remove the extension (or suffix), only if it's one usually
    * used for disk images. *)
   let suffixes = [
-    ".img"; ".qcow2"; ".raw"; ".vmdk";
+    ".img"; ".ova"; ".qcow2"; ".raw"; ".vmdk";
     "-sda";
   ] in
   let rec loop = function
