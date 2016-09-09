@@ -35,8 +35,7 @@ type kernel_info = {
 (** Kernel information. *)
 
 val detect_kernels : Guestfs.guestfs -> Types.inspect ->
-                     [> `Debian_family ] ->
-                     < list_kernels : string list; .. > ->
+                     [> `Debian_family ] -> Linux_bootloaders.bootloader ->
                      kernel_info list
 (** This function detects the kernels offered by the Linux
     bootloader (eg. grub).
