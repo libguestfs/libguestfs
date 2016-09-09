@@ -28,6 +28,8 @@ let quote = Filename.quote
 external drive_name : int -> string = "v2v_utils_drive_name"
 external drive_index : string -> int = "v2v_utils_drive_index"
 
+external shell_unquote : string -> string = "v2v_utils_shell_unquote"
+
 (* Map guest architecture found by inspection to the architecture
  * that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor.
  *)
@@ -99,5 +101,3 @@ let du filename =
   match lines with
   | line::_ -> Int64.of_string line
   | [] -> invalid_arg filename
-
-external shell_unquote : string -> string = "v2v_utils_shell_unquote"
