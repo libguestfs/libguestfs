@@ -73,12 +73,6 @@ object
           if i == 0 then source.s_name
           else sprintf "%s-disk%d" source.s_name (i+1) in
 
-        let cmd = [ "glance"; "image-create"; "--name"; name;
-                    "--disk-format=" ^ target_format;
-                    "--container-format=bare"; "--file"; target_file ] in
-        if run_command cmd <> 0 then
-          error (f_"glance: image upload to glance failed, see earlier errors");
-
         (* Set the properties (ie. metadata). *)
         let min_ram = source.s_memory /^ 1024L /^ 1024L in
         let properties = [
@@ -109,26 +103,18 @@ object
           | x, 0 -> ("os_version", string_of_int x) :: properties
           | x, y -> ("os_version", sprintf "%d.%d" x y) :: properties in
 
-        (* Glance doesn't appear to check the properties. *)
-        let cmd = [ "glance"; "image-update"; "--min-ram";
-                    Int64.to_string min_ram ] @
+        let cmd = [ "glance"; "image-create"; "--name"; name;
+                    "--disk-format=" ^ target_format;
+                    "--container-format=bare"; "--file"; target_file;
+                    "--min-ram"; Int64.to_string min_ram ] @
                   (List.flatten
                     (List.map (
                        fun (k, v) ->
                          [ "--property"; sprintf "%s=%s" k v ]
                     ) properties
-                  )) @
-                  [ name ] in
-        if run_command cmd <> 0 then (
-          warning (f_"glance: failed to set image properties (ignored)");
-          (* Dump out the image properties so the user can set them. *)
-          eprintf "Image properties:\n";
-          eprintf "  --min-ram %Ld\n" min_ram;
-          List.iter (
-	    fun (k, v) ->
-	      eprintf "  --property %s=%s" (quote k) (quote v)
-          ) properties
-        )
+                  )) in
+        if run_command cmd <> 0 then
+          error (f_"glance: image upload to glance failed, see earlier errors");
       ) targets
 end
 
