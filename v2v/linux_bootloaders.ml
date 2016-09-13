@@ -186,6 +186,19 @@ end
 
 (* Grub2 representation. *)
 class bootloader_grub2 (g : G.guestfs) grub_config =
+
+  let grub2_mkconfig_cmd =
+    let elems = [
+       "/sbin/grub2-mkconfig";
+       "/usr/sbin/grub2-mkconfig";
+       "/sbin/grub-mkconfig";
+       "/usr/sbin/grub-mkconfig"
+      ] in
+    try List.find (g#is_file ~followsymlinks:true) elems
+    with Not_found ->
+      error (f_"failed to find grub2-mkconfig binary (but Grub2 was detected on guest)")
+  in
+
 object (self)
   inherit bootloader
 
@@ -218,7 +231,7 @@ object (self)
         g#aug_save ();
 
         try
-          ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
+          ignore (g#command [| grub2_mkconfig_cmd; "-o"; grub_config |])
         with
           G.Error msg ->
             warning (f_"could not rebuild grub2 configuration file (%s).  This may mean that grub output will not be sent to the serial port, but otherwise should be harmless.  Original error message: %s")
@@ -290,7 +303,7 @@ object (self)
   method remove_console = self#grub2_update_console ~remove:true
 
   method update () =
-    ignore (g#command [| "grub2-mkconfig"; "-o"; grub_config |])
+    ignore (g#command [| grub2_mkconfig_cmd; "-o"; grub_config |])
 end
 
 let detect_bootloader (g : G.guestfs) inspect =
