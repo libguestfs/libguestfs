@@ -56,14 +56,16 @@ cleanup_magic_t_free (void *ptr)
 # endif
 
 COMPILE_REGEXP (re_file_elf,
-                "ELF.*(MSB|LSB).*(?:executable|shared object|relocatable), (.+?),", 0)
+                "ELF (\\d+)-bit (MSB|LSB).*(?:executable|shared object|relocatable), (.+?),", 0)
 COMPILE_REGEXP (re_elf_ppc64, ".*64.*PowerPC", 0)
 
 /* Convert output from 'file' command on ELF files to the canonical
  * architecture string.  Caller must free the result.
  */
 static char *
-canonical_elf_arch (guestfs_h *g, const char *endianness, const char *elf_arch)
+canonical_elf_arch (guestfs_h *g,
+                    const char *bits, const char *endianness,
+                    const char *elf_arch)
 {
   const char *r;
   char *ret;
@@ -98,10 +100,15 @@ canonical_elf_arch (guestfs_h *g, const char *endianness, const char *elf_arch)
     r = "aarch64";
   else if (strstr (elf_arch, "ARM"))
     r = "arm";
+  else if (strstr (elf_arch, "UCB RISC-V")) {
+    ret = safe_asprintf (g, "riscv%s", bits);
+    goto no_strdup;
+  }
   else
     r = elf_arch;
 
   ret = safe_strdup (g, r);
+ no_strdup:
   return ret;
 }
 
@@ -120,6 +127,7 @@ magic_for_file (guestfs_h *g, const char *filename, bool *loading_ok,
   int flags;
   CLEANUP_MAGIC_T_FREE magic_t m = NULL;
   const char *line;
+  CLEANUP_FREE char *bits = NULL;
   CLEANUP_FREE char *elf_arch = NULL;
   CLEANUP_FREE char *endianness = NULL;
 
@@ -151,7 +159,7 @@ magic_for_file (guestfs_h *g, const char *filename, bool *loading_ok,
   if (loading_ok)
     *loading_ok = true;
 
-  if (!match2 (g, line, re_file_elf, &endianness, &elf_arch)) {
+  if (!match3 (g, line, re_file_elf, &bits, &endianness, &elf_arch)) {
     error (g, "no re_file_elf match in '%s'", line);
     return NULL;
   }
@@ -159,7 +167,7 @@ magic_for_file (guestfs_h *g, const char *filename, bool *loading_ok,
   if (matched)
     *matched = true;
 
-  return canonical_elf_arch (g, endianness, elf_arch);
+  return canonical_elf_arch (g, bits, endianness, elf_arch);
 }
 
 /* Download and uncompress the cpio file to find binaries within. */
@@ -319,6 +327,7 @@ char *
 guestfs_impl_file_architecture (guestfs_h *g, const char *path)
 {
   CLEANUP_FREE char *file = NULL;
+  CLEANUP_FREE char *bits = NULL;
   CLEANUP_FREE char *elf_arch = NULL;
   CLEANUP_FREE char *endianness = NULL;
   char *ret = NULL;
@@ -330,8 +339,8 @@ guestfs_impl_file_architecture (guestfs_h *g, const char *path)
   if (file == NULL)
     return NULL;
 
-  if ((match2 (g, file, re_file_elf, &endianness, &elf_arch)) != 0)
-    ret = canonical_elf_arch (g, endianness, elf_arch);
+  if ((match3 (g, file, re_file_elf, &bits, &endianness, &elf_arch)) != 0)
+    ret = canonical_elf_arch (g, bits, endianness, elf_arch);
   else if (strstr (file, "PE32 executable"))
     ret = safe_strdup (g, "i386");
   else if (strstr (file, "PE32+ executable"))
