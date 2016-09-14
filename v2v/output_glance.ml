@@ -51,6 +51,12 @@ object
     if shell_command "glance image-list > /dev/null" <> 0 then
       error (f_"glance: glance client is not installed or set up correctly.  You may need to set environment variables or source a script to enable authentication.  See preceding messages for details.");
 
+    (* When debugging, query the glance client for its version. *)
+    if verbose () then (
+      eprintf "version of the glance client:\n%!";
+      ignore (shell_command "glance --version");
+    );
+
     (* Write targets to a temporary local file - see above for reason. *)
     List.map (
       fun t ->
