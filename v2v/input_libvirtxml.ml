@@ -257,7 +257,7 @@ let parse_libvirt_xml ?conn xml =
                 xpath_string "source/host/@name",
                 xpath_int "source/host/@port") with
         | None, _, _ ->
-          warning (f_"<disk type=network> was ignored")
+          warning (f_"<disk type='%s'> was ignored") "network"
         | Some "nbd", Some ("localhost" as host), Some port when port > 0 ->
           (* virt-p2v: Generate a qemu nbd URL. *)
           let path = sprintf "nbd:%s:%d" host port in
