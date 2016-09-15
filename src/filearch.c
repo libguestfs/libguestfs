@@ -70,13 +70,11 @@ canonical_elf_arch (guestfs_h *g,
   const char *r;
   char *ret;
 
-  if (strstr (elf_arch, "Intel 80386"))
+  if (strstr (elf_arch, "Intel 80386") ||
+      strstr (elf_arch, "Intel 80486"))
     r = "i386";
-  else if (strstr (elf_arch, "Intel 80486"))
-    r = "i486";
-  else if (strstr (elf_arch, "x86-64"))
-    r = "x86_64";
-  else if (strstr (elf_arch, "AMD x86-64"))
+  else if (strstr (elf_arch, "x86-64") ||
+           strstr (elf_arch, "AMD x86-64"))
     r = "x86_64";
   else if (strstr (elf_arch, "SPARC32"))
     r = "sparc";
