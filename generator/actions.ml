@@ -866,7 +866,19 @@ Intel Itanium.
 
 =item \"ppc64\"
 
-64 bit Power PC.
+64 bit Power PC (big endian).
+
+=item \"ppc64le\"
+
+64 bit Power PC (little endian).
+
+=item \"riscv32\"
+
+=item \"riscv64\"
+
+=item \"riscv128\"
+
+RISC-V 32-, 64- or 128-bit variants.
 
 =item \"sparc\"
 
