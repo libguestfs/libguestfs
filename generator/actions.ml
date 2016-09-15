@@ -862,7 +862,11 @@ Intel Itanium.
 
 =item \"ppc64\"
 
-64 bit Power PC.
+64 bit Power PC (big endian).
+
+=item \"ppc64le\"
+
+64 bit Power PC (little endian).
 
 =item \"sparc\"
 
