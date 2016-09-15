@@ -340,6 +340,7 @@ class output_libvirt oc output_pool = object
   inherit output
 
   val mutable capabilities_doc = None
+  val mutable pool_name = None
 
   method as_options =
     match oc with
@@ -392,6 +393,15 @@ class output_libvirt oc output_pool = object
       | Some dir when not (is_directory dir) ->
          error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
       | Some dir -> dir in
+    (* Get the name of the pool, since we have to use that
+     * (and not the UUID) in the XML of the guest.
+     *)
+    let name =
+      match xpath_string "/pool/name/text()" with
+      | None ->
+         error (f_"-o libvirt: output pool '%s' does not have /pool/name element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+      | Some name -> name in
+    pool_name <- Some name;
 
     (* Set up the targets. *)
     List.map (
@@ -426,6 +436,11 @@ class output_libvirt oc output_pool = object
     if run_command cmd <> 0 then
       warning (f_"could not refresh libvirt pool %s") output_pool;
 
+    let pool_name =
+      match pool_name with
+      | None -> output_pool
+      | Some n -> n in
+
     (* Parse the capabilities XML in order to get the supported features. *)
     let doc =
       match capabilities_doc with
@@ -436,7 +451,7 @@ class output_libvirt oc output_pool = object
 
     (* Create the metadata. *)
     let doc =
-      create_libvirt_xml ~pool:output_pool source target_buses
+      create_libvirt_xml ~pool:pool_name source target_buses
         guestcaps target_features target_firmware in
 
     let tmpfile, chan = Filename.open_temp_file "v2vlibvirt" ".xml" in
