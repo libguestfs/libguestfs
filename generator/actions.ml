@@ -843,22 +843,18 @@ Currently defined architectures are:
 
 =over 4
 
+=item \"aarch64\"
+
+64 bit ARM.
+
+=item \"arm\"
+
+32 bit ARM.
+
 =item \"i386\"
 
 This string is returned for all 32 bit i386, i486, i586, i686 binaries
 irrespective of the precise processor requirements of the binary.
-
-=item \"x86_64\"
-
-64 bit x86-64.
-
-=item \"sparc\"
-
-32 bit SPARC.
-
-=item \"sparc64\"
-
-64 bit SPARC V9 and above.
 
 =item \"ia64\"
 
@@ -872,13 +868,17 @@ Intel Itanium.
 
 64 bit Power PC.
 
-=item \"arm\"
+=item \"sparc\"
 
-32 bit ARM.
+32 bit SPARC.
 
-=item \"aarch64\"
+=item \"sparc64\"
 
-64 bit ARM.
+64 bit SPARC V9 and above.
+
+=item \"x86_64\"
+
+64 bit x86-64.
 
 =back
 
