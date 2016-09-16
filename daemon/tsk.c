@@ -49,6 +49,7 @@ static int file_flags (TSK_FS_FILE *fsfile);
 static void file_metadata (TSK_FS_META *, guestfs_int_tsk_dirent *);
 static int send_dirent_info (guestfs_int_tsk_dirent *);
 static void reply_with_tsk_error (const char *);
+static int entry_is_dot (TSK_FS_FILE *);
 
 int
 do_internal_filesystem_walk (const mountable_t *mountable)
@@ -113,9 +114,7 @@ fswalk_callback (TSK_FS_FILE *fsfile, const char *path, void *data)
   CLEANUP_FREE char *fname = NULL;
   struct guestfs_int_tsk_dirent dirent;
 
-  /* Ignore ./ and ../ */
-  ret = TSK_FS_ISDOT (fsfile->name->name);
-  if (ret != 0)
+  if (entry_is_dot (fsfile))
     return TSK_WALK_CONT;
 
   /* Build the full relative path of the entry */
@@ -269,6 +268,17 @@ reply_with_tsk_error (const char *funcname)
   }
   else
     reply_with_error ("%s: unknown error", funcname);
+}
+
+/* Check whether the entry is dot and is not Root.
+ * Return 1 if it is dot, 0 otherwise or if it is the Root entry.
+ */
+static int
+entry_is_dot (TSK_FS_FILE *fsfile)
+{
+  return (TSK_FS_ISDOT (fsfile->name->name) &&
+          !(fsfile->fs_info->root_inum == fsfile->name->meta_addr &&  /* Root */
+            STREQ (fsfile->name->name, ".")));  /* Avoid 'bin/..' 'etc/..' */
 }
 
 int

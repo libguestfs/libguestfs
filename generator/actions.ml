@@ -3570,9 +3570,8 @@ and directories stored within.
 
 It is not necessary to mount the disk partition to run this command.
 
-All entries in the filesystem are returned, excluding C<.> and
-C<..>. This function can list deleted or unaccessible files.
-The entries are I<not> sorted.
+All entries in the filesystem are returned. This function can list deleted
+or unaccessible files. The entries are I<not> sorted.
 
 The C<tsk_dirent> structure contains the following fields.
 
