@@ -34,43 +34,42 @@
 #include "guestfs-internal-all.h"
 #include "guestfs-internal-actions.h"
 
-static struct guestfs_tsk_dirent_list *parse_filesystem_walk (guestfs_h *, FILE *);
+static struct guestfs_tsk_dirent_list *parse_dirent_file (guestfs_h *, const char *);
 static int deserialise_dirent_list (guestfs_h *, FILE *, struct guestfs_tsk_dirent_list *);
+static char *make_temp_file (guestfs_h *, const char *);
 
 struct guestfs_tsk_dirent_list *
 guestfs_impl_filesystem_walk (guestfs_h *g, const char *mountable)
 {
   int ret = 0;
-  CLEANUP_FCLOSE FILE *fp = NULL;
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
 
-  ret = guestfs_int_lazy_make_tmpdir (g);
-  if (ret < 0)
+  tmpfile = make_temp_file (g, "filesystem_walk");
+  if (tmpfile == NULL)
     return NULL;
-
-  tmpfile = safe_asprintf (g, "%s/filesystem_walk%d", g->tmpdir, ++g->unique);
 
   ret = guestfs_internal_filesystem_walk (g, mountable, tmpfile);
   if (ret < 0)
     return NULL;
 
-  fp = fopen (tmpfile, "r");
-  if (fp == NULL) {
-    perrorf (g, "fopen: %s", tmpfile);
-    return NULL;
-  }
-
-  return parse_filesystem_walk (g, fp);  /* caller frees */
+  return parse_dirent_file (g, tmpfile);  /* caller frees */
 }
 
 /* Parse the file content and return dirents list.
  * Return a list of tsk_dirent on success, NULL on error.
  */
 static struct guestfs_tsk_dirent_list *
-parse_filesystem_walk (guestfs_h *g, FILE *fp)
+parse_dirent_file (guestfs_h *g, const char *tmpfile)
 {
   int ret = 0;
+  CLEANUP_FCLOSE FILE *fp = NULL;
   struct guestfs_tsk_dirent_list *dirents = NULL;
+
+  fp = fopen (tmpfile, "r");
+  if (fp == NULL) {
+    perrorf (g, "fopen: %s", tmpfile);
+    return NULL;
+  }
 
   /* Initialise results array. */
   dirents = safe_malloc (g, sizeof (*dirents));
@@ -125,4 +124,16 @@ deserialise_dirent_list (guestfs_h *g, FILE *fp,
   dirents->len = index;
 
   return ret ? 0 : -1;
+}
+
+static char *
+make_temp_file (guestfs_h *g, const char *name)
+{
+  int ret = 0;
+
+  ret = guestfs_int_lazy_make_tmpdir (g);
+  if (ret < 0)
+    return NULL;
+
+  return safe_asprintf (g, "%s/%s%d", g->tmpdir, name, ++g->unique);
 }
