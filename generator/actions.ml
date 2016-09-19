@@ -13232,6 +13232,15 @@ handle C<file>.
 If C<remove> is true (C<false> by default), then the transformation
 is removed." };
 
+  { defaults with
+    name = "internal_find_inode"; added = (1, 35, 6);
+    style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename";], [];
+    proc_nr = Some 470;
+    visibility = VInternal;
+    optional = Some "libtsk";
+    shortdesc = "search the entries associated to the given inode";
+    longdesc = "Internal function for find_inode." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

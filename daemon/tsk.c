@@ -44,6 +44,7 @@ enum tsk_dirent_flags {
 
 static int open_filesystem (const char *, TSK_IMG_INFO **, TSK_FS_INFO **);
 static TSK_WALK_RET_ENUM fswalk_callback (TSK_FS_FILE *, const char *, void *);
+static TSK_WALK_RET_ENUM findino_callback (TSK_FS_FILE *, const char *, void *);
 static int send_dirent_info (TSK_FS_FILE *, const char *);
 static char file_type (TSK_FS_FILE *);
 static int file_flags (TSK_FS_FILE *fsfile);
@@ -68,6 +69,35 @@ do_internal_filesystem_walk (const mountable_t *mountable)
   reply (NULL, NULL);  /* Reply message. */
 
   ret = tsk_fs_dir_walk (fs, fs->root_inum, flags, fswalk_callback, NULL);
+  if (ret == 0)
+    ret = send_file_end (0);  /* File transfer end. */
+  else
+    send_file_end (1);  /* Cancel file transfer. */
+
+  fs->close (fs);
+  img->close (img);
+
+  return ret;
+}
+
+int
+do_internal_find_inode (const mountable_t *mountable, int64_t inode)
+{
+  int ret = -1;
+  TSK_FS_INFO *fs = NULL;
+  TSK_IMG_INFO *img = NULL;  /* Used internally by tsk_fs_dir_walk */
+  const int flags =
+    TSK_FS_DIR_WALK_FLAG_ALLOC | TSK_FS_DIR_WALK_FLAG_UNALLOC |
+    TSK_FS_DIR_WALK_FLAG_RECURSE | TSK_FS_DIR_WALK_FLAG_NOORPHAN;
+
+  ret = open_filesystem (mountable->device, &img, &fs);
+  if (ret < 0)
+    return ret;
+
+  reply (NULL, NULL);  /* Reply message. */
+
+  ret = tsk_fs_dir_walk (fs, fs->root_inum, flags,
+                         findino_callback, (void *) &inode);
   if (ret == 0)
     ret = send_file_end (0);  /* File transfer end. */
   else
@@ -111,6 +141,28 @@ static TSK_WALK_RET_ENUM
 fswalk_callback (TSK_FS_FILE *fsfile, const char *path, void *data)
 {
   int ret = 0;
+
+  if (entry_is_dot (fsfile))
+    return TSK_WALK_CONT;
+
+  ret = send_dirent_info (fsfile, path);
+
+  return (ret == 0) ? TSK_WALK_CONT : TSK_WALK_ERROR;
+}
+
+/* Find inode, it gets called on every FS node.
+ * If the FS node address is the given one, parse it,
+ * encode it into an XDR structure and send it to the library.
+ * Return TSK_WALK_CONT on success, TSK_WALK_ERROR on error.
+ */
+static TSK_WALK_RET_ENUM
+findino_callback (TSK_FS_FILE *fsfile, const char *path, void *data)
+{
+  int ret = 0;
+  uint64_t *inode = (uint64_t *) data;
+
+  if (*inode != fsfile->name->meta_addr)
+    return TSK_WALK_CONT;
 
   if (entry_is_dot (fsfile))
     return TSK_WALK_CONT;
