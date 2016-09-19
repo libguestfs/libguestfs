@@ -3717,6 +3717,18 @@ Unknown file type
 
 =back" };
 
+  { defaults with
+    name = "find_inode"; added = (1, 35, 6);
+    style = RStructList ("dirents", "tsk_dirent"), [Mountable "device"; Int64 "inode";], [];
+    optional = Some "libtsk";
+    progress = true; cancellable = true;
+    shortdesc = "search the entries associated to the given inode";
+    longdesc = "\
+Searches all the entries associated with the given inode.
+
+For each entry, a C<tsk_dirent> structure is returned.
+See C<filesystem_walk> for more information about C<tsk_dirent> structures." };
+
 ]
 
 (* daemon_functions are any functions which cause some action
