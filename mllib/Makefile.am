@@ -63,8 +63,11 @@ SOURCES_ML = \
 	exit.ml
 
 SOURCES_C = \
+	../fish/decrypt.c \
+	../fish/keys.c \
 	../fish/progress.c \
 	../fish/uri.c \
+	common_utils-c.c \
 	dev_t-c.c \
 	exit-c.c \
 	fsync-c.c \
