@@ -31,6 +31,7 @@ EXTRA_DIST = \
 bin_PROGRAMS = virt-cat virt-filesystems virt-log virt-ls
 
 SHARED_SOURCE_FILES = \
+	../fish/decrypt.c \
 	../fish/display-options.h \
 	../fish/display-options.c \
 	../fish/domain.c \

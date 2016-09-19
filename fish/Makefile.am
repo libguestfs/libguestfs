@@ -73,6 +73,7 @@ EXTRA_DIST = \
 # files must not include other guestfish files.
 SHARED_SOURCE_FILES = \
 	config.c \
+	decrypt.c \
 	display-options.h \
 	display-options.c \
 	domain.c \

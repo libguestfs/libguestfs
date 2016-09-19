@@ -34,6 +34,7 @@ bin_PROGRAMS = \
 # between guestfish and guestmount.
 SHARED_SOURCE_FILES = \
 	../fish/config.c \
+	../fish/decrypt.c \
 	../fish/display-options.h \
 	../fish/display-options.c \
 	../fish/domain.c \
