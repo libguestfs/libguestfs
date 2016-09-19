@@ -133,7 +133,7 @@ You can use the C<Configure network> button if you need to assign a
 static IP address to the physical machine, or use Wifi, bonding or
 other network features.
 
-The XTerm button opens a shell which can be used for diagnostics,
+The C<XTerm> button opens a shell which can be used for diagnostics,
 manual network configuration, and so on.
 
 =head2 DISK AND NETWORK CONFIGURATION DIALOG
