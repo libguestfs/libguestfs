@@ -182,6 +182,9 @@ You can ignore this warning or change it to a hard failure using the
 
     g in
 
+  (* Decrypt the disks. *)
+  inspect_decrypt g;
+
   (* Modify SIGINT handler (set first above) to cancel the handle. *)
   let do_sigint _ =
     g#user_cancel ();

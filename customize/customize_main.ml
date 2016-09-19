@@ -102,7 +102,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-customize(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec usage_msg in
+  let opthandle = create_standard_options argspec ~key_opts:true usage_msg in
   Getopt.parse opthandle;
 
   if not !format_consumed then
@@ -174,6 +174,9 @@ read the man page virt-customize(1).
 
     g#launch ();
     g in
+
+  (* Decrypt the disks. *)
+  inspect_decrypt g;
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with

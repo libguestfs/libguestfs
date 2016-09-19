@@ -57,6 +57,9 @@ let run disk format ignores machine_readable zeroes =
   if not (g#feature_available [|"fstrim"|]) then
     error ~exit_code:3 (f_"discard/trim is not supported");
 
+  (* Decrypt the disks. *)
+  inspect_decrypt g;
+
   (* Discard non-ignored filesystems that we are able to mount, and
    * selected swap partitions.
    *)

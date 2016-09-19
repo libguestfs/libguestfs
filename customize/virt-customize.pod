@@ -107,6 +107,13 @@ used instead of names.
 Perform a read-only "dry run" on the guest.  This runs the sysprep
 operation, but throws away any changes to the disk at the end.
 
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, virt-customize normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room
+you can specify this flag to see what you are typing.
+
 =item B<--format> raw|qcow2|..
 
 =item B<--format> auto
@@ -130,6 +137,11 @@ auto-detection for F<another.img>.
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
+
+=item B<--keys-from-stdin>
+
+Read key or passphrase parameters from stdin.  The default is
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<-m> MB
 

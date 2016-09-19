@@ -90,7 +90,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-sparsify(1).
 ")
       prog in
-  let opthandle = create_standard_options argspec ~anon_fun usage_msg in
+  let opthandle = create_standard_options argspec ~anon_fun ~key_opts:true usage_msg in
   Getopt.parse opthandle;
 
   (* Dereference the rest of the args. *)

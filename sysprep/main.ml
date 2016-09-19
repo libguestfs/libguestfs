@@ -147,7 +147,7 @@ A short summary of the options is given below.  For detailed help please
 read the man page virt-sysprep(1).
 ")
         prog in
-    let opthandle = create_standard_options args usage_msg in
+    let opthandle = create_standard_options args ~key_opts:true usage_msg in
     Getopt.parse opthandle;
 
     if not !format_consumed then
@@ -215,6 +215,9 @@ read the man page virt-sysprep(1).
     g#launch ();
 
     operations, g, mount_opts in
+
+  (* Decrypt the disks. *)
+  inspect_decrypt g;
 
   (* Inspection. *)
   (match Array.to_list (g#inspect_os ()) with

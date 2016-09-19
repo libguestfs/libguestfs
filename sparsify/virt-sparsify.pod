@@ -192,6 +192,13 @@ For fine-tuning the output format, see: I<--compress>, I<-o>.
 
 You cannot use this option and I<--in-place> together.
 
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, virt-sparsify normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room
+you can specify this flag to see what you are typing.
+
 =item B<--format> raw
 
 =item B<--format> qcow2
@@ -222,6 +229,11 @@ You can give this option multiple times.
 
 Do in-place sparsification instead of copying sparsification.
 See L</IN-PLACE SPARSIFICATION> below.
+
+=item B<--keys-from-stdin>
+
+Read key or passphrase parameters from stdin.  The default is
+to try to read passphrases from the user by opening F</dev/tty>.
 
 =item B<--machine-readable>
 
