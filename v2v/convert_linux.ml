@@ -478,6 +478,15 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
         ignore (g#command (Array.of_list args))
       in
 
+      let run_update_initramfs_command () =
+        let args =
+          "/usr/sbin/update-initramfs"  ::
+            (if verbose () then [ "-v" ] else [])
+          @ [ "-c"; "-k"; mkinitrd_kv ]
+        in
+        ignore (g#command (Array.of_list args))
+      in
+
       if g#is_file ~followsymlinks:true "/sbin/dracut" then
         run_dracut_command "/sbin/dracut"
       else if g#is_file ~followsymlinks:true "/usr/bin/dracut" then
@@ -490,6 +499,29 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
                        "-i"; initrd;
                        "-k"; kernel.ki_vmlinuz |]
         )
+      )
+      else if family = `Debian_family then (
+        if not (g#is_file ~followsymlinks:true "/usr/sbin/update-initramfs") then
+          error (f_"unable to rebuild initrd (%s) because update-initramfs was not found in the guest")
+            initrd;
+
+        if List.length modules > 0 then (
+          (* The modules to add to initrd are defined in:
+          *     /etc/initramfs-tools/modules
+          * File format is same as modules(5).
+          *)
+          let path = "/files/etc/initramfs-tools/modules" in
+          g#aug_transform "modules" "/etc/initramfs-tools/modules";
+          Linux.augeas_reload g;
+          g#aug_set (sprintf "%s/#comment[last()+1]" path)
+            "The following modules were added by virt-v2v";
+          List.iter (
+            fun m -> g#aug_clear (sprintf "%s/%s" path m)
+          ) modules;
+          g#aug_save ();
+        );
+
+        run_update_initramfs_command ()
       )
       else if g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
         let module_args = List.map (sprintf "--with=%s") modules in
