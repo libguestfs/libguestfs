@@ -82,9 +82,11 @@ and source_display = {
 }
 and s_display_type = Window | VNC | Spice
 and s_display_listen =
-  | LNone
+  | LNoListen
   | LAddress of string
   | LNetwork of string
+  | LSocket of string
+  | LNone
 
 and source_video = Source_other_video of string |
                    Source_Cirrus | Source_QXL
@@ -227,9 +229,11 @@ and string_of_source_display { s_display_type = typ;
     (match keymap with None -> "" | Some km -> " " ^ km)
     (match password with None -> "" | Some _ -> " with password")
     (match listen with
-    | LNone -> ""
+    | LNoListen -> ""
     | LAddress a -> sprintf " listening on address %s" a
     | LNetwork n -> sprintf " listening on network %s" n
+    | LSocket s -> sprintf " listening on Unix domain socket %s" s
+    | LNone -> " listening on private fd"
     )
 
 and string_of_source_video = function
