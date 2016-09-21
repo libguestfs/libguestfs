@@ -281,13 +281,20 @@ let create_libvirt_xml ?pool source target_buses guestcaps
   (match source.s_display with
    | Some { s_listen = listen } ->
       (match listen with
+       | LNoListen -> ()
        | LAddress a ->
           let sub = e "listen" [ "type", "address"; "address", a ] [] in
           append_child sub graphics
        | LNetwork n ->
           let sub = e "listen" [ "type", "network"; "network", n ] [] in
           append_child sub graphics
-       | LNone -> ())
+       | LSocket s ->
+          let sub = e "listen" [ "type", "socket"; "socket", s ] [] in
+          append_child sub graphics
+       | LNone ->
+          let sub = e "listen" [ "type", "none" ] [] in
+          append_child sub graphics
+      )
    | None -> ());
   (match source.s_display with
    | Some { s_port = Some p } ->

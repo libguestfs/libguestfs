@@ -139,9 +139,11 @@ and source_display = {
 }
 and s_display_type = Window | VNC | Spice
 and s_display_listen =
-  | LNone
+  | LNoListen                      (** No parseable <listen/> element. *)
   | LAddress of string             (** Listen address. *)
   | LNetwork of string             (** Listen network. *)
+  | LSocket of string              (** Listen Unix domain socket. *)
+  | LNone                          (** <listen type='none'> *)
 
 (** Video adapter model. *)
 and source_video = Source_other_video of string |

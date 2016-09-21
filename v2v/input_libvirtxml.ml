@@ -96,24 +96,31 @@ let parse_libvirt_xml ?conn xml =
         let nr_nodes = Xml.xpathobj_nr_nodes obj in
         if nr_nodes < 1 then (
           match xpath_string "@listen" with
-          | None -> LNone | Some a -> LAddress a
+          | None -> LNoListen | Some a -> LAddress a
         ) else (
           (* Use only the first <listen> configuration. *)
           match xpath_string "listen[1]/@type" with
-          | None -> LNone
+          | None -> LNoListen
           | Some "address" ->
             (match xpath_string "listen[1]/@address" with
-            | None -> LNone
+            | None -> LNoListen
             | Some a -> LAddress a
             )
           | Some "network" ->
             (match xpath_string "listen[1]/@network" with
-            | None -> LNone
+            | None -> LNoListen
             | Some n -> LNetwork n
             )
+          | Some "socket" ->
+            (match xpath_string "listen[1]/@socket" with
+            | None -> LNoListen
+            | Some n -> LSocket n
+            )
+          | Some "none" ->
+            LNone
           | Some t ->
             warning (f_"<listen type='%s'> in the input libvirt XML was ignored") t;
-            LNone
+            LNoListen
         ) in
       let port =
         match xpath_string "@autoport" with
