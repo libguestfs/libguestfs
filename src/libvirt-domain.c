@@ -40,8 +40,9 @@
 #if defined(HAVE_LIBVIRT)
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
-static ssize_t for_each_disk (guestfs_h *g, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data), void *data);
+static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data), void *data);
 static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
+static char *filename_from_pool (guestfs_h *g, virConnectPtr conn, const char *pool_nane, const char *volume_name);
 
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
@@ -311,7 +312,7 @@ guestfs_impl_add_libvirt_dom (guestfs_h *g, void *domvp,
    * all disks are added or none are added.
    */
   ckp = guestfs_int_checkpoint_drives (g);
-  r = for_each_disk (g, doc, add_disk, &data);
+  r = for_each_disk (g, virDomainGetConnect (dom), doc, add_disk, &data);
   if (r == -1)
     guestfs_int_rollback_drives (g, ckp);
 
@@ -466,6 +467,7 @@ libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc,
  */
 static ssize_t
 for_each_disk (guestfs_h *g,
+               virConnectPtr conn,
                xmlDocPtr doc,
                int (*f) (guestfs_h *g,
                          const char *filename, const char *format,
@@ -509,6 +511,8 @@ for_each_disk (guestfs_h *g,
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpprotocol = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xphost = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpusername = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppool = NULL;
+      CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpvolume = NULL;
       xmlAttrPtr attr;
       int readonly;
       int t;
@@ -628,22 +632,66 @@ for_each_disk (guestfs_h *g,
          * TODO: secrets: ./auth/secret/@type,
          * ./auth/secret/@usage || ./auth/secret/@uuid
          */
-      } else
-        continue; /* type <> "file", "block", or "network", skip it */
+      } else if (STREQ (type, "volume")) { /* type = "volume", use source/@volume */
+        CLEANUP_FREE char *pool = NULL;
+        CLEANUP_FREE char *volume = NULL;
 
-      assert (xpfilename);
-      assert (xpfilename->nodesetval);
-      if (xpfilename->nodesetval->nodeNr > 0) {
-        assert (xpfilename->nodesetval->nodeTab[0]);
-        assert (xpfilename->nodesetval->nodeTab[0]->type ==
+        xpathCtx->node = nodes->nodeTab[i];
+
+        /* Get the source pool.  Required. */
+        xppool = xmlXPathEvalExpression (BAD_CAST "./source/@pool",
+                                         xpathCtx);
+        if (xppool == NULL ||
+            xppool->nodesetval == NULL ||
+            xppool->nodesetval->nodeNr == 0)
+          continue;
+        assert (xppool->nodesetval->nodeTab[0]);
+        assert (xppool->nodesetval->nodeTab[0]->type ==
                 XML_ATTRIBUTE_NODE);
-        attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
-        filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
-        debug (g, "disk[%zu]: filename: %s", i, filename);
+        attr = (xmlAttrPtr) xppool->nodesetval->nodeTab[0];
+        pool = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+        /* Get the source volume.  Required. */
+        xpvolume = xmlXPathEvalExpression (BAD_CAST "./source/@volume",
+                                           xpathCtx);
+        if (xpvolume == NULL ||
+            xpvolume->nodesetval == NULL ||
+            xpvolume->nodesetval->nodeNr == 0)
+          continue;
+        assert (xpvolume->nodesetval->nodeTab[0]);
+        assert (xpvolume->nodesetval->nodeTab[0]->type ==
+                XML_ATTRIBUTE_NODE);
+        attr = (xmlAttrPtr) xpvolume->nodesetval->nodeTab[0];
+        volume = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+        debug (g, "disk[%zu]: pool: %s; volume: %s", i, pool, volume);
+
+        filename = filename_from_pool (g, conn, pool, volume);
+        if (filename == NULL)
+          continue; /* filename_from_pool already called error() */
+      } else
+        continue; /* type is not handled above, skip it */
+
+      /* Allow any of the code blocks above (handling a disk type)
+       * to directly get the filename (setting 'filename'), with no need
+       * for an XPath evaluation.
+       */
+      if (filename == NULL) {
+        assert (xpfilename);
+        assert (xpfilename->nodesetval);
+        if (xpfilename->nodesetval->nodeNr > 0) {
+          assert (xpfilename->nodesetval->nodeTab[0]);
+          assert (xpfilename->nodesetval->nodeTab[0]->type ==
+                  XML_ATTRIBUTE_NODE);
+          attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
+          filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+        }
+        else
+          /* For network protocols (eg. nbd), name may be omitted. */
+          filename = safe_strdup (g, "");
       }
-      else
-        /* For network protocols (eg. nbd), name may be omitted. */
-        filename = safe_strdup (g, "");
+
+      debug (g, "disk[%zu]: filename: %s", i, filename);
 
       /* Get the disk format (may not be set). */
       xpathCtx->node = nodes->nodeTab[i];
@@ -782,6 +830,62 @@ get_domain_xml (guestfs_h *g, virDomainPtr dom)
   }
 
   return doc;
+}
+
+static char *
+filename_from_pool (guestfs_h *g, virConnectPtr conn,
+                    const char *pool_name, const char *volume_name)
+{
+  char *filename = NULL;
+  virErrorPtr err;
+  virStoragePoolPtr pool = NULL;
+  virStorageVolPtr vol = NULL;
+  virStorageVolInfo info;
+  int ret;
+
+  pool = virStoragePoolLookupByName (conn, pool_name);
+  if (pool == NULL) {
+    err = virGetLastError ();
+    error (g, _("no libvirt pool called '%s': %s"),
+           pool_name, err->message);
+    goto cleanup;
+  }
+
+  vol = virStorageVolLookupByName (pool, volume_name);
+  if (vol == NULL) {
+    err = virGetLastError ();
+    error (g, _("no volume called '%s' in the libvirt pool '%s': %s"),
+           volume_name, pool_name, err->message);
+    goto cleanup;
+  }
+
+  ret = virStorageVolGetInfo (vol, &info);
+  if (ret < 0) {
+    err = virGetLastError ();
+    error (g, _("cannot get information of the libvirt volume '%s': %s"),
+           volume_name, err->message);
+    goto cleanup;
+  }
+
+  debug (g, "type of libvirt volume %s: %d", volume_name, info.type);
+
+  /* Support only file-based volumes for now. */
+  if (info.type != VIR_STORAGE_VOL_FILE)
+    goto cleanup;
+
+  filename = virStorageVolGetPath (vol);
+  if (filename == NULL) {
+    err = virGetLastError ();
+    error (g, _("cannot get the filename of the libvirt volume '%s': %s"),
+           volume_name, err->message);
+    goto cleanup;
+  }
+
+ cleanup:
+  if (vol) virStorageVolFree (vol);
+  if (pool) virStoragePoolFree (pool);
+
+  return filename;
 }
 
 #else /* no libvirt at compile time */

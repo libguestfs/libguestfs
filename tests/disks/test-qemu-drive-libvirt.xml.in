@@ -132,4 +132,41 @@
     </devices>
   </domain>
 
+  <domain type='test' xmlns:test='http://libvirt.org/schemas/domain/test/1.0'>
+    <test:runstate>5</test:runstate> <!-- 5 == VIR_DOMAIN_SHUTOFF -->
+    <name>pool1</name>
+    <memory>1048576</memory>
+    <os>
+      <type>hvm</type>
+      <boot dev='hd'/>
+    </os>
+    <devices>
+      <disk type='volume' device='disk'>
+        <driver name='qemu'/>
+        <source pool='pool1' volume='in-pool'/>
+        <target dev='vda' bus='virtio'/>
+      </disk>
+    </devices>
+  </domain>
+
+  <pool type='dir'>
+    <name>pool1</name>
+    <uuid>12345678-1234-1234-1234-1234567890ab</uuid>
+    <target>
+      <path>@abs_builddir@/tmp</path>
+    </target>
+
+    <volume type='file'>
+      <name>in-pool</name>
+      <capacity unit='bytes'>1048576</capacity>
+      <key>@abs_builddir@/tmp/in-pool</key>
+      <source>
+      </source>
+      <target>
+        <path>@abs_builddir@/tmp/in-pool</path>
+      </target>
+    </volume>
+
+  </pool>
+
 </node>

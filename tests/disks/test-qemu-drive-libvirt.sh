@@ -47,6 +47,12 @@ export LIBGUESTFS_BACKEND=direct
 export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
 export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive-libvirt.out"
 
+# Setup the fake pool.
+pool_dir=tmp
+rm -rf "$pool_dir"
+mkdir "$pool_dir"
+touch "$pool_dir/in-pool"
+
 function check_output ()
 {
     if [ ! -f "$DEBUG_QEMU_FILE" ]; then
@@ -104,8 +110,18 @@ check_output
 grep -sq -- '-drive file=sheepdog:volume,' "$DEBUG_QEMU_FILE" || fail
 rm "$DEBUG_QEMU_FILE"
 
+# Local, stored in a pool.
+
+$guestfish -d pool1 run ||:
+check_output
+grep -sq -- "-drive file=$abs_builddir/tmp/in-pool" "$DEBUG_QEMU_FILE" || fail
+rm "$DEBUG_QEMU_FILE"
+
 # To do:
 
 # HTTP - curl not yet supported by libvirt
 
 # SSH.
+
+# Clean up.
+rm -r "$pool_dir"
