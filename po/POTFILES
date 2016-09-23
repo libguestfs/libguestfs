@@ -156,6 +156,7 @@ fish/cmds.c
 fish/completion.c
 fish/config.c
 fish/copy.c
+fish/decrypt.c
 fish/destpaths.c
 fish/display-options.c
 fish/display.c
@@ -312,6 +313,7 @@ java/actions-6.c
 java/handle.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
+mllib/common_utils-c.c
 mllib/dev_t-c.c
 mllib/dummy.c
 mllib/exit-c.c
@@ -337,6 +339,7 @@ p2v/ssh.c
 p2v/utils.c
 p2v/whole-file.c
 perl/bindtests.pl
+perl/lib/Sys/Guestfs.c
 perl/lib/Sys/Guestfs.pm
 php/extension/guestfs_php.c
 python/actions-0.c
