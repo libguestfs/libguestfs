@@ -147,6 +147,12 @@ val uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
 val sort_uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
 (** Sort and uniquify a list. *)
 
+val remove_duplicates : 'a list -> 'a list
+(** Remove duplicates from an unsorted list; useful when the order
+    of the elements matter.
+
+    Please use [sort_uniq] when the order does not matter. *)
+
 val push_back : 'a list ref -> 'a -> unit
 val push_front : 'a -> 'a list ref -> unit
 val pop_back : 'a list ref -> 'a

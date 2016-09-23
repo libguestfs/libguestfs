@@ -297,6 +297,15 @@ let sort_uniq ?(cmp = Pervasives.compare) xs =
   let xs = uniq ~cmp xs in
   xs
 
+let remove_duplicates xs =
+  let h = Hashtbl.create (List.length xs) in
+  let rec loop = function
+    | [] -> []
+    | x :: xs when Hashtbl.mem h x -> xs
+    | x :: xs -> Hashtbl.add h x true; x :: loop xs
+  in
+  loop xs
+
 let push_back xsp x = xsp := !xsp @ [x]
 let push_front x xsp = xsp := x :: !xsp
 let pop_back xsp =
