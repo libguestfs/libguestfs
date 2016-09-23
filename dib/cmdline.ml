@@ -107,7 +107,7 @@ read the man page virt-dib(1).
 
   let formats = ref ["qcow2"] in
   let set_format arg =
-    let fmts = remove_dups (String.nsplit "," arg) in
+    let fmts = remove_duplicates (String.nsplit "," arg) in
     List.iter (
       function
       | "qcow2" | "tar" | "raw" | "vhd" | "docker" -> ()

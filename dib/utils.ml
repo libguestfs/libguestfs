@@ -91,10 +91,6 @@ let digit_prefix_compare a b =
 let do_mkdir dir =
   mkdir_p dir 0o755
 
-let rec remove_dups = function
-  | [] -> []
-  | x :: xs -> x :: (remove_dups (List.filter ((<>) x) xs))
-
 let require_tool tool =
   try ignore (which tool)
   with Executable_not_found tool ->
