@@ -81,15 +81,6 @@ let compare_app2_versions app1 app2 =
       compare_version app1.Guestfs.app2_release app2.Guestfs.app2_release
   )
 
-let remove_duplicates xs =
-  let h = Hashtbl.create (List.length xs) in
-  let rec loop = function
-    | [] -> []
-    | x :: xs when Hashtbl.mem h x -> xs
-    | x :: xs -> Hashtbl.add h x true; x :: loop xs
-  in
-  loop xs
-
 let du filename =
   (* There's no OCaml binding for st_blocks, so run coreutils 'du'. *)
   let cmd =

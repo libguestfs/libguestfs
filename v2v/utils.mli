@@ -46,9 +46,6 @@ val find_uefi_firmware : string -> Uefi.uefi_firmware
 val compare_app2_versions : Guestfs.application2 -> Guestfs.application2 -> int
 (** Compare two app versions. *)
 
-val remove_duplicates : 'a list -> 'a list
-(** Remove duplicates from a list. *)
-
 val du : string -> int64
 (** Return the true size of a file in bytes, including any wasted
     space caused by internal fragmentation (the overhead of using
