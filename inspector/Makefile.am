@@ -52,20 +52,7 @@ dist_doc_DATA = \
 
 bin_PROGRAMS = virt-inspector
 
-SHARED_SOURCE_FILES = \
-	../fish/decrypt.c \
-	../fish/display-options.h \
-	../fish/display-options.c \
-	../fish/domain.c \
-	../fish/inspect.c \
-	../fish/keys.c \
-	../fish/options.h \
-	../fish/options.c \
-	../fish/uri.h \
-	../fish/uri.c
-
 virt_inspector_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	inspector.c
 
 virt_inspector_CPPFLAGS = \
@@ -82,6 +69,7 @@ virt_inspector_CFLAGS = \
 virt_inspector_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \

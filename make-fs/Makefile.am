@@ -24,16 +24,7 @@ EXTRA_DIST = \
 
 bin_PROGRAMS = virt-make-fs
 
-SHARED_SOURCE_FILES = \
-	../fish/display-options.h \
-	../fish/display-options.c \
-	../fish/domain.c \
-	../fish/options.h \
-	../fish/options.c \
-	../fish/uri.c
-
 virt_make_fs_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	make-fs.c
 
 virt_make_fs_CPPFLAGS = \
@@ -50,6 +41,7 @@ virt_make_fs_CFLAGS = \
 virt_make_fs_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
 	$(LTLIBINTL) \
 	../gnulib/lib/libgnu.la

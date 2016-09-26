@@ -25,18 +25,8 @@ EXTRA_DIST = \
 bin_PROGRAMS = virt-edit
 
 SHARED_SOURCE_FILES = \
-	../fish/decrypt.c \
-	../fish/display-options.h \
-	../fish/display-options.c \
-	../fish/domain.c \
 	../fish/file-edit.h \
 	../fish/file-edit.c \
-	../fish/inspect.c \
-	../fish/keys.c \
-	../fish/options.h \
-	../fish/options.c \
-	../fish/uri.h \
-	../fish/uri.c \
 	../fish/windows.h \
 	../fish/windows.c
 
@@ -58,6 +48,7 @@ virt_edit_CFLAGS = \
 virt_edit_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \

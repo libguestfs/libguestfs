@@ -71,8 +71,7 @@ EXTRA_DIST = \
 # between guestfish, guestmount and some other virt tools.  Keep a
 # convenient list here just so we know which ones are shared.  These
 # files must not include other guestfish files.
-SHARED_SOURCE_FILES = \
-	config.c \
+FISHCOMMON_SOURCE_FILES = \
 	decrypt.c \
 	display-options.h \
 	display-options.c \
@@ -81,10 +80,34 @@ SHARED_SOURCE_FILES = \
 	keys.c \
 	options.h \
 	options.c \
-	progress.h \
-	progress.c \
 	uri.h \
 	uri.c
+
+SHARED_SOURCE_FILES = \
+	$(FISHCOMMON_SOURCE_FILES) \
+	config.c \
+	progress.h \
+	progress.c
+
+# libfishcommon.la contains guestfish code which is used in other
+# C tools.  Note this convenience static library is *not* used in
+# guestfish, as the sources are built with extra defines
+# (e.g. -DCOMPILING_GUESTFISH) in that case.
+libfishcommon_la_SOURCES = \
+	$(FISHCOMMON_SOURCE_FILES)
+libfishcommon_la_CPPFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
+libfishcommon_la_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(LIBXML2_CFLAGS)
+libfishcommon_la_LIBADD = \
+	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/src/libutils.la \
+	$(LIBXML2_LIBS) \
+	$(LTLIBINTL)
 
 guestfish_SOURCES = \
 	$(generator_built) \
@@ -159,7 +182,7 @@ guestfish_LDADD = \
 	-lm
 
 # Make guestfish use the convenience libraries.
-noinst_LTLIBRARIES = libcmds.la librc_protocol.la
+noinst_LTLIBRARIES = libcmds.la librc_protocol.la libfishcommon.la
 guestfish_LDADD += libcmds.la librc_protocol.la ../gnulib/lib/libgnu.la
 
 if HAVE_RPCGEN
