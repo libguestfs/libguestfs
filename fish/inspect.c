@@ -39,7 +39,6 @@
 
 /* These definitions ensure we get all extern definitions from the header. */
 #define COMPILING_GUESTFISH 1
-#define COMPILING_VIRT_INSPECTOR 1
 #include "options.h"
 
 /* Global that saves the root device between inspect_mount and

@@ -119,15 +119,11 @@ extern int add_libvirt_drives (guestfs_h *g, const char *guest);
 
 /* in inspect.c */
 extern void inspect_mount_handle (guestfs_h *g);
+extern void inspect_mount_root (guestfs_h *g, const char *root);
 #define inspect_mount() inspect_mount_handle (g)
 
 #if COMPILING_GUESTFISH
 extern void print_inspect_prompt (void);
-#endif
-
-#if COMPILING_VIRT_INSPECTOR
-/* (low-level inspection functions, used by virt-inspector only) */
-extern void inspect_mount_root (guestfs_h *g, const char *root);
 #endif
 
 /* in key.c */
