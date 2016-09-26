@@ -285,13 +285,14 @@ create_connection_dialog (struct config *config)
   set_padding (intro, 10, 10);
 
   table_new (table, 5, 2);
-  server_label = gtk_label_new (_("Conversion server:"));
+  server_label = gtk_label_new_with_mnemonic (_("Conversion _server:"));
   table_attach (table, server_label,
                 0, 1, 0, 1, GTK_FILL, GTK_FILL, 4, 4);
   set_alignment (server_label, 1., 0.5);
 
   hbox_new (server_hbox, FALSE, 4);
   server_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (server_label), server_entry);
   if (config->server != NULL)
     gtk_entry_set_text (GTK_ENTRY (server_entry), config->server);
   port_colon_label = gtk_label_new (":");
@@ -305,11 +306,12 @@ create_connection_dialog (struct config *config)
   table_attach (table, server_hbox,
                 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
-  username_label = gtk_label_new (_("User name:"));
+  username_label = gtk_label_new_with_mnemonic (_("_User name:"));
   table_attach (table, username_label,
                 0, 1, 1, 2, GTK_FILL, GTK_FILL, 4, 4);
   set_alignment (username_label, 1., 0.5);
   username_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (username_label), username_entry);
   if (config->username != NULL)
     gtk_entry_set_text (GTK_ENTRY (username_entry), config->username);
   else
@@ -317,11 +319,12 @@ create_connection_dialog (struct config *config)
   table_attach (table, username_entry,
                 1, 2, 1, 2, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
-  password_label = gtk_label_new (_("Password:"));
+  password_label = gtk_label_new_with_mnemonic (_("_Password:"));
   table_attach (table, password_label,
                 0, 1, 2, 3, GTK_FILL, GTK_FILL, 4, 4);
   set_alignment (password_label, 1., 0.5);
   password_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (password_label), password_entry);
   gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 #ifdef GTK_INPUT_PURPOSE_PASSWORD
   gtk_entry_set_input_purpose (GTK_ENTRY (password_entry),
@@ -332,25 +335,26 @@ create_connection_dialog (struct config *config)
   table_attach (table, password_entry,
                 1, 2, 2, 3, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
-  identity_label = gtk_label_new (_("SSH Identity URL:"));
+  identity_label = gtk_label_new_with_mnemonic (_("SSH _Identity URL:"));
   table_attach (table, identity_label,
                 0, 1, 3, 4, GTK_FILL, GTK_FILL, 4, 4);
   set_alignment (identity_label, 1., 0.5);
   identity_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (identity_label), identity_entry);
   if (config->identity_url != NULL)
     gtk_entry_set_text (GTK_ENTRY (identity_entry), config->identity_url);
   table_attach (table, identity_entry,
                 1, 2, 3, 4, GTK_EXPAND|GTK_FILL, GTK_FILL, 4, 4);
 
   sudo_button =
-    gtk_check_button_new_with_label (_("Use sudo when running virt-v2v"));
+    gtk_check_button_new_with_mnemonic (_("Use su_do when running virt-v2v"));
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sudo_button),
                                 config->sudo);
   table_attach (table, sudo_button,
                 1, 2, 4, 5, GTK_FILL, GTK_FILL, 4, 4);
 
   hbox_new (test_hbox, FALSE, 0);
-  test = gtk_button_new_with_label (_("Test connection"));
+  test = gtk_button_new_with_mnemonic (_("_Test connection"));
   gtk_box_pack_start (GTK_BOX (test_hbox), test, TRUE, FALSE, 0);
 
   hbox_new (spinner_hbox, FALSE, 10);
@@ -376,10 +380,10 @@ create_connection_dialog (struct config *config)
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conn_dlg),
-                          _("Configure network ..."), 1,
-                          _("XTerm ..."), 2,
-                          _("About virt-p2v " PACKAGE_VERSION " ..."), 3,
-                          _("Next"), 4,
+                          _("_Configure network ..."), 1,
+                          _("_XTerm ..."), 2,
+                          _("_About virt-p2v " PACKAGE_VERSION " ..."), 3,
+                          _("_Next"), 4,
                           NULL);
 
   next_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conn_dlg), 4);
@@ -786,21 +790,23 @@ create_conversion_dialog (struct config *config)
   vbox_new (target_vbox, FALSE, 1);
 
   table_new (target_tbl, 3, 3);
-  guestname_label = gtk_label_new (_("Name:"));
+  guestname_label = gtk_label_new_with_mnemonic (_("_Name:"));
   table_attach (target_tbl, guestname_label,
                 0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (guestname_label, 1., 0.5);
   guestname_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (guestname_label), guestname_entry);
   if (config->guestname != NULL)
     gtk_entry_set_text (GTK_ENTRY (guestname_entry), config->guestname);
   table_attach (target_tbl, guestname_entry,
                 1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
 
-  vcpus_label = gtk_label_new (_("# vCPUs:"));
+  vcpus_label = gtk_label_new_with_mnemonic (_("# _vCPUs:"));
   table_attach (target_tbl, vcpus_label,
                 0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (vcpus_label, 1., 0.5);
   vcpus_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (vcpus_label), vcpus_entry);
   snprintf (vcpus_str, sizeof vcpus_str, "%d", config->vcpus);
   gtk_entry_set_text (GTK_ENTRY (vcpus_entry), vcpus_str);
   table_attach (target_tbl, vcpus_entry,
@@ -810,11 +816,12 @@ create_conversion_dialog (struct config *config)
   table_attach (target_tbl, vcpus_warning,
                 2, 3, 1, 2, 0, 0, 1, 1);
 
-  memory_label = gtk_label_new (_("Memory (MB):"));
+  memory_label = gtk_label_new_with_mnemonic (_("_Memory (MB):"));
   table_attach (target_tbl, memory_label,
                 0, 1, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (memory_label, 1., 0.5);
   memory_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (memory_label), memory_entry);
   snprintf (memory_str, sizeof memory_str, "%" PRIu64,
             config->memory / 1024 / 1024);
   gtk_entry_set_text (GTK_ENTRY (memory_entry), memory_str);
@@ -842,54 +849,59 @@ create_conversion_dialog (struct config *config)
   vbox_new (output_vbox, FALSE, 1);
 
   table_new (output_tbl, 5, 2);
-  o_label = gtk_label_new (_("Output to (-o):"));
+  o_label = gtk_label_new_with_mnemonic (_("Output _to (-o):"));
   table_attach (output_tbl, o_label,
                 0, 1, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (o_label, 1., 0.5);
   o_combo = gtk_combo_box_text_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (o_label), o_combo);
   gtk_widget_set_tooltip_markup (o_combo, _("<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the conversion server.  <b>local</b> means put it in a directory on the conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for more information about output options."));
   repopulate_output_combo (config);
   table_attach (output_tbl, o_combo,
                 1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
 
-  oc_label = gtk_label_new (_("Output conn. (-oc):"));
+  oc_label = gtk_label_new_with_mnemonic (_("Output _conn. (-oc):"));
   table_attach (output_tbl, oc_label,
                 0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (oc_label, 1., 0.5);
   oc_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (oc_label), oc_entry);
   gtk_widget_set_tooltip_markup (oc_entry, _("For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add the guest to the default libvirt instance on the conversion server.  For others, leave this field blank."));
   if (config->output_connection != NULL)
     gtk_entry_set_text (GTK_ENTRY (oc_entry), config->output_connection);
   table_attach (output_tbl, oc_entry,
                 1, 2, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
 
-  os_label = gtk_label_new (_("Output storage (-os):"));
+  os_label = gtk_label_new_with_mnemonic (_("Output _storage (-os):"));
   table_attach (output_tbl, os_label,
                 0, 1, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (os_label, 1., 0.5);
   os_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (os_label), os_entry);
   gtk_widget_set_tooltip_markup (os_entry, _("For <b>local</b>, put the directory name on the conversion server.  For <b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For others, leave this field blank."));
   if (config->output_storage != NULL)
     gtk_entry_set_text (GTK_ENTRY (os_entry), config->output_storage);
   table_attach (output_tbl, os_entry,
                 1, 2, 2, 3, GTK_FILL, GTK_FILL, 1, 1);
 
-  of_label = gtk_label_new (_("Output format (-of):"));
+  of_label = gtk_label_new_with_mnemonic (_("Output _format (-of):"));
   table_attach (output_tbl, of_label,
                 0, 1, 3, 4, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (of_label, 1., 0.5);
   of_entry = gtk_entry_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (of_label), of_entry);
   gtk_widget_set_tooltip_markup (of_entry, _("The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, defaults to <b>raw</b>."));
   if (config->output_format != NULL)
     gtk_entry_set_text (GTK_ENTRY (of_entry), config->output_format);
   table_attach (output_tbl, of_entry,
                 1, 2, 3, 4, GTK_FILL, GTK_FILL, 1, 1);
 
-  oa_label = gtk_label_new (_("Output allocation (-oa):"));
+  oa_label = gtk_label_new_with_mnemonic (_("Output _allocation (-oa):"));
   table_attach (output_tbl, oa_label,
                 0, 1, 4, 5, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (oa_label, 1., 0.5);
   oa_combo = gtk_combo_box_text_new ();
+  gtk_label_set_mnemonic_widget (GTK_LABEL (oa_label), oa_combo);
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (oa_combo),
                                   "sparse");
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (oa_combo),
@@ -970,8 +982,8 @@ create_conversion_dialog (struct config *config)
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conv_dlg),
-                          _("Back"), 1,
-                          _("Start conversion"), 2,
+                          _("_Back"), 1,
+                          _("_Start conversion"), 2,
                           NULL);
   back = gtk_dialog_get_widget_for_response (GTK_DIALOG (conv_dlg), 1);
   start_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conv_dlg), 2);
@@ -1703,8 +1715,8 @@ create_running_dialog (void)
 
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (run_dlg),
-                          _("Cancel conversion ..."), 1,
-                          _("Reboot"), 2,
+                          _("_Cancel conversion ..."), 1,
+                          _("_Reboot"), 2,
                           NULL);
   cancel_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (run_dlg), 1);
   gtk_widget_set_sensitive (cancel_button, FALSE);
