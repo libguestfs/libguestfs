@@ -25,7 +25,6 @@ EXTRA_DIST = \
 bin_PROGRAMS = virt-edit
 
 SHARED_SOURCE_FILES = \
-	../fish/config.c \
 	../fish/decrypt.c \
 	../fish/display-options.h \
 	../fish/display-options.c \
@@ -54,11 +53,9 @@ virt_edit_CPPFLAGS = \
 
 virt_edit_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
 virt_edit_LDADD = \
-	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \

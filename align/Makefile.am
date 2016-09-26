@@ -32,7 +32,6 @@ SHARED_SOURCE_FILES = \
 	../df/estimate-max-threads.h \
 	../df/parallel.c \
 	../df/parallel.h \
-	../fish/config.c \
 	../fish/decrypt.c \
 	../fish/display-options.h \
 	../fish/display-options.c \
@@ -59,12 +58,10 @@ virt_alignment_scan_CPPFLAGS = \
 virt_alignment_scan_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(LIBVIRT_CFLAGS)
 
 virt_alignment_scan_LDADD = \
-	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
