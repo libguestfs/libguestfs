@@ -27,7 +27,6 @@ EXTRA_DIST = \
 bin_PROGRAMS = virt-df
 
 SHARED_SOURCE_FILES = \
-	../fish/config.c \
 	../fish/decrypt.c \
 	../fish/display-options.h \
 	../fish/display-options.c \
@@ -62,12 +61,10 @@ virt_df_CPPFLAGS = \
 virt_df_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(LIBVIRT_CFLAGS)
 
 virt_df_LDADD = \
-	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/src/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
