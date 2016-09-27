@@ -184,6 +184,12 @@ object
     g#aug_save ()
 end
 
+(** The method used to get and set the default kernel in Grub2. *)
+type default_kernel_method =
+  | MethodGrubby  (** Use the 'grubby' tool. *)
+  | MethodPerlBootloader  (** Use the 'Bootloader::Tools' Perl module. *)
+  | MethodNone  (** No known way. *)
+
 (* Grub2 representation. *)
 class bootloader_grub2 (g : G.guestfs) grub_config =
 
@@ -198,6 +204,20 @@ class bootloader_grub2 (g : G.guestfs) grub_config =
     with Not_found ->
       error (f_"failed to find grub2-mkconfig binary (but Grub2 was detected on guest)")
   in
+
+  let get_default_method =
+    let has_perl_bootloader () =
+      try
+        ignore (g#command [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e1" |]);
+        true
+      with G.Error _ -> false
+    in
+    if g#exists "/sbin/grubby" then MethodGrubby
+    else if has_perl_bootloader () then MethodPerlBootloader
+    else (
+      warning (f_"could not determine a way to update the configuration of Grub2");
+      MethodNone
+    ) in
 
 object (self)
   inherit bootloader
@@ -250,18 +270,23 @@ object (self)
 
   method list_kernels =
     let get_default_image () =
-      let cmd =
-        if g#exists "/sbin/grubby" then
-          [| "grubby"; "--default-kernel" |]
-        else
-          [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; "
-                InitLibrary();
-                my $default = Bootloader::Tools::GetDefaultSection();
-                print $default->{image};
-             " |] in
-      match g#command cmd with
-      | "" -> None
-      | k ->
+      let res =
+        match get_default_method with
+        | MethodGrubby ->
+          Some (g#command [| "grubby"; "--default-kernel" |])
+        | MethodPerlBootloader ->
+          let cmd =
+            [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; "
+                  InitLibrary();
+                  my $default = Bootloader::Tools::GetDefaultSection();
+                  print $default->{image};
+               " |] in
+          Some (g#command cmd)
+        | MethodNone ->
+          None in
+      match res with
+      | None -> None
+      | Some k ->
         let len = String.length k in
         let k =
           if len > 0 && k.[len-1] = '\n' then
@@ -285,10 +310,11 @@ object (self)
     vmlinuzes
 
   method set_default_kernel vmlinuz =
-    let cmd =
-      if g#exists "/sbin/grubby" then
-        [| "grubby"; "--set-default"; vmlinuz |]
-      else
+    match get_default_method with
+    | MethodGrubby ->
+      ignore (g#command [| "grubby"; "--set-default"; vmlinuz |])
+    | MethodPerlBootloader ->
+      let cmd =
         [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; sprintf "
             InitLibrary();
             my @sections = GetSectionList(type=>image, image=>\"%s\");
@@ -296,7 +322,8 @@ object (self)
             my $newdefault = $section->{name};
             SetGlobals(default, \"$newdefault\");
           " vmlinuz |] in
-    ignore (g#command cmd)
+      ignore (g#command cmd)
+    | MethodNone -> ()
 
   method configure_console = self#grub2_update_console ~remove:false
 
