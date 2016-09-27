@@ -49,7 +49,7 @@ let string_of_kernel_info ki =
     (match ki.ki_initrd with None -> "None" | Some f -> f)
     ki.ki_supports_virtio ki.ki_is_xen_kernel ki.ki_is_debug
 
-let detect_kernels g inspect family bootloader =
+let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
     let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
