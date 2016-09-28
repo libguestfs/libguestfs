@@ -42,7 +42,7 @@ if test "x$enable_daemon" = "xyes"; then
     dnl install directory for libguestfs live.  Since Fedora 17
     dnl /sbin is a symlink to /usr/sbin.  We have to put the
     dnl daemon into a real (non-symlink) directory.
-    dirs="/sbin /usr/sbin /bin /usr/bin"
+    dirs="/usr/sbin /sbin /usr/bin /bin"
     AC_MSG_CHECKING([which of $dirs is a real directory])
     for dir in $dirs; do
         parent=`dirname $dir`
