@@ -156,8 +156,12 @@ let get_index ~downloader ~sigchecker
               let checksums =
                 let checksums = object_find_objects (
                   function
-                  | ("sha256", Yajl_string c) -> Some (Checksums.SHA256 c)
-                  | ("sha512", Yajl_string c) -> Some (Checksums.SHA512 c)
+                  (* Since this catches all the keys, and not just
+                   * the ones related to checksums, explicitly filter
+                   * the supported checksums.
+                   *)
+                  | ("sha256"|"sha512" as t, Yajl_string c) ->
+                    Some (Checksums.of_string t c)
                   | _ -> None
                 ) disk_item in
                 match checksums with

@@ -22,6 +22,12 @@ type csum_t =
 
 exception Mismatched_checksum of (csum_t * string) (* expected checksum, got *)
 
+val of_string : string -> string -> csum_t
+(** [of_string type value] returns the [csum_t] for the specified
+    combination of checksum type and checksum value.
+
+    Raise [Invalid_argument] if the checksum type is not known. *)
+
 val verify_checksum : csum_t -> string -> unit
 (** Verify the checksum of the file. *)
 
