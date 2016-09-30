@@ -17,6 +17,7 @@
  *)
 
 type csum_t =
+| SHA1 of string
 | SHA256 of string
 | SHA512 of string
 
