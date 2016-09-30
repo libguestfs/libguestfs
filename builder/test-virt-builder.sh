@@ -70,6 +70,19 @@ $VG virt-builder phony-fedora \
     --delete /Makefile \
     --link /etc/foo/bar/baz/foo:/foo \
     --link /etc/foo/bar/baz/foo:/foo1:/foo2:/foo3 \
+    --append-line '/etc/append1:hello' \
+    --append-line '/etc/append2:line1' \
+    --append-line '/etc/append2:line2' \
+    --write '/etc/append3:line1' \
+    --append-line '/etc/append3:line2' \
+    --write '/etc/append4:line1
+' \
+    --append-line '/etc/append4:line2' \
+    --touch /etc/append5 \
+    --append-line '/etc/append5:line1' \
+    --write '/etc/append6:
+' \
+    --append-line '/etc/append6:line2' \
     --firstboot Makefile --firstboot-command 'echo "hello"' \
     --firstboot-install "minicom,inkscape"
 
@@ -97,6 +110,24 @@ echo -----
 # Password
 is-file /etc/shadow
 cat /etc/shadow | sed -r '/^root:/!d;s,^(root:\\\$6\\\$).*,\\1,g'
+
+echo -----
+# Line appending
+# Note that the guestfish 'cat' command appends a newline
+echo append1:
+cat /etc/append1
+echo append2:
+cat /etc/append2
+echo append3:
+cat /etc/append3
+echo append4:
+cat /etc/append4
+echo append5:
+cat /etc/append5
+echo append6:
+cat /etc/append6
+
+echo -----
 EOF
 
 if [ "$(cat test-virt-builder.out)" != "true
@@ -113,7 +144,31 @@ true
 /usr/share/zoneinfo/Europe/London
 -----
 true
-root:\$6\$" ]; then
+root:\$6\$
+-----
+append1:
+hello
+
+append2:
+line1
+line2
+
+append3:
+line1
+line2
+
+append4:
+line1
+line2
+
+append5:
+line1
+
+append6:
+
+line2
+
+-----" ]; then
     echo "$0: unexpected output:"
     cat test-virt-builder.out
     exit 1

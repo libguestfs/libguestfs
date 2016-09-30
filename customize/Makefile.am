@@ -34,6 +34,7 @@ generator_built = \
 	customize-synopsis.pod
 
 SOURCES_MLI = \
+	append_line.mli \
 	crypt.mli \
 	customize_cmdline.mli \
 	customize_run.mli \
@@ -51,6 +52,7 @@ SOURCES_MLI = \
 # This list must be in dependency order.
 SOURCES_ML = \
 	customize_utils.ml \
+	append_line.ml \
 	crypt.ml \
 	firstboot.ml \
 	hostname.ml \

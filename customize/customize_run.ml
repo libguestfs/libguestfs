@@ -25,6 +25,7 @@ open Common_utils
 open Customize_utils
 open Customize_cmdline
 open Password
+open Append_line
 
 let run (g : Guestfs.guestfs) root (ops : ops) =
   (* Is the host_cpu compatible with the guest arch?  ie. Can we
@@ -204,6 +205,16 @@ exec >>%s 2>&1
   (* Perform the remaining customizations in command-line order. *)
   List.iter (
     function
+    | `AppendLine (path, line) ->
+       (* It's an error if it's not a single line.  This is
+        * to prevent incorrect line endings being added to a file.
+        *)
+       if String.contains line '\n' then
+         error (f_"--append-line: line must not contain newline characters.  Use the --append-line option multiple times to add several lines.");
+
+       message (f_"Appending line to %s") path;
+       append_line g root path line
+
     | `Chmod (mode, path) ->
       message (f_"Changing permissions of %s to %s") path mode;
       (* If the mode string is octal, add the OCaml prefix for octal values

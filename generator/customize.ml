@@ -49,6 +49,40 @@ and op_type =
 | SMPoolSelector of string              (* pool selector *)
 
 let ops = [
+  { op_name = "append-line";
+    op_type = StringPair "FILE:LINE";
+    op_discrim = "`AppendLine";
+    op_shortdesc = "Append line(s) to the file";
+    op_pod_longdesc = "\
+Append a single line of text to the C<FILE>.  If the file does not already
+end with a newline, then one is added before the appended
+line.  Also a newline is added to the end of the C<LINE> string
+automatically.
+
+For example (assuming ordinary shell quoting) this command:
+
+ --append-line '/etc/hosts:10.0.0.1 foo'
+
+will add either C<10.0.0.1 foo⏎> or C<⏎10.0.0.1 foo⏎> to
+the file, the latter only if the existing file does not
+already end with a newline.
+
+C<⏎> represents a newline character, which is guessed by
+looking at the existing content of the file, so this command
+does the right thing for files using Unix or Windows line endings.
+It also works for empty or non-existent files.
+
+To insert several lines, use the same option several times:
+
+ --append-line '/etc/hosts:10.0.0.1 foo'
+ --append-line '/etc/hosts:10.0.0.2 bar'
+
+To insert a blank line before the appended line, do:
+
+ --append-line '/etc/hosts:'
+ --append-line '/etc/hosts:10.0.0.1 foo'";
+  };
+
   { op_name = "chmod";
     op_type = StringPair "PERMISSIONS:FILE";
     op_discrim = "`Chmod";
