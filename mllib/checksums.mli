@@ -20,6 +20,8 @@ type csum_t =
 | SHA256 of string
 | SHA512 of string
 
+exception Mismatched_checksum of (csum_t * string) (* expected checksum, got *)
+
 val verify_checksum : csum_t -> string -> unit
 (** Verify the checksum of the file. *)
 

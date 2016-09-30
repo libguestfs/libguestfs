@@ -27,6 +27,7 @@ EXTRA_DIST = \
 	test-getopt.sh
 
 SOURCES_MLI = \
+	checksums.mli \
 	common_utils.mli \
 	curl.mli \
 	dev_t.mli \
@@ -60,7 +61,8 @@ SOURCES_ML = \
 	StatVFS.ml \
 	JSON.ml \
 	curl.ml \
-	exit.ml
+	exit.ml \
+	checksums.ml
 
 SOURCES_C = \
 	../fish/decrypt.c \
