@@ -35,6 +35,12 @@ let string_of_csum = function
   | SHA256 c -> c
   | SHA512 c -> c
 
+let of_string csum_type csum_value =
+  match String.lowercase_ascii csum_type with
+  | "sha256" -> SHA256 csum_value
+  | "sha512" -> SHA512 csum_value
+  | _ -> invalid_arg csum_type
+
 let verify_checksum csum filename =
   let prog, csum_ref =
     match csum with
