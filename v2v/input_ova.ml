@@ -143,18 +143,11 @@ object
           if Str.string_match rex line 0 then (
             let disk = Str.matched_group 1 line in
             let expected = Str.matched_group 2 line in
-            let cmd = sprintf "sha1sum %s" (quote (mf_folder // disk)) in
-            let out = external_command cmd in
-            match out with
-            | [] ->
-              error (f_"no output from sha1sum command, see previous errors")
-            | [line] ->
-              let actual, _ = String.split " " line in
-              if actual <> expected then
-                error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
-                  disk mf disk actual disk expected;
-              debug "sha1 of %s matches expected checksum %s" disk expected
-            | _::_ -> error (f_"cannot parse output of sha1sum command")
+            let csum = Checksums.SHA1 expected in
+            try Checksums.verify_checksum csum (mf_folder // disk)
+            with Checksums.Mismatched_checksum (_, actual) ->
+              error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
+                disk mf disk actual disk expected;
           )
         in
         (try loop () with End_of_file -> ());
