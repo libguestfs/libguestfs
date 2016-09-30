@@ -307,7 +307,11 @@ let main () =
     match entry with
     (* New-style: Using a checksum. *)
     | { Index.checksums = Some csums } ->
-      Checksums.verify_checksums csums template
+      (try Checksums.verify_checksums csums template
+      with Checksums.Mismatched_checksum (csum, csum_actual) ->
+        error (f_"%s checksum of template did not match the expected checksum!\n  found checksum: %s\n  expected checksum: %s\nTry:\n - Use the '-v' option and look for earlier error messages.\n - Delete the cache: virt-builder --delete-cache\n - Check no one has tampered with the website or your network!")
+          (Checksums.string_of_csum_t csum) csum_actual (Checksums.string_of_csum csum)
+      )
 
     | { Index.checksums = None } ->
       (* Old-style: detached signature. *)
