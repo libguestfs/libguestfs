@@ -1,52 +1,47 @@
 =head1 NAME
 
-virt-cat - Display files in a virtual machine
+virt-tail - Follow (tail) files in a virtual machine
 
 =head1 SYNOPSIS
 
- virt-cat [--options] -d domname file [file ...]
+ virt-tail [--options] -d domname file [file ...]
 
- virt-cat [--options] -a disk.img [-a disk.img ...] file [file ...]
-
-Old-style:
-
- virt-cat domname file
-
- virt-cat disk.img file
+ virt-tail [--options] -a disk.img [-a disk.img ...] file [file ...]
 
 =head1 DESCRIPTION
 
-C<virt-cat> is a command line tool to display the contents of C<file>
-where C<file> exists in the named virtual machine (or disk image).
+C<virt-tail> is a command line tool to follow (tail) the contents of
+C<file> where C<file> exists in the named virtual machine (or disk
+image).  It is similar to the ordinary command S<C<tail -f>>.
 
-Multiple filenames can be given, in which case they are concatenated
-together.  Each filename must be a full path, starting at the root
+Multiple filenames can be given, in which case each is followed
+separately.  Each filename must be a full path, starting at the root
 directory (starting with '/').
 
-C<virt-cat> can be used to quickly view a file.  To edit a file, use
-C<virt-edit>.  For more complex cases you should look at the
-L<guestfish(1)> tool (see L</USING GUESTFISH> below).
+The command keeps running until:
 
-=head1 EXAMPLES
+=over 4
 
-Display F</etc/fstab> file from inside the libvirt VM called
-C<mydomain>:
+=item *
 
- virt-cat -d mydomain /etc/fstab
+The user presses the ^C or an interrupt signal is received.
 
-Find out what packages were recently installed:
+=item *
 
- virt-cat -d mydomain /var/log/yum.log | tail
+None of the listed files was found in the guest, or they
+all get deleted.
 
-Find out who is logged on inside a virtual machine:
+=item *
 
- virt-cat -d mydomain /var/run/utmp > /tmp/utmp
- who /tmp/utmp
+There is an unrecoverable error.
 
-or who was logged on:
+=back
 
- virt-cat -d mydomain /var/log/wtmp > /tmp/wtmp
- last -f /tmp/wtmp
+=head1 EXAMPLE
+
+Follow F</var/log/messages> inside a virtual machine called C<mydomain>:
+
+ virt-tail -d mydomain /etc/fstab
 
 =head1 OPTIONS
 
@@ -92,10 +87,17 @@ used instead of names.
 
 =item B<--echo-keys>
 
-When prompting for keys and passphrases, virt-cat normally turns
+When prompting for keys and passphrases, virt-tail normally turns
 echoing off so you cannot see what you are typing.  If you are not
 worried about Tempest attacks and there is no one else in the room you
 can specify this flag to see what you are typing.
+
+=item B<-f>
+
+=item B<--follow>
+
+This option is ignored.  virt-tail always behaves like
+S<L<tail(1)> I<-f>>.  You don't need to specify the I<-f> option.
 
 =item B<--format=raw|qcow2|..>
 
@@ -108,11 +110,11 @@ switches back to auto-detection for subsequent I<-a> options.
 
 For example:
 
- virt-cat --format=raw -a disk.img file
+ virt-tail --format=raw -a disk.img file
 
 forces raw format (no auto-detection) for F<disk.img>.
 
- virt-cat --format=raw -a disk.img --format -a another.img file
+ virt-tail --format=raw -a disk.img --format -a another.img file
 
 forces raw format (no auto-detection) for F<disk.img> and reverts to
 auto-detection for F<another.img>.
@@ -180,33 +182,15 @@ Enable tracing of libguestfs API calls.
 
 =back
 
-=head1 OLD-STYLE COMMAND LINE ARGUMENTS
-
-Previous versions of virt-cat allowed you to write either:
-
- virt-cat disk.img [disk.img ...] file
-
-or
-
- virt-cat guestname file
-
-whereas in this version you should use I<-a> or I<-d> respectively
-to avoid the confusing case where a disk image might have the same
-name as a guest.
-
-For compatibility the old style is still supported.
-
 =head1 LOG FILES
 
 To list out the log files from guests, see the related tool
 L<virt-log(1)>.  It understands binary log formats such as the systemd
 journal.
 
-To follow (tail) text log files, use L<virt-tail(1)>.
-
 =head1 WINDOWS PATHS
 
-C<virt-cat> has a limited ability to understand Windows drive letters
+C<virt-tail> has a limited ability to understand Windows drive letters
 and paths (eg. F<E:\foo\bar.txt>).
 
 If and only if the guest is running Windows then:
@@ -244,29 +228,6 @@ NTFS junction points that cross filesystems are not followed.
 
 =back
 
-=head1 USING GUESTFISH
-
-L<guestfish(1)> is a more powerful, lower level tool which you can use
-when C<virt-cat> doesn't work.
-
-Using C<virt-cat> is approximately equivalent to doing:
-
- guestfish --ro -i -d domname download file -
-
-where C<domname> is the name of the libvirt guest, and C<file> is the
-full path to the file.  Note the final C<-> (meaning "output to
-stdout").
-
-The command above uses libguestfs's guest inspection feature and so
-does not work on guests that libguestfs cannot inspect, or on things
-like arbitrary disk images that don't contain guests.  To display a
-file from a disk image directly, use:
-
- guestfish --ro -a disk.img -m /dev/sda1 download file -
-
-where F<disk.img> is the disk image, F</dev/sda1> is the filesystem
-within the disk image, and C<file> is the full path to the file.
-
 =head1 EXIT STATUS
 
 This program returns 0 if successful, or non-zero if there was an
@@ -277,10 +238,10 @@ error.
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-copy-out(1)>,
-L<virt-edit(1)>,
+L<virt-cat(1)>,
 L<virt-log(1)>,
-L<virt-tail(1)>,
 L<virt-tar-out(1)>,
+L<tail(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHOR
@@ -289,4 +250,4 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010-2012 Red Hat Inc.
+Copyright (C) 2016 Red Hat Inc.

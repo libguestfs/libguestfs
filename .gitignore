@@ -69,6 +69,7 @@ Makefile.in
 /bash/virt-resize
 /bash/virt-sysprep
 /bash/virt-sparsify
+/bash/virt-tail
 /bash/virt-tar-in
 /bash/virt-tar-out
 /build-aux/.gitignore
@@ -111,6 +112,8 @@ Makefile.in
 /cat/virt-log.1
 /cat/virt-ls
 /cat/virt-ls.1
+/cat/virt-tail
+/cat/virt-tail.1
 /ChangeLog
 /compile
 /config.cache

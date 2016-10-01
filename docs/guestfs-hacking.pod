@@ -73,8 +73,8 @@ L<virt-builder(1)> command and documentation.
 
 =item F<cat>
 
-The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>
-and L<virt-ls(1)> commands and documentation.
+The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>,
+L<virt-ls(1)> and L<virt-tail(1)> commands and documentation.
 
 =item F<contrib>
 

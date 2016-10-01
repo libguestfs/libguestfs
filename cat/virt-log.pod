@@ -17,9 +17,10 @@ This tool understands and displays both plain text log files
 (eg. F</var/log/messages>) and binary formats such as the systemd
 journal.
 
-To display other types of files, use L<virt-cat(1)>.  To copy files
-out of a virtual machine, use L<virt-copy-out(1)>.  To display the
-contents of the Windows Registry, use L<virt-win-reg(1)>.
+To display other types of files, use L<virt-cat(1)>.  To follow (tail)
+text log files, use L<virt-tail(1)>.  To copy files out of a virtual
+machine, use L<virt-copy-out(1)>.  To display the contents of the
+Windows Registry, use L<virt-win-reg(1)>.
 
 =head1 EXAMPLES
 
@@ -138,6 +139,7 @@ L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-cat(1)>,
 L<virt-copy-out(1)>,
+L<virt-tail(1)>,
 L<virt-tar-out(1)>,
 L<virt-win-reg(1)>,
 L<http://libguestfs.org/>.

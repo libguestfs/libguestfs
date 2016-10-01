@@ -24,3 +24,4 @@ $srcdir/../podcheck.pl virt-filesystems.pod virt-filesystems
 $srcdir/../podcheck.pl virt-log.pod virt-log
 $srcdir/../podcheck.pl virt-ls.pod virt-ls \
                        --ignore=--checksums,--extra-stat,--time,--uid
+$srcdir/../podcheck.pl virt-tail.pod virt-tail

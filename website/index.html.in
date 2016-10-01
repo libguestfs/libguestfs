@@ -101,6 +101,7 @@ on <a href="http://freenode.net/">FreeNode</a>.
 <a href="virt-resize.1.html">virt-resize(1)</a> &mdash; resize virtual machines <br/>
 <a href="virt-sparsify.1.html">virt-sparsify(1)</a> &mdash; make virtual machines sparse (thin-provisioned) <br/>
 <a href="virt-sysprep.1.html">virt-sysprep(1)</a> &mdash; unconfigure a virtual machine before cloning <br/>
+<a href="virt-tail.1.html">virt-tail(1)</a> &mdash; follow log file <br/>
 <a href="virt-tar.1.html">virt-tar(1)</a> &mdash; archive and upload files <br/>
 <a href="virt-tar-in.1.html">virt-tar-in(1)</a> &mdash; archive and upload files <br/>
 <a href="virt-tar-out.1.html">virt-tar-out(1)</a> &mdash; archive and download files <br/>
