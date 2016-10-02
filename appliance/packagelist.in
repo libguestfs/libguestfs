@@ -288,5 +288,10 @@ kpartx
 dnl (virt-dib) tools optionally used for elements
 debootstrap
 
+dnl exFAT is not usually available in free software repos
+exfat-fuse
+exfat-utils
+fuse-exfat
+
 dnl Define this by doing: ./configure --with-extra-packages="..."
 EXTRA_PACKAGES
