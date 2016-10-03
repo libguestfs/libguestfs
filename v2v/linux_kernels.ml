@@ -41,12 +41,14 @@ type kernel_info = {
   ki_supports_virtio : bool;
   ki_is_xen_kernel : bool;
   ki_is_debug : bool;
+  ki_config_file : string option;
 }
 
 let string_of_kernel_info ki =
-  sprintf "(%s, %s, %s, %s, %s, virtio=%b, xen=%b, debug=%b)"
+  sprintf "(%s, %s, %s, %s, %s, %s, virtio=%b, xen=%b, debug=%b)"
     ki.ki_name ki.ki_version ki.ki_arch ki.ki_vmlinuz
     (match ki.ki_initrd with None -> "None" | Some f -> f)
+    (match ki.ki_config_file with None -> "None" | Some f -> f)
     ki.ki_supports_virtio ki.ki_is_xen_kernel ki.ki_is_debug
 
 let detect_kernels (g : G.guestfs) inspect family bootloader =
@@ -156,6 +158,11 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
              ) modules in
              assert (List.length modules > 0);
 
+             let config_file =
+               let cfg = "/boot/config-" ^ version in
+               if List.mem cfg files then Some cfg
+               else None in
+
              let supports_virtio = List.mem "virtio_net" modules in
              let is_xen_kernel = List.mem "xennet" modules in
 
@@ -179,6 +186,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                ki_supports_virtio = supports_virtio;
                ki_is_xen_kernel = is_xen_kernel;
                ki_is_debug = is_debug;
+               ki_config_file = config_file;
              }
            )
 
