@@ -27,6 +27,7 @@ EXTRA_DIST = \
 	virt-log.pod \
 	test-virt-ls.sh \
 	virt-ls.pod \
+	test-virt-tail.sh \
 	virt-tail.pod
 
 bin_PROGRAMS = virt-cat virt-filesystems virt-log virt-ls virt-tail
@@ -234,7 +235,8 @@ TESTS += \
 	test-virt-cat.sh \
 	test-virt-filesystems.sh \
 	test-virt-log.sh \
-	test-virt-ls.sh
+	test-virt-ls.sh \
+	test-virt-tail.sh
 endif ENABLE_APPLIANCE
 
 check-valgrind:
