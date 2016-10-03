@@ -55,6 +55,21 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
     let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
+    let check_config version feature = function
+      | None -> false
+      | Some config ->
+        let prefix = "^CONFIG_" ^ String.uppercase_ascii feature ^ "=" in
+        let lines = g#grep ~extended:true prefix config in
+        let lines = Array.to_list lines in
+        match lines with
+        | [] -> false
+        | line :: _ ->
+          let kind = snd (String.split "=" line) in
+          (match kind with
+          | "m" | "y" -> true
+          | _ -> false
+          )
+    in
     let rex_ko_extract = Str.regexp ".*/\\([^/]+\\)\\.k?o\\(\\.xz\\)?$" in
     let rex_initrd =
       if family = `Debian_family then
@@ -163,7 +178,11 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                if List.mem cfg files then Some cfg
                else None in
 
-             let supports_virtio = List.mem "virtio_net" modules in
+             let kernel_supports what kconf =
+               List.mem what modules
+               || check_config version kconf config_file in
+
+             let supports_virtio = kernel_supports "virtio_net" "VIRTIO_NET" in
              let is_xen_kernel = List.mem "xennet" modules in
 
              (* If the package name is like "kernel-debug", then it's
