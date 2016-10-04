@@ -251,29 +251,41 @@ let rec convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
             (* The packages provide themselves, filter this out. *)
             let provides =
-              List.filter (fun s -> String.find s library = -1) provides in
+              List.filter (
+                fun s ->
+                  not (library = s || String.is_prefix s (library ^ " = "))
+              ) provides in
 
-            (* Trim whitespace. *)
-            let rex = Str.regexp "^[ \t]*\\([^ \t]+\\)[ \t]*$" in
-            let provides = List.map (Str.replace_first rex "\\1") provides in
-
-            (* Install the dependencies with yum.  Use yum explicitly
-             * because we don't have package names and local install is
-             * impractical.
+            (* If the package provides something other than itself, then
+             * proceed installing the replacements; in the other case,
+             * just mark the package for removal, as it means no other
+             * package can depend on something provided.
              *)
-            let cmd = ["yum"; "-q"; "resolvedep"] @ provides in
-            let cmd = Array.of_list cmd in
-            let replacements = g#command_lines cmd in
-            let replacements = Array.to_list replacements in
+            if provides <> [] then (
+              (* Trim whitespace. *)
+              let rex = Str.regexp "^[ \t]*\\([^ \t]+\\)[ \t]*$" in
+              let provides = List.map (Str.replace_first rex "\\1") provides in
 
-            let cmd = [ "yum"; "install"; "-y" ] @ replacements in
-            let cmd = Array.of_list cmd in
-            (try
-               ignore (g#command cmd);
-               push_front library remove
-             with G.Error msg ->
-               eprintf "%s: could not install replacement for %s.  Error was: %s.  %s was not removed.\n"
-                 prog library msg library
+              (* Install the dependencies with yum.  Use yum explicitly
+               * because we don't have package names and local install is
+               * impractical.
+               *)
+              let cmd = ["yum"; "-q"; "resolvedep"] @ provides in
+              let cmd = Array.of_list cmd in
+              let replacements = g#command_lines cmd in
+              let replacements = Array.to_list replacements in
+
+              let cmd = [ "yum"; "install"; "-y" ] @ replacements in
+              let cmd = Array.of_list cmd in
+              (try
+                 ignore (g#command cmd);
+                 push_front library remove
+               with G.Error msg ->
+                 eprintf "%s: could not install replacement for %s.  Error was: %s.  %s was not removed.\n"
+                   prog library msg library
+              );
+            ) else (
+              push_front library remove;
             );
         ) libraries
       )
