@@ -55,7 +55,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
   let installed_kernels : kernel_info list =
     let rex_ko = Str.regexp ".*\\.k?o\\(\\.xz\\)?$" in
-    let check_config version feature = function
+    let check_config feature = function
       | None -> false
       | Some config ->
         let prefix = "^CONFIG_" ^ String.uppercase_ascii feature ^ "=" in
@@ -179,8 +179,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                else None in
 
              let kernel_supports what kconf =
-               List.mem what modules
-               || check_config version kconf config_file in
+               List.mem what modules || check_config kconf config_file in
 
              let supports_virtio = kernel_supports "virtio_net" "VIRTIO_NET" in
              let is_xen_kernel = List.mem "xennet" modules in
