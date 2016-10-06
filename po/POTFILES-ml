@@ -1,6 +1,5 @@
 builder/builder.ml
 builder/cache.ml
-builder/checksums.ml
 builder/cmdline.ml
 builder/downloader.ml
 builder/index.ml
@@ -18,6 +17,7 @@ builder/utils.ml
 builder/yajl.ml
 builder/yajl_tests.ml
 customize/SELinux_relabel.ml
+customize/append_line.ml
 customize/crypt.ml
 customize/customize_cmdline.ml
 customize/customize_main.ml
@@ -41,6 +41,7 @@ mllib/JSON.ml
 mllib/JSON_tests.ml
 mllib/StatVFS.ml
 mllib/URI.ml
+mllib/checksums.ml
 mllib/common_gettext.ml
 mllib/common_utils.ml
 mllib/common_utils_tests.ml
