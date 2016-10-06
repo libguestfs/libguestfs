@@ -102,6 +102,7 @@ dnl iproute has been renamed to iproute2
 ifelse(ARCHLINUX,1,
   augeas
   cdrkit
+  cdrtools
   cryptsetup
   dhcpcd
   gptfdisk
@@ -115,8 +116,8 @@ ifelse(ARCHLINUX,1,
   dnl syslinux has mtools as optional dependency, but in reality it's
   dnl a hard one:
   mtools
+  multipath-tools  dnl for kpartx
   nilfs-utils
-  ntfsprogs
   ntfs-3g
   pcre
   reiserfsprogs
@@ -124,7 +125,6 @@ ifelse(ARCHLINUX,1,
   vim
   xz
   yajl
-  zfs-fuse
 )
 
 ifelse(SUSE,1,
