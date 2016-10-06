@@ -1397,6 +1397,18 @@ construct_libvirt_xml_devices (guestfs_h *g,
       } end_element ();
     }
 
+    /* Libvirt adds some devices by default.  Indicate to libvirt
+     * that we don't want them.
+     */
+    start_element ("controller") {
+      attribute ("type", "usb");
+      attribute ("model", "none");
+    } end_element ();
+
+    start_element ("memballoon") {
+      attribute ("model", "none");
+    } end_element ();
+
   } end_element (); /* </devices> */
 
   return 0;
