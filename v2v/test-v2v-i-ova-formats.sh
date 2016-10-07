@@ -58,7 +58,7 @@ pushd $d
 # conversion, so the contents of the disks doesn't matter.
 truncate -s 10k disk1.vmdk
 sha=`do_sha1 disk1.vmdk`
-echo -e "SHA1(disk1.vmdk)=$sha\r" > disk1.mf
+echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
 
 for format in $formats; do
     case "$format" in
