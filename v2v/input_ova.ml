@@ -133,7 +133,7 @@ object
 
     (* Read any .mf (manifest) files and verify sha1. *)
     let mf = find_files exploded ".mf" in
-    let rex = Str.regexp "SHA1(\\(.*\\))= \\([0-9a-fA-F]+\\)\r?" in
+    let rex = Str.regexp "\\(SHA1\\|SHA256\\)(\\(.*\\))= \\([0-9a-fA-F]+\\)\r?" in
     List.iter (
       fun mf ->
         debug "processing manifest %s" mf;
@@ -142,13 +142,14 @@ object
         let rec loop () =
           let line = input_line chan in
           if Str.string_match rex line 0 then (
-            let disk = Str.matched_group 1 line in
-            let expected = Str.matched_group 2 line in
-            let csum = Checksums.SHA1 expected in
+            let mode = Str.matched_group 1 line in
+            let disk = Str.matched_group 2 line in
+            let expected = Str.matched_group 3 line in
+            let csum = Checksums.of_string mode expected in
             try Checksums.verify_checksum csum (mf_folder // disk)
             with Checksums.Mismatched_checksum (_, actual) ->
-              error (f_"checksum of disk %s does not match manifest %s (actual sha1(%s) = %s, expected sha1 (%s) = %s)")
-                disk mf disk actual disk expected;
+              error (f_"checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected %s(%s) = %s)")
+                disk mf mode disk actual mode disk expected;
           )
           else
             warning (f_"unable to parse line from manifest file: %S") line

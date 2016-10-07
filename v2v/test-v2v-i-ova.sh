@@ -57,8 +57,8 @@ qemu-img convert $f -O vmdk $d/$vmdk
 cp $ovf $d/$ovf
 sha1=`do_sha1 $d/$ovf`
 echo "SHA1($ovf)= $sha1" > $d/$mf
-sha1=`do_sha1 $d/$vmdk`
-echo "SHA1($vmdk)= $sha1" >> $d/$mf
+sha256=`do_sha256 $d/$vmdk`
+echo "SHA256($vmdk)= $sha256" >> $d/$mf
 
 pushd .
 cd $d
