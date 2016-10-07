@@ -311,12 +311,19 @@ check-slow:
 real_guests_scripts = \
 	test-v2v-conversion-of-centos-6.sh \
 	test-v2v-conversion-of-centos-7.0.sh \
+	test-v2v-conversion-of-debian-6.sh \
+	test-v2v-conversion-of-debian-7.sh \
+	test-v2v-conversion-of-debian-8.sh \
 	test-v2v-conversion-of-fedora-20.sh \
 	test-v2v-conversion-of-fedora-23.sh \
 	test-v2v-conversion-of-rhel-5.10.sh \
 	test-v2v-conversion-of-rhel-6.8.sh \
 	test-v2v-conversion-of-rhel-7.0.sh \
-	test-v2v-conversion-of-rhel-7.2.sh
+	test-v2v-conversion-of-rhel-7.2.sh \
+	test-v2v-conversion-of-ubuntu-10.04.sh \
+	test-v2v-conversion-of-ubuntu-12.04.sh \
+	test-v2v-conversion-of-ubuntu-14.04.sh \
+	test-v2v-conversion-of-ubuntu-16.04.sh
 
 test-v2v-conversion-of-%.sh:
 	rm -f $@ $@-t
