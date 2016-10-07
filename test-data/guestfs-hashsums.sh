@@ -41,3 +41,16 @@ do_sha1 ()
       ;;
   esac
 }
+
+do_sha256 ()
+{
+  case "$(uname)" in
+    Linux)
+      sha256sum "$1" | awk '{print $1}'
+      ;;
+    *)
+      echo "$0: unknown method to calculate SHA256 of file on $(uname)"
+      exit 1
+      ;;
+  esac
+}
