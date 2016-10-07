@@ -1055,6 +1055,8 @@ let () =
                        | "rhel" | "centos" | "scientificlinux" | "redhat-based"
                        | "oraclelinux"
                        | "sles" | "suse-based" | "opensuse") } -> true
+    | { i_type = "linux";
+        i_distro = ("debian" | "ubuntu" | "linuxmint") } -> true
     | _ -> false
   in
   Modules_list.register_convert_module matching "enterprise-linux" convert
