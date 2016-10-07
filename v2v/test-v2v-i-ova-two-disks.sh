@@ -47,10 +47,10 @@ pushd $d
 # conversion, so the contents of the disks doesn't matter.
 truncate -s 10k disk1.vmdk
 sha=`do_sha1 disk1.vmdk`
-echo -e "SHA1(disk1.vmdk)=$sha\r" > disk1.mf
+echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
 truncate -s 100k disk2.vmdk
 sha=`do_sha1 disk2.vmdk`
-echo -e "SHA1(disk2.vmdk)=$sha\r" > disk2.mf
+echo -e "SHA1(disk2.vmdk)= $sha\r" > disk2.mf
 
 tar -cf test.ova ../test-v2v-i-ova-two-disks.ovf disk1.vmdk disk1.mf disk2.vmdk disk2.mf
 popd
