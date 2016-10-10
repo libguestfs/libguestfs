@@ -82,17 +82,12 @@ done
 
 set -e
 
-# Deal with stupid autotools libexecdir-not-expandable crap.
-prefix="@prefix@"
-exec_prefix="@exec_prefix@"
-libexecdir="@libexecdir@"
-
 if [ -n "$VIRT_P2V_DATA_DIR" ]; then
     datadir="$VIRT_P2V_DATA_DIR"
-    host_libexecdir="$VIRT_P2V_DATA_DIR"
+    libdir="$VIRT_P2V_DATA_DIR"
 else
     datadir="@datadir@/virt-p2v"
-    host_libexecdir="@libexecdir@"
+    libdir="@libdir@/virt-p2v"
 fi
 
 # Dependencies.  Since kiwi is SUSE-specific, only include
@@ -204,9 +199,7 @@ cp $datadir/issue $output/root/etc/issue
 
 mkdir -p $output/root/usr/bin
 cp $datadir/launch-virt-p2v $output/root/usr/bin
-
-mkdir -p $output/root/$libexecdir
-cp $host_libexecdir/virt-p2v $output/root/$libexecdir
+xzcat $libdir/virt-p2v.xz > $output/root/usr/bin/virt-p2v
 
 if test "z$ssh_identity" != "z"; then
     mkdir -p $output/root/var/tmp
@@ -218,7 +211,6 @@ fi
 @AWK@ \
   -v "dependencies=$dependencies" \
   -v "md5sum_virt_p2v=$md5sum_virt_p2v" \
-  -v "libexecdir=$libexecdir" \
   -v "branding=$branding" \
   -v "release_pkg=$release_pkg" \
   -v "base_pattern=$base_pattern" \
@@ -229,7 +221,6 @@ fi
     gsub (/__PACKAGE_VERSION__/, "@PACKAGE_VERSION@");
     gsub (/__PACKAGE_VERSION_FULL__/, "@PACKAGE_VERSION_FULL@");
     gsub (/<!--__DEPENDENCIES__-->/, dependencies);
-    gsub (/__LIBEXECDIR__/, libexecdir);
     gsub (/__BRANDING__/, branding);
     gsub (/__RELEASE_PKG__/, release_pkg);
     gsub (/__BASE_PATTERN__/, base_pattern);

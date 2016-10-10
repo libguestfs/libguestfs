@@ -103,17 +103,12 @@ fi
 
 set -e
 
-# Deal with stupid autotools libexecdir-not-expandable crap.
-prefix="@prefix@"
-exec_prefix="@exec_prefix@"
-libexecdir="@libexecdir@"
-
 if [ -n "$VIRT_P2V_DATA_DIR" ]; then
     datadir="$VIRT_P2V_DATA_DIR"
-    host_libexecdir="$VIRT_P2V_DATA_DIR"
+    libdir="$VIRT_P2V_DATA_DIR"
 else
     datadir="@datadir@/virt-p2v"
-    host_libexecdir="@libexecdir@"
+    libdir="@libdir@"
 fi
 
 # Base64-encode the files that we need to embed into the kickstart.
@@ -126,9 +121,9 @@ else
     base64_ssh_identity=
 fi
 
-# virt-p2v binary is too large unless we strip it and compress it.
+# virt-p2v binary is too large unless we strip it and recompress it.
 tmpfile="$(mktemp -u)"
-cp $host_libexecdir/virt-p2v $tmpfile
+xzcat $libdir/virt-p2v > $tmpfile
 md5sum_virt_p2v="$(md5sum $tmpfile | @AWK@ '{print $1}')"
 strip --strip-all $tmpfile
 gzip -9 $tmpfile
@@ -207,7 +202,6 @@ done < $depsfile
   -v "extra_packages=$extra_packages" \
   -v "md5sum_virt_p2v=$md5sum_virt_p2v" \
   -v "repos=$repos" \
-  -v "libexecdir=$libexecdir" \
   '{
     gsub (/__PACKAGE_NAME__/, "@PACKAGE_NAME@");
     gsub (/__PACKAGE_VERSION__/, "@PACKAGE_VERSION@");
@@ -221,7 +215,6 @@ done < $depsfile
     gsub (/__EXTRA_PACKAGES__/, gensub (/,/, "\n", "g", extra_packages));
     gsub (/__MD5SUM_VIRT_P2V__/, md5sum_virt_p2v);
     gsub (/__REPOS__/, repos);
-    gsub (/__LIBEXECDIR__/, libexecdir);
     print;
   }' \
   $datadir/p2v.ks.in > $output-t

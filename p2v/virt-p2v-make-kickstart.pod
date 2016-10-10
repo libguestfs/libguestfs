@@ -287,7 +287,7 @@ Display version number and exit.
 
 =over 4
 
-=item F<$libexecdir/virt-p2v>
+=item F<$libdir/virt-p2v/virt-p2v.xz>
 
 The L<virt-p2v(1)> binary which is copied into the kickstart file.
 
