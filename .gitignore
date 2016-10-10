@@ -347,7 +347,6 @@ Makefile.in
 /p2v/dependencies.debian
 /p2v/dependencies.redhat
 /p2v/dependencies.suse
-/p2v/launch-virt-p2v
 /p2v/stamp-test-virt-p2v-pxe-data-files
 /p2v/stamp-test-virt-p2v-pxe-hostkey
 /p2v/stamp-test-virt-p2v-pxe-kernel
@@ -375,6 +374,7 @@ Makefile.in
 /p2v/virt-p2v-make-kickstart.1
 /p2v/virt-p2v-make-kiwi
 /p2v/virt-p2v-make-kiwi.1
+/p2v/virt-p2v.xz
 /perl/_build
 /perl/bindtests.pl
 /perl/blib

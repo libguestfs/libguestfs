@@ -49,14 +49,25 @@ CLEANFILES += \
 	test-virt-p2v-pxe.vmlinuz \
 	test-virt-p2v-pxe.initramfs \
 	test-virt-p2v-pxe.sshd_config \
-	virt-p2v.img
+	virt-p2v.img \
+	virt-p2v.xz
 
 # Although virt-p2v is a regular binary, it is not usually installed
 # in /usr/bin since it only functions when contained in an ISO or PXE
 # image which is used to boot the physical machine (since otherwise
 # virt-p2v would not be able to get a consistent snapshot of the
-# physical disks).
-libexec_PROGRAMS = virt-p2v
+# physical disks).  Also we don't want the naked binary to appear on
+# the host, which would cause various Gtk dependencies to be pulled
+# in, so it must be compressed.
+virtp2vlibdir = $(libdir)/virt-p2v
+virtp2vlib_DATA = virt-p2v.xz
+
+virt-p2v.xz: virt-p2v
+	rm -f $@ $@-t
+	xz --best --keep --stdout $< > $@-t
+	mv $@-t $@
+
+noinst_PROGRAMS = virt-p2v
 
 # Note that miniexpect comes from here:
 # http://git.annexia.org/?p=miniexpect.git;a=summary
@@ -120,13 +131,6 @@ virtp2vdata_DATA = \
 	launch-virt-p2v \
 	p2v.ks.in \
 	p2v.service
-
-# Deal with stupid autotools libexecdir-not-expandable crap.
-launch-virt-p2v: launch-virt-p2v.in
-	rm -f $@ $@-t
-	$(SED) 's,@''libexecdir@,$(libexecdir),g' < $< > $@-t
-	chmod 0555 $@-t
-	mv $@-t $@
 
 # Manual pages and HTML files for the website.
 man_MANS = \

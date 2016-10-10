@@ -798,10 +798,10 @@ On Fedora you can use the L<mock(1)> tool.  For example:
 This will result in a F<virt-v2v-*.i686.rpm> file which can be
 unpacked to extract the 32 bit virt-p2v binary.
 
-The binary may be copied to either F<p2v/virt-p2v.i686>, or
-F<$libexecdir/virt-p2v.i686> or F<$VIRT_P2V_DATA_DIR/virt-p2v.i686> as
-appropriate.  This enables the L<virt-p2v-make-disk(1)> I<--arch>
-option.
+The binary may be compressed to either F<p2v/virt-p2v.i686.xz>, or
+F<$libdir/virt-p2v/virt-p2v.i686.xz> or
+F<$VIRT_P2V_DATA_DIR/virt-p2v.i686.xz> as appropriate.  This enables
+the L<virt-p2v-make-disk(1)> I<--arch> option.
 
 =head1 SEE ALSO
 

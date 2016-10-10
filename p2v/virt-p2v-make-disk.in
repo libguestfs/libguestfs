@@ -22,17 +22,12 @@ unset CDPATH
 program="virt-p2v-make-disk"
 version="@PACKAGE_VERSION@"
 
-# Deal with stupid autotools libexecdir-not-expandable crap.
-prefix="@prefix@"
-exec_prefix="@exec_prefix@"
-libexecdir="@libexecdir@"
-
 if [ -n "$VIRT_P2V_DATA_DIR" ]; then
     datadir="$VIRT_P2V_DATA_DIR"
-    host_libexecdir="$VIRT_P2V_DATA_DIR"
+    libdir="$VIRT_P2V_DATA_DIR"
 else
     datadir="@datadir@/virt-p2v"
-    host_libexecdir="@libexecdir@"
+    libdir="@libdir@/virt-p2v"
 fi
 
 # Parse the command line arguments.
@@ -144,16 +139,16 @@ fi
 
 if [ -n "$arch" ]; then
     arch_option="--arch $arch"
-    virt_p2v_binary="$host_libexecdir/virt-p2v.$arch"
+    virt_p2v_xz_binary="$libdir/virt-p2v.$arch.xz"
 else
-    virt_p2v_binary="$host_libexecdir/virt-p2v"
+    virt_p2v_xz_binary="$libdir/virt-p2v.xz"
 fi
 
-if [ ! -f "$virt_p2v_binary" ]; then
-    echo "$program: cannot find $virt_p2v_binary"
+if [ ! -f "$virt_p2v_xz_binary" ]; then
+    echo "$program: cannot find $virt_p2v_xz_binary"
     if [ -n "$arch" ]; then
         echo "You used the '--arch' option, so it's likely that you will need to build"
-        echo "an virt-p2v.$arch binary yourself."
+        echo "a virt-p2v.$arch binary yourself."
         echo "See guestfs-building(1) section BUILDING i686 32 BIT VIRT-P2V for help."
     fi
     exit 1
@@ -166,6 +161,10 @@ cleanup ()
     rm -rf $tmpdir
 }
 trap cleanup INT QUIT TERM EXIT ERR
+
+# Uncompress the virt-p2v binary into tmpdir.
+virt_p2v_binary="$tmpdir/virt-p2v"
+xzcat "$virt_p2v_xz_binary" > "$virt_p2v_binary"
 
 # Variations depending on the target distro.  The main difference
 # is in the list of distro packages we add to the base appliance.
@@ -235,9 +234,9 @@ virt-builder "$osversion"                                       \
     --root-password password:p2v                                \
     --upload "$datadir"/issue:/etc/issue                        \
     --upload "$datadir"/issue:/etc/issue.net                    \
-    --mkdir "$libexecdir"                                       \
-    --upload "$virt_p2v_binary":"$libexecdir"/virt-p2v          \
-    --chmod 0755:"$libexecdir"/virt-p2v                         \
+    --mkdir /usr/bin                                            \
+    --upload "$virt_p2v_binary":/usr/bin/virt-p2v               \
+    --chmod 0755:/usr/bin/virt-p2v                              \
     --upload "$datadir"/launch-virt-p2v:/usr/bin/               \
     --chmod 0755:/usr/bin/launch-virt-p2v                       \
     --upload "$datadir"/p2v.service:/etc/systemd/system/        \

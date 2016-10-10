@@ -106,7 +106,7 @@ hypervisors.
 
 This option requires that you have built F<virt-p2v.$arch> (ie.
 usually F<virt-p2v.i686>) by some means, and that you install it next
-to the ordinary F<virt-p2v> binary (eg. in libexecdir or
+to the ordinary F<virt-p2v> binary (eg. in F<$libdir/virt-p2v/> or
 C<$VIRT_V2V_DATA_DIR>).  This is outside the scope of this manual
 page, but you can find some tips in
 L<guestfs-building(1)/BUILDING i686 32 BIT VIRT-P2V>.
@@ -169,7 +169,7 @@ Display version number and exit.
 
 =over 4
 
-=item F<$libexecdir/virt-p2v>
+=item F<$libdir/virt-p2v/virt-p2v.xz>
 
 The L<virt-p2v(1)> binary which is copied into the bootable disk
 image.
