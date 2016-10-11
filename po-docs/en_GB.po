@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-10-11 14:17+0100\n"
+"POT-Creation-Date: 2016-10-11 18:57+0100\n"
 "PO-Revision-Date: 2015-02-21 10:15-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -18210,11 +18210,11 @@ msgid "and in the F<Makefile.am> use:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:671
+#: ../docs/guestfs-hacking.pod:671 ../docs/guestfs-hacking.pod:679
 #, no-wrap
 msgid ""
 " check-valgrind:\n"
-"     make VG=\"$(top_builddir)/run @VG@\" check\n"
+"     make VG=\"@VG@\" check\n"
 "\n"
 msgstr ""
 
@@ -18231,15 +18231,6 @@ msgstr ""
 msgid ""
 " LOG_COMPILER = $(VG)\n"
 " \n"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/guestfs-hacking.pod:679
-#, no-wrap
-msgid ""
-" check-valgrind:\n"
-"     make VG=\"@VG@\" check\n"
-"\n"
 msgstr ""
 
 #. type: textblock

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2016-10-11 14:17+0100\n"
+"POT-Creation-Date: 2016-10-11 18:57+0100\n"
 "PO-Revision-Date: 2016-07-14 07:20-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -17961,15 +17961,15 @@ msgid "and in the F<Makefile.am> use:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/guestfs-hacking.pod:671
+#: ../docs/guestfs-hacking.pod:671 ../docs/guestfs-hacking.pod:679
 #, no-wrap
 msgid ""
 " check-valgrind:\n"
-"     make VG=\"$(top_builddir)/run @VG@\" check\n"
+"     make VG=\"@VG@\" check\n"
 "\n"
 msgstr ""
 " check-valgrind:\n"
-"     make VG=\"$(top_builddir)/run @VG@\" check\n"
+"     make VG=\"@VG@\" check\n"
 "\n"
 
 #. type: textblock
@@ -17988,18 +17988,6 @@ msgid ""
 msgstr ""
 " LOG_COMPILER = $(VG)\n"
 " \n"
-
-#. type: verbatim
-#: ../docs/guestfs-hacking.pod:679
-#, no-wrap
-msgid ""
-" check-valgrind:\n"
-"     make VG=\"@VG@\" check\n"
-"\n"
-msgstr ""
-" check-valgrind:\n"
-"     make VG=\"@VG@\" check\n"
-"\n"
 
 #. type: textblock
 #: ../docs/guestfs-hacking.pod:682
@@ -119683,6 +119671,15 @@ msgstr ""
 #: ../v2v/virt-v2v.pod:2045
 msgid "Shahar Havivi"
 msgstr "Shahar Havivi"
+
+#~ msgid ""
+#~ " check-valgrind:\n"
+#~ "     make VG=\"$(top_builddir)/run @VG@\" check\n"
+#~ "\n"
+#~ msgstr ""
+#~ " check-valgrind:\n"
+#~ "     make VG=\"$(top_builddir)/run @VG@\" check\n"
+#~ "\n"
 
 #~ msgid "F<$libexecdir/virt-p2v>"
 #~ msgstr "F<$libexecdir/virt-p2v>"
