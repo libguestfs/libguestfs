@@ -23,7 +23,7 @@ EXTRA_DIST = \
 	issue \
 	kiwi-config.sh \
 	kiwi-config.xml.in \
-	launch-virt-p2v.in \
+	launch-virt-p2v \
 	p2v.ks.in \
 	p2v.service \
 	test-virt-p2v-docs.sh \
