@@ -90,7 +90,7 @@ TESTS += \
 endif ENABLE_APPLIANCE
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
 
 check-valgrind-local-guests:
 	$(top_builddir)/run --test @VG@ virt-df -c "$(libvirt_ro_uri)"

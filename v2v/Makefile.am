@@ -296,7 +296,7 @@ TESTS += \
 endif ENABLE_APPLIANCE
 
 check-valgrind:
-	$(MAKE) VG="$(abs_top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
 
 SLOW_TESTS = \
 	$(real_guests_scripts) \

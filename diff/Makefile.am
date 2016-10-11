@@ -82,4 +82,4 @@ TESTS += \
 endif ENABLE_APPLIANCE
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check

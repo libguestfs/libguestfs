@@ -39,7 +39,7 @@ test_parallel_LDADD = \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 #check-valgrind:
-#	$(MAKE) VG="$(top_builddir)/run @VG@" TESTS="test-parallel" check
+#	$(MAKE) VG="@VG@" TESTS="test-parallel" check
 
 check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1

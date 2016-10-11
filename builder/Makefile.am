@@ -251,7 +251,7 @@ TESTS += yajl_tests
 endif
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
 
 SLOW_TESTS = test-virt-builder-planner.sh
 
