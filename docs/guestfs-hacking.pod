@@ -669,7 +669,7 @@ use:
 and in the F<Makefile.am> use:
 
  check-valgrind:
-     make VG="$(top_builddir)/run @VG@" check
+     make VG="@VG@" check
 
 However, if your binaries run directly from the C<TESTS> rule, you
 have to modify the F<Makefile.am> like this:

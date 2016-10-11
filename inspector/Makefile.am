@@ -104,7 +104,7 @@ TESTS += test-xmllint.sh
 endif
 
 check-valgrind:
-	$(MAKE) TESTS="test-virt-inspector.sh" VG="$(top_builddir)/run @VG@" check
+	$(MAKE) TESTS="test-virt-inspector.sh" VG="@VG@" check
 
 check-valgrind-local-guests:
 	for g in $(GUESTS); do \

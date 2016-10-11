@@ -249,7 +249,7 @@ TESTS += common_utils_tests JSON_tests
 endif
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
 
 # Dependencies.
 depend: .depend

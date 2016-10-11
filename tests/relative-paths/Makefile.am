@@ -31,7 +31,7 @@ TESTS = \
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
 
 EXTRA_DIST = \
 	$(TESTS)

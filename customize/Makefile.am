@@ -198,7 +198,7 @@ TESTS += \
 endif
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
 
 # Slow tests of firstboot functionality in real guests.
 

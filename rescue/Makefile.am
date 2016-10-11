@@ -93,4 +93,4 @@ TESTS += \
 endif ENABLE_APPLIANCE
 
 check-valgrind:
-	$(MAKE) TESTS="test-virt-rescue-suggest.sh" VG="$(top_builddir)/run @VG@" check
+	$(MAKE) TESTS="test-virt-rescue-suggest.sh" VG="@VG@" check

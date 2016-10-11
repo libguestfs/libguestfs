@@ -49,4 +49,4 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 TESTS = validate.sh
 
 check-valgrind:
-	$(MAKE) VG="$(top_builddir)/run @VG@" check
+	$(MAKE) VG="@VG@" check
