@@ -123,7 +123,7 @@ fi
 
 # virt-p2v binary is too large unless we strip it and recompress it.
 tmpfile="$(mktemp -u)"
-xzcat $libdir/virt-p2v > $tmpfile
+xzcat $libdir/virt-p2v/virt-p2v.xz > $tmpfile
 md5sum_virt_p2v="$(md5sum $tmpfile | @AWK@ '{print $1}')"
 strip --strip-all $tmpfile
 gzip -9 $tmpfile
