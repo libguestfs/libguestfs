@@ -186,7 +186,11 @@ do_tar_in (const char *dir, const char *compress, int xattrs, int selinux, int a
                        "tar",
                        dir, filter,
                        chown_supported ? "" : "--no-same-owner ",
-                       xattrs ? "--xattrs " : "",
+                       /* --xattrs-include=* is a workaround for a bug
+                        * in tar, and hopefully won't be required
+                        * forever.  See RHBZ#771927.
+                        */
+                       xattrs ? "--xattrs --xattrs-include='*' " : "",
                        selinux ? "--selinux " : "",
                        acls ? "--acls " : "",
                        error_file) == -1) {
