@@ -238,6 +238,12 @@ notes=Debian 8 (Jessie).
  This image does not contain SSH host keys.  To regenerate them use:
  
  --firstboot-command "dpkg-reconfigure openssh-server"
+ 
+ The serial console is not working in this image.  To enable it, do:
+ 
+ --edit '/etc/default/grub:
+            s/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="console=tty0 console=ttyS0,115200n8"/' \
+ --run-command update-grub
 
 [fedora-18]
 name=Fedora® 18
@@ -871,6 +877,13 @@ notes=Ubuntu 16.04 (Xenial).
  This image does not contain SSH host keys.  To regenerate them use:
  
  --firstboot-command "dpkg-reconfigure openssh-server"
+ 
+ The serial console is not working in this image (apparently a bug
+ in Ubuntu).  To enable it, do:
+ 
+ --edit '/etc/default/grub:
+            s/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="console=tty0 console=ttyS0,115200n8"/' \
+ --run-command update-grub
  
  IMPORTANT NOTE: It seems to be impossible to create an Ubuntu >= 14.04
  image using preseed without creating a user account.  Therefore this
