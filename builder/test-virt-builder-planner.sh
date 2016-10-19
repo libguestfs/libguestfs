@@ -29,6 +29,11 @@ if [ -z "$SLOW" ]; then
     exit 77
 fi
 
+if [ -n "$SKIP_TEST_VIRT_BUILDER_PLANNER_SH" ]; then
+    echo "$0: test skipped because environment variable is set."
+    exit 77
+fi
+
 if [ ! -f fedora.xz -o ! -f fedora.qcow2 -o ! -f fedora.qcow2.xz ]; then
     echo "$0: test skipped because there is no fedora.xz, fedora.qcow2 or fedora.qcow2.xz in the build directory"
     exit 77
