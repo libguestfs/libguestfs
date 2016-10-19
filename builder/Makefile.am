@@ -23,6 +23,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	libguestfs.gpg \
 	opensuse.gpg \
+	test-console.sh \
 	test-index \
 	test-simplestreams/streams/v1/index.json \
 	test-simplestreams/streams/v1/net.cirros-cloud_released_download.json \
@@ -253,10 +254,43 @@ endif
 check-valgrind:
 	$(MAKE) VG="@VG@" check
 
-SLOW_TESTS = test-virt-builder-planner.sh
+# Slow tests.
+
+SLOW_TESTS = \
+	$(console_test_scripts) \
+	test-virt-builder-planner.sh
 
 check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+
+# Test that the supplied guests boot with a serial console.
+#
+# Note that in future we might decide to make the serial console a
+# feature, eg. `virt-builder --add-serial-console' or `virt-builder
+# --remove-serial-console', so don't assume that having these tests
+# means that a serial console is a requirement.
+console_test_scripts := \
+	test-console-centos-7.2.sh \
+	test-console-rhel-6.8.sh \
+	test-console-rhel-7.2.sh \
+	test-console-debian-7.sh \
+	test-console-debian-8.sh \
+	test-console-fedora-24.sh \
+	test-console-ubuntu-12.04.sh \
+	test-console-ubuntu-14.04.sh \
+	test-console-ubuntu-16.04.sh
+
+test-console-%.sh:
+	rm -f $@ $@-t
+	f=`echo "$@" | $(SED) 's/test-console-\(.*\).sh/\1/'`; \
+	echo 'script=$@ exec $$srcdir/test-console.sh' "$$f" > $@-t
+	chmod 0755 $@-t
+	mv $@-t $@
+
+CLEANFILES += \
+	$(console_test_scripts) \
+	console-*.img \
+	console-*.out
 
 # Dependencies.
 depend: .depend
