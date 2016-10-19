@@ -328,7 +328,7 @@ real_guests_scripts = \
 test-v2v-conversion-of-%.sh:
 	rm -f $@ $@-t
 	f=`echo "$@" | $(SED) 's/test-v2v-conversion-of-\(.*\).sh/\1/'`; \
-	echo 'exec $$srcdir/test-v2v-conversion-of.sh' "$$f" > $@-t
+	echo 'script=$@ exec $$srcdir/test-v2v-conversion-of.sh' "$$f" > $@-t
 	chmod 0755 $@-t
 	mv $@-t $@
 

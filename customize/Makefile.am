@@ -231,7 +231,7 @@ firstboot_test_scripts := \
 test-firstboot-%.sh:
 	rm -f $@ $@-t
 	f=`echo "$@" | $(SED) 's/test-firstboot-\(.*\).sh/\1/'`; \
-	echo 'exec $$srcdir/test-firstboot.sh' "$$f" > $@-t
+	echo 'script=$@ exec $$srcdir/test-firstboot.sh' "$$f" > $@-t
 	chmod 0755 $@-t
 	mv $@-t $@
 
@@ -254,7 +254,7 @@ settings_test_scripts := \
 test-settings-%.sh:
 	rm -f $@ $@-t
 	f=`echo "$@" | $(SED) 's/test-settings-\(.*\).sh/\1/'`; \
-	echo 'exec $$srcdir/test-settings.sh' "$$f" > $@-t
+	echo 'script=$@ exec $$srcdir/test-settings.sh' "$$f" > $@-t
 	chmod 0755 $@-t
 	mv $@-t $@
 

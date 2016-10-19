@@ -26,18 +26,18 @@ set -e
 set -x
 
 if [ -z "$SLOW" ]; then
-    echo "$0: use 'make check-slow' to run this test"
+    echo "$script: use 'make check-slow' to run this test"
     exit 77
 fi
 
 if [ -n "$SKIP_TEST_SETTINGS_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
+    echo "$script: test skipped because environment variable is set."
     exit 77
 fi
 
 guestname="$1"
 if [ -z "$guestname" ]; then
-    echo "$0: guestname parameter not set, don't run this test directly."
+    echo "$script: guestname parameter not set, don't run this test directly."
     exit 1
 fi
 
@@ -47,20 +47,20 @@ rm -f "$disk" "$disk.firstboot.sh" "$disk.firstboot.out"
 # If the guest doesn't exist in virt-builder, skip.  This is because
 # we test some RHEL guests which most users won't have access to.
 if ! virt-builder -l "$guestname" >/dev/null 2>&1; then
-    echo "$0: test skipped because \"$guestname\" not known to virt-builder."
+    echo "$script: test skipped because \"$guestname\" not known to virt-builder."
     exit 77
 fi
 
 # We can only run the tests on x86_64.
 if [ "$(uname -m)" != "x86_64" ]; then
-    echo "$0: test skipped because !x86_64."
+    echo "$script: test skipped because !x86_64."
     exit 77
 fi
 
 # Check qemu is installed.
 qemu=qemu-system-x86_64
 if ! $qemu -help >/dev/null 2>&1; then
-    echo "$0: test skipped because $qemu not found."
+    echo "$script: test skipped because $qemu not found."
     exit 77
 fi
 
@@ -117,7 +117,7 @@ case "$guestname" in
         echo 'poweroff'                                >> "$fb"
         ;;
     *)
-        echo "$0: don't know how to write a firstboot script for $guestname"
+        echo "$script: don't know how to write a firstboot script for $guestname"
         exit 1
         ;;
 esac
