@@ -11,10 +11,12 @@ cat/cat.c
 cat/filesystems.c
 cat/log.c
 cat/ls.c
+cat/tail.c
 cat/visit.c
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
+customize/test-password.pl
 daemon/9p.c
 daemon/acl.c
 daemon/augeas.c

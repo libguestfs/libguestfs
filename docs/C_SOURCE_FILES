@@ -9,6 +9,7 @@ cat/cat.c
 cat/filesystems.c
 cat/log.c
 cat/ls.c
+cat/tail.c
 cat/visit.c
 customize/crypt-c.c
 customize/dummy.c

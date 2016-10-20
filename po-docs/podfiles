@@ -6,6 +6,7 @@
 ../cat/virt-filesystems.pod
 ../cat/virt-log.pod
 ../cat/virt-ls.pod
+../cat/virt-tail.pod
 ../customize/customize-options.pod
 ../customize/customize-synopsis.pod
 ../customize/virt-customize.pod
