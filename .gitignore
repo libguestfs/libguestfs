@@ -133,6 +133,7 @@ Makefile.in
 /customize/customize-synopsis.pod
 /customize/stamp-virt-customize.pod
 /customize/test-firstboot-*.sh
+/customize/test-password-*.sh
 /customize/test-settings-*.sh
 /customize/virt-customize
 /customize/virt-customize.1

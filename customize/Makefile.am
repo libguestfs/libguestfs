@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	$(SOURCES_MLI) $(SOURCES_ML) $(SOURCES_C) \
 	customize_main.ml \
 	test-firstboot.sh \
+	test-password.pl \
 	test-settings.sh \
 	test-virt-customize.sh \
 	test-virt-customize-docs.sh \
@@ -207,6 +208,7 @@ check-valgrind:
 
 SLOW_TESTS = \
 	$(firstboot_test_scripts) \
+	$(password_test_scripts) \
 	$(settings_test_scripts)
 
 check-slow:
@@ -235,6 +237,29 @@ test-firstboot-%.sh:
 	chmod 0755 $@-t
 	mv $@-t $@
 
+password_test_scripts := \
+	test-password-centos-7.2.sh \
+	test-password-debian-6.sh \
+	test-password-debian-7.sh \
+	test-password-debian-8.sh \
+	test-password-fedora-24.sh \
+	test-password-rhel-3.9.sh \
+	test-password-rhel-4.9.sh \
+	test-password-rhel-5.11.sh \
+	test-password-rhel-6.9.sh \
+	test-password-rhel-7.2.sh \
+	test-password-ubuntu-10.04.sh \
+	test-password-ubuntu-12.04.sh \
+	test-password-ubuntu-14.04.sh \
+	test-password-ubuntu-16.04.sh
+
+test-password-%.sh:
+	rm -f $@ $@-t
+	f=`echo "$@" | $(SED) 's/test-password-\(.*\).sh/\1/'`; \
+	echo 'script=$@ exec $$srcdir/test-password.pl' "$$f" > $@-t
+	chmod 0755 $@-t
+	mv $@-t $@
+
 settings_test_scripts := \
 	test-settings-rhel-4.9.sh \
 	test-settings-rhel-5.11.sh \
@@ -260,8 +285,11 @@ test-settings-%.sh:
 
 CLEANFILES += \
 	$(firstboot_test_scripts) \
+	$(password_test_scripts) \
 	$(settings_test_scripts) \
 	firstboot-*.img \
+	password-*.img \
+	password-*.log \
 	settings-*.img
 
 # Dependencies.
