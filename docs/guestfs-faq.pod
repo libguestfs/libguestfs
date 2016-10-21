@@ -1033,6 +1033,25 @@ Kill any session (non-root) libvirtd that is running, and next time
 you run the libguestfs command, you should see a large amount of
 useful debugging information from libvirtd in F</tmp/libvirtd.log>
 
+=head2 Broken kernel, or trying a different kernel.
+
+You can choose a different kernel for the appliance by setting some
+L<supermin environment variables|supermin(8)/ENVIRONMENT VARIABLES>:
+
+ export SUPERMIN_KERNEL_VERSION=4.8.0-1.fc25.x86_64
+ export SUPERMIN_KERNEL=/boot/vmlinuz-$SUPERMIN_KERNEL_VERSION
+ export SUPERMIN_MODULES=/lib/modules/$SUPERMIN_KERNEL_VERSION
+ rm -rf /var/tmp/.guestfs-*
+ libguestfs-test-tool
+
+=head2 Broken qemu, or trying a different qemu.
+
+You can choose a different qemu by setting the hypervisor
+L<environment variable|guestfs(3)/ENVIRONMENT VARIABLES>:
+
+ export LIBGUESTFS_HV=/path/to/qemu-system-x86_64
+ libguestfs-test-tool
+
 =head1 DESIGN/INTERNALS OF LIBGUESTFS
 
 See also L<guestfs-internals(1)>.
