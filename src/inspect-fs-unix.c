@@ -213,7 +213,7 @@ parse_os_release (guestfs_h *g, struct inspect_fs *fs, const char *filename)
         distro = OS_DISTRO_PLD_LINUX;
       else if (VALUE_IS ("rhel"))
         distro = OS_DISTRO_RHEL;
-      else if (VALUE_IS ("sles"))
+      else if (VALUE_IS ("sles") || VALUE_IS ("sled"))
         distro = OS_DISTRO_SLES;
       else if (VALUE_IS ("ubuntu"))
         distro = OS_DISTRO_UBUNTU;
