@@ -23,6 +23,11 @@ use POSIX qw(uname);
 
 my $script = $ENV{script};
 
+unless (exists $ENV{SLOW} && $ENV{SLOW} eq "1") {
+    print STDERR "$script: use 'make check-slow' to run this test\n";
+    exit 77
+}
+
 # This test requires the perl 'Expect' module.  If it doesn't
 # exist, skip the test.
 eval "use Expect";
