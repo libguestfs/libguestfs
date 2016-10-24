@@ -77,6 +77,7 @@ virt_p2v_SOURCES = \
 	config.c \
 	conversion.c \
 	gui.c \
+	inhibit.c \
 	kernel.c \
 	kernel-cmdline.c \
 	main.c \
@@ -97,13 +98,15 @@ virt_p2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(PCRE_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
-	$(GTK_CFLAGS)
+	$(GTK_CFLAGS) \
+	$(DBUS_CFLAGS)
 
 virt_p2v_LDADD = \
 	$(top_builddir)/src/libutils.la \
 	$(PCRE_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(GTK_LIBS) \
+	$(DBUS_LIBS) \
 	../gnulib/lib/libgnu.la
 
 # Scripts to build the disk image, USB key, or kickstart.
