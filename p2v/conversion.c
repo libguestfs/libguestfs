@@ -208,6 +208,7 @@ start_conversion (struct config *config,
   char libvirt_xml_file[] = "/tmp/p2v.XXXXXX/physical.xml";
   char wrapper_script[]   = "/tmp/p2v.XXXXXX/virt-v2v-wrapper.sh";
   char dmesg_file[]       = "/tmp/p2v.XXXXXX/dmesg";
+  int inhibit_fd = -1;
 
 #if DEBUG_STDERR
   print_config (config, stderr);
@@ -217,6 +218,12 @@ start_conversion (struct config *config,
   set_control_h (NULL);
   set_running (1);
   set_cancel_requested (0);
+
+  inhibit_fd = inhibit_power_saving ();
+#ifdef DEBUG_STDERR
+  if (inhibit_fd == -1)
+    fprintf (stderr, "warning: virt-p2v cannot inhibit power saving during conversion.\n");
+#endif
 
   data_conns = malloc (sizeof (struct data_conn) * nr_disks);
   if (data_conns == NULL)
@@ -425,6 +432,9 @@ start_conversion (struct config *config,
     }
   }
   cleanup_data_conns (data_conns, nr_disks);
+
+  if (inhibit_fd >= 0)
+    close (inhibit_fd);
 
   set_running (0);
 

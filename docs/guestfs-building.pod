@@ -282,6 +282,17 @@ Either Gtk 2 or Gtk 3 can be used.  If you want to select a specific
 version of Gtk, use S<C<./configure --with-gtk=2>> or
 S<C<./configure --with-gtk=3>>.
 
+=item D-Bus
+
+Optional.
+
+If the D-Bus low level C API is available, virt-p2v can send a D-Bus
+message to logind to inhibit power saving (sleep, suspend, etc) during
+P2V conversions.
+
+If this API is not available at build time, then very long conversions
+might be interrupted if the physical machine goes to sleep.
+
 =item zip
 
 =item unzip

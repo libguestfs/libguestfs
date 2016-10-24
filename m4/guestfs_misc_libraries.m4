@@ -103,6 +103,15 @@ elif test "x$with_gtk" = "xcheck"; then
     ])
 fi
 
+dnl D-Bus is an optional dependency of virt-p2v.
+PKG_CHECK_MODULES([DBUS], [dbus-1], [
+    AC_SUBST([DBUS_CFLAGS])
+    AC_SUBST([DBUS_LIBS])
+    AC_DEFINE([HAVE_DBUS],[1],[D-Bus found at compile time.])
+],[
+    AC_MSG_WARN([D-Bus not found, virt-p2v will not be able to inhibit power saving during P2V conversions])
+])
+
 dnl Can we build virt-p2v?
 AC_MSG_CHECKING([if we can build virt-p2v])
 if test "x$GTK_LIBS" != "x"; then

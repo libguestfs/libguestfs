@@ -120,6 +120,9 @@ extern const char *get_conversion_error (void);
 extern void cancel_conversion (void);
 extern int conversion_is_running (void);
 
+/* inhibit.c */
+extern int inhibit_power_saving (void);
+
 /* ssh.c */
 extern int test_connection (struct config *);
 extern mexp_h *open_data_connection (struct config *, int *local_port, int *remote_port);
