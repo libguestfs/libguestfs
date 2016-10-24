@@ -177,8 +177,15 @@ let main () =
         None
   in
 
+  (* Create a single temporary directory for all the small-or-so
+   * temporary files that Downloader, Sigchecker, etc, are going
+   * create.
+   *)
+  let tmpdir = Mkdtemp.temp_dir "virt-builder." "" in
+  rmdir_on_exit tmpdir;
+
   (* Download the sources. *)
-  let downloader = Downloader.create ~curl:cmdline.curl ~cache in
+  let downloader = Downloader.create ~curl:cmdline.curl ~cache ~tmpdir in
   let repos = Sources.read_sources () in
   let sources = List.map (
     fun (source, fingerprint) ->
@@ -197,7 +204,8 @@ let main () =
           let sigchecker =
             Sigchecker.create ~gpg:cmdline.gpg
                               ~check_signature:cmdline.check_signature
-                              ~gpgkey:source.Sources.gpgkey in
+                              ~gpgkey:source.Sources.gpgkey
+                              ~tmpdir in
           match source.Sources.format with
           | Sources.FormatNative ->
             Index_parser.get_index ~downloader ~sigchecker source

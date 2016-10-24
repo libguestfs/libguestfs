@@ -29,11 +29,13 @@ type filename = string
 
 type t = {
   curl : string;
+  tmpdir : string;
   cache : Cache.t option;               (* cache for templates *)
 }
 
-let create ~curl ~cache = {
+let create ~curl ~tmpdir ~cache = {
   curl = curl;
+  tmpdir = tmpdir;
   cache = cache;
 }
 
@@ -41,7 +43,7 @@ let rec download t ?template ?progress_bar ?(proxy = Curl.SystemProxy) uri =
   match template with
   | None ->                       (* no cache, simple download *)
     (* Create a temporary name. *)
-    let tmpfile = Filename.temp_file "vbcache" ".txt" in
+    let tmpfile = Filename.temp_file ~temp_dir:t.tmpdir "vbcache" ".txt" in
     download_to t ?progress_bar ~proxy uri tmpfile;
     (tmpfile, true)
 
@@ -107,7 +109,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
         "write-out", Some "%{http_code}" (* HTTP status code to stdout. *)
       ];
 
-      Curl.create ~curl:t.curl !curl_args in
+      Curl.create ~curl:t.curl ~tmpdir:t.tmpdir !curl_args in
 
     let lines = Curl.run curl_h in
     if List.length lines < 1 then
@@ -132,7 +134,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
         else append curl_args quiet_args
       );
 
-      Curl.create ~curl:t.curl !curl_args in
+      Curl.create ~curl:t.curl ~tmpdir:t.tmpdir !curl_args in
 
     ignore (Curl.run curl_h)
   );

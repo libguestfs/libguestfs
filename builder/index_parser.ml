@@ -32,7 +32,7 @@ let get_index ~downloader ~sigchecker
 
   let rec get_index () =
     (* Get the index page. *)
-    let tmpfile, delete_tmpfile = Downloader.download downloader ~proxy uri in
+    let tmpfile, _ = Downloader.download downloader ~proxy uri in
 
     (* Check index file signature (also verifies it was fully
      * downloaded and not corrupted in transit).
@@ -41,8 +41,6 @@ let get_index ~downloader ~sigchecker
 
     (* Try parsing the file. *)
     let sections = Ini_reader.read_ini tmpfile in
-    if delete_tmpfile then
-      (try Unix.unlink tmpfile with _ -> ());
 
     (* Check for repeated os-version+arch combination. *)
     let name_arch_map = List.map (

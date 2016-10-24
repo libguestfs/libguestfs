@@ -18,7 +18,7 @@
 
 type t
 
-val create : gpg:string -> gpgkey:Utils.gpgkey_type -> check_signature:bool -> t
+val create : gpg:string -> gpgkey:Utils.gpgkey_type -> check_signature:bool -> tmpdir:string -> t
 
 val verifying_signatures : t -> bool
 (** Return whether signatures are being verified by this
