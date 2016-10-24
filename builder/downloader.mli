@@ -24,7 +24,7 @@ type filename = string
 type t
 (** The abstract data type. *)
 
-val create : curl:string -> cache:Cache.t option -> t
+val create : curl:string -> tmpdir:string -> cache:Cache.t option -> t
 (** Create the abstract type. *)
 
 val download : t -> ?template:(string*string*Utils.revision) -> ?progress_bar:bool -> ?proxy:Curl.proxy -> uri -> (filename * bool)

@@ -86,9 +86,7 @@ let get_index ~downloader ~sigchecker
   let uri = ensure_trailing_slash uri in
 
   let download_and_parse uri =
-    let tmpfile, delete_tmpfile = Downloader.download downloader ~proxy uri in
-    if delete_tmpfile then
-      unlink_on_exit tmpfile;
+    let tmpfile, _ = Downloader.download downloader ~proxy uri in
     let file =
       if Sigchecker.verifying_signatures sigchecker then (
         let tmpunsigned =
