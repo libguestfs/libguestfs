@@ -24,6 +24,7 @@ ifelse(REDHAT,1,
   pcre
   libxml2
   gtk`'GTK_VERSION
+  dbus-libs
 
   dnl Run as external programs by the p2v binary.
   /usr/bin/ssh
@@ -73,6 +74,7 @@ ifelse(DEBIAN,1,
   libpcre3
   libxml2
   libgtk`'GTK_VERSION`'.0-0
+  libdbus-1-3
   openssh-client
   qemu-utils
   curl
@@ -101,6 +103,7 @@ ifelse(ARCHLINUX,1,
   pcre
   libxml2
   gtk`'GTK_VERSION
+  dbus
   openssh
   qemu
   curl
@@ -130,6 +133,7 @@ ifelse(SUSE,1,
   pcre
   libxml2
   gtk`'GTK_VERSION
+  libdbus-1-3
   qemu-tools
   openssh
   curl
