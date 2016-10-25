@@ -403,6 +403,7 @@ Optional.  Library for filesystem forensics analysis.
 
 =head1 BUILDING FROM GIT
 
+ sudo dnf install gettext-debel
  git clone https://github.com/libguestfs/libguestfs
  cd libguestfs
  ./autogen.sh
