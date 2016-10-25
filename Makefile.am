@@ -309,9 +309,9 @@ docs/C_SOURCE_FILES: configure.ac
 	rm -f $@ $@-t
 	find $(DIST_SUBDIRS) -name '*.[ch]' | \
 	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
-	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
+	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
-	grep -v -E '.*-gperf\.c$$' | \
+	grep -v -E '.*-gperf\.' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@
 
