@@ -294,7 +294,6 @@ ruby/ext/guestfs/actions-4.c
 ruby/ext/guestfs/actions-5.c
 ruby/ext/guestfs/actions-6.c
 ruby/ext/guestfs/actions.h
-ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/handle.c
 ruby/ext/guestfs/module.c
 sparsify/dummy.c
