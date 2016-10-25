@@ -310,7 +310,7 @@ docs/C_SOURCE_FILES: configure.ac
 	find $(DIST_SUBDIRS) -name '*.[ch]' | \
 	grep -v -E '^(builder/index-parse\.|builder/index-scan\.|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
-	grep -v -E '.*/errnostring\.c$$' | \
+	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.c$$' | \
 	LC_ALL=C sort > $@-t
 	mv $@-t $@
