@@ -52,6 +52,20 @@ static char *generate_random_name (const char *filename);
 static char *generate_backup_name (const char *filename,
                                    const char *backup_extension);
 
+/**
+ * Edit C<filename> using the specified C<editor> application.
+ *
+ * If C<backup_extension> is not null, then a copy of C<filename> is
+ * saved with C<backup_extension> appended to its file name.
+ *
+ * If C<editor> is null, then the C<$EDITOR> environment variable will
+ * be queried for the editor application, leaving C<vi> as fallback if
+ * not set.
+ *
+ * Returns C<-1> for failure, C<0> on success, C<1> if the editor did
+ * not change the file (e.g. the user closed the editor without
+ * saving).
+ */
 int
 edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
                   const char *backup_extension, int verbose)
@@ -127,6 +141,14 @@ edit_file_editor (guestfs_h *g, const char *filename, const char *editor,
   return 0;
 }
 
+/**
+ * Edit C<filename> running the specified C<perl_expr> using Perl.
+ *
+ * If C<backup_extension> is not null, then a copy of C<filename> is
+ * saved with C<backup_extension> appended to its file name.
+ *
+ * Returns C<-1> for failure, C<0> on success.
+ */
 int
 edit_file_perl (guestfs_h *g, const char *filename, const char *perl_expr,
                 const char *backup_extension, int verbose)

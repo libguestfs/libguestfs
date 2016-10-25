@@ -16,6 +16,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * Implement a private data area where libguestfs C API users can
+ * attach arbitrary pieces of data to a C<guestfs_h> handle.
+ *
+ * For more information see L<guestfs(3)/PRIVATE DATA AREA>.
+ *
+ * Language bindings do not generally expose this, largely because in
+ * non-C languages it is easy to associate data with handles in other
+ * ways (using hash tables or maps).
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -29,9 +40,13 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
-/* Note the private data area is allocated lazily, since the vast
- * majority of callers will never use it.  This means g->pda is
- * likely to be NULL.
+/**
+ * The private data area is internally stored as a gnulib hash
+ * table containing C<pda_entry> structures.
+ *
+ * Note the private data area is allocated lazily, since the vast
+ * majority of callers will never use it.  This means C<g-E<gt>pda> is
+ * likely to be C<NULL>.
  */
 struct pda_entry {
   char *key;                    /* key */
