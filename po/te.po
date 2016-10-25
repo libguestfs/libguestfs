@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-10-11 14:16+0100\n"
+"POT-Creation-Date: 2016-10-25 19:19+0100\n"
 "PO-Revision-Date: 2015-02-21 10:53-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/libguestfs/"
@@ -56,7 +56,7 @@ msgstr ""
 msgid "%s (ignored)"
 msgstr ""
 
-#: ../builder/builder.ml:312
+#: ../builder/builder.ml:320
 msgid ""
 "%s checksum of template did not match the expected checksum!\n"
 "  found checksum: %s\n"
@@ -89,11 +89,11 @@ msgid ""
 "this out through the RHEV-M user interface."
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:113
+#: ../builder/simplestreams_parser.ml:111
 msgid "%s is not a Simple Streams (index) v1.0 JSON file (format: %s)"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:132
+#: ../builder/simplestreams_parser.ml:130
 msgid "%s is not a Simple Streams (products) v1.0 JSON file (format: %s)"
 msgstr ""
 
@@ -202,23 +202,23 @@ msgstr ""
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
-#: ../builder/index_parser.ml:138
+#: ../builder/index_parser.ml:136
 msgid "%s: cannot parse 'compressed_size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:163
+#: ../builder/index_parser.ml:161
 msgid "%s: cannot parse 'hidden' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:119
+#: ../builder/index_parser.ml:117
 msgid "%s: cannot parse 'revision' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:130
+#: ../builder/index_parser.ml:128
 msgid "%s: cannot parse 'size' field for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:213
+#: ../builder/index_parser.ml:211
 msgid "%s: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
@@ -299,15 +299,15 @@ msgstr ""
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr ""
 
-#: ../builder/index_parser.ml:80
+#: ../builder/index_parser.ml:78
 msgid "%s: index is corrupt: %s: field '%s' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:78
+#: ../builder/index_parser.ml:76
 msgid "%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:62
+#: ../builder/index_parser.ml:60
 msgid ""
 "%s: index is corrupt: os-version '%s' with architecture '%s' appears two or "
 "more times\n"
@@ -328,15 +328,15 @@ msgstr ""
 msgid "%s: new partition size is zero or negative"
 msgstr ""
 
-#: ../builder/index_parser.ml:104
+#: ../builder/index_parser.ml:102
 msgid "%s: no 'arch' entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:99
+#: ../builder/index_parser.ml:97
 msgid "%s: no 'file' (URI) entry for '%s'\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:127
+#: ../builder/index_parser.ml:125
 msgid "%s: no 'size' field for '%s'\n"
 msgstr ""
 
@@ -443,11 +443,11 @@ msgstr ""
 msgid "%s: warning: %s"
 msgstr ""
 
-#: ../builder/index_parser.ml:217
+#: ../builder/index_parser.ml:215
 msgid "%s: you must use relative paths (not '%s') in the index file\n"
 msgstr ""
 
-#: ../builder/index_parser.ml:209
+#: ../builder/index_parser.ml:207
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
@@ -889,7 +889,7 @@ msgstr ""
 msgid "Compressing the image as tar"
 msgstr ""
 
-#: ../builder/builder.ml:629
+#: ../builder/builder.ml:637
 msgid "Converting %s to %s"
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
-#: ../dib/dib.ml:917 ../builder/builder.ml:628
+#: ../dib/dib.ml:917 ../builder/builder.ml:636
 msgid "Converting to %s"
 msgstr ""
 
@@ -913,7 +913,7 @@ msgstr ""
 msgid "Copy local files or directories into image"
 msgstr ""
 
-#: ../builder/builder.ml:564
+#: ../builder/builder.ml:572
 msgid "Copying"
 msgstr ""
 
@@ -1090,7 +1090,7 @@ msgstr ""
 msgid "Download size:"
 msgstr ""
 
-#: ../builder/builder.ml:298 ../builder/builder.ml:249
+#: ../builder/builder.ml:306 ../builder/builder.ml:257
 msgid "Downloading: %s"
 msgstr ""
 
@@ -1255,7 +1255,7 @@ msgid "Fingerprint: %s\n"
 msgstr ""
 
 #. ../customize/customize_main.ml:200
-#. ../builder/builder.ml:714
+#. ../builder/builder.ml:722
 #: ../v2v/v2v.ml:159 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr ""
@@ -1307,7 +1307,7 @@ msgstr ""
 msgid "Format of output disk (default: same as input)"
 msgstr ""
 
-#: ../builder/builder.ml:704
+#: ../builder/builder.ml:712
 msgid "Free space"
 msgstr ""
 
@@ -1315,7 +1315,7 @@ msgstr ""
 msgid "Full name:"
 msgstr ""
 
-#: ../builder/sigchecker.ml:109
+#: ../builder/sigchecker.ml:108
 msgid ""
 "GPG failure: could not run GPG the first time\n"
 "Use the '-v' option and look for earlier error messages."
@@ -1327,7 +1327,7 @@ msgid ""
 "Use the '-v' option and look for earlier error messages."
 msgstr ""
 
-#: ../builder/sigchecker.ml:205
+#: ../builder/sigchecker.ml:201
 msgid ""
 "GPG failure: could not verify digital signature of file\n"
 "Try:\n"
@@ -1559,7 +1559,7 @@ msgstr ""
 msgid "Opening the disks"
 msgstr ""
 
-#: ../builder/builder.ml:641
+#: ../builder/builder.ml:649
 msgid "Opening the new disk"
 msgstr ""
 
@@ -1595,11 +1595,11 @@ msgstr ""
 msgid "Output directory"
 msgstr ""
 
-#: ../builder/builder.ml:699
+#: ../builder/builder.ml:707
 msgid "Output file"
 msgstr ""
 
-#: ../builder/builder.ml:701
+#: ../builder/builder.ml:709
 msgid "Output format"
 msgstr ""
 
@@ -1615,7 +1615,7 @@ msgstr ""
 msgid "Output image UUID(s)"
 msgstr ""
 
-#: ../builder/builder.ml:700
+#: ../builder/builder.ml:708
 msgid "Output size"
 msgstr ""
 
@@ -1678,7 +1678,7 @@ msgstr ""
 msgid "Picked %s because '--root first' was used."
 msgstr ""
 
-#: ../builder/builder.ml:501
+#: ../builder/builder.ml:509
 msgid "Planning how to build this image"
 msgstr ""
 
@@ -1927,11 +1927,11 @@ msgstr ""
 msgid "Resize partition"
 msgstr ""
 
-#: ../builder/builder.ml:589
+#: ../builder/builder.ml:597
 msgid "Resizing (using virt-resize) to expand the disk to %s"
 msgstr ""
 
-#: ../builder/builder.ml:615
+#: ../builder/builder.ml:623
 msgid "Resizing container (but not filesystems) to expand the disk to %s"
 msgstr ""
 
@@ -2336,7 +2336,7 @@ msgid ""
 "This option can be specified multiple times."
 msgstr ""
 
-#: ../builder/builder.ml:273
+#: ../builder/builder.ml:281
 msgid "There are no notes for %s\n"
 msgstr ""
 
@@ -2411,7 +2411,7 @@ msgstr ""
 msgid "This removes temporary files under C</tmp> and C</var/tmp>."
 msgstr ""
 
-#: ../builder/builder.ml:702
+#: ../builder/builder.ml:710
 msgid "Total usable space"
 msgstr ""
 
@@ -2443,7 +2443,7 @@ msgstr ""
 msgid "Umounting the disks"
 msgstr ""
 
-#: ../builder/builder.ml:577
+#: ../builder/builder.ml:585
 msgid "Uncompressing"
 msgstr ""
 
@@ -2651,7 +2651,7 @@ msgid ""
 "at boot."
 msgstr ""
 
-#: ../builder/builder.ml:359
+#: ../builder/builder.ml:367
 msgid "cannot output to a character device or /dev/null"
 msgstr ""
 
@@ -2736,7 +2736,7 @@ msgstr ""
 msgid "could not determine a way to update the configuration of Grub2"
 msgstr ""
 
-#: ../builder/sigchecker.ml:123
+#: ../builder/sigchecker.ml:121
 msgid ""
 "could not export public key\n"
 "Use the '-v' option and look for earlier error messages."
@@ -2801,7 +2801,7 @@ msgstr ""
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
-#: ../builder/downloader.ml:89
+#: ../builder/downloader.ml:91
 msgid "cp (download) command failed copying '%s'"
 msgstr ""
 
@@ -2921,7 +2921,7 @@ msgid "empty --shrink option"
 msgstr ""
 
 #. ../customize/customize_main.ml:63
-#. ../builder/downloader.ml:69
+#. ../builder/downloader.ml:71
 #: ../sysprep/main.ml:58 ../resize/resize.ml:310 ../get-kernel/get_kernel.ml:43
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
@@ -2980,7 +2980,7 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../builder/downloader.ml:123
+#: ../builder/downloader.ml:125
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
@@ -2997,7 +2997,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../builder/sigchecker.ml:222
+#: ../builder/sigchecker.ml:218
 msgid ""
 "fingerprint of signature does not match the expected fingerprint!\n"
 "  found fingerprint: %s\n"
@@ -3126,7 +3126,7 @@ msgstr ""
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
-#: ../builder/builder.ml:384
+#: ../builder/builder.ml:392
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
@@ -3140,7 +3140,7 @@ msgstr ""
 msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
-#: ../builder/builder.ml:344
+#: ../builder/builder.ml:352
 msgid "input file (%s) has an unsupported type"
 msgstr ""
 
@@ -3334,15 +3334,15 @@ msgstr ""
 msgid "no bootloader detected"
 msgstr ""
 
-#: ../builder/builder.ml:242
+#: ../builder/builder.ml:250
 msgid "no cache directory"
 msgstr ""
 
-#: ../builder/builder.ml:235
+#: ../builder/builder.ml:243
 msgid "no cache directory\n"
 msgstr ""
 
-#: ../builder/builder.ml:669
+#: ../builder/builder.ml:677
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
@@ -3387,7 +3387,7 @@ msgstr ""
 msgid "no partitions found in the helper drive"
 msgstr ""
 
-#: ../builder/builder.ml:506
+#: ../builder/builder.ml:514
 msgid ""
 "no plan could be found for making a disk image with\n"
 "the required size, format etc. This is a bug in libguestfs!\n"
@@ -3466,7 +3466,7 @@ msgstr ""
 msgid "output '%s' cannot be a character device, it must be a regular file"
 msgstr ""
 
-#: ../builder/builder.ml:287
+#: ../builder/builder.ml:295
 msgid ""
 "output device (%s) is a partition.  If you are writing to a USB key or "
 "external drive then you probably need to write to the whole device, not to a "
@@ -3485,7 +3485,7 @@ msgid ""
 "considered in future."
 msgstr ""
 
-#: ../builder/builder.ml:387
+#: ../builder/builder.ml:395
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
@@ -3817,7 +3817,7 @@ msgid ""
 "The guest will be configured to use a basic VGA display driver."
 msgstr ""
 
-#: ../builder/sigchecker.ml:172
+#: ../builder/sigchecker.ml:171
 msgid ""
 "there is no detached signature file\n"
 "This probably means the index file is missing a sig=... line.\n"
@@ -3930,7 +3930,7 @@ msgid ""
 "guest"
 msgstr ""
 
-#: ../builder/downloader.ml:114
+#: ../builder/downloader.ml:116
 msgid ""
 "unexpected output from curl command, enable debug and look at previous "
 "messages"
@@ -4175,7 +4175,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:77 cat/cat.c:57 cat/filesystems.c:90 cat/log.c:66 cat/ls.c:87
-#: df/main.c:70 diff/diff.c:96 edit/edit.c:66 fish/fish.c:113
+#: cat/tail.c:63 df/main.c:70 diff/diff.c:96 edit/edit.c:66 fish/fish.c:113
 #: fuse/guestmount.c:101 fuse/guestunmount.c:56 inspector/inspector.c:73
 #: make-fs/make-fs.c:77 p2v/main.c:87 rescue/rescue.c:59
 #, c-format
@@ -4206,11 +4206,11 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:157 builder/index-validate.c:88 cat/cat.c:143
-#: cat/filesystems.c:243 cat/log.c:145 cat/ls.c:233 df/main.c:160
-#: diff/diff.c:265 edit/edit.c:159 fish/fish.c:297 format/format.c:183
-#: fuse/guestmount.c:249 fuse/guestunmount.c:130 inspector/inspector.c:164
-#: make-fs/make-fs.c:148 p2v/main.c:191 rescue/rescue.c:183
-#: test-tool/test-tool.c:116
+#: cat/filesystems.c:243 cat/log.c:145 cat/ls.c:233 cat/tail.c:150
+#: df/main.c:160 diff/diff.c:265 edit/edit.c:159 fish/fish.c:297
+#: format/format.c:183 fuse/guestmount.c:249 fuse/guestunmount.c:130
+#: inspector/inspector.c:164 make-fs/make-fs.c:148 p2v/main.c:191
+#: rescue/rescue.c:183 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr ""
@@ -4306,7 +4306,7 @@ msgid ""
 msgstr ""
 
 #: cat/cat.c:231 cat/filesystems.c:340 cat/log.c:202 cat/ls.c:347
-#: diff/diff.c:319 edit/edit.c:259 fuse/guestmount.c:316
+#: cat/tail.c:215 diff/diff.c:319 edit/edit.c:259 fuse/guestmount.c:316
 #: inspector/inspector.c:264 rescue/rescue.c:291
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -4454,6 +4454,48 @@ msgstr ""
 msgid ""
 "used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page."
+msgstr ""
+
+#: cat/tail.c:66
+#, c-format
+msgid ""
+"%s: follow (tail) files in a virtual machine\n"
+"Copyright (C) 2016 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] -d domname file [file ...]\n"
+"  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  --echo-keys          Don't turn off echo for passphrases\n"
+"  -f|--follow          Ignored for compatibility with tail\n"
+"  --format[=raw|..]    Force disk format for -a option\n"
+"  --help               Display brief help\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]]]\n"
+"                       Mount dev on mnt (if omitted, /)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"  -x                   Trace libguestfs API calls\n"
+"For more information, see the manpage %s(1).\n"
+msgstr ""
+
+#: cat/tail.c:205
+#, c-format
+msgid ""
+"%s: error: missing filenames on command line.\n"
+"Please specify at least one file to follow.\n"
+msgstr ""
+
+#: cat/tail.c:407
+#, c-format
+msgid "%s: error: none of the files were found in the disk image\n"
+msgstr ""
+
+#: cat/tail.c:412
+#, c-format
+msgid "%s: all files deleted, exiting\n"
 msgstr ""
 
 #: cat/visit.c:132
@@ -7686,12 +7728,12 @@ msgstr ""
 msgid "%s: %s: cannot both a server name and a socket query parameter\n"
 msgstr ""
 
-#: fish/windows.c:107
+#: fish/windows.c:139
 #, c-format
 msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: fish/windows.c:118
+#: fish/windows.c:150
 #, c-format
 msgid "drive '%c:' not found."
 msgstr ""
@@ -8071,24 +8113,24 @@ msgstr ""
 msgid "Extra parameter on the command line: '%s'.\n"
 msgstr ""
 
-#: p2v/conversion.c:239
+#: p2v/conversion.c:246
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:328
+#: p2v/conversion.c:335
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:361
+#: p2v/conversion.c:368
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:401
+#: p2v/conversion.c:408
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:406
+#: p2v/conversion.c:413
 msgid "Control connection closed by remote."
 msgstr ""
 

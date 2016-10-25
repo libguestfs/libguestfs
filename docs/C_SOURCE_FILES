@@ -243,7 +243,6 @@ java/actions-3.c
 java/actions-4.c
 java/actions-5.c
 java/actions-6.c
-java/com_redhat_et_libguestfs_GuestFS.h
 java/handle.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
@@ -300,7 +299,6 @@ ruby/ext/guestfs/actions-4.c
 ruby/ext/guestfs/actions-5.c
 ruby/ext/guestfs/actions-6.c
 ruby/ext/guestfs/actions.h
-ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/handle.c
 ruby/ext/guestfs/module.c
 sparsify/dummy.c
