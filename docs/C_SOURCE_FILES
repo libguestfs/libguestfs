@@ -62,7 +62,6 @@ daemon/fstrim.c
 daemon/glob.c
 daemon/grep.c
 daemon/grub.c
-daemon/guestfs_protocol.h
 daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
@@ -161,7 +160,6 @@ erlang/dispatch.c
 erlang/main.c
 erlang/structs.c
 fish/alloc.c
-fish/cmds-gperf.h
 fish/cmds.c
 fish/completion.c
 fish/config.c
@@ -208,7 +206,6 @@ fish/prepopts.h
 fish/progress.c
 fish/progress.h
 fish/rc.c
-fish/rc_protocol.h
 fish/reopen.c
 fish/run-0.c
 fish/run-1.c
@@ -335,7 +332,6 @@ src/guestfs-internal-frontend-cleanups.h
 src/guestfs-internal-frontend.h
 src/guestfs-internal.h
 src/guestfs.h
-src/guestfs_protocol.h
 src/guid.c
 src/handle.c
 src/info.c
