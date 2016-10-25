@@ -118,6 +118,8 @@ Optional (but recommended) if compiling from tarball.
 
 =item automake
 
+=item gettext
+
 I<Required> if compiling from git.
 Optional if compiling from tarball.
 
@@ -413,6 +415,10 @@ Optional.  Library for filesystem forensics analysis.
 =back
 
 =head1 BUILDING FROM GIT
+
+You will need to install additional dependencies C<autoconf>,
+C<automake>, C<gettext>, OCaml findlib and po4a when building from
+git.
 
  git clone https://github.com/libguestfs/libguestfs
  cd libguestfs
