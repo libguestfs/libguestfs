@@ -38,21 +38,32 @@ L<guestfs-hacking(1)/INTERNAL DOCUMENTATION>.
 You must specify the name of the output file using the I<-o> or
 I<--output> option, and a list of the C source files in the project.
 
+=head2 Function and struct documentation
+
 Internal documentation is added to the C source files using special
-comments which look like this:
+comments which appear before function or struct definitions:
 
  /**
   * Returns true if C<foo> equals C<bar>.
   */
  bool
  is_equal (const char *foo, const char *bar)
+ {
+   ...
+
+ /**
+  * Struct used to store C<bar>s.
+  */
+ struct foo_bar {
    ...
 
 The comment is written in POD format (see L<perlpod(1)>).  It may be
 on several lines, and be split into paragraphs using blank lines.
 
-The function being documented should appear immediately after the
-special comment, and is also copied into the documentation.
+The thing being documented should appear immediately after the special
+comment, and is also copied into the documentation.
+
+=head2 File documentation
 
 In addition, each C file may have a special comment at the top of the
 file (before any C<#include> lines) which outlines what the file does.
@@ -118,7 +129,7 @@ die "$progname: missing -o/--output parameter\n" unless defined $output;
 die "$progname: missing argument: make-internal-documentation [C source files ...]\n" unless @ARGV >= 1;
 
 # Only consider input files which
-#  - are C source files
+#  - are C source or header files
 #  - exist
 #  - contain /** comments.
 
@@ -126,7 +137,7 @@ my @inputs = ();
 my $input;
 my $path;
 foreach $input (@ARGV) {
-    if ($input =~ /\.c$/) {
+    if ($input =~ /\.[ch]$/) {
         $path = "$srcdir/$input";
         if (-r $path) {
             my @cmd = ("grep", "-q", "^/\\*\\*", $path);
@@ -212,39 +223,62 @@ foreach $dir (@dirs) {
                     print OUTPUT "\n";
                 }
                 else {
-                    # Otherwise it's a function description, so now we
-                    # need to read in the function definition.
-                    my @function = ();
+                    # Otherwise it's a function or struct description,
+                    # so now we need to read in the definition.
+                    my @defn = ();
+                    my $thing = undef;
+                    my $end = undef;
+                    my $name = undef;
                     $found_end = 0;
                     $start_lineno = $lineno;
                     while (<INPUT>) {
                         chomp;
                         $lineno++;
 
-                        if (m/^{/) {
-                            $found_end = 1;
-                            last;
+                        if (defined $end) {
+                            if ($_ eq $end) {
+                                $found_end = 1;
+                                last;
+                            }
+                            else {
+                                push @defn, $_;
+                            }
                         }
                         else {
-                            push @function, $_;
+                            # First line tells us if this is a struct
+                            # or function.
+                            if (/^struct ([\w_]+) \{$/) {
+                                $thing = "Structure";
+                                $name = $1;
+                                $end = "};";
+                            }
+                            else {
+                                $thing = "Function";
+                                $end = "{";
+                            }
+                            push @defn, $_;
                         }
                     }
 
-                    die "$progname: $input: $start_lineno: unterminated function definition"
+                    die "$progname: $input: $start_lineno: unterminated $thing definition"
                         unless $found_end;
 
-                    # Try to determine the name of the function.
-                    my $function;
-                    foreach (@function) {
-                        $function = $1 if /^([\w_]+) \(/;
+                    if ($thing eq "Function") {
+                        # Try to determine the name of the function.
+                        foreach (@defn) {
+                            $name = $1 if /^([\w_]+) \(/;
+                        }
+                        die "$progname: $input: $start_lineno: cannot find the name of this function"
+                            unless defined $name;
                     }
-                    die "$progname: $input: $start_lineno: cannot find the name of this function"
-                        unless defined $function;
 
-                    # Print the function definition, followed by the
-                    # comment.
-                    print OUTPUT "=head4 Function C<$input:$function>\n\n";
-                    print OUTPUT " ", join ("\n ", @function), "\n";
+                    if ($thing eq "Structure") {
+                        push @defn, "};"
+                    }
+
+                    # Print the definition, followed by the comment.
+                    print OUTPUT "=head4 $thing C<$input:$name>\n\n";
+                    print OUTPUT " ", join ("\n ", @defn), "\n";
                     print OUTPUT "\n";
                     print OUTPUT join("\n", @comment), "\n";
                     print OUTPUT "\n";

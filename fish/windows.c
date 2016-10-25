@@ -41,6 +41,11 @@
 static void mount_drive_letter (guestfs_h *g, char drive_letter,
                                 const char *root, int readonly);
 
+/**
+ * Checks whether C<root> is a Windows installation.
+ *
+ * This relies on an already being done introspection.
+ */
 int
 is_windows (guestfs_h *g, const char *root)
 {
@@ -53,6 +58,33 @@ is_windows (guestfs_h *g, const char *root)
   return w;
 }
 
+/**
+ * Resolves C<path> as possible Windows path according to C<root>,
+ * giving a new path that can be used in libguestfs API calls.
+ *
+ * Notes:
+ *
+ * =over 4
+ *
+ * =item *
+ *
+ * C<root> must be a Windows installation
+ *
+ * =item *
+ *
+ * relies on an already being done introspection
+ *
+ * =item *
+ *
+ * will unmount all the existing mount points and mount the Windows root
+ * (according to C<readonly>)
+ *
+ * =item *
+ *
+ * calls L<exit(3)> on memory allocation failures
+ *
+ * =back
+ */
 char *
 windows_path (guestfs_h *g, const char *root, const char *path, int readonly)
 {

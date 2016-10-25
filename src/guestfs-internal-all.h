@@ -16,8 +16,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* NB: This contains ONLY definitions which are shared by libguestfs
- * daemon, library, bindings and tools (ie. ALL C code).
+/**
+ * This header contains definitions which are shared by all parts of
+ * libguestfs, ie. the daemon, the library, language bindings and virt
+ * tools (ie. I<all> C code).
+ *
+ * If you need a definition used by only the library, put it in
+ * F<src/guestfs-internal.h> instead.  If you need a definition used
+ * by only the frontend (non-daemon) parts of libguestfs, try
+ * F<src/guestfs-internal-frontend.h>.  If a definition is used by
+ * only a single tool, it should not be in any shared header file at
+ * all.
  */
 
 #ifndef GUESTFS_INTERNAL_ALL_H_

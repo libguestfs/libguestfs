@@ -307,7 +307,7 @@ ChangeLog: configure.ac
 # to DIST_SUBDIRS.
 docs/C_SOURCE_FILES: configure.ac
 	rm -f $@ $@-t
-	find $(DIST_SUBDIRS) -name '*.c' | \
+	find $(DIST_SUBDIRS) -name '*.[ch]' | \
 	grep -v -E '^(builder/index-parse.c|builder/index-scan.c|examples/|gnulib/|gobject/|perl/|tests/|test-data/)' | \
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '.*/errnostring\.c$$' | \

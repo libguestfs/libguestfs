@@ -16,6 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * This header file is included in the libguestfs library (F<src/>)
+ * only.
+ *
+ * See also F<src/guestfs-internal-frontend.h> and
+ * F<src/guestfs-internal-all.h>
+ */
+
 #ifndef GUESTFS_INTERNAL_H_
 #define GUESTFS_INTERNAL_H_
 

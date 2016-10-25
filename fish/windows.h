@@ -21,24 +21,8 @@
 
 #include <guestfs.h>
 
-/**
- * Checks whether 'root' is a Windows installation.
- *
- * This relies on an already being done introspection.
- */
 extern int is_windows (guestfs_h *g, const char *root);
 
-/**
- * Resolves 'path' as possible Windows path according to 'root',
- * giving a new path that can be used in libguestfs API calls.
- *
- * Notes:
- *  - 'root' must be a Windows installation
- *  - relies on an already being done introspection
- *  - will unmount all the existing mount points and mount the Windows root
- *    (according to 'readonly')
- *  - will exit() on memory allocation failures
- */
 extern char *windows_path (guestfs_h *g, const char *root, const char *path,
                            int readonly);
 
