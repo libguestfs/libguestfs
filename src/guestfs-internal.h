@@ -174,7 +174,10 @@
 enum state { CONFIG = 0, LAUNCHING = 1, READY = 2,
              NO_HANDLE = 0xebadebad };
 
-/* Event. */
+/**
+ * This struct is used to maintain a list of events registered
+ * against the handle.  See C<g-E<gt>events> in the handle.
+ */
 struct event {
   uint64_t event_bitmask;
   guestfs_event_callback cb;
@@ -254,7 +257,9 @@ enum discard {
   discard_besteffort,
 };
 
-/* There is one 'struct drive' per drive, including hot-plugged drives. */
+/**
+ * There is one C<struct drive> per drive, including hot-plugged drives.
+ */
 struct drive {
   /* Original source of the drive, eg. file:..., http:... */
   struct drive_source src;
@@ -287,7 +292,14 @@ struct hv_param {
   char *hv_value;               /* May be NULL. */
 };
 
-/* Backend operations. */
+/**
+ * Backend operations.
+ *
+ * Each backend (eg. libvirt, direct) defines some functions which get
+ * run at various places in the handle lifecycle (eg. at launch,
+ * shutdown).  The backend defines this struct pointing to those
+ * functions.
+ */
 struct backend_ops {
   /* Size (in bytes) of the per-handle data structure needed by this
    * backend.  The data pointer is allocated and freed by libguestfs
@@ -317,9 +329,12 @@ struct backend_ops {
   int (*hot_remove_drive) (guestfs_h *g, void *data, struct drive *drv, size_t drv_index);
 };
 
-/* Connection module.  A 'connection' represents the appliance console
- * connection plus the daemon connection.  It hides the underlying
- * representation (POSIX sockets, virStreamPtr).
+/**
+ * Connection module.
+ *
+ * A C<connection> represents the appliance console connection plus
+ * the daemon connection.  It hides the underlying representation
+ * (POSIX sockets, C<virStreamPtr>).
  */
 struct connection {
   const struct connection_ops *ops;
@@ -360,22 +375,29 @@ struct connection_ops {
   int (*can_read_data) (guestfs_h *g, struct connection *);
 };
 
-/* Stack of old error handlers. */
+/**
+ * Stack of old error handlers.
+ */
 struct error_cb_stack {
   struct error_cb_stack   *next;
   guestfs_error_handler_cb error_cb;
   void *                   error_cb_data;
 };
 
-/* Cached queried features. */
+/**
+ * Cache of queried features.
+ *
+ * Used to cache the appliance features (see F<src/available.c>).
+ */
 struct cached_feature {
   char *group;
   int result;
 };
 
-/* The libguestfs handle. */
-struct guestfs_h
-{
+/**
+ * The libguestfs handle.
+ */
+struct guestfs_h {
   struct guestfs_h *next;	/* Linked list of open handles. */
   enum state state;             /* See the state machine diagram in guestfs(3)*/
 
@@ -517,6 +539,10 @@ struct guestfs_h
   size_t nr_features;
 };
 
+/**
+ * Used for storing major.minor.micro version numbers.
+ * See F<src/version.c> for more information.
+ */
 struct version {
   int v_major;
   int v_minor;
@@ -607,6 +633,13 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_XBPS,
 };
 
+/**
+ * The inspection code maintains one of these structures per mountable
+ * filesystem found in the disk image.  The struct (or structs) which
+ * have the C<is_root> flag set are inspection roots, each
+ * corresponding to a single guest.  Note that a filesystem can be
+ * shared between multiple guests.
+ */
 struct inspect_fs {
   int is_root;
   char *mountable;
