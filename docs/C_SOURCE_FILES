@@ -238,7 +238,6 @@ java/actions-3.c
 java/actions-4.c
 java/actions-5.c
 java/actions-6.c
-java/com_redhat_et_libguestfs_GuestFS.h
 java/handle.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
