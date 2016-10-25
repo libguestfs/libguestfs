@@ -1,5 +1,4 @@
 align/scan.c
-builder/index-parse.h
 builder/index-parser-c.c
 builder/index-struct.c
 builder/index-struct.h
