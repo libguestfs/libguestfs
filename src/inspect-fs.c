@@ -81,6 +81,7 @@ free_regexps (void)
 
 static int check_filesystem (guestfs_h *g, const char *device, int is_block, int is_partnum);
 static int extend_fses (guestfs_h *g);
+static int is_symlink_to (guestfs_h *g, const char *file, const char *wanted_target);
 
 /* Find out if 'device' contains a filesystem.  If it does, add
  * another entry in g->fses.
@@ -233,8 +234,7 @@ check_filesystem (guestfs_h *g, const char *device,
   /* Linux root? */
   else if (is_dir_etc &&
            (is_dir_bin ||
-            (guestfs_is_symlink (g, "/bin") > 0 &&
-             guestfs_is_dir (g, "/usr/bin") > 0)) &&
+            is_symlink_to (g, "/bin", "usr/bin") > 0) &&
            guestfs_is_file (g, "/etc/fstab") > 0) {
     fs->is_root = 1;
     fs->format = OS_FORMAT_INSTALLED;
@@ -338,6 +338,22 @@ extend_fses (guestfs_h *g)
   memset (&g->fses[n-1], 0, sizeof (struct inspect_fs));
 
   return 0;
+}
+
+static int
+is_symlink_to (guestfs_h *g, const char *file, const char *wanted_target)
+{
+  CLEANUP_FREE char *target = NULL;
+
+  if (guestfs_is_symlink (g, file) == 0)
+    return 0;
+
+  target = guestfs_readlink (g, file);
+  /* This should not fail, but play safe. */
+  if (target == NULL)
+    return 0;
+
+  return STREQ (target, wanted_target);
 }
 
 int
