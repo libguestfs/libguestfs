@@ -144,15 +144,15 @@ export PERL_VALGRIND=1
 export PERL_DESTRUCT_LEVEL=2
 
 # For Python.
-export PYTHON=@PYTHON@
+export PYTHON="@PYTHON@"
 prepend PYTHONPATH "$b/python/.libs"
 prepend PYTHONPATH "$b/python"
 prepend PYTHONPATH "$s/python"
 export PYTHONPATH
 
 # For Ruby.
-export RUBY=@RUBY@
-export RAKE=@RAKE@
+export RUBY="@RUBY@"
+export RAKE="@RAKE@"
 prepend RUBYLIB "$b/ruby/ext/guestfs"
 prepend RUBYLIB "$b/ruby/lib"
 export RUBYLIB
@@ -164,7 +164,7 @@ prepend CAML_LD_LIBRARY_PATH "$b/ocaml"
 export CAML_LD_LIBRARY_PATH
 
 # For Java.
-export JAVA_EXE=@JAVA_EXE@
+export JAVA_EXE="@JAVA_EXE@"
 prepend CLASSPATH "$b/java/libguestfs-@VERSION@.jar"
 prepend CLASSPATH "$b/java/t"
 prepend CLASSPATH "$b/java"
@@ -175,7 +175,7 @@ prepend ERL_LIBS "$b/erlang"
 export ERL_LIBS
 
 # For Lua.
-export LUA=@LUA@
+export LUA="@LUA@"
 # Can't use 'prepend' here because Lua paths use semicolons.
 if [ -z "$LUA_CPATH" ]; then
     LUA_CPATH="$b/lua/?.so"
@@ -185,7 +185,7 @@ fi
 export LUA_CPATH
 
 # For golang.
-export GOLANG=@GOLANG@
+export GOLANG="@GOLANG@"
 prepend GOPATH "$b/golang"
 export GOPATH
 if [ -z "$CGO_CFLAGS" ]; then
@@ -202,7 +202,7 @@ fi
 export CGO_LDFLAGS
 
 # For GObject, Javascript and friends.
-export GJS=@GJS@
+export GJS="@GJS@"
 prepend GI_TYPELIB_PATH "$b/gobject"
 export GI_TYPELIB_PATH
 # Be friendly to valgrind (https://live.gnome.org/Valgrind)
