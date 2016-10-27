@@ -48,7 +48,6 @@ daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
 daemon/echo-daemon.c
-daemon/errnostring.h
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
@@ -164,6 +163,7 @@ fish/cmds.c
 fish/completion.c
 fish/config.c
 fish/copy.c
+fish/decrypt.c
 fish/destpaths.c
 fish/display-options.c
 fish/display-options.h
@@ -241,6 +241,7 @@ java/actions-6.c
 java/handle.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
+mllib/common_utils-c.c
 mllib/dev_t-c.c
 mllib/dummy.c
 mllib/exit-c.c
@@ -316,7 +317,6 @@ src/copy-in-out.c
 src/create.c
 src/dbdump.c
 src/drives.c
-src/errnostring.h
 src/errors.c
 src/event-string.c
 src/events.c
