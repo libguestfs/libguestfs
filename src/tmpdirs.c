@@ -39,9 +39,14 @@
  * We need to make all tmpdir paths absolute because lots of places in
  * the code assume this.  Do it at the time we set the path or read
  * the environment variable (L<https://bugzilla.redhat.com/882417>).
+ *
+ * The C<ctxstr> parameter is a string displayed in error messages
+ * giving the context of the operation (eg. name of environment
+ * variable being used, or API function being called).
  */
 static int
-set_abs_path (guestfs_h *g, const char *tmpdir, char **tmpdir_ret)
+set_abs_path (guestfs_h *g, const char *ctxstr,
+              const char *tmpdir, char **tmpdir_ret)
 {
   char *ret;
   struct stat statbuf;
@@ -57,17 +62,20 @@ set_abs_path (guestfs_h *g, const char *tmpdir, char **tmpdir_ret)
 
   ret = realpath (tmpdir, NULL);
   if (ret == NULL) {
-    perrorf (g, _("failed to set temporary directory: %s"), tmpdir);
+    perrorf (g, _("converting path to absolute path: %s: %s: realpath"),
+             ctxstr, tmpdir);
     return -1;
   }
 
   if (stat (ret, &statbuf) == -1) {
-    perrorf (g, _("failed to set temporary directory: %s"), tmpdir);
+    perrorf (g, "%s: %s: %s: stat",
+             _("setting temporary directory"), ctxstr, tmpdir);
     return -1;
   }
 
   if (!S_ISDIR (statbuf.st_mode)) {
-    error (g, _("temporary directory '%s' is not a directory"), tmpdir);
+    error (g, _("%s: %s: '%s' is not a directory"),
+           _("setting temporary directory"), ctxstr, tmpdir);
     return -1;
   }
 
@@ -76,21 +84,23 @@ set_abs_path (guestfs_h *g, const char *tmpdir, char **tmpdir_ret)
 }
 
 int
-guestfs_int_set_env_tmpdir (guestfs_h *g, const char *tmpdir)
+guestfs_int_set_env_tmpdir (guestfs_h *g, const char *envname,
+                            const char *tmpdir)
 {
-  return set_abs_path (g, tmpdir, &g->env_tmpdir);
+  return set_abs_path (g, envname, tmpdir, &g->env_tmpdir);
 }
 
 int
-guestfs_int_set_env_runtimedir (guestfs_h *g, const char *runtimedir)
+guestfs_int_set_env_runtimedir (guestfs_h *g, const char *envname,
+                                const char *runtimedir)
 {
-  return set_abs_path (g, runtimedir, &g->env_runtimedir);
+  return set_abs_path (g, envname, runtimedir, &g->env_runtimedir);
 }
 
 int
 guestfs_impl_set_tmpdir (guestfs_h *g, const char *tmpdir)
 {
-  return set_abs_path (g, tmpdir, &g->int_tmpdir);
+  return set_abs_path (g, "set_tmpdir", tmpdir, &g->int_tmpdir);
 }
 
 /**
@@ -117,7 +127,7 @@ guestfs_impl_get_tmpdir (guestfs_h *g)
 int
 guestfs_impl_set_cachedir (guestfs_h *g, const char *cachedir)
 {
-  return set_abs_path (g, cachedir, &g->int_cachedir);
+  return set_abs_path (g, "set_cachedir", cachedir, &g->int_cachedir);
 }
 
 /**
