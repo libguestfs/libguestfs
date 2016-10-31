@@ -1145,7 +1145,7 @@ available.  See the C<gobject> directory in the source.
 
 =item B<Go>
 
-See <guestfs-golang(3)>.
+See L<guestfs-golang(3)>.
 
 =item B<Haskell>
 
