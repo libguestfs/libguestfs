@@ -98,7 +98,7 @@ object
           "os_type", inspect.i_type;
           "os_distro",
           (match inspect.i_distro with
-          (* http://docs.openstack.org/cli-reference/glance.html#image-service-property-keys *)
+          (* http://docs.openstack.org/cli-reference/glance-property-keys.html *)
            | "archlinux" -> "arch"
            | "sles" -> "sled"
            | x -> x (* everything else is the same in libguestfs and OpenStack*)
