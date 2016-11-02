@@ -1861,6 +1861,7 @@ virt-v2v binary.  Typical output looks like this:
  $ virt-v2v --machine-readable
  virt-v2v
  libguestfs-rewrite
+ colours-option
  input:disk
  [...]
  output:local
