@@ -35,6 +35,7 @@ EXTRA_DIST = \
 	fedora-i686.sh \
 	fedora-ppc64.sh \
 	fedora-ppc64le.sh \
+	fedora-s390x.sh \
 	rhel.sh \
 	rhel-aarch64.sh \
 	rhel-ppc64.sh \
