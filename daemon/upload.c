@@ -84,7 +84,7 @@ upload (const char *filename, int flags, int64_t offset)
     }
   }
 
-  r = receive_file (write_cb, &data.fd);
+  r = receive_file (write_cb, &data);
   if (r == -1) {		/* write error */
     err = errno;
     r = cancel_receive ();
