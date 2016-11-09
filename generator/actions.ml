@@ -798,6 +798,8 @@ to specify the QEMU interface emulation to use at run time." };
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-riscv64-dynamic"]], "riscv64"), [];
       InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-s390x-dynamic"]], "s390x"), [];
+      InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-win32.exe"]], "i386"), [];
@@ -817,6 +819,8 @@ to specify the QEMU interface emulation to use at run time." };
         [["file_architecture"; "/lib-ppc64le.so"]], "ppc64le"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-riscv64.so"]], "riscv64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-s390x.so"]], "s390x"), [];
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/lib-sparc.so"]], "sparc"), [];
       InitISOFS, Always, TestResultString (
@@ -879,6 +883,14 @@ Intel Itanium.
 =item \"riscv128\"
 
 RISC-V 32-, 64- or 128-bit variants.
+
+=item \"s390\"
+
+31 bit IBM S/390.
+
+=item \"s390x\"
+
+64 bit IBM S/390.
 
 =item \"sparc\"
 

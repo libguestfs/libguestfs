@@ -42,6 +42,7 @@ image_files = \
 	$(srcdir)/binaries/bin-ppc64-dynamic \
 	$(srcdir)/binaries/bin-ppc64le-dynamic \
 	$(srcdir)/binaries/bin-riscv64-dynamic \
+	$(srcdir)/binaries/bin-s390x-dynamic \
 	$(srcdir)/binaries/bin-sparc-dynamic \
 	$(srcdir)/binaries/bin-win32.exe \
 	$(srcdir)/binaries/bin-win64.exe \
@@ -54,6 +55,7 @@ image_files = \
 	$(srcdir)/binaries/lib-ppc64.so \
 	$(srcdir)/binaries/lib-ppc64le.so \
 	$(srcdir)/binaries/lib-riscv64.so \
+	$(srcdir)/binaries/lib-s390x.so \
 	$(srcdir)/binaries/lib-sparc.so \
 	$(srcdir)/binaries/lib-win32.dll \
 	$(srcdir)/binaries/lib-win64.dll \

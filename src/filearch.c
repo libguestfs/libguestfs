@@ -102,6 +102,16 @@ canonical_elf_arch (guestfs_h *g,
     ret = safe_asprintf (g, "riscv%s", bits);
     goto no_strdup;
   }
+  else if (strstr (elf_arch, "IBM S/390")) {
+    if (STREQ (bits, "32"))
+      r = "s390";
+    else if (STREQ (bits, "64"))
+      r = "s390x";
+    else {
+      error (g, "file_architecture: unknown S/390 bit size: %s", bits);
+      return NULL;
+    }
+  }
   else
     r = elf_arch;
 
