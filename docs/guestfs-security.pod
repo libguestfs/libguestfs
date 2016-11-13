@@ -354,7 +354,7 @@ to do the same).
 =head1 SEE ALSO
 
 L<guestfs(3)>,
-L<guestfs-internals(3)>,
+L<guestfs-internals(1)>,
 L<guestfs-release-notes(1)>,
 L<guestfs-testing(1)>,
 L<http://libguestfs.org/>.

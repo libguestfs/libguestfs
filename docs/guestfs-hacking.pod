@@ -298,7 +298,7 @@ type, tests, documentation) to F<generator/actions.ml>.
 
 There are two sorts of API action, depending on whether the call goes
 through to the daemon in the appliance, or is serviced entirely by the
-library (see L<guestfs-internals(3)/ARCHITECTURE>).  L<guestfs(3)/guestfs_sync> is an example
+library (see L<guestfs-internals(1)/ARCHITECTURE>).  L<guestfs(3)/guestfs_sync> is an example
 of the former, since the sync is done in the appliance.
 L<guestfs(3)/guestfs_set_trace> is an example of the latter, since a trace flag
 is maintained in the handle and all tracing is done on the library
@@ -1002,7 +1002,7 @@ __INTERNAL_DOCUMENTATION__
 L<guestfs(3)>,
 L<guestfs-building(1)>,
 L<guestfs-examples(3)>,
-L<guestfs-internals(3)>,
+L<guestfs-internals(1)>,
 L<guestfs-performance(1)>,
 L<guestfs-release-notes(1)>,
 L<guestfs-testing(1)>,
