@@ -400,7 +400,7 @@ to run libguestfs.
 =head1 SEE ALSO
 
 L<guestfs(3)>,
-L<guestfs-hacking(3)>,
+L<guestfs-hacking(1)>,
 L<guestfs-examples(3)>,
 L<libguestfs-test-tool(1)>,
 L<libguestfs-make-fixed-appliance(1)>,
