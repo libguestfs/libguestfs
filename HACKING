@@ -1,2 +1,16 @@
-The contents of this page have moved to the section "EXTENDING LIBGUESTFS"
-in the guestfs(3) man page.
+To learn how to compile libguestfs from sources:
+
+  guestfs-building(1)  or  http://libguestfs.org/guestfs-building.1.html
+
+To learn how to extend libguestfs:
+
+  guestfs-hacking(1)       http://libguestfs.org/guestfs-hacking.1.html
+
+To learn about the architecture and internals of libguestfs:
+
+  guestfs-internals(1)     http://libguestfs.org/guestfs-internals.1.html
+
+To learn how to write programs using the libguestfs API:
+
+  guestfs(3)               http://libguestfs.org/guestfs.3.html
+  guestfs-examples(3)      http://libguestfs.org/guestfs-examples.3.html
