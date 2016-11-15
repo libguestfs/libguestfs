@@ -43,6 +43,8 @@ static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
 static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data), void *data);
 static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
 static char *filename_from_pool (guestfs_h *g, virConnectPtr conn, const char *pool_nane, const char *volume_name);
+static bool xpath_object_is_empty (xmlXPathObjectPtr obj);
+static char *xpath_object_get_string (xmlDocPtr doc, xmlXPathObjectPtr obj);
 
 static void
 ignore_errors (void *ignore, virErrorPtr ignore2)
@@ -513,7 +515,6 @@ for_each_disk (guestfs_h *g,
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpusername = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppool = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpvolume = NULL;
-      xmlAttrPtr attr;
       int readonly;
       int t;
 
@@ -527,31 +528,21 @@ for_each_disk (guestfs_h *g,
        * Check the <disk type=..> attribute first to find out which one.
        */
       xptype = xmlXPathEvalExpression (BAD_CAST "./@type", xpathCtx);
-      if (xptype == NULL ||
-          xptype->nodesetval == NULL ||
-          xptype->nodesetval->nodeNr == 0) {
+      if (xpath_object_is_empty (xptype))
         continue;               /* no type attribute, skip it */
-      }
-      assert (xptype->nodesetval->nodeTab[0]);
-      assert (xptype->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-      attr = (xmlAttrPtr) xptype->nodesetval->nodeTab[0];
-      type = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      type = xpath_object_get_string (doc, xptype);
 
       if (STREQ (type, "file")) { /* type = "file" so look at source/@file */
         xpathCtx->node = nodes->nodeTab[i];
         xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@file",
                                              xpathCtx);
-        if (xpfilename == NULL ||
-            xpfilename->nodesetval == NULL ||
-            xpfilename->nodesetval->nodeNr == 0)
+        if (xpath_object_is_empty (xpfilename))
           continue;           /* disk filename not found, skip this */
       } else if (STREQ (type, "block")) { /* type = "block", use source/@dev */
         xpathCtx->node = nodes->nodeTab[i];
         xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev",
                                              xpathCtx);
-        if (xpfilename == NULL ||
-            xpfilename->nodesetval == NULL ||
-            xpfilename->nodesetval->nodeNr == 0)
+        if (xpath_object_is_empty (xpfilename))
           continue;           /* disk filename not found, skip this */
       } else if (STREQ (type, "network")) { /* type = "network", use source/@name */
         int hi;
@@ -562,15 +553,9 @@ for_each_disk (guestfs_h *g,
         /* Get the protocol (e.g. "rbd").  Required. */
         xpprotocol = xmlXPathEvalExpression (BAD_CAST "./source/@protocol",
                                              xpathCtx);
-        if (xpprotocol == NULL ||
-            xpprotocol->nodesetval == NULL ||
-            xpprotocol->nodesetval->nodeNr == 0)
+        if (xpath_object_is_empty (xpprotocol))
           continue;
-        assert (xpprotocol->nodesetval->nodeTab[0]);
-        assert (xpprotocol->nodesetval->nodeTab[0]->type ==
-                XML_ATTRIBUTE_NODE);
-        attr = (xmlAttrPtr) xpprotocol->nodesetval->nodeTab[0];
-        protocol = (char *) xmlNodeListGetString (doc, attr->children, 1);
+        protocol = xpath_object_get_string (doc, xpprotocol);
         debug (g, "disk[%zu]: protocol: %s", i, protocol);
 
         /* <source name="..."> is the path/exportname.  Optional. */
@@ -583,13 +568,8 @@ for_each_disk (guestfs_h *g,
         /* <auth username="...">.  Optional. */
         xpusername = xmlXPathEvalExpression (BAD_CAST "./auth/@username",
                                              xpathCtx);
-        if (xpusername != NULL &&
-            xpusername->nodesetval != NULL &&
-            xpusername->nodesetval->nodeNr != 0) {
-          assert (xpusername->nodesetval->nodeTab[0]);
-          assert (xpusername->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-          attr = (xmlAttrPtr) xpusername->nodesetval->nodeTab[0];
-          username = (char *) xmlNodeListGetString (doc, attr->children, 1);
+        if (!xpath_object_is_empty (xpusername)) {
+          username = xpath_object_get_string (doc, xpusername);
           debug (g, "disk[%zu]: username: %s", i, username);
         }
 
@@ -641,28 +621,16 @@ for_each_disk (guestfs_h *g,
         /* Get the source pool.  Required. */
         xppool = xmlXPathEvalExpression (BAD_CAST "./source/@pool",
                                          xpathCtx);
-        if (xppool == NULL ||
-            xppool->nodesetval == NULL ||
-            xppool->nodesetval->nodeNr == 0)
+        if (xpath_object_is_empty (xppool))
           continue;
-        assert (xppool->nodesetval->nodeTab[0]);
-        assert (xppool->nodesetval->nodeTab[0]->type ==
-                XML_ATTRIBUTE_NODE);
-        attr = (xmlAttrPtr) xppool->nodesetval->nodeTab[0];
-        pool = (char *) xmlNodeListGetString (doc, attr->children, 1);
+        pool = xpath_object_get_string (doc, xppool);
 
         /* Get the source volume.  Required. */
         xpvolume = xmlXPathEvalExpression (BAD_CAST "./source/@volume",
                                            xpathCtx);
-        if (xpvolume == NULL ||
-            xpvolume->nodesetval == NULL ||
-            xpvolume->nodesetval->nodeNr == 0)
+        if (xpath_object_is_empty (xpvolume))
           continue;
-        assert (xpvolume->nodesetval->nodeTab[0]);
-        assert (xpvolume->nodesetval->nodeTab[0]->type ==
-                XML_ATTRIBUTE_NODE);
-        attr = (xmlAttrPtr) xpvolume->nodesetval->nodeTab[0];
-        volume = (char *) xmlNodeListGetString (doc, attr->children, 1);
+        volume = xpath_object_get_string (doc, xpvolume);
 
         debug (g, "disk[%zu]: pool: %s; volume: %s", i, pool, volume);
 
@@ -679,13 +647,8 @@ for_each_disk (guestfs_h *g,
       if (filename == NULL) {
         assert (xpfilename);
         assert (xpfilename->nodesetval);
-        if (xpfilename->nodesetval->nodeNr > 0) {
-          assert (xpfilename->nodesetval->nodeTab[0]);
-          assert (xpfilename->nodesetval->nodeTab[0]->type ==
-                  XML_ATTRIBUTE_NODE);
-          attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
-          filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
-        }
+        if (xpfilename->nodesetval->nodeNr > 0)
+          filename = xpath_object_get_string (doc, xpfilename);
         else
           /* For network protocols (eg. nbd), name may be omitted. */
           filename = safe_strdup (g, "");
@@ -696,22 +659,14 @@ for_each_disk (guestfs_h *g,
       /* Get the disk format (may not be set). */
       xpathCtx->node = nodes->nodeTab[i];
       xpformat = xmlXPathEvalExpression (BAD_CAST "./driver/@type", xpathCtx);
-      if (xpformat != NULL &&
-          xpformat->nodesetval &&
-          xpformat->nodesetval->nodeNr > 0) {
-        assert (xpformat->nodesetval->nodeTab[0]);
-        assert (xpformat->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-        attr = (xmlAttrPtr) xpformat->nodesetval->nodeTab[0];
-        format = (char *) xmlNodeListGetString (doc, attr->children, 1);
-      }
+      if (!xpath_object_is_empty (xpformat))
+        format = xpath_object_get_string (doc, xpformat);
 
       /* Get the <readonly/> flag. */
       xpathCtx->node = nodes->nodeTab[i];
       xpreadonly = xmlXPathEvalExpression (BAD_CAST "./readonly", xpathCtx);
       readonly = 0;
-      if (xpreadonly != NULL &&
-          xpreadonly->nodesetval &&
-          xpreadonly->nodesetval->nodeNr > 0)
+      if (!xpath_object_is_empty (xpreadonly))
         readonly = 1;
 
       if (f)
@@ -774,23 +729,17 @@ connect_live (guestfs_h *g, virDomainPtr dom)
   if (nodes != NULL) {
     for (i = 0; i < nodes->nodeNr; ++i) {
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xppath = NULL;
-      xmlAttrPtr attr;
 
       /* See note in function above. */
       xpathCtx->node = nodes->nodeTab[i];
 
       /* The path is in <source path=..> attribute. */
       xppath = xmlXPathEvalExpression (BAD_CAST "./source/@path", xpathCtx);
-      if (xppath == NULL ||
-          xppath->nodesetval == NULL ||
-          xppath->nodesetval->nodeNr == 0) {
+      if (xpath_object_is_empty (xppath)) {
         xmlXPathFreeObject (xppath);
         continue;               /* no type attribute, skip it */
       }
-      assert (xppath->nodesetval->nodeTab[0]);
-      assert (xppath->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
-      attr = (xmlAttrPtr) xppath->nodesetval->nodeTab[0];
-      path = (char *) xmlNodeListGetString (doc, attr->children, 1);
+      path = xpath_object_get_string (doc, xppath);
       break;
     }
   }
@@ -886,6 +835,35 @@ filename_from_pool (guestfs_h *g, virConnectPtr conn,
   if (pool) virStoragePoolFree (pool);
 
   return filename;
+}
+
+/* Check that C<obj> is not empty.
+ */
+static bool
+xpath_object_is_empty (xmlXPathObjectPtr obj)
+{
+  return obj == NULL ||
+         obj->nodesetval == NULL ||
+         obj->nodesetval->nodeNr == 0;
+}
+
+/* Get the string value from C<obj>.
+ *
+ * C<obj> is I<required> to not be empty, i.e. that C<xpath_object_is_empty>
+ * is C<false>.
+ */
+static char *
+xpath_object_get_string (xmlDocPtr doc, xmlXPathObjectPtr obj)
+{
+  xmlAttrPtr attr;
+  char *value;
+
+  assert (obj->nodesetval->nodeTab[0]);
+  assert (obj->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+  attr = (xmlAttrPtr) obj->nodesetval->nodeTab[0];
+  value = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+  return value;
 }
 
 #else /* no libvirt at compile time */
