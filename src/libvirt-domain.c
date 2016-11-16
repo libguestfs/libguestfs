@@ -33,6 +33,8 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include "base64.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
@@ -40,7 +42,7 @@
 #if defined(HAVE_LIBVIRT)
 
 static xmlDocPtr get_domain_xml (guestfs_h *g, virDomainPtr dom);
-static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data), void *data);
+static ssize_t for_each_disk (guestfs_h *g, virConnectPtr conn, xmlDocPtr doc, int (*f) (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, void *data), void *data);
 static int libvirt_selinux_label (guestfs_h *g, xmlDocPtr doc, char **label_rtn, char **imagelabel_rtn);
 static char *filename_from_pool (guestfs_h *g, virConnectPtr conn, const char *pool_nane, const char *volume_name);
 static bool xpath_object_is_empty (xmlXPathObjectPtr obj);
@@ -95,8 +97,12 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
     return -1;
   }
 
-  /* Connect to libvirt, find the domain. */
-  conn = guestfs_int_open_libvirt_connection (g, libvirturi, VIR_CONNECT_RO);
+  /* Connect to libvirt, find the domain.  We cannot open the connection
+   * in read-only mode (VIR_CONNECT_RO), as that kind of connection
+   * is considered untrusted, and thus libvirt will prevent to read
+   * the values of secrets.
+   */
+  conn = guestfs_int_open_libvirt_connection (g, libvirturi, 0);
   if (!conn) {
     err = virGetLastError ();
     error (g, _("could not connect to libvirt (code %d, domain %d): %s"),
@@ -163,7 +169,7 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
   return r;
 }
 
-static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, void *data);
+static int add_disk (guestfs_h *g, const char *filename, const char *format, int readonly, const char *protocol, char *const *server, const char *username, const char *secret, void *data);
 static int connect_live (guestfs_h *g, virDomainPtr dom);
 
 enum readonlydisk {
@@ -325,7 +331,7 @@ static int
 add_disk (guestfs_h *g,
           const char *filename, const char *format, int readonly_in_xml,
           const char *protocol, char *const *server, const char *username,
-          void *datavp)
+          const char *secret, void *datavp)
 {
   struct add_disk_data *data = datavp;
   /* Copy whole struct so we can make local changes: */
@@ -381,6 +387,10 @@ add_disk (guestfs_h *g,
   if (username) {
     optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_USERNAME_BITMASK;
     optargs.username = username;
+  }
+  if (secret) {
+    optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_SECRET_BITMASK;
+    optargs.secret = secret;
   }
 
   return guestfs_add_drive_opts_argv (g, filename, &optargs);
@@ -475,7 +485,7 @@ for_each_disk (guestfs_h *g,
                          const char *filename, const char *format,
                          int readonly,
                          const char *protocol, char *const *server,
-                         const char *username,
+                         const char *username, const char *secret,
                          void *data),
                void *data)
 {
@@ -504,7 +514,7 @@ for_each_disk (guestfs_h *g,
   if (nodes != NULL) {
     nr_nodes = nodes->nodeNr;
     for (i = 0; i < nr_nodes; ++i) {
-      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL, *protocol = NULL, *username = NULL;
+      CLEANUP_FREE char *type = NULL, *filename = NULL, *format = NULL, *protocol = NULL, *username = NULL, *secret = NULL;
       CLEANUP_FREE_STRING_LIST char **server = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xptype = NULL;
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpformat = NULL;
@@ -517,6 +527,7 @@ for_each_disk (guestfs_h *g,
       CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpvolume = NULL;
       int readonly;
       int t;
+      virErrorPtr err;
 
       /* Change the context to the current <disk> node.
        * DV advises to reset this before each search since older versions of
@@ -569,8 +580,111 @@ for_each_disk (guestfs_h *g,
         xpusername = xmlXPathEvalExpression (BAD_CAST "./auth/@username",
                                              xpathCtx);
         if (!xpath_object_is_empty (xpusername)) {
+          CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpsecrettype = NULL;
+          CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpsecretuuid = NULL;
+          CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpsecretusage = NULL;
+          CLEANUP_FREE char *typestr = NULL;
+          unsigned char *value = NULL;
+          size_t value_size = 0;
+
           username = xpath_object_get_string (doc, xpusername);
           debug (g, "disk[%zu]: username: %s", i, username);
+
+          /* <secret type="...">.  Mandatory given <auth> is specified. */
+          xpsecrettype = xmlXPathEvalExpression (BAD_CAST "./auth/secret/@type",
+                                                 xpathCtx);
+          if (xpath_object_is_empty (xpsecrettype))
+            continue;
+          typestr = xpath_object_get_string (doc, xpsecrettype);
+
+          /* <secret uuid="..."> and <secret usage="...">.
+           * At least one of them is required.
+           */
+          xpsecretuuid = xmlXPathEvalExpression (BAD_CAST "./auth/secret/@uuid",
+                                                 xpathCtx);
+          xpsecretusage = xmlXPathEvalExpression (BAD_CAST "./auth/secret/@usage",
+                                                  xpathCtx);
+          if (!xpath_object_is_empty (xpsecretuuid)) {
+            CLEANUP_FREE char *uuidstr = NULL;
+            virSecretPtr sec;
+
+            uuidstr = xpath_object_get_string (doc, xpsecretuuid);
+            debug (g, "disk[%zu]: secret type: %s; UUID: %s",
+                   i, typestr, uuidstr);
+            sec = virSecretLookupByUUIDString (conn, uuidstr);
+            if (sec == NULL) {
+              err = virGetLastError ();
+              error (g, _("no secret with UUID '%s': %s"),
+                     uuidstr, err ? err->message : "(none)");
+              continue;
+            }
+
+            value = virSecretGetValue (sec, &value_size, 0);
+            if (value == NULL) {
+              err = virGetLastError ();
+              error (g, _("cannot get the value of the secret with UUID '%s': %s"),
+                     uuidstr, err->message);
+              virSecretFree (sec);
+              continue;
+            }
+
+            virSecretFree (sec);
+          } else if (!xpath_object_is_empty (xpsecretusage)) {
+            virSecretUsageType usageType;
+            CLEANUP_FREE char *usagestr = NULL;
+            virSecretPtr sec;
+
+            usagestr = xpath_object_get_string (doc, xpsecretusage);
+            debug (g, "disk[%zu]: secret type: %s; usage: %s",
+                   i, typestr, usagestr);
+            if (STREQ (usagestr, "none"))
+              usageType = VIR_SECRET_USAGE_TYPE_NONE;
+            else if (STREQ (usagestr, "volume"))
+              usageType = VIR_SECRET_USAGE_TYPE_VOLUME;
+            else if (STREQ (usagestr, "ceph"))
+              usageType = VIR_SECRET_USAGE_TYPE_CEPH;
+            else if (STREQ (usagestr, "iscsi"))
+              usageType = VIR_SECRET_USAGE_TYPE_ISCSI;
+            else
+              continue;
+            sec = virSecretLookupByUsage (conn, usageType, usagestr);
+            if (sec == NULL) {
+              err = virGetLastError ();
+              error (g, _("no secret for usage '%s': %s"),
+                     usagestr, err->message);
+              continue;
+            }
+
+            value = virSecretGetValue (sec, &value_size, 0);
+            if (value == NULL) {
+              err = virGetLastError ();
+              error (g, _("cannot get the value of the secret with usage '%s': %s"),
+                     usagestr, err->message);
+              virSecretFree (sec);
+              continue;
+            }
+
+            virSecretFree (sec);
+          } else {
+            continue;
+          }
+
+          assert (value != NULL);
+          assert (value_size > 0);
+
+          if (STREQ (typestr, "ceph")) {
+            const size_t res = base64_encode_alloc ((const char *) value,
+                                                    value_size, &secret);
+            free (value);
+            if (res == 0 || secret == NULL) {
+              error (g, "internal error: cannot encode the rbd secret as base64");
+              return -1;
+            }
+          } else {
+            secret = (char *) value;
+          }
+
+          assert (secret != NULL);
         }
 
         xphost = xmlXPathEvalExpression (BAD_CAST "./source/host",
@@ -607,11 +721,6 @@ for_each_disk (guestfs_h *g,
           }
         }
         server[xphost->nodesetval->nodeNr] = NULL;
-
-        /*
-         * TODO: secrets: ./auth/secret/@type,
-         * ./auth/secret/@usage || ./auth/secret/@uuid
-         */
       } else if (STREQ (type, "volume")) { /* type = "volume", use source/@volume */
         CLEANUP_FREE char *pool = NULL;
         CLEANUP_FREE char *volume = NULL;
@@ -670,7 +779,7 @@ for_each_disk (guestfs_h *g,
         readonly = 1;
 
       if (f)
-        t = f (g, filename, format, readonly, protocol, server, username, data);
+        t = f (g, filename, format, readonly, protocol, server, username, secret, data);
       else
         t = 0;
 
