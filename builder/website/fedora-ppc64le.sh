@@ -83,7 +83,7 @@ virt-install \
     --ram=4096 \
     --vcpus=1 \
     --os-type=linux --os-variant=fedora22 \
-    --arch ppc64le --machine pseries \
+    --arch ppc64le --machine pseries --cpu POWER8 \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` console=tty0 console=hvc0 proxy=$http_proxy" \
     --disk $(pwd)/$output,size=6,format=raw \
