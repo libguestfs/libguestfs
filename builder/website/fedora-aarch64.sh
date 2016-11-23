@@ -87,8 +87,9 @@ cp /usr/share/edk2/aarch64/vars-template-pflash.raw $vars
 virt-install \
     --name=$tmpname \
     --ram=4096 \
-    --cpu=host --vcpus=2 \
+    --vcpus=1 \
     --os-type=linux --os-variant=fedora21 \
+    --arch aarch64 \
     --boot loader=/usr/share/edk2/aarch64/QEMU_EFI-pflash.raw,loader_ro=yes,loader_type=pflash,nvram=$vars \
     --initrd-inject=$ks \
     --extra-args="ks=file:/`basename $ks` earlyprintk=pl011,0x9000000 ignore_loglevel console=ttyAMA0 no_timer_check printk.time=1 proxy=$http_proxy" \
