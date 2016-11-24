@@ -80,7 +80,7 @@ trap cleanup INT QUIT TERM EXIT ERR
 
 virt-install \
     --name=$tmpname \
-    --ram=1024 \
+    --ram=2048 \
     --vcpus=1 \
     --arch armv7l \
     --os-type=linux --os-variant=fedora22 \
