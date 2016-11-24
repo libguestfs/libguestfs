@@ -13,7 +13,7 @@ virt-copy-out - Copy files and directories out of a virtual machine disk image.
 C<virt-copy-out> copies files and directories out of a virtual machine
 disk image or named libvirt domain.
 
-You can give one of more filenames and directories on the command
+You can give one or more filenames and directories on the command
 line.  Directories are copied out recursively.
 
 =head1 EXAMPLES
