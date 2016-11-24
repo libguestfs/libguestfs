@@ -845,10 +845,11 @@ name=Fedora® 25 Server (ppc64)
 osinfo=fedora25
 arch=ppc64
 file=fedora-25-ppc64.xz
-checksum=3a9ff369d6cb4b13991a05c181404d462a53fbce7f9dabcec24bdaf0c1c1f5ba03e3916f8545f291b287e7e45b54e5e10be8baa0ec0a8f22495eaba5a3991540
+revision=2
+checksum=6cbe13eab5b4ece19c263163d947072c644ee234e3d116e6fdf517206b7bea10d870933b31f8ab970480aa5a09cd75b04858b46bbe85dcfc6820069523bd4b9d
 format=raw
 size=6442450944
-compressed_size=330142044
+compressed_size=311245832
 expand=/dev/sda3
 notes=Fedora 25 Server (ppc64 big endian)
  
@@ -867,10 +868,11 @@ name=Fedora® 25 Server (ppc64le)
 osinfo=fedora25
 arch=ppc64le
 file=fedora-25-ppc64le.xz
-checksum=7d05539f67e94131230c926753b2160ab5a1434e672774a80384e7c14ab203a926c14828a8290dd00adec19a2ba7392e4813f74b77fdb26be2dbeb2a87692857
+revision=2
+checksum=b51f8ad21862db31540a489e0fd070054789be1c054f6d30d03d8284320bb84bc025ae71e7b4f7d386a5ff074dacbf84b9724eaf74d31b13bda8776756717bf4
 format=raw
 size=6442450944
-compressed_size=339781460
+compressed_size=336716660
 expand=/dev/sda3
 notes=Fedora 25 Server (ppc64le)
  

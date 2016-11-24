@@ -74,6 +74,13 @@ poweroff
 %packages
 @core
 %end
+
+%post
+# Rerun dracut for the installed kernel (not the running kernel)
+# and add virtio-scsi (RHBZ#1396217).
+KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
+dracut --add-drivers virtio-scsi -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
+%end
 EOF
 
 # Yum configuration.

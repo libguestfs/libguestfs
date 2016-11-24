@@ -61,9 +61,10 @@ poweroff
 %end
 
 %post
-# Rerun dracut for the installed kernel (not the running kernel):
+# Rerun dracut for the installed kernel (not the running kernel)
+# and add virtio-scsi (RHBZ#1396217).
 KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
-dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
+dracut --add-drivers virtio-scsi -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
 
 # Ensure the installation is up-to-date:
 dnf -y --best upgrade
