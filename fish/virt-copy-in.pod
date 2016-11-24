@@ -13,7 +13,7 @@ virt-copy-in - Copy files and directories into a virtual machine disk image.
 C<virt-copy-in> copies files and directories from the local disk into
 a virtual machine disk image or named libvirt domain.
 
-You can give one of more filenames and directories on the command
+You can give one or more filenames and directories on the command
 line.  Directories are copied in recursively.  The final parameter
 must be the destination directory in the disk image which must be an
 absolute path starting with a F</> character.
