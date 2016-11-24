@@ -749,6 +749,141 @@ notes=Fedora 24 Server (aarch64)
  Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
  Source and further information is available from http://fedoraproject.org/
 
+[fedora-25]
+name=Fedora® 25 Server
+osinfo=fedora25
+arch=x86_64
+file=fedora-25.xz
+checksum=fd7f8c9c7f6093b0c8c154ab12a116952745a00f5634ee8ded8c81d5f3b9b614558b11109de98f814f4f57fb2c0a394fba43d8a9ed127b99b78ff02c39957f7b
+format=raw
+size=6442450944
+compressed_size=337395436
+expand=/dev/sda3
+notes=Fedora 25 Server.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-25]
+name=Fedora® 25 Server (i686)
+osinfo=fedora25
+arch=i686
+file=fedora-25-i686.xz
+checksum=17cdf048a3961a316ac32aa084b4b7d20d0ff4756bd5e942c1aae29c6e8b3cf2a41516e87e301ee1122643aca14ca252554ebbadbe468a582c10591edc56177a
+format=raw
+size=6442450944
+compressed_size=247412792
+expand=/dev/sda3
+notes=Fedora 25 Server (i686)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-i686.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-25]
+name=Fedora® 25 Server (aarch64)
+osinfo=fedora25
+arch=aarch64
+file=fedora-25-aarch64.xz
+checksum=ad8283c6ac4e0b297fd2413d3ffd231bdfbbb0609960d6fd1af45d8047652f7d515398d97345b0d837eca244a501279f9920c6149e00b6504bd08ab965ef19ac
+format=raw
+size=6442450944
+compressed_size=294070292
+expand=/dev/sda4
+notes=Fedora 25 Server (aarch64)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-aarch64.sh
+ 
+ You may need to use the associated EFI NVRAM variables:
+ http://libguestfs.org/download/builder/fedora-25-aarch64-nvram.xz
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-25]
+name=Fedora® 25 Server (armv7l)
+osinfo=fedora25
+arch=armv7l
+file=fedora-25-armv7l.xz
+checksum=3303230d3e907524817ed95504b7b7a5f6a3e167d9564193fdd0781207b1ca841b244d47778ea639e2af709bb8838256f18503b76f1ede06ca7bb9f72693c538
+format=raw
+size=6442450944
+compressed_size=270482468
+expand=/dev/sda3
+notes=Fedora 25 Server (armv7l)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-armv7l.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-25]
+name=Fedora® 25 Server (ppc64)
+osinfo=fedora25
+arch=ppc64
+file=fedora-25-ppc64.xz
+checksum=3a9ff369d6cb4b13991a05c181404d462a53fbce7f9dabcec24bdaf0c1c1f5ba03e3916f8545f291b287e7e45b54e5e10be8baa0ec0a8f22495eaba5a3991540
+format=raw
+size=6442450944
+compressed_size=330142044
+expand=/dev/sda3
+notes=Fedora 25 Server (ppc64 big endian)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
+[fedora-25]
+name=Fedora® 25 Server (ppc64le)
+osinfo=fedora25
+arch=ppc64le
+file=fedora-25-ppc64le.xz
+checksum=7d05539f67e94131230c926753b2160ab5a1434e672774a80384e7c14ab203a926c14828a8290dd00adec19a2ba7392e4813f74b77fdb26be2dbeb2a87692857
+format=raw
+size=6442450944
+compressed_size=339781460
+expand=/dev/sda3
+notes=Fedora 25 Server (ppc64le)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64le.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
 [scientificlinux-6]
 name=Scientific Linux 6.5
 osinfo=centos6.5
