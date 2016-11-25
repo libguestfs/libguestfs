@@ -1,0 +1,23 @@
+[fedora-19]
+name=Fedora® 19
+osinfo=fedora19
+arch=x86_64
+file=fedora-19.xz
+revision=2
+checksum=acecd8d4bca0d6a3f937e0c9386f3185c916df3eaf5f825988c73d41e946a6dc4fda06cdd74a12bc60932edd65846097547b11aca2309a61dd6d0e91ab9d16f3
+format=raw
+size=6442450944
+compressed_size=169531628
+expand=/dev/sda3
+notes=Fedora 19.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

@@ -1,0 +1,41 @@
+If you are looking at this file at http://libguestfs.org/download/builder
+-------------------------------------------------------------------------
+
+This directory is used by the libguestfs 'virt-builder' to store the
+clean, signed OS templates used for building new virtual machines.
+
+The index file is the default source URL and links to the other OS
+templates.  It has the canonical URL:
+
+  http://libguestfs.org/download/builder/index.asc
+
+If you are looking at this file in the git repository
+-----------------------------------------------------
+
+libguestfs.git/builder/templates/ contains the program used to
+generate the template files, the source for the index, kickstart files
+and more.
+
+When you use the ./run script to run virt-builder without installing,
+the ./run script sets $VIRT_BUILDER_SOURCE to point to this directory.
+If you actually want to use this configuration for anything except
+simple testing, you will have to download one or more OS templates
+from the libguestfs website and put them into this directory.
+
+ie:
+
+  ./run virt-builder fedora-20
+
+will fail unless you have downloaded fedora-20.xz here.
+
+Fedora guests
+-------------
+
+The general plan for using kickstart and virt-install is outlined
+by Kashyap here:
+
+http://kashyapc.wordpress.com/2011/08/18/unattended-guest-install-with-a-local-kickstart/
+
+If you want to reproduce the builds then the kickstart files are
+located in fedora-<N>.ks and the virt-install + other commands are in
+fedora-<N>.sh.

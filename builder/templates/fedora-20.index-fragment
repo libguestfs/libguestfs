@@ -1,0 +1,23 @@
+[fedora-20]
+name=Fedora® 20
+osinfo=fedora20
+arch=x86_64
+file=fedora-20.xz
+revision=2
+checksum=983a1b33c34cb311ea3a283f06312d24dc81041b64ebc90e40ef2fd7587362acd1a5654b13252f9f57001870aa95495065537e730d5225b49389c1a0478cb028
+format=raw
+size=6442450944
+compressed_size=181164220
+expand=/dev/sda3
+notes=Fedora 20.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

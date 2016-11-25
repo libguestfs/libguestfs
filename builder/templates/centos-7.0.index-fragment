@@ -1,0 +1,19 @@
+[centos-7.0]
+name=CentOS 7.0
+osinfo=centos7.0
+arch=x86_64
+file=centos-7.0.xz
+checksum=cf9ae295f633fbd04e575eeca16f372e933c70c3107c44eb06864760d04354aa94b4f356bfc9a598c138e687304a52e96777e4467e7db1ec0cb5b2d2ec61affc
+format=raw
+size=6442450944
+compressed_size=213203844
+expand=/dev/sda3
+notes=CentOS 7.0
+ 
+ This CentOS image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/centos.sh
+

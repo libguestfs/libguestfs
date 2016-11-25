@@ -1,0 +1,22 @@
+[fedora-18]
+name=Fedora® 18
+osinfo=fedora18
+arch=x86_64
+file=fedora-18.xz
+checksum=12435775193b69f6e22658aaa001d4ca9b15fd68a04b4b7e9be20b3b517e857e417dc3268a302979d4a702b20f25754025f7ae0e9fb7088419a4ca1669585e6f
+format=raw
+size=6442450944
+compressed_size=148947524
+expand=/dev/sda3
+notes=Fedora 18.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

@@ -1,0 +1,23 @@
+[fedora-21]
+name=Fedora® 21 Server
+osinfo=fedora21
+arch=x86_64
+file=fedora-21.xz
+revision=1
+checksum=4dc92cbf540d3a0745ffe1fa01ffae15f17e7a8aa45c70ad975a1dda82b7f1ebe42f912be74d91a5866a91ee2ca3be3c2be274b5da29db930fe1ec8c2286575b
+format=raw
+size=6442450944
+compressed_size=209059864
+expand=/dev/sda3
+notes=Fedora 21 Server.
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

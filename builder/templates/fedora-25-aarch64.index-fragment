@@ -1,0 +1,25 @@
+[fedora-25]
+name=Fedora® 25 Server (aarch64)
+osinfo=fedora25
+arch=aarch64
+file=fedora-25-aarch64.xz
+checksum=ad8283c6ac4e0b297fd2413d3ffd231bdfbbb0609960d6fd1af45d8047652f7d515398d97345b0d837eca244a501279f9920c6149e00b6504bd08ab965ef19ac
+format=raw
+size=6442450944
+compressed_size=294070292
+expand=/dev/sda4
+notes=Fedora 25 Server (aarch64)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-aarch64.sh
+ 
+ You may need to use the associated EFI NVRAM variables:
+ http://libguestfs.org/download/builder/fedora-25-aarch64-nvram.xz
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

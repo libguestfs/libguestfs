@@ -1,0 +1,22 @@
+[fedora-25]
+name=Fedora® 25 Server (i686)
+osinfo=fedora25
+arch=i686
+file=fedora-25-i686.xz
+checksum=17cdf048a3961a316ac32aa084b4b7d20d0ff4756bd5e942c1aae29c6e8b3cf2a41516e87e301ee1122643aca14ca252554ebbadbe468a582c10591edc56177a
+format=raw
+size=6442450944
+compressed_size=247412792
+expand=/dev/sda3
+notes=Fedora 25 Server (i686)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-i686.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

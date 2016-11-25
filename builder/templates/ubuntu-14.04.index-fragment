@@ -1,0 +1,31 @@
+[ubuntu-14.04]
+name=Ubuntu 14.04 (Trusty)
+osinfo=ubuntutrusty
+arch=x86_64
+file=ubuntu-14.04.xz
+checksum=dbc5505c7cfbfb48275b09e91f781dfd7f8d521db577f0c31e0a70b13fbd18c8bcec97b1e274b28062ebc3aba70d68e64c84b9c9690ff7dfca9e81f813047e8a
+format=raw
+size=4294967296
+compressed_size=206250764
+expand=/dev/sda1
+notes=Ubuntu 14.04 (Trusty).
+ 
+ This is a minimal Ubuntu 14.04 (Trusty) install.
+ 
+ Only the openssh-server package is selected in tasksel.
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
+ 
+ IMPORTANT NOTE: It seems to be impossible to create an Ubuntu >= 14.04
+ image using preseed without creating a user account.  Therefore this
+ image contains a user account 'builder'.  I have disabled it, so that
+ people who don't read release notes don't get caught out, but you might
+ still wish to delete it completely.
+

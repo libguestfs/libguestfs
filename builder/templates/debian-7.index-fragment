@@ -1,0 +1,32 @@
+[debian-7]
+name=Debian 7 (Wheezy)
+osinfo=debian7
+arch=x86_64
+file=debian-7.xz
+revision=2
+checksum=c980a7d878c086b14619b3b9f644ab131c1f88b87729062f2832de12a938ba9e5a511c49402a9d02b740a30876f51889d20e7d0ed4997755f542650b8485f013
+format=raw
+size=4294967296
+compressed_size=150734028
+expand=/dev/sda1
+notes=Debian 7 (Wheezy).
+ 
+ This is a default Debian install.
+ 
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs source tree:
+ 
+ builder/website/debian.preseed
+ builder/website/debian.sh
+ 
+ This image is so very minimal that it only includes an ssh
+ server and no virtual consoles.  To enable virtual consoles
+ use this virt-builder option:
+ 
+ virt-builder debian-7 \
+     --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
+

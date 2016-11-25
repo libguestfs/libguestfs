@@ -1,0 +1,25 @@
+[ubuntu-10.04]
+name=Ubuntu 10.04 (Lucid)
+osinfo=ubuntulucid
+arch=x86_64
+file=ubuntu-10.04.xz
+checksum=9e322782bc77c740ce956d57d0d89ec9ac9f2b890c474ac937f400db848df3e164683eaf4631b989f8b4771f64e0c0972452d1555a15c65714b5ceefb295fb7e
+format=raw
+size=4294967296
+compressed_size=149728112
+expand=/dev/sda1
+notes=Ubuntu 10.04 (Lucid).
+ 
+ This is a minimal Ubuntu 10.04 (Lucid) install.
+ 
+ Only the openssh-server package is selected in tasksel.
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
+

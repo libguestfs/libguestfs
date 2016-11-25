@@ -1,0 +1,23 @@
+[centos-6]
+name=CentOS 6.6
+osinfo=centos6.6
+arch=x86_64
+file=centos-6.xz
+revision=6
+checksum=fc403ea3555a5608a25ad30ce2514b67288311a7197ddf9fb664475820f26db2bd95a86be9cd6e3f772187b384a02e0965430456dd518d343a80457057bc5441
+format=raw
+size=6442450944
+compressed_size=199265736
+expand=/dev/sda3
+notes=CentOS 6.6
+ 
+ This CentOS image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/centos.sh
+ 
+ Note that `virt-builder centos-6' will always install the latest
+ 6.x release.
+

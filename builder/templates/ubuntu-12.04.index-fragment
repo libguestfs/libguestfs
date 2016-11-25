@@ -1,0 +1,25 @@
+[ubuntu-12.04]
+name=Ubuntu 12.04 (Precise)
+osinfo=ubuntuprecise
+arch=x86_64
+file=ubuntu-12.04.xz
+checksum=15eab4610a44bf28423c08982cec47f6c3d43f29834791440249916ed76cc2dfeaf0405fddc8627086257bbbdaa4016c8982ad9b269f57f8f625b0e70d09e4e0
+format=raw
+size=4294967296
+compressed_size=168593316
+expand=/dev/sda1
+notes=Ubuntu 12.04 (Precise).
+ 
+ This is a minimal Ubuntu 12.04 (Precise) install.
+ 
+ Only the openssh-server package is selected in tasksel.
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs source tree:
+ 
+ builder/website/ubuntu.preseed
+ builder/website/ubuntu.sh
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
+

@@ -1,0 +1,23 @@
+[fedora-21]
+name=Fedora® 21 Server (ppc64)
+osinfo=fedora21
+arch=ppc64
+file=fedora-21-ppc64.xz
+revision=3
+checksum=acdd9bbd2a434cae48b8f8cf715b00a0cedbb8d276d76a9d4a4f1d469c9522755e82dd03e5f499c1447e09d9bb5a33ada8a061a601d91c007704edfdd80cddb2
+format=raw
+size=6442450944
+compressed_size=233099788
+expand=/dev/sda3
+notes=Fedora 21 Server (ppc64 big endian)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-ppc64.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

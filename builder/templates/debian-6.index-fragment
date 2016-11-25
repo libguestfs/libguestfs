@@ -1,0 +1,32 @@
+[debian-6]
+name=Debian 6 (Squeeze)
+osinfo=debian6
+arch=x86_64
+file=debian-6.xz
+revision=2
+checksum=bff9c28da0375fde65fa238d7a2ea644cbfad0ea3246783a2f44a98f2374850987679c3f1032a632d3c6238de8d9e43291d07a82efc1e824945000e206b9f6cc
+format=raw
+size=4294967296
+compressed_size=139615908
+expand=/dev/sda1
+notes=Debian 6 (Squeeze).
+ 
+ This is a default Debian install.
+ 
+ The preseed and virt-install scripts that produced this image
+ can be found in the libguestfs source tree:
+ 
+ builder/website/debian.preseed
+ builder/website/debian.sh
+ 
+ This image is so very minimal that it only includes an ssh
+ server and no virtual consoles.  To enable virtual consoles
+ use this virt-builder option:
+ 
+ virt-builder debian-6 \
+     --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
+ 
+ This image does not contain SSH host keys.  To regenerate them use:
+ 
+ --firstboot-command "dpkg-reconfigure openssh-server"
+

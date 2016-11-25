@@ -1,0 +1,22 @@
+[fedora-24]
+name=Fedora® 24 Server (armv7l)
+osinfo=fedora24
+arch=armv7l
+file=fedora-24-armv7l.xz
+checksum=7d9a5ce8e10c13e8d07ace42555183bfee5e561464e9fc439d0fefc3e85048bdc0c14d44d5584029d4015d0f3316c7583af8ae6d4c0ff8bcfcdb9037a37cacc0
+format=raw
+size=6442450944
+compressed_size=324231484
+expand=/dev/sda3
+notes=Fedora 24 Server (armv7l)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-armv7l.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

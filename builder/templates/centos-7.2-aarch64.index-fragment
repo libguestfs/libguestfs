@@ -1,0 +1,19 @@
+[centos-7.2]
+name=CentOS 7.2 (aarch64)
+osinfo=centos7.2
+arch=aarch64
+file=centos-7.2-aarch64.xz
+checksum=e61c5381026c419110ec42626c1cbb0e081240ae4d8c70f5bac2c80d771d5159b72dd3723068cf3cc9339e095b05b62d29ba9c22ef199f53a4e89c07e5615ca3
+format=raw
+size=6442450944
+compressed_size=248167668
+expand=/dev/sda4
+notes=CentOS 7.2 (aarch64)
+ 
+ This CentOS image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/centos-aarch64.sh
+

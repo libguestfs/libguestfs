@@ -1,0 +1,22 @@
+[fedora-22]
+name=Fedora® 22 Server (i686)
+osinfo=fedora22
+arch=i686
+file=fedora-22-i686.xz
+checksum=3547b94d5c418792e722786cfae41decd41f0725d529d65a2c719094c0b815eaa4fae195514a14d42fa19b57b895bcdbfdb305edf918b1b3722f30f338042d31
+format=raw
+size=6442450944
+compressed_size=225185592
+expand=/dev/sda3
+notes=Fedora 22 Server (i686)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-i686.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+

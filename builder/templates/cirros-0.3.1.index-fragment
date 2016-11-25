@@ -1,0 +1,19 @@
+[cirros-0.3.1]
+name=CirrOS 0.3.1
+arch=x86_64
+file=cirros-0.3.1.xz
+checksum=096209f00eb62d5722accf3d22ca3a4ee5baaac6d7d4ce0be93b56bbd1c8ab2e3eb4f5db1deffcb570e2c3d41f4d721798a1c499675346cee9546554a4b10388
+format=raw
+size=41126400
+compressed_size=11419004
+expand=/dev/sda1
+notes=CirrOS 0.3.1
+ 
+ CirrOS is a commonly used test image, ideal because it is very
+ small and boots into a minimally usable Linux system.
+ 
+ Note this is not a real Linux distribution, and several virt-builder
+ features such as installing packages will not (and cannot) work.
+ 
+ This CirrOS image comes from https://launchpad.net/cirros
+

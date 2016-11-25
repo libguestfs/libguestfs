@@ -146,7 +146,7 @@ if HAVE_OCAML
 SUBDIRS += \
 	mllib \
 	customize \
-	builder builder/website \
+	builder builder/templates \
 	get-kernel \
 	resize \
 	sparsify \
@@ -247,12 +247,6 @@ EXTRA_DIST = \
 	website/standard.css \
 	zanata.xml \
 	zanata-pull.sh
-
-# XXX Eventually move builder/website under website/ top level directory.
-BUILDERFILES = \
-	builder/website/README \
-	builder/website/index \
-	builder/website/index.asc
 
 WEBSITEDIR = $(HOME)/d/websites/libguestfs
 

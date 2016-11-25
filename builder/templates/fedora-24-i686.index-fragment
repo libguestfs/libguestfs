@@ -1,0 +1,22 @@
+[fedora-24]
+name=Fedora® 24 Server (i686)
+osinfo=fedora24
+arch=i686
+file=fedora-24-i686.xz
+checksum=1461da1557327e0641987654919698a6b7c2df1c58f76a4a4d61fb66476dac1b19fe6e3650b82a246df7d241037725c7b8e57e73d3312e370dfb132f54b5cbf4
+format=raw
+size=6442450944
+compressed_size=319087504
+expand=/dev/sda3
+notes=Fedora 24 Server (i686)
+ 
+ This Fedora image contains only unmodified @Core group packages.
+ 
+ It is thus very minimal.  The kickstart and install script can be
+ found in the libguestfs source tree:
+ 
+ builder/website/fedora-i686.sh
+ 
+ Fedora and the Infinity design logo are trademarks of Red Hat, Inc.
+ Source and further information is available from http://fedoraproject.org/
+
