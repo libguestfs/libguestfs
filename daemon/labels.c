@@ -85,6 +85,9 @@ do_set_label (const mountable_t *mountable, const char *label)
   else if (STREQ (vfs_type, "xfs"))
     r = xfslabel (mountable->device, label);
 
+  else if (STREQ (vfs_type, "swap"))
+    r = swap_set_label (mountable->device, label);
+
   else
     NOT_SUPPORTED (-1, "don't know how to set the label for '%s' filesystems",
                    vfs_type);

@@ -239,3 +239,24 @@ swap_set_uuid (const char *device, const char *uuid)
 
   return 0;
 }
+
+int
+swap_set_label (const char *device, const char *label)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+
+  if (strlen (label) > SWAP_LABEL_MAX) {
+    reply_with_error ("%s: Linux swap labels are limited to %d bytes",
+                      label, SWAP_LABEL_MAX);
+    return -1;
+  }
+
+  r = command (NULL, &err, str_swaplabel, "-L", label, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    return -1;
+  }
+
+  return 0;
+}

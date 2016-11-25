@@ -10304,6 +10304,10 @@ when trying to set the label.
 
 The label is limited to 11 bytes.
 
+=item swap
+
+The label is limited to 16 bytes.
+
 =back
 
 If there is no support for changing the label
