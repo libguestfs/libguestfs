@@ -398,6 +398,14 @@ Btrfs filesystems, if libguestfs was compiled with support for btrfs.
 
 XFS filesystems, if libguestfs was compiled with support for XFS.
 
+=item *
+
+Linux swap partitions.
+
+Please note that libguestfs I<destroys> the existing swap content
+by recreating it with C<mkswap>, so this should not be used when
+the guest is suspended.
+
 =back
 
 Note that you cannot use I<--expand> and I<--shrink> together.

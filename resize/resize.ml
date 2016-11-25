@@ -60,6 +60,7 @@ and partition_content =
   | ContentPV of int64           (* physical volume (size of PV) *)
   | ContentFS of string * int64  (* mountable filesystem (FS type, FS size) *)
   | ContentExtendedPartition     (* MBR extended partition *)
+  | ContentSwap                  (* Swap partition *)
 and partition_operation =
   | OpCopy                       (* copy it as-is, no resizing *)
   | OpIgnore                     (* ignore it (create on target, but don't
@@ -104,11 +105,13 @@ and string_of_partition_content = function
   | ContentPV sz -> sprintf "LVM PV (%Ld bytes)" sz
   | ContentFS (fs, sz) -> sprintf "filesystem %s (%Ld bytes)" fs sz
   | ContentExtendedPartition -> "extended partition"
+  | ContentSwap -> "swap"
 and string_of_partition_content_no_size = function
   | ContentUnknown -> "unknown data"
   | ContentPV _ -> "LVM PV"
   | ContentFS (fs, _) -> sprintf "filesystem %s" fs
   | ContentExtendedPartition -> "extended partition"
+  | ContentSwap -> "swap"
 
 (* Data structure describing LVs on the source disk.  This is only
  * used if the user gave the --lv-expand option.
@@ -130,6 +133,7 @@ let debug_logvol lv =
 
 type expand_content_method =
   | PVResize | Resize2fs | NTFSResize | BtrfsFilesystemResize | XFSGrowFS
+  | Mkswap
 
 let string_of_expand_content_method = function
   | PVResize -> s_"pvresize"
@@ -137,6 +141,7 @@ let string_of_expand_content_method = function
   | NTFSResize -> s_"ntfsresize"
   | BtrfsFilesystemResize -> s_"btrfs-filesystem-resize"
   | XFSGrowFS -> s_"xfs_growfs"
+  | Mkswap -> s_"mkswap"
 
 type unknown_filesystems_mode =
   | UnknownFsIgnore
@@ -414,6 +419,8 @@ read the man page virt-resize(1).
         let fs = g#vfs_type dev in
         if fs = "unknown" then
           ContentUnknown
+        else if fs = "swap" then
+          ContentSwap
         else if fs = "LVM2_member" then (
           let rec loop = function
             | [] ->
@@ -531,7 +538,7 @@ read the man page virt-resize(1).
         assert (
           match typ with
           | ContentPV _ | ContentExtendedPartition -> false
-          | ContentUnknown | ContentFS _ -> true
+          | ContentUnknown | ContentFS _ | ContentSwap -> true
         );
 
         { lv_name = name; lv_type = typ; lv_operation = LVOpNone }
@@ -558,6 +565,7 @@ read the man page virt-resize(1).
       | ContentFS (("xfs"), _) when !xfs_available -> true
       | ContentFS _ -> false
       | ContentExtendedPartition -> false
+      | ContentSwap -> true
     else
       fun _ -> false
 
@@ -572,6 +580,7 @@ read the man page virt-resize(1).
       | ContentFS (("xfs"), _) when !xfs_available -> XFSGrowFS
       | ContentFS _ -> assert false
       | ContentExtendedPartition -> assert false
+      | ContentSwap -> Mkswap
     else
       fun _ -> assert false
   in
@@ -665,6 +674,7 @@ read the man page virt-resize(1).
         | ContentExtendedPartition ->
           error (f_"%s: This extended partition contains logical partitions which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy logical partitions within this partition.  (This error came from '%s' option on the command line.)")
             name option
+        | ContentSwap -> ()
       );
 
       p.p_operation <- OpResize newsize
@@ -831,7 +841,8 @@ read the man page virt-resize(1).
             (match p.p_type with
             | ContentUnknown
             | ContentPV _
-            | ContentExtendedPartition -> ()
+            | ContentExtendedPartition
+            | ContentSwap -> ()
             | ContentFS (fs, _) ->
               error (f_"unknown/unavailable method for expanding the %s filesystem on %s")
                 fs p.p_name
@@ -848,7 +859,8 @@ read the man page virt-resize(1).
             (match lv.lv_type with
             | ContentUnknown
             | ContentPV _
-            | ContentExtendedPartition -> ()
+            | ContentExtendedPartition
+            | ContentSwap -> ()
             | ContentFS (fs, _) ->
               error (f_"unknown/unavailable method for expanding the %s filesystem on %s")
                 fs lv.lv_name;
@@ -886,7 +898,8 @@ read the man page virt-resize(1).
               (match p.p_type with
               | ContentUnknown
               | ContentPV _
-              | ContentExtendedPartition -> ()
+              | ContentExtendedPartition
+              | ContentSwap -> ()
               | ContentFS (fs, _) ->
                 warning (f_"unknown/unavailable method for expanding the %s filesystem on %s")
                   fs p.p_name;
@@ -916,7 +929,8 @@ read the man page virt-resize(1).
                 (match lv.lv_type with
                 | ContentUnknown
                 | ContentPV _
-                | ContentExtendedPartition -> ()
+                | ContentExtendedPartition
+                | ContentSwap -> ()
                 | ContentFS (fs, _) ->
                   warning (f_"unknown/unavailable method for expanding the %s filesystem on %s")
                     fs name;
@@ -1199,7 +1213,7 @@ read the man page virt-resize(1).
         message (f_"Copying %s") source;
 
         (match p.p_type with
-         | ContentUnknown | ContentPV _ | ContentFS _ ->
+         | ContentUnknown | ContentPV _ | ContentFS _ | ContentSwap ->
            g#copy_device_to_device ~size:copysize ~sparse source target
 
          | ContentExtendedPartition ->
@@ -1255,7 +1269,7 @@ read the man page virt-resize(1).
 
     | { p_type =
         (ContentFS _|ContentUnknown|ContentPV _
-            |ContentExtendedPartition) } :: _
+            |ContentExtendedPartition|ContentSwap) } :: _
     | [] -> ()
   );
 
@@ -1312,6 +1326,13 @@ read the man page virt-resize(1).
       | NTFSResize -> g#ntfsresize ~force:ntfsresize_force target
       | BtrfsFilesystemResize -> with_mounted target g#btrfs_filesystem_resize
       | XFSGrowFS -> with_mounted target g#xfs_growfs
+      | Mkswap ->
+        (* Rebuild the swap using the UUID and label of the existing
+         * swap partition.
+         *)
+        let uuid = g#vfs_uuid target in
+        let label = g#vfs_label target in
+        g#mkswap ~uuid ~label target
     in
 
     (* Expand partition content as required. *)
