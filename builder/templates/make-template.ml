@@ -466,6 +466,17 @@ poweroff
    * many different things here.  The current script tries to update
    * the packages and enable Xen drivers only.
    *)
+  let regenerate_dracut () =
+    bpf "\
+# To make dracut config changes permanent, we need to rerun dracut.
+# Rerun dracut for the installed kernel (not the running kernel).
+# See commit 0fa52e4e45d80874bc5ea5f112f74be1d3f3472f and
+# https://www.redhat.com/archives/libguestfs/2014-June/thread.html#00045
+KERNEL_VERSION=\"$(rpm -q kernel --qf '%%{version}-%%{release}.%%{arch}\\n' | sort -V | tail -1)\"
+dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
+"
+  in
+
   (match os with
    | Fedora _ ->
       bpf "%%post\n";
@@ -473,20 +484,49 @@ poweroff
 # Ensure the installation is up-to-date.
 dnf -y --best upgrade
 ";
-      if arch = X86_64 then bpf "\
+
+      let needs_regenerate_dracut = ref false in
+      if arch = X86_64 then (
+        bpf "\
 # Enable Xen domU support.
 pushd /etc/dracut.conf.d
 echo 'add_drivers+=\" xen:vbd xen:vif \"' > virt-builder-xen-drivers.conf
 popd
-
-# To make the Xen change permanent, we need to rerun dracut.
-# Rerun dracut for the installed kernel (not the running kernel).
-# See commit 0fa52e4e45d80874bc5ea5f112f74be1d3f3472f and
-# https://www.redhat.com/archives/libguestfs/2014-June/thread.html#00045
-KERNEL_VERSION=\"$(rpm -q kernel --qf '%%{version}-%%{release}.%%{arch}\\n' | sort -V | tail -1)\"
-dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
 ";
+        needs_regenerate_dracut := true
+      );
+
+      if arch = PPC64 || arch = PPC64le then (
+        bpf "\
+# Enable virtio-scsi support.
+pushd /etc/dracut.conf.d
+echo 'add_drivers+=\" virtio-blk virtio-scsi \"' > virt-builder-virtio-scsi.conf
+popd
+";
+        needs_regenerate_dracut := true
+      );
+
+      if !needs_regenerate_dracut then regenerate_dracut ();
       bpf "%%end\n\n"
+
+   | RHEL (7,_) ->
+      bpf "%%post\n";
+
+      let needs_regenerate_dracut = ref false in
+
+      if arch = PPC64 || arch = PPC64le then (
+        bpf "\
+# Enable virtio-scsi support.
+pushd /etc/dracut.conf.d
+echo 'add_drivers+=\" virtio-blk virtio-scsi \"' > virt-builder-virtio-scsi.conf
+popd
+";
+        needs_regenerate_dracut := true
+      );
+
+      if !needs_regenerate_dracut then regenerate_dracut ();
+      bpf "%%end\n\n"
+
    | _ -> ()
   );
 
