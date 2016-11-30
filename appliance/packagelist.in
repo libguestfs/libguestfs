@@ -139,6 +139,7 @@ ifelse(SUSE,1,
   glibc-locale
   gptfdisk
   hivex
+  initviocons
   iproute2
   iputils
   libcap2
