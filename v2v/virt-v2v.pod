@@ -495,6 +495,25 @@ boot an operating system from the first VirtIO disk.  Specifically,
 F</boot> must be on the first VirtIO disk, and it cannot chainload an
 OS which is not in the first VirtIO disk.
 
+=item B<--vdsm-compat=0.10>
+
+=item B<--vdsm-compat=1.1>
+
+If I<-o vdsm> and the output format is qcow2, then we add the qcow2
+I<compat=0.10> option to the output file for compatibility with RHEL 6
+(see L<https://bugzilla.redhat.com/1145582>).
+
+If I<--vdsm-compat=1.1> is used then modern qcow2 (I<compat=1.1>)
+files are generated instead.
+
+Currently I<--vdsm-compat=0.10> is the default, but this will change
+to I<--vdsm-compat=1.1> in a future version of virt-v2v (when we can
+assume that everyone is using a modern version of qemu).
+
+B<Note this option only affects I<-o vdsm> output>.  All other output
+modes (including I<-o rhev>) generate modern qcow2 I<compat=1.1>
+files, always.
+
 =item B<--vdsm-image-uuid> UUID
 
 =item B<--vdsm-vol-uuid> UUID

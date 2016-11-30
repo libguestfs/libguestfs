@@ -253,10 +253,6 @@ object
     Changeuid.func changeuid_t (
       fun () ->
         let g = open_guestfs ~identifier:"rhev_disk_create" () in
-        (* For qcow2, override v2v-supplied compat option, because RHEL 6
-         * nodes cannot handle qcow2 v3 (RHBZ#1145582).
-         *)
-        let compat = if format <> "qcow2" then compat else Some "0.10" in
         g#disk_create ?backingfile ?backingformat ?preallocation ?compat
           ?clustersize path format size;
         (* Make it sufficiently writable so that possibly root, or

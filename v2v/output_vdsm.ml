@@ -30,6 +30,7 @@ type vdsm_params = {
   vol_uuids : string list;
   vm_uuid : string;
   ovf_output : string;
+  compat : string;
 }
 
 class output_vdsm os vdsm_params vmtype output_alloc =
@@ -37,7 +38,7 @@ object
   inherit output
 
   method as_options =
-    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s" os
+    sprintf "-o vdsm -os %s%s%s --vdsm-vm-uuid %s --vdsm-ovf-output %s%s%s" os
       (String.concat ""
          (List.map (sprintf " --vdsm-image-uuid %s") vdsm_params.image_uuids))
       (String.concat ""
@@ -48,6 +49,9 @@ object
       | None -> ""
       | Some Server -> " --vmtype server"
       | Some Desktop -> " --vmtype desktop")
+      (match vdsm_params.compat with
+       | "0.10" -> "" (* currently this is the default, so don't print it *)
+       | s -> sprintf " --vdsm-compat=%s" s)
 
   method supported_firmware = [ TargetBIOS ]
 
@@ -153,9 +157,10 @@ object
     ?clustersize path format size =
     let g = open_guestfs ~identifier:"vdsm_disk_create" () in
     (* For qcow2, override v2v-supplied compat option, because RHEL 6
-     * nodes cannot handle qcow2 v3 (RHBZ#1145582).
+     * nodes cannot handle qcow2 v3 (RHBZ#1145582, RHBZ#1400205).
      *)
-    let compat = if format <> "qcow2" then compat else Some "0.10" in
+    let compat =
+      if format <> "qcow2" then compat else Some vdsm_params.compat in
     g#disk_create ?backingfile ?backingformat ?preallocation ?compat
       ?clustersize path format size
 

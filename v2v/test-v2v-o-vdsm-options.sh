@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs virt-v2v test script
-# Copyright (C) 2014 Red Hat Inc.
+# Copyright (C) 2014-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 unset CDPATH
 export LANG=C
 set -e
+set -x
 
 if [ -n "$SKIP_TEST_V2V_O_VDSM_OPTIONS_SH" ]; then
     echo "$0: test skipped because environment variable is set"
@@ -62,10 +63,12 @@ $VG virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
     -o vdsm -os $d/12345678-1234-1234-1234-123456789abc \
     --vmtype desktop \
+    -of qcow2 \
     --vdsm-image-uuid IMAGE \
     --vdsm-vol-uuid VOL \
     --vdsm-vm-uuid VM \
     --vdsm-ovf-output $d/12345678-1234-1234-1234-123456789abc/master/vms/VM \
+    --vdsm-compat=1.1
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/VM/VM.ovf
@@ -81,6 +84,10 @@ test -f VOL.meta
 
 # Test the disk file was created.
 test -f VOL
+
+# Test that a qcow2 file with compat=1.1 was generated.
+test "$(guestfish disk-format VOL)" = "qcow2"
+qemu-img info VOL | grep 'compat: 1.1'
 
 popd
 
