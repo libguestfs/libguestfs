@@ -23,6 +23,7 @@ type vdsm_params = {
   vol_uuids : string list;            (* --vdsm-vol-uuid (multiple) *)
   vm_uuid : string;                   (* --vdsm-vm-uuid *)
   ovf_output : string;                (* --vdsm-ovf-output *)
+  compat : string;                    (* --vdsm-compat=0.10|1.1 *)
 }
 (** Miscellaneous extra command line parameters used by VDSM. *)
 

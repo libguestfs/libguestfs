@@ -66,6 +66,9 @@ let parse_cmdline () =
   let vdsm_vm_uuid = ref None in
   let vdsm_ovf_output = ref None in (* default "." *)
 
+  let vdsm_compat = ref "0.10" in
+  let set_vdsm_compat s = vdsm_compat := s in
+
   let set_string_option_once optname optref arg =
     match !optref with
     | Some _ ->
@@ -198,6 +201,7 @@ let parse_cmdline () =
     [ L"print-source" ], Getopt.Set print_source, s_"Print source and stop";
     [ L"qemu-boot" ], Getopt.Set qemu_boot,       s_"Boot in qemu (-o qemu only)";
     [ L"root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
+    [ L"vdsm-compat" ], Getopt.Symbol ("0.10|1.1", ["0.10"; "1.1"], set_vdsm_compat), s_"Write qcow2 with compat=0.10|1.1";
     [ L"vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid), s_"Output image UUID(s)";
     [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid), s_"Output vol UUID(s)";
     [ L"vdsm-vm-uuid" ], Getopt.String ("uuid", set_string_option_once "--vdsm-vm-uuid" vdsm_vm_uuid),
@@ -259,6 +263,7 @@ read the man page virt-v2v(1).
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
+  let vdsm_compat = !vdsm_compat in
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
   let vdsm_vm_uuid = !vdsm_vm_uuid in
@@ -272,6 +277,7 @@ read the man page virt-v2v(1).
     printf "virt-v2v\n";
     printf "libguestfs-rewrite\n";
     printf "colours-option\n";
+    printf "vdsm-compat-option\n";
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
     List.iter (printf "output:%s\n") (Modules_list.output_modules ());
     List.iter (printf "convert:%s\n") (Modules_list.convert_modules ());
@@ -415,6 +421,7 @@ read the man page virt-v2v(1).
         vol_uuids = vdsm_vol_uuids;
         vm_uuid = vdsm_vm_uuid;
         ovf_output = vdsm_ovf_output;
+        compat = vdsm_compat;
       } in
       Output_vdsm.output_vdsm os vdsm_params output_alloc in
 
