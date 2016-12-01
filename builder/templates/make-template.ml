@@ -20,14 +20,6 @@
 (* This script is used to create the virt-builder templates hosted
  * http://libguestfs.org/download/builder/
  *
- * Usage:
- *   ./make-template.ml os version [arch]
- * eg:
- *   ./make-template.ml fedora 25
- *   ./make-template.ml rhel 7.3 ppc64le
- *
- * The arch defaults to x86_64.  Note that i686 is a separate arch.
- *
  * Prior to November 2016, the templates were generated using
  * shell scripts located in libguestfs.git/builder/website.
  *)
@@ -36,15 +28,22 @@ open Printf
 
 let prog = "make-template"
 
-(* Check we are being run from the correct directory.  We must do this
- * before attempting to load libraries below.
- *)
 let () =
+  (* Check we are being run from the correct directory. *)
   if not (Sys.file_exists "debian.preseed") then (
     eprintf "%s: run this script from the builder/templates subdirectory\n"
             prog;
     exit 1
-  );;
+  );
+
+  (* Check that the ./run script was used. *)
+  (try ignore (Sys.getenv "CAML_LD_LIBRARY_PATH")
+   with Not_found ->
+     eprintf "%s: you must use `../../run ./make-template.ml ...' to run this script\n"
+             prog;
+     exit 1
+  )
+  ;;
 
 #load "str.cma";;
 #load "unix.cma";;
@@ -66,25 +65,8 @@ let rec main () =
   assert (Sys.word_size = 64);
   Random.self_init ();
 
-  (* Get the os, version, arch from the command line. *)
-  if Array.length Sys.argv < 3 || Array.length Sys.argv > 4 then (
-    eprintf "%s os version [arch]\n" prog;
-    exit 1
-  );
-
-  let os = os_of_string Sys.argv.(1) Sys.argv.(2)
-  and arch =
-    if Array.length Sys.argv <= 3 then X86_64
-    else arch_of_string Sys.argv.(3) in
-
-  (* Set the path to use locally built copies of the virt-* tools. *)
-  let () =
-    let orig_path = Unix.getenv "PATH" in
-    let paths = ["builder"; "cat"; "customize"; "sparsify"; "sysprep"] in
-    let prefix = Sys.getcwd () // ".." // ".." in
-    let paths = List.map ((//) prefix) paths in
-    let new_path = String.concat ":" (paths @ [orig_path]) in
-    Unix.putenv "PATH" new_path in
+  (* Parse the command line. *)
+  let os, arch = parse_cmdline () in
 
   (* Choose a disk size for this OS. *)
   let virtual_size_gb = get_virtual_size_gb os arch in
@@ -283,6 +265,41 @@ let rec main () =
   );
 
   printf "Finished successfully.\n%!"
+
+and parse_cmdline () =
+  let anon = ref [] in
+
+  let usage = "\
+../../run ./make-template.ml [--options] os version [arch]
+
+Usage:
+  ../../run ./make-template.ml [--options] os version [arch]
+
+Examples:
+  ../../run ./make-template.ml fedora 25
+  ../../run ./make-template.ml rhel 7.3 ppc64le
+
+The arch defaults to x86_64.  Note that i686 is treated as a
+separate arch.
+
+Options:
+" in
+  let spec = Arg.align [
+  ] in
+
+  Arg.parse spec (fun s -> anon := s :: !anon) usage;
+
+  let os, ver, arch =
+    match List.rev !anon with
+    | [os; ver] -> os, ver, "x86_64"
+    | [os; ver; arch] -> os, ver, arch
+    | _ ->
+       eprintf "%s [--options] os version [arch]\n" prog;
+       exit 1 in
+  let os = os_of_string os ver
+  and arch = arch_of_string arch in
+
+  os, arch
 
 and os_of_string os ver =
   match os, ver with
