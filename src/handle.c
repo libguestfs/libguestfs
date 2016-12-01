@@ -199,7 +199,7 @@ parse_environment (guestfs_h *g,
   if (str) {
     b = guestfs_int_is_true (str);
     if (b == -1) {
-      error (g, _("%s=%s: non-boolean value"), "LIBGUESTFS_TRACE", str);
+      error (g, _("%s=%s: non-boolean value"), "LIBGUESTFS_DEBUG", str);
       return -1;
     }
     guestfs_set_verbose (g, b);
