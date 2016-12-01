@@ -125,7 +125,7 @@ let parse_cmdline () =
     | "libvirt" -> output_mode := `Libvirt
     | "disk" | "local" -> output_mode := `Local
     | "null" -> output_mode := `Null
-    | "ovirt" | "rhev" -> output_mode := `RHEV
+    | "ovirt" | "rhv" | "rhev" -> output_mode := `RHV
     | "qemu" -> output_mode := `QEmu
     | "vdsm" -> output_mode := `VDSM
     | s ->
@@ -220,7 +220,7 @@ let parse_cmdline () =
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest \
-   -o rhev -os rhev.nfs:/export_domain --network rhevm
+   -o rhv -os rhv.nfs:/export_domain --network rhvm
 
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
@@ -391,15 +391,15 @@ read the man page virt-v2v(1).
         | Some d -> d in
       Output_qemu.output_qemu os qemu_boot
 
-    | `RHEV ->
+    | `RHV ->
       let os =
         match output_storage with
         | None ->
-           error (f_"-o rhev: output storage was not specified, use '-os'");
+           error (f_"-o rhv: output storage was not specified, use '-os'");
         | Some d -> d in
       if qemu_boot then
-        error (f_"-o rhev: --qemu-boot option cannot be used in this output mode");
-      Output_rhev.output_rhev os output_alloc
+        error (f_"-o rhv: --qemu-boot option cannot be used in this output mode");
+      Output_rhv.output_rhv os output_alloc
 
     | `VDSM ->
       let os =

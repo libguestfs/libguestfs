@@ -855,7 +855,7 @@ create_conversion_dialog (struct config *config)
   set_alignment (o_label, 1., 0.5);
   o_combo = gtk_combo_box_text_new ();
   gtk_label_set_mnemonic_widget (GTK_LABEL (o_label), o_combo);
-  gtk_widget_set_tooltip_markup (o_combo, _("<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the conversion server.  <b>local</b> means put it in a directory on the conversion server.  <b>rhev</b> means write it to RHEV-M/oVirt.  <b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for more information about output options."));
+  gtk_widget_set_tooltip_markup (o_combo, _("<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the conversion server.  <b>local</b> means put it in a directory on the conversion server.  <b>rhv</b> means write it to RHV-M/oVirt.  <b>glance</b> means write it to OpenStack Glance.  See the virt-v2v(1) manual page for more information about output options."));
   repopulate_output_combo (config);
   table_attach (output_tbl, o_combo,
                 1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
@@ -878,7 +878,7 @@ create_conversion_dialog (struct config *config)
   set_alignment (os_label, 1., 0.5);
   os_entry = gtk_entry_new ();
   gtk_label_set_mnemonic_widget (GTK_LABEL (os_label), os_entry);
-  gtk_widget_set_tooltip_markup (os_entry, _("For <b>local</b>, put the directory name on the conversion server.  For <b>rhev</b>, put the Export Storage Domain (server:/mountpoint).  For others, leave this field blank."));
+  gtk_widget_set_tooltip_markup (os_entry, _("For <b>local</b>, put the directory name on the conversion server.  For <b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, leave this field blank."));
   if (config->output_storage != NULL)
     gtk_entry_set_text (GTK_ENTRY (os_entry), config->output_storage);
   table_attach (output_tbl, os_entry,
@@ -1077,6 +1077,7 @@ repopulate_output_combo (struct config *config)
   if (output_drivers == NULL) {
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo), "libvirt");
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo), "local");
+    /* Use rhev instead of rhv here so we can work with old virt-v2v. */
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (o_combo), "rhev");
     if (output == NULL || STREQ (output, "libvirt"))
       gtk_combo_box_set_active (GTK_COMBO_BOX (o_combo), 0);

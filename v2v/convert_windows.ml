@@ -319,7 +319,7 @@ echo Wait for PnP to complete
                               (String.concat "/" pnp_wait_path))
 
   and configure_rhev_apt tool_path =
-    (* Configure RHEV-APT (the RHEV guest agent).  However if it doesn't
+    (* Configure RHEV-APT (the RHV guest agent).  However if it doesn't
      * exist just warn about it and continue.
      *)
     g#upload tool_path "/rhev-apt.exe"; (* XXX *)

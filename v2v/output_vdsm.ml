@@ -51,7 +51,7 @@ object
 
   method supported_firmware = [ TargetBIOS ]
 
-  (* RHEV doesn't support serial consoles.  This causes the conversion
+  (* RHV doesn't support serial consoles.  This causes the conversion
    * step to remove it.
    *)
   method keep_serial_console = false
@@ -64,7 +64,7 @@ object
    * name of the target files that eventually get written by the main
    * code.
    *
-   * 'os' is the output storage domain (-os /rhev/data/<data center>/<data domain>)
+   * 'os' is the output storage domain (-os /rhv/data/<data center>/<data domain>)
    * this is already mounted path.
    *
    * Note it's good to fail here (early) if there are any problems, since

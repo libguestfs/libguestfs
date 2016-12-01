@@ -366,6 +366,6 @@ class virtual output : object
   (** Called in order to create disks on the target.  The method has the
       same signature as Guestfs#disk_create. *)
   method keep_serial_console : bool
-  (** Whether this output supports serial consoles (RHEV does not). *)
+  (** Whether this output supports serial consoles (RHV does not). *)
 end
 (** Encapsulates all [-o], etc output arguments as an object. *)

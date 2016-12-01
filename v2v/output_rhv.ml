@@ -66,7 +66,7 @@ and check_storage_domain domain_class os mp =
   let entries =
     try Sys.readdir mp
     with Sys_error msg ->
-      error (f_"could not read the %s specified by the '-os %s' parameter on the command line.  Is it really an OVirt or RHEV-M %s?  The original error is: %s") domain_class os domain_class msg in
+      error (f_"could not read the %s specified by the '-os %s' parameter on the command line.  Is it really an OVirt or RHV-M %s?  The original error is: %s") domain_class os domain_class msg in
   let entries = Array.to_list entries in
   let uuids = List.filter (
     fun entry ->
@@ -78,7 +78,7 @@ and check_storage_domain domain_class os mp =
     match uuids with
     | [uuid] -> uuid
     | [] ->
-      error (f_"there are no UUIDs in the %s (%s).  Is it really an OVirt or RHEV-M %s?") domain_class os domain_class
+      error (f_"there are no UUIDs in the %s (%s).  Is it really an OVirt or RHV-M %s?") domain_class os domain_class
     | _::_ ->
       error (f_"there are multiple UUIDs in the %s (%s).  This is unexpected, and may be a bug in virt-v2v or OVirt.") domain_class os in
 
@@ -88,7 +88,7 @@ and check_storage_domain domain_class os mp =
   let () =
     let master_vms_dir = mp // uuid // "master" // "vms" in
     if not (is_directory master_vms_dir) then
-      error (f_"%s does not exist or is not a directory.\n\nMost likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n\nYou have to attach the %s to a Data Center using the RHEV-M / OVirt user interface first.\n\nIf you don't know what the %s mount point should be then you can also find this out through the RHEV-M user interface.")
+      error (f_"%s does not exist or is not a directory.\n\nMost likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n\nYou have to attach the %s to a Data Center using the RHV-M / OVirt user interface first.\n\nIf you don't know what the %s mount point should be then you can also find this out through the RHV-M user interface.")
         master_vms_dir domain_class os os
         domain_class domain_class domain_class in
 
@@ -98,7 +98,7 @@ and check_storage_domain domain_class os mp =
 (* UID:GID required for files and directories when writing to ESD. *)
 let uid = 36 and gid = 36
 
-class output_rhev os output_alloc =
+class output_rhv os output_alloc =
   (* Create a UID-switching handle.  If we're not root, create a dummy
    * one because we cannot switch UIDs.
    *)
@@ -111,11 +111,11 @@ class output_rhev os output_alloc =
 object
   inherit output
 
-  method as_options = sprintf "-o rhev -os %s" os
+  method as_options = sprintf "-o rhv -os %s" os
 
   method supported_firmware = [ TargetBIOS ]
 
-  (* RHEV doesn't support serial consoles.  This causes the conversion
+  (* RHV doesn't support serial consoles.  This causes the conversion
    * step to remove it.
    *)
   method keep_serial_console = false
@@ -157,7 +157,7 @@ object
       mount_and_check_storage_domain (s_"Export Storage Domain") os in
     esd_mp <- mp;
     esd_uuid <- uuid;
-    debug "RHEV: ESD mountpoint: %s\nRHEV: ESD UUID: %s" esd_mp esd_uuid;
+    debug "RHV: ESD mountpoint: %s\nRHV: ESD UUID: %s" esd_mp esd_uuid;
 
     (* See if we can write files as UID:GID 36:36. *)
     let () =
@@ -166,10 +166,10 @@ object
       let stat = stat testfile in
       Changeuid.unlink changeuid_t testfile;
       let actual_uid = stat.st_uid and actual_gid = stat.st_gid in
-      debug "RHEV: actual UID:GID of new files is %d:%d" actual_uid actual_gid;
+      debug "RHV: actual UID:GID of new files is %d:%d" actual_uid actual_gid;
       if uid <> actual_uid || gid <> actual_gid then (
         if running_as_root then
-          warning (f_"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n\nYou will have to chown the files that virt-v2v creates after the run, otherwise RHEV-M will not be able to import the VM.") uid gid
+          warning (f_"cannot write files to the NFS server as %d:%d, even though we appear to be running as root. This probably means the NFS client or idmapd is not configured properly.\n\nYou will have to chown the files that virt-v2v creates after the run, otherwise RHV-M will not be able to import the VM.") uid gid
         else
           warning (f_"cannot write files to the NFS server as %d:%d. You might want to stop virt-v2v (^C) and rerun it as root.") uid gid
       ) in
@@ -225,7 +225,7 @@ object
         fun ({ target_overlay = ov } as t, image_uuid, vol_uuid) ->
           let ov_sd = ov.ov_sd in
           let target_file = images_dir // image_uuid // vol_uuid in
-          debug "RHEV: will export %s to %s" ov_sd target_file;
+          debug "RHV: will export %s to %s" ov_sd target_file;
 
           { t with target_file = target_file }
       ) (combine3 targets image_uuids vol_uuids) in
@@ -247,7 +247,7 @@ object
     ?clustersize path format size =
     Changeuid.func changeuid_t (
       fun () ->
-        let g = open_guestfs ~identifier:"rhev_disk_create" () in
+        let g = open_guestfs ~identifier:"rhv_disk_create" () in
         g#disk_create ?backingfile ?backingformat ?preallocation ?compat
           ?clustersize path format size;
         (* Make it sufficiently writable so that possibly root, or
@@ -277,5 +277,5 @@ object
     delete_target_directory <- false
 end
 
-let output_rhev = new output_rhev
-let () = Modules_list.register_output_module "rhev"
+let output_rhv = new output_rhv
+let () = Modules_list.register_output_module "rhv"

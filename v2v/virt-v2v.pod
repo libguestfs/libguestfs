@@ -7,7 +7,7 @@ virt-v2v - Convert a guest to use KVM
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhev -os rhev.nfs:/export_domain --network rhevm
+   -o rhv -os rhv.nfs:/export_domain --network rhvm
 
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 
@@ -22,8 +22,8 @@ virt-v2v - Convert a guest to use KVM
 Virt-v2v converts guests from a foreign hypervisor to run on KVM.  It
 can read Linux and Windows guests running on VMware, Xen, Hyper-V and
 some other hypervisors, and convert them to KVM managed by libvirt,
-OpenStack, oVirt, Red Hat Enterprise Virtualisation (RHEV) or several
-other targets.
+OpenStack, oVirt, Red Hat Virtualisation (RHV) or several other
+targets.
 
 There is also a companion front-end called L<virt-p2v(1)> which comes
 as an ISO, CD or PXE image that can be booted on physical machines to
@@ -42,7 +42,7 @@ libguestfs E<ge> 1.28.
  Xen ───▶│ -i libvirt ──▶ │            │     │  (default) │
  ... ───▶│  (default) │   │            │ ──┐ └────────────┘
          └────────────┘   │            │ ─┐└──────▶ -o glance
- -i libvirtxml ─────────▶ │            │ ┐└─────────▶ -o rhev
+ -i libvirtxml ─────────▶ │            │ ┐└─────────▶ -o rhv
                           └────────────┘ └──────────▶ -o vdsm
 
 Virt-v2v has a number of possible input and output modes, selected
@@ -74,7 +74,7 @@ libvirt configuration file (mainly for testing).
 I<-o qemu> writes to a local disk image with a shell script for
 booting the guest directly in qemu (mainly for testing).
 
-I<-o rhev> is used to write to a RHEV-M / oVirt target.  I<-o vdsm>
+I<-o rhv> is used to write to a RHV / oVirt target.  I<-o vdsm>
 is only used when virt-v2v runs under VDSM control.
 
 I<--in-place> instructs virt-v2v to customize the guest OS in the input
@@ -97,23 +97,23 @@ disks to F</var/lib/libvirt/images>.
 
 For more information see L</INPUT FROM VMWARE VCENTER SERVER> below.
 
-=head2 Convert from VMware to RHEV-M/oVirt
+=head2 Convert from VMware to RHV/oVirt
 
 This is the same as the previous example, except you want to send the
-guest to a RHEV-M Export Storage Domain which is located remotely
-(over NFS) at C<rhev.nfs:/export_domain>.  If you are unclear about
+guest to a RHV-M Export Storage Domain which is located remotely
+(over NFS) at C<rhv.nfs:/export_domain>.  If you are unclear about
 the location of the Export Storage Domain you should check the
-settings on your RHEV-M management console.  Guest network
-interface(s) are connected to the target network called C<rhevm>.
+settings on your RHV-M management console.  Guest network
+interface(s) are connected to the target network called C<rhvm>.
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi vmware_guest \
-   -o rhev -os rhev.nfs:/export_domain --network rhevm
+   -o rhv -os rhv.nfs:/export_domain --network rhvm
 
 In this case the host running virt-v2v acts as a B<conversion server>.
 
-Note that after conversion, the guest will appear in the RHEV-M Export
-Storage Domain, from where you will need to import it using the RHEV-M
-user interface.  (See L</OUTPUT TO RHEV>).
+Note that after conversion, the guest will appear in the RHV-M Export
+Storage Domain, from where you will need to import it using the RHV-M
+user interface.  (See L</OUTPUT TO RHV>).
 
 =head2 Convert disk image to OpenStack glance
 
@@ -199,7 +199,7 @@ QEMU and KVM only.
 
 =item OpenStack Glance
 
-=item Red Hat Enterprise Virtualization (RHEV) 4.1 and up
+=item Red Hat Virtualization (RHV) 4.1 and up
 
 =item Local libvirt
 
@@ -452,7 +452,7 @@ written.
 
 =item B<-o> B<ovirt>
 
-This is the same as I<-o rhev>.
+This is the same as I<-o rhv>.
 
 =item B<-o> B<qemu>
 
@@ -467,22 +467,26 @@ option which boots the guest under qemu immediately.
 
 =item B<-o> B<rhev>
 
-Set the output method to I<rhev>.
+This is the same as I<-o rhv>.
 
-The converted guest is written to a RHEV Export Storage Domain.  The
+=item B<-o> B<rhv>
+
+Set the output method to I<rhv>.
+
+The converted guest is written to a RHV Export Storage Domain.  The
 I<-os> parameter must also be used to specify the location of the
 Export Storage Domain.  Note this does not actually import the guest
-into RHEV.  You have to do that manually later using the UI.
+into RHV.  You have to do that manually later using the UI.
 
-See L</OUTPUT TO RHEV> below.
+See L</OUTPUT TO RHV> below.
 
 =item B<-o> B<vdsm>
 
 Set the output method to I<vdsm>.
 
-This mode is similar to I<-o rhev>, but the full path to the
+This mode is similar to I<-o rhv>, but the full path to the
 data domain must be given:
-F</rhev/data-center/E<lt>data-center-uuidE<gt>/E<lt>data-domain-uuidE<gt>>.
+F</rhv/data-center/E<lt>data-center-uuidE<gt>/E<lt>data-domain-uuidE<gt>>.
 This mode is only used when virt-v2v runs under VDSM control.
 
 =item B<-oa> B<sparse>
@@ -520,10 +524,10 @@ For I<-o libvirt>, this is a libvirt directory pool
 For I<-o local> and I<-o qemu>, this is a directory name.  The
 directory must exist.
 
-For I<-o rhev>, this can be an NFS path of the Export Storage Domain
+For I<-o rhv>, this can be an NFS path of the Export Storage Domain
 of the form C<E<lt>hostE<gt>:E<lt>pathE<gt>>, eg:
 
- rhev-storage.example.com:/rhev/export
+ rhv-storage.example.com:/rhv/export
 
 The NFS export must be mountable and writable by the user and host
 running virt-v2v, since the virt-v2v program has to actually mount it
@@ -620,7 +624,7 @@ to I<--vdsm-compat=1.1> in a future version of virt-v2v (when we can
 assume that everyone is using a modern version of qemu).
 
 B<Note this option only affects I<-o vdsm> output>.  All other output
-modes (including I<-o rhev>) generate modern qcow2 I<compat=1.1>
+modes (including I<-o rhv>) generate modern qcow2 I<compat=1.1>
 files, always.
 
 =item B<--vdsm-image-uuid> UUID
@@ -631,7 +635,7 @@ files, always.
 
 =item B<--vdsm-ovf-output>
 
-Normally the RHEV output mode chooses random UUIDs for the target
+Normally the RHV output mode chooses random UUIDs for the target
 guest.  However VDSM needs to control the UUIDs and passes these
 parameters when virt-v2v runs under VDSM control.  The parameters
 control:
@@ -908,7 +912,7 @@ On RHEL E<ge> 7.3, only qemu-kvm-rhev (not qemu-kvm) is supported.
 
 Not supported.
 
-=item UEFI on RHEV
+=item UEFI on RHV
 
 Not supported.
 
@@ -939,13 +943,13 @@ This is typical of a libvirt guest: It has a single network interface
 connected to a network called C<default>.
 
 To map a specific network to a target network, for example C<default>
-on the source to C<rhevm> on the target, use:
+on the source to C<rhvm> on the target, use:
 
- virt-v2v [...] --network default:rhevm
+ virt-v2v [...] --network default:rhvm
 
 To map every network to a target network, use:
 
- virt-v2v [...] --network rhevm
+ virt-v2v [...] --network rhvm
 
 Bridges are handled in the same way, but you have to use the
 I<--bridge> option instead.  For example:
@@ -1481,29 +1485,29 @@ Define the final guest in libvirt:
 
 =back
 
-=head1 OUTPUT TO RHEV
+=head1 OUTPUT TO RHV
 
-This section only applies to the I<-o rhev> output mode.  If you use
-virt-v2v from the RHEV-M user interface, then behind the scenes the
+This section only applies to the I<-o rhv> output mode.  If you use
+virt-v2v from the RHV-M user interface, then behind the scenes the
 import is managed by VDSM using the I<-o vdsm> output mode (which end
 users should not try to use directly).
 
-You have to specify I<-o rhev> and an I<-os> option that points to the
-RHEV-M Export Storage Domain.  You can either specify the NFS server
-and mountpoint, eg. S<C<-os rhev-storage:/rhev/export>>, or you can
+You have to specify I<-o rhv> and an I<-os> option that points to the
+RHV-M Export Storage Domain.  You can either specify the NFS server
+and mountpoint, eg. S<C<-os rhv-storage:/rhv/export>>, or you can
 mount that first and point to the directory where it is mounted,
 eg. S<C<-os /tmp/mnt>>.  Be careful not to point to the Data Storage
 Domain by accident as that will not work.
 
 On successful completion virt-v2v will have written the new guest to
 the Export Storage Domain, but it will not yet be ready to run.  It
-must be imported into RHEV using the UI before it can be used.
+must be imported into RHV using the UI before it can be used.
 
-In RHEV E<ge> 2.2 this is done from the Storage tab.  Select the
+In RHV E<ge> 2.2 this is done from the Storage tab.  Select the
 export domain the guest was written to.  A pane will appear underneath
 the storage domain list displaying several tabs, one of which is "VM
 Import".  The converted guest will be listed here.  Select the
-appropriate guest an click "Import".  See the RHEV documentation for
+appropriate guest an click "Import".  See the RHV documentation for
 additional details.
 
 If you export several guests, then you can import them all at the same
@@ -1745,7 +1749,7 @@ require either root or a special user:
 
 =item Mounting the Export Storage Domain
 
-When using I<-o rhev -os server:/esd> virt-v2v has to have sufficient
+When using I<-o rhv -os server:/esd> virt-v2v has to have sufficient
 privileges to NFS mount the Export Storage Domain from C<server>.
 
 You can avoid needing root here by mounting it yourself before running
@@ -1754,11 +1758,11 @@ read the next S<section ...>
 
 =item Writing to the Export Storage Domain as 36:36
 
-RHEV-M cannot read files and directories from the Export Storage
+RHV-M cannot read files and directories from the Export Storage
 Domain unless they have UID:GID 36:36.  You will see VM import
 problems if the UID:GID is not correct.
 
-When you run virt-v2v I<-o rhev> as root, virt-v2v attempts to create
+When you run virt-v2v I<-o rhv> as root, virt-v2v attempts to create
 files and directories with the correct ownership.  If you run virt-v2v
 as non-root, it will probably still work, but you will need to
 manually change ownership after virt-v2v has finished.
@@ -1784,19 +1788,19 @@ documentation.
 
 =back
 
-=head1 DEBUGGING RHEV-M IMPORT FAILURES
+=head1 DEBUGGING RHV-M IMPORT FAILURES
 
-When you export to the RHEV-M Export Storage Domain, and then import
-that guest through the RHEV-M UI, you may encounter an import failure.
+When you export to the RHV-M Export Storage Domain, and then import
+that guest through the RHV-M UI, you may encounter an import failure.
 Diagnosing these failures is infuriatingly difficult as the UI
 generally hides the true reason for the failure.
 
 There are two log files of interest.  The first is stored on the
-RHEV-M server itself, and is called
+RHV-M server itself, and is called
 F</var/log/ovirt-engine/engine.log>
 
 The second file, which is the most useful, is found on the SPM host
-(SPM stands for "Storage Pool Manager").  This is a RHEV node that is
+(SPM stands for "Storage Pool Manager").  This is a RHV node that is
 elected to do all metadata modifications in the data center, such as
 image or snapshot creation.  You can find out which host is the
 current SPM from the "Hosts" tab "Spm Status" column.  Once you have
@@ -1982,14 +1986,14 @@ I<--firstboot> or I<--firstboot-command> options with Windows guests.
 
 (Optional)
 
-The RHEV Application Provisioning Tool (RHEV APT).  If this file is
+The RHV Application Provisioning Tool (RHEV APT).  If this file is
 present, then RHEV APT will be installed in the Windows guest during
 conversion.  This tool is a guest agent which ensures that the virtio
 drivers remain up to date when the guest is running on Red Hat
-Enterprise Virtualization (RHEV).
+Virtualization (RHV).
 
-This file comes from Red Hat Enterprise Virtualization (RHEV), and is
-not distributed with virt-v2v.
+This file comes from Red Hat Virtualization (RHV), and is not
+distributed with virt-v2v.
 
 =back
 
@@ -2021,14 +2025,14 @@ conversion.
 
 Variously called C<engine-image-uploader>, C<ovirt-image-uploader> or
 C<rhevm-image-uploader>, this tool allows you to copy a guest from one
-oVirt or RHEV Export Storage Domain to another.  It only permits
-importing a guest that was previously exported from another oVirt/RHEV
+oVirt or RHV Export Storage Domain to another.  It only permits
+importing a guest that was previously exported from another oVirt/RHV
 instance.
 
 =item L<import-to-ovirt.pl|http://git.annexia.org/?p=import-to-ovirt.git>
 
 This script can be used to import guests that already run on KVM to
-oVirt or RHEV.  For more information, see this blog posting by the
+oVirt or RHV.  For more information, see this blog posting by the
 author of virt-v2v:
 
 L<https://rwmj.wordpress.com/2015/09/18/importing-kvm-guests-to-ovirt-or-rhev/#content>

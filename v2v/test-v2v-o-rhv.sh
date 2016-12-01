@@ -16,13 +16,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Test -o rhev.
+# Test -o rhv.
 
 unset CDPATH
 export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_O_RHEV_SH" ]; then
+if [ -n "$SKIP_TEST_V2V_O_RHV_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77
 fi
@@ -43,7 +43,7 @@ fi
 
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 
-d=test-v2v-o-rhev.d
+d=test-v2v-o-rhv.d
 rm -rf $d
 mkdir $d
 
@@ -53,11 +53,11 @@ mkdir $d/12345678-1234-1234-1234-123456789abc/images
 mkdir $d/12345678-1234-1234-1234-123456789abc/master
 mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms
 
-# $VG - XXX Disabled because the forking used to write files in -o rhev
+# $VG - XXX Disabled because the forking used to write files in -o rhv
 # mode confuses valgrind.
 virt-v2v --debug-gc \
     -i libvirt -ic "$libvirt_uri" windows \
-    -o rhev -os $d
+    -o rhv -os $d
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/*/*.ovf

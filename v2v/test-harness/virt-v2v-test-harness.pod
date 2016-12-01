@@ -17,8 +17,8 @@ virt-v2v-test-harness - Used to test virt-v2v against real test cases
 =head1 DESCRIPTION
 
 L<virt-v2v(1)> converts guests from a foreign hypervisor to run on
-KVM, managed by libvirt, OpenStack, oVirt, Red Hat Enterprise
-Virtualisation (RHEV) or several other targets.
+KVM, managed by libvirt, OpenStack, oVirt, Red Hat Virtualisation
+(RHV) or several other targets.
 
 Virt-v2v-test-harness is a small library (module name:
 C<V2v_test_harness>) used to run virt-v2v against a set of test cases

@@ -21,7 +21,7 @@
 val create_meta_files : Types.output_allocation -> string -> string list -> Types.target list -> string list
 (** Create the .meta file associated with each target.
 
-    Note this does not write them, since output_rhev has to do a
+    Note this does not write them, since output_rhv has to do a
     permissions dance when writing files.  Instead the contents of each
     file is returned (one per target), and they must be written to
     [target_file ^ ".meta"]. *)

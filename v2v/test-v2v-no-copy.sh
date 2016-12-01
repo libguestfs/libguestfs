@@ -58,17 +58,17 @@ test -f $d/windows.xml
 # Test the disk was NOT created.
 ! test -f $d/windows-sda
 
-# --no-copy with -o rhev.
+# --no-copy with -o rhv.
 mkdir $d/12345678-1234-1234-1234-123456789abc
 mkdir $d/12345678-1234-1234-1234-123456789abc/images
 mkdir $d/12345678-1234-1234-1234-123456789abc/master
 mkdir $d/12345678-1234-1234-1234-123456789abc/master/vms
 
-# $VG - XXX Disabled because the forking used to write files in -o rhev
+# $VG - XXX Disabled because the forking used to write files in -o rhv
 # mode confuses valgrind.
 virt-v2v --debug-gc --no-copy \
     -i libvirt -ic "$libvirt_uri" windows \
-    -o rhev -os $d
+    -o rhv -os $d
 
 # Test the OVF metadata was created.
 test -f $d/12345678-1234-1234-1234-123456789abc/master/vms/*/*.ovf
