@@ -633,15 +633,20 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_XBPS,
 };
 
+enum inspect_os_role {
+  OS_ROLE_UNKNOWN = 0,
+  OS_ROLE_ROOT,
+};
+
 /**
  * The inspection code maintains one of these structures per mountable
  * filesystem found in the disk image.  The struct (or structs) which
- * have the C<is_root> flag set are inspection roots, each
- * corresponding to a single guest.  Note that a filesystem can be
+ * have the C<role> attribute set to C<OS_ROLE_ROOT> are inspection roots,
+ * each corresponding to a single guest.  Note that a filesystem can be
  * shared between multiple guests.
  */
 struct inspect_fs {
-  int is_root;
+  enum inspect_os_role role;
   char *mountable;
   enum inspect_os_type type;
   enum inspect_os_distro distro;

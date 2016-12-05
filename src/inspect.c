@@ -113,7 +113,7 @@ collect_coreos_inspection_info (guestfs_h *g)
   for (i = 0; i < g->nr_fses; ++i) {
     struct inspect_fs *fs = &g->fses[i];
 
-    if (fs->distro == OS_DISTRO_COREOS && fs->is_root)
+    if (fs->distro == OS_DISTRO_COREOS && fs->role == OS_ROLE_ROOT)
       root = fs;
   }
 
@@ -123,7 +123,7 @@ collect_coreos_inspection_info (guestfs_h *g)
   for (i = 0; i < g->nr_fses; ++i) {
     struct inspect_fs *fs = &g->fses[i];
 
-    if (fs->distro != OS_DISTRO_COREOS || fs->is_root != 0)
+    if (fs->distro != OS_DISTRO_COREOS || fs->role == OS_ROLE_ROOT)
       continue;
 
     /* CoreOS is designed to contain 2 /usr partitions (USR-A, USR-B):
@@ -168,15 +168,16 @@ check_for_duplicated_bsd_root (guestfs_h *g)
       fs->type == OS_TYPE_NETBSD ||
       fs->type == OS_TYPE_OPENBSD;
 
-    if (fs->is_root && is_bsd &&
+    if (fs->role == OS_ROLE_ROOT && is_bsd &&
         match (g, fs->mountable, re_primary_partition)) {
       bsd_primary = fs;
       continue;
     }
 
-    if (fs->is_root && bsd_primary && bsd_primary->type == fs->type) {
-      /* remove the is root flag from the bsd_primary */
-      bsd_primary->is_root = 0;
+    if (fs->role == OS_ROLE_ROOT && bsd_primary &&
+        bsd_primary->type == fs->type) {
+      /* remove the root role from the bsd_primary */
+      bsd_primary->role = OS_ROLE_UNKNOWN;
       bsd_primary->format = OS_FORMAT_UNKNOWN;
       return;
     }
@@ -202,7 +203,7 @@ guestfs_impl_inspect_get_roots (guestfs_h *g)
    * list in this case.
    */
   for (i = 0; i < g->nr_fses; ++i) {
-    if (g->fses[i].is_root)
+    if (g->fses[i].role == OS_ROLE_ROOT)
       guestfs_int_add_string (g, &ret, g->fses[i].mountable);
   }
   guestfs_int_end_stringsbuf (g, &ret);
@@ -704,7 +705,7 @@ guestfs_int_search_for_root (guestfs_h *g, const char *root)
 
   for (i = 0; i < g->nr_fses; ++i) {
     struct inspect_fs *fs = &g->fses[i];
-    if (fs->is_root && STREQ (root, fs->mountable))
+    if (fs->role == OS_ROLE_ROOT && STREQ (root, fs->mountable))
       return fs;
   }
 

@@ -164,7 +164,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            is_dir_bin &&
            guestfs_is_file (g, "/etc/freebsd-update.conf") > 0 &&
            guestfs_is_file (g, "/etc/fstab") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_freebsd_root (g, fs) == -1)
       return -1;
@@ -175,7 +175,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_file (g, "/netbsd") > 0 &&
            guestfs_is_file (g, "/etc/fstab") > 0 &&
            guestfs_is_file (g, "/etc/release") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_netbsd_root (g, fs) == -1)
       return -1;
@@ -186,7 +186,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_file (g, "/bsd") > 0 &&
            guestfs_is_file (g, "/etc/fstab") > 0 &&
            guestfs_is_file (g, "/etc/motd") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_openbsd_root (g, fs) == -1)
       return -1;
@@ -195,7 +195,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
   else if (guestfs_is_file (g, "/hurd/console") > 0 &&
            guestfs_is_file (g, "/hurd/hello") > 0 &&
            guestfs_is_file (g, "/hurd/null") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED; /* XXX could be more specific */
     if (guestfs_int_check_hurd_root (g, fs) == -1)
       return -1;
@@ -206,7 +206,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_file (g, "/service/vm") > 0 &&
            guestfs_is_file (g, "/etc/fstab") > 0 &&
            guestfs_is_file (g, "/etc/version") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_minix_root (g, fs) == -1)
       return -1;
@@ -217,7 +217,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
             is_symlink_to (g, "/bin", "usr/bin") > 0) &&
            (guestfs_is_file (g, "/etc/fstab") > 0 ||
             guestfs_is_file (g, "/etc/hosts") > 0)) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_linux_root (g, fs) == -1)
       return -1;
@@ -228,7 +228,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
            guestfs_is_dir (g, "/home") > 0 &&
            guestfs_is_dir (g, "/usr") > 0 &&
            guestfs_is_file (g, "/etc/coreos/update.conf") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     if (guestfs_int_check_coreos_root (g, fs) == -1)
       return -1;
@@ -263,7 +263,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
   /* Windows root? */
   else if ((windows_systemroot = guestfs_int_get_windows_systemroot (g)) != NULL)
     {
-      fs->is_root = 1;
+      fs->role = OS_ROLE_ROOT;
       fs->format = OS_FORMAT_INSTALLED;
       if (guestfs_int_check_windows_root (g, fs, windows_systemroot) == -1)
 	return -1;
@@ -278,7 +278,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
   /* FreeDOS? */
   else if (guestfs_int_is_dir_nocase (g, "/FDOS") > 0 &&
            guestfs_int_is_file_nocase (g, "/FDOS/FREEDOS.BSS") > 0) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLED;
     fs->type = OS_TYPE_DOS;
     fs->distro = OS_DISTRO_FREEDOS;
@@ -306,7 +306,7 @@ check_filesystem (guestfs_h *g, const char *mountable,
             guestfs_is_file (g, "/amd64/txtsetup.sif") > 0 ||
             guestfs_is_file (g, "/freedos/freedos.ico") > 0 ||
             guestfs_is_file (g, "/boot/loader.rc") > 0)) {
-    fs->is_root = 1;
+    fs->role = OS_ROLE_ROOT;
     fs->format = OS_FORMAT_INSTALLER;
     if (guestfs_int_check_installer_root (g, fs) == -1)
       return -1;
