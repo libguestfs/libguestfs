@@ -115,7 +115,7 @@ collect_coreos_inspection_info (guestfs_h *g)
   for (i = 0; i < g->nr_fses; ++i) {
     struct inspect_fs *fs = &g->fses[i];
 
-    if (fs->distro != OS_DISTRO_COREOS || fs->role == OS_ROLE_ROOT)
+    if (fs->distro != OS_DISTRO_COREOS || fs->role != OS_ROLE_USR)
       continue;
 
     /* CoreOS is designed to contain 2 /usr partitions (USR-A, USR-B):

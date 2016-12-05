@@ -597,6 +597,7 @@ enum inspect_os_package_management {
 enum inspect_os_role {
   OS_ROLE_UNKNOWN = 0,
   OS_ROLE_ROOT,
+  OS_ROLE_USR,
 };
 
 struct inspect_fs {

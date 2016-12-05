@@ -1055,6 +1055,8 @@ guestfs_int_check_coreos_usr (guestfs_h *g, struct inspect_fs *fs)
 
   fs->type = OS_TYPE_LINUX;
   fs->distro = OS_DISTRO_COREOS;
+  fs->role = OS_ROLE_USR;
+
   if (guestfs_is_file_opts (g, "/share/coreos/lsb-release",
                             GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
     r = parse_lsb_release (g, fs, "/share/coreos/lsb-release");
