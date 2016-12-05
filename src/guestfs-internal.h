@@ -594,8 +594,13 @@ enum inspect_os_package_management {
   OS_PACKAGE_MANAGEMENT_APK,
 };
 
+enum inspect_os_role {
+  OS_ROLE_UNKNOWN = 0,
+  OS_ROLE_ROOT,
+};
+
 struct inspect_fs {
-  int is_root;
+  enum inspect_os_role role;
   char *mountable;
   enum inspect_os_type type;
   enum inspect_os_distro distro;

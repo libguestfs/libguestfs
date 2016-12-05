@@ -525,7 +525,7 @@ guestfs_int_check_installer_iso (guestfs_h *g, struct inspect_fs *fs,
 
   /* Otherwise we matched an ISO, so fill in the fs fields. */
   fs->mountable = safe_strdup (g, device);
-  fs->is_root = 1;
+  fs->role = OS_ROLE_ROOT;
   if (osinfo->is_installer)
     fs->format = OS_FORMAT_INSTALLER;
   fs->type = osinfo->type;
