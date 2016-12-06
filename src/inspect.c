@@ -31,6 +31,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <libintl.h>
+#include <assert.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
@@ -46,6 +47,8 @@ COMPILE_REGEXP (re_primary_partition, "^/dev/(?:h|s|v)d.[1234]$", 0)
 
 static void check_for_duplicated_bsd_root (guestfs_h *g);
 static void collect_coreos_inspection_info (guestfs_h *g);
+static void collect_linux_inspection_info (guestfs_h *g);
+static void collect_linux_inspection_info_for (guestfs_h *g, struct inspect_fs *root);
 
 /**
  * The main inspection API.
@@ -87,6 +90,12 @@ guestfs_impl_inspect_os (guestfs_h *g)
    * is a shadow of the real root partition probably /dev/sda5
    */
   check_for_duplicated_bsd_root (g);
+
+  /* For Linux guests with a separate /usr filesyste, merge some of the
+   * inspected information in that partition to the inspect_fs struct
+   * of the root filesystem.
+   */
+  collect_linux_inspection_info (g);
 
   /* At this point we have, in the handle, a list of all filesystems
    * found and data about each one.  Now we assemble the list of
@@ -146,6 +155,71 @@ collect_coreos_inspection_info (guestfs_h *g)
     return;
 
   guestfs_int_merge_fs_inspections (g, root, usr);
+}
+
+/**
+ * Traverse through the filesystems and find the /usr filesystem for
+ * the specified C<root>: if found, merge its basic inspection details
+ * to the root when they were set (i.e. because the /usr had os-release
+ * or other ways to identify the OS).
+ */
+static void
+collect_linux_inspection_info_for (guestfs_h *g, struct inspect_fs *root)
+{
+  size_t i;
+  struct inspect_fs *usr = NULL;
+
+  for (i = 0; i < g->nr_fses; ++i) {
+    struct inspect_fs *fs = &g->fses[i];
+    size_t j;
+
+    if (!(fs->distro == root->distro || fs->distro == OS_DISTRO_UNKNOWN) ||
+        fs->role != OS_ROLE_USR)
+      continue;
+
+    for (j = 0; j < root->nr_fstab; ++j) {
+      if (STREQ (fs->mountable, root->fstab[j].mountable)) {
+        usr = fs;
+        goto got_usr;
+      }
+    }
+  }
+
+  assert (usr == NULL);
+  return;
+
+ got_usr:
+  /* If the version information in /usr is not null, then most probably
+   * there was an os-release file there, so reset what is in root
+   * and pick the results from /usr.
+   */
+  if (!version_is_null (&usr->version)) {
+    root->distro = OS_DISTRO_UNKNOWN;
+    free (root->product_name);
+    root->product_name = NULL;
+  }
+
+  guestfs_int_merge_fs_inspections (g, root, usr);
+}
+
+/**
+ * Traverse through the filesystem list and find out if it contains
+ * the C</> and C</usr> filesystems of a Linux image (but not CoreOS,
+ * for which there is a separate C<collect_coreos_inspection_info>).
+ * If this is the case, sum up all the collected information on each
+ * root fs from the respective /usr filesystems.
+ */
+static void
+collect_linux_inspection_info (guestfs_h *g)
+{
+  size_t i;
+
+  for (i = 0; i < g->nr_fses; ++i) {
+    struct inspect_fs *fs = &g->fses[i];
+
+    if (fs->distro != OS_DISTRO_COREOS && fs->role == OS_ROLE_ROOT)
+      collect_linux_inspection_info_for (g, fs);
+  }
 }
 
 /**
