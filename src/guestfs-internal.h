@@ -795,6 +795,7 @@ extern void guestfs_int_merge_fs_inspections (guestfs_h *g, struct inspect_fs *d
 
 /* inspect-fs-unix.c */
 extern int guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs);
+extern int guestfs_int_check_linux_usr (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs_int_check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs_int_check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
 extern int guestfs_int_check_openbsd_root (guestfs_h *g, struct inspect_fs *fs);

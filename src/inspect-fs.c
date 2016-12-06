@@ -247,8 +247,10 @@ check_filesystem (guestfs_h *g, const char *mountable,
            is_dir_bin &&
            is_dir_share &&
            guestfs_is_dir (g, "/local") > 0 &&
-           guestfs_is_file (g, "/etc/fstab") == 0)
-    ;
+           guestfs_is_file (g, "/etc/fstab") == 0) {
+    if (guestfs_int_check_linux_usr (g, fs) == -1)
+      return -1;
+  }
   /* CoreOS /usr? */
   else if (is_dir_bin &&
            is_dir_share &&

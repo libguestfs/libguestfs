@@ -813,6 +813,32 @@ guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+/* The currently mounted device looks like a Linux /usr. */
+int
+guestfs_int_check_linux_usr (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+
+  fs->type = OS_TYPE_LINUX;
+  fs->role = OS_ROLE_USR;
+
+  if (guestfs_is_file_opts (g, "/lib/os-release",
+                            GUESTFS_IS_FILE_OPTS_FOLLOWSYMLINKS, 1, -1) > 0) {
+    r = parse_os_release (g, fs, "/lib/os-release");
+    if (r == -1)        /* error */
+      return -1;
+    if (r == 1)         /* ok - detected the release from this file */
+      goto skip_release_checks;
+  }
+
+ skip_release_checks:;
+
+  /* Determine the architecture. */
+  check_architecture (g, fs);
+
+  return 0;
+}
+
 /* The currently mounted device is known to be a FreeBSD root. */
 int
 guestfs_int_check_freebsd_root (guestfs_h *g, struct inspect_fs *fs)
