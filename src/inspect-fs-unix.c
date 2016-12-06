@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <libintl.h>
+#include <errno.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
@@ -1820,7 +1821,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
   char *type, *slice, *disk, *part;
   int r;
 
-  if (STRPREFIX (spec, "/dev/mapper/") && guestfs_exists (g, spec) > 0) {
+  if (STRPREFIX (spec, "/dev/mapper/")) {
     /* LVM2 does some strange munging on /dev/mapper paths for VGs and
      * LVs which contain '-' character:
      *
@@ -1831,7 +1832,17 @@ resolve_fstab_device (guestfs_h *g, const char *spec, Hash_table *md_map,
      * This makes it impossible to reverse those paths directly, so
      * we have implemented lvm_canonical_lv_name in the daemon.
      */
+    guestfs_push_error_handler (g, NULL, NULL);
     device = guestfs_lvm_canonical_lv_name (g, spec);
+    guestfs_pop_error_handler (g);
+    if (device == NULL) {
+      if (guestfs_last_errno (g) == ENOENT) {
+        /* Ignore devices that don't exist. (RHBZ#811872) */
+      } else {
+        guestfs_int_error_errno (g, guestfs_last_errno (g), "%s", guestfs_last_error (g));
+        return NULL;
+      }
+    }
   }
   else if (match3 (g, spec, re_xdev, &type, &disk, &part)) {
     r = resolve_fstab_device_xdev (g, type, disk, part, &device);
