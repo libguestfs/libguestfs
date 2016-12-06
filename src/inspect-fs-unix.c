@@ -90,6 +90,7 @@ static char *resolve_fstab_device (guestfs_h *g, const char *spec,
                                    Hash_table *md_map,
                                    enum inspect_os_type os_type);
 static int inspect_with_augeas (guestfs_h *g, struct inspect_fs *fs, const char **configfiles, int (*f) (guestfs_h *, struct inspect_fs *));
+static void canonical_mountpoint (char *mp);
 
 /* Hash structure for uuid->path lookups */
 typedef struct md_uuid {
@@ -1314,6 +1315,9 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
     if (mp == NULL)
       return -1;
 
+    /* Canonicalize the path, so "///usr//local//" -> "/usr/local" */
+    canonical_mountpoint (mp);
+
     /* Ignore certain mountpoints. */
     if (STRPREFIX (mp, "/dev/") ||
         STREQ (mp, "/dev") ||
@@ -2118,4 +2122,52 @@ make_augeas_path_expression (guestfs_h *g, const char **configfiles)
   ret = safe_asprintf (g, "/augeas/load/*[ %s ]", subexpr);
   debug (g, "augeas pathexpr = %s", ret);
   return ret;
+}
+
+/* Canonicalize the path, so "///usr//local//" -> "/usr/local"
+ *
+ * The path is modified in place because the result is always
+ * the same length or shorter than the argument passed.
+ */
+static void
+drop_char (char *mp)
+{
+  size_t len = strlen (mp);
+  memmove (&mp[0], &mp[1], len);
+}
+
+static void
+canonical_mountpoint_recursive (char *mp)
+{
+  if (mp[0] == '\0')
+    return;
+
+  /* Remove trailing slashes. */
+  if (mp[0] == '/' && mp[1] == '\0') {
+    mp[0] = '\0';
+    return;
+  }
+
+  /* Replace multiple slashes with single slashes. */
+  if (mp[0] == '/' && mp[1] == '/') {
+    drop_char (mp);
+    canonical_mountpoint_recursive (mp);
+    return;
+  }
+
+  canonical_mountpoint_recursive (&mp[1]);
+}
+
+static void
+canonical_mountpoint (char *mp)
+{
+  /* Collapse multiple leading slashes into a single slash ... */
+  while (mp[0] == '/' && mp[1] == '/')
+    drop_char (mp);
+
+  /* ... and then continue, skipping the leading slash. */
+  if (mp[0] == '/')
+    canonical_mountpoint_recursive (&mp[1]);
+  else
+    canonical_mountpoint_recursive (mp);
 }
