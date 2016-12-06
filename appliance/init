@@ -72,6 +72,8 @@ fi
 
 # devtmpfs is required since udev 176
 mount -t devtmpfs /dev /dev
+mkdir -p /dev/pts
+mount -t devpts /dev/pts /dev/pts
 
 if [[ $cmdline == *selinux=1* ]]; then
   mount -t selinuxfs none /sys/fs/selinux
