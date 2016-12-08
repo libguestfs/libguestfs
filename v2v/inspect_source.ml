@@ -120,7 +120,7 @@ and choose_root root_choice g = function
             try i := int_of_string input
             with
             | End_of_file -> error (f_"connection closed")
-            | Failure "int_of_string" -> ()
+            | Failure _ -> ()
           )
         done;
         List.nth roots (!i - 1)
