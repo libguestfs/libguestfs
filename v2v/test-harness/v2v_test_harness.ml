@@ -64,8 +64,6 @@ let default_plan = {
 
 let failwithf fs = ksprintf failwith fs
 
-let quote = Filename.quote
-
 let run ~test ?input_disk ?input_xml ?(test_plan = default_plan) () =
   let input_disk =
     match input_disk with

@@ -157,6 +157,7 @@ end
 exception Executable_not_found of string (* executable *)
 
 let (//) = Filename.concat
+let quote = Filename.quote
 
 let ( +^ ) = Int64.add
 let ( -^ ) = Int64.sub

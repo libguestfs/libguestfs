@@ -20,8 +20,6 @@ open Printf
 
 open Common_utils
 
-let quote = Filename.quote
-
 type t = {
   curl : string;
   args : args;

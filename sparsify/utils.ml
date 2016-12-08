@@ -24,8 +24,6 @@ open Common_utils
 
 module G = Guestfs
 
-let quote = Filename.quote
-
 (* Return true if the filesystem is a read-only LV (RHBZ#1185561). *)
 let is_read_only_lv (g : G.guestfs) =
   let lvs = Array.to_list (g#lvs_full ()) in

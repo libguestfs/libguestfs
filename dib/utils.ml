@@ -21,8 +21,6 @@ open Common_utils
 
 open Printf
 
-let quote = Filename.quote
-
 let unit_GB howmany =
   (Int64.of_int howmany) *^ 1024_L *^ 1024_L *^ 1024_L
 
