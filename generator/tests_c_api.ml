@@ -557,13 +557,13 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
     | Int _, arg, _ ->
       let i =
         try int_of_string arg
-        with Failure "int_of_string" ->
+        with Failure _ ->
           failwithf "%s: expecting an int, but got '%s'" test_name arg in
       pr ", %d" i
     | Int64 _, arg, _ ->
       let i =
         try Int64.of_string arg
-        with Failure "int_of_string" ->
+        with Failure _ ->
           failwithf "%s: expecting an int64, but got '%s'" test_name arg in
       pr ", %Ld" i
     | Bool _, arg, _ ->

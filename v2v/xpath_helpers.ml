@@ -31,7 +31,7 @@ let xpath_eval parsefn xpathctx expr =
     let node = Xml.xpathobj_node obj 0 in
     let str = Xml.node_as_string node in
     try Some (parsefn str)
-    with Failure "int_of_string" ->
+    with Failure _ ->
       error (f_"expecting XML expression to return an integer (expression: %s, matching string: %s)")
             expr str
   )

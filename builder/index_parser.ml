@@ -113,7 +113,7 @@ let get_index ~downloader ~sigchecker
             try Rev_int (int_of_string (List.assoc ("revision", None) fields))
             with
             | Not_found -> Rev_int 1
-            | Failure "int_of_string" ->
+            | Failure _ ->
               eprintf (f_"%s: cannot parse 'revision' field for '%s'\n") prog n;
               corrupt_file () in
           let format =
@@ -124,7 +124,7 @@ let get_index ~downloader ~sigchecker
             | Not_found ->
               eprintf (f_"%s: no 'size' field for '%s'\n") prog n;
               corrupt_file ()
-            | Failure "int_of_string" ->
+            | Failure _ ->
               eprintf (f_"%s: cannot parse 'size' field for '%s'\n") prog n;
               corrupt_file () in
           let compressed_size =
@@ -132,7 +132,7 @@ let get_index ~downloader ~sigchecker
             with
             | Not_found ->
               None
-            | Failure "int_of_string" ->
+            | Failure _ ->
               eprintf (f_"%s: cannot parse 'compressed_size' field for '%s'\n")
                 prog n;
               corrupt_file () in
@@ -157,7 +157,7 @@ let get_index ~downloader ~sigchecker
             try bool_of_string (List.assoc ("hidden", None) fields)
             with
             | Not_found -> false
-            | Failure "bool_of_string" ->
+            | Failure _ ->
               eprintf (f_"%s: cannot parse 'hidden' field for '%s'\n")
                 prog n;
               corrupt_file () in
