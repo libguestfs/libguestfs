@@ -81,10 +81,9 @@ object
     let mp, uuid =
       let fields = String.nsplit "/" os in (* ... "data-center" "UUID" *)
       let fields = List.rev fields in      (* "UUID" "data-center" ... *)
+      let fields = dropwhile ((=) "") fields in
       match fields with
-      | "" :: uuid :: rest                 (* handles trailing "/" case *)
-      | uuid :: rest
-          when String.length uuid = 36 ->
+      | uuid :: rest when String.length uuid = 36 ->
         let mp = String.concat "/" (List.rev rest) in
         mp, uuid
       | _ ->
