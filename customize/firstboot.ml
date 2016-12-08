@@ -21,7 +21,6 @@ open Printf
 open Common_utils
 open Common_gettext.Gettext
 
-open Customize_utils
 open Regedit
 
 let unix2dos s =

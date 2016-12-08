@@ -20,7 +20,6 @@ open Common_gettext.Gettext
 open Common_utils
 open Getopt.OptionName
 
-open Customize_utils
 open Customize_cmdline
 
 open Printf

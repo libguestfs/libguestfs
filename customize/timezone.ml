@@ -18,8 +18,6 @@
 
 open Common_utils
 
-open Customize_utils
-
 open Printf
 
 let set_timezone (g : Guestfs.guestfs) root timezone =

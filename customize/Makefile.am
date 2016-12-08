@@ -52,7 +52,6 @@ SOURCES_MLI = \
 
 # This list must be in dependency order.
 SOURCES_ML = \
-	customize_utils.ml \
 	append_line.ml \
 	crypt.ml \
 	firstboot.ml \
