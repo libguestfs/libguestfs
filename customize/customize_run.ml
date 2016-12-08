@@ -22,7 +22,6 @@ open Printf
 open Common_gettext.Gettext
 open Common_utils
 
-open Customize_utils
 open Customize_cmdline
 open Password
 

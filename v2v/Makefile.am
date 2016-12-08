@@ -122,7 +122,6 @@ virt_v2v_CFLAGS = \
 	$(LIBVIRT_CFLAGS)
 
 BOBJECTS = \
-	$(top_builddir)/customize/customize_utils.cmo \
 	$(top_builddir)/customize/firstboot.cmo \
 	$(top_builddir)/customize/SELinux_relabel.cmo \
 	$(SOURCES_ML:.ml=.cmo)

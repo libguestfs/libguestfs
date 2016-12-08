@@ -49,7 +49,6 @@ SOURCES_MLI = \
 
 # This list must be in dependency order.
 SOURCES_ML = \
-	customize_utils.ml \
 	crypt.ml \
 	firstboot.ml \
 	hostname.ml \

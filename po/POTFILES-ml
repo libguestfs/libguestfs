@@ -21,7 +21,6 @@ customize/crypt.ml
 customize/customize_cmdline.ml
 customize/customize_main.ml
 customize/customize_run.ml
-customize/customize_utils.ml
 customize/firstboot.ml
 customize/hostname.ml
 customize/password.ml

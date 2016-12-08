@@ -19,8 +19,6 @@
 open Common_gettext.Gettext
 open Common_utils
 
-open Customize_utils
-
 open Printf
 open Sys
 open Unix
