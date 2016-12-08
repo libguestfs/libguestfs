@@ -18,9 +18,6 @@
 
 (** Utilities used in virt-v2v only. *)
 
-val quote : string -> string
-(** The {!Filename.quote} function. *)
-
 val drive_name : int -> string
 val drive_index : string -> int
 

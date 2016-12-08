@@ -23,8 +23,6 @@ open Printf
 open Common_gettext.Gettext
 open Common_utils
 
-let quote = Filename.quote
-
 external drive_name : int -> string = "v2v_utils_drive_name"
 external drive_index : string -> int = "v2v_utils_drive_index"
 

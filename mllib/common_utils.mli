@@ -113,6 +113,9 @@ end
 val ( // ) : string -> string -> string
 (** Concatenate directory and filename. *)
 
+val quote : string -> string
+(** Shell-safe quoting of a string (alias for {!Filename.quote}). *)
+
 val ( +^ ) : int64 -> int64 -> int64
 val ( -^ ) : int64 -> int64 -> int64
 val ( *^ ) : int64 -> int64 -> int64

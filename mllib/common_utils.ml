@@ -234,6 +234,7 @@ module String = struct
 end
 
 let (//) = Filename.concat
+let quote = Filename.quote
 
 let ( +^ ) = Int64.add
 let ( -^ ) = Int64.sub
