@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -94,14 +95,14 @@ extern PyObject *guestfs_int_py_put_table (char * const * const argv);
 ";
 
   let emit_put_list_decl typ =
-    pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
+    pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase_ascii typ);
     pr "extern PyObject *guestfs_int_py_put_%s_list (struct guestfs_%s_list *%ss);\n" typ typ typ;
     pr "#endif\n";
   in
 
   List.iter (
     fun { s_name = typ } ->
-      pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
+      pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase_ascii typ);
       pr "extern PyObject *guestfs_int_py_put_%s (struct guestfs_%s *%s);\n" typ typ typ;
       pr "#endif\n";
   ) external_structs;
@@ -118,7 +119,7 @@ extern PyObject *guestfs_int_py_put_table (char * const * const argv);
 
   List.iter (
     fun { name = name; c_name = c_name } ->
-      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase_ascii c_name);
       pr "extern PyObject *guestfs_int_py_%s (PyObject *self, PyObject *args);\n" name;
       pr "#endif\n"
   ) (actions |> external_functions |> sort);
@@ -147,7 +148,7 @@ and generate_python_structs () =
 ";
 
   let emit_put_list_function typ =
-    pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
+    pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase_ascii typ);
     pr "PyObject *\n";
     pr "guestfs_int_py_put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
@@ -166,7 +167,7 @@ and generate_python_structs () =
   (* Structures, turned into Python dictionaries. *)
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
-      pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase typ);
+      pr "#ifdef GUESTFS_HAVE_STRUCT_%s\n" (String.uppercase_ascii typ);
       pr "PyObject *\n";
       pr "guestfs_int_py_put_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
@@ -279,7 +280,7 @@ and generate_python_actions actions () =
           blocking = blocking;
           c_name = c_name;
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
-      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase_ascii c_name);
       pr "PyObject *\n";
       pr "guestfs_int_py_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -415,7 +416,7 @@ and generate_python_actions actions () =
         List.iter (
           fun optarg ->
             let n = name_of_optargt optarg in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "#ifdef %s_%s_BITMASK\n" c_optarg_prefix uc_n;
             pr "  if (py_%s != Py_None) {\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
@@ -560,7 +561,7 @@ and generate_python_actions actions () =
         function
         | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
         | OStringList n ->
-          let uc_n = String.uppercase n in
+          let uc_n = String.uppercase_ascii n in
           pr "#ifdef %s_%s_BITMASK\n" c_optarg_prefix uc_n;
           pr "  if (py_%s != Py_None && (optargs_s.bitmask & %s_%s_BITMASK) != 0)\n"
             n c_optarg_prefix uc_n;
@@ -606,7 +607,7 @@ and generate_python_module () =
   pr "    guestfs_int_py_event_to_string, METH_VARARGS, NULL },\n";
   List.iter (
     fun { name = name; c_name = c_name } ->
-      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase c_name);
+      pr "#ifdef GUESTFS_HAVE_%s\n" (String.uppercase_ascii c_name);
       pr "  { (char *) \"%s\", guestfs_int_py_%s, METH_VARARGS, NULL },\n"
         name name;
       pr "#endif\n"
@@ -732,7 +733,7 @@ import libguestfsmod
 
   List.iter (
     fun (name, bitmask) ->
-      pr "EVENT_%s = 0x%x\n" (String.uppercase name) bitmask
+      pr "EVENT_%s = 0x%x\n" (String.uppercase_ascii name) bitmask
   ) events;
   pr "EVENT_ALL = 0x%x\n" all_events_bitmask;
   pr "\n";
@@ -855,7 +856,7 @@ class GuestFS(object):
         f.name (indent_python decl_string (9 + len_name) 78);
 
       if is_documented f then (
-        let doc = replace_str f.longdesc "C<guestfs_" "C<g." in
+        let doc = String.replace f.longdesc "C<guestfs_" "C<g." in
         let doc =
           match ret with
           | RErr | RInt _ | RInt64 _ | RBool _
@@ -883,7 +884,7 @@ class GuestFS(object):
           | Some opt ->
             doc ^ sprintf "\n\nThis function depends on the feature C<%s>.  See also C<g.feature-available>." opt in
         let doc = pod2text ~width:60 f.name doc in
-        let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
+        let doc = List.map (fun line -> String.replace line "\\" "\\\\") doc in
         let doc =
           match doc with
           | [] -> ""

@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -455,7 +456,7 @@ PREINIT:
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "if (STREQ (this_arg, \"%s\")) {\n" n;
             (match argt with
              | OBool _
@@ -787,14 +788,14 @@ when the final reference is cleaned up is OK).
 
   List.iter (
     fun (name, bitmask) ->
-      pr "=item $Sys::Guestfs::EVENT_%s\n" (String.uppercase name);
+      pr "=item $Sys::Guestfs::EVENT_%s\n" (String.uppercase_ascii name);
       pr "\n";
       pr "See L<guestfs(3)/GUESTFS_EVENT_%s>.\n"
-        (String.uppercase name);
+        (String.uppercase_ascii name);
       pr "\n";
       pr "=cut\n";
       pr "\n";
-      pr "our $EVENT_%s = 0x%x;\n" (String.uppercase name) bitmask;
+      pr "our $EVENT_%s = 0x%x;\n" (String.uppercase_ascii name) bitmask;
       pr "\n"
   ) events;
 
@@ -888,7 +889,7 @@ errnos:
   List.iter (
     fun ({ name = name; style = style;
            longdesc = longdesc; non_c_aliases = non_c_aliases } as f) ->
-      let longdesc = replace_str longdesc "C<guestfs_" "C<$g-E<gt>" in
+      let longdesc = String.replace longdesc "C<guestfs_" "C<$g-E<gt>" in
       pr "=item ";
       generate_perl_prototype name style;
       pr "\n\n";

@@ -18,6 +18,7 @@
 
 (* Please read generator/README first. *)
 
+open Common_utils
 open Types
 open Utils
 open Actions
@@ -155,7 +156,7 @@ let () =
   (* Check short descriptions. *)
   List.iter (
     fun { name = name; shortdesc = shortdesc } ->
-      if shortdesc.[0] <> Char.lowercase shortdesc.[0] then
+      if shortdesc.[0] <> Char.lowercase_ascii shortdesc.[0] then
         failwithf "short description of %s should begin with lowercase." name;
       let c = shortdesc.[String.length shortdesc-1] in
       if c = '\n' || c = '.' then
@@ -167,7 +168,7 @@ let () =
     fun { name = name; longdesc = longdesc } ->
       if longdesc.[String.length longdesc-1] = '\n' then
         failwithf "long description of %s should not end with \\n." name;
-      if longdesc.[0] <> Char.uppercase longdesc.[0] then
+      if longdesc.[0] <> Char.uppercase_ascii longdesc.[0] then
         failwithf "long description of %s should begin with uppercase." name
   ) (actions @ fish_commands);
 

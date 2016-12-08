@@ -44,64 +44,9 @@ val rstructs_used_by : Types.action list -> (string * rstructs_used_t) list
 val failwithf : ('a, unit, string, 'b) format4 -> 'a
 (** Like [failwith] but supports printf-like arguments. *)
 
-val unique : unit -> int
-(** Returns a unique number each time called. *)
-
-val replace_char : string -> char -> char -> string
-(** Replace character in string. *)
-
-val isspace : char -> bool
-(** Return true if char is a whitespace character. *)
-
-val triml : ?test:(char -> bool) -> string -> string
-(** Trim left. *)
-
-val trimr : ?test:(char -> bool) -> string -> string
-(** Trim right. *)
-
-val trim : ?test:(char -> bool) -> string -> string
-(** Trim left and right. *)
-
-val find : string -> string -> int
-(** [find str sub] searches for [sub] in [str], returning the index
-    or -1 if not found. *)
-
-val replace_str : string -> string -> string -> string
-(** [replace_str str s1 s2] replaces [s1] with [s2] throughout [str]. *)
-
-val string_split : string -> string -> string list
-(** [string_split sep str] splits [str] at [sep]. *)
-
 val files_equal : string -> string -> bool
 (** [files_equal filename1 filename2] returns true if the files contain
     the same content. *)
-
-val (|>) : 'a -> ('a -> 'b) -> 'b
-(** Added in OCaml 4.01, we can remove our definition when we
-    can assume this minimum version of OCaml. *)
-
-val filter_map : ('a -> 'b option) -> 'a list -> 'b list
-
-val find_map : ('a -> 'b option) -> 'a list -> 'b
-
-val iteri : (int -> 'a -> unit) -> 'a list -> unit
-
-val mapi : (int -> 'a -> 'b) -> 'a list -> 'b list
-
-val uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
-(** Uniquify a list (the list must be sorted first). *)
-
-val sort_uniq : ?cmp:('a -> 'a -> int) -> 'a list -> 'a list
-(** Sort and uniquify a list. *)
-
-val count_chars : char -> string -> int
-(** Count number of times the character occurs in string. *)
-
-val explode : string -> char list
-(** Explode a string into a list of characters. *)
-
-val map_chars : (char -> 'a) -> string -> 'a list
-(** Explode string, then map function over the characters. *)
 
 val name_of_argt : Types.argt -> string
 (** Extract argument name. *)
@@ -114,6 +59,9 @@ val seq_of_test : Types.c_api_test -> Types.seq
 
 val c_quote : string -> string
 (** Perform quoting on a string so it is safe to include in a C source file. *)
+
+val html_escape : string -> string
+(** Escape a text for HTML display. *)
 
 val pod2text : ?width:int -> ?trim:bool -> ?discard:bool -> string -> string -> string list
   (** [pod2text ?width ?trim ?discard name longdesc] converts the POD in
@@ -133,11 +81,5 @@ val pod2text : ?width:int -> ?trim:bool -> ?discard:bool -> string -> string -> 
 val action_compare : Types.action -> Types.action -> int
   (** Compare the names of two actions, for sorting. *)
 
-val spaces : int -> string
-(** [spaces n] creates a string of n spaces. *)
-
 val args_of_optargs : Types.optargs -> Types.args
 (** Convert a list of optargs into an equivalent list of args *)
-
-val html_escape : string -> string
-(** Escape a text for HTML display. *)

@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -105,7 +106,7 @@ loop(Port) ->
       pr "%s(G" name;
       List.iter (
         fun arg ->
-          pr ", %s" (String.capitalize (name_of_argt arg))
+          pr ", %s" (String.capitalize_ascii (name_of_argt arg))
       ) args;
       if optargs <> [] then
         pr ", Optargs";
@@ -114,7 +115,7 @@ loop(Port) ->
       pr "  call_port(G, {%s" name;
       List.iter (
         fun arg ->
-          pr ", %s" (String.capitalize (name_of_argt arg))
+          pr ", %s" (String.capitalize_ascii (name_of_argt arg))
       ) args;
       if optargs <> [] then
         pr ", Optargs";
@@ -128,14 +129,14 @@ loop(Port) ->
         pr "%s(G" name;
         List.iter (
           fun arg ->
-            pr ", %s" (String.capitalize (name_of_argt arg))
+            pr ", %s" (String.capitalize_ascii (name_of_argt arg))
         ) args;
         pr ") ->\n";
 
         pr "  %s(G" name;
         List.iter (
           fun arg ->
-            pr ", %s" (String.capitalize (name_of_argt arg))
+            pr ", %s" (String.capitalize_ascii (name_of_argt arg))
         ) args;
         pr ", []";
         pr ").\n"
@@ -147,7 +148,7 @@ loop(Port) ->
           pr "%s(G" alias;
           List.iter (
             fun arg ->
-              pr ", %s" (String.capitalize (name_of_argt arg))
+              pr ", %s" (String.capitalize_ascii (name_of_argt arg))
           ) args;
           if optargs <> [] then
             pr ", Optargs";
@@ -156,7 +157,7 @@ loop(Port) ->
           pr "  %s(G" name;
           List.iter (
             fun arg ->
-              pr ", %s" (String.capitalize (name_of_argt arg))
+              pr ", %s" (String.capitalize_ascii (name_of_argt arg))
           ) args;
           if optargs <> [] then
             pr ", Optargs";
@@ -166,14 +167,14 @@ loop(Port) ->
             pr "%s(G" alias;
             List.iter (
               fun arg ->
-                pr ", %s" (String.capitalize (name_of_argt arg))
+                pr ", %s" (String.capitalize_ascii (name_of_argt arg))
             ) args;
             pr ") ->\n";
 
             pr "  %s(G" name;
             List.iter (
               fun arg ->
-                pr ", %s" (String.capitalize (name_of_argt arg))
+                pr ", %s" (String.capitalize_ascii (name_of_argt arg))
             ) args;
             pr ").\n"
           )
@@ -404,7 +405,7 @@ instead of erl_interface.
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "    if (atom_equals (hd_name, \"%s\")) {\n" n;
             pr "      optargs_s.bitmask |= %s_%s_BITMASK;\n"
               c_optarg_prefix uc_n;
@@ -457,12 +458,12 @@ instead of erl_interface.
         function
         | OBool _ | OInt _ | OInt64 _ -> ()
         | OString n ->
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
               c_optarg_prefix uc_n;
             pr "    free ((char *) optargs_s.%s);\n" n
         | OStringList n ->
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "  if ((optargs_s.bitmask & %s_%s_BITMASK))\n"
               c_optarg_prefix uc_n;
             pr "    guestfs_int_free_string_list ((char **) optargs_s.%s);\n" n

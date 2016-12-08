@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -127,7 +128,7 @@ and generate_ruby_c actions () =
 
       (* Generate rdoc. *)
       if is_documented f then (
-        let doc = replace_str f.longdesc "C<guestfs_" "C<g." in
+        let doc = String.replace f.longdesc "C<guestfs_" "C<g." in
         let doc =
           if optargs <> [] then
             doc ^ "\n\nOptional arguments are supplied in the final hash parameter, which is a hash of the argument name to its value.  Pass an empty {} for no optional arguments."
@@ -138,7 +139,7 @@ and generate_ruby_c actions () =
           else doc in
         let doc = pod2text ~width:60 f.name doc in
         let doc = String.concat "\n * " doc in
-        let doc = trim doc in
+        let doc = String.trim doc in
         let doc =
           match version_added f with
           | None -> doc
@@ -157,7 +158,7 @@ and generate_ruby_c actions () =
         (* Because Ruby documentation appears as C comments, we must
          * replace any instance of "/*".
          *)
-        let doc = replace_str doc "/*" "/ *" in
+        let doc = String.replace doc "/*" "/ *" in
 
         let args = List.map name_of_argt args in
         let args = if optargs <> [] then args @ ["{optargs...}"] else args in
@@ -295,7 +296,7 @@ and generate_ruby_c actions () =
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "  v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"%s\")));\n" n;
             pr "  if (v != Qnil) {\n";
             (match argt with
@@ -483,7 +484,7 @@ Init__guestfs (void)
   List.iter (
     fun (name, bitmask) ->
       pr "  rb_define_const (m_guestfs, \"EVENT_%s\",\n"
-        (String.uppercase name);
+        (String.uppercase_ascii name);
       pr "                   ULL2NUM (UINT64_C (0x%x)));\n" bitmask;
   ) events;
   pr "  rb_define_const (m_guestfs, \"EVENT_ALL\",\n";

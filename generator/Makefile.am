@@ -27,6 +27,8 @@ sources = \
 	c.mli \
 	checks.ml \
 	checks.mli \
+	common_utils.ml \
+	common_utils.mli \
 	csharp.ml \
 	csharp.mli \
 	customize.ml \
@@ -47,6 +49,7 @@ sources = \
 	gobject.mli \
 	golang.ml \
 	golang.mli \
+	guestfs_config.ml \
 	haskell.ml \
 	haskell.mli \
 	java.ml \
@@ -85,6 +88,8 @@ sources = \
 # In build dependency order.
 objects = \
 	$(OCAML_GENERATOR_BYTES_COMPAT_CMO) \
+	guestfs_config.cmo \
+	common_utils.cmo \
 	types.cmo \
 	utils.cmo \
 	actions.cmo \
@@ -133,7 +138,7 @@ generator: $(objects)
 # Dependencies.
 depend: .depend
 
-.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
+.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml) common_utils.ml common_utils.mli guestfs_config.ml
 	rm -f $@ $@-t
 	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
 	  $(SED) 's/ *$$//' | \
@@ -173,6 +178,22 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/gobject/include/guestfs-gobject
 	cd $(top_srcdir) && $(abs_builddir)/generator
 	touch $@
+
+# We share common_utils.ml{,i} with the mllib directory.  However we
+# have to remove functions which depend on any modules which are not
+# part of the OCaml stdlib.
+common_utils.ml: $(top_srcdir)/mllib/common_utils.ml
+	rm -f $@ $@-t
+	echo '(* This file is generated from mllib/common_utils.ml *)' > $@-t
+	sed -n '/^(\*<stdlib>\*)$$/,/^(\*<\/stdlib>\*)$$/p' $< >> $@-t
+	mv $@-t $@
+common_utils.mli: $(top_srcdir)/mllib/common_utils.mli
+	rm -f $@ $@-t
+	echo '(* This file is generated from mllib/common_utils.mli *)' > $@-t
+	sed -n '/^(\*<stdlib>\*)$$/,/^(\*<\/stdlib>\*)$$/p' $< >> $@-t
+	mv $@-t $@
+guestfs_config.ml: ../mllib/guestfs_config.ml
+	cp $< $@
 
 CLEANFILES += $(noinst_DATA) $(noinst_PROGRAM)
 

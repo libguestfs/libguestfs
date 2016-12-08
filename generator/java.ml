@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -156,7 +157,8 @@ public class GuestFS {
       pr "   *\n";
       pr "   * @see #set_event_callback\n";
       pr "   */\n";
-      pr "  public static final long EVENT_%s = 0x%x;\n" (String.uppercase name) bitmask;
+      pr "  public static final long EVENT_%s = 0x%x;\n"
+         (String.uppercase_ascii name) bitmask;
       pr "\n";
   ) events;
 
@@ -259,7 +261,7 @@ public class GuestFS {
       let ret, args, optargs = f.style in
 
       if is_documented f then (
-        let doc = replace_str f.longdesc "C<guestfs_" "C<g." in
+        let doc = String.replace f.longdesc "C<guestfs_" "C<g." in
         let doc =
           if optargs <> [] then
             doc ^ "\n\nOptional arguments are supplied in the final Map<String,Object> parameter, which is a hash of the argument name to its value (cast to Object).  Pass an empty Map or null for no optional arguments."
@@ -625,7 +627,7 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
       );
       pr "JNICALL\n";
       pr "Java_com_redhat_et_libguestfs_GuestFS_";
-      pr "%s" (replace_str ("_" ^ name) "_" "_1");
+      pr "%s" (String.replace ("_" ^ name) "_" "_1");
       pr "  (JNIEnv *env, jobject obj, jlong jg";
       List.iter (
         function

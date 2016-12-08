@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -529,7 +530,7 @@ guestfs_int_lua_delete_event_callback (lua_State *L)
         List.iter (
           fun optarg ->
             let n = name_of_optargt optarg in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "    OPTARG_IF_SET (%d, \"%s\",\n" optarg_index n;
             pr "      optargs_s.bitmask |= %s_%s_BITMASK;\n"
               c_optarg_prefix uc_n;

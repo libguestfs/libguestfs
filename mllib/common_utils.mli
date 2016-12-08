@@ -16,6 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+(* The parts between <stdlib>..</stdlib> are copied into the
+ * generator/common_utils.ml file.  These parts must ONLY use
+ * functions from the OCaml stdlib.
+ *)
+(*<stdlib>*)
+
 module Char : sig
     type t = char
     val chr : int -> char
@@ -26,6 +32,13 @@ module Char : sig
 
     val lowercase_ascii : char -> char
     val uppercase_ascii : char -> char
+
+    val isspace : char -> bool
+    (** Return true if char is a whitespace character. *)
+    val isdigit : char -> bool
+    (** Return true if the character is a digit [[0-9]]. *)
+    val isxdigit : char -> bool
+    (** Return true if the character is a hex digit [[0-9a-fA-F]]. *)
 end
 (** Override the Char module from stdlib. *)
 
@@ -53,6 +66,7 @@ module String : sig
 
     val lowercase_ascii : string -> string
     val uppercase_ascii : string -> string
+    val capitalize_ascii : string -> string
 
     val is_prefix : string -> string -> bool
     (** [is_prefix str prefix] returns true if [prefix] is a prefix of [str]. *)
@@ -64,6 +78,8 @@ module String : sig
     val replace : string -> string -> string -> string
     (** [replace str s1 s2] replaces all instances of [s1] appearing in
         [str] with [s2]. *)
+    val replace_char : string -> char -> char -> string
+    (** Replace character in string. *)
     val nsplit : string -> string -> string list
     (** [nsplit sep str] splits [str] into multiple strings at each
         separator [sep]. *)
@@ -77,12 +93,22 @@ module String : sig
         characters (i.e. [\] at the end of lines) into account. *)
     val random8 : unit -> string
     (** Return a string of 8 random printable characters. *)
+    val triml : ?test:(char -> bool) -> string -> string
+    (** Trim left. *)
+    val trimr : ?test:(char -> bool) -> string -> string
+    (** Trim right. *)
+    val trim : ?test:(char -> bool) -> string -> string
+    (** Trim left and right. *)
+    val count_chars : char -> string -> int
+    (** Count number of times the character occurs in string. *)
+    val explode : string -> char list
+    (** Explode a string into a list of characters. *)
+    val map_chars : (char -> 'a) -> string -> 'a list
+    (** Explode string, then map function over the characters. *)
+    val spaces : int -> string
+    (** [spaces n] creates a string of n spaces. *)
 end
 (** Override the String module from stdlib. *)
-
-(** Exception thrown by [which] when the specified executable is not found
-    in [$PATH]. *)
-exception Executable_not_found of string (* executable *)
 
 val ( // ) : string -> string -> string
 (** Concatenate directory and filename. *)
@@ -105,16 +131,15 @@ val int_of_le32 : string -> int64
 val le32_of_int : int64 -> string
 (** Pack a 32 bit integer a 4 byte string stored little endian. *)
 
-val isdigit : char -> bool
-(** Return true if the character is a digit [[0-9]]. *)
-val isxdigit : char -> bool
-(** Return true if the character is a hex digit [[0-9a-fA-F]]. *)
-
 val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 (** Wrap text. *)
 
 val output_spaces : out_channel -> int -> unit
 (** Write [n] spaces to [out_channel]. *)
+
+val (|>) : 'a -> ('a -> 'b) -> 'b
+(** Added in OCaml 4.01, we can remove our definition when we
+    can assume this minimum version of OCaml. *)
 
 val dropwhile : ('a -> bool) -> 'a list -> 'a list
 (** [dropwhile f xs] drops leading elements from [xs] until
@@ -128,6 +153,10 @@ val takewhile : ('a -> bool) -> 'a list -> 'a list
 val filter_map : ('a -> 'b option) -> 'a list -> 'b list
 (** [filter_map f xs] applies [f] to each element of [xs].  If
     [f x] returns [Some y] then [y] is added to the returned list. *)
+val find_map : ('a -> 'b option) -> 'a list -> 'b
+(** [find_map f xs] applies [f] to each element of [xs] until
+    [f x] returns [Some y].  It returns [y].  If we exhaust the
+    list then this raises [Not_found]. *)
 val iteri : (int -> 'a -> 'b) -> 'a list -> unit
 (** [iteri f xs] calls [f i x] for each element, with [i] counting from [0]. *)
 val mapi : (int -> 'a -> 'b) -> 'a list -> 'b list
@@ -191,6 +220,9 @@ val prepend : 'a list -> 'a list ref -> unit
     [prepend] is like {!push_front} above, except it prepends a list
     to the list reference. *)
 
+val unique : unit -> int
+(** Returns a unique number each time called. *)
+
 val may : ('a -> unit) -> 'a option -> unit
 (** [may f (Some x)] runs [f x].  [may f None] does nothing. *)
 
@@ -208,6 +240,8 @@ val protect : f:(unit -> 'a) -> finally:(unit -> unit) -> 'a
     function is modelled, doesn't throw away the exception in this
     case, but requires a lot more work by the caller.  Perhaps we
     will change this in future.) *)
+
+(*</stdlib>*)
 
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
@@ -253,8 +287,12 @@ val run_main_and_handle_errors : (unit -> unit) -> unit
 val generated_by : string
 (** The string ["generated by <prog> <version>"]. *)
 
+(*<stdlib>*)
+
 val read_whole_file : string -> string
 (** Read in the whole file as a string. *)
+
+(*</stdlib>*)
 
 val parse_size : string -> int64
 (** Parse a size field, eg. [10G] *)
@@ -275,6 +313,8 @@ val create_standard_options : Getopt.speclist -> ?anon_fun:Getopt.anon_fun -> ?k
 
     Returns a new [Getopt.t] handle. *)
 
+(*<stdlib>*)
+
 val compare_version : string -> string -> int
 (** Compare two version strings. *)
 
@@ -284,6 +324,8 @@ val compare_lvm2_uuids : string -> string -> int
 val stringify_args : string list -> string
 (** Create a "pretty-print" representation of a program invocation
     (i.e. executable and its arguments). *)
+
+(*</stdlib>*)
 
 val external_command : ?echo_cmd:bool -> string -> string list
 (** Run an external command, slurp up the output as a list of lines.
@@ -306,8 +348,12 @@ val shell_command : ?echo_cmd:bool -> string -> int
 val uuidgen : unit -> string
 (** Run uuidgen to return a random UUID. *)
 
+(*<stdlib>*)
+
 val unlink_on_exit : string -> unit
 (** Unlink a temporary file on exit. *)
+
+(*</stdlib>*)
 
 val rmdir_on_exit : string -> unit
 (** Remove a temporary directory on exit (using [rm -rf]). *)
@@ -344,14 +390,20 @@ val debug_augeas_errors : Guestfs.guestfs -> unit
 val detect_file_type : string -> [`GZip | `Tar | `XZ | `Zip | `Unknown]
 (** Detect type of a file (for a very limited range of file types). *)
 
+(*<stdlib>*)
+
 val is_block_device : string -> bool
 val is_char_device : string -> bool
 val is_directory : string -> bool
 (** These don't throw exceptions, unlike the [Sys] functions. *)
 
+(*</stdlib>*)
+
 val is_partition : string -> bool
 (** Return true if the host device [dev] is a partition.  If it's
     anything else, or missing, returns false. *)
+
+(*<stdlib>*)
 
 val absolute_path : string -> string
 (** Convert any path to an absolute path. *)
@@ -381,6 +433,8 @@ val read_first_line_from_file : string -> string
 val is_regular_file : string -> bool
 (** Checks whether the file is a regular file. *)
 
+(*</stdlib>*)
+
 val inspect_mount_root : Guestfs.guestfs -> ?mount_opts_fn:(string -> string) -> string -> unit
 (** Mounts all the mount points of the specified root, just like
     [guestfish -i] does.
@@ -394,6 +448,10 @@ val inspect_mount_root_ro : Guestfs.guestfs -> string -> unit
 
 val is_btrfs_subvolume : Guestfs.guestfs -> string -> bool
 (** Checks if a filesystem is a btrfs subvolume. *)
+
+exception Executable_not_found of string (* executable *)
+(** Exception thrown by [which] when the specified executable is not found
+    in [$PATH]. *)
 
 val which : string -> string
 (** Return the full path of the specified executable from [$PATH].

@@ -21,6 +21,7 @@
 open Unix
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -41,7 +42,7 @@ let deprecation_notice ?(prefix = "") ?(replace_underscores = false) =
   | { deprecated_by = None } -> None
   | { deprecated_by = Some alt } ->
     let alt =
-      if replace_underscores then replace_char alt '_' '-' else alt in
+      if replace_underscores then String.replace_char alt '_' '-' else alt in
     let txt =
       sprintf "I<This function is deprecated.>
 In new code, use the L</%s%s> call instead.

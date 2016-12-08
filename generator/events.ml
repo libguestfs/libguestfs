@@ -18,6 +18,7 @@
 
 (* Please read generator/README first. *)
 
+open Common_utils
 open Utils
 
 (* NB: DO NOT REORDER THESE, as doing so will change the ABI.  Only

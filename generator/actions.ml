@@ -18,6 +18,7 @@
 
 (* Please read generator/README first. *)
 
+open Common_utils
 open Types
 open Utils
 
@@ -13584,17 +13585,18 @@ let test_functions, non_daemon_functions, daemon_functions =
       { f with
           c_name = f.name;
           c_function = "guestfs_" ^ f.name;
-          c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name }
+          c_optarg_prefix = "GUESTFS_" ^ String.uppercase_ascii f.name }
     | { style = _, _, (_::_); once_had_no_optargs = false } ->
       { f with
           c_name = f.name;
           c_function = "guestfs_" ^ f.name ^ "_argv";
-          c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name }
+          c_optarg_prefix = "GUESTFS_" ^ String.uppercase_ascii f.name }
     | { style = _, _, (_::_); once_had_no_optargs = true } ->
       { f with
           c_name = f.name ^ "_opts";
           c_function = "guestfs_" ^ f.name ^ "_opts_argv";
-          c_optarg_prefix = "GUESTFS_" ^ String.uppercase f.name ^ "_OPTS";
+          c_optarg_prefix = "GUESTFS_" ^ String.uppercase_ascii f.name
+                            ^ "_OPTS";
           non_c_aliases = [ f.name ^ "_opts" ] }
   in
   let test_functions = List.map make_c_function test_functions in
@@ -13609,7 +13611,7 @@ let non_daemon_functions, daemon_functions =
   let make_camel_case name =
     List.fold_left (
       fun a b ->
-        a ^ String.uppercase (Str.first_chars b 1) ^ Str.string_after b 1
+        a ^ String.uppercase_ascii (Str.first_chars b 1) ^ Str.string_after b 1
     ) "" (Str.split (Str.regexp "_") name)
   in
   let make_camel_case_if_not_set f =

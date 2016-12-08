@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -201,7 +202,9 @@ static int
   return 0;
 }
 
-" test_name name (String.uppercase test_name) (String.uppercase name);
+" test_name name
+     (String.uppercase_ascii test_name)
+     (String.uppercase_ascii name);
 
   if not_disabled then (
     generate_test_perform name i test_name test;
@@ -441,7 +444,7 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
     | StringList _, arg, sym
     | DeviceList _, arg, sym
     | FilenameList _, arg, sym ->
-      let strs = string_split " " arg in
+      let strs = String.nsplit " " arg in
       iteri (
         fun i str ->
           pr "  const char *%s_%d = \"%s\";\n" sym i (c_quote str);
@@ -489,7 +492,7 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
           | OStringList n, "" ->
             pr "  const char *const %s[1] = { NULL };\n" n; true
           | OStringList n, arg ->
-            let strs = string_split " " arg in
+            let strs = String.nsplit " " arg in
             iteri (
               fun i str ->
                 pr "  const char *%s_%d = \"%s\";\n" n i (c_quote str);
@@ -519,10 +522,10 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
     pr "  CLEANUP_FREE_STRING_LIST char **%s;\n" ret;
   | RStruct (_, typ) ->
     pr "  CLEANUP_FREE_%s struct guestfs_%s *%s;\n"
-      (String.uppercase typ) typ ret
+      (String.uppercase_ascii typ) typ ret
   | RStructList (_, typ) ->
     pr "  CLEANUP_FREE_%s_LIST struct guestfs_%s_list *%s;\n"
-      (String.uppercase typ) typ ret
+      (String.uppercase_ascii typ) typ ret
   | RBufferOut _ ->
     pr "  CLEANUP_FREE char *%s;\n" ret;
     pr "  size_t size;\n"

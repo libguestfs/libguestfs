@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -49,9 +50,9 @@ let generate_daemon_actions_h () =
     | { name = shortname; style = _, _, (_::_ as optargs) } ->
         iteri (
           fun i arg ->
-            let uc_shortname = String.uppercase shortname in
+            let uc_shortname = String.uppercase_ascii shortname in
             let n = name_of_optargt arg in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n"
               uc_shortname uc_n i
         ) optargs
@@ -541,7 +542,7 @@ let generate_daemon_dispatch () =
 
   List.iter (
     fun { name = name } ->
-      pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
+      pr "    case GUESTFS_PROC_%s:\n" (String.uppercase_ascii name);
       pr "      %s_stub (xdr_in);\n" name;
       pr "      break;\n"
   ) (actions |> daemon_functions);
@@ -819,7 +820,8 @@ let generate_daemon_optgroups_h () =
 ";
   List.iter (
     fun (group, fns) ->
-      pr "#define OPTGROUP_%s_NOT_AVAILABLE \\\n" (String.uppercase group);
+      pr "#define OPTGROUP_%s_NOT_AVAILABLE \\\n"
+         (String.uppercase_ascii group);
       List.iter (
         fun { name = name; style = ret, args, optargs } ->
           let style = ret, args @ args_of_optargs optargs, [] in

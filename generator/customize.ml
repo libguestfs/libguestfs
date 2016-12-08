@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Docstrings
 open Pr
 
@@ -1039,7 +1040,7 @@ let generate_customize_options_pod () =
           n, sprintf "B<--%s> %s" n v, ld
       ) flags in
   let cmp (arg1, _, _) (arg2, _, _) =
-    compare (String.lowercase arg1) (String.lowercase arg2)
+    compare (String.lowercase_ascii arg1) (String.lowercase_ascii arg2)
   in
   let pod = List.sort cmp pod in
 

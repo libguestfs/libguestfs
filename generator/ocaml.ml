@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -98,7 +99,7 @@ type event =
 ";
   List.iter (
     fun (name, _) ->
-      pr "  | EVENT_%s\n" (String.uppercase name)
+      pr "  | EVENT_%s\n" (String.uppercase_ascii name)
   ) events;
   pr "\n";
 
@@ -310,7 +311,7 @@ type event =
 ";
   List.iter (
     fun (name, _) ->
-      pr "  | EVENT_%s\n" (String.uppercase name)
+      pr "  | EVENT_%s\n" (String.uppercase_ascii name)
   ) events;
   pr "\n";
 
@@ -319,7 +320,7 @@ let event_all = [
 ";
   List.iter (
     fun (name, _) ->
-      pr "  EVENT_%s;\n" (String.uppercase name)
+      pr "  EVENT_%s;\n" (String.uppercase_ascii name)
   ) events;
 
   pr "\
@@ -342,7 +343,7 @@ module Errno = struct
 ";
   List.iter (
     fun e ->
-      let le = String.lowercase e in
+      let le = String.lowercase_ascii e in
       pr "  external %s : unit -> int = \"guestfs_int_ocaml_get_%s\" \"noalloc\"\n"
         le e;
       pr "  let errno_%s = %s ()\n" e le
@@ -637,7 +638,7 @@ copy_table (char * const * argv)
         List.iter (
           fun argt ->
             let n = name_of_optargt argt in
-            let uc_n = String.uppercase n in
+            let uc_n = String.uppercase_ascii n in
             pr "  if (%sv != Val_int (0)) {\n" n;
             pr "    optargs_s.bitmask |= %s_%s_BITMASK;\n" c_optarg_prefix uc_n;
             (match argt with

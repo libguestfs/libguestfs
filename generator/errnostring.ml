@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -190,7 +191,7 @@ let () =
       failwithf "%s: errno string does not begin with letter 'E' (%s)" file str;
     for i = 0 to len-1 do
       let c = str.[i] in
-      if Char.uppercase c <> c then
+      if Char.uppercase_ascii c <> c then
         failwithf "%s: errno string is not all uppercase (%s)" file str
     done
   in

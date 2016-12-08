@@ -21,6 +21,7 @@
 open Unix
 open Printf
 
+open Common_utils
 open Utils
 
 (* Output channel, 'pr' prints to this. *)
@@ -39,7 +40,7 @@ let fileshash = Hashtbl.create 13
 let pr fs =
   ksprintf
     (fun str ->
-       let i = count_chars '\n' str in
+       let i = String.count_chars '\n' str in
        lines := !lines + i;
        output_string !chan str
     ) fs

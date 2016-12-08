@@ -255,8 +255,11 @@ Makefile.in
 /fuse/test-guestunmount-fd
 /generator/.depend
 /generator/bytes.ml
+/generator/common_utils.ml
+/generator/common_utils.mli
 /generator/files-generated.txt
 /generator/generator
+/generator/guestfs_config.ml
 /generator/.pod2text.data*
 /generator/stamp-generator
 /get-kernel/.depend

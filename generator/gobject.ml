@@ -22,6 +22,7 @@
 
 open Printf
 
+open Common_utils
 open Actions
 open Docstrings
 open Events
@@ -125,7 +126,7 @@ let filenames =
 let header_start filename =
   generate_header CStyle GPLv2plus;
   let guard = Str.global_replace (Str.regexp "-") "_" filename in
-  let guard = "GUESTFS_GOBJECT_" ^ String.uppercase guard ^ "_H__" in
+  let guard = "GUESTFS_GOBJECT_" ^ String.uppercase_ascii guard ^ "_H__" in
   pr "#ifndef %s\n" guard;
   pr "#define %s\n" guard;
   pr "
@@ -139,7 +140,7 @@ G_BEGIN_DECLS
 
 and header_end filename =
   let guard = Str.global_replace (Str.regexp "-") "_" filename in
-  let guard = "GUESTFS_GOBJECT_" ^ String.uppercase guard ^ "_H__" in
+  let guard = "GUESTFS_GOBJECT_" ^ String.uppercase_ascii guard ^ "_H__" in
   pr "
 G_END_DECLS
 
@@ -299,7 +300,7 @@ let generate_gobject_struct_source filename typ () =
 
 let generate_gobject_optargs_header filename name f () =
   header_start filename;
-  let uc_name = String.uppercase name in
+  let uc_name = String.uppercase_ascii name in
   let camel_name = camel_of_name f in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
 
@@ -358,7 +359,7 @@ let generate_gobject_optargs_source filename name optargs f () =
     "An object encapsulating optional arguments for guestfs_session_" ^ name in
   source_start ~shortdesc:desc ~longdesc:desc filename;
 
-  let uc_name = String.uppercase name in
+  let uc_name = String.uppercase_ascii name in
   let camel_name = camel_of_name f in
   let type_define = "GUESTFS_TYPE_" ^ uc_name in
 
@@ -386,7 +387,7 @@ let generate_gobject_optargs_source filename name optargs f () =
   pr "  PROP_GUESTFS_%s_PROP0" uc_name;
   List.iter (
     fun optargt ->
-      let uc_optname = String.uppercase (name_of_optargt optargt) in
+      let uc_optname = String.uppercase_ascii (name_of_optargt optargt) in
       pr ",\n  PROP_GUESTFS_%s_%s" uc_name uc_optname;
   ) optargs;
   pr "\n};\n\n";
@@ -402,7 +403,7 @@ let generate_gobject_optargs_source filename name optargs f () =
     function OStringList _ -> () (* XXX *)
     | optargt ->
       let optname = name_of_optargt optargt in
-      let uc_optname = String.uppercase optname in
+      let uc_optname = String.uppercase_ascii optname in
       pr "    case PROP_GUESTFS_%s_%s:\n" uc_name uc_optname;
       (match optargt with
       | OString n ->
@@ -435,7 +436,7 @@ let generate_gobject_optargs_source filename name optargs f () =
     function OStringList _ -> () (* XXX *)
     | optargt ->
       let optname = name_of_optargt optargt in
-      let uc_optname = String.uppercase optname in
+      let uc_optname = String.uppercase_ascii optname in
       pr "    case PROP_GUESTFS_%s_%s:\n" uc_name uc_optname;
       let set_value_func = match optargt with
       | OBool _   -> "enum"
@@ -508,7 +509,7 @@ let generate_gobject_optargs_source filename name optargs f () =
       pr "   */\n";
       pr "  g_object_class_install_property (\n";
       pr "    object_class,\n";
-      pr "    PROP_GUESTFS_%s_%s,\n" uc_name (String.uppercase optname);
+      pr "    PROP_GUESTFS_%s_%s,\n" uc_name (String.uppercase_ascii optname);
       pr "    g_param_spec_%s (\n" type_spec;
       pr "      \"%s\",\n" optname;
       pr "      \"%s\",\n" optname;
@@ -607,7 +608,7 @@ let generate_gobject_session_header () =
   List.iter (
     fun (name, _) ->
       pr " * @GUESTFS_SESSION_EVENT_%s: The %s event\n"
-        (String.uppercase name) name;
+        (String.uppercase_ascii name) name;
   ) events;
 
   pr " *
@@ -618,7 +619,7 @@ typedef enum {";
 
   List.iter (
     fun (name, _) ->
-      pr "\n  GUESTFS_SESSION_EVENT_%s," (String.uppercase name);
+      pr "\n  GUESTFS_SESSION_EVENT_%s," (String.uppercase_ascii name);
   ) events;
 
   pr "
@@ -776,8 +777,8 @@ guestfs_session_event_from_guestfs_event (uint64_t event)
 
   List.iter (
     fun (name, _) ->
-      let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase name in
-      let guestfs_name = "GUESTFS_EVENT_" ^ String.uppercase name in
+      let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase_ascii name in
+      let guestfs_name = "GUESTFS_EVENT_" ^ String.uppercase_ascii name in
       pr "\n    case %s: return %s;" guestfs_name enum_name;
   ) events;
 
@@ -830,7 +831,7 @@ guestfs_session_event_get_type (void)
 
   List.iter (
     fun (name, _) ->
-      let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase name in
+      let enum_name = "GUESTFS_SESSION_EVENT_" ^ String.uppercase_ascii name in
       pr "\n      { %s, \"%s\", \"%s\" }," enum_name enum_name name
   ) events;
 
@@ -887,7 +888,8 @@ guestfs_session_class_init (GuestfsSessionClass *klass)
       pr "   * See \"SETTING CALLBACKS TO HANDLE EVENTS\" in guestfs(3) for\n";
       pr "   * more details about this event.\n";
       pr "   */\n";
-      pr "  signals[GUESTFS_SESSION_EVENT_%s] =\n" (String.uppercase name);
+      pr "  signals[GUESTFS_SESSION_EVENT_%s] =\n"
+         (String.uppercase_ascii name);
       pr "    g_signal_new (g_intern_static_string (\"%s\"),\n" name;
       pr "                 G_OBJECT_CLASS_TYPE (object_class),\n";
       pr "                 G_SIGNAL_RUN_LAST,\n";
@@ -1156,7 +1158,7 @@ guestfs_session_close (GuestfsSession *session, GError **err)
         pr "  if (optargs) {\n";
         pr "    argv.bitmask = 0;\n\n";
         let set_property name typ v_typ get_typ unset =
-          let uc_name = String.uppercase name in
+          let uc_name = String.uppercase_ascii name in
           pr "    GValue %s_v = {0, };\n" name;
           pr "    g_value_init (&%s_v, %s);\n" name v_typ;
           pr "    g_object_get_property (G_OBJECT (optargs), \"%s\", &%s_v);\n" name name;

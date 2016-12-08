@@ -23,6 +23,8 @@
  * makes this a bit harder than it should be.
  *)
 
+open Common_utils
+
 open Unix
 open Printf
 
@@ -119,155 +121,12 @@ let rstructs_used_by functions =
 
 let failwithf fs = ksprintf failwith fs
 
-let unique = let i = ref 0 in fun () -> incr i; !i
-
-let replace_char s c1 c2 =
-  let b2 = Bytes.of_string s in
-  let r = ref false in
-  for i = 0 to Bytes.length b2 - 1 do
-    if Bytes.unsafe_get b2 i = c1 then (
-      Bytes.unsafe_set b2 i c2;
-      r := true
-    )
-  done;
-  if not !r then s else Bytes.to_string b2
-
-let isspace c =
-  c = ' '
-  (* || c = '\f' *) || c = '\n' || c = '\r' || c = '\t' (* || c = '\v' *)
-
-let triml ?(test = isspace) str =
-  let i = ref 0 in
-  let n = ref (String.length str) in
-  while !n > 0 && test str.[!i]; do
-    decr n;
-    incr i
-  done;
-  if !i = 0 then str
-  else String.sub str !i !n
-
-let trimr ?(test = isspace) str =
-  let n = ref (String.length str) in
-  while !n > 0 && test str.[!n-1]; do
-    decr n
-  done;
-  if !n = String.length str then str
-  else String.sub str 0 !n
-
-let trim ?(test = isspace) str =
-  trimr ~test (triml ~test str)
-
-let rec find s sub =
-  let len = String.length s in
-  let sublen = String.length sub in
-  let rec loop i =
-    if i <= len-sublen then (
-      let rec loop2 j =
-        if j < sublen then (
-          if s.[i+j] = sub.[j] then loop2 (j+1)
-          else -1
-        ) else
-          i (* found *)
-      in
-      let r = loop2 0 in
-      if r = -1 then loop (i+1) else r
-    ) else
-      -1 (* not found *)
-  in
-  loop 0
-
-let rec replace_str s s1 s2 =
-  let len = String.length s in
-  let sublen = String.length s1 in
-  let i = find s s1 in
-  if i = -1 then s
-  else (
-    let s' = String.sub s 0 i in
-    let s'' = String.sub s (i+sublen) (len-i-sublen) in
-    s' ^ s2 ^ replace_str s'' s1 s2
-  )
-
-let rec string_split sep str =
-  let len = String.length str in
-  let seplen = String.length sep in
-  let i = find str sep in
-  if i = -1 then [str]
-  else (
-    let s' = String.sub str 0 i in
-    let s'' = String.sub str (i+seplen) (len-i-seplen) in
-    s' :: string_split sep s''
-  )
-
 let files_equal n1 n2 =
   let cmd = sprintf "cmp -s %s %s" (Filename.quote n1) (Filename.quote n2) in
   match Sys.command cmd with
   | 0 -> true
   | 1 -> false
   | i -> failwithf "%s: failed with error code %d" cmd i
-
-let (|>) x f = f x
-
-let rec filter_map f = function
-  | [] -> []
-  | x :: xs ->
-      match f x with
-      | Some y -> y :: filter_map f xs
-      | None -> filter_map f xs
-
-let rec find_map f = function
-  | [] -> raise Not_found
-  | x :: xs ->
-      match f x with
-      | Some y -> y
-      | None -> find_map f xs
-
-let iteri f xs =
-  let rec loop i = function
-    | [] -> ()
-    | x :: xs -> f i x; loop (i+1) xs
-  in
-  loop 0 xs
-
-let mapi f xs =
-  let rec loop i = function
-    | [] -> []
-    | x :: xs -> let r = f i x in r :: loop (i+1) xs
-  in
-  loop 0 xs
-
-let uniq ?(cmp = Pervasives.compare) xs =
-  let rec loop acc = function
-    | [] -> acc
-    | [x] -> x :: acc
-    | x :: (y :: _ as xs) when cmp x y = 0 ->
-       loop acc xs
-    | x :: (y :: _ as xs) ->
-       loop (x :: acc) xs
-  in
-  List.rev (loop [] xs)
-
-let sort_uniq ?(cmp = Pervasives.compare) xs =
-  let xs = List.sort cmp xs in
-  let xs = uniq ~cmp xs in
-  xs
-
-let count_chars c str =
-  let count = ref 0 in
-  for i = 0 to String.length str - 1 do
-    if c = String.unsafe_get str i then incr count
-  done;
-  !count
-
-let explode str =
-  let r = ref [] in
-  for i = 0 to String.length str - 1 do
-    let c = String.unsafe_get str i in
-    r := c :: !r;
-  done;
-  List.rev !r
-
-let map_chars f str =
-  List.map f (explode str)
 
 let name_of_argt = function
   | Pathname n | Device n | Mountable n | Dev_or_Path n
@@ -290,13 +149,19 @@ let seq_of_test = function
   | TestRunOrUnsupported s -> s
 
 let c_quote str =
-  let str = replace_str str "\\" "\\\\" in
-  let str = replace_str str "\r" "\\r" in
-  let str = replace_str str "\n" "\\n" in
-  let str = replace_str str "\t" "\\t" in
-  let str = replace_str str "\000" "\\0" in
-  let str = replace_str str "\"" "\\\"" in
+  let str = String.replace str "\\" "\\\\" in
+  let str = String.replace str "\r" "\\r" in
+  let str = String.replace str "\n" "\\n" in
+  let str = String.replace str "\t" "\\t" in
+  let str = String.replace str "\000" "\\0" in
+  let str = String.replace str "\"" "\\\"" in
   str
+
+let html_escape text =
+  let text = String.replace text "&" "&amp;" in
+  let text = String.replace text "<" "&lt;" in
+  let text = String.replace text ">" "&gt;" in
+  text
 
 (* Used to memoize the result of pod2text. *)
 type memo_key = int option * bool * bool * string * string
@@ -356,7 +221,7 @@ let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
       if i = 1 && discard then  (* discard the first line of output *)
         loop (i+1)
       else (
-        let line = if trim then triml line else line in
+        let line = if trim then String.triml line else line in
         lines := line :: !lines;
         loop (i+1)
       ) in
@@ -376,8 +241,6 @@ let pod2text ?width ?(trim = true) ?(discard = true) name longdesc =
 (* Compare two actions (for sorting). *)
 let action_compare { name = n1 } { name = n2 } = compare n1 n2
 
-let spaces n = String.make n ' '
-
 let args_of_optargs optargs =
   List.map (
     function
@@ -387,9 +250,3 @@ let args_of_optargs optargs =
     | OString n -> String n
     | OStringList n -> StringList n
   ) optargs
-
-let html_escape text =
-  let text = replace_str text "&" "&amp;" in
-  let text = replace_str text "<" "&lt;" in
-  let text = replace_str text ">" "&gt;" in
-  text

@@ -113,7 +113,8 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
           *)
          let is_gpo_guid name =
            let len = String.length name in
-           len > 3 && name.[0] = '{' && isxdigit name.[1] && name.[len-1] = '}'
+           len > 3 && name.[0] = '{' &&
+             Char.isxdigit name.[1] && name.[len-1] = '}'
          in
          List.exists is_gpo_guid children
        with

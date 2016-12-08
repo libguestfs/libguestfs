@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -177,9 +178,9 @@ let generate_xdr () =
     | [] -> ()
     | { proc_nr = None } :: _ -> assert false
     | { name = shortname; proc_nr = Some proc_nr } :: [] ->
-      pr "  GUESTFS_PROC_%s = %d\n" (String.uppercase shortname) proc_nr
+      pr "  GUESTFS_PROC_%s = %d\n" (String.uppercase_ascii shortname) proc_nr
     | { name = shortname; proc_nr = Some proc_nr } :: rest ->
-      pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr;
+      pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase_ascii shortname) proc_nr;
       loop rest
   in
   loop (actions |> daemon_functions);

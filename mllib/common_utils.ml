@@ -16,7 +16,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+(* The parts between <stdlib>..</stdlib> are copied into the
+ * generator/common_utils.ml file.  These parts must ONLY use
+ * functions from the OCaml stdlib.
+ *)
+(*<stdlib>*)
 open Printf
+(*</stdlib>*)
 
 open Common_gettext.Gettext
 open Getopt.OptionName
@@ -24,6 +30,8 @@ open Getopt.OptionName
 external c_inspect_decrypt : Guestfs.t -> int64 -> unit = "guestfs_int_mllib_inspect_decrypt"
 external c_set_echo_keys : unit -> unit = "guestfs_int_mllib_set_echo_keys" "noalloc"
 external c_set_keys_from_stdin : unit -> unit = "guestfs_int_mllib_set_keys_from_stdin" "noalloc"
+
+(*<stdlib>*)
 
 module Char = struct
     include Char
@@ -37,6 +45,20 @@ module Char = struct
       if (c >= 'a' && c <= 'z')
       then unsafe_chr (code c - 32)
       else c
+
+    let isspace c =
+      c = ' '
+      (* || c = '\f' *) || c = '\n' || c = '\r' || c = '\t' (* || c = '\v' *)
+
+    let isdigit = function
+      | '0'..'9' -> true
+      | _ -> false
+
+    let isxdigit = function
+      | '0'..'9' -> true
+      | 'a'..'f' -> true
+      | 'A'..'F' -> true
+      | _ -> false
 end
 
 module String = struct
@@ -52,6 +74,11 @@ module String = struct
 
     let lowercase_ascii s = map Char.lowercase_ascii s
     let uppercase_ascii s = map Char.uppercase_ascii s
+
+    let capitalize_ascii s =
+      let b = Bytes.of_string s in
+      Bytes.unsafe_set b 0 (Char.uppercase_ascii (Bytes.unsafe_get b 0));
+      Bytes.to_string b
 
     let is_prefix str prefix =
       let n = length prefix in
@@ -91,6 +118,17 @@ module String = struct
         let s'' = sub s (i+sublen) (len-i-sublen) in
         s' ^ s2 ^ replace s'' s1 s2
       )
+
+    let replace_char s c1 c2 =
+      let b2 = Bytes.of_string s in
+      let r = ref false in
+      for i = 0 to Bytes.length b2 - 1 do
+        if Bytes.unsafe_get b2 i = c1 then (
+          Bytes.unsafe_set b2 i c2;
+          r := true
+        )
+      done;
+      if not !r then s else Bytes.to_string b2
 
     let rec nsplit sep str =
       let len = length str in
@@ -152,9 +190,48 @@ module String = struct
             make 1 c
         ) [1;2;3;4;5;6;7;8]
       )
-end
 
-exception Executable_not_found of string (* executable *)
+    let triml ?(test = Char.isspace) str =
+      let i = ref 0 in
+      let n = ref (String.length str) in
+      while !n > 0 && test str.[!i]; do
+        decr n;
+        incr i
+      done;
+      if !i = 0 then str
+      else String.sub str !i !n
+
+    let trimr ?(test = Char.isspace) str =
+      let n = ref (String.length str) in
+      while !n > 0 && test str.[!n-1]; do
+        decr n
+      done;
+      if !n = String.length str then str
+      else String.sub str 0 !n
+
+    let trim ?(test = Char.isspace) str =
+      trimr ~test (triml ~test str)
+
+    let count_chars c str =
+      let count = ref 0 in
+      for i = 0 to String.length str - 1 do
+        if c = String.unsafe_get str i then incr count
+      done;
+      !count
+
+    let explode str =
+      let r = ref [] in
+      for i = 0 to String.length str - 1 do
+        let c = String.unsafe_get str i in
+        r := c :: !r;
+      done;
+      List.rev !r
+
+    let map_chars f str =
+      List.map f (explode str)
+
+    let spaces n = String.make n ' '
+end
 
 let (//) = Filename.concat
 
@@ -190,16 +267,6 @@ let le32_of_int i =
   Bytes.unsafe_set b 2 (Char.unsafe_chr (Int64.to_int c2));
   Bytes.unsafe_set b 3 (Char.unsafe_chr (Int64.to_int c3));
   Bytes.to_string b
-
-let isdigit = function
-  | '0'..'9' -> true
-  | _ -> false
-
-let isxdigit = function
-  | '0'..'9' -> true
-  | 'a'..'f' -> true
-  | 'A'..'F' -> true
-  | _ -> false
 
 type wrap_break_t = WrapEOS | WrapSpace | WrapNL
 
@@ -237,6 +304,8 @@ and _wrap_find_next_break i len str =
 
 and output_spaces chan n = for i = 0 to n-1 do output_char chan ' ' done
 
+let (|>) x f = f x
+
 (* Drop elements from a list while a predicate is true. *)
 let rec dropwhile f = function
   | [] -> []
@@ -254,6 +323,13 @@ let rec filter_map f = function
       match f x with
       | Some y -> y :: filter_map f xs
       | None -> filter_map f xs
+
+let rec find_map f = function
+  | [] -> raise Not_found
+  | x :: xs ->
+      match f x with
+      | Some y -> y
+      | None -> find_map f xs
 
 let iteri f xs =
   let rec loop i = function
@@ -326,6 +402,8 @@ let pop_front xsp =
 let append xsp xs = xsp := !xsp @ xs
 let prepend xs xsp = xsp := xs @ !xsp
 
+let unique = let i = ref 0 in fun () -> incr i; !i
+
 let may f = function
   | None -> ()
   | Some x -> f x
@@ -338,6 +416,8 @@ let protect ~f ~finally =
     with exn -> Or exn in
   finally ();
   match r with Either ret -> ret | Or exn -> raise exn
+
+exception Executable_not_found of string (* executable *)
 
 let which executable =
   let paths =
@@ -389,6 +469,8 @@ let ansi_magenta ?(chan = stdout) () =
   if colours () || istty chan then output_string chan "\x1b[1;35m"
 let ansi_restore ?(chan = stdout) () =
   if colours () || istty chan then output_string chan "\x1b[0m"
+
+(*</stdlib>*)
 
 (* Timestamped progress messages, used for ordinary messages when not
  * --quiet.
@@ -497,6 +579,8 @@ let print_version_and_exit () =
 let generated_by =
   sprintf (f_"generated by %s %s") prog Guestfs_config.package_version_full
 
+(*<stdlib>*)
+
 let read_whole_file path =
   let buf = Buffer.create 16384 in
   let chan = open_in path in
@@ -512,6 +596,8 @@ let read_whole_file path =
   loop ();
   close_in chan;
   Buffer.contents buf
+
+(*</stdlib>*)
 
 (* Parse a size field, eg. "10G". *)
 let parse_size =
@@ -627,6 +713,8 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) usage_msg =
       else []) in
   Getopt.create argspec ?anon_fun usage_msg
 
+(*<stdlib>*)
+
 (* Compare two version strings intelligently. *)
 let rex_numbers = Str.regexp "^\\([0-9]+\\)\\(.*\\)$"
 let rex_letters = Str.regexp_case_fold "^\\([a-z]+\\)\\(.*\\)$"
@@ -683,6 +771,8 @@ let stringify_args args =
   match args with
   | [] -> ""
   | app :: xs -> app ^ quote_args xs
+
+(*</stdlib>*)
 
 (* Run an external command, slurp up the output as a list of lines. *)
 let external_command ?(echo_cmd = true) cmd =
@@ -748,6 +838,8 @@ let uuidgen () =
   if len < 10 then assert false; (* sanity check on uuidgen *)
   uuid
 
+(*<stdlib>*)
+
 (* Unlink a temporary file on exit. *)
 let unlink_on_exit =
   let files = ref [] in
@@ -768,6 +860,8 @@ let unlink_on_exit =
       register_handlers ();
       registered_handlers := true
     )
+
+(*</stdlib>*)
 
 (* Remove a temporary directory on exit. *)
 let rmdir_on_exit =
@@ -905,6 +999,8 @@ let detect_file_type filename =
   close_in chan;
   ret
 
+(*<stdlib>*)
+
 let is_block_device file =
   try (Unix.stat file).Unix.st_kind = Unix.S_BLK
   with Unix.Unix_error _ -> false
@@ -912,6 +1008,8 @@ let is_block_device file =
 let is_char_device file =
   try (Unix.stat file).Unix.st_kind = Unix.S_CHR
   with Unix.Unix_error _ -> false
+
+(*</stdlib>*)
 
 let is_partition dev =
   try
@@ -925,6 +1023,8 @@ let is_partition dev =
       true
     )
   with Unix.Unix_error _ -> false
+
+(*<stdlib>*)
 
 (* Annoyingly Sys.is_directory throws an exception on failure
  * (RHBZ#1022431).
@@ -994,6 +1094,8 @@ let read_first_line_from_file filename =
 let is_regular_file path = (* NB: follows symlinks. *)
   try (Unix.stat path).Unix.st_kind = Unix.S_REG
   with Unix.Unix_error _ -> false
+
+(*</stdlib>*)
 
 let inspect_mount_root g ?mount_opts_fn root =
   let mps = g#inspect_get_mountpoints root in

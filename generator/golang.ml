@@ -20,6 +20,7 @@
 
 open Printf
 
+open Common_utils
 open Types
 open Utils
 open Pr
@@ -261,7 +262,7 @@ func return_hashtable (argv **C.char) map[string]string {
   List.iter (
     fun ({ name = name; shortdesc = shortdesc;
           style = (ret, args, optargs) } as f) ->
-      let go_name = String.capitalize name in
+      let go_name = String.capitalize_ascii name in
 
       (* If it has optional arguments, pass them in a struct
        * after the required arguments.
@@ -272,7 +273,7 @@ func return_hashtable (argv **C.char) map[string]string {
         pr "type Optargs%s struct {\n" go_name;
         List.iter (
           fun optarg ->
-            let cn = String.capitalize (name_of_optargt optarg) in
+            let cn = String.capitalize_ascii (name_of_optargt optarg) in
             pr "    /* %s field is ignored unless %s_is_set == true */\n"
               cn cn;
             pr "    %s_is_set bool\n" cn;
@@ -408,10 +409,10 @@ func return_hashtable (argv **C.char) map[string]string {
         List.iter (
           fun optarg ->
             let n = name_of_optargt optarg in
-            let cn = String.capitalize n in
+            let cn = String.capitalize_ascii n in
             pr "        if optargs.%s_is_set {\n" cn;
             pr "            c_optargs.bitmask |= C.%s_%s_BITMASK\n"
-              f.c_optarg_prefix (String.uppercase n);
+              f.c_optarg_prefix (String.uppercase_ascii n);
             (match optarg with
             | OBool _ ->
               pr "            if optargs.%s { c_optargs.%s = 1 } else { c_optargs.%s = 0}\n" cn n n
