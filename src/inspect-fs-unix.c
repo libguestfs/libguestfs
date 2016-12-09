@@ -2130,44 +2130,28 @@ make_augeas_path_expression (guestfs_h *g, const char **configfiles)
  * the same length or shorter than the argument passed.
  */
 static void
-drop_char (char *mp)
+canonical_mountpoint (char *s)
 {
-  size_t len = strlen (mp);
-  memmove (&mp[0], &mp[1], len);
-}
+  size_t len = strlen (s);
+  char *orig = s;
 
-static void
-canonical_mountpoint_recursive (char *mp)
-{
-  if (mp[0] == '\0')
-    return;
+  s = strchr (s, '/');
+  while (s != NULL && *s != 0) {
+    char *pos = s + 1;
+    char *p = pos;
+    /* Find how many consecutive slashes are there after the one found,
+     * and shift the characters after them accordingly. */
+    while (*p == '/')
+      ++p;
+    if (p - pos > 0) {
+      memmove (pos, p, len - (p - orig) + 1);
+      len -= p - pos;
+    }
 
-  /* Remove trailing slashes. */
-  if (mp[0] == '/' && mp[1] == '\0') {
-    mp[0] = '\0';
-    return;
+    s = strchr (pos, '/');
   }
-
-  /* Replace multiple slashes with single slashes. */
-  if (mp[0] == '/' && mp[1] == '/') {
-    drop_char (mp);
-    canonical_mountpoint_recursive (mp);
-    return;
-  }
-
-  canonical_mountpoint_recursive (&mp[1]);
-}
-
-static void
-canonical_mountpoint (char *mp)
-{
-  /* Collapse multiple leading slashes into a single slash ... */
-  while (mp[0] == '/' && mp[1] == '/')
-    drop_char (mp);
-
-  /* ... and then continue, skipping the leading slash. */
-  if (mp[0] == '/')
-    canonical_mountpoint_recursive (&mp[1]);
-  else
-    canonical_mountpoint_recursive (mp);
+  /* Ignore the trailing slash, but avoid removing it for "/". */
+  if (len > 1 && orig[len-1] == '/')
+    --len;
+  orig[len] = 0;
 }
