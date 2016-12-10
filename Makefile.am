@@ -234,6 +234,9 @@ EXTRA_DIST = \
 	website/communicate.png \
 	website/documentation.png \
 	website/download.png \
+	website/download/builder/README \
+	website/download/builder/index \
+	website/download/builder/index.asc \
 	website/draft.png \
 	website/draft.svg \
 	website/easytoread.css \
