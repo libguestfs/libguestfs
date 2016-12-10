@@ -13,7 +13,6 @@ builder/setlocale.ml
 builder/sigchecker.ml
 builder/simplestreams_parser.ml
 builder/sources.ml
-builder/templates/make-template.ml
 builder/utils.ml
 builder/yajl.ml
 builder/yajl_tests.ml
