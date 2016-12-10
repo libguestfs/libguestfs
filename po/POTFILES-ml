@@ -129,7 +129,7 @@ v2v/output_libvirt.ml
 v2v/output_local.ml
 v2v/output_null.ml
 v2v/output_qemu.ml
-v2v/output_rhev.ml
+v2v/output_rhv.ml
 v2v/output_vdsm.ml
 v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml
