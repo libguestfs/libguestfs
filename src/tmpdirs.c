@@ -223,6 +223,23 @@ guestfs_int_lazy_make_sockdir (guestfs_h *g)
 }
 
 /**
+ * Generate unique temporary paths for temporary files.
+ *
+ * Returns a unique path or NULL on error.
+ */
+char *
+guestfs_int_make_temp_path (guestfs_h *g, const char *name)
+{
+  int ret = 0;
+
+  ret = guestfs_int_lazy_make_tmpdir (g);
+  if (ret < 0)
+    return NULL;
+
+  return safe_asprintf (g, "%s/%s%d", g->tmpdir, name, ++g->unique);
+}
+
+/**
  * Create the supermin appliance directory under cachedir, if it does
  * not exist.
  *
