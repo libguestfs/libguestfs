@@ -86,10 +86,9 @@ guestfs_impl_read_file (guestfs_h *g, const char *path, size_t *size_r)
   char *ret = NULL;
   struct stat statbuf;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  tmpfile = guestfs_int_make_temp_path (g, "cat");
+  if (tmpfile == NULL)
     goto err;
-
-  tmpfile = safe_asprintf (g, "%s/cat%d", g->tmpdir, ++g->unique);
 
   if (guestfs_download (g, path, tmpfile) == -1)
     goto err;
@@ -213,10 +212,9 @@ guestfs_impl_find (guestfs_h *g, const char *directory)
   char **ret = NULL;
   size_t i, count, size;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  tmpfile = guestfs_int_make_temp_path (g, "find");
+  if (tmpfile == NULL)
     goto err;
-
-  tmpfile = safe_asprintf (g, "%s/find%d", g->tmpdir, ++g->unique);
 
   if (guestfs_find0 (g, directory, tmpfile) == -1)
     goto err;
@@ -317,11 +315,10 @@ write_or_append (guestfs_h *g, const char *path,
       (!append ? guestfs_internal_write : guestfs_internal_write_append)
       (g, path, content, size);
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
-    goto err;
-
   /* Write the content out to a temporary file. */
-  tmpfile = safe_asprintf (g, "%s/write%d", g->tmpdir, ++g->unique);
+  tmpfile = guestfs_int_make_temp_path (g, "write");
+  if (tmpfile == NULL)
+    goto err;
 
   fd = open (tmpfile, O_WRONLY|O_CREAT|O_NOCTTY|O_CLOEXEC, 0600);
   if (fd == -1) {
@@ -515,10 +512,9 @@ guestfs_impl_ls (guestfs_h *g, const char *directory)
   char **ret = NULL;
   size_t i, count, size;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  tmpfile = guestfs_int_make_temp_path (g, "ls");
+  if (tmpfile == NULL)
     goto err;
-
-  tmpfile = safe_asprintf (g, "%s/ls%d", g->tmpdir, ++g->unique);
 
   if (guestfs_ls0 (g, directory, tmpfile) == -1)
     goto err;

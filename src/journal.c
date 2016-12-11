@@ -66,10 +66,10 @@ guestfs_impl_journal_get (guestfs_h *g)
   size_t i, j, size;
   uint64_t len;
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  tmpfile = guestfs_int_make_temp_path (g, "journal");
+  if (tmpfile == NULL)
     goto err;
 
-  tmpfile = safe_asprintf (g, "%s/journal%d", g->tmpdir, ++g->unique);
   if (guestfs_internal_journal_get (g, tmpfile) == -1)
     goto err;
 

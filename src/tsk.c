@@ -36,7 +36,6 @@
 
 static struct guestfs_tsk_dirent_list *parse_dirent_file (guestfs_h *, const char *);
 static int deserialise_dirent_list (guestfs_h *, FILE *, struct guestfs_tsk_dirent_list *);
-static char *make_temp_file (guestfs_h *, const char *);
 
 struct guestfs_tsk_dirent_list *
 guestfs_impl_filesystem_walk (guestfs_h *g, const char *mountable)
@@ -44,7 +43,7 @@ guestfs_impl_filesystem_walk (guestfs_h *g, const char *mountable)
   int ret = 0;
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
 
-  tmpfile = make_temp_file (g, "filesystem_walk");
+  tmpfile = guestfs_int_make_temp_path (g, "filesystem_walk");
   if (tmpfile == NULL)
     return NULL;
 
@@ -61,7 +60,7 @@ guestfs_impl_find_inode (guestfs_h *g, const char *mountable, int64_t inode)
   int ret = 0;
   CLEANUP_UNLINK_FREE char *tmpfile = NULL;
 
-  tmpfile = make_temp_file (g, "find_inode");
+  tmpfile = guestfs_int_make_temp_path (g, "find_inode");
   if (tmpfile == NULL)
     return NULL;
 
@@ -141,16 +140,4 @@ deserialise_dirent_list (guestfs_h *g, FILE *fp,
   dirents->len = index;
 
   return ret ? 0 : -1;
-}
-
-static char *
-make_temp_file (guestfs_h *g, const char *name)
-{
-  int ret = 0;
-
-  ret = guestfs_int_lazy_make_tmpdir (g);
-  if (ret < 0)
-    return NULL;
-
-  return safe_asprintf (g, "%s/%s%d", g->tmpdir, name, ++g->unique);
 }

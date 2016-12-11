@@ -421,15 +421,14 @@ create_drive_dev_null (guestfs_h *g,
     data->format = "raw";
   }
 
-  if (guestfs_int_lazy_make_tmpdir (g) == -1)
+  tmpfile = guestfs_int_make_temp_path (g, "devnull");
+  if (tmpfile == NULL)
     return NULL;
 
   /* Because we create a special file, there is no point forcing qemu
    * to create an overlay as well.  Save time by setting readonly = false.
    */
   data->readonly = false;
-
-  tmpfile = safe_asprintf (g, "%s/devnull%d", g->tmpdir, ++g->unique);
 
   if (guestfs_disk_create (g, tmpfile, "raw", 4096, -1) == -1)
     return NULL;
