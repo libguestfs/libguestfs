@@ -253,6 +253,11 @@ EXTRA_DIST = \
 
 WEBSITEDIR = $(HOME)/d/websites/libguestfs
 
+BUILDERFILES = \
+	website/download/builder/README \
+	website/download/builder/index \
+	website/download/builder/index.asc
+
 noinst_DATA = \
 	website/index.html \
 	website/README.txt \
