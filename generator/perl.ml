@@ -657,7 +657,7 @@ and generate_perl_struct_code typ cols name style n =
           pr "      PUSHs (sv_2mortal (newSVnv (r->%s)));\n"
             name
   ) cols;
-  pr "      free (r);\n"
+  pr "      guestfs_free_%s (r);\n" typ
 
 (* Generate Sys/Guestfs.pm. *)
 and generate_perl_pm () =
