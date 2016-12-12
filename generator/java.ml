@@ -998,7 +998,7 @@ and generate_java_struct_return typ jtyp cols =
         pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
         pr "  (*env)->SetCharField (env, jr, fl, r->%s);\n" name;
   ) cols;
-  pr "  free (r);\n";
+  pr "  guestfs_free_%s (r);\n" typ;
   pr "  return jr;\n"
 
 and generate_java_struct_list_return typ jtyp cols =
