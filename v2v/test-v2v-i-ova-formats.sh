@@ -59,21 +59,22 @@ pushd $d
 truncate -s 10k disk1.vmdk
 sha=`do_sha1 disk1.vmdk`
 echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
+cp ../test-v2v-i-ova-formats.ovf .
 
 for format in $formats; do
     case "$format" in
         tar)
-            tar -cf test-$format.ova ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
+            tar -cf test-$format.ova test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
             ;;
         zip)
-            zip -r test ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
+            zip -r test test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
             mv test.zip test-$format.ova
             ;;
         tar-gz)
-            tar -czf test-$format.ova ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
+            tar -czf test-$format.ova test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
             ;;
         tar-xz)
-            tar -cJf test-$format.ova ../test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
+            tar -cJf test-$format.ova test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
             ;;
         *)
             echo "Unhandled format '$format'"

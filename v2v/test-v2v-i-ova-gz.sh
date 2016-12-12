@@ -46,8 +46,9 @@ truncate -s 10k disk1.vmdk
 gzip disk1.vmdk
 sha=`do_sha1 disk1.vmdk.gz`
 echo -e "SHA1(disk1.vmdk.gz)= $sha\r" > disk1.mf
+cp ../test-v2v-i-ova-gz.ovf .
 
-tar -cf test.ova ../test-v2v-i-ova-gz.ovf disk1.vmdk.gz disk1.mf
+tar -cf test.ova test-v2v-i-ova-gz.ovf disk1.vmdk.gz disk1.mf
 popd
 
 # Run virt-v2v but only as far as the --print-source stage, and

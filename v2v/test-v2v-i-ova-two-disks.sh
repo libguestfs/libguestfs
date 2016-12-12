@@ -51,8 +51,9 @@ echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
 truncate -s 100k disk2.vmdk
 sha=`do_sha1 disk2.vmdk`
 echo -e "SHA1(disk2.vmdk)= $sha\r" > disk2.mf
+cp ../test-v2v-i-ova-two-disks.ovf .
 
-tar -cf test.ova ../test-v2v-i-ova-two-disks.ovf disk1.vmdk disk1.mf disk2.vmdk disk2.mf
+tar -cf test.ova test-v2v-i-ova-two-disks.ovf disk1.vmdk disk1.mf disk2.vmdk disk2.mf
 popd
 
 # Run virt-v2v but only as far as the --print-source stage, and
