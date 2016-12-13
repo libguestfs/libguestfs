@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	common_utils_tests.ml \
 	getopt_tests.ml \
 	JSON_tests.ml \
+	visit_tests.ml \
 	test-getopt.sh
 
 SOURCES_MLI = \
@@ -41,7 +42,8 @@ SOURCES_MLI = \
 	regedit.mli \
 	StatVFS.mli \
 	stringMap.mli \
-	URI.mli
+	URI.mli \
+	visit.mli
 
 SOURCES_ML = \
 	guestfs_config.ml \
@@ -56,6 +58,7 @@ SOURCES_ML = \
 	progress.ml \
 	URI.ml \
 	mkdtemp.ml \
+	visit.ml \
 	planner.ml \
 	regedit.ml \
 	StatVFS.ml \
@@ -65,6 +68,7 @@ SOURCES_ML = \
 	checksums.ml
 
 SOURCES_C = \
+	../cat/visit.c \
 	../fish/decrypt.c \
 	../fish/keys.c \
 	../fish/progress.c \
@@ -77,7 +81,8 @@ SOURCES_C = \
 	mkdtemp-c.c \
 	progress-c.c \
 	statvfs-c.c \
-	uri-c.c
+	uri-c.c \
+	visit-c.c
 
 if HAVE_OCAML
 
@@ -103,6 +108,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/cat \
 	-I$(top_srcdir)/fish
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -183,6 +189,10 @@ JSON_tests_SOURCES = dummy.c
 JSON_tests_BOBJECTS = JSON_tests.cmo
 JSON_tests_XOBJECTS = $(JSON_tests_BOBJECTS:.cmo=.cmx)
 
+visit_tests_SOURCES = dummy.c
+visit_tests_BOBJECTS = visit_tests.cmo
+visit_tests_XOBJECTS = $(visit_tests_BOBJECTS:.cmo=.cmx)
+
 # Can't call the following as <test>_OBJECTS because automake gets confused.
 if !HAVE_OCAMLOPT
 common_utils_tests_THEOBJECTS = $(common_utils_tests_BOBJECTS)
@@ -202,6 +212,9 @@ getopt_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 
 JSON_tests_THEOBJECTS = $(JSON_tests_XOBJECTS)
 JSON_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
+
+visit_tests_THEOBJECTS = $(visit_tests_XOBJECTS)
+visit_tests.cmx: OCAMLPACKAGES += $(OCAMLPACKAGES_TESTS)
 endif
 
 OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
@@ -236,6 +249,16 @@ JSON_tests_LINK = \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  $(JSON_tests_THEOBJECTS) -o $@
 
+visit_tests_DEPENDENCIES = \
+	$(visit_tests_THEOBJECTS) \
+	$(MLLIB_CMA) \
+	$(top_srcdir)/ocaml-link.sh
+visit_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -cclib '-lutils $(LIBXML2_LIBS) -lgnu' -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
+	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
+	  $(visit_tests_THEOBJECTS) -o $@
+
 TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
@@ -246,6 +269,11 @@ check_PROGRAMS = \
 if HAVE_OCAML_PKG_OUNIT
 check_PROGRAMS += common_utils_tests JSON_tests
 TESTS += common_utils_tests JSON_tests
+endif
+
+if ENABLE_APPLIANCE
+check_PROGRAMS += visit_tests
+TESTS += visit_tests
 endif
 
 check-valgrind:

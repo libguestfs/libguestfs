@@ -332,6 +332,7 @@ Makefile.in
 /mllib/JSON_tests
 /mllib/libdir.ml
 /mllib/oUnit-*
+/mllib/visit_tests
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml

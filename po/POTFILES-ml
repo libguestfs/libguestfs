@@ -57,6 +57,8 @@ mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
 mllib/stringMap.ml
+mllib/visit.ml
+mllib/visit_tests.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml
