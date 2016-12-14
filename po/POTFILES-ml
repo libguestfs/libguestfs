@@ -47,6 +47,7 @@ mllib/common_utils_tests.ml
 mllib/curl.ml
 mllib/dev_t.ml
 mllib/exit.ml
+mllib/fnmatch.ml
 mllib/fsync.ml
 mllib/getopt.ml
 mllib/getopt_tests.ml

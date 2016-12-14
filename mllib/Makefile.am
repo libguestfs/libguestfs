@@ -33,6 +33,7 @@ SOURCES_MLI = \
 	curl.mli \
 	dev_t.mli \
 	exit.mli \
+	fnmatch.mli \
 	fsync.mli \
 	getopt.mli \
 	JSON.mli \
@@ -59,6 +60,7 @@ SOURCES_ML = \
 	URI.ml \
 	mkdtemp.ml \
 	visit.ml \
+	fnmatch.ml \
 	planner.ml \
 	regedit.ml \
 	StatVFS.ml \
@@ -76,6 +78,7 @@ SOURCES_C = \
 	common_utils-c.c \
 	dev_t-c.c \
 	exit-c.c \
+	fnmatch-c.c \
 	fsync-c.c \
 	getopt-c.c \
 	mkdtemp-c.c \
