@@ -12504,10 +12504,6 @@ Get the default subvolume or snapshot of a filesystem mounted at C<mountpoint>."
     proc_nr = Some 426;
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeShow";
     tests = [
-      InitPartition, Always, TestLastFail (
-        [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
-         ["mount"; "/dev/sda1"; "/"];
-         ["btrfs_subvolume_show"; "/"]]), [];
       InitPartition, Always, TestRun (
         [["mkfs_btrfs"; "/dev/sda1"; ""; ""; "NOARG"; ""; "NOARG"; "NOARG"; ""; ""];
          ["mount"; "/dev/sda1"; "/"];
