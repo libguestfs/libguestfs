@@ -92,6 +92,7 @@ sysprep/sysprep_operation_net_hwaddr.ml
 sysprep/sysprep_operation_pacct_log.ml
 sysprep/sysprep_operation_package_manager_cache.ml
 sysprep/sysprep_operation_pam_data.ml
+sysprep/sysprep_operation_passwd_backups.ml
 sysprep/sysprep_operation_puppet_data_log.ml
 sysprep/sysprep_operation_rh_subscription_manager.ml
 sysprep/sysprep_operation_rhn_systemid.ml

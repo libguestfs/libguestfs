@@ -52,6 +52,7 @@ operations = \
 	pacct_log \
 	package_manager_cache \
 	pam_data \
+	passwd_backups \
 	puppet_data_log \
 	rh_subscription_manager \
 	rhn_systemid \
