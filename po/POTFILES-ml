@@ -69,6 +69,7 @@ sparsify/utils.ml
 sysprep/main.ml
 sysprep/sysprep_operation.ml
 sysprep/sysprep_operation_abrt_data.ml
+sysprep/sysprep_operation_backup_files.ml
 sysprep/sysprep_operation_bash_history.ml
 sysprep/sysprep_operation_blkid_tab.ml
 sysprep/sysprep_operation_ca_certificates.ml

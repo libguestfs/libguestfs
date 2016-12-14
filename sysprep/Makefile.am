@@ -29,6 +29,7 @@ EXTRA_DIST = \
 # Filenames sysprep_operation_<name>.ml in alphabetical order.
 operations = \
 	abrt_data \
+	backup_files \
 	bash_history \
 	blkid_tab \
 	ca_certificates \
@@ -179,6 +180,7 @@ TESTS = \
 if ENABLE_APPLIANCE
 TESTS += \
 	test-virt-sysprep.sh \
+	test-virt-sysprep-backup-files.sh \
 	test-virt-sysprep-passwords.sh
 
 if HAVE_FUSE
