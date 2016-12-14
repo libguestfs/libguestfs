@@ -637,13 +637,13 @@ for_each_disk (guestfs_h *g,
             usagestr = xpath_object_get_string (doc, xpsecretusage);
             debug (g, "disk[%zu]: secret type: %s; usage: %s",
                    i, typestr, usagestr);
-            if (STREQ (usagestr, "none"))
+            if (STREQ (typestr, "none"))
               usageType = VIR_SECRET_USAGE_TYPE_NONE;
-            else if (STREQ (usagestr, "volume"))
+            else if (STREQ (typestr, "volume"))
               usageType = VIR_SECRET_USAGE_TYPE_VOLUME;
-            else if (STREQ (usagestr, "ceph"))
+            else if (STREQ (typestr, "ceph"))
               usageType = VIR_SECRET_USAGE_TYPE_CEPH;
-            else if (STREQ (usagestr, "iscsi"))
+            else if (STREQ (typestr, "iscsi"))
               usageType = VIR_SECRET_USAGE_TYPE_ISCSI;
             else
               continue;
