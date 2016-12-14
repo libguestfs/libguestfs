@@ -18,11 +18,12 @@
 
 open Printf
 
-open Sysprep_operation
 open Common_gettext.Gettext
 open Common_utils
 open Visit
 open Fnmatch
+open Sysprep_operation
+open Utils
 
 module G = Guestfs
 
@@ -33,14 +34,13 @@ let unix_whitelist = List.sort compare [
   "/tmp";
   "/var";
 ]
-let unix_whitelist_as_pod =
-  String.concat "\n" (List.map ((^) " ") unix_whitelist)
+let unix_whitelist_as_pod = pod_of_list unix_whitelist
 
 let globs = List.sort compare [
   "*.bak";
   "*~";
 ]
-let globs_as_pod = String.concat "\n" (List.map ((^) " ") globs)
+let globs_as_pod = pod_of_list globs
 
 let backup_files_perform (g : Guestfs.guestfs) root side_effects =
   (* Unix-like?  If so that only operate on the unix_whitelist

@@ -69,9 +69,11 @@ operations = \
 	utmp yum_uuid
 
 SOURCES_MLI = \
-	sysprep_operation.mli
+	sysprep_operation.mli \
+	utils.mli
 
 SOURCES_ML = \
+	utils.ml \
 	sysprep_operation.ml \
 	$(patsubst %,sysprep_operation_%.ml,$(operations)) \
 	main.ml

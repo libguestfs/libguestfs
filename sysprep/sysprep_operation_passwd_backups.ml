@@ -18,8 +18,9 @@
 
 open Printf
 
-open Sysprep_operation
 open Common_gettext.Gettext
+open Sysprep_operation
+open Utils
 
 module G = Guestfs
 
@@ -31,7 +32,7 @@ let files = List.sort compare [
   "/etc/subuid-";
   "/etc/subgid-";
 ]
-let files_as_pod = String.concat "\n" (List.map ((^) " ") files)
+let files_as_pod = pod_of_list files
 
 let passwd_backups_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
