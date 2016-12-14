@@ -319,12 +319,14 @@ mllib/common_utils-c.c
 mllib/dev_t-c.c
 mllib/dummy.c
 mllib/exit-c.c
+mllib/fnmatch-c.c
 mllib/fsync-c.c
 mllib/getopt-c.c
 mllib/mkdtemp-c.c
 mllib/progress-c.c
 mllib/statvfs-c.c
 mllib/uri-c.c
+mllib/visit-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c

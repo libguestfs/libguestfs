@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-12-10 15:27+0000\n"
+"POT-Creation-Date: 2016-12-14 18:06+0000\n"
 "PO-Revision-Date: 2015-02-21 10:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libguestfs/"
@@ -52,8 +52,8 @@ msgid ""
 "Options:\n"
 msgstr ""
 
-#. ../customize/customize_run.ml:453
-#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:1113
+#. ../customize/customize_run.ml:452
+#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:1121
 msgid "%s (ignored)"
 msgstr ""
 
@@ -767,7 +767,7 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:140
+#: ../v2v/v2v.ml:141
 msgid "Assigning disks to buses"
 msgstr ""
 
@@ -854,11 +854,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:365
+#: ../v2v/v2v.ml:366
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:581
+#: ../v2v/v2v.ml:582
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -866,11 +866,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:126
+#: ../v2v/v2v.ml:127
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:127
+#: ../v2v/v2v.ml:128
 msgid "Closing the source VM"
 msgstr ""
 
@@ -894,11 +894,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:555
+#: ../v2v/v2v.ml:556
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:553
+#: ../v2v/v2v.ml:554
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -926,7 +926,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:620
+#: ../v2v/v2v.ml:621
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -954,11 +954,11 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:242
+#: ../v2v/v2v.ml:243
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:151
+#: ../v2v/v2v.ml:152
 msgid "Creating output metadata"
 msgstr ""
 
@@ -1146,7 +1146,7 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:544
+#: ../v2v/v2v.ml:545
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1257,7 +1257,7 @@ msgstr ""
 
 #. ../customize/customize_main.ml:199
 #. ../builder/builder.ml:722
-#: ../v2v/v2v.ml:159 ../v2v/copy_to_local.ml:232
+#: ../v2v/v2v.ml:160 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr ""
 
@@ -1373,7 +1373,7 @@ msgstr ""
 msgid "Importing the image to docker as '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:288
+#: ../v2v/v2v.ml:289
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1385,11 +1385,11 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:89
+#: ../v2v/v2v.ml:90
 msgid "Inspecting the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:90
+#: ../v2v/v2v.ml:91
 msgid "Inspecting the source VM"
 msgstr ""
 
@@ -1476,7 +1476,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:121
+#: ../v2v/v2v.ml:122
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1532,7 +1532,8 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:147
+#. ../sysprep/sysprep_operation_logfiles.ml:148
+#: ../sysprep/sysprep_operation_passwd_backups.ml:48
 msgid ""
 "On Linux the following files are removed:\n"
 "\n"
@@ -1568,7 +1569,7 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:162
+#: ../v2v/v2v.ml:163
 msgid "Opening the source %s"
 msgstr ""
 
@@ -1624,7 +1625,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:733
+#: ../v2v/v2v.ml:734
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
@@ -1715,7 +1716,7 @@ msgstr ""
 msgid "Recursively truncate all files in directory"
 msgstr ""
 
-#: ../customize/customize_run.ml:361
+#: ../customize/customize_run.ml:360
 msgid "Recursively truncating: %s"
 msgstr ""
 
@@ -1733,6 +1734,10 @@ msgstr ""
 
 #: ../sysprep/sysprep_operation_ssh_userdir.ml:38
 msgid "Remove \".ssh\" directories in the guest"
+msgstr ""
+
+#: ../sysprep/sysprep_operation_passwd_backups.ml:46
+msgid "Remove /etc/passwd- and similar backup files"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_ca_certificates.ml:51
@@ -1771,6 +1776,10 @@ msgstr ""
 msgid "Remove blkid tab in the guest"
 msgstr ""
 
+#: ../sysprep/sysprep_operation_backup_files.ml:79
+msgid "Remove editor backup files from the guest"
+msgstr ""
+
 #: ../sysprep/sysprep_operation_mail_spool.ml:36
 msgid "Remove email from the local mail spool directory"
 msgstr ""
@@ -1785,7 +1794,7 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:145
+#: ../sysprep/sysprep_operation_logfiles.ml:146
 msgid "Remove many log files from the guest"
 msgstr ""
 
@@ -1970,7 +1979,7 @@ msgstr ""
 msgid "Run touch on a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:370
+#: ../customize/customize_run.ml:369
 msgid "Running touch: %s"
 msgstr ""
 
@@ -1991,7 +2000,7 @@ msgstr ""
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:426
+#: ../customize/customize_run.ml:425
 msgid "SELinux relabelling"
 msgstr ""
 
@@ -1999,11 +2008,11 @@ msgstr ""
 msgid "SOURCE:DEST"
 msgstr ""
 
-#: ../customize/customize_run.ml:354
+#: ../customize/customize_run.ml:353
 msgid "SSH key could be injected for this type of guest"
 msgstr ""
 
-#: ../customize/customize_run.ml:351
+#: ../customize/customize_run.ml:350
 msgid "SSH key inject: %s"
 msgstr ""
 
@@ -2023,7 +2032,7 @@ msgstr ""
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:437
+#: ../customize/customize_run.ml:436
 msgid "Scrubbing the log file"
 msgstr ""
 
@@ -2151,7 +2160,7 @@ msgstr ""
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:417
+#: ../customize/customize_run.ml:416
 msgid "Setting passwords"
 msgstr ""
 
@@ -2163,7 +2172,7 @@ msgstr ""
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:365
+#: ../customize/customize_run.ml:364
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -2199,7 +2208,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:167
+#: ../v2v/v2v.ml:168
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2263,6 +2272,19 @@ msgstr ""
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
+msgstr ""
+
+#: ../sysprep/sysprep_operation_backup_files.ml:81
+msgid ""
+"The following files are removed from anywhere in the guest\n"
+"filesystem:\n"
+"\n"
+"%s\n"
+"\n"
+"On Linux and Unix operating systems, only the following filesystems\n"
+"will be examined:\n"
+"\n"
+"%s"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_fs_uuids.ml:52
@@ -2380,11 +2402,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:574
+#: ../v2v/v2v.ml:575
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:572
+#: ../v2v/v2v.ml:573
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2395,7 +2417,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:602
+#: ../v2v/v2v.ml:603
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2424,7 +2446,7 @@ msgstr ""
 msgid "Truncate a file to zero size"
 msgstr ""
 
-#: ../customize/customize_run.ml:357
+#: ../customize/customize_run.ml:356
 msgid "Truncating: %s"
 msgstr ""
 
@@ -2452,7 +2474,7 @@ msgstr ""
 msgid "Uninstall package(s)"
 msgstr ""
 
-#: ../customize/customize_run.ml:374
+#: ../customize/customize_run.ml:373
 msgid "Uninstalling packages: %s"
 msgstr ""
 
@@ -2468,7 +2490,7 @@ msgstr ""
 msgid "Update packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:379
+#: ../customize/customize_run.ml:378
 msgid "Updating packages"
 msgstr ""
 
@@ -2476,7 +2498,7 @@ msgstr ""
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:384
+#: ../customize/customize_run.ml:383
 msgid "Uploading: %s to %s"
 msgstr ""
 
@@ -2534,7 +2556,7 @@ msgstr ""
 msgid "Writing libvirt XML metadata to %s ..."
 msgstr ""
 
-#: ../customize/customize_run.ml:409
+#: ../customize/customize_run.ml:408
 msgid "Writing: %s"
 msgstr ""
 
@@ -2850,7 +2872,7 @@ msgstr ""
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:298
+#: ../v2v/v2v.ml:299
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3042,7 +3064,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:416
+#: ../v2v/v2v.ml:417
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3081,7 +3103,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../v2v/v2v.ml:276
+#: ../v2v/v2v.ml:277
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3173,7 +3195,7 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/v2v.ml:237
+#: ../v2v/v2v.ml:238
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3210,11 +3232,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:632
+#: ../v2v/v2v.ml:633
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:266
+#: ../v2v/v2v.ml:267
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3409,7 +3431,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:391
+#: ../v2v/v2v.ml:392
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3483,7 +3505,7 @@ msgid ""
 "if-partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:309
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3537,7 +3559,7 @@ msgid ""
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:422
+#: ../customize/customize_run.ml:421
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -3561,7 +3583,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:670 ../v2v/v2v.ml:262
+#: ../v2v/v2v.ml:671 ../v2v/v2v.ml:263
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3630,31 +3652,31 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:744
+#: ../v2v/v2v.ml:745
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:760
+#: ../v2v/v2v.ml:761
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:742 ../v2v/v2v.ml:185
+#: ../v2v/v2v.ml:743 ../v2v/v2v.ml:186
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:752
+#: ../v2v/v2v.ml:753
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:750
+#: ../v2v/v2v.ml:751
 msgid "source has unsupported hard disk type '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:766
+#: ../v2v/v2v.ml:767
 msgid "source has unsupported network adapter model '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:774
+#: ../v2v/v2v.ml:775
 msgid "source has unsupported video adapter model '%s'"
 msgstr ""
 
@@ -3704,7 +3726,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:312
+#: ../v2v/v2v.ml:313
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -3864,7 +3886,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:593
+#: ../v2v/v2v.ml:594
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3890,7 +3912,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../customize/customize_run.ml:367
+#: ../customize/customize_run.ml:366
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -3981,7 +4003,7 @@ msgstr ""
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:177
+#: ../v2v/v2v.ml:178
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
@@ -4107,7 +4129,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:561
+#: ../v2v/v2v.ml:562
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -8853,72 +8875,72 @@ msgstr ""
 msgid "for device '/dev/null', format must be 'raw'"
 msgstr ""
 
-#: src/drives.c:686
+#: src/drives.c:685
 msgid "missing Unix domain socket path"
 msgstr ""
 
-#: src/drives.c:698
+#: src/drives.c:697
 #, c-format
 msgid "invalid port number '%s'"
 msgstr ""
 
-#: src/drives.c:705
+#: src/drives.c:704
 #, c-format
 msgid "invalid hostname '%s'"
 msgstr ""
 
-#: src/drives.c:716
+#: src/drives.c:715
 #, c-format
 msgid "invalid hostname or server string '%s'"
 msgstr ""
 
-#: src/drives.c:800
+#: src/drives.c:799
 msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
 msgstr ""
 
-#: src/drives.c:813
+#: src/drives.c:812
 msgid "discard support cannot be enabled on read-only drives"
 msgstr ""
 
-#: src/drives.c:819 src/drives.c:825
+#: src/drives.c:818 src/drives.c:824
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:831
+#: src/drives.c:830
 msgid "label parameter is empty, too long, or contains disallowed characters"
 msgstr ""
 
-#: src/drives.c:837
+#: src/drives.c:836
 msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
 msgstr ""
 
-#: src/drives.c:844
+#: src/drives.c:843
 msgid "you cannot specify a server with file-backed disks"
 msgstr ""
 
-#: src/drives.c:849
+#: src/drives.c:848
 msgid "you cannot specify a username with file-backed disks"
 msgstr ""
 
-#: src/drives.c:853
+#: src/drives.c:852
 msgid "you cannot specify a secret with file-backed disks"
 msgstr ""
 
-#: src/drives.c:916
+#: src/drives.c:915
 #, c-format
 msgid "unknown protocol '%s'"
 msgstr ""
 
-#: src/drives.c:934 src/drives.c:1085
+#: src/drives.c:933 src/drives.c:1084
 msgid "the current backend does not support hotplugging drives"
 msgstr ""
 
-#: src/drives.c:940
+#: src/drives.c:939
 msgid "'label' is required when hotplugging drives"
 msgstr ""
 
-#: src/drives.c:1070
+#: src/drives.c:1069
 #, c-format
 msgid "disk with label '%s' not found"
 msgstr ""
@@ -9664,22 +9686,22 @@ msgstr ""
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/tmpdirs.c:251
+#: src/tmpdirs.c:268
 #, c-format
 msgid "stat: %s"
 msgstr ""
 
-#: src/tmpdirs.c:256
+#: src/tmpdirs.c:273
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: src/tmpdirs.c:262
+#: src/tmpdirs.c:279
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/tmpdirs.c:268
+#: src/tmpdirs.c:285
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
