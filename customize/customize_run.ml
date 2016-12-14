@@ -346,12 +346,11 @@ exec >>%s 2>&1
       do_run ~display:cmd ~warn_failed_no_network:true cmd
 
     | `SSHInject (user, selector) ->
-      (match g#inspect_get_type root with
-      | "linux" | "freebsd" | "netbsd" | "openbsd" | "hurd" ->
+      if unix_like (g#inspect_get_type root) then (
         message (f_"SSH key inject: %s") user;
         Ssh_key.do_ssh_inject_unix g user selector
-      | _ ->
-        warning (f_"SSH key could be injected for this type of guest"))
+      ) else
+        warning (f_"SSH key could be injected for this type of guest")
 
     | `Truncate path ->
       message (f_"Truncating: %s") path;

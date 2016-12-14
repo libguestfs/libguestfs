@@ -426,6 +426,10 @@ val guest_arch_compatible : string -> bool
 (** Are guest arch and host_cpu compatible, in terms of being able
     to run commands in the libguestfs appliance? *)
 
+val unix_like : string -> bool
+(** Is the guest OS "Unix-like"?  Call this with the result of
+    {!Guestfs.inspect_get_type}. *)
+
 val last_part_of : string -> char -> string option
 (** Return the last part of a string, after the specified separator. *)
 

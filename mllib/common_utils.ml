@@ -1079,6 +1079,14 @@ let guest_arch_compatible guest_arch =
   | "x86_64", "i386" -> true
   | _ -> false
 
+(* Is the guest OS "Unix-like"? *)
+let unix_like = function
+  | "hurd"
+  | "linux"
+  | "minix" -> true
+  | typ when String.is_suffix typ "bsd" -> true
+  | _ -> false
+
 (** Return the last part of a string, after the specified separator. *)
 let last_part_of str sep =
   try
