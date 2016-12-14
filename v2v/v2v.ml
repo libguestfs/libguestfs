@@ -76,6 +76,7 @@ let rec main () =
 
   let g = open_guestfs ~identifier:"v2v" () in
   g#set_memsize (g#get_memsize () * 8 / 5);
+  (* The network is only used by the unconfigure_vmware () function. *)
   g#set_network true;
   (match conversion_mode with
    | Copying (overlays, _) -> populate_overlays g overlays
