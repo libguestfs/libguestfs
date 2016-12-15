@@ -77,6 +77,7 @@ let globs = List.sort compare [
   "/root/anaconda-ks.cfg";
   "/root/anaconda-post.log";
   "/root/initial-setup-ks.cfg";
+  "/root/original-ks.cfg";
   "/var/log/anaconda.syslog";
   "/var/log/anaconda/*";
 
