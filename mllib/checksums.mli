@@ -29,8 +29,11 @@ val of_string : string -> string -> csum_t
 
     Raise [Invalid_argument] if the checksum type is not known. *)
 
-val verify_checksum : csum_t -> string -> unit
-(** Verify the checksum of the file. *)
+val verify_checksum : csum_t -> ?tar:string -> string -> unit
+(** [verify_checksum type filename] Verify the checksum of the file.
+
+    When optional [tar] is used it is path to uncompressed tar archive
+    and the [filename] is a path in the tar archive. *)
 
 val verify_checksums : csum_t list -> string -> unit
 (** Verify all the checksums of the file. *)

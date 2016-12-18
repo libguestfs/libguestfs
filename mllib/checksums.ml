@@ -45,7 +45,7 @@ let of_string csum_type csum_value =
   | "sha512" -> SHA512 csum_value
   | _ -> invalid_arg csum_type
 
-let verify_checksum csum filename =
+let verify_checksum csum ?tar filename =
   let prog, csum_ref =
     match csum with
     | SHA1 c -> "sha1sum", c
@@ -53,7 +53,14 @@ let verify_checksum csum filename =
     | SHA512 c -> "sha512sum", c
   in
 
-  let cmd = sprintf "%s %s" prog (Filename.quote filename) in
+  let cmd =
+    match tar with
+    | None ->
+      sprintf "%s %s" prog (quote filename)
+    | Some tar ->
+      sprintf "tar xOf %s %s | %s"
+        (quote tar) (quote filename) prog
+  in
   let lines = external_command cmd in
   match lines with
   | [] ->
