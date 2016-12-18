@@ -22,7 +22,7 @@
 
 set -e
 
-. $srcdir/../../test-data/guestfs-hashsums.sh
+. $srcdir/../../test-data/test-utils.sh
 
 rm -f liveness1.img
 

@@ -27,7 +27,7 @@ SUBDIRS += files
 SUBDIRS += .
 
 EXTRA_DIST = \
-        guestfs-hashsums.sh
+        test-utils.sh
 
 # Build an ISO containing various files from the subdirectories, which
 # is used by tests/c-api and a few guestfish tests and regression

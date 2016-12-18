@@ -22,7 +22,7 @@
 
 set -e
 
-. $srcdir/../../test-data/guestfs-hashsums.sh
+. $srcdir/../../test-data/test-utils.sh
 
 # UML backend doesn't support qcow2 format.
 supports_qcow2=yes

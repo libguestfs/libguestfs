@@ -46,7 +46,7 @@ fi
 
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 
-. $srcdir/../test-data/guestfs-hashsums.sh
+. $srcdir/../test-data/test-utils.sh
 
 d=test-v2v-i-ova-formats.d
 rm -rf $d
