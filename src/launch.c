@@ -29,6 +29,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <inttypes.h>
 #include <unistd.h>
 #include <string.h>
@@ -38,6 +39,8 @@
 #include <errno.h>
 #include <assert.h>
 #include <libintl.h>
+
+#include "c-ctype.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -284,6 +287,28 @@ guestfs_impl_config (guestfs_h *g,
   return 0;
 }
 
+/**
+ * Check that the $TERM environment variable is reasonable before
+ * we pass it through to the appliance.
+ */
+static bool
+valid_term (const char *term)
+{
+  size_t len = strlen (term);
+
+  if (len == 0 || len > 16)
+    return false;
+
+  while (len > 0) {
+    char c = *term++;
+    len--;
+    if (!c_isalnum (c) && c != '-' && c != '_')
+      return false;
+  }
+
+  return true;
+}
+
 #if defined(__powerpc64__)
 #define SERIAL_CONSOLE "console=hvc0 console=ttyS0"
 #elif defined(__arm__) || defined(__aarch64__)
@@ -426,7 +451,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
     guestfs_int_add_string (g, &argv, "guestfs_network=1");
 
   /* TERM environment variable. */
-  if (term)
+  if (term && valid_term (term))
     guestfs_int_add_sprintf (g, &argv, "TERM=%s", term);
   else
     guestfs_int_add_string (g, &argv, "TERM=linux");
