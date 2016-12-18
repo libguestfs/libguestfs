@@ -38,6 +38,12 @@ object
   method as_options = "-i ova " ^ ova
 
   method source () =
+
+    let untar ?(format = "") file outdir =
+      let cmd = [ "tar"; sprintf "-x%sf" format; file; "-C"; outdir ] in
+      if run_command cmd <> 0 then
+        error (f_"error unpacking %s, see earlier error messages") ova in
+
     (* Extract ova file. *)
     let exploded =
       (* The spec allows a directory to be specified as an ova.  This
@@ -60,11 +66,6 @@ object
           close_out chan;
 
           tmpfile in
-
-        let untar ?(format = "") file outdir =
-          let cmd = [ "tar"; sprintf "-x%sf" format; file; "-C"; outdir ] in
-          if run_command cmd <> 0 then
-            error (f_"error unpacking %s, see earlier error messages") ova in
 
         match detect_file_type ova with
         | `Tar ->
