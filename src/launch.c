@@ -293,9 +293,7 @@ guestfs_impl_config (guestfs_h *g,
 #endif
 
 #if defined(__aarch64__)
-#define EARLYPRINTK " earlyprintk=pl011,0x9000000"
-#else
-#define EARLYPRINTK ""
+#define EARLYPRINTK "earlyprintk=pl011,0x9000000"
 #endif
 
 /**
@@ -327,74 +325,126 @@ char *
 guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
 				    int flags)
 {
-  char root[64] = "";
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (argv);
   char *term = getenv ("TERM");
-  char *ret;
   bool tcg = flags & APPLIANCE_COMMAND_LINE_IS_TCG;
-  char lpj_s[64] = "";
+  char *ret;
 
-  if (appliance_dev)
-    snprintf (root, sizeof root, " root=%s", appliance_dev);
+  /* We assemble the kernel command line by simply joining the final
+   * list of strings with spaces.  This means (a) the strings are not
+   * quoted (it's not clear if the kernel can handle quoting in any
+   * case), and (b) we can append multiple parameters in a single
+   * argument, as we must do for the g->append parameter.
+   */
+
+  /* Force kernel to panic if daemon exits. */
+  guestfs_int_add_string (g, &argv, "panic=1");
+
+#ifdef __arm__
+  guestfs_int_add_sprintf (g, &argv, "mem=%dM", g->memsize);
+#endif
+
+#ifdef __i386__
+  /* Workaround for RHBZ#857026. */
+  guestfs_int_add_string (g, &argv, "noapic");
+#endif
+
+  /* Serial console. */
+  guestfs_int_add_string (g, &argv, SERIAL_CONSOLE);
+
+#ifdef EARLYPRINTK
+  /* Get messages from early boot. */
+  guestfs_int_add_string (g, &argv, EARLYPRINTK);
+#endif
+
+#ifdef __aarch64__
+  guestfs_int_add_string (g, &argv, "ignore_loglevel");
+
+  /* This option turns off the EFI RTC device.  QEMU VMs don't
+   * currently provide EFI, and if the device is compiled in it
+   * will try to call the EFI function GetTime unconditionally
+   * (causing a call to NULL).  However this option requires a
+   * non-upstream patch.
+   */
+  guestfs_int_add_string (g, &argv, "efi-rtc=noprobe");
+#endif
+
+  /* RHBZ#1404287 */
+  guestfs_int_add_string (g, &argv, "edd=off");
+
+  /* For slow systems (RHBZ#480319, RHBZ#1096579). */
+  guestfs_int_add_string (g, &argv, "udevtimeout=6000");
+
+  /* Same as above, for newer udevd. */
+  guestfs_int_add_string (g, &argv, "udev.event-timeout=6000");
+
+  /* Fix for RHBZ#502058. */
+  guestfs_int_add_string (g, &argv, "no_timer_check");
 
   if (tcg) {
     const int lpj = guestfs_int_get_lpj (g);
     if (lpj > 0)
-      snprintf (lpj_s, sizeof lpj_s, " lpj=%d", lpj);
+      guestfs_int_add_sprintf (g, &argv, "lpj=%d", lpj);
   }
 
-  ret = safe_asprintf
-    (g,
-     "panic=1"             /* force kernel to panic if daemon exits */
-#ifdef __arm__
-     " mem=%dM"
-#endif
-#ifdef __i386__
-     " noapic"                  /* workaround for RHBZ#857026 */
-#endif
-     " " SERIAL_CONSOLE         /* serial console */
-     EARLYPRINTK                /* get messages from early boot */
-#ifdef __aarch64__
-     " ignore_loglevel"
-     /* This option turns off the EFI RTC device.  QEMU VMs don't
-      * currently provide EFI, and if the device is compiled in it
-      * will try to call the EFI function GetTime unconditionally
-      * (causing a call to NULL).  However this option requires a
-      * non-upstream patch.
-      */
-     " efi-rtc=noprobe"
-#endif
-     " edd=off"                 /* RHBZ#1404287 */
-     " udevtimeout=6000"/* for slow systems (RHBZ#480319, RHBZ#1096579) */
-     " udev.event-timeout=6000" /* for newer udevd */
-     " no_timer_check"  /* fix for RHBZ#502058 */
-     "%s"               /* lpj */
-     " printk.time=1"   /* display timestamp before kernel messages */
-     " cgroup_disable=memory"   /* saves us about 5 MB of RAM */
-     " usbcore.nousb"           /* disable USB, only saves about 1ms */
-     " cryptomgr.notests"       /* disable crypto tests, saves 28ms */
-     " tsc=reliable"            /* don't synch TSCs when using SMP,
-                                   saves 21ms for each secondary vCPU */
-     " 8250.nr_uarts=1"         /* don't scan all 8250 UARTS */
-     "%s"                       /* root=appliance_dev */
-     " %s"                      /* selinux */
-     " %s"                      /* quiet/verbose */
-     "%s"                       /* network */
-     " TERM=%s"                 /* TERM environment variable */
-     "%s%s"                     /* handle identifier */
-     "%s%s",                    /* append */
-#ifdef __arm__
-     g->memsize,
-#endif
-     lpj_s,
-     root,
-     g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
-     g->verbose ? "guestfs_verbose=1" : "quiet",
-     g->enable_network ? " guestfs_network=1" : "",
-     term ? term : "linux",
-     STRNEQ (g->identifier, "") ? " guestfs_identifier=" : "",
-     g->identifier,
-     g->append ? " " : "", g->append ? g->append : "");
+  /* Display timestamp before kernel messages. */
+  guestfs_int_add_string (g, &argv, "printk.time=1");
 
+  /* Saves us about 5 MB of RAM. */
+  guestfs_int_add_string (g, &argv, "cgroup_disable=memory");
+
+  /* Disable USB, only saves about 1ms. */
+  guestfs_int_add_string (g, &argv, "usbcore.nousb");
+
+  /* Disable crypto tests, saves 28ms. */
+  guestfs_int_add_string (g, &argv, "cryptomgr.notests");
+
+  /* Don't synch TSCs when using SMP.  Saves 21ms for each secondary vCPU. */
+  guestfs_int_add_string (g, &argv, "tsc=reliable");
+
+  /* Don't scan all 8250 UARTS. */
+  guestfs_int_add_string (g, &argv, "8250.nr_uarts=1");
+
+  /* Tell supermin about the appliance device. */
+  if (appliance_dev)
+    guestfs_int_add_sprintf (g, &argv, "root=%s", appliance_dev);
+
+  /* SELinux - deprecated setting, never worked and should not be enabled. */
+  if (g->selinux)
+    guestfs_int_add_string (g, &argv, "selinux=1 enforcing=0");
+  else
+    guestfs_int_add_string (g, &argv, "selinux=0");
+
+  /* Quiet/verbose. */
+  if (g->verbose)
+    guestfs_int_add_string (g, &argv, "guestfs_verbose=1");
+  else
+    guestfs_int_add_string (g, &argv, "quiet");
+
+  /* Network. */
+  if (g->enable_network)
+    guestfs_int_add_string (g, &argv, "guestfs_network=1");
+
+  /* TERM environment variable. */
+  if (term)
+    guestfs_int_add_sprintf (g, &argv, "TERM=%s", term);
+  else
+    guestfs_int_add_string (g, &argv, "TERM=linux");
+
+  /* Handle identifier. */
+  if (STRNEQ (g->identifier, ""))
+    guestfs_int_add_sprintf (g, &argv, "guestfs_identifier=%s", g->identifier);
+
+  /* Append extra arguments. */
+  if (g->append)
+    guestfs_int_add_string (g, &argv, g->append);
+
+  guestfs_int_end_stringsbuf (g, &argv);
+
+  /* Caller frees. */
+  ret = guestfs_int_join_strings (" ", argv.argv);
+  if (ret == NULL)
+    g->abort_cb ();
   return ret;
 }
 
