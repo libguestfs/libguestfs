@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-12-14 18:06+0000\n"
+"POT-Creation-Date: 2016-12-23 22:38+0000\n"
 "PO-Revision-Date: 2015-02-21 10:55-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -1531,7 +1531,7 @@ msgid ""
 "new random UUIDs are generated and assigned to those PVs and VGs."
 msgstr ""
 
-#. ../sysprep/sysprep_operation_logfiles.ml:148
+#. ../sysprep/sysprep_operation_logfiles.ml:149
 #: ../sysprep/sysprep_operation_passwd_backups.ml:48
 msgid ""
 "On Linux the following files are removed:\n"
@@ -1793,7 +1793,7 @@ msgid ""
 "recreate these files automatically if needed."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_logfiles.ml:146
+#: ../sysprep/sysprep_operation_logfiles.ml:147
 msgid "Remove many log files from the guest"
 msgstr ""
 
@@ -9403,32 +9403,32 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:58
+#: src/launch.c:61
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:168
+#: src/launch.c:171
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:174
+#: src/launch.c:177
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:188
+#: src/launch.c:191
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:202
+#: src/launch.c:205
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/launch.c:273
+#: src/launch.c:276
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:473
+#: src/launch.c:549
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
