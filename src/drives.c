@@ -588,65 +588,24 @@ guestfs_int_free_drives (guestfs_h *g)
  * Check string parameter matches regular expression
  * C<^[-_[:alnum:]]+$> (in C locale).
  */
-static int
-valid_format_iface (const char *str)
-{
-  size_t len = strlen (str);
-
-  if (len == 0)
-    return 0;
-
-  while (len > 0) {
-    char c = *str++;
-    len--;
-    if (c != '-' && c != '_' && !c_isalnum (c))
-      return 0;
-  }
-  return 1;
-}
+#define VALID_FORMAT_IFACE(str) \
+  guestfs_int_string_is_valid ((str), 1, 0, \
+                               VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-_")
 
 /**
  * Check the disk label is reasonable.  It can't contain certain
  * characters, eg. C<'/'>, C<','>.  However be stricter here and
  * ensure it's just alphabetic and E<le> 20 characters in length.
  */
-static int
-valid_disk_label (const char *str)
-{
-  size_t len = strlen (str);
-
-  if (len == 0 || len > 20)
-    return 0;
-
-  while (len > 0) {
-    char c = *str++;
-    len--;
-    if (!c_isalpha (c))
-      return 0;
-  }
-  return 1;
-}
+#define VALID_DISK_LABEL(str) \
+  guestfs_int_string_is_valid ((str), 1, 20, VALID_FLAG_ALPHA, NULL)
 
 /**
  * Check the server hostname is reasonable.
  */
-static int
-valid_hostname (const char *str)
-{
-  size_t len = strlen (str);
-
-  if (len == 0 || len > 255)
-    return 0;
-
-  while (len > 0) {
-    char c = *str++;
-    len--;
-    if (!c_isalnum (c) &&
-        c != '-' && c != '.' && c != ':' && c != '[' && c != ']')
-      return 0;
-  }
-  return 1;
-}
+#define VALID_HOSTNAME(str) \
+  guestfs_int_string_is_valid ((str), 1, 255, \
+                               VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-.:[]")
 
 /**
  * Check the port number is reasonable.
@@ -700,7 +659,7 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
       return -1;
     }
     free (port_str);
-    if (!valid_hostname (hostname)) {
+    if (!VALID_HOSTNAME (hostname)) {
       error (g, _("invalid hostname '%s'"), hostname);
       free (hostname);
       return -1;
@@ -711,7 +670,7 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
   }
 
   /* Doesn't match anything above, so assume it's a bare hostname. */
-  if (!valid_hostname (server)) {
+  if (!VALID_HOSTNAME (server)) {
     error (g, _("invalid hostname or server string '%s'"), server);
     return -1;
   }
@@ -814,19 +773,19 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  if (data.format && !valid_format_iface (data.format)) {
+  if (data.format && !VALID_FORMAT_IFACE (data.format)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "format");
     free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
-  if (data.iface && !valid_format_iface (data.iface)) {
+  if (data.iface && !VALID_FORMAT_IFACE (data.iface)) {
     error (g, _("%s parameter is empty or contains disallowed characters"),
            "iface");
     free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
-  if (data.disk_label && !valid_disk_label (data.disk_label)) {
+  if (data.disk_label && !VALID_DISK_LABEL (data.disk_label)) {
     error (g, _("label parameter is empty, too long, or contains disallowed characters"));
     free_drive_servers (data.servers, data.nr_servers);
     return -1;

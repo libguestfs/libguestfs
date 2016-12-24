@@ -36,23 +36,9 @@
  * Check that the $TERM environment variable is reasonable before
  * we pass it through to the appliance.
  */
-static bool
-valid_term (const char *term)
-{
-  size_t len = strlen (term);
-
-  if (len == 0 || len > 16)
-    return false;
-
-  while (len > 0) {
-    char c = *term++;
-    len--;
-    if (!c_isalnum (c) && c != '-' && c != '_')
-      return false;
-  }
-
-  return true;
-}
+#define VALID_TERM(term) \
+  guestfs_int_string_is_valid ((term), 1, 16, \
+                               VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-_")
 
 #if defined(__powerpc64__)
 #define SERIAL_CONSOLE "console=hvc0 console=ttyS0"
@@ -196,7 +182,7 @@ guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev,
     guestfs_int_add_string (g, &argv, "guestfs_network=1");
 
   /* TERM environment variable. */
-  if (term && valid_term (term))
+  if (term && VALID_TERM (term))
     guestfs_int_add_sprintf (g, &argv, "TERM=%s", term);
   else
     guestfs_int_add_string (g, &argv, "TERM=linux");

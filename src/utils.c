@@ -27,6 +27,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -37,9 +38,11 @@
 
 /* NB: MUST NOT require linking to gnulib, because that will break the
  * Python 'sdist' which includes a copy of this file.  It's OK to
- * include "ignore-value.h" here (since it is a header only with no
- * other code), but we also had to copy this file to the Python sdist.
+ * include "c-ctype.h" and "ignore-value.h" here (since it is a header
+ * only with no other code), but we also had to copy these files to
+ * the Python sdist.
  */
+#include "c-ctype.h"
 #include "ignore-value.h"
 
 /* NB: MUST NOT include "guestfs-internal.h". */
@@ -358,6 +361,62 @@ guestfs_int_is_true (const char *str)
     return 0;
 
   return -1;
+}
+
+/**
+ * Check a string for validity, that it contains only certain
+ * characters, and minimum and maximum length.  This function is
+ * usually wrapped in a VALID_* macro, see F<src/drives.c> for an
+ * example.
+ *
+ * C<str> is the string to check.
+ *
+ * C<min_length> and C<max_length> are the minimum and maximum
+ * length checks.  C<0> means no check.
+ *
+ * The flags control:
+ *
+ * =over 4
+ *
+ * =item C<VALID_FLAG_ALPHA>
+ *
+ * 7-bit ASCII-only alphabetic characters are permitted.
+ *
+ * =item C<VALID_FLAG_DIGIT>
+ *
+ * 7-bit ASCII-only digits are permitted.
+ *
+ * =back
+ *
+ * C<extra> is a set of extra characters permitted, in addition
+ * to alphabetic and/or digits.  (C<extra = NULL> for no extra).
+ *
+ * Returns boolean C<true> if the string is valid (passes all the
+ * tests), or C<false> if not.
+ */
+bool
+guestfs_int_string_is_valid (const char *str,
+                             size_t min_length, size_t max_length,
+                             int flags, const char *extra)
+{
+  size_t i, len = strlen (str);
+
+  if ((min_length > 0 && len < min_length) ||
+      (max_length > 0 && len > max_length))
+    return false;
+
+  for (i = 0; i < len; ++i) {
+    bool valid_char;
+
+    valid_char =
+      ((flags & VALID_FLAG_ALPHA) && c_isalpha (str[i])) ||
+      ((flags & VALID_FLAG_DIGIT) && c_isdigit (str[i])) ||
+      (extra && strchr (extra, str[i]));
+
+    if (!valid_char) return false;
+  }
+
+  return true;
 }
 
 #if 0 /* not used yet */

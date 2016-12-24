@@ -433,6 +433,47 @@ test_stringsbuf (void)
   guestfs_close (g);
 }
 
+/* Use the same macros as in src/drives.c */
+#define VALID_FORMAT_IFACE(str) \
+  guestfs_int_string_is_valid ((str), 1, 0, \
+                               VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-_")
+#define VALID_DISK_LABEL(str) \
+  guestfs_int_string_is_valid ((str), 1, 20, VALID_FLAG_ALPHA, NULL)
+#define VALID_HOSTNAME(str) \
+  guestfs_int_string_is_valid ((str), 1, 255, \
+                               VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-.:[]")
+
+static void
+test_valid (void)
+{
+  assert (!VALID_FORMAT_IFACE (""));
+  assert (!VALID_DISK_LABEL (""));
+  assert (!VALID_HOSTNAME (""));
+
+  assert (!VALID_DISK_LABEL ("012345678901234567890"));
+
+  assert (VALID_FORMAT_IFACE ("abc"));
+  assert (VALID_FORMAT_IFACE ("ABC"));
+  assert (VALID_FORMAT_IFACE ("abc123"));
+  assert (VALID_FORMAT_IFACE ("abc123-"));
+  assert (VALID_FORMAT_IFACE ("abc123_"));
+  assert (!VALID_FORMAT_IFACE ("abc123."));
+
+  assert (VALID_DISK_LABEL ("abc"));
+  assert (VALID_DISK_LABEL ("ABC"));
+  assert (!VALID_DISK_LABEL ("abc123"));
+  assert (!VALID_DISK_LABEL ("abc123-"));
+
+  assert (VALID_HOSTNAME ("abc"));
+  assert (VALID_HOSTNAME ("ABC"));
+  assert (VALID_HOSTNAME ("abc123"));
+  assert (VALID_HOSTNAME ("abc-123"));
+  assert (VALID_HOSTNAME ("abc.123"));
+  assert (VALID_HOSTNAME ("abc:123"));
+  assert (VALID_HOSTNAME ("abc[123]"));
+  assert (!VALID_HOSTNAME ("abc/def"));
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -448,6 +489,7 @@ main (int argc, char *argv[])
   test_timeval_diff ();
   test_match ();
   test_stringsbuf ();
+  test_valid ();
 
   exit (EXIT_SUCCESS);
 }

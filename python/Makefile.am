@@ -95,6 +95,7 @@ setup-install: setup.py stamp-extra-files
 # Python's crappy MANIFEST file cannot graft single files, so we have
 # to hard-link any extra files we need into the local directory.
 stamp-extra-files: \
+	  c-ctype.h \
 	  config.h \
 	  guestfs-internal-all.h \
 	  guestfs-internal-frontend-cleanups.h \
@@ -105,6 +106,9 @@ stamp-extra-files: \
 
 config.h:
 	ln ../config.h $@
+
+c-ctype.h:
+	ln $(top_srcdir)/gnulib/lib/c-ctype.h $@
 
 ignore-value.h:
 	ln $(top_srcdir)/gnulib/lib/ignore-value.h $@
@@ -138,6 +142,7 @@ CLEANFILES += \
 	*.pyc \
 	examples/*~ examples/*.pyc \
 	t/*~ t/*.pyc \
+	c-ctype.h \
 	config.h \
 	guestfs-internal-all.h \
 	guestfs-internal-frontend-cleanups.h \

@@ -32,6 +32,8 @@
 #ifndef GUESTFS_INTERNAL_FRONTEND_H_
 #define GUESTFS_INTERNAL_FRONTEND_H_
 
+#include <stdbool.h>
+
 #include "guestfs-internal-all.h"
 
 #define _(str) dgettext(PACKAGE, (str))
@@ -89,6 +91,9 @@ extern int guestfs_int_random_string (char *ret, size_t len);
 extern char *guestfs_int_drive_name (size_t index, char *ret);
 extern ssize_t guestfs_int_drive_index (const char *);
 extern int guestfs_int_is_true (const char *str);
+extern bool guestfs_int_string_is_valid (const char *str, size_t min_length, size_t max_length, int flags, const char *extra);
+#define VALID_FLAG_ALPHA 1
+#define VALID_FLAG_DIGIT 2
 //extern void guestfs_int_fadvise_normal (int fd);
 extern void guestfs_int_fadvise_sequential (int fd);
 extern void guestfs_int_fadvise_random (int fd);
