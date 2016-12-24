@@ -381,6 +381,9 @@ src/actions-6.c
 src/actions-support.c
 src/actions-variants.c
 src/alloc.c
+src/appliance-cpu.c
+src/appliance-kcmdline.c
+src/appliance-uefi.c
 src/appliance.c
 src/available.c
 src/bindtests.c

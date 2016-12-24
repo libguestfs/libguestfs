@@ -831,14 +831,20 @@ extern const char *guestfs_int_drive_protocol_to_string (enum drive_protocol pro
 
 /* appliance.c */
 extern int guestfs_int_build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
+
+/* appliance-cpu.c */
+const char *guestfs_int_get_cpu_model (int kvm);
+
+/* appliance-kcmdline.c */
+extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
+#define APPLIANCE_COMMAND_LINE_IS_TCG 1
+
+/* appliance-uefi.c */
 extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags);
 
 /* launch.c */
 extern int64_t guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y);
 extern void guestfs_int_launch_send_progress (guestfs_h *g, int perdozen);
-extern char *guestfs_int_appliance_command_line (guestfs_h *g, const char *appliance_dev, int flags);
-#define APPLIANCE_COMMAND_LINE_IS_TCG 1
-const char *guestfs_int_get_cpu_model (int kvm);
 int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
 extern void guestfs_int_register_backend (const char *name, const struct backend_ops *);
 extern int guestfs_int_set_backend (guestfs_h *g, const char *method);

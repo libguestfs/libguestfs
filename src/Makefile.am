@@ -82,6 +82,9 @@ libguestfs_la_SOURCES = \
 	actions-variants.c \
 	alloc.c \
 	appliance.c \
+	appliance-cpu.c \
+	appliance-kcmdline.c \
+	appliance-uefi.c \
 	available.c \
 	bindtests.c \
 	canonical-name.c \
