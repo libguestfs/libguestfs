@@ -37,7 +37,7 @@ ifelse(REDHAT,1,
   iputils
   kernel
   libcap
-  libldm               dnl only Fedora for now, others later
+  libldm
   nilfs-utils
   ntfsprogs
   ntfs-3g
@@ -74,6 +74,7 @@ dnl iproute has been renamed to iproute2
   iputils-arping
   iputils-tracepath
   isc-dhcp-client
+  ldmtool
   libaugeas0
   libc-bin
   libcap2
@@ -195,6 +196,7 @@ ifelse(MAGEIA,1,
   iproute2
   iputils
   libcap
+  libldm
   libyajl
   dnl syslinux uses mtools without depending on it
   mtools
