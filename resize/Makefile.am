@@ -1,5 +1,5 @@
 # libguestfs virt-resize 2.0 tools
-# Copyright (C) 2011-2016 Red Hat Inc.
+# Copyright (C) 2011-2017 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

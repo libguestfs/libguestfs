@@ -1,5 +1,5 @@
 /* virt-df & virt-alignment-scan domains code.
- * Copyright (C) 2010-2016 Red Hat Inc.
+ * Copyright (C) 2010-2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

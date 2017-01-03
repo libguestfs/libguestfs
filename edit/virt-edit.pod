@@ -397,4 +397,4 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009-2016 Red Hat Inc.
+Copyright (C) 2009-2017 Red Hat Inc.

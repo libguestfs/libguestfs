@@ -60,7 +60,7 @@ usage (int status)
              getprogname ());
   else {
     printf (_("%s: Run a rescue shell on a virtual machine\n"
-              "Copyright (C) 2009-2016 Red Hat Inc.\n"
+              "Copyright (C) 2009-2017 Red Hat Inc.\n"
               "Usage:\n"
               "  %s [--options] -d domname\n"
               "  %s [--options] -a disk.img [-a disk.img ...]\n"
