@@ -1,5 +1,5 @@
 /* virt-p2v
- * Copyright (C) 2009-2017 Red Hat Inc.
+ * Copyright (C) 2009-2018 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -638,7 +638,7 @@ about_button_clicked (GtkWidget *w, gpointer data)
   g_object_set (G_OBJECT (dialog),
                 "program-name", getprogname (),
                 "version", PACKAGE_VERSION_FULL " (" host_cpu ")",
-                "copyright", "\u00A9 2009-2017 Red Hat Inc.",
+                "copyright", "\u00A9 2009-2018 Red Hat Inc.",
                 "comments",
                   _("Virtualize a physical machine to run on KVM"),
 #if GTK_CHECK_VERSION(3,0,0)   /* gtk >= 3 */

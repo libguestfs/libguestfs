@@ -204,4 +204,4 @@ Cédric Bosdonnat L<mailto:cbosdonnat@suse.com>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2016-2017 SUSE Inc.
+Copyright (C) 2016-2018 SUSE Inc.

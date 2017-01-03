@@ -2166,7 +2166,7 @@ msgstr "Richard W.M. Jones (C<rjones at redhat dot com>)"
 #: ../p2v/virt-p2v.pod:886 ../rescue/virt-rescue.pod:510
 #: ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280
 #: ../v2v/virt-v2v-copy-to-local.pod:150 ../v2v/virt-v2v.pod:2479
-msgid "Copyright (C) 2009-2017 Red Hat Inc."
+msgid "Copyright (C) 2009-2018 Red Hat Inc."
 msgstr "© Red Hat Inc., 2009–2017"
 
 #. type: =end
@@ -2644,7 +2644,7 @@ msgstr ""
 #: ../builder/virt-builder-repository.pod:207
 #, fuzzy
 #| msgid "Copyright (C) 2016 SUSE Ltd."
-msgid "Copyright (C) 2016-2017 SUSE Inc."
+msgid "Copyright (C) 2016-2018 SUSE Inc."
 msgstr "Авторські права належать SUSE Ltd., 2016"
 
 #. type: textblock
@@ -8413,7 +8413,7 @@ msgstr ""
 #. type: textblock
 #: ../cat/virt-log.pod:153 ../examples/guestfs-examples.pod:75
 #: ../make-fs/virt-make-fs.pod:235
-msgid "Copyright (C) 2010-2017 Red Hat Inc."
+msgid "Copyright (C) 2010-2018 Red Hat Inc."
 msgstr "© Red Hat Inc., 2010–2017"
 
 #. type: textblock
@@ -10487,7 +10487,7 @@ msgstr ""
 #: ../lib/guestfs-structs.pod:9
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2017 Red Hat Inc.\n"
+" Copyright (C) 2009-2018 Red Hat Inc.\n"
 "\n"
 msgstr ""
 " © Red Hat Inc., 2009–2017\n"
@@ -11766,7 +11766,7 @@ msgstr ""
 #. type: textblock
 #: ../customize/virt-customize.pod:309 ../fish/libguestfs-tools.conf.pod:102
 #: ../sparsify/virt-sparsify.pod:471 ../sysprep/virt-sysprep.pod:624
-msgid "Copyright (C) 2011-2017 Red Hat Inc."
+msgid "Copyright (C) 2011-2018 Red Hat Inc."
 msgstr "© Red Hat Inc., 2011–2017"
 
 #. type: textblock
@@ -18782,7 +18782,7 @@ msgstr "L<guestfish(1)>, L<guestfs(3)>, L<http://libguestfs.org/>."
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1423 ../docs/guestfs-performance.pod:638
 #: ../gobject/guestfs-gobject.pod:64
-msgid "Copyright (C) 2012-2017 Red Hat Inc."
+msgid "Copyright (C) 2012-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -80294,7 +80294,7 @@ msgstr ""
 
 #. type: textblock
 #: ../get-kernel/virt-get-kernel.pod:197
-msgid "Copyright (C) 2013-2017 Red Hat Inc."
+msgid "Copyright (C) 2013-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -123490,7 +123490,7 @@ msgstr ""
 
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:279
-msgid "Copyright (C) 2014-2017 Red Hat Inc."
+msgid "Copyright (C) 2014-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock

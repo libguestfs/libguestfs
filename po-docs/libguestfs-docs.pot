@@ -1114,7 +1114,7 @@ msgstr ""
 
 #. type: textblock
 #: ../appliance/libguestfs-make-fixed-appliance.pod:154 ../cat/virt-ls.pod:534 ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264 ../docs/guestfs-building.pod:881 ../docs/guestfs-hacking.pod:1229 ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:741 ../docs/guestfs-release-notes.pod:6083 ../docs/guestfs-security.pod:399 ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1657 ../fuse/guestmount.pod:446 ../lib/guestfs.pod:3483 ../p2v/virt-p2v-make-disk.pod:218 ../p2v/virt-p2v-make-kickstart.pod:339 ../p2v/virt-p2v.pod:886 ../rescue/virt-rescue.pod:510 ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280 ../v2v/virt-v2v-copy-to-local.pod:150 ../v2v/virt-v2v.pod:2479
-msgid "Copyright (C) 2009-2017 Red Hat Inc."
+msgid "Copyright (C) 2009-2018 Red Hat Inc."
 msgstr ""
 
 #. type: =end
@@ -1478,7 +1478,7 @@ msgstr ""
 
 #. type: textblock
 #: ../builder/virt-builder-repository.pod:207
-msgid "Copyright (C) 2016-2017 SUSE Inc."
+msgid "Copyright (C) 2016-2018 SUSE Inc."
 msgstr ""
 
 #. type: textblock
@@ -6548,7 +6548,7 @@ msgstr ""
 
 #. type: textblock
 #: ../cat/virt-log.pod:153 ../examples/guestfs-examples.pod:75 ../make-fs/virt-make-fs.pod:235
-msgid "Copyright (C) 2010-2017 Red Hat Inc."
+msgid "Copyright (C) 2010-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -8339,7 +8339,7 @@ msgstr ""
 #: ../customize/customize-options.pod:9 ../fish/guestfish-actions.pod:9 ../fish/guestfish-commands.pod:9 ../fish/guestfish-prepopts.pod:9 ../lib/guestfs-actions.pod:9 ../lib/guestfs-availability.pod:9 ../lib/guestfs-structs.pod:9
 #, no-wrap
 msgid ""
-" Copyright (C) 2009-2017 Red Hat Inc.\n"
+" Copyright (C) 2009-2018 Red Hat Inc.\n"
 "\n"
 msgstr ""
 
@@ -9361,7 +9361,7 @@ msgstr ""
 
 #. type: textblock
 #: ../customize/virt-customize.pod:309 ../fish/libguestfs-tools.conf.pod:102 ../sparsify/virt-sparsify.pod:471 ../sysprep/virt-sysprep.pod:624
-msgid "Copyright (C) 2011-2017 Red Hat Inc."
+msgid "Copyright (C) 2011-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -15958,7 +15958,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/guestfs-faq.pod:1423 ../docs/guestfs-performance.pod:638 ../gobject/guestfs-gobject.pod:64
-msgid "Copyright (C) 2012-2017 Red Hat Inc."
+msgid "Copyright (C) 2012-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -74262,7 +74262,7 @@ msgstr ""
 
 #. type: textblock
 #: ../get-kernel/virt-get-kernel.pod:197
-msgid "Copyright (C) 2013-2017 Red Hat Inc."
+msgid "Copyright (C) 2013-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
@@ -111391,7 +111391,7 @@ msgstr ""
 
 #. type: textblock
 #: ../v2v/test-harness/virt-v2v-test-harness.pod:279
-msgid "Copyright (C) 2014-2017 Red Hat Inc."
+msgid "Copyright (C) 2014-2018 Red Hat Inc."
 msgstr ""
 
 #. type: textblock
