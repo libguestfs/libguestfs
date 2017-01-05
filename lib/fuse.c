@@ -989,8 +989,7 @@ guestfs_impl_mount_local (guestfs_h *g, const char *localmountpoint,
     return -1;
 
   /* Create the FUSE 'args'. */
-  /* XXX we don't have a program name */
-  if (fuse_opt_add_arg (&args, "guestfs_mount_local") == -1) {
+  if (fuse_opt_add_arg (&args, g->program) == -1) {
   arg_error:
     perrorf (g, _("fuse_opt_add_arg: %s"), localmountpoint);
     fuse_opt_free_args (&args);
