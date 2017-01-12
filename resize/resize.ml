@@ -315,6 +315,13 @@ read the man page virt-resize(1).
         error (f_"error parsing URI '%s'. Look for error messages printed above.")
           infile in
 
+    (* outfile can be a URI. *)
+    let outfile =
+      try (outfile, URI.parse_uri outfile)
+      with Invalid_argument "URI.parse_uri" ->
+        error (f_"error parsing URI '%s'. Look for error messages printed above.")
+          outfile in
+
     infile, outfile, align_first, alignment, copy_boot_loader,
     deletes,
     dryrun, expand, expand_content, extra_partition, format, ignores,
@@ -326,16 +333,24 @@ read the man page virt-resize(1).
   let btrfs_available = ref true in
   let xfs_available = ref true in
 
+  (* Add a drive to an handle using the elements of the URI,
+   * and few additional parameters.
+   *)
+  let add_drive_uri (g : Guestfs.guestfs) ?format ?readonly ?cachemode
+                    { URI.path = path; protocol = protocol;
+                      server = server; username = username;
+                      password = password } =
+    g#add_drive ?format ?readonly ?cachemode
+      ~protocol ?server ?username ?secret:password path
+  in
+
   (* Add in and out disks to the handle and launch. *)
   let connect_both_disks () =
     let g = open_guestfs () in
-    let _, { URI.path = path; protocol = protocol;
-             server = server; username = username;
-             password = password } = infile in
-    g#add_drive ?format ~readonly:true ~protocol ?server ?username ?secret:password path;
+    add_drive_uri g ?format (snd infile);
     (* The output disk is being created, so use cache=unsafe here. *)
-    g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
-      outfile;
+    add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
+      (snd outfile);
     if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
     g#launch ();
 
@@ -368,7 +383,7 @@ read the man page virt-resize(1).
     let insize = g#blockdev_getsize64 "/dev/sda" in
     let outsize = g#blockdev_getsize64 "/dev/sdb" in
     debug "%s size %Ld bytes" (fst infile) insize;
-    debug "%s size %Ld bytes" outfile outsize;
+    debug "%s size %Ld bytes" (fst outfile) outsize;
     sectsize, insize, outsize in
 
   let max_bootloader =
@@ -390,7 +405,7 @@ read the man page virt-resize(1).
       (fst infile) insize;
   if outsize < Int64.of_int max_bootloader then
     error (f_"%s: file is too small to be a disk image (%Ld bytes)")
-      outfile outsize;
+      (fst outfile) outsize;
 
   (* Get the source partition type. *)
   let parttype, parttype_string =
@@ -983,7 +998,7 @@ read the man page virt-resize(1).
     (* Try hard to initialize the partition table.  This might involve
      * relaunching another handle.
      *)
-    message (f_"Setting up initial partition table on %s") outfile;
+    message (f_"Setting up initial partition table on %s") (fst outfile);
 
     let last_error = ref "" in
     let rec initialize_partition_table g attempts =
@@ -1301,8 +1316,8 @@ read the man page virt-resize(1).
 
       let g = open_guestfs () in
       (* The output disk is being created, so use cache=unsafe here. *)
-      g#add_drive ?format:output_format ~readonly:false ~cachemode:"unsafe"
-        outfile;
+      add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
+        (snd outfile);
       if not (quiet ()) then Progress.set_up_progress_bar ~machine_readable g;
       g#launch ();
 
@@ -1378,13 +1393,17 @@ read the man page virt-resize(1).
   g#shutdown ();
   g#close ();
 
-  (* Because we used cache=unsafe when writing the output file, the
-   * file might not be committed to disk.  This is a problem if qemu is
-   * immediately used afterwards with cache=none (which uses O_DIRECT
-   * and therefore bypasses the host cache).  In general you should not
-   * use cache=none.
-   *)
-  Fsync.file outfile;
+  (* Try to sync the destination disk only if it is a local file. *)
+  (match outfile with
+  | _, { URI.protocol = (""|"file"); path = path } ->
+    (* Because we used cache=unsafe when writing the output file, the
+     * file might not be committed to disk.  This is a problem if qemu is
+     * immediately used afterwards with cache=none (which uses O_DIRECT
+     * and therefore bypasses the host cache).  In general you should not
+     * use cache=none.
+     *)
+    Fsync.file path
+  | _ -> ());
 
   if not (quiet ()) then (
     print_newline ();

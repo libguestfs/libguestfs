@@ -121,9 +121,9 @@ Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:
 
 =item 5. Resize
 
-virt-resize takes two mandatory parameters, the input disk
-(eg. device, file, or a URI to a remote disk) and the output disk.
-The output disk is the one created in the previous step.
+virt-resize takes two mandatory parameters, the input disk and the
+output disk (both can be e.g. a device, a file, or a URI to a remote
+disk).  The output disk is the one created in the previous step.
 
  # virt-resize indisk outdisk
 
