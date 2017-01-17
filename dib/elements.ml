@@ -120,22 +120,36 @@ let load_dependencies elements loaded_elements =
   let queue = Queue.create () in
   let final = ref StringSet.empty in
   let provided = ref StringSet.empty in
+  let provided_by = Hashtbl.create 13 in
   List.iter (fun x -> Queue.push x queue) elements;
   final := stringset_of_list elements;
   while not (Queue.is_empty queue) do
     let elem = Queue.pop queue in
     if StringSet.mem elem !provided <> true then (
-      let deps = get_deps elem in
-      provided := StringSet.union !provided (get_provides elem);
+      let element_deps = get_deps elem in
+      let element_provides = get_provides elem in
+      (* Save which elements provide another element for potential
+       * error message.
+       *)
+      StringSet.iter (fun x -> Hashtbl.add provided_by x elem) element_provides;
+      provided := StringSet.union !provided element_provides;
       StringSet.iter (fun x -> Queue.push x queue)
-        (StringSet.diff deps (StringSet.union !final !provided));
-      final := StringSet.union !final deps
+        (StringSet.diff element_deps (StringSet.union !final !provided));
+      final := StringSet.union !final element_deps
     )
   done;
   let conflicts = StringSet.inter (stringset_of_list elements) !provided in
-  if not (StringSet.is_empty conflicts) then
-    error (f_"following elements were explicitly required but are provided by other included elements: %s")
-      (String.concat "," (StringSet.elements conflicts));
+  if not (StringSet.is_empty conflicts) then (
+    let buf = Buffer.create 100 in
+    StringSet.iter (
+      fun elem ->
+        let s = sprintf (f_"  %s: already provided by %s")
+                  elem (Hashtbl.find provided_by elem) in
+        Buffer.add_string buf s
+    ) conflicts;
+    error (f_"following elements are already provided by another element:\n%s")
+      (Buffer.contents buf)
+  );
   if not (StringSet.mem "operating-system" !provided) then
     error (f_"please include an operating system element");
   StringSet.diff !final !provided
