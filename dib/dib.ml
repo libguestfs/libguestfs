@@ -803,6 +803,7 @@ let main () =
     | None -> []
     | Some o -> [ o ] in
   let mkfs_options =
+    [ "-t"; cmdline.fs_type ] @
     (match cmdline.fs_type with
     | "ext4" ->
       (* Very conservative to handle images being resized a lot
@@ -811,7 +812,7 @@ let main () =
        *)
       [ "-i"; "4096"; "-J"; "size=64" ]
     | _ -> []
-    ) @ mkfs_options @ [ "-t"; cmdline.fs_type; blockdev ] in
+    ) @ mkfs_options @ [ blockdev ] in
   ignore (g#debug "sh" (Array.of_list ([ "mkfs" ] @ mkfs_options)));
   g#set_label blockdev root_label;
   if String.is_prefix cmdline.fs_type "ext" then
