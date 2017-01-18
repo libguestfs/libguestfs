@@ -123,7 +123,7 @@ visitor_function_wrapper (const char *dir,
      * return an error.
      */
     *args->exnp = Extract_exception (v);
-    return -1;
+    CAMLreturnT (int, -1);
   }
 
   /* No error, return normally. */
