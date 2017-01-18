@@ -72,6 +72,11 @@ Right now this option does nothing more than setting the C<ARCH>
 environment variable for the elements, and it's up to them to
 produce an image for the requested architecture.
 
+=item B<--checksum>
+
+Generate checksum files for the generated image.  The supported
+checksums are MD5, and SHA256.
+
 =item B<--colors>
 
 =item B<--colours>
@@ -319,6 +324,14 @@ Not applicable in ramdisk mode, see L</RAMDISK BUILDING>.
 A directory containing any files created by the elements, for example
 F<dib-manifests> directory (created by the C<manifests> element),
 ramdisks and kernels in ramdisk mode, and so on.
+
+=item F<$NAME.ext.checksum>
+
+When I<--checksum> is specified, there will be files for each
+supported checksum type; for example: F<$NAME.ext.md5>,
+F<$NAME.ext.sha256>, etc.
+
+Not applicable in ramdisk mode, see L</RAMDISK BUILDING>.
 
 =back
 

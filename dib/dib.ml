@@ -27,6 +27,10 @@ open Printf
 
 module G = Guestfs
 
+let checksums = [ "md5"; "sha512" ]
+and tool_of_checksum csum =
+  csum ^ "sum"
+
 let exclude_elements elements = function
   | [] ->
     (* No elements to filter out, so just don't bother iterating through
@@ -68,9 +72,10 @@ let envvars_string l =
   String.concat "\n" l
 
 let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
-  ~rootfs_uuid ~image_cache ~arch ~network ~debug ~fs_type
+  ~rootfs_uuid ~image_cache ~arch ~network ~debug ~fs_type ~checksum
   destdir libdir hooksdir fakebindir all_elements element_paths =
   let network_string = if network then "" else "1" in
+  let checksum_string = if checksum then "1" else "" in
 
   let run_extra = sprintf "\
 #!/bin/bash
@@ -106,6 +111,7 @@ export TMPDIR=\"${TMP_MOUNT_PATH}/tmp\"
 export TMP_DIR=\"${TMPDIR}\"
 export DIB_DEBUG_TRACE=%d
 export FS_TYPE=%s
+export DIB_CHECKSUM=%s
 
 ENVIRONMENT_D_DIR=$target_dir/../environment.d
 
@@ -136,13 +142,15 @@ $target_dir/$script
     (String.concat ":" element_paths)
     (quote dib_vars)
     debug
-    fs_type in
+    fs_type
+    checksum_string in
   write_script (destdir // "run-part-extra.sh") run_extra
 
 let prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name ~rootfs_uuid
   ~arch ~network ~root_label ~install_type ~debug ~extra_packages ~fs_type
-  destdir all_elements =
+  ~checksum destdir all_elements =
   let network_string = if network then "" else "1" in
+  let checksum_string = if checksum then "1" else "" in
 
   let script_run_part = sprintf "\
 #!/bin/bash
@@ -191,6 +199,7 @@ export DIB_ENV=%s
 export DIB_DEBUG_TRACE=%d
 export DIB_NO_TMPFS=1
 export FS_TYPE=%s
+export DIB_CHECKSUM=%s
 
 export TMP_BUILD_DIR=$mysysroot/tmp/aux
 export TMP_IMAGE_DIR=$mysysroot/tmp/aux
@@ -229,7 +238,8 @@ $target_dir/$script
     (String.concat " " (StringSet.elements all_elements))
     (quote dib_vars)
     debug
-    fs_type in
+    fs_type
+    checksum_string in
   write_script (destdir // "run-part.sh") script_run_part;
   let script_run_and_log = "\
 #!/bin/bash
@@ -487,6 +497,8 @@ let main () =
     require_tool "qemu-img";
   if List.mem "vhd" cmdline.formats then
     require_tool "vhd-util";
+  if cmdline.checksum then
+    List.iter (fun x -> require_tool (tool_of_checksum x)) checksums;
 
   let image_basename = Filename.basename cmdline.image_name in
   let image_basename_d = image_basename ^ ".d" in
@@ -600,6 +612,7 @@ let main () =
               ~install_type:cmdline.install_type ~debug
               ~extra_packages:cmdline.extra_packages
               ~fs_type:cmdline.fs_type
+              ~checksum:cmdline.checksum
               auxtmpdir all_elements;
 
   let delete_output_file = ref cmdline.delete_on_failure in
@@ -617,6 +630,7 @@ let main () =
                    ~root_label ~rootfs_uuid ~image_cache ~arch
                    ~network:cmdline.network ~debug
                    ~fs_type:cmdline.fs_type
+                   ~checksum:cmdline.checksum
                    tmpdir cmdline.basepath hookstmpdir
                    (auxtmpdir // "fake-bin")
                    all_elements cmdline.element_paths;
@@ -937,6 +951,53 @@ let main () =
             error (f_"VHD output not produced, most probably vhd-util is old or not patched for 'convert'")
         | _ as fmt -> error "unhandled format: %s" fmt
     ) formats_img_nonraw;
+  );
+
+  if not is_ramdisk_build && cmdline.checksum then (
+    let file_flags = [ Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC; Unix.O_CLOEXEC; ] in
+    List.iter (
+      fun fmt ->
+        let fn = output_filename cmdline.image_name fmt in
+        message (f_"Generating checksums for %s") fn;
+        let pids =
+          List.map (
+            fun csum ->
+              let csum_fn = fn ^ "." ^ csum in
+              let csum_tool = tool_of_checksum csum in
+              let outfd = Unix.openfile csum_fn file_flags 0o640 in
+              let args = [| csum_tool; fn; |] in
+              Common_utils.debug "%s" (stringify_args (Array.to_list args));
+              let pid = Unix.create_process csum_tool args Unix.stdin
+                          outfd Unix.stderr in
+              (pid, csum_tool, outfd)
+          ) checksums in
+        let pids = ref pids in
+        while !pids <> [] do
+          let pid, stat = Unix.waitpid [] 0 in
+          let matching_pair, new_pids =
+            List.partition (
+              fun (p, tool, outfd) ->
+                pid = p
+            ) !pids in
+          if matching_pair <> [] then (
+            let matching_pair = List.hd matching_pair in
+            let _, csum_tool, outfd = matching_pair in
+            Unix.close outfd;
+            pids := new_pids;
+            match stat with
+            | Unix.WEXITED 0 -> ()
+            | Unix.WEXITED i ->
+              error (f_"external command '%s' exited with error %d")
+                csum_tool i
+            | Unix.WSIGNALED i ->
+              error (f_"external command '%s' killed by signal %d")
+                csum_tool i
+            | Unix.WSTOPPED i ->
+              error (f_"external command '%s' stopped by signal %d")
+                csum_tool i
+          );
+        done;
+    ) formats_img;
   );
 
   message (f_"Done")
