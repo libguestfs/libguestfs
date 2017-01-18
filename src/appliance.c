@@ -459,7 +459,7 @@ guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *flags)
       /* If debugging is enabled and we can find the code file with
        * debugging enabled, use that instead.
        */
-      if (g->verbose && access (code_debug_file, R_OK) == 0)
+      if (g->verbose && code_debug_file && access (code_debug_file, R_OK) == 0)
 	codefile = code_debug_file;
 
       /* Caller frees. */
