@@ -88,6 +88,9 @@ SUBDIRS += tests/regressions
 SUBDIRS += tests/tsk
 endif
 
+# Common code used by the tools.
+SUBDIRS += common/visit
+
 # libguestfs-test-tool
 SUBDIRS += test-tool
 

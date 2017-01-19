@@ -24,12 +24,7 @@ EXTRA_DIST = \
 
 bin_PROGRAMS = virt-diff
 
-SHARED_SOURCE_FILES = \
-	../cat/visit.h \
-	../cat/visit.c
-
 virt_diff_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	diff.c
 
 virt_diff_CPPFLAGS = \
@@ -37,6 +32,7 @@ virt_diff_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/visit -I$(top_builddir)/common/visit \
 	-I$(top_srcdir)/cat -I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -45,6 +41,7 @@ virt_diff_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_diff_LDADD = \
+	$(top_builddir)/common/visit/libvisit.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \

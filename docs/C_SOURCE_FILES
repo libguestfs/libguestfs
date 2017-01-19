@@ -11,8 +11,6 @@ cat/filesystems.c
 cat/log.c
 cat/ls.c
 cat/tail.c
-cat/visit.c
-cat/visit.h
 common/utils/cleanup.c
 common/utils/guestfs-internal-frontend-cleanups.h
 common/utils/guestfs-internal-frontend.h
@@ -21,6 +19,8 @@ common/utils/structs-print.c
 common/utils/structs-print.h
 common/utils/uefi.c
 common/utils/utils.c
+common/visit/visit.c
+common/visit/visit.h
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c

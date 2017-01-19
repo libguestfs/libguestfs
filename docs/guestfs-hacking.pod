@@ -98,6 +98,10 @@ and the daemon running inside the appliance is defined here.
 
 Various utility functions used throughout the library and tools.
 
+=item F<common/visit>
+
+Recursively visit a guestfs filesystem hierarchy.
+
 =back
 
 =item F<contrib>

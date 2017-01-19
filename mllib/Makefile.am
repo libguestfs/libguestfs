@@ -70,7 +70,7 @@ SOURCES_ML = \
 	checksums.ml
 
 SOURCES_C = \
-	../cat/visit.c \
+	../common/visit/visit.c \
 	../fish/decrypt.c \
 	../fish/keys.c \
 	../fish/progress.c \
@@ -112,7 +112,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
-	-I$(top_srcdir)/cat \
+	-I$(top_srcdir)/common/visit \
 	-I$(top_srcdir)/fish
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \

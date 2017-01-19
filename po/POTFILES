@@ -10,7 +10,6 @@ cat/filesystems.c
 cat/log.c
 cat/ls.c
 cat/tail.c
-cat/visit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/utils/cleanup.c
@@ -18,6 +17,7 @@ common/utils/structs-cleanup.c
 common/utils/structs-print.c
 common/utils/uefi.c
 common/utils/utils.c
+common/visit/visit.c
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
