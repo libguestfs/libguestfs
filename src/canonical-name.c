@@ -35,6 +35,7 @@ guestfs_impl_canonical_device_name (guestfs_h *g, const char *device)
   /* /dev/hd etc. */
   if (STRPREFIX (device, "/dev/") &&
       strchr (device+5, '/') == NULL && /* not an LV name */
+      device[5] != 'm' && /* not /dev/md - RHBZ#1414682 */
       ((len = strcspn (device+5, "d")) > 0 && len <= 2)) {
     ret = safe_asprintf (g, "/dev/sd%s", &device[5+len+1]);
   }
