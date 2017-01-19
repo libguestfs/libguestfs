@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -36,7 +37,7 @@ typedef int (*block_dev_func_t) (const char *dev, struct stringsbuf *r);
 
 /* Execute a given function for each discovered block device */
 static char **
-foreach_block_device (block_dev_func_t func)
+foreach_block_device (block_dev_func_t func, bool return_md)
 {
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (r);
   DIR *dir;
@@ -60,7 +61,9 @@ foreach_block_device (block_dev_func_t func)
         STREQLEN (d->d_name, "hd", 2) ||
         STREQLEN (d->d_name, "ubd", 3) ||
         STREQLEN (d->d_name, "vd", 2) ||
-        STREQLEN (d->d_name, "sr", 2)) {
+        STREQLEN (d->d_name, "sr", 2) ||
+        (return_md &&
+         STREQLEN (d->d_name, "md", 2) && c_isdigit (d->d_name[2]))) {
       snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
 
       /* Ignore the root device. */
@@ -131,7 +134,16 @@ add_device (const char *device, struct stringsbuf *r)
 char **
 do_list_devices (void)
 {
-  return foreach_block_device (add_device);
+  /* For backwards compatibility, don't return MD devices in the list
+   * returned by guestfs_list_devices.  This is because most API users
+   * expect that this list is effectively the same as the list of
+   * devices added by guestfs_add_drive.
+   *
+   * Also, MD devices are special devices - unlike the devices exposed
+   * by QEMU, and there is a special API for them,
+   * guestfs_list_md_devices.
+   */
+  return foreach_block_device (add_device, false);
 }
 
 static int
@@ -184,7 +196,7 @@ add_partitions (const char *device, struct stringsbuf *r)
 char **
 do_list_partitions (void)
 {
-  return foreach_block_device (add_partitions);
+  return foreach_block_device (add_partitions, true);
 }
 
 char *
