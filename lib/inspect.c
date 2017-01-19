@@ -17,7 +17,7 @@
  */
 
 /**
- * This file, and the other C<src/inspect*.c> files, handle
+ * This file, and the other C<lib/inspect*.c> files, handle
  * inspection.  See L<guestfs(3)/INSPECTION>.
  */
 

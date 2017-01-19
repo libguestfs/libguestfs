@@ -33,7 +33,7 @@ EXTRA_DIST = \
 noinst_LTLIBRARIES = libutils.la
 
 libutils_la_SOURCES = \
-	../../src/guestfs.h \
+	../../lib/guestfs.h \
 	cleanup.c \
 	guestfs-internal-frontend.h \
 	guestfs-internal-frontend-cleanups.h \
@@ -46,7 +46,7 @@ libutils_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 libutils_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(GCC_VISIBILITY_HIDDEN) \

@@ -93,7 +93,7 @@ virt_sysprep_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
-	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/lib \
 	-I$(top_srcdir)/fish
 virt_sysprep_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -102,13 +102,13 @@ virt_sysprep_CFLAGS = \
 BOBJECTS = $(SOURCES_ML:.ml=.cmo)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
-# -I $(top_builddir)/src/.libs is a hack which forces corresponding -L
+# -I $(top_builddir)/lib/.libs is a hack which forces corresponding -L
 # option to be passed to gcc, so we don't try linking against an
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/common/utils/.libs \
-	-I $(top_builddir)/src/.libs \
+	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/mllib \

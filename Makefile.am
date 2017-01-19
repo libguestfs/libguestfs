@@ -39,7 +39,7 @@ endif
 
 # Basic source for the library.
 SUBDIRS += common/errnostring common/protocol common/utils
-SUBDIRS += src docs examples po
+SUBDIRS += lib docs examples po
 
 # The daemon and the appliance.
 if ENABLE_DAEMON

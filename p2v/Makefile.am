@@ -93,7 +93,7 @@ virt_p2v_SOURCES = \
 virt_p2v_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_p2v_CFLAGS = \
@@ -302,7 +302,7 @@ test-virt-p2v-pxe.sshd_config: test-virt-p2v-pxe.sshd_config.in
 
 test-virt-p2v-pxe.authorized_keys: test-virt-p2v-pxe.id_rsa.pub $(top_builddir)/run
 	rm -f $@ $@-t
-	$(top_builddir)/run sh -c 'echo -n environment=\"PATH=$$PATH\",environment=\"LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs\"\ ' > $@-t
+	$(top_builddir)/run sh -c 'echo -n environment=\"PATH=$$PATH\",environment=\"LD_LIBRARY_PATH=$(abs_top_builddir)/lib/.libs\"\ ' > $@-t
 	cat $< >> $@-t
 	mv $@-t $@
 

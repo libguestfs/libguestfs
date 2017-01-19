@@ -106,21 +106,21 @@ Run it from the top source directory using the command
   output_to "common/utils/structs-print.h" generate_client_structs_print_h;
   output_to "common/utils/uefi.c" generate_uefi_c;
 
-  output_to "src/guestfs.h" generate_guestfs_h;
-  output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
-  output_to "src/bindtests.c" generate_bindtests;
-  output_to "src/guestfs-structs.pod" generate_structs_pod;
-  output_to "src/guestfs-actions.pod" generate_actions_pod;
-  output_to "src/guestfs-availability.pod" generate_availability_pod;
-  output_to "src/event-string.c" generate_event_string_c;
-  output_to "src/MAX_PROC_NR" generate_max_proc_nr;
-  output_to "src/libguestfs.syms" generate_linker_script;
+  output_to "lib/guestfs.h" generate_guestfs_h;
+  output_to "lib/guestfs-internal-actions.h" generate_internal_actions_h;
+  output_to "lib/bindtests.c" generate_bindtests;
+  output_to "lib/guestfs-structs.pod" generate_structs_pod;
+  output_to "lib/guestfs-actions.pod" generate_actions_pod;
+  output_to "lib/guestfs-availability.pod" generate_availability_pod;
+  output_to "lib/event-string.c" generate_event_string_c;
+  output_to "lib/MAX_PROC_NR" generate_max_proc_nr;
+  output_to "lib/libguestfs.syms" generate_linker_script;
 
-  output_to "src/structs-compare.c" generate_client_structs_compare;
-  output_to "src/structs-copy.c" generate_client_structs_copy;
-  output_to "src/structs-free.c" generate_client_structs_free;
-  output_to "src/actions-variants.c" generate_client_actions_variants;
-  output_to_subset "src/actions-%d.c" generate_client_actions;
+  output_to "lib/structs-compare.c" generate_client_structs_compare;
+  output_to "lib/structs-copy.c" generate_client_structs_copy;
+  output_to "lib/structs-free.c" generate_client_structs_free;
+  output_to "lib/actions-variants.c" generate_client_actions_variants;
+  output_to_subset "lib/actions-%d.c" generate_client_actions;
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.h" generate_daemon_stubs_h;
   output_to_subset "daemon/stubs-%d.c" generate_daemon_stubs;

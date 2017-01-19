@@ -93,14 +93,14 @@ tests_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(PCRE_CFLAGS)
 tests_LDADD = \
 	$(PCRE_LIBS) \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
@@ -119,39 +119,39 @@ test_pwd_LDFLAGS = -all-static
 
 test_just_header_SOURCES = test-just-header.c
 test_just_header_CPPFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_just_header_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_just_header_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 if HAVE_CXX
 test_just_header_cxx_SOURCES = test-just-header-cxx.cpp
 test_just_header_cxx_CPPFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_just_header_cxx_CXXFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_just_header_cxx_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 endif
 
 test_create_handle_SOURCES = test-create-handle.c
 test_create_handle_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_create_handle_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_create_handle_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 if HAVE_LIBDL
 test_dlopen_SOURCES = test-dlopen.c
 test_dlopen_CPPFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_dlopen_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	-DLIBRARY=\"$(top_builddir)/src/.libs/libguestfs.so.0\"
+	-DLIBRARY=\"$(top_builddir)/lib/.libs/libguestfs.so.0\"
 test_dlopen_LDADD = \
 	-ldl
 endif
@@ -159,107 +159,107 @@ endif
 test_config_SOURCES = test-config.c
 test_config_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_config_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_config_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 test_add_drive_opts_SOURCES = test-add-drive-opts.c
 test_add_drive_opts_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_add_drive_opts_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_add_drive_opts_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 test_last_errno_SOURCES = test-last-errno.c
 test_last_errno_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_last_errno_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_last_errno_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_backend_settings_SOURCES = test-backend-settings.c
 test_backend_settings_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_backend_settings_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_backend_settings_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
 	$(LTLIBINTL) \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 test_private_data_SOURCES = test-private-data.c
 test_private_data_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_private_data_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_private_data_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 test_user_cancel_SOURCES = test-user-cancel.c
 test_user_cancel_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_user_cancel_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_user_cancel_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la -lm \
+	$(top_builddir)/lib/libguestfs.la -lm \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_debug_to_file_SOURCES = test-debug-to-file.c
 test_debug_to_file_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib
 test_debug_to_file_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_debug_to_file_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_environment_SOURCES = test-environment.c
 test_environment_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib
 test_environment_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_environment_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 test_event_string_SOURCES = test-event-string.c
 test_event_string_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib
 test_event_string_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_event_string_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
@@ -267,7 +267,7 @@ if HAVE_LIBVIRT
 test_add_libvirt_dom_SOURCES = test-add-libvirt-dom.c
 test_add_libvirt_dom_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib
 test_add_libvirt_dom_CFLAGS = \
@@ -275,7 +275,7 @@ test_add_libvirt_dom_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_add_libvirt_dom_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la $(LIBVIRT_LIBS) \
+	$(top_builddir)/lib/libguestfs.la $(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
 	$(LTLIBTHREAD) $(top_builddir)/gnulib/lib/libgnu.la
 endif

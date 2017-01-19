@@ -57,5 +57,5 @@ val fish_commands : Types.action list
 (** Non-API meta-commands available only in guestfish. *)
 
 val max_proc_nr : int
-(** The largest procedure number used (also saved in [src/MAX_PROC_NR] and
+(** The largest procedure number used (also saved in [lib/MAX_PROC_NR] and
     used as the minor version number of the shared library). *)

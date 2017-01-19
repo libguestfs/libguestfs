@@ -209,7 +209,7 @@ unit_tests_SOURCES = unit-tests.c
 unit_tests_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I.
+	-I$(top_srcdir)/lib -I.
 unit_tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 # We have to link this to libguestfs, but because we want to test

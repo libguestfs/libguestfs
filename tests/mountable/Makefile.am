@@ -30,9 +30,9 @@ test_internal_parse_mountable_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 test_internal_parse_mountable_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_internal_parse_mountable_LDADD = \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la

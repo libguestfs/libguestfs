@@ -39,10 +39,10 @@ endif ENABLE_APPLIANCE
 
 #check_DATA = Bindtests
 
-GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs -i$(srcdir)
+GHCFLAGS = -I$(top_builddir)/lib -L$(top_builddir)/lib/.libs -i$(srcdir)
 
 all_targets = Guestfs010Load Guestfs030Config Guestfs050LVCreate
-$(all_targets): $(top_builddir)/src/libguestfs.la
+$(all_targets): $(top_builddir)/lib/libguestfs.la
 
 all: $(all_targets)
 

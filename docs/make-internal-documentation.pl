@@ -148,7 +148,7 @@ foreach $input (@ARGV) {
     }
 }
 
-# Sort the input files into directory sections.  Put the 'src'
+# Sort the input files into directory sections.  Put the 'lib'
 # directory first, and the rest follow in alphabetical order.
 my %dirs = ();
 foreach $input (@inputs) {
@@ -157,9 +157,9 @@ foreach $input (@inputs) {
     push @{$dirs{$1}}, $2
 }
 sub src_first {
-    if ($a eq "src" && $b eq "src") { return 0 }
-    elsif ($a eq "src") { return -1 }
-    elsif ($b eq "src") { return 1 }
+    if ($a eq "lib" && $b eq "lib") { return 0 }
+    elsif ($a eq "lib") { return -1 }
+    elsif ($b eq "lib") { return 1 }
     else { return $a cmp $b }
 }
 my @dirs = sort src_first (keys %dirs);

@@ -111,10 +111,10 @@ export PATH
 # Set LD_LIBRARY_PATH and DYLD_LIBRARY_PATH to contain library.
 prepend LD_LIBRARY_PATH "$b/gobject/.libs"
 prepend LD_LIBRARY_PATH "$b/java/.libs"
-prepend LD_LIBRARY_PATH "$b/src/.libs"
+prepend LD_LIBRARY_PATH "$b/lib/.libs"
 prepend DYLD_LIBRARY_PATH "$b/gobject/.libs"
 prepend DYLD_LIBRARY_PATH "$b/java/.libs"
-prepend DYLD_LIBRARY_PATH "$b/src/.libs"
+prepend DYLD_LIBRARY_PATH "$b/lib/.libs"
 export LD_LIBRARY_PATH
 export DYLD_LIBRARY_PATH
 
@@ -189,15 +189,15 @@ export GOLANG="@GOLANG@"
 prepend GOPATH "$b/golang"
 export GOPATH
 if [ -z "$CGO_CFLAGS" ]; then
-    CGO_CFLAGS="-I$s/src"
+    CGO_CFLAGS="-I$s/lib"
 else
-    CGO_CFLAGS="$CGO_CFLAGS -I$s/src"
+    CGO_CFLAGS="$CGO_CFLAGS -I$s/lib"
 fi
 export CGO_CFLAGS
 if [ -z "$CGO_LDFLAGS" ]; then
-    CGO_LDFLAGS="-L$b/src/.libs"
+    CGO_LDFLAGS="-L$b/lib/.libs"
 else
-    CGO_LDFLAGS="$CGO_LDFLAGS -L$b/src/.libs"
+    CGO_LDFLAGS="$CGO_LDFLAGS -L$b/lib/.libs"
 fi
 export CGO_LDFLAGS
 

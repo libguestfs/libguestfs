@@ -19,7 +19,7 @@
 /**
  * This is the code used to send and receive RPC messages and (for
  * certain types of message) to perform file transfers.  This code is
- * driven from the generated actions (F<src/actions-*.c>).  There
+ * driven from the generated actions (F<lib/actions-*.c>).  There
  * are five different cases to consider:
  *
  * =over 4

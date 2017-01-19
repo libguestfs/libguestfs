@@ -190,8 +190,8 @@ guestfsd_LDADD = \
 guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/src \
-	-I$(top_builddir)/src \
+	-I$(top_srcdir)/lib \
+	-I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/errnostring \
 	-I$(top_builddir)/common/errnostring \
 	-I$(top_srcdir)/common/protocol \

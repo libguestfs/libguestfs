@@ -45,7 +45,7 @@ guestmount_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -59,7 +59,7 @@ guestmount_LDADD = \
 	$(FUSE_LIBS) \
 	$(LIBCONFIG_LIBS) \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
@@ -76,7 +76,7 @@ guestunmount_SOURCES = \
 guestunmount_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -85,7 +85,7 @@ guestunmount_CFLAGS = \
 
 guestunmount_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
@@ -147,7 +147,7 @@ test_fuse_SOURCES = \
 
 test_fuse_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_fuse_CFLAGS = \
@@ -155,7 +155,7 @@ test_fuse_CFLAGS = \
 
 test_fuse_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(ACL_LIBS) \
@@ -166,7 +166,7 @@ test_guestmount_fd_SOURCES = \
 
 test_guestmount_fd_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_guestmount_fd_CFLAGS = \
@@ -174,7 +174,7 @@ test_guestmount_fd_CFLAGS = \
 
 test_guestmount_fd_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
@@ -185,7 +185,7 @@ test_guestunmount_fd_SOURCES = \
 
 test_guestunmount_fd_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 test_guestunmount_fd_CFLAGS = \
@@ -193,7 +193,7 @@ test_guestunmount_fd_CFLAGS = \
 
 test_guestunmount_fd_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \

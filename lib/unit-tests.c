@@ -433,7 +433,7 @@ test_stringsbuf (void)
   guestfs_close (g);
 }
 
-/* Use the same macros as in src/drives.c */
+/* Use the same macros as in lib/drives.c */
 #define VALID_FORMAT_IFACE(str) \
   guestfs_int_string_is_valid ((str), 1, 0, \
                                VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "-_")

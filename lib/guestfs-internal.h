@@ -17,11 +17,11 @@
  */
 
 /**
- * This header file is included in the libguestfs library (F<src/>)
+ * This header file is included in the libguestfs library (F<lib/>)
  * only.
  *
- * See also F<src/guestfs-internal-frontend.h> and
- * F<src/guestfs-internal-all.h>
+ * See also F<lib/guestfs-internal-frontend.h> and
+ * F<lib/guestfs-internal-all.h>
  */
 
 #ifndef GUESTFS_INTERNAL_H_
@@ -387,7 +387,7 @@ struct error_cb_stack {
 /**
  * Cache of queried features.
  *
- * Used to cache the appliance features (see F<src/available.c>).
+ * Used to cache the appliance features (see F<lib/available.c>).
  */
 struct cached_feature {
   char *group;
@@ -524,7 +524,7 @@ struct guestfs_h {
 #endif
 
 #ifdef HAVE_LIBVIRT_BACKEND
-  /* Used by src/libvirt-auth.c. */
+  /* Used by lib/libvirt-auth.c. */
 #define NR_CREDENTIAL_TYPES 9
   unsigned int nr_supported_credentials;
   int supported_credentials[NR_CREDENTIAL_TYPES];
@@ -541,7 +541,7 @@ struct guestfs_h {
 
 /**
  * Used for storing major.minor.micro version numbers.
- * See F<src/version.c> for more information.
+ * See F<lib/version.c> for more information.
  */
 struct version {
   int v_major;

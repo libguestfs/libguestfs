@@ -13658,9 +13658,9 @@ let () =
     | { proc_nr = None } -> ()
   ) non_daemon_functions
 
-(* This is used to generate the src/MAX_PROC_NR file which
+(* This is used to generate the lib/MAX_PROC_NR file which
  * contains the maximum procedure number, a surrogate for the
- * ABI version number.  See src/Makefile.am for the details.
+ * ABI version number.  See lib/Makefile.am for the details.
  *)
 let max_proc_nr =
   let proc_nrs = List.map (

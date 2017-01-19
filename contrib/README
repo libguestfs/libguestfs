@@ -21,7 +21,7 @@ make-check-on-installed.pl
 windows-icons.pl
         This script lets you extract all the icons from a Windows
         guest.  We use this to locate the Windows logo in new releases
-        of Windows (see src/inspect-icon.c).
+        of Windows (see lib/inspect-icon.c).
 
 visualize-alignment/
         Tests for visualizing block device reads and writes and

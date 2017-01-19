@@ -704,7 +704,7 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
   }
 }
 
-/* Macros "inspired" by src/launch-libvirt.c */
+/* Macros "inspired" by lib/launch-libvirt.c */
 /* <element */
 #define start_element(element)						\
   if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1)         \

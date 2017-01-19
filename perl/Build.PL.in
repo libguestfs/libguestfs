@@ -60,11 +60,11 @@ my $build = Module::Build->new (
         split (' ', '@CFLAGS@'),
     ],
     include_dirs => [
-        '@top_builddir@/src',
-        '@top_srcdir@/src',
+        '@top_builddir@/lib',
+        '@top_srcdir@/lib',
     ],
     extra_linker_flags => [
-        '-L@top_builddir@/src/.libs',
+        '-L@top_builddir@/lib/.libs',
         '-lguestfs',
     ],
 );

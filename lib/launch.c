@@ -21,7 +21,7 @@
  *
  * Most of the work is done by the backends (see
  * L<guestfs(3)/BACKEND>), which are implemented in
- * F<src/launch-direct.c>, F<src/launch-libvirt.c> etc, so this file
+ * F<lib/launch-direct.c>, F<lib/launch-libvirt.c> etc, so this file
  * mostly passes calls through to the current backend.
  */
 
@@ -129,7 +129,7 @@ guestfs_impl_launch (guestfs_h *g)
  *
  * =item 3.
  *
- * There is a hack in F<src/proto.c> to make this work.
+ * There is a hack in F<lib/proto.c> to make this work.
  *
  * =back
  */

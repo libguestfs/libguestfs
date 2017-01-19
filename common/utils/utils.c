@@ -366,7 +366,7 @@ guestfs_int_is_true (const char *str)
 /**
  * Check a string for validity, that it contains only certain
  * characters, and minimum and maximum length.  This function is
- * usually wrapped in a VALID_* macro, see F<src/drives.c> for an
+ * usually wrapped in a VALID_* macro, see F<lib/drives.c> for an
  * example.
  *
  * C<str> is the string to check.

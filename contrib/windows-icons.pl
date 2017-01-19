@@ -18,7 +18,7 @@
 
 # This script lets you extract all the icons from a Windows guest.  We
 # use this to locate the Windows logo in new releases of Windows (see
-# src/inspect-icon.c).
+# lib/inspect-icon.c).
 #
 # Use it like this:
 #   ./run ./contrib/windows-icons.pl /path/to/windows-disk.img

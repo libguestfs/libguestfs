@@ -22,7 +22,7 @@
  *
  * The daemon does B<not> use this header.  If you need a place to put
  * something shared with absolutely everything including the daemon,
- * put it in F<src/guestfs-internal-all.h>
+ * put it in F<lib/guestfs-internal-all.h>
  *
  * If a definition is only needed by a single component of libguestfs
  * (eg. just the library, or just a single virt tool) then it should

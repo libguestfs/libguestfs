@@ -68,14 +68,14 @@ libguestfsmod_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	$(PYTHON_CFLAGS) \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 
 libguestfsmod_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 libguestfsmod_la_LIBADD = \
 	$(top_builddir)/common/utils/libutils_la-utils.lo \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 libguestfsmod_la_LDFLAGS = -avoid-version -shared -module -shrext $(PYTHON_EXT_SUFFIX)
 
@@ -115,7 +115,7 @@ ignore-value.h:
 	ln $(top_srcdir)/gnulib/lib/ignore-value.h $@
 
 guestfs-internal-all.h:
-	ln $(top_srcdir)/src/guestfs-internal-all.h $@
+	ln $(top_srcdir)/lib/guestfs-internal-all.h $@
 
 guestfs-internal-frontend-cleanups.h:
 	ln $(top_srcdir)/common/utils/guestfs-internal-frontend-cleanups.h $@

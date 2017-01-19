@@ -79,7 +79,7 @@ get_dom_state (virDomainPtr dom)
   return -1;
 }
 
-/* See src/libvirt-auth.c for why we need this. */
+/* See lib/libvirt-auth.c for why we need this. */
 static int
 libvirt_auth_default_wrapper (virConnectCredentialPtr cred,
                               unsigned int ncred,

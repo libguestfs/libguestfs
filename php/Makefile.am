@@ -38,8 +38,8 @@ php_DATA = guestfs_php.ini
 # and we need to add the library to EXTRA_LDFLAGS.
 all: check-builddir-equals-srcdir extension/config.h
 	$(MAKE) -C extension \
-	  EXTRA_INCLUDES="-I$(abs_srcdir)/../common/utils -I$(abs_srcdir)/../src" \
-	  EXTRA_LDFLAGS="-L$(abs_srcdir)/../src/.libs -lguestfs" \
+	  EXTRA_INCLUDES="-I$(abs_srcdir)/../common/utils -I$(abs_srcdir)/../lib" \
+	  EXTRA_LDFLAGS="-L$(abs_srcdir)/../lib/.libs -lguestfs" \
 	  EXTRA_CFLAGS="-DGUESTFS_PRIVATE=1" \
 	  all
 

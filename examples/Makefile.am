@@ -44,88 +44,88 @@ if HAVE_LIBVIRT
 copy_over_SOURCES = copy-over.c
 copy_over_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 copy_over_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 copy_over_LDADD = \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBVIRT_LIBS)
 
 libvirt_auth_SOURCES = libvirt-auth.c
 libvirt_auth_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 libvirt_auth_CFLAGS = \
 	$(LIBVIRT_CFLAGS) \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 libvirt_auth_LDADD = \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBVIRT_LIBS)
 endif
 
 create_disk_SOURCES = create-disk.c
 create_disk_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 create_disk_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 create_disk_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 debug_logging_SOURCES = debug-logging.c
 debug_logging_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 debug_logging_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 debug_logging_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 display_icon_SOURCES = display-icon.c
 display_icon_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 display_icon_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 display_icon_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 inspect_vm_SOURCES = inspect-vm.c
 inspect_vm_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 inspect_vm_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 inspect_vm_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 
 if HAVE_FUSE
 mount_local_SOURCES = mount-local.c
 mount_local_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 mount_local_CFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	$(FUSE_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 mount_local_LDADD = \
 	$(FUSE_LIBS) \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 endif
 
 if HAVE_HIVEX
 virt_dhcp_address_SOURCES = virt-dhcp-address.c
 virt_dhcp_address_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 virt_dhcp_address_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 virt_dhcp_address_LDADD = \
-	$(top_builddir)/src/libguestfs.la
+	$(top_builddir)/lib/libguestfs.la
 endif
 
 man_MANS = guestfs-examples.3

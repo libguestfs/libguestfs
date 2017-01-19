@@ -69,13 +69,13 @@ stamp-mlguestfs: libguestfsocaml.a $(guestfs_cmm)
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  $(LDFLAGS) \
 	  $(LTLIBINTL) \
-	  -L../src/.libs -lguestfs
+	  -L../lib/.libs -lguestfs
 if HAVE_OCAMLOPT
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  $(LDFLAGS) \
 	  $(LTLIBINTL) \
-	  -L../src/.libs -lguestfs
+	  -L../lib/.libs -lguestfs
 endif
 	touch $@
 
@@ -83,7 +83,7 @@ libguestfsocaml_a_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/gnulib/lib -I../gnulib/lib
 
 libguestfsocaml_a_CFLAGS = \
@@ -159,12 +159,12 @@ check_DATA += bindtests.opt
 endif
 
 %.bc: %.cmo mlguestfs.cma
-	$(guestfs_am_v_ocamlc)$(top_builddir)/libtool -dlopen $(top_builddir)/src/.libs/libguestfs.la --mode=execute \
+	$(guestfs_am_v_ocamlc)$(top_builddir)/libtool -dlopen $(top_builddir)/lib/.libs/libguestfs.la --mode=execute \
 	$(OCAMLFIND) ocamlc $(OCAMLCFLAGS) -I . -package unix -linkpkg mlguestfs.cma $< -o $@
 
 if HAVE_OCAMLOPT
 %.opt: %.cmx mlguestfs.cmxa
-	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/src/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
+	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -cclib -L$(top_builddir)/lib/.libs -I . -package unix -linkpkg mlguestfs.cmxa $< -o $@
 endif
 
 check-valgrind:

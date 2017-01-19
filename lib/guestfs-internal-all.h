@@ -22,9 +22,9 @@
  * tools (ie. I<all> C code).
  *
  * If you need a definition used by only the library, put it in
- * F<src/guestfs-internal.h> instead.  If you need a definition used
+ * F<lib/guestfs-internal.h> instead.  If you need a definition used
  * by only the frontend (non-daemon) parts of libguestfs, try
- * F<src/guestfs-internal-frontend.h>.  If a definition is used by
+ * F<lib/guestfs-internal-frontend.h>.  If a definition is used by
  * only a single tool, it should not be in any shared header file at
  * all.
  */

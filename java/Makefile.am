@@ -109,13 +109,13 @@ libguestfs_jni_la_SOURCES = \
 libguestfs_jni_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib
 
 libguestfs_jni_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(JNI_CFLAGS)
 
-libguestfs_jni_la_LIBADD = $(top_builddir)/src/libguestfs.la
+libguestfs_jni_la_LIBADD = $(top_builddir)/lib/libguestfs.la
 
 libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO) -shared
 

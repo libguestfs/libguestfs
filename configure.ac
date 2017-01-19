@@ -211,6 +211,8 @@ AC_CONFIG_FILES([Makefile
                  inspector/Makefile
                  java/Makefile
                  java/examples/Makefile
+                 lib/Makefile
+                 lib/libguestfs.pc
                  lua/Makefile
                  lua/examples/Makefile
                  make-fs/Makefile
@@ -238,8 +240,6 @@ AC_CONFIG_FILES([Makefile
                  ruby/examples/Makefile
                  ruby/ext/guestfs/extconf.rb
                  sparsify/Makefile
-                 src/Makefile
-                 src/libguestfs.pc
                  sysprep/Makefile
                  test-data/Makefile
                  test-data/binaries/Makefile

@@ -282,5 +282,5 @@ AC_DEFINE_UNQUOTED([PATH_SEPARATOR],["$PATH_SEPARATOR"],
                    [Character that separates path elements in search paths])
 
 dnl Library versioning.
-MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
+MAX_PROC_NR=`cat $srcdir/lib/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)

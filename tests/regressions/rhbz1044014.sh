@@ -34,12 +34,12 @@ if [[ ! ( "$backend" =~ ^libvirt ) ]]; then
     exit 77
 fi
 
-if [ ! -x ../../src/libvirt-is-version ]; then
+if [ ! -x ../../lib/libvirt-is-version ]; then
     echo "$0: test skipped because libvirt-is-version is not built yet"
     exit 77
 fi
 
-if ! ../../src/libvirt-is-version 1 2 1; then
+if ! ../../lib/libvirt-is-version 1 2 1; then
     echo "$0: test skipped because libvirt is too old (< 1.2.1)"
     exit 77
 fi

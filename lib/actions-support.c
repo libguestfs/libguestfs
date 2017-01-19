@@ -17,7 +17,7 @@
  */
 
 /**
- * Helper functions for the actions code in F<src/actions-*.c>.
+ * Helper functions for the actions code in F<lib/actions-*.c>.
  */
 
 #include <config.h>

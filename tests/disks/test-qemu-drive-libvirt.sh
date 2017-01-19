@@ -31,12 +31,12 @@ if [ -z "$abs_builddir" ]; then
     exit 1
 fi
 
-if [ ! -x ../../src/libvirt-is-version ]; then
+if [ ! -x ../../lib/libvirt-is-version ]; then
     echo "$0: test skipped because libvirt-is-version is not built yet"
     exit 77
 fi
 
-if ! ../../src/libvirt-is-version 1 1 3; then
+if ! ../../lib/libvirt-is-version 1 1 3; then
     echo "$0: test skipped because libvirt is too old (< 1.1.3)"
     exit 77
 fi

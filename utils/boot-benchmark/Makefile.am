@@ -32,13 +32,13 @@ boot_benchmark_SOURCES = \
 boot_benchmark_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/utils/boot-analysis
 boot_benchmark_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 boot_benchmark_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
+	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la \

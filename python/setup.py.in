@@ -64,7 +64,7 @@ This package contains the Python bindings for libguestfs.
                'structs.c',
                'utils.c'],
 
-              include_dirs=['.', '../src'],
+              include_dirs=['.', '../lib'],
               libraries=['guestfs'],
               define_macros=[('GUESTFS_PRIVATE', '1')],
           )

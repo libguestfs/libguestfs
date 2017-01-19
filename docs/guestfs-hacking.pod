@@ -21,7 +21,7 @@ Libguestfs uses an autotools-based build system, with the main files
 being F<configure.ac> and F<Makefile.am>.  See L</THE BUILD SYSTEM>.
 
 The F<generator> subdirectory contains the generator, plus files
-describing the API.  The F<src> subdirectory contains source for the
+describing the API.  The F<lib> subdirectory contains source for the
 library.  The F<appliance> and F<daemon> subdirectories contain the
 source for the code that builds the appliance, and the code that runs
 in the appliance respectively.  Other directories are covered in the
@@ -31,7 +31,7 @@ Apart from the fact that all API entry points go via some generated
 code, the library is straightforward.  (In fact, even the generated
 code is designed to be readable, and should be read as ordinary code).
 Some actions run entirely in the library, and are written as C
-functions in files under F<src>.  Others are forwarded to the daemon
+functions in files under F<lib>.  Others are forwarded to the daemon
 where (after some generated RPC marshalling) they appear as C
 functions in files under F<daemon>.
 
@@ -40,7 +40,7 @@ To build from source, first read the L<guestfs-building(1)>.
 =head1 SOURCE CODE SUBDIRECTORIES
 
 There are a lot of subdirectories in the source tree!  Which ones
-should you concentrate on first?  F<src> and F<daemon> which contain
+should you concentrate on first?  F<lib> and F<daemon> which contain
 the source code of the core library.  F<generator> is the code
 generator described above, so that is important.  The F<Makefile.am>
 in the root directory will tell you in which order the subdirectories
@@ -169,6 +169,10 @@ under here.
 
 L<virt-inspector(1)>, the virtual machine image inspector.
 
+=item F<lib>
+
+Source code to the C library.
+
 =item F<logo>
 
 Logo used on the website.  The fish is called Arthur by the way.
@@ -212,10 +216,6 @@ L<virt-resize(1)> command and documentation.
 =item F<sparsify>
 
 L<virt-sparsify(1)> command and documentation.
-
-=item F<src>
-
-Source code to the C library.
 
 =item F<sysprep>
 
@@ -348,7 +348,7 @@ For daemon actions, implement the function C<do_E<lt>nameE<gt>> in the
 C<daemon/> directory.
 
 For library actions, implement the function C<guestfs_impl_E<lt>nameE<gt>>
-in the C<src/> directory.
+in the C<lib/> directory.
 
 In either case, use another function as an example of what to do.
 
