@@ -203,6 +203,9 @@ do_part_to_dev (const char *part)
     return NULL;
   }
 
+  if (part[n-1] == 'p')
+    n--;
+
   char *r = strndup (part, n);
   if (r == NULL) {
     reply_with_perror ("strdup");
