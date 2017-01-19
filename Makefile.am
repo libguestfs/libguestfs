@@ -38,6 +38,7 @@ SUBDIRS += gnulib/tests
 endif
 
 # Basic source for the library.
+SUBDIRS += common/errnostring common/protocol
 SUBDIRS += src docs examples po
 
 # The daemon and the appliance.

@@ -94,7 +94,11 @@ Run it from the top source directory using the command
      perror "lock: BUGS" exn;
      exit 1);
 
-  output_to "src/guestfs_protocol.x" generate_xdr;
+  output_to "common/errnostring/errnostring-gperf.gperf"
+            generate_errnostring_gperf;
+  output_to "common/errnostring/errnostring.c" generate_errnostring_c;
+  output_to "common/errnostring/errnostring.h" generate_errnostring_h;
+  output_to "common/protocol/guestfs_protocol.x" generate_xdr;
   output_to "src/guestfs.h" generate_guestfs_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
   output_to "src/guestfs-internal-frontend-cleanups.h"
@@ -103,9 +107,6 @@ Run it from the top source directory using the command
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
   output_to "src/guestfs-availability.pod" generate_availability_pod;
-  output_to "src/errnostring-gperf.gperf" generate_errnostring_gperf;
-  output_to "src/errnostring.c" generate_errnostring_c;
-  output_to "src/errnostring.h" generate_errnostring_h;
   output_to "src/event-string.c" generate_event_string_c;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
   output_to "src/libguestfs.syms" generate_linker_script;

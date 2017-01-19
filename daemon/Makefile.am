@@ -30,51 +30,12 @@ generator_built = \
 	stubs-5.c \
 	stubs-6.c
 
-shared_with_library = \
-	guestfs_protocol.c \
-	guestfs_protocol.h \
-	errnostring-gperf.gperf \
-	errnostring.c \
-	errnostring.h
-
 BUILT_SOURCES = \
-	$(generator_built) \
-	$(shared_with_library) \
-	errnostring-gperf.c
+	$(generator_built)
 
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	guestfsd.pod
-
-$(shared_with_library): %: $(top_srcdir)/src/%
-	rm -f $@
-	ln $< $@
-
-noinst_LIBRARIES = libprotocol.a
-
-# This convenience library is solely to compile its generated sources with
-# custom flags.
-libprotocol_a_SOURCES = guestfs_protocol.c guestfs_protocol.h
-libprotocol_a_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
-
-$(top_builddir)/src/guestfs_protocol.c: force
-	$(MAKE) -C $(top_builddir)/src guestfs_protocol.c
-$(top_builddir)/src/guestfs_protocol.h: force
-	$(MAKE) -C $(top_builddir)/src guestfs_protocol.h
-
-# Build the errnostring perfect hash code.  The generated code has lots
-# of warnings so we must compile it in a separate mini-library.
-noinst_LIBRARIES += liberrnostring.a
-liberrnostring_a_SOURCES = \
-	errnostring-gperf.c \
-	errnostring.h \
-	errnostring.c
-liberrnostring_a_CFLAGS =
-
-errnostring-gperf.c: errnostring-gperf.gperf
-	rm -f $@
-	$(GPERF) -t $< > $@-t
-	mv $@-t $@
 
 if INSTALL_DAEMON
 sbin_PROGRAMS = guestfsd
@@ -83,6 +44,8 @@ noinst_PROGRAMS = guestfsd
 endif
 
 guestfsd_SOURCES = \
+	../common/errnostring/errnostring.h \
+	../common/protocol/guestfs_protocol.h \
 	9p.c \
 	acl.c \
 	actions.h \
@@ -204,8 +167,8 @@ guestfsd_SOURCES = \
 	zerofree.c
 
 guestfsd_LDADD = \
-	liberrnostring.a \
-	libprotocol.a \
+	../common/errnostring/liberrnostring.la \
+	../common/protocol/libprotocol.la \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
 	$(YAJL_LIBS) \
@@ -228,7 +191,11 @@ guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/src \
-	-I$(top_builddir)/src
+	-I$(top_builddir)/src \
+	-I$(top_srcdir)/common/errnostring \
+	-I$(top_builddir)/common/errnostring \
+	-I$(top_srcdir)/common/protocol \
+	-I$(top_builddir)/common/protocol
 guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(AUGEAS_CFLAGS) \

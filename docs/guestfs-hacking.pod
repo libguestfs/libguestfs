@@ -76,6 +76,26 @@ L<virt-builder(1)> command and documentation.
 The L<virt-cat(1)>, L<virt-filesystems(1)>, L<virt-log(1)>,
 L<virt-ls(1)> and L<virt-tail(1)> commands and documentation.
 
+=item F<common>
+
+Various libraries of internal code can be found in the F<common>
+subdirectory:
+
+=over 4
+
+=item F<common/errnostring>
+
+The communication protocol used between the library and the daemon
+running inside the appliance has to encode errnos as strings, which is
+handled by this library.
+
+=item F<common/protocol>
+
+The XDR-based communication protocol used between the library
+and the daemon running inside the appliance is defined here.
+
+=back
+
 =item F<contrib>
 
 Outside contributions, experimental parts.

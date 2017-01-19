@@ -13,6 +13,8 @@ cat/log.c
 cat/ls.c
 cat/tail.c
 cat/visit.c
+common/errnostring/errnostring-gperf.c
+common/errnostring/errnostring.c
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
@@ -46,8 +48,6 @@ daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
 daemon/echo-daemon.c
-daemon/errnostring-gperf.c
-daemon/errnostring.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
@@ -395,8 +395,6 @@ src/copy-in-out.c
 src/create.c
 src/dbdump.c
 src/drives.c
-src/errnostring-gperf.c
-src/errnostring.c
 src/errors.c
 src/event-string.c
 src/events.c

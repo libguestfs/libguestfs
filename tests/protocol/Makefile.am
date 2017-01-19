@@ -41,10 +41,12 @@ TESTS = \
 check_PROGRAMS = test-error-messages
 
 test_error_messages_SOURCES = \
+	../../common/protocol/guestfs_protocol.h \
 	test-error-messages.c
 test_error_messages_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/src -I$(top_builddir)/src
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol
 test_error_messages_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_error_messages_LDADD = \

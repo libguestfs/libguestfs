@@ -180,6 +180,8 @@ AC_CONFIG_FILES([Makefile
                  builder/test-simplestreams/virt-builder/repos.d/cirros.conf
                  builder/test-website/virt-builder/repos.d/libguestfs.conf
                  cat/Makefile
+                 common/errnostring/Makefile
+                 common/protocol/Makefile
                  csharp/Makefile
                  customize/Makefile
                  daemon/Makefile

@@ -20,7 +20,6 @@ include $(top_srcdir)/subdir-rules.mk
 noinst_PROGRAMS =
 
 generator_built = \
-	guestfs_protocol.x \
 	guestfs.h \
 	guestfs-internal-actions.h \
 	guestfs-internal-frontend-cleanups.h \
@@ -33,9 +32,6 @@ generator_built = \
 	actions-6.c \
 	actions-variants.c \
 	bindtests.c \
-	errnostring-gperf.gperf \
-	errnostring.c \
-	errnostring.h \
 	event-string.c \
 	guestfs-actions.pod \
 	guestfs-availability.pod \
@@ -49,10 +45,7 @@ generator_built = \
 	structs-print.h
 
 BUILT_SOURCES = \
-	$(generator_built) \
-	guestfs_protocol.c \
-	guestfs_protocol.h \
-	errnostring-gperf.c
+	$(generator_built)
 
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
@@ -65,12 +58,13 @@ include_HEADERS = guestfs.h
 lib_LTLIBRARIES = libguestfs.la
 
 libguestfs_la_SOURCES = \
+	../common/errnostring/errnostring.h \
+	../common/protocol/guestfs_protocol.h \
 	guestfs.h \
 	guestfs-internal.h \
 	guestfs-internal-all.h \
 	guestfs-internal-frontend.h \
 	guestfs-internal-frontend-cleanups.h \
-	guestfs_protocol.h \
 	actions-0.c \
 	actions-1.c \
 	actions-2.c \
@@ -143,6 +137,8 @@ libguestfs_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-DLIBOSINFO_DB_PATH='"$(datadir)/libosinfo/db"' \
+	-I$(top_srcdir)/common/errnostring -I$(top_builddir)/common/errnostring \
+	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 
 libguestfs_la_CFLAGS = \
@@ -154,8 +150,8 @@ libguestfs_la_CFLAGS = \
 	$(YAJL_CFLAGS)
 
 libguestfs_la_LIBADD = \
-	liberrnostring.la \
-	libprotocol.la \
+	../common/errnostring/liberrnostring.la \
+	../common/protocol/libprotocol.la \
 	libutils.la \
 	$(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
@@ -184,53 +180,10 @@ libguestfs_la_CFLAGS += $(FUSE_CFLAGS)
 libguestfs_la_LIBADD += $(FUSE_LIBS)
 endif
 
-# Convenience libraries.
-noinst_LTLIBRARIES = liberrnostring.la libprotocol.la libutils.la
-
-# Build the errnostring perfect hash code.  The generated code has lots
-# of warnings so we must compile it in a separate mini-library.
-liberrnostring_la_SOURCES = \
-	errnostring-gperf.c \
-	errnostring.h \
-	errnostring.c
-liberrnostring_la_CFLAGS = $(GCC_VISIBILITY_HIDDEN)
-
-errnostring-gperf.c: errnostring-gperf.gperf
-	rm -f $@
-	$(GPERF) -t $< > $@-t
-	mv $@-t $@
-
-# This convenience library is solely to compile its generated sources with
-# custom flags.
-libprotocol_la_SOURCES = guestfs_protocol.c  guestfs_protocol.h
-libprotocol_la_CFLAGS = \
-	-Wall -Wno-unused -fno-strict-aliasing $(GCC_VISIBILITY_HIDDEN)
-
-if HAVE_RPCGEN
-RPCGEN_DEFS =
-if HAVE_XDR_U_INT64_T
-RPCGEN_DEFS += -DHAVE_XDR_U_INT64_T=1
-else
-if HAVE_XDR_UINT64_T
-RPCGEN_DEFS += -DHAVE_XDR_UINT64_T=1
-endif
-endif
-
-guestfs_protocol.c: guestfs_protocol.x
-	rm -f $@-t $@-t2
-	$(RPCGEN) $(RPCGEN_DEFS) -c -o $@-t $<
-	$(SED) 's,\.\./\(\.\./\)*src,.,' < $@-t > $@-t2
-	rm $@-t
-	mv $@-t2 $@
-
-guestfs_protocol.h: guestfs_protocol.x
-	rm -f $@-t
-	$(RPCGEN) $(RPCGEN_DEFS) -h -o $@-t $<
-	mv $@-t $@
-endif
-
 # libutils.la contains code outside libguestfs which is also
 # included in tools and bindings.
+noinst_LTLIBRARIES = libutils.la
+
 libutils_la_SOURCES = \
 	cleanup.c \
 	structs-cleanup.c \
