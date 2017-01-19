@@ -215,6 +215,7 @@ do_part_to_dev (const char *part)
     return NULL;
   }
 
+  /* Deal with <device>p<N> partition names such as /dev/md0p1. */
   if (part[n-1] == 'p')
     n--;
 
