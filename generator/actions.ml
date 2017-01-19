@@ -2493,6 +2493,20 @@ information on this topic." };
   { defaults with
     name = "canonical_device_name"; added = (1, 19, 7);
     style = RString "canonical", [String "device"], [];
+    tests = [
+      InitNone, Always, TestResultString (
+        [["canonical_device_name"; "/dev/hda"]], "/dev/sda"), [];
+      InitNone, Always, TestResultString (
+        [["canonical_device_name"; "/dev/vdaaa"]], "/dev/sdaaa"), [];
+      InitNone, Always, TestResultString (
+        [["canonical_device_name"; "/dev/sdb"]], "/dev/sdb"), [];
+      InitBasicFSonLVM, IfAvailable "lvm2", TestResultString (
+        [["canonical_device_name"; "/dev/mapper/VG-LV"]], "/dev/VG/LV"), [];
+      InitNone, Always, TestResultString (
+        [["canonical_device_name"; "/dev/md0"]], "/dev/md0"), [];
+      InitNone, Always, TestResultString (
+        [["canonical_device_name"; "/dev/md127"]], "/dev/md127"), [];
+    ];
     shortdesc = "return canonical device name";
     longdesc = "\
 This utility function is useful when displaying device names to
