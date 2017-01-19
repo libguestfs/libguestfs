@@ -56,7 +56,7 @@ let rec generate_perl_xs () =
 #endif
 
 #include <guestfs.h>
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-internal-all.h\"
 
 static SV *
 my_newSVll(long long val) {

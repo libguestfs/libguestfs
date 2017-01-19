@@ -33,6 +33,7 @@ test_parallel_mount_local_SOURCES = \
 test_parallel_mount_local_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/df
 test_parallel_mount_local_CFLAGS = \
@@ -41,7 +42,7 @@ test_parallel_mount_local_CFLAGS = \
 	$(FUSE_CFLAGS)
 test_parallel_mount_local_LDADD = \
 	$(FUSE_LIBS) \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \

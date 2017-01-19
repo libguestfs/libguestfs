@@ -15,6 +15,11 @@ cat/tail.c
 cat/visit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
+common/utils/cleanup.c
+common/utils/structs-cleanup.c
+common/utils/structs-print.c
+common/utils/uefi.c
+common/utils/utils.c
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
@@ -388,7 +393,6 @@ src/appliance.c
 src/available.c
 src/bindtests.c
 src/canonical-name.c
-src/cleanup.c
 src/command.c
 src/conn-socket.c
 src/copy-in-out.c
@@ -429,17 +433,13 @@ src/private-data.c
 src/proto.c
 src/qemu.c
 src/stringsbuf.c
-src/structs-cleanup.c
 src/structs-compare.c
 src/structs-copy.c
 src/structs-free.c
-src/structs-print.c
 src/tmpdirs.c
 src/tsk.c
-src/uefi.c
 src/umask.c
 src/unit-tests.c
-src/utils.c
 src/version.c
 src/wait.c
 src/whole-file.c

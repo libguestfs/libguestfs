@@ -28,12 +28,13 @@ test_parallel_SOURCES = test-parallel.c
 test_parallel_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_parallel_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_parallel_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la

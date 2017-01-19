@@ -69,19 +69,20 @@ stamp-mlguestfs: libguestfsocaml.a $(guestfs_cmm)
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmo \
 	  $(LDFLAGS) \
 	  $(LTLIBINTL) \
-	  -L$(top_builddir)/src/.libs -lguestfs
+	  -L../src/.libs -lguestfs
 if HAVE_OCAMLOPT
 	$(OCAMLMKLIB) -o mlguestfs \
 	  $(libguestfsocaml_a_OBJECTS) guestfs.cmx \
 	  $(LDFLAGS) \
 	  $(LTLIBINTL) \
-	  -L$(top_builddir)/src/.libs -lguestfs
+	  -L../src/.libs -lguestfs
 endif
 	touch $@
 
 libguestfsocaml_a_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib -I../gnulib/lib
 
@@ -93,7 +94,7 @@ libguestfsocaml_a_SOURCES = \
 	guestfs-c.c \
 	guestfs-c-actions.c \
 	guestfs-c-errnos.c \
-	../src/utils.c
+	../common/utils/utils.c
 
 if HAVE_OCAMLDOC
 

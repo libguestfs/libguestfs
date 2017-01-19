@@ -94,6 +94,10 @@ handled by this library.
 The XDR-based communication protocol used between the library
 and the daemon running inside the appliance is defined here.
 
+=item F<common/utils>
+
+Various utility functions used throughout the library and tools.
+
 =back
 
 =item F<contrib>

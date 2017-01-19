@@ -99,10 +99,15 @@ Run it from the top source directory using the command
   output_to "common/errnostring/errnostring.c" generate_errnostring_c;
   output_to "common/errnostring/errnostring.h" generate_errnostring_h;
   output_to "common/protocol/guestfs_protocol.x" generate_xdr;
+  output_to "common/utils/guestfs-internal-frontend-cleanups.h"
+            generate_internal_frontend_cleanups_h;
+  output_to "common/utils/structs-cleanup.c" generate_client_structs_cleanup;
+  output_to "common/utils/structs-print.c" generate_client_structs_print_c;
+  output_to "common/utils/structs-print.h" generate_client_structs_print_h;
+  output_to "common/utils/uefi.c" generate_uefi_c;
+
   output_to "src/guestfs.h" generate_guestfs_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
-  output_to "src/guestfs-internal-frontend-cleanups.h"
-    generate_internal_frontend_cleanups_h;
   output_to "src/bindtests.c" generate_bindtests;
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
@@ -114,9 +119,6 @@ Run it from the top source directory using the command
   output_to "src/structs-compare.c" generate_client_structs_compare;
   output_to "src/structs-copy.c" generate_client_structs_copy;
   output_to "src/structs-free.c" generate_client_structs_free;
-  output_to "src/structs-cleanup.c" generate_client_structs_cleanup;
-  output_to "src/structs-print.c" generate_client_structs_print_c;
-  output_to "src/structs-print.h" generate_client_structs_print_h;
   output_to "src/actions-variants.c" generate_client_actions_variants;
   output_to_subset "src/actions-%d.c" generate_client_actions;
   output_to "daemon/actions.h" generate_daemon_actions_h;
@@ -236,7 +238,6 @@ Run it from the top source directory using the command
     generate_gobject_session_header;
   output_to "gobject/src/session.c" generate_gobject_session_source;
 
-  output_to "src/uefi.c" generate_uefi_c;
   output_to "v2v/uefi.ml" generate_uefi_ml;
   output_to "v2v/uefi.mli" generate_uefi_mli;
 

@@ -182,6 +182,7 @@ AC_CONFIG_FILES([Makefile
                  cat/Makefile
                  common/errnostring/Makefile
                  common/protocol/Makefile
+                 common/utils/Makefile
                  csharp/Makefile
                  customize/Makefile
                  daemon/Makefile

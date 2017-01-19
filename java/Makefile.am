@@ -108,6 +108,7 @@ libguestfs_jni_la_SOURCES = \
 
 libguestfs_jni_la_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 
 libguestfs_jni_la_CFLAGS = \

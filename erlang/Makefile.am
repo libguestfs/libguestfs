@@ -80,6 +80,7 @@ erl_guestfs_SOURCES = \
 
 erl_guestfs_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-I$(ERLANG_LIB_DIR_erl_interface)/include
@@ -91,7 +92,7 @@ erl_guestfs_LDADD = \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/liberl_interface.a \
 	$(ERLANG_LIB_DIR_erl_interface)/lib/libei.a \
 	-lpthread \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \

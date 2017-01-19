@@ -97,6 +97,7 @@ libfishcommon_la_SOURCES = \
 	$(FISHCOMMON_SOURCE_FILES)
 libfishcommon_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -104,8 +105,8 @@ libfishcommon_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 libfishcommon_la_LIBADD = \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
-	$(top_builddir)/src/libutils.la \
 	$(LIBXML2_LIBS) \
 	$(LTLIBINTL)
 
@@ -162,6 +163,7 @@ guestfish_CPPFLAGS = \
 	-DCOMPILING_GUESTFISH=1 \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -175,8 +177,8 @@ guestfish_LDADD = \
 	$(LIBCONFIG_LIBS) \
 	$(LIBREADLINE) \
 	$(LIBTINFO_LIBS) \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
-	$(top_builddir)/src/libutils.la \
 	$(LIBXML2_LIBS) \
 	$(LTLIBINTL) \
 	-lm

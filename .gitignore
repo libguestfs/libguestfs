@@ -123,6 +123,11 @@ Makefile.in
 /common/protocol/guestfs_protocol.c
 /common/protocol/guestfs_protocol.h
 /common/protocol/guestfs_protocol.x
+/common/utils/guestfs-internal-frontend-cleanups.h
+/common/utils/structs-cleanup.c
+/common/utils/structs-print.c
+/common/utils/structs-print.h
+/common/utils/uefi.c
 /compile
 /config.cache
 /config.guess
@@ -502,7 +507,6 @@ Makefile.in
 /src/guestfs-availability.pod
 /src/guestfs.h
 /src/guestfs-internal-actions.h
-/src/guestfs-internal-frontend-cleanups.h
 /src/guestfs-structs.pod
 /src/libguestfs.3
 /src/libguestfs.pc
@@ -510,13 +514,9 @@ Makefile.in
 /src/.libs/libguestfs.so
 /src/libvirt-is-version
 /src/stamp-guestfs.pod
-/src/structs-cleanup.c
 /src/structs-compare.c
 /src/structs-copy.c
 /src/structs-free.c
-/src/structs-print.c
-/src/structs-print.h
-/src/uefi.c
 /src/unit-tests
 /stamp-h1
 /sysprep/.depend

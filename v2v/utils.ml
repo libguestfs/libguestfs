@@ -51,7 +51,7 @@ let qemu_supports_sound_card = function
 (* Find the UEFI firmware. *)
 let find_uefi_firmware guest_arch =
   let files =
-    (* The lists of firmware are actually defined in src/uefi.c. *)
+    (* The lists of firmware are actually defined in common/utils/uefi.c. *)
     match guest_arch with
     | "i386" | "i486" | "i586" | "i686" -> Uefi.uefi_i386_firmware
     | "x86_64" -> Uefi.uefi_x86_64_firmware

@@ -104,52 +104,61 @@ check_PROGRAMS = \
 
 rhbz501893_SOURCES = rhbz501893.c
 rhbz501893_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 rhbz501893_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz501893_LDADD = \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la
 
 rhbz790721_SOURCES = rhbz790721.c
 rhbz790721_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 rhbz790721_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz790721_LDADD = \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 rhbz914931_SOURCES = rhbz914931.c
 rhbz914931_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-DGUESTFS_PRIVATE=1
 rhbz914931_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz914931_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(LTLIBINTL) \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/gnulib/lib/libgnu.la
 
 rhbz1055452_SOURCES = rhbz1055452.c
 rhbz1055452_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 rhbz1055452_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 rhbz1055452_LDADD = \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la
 
 test_big_heap_SOURCES = test-big-heap.c
 test_big_heap_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_big_heap_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_big_heap_LDADD = \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la
 
 SLOW_TESTS = \

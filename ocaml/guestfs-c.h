@@ -19,8 +19,6 @@
 #ifndef GUESTFS_OCAML_C_H
 #define GUESTFS_OCAML_C_H
 
-#include "guestfs-internal-frontend.h"
-
 #define Guestfs_val(v) (*((guestfs_h **)Data_custom_val(v)))
 extern void guestfs_int_ocaml_raise_error (guestfs_h *g, const char *func)
   Noreturn;

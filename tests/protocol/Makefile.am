@@ -45,12 +45,13 @@ test_error_messages_SOURCES = \
 	test-error-messages.c
 test_error_messages_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
+	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_error_messages_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_error_messages_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \

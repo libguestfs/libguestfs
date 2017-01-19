@@ -43,6 +43,7 @@ virt_cat_SOURCES = \
 virt_cat_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -52,7 +53,7 @@ virt_cat_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_cat_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
@@ -67,6 +68,7 @@ virt_filesystems_SOURCES = \
 virt_filesystems_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -76,7 +78,7 @@ virt_filesystems_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_filesystems_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
@@ -91,6 +93,7 @@ virt_log_SOURCES = \
 virt_log_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -100,7 +103,7 @@ virt_log_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_log_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
@@ -117,6 +120,7 @@ virt_ls_SOURCES = \
 virt_ls_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -126,7 +130,7 @@ virt_ls_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_ls_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
@@ -141,6 +145,7 @@ virt_tail_SOURCES = \
 virt_tail_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -150,7 +155,7 @@ virt_tail_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_tail_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \

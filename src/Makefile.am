@@ -22,7 +22,6 @@ noinst_PROGRAMS =
 generator_built = \
 	guestfs.h \
 	guestfs-internal-actions.h \
-	guestfs-internal-frontend-cleanups.h \
 	actions-0.c \
 	actions-1.c \
 	actions-2.c \
@@ -37,12 +36,9 @@ generator_built = \
 	guestfs-availability.pod \
 	guestfs-structs.pod \
 	libguestfs.syms \
-	structs-cleanup.c \
 	structs-compare.c \
 	structs-copy.c \
-	structs-free.c \
-	structs-print.c \
-	structs-print.h
+	structs-free.c
 
 BUILT_SOURCES = \
 	$(generator_built)
@@ -60,11 +56,11 @@ lib_LTLIBRARIES = libguestfs.la
 libguestfs_la_SOURCES = \
 	../common/errnostring/errnostring.h \
 	../common/protocol/guestfs_protocol.h \
+	../common/utils/guestfs-internal-frontend.h \
+	../common/utils/guestfs-internal-frontend-cleanups.h \
 	guestfs.h \
 	guestfs-internal.h \
 	guestfs-internal-all.h \
-	guestfs-internal-frontend.h \
-	guestfs-internal-frontend-cleanups.h \
 	actions-0.c \
 	actions-1.c \
 	actions-2.c \
@@ -139,6 +135,7 @@ libguestfs_la_CPPFLAGS = \
 	-DLIBOSINFO_DB_PATH='"$(datadir)/libosinfo/db"' \
 	-I$(top_srcdir)/common/errnostring -I$(top_builddir)/common/errnostring \
 	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 
 libguestfs_la_CFLAGS = \
@@ -152,7 +149,7 @@ libguestfs_la_CFLAGS = \
 libguestfs_la_LIBADD = \
 	../common/errnostring/liberrnostring.la \
 	../common/protocol/libprotocol.la \
-	libutils.la \
+	../common/utils/libutils.la \
 	$(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(SELINUX_LIBS) \
@@ -179,20 +176,6 @@ if HAVE_FUSE
 libguestfs_la_CFLAGS += $(FUSE_CFLAGS)
 libguestfs_la_LIBADD += $(FUSE_LIBS)
 endif
-
-# libutils.la contains code outside libguestfs which is also
-# included in tools and bindings.
-noinst_LTLIBRARIES = libutils.la
-
-libutils_la_SOURCES = \
-	cleanup.c \
-	structs-cleanup.c \
-	structs-print.c \
-	structs-print.h \
-	uefi.c \
-	utils.c
-libutils_la_CPPFLAGS = $(libguestfs_la_CPPFLAGS)
-libutils_la_CFLAGS = $(libguestfs_la_CFLAGS)
 
 if HAVE_LIBVIRT
 # Small utility to check for a needed libvirt version;
@@ -225,6 +208,7 @@ check_PROGRAMS = unit-tests
 unit_tests_SOURCES = unit-tests.c
 unit_tests_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I.
 unit_tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -232,6 +216,7 @@ unit_tests_CFLAGS = \
 # non-exported functions we have to link with the objects not the
 # library.
 unit_tests_LDADD = \
+	../common/utils/libutils.la \
 	$(libguestfs_la_OBJECTS) \
 	$(libguestfs_la_LIBADD)
 

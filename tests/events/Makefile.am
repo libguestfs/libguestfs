@@ -34,12 +34,13 @@ check_PROGRAMS += test-libvirt-auth-callbacks
 test_libvirt_auth_callbacks_SOURCES = test-libvirt-auth-callbacks.c
 test_libvirt_auth_callbacks_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src
 test_libvirt_auth_callbacks_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS)
 test_libvirt_auth_callbacks_LDADD = \
-        $(top_builddir)/src/libutils.la \
+        $(top_builddir)/common/utils/libutils.la \
         $(top_builddir)/src/libguestfs.la \
         $(LIBVIRT_LIBS) \
         $(LIBXML2_LIBS) \

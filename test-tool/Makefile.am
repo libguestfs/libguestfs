@@ -25,6 +25,7 @@ man_MANS = libguestfs-test-tool.1
 libguestfs_test_tool_SOURCES = test-tool.c
 
 libguestfs_test_tool_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-DGUESTFS_WARN_DEPRECATED=1 \
@@ -35,8 +36,8 @@ libguestfs_test_tool_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 libguestfs_test_tool_LDADD = \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
-	$(top_builddir)/src/libutils.la \
 	$(LIBXML2_LIBS) \
 	$(LTLIBINTL) \
 	$(top_builddir)/gnulib/lib/libgnu.la

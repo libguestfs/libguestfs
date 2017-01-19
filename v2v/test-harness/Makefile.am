@@ -38,6 +38,7 @@ if HAVE_OCAML_PKG_LIBVIRT
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
 	-package str,unix,libvirt \
+	-I $(top_builddir)/common/utils/.libs \
 	-I $(top_builddir)/src/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
@@ -71,6 +72,7 @@ noinst_LIBRARIES = libv2vth.a
 libv2vth_a_CPPFLAGS = \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 

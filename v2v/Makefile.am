@@ -115,6 +115,7 @@ virt_v2v_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/src
 virt_v2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
@@ -132,6 +133,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
 	-package str,unix \
+	-I $(top_builddir)/common/utils/.libs \
 	-I $(top_builddir)/src/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
@@ -172,6 +174,7 @@ virt_v2v_copy_to_local_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/src
 virt_v2v_copy_to_local_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \

@@ -41,6 +41,7 @@ virt_df_SOURCES = \
 virt_df_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
@@ -52,7 +53,7 @@ virt_df_CFLAGS = \
 	$(LIBVIRT_CFLAGS)
 
 virt_df_LDADD = \
-	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/src/libguestfs.la \
 	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \

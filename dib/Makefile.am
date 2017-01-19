@@ -47,6 +47,7 @@ virt_dib_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/src
 virt_dib_CFLAGS = \
 	-pthread \
@@ -61,6 +62,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 # installed copy of libguestfs.
 OCAMLPACKAGES = \
 	-package str,unix \
+	-I $(top_builddir)/common/utils/.libs \
 	-I $(top_builddir)/src/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \

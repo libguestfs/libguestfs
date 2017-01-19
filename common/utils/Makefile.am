@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2011-2017 Red Hat Inc.
+# Copyright (C) 2017 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,24 +17,37 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-noinst_PROGRAMS = qemu-boot
+generator_built = \
+	guestfs-internal-frontend-cleanups.h \
+	structs-cleanup.c \
+	structs-print.c \
+	structs-print.h \
+	uefi.c
 
-qemu_boot_SOURCES = \
-	../../df/estimate-max-threads.c \
-	../../df/estimate-max-threads.h \
-	qemu-boot.c
-qemu_boot_CPPFLAGS = \
+BUILT_SOURCES = \
+	$(generator_built)
+
+EXTRA_DIST = \
+	$(BUILT_SOURCES)
+
+noinst_LTLIBRARIES = libutils.la
+
+libutils_la_SOURCES = \
+	../../src/guestfs.h \
+	cleanup.c \
+	guestfs-internal-frontend.h \
+	guestfs-internal-frontend-cleanups.h \
+	structs-cleanup.c \
+	structs-print.c \
+	structs-print.h \
+	uefi.c \
+	utils.c
+libutils_la_CPPFLAGS = \
+	-DGUESTFS_WARN_DEPRECATED=1 \
+	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
-	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/src -I$(top_builddir)/src \
-	-I$(top_srcdir)/df
-qemu_boot_CFLAGS = \
-	-pthread \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
-qemu_boot_LDADD = \
-	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/src/libguestfs.la \
-	$(LIBXML2_LIBS) \
-	$(LIBVIRT_LIBS) \
-	$(LTLIBINTL) \
-	$(top_builddir)/gnulib/lib/libgnu.la
+	-I$(top_srcdir)/src -I$(top_builddir)/src
+libutils_la_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(GCC_VISIBILITY_HIDDEN) \
+	$(LIBXML2_CFLAGS)

@@ -35,7 +35,7 @@ and parsed_source =
 | P_dont_rewrite
 
 (* Turn string like "hda" into controller slot number.  See also
- * src/utils.c:guestfs_int_drive_index which this function calls.
+ * common/utils/utils.c:guestfs_int_drive_index which this function calls.
  *)
 let get_drive_slot str offset =
   let len = String.length str in
