@@ -33,6 +33,7 @@ virt_diff_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/visit -I$(top_builddir)/common/visit \
+	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/cat -I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -41,10 +42,10 @@ virt_diff_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_diff_LDADD = \
+	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/visit/libvisit.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
-	$(top_builddir)/fish/libfishcommon.la \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \

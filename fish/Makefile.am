@@ -67,52 +67,8 @@ EXTRA_DIST = \
 	virt-tar-in.pod \
 	virt-tar-out.pod
 
-# These source files (mostly related to option parsing) are shared
-# between guestfish, guestmount and some other virt tools.  Keep a
-# convenient list here just so we know which ones are shared.  These
-# files must not include other guestfish files.
-FISHCOMMON_SOURCE_FILES = \
-	decrypt.c \
-	display-options.h \
-	display-options.c \
-	domain.c \
-	inspect.c \
-	keys.c \
-	options.h \
-	options.c \
-	uri.h \
-	uri.c
-
-SHARED_SOURCE_FILES = \
-	$(FISHCOMMON_SOURCE_FILES) \
-	config.c \
-	progress.h \
-	progress.c
-
-# libfishcommon.la contains guestfish code which is used in other
-# C tools.  Note this convenience static library is *not* used in
-# guestfish, as the sources are built with extra defines
-# (e.g. -DCOMPILING_GUESTFISH) in that case.
-libfishcommon_la_SOURCES = \
-	$(FISHCOMMON_SOURCE_FILES)
-libfishcommon_la_CPPFLAGS = \
-	-DGUESTFS_WARN_DEPRECATED=1 \
-	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
-	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
-	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
-	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
-libfishcommon_la_CFLAGS = \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBXML2_CFLAGS)
-libfishcommon_la_LIBADD = \
-	$(top_builddir)/common/utils/libutils.la \
-	$(top_builddir)/lib/libguestfs.la \
-	$(LIBXML2_LIBS) \
-	$(LTLIBINTL)
-
 guestfish_SOURCES = \
 	$(generator_built) \
-	$(SHARED_SOURCE_FILES) \
 	alloc.c \
 	cmds-gperf.h \
 	copy.c \
@@ -137,6 +93,8 @@ guestfish_SOURCES = \
 	prep-fs.c \
 	prep-lv.c \
 	prep-boot.c \
+	progress.h \
+	progress.c \
 	rc.c \
 	reopen.c \
 	setenv.c \
@@ -160,11 +118,11 @@ cmds-gperf.c: cmds-gperf.gperf
 	mv $@-t $@
 
 guestfish_CPPFLAGS = \
-	-DCOMPILING_GUESTFISH=1 \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -177,6 +135,7 @@ guestfish_LDADD = \
 	$(LIBCONFIG_LIBS) \
 	$(LIBREADLINE) \
 	$(LIBTINFO_LIBS) \
+	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
@@ -184,7 +143,7 @@ guestfish_LDADD = \
 	-lm
 
 # Make guestfish use the convenience libraries.
-noinst_LTLIBRARIES = libcmds.la librc_protocol.la libfishcommon.la
+noinst_LTLIBRARIES = libcmds.la librc_protocol.la
 guestfish_LDADD += libcmds.la librc_protocol.la ../gnulib/lib/libgnu.la
 
 if HAVE_RPCGEN

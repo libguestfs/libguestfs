@@ -89,6 +89,10 @@ The communication protocol used between the library and the daemon
 running inside the appliance has to encode errnos as strings, which is
 handled by this library.
 
+=item F<common/options>
+
+Common options parsing for guestfish, guestmount and some virt tools.
+
 =item F<common/protocol>
 
 The XDR-based communication protocol used between the library

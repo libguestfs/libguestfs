@@ -47,6 +47,8 @@ int keys_from_stdin = 0;
 int echo_keys = 0;
 int inspector = 0;
 const char *libvirt_uri = NULL;
+int in_guestfish = 0;
+int in_virt_rescue = 0;
 
 static const char *filesystem = NULL;
 static const char *vg = NULL, *lv = NULL;

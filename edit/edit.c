@@ -52,6 +52,8 @@ int keys_from_stdin = 0;
 int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 1;
+int in_guestfish = 0;
+int in_virt_rescue = 0;
 
 static const char *backup_extension = NULL;
 static const char *perl_expr = NULL;

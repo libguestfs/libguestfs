@@ -105,6 +105,8 @@ int progress_bars = 0;
 int is_interactive = 0;
 const char *input_file = NULL;
 int input_lineno = 0;
+int in_guestfish = 1;
+int in_virt_rescue = 0;
 
 static void __attribute__((noreturn))
 usage (int status)

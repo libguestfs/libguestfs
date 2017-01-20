@@ -48,6 +48,8 @@ const char *libvirt_uri;
 int live;
 int read_only;
 int verbose;
+int in_guestfish = 0;
+int in_virt_rescue = 0;
 
 static const char *format = "raw", *label = NULL,
   *partition = NULL, *size_str = NULL, *type = "ext2";

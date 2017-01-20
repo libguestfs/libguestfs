@@ -30,15 +30,9 @@ bin_PROGRAMS = \
 	guestmount \
 	guestunmount
 
-# These source files (all related to option parsing) are shared
-# between guestfish and guestmount.
-SHARED_SOURCE_FILES = \
-	../fish/config.c
-
 # guestmount
 
 guestmount_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	guestmount.c
 
 guestmount_CPPFLAGS = \
@@ -46,21 +40,21 @@ guestmount_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 guestmount_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(FUSE_CFLAGS)
 
 guestmount_LDADD = \
 	$(FUSE_LIBS) \
-	$(LIBCONFIG_LIBS) \
+	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
-	$(top_builddir)/fish/libfishcommon.la \
+	$(LIBCONFIG_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(LIBVIRT_LIBS) \
 	$(LTLIBINTL) \
@@ -69,14 +63,13 @@ guestmount_LDADD = \
 # guestunmount
 
 guestunmount_SOURCES = \
-	../fish/display-options.c \
-	../fish/display-options.h \
 	guestunmount.c
 
 guestunmount_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
 	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -84,6 +77,7 @@ guestunmount_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestunmount_LDADD = \
+	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \

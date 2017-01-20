@@ -198,8 +198,8 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
       next_drive += r;
       break;
 
-#if COMPILING_GUESTFISH
     case drv_N:
+      if (!in_guestfish) abort ();
       /* -N option is not affected by --ro */
       r = guestfs_add_drive_opts (g, drv->N.filename,
                                   GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
@@ -210,10 +210,9 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
       drv->nr_drives = 1;
       next_drive++;
       break;
-#endif
 
-#if COMPILING_VIRT_RESCUE
     case drv_scratch:
+      if (!in_virt_rescue) abort ();
       r = guestfs_add_drive_scratch (g, drv->scratch.size, -1);
       if (r == -1)
         exit (EXIT_FAILURE);
@@ -221,7 +220,6 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
       drv->nr_drives = 1;
       next_drive++;
       break;
-#endif
 
     default: /* keep GCC happy */
       abort ();
@@ -341,17 +339,15 @@ free_drives (struct drv *drv)
   case drv_d:
     /* d.filename is optarg, don't free it */
     break;
-#if COMPILING_GUESTFISH
   case drv_N:
+    if (!in_guestfish) abort ();
     free (drv->N.filename);
     drv->N.data_free (drv->N.data);
     break;
-#endif
-#if COMPILING_VIRT_RESCUE
   case drv_scratch:
+    if (!in_virt_rescue) abort ();
     /* nothing */
     break;
-#endif
   default: ;                    /* keep GCC happy */
   }
   free (drv);

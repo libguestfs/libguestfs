@@ -34,6 +34,8 @@ extern int inspector;
 extern int keys_from_stdin;
 extern int echo_keys;
 extern const char *libvirt_uri;
+extern int in_guestfish;
+extern int in_virt_rescue;
 
 /* List of drives added via -a, -d or -N options.  NB: Unused fields
  * in this struct MUST be zeroed, ie. use calloc, not malloc.
@@ -54,12 +56,8 @@ struct drv {
     drv_a,                      /* -a option (without URI) */
     drv_uri,                    /* -a option (with URI) */
     drv_d,                      /* -d option */
-#if COMPILING_GUESTFISH
     drv_N,                      /* -N option (guestfish only) */
-#endif
-#if COMPILING_VIRT_RESCUE
     drv_scratch,                /* --scratch option (virt-rescue only) */
-#endif
   } type;
   union {
     struct {
@@ -80,18 +78,14 @@ struct drv {
     struct {
       char *guest;          /* guest name */
     } d;
-#if COMPILING_GUESTFISH
     struct {
       char *filename;       /* disk filename (testX.img) */
       void *data;           /* prepared type */
       void (*data_free)(void*); /* function to free 'data' */
     } N;
-#endif
-#if COMPILING_VIRT_RESCUE
     struct {
       int64_t size;         /* size of the disk in bytes */
     } scratch;
-#endif
   };
 
   /* Opaque pointer.  Not used by the options-parsing code, and so
@@ -121,10 +115,7 @@ extern int add_libvirt_drives (guestfs_h *g, const char *guest);
 extern void inspect_mount_handle (guestfs_h *g);
 extern void inspect_mount_root (guestfs_h *g, const char *root);
 #define inspect_mount() inspect_mount_handle (g)
-
-#if COMPILING_GUESTFISH
 extern void print_inspect_prompt (void);
-#endif
 
 /* in key.c */
 extern char *read_key (const char *param);
