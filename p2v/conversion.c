@@ -1061,6 +1061,11 @@ generate_wrapper_script (struct config *config, const char *remote_dir,
   fprintf (fp, "\n");
 
   fprintf (fp,
+           "# Log the environment where virt-v2v will run.\n");
+  fprintf (fp, "printenv > environment\n");
+  fprintf (fp, "\n");
+
+  fprintf (fp,
            "# Run virt-v2v.  Send stdout back to virt-p2v.  Send stdout\n"
            "# and stderr (debugging info) to the log file.\n");
   fprintf (fp, "v2v 2>> $log | tee -a $log\n");

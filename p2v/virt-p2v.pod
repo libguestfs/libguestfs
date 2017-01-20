@@ -662,6 +662,12 @@ The dmesg output from the physical machine.  Useful for detecting
 problems such as missing device drivers or firmware on the virt-p2v
 ISO.
 
+=item F<environment>
+
+I<(before conversion)>
+
+The content of the environment where L<virt-v2v(1)> will run.
+
 =item F<lscpu>
 
 =item F<lspci>
