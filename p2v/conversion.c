@@ -99,7 +99,7 @@ static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static void generate_name (struct config *, const char *filename);
 static void generate_libvirt_xml (struct config *, struct data_conn *, const char *filename);
 static void generate_wrapper_script (struct config *, const char *remote_dir, const char *filename);
-static void generate_dmesg_file (const char *filename);
+static void generate_system_data (const char *dmesg_file, const char *lscpu_file, const char *lspci_file, const char *lsscsi_file, const char *lsusb_file);
 static const char *map_interface_to_network (struct config *, const char *interface);
 static void print_quoted (FILE *fp, const char *s);
 
@@ -208,6 +208,10 @@ start_conversion (struct config *config,
   char libvirt_xml_file[] = "/tmp/p2v.XXXXXX/physical.xml";
   char wrapper_script[]   = "/tmp/p2v.XXXXXX/virt-v2v-wrapper.sh";
   char dmesg_file[]       = "/tmp/p2v.XXXXXX/dmesg";
+  char lscpu_file[]       = "/tmp/p2v.XXXXXX/lscpu";
+  char lspci_file[]       = "/tmp/p2v.XXXXXX/lspci";
+  char lsscsi_file[]      = "/tmp/p2v.XXXXXX/lsscsi";
+  char lsusb_file[]       = "/tmp/p2v.XXXXXX/lsusb";
   int inhibit_fd = -1;
 
 #if DEBUG_STDERR
@@ -323,12 +327,17 @@ start_conversion (struct config *config,
   memcpy (libvirt_xml_file, tmpdir, strlen (tmpdir));
   memcpy (wrapper_script, tmpdir, strlen (tmpdir));
   memcpy (dmesg_file, tmpdir, strlen (tmpdir));
+  memcpy (lscpu_file, tmpdir, strlen (tmpdir));
+  memcpy (lspci_file, tmpdir, strlen (tmpdir));
+  memcpy (lsscsi_file, tmpdir, strlen (tmpdir));
+  memcpy (lsusb_file, tmpdir, strlen (tmpdir));
 
   /* Generate the static files. */
   generate_name (config, name_file);
   generate_libvirt_xml (config, data_conns, libvirt_xml_file);
   generate_wrapper_script (config, remote_dir, wrapper_script);
-  generate_dmesg_file (dmesg_file);
+  generate_system_data (dmesg_file,
+                        lscpu_file, lspci_file, lsscsi_file, lsusb_file);
 
   /* Open the control connection.  This also creates remote_dir. */
   if (notify_ui)
@@ -357,11 +366,12 @@ start_conversion (struct config *config,
                           wrapper_script, remote_dir, get_ssh_error ());
     goto out;
   }
-  if (scp_file (config, dmesg_file, remote_dir) == -1) {
-    set_conversion_error ("scp: %s to %s: %s",
-                          dmesg_file, remote_dir, get_ssh_error ());
-    goto out;
-  }
+  /* It's not essential that these files are copied. */
+  ignore_value (scp_file (config, dmesg_file, remote_dir));
+  ignore_value (scp_file (config, lscpu_file, remote_dir));
+  ignore_value (scp_file (config, lspci_file, remote_dir));
+  ignore_value (scp_file (config, lsscsi_file, remote_dir));
+  ignore_value (scp_file (config, lsusb_file, remote_dir));
 
   /* Do the conversion.  This runs until virt-v2v exits. */
   if (notify_ui)
@@ -1104,16 +1114,29 @@ print_quoted (FILE *fp, const char *s)
 }
 
 /**
- * Put the output of the C<dmesg> command into C<filename>.
+ * Collect data about the system running virt-p2v such as the dmesg
+ * output and lists of PCI devices.  This is useful for diagnosis when
+ * things go wrong.
  *
- * If the command fails, this is non-fatal.
+ * If any command fails, this is non-fatal.
  */
 static void
-generate_dmesg_file (const char *filename)
+generate_system_data (const char *dmesg_file,
+                      const char *lscpu_file,
+                      const char *lspci_file,
+                      const char *lsscsi_file,
+                      const char *lsusb_file)
 {
   CLEANUP_FREE char *cmd = NULL;
 
-  if (asprintf (&cmd, "dmesg >%s 2>&1", filename) == -1)
+  if (asprintf (&cmd,
+                "dmesg >%s 2>&1; "
+                "lscpu >%s 2>&1; "
+                "lspci -vvv >%s 2>&1; "
+                "lsscsi -v >%s 2>&1; "
+                "lsusb -v >%s 2>&1",
+                dmesg_file, lscpu_file, lspci_file, lsscsi_file, lsusb_file)
+      == -1)
     error (EXIT_FAILURE, errno, "asprintf");
 
   ignore_value (system (cmd));
