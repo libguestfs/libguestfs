@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef HAVE_DBUS
+#if defined(HAVE_DBUS) && defined(DBUS_TYPE_UNIX_FD)
 #include <dbus/dbus.h>
 #endif
 
@@ -52,7 +52,7 @@
 int
 inhibit_power_saving (void)
 {
-#ifdef HAVE_DBUS
+#if defined(HAVE_DBUS) && defined(DBUS_TYPE_UNIX_FD)
   DBusError err;
   DBusConnection *conn = NULL;
   DBusMessage *msg = NULL;
@@ -145,7 +145,7 @@ out:
 
   return fd;
 
-#else /* !HAVE_DBUS */
+#else /* !dbus */
 #ifdef DEBUG_STDERR
   fprintf (stderr, "warning: virt-p2v compiled without D-Bus support.\n");
 #endif
