@@ -163,15 +163,21 @@ compile_regexps (void)
   } while (0)
 
   COMPILE (password_re, "password:", 0);
-  COMPILE (ssh_message_re, "(ssh: .*)", 0);
+  /* Note that (?:.)* is required in order to work around a problem
+   * with partial matching and PCRE in RHEL 5.
+   */
+  COMPILE (ssh_message_re, "(ssh: (?:.)*)", 0);
   COMPILE (sudo_password_re, "sudo: a password is required", 0);
   /* The magic synchronization strings all match this expression.  See
    * start_ssh function below.
    */
   COMPILE (prompt_re,
 	   "###((?:[0123456789abcdefghijklmnopqrstuvwxyz]){8})### ", 0);
+  /* Note that (?:.)* is required in order to work around a problem
+   * with partial matching and PCRE in RHEL 5.
+   */
   COMPILE (version_re,
-           "virt-v2v ([1-9].*)",
+           "virt-v2v ([1-9](?:.)*)",
 	   0);
   COMPILE (feature_libguestfs_rewrite_re, "libguestfs-rewrite", 0);
   COMPILE (feature_colours_option_re, "colours-option", 0);
