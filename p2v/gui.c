@@ -87,6 +87,106 @@
 #define MAX_SUPPORTED_VCPUS 160
 #define MAX_SUPPORTED_MEMORY_MB (UINT64_C (4000 * 1024))
 
+/* Backwards compatibility for ancient RHEL 5 Gtk 2.10. */
+#ifndef GTK_COMBO_BOX_TEXT
+#define GTK_COMBO_BOX_TEXT GTK_COMBO_BOX
+#define gtk_combo_box_text_new() gtk_combo_box_new_text()
+#define gtk_combo_box_text_append_text(combo, text)	\
+  gtk_combo_box_append_text((combo), (text))
+#define gtk_combo_box_text_get_active_text(combo)	\
+  gtk_combo_box_get_active_text((combo))
+#endif
+
+#if !GTK_CHECK_VERSION(2,12,0)	/* gtk < 2.12 */
+#define gtk_widget_set_tooltip_markup(widget, text) /* nothing */
+#endif
+
+#if !GTK_CHECK_VERSION(2,14,0)	/* gtk < 2.14 */
+#define gtk_dialog_get_content_area(dlg) ((dlg)->vbox)
+#endif
+
+#if !GTK_CHECK_VERSION(2,18,0)	/* gtk < 2.18 */
+static void
+gtk_cell_renderer_set_alignment (GtkCellRenderer *cell,
+                                 gfloat xalign, gfloat yalign)
+{
+  if ((xalign != cell->xalign) || (yalign != cell->yalign)) {
+    g_object_freeze_notify (G_OBJECT (cell));
+
+    if (xalign != cell->xalign) {
+      cell->xalign = xalign;
+      g_object_notify (G_OBJECT (cell), "xalign");
+    }
+
+    if (yalign != cell->yalign) {
+      cell->yalign = yalign;
+      g_object_notify (G_OBJECT (cell), "yalign");
+    }
+
+    g_object_thaw_notify (G_OBJECT (cell));
+  }
+}
+#endif
+
+#if !GTK_CHECK_VERSION(2,20,0)	/* gtk < 2.20 */
+typedef struct _ResponseData ResponseData;
+
+struct _ResponseData
+{
+  gint response_id;
+};
+
+static void
+response_data_free (gpointer data)
+{
+  g_slice_free (ResponseData, data);
+}
+
+static ResponseData *
+get_response_data (GtkWidget *widget, gboolean create)
+{
+  ResponseData *ad = g_object_get_data (G_OBJECT (widget),
+                                        "gtk-dialog-response-data");
+
+  if (ad == NULL && create) {
+    ad = g_slice_new (ResponseData);
+
+    g_object_set_data_full (G_OBJECT (widget),
+			    g_intern_static_string ("gtk-dialog-response-data"),
+			    ad,
+			    response_data_free);
+  }
+
+  return ad;
+}
+
+static GtkWidget *
+gtk_dialog_get_widget_for_response (GtkDialog *dialog, gint response_id)
+{
+  GList *children;
+  GList *tmp_list;
+
+  children = gtk_container_get_children (GTK_CONTAINER (dialog->action_area));
+
+  tmp_list = children;
+  while (tmp_list != NULL) {
+    GtkWidget *widget = tmp_list->data;
+    ResponseData *rd = get_response_data (widget, FALSE);
+
+    if (rd && rd->response_id == response_id) {
+      g_list_free (children);
+      return widget;
+    }
+
+    tmp_list = tmp_list->next;
+  }
+
+  g_list_free (children);
+
+  return NULL;
+}
+#endif /* gtk < 2.20 */
+
 /* Backwards compatibility for some deprecated functions in Gtk 3. */
 #if GTK_CHECK_VERSION(3,2,0)   /* gtk >= 3.2 */
 #define hbox_new(box, homogeneous, spacing)                    \
@@ -198,7 +298,11 @@ static void set_info_label (void);
 static GtkWidget *conn_dlg,
   *server_entry, *port_entry,
   *username_entry, *password_entry, *identity_entry, *sudo_button,
-  *spinner_hbox, *spinner, *spinner_message, *next_button;
+  *spinner_hbox,
+#ifdef GTK_SPINNER
+  *spinner,
+#endif
+  *spinner_message, *next_button;
 
 /* The conversion dialog. */
 static GtkWidget *conv_dlg,
@@ -358,8 +462,10 @@ create_connection_dialog (struct config *config)
   gtk_box_pack_start (GTK_BOX (test_hbox), test, TRUE, FALSE, 0);
 
   hbox_new (spinner_hbox, FALSE, 10);
+#ifdef GTK_SPINNER
   spinner = gtk_spinner_new ();
   gtk_box_pack_start (GTK_BOX (spinner_hbox), spinner, FALSE, FALSE, 0);
+#endif
   spinner_message = gtk_label_new (NULL);
   gtk_label_set_line_wrap (GTK_LABEL (spinner_message), TRUE);
   set_padding (spinner_message, 10, 10);
@@ -504,7 +610,9 @@ test_connection_clicked (GtkWidget *w, gpointer data)
 
   gtk_label_set_text (GTK_LABEL (spinner_message), "");
   gtk_widget_show_all (spinner_hbox);
+#ifdef GTK_SPINNER
   gtk_widget_hide (spinner);
+#endif
 
   /* Get the fields from the various widgets. */
   free (config->server);
@@ -600,8 +708,10 @@ start_spinner (gpointer user_data)
 {
   gtk_label_set_text (GTK_LABEL (spinner_message),
                       _("Testing the connection to the conversion server ..."));
+#ifdef GTK_SPINNER
   gtk_widget_show (spinner);
   gtk_spinner_start (GTK_SPINNER (spinner));
+#endif
   return FALSE;
 }
 
@@ -612,8 +722,10 @@ start_spinner (gpointer user_data)
 static gboolean
 stop_spinner (gpointer user_data)
 {
+#ifdef GTK_SPINNER
   gtk_spinner_stop (GTK_SPINNER (spinner));
   gtk_widget_hide (spinner);
+#endif
   return FALSE;
 }
 
