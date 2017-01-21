@@ -136,6 +136,7 @@ compile_regexps (void)
    * matching, so fail if that is true here.  In pcre >= 8, all
    * regexps can be used in a partial match.
    */
+#ifdef PCRE_INFO_OKPARTIAL
 #define CHECK_PARTIAL_OK(pattern, re)					\
   do {									\
     pcre_fullinfo ((re), NULL, PCRE_INFO_OKPARTIAL, &p);		\
@@ -146,6 +147,9 @@ compile_regexps (void)
       abort ();								\
     }									\
   } while (0)
+#else
+#define CHECK_PARTIAL_OK(pattern, re) /* skip check */
+#endif
 
 #define COMPILE(re,pattern,options)                                     \
   do {                                                                  \
