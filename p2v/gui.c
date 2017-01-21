@@ -47,6 +47,13 @@
  * Note that the other major dialog (C<"Configure network ...">) is
  * handled entirely by NetworkManager's L<nm-connection-editor(1)>
  * program and has nothing to do with this code.
+ *
+ * This file is written in a kind of "pseudo-Gtk" which is backwards
+ * compatible from Gtk 2.10 (RHEL 5) through at least Gtk 3.22.  This
+ * is done using a few macros to implement old C<gtk_*> functions or
+ * map them to newer functions.  Supporting ancient Gtk is important
+ * because we want to provide a virt-p2v binary that can run on very
+ * old kernels, to support 32 bit and proprietary SCSI drivers.
  */
 
 #include <config.h>
@@ -80,210 +87,16 @@
 
 #include "p2v.h"
 
+/* See note about "pseudo-Gtk" above. */
+#include "gui-gtk2-compat.h"
+#include "gui-gtk3-compat.h"
+
 /* Maximum vCPUs and guest memory that we will allow users to set.
  * These limits come from
  * https://access.redhat.com/articles/rhel-kvm-limits
  */
 #define MAX_SUPPORTED_VCPUS 160
 #define MAX_SUPPORTED_MEMORY_MB (UINT64_C (4000 * 1024))
-
-/* Backwards compatibility for ancient RHEL 5 Gtk 2.10. */
-#ifndef GTK_COMBO_BOX_TEXT
-#define GTK_COMBO_BOX_TEXT GTK_COMBO_BOX
-#define gtk_combo_box_text_new() gtk_combo_box_new_text()
-#define gtk_combo_box_text_append_text(combo, text)	\
-  gtk_combo_box_append_text((combo), (text))
-#define gtk_combo_box_text_get_active_text(combo)	\
-  gtk_combo_box_get_active_text((combo))
-#endif
-
-#if !GTK_CHECK_VERSION(2,12,0)	/* gtk < 2.12 */
-#define gtk_widget_set_tooltip_markup(widget, text) /* nothing */
-#endif
-
-#if !GTK_CHECK_VERSION(2,14,0)	/* gtk < 2.14 */
-#define gtk_dialog_get_content_area(dlg) ((dlg)->vbox)
-#endif
-
-#if !GTK_CHECK_VERSION(2,18,0)	/* gtk < 2.18 */
-static void
-gtk_cell_renderer_set_alignment (GtkCellRenderer *cell,
-                                 gfloat xalign, gfloat yalign)
-{
-  if ((xalign != cell->xalign) || (yalign != cell->yalign)) {
-    g_object_freeze_notify (G_OBJECT (cell));
-
-    if (xalign != cell->xalign) {
-      cell->xalign = xalign;
-      g_object_notify (G_OBJECT (cell), "xalign");
-    }
-
-    if (yalign != cell->yalign) {
-      cell->yalign = yalign;
-      g_object_notify (G_OBJECT (cell), "yalign");
-    }
-
-    g_object_thaw_notify (G_OBJECT (cell));
-  }
-}
-#endif
-
-#if !GTK_CHECK_VERSION(2,20,0)	/* gtk < 2.20 */
-typedef struct _ResponseData ResponseData;
-
-struct _ResponseData
-{
-  gint response_id;
-};
-
-static void
-response_data_free (gpointer data)
-{
-  g_slice_free (ResponseData, data);
-}
-
-static ResponseData *
-get_response_data (GtkWidget *widget, gboolean create)
-{
-  ResponseData *ad = g_object_get_data (G_OBJECT (widget),
-                                        "gtk-dialog-response-data");
-
-  if (ad == NULL && create) {
-    ad = g_slice_new (ResponseData);
-
-    g_object_set_data_full (G_OBJECT (widget),
-			    g_intern_static_string ("gtk-dialog-response-data"),
-			    ad,
-			    response_data_free);
-  }
-
-  return ad;
-}
-
-static GtkWidget *
-gtk_dialog_get_widget_for_response (GtkDialog *dialog, gint response_id)
-{
-  GList *children;
-  GList *tmp_list;
-
-  children = gtk_container_get_children (GTK_CONTAINER (dialog->action_area));
-
-  tmp_list = children;
-  while (tmp_list != NULL) {
-    GtkWidget *widget = tmp_list->data;
-    ResponseData *rd = get_response_data (widget, FALSE);
-
-    if (rd && rd->response_id == response_id) {
-      g_list_free (children);
-      return widget;
-    }
-
-    tmp_list = tmp_list->next;
-  }
-
-  g_list_free (children);
-
-  return NULL;
-}
-#endif /* gtk < 2.20 */
-
-/* Backwards compatibility for some deprecated functions in Gtk 3. */
-#if GTK_CHECK_VERSION(3,2,0)   /* gtk >= 3.2 */
-#define hbox_new(box, homogeneous, spacing)                    \
-  do {                                                         \
-    (box) = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, spacing); \
-    if (homogeneous)                                           \
-      gtk_box_set_homogeneous (GTK_BOX (box), TRUE);           \
-  } while (0)
-#define vbox_new(box, homogeneous, spacing)                    \
-  do {                                                         \
-    (box) = gtk_box_new (GTK_ORIENTATION_VERTICAL, spacing);   \
-    if (homogeneous)                                           \
-      gtk_box_set_homogeneous (GTK_BOX (box), TRUE);           \
-  } while (0)
-#else /* gtk < 3.2 */
-#define hbox_new(box, homogeneous, spacing)             \
-  (box) = gtk_hbox_new ((homogeneous), (spacing))
-#define vbox_new(box, homogeneous, spacing)             \
-  (box) = gtk_vbox_new ((homogeneous), (spacing))
-#endif
-
-#if GTK_CHECK_VERSION(3,4,0)   /* gtk >= 3.4 */
-/* GtkGrid is sufficiently similar to GtkTable that we can just
- * redefine these functions.
- */
-#define table_new(grid, rows, columns)          \
-  (grid) = gtk_grid_new ()
-#define table_attach(grid, child, left, right, top, bottom, xoptions, yoptions, xpadding, ypadding) \
-  do {                                                                  \
-    if (((xoptions) & GTK_EXPAND) != 0)                                 \
-      gtk_widget_set_hexpand ((child), TRUE);                           \
-    if (((xoptions) & GTK_FILL) != 0)                                   \
-      gtk_widget_set_halign ((child), GTK_ALIGN_FILL);                  \
-    if (((yoptions) & GTK_EXPAND) != 0)                                 \
-      gtk_widget_set_vexpand ((child), TRUE);                           \
-    if (((yoptions) & GTK_FILL) != 0)                                   \
-      gtk_widget_set_valign ((child), GTK_ALIGN_FILL);                  \
-    set_padding ((child), (xpadding), (ypadding));                      \
-    gtk_grid_attach (GTK_GRID (grid), (child),                          \
-                     (left), (top), (right)-(left), (bottom)-(top));    \
-  } while (0)
-#else
-#define table_new(table, rows, columns)                 \
-  (table) = gtk_table_new ((rows), (columns), FALSE)
-#define table_attach(table, child, left, right,top, bottom, xoptions, yoptions, xpadding, ypadding) \
-  gtk_table_attach (GTK_TABLE (table), (child),                         \
-                    (left), (right), (top), (bottom),                   \
-                    (xoptions), (yoptions), (xpadding), (ypadding))
-#endif
-
-#if GTK_CHECK_VERSION(3,8,0)   /* gtk >= 3.8 */
-#define scrolled_window_add_with_viewport(container, child)     \
-  gtk_container_add (GTK_CONTAINER (container), child)
-#else
-#define scrolled_window_add_with_viewport(container, child)             \
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (container), child)
-#endif
-
-#if GTK_CHECK_VERSION(3,10,0)   /* gtk >= 3.10 */
-#undef GTK_STOCK_DIALOG_WARNING
-#define GTK_STOCK_DIALOG_WARNING "dialog-warning"
-#define gtk_image_new_from_stock gtk_image_new_from_icon_name
-#endif
-
-#if GTK_CHECK_VERSION(3,14,0)   /* gtk >= 3.14 */
-#define set_padding(widget, xpad, ypad)                               \
-  do {                                                                \
-    if ((xpad) != 0) {                                                \
-      gtk_widget_set_margin_start ((widget), (xpad));                 \
-      gtk_widget_set_margin_end ((widget), (xpad));                   \
-    }                                                                 \
-    if ((ypad) != 0) {                                                \
-      gtk_widget_set_margin_top ((widget), (ypad));                   \
-      gtk_widget_set_margin_bottom ((widget), (ypad));                \
-    }                                                                 \
-  } while (0)
-#define set_alignment(widget, xalign, yalign)                   \
-  do {                                                          \
-    if ((xalign) == 0.)                                         \
-      gtk_widget_set_halign ((widget), GTK_ALIGN_START);        \
-    else if ((xalign) == 1.)                                    \
-      gtk_widget_set_halign ((widget), GTK_ALIGN_END);          \
-    else                                                        \
-      gtk_widget_set_halign ((widget), GTK_ALIGN_CENTER);       \
-    if ((yalign) == 0.)                                         \
-      gtk_widget_set_valign ((widget), GTK_ALIGN_START);        \
-    else if ((xalign) == 1.)                                    \
-      gtk_widget_set_valign ((widget), GTK_ALIGN_END);          \
-    else                                                        \
-      gtk_widget_set_valign ((widget), GTK_ALIGN_CENTER);       \
-  } while (0)
-#else  /* gtk < 3.14 */
-#define set_padding(widget, xpad, ypad)                 \
-  gtk_misc_set_padding(GTK_MISC(widget),(xpad),(ypad))
-#define set_alignment(widget, xalign, yalign)                   \
-  gtk_misc_set_alignment(GTK_MISC(widget),(xalign),(yalign))
-#endif
 
 static void create_connection_dialog (struct config *);
 static void create_conversion_dialog (struct config *);

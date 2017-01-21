@@ -77,6 +77,8 @@ virt_p2v_SOURCES = \
 	config.c \
 	conversion.c \
 	gui.c \
+	gui-gtk2-compat.h \
+	gui-gtk3-compat.h \
 	inhibit.c \
 	kernel.c \
 	kernel-cmdline.c \
