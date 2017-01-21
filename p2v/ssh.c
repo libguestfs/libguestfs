@@ -96,8 +96,9 @@ get_ssh_error (void)
 }
 
 /* Like set_ssh_error, but for errors that aren't supposed to happen. */
-#define set_ssh_internal_error(fs, ...) \
-  set_ssh_error ("internal error: " fs, ##__VA_ARGS__)
+#define set_ssh_internal_error(fs, ...)				   \
+  set_ssh_error ("%s:%d: internal error: " fs, __FILE__, __LINE__, \
+		 ##__VA_ARGS__)
 #define set_ssh_mexp_error(fn) \
   set_ssh_internal_error ("%s: %m", fn)
 #define set_ssh_pcre_error() \
