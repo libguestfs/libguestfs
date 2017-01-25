@@ -89,7 +89,11 @@ SUBDIRS += tests/tsk
 endif
 
 # Common code used by the tools.
-SUBDIRS += common/visit common/options
+SUBDIRS += common/edit
+SUBDIRS += common/options
+SUBDIRS += common/progress
+SUBDIRS += common/visit
+SUBDIRS += common/windows
 
 # libguestfs-test-tool
 SUBDIRS += test-tool

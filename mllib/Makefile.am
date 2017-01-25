@@ -74,7 +74,7 @@ SOURCES_C = \
 	../common/options/decrypt.c \
 	../common/options/keys.c \
 	../common/options/uri.c \
-	../fish/progress.c \
+	../common/progress/progress.c \
 	common_utils-c.c \
 	dev_t-c.c \
 	exit-c.c \
@@ -114,7 +114,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(top_srcdir)/lib \
 	-I$(top_srcdir)/common/visit \
 	-I$(top_srcdir)/common/options \
-	-I$(top_srcdir)/fish
+	-I$(top_srcdir)/common/progress
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \

@@ -83,6 +83,11 @@ subdirectory:
 
 =over 4
 
+=item F<common/edit>
+
+Common code for interactively and non-interactively editing files
+within a libguestfs filesystem.
+
 =item F<common/errnostring>
 
 The communication protocol used between the library and the daemon
@@ -92,6 +97,10 @@ handled by this library.
 =item F<common/options>
 
 Common options parsing for guestfish, guestmount and some virt tools.
+
+=item F<common/progress>
+
+Common code for printing progress bars.
 
 =item F<common/protocol>
 
@@ -105,6 +114,10 @@ Various utility functions used throughout the library and tools.
 =item F<common/visit>
 
 Recursively visit a guestfs filesystem hierarchy.
+
+=item F<common/windows>
+
+Utility functions for handling Windows drive letters.
 
 =back
 

@@ -11,6 +11,8 @@ cat/filesystems.c
 cat/log.c
 cat/ls.c
 cat/tail.c
+common/edit/file-edit.c
+common/edit/file-edit.h
 common/options/config.c
 common/options/decrypt.c
 common/options/display-options.c
@@ -22,6 +24,8 @@ common/options/options.c
 common/options/options.h
 common/options/uri.c
 common/options/uri.h
+common/progress/progress.c
+common/progress/progress.h
 common/utils/cleanup.c
 common/utils/guestfs-internal-frontend-cleanups.h
 common/utils/guestfs-internal-frontend.h
@@ -32,6 +36,8 @@ common/utils/uefi.c
 common/utils/utils.c
 common/visit/visit.c
 common/visit/visit.h
+common/windows/windows.c
+common/windows/windows.h
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
@@ -195,8 +201,6 @@ fish/entries-5.c
 fish/entries-6.c
 fish/event-names.c
 fish/events.c
-fish/file-edit.c
-fish/file-edit.h
 fish/fish-cmds.h
 fish/fish.c
 fish/fish.h
@@ -214,8 +218,6 @@ fish/prep-part.c
 fish/prep.c
 fish/prepopts.c
 fish/prepopts.h
-fish/progress.c
-fish/progress.h
 fish/rc.c
 fish/reopen.c
 fish/run-0.c
@@ -230,8 +232,6 @@ fish/setenv.c
 fish/supported.c
 fish/tilde.c
 fish/time.c
-fish/windows.c
-fish/windows.h
 format/format.c
 fuse/guestmount.c
 fuse/guestunmount.c

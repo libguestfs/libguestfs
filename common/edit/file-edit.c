@@ -27,8 +27,6 @@
 
 #include <config.h>
 
-#include "file-edit.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -44,6 +42,8 @@
 #include <sys/wait.h>
 
 #include "guestfs-internal-frontend.h"
+
+#include "file-edit.h"
 
 static int do_download (guestfs_h *g, const char *filename, char **tempfile);
 static int do_upload (guestfs_h *g, const char *filename, const char *tempfile,

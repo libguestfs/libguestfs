@@ -181,10 +181,13 @@ AC_CONFIG_FILES([Makefile
                  builder/test-website/virt-builder/repos.d/libguestfs.conf
                  cat/Makefile
                  common/errnostring/Makefile
+                 common/edit/Makefile
                  common/options/Makefile
+                 common/progress/Makefile
                  common/protocol/Makefile
                  common/utils/Makefile
                  common/visit/Makefile
+                 common/windows/Makefile
                  csharp/Makefile
                  customize/Makefile
                  daemon/Makefile

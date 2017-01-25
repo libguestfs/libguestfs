@@ -10,6 +10,7 @@ cat/filesystems.c
 cat/log.c
 cat/ls.c
 cat/tail.c
+common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/options/config.c
@@ -20,12 +21,14 @@ common/options/inspect.c
 common/options/keys.c
 common/options/options.c
 common/options/uri.c
+common/progress/progress.c
 common/utils/cleanup.c
 common/utils/structs-cleanup.c
 common/utils/structs-print.c
 common/utils/uefi.c
 common/utils/utils.c
 common/visit/visit.c
+common/windows/windows.c
 customize/crypt-c.c
 customize/dummy.c
 customize/perl_edit-c.c
@@ -181,7 +184,6 @@ fish/entries-5.c
 fish/entries-6.c
 fish/event-names.c
 fish/events.c
-fish/file-edit.c
 fish/fish.c
 fish/glob.c
 fish/help.c
@@ -196,7 +198,6 @@ fish/prep-lv.c
 fish/prep-part.c
 fish/prep.c
 fish/prepopts.c
-fish/progress.c
 fish/rc.c
 fish/reopen.c
 fish/run-0.c
@@ -210,7 +211,6 @@ fish/setenv.c
 fish/supported.c
 fish/tilde.c
 fish/time.c
-fish/windows.c
 format/format.c
 fuse/guestmount.c
 fuse/guestunmount.c

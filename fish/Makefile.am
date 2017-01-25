@@ -77,8 +77,6 @@ guestfish_SOURCES = \
 	echo.c \
 	edit.c \
 	events.c \
-	file-edit.c \
-	file-edit.h \
 	fish.c \
 	fish.h \
 	glob.c \
@@ -93,8 +91,6 @@ guestfish_SOURCES = \
 	prep-fs.c \
 	prep-lv.c \
 	prep-boot.c \
-	progress.h \
-	progress.c \
 	rc.c \
 	reopen.c \
 	setenv.c \
@@ -122,7 +118,9 @@ guestfish_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/edit -I$(top_builddir)/common/edit \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
+	-I$(top_srcdir)/common/progress -I$(top_builddir)/common/progress \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
@@ -134,8 +132,9 @@ guestfish_CFLAGS = \
 guestfish_LDADD = \
 	$(LIBCONFIG_LIBS) \
 	$(LIBREADLINE) \
-	$(LIBTINFO_LIBS) \
+	$(top_builddir)/common/edit/libedit.la \
 	$(top_builddir)/common/options/liboptions.la \
+	$(top_builddir)/common/progress/libprogress.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \

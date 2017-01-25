@@ -68,8 +68,8 @@ SOURCES_ML = \
 	customize_run.ml
 
 SOURCES_C = \
-	../fish/file-edit.c \
-	../fish/file-edit.h \
+	../common/edit/file-edit.c \
+	../common/edit/file-edit.h \
 	crypt-c.c \
 	perl_edit-c.c
 
@@ -98,7 +98,7 @@ libcustomize_a_CPPFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
-	-I$(top_srcdir)/fish
+	-I$(top_srcdir)/common/edit
 libcustomize_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) \

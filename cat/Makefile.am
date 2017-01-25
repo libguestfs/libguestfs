@@ -32,12 +32,7 @@ EXTRA_DIST = \
 
 bin_PROGRAMS = virt-cat virt-filesystems virt-log virt-ls virt-tail
 
-SHARED_SOURCE_FILES = \
-	../fish/windows.h \
-	../fish/windows.c
-
 virt_cat_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	cat.c
 
 virt_cat_CPPFLAGS = \
@@ -46,7 +41,7 @@ virt_cat_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_cat_CFLAGS = \
@@ -55,6 +50,7 @@ virt_cat_CFLAGS = \
 
 virt_cat_LDADD = \
 	$(top_builddir)/common/options/liboptions.la \
+	$(top_builddir)/common/windows/libwindows.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
@@ -63,7 +59,6 @@ virt_cat_LDADD = \
 	../gnulib/lib/libgnu.la
 
 virt_filesystems_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	filesystems.c
 
 virt_filesystems_CPPFLAGS = \
@@ -72,7 +67,7 @@ virt_filesystems_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_filesystems_CFLAGS = \
@@ -81,6 +76,7 @@ virt_filesystems_CFLAGS = \
 
 virt_filesystems_LDADD = \
 	$(top_builddir)/common/options/liboptions.la \
+	$(top_builddir)/common/windows/libwindows.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
@@ -89,7 +85,6 @@ virt_filesystems_LDADD = \
 	../gnulib/lib/libgnu.la
 
 virt_log_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	log.c
 
 virt_log_CPPFLAGS = \
@@ -98,7 +93,7 @@ virt_log_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_log_CFLAGS = \
@@ -115,7 +110,6 @@ virt_log_LDADD = \
 	../gnulib/lib/libgnu.la
 
 virt_ls_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	ls.c
 
 virt_ls_CPPFLAGS = \
@@ -125,7 +119,7 @@ virt_ls_CPPFLAGS = \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/visit \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_ls_CFLAGS = \
@@ -143,7 +137,6 @@ virt_ls_LDADD = \
 	../gnulib/lib/libgnu.la
 
 virt_tail_SOURCES = \
-	$(SHARED_SOURCE_FILES) \
 	tail.c
 
 virt_tail_CPPFLAGS = \
@@ -152,7 +145,7 @@ virt_tail_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_tail_CFLAGS = \
@@ -161,6 +154,7 @@ virt_tail_CFLAGS = \
 
 virt_tail_LDADD = \
 	$(top_builddir)/common/options/liboptions.la \
+	$(top_builddir)/common/windows/libwindows.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
