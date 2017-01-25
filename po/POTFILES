@@ -13,6 +13,7 @@ cat/tail.c
 common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
+common/miniexpect/miniexpect.c
 common/options/config.c
 common/options/decrypt.c
 common/options/display-options.c
@@ -409,7 +410,6 @@ p2v/inhibit.c
 p2v/kernel-cmdline.c
 p2v/kernel.c
 p2v/main.c
-p2v/miniexpect.c
 p2v/ssh.c
 p2v/utils.c
 p2v/whole-file.c

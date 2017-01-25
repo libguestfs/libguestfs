@@ -94,6 +94,12 @@ The communication protocol used between the library and the daemon
 running inside the appliance has to encode errnos as strings, which is
 handled by this library.
 
+=item F<common/miniexpect>
+
+A copy of the miniexpect library from
+L<http://git.annexia.org/?p=miniexpect.git;a=summary>.  This is used
+in virt-p2v.
+
 =item F<common/options>
 
 Common options parsing for guestfish, guestmount and some virt tools.

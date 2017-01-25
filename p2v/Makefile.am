@@ -69,8 +69,6 @@ virt-p2v.xz: virt-p2v
 
 noinst_PROGRAMS = virt-p2v
 
-# Note that miniexpect comes from here:
-# http://git.annexia.org/?p=miniexpect.git;a=summary
 virt_p2v_SOURCES = \
 	about-authors.c \
 	about-license.c \
@@ -83,8 +81,6 @@ virt_p2v_SOURCES = \
 	kernel.c \
 	kernel-cmdline.c \
 	main.c \
-	miniexpect.c \
-	miniexpect.h \
 	p2v.h \
 	ssh.c \
 	utils.c \
@@ -94,6 +90,7 @@ virt_p2v_CPPFLAGS = \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/common/miniexpect -I$(top_builddir)/common/miniexpect \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_p2v_CFLAGS = \
@@ -106,6 +103,7 @@ virt_p2v_CFLAGS = \
 
 virt_p2v_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
+	$(top_builddir)/common/miniexpect/libminiexpect.la \
 	$(PCRE_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(GTK_LIBS) \

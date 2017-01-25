@@ -13,6 +13,8 @@ cat/ls.c
 cat/tail.c
 common/edit/file-edit.c
 common/edit/file-edit.h
+common/miniexpect/miniexpect.c
+common/miniexpect/miniexpect.h
 common/options/config.c
 common/options/decrypt.c
 common/options/display-options.c
@@ -348,8 +350,6 @@ p2v/inhibit.c
 p2v/kernel-cmdline.c
 p2v/kernel.c
 p2v/main.c
-p2v/miniexpect.c
-p2v/miniexpect.h
 p2v/p2v.h
 p2v/ssh.c
 p2v/utils.c
