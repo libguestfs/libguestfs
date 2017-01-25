@@ -28,15 +28,9 @@ bin_PROGRAMS = virt-df
 
 virt_df_SOURCES = \
 	virt-df.h \
-	domains.c \
-	domains.h \
 	df.c \
-	estimate-max-threads.c \
-	estimate-max-threads.h \
 	main.c \
-	output.c \
-	parallel.c \
-	parallel.h
+	output.c
 
 virt_df_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
@@ -44,7 +38,7 @@ virt_df_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/parallel -I$(top_builddir)/common/parallel \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_df_CFLAGS = \
@@ -55,6 +49,7 @@ virt_df_CFLAGS = \
 
 virt_df_LDADD = \
 	$(top_builddir)/common/options/liboptions.la \
+	$(top_builddir)/common/parallel/libparallel.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \

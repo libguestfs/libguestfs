@@ -183,6 +183,7 @@ AC_CONFIG_FILES([Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
                  common/options/Makefile
+                 common/parallel/Makefile
                  common/progress/Makefile
                  common/protocol/Makefile
                  common/utils/Makefile

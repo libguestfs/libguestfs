@@ -21,6 +21,9 @@ common/options/inspect.c
 common/options/keys.c
 common/options/options.c
 common/options/uri.c
+common/parallel/domains.c
+common/parallel/estimate-max-threads.c
+common/parallel/parallel.c
 common/progress/progress.c
 common/utils/cleanup.c
 common/utils/structs-cleanup.c
@@ -147,11 +150,8 @@ daemon/xfs.c
 daemon/zero.c
 daemon/zerofree.c
 df/df.c
-df/domains.c
-df/estimate-max-threads.c
 df/main.c
 df/output.c
-df/parallel.c
 dib/dummy.c
 diff/diff.c
 docs/make-internal-documentation.pl

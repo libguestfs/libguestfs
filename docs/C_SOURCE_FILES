@@ -24,6 +24,12 @@ common/options/options.c
 common/options/options.h
 common/options/uri.c
 common/options/uri.h
+common/parallel/domains.c
+common/parallel/domains.h
+common/parallel/estimate-max-threads.c
+common/parallel/estimate-max-threads.h
+common/parallel/parallel.c
+common/parallel/parallel.h
 common/progress/progress.c
 common/progress/progress.h
 common/utils/cleanup.c
@@ -161,14 +167,8 @@ daemon/xfs.c
 daemon/zero.c
 daemon/zerofree.c
 df/df.c
-df/domains.c
-df/domains.h
-df/estimate-max-threads.c
-df/estimate-max-threads.h
 df/main.c
 df/output.c
-df/parallel.c
-df/parallel.h
 df/virt-df.h
 dib/dummy.c
 diff/diff.c

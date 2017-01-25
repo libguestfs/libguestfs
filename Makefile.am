@@ -91,6 +91,7 @@ endif
 # Common code used by the tools.
 SUBDIRS += common/edit
 SUBDIRS += common/options
+SUBDIRS += common/parallel
 SUBDIRS += common/progress
 SUBDIRS += common/visit
 SUBDIRS += common/windows

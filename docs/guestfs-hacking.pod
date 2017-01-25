@@ -98,6 +98,10 @@ handled by this library.
 
 Common options parsing for guestfish, guestmount and some virt tools.
 
+=item F<common/parallel>
+
+A framework used for processing multiple libvirt domains in parallel.
+
 =item F<common/progress>
 
 Common code for printing progress bars.
