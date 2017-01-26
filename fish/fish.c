@@ -180,9 +180,6 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
 
-  /* We use random(3) in edit.c. */
-  srandom (time (NULL));
-
   parse_config ();
 
   enum { HELP_OPTION = CHAR_MAX + 1 };

@@ -303,18 +303,10 @@ do_upload (guestfs_h *g, const char *fn, const char *tempfile,
   return 0;
 }
 
-static char
-random_char (void)
-{
-  const char c[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return c[random () % (sizeof c - 1)];
-}
-
 static char *
 generate_random_name (const char *filename)
 {
   char *ret, *p;
-  size_t i;
 
   ret = malloc (strlen (filename) + 16);
   if (!ret) {
@@ -328,11 +320,13 @@ generate_random_name (const char *filename)
   p++;
 
   /* Because of "+ 16" above, there should be enough space in the
-   * output buffer to write 8 random characters here.
+   * output buffer to write 8 random characters here plus the
+   * trailing \0.
    */
-  for (i = 0; i < 8; ++i)
-    *p++ = random_char ();
-  *p++ = '\0';
+  if (guestfs_int_random_string (p, 8) == -1) {
+    perror ("guestfs_int_random_string");
+    return NULL;
+  }
 
   return ret; /* caller will free */
 }

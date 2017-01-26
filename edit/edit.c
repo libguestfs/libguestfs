@@ -102,9 +102,6 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
 
-  /* We use random(3) below. */
-  srandom (time (NULL));
-
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
   static const char options[] = "a:b:c:d:e:m:vVx";
