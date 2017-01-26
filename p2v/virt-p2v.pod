@@ -597,6 +597,24 @@ virt-p2v ISO environment, ie. when it is running on a real physical
 machine (and thus not when testing).  It enables various dangerous
 features such as the Reboot button.
 
+=item B<--nbd=server[,server...]>
+
+Select which NBD server is used.  By default the following
+servers are checked and the first one found is used:
+I<--nbd=qemu-nbd,nbdkit>
+
+=over 4
+
+=item B<qemu-nbd>
+
+Use qemu-nbd.
+
+=item B<nbdkit>
+
+Use nbdkit with the file plugin (see: L<nbdkit-file-plugin(1)>).
+
+=back
+
 =item B<--test-disk=/PATH/TO/DISK.IMG>
 
 For testing or debugging purposes, replace F</dev/sda> with a local
@@ -731,11 +749,15 @@ interest only, do not attempt to run this script yourself.
 =back
 
 Before conversion actually begins, virt-p2v then makes one or more
-further ssh connections to the server for data transfer.  The transfer
-protocol used currently is NBD (Network Block Device), which is
-proxied over ssh.  The server is L<qemu-nbd(1)>.  There is one ssh
-connection per physical hard disk on the source machine (the common
-case — a single hard disk — is shown below):
+further ssh connections to the server for data transfer.
+
+The transfer protocol used currently is NBD (Network Block Device),
+which is proxied over ssh.  The NBD server is L<qemu-nbd(1)> by
+default but others can be selected using the I<--nbd> command line
+option.
+
+There is one ssh connection per physical hard disk on the source
+machine (the common case — a single hard disk — is shown below):
 
  ┌──────────────┐                      ┌─────────────────┐
  │ virt-p2v     │                      │ virt-v2v        │
@@ -754,9 +776,9 @@ server and terminates on the conversion server, in fact NBD requests
 flow in the opposite direction.  This is because the reverse port
 forward feature of ssh (C<ssh -R>) is used to open a port on the
 loopback interface of the conversion server which is proxied back by
-ssh to the qemu-nbd server running on the physical machine.  The
-effect is that virt-v2v via libguestfs can open nbd connections which
-directly read the hard disk(s) of the physical server.
+ssh to the NBD server running on the physical machine.  The effect is
+that virt-v2v via libguestfs can open nbd connections which directly
+read the hard disk(s) of the physical server.
 
 Two layers of protection are used to ensure that there are no writes
 to the hard disks: Firstly, the qemu-nbd I<-r> (readonly) option is
@@ -783,6 +805,7 @@ L<virt-p2v-make-kickstart(1)>,
 L<virt-p2v-make-kiwi(1)>,
 L<virt-v2v(1)>,
 L<qemu-nbd(1)>,
+L<nbdkit(1)>, L<nbdkit-file-plugin(1)>,
 L<ssh(1)>,
 L<sshd(8)>,
 L<sshd_config(5)>,

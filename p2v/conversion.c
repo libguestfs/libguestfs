@@ -82,8 +82,8 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
-/* How long to wait for qemu-nbd to start (seconds). */
-#define WAIT_QEMU_NBD_TIMEOUT 10
+/* How long to wait for the NBD server to start (seconds). */
+#define WAIT_NBD_TIMEOUT 10
 
 /* Data per NBD connection / physical disk. */
 struct data_conn {
@@ -93,8 +93,10 @@ struct data_conn {
   int nbd_remote_port;      /* remote NBD port on conversion server */
 };
 
+static pid_t start_nbd (int nbd_local_port, const char *device);
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
-static int wait_qemu_nbd (int nbd_local_port, int timeout_seconds);
+static pid_t start_nbdkit (int nbd_local_port, const char *device);
+static int wait_nbd (int nbd_local_port, int timeout_seconds);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static void generate_name (struct config *, const char *filename);
 static void generate_libvirt_xml (struct config *, struct data_conn *, const char *filename);
@@ -240,7 +242,7 @@ start_conversion (struct config *config,
     data_conns[i].nbd_remote_port = -1;
   }
 
-  /* Start the data connections and qemu-nbd processes, one per disk. */
+  /* Start the data connections and NBD server processes, one per disk. */
   for (i = 0; config->disks[i] != NULL; ++i) {
     CLEANUP_FREE char *device = NULL;
 
@@ -284,15 +286,15 @@ start_conversion (struct config *config,
              data_conns[i].nbd_remote_port, data_conns[i].nbd_local_port);
 #endif
 
-    /* Start qemu-nbd listening on the given port number. */
+    /* Start NBD server listening on the given port number. */
     data_conns[i].nbd_pid =
-      start_qemu_nbd (data_conns[i].nbd_local_port, device);
+      start_nbd (data_conns[i].nbd_local_port, device);
     if (data_conns[i].nbd_pid == 0)
       goto out;
 
-    /* Wait for qemu-nbd to listen */
-    if (wait_qemu_nbd (data_conns[i].nbd_local_port,
-                       WAIT_QEMU_NBD_TIMEOUT) == -1)
+    /* Wait for NBD server to listen */
+    if (wait_nbd (data_conns[i].nbd_local_port,
+                       WAIT_NBD_TIMEOUT) == -1)
       goto out;
   }
 
@@ -464,6 +466,42 @@ cancel_conversion (void)
 }
 
 /**
+ * Start the first server found in the C<nbd_servers> list.
+ *
+ * We previously tested all NBD servers (see C<test_nbd_servers>) so
+ * we only need to run the first server in the list.
+ *
+ * Returns the process ID (E<gt> 0) or C<0> if there is an error.
+ */
+static pid_t
+start_nbd (int port, const char *device)
+{
+  size_t i;
+
+  for (i = 0; i < NR_NBD_SERVERS; ++i) {
+    switch (nbd_servers[i]) {
+    case NO_SERVER:
+      /* ignore */
+      break;
+
+    case QEMU_NBD:
+      return start_qemu_nbd (port, device);
+
+    case NBDKIT:
+      return start_nbdkit (port, device);
+
+    default:
+      abort ();
+    }
+  }
+
+  /* This should never happen because of the checks in
+   * test_nbd_servers.
+   */
+  abort ();
+}
+
+/**
  * Start a local L<qemu-nbd(1)> process.
  *
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
@@ -473,6 +511,10 @@ start_qemu_nbd (int port, const char *device)
 {
   pid_t pid;
   char port_str[64];
+
+#if DEBUG_STDERR
+  fprintf (stderr, "starting qemu-nbd for %s on port %d\n", device, port);
+#endif
 
   snprintf (port_str, sizeof port_str, "%d", port);
 
@@ -497,6 +539,55 @@ start_qemu_nbd (int port, const char *device)
             device,             /* a device like /dev/sda */
             NULL);
     perror ("qemu-nbd");
+    _exit (EXIT_FAILURE);
+  }
+
+  /* Parent. */
+  return pid;
+}
+
+/**
+ * Start a local L<nbdkit(1)> process using the
+ * L<nbdkit-file-plugin(1)>.
+ *
+ * Returns the process ID (E<gt> 0) or C<0> if there is an error.
+ */
+static pid_t
+start_nbdkit (int port, const char *device)
+{
+  pid_t pid;
+  char port_str[64];
+  CLEANUP_FREE char *file_str = NULL;
+
+#if DEBUG_STDERR
+  fprintf (stderr, "starting nbdkit for %s on port %d\n", device, port);
+#endif
+
+  snprintf (port_str, sizeof port_str, "%d", port);
+
+  if (asprintf (&file_str, "file=%s", device) == -1)
+    error (EXIT_FAILURE, errno, "asprintf");
+
+  pid = fork ();
+  if (pid == -1) {
+    set_conversion_error ("fork: %m");
+    return 0;
+  }
+
+  if (pid == 0) {               /* Child. */
+    close (0);
+    open ("/dev/null", O_RDONLY);
+
+    execlp ("nbdkit",
+            "nbdkit",
+            "-r",               /* readonly (vital!) */
+            "-p", port_str,     /* listening port */
+            "-i", "localhost",  /* listen only on loopback interface */
+            "-f",               /* don't fork */
+            "file",             /* file plugin */
+            file_str,           /* a device like file=/dev/sda */
+            NULL);
+    perror ("nbdkit");
     _exit (EXIT_FAILURE);
   }
 
@@ -563,7 +654,7 @@ connect_with_source_port (const char *hostname, int dest_port, int source_port)
 
     /* Connect. */
     if (connect (sockfd, rp->ai_addr, rp->ai_addrlen) == -1) {
-      set_conversion_error ("waiting for qemu-nbd to start: "
+      set_conversion_error ("waiting for NBD server to start: "
                             "connect to %s/%s: %m",
                             hostname, dest_port_str);
       close (sockfd);
@@ -606,7 +697,7 @@ bind_source_port (int sockfd, int family, int source_port)
       goto bound;
   }
 
-  set_conversion_error ("waiting for qemu-nbd to start: "
+  set_conversion_error ("waiting for NBD server to start: "
                         "bind to source port %d: %m",
                         source_port);
   freeaddrinfo (results);
@@ -618,7 +709,7 @@ bind_source_port (int sockfd, int family, int source_port)
 }
 
 static int
-wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
+wait_nbd (int nbd_local_port, int timeout_seconds)
 {
   int sockfd = -1;
   int result = -1;
@@ -637,12 +728,12 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
     if (now_t - start_t >= timeout_seconds)
       goto cleanup;
 
-    /* Source port for probing qemu-nbd should be one greater than
-     * nbd_local_port.  It's not guaranteed to always bind to this port,
-     * but it will hint the kernel to start there and try incrementally
-     * higher ports if needed.  This avoids the case where the kernel
-     * selects nbd_local_port as our source port, and we immediately
-     * connect to ourself.  See:
+    /* Source port for probing NBD server should be one greater than
+     * nbd_local_port.  It's not guaranteed to always bind to this
+     * port, but it will hint the kernel to start there and try
+     * incrementally higher ports if needed.  This avoids the case
+     * where the kernel selects nbd_local_port as our source port, and
+     * we immediately connect to ourself.  See:
      * https://bugzilla.redhat.com/show_bug.cgi?id=1167774#c9
      */
     sockfd = connect_with_source_port ("localhost", nbd_local_port,
@@ -661,7 +752,7 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
     recvd = recv (sockfd, magic, sizeof magic - bytes_read, 0);
 
     if (recvd == -1) {
-      set_conversion_error ("waiting for qemu-nbd to start: recv: %m");
+      set_conversion_error ("waiting for NBD server to start: recv: %m");
       goto cleanup;
     }
 
@@ -669,8 +760,8 @@ wait_qemu_nbd (int nbd_local_port, int timeout_seconds)
   } while (bytes_read < sizeof magic);
 
   if (memcmp (magic, "NBDMAGIC", sizeof magic) != 0) {
-    set_conversion_error ("waiting for qemu-nbd to start: "
-                          "'NBDMAGIC' was not received from qemu-nbd");
+    set_conversion_error ("waiting for NBD server to start: "
+                          "'NBDMAGIC' was not received from NBD server");
     goto cleanup;
   }
 
@@ -697,7 +788,7 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
     }
 
     if (data_conns[i].nbd_pid > 0) {
-      /* Kill qemu-nbd process and clean up. */
+      /* Kill NBD process and clean up. */
       kill (data_conns[i].nbd_pid, SIGTERM);
       waitpid (data_conns[i].nbd_pid, NULL, 0);
     }

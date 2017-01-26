@@ -31,10 +31,10 @@
  * Once we start conversion, we will open a control connection to send
  * the libvirt configuration data and to start up virt-v2v, and we
  * will open up one data connection per local hard disk.  The data
- * connection(s) have a reverse port forward to the local
- * L<qemu-nbd(8)> server which is serving the content of that hard
- * disk.  The remote port for each data connection is assigned by ssh.
- * See C<open_data_connection> and C<start_remote_conversion>.
+ * connection(s) have a reverse port forward to the local NBD server
+ * which is serving the content of that hard disk.  The remote port
+ * for each data connection is assigned by ssh.  See
+ * C<open_data_connection> and C<start_remote_conversion>.
  */
 
 #include <config.h>
