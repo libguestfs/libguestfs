@@ -228,9 +228,8 @@ extern const char *guestfs_int_errno_to_string (int errnum);
  */
 extern int guestfs_int_string_to_errno (const char *errnostr);
 
-/* Private structure and function used by the perfect hash implementation. */
+/* Private structure used by the perfect hash implementation. */
 struct errnostring_entry { char *name; int errnum; };
-extern const struct errnostring_entry *guestfs_int_string_to_errno_lookup (register const char *str, register unsigned int len);
 
 #endif /* GUESTFS_ERRNOSTRING_H_ */
 "
@@ -275,17 +274,6 @@ guestfs_int_errno_to_string (int errnum)
     return \"EINVAL\";
   else
     return errno_to_string[errnum];
-}
-
-int
-guestfs_int_string_to_errno (const char *errnostr)
-{
-  const struct errnostring_entry *v =
-    guestfs_int_string_to_errno_lookup (errnostr, strlen (errnostr));
-  if (v /* not necessary to check v->name != NULL here */)
-    return v->errnum;
-  else
-    return EINVAL;
 }
 "
 
@@ -336,4 +324,19 @@ struct errnostring_entry;
   List.iter (
     fun e ->
       pr "%s, %s\n" e e
-  ) errnos
+  ) errnos;
+
+  pr "\
+%%%%
+
+int
+guestfs_int_string_to_errno (const char *errnostr)
+{
+  const struct errnostring_entry *v =
+    guestfs_int_string_to_errno_lookup (errnostr, strlen (errnostr));
+  if (v /* not necessary to check v->name != NULL here */)
+    return v->errnum;
+  else
+    return EINVAL;
+}
+"
