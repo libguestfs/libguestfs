@@ -245,6 +245,7 @@ TESTS = \
 if ENABLE_APPLIANCE
 TESTS += \
 	test-virt-p2v.sh \
+	test-virt-p2v-nbdkit.sh \
 	$(SLOW_TESTS)
 endif ENABLE_APPLIANCE
 
