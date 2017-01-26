@@ -1038,9 +1038,6 @@ compatible_version (const char *v2v_version)
   return 1;                     /* compatible */
 }
 
-/* The p2v ISO should allow us to open up just about any port. */
-static int nbd_local_port = 50123;
-
 mexp_h *
 open_data_connection (struct config *config, int *local_port, int *remote_port)
 {

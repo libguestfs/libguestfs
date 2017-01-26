@@ -52,6 +52,11 @@ extern char **all_interfaces;
  */
 extern int is_iso_environment;
 
+/* The local port that the NBD server listens on (incremented for
+ * each server which is started).
+ */
+extern int nbd_local_port;
+
 /* True if virt-v2v supports the --colours option. */
 extern int feature_colours_option;
 
