@@ -85,7 +85,7 @@ main (int argc, char *argv[])
   int r, errors = 0;
   void *status;
 
-  srandom (time (NULL));
+  srandom (time (NULL) + getpid ());
 
   /* If the --test flag is given, then this is the test subprocess. */
   if (argc == 3 && STREQ (argv[1], "--test")) {

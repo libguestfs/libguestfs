@@ -31,6 +31,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <error.h>
+#include <sys/types.h>
 
 #include <pthread.h>
 
@@ -74,7 +75,7 @@ main (int argc, char *argv[])
   size_t i, errors = 0;
   void *status;
 
-  srandom (time (NULL));
+  srandom (time (NULL) + getpid ());
 
   /* Only run this test when invoked by check-slow. */
   slow = getenv ("SLOW");
