@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#if defined(HAVE_DBUS) && defined(DBUS_TYPE_UNIX_FD)
+#if defined(HAVE_DBUS)
 #include <dbus/dbus.h>
 #endif
 
