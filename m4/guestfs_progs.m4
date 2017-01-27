@@ -50,26 +50,6 @@ AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
 test "x$GPERF" = "xno" &&
     AC_MSG_ERROR([gperf must be installed])
 
-dnl Determine type of gperf hash function (changed in gperf 3.1).
-AC_MSG_CHECKING([type of gperf hash len parameter])
-cat > conftest.gperf <<EOF
-%language=ANSI-C
-%%
-A, 1
-%%
-EOF
-GPERF_SIZE_T=$(
-    $GPERF conftest.gperf |
-    grep '^hash (.*len)$' |
-    $SED 's/.*, register \([[^,]]*\) len)$/\1/'
-)
-if test "x$GPERF_SIZE_T" = "x"; then
-    AC_MSG_ERROR([could not detect type of gperf hash len parameter])
-fi
-AC_MSG_RESULT([$GPERF_SIZE_T])
-AC_DEFINE_UNQUOTED([GPERF_SIZE_T],[$GPERF_SIZE_T],[Type of gperf hash len parameter.])
-rm conftest.gperf
-
 dnl Check for genisoimage/mkisofs
 AC_PATH_PROGS([GENISOIMAGE],[genisoimage mkisofs],[no],
     [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])

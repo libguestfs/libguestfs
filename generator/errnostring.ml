@@ -231,7 +231,7 @@ extern int guestfs_int_string_to_errno (const char *errnostr);
 
 /* Private structure and function used by the perfect hash implementation. */
 struct errnostring_entry { char *name; int errnum; };
-extern const struct errnostring_entry *guestfs_int_string_to_errno_lookup (register const char *str, register GPERF_SIZE_T len);
+extern const struct errnostring_entry *guestfs_int_string_to_errno_lookup (register const char *str, register unsigned int len);
 
 #endif /* GUESTFS_ERRNOSTRING_H_ */
 "
