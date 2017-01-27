@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-12-23 22:38+0000\n"
+"POT-Creation-Date: 2017-01-27 12:37+0000\n"
 "PO-Revision-Date: 2015-02-21 10:50-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -68,7 +68,7 @@ msgid ""
 " - Check no one has tampered with the website or your network!"
 msgstr ""
 
-#: ../mllib/checksums.ml:60
+#: ../mllib/checksums.ml:67
 msgid "%s did not return any output"
 msgstr ""
 
@@ -90,11 +90,11 @@ msgid ""
 "this out through the RHV-M user interface."
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:111
+#: ../builder/simplestreams_parser.ml:59
 msgid "%s is not a Simple Streams (index) v1.0 JSON file (format: %s)"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:130
+#: ../builder/simplestreams_parser.ml:78
 msgid "%s is not a Simple Streams (products) v1.0 JSON file (format: %s)"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:101 ../v2v/input_ova.ml:98
+#: ../v2v/input_ova.ml:102 ../v2v/input_ova.ml:99
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -2727,7 +2727,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:164
+#: ../v2v/input_ova.ml:165
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2799,11 +2799,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:305
+#: ../v2v/input_ova.ml:306
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:202
+#: ../v2v/input_ova.ml:203
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2953,15 +2953,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:270
+#: ../v2v/input_ova.ml:271
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:291
+#: ../v2v/input_ova.ml:292
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:82 ../v2v/input_ova.ml:67
+#: ../v2v/input_ova.ml:83 ../v2v/input_ova.ml:45
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -3299,7 +3299,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:114
+#: ../v2v/input_ova.ml:115
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3313,7 +3313,7 @@ msgstr ""
 msgid "missing guest name.  See the virt-v2v-copy-to-local(1) manual page."
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:41
+#: ../builder/yajl.ml:43
 msgid "missing value for the key '%s'"
 msgstr ""
 
@@ -3321,11 +3321,11 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:145
+#: ../v2v/input_ova.ml:146
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:36
+#: ../builder/yajl.ml:38
 msgid "more than value for the key '%s'"
 msgstr ""
 
@@ -3357,7 +3357,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:142
+#: ../v2v/input_ova.ml:143
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3379,7 +3379,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:275
+#: ../v2v/input_ova.ml:276
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3522,13 +3522,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:235
+#: ../v2v/input_ova.ml:236
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:232
+#: ../v2v/input_ova.ml:233
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3750,7 +3750,7 @@ msgid ""
 "removing '--no-network' or adding '--network' on the command line."
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:81
+#: ../builder/yajl.ml:83
 msgid "the key '%s' was not found in a list of objects"
 msgstr ""
 
@@ -3777,27 +3777,27 @@ msgstr ""
 msgid "the target hypervisor does not support a %s KVM guest"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:75
+#: ../builder/yajl.ml:77
 msgid "the value for key '%s' is not a string as expected"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:47
+#: ../builder/yajl.ml:49
 msgid "the value for the key '%s' is not a string"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:67
+#: ../builder/yajl.ml:69
 msgid "the value for the key '%s' is not an integer"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:52
+#: ../builder/yajl.ml:54
 msgid "the value for the key '%s' is not an object"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:56
+#: ../builder/yajl.ml:58
 msgid "the value is not an object"
 msgstr ""
 
-#: ../builder/simplestreams_parser.ml:37
+#: ../builder/yajl.ml:39
 msgid "the value of the key '%s' is not an object"
 msgstr ""
 
@@ -3945,7 +3945,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:168
+#: ../v2v/input_ova.ml:169
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -3991,7 +3991,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:220
+#: ../v2v/input_ova.ml:221
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -4205,15 +4205,15 @@ msgid ""
 "further information."
 msgstr ""
 
-#: align/scan.c:77 cat/cat.c:57 cat/filesystems.c:90 cat/log.c:66 cat/ls.c:87
-#: cat/tail.c:63 df/main.c:70 diff/diff.c:96 edit/edit.c:66 fish/fish.c:113
-#: fuse/guestmount.c:101 fuse/guestunmount.c:56 inspector/inspector.c:73
-#: make-fs/make-fs.c:77 p2v/main.c:87 rescue/rescue.c:59
+#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:92 cat/log.c:68 cat/ls.c:89
+#: cat/tail.c:65 df/main.c:72 diff/diff.c:98 edit/edit.c:68 fish/fish.c:115
+#: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
+#: make-fs/make-fs.c:79 p2v/main.c:90 rescue/rescue.c:61
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "詳細は `%s --help' を確認してください。\n"
 
-#: align/scan.c:80
+#: align/scan.c:82
 #, c-format
 msgid ""
 "%s: check alignment of virtual machine partitions\n"
@@ -4236,36 +4236,36 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: align/scan.c:157 builder/index-validate.c:88 cat/cat.c:143
-#: cat/filesystems.c:243 cat/log.c:145 cat/ls.c:233 cat/tail.c:150
-#: df/main.c:160 diff/diff.c:265 edit/edit.c:159 fish/fish.c:297
-#: format/format.c:183 fuse/guestmount.c:249 fuse/guestunmount.c:130
-#: inspector/inspector.c:164 make-fs/make-fs.c:148 p2v/main.c:191
-#: rescue/rescue.c:183 test-tool/test-tool.c:116
+#: align/scan.c:159 builder/index-validate.c:88 cat/cat.c:145
+#: cat/filesystems.c:245 cat/log.c:147 cat/ls.c:235 cat/tail.c:152
+#: df/main.c:162 diff/diff.c:267 edit/edit.c:158 fish/fish.c:296
+#: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
+#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:230
+#: rescue/rescue.c:185 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr ""
 
-#: align/scan.c:175 df/main.c:186
+#: align/scan.c:177 df/main.c:188
 #, c-format
 msgid "-P option is not numeric"
 msgstr ""
 
-#: align/scan.c:230
+#: align/scan.c:232
 #, c-format
 msgid "compiled without support for libvirt"
 msgstr ""
 
-#: align/scan.c:234
+#: align/scan.c:236
 #, c-format
 msgid "--uuid option cannot be used with -a or -d"
 msgstr ""
 
-#: align/scan.c:333
+#: align/scan.c:335
 msgid "alignment < 4K"
 msgstr "アライメント < 4K"
 
-#: align/scan.c:336
+#: align/scan.c:338
 msgid "alignment < 64K"
 msgstr "アライメント < 64K"
 
@@ -4312,7 +4312,7 @@ msgid ""
 "builder 1.24.0"
 msgstr ""
 
-#: cat/cat.c:60
+#: cat/cat.c:62
 #, c-format
 msgid ""
 "%s: display files in a virtual machine\n"
@@ -4336,14 +4336,14 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:231 cat/filesystems.c:340 cat/log.c:202 cat/ls.c:347
-#: cat/tail.c:215 diff/diff.c:319 edit/edit.c:259 fuse/guestmount.c:316
-#: inspector/inspector.c:264 rescue/rescue.c:291
+#: cat/cat.c:233 cat/filesystems.c:342 cat/log.c:204 cat/ls.c:349
+#: cat/tail.c:217 diff/diff.c:321 edit/edit.c:258 fuse/guestmount.c:318
+#: inspector/inspector.c:266 rescue/rescue.c:293
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr ""
 
-#: cat/filesystems.c:93
+#: cat/filesystems.c:95
 #, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -4419,28 +4419,28 @@ msgstr ""
 "  -x                   libguestfs APIの呼び出しをトレースします。\n"
 "より詳しい情報は manpage %s(1) をご覧ください。\n"
 
-#: cat/filesystems.c:297 cat/log.c:191 inspector/inspector.c:240
+#: cat/filesystems.c:299 cat/log.c:193 inspector/inspector.c:242
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:311 cat/ls.c:339 df/main.c:257 diff/diff.c:333
+#: cat/filesystems.c:313 cat/ls.c:341 df/main.c:259 diff/diff.c:335
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
 
-#: cat/filesystems.c:489
+#: cat/filesystems.c:491
 #, c-format
 msgid "%s: cannot determine the subvolume for %s: %s: %s\n"
 msgstr ""
 
-#: cat/log.c:69
+#: cat/log.c:71
 #, c-format
 msgid ""
 "%s: display log files in a virtual machine\n"
-"Copyright (C) 2010-2016 Red Hat Inc.\n"
+"Copyright (C) 2010-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -4458,17 +4458,17 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/log.c:254
+#: cat/log.c:256
 #, c-format
 msgid "%s: Windows Event Log for pre-Vista guests is not supported.\n"
 msgstr ""
 
-#: cat/log.c:362
+#: cat/log.c:364
 #, c-format
 msgid "%s: could not format journal entry timestamp\n"
 msgstr ""
 
-#: cat/log.c:428
+#: cat/log.c:430
 #, c-format
 msgid ""
 "%s: you need to install 'evtxdump.py' (from the python-evtx package)\n"
@@ -4477,12 +4477,12 @@ msgid ""
 "from this guest, and examine in a binary file viewer.\n"
 msgstr ""
 
-#: cat/log.c:447
+#: cat/log.c:449
 #, c-format
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
 
-#: cat/ls.c:90
+#: cat/ls.c:92
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -4517,14 +4517,14 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/ls.c:332
+#: cat/ls.c:334
 #, c-format
 msgid ""
 "used a flag which can only be combined with -lR mode\n"
 "For more information, read the virt-ls(1) man page."
 msgstr ""
 
-#: cat/tail.c:66
+#: cat/tail.c:68
 #, c-format
 msgid ""
 "%s: follow (tail) files in a virtual machine\n"
@@ -4549,60 +4549,244 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/tail.c:205
+#: cat/tail.c:207
 #, c-format
 msgid ""
 "%s: error: missing filenames on command line.\n"
 "Please specify at least one file to follow.\n"
 msgstr ""
 
-#: cat/tail.c:407
+#: cat/tail.c:409
 #, c-format
 msgid "%s: error: none of the files were found in the disk image\n"
 msgstr ""
 
-#: cat/tail.c:412
+#: cat/tail.c:414
 #, c-format
 msgid "%s: all files deleted, exiting\n"
 msgstr ""
 
-#: cat/visit.c:132
+#: common/options/config.c:72
+#, c-format
+msgid "%s: line %d: error parsing configuration file: %s"
+msgstr ""
+
+#: common/options/inspect.c:71
+#, c-format
+msgid "don't use --live and -i options together"
+msgstr ""
+
+#: common/options/inspect.c:81
+#, c-format
+msgid ""
+"%s: no operating system was found on this disk\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, this disk image won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
+"%s: このディスクにオペレーティングシステムが見つかりませんでした\n"
+"\n"
+"guestfish の '-i' オプションを使用しているならば、このオプションを\n"
+"削除して、代わりに 'run' コマンドに 'list-filesystems' をつけて\n"
+"使用してください。\n"
+"そして手動で 'mount' または 'mount-ro' コマンドを使用して、\n"
+"希望するファイルシステムをマウントできます。\n"
+"\n"
+"guestmount の '-i' を使用しているならば、このオプションを削除して、\n"
+"手動で '-m' オプションを追加することにより参照したいファイルシステム\n"
+"を選択してください。利用可能なファイルシステムを参照するには \n"
+"'virt-filesystems' を使用してください。\n"
+"\n"
+"他の仮想化ツールを使用しているならば、このディスクはこれらの仮想化\n"
+"ツールを用いてうまく機能しません。同等の guestfish コマンドを使用\n"
+"してください（仮想化ツールのマニュアルページを参照してください）。\n"
+
+#: common/options/inspect.c:102
+#, c-format
+msgid ""
+"%s: multi-boot operating systems are not supported\n"
+"\n"
+"If using guestfish '-i' option, remove this option and instead\n"
+"use the commands 'run' followed by 'list-filesystems'.\n"
+"You can then mount filesystems you want by hand using the\n"
+"'mount' or 'mount-ro' command.\n"
+"\n"
+"If using guestmount '-i', remove this option and choose the\n"
+"filesystem(s) you want to see by manually adding '-m' option(s).\n"
+"Use 'virt-filesystems' to see what filesystems are available.\n"
+"\n"
+"If using other virt tools, multi-boot operating systems won't work\n"
+"with these tools.  Use the guestfish equivalent commands\n"
+"(see the virt tool manual page).\n"
+msgstr ""
+"%s: 複数ブートのオペレーティングシステムはサポートされません\n"
+"\n"
+"guestfish の '-i' オプションを使用しているならば、このオプションを\n"
+"削除して、代わりに 'run' コマンドに 'list-filesystems' をつけて\n"
+"使用してください。\n"
+"そして手動で 'mount' または 'mount-ro' コマンドを使用して、\n"
+"希望するファイルシステムをマウントできます。\n"
+"\n"
+"guestmount の '-i' を使用しているならば、このオプションを削除して、\n"
+"手動で '-m' オプションを追加することにより参照したいファイルシステム\n"
+"を選択してください。利用可能なファイルシステムを参照するには \n"
+"'virt-filesystems' を使用してください。\n"
+"\n"
+"他の仮想化ツールを使用しているならば、このディスクはこれらの仮想化\n"
+"ツールを用いてうまく機能しません。同等の guestfish コマンドを使用\n"
+"してください（仮想化ツールのマニュアルページを参照してください）。\n"
+
+#: common/options/inspect.c:164
+#, c-format
+msgid "%s: some filesystems could not be mounted (ignored)\n"
+msgstr ""
+"%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
+
+#: common/options/inspect.c:181
+#, c-format
+msgid "Operating system: %s\n"
+msgstr "オペレーティングシステム: %s\n"
+
+#: common/options/inspect.c:199
+#, c-format
+msgid "%s mounted on %s\n"
+msgstr "%s を %s にマウントしました\n"
+
+#: common/options/keys.c:59
+#, c-format
+msgid "Enter key or passphrase (\"%s\"): "
+msgstr "キーかパスフレーズを入力してください。(\"%s\"): "
+
+#: common/options/options.c:120
+#, c-format
+msgid "too many drives added on the command line"
+msgstr ""
+
+#: common/options/options.c:278
+#, c-format
+msgid "%s: '%s' could not be mounted.\n"
+msgstr "%s: '%s' をマウントできませんでした。\n"
+
+#: common/options/options.c:282
+#, c-format
+msgid ""
+"%s: Check mount(8) man page to ensure options '%s'\n"
+"%s: are supported by the filesystem that is being mounted.\n"
+msgstr ""
+"%s: オプション '%s' を確認するには mount(8) マニュアルページを参照してくださ"
+"い。\n"
+"%s: これはマウントされているファイルシステムによりサポートされます。\n"
+
+#: common/options/options.c:286
+#, c-format
+msgid "%s: Did you mean to mount one of these filesystems?\n"
+msgstr ""
+"%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
+
+#: common/options/options.c:299
+#, c-format
+msgid "cannot determine the subvolume for %s: %s (%d)"
+msgstr ""
+
+#: common/options/uri.c:119
+#, c-format
+msgid "%s: --add: could not parse URI '%s'\n"
+msgstr "%s: --add: URI '%s' を構文解析できませんでした\n"
+
+#: common/options/uri.c:130
+#, c-format
+msgid "%s: %s: scheme of URI is NULL or empty\n"
+msgstr "%s: %s: URI のスキーマが NULL または空です\n"
+
+#: common/options/uri.c:138
+#, c-format
+msgid "%s: %s: cannot both a server name and a socket query parameter\n"
+msgstr ""
+"%s: %s: サーバー名とソケットクエリーパラメーターをどちらも指定することはでき"
+"ません \n"
+
+#: common/parallel/domains.c:106 lib/libvirt-domain.c:108
+#, c-format
+msgid "could not connect to libvirt (code %d, domain %d): %s"
+msgstr "libvirt に接続できませんでした (コード %d, ドメイン %d): %s"
+
+#: common/parallel/domains.c:114
+#, c-format
+msgid "could not get number of running domains (code %d, domain %d): %s"
+msgstr ""
+
+#: common/parallel/domains.c:125
+#, c-format
+msgid "could not list running domains (code %d, domain %d): %s"
+msgstr ""
+
+#: common/parallel/domains.c:135
+#, c-format
+msgid "could not get number of inactive domains (code %d, domain %d): %s"
+msgstr ""
+
+#: common/parallel/domains.c:146
+#, c-format
+msgid "could not list inactive domains (code %d, domain %d): %s"
+msgstr ""
+
+#: common/utils/utils.c:226
+#, c-format
+msgid "%s exited successfully"
+msgstr "%s が正常に終了しました"
+
+#: common/utils/utils.c:229
+#, c-format
+msgid "%s exited with error status %d"
+msgstr "%s がエラーステータス %d で終了しました"
+
+#: common/utils/utils.c:233
+#, c-format
+msgid "%s killed by signal %d (%s)"
+msgstr "%s がシグナル %d (%s) によりキルされました"
+
+#: common/utils/utils.c:237
+#, c-format
+msgid "%s stopped by signal %d (%s)"
+msgstr "%s がシグナル %d (%s) により停止しました"
+
+#: common/utils/utils.c:241
+#, c-format
+msgid "%s exited for an unknown reason (status %d)"
+msgstr "%s が未知の理由で終了しました (ステータス %d)"
+
+#: common/visit/visit.c:132
 #, c-format
 msgid "%s: error getting extended attrs for %s %s\n"
 msgstr "%s: %s %s に対する拡張属性を取得中にエラーが発生しました\n"
 
-#: cat/visit.c:146
+#: common/visit/visit.c:146
 #, c-format
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 "%s: error: %s %s に対する xattr カウントを構文解析中にエラーが発生しました\n"
 
-#: df/domains.c:106 src/libvirt-domain.c:108
+#: common/windows/windows.c:139
 #, c-format
-msgid "could not connect to libvirt (code %d, domain %d): %s"
-msgstr "libvirt に接続できませんでした (コード %d, ドメイン %d): %s"
-
-#: df/domains.c:114
-#, c-format
-msgid "could not get number of running domains (code %d, domain %d): %s"
+msgid "to use Windows drive letters, this must be a Windows guest"
 msgstr ""
 
-#: df/domains.c:125
+#: common/windows/windows.c:150
 #, c-format
-msgid "could not list running domains (code %d, domain %d): %s"
+msgid "drive '%c:' not found."
 msgstr ""
 
-#: df/domains.c:135
-#, c-format
-msgid "could not get number of inactive domains (code %d, domain %d): %s"
-msgstr ""
-
-#: df/domains.c:146
-#, c-format
-msgid "could not list inactive domains (code %d, domain %d): %s"
-msgstr ""
-
-#: df/main.c:73
+#: df/main.c:75
 #, c-format
 msgid ""
 "%s: display free space on virtual filesystems\n"
@@ -4628,7 +4812,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: df/main.c:272
+#: df/main.c:274
 #, c-format
 msgid "compiled without support for libvirt."
 msgstr ""
@@ -4677,11 +4861,11 @@ msgstr "I残り"
 msgid "IUse%"
 msgstr "I使用%"
 
-#: diff/diff.c:99
+#: diff/diff.c:101
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
-"Copyright (C) 2010-2016 Red Hat Inc.\n"
+"Copyright (C) 2010-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domain1 -D domain2\n"
 "  %s [--options] -a disk1.img -A disk2.img [-a|-A ...]\n"
@@ -4715,12 +4899,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:324
+#: diff/diff.c:326
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:336
+#: diff/diff.c:338
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -4728,20 +4912,20 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: diff/diff.c:738
+#: diff/diff.c:740
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:742
+#: diff/diff.c:744
 msgid "End of diff"
 msgstr ""
 
-#: edit/edit.c:69
+#: edit/edit.c:71
 #, c-format
 msgid ""
 "%s: Edit a file in a virtual machine\n"
-"Copyright (C) 2009-2016 Red Hat Inc.\n"
+"Copyright (C) 2009-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname file [file ...]\n"
 "  %s [--options] -a disk.img [-a disk.img ...] file [file ...]\n"
@@ -4763,12 +4947,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: edit/edit.c:169
+#: edit/edit.c:168
 #, c-format
 msgid "-b option given multiple times"
 msgstr ""
 
-#: edit/edit.c:183
+#: edit/edit.c:182
 #, c-format
 msgid "-e option given multiple times"
 msgstr ""
@@ -7039,11 +7223,6 @@ msgstr ""
 msgid "%s: unknown command\n"
 msgstr "%s: 未知のコマンド\n"
 
-#: fish/config.c:72
-#, c-format
-msgid "%s: line %d: error parsing configuration file: %s"
-msgstr ""
-
 #: fish/copy.c:42
 #, c-format
 msgid ""
@@ -7098,12 +7277,12 @@ msgstr "delete-event: %s: そのようなイベントハンドラーはありま
 msgid "use 'list-events' to list event handlers\n"
 msgstr "イベントハンドラーを一覧表示するには 'list-events' を使用します\n"
 
-#: fish/fish.c:116
+#: fish/fish.c:118
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009-2016 Red Hat Inc.\n"
+"Copyright (C) 2009-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "Options:\n"
@@ -7150,42 +7329,42 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:264
+#: fish/fish.c:263
 #, c-format
 msgid "--listen=PID: PID was not a number: %s"
 msgstr ""
 
-#: fish/fish.c:269
+#: fish/fish.c:268
 #, c-format
 msgid "remote: $GUESTFISH_PID must be set to the PID of the remote process"
 msgstr ""
 
-#: fish/fish.c:314
+#: fish/fish.c:313
 #, c-format
 msgid "%s: warning: -D option is deprecated, use --no-dest-paths instead\n"
 msgstr ""
 
-#: fish/fish.c:321
+#: fish/fish.c:320
 #, c-format
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:503
+#: fish/fish.c:502
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:508
+#: fish/fish.c:507
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:511
+#: fish/fish.c:510
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:683
+#: fish/fish.c:682
 #, c-format
 msgid ""
 "\n"
@@ -7206,51 +7385,51 @@ msgstr ""
 "      シェルを終了するには 'quit'\n"
 "\n"
 
-#: fish/fish.c:857 fish/fish.c:873
+#: fish/fish.c:856 fish/fish.c:872
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: コマンド引数が空白により分離されていません\n"
 
-#: fish/fish.c:867
+#: fish/fish.c:866
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: 終了していない引用符\n"
 
-#: fish/fish.c:897
+#: fish/fish.c:896
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' にある文字列を構文解析中に内部エラーが発生しました\n"
 
-#: fish/fish.c:914
+#: fish/fish.c:913
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: 引数が多すぎます\n"
 
-#: fish/fish.c:990
+#: fish/fish.c:989
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr ""
 "%s: 文字列に無効なエスケープシーケンス（オフセット %d から始まります）\n"
 
-#: fish/fish.c:999
+#: fish/fish.c:998
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: 二重引用符が終了していません\n"
 
-#: fish/fish.c:1064
+#: fish/fish.c:1063
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1223
+#: fish/fish.c:1222
 msgid "display a list of commands or help on a command"
 msgstr "コマンドの一覧またはコマンドのヘルプを表示します"
 
-#: fish/fish.c:1225
+#: fish/fish.c:1224
 msgid "quit guestfish"
 msgstr "guestfish を終了する"
 
-#: fish/fish.c:1236
+#: fish/fish.c:1235
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -7261,7 +7440,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1244
+#: fish/fish.c:1243
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -7270,13 +7449,13 @@ msgstr ""
 "quit - guestfishを終了します。\n"
 "     quit\n"
 
-#: fish/fish.c:1249
+#: fish/fish.c:1248
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: 未知のコマンド、すべてのコマンドを一覧表示するには -h を使用します\n"
 
-#: fish/fish.c:1269
+#: fish/fish.c:1268
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -7287,19 +7466,19 @@ msgstr ""
 "コマンドの一覧には:                 guestfish -h\n"
 "完全なドキュメントには:             man guestfish\n"
 
-#: fish/fish.c:1280
+#: fish/fish.c:1279
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: エラー: %s\n"
 
-#: fish/fish.c:1407
+#: fish/fish.c:1406
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
 "文字列 \"%s\"\n"
 " にある引用符を取り外します\n"
 
-#: fish/fish.c:1739
+#: fish/fish.c:1738
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -7308,14 +7487,14 @@ msgstr ""
 "%s: Windows ドライブレターを使用するには、仮想マシンを検査する必要があります "
 "(\"-i\" オプションの使用または \"inspect-os\" コマンドの実行)\n"
 
-#: fish/fish.c:1745
+#: fish/fish.c:1744
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s: Windows ドライブレターを使用するには、Windows ゲストでなければいけませ"
 "ん\n"
 
-#: fish/fish.c:1759
+#: fish/fish.c:1758
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -7324,7 +7503,7 @@ msgstr ""
 "%s: ドライブ '%c:' がありません。利用可能なドライブを一覧表示するには:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1778
+#: fish/fish.c:1777
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -7408,102 +7587,6 @@ msgstr ""
 msgid "hexedit: invalid range\n"
 msgstr "hexedit: 無効な範囲\n"
 
-#: fish/inspect.c:72
-#, c-format
-msgid "don't use --live and -i options together"
-msgstr ""
-
-#: fish/inspect.c:82
-#, c-format
-msgid ""
-"%s: no operating system was found on this disk\n"
-"\n"
-"If using guestfish '-i' option, remove this option and instead\n"
-"use the commands 'run' followed by 'list-filesystems'.\n"
-"You can then mount filesystems you want by hand using the\n"
-"'mount' or 'mount-ro' command.\n"
-"\n"
-"If using guestmount '-i', remove this option and choose the\n"
-"filesystem(s) you want to see by manually adding '-m' option(s).\n"
-"Use 'virt-filesystems' to see what filesystems are available.\n"
-"\n"
-"If using other virt tools, this disk image won't work\n"
-"with these tools.  Use the guestfish equivalent commands\n"
-"(see the virt tool manual page).\n"
-msgstr ""
-"%s: このディスクにオペレーティングシステムが見つかりませんでした\n"
-"\n"
-"guestfish の '-i' オプションを使用しているならば、このオプションを\n"
-"削除して、代わりに 'run' コマンドに 'list-filesystems' をつけて\n"
-"使用してください。\n"
-"そして手動で 'mount' または 'mount-ro' コマンドを使用して、\n"
-"希望するファイルシステムをマウントできます。\n"
-"\n"
-"guestmount の '-i' を使用しているならば、このオプションを削除して、\n"
-"手動で '-m' オプションを追加することにより参照したいファイルシステム\n"
-"を選択してください。利用可能なファイルシステムを参照するには \n"
-"'virt-filesystems' を使用してください。\n"
-"\n"
-"他の仮想化ツールを使用しているならば、このディスクはこれらの仮想化\n"
-"ツールを用いてうまく機能しません。同等の guestfish コマンドを使用\n"
-"してください（仮想化ツールのマニュアルページを参照してください）。\n"
-
-#: fish/inspect.c:103
-#, c-format
-msgid ""
-"%s: multi-boot operating systems are not supported\n"
-"\n"
-"If using guestfish '-i' option, remove this option and instead\n"
-"use the commands 'run' followed by 'list-filesystems'.\n"
-"You can then mount filesystems you want by hand using the\n"
-"'mount' or 'mount-ro' command.\n"
-"\n"
-"If using guestmount '-i', remove this option and choose the\n"
-"filesystem(s) you want to see by manually adding '-m' option(s).\n"
-"Use 'virt-filesystems' to see what filesystems are available.\n"
-"\n"
-"If using other virt tools, multi-boot operating systems won't work\n"
-"with these tools.  Use the guestfish equivalent commands\n"
-"(see the virt tool manual page).\n"
-msgstr ""
-"%s: 複数ブートのオペレーティングシステムはサポートされません\n"
-"\n"
-"guestfish の '-i' オプションを使用しているならば、このオプションを\n"
-"削除して、代わりに 'run' コマンドに 'list-filesystems' をつけて\n"
-"使用してください。\n"
-"そして手動で 'mount' または 'mount-ro' コマンドを使用して、\n"
-"希望するファイルシステムをマウントできます。\n"
-"\n"
-"guestmount の '-i' を使用しているならば、このオプションを削除して、\n"
-"手動で '-m' オプションを追加することにより参照したいファイルシステム\n"
-"を選択してください。利用可能なファイルシステムを参照するには \n"
-"'virt-filesystems' を使用してください。\n"
-"\n"
-"他の仮想化ツールを使用しているならば、このディスクはこれらの仮想化\n"
-"ツールを用いてうまく機能しません。同等の guestfish コマンドを使用\n"
-"してください（仮想化ツールのマニュアルページを参照してください）。\n"
-
-#: fish/inspect.c:165
-#, c-format
-msgid "%s: some filesystems could not be mounted (ignored)\n"
-msgstr ""
-"%s: いくつかのファイルシステムがマウントできませんでした（無視されました）\n"
-
-#: fish/inspect.c:182
-#, c-format
-msgid "Operating system: %s\n"
-msgstr "オペレーティングシステム: %s\n"
-
-#: fish/inspect.c:200
-#, c-format
-msgid "%s mounted on %s\n"
-msgstr "%s を %s にマウントしました\n"
-
-#: fish/keys.c:59
-#, c-format
-msgid "Enter key or passphrase (\"%s\"): "
-msgstr "キーかパスフレーズを入力してください。(\"%s\"): "
-
 #: fish/lcd.c:36
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
@@ -7519,37 +7602,6 @@ msgstr "マニュアルを開くにはパラメーターなしで 'man' を使�
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "ファイルを表示するには '%s filename' を使用します\n"
-
-#: fish/options.c:120
-#, c-format
-msgid "too many drives added on the command line"
-msgstr ""
-
-#: fish/options.c:280
-#, c-format
-msgid "%s: '%s' could not be mounted.\n"
-msgstr "%s: '%s' をマウントできませんでした。\n"
-
-#: fish/options.c:284
-#, c-format
-msgid ""
-"%s: Check mount(8) man page to ensure options '%s'\n"
-"%s: are supported by the filesystem that is being mounted.\n"
-msgstr ""
-"%s: オプション '%s' を確認するには mount(8) マニュアルページを参照してくださ"
-"い。\n"
-"%s: これはマウントされているファイルシステムによりサポートされます。\n"
-
-#: fish/options.c:288
-#, c-format
-msgid "%s: Did you mean to mount one of these filesystems?\n"
-msgstr ""
-"%s: これらのファイルシステムのどれかをマウントしたいということですか?\n"
-
-#: fish/options.c:301
-#, c-format
-msgid "cannot determine the subvolume for %s: %s (%d)"
-msgstr ""
 
 #: fish/prep-boot.c:37 fish/prep-boot.c:87 fish/prep-disk.c:35
 #: fish/prep-fs.c:37 fish/prep-lv.c:68 fish/prep-lv.c:109 fish/prep-part.c:35
@@ -7904,38 +7956,11 @@ msgstr "いいえ"
 msgid "use 'time command [args...]'\n"
 msgstr "'time command [args...]' を使用します\n"
 
-#: fish/uri.c:119
-#, c-format
-msgid "%s: --add: could not parse URI '%s'\n"
-msgstr "%s: --add: URI '%s' を構文解析できませんでした\n"
-
-#: fish/uri.c:130
-#, c-format
-msgid "%s: %s: scheme of URI is NULL or empty\n"
-msgstr "%s: %s: URI のスキーマが NULL または空です\n"
-
-#: fish/uri.c:138
-#, c-format
-msgid "%s: %s: cannot both a server name and a socket query parameter\n"
-msgstr ""
-"%s: %s: サーバー名とソケットクエリーパラメーターをどちらも指定することはでき"
-"ません \n"
-
-#: fish/windows.c:139
-#, c-format
-msgid "to use Windows drive letters, this must be a Windows guest"
-msgstr ""
-
-#: fish/windows.c:150
-#, c-format
-msgid "drive '%c:' not found."
-msgstr ""
-
-#: format/format.c:66
+#: format/format.c:68
 msgid "IMPORTANT NOTE: This program ERASES ALL DATA on disks."
 msgstr "重要: このプログラムはディスクにある「すべてのデータを削除」します。"
 
-#: format/format.c:69
+#: format/format.c:71
 #, c-format
 msgid ""
 "Try `%s --help' for more information.\n"
@@ -7944,7 +7969,7 @@ msgstr ""
 "詳細は `%s --help' を試してください。\n"
 "%s\n"
 
-#: format/format.c:72
+#: format/format.c:74
 #, c-format
 msgid ""
 "%s: erase and make a blank disk\n"
@@ -7972,17 +7997,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: format/format.c:153
+#: format/format.c:155
 #, c-format
 msgid "no filesystem was specified"
 msgstr ""
 
-#: format/format.c:159
+#: format/format.c:161
 #, c-format
 msgid "--lvm option cannot be given multiple times"
 msgstr ""
 
-#: format/format.c:226
+#: format/format.c:228
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -7990,12 +8015,12 @@ msgid ""
 "format=%s'.\n"
 msgstr ""
 
-#: format/format.c:237
+#: format/format.c:239
 #, c-format
 msgid "%s: error: you must specify at least one -a option.\n"
 msgstr ""
 
-#: format/format.c:279
+#: format/format.c:281
 #, c-format
 msgid ""
 "failed to rescan the disks after two attempts.  This\n"
@@ -8004,17 +8029,17 @@ msgid ""
 "is a bug, please file a bug at http://libguestfs.org/\n"
 msgstr ""
 
-#: format/format.c:315
+#: format/format.c:317
 #, c-format
 msgid "cannot parse --lvm option (%s)"
 msgstr ""
 
-#: fuse/guestmount.c:104
+#: fuse/guestmount.c:106
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
-"Copyright (C) 2009-2016 Red Hat Inc.\n"
+"Copyright (C) 2009-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] mountpoint\n"
 "Options:\n"
@@ -8043,37 +8068,37 @@ msgid ""
 "  -x|--trace           Trace guestfs API calls\n"
 msgstr ""
 
-#: fuse/guestmount.c:246
+#: fuse/guestmount.c:248
 #, c-format
 msgid "unable to parse --fd option value: %s"
 msgstr ""
 
-#: fuse/guestmount.c:321
+#: fuse/guestmount.c:323
 #, c-format
 msgid "%s: error: you must specify either -i at least one -m option.\n"
 msgstr ""
 
-#: fuse/guestmount.c:330
+#: fuse/guestmount.c:332
 #, c-format
 msgid "--live is not compatible with --ro option"
 msgstr ""
 
-#: fuse/guestmount.c:333
+#: fuse/guestmount.c:335
 #, c-format
 msgid "--live is not compatible with -i option"
 msgstr ""
 
-#: fuse/guestmount.c:345
+#: fuse/guestmount.c:347
 #, c-format
 msgid "with --live, you must use exactly one -d option"
 msgstr ""
 
-#: fuse/guestmount.c:348
+#: fuse/guestmount.c:350
 #, c-format
 msgid "--live is not compatible with -a option"
 msgstr ""
 
-#: fuse/guestmount.c:354
+#: fuse/guestmount.c:356
 #, c-format
 msgid "you must specify a mountpoint in the host filesystem"
 msgstr ""
@@ -8132,7 +8157,7 @@ msgstr "%s: %s のアンマウントに失敗しました: %s\n"
 msgid "%s: %s is not mounted: %s\n"
 msgstr "%s: %s がマウントされていません: %s\n"
 
-#: inspector/inspector.c:76
+#: inspector/inspector.c:78
 #, c-format
 msgid ""
 "%s: display information about a virtual machine\n"
@@ -8157,12 +8182,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: inspector/inspector.c:255
+#: inspector/inspector.c:257
 #, c-format
 msgid "cannot use --xpath together with other options."
 msgstr ""
 
-#: inspector/inspector.c:290
+#: inspector/inspector.c:292
 #, c-format
 msgid ""
 "no operating system could be detected inside this disk image.\n"
@@ -8179,63 +8204,1255 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: inspector/inspector.c:302
+#: inspector/inspector.c:304
 #, c-format
 msgid "XML write error at \"%s\""
 msgstr ""
 
-#: inspector/inspector.c:311
+#: inspector/inspector.c:313
 #, c-format
 msgid "xmlOutputBufferCreateFd: failed to open stdout"
 msgstr ""
 
-#: inspector/inspector.c:317
+#: inspector/inspector.c:319
 #, c-format
 msgid "xmlNewTextWriter: failed to create libxml2 writer"
 msgstr ""
 
-#: inspector/inspector.c:778
+#: inspector/inspector.c:780
 #, c-format
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:782 src/launch-libvirt.c:746 src/libvirt-domain.c:418
-#: src/libvirt-domain.c:502 src/libvirt-domain.c:818
+#: inspector/inspector.c:784 lib/launch-libvirt.c:746 lib/libvirt-domain.c:418
+#: lib/libvirt-domain.c:502 lib/libvirt-domain.c:818
 #, c-format
 msgid "unable to create new XPath context"
 msgstr "新規 XPath コンテキストを作成できません"
 
-#: inspector/inspector.c:786 src/libvirt-domain.c:436 src/libvirt-domain.c:509
-#: src/libvirt-domain.c:833
+#: inspector/inspector.c:788 lib/libvirt-domain.c:436 lib/libvirt-domain.c:509
+#: lib/libvirt-domain.c:833
 #, c-format
 msgid "unable to evaluate XPath expression"
 msgstr "XPath 表現を評価できません"
 
-#: inspector/inspector.c:797
+#: inspector/inspector.c:799
 #, c-format
 msgid "xmlSaveToFd failed"
 msgstr ""
 
-#: inspector/inspector.c:802
+#: inspector/inspector.c:804
 #, c-format
 msgid "xmlNewDoc failed"
 msgstr ""
 
-#: inspector/inspector.c:805
+#: inspector/inspector.c:807
 #, c-format
 msgid "xmlCopyNode failed"
 msgstr ""
 
-#: inspector/inspector.c:810
+#: inspector/inspector.c:812
 #, c-format
 msgid "xmlSaveDoc failed"
 msgstr ""
 
-#: make-fs/make-fs.c:80
+#: lib/appliance.c:180
+#, c-format
+msgid ""
+"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
+"on LIBGUESTFS_PATH (search path: %s)"
+msgstr ""
+"LIBGUESTFS_PATH (検索パス: %s) において適切な libguestfs supermin、修正された"
+"または旧形式のアプライアンスを検索できません"
+
+#: lib/available.c:72 lib/available.c:96
+#, c-format
+msgid "%s: unknown group"
+msgstr ""
+
+#: lib/available.c:75
+#, c-format
+msgid "%s: group not available"
+msgstr ""
+
+#: lib/conn-socket.c:69
+msgid "accept_connection called twice"
+msgstr "accept_connection が 2 回呼び出されました"
+
+#: lib/conn-socket.c:148
+msgid "read_data: socket not connected"
+msgstr "read_data: ソケットに接続されていません"
+
+#: lib/conn-socket.c:223
+msgid "can_read_data: socket not connected"
+msgstr "can_read_data: ソケットに接続されていません"
+
+#: lib/conn-socket.c:252
+msgid "write_data: socket not connected"
+msgstr "write_data: "
+
+#: lib/conn-socket.c:362
+msgid "error reading console messages from the appliance"
+msgstr ""
+"アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
+
+#: lib/copy-in-out.c:51
+#, c-format
+msgid "source '%s' does not exist (or cannot be read)"
+msgstr ""
+
+#: lib/copy-in-out.c:60 lib/copy-in-out.c:142
+#, c-format
+msgid "target '%s' is not a directory"
+msgstr ""
+
+#: lib/copy-in-out.c:179
+#, c-format
+msgid "'%s' is not a file or directory"
+msgstr ""
+
+#: lib/copy-in-out.c:245
+msgid "error: argument is zero length or longer than maximum permitted"
+msgstr ""
+
+#: lib/create.c:65
+msgid "if using a backing file, size must be passed as -1"
+msgstr ""
+
+#: lib/create.c:73
+#, c-format
+msgid "invalid size: %<PRIi64>"
+msgstr ""
+
+#: lib/create.c:81
+msgid "backingfile cannot be used for raw format disks"
+msgstr ""
+
+#: lib/create.c:96
+#, c-format
+msgid "unsupported format '%s'"
+msgstr ""
+
+#: lib/create.c:110
+#, c-format
+msgid "cannot open block device: %s"
+msgstr ""
+
+#: lib/create.c:144
+msgid "backingformat parameter cannot be used with raw format"
+msgstr ""
+
+#: lib/create.c:154 lib/create.c:291
+#, c-format
+msgid "invalid value for preallocation parameter '%s'"
+msgstr ""
+
+#: lib/create.c:160
+msgid "compat parameter cannot be used with raw format"
+msgstr ""
+
+#: lib/create.c:164
+msgid "clustersize parameter cannot be used with raw format"
+msgstr ""
+
+#: lib/create.c:171
+#, c-format
+msgid "refusing to overwrite char device '%s'"
+msgstr ""
+
+#: lib/create.c:181
+#, c-format
+msgid "cannot create raw file: %s"
+msgstr ""
+
+#: lib/create.c:187
+#, c-format
+msgid "%s: truncate"
+msgstr ""
+
+#: lib/create.c:200
+#, c-format
+msgid "%s: fallocate"
+msgstr ""
+
+#: lib/create.c:218
+#, c-format
+msgid "%s: write"
+msgstr ""
+
+#: lib/create.c:229
+#, c-format
+msgid "%s: close"
+msgstr ""
+
+#: lib/create.c:276
+#, c-format
+msgid "invalid value for backingformat parameter '%s'"
+msgstr ""
+
+#: lib/create.c:299
+#, c-format
+msgid "invalid value for compat parameter '%s'"
+msgstr ""
+
+#: lib/create.c:307
+#, c-format
+msgid "invalid value for clustersize parameter '%d'"
+msgstr ""
+
+#: lib/dbdump.c:83
+#, c-format
+msgid "%s: unexpected error or end of output"
+msgstr "%s: 予期しないエラーまたは出力の終了"
+
+#: lib/dbdump.c:118 lib/dbdump.c:137
+msgid "unexpected line from db_dump command, no space prefix"
+msgstr "db_dump コマンドからの予期しない行です、スペース接頭辞がありません"
+
+#: lib/dbdump.c:219
+msgid "unexpected non-hex digits in output of db_dump command"
+msgstr "db_dump コマンドの出力において予期しない非 16 進値がありました"
+
+#: lib/drives.c:82
+msgid "this backend does not support adding read-only drives"
+msgstr ""
+
+#: lib/drives.c:173
+msgid "curl: you must specify exactly one server"
+msgstr "curl: サーバーを一つだけ指定する必要があります"
+
+#: lib/drives.c:179
+msgid "curl: only tcp transport is supported"
+msgstr "curl: TCP 転送のみがサポートされます"
+
+#: lib/drives.c:184
+msgid "curl: pathname should not be an empty string"
+msgstr "curl: パス名を空文字列にできません"
+
+#: lib/drives.c:189
+msgid "curl: pathname must begin with a '/'"
+msgstr "curl: パス名を '/' で始める必要があります"
+
+#: lib/drives.c:201
+msgid "gluster: you cannot specify a username with this protocol"
+msgstr "gluster: このプロトコルでユーザー名を指定できません"
+
+#: lib/drives.c:205
+msgid "gluster: you cannot specify a secret with this protocol"
+msgstr "gluster: このプロトコルでシークレットを指定できません"
+
+#: lib/drives.c:210
+msgid "gluster: you must specify exactly one server"
+msgstr "gluster: ちょうど 1 つのサーバーを指定する必要があります"
+
+#: lib/drives.c:215
+msgid "gluster: volume name parameter should not be an empty string"
+msgstr "gluster: ボリューム名パラメーターを空文字列にできません"
+
+#: lib/drives.c:220
+msgid "gluster: volume/image must not begin with a '/'"
+msgstr ""
+
+#: lib/drives.c:244
+msgid "nbd: you cannot specify a username with this protocol"
+msgstr "nbd: このプロトコルでユーザー名を指定できません"
+
+#: lib/drives.c:248
+msgid "nbd: you cannot specify a secret with this protocol"
+msgstr "nbd: このプロトコルでシークレットを指定できません"
+
+#: lib/drives.c:253
+msgid "nbd: you must specify exactly one server"
+msgstr "nbd: ちょうど 1 つのサーバーを指定する必要があります"
+
+#: lib/drives.c:272
+msgid "rbd: only tcp transport is supported"
+msgstr "rbd: TCP 転送のみがサポートされます"
+
+#: lib/drives.c:276
+msgid "rbd: port number must be specified"
+msgstr "rbd: ポート番号を指定する必要があります"
+
+#: lib/drives.c:282
+msgid "rbd: image name parameter should not be an empty string"
+msgstr "rbd: イメージ名のパラメーターを空文字列にできません"
+
+#: lib/drives.c:287
+msgid "rbd: image name must not begin with a '/'"
+msgstr ""
+
+#: lib/drives.c:301
+msgid "sheepdog: you cannot specify a username with this protocol"
+msgstr "sheepdog: このプロトコルでユーザー名を指定できません"
+
+#: lib/drives.c:305
+msgid "sheepdog: you cannot specify a secret with this protocol"
+msgstr "sheepdog: このプロトコルでシークレットを指定できません"
+
+#: lib/drives.c:312
+msgid "sheepdog: only tcp transport is supported"
+msgstr "sheepdog: TCP 転送のみがサポートされます"
+
+#: lib/drives.c:316
+msgid "sheepdog: port number must be specified"
+msgstr "sheepdog: ポート番号を指定する必要があります"
+
+#: lib/drives.c:322
+msgid "sheepdog: volume parameter should not be an empty string"
+msgstr "sheepdog: ボリュームパラメーターを空文字列にできません"
+
+#: lib/drives.c:327
+msgid "sheepdog: volume parameter must not begin with a '/'"
+msgstr ""
+
+#: lib/drives.c:339
+msgid "ssh: you must specify exactly one server"
+msgstr "ssh: ちょうど一つのサーバーを指定する必要があります"
+
+#: lib/drives.c:345
+msgid "ssh: only tcp transport is supported"
+msgstr "ssh: TCP 転送のみがサポートされます"
+
+#: lib/drives.c:350
+msgid "ssh: pathname should not be an empty string"
+msgstr "ssh: パス名を空文字列にできません"
+
+#: lib/drives.c:355
+msgid "ssh: pathname must begin with a '/'"
+msgstr "ssh: パス名は '/' から始まる必要があります"
+
+#: lib/drives.c:360
+msgid "ssh: username should not be an empty string"
+msgstr "ssh: ユーザー名を空文字列にできません"
+
+#: lib/drives.c:372
+msgid "iscsi: you must specify exactly one server"
+msgstr "iscsi: ちょうど一つのサーバーを指定する必要があります"
+
+#: lib/drives.c:378
+msgid "iscsi: only tcp transport is supported"
+msgstr "iscsi: TCP 転送のみがサポートされます"
+
+#: lib/drives.c:383
+msgid "iscsi: target name should not be an empty string"
+msgstr "iscsi: ターゲット名を空文字列にできません"
+
+#: lib/drives.c:388
+msgid "iscsi: target string must not begin with a '/'"
+msgstr ""
+
+#: lib/drives.c:415
+msgid "for device '/dev/null', format must be 'raw'"
+msgstr "デバイス '/dev/null' に対して、形式は 'raw' は必須です"
+
+#: lib/drives.c:644
+msgid "missing Unix domain socket path"
+msgstr "Unix ドメインのソケットパスがありません"
+
+#: lib/drives.c:656
+#, c-format
+msgid "invalid port number '%s'"
+msgstr "無効なポート番号 '%s'"
+
+#: lib/drives.c:663
+#, c-format
+msgid "invalid hostname '%s'"
+msgstr "無効なホスト名 '%s'"
+
+#: lib/drives.c:674
+#, c-format
+msgid "invalid hostname or server string '%s'"
+msgstr "無効なホスト名またはサーバー文字列 '%s'"
+
+#: lib/drives.c:758
+msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
+msgstr ""
+
+#: lib/drives.c:771
+msgid "discard support cannot be enabled on read-only drives"
+msgstr ""
+
+#: lib/drives.c:777 lib/drives.c:783
+#, c-format
+msgid "%s parameter is empty or contains disallowed characters"
+msgstr "%s パラメーターが空です。もしくは、許可できない文字を含んでいます。"
+
+#: lib/drives.c:789
+msgid "label parameter is empty, too long, or contains disallowed characters"
+msgstr ""
+"ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
+
+#: lib/drives.c:795
+msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
+msgstr ""
+"cachemode パラメーターは 'writeback' (標準値) または 'unsafe' にする必要があ"
+"ります"
+
+#: lib/drives.c:802
+msgid "you cannot specify a server with file-backed disks"
+msgstr "ファイル形式のディスクと同時にサーバーを指定できません"
+
+#: lib/drives.c:807
+msgid "you cannot specify a username with file-backed disks"
+msgstr "ファイル形式のディスクと同時にユーザー名を指定できません"
+
+#: lib/drives.c:811
+msgid "you cannot specify a secret with file-backed disks"
+msgstr "ファイル形式のディスクと同時にシークレットを指定できません"
+
+#: lib/drives.c:874
+#, c-format
+msgid "unknown protocol '%s'"
+msgstr "未知のプロトコル '%s'"
+
+#: lib/drives.c:892 lib/drives.c:1043
+msgid "the current backend does not support hotplugging drives"
+msgstr "現在のバックエンドはホットプラグドライブをサポートしません"
+
+#: lib/drives.c:898
+msgid "'label' is required when hotplugging drives"
+msgstr "ドライブを活性挿入するとき 'label' が必要です"
+
+#: lib/drives.c:1028
+#, c-format
+msgid "disk with label '%s' not found"
+msgstr "ラベル '%s' を持つディスクがありませんでした"
+
+#: lib/errors.c:287
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr "libguestfs: エラー: %s\n"
+
+#: lib/errors.c:315
+#, c-format
+msgid "<truncated, original size %zu bytes>"
+msgstr "<切り詰められました、元の容量は %zu バイトです>"
+
+#: lib/errors.c:346
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch に失敗しました、前のエラーメッセージを参照してください"
+
+#: lib/errors.c:349
+msgid ""
+"guestfs_launch failed.\n"
+"This usually means the libguestfs appliance failed to start or crashed.\n"
+msgstr ""
+
+#: lib/errors.c:361
+msgid ""
+"appliance closed the connection unexpectedly, see earlier error messages"
+msgstr ""
+"アプライアンスが予期せず接続を閉じました。これまでのエラーメッセージを参照し"
+"てください。"
+
+#: lib/errors.c:364
+msgid ""
+"appliance closed the connection unexpectedly.\n"
+"This usually means the libguestfs appliance crashed.\n"
+msgstr ""
+
+#: lib/errors.c:376
+msgid "appliance launch timed out, see earlier error messages"
+msgstr ""
+"アプライアンスの起動がタイムアウトしました。以前のエラーメッセージを参照して"
+"ください。"
+
+#: lib/errors.c:379
+msgid ""
+"appliance launch timed out.\n"
+"This usually means the kernel or appliance hung during launch.\n"
+msgstr ""
+
+#: lib/errors.c:402
+#, c-format
+msgid "%s, see debug messages above"
+msgstr "%s, 上のデバッグメッセージを確認してください"
+
+#: lib/errors.c:404
+#, c-format
+msgid "%s: %s: %s, see debug messages above"
+msgstr "%s: %s: %s, 上のデバッグメッセージを確認してください"
+
+#: lib/errors.c:409
+#, c-format
+msgid ""
+"%s.\n"
+"To see full error messages you may need to enable debugging.\n"
+msgstr ""
+
+#: lib/errors.c:414
+#, c-format
+msgid ""
+"%s: %s: %s.\n"
+"To see full error messages you may need to enable debugging.\n"
+msgstr ""
+
+#: lib/filearch.c:221 lib/filearch.c:293
+#, c-format
+msgid "size of %s unreasonable (%<PRIi64> bytes)"
+msgstr "%s の容量が不当です (%<PRIi64> バイト)"
+
+#: lib/filearch.c:373
+msgid ""
+"file-architecture API not available since this version of libguestfs was "
+"compiled without the libmagic library"
+msgstr ""
+"このバージョンの libguestfs が libmagic ライブラリなしでコンパイルされたの"
+"で、ファイル構造 API は利用可能ではありません"
+
+#: lib/fuse.c:970
+msgid "filesystem is already mounted in another thread"
+msgstr "ファイルシステムがすでに他のスレッドにおいてマウントされています"
+
+#: lib/fuse.c:995
+#, c-format
+msgid "fuse_opt_add_arg: %s"
+msgstr "fuse_opt_add_arg: %s"
+
+#: lib/fuse.c:1012
+#, c-format
+msgid "fuse_mount: %s"
+msgstr "fuse_mount: %s"
+
+#: lib/fuse.c:1030
+#, c-format
+msgid "fuse_new: %s"
+msgstr "fuse_new: %s"
+
+#: lib/fuse.c:1059
+msgid "you must call guestfs_mount_local first"
+msgstr "まず guestfs_mount_local を呼び出す必要があります"
+
+#: lib/fuse.c:1070
+#, c-format
+msgid ""
+"you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
+"Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
+msgstr ""
+
+#: lib/fuse.c:1080
+#, c-format
+msgid "fuse_loop: %s"
+msgstr "fuse_loop: %s"
+
+#: lib/fuse.c:1130
+msgid "no filesystem is mounted"
+msgstr "ファイルシステムがマウントされていません"
+
+#: lib/fuse.c:1248
+msgid "could not initialize dir cache hashtables"
+msgstr "ディレクトリーキャッシュのハッシュ表を初期化できませんでした"
+
+#: lib/fuse.c:1503
+msgid ""
+"FUSE is not supported in this build of libguestfs because libfuse was not "
+"found when libguestfs was compiled"
+msgstr ""
+"libguestfs がコンパイルされたときに、libfuse が見当たらなかったため、FUSE が"
+"このビルドの libguestfs においてサポートされません。"
+
+#: lib/handle.c:135
+msgid ""
+"libguestfs was built with an invalid default backend, using 'direct' instead"
+msgstr ""
+"libguestfs は 'direct' を使用する代わりに無効なデフォルトのバックエンドで構築"
+"されました。"
+
+#: lib/handle.c:137
+msgid "'direct' backend does not work"
+msgstr "'direct' バックエンドが動作しません"
+
+#: lib/handle.c:192 lib/handle.c:202
+#, c-format
+msgid "%s=%s: non-boolean value"
+msgstr ""
+
+#: lib/handle.c:244
+msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
+msgstr ""
+
+#: lib/handle.c:325
+#, c-format
+msgid "guestfs_close: called twice on the same handle\n"
+msgstr "guestfs_close: 同じハンドルにおいて 2 回呼び出されました\n"
+
+#: lib/handle.c:536
+msgid ""
+"configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
+"an error"
+msgstr ""
+
+#: lib/handle.c:589
+#, c-format
+msgid "too small value for memsize (must be at least %d)"
+msgstr ""
+
+#: lib/handle.c:706
+msgid ""
+"identifier must contain only alphanumeric characters, underscore or minus "
+"sign"
+msgstr ""
+
+#: lib/handle.c:812
+msgid "setting not found"
+msgstr ""
+
+#: lib/info.c:90
+msgid "qemu-img info: JSON output did not contain 'format' key"
+msgstr "qemu-img info: JSON 出力に 'format' キーが含まれていません"
+
+#: lib/info.c:115
+msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
+msgstr "qemu-img info: 'virtual-size' が 64 ビット長として表現されていません"
+
+#: lib/info.c:123
+msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
+msgstr "qemu-img info: JSON 出力に 'virtual-size' キーが含まれません"
+
+#: lib/info.c:155
+msgid "qemu-img info: JSON output was not an object"
+msgstr "qemu-img info: JSON 出力がオブジェクトではありませんでした"
+
+#: lib/info.c:216
+msgid ""
+"qemu-img info command produced no output, but didn't return an error status "
+"code"
+msgstr ""
+"qemu-img info コマンドが何も出力しませんでしたが、エラー状態コードを返しませ"
+"んでした"
+
+#: lib/info.c:250
+#, c-format
+msgid "qemu-img info: JSON parse error: %s"
+msgstr "qemu-img info: JSON 構文解析エラー: %s"
+
+#: lib/info.c:252
+msgid "qemu-img info: unknown JSON parse error"
+msgstr "qemu-img info: 未知の JSON 構文解析エラー"
+
+#: lib/inspect-fs-unix.c:131
+#, c-format
+msgid "release file %s is empty or malformed"
+msgstr "リリースファイル %s が空または不正な形式です"
+
+#: lib/inspect-fs-unix.c:164 lib/inspect-fs-unix.c:314
+#: lib/inspect-fs-unix.c:389 lib/inspect-fs-unix.c:1247
+#: lib/inspect-fs-unix.c:2033 lib/inspect-fs.c:624 lib/inspect-fs.c:670
+#: lib/inspect.c:738
+#, c-format
+msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
+msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
+
+#: lib/inspect-fs-unix.c:2080
+#, c-format
+msgid "%s:%s:%s: augeas parse failure: %s"
+msgstr ""
+
+#: lib/inspect-fs.c:419 lib/inspect-fs.c:432
+#, c-format
+msgid "could not parse integer in version number: %s"
+msgstr "バージョン番号のいて整数を構文解析できませんでした: %s"
+
+#: lib/inspect.c:427
+msgid "not a Windows guest, or systemroot could not be determined"
+msgstr ""
+"Windows ゲストではありません、またはシステムルートが決められませんでした"
+
+#: lib/inspect.c:443
+msgid "not a Windows guest, or CurrentControlSet could not be determined"
+msgstr ""
+"Windows ゲストではありません、または CurrentControlSet を決定できませんでした"
+
+#: lib/inspect.c:776
+msgid "no inspection data: call guestfs_inspect_os first"
+msgstr "検査データがありません: まず guestfs_inspect_os を呼び出します"
+
+#: lib/inspect.c:786
+#, c-format
+msgid ""
+"%s: root device not found: only call this function with a root device "
+"previously returned by guestfs_inspect_os"
+msgstr ""
+"%s: ルートデバイスが見つかりませんでした: 前に guestfs_inspect_os により返さ"
+"れたルートデバイスとともにこの関数を呼び出してください。"
+
+#: lib/launch-direct.c:124
+#, c-format
+msgid "unclosed quote character (%c) in command line near: %s"
+msgstr "引用が終了していない文字 (%c) が次のコマンドライン行近くにあります: %s"
+
+#: lib/launch-direct.c:143
+#, c-format
+msgid "cannot parse quoted string near: %s"
+msgstr "次の近くにあるクォートされた文字列を構文解析できません: %s"
+
+#: lib/launch-direct.c:210
+#, c-format
+msgid ""
+"current user is not a member of the KVM group (group ID %d). This user "
+"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
+"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
+"might need to log out and log in again)."
+msgstr ""
+
+#: lib/launch-direct.c:247 lib/launch-uml.c:155
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "guestfs_launch の前に guestfs_add_drive を呼び出す必要があります"
+
+#: lib/launch-direct.c:838 lib/launch-libvirt.c:676
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr "QEMU が起動され、デーモンに接続されましたが、state != READY です"
+
+#: lib/launch-libvirt.c:197
+msgid ""
+"could not auto-detect the format.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+"形式を自動検出できませんでした。\n"
+"形式がわかっているならば、形式を libguestfs に渡してください。\n"
+"例: '--format' オプション、または 'add-drive' の 'format' 引数オプション"
+
+#: lib/launch-libvirt.c:207
+msgid ""
+"could not auto-detect the format when using a non-file protocol.\n"
+"If the format is known, pass the format to libguestfs, eg. using the\n"
+"'--format' option, or via the optional 'format' argument to 'add-drive'."
+msgstr ""
+"非ファイルプロトコルを使用するとき、形式を自動検出できませんでした。\n"
+"形式がわかっているならば、形式を libguestfs に渡してください。\n"
+"例: '--format' オプション、または 'add-drive' の 'format' 引数オプション"
+
+#: lib/launch-libvirt.c:322
+msgid "direct mode flag is not supported yet for libvirt backend"
+msgstr ""
+"ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていませ"
+"ん"
+
+#: lib/launch-libvirt.c:336
+#, c-format
+msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
+msgstr ""
+"'libvirt' バックエンドを使用するには libvirt >= %d.%d.%d が必要となります"
+
+#: lib/launch-libvirt.c:370
+#, c-format
+msgid "could not connect to libvirt (URI = %s)"
+msgstr "libvirt (URI = %s) に接続できませんでした"
+
+#: lib/launch-libvirt.c:399
+msgid "could not get libvirt capabilities"
+msgstr "libvirt ケイパビリティを取得できませんでした"
+
+#: lib/launch-libvirt.c:605
+msgid ""
+"could not create appliance through libvirt.\n"
+"\n"
+"Try running qemu directly without libvirt using this environment variable:\n"
+"export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+"Original error from libvirt"
+msgstr ""
+
+#: lib/launch-libvirt.c:740
+msgid "unable to parse capabilities XML returned by libvirt"
+msgstr "libvirt により返されたケイパビリティ XML を構文解析できません"
+
+#: lib/launch-libvirt.c:756
+#, c-format
+msgid "unable to evaluate XPath expression: %s"
+msgstr "XPath 表現を評価できません: %s"
+
+#: lib/launch-libvirt.c:791
+#, c-format
+msgid ""
+"libvirt hypervisor doesn't support qemu or KVM,\n"
+"so we cannot create the libguestfs appliance.\n"
+"The current backend is '%s'.\n"
+"Check that the PATH environment variable is set and contains\n"
+"the path to the qemu ('qemu-system-*') or KVM ('qemu-kvm', 'kvm' etc).\n"
+"Or: try setting:\n"
+"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
+"Or: if you want to have libguestfs run qemu directly, try:\n"
+"  export LIBGUESTFS_BACKEND=direct\n"
+"For further help, read the guestfs(3) man page and libguestfs FAQ."
+msgstr ""
+"libvirt ハイパーバイザーが QEMU または KVM をサポートしません。\n"
+"そのため、libguestfs アプライアンスを作成できません。\n"
+"現在のバックエンドは '%s' です。\n"
+"PATH 環境変数が設定され、QEMU ('qemu-system-*') または \n"
+"KVM ('qemu-kvm', 'kvm' など) へのパスを含むことを確認してください。\n"
+"もしくは: 次の設定を試してください:\n"
+"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
+"もしくは: libguestfs に直接 QEMU を実行させたければ、次を試してください:\n"
+"  export LIBGUESTFS_BACKEND=direct\n"
+"さらなるヘルプは、guestfs(3) マニュアルページおよび libguestfs FAQ を参照くだ"
+"さい。"
+
+#: lib/launch-libvirt.c:1027
+#, c-format
+msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
+msgstr ""
+
+#: lib/launch-libvirt.c:1432
+msgid "'iface' parameter is not supported by the libvirt backend"
+msgstr "'iface' パラメーターが libvirt バックエンドによりサポートされません"
+
+#: lib/launch-libvirt.c:1478 lib/qemu.c:438
+#, c-format
+msgid "realpath: could not convert '%s' to absolute path"
+msgstr "realpath: '%s' を絶対パスに変換できませんでした"
+
+#: lib/launch-libvirt.c:1561
+msgid ""
+"libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
+"try setting LIBGUESTFS_BACKEND=direct"
+msgstr ""
+"libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしませ"
+"ん; LIBGUESTFS_BACKEND=direct の設定を試してください"
+
+#: lib/launch-libvirt.c:1880
+msgid "could not define libvirt secret"
+msgstr ""
+
+#: lib/launch-libvirt.c:1891
+msgid "rbd protocol secret must be base64 encoded"
+msgstr ""
+
+#: lib/launch-libvirt.c:1895
+#, c-format
+msgid "base64_decode_alloc: %m"
+msgstr ""
+
+#: lib/launch-libvirt.c:1916
+msgid "could not set libvirt secret value"
+msgstr ""
+
+#: lib/launch-libvirt.c:1929
+msgid "could not get UUID from libvirt secret"
+msgstr ""
+
+#: lib/launch-libvirt.c:2039
+#, c-format
+msgid ""
+"bridge '%s' not found.  Try running:\n"
+"\n"
+"  brctl show\n"
+"\n"
+"to get a list of bridges on the host, and then selecting the\n"
+"bridge you wish the appliance network to connect to using:\n"
+"\n"
+"  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
+"\n"
+"You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
+"For further information see guestfs(3)."
+msgstr ""
+
+#: lib/launch-libvirt.c:2142
+msgid "could not destroy libvirt domain"
+msgstr "libvirt 仮想マシンを強制停止できませんでした"
+
+#: lib/launch-libvirt.c:2163 lib/launch-libvirt.c:2196
+#, c-format
+msgid "%s: internal error forming error message"
+msgstr "%s: エラーメッセージを形成している内部エラー"
+
+#: lib/launch-libvirt.c:2259
+msgid "could not attach disk to libvirt domain"
+msgstr "libvirt 仮想マシンにディスクを接続できませんでした"
+
+#: lib/launch-libvirt.c:2290
+msgid "could not detach disk from libvirt domain"
+msgstr "libvirt 仮想マシンからディスクを切断できませんでした"
+
+#: lib/launch-uml.c:95
+msgid "uml backend does not support networking"
+msgstr "uml バックエンドはネットワークをサポートしません"
+
+#: lib/launch-uml.c:99
+msgid "uml backend does not support SMP"
+msgstr "uml バックエンドは SMP をサポートしません"
+
+#: lib/launch-uml.c:105
+msgid "uml backend does not support remote drives"
+msgstr "uml バックエンドはリモートドライブをサポートしません"
+
+#: lib/launch-uml.c:109
+msgid "uml backend does not support non-raw-format drives"
+msgstr "uml バックエンドは raw 形式以外のドライブをサポートしません"
+
+#: lib/launch-uml.c:114
+msgid "uml backend does not support drives with 'iface' parameter"
+msgstr ""
+"uml バックエンドは 'iface' パラメーターを持つドライブをサポートしません"
+
+#: lib/launch-uml.c:119
+msgid "uml backend does not support drives with 'label' parameter"
+msgstr ""
+"uml バックエンドは 'label' パラメーターを持つドライブをサポートしません"
+
+#: lib/launch-uml.c:125
+msgid ""
+"uml backend does not support drives with 'discard' parameter set to 'enable'"
+msgstr ""
+
+#: lib/launch-uml.c:456
+msgid "vmlinux launched and contacted daemon, but state != READY"
+msgstr ""
+
+#: lib/launch-unix.c:46
+msgid "cannot set hv parameters with the 'unix:' backend"
+msgstr ""
+
+#: lib/launch-unix.c:51
+#, c-format
+msgid "socket filename too long (more than %d characters): %s"
+msgstr ""
+
+#: lib/launch-unix.c:88
+msgid "guestfs_launch failed, unexpected initial message from guestfsd"
+msgstr "guestfs_launch に失敗しました、guestfsd から予期しない初期メッセージ"
+
+#: lib/launch-unix.c:95
+msgid "contacted guestfsd, but state != READY"
+msgstr "guestfsd に接続しましたが、state != READY です"
+
+#: lib/launch.c:60
+msgid "the libguestfs handle has already been launched"
+msgstr "libguestfs ハンドルがすでに開始されています"
+
+#: lib/launch.c:170
+msgid "get-pid can only be called after launch"
+msgstr "get-pid は launch 後にのみ呼び出せます"
+
+#: lib/launch.c:176
+msgid "the current backend does not support 'get-pid'"
+msgstr "現在のバックエンドが 'get-pid' をサポートしません"
+
+#: lib/launch.c:190
+msgid "the current backend does not allow max disks to be queried"
+msgstr "現在のバックエンドが最大ディスクを問い合わせできません"
+
+#: lib/launch.c:204
+msgid "qemu has not been launched yet"
+msgstr "QEMU がまだ開始されていません"
+
+#: lib/launch.c:275
+#, c-format
+msgid "parameter '%s' isn't allowed"
+msgstr "パラメーター '%s' は許可されていません"
+
+#: lib/launch.c:301
+#, c-format
+msgid "socket path too long: %s/%s"
+msgstr ""
+
+#: lib/libvirt-auth.c:96
+#, c-format
+msgid "unknown credential type '%s'"
+msgstr "未知のクレディンシャル形式 '%s'"
+
+#: lib/libvirt-auth.c:101
+msgid "list of supported credentials is too long"
+msgstr "サポートされるクレディンシャルの一覧が長すぎます"
+
+#: lib/libvirt-auth.c:166
+#, c-format
+msgid ""
+"libvirt needs authentication to connect to libvirt URI %s\n"
+"(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
+msgstr ""
+
+#: lib/libvirt-auth.c:242
+#, c-format
+msgid ""
+"%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
+"handler"
+msgstr ""
+"%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
+
+#: lib/libvirt-auth.c:274 lib/libvirt-auth.c:294 lib/libvirt-auth.c:314
+#: lib/libvirt-auth.c:335
+msgid "credential index out of range"
+msgstr "クレディンシャルのインデックスが範囲外です"
+
+#: lib/libvirt-auth.c:355
+msgid ""
+"libvirt authentication APIs not available since this version of libguestfs "
+"was compiled without libvirt"
+msgstr ""
+"このバージョンの libguestfs が libvirt なしでコンパイルされたため、libvirt 認"
+"証 API を利用できません"
+
+#: lib/libvirt-domain.c:96 lib/libvirt-domain.c:246
+msgid "you cannot set both live and readonly flags"
+msgstr "live と readonly フラグをどちらも設定することはできません"
+
+#: lib/libvirt-domain.c:129
+#, c-format
+msgid "no libvirt domain called '%s': %s"
+msgstr "'%s' という libvirt ドメインがありません: %s"
+
+#: lib/libvirt-domain.c:228
+msgid "unknown readonlydisk parameter"
+msgstr "読み込み専用ディスクに未知のパラメーターがあります"
+
+#: lib/libvirt-domain.c:257
+#, c-format
+msgid "error getting domain info: %s"
+msgstr "ドメイン情報の取得中にエラーが発生しました: %s"
+
+#: lib/libvirt-domain.c:271
+msgid ""
+"error: domain is a live virtual machine.\n"
+"Writing to the disks of a running virtual machine can cause disk "
+"corruption.\n"
+"Either use read-only access, or if the guest is running the guestfsd daemon\n"
+"specify live access.  In most libguestfs tools these options are --ro or\n"
+"--live respectively.  Consult the documentation for further information."
+msgstr ""
+"エラー: 仮想マシンが実行中です。\n"
+"実行中の仮想マシンのディスクに書き込むことは、ディスク破損を\n"
+"引き起こす可能性があります。読み込み専用アクセスを使用する、\n"
+"もしくは、仮想マシンが実行中ならば guestfsd デーモンが live \n"
+"アクセスを指定します。多くの libguestfs ツールにおいて、これらの\n"
+"オプションはそれぞれ --ro または --live です。\n"
+"詳細はドキュメントを参照してください。"
+
+#: lib/libvirt-domain.c:364
+#, c-format
+msgid ""
+"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
+"\"error\""
+msgstr ""
+"%s: ディスクが libvirt XML において <readonly/> にされています、読み込み専用"
+"ディスクは \"error\" に設定されました"
+
+#: lib/libvirt-domain.c:455
+msgid "expected <seclabel/> to be an XML element"
+msgstr "XML 要素となることが期待される <seclabel/>"
+
+#: lib/libvirt-domain.c:617
+#, c-format
+msgid "no secret with UUID '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:625
+#, c-format
+msgid "cannot get the value of the secret with UUID '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:653
+#, c-format
+msgid "no secret for usage '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:661
+#, c-format
+msgid "cannot get the value of the secret with usage '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:794
+msgid "libvirt domain has no disks"
+msgstr "libvirt ドメインにディスクがありません"
+
+#: lib/libvirt-domain.c:857
+msgid ""
+"this guest has no libvirt <channel> definition for guestfsd\n"
+"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
+msgstr ""
+"この仮想マシンは guestfsd に対する libvirt <channel> 定義がありません\n"
+"詳細は guestfs(3) の 実行中のデーモンへの接続方法 を参照してください。"
+
+#: lib/libvirt-domain.c:876
+#, c-format
+msgid "error reading libvirt XML information: %s"
+msgstr "libvirt XML 情報の読み込み中にエラーが発生しました: %s"
+
+#: lib/libvirt-domain.c:886
+msgid "unable to parse XML information returned by libvirt"
+msgstr "libvirt により返された XML 情報を構文解析できません"
+
+#: lib/libvirt-domain.c:907
+#, c-format
+msgid "no libvirt pool called '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:915
+#, c-format
+msgid "no volume called '%s' in the libvirt pool '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:923
+#, c-format
+msgid "cannot get information of the libvirt volume '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:937
+#, c-format
+msgid "cannot get the filename of the libvirt volume '%s': %s"
+msgstr ""
+
+#: lib/libvirt-domain.c:981
+msgid ""
+"add-domain API not available since this version of libguestfs was compiled "
+"without libvirt"
+msgstr ""
+"このバージョンの libguestfs が libvirt なしでコンパイルされたため、add-"
+"domain API を利用できません"
+
+#: lib/osinfo.c:369
+msgid "osinfo: unable to create new XPath context"
+msgstr "osinfo: 新しい XPath コンテキストを作成できません"
+
+#: lib/osinfo.c:379
+#, c-format
+msgid "osinfo: %s: unable to evaluate XPath expression"
+msgstr "osinfo: %s: XPath 表現を評価できません"
+
+#: lib/proto.c:238
+#, c-format
+msgid ""
+"check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
+"synchronization (bad!)\n"
+msgstr ""
+"check_daemon_socket: デーモンから 0x%x を読み込みましたが、0x%x を期待されま"
+"す。プロトコルの同期が失われました (不良!)\n"
+
+#: lib/proto.c:284
+msgid "xdr_guestfs_message_header failed"
+msgstr "xdr_guestfs_message_header に失敗しました"
+
+#: lib/proto.c:293
+msgid "dispatch failed to marshal args"
+msgstr "マーシャル引数の割り当てに失敗しました"
+
+#: lib/proto.c:387 lib/proto.c:909
+msgid "operation cancelled by user"
+msgstr "操作がユーザーにより取り消されました"
+
+#: lib/proto.c:462
+#, c-format
+msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "xdr_guestfs_chunk に失敗しました (buf = %p, buflen = %zu)"
+
+#: lib/proto.c:560
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr "guestfsd からマジックシグネチャーを受け取りましたが、状態は %d です。"
+
+#: lib/proto.c:579
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr "メッセージの長さ (%u) > 最大許容サイズ (%d)"
+
+#: lib/proto.c:865
+msgid "write to daemon socket"
+msgstr "デーモンのソケットに書き込みます"
+
+#: lib/proto.c:894
+msgid "receive_file_data: unexpected flag received when reading file chunks"
+msgstr ""
+"receive_file_data: ファイルのチャンクの読み込み中に予期しないフラグを受信しま"
+"した"
+
+#: lib/proto.c:902
+msgid "failed to parse file chunk"
+msgstr "ファイルのチャンクの解析に失敗しました"
+
+#: lib/proto.c:911
+msgid "file receive cancelled by daemon"
+msgstr "ファイルの受信がデーモンにより取り消されました"
+
+#: lib/qemu.c:620
+msgid "discard cannot be enabled on this drive: qemu < 1.5"
+msgstr ""
+
+#: lib/qemu.c:629
+msgid ""
+"discard cannot be enabled on this drive: the drive has a read-only overlay"
+msgstr ""
+
+#: lib/qemu.c:636
+msgid ""
+"discard cannot be enabled on this drive: you have to specify the format of "
+"the file"
+msgstr ""
+
+#: lib/qemu.c:644
+msgid ""
+"discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
+"qcow2 files"
+msgstr ""
+
+#: lib/qemu.c:652
+#, c-format
+msgid ""
+"discard cannot be enabled on this drive: qemu does not support discard for "
+"'%s' format files"
+msgstr ""
+
+#: lib/qemu.c:675
+#, c-format
+msgid ""
+"discard cannot be enabled on this drive: protocol '%s' does not support "
+"discard"
+msgstr ""
+
+#: lib/tmpdirs.c:65
+#, c-format
+msgid "converting path to absolute path: %s: %s: realpath"
+msgstr ""
+
+#: lib/tmpdirs.c:72 lib/tmpdirs.c:78
+#, c-format
+msgid "setting temporary directory"
+msgstr ""
+
+#: lib/tmpdirs.c:77
+#, c-format
+msgid "%s: %s: '%s' is not a directory"
+msgstr ""
+
+#: lib/tmpdirs.c:188
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: 一時ディレクトリを作成できません"
+
+#: lib/tmpdirs.c:268
+#, c-format
+msgid "stat: %s"
+msgstr ""
+
+#: lib/tmpdirs.c:273
+#, c-format
+msgid "security: cached appliance %s is not owned by UID %ju"
+msgstr ""
+
+#: lib/tmpdirs.c:279
+#, c-format
+msgid "security: cached appliance %s is not a directory (mode %o)"
+msgstr ""
+"security: キャッシュされたアプライアンス %s がディレクトリではありません"
+"（モード %o）"
+
+#: lib/tmpdirs.c:285
+#, c-format
+msgid "security: cached appliance %s is writable by group or other (mode %o)"
+msgstr ""
+"security: キャッシュされたアプライアンス %s がグループまたは全体に対して書き"
+"込み可能ではありません（モード %o）"
+
+#: lib/whole-file.c:84
+#, c-format
+msgid "read: %s: unexpected end of file"
+msgstr "read: %s: 予期しない EOF がありました"
+
+#: make-fs/make-fs.c:82
 #, c-format
 msgid ""
 "%s: make a filesystem from a tar archive or files\n"
-"Copyright (C) 2010-2016 Red Hat Inc.\n"
+"Copyright (C) 2010-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] input.tar output.img\n"
 "  %s [--options] input.tar.gz output.img\n"
@@ -8254,43 +9471,43 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: make-fs/make-fs.c:186
+#: make-fs/make-fs.c:188
 #, c-format
 msgid "%s: missing input and output arguments on the command line\n"
 msgstr ""
 
-#: make-fs/make-fs.c:205
+#: make-fs/make-fs.c:207
 #, c-format
 msgid "%s: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
 
-#: make-fs/make-fs.c:255 make-fs/make-fs.c:319
+#: make-fs/make-fs.c:257 make-fs/make-fs.c:321
 #, c-format
 msgid "%s: %s command failed\n"
 msgstr ""
 
-#: make-fs/make-fs.c:444
+#: make-fs/make-fs.c:446
 #, c-format
 msgid "%s: cannot parse the output of 'du' command: %s\n"
 msgstr ""
 
-#: make-fs/make-fs.c:479
+#: make-fs/make-fs.c:481
 #, c-format
 msgid ""
 "%s: %s: input is not a directory, tar archive or compressed tar archive\n"
 msgstr ""
 
-#: make-fs/make-fs.c:510
+#: make-fs/make-fs.c:512
 #, c-format
 msgid "%s: %s: unknown compressed input format (%s)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:633
+#: make-fs/make-fs.c:635
 #, c-format
 msgid "%s: %s: invalid size parameter '%s' (%s returned %u)\n"
 msgstr ""
 
-#: make-fs/make-fs.c:839
+#: make-fs/make-fs.c:841
 #, c-format
 msgid "%s: subprocess failed\n"
 msgstr ""
@@ -8320,122 +9537,122 @@ msgstr ""
 msgid "Extra parameter on the command line: '%s'.\n"
 msgstr ""
 
-#: p2v/conversion.c:246
+#: p2v/conversion.c:252
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:335
+#: p2v/conversion.c:346
 msgid "Setting up the control connection ..."
 msgstr ""
 
-#: p2v/conversion.c:368
+#: p2v/conversion.c:380
 msgid "Doing conversion ..."
 msgstr ""
 
-#: p2v/conversion.c:408
+#: p2v/conversion.c:420
 msgid "Conversion cancelled by user."
 msgstr ""
 
-#: p2v/conversion.c:413
+#: p2v/conversion.c:425
 msgid "Control connection closed by remote."
 msgstr ""
 
-#: p2v/gui.c:283
+#: p2v/gui.c:200
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
 
-#: p2v/gui.c:288
+#: p2v/gui.c:205
 msgid "Conversion _server:"
 msgstr ""
 
-#: p2v/gui.c:309
+#: p2v/gui.c:226
 msgid "_User name:"
 msgstr ""
 
-#: p2v/gui.c:322
+#: p2v/gui.c:239
 msgid "_Password:"
 msgstr ""
 
-#: p2v/gui.c:338
+#: p2v/gui.c:255
 msgid "SSH _Identity URL:"
 msgstr ""
 
-#: p2v/gui.c:350
+#: p2v/gui.c:267
 msgid "Use su_do when running virt-v2v"
 msgstr ""
 
-#: p2v/gui.c:357
+#: p2v/gui.c:274
 msgid "_Test connection"
 msgstr ""
 
-#: p2v/gui.c:383
+#: p2v/gui.c:302
 msgid "_Configure network ..."
 msgstr ""
 
-#: p2v/gui.c:384
+#: p2v/gui.c:303
 msgid "_XTerm ..."
 msgstr ""
 
-#: p2v/gui.c:385
+#: p2v/gui.c:304
 msgid "_About virt-p2v "
 msgstr ""
 
-#: p2v/gui.c:386
+#: p2v/gui.c:305
 msgid "_Next"
 msgstr ""
 
-#: p2v/gui.c:514
+#: p2v/gui.c:435
 msgid "error: No conversion server given."
 msgstr ""
 
-#: p2v/gui.c:522
+#: p2v/gui.c:443
 msgid "error: Invalid port number. If in doubt, use \"22\"."
 msgstr ""
 
-#: p2v/gui.c:530
+#: p2v/gui.c:451
 msgid "error: No user name.  If in doubt, use \"root\"."
 msgstr ""
 
-#: p2v/gui.c:602
+#: p2v/gui.c:523
 msgid "Testing the connection to the conversion server ..."
 msgstr ""
 
-#: p2v/gui.c:646
+#: p2v/gui.c:571
 msgid ""
 "Connected to the conversion server.\n"
 "Press the \"Next\" button to configure the conversion process."
 msgstr ""
 
-#: p2v/gui.c:695
+#: p2v/gui.c:620
 msgid "Virtualize a physical machine to run on KVM"
 msgstr ""
 
-#: p2v/gui.c:787
+#: p2v/gui.c:712
 msgid "Target properties"
 msgstr ""
 
-#: p2v/gui.c:793
+#: p2v/gui.c:718
 msgid "_Name:"
 msgstr ""
 
-#: p2v/gui.c:804
+#: p2v/gui.c:729
 msgid "# _vCPUs:"
 msgstr ""
 
-#: p2v/gui.c:819
+#: p2v/gui.c:744
 msgid "_Memory (MB):"
 msgstr ""
 
-#: p2v/gui.c:846
+#: p2v/gui.c:771
 msgid "Virt-v2v output options"
 msgstr ""
 
-#: p2v/gui.c:852
+#: p2v/gui.c:777
 msgid "Output _to (-o):"
 msgstr ""
 
-#: p2v/gui.c:858
+#: p2v/gui.c:783
 msgid ""
 "<b>libvirt</b> means send the converted guest to libvirt-managed KVM on the "
 "conversion server.  <b>local</b> means put it in a directory on the "
@@ -8444,79 +9661,79 @@ msgid ""
 "more information about output options."
 msgstr ""
 
-#: p2v/gui.c:863
+#: p2v/gui.c:788
 msgid "Output _conn. (-oc):"
 msgstr ""
 
-#: p2v/gui.c:869
+#: p2v/gui.c:794
 msgid ""
 "For <b>libvirt</b> only, the libvirt connection URI, or leave blank to add "
 "the guest to the default libvirt instance on the conversion server.  For "
 "others, leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:875
+#: p2v/gui.c:800
 msgid "Output _storage (-os):"
 msgstr ""
 
-#: p2v/gui.c:881
+#: p2v/gui.c:806
 msgid ""
 "For <b>local</b>, put the directory name on the conversion server.  For "
 "<b>rhv</b>, put the Export Storage Domain (server:/mountpoint).  For others, "
 "leave this field blank."
 msgstr ""
 
-#: p2v/gui.c:887
+#: p2v/gui.c:812
 msgid "Output _format (-of):"
 msgstr ""
 
-#: p2v/gui.c:893
+#: p2v/gui.c:818
 msgid ""
 "The output disk format, typically <b>raw</b> or <b>qcow2</b>.  If blank, "
 "defaults to <b>raw</b>."
 msgstr ""
 
-#: p2v/gui.c:899
+#: p2v/gui.c:824
 msgid "Output _allocation (-oa):"
 msgstr ""
 
-#: p2v/gui.c:923
+#: p2v/gui.c:848
 msgid "Information"
 msgstr ""
 
-#: p2v/gui.c:931
+#: p2v/gui.c:856
 msgid "Fixed hard disks"
 msgstr ""
 
-#: p2v/gui.c:942
+#: p2v/gui.c:867
 msgid "Removable media"
 msgstr ""
 
-#: p2v/gui.c:953
+#: p2v/gui.c:878
 msgid "Network interfaces"
 msgstr ""
 
-#: p2v/gui.c:963
+#: p2v/gui.c:888
 msgid ""
 "Left click on an interface name to flash the light on the physical interface."
 msgstr ""
 
-#: p2v/gui.c:985
+#: p2v/gui.c:910
 msgid "_Back"
 msgstr ""
 
-#: p2v/gui.c:986
+#: p2v/gui.c:911
 msgid "_Start conversion"
 msgstr ""
 
-#: p2v/gui.c:1036
+#: p2v/gui.c:961
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1039
+#: p2v/gui.c:964
 #, c-format
 msgid ""
 "virt-p2v (client):\n"
@@ -8525,48 +9742,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1157 p2v/gui.c:1208 p2v/gui.c:1278
+#: p2v/gui.c:1082 p2v/gui.c:1133 p2v/gui.c:1203
 msgid "Convert"
 msgstr ""
 
-#: p2v/gui.c:1165 p2v/gui.c:1216 p2v/gui.c:1286
+#: p2v/gui.c:1090 p2v/gui.c:1141 p2v/gui.c:1211
 msgid "Device"
 msgstr ""
 
-#: p2v/gui.c:1256 p2v/gui.c:1257
+#: p2v/gui.c:1181 p2v/gui.c:1182
 msgid "Unknown"
 msgstr ""
 
-#: p2v/gui.c:1294
+#: p2v/gui.c:1219
 msgid "Connect to virtual network"
 msgstr ""
 
-#: p2v/gui.c:1576
+#: p2v/gui.c:1501
 #, c-format
 msgid ""
 "Number of virtual CPUs is larger than what is supported for KVM (max: %d)."
 msgstr ""
 
-#: p2v/gui.c:1586
+#: p2v/gui.c:1511
 #, c-format
 msgid "Memory size is larger than what is supported for KVM (max: %<PRIu64>)."
 msgstr ""
 
-#: p2v/gui.c:1594
+#: p2v/gui.c:1519
 msgid ""
 "If you ignore this warning, conversion can still succeed, but the guest may "
 "not work or may not be supported on the target."
 msgstr ""
 
-#: p2v/gui.c:1719
+#: p2v/gui.c:1644
 msgid "_Cancel conversion ..."
 msgstr ""
 
-#: p2v/gui.c:1720
+#: p2v/gui.c:1645
 msgid "_Reboot"
 msgstr ""
 
-#: p2v/gui.c:1771
+#: p2v/gui.c:1696
 #, c-format
 msgid ""
 "Debug information and log files are saved to this directory on the "
@@ -8574,52 +9791,52 @@ msgid ""
 "%s"
 msgstr ""
 
-#: p2v/gui.c:1978
+#: p2v/gui.c:1903
 msgid "The guest \"Name\" field is empty."
 msgstr ""
 
-#: p2v/gui.c:1979 p2v/gui.c:2000
+#: p2v/gui.c:1904 p2v/gui.c:1925
 msgid "Error"
 msgstr ""
 
-#: p2v/gui.c:1998
+#: p2v/gui.c:1923
 msgid ""
 "No disks were selected for conversion.\n"
 "At least one fixed hard disk must be selected.\n"
 msgstr ""
 
-#: p2v/gui.c:2100
+#: p2v/gui.c:2025
 #, c-format
 msgid "Conversion failed: %s"
 msgstr ""
 
-#: p2v/gui.c:2101
+#: p2v/gui.c:2026
 msgid "Conversion failed"
 msgstr ""
 
-#: p2v/gui.c:2128
+#: p2v/gui.c:2053
 msgid "The conversion was successful."
 msgstr ""
 
-#: p2v/gui.c:2129
+#: p2v/gui.c:2054
 msgid "Conversion was successful"
 msgstr ""
 
-#: p2v/gui.c:2212
+#: p2v/gui.c:2137
 msgid ""
 "Really cancel the conversion? To convert this machine you will need to re-"
 "run the conversion from the beginning."
 msgstr ""
 
-#: p2v/gui.c:2215
+#: p2v/gui.c:2140
 msgid "Cancel the conversion"
 msgstr ""
 
-#: p2v/main.c:90
+#: p2v/main.c:93
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
-"Copyright (C) 2009-2016 Red Hat Inc.\n"
+"Copyright (C) 2009-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options]\n"
 "Options:\n"
@@ -8627,39 +9844,67 @@ msgid ""
 " --cmdline=CMDLINE       Used to debug command line parsing\n"
 " --colors|--colours      Use ANSI colour sequences even if not tty\n"
 " --iso                   Running in the ISO environment\n"
+" --nbd=qemu-nbd,nbdkit   Search order for NBD servers\n"
 " --test-disk=DISK.IMG    For testing, use disk as /dev/sda\n"
 "  -v|--verbose           Verbose messages\n"
 "  -V|--version           Display version and exit\n"
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:183
+#: p2v/main.c:144
+#, c-format
+msgid "malloc"
+msgstr ""
+
+#: p2v/main.c:147
+#, c-format
+msgid "--nbd option cannot be empty"
+msgstr ""
+
+#: p2v/main.c:151
+#, c-format
+msgid "too many --nbd servers"
+msgstr ""
+
+#: p2v/main.c:158
+#, c-format
+msgid "--nbd: unknown server: %s"
+msgstr ""
+
+#: p2v/main.c:222
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:186
+#: p2v/main.c:225
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:214
+#: p2v/main.c:253
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:243
+#: p2v/main.c:296
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
 "a GUI is not possible on this host.  Check X11, $DISPLAY etc."
 msgstr ""
 
-#: rescue/rescue.c:62
+#: p2v/main.c:359
+#, c-format
+msgid ""
+"%s: no working NBD server was found, cannot continue.\n"
+"Please check the --nbd option in the virt-p2v(1) man page.\n"
+msgstr ""
+
+#: rescue/rescue.c:64
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
-"Copyright (C) 2009-2016 Red Hat Inc.\n"
+"Copyright (C) 2009-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] -d domname\n"
 "  %s [--options] -a disk.img [-a disk.img ...]\n"
@@ -8684,32 +9929,32 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/rescue.c:162
+#: rescue/rescue.c:164
 #, c-format
 msgid "could not parse --smp parameter '%s'"
 msgstr ""
 
-#: rescue/rescue.c:165
+#: rescue/rescue.c:167
 #, c-format
 msgid "--smp parameter '%s' should be >= 1"
 msgstr ""
 
-#: rescue/rescue.c:175
+#: rescue/rescue.c:177
 #, c-format
 msgid "could not parse --scratch parameter '%s'"
 msgstr ""
 
-#: rescue/rescue.c:178
+#: rescue/rescue.c:180
 #, c-format
 msgid "--scratch parameter '%s' should be >= 1"
 msgstr ""
 
-#: rescue/rescue.c:202
+#: rescue/rescue.c:204
 #, c-format
 msgid "could not parse memory size '%s'"
 msgstr ""
 
-#: rescue/rescue.c:280
+#: rescue/rescue.c:282
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -8717,7 +9962,7 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: rescue/rescue.c:308
+#: rescue/rescue.c:310
 #, c-format
 msgid ""
 "%s: warning: virt-rescue doesn't work with the libvirt backend\n"
@@ -8726,7 +9971,7 @@ msgstr ""
 "%s: 警告: virt-rescue が libvirt バックエンドと同時に動作しません。\n"
 "回避策として forcing backend = 'direct' とします。\n"
 
-#: rescue/rescue.c:389
+#: rescue/rescue.c:391
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
@@ -8735,7 +9980,7 @@ msgstr ""
 "仮想マシンまたはディスクイメージを検査しています ...\n"
 "\n"
 
-#: rescue/rescue.c:408
+#: rescue/rescue.c:410
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -8747,7 +9992,7 @@ msgstr ""
 "プロンプト) においてこれらのマウントのコマンドを使用できます。\n"
 "\n"
 
-#: rescue/rescue.c:423
+#: rescue/rescue.c:425
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -8760,7 +10005,7 @@ msgstr ""
 "# %s\n"
 "\n"
 
-#: rescue/rescue.c:482
+#: rescue/rescue.c:484
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -8776,7 +10021,7 @@ msgstr ""
 "システムを作成するために、ディスクイメージにおいて virt-rescue を使用できま"
 "す。\n"
 
-#: rescue/rescue.c:489
+#: rescue/rescue.c:491
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -8791,1233 +10036,16 @@ msgstr ""
 "\n"
 "\n"
 
-#: rescue/rescue.c:494
+#: rescue/rescue.c:496
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr "# %s が形式 '%s' を持ちます\n"
-
-#: src/appliance.c:180
-#, c-format
-msgid ""
-"cannot find any suitable libguestfs supermin, fixed or old-style appliance "
-"on LIBGUESTFS_PATH (search path: %s)"
-msgstr ""
-"LIBGUESTFS_PATH (検索パス: %s) において適切な libguestfs supermin、修正された"
-"または旧形式のアプライアンスを検索できません"
-
-#: src/available.c:72 src/available.c:96
-#, c-format
-msgid "%s: unknown group"
-msgstr ""
-
-#: src/available.c:75
-#, c-format
-msgid "%s: group not available"
-msgstr ""
-
-#: src/conn-socket.c:69
-msgid "accept_connection called twice"
-msgstr "accept_connection が 2 回呼び出されました"
-
-#: src/conn-socket.c:148
-msgid "read_data: socket not connected"
-msgstr "read_data: ソケットに接続されていません"
-
-#: src/conn-socket.c:223
-msgid "can_read_data: socket not connected"
-msgstr "can_read_data: ソケットに接続されていません"
-
-#: src/conn-socket.c:252
-msgid "write_data: socket not connected"
-msgstr "write_data: "
-
-#: src/conn-socket.c:362
-msgid "error reading console messages from the appliance"
-msgstr ""
-"アプライアンスからコンソールメッセージを読み込み中にエラーが発生しました"
-
-#: src/copy-in-out.c:51
-#, c-format
-msgid "source '%s' does not exist (or cannot be read)"
-msgstr ""
-
-#: src/copy-in-out.c:60 src/copy-in-out.c:142
-#, c-format
-msgid "target '%s' is not a directory"
-msgstr ""
-
-#: src/copy-in-out.c:179
-#, c-format
-msgid "'%s' is not a file or directory"
-msgstr ""
-
-#: src/copy-in-out.c:245
-msgid "error: argument is zero length or longer than maximum permitted"
-msgstr ""
-
-#: src/create.c:65
-msgid "if using a backing file, size must be passed as -1"
-msgstr ""
-
-#: src/create.c:73
-#, c-format
-msgid "invalid size: %<PRIi64>"
-msgstr ""
-
-#: src/create.c:81
-msgid "backingfile cannot be used for raw format disks"
-msgstr ""
-
-#: src/create.c:96
-#, c-format
-msgid "unsupported format '%s'"
-msgstr ""
-
-#: src/create.c:110
-#, c-format
-msgid "cannot open block device: %s"
-msgstr ""
-
-#: src/create.c:144
-msgid "backingformat parameter cannot be used with raw format"
-msgstr ""
-
-#: src/create.c:154 src/create.c:291
-#, c-format
-msgid "invalid value for preallocation parameter '%s'"
-msgstr ""
-
-#: src/create.c:160
-msgid "compat parameter cannot be used with raw format"
-msgstr ""
-
-#: src/create.c:164
-msgid "clustersize parameter cannot be used with raw format"
-msgstr ""
-
-#: src/create.c:171
-#, c-format
-msgid "refusing to overwrite char device '%s'"
-msgstr ""
-
-#: src/create.c:181
-#, c-format
-msgid "cannot create raw file: %s"
-msgstr ""
-
-#: src/create.c:187
-#, c-format
-msgid "%s: truncate"
-msgstr ""
-
-#: src/create.c:200
-#, c-format
-msgid "%s: fallocate"
-msgstr ""
-
-#: src/create.c:218
-#, c-format
-msgid "%s: write"
-msgstr ""
-
-#: src/create.c:229
-#, c-format
-msgid "%s: close"
-msgstr ""
-
-#: src/create.c:276
-#, c-format
-msgid "invalid value for backingformat parameter '%s'"
-msgstr ""
-
-#: src/create.c:299
-#, c-format
-msgid "invalid value for compat parameter '%s'"
-msgstr ""
-
-#: src/create.c:307
-#, c-format
-msgid "invalid value for clustersize parameter '%d'"
-msgstr ""
-
-#: src/dbdump.c:83
-#, c-format
-msgid "%s: unexpected error or end of output"
-msgstr "%s: 予期しないエラーまたは出力の終了"
-
-#: src/dbdump.c:118 src/dbdump.c:137
-msgid "unexpected line from db_dump command, no space prefix"
-msgstr "db_dump コマンドからの予期しない行です、スペース接頭辞がありません"
-
-#: src/dbdump.c:219
-msgid "unexpected non-hex digits in output of db_dump command"
-msgstr "db_dump コマンドの出力において予期しない非 16 進値がありました"
-
-#: src/drives.c:82
-msgid "this backend does not support adding read-only drives"
-msgstr ""
-
-#: src/drives.c:173
-msgid "curl: you must specify exactly one server"
-msgstr "curl: サーバーを一つだけ指定する必要があります"
-
-#: src/drives.c:179
-msgid "curl: only tcp transport is supported"
-msgstr "curl: TCP 転送のみがサポートされます"
-
-#: src/drives.c:184
-msgid "curl: pathname should not be an empty string"
-msgstr "curl: パス名を空文字列にできません"
-
-#: src/drives.c:189
-msgid "curl: pathname must begin with a '/'"
-msgstr "curl: パス名を '/' で始める必要があります"
-
-#: src/drives.c:201
-msgid "gluster: you cannot specify a username with this protocol"
-msgstr "gluster: このプロトコルでユーザー名を指定できません"
-
-#: src/drives.c:205
-msgid "gluster: you cannot specify a secret with this protocol"
-msgstr "gluster: このプロトコルでシークレットを指定できません"
-
-#: src/drives.c:210
-msgid "gluster: you must specify exactly one server"
-msgstr "gluster: ちょうど 1 つのサーバーを指定する必要があります"
-
-#: src/drives.c:215
-msgid "gluster: volume name parameter should not be an empty string"
-msgstr "gluster: ボリューム名パラメーターを空文字列にできません"
-
-#: src/drives.c:220
-msgid "gluster: volume/image must not begin with a '/'"
-msgstr ""
-
-#: src/drives.c:244
-msgid "nbd: you cannot specify a username with this protocol"
-msgstr "nbd: このプロトコルでユーザー名を指定できません"
-
-#: src/drives.c:248
-msgid "nbd: you cannot specify a secret with this protocol"
-msgstr "nbd: このプロトコルでシークレットを指定できません"
-
-#: src/drives.c:253
-msgid "nbd: you must specify exactly one server"
-msgstr "nbd: ちょうど 1 つのサーバーを指定する必要があります"
-
-#: src/drives.c:272
-msgid "rbd: only tcp transport is supported"
-msgstr "rbd: TCP 転送のみがサポートされます"
-
-#: src/drives.c:276
-msgid "rbd: port number must be specified"
-msgstr "rbd: ポート番号を指定する必要があります"
-
-#: src/drives.c:282
-msgid "rbd: image name parameter should not be an empty string"
-msgstr "rbd: イメージ名のパラメーターを空文字列にできません"
-
-#: src/drives.c:287
-msgid "rbd: image name must not begin with a '/'"
-msgstr ""
-
-#: src/drives.c:301
-msgid "sheepdog: you cannot specify a username with this protocol"
-msgstr "sheepdog: このプロトコルでユーザー名を指定できません"
-
-#: src/drives.c:305
-msgid "sheepdog: you cannot specify a secret with this protocol"
-msgstr "sheepdog: このプロトコルでシークレットを指定できません"
-
-#: src/drives.c:312
-msgid "sheepdog: only tcp transport is supported"
-msgstr "sheepdog: TCP 転送のみがサポートされます"
-
-#: src/drives.c:316
-msgid "sheepdog: port number must be specified"
-msgstr "sheepdog: ポート番号を指定する必要があります"
-
-#: src/drives.c:322
-msgid "sheepdog: volume parameter should not be an empty string"
-msgstr "sheepdog: ボリュームパラメーターを空文字列にできません"
-
-#: src/drives.c:327
-msgid "sheepdog: volume parameter must not begin with a '/'"
-msgstr ""
-
-#: src/drives.c:339
-msgid "ssh: you must specify exactly one server"
-msgstr "ssh: ちょうど一つのサーバーを指定する必要があります"
-
-#: src/drives.c:345
-msgid "ssh: only tcp transport is supported"
-msgstr "ssh: TCP 転送のみがサポートされます"
-
-#: src/drives.c:350
-msgid "ssh: pathname should not be an empty string"
-msgstr "ssh: パス名を空文字列にできません"
-
-#: src/drives.c:355
-msgid "ssh: pathname must begin with a '/'"
-msgstr "ssh: パス名は '/' から始まる必要があります"
-
-#: src/drives.c:360
-msgid "ssh: username should not be an empty string"
-msgstr "ssh: ユーザー名を空文字列にできません"
-
-#: src/drives.c:372
-msgid "iscsi: you must specify exactly one server"
-msgstr "iscsi: ちょうど一つのサーバーを指定する必要があります"
-
-#: src/drives.c:378
-msgid "iscsi: only tcp transport is supported"
-msgstr "iscsi: TCP 転送のみがサポートされます"
-
-#: src/drives.c:383
-msgid "iscsi: target name should not be an empty string"
-msgstr "iscsi: ターゲット名を空文字列にできません"
-
-#: src/drives.c:388
-msgid "iscsi: target string must not begin with a '/'"
-msgstr ""
-
-#: src/drives.c:415
-msgid "for device '/dev/null', format must be 'raw'"
-msgstr "デバイス '/dev/null' に対して、形式は 'raw' は必須です"
-
-#: src/drives.c:685
-msgid "missing Unix domain socket path"
-msgstr "Unix ドメインのソケットパスがありません"
-
-#: src/drives.c:697
-#, c-format
-msgid "invalid port number '%s'"
-msgstr "無効なポート番号 '%s'"
-
-#: src/drives.c:704
-#, c-format
-msgid "invalid hostname '%s'"
-msgstr "無効なホスト名 '%s'"
-
-#: src/drives.c:715
-#, c-format
-msgid "invalid hostname or server string '%s'"
-msgstr "無効なホスト名またはサーバー文字列 '%s'"
-
-#: src/drives.c:799
-msgid "discard parameter must be 'disable', 'enable' or 'besteffort'"
-msgstr ""
-
-#: src/drives.c:812
-msgid "discard support cannot be enabled on read-only drives"
-msgstr ""
-
-#: src/drives.c:818 src/drives.c:824
-#, c-format
-msgid "%s parameter is empty or contains disallowed characters"
-msgstr "%s パラメーターが空です。もしくは、許可できない文字を含んでいます。"
-
-#: src/drives.c:830
-msgid "label parameter is empty, too long, or contains disallowed characters"
-msgstr ""
-"ラベルパラメーターが空白、長すぎます、または許可されない文字を含んでいます"
-
-#: src/drives.c:836
-msgid "cachemode parameter must be 'writeback' (default) or 'unsafe'"
-msgstr ""
-"cachemode パラメーターは 'writeback' (標準値) または 'unsafe' にする必要があ"
-"ります"
-
-#: src/drives.c:843
-msgid "you cannot specify a server with file-backed disks"
-msgstr "ファイル形式のディスクと同時にサーバーを指定できません"
-
-#: src/drives.c:848
-msgid "you cannot specify a username with file-backed disks"
-msgstr "ファイル形式のディスクと同時にユーザー名を指定できません"
-
-#: src/drives.c:852
-msgid "you cannot specify a secret with file-backed disks"
-msgstr "ファイル形式のディスクと同時にシークレットを指定できません"
-
-#: src/drives.c:915
-#, c-format
-msgid "unknown protocol '%s'"
-msgstr "未知のプロトコル '%s'"
-
-#: src/drives.c:933 src/drives.c:1084
-msgid "the current backend does not support hotplugging drives"
-msgstr "現在のバックエンドはホットプラグドライブをサポートしません"
-
-#: src/drives.c:939
-msgid "'label' is required when hotplugging drives"
-msgstr "ドライブを活性挿入するとき 'label' が必要です"
-
-#: src/drives.c:1069
-#, c-format
-msgid "disk with label '%s' not found"
-msgstr "ラベル '%s' を持つディスクがありませんでした"
-
-#: src/errors.c:287
-#, c-format
-msgid "libguestfs: error: %s\n"
-msgstr "libguestfs: エラー: %s\n"
-
-#: src/errors.c:315
-#, c-format
-msgid "<truncated, original size %zu bytes>"
-msgstr "<切り詰められました、元の容量は %zu バイトです>"
-
-#: src/errors.c:346
-msgid "guestfs_launch failed, see earlier error messages"
-msgstr "guestfs_launch に失敗しました、前のエラーメッセージを参照してください"
-
-#: src/errors.c:349
-msgid ""
-"guestfs_launch failed.\n"
-"This usually means the libguestfs appliance failed to start or crashed.\n"
-msgstr ""
-
-#: src/errors.c:361
-msgid ""
-"appliance closed the connection unexpectedly, see earlier error messages"
-msgstr ""
-"アプライアンスが予期せず接続を閉じました。これまでのエラーメッセージを参照し"
-"てください。"
-
-#: src/errors.c:364
-msgid ""
-"appliance closed the connection unexpectedly.\n"
-"This usually means the libguestfs appliance crashed.\n"
-msgstr ""
-
-#: src/errors.c:376
-msgid "appliance launch timed out, see earlier error messages"
-msgstr ""
-"アプライアンスの起動がタイムアウトしました。以前のエラーメッセージを参照して"
-"ください。"
-
-#: src/errors.c:379
-msgid ""
-"appliance launch timed out.\n"
-"This usually means the kernel or appliance hung during launch.\n"
-msgstr ""
-
-#: src/errors.c:402
-#, c-format
-msgid "%s, see debug messages above"
-msgstr "%s, 上のデバッグメッセージを確認してください"
-
-#: src/errors.c:404
-#, c-format
-msgid "%s: %s: %s, see debug messages above"
-msgstr "%s: %s: %s, 上のデバッグメッセージを確認してください"
-
-#: src/errors.c:409
-#, c-format
-msgid ""
-"%s.\n"
-"To see full error messages you may need to enable debugging.\n"
-msgstr ""
-
-#: src/errors.c:414
-#, c-format
-msgid ""
-"%s: %s: %s.\n"
-"To see full error messages you may need to enable debugging.\n"
-msgstr ""
-
-#: src/filearch.c:221 src/filearch.c:293
-#, c-format
-msgid "size of %s unreasonable (%<PRIi64> bytes)"
-msgstr "%s の容量が不当です (%<PRIi64> バイト)"
-
-#: src/filearch.c:373
-msgid ""
-"file-architecture API not available since this version of libguestfs was "
-"compiled without the libmagic library"
-msgstr ""
-"このバージョンの libguestfs が libmagic ライブラリなしでコンパイルされたの"
-"で、ファイル構造 API は利用可能ではありません"
-
-#: src/fuse.c:970
-msgid "filesystem is already mounted in another thread"
-msgstr "ファイルシステムがすでに他のスレッドにおいてマウントされています"
-
-#: src/fuse.c:995
-#, c-format
-msgid "fuse_opt_add_arg: %s"
-msgstr "fuse_opt_add_arg: %s"
-
-#: src/fuse.c:1012
-#, c-format
-msgid "fuse_mount: %s"
-msgstr "fuse_mount: %s"
-
-#: src/fuse.c:1030
-#, c-format
-msgid "fuse_new: %s"
-msgstr "fuse_new: %s"
-
-#: src/fuse.c:1059
-msgid "you must call guestfs_mount_local first"
-msgstr "まず guestfs_mount_local を呼び出す必要があります"
-
-#: src/fuse.c:1070
-#, c-format
-msgid ""
-"you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
-"Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
-msgstr ""
-
-#: src/fuse.c:1080
-#, c-format
-msgid "fuse_loop: %s"
-msgstr "fuse_loop: %s"
-
-#: src/fuse.c:1130
-msgid "no filesystem is mounted"
-msgstr "ファイルシステムがマウントされていません"
-
-#: src/fuse.c:1248
-msgid "could not initialize dir cache hashtables"
-msgstr "ディレクトリーキャッシュのハッシュ表を初期化できませんでした"
-
-#: src/fuse.c:1503
-msgid ""
-"FUSE is not supported in this build of libguestfs because libfuse was not "
-"found when libguestfs was compiled"
-msgstr ""
-"libguestfs がコンパイルされたときに、libfuse が見当たらなかったため、FUSE が"
-"このビルドの libguestfs においてサポートされません。"
-
-#: src/handle.c:135
-msgid ""
-"libguestfs was built with an invalid default backend, using 'direct' instead"
-msgstr ""
-"libguestfs は 'direct' を使用する代わりに無効なデフォルトのバックエンドで構築"
-"されました。"
-
-#: src/handle.c:137
-msgid "'direct' backend does not work"
-msgstr "'direct' バックエンドが動作しません"
-
-#: src/handle.c:192 src/handle.c:202
-#, c-format
-msgid "%s=%s: non-boolean value"
-msgstr ""
-
-#: src/handle.c:244
-msgid "non-numeric value for LIBGUESTFS_MEMSIZE"
-msgstr ""
-
-#: src/handle.c:325
-#, c-format
-msgid "guestfs_close: called twice on the same handle\n"
-msgstr "guestfs_close: 同じハンドルにおいて 2 回呼び出されました\n"
-
-#: src/handle.c:536
-msgid ""
-"configured --without-qemu so calling guestfs_set_qemu with qemu == NULL is "
-"an error"
-msgstr ""
-
-#: src/handle.c:589
-#, c-format
-msgid "too small value for memsize (must be at least %d)"
-msgstr ""
-
-#: src/handle.c:706
-msgid ""
-"identifier must contain only alphanumeric characters, underscore or minus "
-"sign"
-msgstr ""
-
-#: src/handle.c:812
-msgid "setting not found"
-msgstr ""
-
-#: src/info.c:90
-msgid "qemu-img info: JSON output did not contain 'format' key"
-msgstr "qemu-img info: JSON 出力に 'format' キーが含まれていません"
-
-#: src/info.c:115
-msgid "qemu-img info: 'virtual-size' is not representable as a 64 bit integer"
-msgstr "qemu-img info: 'virtual-size' が 64 ビット長として表現されていません"
-
-#: src/info.c:123
-msgid "qemu-img info: JSON output did not contain 'virtual-size' key"
-msgstr "qemu-img info: JSON 出力に 'virtual-size' キーが含まれません"
-
-#: src/info.c:155
-msgid "qemu-img info: JSON output was not an object"
-msgstr "qemu-img info: JSON 出力がオブジェクトではありませんでした"
-
-#: src/info.c:216
-msgid ""
-"qemu-img info command produced no output, but didn't return an error status "
-"code"
-msgstr ""
-"qemu-img info コマンドが何も出力しませんでしたが、エラー状態コードを返しませ"
-"んでした"
-
-#: src/info.c:250
-#, c-format
-msgid "qemu-img info: JSON parse error: %s"
-msgstr "qemu-img info: JSON 構文解析エラー: %s"
-
-#: src/info.c:252
-msgid "qemu-img info: unknown JSON parse error"
-msgstr "qemu-img info: 未知の JSON 構文解析エラー"
-
-#: src/inspect-fs-unix.c:131
-#, c-format
-msgid "release file %s is empty or malformed"
-msgstr "リリースファイル %s が空または不正な形式です"
-
-#: src/inspect-fs-unix.c:164 src/inspect-fs-unix.c:314
-#: src/inspect-fs-unix.c:389 src/inspect-fs-unix.c:1247
-#: src/inspect-fs-unix.c:2033 src/inspect-fs.c:624 src/inspect-fs.c:670
-#: src/inspect.c:738
-#, c-format
-msgid "size of %s is unreasonably large (%<PRIi64> bytes)"
-msgstr "%s の容量が不当に大きいです (%<PRIi64> バイト)"
-
-#: src/inspect-fs-unix.c:2080
-#, c-format
-msgid "%s:%s:%s: augeas parse failure: %s"
-msgstr ""
-
-#: src/inspect-fs.c:419 src/inspect-fs.c:432
-#, c-format
-msgid "could not parse integer in version number: %s"
-msgstr "バージョン番号のいて整数を構文解析できませんでした: %s"
-
-#: src/inspect.c:427
-msgid "not a Windows guest, or systemroot could not be determined"
-msgstr ""
-"Windows ゲストではありません、またはシステムルートが決められませんでした"
-
-#: src/inspect.c:443
-msgid "not a Windows guest, or CurrentControlSet could not be determined"
-msgstr ""
-"Windows ゲストではありません、または CurrentControlSet を決定できませんでした"
-
-#: src/inspect.c:776
-msgid "no inspection data: call guestfs_inspect_os first"
-msgstr "検査データがありません: まず guestfs_inspect_os を呼び出します"
-
-#: src/inspect.c:786
-#, c-format
-msgid ""
-"%s: root device not found: only call this function with a root device "
-"previously returned by guestfs_inspect_os"
-msgstr ""
-"%s: ルートデバイスが見つかりませんでした: 前に guestfs_inspect_os により返さ"
-"れたルートデバイスとともにこの関数を呼び出してください。"
-
-#: src/launch-direct.c:124
-#, c-format
-msgid "unclosed quote character (%c) in command line near: %s"
-msgstr "引用が終了していない文字 (%c) が次のコマンドライン行近くにあります: %s"
-
-#: src/launch-direct.c:143
-#, c-format
-msgid "cannot parse quoted string near: %s"
-msgstr "次の近くにあるクォートされた文字列を構文解析できません: %s"
-
-#: src/launch-direct.c:210
-#, c-format
-msgid ""
-"current user is not a member of the KVM group (group ID %d). This user "
-"cannot access /dev/kvm, so libguestfs may run very slowly. It is recommended "
-"that you 'chmod 0666 /dev/kvm' or add the current user to the KVM group (you "
-"might need to log out and log in again)."
-msgstr ""
-
-#: src/launch-direct.c:247 src/launch-uml.c:155
-msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "guestfs_launch の前に guestfs_add_drive を呼び出す必要があります"
-
-#: src/launch-direct.c:838 src/launch-libvirt.c:676
-msgid "qemu launched and contacted daemon, but state != READY"
-msgstr "QEMU が起動され、デーモンに接続されましたが、state != READY です"
-
-#: src/launch-libvirt.c:197
-msgid ""
-"could not auto-detect the format.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-"形式を自動検出できませんでした。\n"
-"形式がわかっているならば、形式を libguestfs に渡してください。\n"
-"例: '--format' オプション、または 'add-drive' の 'format' 引数オプション"
-
-#: src/launch-libvirt.c:207
-msgid ""
-"could not auto-detect the format when using a non-file protocol.\n"
-"If the format is known, pass the format to libguestfs, eg. using the\n"
-"'--format' option, or via the optional 'format' argument to 'add-drive'."
-msgstr ""
-"非ファイルプロトコルを使用するとき、形式を自動検出できませんでした。\n"
-"形式がわかっているならば、形式を libguestfs に渡してください。\n"
-"例: '--format' オプション、または 'add-drive' の 'format' 引数オプション"
-
-#: src/launch-libvirt.c:322
-msgid "direct mode flag is not supported yet for libvirt backend"
-msgstr ""
-"ダイレクトモードフラグは libvirt バックエンドに対してまだサポートされていませ"
-"ん"
-
-#: src/launch-libvirt.c:336
-#, c-format
-msgid "you must have libvirt >= %d.%d.%d to use the 'libvirt' backend"
-msgstr ""
-"'libvirt' バックエンドを使用するには libvirt >= %d.%d.%d が必要となります"
-
-#: src/launch-libvirt.c:370
-#, c-format
-msgid "could not connect to libvirt (URI = %s)"
-msgstr "libvirt (URI = %s) に接続できませんでした"
-
-#: src/launch-libvirt.c:399
-msgid "could not get libvirt capabilities"
-msgstr "libvirt ケイパビリティを取得できませんでした"
-
-#: src/launch-libvirt.c:605
-msgid ""
-"could not create appliance through libvirt.\n"
-"\n"
-"Try running qemu directly without libvirt using this environment variable:\n"
-"export LIBGUESTFS_BACKEND=direct\n"
-"\n"
-"Original error from libvirt"
-msgstr ""
-
-#: src/launch-libvirt.c:740
-msgid "unable to parse capabilities XML returned by libvirt"
-msgstr "libvirt により返されたケイパビリティ XML を構文解析できません"
-
-#: src/launch-libvirt.c:756
-#, c-format
-msgid "unable to evaluate XPath expression: %s"
-msgstr "XPath 表現を評価できません: %s"
-
-#: src/launch-libvirt.c:791
-#, c-format
-msgid ""
-"libvirt hypervisor doesn't support qemu or KVM,\n"
-"so we cannot create the libguestfs appliance.\n"
-"The current backend is '%s'.\n"
-"Check that the PATH environment variable is set and contains\n"
-"the path to the qemu ('qemu-system-*') or KVM ('qemu-kvm', 'kvm' etc).\n"
-"Or: try setting:\n"
-"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
-"Or: if you want to have libguestfs run qemu directly, try:\n"
-"  export LIBGUESTFS_BACKEND=direct\n"
-"For further help, read the guestfs(3) man page and libguestfs FAQ."
-msgstr ""
-"libvirt ハイパーバイザーが QEMU または KVM をサポートしません。\n"
-"そのため、libguestfs アプライアンスを作成できません。\n"
-"現在のバックエンドは '%s' です。\n"
-"PATH 環境変数が設定され、QEMU ('qemu-system-*') または \n"
-"KVM ('qemu-kvm', 'kvm' など) へのパスを含むことを確認してください。\n"
-"もしくは: 次の設定を試してください:\n"
-"  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
-"もしくは: libguestfs に直接 QEMU を実行させたければ、次を試してください:\n"
-"  export LIBGUESTFS_BACKEND=direct\n"
-"さらなるヘルプは、guestfs(3) マニュアルページおよび libguestfs FAQ を参照くだ"
-"さい。"
-
-#: src/launch-libvirt.c:1027
-#, c-format
-msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
-msgstr ""
-
-#: src/launch-libvirt.c:1432
-msgid "'iface' parameter is not supported by the libvirt backend"
-msgstr "'iface' パラメーターが libvirt バックエンドによりサポートされません"
-
-#: src/launch-libvirt.c:1478 src/qemu.c:438
-#, c-format
-msgid "realpath: could not convert '%s' to absolute path"
-msgstr "realpath: '%s' を絶対パスに変換できませんでした"
-
-#: src/launch-libvirt.c:1561
-msgid ""
-"libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
-"try setting LIBGUESTFS_BACKEND=direct"
-msgstr ""
-"libvirt が qemu curl ドライバープロトコル (ftp, http など) をサポートしませ"
-"ん; LIBGUESTFS_BACKEND=direct の設定を試してください"
-
-#: src/launch-libvirt.c:1880
-msgid "could not define libvirt secret"
-msgstr ""
-
-#: src/launch-libvirt.c:1891
-msgid "rbd protocol secret must be base64 encoded"
-msgstr ""
-
-#: src/launch-libvirt.c:1895
-#, c-format
-msgid "base64_decode_alloc: %m"
-msgstr ""
-
-#: src/launch-libvirt.c:1916
-msgid "could not set libvirt secret value"
-msgstr ""
-
-#: src/launch-libvirt.c:1929
-msgid "could not get UUID from libvirt secret"
-msgstr ""
-
-#: src/launch-libvirt.c:2039
-#, c-format
-msgid ""
-"bridge '%s' not found.  Try running:\n"
-"\n"
-"  brctl show\n"
-"\n"
-"to get a list of bridges on the host, and then selecting the\n"
-"bridge you wish the appliance network to connect to using:\n"
-"\n"
-"  export LIBGUESTFS_BACKEND_SETTINGS=network_bridge=<bridge name>\n"
-"\n"
-"You may also need to allow the bridge in /etc/qemu/bridge.conf.\n"
-"For further information see guestfs(3)."
-msgstr ""
-
-#: src/launch-libvirt.c:2142
-msgid "could not destroy libvirt domain"
-msgstr "libvirt 仮想マシンを強制停止できませんでした"
-
-#: src/launch-libvirt.c:2163 src/launch-libvirt.c:2196
-#, c-format
-msgid "%s: internal error forming error message"
-msgstr "%s: エラーメッセージを形成している内部エラー"
-
-#: src/launch-libvirt.c:2259
-msgid "could not attach disk to libvirt domain"
-msgstr "libvirt 仮想マシンにディスクを接続できませんでした"
-
-#: src/launch-libvirt.c:2290
-msgid "could not detach disk from libvirt domain"
-msgstr "libvirt 仮想マシンからディスクを切断できませんでした"
-
-#: src/launch-uml.c:95
-msgid "uml backend does not support networking"
-msgstr "uml バックエンドはネットワークをサポートしません"
-
-#: src/launch-uml.c:99
-msgid "uml backend does not support SMP"
-msgstr "uml バックエンドは SMP をサポートしません"
-
-#: src/launch-uml.c:105
-msgid "uml backend does not support remote drives"
-msgstr "uml バックエンドはリモートドライブをサポートしません"
-
-#: src/launch-uml.c:109
-msgid "uml backend does not support non-raw-format drives"
-msgstr "uml バックエンドは raw 形式以外のドライブをサポートしません"
-
-#: src/launch-uml.c:114
-msgid "uml backend does not support drives with 'iface' parameter"
-msgstr ""
-"uml バックエンドは 'iface' パラメーターを持つドライブをサポートしません"
-
-#: src/launch-uml.c:119
-msgid "uml backend does not support drives with 'label' parameter"
-msgstr ""
-"uml バックエンドは 'label' パラメーターを持つドライブをサポートしません"
-
-#: src/launch-uml.c:125
-msgid ""
-"uml backend does not support drives with 'discard' parameter set to 'enable'"
-msgstr ""
-
-#: src/launch-uml.c:456
-msgid "vmlinux launched and contacted daemon, but state != READY"
-msgstr ""
-
-#: src/launch-unix.c:46
-msgid "cannot set hv parameters with the 'unix:' backend"
-msgstr ""
-
-#: src/launch-unix.c:51
-#, c-format
-msgid "socket filename too long (more than %d characters): %s"
-msgstr ""
-
-#: src/launch-unix.c:88
-msgid "guestfs_launch failed, unexpected initial message from guestfsd"
-msgstr "guestfs_launch に失敗しました、guestfsd から予期しない初期メッセージ"
-
-#: src/launch-unix.c:95
-msgid "contacted guestfsd, but state != READY"
-msgstr "guestfsd に接続しましたが、state != READY です"
-
-#: src/launch.c:61
-msgid "the libguestfs handle has already been launched"
-msgstr "libguestfs ハンドルがすでに開始されています"
-
-#: src/launch.c:171
-msgid "get-pid can only be called after launch"
-msgstr "get-pid は launch 後にのみ呼び出せます"
-
-#: src/launch.c:177
-msgid "the current backend does not support 'get-pid'"
-msgstr "現在のバックエンドが 'get-pid' をサポートしません"
-
-#: src/launch.c:191
-msgid "the current backend does not allow max disks to be queried"
-msgstr "現在のバックエンドが最大ディスクを問い合わせできません"
-
-#: src/launch.c:205
-msgid "qemu has not been launched yet"
-msgstr "QEMU がまだ開始されていません"
-
-#: src/launch.c:276
-#, c-format
-msgid "parameter '%s' isn't allowed"
-msgstr "パラメーター '%s' は許可されていません"
-
-#: src/launch.c:549
-#, c-format
-msgid "socket path too long: %s/%s"
-msgstr ""
-
-#: src/libvirt-auth.c:96
-#, c-format
-msgid "unknown credential type '%s'"
-msgstr "未知のクレディンシャル形式 '%s'"
-
-#: src/libvirt-auth.c:101
-msgid "list of supported credentials is too long"
-msgstr "サポートされるクレディンシャルの一覧が長すぎます"
-
-#: src/libvirt-auth.c:166
-#, c-format
-msgid ""
-"libvirt needs authentication to connect to libvirt URI %s\n"
-"(see also: http://libvirt.org/auth.html http://libvirt.org/uri.html)\n"
-msgstr ""
-
-#: src/libvirt-auth.c:242
-#, c-format
-msgid ""
-"%s should only be called from within the GUESTFS_EVENT_LIBVIRT_AUTH event "
-"handler"
-msgstr ""
-"%s は GUESTFS_EVENT_LIBVIRT_AUTH イベントハンドラーに中からのみ呼び出されます"
-
-#: src/libvirt-auth.c:274 src/libvirt-auth.c:294 src/libvirt-auth.c:314
-#: src/libvirt-auth.c:335
-msgid "credential index out of range"
-msgstr "クレディンシャルのインデックスが範囲外です"
-
-#: src/libvirt-auth.c:355
-msgid ""
-"libvirt authentication APIs not available since this version of libguestfs "
-"was compiled without libvirt"
-msgstr ""
-"このバージョンの libguestfs が libvirt なしでコンパイルされたため、libvirt 認"
-"証 API を利用できません"
-
-#: src/libvirt-domain.c:96 src/libvirt-domain.c:246
-msgid "you cannot set both live and readonly flags"
-msgstr "live と readonly フラグをどちらも設定することはできません"
-
-#: src/libvirt-domain.c:129
-#, c-format
-msgid "no libvirt domain called '%s': %s"
-msgstr "'%s' という libvirt ドメインがありません: %s"
-
-#: src/libvirt-domain.c:228
-msgid "unknown readonlydisk parameter"
-msgstr "読み込み専用ディスクに未知のパラメーターがあります"
-
-#: src/libvirt-domain.c:257
-#, c-format
-msgid "error getting domain info: %s"
-msgstr "ドメイン情報の取得中にエラーが発生しました: %s"
-
-#: src/libvirt-domain.c:271
-msgid ""
-"error: domain is a live virtual machine.\n"
-"Writing to the disks of a running virtual machine can cause disk "
-"corruption.\n"
-"Either use read-only access, or if the guest is running the guestfsd daemon\n"
-"specify live access.  In most libguestfs tools these options are --ro or\n"
-"--live respectively.  Consult the documentation for further information."
-msgstr ""
-"エラー: 仮想マシンが実行中です。\n"
-"実行中の仮想マシンのディスクに書き込むことは、ディスク破損を\n"
-"引き起こす可能性があります。読み込み専用アクセスを使用する、\n"
-"もしくは、仮想マシンが実行中ならば guestfsd デーモンが live \n"
-"アクセスを指定します。多くの libguestfs ツールにおいて、これらの\n"
-"オプションはそれぞれ --ro または --live です。\n"
-"詳細はドキュメントを参照してください。"
-
-#: src/libvirt-domain.c:364
-#, c-format
-msgid ""
-"%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
-"\"error\""
-msgstr ""
-"%s: ディスクが libvirt XML において <readonly/> にされています、読み込み専用"
-"ディスクは \"error\" に設定されました"
-
-#: src/libvirt-domain.c:455
-msgid "expected <seclabel/> to be an XML element"
-msgstr "XML 要素となることが期待される <seclabel/>"
-
-#: src/libvirt-domain.c:617
-#, c-format
-msgid "no secret with UUID '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:625
-#, c-format
-msgid "cannot get the value of the secret with UUID '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:653
-#, c-format
-msgid "no secret for usage '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:661
-#, c-format
-msgid "cannot get the value of the secret with usage '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:794
-msgid "libvirt domain has no disks"
-msgstr "libvirt ドメインにディスクがありません"
-
-#: src/libvirt-domain.c:857
-msgid ""
-"this guest has no libvirt <channel> definition for guestfsd\n"
-"See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
-msgstr ""
-"この仮想マシンは guestfsd に対する libvirt <channel> 定義がありません\n"
-"詳細は guestfs(3) の 実行中のデーモンへの接続方法 を参照してください。"
-
-#: src/libvirt-domain.c:876
-#, c-format
-msgid "error reading libvirt XML information: %s"
-msgstr "libvirt XML 情報の読み込み中にエラーが発生しました: %s"
-
-#: src/libvirt-domain.c:886
-msgid "unable to parse XML information returned by libvirt"
-msgstr "libvirt により返された XML 情報を構文解析できません"
-
-#: src/libvirt-domain.c:907
-#, c-format
-msgid "no libvirt pool called '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:915
-#, c-format
-msgid "no volume called '%s' in the libvirt pool '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:923
-#, c-format
-msgid "cannot get information of the libvirt volume '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:937
-#, c-format
-msgid "cannot get the filename of the libvirt volume '%s': %s"
-msgstr ""
-
-#: src/libvirt-domain.c:981
-msgid ""
-"add-domain API not available since this version of libguestfs was compiled "
-"without libvirt"
-msgstr ""
-"このバージョンの libguestfs が libvirt なしでコンパイルされたため、add-"
-"domain API を利用できません"
-
-#: src/osinfo.c:369
-msgid "osinfo: unable to create new XPath context"
-msgstr "osinfo: 新しい XPath コンテキストを作成できません"
-
-#: src/osinfo.c:379
-#, c-format
-msgid "osinfo: %s: unable to evaluate XPath expression"
-msgstr "osinfo: %s: XPath 表現を評価できません"
-
-#: src/proto.c:238
-#, c-format
-msgid ""
-"check_daemon_socket: read 0x%x from daemon, expected 0x%x.  Lost protocol "
-"synchronization (bad!)\n"
-msgstr ""
-"check_daemon_socket: デーモンから 0x%x を読み込みましたが、0x%x を期待されま"
-"す。プロトコルの同期が失われました (不良!)\n"
-
-#: src/proto.c:284
-msgid "xdr_guestfs_message_header failed"
-msgstr "xdr_guestfs_message_header に失敗しました"
-
-#: src/proto.c:293
-msgid "dispatch failed to marshal args"
-msgstr "マーシャル引数の割り当てに失敗しました"
-
-#: src/proto.c:387 src/proto.c:909
-msgid "operation cancelled by user"
-msgstr "操作がユーザーにより取り消されました"
-
-#: src/proto.c:462
-#, c-format
-msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
-msgstr "xdr_guestfs_chunk に失敗しました (buf = %p, buflen = %zu)"
-
-#: src/proto.c:560
-#, c-format
-msgid "received magic signature from guestfsd, but in state %d"
-msgstr "guestfsd からマジックシグネチャーを受け取りましたが、状態は %d です。"
-
-#: src/proto.c:579
-#, c-format
-msgid "message length (%u) > maximum possible size (%d)"
-msgstr "メッセージの長さ (%u) > 最大許容サイズ (%d)"
-
-#: src/proto.c:865
-msgid "write to daemon socket"
-msgstr "デーモンのソケットに書き込みます"
-
-#: src/proto.c:894
-msgid "receive_file_data: unexpected flag received when reading file chunks"
-msgstr ""
-"receive_file_data: ファイルのチャンクの読み込み中に予期しないフラグを受信しま"
-"した"
-
-#: src/proto.c:902
-msgid "failed to parse file chunk"
-msgstr "ファイルのチャンクの解析に失敗しました"
-
-#: src/proto.c:911
-msgid "file receive cancelled by daemon"
-msgstr "ファイルの受信がデーモンにより取り消されました"
-
-#: src/qemu.c:620
-msgid "discard cannot be enabled on this drive: qemu < 1.5"
-msgstr ""
-
-#: src/qemu.c:629
-msgid ""
-"discard cannot be enabled on this drive: the drive has a read-only overlay"
-msgstr ""
-
-#: src/qemu.c:636
-msgid ""
-"discard cannot be enabled on this drive: you have to specify the format of "
-"the file"
-msgstr ""
-
-#: src/qemu.c:644
-msgid ""
-"discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
-"qcow2 files"
-msgstr ""
-
-#: src/qemu.c:652
-#, c-format
-msgid ""
-"discard cannot be enabled on this drive: qemu does not support discard for "
-"'%s' format files"
-msgstr ""
-
-#: src/qemu.c:675
-#, c-format
-msgid ""
-"discard cannot be enabled on this drive: protocol '%s' does not support "
-"discard"
-msgstr ""
-
-#: src/tmpdirs.c:65
-#, c-format
-msgid "converting path to absolute path: %s: %s: realpath"
-msgstr ""
-
-#: src/tmpdirs.c:72 src/tmpdirs.c:78
-#, c-format
-msgid "setting temporary directory"
-msgstr ""
-
-#: src/tmpdirs.c:77
-#, c-format
-msgid "%s: %s: '%s' is not a directory"
-msgstr ""
-
-#: src/tmpdirs.c:188
-#, c-format
-msgid "%s: cannot create temporary directory"
-msgstr "%s: 一時ディレクトリを作成できません"
-
-#: src/tmpdirs.c:268
-#, c-format
-msgid "stat: %s"
-msgstr ""
-
-#: src/tmpdirs.c:273
-#, c-format
-msgid "security: cached appliance %s is not owned by UID %ju"
-msgstr ""
-
-#: src/tmpdirs.c:279
-#, c-format
-msgid "security: cached appliance %s is not a directory (mode %o)"
-msgstr ""
-"security: キャッシュされたアプライアンス %s がディレクトリではありません"
-"（モード %o）"
-
-#: src/tmpdirs.c:285
-#, c-format
-msgid "security: cached appliance %s is writable by group or other (mode %o)"
-msgstr ""
-"security: キャッシュされたアプライアンス %s がグループまたは全体に対して書き"
-"込み可能ではありません（モード %o）"
-
-#: src/utils.c:223
-#, c-format
-msgid "%s exited successfully"
-msgstr "%s が正常に終了しました"
-
-#: src/utils.c:226
-#, c-format
-msgid "%s exited with error status %d"
-msgstr "%s がエラーステータス %d で終了しました"
-
-#: src/utils.c:230
-#, c-format
-msgid "%s killed by signal %d (%s)"
-msgstr "%s がシグナル %d (%s) によりキルされました"
-
-#: src/utils.c:234
-#, c-format
-msgid "%s stopped by signal %d (%s)"
-msgstr "%s がシグナル %d (%s) により停止しました"
-
-#: src/utils.c:238
-#, c-format
-msgid "%s exited for an unknown reason (status %d)"
-msgstr "%s が未知の理由で終了しました (ステータス %d)"
-
-#: src/whole-file.c:84
-#, c-format
-msgid "read: %s: unexpected end of file"
-msgstr "read: %s: 予期しない EOF がありました"
 
 #: test-tool/test-tool.c:56
 #, c-format
 msgid ""
 "libguestfs-test-tool: interactive test tool\n"
-"Copyright (C) 2009-2016 Red Hat Inc.\n"
+"Copyright (C) 2009-2017 Red Hat Inc.\n"
 "Usage:\n"
 "  libguestfs-test-tool [--options]\n"
 "Options:\n"
