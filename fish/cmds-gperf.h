@@ -40,6 +40,4 @@ struct command_table {
   struct command_entry *entry;
 };
 
-const struct command_table *lookup_fish_command (register const char *str, register unsigned int len);
-
 #endif /* FISH_CMDS_GPERF_H */

@@ -671,52 +671,7 @@ let generate_fish_cmds () =
   pr "  printf (\"    %%s\\n\",";
   pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
   pr "}\n";
-  pr "\n";
-
-  (* display_command function, which implements guestfish -h cmd *)
-  pr "int\n";
-  pr "display_command (const char *cmd)\n";
-  pr "{\n";
-  pr "  const struct command_table *ct;\n";
-  pr "\n";
-  pr "  ct = lookup_fish_command (cmd, strlen (cmd));\n";
-  pr "  if (ct) {\n";
-  pr "    fputs (ct->entry->help, stdout);\n";
-  pr "    return 0;\n";
-  pr "  }\n";
-  pr "  else\n";
-  pr "    return display_builtin_command (cmd);\n";
-  pr "}\n";
-  pr "\n";
-
-  (* run_action function *)
-  pr "int\n";
-  pr "run_action (const char *cmd, size_t argc, char *argv[])\n";
-  pr "{\n";
-  pr "  const struct command_table *ct;\n";
-  pr "  int ret = -1;\n";
-  pr "\n";
-  pr "  ct = lookup_fish_command (cmd, strlen (cmd));\n";
-  pr "  if (ct) {\n";
-  pr "    ret = ct->entry->run (cmd, argc, argv);\n";
-  pr "    /* run function may return magic value -2 (RUN_WRONG_ARGS) to indicate\n";
-  pr "     * that this function should print the command synopsis.\n";
-  pr "     */\n";
-  pr "    if (ret == RUN_WRONG_ARGS) {\n";
-  pr "      fprintf (stderr, _(\"error: incorrect number of arguments\\n\"));\n";
-  pr "      if (ct->entry->synopsis)\n";
-  pr "        fprintf (stderr, _(\"usage: %%s\\n\"), ct->entry->synopsis);\n";
-  pr "      fprintf (stderr, _(\"type 'help %%s' for more help on %%s\\n\"), cmd, cmd);\n";
-  pr "      ret = -1;\n";
-  pr "    }\n";
-  pr "  }\n";
-  pr "  else {\n";
-  pr "    fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
-  pr "    if (command_num == 1)\n";
-  pr "      extended_help_message ();\n";
-  pr "  }\n";
-  pr "  return ret;\n";
-  pr "}\n"
+  pr "\n"
 
 and generate_fish_cmds_h () =
   generate_header CStyle GPLv2plus;
@@ -749,9 +704,13 @@ and generate_fish_cmds_gperf () =
 
 #include <config.h>
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libintl.h>
 
+#include \"fish.h\"
+#include \"run.h\"
 #include \"cmds-gperf.h\"
 
 ";
@@ -786,7 +745,53 @@ struct command_table;
         fun alias ->
           pr "%s, &%s_cmd_entry\n" alias name;
       ) aliases;
-  ) fish_functions_and_commands_sorted
+  ) fish_functions_and_commands_sorted;
+
+  pr "\
+%%%%
+
+int
+display_command (const char *cmd)
+{
+  const struct command_table *ct;
+
+  ct = lookup_fish_command (cmd, strlen (cmd));
+  if (ct) {
+    fputs (ct->entry->help, stdout);
+    return 0;
+  }
+  else
+    return display_builtin_command (cmd);
+}
+
+int
+run_action (const char *cmd, size_t argc, char *argv[])
+{
+  const struct command_table *ct;
+  int ret = -1;
+
+  ct = lookup_fish_command (cmd, strlen (cmd));
+  if (ct) {
+    ret = ct->entry->run (cmd, argc, argv);
+    /* run function may return magic value -2 (RUN_WRONG_ARGS) to indicate
+     * that this function should print the command synopsis.
+     */
+    if (ret == RUN_WRONG_ARGS) {
+      fprintf (stderr, _(\"error: incorrect number of arguments\\n\"));
+      if (ct->entry->synopsis)
+        fprintf (stderr, _(\"usage: %%s\\n\"), ct->entry->synopsis);
+      fprintf (stderr, _(\"type 'help %%s' for more help on %%s\\n\"), cmd, cmd);
+      ret = -1;
+    }
+  }
+  else {
+    fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);
+    if (command_num == 1)
+      extended_help_message ();
+  }
+  return ret;
+}
+"
 
 (* Readline completion for guestfish. *)
 and generate_fish_completion () =
