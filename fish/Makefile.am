@@ -151,7 +151,13 @@ librc_protocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 # Build the command lookup perfect hash code.  The generated code has
 # lots of warnings so we must compile it in a separate mini-library.
 libcmds_la_SOURCES = cmds-gperf.c
+libcmds_la_CPPFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 libcmds_la_CFLAGS =
+libcmds_la_LIBADD = \
+	$(top_builddir)/src/libutils.la \
+	$(LTLIBINTL)
 
 cmds-gperf.c: cmds-gperf.gperf
 	rm -f $@
