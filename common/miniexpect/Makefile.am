@@ -15,11 +15,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-include $(top_srcdir)/subdir-rules.mk
-
 # This directory contains a copy of the miniexpect library from
 # http://git.annexia.org/?p=miniexpect.git;a=summary
 # This is used in virt-p2v.
+
+include $(top_srcdir)/subdir-rules.mk
+
+EXTRA_DIST = \
+	miniexpect.pod \
+	README
+
 noinst_LTLIBRARIES = libminiexpect.la
 
 libminiexpect_la_SOURCES = \
@@ -30,3 +35,17 @@ libminiexpect_la_CFLAGS = \
 	$(PCRE_CFLAGS)
 libminiexpect_la_LIBADD = \
 	$(PCRE_LIBS)
+
+# It should be noinst_MANS but that doesn't work.
+noinst_DATA = miniexpect.3
+
+# podwrapper cannot parse this page because it's not in the POD format
+# expected by libguestfs.  Just use pod2man, but don't fail if we
+# can't generate it.
+miniexpect.3: miniexpect.pod
+	rm -f $@ $@-t
+	-pod2man --utf8 --stderr \
+	    --center=miniexpect --release=miniexpect --name=miniexpect \
+	    --section=3 \
+	    $< $@-t
+	mv $@-t $@ || touch $@

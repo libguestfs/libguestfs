@@ -120,6 +120,7 @@ Makefile.in
 /common/errnostring/errnostring-gperf.c
 /common/errnostring/errnostring-gperf.gperf
 /common/errnostring/errnostring.h
+/common/miniexpect/miniexpect.3
 /common/protocol/guestfs_protocol.c
 /common/protocol/guestfs_protocol.h
 /common/protocol/guestfs_protocol.x
