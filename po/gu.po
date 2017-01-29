@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2016-10-27 13:03+0100\n"
+"POT-Creation-Date: 2017-01-28 20:43+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -42,7 +42,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../mllib/common_utils.ml:475
+#: ../mllib/common_utils.ml:476
 msgid "%s"
 msgstr ""
 
@@ -52,8 +52,8 @@ msgid ""
 "Options:\n"
 msgstr ""
 
-#. ../customize/customize_run.ml:443
-#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:1010
+#. ../customize/customize_run.ml:442
+#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:1011
 msgid "%s (ignored)"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgstr ""
 msgid "%s did not return any output"
 msgstr ""
 
-#: ../customize/customize_run.ml:240
+#: ../customize/customize_run.ml:239
 msgid "%s does not exist in the guest"
 msgstr ""
 
@@ -98,11 +98,11 @@ msgstr ""
 msgid "%s is not a Simple Streams (products) v1.0 JSON file (format: %s)"
 msgstr ""
 
-#: ../customize/customize_run.ml:243
+#: ../customize/customize_run.ml:242
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../dib/utils.ml:97
+#: ../dib/utils.ml:95
 msgid "%s needed but not found"
 msgstr ""
 
@@ -118,11 +118,11 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:471 ../mllib/common_utils.ml:443
+#: ../mllib/common_utils.ml:472 ../mllib/common_utils.ml:444
 msgid "%s: %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:473
+#: ../mllib/common_utils.ml:474
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "%s: cannot use a URI ('%s') in the index file\n"
 msgstr ""
 
-#: ../customize/customize_run.ml:98
+#: ../customize/customize_run.ml:97
 msgid "%s: command exited with an error"
 msgstr ""
 
@@ -272,7 +272,7 @@ msgid ""
 "read the man page virt-v2v-copy-to-local(1).\n"
 msgstr ""
 
-#: ../customize/customize_main.ml:94
+#: ../customize/customize_main.ml:93
 msgid ""
 "%s: customize a virtual machine\n"
 "\n"
@@ -284,7 +284,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:415
+#: ../mllib/common_utils.ml:416
 msgid "%s: error: %s"
 msgstr ""
 
@@ -440,7 +440,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:433
+#: ../mllib/common_utils.ml:434
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -452,7 +452,7 @@ msgstr ""
 msgid "%s: zero length path in the index file\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:319 ../customize/customize_cmdline.ml:228
+#: ../customize/customize_cmdline.ml:317 ../customize/customize_cmdline.ml:226
 msgid "'CMD+ARGS'"
 msgstr ""
 
@@ -460,7 +460,7 @@ msgstr ""
 msgid "--add option can only be given once"
 msgstr ""
 
-#: ../customize/customize_main.ml:112
+#: ../customize/customize_main.ml:111
 msgid "--attach-format parameter must appear before --attach parameter"
 msgstr ""
 
@@ -484,7 +484,7 @@ msgstr ""
 msgid "--debug parameter must be >= 0"
 msgstr ""
 
-#. ../customize/customize_main.ml:70
+#. ../customize/customize_main.ml:69
 #: ../sysprep/main.ml:64 ../get-kernel/get_kernel.ml:47
 msgid "--domain option can only be given once"
 msgstr ""
@@ -501,7 +501,7 @@ msgstr ""
 msgid "--expand option given twice"
 msgstr ""
 
-#: ../sysprep/main.ml:154 ../customize/customize_main.ml:109
+#: ../sysprep/main.ml:154 ../customize/customize_main.ml:108
 msgid "--format parameter must appear before -a parameter"
 msgstr ""
 
@@ -509,7 +509,7 @@ msgstr ""
 msgid "--get-kernel: too many parameters"
 msgstr ""
 
-#: ../customize/customize_run.ml:129 ../customize/customize_run.ml:127
+#: ../customize/customize_run.ml:128 ../customize/customize_run.ml:126
 msgid "--install"
 msgstr ""
 
@@ -571,11 +571,11 @@ msgstr ""
 msgid "--tmp prebuilt:file: %s: file format is not qcow2"
 msgstr ""
 
-#: ../customize/customize_run.ml:181 ../customize/customize_run.ml:179
+#: ../customize/customize_run.ml:180 ../customize/customize_run.ml:178
 msgid "--uninstall"
 msgstr ""
 
-#: ../customize/customize_run.ml:157 ../customize/customize_run.ml:155
+#: ../customize/customize_run.ml:156 ../customize/customize_run.ml:154
 msgid "--update"
 msgstr ""
 
@@ -706,7 +706,7 @@ msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
 
-#. ../customize/customize_main.ml:75
+#. ../customize/customize_main.ml:74
 #: ../sysprep/main.ml:121 ../get-kernel/get_kernel.ml:55
 msgid "Add disk image file"
 msgstr ""
@@ -723,11 +723,11 @@ msgstr ""
 msgid "Add new a elements location"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:257
+#: ../customize/customize_cmdline.ml:255
 msgid "Add package(s) to install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:240
+#: ../customize/customize_cmdline.ml:238
 msgid "Add package(s) to install at first boot"
 msgstr ""
 
@@ -747,23 +747,23 @@ msgstr ""
 msgid "Architecture:"
 msgstr ""
 
-#: ../v2v/v2v.ml:140
+#: ../v2v/v2v.ml:141
 msgid "Assigning disks to buses"
 msgstr ""
 
-#: ../customize/customize_main.ml:76 ../builder/cmdline.ml:125
+#: ../customize/customize_main.ml:75 ../builder/cmdline.ml:125
 msgid "Attach data disk/ISO during install"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:337
+#: ../customize/customize_cmdline.ml:335
 msgid "Attach to a subscription-manager pool"
 msgstr ""
 
-#: ../customize/customize_run.ml:306
+#: ../customize/customize_run.ml:305
 msgid "Attaching to compatible subscriptions"
 msgstr ""
 
-#: ../customize/customize_run.ml:310
+#: ../customize/customize_run.ml:309
 msgid "Attaching to the pool %s"
 msgstr ""
 
@@ -818,11 +818,11 @@ msgstr ""
 msgid "Change filesystem UUIDs"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:167
+#: ../customize/customize_cmdline.ml:165
 msgid "Change the permissions of a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:208
+#: ../customize/customize_run.ml:207
 msgid "Changing permissions of %s to %s"
 msgstr ""
 
@@ -834,11 +834,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:365
+#: ../v2v/v2v.ml:366
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:581
+#: ../v2v/v2v.ml:582
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -846,11 +846,11 @@ msgstr ""
 msgid "Clearing Linux swap on %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:126
+#: ../v2v/v2v.ml:127
 msgid "Closing the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:127
+#: ../v2v/v2v.ml:128
 msgid "Closing the source VM"
 msgstr ""
 
@@ -874,11 +874,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:555
+#: ../v2v/v2v.ml:556
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:553
+#: ../v2v/v2v.ml:554
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -886,11 +886,11 @@ msgstr ""
 msgid "Converting to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:189
+#: ../customize/customize_cmdline.ml:187
 msgid "Copy files in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:200
+#: ../customize/customize_cmdline.ml:198
 msgid "Copy local files or directories into image"
 msgstr ""
 
@@ -902,11 +902,11 @@ msgstr ""
 msgid "Copying %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:225
+#: ../customize/customize_run.ml:224
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:620
+#: ../v2v/v2v.ml:621
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -914,11 +914,11 @@ msgstr ""
 msgid "Copying remote disk %d/%d to %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:229
+#: ../customize/customize_run.ml:228
 msgid "Copying: %s to %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:274
+#: ../customize/customize_cmdline.ml:272
 msgid "Create a directory"
 msgstr ""
 
@@ -930,19 +930,19 @@ msgstr ""
 msgid "Create overlay file in %s to protect source disk"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:268
+#: ../customize/customize_cmdline.ml:266
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:242
+#: ../v2v/v2v.ml:243
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
-#: ../v2v/v2v.ml:151
+#: ../v2v/v2v.ml:152
 msgid "Creating output metadata"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:462
+#: ../customize/customize_cmdline.ml:460
 msgid "Credentials for subscription-manager"
 msgstr ""
 
@@ -970,11 +970,11 @@ msgid ""
 "for installing packages, editing files and so on."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:273
+#: ../customize/customize_cmdline.ml:271
 msgid "DIR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:206
+#: ../customize/customize_cmdline.ml:204
 msgid "Delete a file or directory"
 msgstr ""
 
@@ -986,12 +986,12 @@ msgstr ""
 msgid "Delete the template cache"
 msgstr ""
 
-#: ../customize/customize_run.ml:233 ../builder/builder.ml:136
+#: ../customize/customize_run.ml:232 ../builder/builder.ml:136
 msgid "Deleting: %s"
 msgstr ""
 
 #. ../builder/cmdline.ml:154
-#: ../dib/cmdline.ml:194 ../customize/customize_main.ml:85
+#: ../dib/cmdline.ml:194 ../customize/customize_main.ml:84
 msgid "Disable appliance network"
 msgstr ""
 
@@ -1019,7 +1019,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:612
+#: ../mllib/common_utils.ml:613
 msgid "Display version and exit"
 msgstr ""
 
@@ -1051,11 +1051,11 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:616
+#: ../mllib/common_utils.ml:617
 msgid "Don't print progress messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:624
+#: ../mllib/common_utils.ml:625
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
@@ -1081,11 +1081,11 @@ msgid ""
 "that contains the main operating system from the list below:\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:217
+#: ../customize/customize_cmdline.ml:215
 msgid "Edit file using Perl expression"
 msgstr ""
 
-#: ../customize/customize_run.ml:237
+#: ../customize/customize_run.ml:236
 msgid "Editing: %s"
 msgstr ""
 
@@ -1098,7 +1098,7 @@ msgid "Enable appliance network"
 msgstr ""
 
 #. ../builder/cmdline.ml:153
-#: ../dib/cmdline.ml:193 ../customize/customize_main.ml:84
+#: ../dib/cmdline.ml:193 ../customize/customize_main.ml:83
 msgid "Enable appliance network (default)"
 msgstr ""
 
@@ -1106,7 +1106,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:613
+#: ../mllib/common_utils.ml:614
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1114,7 +1114,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:614
+#: ../mllib/common_utils.ml:615
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:544
+#: ../v2v/v2v.ml:545
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1138,7 +1138,7 @@ msgstr ""
 msgid "Examining %s"
 msgstr ""
 
-#: ../sysprep/main.ml:209 ../customize/customize_main.ml:157
+#: ../sysprep/main.ml:209 ../customize/customize_main.ml:156
 msgid "Examining the guest ..."
 msgstr ""
 
@@ -1178,24 +1178,24 @@ msgstr ""
 msgid "Extracting data out of the image"
 msgstr ""
 
-#. ../customize/customize_cmdline.ml:325
-#: ../customize/customize_cmdline.ml:390 ../customize/customize_cmdline.ml:372
+#. ../customize/customize_cmdline.ml:323
+#: ../customize/customize_cmdline.ml:388 ../customize/customize_cmdline.ml:370
 msgid "FILE"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:425
+#: ../customize/customize_cmdline.ml:423
 msgid "FILE:CONTENT"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:414
+#: ../customize/customize_cmdline.ml:412
 msgid "FILE:DEST"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:212
+#: ../customize/customize_cmdline.ml:210
 msgid "FILE:EXPR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:173
+#: ../customize/customize_cmdline.ml:171
 msgid "FILENAME"
 msgstr ""
 
@@ -1231,9 +1231,9 @@ msgstr ""
 msgid "Fingerprint: %s\n"
 msgstr ""
 
-#. ../customize/customize_main.ml:197
+#. ../customize/customize_main.ml:196
 #. ../builder/builder.ml:722
-#: ../v2v/v2v.ml:159 ../v2v/copy_to_local.ml:232
+#: ../v2v/v2v.ml:160 ../v2v/copy_to_local.ml:232
 msgid "Finishing off"
 msgstr ""
 
@@ -1317,7 +1317,7 @@ msgstr ""
 msgid "Get kernel from image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:245
+#: ../customize/customize_cmdline.ml:243
 msgid "HOSTNAME"
 msgstr ""
 
@@ -1325,7 +1325,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:420
+#: ../mllib/common_utils.ml:421
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1349,11 +1349,11 @@ msgstr ""
 msgid "Importing the image to docker as '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:288
+#: ../v2v/v2v.ml:289
 msgid "Initializing the target %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:367
+#: ../customize/customize_cmdline.ml:365
 msgid "Inject a public key into the guest"
 msgstr ""
 
@@ -1361,11 +1361,11 @@ msgstr ""
 msgid "Input format (for -i disk)"
 msgstr ""
 
-#: ../v2v/v2v.ml:89
+#: ../v2v/v2v.ml:90
 msgid "Inspecting the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:90
+#: ../v2v/v2v.ml:91
 msgid "Inspecting the source VM"
 msgstr ""
 
@@ -1373,19 +1373,19 @@ msgstr ""
 msgid "Installation type"
 msgstr ""
 
-#: ../customize/customize_run.ml:248
+#: ../customize/customize_run.ml:247
 msgid "Installing firstboot command: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:252
+#: ../customize/customize_run.ml:251
 msgid "Installing firstboot packages: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:259
+#: ../customize/customize_run.ml:258
 msgid "Installing firstboot script: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:269
+#: ../customize/customize_run.ml:268
 msgid "Installing packages: %s"
 msgstr ""
 
@@ -1401,7 +1401,7 @@ msgstr ""
 msgid "Key: %s\n"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:195
+#: ../customize/customize_cmdline.ml:193
 msgid "LOCALPATH:REMOTEDIR"
 msgstr ""
 
@@ -1413,7 +1413,7 @@ msgstr ""
 msgid "Libvirt URI"
 msgstr ""
 
-#: ../customize/customize_run.ml:276
+#: ../customize/customize_run.ml:275
 msgid "Linking: %s -> %s"
 msgstr ""
 
@@ -1440,7 +1440,7 @@ msgstr ""
 msgid "Make output machine readable"
 msgstr ""
 
-#: ../customize/customize_run.ml:281
+#: ../customize/customize_run.ml:280
 msgid "Making directory: %s"
 msgstr ""
 
@@ -1452,7 +1452,7 @@ msgstr ""
 msgid "Map network 'in' to 'out'"
 msgstr ""
 
-#: ../v2v/v2v.ml:121
+#: ../v2v/v2v.ml:122
 msgid "Mapping filesystem data to avoid copying unused and blank areas"
 msgstr ""
 
@@ -1468,11 +1468,11 @@ msgstr ""
 msgid "Mount point on host"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:285
+#: ../customize/customize_cmdline.ml:283
 msgid "Move files in disk image"
 msgstr ""
 
-#: ../customize/customize_run.ml:285
+#: ../customize/customize_run.ml:284
 msgid "Moving: %s -> %s"
 msgstr ""
 
@@ -1497,7 +1497,7 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:106
+#: ../v2v/output_vdsm.ml:105
 msgid "OVF (metadata) directory (%s) does not exist or is not a directory"
 msgstr ""
 
@@ -1521,7 +1521,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../customize/firstboot.ml:254
+#: ../customize/firstboot.ml:253
 msgid ""
 "One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
 "required in order to install Windows firstboot scripts.  You can get one by "
@@ -1544,7 +1544,7 @@ msgstr ""
 msgid "Opening the overlay"
 msgstr ""
 
-#: ../v2v/v2v.ml:162
+#: ../v2v/v2v.ml:163
 msgid "Opening the source %s"
 msgstr ""
 
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:733
+#: ../v2v/v2v.ml:734
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
@@ -1608,16 +1608,16 @@ msgstr ""
 msgid "Override dcPath (for vCenter)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:378 ../customize/customize_cmdline.ml:205
+#: ../customize/customize_cmdline.ml:376 ../customize/customize_cmdline.ml:203
 msgid "PATH"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:162
+#: ../customize/customize_cmdline.ml:160
 msgid "PERMISSIONS:FILE"
 msgstr ""
 
-#. ../customize/customize_cmdline.ml:235
-#: ../customize/customize_cmdline.ml:397 ../customize/customize_cmdline.ml:252
+#. ../customize/customize_cmdline.ml:233
+#: ../customize/customize_cmdline.ml:395 ../customize/customize_cmdline.ml:250
 msgid "PKG,PKG.."
 msgstr ""
 
@@ -1639,7 +1639,7 @@ msgstr ""
 msgid "Parsing the remote libvirt XML metadata ..."
 msgstr ""
 
-#: ../sysprep/main.ml:124 ../customize/customize_main.ml:81
+#: ../sysprep/main.ml:124 ../customize/customize_main.ml:80
 msgid "Perform a dry run"
 msgstr ""
 
@@ -1679,31 +1679,31 @@ msgstr ""
 msgid "RHEV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:178
+#: ../customize/customize_cmdline.ml:176
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../mllib/common_utils.ml:625
+#: ../mllib/common_utils.ml:626
 msgid "Read passphrases from stdin"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:379
+#: ../customize/customize_cmdline.ml:377
 msgid "Recursively truncate all files in directory"
 msgstr ""
 
-#: ../customize/customize_run.ml:351
+#: ../customize/customize_run.ml:350
 msgid "Recursively truncating: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:343
+#: ../customize/customize_cmdline.ml:341
 msgid "Register using subscription-manager"
 msgstr ""
 
-#: ../customize/customize_run.ml:316
+#: ../customize/customize_run.ml:315
 msgid "Registering with subscription-manager"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:452
+#: ../customize/customize_cmdline.ml:450
 msgid "Relabel files with correct SELinux labels"
 msgstr ""
 
@@ -1739,7 +1739,7 @@ msgstr ""
 msgid "Remove Kerberos data in the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:349
+#: ../customize/customize_cmdline.ml:347
 msgid "Remove all the subscriptions"
 msgstr ""
 
@@ -1882,7 +1882,7 @@ msgstr ""
 msgid "Remove user at-jobs and cron-jobs"
 msgstr ""
 
-#: ../customize/customize_run.ml:329
+#: ../customize/customize_run.ml:328
 msgid "Removing all the subscriptions"
 msgstr ""
 
@@ -1916,19 +1916,19 @@ msgstr ""
 msgid "Run arbitrary scripts against the guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:229
+#: ../customize/customize_cmdline.ml:227
 msgid "Run command at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:320
+#: ../customize/customize_cmdline.ml:318
 msgid "Run command in disk image"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:223
+#: ../customize/customize_cmdline.ml:221
 msgid "Run script at first guest boot"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:314
+#: ../customize/customize_cmdline.ml:312
 msgid "Run script in disk image"
 msgstr ""
 
@@ -1942,15 +1942,15 @@ msgid ""
 "the full absolute path to the script."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:391
+#: ../customize/customize_cmdline.ml:389
 msgid "Run touch on a file"
 msgstr ""
 
-#: ../customize/customize_run.ml:360
+#: ../customize/customize_run.ml:359
 msgid "Running touch: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:295 ../customize/customize_run.ml:216
+#: ../customize/customize_run.ml:294 ../customize/customize_run.ml:215
 msgid "Running: %s"
 msgstr ""
 
@@ -1958,28 +1958,28 @@ msgstr ""
 msgid "Running: %s/%s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:313 ../customize/customize_cmdline.ml:222
+#: ../customize/customize_cmdline.ml:311 ../customize/customize_cmdline.ml:220
 msgid "SCRIPT"
 msgstr ""
 
-#. ../customize/customize_cmdline.ml:303
-#: ../customize/customize_cmdline.ml:458 ../customize/customize_cmdline.ml:332
+#. ../customize/customize_cmdline.ml:301
+#: ../customize/customize_cmdline.ml:456 ../customize/customize_cmdline.ml:330
 msgid "SELECTOR"
 msgstr ""
 
-#: ../customize/customize_run.ml:416
+#: ../customize/customize_run.ml:415
 msgid "SELinux relabelling"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:280 ../customize/customize_cmdline.ml:184
+#: ../customize/customize_cmdline.ml:278 ../customize/customize_cmdline.ml:182
 msgid "SOURCE:DEST"
 msgstr ""
 
-#: ../customize/customize_run.ml:344
+#: ../customize/customize_run.ml:343
 msgid "SSH key could be injected for this type of guest"
 msgstr ""
 
-#: ../customize/customize_run.ml:341
+#: ../customize/customize_run.ml:340
 msgid "SSH key inject: %s"
 msgstr ""
 
@@ -1991,19 +1991,19 @@ msgstr ""
 msgid "Script or program to run on guest"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:326
+#: ../customize/customize_cmdline.ml:324
 msgid "Scrub a file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:436
+#: ../customize/customize_cmdline.ml:434
 msgid "Scrub build log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:427
+#: ../customize/customize_run.ml:426
 msgid "Scrubbing the log file"
 msgstr ""
 
-#: ../customize/customize_run.ml:300
+#: ../customize/customize_run.ml:299
 msgid "Scrubbing: %s"
 msgstr ""
 
@@ -2011,7 +2011,7 @@ msgstr ""
 msgid "Set GPG binary/command"
 msgstr ""
 
-#: ../customize/customize_main.ml:78 ../builder/cmdline.ml:127
+#: ../customize/customize_main.ml:77 ../builder/cmdline.ml:127
 msgid "Set attach disk format"
 msgstr ""
 
@@ -2023,7 +2023,7 @@ msgstr ""
 msgid "Set debug level"
 msgstr ""
 
-#: ../sysprep/main.ml:128 ../customize/customize_main.ml:82
+#: ../sysprep/main.ml:128 ../customize/customize_main.ml:81
 msgid "Set format (default: auto)"
 msgstr ""
 
@@ -2031,18 +2031,18 @@ msgstr ""
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
-#. ../customize/customize_main.ml:79
+#. ../customize/customize_main.ml:78
 #: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
 msgid "Set libvirt URI"
 msgstr ""
 
-#. ../customize/customize_main.ml:80
+#. ../customize/customize_main.ml:79
 #: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:57
 msgid "Set libvirt guest name"
 msgstr ""
 
 #. ../builder/cmdline.ml:152
-#: ../dib/cmdline.ml:192 ../customize/customize_main.ml:83
+#: ../dib/cmdline.ml:192 ../customize/customize_main.ml:82
 msgid "Set memory size"
 msgstr ""
 
@@ -2051,7 +2051,7 @@ msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr ""
 
 #. ../builder/cmdline.ml:160
-#: ../dib/cmdline.ml:195 ../customize/customize_main.ml:86
+#: ../dib/cmdline.ml:195 ../customize/customize_main.ml:85
 msgid "Set number of vCPUs"
 msgstr ""
 
@@ -2083,11 +2083,11 @@ msgstr ""
 msgid "Set partition alignment (default: 128 sectors)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:446
+#: ../customize/customize_cmdline.ml:444
 msgid "Set password crypto"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:308
+#: ../customize/customize_cmdline.ml:306
 msgid "Set root password"
 msgstr ""
 
@@ -2103,7 +2103,7 @@ msgstr ""
 msgid "Set temporary block device, directory or prebuilt file"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:385
+#: ../customize/customize_cmdline.ml:383
 msgid "Set the default timezone"
 msgstr ""
 
@@ -2111,7 +2111,7 @@ msgstr ""
 msgid "Set the format for --list (default: short)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:246
+#: ../customize/customize_cmdline.ml:244
 msgid "Set the hostname"
 msgstr ""
 
@@ -2119,27 +2119,27 @@ msgstr ""
 msgid "Set the output architecture"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:297
+#: ../customize/customize_cmdline.ml:295
 msgid "Set user password"
 msgstr ""
 
-#: ../customize/customize_run.ml:192
+#: ../customize/customize_run.ml:191
 msgid "Setting a random seed"
 msgstr ""
 
-#: ../customize/customize_run.ml:407
+#: ../customize/customize_run.ml:406
 msgid "Setting passwords"
 msgstr ""
 
-#: ../customize/password.ml:111
+#: ../customize/password.ml:109
 msgid "Setting random password of %s to %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:264
+#: ../customize/customize_run.ml:263
 msgid "Setting the hostname: %s"
 msgstr ""
 
-#: ../customize/customize_run.ml:355
+#: ../customize/customize_run.ml:354
 msgid "Setting the timezone: %s"
 msgstr ""
 
@@ -2175,7 +2175,7 @@ msgstr ""
 msgid "Source URI: %s\n"
 msgstr ""
 
-#: ../v2v/v2v.ml:167
+#: ../v2v/v2v.ml:168
 msgid "Source guest information (--print-source option):\n"
 msgstr ""
 
@@ -2187,11 +2187,11 @@ msgstr ""
 msgid "Sparsify operation completed with no errors."
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:263
+#: ../customize/customize_cmdline.ml:261
 msgid "TARGET:LINK[:LINK..]"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:384
+#: ../customize/customize_cmdline.ml:382
 msgid "TIMEZONE"
 msgstr ""
 
@@ -2356,11 +2356,11 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:574
+#: ../v2v/v2v.ml:575
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:572
+#: ../v2v/v2v.ml:573
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
@@ -2371,7 +2371,7 @@ msgid ""
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:602
+#: ../v2v/v2v.ml:603
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2396,11 +2396,11 @@ msgstr ""
 msgid "Trimming %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:373
+#: ../customize/customize_cmdline.ml:371
 msgid "Truncate a file to zero size"
 msgstr ""
 
-#: ../customize/customize_run.ml:347
+#: ../customize/customize_run.ml:346
 msgid "Truncating: %s"
 msgstr ""
 
@@ -2408,11 +2408,11 @@ msgstr ""
 msgid "Turn off sparse copying"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:291
+#: ../customize/customize_cmdline.ml:289
 msgid "USER:SELECTOR"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:361
+#: ../customize/customize_cmdline.ml:359
 msgid "USER[:SELECTOR]"
 msgstr ""
 
@@ -2424,39 +2424,39 @@ msgstr ""
 msgid "Uncompressing"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:402
+#: ../customize/customize_cmdline.ml:400
 msgid "Uninstall package(s)"
 msgstr ""
 
-#: ../customize/customize_run.ml:364
+#: ../customize/customize_run.ml:363
 msgid "Uninstalling packages: %s"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:355
+#: ../customize/customize_cmdline.ml:353
 msgid "Unregister using subscription-manager"
 msgstr ""
 
-#: ../customize/customize_run.ml:334
+#: ../customize/customize_run.ml:333
 msgid "Unregistering with subscription-manager"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:408
+#: ../customize/customize_cmdline.ml:406
 msgid "Update packages"
 msgstr ""
 
-#: ../customize/customize_run.ml:369
+#: ../customize/customize_run.ml:368
 msgid "Updating packages"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:419
+#: ../customize/customize_cmdline.ml:417
 msgid "Upload local file to destination"
 msgstr ""
 
-#: ../customize/customize_run.ml:374
+#: ../customize/customize_run.ml:373
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:618
+#: ../mllib/common_utils.ml:619
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
 
@@ -2498,7 +2498,7 @@ msgid ""
 "error message was: %s (ignored)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:430
+#: ../customize/customize_cmdline.ml:428
 msgid "Write file"
 msgstr ""
 
@@ -2506,7 +2506,7 @@ msgstr ""
 msgid "Writing libvirt XML metadata to %s ..."
 msgstr ""
 
-#: ../customize/customize_run.ml:399
+#: ../customize/customize_run.ml:398
 msgid "Writing: %s"
 msgstr ""
 
@@ -2603,7 +2603,7 @@ msgstr ""
 msgid "cannot detect the input disk format; use the -if parameter"
 msgstr ""
 
-#: ../v2v/utils.ml:66
+#: ../v2v/utils.ml:64
 msgid ""
 "cannot find firmware for UEFI guests.\n"
 "\n"
@@ -2617,7 +2617,7 @@ msgid ""
 "Use --list to list available guest types."
 msgstr ""
 
-#: ../customize/firstboot.ml:230
+#: ../customize/firstboot.ml:229
 msgid ""
 "cannot finish firstboot installation by running '%s' because host cpu (%s) "
 "and guest arch (%s) are not compatible.  The firstboot service may not run "
@@ -2644,7 +2644,7 @@ msgid ""
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
 msgstr ""
 
-#: ../customize/customize_run.ml:185
+#: ../customize/customize_run.ml:184
 msgid ""
 "cannot use '%s' because no package manager has been detected for this guest "
 "OS.\n"
@@ -2679,11 +2679,11 @@ msgid ""
 "%s(%s) = %s)"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:481
+#: ../customize/customize_cmdline.ml:479
 msgid "command '%s' cannot be used in command files, see the man page"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:498
+#: ../customize/customize_cmdline.ml:496
 msgid "command '%s' not valid, see the man page"
 msgstr ""
 
@@ -2721,7 +2721,7 @@ msgid ""
 "\\CurrentVersion"
 msgstr ""
 
-#: ../customize/firstboot.ml:227
+#: ../customize/firstboot.ml:226
 msgid ""
 "could not finish firstboot installation by running '%s' because the command "
 "failed: %s"
@@ -2814,7 +2814,7 @@ msgstr ""
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:298
+#: ../v2v/v2v.ml:299
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2836,12 +2836,12 @@ msgstr ""
 msgid "docker: a target was not specified, use '--docker-target'"
 msgstr ""
 
-#. ../customize/customize_main.ml:80
+#. ../customize/customize_main.ml:79
 #: ../sysprep/main.ml:123 ../get-kernel/get_kernel.ml:57
 msgid "domain"
 msgstr ""
 
-#: ../v2v/utils.ml:62
+#: ../v2v/utils.ml:60
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
@@ -2889,7 +2889,7 @@ msgstr ""
 msgid "empty --shrink option"
 msgstr ""
 
-#. ../customize/customize_main.ml:63
+#. ../customize/customize_main.ml:62
 #. ../builder/downloader.ml:71
 #: ../sysprep/main.ml:58 ../resize/resize.ml:310 ../get-kernel/get_kernel.ml:43
 msgid "error parsing URI '%s'. Look for error messages printed above."
@@ -2907,7 +2907,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:488
+#: ../mllib/common_utils.ml:489
 msgid "exception: %s"
 msgstr ""
 
@@ -2933,15 +2933,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:700
+#: ../mllib/common_utils.ml:701
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:723 ../mllib/common_utils.ml:702
+#: ../mllib/common_utils.ml:724 ../mllib/common_utils.ml:703
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:726 ../mllib/common_utils.ml:704
+#: ../mllib/common_utils.ml:727 ../mllib/common_utils.ml:705
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -2953,11 +2953,11 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:479
+#: ../mllib/common_utils.ml:480
 msgid "failure: %s"
 msgstr ""
 
-#. ../customize/customize_main.ml:75
+#. ../customize/customize_main.ml:74
 #: ../sysprep/main.ml:121 ../get-kernel/get_kernel.ml:55
 msgid "file"
 msgstr ""
@@ -2973,7 +2973,7 @@ msgstr ""
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 
-#: ../customize/firstboot.ml:143
+#: ../customize/firstboot.ml:142
 msgid ""
 "firstboot: unknown version for old firstboot.service file %s (md5=%s), it "
 "will not be removed"
@@ -2993,7 +2993,7 @@ msgstr ""
 #. ../resize/resize.ml:195
 #. ../get-kernel/get_kernel.ml:58
 #. ../dib/cmdline.ml:190
-#. ../customize/customize_main.ml:82
+#. ../customize/customize_main.ml:81
 #: ../sysprep/main.ml:128 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
 msgid "format"
 msgstr ""
@@ -3002,7 +3002,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:416
+#: ../v2v/v2v.ml:417
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3016,7 +3016,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../mllib/common_utils.ml:498
+#: ../mllib/common_utils.ml:499
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3027,7 +3027,7 @@ msgid ""
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:128
+#: ../v2v/output_glance.ml:132
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
@@ -3041,7 +3041,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../v2v/v2v.ml:276
+#: ../v2v/v2v.ml:277
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3056,11 +3056,11 @@ msgid ""
 "\" in the virt-v2v(1) manual for a workaround."
 msgstr ""
 
-#: ../customize/firstboot.ml:159
+#: ../customize/firstboot.ml:158
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:380
+#: ../customize/firstboot.ml:379
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3068,14 +3068,14 @@ msgstr ""
 msgid "heading for %s must not end with newline or period"
 msgstr ""
 
-#: ../customize/customize_run.ml:55
+#: ../customize/customize_run.ml:54
 msgid ""
 "host cpu (%s) and guest arch (%s) are not compatible, so you cannot use "
 "command line options that involve running commands in the guest.  Use --"
 "firstboot scripts instead."
 msgstr ""
 
-#: ../customize/customize_run.ml:266
+#: ../customize/customize_run.ml:265
 msgid "hostname could not be set for this type of guest"
 msgstr ""
 
@@ -3087,7 +3087,7 @@ msgstr ""
 msgid "ignoring kernel %s in bootloader, as it does not exist."
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:100
+#: ../v2v/output_vdsm.ml:99
 msgid "image directory (%s) does not exist or is not a directory"
 msgstr ""
 
@@ -3133,7 +3133,7 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/v2v.ml:237
+#: ../v2v/v2v.ml:238
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3146,11 +3146,11 @@ msgid ""
 "host\"."
 msgstr ""
 
-#: ../mllib/common_utils.ml:486
+#: ../mllib/common_utils.ml:487
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:483
+#: ../mllib/common_utils.ml:484
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
@@ -3158,15 +3158,15 @@ msgstr ""
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:481
+#: ../mllib/common_utils.ml:482
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:632
+#: ../v2v/v2v.ml:633
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:266
+#: ../v2v/v2v.ml:267
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3182,7 +3182,7 @@ msgstr ""
 msgid "invalid format '%s' in --formats"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:153 ../customize/customize_cmdline.ml:142
+#: ../customize/customize_cmdline.ml:151 ../customize/customize_cmdline.ml:140
 msgid "invalid format for '--%s' parameter, see the man page"
 msgstr ""
 
@@ -3190,7 +3190,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../customize/password.ml:72
+#: ../customize/password.ml:70
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
@@ -3202,7 +3202,7 @@ msgstr ""
 msgid "invalid sm-credentials selector '%s'; see the man page"
 msgstr ""
 
-#: ../customize/ssh_key.ml:46
+#: ../customize/ssh_key.ml:44
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr ""
 
@@ -3210,7 +3210,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:477
+#: ../mllib/common_utils.ml:478
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3221,7 +3221,7 @@ msgid ""
 "probably a bug in libguestfs.  root=%s fmt=%s"
 msgstr ""
 
-#: ../customize/customize_run.ml:50
+#: ../customize/customize_run.ml:49
 msgid "log file %s: %s (ignored)"
 msgstr ""
 
@@ -3235,7 +3235,7 @@ msgid ""
 "bugzilla.redhat.com/1045069"
 msgstr ""
 
-#: ../customize/customize_cmdline.ml:442
+#: ../customize/customize_cmdline.ml:440
 msgid "md5|sha256|sha512"
 msgstr ""
 
@@ -3269,7 +3269,7 @@ msgid ""
 "option to change how virt-v2v handles this."
 msgstr ""
 
-#: ../customize/customize_run.ml:200
+#: ../customize/customize_run.ml:199
 msgid ""
 "multiple --root-password/--password options set the password for user '%s' "
 "twice"
@@ -3336,7 +3336,7 @@ msgstr ""
 msgid "no operating system found"
 msgstr ""
 
-#: ../sysprep/main.ml:222 ../customize/customize_main.ml:181
+#: ../sysprep/main.ml:222 ../customize/customize_main.ml:180
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
@@ -3357,7 +3357,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:391
+#: ../v2v/v2v.ml:392
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3431,7 +3431,7 @@ msgid ""
 "if-partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:308
+#: ../v2v/v2v.ml:309
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3473,19 +3473,19 @@ msgstr ""
 msgid "part=size"
 msgstr ""
 
-#: ../customize/password.ml:51
+#: ../customize/password.ml:49
 msgid ""
 "password-crypto: unknown algorithm %s, use \"md5\", \"sha256\" or \"sha512\""
 msgstr ""
 
-#: ../customize/password.ml:173
+#: ../customize/password.ml:171
 msgid ""
 "password: using insecure md5 password encryption for guest of type %s "
 "version %d.%d.\n"
 "If this is incorrect, use --password-crypto option and file a bug."
 msgstr ""
 
-#: ../customize/customize_run.ml:412
+#: ../customize/customize_run.ml:411
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
@@ -3509,7 +3509,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:670 ../v2v/v2v.ml:262
+#: ../v2v/v2v.ml:671 ../v2v/v2v.ml:263
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3521,7 +3521,7 @@ msgstr ""
 msgid "quit (^C) at user request"
 msgstr ""
 
-#: ../customize/customize_run.ml:194
+#: ../customize/customize_run.ml:193
 msgid "random seed could not be set for this type of guest"
 msgstr ""
 
@@ -3562,7 +3562,7 @@ msgstr ""
 msgid "sectors"
 msgstr ""
 
-#: ../customize/customize_run.ml:188
+#: ../customize/customize_run.ml:187
 msgid ""
 "sorry, '%s' with the '%s' package manager has not been implemented yet.\n"
 "\n"
@@ -3578,31 +3578,31 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:744
+#: ../v2v/v2v.ml:745
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:760
+#: ../v2v/v2v.ml:761
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:742 ../v2v/v2v.ml:185
+#: ../v2v/v2v.ml:743 ../v2v/v2v.ml:186
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:752
+#: ../v2v/v2v.ml:753
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:750
+#: ../v2v/v2v.ml:751
 msgid "source has unsupported hard disk type '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:766
+#: ../v2v/v2v.ml:767
 msgid "source has unsupported network adapter model '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:774
+#: ../v2v/v2v.ml:775
 msgid "source has unsupported video adapter model '%s'"
 msgstr ""
 
@@ -3616,23 +3616,23 @@ msgid ""
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
 msgstr ""
 
-#: ../customize/ssh_key.ml:58
+#: ../customize/ssh_key.ml:56
 msgid "ssh-inject: $HOME environment variable is not set"
 msgstr ""
 
-#: ../customize/ssh_key.ml:95
+#: ../customize/ssh_key.ml:93
 msgid "ssh-inject: key is an empty string"
 msgstr ""
 
-#: ../customize/ssh_key.ml:68
+#: ../customize/ssh_key.ml:66
 msgid "ssh-inject: no public key file found in %s"
 msgstr ""
 
-#: ../customize/ssh_key.ml:85
+#: ../customize/ssh_key.ml:83
 msgid "ssh-inject: public key file (%s) is empty"
 msgstr ""
 
-#: ../customize/ssh_key.ml:114
+#: ../customize/ssh_key.ml:112
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr ""
 
@@ -3648,11 +3648,11 @@ msgstr ""
 msgid "subprocess signalled or stopped by signal %d"
 msgstr ""
 
-#: ../customize/customize_run.ml:320
+#: ../customize/customize_run.ml:319
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:312
+#: ../v2v/v2v.ml:313
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -3670,7 +3670,7 @@ msgstr ""
 msgid "the -ic parameter is required"
 msgstr ""
 
-#: ../customize/customize_run.ml:95
+#: ../customize/customize_run.ml:94
 msgid ""
 "the command may have failed because the network is disabled.  Try either "
 "removing '--no-network' or adding '--network' on the command line."
@@ -3812,7 +3812,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:593
+#: ../v2v/v2v.ml:594
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3838,7 +3838,7 @@ msgstr ""
 msgid "this guest has no non-removable disks"
 msgstr ""
 
-#: ../customize/customize_run.ml:357
+#: ../customize/customize_run.ml:356
 msgid "timezone could not be set for this type of guest"
 msgstr ""
 
@@ -3923,7 +3923,7 @@ msgstr ""
 msgid "unknown sound model %s ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:177
+#: ../v2v/v2v.ml:178
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr ""
 
@@ -3932,7 +3932,7 @@ msgstr ""
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
-#. ../customize/customize_main.ml:79
+#. ../customize/customize_main.ml:78
 #: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
 msgid "uri"
 msgstr ""
@@ -3966,13 +3966,13 @@ msgstr ""
 msgid "users"
 msgstr ""
 
-#: ../dib/utils.ml:55
+#: ../dib/utils.ml:53
 msgid ""
 "variable '%s' has more than one occurrency in lines:\n"
 "%s"
 msgstr ""
 
-#: ../dib/utils.ml:51
+#: ../dib/utils.ml:49
 msgid ""
 "variable '%s' not found in lines:\n"
 "%s"
@@ -4017,7 +4017,7 @@ msgid ""
 "vcenter: no status code in output of 'curl' command.  Is 'curl' installed?"
 msgstr ""
 
-#: ../v2v/output_vdsm.ml:87
+#: ../v2v/output_vdsm.ml:86
 msgid "vdsm: invalid -os parameter does not contain a valid UUID: %s"
 msgstr ""
 
@@ -4049,7 +4049,7 @@ msgid ""
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:561
+#: ../v2v/v2v.ml:562
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -4069,7 +4069,7 @@ msgid ""
 "for further information."
 msgstr ""
 
-#: ../customize/customize_main.ml:132
+#: ../customize/customize_main.ml:131
 msgid ""
 "you cannot give -a and -d options together. Read virt-customize(1) man page "
 "for further information."
@@ -4119,7 +4119,7 @@ msgid ""
 "further information."
 msgstr ""
 
-#: ../customize/customize_main.ml:121
+#: ../customize/customize_main.ml:120
 msgid ""
 "you must give either -a or -d options. Read virt-customize(1) man page for "
 "further information."
@@ -4417,7 +4417,7 @@ msgstr ""
 msgid "%s: error: cannot parse xattr count for %s %s\n"
 msgstr ""
 
-#: df/domains.c:106 src/libvirt-domain.c:100
+#: df/domains.c:106 src/libvirt-domain.c:102
 #, c-format
 msgid "could not connect to libvirt (code %d, domain %d): %s"
 msgstr ""
@@ -4627,6 +4627,26 @@ msgstr "છૂટુંછવાયી ઇમેજને બનાવવા મ
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
+
+#: cmds-gperf.gperf:1728
+#, c-format
+msgid "error: incorrect number of arguments\n"
+msgstr ""
+
+#: cmds-gperf.gperf:1730
+#, c-format
+msgid "usage: %s\n"
+msgstr ""
+
+#: cmds-gperf.gperf:1731
+#, c-format
+msgid "type 'help %s' for more help on %s\n"
+msgstr ""
+
+#: cmds-gperf.gperf:1736
+#, c-format
+msgid "%s: unknown command\n"
+msgstr "%s: અજ્ઞાત આદેશ\n"
 
 #: fish/cmds.c:487
 msgid "Command"
@@ -6832,26 +6852,6 @@ msgstr "સંકોચાયેલ ફાઇલની અંદર ફાઇલ
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr "આદેશ માટે વિગત થયેલ મદદને બતાવવા માટે -h <cmd> / help <cmd> ને વાપરો."
 
-#: fish/cmds.c:1210
-#, c-format
-msgid "error: incorrect number of arguments\n"
-msgstr ""
-
-#: fish/cmds.c:1212
-#, c-format
-msgid "usage: %s\n"
-msgstr ""
-
-#: fish/cmds.c:1213
-#, c-format
-msgid "type 'help %s' for more help on %s\n"
-msgstr ""
-
-#: fish/cmds.c:1218
-#, c-format
-msgid "%s: unknown command\n"
-msgstr "%s: અજ્ઞાત આદેશ\n"
-
 #: fish/config.c:72
 #, c-format
 msgid "%s: line %d: error parsing configuration file: %s"
@@ -7895,14 +7895,14 @@ msgstr ""
 msgid "unable to parse XML from stdin"
 msgstr ""
 
-#: inspector/inspector.c:782 src/launch-libvirt.c:746 src/libvirt-domain.c:406
-#: src/libvirt-domain.c:490 src/libvirt-domain.c:754
+#: inspector/inspector.c:782 src/launch-libvirt.c:746 src/libvirt-domain.c:408
+#: src/libvirt-domain.c:492 src/libvirt-domain.c:709
 #, c-format
 msgid "unable to create new XPath context"
 msgstr ""
 
-#: inspector/inspector.c:786 src/libvirt-domain.c:424 src/libvirt-domain.c:497
-#: src/libvirt-domain.c:769
+#: inspector/inspector.c:786 src/libvirt-domain.c:426 src/libvirt-domain.c:499
+#: src/libvirt-domain.c:724
 #, c-format
 msgid "unable to evaluate XPath expression"
 msgstr ""
@@ -9283,32 +9283,32 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr ""
 
-#: src/launch.c:58
+#: src/launch.c:61
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: src/launch.c:168
+#: src/launch.c:171
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: src/launch.c:174
+#: src/launch.c:177
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: src/launch.c:188
+#: src/launch.c:191
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: src/launch.c:202
+#: src/launch.c:205
 msgid "qemu has not been launched yet"
 msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
 
-#: src/launch.c:273
+#: src/launch.c:276
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/launch.c:473
+#: src/launch.c:549
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9347,25 +9347,25 @@ msgid ""
 "was compiled without libvirt"
 msgstr ""
 
-#: src/libvirt-domain.c:92 src/libvirt-domain.c:238
+#: src/libvirt-domain.c:94 src/libvirt-domain.c:240
 msgid "you cannot set both live and readonly flags"
 msgstr ""
 
-#: src/libvirt-domain.c:121
+#: src/libvirt-domain.c:123
 #, c-format
 msgid "no libvirt domain called '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:220
+#: src/libvirt-domain.c:222
 msgid "unknown readonlydisk parameter"
 msgstr ""
 
-#: src/libvirt-domain.c:249
+#: src/libvirt-domain.c:251
 #, c-format
 msgid "error getting domain info: %s"
 msgstr "ડોમેઇન જાણકારીને મેળવી રહ્યા હોય ત્યારે ભૂલ: %s"
 
-#: src/libvirt-domain.c:263
+#: src/libvirt-domain.c:265
 msgid ""
 "error: domain is a live virtual machine.\n"
 "Writing to the disks of a running virtual machine can cause disk "
@@ -9375,57 +9375,57 @@ msgid ""
 "--live respectively.  Consult the documentation for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:356
+#: src/libvirt-domain.c:358
 #, c-format
 msgid ""
 "%s: disk is marked <readonly/> in libvirt XML, and readonlydisk was set to "
 "\"error\""
 msgstr ""
 
-#: src/libvirt-domain.c:443
+#: src/libvirt-domain.c:445
 msgid "expected <seclabel/> to be an XML element"
 msgstr ""
 
-#: src/libvirt-domain.c:730
+#: src/libvirt-domain.c:685
 msgid "libvirt domain has no disks"
 msgstr "libvirt ડોમેઇન પાસે ડિસ્કો નથી"
 
-#: src/libvirt-domain.c:799
+#: src/libvirt-domain.c:748
 msgid ""
 "this guest has no libvirt <channel> definition for guestfsd\n"
 "See ATTACHING TO RUNNING DAEMONS in guestfs(3) for further information."
 msgstr ""
 
-#: src/libvirt-domain.c:818
+#: src/libvirt-domain.c:767
 #, c-format
 msgid "error reading libvirt XML information: %s"
 msgstr ""
 
-#: src/libvirt-domain.c:828
+#: src/libvirt-domain.c:777
 msgid "unable to parse XML information returned by libvirt"
 msgstr ""
 
-#: src/libvirt-domain.c:849
+#: src/libvirt-domain.c:798
 #, c-format
 msgid "no libvirt pool called '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:857
+#: src/libvirt-domain.c:806
 #, c-format
 msgid "no volume called '%s' in the libvirt pool '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:865
+#: src/libvirt-domain.c:814
 #, c-format
 msgid "cannot get information of the libvirt volume '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:879
+#: src/libvirt-domain.c:828
 #, c-format
 msgid "cannot get the filename of the libvirt volume '%s': %s"
 msgstr ""
 
-#: src/libvirt-domain.c:894
+#: src/libvirt-domain.c:872
 msgid ""
 "add-domain API not available since this version of libguestfs was compiled "
 "without libvirt"
@@ -9525,37 +9525,42 @@ msgid ""
 "discard"
 msgstr ""
 
-#: src/tmpdirs.c:60 src/tmpdirs.c:65
+#: src/tmpdirs.c:65
 #, c-format
-msgid "failed to set temporary directory: %s"
+msgid "converting path to absolute path: %s: %s: realpath"
 msgstr ""
 
-#: src/tmpdirs.c:70
+#: src/tmpdirs.c:72 src/tmpdirs.c:78
 #, c-format
-msgid "temporary directory '%s' is not a directory"
+msgid "setting temporary directory"
 msgstr ""
 
-#: src/tmpdirs.c:178
+#: src/tmpdirs.c:77
+#, c-format
+msgid "%s: %s: '%s' is not a directory"
+msgstr ""
+
+#: src/tmpdirs.c:188
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: કામચલાઉ ડિરેક્ટરીને બનાવી શકાતી નથી"
 
-#: src/tmpdirs.c:241
+#: src/tmpdirs.c:251
 #, c-format
 msgid "stat: %s"
 msgstr ""
 
-#: src/tmpdirs.c:246
+#: src/tmpdirs.c:256
 #, c-format
 msgid "security: cached appliance %s is not owned by UID %ju"
 msgstr ""
 
-#: src/tmpdirs.c:252
+#: src/tmpdirs.c:262
 #, c-format
 msgid "security: cached appliance %s is not a directory (mode %o)"
 msgstr ""
 
-#: src/tmpdirs.c:258
+#: src/tmpdirs.c:268
 #, c-format
 msgid "security: cached appliance %s is writable by group or other (mode %o)"
 msgstr ""
