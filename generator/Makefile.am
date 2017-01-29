@@ -45,8 +45,8 @@ sources = \
 	events.mli \
 	fish.ml \
 	fish.mli \
-	gobject.ml \
-	gobject.mli \
+	GObject.ml \
+	GObject.mli \
 	golang.ml \
 	golang.mli \
 	guestfs_config.ml \
@@ -57,8 +57,8 @@ sources = \
 	lua.ml \
 	lua.mli \
 	main.ml \
-	ocaml.ml \
-	ocaml.mli \
+	OCaml.ml \
+	OCaml.mli \
 	optgroups.ml \
 	optgroups.mli \
 	perl.ml \
@@ -78,12 +78,12 @@ sources = \
 	tests_c_api.ml \
 	tests_c_api.mli \
 	types.ml \
-	uefi.ml \
-	uefi.mli \
+	UEFI.ml \
+	UEFI.mli \
 	utils.ml \
 	utils.mli \
-	xdr.ml \
-	xdr.mli
+	XDR.ml \
+	XDR.mli
 
 # In build dependency order.
 objects = \
@@ -101,11 +101,11 @@ objects = \
 	docstrings.cmo \
 	checks.cmo \
 	c.cmo \
-	xdr.cmo \
+	XDR.cmo \
 	daemon.cmo \
 	tests_c_api.cmo \
 	fish.cmo \
-	ocaml.cmo \
+	OCaml.cmo \
 	perl.cmo \
 	python.cmo \
 	ruby.cmo \
@@ -115,12 +115,12 @@ objects = \
 	php.cmo \
 	erlang.cmo \
 	lua.cmo \
-	gobject.cmo \
+	GObject.cmo \
 	golang.cmo \
 	bindtests.cmo \
 	errnostring.cmo \
 	customize.cmo \
-	uefi.cmo \
+	UEFI.cmo \
 	main.cmo
 
 EXTRA_DIST = $(sources) files-generated.txt

@@ -26,28 +26,6 @@ open Actions
 open Structs
 open Types
 
-open C
-open Xdr
-open Daemon
-open Tests_c_api
-open Fish
-open Ocaml
-open Perl
-open Python
-open Ruby
-open Java
-open Haskell
-open Csharp
-open Php
-open Erlang
-open Lua
-open Gobject
-open Golang
-open Bindtests
-open Errnostring
-open Uefi
-open Customize
-
 let perror msg = function
   | Unix_error (err, _, _) ->
       eprintf "%s: %s\n" msg (error_message err)
@@ -95,125 +73,221 @@ Run it from the top source directory using the command
      exit 1);
 
   output_to "common/errnostring/errnostring-gperf.gperf"
-            generate_errnostring_gperf;
-  output_to "common/errnostring/errnostring.c" generate_errnostring_c;
-  output_to "common/errnostring/errnostring.h" generate_errnostring_h;
-  output_to "common/protocol/guestfs_protocol.x" generate_xdr;
+            Errnostring.generate_errnostring_gperf;
+  output_to "common/errnostring/errnostring.c"
+            Errnostring.generate_errnostring_c;
+  output_to "common/errnostring/errnostring.h"
+            Errnostring.generate_errnostring_h;
+  output_to "common/protocol/guestfs_protocol.x"
+            XDR.generate_xdr;
   output_to "common/utils/guestfs-internal-frontend-cleanups.h"
-            generate_internal_frontend_cleanups_h;
-  output_to "common/utils/structs-cleanup.c" generate_client_structs_cleanup;
-  output_to "common/utils/structs-print.c" generate_client_structs_print_c;
-  output_to "common/utils/structs-print.h" generate_client_structs_print_h;
-  output_to "common/utils/uefi.c" generate_uefi_c;
+            C.generate_internal_frontend_cleanups_h;
+  output_to "common/utils/structs-cleanup.c"
+            C.generate_client_structs_cleanup;
+  output_to "common/utils/structs-print.c"
+            C.generate_client_structs_print_c;
+  output_to "common/utils/structs-print.h"
+            C.generate_client_structs_print_h;
+  output_to "common/utils/uefi.c"
+            UEFI.generate_uefi_c;
+  output_to "lib/guestfs.h"
+            C.generate_guestfs_h;
+  output_to "lib/guestfs-internal-actions.h"
+            C.generate_internal_actions_h;
+  output_to "lib/bindtests.c"
+            Bindtests.generate_bindtests;
+  output_to "lib/guestfs-structs.pod"
+            C.generate_structs_pod;
+  output_to "lib/guestfs-actions.pod"
+            C.generate_actions_pod;
+  output_to "lib/guestfs-availability.pod"
+            C.generate_availability_pod;
+  output_to "lib/event-string.c"
+            C.generate_event_string_c;
+  output_to "lib/MAX_PROC_NR"
+            C.generate_max_proc_nr;
+  output_to "lib/libguestfs.syms"
+            C.generate_linker_script;
+  output_to "lib/structs-compare.c"
+            C.generate_client_structs_compare;
+  output_to "lib/structs-copy.c"
+            C.generate_client_structs_copy;
+  output_to "lib/structs-free.c"
+            C.generate_client_structs_free;
+  output_to "lib/actions-variants.c"
+            C.generate_client_actions_variants;
+  output_to_subset "lib/actions-%d.c"
+                   C.generate_client_actions;
+  output_to "tests/c-api/tests.c"
+            Tests_c_api.generate_c_api_tests;
 
-  output_to "lib/guestfs.h" generate_guestfs_h;
-  output_to "lib/guestfs-internal-actions.h" generate_internal_actions_h;
-  output_to "lib/bindtests.c" generate_bindtests;
-  output_to "lib/guestfs-structs.pod" generate_structs_pod;
-  output_to "lib/guestfs-actions.pod" generate_actions_pod;
-  output_to "lib/guestfs-availability.pod" generate_availability_pod;
-  output_to "lib/event-string.c" generate_event_string_c;
-  output_to "lib/MAX_PROC_NR" generate_max_proc_nr;
-  output_to "lib/libguestfs.syms" generate_linker_script;
+  output_to "daemon/actions.h"
+            Daemon.generate_daemon_actions_h;
+  output_to "daemon/stubs.h"
+            Daemon.generate_daemon_stubs_h;
+  output_to_subset "daemon/stubs-%d.c"
+                   Daemon.generate_daemon_stubs;
+  output_to "daemon/dispatch.c"
+            Daemon.generate_daemon_dispatch;
+  output_to "daemon/names.c"
+            Daemon.generate_daemon_names;
+  output_to "daemon/optgroups.c"
+            Daemon.generate_daemon_optgroups_c;
+  output_to "daemon/optgroups.h"
+            Daemon.generate_daemon_optgroups_h;
+  output_to "daemon/lvm-tokenization.c"
+            Daemon.generate_daemon_lvm_tokenization;
 
-  output_to "lib/structs-compare.c" generate_client_structs_compare;
-  output_to "lib/structs-copy.c" generate_client_structs_copy;
-  output_to "lib/structs-free.c" generate_client_structs_free;
-  output_to "lib/actions-variants.c" generate_client_actions_variants;
-  output_to_subset "lib/actions-%d.c" generate_client_actions;
-  output_to "daemon/actions.h" generate_daemon_actions_h;
-  output_to "daemon/stubs.h" generate_daemon_stubs_h;
-  output_to_subset "daemon/stubs-%d.c" generate_daemon_stubs;
-  output_to "daemon/dispatch.c" generate_daemon_dispatch;
-  output_to "daemon/names.c" generate_daemon_names;
-  output_to "daemon/optgroups.c" generate_daemon_optgroups_c;
-  output_to "daemon/optgroups.h" generate_daemon_optgroups_h;
-  output_to "daemon/lvm-tokenization.c" generate_daemon_lvm_tokenization;
-  output_to "tests/c-api/tests.c" generate_c_api_tests;
-  output_to "fish/cmds-gperf.gperf" generate_fish_cmds_gperf;
-  output_to "fish/cmds.c" generate_fish_cmds;
-  output_to_subset "fish/entries-%d.c" generate_fish_cmd_entries;
-  output_to_subset "fish/run-%d.c" generate_fish_run_cmds;
-  output_to "fish/run.h" generate_fish_run_header;
-  output_to "fish/completion.c" generate_fish_completion;
-  output_to "fish/event-names.c" generate_fish_event_names;
-  output_to "fish/fish-cmds.h" generate_fish_cmds_h;
-  output_to "fish/guestfish-commands.pod" generate_fish_commands_pod;
-  output_to "fish/guestfish-actions.pod" generate_fish_actions_pod;
-  output_to "fish/prepopts.c" generate_fish_prep_options_c;
-  output_to "fish/prepopts.h" generate_fish_prep_options_h;
-  output_to "fish/guestfish-prepopts.pod" generate_fish_prep_options_pod;
-  output_to ~perm:0o555 "fish/test-prep.sh" generate_fish_test_prep_sh;
-  output_to "ocaml/guestfs.mli" generate_ocaml_mli;
-  output_to "ocaml/guestfs.ml" generate_ocaml_ml;
-  output_to "ocaml/guestfs-c-actions.c" generate_ocaml_c;
-  output_to "ocaml/guestfs-c-errnos.c" generate_ocaml_c_errnos;
-  output_to "ocaml/bindtests.ml" generate_ocaml_bindtests;
-  output_to "perl/lib/Sys/Guestfs.xs" generate_perl_xs;
-  output_to "perl/lib/Sys/Guestfs.pm" generate_perl_pm;
-  output_to "perl/bindtests.pl" generate_perl_bindtests;
-  output_to "python/actions.h" generate_python_actions_h;
-  output_to_subset "python/actions-%d.c" generate_python_actions;
-  output_to "python/module.c" generate_python_module;
-  output_to "python/structs.c" generate_python_structs;
-  output_to "python/guestfs.py" generate_python_py;
-  output_to "python/bindtests.py" generate_python_bindtests;
-  output_to "ruby/ext/guestfs/actions.h" generate_ruby_h;
-  output_to_subset "ruby/ext/guestfs/actions-%d.c" generate_ruby_c;
-  output_to "ruby/ext/guestfs/module.c" generate_ruby_module;
-  output_to "ruby/bindtests.rb" generate_ruby_bindtests;
-  output_to "java/com/redhat/et/libguestfs/GuestFS.java" generate_java_java;
+  output_to "fish/cmds-gperf.gperf"
+            Fish.generate_fish_cmds_gperf;
+  output_to "fish/cmds.c"
+            Fish.generate_fish_cmds;
+  output_to_subset "fish/entries-%d.c"
+                   Fish.generate_fish_cmd_entries;
+  output_to_subset "fish/run-%d.c"
+                   Fish.generate_fish_run_cmds;
+  output_to "fish/run.h"
+            Fish.generate_fish_run_header;
+  output_to "fish/completion.c"
+            Fish.generate_fish_completion;
+  output_to "fish/event-names.c"
+            Fish.generate_fish_event_names;
+  output_to "fish/fish-cmds.h"
+            Fish.generate_fish_cmds_h;
+  output_to "fish/guestfish-commands.pod"
+            Fish.generate_fish_commands_pod;
+  output_to "fish/guestfish-actions.pod"
+            Fish.generate_fish_actions_pod;
+  output_to "fish/prepopts.c"
+            Fish.generate_fish_prep_options_c;
+  output_to "fish/prepopts.h"
+            Fish.generate_fish_prep_options_h;
+  output_to "fish/guestfish-prepopts.pod"
+            Fish.generate_fish_prep_options_pod;
+  output_to ~perm:0o555 "fish/test-prep.sh"
+            Fish.generate_fish_test_prep_sh;
 
+  output_to "ocaml/guestfs.mli"
+            OCaml.generate_ocaml_mli;
+  output_to "ocaml/guestfs.ml"
+            OCaml.generate_ocaml_ml;
+  output_to "ocaml/guestfs-c-actions.c"
+            OCaml.generate_ocaml_c;
+  output_to "ocaml/guestfs-c-errnos.c"
+            OCaml.generate_ocaml_c_errnos;
+  output_to "ocaml/bindtests.ml"
+            Bindtests.generate_ocaml_bindtests;
+
+  output_to "perl/lib/Sys/Guestfs.xs"
+            Perl.generate_perl_xs;
+  output_to "perl/lib/Sys/Guestfs.pm"
+            Perl.generate_perl_pm;
+  output_to "perl/bindtests.pl"
+            Bindtests.generate_perl_bindtests;
+
+  output_to "python/actions.h"
+            Python.generate_python_actions_h;
+  output_to_subset "python/actions-%d.c"
+                   Python.generate_python_actions;
+  output_to "python/module.c"
+            Python.generate_python_module;
+  output_to "python/structs.c"
+            Python.generate_python_structs;
+  output_to "python/guestfs.py"
+            Python.generate_python_py;
+  output_to "python/bindtests.py"
+            Bindtests.generate_python_bindtests;
+
+  output_to "ruby/ext/guestfs/actions.h"
+            Ruby.generate_ruby_h;
+  output_to_subset "ruby/ext/guestfs/actions-%d.c"
+                   Ruby.generate_ruby_c;
+  output_to "ruby/ext/guestfs/module.c"
+            Ruby.generate_ruby_module;
+  output_to "ruby/bindtests.rb"
+            Bindtests.generate_ruby_bindtests;
+
+  output_to "java/com/redhat/et/libguestfs/GuestFS.java"
+            Java.generate_java_java;
   List.iter (
     fun { s_name = typ; s_camel_name = jtyp } ->
       let cols = cols_of_struct typ in
       let filename = sprintf "java/com/redhat/et/libguestfs/%s.java" jtyp in
-      output_to filename (generate_java_struct jtyp cols)
+      output_to filename (Java.generate_java_struct jtyp cols)
   ) external_structs;
   delete_except_generated
     ~skip:["java/com/redhat/et/libguestfs/LibGuestFSException.java";
            "java/com/redhat/et/libguestfs/LibGuestFSOutOfMemory.java";
            "java/com/redhat/et/libguestfs/EventCallback.java"]
     "java/com/redhat/et/libguestfs/*.java";
+  output_to "java/Makefile.inc"
+            Java.generate_java_makefile_inc;
+  output_to_subset "java/actions-%d.c"
+                   Java.generate_java_c;
+  output_to "java/com/redhat/et/libguestfs/.gitignore"
+            Java.generate_java_gitignore;
+  output_to "java/Bindtests.java"
+            Bindtests.generate_java_bindtests;
 
-  output_to "java/Makefile.inc" generate_java_makefile_inc;
-  output_to_subset "java/actions-%d.c" generate_java_c;
-  output_to "java/com/redhat/et/libguestfs/.gitignore" generate_java_gitignore;
-  output_to "java/Bindtests.java" generate_java_bindtests;
-  output_to "haskell/Guestfs.hs" generate_haskell_hs;
-  output_to "haskell/Bindtests.hs" generate_haskell_bindtests;
-  output_to "csharp/Libguestfs.cs" generate_csharp;
-  output_to "php/extension/php_guestfs_php.h" generate_php_h;
-  output_to "php/extension/guestfs_php.c" generate_php_c;
-  output_to "php/extension/tests/guestfs_090_bindtests.phpt" generate_php_bindtests;
-  output_to "erlang/guestfs.erl" generate_erlang_erl;
-  output_to "erlang/actions.h" generate_erlang_actions_h;
-  output_to_subset "erlang/actions-%d.c" generate_erlang_actions;
-  output_to "erlang/dispatch.c" generate_erlang_dispatch;
-  output_to "erlang/structs.c" generate_erlang_structs;
-  output_to ~perm:0o555 "erlang/bindtests.erl" generate_erlang_bindtests;
-  output_to "lua/lua-guestfs.c" generate_lua_c;
-  output_to "lua/bindtests.lua" generate_lua_bindtests;
-  output_to "golang/src/libguestfs.org/guestfs/guestfs.go" generate_golang_go;
-  output_to "golang/bindtests.go" generate_golang_bindtests;
+  output_to "haskell/Guestfs.hs"
+            Haskell.generate_haskell_hs;
+  output_to "haskell/Bindtests.hs"
+            Bindtests.generate_haskell_bindtests;
 
-  output_to "gobject/bindtests.js" generate_gobject_js_bindtests;
-  output_to "gobject/Makefile.inc" generate_gobject_makefile;
-  output_to "gobject/include/guestfs-gobject.h" generate_gobject_header;
-  output_to "gobject/docs/guestfs-title.sgml" generate_gobject_doc_title;
+  output_to "csharp/Libguestfs.cs"
+            Csharp.generate_csharp;
 
+  output_to "php/extension/php_guestfs_php.h"
+            Php.generate_php_h;
+  output_to "php/extension/guestfs_php.c"
+            Php.generate_php_c;
+  output_to "php/extension/tests/guestfs_090_bindtests.phpt"
+            Bindtests.generate_php_bindtests;
+
+  output_to "erlang/guestfs.erl"
+            Erlang.generate_erlang_erl;
+  output_to "erlang/actions.h"
+            Erlang.generate_erlang_actions_h;
+  output_to_subset "erlang/actions-%d.c"
+                   Erlang.generate_erlang_actions;
+  output_to "erlang/dispatch.c"
+            Erlang.generate_erlang_dispatch;
+  output_to "erlang/structs.c"
+            Erlang.generate_erlang_structs;
+  output_to ~perm:0o555 "erlang/bindtests.erl"
+            Bindtests.generate_erlang_bindtests;
+
+  output_to "lua/lua-guestfs.c"
+            Lua.generate_lua_c;
+  output_to "lua/bindtests.lua"
+            Bindtests.generate_lua_bindtests;
+
+  output_to "golang/src/libguestfs.org/guestfs/guestfs.go"
+            Golang.generate_golang_go;
+  output_to "golang/bindtests.go"
+            Bindtests.generate_golang_bindtests;
+
+  output_to "gobject/bindtests.js"
+            Bindtests.generate_gobject_js_bindtests;
+  output_to "gobject/Makefile.inc"
+            GObject.generate_gobject_makefile;
+  output_to "gobject/include/guestfs-gobject.h"
+            GObject.generate_gobject_header;
+  output_to "gobject/docs/guestfs-title.sgml"
+            GObject.generate_gobject_doc_title;
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
       let short = sprintf "struct-%s" typ in
       let filename =
         sprintf "gobject/include/guestfs-gobject/%s.h" short in
-      output_to filename (generate_gobject_struct_header short typ cols);
+      output_to filename
+                (GObject.generate_gobject_struct_header short typ cols);
       let filename = sprintf "gobject/src/%s.c" short in
-      output_to filename (generate_gobject_struct_source short typ)
+      output_to filename
+                (GObject.generate_gobject_struct_source short typ)
   ) external_structs;
   delete_except_generated "gobject/include/guestfs-gobject/struct-*.h";
   delete_except_generated "gobject/src/struct-*.c";
-
   List.iter (
     function
     | ({ name = name; style = (_, _, (_::_ as optargs)) } as f) ->
@@ -221,30 +295,36 @@ Run it from the top source directory using the command
       let filename =
         sprintf "gobject/include/guestfs-gobject/%s.h" short in
       output_to filename
-        (generate_gobject_optargs_header short name f);
+                (GObject.generate_gobject_optargs_header short name f);
       let filename = sprintf "gobject/src/%s.c" short in
       output_to filename
-        (generate_gobject_optargs_source short name optargs f)
+                (GObject.generate_gobject_optargs_source short name optargs f)
     | { style = _, _, [] } -> ()
   ) (actions |> external_functions |> sort);
   delete_except_generated "gobject/include/guestfs-gobject/optargs-*.h";
   delete_except_generated "gobject/src/optargs-*.c";
-
   output_to "gobject/include/guestfs-gobject/tristate.h"
-    generate_gobject_tristate_header;
-  output_to "gobject/src/tristate.c" generate_gobject_tristate_source;
-
+            GObject.generate_gobject_tristate_header;
+  output_to "gobject/src/tristate.c"
+            GObject.generate_gobject_tristate_source;
   output_to "gobject/include/guestfs-gobject/session.h"
-    generate_gobject_session_header;
-  output_to "gobject/src/session.c" generate_gobject_session_source;
+            GObject.generate_gobject_session_header;
+  output_to "gobject/src/session.c"
+            GObject.generate_gobject_session_source;
 
-  output_to "v2v/uefi.ml" generate_uefi_ml;
-  output_to "v2v/uefi.mli" generate_uefi_mli;
+  output_to "v2v/uefi.ml"
+            UEFI.generate_uefi_ml;
+  output_to "v2v/uefi.mli"
+            UEFI.generate_uefi_mli;
 
-  output_to "customize/customize_cmdline.mli" generate_customize_cmdline_mli;
-  output_to "customize/customize_cmdline.ml" generate_customize_cmdline_ml;
-  output_to "customize/customize-synopsis.pod" generate_customize_synopsis_pod;
-  output_to "customize/customize-options.pod" generate_customize_options_pod;
+  output_to "customize/customize_cmdline.mli"
+            Customize.generate_customize_cmdline_mli;
+  output_to "customize/customize_cmdline.ml"
+            Customize.generate_customize_cmdline_ml;
+  output_to "customize/customize-synopsis.pod"
+            Customize.generate_customize_synopsis_pod;
+  output_to "customize/customize-options.pod"
+            Customize.generate_customize_options_pod;
 
   (* Generate the list of files generated -- last. *)
   printf "generated %d lines of code\n" (get_lines_generated ());
