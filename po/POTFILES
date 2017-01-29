@@ -339,7 +339,6 @@ p2v/ssh.c
 p2v/utils.c
 p2v/whole-file.c
 perl/bindtests.pl
-perl/lib/Sys/Guestfs.c
 perl/lib/Sys/Guestfs.pm
 php/extension/guestfs_php.c
 python/actions-0.c
