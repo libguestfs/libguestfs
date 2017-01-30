@@ -276,6 +276,13 @@ object
             | None -> error (f_"no href in ovf:File (id=%s)") file_ref
             | Some s -> s in
 
+          let expr = sprintf "/ovf:Envelope/ovf:References/ovf:File[@ovf:id='%s']/@ovf:compression" file_ref in
+          let compressed =
+            match xpath_string expr with
+            | None | Some "identity" -> false
+            | Some "gzip" -> true
+            | Some s -> error (f_"unsupported compression in OVF: %s") s in
+
           (* Does the file exist and is it readable? *)
           let filename = ovf_folder // filename in
           Unix.access filename [Unix.R_OK];
@@ -284,7 +291,7 @@ object
            * we must uncompress it into the tmpdir.
            *)
           let filename =
-            if detect_file_type filename = `GZip then (
+            if compressed then (
               let new_filename = tmpdir // String.random8 () ^ ".vmdk" in
               let cmd =
                 sprintf "zcat %s > %s" (quote filename) (quote new_filename) in
