@@ -137,14 +137,15 @@ guestfish_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 guestfish_LDADD = \
-	$(LIBCONFIG_LIBS) \
-	$(LIBREADLINE) \
 	$(top_builddir)/common/edit/libedit.la \
 	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/progress/libprogress.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \
+	$(LIBCONFIG_LIBS) \
+	$(LIBREADLINE) \
+	$(LIBTINFO_LIBS) \
 	$(LTLIBINTL) \
 	-lm
 
