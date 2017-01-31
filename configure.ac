@@ -26,7 +26,7 @@ AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 
 dnl The date that the above version was released.  This is used in
 dnl the website 'index.html' file.
-AC_SUBST([RELEASE_DATE], [2016-01-27])
+AC_SUBST([RELEASE_DATE], [2017-01-27])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_REQUIRE_AUX_FILE([guestfs-test-driver])
