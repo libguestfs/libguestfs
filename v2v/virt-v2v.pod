@@ -1611,7 +1611,7 @@ alleviate this.
 
 Virt-v2v is not especially compute or RAM intensive.  If you are
 running many parallel conversions, then you may consider allocating
-one CPU core and between 512 MB and 1 GB of RAM per running instance.
+one CPU core and 2 GB of RAM per running instance.
 
 Virt-v2v can be run in a virtual machine.
 
