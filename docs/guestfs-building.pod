@@ -255,7 +255,13 @@ Optional.  Used only for testing.
 
 =item qemu-nbd
 
-Optional.  Used for testing, and by virt-p2v.
+=item nbdkit
+
+Optional.  qemu-nbd is used for testing.
+
+L<virt-p2v(1)> requires either qemu-nbd or nbdkit, but these only need
+to be present on the virt-p2v ISO, they do not need to be installed at
+compile time.
 
 =item uml_mkcow
 
