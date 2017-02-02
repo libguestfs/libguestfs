@@ -660,6 +660,9 @@ virt-dib binary.  Typical output looks like this:
 A list of features is printed, one per line, and the program exits
 with status 0.
 
+The C<output:> features refer to the output formats (I<--formats>
+command line option) supported by this binary.
+
 =head1 TESTING
 
 Virt-dib has been tested with C<diskimage-builder> (and its elements)
