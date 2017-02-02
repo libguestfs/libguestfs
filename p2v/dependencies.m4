@@ -32,6 +32,7 @@ ifelse(REDHAT,1,
   curl
   ethtool
   util-linux
+  which
   xterm
   pciutils
   lsscsi
@@ -82,6 +83,7 @@ ifelse(DEBIAN,1,
   curl
   ethtool
   util-linux
+  debianutils
   xterm
   pciutils
   lsscsi
@@ -113,6 +115,7 @@ ifelse(ARCHLINUX,1,
   curl
   ethtool
   util-linux
+  which
   xterm
   pciutils
   lsscsi
@@ -145,6 +148,7 @@ ifelse(SUSE,1,
   curl
   ethtool
   util-linux
+  dnl /usr/bin/which is in util-linux on SUSE
   xterm
   pciutils
   lsscsi

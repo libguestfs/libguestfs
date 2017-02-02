@@ -54,23 +54,46 @@ static int nbd_local_port;
 enum nbd_server {
   /* 0 is reserved for "end of list" */
   QEMU_NBD = 1,
-  NBDKIT = 2,
+  QEMU_NBD_NO_SA = 2,
+  NBDKIT = 3,
+  NBDKIT_NO_SA = 4,
 };
 static enum nbd_server *cmdline_servers = NULL;
+
+static const char *
+nbd_server_string (enum nbd_server s)
+{
+  const char *ret = NULL;
+
+  switch (s) {
+  case QEMU_NBD: ret = "qemu-nbd"; break;
+  case QEMU_NBD_NO_SA: ret =  "qemu-nbd-no-sa"; break;
+  case NBDKIT: ret = "nbdkit"; break;
+  case NBDKIT_NO_SA: ret =  "nbdkit-no-sa"; break;
+  }
+
+  if (ret == NULL)
+    abort ();
+
+  return ret;
+}
 
 /* If no --nbd option is passed, we use this standard list instead.
  * Must match the documentation in virt-p2v(1).
  */
 static const enum nbd_server standard_servers[] =
-  { QEMU_NBD, NBDKIT, 0 };
+  { QEMU_NBD, QEMU_NBD_NO_SA, NBDKIT, NBDKIT_NO_SA, 0 };
 
 /* After testing the list of servers passed by the user, this is
  * server we decide to use.
  */
 static enum nbd_server use_server;
 
-static pid_t start_qemu_nbd (const char *ipaddr, int nbd_local_port, const char *device);
-static pid_t start_nbdkit (const char *ipaddr, int nbd_local_port, const char *device);
+static pid_t start_qemu_nbd (const char *device, const char *ipaddr, int port, int *fds, size_t nr_fds);
+static pid_t start_nbdkit (const char *device, const char *ipaddr, int port, int *fds, size_t nr_fds);
+static int get_local_port (void);
+static int open_listening_socket (const char *ipaddr, int **fds, size_t *nr_fds);
+static int bind_tcpip_socket (const char *ipaddr, const char *port, int **fds, size_t *nr_fds);
 static int connect_with_source_port (const char *hostname, int dest_port, int source_port);
 static int bind_source_port (int sockfd, int family, int source_port);
 
@@ -132,8 +155,12 @@ set_nbd_option (const char *opt)
   for (i = 0; strs[i] != NULL; ++i) {
     if (STREQ (strs[i], "qemu-nbd") || STREQ (strs[i], "qemu"))
       cmdline_servers[i] = QEMU_NBD;
+    else if (STREQ (strs[i], "qemu-nbd-no-sa") || STREQ (strs[i], "qemu-no-sa"))
+      cmdline_servers[i] = QEMU_NBD_NO_SA;
     else if (STREQ (strs[i], "nbdkit"))
       cmdline_servers[i] = NBDKIT;
+    else if (STREQ (strs[i], "nbdkit-no-sa"))
+      cmdline_servers[i] = NBDKIT_NO_SA;
     else
       error (EXIT_FAILURE, 0, _("--nbd: unknown server: %s"), strs[i]);
   }
@@ -176,8 +203,25 @@ test_nbd_servers (void)
   use_server = 0;
 
   for (i = 0; servers[i] != 0; ++i) {
+#if DEBUG_STDERR
+    fprintf (stderr, "checking for %s ...\n", nbd_server_string (servers[i]));
+#endif
+
     switch (servers[i]) {
-    case QEMU_NBD:
+    case QEMU_NBD: /* with socket activation */
+      r = system ("qemu-nbd --version"
+#ifndef DEBUG_STDERR
+                  " >/dev/null 2>&1"
+#endif
+                  " && grep -sq LISTEN_PID `which qemu-nbd`"
+                  );
+      if (r == 0) {
+        use_server = servers[i];
+        goto finish;
+      }
+      break;
+
+    case QEMU_NBD_NO_SA:
       r = system ("qemu-nbd --version"
 #ifndef DEBUG_STDERR
                   " >/dev/null 2>&1"
@@ -189,7 +233,20 @@ test_nbd_servers (void)
       }
       break;
 
-    case NBDKIT:
+    case NBDKIT: /* with socket activation */
+      r = system ("nbdkit file --version"
+#ifndef DEBUG_STDERR
+                  " >/dev/null 2>&1"
+#endif
+                  " && grep -sq LISTEN_PID `which nbdkit`"
+                  );
+      if (r == 0) {
+        use_server = servers[i];
+        goto finish;
+      }
+      break;
+
+    case NBDKIT_NO_SA:
       r = system ("nbdkit file --version"
 #ifndef DEBUG_STDERR
                   " >/dev/null 2>&1"
@@ -218,6 +275,10 @@ test_nbd_servers (void)
   /* Release memory used by the --nbd option. */
   free (cmdline_servers);
   cmdline_servers = NULL;
+
+#if DEBUG_STDERR
+  fprintf (stderr, "picked %s\n", nbd_server_string (use_server));
+#endif
 }
 
 /**
@@ -231,37 +292,103 @@ test_nbd_servers (void)
 pid_t
 start_nbd_server (const char **ipaddr, int *port, const char *device)
 {
-  /* Choose a local port. */
-  *port = nbd_local_port;
-  nbd_local_port++;
+  int *fds = NULL;
+  size_t i, nr_fds;
+  pid_t pid;
 
   switch (use_server) {
-  case QEMU_NBD:
-    *ipaddr = "localhost";
-    return start_qemu_nbd (*ipaddr, *port, device);
+  case QEMU_NBD:                /* qemu-nbd with socket activation */
+    /* Ideally we would bind this socket to "localhost", but that
+     * requires two listening FDs, and qemu-nbd currently cannot
+     * support socket activation with two FDs.  So we only bind to the
+     * IPv4 address.
+     */
+    *ipaddr = "127.0.0.1";
+    *port = open_listening_socket (*ipaddr, &fds, &nr_fds);
+    if (*port == -1) return -1;
+    pid = start_qemu_nbd (device, *ipaddr, *port, fds, nr_fds);
+    for (i = 0; i < nr_fds; ++i)
+      close (fds[i]);
+    free (fds);
+    return pid;
 
-  case NBDKIT:
+  case QEMU_NBD_NO_SA:          /* qemu-nbd without socket activation */
     *ipaddr = "localhost";
-    return start_nbdkit (*ipaddr, *port, device);
+    *port = get_local_port ();
+    if (*port == -1) return -1;
+    return start_qemu_nbd (device, *ipaddr, *port, NULL, 0);
 
-  default:
-    abort ();
+  case NBDKIT:                  /* nbdkit with socket activation */
+    *ipaddr = "localhost";
+    *port = open_listening_socket (*ipaddr, &fds, &nr_fds);
+    if (*port == -1) return -1;
+    pid = start_nbdkit (device, *ipaddr, *port, fds, nr_fds);
+    for (i = 0; i < nr_fds; ++i)
+      close (fds[i]);
+    free (fds);
+    return pid;
+
+  case NBDKIT_NO_SA:            /* nbdkit without socket activation */
+    *ipaddr = "localhost";
+    *port = get_local_port ();
+    if (*port == -1) return -1;
+    return start_nbdkit (device, *ipaddr, *port, NULL, 0);
   }
+
+  abort ();
+}
+
+#define FIRST_SOCKET_ACTIVATION_FD 3
+
+/**
+ * Set up file descriptors and environment variables for
+ * socket activation.
+ *
+ * Note this function runs in the child between fork and exec.
+ */
+static inline void
+socket_activation (int *fds, size_t nr_fds)
+{
+  size_t i;
+  char nr_fds_str[16];
+  char pid_str[16];
+
+  if (fds == NULL) return;
+
+  for (i = 0; i < nr_fds; ++i) {
+    int fd = FIRST_SOCKET_ACTIVATION_FD + i;
+    if (fds[i] != fd) {
+      dup2 (fds[i], fd);
+      close (fds[i]);
+    }
+  }
+
+  snprintf (nr_fds_str, sizeof nr_fds_str, "%zu", nr_fds);
+  setenv ("LISTEN_FDS", nr_fds_str, 1);
+  snprintf (pid_str, sizeof pid_str, "%d", (int) getpid ());
+  setenv ("LISTEN_PID", pid_str, 1);
 }
 
 /**
  * Start a local L<qemu-nbd(1)> process.
  *
+ * If we are using socket activation, C<fds> and C<nr_fds> will
+ * contain the locally pre-opened file descriptors for this.
+ * Otherwise if C<fds == NULL> we pass the port number.
+ *
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 static pid_t
-start_qemu_nbd (const char *ipaddr, int port, const char *device)
+start_qemu_nbd (const char *device,
+                const char *ipaddr, int port, int *fds, size_t nr_fds)
 {
   pid_t pid;
   char port_str[64];
 
 #if DEBUG_STDERR
-  fprintf (stderr, "starting qemu-nbd for %s on port %d\n", device, port);
+  fprintf (stderr, "starting qemu-nbd for %s on %s:%d%s\n",
+           device, ipaddr, port,
+           fds == NULL ? "" : " using socket activation");
 #endif
 
   snprintf (port_str, sizeof port_str, "%d", port);
@@ -276,18 +403,34 @@ start_qemu_nbd (const char *ipaddr, int port, const char *device)
     close (0);
     open ("/dev/null", O_RDONLY);
 
-    execlp ("qemu-nbd",
-            "qemu-nbd",
-            "-r",               /* readonly (vital!) */
-            "-p", port_str,     /* listening port */
-            "-t",               /* persistent */
-            "-f", "raw",        /* force raw format */
-            "-b", ipaddr,       /* listen only on loopback interface */
-            "--cache=unsafe",   /* use unsafe caching for speed */
-            device,             /* a device like /dev/sda */
-            NULL);
-    perror ("qemu-nbd");
-    _exit (EXIT_FAILURE);
+    if (fds == NULL) {          /* without socket activation */
+      execlp ("qemu-nbd",
+              "qemu-nbd",
+              "-r",            /* readonly (vital!) */
+              "-p", port_str,  /* listening port */
+              "-t",            /* persistent */
+              "-f", "raw",     /* force raw format */
+              "-b", ipaddr,    /* listen only on loopback interface */
+              "--cache=unsafe",  /* use unsafe caching for speed */
+              device,            /* a device like /dev/sda */
+              NULL);
+      perror ("qemu-nbd");
+      _exit (EXIT_FAILURE);
+    }
+    else {                      /* socket activation */
+      socket_activation (fds, nr_fds);
+
+      execlp ("qemu-nbd",
+              "qemu-nbd",
+              "-r",            /* readonly (vital!) */
+              "-t",            /* persistent */
+              "-f", "raw",     /* force raw format */
+              "--cache=unsafe",  /* use unsafe caching for speed */
+              device,            /* a device like /dev/sda */
+              NULL);
+      perror ("qemu-nbd");
+      _exit (EXIT_FAILURE);
+    }
   }
 
   /* Parent. */
@@ -298,17 +441,24 @@ start_qemu_nbd (const char *ipaddr, int port, const char *device)
  * Start a local L<nbdkit(1)> process using the
  * L<nbdkit-file-plugin(1)>.
  *
+ * If we are using socket activation, C<fds> and C<nr_fds> will
+ * contain the locally pre-opened file descriptors for this.
+ * Otherwise if C<fds == NULL> we pass the port number.
+ *
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 static pid_t
-start_nbdkit (const char *ipaddr, int port, const char *device)
+start_nbdkit (const char *device,
+              const char *ipaddr, int port, int *fds, size_t nr_fds)
 {
   pid_t pid;
   char port_str[64];
   CLEANUP_FREE char *file_str = NULL;
 
 #if DEBUG_STDERR
-  fprintf (stderr, "starting nbdkit for %s on port %d\n", device, port);
+  fprintf (stderr, "starting nbdkit for %s on %s:%d%s\n",
+           device, ipaddr, port,
+           fds == NULL ? "" : " using socket activation");
 #endif
 
   snprintf (port_str, sizeof port_str, "%d", port);
@@ -326,21 +476,176 @@ start_nbdkit (const char *ipaddr, int port, const char *device)
     close (0);
     open ("/dev/null", O_RDONLY);
 
-    execlp ("nbdkit",
-            "nbdkit",
-            "-r",               /* readonly (vital!) */
-            "-p", port_str,     /* listening port */
-            "-i", ipaddr     ,  /* listen only on loopback interface */
-            "-f",               /* don't fork */
-            "file",             /* file plugin */
-            file_str,           /* a device like file=/dev/sda */
-            NULL);
-    perror ("nbdkit");
-    _exit (EXIT_FAILURE);
+    if (fds == NULL) {         /* without socket activation */
+      execlp ("nbdkit",
+              "nbdkit",
+              "-r",              /* readonly (vital!) */
+              "-p", port_str,    /* listening port */
+              "-i", ipaddr,      /* listen only on loopback interface */
+              "-f",              /* don't fork */
+              "file",            /* file plugin */
+              file_str,          /* a device like file=/dev/sda */
+              NULL);
+      perror ("nbdkit");
+      _exit (EXIT_FAILURE);
+    }
+    else {                      /* socket activation */
+      socket_activation (fds, nr_fds);
+
+      execlp ("nbdkit",
+              "nbdkit",
+              "-r",             /* readonly (vital!) */
+              "-f",             /* don't fork */
+              "file",           /* file plugin */
+              file_str,         /* a device like file=/dev/sda */
+              NULL);
+      perror ("nbdkit");
+      _exit (EXIT_FAILURE);
+    }
   }
 
   /* Parent. */
   return pid;
+}
+
+/**
+ * This is used when we are starting an NBD server that does not
+ * support socket activation.  We have to pass the '-p' option to
+ * the NBD server, but there's no good way to choose a free port,
+ * so we have to just guess.
+ *
+ * Returns the port number on success or C<-1> on error.
+ */
+static int
+get_local_port (void)
+{
+  int port = nbd_local_port;
+  nbd_local_port++;
+  return port;
+}
+
+/**
+ * This is used when we are starting an NBD server which supports
+ * socket activation.  We can open a listening socket on an unused
+ * local port and return it.
+ *
+ * Returns the port number on success or C<-1> on error.
+ *
+ * The file descriptor(s) bound are returned in the array *fds, *nr_fds.
+ * The caller must free the array.
+ */
+static int
+open_listening_socket (const char *ipaddr, int **fds, size_t *nr_fds)
+{
+  int port;
+  char port_str[16];
+
+  /* This just ensures we don't try the port we previously bound to. */
+  port = nbd_local_port;
+
+  /* Search for a free port. */
+  for (; port < 60000; ++port) {
+    snprintf (port_str, sizeof port_str, "%d", port);
+    if (bind_tcpip_socket (ipaddr, port_str, fds, nr_fds) == 0) {
+      /* See above. */
+      nbd_local_port = port + 1;
+      return port;
+    }
+  }
+
+  set_nbd_error ("cannot find a free local port");
+  return -1;
+}
+
+static int
+bind_tcpip_socket (const char *ipaddr, const char *port,
+                   int **fds_rtn, size_t *nr_fds_rtn)
+{
+  struct addrinfo *ai = NULL;
+  struct addrinfo hints;
+  struct addrinfo *a;
+  int err;
+  int *fds = NULL;
+  size_t nr_fds;
+  int addr_in_use = 0;
+
+  memset (&hints, 0, sizeof hints);
+  hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG;
+  hints.ai_socktype = SOCK_STREAM;
+
+  err = getaddrinfo (ipaddr, port, &hints, &ai);
+  if (err != 0) {
+#if DEBUG_STDERR
+    fprintf (stderr, "%s: getaddrinfo: %s: %s: %s",
+             getprogname (), ipaddr ? ipaddr : "<any>", port,
+             gai_strerror (err));
+#endif
+    return -1;
+  }
+
+  nr_fds = 0;
+
+  for (a = ai; a != NULL; a = a->ai_next) {
+    int sock, opt;
+
+    sock = socket (a->ai_family, a->ai_socktype, a->ai_protocol);
+    if (sock == -1)
+      error (EXIT_FAILURE, errno, "socket");
+
+    opt = 1;
+    if (setsockopt (sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof opt) == -1)
+      perror ("setsockopt: SO_REUSEADDR");
+
+#ifdef IPV6_V6ONLY
+    if (a->ai_family == PF_INET6) {
+      if (setsockopt (sock, IPPROTO_IPV6, IPV6_V6ONLY, &opt, sizeof opt) == -1)
+        perror ("setsockopt: IPv6 only");
+    }
+#endif
+
+    if (bind (sock, a->ai_addr, a->ai_addrlen) == -1) {
+      if (errno == EADDRINUSE) {
+        addr_in_use = 1;
+        close (sock);
+        continue;
+      }
+      perror ("bind");
+      close (sock);
+      continue;
+    }
+
+    if (listen (sock, SOMAXCONN) == -1) {
+      perror ("listen");
+      close (sock);
+      continue;
+    }
+
+    nr_fds++;
+    fds = realloc (fds, sizeof (int) * nr_fds);
+    if (!fds)
+      error (EXIT_FAILURE, errno, "realloc");
+    fds[nr_fds-1] = sock;
+  }
+
+  freeaddrinfo (ai);
+
+  if (nr_fds == 0 && addr_in_use) {
+#if DEBUG_STDERR
+    fprintf (stderr, "%s: unable to bind to %s:%s: %s\n",
+             getprogname (), ipaddr ? ipaddr : "<any>", port,
+             strerror (EADDRINUSE));
+#endif
+    return -1;
+  }
+
+#if DEBUG_STDERR
+  fprintf (stderr, "%s: bound to IP address %s:%s (%zu socket(s))\n",
+           getprogname (), ipaddr ? ipaddr : "<any>", port, nr_fds);
+#endif
+
+  *fds_rtn = fds;
+  *nr_fds_rtn = nr_fds;
+  return 0;
 }
 
 /**

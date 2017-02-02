@@ -599,9 +599,9 @@ features such as the Reboot button.
 
 =item B<--nbd=server[,server...]>
 
-Select which NBD server is used.  By default the following
-servers are checked and the first one found is used:
-I<--nbd=qemu-nbd,nbdkit>
+Select which NBD server is used.  By default the following servers are
+checked and the first one found is used:
+I<--nbd=qemu-nbd,qemu-nbd-no-sa,nbdkit,nbdkit-no-sa>
 
 =over 4
 
@@ -609,11 +609,23 @@ I<--nbd=qemu-nbd,nbdkit>
 
 Use qemu-nbd.
 
+=item B<qemu-nbd-no-sa>
+
+Use qemu-nbd, but disable socket activation.
+
 =item B<nbdkit>
 
 Use nbdkit with the file plugin (see: L<nbdkit-file-plugin(1)>).
 
+=item B<nbdkit-no-sa>
+
+Use nbdkit, but disable socket activation
+
 =back
+
+The C<*-no-sa> variants allow virt-p2v to fall back to older versions
+of qemu-nbd and nbdkit which did not support
+L<socket activation|http://0pointer.de/blog/projects/socket-activation.html>.
 
 =item B<--test-disk=/PATH/TO/DISK.IMG>
 
