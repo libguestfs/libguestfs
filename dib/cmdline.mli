@@ -34,8 +34,6 @@ type cmdline = {
   root_label : string option;
   install_type : string;
   image_cache : string option;
-  compressed : bool;
-  qemu_img_options : string option;
   mkfs_options : string option;
   is_ramdisk : bool;
   ramdisk_element : string;
@@ -44,10 +42,9 @@ type cmdline = {
   network : bool;
   smp : int option;
   delete_on_failure : bool;
-  formats : string list;
+  formats : Output_format.set;
   arch : string;
   envvars : string list;
-  docker_target : string option;
   checksum : bool;
 }
 

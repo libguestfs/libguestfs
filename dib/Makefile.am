@@ -23,12 +23,23 @@ EXTRA_DIST = \
         virt-dib.pod
 
 SOURCES_MLI = \
-	cmdline.mli
+	cmdline.mli \
+	output_format.mli
+
+# Filenames output_format_<name>.ml in alphabetical order.
+formats = \
+	docker \
+	qcow2 \
+	raw \
+	tar \
+	vhd
 
 SOURCES_ML = \
 	utils.ml \
+	output_format.ml \
 	cmdline.ml \
 	elements.ml \
+	$(patsubst %,output_format_%.ml,$(formats)) \
 	dib.ml
 
 SOURCES_C = \

@@ -475,6 +475,9 @@ let run_install_packages ~debug ~blockdev ~log_file
   flush_all ();
   out
 
+(* Finalize the list of output formats. *)
+let () = Output_format.bake ()
+
 let main () =
   let cmdline = parse_cmdline () in
   let debug = cmdline.debug in
@@ -488,15 +491,7 @@ let main () =
 
   (* Check for required tools. *)
   require_tool "uuidgen";
-  if List.mem "docker" cmdline.formats then (
-    require_tool "docker";
-    if cmdline.docker_target = None then
-      error (f_"docker: a target was not specified, use '--docker-target'");
-  );
-  if List.mem "qcow2" cmdline.formats then
-    require_tool "qemu-img";
-  if List.mem "vhd" cmdline.formats then
-    require_tool "vhd-util";
+  Output_format.check_formats_prerequisites cmdline.formats;
   if cmdline.checksum then
     List.iter (fun x -> require_tool (tool_of_checksum x)) checksums;
 
@@ -600,13 +595,6 @@ let main () =
 
   let rootfs_uuid = uuidgen () in
 
-  let formats_img, formats_archive = List.partition (
-    function
-    | "qcow2" | "raw" | "vhd" -> true
-    | _ -> false
-  ) cmdline.formats in
-  let formats_img_nonraw = List.filter ((<>) "raw") formats_img in
-
   prepare_aux ~envvars ~dib_args ~dib_vars ~log_file ~out_name:image_basename
               ~rootfs_uuid ~arch ~network:cmdline.network ~root_label
               ~install_type:cmdline.install_type ~debug
@@ -618,10 +606,11 @@ let main () =
   let delete_output_file = ref cmdline.delete_on_failure in
   let delete_file () =
     if !delete_output_file then (
+      let filenames = Output_format.get_filenames cmdline.formats cmdline.image_name in
       List.iter (
-        fun fmt ->
-          try Unix.unlink (output_filename cmdline.image_name fmt) with _ -> ()
-      ) cmdline.formats
+        fun fn ->
+          try Unix.unlink fn with _ -> ()
+      ) filenames
     )
   in
   at_exit delete_file;
@@ -673,7 +662,7 @@ let main () =
       (* If "raw" is among the selected outputs, use it as main backing
        * disk, otherwise create a temporary disk.
        *)
-      if not is_ramdisk_build && List.mem "raw" formats_img then
+      if not is_ramdisk_build && Output_format.set_mem "raw" cmdline.formats then
         cmdline.image_name
       else
         Filename.temp_file ~temp_dir:tmpdir "image." "" in
@@ -889,26 +878,7 @@ let main () =
 
   flush_all ();
 
-  List.iter (
-    fun fmt ->
-      let fn = output_filename cmdline.image_name fmt in
-      match fmt with
-      | "tar" ->
-        message (f_"Compressing the image as tar");
-        g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] "/" fn
-      | "docker" ->
-        let docker_target =
-          match cmdline.docker_target with
-          | None -> assert false (* checked earlier *)
-          | Some t -> t in
-        message (f_"Importing the image to docker as '%s'") docker_target;
-        let dockertmp =
-          Filename.temp_file ~temp_dir:tmpdir "docker." ".tar" in
-        g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] "/" dockertmp;
-        let cmd = [ "sudo"; "docker"; "import"; dockertmp; docker_target ] in
-        if run_command cmd <> 0 then exit 1
-      | _ as fmt -> error "unhandled format: %s" fmt
-  ) formats_archive;
+  Output_format.run_formats_on_filesystem cmdline.formats g cmdline.image_name tmpdir;
 
   message (f_"Umounting the disks");
 
@@ -925,40 +895,14 @@ let main () =
   flush_all ();
 
   (* Don't produce images as output when doing a ramdisk build. *)
-  if not is_ramdisk_build then (
-    List.iter (
-      fun fmt ->
-        let fn = output_filename cmdline.image_name fmt in
-        message (f_"Converting to %s") fmt;
-        match fmt with
-        | "qcow2" ->
-          let cmd = [ "qemu-img"; "convert" ] @
-            (if cmdline.compressed then [ "-c" ] else []) @
-            [ "-f"; tmpdiskfmt; tmpdisk; "-O"; fmt ] @
-            (match cmdline.qemu_img_options with
-            | None -> []
-            | Some opt -> [ "-o"; opt ]) @
-            [ qemu_input_filename fn ] in
-          if run_command cmd <> 0 then exit 1;
-        | "vhd" ->
-          let fn_intermediate = Filename.temp_file ~temp_dir:tmpdir "vhd-intermediate." "" in
-          let cmd = [ "vhd-util"; "convert"; "-s"; "0"; "-t"; "1";
-                      "-i"; tmpdisk; "-o"; fn_intermediate ] in
-          if run_command cmd <> 0 then exit 1;
-          let cmd = [ "vhd-util"; "convert"; "-s"; "1"; "-t"; "2";
-                      "-i"; fn_intermediate; "-o"; fn ] in
-          if run_command cmd <> 0 then exit 1;
-          if not (Sys.file_exists fn) then
-            error (f_"VHD output not produced, most probably vhd-util is old or not patched for 'convert'")
-        | _ as fmt -> error "unhandled format: %s" fmt
-    ) formats_img_nonraw;
-  );
+  if not is_ramdisk_build then
+    Output_format.run_formats_on_file cmdline.formats cmdline.image_name (tmpdisk, tmpdiskfmt) tmpdir;
 
   if not is_ramdisk_build && cmdline.checksum then (
     let file_flags = [ Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC; Unix.O_CLOEXEC; ] in
+    let filenames = Output_format.get_filenames cmdline.formats cmdline.image_name in
     List.iter (
-      fun fmt ->
-        let fn = output_filename cmdline.image_name fmt in
+      fun fn ->
         message (f_"Generating checksums for %s") fn;
         let pids =
           List.map (
@@ -998,7 +942,7 @@ let main () =
                 csum_tool i
           );
         done;
-    ) formats_img;
+    ) filenames;
   );
 
   message (f_"Done")
