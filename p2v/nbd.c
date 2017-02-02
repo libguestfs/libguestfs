@@ -45,6 +45,11 @@
 /* How long to wait for the NBD server to start (seconds). */
 #define WAIT_NBD_TIMEOUT 10
 
+/* The local port that the NBD server listens on (incremented for
+ * each server which is started).
+ */
+static int nbd_local_port;
+
 /* List of servers specified by the --nbd option. */
 enum nbd_server {
   /* 0 is reserved for "end of list" */
@@ -150,6 +155,19 @@ test_nbd_servers (void)
   int r;
   const enum nbd_server *servers;
 
+  /* Initialize nbd_local_port. */
+  if (is_iso_environment)
+    /* The p2v ISO should allow us to open up just about any port, so
+     * we can fix a port number in that case.  Using a predictable
+     * port number in this case should avoid rare errors if the port
+     * colides with another (ie. it'll either always fail or never
+     * fail).
+     */
+    nbd_local_port = 50123;
+  else
+    /* When testing on the local machine, choose a random port. */
+    nbd_local_port = 50000 + (random () % 10000);
+
   if (cmdline_servers != NULL)
     servers = cmdline_servers;
   else
@@ -211,14 +229,18 @@ test_nbd_servers (void)
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 pid_t
-start_nbd_server (int port, const char *device)
+start_nbd_server (int *port, const char *device)
 {
+  /* Choose a local port. */
+  *port = nbd_local_port;
+  nbd_local_port++;
+
   switch (use_server) {
   case QEMU_NBD:
-    return start_qemu_nbd (port, device);
+    return start_qemu_nbd (*port, device);
 
   case NBDKIT:
-    return start_nbdkit (port, device);
+    return start_nbdkit (*port, device);
 
   default:
     abort ();

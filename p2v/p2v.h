@@ -52,11 +52,6 @@ extern char **all_interfaces;
  */
 extern int is_iso_environment;
 
-/* The local port that the NBD server listens on (incremented for
- * each server which is started).
- */
-extern int nbd_local_port;
-
 /* True if virt-v2v supports the --colours option. */
 extern int feature_colours_option;
 
@@ -130,7 +125,7 @@ extern int inhibit_power_saving (void);
 
 /* ssh.c */
 extern int test_connection (struct config *);
-extern mexp_h *open_data_connection (struct config *, int *local_port, int *remote_port);
+extern mexp_h *open_data_connection (struct config *, int local_port, int *remote_port);
 extern mexp_h *start_remote_connection (struct config *, const char *remote_dir);
 extern const char *get_ssh_error (void);
 extern int scp_file (struct config *config, const char *localfile, const char *remotefile);
@@ -138,7 +133,7 @@ extern int scp_file (struct config *config, const char *localfile, const char *r
 /* nbd.c */
 extern void set_nbd_option (const char *opt);
 extern void test_nbd_servers (void);
-extern pid_t start_nbd_server (int nbd_local_port, const char *device);
+extern pid_t start_nbd_server (int *nbd_local_port, const char *device);
 extern int wait_for_nbd_server_to_start (int nbd_local_port);
 const char *get_nbd_error (void);
 

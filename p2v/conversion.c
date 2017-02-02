@@ -86,7 +86,6 @@ xmlBufferDetach (xmlBufferPtr buf)
 struct data_conn {
   mexp_h *h;                /* miniexpect handle to ssh */
   pid_t nbd_pid;            /* NBD server PID */
-  int nbd_local_port;       /* local NBD port on physical machine */
   int nbd_remote_port;      /* remote NBD port on conversion server */
 };
 
@@ -231,32 +230,13 @@ start_conversion (struct config *config,
   for (i = 0; config->disks[i] != NULL; ++i) {
     data_conns[i].h = NULL;
     data_conns[i].nbd_pid = 0;
-    data_conns[i].nbd_local_port = -1;
     data_conns[i].nbd_remote_port = -1;
   }
 
   /* Start the data connections and NBD server processes, one per disk. */
   for (i = 0; config->disks[i] != NULL; ++i) {
+    int nbd_local_port;
     CLEANUP_FREE char *device = NULL;
-
-    if (notify_ui) {
-      CLEANUP_FREE char *msg;
-      if (asprintf (&msg,
-                    _("Opening data connection for %s ..."),
-                    config->disks[i]) == -1)
-        error (EXIT_FAILURE, errno, "asprintf");
-      notify_ui (NOTIFY_STATUS, msg);
-    }
-
-    data_conns[i].h = open_data_connection (config,
-                                            &data_conns[i].nbd_local_port,
-                                            &data_conns[i].nbd_remote_port);
-    if (data_conns[i].h == NULL) {
-      const char *err = get_ssh_error ();
-
-      set_conversion_error ("could not open data connection over SSH to the conversion server: %s", err);
-      goto out;
-    }
 
     if (config->disks[i][0] == '/') {
       device = strdup (config->disks[i]);
@@ -272,26 +252,55 @@ start_conversion (struct config *config,
       exit (EXIT_FAILURE);
     }
 
-#if DEBUG_STDERR
-    fprintf (stderr,
-             "%s: data connection for %s: SSH remote port %d, local port %d\n",
-             getprogname (), device,
-             data_conns[i].nbd_remote_port, data_conns[i].nbd_local_port);
-#endif
+    if (notify_ui) {
+      CLEANUP_FREE char *msg;
+      if (asprintf (&msg,
+                    _("Starting local NBD server for %s ..."),
+                    config->disks[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
+      notify_ui (NOTIFY_STATUS, msg);
+    }
 
     /* Start NBD server listening on the given port number. */
-    data_conns[i].nbd_pid =
-      start_nbd_server (data_conns[i].nbd_local_port, device);
+    data_conns[i].nbd_pid = start_nbd_server (&nbd_local_port, device);
     if (data_conns[i].nbd_pid == 0) {
       set_conversion_error ("NBD server error: %s", get_nbd_error ());
       goto out;
     }
 
     /* Wait for NBD server to start up and listen. */
-    if (wait_for_nbd_server_to_start (data_conns[i].nbd_local_port) == -1) {
+    if (wait_for_nbd_server_to_start (nbd_local_port) == -1) {
       set_conversion_error ("NBD server error: %s", get_nbd_error ());
       goto out;
     }
+
+    if (notify_ui) {
+      CLEANUP_FREE char *msg;
+      if (asprintf (&msg,
+                    _("Opening data connection for %s ..."),
+                    config->disks[i]) == -1)
+        error (EXIT_FAILURE, errno, "asprintf");
+      notify_ui (NOTIFY_STATUS, msg);
+    }
+
+    /* Open the SSH data connection, with reverse port forwarding
+     * back to the NBD server.
+     */
+    data_conns[i].h = open_data_connection (config, nbd_local_port,
+                                            &data_conns[i].nbd_remote_port);
+    if (data_conns[i].h == NULL) {
+      const char *err = get_ssh_error ();
+
+      set_conversion_error ("could not open data connection over SSH to the conversion server: %s", err);
+      goto out;
+    }
+
+#if DEBUG_STDERR
+    fprintf (stderr,
+             "%s: data connection for %s: SSH remote port %d, local port %d\n",
+             getprogname (), device,
+             data_conns[i].nbd_remote_port, nbd_local_port);
+#endif
   }
 
   /* Create a remote directory name which will be used for libvirt

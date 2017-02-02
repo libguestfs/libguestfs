@@ -51,7 +51,6 @@ char **all_disks;
 char **all_removable;
 char **all_interfaces;
 int is_iso_environment = 0;
-int nbd_local_port;
 int feature_colours_option = 0;
 int force_colour = 0;
 static const char *test_disk = NULL;
@@ -223,18 +222,6 @@ main (int argc, char *argv[])
              getprogname ());
     usage (EXIT_FAILURE);
   }
-
-  if (is_iso_environment)
-    /* The p2v ISO should allow us to open up just about any port, so
-     * we can fix a port number in that case.  Using a predictable
-     * port number in this case should avoid rare errors if the port
-     * colides with another (ie. it'll either always fail or never
-     * fail).
-     */
-    nbd_local_port = 50123;
-  else
-    /* When testing on the local machine, choose a random port. */
-    nbd_local_port = 50000 + (random () % 10000);
 
   test_nbd_servers ();
 
