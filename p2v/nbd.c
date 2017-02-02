@@ -36,6 +36,7 @@
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <assert.h>
 
 #include "getprogname.h"
 
@@ -44,14 +45,24 @@
 /* How long to wait for the NBD server to start (seconds). */
 #define WAIT_NBD_TIMEOUT 10
 
-/* virt-p2v --nbd option. */
+/* List of servers specified by the --nbd option. */
 enum nbd_server {
-  NO_SERVER = 0,
+  /* 0 is reserved for "end of list" */
   QEMU_NBD = 1,
   NBDKIT = 2,
-#define NR_NBD_SERVERS 2
 };
-static enum nbd_server nbd_servers[NR_NBD_SERVERS] = { QEMU_NBD, NBDKIT };
+static enum nbd_server *cmdline_servers = NULL;
+
+/* If no --nbd option is passed, we use this standard list instead.
+ * Must match the documentation in virt-p2v(1).
+ */
+static const enum nbd_server standard_servers[] =
+  { QEMU_NBD, NBDKIT, 0 };
+
+/* After testing the list of servers passed by the user, this is
+ * server we decide to use.
+ */
+static enum nbd_server use_server;
 
 static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
 static pid_t start_nbdkit (int nbd_local_port, const char *device);
@@ -94,59 +105,70 @@ get_nbd_error (void)
 void
 set_nbd_option (const char *opt)
 {
-  size_t i;
-  CLEANUP_FREE_STRING_LIST char **strs
-    = guestfs_int_split_string (',', opt);
+  size_t i, len;
+  CLEANUP_FREE_STRING_LIST char **strs = NULL;
+
+  if (cmdline_servers != NULL)
+    error (EXIT_FAILURE, 0, _("--nbd option appears multiple times"));
+
+  strs = guestfs_int_split_string (',', opt);
 
   if (strs == NULL)
     error (EXIT_FAILURE, errno, _("malloc"));
 
-  if (strs[0] == NULL)
+  len = guestfs_int_count_strings (strs);
+  if (len == 0)
     error (EXIT_FAILURE, 0, _("--nbd option cannot be empty"));
 
-  for (i = 0; strs[i] != NULL; ++i) {
-    if (i >= NR_NBD_SERVERS)
-      error (EXIT_FAILURE, 0, _("too many --nbd servers"));
+  cmdline_servers = malloc (sizeof (enum nbd_server) * (len + 1));
+  if (cmdline_servers == NULL)
+    error (EXIT_FAILURE, errno, _("malloc"));
 
+  for (i = 0; strs[i] != NULL; ++i) {
     if (STREQ (strs[i], "qemu-nbd") || STREQ (strs[i], "qemu"))
-      nbd_servers[i] = QEMU_NBD;
+      cmdline_servers[i] = QEMU_NBD;
     else if (STREQ (strs[i], "nbdkit"))
-      nbd_servers[i] = NBDKIT;
+      cmdline_servers[i] = NBDKIT;
     else
       error (EXIT_FAILURE, 0, _("--nbd: unknown server: %s"), strs[i]);
   }
 
-  for (; i < NR_NBD_SERVERS; ++i)
-    nbd_servers[i] = NO_SERVER;
+  assert (i == len);
+  cmdline_servers[i] = 0;       /* marks the end of the list */
 }
 
 /**
  * Test the I<--nbd> option (or built-in default list) to see which
  * servers are actually installed and appear to be working.
  *
- * If a server is not installed we set the corresponding
- * C<nbd_servers[i] = NO_SERVER>.
+ * Set the C<use_server> global accordingly.
  */
 void
 test_nbd_servers (void)
 {
   size_t i;
   int r;
+  const enum nbd_server *servers;
 
-  for (i = 0; i < NR_NBD_SERVERS; ++i) {
-    switch (nbd_servers[i]) {
-    case NO_SERVER:
-      /* ignore entry */
-      break;
+  if (cmdline_servers != NULL)
+    servers = cmdline_servers;
+  else
+    servers = standard_servers;
 
+  use_server = 0;
+
+  for (i = 0; servers[i] != 0; ++i) {
+    switch (servers[i]) {
     case QEMU_NBD:
       r = system ("qemu-nbd --version"
 #ifndef DEBUG_STDERR
                   " >/dev/null 2>&1"
 #endif
                   );
-      if (r != 0)
-        nbd_servers[i] = NO_SERVER;
+      if (r == 0) {
+        use_server = servers[i];
+        goto finish;
+      }
       break;
 
     case NBDKIT:
@@ -155,8 +177,10 @@ test_nbd_servers (void)
                   " >/dev/null 2>&1"
 #endif
                   );
-      if (r != 0)
-        nbd_servers[i] = NO_SERVER;
+      if (r == 0) {
+        use_server = servers[i];
+        goto finish;
+      }
       break;
 
     default:
@@ -164,52 +188,41 @@ test_nbd_servers (void)
     }
   }
 
-  for (i = 0; i < NR_NBD_SERVERS; ++i)
-    if (nbd_servers[i] != NO_SERVER)
-      return;
+ finish:
+  if (use_server == 0) {
+    fprintf (stderr,
+             _("%s: no working NBD server was found, cannot continue.\n"
+               "Please check the --nbd option in the virt-p2v(1) man page.\n"),
+             getprogname ());
+    exit (EXIT_FAILURE);
+  }
 
-  /* If we reach here, there are no servers left, so we have to exit. */
-  fprintf (stderr,
-           _("%s: no working NBD server was found, cannot continue.\n"
-             "Please check the --nbd option in the virt-p2v(1) man page.\n"),
-           getprogname ());
-  exit (EXIT_FAILURE);
+  /* Release memory used by the --nbd option. */
+  free (cmdline_servers);
+  cmdline_servers = NULL;
 }
 
 /**
- * Start the first server found in the C<nbd_servers> list.
+ * Start the NBD server.
  *
- * We previously tested all NBD servers (see C<test_nbd_servers>) so
- * we only need to run the first server in the list.
+ * We previously tested all NBD servers (see C<test_nbd_servers>) and
+ * hopefully found one which will work.
  *
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 pid_t
 start_nbd_server (int port, const char *device)
 {
-  size_t i;
+  switch (use_server) {
+  case QEMU_NBD:
+    return start_qemu_nbd (port, device);
 
-  for (i = 0; i < NR_NBD_SERVERS; ++i) {
-    switch (nbd_servers[i]) {
-    case NO_SERVER:
-      /* ignore */
-      break;
+  case NBDKIT:
+    return start_nbdkit (port, device);
 
-    case QEMU_NBD:
-      return start_qemu_nbd (port, device);
-
-    case NBDKIT:
-      return start_nbdkit (port, device);
-
-    default:
-      abort ();
-    }
+  default:
+    abort ();
   }
-
-  /* This should never happen because of the checks in
-   * test_nbd_servers.
-   */
-  abort ();
 }
 
 /**
