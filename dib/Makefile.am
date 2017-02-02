@@ -32,6 +32,7 @@ formats = \
 	qcow2 \
 	raw \
 	tar \
+	tgz \
 	vhd
 
 SOURCES_ML = \

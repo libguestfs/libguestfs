@@ -216,6 +216,10 @@ Raw disk format.
 
 An uncompressed tarball.
 
+=item C<tgz>
+
+A tarball compressed with gzip.
+
 =item C<vhd>
 
 C<Virtual Hard Disk> disk image.  This output format requires
