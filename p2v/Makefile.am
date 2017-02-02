@@ -81,6 +81,7 @@ virt_p2v_SOURCES = \
 	kernel.c \
 	kernel-cmdline.c \
 	main.c \
+	nbd.c \
 	p2v.h \
 	ssh.c \
 	utils.c \

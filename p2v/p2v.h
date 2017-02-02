@@ -63,15 +63,6 @@ extern int feature_colours_option;
 /* virt-p2v --colours option (used by ansi_* macros). */
 extern int force_colour;
 
-/* virt-p2v --nbd option. */
-enum nbd_server {
-  NO_SERVER = 0,
-  QEMU_NBD = 1,
-  NBDKIT = 2,
-#define NR_NBD_SERVERS 2
-};
-extern enum nbd_server nbd_servers[NR_NBD_SERVERS];
-
 /* config.c */
 struct config {
   char *server;
@@ -143,6 +134,13 @@ extern mexp_h *open_data_connection (struct config *, int *local_port, int *remo
 extern mexp_h *start_remote_connection (struct config *, const char *remote_dir);
 extern const char *get_ssh_error (void);
 extern int scp_file (struct config *config, const char *localfile, const char *remotefile);
+
+/* nbd.c */
+extern void set_nbd_option (const char *opt);
+extern void test_nbd_servers (void);
+extern pid_t start_nbd_server (int nbd_local_port, const char *device);
+extern int wait_for_nbd_server_to_start (int nbd_local_port);
+const char *get_nbd_error (void);
 
 /* utils.c */
 extern uint64_t get_blockdev_size (const char *dev);

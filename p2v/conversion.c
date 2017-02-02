@@ -82,21 +82,14 @@ xmlBufferDetach (xmlBufferPtr buf)
 }
 #endif
 
-/* How long to wait for the NBD server to start (seconds). */
-#define WAIT_NBD_TIMEOUT 10
-
 /* Data per NBD connection / physical disk. */
 struct data_conn {
   mexp_h *h;                /* miniexpect handle to ssh */
-  pid_t nbd_pid;            /* qemu pid */
+  pid_t nbd_pid;            /* NBD server PID */
   int nbd_local_port;       /* local NBD port on physical machine */
   int nbd_remote_port;      /* remote NBD port on conversion server */
 };
 
-static pid_t start_nbd (int nbd_local_port, const char *device);
-static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
-static pid_t start_nbdkit (int nbd_local_port, const char *device);
-static int wait_nbd (int nbd_local_port, int timeout_seconds);
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static void generate_name (struct config *, const char *filename);
 static void generate_libvirt_xml (struct config *, struct data_conn *, const char *filename);
@@ -288,14 +281,17 @@ start_conversion (struct config *config,
 
     /* Start NBD server listening on the given port number. */
     data_conns[i].nbd_pid =
-      start_nbd (data_conns[i].nbd_local_port, device);
-    if (data_conns[i].nbd_pid == 0)
+      start_nbd_server (data_conns[i].nbd_local_port, device);
+    if (data_conns[i].nbd_pid == 0) {
+      set_conversion_error ("NBD server error: %s", get_nbd_error ());
       goto out;
+    }
 
-    /* Wait for NBD server to listen */
-    if (wait_nbd (data_conns[i].nbd_local_port,
-                       WAIT_NBD_TIMEOUT) == -1)
+    /* Wait for NBD server to start up and listen. */
+    if (wait_for_nbd_server_to_start (data_conns[i].nbd_local_port) == -1) {
+      set_conversion_error ("NBD server error: %s", get_nbd_error ());
       goto out;
+    }
   }
 
   /* Create a remote directory name which will be used for libvirt
@@ -463,313 +459,6 @@ void
 cancel_conversion (void)
 {
   set_cancel_requested (1);
-}
-
-/**
- * Start the first server found in the C<nbd_servers> list.
- *
- * We previously tested all NBD servers (see C<test_nbd_servers>) so
- * we only need to run the first server in the list.
- *
- * Returns the process ID (E<gt> 0) or C<0> if there is an error.
- */
-static pid_t
-start_nbd (int port, const char *device)
-{
-  size_t i;
-
-  for (i = 0; i < NR_NBD_SERVERS; ++i) {
-    switch (nbd_servers[i]) {
-    case NO_SERVER:
-      /* ignore */
-      break;
-
-    case QEMU_NBD:
-      return start_qemu_nbd (port, device);
-
-    case NBDKIT:
-      return start_nbdkit (port, device);
-
-    default:
-      abort ();
-    }
-  }
-
-  /* This should never happen because of the checks in
-   * test_nbd_servers.
-   */
-  abort ();
-}
-
-/**
- * Start a local L<qemu-nbd(1)> process.
- *
- * Returns the process ID (E<gt> 0) or C<0> if there is an error.
- */
-static pid_t
-start_qemu_nbd (int port, const char *device)
-{
-  pid_t pid;
-  char port_str[64];
-
-#if DEBUG_STDERR
-  fprintf (stderr, "starting qemu-nbd for %s on port %d\n", device, port);
-#endif
-
-  snprintf (port_str, sizeof port_str, "%d", port);
-
-  pid = fork ();
-  if (pid == -1) {
-    set_conversion_error ("fork: %m");
-    return 0;
-  }
-
-  if (pid == 0) {               /* Child. */
-    close (0);
-    open ("/dev/null", O_RDONLY);
-
-    execlp ("qemu-nbd",
-            "qemu-nbd",
-            "-r",               /* readonly (vital!) */
-            "-p", port_str,     /* listening port */
-            "-t",               /* persistent */
-            "-f", "raw",        /* force raw format */
-            "-b", "localhost",  /* listen only on loopback interface */
-            "--cache=unsafe",   /* use unsafe caching for speed */
-            device,             /* a device like /dev/sda */
-            NULL);
-    perror ("qemu-nbd");
-    _exit (EXIT_FAILURE);
-  }
-
-  /* Parent. */
-  return pid;
-}
-
-/**
- * Start a local L<nbdkit(1)> process using the
- * L<nbdkit-file-plugin(1)>.
- *
- * Returns the process ID (E<gt> 0) or C<0> if there is an error.
- */
-static pid_t
-start_nbdkit (int port, const char *device)
-{
-  pid_t pid;
-  char port_str[64];
-  CLEANUP_FREE char *file_str = NULL;
-
-#if DEBUG_STDERR
-  fprintf (stderr, "starting nbdkit for %s on port %d\n", device, port);
-#endif
-
-  snprintf (port_str, sizeof port_str, "%d", port);
-
-  if (asprintf (&file_str, "file=%s", device) == -1)
-    error (EXIT_FAILURE, errno, "asprintf");
-
-  pid = fork ();
-  if (pid == -1) {
-    set_conversion_error ("fork: %m");
-    return 0;
-  }
-
-  if (pid == 0) {               /* Child. */
-    close (0);
-    open ("/dev/null", O_RDONLY);
-
-    execlp ("nbdkit",
-            "nbdkit",
-            "-r",               /* readonly (vital!) */
-            "-p", port_str,     /* listening port */
-            "-i", "localhost",  /* listen only on loopback interface */
-            "-f",               /* don't fork */
-            "file",             /* file plugin */
-            file_str,           /* a device like file=/dev/sda */
-            NULL);
-    perror ("nbdkit");
-    _exit (EXIT_FAILURE);
-  }
-
-  /* Parent. */
-  return pid;
-}
-
-static int bind_source_port (int sockfd, int family, int source_port);
-
-/**
- * Connect to C<hostname:dest_port>, resolving the address using
- * L<getaddrinfo(3)>.
- *
- * This also sets the source port of the connection to the first free
- * port number E<ge> C<source_port>.
- *
- * This may involve multiple connections - to IPv4 and IPv6 for
- * instance.
- */
-static int
-connect_with_source_port (const char *hostname, int dest_port, int source_port)
-{
-  struct addrinfo hints;
-  struct addrinfo *results, *rp;
-  char dest_port_str[16];
-  int r, sockfd = -1;
-  int reuseaddr = 1;
-
-  snprintf (dest_port_str, sizeof dest_port_str, "%d", dest_port);
-
-  memset (&hints, 0, sizeof hints);
-  hints.ai_family = AF_UNSPEC;     /* allow IPv4 or IPv6 */
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_flags = AI_NUMERICSERV; /* numeric dest port number */
-  hints.ai_protocol = 0;           /* any protocol */
-
-  r = getaddrinfo (hostname, dest_port_str, &hints, &results);
-  if (r != 0) {
-    set_conversion_error ("getaddrinfo: %s/%s: %s",
-                          hostname, dest_port_str, gai_strerror (r));
-    return -1;
-  }
-
-  for (rp = results; rp != NULL; rp = rp->ai_next) {
-    sockfd = socket (rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-    if (sockfd == -1)
-      continue;
-
-    /* If we run p2v repeatedly (say, running the tests in a loop),
-     * there's a decent chance we'll end up trying to bind() to a port
-     * that is in TIME_WAIT from a prior run.  Handle that gracefully
-     * with SO_REUSEADDR.
-     */
-    if (setsockopt (sockfd, SOL_SOCKET, SO_REUSEADDR,
-                    &reuseaddr, sizeof reuseaddr) == -1)
-      perror ("warning: setsockopt");
-
-    /* Need to bind the source port. */
-    if (bind_source_port (sockfd, rp->ai_family, source_port) == -1) {
-      close (sockfd);
-      sockfd = -1;
-      continue;
-    }
-
-    /* Connect. */
-    if (connect (sockfd, rp->ai_addr, rp->ai_addrlen) == -1) {
-      set_conversion_error ("waiting for NBD server to start: "
-                            "connect to %s/%s: %m",
-                            hostname, dest_port_str);
-      close (sockfd);
-      sockfd = -1;
-      continue;
-    }
-
-    break;
-  }
-
-  freeaddrinfo (results);
-  return sockfd;
-}
-
-static int
-bind_source_port (int sockfd, int family, int source_port)
-{
-  struct addrinfo hints;
-  struct addrinfo *results, *rp;
-  char source_port_str[16];
-  int r;
-
-  snprintf (source_port_str, sizeof source_port_str, "%d", source_port);
-
-  memset (&hints, 0, sizeof (hints));
-  hints.ai_family = family;
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_flags = AI_PASSIVE | AI_NUMERICSERV; /* numeric port number */
-  hints.ai_protocol = 0;                        /* any protocol */
-
-  r = getaddrinfo ("localhost", source_port_str, &hints, &results);
-  if (r != 0) {
-    set_conversion_error ("getaddrinfo (bind): localhost/%s: %s",
-                          source_port_str, gai_strerror (r));
-    return -1;
-  }
-
-  for (rp = results; rp != NULL; rp = rp->ai_next) {
-    if (bind (sockfd, rp->ai_addr, rp->ai_addrlen) == 0)
-      goto bound;
-  }
-
-  set_conversion_error ("waiting for NBD server to start: "
-                        "bind to source port %d: %m",
-                        source_port);
-  freeaddrinfo (results);
-  return -1;
-
- bound:
-  freeaddrinfo (results);
-  return 0;
-}
-
-static int
-wait_nbd (int nbd_local_port, int timeout_seconds)
-{
-  int sockfd = -1;
-  int result = -1;
-  time_t start_t, now_t;
-  struct timespec half_sec = { .tv_sec = 0, .tv_nsec = 500000000 };
-  struct timeval timeout = { .tv_usec = 0 };
-  char magic[8]; /* NBDMAGIC */
-  size_t bytes_read = 0;
-  ssize_t recvd;
-
-  time (&start_t);
-
-  for (;;) {
-    time (&now_t);
-
-    if (now_t - start_t >= timeout_seconds)
-      goto cleanup;
-
-    /* Source port for probing NBD server should be one greater than
-     * nbd_local_port.  It's not guaranteed to always bind to this
-     * port, but it will hint the kernel to start there and try
-     * incrementally higher ports if needed.  This avoids the case
-     * where the kernel selects nbd_local_port as our source port, and
-     * we immediately connect to ourself.  See:
-     * https://bugzilla.redhat.com/show_bug.cgi?id=1167774#c9
-     */
-    sockfd = connect_with_source_port ("localhost", nbd_local_port,
-                                       nbd_local_port+1);
-    if (sockfd >= 0)
-      break;
-
-    nanosleep (&half_sec, NULL);
-  }
-
-  time (&now_t);
-  timeout.tv_sec = (start_t + timeout_seconds) - now_t;
-  setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout);
-
-  do {
-    recvd = recv (sockfd, magic, sizeof magic - bytes_read, 0);
-
-    if (recvd == -1) {
-      set_conversion_error ("waiting for NBD server to start: recv: %m");
-      goto cleanup;
-    }
-
-    bytes_read += recvd;
-  } while (bytes_read < sizeof magic);
-
-  if (memcmp (magic, "NBDMAGIC", sizeof magic) != 0) {
-    set_conversion_error ("waiting for NBD server to start: "
-                          "'NBDMAGIC' was not received from NBD server");
-    goto cleanup;
-  }
-
-  result = 0;
- cleanup:
-  close (sockfd);
-
-  return result;
 }
 
 static void

@@ -54,7 +54,6 @@ int is_iso_environment = 0;
 int nbd_local_port;
 int feature_colours_option = 0;
 int force_colour = 0;
-enum nbd_server nbd_servers[NR_NBD_SERVERS] = { QEMU_NBD, NBDKIT };
 static const char *test_disk = NULL;
 
 static void udevadm_settle (void);
@@ -62,7 +61,6 @@ static void set_config_defaults (struct config *config);
 static void find_all_disks (void);
 static void find_all_interfaces (void);
 static int cpuinfo_flags (void);
-static void test_nbd_servers (void);
 
 enum { HELP_OPTION = CHAR_MAX + 1 };
 static const char options[] = "Vv";
@@ -133,35 +131,6 @@ display_long_options (const struct option *long_options)
   exit (EXIT_SUCCESS);
 }
 
-static void
-set_nbd_servers (const char *opt)
-{
-  size_t i;
-  CLEANUP_FREE_STRING_LIST char **strs
-    = guestfs_int_split_string (',', opt);
-
-  if (strs == NULL)
-    error (EXIT_FAILURE, errno, _("malloc"));
-
-  if (strs[0] == NULL)
-    error (EXIT_FAILURE, 0, _("--nbd option cannot be empty"));
-
-  for (i = 0; strs[i] != NULL; ++i) {
-    if (i >= NR_NBD_SERVERS)
-      error (EXIT_FAILURE, 0, _("too many --nbd servers"));
-
-    if (STREQ (strs[i], "qemu-nbd") || STREQ (strs[i], "qemu"))
-      nbd_servers[i] = QEMU_NBD;
-    else if (STREQ (strs[i], "nbdkit"))
-      nbd_servers[i] = NBDKIT;
-    else
-      error (EXIT_FAILURE, 0, _("--nbd: unknown server: %s"), strs[i]);
-  }
-
-  for (; i < NR_NBD_SERVERS; ++i)
-    nbd_servers[i] = NO_SERVER;
-}
-
 int
 main (int argc, char *argv[])
 {
@@ -214,7 +183,7 @@ main (int argc, char *argv[])
         is_iso_environment = 1;
       }
       else if (STREQ (long_options[option_index].name, "nbd")) {
-        set_nbd_servers (optarg);
+        set_nbd_option (optarg); /* in nbd.c */
       }
       else if (STREQ (long_options[option_index].name, "test-disk")) {
         if (test_disk != NULL)
@@ -307,59 +276,6 @@ static void
 udevadm_settle (void)
 {
   ignore_value (system ("udevadm settle"));
-}
-
-/* Test the nbd_servers[] array to see which servers are actually
- * installed and appear to be working.  If a server is not installed
- * we set the corresponding nbd_servers[i] = NO_SERVER.
- */
-static void
-test_nbd_servers (void)
-{
-  size_t i;
-  int r;
-
-  for (i = 0; i < NR_NBD_SERVERS; ++i) {
-    switch (nbd_servers[i]) {
-    case NO_SERVER:
-      /* ignore entry */
-      break;
-
-    case QEMU_NBD:
-      r = system ("qemu-nbd --version"
-#ifndef DEBUG_STDERR
-                  " >/dev/null 2>&1"
-#endif
-                  );
-      if (r != 0)
-        nbd_servers[i] = NO_SERVER;
-      break;
-
-    case NBDKIT:
-      r = system ("nbdkit file --version"
-#ifndef DEBUG_STDERR
-                  " >/dev/null 2>&1"
-#endif
-                  );
-      if (r != 0)
-        nbd_servers[i] = NO_SERVER;
-      break;
-
-    default:
-      abort ();
-    }
-  }
-
-  for (i = 0; i < NR_NBD_SERVERS; ++i)
-    if (nbd_servers[i] != NO_SERVER)
-      return;
-
-  /* If we reach here, there are no servers left, so we have to exit. */
-  fprintf (stderr,
-           _("%s: no working NBD server was found, cannot continue.\n"
-             "Please check the --nbd option in the virt-p2v(1) man page.\n"),
-           getprogname ());
-  exit (EXIT_FAILURE);
 }
 
 static void
