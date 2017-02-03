@@ -1039,7 +1039,9 @@ compatible_version (const char *v2v_version)
 }
 
 mexp_h *
-open_data_connection (struct config *config, int local_port, int *remote_port)
+open_data_connection (struct config *config,
+                      const char *local_ipaddr, int local_port,
+                      int *remote_port)
 {
   mexp_h *h;
   char remote_arg[32];
@@ -1052,7 +1054,7 @@ open_data_connection (struct config *config, int local_port, int *remote_port)
   const int ovecsize = 12;
   int ovector[ovecsize];
 
-  snprintf (remote_arg, sizeof remote_arg, "0:localhost:%d", local_port);
+  snprintf (remote_arg, sizeof remote_arg, "0:%s:%d", local_ipaddr, local_port);
 
   h = start_ssh (0, config, (char **) extra_args, 0);
   if (h == NULL)

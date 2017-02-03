@@ -69,8 +69,8 @@ static const enum nbd_server standard_servers[] =
  */
 static enum nbd_server use_server;
 
-static pid_t start_qemu_nbd (int nbd_local_port, const char *device);
-static pid_t start_nbdkit (int nbd_local_port, const char *device);
+static pid_t start_qemu_nbd (const char *ipaddr, int nbd_local_port, const char *device);
+static pid_t start_nbdkit (const char *ipaddr, int nbd_local_port, const char *device);
 static int connect_with_source_port (const char *hostname, int dest_port, int source_port);
 static int bind_source_port (int sockfd, int family, int source_port);
 
@@ -229,7 +229,7 @@ test_nbd_servers (void)
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 pid_t
-start_nbd_server (int *port, const char *device)
+start_nbd_server (const char **ipaddr, int *port, const char *device)
 {
   /* Choose a local port. */
   *port = nbd_local_port;
@@ -237,10 +237,12 @@ start_nbd_server (int *port, const char *device)
 
   switch (use_server) {
   case QEMU_NBD:
-    return start_qemu_nbd (*port, device);
+    *ipaddr = "localhost";
+    return start_qemu_nbd (*ipaddr, *port, device);
 
   case NBDKIT:
-    return start_nbdkit (*port, device);
+    *ipaddr = "localhost";
+    return start_nbdkit (*ipaddr, *port, device);
 
   default:
     abort ();
@@ -253,7 +255,7 @@ start_nbd_server (int *port, const char *device)
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 static pid_t
-start_qemu_nbd (int port, const char *device)
+start_qemu_nbd (const char *ipaddr, int port, const char *device)
 {
   pid_t pid;
   char port_str[64];
@@ -280,7 +282,7 @@ start_qemu_nbd (int port, const char *device)
             "-p", port_str,     /* listening port */
             "-t",               /* persistent */
             "-f", "raw",        /* force raw format */
-            "-b", "localhost",  /* listen only on loopback interface */
+            "-b", ipaddr,       /* listen only on loopback interface */
             "--cache=unsafe",   /* use unsafe caching for speed */
             device,             /* a device like /dev/sda */
             NULL);
@@ -299,7 +301,7 @@ start_qemu_nbd (int port, const char *device)
  * Returns the process ID (E<gt> 0) or C<0> if there is an error.
  */
 static pid_t
-start_nbdkit (int port, const char *device)
+start_nbdkit (const char *ipaddr, int port, const char *device)
 {
   pid_t pid;
   char port_str[64];
@@ -328,7 +330,7 @@ start_nbdkit (int port, const char *device)
             "nbdkit",
             "-r",               /* readonly (vital!) */
             "-p", port_str,     /* listening port */
-            "-i", "localhost",  /* listen only on loopback interface */
+            "-i", ipaddr     ,  /* listen only on loopback interface */
             "-f",               /* don't fork */
             "file",             /* file plugin */
             file_str,           /* a device like file=/dev/sda */
@@ -346,7 +348,7 @@ start_nbdkit (int port, const char *device)
  * connections.
  */
 int
-wait_for_nbd_server_to_start (int nbd_local_port)
+wait_for_nbd_server_to_start (const char *ipaddr, int port)
 {
   int sockfd = -1;
   int result = -1;
@@ -368,15 +370,14 @@ wait_for_nbd_server_to_start (int nbd_local_port)
     }
 
     /* Source port for probing NBD server should be one greater than
-     * nbd_local_port.  It's not guaranteed to always bind to this
-     * port, but it will hint the kernel to start there and try
-     * incrementally higher ports if needed.  This avoids the case
-     * where the kernel selects nbd_local_port as our source port, and
-     * we immediately connect to ourself.  See:
+     * port.  It's not guaranteed to always bind to this port, but it
+     * will hint the kernel to start there and try incrementally
+     * higher ports if needed.  This avoids the case where the kernel
+     * selects port as our source port, and we immediately connect to
+     * ourself.  See:
      * https://bugzilla.redhat.com/show_bug.cgi?id=1167774#c9
      */
-    sockfd = connect_with_source_port ("localhost", nbd_local_port,
-                                       nbd_local_port+1);
+    sockfd = connect_with_source_port (ipaddr, port, port+1);
     if (sockfd >= 0)
       break;
 
