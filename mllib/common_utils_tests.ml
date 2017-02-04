@@ -27,6 +27,12 @@ let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_stringlist = assert_equal ~printer:(fun x -> "(" ^ (String.escaped (String.concat "," x)) ^ ")")
 
+let test_subdirectory ctx =
+  assert_equal_string "" (subdirectory "/foo" "/foo");
+  assert_equal_string "" (subdirectory "/foo" "/foo/");
+  assert_equal_string "bar" (subdirectory "/foo" "/foo/bar");
+  assert_equal_string "bar/baz" (subdirectory "/foo" "/foo/bar/baz")
+
 (* Test Common_utils.int_of_le32 and Common_utils.le32_of_int. *)
 let test_le32 ctx =
   assert_equal_int64 0x20406080L (int_of_le32 "\x80\x60\x40\x20");
@@ -129,6 +135,7 @@ let test_string_lines_split ctx =
 let suite =
   "mllib Common_utils" >:::
     [
+      "subdirectory" >:: test_subdirectory;
       "numeric.le32" >:: test_le32;
       "sizes.parse_resize" >:: test_parse_resize;
       "sizes.human_size" >:: test_human_size;
