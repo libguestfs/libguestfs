@@ -138,7 +138,7 @@ let find_file_in_tar tar filename =
               if i == (String.length offset)-1 then
                 Int64.of_string (String.sub offset 0 i)
               else
-                raise (Failure "colon at wrong position")
+                failwith "colon at wrong position"
             with Failure _ | Not_found ->
               failwithf (f_"invalid offset returned by tar: %S") offset in
 
@@ -155,8 +155,7 @@ let find_file_in_tar tar filename =
           (offset +^ 1L) *^ 512L, size
         )
       ) else
-        raise (Failure (sprintf
-          "failed to parse line returned by tar: %S" line))
+        failwithf (f_"failed to parse line returned by tar: %S") line
     )
   in
   loop lines
