@@ -260,6 +260,7 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
 	test-v2v-docs.sh \
+	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-formats.sh \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-subfolders.sh \
@@ -359,6 +360,7 @@ EXTRA_DIST += \
 	test-v2v-i-ova-subfolders.expected \
 	test-v2v-i-ova-subfolders.ovf \
 	test-v2v-i-ova-subfolders.sh \
+	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-two-disks.expected \
 	test-v2v-i-ova-two-disks.ovf \
 	test-v2v-i-ova-two-disks.sh \

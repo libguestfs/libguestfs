@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs virt-v2v test script
-# Copyright (C) 2014-2017 Red Hat Inc.
+# Copyright (C) 2014-2016 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,20 +22,8 @@ unset CDPATH
 export LANG=C
 set -e
 
-formats="zip tar-gz tar-xz"
-
 if [ -n "$SKIP_TEST_V2V_I_OVA_FORMATS_SH" ]; then
     echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if ! zip --version >/dev/null 2>&1; then
-    echo "$0: test skipped because 'zip' utility is not available"
-    exit 77
-fi
-
-if ! unzip --help >/dev/null 2>&1; then
-    echo "$0: test skipped because 'unzip' utility is not available"
     exit 77
 fi
 
@@ -48,7 +36,7 @@ export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 
 . $srcdir/../test-data/test-utils.sh
 
-d=test-v2v-i-ova-formats.d
+d=test-v2v-i-ova-tar.d
 rm -rf $d
 mkdir $d
 
@@ -59,38 +47,26 @@ pushd $d
 truncate -s 10k disk1.vmdk
 sha=`do_sha1 disk1.vmdk`
 echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
-cp ../test-v2v-i-ova-formats.ovf .
-
-for format in $formats; do
-    case "$format" in
-        zip)
-            zip -r test test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
-            mv test.zip test-$format.ova
-            ;;
-        tar-gz)
-            tar -czf test-$format.ova test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
-            ;;
-        tar-xz)
-            tar -cJf test-$format.ova test-v2v-i-ova-formats.ovf disk1.vmdk disk1.mf
-            ;;
-        *)
-            echo "Unhandled format '$format'"
-            exit 1
-    esac
-done
+cp ../test-v2v-i-ova-tar.ovf .
+tar -cf test-tar.ova test-v2v-i-ova-tar.ovf disk1.vmdk disk1.mf
 
 popd
 
-for format in $formats; do
-    # Run virt-v2v but only as far as the --print-source stage, and
-    # normalize the output.
-    $VG virt-v2v --debug-gc --quiet \
-        -i ova $d/test-$format.ova \
-        --print-source |
-    sed 's,[^ \t]*\(disk.*.vmdk\),\1,' > $d/source
+# Run virt-v2v but only as far as the --print-source stage
+$VG virt-v2v --debug-gc --quiet \
+    -i ova $d/test-tar.ova \
+    --print-source > $d/source
 
-    # Check the parsed source is what we expect.
-    diff -u test-v2v-i-ova-formats.expected $d/source
-done
+# Check the parsed source is what we expect.
+if qemu_is_version 2 8 ; then
+    # normalize the output
+    sed -i -e "s,\"$d/,\"," $d/source
+    diff -u test-v2v-i-ova-tar.expected2 $d/source
+else
+    # normalize the output
+    sed -i -e 's,[^ \t]*\(disk.*.vmdk\),\1,' $d/source
+    diff -u test-v2v-i-ova-tar.expected $d/source
+fi
+
 
 rm -rf $d

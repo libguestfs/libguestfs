@@ -1,0 +1,19 @@
+Source guest information (--print-source option):
+
+    source name: 2K8R2EESP1_2_Medium
+hypervisor type: vmware
+         memory: 1073741824 (bytes)
+       nr vCPUs: 1
+   CPU features: 
+       firmware: bios
+        display: 
+          video: 
+          sound: 
+disks:
+	json:{ "file": { "driver": "raw", "offset": 9728, "size": 10240, "file": { "filename": "test.ova" } } } (vmdk) [scsi]
+	json:{ "file": { "driver": "raw", "offset": 21504, "size": 102400, "file": { "filename": "test.ova" } } } (vmdk) [scsi]
+removable media:
+	CD-ROM [ide] in slot 0
+NICs:
+	Network "Network adapter 1"
+

@@ -60,10 +60,17 @@ popd
 # normalize the output.
 $VG virt-v2v --debug-gc --quiet \
     -i ova $d/test.ova \
-    --print-source |
-sed 's,[^ \t]*\(disk.*.vmdk\),\1,' > $d/source
+    --print-source  > $d/source
 
 # Check the parsed source is what we expect.
-diff -u test-v2v-i-ova-two-disks.expected $d/source
+if qemu_is_version 2 8 ; then
+    # normalize the output
+    sed -i -e "s,\"$d/,\"," $d/source
+    diff -u test-v2v-i-ova-two-disks.expected2 $d/source
+else
+    # normalize the output
+    sed -i -e 's,[^ \t]*\(disk.*.vmdk\),\1,' $d/source
+    diff -u test-v2v-i-ova-two-disks.expected $d/source
+fi
 
 rm -rf $d
