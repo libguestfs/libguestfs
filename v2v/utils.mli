@@ -50,3 +50,8 @@ val du : string -> int64
 
     This can raise either [Failure] or [Invalid_argument] in case
     of errors. *)
+
+val qemu_img_version : unit -> int * int
+(** Returns version of qemu-img as a tuple [(major, minor)].
+
+    In case of error [(0,9)] is returned. *)

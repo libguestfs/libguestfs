@@ -90,3 +90,24 @@ let du filename =
   match lines with
   | line::_ -> Int64.of_string line
   | [] -> invalid_arg filename
+
+let qemu_img_version () =
+  let lines = external_command "qemu-img --version" in
+  match lines with
+  | [] -> error (f_"'qemu-img --version' returned no output")
+  | line :: _ ->
+      let rex = Str.regexp
+        "qemu-img version \\([0-9]+\\)\\.\\([0-9]+\\)" in
+      if Str.string_match rex line 0 then (
+        try
+          int_of_string (Str.matched_group 1 line),
+          int_of_string (Str.matched_group 2 line)
+        with Failure _ ->
+          warning (f_"failed to parse qemu-img version(%S), assuming 0.9")
+            line;
+          0, 9
+      ) else (
+        warning (f_"failed to read qemu-img version(%S), assuming 0.9")
+          line;
+        0, 9
+      )
