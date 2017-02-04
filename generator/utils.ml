@@ -119,8 +119,6 @@ let rstructs_used_by functions =
   (* return key->values as a list of (key,value) *)
   Hashtbl.fold (fun key value xs -> (key, value) :: xs) h []
 
-let failwithf fs = ksprintf failwith fs
-
 let files_equal n1 n2 =
   let cmd = sprintf "cmp -s %s %s" (Filename.quote n1) (Filename.quote n2) in
   match Sys.command cmd with

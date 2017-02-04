@@ -41,9 +41,6 @@ val rstructs_used_by : Types.action list -> (string * rstructs_used_t) list
 (** Returns a list of RStruct/RStructList structs that are returned
     by any function. *)
 
-val failwithf : ('a, unit, string, 'b) format4 -> 'a
-(** Like [failwith] but supports printf-like arguments. *)
-
 val files_equal : string -> string -> bool
 (** [files_equal filename1 filename2] returns true if the files contain
     the same content. *)

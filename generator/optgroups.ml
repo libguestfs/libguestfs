@@ -18,6 +18,7 @@
 
 (* Please read generator/README first. *)
 
+open Common_utils
 open Types
 open Utils
 open Actions

@@ -418,6 +418,8 @@ let protect ~f ~finally =
   finally ();
   match r with Either ret -> ret | Or exn -> raise exn
 
+let failwithf fs = ksprintf failwith fs
+
 exception Executable_not_found of string (* executable *)
 
 let which executable =

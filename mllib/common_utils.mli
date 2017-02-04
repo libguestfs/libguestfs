@@ -244,6 +244,9 @@ val protect : f:(unit -> 'a) -> finally:(unit -> unit) -> 'a
     case, but requires a lot more work by the caller.  Perhaps we
     will change this in future.) *)
 
+val failwithf : ('a, unit, string, 'b) format4 -> 'a
+(** Like [failwith] but supports printf-like arguments. *)
+
 (*</stdlib>*)
 
 val prog : string
