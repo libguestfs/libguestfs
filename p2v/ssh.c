@@ -354,6 +354,10 @@ start_ssh (unsigned spawn_flags, struct config *config,
   snprintf (connect_timeout_str, sizeof connect_timeout_str,
             "ConnectTimeout=%d", SSH_TIMEOUT);
   ADD_ARG (argv, i, connect_timeout_str);
+  ADD_ARG (argv, i, "-o");      /* Send ping packets every 5 mins to sshd. */
+  ADD_ARG (argv, i, "ServerAliveInterval=300");
+  ADD_ARG (argv, i, "-o");
+  ADD_ARG (argv, i, "ServerAliveCountMax=6");
   if (using_password_auth) {
     /* Only use password authentication. */
     ADD_ARG (argv, i, "-o");
