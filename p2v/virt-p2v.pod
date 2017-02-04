@@ -568,6 +568,44 @@ L<virt-p2v-make-disk(1)/ADDING AN SSH IDENTITY>
 
 L<virt-p2v-make-kickstart(1)/ADDING AN SSH IDENTITY>
 
+=head1 COMMON PROBLEMS
+
+=head2 Timeouts
+
+As described below (see L</HOW VIRT-P2V WORKS>) virt-p2v makes several
+long-lived ssh connections to the conversion server.  If these
+connections time out then virt-p2v will fail.
+
+To test if a timeout might be causing problems, open an XTerm on the
+virt-p2v machine, C<ssh root@I<conversion-server>>, and leave it for
+at least an hour.  If the session disconnects without you doing
+anything, then there is a timeout which you should turn off.
+
+Timeouts happen because:
+
+=over 4
+
+=item C<TIMEOUT> or C<TMOUT> environment variable
+
+Check if one of these environment variables is set in the root shell
+on the conversion server.
+
+=item sshd C<ClientAlive*> setting
+
+Check for C<ClientAlive*> settings in C</etc/ssh/sshd_config> on the
+conversion server.
+
+=item Firewall or NAT settings
+
+Check if there is a firewall or NAT box between virt-p2v and the
+conversion server, and if this firewall drops idle connections after a
+too-short time.
+
+virt-p2v E<ge> 1.36 attempts to work around firewall timeouts by
+sending ssh keepalive messages every 5 minutes.
+
+=back
+
 =head1 OPTIONS
 
 =over 4
