@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2013 Red Hat Inc.
+ * Copyright (C) 2013-2017 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -57,6 +57,21 @@
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 #define STRCASEPREFIX(a,b) (strncasecmp((a),(b),strlen((b))) == 0)
 #define STRSUFFIX(a,b) (strlen((a)) >= strlen((b)) && STREQ((a)+strlen((a))-strlen((b)),(b)))
+
+/* A simple (indeed, simplistic) way to build up short lists of
+ * arguments.  Your code must define MAX_ARGS to a suitable "larger
+ * than could ever be needed" value.  (If the value is exceeded then
+ * your code will abort).  For more complex needs, use something else
+ * more suitable.
+ */
+#define ADD_ARG(argv,i,v)                                               \
+  do {                                                                  \
+    if ((i) >= MAX_ARGS) {                                              \
+      fprintf (stderr, "%s: %d: internal error: exceeded MAX_ARGS (%zu) when constructing the command line\n", __FILE__, __LINE__, (size_t) MAX_ARGS); \
+      abort ();                                                         \
+    }                                                                   \
+    (argv)[(i)++] = (v);                                                \
+  } while (0)
 
 #ifndef SOCK_CLOEXEC
 #define SOCK_CLOEXEC 0
