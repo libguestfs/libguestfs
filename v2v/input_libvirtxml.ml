@@ -40,7 +40,7 @@ and parsed_source =
 let get_drive_slot str offset =
   let len = String.length str in
   if len-offset < 0 then
-    failwith (sprintf "get_drive_slot: offset longer than string length (offset = %d, string = %s)" offset str);
+    failwithf "get_drive_slot: offset longer than string length (offset = %d, string = %s)" offset str;
   let name = String.sub str offset (len-offset) in
   try Some (drive_index name)
   with Invalid_argument _ ->
