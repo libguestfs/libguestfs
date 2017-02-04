@@ -306,6 +306,15 @@ cache_ssh_identity (struct config *config)
   return 0;
 }
 
+/* GCC complains about the argv array in the next function which it
+ * thinks might grow to an unbounded size.  Since we control
+ * extra_args, this is not in fact a problem.
+ */
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstack-usage="
+#endif
+
 /**
  * Start ssh subprocess with the standard arguments and possibly some
  * optional arguments.  Also handles authentication.
@@ -314,15 +323,18 @@ static mexp_h *
 start_ssh (unsigned spawn_flags, struct config *config,
            char **extra_args, int wait_prompt)
 {
-  size_t i, j, nr_args, count;
+  size_t i = 0;
+  const size_t MAX_ARGS =
+    64 + (extra_args != NULL ? guestfs_int_count_strings (extra_args) : 0);
+  const char *argv[MAX_ARGS];
   char port_str[64];
   char connect_timeout_str[128];
-  CLEANUP_FREE /* [sic] */ const char **args = NULL;
   mexp_h *h;
   const int ovecsize = 12;
   int ovector[ovecsize];
   int saved_timeout;
   int using_password_auth;
+  size_t count;
 
   if (cache_ssh_identity (config) == -1)
     return NULL;
@@ -330,63 +342,48 @@ start_ssh (unsigned spawn_flags, struct config *config,
   /* Are we using password or identity authentication? */
   using_password_auth = config->identity_file == NULL;
 
-  /* Create the ssh argument array. */
-  nr_args = 0;
-  if (extra_args != NULL)
-    nr_args = guestfs_int_count_strings (extra_args);
-
-  if (using_password_auth)
-    nr_args += 13;
-  else
-    nr_args += 15;
-  args = malloc (sizeof (char *) * nr_args);
-  if (args == NULL)
-    error (EXIT_FAILURE, errno, "malloc");
-
-  j = 0;
-  args[j++] = "ssh";
-  args[j++] = "-p";             /* Port. */
+  ADD_ARG (argv, i, "ssh");
+  ADD_ARG (argv, i, "-p");      /* Port. */
   snprintf (port_str, sizeof port_str, "%d", config->port);
-  args[j++] = port_str;
-  args[j++] = "-l";             /* Username. */
-  args[j++] = config->username ? config->username : "root";
-  args[j++] = "-o";             /* Host key will always be novel. */
-  args[j++] = "StrictHostKeyChecking=no";
-  args[j++] = "-o";             /* ConnectTimeout */
+  ADD_ARG (argv, i, port_str);
+  ADD_ARG (argv, i, "-l");      /* Username. */
+  ADD_ARG (argv, i, config->username ? config->username : "root");
+  ADD_ARG (argv, i, "-o");      /* Host key will always be novel. */
+  ADD_ARG (argv, i, "StrictHostKeyChecking=no");
+  ADD_ARG (argv, i, "-o");      /* ConnectTimeout */
   snprintf (connect_timeout_str, sizeof connect_timeout_str,
             "ConnectTimeout=%d", SSH_TIMEOUT);
-  args[j++] = connect_timeout_str;
+  ADD_ARG (argv, i, connect_timeout_str);
   if (using_password_auth) {
     /* Only use password authentication. */
-    args[j++] = "-o";
-    args[j++] = "PreferredAuthentications=keyboard-interactive,password";
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, "PreferredAuthentications=keyboard-interactive,password");
   }
   else {
     /* Use identity file (private key). */
-    args[j++] = "-o";
-    args[j++] = "PreferredAuthentications=publickey";
-    args[j++] = "-i";
-    args[j++] = config->identity_file;
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, "PreferredAuthentications=publickey");
+    ADD_ARG (argv, i, "-i");
+    ADD_ARG (argv, i, config->identity_file);
   }
   if (extra_args != NULL) {
-    for (i = 0; extra_args[i] != NULL; ++i)
-      args[j++] = extra_args[i];
+    for (size_t j = 0; extra_args[j] != NULL; ++j)
+      ADD_ARG (argv, i, extra_args[j]);
   }
-  args[j++] = config->server;   /* Conversion server. */
-  args[j++] = NULL;
-  assert (j == nr_args);
+  ADD_ARG (argv, i, config->server); /* Conversion server. */
+  ADD_ARG (argv, i, NULL);
 
 #if DEBUG_STDERR
   fputs ("ssh command: ", stderr);
-  for (i = 0; i < nr_args - 1; ++i) {
+  for (i = 0; argv[i] != NULL; ++i) {
     if (i > 0) fputc (' ', stderr);
-    fputs (args[i], stderr);
+    fputs (argv[i], stderr);
   }
   fputc ('\n', stderr);
 #endif
 
   /* Create the miniexpect handle. */
-  h = mexp_spawnvf (spawn_flags, "ssh", (char **) args);
+  h = mexp_spawnvf (spawn_flags, "ssh", (char **) argv);
   if (h == NULL) {
     set_ssh_internal_error ("ssh: mexp_spawnvf: %m");
     return NULL;
@@ -566,6 +563,10 @@ start_ssh (unsigned spawn_flags, struct config *config,
   return h;
 }
 
+#if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
+#pragma GCC diagnostic pop
+#endif
+
 /**
  * Upload a file to remote using L<scp(1)>.
  *
@@ -574,16 +575,16 @@ start_ssh (unsigned spawn_flags, struct config *config,
 int
 scp_file (struct config *config, const char *localfile, const char *remotefile)
 {
-  size_t j, nr_args;
+  size_t i = 0;
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
   char port_str[64];
   char connect_timeout_str[128];
   CLEANUP_FREE char *remote = NULL;
-  CLEANUP_FREE /* [sic] */ const char **args = NULL;
   mexp_h *h;
   const int ovecsize = 12;
   int ovector[ovecsize];
   int using_password_auth;
-  size_t i;
 
   if (cache_ssh_identity (config) == -1)
     return -1;
@@ -591,58 +592,47 @@ scp_file (struct config *config, const char *localfile, const char *remotefile)
   /* Are we using password or identity authentication? */
   using_password_auth = config->identity_file == NULL;
 
-  /* Create the scp argument array. */
-  if (using_password_auth)
-    nr_args = 12;
-  else
-    nr_args = 14;
-  args = malloc (sizeof (char *) * nr_args);
-  if (args == NULL)
-    error (EXIT_FAILURE, errno, "malloc");
-
-  j = 0;
-  args[j++] = "scp";
-  args[j++] = "-P";             /* Port. */
+  ADD_ARG (argv, i, "scp");
+  ADD_ARG (argv, i, "-P");      /* Port. */
   snprintf (port_str, sizeof port_str, "%d", config->port);
-  args[j++] = port_str;
-  args[j++] = "-o";             /* Host key will always be novel. */
-  args[j++] = "StrictHostKeyChecking=no";
-  args[j++] = "-o";             /* ConnectTimeout */
+  ADD_ARG (argv, i, port_str);
+  ADD_ARG (argv, i, "-o");      /* Host key will always be novel. */
+  ADD_ARG (argv, i, "StrictHostKeyChecking=no");
+  ADD_ARG (argv, i, "-o");      /* ConnectTimeout */
   snprintf (connect_timeout_str, sizeof connect_timeout_str,
             "ConnectTimeout=%d", SSH_TIMEOUT);
-  args[j++] = connect_timeout_str;
+  ADD_ARG (argv, i, connect_timeout_str);
   if (using_password_auth) {
     /* Only use password authentication. */
-    args[j++] = "-o";
-    args[j++] = "PreferredAuthentications=keyboard-interactive,password";
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, "PreferredAuthentications=keyboard-interactive,password");
   }
   else {
     /* Use identity file (private key). */
-    args[j++] = "-o";
-    args[j++] = "PreferredAuthentications=publickey";
-    args[j++] = "-i";
-    args[j++] = config->identity_file;
+    ADD_ARG (argv, i, "-o");
+    ADD_ARG (argv, i, "PreferredAuthentications=publickey");
+    ADD_ARG (argv, i, "-i");
+    ADD_ARG (argv, i, config->identity_file);
   }
-  args[j++] = localfile;
+  ADD_ARG (argv, i, localfile);
   if (asprintf (&remote, "%s@%s:%s",
                 config->username ? config->username : "root",
                 config->server, remotefile) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
-  args[j++] = remote;
-  args[j++] = NULL;
-  assert (j == nr_args);
+  ADD_ARG (argv, i, remote);
+  ADD_ARG (argv, i, NULL);
 
 #if DEBUG_STDERR
   fputs ("scp command: ", stderr);
-  for (i = 0; i < nr_args - 1; ++i) {
+  for (i = 0; argv[i] != NULL; ++i) {
     if (i > 0) fputc (' ', stderr);
-    fputs (args[i], stderr);
+    fputs (argv[i], stderr);
   }
   fputc ('\n', stderr);
 #endif
 
   /* Create the miniexpect handle. */
-  h = mexp_spawnv ("scp", (char **) args);
+  h = mexp_spawnv ("scp", (char **) argv);
   if (h == NULL) {
     set_ssh_internal_error ("scp: mexp_spawnv: %m");
     return -1;
