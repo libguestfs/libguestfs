@@ -111,3 +111,52 @@ let qemu_img_version () =
           line;
         0, 9
       )
+
+let find_file_in_tar tar filename =
+  let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in
+  let rec loop lines =
+    match lines with
+    | [] -> raise Not_found
+    | line :: lines -> (
+      (* Lines have the form:
+       * block <offset>: <perms> <owner>/<group> <size> <mdate> <mtime> <file>
+       *)
+      let elems = Str.bounded_split (Str.regexp " +") line 8 in
+      if List.length elems = 8 && List.hd elems = "block" then (
+        let elems = Array.of_list elems in
+        let offset = elems.(1) in
+        let size = elems.(4) in
+        let fname = elems.(7) in
+
+        if fname <> filename then
+          loop lines
+        else (
+          let offset =
+            try
+              (* There should be a colon at the end *)
+              let i = String.rindex offset ':' in
+              if i == (String.length offset)-1 then
+                Int64.of_string (String.sub offset 0 i)
+              else
+                raise (Failure "colon at wrong position")
+            with Failure _ | Not_found ->
+              failwithf (f_"invalid offset returned by tar: %S") offset in
+
+          let size =
+            try Int64.of_string size
+            with Failure _ ->
+              failwithf (f_"invalid size returned by tar: %S") size in
+
+          (* Note: Offset is actualy block number and there is a single
+           * block with tar header at the beginning of the file. So skip
+           * the header and convert the block number to bytes before
+           * returning.
+           *)
+          (offset +^ 1L) *^ 512L, size
+        )
+      ) else
+        raise (Failure (sprintf
+          "failed to parse line returned by tar: %S" line))
+    )
+  in
+  loop lines
