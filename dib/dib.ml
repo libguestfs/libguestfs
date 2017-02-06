@@ -289,7 +289,7 @@ if [ -n \"$user\" ]; then
 fi
 
 if [ -z \"$preserve_env\" ]; then
-  for envvar in `env | grep '^\\w' | cut -d= -f1`; do
+  for envvar in `awk 'BEGIN{for (i in ENVIRON) {print i}}'`; do
     case \"$envvar\" in
       PATH | USER | USERNAME | HOSTNAME | TERM | LANG | HOME | SHELL | LOGNAME ) ;;
       BASH_FUNC_* ) unset -f $envvar ;;
