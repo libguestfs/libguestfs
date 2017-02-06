@@ -778,6 +778,12 @@ let test_shell_unquote ctx =
   assert_equal ~printer "i`" (Utils.shell_unquote "\"i\\`\"");
   assert_equal ~printer "j\"" (Utils.shell_unquote "\"j\\\"\"")
 
+let test_qemu_img_supports ctx =
+  (* No assertion here, we don't know if qemu-img supports the
+   * feature, so just run the code and make sure it doesn't crash.
+   *)
+  ignore (Utils.qemu_img_supports_offset_and_size ())
+
 (* Suites declaration. *)
 let suite =
   "virt-v2v" >:::
@@ -788,6 +794,7 @@ let suite =
       "Windows_virtio.virtio_iso_path_matches_guest_os" >::
         test_virtio_iso_path_matches_guest_os;
       "Utils.shell_unquote" >:: test_shell_unquote;
+      "Utils.qemu_img_supports" >:: test_qemu_img_supports;
     ]
 
 let () =

@@ -90,9 +90,8 @@ object
         match detect_file_type ova with
         | `Tar ->
           (* Normal ovas are tar file (not compressed). *)
-          let qmajor, qminor = qemu_img_version () in
-          if qmajor > 2 || (qmajor == 2 && qminor >= 8) then (
-            (* If QEMU is 2.8 or newer we don't have to extract everything.
+          if qemu_img_supports_offset_and_size () then (
+            (* In newer QEMU we don't have to extract everything.
              * We can access disks inside the tar archive directly.
              *)
             untar_metadata ova tmpdir;

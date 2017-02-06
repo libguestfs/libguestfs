@@ -91,26 +91,32 @@ let du filename =
   | line::_ -> Int64.of_string line
   | [] -> invalid_arg filename
 
-let qemu_img_version () =
-  let lines = external_command "qemu-img --version" in
-  match lines with
-  | [] -> error (f_"'qemu-img --version' returned no output")
-  | line :: _ ->
-      let rex = Str.regexp
-        "qemu-img version \\([0-9]+\\)\\.\\([0-9]+\\)" in
-      if Str.string_match rex line 0 then (
-        try
-          int_of_string (Str.matched_group 1 line),
-          int_of_string (Str.matched_group 2 line)
-        with Failure _ ->
-          warning (f_"failed to parse qemu-img version(%S), assuming 0.9")
-            line;
-          0, 9
-      ) else (
-        warning (f_"failed to read qemu-img version(%S), assuming 0.9")
-          line;
-        0, 9
-      )
+let qemu_img_supports_offset_and_size () =
+  (* We actually attempt to create a qcow2 file with a raw backing
+   * file that has an offset and size.
+   *)
+  let tmp = Filename.temp_file "v2vqemuimgtst" ".img" in
+  Unix.truncate tmp 1024;
+
+  let json = [
+      "file", JSON.Dict [
+        "driver", JSON.String "raw";
+        "offset", JSON.Int 512;
+        "size", JSON.Int 512;
+        "file", JSON.Dict [
+          "filename", JSON.String tmp
+        ]
+      ]
+  ] in
+
+  let cmd =
+    sprintf "qemu-img info 'json:%s' >/dev/null%s"
+            (quote (JSON.string_of_doc ~fmt:JSON.Compact json))
+            (if verbose () then "" else " 2>&1") in
+  debug "%s" cmd;
+  let r = Sys.command cmd in
+  Unix.unlink tmp;
+  r = 0
 
 let find_file_in_tar tar filename =
   let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in

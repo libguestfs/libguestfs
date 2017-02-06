@@ -51,10 +51,9 @@ val du : string -> int64
     This can raise either [Failure] or [Invalid_argument] in case
     of errors. *)
 
-val qemu_img_version : unit -> int * int
-(** Returns version of qemu-img as a tuple [(major, minor)].
-
-    In case of error [(0,9)] is returned. *)
+val qemu_img_supports_offset_and_size : unit -> bool
+(** Return true iff [qemu-img] supports the ["offset"] and ["size"]
+    parameters to open a subset of a file. *)
 
 val find_file_in_tar : string -> string -> int64 * int64
 (** [find_file_in_tar tar filename] looks up file in [tar] archive and returns
