@@ -44,7 +44,7 @@ cp test-v2v-i-ova-subfolders.ovf $d/subfolder/
 
 pushd $d/subfolder
 
-truncate -s 10k disk1.vmdk
+guestfish disk-create disk1.vmdk raw 10K
 sha=`do_sha1 disk1.vmdk`
 echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
 

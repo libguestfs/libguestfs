@@ -42,7 +42,7 @@ mkdir $d
 
 pushd $d
 
-truncate -s 10k disk1.vmdk
+guestfish disk-create disk1.vmdk raw 10K
 gzip disk1.vmdk
 sha=`do_sha1 disk1.vmdk.gz`
 echo -e "SHA1(disk1.vmdk.gz)= $sha\r" > disk1.mf

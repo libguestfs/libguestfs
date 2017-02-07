@@ -56,7 +56,7 @@ pushd $d
 
 # Create a phony OVA.  This is only a test of source parsing, not
 # conversion, so the contents of the disks doesn't matter.
-truncate -s 10k disk1.vmdk
+guestfish disk-create disk1.vmdk raw 10K
 sha=`do_sha1 disk1.vmdk`
 echo -e "SHA1(disk1.vmdk)= $sha\r" > disk1.mf
 cp ../test-v2v-i-ova-formats.ovf .

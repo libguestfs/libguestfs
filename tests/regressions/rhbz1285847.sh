@@ -55,7 +55,7 @@ guestfish <<EOF
   list-filesystems
 EOF
 
-truncate -s 10G rhbz1285847-2.img
+guestfish disk-create rhbz1285847-2.img raw 10G
 virt-resize rhbz1285847.img rhbz1285847-2.img --expand /dev/sda2
 
 # Check that the filesystems made it across.
