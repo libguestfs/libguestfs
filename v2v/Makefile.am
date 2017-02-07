@@ -358,10 +358,15 @@ EXTRA_DIST += \
 	test-v2v-i-ova-gz.ovf \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-subfolders.expected \
+	test-v2v-i-ova-subfolders.expected2 \
 	test-v2v-i-ova-subfolders.ovf \
 	test-v2v-i-ova-subfolders.sh \
+	test-v2v-i-ova-tar.expected \
+	test-v2v-i-ova-tar.expected2 \
+	test-v2v-i-ova-tar.ovf \
 	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-two-disks.expected \
+	test-v2v-i-ova-two-disks.expected2 \
 	test-v2v-i-ova-two-disks.ovf \
 	test-v2v-i-ova-two-disks.sh \
 	test-v2v-i-ova.ovf \
