@@ -412,6 +412,7 @@ p2v/inhibit.c
 p2v/kernel-cmdline.c
 p2v/kernel.c
 p2v/main.c
+p2v/nbd.c
 p2v/ssh.c
 p2v/utils.c
 p2v/whole-file.c

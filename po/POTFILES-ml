@@ -34,6 +34,13 @@ customize/urandom.ml
 dib/cmdline.ml
 dib/dib.ml
 dib/elements.ml
+dib/output_format.ml
+dib/output_format_docker.ml
+dib/output_format_qcow2.ml
+dib/output_format_raw.ml
+dib/output_format_tar.ml
+dib/output_format_tgz.ml
+dib/output_format_vhd.ml
 dib/utils.ml
 get-kernel/get_kernel.ml
 mllib/JSON.ml

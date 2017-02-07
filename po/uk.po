@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-01-27 12:37+0000\n"
+"POT-Creation-Date: 2017-02-07 21:58+0000\n"
 "PO-Revision-Date: 2016-07-14 05:51-0400\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -25,15 +25,19 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Zanata 3.9.1\n"
 
-#: ../resize/resize.ml:949
+#: ../dib/elements.ml:146
+msgid "  %s: already provided by %s"
+msgstr ""
+
+#: ../resize/resize.ml:964
 msgid "  An extra partition will be created for the surplus."
 msgstr "  Додатково буде створено ще один розділ."
 
-#: ../resize/resize.ml:923 ../resize/resize.ml:892
+#: ../resize/resize.ml:938 ../resize/resize.ml:907
 msgid "  The %s on %s will be expanded using the '%s' method."
 msgstr "  %s на %s буде розширено за допомогою методу «%s»."
 
-#: ../resize/resize.ml:951
+#: ../resize/resize.ml:966
 msgid ""
 "  The surplus space is not large enough for an extra partition to be created "
 "and so it will just be ignored."
@@ -41,7 +45,7 @@ msgstr ""
 "  Додатковий простір не є достатньо великим для створення додаткового "
 "розділу, отже, його буде просто проігноровано."
 
-#: ../resize/resize.ml:953
+#: ../resize/resize.ml:968
 msgid ""
 "  The surplus space will be ignored.  Run a partitioning program in the "
 "guest to partition this extra space if you want."
@@ -50,7 +54,7 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../mllib/common_utils.ml:558
+#: ../v2v/input_ova.ml:367 ../mllib/common_utils.ml:569
 msgid "%s"
 msgstr "%s"
 
@@ -61,7 +65,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:452
-#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:1121
+#: ../v2v/inspect_source.ml:50 ../mllib/common_utils.ml:1132
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -140,15 +144,15 @@ msgstr ""
 "%s посилається на невідомий пристрій «%s». Ймовірно, вам доведеться "
 "виправити цей запис після перетворення."
 
-#: ../mllib/common_utils.ml:554 ../mllib/common_utils.ml:526
+#: ../mllib/common_utils.ml:565 ../mllib/common_utils.ml:537
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../mllib/common_utils.ml:556
+#: ../mllib/common_utils.ml:567
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
-#: ../resize/resize.ml:675
+#: ../resize/resize.ml:690
 msgid ""
 "%s: This extended partition contains logical partitions which might be "
 "damaged by shrinking it.  If you want to shrink this partition, you need to "
@@ -163,11 +167,11 @@ msgstr ""
 "(Причиною появи цього повідомлення про помилку є використання параметра "
 "командного рядка «%s».)"
 
-#: ../resize/resize.ml:920
+#: ../resize/resize.ml:935
 msgid "%s: This logical volume will be expanded to maximum size."
 msgstr "%s: цей логічний том буде розширено до максимального розміру."
 
-#: ../resize/resize.ml:671
+#: ../resize/resize.ml:686
 msgid ""
 "%s: This partition contains a %s filesystem which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -183,7 +187,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:667
+#: ../resize/resize.ml:682
 msgid ""
 "%s: This partition contains an LVM physical volume which will be damaged by "
 "shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you "
@@ -199,7 +203,7 @@ msgstr ""
 "цього повідомлення про помилку є використання параметра командного рядка "
 "«%s».)"
 
-#: ../resize/resize.ml:664
+#: ../resize/resize.ml:679
 msgid ""
 "%s: This partition has unknown content which might be damaged by shrinking "
 "it.  If you want to shrink this partition, you need to use the '--resize-"
@@ -212,7 +216,7 @@ msgstr ""
 "руйнування усіх даних на розділі. (Причиною появи цього повідомлення про "
 "помилку є використання параметра командного рядка «%s».)"
 
-#: ../resize/resize.ml:885
+#: ../resize/resize.ml:900
 msgid ""
 "%s: This partition will be created, but the contents will be ignored (ie. "
 "not copied to the target)."
@@ -220,15 +224,15 @@ msgstr ""
 "%s: цей розділ буде створено, але його вміст буде проігноровано (тобто не "
 "буде скопійовано до призначення)."
 
-#: ../resize/resize.ml:887
+#: ../resize/resize.ml:902
 msgid "%s: This partition will be deleted."
 msgstr "%s: цей розділ буде вилучено."
 
-#: ../resize/resize.ml:883
+#: ../resize/resize.ml:898
 msgid "%s: This partition will be left alone."
 msgstr "%s: цей розділ буде залишено."
 
-#: ../resize/resize.ml:889
+#: ../resize/resize.ml:904
 msgid "%s: This partition will be resized from %s to %s."
 msgstr "%s: розмір цього розділу буде змінено з %s на %s."
 
@@ -371,7 +375,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис\n"
 "можна знайти на сторінці підручника (man) virt-customize(1).\n"
 
-#: ../mllib/common_utils.ml:498
+#: ../mllib/common_utils.ml:509
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
@@ -387,7 +391,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Із докладнішим описом можна\n"
 "ознайомитися за допомогою сторінки довідника (man) virt-get-kernel(1).\n"
 
-#: ../resize/resize.ml:392 ../resize/resize.ml:389
+#: ../resize/resize.ml:407 ../resize/resize.ml:404
 msgid "%s: file is too small to be a disk image (%Ld bytes)"
 msgstr "%s: файл є надто малим, щоб бути образом диска (%Ld байтів)"
 
@@ -409,7 +413,7 @@ msgstr ""
 "%s: покажчик пошкоджено: версія ОС «%s» з архітектурою «%s» використано два "
 "або більше разів\n"
 
-#: ../resize/resize.ml:821
+#: ../resize/resize.ml:836
 msgid ""
 "%s: logical volume not found in the source disk image (this error came from "
 "'--lv-expand' option on the command line).  Try running this command: virt-"
@@ -419,11 +423,11 @@ msgstr ""
 "наслідком використання параметра командного рядка «--lv-expand»). Спробуйте "
 "віддати таку команду: virt-filesystems --logical-volumes --long -a %s"
 
-#: ../resize/resize.ml:694
+#: ../resize/resize.ml:709
 msgid "%s: missing size field in '%s' option"
 msgstr "%s: у параметрі «%s» пропущено поле розміру"
 
-#: ../resize/resize.ml:703
+#: ../resize/resize.ml:718
 msgid "%s: new partition size is zero or negative"
 msgstr "%s: розмір нового розділу є нульовим або від’ємним"
 
@@ -443,18 +447,18 @@ msgstr "%s: немає запису «size» для «%s»\n"
 msgid "%s: no 'uri' entry for '%s' in %s, skipping it\n"
 msgstr "%s: немає запису «uri» для «%s» у %s, пропускаємо\n"
 
-#: ../resize/resize.ml:615
+#: ../resize/resize.ml:630
 msgid "%s: partition already deleted, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ вже вилучено, ви не можете використовувати його у параметрі «%s»"
 
-#: ../resize/resize.ml:611
+#: ../resize/resize.ml:626
 msgid "%s: partition already ignored, you cannot use it in '%s' option"
 msgstr ""
 "%s: розділ уже проігноровано, ви не можете використовувати його у параметрі "
 "«%s»"
 
-#: ../resize/resize.ml:607
+#: ../resize/resize.ml:622
 msgid ""
 "%s: partition not found in the source disk image (this error came from '%s' "
 "option on the command line).  Try running this command: virt-filesystems --"
@@ -464,15 +468,15 @@ msgstr ""
 "використання параметра командного рядка «%s»). Спробуйте віддати таку "
 "команду: virt-filesystems --partitions --long -a %s"
 
-#: ../resize/resize.ml:514
+#: ../resize/resize.ml:529
 msgid "%s: partition size %Ld < filesystem size %Ld"
 msgstr "%s: розмір розділу %Ld менший розміру файлової системи %Ld"
 
-#: ../resize/resize.ml:509
+#: ../resize/resize.ml:524
 msgid "%s: partition size %Ld < physical volume size %Ld"
 msgstr "%s: розмір розділу %Ld фізичний розмір тому %Ld"
 
-#: ../resize/resize.ml:427
+#: ../resize/resize.ml:442
 msgid "%s: physical volume not returned by pvs_full"
 msgstr "%s: pvs_full не повернуто фізичний том"
 
@@ -509,7 +513,7 @@ msgstr ""
 "Нижче наведено резюме щодо параметрів. Докладніший опис наведено\n"
 "на сторінці підручника (man) virt-resize(1).\n"
 
-#: ../dib/cmdline.ml:63
+#: ../dib/cmdline.ml:61
 msgid ""
 "%s: run diskimage-builder elements to generate images\n"
 "\n"
@@ -545,19 +549,19 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладний опис\n"
 "можна знайти на сторінці підручника (man) virt-sparsify(1).\n"
 
-#: ../resize/resize.ml:649
+#: ../resize/resize.ml:664
 msgid "%s: this partition has already been ignored or deleted"
 msgstr "%s: цей розділ вже проігноровано або вилучено"
 
-#: ../resize/resize.ml:645
+#: ../resize/resize.ml:660
 msgid "%s: this partition has already been marked for resizing"
 msgstr "%s: цей розділ вже позначено для зміни розміру"
 
-#: ../resize/resize.ml:524
+#: ../resize/resize.ml:539
 msgid "%s: this partition overlaps the previous one"
 msgstr "%s: цей розділ перекривається з попереднім"
 
-#: ../resize/resize.ml:404
+#: ../resize/resize.ml:419
 msgid ""
 "%s: unknown partition table type\n"
 "virt-resize only supports MBR (DOS) and GPT partition tables."
@@ -565,7 +569,7 @@ msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
 
-#: ../v2v/input_ova.ml:102 ../v2v/input_ova.ml:99
+#: ../v2v/input_ova.ml:132 ../v2v/input_ova.ml:129
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -577,7 +581,7 @@ msgstr ""
 "У поточній версії передбачено підтримку таких форматів для «-i ova»: "
 "нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
 
-#: ../mllib/common_utils.ml:516
+#: ../mllib/common_utils.ml:527
 msgid "%s: warning: %s"
 msgstr "%s: попередження: %s"
 
@@ -599,6 +603,10 @@ msgstr ""
 #: ../customize/customize_cmdline.ml:330 ../customize/customize_cmdline.ml:239
 msgid "'CMD+ARGS'"
 msgstr "'КОМАНДА+ПАРАМЕТРИ'"
+
+#: ../v2v/utils.ml:97
+msgid "'qemu-img --version' returned no output"
+msgstr ""
 
 #: ../get-kernel/get_kernel.ml:39
 msgid "--add option can only be given once"
@@ -634,7 +642,7 @@ msgstr ""
 "--compress не можна використовувати для необроблених вихідних даних. "
 "Вилучіть цей параметр або скористайтеся параметром --convert qcow2."
 
-#: ../dib/cmdline.ml:88
+#: ../dib/cmdline.ml:86
 msgid "--debug parameter must be >= 0"
 msgstr "параметром --debug має бути значення >= 0"
 
@@ -737,7 +745,7 @@ msgstr "--uninstall"
 msgid "--update"
 msgstr "--update"
 
-#: ../dib/cmdline.ml:250
+#: ../dib/cmdline.ml:236
 msgid "-B must be specified"
 msgstr "слід вказати -B"
 
@@ -898,15 +906,15 @@ msgstr ""
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
-#: ../dib/cmdline.ml:178
+#: ../dib/cmdline.ml:168
 msgid "Add extra packages to install"
 msgstr "Додати пакунки для встановлення"
 
-#: ../dib/cmdline.ml:176
+#: ../dib/cmdline.ml:166
 msgid "Add mkfs options"
 msgstr "Додати параметри mkfs"
 
-#: ../dib/cmdline.ml:162
+#: ../dib/cmdline.ml:155
 msgid "Add new a elements location"
 msgstr "Додати нове розташування елементів a"
 
@@ -918,7 +926,7 @@ msgstr "Додати пакунки для встановлення"
 msgid "Add package(s) to install at first boot"
 msgstr "Додати пакунки для встановлення під час першого завантаження"
 
-#: ../sparsify/cmdline.ml:75 ../dib/cmdline.ml:174
+#: ../sparsify/cmdline.ml:75 ../dib/output_format_qcow2.ml:49
 msgid "Add qemu-img options"
 msgstr "Додати параметри qemu-img"
 
@@ -962,7 +970,7 @@ msgstr "Долучаємо до сумісних підписок"
 msgid "Attaching to the pool %s"
 msgstr "Долучаємо до буфера %s"
 
-#: ../dib/cmdline.ml:201
+#: ../dib/cmdline.ml:191
 msgid "Base path of diskimage-builder library"
 msgstr "Базовий шлях бібліотеки diskimage-builder"
 
@@ -1008,11 +1016,11 @@ msgstr "CD-ROM"
 msgid "Cannot get the home directory for %s"
 msgstr "Не вдалося отримати домашній каталог для %s"
 
-#: ../dib/dib.ml:534
+#: ../dib/dib.ml:541
 msgid "Carried environment variables: %s"
 msgstr "Обслуговувані змінні середовища: %s"
 
-#: ../dib/cmdline.ml:167
+#: ../dib/cmdline.ml:160
 msgid "Carry/set this environment variable"
 msgstr "Виконати обслуговування або встановити цю змінну середовища"
 
@@ -1073,9 +1081,13 @@ msgstr "Стиснути файл виведених даних"
 msgid "Compressed output format"
 msgstr "Стиснутий формат виведення даних"
 
-#: ../dib/dib.ml:882
+#: ../dib/output_format_tar.ml:25
 msgid "Compressing the image as tar"
 msgstr "Стискаємо образ за допомогою tar"
+
+#: ../dib/output_format_tgz.ml:25
+msgid "Compressing the image as tar.gz"
+msgstr ""
 
 #: ../builder/builder.ml:637
 msgid "Converting %s to %s"
@@ -1089,9 +1101,17 @@ msgstr "Перетворюємо %s для уможливлення запуск
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
-#: ../dib/dib.ml:917 ../builder/builder.ml:636
+#: ../builder/builder.ml:636
 msgid "Converting to %s"
 msgstr "Перетворюємо на %s"
+
+#: ../dib/output_format_vhd.ml:29
+msgid "Converting to VHD"
+msgstr ""
+
+#: ../dib/output_format_qcow2.ml:34
+msgid "Converting to qcow2"
+msgstr ""
 
 #: ../customize/customize_cmdline.ml:200
 msgid "Copy files in disk image"
@@ -1105,7 +1125,7 @@ msgstr "Копіювати локальні файли або каталоги �
 msgid "Copying"
 msgstr "Копіювання"
 
-#: ../resize/resize.ml:1213
+#: ../resize/resize.ml:1228
 msgid "Copying %s"
 msgstr "Копіюємо %s"
 
@@ -1206,7 +1226,7 @@ msgid "Deleting: %s"
 msgstr "Вилучаємо: %s"
 
 #. ../builder/cmdline.ml:154
-#: ../dib/cmdline.ml:194 ../customize/customize_main.ml:84
+#: ../dib/cmdline.ml:184 ../customize/customize_main.ml:84
 msgid "Disable appliance network"
 msgstr "Вимкнути мережу у системі для розгортання"
 
@@ -1234,9 +1254,13 @@ msgstr ""
 msgid "Display installation notes"
 msgstr "Показати нотатки щодо встановлення"
 
-#: ../mllib/common_utils.ml:699
+#: ../mllib/common_utils.ml:710
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
+
+#: ../dib/output_format_qcow2.ml:48
+msgid "Do not compress the qcow2 image"
+msgstr ""
 
 #: ../builder/cmdline.ml:162
 msgid "Do not fsync output file on exit"
@@ -1254,7 +1278,7 @@ msgstr "Не копіювати завантажувач"
 msgid "Don't create extra partition"
 msgstr "Не створювати додатковий розділ"
 
-#: ../dib/cmdline.ml:197 ../builder/cmdline.ml:140
+#: ../dib/cmdline.ml:187 ../builder/cmdline.ml:140
 msgid "Don't delete output file on failure"
 msgstr "Не вилучати файл результатів після помилки"
 
@@ -1266,15 +1290,15 @@ msgstr "Не розгортати вміст"
 msgid "Don't perform changes"
 msgstr "Не вносити змін"
 
-#: ../mllib/common_utils.ml:703
+#: ../mllib/common_utils.ml:714
 msgid "Don't print progress messages"
 msgstr "Не виводити повідомлень щодо поступу"
 
-#: ../mllib/common_utils.ml:711
+#: ../mllib/common_utils.ml:722
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:942
+#: ../dib/dib.ml:948
 msgid "Done"
 msgstr "Виконано"
 
@@ -1307,7 +1331,7 @@ msgstr "Редагувати файл за допомогою виразу Perl"
 msgid "Editing: %s"
 msgstr "Редагування: %s"
 
-#: ../dib/dib.ml:507
+#: ../dib/dib.ml:514
 msgid "Elements: %s"
 msgstr "Елементи: %s"
 
@@ -1316,7 +1340,7 @@ msgid "Enable appliance network"
 msgstr "Увімкнути мережу у системі для розгортання"
 
 #. ../builder/cmdline.ml:153
-#: ../dib/cmdline.ml:193 ../customize/customize_main.ml:83
+#: ../dib/cmdline.ml:183 ../customize/customize_main.ml:83
 msgid "Enable appliance network (default)"
 msgstr "Увімкнути мережу у системі для розгортання (типово)"
 
@@ -1324,7 +1348,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../mllib/common_utils.ml:700
+#: ../mllib/common_utils.ml:711
 msgid "Enable libguestfs debugging messages"
 msgstr "Увімкнути діагностичні повідомлення libguestfs"
 
@@ -1332,7 +1356,7 @@ msgstr "Увімкнути діагностичні повідомлення lib
 msgid "Enable specific operations"
 msgstr "Увімкнути специфічні операції"
 
-#: ../mllib/common_utils.ml:701
+#: ../mllib/common_utils.ml:712
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1352,7 +1376,7 @@ msgstr "Оцінюємо простір, потрібний у системі п
 msgid "Examine source disk"
 msgstr "Вивчити диск джерела"
 
-#: ../resize/resize.ml:356
+#: ../resize/resize.ml:371
 msgid "Examining %s"
 msgstr "Перевіряємо %s"
 
@@ -1360,11 +1384,11 @@ msgstr "Перевіряємо %s"
 msgid "Examining the guest ..."
 msgstr "Вивчаємо гостьову систему…"
 
-#: ../dib/cmdline.ml:164
+#: ../dib/cmdline.ml:157
 msgid "Exclude the specified element"
 msgstr "Виключити вказаний елемент"
 
-#: ../dib/cmdline.ml:166
+#: ../dib/cmdline.ml:159
 msgid "Exclude the specified script"
 msgstr "Виключити вказаний скрипт"
 
@@ -1376,15 +1400,15 @@ msgstr "Розгорнути логічний том"
 msgid "Expand partition"
 msgstr "Розгорнути розділ"
 
-#: ../dib/dib.ml:530
+#: ../dib/dib.ml:537
 msgid "Expanded elements: %s"
 msgstr "Розгорнуті елементи: %s"
 
-#: ../resize/resize.ml:1365
+#: ../resize/resize.ml:1380
 msgid "Expanding %s using the '%s' method"
 msgstr "Розширюємо %s з використанням методу «%s»"
 
-#: ../resize/resize.ml:1346
+#: ../resize/resize.ml:1361
 msgid "Expanding %s%s using the '%s' method"
 msgstr "Розширюємо %s%s з використанням методу «%s»"
 
@@ -1392,7 +1416,7 @@ msgstr "Розширюємо %s%s з використанням методу «%
 msgid "Export Storage Domain"
 msgstr "Експортувати домен сховища"
 
-#: ../dib/dib.ml:861
+#: ../dib/dib.ml:865
 msgid "Extracting data out of the image"
 msgstr "Видобуваємо дані з образу"
 
@@ -1421,7 +1445,7 @@ msgstr ""
 msgid "FILENAME"
 msgstr "НАЗВА_ФАЙЛА"
 
-#: ../resize/resize.ml:1010
+#: ../resize/resize.ml:1025
 msgid ""
 "Failed to initialize the partition table on the target disk.  You need to "
 "wipe or recreate the target disk and then run virt-resize again.\n"
@@ -1438,7 +1462,7 @@ msgstr ""
 msgid "Fetching the remote libvirt XML metadata ..."
 msgstr "Отримуємо метадані XML віддаленої libvirt…"
 
-#: ../dib/cmdline.ml:185
+#: ../dib/cmdline.ml:175
 msgid "Filesystem for the image"
 msgstr "Файлова система образу"
 
@@ -1464,7 +1488,7 @@ msgstr "Відбиток: %s\n"
 msgid "Finishing off"
 msgstr "Завершуємо"
 
-#: ../resize/resize.ml:1259
+#: ../resize/resize.ml:1274
 msgid "Fixing first NTFS partition boot record"
 msgstr "Виправляємо перший запис завантаження розділу NTFS"
 
@@ -1504,7 +1528,7 @@ msgstr "Примусово змінити розмір розділу"
 msgid "Format of input disk"
 msgstr "Формат диска вхідних даних"
 
-#: ../dib/cmdline.ml:190
+#: ../dib/cmdline.ml:180
 msgid "Format of optional drive"
 msgstr ""
 
@@ -1559,6 +1583,14 @@ msgstr ""
 " - Вилучити кеш: virt-builder --delete-cache\n"
 " - Перевірте, чи не втрутився хтось до даних вашого сайта або мережі!"
 
+#: ../dib/cmdline.ml:169
+msgid "Generate MD5 and SHA256 checksum files"
+msgstr ""
+
+#: ../dib/dib.ml:906
+msgid "Generating checksums for %s"
+msgstr ""
+
 #: ../builder/cmdline.ml:145
 msgid "Get kernel from image"
 msgstr "Отримати ядро з образу"
@@ -1571,7 +1603,7 @@ msgstr "НАЗВА_ВУЗЛА"
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
-#: ../mllib/common_utils.ml:503
+#: ../mllib/common_utils.ml:514
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1595,7 +1627,7 @@ msgstr "Ігнорувати розділ"
 msgid "Ignored for backwards compatibility"
 msgstr "Ігноровано, для зворотної сумісності"
 
-#: ../dib/dib.ml:889
+#: ../dib/output_format_docker.ml:39
 msgid "Importing the image to docker as '%s'"
 msgstr ""
 
@@ -1619,7 +1651,7 @@ msgstr "Вивчаємо оверлей"
 msgid "Inspecting the source VM"
 msgstr "Вивчаємо ВМ джерела"
 
-#: ../dib/cmdline.ml:170
+#: ../dib/cmdline.ml:163
 msgid "Installation type"
 msgstr "Тип встановлення"
 
@@ -1639,7 +1671,7 @@ msgstr "Встановлюємо скрипт firstboot: %s"
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
-#: ../dib/dib.ml:457
+#: ../dib/dib.ml:467
 msgid "Installing: %s"
 msgstr "Встановлюємо: %s"
 
@@ -1655,7 +1687,7 @@ msgstr "Ключ: %s\n"
 msgid "LOCALPATH:REMOTEDIR"
 msgstr "ЛОКАЛЬНИЙШЛЯХ:ВІДДАЛЕНИЙКАТАЛОГ"
 
-#: ../dib/cmdline.ml:169
+#: ../dib/cmdline.ml:162
 msgid "Label for the root fs"
 msgstr "Мітка для кореневої файлової системи"
 
@@ -1675,16 +1707,16 @@ msgstr "Показати список доступних шаблонів"
 msgid "List supported operations"
 msgstr "Вивести список підтримуваних операцій"
 
-#: ../dib/cmdline.ml:171
+#: ../dib/cmdline.ml:164
 msgid "Location for cached images"
 msgstr "Місце для кешованих образів"
 
-#: ../dib/cmdline.ml:182
+#: ../dib/cmdline.ml:172
 msgid "Main element for building ramdisks"
 msgstr "Основний елемент для побудови дисків у пам’яті"
 
 #. ../get-kernel/get_kernel.ml:59
-#. ../dib/cmdline.ml:198
+#. ../dib/cmdline.ml:188
 #. ../builder/cmdline.ml:151
 #: ../v2v/cmdline.ml:183 ../sparsify/cmdline.ml:74 ../resize/resize.ml:203
 msgid "Make output machine readable"
@@ -1728,7 +1760,7 @@ msgstr "Пересунути файли на образ диска"
 msgid "Moving: %s -> %s"
 msgstr "Пересуваємо: %s -> %s"
 
-#: ../dib/cmdline.ml:184
+#: ../dib/cmdline.ml:174
 msgid "Name of the image"
 msgstr "Назва образу"
 
@@ -1802,7 +1834,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr "Лише скоригувати гостьову систему у вхідній ВМ"
 
-#: ../dib/dib.ml:645
+#: ../dib/dib.ml:648
 msgid "Opening the disks"
 msgstr "Відкриваємо диски"
 
@@ -1822,7 +1854,7 @@ msgstr "Відкриваємо джерело %s"
 msgid "Opening the source VM"
 msgstr "Відкриваємо ВМ джерела"
 
-#: ../dib/cmdline.ml:189
+#: ../dib/cmdline.ml:179
 msgid "Optional drive for caches"
 msgstr "Необов’язковий диск для кешування"
 
@@ -1834,7 +1866,7 @@ msgstr "Вивести дані до файла OVF"
 msgid "Output VM UUID"
 msgstr "Вивести UUID віртуальної машини"
 
-#: ../dib/cmdline.ml:188
+#: ../dib/cmdline.ml:178
 msgid "Output architecture"
 msgstr "Архітектура для виведення даних"
 
@@ -1854,7 +1886,7 @@ msgstr "Формат виведення"
 msgid "Output format (default: raw)"
 msgstr "Формат виведення (типовий: raw)"
 
-#: ../dib/cmdline.ml:187
+#: ../dib/cmdline.ml:177
 msgid "Output formats"
 msgstr "Формати виведення"
 
@@ -1935,7 +1967,7 @@ msgstr "Плануємо побудову цього образу"
 msgid "Prefix for files"
 msgstr "Префікс для файлів"
 
-#: ../dib/dib.ml:554
+#: ../dib/dib.ml:561
 msgid "Preparing auxiliary data"
 msgstr "Готуємо допоміжні дані"
 
@@ -1955,7 +1987,7 @@ msgstr ""
 msgid "Read customize commands from file"
 msgstr "Прочитати команди налаштовування з файла"
 
-#: ../mllib/common_utils.ml:712
+#: ../mllib/common_utils.ml:723
 msgid "Read passphrases from stdin"
 msgstr ""
 
@@ -2185,11 +2217,11 @@ msgstr "Вилучаємо усі підписки"
 msgid "Rename guest when converting"
 msgstr "Перейменувати гостьову систему під час перетворення"
 
-#: ../dib/cmdline.ml:179
+#: ../dib/output_format_docker.ml:50
 msgid "Repo and tag for docker"
 msgstr ""
 
-#: ../resize/resize.ml:1391
+#: ../resize/resize.ml:1410
 msgid ""
 "Resize operation completed with no errors.  Before deleting the old disk, "
 "carefully check that the resized disk boots and works correctly.\n"
@@ -2261,7 +2293,7 @@ msgstr "Виконуємо touch: %s"
 msgid "Running: %s"
 msgstr "Виконуємо: %s"
 
-#: ../dib/dib.ml:417 ../dib/dib.ml:370
+#: ../dib/dib.ml:427 ../dib/dib.ml:380
 msgid "Running: %s/%s"
 msgstr "Виконуємо: %s/%s"
 
@@ -2326,7 +2358,7 @@ msgstr "Встановити формат диску для долучення"
 msgid "Set curl binary/command"
 msgstr "Встановити програму або виконуваний файл обробки curl"
 
-#: ../dib/cmdline.ml:200
+#: ../dib/cmdline.ml:190
 msgid "Set debug level"
 msgstr "Встановити рівень діагностики"
 
@@ -2349,7 +2381,7 @@ msgid "Set libvirt guest name"
 msgstr "Встановити назву гостьової системи libvirt"
 
 #. ../builder/cmdline.ml:152
-#: ../dib/cmdline.ml:192 ../customize/customize_main.ml:82
+#: ../dib/cmdline.ml:182 ../customize/customize_main.ml:82
 msgid "Set memory size"
 msgstr "Встановити обсяг пам’яті"
 
@@ -2358,7 +2390,7 @@ msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr "Встановити параметри монтування (наприклад /:noatime;/var:rw,noatime)"
 
 #. ../builder/cmdline.ml:160
-#: ../dib/cmdline.ml:195 ../customize/customize_main.ml:85
+#: ../dib/cmdline.ml:185 ../customize/customize_main.ml:85
 msgid "Set number of vCPUs"
 msgstr "Встановити кількість віртуальних процесорів"
 
@@ -2366,7 +2398,7 @@ msgstr "Встановити кількість віртуальних проц�
 msgid "Set output allocation mode"
 msgstr "Встановити режим отримання пам’яті для виведення даних"
 
-#: ../dib/cmdline.ml:186 ../builder/cmdline.ml:159
+#: ../dib/cmdline.ml:176 ../builder/cmdline.ml:159
 msgid "Set output disk size"
 msgstr "Встановити розмір диска для виведення даних"
 
@@ -2451,11 +2483,11 @@ msgstr "Встановлюємо назву вузла: %s"
 msgid "Setting the timezone: %s"
 msgstr "Встановлюємо часовий пояс: %s"
 
-#: ../resize/resize.ml:986
+#: ../resize/resize.ml:1001
 msgid "Setting up initial partition table on %s"
 msgstr "Встановлюємо початкову таблицю розділів на %s"
 
-#: ../dib/dib.ml:784
+#: ../dib/dib.ml:787
 msgid "Setting up the destination root"
 msgstr "Встановлюємо корінь призначення"
 
@@ -2467,7 +2499,7 @@ msgstr "Скорочення для --list-format long"
 msgid "Shrink partition"
 msgstr "Стиснути розділ"
 
-#: ../dib/cmdline.ml:168
+#: ../dib/cmdline.ml:161
 msgid "Skip the inclusion of the 'base' element"
 msgstr "Пропустити включення елемента «base»"
 
@@ -2725,7 +2757,7 @@ msgstr ""
 msgid "There are no notes for %s\n"
 msgstr "Немає нотаток щодо %s\n"
 
-#: ../resize/resize.ml:806
+#: ../resize/resize.ml:821
 msgid ""
 "There is a deficit of %Ld bytes (%s).  You need to make the target disk "
 "larger by at least this amount or adjust your resizing requests."
@@ -2733,7 +2765,7 @@ msgstr ""
 "Маємо дефіцит у %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
 "принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
 
-#: ../dib/elements.ml:182
+#: ../dib/elements.ml:196
 msgid ""
 "There is a duplicated script in your elements:\n"
 "%s/%s in: %s"
@@ -2741,7 +2773,7 @@ msgstr ""
 "У ваших елементах є дублювання скрипту:\n"
 "%s/%s у: %s"
 
-#: ../resize/resize.ml:946
+#: ../resize/resize.ml:961
 msgid "There is a surplus of %s."
 msgstr "Маємо надлишок у %s."
 
@@ -2852,7 +2884,7 @@ msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 msgid "USER[:SELECTOR]"
 msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 
-#: ../dib/dib.ml:898
+#: ../dib/dib.ml:883
 msgid "Umounting the disks"
 msgstr "Демонтуємо диски"
 
@@ -2892,7 +2924,7 @@ msgstr "Вивантажити локальний файл у систему п�
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
-#: ../mllib/common_utils.ml:705
+#: ../mllib/common_utils.ml:716
 msgid "Use ANSI colour sequences even if not tty"
 msgstr "Використовувати послідовності ANSI для кольорів, навіть якщо це не tty"
 
@@ -2916,7 +2948,7 @@ msgstr "Користувачі, записи яких слід вилучити"
 msgid "Using prebuilt file %s as overlay"
 msgstr "Використовуємо попередньо зібраний файл %s як оверлей"
 
-#: ../dib/dib.ml:937
+#: ../dib/output_format_vhd.ml:38
 msgid ""
 "VHD output not produced, most probably vhd-util is old or not patched for "
 "'convert'"
@@ -2956,7 +2988,7 @@ msgstr "Записуємо метадані XML libvirt до %s…"
 msgid "Writing: %s"
 msgstr "Записуємо: %s"
 
-#: ../resize/resize.ml:777
+#: ../resize/resize.ml:792
 msgid ""
 "You cannot use --expand when there is no surplus space to expand into.  You "
 "need to make the target disk larger by at least %s."
@@ -2964,7 +2996,7 @@ msgstr ""
 "Не можна використовувати --expand, якщо немає додаткового місця для "
 "розширення. Вам слід збільшити диск призначення на принаймні %s."
 
-#: ../resize/resize.ml:789
+#: ../resize/resize.ml:804
 msgid ""
 "You cannot use --shrink when there is no deficit (see 'deficit' in the virt-"
 "resize(1) man page)."
@@ -3023,7 +3055,7 @@ msgstr "значення вирівнювання не може бути мен�
 msgid "append_line: %s is not a file"
 msgstr ""
 
-#: ../dib/cmdline.ml:256
+#: ../dib/cmdline.ml:247
 msgid "at least one distribution root element must be specified"
 msgstr "має бути вказано принаймні один кореневий елемент дистрибутива"
 
@@ -3167,7 +3199,7 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:165
+#: ../v2v/input_ova.ml:200
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -3255,11 +3287,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:306
+#: ../v2v/input_ova.ml:395
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
 
-#: ../v2v/input_ova.ml:203
+#: ../v2v/input_ova.ml:238
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3327,6 +3359,10 @@ msgstr "каталог"
 msgid "disabling the cache"
 msgstr "вимикаємо кеш"
 
+#: ../dib/output_format.ml:99
+msgid "disallowed character (%c) in format name"
+msgstr ""
+
 #: ../sysprep/sysprep_operation.ml:145
 msgid "disallowed character (%c) in operation name"
 msgstr "заборонений символ (%c) у назві операції"
@@ -3364,7 +3400,7 @@ msgstr ""
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
-#: ../dib/dib.ml:484
+#: ../dib/output_format_docker.ml:32
 msgid "docker: a target was not specified, use '--docker-target'"
 msgstr ""
 
@@ -3411,6 +3447,10 @@ msgstr "дублювання параметра %s. Вказано повтор�
 msgid "duplicate %s parameter.  Only one default mapping is allowed."
 msgstr "дублювання параметра %s. Можлива лише одна типова прив’язка."
 
+#: ../dib/output_format.ml:87
+msgid "duplicate format name (%s)"
+msgstr ""
+
 #: ../sysprep/sysprep_operation.ml:133
 msgid "duplicate operation name (%s)"
 msgstr "дублювання назви операції (%s)"
@@ -3427,29 +3467,30 @@ msgstr "порожній параметр --expand"
 msgid "empty --shrink option"
 msgstr "порожній параметр --shrink"
 
+#. ../get-kernel/get_kernel.ml:43
 #. ../customize/customize_main.ml:62
 #. ../builder/downloader.ml:71
-#: ../sysprep/main.ml:58 ../resize/resize.ml:315 ../get-kernel/get_kernel.ml:43
+#: ../sysprep/main.ml:58 ../resize/resize.ml:322 ../resize/resize.ml:315
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:271
+#: ../v2v/input_ova.ml:306
 msgid "error parsing disk fileRef"
 msgstr "помилка під час спроби обробити fileRef диска"
 
-#: ../v2v/input_ova.ml:292
+#: ../v2v/input_ova.ml:351
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../v2v/input_ova.ml:83 ../v2v/input_ova.ml:45
+#: ../v2v/input_ova.ml:113 ../v2v/input_ova.ml:50
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../mllib/common_utils.ml:571
+#: ../mllib/common_utils.ml:582
 msgid "exception: %s"
 msgstr "виключення: %s"
 
@@ -3476,15 +3517,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:791
+#: ../mllib/common_utils.ml:802 ../dib/dib.ml:935
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:814 ../mllib/common_utils.ml:793
+#: ../mllib/common_utils.ml:825 ../mllib/common_utils.ml:804 ../dib/dib.ml:938
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:817 ../mllib/common_utils.ml:795
+#: ../mllib/common_utils.ml:828 ../mllib/common_utils.ml:806 ../dib/dib.ml:941
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3500,7 +3541,19 @@ msgstr "не вдалося отримати %s: код стану HTTP %s"
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../mllib/common_utils.ml:562
+#: ../v2v/utils.ml:158
+msgid "failed to parse line returned by tar: %S"
+msgstr ""
+
+#: ../v2v/utils.ml:106
+msgid "failed to parse qemu-img version(%S), assuming 0.9"
+msgstr ""
+
+#: ../v2v/utils.ml:110
+msgid "failed to read qemu-img version(%S), assuming 0.9"
+msgstr ""
+
+#: ../mllib/common_utils.ml:573
 msgid "failure: %s"
 msgstr "помилка: %s"
 
@@ -3508,6 +3561,10 @@ msgstr "помилка: %s"
 #: ../sysprep/main.ml:121 ../get-kernel/get_kernel.ml:55
 msgid "file"
 msgstr "file"
+
+#: ../v2v/input_ova.ml:366
+msgid "file '%s' not found in the ova"
+msgstr ""
 
 #: ../builder/sigchecker.ml:218
 msgid ""
@@ -3519,7 +3576,7 @@ msgstr ""
 "  виявлений відбиток: %s\n"
 "  очікуваний відбиток: %s"
 
-#: ../resize/resize.ml:1257
+#: ../resize/resize.ml:1272
 msgid "first partition is NTFS but does not contain NTFS boot loader magic"
 msgstr ""
 "форматом першого розділу є NTFS, але розділ не містить контрольної суми "
@@ -3535,22 +3592,24 @@ msgstr ""
 msgid "floppy disk"
 msgstr "дискета"
 
-#: ../dib/elements.ml:137
+#: ../dib/elements.ml:150
 msgid ""
-"following elements were explicitly required but are provided by other "
-"included elements: %s"
+"following elements are already provided by another element:\n"
+"%s"
 msgstr ""
-"наступні елементи були явним чином обов’язковими, але були надані іншими "
-"включеними елементами: %s"
 
 #. ../resize/resize.ml:206
 #. ../resize/resize.ml:200
 #. ../get-kernel/get_kernel.ml:58
-#. ../dib/cmdline.ml:190
+#. ../dib/cmdline.ml:180
 #. ../customize/customize_main.ml:81
 #: ../sysprep/main.ml:128 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
 msgid "format"
 msgstr "формат"
+
+#: ../dib/output_format.ml:94
+msgid "format name is an empty string"
+msgstr ""
 
 #: ../sparsify/cmdline.ml:77 ../sparsify/cmdline.ml:72
 msgid "fs"
@@ -3570,7 +3629,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../mllib/common_utils.ml:581
+#: ../mllib/common_utils.ml:592
 msgid "generated by %s %s"
 msgstr "створено за допомогою %s %s"
 
@@ -3759,11 +3818,11 @@ msgstr ""
 "Також ознайомтеся із підручником з virt-v2v(1), розділ «Minimum free space "
 "check in the host» («Мінімальний розмір вільного місця у основній системі»)."
 
-#: ../mllib/common_utils.ml:569
+#: ../mllib/common_utils.ml:580
 msgid "internal error: Not_found exception was thrown"
 msgstr "внутрішня помилка: надіслано виключення Not_found"
 
-#: ../mllib/common_utils.ml:566
+#: ../mllib/common_utils.ml:577
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr "внутрішня помилка: помилка оцінки у %s, рядок %d, символ %d"
 
@@ -3779,7 +3838,7 @@ msgstr ""
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:564
+#: ../mllib/common_utils.ml:575
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
@@ -3799,7 +3858,7 @@ msgstr "внутрішня помилка: формальний вираз не 
 msgid "invalid %s parameter"
 msgstr "некоректний параметр %s"
 
-#: ../dib/cmdline.ml:115
+#: ../dib/cmdline.ml:114
 msgid "invalid format '%s' in --formats"
 msgstr "некоректний формат «%s» у --formats"
 
@@ -3811,9 +3870,17 @@ msgstr "некоректний формат параметра «--%s», див.
 msgid "invalid input filename (%s)"
 msgstr ""
 
+#: ../v2v/utils.ml:143
+msgid "invalid offset returned by tar: %S"
+msgstr ""
+
 #: ../customize/password.ml:70
 msgid "invalid password selector '%s'; see the man page"
 msgstr "некоректний варіант пароля «%s»; див. сторінку man"
+
+#: ../v2v/utils.ml:148
+msgid "invalid size returned by tar: %S"
+msgstr ""
 
 #: ../customize/subscription_manager.ml:53
 msgid "invalid sm-attach selector '%s'; see the man page"
@@ -3831,7 +3898,7 @@ msgstr "некоректний варіант ssh-inject «%s»; див. сто�
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
-#: ../mllib/common_utils.ml:560
+#: ../mllib/common_utils.ml:571
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
@@ -3854,7 +3921,7 @@ msgstr "файл журналу %s: %s (проігноровано)"
 msgid "lv"
 msgstr "lv"
 
-#: ../v2v/input_ova.ml:115
+#: ../v2v/input_ova.ml:145
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3878,7 +3945,7 @@ msgstr "немає значення для ключа «%s»"
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:146
+#: ../v2v/input_ova.ml:176
 msgid "more than one .ovf file was found in %s"
 msgstr "у %s виявлено декілька файлів .ovf"
 
@@ -3924,7 +3991,7 @@ msgstr "мережа"
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:143
+#: ../v2v/input_ova.ml:173
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
@@ -3950,7 +4017,7 @@ msgstr ""
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
 
-#: ../v2v/input_ova.ml:276
+#: ../v2v/input_ova.ml:311
 msgid "no href in ovf:File (id=%s)"
 msgstr "немає href у ovf:File (id=%s)"
 
@@ -3989,7 +4056,7 @@ msgstr "не знайдено операційної системи"
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../dib/dib.ml:704
+#: ../dib/dib.ml:707
 msgid "no partitions found in the helper drive"
 msgstr "на допоміжному диску не знайдено розділів"
 
@@ -4129,7 +4196,7 @@ msgstr ""
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
 
-#: ../v2v/input_ova.ml:236
+#: ../v2v/input_ova.ml:271
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
@@ -4137,7 +4204,7 @@ msgstr ""
 "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
 "цю ваду, додавши файл *.ovf, видобутий з ova"
 
-#: ../v2v/input_ova.ml:233
+#: ../v2v/input_ova.ml:268
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4180,11 +4247,11 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати паролі"
 
-#: ../dib/elements.ml:140
+#: ../dib/elements.ml:154
 msgid "please include an operating system element"
 msgstr "будь ласка, включіть елемент операційної системи"
 
-#: ../resize/resize.ml:1046 ../resize/resize.ml:1022
+#: ../resize/resize.ml:1061 ../resize/resize.ml:1037
 msgid "pread-device: short read"
 msgstr "pread-device: неповне читання"
 
@@ -4347,7 +4414,7 @@ msgstr "ssh-inject: файл відкритого ключа (%s) є порож�
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr "ssh-inject: запису користувача %s у гостьовій системі не існує"
 
-#: ../dib/dib.ml:449
+#: ../dib/dib.ml:459
 msgid "sub-process killed by signal (%d)"
 msgstr ""
 
@@ -4397,7 +4464,7 @@ msgstr ""
 msgid "the key '%s' was not found in a list of objects"
 msgstr "ключа «%s» у списку об’єктів не знайдено"
 
-#: ../dib/cmdline.ml:253
+#: ../dib/cmdline.ml:243
 msgid "the list of output formats cannot be empty"
 msgstr "список форматів виведення даних не може бути порожнім"
 
@@ -4411,11 +4478,11 @@ msgstr ""
 "допомогою командного рядка, має дорівнювати кількості образів дисків "
 "гостьових систем (для цієї гостьової системи: %d)"
 
-#: ../resize/resize.ml:454
+#: ../resize/resize.ml:469
 msgid "the source disk has no partitions"
 msgstr "на диску джерела немає розділів"
 
-#: ../dib/dib.ml:477
+#: ../dib/dib.ml:490
 msgid "the specified base path is not the diskimage-builder library"
 msgstr "вказаний базовий шлях не є шляхом до бібліотеки diskimage-builder"
 
@@ -4659,7 +4726,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/input_ova.ml:169
+#: ../v2v/input_ova.ml:204
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4710,7 +4777,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:221
+#: ../v2v/input_ova.ml:256
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
@@ -4726,10 +4793,14 @@ msgstr "невідому звукову модель %s проігнорован
 msgid "unknown source hypervisor ('%s') in metadata"
 msgstr "невідомий гіпервізор джерела («%s») у метаданих"
 
-#. ../resize/resize.ml:847
-#: ../resize/resize.ml:935 ../resize/resize.ml:904 ../resize/resize.ml:865
+#. ../resize/resize.ml:862
+#: ../resize/resize.ml:950 ../resize/resize.ml:919 ../resize/resize.ml:880
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr "невідомий або недоступний метод розкриття файлової системи %s на %s"
+
+#: ../v2v/input_ova.ml:319
+msgid "unsupported compression in OVF: %s"
+msgstr ""
 
 #. ../customize/customize_main.ml:78
 #: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
@@ -4936,7 +5007,7 @@ msgstr "не можна одночасно використовувати пар
 msgid "you cannot use --in-place and -o options together"
 msgstr "не можна одночасно використовувати параметри --in-place і -o"
 
-#: ../resize/resize.ml:766
+#: ../resize/resize.ml:781
 msgid "you cannot use options --expand and --shrink together"
 msgstr ""
 "не можна використовувати одночасно параметр --expand і параметр --shrink"
@@ -4974,7 +5045,7 @@ msgstr ""
 #: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:92 cat/log.c:68 cat/ls.c:89
 #: cat/tail.c:65 df/main.c:72 diff/diff.c:98 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
-#: make-fs/make-fs.c:79 p2v/main.c:90 rescue/rescue.c:61
+#: make-fs/make-fs.c:79 p2v/main.c:87 rescue/rescue.c:61
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -5006,7 +5077,7 @@ msgstr ""
 #: cat/filesystems.c:245 cat/log.c:147 cat/ls.c:235 cat/tail.c:152
 #: df/main.c:162 diff/diff.c:267 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
-#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:230
+#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:198
 #: rescue/rescue.c:185 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -5828,6 +5899,26 @@ msgstr ""
 #, c-format
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr "%s: некоректний цілий параметр (%s повернуто %u)\n"
+
+#: cmds-gperf.gperf:1734
+#, c-format
+msgid "error: incorrect number of arguments\n"
+msgstr "помилка: помилкова кількість аргументів\n"
+
+#: cmds-gperf.gperf:1736
+#, c-format
+msgid "usage: %s\n"
+msgstr "користування: %s\n"
+
+#: cmds-gperf.gperf:1737
+#, c-format
+msgid "type 'help %s' for more help on %s\n"
+msgstr "введіть «help %s», щоб отримати додаткові довідкові дані щодо %s\n"
+
+#: cmds-gperf.gperf:1742
+#, c-format
+msgid "%s: unknown command\n"
+msgstr "%s: невідома команда\n"
 
 #: fish/cmds.c:487
 msgid "Command"
@@ -8093,26 +8184,6 @@ msgstr ""
 "Скористайтеся -h <команда> або help <команда>, щоб переглянути докладну "
 "довідку щодо команди."
 
-#: fish/cmds.c:1212
-#, c-format
-msgid "error: incorrect number of arguments\n"
-msgstr "помилка: помилкова кількість аргументів\n"
-
-#: fish/cmds.c:1214
-#, c-format
-msgid "usage: %s\n"
-msgstr "користування: %s\n"
-
-#: fish/cmds.c:1215
-#, c-format
-msgid "type 'help %s' for more help on %s\n"
-msgstr "введіть «help %s», щоб отримати додаткові довідкові дані щодо %s\n"
-
-#: fish/cmds.c:1220
-#, c-format
-msgid "%s: unknown command\n"
-msgstr "%s: невідома команда\n"
-
 #: fish/copy.c:42
 #, c-format
 msgid ""
@@ -9716,26 +9787,26 @@ msgstr ""
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
 
-#: lib/fuse.c:995
+#: lib/fuse.c:994
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr "fuse_opt_add_arg: %s"
 
-#: lib/fuse.c:1012
+#: lib/fuse.c:1011
 #, c-format
 msgid "fuse_mount: %s"
 msgstr "fuse_mount: %s"
 
-#: lib/fuse.c:1030
+#: lib/fuse.c:1029
 #, c-format
 msgid "fuse_new: %s"
 msgstr "fuse_new: %s"
 
-#: lib/fuse.c:1059
+#: lib/fuse.c:1058
 msgid "you must call guestfs_mount_local first"
 msgstr "вам слід спочатку викликати guestfs_mount_local"
 
-#: lib/fuse.c:1070
+#: lib/fuse.c:1069
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
@@ -9746,20 +9817,20 @@ msgstr ""
 "Зауваження: «%s» все ще змонтовано. Скористайтеся командою «guestunmount %s» "
 "для чищення списку монтування."
 
-#: lib/fuse.c:1080
+#: lib/fuse.c:1079
 #, c-format
 msgid "fuse_loop: %s"
 msgstr "fuse_loop: %s"
 
-#: lib/fuse.c:1130
+#: lib/fuse.c:1129
 msgid "no filesystem is mounted"
 msgstr "не змонтовано жодної файлової системи"
 
-#: lib/fuse.c:1248
+#: lib/fuse.c:1247
 msgid "could not initialize dir cache hashtables"
 msgstr "не вдалося ініціалізувати таблиці хешів каталогів кешу"
 
-#: lib/fuse.c:1503
+#: lib/fuse.c:1502
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -10618,24 +10689,29 @@ msgstr ""
 msgid "Extra parameter on the command line: '%s'.\n"
 msgstr ""
 
-#: p2v/conversion.c:252
+#: p2v/conversion.c:259
+#, c-format
+msgid "Starting local NBD server for %s ..."
+msgstr ""
+
+#: p2v/conversion.c:282
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr "Відкриваємо з’єднання для обміну даними для %s…"
 
-#: p2v/conversion.c:346
+#: p2v/conversion.c:355
 msgid "Setting up the control connection ..."
 msgstr "Налаштовуємо контрольне з’єднання…"
 
-#: p2v/conversion.c:380
+#: p2v/conversion.c:389
 msgid "Doing conversion ..."
 msgstr "Виконуємо перетворення…"
 
-#: p2v/conversion.c:420
+#: p2v/conversion.c:429
 msgid "Conversion cancelled by user."
 msgstr "Перетворення скасовано користувачем."
 
-#: p2v/conversion.c:425
+#: p2v/conversion.c:434
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
 
@@ -10942,7 +11018,7 @@ msgstr ""
 msgid "Cancel the conversion"
 msgstr "Скасувати перетворення"
 
-#: p2v/main.c:93
+#: p2v/main.c:90
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -10961,42 +11037,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:144
-#, c-format
-msgid "malloc"
-msgstr ""
-
-#: p2v/main.c:147
-#, c-format
-msgid "--nbd option cannot be empty"
-msgstr ""
-
-#: p2v/main.c:151
-#, c-format
-msgid "too many --nbd servers"
-msgstr ""
-
-#: p2v/main.c:158
-#, c-format
-msgid "--nbd: unknown server: %s"
-msgstr ""
-
-#: p2v/main.c:222
+#: p2v/main.c:190
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr "параметр --test-disk можна використовувати лише один раз"
 
-#: p2v/main.c:225
+#: p2v/main.c:193
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr "шлях у --test-disk слід вказувати як абсолютний"
 
-#: p2v/main.c:253
+#: p2v/main.c:221
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
 
-#: p2v/main.c:296
+#: p2v/main.c:252
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -11006,7 +11062,27 @@ msgstr ""
 "на цій основній системі графічний інтерфейс неможливий. Перевірте наявність "
 "X11, $DISPLAY тощо."
 
-#: p2v/main.c:359
+#: p2v/nbd.c:140
+#, c-format
+msgid "--nbd option appears multiple times"
+msgstr ""
+
+#: p2v/nbd.c:145 p2v/nbd.c:153
+#, c-format
+msgid "malloc"
+msgstr ""
+
+#: p2v/nbd.c:149
+#, c-format
+msgid "--nbd option cannot be empty"
+msgstr ""
+
+#: p2v/nbd.c:165
+#, c-format
+msgid "--nbd: unknown server: %s"
+msgstr ""
+
+#: p2v/nbd.c:269
 #, c-format
 msgid ""
 "%s: no working NBD server was found, cannot continue.\n"
@@ -11388,6 +11464,13 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "following elements were explicitly required but are provided by other "
+#~ "included elements: %s"
+#~ msgstr ""
+#~ "наступні елементи були явним чином обов’язковими, але були надані іншими "
+#~ "включеними елементами: %s"
 
 #~ msgid ""
 #~ "%s: display log files in a virtual machine\n"
