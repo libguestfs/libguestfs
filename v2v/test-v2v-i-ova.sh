@@ -32,6 +32,13 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
     exit 77
 fi
 
+# XXX Remove when we fix this.  See:
+# https://www.redhat.com/archives/libguestfs/2017-February/msg00101.html
+if [[ "$(guestfish get-backend)" =~ ^libvirt ]]; then
+    echo "$0: test skipped because of bug with virt-v2v -i ova and libvirt"
+    exit 77
+fi
+
 f=../test-data/phony-guests/windows.img
 if ! test -f $f || ! test -s $f; then
     echo "$0: test skipped because phony Windows image was not created"
