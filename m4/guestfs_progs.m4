@@ -125,7 +125,9 @@ dnl Check for valgrind
 AC_CHECK_PROG([VALGRIND],[valgrind],[valgrind],[no])
 AS_IF([test "x$VALGRIND" != "xno"],[
     # Substitute the whole valgrind command.
-    VG='$(VALGRIND) --vgdb=no --log-file=$(abs_top_builddir)/tmp/valgrind-%q{T}-%p.log --leak-check=full --error-exitcode=119 --suppressions=$(abs_top_srcdir)/valgrind-suppressions --trace-children=no --child-silent-after-fork=yes --run-libc-freeres=no'
+    # Note we run libtool, not $(LIBTOOL) since the latter expands to
+    # libtool-kill-dependency-libs.sh
+    VG='libtool --mode=execute $(VALGRIND) --vgdb=no --log-file=$(abs_top_builddir)/tmp/valgrind-%q{T}-%p.log --leak-check=full --error-exitcode=119 --suppressions=$(abs_top_srcdir)/valgrind-suppressions --trace-children=no --child-silent-after-fork=yes --run-libc-freeres=no'
     ],[
     # No valgrind, so substitute VG with something that will break.
     VG=VALGRIND_IS_NOT_INSTALLED
