@@ -75,7 +75,6 @@ if (rand () <= 0.5) {
 # an extended partition (#4) and zero or more logical partitions.
 my $nr_parts = 1 + int (rand (7));
 
-# XXX Temporarily restriction XXX
 # Currently virt-resize is broken when dealing with any extended
 # partition, so don't test this for the moment.
 if ($part_type eq "mbr" && $nr_parts >= 4) {
