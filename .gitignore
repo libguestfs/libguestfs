@@ -17,7 +17,6 @@
 *.log
 *.o
 *.orig
-*.patch
 *.pyc
 *.rej
 *.swp
@@ -34,6 +33,8 @@ Makefile
 Makefile.in
 
 /.sc-*
+/*.patch
+
 /ABOUT-NLS
 /aclocal.m4
 /align/stamp-virt-alignment-scan.pod
