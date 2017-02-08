@@ -55,7 +55,10 @@ rm -f $output
 # Note we cannot test --install, --run since the phony Fedora doesn't
 # have a real OS inside just some configuration files.  Just about
 # every other option is fair game.
-$VG virt-builder phony-fedora \
+#
+# Don't use $VG here, because libtool (expanded from $VG) chokes
+# on the multi-line parameters. (RHBZ#1420301)
+virt-builder phony-fedora \
     -v --no-cache --no-check-signature $no_network \
     -o $output --size 2G --format $format \
     --arch x86_64 \
