@@ -150,15 +150,33 @@ repo --name=rawhide --mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?rep
 repo --name=koji --baseurl=http://koji.fedoraproject.org/repos/rawhide/latest/\$basearch/ $proxy
 "
             ;;
-        rhel-*)
-            major=$( echo "$repo" | sed 's/rhel-\([0-9]*\)\.[0-9]*/\1/' )
+        rhel-5.*)
             minor=$( echo "$repo" | sed 's/rhel-[0-9]*\.\([0-9]*\)/\1/' )
-            baseurl=http://download.eng.rdu2.redhat.com/released/RHEL-$major/$major.$minor
+            arch=`uname -m | sed 's/i[3456]86/i386/g'`
+            baseurl=http://download.devel.redhat.com/released/RHEL-5-Server/U$minor/$arch/os/Server/
+            # Neither $basearch nor --proxy work in RHEL 5 kickstarts.
+            repos="$repos
+repo --name=rhel5_${minor}_server --baseurl=$baseurl
+"
+            ;;
+        rhel-6.*)
+            minor=$( echo "$repo" | sed 's/rhel-[0-9]*\.\([0-9]*\)/\1/' )
+            baseurl=http://download.devel.redhat.com/released/RHEL-6/6.$minor
             # '$basearch' cannot be used in kickstart, so:
             arch=`uname -m`
             repos="$repos
-repo --name=rhel${major}_${minor}_server --baseurl=$baseurl/Server/$arch/os
-repo --name=rhel${major}_${minor}_server_optional --baseurl=$baseurl/Server-optional/$arch/os
+repo --name=rhel6_${minor}_server --baseurl=$baseurl/Server/$arch/os $proxy
+repo --name=rhel6_${minor}_server_optional --baseurl=$baseurl/Server/optional/$arch/os $proxy
+"
+            ;;
+        rhel-7.*)
+            minor=$( echo "$repo" | sed 's/rhel-[0-9]*\.\([0-9]*\)/\1/' )
+            baseurl=http://download.devel.redhat.com/released/RHEL-7/7.$minor
+            # '$basearch' cannot be used in kickstart, so:
+            arch=`uname -m`
+            repos="$repos
+repo --name=rhel7_${minor}_server --baseurl=$baseurl/Server/$arch/os $proxy
+repo --name=rhel7_${minor}_server_optional --baseurl=$baseurl/Server-optional/$arch/os $proxy
 "
             ;;
         *)
