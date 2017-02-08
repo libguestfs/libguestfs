@@ -124,6 +124,8 @@ if [ -d $ENVIRONMENT_D_DIR ] ; then
     done
 fi
 
+source $_LIB/die
+
 $target_dir/$script
 "
     (if debug >= 1 then "set -x\n" else "")
@@ -206,6 +208,7 @@ export TMP_IMAGE_DIR=$mysysroot/tmp/aux
 
 if [ -n \"$mysysroot\" ]; then
   export PATH=$mysysroot/tmp/aux/fake-bin:$PATH
+  source $_LIB/die
 else
   export PATH=\"$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"
 fi
