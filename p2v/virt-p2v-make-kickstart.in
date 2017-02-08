@@ -1,7 +1,7 @@
 #!/bin/bash -
 # @configure_input@
 # virt-p2v-make-kickstart
-# Copyright (C) 2014 Red Hat Inc.
+# Copyright (C) 2014-2017 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ if [ -n "$VIRT_P2V_DATA_DIR" ]; then
     libdir="$VIRT_P2V_DATA_DIR"
 else
     datadir="@datadir@/virt-p2v"
-    libdir="@libdir@"
+    libdir="@libdir@/virt-p2v"
 fi
 
 # Base64-encode the files that we need to embed into the kickstart.
@@ -123,7 +123,7 @@ fi
 
 # virt-p2v binary is too large unless we strip it and recompress it.
 tmpfile="$(mktemp -u)"
-xzcat $libdir/virt-p2v/virt-p2v.xz > $tmpfile
+xzcat $libdir/virt-p2v.xz > $tmpfile
 md5sum_virt_p2v="$(md5sum $tmpfile | @AWK@ '{print $1}')"
 strip --strip-all $tmpfile
 gzip -9 $tmpfile
