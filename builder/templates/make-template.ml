@@ -622,8 +622,14 @@ and make_location os arch =
   | RHEL (4, minor), X86_64 ->
      sprintf "http://download.devel.redhat.com/released/RHEL-4/U%d/AS/x86_64/tree" minor
 
+  | RHEL (5, minor), I686 ->
+     sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d/i386/os" minor
+
   | RHEL (5, minor), X86_64 ->
      sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d/x86_64/os" minor
+
+  | RHEL (6, minor), I686 ->
+     sprintf "http://download.devel.redhat.com/released/RHEL-6/6.%d/Server/i386/os" minor
 
   | RHEL (6, minor), X86_64 ->
      sprintf "http://download.devel.redhat.com/released/RHEL-6/6.%d/Server/x86_64/os" minor
@@ -779,20 +785,22 @@ and make_rhel_yum_conf major minor arch =
 
   let baseurl, srpms, optional =
     match major, arch with
-    | 5, X86_64 ->
+    | 5, (I686|X86_64) ->
+       let arch = match arch with I686 -> "i386" | _ -> string_of_arch arch in
        let topurl =
          sprintf "http://download.devel.redhat.com/released/RHEL-5-Server/U%d"
                  minor in
-       sprintf "%s/x86_64/os/Server" topurl,
+       sprintf "%s/%s/os/Server" topurl arch,
        sprintf "%s/source/SRPMS" topurl,
        None
-    | 6, X86_64 ->
+    | 6, (I686|X86_64) ->
+       let arch = match arch with I686 -> "i386" | _ -> string_of_arch arch in
        let topurl =
          sprintf "http://download.devel.redhat.com/released/RHEL-%d/%d.%d"
                  major major minor in
-       sprintf "%s/Server/%s/os" topurl (string_of_arch arch),
+       sprintf "%s/Server/%s/os" topurl arch,
        sprintf "%s/source/SRPMS" topurl,
-       Some (sprintf "%s/Server/optional/%s/os" (string_of_arch arch) topurl,
+       Some (sprintf "%s/Server/optional/%s/os" arch topurl,
              sprintf "%s/Server/optional/source/SRPMS" topurl)
     | 7, (X86_64|Aarch64|PPC64|PPC64le) ->
        let topurl =
