@@ -147,6 +147,7 @@ let rec main () =
   let _, pstat = Unix.waitpid [] pid in
   check_process_status_for_errors pstat;
   cleanup_libvirt_guest ();
+  ignore (Sys.command "sync");
 
   (* Run virt-filesystems, simply to display the filesystems in the image. *)
   let cmd = sprintf "virt-filesystems -a %s --all --long -h" (quote tmpout) in
