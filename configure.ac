@@ -32,7 +32,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_REQUIRE_AUX_FILE([guestfs-test-driver])
 
 dnl Initialize automake.
-AM_INIT_AUTOMAKE(foreign subdir-objects) dnl NB: Do not [quote] this parameter.
+AM_INIT_AUTOMAKE(foreign subdir-objects tar-pax) dnl NB: Do not [quote] this parameter.
 
 m4_ifndef([AM_SILENT_RULES], [m4_define([AM_SILENT_RULES],[])])
 AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
