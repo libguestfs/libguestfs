@@ -33,6 +33,9 @@ val parse_memory : string -> doc
     For security reasons it actually calls xmlReadMemory with the
     [XML_PARSE_NONET] option set. *)
 
+val parse_file : string -> doc
+(** [parse_file path] parses the file pointed by [path].*)
+
 val copy_doc : doc -> recursive:bool -> doc
 (** http://xmlsoft.org/html/libxml-tree.html#xmlCopyDoc *)
 
