@@ -634,7 +634,19 @@ let main () =
 
   let run_hook ~blockdev ~sysroot ?(new_wd = "") (g : Guestfs.guestfs) hook =
     try
-      let scripts = Hashtbl.find final_hooks hook in
+      let scripts =
+        (* Sadly, scripts (especially in root.d and extra-data.d)
+         * can add (by copying or symlinking) new scripts for other
+         * phases, which would be ignored if we were using the lists
+         * collected after composing the tree of hooks.
+         * As result, when running in-chroot hooks, re-read the list
+         * of scripts actually available for each hook.
+         *)
+        match hook with
+        | "pre-install.d" | "install.d" | "post-install.d" | "finalise.d" ->
+          load_scripts g ("/tmp/aux/hooks/" ^ hook)
+        | _ ->
+          Hashtbl.find final_hooks hook in
       if debug >= 1 then (
         printf "Running hooks for %s...\n%!" hook;
       );

@@ -80,6 +80,21 @@ let load_hooks ~debug path =
   ) entries;
   hooks
 
+let load_scripts (g : Guestfs.guestfs) path =
+  let listing = Array.to_list (g#readdir path) in
+  let scripts = List.filter (
+    function
+    | { Guestfs.ftyp = ('r'|'l'|'u'|'?') } -> true
+    | _ -> false
+    ) listing in
+  let scripts = List.filter (fun x -> valid_script_name x.Guestfs.name) scripts in
+  filter_map (
+     fun x ->
+       let { Guestfs.st_mode = mode } = g#statns (path ^ "/" ^ x.Guestfs.name) in
+       if mode &^ 0o111_L > 0_L then Some x.Guestfs.name
+       else None
+   ) scripts
+
 let load_elements ~debug paths =
   let loaded_elements = Hashtbl.create 13 in
   let paths = List.filter is_directory paths in
