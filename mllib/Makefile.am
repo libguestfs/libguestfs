@@ -28,6 +28,8 @@ EXTRA_DIST = \
 	test-getopt.sh
 
 SOURCES_MLI = \
+	xml.mli \
+	xpath_helpers.mli \
 	checksums.mli \
 	common_utils.mli \
 	curl.mli \
@@ -67,7 +69,9 @@ SOURCES_ML = \
 	JSON.ml \
 	curl.ml \
 	exit.ml \
-	checksums.ml
+	checksums.ml \
+	xml.ml \
+	xpath_helpers.ml
 
 SOURCES_C = \
 	../common/visit/visit.c \
@@ -85,7 +89,8 @@ SOURCES_C = \
 	progress-c.c \
 	statvfs-c.c \
 	uri-c.c \
-	visit-c.c
+	visit-c.c \
+	xml-c.c
 
 if HAVE_OCAML
 

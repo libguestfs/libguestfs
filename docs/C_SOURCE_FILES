@@ -335,6 +335,7 @@ mllib/progress-c.c
 mllib/statvfs-c.c
 mllib/uri-c.c
 mllib/visit-c.c
+mllib/xml-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c
@@ -393,4 +394,3 @@ utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
 v2v/domainxml-c.c
 v2v/utils-c.c
-v2v/xml-c.c

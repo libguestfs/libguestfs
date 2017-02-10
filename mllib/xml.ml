@@ -1,5 +1,6 @@
-(* virt-v2v
+(* Bindings for libxml2
  * Copyright (C) 2009-2017 Red Hat Inc.
+ * Copyright (C) 2017 SUSE Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,87 +57,87 @@ type node = doc * nodeptr
 type xpathctx = doc * xpathctxptr
 type xpathobj = xpathctx * xpathobjptr
 
-external free_docptr : docptr -> unit = "v2v_xml_free_docptr"
-external free_xpathctxptr : xpathctxptr -> unit = "v2v_xml_free_xpathctxptr"
-external free_xpathobjptr : xpathobjptr -> unit = "v2v_xml_free_xpathobjptr"
+external free_docptr : docptr -> unit = "mllib_xml_free_docptr"
+external free_xpathctxptr : xpathctxptr -> unit = "mllib_xml_free_xpathctxptr"
+external free_xpathobjptr : xpathobjptr -> unit = "mllib_xml_free_xpathobjptr"
 
-external _parse_memory : string -> docptr = "v2v_xml_parse_memory"
+external _parse_memory : string -> docptr = "mllib_xml_parse_memory"
 let parse_memory xml =
   let docptr = _parse_memory xml in
   Gc.finalise free_docptr docptr;
   docptr
 
-external _copy_doc : docptr -> recursive:bool -> docptr = "v2v_xml_copy_doc"
+external _copy_doc : docptr -> recursive:bool -> docptr = "mllib_xml_copy_doc"
 let copy_doc docptr ~recursive =
   let copy = _copy_doc docptr ~recursive in
   Gc.finalise free_docptr copy;
   copy
 
-external to_string : docptr -> format:bool -> string = "v2v_xml_to_string"
+external to_string : docptr -> format:bool -> string = "mllib_xml_to_string"
 
 external _xpath_new_context : docptr -> xpathctxptr
-  = "v2v_xml_xpath_new_context"
+  = "mllib_xml_xpath_new_context"
 let xpath_new_context docptr =
   let xpathctxptr = _xpath_new_context docptr in
   Gc.finalise free_xpathctxptr xpathctxptr;
   docptr, xpathctxptr
 
 external xpathctxptr_register_ns : xpathctxptr -> string -> string -> unit
-  = "v2v_xml_xpathctxptr_register_ns"
+  = "mllib_xml_xpathctxptr_register_ns"
 let xpath_register_ns (_, xpathctxptr) prefix uri =
   xpathctxptr_register_ns xpathctxptr prefix uri
 
 external xpathctxptr_eval_expression : xpathctxptr -> string -> xpathobjptr
-  = "v2v_xml_xpathctxptr_eval_expression"
+  = "mllib_xml_xpathctxptr_eval_expression"
 let xpath_eval_expression ((_, xpathctxptr) as xpathctx) expr =
   let xpathobjptr = xpathctxptr_eval_expression xpathctxptr expr in
   Gc.finalise free_xpathobjptr xpathobjptr;
   xpathctx, xpathobjptr
 
 external xpathobjptr_nr_nodes : xpathobjptr -> int
-  = "v2v_xml_xpathobjptr_nr_nodes"
+  = "mllib_xml_xpathobjptr_nr_nodes"
 let xpathobj_nr_nodes (_, xpathobjptr) =
   xpathobjptr_nr_nodes xpathobjptr
 
 external xpathobjptr_get_nodeptr : xpathobjptr -> int -> nodeptr
-  = "v2v_xml_xpathobjptr_get_nodeptr"
+  = "mllib_xml_xpathobjptr_get_nodeptr"
 let xpathobj_node ((docptr, _), xpathobjptr) i =
   docptr, xpathobjptr_get_nodeptr xpathobjptr i
 
 external xpathctxptr_set_nodeptr : xpathctxptr -> nodeptr -> unit
-  = "v2v_xml_xpathctx_set_nodeptr"
+  = "mllib_xml_xpathctx_set_nodeptr"
 let xpathctx_set_current_context (_, xpathctxptr) (_, nodeptr) =
   xpathctxptr_set_nodeptr xpathctxptr nodeptr
 
-external nodeptr_name : nodeptr -> string = "v2v_xml_nodeptr_name"
+external nodeptr_name : nodeptr -> string = "mllib_xml_nodeptr_name"
 let node_name (_, nodeptr) = nodeptr_name nodeptr
 
 external nodeptr_as_string : docptr -> nodeptr -> string
-  = "v2v_xml_nodeptr_as_string"
+  = "mllib_xml_nodeptr_as_string"
 let node_as_string (docptr, nodeptr) = nodeptr_as_string docptr nodeptr
 
 external nodeptr_set_content : nodeptr -> string -> unit
-  = "v2v_xml_nodeptr_set_content"
+  = "mllib_xml_nodeptr_set_content"
 let node_set_content (_, nodeptr) = nodeptr_set_content nodeptr
 
 external nodeptr_new_text_child : nodeptr -> string -> string -> nodeptr
-  = "v2v_xml_nodeptr_new_text_child"
+  = "mllib_xml_nodeptr_new_text_child"
 let new_text_child (docptr, nodeptr) name content =
   docptr, nodeptr_new_text_child nodeptr name content
 
 external nodeptr_set_prop : nodeptr -> string -> string -> unit
-  = "v2v_xml_nodeptr_set_prop"
+  = "mllib_xml_nodeptr_set_prop"
 let set_prop (_, nodeptr) = nodeptr_set_prop nodeptr
 
 external nodeptr_unset_prop : nodeptr -> string -> bool
-  = "v2v_xml_nodeptr_unset_prop"
+  = "mllib_xml_nodeptr_unset_prop"
 let unset_prop (_, nodeptr) = nodeptr_unset_prop nodeptr
 
-external nodeptr_unlink_node : nodeptr -> unit = "v2v_xml_nodeptr_unlink_node"
+external nodeptr_unlink_node : nodeptr -> unit = "mllib_xml_nodeptr_unlink_node"
 let unlink_node (_, nodeptr) = nodeptr_unlink_node nodeptr
 
 external _doc_get_root_element : docptr -> nodeptr option
-  = "v2v_xml_doc_get_root_element"
+  = "mllib_xml_doc_get_root_element"
 let doc_get_root_element docptr =
   match _doc_get_root_element docptr with
   | None -> None
@@ -154,4 +155,4 @@ type uri = {
   uri_query_raw : string option;
 }
 
-external parse_uri : string -> uri = "v2v_xml_parse_uri"
+external parse_uri : string -> uri = "mllib_xml_parse_uri"

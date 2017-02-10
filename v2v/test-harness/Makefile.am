@@ -48,7 +48,6 @@ OCAMLPACKAGES = \
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 BOBJECTS = \
-	$(top_builddir)/v2v/xml.cmo \
 	$(SOURCES_ML:.ml=.cmo) \
 	$(libv2vth_a_OBJECTS)
 XOBJECTS = $(BOBJECTS:.cmo=.cmx)
@@ -82,7 +81,7 @@ libv2vth_a_CFLAGS = \
 	-fPIC
 
 libv2vth_a_SOURCES = \
-	../xml-c.c
+	dummy.c
 
 v2v_test_harness.cmi: $(top_builddir)/ocaml/guestfs.cmi
 

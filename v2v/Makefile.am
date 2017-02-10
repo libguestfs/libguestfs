@@ -58,14 +58,10 @@ SOURCES_MLI = \
 	utils.mli \
 	vCenter.mli \
 	windows.mli \
-	windows_virtio.mli \
-	xml.mli \
-	xpath_helpers.mli
+	windows_virtio.mli
 
 SOURCES_ML = \
 	types.ml \
-	xml.ml \
-	xpath_helpers.ml \
 	uefi.ml \
 	utils.ml \
 	name_from_disk.ml \
@@ -103,8 +99,7 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	domainxml-c.c \
-	utils-c.c \
-	xml-c.c
+	utils-c.c
 
 if HAVE_OCAML
 
@@ -119,7 +114,6 @@ virt_v2v_CPPFLAGS = \
 	-I$(top_srcdir)/lib
 virt_v2v_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBXML2_CFLAGS) \
 	$(LIBVIRT_CFLAGS)
 
 BOBJECTS = \
@@ -168,8 +162,7 @@ virt_v2v_LINK = \
 
 virt_v2v_copy_to_local_SOURCES = \
 	domainxml-c.c \
-	utils-c.c \
-	xml-c.c
+	utils-c.c
 virt_v2v_copy_to_local_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
@@ -178,12 +171,9 @@ virt_v2v_copy_to_local_CPPFLAGS = \
 	-I$(top_srcdir)/lib
 virt_v2v_copy_to_local_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBXML2_CFLAGS) \
 	$(LIBVIRT_CFLAGS)
 
 COPY_TO_LOCAL_BOBJECTS = \
-	xml.cmo \
-	xpath_helpers.cmo \
 	uefi.cmo \
 	utils.cmo \
 	vCenter.cmo \
@@ -403,7 +393,6 @@ endif
 
 v2v_unit_tests_BOBJECTS = \
 	types.cmo \
-	xml.cmo \
 	uefi.cmo \
 	utils.cmo \
 	DOM.cmo \

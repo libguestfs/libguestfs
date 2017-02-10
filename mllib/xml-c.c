@@ -1,5 +1,6 @@
-/* virt-v2v
+/* Bindings for libxml2
  * Copyright (C) 2009-2017 Red Hat Inc.
+ * Copyright (C) 2017 SUSE Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +53,7 @@ static struct custom_operations docptr_custom_operations = {
 };
 
 value
-v2v_xml_free_docptr (value docv)
+mllib_xml_free_docptr (value docv)
 {
   CAMLparam1 (docv);
   xmlDocPtr doc = docptr_val (docv);
@@ -74,7 +75,7 @@ static struct custom_operations xpathctxptr_custom_operations = {
 };
 
 value
-v2v_xml_free_xpathctxptr (value xpathctxv)
+mllib_xml_free_xpathctxptr (value xpathctxv)
 {
   CAMLparam1 (xpathctxv);
   xmlXPathContextPtr xpathctx = xpathctxptr_val (xpathctxv);
@@ -96,7 +97,7 @@ static struct custom_operations xpathobjptr_custom_operations = {
 };
 
 value
-v2v_xml_free_xpathobjptr (value xpathobjv)
+mllib_xml_free_xpathobjptr (value xpathobjv)
 {
   CAMLparam1 (xpathobjv);
   xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
@@ -106,7 +107,7 @@ v2v_xml_free_xpathobjptr (value xpathobjv)
 }
 
 value
-v2v_xml_parse_memory (value xmlv)
+mllib_xml_parse_memory (value xmlv)
 {
   CAMLparam1 (xmlv);
   CAMLlocal1 (docv);
@@ -128,7 +129,7 @@ v2v_xml_parse_memory (value xmlv)
 }
 
 value
-v2v_xml_copy_doc (value docv, value recursivev)
+mllib_xml_copy_doc (value docv, value recursivev)
 {
   CAMLparam2 (docv, recursivev);
   CAMLlocal1 (copyv);
@@ -147,7 +148,7 @@ v2v_xml_copy_doc (value docv, value recursivev)
 }
 
 value
-v2v_xml_to_string (value docv, value formatv)
+mllib_xml_to_string (value docv, value formatv)
 {
   CAMLparam2 (docv, formatv);
   CAMLlocal1 (strv);
@@ -166,7 +167,7 @@ v2v_xml_to_string (value docv, value formatv)
 }
 
 value
-v2v_xml_xpath_new_context (value docv)
+mllib_xml_xpath_new_context (value docv)
 {
   CAMLparam1 (docv);
   CAMLlocal1 (xpathctxv);
@@ -186,7 +187,7 @@ v2v_xml_xpath_new_context (value docv)
 }
 
 value
-v2v_xml_xpathctxptr_register_ns (value xpathctxv, value prefix, value uri)
+mllib_xml_xpathctxptr_register_ns (value xpathctxv, value prefix, value uri)
 {
   CAMLparam3 (xpathctxv, prefix, uri);
   xmlXPathContextPtr xpathctx;
@@ -203,7 +204,7 @@ v2v_xml_xpathctxptr_register_ns (value xpathctxv, value prefix, value uri)
 }
 
 value
-v2v_xml_xpathctxptr_eval_expression (value xpathctxv, value exprv)
+mllib_xml_xpathctxptr_eval_expression (value xpathctxv, value exprv)
 {
   CAMLparam2 (xpathctxv, exprv);
   CAMLlocal1 (xpathobjv);
@@ -223,7 +224,7 @@ v2v_xml_xpathctxptr_eval_expression (value xpathctxv, value exprv)
 }
 
 value
-v2v_xml_xpathobjptr_nr_nodes (value xpathobjv)
+mllib_xml_xpathobjptr_nr_nodes (value xpathobjv)
 {
   CAMLparam1 (xpathobjv);
   xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
@@ -235,7 +236,7 @@ v2v_xml_xpathobjptr_nr_nodes (value xpathobjv)
 }
 
 value
-v2v_xml_xpathobjptr_get_nodeptr (value xpathobjv, value iv)
+mllib_xml_xpathobjptr_get_nodeptr (value xpathobjv, value iv)
 {
   CAMLparam2 (xpathobjv, iv);
   xmlXPathObjectPtr xpathobj = xpathobjptr_val (xpathobjv);
@@ -256,7 +257,7 @@ v2v_xml_xpathobjptr_get_nodeptr (value xpathobjv, value iv)
 }
 
 value
-v2v_xml_xpathctx_set_nodeptr (value xpathctxv, value nodev)
+mllib_xml_xpathctx_set_nodeptr (value xpathctxv, value nodev)
 {
   CAMLparam2 (xpathctxv, nodev);
   xmlXPathContextPtr xpathctx = xpathctxptr_val (xpathctxv);
@@ -268,7 +269,7 @@ v2v_xml_xpathctx_set_nodeptr (value xpathctxv, value nodev)
 }
 
 value
-v2v_xml_nodeptr_name (value nodev)
+mllib_xml_nodeptr_name (value nodev)
 {
   CAMLparam1 (nodev);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -284,7 +285,7 @@ v2v_xml_nodeptr_name (value nodev)
 }
 
 value
-v2v_xml_nodeptr_as_string (value docv, value nodev)
+mllib_xml_nodeptr_as_string (value docv, value nodev)
 {
   CAMLparam2 (docv, nodev);
   CAMLlocal1 (strv);
@@ -316,7 +317,7 @@ v2v_xml_nodeptr_as_string (value docv, value nodev)
 }
 
 value
-v2v_xml_nodeptr_set_content (value nodev, value contentv)
+mllib_xml_nodeptr_set_content (value nodev, value contentv)
 {
   CAMLparam2 (nodev, contentv);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -327,7 +328,7 @@ v2v_xml_nodeptr_set_content (value nodev, value contentv)
 }
 
 value
-v2v_xml_nodeptr_new_text_child (value nodev, value namev, value contentv)
+mllib_xml_nodeptr_new_text_child (value nodev, value namev, value contentv)
 {
   CAMLparam3 (nodev, namev, contentv);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -339,14 +340,14 @@ v2v_xml_nodeptr_new_text_child (value nodev, value namev, value contentv)
   if (new_node == NULL)
     caml_invalid_argument ("nodeptr_new_text_child: failed to create new node");
 
-  /* See comment in v2v_xml_xpathobjptr_get_nodeptr about returning
+  /* See comment in mllib_xml_xpathobjptr_get_nodeptr about returning
    * named xmlNodePtr here.
    */
   CAMLreturn ((value) new_node);
 }
 
 value
-v2v_xml_nodeptr_set_prop (value nodev, value namev, value valv)
+mllib_xml_nodeptr_set_prop (value nodev, value namev, value valv)
 {
   CAMLparam3 (nodev, namev, valv);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -360,7 +361,7 @@ v2v_xml_nodeptr_set_prop (value nodev, value namev, value valv)
 }
 
 value
-v2v_xml_nodeptr_unset_prop (value nodev, value namev)
+mllib_xml_nodeptr_unset_prop (value nodev, value namev)
 {
   CAMLparam2 (nodev, namev);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -372,7 +373,7 @@ v2v_xml_nodeptr_unset_prop (value nodev, value namev)
 }
 
 value
-v2v_xml_nodeptr_unlink_node (value nodev)
+mllib_xml_nodeptr_unlink_node (value nodev)
 {
   CAMLparam1 (nodev);
   xmlNodePtr node = (xmlNodePtr) nodev;
@@ -384,7 +385,7 @@ v2v_xml_nodeptr_unlink_node (value nodev)
 }
 
 value
-v2v_xml_doc_get_root_element (value docv)
+mllib_xml_doc_get_root_element (value docv)
 {
   CAMLparam1 (docv);
   CAMLlocal1 (v);
@@ -402,7 +403,7 @@ v2v_xml_doc_get_root_element (value docv)
 }
 
 value
-v2v_xml_parse_uri (value strv)
+mllib_xml_parse_uri (value strv)
 {
   CAMLparam1 (strv);
   CAMLlocal3 (rv, sv, ov);
