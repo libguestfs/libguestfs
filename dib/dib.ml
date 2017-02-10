@@ -73,7 +73,7 @@ let envvars_string l =
 
 let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
   ~rootfs_uuid ~image_cache ~arch ~network ~debug ~fs_type ~checksum
-  destdir libdir hooksdir fakebindir all_elements element_paths =
+  destdir libdir fakebindir all_elements element_paths =
   let network_string = if network then "" else "1" in
   let checksum_string = if checksum then "1" else "" in
 
@@ -82,6 +82,8 @@ let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
 set -e
 %s
 mount_dir=$1
+shift
+hooks_dir=$1
 shift
 target_dir=$1
 shift
@@ -102,7 +104,7 @@ export DIB_IMAGE_ROOT_FS_UUID=%s
 export DIB_IMAGE_CACHE=\"%s\"
 export _LIB=%s
 export ARCH=%s
-export TMP_HOOKS_PATH=%s
+export TMP_HOOKS_PATH=\"$hooks_dir\"
 export DIB_ARGS=\"%s\"
 export IMAGE_ELEMENT=\"%s\"
 export ELEMENTS_PATH=\"%s\"
@@ -138,7 +140,6 @@ $target_dir/$script
     image_cache
     (quote libdir)
     arch
-    (quote hooksdir)
     dib_args
     (String.concat " " (StringSet.elements all_elements))
     (String.concat ":" element_paths)
@@ -407,10 +408,14 @@ let run_parts ~debug ~sysroot ~blockdev ~log_file ?(new_wd = "")
   flush_all ();
   Buffer.contents outbuf
 
-let run_parts_host ~debug (g : Guestfs.guestfs) hooks_dir hook_name base_mount_dir scripts run_script =
-  let hook_dir = hooks_dir // hook_name in
+let run_parts_host ~debug (g : Guestfs.guestfs) hook_name base_mount_dir scripts run_script =
   let scripts = List.sort digit_prefix_compare scripts in
   let mount_dir = base_mount_dir // hook_name in
+  (* Point to the in-guest hooks, so that changes there can affect
+   * other phases.
+   *)
+  let hooks_dir = mount_dir // "tmp" // "aux" // "hooks" in
+  let hook_dir = hooks_dir // hook_name in
   do_mkdir mount_dir;
 
   let rec fork_and_run () =
@@ -428,7 +433,7 @@ let run_parts_host ~debug (g : Guestfs.guestfs) hooks_dir hook_name base_mount_d
     let rec loop = function
       | x :: xs ->
         message (f_"Running: %s/%s") hook_name x;
-        let cmd = [ run_script; mount_dir; hook_dir; x ] in
+        let cmd = [ run_script; mount_dir; hooks_dir; hook_dir; x ] in
         let retcode = ref 0 in
         let run () =
           retcode := run_command cmd in
@@ -623,7 +628,7 @@ let main () =
                    ~network:cmdline.network ~debug
                    ~fs_type:cmdline.fs_type
                    ~checksum:cmdline.checksum
-                   tmpdir cmdline.basepath hookstmpdir
+                   tmpdir cmdline.basepath
                    (auxtmpdir // "fake-bin")
                    all_elements cmdline.element_paths;
 
@@ -779,7 +784,7 @@ let main () =
       if debug >= 1 then (
         printf "Running hooks for %s...\n%!" hook;
       );
-      run_parts_host ~debug g hookstmpdir hook tmpdir scripts
+      run_parts_host ~debug g hook tmpdir scripts
         (tmpdir // "run-part-extra.sh")
     with Not_found -> () in
 
