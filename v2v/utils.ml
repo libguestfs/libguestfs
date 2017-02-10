@@ -114,9 +114,10 @@ let qemu_img_supports_offset_and_size () =
             (quote (JSON.string_of_doc ~fmt:JSON.Compact json))
             (if verbose () then "" else " 2>&1") in
   debug "%s" cmd;
-  let r = Sys.command cmd in
+  let r = 0 = Sys.command cmd in
   Unix.unlink tmp;
-  r = 0
+  debug "qemu-img supports \"offset\" and \"size\" in json URLs: %b" r;
+  r
 
 let find_file_in_tar tar filename =
   let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in
