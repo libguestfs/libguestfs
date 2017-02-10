@@ -110,7 +110,7 @@ let qemu_img_supports_offset_and_size () =
   ] in
 
   let cmd =
-    sprintf "qemu-img info 'json:%s' >/dev/null%s"
+    sprintf "qemu-img info json:%s >/dev/null%s"
             (quote (JSON.string_of_doc ~fmt:JSON.Compact json))
             (if verbose () then "" else " 2>&1") in
   debug "%s" cmd;
