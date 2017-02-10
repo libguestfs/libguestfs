@@ -32,19 +32,19 @@ CLEANFILES += $(files)
 
 # Blank disk images in various sizes and formats.
 blank-disk-1s.raw:
-	guestfish disk-create $@ raw 512
+	$(top_builddir)/run guestfish disk-create $@ raw 512
 
 blank-disk-1s.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 512
 
 blank-disk-1K.raw:
-	guestfish disk-create $@ raw 1K
+	$(top_builddir)/run guestfish disk-create $@ raw 1K
 
 blank-disk-1K.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 1K
 
 blank-disk-1M.raw:
-	guestfish disk-create $@ raw 1M
+	$(top_builddir)/run guestfish disk-create $@ raw 1M
 
 blank-disk-1M.qcow2:
 	qemu-img create -f qcow2 -o preallocation=metadata $@ 1M
