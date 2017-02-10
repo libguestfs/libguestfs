@@ -43,3 +43,12 @@ val string_of_csum_t : csum_t -> string
 
 val string_of_csum : csum_t -> string
 (** Return a string representation of the checksum value. *)
+
+val compute_checksum : string -> ?tar:string -> string -> csum_t
+(** [compute_checksum type filename] Computes the checksum of the file.
+
+    The [type] is one the possible results of the [string_of_csum_t]
+    function.
+
+    When optional [tar] is used it is path to uncompressed tar archive
+    and the [filename] is a path in the tar archive. *)

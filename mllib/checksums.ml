@@ -45,14 +45,14 @@ let of_string csum_type csum_value =
   | "sha512" -> SHA512 csum_value
   | _ -> invalid_arg csum_type
 
-let verify_checksum csum ?tar filename =
-  let prog, csum_ref =
-    match csum with
-    | SHA1 c -> "sha1sum", c
-    | SHA256 c -> "sha256sum", c
-    | SHA512 c -> "sha512sum", c
+let compute_checksum csum_type ?tar filename =
+  let prog =
+    match csum_type with
+    | "sha1" -> "sha1sum"
+    | "sha256" -> "sha256sum"
+    | "sha512" -> "sha512sum"
+    | _ -> error (f_"unhandled checksum type '%s'") csum_type
   in
-
   let cmd =
     match tar with
     | None ->
@@ -66,9 +66,14 @@ let verify_checksum csum ?tar filename =
   | [] ->
     error (f_"%s did not return any output") prog
   | line :: _ ->
-    let csum_actual = fst (String.split " " line) in
-    if csum_ref <> csum_actual then
-      raise (Mismatched_checksum (csum, csum_actual))
+    let csum_str = fst (String.split " " line) in
+    of_string csum_type csum_str
+
+let verify_checksum csum ?tar filename =
+  let csum_type = string_of_csum_t csum in
+  let csum_actual = compute_checksum csum_type ?tar filename in
+  if csum <> csum_actual then
+    raise (Mismatched_checksum (csum, (string_of_csum csum_actual)))
 
 let verify_checksums checksums filename =
   List.iter (fun c -> verify_checksum c filename) checksums
