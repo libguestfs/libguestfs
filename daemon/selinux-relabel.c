@@ -64,6 +64,12 @@ do_selinux_relabel (const char *specfile, const char *path,
   if (!(optargs_bitmask & GUESTFS_SELINUX_RELABEL_FORCE_BITMASK))
     force = 0;
 
+  /* If setfiles takes an excessively long time to run (but still
+   * completes) then removing .../contexts/files/file_contexts.bin
+   * appears to help.  If you find any such cases, please add
+   * observations to the bug report:
+   * https://bugzilla.redhat.com/show_bug.cgi?id=1396297
+   */
   ADD_ARG (argv, i, str_setfiles);
   if (force)
     ADD_ARG (argv, i, "-F");
