@@ -59,7 +59,7 @@ $VG virt-v2v --debug-gc --quiet \
     --print-source > $d/source
 
 # Check the parsed source is what we expect.
-if qemu_is_version 2 8 ; then
+if grep -sq json: $d/source ; then
     # Normalize the output.
     # Remove directory prefix.
     # Exact offset will vary because of tar.

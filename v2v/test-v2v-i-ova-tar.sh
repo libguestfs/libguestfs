@@ -58,9 +58,12 @@ $VG virt-v2v --debug-gc --quiet \
     --print-source > $d/source
 
 # Check the parsed source is what we expect.
-if qemu_is_version 2 8 ; then
-    # normalize the output
-    sed -i -e "s,\"$d/,\"," $d/source
+if grep -sq json: $d/source ; then
+    # Normalize the output.
+    # Remove directory prefix.
+    # Exact offset will vary because of tar.
+    sed -i -e "s,\"$d/,\"," \
+           -e "s|\"offset\": [0-9]*,|\"offset\": x,|" $d/source
     diff -u test-v2v-i-ova-tar.expected2 $d/source
 else
     # normalize the output

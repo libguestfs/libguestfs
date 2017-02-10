@@ -54,22 +54,3 @@ do_sha256 ()
       ;;
   esac
 }
-
-# Returns 0 if QEMU version is greater or equal to the arguments
-qemu_is_version() {
-    if [ $# -ne 2 ] ; then
-        echo "Usage: $0 <major_version> <minor_version>" >&2
-        return 3
-    fi
-
-
-    [[ "$(qemu-img --version)" =~ 'qemu-img version '([0-9]+)\.([0-9]+) ]] || return 2
-    QMAJ=${BASH_REMATCH[1]}
-    QMIN=${BASH_REMATCH[2]}
-
-    if [ \( $QMAJ -gt $1 \) -o \( $QMAJ -eq $1 -a $QMIN -ge $2 \) ] ; then
-        return 0
-    fi
-
-    return 1
-}
