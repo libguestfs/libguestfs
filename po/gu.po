@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-07 21:58+0000\n"
+"POT-Creation-Date: 2017-02-10 12:59+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/libguestfs/"
@@ -46,7 +46,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:367 ../mllib/common_utils.ml:569
+#: ../v2v/input_ova.ml:366 ../mllib/common_utils.ml:569
 msgid "%s"
 msgstr ""
 
@@ -436,7 +436,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:132 ../v2v/input_ova.ml:129
+#: ../v2v/input_ova.ml:131 ../v2v/input_ova.ml:128
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -464,10 +464,6 @@ msgstr ""
 
 #: ../customize/customize_cmdline.ml:330 ../customize/customize_cmdline.ml:239
 msgid "'CMD+ARGS'"
-msgstr ""
-
-#: ../v2v/utils.ml:97
-msgid "'qemu-img --version' returned no output"
 msgstr ""
 
 #: ../get-kernel/get_kernel.ml:39
@@ -2759,7 +2755,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:200
+#: ../v2v/input_ova.ml:199
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2831,11 +2827,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:395
+#: ../v2v/input_ova.ml:394
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:238
+#: ../v2v/input_ova.ml:237
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2994,15 +2990,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:306
+#: ../v2v/input_ova.ml:305
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:351
+#: ../v2v/input_ova.ml:350
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:113 ../v2v/input_ova.ml:50
+#: ../v2v/input_ova.ml:112 ../v2v/input_ova.ml:50
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -3056,16 +3052,8 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:158
+#: ../v2v/utils.ml:164
 msgid "failed to parse line returned by tar: %S"
-msgstr ""
-
-#: ../v2v/utils.ml:106
-msgid "failed to parse qemu-img version(%S), assuming 0.9"
-msgstr ""
-
-#: ../v2v/utils.ml:110
-msgid "failed to read qemu-img version(%S), assuming 0.9"
 msgstr ""
 
 #: ../mllib/common_utils.ml:573
@@ -3077,7 +3065,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:366
+#: ../v2v/input_ova.ml:365
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3321,7 +3309,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:143
+#: ../v2v/utils.ml:149
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
@@ -3329,7 +3317,7 @@ msgstr ""
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/utils.ml:148
+#: ../v2v/utils.ml:154
 msgid "invalid size returned by tar: %S"
 msgstr ""
 
@@ -3368,7 +3356,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:145
+#: ../v2v/input_ova.ml:144
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3390,7 +3378,7 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:176
+#: ../v2v/input_ova.ml:175
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3426,7 +3414,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:172
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3448,7 +3436,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:311
+#: ../v2v/input_ova.ml:310
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3591,13 +3579,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:271
+#: ../v2v/input_ova.ml:270
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:268
+#: ../v2v/input_ova.ml:267
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -4014,7 +4002,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:204
+#: ../v2v/input_ova.ml:203
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4060,7 +4048,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:256
+#: ../v2v/input_ova.ml:255
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -4081,7 +4069,7 @@ msgstr ""
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:319
+#: ../v2v/input_ova.ml:318
 msgid "unsupported compression in OVF: %s"
 msgstr ""
 

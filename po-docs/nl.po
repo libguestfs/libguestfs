@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2017-02-07 21:50+0000\n"
+"POT-Creation-Date: 2017-02-10 13:00+0000\n"
 "PO-Revision-Date: 2015-02-21 10:33-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/libguestfs/"
@@ -356,7 +356,7 @@ msgstr ""
 #: ../fuse/guestunmount.pod:70 ../get-kernel/virt-get-kernel.pod:23
 #: ../inspector/virt-inspector.pod:52 ../make-fs/virt-make-fs.pod:117
 #: ../p2v/virt-p2v-make-disk.pod:114 ../p2v/virt-p2v-make-kickstart.pod:242
-#: ../p2v/virt-p2v-make-kiwi.pod:104 ../p2v/virt-p2v.pod:571
+#: ../p2v/virt-p2v-make-kiwi.pod:104 ../p2v/virt-p2v.pod:609
 #: ../rescue/virt-rescue.pod:103 ../resize/virt-resize.pod:266
 #: ../sparsify/virt-sparsify.pod:114 ../sysprep/virt-sysprep.pod:38
 #: ../test-tool/libguestfs-test-tool.pod:34 ../tools/virt-list-filesystems:52
@@ -380,7 +380,7 @@ msgstr ""
 #: ../fuse/guestunmount.pod:79 ../get-kernel/virt-get-kernel.pod:27
 #: ../inspector/virt-inspector.pod:56 ../make-fs/virt-make-fs.pod:121
 #: ../p2v/virt-p2v-make-disk.pod:118 ../p2v/virt-p2v-make-kickstart.pod:246
-#: ../p2v/virt-p2v-make-kiwi.pod:108 ../p2v/virt-p2v.pod:575
+#: ../p2v/virt-p2v-make-kiwi.pod:108 ../p2v/virt-p2v.pod:613
 #: ../rescue/virt-rescue.pod:107 ../resize/virt-resize.pod:270
 #: ../sparsify/virt-sparsify.pod:118 ../sysprep/virt-sysprep.pod:42
 #: ../test-tool/libguestfs-test-tool.pod:38 ../tools/virt-list-filesystems:60
@@ -738,7 +738,7 @@ msgstr ""
 #: ../format/virt-format.pod:153 ../fuse/guestmount.pod:367
 #: ../get-kernel/virt-get-kernel.pod:140 ../inspector/virt-inspector.pod:136
 #: ../make-fs/virt-make-fs.pod:197 ../p2v/virt-p2v-make-disk.pod:153
-#: ../p2v/virt-p2v-make-kickstart.pod:271 ../p2v/virt-p2v.pod:635
+#: ../p2v/virt-p2v-make-kickstart.pod:271 ../p2v/virt-p2v.pod:673
 #: ../rescue/virt-rescue.pod:227 ../resize/virt-resize.pod:614
 #: ../sparsify/virt-sparsify.pod:307 ../sysprep/virt-sysprep.pod:256
 #: ../utils/boot-analysis/boot-analysis.pod:80
@@ -756,7 +756,7 @@ msgstr ""
 #: ../format/virt-format.pod:155 ../fuse/guestmount.pod:369
 #: ../get-kernel/virt-get-kernel.pod:142 ../inspector/virt-inspector.pod:138
 #: ../make-fs/virt-make-fs.pod:199 ../p2v/virt-p2v-make-disk.pod:155
-#: ../p2v/virt-p2v-make-kickstart.pod:273 ../p2v/virt-p2v.pod:637
+#: ../p2v/virt-p2v-make-kickstart.pod:273 ../p2v/virt-p2v.pod:675
 #: ../rescue/virt-rescue.pod:229 ../resize/virt-resize.pod:616
 #: ../sparsify/virt-sparsify.pod:309 ../sysprep/virt-sysprep.pod:258
 #: ../utils/boot-analysis/boot-analysis.pod:82
@@ -790,7 +790,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:146 ../inspector/virt-inspector.pod:142
 #: ../make-fs/virt-make-fs.pod:203 ../p2v/virt-p2v-make-disk.pod:160
 #: ../p2v/virt-p2v-make-kickstart.pod:278 ../p2v/virt-p2v-make-kiwi.pod:124
-#: ../p2v/virt-p2v.pod:642 ../rescue/virt-rescue.pod:233
+#: ../p2v/virt-p2v.pod:680 ../rescue/virt-rescue.pod:233
 #: ../resize/virt-resize.pod:620 ../sparsify/virt-sparsify.pod:313
 #: ../sysprep/virt-sysprep.pod:262 ../test-tool/libguestfs-test-tool.pod:59
 #: ../v2v/virt-v2v-copy-to-local.pod:127 ../v2v/virt-v2v.pod:676
@@ -810,7 +810,7 @@ msgstr ""
 #: ../get-kernel/virt-get-kernel.pod:148 ../inspector/virt-inspector.pod:144
 #: ../make-fs/virt-make-fs.pod:205 ../p2v/virt-p2v-make-disk.pod:162
 #: ../p2v/virt-p2v-make-kickstart.pod:280 ../p2v/virt-p2v-make-kiwi.pod:126
-#: ../p2v/virt-p2v.pod:644 ../rescue/virt-rescue.pod:235
+#: ../p2v/virt-p2v.pod:682 ../rescue/virt-rescue.pod:235
 #: ../resize/virt-resize.pod:622 ../sparsify/virt-sparsify.pod:315
 #: ../sysprep/virt-sysprep.pod:264 ../test-tool/libguestfs-test-tool.pod:61
 #: ../tools/virt-list-filesystems:68 ../tools/virt-list-partitions:69
@@ -829,7 +829,7 @@ msgstr ""
 #: ../format/virt-format.pod:163 ../get-kernel/virt-get-kernel.pod:150
 #: ../inspector/virt-inspector.pod:146 ../make-fs/virt-make-fs.pod:207
 #: ../p2v/virt-p2v-make-disk.pod:164 ../p2v/virt-p2v-make-kickstart.pod:282
-#: ../p2v/virt-p2v-make-kiwi.pod:128 ../p2v/virt-p2v.pod:646
+#: ../p2v/virt-p2v-make-kiwi.pod:128 ../p2v/virt-p2v.pod:684
 #: ../rescue/virt-rescue.pod:237 ../resize/virt-resize.pod:624
 #: ../sparsify/virt-sparsify.pod:317 ../sysprep/virt-sysprep.pod:266
 #: ../tools/virt-list-filesystems:70 ../tools/virt-list-partitions:71
@@ -1438,7 +1438,7 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:136 ../make-fs/virt-make-fs.pod:215
 #: ../ocaml/examples/guestfs-ocaml.pod:80 ../p2v/virt-p2v-make-disk.pod:204
 #: ../p2v/virt-p2v-make-kickstart.pod:324 ../p2v/virt-p2v-make-kiwi.pod:170
-#: ../p2v/virt-p2v.pod:813 ../perl/examples/guestfs-perl.pod:38
+#: ../p2v/virt-p2v.pod:851 ../perl/examples/guestfs-perl.pod:38
 #: ../python/examples/guestfs-python.pod:63 ../rescue/virt-rescue.pod:401
 #: ../resize/virt-resize.pod:831 ../ruby/examples/guestfs-ruby.pod:34
 #: ../sparsify/virt-sparsify.pod:452 ../sysprep/virt-sysprep.pod:599
@@ -1485,7 +1485,7 @@ msgstr ""
 #: ../format/virt-format.pod:197 ../get-kernel/virt-get-kernel.pod:193
 #: ../inspector/virt-inspector.pod:527 ../make-fs/virt-make-fs.pod:231
 #: ../p2v/virt-p2v-make-disk.pod:214 ../p2v/virt-p2v-make-kickstart.pod:335
-#: ../p2v/virt-p2v.pod:832 ../rescue/virt-rescue.pod:413
+#: ../p2v/virt-p2v.pod:870 ../rescue/virt-rescue.pod:413
 #: ../resize/virt-resize.pod:857 ../sparsify/virt-sparsify.pod:467
 #: ../sysprep/virt-sysprep.pod:618 ../tools/virt-list-filesystems:195
 #: ../tools/virt-list-partitions:276 ../tools/virt-tar:308
@@ -1521,7 +1521,7 @@ msgstr ""
 #: ../lua/examples/guestfs-lua.pod:155 ../make-fs/virt-make-fs.pod:233
 #: ../ocaml/examples/guestfs-ocaml.pod:99 ../p2v/virt-p2v-make-disk.pod:216
 #: ../p2v/virt-p2v-make-kickstart.pod:337 ../p2v/virt-p2v-make-kiwi.pod:182
-#: ../p2v/virt-p2v.pod:840 ../perl/examples/guestfs-perl.pod:57
+#: ../p2v/virt-p2v.pod:878 ../perl/examples/guestfs-perl.pod:57
 #: ../python/examples/guestfs-python.pod:81 ../rescue/virt-rescue.pod:415
 #: ../resize/virt-resize.pod:859 ../ruby/examples/guestfs-ruby.pod:52
 #: ../sparsify/virt-sparsify.pod:469 ../sysprep/virt-sysprep.pod:622
@@ -1815,7 +1815,7 @@ msgstr ""
 #: ../lib/guestfs.pod:3558 ../lua/examples/guestfs-lua.pod:151
 #: ../ocaml/examples/guestfs-ocaml.pod:95 ../p2v/virt-p2v-make-disk.pod:212
 #: ../p2v/virt-p2v-make-kickstart.pod:333 ../p2v/virt-p2v-make-kiwi.pod:178
-#: ../p2v/virt-p2v.pod:826 ../perl/examples/guestfs-perl.pod:53
+#: ../p2v/virt-p2v.pod:864 ../perl/examples/guestfs-perl.pod:53
 #: ../python/examples/guestfs-python.pod:77
 #: ../ruby/examples/guestfs-ruby.pod:48 ../sysprep/virt-sysprep.pod:616
 #: ../test-tool/libguestfs-test-tool.pod:184
@@ -1854,7 +1854,7 @@ msgstr ""
 #: ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1643
 #: ../fuse/guestmount.pod:443 ../lib/guestfs.pod:3564
 #: ../p2v/virt-p2v-make-disk.pod:218 ../p2v/virt-p2v-make-kickstart.pod:339
-#: ../p2v/virt-p2v.pod:842 ../rescue/virt-rescue.pod:417
+#: ../p2v/virt-p2v.pod:880 ../rescue/virt-rescue.pod:417
 #: ../test-tool/libguestfs-test-tool.pod:190 ../tools/virt-list-partitions:280
 #: ../v2v/virt-v2v-copy-to-local.pod:150 ../v2v/virt-v2v.pod:2075
 msgid "Copyright (C) 2009-2017 Red Hat Inc."
@@ -2308,7 +2308,7 @@ msgstr ""
 #: ../builder/virt-builder.pod:182 ../builder/virt-index-validate.pod:64
 #: ../dib/virt-dib.pod:54 ../get-kernel/virt-get-kernel.pod:29
 #: ../p2v/virt-p2v-make-disk.pod:120 ../p2v/virt-p2v-make-kickstart.pod:248
-#: ../p2v/virt-p2v-make-kiwi.pod:110 ../p2v/virt-p2v.pod:577
+#: ../p2v/virt-p2v-make-kiwi.pod:110 ../p2v/virt-p2v.pod:615
 #: ../resize/virt-resize.pod:272 ../sparsify/virt-sparsify.pod:120
 #: ../v2v/virt-v2v-copy-to-local.pod:99 ../v2v/virt-v2v.pod:252
 msgid "Display help."
@@ -2453,7 +2453,7 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:244 ../customize/virt-customize.pod:77
 #: ../dib/virt-dib.pod:80 ../get-kernel/virt-get-kernel.pod:47
-#: ../p2v/virt-p2v.pod:584 ../resize/virt-resize.pod:330
+#: ../p2v/virt-p2v.pod:622 ../resize/virt-resize.pod:330
 #: ../sparsify/virt-sparsify.pod:158 ../sysprep/virt-sysprep.pod:62
 #: ../v2v/virt-v2v.pod:260
 msgid "B<--colors>"
@@ -2462,7 +2462,7 @@ msgstr ""
 #. type: =item
 #: ../builder/virt-builder.pod:246 ../customize/virt-customize.pod:79
 #: ../dib/virt-dib.pod:82 ../get-kernel/virt-get-kernel.pod:49
-#: ../p2v/virt-p2v.pod:586 ../resize/virt-resize.pod:332
+#: ../p2v/virt-p2v.pod:624 ../resize/virt-resize.pod:332
 #: ../sparsify/virt-sparsify.pod:160 ../sysprep/virt-sysprep.pod:64
 #: ../v2v/virt-v2v.pod:262
 msgid "B<--colours>"
@@ -2471,7 +2471,7 @@ msgstr ""
 #. type: textblock
 #: ../builder/virt-builder.pod:248 ../customize/virt-customize.pod:81
 #: ../dib/virt-dib.pod:84 ../get-kernel/virt-get-kernel.pod:51
-#: ../p2v/virt-p2v.pod:588 ../resize/virt-resize.pod:334
+#: ../p2v/virt-p2v.pod:626 ../resize/virt-resize.pod:334
 #: ../sparsify/virt-sparsify.pod:162 ../sysprep/virt-sysprep.pod:66
 #: ../v2v/virt-v2v.pod:264
 msgid ""
@@ -14154,7 +14154,7 @@ msgid "Include the full output of L<libguestfs-test-tool(1)>."
 msgstr ""
 
 #. type: =head1
-#: ../docs/guestfs-faq.pod:129
+#: ../docs/guestfs-faq.pod:129 ../p2v/virt-p2v.pod:571
 msgid "COMMON PROBLEMS"
 msgstr ""
 
@@ -45180,23 +45180,296 @@ msgstr ""
 
 #. type: =head3
 #: ../docs/internal-documentation.pod:4109
-msgid "File F<p2v/ssh.c>"
+msgid "File F<p2v/nbd.c>"
 msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:4111
+msgid ""
+"This file handles the virt-p2v I<--nbd> command line option and running "
+"either L<qemu-nbd(8)> or L<nbdkit(1)>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4114
+msgid "Function C<p2v/nbd.c:set_nbd_option>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4116
+#, no-wrap
+msgid ""
+" void\n"
+" set_nbd_option (const char *opt)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4119
+msgid "The main program calls this to set the I<--nbd> option."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4121
+msgid "Function C<p2v/nbd.c:test_nbd_servers>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4123
+#, no-wrap
+msgid ""
+" void\n"
+" test_nbd_servers (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4126
+msgid ""
+"Test the I<--nbd> option (or built-in default list) to see which servers are "
+"actually installed and appear to be working."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4129
+msgid "Set the C<use_server> global accordingly."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4131
+msgid "Function C<p2v/nbd.c:start_nbd_server>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4133
+#, no-wrap
+msgid ""
+" pid_t\n"
+" start_nbd_server (const char **ipaddr, int *port, const char *device)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4136
+msgid "Start the NBD server."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4138
+msgid ""
+"We previously tested all NBD servers (see C<test_nbd_servers>) and hopefully "
+"found one which will work."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4141
+#: ../docs/internal-documentation.pod:4165
+#: ../docs/internal-documentation.pod:4180
+msgid "Returns the process ID (E<gt> 0) or C<0> if there is an error."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4143
+msgid "Function C<p2v/nbd.c:socket_activation>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4145
+#, no-wrap
+msgid ""
+" static inline void\n"
+" socket_activation (int *fds, size_t nr_fds)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4148
+msgid ""
+"Set up file descriptors and environment variables for socket activation."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4151
+msgid "Note this function runs in the child between fork and exec."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4153
+msgid "Function C<p2v/nbd.c:start_qemu_nbd>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4155
+#, no-wrap
+msgid ""
+" static pid_t\n"
+" start_qemu_nbd (const char *device,\n"
+"                 const char *ipaddr, int port, int *fds, size_t nr_fds)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4159
+msgid "Start a local L<qemu-nbd(1)> process."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4161
+#: ../docs/internal-documentation.pod:4176
+msgid ""
+"If we are using socket activation, C<fds> and C<nr_fds> will contain the "
+"locally pre-opened file descriptors for this.  Otherwise if C<fds == NULL> "
+"we pass the port number."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4167
+msgid "Function C<p2v/nbd.c:start_nbdkit>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4169
+#, no-wrap
+msgid ""
+" static pid_t\n"
+" start_nbdkit (const char *device,\n"
+"               const char *ipaddr, int port, int *fds, size_t nr_fds)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4173
+msgid "Start a local L<nbdkit(1)> process using the L<nbdkit-file-plugin(1)>."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4182
+msgid "Function C<p2v/nbd.c:get_local_port>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4184
+#, no-wrap
+msgid ""
+" static int\n"
+" get_local_port (void)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4187
+msgid ""
+"This is used when we are starting an NBD server that does not support socket "
+"activation.  We have to pass the '-p' option to the NBD server, but there's "
+"no good way to choose a free port, so we have to just guess."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4192
+#: ../docs/internal-documentation.pod:4203
+msgid "Returns the port number on success or C<-1> on error."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4194
+msgid "Function C<p2v/nbd.c:open_listening_socket>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4196
+#, no-wrap
+msgid ""
+" static int\n"
+" open_listening_socket (const char *ipaddr, int **fds, size_t *nr_fds)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4199
+msgid ""
+"This is used when we are starting an NBD server which supports socket "
+"activation.  We can open a listening socket on an unused local port and "
+"return it."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4205
+msgid ""
+"The file descriptor(s) bound are returned in the array *fds, *nr_fds.  The "
+"caller must free the array."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4208
+msgid "Function C<p2v/nbd.c:wait_for_nbd_server_to_start>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4210
+#, no-wrap
+msgid ""
+" int\n"
+" wait_for_nbd_server_to_start (const char *ipaddr, int port)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4213
+msgid "Wait for a local NBD server to start and be listening for connections."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:4216
+msgid "Function C<p2v/nbd.c:connect_with_source_port>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:4218
+#, no-wrap
+msgid ""
+" static int\n"
+" connect_with_source_port (const char *hostname, int dest_port, int source_port)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4221
+msgid ""
+"Connect to C<hostname:dest_port>, resolving the address using "
+"L<getaddrinfo(3)>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4224
+msgid ""
+"This also sets the source port of the connection to the first free port "
+"number E<ge> C<source_port>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4227
+msgid "This may involve multiple connections - to IPv4 and IPv6 for instance."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:4230
+msgid "File F<p2v/ssh.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:4232
 msgid "This file handles the ssh connections to the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4113
+#: ../docs/internal-documentation.pod:4234
 msgid ""
 "virt-p2v will open several connections over the lifetime of the conversion "
 "process."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4116
+#: ../docs/internal-documentation.pod:4237
 msgid ""
 "In C<test_connection>, it will first open a connection (to check it is "
 "possible) and query virt-v2v on the server to ensure it exists, it is the "
@@ -45206,7 +45479,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4122
+#: ../docs/internal-documentation.pod:4243
 msgid ""
 "Once we start conversion, we will open a control connection to send the "
 "libvirt configuration data and to start up virt-v2v, and we will open up one "
@@ -45217,12 +45490,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4130
+#: ../docs/internal-documentation.pod:4251
 msgid "Function C<p2v/ssh.c:curl_download>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4132
+#: ../docs/internal-documentation.pod:4253
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45231,17 +45504,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4135
+#: ../docs/internal-documentation.pod:4256
 msgid "Download URL to local file using the external 'curl' command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4137
+#: ../docs/internal-documentation.pod:4258
 msgid "Function C<p2v/ssh.c:cache_ssh_identity>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4139
+#: ../docs/internal-documentation.pod:4260
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45250,17 +45523,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4142
+#: ../docs/internal-documentation.pod:4263
 msgid "Re-cache the C<config-E<gt>identity_url> if needed."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4144
+#: ../docs/internal-documentation.pod:4265
 msgid "Function C<p2v/ssh.c:start_ssh>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4146
+#: ../docs/internal-documentation.pod:4267
 #, no-wrap
 msgid ""
 " static mexp_h *\n"
@@ -45270,19 +45543,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4150
+#: ../docs/internal-documentation.pod:4271
 msgid ""
 "Start ssh subprocess with the standard arguments and possibly some optional "
 "arguments.  Also handles authentication."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4153
+#: ../docs/internal-documentation.pod:4274
 msgid "Function C<p2v/ssh.c:scp_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4155
+#: ../docs/internal-documentation.pod:4276
 #, no-wrap
 msgid ""
 " int\n"
@@ -45291,27 +45564,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4158
+#: ../docs/internal-documentation.pod:4279
 msgid "Upload a file to remote using L<scp(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4160
+#: ../docs/internal-documentation.pod:4281
 msgid "This is a simplified version of L</start_ssh> above."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4162
+#: ../docs/internal-documentation.pod:4283
 msgid "File F<p2v/utils.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4164
+#: ../docs/internal-documentation.pod:4285
 msgid "Function C<p2v/utils.c:get_blockdev_size>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4166
+#: ../docs/internal-documentation.pod:4287
 #, no-wrap
 msgid ""
 " uint64_t\n"
@@ -45320,24 +45593,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4169
+#: ../docs/internal-documentation.pod:4290
 msgid "Return size of a block device, from F</sys/block/I<dev>/size>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4171
+#: ../docs/internal-documentation.pod:4292
 msgid ""
 "This function always succeeds, or else exits (since we expect C<dev> to "
 "always be valid and the C<size> file to always exist)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4174
+#: ../docs/internal-documentation.pod:4295
 msgid "Function C<p2v/utils.c:get_blockdev_model>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4176
+#: ../docs/internal-documentation.pod:4297
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45346,24 +45619,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4179
+#: ../docs/internal-documentation.pod:4300
 msgid "Return model of a block device, from F</sys/block/I<dev>/device/model>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4181
+#: ../docs/internal-documentation.pod:4302
 msgid ""
 "Returns C<NULL> if the file was not found.  The caller must free the "
 "returned string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4184
+#: ../docs/internal-documentation.pod:4305
 msgid "Function C<p2v/utils.c:get_blockdev_serial>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4186
+#: ../docs/internal-documentation.pod:4307
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45372,29 +45645,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4189
+#: ../docs/internal-documentation.pod:4310
 msgid "Return the serial number of a block device."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4191
+#: ../docs/internal-documentation.pod:4312
 msgid "This is found using the lsblk command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4193
+#: ../docs/internal-documentation.pod:4314
 msgid ""
 "Returns C<NULL> if we could not get the serial number.  The caller must free "
 "the returned string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4196
+#: ../docs/internal-documentation.pod:4317
 msgid "Function C<p2v/utils.c:get_if_addr>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4198
+#: ../docs/internal-documentation.pod:4319
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45403,17 +45676,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4201
+#: ../docs/internal-documentation.pod:4322
 msgid "Return contents of F</sys/class/net/I<if_name>/address> (if found)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4203
+#: ../docs/internal-documentation.pod:4324
 msgid "Function C<p2v/utils.c:get_if_vendor>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4205
+#: ../docs/internal-documentation.pod:4326
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45422,7 +45695,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4208
+#: ../docs/internal-documentation.pod:4329
 msgid ""
 "Return contents of F</sys/class/net/I<if_name>/device/vendor> (if found), "
 "mapped to the PCI vendor.  See: L<http://pjwelsh.blogspot.co.uk/2011/11/"
@@ -45430,12 +45703,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4212
+#: ../docs/internal-documentation.pod:4333
 msgid "Function C<p2v/utils.c:wait_network_online>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4214
+#: ../docs/internal-documentation.pod:4335
 #, no-wrap
 msgid ""
 " void\n"
@@ -45444,7 +45717,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4217
+#: ../docs/internal-documentation.pod:4338
 msgid ""
 "Wait for the network to come online, but don't error out if that fails.  The "
 "caller will call C<test_connection> immediately after this which will fail "
@@ -45452,17 +45725,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4221
+#: ../docs/internal-documentation.pod:4342
 msgid "File F<p2v/whole-file.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4223
+#: ../docs/internal-documentation.pod:4344
 msgid "Function C<p2v/whole-file.c:read_whole_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4225
+#: ../docs/internal-documentation.pod:4346
 #, no-wrap
 msgid ""
 " int\n"
@@ -45471,53 +45744,53 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4228
+#: ../docs/internal-documentation.pod:4349
 msgid ""
 "Read the whole file into a memory buffer and return it.  The file should be "
 "a regular, local, trusted file."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:4231
+#: ../docs/internal-documentation.pod:4352
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4233
+#: ../docs/internal-documentation.pod:4354
 msgid "File F<python/handle.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4235
+#: ../docs/internal-documentation.pod:4356
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/actions-*.c>)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:4239
+#: ../docs/internal-documentation.pod:4360
 msgid "Subdirectory F<v2v>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4241
+#: ../docs/internal-documentation.pod:4362
 msgid "File F<v2v/domainxml-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4243
+#: ../docs/internal-documentation.pod:4364
 msgid ""
 "This module implements various C<virsh>-like commands, but with non-broken "
 "authentication handling."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4246
+#: ../docs/internal-documentation.pod:4367
 msgid "File F<v2v/xml-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4248
+#: ../docs/internal-documentation.pod:4369
 msgid "Mini interface to libxml2."
 msgstr ""
 
@@ -101880,25 +102153,95 @@ msgstr ""
 msgid "L<virt-p2v-make-kickstart(1)/ADDING AN SSH IDENTITY>"
 msgstr ""
 
-#. type: =item
+#. type: =head2
+#: ../p2v/virt-p2v.pod:573
+msgid "Timeouts"
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:575
+msgid ""
+"As described below (see L</HOW VIRT-P2V WORKS>) virt-p2v makes several long-"
+"lived ssh connections to the conversion server.  If these connections time "
+"out then virt-p2v will fail."
+msgstr ""
+
+#. type: textblock
 #: ../p2v/virt-p2v.pod:579
+msgid ""
+"To test if a timeout might be causing problems, open an XTerm on the virt-"
+"p2v machine, C<ssh root@I<conversion-server>>, and leave it for at least an "
+"hour.  If the session disconnects without you doing anything, then there is "
+"a timeout which you should turn off."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:584
+msgid "Timeouts happen because:"
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v.pod:588
+msgid "C<TIMEOUT> or C<TMOUT> environment variable"
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:590
+msgid ""
+"Check if one of these environment variables is set in the root shell on the "
+"conversion server."
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v.pod:593
+msgid "sshd C<ClientAlive*> setting"
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:595
+msgid ""
+"Check for C<ClientAlive*> settings in C</etc/ssh/sshd_config> on the "
+"conversion server."
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v.pod:598
+msgid "Firewall or NAT settings"
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:600
+msgid ""
+"Check if there is a firewall or NAT box between virt-p2v and the conversion "
+"server, and if this firewall drops idle connections after a too-short time."
+msgstr ""
+
+#. type: textblock
+#: ../p2v/virt-p2v.pod:604
+msgid ""
+"virt-p2v E<ge> 1.36 attempts to work around firewall timeouts by sending ssh "
+"keepalive messages every 5 minutes."
+msgstr ""
+
+#. type: =item
+#: ../p2v/virt-p2v.pod:617
 msgid "B<--cmdline=CMDLINE>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:581
+#: ../p2v/virt-p2v.pod:619
 msgid ""
 "This is used for debugging. Instead of parsing the kernel command line from "
 "F</proc/cmdline>, parse the string parameter C<CMDLINE>."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:593
+#: ../p2v/virt-p2v.pod:631
 msgid "B<--iso>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:595
+#: ../p2v/virt-p2v.pod:633
 msgid ""
 "This flag is passed to virt-p2v when it is launched inside the virt-p2v ISO "
 "environment, ie. when it is running on a real physical machine (and thus not "
@@ -101907,12 +102250,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:600
+#: ../p2v/virt-p2v.pod:638
 msgid "B<--nbd=server[,server...]>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:602
+#: ../p2v/virt-p2v.pod:640
 msgid ""
 "Select which NBD server is used.  By default the following servers are "
 "checked and the first one found is used: I<--nbd=qemu-nbd,qemu-nbd-no-sa,"
@@ -101920,47 +102263,47 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:608
+#: ../p2v/virt-p2v.pod:646
 msgid "B<qemu-nbd>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:610
+#: ../p2v/virt-p2v.pod:648
 msgid "Use qemu-nbd."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:612
+#: ../p2v/virt-p2v.pod:650
 msgid "B<qemu-nbd-no-sa>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:614
+#: ../p2v/virt-p2v.pod:652
 msgid "Use qemu-nbd, but disable socket activation."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:616
+#: ../p2v/virt-p2v.pod:654
 msgid "B<nbdkit>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:618
+#: ../p2v/virt-p2v.pod:656
 msgid "Use nbdkit with the file plugin (see: L<nbdkit-file-plugin(1)>)."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:620
+#: ../p2v/virt-p2v.pod:658
 msgid "B<nbdkit-no-sa>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:622
+#: ../p2v/virt-p2v.pod:660
 msgid "Use nbdkit, but disable socket activation"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:626
+#: ../p2v/virt-p2v.pod:664
 msgid ""
 "The C<*-no-sa> variants allow virt-p2v to fall back to older versions of "
 "qemu-nbd and nbdkit which did not support L<socket activation|"
@@ -101968,38 +102311,38 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:630
+#: ../p2v/virt-p2v.pod:668
 msgid "B<--test-disk=/PATH/TO/DISK.IMG>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:632
+#: ../p2v/virt-p2v.pod:670
 msgid ""
 "For testing or debugging purposes, replace F</dev/sda> with a local file.  "
 "You must use an absolute path."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:639
+#: ../p2v/virt-p2v.pod:677
 msgid ""
 "In libguestfs E<ge> 1.33.41, debugging is always enabled on the conversion "
 "server, and this option does nothing."
 msgstr ""
 
 #. type: =head1
-#: ../p2v/virt-p2v.pod:650
+#: ../p2v/virt-p2v.pod:688
 msgid "HOW VIRT-P2V WORKS"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:652
+#: ../p2v/virt-p2v.pod:690
 msgid ""
 "B<Note this section is not normative.> We may change how virt-p2v works at "
 "any time in the future."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:655
+#: ../p2v/virt-p2v.pod:693
 msgid ""
 "As described above, virt-p2v runs on a physical machine, interrogates the "
 "user or the kernel command line for configuration, and then establishes one "
@@ -102011,7 +102354,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:663
+#: ../p2v/virt-p2v.pod:701
 msgid ""
 "It will first make one or more test connections, which are used to query the "
 "remote version of virt-v2v and its features.  The test connections are "
@@ -102019,7 +102362,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:667
+#: ../p2v/virt-p2v.pod:705
 #, no-wrap
 msgid ""
 " ┌──────────────┐                      ┌─────────────────┐\n"
@@ -102031,7 +102374,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:673
+#: ../p2v/virt-p2v.pod:711
 msgid ""
 "Once virt-p2v is ready to start conversion, it will open a single ssh "
 "control connection.  It first sends a mkdir command to create a temporary "
@@ -102040,7 +102383,7 @@ msgid ""
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:678
+#: ../p2v/virt-p2v.pod:716
 #, no-wrap
 msgid ""
 " /tmp/virt-p2v-YYYYMMDD-XXXXXXXX\n"
@@ -102048,95 +102391,95 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:680
+#: ../p2v/virt-p2v.pod:718
 msgid ""
 "where C<YYYYMMDD> is the current date, and the X's are random characters."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:683
+#: ../p2v/virt-p2v.pod:721
 msgid "Into this directory are written various files which include:"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:687
+#: ../p2v/virt-p2v.pod:725
 msgid "F<dmesg>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:689 ../p2v/virt-p2v.pod:697 ../p2v/virt-p2v.pod:709
-#: ../p2v/virt-p2v.pod:716 ../p2v/virt-p2v.pod:722 ../p2v/virt-p2v.pod:741
+#: ../p2v/virt-p2v.pod:727 ../p2v/virt-p2v.pod:735 ../p2v/virt-p2v.pod:747
+#: ../p2v/virt-p2v.pod:754 ../p2v/virt-p2v.pod:760 ../p2v/virt-p2v.pod:779
 msgid "I<(before conversion)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:691
+#: ../p2v/virt-p2v.pod:729
 msgid ""
 "The dmesg output from the physical machine.  Useful for detecting problems "
 "such as missing device drivers or firmware on the virt-p2v ISO."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:695
+#: ../p2v/virt-p2v.pod:733
 msgid "F<environment>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:699
+#: ../p2v/virt-p2v.pod:737
 msgid "The content of the environment where L<virt-v2v(1)> will run."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:701
+#: ../p2v/virt-p2v.pod:739
 msgid "F<lscpu>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:703
+#: ../p2v/virt-p2v.pod:741
 msgid "F<lspci>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:705
+#: ../p2v/virt-p2v.pod:743
 msgid "F<lsscsi>"
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:707
+#: ../p2v/virt-p2v.pod:745
 msgid "F<lsusb>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:711
+#: ../p2v/virt-p2v.pod:749
 msgid ""
 "The output of the corresponding commands (ie L<lscpu(1)> etc) on the "
 "physical machine.  Useful for debugging novel hardware configurations."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:714
+#: ../p2v/virt-p2v.pod:752
 msgid "F<name>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:718
+#: ../p2v/virt-p2v.pod:756
 msgid "The name (usually the hostname) of the physical machine."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:720
+#: ../p2v/virt-p2v.pod:758
 msgid "F<physical.xml>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:724
+#: ../p2v/virt-p2v.pod:762
 msgid ""
 "Libvirt XML describing the physical machine.  It is used to pass data about "
 "the physical source host to L<virt-v2v(1)> via the I<-i libvirtxml> option."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:728
+#: ../p2v/virt-p2v.pod:766
 msgid ""
 "Note this is not \"real\" libvirt XML (and must B<never> be loaded into "
 "libvirt, which would reject it anyhow).  Also it is not the same as the "
@@ -102144,44 +102487,44 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:732
+#: ../p2v/virt-p2v.pod:770
 msgid "F<status>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:734
+#: ../p2v/virt-p2v.pod:772
 msgid "I<(after conversion)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:736
+#: ../p2v/virt-p2v.pod:774
 msgid ""
 "The final status of the conversion.  C<0> if the conversion was successful.  "
 "Non-zero if the conversion failed."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:739
+#: ../p2v/virt-p2v.pod:777
 msgid "F<time>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:743
+#: ../p2v/virt-p2v.pod:781
 msgid "The start date/time of conversion."
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:745
+#: ../p2v/virt-p2v.pod:783
 msgid "F<virt-v2v-conversion-log.txt>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:747 ../p2v/virt-p2v.pod:756
+#: ../p2v/virt-p2v.pod:785 ../p2v/virt-p2v.pod:794
 msgid "I<(during/after conversion)>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:749
+#: ../p2v/virt-p2v.pod:787
 msgid ""
 "The conversion log.  This is just the output of the virt-v2v command on the "
 "conversion server.  If conversion fails, you should examine this log file, "
@@ -102190,26 +102533,26 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../p2v/virt-p2v.pod:754
+#: ../p2v/virt-p2v.pod:792
 msgid "F<virt-v2v-wrapper.sh>"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:758
+#: ../p2v/virt-p2v.pod:796
 msgid ""
 "This is the wrapper script which is used when running virt-v2v.  For "
 "interest only, do not attempt to run this script yourself."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:763
+#: ../p2v/virt-p2v.pod:801
 msgid ""
 "Before conversion actually begins, virt-p2v then makes one or more further "
 "ssh connections to the server for data transfer."
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:766
+#: ../p2v/virt-p2v.pod:804
 msgid ""
 "The transfer protocol used currently is NBD (Network Block Device), which is "
 "proxied over ssh.  The NBD server is L<qemu-nbd(1)> by default but others "
@@ -102217,14 +102560,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:771
+#: ../p2v/virt-p2v.pod:809
 msgid ""
 "There is one ssh connection per physical hard disk on the source machine "
 "(the common case — a single hard disk — is shown below):"
 msgstr ""
 
 #. type: verbatim
-#: ../p2v/virt-p2v.pod:774
+#: ../p2v/virt-p2v.pod:812
 #, no-wrap
 msgid ""
 " ┌──────────────┐                      ┌─────────────────┐\n"
@@ -102242,7 +102585,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:786
+#: ../p2v/virt-p2v.pod:824
 msgid ""
 "Although the ssh data connection is originated from the physical server and "
 "terminates on the conversion server, in fact NBD requests flow in the "
@@ -102254,7 +102597,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:795
+#: ../p2v/virt-p2v.pod:833
 msgid ""
 "Two layers of protection are used to ensure that there are no writes to the "
 "hard disks: Firstly, the qemu-nbd I<-r> (readonly) option is used.  Secondly "
@@ -102263,7 +102606,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:801
+#: ../p2v/virt-p2v.pod:839
 msgid ""
 "The long S<C<virt-v2v -i libvirtxml physical.xml ...>> command is wrapped "
 "inside a wrapper script and uploaded to the conversion server.  The final "
@@ -102273,7 +102616,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:808
+#: ../p2v/virt-p2v.pod:846
 msgid ""
 "Output from the virt-v2v command (messages, debugging etc) is saved both in "
 "the log file on the conversion server.  Only informational messages are sent "
@@ -102281,7 +102624,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:815
+#: ../p2v/virt-p2v.pod:853
 msgid ""
 "L<virt-p2v-make-disk(1)>, L<virt-p2v-make-kickstart(1)>, L<virt-p2v-make-"
 "kiwi(1)>, L<virt-v2v(1)>, L<qemu-nbd(1)>, L<nbdkit(1)>, L<nbdkit-file-"
@@ -102290,27 +102633,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:828 ../v2v/virt-v2v.pod:2063
+#: ../p2v/virt-p2v.pod:866 ../v2v/virt-v2v.pod:2063
 msgid "Matthew Booth"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:830
+#: ../p2v/virt-p2v.pod:868
 msgid "John Eckersberg"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:834 ../v2v/virt-v2v.pod:2065
+#: ../p2v/virt-p2v.pod:872 ../v2v/virt-v2v.pod:2065
 msgid "Mike Latimer"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:836 ../v2v/virt-v2v.pod:2067
+#: ../p2v/virt-p2v.pod:874 ../v2v/virt-v2v.pod:2067
 msgid "Pino Toscano"
 msgstr ""
 
 #. type: textblock
-#: ../p2v/virt-p2v.pod:838 ../v2v/virt-v2v.pod:2071
+#: ../p2v/virt-p2v.pod:876 ../v2v/virt-v2v.pod:2071
 msgid "Tingting Zheng"
 msgstr ""
 
