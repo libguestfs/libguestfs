@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-10 12:59+0000\n"
+"POT-Creation-Date: 2017-02-10 22:51+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -3051,7 +3051,7 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:164
+#: ../v2v/utils.ml:165
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
@@ -3308,7 +3308,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:149
+#: ../v2v/utils.ml:150
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
@@ -3316,7 +3316,7 @@ msgstr ""
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/utils.ml:154
+#: ../v2v/utils.ml:155
 msgid "invalid size returned by tar: %S"
 msgstr ""
 
