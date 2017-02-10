@@ -895,6 +895,13 @@ let main () =
   flush_all ();
   g#mount blockdev "/";
   Array.iter (fun x -> g#rm_rf ("/tmp/" ^ x)) (g#ls "/tmp");
+  (* Truncate /var/log files in preparation for first boot. *)
+  truncate_recursive g "/var/log";
+  let non_log fn =
+    not (String.is_suffix fn ".log")
+  in
+  (* Remove root logs. *)
+  rm_rf_only_files g ~filter:non_log "/root";
 
   flush_all ();
 
