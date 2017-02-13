@@ -33,6 +33,7 @@ let current_arch () =
   | arch -> arch
 
 let output_filename image_name = function
+  | "squashfs" -> image_name ^ ".squash"
   | fmt -> image_name ^ "." ^ fmt
 
 let log_filename () =

@@ -31,6 +31,7 @@ formats = \
 	docker \
 	qcow2 \
 	raw \
+	squashfs \
 	tar \
 	tgz \
 	vhd

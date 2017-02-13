@@ -212,6 +212,12 @@ QEMU's qcow2.
 
 Raw disk format.
 
+=item C<squashfs>
+
+An squashfs filesystem, compressed with XZ.  This output format
+requires the C<squashfs> feature; see also
+L<guestfs(3)/AVAILABILITY>.
+
 =item C<tar>
 
 An uncompressed tarball.
