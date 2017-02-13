@@ -151,6 +151,7 @@ ifelse(SUSE,1,
   ntfsprogs
   ntfs-3g
   reiserfs
+  squashfs
   systemd
   vim
   xz
@@ -253,6 +254,7 @@ rsync
 scrub
 sed
 sleuthkit
+squashfs-tools
 strace
 syslinux
 tar

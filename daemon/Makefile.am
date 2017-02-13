@@ -138,6 +138,7 @@ guestfsd_SOURCES = \
 	sh.c \
 	sleep.c \
 	sleuthkit.c \
+	squashfs.c \
 	stat.c \
 	statvfs.c \
 	strings.c \

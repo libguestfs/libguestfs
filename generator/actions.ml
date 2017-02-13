@@ -13280,6 +13280,35 @@ is removed." };
     shortdesc = "search the entries associated to the given inode";
     longdesc = "Internal function for find_inode." };
 
+  { defaults with
+    name = "mksquashfs"; added = (1, 35, 25);
+    style = RErr, [Pathname "path"; FileOut "filename"], [OString "compress"; OStringList "excludes"];
+    proc_nr = Some 471;
+    optional = Some "squashfs";
+    cancellable = true;
+    shortdesc = "create a squashfs filesystem";
+    longdesc = "\
+Create a squashfs filesystem for the specified C<path>.
+
+The optional C<compress> flag controls compression.  If not given,
+then the output compressed using C<gzip>.  Otherwise one
+of the following strings may be given to select the compression
+type of the squashfs: C<gzip>, C<lzma>, C<lzo>, C<lz4>, C<xz>.
+
+The other optional arguments are:
+
+=over 4
+
+=item C<excludes>
+
+A list of wildcards.  Files are excluded if they match any of the
+wildcards.
+
+=back
+
+Please note that this API may fail when used to compress directories
+with large files, such as the resulting squashfs will be over 3GB big." };
+
 ]
 
 (* Non-API meta-commands available only in guestfish.

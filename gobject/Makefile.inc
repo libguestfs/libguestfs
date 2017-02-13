@@ -89,6 +89,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/optargs-mke2fs.h \
   include/guestfs-gobject/optargs-mkfs.h \
   include/guestfs-gobject/optargs-mkfs_btrfs.h \
+  include/guestfs-gobject/optargs-mksquashfs.h \
   include/guestfs-gobject/optargs-mkswap.h \
   include/guestfs-gobject/optargs-mktemp.h \
   include/guestfs-gobject/optargs-mount_9p.h \
@@ -180,6 +181,7 @@ guestfs_gobject_sources= \
   src/optargs-mke2fs.c \
   src/optargs-mkfs.c \
   src/optargs-mkfs_btrfs.c \
+  src/optargs-mksquashfs.c \
   src/optargs-mkswap.c \
   src/optargs-mktemp.c \
   src/optargs-mount_9p.c \
