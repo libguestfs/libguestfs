@@ -27,6 +27,7 @@ type format = {
   extra_args : extra_arg list;
   output_to_file : bool;
   check_prerequisites : (unit -> unit) option;
+  check_appliance_prerequisites : (Guestfs.guestfs -> unit) option;
   run_on_filesystem : (Guestfs.guestfs -> string -> string -> unit) option;
   run_on_file : (string -> (string * string) -> string -> unit) option;
 }
@@ -39,6 +40,7 @@ let defaults = {
   extra_args = [];
   output_to_file = true;
   check_prerequisites = None;
+  check_appliance_prerequisites = None;
   run_on_filesystem = None;
   run_on_file = None;
 }
@@ -127,6 +129,19 @@ let check_formats_prerequisites ~formats =
     | { check_prerequisites = Some fn } ->
       fn ()
     | { check_prerequisites = None } -> ()
+  ) formats
+
+let check_formats_appliance_prerequisites ~formats g =
+  assert !baked;
+
+  (* Run the formats in alphabetical, rather than random order. *)
+  let formats = List.sort compare_formats (FormatSet.elements formats) in
+
+  List.iter (
+    function
+    | { check_appliance_prerequisites = Some fn } ->
+      fn g
+    | { check_appliance_prerequisites = None } -> ()
   ) formats
 
 let run_formats_on_filesystem ~formats g image_name tmpdir =

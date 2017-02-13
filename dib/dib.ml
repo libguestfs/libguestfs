@@ -703,6 +703,8 @@ let main () =
 
     g#launch ();
 
+    Output_format.check_formats_appliance_prerequisites cmdline.formats g;
+
     (* Prepare the /aux partition. *)
     g#mkfs "ext2" "/dev/sdb";
     g#mount "/dev/sdb" "/";

@@ -44,6 +44,11 @@ type format = {
       to check whether the requirements for this format (available
       tools, values for command line arguments, etc) are fulfilled. *)
 
+  check_appliance_prerequisites : (Guestfs.guestfs -> unit) option;
+  (** The function which is called after the appliance start to check
+      whether the requirements in the appliance for this format
+      (available features, filesystems, etc) are fulfilled. *)
+
   run_on_filesystem : (Guestfs.guestfs -> string -> string -> unit) option;
   (** The function which is called to perform the export while the
       guest is mounted.
@@ -107,6 +112,10 @@ val set_cardinal : set -> int
 
 val check_formats_prerequisites : formats:set -> unit
 (** Check the prerequisites in all the formats listed in the [formats] set. *)
+
+val check_formats_appliance_prerequisites : formats:set -> Guestfs.guestfs -> unit
+(** Check the appliance prerequisites in all the formats listed in the
+    [formats] set. *)
 
 val run_formats_on_filesystem : formats:set -> Guestfs.guestfs -> string -> string -> unit
 (** Run the filesystem-based export for all the formats listed in the
