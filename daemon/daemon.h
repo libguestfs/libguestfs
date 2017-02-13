@@ -147,6 +147,8 @@ extern int random_name (char *template);
 
 extern char *get_random_uuid (void);
 
+extern char *make_exclude_from_file (const char *function, char *const *excludes);
+
 extern int asprintf_nowarn (char **strp, const char *fmt, ...);
 
 /*-- in names.c (auto-generated) --*/
