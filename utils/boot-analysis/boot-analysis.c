@@ -88,7 +88,7 @@ static void print_longest_to_shortest (void);
 static void free_pass_data (void);
 static void free_final_timeline (void);
 
-static void
+static void __attribute__((noreturn))
 usage (int exitcode)
 {
   guestfs_h *g;
