@@ -86,7 +86,6 @@ fsync_devices (void)
 {
   DIR *dir;
   struct dirent *d;
-  char dev_path[256];
   int fd;
 
   dir = opendir ("/sys/block");
@@ -105,7 +104,11 @@ fsync_devices (void)
         STREQLEN (d->d_name, "ubd", 3) ||
         STREQLEN (d->d_name, "vd", 2) ||
         STREQLEN (d->d_name, "sr", 2)) {
-      snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
+      CLEANUP_FREE char *dev_path = NULL;
+      if (asprintf (&dev_path, "/dev/%s", d->d_name) == -1) {
+        perror ("asprintf");
+        continue;
+      }
 
       /* Ignore the root device. */
       if (is_root_device (dev_path))
