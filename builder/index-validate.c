@@ -38,7 +38,7 @@
 
 extern int do_parse (struct parse_context *context, FILE *in);
 
-static void
+static void __attribute__((noreturn))
 usage (int exit_status)
 {
   printf ("%s index\n", getprogname ());

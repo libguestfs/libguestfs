@@ -66,7 +66,7 @@ reset_default_tests (int *flag)
   }
 }
 
-static void
+static void __attribute__((noreturn))
 usage (int exitcode)
 {
   fprintf (stderr,

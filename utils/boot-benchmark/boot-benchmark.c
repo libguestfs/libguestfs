@@ -51,7 +51,7 @@ static void run_test (void);
 static guestfs_h *create_handle (void);
 static void add_drive (guestfs_h *g);
 
-static void
+static void __attribute__((noreturn))
 usage (int exitcode)
 {
   guestfs_h *g;

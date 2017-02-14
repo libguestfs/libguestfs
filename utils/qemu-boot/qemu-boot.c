@@ -74,7 +74,7 @@ static void run_test (size_t P);
 static void *start_thread (void *thread_data_vp);
 static void message_callback (guestfs_h *g, void *opaque, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 
-static void
+static void __attribute__((noreturn))
 usage (int exitcode)
 {
   fprintf (stderr,
