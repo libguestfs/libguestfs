@@ -66,6 +66,7 @@ hash-pjw
 human
 iconv
 ignore-value
+intprops
 lock
 maintainer-makefile
 manywarnings

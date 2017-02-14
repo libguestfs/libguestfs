@@ -42,7 +42,6 @@ foreach_block_device (block_dev_func_t func)
   DIR *dir;
   int err = 0;
   struct dirent *d;
-  char dev_path[256];
   int fd;
 
   dir = opendir ("/sys/block");
@@ -61,7 +60,12 @@ foreach_block_device (block_dev_func_t func)
         STREQLEN (d->d_name, "ubd", 3) ||
         STREQLEN (d->d_name, "vd", 2) ||
         STREQLEN (d->d_name, "sr", 2)) {
-      snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
+      CLEANUP_FREE char *dev_path = NULL;
+      if (asprintf (&dev_path, "/dev/%s", d->d_name) == -1) {
+        reply_with_perror ("asprintf");
+        closedir (dir);
+        return NULL;
+      }
 
       /* Ignore the root device. */
       if (is_root_device (dev_path))
@@ -155,8 +159,12 @@ add_partitions (const char *device, struct stringsbuf *r)
   struct dirent *d;
   while ((d = readdir (dir)) != NULL) {
     if (STREQLEN (d->d_name, device, strlen (device))) {
-      char part[256];
-      snprintf (part, sizeof part, "/dev/%s", d->d_name);
+      CLEANUP_FREE char *part = NULL;
+      if (asprintf (&part, "/dev/%s", d->d_name) == -1) {
+        perror ("asprintf");
+        closedir (dir);
+        return -1;
+      }
 
       if (add_string (r, part) == -1) {
         closedir (dir);

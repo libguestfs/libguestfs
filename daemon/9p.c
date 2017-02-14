@@ -71,9 +71,13 @@ do_list_9p (void)
     if (d == NULL) break;
 
     if (STRPREFIX (d->d_name, "virtio")) {
-      char mount_tag_path[256];
-      snprintf (mount_tag_path, sizeof mount_tag_path,
-                BUS_PATH "/%s/mount_tag", d->d_name);
+      CLEANUP_FREE char *mount_tag_path = NULL;
+      if (asprintf (&mount_tag_path, BUS_PATH "/%s/mount_tag",
+                    d->d_name) == -1) {
+        reply_with_perror ("asprintf");
+        closedir (dir);
+        return NULL;
+      }
 
       /* A bit unclear, but it looks like the virtio transport allows
        * the mount tag length to be unlimited (or up to 65536 bytes).

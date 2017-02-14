@@ -161,7 +161,7 @@ debug_fds (const char *subcmd, size_t argc, char *const *const argv)
   FILE *fp;
   DIR *dir;
   struct dirent *d;
-  char fname[256], link[256];
+  char link[256];
   struct stat statbuf;
 
   fp = open_memstream (&out, &size);
@@ -178,10 +178,18 @@ debug_fds (const char *subcmd, size_t argc, char *const *const argv)
   }
 
   while ((d = readdir (dir)) != NULL) {
+    CLEANUP_FREE char *fname = NULL;
+
     if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
       continue;
 
-    snprintf (fname, sizeof fname, "/proc/self/fd/%s", d->d_name);
+    if (asprintf (&fname, "/proc/self/fd/%s", d->d_name) == -1) {
+      reply_with_perror ("asprintf");
+      fclose (fp);
+      free (out);
+      closedir (dir);
+      return NULL;
+    }
 
     r = lstat (fname, &statbuf);
     if (r == -1) {
