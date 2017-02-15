@@ -38,6 +38,7 @@ dib/output_format.ml
 dib/output_format_docker.ml
 dib/output_format_qcow2.ml
 dib/output_format_raw.ml
+dib/output_format_squashfs.ml
 dib/output_format_tar.ml
 dib/output_format_tgz.ml
 dib/output_format_vhd.ml

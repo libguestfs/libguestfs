@@ -126,6 +126,7 @@ daemon/sfdisk.c
 daemon/sh.c
 daemon/sleep.c
 daemon/sleuthkit.c
+daemon/squashfs.c
 daemon/stat.c
 daemon/statvfs.c
 daemon/strings.c
@@ -261,6 +262,7 @@ gobject/src/optargs-md_create.c
 gobject/src/optargs-mke2fs.c
 gobject/src/optargs-mkfs.c
 gobject/src/optargs-mkfs_btrfs.c
+gobject/src/optargs-mksquashfs.c
 gobject/src/optargs-mkswap.c
 gobject/src/optargs-mktemp.c
 gobject/src/optargs-mount_9p.c

@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.35.24\n"
+"Project-Id-Version: libguestfs 1.35.25\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-11 09:12+0000\n"
+"POT-Creation-Date: 2017-02-15 15:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../dib/elements.ml:146
+#: ../dib/elements.ml:161
 msgid "  %s: already provided by %s"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 msgid "%s is not a regular file in the guest"
 msgstr ""
 
-#: ../dib/utils.ml:95
+#: ../dib/utils.ml:96
 msgid "%s needed but not found"
 msgstr ""
 
@@ -822,7 +822,7 @@ msgstr ""
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
-#: ../dib/dib.ml:541
+#: ../dib/dib.ml:549
 msgid "Carried environment variables: %s"
 msgstr ""
 
@@ -1095,7 +1095,7 @@ msgstr ""
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:948
+#: ../dib/dib.ml:977
 msgid "Done"
 msgstr ""
 
@@ -1125,7 +1125,7 @@ msgstr ""
 msgid "Editing: %s"
 msgstr ""
 
-#: ../dib/dib.ml:514
+#: ../dib/dib.ml:522
 msgid "Elements: %s"
 msgstr ""
 
@@ -1194,7 +1194,7 @@ msgstr ""
 msgid "Expand partition"
 msgstr ""
 
-#: ../dib/dib.ml:537
+#: ../dib/dib.ml:545
 msgid "Expanded elements: %s"
 msgstr ""
 
@@ -1210,7 +1210,7 @@ msgstr ""
 msgid "Export Storage Domain"
 msgstr ""
 
-#: ../dib/dib.ml:865
+#: ../dib/dib.ml:887
 msgid "Extracting data out of the image"
 msgstr ""
 
@@ -1357,7 +1357,7 @@ msgstr ""
 msgid "Generate MD5 and SHA256 checksum files"
 msgstr ""
 
-#: ../dib/dib.ml:906
+#: ../dib/dib.ml:935
 msgid "Generating checksums for %s"
 msgstr ""
 
@@ -1437,7 +1437,7 @@ msgstr ""
 msgid "Installing packages: %s"
 msgstr ""
 
-#: ../dib/dib.ml:467
+#: ../dib/dib.ml:475
 msgid "Installing: %s"
 msgstr ""
 
@@ -1581,7 +1581,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr ""
 
-#: ../dib/dib.ml:648
+#: ../dib/dib.ml:668
 msgid "Opening the disks"
 msgstr ""
 
@@ -1712,7 +1712,7 @@ msgstr ""
 msgid "Prefix for files"
 msgstr ""
 
-#: ../dib/dib.ml:561
+#: ../dib/dib.ml:569
 msgid "Preparing auxiliary data"
 msgstr ""
 
@@ -2011,7 +2011,7 @@ msgstr ""
 msgid "Running: %s"
 msgstr ""
 
-#: ../dib/dib.ml:427 ../dib/dib.ml:380
+#: ../dib/dib.ml:435 ../dib/dib.ml:384
 msgid "Running: %s/%s"
 msgstr ""
 
@@ -2204,7 +2204,7 @@ msgstr ""
 msgid "Setting up initial partition table on %s"
 msgstr ""
 
-#: ../dib/dib.ml:787
+#: ../dib/dib.ml:809
 msgid "Setting up the destination root"
 msgstr ""
 
@@ -2393,7 +2393,7 @@ msgid ""
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../dib/elements.ml:196
+#: ../dib/elements.ml:211
 msgid ""
 "There is a duplicated script in your elements:\n"
 "%s/%s in: %s"
@@ -2486,7 +2486,7 @@ msgstr ""
 msgid "USER[:SELECTOR]"
 msgstr ""
 
-#: ../dib/dib.ml:883
+#: ../dib/dib.ml:912
 msgid "Umounting the disks"
 msgstr ""
 
@@ -2888,7 +2888,7 @@ msgstr ""
 msgid "disabling the cache"
 msgstr ""
 
-#: ../dib/output_format.ml:99
+#: ../dib/output_format.ml:101
 msgid "disallowed character (%c) in format name"
 msgstr ""
 
@@ -2959,7 +2959,7 @@ msgstr ""
 msgid "duplicate %s parameter.  Only one default mapping is allowed."
 msgstr ""
 
-#: ../dib/output_format.ml:87
+#: ../dib/output_format.ml:89
 msgid "duplicate format name (%s)"
 msgstr ""
 
@@ -2967,7 +2967,7 @@ msgstr ""
 msgid "duplicate operation name (%s)"
 msgstr ""
 
-#: ../dib/elements.ml:116
+#: ../dib/elements.ml:131
 msgid "element %s not found"
 msgstr ""
 
@@ -3002,7 +3002,7 @@ msgstr ""
 msgid "exception: %s"
 msgstr ""
 
-#: ../v2v/xpath_helpers.ml:35
+#: ../mllib/xpath_helpers.ml:35
 msgid ""
 "expecting XML expression to return an integer (expression: %s, matching "
 "string: %s)"
@@ -3024,15 +3024,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:802 ../dib/dib.ml:935
+#: ../mllib/common_utils.ml:802 ../dib/dib.ml:964
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:825 ../mllib/common_utils.ml:804 ../dib/dib.ml:938
+#: ../mllib/common_utils.ml:825 ../mllib/common_utils.ml:804 ../dib/dib.ml:967
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:828 ../mllib/common_utils.ml:806 ../dib/dib.ml:941
+#: ../mllib/common_utils.ml:828 ../mllib/common_utils.ml:806 ../dib/dib.ml:970
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -3086,7 +3086,7 @@ msgstr ""
 msgid "floppy disk"
 msgstr ""
 
-#: ../dib/elements.ml:150
+#: ../dib/elements.ml:165
 msgid ""
 "following elements are already provided by another element:\n"
 "%s"
@@ -3101,7 +3101,7 @@ msgstr ""
 msgid "format"
 msgstr ""
 
-#: ../dib/output_format.ml:94
+#: ../dib/output_format.ml:96
 msgid "format name is an empty string"
 msgstr ""
 
@@ -3467,7 +3467,7 @@ msgstr ""
 msgid "no operating systems were found in the guest image"
 msgstr ""
 
-#: ../dib/dib.ml:707
+#: ../dib/dib.ml:729
 msgid "no partitions found in the helper drive"
 msgstr ""
 
@@ -3616,7 +3616,7 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
-#: ../dib/elements.ml:154
+#: ../dib/elements.ml:169
 msgid "please include an operating system element"
 msgstr ""
 
@@ -3763,7 +3763,7 @@ msgstr ""
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr ""
 
-#: ../dib/dib.ml:459
+#: ../dib/dib.ml:467
 msgid "sub-process killed by signal (%d)"
 msgstr ""
 
@@ -3822,7 +3822,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr ""
 
-#: ../dib/dib.ml:490
+#: ../dib/dib.ml:498
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
@@ -4020,6 +4020,10 @@ msgid ""
 "messages"
 msgstr ""
 
+#: ../mllib/checksums.ml:54
+msgid "unhandled checksum type '%s'"
+msgstr ""
+
 #: ../resize/resize.ml:263
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
@@ -4103,13 +4107,13 @@ msgstr ""
 msgid "users"
 msgstr ""
 
-#: ../dib/utils.ml:53
+#: ../dib/utils.ml:54
 msgid ""
 "variable '%s' has more than one occurrency in lines:\n"
 "%s"
 msgstr ""
 
-#: ../dib/utils.ml:49
+#: ../dib/utils.ml:50
 msgid ""
 "variable '%s' not found in lines:\n"
 "%s"
@@ -4262,7 +4266,7 @@ msgid ""
 "further information."
 msgstr ""
 
-#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:92 cat/log.c:68 cat/ls.c:89
+#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:89
 #: cat/tail.c:65 df/main.c:72 diff/diff.c:98 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
 #: make-fs/make-fs.c:79 p2v/main.c:87 rescue/rescue.c:61
@@ -4294,7 +4298,7 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:159 builder/index-validate.c:88 cat/cat.c:145
-#: cat/filesystems.c:245 cat/log.c:147 cat/ls.c:235 cat/tail.c:152
+#: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:235 cat/tail.c:152
 #: df/main.c:162 diff/diff.c:267 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
 #: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:198
@@ -4393,14 +4397,14 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:233 cat/filesystems.c:342 cat/log.c:204 cat/ls.c:349
+#: cat/cat.c:233 cat/filesystems.c:343 cat/log.c:204 cat/ls.c:349
 #: cat/tail.c:217 diff/diff.c:321 edit/edit.c:258 fuse/guestmount.c:318
 #: inspector/inspector.c:266 rescue/rescue.c:293
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr ""
 
-#: cat/filesystems.c:95
+#: cat/filesystems.c:96
 #, c-format
 msgid ""
 "%s: list filesystems, partitions, block devices, LVM in a VM\n"
@@ -4439,19 +4443,19 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/filesystems.c:299 cat/log.c:193 inspector/inspector.c:242
+#: cat/filesystems.c:300 cat/log.c:193 inspector/inspector.c:242
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:313 cat/ls.c:341 df/main.c:259 diff/diff.c:335
+#: cat/filesystems.c:314 cat/ls.c:341 df/main.c:259 diff/diff.c:335
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
 
-#: cat/filesystems.c:491
+#: cat/filesystems.c:492
 #, c-format
 msgid "%s: cannot determine the subvolume for %s: %s: %s\n"
 msgstr ""
@@ -4952,22 +4956,22 @@ msgstr ""
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1734
+#: cmds-gperf.gperf:1736
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1736
+#: cmds-gperf.gperf:1738
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1737
+#: cmds-gperf.gperf:1739
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1742
+#: cmds-gperf.gperf:1744
 #, c-format
 msgid "%s: unknown command\n"
 msgstr ""
@@ -4996,11 +5000,11 @@ msgstr ""
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
 #: fish/cmds.c:600 fish/cmds.c:639 fish/cmds.c:648 fish/cmds.c:664
 #: fish/cmds.c:691 fish/cmds.c:756 fish/cmds.c:759 fish/cmds.c:831
-#: fish/cmds.c:882 fish/cmds.c:890 fish/cmds.c:933 fish/cmds.c:969
-#: fish/cmds.c:972 fish/cmds.c:975 fish/cmds.c:981 fish/cmds.c:995
-#: fish/cmds.c:1004 fish/cmds.c:1023 fish/cmds.c:1026 fish/cmds.c:1032
-#: fish/cmds.c:1080 fish/cmds.c:1107 fish/cmds.c:1111 fish/cmds.c:1124
-#: fish/cmds.c:1127 fish/cmds.c:1136 fish/cmds.c:1158
+#: fish/cmds.c:882 fish/cmds.c:890 fish/cmds.c:934 fish/cmds.c:970
+#: fish/cmds.c:973 fish/cmds.c:976 fish/cmds.c:982 fish/cmds.c:996
+#: fish/cmds.c:1005 fish/cmds.c:1024 fish/cmds.c:1027 fish/cmds.c:1033
+#: fish/cmds.c:1081 fish/cmds.c:1108 fish/cmds.c:1112 fish/cmds.c:1125
+#: fish/cmds.c:1128 fish/cmds.c:1137 fish/cmds.c:1159
 #, c-format
 msgid "alias for '%s'"
 msgstr ""
@@ -5510,7 +5514,7 @@ msgstr ""
 msgid "download the given data units from the disk"
 msgstr ""
 
-#: fish/cmds.c:652 fish/cmds.c:937
+#: fish/cmds.c:652 fish/cmds.c:938
 msgid "download a file to the local machine given its inode"
 msgstr ""
 
@@ -5543,8 +5547,8 @@ msgid "edit a file"
 msgstr ""
 
 #: fish/cmds.c:661 fish/cmds.c:662 fish/cmds.c:673 fish/cmds.c:674
-#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1171 fish/cmds.c:1172
-#: fish/cmds.c:1177 fish/cmds.c:1178 fish/cmds.c:1180 fish/cmds.c:1181
+#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1172 fish/cmds.c:1173
+#: fish/cmds.c:1178 fish/cmds.c:1179 fish/cmds.c:1181 fish/cmds.c:1182
 msgid "return lines matching a pattern"
 msgstr ""
 
@@ -6180,7 +6184,7 @@ msgstr ""
 msgid "create a symbolic link"
 msgstr ""
 
-#: fish/cmds.c:851 fish/cmds.c:1008
+#: fish/cmds.c:851 fish/cmds.c:1009
 msgid "remove extended attribute of a file or directory"
 msgstr ""
 
@@ -6192,7 +6196,7 @@ msgstr ""
 msgid "get list of files in a directory"
 msgstr ""
 
-#: fish/cmds.c:854 fish/cmds.c:1068
+#: fish/cmds.c:854 fish/cmds.c:1069
 msgid "set extended attribute of a file or directory"
 msgstr ""
 
@@ -6377,810 +6381,814 @@ msgid "make char device node"
 msgstr ""
 
 #: fish/cmds.c:912
-msgid "create a swap partition"
+msgid "create a squashfs filesystem"
 msgstr ""
 
 #: fish/cmds.c:913
-msgid "create a swap partition with a label"
+msgid "create a swap partition"
 msgstr ""
 
 #: fish/cmds.c:914
-msgid "create a swap partition with an explicit UUID"
+msgid "create a swap partition with a label"
 msgstr ""
 
 #: fish/cmds.c:915
-msgid "create a swap file"
+msgid "create a swap partition with an explicit UUID"
 msgstr ""
 
 #: fish/cmds.c:916
-msgid "create a temporary file"
+msgid "create a swap file"
 msgstr ""
 
 #: fish/cmds.c:917
-msgid "load a kernel module"
+msgid "create a temporary file"
 msgstr ""
 
 #: fish/cmds.c:918
-msgid "view a file"
+msgid "load a kernel module"
 msgstr ""
 
 #: fish/cmds.c:919
-msgid "mount a guest disk at a position in the filesystem"
+msgid "view a file"
 msgstr ""
 
 #: fish/cmds.c:920
-msgid "mount 9p filesystem"
+msgid "mount a guest disk at a position in the filesystem"
 msgstr ""
 
 #: fish/cmds.c:921
-msgid "mount on the local filesystem"
+msgid "mount 9p filesystem"
 msgstr ""
 
 #: fish/cmds.c:922
-msgid "run main loop of mount on the local filesystem"
+msgid "mount on the local filesystem"
 msgstr ""
 
 #: fish/cmds.c:923
-msgid "mount a file using the loop device"
+msgid "run main loop of mount on the local filesystem"
 msgstr ""
 
 #: fish/cmds.c:924
-msgid "mount a guest disk with mount options"
+msgid "mount a file using the loop device"
 msgstr ""
 
 #: fish/cmds.c:925
-msgid "mount a guest disk, read-only"
+msgid "mount a guest disk with mount options"
 msgstr ""
 
 #: fish/cmds.c:926
-msgid "mount a guest disk with mount options and vfstype"
+msgid "mount a guest disk, read-only"
 msgstr ""
 
 #: fish/cmds.c:927
-msgid "extract the device part of a mountable"
+msgid "mount a guest disk with mount options and vfstype"
 msgstr ""
 
 #: fish/cmds.c:928
-msgid "extract the subvolume part of a mountable"
+msgid "extract the device part of a mountable"
 msgstr ""
 
 #: fish/cmds.c:929
-msgid "show mountpoints"
+msgid "extract the subvolume part of a mountable"
 msgstr ""
 
 #: fish/cmds.c:930
-msgid "show mounted filesystems"
+msgid "show mountpoints"
 msgstr ""
 
 #: fish/cmds.c:931
+msgid "show mounted filesystems"
+msgstr ""
+
+#: fish/cmds.c:932
 msgid "move a file"
 msgstr ""
 
-#: fish/cmds.c:935
+#: fish/cmds.c:936
 msgid "return number of whole block devices (disks) added"
 msgstr ""
 
-#: fish/cmds.c:936
+#: fish/cmds.c:937
 msgid "probe NTFS volume"
 msgstr ""
 
-#: fish/cmds.c:938
+#: fish/cmds.c:939
 msgid "restore NTFS from backup file"
 msgstr ""
 
-#: fish/cmds.c:939
+#: fish/cmds.c:940
 msgid "save NTFS to backup file"
 msgstr ""
 
-#: fish/cmds.c:940
+#: fish/cmds.c:941
 msgid "fix common errors and force Windows to check NTFS"
 msgstr ""
 
-#: fish/cmds.c:941
+#: fish/cmds.c:942
 msgid "resize an NTFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:942
+#: fish/cmds.c:943
 msgid "resize an NTFS filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:943 fish/cmds.c:944
+#: fish/cmds.c:944 fish/cmds.c:945
 msgid "parse the environment and set handle flags accordingly"
 msgstr ""
 
-#: fish/cmds.c:945
+#: fish/cmds.c:946
 msgid "add a partition to the device"
 msgstr ""
 
-#: fish/cmds.c:946
+#: fish/cmds.c:947
 msgid "delete a partition"
 msgstr ""
 
-#: fish/cmds.c:947
+#: fish/cmds.c:948
 msgid "partition whole disk with a single primary partition"
 msgstr ""
 
-#: fish/cmds.c:948
+#: fish/cmds.c:949
 msgid "move backup GPT header to the end of the disk"
 msgstr ""
 
-#: fish/cmds.c:949
+#: fish/cmds.c:950
 msgid "return true if a partition is bootable"
 msgstr ""
 
-#: fish/cmds.c:950
+#: fish/cmds.c:951
 msgid "get the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:951
+#: fish/cmds.c:952
 msgid "get the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:952
+#: fish/cmds.c:953
 msgid "get the type GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:953
+#: fish/cmds.c:954
 msgid "get the MBR type byte (ID byte) from a partition"
 msgstr ""
 
-#: fish/cmds.c:954
+#: fish/cmds.c:955
 msgid "get the MBR partition type"
 msgstr ""
 
-#: fish/cmds.c:955
+#: fish/cmds.c:956
 msgid "get partition name"
 msgstr ""
 
-#: fish/cmds.c:956
+#: fish/cmds.c:957
 msgid "get the partition table type"
 msgstr ""
 
-#: fish/cmds.c:957
+#: fish/cmds.c:958
 msgid "create an empty partition table"
 msgstr ""
 
-#: fish/cmds.c:958
+#: fish/cmds.c:959
 msgid "list partitions on a device"
 msgstr ""
 
-#: fish/cmds.c:959
+#: fish/cmds.c:960
 msgid "make a partition bootable"
 msgstr ""
 
-#: fish/cmds.c:960
+#: fish/cmds.c:961
 msgid "set the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:961
+#: fish/cmds.c:962
 msgid "set the GUID of a GPT-partitioned disk to random value"
 msgstr ""
 
-#: fish/cmds.c:962
+#: fish/cmds.c:963
 msgid "set the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:963
+#: fish/cmds.c:964
 msgid "set the type GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:964
+#: fish/cmds.c:965
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr ""
 
-#: fish/cmds.c:965
+#: fish/cmds.c:966
 msgid "set partition name"
 msgstr ""
 
-#: fish/cmds.c:966
+#: fish/cmds.c:967
 msgid "convert partition name to device name"
 msgstr ""
 
-#: fish/cmds.c:967
+#: fish/cmds.c:968
 msgid "convert partition name to partition number"
 msgstr ""
 
-#: fish/cmds.c:977
+#: fish/cmds.c:978
 msgid "ping the guest daemon"
 msgstr ""
 
-#: fish/cmds.c:978
+#: fish/cmds.c:979
 msgid "read part of a file"
 msgstr ""
 
-#: fish/cmds.c:979
+#: fish/cmds.c:980
 msgid "read part of a device"
 msgstr ""
 
-#: fish/cmds.c:983
+#: fish/cmds.c:984
 msgid "generate a new random UUID for a physical volume"
 msgstr ""
 
-#: fish/cmds.c:984
+#: fish/cmds.c:985
 msgid "generate new random UUIDs for all physical volumes"
 msgstr ""
 
-#: fish/cmds.c:985
+#: fish/cmds.c:986
 msgid "create an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:986
+#: fish/cmds.c:987
 msgid "remove an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:987
+#: fish/cmds.c:988
 msgid "resize an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:988
+#: fish/cmds.c:989
 msgid "resize an LVM physical volume (with size)"
 msgstr ""
 
-#: fish/cmds.c:989 fish/cmds.c:990
+#: fish/cmds.c:990 fish/cmds.c:991
 msgid "list the LVM physical volumes (PVs)"
 msgstr ""
 
-#: fish/cmds.c:991
+#: fish/cmds.c:992
 msgid "get the UUID of a physical volume"
 msgstr ""
 
-#: fish/cmds.c:992
+#: fish/cmds.c:993
 msgid "write to part of a file"
 msgstr ""
 
-#: fish/cmds.c:993
+#: fish/cmds.c:994
 msgid "write to part of a device"
 msgstr ""
 
-#: fish/cmds.c:997
+#: fish/cmds.c:998
 msgid "read a file"
 msgstr ""
 
-#: fish/cmds.c:998
+#: fish/cmds.c:999
 msgid "read file as lines"
 msgstr ""
 
-#: fish/cmds.c:999
+#: fish/cmds.c:1000
 msgid "read directories entries"
 msgstr ""
 
-#: fish/cmds.c:1000
+#: fish/cmds.c:1001
 msgid "read the target of a symbolic link"
 msgstr ""
 
-#: fish/cmds.c:1001
+#: fish/cmds.c:1002
 msgid "readlink on multiple files"
 msgstr ""
 
-#: fish/cmds.c:1002
+#: fish/cmds.c:1003
 msgid "canonicalized absolute pathname"
 msgstr ""
 
-#: fish/cmds.c:1006
+#: fish/cmds.c:1007
 msgid "remount a filesystem with different options"
 msgstr ""
 
-#: fish/cmds.c:1007
+#: fish/cmds.c:1008
 msgid "remove a disk image"
 msgstr ""
 
-#: fish/cmds.c:1009
+#: fish/cmds.c:1010
 msgid "rename a file on the same filesystem"
 msgstr ""
 
-#: fish/cmds.c:1010
+#: fish/cmds.c:1011
 msgid "close and reopen libguestfs handle"
 msgstr ""
 
-#: fish/cmds.c:1011
+#: fish/cmds.c:1012
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr ""
 
-#: fish/cmds.c:1012
+#: fish/cmds.c:1013
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr ""
 
-#: fish/cmds.c:1013
+#: fish/cmds.c:1014
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 
-#: fish/cmds.c:1014
+#: fish/cmds.c:1015
 msgid "remove a file"
 msgstr ""
 
-#: fish/cmds.c:1015
+#: fish/cmds.c:1016
 msgid "remove a file ignoring errors"
 msgstr ""
 
-#: fish/cmds.c:1016
+#: fish/cmds.c:1017
 msgid "remove a file or directory recursively"
 msgstr ""
 
-#: fish/cmds.c:1017
+#: fish/cmds.c:1018
 msgid "remove a directory"
 msgstr ""
 
-#: fish/cmds.c:1018
+#: fish/cmds.c:1019
 msgid "remove a mountpoint"
 msgstr ""
 
-#: fish/cmds.c:1019
+#: fish/cmds.c:1020
 msgid "synchronize the contents of two directories"
 msgstr ""
 
-#: fish/cmds.c:1020
+#: fish/cmds.c:1021
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr ""
 
-#: fish/cmds.c:1021
+#: fish/cmds.c:1022
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr ""
 
-#: fish/cmds.c:1028
+#: fish/cmds.c:1029
 msgid "scrub (securely wipe) a device"
 msgstr ""
 
-#: fish/cmds.c:1029
+#: fish/cmds.c:1030
 msgid "scrub (securely wipe) a file"
 msgstr ""
 
-#: fish/cmds.c:1030
+#: fish/cmds.c:1031
 msgid "scrub (securely wipe) free space"
 msgstr ""
 
-#: fish/cmds.c:1034
+#: fish/cmds.c:1035
 msgid "relabel parts of the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1035
+#: fish/cmds.c:1036
 msgid "add options to kernel command line"
 msgstr ""
 
-#: fish/cmds.c:1036 fish/cmds.c:1038
+#: fish/cmds.c:1037 fish/cmds.c:1039
 msgid "set the backend"
 msgstr ""
 
-#: fish/cmds.c:1037
+#: fish/cmds.c:1038
 msgid "set autosync mode"
 msgstr ""
 
-#: fish/cmds.c:1039
+#: fish/cmds.c:1040
 msgid "set a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:1040
+#: fish/cmds.c:1041
 msgid "replace per-backend settings strings"
 msgstr ""
 
-#: fish/cmds.c:1041
+#: fish/cmds.c:1042
 msgid "set the appliance cache directory"
 msgstr ""
 
-#: fish/cmds.c:1042
+#: fish/cmds.c:1043
 msgid "enable or disable direct appliance mode"
 msgstr ""
 
-#: fish/cmds.c:1043
+#: fish/cmds.c:1044
 msgid "set ext2 file attributes of a file"
 msgstr ""
 
-#: fish/cmds.c:1044
+#: fish/cmds.c:1045
 msgid "set ext2 file generation of a file"
 msgstr ""
 
-#: fish/cmds.c:1045
+#: fish/cmds.c:1046
 msgid "set the ext2/3/4 filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1046
+#: fish/cmds.c:1047
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1047
+#: fish/cmds.c:1048
 msgid "set the hypervisor binary"
 msgstr ""
 
-#: fish/cmds.c:1048
+#: fish/cmds.c:1049
 msgid "set the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:1049
+#: fish/cmds.c:1050
 msgid "set filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1050
+#: fish/cmds.c:1051
 msgid "pass requested credential back to libvirt"
 msgstr ""
 
-#: fish/cmds.c:1051
+#: fish/cmds.c:1052
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 
-#: fish/cmds.c:1052
+#: fish/cmds.c:1053
 msgid "set memory allocated to the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:1053
+#: fish/cmds.c:1054
 msgid "set enable network flag"
 msgstr ""
 
-#: fish/cmds.c:1054
+#: fish/cmds.c:1055
 msgid "set the search path"
 msgstr ""
 
-#: fish/cmds.c:1055
+#: fish/cmds.c:1056
 msgid "set process group flag"
 msgstr ""
 
-#: fish/cmds.c:1056
+#: fish/cmds.c:1057
 msgid "set the program name"
 msgstr ""
 
-#: fish/cmds.c:1057
+#: fish/cmds.c:1058
 msgid "set the hypervisor binary (usually qemu)"
 msgstr ""
 
-#: fish/cmds.c:1058
+#: fish/cmds.c:1059
 msgid "enable or disable the recovery process"
 msgstr ""
 
-#: fish/cmds.c:1059
+#: fish/cmds.c:1060
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr ""
 
-#: fish/cmds.c:1060
+#: fish/cmds.c:1061
 msgid "set number of virtual CPUs in appliance"
 msgstr ""
 
-#: fish/cmds.c:1061
+#: fish/cmds.c:1062
 msgid "set the temporary directory"
 msgstr ""
 
-#: fish/cmds.c:1062
+#: fish/cmds.c:1063
 msgid "enable or disable command traces"
 msgstr ""
 
-#: fish/cmds.c:1063
+#: fish/cmds.c:1064
 msgid "set the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1064
+#: fish/cmds.c:1065
 msgid "set a random UUID for the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1065
+#: fish/cmds.c:1066
 msgid "set verbose mode"
 msgstr ""
 
-#: fish/cmds.c:1066
+#: fish/cmds.c:1067
 msgid "set SELinux security context"
 msgstr ""
 
-#: fish/cmds.c:1067
+#: fish/cmds.c:1068
 msgid "set an environment variable"
 msgstr ""
 
-#: fish/cmds.c:1069 fish/cmds.c:1070
+#: fish/cmds.c:1070 fish/cmds.c:1071
 msgid "create partitions on a block device"
 msgstr ""
 
-#: fish/cmds.c:1071
+#: fish/cmds.c:1072
 msgid "modify a single partition on a block device"
 msgstr ""
 
-#: fish/cmds.c:1072
+#: fish/cmds.c:1073
 msgid "display the disk geometry from the partition table"
 msgstr ""
 
-#: fish/cmds.c:1073
+#: fish/cmds.c:1074
 msgid "display the kernel geometry"
 msgstr ""
 
-#: fish/cmds.c:1074
+#: fish/cmds.c:1075
 msgid "display the partition table"
 msgstr ""
 
-#: fish/cmds.c:1075
+#: fish/cmds.c:1076
 msgid "run a command via the shell"
 msgstr ""
 
-#: fish/cmds.c:1076
+#: fish/cmds.c:1077
 msgid "run a command via the shell returning lines"
 msgstr ""
 
-#: fish/cmds.c:1077
+#: fish/cmds.c:1078
 msgid "shutdown the hypervisor"
 msgstr ""
 
-#: fish/cmds.c:1078
+#: fish/cmds.c:1079
 msgid "sleep for some seconds"
 msgstr ""
 
-#: fish/cmds.c:1082
+#: fish/cmds.c:1083
 msgid "create a sparse disk image and add"
 msgstr ""
 
-#: fish/cmds.c:1083 fish/cmds.c:1084
+#: fish/cmds.c:1084 fish/cmds.c:1085
 msgid "get file information"
 msgstr ""
 
-#: fish/cmds.c:1085
+#: fish/cmds.c:1086
 msgid "get file system statistics"
 msgstr ""
 
-#: fish/cmds.c:1086 fish/cmds.c:1087
+#: fish/cmds.c:1087 fish/cmds.c:1088
 msgid "print the printable strings in a file"
 msgstr ""
 
-#: fish/cmds.c:1088
+#: fish/cmds.c:1089
 msgid "list supported groups of commands"
 msgstr ""
 
-#: fish/cmds.c:1089
+#: fish/cmds.c:1090
 msgid "disable swap on device"
 msgstr ""
 
-#: fish/cmds.c:1090
+#: fish/cmds.c:1091
 msgid "disable swap on file"
 msgstr ""
 
-#: fish/cmds.c:1091
+#: fish/cmds.c:1092
 msgid "disable swap on labeled swap partition"
 msgstr ""
 
-#: fish/cmds.c:1092
+#: fish/cmds.c:1093
 msgid "disable swap on swap partition by UUID"
 msgstr ""
 
-#: fish/cmds.c:1093
+#: fish/cmds.c:1094
 msgid "enable swap on device"
 msgstr ""
 
-#: fish/cmds.c:1094
+#: fish/cmds.c:1095
 msgid "enable swap on file"
 msgstr ""
 
-#: fish/cmds.c:1095
+#: fish/cmds.c:1096
 msgid "enable swap on labeled swap partition"
 msgstr ""
 
-#: fish/cmds.c:1096
+#: fish/cmds.c:1097
 msgid "enable swap on swap partition by UUID"
 msgstr ""
 
-#: fish/cmds.c:1097
+#: fish/cmds.c:1098
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr ""
 
-#: fish/cmds.c:1098
+#: fish/cmds.c:1099
 msgid "install the SYSLINUX bootloader"
 msgstr ""
 
-#: fish/cmds.c:1099
+#: fish/cmds.c:1100
 msgid "return last 10 lines of a file"
 msgstr ""
 
-#: fish/cmds.c:1100
+#: fish/cmds.c:1101
 msgid "return last N lines of a file"
 msgstr ""
 
-#: fish/cmds.c:1101
+#: fish/cmds.c:1102
 msgid "unpack tarfile to directory"
 msgstr ""
 
-#: fish/cmds.c:1102
+#: fish/cmds.c:1103
 msgid "pack directory into tarfile"
 msgstr ""
 
-#: fish/cmds.c:1103 fish/cmds.c:1117
+#: fish/cmds.c:1104 fish/cmds.c:1118
 msgid "unpack compressed tarball to directory"
 msgstr ""
 
-#: fish/cmds.c:1104 fish/cmds.c:1118
+#: fish/cmds.c:1105 fish/cmds.c:1119
 msgid "pack directory into compressed tarball"
 msgstr ""
 
-#: fish/cmds.c:1105
+#: fish/cmds.c:1106
 msgid "print elapsed time taken to run a command"
 msgstr ""
 
-#: fish/cmds.c:1109
+#: fish/cmds.c:1110
 msgid "update file timestamps or create a new file"
 msgstr ""
 
-#: fish/cmds.c:1113
+#: fish/cmds.c:1114
 msgid "truncate a file to zero size"
 msgstr ""
 
-#: fish/cmds.c:1114
+#: fish/cmds.c:1115
 msgid "truncate a file to a particular size"
 msgstr ""
 
-#: fish/cmds.c:1115
+#: fish/cmds.c:1116
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr ""
 
-#: fish/cmds.c:1116
+#: fish/cmds.c:1117
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr ""
 
-#: fish/cmds.c:1119
+#: fish/cmds.c:1120
 msgid "set file mode creation mask (umask)"
 msgstr ""
 
-#: fish/cmds.c:1120
+#: fish/cmds.c:1121
 msgid "unmount a filesystem"
 msgstr ""
 
-#: fish/cmds.c:1121
+#: fish/cmds.c:1122
 msgid "unmount all filesystems"
 msgstr ""
 
-#: fish/cmds.c:1122
+#: fish/cmds.c:1123
 msgid "unmount a locally mounted filesystem"
 msgstr ""
 
-#: fish/cmds.c:1129
+#: fish/cmds.c:1130
 msgid "unset an environment variable"
 msgstr ""
 
-#: fish/cmds.c:1130
+#: fish/cmds.c:1131
 msgid "upload a file from the local machine"
 msgstr ""
 
-#: fish/cmds.c:1131
+#: fish/cmds.c:1132
 msgid "upload a file from the local machine with offset"
 msgstr ""
 
-#: fish/cmds.c:1132
+#: fish/cmds.c:1133
 msgid "cancel the current upload or download operation"
 msgstr ""
 
-#: fish/cmds.c:1133
+#: fish/cmds.c:1134
 msgid "set timestamp of a file with nanosecond precision"
 msgstr ""
 
-#: fish/cmds.c:1134
+#: fish/cmds.c:1135
 msgid "appliance kernel version"
 msgstr ""
 
-#: fish/cmds.c:1138
+#: fish/cmds.c:1139
 msgid "get the library version number"
 msgstr ""
 
-#: fish/cmds.c:1139
+#: fish/cmds.c:1140
 msgid "get the filesystem label"
 msgstr ""
 
-#: fish/cmds.c:1140
+#: fish/cmds.c:1141
 msgid "get minimum filesystem size"
 msgstr ""
 
-#: fish/cmds.c:1141
+#: fish/cmds.c:1142
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
 
-#: fish/cmds.c:1142
+#: fish/cmds.c:1143
 msgid "get the filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:1143
+#: fish/cmds.c:1144
 msgid "activate or deactivate some volume groups"
 msgstr ""
 
-#: fish/cmds.c:1144
+#: fish/cmds.c:1145
 msgid "activate or deactivate all volume groups"
 msgstr ""
 
-#: fish/cmds.c:1145
+#: fish/cmds.c:1146
 msgid "generate a new random UUID for a volume group"
 msgstr ""
 
-#: fish/cmds.c:1146
+#: fish/cmds.c:1147
 msgid "generate new random UUIDs for all volume groups"
 msgstr ""
 
-#: fish/cmds.c:1147
+#: fish/cmds.c:1148
 msgid "create an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1148
+#: fish/cmds.c:1149
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr ""
 
-#: fish/cmds.c:1149
+#: fish/cmds.c:1150
 msgid "get volume group metadata"
 msgstr ""
 
-#: fish/cmds.c:1150
+#: fish/cmds.c:1151
 msgid "get the PV UUIDs containing the volume group"
 msgstr ""
 
-#: fish/cmds.c:1151
+#: fish/cmds.c:1152
 msgid "remove an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1152
+#: fish/cmds.c:1153
 msgid "rename an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:1153 fish/cmds.c:1154
+#: fish/cmds.c:1154 fish/cmds.c:1155
 msgid "list the LVM volume groups (VGs)"
 msgstr ""
 
-#: fish/cmds.c:1155
+#: fish/cmds.c:1156
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 
-#: fish/cmds.c:1156
+#: fish/cmds.c:1157
 msgid "get the UUID of a volume group"
 msgstr ""
 
-#: fish/cmds.c:1160
+#: fish/cmds.c:1161
 msgid "count characters in a file"
 msgstr ""
 
-#: fish/cmds.c:1161
+#: fish/cmds.c:1162
 msgid "count lines in a file"
 msgstr ""
 
-#: fish/cmds.c:1162
+#: fish/cmds.c:1163
 msgid "count words in a file"
 msgstr ""
 
-#: fish/cmds.c:1163
+#: fish/cmds.c:1164
 msgid "wipe a filesystem signature from a device"
 msgstr ""
 
-#: fish/cmds.c:1164
+#: fish/cmds.c:1165
 msgid "create a new file"
 msgstr ""
 
-#: fish/cmds.c:1165
+#: fish/cmds.c:1166
 msgid "append content to end of file"
 msgstr ""
 
-#: fish/cmds.c:1166
+#: fish/cmds.c:1167
 msgid "create a file"
 msgstr ""
 
-#: fish/cmds.c:1167
+#: fish/cmds.c:1168
 msgid "change parameters of an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1168
+#: fish/cmds.c:1169
 msgid "expand an existing XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1169
+#: fish/cmds.c:1170
 msgid "get geometry of XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1170
+#: fish/cmds.c:1171
 msgid "repair an XFS filesystem"
 msgstr ""
 
-#: fish/cmds.c:1173
+#: fish/cmds.c:1174
 msgid "write zeroes to the device"
 msgstr ""
 
-#: fish/cmds.c:1174
+#: fish/cmds.c:1175
 msgid "write zeroes to an entire device"
 msgstr ""
 
-#: fish/cmds.c:1175
+#: fish/cmds.c:1176
 msgid "zero free space in a filesystem"
 msgstr ""
 
-#: fish/cmds.c:1176
+#: fish/cmds.c:1177
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 
-#: fish/cmds.c:1179
+#: fish/cmds.c:1180
 msgid "determine file type inside a compressed file"
 msgstr ""
 
-#: fish/cmds.c:1182
+#: fish/cmds.c:1183
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 
@@ -7681,8 +7689,8 @@ msgstr ""
 #: fish/run-1.c:2924 fish/run-1.c:3005 fish/run-1.c:3018 fish/run-1.c:3031
 #: fish/run-1.c:3044 fish/run-1.c:3057 fish/run-2.c:125 fish/run-2.c:189
 #: fish/run-2.c:502 fish/run-2.c:713 fish/run-2.c:726 fish/run-2.c:1006
-#: fish/run-2.c:1258 fish/run-2.c:1339 fish/run-2.c:1771 fish/run-2.c:2037
-#: fish/run-2.c:2050 fish/run-2.c:2212 fish/run-3.c:416 fish/run-3.c:986
+#: fish/run-2.c:1258 fish/run-2.c:1339 fish/run-2.c:1835 fish/run-2.c:2101
+#: fish/run-2.c:2114 fish/run-2.c:2276 fish/run-3.c:416 fish/run-3.c:986
 #: fish/run-3.c:1352 fish/run-3.c:1365 fish/run-3.c:1378 fish/run-3.c:1621
 #: fish/run-3.c:1680 fish/run-3.c:2427 fish/run-3.c:2440 fish/run-3.c:2453
 #: fish/run-3.c:2466 fish/run-3.c:2479 fish/run-3.c:2492 fish/run-3.c:2505
@@ -7708,15 +7716,15 @@ msgstr ""
 #: fish/run-1.c:1189 fish/run-1.c:1443 fish/run-1.c:2004 fish/run-1.c:2369
 #: fish/run-1.c:2566 fish/run-1.c:2743 fish/run-1.c:2885 fish/run-1.c:3077
 #: fish/run-2.c:199 fish/run-2.c:266 fish/run-2.c:736 fish/run-2.c:1016
-#: fish/run-2.c:1268 fish/run-2.c:1349 fish/run-2.c:2060 fish/run-3.c:431
-#: fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889 fish/run-3.c:996
-#: fish/run-3.c:1388 fish/run-3.c:1631 fish/run-3.c:1690 fish/run-3.c:2645
-#: fish/run-3.c:2962 fish/run-3.c:3243 fish/run-3.c:3572 fish/run-3.c:3808
-#: fish/run-4.c:400 fish/run-4.c:505 fish/run-4.c:863 fish/run-4.c:1648
-#: fish/run-4.c:2097 fish/run-5.c:571 fish/run-5.c:696 fish/run-5.c:750
-#: fish/run-5.c:1211 fish/run-5.c:1289 fish/run-5.c:1820 fish/run-5.c:3005
-#: fish/run-5.c:3206 fish/run-6.c:1252 fish/run-6.c:1323 fish/run-6.c:1667
-#: fish/run-6.c:1826 fish/run-6.c:2154
+#: fish/run-2.c:1268 fish/run-2.c:1349 fish/run-2.c:1644 fish/run-2.c:2124
+#: fish/run-3.c:431 fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889
+#: fish/run-3.c:996 fish/run-3.c:1388 fish/run-3.c:1631 fish/run-3.c:1690
+#: fish/run-3.c:2645 fish/run-3.c:2962 fish/run-3.c:3243 fish/run-3.c:3572
+#: fish/run-3.c:3808 fish/run-4.c:400 fish/run-4.c:505 fish/run-4.c:863
+#: fish/run-4.c:1648 fish/run-4.c:2097 fish/run-5.c:571 fish/run-5.c:696
+#: fish/run-5.c:750 fish/run-5.c:1211 fish/run-5.c:1289 fish/run-5.c:1820
+#: fish/run-5.c:3005 fish/run-5.c:3206 fish/run-6.c:1252 fish/run-6.c:1323
+#: fish/run-6.c:1667 fish/run-6.c:1826 fish/run-6.c:2154
 #, c-format
 msgid "%s: unknown optional argument \"%s\"\n"
 msgstr ""
@@ -7727,15 +7735,15 @@ msgstr ""
 #: fish/run-1.c:1195 fish/run-1.c:1449 fish/run-1.c:2010 fish/run-1.c:2375
 #: fish/run-1.c:2572 fish/run-1.c:2749 fish/run-1.c:2891 fish/run-1.c:3083
 #: fish/run-2.c:205 fish/run-2.c:272 fish/run-2.c:742 fish/run-2.c:1022
-#: fish/run-2.c:1274 fish/run-2.c:1355 fish/run-2.c:2066 fish/run-3.c:437
-#: fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895 fish/run-3.c:1002
-#: fish/run-3.c:1394 fish/run-3.c:1637 fish/run-3.c:1696 fish/run-3.c:2651
-#: fish/run-3.c:2968 fish/run-3.c:3249 fish/run-3.c:3578 fish/run-3.c:3814
-#: fish/run-4.c:406 fish/run-4.c:511 fish/run-4.c:869 fish/run-4.c:1654
-#: fish/run-4.c:2103 fish/run-5.c:577 fish/run-5.c:702 fish/run-5.c:756
-#: fish/run-5.c:1217 fish/run-5.c:1295 fish/run-5.c:1826 fish/run-5.c:3011
-#: fish/run-5.c:3212 fish/run-6.c:1258 fish/run-6.c:1329 fish/run-6.c:1673
-#: fish/run-6.c:1832 fish/run-6.c:2160
+#: fish/run-2.c:1274 fish/run-2.c:1355 fish/run-2.c:1650 fish/run-2.c:2130
+#: fish/run-3.c:437 fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895
+#: fish/run-3.c:1002 fish/run-3.c:1394 fish/run-3.c:1637 fish/run-3.c:1696
+#: fish/run-3.c:2651 fish/run-3.c:2968 fish/run-3.c:3249 fish/run-3.c:3578
+#: fish/run-3.c:3814 fish/run-4.c:406 fish/run-4.c:511 fish/run-4.c:869
+#: fish/run-4.c:1654 fish/run-4.c:2103 fish/run-5.c:577 fish/run-5.c:702
+#: fish/run-5.c:756 fish/run-5.c:1217 fish/run-5.c:1295 fish/run-5.c:1826
+#: fish/run-5.c:3011 fish/run-5.c:3212 fish/run-6.c:1258 fish/run-6.c:1329
+#: fish/run-6.c:1673 fish/run-6.c:1832 fish/run-6.c:2160
 #, c-format
 msgid "%s: optional argument \"%s\" given twice\n"
 msgstr ""
@@ -7753,8 +7761,8 @@ msgstr ""
 #: fish/run-2.c:444 fish/run-2.c:564 fish/run-2.c:583 fish/run-2.c:666
 #: fish/run-2.c:683 fish/run-2.c:700 fish/run-2.c:835 fish/run-2.c:1087
 #: fish/run-2.c:1124 fish/run-2.c:1465 fish/run-2.c:1516 fish/run-2.c:1583
-#: fish/run-2.c:1651 fish/run-2.c:1756 fish/run-2.c:1809 fish/run-2.c:1921
-#: fish/run-2.c:2127 fish/run-2.c:2392 fish/run-3.c:483 fish/run-3.c:572
+#: fish/run-2.c:1715 fish/run-2.c:1820 fish/run-2.c:1873 fish/run-2.c:1985
+#: fish/run-2.c:2191 fish/run-2.c:2456 fish/run-3.c:483 fish/run-3.c:572
 #: fish/run-3.c:784 fish/run-3.c:834 fish/run-3.c:873 fish/run-3.c:956
 #: fish/run-3.c:969 fish/run-3.c:1430 fish/run-3.c:1469 fish/run-3.c:1512
 #: fish/run-3.c:1796 fish/run-3.c:2071 fish/run-3.c:2146 fish/run-3.c:2163
@@ -7798,8 +7806,8 @@ msgstr ""
 #: fish/run-1.c:1611 fish/run-1.c:1880 fish/run-1.c:1949 fish/run-1.c:1972
 #: fish/run-1.c:2081 fish/run-1.c:2100 fish/run-1.c:2119 fish/run-1.c:2466
 #: fish/run-2.c:570 fish/run-2.c:589 fish/run-2.c:841 fish/run-2.c:1471
-#: fish/run-2.c:1522 fish/run-2.c:1589 fish/run-2.c:1762 fish/run-2.c:1815
-#: fish/run-2.c:2133 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
+#: fish/run-2.c:1522 fish/run-2.c:1589 fish/run-2.c:1826 fish/run-2.c:1879
+#: fish/run-2.c:2197 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
 #: fish/run-3.c:1475 fish/run-3.c:1518 fish/run-3.c:2077 fish/run-3.c:2356
 #: fish/run-3.c:2379 fish/run-3.c:2695 fish/run-3.c:2741 fish/run-3.c:2784
 #: fish/run-3.c:2828 fish/run-3.c:2847 fish/run-3.c:2866 fish/run-3.c:2939
