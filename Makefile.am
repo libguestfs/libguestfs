@@ -312,7 +312,7 @@ docs/C_SOURCE_FILES: configure.ac
 	grep -v -E '/(guestfs|rc)_protocol\.' | \
 	grep -v -E '.*/errnostring\.' | \
 	grep -v -E '.*-gperf\.' | \
-	LC_ALL=C sort > $@-t
+	LC_ALL=C sort -u > $@-t
 	mv $@-t $@
 
 # For more information about translations, see po/Makefile.am.
@@ -324,7 +324,7 @@ po/POTFILES: configure.ac
 	grep -v -E '/((guestfs|rc)_protocol\.c)$$' | \
 	grep -v -E '^python/utils\.c$$' | \
 	grep -v -E '^perl/lib/Sys/Guestfs\.c$$' | \
-	LC_ALL=C sort > $@-t
+	LC_ALL=C sort -u > $@-t
 	mv $@-t $@
 
 po/POTFILES-ml: configure.ac
