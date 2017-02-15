@@ -67,6 +67,8 @@ mllib/regedit.ml
 mllib/stringMap.ml
 mllib/visit.ml
 mllib/visit_tests.ml
+mllib/xml.ml
+mllib/xpath_helpers.ml
 resize/resize.ml
 sparsify/cmdline.ml
 sparsify/copying.ml
@@ -154,5 +156,3 @@ v2v/v2v_unit_tests.ml
 v2v/vCenter.ml
 v2v/windows.ml
 v2v/windows_virtio.ml
-v2v/xml.ml
-v2v/xpath_helpers.ml

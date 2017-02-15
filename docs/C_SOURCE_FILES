@@ -141,6 +141,7 @@ daemon/sfdisk.c
 daemon/sh.c
 daemon/sleep.c
 daemon/sleuthkit.c
+daemon/squashfs.c
 daemon/stat.c
 daemon/statvfs.c
 daemon/strings.c
@@ -393,4 +394,5 @@ utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
 v2v/domainxml-c.c
+v2v/test-harness/dummy.c
 v2v/utils-c.c
