@@ -34,17 +34,7 @@ and regtype =
 
 let rec import_key ((g, root) : Registry.t) (path, values) =
   (* Create the path starting at the root node. *)
-  let node =
-    let rec loop parent = function
-      | [] -> parent
-      | x :: xs ->
-        let node =
-          match g#hivex_node_get_child parent x with
-          | 0L -> g#hivex_node_add_child parent x (* not found, create *)
-          | node -> node in
-        loop node xs
-    in
-    loop root path in
+  let node = Registry.create_path (g, root) path in
 
   (* Delete any existing values in this node. *)
   (* g#hivex_node_set_values ...

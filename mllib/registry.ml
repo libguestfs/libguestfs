@@ -52,6 +52,15 @@ let rec get_node ((g, node) : t) = function
      if node = 0L then None
      else get_node (g, node) xs
 
+let rec create_path ((g, parent) : t) = function
+  | [] -> parent
+  | x :: xs ->
+     let node =
+       match g#hivex_node_get_child parent x with
+       | 0L -> g#hivex_node_add_child parent x (* not found, create *)
+       | node -> node in
+     create_path (g, node) xs
+
 (* Take a 7 bit ASCII string and encode it as UTF16LE. *)
 let encode_utf16le str =
   let len = String.length str in

@@ -42,6 +42,11 @@ val get_node : t -> string list -> node option
     It returns [Some node] of the final node if found, or [None] if
     not found. *)
 
+val create_path : t -> string list -> node
+(** [create_path (g, root) path] is like {!get_node} except that it
+    creates registry nodes as it goes along if they don't exist.
+    It returns the final node in the path. *)
+
 val encode_utf16le : string -> string
 (** Helper: Take a 7 bit ASCII string and encode it as UTF-16LE. *)
 
