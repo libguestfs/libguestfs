@@ -206,7 +206,7 @@ B<docker>.
 
 =item C<qcow2> (enabled by default)
 
-QEMU's qcow2.
+QEMU's qcow2.  This output format requires the C<qemu-img> tool.
 
 =item C<raw>
 
@@ -251,9 +251,9 @@ Set the path in the host where cache the resources used by the
 elements of the C<extra-data.d> phase.  The default is
 F<~/.cache/image-create>.
 
-Please note that most of the resources fetched after C<extra-data>
-will be cached in the helper drive specified with I<--drive>;
-see also L</HELPER DRIVE>.
+Please note that most of the resources fetched in phases other than
+C<extra-data.d> will be cached in the helper drive specified with
+I<--drive>; see also L</HELPER DRIVE>.
 
 =item B<--install-type> TYPE
 
@@ -311,7 +311,7 @@ C<DIB_OFFLINE> is set to C<1>, signaling the elements that they
 should use only cached resources when available.  Note also that,
 unlike with C<diskimage-builder> where elements may still be able
 to access to the network even with C<DIB_OFFLINE=>, under virt-dib
-network will be fully unaccessible.
+network will not be accessible at all.
 
 =item B<--name> NAME
 
@@ -324,7 +324,7 @@ current directory:
 
 =item F<$NAME.ext>
 
-For each output format, a disk image named after the outout image
+For each output format, a file named after the output image
 with the extension depending on the format; for example:
 F<$NAME.qcow2>, F<$NAME.raw>, etc.
 
@@ -351,7 +351,7 @@ Not applicable in ramdisk mode, see L</RAMDISK BUILDING>.
 Don't delete the output files on failure to build.  You can use this
 to debug failures to run scripts.
 
-The default is to delete the output file if virt-dib fails (or,
+The default is to delete the output files if virt-dib fails (or,
 for example, some script that it runs fails).
 
 =item B<-q>
@@ -445,7 +445,7 @@ Enable tracing of libguestfs API calls.
 
 Unlike with C<diskimage-builder>, the environment of the host is
 B<not> inherited in the appliance when running most of the elements
-(i.e. all the ones different than C<extra-data.d>).
+(i.e. all except the ones in the C<extra-data.d> phase).
 
 To set environment for the elements being run, it is necessary to tell
 virt-dib to use them, with the option I<--envvar>.  Such option
@@ -481,7 +481,7 @@ on it, or the first partition on it will be used.  A disk with
 the latter configuration can be easily created with L<guestfish(1)>
 like the following:
 
- guestfish -N filename.img=fs:ext4:10G
+ guestfish -N filename.img=fs:ext4:10G exit
 
 The above will create a disk image called F<filename.img>, 10G big,
 with a single partition of type ext4;
@@ -517,7 +517,7 @@ cached in the home directory of the user running the various tools.
 =item F</virt-dib-*.log>
 
 These are the logs of the elements being run within the libguestfs
-appliance, which means all the hooks except C<extra-data.d>.
+appliance, which means all the phases except C<extra-data.d>.
 
 =back
 
@@ -569,7 +569,8 @@ Because of virt-dib runs most of the elements in its own appliance,
 all the tools and libraries used by elements running outside the
 guest (typically C<root.d>, C<block-device.d>, and C<cleanup.d>)
 need to be present in the appliance as well.  In case they
-are not, scripts will fail mostly with a C<command not found> error.
+are not, scripts will fail typically with a C<command not found>
+error.
 
 For tools and libraries packaged by the distribution, the easy
 solution is to tell libguestfs to include additional packages in the
@@ -580,7 +581,7 @@ additional packages:
 
 The actual path to the F<supermin.d> directory depends on the
 distribution; additional files can list more packages, each in
-its own line.
+its own line.  For more details, see L<supermin(1)>.
 
 =head1 COMPARISON WITH DISKIMAGE-BUILDER
 
@@ -604,7 +605,9 @@ available in C<diskimage-builder>, while some have different names:
  -o IMAGENAME                  --name IMAGENAME
  -p PACKAGE(S)                 --extra-packages PACKAGE(S)
  -t FORMAT(S)                  --formats FORMAT(S)
- -x                            --debug N
+ -x                            --debug 1
+ -x -x                         --debug 2
+ -x -x [-x ...]                --debug 3/4/etc
 
 =item
 
