@@ -324,6 +324,8 @@ type inspect = {
   i_apps : Guestfs.application2 list;
   i_apps_map : Guestfs.application2 list StringMap.t;
   i_firmware : i_firmware;
+  i_windows_systemroot : string;
+  i_windows_current_control_set : string;
 }
 
 let string_of_inspect inspect =
@@ -339,6 +341,8 @@ i_package_management = %s
 i_product_name = %s
 i_product_variant = %s
 i_firmware = %s
+i_windows_systemroot = %s
+i_windows_current_control_set = %s
 " inspect.i_root
   inspect.i_type
   inspect.i_distro
@@ -352,6 +356,8 @@ i_firmware = %s
   (match inspect.i_firmware with
    | I_BIOS -> "BIOS"
    | I_UEFI devices -> sprintf "UEFI [%s]" (String.concat ", " devices))
+  inspect.i_windows_systemroot
+  inspect.i_windows_current_control_set
 
 type mpstat = {
   mp_dev : string;

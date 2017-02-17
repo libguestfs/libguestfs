@@ -68,17 +68,16 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
       None
     ) in
 
-  (* Get the Windows %systemroot%. *)
-  let systemroot = g#inspect_get_windows_systemroot inspect.i_root in
-
   (* Get the software and system hive files. *)
   let software_hive_filename =
-    let filename = sprintf "%s/system32/config/software" systemroot in
+    let filename = sprintf "%s/system32/config/software"
+                           inspect.i_windows_systemroot in
     let filename = g#case_sensitive_path filename in
     filename in
 
   let system_hive_filename =
-    let filename = sprintf "%s/system32/config/system" systemroot in
+    let filename = sprintf "%s/system32/config/system"
+                           inspect.i_windows_systemroot in
     let filename = g#case_sensitive_path filename in
     filename in
 
@@ -223,13 +222,6 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   (*----------------------------------------------------------------------*)
   (* Perform the conversion of the Windows guest. *)
 
-  (* Find the 'Current' ControlSet. *)
-  let get_current_cs root =
-    let select = g#hivex_node_get_child root "Select" in
-    let valueh = g#hivex_node_get_value select "Current" in
-    let value = int_of_le32 (g#hivex_value_value valueh) in
-    sprintf "ControlSet%03Ld" value in
-
   let rec configure_firstboot () =
     wait_pnp ();
     (match installer with
@@ -298,8 +290,8 @@ reg delete \"%s\" /v %s /f" strkey name
           let name = "SuppressUI" in
           let value = Registry.with_hive_write g system_hive_filename (
             fun root ->
-              let current_cs = get_current_cs root in
-              set_reg_val_dword_1 root (current_cs :: key_path) name
+              set_reg_val_dword_1 root (inspect.i_windows_current_control_set
+                                        :: key_path) name
           ) in
           reg_restore ("HKLM\\SYSTEM\\CurrentControlSet" :: key_path) name
                       value
@@ -402,18 +394,16 @@ if errorlevel 3010 exit /b 0
     (* Update the SYSTEM hive.  When this function is called the hive has
      * already been opened as a hivex handle inside guestfs.
      *)
-    let current_cs = get_current_cs root in
-    debug "current ControlSet is %s" current_cs;
+    disable_xenpv_win_drivers root;
+    disable_prl_drivers root;
+    disable_autoreboot root;
+    Windows_virtio.install_drivers g inspect root rcaps
 
-    disable_xenpv_win_drivers root current_cs;
-    disable_prl_drivers root current_cs;
-    disable_autoreboot root current_cs;
-    Windows_virtio.install_drivers g inspect systemroot
-                                   root current_cs rcaps
-
-  and disable_xenpv_win_drivers root current_cs =
+  and disable_xenpv_win_drivers root =
     (* Disable xenpv-win service (RHBZ#809273). *)
-    let services = Registry.get_node g root [current_cs; "Services"] in
+    let services =
+      Registry.get_node g root
+                        [inspect.i_windows_current_control_set; "Services"] in
 
     match services with
     | None -> ()
@@ -422,9 +412,11 @@ if errorlevel 3010 exit /b 0
        if node <> 0L then
          g#hivex_node_set_value node "Start" 4_L (le32_of_int 4_L)
 
-  and disable_prl_drivers root current_cs =
+  and disable_prl_drivers root =
     (* Prevent Parallels drivers from loading at boot. *)
-    let services = Registry.get_node g root [current_cs; "Services"] in
+    let services =
+      Registry.get_node g root
+                        [inspect.i_windows_current_control_set; "Services"] in
     let prl_svcs = [ "prl_boot"; "prl_dd"; "prl_eth5"; "prl_fs"; "prl_memdev";
                      "prl_mouf"; "prl_pv32"; "prl_pv64"; "prl_scsi";
                      "prl_sound"; "prl_strg"; "prl_tg"; "prl_time";
@@ -447,7 +439,8 @@ if errorlevel 3010 exit /b 0
      * HKLM, System\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}, LowerFilters, 0x00018002, prl_strg
      *)
     let strg_cls = Registry.get_node g root
-                        [current_cs; "Control"; "Class";
+                        [inspect.i_windows_current_control_set;
+                         "Control"; "Class";
                          "{4d36e967-e325-11ce-bfc1-08002be10318}"] in
     match strg_cls with
     | None -> ()
@@ -467,12 +460,13 @@ if errorlevel 3010 exit /b 0
           g#hivex_node_set_value strg_cls lfkey 7_L data
         )
 
-  and disable_autoreboot root current_cs =
+  and disable_autoreboot root =
     (* If the guest reboots after a crash, it's hard to see the original
      * error (eg. the infamous 0x0000007B).  Turn off autoreboot.
      *)
     let crash_control =
-      Registry.get_node g root [current_cs; "Control"; "CrashControl"] in
+      Registry.get_node g root [inspect.i_windows_current_control_set;
+                                "Control"; "CrashControl"] in
     match crash_control with
     | None -> ()
     | Some crash_control ->

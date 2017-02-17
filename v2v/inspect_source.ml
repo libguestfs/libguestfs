@@ -32,6 +32,8 @@ let rec inspect_source root_choice g =
 
   reject_if_not_installed_image g root;
 
+  let typ = g#inspect_get_type root in
+
   (* Mount up the filesystems. *)
   let mps = g#inspect_get_mountpoints root in
   let cmp (a,_) (b,_) = compare (String.length a) (String.length b) in
@@ -65,9 +67,20 @@ let rec inspect_source root_choice g =
       StringMap.add name (app :: vs) map
   ) StringMap.empty apps in
 
+  (* If the guest is Windows, get some Windows-specific inspection
+   * data, else (for simplicity when accessing) use empty strings.
+   *)
+  let systemroot, current_cs =
+    match typ with
+    | "windows" ->
+       g#inspect_get_windows_systemroot root,
+       g#inspect_get_windows_current_control_set root
+    | _ ->
+       "", "" in
+
   let inspect = {
     i_root = root;
-    i_type = g#inspect_get_type root;
+    i_type = typ;
     i_distro = g#inspect_get_distro root;
     i_arch = g#inspect_get_arch root;
     i_major_version = g#inspect_get_major_version root;
@@ -80,6 +93,8 @@ let rec inspect_source root_choice g =
     i_apps = apps;
     i_apps_map = apps_map;
     i_firmware = get_firmware_bootable_device g;
+    i_windows_systemroot = systemroot;
+    i_windows_current_control_set = current_cs;
   } in
   debug "%s" (string_of_inspect inspect);
 

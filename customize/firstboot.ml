@@ -318,12 +318,7 @@ echo uninstalling firstboot service
     let filename = g#case_sensitive_path filename in
     Registry.with_hive_write g filename
       (fun root_node ->
-        (* Find the 'Current' ControlSet. *)
-        let current_cs =
-          let select = g#hivex_node_get_child root_node "Select" in
-          let valueh = g#hivex_node_get_value select "Current" in
-          let value = int_of_le32 (g#hivex_value_value valueh) in
-          sprintf "ControlSet%03Ld" value in
+        let current_cs = g#inspect_get_windows_current_control_set root in
 
         (* Add a new rhsrvany service to the system registry to execute
          * firstboot.  NB: All these edits are in the HKLM\SYSTEM hive.

@@ -230,6 +230,8 @@ type inspect = {
   i_firmware : i_firmware;
     (** The list of EFI system partitions for the guest with UEFI,
         otherwise the BIOS identifier. *)
+  i_windows_systemroot : string;
+  i_windows_current_control_set : string;
 }
 (** Inspection information. *)
 

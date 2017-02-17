@@ -19,17 +19,16 @@
 (** Functions for installing Windows virtio drivers. *)
 
 val install_drivers
-    : Guestfs.guestfs -> Types.inspect -> string -> Registry.node -> string ->
+    : Guestfs.guestfs -> Types.inspect -> Registry.node ->
       Types.requested_guestcaps ->
       Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type
-(** [install_drivers g inspect systemroot root current_cs rcaps]
+(** [install_drivers g inspect root rcaps]
     installs virtio drivers from the driver directory or driver
     ISO into the guest driver directory and updates the registry
     so that the [viostor.sys] driver gets loaded by Windows at boot.
 
     [root] is the root node of the system hive (which is open for writes
-    when this function is called).  [current_cs] is the name of the
-    [CurrentControlSet] (eg. ["ControlSet001"]).
+    when this function is called).
 
     [rcaps] is the set of guest "capabilities" requested by the caller.  This
     may include the type of the block driver, network driver, and video driver.
