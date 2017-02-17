@@ -232,19 +232,14 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
     unconfigure_xenpv ();
     unconfigure_prltools ()
 
-  and set_reg_val_dword_1 (g, root) key_path name =
-    (* set reg value to REG_DWORD 1, creating intermediate keys if needed *)
-    let node =
-      let rec loop parent = function
-        | [] -> parent
-        | x :: xs ->
-          let node =
-            match g#hivex_node_get_child parent x with
-            | 0L -> g#hivex_node_add_child parent x (* not found, create *)
-            | node -> node in
-          loop node xs
-      in
-      loop root key_path in
+  (* [set_reg_val_dword_1 path name] creates a registry key
+   * called [name = dword:1] in the registry [path].
+   * Intermediate nodes are created along the path if required.
+   *
+   * It returns the old value, if there was one, else [None].
+   *)
+  and set_reg_val_dword_1 ((g, root) as reg) path name =
+    let node = Registry.create_path reg path in
     let valueh = g#hivex_node_get_value node name in
     let value =
       match valueh with
@@ -279,8 +274,7 @@ reg delete \"%s\" /v %s /f" strkey name
                           "Settings"] in
           let name = "SuppressNewHWUI" in
           let value = Registry.with_hive_write g software_hive_filename (
-            fun reg ->
-              set_reg_val_dword_1 reg key_path name
+            fun reg -> set_reg_val_dword_1 reg key_path name
           ) in
           reg_restore ("HKLM\\Software" :: key_path) name value
 
@@ -290,8 +284,8 @@ reg delete \"%s\" /v %s /f" strkey name
           let name = "SuppressUI" in
           let value = Registry.with_hive_write g system_hive_filename (
             fun reg ->
-              set_reg_val_dword_1 reg (inspect.i_windows_current_control_set
-                                       :: key_path) name
+              let path = inspect.i_windows_current_control_set :: key_path in
+              set_reg_val_dword_1 reg path name
           ) in
           reg_restore ("HKLM\\SYSTEM\\CurrentControlSet" :: key_path) name
                       value
