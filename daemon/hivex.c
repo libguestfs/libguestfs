@@ -68,7 +68,8 @@ hivex_finalize (void)
 
 /* Takes optional arguments, consult optargs_bitmask. */
 int
-do_hivex_open (const char *filename, int verbose, int debug, int write)
+do_hivex_open (const char *filename,
+               int verbose, int debug, int write, int unsafe)
 {
   CLEANUP_FREE char *buf = NULL;
   int flags = 0;
@@ -96,6 +97,12 @@ do_hivex_open (const char *filename, int verbose, int debug, int write)
     if (write)
       flags |= HIVEX_OPEN_WRITE;
   }
+#ifdef HIVEX_OPEN_UNSAFE
+  if (optargs_bitmask & GUESTFS_HIVEX_OPEN_UNSAFE_BITMASK) {
+    if (unsafe)
+      flags |= HIVEX_OPEN_UNSAFE;
+  }
+#endif
 
   h = hivex_open (buf, flags);
   if (!h) {

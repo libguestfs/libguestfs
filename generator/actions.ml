@@ -11228,13 +11228,13 @@ C<guestfs_xfs_growfs> calls." };
 
   { defaults with
     name = "hivex_open"; added = (1, 19, 35);
-    style = RErr, [Pathname "filename"], [OBool "verbose"; OBool "debug"; OBool "write"];
+    style = RErr, [Pathname "filename"], [OBool "verbose"; OBool "debug"; OBool "write"; OBool "unsafe"];
     proc_nr = Some 350;
     optional = Some "hivex";
     tests = [
       InitScratchFS, Always, TestRun (
         [["upload"; "$srcdir/../../test-data/files/minimal"; "/hivex_open"];
-         ["hivex_open"; "/hivex_open"; ""; ""; "false"];
+         ["hivex_open"; "/hivex_open"; ""; ""; "false"; ""];
          ["hivex_root"]; (* in this hive, it returns 0x1020 *)
          ["hivex_node_name"; "0x1020"];
          ["hivex_node_children"; "0x1020"];
@@ -11382,11 +11382,11 @@ See also: C<guestfs_hivex_value_utf8>." };
     tests = [
       InitScratchFS, Always, TestRun (
         [["upload"; "$srcdir/../../test-data/files/minimal"; "/hivex_commit1"];
-         ["hivex_open"; "/hivex_commit1"; ""; ""; "true"];
+         ["hivex_open"; "/hivex_commit1"; ""; ""; "true"; ""];
          ["hivex_commit"; "NULL"]]), [["hivex_close"]];
       InitScratchFS, Always, TestResultTrue (
         [["upload"; "$srcdir/../../test-data/files/minimal"; "/hivex_commit2"];
-         ["hivex_open"; "/hivex_commit2"; ""; ""; "true"];
+         ["hivex_open"; "/hivex_commit2"; ""; ""; "true"; ""];
          ["hivex_commit"; "/hivex_commit2_copy"];
          ["is_file"; "/hivex_commit2_copy"; "false"]]), [["hivex_close"]]
     ];
