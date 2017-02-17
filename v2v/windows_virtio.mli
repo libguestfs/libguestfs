@@ -19,7 +19,7 @@
 (** Functions for installing Windows virtio drivers. *)
 
 val install_drivers
-    : Guestfs.guestfs -> Types.inspect -> string -> int64 -> string ->
+    : Guestfs.guestfs -> Types.inspect -> string -> Registry.node -> string ->
       Types.requested_guestcaps ->
       Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type
 (** [install_drivers g inspect systemroot root current_cs rcaps]

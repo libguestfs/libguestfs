@@ -87,13 +87,13 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
 
   (* If the Windows guest appears to be using group policy. *)
   let has_group_policy =
-    Windows.with_hive_readonly g software_hive_filename
+    Registry.with_hive_readonly g software_hive_filename
       (fun root ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion";
                      "Group Policy"; "History"]  in
          let node =
-           match Windows.get_node g root path with
+           match Registry.get_node g root path with
            | None -> raise Not_found
            | Some node -> node in
          let children = g#hivex_node_children node in
@@ -130,13 +130,13 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let xenpv_uninst =
     let xenpvreg = "Red Hat Paravirtualized Xen Drivers for Windows(R)" in
 
-    Windows.with_hive_readonly g software_hive_filename
+    Registry.with_hive_readonly g software_hive_filename
       (fun root ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
                      xenpvreg] in
          let node =
-           match Windows.get_node g root path with
+           match Registry.get_node g root path with
            | None -> raise Not_found
            | Some node -> node in
          let uninstkey = "UninstallString" in
@@ -147,7 +147,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
            raise Not_found
          );
          let data = g#hivex_value_value valueh in
-         let data = Regedit.decode_utf16le data in
+         let data = Registry.decode_utf16le data in
 
          (* The uninstall program will be uninst.exe.  This is a wrapper
           * around _uninst.exe which prompts the user.  As we don't want
@@ -171,12 +171,12 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let prltools_uninsts =
     let uninsts = ref [] in
 
-    Windows.with_hive_readonly g software_hive_filename
+    Registry.with_hive_readonly g software_hive_filename
       (fun root ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall"] in
          let node =
-           match Windows.get_node g root path with
+           match Registry.get_node g root path with
            | None -> raise Not_found
            | Some node -> node in
          let uninstnodes = g#hivex_node_children node in
@@ -286,7 +286,7 @@ reg delete \"%s\" /v %s /f" strkey name
           let key_path = ["Policies"; "Microsoft"; "Windows"; "DeviceInstall";
                           "Settings"] in
           let name = "SuppressNewHWUI" in
-          let value = Windows.with_hive_write g software_hive_filename (
+          let value = Registry.with_hive_write g software_hive_filename (
             fun root ->
               set_reg_val_dword_1 root key_path name
           ) in
@@ -296,7 +296,7 @@ reg delete \"%s\" /v %s /f" strkey name
         | 5, 2 ->
           let key_path = ["Services"; "PlugPlay"; "Parameters"] in
           let name = "SuppressUI" in
-          let value = Windows.with_hive_write g system_hive_filename (
+          let value = Registry.with_hive_write g system_hive_filename (
             fun root ->
               let current_cs = get_current_cs root in
               set_reg_val_dword_1 root (current_cs :: key_path) name
@@ -413,7 +413,7 @@ if errorlevel 3010 exit /b 0
 
   and disable_xenpv_win_drivers root current_cs =
     (* Disable xenpv-win service (RHBZ#809273). *)
-    let services = Windows.get_node g root [current_cs; "Services"] in
+    let services = Registry.get_node g root [current_cs; "Services"] in
 
     match services with
     | None -> ()
@@ -424,7 +424,7 @@ if errorlevel 3010 exit /b 0
 
   and disable_prl_drivers root current_cs =
     (* Prevent Parallels drivers from loading at boot. *)
-    let services = Windows.get_node g root [current_cs; "Services"] in
+    let services = Registry.get_node g root [current_cs; "Services"] in
     let prl_svcs = [ "prl_boot"; "prl_dd"; "prl_eth5"; "prl_fs"; "prl_memdev";
                      "prl_mouf"; "prl_pv32"; "prl_pv64"; "prl_scsi";
                      "prl_sound"; "prl_strg"; "prl_tg"; "prl_time";
@@ -446,7 +446,7 @@ if errorlevel 3010 exit /b 0
     (* perfrom the equivalent of DelReg from prl_strg.inf:
      * HKLM, System\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}, LowerFilters, 0x00018002, prl_strg
      *)
-    let strg_cls = Windows.get_node g root
+    let strg_cls = Registry.get_node g root
                         [current_cs; "Control"; "Class";
                          "{4d36e967-e325-11ce-bfc1-08002be10318}"] in
     match strg_cls with
@@ -456,12 +456,12 @@ if errorlevel 3010 exit /b 0
         let valueh = g#hivex_node_get_value strg_cls lfkey in
         if valueh <> 0L then (
           let data = g#hivex_value_value valueh in
-          let filters = String.nsplit "\000" (Regedit.decode_utf16le data) in
+          let filters = String.nsplit "\000" (Registry.decode_utf16le data) in
           let filters = List.filter (
             fun x -> x <> "prl_strg" && x <> ""
           ) filters in
           let filters = List.map (
-            fun x -> Regedit.encode_utf16le x ^ "\000\000"
+            fun x -> Registry.encode_utf16le x ^ "\000\000"
           ) (filters @ [""]) in
           let data = String.concat "" filters in
           g#hivex_node_set_value strg_cls lfkey 7_L data
@@ -472,7 +472,7 @@ if errorlevel 3010 exit /b 0
      * error (eg. the infamous 0x0000007B).  Turn off autoreboot.
      *)
     let crash_control =
-      Windows.get_node g root [current_cs; "Control"; "CrashControl"] in
+      Registry.get_node g root [current_cs; "Control"; "CrashControl"] in
     match crash_control with
     | None -> ()
     | Some crash_control ->
@@ -489,10 +489,10 @@ if errorlevel 3010 exit /b 0
      * path to this key.
      *)
     let node =
-      Windows.get_node g root ["Microsoft"; "Windows"; "CurrentVersion"] in
+      Registry.get_node g root ["Microsoft"; "Windows"; "CurrentVersion"] in
     match node with
     | Some node ->
-       let append = Regedit.encode_utf16le ";%SystemRoot%\\Drivers\\VirtIO" in
+       let append = Registry.encode_utf16le ";%SystemRoot%\\Drivers\\VirtIO" in
        let values = Array.to_list (g#hivex_node_values node) in
        let rec loop = function
          | [] -> () (* DevicePath not found -- ignore this case *)
@@ -594,19 +594,19 @@ if errorlevel 3010 exit /b 0
     let fix_win_uefi_bcd esp_path =
       try
         let bcd_path = "/EFI/Microsoft/Boot/BCD" in
-        Windows.with_hive_write g (esp_path ^ bcd_path) (
+        Registry.with_hive_write g (esp_path ^ bcd_path) (
           (* Remove the 'graphicsmodedisabled' key in BCD *)
           fun root ->
           let path = ["Objects"; "{9dea862c-5cdd-4e70-acc1-f32b344d4795}";
                       "Elements"; "23000003"] in
           let boot_mgr_default_link =
-            match Windows.get_node g root path with
+            match Registry.get_node g root path with
             | None -> raise Not_found
             | Some node -> node in
           let current_boot_entry = g#hivex_value_utf8 (
             g#hivex_node_get_value boot_mgr_default_link "Element") in
           let path = ["Objects"; current_boot_entry; "Elements"; "16000046"] in
-          match Windows.get_node g root path with
+          match Registry.get_node g root path with
           | None -> raise Not_found
           | Some graphics_mode_disabled ->
             g#hivex_node_delete_child graphics_mode_disabled
@@ -635,10 +635,10 @@ if errorlevel 3010 exit /b 0
 
   (* Open the system hive for writes and update it. *)
   let block_driver, net_driver, video_driver =
-    Windows.with_hive_write g system_hive_filename update_system_hive in
+    Registry.with_hive_write g system_hive_filename update_system_hive in
 
   (* Open the software hive for writes and update it. *)
-  Windows.with_hive_write g software_hive_filename update_software_hive;
+  Registry.with_hive_write g software_hive_filename update_software_hive;
 
   fix_ntfs_heads ();
 

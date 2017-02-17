@@ -43,6 +43,7 @@ SOURCES_MLI = \
 	planner.mli \
 	progress.mli \
 	regedit.mli \
+	registry.mli \
 	StatVFS.mli \
 	stringMap.mli \
 	URI.mli \
@@ -64,6 +65,7 @@ SOURCES_ML = \
 	visit.ml \
 	fnmatch.ml \
 	planner.ml \
+	registry.ml \
 	regedit.ml \
 	StatVFS.ml \
 	JSON.ml \

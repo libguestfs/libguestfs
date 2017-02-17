@@ -55,11 +55,5 @@ and regtype =
     UTF-16LE, and integers are automatically packed and
     byte-swapped. *)
 
-val reg_import : Guestfs.guestfs -> int64 -> regedits -> unit
+val reg_import : Guestfs.guestfs -> Registry.node -> regedits -> unit
 (** Import the edits in [regedits] into the currently opened hive. *)
-
-val encode_utf16le : string -> string
-(** Helper: Take a 7 bit ASCII string and encode it as UTF-16LE. *)
-
-val decode_utf16le : string -> string
-(** Helper: Take a UTF-16LE string and decode it to UTF-8. *)
