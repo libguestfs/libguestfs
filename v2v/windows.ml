@@ -49,7 +49,8 @@ and (=~) str rex =
 
 let with_hive_readonly (g : Guestfs.guestfs) hive_filename f =
   let verbose = verbose () in
-  g#hivex_open ~write:false ~verbose (* ~debug:verbose *) hive_filename;
+  g#hivex_open ~write:false ~unsafe:true ~verbose (* ~debug:verbose *)
+               hive_filename;
   protect ~f:(
     fun () ->
       let root = g#hivex_root () in

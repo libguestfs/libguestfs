@@ -335,7 +335,8 @@ if (!$merge) {                  # Export mode.
     download_hive ($hivefile, $hiveshortname);
 
     # Open it.
-    my $h = Win::Hivex->open ("$tmpdir/$hiveshortname", debug => $debug);
+    my $h = Win::Hivex->open ("$tmpdir/$hiveshortname",
+                              unsafe => 1, debug => $debug);
 
     unless ($name) {
         # Export it.

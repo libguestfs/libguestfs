@@ -792,7 +792,9 @@ list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
     return NULL;
 
   if (guestfs_hivex_open (g, software_path,
-                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
+                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
+                          GUESTFS_HIVEX_OPEN_UNSAFE, 1,
+                          -1) == -1)
     return NULL;
 
   /* Allocate apps list. */

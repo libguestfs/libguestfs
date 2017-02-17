@@ -283,7 +283,9 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   bool ignore_currentversion = false;
 
   if (guestfs_hivex_open (g, software_path,
-                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
+                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
+                          GUESTFS_HIVEX_OPEN_UNSAFE, 1,
+                          -1) == -1)
     return -1;
 
   node = guestfs_hivex_root (g);
@@ -405,7 +407,9 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
     { NULL /* current control set */, "Services", "Tcpip", "Parameters" };
 
   if (guestfs_hivex_open (g, system_path,
-                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose, -1) == -1)
+                          GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
+                          GUESTFS_HIVEX_OPEN_UNSAFE, 1,
+                          -1) == -1)
     goto out;
 
   root = guestfs_hivex_root (g);
