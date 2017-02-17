@@ -23,8 +23,8 @@ open Output_format
 
 let tgz_run_fs (g : Guestfs.guestfs) filename _ =
   message (f_"Compressing the image as tar.gz");
-  g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] ~compress:"gzip"
-    "/" filename
+  g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] ~xattrs:true ~selinux:true
+    ~compress:"gzip" "/" filename
 
 let fmt = {
   defaults with

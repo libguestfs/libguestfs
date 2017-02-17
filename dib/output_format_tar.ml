@@ -23,7 +23,8 @@ open Output_format
 
 let tar_run_fs (g : Guestfs.guestfs) filename _ =
   message (f_"Compressing the image as tar");
-  g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] "/" filename
+  g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] ~xattrs:true ~selinux:true
+    "/" filename
 
 let fmt = {
   defaults with

@@ -38,7 +38,8 @@ let docker_run_fs (g : Guestfs.guestfs) _ temp_dir =
     | Some t -> t in
   message (f_"Importing the image to docker as '%s'") docker_target;
   let dockertmp = Filename.temp_file ~temp_dir "docker." ".tar" in
-  g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] "/" dockertmp;
+  g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] ~xattrs:true ~selinux:true
+    "/" dockertmp;
   let cmd = [ "sudo"; "docker"; "import"; dockertmp; docker_target ] in
   if run_command cmd <> 0 then exit 1
 
