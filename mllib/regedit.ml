@@ -32,7 +32,7 @@ and regtype =
 | REG_DWORD of int32
 | REG_MULTI_SZ of string list
 
-let rec import_key (g : Guestfs.guestfs) root (path, values) =
+let rec import_key ((g, root) : Registry.t) (path, values) =
   (* Create the path starting at the root node. *)
   let node =
     let rec loop parent = function
@@ -80,4 +80,4 @@ and import_value g node = function
     let ss = String.concat "" ss in
     g#hivex_node_set_value node key 7L ss
 
-let reg_import g root = List.iter (import_key g root)
+let reg_import reg = List.iter (import_key reg)

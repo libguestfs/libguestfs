@@ -24,23 +24,20 @@ open Common_utils
 type node = int64
 type value = int64
 
+type t = Guestfs.guestfs * node
+
 let with_hive_readonly (g : Guestfs.guestfs) hive_filename f =
   let verbose = verbose () in
   g#hivex_open ~write:false ~unsafe:true ~verbose (* ~debug:verbose *)
                hive_filename;
-  protect ~f:(
-    fun () ->
-      let root = g#hivex_root () in
-      f root
-  ) ~finally:g#hivex_close
+  protect ~f:(fun () -> f (g, g#hivex_root ())) ~finally:g#hivex_close
 
 let with_hive_write (g : Guestfs.guestfs) hive_filename f =
   let verbose = verbose () in
   g#hivex_open ~write:true ~verbose (* ~debug:verbose *) hive_filename;
   protect ~f:(
     fun () ->
-      let root = g#hivex_root () in
-      let ret = f root in
+      let ret = f (g, g#hivex_root ()) in
       g#hivex_commit None;
       ret
   ) ~finally:g#hivex_close
@@ -48,12 +45,12 @@ let with_hive_write (g : Guestfs.guestfs) hive_filename f =
 (* Find the given node in the current hive, relative to the starting
  * point.  Returns [None] if the node is not found.
  *)
-let rec get_node (g : Guestfs.guestfs) node = function
+let rec get_node ((g, node) : t) = function
   | [] -> Some node
   | x :: xs ->
      let node = g#hivex_node_get_child node x in
      if node = 0L then None
-     else get_node g node xs
+     else get_node (g, node) xs
 
 (* Take a 7 bit ASCII string and encode it as UTF16LE. *)
 let encode_utf16le str =

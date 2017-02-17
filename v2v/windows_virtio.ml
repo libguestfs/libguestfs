@@ -37,7 +37,7 @@ let scsi_class_guid = "{4D36E97B-E325-11CE-BFC1-08002BE10318}"
 let viostor_pciid = "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00"
 let vioscsi_pciid = "VEN_1AF4&DEV_1004&SUBSYS_00081AF4&REV_00"
 
-let rec install_drivers g inspect root rcaps =
+let rec install_drivers ((g, _) as reg) inspect rcaps =
   (* Copy the virtio drivers to the guest. *)
   let driverdir = sprintf "%s/Drivers/VirtIO" inspect.i_windows_systemroot in
   g#mkdir_p driverdir;
@@ -102,7 +102,7 @@ let rec install_drivers g inspect root rcaps =
                              inspect.i_windows_systemroot driver_name in
         let target = g#case_sensitive_path target in
         g#cp source target;
-        add_guestor_to_registry g inspect root driver_name viostor_pciid;
+        add_guestor_to_registry reg inspect driver_name viostor_pciid;
         Virtio_blk
 
       | Some Virtio_SCSI, _, true ->
@@ -113,7 +113,7 @@ let rec install_drivers g inspect root rcaps =
                              inspect.i_windows_systemroot in
         let target = g#case_sensitive_path target in
         g#cp source target;
-        add_guestor_to_registry g inspect root "vioscsi" vioscsi_pciid;
+        add_guestor_to_registry reg inspect "vioscsi" vioscsi_pciid;
         Virtio_SCSI
 
       | Some IDE, _, _ ->
@@ -168,7 +168,7 @@ let rec install_drivers g inspect root rcaps =
     (block, net, video)
   )
 
-and add_guestor_to_registry g inspect root drv_name drv_pciid =
+and add_guestor_to_registry ((g, root) as reg) inspect drv_name drv_pciid =
   let ddb_node = g#hivex_node_get_child root "DriverDatabase" in
 
   let regedits =
@@ -187,7 +187,7 @@ and add_guestor_to_registry g inspect root drv_name drv_pciid =
         "ImagePath", REG_EXPAND_SZ drv_sys_path ];
   ] in
 
-  reg_import g root (regedits @ common_regedits)
+  reg_import reg (regedits @ common_regedits)
 
 and cdb_regedits inspect drv_name drv_pciid =
   (* See http://rwmj.wordpress.com/2010/04/30/tip-install-a-device-driver-in-a-windows-vm/

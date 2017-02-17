@@ -55,5 +55,5 @@ and regtype =
     UTF-16LE, and integers are automatically packed and
     byte-swapped. *)
 
-val reg_import : Guestfs.guestfs -> Registry.node -> regedits -> unit
+val reg_import : Registry.t -> regedits -> unit
 (** Import the edits in [regedits] into the currently opened hive. *)

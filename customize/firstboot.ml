@@ -317,7 +317,7 @@ echo uninstalling firstboot service
     let filename = sprintf "%s/system32/config/SYSTEM" systemroot in
     let filename = g#case_sensitive_path filename in
     Registry.with_hive_write g filename
-      (fun root_node ->
+      (fun reg ->
         let current_cs = g#inspect_get_windows_current_control_set root in
 
         (* Add a new rhsrvany service to the system registry to execute
@@ -339,7 +339,7 @@ echo uninstalling firstboot service
             REG_SZ ("cmd /c \"" ^ firstboot_dir_win ^ "\\firstboot.bat\"");
             "PWD", REG_SZ firstboot_dir_win ];
         ] in
-        reg_import g root_node regedits
+        reg_import reg regedits
       );
 
     firstboot_dir
