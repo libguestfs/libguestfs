@@ -316,43 +316,38 @@ echo uninstalling firstboot service
     let systemroot = g#inspect_get_windows_systemroot root in
     let filename = sprintf "%s/system32/config/SYSTEM" systemroot in
     let filename = g#case_sensitive_path filename in
-    g#hivex_open ~write:true filename;
+    Registry.with_hive_write g filename
+      (fun root_node ->
+        (* Find the 'Current' ControlSet. *)
+        let current_cs =
+          let select = g#hivex_node_get_child root_node "Select" in
+          let valueh = g#hivex_node_get_value select "Current" in
+          let value = int_of_le32 (g#hivex_value_value valueh) in
+          sprintf "ControlSet%03Ld" value in
 
-    let root_node = g#hivex_root () in
+        (* Add a new rhsrvany service to the system registry to execute
+         * firstboot.  NB: All these edits are in the HKLM\SYSTEM hive.
+         * No other hive may be modified here.
+         *)
+        let regedits = [
+          [ current_cs; "services"; "firstboot" ],
+          [ "Type", REG_DWORD 0x10_l;
+            "Start", REG_DWORD 0x2_l;
+            "ErrorControl", REG_DWORD 0x1_l;
+            "ImagePath",
+            REG_SZ (sprintf "%s\\%s -s firstboot" firstboot_dir_win srvany);
+            "DisplayName", REG_SZ "Virt tools firstboot service";
+            "ObjectName", REG_SZ "LocalSystem" ];
 
-    (* Find the 'Current' ControlSet. *)
-    let current_cs =
-      let select = g#hivex_node_get_child root_node "Select" in
-      let valueh = g#hivex_node_get_value select "Current" in
-      let value = int_of_le32 (g#hivex_value_value valueh) in
-      sprintf "ControlSet%03Ld" value in
-
-    (* Add a new rhsrvany service to the system registry to execute firstboot.
-     * NB: All these edits are in the HKLM\SYSTEM hive.  No other
-     * hive may be modified here.
-     *)
-    let regedits = [
-      [ current_cs; "services"; "firstboot" ],
-      [ "Type", REG_DWORD 0x10_l;
-        "Start", REG_DWORD 0x2_l;
-        "ErrorControl", REG_DWORD 0x1_l;
-        "ImagePath",
-          REG_SZ (sprintf "%s\\%s -s firstboot" firstboot_dir_win srvany);
-        "DisplayName", REG_SZ "Virt tools firstboot service";
-        "ObjectName", REG_SZ "LocalSystem" ];
-
-      [ current_cs; "services"; "firstboot"; "Parameters" ],
-      [ "CommandLine",
-          REG_SZ ("cmd /c \"" ^ firstboot_dir_win ^ "\\firstboot.bat\"");
-        "PWD", REG_SZ firstboot_dir_win ];
-    ] in
-    reg_import g root_node regedits;
-
-    g#hivex_commit None;
-    g#hivex_close ();
+          [ current_cs; "services"; "firstboot"; "Parameters" ],
+          [ "CommandLine",
+            REG_SZ ("cmd /c \"" ^ firstboot_dir_win ^ "\\firstboot.bat\"");
+            "PWD", REG_SZ firstboot_dir_win ];
+        ] in
+        reg_import g root_node regedits
+      );
 
     firstboot_dir
-
 end
 
 let script_count = ref 0
