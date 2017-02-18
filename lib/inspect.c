@@ -432,6 +432,36 @@ guestfs_impl_inspect_get_windows_systemroot (guestfs_h *g, const char *root)
 }
 
 char *
+guestfs_impl_inspect_get_windows_software_hive (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  if (!fs->windows_software_hive) {
+    error (g, _("not a Windows guest, or software hive not found"));
+    return NULL;
+  }
+
+  return safe_strdup (g, fs->windows_software_hive);
+}
+
+char *
+guestfs_impl_inspect_get_windows_system_hive (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  if (!fs->windows_system_hive) {
+    error (g, _("not a Windows guest, or system hive not found"));
+    return NULL;
+  }
+
+  return safe_strdup (g, fs->windows_system_hive);
+}
+
+char *
 guestfs_impl_inspect_get_windows_current_control_set (guestfs_h *g,
 						      const char *root)
 {
@@ -679,6 +709,8 @@ guestfs_int_free_inspect_info (guestfs_h *g)
     free (g->fses[i].arch);
     free (g->fses[i].hostname);
     free (g->fses[i].windows_systemroot);
+    free (g->fses[i].windows_software_hive);
+    free (g->fses[i].windows_system_hive);
     free (g->fses[i].windows_current_control_set);
     for (j = 0; j < g->fses[i].nr_fstab; ++j) {
       free (g->fses[i].fstab[j].mountable);

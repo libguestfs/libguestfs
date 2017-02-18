@@ -782,16 +782,12 @@ static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_ap
 static struct guestfs_application2_list *
 list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
 {
-  CLEANUP_FREE char *software =
-    safe_asprintf (g, "%s/system32/config/software", fs->windows_systemroot);
-  CLEANUP_FREE char *software_path;
   struct guestfs_application2_list *ret = NULL;
 
-  software_path = guestfs_case_sensitive_path (g, software);
-  if (!software_path)
+  if (!fs->windows_software_hive)
     return NULL;
 
-  if (guestfs_hivex_open (g, software_path,
+  if (guestfs_hivex_open (g, fs->windows_software_hive,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
                           GUESTFS_HIVEX_OPEN_UNSAFE, 1,
                           -1) == -1)

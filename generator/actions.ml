@@ -3756,6 +3756,40 @@ Searches all the entries associated with the given inode.
 For each entry, a C<tsk_dirent> structure is returned.
 See C<filesystem_walk> for more information about C<tsk_dirent> structures." };
 
+  { defaults with
+    name = "inspect_get_windows_software_hive"; added = (1, 35, 26);
+    style = RString "path", [Mountable "root"], [];
+    shortdesc = "get the path of the Windows software hive";
+    longdesc = "\
+This returns the path to the hive (binary Windows Registry file)
+corresponding to HKLM\\SOFTWARE.
+
+This call assumes that the guest is Windows and that the guest
+has a software hive file with the right name.  If this is not the
+case then an error is returned.  This call does not check that the
+hive is a valid Windows Registry hive.
+
+You can use C<guestfs_hivex_open> to read or write to the hive.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
+  { defaults with
+    name = "inspect_get_windows_system_hive"; added = (1, 35, 26);
+    style = RString "path", [Mountable "root"], [];
+    shortdesc = "get the path of the Windows system hive";
+    longdesc = "\
+This returns the path to the hive (binary Windows Registry file)
+corresponding to HKLM\\SYSTEM.
+
+This call assumes that the guest is Windows and that the guest
+has a system hive file with the right name.  If this is not the
+case then an error is returned.  This call does not check that the
+hive is a valid Windows Registry hive.
+
+You can use C<guestfs_hivex_open> to read or write to the hive.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
 ]
 
 (* daemon_functions are any functions which cause some action

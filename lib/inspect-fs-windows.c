@@ -55,6 +55,7 @@ COMPILE_REGEXP (re_boot_ini_os,
                 "^(multi|scsi)\\((\\d+)\\)disk\\((\\d+)\\)rdisk\\((\\d+)\\)partition\\((\\d+)\\)([^=]+)=", 0)
 
 static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
+static int check_windows_registry_paths (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs);
 static char *map_registry_disk_blob (guestfs_h *g, const void *blob);
@@ -218,6 +219,10 @@ guestfs_int_check_windows_root (guestfs_h *g, struct inspect_fs *fs,
   if (check_windows_arch (g, fs) == -1)
     return -1;
 
+  /* Get system and software registry paths. */
+  if (check_windows_registry_paths (g, fs) == -1)
+    return -1;
+
   /* Product name and version. */
   if (check_windows_software_registry (g, fs) == -1)
     return -1;
@@ -249,6 +254,58 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+static int
+check_windows_registry_paths (guestfs_h *g, struct inspect_fs *fs)
+{
+  int r;
+  CLEANUP_FREE char *software = NULL, *system = NULL;
+
+  if (!fs->windows_systemroot)
+    return 0;
+
+  software = safe_asprintf (g, "%s/system32/config/software",
+                            fs->windows_systemroot);
+
+  fs->windows_software_hive = guestfs_case_sensitive_path (g, software);
+  if (!fs->windows_software_hive)
+    return -1;
+
+  r = guestfs_is_file (g, fs->windows_software_hive);
+  if (r == -1) {
+    free (fs->windows_software_hive);
+    fs->windows_software_hive = NULL;
+    return -1;
+  }
+
+  if (r == 0) {                 /* doesn't exist, or not a file */
+    free (fs->windows_software_hive);
+    fs->windows_software_hive = NULL;
+    /*FALLTHROUGH*/
+  }
+
+  system = safe_asprintf (g, "%s/system32/config/system",
+                          fs->windows_systemroot);
+
+  fs->windows_system_hive = guestfs_case_sensitive_path (g, system);
+  if (!fs->windows_system_hive)
+    return -1;
+
+  r = guestfs_is_file (g, fs->windows_system_hive);
+  if (r == -1) {
+    free (fs->windows_system_hive);
+    fs->windows_system_hive = NULL;
+    return -1;
+  }
+
+  if (r == 0) {                 /* doesn't exist, or not a file */
+    free (fs->windows_system_hive);
+    fs->windows_system_hive = NULL;
+    /*FALLTHROUGH*/
+  }
+
+  return 0;
+}
+
 /* At the moment, pull just the ProductName and version numbers from
  * the registry.  In future there is a case for making many more
  * registry fields available to callers.
@@ -257,24 +314,6 @@ static int
 check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 {
   int ret = -1;
-  int r;
-
-  CLEANUP_FREE char *software =
-    safe_asprintf (g, "%s/system32/config/software", fs->windows_systemroot);
-
-  CLEANUP_FREE char *software_path = guestfs_case_sensitive_path (g, software);
-  if (!software_path)
-    return -1;
-
-  r = guestfs_is_file (g, software_path);
-  if (r == -1)
-    return -1;
-  /* If the software hive doesn't exist, just accept that we cannot
-   * find product_name etc.
-   */
-  if (r == 0)
-    return 0;
-
   int64_t node;
   const char *hivepath[] =
     { "Microsoft", "Windows NT", "CurrentVersion" };
@@ -282,7 +321,13 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
   CLEANUP_FREE_HIVEX_VALUE_LIST struct guestfs_hivex_value_list *values = NULL;
   bool ignore_currentversion = false;
 
-  if (guestfs_hivex_open (g, software_path,
+  /* If the software hive doesn't exist, just accept that we cannot
+   * find product_name etc.
+   */
+  if (!fs->windows_software_hive)
+    return 0;
+
+  if (guestfs_hivex_open (g, fs->windows_software_hive,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
                           GUESTFS_HIVEX_OPEN_UNSAFE, 1,
                           -1) == -1)
@@ -375,26 +420,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
 {
-  int r;
   static const char gpt_prefix[] = "DMIO:ID:";
-
-  CLEANUP_FREE char *system =
-    safe_asprintf (g, "%s/system32/config/system",
-                   fs->windows_systemroot);
-
-  CLEANUP_FREE char *system_path = guestfs_case_sensitive_path (g, system);
-  if (!system_path)
-    return -1;
-
-  r = guestfs_is_file (g, system_path);
-  if (r == -1)
-    return -1;
-  /* If the system hive doesn't exist, just accept that we cannot
-   * find hostname etc.
-   */
-  if (r == 0)
-    return 0;
-
   int ret = -1;
   int64_t root, node, value;
   CLEANUP_FREE_HIVEX_VALUE_LIST struct guestfs_hivex_value_list *values = NULL;
@@ -406,7 +432,13 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
   const char *hivepath[] =
     { NULL /* current control set */, "Services", "Tcpip", "Parameters" };
 
-  if (guestfs_hivex_open (g, system_path,
+  /* If the system hive doesn't exist, just accept that we cannot
+   * find hostname etc.
+   */
+  if (!fs->windows_system_hive)
+    return 0;
+
+  if (guestfs_hivex_open (g, fs->windows_system_hive,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
                           GUESTFS_HIVEX_OPEN_UNSAFE, 1,
                           -1) == -1)

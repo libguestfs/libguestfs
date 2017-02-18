@@ -659,6 +659,8 @@ struct inspect_fs {
   char *arch;
   char *hostname;
   char *windows_systemroot;
+  char *windows_software_hive;
+  char *windows_system_hive;
   char *windows_current_control_set;
   char **drive_mappings;
   enum inspect_os_format format;
