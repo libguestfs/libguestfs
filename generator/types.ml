@@ -397,6 +397,23 @@ type action = {
                                      generated for this function *)
 }
 
+(* Default settings for all action fields.  So we copy and override
+ * the action struct by writing '{ defaults with name = ... }'.
+ *)
+let defaults = { name = "";
+                 added = (-1,-1,-1);
+                 style = RErr, [], []; proc_nr = None;
+                 tests = []; test_excuse = "";
+                 shortdesc = ""; longdesc = "";
+                 protocol_limit_warning = false; fish_alias = [];
+                 fish_output = None; visibility = VPublic;
+                 deprecated_by = None; optional = None;
+                 progress = false; camel_name = "";
+                 cancellable = false; config_only = false;
+                 once_had_no_optargs = false; blocking = true; wrapper = true;
+                 c_name = ""; c_function = ""; c_optarg_prefix = "";
+                 non_c_aliases = [] }
+
 (* Field types for structures. *)
 type field =
   | FChar			(* C 'char' (really, a 7 bit byte). *)
