@@ -21,6 +21,8 @@ include $(top_srcdir)/subdir-rules.mk
 sources = \
 	actions.ml \
 	actions.mli \
+	actions_internal_tests.ml \
+	actions_internal_tests.mli \
 	bindtests.ml \
 	bindtests.mli \
 	c.ml \
@@ -92,6 +94,7 @@ objects = \
 	common_utils.cmo \
 	types.cmo \
 	utils.cmo \
+	actions_internal_tests.cmo \
 	actions.cmo \
 	structs.cmo \
 	optgroups.cmo \
