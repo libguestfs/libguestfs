@@ -94,16 +94,12 @@ let rec generate_c_api_tests () =
   pr "}\n";
   pr "\n";
 
-  (* Generate the actual tests.  Note that we generate the tests
-   * in reverse order, deliberately, so that (in general) the
-   * newest tests run first.  This makes it quicker and easier to
-   * debug them.
-   *)
+  (* Generate the actual tests. *)
   let test_names =
     List.map (
       fun { name = name; optional = optional; tests = tests } ->
         mapi (generate_one_test name optional) tests
-    ) (List.rev actions) in
+    ) (actions |> sort) in
   let test_names = List.concat test_names in
 
   let nr_tests = List.length test_names in

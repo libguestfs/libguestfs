@@ -787,7 +787,7 @@ and generate_internal_actions_h () =
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         ~prefix:"guestfs_impl_" ~optarg_proto:Argv
         c_name style
-  ) (actions |> non_daemon_functions);
+  ) (actions |> non_daemon_functions |> sort);
 
   pr "\n";
   pr "#endif /* GUESTFS_INTERNAL_ACTIONS_H_ */\n"
@@ -1777,7 +1777,7 @@ and generate_client_actions actions () =
       generate_non_daemon_wrapper f
     | { wrapper = false } ->
       () (* no wrapper *)
-  ) (actions |> non_daemon_functions);
+  ) (actions |> non_daemon_functions |> sort);
 
   (* Client-side stubs for each function. *)
   let generate_daemon_stub { name = name; c_name = c_name;
@@ -2075,7 +2075,7 @@ and generate_client_actions actions () =
   List.iter (
     fun f ->
       generate_daemon_stub f
-  ) (actions |> daemon_functions)
+  ) (actions |> daemon_functions |> sort)
 
 (* Functions which have optional arguments have two or three
  * generated variants.
