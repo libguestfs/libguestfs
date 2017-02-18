@@ -87,3 +87,8 @@ if HAVE_OCAMLOPT
 .ml.cmx:
 	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 endif
+
+# Test shell scripts should use '$TEST_FUNCTIONS' to get a predefined
+# set of helper functions for running tests (see
+# tests/test-functions.sh).
+export TEST_FUNCTIONS := source $(abs_top_srcdir)/tests/test-functions.sh

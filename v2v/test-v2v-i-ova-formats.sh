@@ -22,6 +22,8 @@ unset CDPATH
 export LANG=C
 set -e
 
+$TEST_FUNCTIONS
+
 formats="zip tar-gz tar-xz"
 
 if [ -n "$SKIP_TEST_V2V_I_OVA_FORMATS_SH" ]; then
@@ -45,8 +47,6 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
 fi
 
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
-
-. $srcdir/../tests/test-functions.sh
 
 d=test-v2v-i-ova-formats.d
 rm -rf $d

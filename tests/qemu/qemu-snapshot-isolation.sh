@@ -22,7 +22,7 @@
 
 set -e
 
-. $srcdir/../../tests/test-functions.sh
+$TEST_FUNCTIONS
 
 # UML backend doesn't support qcow2 format.
 supports_qcow2=yes

@@ -23,6 +23,8 @@ unset CDPATH
 export LANG=C
 set -e
 
+$TEST_FUNCTIONS
+
 if [ -n "$SKIP_TEST_V2V_IN_PLACE_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77
@@ -43,8 +45,6 @@ fi
 
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
-
-. $srcdir/../tests/test-functions.sh
 
 d=$PWD/test-v2v-in-place.d
 rm -rf $d

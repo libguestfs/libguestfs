@@ -22,6 +22,8 @@ unset CDPATH
 export LANG=C
 set -e
 
+$TEST_FUNCTIONS
+
 if [ -n "$SKIP_TEST_V2V_I_OVA_FORMATS_SH" ]; then
     echo "$0: test skipped because environment variable is set"
     exit 77
@@ -33,8 +35,6 @@ if [ "$(guestfish get-backend)" = "uml" ]; then
 fi
 
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
-
-. $srcdir/../tests/test-functions.sh
 
 d=test-v2v-i-ova-tar.d
 rm -rf $d
