@@ -349,7 +349,7 @@ To add a new API action there are two changes:
 =item 1.
 
 You need to add a description of the call (name, parameters, return
-type, tests, documentation) to F<generator/actions.ml>.
+type, tests, documentation) to F<generator/actions_*.ml>.
 
 There are two sorts of API action, depending on whether the call goes
 through to the daemon in the appliance, or is serviced entirely by the
@@ -395,12 +395,12 @@ the OCaml description.
 
 You can supply zero or as many tests as you want per API call.  The
 tests can either be added as part of the API description
-(F<generator/actions.ml>), or in some rarer cases you may want to drop
+(F<generator/actions_*.ml>), or in some rarer cases you may want to drop
 a script into C<tests/*/>.  Note that adding a script to C<tests/*/>
 is slower, so if possible use the first method.
 
 The following describes the test environment used when you add an API
-test in F<actions.ml>.
+test in F<actions_*.ml>.
 
 The test environment has 4 block devices:
 

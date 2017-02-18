@@ -21,8 +21,28 @@ include $(top_srcdir)/subdir-rules.mk
 sources = \
 	actions.ml \
 	actions.mli \
+	actions_augeas.ml \
+	actions_augeas.mli \
+	actions_core.ml \
+	actions_core.mli \
+	actions_core_deprecated.ml \
+	actions_core_deprecated.mli \
+	actions_debug.ml \
+	actions_debug.mli \
+	actions_hivex.ml \
+	actions_hivex.mli \
+	actions_inspection.ml \
+	actions_inspection.mli \
+	actions_inspection_deprecated.ml \
+	actions_inspection_deprecated.mli \
 	actions_internal_tests.ml \
 	actions_internal_tests.mli \
+	actions_properties.ml \
+	actions_properties.mli \
+	actions_properties_deprecated.ml \
+	actions_properties_deprecated.mli \
+	actions_tsk.ml \
+	actions_tsk.mli \
 	bindtests.ml \
 	bindtests.mli \
 	c.ml \
@@ -94,7 +114,17 @@ objects = \
 	common_utils.cmo \
 	types.cmo \
 	utils.cmo \
+	actions_augeas.cmo \
+	actions_core.cmo \
+	actions_core_deprecated.cmo \
+	actions_debug.cmo \
+	actions_hivex.cmo \
+	actions_inspection.cmo \
+	actions_inspection_deprecated.cmo \
 	actions_internal_tests.cmo \
+	actions_properties.cmo \
+	actions_properties_deprecated.cmo \
+	actions_tsk.cmo \
 	actions.cmo \
 	structs.cmo \
 	optgroups.cmo \

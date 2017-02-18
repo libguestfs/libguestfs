@@ -2,7 +2,7 @@ This program generates a large amount of code and documentation for
 all the daemon actions.
 
 To add a new action there are only two files you need to change,
-'actions.ml' to describe the interface, and daemon/<somefile>.c to
+'actions_*.ml' to describe the interface, and daemon/<somefile>.c to
 write the implementation.
 
 After editing these files, build it (make -C generator) to regenerate
@@ -27,7 +27,7 @@ everything is exported.
 
 Some notable files in this directory:
 
-  actions.ml          The libguestfs API.
+  actions_*.ml        The libguestfs API.
   structs.ml          Structures returned by the API.
   c.ml                Generate C API.
   <lang>.ml           Generate bindings for <lang>.
