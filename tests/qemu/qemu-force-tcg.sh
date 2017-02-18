@@ -18,16 +18,10 @@
 
 # Check force_tcg really forces TCG mode.
 
-if [ -n "$SKIP_QEMU_FORCE_TCG_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-# Only applicable to the direct and libvirt backends:
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because it is only applicable when qemu is being used."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+# Only applicable if the backend uses qemu.
+skip_if_backend uml
 
 set -e
 

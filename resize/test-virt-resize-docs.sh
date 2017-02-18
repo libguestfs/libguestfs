@@ -16,8 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-$srcdir/../podcheck.pl virt-resize.pod virt-resize \
+$TEST_FUNCTIONS
+skip_if_skipped
+
+$top_srcdir/podcheck.pl virt-resize.pod virt-resize \
     --ignore=--LVexpand,--lv-expand,--lvexpand,--dryrun

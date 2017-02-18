@@ -21,7 +21,9 @@
 # Ensure we have a test of the 'checksums-out' command.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f rhbz895904.img rhbz895904.out
 

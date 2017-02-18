@@ -24,17 +24,9 @@
 
 set -e
 
-# Allow the test to be skipped since btrfs is often broken.
-if [ -n "$SKIP_TEST_BTRFS_DEVICES_SH" ]; then
-    echo "$0: skipping test because environment variable is set."
-    exit 77
-fi
-
-# If btrfs is not available, bail.
-if ! guestfish -a /dev/null run : available btrfs; then
-    echo "$0: skipping test because btrfs is not available"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available btrfs
 
 rm -f test-btrfs-devices-{1,2,3,4}.img
 
@@ -55,7 +47,7 @@ mkfs-btrfs "/dev/sda1 /dev/sdb1"
 mount /dev/sda1 /
 
 mkdir /data1
-tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data1 compress:xz
+tar-in $top_srcdir/test-data/files/filesanddirs-10M.tar.xz /data1 compress:xz
 
 # In btrfs-progs 0.19, a test was added which prevents us from
 # deleting the mount device (/dev/sda1) although that restriction
@@ -68,7 +60,7 @@ btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data2
-tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data2 compress:xz
+tar-in $top_srcdir/test-data/files/filesanddirs-10M.tar.xz /data2 compress:xz
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sdb1" /
@@ -76,7 +68,7 @@ btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data3
-tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data3 compress:xz
+tar-in $top_srcdir/test-data/files/filesanddirs-10M.tar.xz /data3 compress:xz
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sdb1" /
@@ -84,7 +76,7 @@ btrfs-device-add "/dev/sdb1" /
 btrfs-device-delete "/dev/sdc1 /dev/sdd1" /
 
 mkdir /data4
-tar-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data4 compress:xz
+tar-in $top_srcdir/test-data/files/filesanddirs-10M.tar.xz /data4 compress:xz
 
 btrfs-device-add "/dev/sdc1 /dev/sdd1" /
 btrfs-device-delete "/dev/sdb1" /

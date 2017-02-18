@@ -21,7 +21,9 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=580246
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f rhbz580246.img rhbz580246.tar
 

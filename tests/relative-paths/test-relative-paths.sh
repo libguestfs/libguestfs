@@ -18,17 +18,12 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_RELATIVE_PATHS_SH" ]; then
-    echo "$0: skipped (environment variable set)"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 # UML doesn't support qcow2.  Conceivably there might be a similar
 # problem with UML COW images which would require a separate test.
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support qcow2"
-    exit 77
-fi
+skip_if_backend uml
 
 rm -f backing*
 rm -f overlay*

@@ -22,9 +22,16 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_test_iso
+
 rm -f test-upload-to-dir.img test-upload-to-dir.out
 
-if $VG guestfish -N test-upload-to-dir.img=fs -m /dev/sda1 upload ../test-data/test.iso / 2>test-upload-to-dir.out
+if $VG guestfish \
+       -N test-upload-to-dir.img=fs \
+       -m /dev/sda1 \
+       upload $top_builddir/test-data/test.iso / 2>test-upload-to-dir.out
 then
   echo "$0: expecting guestfish to return an error"
   exit 1

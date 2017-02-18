@@ -16,10 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-abs_builddir=$(pwd)
+$TEST_FUNCTIONS
+skip_if_skipped
 
 export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-simplestreams"

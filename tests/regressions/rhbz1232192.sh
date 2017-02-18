@@ -20,33 +20,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1232192
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1232192_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless virt-v2v --help
+skip_if_backend uml
+skip_unless_phony_guest windows.img
+skip_unless_phony_guest blank-disk.img
 
-if ! ../../v2v/virt-v2v --help >/dev/null 2>&1; then
-    echo "$0: test skipped because virt-v2v was not built"
-    exit 77
-fi
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
 
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
-
-if [ ! -f ../../test-data/phony-guests/windows.img ] || [ ! -s ../../test-data/phony-guests/windows.img ]; then
-    echo "$0: test skipped because test-data/phony-guests/windows.img was not built"
-    exit 77
-fi
-
-if [ ! -f ../../test-data/phony-guests/blank-disk.img ]; then
-    echo "$0: test skipped because test-data/phony-guests/blank-disk.img was not built"
-    exit 77
-fi
-
-export VIRT_TOOLS_DATA_DIR="$srcdir/../../test-data/fake-virt-tools"
-
-../../v2v/virt-v2v -i libvirtxml rhbz1232192.xml -o null --no-copy
+virt-v2v -i libvirtxml rhbz1232192.xml -o null --no-copy

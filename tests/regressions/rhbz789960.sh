@@ -20,11 +20,16 @@
 # Test the mount command error paths.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
 
 rm -f rhbz789960.out
 
-guestfish --format=raw -a ../../test-data/phony-guests/fedora.img --ro > rhbz789960.out <<EOF
+guestfish \
+    --format=raw -a $top_builddir/test-data/phony-guests/fedora.img \
+    --ro > rhbz789960.out <<EOF
 run
 
 # Not a device at all, should fail.

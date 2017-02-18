@@ -21,7 +21,9 @@
 # Ensure that tar-out and base64-out commands properly quote arguments.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 guestfish -N rhbz957772.img=fs -m /dev/sda1 <<EOF
 mkdir "/test 1"

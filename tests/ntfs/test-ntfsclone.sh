@@ -20,26 +20,16 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_NTFSCLONE_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available ntfs3g
+skip_unless_phony_guest windows.img
 
 rm -f test-ntfsclone.img ntfsclone-backup1 ntfsclone-backup2
 
-# Skip if ntfs-3g is not supported by the appliance.
-if ! guestfish add /dev/null : run : available "ntfs3g"; then
-    echo "$0: skipped because ntfs-3g is not supported by the appliance"
-    exit 77
-fi
-
-if [ ! -s ../../test-data/phony-guests/windows.img ]; then
-    echo "$0: skipped because windows.img is zero-sized"
-    exit 77
-fi
-
 # Export the filesystems to the backup file.
-guestfish --ro --format=raw -a ../../test-data/phony-guests/windows.img <<EOF
+guestfish \
+    --ro --format=raw -a $top_builddir/test-data/phony-guests/windows.img <<EOF
 run
 ntfsclone-out /dev/sda1 ntfsclone-backup1 preservetimestamps:true force:true
 ntfsclone-out /dev/sda2 ntfsclone-backup2 metadataonly:true ignorefscheck:true

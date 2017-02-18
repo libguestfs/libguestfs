@@ -19,32 +19,18 @@
 
 # Test virt-v2v Windows conversion with VirtIO drivers on an ISO image.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_VIRTIO_WIN_ISO_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless_backend windows.img
 
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
-
-abs_top_builddir="$(cd ..; pwd)"
 libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
+f=$top_builddir/test-data/phony-guests/windows.img
 
-f=../test-data/phony-guests/windows.img
-if ! test -f $f || ! test -s $f; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
-
-export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
-# NB: This is located in the builddir:
-export VIRTIO_WIN="../test-data/fake-virtio-win/fake-virtio-win.iso"
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
+export VIRTIO_WIN="$top_builddir/test-data/fake-virtio-win/fake-virtio-win.iso"
 
 if ! test -f "$VIRTIO_WIN"; then
     echo "$0: test skipped because fake virtio-win iso image was not created"

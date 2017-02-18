@@ -26,6 +26,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 guestfish -N rhbz503169c13.img=fs -m /dev/sda1 <<EOF
 mkdir /dev
 -command /ignore-this-error

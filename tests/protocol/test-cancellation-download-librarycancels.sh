@@ -26,6 +26,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 tmpfile=`mktemp`
 
 size=$(awk 'BEGIN{ srand(); print int(16*1024*rand()) }')

@@ -20,19 +20,19 @@
 # Test the order of added images
 
 set -e
-export LANG=C
 
-if [ ! -s ../../test-data/phony-guests/fedora.img -o ! -s ../../test-data/test.iso -o ! -s ../../test-data/phony-guests/debian.img ]; then
-    echo "$0: test skipped because there is no fedora.img nor test.iso nor debian.img"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
+skip_unless_phony_guest debian.img
+skip_unless_test_iso
 
 rm -f rhbz563450.out
 
 guestfish --ro > rhbz563450.out <<EOF
-add ../../test-data/phony-guests/fedora.img readonly:true format:raw
-add-cdrom ../../test-data/test.iso
-add ../../test-data/phony-guests/debian.img readonly:true format:raw
+add $top_builddir/test-data/phony-guests/fedora.img readonly:true format:raw
+add-cdrom $top_builddir/test-data/test.iso
+add $top_builddir/test-data/phony-guests/debian.img readonly:true format:raw
 
 run
 

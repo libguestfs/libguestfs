@@ -20,10 +20,8 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_VIRT_FORMAT_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f test-virt-format.img
 

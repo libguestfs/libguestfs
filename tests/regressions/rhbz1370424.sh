@@ -21,17 +21,10 @@
 # Handle a network disk without a port attribute.
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1370424_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
 
 guestfish <<EOF
 -add-domain rhbz1370424 \

@@ -20,14 +20,13 @@
 # This also tests: https://bugzilla.redhat.com/668574
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless_phony_guest fedora.img
 
 canonical="sed -r s,/dev/[abce-ln-z]+d,/dev/sd,g"
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support qcow2"
-    exit 77
-fi
 
 rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 
@@ -35,7 +34,8 @@ rm -f inspect-fstab-1.qcow2 inspect-fstab.fstab inspect-fstab.output
 # and then inspect it.
 guestfish -- \
   disk-create inspect-fstab-1.qcow2 qcow2 -1 \
-    backingfile:../../test-data/phony-guests/fedora.img backingformat:raw
+    backingfile:$top_builddir/test-data/phony-guests/fedora.img \
+    backingformat:raw
 
 cat <<'EOF' > inspect-fstab.fstab
 /dev/VG/Root / ext2 default 0 0

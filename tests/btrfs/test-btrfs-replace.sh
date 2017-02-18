@@ -20,17 +20,9 @@
 
 set -e
 
-# Allow the test to be skipped since btrfs is often broken.
-if [ -n "$SKIP_TEST_BTRFS_REPLACE_SH" ]; then
-    echo "$0: skipping test because environment variable is set."
-    exit 77
-fi
-
-# If btrfs is not available, bail.
-if ! guestfish -a /dev/null run : available btrfs; then
-    echo "$0: skipping test because btrfs is not available"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available btrfs
 
 rm -f test-btrfs-replace-{1,2}.img replace.output
 
@@ -44,7 +36,7 @@ mkfs-btrfs /dev/sda
 mount /dev/sda /
 
 mkdir /data
-copy-in $srcdir/../../test-data/files/filesanddirs-10M.tar.xz /data
+copy-in $top_srcdir/test-data/files/filesanddirs-10M.tar.xz /data
 
 # now, sda is btrfs while sdb is blank.
 btrfs-replace /dev/sda /dev/sdb /

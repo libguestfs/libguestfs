@@ -21,7 +21,9 @@
 # corresponding libraries.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 output=rhbz727178.output
 

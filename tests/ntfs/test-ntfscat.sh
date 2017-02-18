@@ -20,26 +20,16 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_NTFSCAT_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available ntfs3g
+skip_unless_phony_guest windows.img
 
 rm -f test-mft.bin
 
-# Skip if ntfs-3g is not supported by the appliance.
-if ! guestfish add /dev/null : run : available "ntfs3g"; then
-    echo "$0: skipped because ntfs-3g is not supported by the appliance"
-    exit 77
-fi
-
-if [ ! -s ../../test-data/phony-guests/windows.img ]; then
-    echo "$0: skipped because windows.img is zero-sized"
-    exit 77
-fi
-
-# download Master File Table ($MFT).
-guestfish --ro --format=raw -a ../../test-data/phony-guests/windows.img <<EOF
+# Download Master File Table ($MFT).
+guestfish \
+    --ro --format=raw -a $top_builddir/test-data/phony-guests/windows.img <<EOF
 run
 ntfscat-i /dev/sda2 0 test-mft.bin
 EOF

@@ -18,4 +18,10 @@
 
 set -e
 
-$VG guestfish --ro --format=raw -a ../test-data/phony-guests/fedora.img run
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
+
+$VG guestfish \
+    --ro --format=raw -a $top_builddir/test-data/phony-guests/fedora.img \
+    run

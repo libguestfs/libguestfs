@@ -18,35 +18,17 @@
 
 # Test -i ova option with ova file compressed in different ways
 
-unset CDPATH
-export LANG=C
 set -e
 
 $TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless zip --version
+skip_unless unzip --help
 
 formats="zip tar-gz tar-xz"
 
-if [ -n "$SKIP_TEST_V2V_I_OVA_FORMATS_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if ! zip --version >/dev/null 2>&1; then
-    echo "$0: test skipped because 'zip' utility is not available"
-    exit 77
-fi
-
-if ! unzip --help >/dev/null 2>&1; then
-    echo "$0: test skipped because 'unzip' utility is not available"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
-
-export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
 
 d=test-v2v-i-ova-formats.d
 rm -rf $d

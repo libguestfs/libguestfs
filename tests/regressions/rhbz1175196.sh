@@ -21,7 +21,9 @@
 # Parse 'LIBGUESTFS_TRACE=0' in the environment.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 output="$(guestfish <<EOF
 

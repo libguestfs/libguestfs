@@ -16,8 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 # Read out the test directory using virt-ls.
 if [ "$($VG virt-ls --format=raw -a ../test-data/phony-guests/fedora.img /bin)" != "ls

@@ -20,10 +20,8 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_LIST_MD_DEVICES_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 0
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 output=$(
 guestfish <<EOF

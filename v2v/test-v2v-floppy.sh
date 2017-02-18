@@ -19,37 +19,18 @@
 # Test converting a guest with a floppy disk.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1309706
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_FLOPPY_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless_phony_guest windows.img
+skip_unless_phony_guest blank-disk.img
 
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
-
-abs_builddir="$(pwd)"
 libvirt_uri="test://$abs_builddir/test-v2v-floppy.xml"
 
-f=../test-data/phony-guests/windows.img
-if ! test -f $f || ! test -s $f; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
-
-f=../test-data/phony-guests/blank-disk.img
-if ! test -f $f || ! test -s $f; then
-    echo "$0: test skipped because blank-disk.img was not created"
-    exit 77
-fi
-
-export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
-export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
+export VIRTIO_WIN="$top_srcdir/test-data/fake-virtio-win"
 
 d=test-v2v-floppy.d
 rm -rf $d

@@ -16,7 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
+$TEST_FUNCTIONS
+skip_if_skipped
 
 $VG virt-alignment-scan --format=raw -a ../test-data/phony-guests/fedora.img
 r=$?

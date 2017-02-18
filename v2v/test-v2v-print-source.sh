@@ -18,23 +18,14 @@
 
 # Test --print-source option.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_PRINT_SOURCE_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest windows.img
 
-abs_top_builddir="$(cd ..; pwd)"
 libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
-
-f=../test-data/phony-guests/windows.img
-if ! test -f $f || ! test -s $f; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
+f=$top_builddir/test-data/phony-guests/windows.img
 
 d=test-v2v-print-source.d
 rm -rf $d

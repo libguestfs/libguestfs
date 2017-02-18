@@ -18,24 +18,13 @@
 
 # Test the find-inode command.
 
-if [ -n "$SKIP_TEST_FIND_INODE_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-# Skip if TSK is not supported by the appliance.
-if ! guestfish add /dev/null : run : available "libtsk"; then
-    echo "$0: skipped because TSK is not available in the appliance"
-    exit 77
-fi
-
-if [ ! -s ../../test-data/phony-guests/windows.img ]; then
-    echo "$0: skipped because windows.img is zero-sized"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available libtsk
+skip_unless_phony_guest windows.img
 
 output=$(
-guestfish --ro -a ../../test-data/phony-guests/windows.img <<EOF
+guestfish --ro -a $top_builddir/test-data/phony-guests/windows.img <<EOF
 run
 find-inode /dev/sda2 0
 EOF

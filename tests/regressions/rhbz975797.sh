@@ -21,33 +21,17 @@
 # Ensure the appliance doesn't hang when using the 'iface' parameter.
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ975797_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-arch="$(uname -m)"
-if [[ "$arch" =~ ^arm || "$arch" = "aarch64" ]]; then
-    echo "$0: test skipped because ARM does not support 'ide' interface."
-    exit 77
-fi
-if [[ "$arch" =~ ^ppc ]]; then
-    echo "$0: test skipped because PowerPC does not support 'ide' interface."
-    exit 77
-fi
-
-backend="$(guestfish get-backend)"
-if [[ "$backend" =~ ^libvirt ]]; then
-    echo "$0: test skipped because backend ($backend) is 'libvirt'."
-    exit 77
-fi
-
-if [ "$backend" = "uml" ]; then
-    echo "$0: test skipped because uml backend does not support 'iface' param."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+# These architectures don't support the 'ide' interface.
+skip_if_arch arm
+skip_if_arch aarch64
+skip_if_arch ppc64
+skip_if_arch ppc64le
+skip_if_backend libvirt
+# UML doesn't support the 'iface' parameter.
+skip_if_backend uml
 
 rm -f rhbz975797-*.img
 

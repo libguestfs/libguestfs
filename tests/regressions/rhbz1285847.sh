@@ -20,17 +20,10 @@
 # https://bugzilla.redhat.com/1285847
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1285847_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if ! ../../resize/virt-resize --help >/dev/null 2>&1; then
-    echo "$0: test skipped because virt-resize was not built"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless virt-resize --help
 
 rm -f rhbz1285847.img rhbz1285847-2.img rhbz1285847.out
 

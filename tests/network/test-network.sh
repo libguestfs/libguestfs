@@ -21,17 +21,9 @@
 # test that the network device can be added.
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_NETWORK_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-backend="$(guestfish get-backend)"
-if [[ "$backend" =~ ^uml ]]; then
-    echo "$0: test skipped because backend ($backend) is 'uml'."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
 
 guestfish --network -a /dev/null run

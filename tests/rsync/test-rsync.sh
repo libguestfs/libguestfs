@@ -19,19 +19,12 @@
 # Test rsync by copying a local directory using an involved and
 # unrealistic method.
 
-unset CDPATH
 set -e
 
-if [ -n "$SKIP_TEST_RSYNC_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-# Check we have the rsync command.
-if ! rsync --help >/dev/null 2>&1; then
-    echo "$0: skipping test because local rsync command is not available"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless rsync --help
+skip_unless_feature_available rsync
 
 # Get host IP address.  XXX Bit of a hack.
 backend="$(guestfish get-backend)"
@@ -60,12 +53,6 @@ case "$backend" in
         exit 77
         ;;
 esac
-
-# If rsync is not available, bail.
-if ! guestfish -a /dev/null run : available rsync; then
-    echo "$0: skipping test because rsync is not available in the appliance"
-    exit 77
-fi
 
 pwd="$(pwd)"
 datadir="$(cd ../../test-data/files && pwd)"

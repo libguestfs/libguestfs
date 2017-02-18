@@ -18,14 +18,10 @@
 
 # Test --machine-readable option.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_MACHINE_READABLE_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 $VG virt-v2v --debug-gc --machine-readable > test-v2v-machine-readable.out
 grep virt-v2v test-v2v-machine-readable.out

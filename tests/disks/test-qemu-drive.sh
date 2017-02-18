@@ -17,13 +17,14 @@
 
 # Test that disks map to the correct qemu -drive parameter.
 
-export LANG=C
-
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 export LIBGUESTFS_BACKEND=direct
-export LIBGUESTFS_HV="${abs_srcdir}/debug-qemu.sh"
-export DEBUG_QEMU_FILE="${abs_builddir}/test-qemu-drive.out"
+export LIBGUESTFS_HV="$abs_srcdir/debug-qemu.sh"
+export DEBUG_QEMU_FILE="$abs_builddir/test-qemu-drive.out"
 
 function check_output ()
 {

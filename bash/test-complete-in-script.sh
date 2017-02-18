@@ -19,13 +19,8 @@
 # Test that the correct 'complete' command is included in the script.
 # Mainly prevents symlinking errors and some omissions.
 
-unset CDPATH
-export LANG=C
-
-if [ -n "$SKIP_TEST_COMPLETE_IN_SCRIPT_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 if [ -z "$commands" ]; then
     echo "$0: \$commands is not defined.  Use 'make check' to run this test."

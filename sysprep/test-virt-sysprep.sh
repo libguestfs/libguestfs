@@ -16,13 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_VIRT_SYSPREP_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 # Get a comma-separated list of the enabled-by-default operations.
 operations=$(

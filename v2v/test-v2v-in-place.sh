@@ -24,27 +24,14 @@ export LANG=C
 set -e
 
 $TEST_FUNCTIONS
-
-if [ -n "$SKIP_TEST_V2V_IN_PLACE_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
-
-abs_top_builddir="$(cd ..; pwd)"
+skip_if_skipped
+skip_if_backend uml
+skip_unless_phony_guest windows.img
 
 img_base="$abs_top_builddir/test-data/phony-guests/windows.img"
-if ! test -f $img_base || ! test -s $img_base; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
 
-export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
-export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
+export VIRTIO_WIN="$top_srcdir/test-data/fake-virtio-win"
 
 d=$PWD/test-v2v-in-place.d
 rm -rf $d

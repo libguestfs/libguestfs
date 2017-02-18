@@ -20,6 +20,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-glob.img test-glob.out
 
 $VG guestfish -N test-glob.img=disk:1G > test-glob.out <<EOF

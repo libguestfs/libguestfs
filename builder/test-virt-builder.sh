@@ -16,18 +16,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-abs_builddir=$(pwd)
+$TEST_FUNCTIONS
+skip_if_skipped
 
 export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-config"
-
-if [ -n "$SKIP_TEST_VIRT_BUILDER_SH" ]; then
-    echo "$0: skipping test because environment variable is set."
-    exit 77
-fi
 
 if [ ! -f fedora.xz ]; then
     echo "$0: test skipped because there is no fedora.xz in the build directory"

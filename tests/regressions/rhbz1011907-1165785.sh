@@ -23,12 +23,9 @@
 # of base devices (like /dev/loop-control for loopback setup)
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1011907_1165785_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f rhbz1011907-1165785-loop.img rhbz1011907-1165785.img
 

@@ -20,7 +20,9 @@
 # Test filenames containing a variety of characters.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 declare -a filenames
 filenames[0]=' '

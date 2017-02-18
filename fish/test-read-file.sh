@@ -20,15 +20,19 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_test_iso
+
 rm -f test-read-file.out
 
-$VG guestfish <<'EOF' > test-read-file.out
-add-ro ../test-data/test.iso
+$VG guestfish <<EOF > test-read-file.out
+add-ro $top_builddir/test-data/test.iso
 run
 mount-ro /dev/sda /
 read-file /helloworld.tar
 EOF
 
-cmp $srcdir/../test-data/files/helloworld.tar test-read-file.out
+cmp $top_srcdir/test-data/files/helloworld.tar test-read-file.out
 
 rm -f test-read-file.out

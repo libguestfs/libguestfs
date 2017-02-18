@@ -23,6 +23,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 # Start remote guestfish.
 eval `guestfish --listen 2>/dev/null`
 

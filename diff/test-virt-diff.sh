@@ -16,18 +16,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-if [ ! -f ../test-data/phony-guests/fedora.img ]; then
-    echo "$0: test skipped because there is no phony fedora test image"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because backend is UML"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless_phony_guest fedora.img
 
 rm -f fedora.qcow2
 

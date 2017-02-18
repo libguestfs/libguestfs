@@ -644,7 +644,9 @@ normal test.
 =item *
 
 Modify the test so it checks if the C<SLOW=1> environment variable is
-set, and if I<not> set it skips (ie. returns with exit code 77).
+set, and if I<not> set it skips (ie. returns with exit code 77).  If
+using C<$TEST_FUNCTIONS>, you can call the function C<slow_test> for
+this.
 
 =item *
 

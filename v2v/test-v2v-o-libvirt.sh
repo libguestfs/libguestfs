@@ -18,47 +18,28 @@
 
 # Test -o libvirt.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_O_LIBVIRT_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless_phony_guest fedora.img
 
 # You shouldn't be running the tests as root anyway, but in this case
 # it's especially bad because we don't want to start creating guests
 # or storage pools in the system namespace.
-if [ "$(id -u)" -eq 0 ]; then
-    echo "$0: test skipped because you're running tests as root.  Don't do that!"
-    exit 77
-fi
+skip_if_root
 
 # Since libvirt ~ 1.2.19, it started to check that the guest
 # architecture was valid at guest creation time, rather than when you
 # first run the guest.  Since the guest XML contains arch='x86_64',
 # this test will fail on !x86_64.
-if [ "$(uname -m)" != "x86_64" ]; then
-    echo "$0: test skipped because !x86_64"
-    exit 77
-fi
+skip_unless_arch x86_64
 
-abs_top_builddir="$(cd ..; pwd)"
 libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
+f=$top_builddir/test-data/phony-guests/windows.img
 
-f=../test-data/phony-guests/windows.img
-if ! test -f $f || ! test -s $f; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
-
-export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
 
 # Generate a random guest name.
 guestname=tmp-$(tr -cd 'a-f0-9' < /dev/urandom | head -c 8)

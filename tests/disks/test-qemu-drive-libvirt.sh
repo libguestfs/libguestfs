@@ -17,29 +17,11 @@
 
 # Test that disks map to the correct qemu -drive parameter.
 
-export LANG=C
-
 set -e
 
-if [ -z "$abs_srcdir" ]; then
-    echo "$0: abs_srcdir environment variable must be set"
-    exit 1
-fi
-
-if [ -z "$abs_builddir" ]; then
-    echo "$0: abs_builddir environment variable must be set"
-    exit 1
-fi
-
-if [ ! -x ../../lib/libvirt-is-version ]; then
-    echo "$0: test skipped because libvirt-is-version is not built yet"
-    exit 77
-fi
-
-if ! ../../lib/libvirt-is-version 1 1 3; then
-    echo "$0: test skipped because libvirt is too old (< 1.1.3)"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_libvirt_minimum_version 1 1 3
 
 guestfish="guestfish -c test://$abs_builddir/test-qemu-drive-libvirt.xml"
 

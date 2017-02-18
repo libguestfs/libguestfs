@@ -16,20 +16,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
-set -e
-
 # Test all the combinations of password options.
 
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support qcow2"
-    exit 77
-fi
+set -e
 
-if [ ! -s ../test-data/phony-guests/fedora.img ]; then
-    echo "$0: skipping test because there is no phony Fedora test image"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+# UML backend does not support qcow2.
+skip_if_backend uml
+skip_unless_phony_guest fedora.img
+
+f=$top_builddir/test-data/phony-guests/fedora.img
 
 # For this test to work, we need a guest with several user accounts,
 # so we fake that now.
@@ -37,7 +34,7 @@ fi
 rm -f passwords.qcow2 password
 guestfish -- \
     disk-create passwords.qcow2 qcow2 -1 \
-      backingfile:../test-data/phony-guests/fedora.img backingformat:raw
+      backingfile:$f backingformat:raw
 
 guestfish -a passwords.qcow2 -i <<'EOF'
 write-append /etc/shadow "test01::15677:0:99999:7:::\n"

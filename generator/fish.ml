@@ -1163,6 +1163,9 @@ and generate_fish_test_prep_sh () =
   pr "\
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f %s
 
 $VG guestfish \\

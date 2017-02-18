@@ -18,14 +18,10 @@
 
 # Test virt-p2v command line parsing in non-GUI mode.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_VIRT_P2V_CMDLINE_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 out=test-virt-p2v-cmdline.out
 rm -f $out

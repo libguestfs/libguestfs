@@ -16,8 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-$srcdir/../podcheck.pl virt-diff.pod virt-diff \
+$TEST_FUNCTIONS
+
+$top_srcdir/podcheck.pl virt-diff.pod virt-diff \
   --ignore=--checksums,--dir-link,--dir-nlink,--dir-nlinks,--dir-time,--extra-stat,--time,--uid,--xattr

@@ -18,23 +18,13 @@
 
 # Test virt-v2v-copy-to-local command.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_V2V_COPY_TO_LOCAL_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
 
-abs_top_builddir="$(cd ..; pwd)"
 libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
-
-f=../test-data/phony-guests/fedora.img
-if ! test -f $f || ! test -s $f; then
-    echo "$0: test skipped because phony Fedora image was not created"
-    exit 77
-fi
 
 d=test-v2v-copy-to-local.d
 rm -rf $d

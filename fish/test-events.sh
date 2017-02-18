@@ -20,6 +20,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-events.out
 
 $VG guestfish -a /dev/null <<'EOF' | grep -v get_verbose | grep -v get_trace | grep -v 'library .*0x' | grep -v 'library command' | grep -v 'get_path' > test-events.out

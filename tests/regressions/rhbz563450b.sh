@@ -20,12 +20,10 @@
 # Test only CD-ROM disk images can be added
 
 set -e
-export LANG=C
 
-if [ ! -s ../../test-data/test.iso ]; then
-    echo "$0: test skipped because there is no test.iso"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_test_iso
 
 rm -f rhbz563450b.out
 

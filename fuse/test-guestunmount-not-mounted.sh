@@ -20,27 +20,13 @@
 # Test that guestunmount returns the correct error code if
 # there is no mounted FUSE filesystem.
 
-unset CDPATH
-#set -e
-#set -v
-
-if [ -n "$SKIP_TEST_FUSE_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-if [ -n "$SKIP_TEST_GUESTUNMOUNT_NOT_MOUNTED_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-if [ ! -w /dev/fuse ]; then
-    echo "SKIPPING guestunmount test, because there is no /dev/fuse."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped "test-fuse.sh"
+skip_if_skipped
+skip_unless_fuse
 
 # Not expecting cwd to be a FUSE mountpoint.
-guestunmount --quiet $(pwd)
+guestunmount --quiet $abs_builddir
 r=$?
 case $r in
     0)

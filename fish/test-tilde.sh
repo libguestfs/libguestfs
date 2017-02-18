@@ -23,6 +23,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 # Don't rely on $HOME being set when this script is called.
 HOME=$(pwd)
 export HOME

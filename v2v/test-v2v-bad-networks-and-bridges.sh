@@ -18,17 +18,13 @@
 
 # Test detection of duplicate --network and --bridge parameters.
 
-unset CDPATH
-export LANG=C
 set -e
 set -x
 
-if [ -n "$SKIP_TEST_V2V_BAD_NETWORKS_AND_BRIDGES_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
-# We expect all of these to print an error.  NB LANG=C above.
+# We expect all of these to print an error.  NB: LANG=C is set.
 
 virt-v2v -i disk -b b1 -b b1 |& grep "duplicate -b"
 virt-v2v -i disk -n n1 -n n1 |& grep "duplicate -n"

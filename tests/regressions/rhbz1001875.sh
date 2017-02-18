@@ -21,12 +21,9 @@
 # tar-out excludes option.
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1001875_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f rhbz1001875.img rhbz1001875-[123].tar
 

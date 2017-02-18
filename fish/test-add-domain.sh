@@ -20,10 +20,11 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-add-domain-{1,2,3,4}.img
 rm -f test-add-domain.xml test-add-domain.out
-
-cwd="$(pwd)"
 
 $VG guestfish sparse test-add-domain-1.img 1M
 $VG guestfish sparse test-add-domain-2.img 1M
@@ -42,22 +43,22 @@ cat > test-add-domain.xml <<EOF
     <memory>524288</memory>
     <devices>
       <disk type="file">
-        <source file="$cwd/test-add-domain-1.img"/>
+        <source file="$abs_builddir/test-add-domain-1.img"/>
         <target dev="hda"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test-add-domain-2.img"/>
+        <source file="$abs_builddir/test-add-domain-2.img"/>
         <target dev="hdb"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="qcow2"/>
-        <source file="$cwd/test-add-domain-3.img"/>
+        <source file="$abs_builddir/test-add-domain-3.img"/>
         <target dev="hdc"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test-add-domain-4.img"/>
+        <source file="$abs_builddir/test-add-domain-4.img"/>
         <target dev="hdd"/>
         <readonly/>
       </disk>
@@ -67,7 +68,7 @@ cat > test-add-domain.xml <<EOF
 EOF
 
 $VG guestfish >test-add-domain.out <<EOF
-  domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true
+  domain guest libvirturi:test://$abs_builddir/test-add-domain.xml readonly:true
   debug-drives
 EOF
 grep -sq "test-add-domain-1.img readonly" test-add-domain.out
@@ -77,7 +78,7 @@ grep -sq "test-add-domain-3.img readonly format=qcow2" test-add-domain.out
 
 # Test readonlydisk = "ignore".
 $VG guestfish >test-add-domain.out <<EOF
-  -domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true readonlydisk:ignore
+  -domain guest libvirturi:test://$abs_builddir/test-add-domain.xml readonly:true readonlydisk:ignore
   debug-drives
 EOF
 grep -sq "test-add-domain-1.img" test-add-domain.out
@@ -89,7 +90,7 @@ grep -sq "test-add-domain-3.img" test-add-domain.out
 rm test-add-domain-3.img
 
 $VG guestfish >test-add-domain.out <<EOF
-  -domain guest libvirturi:test://$cwd/test-add-domain.xml readonly:true
+  -domain guest libvirturi:test://$abs_builddir/test-add-domain.xml readonly:true
   debug-drives
 EOF
 ! grep -sq "test-add-domain-1.img" test-add-domain.out

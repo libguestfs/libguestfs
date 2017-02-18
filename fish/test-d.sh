@@ -20,10 +20,11 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-d-{1,2,3,4}.img
 rm -f test-d.xml test-d.out
-
-cwd="$(pwd)"
 
 $VG guestfish sparse test-d-1.img 1M
 $VG guestfish sparse test-d-2.img 1M
@@ -42,22 +43,22 @@ cat > test-d.xml <<EOF
     <memory>524288</memory>
     <devices>
       <disk type="file">
-        <source file="$cwd/test-d-1.img"/>
+        <source file="$abs_builddir/test-d-1.img"/>
         <target dev="hda"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test-d-2.img"/>
+        <source file="$abs_builddir/test-d-2.img"/>
         <target dev="hdb"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="qcow2"/>
-        <source file="$cwd/test-d-3.img"/>
+        <source file="$abs_builddir/test-d-3.img"/>
         <target dev="hdc"/>
       </disk>
       <disk type="file">
         <driver name="qemu" type="raw"/>
-        <source file="$cwd/test-d-4.img"/>
+        <source file="$abs_builddir/test-d-4.img"/>
         <target dev="hdd"/>
         <readonly/>
       </disk>
@@ -66,7 +67,7 @@ cat > test-d.xml <<EOF
 </node>
 EOF
 
-$VG guestfish -c "test://$cwd/test-d.xml" --ro -d guest \
+$VG guestfish -c "test://$abs_builddir/test-d.xml" --ro -d guest \
   debug-drives </dev/null >test-d.out
 grep -sq "test-d-1.img readonly" test-d.out
 ! grep -sq "test-d-1.img.*format" test-d.out

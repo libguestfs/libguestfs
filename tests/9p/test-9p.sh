@@ -21,16 +21,9 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_9P_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-backend="$(guestfish get-backend)"
-if [[ "$backend" != "direct" ]]; then
-    echo "$0: test skipped because backend ($backend) is not 'direct'."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_backend direct
 
 # The name of the virtio-9p device is different on virtio-pci and virtio-mmio.
 arch="$(uname -m)"

@@ -16,11 +16,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-$srcdir/../podcheck.pl guestmount.pod guestmount
+$TEST_FUNCTIONS
+skip_if_skipped
+
+$top_srcdir/podcheck.pl guestmount.pod guestmount
 
 # guestunmount doesn't implement bash completion, so we cannot
 # test it at the moment. XXX
-#$srcdir/../podcheck.pl guestunmount.pod guestunmount
+#$top_srcdir/podcheck.pl guestunmount.pod guestunmount

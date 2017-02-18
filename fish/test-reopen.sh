@@ -21,6 +21,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-reopen.img
 
 $VG guestfish <<'EOF'

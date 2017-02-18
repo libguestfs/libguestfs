@@ -16,31 +16,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-abs_builddir=$(pwd)
+$TEST_FUNCTIONS
+slow_test
+skip_if_skipped
+skip_if_backend uml
 
 export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-config"
 
-if [ -z "$SLOW" ]; then
-    echo "$0: use 'make check-slow' to run this test"
-    exit 77
-fi
-
-if [ -n "$SKIP_TEST_VIRT_BUILDER_PLANNER_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
 if [ ! -f fedora.xz -o ! -f fedora.qcow2 -o ! -f fedora.qcow2.xz ]; then
     echo "$0: test skipped because there is no fedora.xz, fedora.qcow2 or fedora.qcow2.xz in the build directory"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because backend is UML"
     exit 77
 fi
 

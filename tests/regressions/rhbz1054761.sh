@@ -21,12 +21,9 @@
 # Handle broken/missing PVs gracefully.
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1054761_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f rhbz1054761-[ab].img
 

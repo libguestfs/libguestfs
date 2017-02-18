@@ -20,26 +20,15 @@
 
 set -e
 
-if [ -n "$SKIP_TEST_DOWNLOAD_BLOCKS_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available sleuthkit
+skip_unless_phony_guest blank-fs.img
 
 rm -f test-download-blocks.bin
 
-# Skip if TSK is not supported by the appliance.
-if ! guestfish add /dev/null : run : available "sleuthkit"; then
-    echo "$0: skipped because TSK is not available in the appliance"
-    exit 77
-fi
-
-if [ ! -s ../../test-data/phony-guests/blank-fs.img ]; then
-    echo "$0: skipped because blank-fs.img is zero-sized"
-    exit 77
-fi
-
-# download Master File Table ($MFT).
-guestfish --ro -a ../../test-data/phony-guests/blank-fs.img <<EOF
+# Download Master File Table ($MFT).
+guestfish --ro -a $top_builddir/test-data/phony-guests/blank-fs.img <<EOF
 run
 mount /dev/sda1 /
 write /test.txt "$foo$bar$"

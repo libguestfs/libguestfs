@@ -16,12 +16,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-$srcdir/../podcheck.pl virt-cat.pod virt-cat
-$srcdir/../podcheck.pl virt-filesystems.pod virt-filesystems
-$srcdir/../podcheck.pl virt-log.pod virt-log
-$srcdir/../podcheck.pl virt-ls.pod virt-ls \
-                       --ignore=--checksums,--extra-stat,--time,--uid
-$srcdir/../podcheck.pl virt-tail.pod virt-tail
+$TEST_FUNCTIONS
+skip_if_skipped
+
+$top_srcdir/podcheck.pl virt-cat.pod virt-cat
+$top_srcdir/podcheck.pl virt-filesystems.pod virt-filesystems
+$top_srcdir/podcheck.pl virt-log.pod virt-log
+$top_srcdir/podcheck.pl virt-ls.pod virt-ls \
+                        --ignore=--checksums,--extra-stat,--time,--uid
+$top_srcdir/podcheck.pl virt-tail.pod virt-tail

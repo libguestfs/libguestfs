@@ -16,23 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 #set -x
 
-if [ -n "$SKIP_TEST_VIRT_SYSPREP_SCRIPT_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_fuse
+skip_unless_phony_guest fedora.img
 
-if [ ! -w /dev/fuse ]; then
-    echo "$0: SKIPPING test, because there is no /dev/fuse."
-    exit 77
-fi
+f=$top_builddir/test-data/phony-guests/fedora.img
+
+# Export it down to the test scripts.
+export abs_builddir
 
 # Check that multiple scripts can run.
 rm -f stamp-script1.sh stamp-script2.sh stamp-script4.sh
-if ! virt-sysprep -q -n --format raw -a ../test-data/phony-guests/fedora.img --enable script \
+if ! virt-sysprep -q -n --format raw -a $f --enable script \
         --script $abs_srcdir/script1.sh --script $abs_srcdir/script2.sh; then
     echo "$0: virt-sysprep wasn't expected to exit with error."
     exit 1
@@ -43,19 +42,19 @@ if [ ! -f stamp-script1.sh -o ! -f stamp-script2.sh ]; then
 fi
 
 # Check that if a script fails, virt-sysprep exits with an error.
-if virt-sysprep -q -n --format raw -a ../test-data/phony-guests/fedora.img --enable script \
+if virt-sysprep -q -n --format raw -a $f --enable script \
         --script $abs_srcdir/script3.sh; then
     echo "$0: virt-sysprep didn't exit with an error."
     exit 1
 fi
 
 # Check that virt-sysprep uses a new temporary directory every time.
-if ! virt-sysprep -q -n --format raw -a ../test-data/phony-guests/fedora.img --enable script \
+if ! virt-sysprep -q -n --format raw -a $f --enable script \
         --script $abs_srcdir/script4.sh; then
     echo "$0: virt-sysprep (script4.sh, try #1) wasn't expected to exit with error."
     exit 1
 fi
-if ! virt-sysprep -q -n --format raw -a ../test-data/phony-guests/fedora.img --enable script \
+if ! virt-sysprep -q -n --format raw -a $f --enable script \
         --script $abs_srcdir/script4.sh; then
     echo "$0: virt-sysprep (script4.sh, try #2) wasn't expected to exit with error."
     exit 1

@@ -16,8 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 # Read out the test files from the image using virt-cat.
 if [ "$($VG virt-cat --format=raw -a ../test-data/phony-guests/fedora.img /etc/test1)" != "abcdefg" ]; then

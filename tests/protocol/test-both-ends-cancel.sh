@@ -22,6 +22,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 guestfish <<EOF
 scratch 100M
 run

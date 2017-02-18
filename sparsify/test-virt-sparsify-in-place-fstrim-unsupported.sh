@@ -29,19 +29,13 @@
 #
 # The reason why vfat is significant is because UEFI guests use it.
 
-export LANG=C
 set -e
 set -x
 
-if [ -n "$SKIP_TEST_VIRT_SPARSIFY_IN_PLACE_FSTRIM_UNSUPPORTED_SH" ]; then
-    echo "$0: skipping test (environment variable set)"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support discard"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+# UML does not support discard.
+skip_if_backend uml
 
 img=test-virt-sparsify-in-place-fstrim-unsupported.img
 log=test-virt-sparsify-in-place-fstrim-unsupported.log

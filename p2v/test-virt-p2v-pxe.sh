@@ -24,35 +24,16 @@
 # * networking
 # * virt-p2v in kernel command-line mode
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -z "$SLOW" ]; then
-    echo "$0: use 'make check-slow' to run this test"
-    exit 77
-fi
-
-if [ -n "$SKIP_TEST_VIRT_P2V_PXE_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
-
-if [ "$(uname -m)" != "x86_64" ]; then
-    echo "$0: test skipped because !x86_64"
-    exit 77
-fi
+$TEST_FUNCTIONS
+slow_test
+skip_if_skipped
+skip_if_backend uml
+skip_unless_arch x86_64
 
 qemu=qemu-system-x86_64
-if ! $qemu -help >/dev/null 2>&1; then
-    echo "$0: test skipped because $qemu not found"
-    exit 77
-fi
+skip_unless $qemu -help
 
 img="test-virt-p2v-pxe.img"
 if ! test -f $img; then
@@ -60,12 +41,8 @@ if ! test -f $img; then
     exit 77
 fi
 
-guestsdir="$(cd ../test-data/phony-guests && pwd)"
-f="$guestsdir/windows.img"
-if ! test -f $f; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
+skip_unless_phony_guest windows.img
+f="$top_builddir/test-data/phony-guests/windows.img"
 
 virt_tools_data_dir=${VIRT_TOOLS_DATA_DIR:-/usr/share/virt-tools}
 if ! test -r $virt_tools_data_dir/rhsrvany.exe; then

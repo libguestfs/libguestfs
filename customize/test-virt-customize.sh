@@ -16,21 +16,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 set -x
 
-if [ -n "$SKIP_TEST_VIRT_CUSTOMIZE_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
 
-f=../test-data/phony-guests/fedora.img
-if [ ! -s $f ]; then
-    echo "$0: test skipped because there is no fedora.img"
-    exit 77
-fi
-
+f=$top_builddir/test-data/phony-guests/fedora.img
 fq=test-virt-customize-img.qcow
 out=test-virt-customize.out
 rm -f $fq $out

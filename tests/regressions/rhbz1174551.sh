@@ -22,21 +22,16 @@
 # absolute ones
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1174551_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-if [ ! -s ../../test-data/phony-guests/fedora.img ]; then
-    echo "$0: test skipped because there is no fedora.img"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
 
 rm -f test.error
 
-$VG guestfish --ro --format=raw -a ../../test-data/phony-guests/fedora.img -i <<EOF 2>test.error
+$VG guestfish \
+    --ro --format=raw -a $top_builddir/test-data/phony-guests/fedora.img \
+    -i <<EOF 2>test.error
 # valid invocations
 lstatlist /etc "fedora-release sysconfig"
 lstatnslist /etc "fedora-release sysconfig"

@@ -20,6 +20,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-a.out
 rm -f test-a.img
 

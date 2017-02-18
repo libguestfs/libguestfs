@@ -19,18 +19,17 @@
 # Test the handling of MD devices specified in /etc/fstab
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_INSPECT_FSTAB_MD_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora-md1.img
+skip_unless_phony_guest fedora-md2.img
 
 rm -f inspect-fstab-md-{1,2}.img inspect-fstab-md.fstab inspect-fstab-md.output
 
 # First, test the regular fedora image, which specifies /boot as /dev/md0
-cp ../../test-data/phony-guests/fedora-md1.img inspect-fstab-md-1.img
-cp ../../test-data/phony-guests/fedora-md2.img inspect-fstab-md-2.img
+cp $top_builddir/test-data/phony-guests/fedora-md1.img inspect-fstab-md-1.img
+cp $top_builddir/test-data/phony-guests/fedora-md2.img inspect-fstab-md-2.img
 
 guestfish -i --format=raw -a inspect-fstab-md-1.img --format=raw -a inspect-fstab-md-2.img <<'EOF' | sort > inspect-fstab-md.output
   exists /boot/grub/grub.conf

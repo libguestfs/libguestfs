@@ -22,6 +22,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 guestfish \
     -N test-cancellation-upload-daemoncancels.img=fs:ext2:10M \
     -m /dev/sda1 <<'EOF'

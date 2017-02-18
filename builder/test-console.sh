@@ -24,19 +24,11 @@
 # The script currently assumes a Linux guest.  We should test Windows,
 # FreeBSD in future (XXX).
 
-export LANG=C
 set -e
 
-if [ -z "$SLOW" ]; then
-    echo "$script: use 'make check-slow' to run this test"
-    exit 77
-fi
-
-skipenv="$(echo SKIP_$script | tr a-z.- A-Z__)"
-if [ -n "${!skipenv}" ]; then
-    echo "$script: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+slow_test
+skip_if_skipped "$script"
 
 guestname="$1"
 if [ -z "$guestname" ]; then
@@ -46,23 +38,14 @@ fi
 
 # If the guest doesn't exist in virt-builder, skip.  This is because
 # we test some RHEL guests which most users won't have access to.
-if ! virt-builder -l "$guestname" >/dev/null 2>&1; then
-    echo "$script: test skipped because \"$guestname\" not known to virt-builder."
-    exit 77
-fi
+skip_unless_virt_builder_guest "$guestname"
 
 # We can only run the tests on x86_64.
-if [ "$(uname -m)" != "x86_64" ]; then
-    echo "$script: test skipped because !x86_64."
-    exit 77
-fi
+skip_unless_arch x86_64
 
 # Check qemu is installed.
 qemu=qemu-system-x86_64
-if ! $qemu -help >/dev/null 2>&1; then
-    echo "$script: test skipped because $qemu not found."
-    exit 77
-fi
+skip_unless $qemu -help
 
 # Some guests need special virt-builder parameters.
 # See virt-builder --notes "$guestname"

@@ -20,16 +20,9 @@
 
 set -e
 
-[ -n "$SKIP_TEST_LUKS_SH" ] && {
-    echo "test-luks.sh skipped (environment variable set)"
-    exit 77
-}
-
-# If luks is not available, bail.
-if ! guestfish -a /dev/null run : available luks; then
-    echo "$0: skipping test because luks is not available"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_feature_available luks
 
 rm -f test-luks.img
 

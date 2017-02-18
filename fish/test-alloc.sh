@@ -20,6 +20,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-alloc.img
 
 $VG guestfish alloc test-alloc.img 200000

@@ -21,17 +21,16 @@
 # in the guestfish instance we append to the file, and we check that
 # the addenda are displayed by virt-tail.
 
-export LANG=C
 set -e
 set -x
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 # Libvirt screws with the SELinux labels, preventing guestfish from
 # continuing to write to the original disk.  Therefore only run this
 # test when using direct access.
-if [ "$(guestfish get-backend)" != "direct" ]; then
-    echo "$0: test skipped because default backend is not 'direct'"
-    exit 77
-fi
+skip_unless_backend direct
 
 out=test-virt-tail.out
 disk=test-virt-tail.disk

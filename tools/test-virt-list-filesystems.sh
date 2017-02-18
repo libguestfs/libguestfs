@@ -16,12 +16,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
+
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
 
 # Run virt-list-filesystems.
 # Only columns 1 & 2 are guaranteed, we may add more in future.
-if [ "$($srcdir/virt-list-filesystems --format=raw -l ../test-data/phony-guests/fedora.img |
+if [ "$($srcdir/virt-list-filesystems \
+            --format=raw -l \
+            $top_builddir/test-data/phony-guests/fedora.img |
         sort | awk '{print $1 $2}')" \
     != \
 "/dev/VG/LV1ext2

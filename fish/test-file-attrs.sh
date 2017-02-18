@@ -19,7 +19,9 @@
 # Test guestfish file attributes commands (chmod, copy-attributes, etc).
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f test-file-attrs.out
 

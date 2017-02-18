@@ -20,6 +20,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test.output test.error test.error.old
 
 $VG guestfish <<'EOF' 2>test.error | od -b > test.output

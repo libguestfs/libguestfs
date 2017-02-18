@@ -18,38 +18,19 @@
 
 # Test virt-p2v in non-GUI mode using nbdkit instead of qemu-nbd.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_VIRT_P2V_NBDKIT_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless nbdkit file --version
+skip_unless_phony_guest windows.img
+skip_unless_phony_guest blank-part.img
 
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because UML backend does not support network"
-    exit 77
-fi
+f1="$abs_top_builddir/test-data/phony-guests/windows.img"
+f2="$abs_top_builddir/test-data/phony-guests/blank-part.img"
 
-if ! nbdkit file --version; then
-    echo "$0: test skipped because nbdkit file plugin is not installed or not working"
-    exit 77
-fi
-
-guestsdir="$(cd ../test-data/phony-guests && pwd)"
-f1="$guestsdir/windows.img"
-if ! test -f $f1 || ! test -s $f1; then
-    echo "$0: test skipped because phony Windows image was not created"
-    exit 77
-fi
-f2="$guestsdir/blank-part.img"
-if ! test -f $f2 || ! test -s $f2; then
-    echo "$0: test skipped because blank-part.img was not created"
-    exit 77
-fi
-
-export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
+export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
 
 d=test-virt-p2v-nbdkit.d
 rm -rf $d

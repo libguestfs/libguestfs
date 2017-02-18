@@ -18,26 +18,16 @@
 
 # Test that trimming doesn't regress.  Suggested by Ming Xie in
 # https://bugzilla.redhat.com/show_bug.cgi?id=1264332
+#
+# Note: This test is expected to fail on NFS, we should automatically
+# skip in that case (XXX - how?).
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -z "$SLOW" ]; then
-    echo "$0: use 'make check-slow' to run this test"
-    exit 77
-fi
-
-# This test is expected to fail on NFS.
-if [ -n "$SKIP_TEST_V2V_TRIM_SH" ]; then
-    echo "$0: test skipped because environment variable is set"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support discard"
-    exit 77
-fi
+$TEST_FUNCTIONS
+slow_test
+skip_if_skipped
+skip_if_backend uml
 
 d=test-v2v-trim.d
 rm -rf $d

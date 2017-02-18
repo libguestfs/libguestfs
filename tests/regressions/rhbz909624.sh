@@ -24,12 +24,10 @@
 # libguestfs).
 
 set -e
-export LANG=C
 
-if [ -z "$SLOW" ]; then
-    echo "$0: use 'make check-slow' to run this test"
-    exit 77
-fi
+$TEST_FUNCTIONS
+slow_test
+skip_if_skipped
 
 guestfish <<EOF
 

@@ -21,6 +21,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 # Memory size
 output=$(
 $VG guestfish <<EOF

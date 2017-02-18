@@ -21,12 +21,9 @@
 # tar-in API didn't cancel the receive correctly along all error paths.
 
 set -e
-export LANG=C
 
-if [ -n "$SKIP_TEST_RHBZ1091803_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
 guestfish <<EOF
 scratch 100M

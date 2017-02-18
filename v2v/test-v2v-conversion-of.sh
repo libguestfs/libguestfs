@@ -18,19 +18,12 @@
 
 # Test virt-v2v on real guests.
 
-unset CDPATH
-export LANG=C
 set -e
 
-if [ -z "$SLOW" ]; then
-    echo "$script: use 'make check-slow' to run this test"
-    exit 77
-fi
-
-if [ -n "$SKIP_TEST_V2V_CONVERSION_OF_SH" ]; then
-    echo "$script: test skipped because environment variable is set"
-    exit 77
-fi
+$TEST_FUNCTIONS
+slow_test
+skip_if_skipped "$script"
+skip_unless_arch x86_64
 
 guestname="$1"
 if [ -z "$guestname" ]; then
@@ -49,12 +42,6 @@ mkdir "$os"
 # we test some RHEL guests which most users won't have access to.
 if ! virt-builder -l "$guestname" >/dev/null 2>&1; then
     echo "$script: test skipped because \"$guestname\" not known to virt-builder."
-    exit 77
-fi
-
-# We can only run the tests on x86_64.
-if [ "$(uname -m)" != "x86_64" ]; then
-    echo "$script: test skipped because !x86_64."
     exit 77
 fi
 

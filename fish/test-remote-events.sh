@@ -20,6 +20,9 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 eval "$(guestfish --listen)"
 
 $VG guestfish --remote event close_event close "echo closed"

@@ -22,6 +22,9 @@
 set -e
 set -x
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 t=./getopt_tests
 
 expect_fail ()

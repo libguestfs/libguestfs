@@ -18,10 +18,10 @@
 
 # Test the virt-builder --list [--long] options.
 
-export LANG=C
 set -e
 
-abs_builddir=$(pwd)
+$TEST_FUNCTIONS
+skip_if_skipped
 
 export XDG_CONFIG_HOME=
 export XDG_CONFIG_DIRS="$abs_builddir/test-config"

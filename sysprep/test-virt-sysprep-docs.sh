@@ -16,10 +16,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-$srcdir/../podcheck.pl virt-sysprep.pod virt-sysprep \
+$TEST_FUNCTIONS
+skip_if_skipped
+
+$top_srcdir/podcheck.pl virt-sysprep.pod virt-sysprep \
     --insert sysprep-extra-options.pod:__EXTRA_OPTIONS__ \
     --insert sysprep-operations.pod:__OPERATIONS__ \
     --ignore=--dryrun,--dump-pod,--dump-pod-options,--no-selinux-relabel

@@ -21,8 +21,11 @@
 # "guestfish number parsing should not use atoi, should support '0...' for octal and '0x...' for hexadecimal"
 
 set -e
+
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f rhbz557655.out rhbz557655.err
-export LANG=C
 
 guestfish >> rhbz557655.out 2>> rhbz557655.err <<EOF
 # set-memsize is just a convenient non-daemon function that

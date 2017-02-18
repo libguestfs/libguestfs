@@ -19,34 +19,15 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=838592
 # This tests that the --pid-file option can be used to fix the race.
 
-unset CDPATH
 set -e
-#set -v
 
-if [ -n "$SKIP_TEST_FUSE_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-if [ -n "$SKIP_TEST_FUSE_UMOUNT_RACE_SH" ]; then
-    echo "$0: test skipped because environment variable is set."
-    exit 77
-fi
-
-if [ ! -w /dev/fuse ]; then
-    echo "$0: test skipped because there is no /dev/fuse."
-    exit 77
-fi
-
-if [ ! -f ../test-data/phony-guests/fedora.img ]; then
-    echo "$0: test skipped because fedora.img test guest does not exist."
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: test skipped because uml backend does not support qcow2"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped "test-fuse.sh"
+skip_if_skipped
+skip_unless_phony_guest fedora.img
+# UML backend does not support qcow2.
+skip_if_backend uml
+skip_unless_fuse
 
 rm -f test.qcow2 test-copy.qcow2 test.pid
 rm -rf mp

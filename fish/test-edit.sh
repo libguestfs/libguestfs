@@ -18,6 +18,11 @@
 
 # Test guestfish edit command.
 
+set -e
+
+$TEST_FUNCTIONS
+skip_if_skipped
+
 # This test fails on some versions of mock which lack /dev/fd
 # directory.  Skip this test in that case.
 
@@ -25,8 +30,6 @@ test -d /dev/fd || {
     echo "$0: Skipping this test because /dev/fd is missing."
     exit 77
 }
-
-set -e
 
 rm -f test-edit.img
 

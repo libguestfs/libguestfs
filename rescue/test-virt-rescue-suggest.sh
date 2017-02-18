@@ -16,15 +16,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-guest=../test-data/phony-guests/fedora.img
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_phony_guest fedora.img
 
-if [ ! -s "$guest" ]; then
-    echo "$0: test skipped because $guest does not exist or is an empty file"
-    exit 77
-fi
+guest="$top_builddir/test-data/phony-guests/fedora.img"
 
 rm -f virt-rescue-suggest.out
 

@@ -20,7 +20,9 @@
 # Fix part-get-bootable to work with missing/unordered partitions.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
 
 rm -f test.output
 

@@ -16,18 +16,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_VIRT_SPARSIFY_IN_PLACE_SH" ]; then
-    echo "$0: skipping test (environment variable set)"
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support discard"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+# UML does not support discard.
+skip_if_backend uml
 
 rm -f test-virt-sparsify-in-place.img
 

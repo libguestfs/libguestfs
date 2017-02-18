@@ -20,10 +20,9 @@
 
 set -e
 
-if [ "$(guestfish get-backend)" != "direct" ]; then
-    echo "$0: test skipped because default backend is not 'direct'"
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_backend direct
 
 rm -f qemudie-midcommand.pid
 

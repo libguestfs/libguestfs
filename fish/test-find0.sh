@@ -20,10 +20,14 @@
 
 set -e
 
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_test_iso
+
 rm -f test-find0.out
 
-$VG guestfish <<'EOF'
-add-ro ../test-data/test.iso
+$VG guestfish <<EOF
+add-ro $top_builddir/test-data/test.iso
 run
 mount-ro /dev/sda /
 find0 / test-find0.out

@@ -17,26 +17,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 set -e
-export LANG=C
+
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_if_backend uml
+skip_unless_feature_available btrfs
 
 canonical="sed s,/dev/vd,/dev/sd,g"
-
-# Allow the test to be skipped since btrfs is often broken.
-if [ -n "$SKIP_TEST_MOUNTABLE_INSPECT_SH" ]; then
-    echo "$0: skipping test because environment variable is set."
-    exit 77
-fi
-
-if [ "$(guestfish get-backend)" = "uml" ]; then
-    echo "$0: skipping test because uml backend does not support qcow2"
-    exit 77
-fi
-
-# Bail if btrfs is not available.
-if ! guestfish -a /dev/null run : available btrfs; then
-    echo "$0: skipping test because btrfs is not available"
-    exit 77
-fi
 
 rm -f root.tmp test.qcow2 test.output
 

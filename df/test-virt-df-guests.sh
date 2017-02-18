@@ -18,15 +18,11 @@
 
 # Run virt-df on the test guests.
 
-export LANG=C
 set -e
 
-if [ -n "$SKIP_TEST_VIRT_DF_GUESTS_SH" ]; then
-    echo "$0: skipping test because SKIP_TEST_DF_GUESTS_SH is set."
-    exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
 
-guestsdir="$(cd ../test-data/phony-guests && pwd)"
-libvirt_uri="test://$guestsdir/guests.xml"
+libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests.xml"
 
 $VG virt-df -c "$libvirt_uri"

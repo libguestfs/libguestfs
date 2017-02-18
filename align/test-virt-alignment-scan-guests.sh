@@ -16,15 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-export LANG=C
+$TEST_FUNCTIONS
+skip_if_skipped
 
-if [ -n "$SKIP_TEST_VIRT_ALIGNMENT_SCAN_GUESTS_SH" ]; then
-    echo "$0: skipping test because SKIP_TEST_VIRT_ALIGNMENT_SCAN_GUESTS_SH is set."
-    exit 77
-fi
-
-guestsdir="$(cd ../test-data/phony-guests && pwd)"
-libvirt_uri="test://$guestsdir/guests-all-good.xml"
+libvirt_uri="test://$abs_top_builddir/test-data/phony-guests/guests-all-good.xml"
 
 $VG virt-alignment-scan -c "$libvirt_uri"
 r=$?

@@ -21,6 +21,9 @@
 set -e
 set -x
 
+$TEST_FUNCTIONS
+skip_if_skipped
+
 rm -f test-add-uri.out
 rm -f test-add-uri.img
 
@@ -34,7 +37,7 @@ function fail ()
 }
 
 # file:// URI should be handled exactly like a regular file.
-$VG guestfish -x -a file://$(pwd)/test-add-uri.img </dev/null >test-add-uri.out 2>&1
+$VG guestfish -x -a file://$abs_builddir/test-add-uri.img </dev/null >test-add-uri.out 2>&1
 grep -sq 'add_drive ".*/test-add-uri.img"' test-add-uri.out || fail
 
 # curl
