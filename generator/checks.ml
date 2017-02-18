@@ -22,6 +22,7 @@ open Common_utils
 open Types
 open Utils
 open Actions
+open Fish_commands
 
 (* Check function names etc. for consistency. *)
 let () =

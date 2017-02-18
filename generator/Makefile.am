@@ -67,6 +67,8 @@ sources = \
 	events.mli \
 	fish.ml \
 	fish.mli \
+	fish_commands.ml \
+	fish_commands.mli \
 	GObject.ml \
 	GObject.mli \
 	golang.ml \
@@ -127,6 +129,7 @@ objects = \
 	actions_tsk.cmo \
 	actions.cmo \
 	structs.cmo \
+	fish_commands.cmo \
 	optgroups.cmo \
 	prepopts.cmo \
 	events.cmo \

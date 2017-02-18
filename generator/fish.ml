@@ -31,6 +31,7 @@ open Structs
 open Prepopts
 open C
 open Events
+open Fish_commands
 
 let generate_header = generate_header ~inputs:["generator/fish.ml"]
 
