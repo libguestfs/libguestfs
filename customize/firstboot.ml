@@ -313,10 +313,7 @@ echo uninstalling firstboot service
     g#write (firstboot_dir // "firstboot.bat") (unix2dos firstboot_script);
 
     (* Open the SYSTEM hive. *)
-    let systemroot = g#inspect_get_windows_systemroot root in
-    let filename = sprintf "%s/system32/config/SYSTEM" systemroot in
-    let filename = g#case_sensitive_path filename in
-    Registry.with_hive_write g filename
+    Registry.with_hive_write g (g#inspect_get_windows_system_hive root)
       (fun reg ->
         let current_cs = g#inspect_get_windows_current_control_set root in
 

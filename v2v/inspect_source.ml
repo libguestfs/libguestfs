@@ -70,13 +70,15 @@ let rec inspect_source root_choice g =
   (* If the guest is Windows, get some Windows-specific inspection
    * data, else (for simplicity when accessing) use empty strings.
    *)
-  let systemroot, current_cs =
+  let systemroot, software_hive, system_hive, current_cs =
     match typ with
     | "windows" ->
        g#inspect_get_windows_systemroot root,
+       g#inspect_get_windows_software_hive root,
+       g#inspect_get_windows_system_hive root,
        g#inspect_get_windows_current_control_set root
     | _ ->
-       "", "" in
+       "", "", "", "" in
 
   let inspect = {
     i_root = root;
@@ -94,6 +96,8 @@ let rec inspect_source root_choice g =
     i_apps_map = apps_map;
     i_firmware = get_firmware_bootable_device g;
     i_windows_systemroot = systemroot;
+    i_windows_software_hive = software_hive;
+    i_windows_system_hive = system_hive;
     i_windows_current_control_set = current_cs;
   } in
   debug "%s" (string_of_inspect inspect);

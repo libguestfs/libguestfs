@@ -68,25 +68,12 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
       None
     ) in
 
-  (* Get the software and system hive files. *)
-  let software_hive_filename =
-    let filename = sprintf "%s/system32/config/software"
-                           inspect.i_windows_systemroot in
-    let filename = g#case_sensitive_path filename in
-    filename in
-
-  let system_hive_filename =
-    let filename = sprintf "%s/system32/config/system"
-                           inspect.i_windows_systemroot in
-    let filename = g#case_sensitive_path filename in
-    filename in
-
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
   (* If the Windows guest appears to be using group policy. *)
   let has_group_policy =
-    Registry.with_hive_readonly g software_hive_filename
+    Registry.with_hive_readonly g inspect.i_windows_software_hive
       (fun reg ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion";
@@ -129,7 +116,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let xenpv_uninst =
     let xenpvreg = "Red Hat Paravirtualized Xen Drivers for Windows(R)" in
 
-    Registry.with_hive_readonly g software_hive_filename
+    Registry.with_hive_readonly g inspect.i_windows_software_hive
       (fun reg ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall";
@@ -170,7 +157,7 @@ let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
   let prltools_uninsts =
     let uninsts = ref [] in
 
-    Registry.with_hive_readonly g software_hive_filename
+    Registry.with_hive_readonly g inspect.i_windows_software_hive
       (fun reg ->
        try
          let path = ["Microsoft"; "Windows"; "CurrentVersion"; "Uninstall"] in
@@ -273,20 +260,22 @@ reg delete \"%s\" /v %s /f" strkey name
           let key_path = ["Policies"; "Microsoft"; "Windows"; "DeviceInstall";
                           "Settings"] in
           let name = "SuppressNewHWUI" in
-          let value = Registry.with_hive_write g software_hive_filename (
-            fun reg -> set_reg_val_dword_1 reg key_path name
-          ) in
+          let value =
+            Registry.with_hive_write g inspect.i_windows_software_hive (
+              fun reg -> set_reg_val_dword_1 reg key_path name
+            ) in
           reg_restore ("HKLM\\Software" :: key_path) name value
 
         (* WinXP 64bit / Win2k3 *)
         | 5, 2 ->
           let key_path = ["Services"; "PlugPlay"; "Parameters"] in
           let name = "SuppressUI" in
-          let value = Registry.with_hive_write g system_hive_filename (
-            fun reg ->
-              let path = inspect.i_windows_current_control_set :: key_path in
-              set_reg_val_dword_1 reg path name
-          ) in
+          let value =
+            Registry.with_hive_write g inspect.i_windows_system_hive (
+              fun reg ->
+                let path = inspect.i_windows_current_control_set :: key_path in
+                set_reg_val_dword_1 reg path name
+            ) in
           reg_restore ("HKLM\\SYSTEM\\CurrentControlSet" :: key_path) name
                       value
 
@@ -623,10 +612,12 @@ if errorlevel 3010 exit /b 0
 
   (* Open the system hive for writes and update it. *)
   let block_driver, net_driver, video_driver =
-    Registry.with_hive_write g system_hive_filename update_system_hive in
+    Registry.with_hive_write g inspect.i_windows_system_hive
+                             update_system_hive in
 
   (* Open the software hive for writes and update it. *)
-  Registry.with_hive_write g software_hive_filename update_software_hive;
+  Registry.with_hive_write g inspect.i_windows_software_hive
+                           update_software_hive;
 
   fix_ntfs_heads ();
 

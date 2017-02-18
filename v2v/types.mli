@@ -231,6 +231,8 @@ type inspect = {
     (** The list of EFI system partitions for the guest with UEFI,
         otherwise the BIOS identifier. *)
   i_windows_systemroot : string;
+  i_windows_software_hive : string;
+  i_windows_system_hive : string;
   i_windows_current_control_set : string;
 }
 (** Inspection information. *)

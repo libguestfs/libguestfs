@@ -325,6 +325,8 @@ type inspect = {
   i_apps_map : Guestfs.application2 list StringMap.t;
   i_firmware : i_firmware;
   i_windows_systemroot : string;
+  i_windows_software_hive : string;
+  i_windows_system_hive : string;
   i_windows_current_control_set : string;
 }
 
@@ -342,6 +344,8 @@ i_product_name = %s
 i_product_variant = %s
 i_firmware = %s
 i_windows_systemroot = %s
+i_windows_software_hive = %s
+i_windows_system_hive = %s
 i_windows_current_control_set = %s
 " inspect.i_root
   inspect.i_type
@@ -357,6 +361,8 @@ i_windows_current_control_set = %s
    | I_BIOS -> "BIOS"
    | I_UEFI devices -> sprintf "UEFI [%s]" (String.concat ", " devices))
   inspect.i_windows_systemroot
+  inspect.i_windows_software_hive
+  inspect.i_windows_system_hive
   inspect.i_windows_current_control_set
 
 type mpstat = {

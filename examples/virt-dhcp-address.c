@@ -203,9 +203,8 @@ print_dhcp_address_windows (guestfs_h *g, char *root_fs)
   size_t i;
   char *p;
 
-  /* Locate the SYSTEM hive case-sensitive path. */
-  system_path =
-    guestfs_case_sensitive_path (g, "/windows/system32/config/system");
+  /* Locate the SYSTEM hive. */
+  system_path = guestfs_inspect_get_windows_system_hive (g, root_fs);
   if (!system_path)
     exit (EXIT_FAILURE);
 

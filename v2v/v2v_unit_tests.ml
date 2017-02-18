@@ -31,7 +31,9 @@ let inspect_defaults = {
   i_root = ""; i_package_format = ""; i_package_management = "";
   i_product_name = ""; i_product_variant = ""; i_mountpoints = [];
   i_apps = []; i_apps_map = StringMap.empty; i_firmware = I_BIOS;
-  i_windows_systemroot = ""; i_windows_current_control_set = "";
+  i_windows_systemroot = "";
+  i_windows_software_hive = ""; i_windows_system_hive = "";
+  i_windows_current_control_set = "";
 }
 
 let test_get_ostype ctx =
