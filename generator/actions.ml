@@ -5563,11 +5563,10 @@ C<device>." };
     style = RErr, [Device "device"; String "uuid"], [];
     proc_nr = Some 82;
     deprecated_by = Some "set_uuid";
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitBasicFS, Always, TestResultString (
-          [["set_e2uuid"; "/dev/sda1"; uuid];
-           ["get_e2uuid"; "/dev/sda1"]], uuid), [];
+          [["set_e2uuid"; "/dev/sda1"; stable_uuid];
+           ["get_e2uuid"; "/dev/sda1"]], stable_uuid), [];
         InitBasicFS, Always, TestResultString (
           [["set_e2uuid"; "/dev/sda1"; "clear"];
            ["get_e2uuid"; "/dev/sda1"]], ""), [];
@@ -5577,7 +5576,7 @@ C<device>." };
           [["set_e2uuid"; "/dev/sda1"; "random"]]), [];
         InitBasicFS, Always, TestRun (
           [["set_e2uuid"; "/dev/sda1"; "time"]]), []
-      ]);
+      ];
     shortdesc = "set the ext2/3/4 filesystem UUID";
     longdesc = "\
 This sets the ext2/3/4 filesystem UUID of the filesystem on
@@ -6595,7 +6594,7 @@ the command C<mount -o loop file mountpoint>." };
     style = RErr, [Device "device"], [OString "label"; OString "uuid"];
     proc_nr = Some 130;
     once_had_no_optargs = true;
-    tests = (let uuid = uuidgen () in [
+    tests = [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
          ["mkswap"; "/dev/sda1"; "NOARG"; "NOARG"]]), [];
@@ -6604,13 +6603,13 @@ the command C<mount -o loop file mountpoint>." };
          ["mkswap"; "/dev/sda1"; "hello"; "NOARG"]]), [];
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkswap"; "/dev/sda1"; "NOARG"; uuid];
-         ["vfs_uuid"; "/dev/sda1"]], uuid), [];
+         ["mkswap"; "/dev/sda1"; "NOARG"; stable_uuid];
+         ["vfs_uuid"; "/dev/sda1"]], stable_uuid), [];
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
-         ["mkswap"; "/dev/sda1"; "hello"; uuid];
+         ["mkswap"; "/dev/sda1"; "hello"; stable_uuid];
          ["vfs_label"; "/dev/sda1"]], "hello"), []
-    ]);
+    ];
     shortdesc = "create a swap partition";
     longdesc = "\
 Create a Linux swap partition on C<device>.
@@ -6642,12 +6641,11 @@ a limitation of the kernel or swap tools." };
     proc_nr = Some 132;
     deprecated_by = Some "mkswap";
     optional = Some "linuxfsuuid";
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitEmpty, Always, TestRun (
           [["part_disk"; "/dev/sda"; "mbr"];
-           ["mkswap_U"; uuid; "/dev/sda1"]]), []
-      ]);
+           ["mkswap_U"; stable_uuid; "/dev/sda1"]]), []
+      ];
     shortdesc = "create a swap partition with an explicit UUID";
     longdesc = "\
 Create a swap partition on C<device> with UUID C<uuid>." };
@@ -7479,13 +7477,12 @@ labeled swap partition." };
     style = RErr, [String "uuid"], [];
     proc_nr = Some 176;
     optional = Some "linuxfsuuid";
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitEmpty, Always, TestRun (
-          [["mkswap"; "/dev/sdc"; "NOARG"; uuid];
-           ["swapon_uuid"; uuid];
-           ["swapoff_uuid"; uuid]]), []
-      ]);
+          [["mkswap"; "/dev/sdc"; "NOARG"; stable_uuid];
+           ["swapon_uuid"; stable_uuid];
+           ["swapoff_uuid"; stable_uuid]]), []
+      ];
     shortdesc = "enable swap on swap partition by UUID";
     longdesc = "\
 This command enables swap to a swap partition with the given UUID.
@@ -7753,18 +7750,17 @@ This creates an ext2 external journal on C<device> with label C<label>." };
     proc_nr = Some 190;
     deprecated_by = Some "mke2fs";
     optional = Some "linuxfsuuid";
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitEmpty, Always, TestResultString (
           [["part_init"; "/dev/sda"; "mbr"];
            ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
            ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
-           ["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
-           ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
+           ["mke2journal_U"; "4096"; stable_uuid; "/dev/sda1"];
+           ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; stable_uuid];
            ["mount"; "/dev/sda2"; "/"];
            ["write"; "/new"; "new file contents"];
            ["cat"; "/new"]], "new file contents"), []
-      ]);
+      ];
     shortdesc = "make ext2/3/4 external journal with UUID";
     longdesc = "\
 This creates an ext2 external journal on C<device> with UUID C<uuid>." };
@@ -9037,12 +9033,11 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
     style = RString "uuid", [Mountable "mountable"], [];
     fish_alias = ["get-uuid"];
     proc_nr = Some 254;
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitBasicFS, Always, TestResultString (
-          [["set_e2uuid"; "/dev/sda1"; uuid];
-           ["vfs_uuid"; "/dev/sda1"]], uuid), []
-      ]);
+          [["set_e2uuid"; "/dev/sda1"; stable_uuid];
+           ["vfs_uuid"; "/dev/sda1"]], stable_uuid), []
+      ];
     shortdesc = "get the filesystem UUID";
     longdesc = "\
 This returns the filesystem UUID of the filesystem on C<mountable>.
@@ -11229,8 +11224,7 @@ with zeroes)." };
     style = RErr, [Device "device"], [OBool "extunwritten"; OBool "imgfile"; OBool "v2log"; OBool "projid32bit"; OBool "lazycounter"; OString "label"; OString "uuid"];
     proc_nr = Some 349;
     optional = Some "xfs";
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitEmpty, Always, TestResult (
           [["part_disk"; "/dev/sda"; "mbr"];
            ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
@@ -11240,14 +11234,14 @@ with zeroes)." };
         InitEmpty, Always, TestResultString (
           [["part_disk"; "/dev/sda"; "mbr"];
            ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
-           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; ""; "NOARG"; uuid];
-           ["vfs_uuid"; "/dev/sda1"]], uuid), [];
+           ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; ""; "NOARG"; stable_uuid];
+           ["vfs_uuid"; "/dev/sda1"]], stable_uuid), [];
         InitEmpty, Always, TestResultString (
           [["part_disk"; "/dev/sda"; "mbr"];
            ["mkfs"; "xfs"; "/dev/sda1"; ""; "NOARG"; ""; ""; "NOARG"];
            ["xfs_admin"; "/dev/sda1"; ""; ""; ""; ""; ""; "LBL-TEST"; "NOARG"];
            ["vfs_label"; "/dev/sda1"]], "LBL-TEST"), [];
-      ]);
+      ];
     shortdesc = "change parameters of an XFS filesystem";
     longdesc = "\
 Change the parameters of the XFS filesystem on C<device>.
@@ -11528,9 +11522,7 @@ or C<guestfs_rm_rf> to remove directories recursively." };
     name = "mke2fs"; added = (1, 19, 44);
     style = RErr, [Device "device"], [OInt64 "blockscount"; OInt64 "blocksize"; OInt64 "fragsize"; OInt64 "blockspergroup"; OInt64 "numberofgroups"; OInt64 "bytesperinode"; OInt64 "inodesize"; OInt64 "journalsize"; OInt64 "numberofinodes"; OInt64 "stridesize"; OInt64 "stripewidth"; OInt64 "maxonlineresize"; OInt "reservedblockspercentage"; OInt "mmpupdateinterval"; OString "journaldevice"; OString "label"; OString "lastmounteddir"; OString "creatoros"; OString "fstype"; OString "usagetype"; OString "uuid"; OBool "forcecreate"; OBool "writesbandgrouponly"; OBool "lazyitableinit"; OBool "lazyjournalinit"; OBool "testfs"; OBool "discard"; OBool "quotatype";  OBool "extent"; OBool "filetype"; OBool "flexbg"; OBool "hasjournal"; OBool "journaldev"; OBool "largefile"; OBool "quota"; OBool "resizeinode"; OBool "sparsesuper"; OBool "uninitbg"];
     proc_nr = Some 368;
-    tests =
-      (let uuid = uuidgen () in
-       let uuid_s = "UUID=" ^ uuid in [
+    tests = [
          InitEmpty, Always, TestResultString (
            [["part_init"; "/dev/sda"; "mbr"];
             ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
@@ -11585,13 +11577,13 @@ or C<guestfs_rm_rf> to remove directories recursively." };
              ""; ""; ""; ""; "";
              ""; ""; ""; ""; "NOARG";
              "NOARG"; "NOARG"; "NOARG"; "NOARG"; "NOARG";
-             uuid; ""; ""; ""; "";
+             stable_uuid; ""; ""; ""; "";
              ""; ""; ""; ""; "";
              ""; ""; "true"; ""; "";
              ""; ""; ""];
             ["mke2fs"; "/dev/sda2"; ""; "4096"; ""; ""; "";
              ""; ""; ""; ""; "";
-             ""; ""; ""; ""; uuid_s;
+             ""; ""; ""; ""; "UUID=" ^ stable_uuid;
              "JOURNAL"; "NOARG"; "NOARG"; "ext2"; "NOARG";
              "NOARG"; "true"; ""; ""; "";
              ""; ""; ""; ""; "";
@@ -11600,7 +11592,7 @@ or C<guestfs_rm_rf> to remove directories recursively." };
             ["mount"; "/dev/sda2"; "/"];
             ["write"; "/new"; "new file contents"];
             ["cat"; "/new"]], "new file contents"), []
-       ]);
+      ];
     shortdesc = "create an ext2/ext3/ext4 filesystem on device";
     (* XXX document optional args properly *)
     longdesc = "\
@@ -12217,12 +12209,11 @@ parameter.  In future we may allow other flags to be adjusted." };
     name = "set_uuid"; added = (1, 23, 10);
     style = RErr, [Device "device"; String "uuid"], [];
     proc_nr = Some 403;
-    tests =
-      (let uuid = uuidgen () in [
+    tests = [
         InitBasicFS, Always, TestResultString (
-          [["set_uuid"; "/dev/sda1"; uuid];
-           ["vfs_uuid"; "/dev/sda1"]], uuid), [];
-      ]);
+          [["set_uuid"; "/dev/sda1"; stable_uuid];
+           ["vfs_uuid"; "/dev/sda1"]], stable_uuid), [];
+      ];
     shortdesc = "set the filesystem UUID";
     longdesc = "\
 Set the filesystem UUID on C<device> to C<uuid>.

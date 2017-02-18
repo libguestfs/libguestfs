@@ -31,8 +31,8 @@ val errcode_of_ret : Types.ret -> Types.errcode
 val string_of_errcode : [`ErrorIsMinusOne|`ErrorIsNULL] -> string
 (** Return errcode as a string.  Untyped for [`CannotReturnError]. *)
 
-val uuidgen : unit -> string
-(** Generate a random UUID (used in tests). *)
+val stable_uuid : string
+(** A random but stable UUID (used in tests). *)
 
 type rstructs_used_t = RStructOnly | RStructListOnly | RStructAndList
 (** Return type of {!rstructs_used_by}. *)

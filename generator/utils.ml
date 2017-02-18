@@ -47,15 +47,27 @@ let string_of_errcode = function
 
 (* Generate a uuidgen-compatible UUID (used in tests).  However to
  * avoid having the UUID change every time we rebuild the tests,
- * generate it as a function of the contents of the actions.ml file.
+ * generate it as a function of the contents of the [actions*.ml]
+ * files.
  *
  * Originally I thought uuidgen was using RFC 4122, but it doesn't
  * appear to.
  *
  * Note that the format must be 01234567-0123-0123-0123-0123456789ab
  *)
-let uuidgen () =
-  let s = Digest.to_hex (Digest.file "generator/actions.ml") in
+let stable_uuid =
+  let cmd = "cat generator/actions*.ml" in
+  let chan = open_process_in cmd in
+  let s = Digest.channel chan (-1) in
+  (match close_process_in chan with
+  | WEXITED 0 -> ()
+  | WEXITED i ->
+    failwithf "command exited with non-zero status (%d)" i
+  | WSIGNALED i | WSTOPPED i ->
+    failwithf "command signalled or stopped with non-zero status (%d)" i
+  );
+
+  let s = Digest.to_hex s in
 
   (* In util-linux <= 2.19, mkswap -U cannot handle the first byte of
    * the UUID being zero, so we artificially rewrite such UUIDs.
