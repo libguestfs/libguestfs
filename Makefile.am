@@ -240,6 +240,7 @@ EXTRA_DIST = \
 	ocaml-link.sh \
 	podcheck.pl \
 	tests/automake2junit.ml \
+	tests/test-functions.sh \
 	tmp/.gitignore \
 	update-bugs.sh \
 	utils/README \

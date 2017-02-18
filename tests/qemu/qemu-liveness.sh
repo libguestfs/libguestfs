@@ -22,7 +22,7 @@
 
 set -e
 
-. $srcdir/../../test-data/test-utils.sh
+. $srcdir/../../tests/test-functions.sh
 
 rm -f liveness1.img
 

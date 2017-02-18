@@ -48,7 +48,7 @@ fi
 export VIRT_TOOLS_DATA_DIR="$srcdir/../test-data/fake-virt-tools"
 export VIRTIO_WIN="$srcdir/../test-data/fake-virtio-win"
 
-. $srcdir/../test-data/test-utils.sh
+. $srcdir/../tests/test-functions.sh
 
 d=test-v2v-i-ova.d
 rm -rf $d

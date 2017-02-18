@@ -26,9 +26,6 @@ SUBDIRS += fake-virtio-win fake-virt-tools
 SUBDIRS += files
 SUBDIRS += .
 
-EXTRA_DIST = \
-        test-utils.sh
-
 # Build an ISO containing various files from the subdirectories, which
 # is used by tests/c-api and a few guestfish tests and regression
 # tests.
