@@ -649,7 +649,12 @@ let main () =
          *)
         match hook with
         | "pre-install.d" | "install.d" | "post-install.d" | "finalise.d" ->
-          load_scripts g ("/tmp/aux/hooks/" ^ hook)
+          let scripts_path = "/tmp/aux/hooks/" ^ hook in
+          (* Cleanly handle cases when the phase directory does not exist. *)
+          if g#is_dir ~followsymlinks:true scripts_path then
+            load_scripts g scripts_path
+          else
+            raise Not_found
         | _ ->
           Hashtbl.find final_hooks hook in
       if debug >= 1 then (
