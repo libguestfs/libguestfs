@@ -301,6 +301,11 @@ if [ -z \"$preserve_env\" ]; then
     esac
   done
 fi
+# TMPDIR needs to be unset, regardless of -E
+unset TMPDIR
+# ... and do that also to the other \"TMPDIR\"-like variables
+unset TMP
+unset TMP_DIR
 
 cmd=$1
 shift
