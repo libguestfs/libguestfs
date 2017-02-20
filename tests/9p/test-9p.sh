@@ -34,7 +34,7 @@ fi
 
 # The name of the virtio-9p device is different on virtio-pci and virtio-mmio.
 arch="$(uname -m)"
-if [[ "$arch" =~ ^arm || "$arch" = "aarch64" ]]; then
+if [[ "$arch" =~ ^arm ]]; then
     virtio_mmio=yes
 fi
 if [ "$virtio_mmio" != "yes" ]; then
