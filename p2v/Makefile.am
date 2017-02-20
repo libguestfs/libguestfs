@@ -299,7 +299,7 @@ test-virt-p2v-pxe.sshd_config: test-virt-p2v-pxe.sshd_config.in
 
 test-virt-p2v-pxe.authorized_keys: test-virt-p2v-pxe.id_rsa.pub $(top_builddir)/run
 	rm -f $@ $@-t
-	$(top_builddir)/run sh -c 'echo -n environment=\"PATH=$$PATH\",environment=\"LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs\"\ ' > $@-t
+	$(top_builddir)/run sh -c 'echo -n environment=\"PATH=$$PATH\",environment=\"LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs\",environment=\"LIBGUESTFS_PATH=$(abs_top_builddir)/appliance\",environment=\"LIBGUESTFS_CACHEDIR=$(abs_top_builddir)/tmp\"\ ' > $@-t
 	cat $< >> $@-t
 	mv $@-t $@
 
