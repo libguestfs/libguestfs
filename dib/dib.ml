@@ -176,8 +176,8 @@ shift
 %s
 
 # system variables
-export HOME=$mysysroot/tmp/aux/perm/home
-export PATH=$mysysroot/tmp/aux/hooks/bin:$PATH
+export HOME=$mysysroot/tmp/in_target.aux/perm/home
+export PATH=$mysysroot/tmp/in_target.aux/hooks/bin:$PATH
 export TMP=$mysysroot/tmp
 export TMPDIR=$TMP
 export TMP_DIR=$TMP
@@ -190,12 +190,12 @@ export IMAGE_NAME=\"%s\"
 export DIB_IMAGE_ROOT_FS_UUID=%s
 export DIB_IMAGE_CACHE=$HOME/.cache/image-create
 export DIB_ROOT_LABEL=\"%s\"
-export _LIB=$mysysroot/tmp/aux/lib
-export _PREFIX=$mysysroot/tmp/aux/elements
+export _LIB=$mysysroot/tmp/in_target.aux/lib
+export _PREFIX=$mysysroot/tmp/in_target.aux/elements
 export ARCH=%s
-export TMP_HOOKS_PATH=$mysysroot/tmp/aux/hooks
+export TMP_HOOKS_PATH=$mysysroot/tmp/in_target.aux/hooks
 export DIB_ARGS=\"%s\"
-export DIB_MANIFEST_SAVE_DIR=\"$mysysroot/tmp/aux/out/${IMAGE_NAME}.d\"
+export DIB_MANIFEST_SAVE_DIR=\"$mysysroot/tmp/in_target.aux/out/${IMAGE_NAME}.d\"
 export IMAGE_BLOCK_DEVICE=$blockdev
 export IMAGE_ELEMENT=\"%s\"
 export DIB_ENV=%s
@@ -204,11 +204,11 @@ export DIB_NO_TMPFS=1
 export FS_TYPE=%s
 export DIB_CHECKSUM=%s
 
-export TMP_BUILD_DIR=$mysysroot/tmp/aux
-export TMP_IMAGE_DIR=$mysysroot/tmp/aux
+export TMP_BUILD_DIR=$mysysroot/tmp/in_target.aux
+export TMP_IMAGE_DIR=$mysysroot/tmp/in_target.aux
 
 if [ -n \"$mysysroot\" ]; then
-  export PATH=$mysysroot/tmp/aux/fake-bin:$PATH
+  export PATH=$mysysroot/tmp/in_target.aux/fake-bin:$PATH
   source $_LIB/die
 else
   export PATH=\"$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"
@@ -376,7 +376,7 @@ let timed_run fn =
 
 let run_parts ~debug ~sysroot ~blockdev ~log_file ?(new_wd = "")
   (g : Guestfs.guestfs) hook_name scripts =
-  let hook_dir = "/tmp/aux/hooks/" ^ hook_name in
+  let hook_dir = "/tmp/in_target.aux/hooks/" ^ hook_name in
   let scripts = List.sort digit_prefix_compare scripts in
   let outbuf = Buffer.create 16384 in
   let timings = Hashtbl.create 13 in
@@ -393,11 +393,11 @@ let run_parts ~debug ~sysroot ~blockdev ~log_file ?(new_wd = "")
         let outstr =
           match sysroot with
           | In ->
-            g#sh (sprintf "/tmp/aux/run-and-log.sh '%s' '' '' '%s' '%s' '%s' '%s'" log_file blockdev hook_dir new_wd x)
+            g#sh (sprintf "/tmp/in_target.aux/run-and-log.sh '%s' '' '' '%s' '%s' '%s' '%s'" log_file blockdev hook_dir new_wd x)
           | Out ->
-            g#debug "sh" [| "/sysroot/tmp/aux/run-and-log.sh"; "/sysroot" ^ log_file; "/sysroot"; "/sysroot"; blockdev; "/sysroot" ^ hook_dir; new_wd; x |]
+            g#debug "sh" [| "/sysroot/tmp/in_target.aux/run-and-log.sh"; "/sysroot" ^ log_file; "/sysroot"; "/sysroot"; blockdev; "/sysroot" ^ hook_dir; new_wd; x |]
           | Subroot ->
-            g#debug "sh" [| "/sysroot/tmp/aux/run-and-log.sh"; "/sysroot" ^ log_file; "/sysroot/subroot"; "/sysroot"; blockdev; "/sysroot" ^ hook_dir; new_wd; x |] in
+            g#debug "sh" [| "/sysroot/tmp/in_target.aux/run-and-log.sh"; "/sysroot" ^ log_file; "/sysroot/subroot"; "/sysroot"; blockdev; "/sysroot" ^ hook_dir; new_wd; x |] in
         out := outstr;
         Buffer.add_string outbuf outstr in
       let delta_t = timed_run run in
@@ -419,7 +419,7 @@ let run_parts_host ~debug (g : Guestfs.guestfs) hook_name base_mount_dir scripts
   (* Point to the in-guest hooks, so that changes there can affect
    * other phases.
    *)
-  let hooks_dir = mount_dir // "tmp" // "aux" // "hooks" in
+  let hooks_dir = mount_dir // "tmp" // "in_target.aux" // "hooks" in
   let hook_dir = hooks_dir // hook_name in
   do_mkdir mount_dir;
 
@@ -479,7 +479,7 @@ let run_install_packages ~debug ~blockdev ~log_file
   let pkgs_string = String.concat " " packages in
   message (f_"Installing: %s") pkgs_string;
   g#write_append log_file (sprintf "Installing %s...\n" pkgs_string);
-  let out = g#sh (sprintf "/tmp/aux/run-and-log.sh '%s' '' '' '%s' '/tmp/aux' '' 'install-packages.sh'" log_file blockdev) in
+  let out = g#sh (sprintf "/tmp/in_target.aux/run-and-log.sh '%s' '' '' '%s' '/tmp/in_target.aux' '' 'install-packages.sh'" log_file blockdev) in
   let out = ensure_trailing_newline out in
   if debug >= 1 then (
     printf "%s%!" out;
@@ -513,7 +513,7 @@ let main () =
 
   let tmpdir = Mkdtemp.temp_dir "dib." "" in
   rmdir_on_exit tmpdir;
-  let auxtmpdir = tmpdir // "aux" in
+  let auxtmpdir = tmpdir // "in_target.aux" in
   do_mkdir auxtmpdir;
   let hookstmpdir = auxtmpdir // "hooks" in
   do_mkdir (hookstmpdir // "environment.d");    (* Just like d-i-b does. *)
@@ -581,7 +581,7 @@ let main () =
    *)
   let final_hooks = load_hooks ~debug hookstmpdir in
 
-  let log_file = "/tmp/aux/perm/" ^ (log_filename ()) in
+  let log_file = "/tmp/in_target.aux/perm/" ^ (log_filename ()) in
 
   let arch =
     match cmdline.arch with
@@ -649,7 +649,7 @@ let main () =
          *)
         match hook with
         | "pre-install.d" | "install.d" | "post-install.d" | "finalise.d" ->
-          let scripts_path = "/tmp/aux/hooks/" ^ hook in
+          let scripts_path = "/tmp/in_target.aux/hooks/" ^ hook in
           (* Cleanly handle cases when the phase directory does not exist. *)
           if g#is_dir ~followsymlinks:true scripts_path then
             load_scripts g scripts_path
@@ -715,7 +715,7 @@ let main () =
 
     Output_format.check_formats_appliance_prerequisites cmdline.formats g;
 
-    (* Prepare the /aux partition. *)
+    (* Prepare the /in_target.aux partition. *)
     g#mkfs "ext2" "/dev/sdb";
     g#mount "/dev/sdb" "/";
 
@@ -723,7 +723,7 @@ let main () =
     copy_in g cmdline.basepath "/lib";
     g#umount "/";
 
-    (* Prepare the /aux/perm partition. *)
+    (* Prepare the /in_target.aux/perm partition. *)
     let drive_partition =
       match cmdline.drive with
       | None ->
@@ -746,9 +746,9 @@ let main () =
     g, fn, fmt, drive_partition in
 
   let mount_aux () =
-    g#mkmountpoint "/tmp/aux";
-    g#mount "/dev/sdb" "/tmp/aux";
-    g#mount drive_partition "/tmp/aux/perm" in
+    g#mkmountpoint "/tmp/in_target.aux";
+    g#mount "/dev/sdb" "/tmp/in_target.aux";
+    g#mount drive_partition "/tmp/in_target.aux/perm" in
 
   (* Small kludge: try to umount all first: if that fails, use lsof and fuser
    * to find out what might have caused the failure, run udevadm to try
@@ -846,8 +846,8 @@ let main () =
   run_hook_subroot "root.d";
 
   g#sync ();
-  g#umount "/tmp/aux/perm";
-  g#umount "/tmp/aux";
+  g#umount "/tmp/in_target.aux/perm";
+  g#umount "/tmp/in_target.aux";
   g#rm_rf "/tmp";
   let subroot_items =
     let l = Array.to_list (g#ls "/subroot") in
@@ -861,7 +861,7 @@ let main () =
   (* Check /tmp exists already. *)
   ignore (g#is_dir "/tmp");
   mount_aux ();
-  g#ln_s "aux/hooks" "/tmp/in_target.d";
+  g#ln_s "in_target.aux/hooks" "/tmp/in_target.d";
 
   run_hook_host "extra-data.d";
 
@@ -880,14 +880,14 @@ let main () =
   checked_umount_all ();
   flush_all ();
   g#mount blockdev "/";
-  (* Check /tmp/aux still exists. *)
-  ignore (g#is_dir "/tmp/aux");
-  g#mount "/dev/sdb" "/tmp/aux";
-  g#mount drive_partition "/tmp/aux/perm";
+  (* Check /tmp/in_target.aux still exists. *)
+  ignore (g#is_dir "/tmp/in_target.aux");
+  g#mount "/dev/sdb" "/tmp/in_target.aux";
+  g#mount drive_partition "/tmp/in_target.aux/perm";
 
   run_hook_in "finalise.d";
 
-  let out_dir = "/tmp/aux/out/" ^ image_basename_d in
+  let out_dir = "/tmp/in_target.aux/out/" ^ image_basename_d in
 
   run_hook_out ~new_wd:out_dir "cleanup.d";
 
