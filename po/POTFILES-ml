@@ -65,6 +65,7 @@ mllib/mkdtemp.ml
 mllib/planner.ml
 mllib/progress.ml
 mllib/regedit.ml
+mllib/registry.ml
 mllib/stringMap.ml
 mllib/visit.ml
 mllib/visit_tests.ml
