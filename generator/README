@@ -28,6 +28,7 @@ everything is exported.
 Some notable files in this directory:
 
   actions_*.ml        The libguestfs API.
+  proc_nr.ml          Procedure numbers associated with each API.
   structs.ml          Structures returned by the API.
   c.ml                Generate C API.
   <lang>.ml           Generate bindings for <lang>.

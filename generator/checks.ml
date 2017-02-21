@@ -173,26 +173,6 @@ let () =
         failwithf "long description of %s should begin with uppercase." name
   ) (actions @ fish_commands);
 
-  (* Check proc_nrs don't overlap. *)
-  let proc_nrs =
-    List.map (
-      function
-      | { name = name; proc_nr = Some proc_nr } -> (name, proc_nr)
-      | _ -> assert false
-    ) (actions |> daemon_functions) in
-  let proc_nrs =
-    List.sort (fun (_,nr1) (_,nr2) -> compare nr1 nr2) proc_nrs in
-  let rec loop = function
-    | [] -> ()
-    | [_] -> ()
-    | (name1,nr1) :: ((name2,nr2) :: _ as rest) when nr1 < nr2 ->
-        loop rest
-    | (name1,nr1) :: (name2,nr2) :: _ ->
-        failwithf "%s and %s have conflicting procedure numbers (%d, %d)"
-          name1 name2 nr1 nr2
-  in
-  loop proc_nrs;
-
   (* Check flags. *)
   List.iter (
     fun ({ name = name; style = ret, _, _ } as f) ->

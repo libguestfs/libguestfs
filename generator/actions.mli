@@ -52,7 +52,3 @@ val is_documented : Types.action -> bool
 
 val test_functions : Types.action list
 (** Internal test functions used to test the language bindings. *)
-
-val max_proc_nr : int
-(** The largest procedure number used (also saved in [lib/MAX_PROC_NR] and
-    used as the minor version number of the shared library). *)

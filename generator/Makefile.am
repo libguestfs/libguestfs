@@ -93,6 +93,8 @@ sources = \
 	pr.mli \
 	prepopts.ml \
 	prepopts.mli \
+	proc_nr.ml \
+	proc_nr.mli \
 	python.ml \
 	python.mli \
 	ruby.ml \
@@ -116,6 +118,7 @@ objects = \
 	common_utils.cmo \
 	types.cmo \
 	utils.cmo \
+	proc_nr.cmo \
 	actions_augeas.cmo \
 	actions_core.cmo \
 	actions_core_deprecated.cmo \

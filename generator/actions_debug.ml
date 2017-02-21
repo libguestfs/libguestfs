@@ -39,7 +39,6 @@ let daemon_functions = [
   { defaults with
     name = "debug"; added = (1, 0, 11);
     style = RString "result", [String "subcmd"; StringList "extraargs"], [];
-    proc_nr = Some 76;
     visibility = VDebug;
     shortdesc = "debugging and internals";
     longdesc = "\
@@ -54,7 +53,6 @@ to find out what you can do." };
   { defaults with
     name = "debug_upload"; added = (1, 3, 5);
     style = RErr, [FileIn "filename"; String "tmpname"; Int "mode"], [];
-    proc_nr = Some 241;
     visibility = VDebug;
     cancellable = true;
     shortdesc = "upload a file to the appliance (internal use only)";

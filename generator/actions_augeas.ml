@@ -26,7 +26,6 @@ let daemon_functions = [
   { defaults with
     name = "aug_init"; added = (0, 0, 7);
     style = RErr, [Pathname "root"; Int "flags"], [];
-    proc_nr = Some 16;
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -91,7 +90,6 @@ To find out more about Augeas, see L<http://augeas.net/>." };
   { defaults with
     name = "aug_close"; added = (0, 0, 7);
     style = RErr, [], [];
-    proc_nr = Some 26;
     shortdesc = "close the current Augeas handle";
     longdesc = "\
 Close the current Augeas handle and free up any resources
@@ -102,7 +100,6 @@ Augeas functions." };
   { defaults with
     name = "aug_defvar"; added = (0, 0, 7);
     style = RInt "nrnodes", [String "name"; OptString "expr"], [];
-    proc_nr = Some 17;
     shortdesc = "define an Augeas variable";
     longdesc = "\
 Defines an Augeas variable C<name> whose value is the result
@@ -115,7 +112,6 @@ C<0> if C<expr> evaluates to something which is not a nodeset." };
   { defaults with
     name = "aug_defnode"; added = (0, 0, 7);
     style = RStruct ("nrnodescreated", "int_bool"), [String "name"; String "expr"; String "val"], [];
-    proc_nr = Some 18;
     shortdesc = "define an Augeas node";
     longdesc = "\
 Defines a variable C<name> whose value is the result of
@@ -132,7 +128,6 @@ if a node was created." };
   { defaults with
     name = "aug_get"; added = (0, 0, 7);
     style = RString "val", [String "augpath"], [];
-    proc_nr = Some 19;
     shortdesc = "look up the value of an Augeas path";
     longdesc = "\
 Look up the value associated with C<path>.  If C<path>
@@ -141,7 +136,6 @@ matches exactly one node, the C<value> is returned." };
   { defaults with
     name = "aug_set"; added = (0, 0, 7);
     style = RErr, [String "augpath"; String "val"], [];
-    proc_nr = Some 20;
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -162,7 +156,6 @@ C<guestfs_aug_clear> call." };
   { defaults with
     name = "aug_insert"; added = (0, 0, 7);
     style = RErr, [String "augpath"; String "label"; Bool "before"], [];
-    proc_nr = Some 21;
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -189,7 +182,6 @@ with a bracketed index C<[N]>." };
   { defaults with
     name = "aug_rm"; added = (0, 0, 7);
     style = RInt "nrnodes", [String "augpath"], [];
-    proc_nr = Some 22;
     shortdesc = "remove an Augeas path";
     longdesc = "\
 Remove C<path> and all of its children.
@@ -199,7 +191,6 @@ On success this returns the number of entries which were removed." };
   { defaults with
     name = "aug_mv"; added = (0, 0, 7);
     style = RErr, [String "src"; String "dest"], [];
-    proc_nr = Some 23;
     shortdesc = "move Augeas node";
     longdesc = "\
 Move the node C<src> to C<dest>.  C<src> must match exactly
@@ -208,7 +199,6 @@ one node.  C<dest> is overwritten if it exists." };
   { defaults with
     name = "aug_match"; added = (0, 0, 7);
     style = RStringList "matches", [String "augpath"], [];
-    proc_nr = Some 24;
     shortdesc = "return Augeas nodes which match augpath";
     longdesc = "\
 Returns a list of paths which match the path expression C<path>.
@@ -218,7 +208,6 @@ exactly one node in the current tree." };
   { defaults with
     name = "aug_save"; added = (0, 0, 7);
     style = RErr, [], [];
-    proc_nr = Some 25;
     shortdesc = "write all pending Augeas changes to disk";
     longdesc = "\
 This writes all pending changes to disk.
@@ -229,7 +218,6 @@ how files are saved." };
   { defaults with
     name = "aug_load"; added = (0, 0, 7);
     style = RErr, [], [];
-    proc_nr = Some 27;
     shortdesc = "load files into the tree";
     longdesc = "\
 Load files into the tree.
@@ -240,7 +228,6 @@ details." };
   { defaults with
     name = "aug_ls"; added = (0, 0, 8);
     style = RStringList "matches", [String "augpath"], [];
-    proc_nr = Some 28;
     tests = [
       InitBasicFS, Always, TestResult (
         [["mkdir"; "/etc"];
@@ -257,7 +244,6 @@ C<path/*> and sorting the resulting nodes into alphabetical order." };
   { defaults with
     name = "aug_clear"; added = (1, 3, 4);
     style = RErr, [String "augpath"], [];
-    proc_nr = Some 239;
     shortdesc = "clear Augeas path";
     longdesc = "\
 Set the value associated with C<path> to C<NULL>.  This
@@ -266,7 +252,6 @@ is the same as the L<augtool(1)> C<clear> command." };
   { defaults with
     name = "aug_transform"; added = (1, 35, 2);
     style = RErr, [String "lens"; String "file"], [ OBool "remove"];
-    proc_nr = Some 469;
     shortdesc = "add/remove an Augeas lens transformation";
     longdesc = "\
 Add an Augeas transformation for the specified C<lens> so it can

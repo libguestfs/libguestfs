@@ -187,7 +187,7 @@ let generate_xdr () =
   pr "};\n";
   pr "\n";
 
-  pr "const GUESTFS_MAX_PROC_NR = %d;\n" max_proc_nr;
+  pr "const GUESTFS_MAX_PROC_NR = %d;\n" Proc_nr.max_proc_nr;
   pr "\n";
 
   pr "/* The remote procedure call protocol. */\n";

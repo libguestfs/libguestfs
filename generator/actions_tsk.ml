@@ -189,7 +189,6 @@ let daemon_functions = [
   { defaults with
     name = "download_inode"; added = (1, 33, 14);
     style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename"], [];
-    proc_nr = Some 464;
     optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download a file to the local machine given its inode";
@@ -204,7 +203,6 @@ The command is capable of downloading deleted or inaccessible files." };
   { defaults with
     name = "internal_filesystem_walk"; added = (1, 33, 39);
     style = RErr, [Mountable "device"; FileOut "filename"], [];
-    proc_nr = Some 466;
     visibility = VInternal;
     optional = Some "libtsk";
     shortdesc = "walk through the filesystem content";
@@ -213,7 +211,6 @@ The command is capable of downloading deleted or inaccessible files." };
   { defaults with
     name = "download_blocks"; added = (1, 33, 45);
     style = RErr, [Mountable "device"; Int64 "start"; Int64 "stop"; FileOut "filename"], [OBool "unallocated"];
-    proc_nr = Some 468;
     optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download the given data units from the disk";
@@ -237,7 +234,6 @@ which data units have not been overwritten yet." };
   { defaults with
     name = "internal_find_inode"; added = (1, 35, 6);
     style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename";], [];
-    proc_nr = Some 470;
     visibility = VInternal;
     optional = Some "libtsk";
     shortdesc = "search the entries associated to the given inode";

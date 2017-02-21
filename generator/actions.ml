@@ -108,37 +108,43 @@ let non_daemon_functions, daemon_functions =
     List.map make_camel_case_if_not_set daemon_functions in
   non_daemon_functions, daemon_functions
 
-(* Before we add the non_daemon_functions and daemon_functions to
- * a single list, verify the proc_nr field which should be the only
- * difference between them.  (Note more detailed checking is done
- * in checks.ml).
+(* Verify that no proc_nr field is set.  These are added from
+ * [proc_nr.ml] and must not be present in the [actions_*.ml] files.
+ *)
+let () =
+  let check_no_proc_nr = function
+    | { proc_nr = None } -> ()
+    | { name = name; proc_nr = Some _ } ->
+       failwithf "definition of %s must not include proc_nr, use proc_nr.ml to define procedure numbers" name
+  in
+  List.iter check_no_proc_nr non_daemon_functions;
+  List.iter check_no_proc_nr daemon_functions
+
+(* Now add proc_nr to all daemon functions using the mapping table
+ * from [proc_nr.ml].
+ *)
+let daemon_functions =
+  let assoc =
+    let map = List.map (fun (nr, name) -> (name, nr)) Proc_nr.proc_nr in
+    fun name ->
+      try List.assoc name map
+      with Not_found ->
+        failwithf "no proc_nr listed for %s" name
+  in
+  List.map (
+    fun f -> { f with proc_nr = Some (assoc f.name) }
+  ) daemon_functions
+
+(* Check there are no entries in the proc_nr table which aren't
+ * associated with a daemon function.
  *)
 let () =
   List.iter (
-    function
-    | { name = name; proc_nr = None } ->
-      failwithf "daemon function %s should have proc_nr = Some n > 0" name
-    | { name = name; proc_nr = Some n } when n <= 0 ->
-      failwithf "daemon function %s should have proc_nr = Some n > 0" name
-    | { proc_nr = Some _ } -> ()
-  ) daemon_functions;
-
-  List.iter (
-    function
-    | { name = name; proc_nr = Some _ } ->
-      failwithf "non-daemon function %s should have proc_nr = None" name
-    | { proc_nr = None } -> ()
-  ) non_daemon_functions
-
-(* This is used to generate the lib/MAX_PROC_NR file which
- * contains the maximum procedure number, a surrogate for the
- * ABI version number.  See lib/Makefile.am for the details.
- *)
-let max_proc_nr =
-  let proc_nrs = List.map (
-    function { proc_nr = Some n } -> n | { proc_nr = None } -> assert false
-  ) daemon_functions in
-  List.fold_left max 0 proc_nrs
+    fun (_, name) ->
+      if not (List.exists (fun { name = n } -> name = n) daemon_functions) then
+        failwithf "proc_nr entry for %s does not correspond to a daemon function"
+                  name
+  ) Proc_nr.proc_nr
 
 (* All functions. *)
 let actions = non_daemon_functions @ daemon_functions

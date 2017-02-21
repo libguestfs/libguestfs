@@ -2367,4 +2367,4 @@ and generate_linker_script () =
   pr "};\n"
 
 and generate_max_proc_nr () =
-  pr "%d\n" max_proc_nr
+  pr "%d\n" Proc_nr.max_proc_nr

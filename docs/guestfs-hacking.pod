@@ -349,7 +349,8 @@ To add a new API action there are two changes:
 =item 1.
 
 You need to add a description of the call (name, parameters, return
-type, tests, documentation) to F<generator/actions_*.ml>.
+type, tests, documentation) to F<generator/actions_*.ml> and
+possibly F<generator/proc_nr.ml>.
 
 There are two sorts of API action, depending on whether the call goes
 through to the daemon in the appliance, or is serviced entirely by the
