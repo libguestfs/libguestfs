@@ -41,7 +41,7 @@ There is an unrecoverable error.
 
 Follow F</var/log/messages> inside a virtual machine called C<mydomain>:
 
- virt-tail -d mydomain /etc/fstab
+ virt-tail -d mydomain /var/log/messages
 
 =head1 OPTIONS
 
