@@ -26,4 +26,5 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	rhev-apt.exe \
-	rhsrvany.exe
+	rhsrvany.exe \
+	vmdp.exe
