@@ -1028,8 +1028,8 @@ let is_partition dev =
     if not (is_block_device dev) then false
     else (
       let rdev = (Unix.stat dev).Unix.st_rdev in
-      let major = Dev_t.major rdev in
-      let minor = Dev_t.minor rdev in
+      let major = Unix_utils.Dev_t.major rdev in
+      let minor = Unix_utils.Dev_t.minor rdev in
       let path = sprintf "/sys/dev/block/%d:%d/partition" major minor in
       Unix.access path [Unix.F_OK];
       true

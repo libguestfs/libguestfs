@@ -21,6 +21,7 @@ open Common_gettext.Gettext
 module G = Guestfs
 
 open Common_utils
+open Unix_utils
 open Password
 open Planner
 open Utils

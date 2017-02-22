@@ -20,14 +20,15 @@ open Unix
 open Printf
 
 open Common_gettext.Gettext
-
-module G = Guestfs
-
 open Common_utils
+open Unix_utils
+
 open Types
 open Utils
 
 open Cmdline
+
+module G = Guestfs
 
 type conversion_mode =
     | Copying of overlay list * target list

@@ -21,6 +21,7 @@ open Unix
 
 open Common_gettext.Gettext
 open Common_utils
+open Unix_utils
 open Getopt.OptionName
 
 open Sysprep_operation

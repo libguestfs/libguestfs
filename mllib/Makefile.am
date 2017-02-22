@@ -31,20 +31,15 @@ SOURCES_MLI = \
 	xml.mli \
 	xpath_helpers.mli \
 	checksums.mli \
+	unix_utils.mli \
 	common_utils.mli \
 	curl.mli \
-	dev_t.mli \
-	exit.mli \
-	fnmatch.mli \
-	fsync.mli \
 	getopt.mli \
 	JSON.mli \
-	mkdtemp.mli \
 	planner.mli \
 	progress.mli \
 	regedit.mli \
 	registry.mli \
-	StatVFS.mli \
 	stringMap.mli \
 	URI.mli \
 	visit.mli
@@ -56,21 +51,16 @@ SOURCES_ML = \
 	stringMap.ml \
 	common_gettext.ml \
 	getopt.ml \
-	dev_t.ml \
+	unix_utils.ml \
 	common_utils.ml \
-	fsync.ml \
 	progress.ml \
 	URI.ml \
-	mkdtemp.ml \
 	visit.ml \
-	fnmatch.ml \
 	planner.ml \
 	registry.ml \
 	regedit.ml \
-	StatVFS.ml \
 	JSON.ml \
 	curl.ml \
-	exit.ml \
 	checksums.ml \
 	xml.ml \
 	xpath_helpers.ml
@@ -82,14 +72,9 @@ SOURCES_C = \
 	../common/options/uri.c \
 	../common/progress/progress.c \
 	common_utils-c.c \
-	dev_t-c.c \
-	exit-c.c \
-	fnmatch-c.c \
-	fsync-c.c \
 	getopt-c.c \
-	mkdtemp-c.c \
 	progress-c.c \
-	statvfs-c.c \
+	unix_utils-c.c \
 	uri-c.c \
 	visit-c.c \
 	xml-c.c

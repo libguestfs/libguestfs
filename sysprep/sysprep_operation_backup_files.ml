@@ -21,7 +21,7 @@ open Printf
 open Common_gettext.Gettext
 open Common_utils
 open Visit
-open Fnmatch
+open Unix_utils.Fnmatch
 open Sysprep_operation
 open Utils
 

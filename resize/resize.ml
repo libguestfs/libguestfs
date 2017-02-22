@@ -20,6 +20,7 @@ open Printf
 
 open Common_utils
 open Common_gettext.Gettext
+open Unix_utils
 open Getopt.OptionName
 
 module G = Guestfs
