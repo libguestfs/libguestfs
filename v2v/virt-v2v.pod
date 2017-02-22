@@ -1187,19 +1187,9 @@ forwards the information, so if you have a firewall between vCenter
 and its hypervisors you may need to open additional ports (consult
 VMware documentation).
 
-=head3 vCenter: Proxy settings
-
-To copy the disks, virt-v2v uses L<libcurl(3)>.  The Curl library
-obeys the proxy environment variables, in particular C<https_proxy>,
-C<all_proxy> and C<no_proxy> (C<HTTPS_PROXY>, C<ALL_PROXY> and
-C<NO_PROXY> can also be used, but the lowercase named environment
-variables take precedence).
-
-If these environment variables are set then copying may happen via the
-proxy, and so a different set of ports may need to be opened in the
-firewall.
-
-The port 5480 connection never uses a proxy.
+The proxy environment variables (C<https_proxy>, C<all_proxy>,
+C<no_proxy>, C<HTTPS_PROXY>, C<ALL_PROXY> and C<NO_PROXY>) are
+B<ignored> when doing vCenter conversions.
 
 =head1 INPUT FROM VMWARE OVA
 

@@ -20,6 +20,7 @@
 
 open Common_gettext.Gettext
 open Common_utils
+open Unix_utils.Env
 
 open Types
 open Utils
@@ -47,6 +48,18 @@ object
           scheme server;
 
     error_if_libvirt_does_not_support_json_backingfile ();
+
+    (* Remove proxy environment variables so curl doesn't try to use
+     * them.  Libvirt doesn't use the proxy anyway, and using a proxy
+     * is generally a bad idea because vCenter is slow enough as it is
+     * without putting another device in the way (RHBZ#1354507).
+     *)
+    unsetenv "https_proxy";
+    unsetenv "all_proxy";
+    unsetenv "no_proxy";
+    unsetenv "HTTPS_PROXY";
+    unsetenv "ALL_PROXY";
+    unsetenv "NO_PROXY";
 
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
