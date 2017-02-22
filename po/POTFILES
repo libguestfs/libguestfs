@@ -391,15 +391,10 @@ lib/whole-file.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
 mllib/common_utils-c.c
-mllib/dev_t-c.c
 mllib/dummy.c
-mllib/exit-c.c
-mllib/fnmatch-c.c
-mllib/fsync-c.c
 mllib/getopt-c.c
-mllib/mkdtemp-c.c
 mllib/progress-c.c
-mllib/statvfs-c.c
+mllib/unix_utils-c.c
 mllib/uri-c.c
 mllib/visit-c.c
 mllib/xml-c.c
