@@ -487,3 +487,5 @@ class virtual output = object
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
 end
+
+type output_settings = < keep_serial_console : bool >

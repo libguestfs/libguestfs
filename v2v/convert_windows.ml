@@ -37,7 +37,7 @@ module G = Guestfs
  * time the Windows VM is booted on KVM.
  *)
 
-let convert ~keep_serial_console (g : G.guestfs) inspect source rcaps =
+let convert (g : G.guestfs) inspect source output rcaps =
   (* Get the data directory. *)
   let virt_tools_data_dir =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"

@@ -373,3 +373,7 @@ class virtual output : object
   (** Whether this output supports serial consoles (RHV does not). *)
 end
 (** Encapsulates all [-o], etc output arguments as an object. *)
+
+type output_settings = < keep_serial_console : bool >
+(** This is a subtype of {!output} containing only the settings
+    which have an influence over conversion modules. *)

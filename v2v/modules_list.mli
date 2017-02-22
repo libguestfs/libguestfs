@@ -30,12 +30,13 @@ val input_modules : unit -> string list
 val output_modules : unit -> string list
 (** Return the list of output modules. *)
 
+type inspection_fn = Types.inspect -> bool
+
 type conversion_fn =
-  keep_serial_console:bool ->
-  Guestfs.guestfs -> Types.inspect -> Types.source ->
+  Guestfs.guestfs -> Types.inspect -> Types.source -> Types.output_settings ->
   Types.requested_guestcaps -> Types.guestcaps
 
-val register_convert_module : (Types.inspect -> bool) -> string -> conversion_fn -> unit
+val register_convert_module : inspection_fn -> string -> conversion_fn -> unit
 (** [register_convert_module inspect_fn name fn] registers a
     conversion function [fn] that can accept any guest that matches
     the [inspect_fn] function. *)
