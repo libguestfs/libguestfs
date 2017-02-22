@@ -22,6 +22,10 @@ module Dev_t = struct
   external minor : int -> int = "guestfs_int_mllib_dev_t_minor" "noalloc"
 end
 
+module Env = struct
+  external unsetenv : string -> unit = "guestfs_int_mllib_unsetenv" "noalloc"
+end
+
 module Exit = struct
   external _exit : int -> 'a = "guestfs_int_mllib_exit" "noalloc"
 end

@@ -45,6 +45,7 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 extern value guestfs_int_mllib_dev_t_makedev (value majv, value minv);
 extern value guestfs_int_mllib_dev_t_major (value devv);
 extern value guestfs_int_mllib_dev_t_minor (value devv);
+extern value guestfs_int_mllib_unsetenv (value strv);
 extern int guestfs_int_mllib_exit (value rv) __attribute__((noreturn));
 extern value guestfs_int_mllib_fnmatch (value patternv, value strv, value flagsv);
 extern value guestfs_int_mllib_sync (value unitv);
@@ -71,6 +72,14 @@ value
 guestfs_int_mllib_dev_t_minor (value devv)
 {
   return Val_int (minor (Int_val (devv)));
+}
+
+/* NB: This is a "noalloc" call. */
+value
+guestfs_int_mllib_unsetenv (value strv)
+{
+  unsetenv (String_val (strv));
+  return Val_unit;
 }
 
 /* NB: This is a "noalloc" call. */

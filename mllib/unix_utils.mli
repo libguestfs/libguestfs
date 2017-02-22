@@ -32,6 +32,11 @@ module Dev_t : sig
   (** minor(3) *)
 end
 
+module Env : sig
+  val unsetenv : string -> unit
+  (** Unset named environment variable, see unsetenv(3). *)
+end
+
 module Exit : sig
   val _exit : int -> 'a
   (** Call _exit directly, ie. do not run OCaml atexit handlers. *)
