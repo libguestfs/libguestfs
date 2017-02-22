@@ -200,7 +200,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
     wait_pnp ();
 
     let tool_path = virt_tools_data_dir // "rhev-apt.exe" in
-    if Sys.file_exists tool_path then
+    if output#install_rhev_apt && Sys.file_exists tool_path then
       configure_rhev_apt tool_path
     else (
       let tool_path = virt_tools_data_dir // "vmdp.exe" in

@@ -56,6 +56,9 @@ object
    *)
   method keep_serial_console = false
 
+  (* rhev-apt.exe will be installed (if available). *)
+  method install_rhev_apt = true
+
   (* Data Domain mountpoint. *)
   val mutable dd_mp = ""
   val mutable dd_uuid = ""

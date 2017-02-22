@@ -486,6 +486,8 @@ class virtual output = object
   method disk_create = (open_guestfs ())#disk_create
   method virtual create_metadata : source -> target list -> target_buses -> guestcaps -> inspect -> target_firmware -> unit
   method keep_serial_console = true
+  method install_rhev_apt = false
 end
 
-type output_settings = < keep_serial_console : bool >
+type output_settings = < keep_serial_console : bool;
+                         install_rhev_apt : bool >

@@ -121,6 +121,9 @@ object
    *)
   method keep_serial_console = false
 
+  (* rhev-apt.exe will be installed (if available). *)
+  method install_rhev_apt = true
+
   (* Export Storage Domain mountpoint and UUID. *)
   val mutable esd_mp = ""
   val mutable esd_uuid = ""
