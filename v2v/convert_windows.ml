@@ -55,19 +55,6 @@ let convert (g : G.guestfs) inspect source output rcaps =
           pnp_wait_exe msg;
         None in
 
-  (* Check if either RHEV-APT or VMDP exists.  This is optional. *)
-  let tools = [`RhevApt, "rhev-apt.exe"; `VmdpExe, "vmdp.exe"] in
-  let installer =
-    try
-      let t, tool = List.find (
-        fun (_, tool) -> Sys.file_exists (virt_tools_data_dir // tool)
-      ) tools in
-      Some (t, virt_tools_data_dir // tool)
-    with Not_found -> (
-      warning (f_"Neither rhev-apt.exe nor vmdp.exe can be found.  Unable to install one of them.");
-      None
-    ) in
-
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
@@ -211,11 +198,18 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
   let rec configure_firstboot () =
     wait_pnp ();
-    (match installer with
-     | None -> ()
-     | Some (`RhevApt, tool_path) -> configure_rhev_apt tool_path
-     | Some (`VmdpExe, tool_path) -> configure_vmdp tool_path
+
+    let tool_path = virt_tools_data_dir // "rhev-apt.exe" in
+    if Sys.file_exists tool_path then
+      configure_rhev_apt tool_path
+    else (
+      let tool_path = virt_tools_data_dir // "vmdp.exe" in
+      if Sys.file_exists tool_path then
+        configure_vmdp tool_path
+      else
+        warning (f_"Neither rhev-apt.exe nor vmdp.exe can be found.  Unable to install one of them.");
     );
+
     unconfigure_xenpv ();
     unconfigure_prltools ()
 
