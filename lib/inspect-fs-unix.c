@@ -1305,6 +1305,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
      * discs.
      */
     if ((STRPREFIX (spec, "/dev/fd") && c_isdigit (spec[7])) ||
+        (STRPREFIX (spec, "/dev/cd") && c_isdigit (spec[7])) ||
         STREQ (spec, "/dev/floppy") ||
         STREQ (spec, "/dev/cdrom") ||
         STRPREFIX (spec, "/dev/iso9660/"))
