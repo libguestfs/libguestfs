@@ -48,18 +48,36 @@
         <version>1.2.3</version>
         <release>1</release>
         <arch>amd64</arch>
+        <url>http://libguestfs.org/</url>
+        <source_package>test</source_package>
+        <summary>this is a test package</summary>
+        <description>This is a test package.
+.
+Don't confuse it with a real package.</description>
       </application>
       <application>
         <name>test2</name>
         <version>1.2.3</version>
         <release>1</release>
         <arch>amd64</arch>
+        <url>http://libguestfs.org/</url>
+        <source_package>test</source_package>
+        <summary>this is a test package</summary>
+        <description>This is a test package.
+.
+Don't confuse it with a real package.</description>
       </application>
       <application>
         <name>test3</name>
         <version>1.2.3</version>
         <release>1</release>
         <arch>amd64</arch>
+        <url>http://libguestfs.org/</url>
+        <source_package>test</source_package>
+        <summary>this is a test package</summary>
+        <description>This is a test package.
+.
+Don't confuse it with a real package.</description>
       </application>
     </applications>
   </operatingsystem>

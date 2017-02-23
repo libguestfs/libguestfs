@@ -437,7 +437,11 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
   size_t len;
   int32_t epoch = 0;
   CLEANUP_FREE char *name = NULL, *version = NULL, *release = NULL, *arch = NULL;
+  CLEANUP_FREE char *url = NULL, *source = NULL, *summary = NULL;
+  CLEANUP_FREE char *description = NULL;
   int installed_flag = 0;
+  char **continuation_field = NULL;
+  size_t continuation_field_len = 0;
 
   status = guestfs_int_download_to_tmp (g, fs, "/var/lib/dpkg/status", "status",
 					MAX_PKG_DB_SIZE);
@@ -457,16 +461,41 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 
   /* Read the temporary file.  Each package entry is separated by
    * a blank line.
-   * XXX Strictly speaking this is in mailbox header format, so it
-   * would be possible for fields to spread across multiple lines,
-   * although for the short fields that we are concerned about this is
-   * unlikely and not seen in practice.
    */
   while (fgets (line, sizeof line, fp) != NULL) {
     len = strlen (line);
     if (len > 0 && line[len-1] == '\n') {
       line[len-1] = '\0';
       len--;
+    }
+
+    /* Handling of continuation lines, which must be done before
+     * checking for other headers.
+     */
+    if (line[0] == ' ' && continuation_field) {
+      /* This is a continuation line, and this is the first line of
+       * the field.
+       */
+      if (*continuation_field == NULL) {
+        *continuation_field = safe_strdup (g, &line[1]);
+        continuation_field_len = len - 1;
+      }
+      else {
+        /* Not the first line, so append to the existing buffer
+         * (with a new line before).
+         */
+        size_t new_len = continuation_field_len + 1 + (len - 1);
+        *continuation_field = safe_realloc (g, *continuation_field,
+                                            new_len + 1);
+        (*continuation_field)[continuation_field_len] = '\n';
+        strcpy (*continuation_field + continuation_field_len + 1, &line[1]);
+        continuation_field_len = new_len;
+      }
+    }
+    else {
+      /* Not a continuation line, or not interested in it -- reset. */
+      continuation_field = NULL;
+      continuation_field = 0;
     }
 
     if (STRPREFIX (line, "Package: ")) {
@@ -501,15 +530,39 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
       free (arch);
       arch = safe_strdup (g, &line[14]);
     }
+    else if (STRPREFIX (line, "Homepage: ")) {
+      free (url);
+      url = safe_strdup (g, &line[10]);
+    }
+    else if (STRPREFIX (line, "Source: ")) {
+      /* A 'Source' entry may be both 'foo' and 'foo (1.0)', so make sure
+       * to read only the name in the latter case.
+       */
+      char *space_pos = strchr (&line[8], ' ');
+      if (space_pos)
+        *space_pos = '\0';
+      free (source);
+      source = safe_strdup (g, &line[8]);
+    }
+    else if (STRPREFIX (line, "Description: ")) {
+      free (summary);
+      summary = safe_strdup (g, &line[13]);
+      continuation_field = &description;
+    }
     else if (STREQ (line, "")) {
       if (installed_flag && name && version && (epoch >= 0))
         add_application (g, apps, name, "", epoch, version, release ? : "",
-                         arch ? : "", "", "", "", "", "", "");
+                         arch ? : "", "", "", url ? : "", source ? : "",
+                         summary ? : "", description ? : "");
       free (name);
       free (version);
       free (release);
       free (arch);
-      name = version = release = arch = NULL;
+      free (url);
+      free (source);
+      free (summary);
+      free (description);
+      name = version = release = arch = url = source = summary = description = NULL;
       installed_flag = 0;
     }
   }
