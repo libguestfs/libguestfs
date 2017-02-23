@@ -91,7 +91,8 @@ object
         match detect_file_type ova with
         | `Tar ->
           (* Normal ovas are tar file (not compressed). *)
-          if qemu_img_supports_offset_and_size () then (
+          if qemu_img_supports_offset_and_size () &&
+              libvirt_supports_json_raw_driver () then (
             (* In newer QEMU we don't have to extract everything.
              * We can access disks inside the tar archive directly.
              *)

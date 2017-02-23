@@ -63,10 +63,10 @@ SOURCES_MLI = \
 SOURCES_ML = \
 	types.ml \
 	uefi.ml \
+	domainxml.ml \
 	utils.ml \
 	name_from_disk.ml \
 	vCenter.ml \
-	domainxml.ml \
 	DOM.ml \
 	changeuid.ml \
 	OVF.ml \
@@ -175,9 +175,9 @@ virt_v2v_copy_to_local_CFLAGS = \
 
 COPY_TO_LOCAL_BOBJECTS = \
 	uefi.cmo \
+	domainxml.cmo \
 	utils.cmo \
 	vCenter.cmo \
-	domainxml.cmo \
 	copy_to_local.cmo
 COPY_TO_LOCAL_XOBJECTS = $(COPY_TO_LOCAL_BOBJECTS:.cmo=.cmx)
 
@@ -402,6 +402,7 @@ endif
 v2v_unit_tests_BOBJECTS = \
 	types.cmo \
 	uefi.cmo \
+	domainxml.cmo \
 	utils.cmo \
 	DOM.cmo \
 	OVF.cmo \

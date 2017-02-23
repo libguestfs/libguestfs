@@ -119,6 +119,20 @@ let qemu_img_supports_offset_and_size () =
   debug "qemu-img supports \"offset\" and \"size\" in json URLs: %b" r;
   r
 
+(* Libvirt < 3.1.0 lacks enough support for json: pseudo-URLs we use as backing
+ * files, when importing OVAs directly without extracting them first.
+ *)
+let libvirt_supports_json_raw_driver () =
+  let libguestfs_backend = (open_guestfs ())#get_backend () in
+  let libguestfs_backend, _ = String.split ":" libguestfs_backend in
+  if libguestfs_backend = "libvirt" then (
+    let sup = Domainxml.libvirt_get_version () >= (3, 1, 0) in
+    debug "libvirt supports  \"raw\" driver in json URL: %B" sup;
+    sup
+  )
+  else
+    true
+
 let find_file_in_tar tar filename =
   let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in
   let rec loop lines =
