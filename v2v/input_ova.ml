@@ -375,6 +375,7 @@ object
                   "offset", JSON.Int64 offset;
                   "size", JSON.Int64 size;
                   "file", JSON.Dict [
+                    "driver", JSON.String "file";
                     "filename", JSON.String ova]
                   ]
                 ] in
