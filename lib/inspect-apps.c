@@ -257,6 +257,9 @@ read_rpm_name (guestfs_h *g,
 #define RPMTAG_RELEASE 1002
 #define RPMTAG_EPOCH 1003
 #define RPMTAG_ARCH 1022
+#define RPMTAG_URL 1020
+#define RPMTAG_SUMMARY 1004
+#define RPMTAG_DESCRIPTION 1005
 
 static char *
 get_rpm_header_tag (guestfs_h *g, const unsigned char *header_start,
@@ -329,7 +332,8 @@ read_package (guestfs_h *g,
   struct read_package_data *data = datav;
   struct rpm_name nkey, *entry;
   CLEANUP_FREE char *version = NULL, *release = NULL,
-    *epoch_str = NULL, *arch = NULL;
+    *epoch_str = NULL, *arch = NULL, *url = NULL, *summary = NULL,
+    *description = NULL;
   int32_t epoch;
 
   /* This function reads one (key, value) pair from the Packages
@@ -359,6 +363,9 @@ read_package (guestfs_h *g,
   release = get_rpm_header_tag (g, value, valuelen, RPMTAG_RELEASE, 's');
   epoch_str = get_rpm_header_tag (g, value, valuelen, RPMTAG_EPOCH, 'i');
   arch = get_rpm_header_tag (g, value, valuelen, RPMTAG_ARCH, 's');
+  url = get_rpm_header_tag (g, value, valuelen, RPMTAG_URL, 's');
+  summary = get_rpm_header_tag (g, value, valuelen, RPMTAG_SUMMARY, 's');
+  description = get_rpm_header_tag (g, value, valuelen, RPMTAG_DESCRIPTION, 's');
 
   /* The epoch is stored as big-endian integer. */
   if (epoch_str)
@@ -369,7 +376,8 @@ read_package (guestfs_h *g,
   /* Add the application and what we know. */
   if (version && release)
     add_application (g, data->apps, entry->name, "", epoch, version, release,
-                     arch ? arch : "", "", "", "", "", "", "");
+                     arch ? arch : "", "", "", url ? : "", "",
+                     summary ? : "", description ? : "");
 
   return 0;
 }
