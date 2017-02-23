@@ -25,9 +25,7 @@ skip_if_skipped
 skip_if_backend uml
 skip_unless_phony_guest windows.img
 
-# XXX Remove when we fix this.  See:
-# https://www.redhat.com/archives/libguestfs/2017-February/msg00101.html
-skip_if_backend libvirt
+skip_unless_libvirt_minimum_version 3 1 0
 
 export VIRT_TOOLS_DATA_DIR="$top_srcdir/test-data/fake-virt-tools"
 export VIRTIO_WIN="$top_srcdir/test-data/fake-virtio-win"
