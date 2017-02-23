@@ -195,16 +195,22 @@ let convert (g : G.guestfs) inspect source output rcaps =
       warning (f_"%s is missing.  Firstboot scripts may conflict with PnP.")
               tool_path;
 
-    let tool_path = virt_tools_data_dir // "rhev-apt.exe" in
-    if output#install_rhev_apt && Sys.file_exists tool_path then
-      configure_rhev_apt tool_path
-    else (
-      let tool_path = virt_tools_data_dir // "vmdp.exe" in
+    (* Install RHEV-APT only if appropriate for the output hypervisor. *)
+    if output#install_rhev_apt then (
+      let tool_path = virt_tools_data_dir // "rhev-apt.exe" in
       if Sys.file_exists tool_path then
-        configure_vmdp tool_path
+        configure_rhev_apt tool_path
       else
-        warning (f_"Neither rhev-apt.exe nor vmdp.exe can be found.  Unable to install one of them.");
+        warning (f_"%s is missing, but the output hypervisor is oVirt or RHV.  Installing RHEV-APT in the guest would mean the guest is automatically updated with new drivers etc.  You may wish to install RHEV-APT manually after conversion.")
+                tool_path
     );
+
+    (* Install VMDP unconditionally, if available, but don't
+     * warn about it if not.
+     *)
+    let tool_path = virt_tools_data_dir // "vmdp.exe" in
+    if Sys.file_exists tool_path then
+      configure_vmdp tool_path;
 
     unconfigure_xenpv ();
     unconfigure_prltools ()
