@@ -25,6 +25,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
+	pnp_wait.exe \
 	rhev-apt.exe \
 	rhsrvany.exe \
 	vmdp.exe
