@@ -51,7 +51,7 @@ static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, st
 static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, struct inspect_fs *fs);
 static struct guestfs_application2_list *list_applications_apk (guestfs_h *g, struct inspect_fs *fs);
 static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
-static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *description);
+static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *source, const char *summary, const char *description);
 static void sort_applications (struct guestfs_application2_list *);
 
 /* The deprecated guestfs_inspect_list_applications call, which is now
@@ -369,7 +369,7 @@ read_package (guestfs_h *g,
   /* Add the application and what we know. */
   if (version && release)
     add_application (g, data->apps, entry->name, "", epoch, version, release,
-                     arch ? arch : "", "", "", "", "");
+                     arch ? arch : "", "", "", "", "", "", "");
 
   return 0;
 }
@@ -504,7 +504,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
     else if (STREQ (line, "")) {
       if (installed_flag && name && version && (epoch >= 0))
         add_application (g, apps, name, "", epoch, version, release ? : "",
-                         arch ? : "", "", "", "", "");
+                         arch ? : "", "", "", "", "", "", "");
       free (name);
       free (version);
       free (release);
@@ -634,7 +634,7 @@ list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
 
     if ((epoch >= 0) && (ver[0] != '\0') && (rel[0] != '\0'))
       add_application (g, apps, name, "", epoch, ver, rel, arch, "", "",
-                       url ? : "", desc ? : "");
+                       url ? : "", "", "", desc ? : "");
 
   after_add_application:
     key = NULL;
@@ -708,7 +708,8 @@ list_applications_apk (guestfs_h *g, struct inspect_fs *fs)
     case '\0':
       if (name && version && (epoch >= 0))
         add_application (g, apps, name, "", epoch, version, release ? : "",
-                         arch ? : "", "", "", url ? : "", description ? : "");
+                         arch ? : "", "", "", url ? : "", "", "",
+                         description ? : "");
       free (name);
       free (version);
       free (release);
@@ -880,6 +881,7 @@ list_applications_windows_from_path (guestfs_h *g,
                          install_path ? : "",
                          publisher ? : "",
                          url ? : "",
+                         "", "",
                          comments ? : "");
       }
     }
@@ -892,6 +894,7 @@ add_application (guestfs_h *g, struct guestfs_application2_list *apps,
                  const char *version, const char *release, const char *arch,
                  const char *install_path,
                  const char *publisher, const char *url,
+                 const char *source, const char *summary,
                  const char *description)
 {
   apps->len++;
@@ -911,8 +914,8 @@ add_application (guestfs_h *g, struct guestfs_application2_list *apps,
   /* XXX The next two are not yet implemented for any package
    * format, but we could easily support them for rpm and deb.
    */
-  apps->val[apps->len-1].app2_source_package = safe_strdup (g, "");
-  apps->val[apps->len-1].app2_summary = safe_strdup (g, "");
+  apps->val[apps->len-1].app2_source_package = safe_strdup (g, source);
+  apps->val[apps->len-1].app2_summary = safe_strdup (g, summary);
   apps->val[apps->len-1].app2_description = safe_strdup (g, description);
   /* XXX Reserved for future use. */
   apps->val[apps->len-1].app2_spare1 = safe_strdup (g, "");
