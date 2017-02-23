@@ -27,6 +27,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include <signal.h>
 #include <errno.h>
 #include <error.h>
 
@@ -38,6 +39,7 @@
 int
 main (int argc, char *argv[])
 {
+  struct sigaction sa;
   guestfs_h *g;
   int r;
   char *str;
@@ -49,6 +51,14 @@ main (int argc, char *argv[])
             getprogname ());
     exit (77);
   }
+
+  /* This test can fail with SIGPIPE (shows up as exit code 141)
+   * unless we ignore that signal.
+   */
+  memset (&sa, 0, sizeof sa);
+  sa.sa_handler = SIG_IGN;
+  sa.sa_flags = SA_RESTART;
+  sigaction (SIGPIPE, &sa, NULL);
 
   g = guestfs_create ();
   if (!g)
