@@ -43,18 +43,6 @@ let convert (g : G.guestfs) inspect source output rcaps =
     try Sys.getenv "VIRT_TOOLS_DATA_DIR"
     with Not_found -> Guestfs_config.datadir // "virt-tools" in
 
-  let pnp_wait_exe = virt_tools_data_dir // "pnp_wait.exe" in
-  let pnp_wait_exe =
-    try
-      let chan = open_in pnp_wait_exe in
-      close_in chan;
-      Some pnp_wait_exe
-    with
-      Sys_error msg ->
-        warning (f_"'%s' is missing.  Firstboot scripts may conflict with PnP.  Original error: %s")
-          pnp_wait_exe msg;
-        None in
-
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
@@ -197,7 +185,15 @@ let convert (g : G.guestfs) inspect source output rcaps =
   (* Perform the conversion of the Windows guest. *)
 
   let rec configure_firstboot () =
-    wait_pnp ();
+    (* Note that pnp_wait.exe must be the first firstboot script as it
+     * suppresses PnP for all following scripts.
+     *)
+    let tool_path = virt_tools_data_dir // "pnp_wait.exe" in
+    if Sys.file_exists tool_path then
+      configure_wait_pnp tool_path
+    else
+      warning (f_"%s is missing.  Firstboot scripts may conflict with PnP.")
+              tool_path;
 
     let tool_path = virt_tools_data_dir // "rhev-apt.exe" in
     if output#install_rhev_apt && Sys.file_exists tool_path then
@@ -237,56 +233,54 @@ reg add \"%s\" /v %s /t REG_DWORD /d %Ld /f" strkey name value
     | None -> sprintf "\
 reg delete \"%s\" /v %s /f" strkey name
 
-  and wait_pnp () =
-    (* prevent destructive interactions of firstboot with PnP *)
-    match pnp_wait_exe with
-    | None -> ()
-    | Some pnp_wait_exe ->
-      let pnp_wait_path = [""; "Program Files"; "Guestfs"; "Firstboot";
-                           "pnp_wait.exe"] in
-      (* suppress "New Hardware Wizard" until PnP settles (see
-       * https://support.microsoft.com/en-us/kb/938596) and restore it
-       * afterwards *)
-      let reg_restore_str =
-        match inspect.i_major_version, inspect.i_minor_version with
-        (* WinXP 32bit *)
-        | 5, 1 ->
-          let key_path = ["Policies"; "Microsoft"; "Windows"; "DeviceInstall";
-                          "Settings"] in
-          let name = "SuppressNewHWUI" in
-          let value =
-            Registry.with_hive_write g inspect.i_windows_software_hive (
-              fun reg -> set_reg_val_dword_1 reg key_path name
-            ) in
-          reg_restore ("HKLM\\Software" :: key_path) name value
+  and configure_wait_pnp tool_path =
+    (* Prevent destructive interactions of firstboot with PnP. *)
 
-        (* WinXP 64bit / Win2k3 *)
-        | 5, 2 ->
-          let key_path = ["Services"; "PlugPlay"; "Parameters"] in
-          let name = "SuppressUI" in
-          let value =
-            Registry.with_hive_write g inspect.i_windows_system_hive (
-              fun reg ->
-                let path = inspect.i_windows_current_control_set :: key_path in
-                set_reg_val_dword_1 reg path name
-            ) in
-          reg_restore ("HKLM\\SYSTEM\\CurrentControlSet" :: key_path) name
-                      value
+    (* Suppress "New Hardware Wizard" until PnP settles (see
+     * https://support.microsoft.com/en-us/kb/938596) and restore it
+     * afterwards.
+     *)
+    let reg_restore_str =
+      match inspect.i_major_version, inspect.i_minor_version with
+      (* WinXP 32bit *)
+      | 5, 1 ->
+         let key_path = ["Policies"; "Microsoft"; "Windows"; "DeviceInstall";
+                         "Settings"] in
+         let name = "SuppressNewHWUI" in
+         let value =
+           Registry.with_hive_write g inspect.i_windows_software_hive (
+             fun reg -> set_reg_val_dword_1 reg key_path name
+         ) in
+         reg_restore ("HKLM\\Software" :: key_path) name value
 
-        (* any later Windows *)
-        | _ -> "" in
+      (* WinXP 64bit / Win2k3 *)
+      | 5, 2 ->
+         let key_path = ["Services"; "PlugPlay"; "Parameters"] in
+         let name = "SuppressUI" in
+         let value =
+           Registry.with_hive_write g inspect.i_windows_system_hive (
+             fun reg ->
+               let path = inspect.i_windows_current_control_set :: key_path in
+               set_reg_val_dword_1 reg path name
+           ) in
+         reg_restore ("HKLM\\SYSTEM\\CurrentControlSet" :: key_path) name
+                     value
 
-      let fb_script = sprintf "\
+      (* any later Windows *)
+      | _ -> "" in
+
+    let pnp_wait_path = "/Program Files/Guestfs/Firstboot/pnp_wait.exe" in
+
+    let fb_script = sprintf "\
 @echo off
 
 echo Wait for PnP to complete
 \"%s\" >\"%%~dpn0.log\" 2>&1
-%s" (String.concat "\\" pnp_wait_path) reg_restore_str in
+%s" (String.replace_char pnp_wait_path '/' '\\') reg_restore_str in
 
-      Firstboot.add_firstboot_script g inspect.i_root "wait pnp" fb_script;
-      (* add_firstboot_script has created the path already *)
-      g#upload pnp_wait_exe (g#case_sensitive_path
-                              (String.concat "/" pnp_wait_path))
+    Firstboot.add_firstboot_script g inspect.i_root "wait pnp" fb_script;
+    (* add_firstboot_script has created the path already. *)
+    g#upload tool_path (g#case_sensitive_path pnp_wait_path)
 
   and configure_rhev_apt tool_path =
     (* Configure RHEV-APT (the RHV guest agent).  However if it doesn't
