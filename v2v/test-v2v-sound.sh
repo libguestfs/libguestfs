@@ -22,7 +22,7 @@ set -e
 
 $TEST_FUNCTIONS
 skip_if_skipped
-skip_unless_backend uml
+skip_if_backend uml
 skip_unless_phony_guest windows.img
 
 libvirt_uri="test://$abs_builddir/test-v2v-sound.xml"
