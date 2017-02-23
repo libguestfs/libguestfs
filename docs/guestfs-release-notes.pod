@@ -4,18 +4,327 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-UPDATED TO 4ddc0add85fd2d08fcc45606c73ff6efb833ef4a
+UPDATED TO 04fe77c5199059a76f16875d6d2b495936ba7b82
 
 =end comment
 
-=begin comment
+=begin html
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
+=end html
+
+=head1 RELEASE NOTES FOR LIBGUESTFS 1.36
+
+These release notes only cover the differences from the previous
+stable/dev branch split (1.34.0).  For detailed changelogs, please see
+the git repository, or the ChangeLog file distributed in the tarball.
+
+=head2 New features
+
+Bash completion is now available in every command line tool that is
+shipped.
+
+
+=head3 New tools
+
+
+
+=head3 New features in existing tools
+
+
+
+=head3 virt-v2v/virt-p2v
+
+Conversions of Debian/Ubuntu guests are now supported
+(Tomáš Golembiovský, Pino Toscano).
+
+Conversions from SUSE Xen have now been tested (Cédric Bosdonnat).
+
+Windows conversions may now install a program C<pnp_wait.exe> which
+prevents conflicts between the Windows Plug-and-Play Manager and our
+own scripts that install virtio device drivers.  Enabling this
+requires the C<pnp_wait.exe> program to be built separately
+(Roman Kagan).
+
+OVA files exported from AWS can now be converted (Shahar Havivi).
+
+Virt-v2v no longer removes the C<Processor> and C<Intelppm> nodes from
+the Windows Registry.
+
+Xen and vCenter conversions can now be done using the libvirt backend,
+provided libvirt E<ge> 2.1.0 is used.
+
+Ignore F</dev/srX> (SCSI CD-ROM) devices (Tomáš Golembiovský).
+
+When converting SUSE Linux guests, use F</etc/modprobe.conf.local> if
+it exists.
+
+=head3 Language bindings
+
+Setting C<EXTRA_JAVAC_FLAGS> before F<./configure> allows you to
+add arbitrary flags to C<javac> when compiling the Java bindings.
+
+
+=head3 Inspection
+
+Inspection of btrfs subvolumes now works where the C</etc/fstab>
+options field contains commas.
+
+
+
+
+=head3 Documentation
+
+
+
+=head3 Architectures and platforms
+
+
+=head2 Security
+
+See also L<guestfs-security(1)>.
+
+
+
+=head2 API
+
+=head3 New APIs
+
+=over 4
+
+=item C<aug_transform>
+
+Exposes the Augeas C<aug_transform> API.
+
+=back
+
+=head3 Other API changes
+
+
+
+
+=head2 Build changes
+
+"Silent rules" are now used for OCaml programs, Java bindings.  To
+show the full command line executed, add C<V=1> on the make command
+line (Pino Toscano).
+
+Slow testing (C<make check-slow>) now covers: firstboot scripts in
+Linux guests; v2v conversion of a selection of real Linux guests;
+the virt-customize I<--hostname> and I<--timezone> settings.
+
+Large generated C source files, eg. the list of commands found in
+F<fish/cmds.c> (and many more), have been split into smaller files to
+speed parallel compilation.
+
+C<make maintainer-check-extra-dist> now checks that all generated
+files are included in the tarball.
+
+The tests no longer assume that C<.> is in Perl's C<@INC>, as it is
+gong to be removed soon (Pino Toscano).
+
+
+
+
+=head2 Internals
+
+UEFI paths are now stored in the generator (F<generator/uefi.ml>).
+
+The way the generator handles actions and procedure numbers was
+changed quite substantially.  See F<generator/actions_*.ml> and
+F<generator/proc_nr.ml>.
+
+The gnulib C<getprogname> module is now used everywhere when
+needing/printing the program name (Pino Toscano).
+
+F<perl/Guestfs.c> is not translatable (Nikos Skalkotos).
+
+
+=head2 Bugs fixed
+
+=begin comment
+
+https_proxy= ./bugs-in-changelog.sh v1.34.0..
+
 =end comment
+
+=over 4
+
+=item L<https://bugzilla.redhat.com/1425306>
+
+typo error in virt-tail man page
+
+=item L<https://bugzilla.redhat.com/1418283>
+
+virt-v2v: appliance runs out of memory running setfiles command
+
+=item L<https://bugzilla.redhat.com/1417549>
+
+/usr/bin/x86_64-linux-gnu-ld.bfd.real: ../common/progress/.libs/libprogress.a(libprogress_la-progress.o): undefined reference to symbol 'UP@@NCURSES_TINFO_5.0.19991023'
+
+=item L<https://bugzilla.redhat.com/1417444>
+
+*** No rule to make target '../perl/lib/Sys/Guestfs.c', needed by 'libguestfs.pot'
+
+=item L<https://bugzilla.redhat.com/1416941>
+
+compile of 1.34.3 fails with gperf 3.1
+
+=item L<https://bugzilla.redhat.com/1414682>
+
+guestfs_canonical_device_name incorrectly returns /dev/sd0 for MD devices (/dev/md0)
+
+=item L<https://bugzilla.redhat.com/1414510>
+
+guestfs_list_filesystems does not recognize ddf partitions
+
+=item L<https://bugzilla.redhat.com/1409023>
+
+[Debian] ldmtool not installed in the appliance
+
+=item L<https://bugzilla.redhat.com/1404287>
+
+qemu-kvm cannot boot RHEL 7 kernel with TCG, hangs at "Probing EDD (edd=off to disable)..."
+
+=item L<https://bugzilla.redhat.com/1404182>
+
+RFE: virt-resize should support a URL as the outdisk
+
+=item L<https://bugzilla.redhat.com/1401474>
+
+Importing VMs from VMware is failing with error "Inspection field 'i_arch' was 'unknown'"
+
+=item L<https://bugzilla.redhat.com/1401320>
+
+RFE: Increate virt-sysprep coverage a bit
+
+=item L<https://bugzilla.redhat.com/1400205>
+
+Add --vdsm-compat=1.1 flag for VDSM
+
+=item L<https://bugzilla.redhat.com/1398070>
+
+typo error in man page
+
+=item L<https://bugzilla.redhat.com/1392798>
+
+secrets from libvirt domains are not read
+
+=item L<https://bugzilla.redhat.com/1390876>
+
+"--machine-readable" info should be updated in virt-v2v manual page
+
+=item L<https://bugzilla.redhat.com/1379289>
+
+RFE: virt-p2v should support mnemonic operations
+
+=item L<https://bugzilla.redhat.com/1378022>
+
+There is virt-v2v warning about <listen type='none'> during converting a guest which has listen type='none' in XML
+
+=item L<https://bugzilla.redhat.com/1377081>
+
+virt-p2v manual should update the new dialog information
+
+=item L<https://bugzilla.redhat.com/1375157>
+
+virt-v2v: -i ova: Permission denied when using libvirt and running as root
+
+=item L<https://bugzilla.redhat.com/1374651>
+
+Can't install qxl driver for display device in win7 guest after converting to glance by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1374405>
+
+There is HTTP 404 error info when convert guest to glance by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1374232>
+
+selinux relabel fails on RHEL 6.2 guests with "libguestfs error: selinux_relabel: : Success"
+
+=item L<https://bugzilla.redhat.com/1372668>
+
+Process status is not normal in windows guest after converted from kvm to rhev by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1372269>
+
+Builder does not set hostname properly for Debian 8 (Jessie)
+
+=item L<https://bugzilla.redhat.com/1371843>
+
+Improve OVA import compatibility
+
+=item L<https://bugzilla.redhat.com/1370424>
+
+virt-manager coredump when vm with gluster image exists
+
+=item L<https://bugzilla.redhat.com/1367839>
+
+Cannot import VMs from Xen and VMware when using RHEL7.3 host.
+
+=item L<https://bugzilla.redhat.com/1367738>
+
+Missing bash completion scripts for: virt-diff guestunmount virt-copy-in virt-copy-out virt-customize virt-get-kernel virt-p2v-make-disk virt-p2v-make-kickstart virt-tar-in virt-tar-out virt-v2v-copy-to-local virt-win-reg
+
+=item L<https://bugzilla.redhat.com/1367615>
+
+OVMF file which is built for rhel7.3  can't be used for virt-v2v uefi conversion
+
+=item L<https://bugzilla.redhat.com/1366456>
+
+Converting rhel7 host installed on RAID:warning: fstrim: fstrim: /sysroot/: the discard operation is not supported
+
+=item L<https://bugzilla.redhat.com/1366049>
+
+RFE: libvirt backend: support handling disks stored as volume name in a pool
+
+=item L<https://bugzilla.redhat.com/1365005>
+
+Guest name is incorrect if convert guest from disk image by virt-v2v
+
+=item L<https://bugzilla.redhat.com/1362649>
+
+RFE: virt-sysprep does not utilize libguestfs encryption support
+
+=item L<https://bugzilla.redhat.com/1354507>
+
+virt-v2v conversions from vCenter do not consistently obey the proxy environment variables
+
+=item L<https://bugzilla.redhat.com/1168144>
+
+warning: fstrim: fstrim: /sysroot/: FITRIM ioctl failed: Operation not supported (ignored) when convert win2003 guest from xen server
+
+=item L<https://bugzilla.redhat.com/1161019>
+
+RFE: Only install RHEV-APT if virt-v2v -o rhev/-o vdsm option is used
+
+=item L<https://bugzilla.redhat.com/1152369>
+
+virt-v2v failed to convert RHEL 6.7 UEFI guest: no grub1/grub-legacy or grub2 configuration file was found
+
+=item L<https://bugzilla.redhat.com/1141631>
+
+[RFE] virt-v2v should support convert a guest to a dir-pool with using pool's uuid
+
+=item L<https://bugzilla.redhat.com/1134878>
+
+libvirt reports json "backing file" is missing
+
+=item L<https://bugzilla.redhat.com/1019388>
+
+firstboot scripts (virt-builder, virt-sysprep) don't work for Debian 6 & 7 guests
+
+=item L<https://bugzilla.redhat.com/737600>
+
+virt-v2v windows xp - machine dies BSOD - processr,sys - workaround provided
+
+=back
+
+=for comment ################################################################
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.34
 
