@@ -82,8 +82,12 @@ TESTS = \
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-virt-df.sh \
+	test-virt-df.sh
+
+if HAVE_LIBVIRT
+TESTS += \
 	test-virt-df-guests.sh
+endif
 endif ENABLE_APPLIANCE
 
 check-valgrind:

@@ -78,8 +78,12 @@ TESTS = \
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-virt-alignment-scan.sh \
+	test-virt-alignment-scan.sh
+
+if HAVE_LIBVIRT
+TESTS += \
 	test-virt-alignment-scan-guests.sh
+endif
 endif
 
 check-valgrind:

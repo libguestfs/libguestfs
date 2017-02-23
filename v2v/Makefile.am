@@ -255,8 +255,12 @@ TESTS = \
 	test-v2v-i-ova-gz.sh \
 	test-v2v-i-ova-subfolders.sh \
 	test-v2v-i-ova-two-disks.sh \
-	test-v2v-copy-to-local.sh \
 	test-v2v-bad-networks-and-bridges.sh
+
+if HAVE_LIBVIRT
+TESTS += \
+	test-v2v-copy-to-local.sh
+endif
 
 if HAVE_OCAML_PKG_OUNIT
 TESTS += v2v_unit_tests
@@ -264,12 +268,17 @@ endif
 
 if ENABLE_APPLIANCE
 TESTS += \
-	test-v2v-cdrom.sh \
-	test-v2v-floppy.sh \
 	test-v2v-i-ova.sh \
 	test-v2v-i-disk.sh \
-	test-v2v-in-place.sh \
 	test-v2v-machine-readable.sh \
+	test-v2v-virtio-win-iso.sh \
+	test-v2v-windows-conversion.sh
+
+if HAVE_LIBVIRT
+TESTS += \
+	test-v2v-cdrom.sh \
+	test-v2v-floppy.sh \
+	test-v2v-in-place.sh \
 	test-v2v-networks-and-bridges.sh \
 	test-v2v-no-copy.sh \
 	test-v2v-o-glance.sh \
@@ -283,9 +292,8 @@ TESTS += \
 	test-v2v-on-option.sh \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
-	test-v2v-virtio-win-iso.sh \
-	test-v2v-windows-conversion.sh \
 	$(SLOW_TESTS)
+endif
 endif ENABLE_APPLIANCE
 
 check-valgrind:

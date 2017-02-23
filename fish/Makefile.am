@@ -277,14 +277,18 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
 	test-a.sh \
-	test-add-domain.sh \
 	test-add-uri.sh \
-	test-d.sh \
 	test-docs.sh \
 	test-escapes.sh \
 	test-events.sh \
 	test-invalid-params.sh \
 	test-tilde.sh
+
+if HAVE_LIBVIRT
+TESTS += \
+	test-add-domain.sh \
+	test-d.sh
+endif
 
 if ENABLE_APPLIANCE
 TESTS += \

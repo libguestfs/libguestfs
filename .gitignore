@@ -492,6 +492,7 @@ Makefile.in
 /python/__pycache__
 /python/setup.py
 /python/stamp-extra-files
+/python/t/tests_helper.py
 /python/utils.c
 /qemu-wrapper.sh
 /rescue/stamp-virt-rescue.pod

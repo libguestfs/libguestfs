@@ -19,8 +19,12 @@ include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
 	test-max-disks.pl \
-	test-qemu-drive-libvirt.sh \
 	test-qemu-drive.sh
+
+if HAVE_LIBVIRT
+TESTS += \
+	test-qemu-drive-libvirt.sh
+endif
 
 TESTS_ENVIRONMENT = \
 	$(top_builddir)/run --test

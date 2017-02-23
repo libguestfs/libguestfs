@@ -240,6 +240,7 @@ AC_CONFIG_FILES([Makefile
                  python/Makefile
                  python/examples/Makefile
                  python/setup.py
+                 python/t/tests_helper.py
                  rescue/Makefile
                  resize/Makefile
                  ruby/Makefile
