@@ -70543,7 +70543,8 @@ msgid ""
 "Fork into the background and listen for remote commands.  See section "
 "L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below."
 msgstr ""
-"バックグラウンドにフォークし、リモートコマンドをリッスンします。 以下の L</guestfish のソケット経由のリモート制御 > 参照。"
+"バックグラウンドにフォークし、リモートコマンドをリッスンします。 以下の L</"
+"REMOTE CONTROL GUESTFISH OVER A SOCKET> 参照。"
 
 #. type: =item
 #: ../fish/guestfish.pod:293 ../fuse/guestmount.pod:252
@@ -70698,8 +70699,8 @@ msgid ""
 "Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section L</REMOTE "
 "CONTROL GUESTFISH OVER A SOCKET> below."
 msgstr ""
-"リモートコマンドを C<$GUESTFISH_PID> または C<pid> に送信します。 以下の L</guestfish "
-"のソケット経由のリモート制御 > 参照。"
+"リモートコマンドを C<$GUESTFISH_PID> または C<pid> に送信します。 以下の L</"
+"REMOTE CONTROL GUESTFISH OVER A SOCKET> 参照。"
 
 #. type: =item
 #: ../fish/guestfish.pod:395 ../fuse/guestmount.pod:351
