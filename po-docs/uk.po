@@ -52930,7 +52930,8 @@ msgstr "checksum"
 msgid ""
 " checksum csumtype path\n"
 "\n"
-msgstr " checksum тип_контрольної_суми шлях"
+msgstr " checksum csumtype path\n"
+"\n"
 
 #. type: textblock
 #: ../fish/guestfish-actions.pod:1567 ../lib/guestfs-actions.pod:2584
