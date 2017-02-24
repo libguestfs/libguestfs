@@ -974,8 +974,23 @@ about the stable branch policy.
 
 =item *
 
-Check C<make && make check> works on at least Fedora, Debian and
-Ubuntu.
+Check C<make && make check> works on at least:
+
+=over 4
+
+=item Fedora (x86-64)
+
+=item Debian (x86-64)
+
+=item Ubuntu (x86-64)
+
+=item Fedora (aarch64)
+
+=item Fedora (ppc64)
+
+=item Fedora (ppc64le)
+
+=back
 
 =item *
 
