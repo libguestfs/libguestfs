@@ -27,7 +27,7 @@ linguas = ja uk
 
 # Languages that we have PO files for, but we don't translate
 # because there is insufficient coverage.
-linguas_not_translated = de en_GB es eu fr nl pt_BR tg zh_CN
+linguas_not_translated = cs de en_GB es eu fr nl pt_BR tg zh_CN
 
 EXTRA_DIST = \
 	libguestfs-docs.pot \
