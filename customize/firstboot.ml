@@ -232,13 +232,7 @@ WantedBy=default.target
 end
 
 module Windows = struct
-
   let rec install_service (g : Guestfs.guestfs) root =
-    (* Get the data directory. *)
-    let virt_tools_data_dir =
-      try Sys.getenv "VIRT_TOOLS_DATA_DIR"
-      with Not_found -> Guestfs_config.datadir // "virt-tools" in
-
     (* Either rhsrvany.exe or pvvxsvc.exe must exist.
      *
      * (Check also that it's not a dangling symlink but a real file).
@@ -247,11 +241,11 @@ module Windows = struct
     let srvany =
       try
         List.find (
-          fun service -> Sys.file_exists (virt_tools_data_dir // service)
+          fun service -> Sys.file_exists (virt_tools_data_dir () // service)
         ) services
       with Not_found ->
        error (f_"One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is required in order to install Windows firstboot scripts.  You can get one by building rhsrvany (https://github.com/rwmjones/rhsrvany)")
-         virt_tools_data_dir in
+             (virt_tools_data_dir ()) in
 
     (* Create a directory for firstboot files in the guest. *)
     let firstboot_dir, firstboot_dir_win =
@@ -270,7 +264,7 @@ module Windows = struct
     g#mkdir_p (firstboot_dir // "scripts");
 
     (* Copy pvvxsvc or rhsrvany to the guest. *)
-    g#upload (virt_tools_data_dir // srvany) (firstboot_dir // srvany);
+    g#upload (virt_tools_data_dir () // srvany) (firstboot_dir // srvany);
 
     (* Write a firstboot.bat control script which just runs the other
      * scripts in the directory.  Note we need to use CRLF line endings

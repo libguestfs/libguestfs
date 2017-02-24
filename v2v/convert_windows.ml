@@ -38,11 +38,6 @@ module G = Guestfs
  *)
 
 let convert (g : G.guestfs) inspect source output rcaps =
-  (* Get the data directory. *)
-  let virt_tools_data_dir =
-    try Sys.getenv "VIRT_TOOLS_DATA_DIR"
-    with Not_found -> Guestfs_config.datadir // "virt-tools" in
-
   (*----------------------------------------------------------------------*)
   (* Inspect the Windows guest. *)
 
@@ -188,7 +183,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
     (* Note that pnp_wait.exe must be the first firstboot script as it
      * suppresses PnP for all following scripts.
      *)
-    let tool_path = virt_tools_data_dir // "pnp_wait.exe" in
+    let tool_path = virt_tools_data_dir () // "pnp_wait.exe" in
     if Sys.file_exists tool_path then
       configure_wait_pnp tool_path
     else
@@ -197,7 +192,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
 
     (* Install RHEV-APT only if appropriate for the output hypervisor. *)
     if output#install_rhev_apt then (
-      let tool_path = virt_tools_data_dir // "rhev-apt.exe" in
+      let tool_path = virt_tools_data_dir () // "rhev-apt.exe" in
       if Sys.file_exists tool_path then
         configure_rhev_apt tool_path
       else
@@ -208,7 +203,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
     (* Install VMDP unconditionally, if available, but don't
      * warn about it if not.
      *)
-    let tool_path = virt_tools_data_dir // "vmdp.exe" in
+    let tool_path = virt_tools_data_dir () // "vmdp.exe" in
     if Sys.file_exists tool_path then
       configure_vmdp tool_path;
 
