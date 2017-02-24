@@ -277,7 +277,7 @@ let parse_libvirt_xml ?conn xml =
         (match xpath_string "source/@pool", xpath_string "source/@volume" with
         | None, None | Some _, None | None, Some _ -> ()
         | Some pool, Some vol ->
-          let xml = Domainxml.vol_dumpxml ?conn pool vol in
+          let xml = Libvirt_utils.vol_dumpxml ?conn pool vol in
           let doc = Xml.parse_memory xml in
           let xpathctx = Xml.xpath_new_context doc in
           let xpath_string = Xpath_helpers.xpath_string xpathctx in

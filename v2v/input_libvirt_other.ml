@@ -37,7 +37,7 @@ let error_if_libvirt_does_not_support_json_backingfile () =
   let libguestfs_backend = (open_guestfs ())#get_backend () in
   let libguestfs_backend, _ = String.split ":" libguestfs_backend in
   if libguestfs_backend = "libvirt" then (
-    if Domainxml.libvirt_get_version () < (2, 1, 0) then
+    if Libvirt_utils.libvirt_get_version () < (2, 1, 0) then
       error (f_"because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER upgrade to libvirt >= 2.1.0 OR set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
   )
 
@@ -76,7 +76,7 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
+    let xml = Libvirt_utils.dumpxml ?password ?conn:libvirt_uri guest in
 
     let source, disks =
       Input_libvirtxml.parse_libvirt_xml ?conn:libvirt_uri xml in

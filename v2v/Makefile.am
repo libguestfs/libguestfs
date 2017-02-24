@@ -30,7 +30,6 @@ SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
 	DOM.mli \
-	domainxml.mli \
 	input_disk.mli \
 	input_libvirt.mli \
 	input_libvirt_other.mli \
@@ -39,6 +38,7 @@ SOURCES_MLI = \
 	input_libvirtxml.mli \
 	input_ova.mli \
 	inspect_source.mli \
+	libvirt_utils.mli \
 	linux.mli \
 	linux_bootloaders.mli \
 	linux_kernels.mli \
@@ -66,7 +66,7 @@ SOURCES_ML = \
 	utils.ml \
 	name_from_disk.ml \
 	vCenter.ml \
-	domainxml.ml \
+	libvirt_utils.ml \
 	DOM.ml \
 	changeuid.ml \
 	OVF.ml \
@@ -98,7 +98,7 @@ SOURCES_ML = \
 	v2v.ml
 
 SOURCES_C = \
-	domainxml-c.c \
+	libvirt_utils-c.c \
 	utils-c.c
 
 if HAVE_OCAML
@@ -161,7 +161,7 @@ virt_v2v_LINK = \
 	  $(OBJECTS) -o $@
 
 virt_v2v_copy_to_local_SOURCES = \
-	domainxml-c.c \
+	libvirt_utils-c.c \
 	utils-c.c
 virt_v2v_copy_to_local_CPPFLAGS = \
 	-I. \
@@ -176,8 +176,8 @@ virt_v2v_copy_to_local_CFLAGS = \
 COPY_TO_LOCAL_BOBJECTS = \
 	uefi.cmo \
 	utils.cmo \
+	libvirt_utils.cmo \
 	vCenter.cmo \
-	domainxml.cmo \
 	copy_to_local.cmo
 COPY_TO_LOCAL_XOBJECTS = $(COPY_TO_LOCAL_BOBJECTS:.cmo=.cmx)
 

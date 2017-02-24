@@ -52,7 +52,7 @@ let rec main () =
    *)
   if verbose () then (
     try
-      let major, minor, release = Domainxml.libvirt_get_version () in
+      let major, minor, release = Libvirt_utils.libvirt_get_version () in
       debug "libvirt version: %d.%d.%d" major minor release
     with _ -> ()
   );

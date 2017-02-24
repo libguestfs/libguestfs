@@ -130,7 +130,7 @@ read the man page virt-v2v-copy-to-local(1).
 
   (* Get the remote libvirt XML. *)
   message (f_"Fetching the remote libvirt XML metadata ...");
-  let xml = Domainxml.dumpxml ?password ~conn:input_conn guest_name in
+  let xml = Libvirt_utils.dumpxml ?password ~conn:input_conn guest_name in
 
   debug "libvirt XML from remote server:\n%s" xml;
 

@@ -35,7 +35,7 @@ let libvirt_supports_json_raw_driver () =
   let libguestfs_backend = (open_guestfs ())#get_backend () in
   let libguestfs_backend, _ = String.split ":" libguestfs_backend in
   if libguestfs_backend = "libvirt" then (
-    let sup = Domainxml.libvirt_get_version () >= (3, 1, 0) in
+    let sup = Libvirt_utils.libvirt_get_version () >= (3, 1, 0) in
     debug "libvirt supports  \"raw\" driver in json URL: %B" sup;
     sup
   )

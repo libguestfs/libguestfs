@@ -64,7 +64,7 @@ object
     (* Get the libvirt XML.  This also checks (as a side-effect)
      * that the domain is not running.  (RHBZ#1138586)
      *)
-    let xml = Domainxml.dumpxml ?password ?conn:libvirt_uri guest in
+    let xml = Libvirt_utils.dumpxml ?password ?conn:libvirt_uri guest in
     let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
 
     (* Find the <vmware:datacenterpath> element from the XML, if it

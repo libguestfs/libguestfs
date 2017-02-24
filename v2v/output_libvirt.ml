@@ -358,7 +358,7 @@ class output_libvirt oc output_pool = object
 
   method prepare_targets source targets =
     (* Get the capabilities from libvirt. *)
-    let xml = Domainxml.capabilities ?conn:oc () in
+    let xml = Libvirt_utils.capabilities ?conn:oc () in
     debug "libvirt capabilities XML:\n%s" xml;
 
     (* This just checks that the capabilities XML is well-formed,
@@ -373,7 +373,7 @@ class output_libvirt oc output_pool = object
     capabilities_doc <- Some doc;
 
     (* Does the domain already exist on the target?  (RHBZ#889082) *)
-    if Domainxml.domain_exists ?conn:oc source.s_name then (
+    if Libvirt_utils.domain_exists ?conn:oc source.s_name then (
       if source.s_hypervisor = Physical then (* virt-p2v user *)
         error (f_"a libvirt domain called '%s' already exists on the target.\n\nIf using virt-p2v, select a different 'Name' in the 'Target properties'. Or delete the existing domain on the target using the 'virsh undefine' command.")
               source.s_name
@@ -385,7 +385,7 @@ class output_libvirt oc output_pool = object
     (* Connect to output libvirt instance and check that the pool exists
      * and dump out its XML.
      *)
-    let xml = Domainxml.pool_dumpxml ?conn:oc output_pool in
+    let xml = Libvirt_utils.pool_dumpxml ?conn:oc output_pool in
     let doc = Xml.parse_memory xml in
     let xpathctx = Xml.xpath_new_context doc in
     let xpath_string = xpath_string xpathctx in

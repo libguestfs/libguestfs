@@ -487,10 +487,6 @@ v2v_domain_exists (value connv, value domnamev)
   CAMLreturn (Val_bool (domain_exists));
 }
 
-/* XXX This function is stuffed here for convenience (accessing
- * libvirt), not because it belongs logically with the rest of the
- * functions in this file.
- */
 value
 v2v_libvirt_get_version (value unitv)
 {
