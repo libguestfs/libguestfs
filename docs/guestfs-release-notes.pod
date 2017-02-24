@@ -222,7 +222,8 @@ Create a squashfs filesystem from a path (Pino Toscano).
 =item C<guestfs_add_domain>
 
 This call now handles libvirt file-based volumes correctly, where
-previously these would have been ignored (Pino Toscano).
+previously these would have been ignored.  Also handled are disks
+which require libvirt authentication secrets to open (Pino Toscano).
 
 =item C<guestfs_canonical_device_name>
 
