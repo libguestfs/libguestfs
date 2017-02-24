@@ -122,7 +122,6 @@ v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
 v2v/copy_to_local.ml
-v2v/domainxml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
 v2v/input_libvirt_other.ml
@@ -131,6 +130,7 @@ v2v/input_libvirt_xen_ssh.ml
 v2v/input_libvirtxml.ml
 v2v/input_ova.ml
 v2v/inspect_source.ml
+v2v/libvirt_utils.ml
 v2v/linux.ml
 v2v/linux_bootloaders.ml
 v2v/linux_kernels.ml

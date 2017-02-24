@@ -450,6 +450,6 @@ utils/boot-benchmark/boot-benchmark-range.pl
 utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
-v2v/domainxml-c.c
+v2v/libvirt_utils-c.c
 v2v/test-harness/dummy.c
 v2v/utils-c.c

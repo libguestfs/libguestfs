@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.35.27\n"
+"Project-Id-Version: libguestfs 1.35.28\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-22 22:12+0000\n"
+"POT-Creation-Date: 2017-02-24 12:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:367 ../mllib/common_utils.ml:569
+#: ../v2v/input_ova.ml:378 ../mllib/common_utils.ml:569
 msgid "%s"
 msgstr ""
 
@@ -88,6 +88,17 @@ msgid ""
 "\n"
 "If you don't know what the %s mount point should be then you can also find "
 "this out through the RHV-M user interface."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:204
+msgid ""
+"%s is missing, but the output hypervisor is oVirt or RHV.  Installing RHEV-"
+"APT in the guest would mean the guest is automatically updated with new "
+"drivers etc.  You may wish to install RHEV-APT manually after conversion."
+msgstr ""
+
+#: ../v2v/convert_windows.ml:195
+msgid "%s is missing.  Firstboot scripts may conflict with PnP."
 msgstr ""
 
 #: ../builder/simplestreams_parser.ml:59
@@ -432,7 +443,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:132 ../v2v/input_ova.ml:129
+#: ../v2v/input_ova.ml:146 ../v2v/input_ova.ml:143
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -450,12 +461,6 @@ msgstr ""
 
 #: ../builder/index_parser.ml:207
 msgid "%s: zero length path in the index file\n"
-msgstr ""
-
-#: ../v2v/convert_windows.ml:54
-msgid ""
-"'%s' is missing.  Firstboot scripts may conflict with PnP.  Original error: "
-"%s"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:330 ../customize/customize_cmdline.ml:239
@@ -1530,12 +1535,6 @@ msgstr ""
 
 #: ../dib/cmdline.ml:174
 msgid "Name of the image"
-msgstr ""
-
-#: ../v2v/convert_windows.ml:210
-msgid ""
-"Neither rhev-apt.exe nor vmdp.exe can be found.  Unable to install one of "
-"them."
 msgstr ""
 
 #: ../sysprep/sysprep_operation.ml:195
@@ -2643,7 +2642,7 @@ msgstr ""
 msgid "at least one distribution root element must be specified"
 msgstr ""
 
-#: ../v2v/input_libvirt_other.ml:40
+#: ../v2v/input_libvirt_other.ml:39
 msgid ""
 "because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER "
 "upgrade to libvirt >= 2.1.0 OR set this environment variable:\n"
@@ -2714,13 +2713,13 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:173
+#: ../v2v/convert_windows.ml:161
 msgid ""
 "cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
 "DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:118
+#: ../v2v/convert_windows.ml:106
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2755,7 +2754,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:200
+#: ../v2v/input_ova.ml:211
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2827,11 +2826,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:395
+#: ../v2v/input_ova.ml:407
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:238
+#: ../v2v/input_ova.ml:249
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2990,15 +2989,15 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:306
+#: ../v2v/input_ova.ml:317
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:351
+#: ../v2v/input_ova.ml:362
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:113 ../v2v/input_ova.ml:51
+#: ../v2v/input_ova.ml:127 ../v2v/input_ova.ml:64
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -3052,7 +3051,7 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:165
+#: ../v2v/utils.ml:170
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
@@ -3065,7 +3064,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:366
+#: ../v2v/input_ova.ml:377
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3309,7 +3308,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:150
+#: ../v2v/utils.ml:155
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
@@ -3317,7 +3316,7 @@ msgstr ""
 msgid "invalid password selector '%s'; see the man page"
 msgstr ""
 
-#: ../v2v/utils.ml:155
+#: ../v2v/utils.ml:160
 msgid "invalid size returned by tar: %S"
 msgstr ""
 
@@ -3356,7 +3355,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:145
+#: ../v2v/input_ova.ml:157
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3378,7 +3377,7 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:176
+#: ../v2v/input_ova.ml:187
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3414,7 +3413,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:184
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3436,7 +3435,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:311
+#: ../v2v/input_ova.ml:322
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3579,13 +3578,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:271
+#: ../v2v/input_ova.ml:282
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:268
+#: ../v2v/input_ova.ml:279
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3741,7 +3740,7 @@ msgstr ""
 msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_other.ml:50
+#: ../v2v/input_libvirt_other.ml:48
 msgid ""
 "ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
@@ -4002,7 +4001,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:204
+#: ../v2v/input_ova.ml:215
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4052,7 +4051,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:256
+#: ../v2v/input_ova.ml:267
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
@@ -4073,7 +4072,7 @@ msgstr ""
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:319
+#: ../v2v/input_ova.ml:330
 msgid "unsupported compression in OVF: %s"
 msgstr ""
 
@@ -9910,19 +9909,19 @@ msgstr ""
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:140 v2v/domainxml-c.c:211 v2v/domainxml-c.c:395
-#: v2v/domainxml-c.c:452
+#: v2v/libvirt_utils-c.c:140 v2v/libvirt_utils-c.c:211
+#: v2v/libvirt_utils-c.c:395 v2v/libvirt_utils-c.c:452
 #, c-format
 msgid "cannot open libvirt connection '%s'"
 msgstr ""
 
-#: v2v/domainxml-c.c:142 v2v/domainxml-c.c:213 v2v/domainxml-c.c:397
-#: v2v/domainxml-c.c:454
+#: v2v/libvirt_utils-c.c:142 v2v/libvirt_utils-c.c:213
+#: v2v/libvirt_utils-c.c:397 v2v/libvirt_utils-c.c:454
 #, c-format
 msgid "cannot open libvirt connection"
 msgstr ""
 
-#: v2v/domainxml-c.c:163
+#: v2v/libvirt_utils-c.c:163
 #, c-format
 msgid ""
 "cannot find libvirt pool '%s': %s\n"
@@ -9933,44 +9932,44 @@ msgid ""
 "To set the pool which virt-v2v uses, add the `-os <pool>' option."
 msgstr ""
 
-#: v2v/domainxml-c.c:234 v2v/domainxml-c.c:478
+#: v2v/libvirt_utils-c.c:234 v2v/libvirt_utils-c.c:478
 #, c-format
 msgid "cannot find libvirt domain '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:249
+#: v2v/libvirt_utils-c.c:249
 #, c-format
 msgid ""
 "libvirt domain '%s' is running or paused.  It must be shut down in order to "
 "perform virt-v2v conversion"
 msgstr ""
 
-#: v2v/domainxml-c.c:262
+#: v2v/libvirt_utils-c.c:262
 #, c-format
 msgid "cannot fetch XML description of guest '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:299
+#: v2v/libvirt_utils-c.c:299
 #, c-format
 msgid "cannot fetch XML description of pool '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:342
+#: v2v/libvirt_utils-c.c:342
 #, c-format
 msgid "cannot find libvirt volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:352
+#: v2v/libvirt_utils-c.c:352
 #, c-format
 msgid "cannot fetch XML description of volume '%s': %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:411
+#: v2v/libvirt_utils-c.c:411
 #, c-format
 msgid "cannot get libvirt hypervisor capabilities: %s"
 msgstr ""
 
-#: v2v/domainxml-c.c:510
+#: v2v/libvirt_utils-c.c:506
 #, c-format
 msgid "cannot get libvirt library version: %s"
 msgstr ""
