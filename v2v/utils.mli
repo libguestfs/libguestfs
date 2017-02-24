@@ -55,6 +55,9 @@ val qemu_img_supports_offset_and_size : unit -> bool
 (** Return true iff [qemu-img] supports the ["offset"] and ["size"]
     parameters to open a subset of a file. *)
 
+val backend_is_libvirt : unit -> bool
+(** Return true iff the current backend is libvirt. *)
+
 val find_file_in_tar : string -> string -> int64 * int64
 (** [find_file_in_tar tar filename] looks up file in [tar] archive and returns
     a tuple containing at which byte it starts and how long the file is.

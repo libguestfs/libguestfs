@@ -119,6 +119,11 @@ let qemu_img_supports_offset_and_size () =
   debug "qemu-img supports \"offset\" and \"size\" in json URLs: %b" r;
   r
 
+let backend_is_libvirt () =
+  let backend = (open_guestfs ())#get_backend () in
+  let backend = fst (String.split ":" backend) in
+  backend = "libvirt"
+
 let find_file_in_tar tar filename =
   let lines = external_command (sprintf "tar tRvf %s" (Filename.quote tar)) in
   let rec loop lines =

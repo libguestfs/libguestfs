@@ -32,9 +32,7 @@ open Name_from_disk
  * used.  This didn't work in libvirt < 3.1.0.
  *)
 let libvirt_supports_json_raw_driver () =
-  let libguestfs_backend = (open_guestfs ())#get_backend () in
-  let libguestfs_backend, _ = String.split ":" libguestfs_backend in
-  if libguestfs_backend = "libvirt" then (
+  if backend_is_libvirt () then (
     let sup = Libvirt_utils.libvirt_get_version () >= (3, 1, 0) in
     debug "libvirt supports  \"raw\" driver in json URL: %B" sup;
     sup
@@ -155,13 +153,10 @@ object
      * we have to chmod the directory to 0755 and files to 0644
      * so it is readable by qemu.qemu.  This is libvirt bug RHBZ#890291.
      *)
-    if Unix.geteuid () = 0 then (
-      let libguestfs_backend = (open_guestfs ())#get_backend () in
-      if libguestfs_backend = "libvirt" then (
-        warning (f_"making OVA directory public readable to work around libvirt bug https://bugzilla.redhat.com/1045069");
-        let cmd = [ "chmod"; "-R"; "go=u,go-w"; exploded ] in
-        ignore (run_command cmd)
-      )
+    if Unix.geteuid () = 0 && backend_is_libvirt () then (
+      warning (f_"making OVA directory public readable to work around libvirt bug https://bugzilla.redhat.com/1045069");
+      let cmd = [ "chmod"; "-R"; "go=u,go-w"; exploded ] in
+      ignore (run_command cmd)
     );
 
     (* Find files in [dir] ending with [ext]. *)
