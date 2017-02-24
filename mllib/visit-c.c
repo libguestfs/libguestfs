@@ -61,10 +61,11 @@ guestfs_int_mllib_visit (value gv, value dirv, value fv)
    */
   CLEANUP_FREE char *dir = strdup (String_val (dirv));
   /* This stack address is used to point to the exception, if one is
-   * raised in the visitor_function.  Note that the macro initializes
-   * this to Val_unit, which is how we know if an exception was set.
+   * raised in the visitor_function.
    */
   CAMLlocal1 (exn);
+
+  exn = Val_unit;
 
   args.exnp = &exn;
   args.fvp = &fv;
