@@ -27,6 +27,21 @@ open Utils
 open Xpath_helpers
 open Name_from_disk
 
+(* Return true if [libvirt] supports ["json:"] pseudo-URLs and accepts the
+ * ["raw"] driver. Function also returns true if [libvirt] backend is not
+ * used.  This didn't work in libvirt < 3.1.0.
+ *)
+let libvirt_supports_json_raw_driver () =
+  let libguestfs_backend = (open_guestfs ())#get_backend () in
+  let libguestfs_backend, _ = String.split ":" libguestfs_backend in
+  if libguestfs_backend = "libvirt" then (
+    let sup = Domainxml.libvirt_get_version () >= (3, 1, 0) in
+    debug "libvirt supports  \"raw\" driver in json URL: %B" sup;
+    sup
+  )
+  else
+    true
+
 class input_ova ova =
   let tmpdir =
     let base_dir = (open_guestfs ())#get_cachedir () in
