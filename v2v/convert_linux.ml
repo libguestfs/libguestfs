@@ -16,12 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Convert various RPM-based Linux enterprise distros.  This module
- * handles:
+(* Convert various Linux distros.  This module handles:
  *
  * - RHEL and derivatives like CentOS and ScientificLinux
  * - SUSE
- * - OpenSUSE and Fedora (not enterprisey, but similar enough to RHEL/SUSE)
+ * - OpenSUSE and Fedora (similar enough to RHEL/SUSE)
+ * - Debian and derivatives like Ubuntu and Linux Mint
  *)
 
 (* < mdbooth> It's all in there for a reason :/ *)
@@ -44,7 +44,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
    * the common v2v.ml code, but that has to deal with generic guests
    * (anything common to Linux and Windows).  Here we do more detailed
    * inspection which can make the assumption that we are dealing with
-   * an Enterprise Linux guest using RPM.
+   * a Linux guest using RPM or Debian packages.
    *)
 
   (* Basic inspection data available as local variables. *)
@@ -1059,4 +1059,4 @@ let () =
         i_distro = ("debian" | "ubuntu" | "linuxmint") } -> true
     | _ -> false
   in
-  Modules_list.register_convert_module matching "enterprise-linux" convert
+  Modules_list.register_convert_module matching "linux" convert

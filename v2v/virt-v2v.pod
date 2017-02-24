@@ -1910,7 +1910,7 @@ virt-v2v binary.  Typical output looks like this:
  [...]
  output:local
  [...]
- convert:enterprise-linux
+ convert:linux
  convert:windows
 
 A list of features is printed, one per line, and the program exits
