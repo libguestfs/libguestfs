@@ -52,6 +52,7 @@ SOURCES_MLI = \
 	output_rhv.mli \
 	output_vdsm.mli \
 	OVF.mli \
+	parse_libvirt_xml.mli \
 	target_bus_assignment.mli \
 	types.mli \
 	uefi.mli \
@@ -75,6 +76,7 @@ SOURCES_ML = \
 	windows_virtio.ml \
 	modules_list.ml \
 	input_disk.ml \
+	parse_libvirt_xml.ml \
 	input_libvirtxml.ml \
 	input_libvirt_other.ml \
 	input_libvirt_vcenter_https.ml \

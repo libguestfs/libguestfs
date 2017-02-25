@@ -23,6 +23,7 @@ open Common_utils
 
 open Types
 open Utils
+open Parse_libvirt_xml
 
 (* Libvirt < 2.1.0 did not support the "json:" pseudo-URLs that
  * we use as backingfiles, when accessing Xen over SSH or vCenter
@@ -75,10 +76,8 @@ object
      *)
     let xml = Libvirt_utils.dumpxml ?password ?conn:libvirt_uri guest in
 
-    let source, disks =
-      Input_libvirtxml.parse_libvirt_xml ?conn:libvirt_uri xml in
-    let disks =
-      List.map (fun { Input_libvirtxml.p_source_disk = disk } -> disk) disks in
+    let source, disks = parse_libvirt_xml ?conn:libvirt_uri xml in
+    let disks = List.map (fun { p_source_disk = disk } -> disk) disks in
     { source with s_disks = disks }
 end
 

@@ -25,7 +25,7 @@ open Unix_utils.Env
 open Types
 open Utils
 open Xpath_helpers
-open Input_libvirtxml
+open Parse_libvirt_xml
 open Input_libvirt_other
 
 open Printf

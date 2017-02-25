@@ -24,7 +24,7 @@ open Common_utils
 open Types
 open Xml
 open Utils
-open Input_libvirtxml
+open Parse_libvirt_xml
 open Input_libvirt_other
 
 open Printf

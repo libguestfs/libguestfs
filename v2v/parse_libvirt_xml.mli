@@ -16,9 +16,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [-i libvirtxml] source. *)
+(** Parse libvirt XML into a {!Types.source} structure. *)
 
-val input_libvirtxml : string -> Types.input
-(** [input_libvirtxml xml_file] creates and returns a new
-    {!Types.input} object specialized for reading input from local
-    libvirt XML files. *)
+type parsed_disk = {
+  p_source_disk : Types.source_disk;    (** Source disk. *)
+  p_source : parsed_source;         (** <source dev|file attribute> *)
+}
+and parsed_source =
+| P_source_dev of string             (** <source dev> *)
+| P_source_file of string            (** <source file> *)
+| P_dont_rewrite                     (** s_qemu_uri is already set. *)
+
+val parse_libvirt_xml : ?conn:string -> string -> Types.source * parsed_disk list
+(** Take libvirt XML and parse it into a {!Types.source} structure and a
+    list of source disks.
+
+    {b Note} the [source.s_disks] field is an empty list.  The caller
+    must map over the parsed disks and update the [source.s_disks] field. *)
