@@ -16,9 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [-o libvirt] target. *)
+(** Create libvirt XML for [-o libvirt] and [-o local]. *)
 
-val output_libvirt : string option -> string -> Types.output
-(** [output_libvirt oc output_pool] creates and returns a new
-    {!Types.output} object specialized for writing output to
-    libvirt. *)
+val create_libvirt_xml : ?pool:string -> Types.source -> Types.target_buses ->
+                         Types.guestcaps -> string list ->
+                         Types.target_firmware ->
+                         DOM.doc
+(** [create_libvirt_xml ?pool source target_buses guestcaps target_features
+     target_firmware] creates the final libvirt XML for the output
+    hypervisor. *)

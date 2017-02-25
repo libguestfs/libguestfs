@@ -29,6 +29,7 @@ SOURCES_MLI = \
 	cmdline.mli \
 	convert_linux.mli \
 	convert_windows.mli \
+	create_libvirt_xml.mli \
 	DOM.mli \
 	input_disk.mli \
 	input_libvirt.mli \
@@ -77,6 +78,7 @@ SOURCES_ML = \
 	modules_list.ml \
 	input_disk.ml \
 	parse_libvirt_xml.ml \
+	create_libvirt_xml.ml \
 	input_libvirtxml.ml \
 	input_libvirt_other.ml \
 	input_libvirt_vcenter_https.ml \
