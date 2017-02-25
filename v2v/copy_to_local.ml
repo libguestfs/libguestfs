@@ -233,7 +233,7 @@ read the man page virt-v2v-copy-to-local(1).
   delete_on_exit := false
 
 (* This is a greatly simplified version of the parsing function
- * in virt-v2v input_libvirtxml.ml:parse_libvirt_xml
+ * in virt-v2v parse_libvirt_xml.ml:parse_libvirt_xml
  * It also modifies the XML <disk> elements to point to local disks.
  *)
 and parse_libvirt_xml guest_name xml =
