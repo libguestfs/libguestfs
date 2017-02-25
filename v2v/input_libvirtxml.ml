@@ -38,10 +38,7 @@ and parsed_source =
  * common/utils/utils.c:guestfs_int_drive_index which this function calls.
  *)
 let get_drive_slot str offset =
-  let len = String.length str in
-  if len-offset < 0 then
-    failwithf "get_drive_slot: offset longer than string length (offset = %d, string = %s)" offset str;
-  let name = String.sub str offset (len-offset) in
+  let name = String.sub str offset (String.length str - offset) in
   try Some (drive_index name)
   with Invalid_argument _ ->
        warning (f_"could not parse device name '%s' from the source libvirt XML") str;
@@ -326,14 +323,20 @@ let parse_libvirt_xml ?conn xml =
         let target_dev = xpath_string "target/@dev" in
         match target_dev with
         | None -> None
-        | Some s when String.is_prefix s "hd" -> get_drive_slot s 2
-        | Some s when String.is_prefix s "sd" -> get_drive_slot s 2
-        | Some s when String.is_prefix s "vd" -> get_drive_slot s 2
-        | Some s when String.is_prefix s "xvd" -> get_drive_slot s 3
-        | Some s when String.is_prefix s "fd" -> get_drive_slot s 2
-        | Some s ->
-           warning (f_"<target dev='%s'> was ignored because the device name could not be recognized") s;
-           None in
+        | Some dev ->
+           let rec loop = function
+             | [] ->
+                warning (f_"<target dev='%s'> was ignored because the device name could not be recognized") dev;
+                None
+             | prefix :: rest ->
+                if String.is_prefix dev prefix then (
+                  let offset = String.length prefix in
+                  get_drive_slot dev offset
+                )
+                else
+                  loop rest
+           in
+           loop ["hd"; "sd"; "vd"; "xvd"; "fd"] in
 
       let typ =
         match xpath_string "@device" with
