@@ -47,11 +47,13 @@ let input_libvirt dcpath password libvirt_uri guest =
     | Some _, Some "" ->
       Input_libvirt_other.input_libvirt_other password libvirt_uri guest
 
-    | Some server, Some ("esx"|"gsx"|"vpx" as scheme) -> (* vCenter over https *)
+    (* vCenter over https *)
+    | Some server, Some ("esx"|"gsx"|"vpx" as scheme) ->
       Input_libvirt_vcenter_https.input_libvirt_vcenter_https
         dcpath password libvirt_uri parsed_uri scheme server guest
 
-    | Some server, Some ("xen+ssh" as scheme) -> (* Xen over SSH *)
+    (* Xen over SSH *)
+    | Some server, Some ("xen+ssh" as scheme) ->
       Input_libvirt_xen_ssh.input_libvirt_xen_ssh
         password libvirt_uri parsed_uri scheme server guest
 
@@ -60,7 +62,8 @@ let input_libvirt dcpath password libvirt_uri guest =
      * use virt-v2v if a guest already runs on KVM.
      *)
 
-    | Some _, Some _ ->             (* Unknown remote scheme. *)
+    (* Unknown remote scheme. *)
+    | Some _, Some _ ->
       warning (f_"no support for remote libvirt connections to '-ic %s'.  The conversion may fail when it tries to read the source disks.")
         orig_uri;
       Input_libvirt_other.input_libvirt_other password libvirt_uri guest
