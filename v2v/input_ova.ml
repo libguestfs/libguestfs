@@ -52,7 +52,6 @@ object
   method as_options = "-i ova " ^ ova
 
   method source () =
-
     (* Untar part or all files from tar archive. If [paths] is specified it is
      * a list of paths in the tar archive.
      *)

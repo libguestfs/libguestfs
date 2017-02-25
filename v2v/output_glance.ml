@@ -69,7 +69,7 @@ object
     (* See #supported_firmware above. *)
     assert (target_firmware = TargetBIOS);
 
-    (* The first disk, assumed to be the system, will be called
+    (* The first disk, assumed to be the system disk, will be called
      * "guestname".  Subsequent disks, assumed to be data disks,
      * will be called "guestname-disk2" etc.  The manual strongly
      * hints you should import the data disks to Cinder.
