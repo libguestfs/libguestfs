@@ -18,9 +18,6 @@
 
 (** [-o rhv] target. *)
 
-val mount_and_check_storage_domain : string -> string -> (string * string)
-(** This helper function is also used by the VDSM target. *)
-
 val output_rhv : string -> Types.output_allocation -> Types.output
 (** [output_rhv os output_alloc] creates and
     returns a new {!Types.output} object specialized for writing
