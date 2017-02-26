@@ -59,6 +59,17 @@ module Char = struct
       | 'a'..'f' -> true
       | 'A'..'F' -> true
       | _ -> false
+
+    let isalpha = function
+      | 'a'..'z' -> true
+      | 'A'..'Z' -> true
+      | _ -> false
+
+    let isalnum = function
+      | '0'..'9' -> true
+      | 'a'..'z' -> true
+      | 'A'..'Z' -> true
+      | _ -> false
 end
 
 module String = struct

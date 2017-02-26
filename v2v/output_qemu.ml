@@ -69,61 +69,51 @@ object
     let machine_q35 = secure_boot_required in
     let smm = secure_boot_required in
 
-    let chan = open_out file in
+    (* Construct the command line.  Note that the [Qemu_command]
+     * module deals with shell and qemu comma quoting.
+     *)
+    let cmd = Qemu_command.create ~arch:guestcaps.gcaps_arch () in
+    let flag = Qemu_command.flag cmd
+    and arg = Qemu_command.arg cmd
+    and arg_noquote = Qemu_command.arg_noquote cmd
+    and commas = Qemu_command.commas cmd in
 
-    let fpf fs = fprintf chan fs in
-    let nl = " \\\n\t" in
-    fpf "#!/bin/sh -\n";
-    fpf "\n";
-
-    (match uefi_firmware with
-     | None -> ()
-     | Some { Uefi.vars = vars_template } ->
-        fpf "# Make a copy of the UEFI variables template\n";
-        fpf "uefi_vars=\"$(mktemp)\"\n";
-        fpf "cp %s \"$uefi_vars\"\n" (quote vars_template);
-        fpf "\n"
-    );
-
-    fpf "qemu-system-%s" guestcaps.gcaps_arch;
-    fpf "%s-no-user-config -nodefaults" nl;
-    fpf "%s-name %s" nl (quote source.s_name);
-    fpf "%s-machine %s%saccel=kvm:tcg" nl
-        (if machine_q35 then "q35," else "")
-        (if smm then "smm=on," else "");
+    flag "-no-user-config"; flag "-nodefaults";
+    arg "-name" source.s_name;
+    commas "-machine" (if machine_q35 then ["q35"] else [] @
+                       if smm then ["smm=on"] else [] @
+                       ["accel=kvm:tcg"]);
 
     (match uefi_firmware with
      | None -> ()
      | Some { Uefi.code = code } ->
         if secure_boot_required then
-          fpf "%s-global driver=cfi.pflash01,property=secure,value=on" nl;
-        fpf "%s-drive if=pflash,format=raw,file=%s,readonly" nl (quote code);
-        fpf "%s-drive if=pflash,format=raw,file=\"$uefi_vars\"" nl
+          commas "-global"
+                 ["driver=cfi.pflash01"; "property=secure"; "value=on"];
+        commas "-drive"
+               ["if=pflash"; "format=raw"; "file=" ^ code; "readonly"];
+        arg_noquote "-drive" "if=pflash,format=raw,file=\"$uefi_vars\"";
     );
 
-    fpf "%s-m %Ld" nl (source.s_memory /^ 1024L /^ 1024L);
+    arg "-m" (Int64.to_string (source.s_memory /^ 1024L /^ 1024L));
     if source.s_vcpu > 1 then
-      fpf "%s-smp %d" nl source.s_vcpu;
+      arg "-smp" (string_of_int source.s_vcpu);
 
     let make_disk if_name i = function
     | BusSlotEmpty -> ()
 
     | BusSlotTarget t ->
-       let qemu_quoted_filename = String.replace t.target_file "," ",," in
-       let drive_param =
-          sprintf "file=%s,format=%s,if=%s,index=%d,media=disk"
-                  qemu_quoted_filename t.target_format if_name i in
-       fpf "%s-drive %s" nl (quote drive_param)
+       commas "-drive" ["file=" ^ t.target_file; "format=" ^ t.target_format;
+                        "if=" ^ if_name; "index=" ^ string_of_int i;
+                        "media=disk"]
 
     | BusSlotRemovable { s_removable_type = CDROM } ->
-       let drive_param =
-          sprintf "format=raw,if=%s,index=%d,media=cdrom" if_name i in
-       fpf "%s-drive %s" nl (quote drive_param)
+       commas "-drive" ["format=raw"; "if=" ^ if_name;
+                        "index=" ^ string_of_int i; "media=cdrom"]
 
     | BusSlotRemovable { s_removable_type = Floppy } ->
-       let drive_param =
-          sprintf "format=raw,if=%s,index=%d,media=floppy" if_name i in
-       fpf "%s-drive %s" nl (quote drive_param)
+       commas "-drive" ["format=raw"; "if=" ^ if_name;
+                        "index=" ^ string_of_int i; "media=floppy"]
     in
     Array.iteri (make_disk "virtio") target_buses.target_virtio_blk_bus;
     Array.iteri (make_disk "ide") target_buses.target_ide_bus;
@@ -132,21 +122,17 @@ object
     | BusSlotEmpty -> ()
 
     | BusSlotTarget t ->
-       let qemu_quoted_filename = String.replace t.target_file "," ",," in
-       let drive_param =
-          sprintf "file=%s,format=%s,if=scsi,bus=0,unit=%d,media=disk"
-                  qemu_quoted_filename t.target_format i in
-       fpf "%s-drive %s" nl (quote drive_param)
+       commas "-drive" ["file=" ^ t.target_file; "format=" ^ t.target_format;
+                        "if=scsi"; "bus=0"; "unit=" ^ string_of_int i;
+                        "media=disk"]
 
     | BusSlotRemovable { s_removable_type = CDROM } ->
-       let drive_param =
-          sprintf "format=raw,if=scsi,bus=0,unit=%d,media=cdrom" i in
-       fpf "%s-drive %s" nl (quote drive_param)
+       commas "-drive" ["format=raw"; "if=scsi"; "bus=0";
+                        "unit=" ^ string_of_int i; "media=cdrom"]
 
     | BusSlotRemovable { s_removable_type = Floppy } ->
-       let drive_param =
-          sprintf "format=raw,if=scsi,bus=0,unit=%d,media=floppy" i in
-       fpf "%s-drive %s" nl (quote drive_param)
+       commas "-drive" ["format=raw"; "if=scsi"; "bus=0";
+                        "unit=" ^ string_of_int i; "media=floppy"]
     in
     Array.iteri make_scsi target_buses.target_scsi_bus;
 
@@ -161,9 +147,12 @@ object
       | RTL8139 -> "rtl8139" in
     iteri (
       fun i nic ->
-        fpf "%s-netdev user,id=net%d" nl i;
-        fpf "%s-device %s,netdev=net%d%s" nl
-          net_bus i (match nic.s_mac with None -> "" | Some mac -> ",mac=" ^ mac)
+        commas "-netdev" ["user"; "id=net" ^ string_of_int i];
+        commas "-device" [net_bus;
+                          sprintf "netdev=net%d%s" i
+                                  (match nic.s_mac with
+                                   | None -> ""
+                                   | Some mac -> "mac=" ^ mac)]
     ) source.s_nics;
 
     (* Add a display. *)
@@ -172,15 +161,18 @@ object
     | Some display ->
       (match display.s_display_type with
       | Window ->
-        fpf "%s-display gtk" nl
+         arg "-display" "gtk"
       | VNC ->
-        fpf "%s-display vnc=:0" nl
+         arg "-display" "vnc=:0"
       | Spice ->
-        fpf "%s-spice port=%d,addr=127.0.0.1" nl
-        (match display.s_port with None -> 5900 | Some p -> p)
+         commas "-spice" [sprintf "port=%d"
+                                  (match display.s_port with
+                                   | None -> 5900
+                                   | Some p -> p);
+                          "addr=127.0.0.1"]
       );
-      fpf "%s-vga %s" nl
-        (match guestcaps.gcaps_video with Cirrus -> "cirrus" | QXL -> "qxl")
+      arg "-vga"
+          (match guestcaps.gcaps_video with Cirrus -> "cirrus" | QXL -> "qxl")
     );
 
     (* Add a sound card. *)
@@ -189,22 +181,36 @@ object
      | Some { s_sound_model = model } ->
         if qemu_supports_sound_card model then (
           match model with
-          | AC97      -> fpf "%s-device AC97" nl
-          | ES1370    -> fpf "%s-device ES1370" nl
-          | ICH6      -> fpf "%s-device intel-hda -device hda-duplex" nl
-          | ICH9      -> fpf "%s-device ich9-intel-hda" nl
-          | PCSpeaker -> fpf "%s-soundhw pcspk" nl (* not qdev-ified *)
-          | SB16      -> fpf "%s-device sb16" nl
-          | USBAudio  -> fpf "%s-device usb-audio" nl
+          | AC97      -> arg "-device" "AC97"
+          | ES1370    -> arg "-device" "ES1370"
+          | ICH6      -> arg "-device" "intel-hda -device hda-duplex"
+          | ICH9      -> arg "-device" "ich9-intel-hda"
+          | PCSpeaker -> arg "-soundhw" "pcspk" (* not qdev-ified *)
+          | SB16      -> arg "-device" "sb16"
+          | USBAudio  -> arg "-device" "usb-audio"
         )
     );
 
     (* Add a serial console to Linux guests. *)
     if inspect.i_type = "linux" then
-      fpf "%s-serial stdio" nl;
+      arg "-serial" "stdio";
 
+    (* Write the output file. *)
+    let chan = open_out file in
+    let fpf fs = fprintf chan fs in
+    fpf "#!/bin/sh -\n";
     fpf "\n";
 
+    (match uefi_firmware with
+     | None -> ()
+     | Some { Uefi.vars = vars_template } ->
+        fpf "# Make a copy of the UEFI variables template\n";
+        fpf "uefi_vars=\"$(mktemp)\"\n";
+        fpf "cp %s \"$uefi_vars\"\n" (quote vars_template);
+        fpf "\n"
+    );
+
+    Qemu_command.to_chan cmd chan;
     close_out chan;
 
     Unix.chmod file 0o755;

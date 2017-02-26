@@ -54,6 +54,7 @@ SOURCES_MLI = \
 	output_vdsm.mli \
 	OVF.mli \
 	parse_libvirt_xml.mli \
+	qemu_command.mli \
 	target_bus_assignment.mli \
 	types.mli \
 	uefi.mli \
@@ -79,6 +80,7 @@ SOURCES_ML = \
 	input_disk.ml \
 	parse_libvirt_xml.ml \
 	create_libvirt_xml.ml \
+	qemu_command.ml \
 	input_libvirtxml.ml \
 	input_libvirt_other.ml \
 	input_libvirt_vcenter_https.ml \
