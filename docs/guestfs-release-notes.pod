@@ -4,18 +4,18 @@ guestfs-release-notes - libguestfs Release Notes
 
 =begin comment
 
-UPDATED TO e53ee5befa3e067a3c7d163d63eb2a2eba960858
+UPDATED TO <commit-id>
 
 =end comment
 
-=begin html
+=begin comment
 
 <script>
 document.body.style.backgroundImage = "url('draft.png')";
 document.body.style.backgroundRepeat = "no-repeat";
 </script>
 
-=end html
+=end comment
 
 =head1 RELEASE NOTES FOR LIBGUESTFS 1.36
 
@@ -24,11 +24,6 @@ stable/dev branch split (1.34.0).  For detailed changelogs, please see
 the git repository, or the ChangeLog file distributed in the tarball.
 
 =head2 New features
-
-Bash completion is now available in every command line tool that is
-shipped.
-
-ExFAT filesystems are now supported (Miles Wolbe).
 
 =head3 New tools
 
@@ -59,6 +54,9 @@ and SELinux labels are preserved in the output tar file (Pino
 Toscano).
 
 Virt-dib can now create squashfs files (Pino Toscano).
+
+Bash tab-completion is now available in every command line tool that
+is shipped.
 
 =head3 virt-v2v and virt-p2v
 
@@ -174,6 +172,10 @@ usable qemu at the time of writing).
 
 Detection of S/390 and S/390x binaries and guests is now supported.
 
+=head3 Other
+
+ExFAT filesystems are now supported (Miles Wolbe).
+
 =head2 Security
 
 See also L<guestfs-security(1)>.
@@ -262,6 +264,9 @@ This call can now change the labels of swap partitions (Pino Toscano).
 
 =head2 Build changes
 
+libmagic, the library part of the C<file> command, is now required at
+build time (previously optional).
+
 GCC 7 is now supported.
 
 "Silent rules" are now used for OCaml programs, Java bindings.  To
@@ -271,7 +276,8 @@ line (Pino Toscano).
 Slow testing (C<make check-slow>) now covers: firstboot scripts in
 Linux guests; v2v conversion of a selection of real Linux guests; the
 virt-customize I<--hostname> and I<--timezone> settings; the
-I<--root-password> parameter; that the serial console works.
+I<--root-password> parameter; that the serial console works in
+virt-builder guests.
 
 Large generated C source files, eg. the list of commands found in
 F<fish/cmds.c> (and many more), have been split into smaller files to
@@ -285,8 +291,8 @@ going to be removed soon (Pino Toscano).
 
 Debian hosts using UsrMerge are now supported (Pino Toscano).
 
-Header files and C C<struct>s can now have internal documentation
-using the special C</** ... */> comments.
+Header files and C structs can now have internal documentation using
+the special C</** ... */> comments.
 
 C<@VAR@> subtitutions in C<./run> are now fully quoted.  This is
 necessary so that (eg) C<./configure PYTHON=/some/path> works robustly
@@ -299,7 +305,7 @@ Kraxel's old edk2 builds can no longer be used for UEFI support.  UEFI
 code is now fully free software, so use the versions bundled with your
 Linux distro instead.
 
-Libguestfs can now mostly be compiled on RHEL 5 (2007-era) Linux.
+Virt-p2v can now be compiled on RHEL 5 (2007-era) Linux with Gtk 2.10.
 
 =head2 Internals
 
@@ -360,7 +366,7 @@ The C<$TERM> environment variable is now validated before passing it
 through to the appliance kernel command line.
 
 Useless USB and memballoon devices are no longer created in the
-appliance.
+appliance (Laine Stump).
 
 On aarch64 we now use virtio-pci for the appliance.  This is somewhat
 faster than virtio-mmio.
