@@ -177,7 +177,7 @@ Various core features will be disabled if hivex is not available.
 
 =item libmagic
 
-Optional.  This is the library used by the L<file(1)> command.
+I<Required>.  This is the library used by the L<file(1)> command.
 
 =item libvirt E<ge> 0.10.2
 

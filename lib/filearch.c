@@ -27,17 +27,13 @@
 #include <sys/wait.h>
 #include <libintl.h>
 
-#ifdef HAVE_LIBMAGIC
 #include <magic.h>
-#endif
 
 #include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-
-#if defined(HAVE_LIBMAGIC)
 
 # ifdef HAVE_ATTRIBUTE_CLEANUP
 # define CLEANUP_MAGIC_T_FREE __attribute__((cleanup(cleanup_magic_t_free)))
@@ -364,19 +360,3 @@ guestfs_impl_file_architecture (guestfs_h *g, const char *path)
 
   return ret;                   /* caller frees */
 }
-
-#else /* no libmagic at compile time */
-
-/* XXX Should be an optgroup. */
-
-#define NOT_IMPL(r)                                                     \
-  error (g, _("file-architecture API not available since this version of libguestfs was compiled without the libmagic library")); \
-  return r
-
-char *
-guestfs_impl_file_architecture (guestfs_h *g, const char *path)
-{
-  NOT_IMPL(NULL);
-}
-
-#endif /* no libmagic at compile time */

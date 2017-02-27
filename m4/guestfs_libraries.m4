@@ -230,13 +230,14 @@ PKG_CHECK_MODULES([PCRE], [libpcre])
 dnl Check for Augeas >= 1.0.0 (required).
 PKG_CHECK_MODULES([AUGEAS],[augeas >= 1.0.0])
 
-dnl libmagic (highly recommended)
+dnl libmagic (required)
 AC_CHECK_LIB([magic],[magic_file],[
     AC_CHECK_HEADER([magic.h],[
         AC_SUBST([MAGIC_LIBS], ["-lmagic"])
-        AC_DEFINE([HAVE_LIBMAGIC],[1],[libmagic found at compile time.])
     ], [])
-],[AC_MSG_WARN([libmagic not found, some core features will be disabled])])
+],[])
+AS_IF([test -z "$MAGIC_LIBS"],
+    [AC_MSG_ERROR([libmagic (part of the "file" command) is required])])
 
 dnl libvirt (highly recommended)
 AC_ARG_WITH([libvirt],[
