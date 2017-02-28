@@ -122,6 +122,7 @@ v2v/cmdline.ml
 v2v/convert_linux.ml
 v2v/convert_windows.ml
 v2v/copy_to_local.ml
+v2v/create_libvirt_xml.ml
 v2v/input_disk.ml
 v2v/input_libvirt.ml
 v2v/input_libvirt_other.ml
@@ -143,6 +144,8 @@ v2v/output_null.ml
 v2v/output_qemu.ml
 v2v/output_rhv.ml
 v2v/output_vdsm.ml
+v2v/parse_libvirt_xml.ml
+v2v/qemu_command.ml
 v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml
 v2v/types.ml

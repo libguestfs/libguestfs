@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-24 12:57+0000\n"
+"POT-Creation-Date: 2017-02-28 09:15+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libguestfs/"
@@ -46,7 +46,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:378 ../mllib/common_utils.ml:569
+#: ../v2v/input_ova.ml:377 ../mllib/common_utils.ml:580
 msgid "%s"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:452
-#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1132
+#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1150
 msgid "%s (ignored)"
 msgstr ""
 
@@ -94,14 +94,14 @@ msgid ""
 "this out through the RHV-M user interface."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:204
+#: ../v2v/convert_windows.ml:199
 msgid ""
 "%s is missing, but the output hypervisor is oVirt or RHV.  Installing RHEV-"
 "APT in the guest would mean the guest is automatically updated with new "
 "drivers etc.  You may wish to install RHEV-APT manually after conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:195
+#: ../v2v/convert_windows.ml:190
 msgid "%s is missing.  Firstboot scripts may conflict with PnP."
 msgstr ""
 
@@ -133,11 +133,11 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:565 ../mllib/common_utils.ml:537
+#: ../mllib/common_utils.ml:576 ../mllib/common_utils.ml:548
 msgid "%s: %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:567
+#: ../mllib/common_utils.ml:578
 msgid "%s: %s: %s"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:509
+#: ../mllib/common_utils.ml:520
 msgid "%s: error: %s"
 msgstr ""
 
@@ -447,7 +447,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:146 ../v2v/input_ova.ml:143
+#: ../v2v/input_ova.ml:145 ../v2v/input_ova.ml:142
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -455,7 +455,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:527
+#: ../mllib/common_utils.ml:538
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -624,26 +624,26 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:409
+#: ../v2v/output_libvirt.ml:131
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/name element.  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:399
+#: ../v2v/output_libvirt.ml:121
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/target/path element.  See "
 "virt-v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:401
+#: ../v2v/output_libvirt.ml:123
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO "
 "LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:395
+#: ../v2v/output_libvirt.ml:117
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -701,30 +701,12 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#. ../v2v/copy_to_local.ml:318
-#: ../v2v/input_libvirtxml.ml:300 ../v2v/input_libvirtxml.ml:267
+#: ../v2v/copy_to_local.ml:318
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:273
-msgid "<disk type='network'> with <source protocol='%s'> was ignored"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:296
-msgid "<disk type='volume'> with <volume type='%s'> was ignored"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:246 ../v2v/copy_to_local.ml:300
+#: ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:122
-msgid "<listen type='%s'> in the input libvirt XML was ignored"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:335
-msgid ""
-"<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
 
 #. ../customize/customize_main.ml:74
@@ -1064,7 +1046,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:710
+#: ../mllib/common_utils.ml:728
 msgid "Display version and exit"
 msgstr ""
 
@@ -1100,11 +1082,11 @@ msgstr ""
 msgid "Don't perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:714
+#: ../mllib/common_utils.ml:732
 msgid "Don't print progress messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:722
+#: ../mllib/common_utils.ml:740
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
@@ -1155,7 +1137,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:711
+#: ../mllib/common_utils.ml:729
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1163,7 +1145,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:712
+#: ../mllib/common_utils.ml:730
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1386,7 +1368,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:514
+#: ../mllib/common_utils.ml:525
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1577,7 +1559,7 @@ msgid ""
 "new random UUIDs are generated and assigned to filesystems."
 msgstr ""
 
-#: ../customize/firstboot.ml:253
+#: ../customize/firstboot.ml:247
 msgid ""
 "One of rhsrvany.exe or pvvxsvc.exe is missing in %s.  One of them is "
 "required in order to install Windows firstboot scripts.  You can get one by "
@@ -1739,7 +1721,7 @@ msgstr ""
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../mllib/common_utils.ml:723
+#: ../mllib/common_utils.ml:741
 msgid "Read passphrases from stdin"
 msgstr ""
 
@@ -2533,7 +2515,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:716
+#: ../mllib/common_utils.ml:734
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
 
@@ -2617,7 +2599,7 @@ msgstr ""
 msgid "Zeroing %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:378
+#: ../v2v/output_libvirt.ml:100
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -2625,7 +2607,7 @@ msgid ""
 "delete the existing domain on the target using the 'virsh undefine' command."
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:381
+#: ../v2v/output_libvirt.ml:103
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -2646,7 +2628,7 @@ msgstr ""
 msgid "at least one distribution root element must be specified"
 msgstr ""
 
-#: ../v2v/input_libvirt_other.ml:39
+#: ../v2v/input_libvirt_other.ml:40
 msgid ""
 "because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER "
 "upgrade to libvirt >= 2.1.0 OR set this environment variable:\n"
@@ -2717,13 +2699,13 @@ msgstr ""
 msgid "cannot set random UUID on filesystem %s type %s: %s"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:161
+#: ../v2v/convert_windows.ml:156
 msgid ""
 "cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with "
 "DisplayName '%s' doesn't contain value '%s'"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:106
+#: ../v2v/convert_windows.ml:101
 msgid ""
 "cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft"
 "\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key"
@@ -2758,7 +2740,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:211
+#: ../v2v/input_ova.ml:210
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2784,7 +2766,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:484
+#: ../v2v/output_libvirt.ml:206
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "'%s'.  Try running 'virsh define %s' yourself instead."
@@ -2804,7 +2786,7 @@ msgstr ""
 msgid "could not find cache directory. Is $HOME set?"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:499
+#: ../v2v/convert_windows.ml:494
 msgid ""
 "could not find registry key HKLM\\SOFTWARE\\Microsoft\\Windows"
 "\\CurrentVersion"
@@ -2826,15 +2808,11 @@ msgstr ""
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:47
-msgid "could not parse device name '%s' from the source libvirt XML"
-msgstr ""
-
-#: ../v2v/input_ova.ml:407
+#: ../v2v/input_ova.ml:406
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:249
+#: ../v2v/input_ova.ml:248
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2851,7 +2829,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:444
+#: ../v2v/output_libvirt.ml:166
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2921,10 +2899,6 @@ msgid ""
 "format."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:146
-msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
-msgstr ""
-
 #: ../dib/output_format_docker.ml:32
 msgid "docker: a target was not specified, use '--docker-target'"
 msgstr ""
@@ -2938,7 +2912,7 @@ msgstr ""
 msgid "don't know how to convert UEFI guests for architecture %s"
 msgstr ""
 
-#: ../v2v/linux.ml:153
+#: ../v2v/linux.ml:154
 msgid "don't know how to find file owner using %s"
 msgstr ""
 
@@ -2993,19 +2967,19 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:317
+#: ../v2v/input_ova.ml:316
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:362
+#: ../v2v/input_ova.ml:361
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:127 ../v2v/input_ova.ml:64
+#: ../v2v/input_ova.ml:126 ../v2v/input_ova.ml:63
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:582
+#: ../mllib/common_utils.ml:593
 msgid "exception: %s"
 msgstr ""
 
@@ -3031,15 +3005,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:802 ../dib/dib.ml:975
+#: ../mllib/common_utils.ml:820 ../dib/dib.ml:975
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:825 ../mllib/common_utils.ml:804 ../dib/dib.ml:978
+#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:978
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:828 ../mllib/common_utils.ml:806 ../dib/dib.ml:981
+#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:981
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -3059,7 +3033,7 @@ msgstr ""
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
-#: ../mllib/common_utils.ml:573
+#: ../mllib/common_utils.ml:584
 msgid "failure: %s"
 msgstr ""
 
@@ -3068,7 +3042,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:377
+#: ../v2v/input_ova.ml:376
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3130,7 +3104,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../mllib/common_utils.ml:592
+#: ../mllib/common_utils.ml:603
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3174,7 +3148,7 @@ msgstr ""
 msgid "guest type %s is not supported"
 msgstr ""
 
-#: ../customize/firstboot.ml:366
+#: ../customize/firstboot.ml:360
 msgid "guest type %s/%s is not supported"
 msgstr ""
 
@@ -3209,14 +3183,6 @@ msgstr ""
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:63
-msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:68
-msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
 #: ../builder/builder.ml:353
@@ -3260,27 +3226,27 @@ msgid ""
 "host\"."
 msgstr ""
 
-#: ../mllib/common_utils.ml:580
+#: ../mllib/common_utils.ml:591
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:577
+#: ../mllib/common_utils.ml:588
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
-#: ../v2v/linux.ml:127
+#: ../v2v/linux.ml:126
 msgid "internal error: file_owner: dpkg command returned no output"
 msgstr ""
 
-#: ../v2v/linux.ml:132
+#: ../v2v/linux.ml:131
 msgid "internal error: file_owner: invalid dpkg output: '%s'"
 msgstr ""
 
-#: ../v2v/linux.ml:149
+#: ../v2v/linux.ml:150
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:575
+#: ../mllib/common_utils.ml:586
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3340,7 +3306,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:571
+#: ../mllib/common_utils.ml:582
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3359,7 +3325,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:157
+#: ../v2v/input_ova.ml:156
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3381,7 +3347,7 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:187
+#: ../v2v/input_ova.ml:186
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3417,7 +3383,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:184
+#: ../v2v/input_ova.ml:183
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3439,7 +3405,7 @@ msgid ""
 "This is a failure of the source repository.  Use -v for more information."
 msgstr ""
 
-#: ../v2v/input_ova.ml:322
+#: ../v2v/input_ova.ml:321
 msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
@@ -3485,7 +3451,7 @@ msgid ""
 "Please file a bug, giving the command line arguments you used."
 msgstr ""
 
-#: ../v2v/input_libvirt.ml:64
+#: ../v2v/input_libvirt.ml:67
 msgid ""
 "no support for remote libvirt connections to '-ic %s'.  The conversion may "
 "fail when it tries to read the source disks."
@@ -3582,13 +3548,13 @@ msgid ""
 "block device = %s, output block device size = %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:282
+#: ../v2v/input_ova.ml:281
 msgid ""
 "ova disk has an unknown VMware controller type (%d), please report this as a "
 "bug supplying the *.ovf file extracted from the ova"
 msgstr ""
 
-#: ../v2v/input_ova.ml:279
+#: ../v2v/input_ova.ml:278
 msgid ""
 "ova disk has no parent controller, please report this as a bug supplying the "
 "*.ovf file extracted from the ova"
@@ -3744,7 +3710,7 @@ msgstr ""
 msgid "ssh copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/input_libvirt_other.ml:48
+#: ../v2v/input_libvirt_other.ml:49
 msgid ""
 "ssh-agent authentication has not been set up ($SSH_AUTH_SOCK is not set).  "
 "Please read \"INPUT FROM RHEL 5 XEN\" in the virt-v2v(1) man page."
@@ -3833,7 +3799,7 @@ msgstr ""
 msgid "the specified base path is not the diskimage-builder library"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:55
+#: ../v2v/output_libvirt.ml:50
 msgid "the target hypervisor does not support a %s KVM guest"
 msgstr ""
 
@@ -3952,7 +3918,7 @@ msgid ""
 "firmware (supported firmware on target: %s)"
 msgstr ""
 
-#: ../v2v/convert_windows.ml:628
+#: ../v2v/convert_windows.ml:623
 msgid ""
 "this guest has Anti-Virus (AV) software and a new virtio block device driver "
 "was installed.  In some circumstances, AV may prevent new drivers from "
@@ -3960,7 +3926,7 @@ msgid ""
 "before doing the conversion."
 msgstr ""
 
-#: ../v2v/convert_windows.ml:626
+#: ../v2v/convert_windows.ml:621
 msgid ""
 "this guest has Windows Group Policy Objects (GPO) and a new virtio block "
 "device driver was installed.  In some circumstances, Group Policy may "
@@ -3968,7 +3934,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/input_libvirtxml.ml:220 ../v2v/copy_to_local.ml:289
+#: ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -4005,7 +3971,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:215
+#: ../v2v/input_ova.ml:214
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4055,16 +4021,12 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:267
+#: ../v2v/input_ova.ml:266
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
 #: ../v2v/OVF.ml:183
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:187
-msgid "unknown sound model %s ignored"
 msgstr ""
 
 #: ../v2v/v2v.ml:178
@@ -4076,7 +4038,7 @@ msgstr ""
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:330
+#: ../v2v/input_ova.ml:329
 msgid "unsupported compression in OVF: %s"
 msgstr ""
 
@@ -4189,12 +4151,6 @@ msgstr ""
 
 #: ../builder/builder.ml:167
 msgid "virt-resize is not installed (or does not work)"
-msgstr ""
-
-#: ../v2v/input_libvirtxml.ml:143
-msgid ""
-"virt-v2v does not support local displays, so <graphics type='%s'> in the "
-"input libvirt XML was ignored"
 msgstr ""
 
 #: ../v2v/v2v.ml:562
@@ -8581,15 +8537,9 @@ msgid ""
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/filearch.c:221 lib/filearch.c:293
+#: lib/filearch.c:217 lib/filearch.c:289
 #, c-format
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
-msgstr ""
-
-#: lib/filearch.c:373
-msgid ""
-"file-architecture API not available since this version of libguestfs was "
-"compiled without the libmagic library"
 msgstr ""
 
 #: lib/fuse.c:970
