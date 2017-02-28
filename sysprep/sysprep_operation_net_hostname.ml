@@ -30,10 +30,12 @@ let net_hostname_perform (g : Guestfs.guestfs) root side_effects =
     let filenames = g#glob_expand "/etc/sysconfig/network-scripts/ifcfg-*" in
     Array.iter (
       fun filename ->
-        (* Replace HOSTNAME=... entry. *)
+        (* Remove HOSTNAME=... and DHCP_HOSTNAME=... entries. *)
         let lines = Array.to_list (g#read_lines filename) in
         let lines = List.filter (
-          fun line -> not (String.is_prefix line "HOSTNAME=")
+          fun line ->
+            not (String.is_prefix line "HOSTNAME=") &&
+            not (String.is_prefix line "DHCP_HOSTNAME=")
         ) lines in
         let file = String.concat "\n" lines ^ "\n" in
         g#write filename file;
@@ -46,7 +48,7 @@ let op = {
   defaults with
     name = "net-hostname";
     enabled_by_default = true;
-    heading = s_"Remove HOSTNAME in network interface configuration";
+    heading = s_"Remove HOSTNAME and DHCP_HOSTNAME in network interface configuration";
     pod_description = Some (s_"\
 For Fedora and Red Hat Enterprise Linux,
 this is removed from C<ifcfg-*> files.");
