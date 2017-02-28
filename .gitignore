@@ -475,6 +475,7 @@ Makefile.in
 /python/actions.h
 /python/bindtests.py
 /python/build
+/python/c-ctype.h
 /python/config.h
 /python/dist
 /python/examples/guestfs-python.3
