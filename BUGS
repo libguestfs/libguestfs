@@ -614,10 +614,13 @@ You can help by testing the fixes.
 1425306 POST https://bugzilla.redhat.com/show_bug.cgi?id=1425306
   typo error in virt-tail man page
 
+1427529 POST https://bugzilla.redhat.com/show_bug.cgi?id=1427529
+  virt-sysprep should remove DHCP_HOSTNAME
+
 1053847 MODIFIED https://bugzilla.redhat.com/show_bug.cgi?id=1053847
   Recommended default clock/timer settings
 
-(31 bugs)
+(32 bugs)
 
 --------------------------------------------------
 These bugs are in the VERIFIED state.

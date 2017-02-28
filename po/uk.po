@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-28 09:15+0000\n"
+"POT-Creation-Date: 2017-02-28 21:08+0000\n"
 "PO-Revision-Date: 2016-07-26 05:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -876,13 +876,33 @@ msgstr "-o vdsm: не вказано сховище виведення дани�
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
-#: ../v2v/copy_to_local.ml:318
+#. ../v2v/copy_to_local.ml:318
+#: ../v2v/parse_libvirt_xml.ml:296 ../v2v/parse_libvirt_xml.ml:263
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/copy_to_local.ml:300
+#: ../v2v/parse_libvirt_xml.ml:269
+msgid "<disk type='network'> with <source protocol='%s'> was ignored"
+msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
+
+#: ../v2v/parse_libvirt_xml.ml:292
+msgid "<disk type='volume'> with <volume type='%s'> was ignored"
+msgstr "<disk type='volume'> з <volume type='%s'> проігноровано"
+
+#: ../v2v/parse_libvirt_xml.ml:242 ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
 msgstr "проігноровано елемент <disk> без атрибута типу (type)"
+
+#: ../v2v/parse_libvirt_xml.ml:118
+msgid "<listen type='%s'> in the input libvirt XML was ignored"
+msgstr "<listen type='%s'> у вхідних даних XML libvirt було проігноровано"
+
+#: ../v2v/parse_libvirt_xml.ml:328
+msgid ""
+"<target dev='%s'> was ignored because the device name could not be recognized"
+msgstr ""
+"<target dev='%s'> було проігноровано, оскільки не вдалося визначити назву "
+"пристрою"
 
 #. ../customize/customize_main.ml:74
 #: ../sysprep/main.ml:121 ../get-kernel/get_kernel.ml:55
@@ -3262,6 +3282,10 @@ msgstr ""
 "не вдалося обробити параметр «-ic %s». Початкове повідомлення щодо помилки: "
 "%s"
 
+#: ../v2v/parse_libvirt_xml.ml:43
+msgid "could not parse device name '%s' from the source libvirt XML"
+msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
+
 #: ../v2v/input_ova.ml:406
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
@@ -3370,6 +3394,10 @@ msgstr ""
 "таких варіантів: визначити початковий формат у метаданих джерела, "
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
+
+#: ../v2v/parse_libvirt_xml.ml:142
+msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
+msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
 #: ../dib/output_format_docker.ml:32
 msgid "docker: a target was not specified, use '--docker-target'"
@@ -3702,6 +3730,16 @@ msgid ""
 msgstr ""
 "образи не можна стискати, розмір результату надто малий для цього образу. "
 "Потрібний розмір = %s, мінімальний розмір = %s"
+
+#: ../v2v/parse_libvirt_xml.ml:59
+msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
+msgstr ""
+"у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
+"значення"
+
+#: ../v2v/parse_libvirt_xml.ml:64
+msgid "in the libvirt XML metadata, <name> is missing or empty"
+msgstr "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
 
 #: ../builder/builder.ml:353
 msgid "input file (%s) has an unsupported type"
@@ -4631,7 +4669,7 @@ msgstr ""
 "помилка завантаження 7B). Якщо таке трапляється, спробуйте вимкнути групові "
 "правила до перетворення."
 
-#: ../v2v/copy_to_local.ml:289
+#: ../v2v/parse_libvirt_xml.ml:216 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -4741,6 +4779,10 @@ msgstr "невідоме значення Config:firmware %s (мало бути 
 #: ../v2v/OVF.ml:183
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
+
+#: ../v2v/parse_libvirt_xml.ml:183
+msgid "unknown sound model %s ignored"
+msgstr "невідому звукову модель %s проігноровано"
 
 #: ../v2v/v2v.ml:178
 msgid "unknown source hypervisor ('%s') in metadata"
@@ -4893,6 +4935,14 @@ msgstr ""
 #: ../builder/builder.ml:167
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
+
+#: ../v2v/parse_libvirt_xml.ml:139
+msgid ""
+"virt-v2v does not support local displays, so <graphics type='%s'> in the "
+"input libvirt XML was ignored"
+msgstr ""
+"У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
+"type='%s'> у вхідних даних XML libvirt проігноровано"
 
 #: ../v2v/v2v.ml:562
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
@@ -11464,47 +11514,6 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
-
-#~ msgid "<disk type='network'> with <source protocol='%s'> was ignored"
-#~ msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
-
-#~ msgid "<disk type='volume'> with <volume type='%s'> was ignored"
-#~ msgstr "<disk type='volume'> з <volume type='%s'> проігноровано"
-
-#~ msgid "<listen type='%s'> in the input libvirt XML was ignored"
-#~ msgstr "<listen type='%s'> у вхідних даних XML libvirt було проігноровано"
-
-#~ msgid ""
-#~ "<target dev='%s'> was ignored because the device name could not be "
-#~ "recognized"
-#~ msgstr ""
-#~ "<target dev='%s'> було проігноровано, оскільки не вдалося визначити назву "
-#~ "пристрою"
-
-#~ msgid "could not parse device name '%s' from the source libvirt XML"
-#~ msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
-
-#~ msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
-#~ msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
-
-#~ msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
-#~ msgstr ""
-#~ "у метаданих XML libvirt пропущено <domain type='...'> або вказано порожнє "
-#~ "значення"
-
-#~ msgid "in the libvirt XML metadata, <name> is missing or empty"
-#~ msgstr ""
-#~ "у метаданих XML libvirt пропущено <name> або вказано порожнє значення"
-
-#~ msgid "unknown sound model %s ignored"
-#~ msgstr "невідому звукову модель %s проігноровано"
-
-#~ msgid ""
-#~ "virt-v2v does not support local displays, so <graphics type='%s'> in the "
-#~ "input libvirt XML was ignored"
-#~ msgstr ""
-#~ "У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
-#~ "type='%s'> у вхідних даних XML libvirt проігноровано"
 
 #~ msgid ""
 #~ "file-architecture API not available since this version of libguestfs was "

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-28 09:15+0000\n"
+"POT-Creation-Date: 2017-02-28 21:08+0000\n"
 "PO-Revision-Date: 2015-02-21 10:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -701,12 +701,30 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:318
+#. ../v2v/copy_to_local.ml:318
+#: ../v2v/parse_libvirt_xml.ml:296 ../v2v/parse_libvirt_xml.ml:263
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:300
+#: ../v2v/parse_libvirt_xml.ml:269
+msgid "<disk type='network'> with <source protocol='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:292
+msgid "<disk type='volume'> with <volume type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:242 ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:118
+msgid "<listen type='%s'> in the input libvirt XML was ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:328
+msgid ""
+"<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
 
 #. ../customize/customize_main.ml:74
@@ -2808,6 +2826,10 @@ msgstr ""
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
+#: ../v2v/parse_libvirt_xml.ml:43
+msgid "could not parse device name '%s' from the source libvirt XML"
+msgstr ""
+
 #: ../v2v/input_ova.ml:406
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
@@ -2897,6 +2919,10 @@ msgid ""
 "format you want to use.  You have two choices: either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
 "format."
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:142
+msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
 #: ../dib/output_format_docker.ml:32
@@ -3183,6 +3209,14 @@ msgstr ""
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:59
+msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:64
+msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
 #: ../builder/builder.ml:353
@@ -3934,7 +3968,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:289
+#: ../v2v/parse_libvirt_xml.ml:216 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -4027,6 +4061,10 @@ msgstr ""
 
 #: ../v2v/OVF.ml:183
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:183
+msgid "unknown sound model %s ignored"
 msgstr ""
 
 #: ../v2v/v2v.ml:178
@@ -4151,6 +4189,12 @@ msgstr ""
 
 #: ../builder/builder.ml:167
 msgid "virt-resize is not installed (or does not work)"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:139
+msgid ""
+"virt-v2v does not support local displays, so <graphics type='%s'> in the "
+"input libvirt XML was ignored"
 msgstr ""
 
 #: ../v2v/v2v.ml:562
