@@ -92,6 +92,7 @@ strerror
 strndup
 symlinkat
 sys_select
+sys_types
 sys_wait
 vasprintf
 vc-list-files
