@@ -31,7 +31,14 @@
 #include <assert.h>
 #include <time.h>
 #include <libintl.h>
+
+#if MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#elif MAJOR_IN_SYSMACROS
 #include <sys/sysmacros.h>
+#else
+#include <sys/types.h>
+#endif
 
 #include "human.h"
 #include "getprogname.h"

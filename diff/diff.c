@@ -32,7 +32,14 @@
 #include <time.h>
 #include <libintl.h>
 #include <sys/wait.h>
+
+#if MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#elif MAJOR_IN_SYSMACROS
 #include <sys/sysmacros.h>
+#else
+#include <sys/types.h>
+#endif
 
 #include "c-ctype.h"
 #include "human.h"

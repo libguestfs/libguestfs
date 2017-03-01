@@ -21,7 +21,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+
+#if MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#elif MAJOR_IN_SYSMACROS
 #include <sys/sysmacros.h>
+/* else it's in sys/types.h, included above */
+#endif
 
 #include <caml/mlvalues.h>
 

@@ -32,7 +32,13 @@
 #include <libintl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+#if MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#elif MAJOR_IN_SYSMACROS
 #include <sys/sysmacros.h>
+/* else it's in sys/types.h, included above */
+#endif
 
 /* errors in <gtk.h> */
 #pragma GCC diagnostic push

@@ -82,6 +82,9 @@ AC_CHECK_FUNCS([\
     statvfs \
     sync])
 
+dnl Which header file defines major, minor, makedev.
+AC_HEADER_MAJOR
+
 dnl Check for UNIX_PATH_MAX, creating a custom one if not available.
 AC_MSG_CHECKING([for UNIX_PATH_MAX])
 AC_COMPILE_IFELSE([
