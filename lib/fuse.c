@@ -26,7 +26,13 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <libintl.h>
+
+#if MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#elif MAJOR_IN_SYSMACROS
 #include <sys/sysmacros.h>
+/* else it's in sys/types.h, included above */
+#endif
 
 #if HAVE_FUSE
 /* See <attr/xattr.h> */
