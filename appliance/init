@@ -159,59 +159,62 @@ if test "$guestfs_verbose" = 1 && test "$guestfs_boot_analysis" != 1; then
     echo -n "uptime: "; cat /proc/uptime
 fi
 
-if ! test "$guestfs_rescue" = 1; then
-  # Run the daemon.
-  cmd="guestfsd"
-  eval `grep -Eo 'guestfs_channel=[^[:space:]]+' /proc/cmdline`
-  if test "x$guestfs_channel" != "x"; then
+# Run the daemon.
+cmd="guestfsd"
+eval `grep -Eo 'guestfs_channel=[^[:space:]]+' /proc/cmdline`
+if test "x$guestfs_channel" != "x"; then
     cmd="$cmd --channel $guestfs_channel"
-  fi
-  if test "$guestfs_verbose" = 1; then
+fi
+if test "$guestfs_verbose" = 1; then
     cmd="$cmd --verbose"
-  fi
-  if test "$guestfs_network" = 1; then
+fi
+if test "$guestfs_network" = 1; then
     cmd="$cmd --network"
-  fi
-  echo $cmd
-  $cmd
+fi
+if ! test "$guestfs_rescue" = 1; then
+    echo $cmd
+    $cmd
 else
-  # Run virt-rescue shell.
+    # Run virt-rescue shell.
 
-  # Get name of the serial port, from console= passed by libguestfs.
-  guestfs_serial=$(grep -Eo 'console=[^[:space:]]+' /proc/cmdline |
-                   sed s/console=//)
+    # We need a daemon, even in virt-rescue.
+    $cmd &
 
-  # Remove LD_PRELOAD=libSegFault set above.
-  unset LD_PRELOAD
+    # Get name of the serial port, from console= passed by libguestfs.
+    guestfs_serial=$(grep -Eo 'console=[^[:space:]]+' /proc/cmdline |
+                     sed s/console=//)
 
-  :> $HOME/.bashrc
-  grep -Eo 'TERM=[^[:space:]]+' /proc/cmdline >> $HOME/.bashrc
-  echo "PS1='><rescue> '" >> $HOME/.bashrc
-  echo "export TERM PS1" >> $HOME/.bashrc
+    # Remove LD_PRELOAD=libSegFault set above.
+    unset LD_PRELOAD
 
-  # The shell is opened by default on /dev/console, which (on Linux)
-  # is not a controlling terminal, causing job control to fail.  For
-  # how we work around this, see:
-  # https://busybox.net/FAQ.html#job_control
-  run_bash_with_ctty ()
-  {
-    setsid bash -c \
-      "exec bash </dev/$guestfs_serial >/dev/$guestfs_serial 2>&1"
-  }
+    :> $HOME/.bashrc
+    grep -Eo 'TERM=[^[:space:]]+' /proc/cmdline >> $HOME/.bashrc
+    echo "PS1='><rescue> '" >> $HOME/.bashrc
+    echo "export TERM PS1" >> $HOME/.bashrc
 
-  echo
-  echo "------------------------------------------------------------"
-  echo
-  echo "Welcome to virt-rescue, the libguestfs rescue shell."
-  echo
-  echo "Note: The contents of / are the rescue appliance."
-  echo "You have to mount the guest's partitions under /sysroot"
-  echo "before you can examine them."
-  echo
-  run_bash_with_ctty
-  echo
-  echo "virt-rescue: Syncing the disk now before exiting ..."
-  echo
+    # The shell is opened by default on /dev/console, which (on Linux)
+    # is not a controlling terminal, causing job control to fail.  For
+    # how we work around this, see:
+    # https://busybox.net/FAQ.html#job_control
+    run_bash_with_ctty ()
+    {
+        setsid bash -c \
+            "exec bash </dev/$guestfs_serial >/dev/$guestfs_serial 2>&1"
+    }
+
+    echo
+    echo "------------------------------------------------------------"
+    echo
+    echo "Welcome to virt-rescue, the libguestfs rescue shell."
+    echo
+    echo "Note: The contents of / (root) are the rescue appliance."
+    echo "You have to mount the guest's partitions under /sysroot"
+    echo "before you can examine them."
+    echo
+    run_bash_with_ctty
+    echo
+    echo "virt-rescue: Syncing the disk now before exiting ..."
+    echo
 fi
 
 sync
