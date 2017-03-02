@@ -105,6 +105,38 @@ list a directory contents without making many round-trips.
 See also C<guestfs_lxattrlist> for a similarly efficient call
 for getting extended attributes." };
 
+  { defaults with
+    name = "stat"; added = (1, 9, 2);
+    style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
+    deprecated_by = Some "statns";
+    tests = [
+      InitISOFS, Always, TestResult (
+        [["stat"; "/empty"]], "ret->size == 0"), []
+    ];
+    shortdesc = "get file information";
+    longdesc = "\
+Returns file information for the given C<path>.
+
+This is the same as the L<stat(2)> system call." };
+
+  { defaults with
+    name = "lstat"; added = (1, 9, 2);
+    style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
+    deprecated_by = Some "lstatns";
+    tests = [
+      InitISOFS, Always, TestResult (
+        [["lstat"; "/empty"]], "ret->size == 0"), []
+    ];
+    shortdesc = "get file information for a symbolic link";
+    longdesc = "\
+Returns file information for the given C<path>.
+
+This is the same as C<guestfs_stat> except that if C<path>
+is a symbolic link, then the link is stat-ed, not the file it
+refers to.
+
+This is the same as the L<lstat(2)> system call." };
+
 ]
 
 let daemon_functions = [
@@ -750,5 +782,56 @@ List the files in F<directory> in the format of 'ls -laZ'.
 
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string." };
+
+  { defaults with
+    name = "write_file"; added = (0, 0, 8);
+    style = RErr, [Pathname "path"; String "content"; Int "size"], [];
+    protocol_limit_warning = true; deprecated_by = Some "write";
+    (* Regression test for RHBZ#597135. *)
+    tests = [
+      InitScratchFS, Always, TestLastFail
+        [["write_file"; "/write_file"; "abc"; "10000"]], []
+    ];
+    shortdesc = "create a file";
+    longdesc = "\
+This call creates a file called C<path>.  The contents of the
+file is the string C<content> (which can contain any 8 bit data),
+with length C<size>.
+
+As a special case, if C<size> is C<0>
+then the length is calculated using C<strlen> (so in this case
+the content cannot contain embedded ASCII NULs).
+
+I<NB.> Owing to a bug, writing content containing ASCII NUL
+characters does I<not> work, even if the length is specified." };
+
+  { defaults with
+    name = "copy_size"; added = (1, 0, 87);
+    style = RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"], [];
+    progress = true; deprecated_by = Some "copy_device_to_device";
+    tests = [
+      InitScratchFS, Always, TestResult (
+        [["mkdir"; "/copy_size"];
+         ["write"; "/copy_size/src"; "hello, world"];
+         ["copy_size"; "/copy_size/src"; "/copy_size/dest"; "5"];
+         ["read_file"; "/copy_size/dest"]],
+        "compare_buffers (ret, size, \"hello\", 5) == 0"), []
+    ];
+    shortdesc = "copy size bytes from source to destination using dd";
+    longdesc = "\
+This command copies exactly C<size> bytes from one source device
+or file C<src> to another destination device or file C<dest>.
+
+Note this will fail if the source is too short or if the destination
+is not large enough." };
+
+  { defaults with
+    name = "ntfsresize_size"; added = (1, 3, 14);
+    style = RErr, [Device "device"; Int64 "size"], [];
+    optional = Some "ntfsprogs"; deprecated_by = Some "ntfsresize";
+    shortdesc = "resize an NTFS filesystem (with size)";
+    longdesc = "\
+This command is the same as C<guestfs_ntfsresize> except that it
+allows you to specify the new size (in bytes) explicitly." };
 
 ]
