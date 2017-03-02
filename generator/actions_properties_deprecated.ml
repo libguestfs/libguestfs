@@ -30,7 +30,7 @@ let non_daemon_functions = [
     style = RErr, [OptString "hv"], [];
     fish_alias = ["qemu"]; config_only = true;
     blocking = false;
-    deprecated_by = Some "set_hv";
+    deprecated_by = Replaced_by "set_hv";
     shortdesc = "set the hypervisor binary (usually qemu)";
     longdesc = "\
 Set the hypervisor binary (usually qemu) that we will use.
@@ -55,7 +55,7 @@ the qemu binary at the same time as the handle is created." };
     name = "get_qemu"; added = (1, 0, 6);
     style = RConstString "hv", [], [];
     blocking = false;
-    deprecated_by = Some "get_hv";
+    deprecated_by = Replaced_by "get_hv";
     tests = [
       InitNone, Always, TestRun (
         [["get_qemu"]]), []
@@ -72,7 +72,7 @@ return the default qemu binary name." };
     style = RErr, [Bool "selinux"], [];
     fish_alias = ["selinux"]; config_only = true;
     blocking = false;
-    deprecated_by = Some "selinux_relabel";
+    deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "set SELinux enabled or disabled at appliance boot";
     longdesc = "\
 This sets the selinux flag that is passed to the appliance
@@ -88,7 +88,7 @@ see L<guestfs(3)>." };
     name = "get_selinux"; added = (1, 0, 67);
     style = RBool "selinux", [], [];
     blocking = false;
-    deprecated_by = Some "selinux_relabel";
+    deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "get SELinux enabled flag";
     longdesc = "\
 This returns the current setting of the selinux flag which
@@ -102,7 +102,7 @@ see L<guestfs(3)>." };
     style = RErr, [String "backend"], [];
     fish_alias = ["attach-method"]; config_only = true;
     blocking = false;
-    deprecated_by = Some "set_backend";
+    deprecated_by = Replaced_by "set_backend";
     shortdesc = "set the backend";
     longdesc = "\
 Set the method that libguestfs uses to connect to the backend
@@ -114,7 +114,7 @@ See L<guestfs(3)/BACKEND>." };
     name = "get_attach_method"; added = (1, 9, 8);
     style = RString "backend", [], [];
     blocking = false;
-    deprecated_by = Some "get_backend";
+    deprecated_by = Replaced_by "get_backend";
     tests = [
       InitNone, Always, TestRun (
         [["get_attach_method"]]), []

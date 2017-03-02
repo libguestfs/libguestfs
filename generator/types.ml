@@ -342,6 +342,11 @@ type visibility =
 
 type version = int * int * int
 
+type deprecated_by =
+  | Not_deprecated                (* function not deprecated *)
+  | Replaced_by of string         (* replaced by another function *)
+  | Deprecated_no_replacement     (* deprecated with no replacement *)
+
 (* Type of an action as declared in Actions module. *)
 type action = {
   name : string;                  (* name, not including "guestfs_" *)
@@ -358,7 +363,7 @@ type action = {
   fish_alias : string list;       (* alias(es) for this cmd in guestfish *)
   fish_output : fish_output_t option; (* how to display output in guestfish *)
   visibility: visibility;         (* The visbility of function *)
-  deprecated_by : string option;  (* function is deprecated, use .. instead *)
+  deprecated_by : deprecated_by;  (* function is deprecated *)
   optional : string option;       (* function is part of an optional group *)
   progress : bool;                (* function can generate progress messages *)
   camel_name : string;            (* Pretty camel case name of
@@ -407,7 +412,7 @@ let defaults = { name = "";
                  shortdesc = ""; longdesc = "";
                  protocol_limit_warning = false; fish_alias = [];
                  fish_output = None; visibility = VPublic;
-                 deprecated_by = None; optional = None;
+                 deprecated_by = Not_deprecated; optional = None;
                  progress = false; camel_name = "";
                  cancellable = false; config_only = false;
                  once_had_no_optargs = false; blocking = true; wrapper = true;

@@ -445,11 +445,14 @@ extern \"C\" {
 #endif
 
 /* Define GUESTFS_WARN_DEPRECATED=1 to warn about deprecated API functions. */
-#define GUESTFS_DEPRECATED_BY(s)
+#define GUESTFS_DEPRECATED_NO_REPLACEMENT
+#define GUESTFS_DEPRECATED_REPLACED_BY(s)
 #if GUESTFS_WARN_DEPRECATED
 #  if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40500 /* gcc >= 4.5 */
-#    undef GUESTFS_DEPRECATED_BY
-#    define GUESTFS_DEPRECATED_BY(s) __attribute__((__deprecated__(\"change the program to use guestfs_\" s \" instead of this deprecated function\")))
+#    undef GUESTFS_DEPRECATED_NO_REPLACEMENT
+#    undef GUESTFS_DEPRECATED_REPLACED_BY
+#    define GUESTFS_DEPRECATED_NO_REPLACEMENT __attribute__((__deprecated__))
+#    define GUESTFS_DEPRECATED_REPLACED_BY(s) __attribute__((__deprecated__(\"change the program to use guestfs_\" s \" instead of this deprecated function\")))
 #  endif
 #endif /* GUESTFS_WARN_DEPRECATED */
 
@@ -562,17 +565,17 @@ typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque, int proc_nr, in
 #endif
 
 extern GUESTFS_DLL_PUBLIC void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
 extern GUESTFS_DLL_PUBLIC void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
 extern GUESTFS_DLL_PUBLIC void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
 #define GUESTFS_HAVE_SET_CLOSE_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
 #define GUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
 extern GUESTFS_DLL_PUBLIC void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque)
-  GUESTFS_DEPRECATED_BY(\"set_event_callback\");
+  GUESTFS_DEPRECATED_REPLACED_BY(\"set_event_callback\");
 
 /* Private data area. */
 #define GUESTFS_HAVE_SET_PRIVATE 1
@@ -662,8 +665,12 @@ extern GUESTFS_DLL_PUBLIC void *guestfs_next_private (guestfs_h *g, const char *
     generate_prototype ~single_line:true ~semicolon:false ~dll_public:true
       ~handle:"g" ~prefix:"guestfs_" shortname style;
     (match deprecated_by with
-    | Some fn -> pr "\n  GUESTFS_DEPRECATED_BY (%S);\n" fn
-    | None -> pr ";\n"
+    | Not_deprecated ->
+       pr ";\n"
+    | Replaced_by fn ->
+       pr "\n  GUESTFS_DEPRECATED_REPLACED_BY (%S);\n" fn
+    | Deprecated_no_replacement ->
+       pr "\n  GUESTFS_DEPRECATED_NO_REPLACEMENT;\n"
     );
 
     if optargs <> [] then (

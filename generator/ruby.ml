@@ -146,9 +146,12 @@ and generate_ruby_c actions () =
           | Some version -> doc ^ (sprintf "\n *\n * [Since] Added in version %s." version) in
         let doc =
           match f with
-          | { deprecated_by = None } -> doc
-          | { deprecated_by = Some alt } ->
-            doc ^ (sprintf "\n *\n * [Deprecated] In new code, use rdoc-ref:%s instead." alt) in
+          | { deprecated_by = Not_deprecated } -> doc
+          | { deprecated_by = Replaced_by alt } ->
+            doc ^
+              sprintf "\n *\n * [Deprecated] In new code, use rdoc-ref:%s instead." alt
+          | { deprecated_by = Deprecated_no_replacement } ->
+            doc ^ "\n *\n * [Deprecated] There is no documented replacement" in
         let doc =
           match f.optional with
           | None -> doc
