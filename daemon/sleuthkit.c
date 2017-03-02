@@ -122,7 +122,7 @@ send_command_output (const char *cmd)
   /* Send reply message before the file content. */
   reply (NULL, NULL);
 
-  while ((ret = fread (buffer, 1, sizeof buffer, fp)) > 0) {
+  while ((ret = fread (buffer, 1, GUESTFS_MAX_CHUNK_SIZE, fp)) > 0) {
     ret = send_file_write (buffer, ret);
     if (ret < 0) {
       pclose (fp);
