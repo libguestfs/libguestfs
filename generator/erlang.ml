@@ -191,7 +191,7 @@ and generate_erlang_actions_h () =
 
 extern guestfs_h *g;
 
-extern ETERM *dispatch (ETERM *message);
+extern ETERM *dispatch (ETERM *args_tuple);
 extern int atom_equals (ETERM *atom, const char *name);
 extern ETERM *make_error (const char *funname);
 extern ETERM *unknown_optarg (const char *funname, ETERM *optargname);
@@ -204,7 +204,7 @@ extern int get_bool (ETERM *term);
 extern int get_int (ETERM *term);
 extern int64_t get_int64 (ETERM *term);
 
-#define ARG(i) (ERL_TUPLE_ELEMENT(message,(i)+1))
+#define ARG(i) (ERL_TUPLE_ELEMENT(args_tuple,(i)+1))
 
 ";
 
@@ -228,7 +228,7 @@ extern int64_t get_int64 (ETERM *term);
 
   List.iter (
     fun { name = name } ->
-      pr "ETERM *run_%s (ETERM *message);\n" name
+      pr "ETERM *run_%s (ETERM *args_tuple);\n" name
   ) (actions |> external_functions |> sort);
 
   pr "\n";
@@ -354,7 +354,7 @@ instead of erl_interface.
           c_function = c_function; c_optarg_prefix = c_optarg_prefix } ->
       pr "\n";
       pr "ETERM *\n";
-      pr "run_%s (ETERM *message)\n" name;
+      pr "run_%s (ETERM *args_tuple)\n" name;
       pr "{\n";
 
       iteri (
@@ -545,11 +545,11 @@ instead of erl_interface.
 #include \"actions.h\"
 
 ETERM *
-dispatch (ETERM *message)
+dispatch (ETERM *args_tuple)
 {
   ETERM *fun;
 
-  fun = ERL_TUPLE_ELEMENT (message, 0);
+  fun = ERL_TUPLE_ELEMENT (args_tuple, 0);
 
   /* XXX We should use gperf here. */
   ";
@@ -557,7 +557,7 @@ dispatch (ETERM *message)
   List.iter (
     fun { name = name; style = ret, args, optargs } ->
       pr "if (atom_equals (fun, \"%s\"))\n" name;
-      pr "    return run_%s (message);\n" name;
+      pr "    return run_%s (args_tuple);\n" name;
       pr "  else ";
   ) (actions |> external_functions |> sort);
 
