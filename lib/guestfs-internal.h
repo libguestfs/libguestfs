@@ -373,6 +373,9 @@ struct connection_ops {
    * Returns: 1 = yes, 0 = no, -1 = error
    */
   int (*can_read_data) (guestfs_h *g, struct connection *);
+
+  /* Get the console socket (to support virt-rescue). */
+  int (*get_console_sock) (guestfs_h *g, struct connection *);
 };
 
 /**
