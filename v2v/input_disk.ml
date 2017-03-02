@@ -83,7 +83,7 @@ class input_disk input_format disk = object
       s_features = [ "acpi"; "apic"; "pae" ];
       s_firmware = UnknownFirmware;       (* causes virt-v2v to autodetect *)
       s_display =
-        Some { s_display_type = Window; s_keymap = None; s_password = None;
+        Some { s_display_type = VNC; s_keymap = None; s_password = None;
                s_listen = LNoListen; s_port = None };
       s_video = None;
       s_sound = None;
