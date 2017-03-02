@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2013 Red Hat Inc.
+ * Copyright (C) 2013-2017 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -397,6 +397,19 @@ handle_log_message (guestfs_h *g,
   return 1;
 }
 
+static int
+get_console_sock (guestfs_h *g, struct connection *connv)
+{
+  struct connection_socket *conn = (struct connection_socket *) connv;
+
+  if (conn->console_sock == -1) {
+    error (g, _("console socket not connected"));
+    return -1;
+  }
+
+  return conn->console_sock;
+}
+
 static void
 free_conn_socket (guestfs_h *g, struct connection *connv)
 {
@@ -418,6 +431,7 @@ static struct connection_ops ops = {
   .read_data = read_data,
   .write_data = write_data,
   .can_read_data = can_read_data,
+  .get_console_sock = get_console_sock,
 };
 
 /**

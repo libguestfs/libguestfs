@@ -128,7 +128,7 @@ See C<guestfs_set_backend> and L<guestfs(3)/BACKEND>." };
   { defaults with
     name = "set_direct"; added = (1, 0, 72);
     style = RErr, [Bool "direct"], [];
-    deprecated_by = Deprecated_no_replacement;
+    deprecated_by = Replaced_by "internal_get_console_socket";
     fish_alias = ["direct"]; config_only = true;
     blocking = false;
     shortdesc = "enable or disable direct appliance mode";
@@ -149,7 +149,7 @@ The default is disabled." };
   { defaults with
     name = "get_direct"; added = (1, 0, 72);
     style = RBool "direct", [], [];
-    deprecated_by = Deprecated_no_replacement;
+    deprecated_by = Replaced_by "internal_get_console_socket";
     blocking = false;
     shortdesc = "get direct appliance mode flag";
     longdesc = "\

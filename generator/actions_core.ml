@@ -1722,6 +1722,17 @@ call it returns a simple true/false boolean result, instead
 of throwing an exception if a feature is not found.  For
 other documentation see C<guestfs_available>." };
 
+  { defaults with
+    name = "internal_get_console_socket"; added = (1, 37, 1);
+    style = RInt "fd", [], [];
+    visibility = VInternal;
+    test_excuse = "writing to the socket may block";
+    shortdesc = "get the appliance console socket";
+    longdesc = "\
+This call is used by L<virt-rescue(1)> to write directly to
+appliance console (for passing through keystrokes).  It should
+not normally be used by other libguestfs users." };
+
 ]
 
 let daemon_functions = [
