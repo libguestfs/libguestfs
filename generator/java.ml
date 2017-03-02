@@ -297,9 +297,11 @@ public class GuestFS {
         | Some version -> pr "   * @since %s\n" version
         );
         (match f with
-        | { deprecated_by = None } -> ()
-        | { deprecated_by = Some alt } ->
+        | { deprecated_by = Not_deprecated } -> ()
+        | { deprecated_by = Replaced_by alt } ->
           pr "   * @deprecated In new code, use {@link #%s} instead\n" alt
+        | { deprecated_by = Deprecated_no_replacement } ->
+          pr "   * @deprecated There is no documented replacement\n"
         );
         pr "   * @throws LibGuestFSException If there is a libguestfs error.\n";
         pr "   */\n";
@@ -307,8 +309,9 @@ public class GuestFS {
       pr "  ";
       let deprecated =
         match f with
-        | { deprecated_by = None } -> false
-        | { deprecated_by = Some _ } -> true in
+        | { deprecated_by = Not_deprecated } -> false
+        | { deprecated_by = Replaced_by _ | Deprecated_no_replacement } ->
+           true in
       generate_java_prototype ~public:true ~semicolon:false ~deprecated f.name f.style;
       pr "\n";
       pr "  {\n";

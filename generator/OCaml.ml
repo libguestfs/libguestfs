@@ -186,10 +186,13 @@ end
             opt
       );
       (match f.deprecated_by with
-       | None -> ()
-       | Some replacement ->
+       | Not_deprecated -> ()
+       | Replaced_by replacement ->
           has_tags := true;
           pr "\n\n    @deprecated Use {!%s} instead" replacement
+       | Deprecated_no_replacement ->
+          has_tags := true;
+          pr "\n\n    @deprecated There is no documented replacement"
       );
       (match version_added f with
        | None -> ()

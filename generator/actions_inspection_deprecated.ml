@@ -26,7 +26,7 @@ let non_daemon_functions = [
   { defaults with
     name = "inspect_list_applications"; added = (1, 7, 8);
     style = RStructList ("applications", "application"), [Mountable "root"], [];
-    deprecated_by = Some "inspect_list_applications2";
+    deprecated_by = Replaced_by "inspect_list_applications2";
     shortdesc = "get list of applications installed in the operating system";
     longdesc = "\
 Return the list of applications installed in the operating system.

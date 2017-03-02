@@ -39,8 +39,9 @@ of somewhere between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
 
 let deprecation_notice ?(prefix = "") ?(replace_underscores = false) =
   function
-  | { deprecated_by = None } -> None
-  | { deprecated_by = Some alt } ->
+  | { deprecated_by = Not_deprecated } -> None
+
+  | { deprecated_by = Replaced_by alt } ->
     let alt =
       if replace_underscores then String.replace_char alt '_' '-' else alt in
     let txt =
@@ -51,6 +52,15 @@ Deprecated functions will not be removed from the API, but the
 fact that they are deprecated indicates that there are problems
 with correct use of these functions." prefix alt in
     Some txt
+
+  | { deprecated_by = Deprecated_no_replacement } ->
+     Some "I<This function is deprecated.>
+There is no replacement.  Consult the API documentation in
+L<guestfs(3)> for further information.
+
+Deprecated functions will not be removed from the API, but the
+fact that they are deprecated indicates that there are problems
+with correct use of these functions."
 
 let version_added = function
   | { added = (0, 0, release) } -> Some (sprintf "0.%d" release)

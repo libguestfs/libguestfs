@@ -1118,9 +1118,11 @@ guestfs_session_close (GuestfsSession *session, GError **err)
       );
       pr "\n";
       (match deprecated_by with
-      | None -> ()
-      | Some alt ->
+      | Not_deprecated -> ()
+      | Replaced_by alt ->
         pr " * Deprecated: In new code, use guestfs_session_%s() instead\n" alt
+      | Deprecated_no_replacement ->
+        pr " * Deprecated: There is no documented replacement\n"
       );
       (match version_added f with
       | None -> ()

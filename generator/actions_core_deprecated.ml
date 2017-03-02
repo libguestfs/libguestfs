@@ -28,7 +28,7 @@ let non_daemon_functions = [
     name = "wait_ready"; added = (0, 0, 3);
     style = RErr, [], [];
     visibility = VStateTest;
-    deprecated_by = Some "launch";
+    deprecated_by = Deprecated_no_replacement;
     blocking = false;
     shortdesc = "wait until the hypervisor launches (no op)";
     longdesc = "\
@@ -46,7 +46,7 @@ versions of the API." };
   { defaults with
     name = "kill_subprocess"; added = (0, 0, 3);
     style = RErr, [], [];
-    deprecated_by = Some "shutdown";
+    deprecated_by = Replaced_by "shutdown";
     shortdesc = "kill the hypervisor";
     longdesc = "\
 This kills the hypervisor.
@@ -56,7 +56,7 @@ Do not call this.  See: C<guestfs_shutdown> instead." };
   { defaults with
     name = "add_cdrom"; added = (0, 0, 3);
     style = RErr, [String "filename"], [];
-    deprecated_by = Some "add_drive_ro"; config_only = true;
+    deprecated_by = Replaced_by "add_drive_ro"; config_only = true;
     blocking = false;
     shortdesc = "add a CD-ROM disk image to examine";
     longdesc = "\
@@ -68,7 +68,7 @@ of C<guestfs_add_drive_ro>." };
   { defaults with
     name = "add_drive_with_if"; added = (1, 0, 84);
     style = RErr, [String "filename"; String "iface"], [];
-    deprecated_by = Some "add_drive"; config_only = true;
+    deprecated_by = Replaced_by "add_drive"; config_only = true;
     blocking = false;
     shortdesc = "add a drive specifying the QEMU block emulation to use";
     longdesc = "\
@@ -79,7 +79,7 @@ to specify the QEMU interface emulation to use at run time." };
     name = "add_drive_ro_with_if"; added = (1, 0, 84);
     style = RErr, [String "filename"; String "iface"], [];
     blocking = false;
-    deprecated_by = Some "add_drive"; config_only = true;
+    deprecated_by = Replaced_by "add_drive"; config_only = true;
     shortdesc = "add a drive read-only specifying the QEMU block emulation to use";
     longdesc = "\
 This is the same as C<guestfs_add_drive_ro> but it allows you
@@ -88,7 +88,7 @@ to specify the QEMU interface emulation to use at run time." };
   { defaults with
     name = "lstatlist"; added = (1, 0, 77);
     style = RStructList ("statbufs", "stat"), [Pathname "path"; FilenameList "names"], [];
-    deprecated_by = Some "lstatnslist";
+    deprecated_by = Replaced_by "lstatnslist";
     shortdesc = "lstat on multiple files";
     longdesc = "\
 This call allows you to perform the C<guestfs_lstat> operation
@@ -108,7 +108,7 @@ for getting extended attributes." };
   { defaults with
     name = "stat"; added = (1, 9, 2);
     style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
-    deprecated_by = Some "statns";
+    deprecated_by = Replaced_by "statns";
     tests = [
       InitISOFS, Always, TestResult (
         [["stat"; "/empty"]], "ret->size == 0"), []
@@ -122,7 +122,7 @@ This is the same as the L<stat(2)> system call." };
   { defaults with
     name = "lstat"; added = (1, 9, 2);
     style = RStruct ("statbuf", "stat"), [Pathname "path"], [];
-    deprecated_by = Some "lstatns";
+    deprecated_by = Replaced_by "lstatns";
     tests = [
       InitISOFS, Always, TestResult (
         [["lstat"; "/empty"]], "ret->size == 0"), []
@@ -145,7 +145,7 @@ let daemon_functions = [
     style = RErr, [Device "device";
                    Int "cyls"; Int "heads"; Int "sectors";
                    StringList "lines"], [];
-    deprecated_by = Some "part_add";
+    deprecated_by = Replaced_by "part_add";
     shortdesc = "create partitions on a block device";
     longdesc = "\
 This is a direct interface to the L<sfdisk(8)> program for creating
@@ -174,7 +174,7 @@ C<guestfs_part_init>" };
   { defaults with
     name = "blockdev_setbsz"; added = (1, 9, 3);
     style = RErr, [Device "device"; Int "blocksize"], [];
-    deprecated_by = Some "mkfs";
+    deprecated_by = Deprecated_no_replacement;
     shortdesc = "set blocksize of block device";
     longdesc = "\
 This call does nothing and has never done anything
@@ -186,7 +186,7 @@ C<blocksize> option of C<guestfs_mkfs>." };
   { defaults with
     name = "tgz_in"; added = (1, 0, 3);
     style = RErr, [FileIn "tarball"; Pathname "directory"], [];
-    deprecated_by = Some "tar_in";
+    deprecated_by = Replaced_by "tar_in";
     cancellable = true;
     tests = [
       InitScratchFS, Always, TestResultString (
@@ -202,7 +202,7 @@ I<gzip compressed> tar file) into F<directory>." };
   { defaults with
     name = "tgz_out"; added = (1, 0, 3);
     style = RErr, [Pathname "directory"; FileOut "tarball"], [];
-    deprecated_by = Some "tar_out";
+    deprecated_by = Replaced_by "tar_out";
     cancellable = true;
     shortdesc = "pack directory into compressed tarball";
     longdesc = "\
@@ -212,7 +212,7 @@ it to local file C<tarball>." };
   { defaults with
     name = "set_e2label"; added = (1, 0, 15);
     style = RErr, [Device "device"; String "label"], [];
-    deprecated_by = Some "set_label";
+    deprecated_by = Replaced_by "set_label";
     tests = [
       InitBasicFS, Always, TestResultString (
         [["set_e2label"; "/dev/sda1"; "testlabel"];
@@ -230,7 +230,7 @@ to return the existing label on a filesystem." };
   { defaults with
     name = "get_e2label"; added = (1, 0, 15);
     style = RString "label", [Device "device"], [];
-    deprecated_by = Some "vfs_label";
+    deprecated_by = Replaced_by "vfs_label";
     shortdesc = "get the ext2/3/4 filesystem label";
     longdesc = "\
 This returns the ext2/3/4 filesystem label of the filesystem on
@@ -239,7 +239,7 @@ C<device>." };
   { defaults with
     name = "set_e2uuid"; added = (1, 0, 15);
     style = RErr, [Device "device"; String "uuid"], [];
-    deprecated_by = Some "set_uuid";
+    deprecated_by = Replaced_by "set_uuid";
     tests = [
         InitBasicFS, Always, TestResultString (
           [["set_e2uuid"; "/dev/sda1"; stable_uuid];
@@ -267,7 +267,7 @@ of a filesystem." };
   { defaults with
     name = "get_e2uuid"; added = (1, 0, 15);
     style = RString "uuid", [Device "device"], [];
-    deprecated_by = Some "vfs_uuid";
+    deprecated_by = Replaced_by "vfs_uuid";
     tests = [
       (* We can't predict what UUID will be, so just check
          the command run; regression test for RHBZ#597112. *)
@@ -285,7 +285,7 @@ C<device>." };
     style = RErr, [Device "device"; Int "partnum";
                    Int "cyls"; Int "heads"; Int "sectors";
                    String "line"], [];
-    deprecated_by = Some "part_add";
+    deprecated_by = Replaced_by "part_add";
     shortdesc = "modify a single partition on a block device";
     longdesc = "\
 This runs L<sfdisk(8)> option to modify just the single
@@ -299,7 +299,7 @@ See also: C<guestfs_part_add>" };
   { defaults with
     name = "sfdisk_l"; added = (1, 0, 26);
     style = RString "partitions", [Device "device"], [];
-    deprecated_by = Some "part_list";
+    deprecated_by = Replaced_by "part_list";
     shortdesc = "display the partition table";
     longdesc = "\
 This displays the partition table on C<device>, in the
@@ -311,7 +311,7 @@ See also: C<guestfs_part_list>" };
   { defaults with
     name = "e2fsck_f"; added = (1, 0, 29);
     style = RErr, [Device "device"], [];
-    deprecated_by = Some "e2fsck";
+    deprecated_by = Replaced_by "e2fsck";
     shortdesc = "check an ext2/ext3 filesystem";
     longdesc = "\
 This runs C<e2fsck -p -f device>, ie. runs the ext2/ext3
@@ -321,7 +321,7 @@ even if the filesystem appears to be clean (I<-f>)." };
   { defaults with
     name = "mkswap_L"; added = (1, 0, 55);
     style = RErr, [String "label"; Device "device"], [];
-    deprecated_by = Some "mkswap";
+    deprecated_by = Replaced_by "mkswap";
     tests = [
       InitEmpty, Always, TestRun (
         [["part_disk"; "/dev/sda"; "mbr"];
@@ -338,7 +338,7 @@ a limitation of the kernel or swap tools." };
   { defaults with
     name = "mkswap_U"; added = (1, 0, 55);
     style = RErr, [String "uuid"; Device "device"], [];
-    deprecated_by = Some "mkswap";
+    deprecated_by = Replaced_by "mkswap";
     optional = Some "linuxfsuuid";
     tests = [
         InitEmpty, Always, TestRun (
@@ -352,7 +352,7 @@ Create a swap partition on C<device> with UUID C<uuid>." };
   { defaults with
     name = "sfdiskM"; added = (1, 0, 55);
     style = RErr, [Device "device"; StringList "lines"], [];
-    deprecated_by = Some "part_add";
+    deprecated_by = Replaced_by "part_add";
     shortdesc = "create partitions on a block device";
     longdesc = "\
 This is a simplified interface to the C<guestfs_sfdisk>
@@ -367,7 +367,7 @@ and C<guestfs_part_disk>" };
   { defaults with
     name = "zfile"; added = (1, 0, 59);
     style = RString "description", [String "meth"; Pathname "path"], [];
-    deprecated_by = Some "file";
+    deprecated_by = Replaced_by "file";
     shortdesc = "determine file type inside a compressed file";
     longdesc = "\
 This command runs F<file> after first decompressing C<path>
@@ -382,7 +382,7 @@ process compressed files." };
     name = "egrep"; added = (1, 0, 66);
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["egrep"; "abc"; "/test-grep.txt"]],
@@ -397,7 +397,7 @@ matching lines." };
     name = "fgrep"; added = (1, 0, 66);
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["fgrep"; "abc"; "/test-grep.txt"]],
@@ -412,7 +412,7 @@ matching lines." };
     name = "grepi"; added = (1, 0, 66);
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["grepi"; "abc"; "/test-grep.txt"]],
@@ -427,7 +427,7 @@ matching lines." };
     name = "egrepi"; added = (1, 0, 66);
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["egrepi"; "abc"; "/test-grep.txt"]],
@@ -442,7 +442,7 @@ matching lines." };
     name = "fgrepi"; added = (1, 0, 66);
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["fgrepi"; "abc"; "/test-grep.txt"]],
@@ -457,7 +457,7 @@ matching lines." };
     name = "zgrep"; added = (1, 0, 66);
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["zgrep"; "abc"; "/test-grep.txt.gz"]],
@@ -472,7 +472,7 @@ matching lines." };
     name = "zegrep"; added = (1, 0, 66);
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["zegrep"; "abc"; "/test-grep.txt.gz"]],
@@ -487,7 +487,7 @@ matching lines." };
     name = "zfgrep"; added = (1, 0, 66);
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["zfgrep"; "abc"; "/test-grep.txt.gz"]],
@@ -503,7 +503,7 @@ matching lines." };
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
 
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["zgrepi"; "abc"; "/test-grep.txt.gz"]],
@@ -518,7 +518,7 @@ matching lines." };
     name = "zegrepi"; added = (1, 0, 66);
     style = RStringList "lines", [String "regex"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["zegrepi"; "abc"; "/test-grep.txt.gz"]],
@@ -533,7 +533,7 @@ matching lines." };
     name = "zfgrepi"; added = (1, 0, 66);
     style = RStringList "lines", [String "pattern"; Pathname "path"], [];
     protocol_limit_warning = true;
-    deprecated_by = Some "grep";
+    deprecated_by = Replaced_by "grep";
     tests = [
       InitISOFS, Always, TestResult (
         [["zfgrepi"; "abc"; "/test-grep.txt.gz"]],
@@ -547,7 +547,7 @@ matching lines." };
   { defaults with
     name = "fallocate"; added = (1, 0, 66);
     style = RErr, [Pathname "path"; Int "len"], [];
-    deprecated_by = Some "fallocate64";
+    deprecated_by = Replaced_by "fallocate64";
     tests = [
       InitScratchFS, Always, TestResult (
         [["fallocate"; "/fallocate"; "1000000"];
@@ -567,7 +567,7 @@ attaches it as a device." };
     name = "setcon"; added = (1, 0, 67);
     style = RErr, [String "context"], [];
     optional = Some "selinux";
-    deprecated_by = Some "selinux_relabel";
+    deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "set SELinux security context";
     longdesc = "\
 This sets the SELinux security context of the daemon
@@ -579,7 +579,7 @@ See the documentation about SELINUX in L<guestfs(3)>." };
     name = "getcon"; added = (1, 0, 67);
     style = RString "context", [], [];
     optional = Some "selinux";
-    deprecated_by = Some "selinux_relabel";
+    deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "get SELinux security context";
     longdesc = "\
 This gets the SELinux security context of the daemon.
@@ -590,7 +590,7 @@ and C<guestfs_setcon>" };
   { defaults with
     name = "mkfs_b"; added = (1, 0, 68);
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"], [];
-    deprecated_by = Some "mkfs";
+    deprecated_by = Replaced_by "mkfs";
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
@@ -627,7 +627,7 @@ the requested cluster size." };
   { defaults with
     name = "mke2journal"; added = (1, 0, 68);
     style = RErr, [Int "blocksize"; Device "device"], [];
-    deprecated_by = Some "mke2fs";
+    deprecated_by = Replaced_by "mke2fs";
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_init"; "/dev/sda"; "mbr"];
@@ -649,7 +649,7 @@ to the command:
   { defaults with
     name = "mke2journal_L"; added = (1, 0, 68);
     style = RErr, [Int "blocksize"; String "label"; Device "device"], [];
-    deprecated_by = Some "mke2fs";
+    deprecated_by = Replaced_by "mke2fs";
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_init"; "/dev/sda"; "mbr"];
@@ -668,7 +668,7 @@ This creates an ext2 external journal on C<device> with label C<label>." };
   { defaults with
     name = "mke2journal_U"; added = (1, 0, 68);
     style = RErr, [Int "blocksize"; String "uuid"; Device "device"], [];
-    deprecated_by = Some "mke2fs";
+    deprecated_by = Replaced_by "mke2fs";
     optional = Some "linuxfsuuid";
     tests = [
         InitEmpty, Always, TestResultString (
@@ -688,7 +688,7 @@ This creates an ext2 external journal on C<device> with UUID C<uuid>." };
   { defaults with
     name = "mke2fs_J"; added = (1, 0, 68);
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"; Device "journal"], [];
-    deprecated_by = Some "mke2fs";
+    deprecated_by = Replaced_by "mke2fs";
     shortdesc = "make ext2/3/4 filesystem with external journal";
     longdesc = "\
 This creates an ext2/3/4 filesystem on C<device> with
@@ -702,7 +702,7 @@ See also C<guestfs_mke2journal>." };
   { defaults with
     name = "mke2fs_JL"; added = (1, 0, 68);
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"; String "label"], [];
-    deprecated_by = Some "mke2fs";
+    deprecated_by = Replaced_by "mke2fs";
     shortdesc = "make ext2/3/4 filesystem with external journal";
     longdesc = "\
 This creates an ext2/3/4 filesystem on C<device> with
@@ -713,7 +713,7 @@ See also C<guestfs_mke2journal_L>." };
   { defaults with
     name = "mke2fs_JU"; added = (1, 0, 68);
     style = RErr, [String "fstype"; Int "blocksize"; Device "device"; String "uuid"], [];
-    deprecated_by = Some "mke2fs";
+    deprecated_by = Replaced_by "mke2fs";
     optional = Some "linuxfsuuid";
     shortdesc = "make ext2/3/4 filesystem with external journal";
     longdesc = "\
@@ -725,7 +725,7 @@ See also C<guestfs_mke2journal_U>." };
   { defaults with
     name = "dd"; added = (1, 0, 80);
     style = RErr, [Dev_or_Path "src"; Dev_or_Path "dest"], [];
-    deprecated_by = Some "copy_device_to_device";
+    deprecated_by = Replaced_by "copy_device_to_device";
     tests = [
       InitScratchFS, Always, TestResult (
         [["mkdir"; "/dd"];
@@ -749,7 +749,7 @@ This command cannot do partial copies
   { defaults with
     name = "txz_in"; added = (1, 3, 2);
     style = RErr, [FileIn "tarball"; Pathname "directory"], [];
-    deprecated_by = Some "tar_in";
+    deprecated_by = Replaced_by "tar_in";
     optional = Some "xz"; cancellable = true;
     tests = [
       InitScratchFS, Always, TestResultString (
@@ -765,7 +765,7 @@ I<xz compressed> tar file) into F<directory>." };
   { defaults with
     name = "txz_out"; added = (1, 3, 2);
     style = RErr, [Pathname "directory"; FileOut "tarball"], [];
-    deprecated_by = Some "tar_out";
+    deprecated_by = Replaced_by "tar_out";
     optional = Some "xz"; cancellable = true;
     shortdesc = "pack directory into compressed tarball";
     longdesc = "\
@@ -775,7 +775,7 @@ it to local file C<tarball> (as an xz compressed tar archive)." };
   { defaults with
     name = "llz"; added = (1, 17, 6);
     style = RString "listing", [Pathname "directory"], [];
-    deprecated_by = Some "lgetxattrs";
+    deprecated_by = Replaced_by "lgetxattrs";
     shortdesc = "list the files in a directory (long format with SELinux contexts)";
     longdesc = "\
 List the files in F<directory> in the format of 'ls -laZ'.
@@ -786,7 +786,7 @@ is I<not> intended that you try to parse the output string." };
   { defaults with
     name = "write_file"; added = (0, 0, 8);
     style = RErr, [Pathname "path"; String "content"; Int "size"], [];
-    protocol_limit_warning = true; deprecated_by = Some "write";
+    protocol_limit_warning = true; deprecated_by = Replaced_by "write";
     (* Regression test for RHBZ#597135. *)
     tests = [
       InitScratchFS, Always, TestLastFail
@@ -808,7 +808,7 @@ characters does I<not> work, even if the length is specified." };
   { defaults with
     name = "copy_size"; added = (1, 0, 87);
     style = RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"], [];
-    progress = true; deprecated_by = Some "copy_device_to_device";
+    progress = true; deprecated_by = Replaced_by "copy_device_to_device";
     tests = [
       InitScratchFS, Always, TestResult (
         [["mkdir"; "/copy_size"];
@@ -828,7 +828,7 @@ is not large enough." };
   { defaults with
     name = "ntfsresize_size"; added = (1, 3, 14);
     style = RErr, [Device "device"; Int64 "size"], [];
-    optional = Some "ntfsprogs"; deprecated_by = Some "ntfsresize";
+    optional = Some "ntfsprogs"; deprecated_by = Replaced_by "ntfsresize";
     shortdesc = "resize an NTFS filesystem (with size)";
     longdesc = "\
 This command is the same as C<guestfs_ntfsresize> except that it

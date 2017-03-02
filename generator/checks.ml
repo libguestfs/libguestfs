@@ -184,7 +184,7 @@ let () =
             failwithf "%s: guestfish alias %s should not contain '_'" name n
       ) f.fish_alias;
       (match f.deprecated_by with
-      | Some n ->
+      | Replaced_by n ->
         (* 'n' must be a cross-ref to the name of another action. *)
         if not (List.exists (
           function
@@ -192,7 +192,7 @@ let () =
           | _ -> false
         ) actions) then
           failwithf "%s: deprecated_by flag must be cross-reference to another action" name
-      | None -> ()
+      | Not_deprecated | Deprecated_no_replacement -> ()
       );
       (match f.optional with
       | Some n ->
