@@ -325,6 +325,7 @@ generate_random_name (const char *filename)
    */
   if (guestfs_int_random_string (p, 8) == -1) {
     perror ("guestfs_int_random_string");
+    free (ret);
     return NULL;
   }
 
