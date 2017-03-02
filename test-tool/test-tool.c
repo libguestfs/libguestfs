@@ -224,7 +224,6 @@ main (int argc, char *argv[])
   p = guestfs_get_cachedir (g);
   printf ("guestfs_get_cachedir: %s\n", p ? : "(null)");
   free (p);
-  printf ("guestfs_get_direct: %d\n", guestfs_get_direct (g));
   p = guestfs_get_hv (g);
   printf ("guestfs_get_hv: %s\n", p);
   free (p);
