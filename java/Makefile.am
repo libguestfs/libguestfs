@@ -114,7 +114,9 @@ libguestfs_jni_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(JNI_CFLAGS)
 
-libguestfs_jni_la_LIBADD = $(top_builddir)/src/libguestfs.la
+libguestfs_jni_la_LIBADD = \
+	$(top_builddir)/src/libutils.la \
+	$(top_builddir)/src/libguestfs.la
 
 libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO) -shared
 
