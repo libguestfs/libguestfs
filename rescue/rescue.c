@@ -295,9 +295,12 @@ main (int argc, char *argv[])
     usage (EXIT_FAILURE);
   }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
   /* Setting "direct mode" is required for the rescue appliance. */
   if (guestfs_set_direct (g, 1) == -1)
     exit (EXIT_FAILURE);
+#pragma GCC diagnostic pop
 
   {
     /* The libvirt backend doesn't support direct mode.  As a temporary
