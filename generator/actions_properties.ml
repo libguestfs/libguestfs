@@ -260,34 +260,6 @@ C<guestfs_set_event_callback>)." };
 Return the command trace flag." };
 
   { defaults with
-    name = "set_direct"; added = (1, 0, 72);
-    style = RErr, [Bool "direct"], [];
-    fish_alias = ["direct"]; config_only = true;
-    blocking = false;
-    shortdesc = "enable or disable direct appliance mode";
-    longdesc = "\
-If the direct appliance mode flag is enabled, then stdin and
-stdout are passed directly through to the appliance once it
-is launched.
-
-One consequence of this is that log messages aren't caught
-by the library and handled by C<guestfs_set_log_message_callback>,
-but go straight to stdout.
-
-You probably don't want to use this unless you know what you
-are doing.
-
-The default is disabled." };
-
-  { defaults with
-    name = "get_direct"; added = (1, 0, 72);
-    style = RBool "direct", [], [];
-    blocking = false;
-    shortdesc = "get direct appliance mode flag";
-    longdesc = "\
-Return the direct appliance mode flag." };
-
-  { defaults with
     name = "set_recovery_proc"; added = (1, 0, 77);
     style = RErr, [Bool "recoveryproc"], [];
     fish_alias = ["recovery-proc"]; config_only = true;
