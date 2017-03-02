@@ -320,6 +320,8 @@ print_partition_table (const char *device, bool add_m_option)
   CLEANUP_FREE char *err = NULL;
   int r;
 
+  udev_settle ();
+
   if (add_m_option)
     r = command (&out, &err, str_parted, "-m", "-s", "--", device,
                  "unit", "b",
@@ -328,6 +330,9 @@ print_partition_table (const char *device, bool add_m_option)
     r = command (&out, &err, str_parted, "-s", "--", device,
                  "unit", "b",
                  "print", NULL);
+
+  udev_settle ();
+
   if (r == -1) {
     int errcode = 0;
 
@@ -665,6 +670,8 @@ sgdisk_info_extract_field (const char *device, int partnum, const char *field,
     return NULL;
   }
 
+  udev_settle ();
+
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
                     str_sgdisk, device, "-i", partnum_str, NULL);
@@ -673,6 +680,8 @@ sgdisk_info_extract_field (const char *device, int partnum, const char *field,
     reply_with_error ("%s %s -i %s: %s", str_sgdisk, device, partnum_str, err);
     return NULL;
   }
+
+  udev_settle ();
 
   CLEANUP_FREE_STRING_LIST char **lines = split_lines (err);
   if (lines == NULL) {
