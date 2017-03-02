@@ -1036,7 +1036,7 @@ and generate_java_struct_list_return typ jtyp cols =
       | FBuffer ->
         pr "    {\n";
         pr "      size_t len = r->val[i].%s_len;\n" name;
-        pr "      CLEANUP_FREE char *s = malloc (len);\n";
+        pr "      CLEANUP_FREE char *s = malloc (len + 1);\n";
         pr "      if (s == NULL) {\n";
         pr "        throw_out_of_memory (env, \"malloc\");\n";
         pr "        goto ret_error;\n";
