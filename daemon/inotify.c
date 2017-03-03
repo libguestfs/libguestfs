@@ -29,6 +29,7 @@
 #include <sys/inotify.h>
 #endif
 
+#include "cloexec.h"
 #include "nonblocking.h"
 
 #include "guestfs_protocol.h"
@@ -120,8 +121,8 @@ do_inotify_init (int max_events)
     inotify_fd = -1;
     return -1;
   }
-  if (fcntl (inotify_fd, F_SETFD, FD_CLOEXEC) == -1) {
-    reply_with_perror ("fcntl: FD_CLOEXEC");
+  if (set_cloexec_flag (inotify_fd, 1) == -1) {
+    reply_with_perror ("set_cloexec_flag");
     close (inotify_fd);
     inotify_fd = -1;
     return -1;
