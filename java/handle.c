@@ -85,7 +85,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
   (JNIEnv *env, jobject obj, jlong jg)
 {
   guestfs_h *g = (guestfs_h *) (long) jg;
-  size_t len, i;
+  size_t len;
   struct callback_data **data;
 
   /* There is a nasty, difficult to solve case here where the
@@ -96,11 +96,14 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
   guestfs_close (g);
 
-  for (i = 0; i < len; ++i) {
-    (*env)->DeleteGlobalRef (env, data[i]->callback);
-    free (data[i]);
+  if (len > 0) {
+    size_t i;
+    for (i = 0; i < len; ++i) {
+      (*env)->DeleteGlobalRef (env, data[i]->callback);
+      free (data[i]);
+    }
+    free (data);
   }
-  free (data);
 }
 
 /* See EventCallback interface. */
@@ -273,6 +276,10 @@ get_all_event_callbacks (JNIEnv *env, guestfs_h *g, size_t *len_rtn)
       (*len_rtn)++;
     data = guestfs_next_private (g, &key);
   }
+
+  /* No events, so no need to allocate anything. */
+  if (*len_rtn == 0)
+    return NULL;
 
   /* Copy them into the return array. */
   r = malloc (sizeof (struct callback_data *) * (*len_rtn));
