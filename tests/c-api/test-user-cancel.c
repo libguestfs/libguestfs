@@ -45,6 +45,8 @@
 
 #include <pthread.h>
 
+#include "cloexec.h"
+
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
 
@@ -102,9 +104,9 @@ main (int argc, char *argv[])
     error (EXIT_FAILURE, errno, "pipe");
 
   /* We don't want the pipe to be passed to subprocesses. */
-  if (fcntl (fds[0], F_SETFD, FD_CLOEXEC) == -1 ||
-      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1)
-    error (EXIT_FAILURE, errno, "fcntl");
+  if (set_cloexec_flag (fds[0], 1) == -1 ||
+      set_cloexec_flag (fds[1], 1) == -1)
+    error (EXIT_FAILURE, errno, "set_cloexec_flag");
 
   data.fd = fds[1];
   snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fds[0]);
@@ -160,9 +162,9 @@ main (int argc, char *argv[])
     error (EXIT_FAILURE, errno, "pipe");
 
   /* We don't want the pipe to be passed to subprocesses. */
-  if (fcntl (fds[0], F_SETFD, FD_CLOEXEC) == -1 ||
-      fcntl (fds[1], F_SETFD, FD_CLOEXEC) == -1)
-    error (EXIT_FAILURE, errno, "fcntl");
+  if (set_cloexec_flag (fds[0], 1) == -1 ||
+      set_cloexec_flag (fds[1], 1) == -1)
+    error (EXIT_FAILURE, errno, "set_cloexec_flag");
 
   data.fd = fds[0];
   snprintf (dev_fd, sizeof dev_fd, "/dev/fd/%d", fds[1]);
