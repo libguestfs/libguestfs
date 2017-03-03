@@ -309,7 +309,7 @@ do_tail (int argc, char *argv[], /* list of files in the guest */
       CLEANUP_FREE_STATNS struct guestfs_statns *stat = NULL;
 
       if (windows) {
-        filename = windows_path (g, root, filename, 1 /* readonly */);
+        filename = windows_path (g, root, argv[i], 1 /* readonly */);
         if (filename == NULL)
           return -1; /* windows_path printed an error */
       }
