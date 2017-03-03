@@ -54,7 +54,7 @@ free_handle (void *gvp)
      * the callbacks that we are about to invoke, resulting in
      * a double-free.  XXX
      */
-    size_t len, i;
+    size_t len;
     VALUE **roots = get_all_event_callbacks (g, &len);
 
     /* Close the handle: this could invoke callbacks from the list
@@ -64,11 +64,14 @@ free_handle (void *gvp)
     guestfs_close (g);
 
     /* Now unregister the global roots. */
-    for (i = 0; i < len; ++i) {
-      rb_gc_unregister_address (roots[i]);
-      free (roots[i]);
+    if (len > 0) {
+      size_t i;
+      for (i = 0; i < len; ++i) {
+        rb_gc_unregister_address (roots[i]);
+        free (roots[i]);
+      }
+      free (roots);
     }
-    free (roots);
   }
 }
 
@@ -383,6 +386,10 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       (*len_rtn)++;
     root = guestfs_next_private (g, &key);
   }
+
+  /* No events, so no need to allocate anything. */
+  if (*len_rtn == 0)
+    return NULL;
 
   /* Copy them into the return array. */
   r = malloc (sizeof (VALUE *) * (*len_rtn));
