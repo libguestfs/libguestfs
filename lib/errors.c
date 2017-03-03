@@ -358,12 +358,15 @@ void
 guestfs_int_unexpected_close_error (guestfs_h *g)
 {
   if (g->verbose)
-    error (g, _("appliance closed the connection unexpectedly, see earlier error messages"));
+    guestfs_int_error_errno (g, EPIPE,
+                             _("appliance closed the connection unexpectedly, "
+                               "see earlier error messages"));
   else
-    error (g, _(
-		"appliance closed the connection unexpectedly.\n"
-		"This usually means the libguestfs appliance crashed.\n"
-		DEBUG_ADVICE));
+    guestfs_int_error_errno (g, EPIPE,
+                             _("appliance closed the connection unexpectedly.\n"
+                               "This usually means the libguestfs appliance "
+                               "crashed.\n"
+                               DEBUG_ADVICE));
 }
 
 /**
