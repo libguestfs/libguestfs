@@ -101,13 +101,12 @@ receive_stdout (int s)
   int fd;
   char buf[1];
 
+  memset (&msg, 0, sizeof msg);
+
   msg.msg_iov = &iov;
   msg.msg_iovlen = 1;
   iov.iov_base = buf;
   iov.iov_len = sizeof buf;
-
-  msg.msg_name = NULL;
-  msg.msg_namelen = 0;
 
   msg.msg_control = control_un.control;
   msg.msg_controllen = sizeof (control_un.control);
@@ -163,6 +162,7 @@ send_stdout (int s)
    * It's unclear if this is hiding a real problem or not.  XXX
    */
   memset (&control_un, 0, sizeof control_un);
+  memset (&msg, 0, sizeof msg);
 
   /* On Linux you have to transmit at least 1 byte of real data. */
   msg.msg_iov = &iov;
@@ -170,9 +170,6 @@ send_stdout (int s)
   buf[0] = 0;
   iov.iov_base = buf;
   iov.iov_len = sizeof buf;
-
-  msg.msg_name = NULL;
-  msg.msg_namelen = 0;
 
   msg.msg_control = control_un.control;
   msg.msg_controllen = sizeof (control_un.control);
