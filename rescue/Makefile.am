@@ -35,7 +35,7 @@ virt_rescue_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
-	-I$(top_srcdir)/fish \
+	-I$(top_srcdir)/common/windows -I$(top_builddir)/common/windows \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 
 virt_rescue_CFLAGS = \
@@ -43,6 +43,7 @@ virt_rescue_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 virt_rescue_LDADD = \
+	$(top_builddir)/common/windows/libwindows.la \
 	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \

@@ -180,6 +180,10 @@ else
     # We need a daemon, even in virt-rescue.
     $cmd &
 
+    # XXX This gives a bit of time for virt-rescue to connect to the
+    # daemon and mount any filesystems.
+    sleep 2
+
     # Get name of the serial port, from console= passed by libguestfs.
     guestfs_serial=$(grep -Eo 'console=[^[:space:]]+' /proc/cmdline |
                      sed s/console=//)
@@ -208,8 +212,12 @@ else
     echo "Welcome to virt-rescue, the libguestfs rescue shell."
     echo
     echo "Note: The contents of / (root) are the rescue appliance."
-    echo "You have to mount the guest's partitions under /sysroot"
-    echo "before you can examine them."
+    if ! test -d "/sysroot/dev"; then
+        echo "You have to mount the guest's partitions under /sysroot"
+        echo "before you can examine them."
+    else
+        echo "Use 'cd /sysroot' or 'chroot /sysroot' to see guest filesystems."
+    fi
     echo
     run_bash_with_ctty
     echo
