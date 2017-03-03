@@ -37,6 +37,7 @@
 #include <libintl.h>
 
 #include "ignore-value.h"
+#include "nonblocking.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -129,8 +130,8 @@ accept_connection (guestfs_h *g, struct connection *connv)
   conn->daemon_sock = sock;
 
   /* Make sure the new socket is non-blocking. */
-  if (fcntl (conn->daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "accept_connection: fcntl");
+  if (set_nonblocking_flag (conn->daemon_sock, 1) == -1) {
+    perrorf (g, "accept_connection: set_nonblocking_flag");
     return -1;
   }
 
@@ -438,14 +439,14 @@ guestfs_int_new_conn_socket_listening (guestfs_h *g,
 
   assert (daemon_accept_sock >= 0);
 
-  if (fcntl (daemon_accept_sock, F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "new_conn_socket_listening: fcntl");
+  if (set_nonblocking_flag (daemon_accept_sock, 1) == -1) {
+    perrorf (g, "new_conn_socket_listening: set_nonblocking_flag");
     return NULL;
   }
 
   if (console_sock >= 0) {
-    if (fcntl (console_sock, F_SETFL, O_NONBLOCK) == -1) {
-      perrorf (g, "new_conn_socket_listening: fcntl");
+    if (set_nonblocking_flag (console_sock, 1) == -1) {
+      perrorf (g, "new_conn_socket_listening: set_nonblocking_flag");
       return NULL;
     }
   }
@@ -478,14 +479,14 @@ guestfs_int_new_conn_socket_connected (guestfs_h *g,
 
   assert (daemon_sock >= 0);
 
-  if (fcntl (daemon_sock, F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "new_conn_socket_connected: fcntl");
+  if (set_nonblocking_flag (daemon_sock, 1) == -1) {
+    perrorf (g, "new_conn_socket_connected: set_nonblocking_flag");
     return NULL;
   }
 
   if (console_sock >= 0) {
-    if (fcntl (console_sock, F_SETFL, O_NONBLOCK) == -1) {
-      perrorf (g, "new_conn_socket_connected: fcntl");
+    if (set_nonblocking_flag (console_sock, 1) == -1) {
+      perrorf (g, "new_conn_socket_connected: set_nonblocking_flag");
       return NULL;
     }
   }

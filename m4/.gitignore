@@ -41,6 +41,7 @@
 /exponentd.m4
 /extensions.m4
 /extern-inline.m4
+/fatal-signal.m4
 /fchdir.m4
 /fclose.m4
 /fcntl_h.m4
@@ -156,6 +157,7 @@
 /netdb_h.m4
 /netinet_in_h.m4
 /nocrash.m4
+/nonblocking.m4
 /off_t.m4
 /onceonly.m4
 /openat.m4
@@ -165,6 +167,7 @@
 /perror.m4
 /pipe2.m4
 /pipe.m4
+/posix_spawn.m4
 /pread.m4
 /printf.m4
 /priv-set.m4
@@ -186,12 +189,14 @@
 /safe-read.m4
 /safe-write.m4
 /save-cwd.m4
+/sched_h.m4
 /secure_getenv.m4
 /select.m4
 /servent.m4
 /setenv.m4
 /setlocale.m4
 /sigaction.m4
+/sig_atomic_t.m4
 /signalblocking.m4
 /signal_h.m4
 /signed.m4
@@ -202,6 +207,7 @@
 /sockets.m4
 /socklen.m4
 /sockpfaf.m4
+/spawn_h.m4
 /ssize_t.m4
 /stat.m4
 /stat-time.m4
@@ -256,6 +262,9 @@
 /utimes.m4
 /vasnprintf.m4
 /vasprintf.m4
+/vsnprintf.m4
+/waitpid.m4
+/wait-process.m4
 /warnings.m4
 /warn-on-use.m4
 /wchar_h.m4
