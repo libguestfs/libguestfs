@@ -75,7 +75,7 @@ guestfs_finalize (value gv)
      * user deletes events in one of the callbacks that we are
      * about to invoke, resulting in a double-free.  XXX
      */
-    size_t len, i;
+    size_t len;
     value **roots = get_all_event_callbacks (g, &len);
 
     /* Close the handle: this could invoke callbacks from the list
@@ -85,11 +85,14 @@ guestfs_finalize (value gv)
     guestfs_close (g);
 
     /* Now unregister the global roots. */
-    for (i = 0; i < len; ++i) {
-      caml_remove_generational_global_root (roots[i]);
-      free (roots[i]);
+    if (len > 0) {
+      size_t i;
+      for (i = 0; i < len; ++i) {
+        caml_remove_generational_global_root (roots[i]);
+        free (roots[i]);
+      }
+      free (roots);
     }
-    free (roots);
   }
 }
 
@@ -309,6 +312,10 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
       (*len_rtn)++;
     root = guestfs_next_private (g, &key);
   }
+
+  /* No events, so no need to allocate anything. */
+  if (*len_rtn == 0)
+    return NULL;
 
   /* Copy them into the return array. */
   r = malloc (sizeof (value *) * (*len_rtn));
