@@ -6,9 +6,7 @@ virt-rescue - Run a rescue shell on a virtual machine
 
  virt-rescue [--options] -d domname
 
- virt-rescue [--options] -a disk.img [-a disk.img ...]
-
- virt-rescue --suggest (-d domname | -a disk.img ...)
+ virt-rescue [--options] -a disk.img [-a disk.img ...] [-i]
 
 Old style:
 
@@ -26,13 +24,13 @@ machine or disk image.
 You can run virt-rescue on any virtual machine known to libvirt, or
 directly on disk image(s):
 
- virt-rescue -d GuestName
+ virt-rescue -d GuestName -i
 
- virt-rescue --ro -a /path/to/disk.img
+ virt-rescue --ro -a /path/to/disk.img -i
 
  virt-rescue -a /dev/sdc
 
-For live VMs you I<must> use the --ro option.
+For live VMs you I<must> use the I<--ro> option.
 
 When you run virt-rescue on a virtual machine or disk image, you are
 placed in an interactive bash shell where you can use many ordinary
@@ -41,26 +39,10 @@ rescue appliance.  You must mount the virtual machine's filesystems by
 hand.  There is an empty directory called F</sysroot> where you can
 mount filesystems.
 
-You can get virt-rescue to suggest mount commands for you by using the
-I<--suggest> option (in another terminal):
-
- $ virt-rescue --suggest -d Fedora15
- Inspecting the virtual machine or disk image ...
- 
- This disk contains one or more operating systems.  You can use these
- mount commands in virt-rescue (at the ><rescue> prompt) to mount the
- filesystems.
- 
- # /dev/vg_f15x32/lv_root is the root of a linux operating system
- # type: linux, distro: fedora, version: 15.0
- # Fedora release 15 (Lovelock)
- 
- mount /dev/vg_f15x32/lv_root /sysroot/
- mount /dev/vda1 /sysroot/boot
- mount --bind /dev /sysroot/dev
- mount --bind /dev/pts /sysroot/dev/pts
- mount --bind /proc /sysroot/proc
- mount --bind /sys /sysroot/sys
+To automatically mount the virtual machine's filesystems under
+F</sysroot> use the I<-i> option.  This uses libguestfs inspection to
+find the filesystems and mount them in the right place.  You can also
+mount filesystems individually using the I<-m> option.
 
 Another way is to list the logical volumes (with L<lvs(8)>) and
 partitions (with L<parted(8)>) and mount them by hand:
@@ -170,7 +152,15 @@ If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).
 
-=item B<-m> MB
+=item B<-i>
+
+=item B<--inspector>
+
+Using L<virt-inspector(1)> code, inspect the disks looking for
+an operating system and mount filesystems as they would be
+mounted on the real virtual machine.
+
+The filesystems are mounted on F</sysroot> in the rescue environment.
 
 =item B<--memsize> MB
 
@@ -178,6 +168,33 @@ Change the amount of memory allocated to the rescue system.  The
 default is set by libguestfs and is small but adequate for running
 system tools.  The occasional program might need more memory.  The
 parameter is specified in megabytes.
+
+=item B<-m> dev[:mountpoint[:options[:fstype]]]
+
+=item B<--mount> dev[:mountpoint[:options[:fstype]]]
+
+Mount the named partition or logical volume on the given mountpoint
+B<in the guest> (this has nothing to do with mountpoints in the host).
+
+If the mountpoint is omitted, it defaults to F</>.  You have to mount
+something on F</>.
+
+The filesystems are mounted under F</sysroot> in the rescue environment.
+
+The third (and rarely used) part of the mount parameter is the list of
+mount options used to mount the underlying filesystem.  If this is not
+given, then the mount options are either the empty string or C<ro>
+(the latter if the I<--ro> flag is used).  By specifying the mount
+options, you override this default choice.  Probably the only time you
+would use this is to enable ACLs and/or extended attributes if the
+filesystem can support them:
+
+ -m /dev/sda1:/:acl,user_xattr
+
+The fourth part of the parameter is the filesystem driver to use, such
+as C<ext3> or C<ntfs>. This is rarely needed, but can be useful if
+multiple drivers are valid for a filesystem (eg: C<ext2> and C<ext3>),
+or if libguestfs misidentifies a filesystem.
 
 =item B<--network>
 
@@ -217,9 +234,10 @@ Enable N E<ge> 2 virtual CPUs in the rescue appliance.
 
 =item B<--suggest>
 
-Inspect the disk image and suggest what mount commands should be used
-to mount the disks.  You should use the I<--suggest> option in a
-second terminal, then paste the commands into another virt-rescue.
+This option was used in older versions of virt-rescue to suggest what
+commands you could use to mount filesystems under F</sysroot>.  For
+the current version of virt-rescue, it is easier to use the I<-i>
+option instead.
 
 This option implies I<--ro> and is safe to use even if the guest is up
 or if another virt-rescue is running.
@@ -240,7 +258,7 @@ Display version number and exit.
 
 =item B<--rw>
 
-This changes the I<-a> and I<-d> options so that disks are
+This changes the I<-a>, I<-d> and I<-m> options so that disks are
 added and mounts are done read-write.
 
 See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
