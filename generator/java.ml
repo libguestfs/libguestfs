@@ -713,7 +713,7 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
             pr "  size_t %s_size;\n" n
         | StringList n | DeviceList n | FilenameList n ->
             pr "  size_t %s_len;\n" n;
-            pr "  char **%s;\n" n
+            pr "  CLEANUP_FREE char **%s = NULL;\n" n
         | Bool n
         | Int n ->
             pr "  int %s;\n" n
@@ -732,7 +732,7 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
           | OBool _ | OInt _ | OInt64 _ | OString _ -> ()
           | OStringList n ->
             pr "  size_t %s_len;\n" n;
-            pr "  char **%s;\n" n
+            pr "  CLEANUP_FREE char **%s = NULL;\n" n
         ) optargs
       );
 
@@ -855,7 +855,6 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
               n;
             pr "    (*env)->ReleaseStringUTFChars (env, o, %s[i]);\n" n;
             pr "  }\n";
-            pr "  free (%s);\n" n
         | Bool _
         | Int _
         | Int64 _
@@ -873,7 +872,6 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
               n;
             pr "    (*env)->ReleaseStringUTFChars (env, o, optargs_s.%s[i]);\n" n;
             pr "  }\n";
-            pr "  free (%s);\n" n
       ) optargs;
 
       pr "\n";
