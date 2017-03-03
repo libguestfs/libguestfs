@@ -29,6 +29,8 @@
 #include <sys/inotify.h>
 #endif
 
+#include "nonblocking.h"
+
 #include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
@@ -112,8 +114,8 @@ do_inotify_init (int max_events)
     reply_with_perror ("inotify_init");
     return -1;
   }
-  if (fcntl (inotify_fd, F_SETFL, O_NONBLOCK) == -1) {
-    reply_with_perror ("fcntl: O_NONBLOCK");
+  if (set_nonblocking_flag (inotify_fd, 1) == -1) {
+    reply_with_perror ("set_nonblocking_flag");
     close (inotify_fd);
     inotify_fd = -1;
     return -1;

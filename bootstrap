@@ -75,6 +75,7 @@ mkdtemp
 mkstemps
 netdb
 netinet_in
+nonblocking
 openat
 perror
 pipe2
