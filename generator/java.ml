@@ -299,7 +299,14 @@ public class GuestFS {
         (match f with
         | { deprecated_by = Not_deprecated } -> ()
         | { deprecated_by = Replaced_by alt } ->
-          pr "   * @deprecated In new code, use {@link #%s} instead\n" alt
+          (* Don't link to an undocumented function as javadoc will
+           * give a hard error.
+           *)
+          let f_alt = Actions.find alt in
+          if is_documented f_alt then
+            pr "   * @deprecated In new code, use {@link #%s} instead\n" alt
+          else
+            pr "   * @deprecated This is replaced by method #%s which is not exported by the Java bindings\n" alt
         | { deprecated_by = Deprecated_no_replacement } ->
           pr "   * @deprecated There is no documented replacement\n"
         );
