@@ -47,6 +47,10 @@ val sort : Types.action list -> Types.action list
 (** Sort the functions alphabetically by name
     (see also {!Utils.action_compare}). *)
 
+val find : string -> Types.action
+(** Find an action by name.  If it doesn't exist, this fails with an
+    error. *)
+
 val is_documented : Types.action -> bool
 (** Returns true if function should be documented, false otherwise. *)
 

@@ -380,10 +380,7 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
     match cmd with [] -> assert false | name :: args -> name, args in
 
   (* Look up the function. *)
-  let f =
-    try List.find (fun { name = n } -> n = name) actions
-    with Not_found ->
-      failwithf "%s: in test, command %s was not found" test_name name in
+  let f = Actions.find name in
 
   (* Look up the arguments and return type. *)
   let style_ret, style_args, style_optargs = f.style in
