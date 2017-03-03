@@ -23,7 +23,6 @@
 #include <string.h>
 #include <inttypes.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <getopt.h>
 #include <errno.h>
 #include <error.h>
@@ -37,9 +36,11 @@
 #include "full-write.h"
 #include "getprogname.h"
 #include "ignore-value.h"
+#include "nonblocking.h"
 #include "xvasprintf.h"
 
 #include "guestfs.h"
+#include "windows.h"
 #include "options.h"
 #include "display-options.h"
 
@@ -87,7 +88,9 @@ usage (int status)
               "  -d|--domain guest    Add disks from libvirt guest\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
-              "  -m|--memsize MB      Set memory size in megabytes\n"
+              "  -i|--inspector       Automatically mount filesystems\n"
+              "  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+              "  --memsize MB         Set memory size in megabytes\n"
               "  --network            Enable network\n"
               "  -r|--ro              Access read-only\n"
               "  --scratch[=N]        Add scratch disk(s)\n"
@@ -116,7 +119,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char options[] = "a:c:d:m:rvVwx";
+  static const char options[] = "a:c:d:im:rvVwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "append", 1, 0, 0 },
@@ -124,8 +127,10 @@ main (int argc, char *argv[])
     { "domain", 1, 0, 'd' },
     { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
+    { "inspector", 0, 0, 'i' },
     { "long-options", 0, 0, 0 },
-    { "memsize", 1, 0, 'm' },
+    { "mount", 1, 0, 'm' },
+    { "memsize", 1, 0, 0 },
     { "network", 0, 0, 0 },
     { "ro", 0, 0, 'r' },
     { "rw", 0, 0, 'w' },
@@ -140,13 +145,16 @@ main (int argc, char *argv[])
   };
   struct drv *drvs = NULL;
   struct drv *drv;
+  struct mp *mps = NULL;
+  struct mp *mp;
+  char *p;
   const char *format = NULL;
   bool format_consumed = true;
   int c;
   int option_index;
   int network = 0;
   const char *append = NULL;
-  int memsize = 0;
+  int memsize = 0, m;
   int smp = 0;
   int suggest = 0;
   char *append_full;
@@ -196,6 +204,10 @@ main (int argc, char *argv[])
                    _("--scratch parameter '%s' should be >= 1"), optarg);
           add_scratch_disks (n, &drvs);
         }
+      } else if (STREQ (long_options[option_index].name, "memsize")) {
+        if (sscanf (optarg, "%d", &memsize) != 1)
+          error (EXIT_FAILURE, 0,
+                 _("could not parse memory size '%s'"), optarg);
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -214,10 +226,19 @@ main (int argc, char *argv[])
       OPTION_d;
       break;
 
+    case 'i':
+      OPTION_i;
+      break;
+
     case 'm':
-      if (sscanf (optarg, "%d", &memsize) != 1)
-        error (EXIT_FAILURE, 0,
-               _("could not parse memory size '%s'"), optarg);
+      /* For backwards compatibility with virt-rescue <= 1.36, we
+       * must handle -m <number> as a synonym for --memsize.
+       */
+      if (sscanf (optarg, "%d", &m) == 1)
+        memsize = m;
+      else {
+        OPTION_m;
+      }
       break;
 
     case 'r':
@@ -288,7 +309,6 @@ main (int argc, char *argv[])
    * options parsing code.  Assert here that they have known-good
    * values.
    */
-  assert (inspector == 0);
   assert (keys_from_stdin == 0);
   assert (echo_keys == 0);
   assert (live == 0);
@@ -332,12 +352,6 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   free (append_full);
 
-  /* Add drives. */
-  add_drives (drvs);
-
-  /* Free up data structures, no longer needed after this point. */
-  free_drives (drvs);
-
   /* Add an event handler to print "log messages".  These will be the
    * output of the appliance console during launch and shutdown.
    * After launch, we will read the console messages directly from the
@@ -347,21 +361,50 @@ main (int argc, char *argv[])
                                   GUESTFS_EVENT_APPLIANCE, 0, NULL) == -1)
     exit (EXIT_FAILURE);
 
-  /* Run the appliance. */
+  /* Do the guest drives and mountpoints. */
+  add_drives (drvs);
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
+  if (inspector)
+    inspect_mount ();
+  mount_mps (mps);
+
+  free_drives (drvs);
+  free_mps (mps);
+
+  /* Also bind-mount /dev etc under /sysroot, if -i was given. */
+  if (inspector) {
+    CLEANUP_FREE_STRING_LIST char **roots;
+    int windows;
+
+    roots = guestfs_inspect_get_roots (g);
+    windows = roots && roots[0] && is_windows (g, roots[0]);
+    if (!windows) {
+      const char *cmd[5] = { "mount", "--rbind", NULL, NULL, NULL };
+      char *r;
+
+      cmd[2] = "/dev"; cmd[3] = "/sysroot/dev";
+      r = guestfs_debug (g, "sh", (char **) cmd);
+      free (r);
+
+      cmd[2] = "/proc"; cmd[3] = "/sysroot/proc";
+      r = guestfs_debug (g, "sh", (char **) cmd);
+      free (r);
+
+      cmd[2] = "/sys"; cmd[3] = "/sysroot/sys";
+      r = guestfs_debug (g, "sh", (char **) cmd);
+      free (r);
+    }
+  }
 
   sock = guestfs_internal_get_console_socket (g);
   if (sock == -1)
     exit (EXIT_FAILURE);
 
   /* Try to set all sockets to non-blocking. */
-  if (fcntl (STDIN_FILENO, F_SETFL, O_NONBLOCK) == -1)
-    perror ("could not set stdin to non-blocking");
-  if (fcntl (STDOUT_FILENO, F_SETFL, O_NONBLOCK) == -1)
-    perror ("could not set stdout to non-blocking");
-  if (fcntl (sock, F_SETFL, O_NONBLOCK) == -1)
-    perror ("could not set console socket to non-blocking");
+  ignore_value (set_nonblocking_flag (STDIN_FILENO, 1));
+  ignore_value (set_nonblocking_flag (STDOUT_FILENO, 1));
+  ignore_value (set_nonblocking_flag (sock, 1));
 
   /* Save the initial state of the tty so we always have the original
    * state to go back to.
