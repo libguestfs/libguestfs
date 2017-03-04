@@ -1,5 +1,5 @@
 /* virt-rescue
- * Copyright (C) 2010-2012 Red Hat Inc.
+ * Copyright (C) 2010-2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,9 +40,13 @@
 #include "xvasprintf.h"
 
 #include "guestfs.h"
+#include "guestfs-internal-frontend.h"
+
 #include "windows.h"
 #include "options.h"
 #include "display-options.h"
+
+#include "rescue.h"
 
 static void log_message_callback (guestfs_h *g, void *opaque, uint64_t event, int event_handle, int flags, const char *buf, size_t buf_len, const uint64_t *array, size_t array_len);
 static void do_rescue (int sock);
@@ -65,6 +69,7 @@ const char *libvirt_uri = NULL;
 int inspector = 0;
 int in_guestfish = 0;
 int in_virt_rescue = 1;
+int escape_key = '\x1d';        /* ^] */
 
 /* Old terminal settings. */
 static struct termios old_termios;
@@ -86,6 +91,7 @@ usage (int status)
               "  --append kernelopts  Append kernel options\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
+              "  -e ^x|none           Set or disable escape key (default ^])\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
               "  -i|--inspector       Automatically mount filesystems\n"
@@ -119,7 +125,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char options[] = "a:c:d:im:rvVwx";
+  static const char options[] = "a:c:d:e:im:rvVwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "append", 1, 0, 0 },
@@ -224,6 +230,12 @@ main (int argc, char *argv[])
 
     case 'd':
       OPTION_d;
+      break;
+
+    case 'e':
+      escape_key = parse_escape_key (optarg);
+      if (escape_key == -1)
+        error (EXIT_FAILURE, 0, _("unrecognized escape key: %s"), optarg);
       break;
 
     case 'i':
@@ -428,6 +440,10 @@ main (int argc, char *argv[])
   signal (SIGTSTP, tstp_handler);
   signal (SIGCONT, cont_handler);
 
+  /* Print the escape key if set. */
+  if (escape_key > 0)
+    print_escape_key_help ();
+
   do_rescue (sock);
 
   restore_tty ();
@@ -478,6 +494,9 @@ do_rescue (int sock)
 {
   size_t rlen = 0;
   size_t wlen = 0;
+  struct escape_state escape_state;
+
+  init_escape_state (&escape_state);
 
   while (sock >= 0 || rlen > 0) {
     struct pollfd fds[3];
@@ -534,6 +553,13 @@ do_rescue (int sock)
       }
       if (n > 0)
         wlen += n;
+
+      /* Process escape sequences in the tty input.  If the function
+       * returns true, then we exit the loop causing virt-rescue to
+       * exit.
+       */
+      if (escape_key > 0 && process_escapes (&escape_state, wbuf, &wlen))
+        return;
     }
 
     /* Log message from appliance. */
