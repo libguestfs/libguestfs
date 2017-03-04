@@ -28,7 +28,8 @@ bin_PROGRAMS = virt-rescue
 virt_rescue_SOURCES = \
 	escape.c \
 	rescue.c \
-	rescue.h
+	rescue.h \
+	suggest.c
 
 virt_rescue_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \

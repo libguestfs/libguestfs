@@ -23,6 +23,8 @@
 
 #include "guestfs.h"
 
+#include "options.h"
+
 extern guestfs_h *g;
 extern int read_only;
 extern int live;
@@ -43,5 +45,8 @@ extern void init_escape_state (struct escape_state *state);
 extern bool process_escapes (struct escape_state *state, char *buf, size_t *len);
 extern int parse_escape_key (const char *);
 extern void print_escape_key_help (void);
+
+/* suggest.c */
+extern void do_suggestion (struct drv *drvs);
 
 #endif /* RESCUE_H */
