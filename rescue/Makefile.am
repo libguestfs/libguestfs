@@ -26,7 +26,9 @@ EXTRA_DIST = \
 bin_PROGRAMS = virt-rescue
 
 virt_rescue_SOURCES = \
-	rescue.c
+	escape.c \
+	rescue.c \
+	rescue.h
 
 virt_rescue_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
