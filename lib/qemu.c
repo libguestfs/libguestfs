@@ -80,7 +80,6 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
   struct stat statbuf;
   CLEANUP_FREE char *cachedir = NULL, *qemu_stat_filename = NULL,
     *qemu_help_filename = NULL, *qemu_devices_filename = NULL;
-  FILE *fp;
   int generation;
   uint64_t prev_size, prev_mtime;
 
@@ -101,15 +100,16 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
   debug (g, "checking for previously cached test results of %s, in %s",
          g->hv, cachedir);
 
-  fp = fopen (qemu_stat_filename, "r");
-  if (fp == NULL)
-    goto do_test;
-  if (fscanf (fp, "%d %" SCNu64 " %" SCNu64,
-              &generation, &prev_size, &prev_mtime) != 3) {
-    fclose (fp);
-    goto do_test;
+  {
+    CLEANUP_FCLOSE FILE *fp = NULL;
+    fp = fopen (qemu_stat_filename, "r");
+    if (fp == NULL)
+      goto do_test;
+    if (fscanf (fp, "%d %" SCNu64 " %" SCNu64,
+                &generation, &prev_size, &prev_mtime) != 3) {
+      goto do_test;
+    }
   }
-  fclose (fp);
 
   if (generation == MEMO_GENERATION &&
       (uint64_t) statbuf.st_size == prev_size &&
@@ -153,54 +153,54 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
   /* Now memoize the qemu output in the cache directory. */
   debug (g, "saving test results");
 
-  fp = fopen (qemu_help_filename, "w");
-  if (fp == NULL) {
-  help_error:
-    perrorf (g, "%s", qemu_help_filename);
-    if (fp != NULL) fclose (fp);
-    guestfs_int_free_qemu_data (data);
-    return NULL;
+  {
+    CLEANUP_FCLOSE FILE *fp = NULL;
+    fp = fopen (qemu_help_filename, "w");
+    if (fp == NULL) {
+    help_error:
+      perrorf (g, "%s", qemu_help_filename);
+      guestfs_int_free_qemu_data (data);
+      return NULL;
+    }
+    if (fprintf (fp, "%s", data->qemu_help) == -1)
+      goto help_error;
   }
-  if (fprintf (fp, "%s", data->qemu_help) == -1)
-    goto help_error;
-  if (fclose (fp) == -1)
-    goto help_error;
 
-  fp = fopen (qemu_devices_filename, "w");
-  if (fp == NULL) {
-  devices_error:
-    perrorf (g, "%s", qemu_devices_filename);
-    if (fp != NULL) fclose (fp);
-    guestfs_int_free_qemu_data (data);
-    return NULL;
+  {
+    CLEANUP_FCLOSE FILE *fp = NULL;
+    fp = fopen (qemu_devices_filename, "w");
+    if (fp == NULL) {
+    devices_error:
+      perrorf (g, "%s", qemu_devices_filename);
+      guestfs_int_free_qemu_data (data);
+      return NULL;
+    }
+    if (fprintf (fp, "%s", data->qemu_devices) == -1)
+      goto devices_error;
   }
-  if (fprintf (fp, "%s", data->qemu_devices) == -1)
-    goto devices_error;
-  if (fclose (fp) == -1)
-    goto devices_error;
 
-  /* Write the qemu.stat file last so that its presence indicates that
-   * the qemu.help and qemu.devices files ought to exist.
-   */
-  fp = fopen (qemu_stat_filename, "w");
-  if (fp == NULL) {
-  stat_error:
-    perrorf (g, "%s", qemu_stat_filename);
-    if (fp != NULL) fclose (fp);
-    guestfs_int_free_qemu_data (data);
-    return NULL;
+  {
+    /* Write the qemu.stat file last so that its presence indicates that
+     * the qemu.help and qemu.devices files ought to exist.
+     */
+    CLEANUP_FCLOSE FILE *fp = NULL;
+    fp = fopen (qemu_stat_filename, "w");
+    if (fp == NULL) {
+    stat_error:
+      perrorf (g, "%s", qemu_stat_filename);
+      guestfs_int_free_qemu_data (data);
+      return NULL;
+    }
+    /* The path to qemu is stored for information only, it is not
+     * used when we parse the file.
+     */
+    if (fprintf (fp, "%d %" PRIu64 " %" PRIu64 " %s\n",
+                 MEMO_GENERATION,
+                 (uint64_t) statbuf.st_size,
+                 (uint64_t) statbuf.st_mtime,
+                 g->hv) == -1)
+      goto stat_error;
   }
-  /* The path to qemu is stored for information only, it is not
-   * used when we parse the file.
-   */
-  if (fprintf (fp, "%d %" PRIu64 " %" PRIu64 " %s\n",
-               MEMO_GENERATION,
-               (uint64_t) statbuf.st_size,
-               (uint64_t) statbuf.st_mtime,
-               g->hv) == -1)
-    goto stat_error;
-  if (fclose (fp) == -1)
-    goto stat_error;
 
   return data;
 }
