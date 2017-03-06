@@ -87,8 +87,17 @@ below.
 
 =item glibc
 
-I<Required>.  We use various glibc-isms, and glibc also provides XDR
-libraries and the C<rpcgen> tool.
+I<Required>.  We use the custom printf formatters extension of
+glibc (see L<guestfs-hacking(1)/DAEMON CUSTOM PRINTF FORMATTERS>).
+
+=item XDR (tirpc, glibc or other)
+
+I<Required>.  We use the XDR implementation from
+C<E<lt>rpc/xdr.hE<gt>>, which may come from glibc, tirpc or another
+library.
+
+The C<rpcgen> tool is optional, except if you want to compile from git
+and/or patch libguestfs with new APIs.
 
 =item Gcc or Clang
 

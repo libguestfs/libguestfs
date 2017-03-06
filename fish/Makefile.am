@@ -133,6 +133,7 @@ guestfish_CPPFLAGS = \
 
 guestfish_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(RPC_CFLAGS) \
 	$(LIBCONFIG_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
@@ -147,6 +148,7 @@ guestfish_LDADD = \
 	$(LIBREADLINE) \
 	$(LIBTINFO_LIBS) \
 	$(LTLIBINTL) \
+	$(RPC_LIBS) \
 	-lm
 
 # Make guestfish use the convenience libraries.
@@ -154,25 +156,17 @@ noinst_LTLIBRARIES = libcmds.la librc_protocol.la
 guestfish_LDADD += libcmds.la librc_protocol.la ../gnulib/lib/libgnu.la
 
 if HAVE_RPCGEN
-RPCGEN_DEFS =
-if HAVE_XDR_U_INT64_T
-RPCGEN_DEFS += -DHAVE_XDR_U_INT64_T=1
-else
-if HAVE_XDR_UINT64_T
-RPCGEN_DEFS += -DHAVE_XDR_UINT64_T=1
-endif
-endif
 
 rc_protocol.c: rc_protocol.x
 	rm -f $@-t $@-t2
-	$(RPCGEN) $(RPCGEN_DEFS) -c -o $@-t $<
+	$(RPCGEN) -c -o $@-t $<
 	$(SED) 's,\.\./\(\.\./\)*fish,.,' < $@-t > $@-t2
 	rm $@-t
 	mv $@-t2 $@
 
 rc_protocol.h: rc_protocol.x
 	rm -f $@-t
-	$(RPCGEN) $(RPCGEN_DEFS) -h -o $@-t $<
+	$(RPCGEN) -h -o $@-t $<
 	mv $@-t $@
 endif
 

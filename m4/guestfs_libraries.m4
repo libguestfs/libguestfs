@@ -171,22 +171,27 @@ AC_CHECK_HEADERS([dlfcn.h],[have_dlfcn=yes],[have_dlfcn=no])
 AM_CONDITIONAL([HAVE_LIBDL],
                [test "x$have_libdl" = "xyes" && test "x$have_dlfcn" = "xyes"])
 
-dnl Check for rpcgen and XDR library.  rpcgen is optional.
+dnl Check for an XDR library (required) and rpcgen binary (optional).
+PKG_CHECK_MODULES([RPC], [libtirpc], [], [
+    # If we don't have libtirpc, then we must have <rpc/xdr.h> and
+    # some library to link to in libdir.
+    RPC_CFLAGS=""
+    AC_CHECK_HEADER([rpc/xdr.h],[],[
+        AC_MSG_ERROR([XDR header files are required])
+    ])
+
+    old_LIBS="$LIBS"
+    LIBS=""
+    AC_SEARCH_LIBS([xdrmem_create],[portablexdr rpc xdr nsl])
+    RPC_LIBS="$LIBS"
+    LIBS="$old_LIBS"
+
+    AC_SUBST([RPC_CFLAGS])
+    AC_SUBST([RPC_LIBS])
+])
+
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
-AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
-    AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
-])
-AC_SEARCH_LIBS([xdr_u_int64_t],[portablexdr rpc xdr nsl],[
-    AC_DEFINE([HAVE_XDR_U_INT64_T],[1],[Define to 1 if xdr_u_int64_t() exists.])
-])
-AC_SEARCH_LIBS([xdr_uint64_t],[portablexdr rpc xdr nsl],[
-    AC_DEFINE([HAVE_XDR_UINT64_T],[1],[Define to 1 if xdr_uint64_t() exists.])
-])
-AM_CONDITIONAL([HAVE_XDR_U_INT64_T],
-               [test "x$ac_cv_search_xdr_u_int64_t" != "xno"])
-AM_CONDITIONAL([HAVE_XDR_UINT64_T],
-               [test "x$ac_cv_search_xdr_uint64_t" != "xno"])
 
 dnl Check for libselinux (optional).
 AC_CHECK_HEADERS([selinux/selinux.h])
