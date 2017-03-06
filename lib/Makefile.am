@@ -141,6 +141,7 @@ libguestfs_la_CPPFLAGS = \
 
 libguestfs_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(RPC_CFLAGS) \
 	$(GCC_VISIBILITY_HIDDEN) \
 	$(PCRE_CFLAGS) \
 	$(LIBVIRT_CFLAGS) \
@@ -164,7 +165,8 @@ libguestfs_la_LIBADD = \
 	$(LTLIBINTL) \
 	$(LTLIBTHREAD) \
 	$(LTLIBICONV) \
-	$(SERVENT_LIB)
+	$(SERVENT_LIB) \
+	$(RPC_LIBS)
 
 # Force libtool to name the library 'libguestfs.so.0.$(MAX_PROC_NR).0'.
 # Include the version script to limit which symbols are exported.

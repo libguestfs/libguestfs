@@ -192,7 +192,8 @@ guestfsd_LDADD = \
 	$(LIBINTL) \
 	$(SERVENT_LIB) \
 	$(PCRE_LIBS) \
-	$(TSK_LIBS)
+	$(TSK_LIBS) \
+	$(RPC_LIBS)
 
 guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib \
@@ -205,6 +206,7 @@ guestfsd_CPPFLAGS = \
 	-I$(top_builddir)/common/protocol
 guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
+	$(RPC_CFLAGS) \
 	$(AUGEAS_CFLAGS) \
 	$(HIVEX_CFLAGS) \
 	$(SD_JOURNAL_CFLAGS) \

@@ -51,21 +51,6 @@ let generate_xdr () =
   pr "%%#include <config.h>\n";
   pr "\n";
 
-  pr "/* This has to be defined to get around a limitation in Mac OS X's rpcgen. */\n";
-  pr "#if HAVE_XDR_U_INT64_T\n";
-  pr "#define uint64_t u_int64_t\n";
-  pr "%%#if HAVE_XDR_UINT64_T\n";
-  pr "%%#define xdr_u_int64_t xdr_uint64_t\n";
-  pr "%%#define u_int64_t uint64_t\n";
-  pr "%%#endif\n";
-  pr "#else\n";
-  pr "%%#if HAVE_XDR_U_INT64_T\n";
-  pr "%%#define xdr_uint64_t xdr_u_int64_t\n";
-  pr "%%#define uint64_t u_int64_t\n";
-  pr "%%#endif\n";
-  pr "#endif\n";
-  pr "\n";
-
   pr "/* This has to be defined to get around a limitation in Sun's rpcgen. */\n";
   pr "typedef string guestfs_str<>;\n";
   pr "\n";
