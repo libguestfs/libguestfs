@@ -44,6 +44,26 @@ let relabel (g : G.guestfs) =
       let specfile =
         sprintf "/etc/selinux/%s/contexts/files/file_contexts" policy in
 
+      (* RHEL 6.2 - 6.5 had a malformed specfile that contained the
+       * invalid regular expression "/var/run/spice-vdagentd.\pid"
+       * (instead of "\.p").  This stops setfiles from working on
+       * the guest.
+       *
+       * Because an SELinux relabel writes all over the filesystem,
+       * it seems reasonable to fix this problem in the specfile
+       * at the same time.  (RHBZ#1374232)
+       *)
+      if g#grep ~fixed:true "vdagentd.\\pid" specfile <> [||] then (
+        debug "fixing invalid regular expression in %s" specfile;
+        let old_specfile = specfile ^ "~" in
+        g#mv specfile old_specfile;
+        let content = g#read_file old_specfile in
+        let content =
+          String.replace content "vdagentd.\\pid" "vgagentd\\.pid" in
+        g#write specfile content;
+        g#copy_attributes ~all:true old_specfile specfile
+      );
+
       (* Relabel everything. *)
       g#selinux_relabel ~force:true specfile "/";
 
