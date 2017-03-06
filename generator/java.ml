@@ -684,13 +684,15 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
            pr "  jobject jr;\n";
            pr "  jclass cl;\n";
            pr "  jfieldID fl;\n";
-           pr "  struct guestfs_%s *r;\n" typ
+           pr "  CLEANUP_FREE_%s struct guestfs_%s *r = NULL;\n"
+             (String.uppercase_ascii typ) typ
        | RStructList (_, typ) ->
            pr "  jobjectArray jr;\n";
            pr "  jclass cl;\n";
            pr "  jfieldID fl;\n";
            pr "  jobject jfl;\n";
-           pr "  struct guestfs_%s_list *r;\n" typ
+           pr "  CLEANUP_FREE_%s_LIST struct guestfs_%s_list *r = NULL;\n"
+             (String.uppercase_ascii typ) typ
        | RBufferOut _ ->
            pr "  jstring jr;\n";
            pr "  char *r;\n";
@@ -996,7 +998,6 @@ and generate_java_struct_return typ jtyp cols =
         pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
         pr "  (*env)->SetCharField (env, jr, fl, r->%s);\n" name;
   ) cols;
-  pr "  guestfs_free_%s (r);\n" typ;
   pr "  return jr;\n"
 
 and generate_java_struct_list_return typ jtyp cols =
@@ -1057,7 +1058,6 @@ and generate_java_struct_list_return typ jtyp cols =
   pr "    (*env)->SetObjectArrayElement (env, jr, i, jfl);\n";
   pr "  }\n";
   pr "\n";
-  pr "  guestfs_free_%s_list (r);\n" typ;
   pr "  return jr;\n"
 
 and generate_java_makefile_inc () =
