@@ -30,14 +30,23 @@ class output_local dir = object
 
   method as_options = sprintf "-o local -os %s" dir
 
-  method supported_firmware = [ TargetBIOS; TargetUEFI ]
-
   method prepare_targets source targets =
     List.map (
       fun t ->
         let target_file = dir // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
         { t with target_file = target_file }
     ) targets
+
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
+
+  method check_target_firmware guestcaps target_firmware =
+    match target_firmware with
+    | TargetBIOS -> ()
+    | TargetUEFI ->
+       (* This will fail with an error if the target firmware is
+        * not installed on the host.
+        *)
+       ignore (find_uefi_firmware guestcaps.gcaps_arch)
 
   method create_metadata source _ target_buses guestcaps _ target_firmware =
     (* We don't know what target features the hypervisor supports, but

@@ -31,14 +31,14 @@ object
   method as_options =
     sprintf "-o qemu -os %s%s" dir (if qemu_boot then " --qemu-boot" else "")
 
-  method supported_firmware = [ TargetBIOS; TargetUEFI ]
-
   method prepare_targets source targets =
     List.map (
       fun t ->
         let target_file = dir // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
         { t with target_file = target_file }
     ) targets
+
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method check_target_firmware guestcaps target_firmware =
     match target_firmware with
