@@ -354,8 +354,6 @@ class output_libvirt oc output_pool = object
     | None -> sprintf "-o libvirt -os %s" output_pool
     | Some uri -> sprintf "-o libvirt -oc %s -os %s" uri output_pool
 
-  method supported_firmware = [ TargetBIOS; TargetUEFI ]
-
   method prepare_targets source targets =
     (* Get the capabilities from libvirt. *)
     let xml = Domainxml.capabilities ?conn:oc () in
@@ -417,6 +415,8 @@ class output_libvirt oc output_pool = object
           target_path // source.s_name ^ "-" ^ t.target_overlay.ov_sd in
         { t with target_file = target_file }
     ) targets
+
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method check_target_firmware guestcaps target_firmware =
     match target_firmware with
