@@ -722,7 +722,8 @@ wait_for_nbd_server_to_start (const char *ipaddr, int port)
 
   result = 0;
  cleanup:
-  close (sockfd);
+  if (sockfd >= 0)
+    close (sockfd);
 
   return result;
 }
