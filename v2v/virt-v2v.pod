@@ -758,17 +758,6 @@ can install policycoreutils E<ge> 1.18.1-4.13 before starting the v2v
 conversion.  See also
 L<https://bugzilla.redhat.com/show_bug.cgi?id=244636>
 
-=head1 RHEL 6
-
-=head2 RHEL 6.2 fails with "libguestfs error: selinux_relabel: : Success"
-
-Conversion of a RHEL 6.2 (exactly) guest will fail because the
-C</etc/selinux/targeted/contexts/files> file within the guest contains
-a corrupt regular expression.  This was fixed in later versions of
-RHEL 6, so you will need to update to any version E<ge> 6.3 before
-performing the conversion.  See also
-L<https://bugzilla.redhat.com/show_bug.cgi?id=1374232>
-
 =head1 WINDOWS
 
 =head2 Windows E<ge> 8 Fast Startup is incompatible with virt-v2v
