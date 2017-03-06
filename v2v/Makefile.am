@@ -256,10 +256,15 @@ TESTS_ENVIRONMENT = $(top_builddir)/run --test
 
 TESTS = \
 	test-v2v-docs.sh \
-	test-v2v-i-ova-tar.sh \
+	test-v2v-i-ova-bad-sha1.sh \
+	test-v2v-i-ova-bad-sha256.sh \
 	test-v2v-i-ova-formats.sh \
+	test-v2v-i-ova-good-checksums.sh \
 	test-v2v-i-ova-gz.sh \
+	test-v2v-i-ova-invalid-manifest1.sh \
+	test-v2v-i-ova-invalid-manifest2.sh \
 	test-v2v-i-ova-subfolders.sh \
+	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-two-disks.sh \
 	test-v2v-bad-networks-and-bridges.sh
 
@@ -301,6 +306,20 @@ TESTS += \
 	$(SLOW_TESTS)
 endif
 endif ENABLE_APPLIANCE
+
+# The VMDK file is used for some -i ova tests.
+check_DATA = windows.vmdk
+windows.vmdk: ../test-data/phony-guests/windows.img
+	rm -f $@ $@-t
+	if [ -s $< ]; then \
+	    qemu-img convert -f raw $< -O vmdk $@-t; \
+	    mv $@-t $@; \
+	else \
+	    touch $@; \
+	fi
+
+DISTCLEANFILES += \
+	windows.vmdk
 
 check-valgrind:
 	$(MAKE) VG="@VG@" check
@@ -355,6 +374,7 @@ EXTRA_DIST += \
 	test-v2v-floppy.sh \
 	test-v2v-floppy.xml \
 	test-v2v-i-disk.sh \
+	test-v2v-i-ova-checksums.ovf \
 	test-v2v-i-ova-formats.expected \
 	test-v2v-i-ova-formats.ovf \
 	test-v2v-i-ova-formats.sh \
