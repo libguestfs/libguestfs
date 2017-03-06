@@ -495,7 +495,10 @@ reopen_handle (void)
 
   guestfs_set_verbose (g2, guestfs_get_verbose (g));
   guestfs_set_trace (g2, guestfs_get_trace (g));
-  guestfs_set_pgroup (g2, guestfs_get_pgroup (g));
+  if (guestfs_set_pgroup (g2, guestfs_get_pgroup (g)) == -1) {
+    perror ("guestfs_set_pgroup");
+    return -1;
+  }
 
   guestfs_close (g);
   g = g2;
