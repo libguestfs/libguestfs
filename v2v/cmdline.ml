@@ -220,7 +220,7 @@ let parse_cmdline () =
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi -os imported esx_guest
 
  virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest \
-   -o rhv -os rhv.nfs:/export_domain --network rhvm
+   -o rhv -os rhv.nfs:/export_domain --network ovirtmgmt
 
  virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp
 

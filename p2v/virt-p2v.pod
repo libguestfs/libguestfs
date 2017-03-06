@@ -393,14 +393,14 @@ interfaces to the target C<default> network.
 You give a comma-separated list of C<interface:target> pairs, plus
 optionally a default target.  For example:
 
- p2v.network=em1:rhvm
+ p2v.network=em1:ovirtmgmt
 
-maps interface C<em1> to target network C<rhvm>.
+maps interface C<em1> to target network C<ovirtmgmt>.
 
- p2v.network=em1:rhvm,em2:management,other
+ p2v.network=em1:ovirtmgmt,em2:management,other
 
-maps interface C<em1> to C<rhvm>, and C<em2> to C<management>, and
-any other interface that is found to C<other>.
+maps interface C<em1> to C<ovirtmgmt>, and C<em2> to C<management>,
+and any other interface that is found to C<other>.
 
 =item B<p2v.o=[libvirt|local|...]>
 
