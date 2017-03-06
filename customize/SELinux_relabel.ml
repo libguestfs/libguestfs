@@ -59,7 +59,7 @@ let relabel (g : G.guestfs) =
         g#mv specfile old_specfile;
         let content = g#read_file old_specfile in
         let content =
-          String.replace content "vdagentd.\\pid" "vgagentd\\.pid" in
+          String.replace content "vdagentd.\\pid" "vdagentd\\.pid" in
         g#write specfile content;
         g#copy_attributes ~all:true old_specfile specfile
       );
