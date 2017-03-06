@@ -401,7 +401,10 @@ start_qemu_nbd (const char *device,
 
   if (pid == 0) {               /* Child. */
     close (0);
-    open ("/dev/null", O_RDONLY);
+    if (open ("/dev/null", O_RDONLY) == -1) {
+      perror ("open: /dev/null");
+      _exit (EXIT_FAILURE);
+    }
 
     if (fds == NULL) {          /* without socket activation */
       execlp ("qemu-nbd",
@@ -474,7 +477,10 @@ start_nbdkit (const char *device,
 
   if (pid == 0) {               /* Child. */
     close (0);
-    open ("/dev/null", O_RDONLY);
+    if (open ("/dev/null", O_RDONLY) == -1) {
+      perror ("open: /dev/null");
+      _exit (EXIT_FAILURE);
+    }
 
     if (fds == NULL) {         /* without socket activation */
       execlp ("nbdkit",
@@ -691,7 +697,11 @@ wait_for_nbd_server_to_start (const char *ipaddr, int port)
 
   time (&now_t);
   timeout.tv_sec = (start_t + WAIT_NBD_TIMEOUT) - now_t;
-  setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout);
+  if (setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout) == -1) {
+    set_nbd_error ("waiting for NBD server to start: "
+                   "setsockopt(SO_RCVTIMEO): %m");
+    goto cleanup;
+  }
 
   do {
     recvd = recv (sockfd, magic, sizeof magic - bytes_read, 0);
