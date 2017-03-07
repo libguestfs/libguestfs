@@ -351,6 +351,28 @@ recommendation is that you recompile libguestfs using a version of the
 OCaml compiler where this bug has been fixed (or ask your Linux distro
 to do the same).
 
+=head2 CVE-2017-5208, CVE-2017-5331, CVE-2017-5332, CVE-2017-5333,
+CVE-2017-6009, CVE-2017-6010, CVE-2017-6011
+
+Multiple vulnerabilities in the L<wrestool(1)> program in the
+C<icoutils> package can be exploited for local code execution on the
+host.
+
+When libguestfs inspection (see L</Inspection security> above) detects
+a Windows XP or Windows 7 guest and is asked to find an associated
+icon for the guest, it will download an untrusted file from the guest
+and run C<wrestool -x> on that file.  This can lead to local code
+execution on the host.  Any disk image or guest can be crafted to look
+like a Windows guest to libguestfs inspection, so just because you do
+not have Windows guests does not help.
+
+Any program calling the libguestfs API C<guestfs_inspect_get_icon>
+could be vulnerable.  This includes L<virt-inspector(1)> and
+L<virt-manager(1)>.
+
+The solution is to update to the non-vulnerable version of icoutils
+(at least 0.31.1).
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
