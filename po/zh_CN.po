@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-28 09:15+0000\n"
+"POT-Creation-Date: 2017-03-07 15:35+0000\n"
 "PO-Revision-Date: 2015-02-21 10:55-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -249,7 +249,7 @@ msgid ""
 "esx_guest\n"
 "\n"
 " virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhv -os "
-"rhv.nfs:/export_domain --network rhvm\n"
+"rhv.nfs:/export_domain --network ovirtmgmt\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -623,26 +623,26 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:131
+#: ../v2v/output_libvirt.ml:129
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/name element.  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:121
+#: ../v2v/output_libvirt.ml:119
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/target/path element.  See "
 "virt-v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:123
+#: ../v2v/output_libvirt.ml:121
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO "
 "LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:117
+#: ../v2v/output_libvirt.ml:115
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -700,12 +700,30 @@ msgstr ""
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:318
+#. ../v2v/copy_to_local.ml:318
+#: ../v2v/parse_libvirt_xml.ml:296 ../v2v/parse_libvirt_xml.ml:263
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:300
+#: ../v2v/parse_libvirt_xml.ml:269
+msgid "<disk type='network'> with <source protocol='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:292
+msgid "<disk type='volume'> with <volume type='%s'> was ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:242 ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:118
+msgid "<listen type='%s'> in the input libvirt XML was ignored"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:328
+msgid ""
+"<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
 
 #. ../customize/customize_main.ml:74
@@ -1279,7 +1297,7 @@ msgstr ""
 msgid "Flag the system for reconfiguration"
 msgstr ""
 
-#. ../sysprep/sysprep_operation_net_hostname.ml:50
+#. ../sysprep/sysprep_operation_net_hostname.ml:52
 #: ../sysprep/sysprep_operation_net_hwaddr.ml:50
 msgid ""
 "For Fedora and Red Hat Enterprise Linux,\n"
@@ -1768,8 +1786,8 @@ msgstr ""
 msgid "Remove Dovecot (mail server) data"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_net_hostname.ml:49
-msgid "Remove HOSTNAME in network interface configuration"
+#: ../sysprep/sysprep_operation_net_hostname.ml:51
+msgid "Remove HOSTNAME and DHCP_HOSTNAME in network interface configuration"
 msgstr ""
 
 #: ../sysprep/sysprep_operation_net_hwaddr.ml:49
@@ -2598,7 +2616,7 @@ msgstr ""
 msgid "Zeroing %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:100
+#: ../v2v/output_libvirt.ml:98
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -2606,7 +2624,7 @@ msgid ""
 "delete the existing domain on the target using the 'virsh undefine' command."
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:103
+#: ../v2v/output_libvirt.ml:101
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -2807,6 +2825,10 @@ msgstr ""
 msgid "could not parse '-ic %s'.  Original error message was: %s"
 msgstr ""
 
+#: ../v2v/parse_libvirt_xml.ml:43
+msgid "could not parse device name '%s' from the source libvirt XML"
+msgstr ""
+
 #: ../v2v/input_ova.ml:406
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
@@ -2896,6 +2918,10 @@ msgid ""
 "format you want to use.  You have two choices: either define the original "
 "format in the source metadata, or use the '-of' option to force the output "
 "format."
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:142
+msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
 #: ../dib/output_format_docker.ml:32
@@ -3182,6 +3208,14 @@ msgstr ""
 msgid ""
 "images cannot be shrunk, the output size is too small for this image.  "
 "Requested size = %s, minimum size = %s"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:59
+msgid "in the libvirt XML metadata, <domain type='...'> is missing or empty"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:64
+msgid "in the libvirt XML metadata, <name> is missing or empty"
 msgstr ""
 
 #: ../builder/builder.ml:353
@@ -3933,7 +3967,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:289
+#: ../v2v/parse_libvirt_xml.ml:216 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -4026,6 +4060,10 @@ msgstr ""
 
 #: ../v2v/OVF.ml:183
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
+msgstr ""
+
+#: ../v2v/parse_libvirt_xml.ml:183
+msgid "unknown sound model %s ignored"
 msgstr ""
 
 #: ../v2v/v2v.ml:178
@@ -4152,6 +4190,12 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
+#: ../v2v/parse_libvirt_xml.ml:139
+msgid ""
+"virt-v2v does not support local displays, so <graphics type='%s'> in the "
+"input libvirt XML was ignored"
+msgstr ""
+
 #: ../v2v/v2v.ml:562
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
@@ -4228,10 +4272,10 @@ msgid ""
 "further information."
 msgstr ""
 
-#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:89
-#: cat/tail.c:65 df/main.c:72 diff/diff.c:98 edit/edit.c:68 fish/fish.c:115
+#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:96
+#: cat/tail.c:65 df/main.c:72 diff/diff.c:105 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
-#: make-fs/make-fs.c:79 p2v/main.c:87 rescue/rescue.c:61
+#: make-fs/make-fs.c:79 p2v/main.c:93 rescue/rescue.c:80
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "尝试 `%s --help' 以了解更多信息。\n"
@@ -4260,11 +4304,11 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:159 builder/index-validate.c:88 cat/cat.c:145
-#: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:235 cat/tail.c:152
-#: df/main.c:162 diff/diff.c:267 edit/edit.c:158 fish/fish.c:296
+#: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:242 cat/tail.c:152
+#: df/main.c:162 diff/diff.c:274 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
-#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:198
-#: rescue/rescue.c:185 test-tool/test-tool.c:116
+#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:204
+#: rescue/rescue.c:218 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
 msgstr ""
@@ -4359,9 +4403,9 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:233 cat/filesystems.c:343 cat/log.c:204 cat/ls.c:349
-#: cat/tail.c:217 diff/diff.c:321 edit/edit.c:258 fuse/guestmount.c:318
-#: inspector/inspector.c:266 rescue/rescue.c:293
+#: cat/cat.c:233 cat/filesystems.c:343 cat/log.c:204 cat/ls.c:356
+#: cat/tail.c:217 diff/diff.c:328 edit/edit.c:258 fuse/guestmount.c:318
+#: inspector/inspector.c:266 rescue/rescue.c:340
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
 msgstr ""
@@ -4412,7 +4456,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:314 cat/ls.c:341 df/main.c:259 diff/diff.c:335
+#: cat/filesystems.c:314 cat/ls.c:348 df/main.c:259 diff/diff.c:342
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
@@ -4468,7 +4512,7 @@ msgstr ""
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
 
-#: cat/ls.c:92
+#: cat/ls.c:99
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -4503,7 +4547,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/ls.c:334
+#: cat/ls.c:341
 #, c-format
 msgid ""
 "used a flag which can only be combined with -lR mode\n"
@@ -4807,7 +4851,7 @@ msgstr ""
 msgid "IUse%"
 msgstr ""
 
-#: diff/diff.c:101
+#: diff/diff.c:108
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
@@ -4845,12 +4889,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:326
+#: diff/diff.c:333
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:338
+#: diff/diff.c:345
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -4858,12 +4902,12 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: diff/diff.c:740
+#: diff/diff.c:747
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:744
+#: diff/diff.c:751
 msgid "End of diff"
 msgstr ""
 
@@ -7610,29 +7654,29 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:286
+#: fish/rc.c:283
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 
-#: fish/rc.c:291
+#: fish/rc.c:288
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:376 fish/rc.c:390
+#: fish/rc.c:373 fish/rc.c:387
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:402 fish/rc.c:416
+#: fish/rc.c:399 fish/rc.c:413
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:427
+#: fish/rc.c:424
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -8125,24 +8169,28 @@ msgstr ""
 msgid "%s: group not available"
 msgstr ""
 
-#: lib/conn-socket.c:69
+#: lib/conn-socket.c:70
 msgid "accept_connection called twice"
 msgstr ""
 
-#: lib/conn-socket.c:148
+#: lib/conn-socket.c:149
 msgid "read_data: socket not connected"
 msgstr ""
 
-#: lib/conn-socket.c:223
+#: lib/conn-socket.c:224
 msgid "can_read_data: socket not connected"
 msgstr ""
 
-#: lib/conn-socket.c:252
+#: lib/conn-socket.c:253
 msgid "write_data: socket not connected"
 msgstr ""
 
-#: lib/conn-socket.c:362
+#: lib/conn-socket.c:363
 msgid "error reading console messages from the appliance"
+msgstr ""
+
+#: lib/conn-socket.c:406
+msgid "console socket not connected"
 msgstr ""
 
 #: lib/copy-in-out.c:51
@@ -8484,45 +8532,45 @@ msgid ""
 "This usually means the libguestfs appliance failed to start or crashed.\n"
 msgstr ""
 
-#: lib/errors.c:361
+#: lib/errors.c:362
 msgid ""
 "appliance closed the connection unexpectedly, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:364
+#: lib/errors.c:366
 msgid ""
 "appliance closed the connection unexpectedly.\n"
 "This usually means the libguestfs appliance crashed.\n"
 msgstr ""
 
-#: lib/errors.c:376
+#: lib/errors.c:379
 msgid "appliance launch timed out, see earlier error messages"
 msgstr ""
 
-#: lib/errors.c:379
+#: lib/errors.c:382
 msgid ""
 "appliance launch timed out.\n"
 "This usually means the kernel or appliance hung during launch.\n"
 msgstr ""
 
-#: lib/errors.c:402
+#: lib/errors.c:405
 #, c-format
 msgid "%s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:404
+#: lib/errors.c:407
 #, c-format
 msgid "%s: %s: %s, see debug messages above"
 msgstr ""
 
-#: lib/errors.c:409
+#: lib/errors.c:412
 #, c-format
 msgid ""
 "%s.\n"
 "To see full error messages you may need to enable debugging.\n"
 msgstr ""
 
-#: lib/errors.c:414
+#: lib/errors.c:417
 #, c-format
 msgid ""
 "%s: %s: %s.\n"
@@ -8534,50 +8582,50 @@ msgstr ""
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: lib/fuse.c:970
+#: lib/fuse.c:976
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: lib/fuse.c:994
+#: lib/fuse.c:1000
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: lib/fuse.c:1011
+#: lib/fuse.c:1017
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: lib/fuse.c:1029
+#: lib/fuse.c:1035
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: lib/fuse.c:1058
+#: lib/fuse.c:1064
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: lib/fuse.c:1069
+#: lib/fuse.c:1075
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
 "Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
 msgstr ""
 
-#: lib/fuse.c:1079
+#: lib/fuse.c:1085
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: lib/fuse.c:1129
+#: lib/fuse.c:1135
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: lib/fuse.c:1247
+#: lib/fuse.c:1253
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: lib/fuse.c:1502
+#: lib/fuse.c:1508
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -9187,6 +9235,14 @@ msgid ""
 "discard"
 msgstr ""
 
+#: lib/rescue.c:38
+msgid "no console socket, the handle must be launched"
+msgstr ""
+
+#: lib/rescue.c:44
+msgid "connection class does not support getting the console socket"
+msgstr ""
+
 #: lib/tmpdirs.c:65
 #, c-format
 msgid "converting path to absolute path: %s: %s: realpath"
@@ -9621,7 +9677,7 @@ msgstr ""
 msgid "Cancel the conversion"
 msgstr ""
 
-#: p2v/main.c:90
+#: p2v/main.c:96
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -9640,22 +9696,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:190
+#: p2v/main.c:196
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:193
+#: p2v/main.c:199
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:221
+#: p2v/main.c:227
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:252
+#: p2v/main.c:258
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -9689,7 +9745,87 @@ msgid ""
 "Please check the --nbd option in the virt-p2v(1) man page.\n"
 msgstr ""
 
-#: rescue/rescue.c:64
+#: rescue/escape.c:141
+#, c-format
+msgid "attempting to sync filesystems ..."
+msgstr ""
+
+#: rescue/escape.c:148
+#, c-format
+msgid "unmounting filesystems ..."
+msgstr ""
+
+#: rescue/escape.c:186
+#, c-format
+msgid "virt-rescue escape sequences:"
+msgstr ""
+
+#: rescue/escape.c:191
+#, c-format
+msgid " ? - print this message"
+msgstr ""
+
+#: rescue/escape.c:196
+#, c-format
+msgid " h - print this message"
+msgstr ""
+
+#: rescue/escape.c:202
+#, c-format
+msgid " i - print inspection data"
+msgstr ""
+
+#: rescue/escape.c:208
+#, c-format
+msgid " q - quit virt-rescue"
+msgstr ""
+
+#: rescue/escape.c:213
+#, c-format
+msgid " s - sync the filesystems"
+msgstr ""
+
+#: rescue/escape.c:218
+#, c-format
+msgid " u - unmount filesystems"
+msgstr ""
+
+#: rescue/escape.c:223
+#, c-format
+msgid " x - quit virt-rescue"
+msgstr ""
+
+#: rescue/escape.c:228
+#, c-format
+msgid " z - suspend virt-rescue"
+msgstr ""
+
+#: rescue/escape.c:231
+#, c-format
+msgid "to pass the escape key through to the rescue shell, type it twice"
+msgstr ""
+
+#: rescue/escape.c:250
+#, c-format
+msgid "root device: %s"
+msgstr ""
+
+#: rescue/escape.c:255
+#, c-format
+msgid "  product name: %s"
+msgstr ""
+
+#: rescue/escape.c:262
+#, c-format
+msgid "  type: %s"
+msgstr ""
+
+#: rescue/escape.c:269
+#, c-format
+msgid "  distro: %s"
+msgstr ""
+
+#: rescue/rescue.c:83
 #, c-format
 msgid ""
 "%s: Run a rescue shell on a virtual machine\n"
@@ -9702,9 +9838,12 @@ msgid ""
 "  --append kernelopts  Append kernel options\n"
 "  -c|--connect uri     Specify libvirt URI for -d option\n"
 "  -d|--domain guest    Add disks from libvirt guest\n"
+"  -e ^x|none           Set or disable escape key (default ^])\n"
 "  --format[=raw|..]    Force disk format for -a option\n"
 "  --help               Display brief help\n"
-"  -m|--memsize MB      Set memory size in megabytes\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  -m|--mount dev[:mnt[:opts[:fstype]] Mount dev on mnt (if omitted, /)\n"
+"  --memsize MB         Set memory size in megabytes\n"
 "  --network            Enable network\n"
 "  -r|--ro              Access read-only\n"
 "  --scratch[=N]        Add scratch disk(s)\n"
@@ -9718,32 +9857,37 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: rescue/rescue.c:164
+#: rescue/rescue.c:193
 #, c-format
 msgid "could not parse --smp parameter '%s'"
 msgstr ""
 
-#: rescue/rescue.c:167
+#: rescue/rescue.c:196
 #, c-format
 msgid "--smp parameter '%s' should be >= 1"
 msgstr ""
 
-#: rescue/rescue.c:177
+#: rescue/rescue.c:206
 #, c-format
 msgid "could not parse --scratch parameter '%s'"
 msgstr ""
 
-#: rescue/rescue.c:180
+#: rescue/rescue.c:209
 #, c-format
 msgid "--scratch parameter '%s' should be >= 1"
 msgstr ""
 
-#: rescue/rescue.c:204
+#: rescue/rescue.c:215
 #, c-format
 msgid "could not parse memory size '%s'"
 msgstr ""
 
-#: rescue/rescue.c:282
+#: rescue/rescue.c:237
+#, c-format
+msgid "unrecognized escape key: %s"
+msgstr ""
+
+#: rescue/rescue.c:329
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -9751,21 +9895,14 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: rescue/rescue.c:310
-#, c-format
-msgid ""
-"%s: warning: virt-rescue doesn't work with the libvirt backend\n"
-"at the moment.  As a workaround, forcing backend = 'direct'.\n"
-msgstr ""
-
-#: rescue/rescue.c:391
+#: rescue/suggest.c:62
 #, c-format
 msgid ""
 "Inspecting the virtual machine or disk image ...\n"
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:410
+#: rescue/suggest.c:81
 #, c-format
 msgid ""
 "This disk contains one or more operating systems.  You can use these mount\n"
@@ -9773,7 +9910,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:425
+#: rescue/suggest.c:96
 #, c-format
 msgid ""
 "# %s is the root of a %s operating system\n"
@@ -9782,7 +9919,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:484
+#: rescue/suggest.c:155
 #, c-format
 msgid ""
 "This disk contains no mountable filesystems that we recognize.\n"
@@ -9792,7 +9929,7 @@ msgid ""
 "logical volumes and filesystems on a blank disk.\n"
 msgstr ""
 
-#: rescue/rescue.c:491
+#: rescue/suggest.c:162
 #, c-format
 msgid ""
 "This disk contains one or more filesystems, but we don't recognize any\n"
@@ -9801,7 +9938,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue/rescue.c:496
+#: rescue/suggest.c:167
 #, c-format
 msgid "# %s has type '%s'\n"
 msgstr ""
@@ -9845,19 +9982,19 @@ msgid ""
 "Check earlier messages, and the output of the 'printenv' command."
 msgstr ""
 
-#: test-tool/test-tool.c:311
+#: test-tool/test-tool.c:310
 #, c-format
 msgid ""
 "LIBGUESTFS_HV/LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used."
 msgstr ""
 
-#: test-tool/test-tool.c:317
+#: test-tool/test-tool.c:316
 #, c-format
 msgid "binary '%s' does not exist or is not executable"
 msgstr ""
 
-#: test-tool/test-tool.c:329
+#: test-tool/test-tool.c:328
 #, c-format
 msgid "path does not look like a qemu source directory: %s"
 msgstr ""

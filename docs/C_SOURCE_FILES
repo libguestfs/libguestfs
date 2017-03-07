@@ -311,6 +311,7 @@ lib/osinfo.c
 lib/private-data.c
 lib/proto.c
 lib/qemu.c
+lib/rescue.c
 lib/stringsbuf.c
 lib/structs-compare.c
 lib/structs-copy.c
@@ -365,7 +366,10 @@ python/actions.h
 python/handle.c
 python/module.c
 python/structs.c
+rescue/escape.c
 rescue/rescue.c
+rescue/rescue.h
+rescue/suggest.c
 resize/dummy.c
 ruby/ext/guestfs/actions-0.c
 ruby/ext/guestfs/actions-1.c

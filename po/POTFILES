@@ -377,6 +377,7 @@ lib/osinfo.c
 lib/private-data.c
 lib/proto.c
 lib/qemu.c
+lib/rescue.c
 lib/stringsbuf.c
 lib/structs-compare.c
 lib/structs-copy.c
@@ -427,7 +428,9 @@ python/actions-6.c
 python/handle.c
 python/module.c
 python/structs.c
+rescue/escape.c
 rescue/rescue.c
+rescue/suggest.c
 rescue/test-virt-rescue.pl
 resize/dummy.c
 resize/test-virt-resize.pl
