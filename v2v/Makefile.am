@@ -374,13 +374,18 @@ EXTRA_DIST += \
 	test-v2v-floppy.sh \
 	test-v2v-floppy.xml \
 	test-v2v-i-disk.sh \
+	test-v2v-i-ova-bad-sha1.sh \
+	test-v2v-i-ova-bad-sha256.sh \
 	test-v2v-i-ova-checksums.ovf \
 	test-v2v-i-ova-formats.expected \
 	test-v2v-i-ova-formats.ovf \
 	test-v2v-i-ova-formats.sh \
+	test-v2v-i-ova-good-checksums.sh \
 	test-v2v-i-ova-gz.expected \
 	test-v2v-i-ova-gz.ovf \
 	test-v2v-i-ova-gz.sh \
+	test-v2v-i-ova-invalid-manifest1.sh \
+	test-v2v-i-ova-invalid-manifest2.sh \
 	test-v2v-i-ova-subfolders.expected \
 	test-v2v-i-ova-subfolders.expected2 \
 	test-v2v-i-ova-subfolders.ovf \
