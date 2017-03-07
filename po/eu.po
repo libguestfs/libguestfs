@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-02-28 21:08+0000\n"
+"POT-Creation-Date: 2017-03-07 15:53+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -249,7 +249,7 @@ msgid ""
 "esx_guest\n"
 "\n"
 " virt-v2v -ic vpx://vcenter.example.com/Datacenter/esxi esx_guest -o rhv -os "
-"rhv.nfs:/export_domain --network rhvm\n"
+"rhv.nfs:/export_domain --network ovirtmgmt\n"
 "\n"
 " virt-v2v -i libvirtxml guest-domain.xml -o local -os /var/tmp\n"
 "\n"
@@ -623,26 +623,26 @@ msgstr ""
 msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:131
+#: ../v2v/output_libvirt.ml:129
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/name element.  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:121
+#: ../v2v/output_libvirt.ml:119
 msgid ""
 "-o libvirt: output pool '%s' does not have /pool/target/path element.  See "
 "virt-v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:123
+#: ../v2v/output_libvirt.ml:121
 msgid ""
 "-o libvirt: output pool '%s' has type='dir' but the /pool/target/path "
 "element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO "
 "LIBVIRT\""
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:117
+#: ../v2v/output_libvirt.ml:115
 msgid ""
 "-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-"
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
@@ -2616,7 +2616,7 @@ msgstr ""
 msgid "Zeroing %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:100
+#: ../v2v/output_libvirt.ml:98
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -2624,7 +2624,7 @@ msgid ""
 "delete the existing domain on the target using the 'virsh undefine' command."
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:103
+#: ../v2v/output_libvirt.ml:101
 msgid ""
 "a libvirt domain called '%s' already exists on the target.\n"
 "\n"
@@ -4272,10 +4272,10 @@ msgid ""
 "further information."
 msgstr ""
 
-#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:89
-#: cat/tail.c:65 df/main.c:72 diff/diff.c:98 edit/edit.c:68 fish/fish.c:115
+#: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:96
+#: cat/tail.c:65 df/main.c:72 diff/diff.c:105 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
-#: make-fs/make-fs.c:79 p2v/main.c:87 rescue/rescue.c:61
+#: make-fs/make-fs.c:79 p2v/main.c:93 rescue/rescue.c:61
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -4304,10 +4304,10 @@ msgid ""
 msgstr ""
 
 #: align/scan.c:159 builder/index-validate.c:88 cat/cat.c:145
-#: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:235 cat/tail.c:152
-#: df/main.c:162 diff/diff.c:267 edit/edit.c:158 fish/fish.c:296
+#: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:242 cat/tail.c:152
+#: df/main.c:162 diff/diff.c:274 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
-#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:198
+#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:204
 #: rescue/rescue.c:185 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -4403,8 +4403,8 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/cat.c:233 cat/filesystems.c:343 cat/log.c:204 cat/ls.c:349
-#: cat/tail.c:217 diff/diff.c:321 edit/edit.c:258 fuse/guestmount.c:318
+#: cat/cat.c:233 cat/filesystems.c:343 cat/log.c:204 cat/ls.c:356
+#: cat/tail.c:217 diff/diff.c:328 edit/edit.c:258 fuse/guestmount.c:318
 #: inspector/inspector.c:266 rescue/rescue.c:293
 #, c-format
 msgid "%s: error: you must specify at least one -a or -d option.\n"
@@ -4456,7 +4456,7 @@ msgid ""
 "Make sure to specify the argument for --format like '--format=%s'.\n"
 msgstr ""
 
-#: cat/filesystems.c:314 cat/ls.c:341 df/main.c:259 diff/diff.c:335
+#: cat/filesystems.c:314 cat/ls.c:348 df/main.c:259 diff/diff.c:342
 #, c-format
 msgid "you cannot use -h and --csv options together."
 msgstr ""
@@ -4512,7 +4512,7 @@ msgstr ""
 msgid "%s: Windows Event Log file (%s) not found\n"
 msgstr ""
 
-#: cat/ls.c:92
+#: cat/ls.c:99
 #, c-format
 msgid ""
 "%s: list files in a virtual machine\n"
@@ -4547,7 +4547,7 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: cat/ls.c:334
+#: cat/ls.c:341
 #, c-format
 msgid ""
 "used a flag which can only be combined with -lR mode\n"
@@ -4851,7 +4851,7 @@ msgstr ""
 msgid "IUse%"
 msgstr ""
 
-#: diff/diff.c:101
+#: diff/diff.c:108
 #, c-format
 msgid ""
 "%s: list differences between virtual machines\n"
@@ -4889,12 +4889,12 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: diff/diff.c:326
+#: diff/diff.c:333
 #, c-format
 msgid "%s: error: you must specify at least one -A or -D option.\n"
 msgstr ""
 
-#: diff/diff.c:338
+#: diff/diff.c:345
 #, c-format
 msgid ""
 "%s: error: extra argument '%s' on command line.\n"
@@ -4902,12 +4902,12 @@ msgid ""
 "%s'.\n"
 msgstr ""
 
-#: diff/diff.c:740
+#: diff/diff.c:747
 #, c-format
 msgid "%s: external diff command failed\n"
 msgstr ""
 
-#: diff/diff.c:744
+#: diff/diff.c:751
 msgid "End of diff"
 msgstr ""
 
@@ -7654,29 +7654,29 @@ msgstr ""
 msgid "'%s' is not a directory or has insecure owner or permissions"
 msgstr ""
 
-#: fish/rc.c:286
+#: fish/rc.c:283
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 
-#: fish/rc.c:291
+#: fish/rc.c:288
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:376 fish/rc.c:390
+#: fish/rc.c:373 fish/rc.c:387
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:402 fish/rc.c:416
+#: fish/rc.c:399 fish/rc.c:413
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:427
+#: fish/rc.c:424
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -8169,23 +8169,23 @@ msgstr ""
 msgid "%s: group not available"
 msgstr ""
 
-#: lib/conn-socket.c:69
+#: lib/conn-socket.c:70
 msgid "accept_connection called twice"
 msgstr ""
 
-#: lib/conn-socket.c:148
+#: lib/conn-socket.c:149
 msgid "read_data: socket not connected"
 msgstr ""
 
-#: lib/conn-socket.c:223
+#: lib/conn-socket.c:224
 msgid "can_read_data: socket not connected"
 msgstr ""
 
-#: lib/conn-socket.c:252
+#: lib/conn-socket.c:253
 msgid "write_data: socket not connected"
 msgstr ""
 
-#: lib/conn-socket.c:362
+#: lib/conn-socket.c:363
 msgid "error reading console messages from the appliance"
 msgstr ""
 
@@ -8578,50 +8578,50 @@ msgstr ""
 msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
-#: lib/fuse.c:970
+#: lib/fuse.c:976
 msgid "filesystem is already mounted in another thread"
 msgstr ""
 
-#: lib/fuse.c:994
+#: lib/fuse.c:1000
 #, c-format
 msgid "fuse_opt_add_arg: %s"
 msgstr ""
 
-#: lib/fuse.c:1011
+#: lib/fuse.c:1017
 #, c-format
 msgid "fuse_mount: %s"
 msgstr ""
 
-#: lib/fuse.c:1029
+#: lib/fuse.c:1035
 #, c-format
 msgid "fuse_new: %s"
 msgstr ""
 
-#: lib/fuse.c:1058
+#: lib/fuse.c:1064
 msgid "you must call guestfs_mount_local first"
 msgstr ""
 
-#: lib/fuse.c:1069
+#: lib/fuse.c:1075
 #, c-format
 msgid ""
 "you must call 'guestfs_mount' first to mount a filesystem on '/'.\n"
 "Note: '%s' is still mounted.  Use 'guestunmount %s' to clean up."
 msgstr ""
 
-#: lib/fuse.c:1079
+#: lib/fuse.c:1085
 #, c-format
 msgid "fuse_loop: %s"
 msgstr ""
 
-#: lib/fuse.c:1129
+#: lib/fuse.c:1135
 msgid "no filesystem is mounted"
 msgstr ""
 
-#: lib/fuse.c:1247
+#: lib/fuse.c:1253
 msgid "could not initialize dir cache hashtables"
 msgstr ""
 
-#: lib/fuse.c:1502
+#: lib/fuse.c:1508
 msgid ""
 "FUSE is not supported in this build of libguestfs because libfuse was not "
 "found when libguestfs was compiled"
@@ -9665,7 +9665,7 @@ msgstr ""
 msgid "Cancel the conversion"
 msgstr ""
 
-#: p2v/main.c:90
+#: p2v/main.c:96
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -9684,22 +9684,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:190
+#: p2v/main.c:196
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:193
+#: p2v/main.c:199
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:221
+#: p2v/main.c:227
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:252
+#: p2v/main.c:258
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
