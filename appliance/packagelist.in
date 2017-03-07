@@ -38,6 +38,7 @@ ifelse(REDHAT,1,
   kernel
   libcap
   libldm
+  libtirpc
   nilfs-utils
   ntfsprogs
   ntfs-3g
@@ -83,6 +84,7 @@ dnl iproute has been renamed to iproute2
   libsystemd0
   libsystemd-id128-0
   libsystemd-journal0
+  libtirpc1
   libyajl2
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
@@ -112,6 +114,7 @@ ifelse(ARCHLINUX,1,
   iproute2
   iputils
   libcap
+  libtirpc
   linux
   lrzip
   dnl syslinux has mtools as optional dependency, but in reality it's
@@ -147,6 +150,7 @@ ifelse(SUSE,1,
   libcap2
   libhivex0
   libselinux1
+  libtirpc3
   libyajl2
   mkisofs
   ntfsprogs
@@ -169,6 +173,7 @@ ifelse(FRUGALWARE,1,
   iputils
   kernel
   libcap
+  libtirpc
   ntfsprogs
   ntfs-3g
   openssh
@@ -199,6 +204,7 @@ ifelse(MAGEIA,1,
   iputils
   libcap
   libldm
+  libtirpc
   libyajl
   dnl syslinux uses mtools without depending on it
   mtools
