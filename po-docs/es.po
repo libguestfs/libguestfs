@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.33.45\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2017-01-28 20:43+0000\n"
+"POT-Creation-Date: 2017-03-07 15:44+0000\n"
 "PO-Revision-Date: 2015-02-21 10:16-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -1398,7 +1398,7 @@ msgstr ""
 #: ../docs/guestfs-building.pod:823 ../docs/guestfs-faq.pod:1411
 #: ../docs/guestfs-hacking.pod:1000 ../docs/guestfs-internals.pod:400
 #: ../docs/guestfs-performance.pod:619 ../docs/guestfs-recipes.pod:719
-#: ../docs/guestfs-release-notes.pod:5525 ../docs/guestfs-security.pod:354
+#: ../docs/guestfs-release-notes.pod:5525 ../docs/guestfs-security.pod:376
 #: ../docs/guestfs-testing.pod:399 ../edit/virt-edit.pod:383
 #: ../erlang/examples/guestfs-erlang.pod:95 ../examples/guestfs-examples.pod:55
 #: ../fish/guestfish.pod:1601 ../fish/libguestfs-tools.conf.pod:88
@@ -1481,7 +1481,7 @@ msgstr ""
 #: ../docs/guestfs-building.pod:840 ../docs/guestfs-faq.pod:1421
 #: ../docs/guestfs-hacking.pod:1017 ../docs/guestfs-internals.pod:413
 #: ../docs/guestfs-performance.pod:636 ../docs/guestfs-recipes.pod:738
-#: ../docs/guestfs-release-notes.pod:5540 ../docs/guestfs-security.pod:366
+#: ../docs/guestfs-release-notes.pod:5540 ../docs/guestfs-security.pod:388
 #: ../docs/guestfs-testing.pod:410 ../edit/virt-edit.pod:398
 #: ../erlang/examples/guestfs-erlang.pod:114
 #: ../examples/guestfs-examples.pod:73 ../fish/guestfish.pod:1640
@@ -1778,7 +1778,7 @@ msgstr ""
 #: ../customize/virt-customize.pod:291 ../docs/guestfs-building.pod:836
 #: ../docs/guestfs-faq.pod:1417 ../docs/guestfs-hacking.pod:1013
 #: ../docs/guestfs-internals.pod:409 ../docs/guestfs-performance.pod:632
-#: ../docs/guestfs-recipes.pod:734 ../docs/guestfs-security.pod:362
+#: ../docs/guestfs-recipes.pod:734 ../docs/guestfs-security.pod:384
 #: ../docs/guestfs-testing.pod:406 ../erlang/examples/guestfs-erlang.pod:110
 #: ../examples/guestfs-examples.pod:69 ../fish/guestfish.pod:1636
 #: ../fish/libguestfs-tools.conf.pod:96 ../fish/virt-copy-in.pod:52
@@ -1803,7 +1803,7 @@ msgstr ""
 #: ../docs/guestfs-building.pod:838 ../docs/guestfs-faq.pod:1419
 #: ../docs/guestfs-hacking.pod:1015 ../docs/guestfs-internals.pod:411
 #: ../docs/guestfs-performance.pod:634 ../docs/guestfs-recipes.pod:736
-#: ../docs/guestfs-security.pod:364 ../docs/guestfs-testing.pod:408
+#: ../docs/guestfs-security.pod:386 ../docs/guestfs-testing.pod:408
 #: ../erlang/examples/guestfs-erlang.pod:112
 #: ../examples/guestfs-examples.pod:71 ../fish/guestfish.pod:1638
 #: ../fish/libguestfs-tools.conf.pod:98 ../fish/virt-copy-in.pod:54
@@ -1823,7 +1823,7 @@ msgstr ""
 #: ../daemon/guestfsd.pod:154 ../df/virt-df.pod:270 ../diff/virt-diff.pod:264
 #: ../docs/guestfs-building.pod:842 ../docs/guestfs-hacking.pod:1019
 #: ../docs/guestfs-internals.pod:415 ../docs/guestfs-recipes.pod:740
-#: ../docs/guestfs-release-notes.pod:5542 ../docs/guestfs-security.pod:368
+#: ../docs/guestfs-release-notes.pod:5542 ../docs/guestfs-security.pod:390
 #: ../edit/virt-edit.pod:400 ../fish/guestfish.pod:1642
 #: ../fuse/guestmount.pod:443 ../p2v/virt-p2v-make-disk.pod:218
 #: ../p2v/virt-p2v-make-kickstart.pod:339 ../p2v/virt-p2v.pod:789
@@ -33840,8 +33840,48 @@ msgid ""
 "file are created with mode C<0700> and mode C<0600>."
 msgstr ""
 
+#. type: =head2
+#: ../docs/guestfs-security.pod:354
+msgid ""
+"CVE-2017-5208, CVE-2017-5331, CVE-2017-5332, CVE-2017-5333, CVE-2017-6009, "
+"CVE-2017-6010, CVE-2017-6011"
+msgstr ""
+
 #. type: textblock
-#: ../docs/guestfs-security.pod:356
+#: ../docs/guestfs-security.pod:357
+msgid ""
+"Multiple vulnerabilities in the L<wrestool(1)> program in the C<icoutils> "
+"package can be exploited for local code execution on the host."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-security.pod:361
+msgid ""
+"When libguestfs inspection (see L</Inspection security> above) detects a "
+"Windows XP or Windows 7 guest and is asked to find an associated icon for "
+"the guest, it will download an untrusted file from the guest and run "
+"C<wrestool -x> on that file.  This can lead to local code execution on the "
+"host.  Any disk image or guest can be crafted to look like a Windows guest "
+"to libguestfs inspection, so just because you do not have Windows guests "
+"does not help."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-security.pod:369
+msgid ""
+"Any program calling the libguestfs API C<guestfs_inspect_get_icon> could be "
+"vulnerable.  This includes L<virt-inspector(1)> and L<virt-manager(1)>."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-security.pod:373
+msgid ""
+"The solution is to update to the non-vulnerable version of icoutils (at "
+"least 0.31.1)."
+msgstr ""
+
+#. type: textblock
+#: ../docs/guestfs-security.pod:378
 msgid ""
 "L<guestfs(3)>, L<guestfs-internals(1)>, L<guestfs-release-notes(1)>, "
 "L<guestfs-testing(1)>, L<http://libguestfs.org/>."
@@ -61653,8 +61693,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:8148 ../src/guestfs-actions.pod:13206
 msgid ""
 "When the handle is created, the program name in the handle is set to the "
-"basename from C<argv[0]>.  If that was not possible, it is set to the empty "
-"string (but never C<NULL>)."
+"basename from C<argv[0]>.  The program name can never be C<NULL>."
 msgstr ""
 
 #. type: =head2
@@ -111338,7 +111377,7 @@ msgstr ""
 msgid ""
 "Virt-v2v is not especially compute or RAM intensive.  If you are running "
 "many parallel conversions, then you may consider allocating one CPU core and "
-"between 512 MB and 1 GB of RAM per running instance."
+"2 GB of RAM per running instance."
 msgstr ""
 
 #. type: textblock
