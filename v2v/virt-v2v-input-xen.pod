@@ -10,7 +10,7 @@ virt-v2v-input-xen - Using virt-v2v to convert guests from Xen
 =head1 DESCRIPTION
 
 This page documents how to use L<virt-v2v(1)> to convert guests from
-RHEL 5 Xen, or SLES and OpenSUSE Xen hosts.
+RHEL 5 Xen hosts.
 
 =head1 INPUT FROM XEN
 
