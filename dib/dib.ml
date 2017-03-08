@@ -28,7 +28,7 @@ open Printf
 
 module G = Guestfs
 
-let checksums = [ "md5"; "sha512" ]
+let checksums = [ "md5"; "sha256" ]
 and tool_of_checksum csum =
   csum ^ "sum"
 
