@@ -1178,8 +1178,7 @@ Remove the F<guest.xml> and F<guest-disk*> files.
 
 =head1 INPUT FROM XEN
 
-Virt-v2v is able to import Xen guests from RHEL 5 Xen or SLES and
-openSUSE Xen hosts.
+Virt-v2v is able to import Xen guests from RHEL 5 Xen hosts.
 
 Virt-v2v uses libvirt for access to the remote Xen host, and therefore
 the input mode should be I<-i libvirt>.  As this is the default, you
