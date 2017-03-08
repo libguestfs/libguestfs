@@ -23,7 +23,7 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 skip_if_backend uml
-skip_unless_phony_guest fedora.img
+skip_unless_phony_guest windows.img
 
 # You shouldn't be running the tests as root anyway, but in this case
 # it's especially bad because we don't want to start creating guests
