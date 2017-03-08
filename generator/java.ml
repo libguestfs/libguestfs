@@ -685,14 +685,14 @@ throw_out_of_memory (JNIEnv *env, const char *msg)
            pr "  jclass cl;\n";
            pr "  jfieldID fl;\n";
            pr "  CLEANUP_FREE_%s struct guestfs_%s *r = NULL;\n"
-             (String.uppercase_ascii typ) typ
+             (String.uppercase typ) typ
        | RStructList (_, typ) ->
            pr "  jobjectArray jr;\n";
            pr "  jclass cl;\n";
            pr "  jfieldID fl;\n";
            pr "  jobject jfl;\n";
            pr "  CLEANUP_FREE_%s_LIST struct guestfs_%s_list *r = NULL;\n"
-             (String.uppercase_ascii typ) typ
+             (String.uppercase typ) typ
        | RBufferOut _ ->
            pr "  jstring jr;\n";
            pr "  char *r;\n";
