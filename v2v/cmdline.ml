@@ -337,7 +337,7 @@ read the man page virt-v2v(1).
   (* Parse the output mode. *)
   if output_mode <> `Not_set && in_place then
     error (f_"-o and --in-place cannot be used at the same time");
-  let output =
+  let output, output_format, output_alloc =
     match output_mode with
     | `Glance ->
       if output_conn <> None then
@@ -348,7 +348,8 @@ read the man page virt-v2v(1).
         error (f_"-o glance: --qemu-boot option cannot be used in this output mode");
       if not do_copy then
         error (f_"--no-copy and '-o glance' cannot be used at the same time");
-      Output_glance.output_glance ()
+      Output_glance.output_glance (),
+      output_format, output_alloc
 
     | `Not_set
     | `Libvirt ->
@@ -358,7 +359,8 @@ read the man page virt-v2v(1).
         error (f_"-o libvirt: --qemu-boot option cannot be used in this output mode");
       if not do_copy then
         error (f_"--no-copy and '-o libvirt' cannot be used at the same time");
-      Output_libvirt.output_libvirt output_conn output_storage
+      Output_libvirt.output_libvirt output_conn output_storage,
+      output_format, output_alloc
 
     | `Local ->
       let os =
@@ -370,16 +372,23 @@ read the man page virt-v2v(1).
         | Some d -> d in
       if qemu_boot then
         error (f_"-o local: --qemu-boot option cannot be used in this output mode");
-      Output_local.output_local os
+      Output_local.output_local os,
+      output_format, output_alloc
 
     | `Null ->
+      if output_alloc <> Sparse then
+        error (f_"-o null: -oa option cannot be used in this output mode");
       if output_conn <> None then
         error (f_"-o null: -oc option cannot be used in this output mode");
+      if output_format <> None then
+        error (f_"-o null: -of option cannot be used in this output mode");
       if output_storage <> None then
         error (f_"-o null: -os option cannot be used in this output mode");
       if qemu_boot then
         error (f_"-o null: --qemu-boot option cannot be used in this output mode");
-      Output_null.output_null ()
+      Output_null.output_null (),
+      (* Force output format to raw sparse in -o null mode. *)
+      Some "raw", Sparse
 
     | `QEmu ->
       let os =
@@ -389,7 +398,8 @@ read the man page virt-v2v(1).
         | Some d when not (is_directory d) ->
            error (f_"-os %s: output directory does not exist or is not a directory") d
         | Some d -> d in
-      Output_qemu.output_qemu os qemu_boot
+      Output_qemu.output_qemu os qemu_boot,
+      output_format, output_alloc
 
     | `RHV ->
       let os =
@@ -399,7 +409,8 @@ read the man page virt-v2v(1).
         | Some d -> d in
       if qemu_boot then
         error (f_"-o rhv: --qemu-boot option cannot be used in this output mode");
-      Output_rhv.output_rhv os output_alloc
+      Output_rhv.output_rhv os output_alloc,
+      output_format, output_alloc
 
     | `VDSM ->
       let os =
@@ -423,7 +434,8 @@ read the man page virt-v2v(1).
         ovf_output = vdsm_ovf_output;
         compat = vdsm_compat;
       } in
-      Output_vdsm.output_vdsm os vdsm_params output_alloc in
+      Output_vdsm.output_vdsm os vdsm_params output_alloc,
+      output_format, output_alloc in
 
   {
     compressed = compressed; debug_overlays = debug_overlays;
