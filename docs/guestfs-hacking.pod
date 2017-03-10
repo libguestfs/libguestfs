@@ -662,9 +662,44 @@ Add a rule to the F<Makefile.am>:
 
 =back
 
+=item C<sudo make check-root>
+
+Runs some tests which require root privileges.  These are supposed to
+be safe, but take care.  You have to run this as root (eg. using
+L<sudo(8)> explicitly).
+
+To mark a test as requiring root:
+
+=over 4
+
+=item *
+
+Add it to the list of C<TESTS> in the F<Makefile.am>, just like a
+normal test.
+
+=item *
+
+Modify the test so it checks if euid == 0, and if I<not> set it skips
+(ie. returns with exit code 77).  If using C<$TEST_FUNCTIONS>, you can
+call the function C<root_test> for this.
+
+=item *
+
+Add a variable C<ROOT_TESTS> to the F<Makefile.am> listing the root
+tests.
+
+=item *
+
+Add a rule to the F<Makefile.am>:
+
+ check-root:
+   $(MAKE) check TESTS="$(ROOT_TESTS)"
+
+=back
+
 =item C<make check-all>
 
-Equivalent to running all C<make check*> rules.
+Equivalent to running all C<make check*> rules except C<check-root>.
 
 =item C<make check-release>
 
