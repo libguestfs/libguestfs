@@ -33,6 +33,7 @@
 #include "guestfs-internal-all.h"
 
 #include "cleanups.h"
+#include "structs-cleanups.h"
 #include "command.h"
 
 /* Mountables */

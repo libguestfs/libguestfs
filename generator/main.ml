@@ -137,6 +137,10 @@ Run it from the top source directory using the command
             Daemon.generate_daemon_optgroups_h;
   output_to "daemon/lvm-tokenization.c"
             Daemon.generate_daemon_lvm_tokenization;
+  output_to "daemon/structs-cleanups.c"
+            Daemon.generate_daemon_structs_cleanups_c;
+  output_to "daemon/structs-cleanups.h"
+            Daemon.generate_daemon_structs_cleanups_h;
 
   output_to "fish/cmds-gperf.gperf"
             Fish.generate_fish_cmds_gperf;

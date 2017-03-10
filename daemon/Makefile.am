@@ -22,6 +22,8 @@ generator_built = \
 	dispatch.c \
 	names.c \
 	lvm-tokenization.c \
+	structs-cleanups.c \
+	structs-cleanups.h \
 	stubs-0.c \
 	stubs-1.c \
 	stubs-2.c \
@@ -142,6 +144,8 @@ guestfsd_SOURCES = \
 	stat.c \
 	statvfs.c \
 	strings.c \
+	structs-cleanups.c \
+	structs-cleanups.h \
 	stubs-0.c \
 	stubs-1.c \
 	stubs-2.c \

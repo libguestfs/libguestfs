@@ -24,3 +24,5 @@ val generate_daemon_lvm_tokenization : unit -> unit
 val generate_daemon_names : unit -> unit
 val generate_daemon_optgroups_c : unit -> unit
 val generate_daemon_optgroups_h : unit -> unit
+val generate_daemon_structs_cleanups_c : unit -> unit
+val generate_daemon_structs_cleanups_h : unit -> unit
