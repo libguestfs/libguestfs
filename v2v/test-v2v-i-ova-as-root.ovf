@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Envelope xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:cim="http://schemas.dmtf.org/wbem/wscim/1/common" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <References>
+    <File ovf:href="disk.vmdk" ovf:id="file1" ovf:size="4063232" />
+  </References>
+  <DiskSection>
+    <Info>Virtual disk information</Info>
+    <Disk ovf:capacity="512" ovf:capacityAllocationUnits="byte * 2^20" ovf:diskId="vmdisk1" ovf:fileRef="file1" />
+  </DiskSection>
+  <VirtualSystem ovf:id="ova-test">
+    <Info>A virtual machine</Info>
+    <Name>ova-test</Name>
+    <OperatingSystemSection ovf:id="69">
+      <Info>The kind of installed guest operating system</Info>
+      <Description>Microsoft Windows Server 2003 (32-bit)</Description>
+    </OperatingSystemSection>
+    <VirtualHardwareSection>
+      <Info>Virtual hardware requirements</Info>
+      <System>
+        <vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+        <vssd:InstanceID>0</vssd:InstanceID>
+        <vssd:VirtualSystemIdentifier>ova-test</vssd:VirtualSystemIdentifier>
+        <vssd:VirtualSystemType>vmx-08</vssd:VirtualSystemType>
+      </System>
+      <Item>
+        <rasd:AllocationUnits>hertz * 10^6</rasd:AllocationUnits>
+        <rasd:Description>Number of Virtual CPUs</rasd:Description>
+        <rasd:ElementName>2 virtual CPU(s)</rasd:ElementName>
+        <rasd:InstanceID>1</rasd:InstanceID>
+        <rasd:ResourceType>3</rasd:ResourceType>
+        <rasd:VirtualQuantity>2</rasd:VirtualQuantity>
+      </Item>
+      <Item>
+        <rasd:AllocationUnits>byte * 2^20</rasd:AllocationUnits>
+        <rasd:Description>Memory Size</rasd:Description>
+        <rasd:ElementName>4096MB of memory</rasd:ElementName>
+        <rasd:InstanceID>2</rasd:InstanceID>
+        <rasd:ResourceType>4</rasd:ResourceType>
+        <rasd:VirtualQuantity>4096</rasd:VirtualQuantity>
+      </Item>
+      <Item>
+        <rasd:Address>0</rasd:Address>
+        <rasd:Description>SCSI Controller</rasd:Description>
+        <rasd:ElementName>SCSI controller 0</rasd:ElementName>
+        <rasd:InstanceID>3</rasd:InstanceID>
+        <rasd:ResourceSubType>lsilogic</rasd:ResourceSubType>
+        <rasd:ResourceType>6</rasd:ResourceType>
+      </Item>
+      <Item>
+        <rasd:Address>1</rasd:Address>
+        <rasd:Description>IDE Controller</rasd:Description>
+        <rasd:ElementName>IDE 1</rasd:ElementName>
+        <rasd:InstanceID>4</rasd:InstanceID>
+        <rasd:ResourceType>5</rasd:ResourceType>
+      </Item>
+      <Item>
+        <rasd:Address>0</rasd:Address>
+        <rasd:Description>IDE Controller</rasd:Description>
+        <rasd:ElementName>IDE 0</rasd:ElementName>
+        <rasd:InstanceID>5</rasd:InstanceID>
+        <rasd:ResourceType>5</rasd:ResourceType>
+      </Item>
+      <Item ovf:required="false">
+        <rasd:AutomaticAllocation>false</rasd:AutomaticAllocation>
+        <rasd:ElementName>Video card</rasd:ElementName>
+        <rasd:InstanceID>6</rasd:InstanceID>
+        <rasd:ResourceType>24</rasd:ResourceType>
+      </Item>
+      <Item ovf:required="false">
+        <rasd:AutomaticAllocation>false</rasd:AutomaticAllocation>
+        <rasd:ElementName>VMCI device</rasd:ElementName>
+        <rasd:InstanceID>7</rasd:InstanceID>
+        <rasd:ResourceSubType>vmware.vmci</rasd:ResourceSubType>
+        <rasd:ResourceType>1</rasd:ResourceType>
+      </Item>
+      <Item ovf:required="false">
+        <rasd:AddressOnParent>1</rasd:AddressOnParent>
+        <rasd:AutomaticAllocation>false</rasd:AutomaticAllocation>
+        <rasd:ElementName>CD/DVD drive 1</rasd:ElementName>
+        <rasd:InstanceID>8</rasd:InstanceID>
+        <rasd:Parent>4</rasd:Parent>
+        <rasd:ResourceSubType>vmware.cdrom.remotepassthrough</rasd:ResourceSubType>
+        <rasd:ResourceType>15</rasd:ResourceType>
+      </Item>
+      <Item>
+        <rasd:AddressOnParent>0</rasd:AddressOnParent>
+        <rasd:ElementName>Hard disk 1</rasd:ElementName>
+        <rasd:HostResource>ovf:/disk/vmdisk1</rasd:HostResource>
+        <rasd:InstanceID>9</rasd:InstanceID>
+        <rasd:Parent>3</rasd:Parent>
+        <rasd:ResourceType>17</rasd:ResourceType>
+      </Item>
+    </VirtualHardwareSection>
+  </VirtualSystem>
+</Envelope>

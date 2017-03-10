@@ -305,7 +305,8 @@ TESTS += \
 	test-v2v-on-option.sh \
 	test-v2v-print-source.sh \
 	test-v2v-sound.sh \
-	$(SLOW_TESTS)
+	$(SLOW_TESTS) \
+	$(ROOT_TESTS)
 endif
 endif ENABLE_APPLIANCE
 
@@ -332,6 +333,12 @@ SLOW_TESTS = \
 
 check-slow:
 	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+
+ROOT_TESTS = \
+	test-v2v-i-ova-as-root.sh
+
+check-root:
+	$(MAKE) check TESTS="$(ROOT_TESTS)"
 
 # A selection of real guests that test-v2v-conversion-of.sh will
 # try to convert.  This is only used by 'make check-slow'.
@@ -376,6 +383,8 @@ EXTRA_DIST += \
 	test-v2v-floppy.sh \
 	test-v2v-floppy.xml \
 	test-v2v-i-disk.sh \
+	test-v2v-i-ova-as-root.ovf \
+	test-v2v-i-ova-as-root.sh \
 	test-v2v-i-ova-bad-sha1.sh \
 	test-v2v-i-ova-bad-sha256.sh \
 	test-v2v-i-ova-checksums.ovf \
