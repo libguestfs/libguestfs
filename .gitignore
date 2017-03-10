@@ -163,6 +163,8 @@ Makefile.in
 /daemon/optgroups.h
 /daemon/lvm-tokenization.c
 /daemon/stamp-guestfsd.pod
+/daemon/structs-cleanups.c
+/daemon/structs-cleanups.h
 /daemon/stubs-?.c
 /daemon/stubs.h
 /depcomp

@@ -840,3 +840,104 @@ let generate_daemon_optgroups_h () =
   ) optgroups;
 
   pr "#endif /* GUESTFSD_OPTGROUPS_H */\n"
+
+(* Generate structs-cleanups.c file. *)
+and generate_daemon_structs_cleanups_c () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include \"daemon.h\"
+#include \"guestfs_protocol.h\"
+
+";
+
+  pr "/* Cleanup functions used by CLEANUP_* macros.  Do not call\n";
+  pr " * these functions directly.\n";
+  pr " */\n";
+  pr "\n";
+
+  List.iter (
+    fun { s_name = typ; s_cols = cols } ->
+      pr "void\n";
+      pr "cleanup_free_int_%s (void *ptr)\n" typ;
+      pr "{\n";
+      pr "  struct guestfs_int_%s *x = (* (struct guestfs_int_%s **) ptr);\n" typ typ;
+      pr "\n";
+      pr "  if (x) {\n";
+      pr "    xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
+      pr "    free (x);\n";
+      pr "  }\n";
+      pr "}\n";
+      pr "\n";
+
+      pr "void\n";
+      pr "cleanup_free_int_%s_list (void *ptr)\n" typ;
+      pr "{\n";
+      pr "  struct guestfs_int_%s_list *x = (* (struct guestfs_int_%s_list **) ptr);\n"
+        typ typ;
+      pr "\n";
+      pr "  if (x) {\n";
+      pr "    xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n"
+        typ;
+      pr "    free (x);\n";
+      pr "  }\n";
+      pr "}\n";
+      pr "\n";
+
+  ) structs
+
+(* Generate structs-cleanups.h file. *)
+and generate_daemon_structs_cleanups_h () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+/* These CLEANUP_* macros automatically free the struct or struct list
+ * pointed to by the local variable at the end of the current scope.
+ */
+
+#ifndef GUESTFS_DAEMON_STRUCTS_CLEANUPS_H_
+#define GUESTFS_DAEMON_STRUCTS_CLEANUPS_H_
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+";
+
+  List.iter (
+    fun { s_name = name } ->
+      pr "#define CLEANUP_FREE_%s \\\n" (String.uppercase_ascii name);
+      pr "  __attribute__((cleanup(cleanup_free_int_%s)))\n" name;
+      pr "#define CLEANUP_FREE_%s_LIST \\\n" (String.uppercase_ascii name);
+      pr "  __attribute__((cleanup(cleanup_free_int_%s_list)))\n" name
+  ) structs;
+
+  pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
+
+  List.iter (
+    fun { s_name = name } ->
+      pr "#define CLEANUP_FREE_%s\n" (String.uppercase_ascii name);
+      pr "#define CLEANUP_FREE_%s_LIST\n" (String.uppercase_ascii name)
+  ) structs;
+
+  pr "\
+#endif /* !HAVE_ATTRIBUTE_CLEANUP */
+
+/* These functions are used internally by the CLEANUP_* macros.
+ * Don't call them directly.
+ */
+
+";
+
+  List.iter (
+    fun { s_name = name } ->
+      pr "extern void cleanup_free_int_%s (void *ptr);\n"
+        name;
+      pr "extern void cleanup_free_int_%s_list (void *ptr);\n"
+        name
+  ) structs;
+
+  pr "\n";
+  pr "#endif /* GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_ */\n"
