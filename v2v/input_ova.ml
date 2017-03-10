@@ -80,7 +80,8 @@ object
            *)
           ignore (Unix.close_process_full (chan_out, chan_in, chan_err));
 
-          let tmpfile, chan = Filename.open_temp_file ~temp_dir:tmpdir "ova.file." "" in
+          let tmpfile, chan =
+            Filename.open_temp_file ~temp_dir:tmpdir "ova.file." "" in
           output chan b 0 len;
           close_out chan;
 
