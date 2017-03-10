@@ -57,6 +57,7 @@ extern value guestfs_int_mllib_fnmatch (value patternv, value strv, value flagsv
 extern value guestfs_int_mllib_sync (value unitv);
 extern value guestfs_int_mllib_fsync_file (value filenamev);
 extern value guestfs_int_mllib_mkdtemp (value val_pattern);
+extern value guestfs_int_mllib_realpath (value pathv);
 extern value guestfs_int_mllib_statvfs_free_space (value pathv);
 
 /* NB: This is a "noalloc" call. */
@@ -192,6 +193,22 @@ guestfs_int_mllib_mkdtemp (value val_pattern)
   rv = caml_copy_string (ret);
   free (pattern);
 
+  CAMLreturn (rv);
+}
+
+value
+guestfs_int_mllib_realpath (value pathv)
+{
+  CAMLparam1 (pathv);
+  CAMLlocal1 (rv);
+  char *r;
+
+  r = realpath (String_val (pathv), NULL);
+  if (r == NULL)
+    unix_error (errno, (char *) "realpath", pathv);
+
+  rv = caml_copy_string (r);
+  free (r);
   CAMLreturn (rv);
 }
 

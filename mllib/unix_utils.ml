@@ -56,6 +56,10 @@ module Mkdtemp = struct
     mkdtemp (Filename.concat base_dir (prefix ^ "XXXXXX" ^ suffix))
 end
 
+module Realpath = struct
+  external realpath : string -> string = "guestfs_int_mllib_realpath"
+end
+
 module StatVFS = struct
   external free_space : string -> int64 =
     "guestfs_int_mllib_statvfs_free_space"

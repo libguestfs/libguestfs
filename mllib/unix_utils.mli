@@ -88,6 +88,11 @@ module Mkdtemp : sig
       [Filename.temp_dir_name] is used. *)
 end
 
+module Realpath : sig
+  val realpath : string -> string
+  (** [realpath(3)] returns the canonicalized absolute pathname. *)
+end
+
 module StatVFS : sig
   val free_space : string -> int64
   (** [free_space path] returns the free space available on the
