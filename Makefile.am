@@ -517,6 +517,20 @@ check-slow: build-test-guests
 	done; \
 	exit $$(( $$errors ? 1 : 0 ))
 
+check-root: build-test-guests
+	@if test "$$(id -u)" -ne 0; then \
+	  echo "***"; \
+	  echo "*** error: You must run 'check-root' as root."; \
+	  echo "***"; \
+	  exit 1; \
+	fi
+	@errors=0; \
+	for f in `grep -l '^$@:' $(SUBDIRS:%=%/Makefile.am)`; do \
+	  echo $(MAKE) -C `dirname $$f` $@; \
+	  $(MAKE) -C `dirname $$f` $@ || (( errors++ )); \
+	done; \
+	exit $$(( $$errors ? 1 : 0 ))
+
 build-test-guests:
 	$(MAKE) -C test-data/phony-guests check
 
@@ -590,8 +604,9 @@ help:
 	@echo "make check-with-upstream-qemu     Test using upstream qemu."
 	@echo "make check-with-upstream-libvirt  Test using upstream libvirt."
 	@echo "make check-slow                   Slow/long-running tests."
+	@echo "sudo make check-root              Tests which must be run as root."
 	@echo
-	@echo "make check-all                    Runs all 'check*' rules."
+	@echo "make check-all                    Runs all 'check*' rules except check-root."
 	@echo "make check-release                Runs 'check*' rules required for release."
 	@echo
 	@echo "make installcheck                 Test installed libguestfs packages."

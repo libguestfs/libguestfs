@@ -242,6 +242,15 @@ slow_test ()
     fi
 }
 
+# Root tests should always call this function.  (See guestfs-hacking(1)).
+root_test ()
+{
+    if test "$(id -u)" -ne 0; then
+        echo "$(basename $0): use 'sudo make check-root' to run this test"
+        exit 77
+    fi
+}
+
 do_md5 ()
 {
   case "$(uname)" in
