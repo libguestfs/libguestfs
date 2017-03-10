@@ -664,7 +664,7 @@ do_xfs_repair (const char *device,
 int64_t
 xfs_minimum_size (const char *path)
 {
-  CLEANUP_FREE guestfs_int_xfsinfo *info = do_xfs_info (path);
+  CLEANUP_FREE_XFSINFO struct guestfs_int_xfsinfo *info = do_xfs_info (path);
 
   if (info == NULL)
     return -1;
