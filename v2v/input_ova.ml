@@ -40,6 +40,69 @@ let libvirt_supports_json_raw_driver () =
   else
     true
 
+(* Untar part or all files from tar archive. If [paths] is specified it is
+ * a list of paths in the tar archive.
+ *)
+let untar ?(format = "") ?paths file outdir =
+  let cmd = [ "tar"; sprintf "-x%sf" format; file; "-C"; outdir ]
+            @ match paths with None -> [] | Some p -> p in
+  if run_command cmd <> 0 then
+    error (f_"error unpacking %s, see earlier error messages") file
+
+(* Untar only ovf and manifest from the archive *)
+let untar_metadata file outdir =
+  let files = external_command (sprintf "tar -tf %s" (Filename.quote file)) in
+  let files =
+    filter_map (
+      fun f ->
+        if Filename.check_suffix f ".ovf" ||
+           Filename.check_suffix f ".mf" then Some f
+        else None
+    ) files in
+  untar ~paths:files file outdir
+
+(* Find files in [dir] ending with [ext]. *)
+let find_files dir ext =
+  let rec loop = function
+    | [] -> []
+    | dir :: rest ->
+       let files = Array.to_list (Sys.readdir dir) in
+       let files = List.map (Filename.concat dir) files in
+       let dirs, files = List.partition Sys.is_directory files in
+       let files =
+         List.filter (fun x -> Filename.check_suffix x ext) files in
+       files @ loop (rest @ dirs)
+  in
+  loop [dir]
+
+(* Uncompress the first few bytes of [file] and return it as
+ * [(bytes, len)].  [zcat] is the command to use (eg. zcat or xzcat).
+ *)
+let uncompress_head zcat file =
+  let cmd = sprintf "%s %s" zcat (quote file) in
+  let chan_out, chan_in, chan_err = Unix.open_process_full cmd [||] in
+  let b = Bytes.create 512 in
+  let len = input chan_out b 0 (Bytes.length b) in
+  (* We're expecting the subprocess to fail because we close
+   * the pipe early, so:
+   *)
+  ignore (Unix.close_process_full (chan_out, chan_in, chan_err));
+  b, len
+
+(* Run [detect_file_type] on a compressed file, returning the
+ * type of the uncompressed content (if known).
+ *)
+let uncompressed_type format file =
+  let zcat = match format with `GZip -> "zcat" | `XZ -> "xzcat" in
+  let head, headlen = uncompress_head zcat file in
+  let tmpfile, chan =
+    Filename.open_temp_file "ova.file." "" in
+  output chan head 0 headlen;
+  close_out chan;
+  let ret = detect_file_type tmpfile in
+  Sys.remove tmpfile;
+  ret
+
 class input_ova ova =
   let tmpdir =
     let base_dir = (open_guestfs ())#get_cachedir () in
@@ -52,17 +115,6 @@ object
   method as_options = "-i ova " ^ ova
 
   method source () =
-    (* Untar part or all files from tar archive. If [paths] is specified it is
-     * a list of paths in the tar archive.
-     *)
-    let untar ?(format = "") ?paths file outdir =
-      let cmd =
-        [ "tar"; sprintf "-x%sf" format; file; "-C"; outdir ]
-        @ match paths with None -> [] | Some p -> p in
-      if run_command cmd <> 0 then
-        error (f_"error unpacking %s, see earlier error messages") ova
-    in
-
     (* Extract ova file. *)
     let exploded, partial =
       (* The spec allows a directory to be specified as an ova.  This
@@ -70,37 +122,6 @@ object
        *)
       if is_directory ova then ova, false
       else (
-        let uncompress_head zcat file =
-          let cmd = sprintf "%s %s" zcat (quote file) in
-          let chan_out, chan_in, chan_err = Unix.open_process_full cmd [||] in
-          let b = Bytes.create 512 in
-          let len = input chan_out b 0 (Bytes.length b) in
-          (* We're expecting the subprocess to fail because we close
-           * the pipe early, so:
-           *)
-          ignore (Unix.close_process_full (chan_out, chan_in, chan_err));
-
-          let tmpfile, chan =
-            Filename.open_temp_file ~temp_dir:tmpdir "ova.file." "" in
-          output chan b 0 len;
-          close_out chan;
-
-          tmpfile in
-
-        (* Untar only ovf and manifest from the archive *)
-        let untar_metadata ova outdir =
-          let files =
-            external_command (sprintf "tar -tf %s" (Filename.quote ova)) in
-          let files =
-            filter_map (fun f ->
-              if Filename.check_suffix f ".ovf" ||
-                  Filename.check_suffix f ".mf" then
-                Some f
-              else None
-            ) files in
-          untar ~paths:files ova outdir
-        in
-
         match detect_file_type ova with
         | `Tar ->
           (* Normal ovas are tar file (not compressed). *)
@@ -126,22 +147,17 @@ object
           if run_command cmd <> 0 then
             error (f_"error unpacking %s, see earlier error messages") ova;
           tmpdir, false
+
         | (`GZip|`XZ) as format ->
-          let zcat, tar_fmt =
-            match format with
-            | `GZip -> "zcat", "z"
-            | `XZ -> "xzcat", "J" in
-          let tmpfile = uncompress_head zcat ova in
-          let tmpfiletype = detect_file_type tmpfile in
-          (* Remove tmpfile from tmpdir, to leave it empty. *)
-          Sys.remove tmpfile;
-          (match tmpfiletype with
+          (match uncompressed_type format ova with
           | `Tar ->
-            untar ~format:tar_fmt ova tmpdir;
-            tmpdir, false
+             let format = match format with `GZip -> "z" | `XZ -> "J" in
+             untar ~format ova tmpdir;
+             tmpdir, false
           | `Zip | `GZip | `XZ | `Unknown ->
             error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip") ova
           )
+
         | `Unknown ->
           error (f_"%s: unsupported file format\n\nFormats which we currently understand for '-i ova' are: tar (uncompressed, compress with gzip or xz), zip") ova
       ) in
@@ -158,23 +174,6 @@ object
       let cmd = [ "chmod"; "-R"; "go=u,go-w"; exploded ] in
       ignore (run_command cmd)
     );
-
-    (* Find files in [dir] ending with [ext]. *)
-    let find_files dir ext =
-      let rec loop = function
-        | [] -> []
-        | dir :: rest ->
-          let files = Array.to_list (Sys.readdir dir) in
-          let files = List.map (Filename.concat dir) files in
-          let dirs, files = List.partition Sys.is_directory files in
-          let files = List.filter (
-            fun x ->
-              Filename.check_suffix x ext
-          ) files in
-          files @ loop (rest @ dirs)
-      in
-      loop [dir]
-    in
 
     (* Search for the ovf file. *)
     let ovf = find_files exploded ".ovf" in
