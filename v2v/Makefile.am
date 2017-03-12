@@ -53,6 +53,7 @@ SOURCES_MLI = \
 	output_rhv.mli \
 	output_vdsm.mli \
 	OVF.mli \
+	parse_ovf_from_ova.mli \
 	parse_libvirt_xml.mli \
 	qemu_command.mli \
 	target_bus_assignment.mli \
@@ -73,6 +74,7 @@ SOURCES_ML = \
 	DOM.ml \
 	changeuid.ml \
 	OVF.ml \
+	parse_ovf_from_ova.ml \
 	linux.ml \
 	windows.ml \
 	windows_virtio.ml \
