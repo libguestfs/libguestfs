@@ -142,7 +142,7 @@ and s_display_listen =
   | LNoListen                      (** No parseable <listen/> element. *)
   | LAddress of string             (** Listen address. *)
   | LNetwork of string             (** Listen network. *)
-  | LSocket of string              (** Listen Unix domain socket. *)
+  | LSocket of string option       (** Listen Unix domain socket. *)
   | LNone                          (** <listen type='none'> *)
 
 (** Video adapter model. *)

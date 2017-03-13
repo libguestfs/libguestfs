@@ -85,7 +85,7 @@ and s_display_listen =
   | LNoListen
   | LAddress of string
   | LNetwork of string
-  | LSocket of string
+  | LSocket of string option
   | LNone
 
 and source_video = Source_other_video of string |
@@ -232,7 +232,8 @@ and string_of_source_display { s_display_type = typ;
     | LNoListen -> ""
     | LAddress a -> sprintf " listening on address %s" a
     | LNetwork n -> sprintf " listening on network %s" n
-    | LSocket s -> sprintf " listening on Unix domain socket %s" s
+    | LSocket (Some s) -> sprintf " listening on Unix domain socket %s" s
+    | LSocket None -> sprintf " listening on automatically created Unix domain socket"
     | LNone -> " listening on private fd"
     )
 
