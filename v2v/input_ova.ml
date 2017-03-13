@@ -284,6 +284,10 @@ object
              * tar also works with 512 byte blocks.
              *)
             let size = roundup64 size 512L in
+
+            (* Workaround for libvirt bug RHBZ#1431652. *)
+            let ova_path = absolute_path ova in
+
             let doc = [
                 "file", JSON.Dict [
                             "driver", JSON.String "raw";
@@ -291,7 +295,7 @@ object
                             "size", JSON.Int64 size;
                             "file", JSON.Dict [
                                         "driver", JSON.String "file";
-                                        "filename", JSON.String ova]
+                                        "filename", JSON.String ova_path]
                           ]
               ] in
             let uri =
