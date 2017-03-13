@@ -55,7 +55,7 @@ if grep -sq json: $d/source ; then
     # Normalize the output.
     # Remove directory prefix.
     # Exact offset will vary because of tar.
-    sed -i -e "s,\"$d/,\"," \
+    sed -i -e "s,\"[^\"]*/$d/,\"," \
            -e "s|\"offset\": [0-9]*,|\"offset\": x,|" $d/source
     diff -u test-v2v-i-ova-subfolders.expected2 $d/source
 else
