@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-03-07 15:35+0000\n"
+"POT-Creation-Date: 2017-03-13 18:01+0000\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/libguestfs/"
@@ -48,7 +48,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:377 ../mllib/common_utils.ml:580
+#: ../v2v/input_ova.ml:283 ../mllib/common_utils.ml:580
 msgid "%s"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:145 ../v2v/input_ova.ml:142
+#: ../v2v/input_ova.ml:162 ../v2v/input_ova.ml:158
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -540,14 +540,6 @@ msgstr ""
 msgid "--list: use '--list-format', not '--format'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:350
-msgid "--no-copy and '-o glance' cannot be used at the same time"
-msgstr ""
-
-#: ../v2v/cmdline.ml:360
-msgid "--no-copy and '-o libvirt' cannot be used at the same time"
-msgstr ""
-
 #: ../builder/cmdline.ml:253
 msgid "--notes: too many parameters, expecting 'os-version'"
 msgstr ""
@@ -607,23 +599,11 @@ msgid "-B must be specified"
 msgstr ""
 
 #: ../v2v/cmdline.ml:339
-msgid "-o and --in-place cannot be used at the same time"
-msgstr ""
-
-#: ../v2v/cmdline.ml:348
-msgid "-o glance: --qemu-boot option cannot be used in this output mode"
+msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 
 #: ../v2v/cmdline.ml:344
-msgid "-o glance: -oc option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:346
-msgid "-o glance: -os option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:358
-msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
+msgid "-o and --in-place cannot be used at the same time"
 msgstr ""
 
 #: ../v2v/output_libvirt.ml:129
@@ -651,55 +631,31 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:372
-msgid "-o local: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:367
+#: ../v2v/cmdline.ml:374
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:381
-msgid "-o null: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:377
-msgid "-o null: -oc option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:379
-msgid "-o null: -os option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:388
+#: ../v2v/cmdline.ml:402
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:401
-msgid "-o rhv: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:398
+#: ../v2v/cmdline.ml:413
 msgid "-o rhv: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:411
-msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:415
+#: ../v2v/cmdline.ml:431
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:418
+#: ../v2v/cmdline.ml:434
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:408
+#: ../v2v/cmdline.ml:424
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:390 ../v2v/cmdline.ml:369
+#: ../v2v/cmdline.ml:404 ../v2v/cmdline.ml:376
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -2760,7 +2716,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:210
+#: ../v2v/input_ova.ml:211
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2832,11 +2788,7 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:406
-msgid "could not parse disk rasd:HostResource from OVF document"
-msgstr ""
-
-#: ../v2v/input_ova.ml:248
+#: ../v2v/input_ova.ml:231
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2995,15 +2947,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:316
-msgid "error parsing disk fileRef"
-msgstr ""
-
-#: ../v2v/input_ova.ml:361
+#: ../v2v/input_ova.ml:267
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:126 ../v2v/input_ova.ml:63
+#: ../v2v/input_ova.ml:148 ../v2v/input_ova.ml:50
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -3070,7 +3018,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:376
+#: ../v2v/input_ova.ml:282
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3361,7 +3309,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:156
+#: ../v2v/input_ova.ml:173
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3383,7 +3331,7 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:186
+#: ../v2v/input_ova.ml:187
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3419,7 +3367,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:183
+#: ../v2v/input_ova.ml:184
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3439,10 +3387,6 @@ msgstr ""
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
-msgstr ""
-
-#: ../v2v/input_ova.ml:321
-msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:145
@@ -3582,18 +3526,6 @@ msgstr ""
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
-msgstr ""
-
-#: ../v2v/input_ova.ml:281
-msgid ""
-"ova disk has an unknown VMware controller type (%d), please report this as a "
-"bug supplying the *.ovf file extracted from the ova"
-msgstr ""
-
-#: ../v2v/input_ova.ml:278
-msgid ""
-"ova disk has no parent controller, please report this as a bug supplying the "
-"*.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:89
@@ -4007,7 +3939,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:214
+#: ../v2v/input_ova.ml:215
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4057,10 +3989,6 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:266
-msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
-msgstr ""
-
 #: ../v2v/OVF.ml:183
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
@@ -4076,10 +4004,6 @@ msgstr ""
 #. ../resize/resize.ml:863
 #: ../resize/resize.ml:951 ../resize/resize.ml:920 ../resize/resize.ml:881
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
-msgstr ""
-
-#: ../v2v/input_ova.ml:329
-msgid "unsupported compression in OVF: %s"
 msgstr ""
 
 #. ../customize/customize_main.ml:78

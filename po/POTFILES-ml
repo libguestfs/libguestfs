@@ -145,6 +145,7 @@ v2v/output_qemu.ml
 v2v/output_rhv.ml
 v2v/output_vdsm.ml
 v2v/parse_libvirt_xml.ml
+v2v/parse_ovf_from_ova.ml
 v2v/qemu_command.ml
 v2v/target_bus_assignment.ml
 v2v/test-harness/v2v_test_harness.ml
