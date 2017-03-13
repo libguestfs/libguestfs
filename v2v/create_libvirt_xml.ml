@@ -249,7 +249,9 @@ let create_libvirt_xml ?pool source target_buses guestcaps
           let sub = e "listen" [ "type", "network"; "network", n ] [] in
           append_child sub graphics
        | LSocket s ->
-          let sub = e "listen" [ "type", "socket"; "socket", s ] [] in
+          let attrs = [ "type", "socket" ] @
+            match s with None -> [] | Some s -> [ "socket", s ] in
+          let sub = e "listen" attrs [] in
           append_child sub graphics
        | LNone ->
           let sub = e "listen" [ "type", "none" ] [] in

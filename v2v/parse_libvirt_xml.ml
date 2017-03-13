@@ -109,8 +109,8 @@ let parse_libvirt_xml ?conn xml =
             )
           | Some "socket" ->
             (match xpath_string "listen[1]/@socket" with
-            | None -> LNoListen
-            | Some n -> LSocket n
+            | None -> LSocket None
+            | Some n -> LSocket (Some n)
             )
           | Some "none" ->
             LNone
