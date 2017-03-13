@@ -171,7 +171,8 @@ object
      *)
     if Unix.geteuid () = 0 && backend_is_libvirt () then (
       warning (f_"making OVA directory public readable to work around libvirt bug https://bugzilla.redhat.com/1045069");
-      let cmd = [ "chmod"; "-R"; "go=u,go-w"; exploded ] in
+      let cmd = [ "chmod"; "-R"; "go=u,go-w"; exploded ] @
+                if partial then [ ova ] else [] in
       ignore (run_command cmd)
     );
 
