@@ -266,6 +266,7 @@ object (self)
     "/files/etc/default/grub/GRUB_CMDLINE_LINUX";
     "/files/etc/default/grub/GRUB_CMDLINE_LINUX_DEFAULT";
     "/files/boot/grub2/device.map/*[label() != \"#comment\"]";
+    "/files/boot/grub/device.map/*[label() != \"#comment\"]";
   ]
 
   method list_kernels =
