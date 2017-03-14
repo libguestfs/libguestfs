@@ -105,6 +105,26 @@ and get_ostype = function
       i_arch = "ppc64" | "ppc64le" } ->
     "sles_11_ppc64"
 
+   (* Only Debian 7 is available, so use it for any 7+ version. *)
+  | { i_type = "linux"; i_distro = "debian"; i_major_version = v }
+      when v >= 7 ->
+    "debian_7"
+
+   (* Only Ubuntu 12.04 to 14.04 are available, so use them starting
+    * from 12.04, and 14.04 for anything after it.
+    *)
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = v;
+      i_arch = "ppc64" | "ppc64le" } when v >= 14 ->
+    "ubuntu_14_04_ppc64"
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = v }
+      when v >= 14 ->
+    "ubuntu_14_04"
+
+  | { i_type = "linux"; i_distro = "ubuntu"; i_major_version = maj;
+      i_minor_version = min } when maj >= 12 ->
+    sprintf "ubuntu_%d_%02d" maj min
+
   | { i_type = "linux" } -> "OtherLinux"
 
   | { i_type = "windows"; i_major_version = 5; i_minor_version = 1 } ->
