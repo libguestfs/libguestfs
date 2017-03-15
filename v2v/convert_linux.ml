@@ -922,6 +922,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
           if not (String.is_prefix device "md") &&
              not (String.is_prefix device "fd") &&
              not (String.is_prefix device "sr") &&
+             not (String.is_prefix device "scd") &&
              device <> "cdrom" then
             warning (f_"%s references unknown device \"%s\".  You may have to fix this entry manually after conversion.")
               path device;
