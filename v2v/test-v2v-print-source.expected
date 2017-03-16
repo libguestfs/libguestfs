@@ -1,0 +1,14 @@
+    source name: windows
+hypervisor type: kvm
+         memory: 1073741824 (bytes)
+       nr vCPUs: 1
+   CPU features: 
+       firmware: unknown
+        display: 
+          video: qxl
+          sound: 
+disks:
+	windows.img (raw) [virtio-blk]
+removable media:
+NICs:
+	Network "default" mac: 00:11:22:33:44:55 [virtio]
