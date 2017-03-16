@@ -261,6 +261,7 @@ main (int argc, char *argv[])
   }
 
   guestfs_int_free_string_list (cmdline);
+  free_config (config);
 
   exit (EXIT_SUCCESS);
 }
