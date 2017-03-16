@@ -109,6 +109,25 @@ object
            | x -> x (* everything else is the same in libguestfs and OpenStack*)
           )
         ] in
+        if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
+           source.s_cpu_threads <> None then (
+          push_back properties ("hw_cpu_sockets",
+                                match source.s_cpu_sockets with
+                                | None -> "1"
+                                | Some v -> string_of_int v);
+          push_back properties ("hw_cpu_cores",
+                                match source.s_cpu_cores with
+                                | None -> "1"
+                                | Some v -> string_of_int v);
+          push_back properties ("hw_cpu_threads",
+                                match source.s_cpu_threads with
+                                | None -> "1"
+                                | Some v -> string_of_int v);
+        )
+        else (
+          push_back properties ("hw_cpu_sockets", "1");
+          push_back properties ("hw_cpu_cores", string_of_int source.s_vcpu);
+        );
         (match guestcaps.gcaps_block_bus with
          | Virtio_SCSI ->
             push_back properties ("hw_scsi_model", "virtio-scsi")

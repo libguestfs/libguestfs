@@ -222,7 +222,8 @@ object
     let ovf_folder = Filename.dirname ovf in
 
     (* Parse the ovf file. *)
-    let name, memory, vcpu, firmware, disks, removables, nics =
+    let name, memory, vcpu, cpu_sockets, cpu_cores, firmware,
+        disks, removables, nics =
       parse_ovf_from_ova ovf in
 
     let name =
@@ -314,6 +315,11 @@ object
       s_orig_name = name;
       s_memory = memory;
       s_vcpu = vcpu;
+      s_cpu_vendor = None;
+      s_cpu_model = None;
+      s_cpu_sockets = cpu_sockets;
+      s_cpu_cores = cpu_cores;
+      s_cpu_threads = None; (* XXX *)
       s_features = []; (* XXX *)
       s_firmware = firmware;
       s_display = None; (* XXX *)

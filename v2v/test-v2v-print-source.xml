@@ -1,6 +1,16 @@
 <domain type='kvm'>
   <name>windows</name>
   <memory>1048576</memory>
+  <cpu match="minimum">
+    <vendor>Intel</vendor>
+    <model fallback="allow">Broadwell</model>
+    <topology sockets="4" cores="8" threads="2"/>
+  </cpu>
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+  </features>
   <os>
     <type>hvm</type>
     <boot dev='hd'/>

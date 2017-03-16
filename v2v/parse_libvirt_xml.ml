@@ -67,6 +67,12 @@ let parse_libvirt_xml ?conn xml =
   let memory = memory *^ 1024L in
   let vcpu = xpath_int_default "/domain/vcpu/text()" 1 in
 
+  let cpu_vendor = xpath_string "/domain/cpu/vendor/text()" in
+  let cpu_model = xpath_string "/domain/cpu/model/text()" in
+  let cpu_sockets = xpath_int "/domain/cpu/topology/@sockets" in
+  let cpu_cores = xpath_int "/domain/cpu/topology/@cores" in
+  let cpu_threads = xpath_int "/domain/cpu/topology/@threads" in
+
   let features =
     let features = ref [] in
     let obj = Xml.xpath_eval_expression xpathctx "/domain/features/*" in
@@ -410,6 +416,11 @@ let parse_libvirt_xml ?conn xml =
     s_name = name; s_orig_name = name;
     s_memory = memory;
     s_vcpu = vcpu;
+    s_cpu_vendor = cpu_vendor;
+    s_cpu_model = cpu_model;
+    s_cpu_sockets = cpu_sockets;
+    s_cpu_cores = cpu_cores;
+    s_cpu_threads = cpu_threads;
     s_features = features;
     s_firmware = UnknownFirmware; (* XXX until RHBZ#1217444 is fixed *)
     s_display = display;

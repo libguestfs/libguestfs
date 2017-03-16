@@ -47,6 +47,42 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     e "vcpu" [] [PCData (string_of_int source.s_vcpu)]
   ];
 
+  if source.s_cpu_vendor <> None || source.s_cpu_model <> None ||
+     source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
+     source.s_cpu_threads <> None then (
+    let cpu = ref [] in
+
+    (match source.s_cpu_vendor with
+     | None -> ()
+     | Some vendor ->
+        push_back cpu (e "vendor" [] [PCData vendor])
+    );
+    (match source.s_cpu_model with
+     | None -> ()
+     | Some model ->
+        push_back cpu (e "model" ["fallback", "allow"] [PCData model])
+    );
+    if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
+       source.s_cpu_threads <> None then (
+      let topology_attrs = ref [] in
+      (match source.s_cpu_sockets with
+       | None -> ()
+       | Some v -> push_back topology_attrs ("sockets", string_of_int v)
+      );
+      (match source.s_cpu_cores with
+       | None -> ()
+       | Some v -> push_back topology_attrs ("cores", string_of_int v)
+      );
+      (match source.s_cpu_threads with
+       | None -> ()
+       | Some v -> push_back topology_attrs ("threads", string_of_int v)
+      );
+      push_back cpu (e "topology" !topology_attrs [])
+    );
+
+    append body [ e "cpu" [ "match", "minimum" ] !cpu ]
+  );
+
   let uefi_firmware =
     match target_firmware with
     | TargetBIOS -> None

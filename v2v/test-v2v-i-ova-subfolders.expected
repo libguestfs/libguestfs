@@ -4,6 +4,9 @@ Source guest information (--print-source option):
 hypervisor type: vmware
          memory: 1073741824 (bytes)
        nr vCPUs: 1
+     CPU vendor: 
+      CPU model: 
+   CPU topology: sockets: - cores/socket: - threads/core: -
    CPU features: 
        firmware: uefi
         display: 

@@ -181,7 +181,34 @@ and open_source cmdline input =
 
   assert (source.s_name <> "");
   assert (source.s_memory > 0L);
+
   assert (source.s_vcpu >= 1);
+  assert (source.s_cpu_vendor <> Some "");
+  assert (source.s_cpu_model <> Some "");
+  (match source.s_cpu_sockets with
+   | None -> ()
+   | Some i when i > 0 -> ()
+   | _ -> assert false);
+  (match source.s_cpu_cores with
+   | None -> ()
+   | Some i when i > 0 -> ()
+   | _ -> assert false);
+  (match source.s_cpu_threads with
+   | None -> ()
+   | Some i when i > 0 -> ()
+   | _ -> assert false);
+  (match source.s_cpu_sockets, source.s_cpu_cores, source.s_cpu_threads with
+   | None, None, None -> () (* no topology specified *)
+   | sockets, cores, threads ->
+      let sockets = match sockets with None -> 1 | Some v -> v in
+      let cores = match cores with None -> 1 | Some v -> v in
+      let threads = match threads with None -> 1 | Some v -> v in
+      let expected_vcpu = sockets * cores * threads in
+      if expected_vcpu <> source.s_vcpu then
+        warning (f_"source sockets * cores * threads <> number of vCPUs.\nSockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = %d.\n\nThis is a problem with either the source metadata or the virt-v2v input module.  In some circumstances this could stop the guest from booting on the target.")
+                sockets cores threads expected_vcpu source.s_vcpu
+  );
+
   if source.s_disks = [] then
     error (f_"source has no hard disks!");
   List.iter (

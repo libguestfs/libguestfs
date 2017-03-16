@@ -96,8 +96,28 @@ object
     );
 
     arg "-m" (Int64.to_string (source.s_memory /^ 1024L /^ 1024L));
-    if source.s_vcpu > 1 then
-      arg "-smp" (string_of_int source.s_vcpu);
+    if source.s_vcpu > 1 then (
+      if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
+         source.s_cpu_threads <> None then (
+        let a = ref [] in
+        push_back a (sprintf "cpus=%d" source.s_vcpu);
+        push_back a (sprintf "sockets=%d"
+                             (match source.s_cpu_sockets with
+                              | None -> 1
+                              | Some v -> v));
+        push_back a (sprintf "cores=%d"
+                             (match source.s_cpu_cores with
+                              | None -> 1
+                              | Some v -> v));
+        push_back a (sprintf "threads=%d"
+                             (match source.s_cpu_threads with
+                              | None -> 1
+                              | Some v -> v));
+        commas "-smp" !a
+      )
+      else
+        arg "-smp" (string_of_int source.s_vcpu);
+    );
 
     let make_disk if_name i = function
     | BusSlotEmpty -> ()

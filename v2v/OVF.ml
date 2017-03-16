@@ -318,51 +318,86 @@ let rec create_ovf source targets guestcaps inspect
                     (e "Origin" [] [PCData (string_of_int origin)])
       );
 
-      append content_subnodes [
+      push_back content_subnodes (
         e "Section" ["ovf:id", vm_uuid; "ovf:required", "false";
                      "xsi:type", "ovf:OperatingSystemSection_Type"] [
           e "Info" [] [PCData inspect.i_product_name];
           e "Description" [] [PCData ostype];
+          ]
+      );
+
+      let virtual_hardware_section_items = ref [
+        e "Info" [] [PCData (sprintf "%d CPU, %Ld Memory"
+                                     source.s_vcpu memsize_mb)]
+      ] in
+
+      push_back virtual_hardware_section_items (
+        e "Item" [] ([
+          e "rasd:Caption" [] [PCData (sprintf "%d virtual cpu" source.s_vcpu)];
+          e "rasd:Description" [] [PCData "Number of virtual CPU"];
+          e "rasd:InstanceId" [] [PCData "1"];
+          e "rasd:ResourceType" [] [PCData "3"]
+        ] @
+          if source.s_cpu_sockets <> None || source.s_cpu_cores <> None ||
+             source.s_cpu_threads <> None then (
+            let sockets =
+              match source.s_cpu_sockets with
+              | None -> "1"
+              | Some v -> string_of_int v in
+            let cores =
+              match source.s_cpu_cores with
+              | None -> "1"
+              | Some v -> string_of_int v in
+            let threads =
+              match source.s_cpu_threads with
+              | None -> "1"
+              | Some v -> string_of_int v in
+            [ e "rasd:num_of_sockets" [] [PCData sockets];
+              e "rasd:cpu_per_socket"[] [PCData cores];
+              e "rasd:threads_per_cpu"[] [PCData threads] ]
+          )
+          else (
+            [ e "rasd:num_of_sockets" [] [PCData "1"];
+              e "rasd:cpu_per_socket"[] [PCData (string_of_int source.s_vcpu)] ]
+          )
+        )
+      );
+
+      append virtual_hardware_section_items [
+        e "Item" [] [
+          e "rasd:Caption" [] [PCData (sprintf "%Ld MB of memory" memsize_mb)];
+          e "rasd:Description" [] [PCData "Memory Size"];
+          e "rasd:InstanceId" [] [PCData "2"];
+          e "rasd:ResourceType" [] [PCData "4"];
+          e "rasd:AllocationUnits" [] [PCData "MegaBytes"];
+          e "rasd:VirtualQuantity" [] [PCData (Int64.to_string memsize_mb)];
         ];
 
-        e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"] [
-          e "Info" [] [PCData (sprintf "%d CPU, %Ld Memory" source.s_vcpu memsize_mb)];
-          e "Item" [] [
-            e "rasd:Caption" [] [PCData (sprintf "%d virtual cpu" source.s_vcpu)];
-            e "rasd:Description" [] [PCData "Number of virtual CPU"];
-            e "rasd:InstanceId" [] [PCData "1"];
-            e "rasd:ResourceType" [] [PCData "3"];
-            e "rasd:num_of_sockets" [] [PCData (string_of_int source.s_vcpu)];
-            e "rasd:cpu_per_socket"[] [PCData "1"];
-          ];
-          e "Item" [] [
-            e "rasd:Caption" [] [PCData (sprintf "%Ld MB of memory" memsize_mb)];
-            e "rasd:Description" [] [PCData "Memory Size"];
-            e "rasd:InstanceId" [] [PCData "2"];
-            e "rasd:ResourceType" [] [PCData "4"];
-            e "rasd:AllocationUnits" [] [PCData "MegaBytes"];
-            e "rasd:VirtualQuantity" [] [PCData (Int64.to_string memsize_mb)];
-          ];
-          e "Item" [] [
-            e "rasd:Caption" [] [PCData "USB Controller"];
-            e "rasd:InstanceId" [] [PCData "3"];
-            e "rasd:ResourceType" [] [PCData "23"];
-            e "rasd:UsbPolicy" [] [PCData "Disabled"];
-          ];
-          (* We always add a qxl device when outputting to RHV.
-           * See RHBZ#1213701 and RHBZ#1211231 for the reasoning
-           * behind that.
-           *)
-          e "Item" [] [
-            e "rasd:Caption" [] [PCData "Graphical Controller"];
-            e "rasd:InstanceId" [] [PCData (uuidgen ())];
-            e "rasd:ResourceType" [] [PCData "20"];
-            e "Type" [] [PCData "video"];
-            e "rasd:VirtualQuantity" [] [PCData "1"];
-            e "rasd:Device" [] [PCData "qxl"];
-          ]
+        e "Item" [] [
+          e "rasd:Caption" [] [PCData "USB Controller"];
+          e "rasd:InstanceId" [] [PCData "3"];
+          e "rasd:ResourceType" [] [PCData "23"];
+          e "rasd:UsbPolicy" [] [PCData "Disabled"];
+        ];
+
+        (* We always add a qxl device when outputting to RHV.
+         * See RHBZ#1213701 and RHBZ#1211231 for the reasoning
+         * behind that.
+         *)
+        e "Item" [] [
+          e "rasd:Caption" [] [PCData "Graphical Controller"];
+          e "rasd:InstanceId" [] [PCData (uuidgen ())];
+          e "rasd:ResourceType" [] [PCData "20"];
+          e "Type" [] [PCData "video"];
+          e "rasd:VirtualQuantity" [] [PCData "1"];
+          e "rasd:Device" [] [PCData "qxl"];
         ]
       ];
+
+      push_back content_subnodes (
+        e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"]
+          !virtual_hardware_section_items
+      );
 
       e "Content" ["ovf:id", "out"; "xsi:type", "ovf:VirtualSystem_Type"]
         !content_subnodes

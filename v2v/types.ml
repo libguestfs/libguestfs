@@ -29,6 +29,11 @@ type source = {
   s_orig_name : string;
   s_memory : int64;
   s_vcpu : int;
+  s_cpu_vendor : string option;
+  s_cpu_model : string option;
+  s_cpu_sockets : int option;
+  s_cpu_cores : int option;
+  s_cpu_threads : int option;
   s_features : string list;
   s_firmware : source_firmware;
   s_display : source_display option;
@@ -102,6 +107,9 @@ let rec string_of_source s =
 hypervisor type: %s
          memory: %Ld (bytes)
        nr vCPUs: %d
+     CPU vendor: %s
+      CPU model: %s
+   CPU topology: sockets: %s cores/socket: %s threads/core: %s
    CPU features: %s
        firmware: %s
         display: %s
@@ -118,6 +126,11 @@ NICs:
     (string_of_source_hypervisor s.s_hypervisor)
     s.s_memory
     s.s_vcpu
+    (match s.s_cpu_vendor with None -> "" | Some v -> v)
+    (match s.s_cpu_model with None -> "" | Some v -> v)
+    (match s.s_cpu_sockets with None -> "-" | Some v -> string_of_int v)
+    (match s.s_cpu_cores with None -> "-" | Some v -> string_of_int v)
+    (match s.s_cpu_threads with None -> "-" | Some v -> string_of_int v)
     (String.concat "," s.s_features)
     (string_of_source_firmware s.s_firmware)
     (match s.s_display with

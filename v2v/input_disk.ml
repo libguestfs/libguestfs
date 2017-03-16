@@ -80,6 +80,11 @@ class input_disk input_format disk = object
       s_name = name; s_orig_name = name;
       s_memory = 2048L *^ 1024L *^ 1024L; (* 2048 MB *)
       s_vcpu = 1;                         (* 1 vCPU is a safe default *)
+      s_cpu_vendor = None;
+      s_cpu_model = None;
+      s_cpu_sockets = None;
+      s_cpu_cores = None;
+      s_cpu_threads = None;
       s_features = [ "acpi"; "apic"; "pae" ];
       s_firmware = UnknownFirmware;       (* causes virt-v2v to autodetect *)
       s_display =

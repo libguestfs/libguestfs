@@ -2,7 +2,10 @@
 hypervisor type: kvm
          memory: 1073741824 (bytes)
        nr vCPUs: 1
-   CPU features: 
+     CPU vendor: Intel
+      CPU model: Broadwell
+   CPU topology: sockets: 4 cores/socket: 8 threads/core: 2
+   CPU features: pae,apic,acpi
        firmware: unknown
         display: 
           video: qxl
