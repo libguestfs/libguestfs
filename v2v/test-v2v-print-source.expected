@@ -1,7 +1,7 @@
     source name: windows
 hypervisor type: kvm
          memory: 1073741824 (bytes)
-       nr vCPUs: 1
+       nr vCPUs: 64
      CPU vendor: Intel
       CPU model: Broadwell
    CPU topology: sockets: 4 cores/socket: 8 threads/core: 2
