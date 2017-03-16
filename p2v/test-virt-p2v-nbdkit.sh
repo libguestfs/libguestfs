@@ -51,7 +51,7 @@ export PATH=$d:$PATH
 cmdline="p2v.server=localhost p2v.name=windows p2v.disks=$f1,$f2 p2v.o=local p2v.os=$(pwd)/$d p2v.network=em1:wired,other p2v.post="
 
 # Only use nbdkit, disable qemu-nbd.
-virt-p2v --cmdline="$cmdline" --nbd=nbdkit,nbdkit-no-sa
+$VG virt-p2v --cmdline="$cmdline" --nbd=nbdkit,nbdkit-no-sa
 
 # Test the libvirt XML metadata and a disk was created.
 test -f $d/windows.xml

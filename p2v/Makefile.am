@@ -250,6 +250,9 @@ TESTS += \
 	$(SLOW_TESTS)
 endif ENABLE_APPLIANCE
 
+check-valgrind:
+	make VG="@VG@" check
+
 SLOW_TESTS = \
 	test-virt-p2v-pxe.sh
 
