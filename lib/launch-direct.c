@@ -414,10 +414,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-hpet")) {
     ADD_CMDLINE ("-no-hpet");
   }
-  if (!guestfs_int_version_ge (&data->qemu_version, 1, 3, 0))
-    ADD_CMDLINE ("-no-kvm-pit-reinjection");
-  else {
-    /* New non-deprecated way, added in qemu >= 1.3. */
+  if (guestfs_int_version_ge (&data->qemu_version, 1, 3, 0)) {
     ADD_CMDLINE ("-global");
     ADD_CMDLINE ("kvm-pit.lost_tick_policy=discard");
   }
