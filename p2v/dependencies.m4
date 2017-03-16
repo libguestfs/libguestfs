@@ -29,6 +29,7 @@ ifelse(REDHAT,1,
   dnl Run as external programs by the p2v binary.
   /usr/bin/ssh
   /usr/bin/qemu-nbd
+  gawk
   curl
   ethtool
   util-linux
@@ -80,6 +81,7 @@ ifelse(DEBIAN,1,
   libdbus-1-3
   openssh-client
   qemu-utils
+  gawk
   curl
   ethtool
   util-linux
@@ -112,6 +114,7 @@ ifelse(ARCHLINUX,1,
   dbus
   openssh
   qemu
+  gawk
   curl
   ethtool
   util-linux
@@ -145,6 +148,7 @@ ifelse(SUSE,1,
   libdbus-1-3
   qemu-tools
   openssh
+  gawk
   curl
   ethtool
   util-linux
