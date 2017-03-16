@@ -32,6 +32,21 @@ let string_set_of_list =
 
 let create_libvirt_xml ?pool source target_buses guestcaps
                        target_features target_firmware =
+  (* The main body of the libvirt XML document. *)
+  let body = ref [] in
+
+  append body [
+    Comment generated_by;
+    e "name" [] [PCData source.s_name];
+  ];
+
+  let memory_k = source.s_memory /^ 1024L in
+  append body [
+    e "memory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
+    e "currentMemory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
+    e "vcpu" [] [PCData (string_of_int source.s_vcpu)]
+  ];
+
   let uefi_firmware =
     match target_firmware with
     | TargetBIOS -> None
@@ -46,8 +61,6 @@ let create_libvirt_xml ?pool source target_buses guestcaps
    *)
   let machine_q35 = secure_boot_required in
   let smm = secure_boot_required in
-
-  let memory_k = source.s_memory /^ 1024L in
 
   (* We have the machine features of the guest when it was on the
    * source hypervisor (source.s_features).  We have the acpi flag
@@ -91,6 +104,10 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
   let features = List.sort compare (StringSet.elements features) in
 
+  append body [
+    e "features" [] (List.map (fun s -> e s [] []) features);
+  ];
+
   (* The <os> section subelements. *)
   let os_section =
     let machine = if machine_q35 then [ "machine", "q35" ] else [] in
@@ -107,6 +124,14 @@ let create_libvirt_xml ?pool source target_buses guestcaps
 
     (e "type" (["arch", guestcaps.gcaps_arch] @ machine) [PCData "hvm"])
     :: loader in
+
+  append body [
+    e "os" [] os_section;
+
+    e "on_poweroff" [] [PCData "destroy"];
+    e "on_reboot" [] [PCData "restart"];
+    e "on_crash" [] [PCData "restart"];
+  ];
 
   (* The devices. *)
   let devices = ref [] in
@@ -284,23 +309,13 @@ let create_libvirt_xml ?pool source target_buses guestcaps
     e "console" ["type", "pty"] [];
   ];
 
+  append body [
+    e "devices" [] !devices;
+  ];
+
   let doc : doc =
     doc "domain" [
       "type", "kvm";                (* Always assume target is kvm? *)
-    ] [
-      Comment generated_by;
-      e "name" [] [PCData source.s_name];
-      e "memory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
-      e "currentMemory" ["unit", "KiB"] [PCData (Int64.to_string memory_k)];
-      e "vcpu" [] [PCData (string_of_int source.s_vcpu)];
-      e "os" [] os_section;
-      e "features" [] (List.map (fun s -> e s [] []) features);
-
-      e "on_poweroff" [] [PCData "destroy"];
-      e "on_reboot" [] [PCData "restart"];
-      e "on_crash" [] [PCData "restart"];
-
-      e "devices" [] !devices;
-    ] in
+    ] !body in
 
   doc
