@@ -95,6 +95,8 @@ free_config (struct config *c)
   free (c->identity_url);
   free (c->identity_file);
   free (c->guestname);
+  free (c->cpu.vendor);
+  free (c->cpu.model);
   guestfs_int_free_string_list (c->disks);
   guestfs_int_free_string_list (c->removable);
   guestfs_int_free_string_list (c->interfaces);
@@ -132,10 +134,20 @@ print_config (struct config *config, FILE *fp)
            config->guestname ? config->guestname : "none");
   fprintf (fp, "vcpus  . . . . .   %d\n", config->vcpus);
   fprintf (fp, "memory . . . . .   %" PRIu64 "\n", config->memory);
+  if (config->cpu.vendor)
+    fprintf (fp, "cpu vendor . . .   %s\n", config->cpu.vendor);
+  if (config->cpu.model)
+    fprintf (fp, "cpu model  . . .   %s\n", config->cpu.model);
+  if (config->cpu.sockets > 0)
+    fprintf (fp, "cpu sockets  . .   %u\n", config->cpu.sockets);
+  if (config->cpu.cores > 0)
+    fprintf (fp, "cpu cores  . . .   %u\n", config->cpu.cores);
+  if (config->cpu.threads > 0)
+    fprintf (fp, "cpu threads  . .   %u\n", config->cpu.threads);
   fprintf (fp, "flags  . . . . .  %s%s%s\n",
-           config->flags & FLAG_ACPI ? " acpi" : "",
-           config->flags & FLAG_APIC ? " apic" : "",
-           config->flags & FLAG_PAE  ? " pae"  : "");
+           config->cpu.acpi ? " acpi" : "",
+           config->cpu.apic ? " apic" : "",
+           config->cpu.pae  ? " pae"  : "");
   fprintf (fp, "disks  . . . . .  ");
   if (config->disks != NULL) {
     for (i = 0; config->disks[i] != NULL; ++i)

@@ -20,6 +20,7 @@
 #define P2V_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
 /* Send various debug information to stderr.  Harmless and useful, so
  * can be left enabled in production builds.
@@ -59,6 +60,17 @@ extern int feature_colours_option;
 extern int force_colour;
 
 /* config.c */
+struct cpu_config {
+  char *vendor;                 /* eg. "Intel" */
+  char *model;                  /* eg. "Broadwell" */
+  unsigned sockets;             /* number of sockets */
+  unsigned cores;               /* number of cores per socket */
+  unsigned threads;             /* number of hyperthreads per core */
+  bool acpi;
+  bool apic;
+  bool pae;
+};
+
 struct config {
   char *server;
   int port;
@@ -71,7 +83,7 @@ struct config {
   char *guestname;
   int vcpus;
   uint64_t memory;
-  int flags;
+  struct cpu_config cpu;
   char **disks;
   char **removable;
   char **interfaces;
@@ -83,10 +95,6 @@ struct config {
   char *output_storage;
 };
 
-#define FLAG_ACPI 1
-#define FLAG_APIC 2
-#define FLAG_PAE  4
-
 #define OUTPUT_ALLOCATION_NONE         0
 #define OUTPUT_ALLOCATION_SPARSE       1
 #define OUTPUT_ALLOCATION_PREALLOCATED 2
@@ -95,6 +103,9 @@ extern struct config *new_config (void);
 extern struct config *copy_config (struct config *);
 extern void free_config (struct config *);
 extern void print_config (struct config *, FILE *);
+
+/* cpuid.c */
+extern void get_cpu_config (struct cpu_config *);
 
 /* kernel-cmdline.c */
 extern char **parse_cmdline_string (const char *cmdline);

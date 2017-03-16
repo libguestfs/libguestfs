@@ -612,6 +612,35 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns,
       string_format ("%d", config->vcpus);
     } end_element ();
 
+    if (config->cpu.vendor || config->cpu.model ||
+        config->cpu.sockets || config->cpu.cores || config->cpu.threads) {
+      /* https://libvirt.org/formatdomain.html#elementsCPU */
+      start_element ("cpu") {
+        attribute ("match", "minimum");
+        if (config->cpu.vendor) {
+          start_element ("vendor") {
+            string (config->cpu.vendor);
+          } end_element ();
+        }
+        if (config->cpu.model) {
+          start_element ("model") {
+            attribute ("fallback", "allow");
+            string (config->cpu.model);
+          } end_element ();
+        }
+        if (config->cpu.sockets || config->cpu.cores || config->cpu.threads) {
+          start_element ("topology") {
+            if (config->cpu.sockets)
+              attribute_format ("sockets", "%u", config->cpu.sockets);
+            if (config->cpu.cores)
+              attribute_format ("cores", "%u", config->cpu.cores);
+            if (config->cpu.threads)
+              attribute_format ("threads", "%u", config->cpu.threads);
+          } end_element ();
+        }
+      } end_element ();
+    }
+
     start_element ("os") {
       start_element ("type") {
         attribute ("arch", host_cpu);
@@ -620,9 +649,9 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns,
     } end_element ();
 
     start_element ("features") {
-      if (config->flags & FLAG_ACPI) empty_element ("acpi");
-      if (config->flags & FLAG_APIC) empty_element ("apic");
-      if (config->flags & FLAG_PAE)  empty_element ("pae");
+      if (config->cpu.acpi) empty_element ("acpi");
+      if (config->cpu.apic) empty_element ("apic");
+      if (config->cpu.pae)  empty_element ("pae");
     } end_element ();
 
     start_element ("devices") {
