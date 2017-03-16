@@ -939,7 +939,7 @@ let main () =
     Output_format.run_formats_on_file cmdline.formats cmdline.image_name (tmpdisk, tmpdiskfmt) tmpdir;
 
   if not is_ramdisk_build && cmdline.checksum then (
-    let file_flags = [ Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC; Unix.O_CLOEXEC; ] in
+    let file_flags = [ Unix.O_WRONLY; Unix.O_CREAT; Unix.O_TRUNC; ] in
     let filenames = Output_format.get_filenames cmdline.formats cmdline.image_name in
     List.iter (
       fun fn ->
@@ -950,6 +950,7 @@ let main () =
               let csum_fn = fn ^ "." ^ csum in
               let csum_tool = tool_of_checksum csum in
               let outfd = Unix.openfile csum_fn file_flags 0o640 in
+              Unix.set_close_on_exec outfd;
               let args = [| csum_tool; fn; |] in
               Common_utils.debug "%s" (stringify_args (Array.to_list args));
               let pid = Unix.create_process csum_tool args Unix.stdin
