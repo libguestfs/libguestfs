@@ -31,27 +31,12 @@ ifelse(REDHAT,1,
   dnl Run as external programs by the p2v binary.
   /usr/bin/ssh
   /usr/bin/qemu-nbd
-  gawk
-  curl
-  ethtool
-  util-linux
   which
-  xterm
-  pciutils
-  lsscsi
-  usbutils
 
   dnl Generally useful tools to use within xterm
-  less
   vim-minimal
 
-  dnl The hwdata package contains PCI IDs, used by virt-p2v to display
-  dnl network vendor information (RHBZ#855059).
-  hwdata
-
   dnl Useful disk and diagnostic utilities.
-  hdparm
-  smartmontools
   iscsi-initiator-utils
 
   dnl X11 environment
@@ -84,20 +69,8 @@ ifelse(DEBIAN,1,
   ifdef(`HAVE_LIBVIRT', `libvirt0')
   openssh-client
   qemu-utils
-  gawk
-  curl
-  ethtool
-  util-linux
   debianutils
-  xterm
-  pciutils
-  lsscsi
-  usbutils
-  less
   vim-tiny
-  hwdata
-  hdparm
-  smartmontools
   open-iscsi
   xorg
   xserver-xorg-video-all
@@ -118,20 +91,8 @@ ifelse(ARCHLINUX,1,
   ifdef(`HAVE_LIBVIRT', `libvirt')
   openssh
   qemu
-  gawk
-  curl
-  ethtool
-  util-linux
   which
-  xterm
-  pciutils
-  lsscsi
-  usbutils
-  less
   vim-tiny
-  hwdata
-  hdparm
-  smartmontools
   open-iscsi
   xorg-xinit
   xorg-server
@@ -153,20 +114,8 @@ ifelse(SUSE,1,
   ifdef(`HAVE_LIBVIRT', `libvirt-libs')
   qemu-tools
   openssh
-  gawk
-  curl
-  ethtool
-  util-linux
   dnl /usr/bin/which is in util-linux on SUSE
-  xterm
-  pciutils
-  lsscsi
-  usbutils
-  less
   vim
-  hwdata
-  hdparm
-  smartmontools
   open-iscsi
   xinit
   xorg-x11-server
@@ -180,3 +129,24 @@ ifelse(SUSE,1,
   libyui-qt
   SuSEfirewall2
 )
+
+dnl Run as external programs by the p2v binary.
+curl
+ethtool
+gawk
+lsscsi
+pciutils
+usbutils
+util-linux
+xterm
+
+dnl Generally useful tools to use within xterm
+less
+
+dnl The hwdata package contains PCI IDs, used by virt-p2v to display
+dnl network vendor information (RHBZ#855059).
+hwdata
+
+dnl Useful disk and diagnostic utilities.
+hdparm
+smartmontools
