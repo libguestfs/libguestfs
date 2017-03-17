@@ -62,7 +62,7 @@ ifelse(REDHAT,1,
 ifelse(DEBIAN,1,
   libpcre3
   libxml2
-  libgtk`'GTK_VERSION`'.0-0
+  ifelse(GTK_VERSION,2,libgtk`'GTK_VERSION`'.0-0,libgtk-`'GTK_VERSION`'-0)
   libdbus-1-3
   openssh-client
   qemu-utils
