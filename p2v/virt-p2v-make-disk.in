@@ -189,6 +189,19 @@ EOF
         ;;
     debian-*|ubuntu-*)
         depsfile="$datadir/dependencies.debian"
+        cat > $tmpdir/policy-rc.d <<'EOF'
+#!/bin/sh
+# Avoid running daemons during the upgrade/installation
+exit 101
+EOF
+        chmod +x $tmpdir/policy-rc.d
+        # Double quotes because we want $tmpdir to be expanded:
+        preinstall_args="
+          --upload $tmpdir/policy-rc.d:/usr/sbin/policy-rc.d
+        "
+        final_args="
+          --delete /usr/sbin/policy-rc.d
+        "
         ;;
     archlinux-*)
         depsfile="$datadir/dependencies.archlinux"
@@ -229,6 +242,7 @@ virt-builder "$osversion"                                       \
     $verbose_option						\
     --output "$output"                                          \
     $arch_option						\
+    $preinstall_args                                            \
     --update                                                    \
     --install "$install"                                        \
     --root-password password:p2v                                \
@@ -251,7 +265,8 @@ virt-builder "$osversion"                                       \
     '                                                           \
     $upload                                                     \
     $extra_args                                                 \
-    "${passthru[@]}"
+    "${passthru[@]}"                                            \
+    $final_args
 
 # We have to do this so the cleanup() handler runs.
 exit $?
