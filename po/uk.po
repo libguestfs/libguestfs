@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-03-13 18:01+0000\n"
+"POT-Creation-Date: 2017-03-17 15:21+0000\n"
 "PO-Revision-Date: 2016-07-26 05:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -54,7 +54,7 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../v2v/input_ova.ml:283 ../mllib/common_utils.ml:580
+#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:580
 msgid "%s"
 msgstr "%s"
 
@@ -149,7 +149,7 @@ msgstr "Потрібен %s, але його не знайдено"
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:926
+#: ../v2v/convert_linux.ml:927
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -817,27 +817,27 @@ msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
 #. ../v2v/copy_to_local.ml:318
-#: ../v2v/parse_libvirt_xml.ml:296 ../v2v/parse_libvirt_xml.ml:263
+#: ../v2v/parse_libvirt_xml.ml:316 ../v2v/parse_libvirt_xml.ml:283
 msgid "<disk type='%s'> was ignored"
 msgstr "<disk type='%s'> проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:269
+#: ../v2v/parse_libvirt_xml.ml:289
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr "<disk type='network'> з <source protocol='%s'> проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:292
+#: ../v2v/parse_libvirt_xml.ml:312
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr "<disk type='volume'> з <volume type='%s'> проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:242 ../v2v/copy_to_local.ml:300
+#: ../v2v/parse_libvirt_xml.ml:262 ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
 msgstr "проігноровано елемент <disk> без атрибута типу (type)"
 
-#: ../v2v/parse_libvirt_xml.ml:118
+#: ../v2v/parse_libvirt_xml.ml:138
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr "<listen type='%s'> у вхідних даних XML libvirt було проігноровано"
 
-#: ../v2v/parse_libvirt_xml.ml:328
+#: ../v2v/parse_libvirt_xml.ml:348
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -991,11 +991,11 @@ msgstr "Перевірити числові підписи"
 msgid "Check there is enough space in $TMPDIR"
 msgstr "Перевірити, чи достатньо місця у $TMPDIR"
 
-#: ../v2v/v2v.ml:366
+#: ../v2v/v2v.ml:393
 msgid "Checking for sufficient free disk space in the guest"
 msgstr "Перевіряємо, чи достатньо вільного місця на диску гостьової системи"
 
-#: ../v2v/v2v.ml:583
+#: ../v2v/v2v.ml:610
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 "Перевіряємо, чи потрібні гостьовій системі BIOS або UEFI для завантаження"
@@ -1040,11 +1040,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr "Перетворюємо %s на %s"
 
-#: ../v2v/v2v.ml:556
+#: ../v2v/v2v.ml:583
 msgid "Converting %s to run on KVM"
 msgstr "Перетворюємо %s для уможливлення запуску у KVM"
 
-#: ../v2v/v2v.ml:554
+#: ../v2v/v2v.ml:581
 msgid "Converting the guest to run on KVM"
 msgstr "Перетворюємо гостьову систему для запуску у KVM"
 
@@ -1080,7 +1080,7 @@ msgstr "Копіюємо %s"
 msgid "Copying (in image): %s to %s"
 msgstr "Копіюємо (на образ): %s у %s"
 
-#: ../v2v/v2v.ml:622
+#: ../v2v/v2v.ml:649
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr "Копіювання диска %d з %d на %s (%s)"
 
@@ -1108,7 +1108,7 @@ msgstr "Створити файл оверлею на %s для захисту �
 msgid "Create symbolic links"
 msgstr "Створювати символічні посилання"
 
-#: ../v2v/v2v.ml:243
+#: ../v2v/v2v.ml:270
 msgid "Creating an overlay to protect the source from being modified"
 msgstr "Створюємо оверлей для захисту джерела від внесення змін"
 
@@ -1245,7 +1245,7 @@ msgstr "Не виводити повідомлень щодо поступу"
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:988
+#: ../dib/dib.ml:989
 msgid "Done"
 msgstr "Виконано"
 
@@ -1315,7 +1315,7 @@ msgstr "Увімкнути або вимкнути специфічні опер
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr "Вкажіть число від 1 до %d або введіть «'exit»: "
 
-#: ../v2v/v2v.ml:545
+#: ../v2v/v2v.ml:572
 msgid "Estimating space required on target for each disk"
 msgstr "Оцінюємо простір, потрібний у системі призначення для кожного з дисків"
 
@@ -1578,7 +1578,7 @@ msgstr "Ігноровано, для зворотної сумісності"
 msgid "Importing the image to docker as '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:289
+#: ../v2v/v2v.ml:316
 msgid "Initializing the target %s"
 msgstr "Ініціалізуємо призначення %s"
 
@@ -1841,7 +1841,7 @@ msgstr "Розмір виведення"
 msgid "Output vol UUID(s)"
 msgstr "UUID виведених томів"
 
-#: ../v2v/v2v.ml:735
+#: ../v2v/v2v.ml:762
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr "Накладку збережено як %s [--debug-overlays]"
 
@@ -1918,7 +1918,7 @@ msgstr "Вивести дані щодо кешу шаблонів"
 msgid "Print source and stop"
 msgstr "Вивести джерело і припинити обробку"
 
-#: ../v2v/OVF.ml:433 ../v2v/OVF.ml:228
+#: ../v2v/OVF.ml:488 ../v2v/OVF.ml:248
 msgid "RHV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2758,22 +2758,22 @@ msgstr ""
 "тому не є частиною віртуальної машини на диску, але ці дані зберігаються\n"
 "на диску у старіших версіях дистрибутивів."
 
-#: ../v2v/v2v.ml:576
+#: ../v2v/v2v.ml:603
 msgid "This guest does not have virtio drivers installed."
 msgstr "У цій гостьовій системі не встановлено драйверів virtio."
 
-#: ../v2v/v2v.ml:574
+#: ../v2v/v2v.ml:601
 msgid "This guest has virtio drivers installed."
 msgstr "У цій гостьовій системі встановлено драйвери virtio."
 
-#: ../v2v/OVF.ml:369
+#: ../v2v/OVF.ml:424
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest's display will not "
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:604
+#: ../v2v/v2v.ml:631
 msgid "This guest requires UEFI on the target to boot."
 msgstr "Ця гостьова система потребує UEFI на призначенні для завантаження."
 
@@ -3226,7 +3226,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:231
+#: ../v2v/parse_ovf_from_ova.ml:178
+msgid "could not parse disk rasd:HostResource from OVF document"
+msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
+
+#: ../v2v/input_ova.ml:232
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3306,7 +3310,7 @@ msgstr "заборонений символ (%c) у назві операції"
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:299
+#: ../v2v/v2v.ml:326
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -3331,7 +3335,7 @@ msgstr ""
 "використати параметр «-of» для примусового визначення формату виведення "
 "даних."
 
-#: ../v2v/parse_libvirt_xml.ml:142
+#: ../v2v/parse_libvirt_xml.ml:162
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr "дисплей <graphics type='%s'> у вхідному XML libvirt проігноровано"
 
@@ -3411,7 +3415,11 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:267
+#: ../v2v/parse_ovf_from_ova.ml:151
+msgid "error parsing disk fileRef"
+msgstr "помилка під час спроби обробити fileRef диска"
+
+#: ../v2v/input_ova.ml:268
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3448,15 +3456,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:820 ../dib/dib.ml:975
+#: ../mllib/common_utils.ml:820 ../dib/dib.ml:976
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:978
+#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:979
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:981
+#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:982
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3485,7 +3493,7 @@ msgstr "помилка: %s"
 msgid "file"
 msgstr "file"
 
-#: ../v2v/input_ova.ml:282
+#: ../v2v/input_ova.ml:283
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3538,7 +3546,7 @@ msgstr ""
 msgid "fs"
 msgstr "fs"
 
-#: ../v2v/v2v.ml:417
+#: ../v2v/v2v.ml:444
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3567,7 +3575,7 @@ msgstr ""
 "створити скрипт для уможливлення розпізнавання. Див. попередні повідомлення, "
 "щоб дізнатися більше."
 
-#: ../v2v/output_glance.ml:133
+#: ../v2v/output_glance.ml:154
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 "glance: помилка вивантаження образу до glance, див. попередні повідомлення "
@@ -3586,7 +3594,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr "немає доступу до програми gpg"
 
-#: ../v2v/v2v.ml:277
+#: ../v2v/v2v.ml:304
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3719,7 +3727,7 @@ msgstr ""
 "\n"
 "У образі операційної системи не виявлено кореневого пристрою."
 
-#: ../v2v/v2v.ml:238
+#: ../v2v/v2v.ml:265
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3765,11 +3773,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
-#: ../v2v/v2v.ml:634
+#: ../v2v/v2v.ml:661
 msgid "internal error: qemu corrupted the overlay file"
 msgstr "внутрішня помилка: файл оверлею пошкоджено qemu"
 
-#: ../v2v/v2v.ml:267
+#: ../v2v/v2v.ml:294
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr "внутрішня помилка: qemu-img не створено оверлею із резервним файлом"
 
@@ -3816,6 +3824,14 @@ msgstr "некоректний варіант sm-credentials «%s»; див. с�
 #: ../customize/ssh_key.ml:44
 msgid "invalid ssh-inject selector '%s'; see the man page"
 msgstr "некоректний варіант ssh-inject «%s»; див. сторінку man"
+
+#: ../v2v/parse_ovf_from_ova.ml:80
+msgid "invalid vmw:CoresPerSocket (%d) ignored"
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:86
+msgid "invalid vmw:CoresPerSocket < number of cores"
+msgstr ""
 
 #: ../v2v/linux_bootloaders.ml:113
 msgid "kernel %s is not under grub tree %s"
@@ -3918,7 +3934,7 @@ msgstr "never|always|auto"
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
-#: ../v2v/linux_bootloaders.ml:358
+#: ../v2v/linux_bootloaders.ml:359
 msgid "no bootloader detected"
 msgstr ""
 
@@ -3939,6 +3955,10 @@ msgstr ""
 "завантаження.\n"
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
+
+#: ../v2v/parse_ovf_from_ova.ml:156
+msgid "no href in ovf:File (id=%s)"
+msgstr "немає href у ovf:File (id=%s)"
 
 #: ../v2v/linux_kernels.ml:145
 msgid "no initrd was found in /boot matching %s %s."
@@ -3998,7 +4018,7 @@ msgstr ""
 "немає підтримки віддалених з’єднань libvirt з «-ic %s». Перетворення може "
 "призвести до помилок під час спроб прочитати диски джерел даних."
 
-#: ../v2v/v2v.ml:392
+#: ../v2v/v2v.ml:419
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -4010,7 +4030,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../v2v/OVF.ml:575
+#: ../v2v/OVF.ml:630
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -4088,7 +4108,7 @@ msgstr ""
 "пристрій, а не на розділ. Якщо це попередження ви вважаєте помилковим, ви "
 "можете вимкнути його за допомогою параметра --no-warn-if-partition"
 
-#: ../v2v/v2v.ml:309
+#: ../v2v/v2v.ml:336
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -4114,6 +4134,22 @@ msgstr ""
 "розмір виведених даних є надто великим для цього блокового пристрою. "
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
+
+#: ../v2v/parse_ovf_from_ova.ml:117
+msgid ""
+"ova disk has an unknown VMware controller type (%d), please report this as a "
+"bug supplying the *.ovf file extracted from the ova"
+msgstr ""
+"Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
+"цю ваду, додавши файл *.ovf, видобутий з ova"
+
+#: ../v2v/parse_ovf_from_ova.ml:114
+msgid ""
+"ova disk has no parent controller, please report this as a bug supplying the "
+"*.ovf file extracted from the ova"
+msgstr ""
+"Диск ova не має батьківського контролера. Будь ласка, повідомте про цю ваду, "
+"додавши файл *.ovf, видобутий з ova"
 
 #: ../v2v/linux_kernels.ml:89
 msgid "package '%s' contains no files"
@@ -4172,7 +4208,7 @@ msgstr ""
 "pwrite: незавершений запис під час відновлення заголовка розділу резервної "
 "пам’яті"
 
-#: ../v2v/v2v.ml:672 ../v2v/v2v.ml:263
+#: ../v2v/v2v.ml:699 ../v2v/v2v.ml:290
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 "помилка під час спроби виконати qemu-img, див. попередні повідомлення щодо "
@@ -4254,33 +4290,44 @@ msgstr "списки джерел і відбитків мають різну д
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr "диск джерела має атрибут <source dev=...> у XML"
 
-#: ../v2v/v2v.ml:746
+#: ../v2v/v2v.ml:773
 msgid "source has multiple hard disk types!"
 msgstr "у джерела декілька типів жорстких дисків!"
 
-#: ../v2v/v2v.ml:762
+#: ../v2v/v2v.ml:789
 msgid "source has multiple network adapter model!"
 msgstr "у джерела декілька моделей адаптера мережі!"
 
-#: ../v2v/v2v.ml:744 ../v2v/v2v.ml:186
+#: ../v2v/v2v.ml:771 ../v2v/v2v.ml:213
 msgid "source has no hard disks!"
 msgstr "у джерелі немає жорстких дисків!"
 
-#: ../v2v/v2v.ml:754
+#: ../v2v/v2v.ml:781
 msgid "source has unrecognized hard disk type"
 msgstr "у джерела нерозпізнаний тип жорсткого диска"
 
-#: ../v2v/v2v.ml:752
+#: ../v2v/v2v.ml:779
 msgid "source has unsupported hard disk type '%s'"
 msgstr "у джерела непідтримуваний тип жорсткого диска, «%s»"
 
-#: ../v2v/v2v.ml:768
+#: ../v2v/v2v.ml:795
 msgid "source has unsupported network adapter model '%s'"
 msgstr "у джерела непідтримувана модель адаптера мережі, «%s»"
 
-#: ../v2v/v2v.ml:776
+#: ../v2v/v2v.ml:803
 msgid "source has unsupported video adapter model '%s'"
 msgstr "у джерела непідтримувана модель відеоадаптера, «%s»"
+
+#: ../v2v/v2v.ml:208
+msgid ""
+"source sockets * cores * threads <> number of vCPUs.\n"
+"Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
+"%d.\n"
+"\n"
+"This is a problem with either the source metadata or the virt-v2v input "
+"module.  In some circumstances this could stop the guest from booting on the "
+"target."
+msgstr ""
 
 #: ../v2v/copy_to_local.ml:200
 msgid "ssh copy command failed, see earlier errors"
@@ -4333,7 +4380,7 @@ msgstr "підпроцес надіслав сигнал або зупинив �
 msgid "subscription-manager credentials required for --sm-register"
 msgstr "для --sm-register потрібні реєстраційні дані subscription-manager"
 
-#: ../v2v/v2v.ml:313
+#: ../v2v/v2v.ml:340
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -4418,7 +4465,7 @@ msgstr "значення не є об’єктом"
 msgid "the value of the key '%s' is not an object"
 msgstr "значенням ключа «%s» не є об’єкт"
 
-#: ../v2v/OVF.ml:218
+#: ../v2v/OVF.ml:238
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -4546,7 +4593,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/v2v.ml:595
+#: ../v2v/v2v.ml:622
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -4581,7 +4628,7 @@ msgstr ""
 "помилка завантаження 7B). Якщо таке трапляється, спробуйте вимкнути групові "
 "правила до перетворення."
 
-#: ../v2v/parse_libvirt_xml.ml:216 ../v2v/copy_to_local.ml:289
+#: ../v2v/parse_libvirt_xml.ml:236 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr "у цій гостьовій системі немає непортативних дисків"
 
@@ -4684,11 +4731,15 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/OVF.ml:183
+#: ../v2v/parse_ovf_from_ova.ml:99
+msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
+msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
+
+#: ../v2v/OVF.ml:203
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
 
-#: ../v2v/parse_libvirt_xml.ml:183
+#: ../v2v/parse_libvirt_xml.ml:203
 msgid "unknown sound model %s ignored"
 msgstr "невідому звукову модель %s проігноровано"
 
@@ -4700,6 +4751,10 @@ msgstr "невідомий гіпервізор джерела («%s») у ме�
 #: ../resize/resize.ml:951 ../resize/resize.ml:920 ../resize/resize.ml:881
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr "невідомий або недоступний метод розкриття файлової системи %s на %s"
+
+#: ../v2v/parse_ovf_from_ova.ml:164
+msgid "unsupported compression in OVF: %s"
+msgstr ""
 
 #. ../customize/customize_main.ml:78
 #: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
@@ -4840,7 +4895,7 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr "virt-resize не встановлено (або програма не працює)"
 
-#: ../v2v/parse_libvirt_xml.ml:139
+#: ../v2v/parse_libvirt_xml.ml:159
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
@@ -4848,7 +4903,7 @@ msgstr ""
 "У virt-v2v не передбачено підтримки локальних дисплеїв, отже so <graphics "
 "type='%s'> у вхідних даних XML libvirt проігноровано"
 
-#: ../v2v/v2v.ml:562
+#: ../v2v/v2v.ml:589
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
@@ -4944,7 +4999,7 @@ msgstr ""
 #: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:96
 #: cat/tail.c:65 df/main.c:72 diff/diff.c:105 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
-#: make-fs/make-fs.c:79 p2v/main.c:93 rescue/rescue.c:80
+#: make-fs/make-fs.c:79 p2v/main.c:92 rescue/rescue.c:80
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Щоб дізнатися більше, віддайте команду «%s --help».\n"
@@ -4995,7 +5050,7 @@ msgstr ""
 #: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:242 cat/tail.c:152
 #: df/main.c:162 diff/diff.c:274 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
-#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:204
+#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:203
 #: rescue/rescue.c:218 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -9955,7 +10010,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: lib/launch-direct.c:838 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:835 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -10002,7 +10057,7 @@ msgstr ""
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: lib/launch-libvirt.c:399
+#: lib/launch-libvirt.c:399 p2v/cpuid.c:179
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
@@ -10681,6 +10736,30 @@ msgstr "Перетворення скасовано користувачем."
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
 
+#: p2v/cpuid.c:167
+msgid "could not connect to libvirt"
+msgstr ""
+
+#: p2v/cpuid.c:189
+#, c-format
+msgid "%s: unable to parse capabilities XML returned by libvirt\n"
+msgstr ""
+
+#: p2v/cpuid.c:197
+#, c-format
+msgid "%s: unable to create new XPath context\n"
+msgstr ""
+
+#: p2v/cpuid.c:207 p2v/cpuid.c:224 p2v/cpuid.c:243
+#, c-format
+msgid "%s: unable to evaluate xpath expression: %s\n"
+msgstr ""
+
+#: p2v/cpuid.c:287
+#, c-format
+msgid "%s: program was compiled without libvirt support\n"
+msgstr ""
+
 #: p2v/gui.c:200
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
@@ -10984,7 +11063,7 @@ msgstr ""
 msgid "Cancel the conversion"
 msgstr "Скасувати перетворення"
 
-#: p2v/main.c:96
+#: p2v/main.c:95
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -11003,22 +11082,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:196
+#: p2v/main.c:195
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr "параметр --test-disk можна використовувати лише один раз"
 
-#: p2v/main.c:199
+#: p2v/main.c:198
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr "шлях у --test-disk слід вказувати як абсолютний"
 
-#: p2v/main.c:227
+#: p2v/main.c:226
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr "%s: невикористані аргументи у командному рядку\n"
 
-#: p2v/main.c:258
+#: p2v/main.c:257
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
@@ -11560,33 +11639,6 @@ msgstr "virt-win-reg: {p}: не вдалося вивантажити файл �
 #~ msgstr ""
 #~ "-o vdsm: параметр --qemu-boot не можна використовувати у цьому режимі "
 #~ "виведення даних"
-
-#~ msgid "could not parse disk rasd:HostResource from OVF document"
-#~ msgstr ""
-#~ "не вдалося обробити значення rasd:HostResource диска з документа OVF"
-
-#~ msgid "error parsing disk fileRef"
-#~ msgstr "помилка під час спроби обробити fileRef диска"
-
-#~ msgid "no href in ovf:File (id=%s)"
-#~ msgstr "немає href у ovf:File (id=%s)"
-
-#~ msgid ""
-#~ "ova disk has an unknown VMware controller type (%d), please report this "
-#~ "as a bug supplying the *.ovf file extracted from the ova"
-#~ msgstr ""
-#~ "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте "
-#~ "про цю ваду, додавши файл *.ovf, видобутий з ova"
-
-#~ msgid ""
-#~ "ova disk has no parent controller, please report this as a bug supplying "
-#~ "the *.ovf file extracted from the ova"
-#~ msgstr ""
-#~ "Диск ova не має батьківського контролера. Будь ласка, повідомте про цю "
-#~ "ваду, додавши файл *.ovf, видобутий з ova"
-
-#~ msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
-#~ msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
 #~ msgid "Remove HOSTNAME in network interface configuration"
 #~ msgstr "Вилучити HOSTNAME у налаштуваннях інтерфейсу мережі"

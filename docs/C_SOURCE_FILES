@@ -343,6 +343,7 @@ p2v/about-authors.c
 p2v/about-license.c
 p2v/config.c
 p2v/conversion.c
+p2v/cpuid.c
 p2v/gui-gtk2-compat.h
 p2v/gui-gtk3-compat.h
 p2v/gui.c

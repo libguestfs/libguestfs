@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-03-13 18:01+0000\n"
+"POT-Creation-Date: 2017-03-17 15:21+0000\n"
 "PO-Revision-Date: 2016-09-14 05:28-0400\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libguestfs/"
@@ -50,7 +50,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:283 ../mllib/common_utils.ml:580
+#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:580
 msgid "%s"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:926
+#: ../v2v/convert_linux.ml:927
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -662,27 +662,27 @@ msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
 #. ../v2v/copy_to_local.ml:318
-#: ../v2v/parse_libvirt_xml.ml:296 ../v2v/parse_libvirt_xml.ml:263
+#: ../v2v/parse_libvirt_xml.ml:316 ../v2v/parse_libvirt_xml.ml:283
 msgid "<disk type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:269
+#: ../v2v/parse_libvirt_xml.ml:289
 msgid "<disk type='network'> with <source protocol='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:292
+#: ../v2v/parse_libvirt_xml.ml:312
 msgid "<disk type='volume'> with <volume type='%s'> was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:242 ../v2v/copy_to_local.ml:300
+#: ../v2v/parse_libvirt_xml.ml:262 ../v2v/copy_to_local.ml:300
 msgid "<disk> element with no type attribute ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:118
+#: ../v2v/parse_libvirt_xml.ml:138
 msgid "<listen type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:328
+#: ../v2v/parse_libvirt_xml.ml:348
 msgid ""
 "<target dev='%s'> was ignored because the device name could not be recognized"
 msgstr ""
@@ -823,11 +823,11 @@ msgstr ""
 msgid "Check there is enough space in $TMPDIR"
 msgstr ""
 
-#: ../v2v/v2v.ml:366
+#: ../v2v/v2v.ml:393
 msgid "Checking for sufficient free disk space in the guest"
 msgstr ""
 
-#: ../v2v/v2v.ml:583
+#: ../v2v/v2v.ml:610
 msgid "Checking if the guest needs BIOS or UEFI to boot"
 msgstr ""
 
@@ -871,11 +871,11 @@ msgstr ""
 msgid "Converting %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:556
+#: ../v2v/v2v.ml:583
 msgid "Converting %s to run on KVM"
 msgstr ""
 
-#: ../v2v/v2v.ml:554
+#: ../v2v/v2v.ml:581
 msgid "Converting the guest to run on KVM"
 msgstr ""
 
@@ -911,7 +911,7 @@ msgstr ""
 msgid "Copying (in image): %s to %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:622
+#: ../v2v/v2v.ml:649
 msgid "Copying disk %d/%d to %s (%s)"
 msgstr ""
 
@@ -939,7 +939,7 @@ msgstr ""
 msgid "Create symbolic links"
 msgstr ""
 
-#: ../v2v/v2v.ml:243
+#: ../v2v/v2v.ml:270
 msgid "Creating an overlay to protect the source from being modified"
 msgstr ""
 
@@ -1068,7 +1068,7 @@ msgstr ""
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:988
+#: ../dib/dib.ml:989
 msgid "Done"
 msgstr ""
 
@@ -1135,7 +1135,7 @@ msgstr ""
 msgid "Enter a number between 1 and %d, or 'exit': "
 msgstr ""
 
-#: ../v2v/v2v.ml:545
+#: ../v2v/v2v.ml:572
 msgid "Estimating space required on target for each disk"
 msgstr ""
 
@@ -1370,7 +1370,7 @@ msgstr ""
 msgid "Importing the image to docker as '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:289
+#: ../v2v/v2v.ml:316
 msgid "Initializing the target %s"
 msgstr ""
 
@@ -1616,7 +1616,7 @@ msgstr ""
 msgid "Output vol UUID(s)"
 msgstr ""
 
-#: ../v2v/v2v.ml:735
+#: ../v2v/v2v.ml:762
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
@@ -1691,7 +1691,7 @@ msgstr ""
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/OVF.ml:433 ../v2v/OVF.ml:228
+#: ../v2v/OVF.ml:488 ../v2v/OVF.ml:248
 msgid "RHV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2393,22 +2393,22 @@ msgid ""
 "virtual machine's disk, but it was stored on disk in older distros."
 msgstr ""
 
-#: ../v2v/v2v.ml:576
+#: ../v2v/v2v.ml:603
 msgid "This guest does not have virtio drivers installed."
 msgstr ""
 
-#: ../v2v/v2v.ml:574
+#: ../v2v/v2v.ml:601
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/OVF.ml:369
+#: ../v2v/OVF.ml:424
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest's display will not "
 "require a separate password to connect."
 msgstr ""
 
-#: ../v2v/v2v.ml:604
+#: ../v2v/v2v.ml:631
 msgid "This guest requires UEFI on the target to boot."
 msgstr ""
 
@@ -2790,7 +2790,11 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:231
+#: ../v2v/parse_ovf_from_ova.ml:178
+msgid "could not parse disk rasd:HostResource from OVF document"
+msgstr ""
+
+#: ../v2v/input_ova.ml:232
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2863,7 +2867,7 @@ msgstr ""
 msgid "discard/trim is not supported"
 msgstr ""
 
-#: ../v2v/v2v.ml:299
+#: ../v2v/v2v.ml:326
 msgid ""
 "disk %s (%s) has no defined format.\n"
 "\n"
@@ -2877,7 +2881,7 @@ msgid ""
 "format."
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:142
+#: ../v2v/parse_libvirt_xml.ml:162
 msgid "display <graphics type='%s'> in the input libvirt XML was ignored"
 msgstr ""
 
@@ -2949,7 +2953,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:267
+#: ../v2v/parse_ovf_from_ova.ml:151
+msgid "error parsing disk fileRef"
+msgstr ""
+
+#: ../v2v/input_ova.ml:268
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
@@ -2983,15 +2991,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:820 ../dib/dib.ml:975
+#: ../mllib/common_utils.ml:820 ../dib/dib.ml:976
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:978
+#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:979
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:981
+#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:982
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -3020,7 +3028,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:282
+#: ../v2v/input_ova.ml:283
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3068,7 +3076,7 @@ msgstr ""
 msgid "fs"
 msgstr ""
 
-#: ../v2v/v2v.ml:417
+#: ../v2v/v2v.ml:444
 msgid ""
 "fstrim on guest filesystem %s failed.  Usually you can ignore this message.  "
 "To find out more read \"Trimming\" in virt-v2v(1).\n"
@@ -3093,7 +3101,7 @@ msgid ""
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:133
+#: ../v2v/output_glance.ml:154
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
@@ -3107,7 +3115,7 @@ msgstr ""
 msgid "gpg program is not available"
 msgstr ""
 
-#: ../v2v/v2v.ml:277
+#: ../v2v/v2v.ml:304
 msgid ""
 "guest disk %s appears to be zero bytes in size.\n"
 "\n"
@@ -3199,7 +3207,7 @@ msgid ""
 "No root device found in this operating system image."
 msgstr ""
 
-#: ../v2v/v2v.ml:238
+#: ../v2v/v2v.ml:265
 msgid ""
 "insufficient free space in the conversion server temporary directory %s "
 "(%s).\n"
@@ -3236,11 +3244,11 @@ msgstr ""
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
-#: ../v2v/v2v.ml:634
+#: ../v2v/v2v.ml:661
 msgid "internal error: qemu corrupted the overlay file"
 msgstr ""
 
-#: ../v2v/v2v.ml:267
+#: ../v2v/v2v.ml:294
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
@@ -3286,6 +3294,14 @@ msgstr ""
 
 #: ../customize/ssh_key.ml:44
 msgid "invalid ssh-inject selector '%s'; see the man page"
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:80
+msgid "invalid vmw:CoresPerSocket (%d) ignored"
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:86
+msgid "invalid vmw:CoresPerSocket < number of cores"
 msgstr ""
 
 #: ../v2v/linux_bootloaders.ml:113
@@ -3373,7 +3389,7 @@ msgstr ""
 msgid "no .ovf file was found in %s"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:358
+#: ../v2v/linux_bootloaders.ml:359
 msgid "no bootloader detected"
 msgstr ""
 
@@ -3389,6 +3405,10 @@ msgstr ""
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:156
+msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:145
@@ -3439,7 +3459,7 @@ msgid ""
 "fail when it tries to read the source disks."
 msgstr ""
 
-#: ../v2v/v2v.ml:392
+#: ../v2v/v2v.ml:419
 msgid ""
 "not enough free space for conversion on filesystem '%s'.  %Ld bytes free < "
 "%Ld bytes needed"
@@ -3449,7 +3469,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/OVF.ml:575
+#: ../v2v/OVF.ml:630
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -3513,7 +3533,7 @@ msgid ""
 "if-partition"
 msgstr ""
 
-#: ../v2v/v2v.ml:309
+#: ../v2v/v2v.ml:336
 msgid ""
 "output format should be 'raw' or 'qcow2'.\n"
 "\n"
@@ -3528,6 +3548,18 @@ msgstr ""
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:117
+msgid ""
+"ova disk has an unknown VMware controller type (%d), please report this as a "
+"bug supplying the *.ovf file extracted from the ova"
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:114
+msgid ""
+"ova disk has no parent controller, please report this as a bug supplying the "
+"*.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:89
@@ -3579,7 +3611,7 @@ msgstr ""
 msgid "pwrite: short write restoring swap partition header"
 msgstr ""
 
-#: ../v2v/v2v.ml:672 ../v2v/v2v.ml:263
+#: ../v2v/v2v.ml:699 ../v2v/v2v.ml:290
 msgid "qemu-img command failed, see earlier errors"
 msgstr ""
 
@@ -3648,32 +3680,43 @@ msgstr ""
 msgid "source disk has <source dev=...> attribute in XML"
 msgstr ""
 
-#: ../v2v/v2v.ml:746
+#: ../v2v/v2v.ml:773
 msgid "source has multiple hard disk types!"
 msgstr ""
 
-#: ../v2v/v2v.ml:762
+#: ../v2v/v2v.ml:789
 msgid "source has multiple network adapter model!"
 msgstr ""
 
-#: ../v2v/v2v.ml:744 ../v2v/v2v.ml:186
+#: ../v2v/v2v.ml:771 ../v2v/v2v.ml:213
 msgid "source has no hard disks!"
 msgstr ""
 
-#: ../v2v/v2v.ml:754
+#: ../v2v/v2v.ml:781
 msgid "source has unrecognized hard disk type"
 msgstr ""
 
-#: ../v2v/v2v.ml:752
+#: ../v2v/v2v.ml:779
 msgid "source has unsupported hard disk type '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:768
+#: ../v2v/v2v.ml:795
 msgid "source has unsupported network adapter model '%s'"
 msgstr ""
 
-#: ../v2v/v2v.ml:776
+#: ../v2v/v2v.ml:803
 msgid "source has unsupported video adapter model '%s'"
+msgstr ""
+
+#: ../v2v/v2v.ml:208
+msgid ""
+"source sockets * cores * threads <> number of vCPUs.\n"
+"Sockets %d * cores per socket %d * threads %d = %d, but number of vCPUs = "
+"%d.\n"
+"\n"
+"This is a problem with either the source metadata or the virt-v2v input "
+"module.  In some circumstances this could stop the guest from booting on the "
+"target."
 msgstr ""
 
 #: ../v2v/copy_to_local.ml:200
@@ -3722,7 +3765,7 @@ msgstr ""
 msgid "subscription-manager credentials required for --sm-register"
 msgstr ""
 
-#: ../v2v/v2v.ml:313
+#: ../v2v/v2v.ml:340
 msgid ""
 "the --compressed flag is only allowed when the output format is qcow2 (-of "
 "qcow2)"
@@ -3797,7 +3840,7 @@ msgstr ""
 msgid "the value of the key '%s' is not an object"
 msgstr ""
 
-#: ../v2v/OVF.ml:218
+#: ../v2v/OVF.ml:238
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -3882,7 +3925,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/v2v.ml:595
+#: ../v2v/v2v.ml:622
 msgid ""
 "this guest cannot run on the target, because the target does not support %s "
 "firmware (supported firmware on target: %s)"
@@ -3904,7 +3947,7 @@ msgid ""
 "happens, try disabling Group Policy before doing the conversion."
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:216 ../v2v/copy_to_local.ml:289
+#: ../v2v/parse_libvirt_xml.ml:236 ../v2v/copy_to_local.ml:289
 msgid "this guest has no non-removable disks"
 msgstr ""
 
@@ -3991,11 +4034,15 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/OVF.ml:183
+#: ../v2v/parse_ovf_from_ova.ml:99
+msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
+msgstr ""
+
+#: ../v2v/OVF.ml:203
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:183
+#: ../v2v/parse_libvirt_xml.ml:203
 msgid "unknown sound model %s ignored"
 msgstr ""
 
@@ -4006,6 +4053,10 @@ msgstr ""
 #. ../resize/resize.ml:863
 #: ../resize/resize.ml:951 ../resize/resize.ml:920 ../resize/resize.ml:881
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
+msgstr ""
+
+#: ../v2v/parse_ovf_from_ova.ml:164
+msgid "unsupported compression in OVF: %s"
 msgstr ""
 
 #. ../customize/customize_main.ml:78
@@ -4119,13 +4170,13 @@ msgstr ""
 msgid "virt-resize is not installed (or does not work)"
 msgstr ""
 
-#: ../v2v/parse_libvirt_xml.ml:139
+#: ../v2v/parse_libvirt_xml.ml:159
 msgid ""
 "virt-v2v does not support local displays, so <graphics type='%s'> in the "
 "input libvirt XML was ignored"
 msgstr ""
 
-#: ../v2v/v2v.ml:562
+#: ../v2v/v2v.ml:589
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 
@@ -4204,7 +4255,7 @@ msgstr ""
 #: align/scan.c:79 cat/cat.c:59 cat/filesystems.c:93 cat/log.c:68 cat/ls.c:96
 #: cat/tail.c:65 df/main.c:72 diff/diff.c:105 edit/edit.c:68 fish/fish.c:115
 #: fuse/guestmount.c:103 fuse/guestunmount.c:56 inspector/inspector.c:75
-#: make-fs/make-fs.c:79 p2v/main.c:93 rescue/rescue.c:80
+#: make-fs/make-fs.c:79 p2v/main.c:92 rescue/rescue.c:80
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Polecenie „%s --help” wyświetli więcej informacji.\n"
@@ -4236,7 +4287,7 @@ msgstr ""
 #: cat/filesystems.c:246 cat/log.c:147 cat/ls.c:242 cat/tail.c:152
 #: df/main.c:162 diff/diff.c:274 edit/edit.c:158 fish/fish.c:296
 #: format/format.c:185 fuse/guestmount.c:251 fuse/guestunmount.c:130
-#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:204
+#: inspector/inspector.c:166 make-fs/make-fs.c:150 p2v/main.c:203
 #: rescue/rescue.c:218 test-tool/test-tool.c:116
 #, c-format
 msgid "unknown long option: %s (%d)"
@@ -8867,7 +8918,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
-#: lib/launch-direct.c:838 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:835 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z usługą, ale stan != GOTOWY"
@@ -8900,7 +8951,7 @@ msgstr ""
 msgid "could not connect to libvirt (URI = %s)"
 msgstr ""
 
-#: lib/launch-libvirt.c:399
+#: lib/launch-libvirt.c:399 p2v/cpuid.c:179
 msgid "could not get libvirt capabilities"
 msgstr ""
 
@@ -9511,6 +9562,30 @@ msgstr ""
 msgid "Control connection closed by remote."
 msgstr ""
 
+#: p2v/cpuid.c:167
+msgid "could not connect to libvirt"
+msgstr ""
+
+#: p2v/cpuid.c:189
+#, c-format
+msgid "%s: unable to parse capabilities XML returned by libvirt\n"
+msgstr ""
+
+#: p2v/cpuid.c:197
+#, c-format
+msgid "%s: unable to create new XPath context\n"
+msgstr ""
+
+#: p2v/cpuid.c:207 p2v/cpuid.c:224 p2v/cpuid.c:243
+#, c-format
+msgid "%s: unable to evaluate xpath expression: %s\n"
+msgstr ""
+
+#: p2v/cpuid.c:287
+#, c-format
+msgid "%s: program was compiled without libvirt support\n"
+msgstr ""
+
 #: p2v/gui.c:200
 msgid "Connect to a virt-v2v conversion server over SSH:"
 msgstr ""
@@ -9785,7 +9860,7 @@ msgstr ""
 msgid "Cancel the conversion"
 msgstr ""
 
-#: p2v/main.c:96
+#: p2v/main.c:95
 #, c-format
 msgid ""
 "%s: Convert a physical machine to use KVM\n"
@@ -9804,22 +9879,22 @@ msgid ""
 "For more information, see the manpage %s(1).\n"
 msgstr ""
 
-#: p2v/main.c:196
+#: p2v/main.c:195
 #, c-format
 msgid "only a single --test-disk option can be used"
 msgstr ""
 
-#: p2v/main.c:199
+#: p2v/main.c:198
 #, c-format
 msgid "--test-disk must be an absolute path"
 msgstr ""
 
-#: p2v/main.c:227
+#: p2v/main.c:226
 #, c-format
 msgid "%s: unused arguments on the command line\n"
 msgstr ""
 
-#: p2v/main.c:258
+#: p2v/main.c:257
 #, c-format
 msgid ""
 "gtk_init_check returned false, indicating that\n"
