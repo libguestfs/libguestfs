@@ -75,7 +75,6 @@ ifelse(DEBIAN,1,
   metacity
   network-manager
   network-manager-gnome
-  network-manager-applet
   dbus-x11
   net-tools
 )
