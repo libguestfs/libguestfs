@@ -82,7 +82,7 @@ object
 
         (* Set the properties (ie. metadata). *)
         let min_ram = source.s_memory /^ 1024L /^ 1024L in
-        let properties = [
+        let properties = ref [
           "hw_disk_bus",
           (match guestcaps.gcaps_block_bus with
            | Virtio_blk -> "virtio"
@@ -109,26 +109,28 @@ object
            | x -> x (* everything else is the same in libguestfs and OpenStack*)
           )
         ] in
-        let properties =
-          match guestcaps.gcaps_block_bus with
-          | Virtio_SCSI -> ("hw_scsi_model", "virtio-scsi") :: properties
-          | Virtio_blk | IDE -> properties in
-        let properties =
-          match inspect.i_major_version, inspect.i_minor_version with
-          | 0, 0 -> properties
-          | x, 0 -> ("os_version", string_of_int x) :: properties
-          | x, y -> ("os_version", sprintf "%d.%d" x y) :: properties in
+        (match guestcaps.gcaps_block_bus with
+         | Virtio_SCSI ->
+            push_back properties ("hw_scsi_model", "virtio-scsi")
+         | Virtio_blk | IDE -> ()
+        );
+        (match inspect.i_major_version, inspect.i_minor_version with
+         | 0, 0 -> ()
+         | x, 0 -> push_back properties ("os_version", string_of_int x)
+         | x, y -> push_back properties ("os_version", sprintf "%d.%d" x y)
+        );
 
+        let properties =
+          List.flatten (
+            List.map (
+              fun (k, v) -> [ "--property"; sprintf "%s=%s" k v ]
+            ) !properties
+          ) in
         let cmd = [ "glance"; "image-create"; "--name"; name;
                     "--disk-format=" ^ target_format;
                     "--container-format=bare"; "--file"; target_file;
                     "--min-ram"; Int64.to_string min_ram ] @
-                  (List.flatten
-                    (List.map (
-                       fun (k, v) ->
-                         [ "--property"; sprintf "%s=%s" k v ]
-                    ) properties
-                  )) in
+                  properties in
         if run_command cmd <> 0 then
           error (f_"glance: image upload to glance failed, see earlier errors");
       ) targets
