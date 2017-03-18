@@ -66,6 +66,10 @@ copy_config (struct config *old)
     c->identity_file = strdup (c->identity_file);
   if (c->guestname)
     c->guestname = strdup (c->guestname);
+  if (c->cpu.vendor)
+    c->cpu.vendor = strdup (c->cpu.vendor);
+  if (c->cpu.model)
+    c->cpu.model = strdup (c->cpu.model);
   if (c->disks)
     c->disks = guestfs_int_copy_string_list (c->disks);
   if (c->removable)
