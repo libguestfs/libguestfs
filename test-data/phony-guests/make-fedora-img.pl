@@ -83,7 +83,7 @@ LABEL=ROOT / ext2 default 0 0
 EOF
   close ($fstab) or die;
 
-  $bootdev = '/dev/md/boot';
+  $bootdev = '/dev/md/bootdev';
 
   foreach my $img (@images) {
       $g->disk_create ($img, "raw", $IMAGE_SIZE);
@@ -100,8 +100,8 @@ EOF
     }
   }
 
-  $g->md_create ('boot', ['/dev/sda1', '/dev/sdb1']);
-  $g->md_create ('root', ['/dev/sda2', '/dev/sdb2']);
+  $g->md_create ('bootdev', ['/dev/sda1', '/dev/sdb1']);
+  $g->md_create ('rootdev', ['/dev/sda2', '/dev/sdb2']);
 
   open (my $mdadm, '>', "fedora.mdadm") or die;
   print $mdadm <<EOF;
@@ -110,7 +110,7 @@ AUTO +imsm +1.x -all
 EOF
 
   my $i = 0;
-  foreach ('boot', 'root') {
+  foreach ('bootdev', 'rootdev') {
     my %detail = $g->md_detail ("/dev/md/$_");
     print $mdadm "ARRAY /dev/md$i level=raid1 num-devices=2 UUID=",
                  $detail{uuid}, "\n";
@@ -119,7 +119,7 @@ EOF
 
   close ($mdadm) or die;
 
-  init_lvm_root ('/dev/md/root');
+  init_lvm_root ('/dev/md/rootdev');
 }
 
 elsif ($ENV{LAYOUT} eq 'btrfs') {

@@ -40,10 +40,10 @@ if [ "$(cat inspect-fstab-md.output)" != "true" ]; then
     exit 1
 fi
 
-# Test inspection when /boot is specfied as /dev/md/boot
+# Test inspection when /boot is specfied as /dev/md/bootdev
 cat <<'EOF' > inspect-fstab-md.fstab
 /dev/VG/Root / ext2 default 0 0
-/dev/md/boot /boot ext2 default 0 0
+/dev/md/bootdev /boot ext2 default 0 0
 EOF
 
 guestfish --format=raw -a inspect-fstab-md-1.img --format=raw -a inspect-fstab-md-2.img <<'EOF'
@@ -57,7 +57,7 @@ guestfish -i --format=raw -a inspect-fstab-md-1.img --format=raw -a inspect-fsta
 EOF
 
 if [ "$(cat inspect-fstab-md.output)" != "true" ]; then
-    echo "$0: error: /boot not correctly mounted (/dev/md/boot)"
+    echo "$0: error: /boot not correctly mounted (/dev/md/bootdev)"
     cat inspect-fstab-md.output
     exit 1
 fi
