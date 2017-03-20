@@ -108,7 +108,7 @@ let rec inspect_source root_choice g =
 
 and choose_root root_choice g = function
   | [] ->
-     error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n\nNo root device found in this operating system image.");
+     error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.\n\nNo root device found in this operating system image.");
   | [root] -> root (* only one root, so return it *)
   | roots ->
      (* If there are multiple roots, use the [--root] option supplied
@@ -212,5 +212,5 @@ and sanity_check_inspection inspect =
 
 and error_if_unknown fieldname value =
   if value = "unknown" then
-    error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete log to a new bug report (see http://libguestfs.org).\n\nInspection field '%s' was 'unknown'.")
+    error (f_"inspection could not detect the source guest (or physical machine).\n\nAssuming that you are running virt-v2v/virt-p2v on a source which is supported (and not, for example, a blank disk), then this should not happen.\n\nInspection field '%s' was 'unknown'.")
           fieldname
