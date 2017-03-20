@@ -217,6 +217,7 @@ export TMP_HOOKS_PATH=$mysysroot/tmp/in_target.aux/hooks
 export DIB_ARGS=\"%s\"
 export DIB_MANIFEST_SAVE_DIR=\"$mysysroot/tmp/in_target.aux/out/${IMAGE_NAME}.d\"
 export IMAGE_BLOCK_DEVICE=$blockdev
+export IMAGE_BLOCK_DEVICE_WITHOUT_PART=$(echo ${IMAGE_BLOCK_DEVICE} | sed -e \"s|^\\(.*loop[0-9]*\\)p[0-9]*$|\\1|g\")
 export IMAGE_ELEMENT=\"%s\"
 export DIB_ENV=%s
 export DIB_DEBUG_TRACE=%d
