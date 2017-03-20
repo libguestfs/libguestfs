@@ -112,8 +112,11 @@ do_selinux_relabel (const char *specfile, const char *path,
     ADD_ARG (argv, i, sysroot);
   }
 
-  /* Suppress non-error output. */
-  ADD_ARG (argv, i, "-q");
+  if (verbose)
+    ADD_ARG (argv, i, "-v");
+  else
+    /* Suppress non-error output. */
+    ADD_ARG (argv, i, "-q");
 
   /* Add parameters. */
   ADD_ARG (argv, i, s_specfile);
