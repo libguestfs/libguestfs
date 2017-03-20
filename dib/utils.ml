@@ -90,10 +90,13 @@ let digit_prefix_compare a b =
 let do_mkdir dir =
   mkdir_p dir 0o755
 
-let require_tool tool =
-  try ignore (which tool)
+let get_required_tool tool =
+  try which tool
   with Executable_not_found tool ->
     error (f_"%s needed but not found") tool
+
+let require_tool tool =
+  ignore (get_required_tool tool)
 
 let do_cp src destdir =
   let cmd = [ "cp"; "-t"; destdir; "-a"; src ] in
