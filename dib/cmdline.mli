@@ -46,6 +46,7 @@ type cmdline = {
   arch : string;
   envvars : string list;
   checksum : bool;
+  python : string option;
 }
 
 val parse_cmdline : unit -> cmdline

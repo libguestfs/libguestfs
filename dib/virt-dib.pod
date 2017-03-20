@@ -354,6 +354,17 @@ to debug failures to run scripts.
 The default is to delete the output files if virt-dib fails (or,
 for example, some script that it runs fails).
 
+=item B<--python> PYTHON
+
+Specify a different Python interpreter to use.  Parts of
+C<diskimage-builder> are implemented in Python, and thus an
+interpreter is needed.
+
+C<PYTHON> can either be an executable filename (e.g. F<python2>,
+which is then searched in C<$PATH>), or a full path (e.g.
+F</usr/bin/python2>).  If not specified, the default value is
+F<python>.
+
 =item B<-q>
 
 =item B<--quiet>

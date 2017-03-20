@@ -54,6 +54,7 @@ type cmdline = {
   arch : string;
   envvars : string list;
   checksum : bool;
+  python : string option;
 }
 
 let parse_cmdline () =
@@ -151,6 +152,9 @@ read the man page virt-dib(1).
 
   let checksum = ref false in
 
+  let python = ref None in
+  let set_python arg = python := Some arg in
+
   let argspec = [
     [ S 'p'; L"element-path" ],           Getopt.String ("path", append_element_path),  s_"Add new a elements location";
     [ L"exclude-element" ], Getopt.String ("element", append_excluded_element),
@@ -167,6 +171,7 @@ read the man page virt-dib(1).
     [ L"extra-packages" ], Getopt.String ("pkg,...", append_extra_packages),
       s_"Add extra packages to install";
     [ L"checksum" ],   Getopt.Set checksum,          s_"Generate MD5 and SHA256 checksum files";
+    [ L"python" ],     Getopt.String ("python", set_python),         s_"Set Python interpreter";
 
     [ L"ramdisk" ],    Getopt.Set is_ramdisk,        "Switch to a ramdisk build";
     [ L"ramdisk-element" ], Getopt.Set_string ("name", ramdisk_element), s_"Main element for building ramdisks";
@@ -223,6 +228,7 @@ read the man page virt-dib(1).
   let machine_readable = !machine_readable in
   let extra_packages = List.rev !extra_packages in
   let checksum = !checksum in
+  let python = !python in
 
   (* No elements and machine-readable mode?  Print some facts. *)
   if elements = [] && machine_readable then (
@@ -246,6 +252,18 @@ read the man page virt-dib(1).
   if elements = [] then
     error (f_"at least one distribution root element must be specified");
 
+  let python =
+    match python with
+    | Some exe ->
+      let p =
+        if String.find exe Filename.dir_sep <> -1 then (
+          Unix.access exe [Unix.X_OK];
+          exe
+        ) else
+          get_required_tool exe in
+      Some p
+    | None -> None in
+
   { debug = debug; basepath = basepath; elements = elements;
     excluded_elements = excluded_elements; element_paths = element_paths;
     excluded_scripts = excluded_scripts; use_base = use_base; drive = drive;
@@ -256,5 +274,5 @@ read the man page virt-dib(1).
     extra_packages = extra_packages; memsize = memsize; network = network;
     smp = smp; delete_on_failure = delete_on_failure;
     formats = formats; arch = arch; envvars = envvars;
-    checksum = checksum;
+    checksum = checksum; python = python;
   }

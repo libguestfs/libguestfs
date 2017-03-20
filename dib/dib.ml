@@ -74,6 +74,7 @@ let envvars_string l =
 
 let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
   ~rootfs_uuid ~image_cache ~arch ~network ~debug ~fs_type ~checksum
+  ~python
   destdir libdir fakebindir loaded_elements all_elements element_paths =
   let network_string = if network then "" else "1" in
   let checksum_string = if checksum then "1" else "" in
@@ -123,6 +124,7 @@ export TMP_DIR=\"${TMPDIR}\"
 export DIB_DEBUG_TRACE=%d
 export FS_TYPE=%s
 export DIB_CHECKSUM=%s
+export DIB_PYTHON_EXEC=%s
 
 elinfo_out=$(<${VIRT_DIB_OURPATH}/elinfo_out)
 eval \"$elinfo_out\"
@@ -158,7 +160,8 @@ $target_dir/$script
     (quote dib_vars)
     debug
     fs_type
-    checksum_string in
+    checksum_string
+    python in
   write_script (destdir // "run-part-extra.sh") run_extra;
   let elinfo_out = sprintf "\
 function get_image_element_array {
@@ -524,6 +527,10 @@ let main () =
     error (f_"the specified base path is not the diskimage-builder library");
 
   (* Check for required tools. *)
+  let python =
+    match cmdline.python with
+    | None -> get_required_tool "python"
+    | Some exe -> exe in
   require_tool "uuidgen";
   Output_format.check_formats_prerequisites cmdline.formats;
   if cmdline.checksum then
@@ -654,6 +661,7 @@ let main () =
                    ~network:cmdline.network ~debug
                    ~fs_type:cmdline.fs_type
                    ~checksum:cmdline.checksum
+                   ~python
                    tmpdir cmdline.basepath
                    (auxtmpdir // "fake-bin")
                    loaded_elements all_elements cmdline.element_paths;
