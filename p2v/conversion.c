@@ -49,52 +49,16 @@
 
 #include <pthread.h>
 
-#include <glib.h>
-
-#include <libxml/xmlwriter.h>
-
 #include "ignore-value.h"
 #include "getprogname.h"
 
 #include "miniexpect.h"
 #include "p2v.h"
 
-#ifndef HAVE_XMLBUFFERDETACH
-/* Added in libxml2 2.8.0.  This is mostly a copy of the function from
- * upstream libxml2, which is under a more permissive license.
- */
-static xmlChar *
-xmlBufferDetach (xmlBufferPtr buf)
-{
-  xmlChar *ret;
-
-  if (buf == NULL)
-    return NULL;
-  if (buf->alloc == XML_BUFFER_ALLOC_IMMUTABLE)
-    return NULL;
-
-  ret = buf->content;
-  buf->content = NULL;
-  buf->size = 0;
-  buf->use = 0;
-
-  return ret;
-}
-#endif
-
-/* Data per NBD connection / physical disk. */
-struct data_conn {
-  mexp_h *h;                /* miniexpect handle to ssh */
-  pid_t nbd_pid;            /* NBD server PID */
-  int nbd_remote_port;      /* remote NBD port on conversion server */
-};
-
 static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static void generate_name (struct config *, const char *filename);
-static void generate_libvirt_xml (struct config *, struct data_conn *, const char *filename);
 static void generate_wrapper_script (struct config *, const char *remote_dir, const char *filename);
 static void generate_system_data (const char *dmesg_file, const char *lscpu_file, const char *lspci_file, const char *lsscsi_file, const char *lsusb_file);
-static const char *map_interface_to_network (struct config *, const char *interface);
 static void print_quoted (FILE *fp, const char *s);
 
 static char *conversion_error;
@@ -199,7 +163,7 @@ start_conversion (struct config *config,
   CLEANUP_FREE char *remote_dir = NULL;
   char tmpdir[]           = "/tmp/p2v.XXXXXX";
   char name_file[]        = "/tmp/p2v.XXXXXX/name";
-  char libvirt_xml_file[] = "/tmp/p2v.XXXXXX/physical.xml";
+  char physical_xml_file[] = "/tmp/p2v.XXXXXX/physical.xml";
   char wrapper_script[]   = "/tmp/p2v.XXXXXX/virt-v2v-wrapper.sh";
   char dmesg_file[]       = "/tmp/p2v.XXXXXX/dmesg";
   char lscpu_file[]       = "/tmp/p2v.XXXXXX/lscpu";
@@ -335,7 +299,7 @@ start_conversion (struct config *config,
     exit (EXIT_FAILURE);
   }
   memcpy (name_file, tmpdir, strlen (tmpdir));
-  memcpy (libvirt_xml_file, tmpdir, strlen (tmpdir));
+  memcpy (physical_xml_file, tmpdir, strlen (tmpdir));
   memcpy (wrapper_script, tmpdir, strlen (tmpdir));
   memcpy (dmesg_file, tmpdir, strlen (tmpdir));
   memcpy (lscpu_file, tmpdir, strlen (tmpdir));
@@ -345,7 +309,7 @@ start_conversion (struct config *config,
 
   /* Generate the static files. */
   generate_name (config, name_file);
-  generate_libvirt_xml (config, data_conns, libvirt_xml_file);
+  generate_physical_xml (config, data_conns, physical_xml_file);
   generate_wrapper_script (config, remote_dir, wrapper_script);
   generate_system_data (dmesg_file,
                         lscpu_file, lspci_file, lsscsi_file, lsusb_file);
@@ -367,9 +331,9 @@ start_conversion (struct config *config,
                           name_file, remote_dir, get_ssh_error ());
     goto out;
   }
-  if (scp_file (config, libvirt_xml_file, remote_dir) == -1) {
+  if (scp_file (config, physical_xml_file, remote_dir) == -1) {
     set_conversion_error ("scp: %s to %s: %s",
-                          libvirt_xml_file, remote_dir, get_ssh_error ());
+                          physical_xml_file, remote_dir, get_ssh_error ());
     goto out;
   }
   if (scp_file (config, wrapper_script, remote_dir) == -1) {
@@ -495,316 +459,6 @@ cleanup_data_conns (struct data_conn *data_conns, size_t nr)
       waitpid (data_conns[i].nbd_pid, NULL, 0);
     }
   }
-}
-
-/* Macros "inspired" by lib/launch-libvirt.c */
-/* <element */
-#define start_element(element)						\
-  if (xmlTextWriterStartElement (xo, BAD_CAST (element)) == -1)         \
-    error (EXIT_FAILURE, errno, "xmlTextWriterStartElement");		\
-  do
-
-/* finish current </element> */
-#define end_element()						\
-  while (0);							\
-  do {								\
-    if (xmlTextWriterEndElement (xo) == -1)			\
-      error (EXIT_FAILURE, errno, "xmlTextWriterEndElement");	\
-  } while (0)
-
-/* <element/> */
-#define empty_element(element)					\
-  do { start_element(element) {} end_element (); } while (0)
-
-/* key=value attribute of the current element. */
-#define attribute(key,value)                                            \
-  do {                                                                  \
-    if (xmlTextWriterWriteAttribute (xo, BAD_CAST (key), BAD_CAST (value)) == -1) \
-    error (EXIT_FAILURE, errno, "xmlTextWriterWriteAttribute");         \
-  } while (0)
-
-/* key=value, but value is a printf-style format string. */
-#define attribute_format(key,fs,...)                                    \
-  do {                                                                  \
-    if (xmlTextWriterWriteFormatAttribute (xo, BAD_CAST (key),          \
-                                           fs, ##__VA_ARGS__) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatAttribute"); \
-  } while (0)
-
-/* A string, eg. within an element. */
-#define string(str)                                             \
-  do {                                                          \
-    if (xmlTextWriterWriteString (xo, BAD_CAST (str)) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteString");	\
-  } while (0)
-
-/* A string, using printf-style formatting. */
-#define string_format(fs,...)                                           \
-  do {                                                                  \
-    if (xmlTextWriterWriteFormatString (xo, fs, ##__VA_ARGS__) == -1)   \
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatString");    \
-  } while (0)
-
-/* An XML comment. */
-#define comment(str)						\
-  do {                                                          \
-    if (xmlTextWriterWriteComment (xo, BAD_CAST (str)) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteComment");	\
-  } while (0)
-
-/**
- * Write the libvirt XML for this physical machine.
- *
- * Note this is not actually input for libvirt.  It's input for
- * virt-v2v on the conversion server.  Virt-v2v will (if necessary)
- * generate the final libvirt XML.
- */
-static void
-generate_libvirt_xml (struct config *config, struct data_conn *data_conns,
-                      const char *filename)
-{
-  uint64_t memkb;
-  CLEANUP_XMLFREETEXTWRITER xmlTextWriterPtr xo = NULL;
-  size_t i;
-
-  xo = xmlNewTextWriterFilename (filename, 0);
-  if (xo == NULL)
-    error (EXIT_FAILURE, errno, "xmlNewTextWriterFilename");
-
-  if (xmlTextWriterSetIndent (xo, 1) == -1 ||
-      xmlTextWriterSetIndentString (xo, BAD_CAST "  ") == -1)
-    error (EXIT_FAILURE, errno, "could not set XML indent");
-  if (xmlTextWriterStartDocument (xo, NULL, NULL, NULL) == -1)
-    error (EXIT_FAILURE, errno, "xmlTextWriterStartDocument");
-
-  memkb = config->memory / 1024;
-
-  comment
-    (" NOTE!\n"
-     "\n"
-     "  This libvirt XML is generated by the virt-p2v front end, in\n"
-     "  order to communicate with the backend virt-v2v process running\n"
-     "  on the conversion server.  It is a minimal description of the\n"
-     "  physical machine.  If the target of the conversion is libvirt,\n"
-     "  then virt-v2v will generate the real target libvirt XML, which\n"
-     "  has only a little to do with the XML in this file.\n"
-     "\n"
-     "  TL;DR: Don't try to load this XML into libvirt. ");
-
-  start_element ("domain") {
-    attribute ("type", "physical");
-
-    start_element ("name") {
-      string (config->guestname);
-    } end_element ();
-
-    start_element ("memory") {
-      attribute ("unit", "KiB");
-      string_format ("%" PRIu64, memkb);
-    } end_element ();
-
-    start_element ("currentMemory") {
-      attribute ("unit", "KiB");
-      string_format ("%" PRIu64, memkb);
-    } end_element ();
-
-    start_element ("vcpu") {
-      string_format ("%d", config->vcpus);
-    } end_element ();
-
-    if (config->cpu.vendor || config->cpu.model ||
-        config->cpu.sockets || config->cpu.cores || config->cpu.threads) {
-      /* https://libvirt.org/formatdomain.html#elementsCPU */
-      start_element ("cpu") {
-        attribute ("match", "minimum");
-        if (config->cpu.vendor) {
-          start_element ("vendor") {
-            string (config->cpu.vendor);
-          } end_element ();
-        }
-        if (config->cpu.model) {
-          start_element ("model") {
-            attribute ("fallback", "allow");
-            string (config->cpu.model);
-          } end_element ();
-        }
-        if (config->cpu.sockets || config->cpu.cores || config->cpu.threads) {
-          start_element ("topology") {
-            if (config->cpu.sockets)
-              attribute_format ("sockets", "%u", config->cpu.sockets);
-            if (config->cpu.cores)
-              attribute_format ("cores", "%u", config->cpu.cores);
-            if (config->cpu.threads)
-              attribute_format ("threads", "%u", config->cpu.threads);
-          } end_element ();
-        }
-      } end_element ();
-    }
-
-    switch (config->rtc.basis) {
-    case BASIS_UNKNOWN:
-      /* Don't emit any <clock> element. */
-      break;
-    case BASIS_UTC:
-      start_element ("clock") {
-        if (config->rtc.offset == 0)
-          attribute ("offset", "utc");
-        else {
-          attribute ("offset", "variable");
-          attribute ("basis", "utc");
-          attribute_format ("adjustment", "%d", config->rtc.offset);
-        }
-      } end_element ();
-      break;
-    case BASIS_LOCALTIME:
-      start_element ("clock") {
-        attribute ("offset", "localtime");
-        /* config->rtc.offset is always 0 in this case */
-      } end_element ();
-      break;
-    }
-
-    start_element ("os") {
-      start_element ("type") {
-        attribute ("arch", host_cpu);
-        string ("hvm");
-      } end_element ();
-    } end_element ();
-
-    start_element ("features") {
-      if (config->cpu.acpi) empty_element ("acpi");
-      if (config->cpu.apic) empty_element ("apic");
-      if (config->cpu.pae)  empty_element ("pae");
-    } end_element ();
-
-    start_element ("devices") {
-
-      for (i = 0; config->disks[i] != NULL; ++i) {
-        char target_dev[64];
-
-        if (config->disks[i][0] == '/') {
-        target_sd:
-          memcpy (target_dev, "sd", 2);
-          guestfs_int_drive_name (i, &target_dev[2]);
-        } else {
-          if (strlen (config->disks[i]) <= sizeof (target_dev) - 1)
-            strcpy (target_dev, config->disks[i]);
-          else
-            goto target_sd;
-        }
-
-        start_element ("disk") {
-          attribute ("type", "network");
-          attribute ("device", "disk");
-          start_element ("driver") {
-            attribute ("name", "qemu");
-            attribute ("type", "raw");
-          } end_element ();
-          start_element ("source") {
-            attribute ("protocol", "nbd");
-            start_element ("host") {
-              attribute ("name", "localhost");
-              attribute_format ("port", "%d", data_conns[i].nbd_remote_port);
-            } end_element ();
-          } end_element ();
-          start_element ("target") {
-            attribute ("dev", target_dev);
-            /* XXX Need to set bus to "ide" or "scsi" here. */
-          } end_element ();
-        } end_element ();
-      }
-
-      if (config->removable) {
-        for (i = 0; config->removable[i] != NULL; ++i) {
-          start_element ("disk") {
-            attribute ("type", "network");
-            attribute ("device", "cdrom");
-            start_element ("driver") {
-              attribute ("name", "qemu");
-              attribute ("type", "raw");
-            } end_element ();
-            start_element ("target") {
-              attribute ("dev", config->removable[i]);
-            } end_element ();
-          } end_element ();
-        }
-      }
-
-      if (config->interfaces) {
-        for (i = 0; config->interfaces[i] != NULL; ++i) {
-          const char *target_network;
-          CLEANUP_FREE char *mac_filename = NULL;
-          CLEANUP_FREE char *mac = NULL;
-
-          target_network =
-            map_interface_to_network (config, config->interfaces[i]);
-
-          if (asprintf (&mac_filename, "/sys/class/net/%s/address",
-                        config->interfaces[i]) == -1)
-            error (EXIT_FAILURE, errno, "asprintf");
-          if (g_file_get_contents (mac_filename, &mac, NULL, NULL)) {
-            const size_t len = strlen (mac);
-
-            if (len > 0 && mac[len-1] == '\n')
-              mac[len-1] = '\0';
-          }
-
-          start_element ("interface") {
-            attribute ("type", "network");
-            start_element ("source") {
-              attribute ("network", target_network);
-            } end_element ();
-            start_element ("target") {
-              attribute ("dev", config->interfaces[i]);
-            } end_element ();
-            if (mac) {
-              start_element ("mac") {
-                attribute ("address", mac);
-              } end_element ();
-            }
-          } end_element ();
-        }
-      }
-
-    } end_element (); /* </devices> */
-
-  } end_element (); /* </domain> */
-
-  if (xmlTextWriterEndDocument (xo) == -1)
-    error (EXIT_FAILURE, errno, "xmlTextWriterEndDocument");
-}
-
-/**
- * Using C<config-E<gt>network_map>, map the interface to a target
- * network name.  If no map is found, return C<default>.  See
- * L<virt-p2v(1)> documentation of C<"p2v.network"> for how the
- * network map works.
- *
- * Note this returns a static string which is only valid as long as
- * C<config-E<gt>network_map> is not freed.
- */
-static const char *
-map_interface_to_network (struct config *config, const char *interface)
-{
-  size_t i, len;
-
-  if (config->network_map == NULL)
-    return "default";
-
-  for (i = 0; config->network_map[i] != NULL; ++i) {
-    /* The default map maps everything. */
-    if (strchr (config->network_map[i], ':') == NULL)
-      return config->network_map[i];
-
-    /* interface: ? */
-    len = strlen (interface);
-    if (STRPREFIX (config->network_map[i], interface) &&
-        config->network_map[i][len] == ':')
-      return &config->network_map[i][len+1];
-  }
-
-  /* No mapping found. */
-  return "default";
 }
 
 /**

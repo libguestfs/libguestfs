@@ -84,6 +84,7 @@ virt_p2v_SOURCES = \
 	main.c \
 	nbd.c \
 	p2v.h \
+	physical-xml.c \
 	rtc.c \
 	ssh.c \
 	utils.c \

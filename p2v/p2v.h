@@ -136,6 +136,12 @@ extern void kernel_conversion (struct config *, char **cmdline, int cmdline_sour
 extern void gui_conversion (struct config *);
 
 /* conversion.c */
+struct data_conn {          /* Data per NBD connection / physical disk. */
+  mexp_h *h;                /* miniexpect handle to ssh */
+  pid_t nbd_pid;            /* NBD server PID */
+  int nbd_remote_port;      /* remote NBD port on conversion server */
+};
+
 extern int start_conversion (struct config *, void (*notify_ui) (int type, const char *data));
 #define NOTIFY_LOG_DIR        1  /* location of remote log directory */
 #define NOTIFY_REMOTE_MESSAGE 2  /* log message from remote virt-v2v */
@@ -143,6 +149,9 @@ extern int start_conversion (struct config *, void (*notify_ui) (int type, const
 extern const char *get_conversion_error (void);
 extern void cancel_conversion (void);
 extern int conversion_is_running (void);
+
+/* physical-xml.c */
+extern void generate_physical_xml (struct config *, struct data_conn *, const char *filename);
 
 /* inhibit.c */
 extern int inhibit_power_saving (void);
