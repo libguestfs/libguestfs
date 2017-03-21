@@ -785,7 +785,7 @@ create_conversion_dialog (struct config *config)
   table_attach (output_tbl, o_combo,
                 1, 2, 0, 1, GTK_FILL, GTK_FILL, 1, 1);
 
-  oc_label = gtk_label_new_with_mnemonic (_("Output _conn. (-oc):"));
+  oc_label = gtk_label_new_with_mnemonic (_("_Output conn. (-oc):"));
   table_attach (output_tbl, oc_label,
                 0, 1, 1, 2, GTK_FILL, GTK_FILL, 1, 1);
   set_alignment (oc_label, 1., 0.5);
@@ -908,7 +908,7 @@ create_conversion_dialog (struct config *config)
   /* Buttons. */
   gtk_dialog_add_buttons (GTK_DIALOG (conv_dlg),
                           _("_Back"), 1,
-                          _("_Start conversion"), 2,
+                          _("Start _conversion"), 2,
                           NULL);
   back = gtk_dialog_get_widget_for_response (GTK_DIALOG (conv_dlg), 1);
   start_button = gtk_dialog_get_widget_for_response (GTK_DIALOG (conv_dlg), 2);
