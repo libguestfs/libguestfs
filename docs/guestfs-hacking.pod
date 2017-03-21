@@ -958,7 +958,9 @@ machine.  To do that, do:
 
 This also runs qemu with the "physical machine" disk (which you can
 set by setting C<PHYSICAL_MACHINE>), a virtual CD, and a variety of
-network cards for testing.
+network cards for testing.  You can change the qemu binary and add
+extra qemu options by setting C<QEMU> and/or C<QEMU_OPTIONS> on the
+make commandline.
 
 A third way to run virt-p2v simulates fairly accurately the program
 being downloaded over PXE and then doing an automatic conversion of
