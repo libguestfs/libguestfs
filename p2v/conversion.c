@@ -641,6 +641,29 @@ generate_libvirt_xml (struct config *config, struct data_conn *data_conns,
       } end_element ();
     }
 
+    switch (config->rtc.basis) {
+    case BASIS_UNKNOWN:
+      /* Don't emit any <clock> element. */
+      break;
+    case BASIS_UTC:
+      start_element ("clock") {
+        if (config->rtc.offset == 0)
+          attribute ("offset", "utc");
+        else {
+          attribute ("offset", "variable");
+          attribute ("basis", "utc");
+          attribute_format ("adjustment", "%d", config->rtc.offset);
+        }
+      } end_element ();
+      break;
+    case BASIS_LOCALTIME:
+      start_element ("clock") {
+        attribute ("offset", "localtime");
+        /* config->rtc.offset is always 0 in this case */
+      } end_element ();
+      break;
+    }
+
     start_element ("os") {
       start_element ("type") {
         attribute ("arch", host_cpu);

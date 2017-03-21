@@ -71,6 +71,15 @@ struct cpu_config {
   bool pae;
 };
 
+struct rtc_config {
+  enum {
+    BASIS_UNKNOWN,              /* RTC could not be read. */
+    BASIS_UTC,                  /* RTC is either UTC or an offset from UTC. */
+    BASIS_LOCALTIME,            /* RTC is localtime. */
+  } basis;
+  int offset;                   /* RTC seconds offset from basis. */
+};
+
 struct config {
   char *server;
   int port;
@@ -84,6 +93,7 @@ struct config {
   int vcpus;
   uint64_t memory;
   struct cpu_config cpu;
+  struct rtc_config rtc;
   char **disks;
   char **removable;
   char **interfaces;
@@ -106,6 +116,9 @@ extern void print_config (struct config *, FILE *);
 
 /* cpuid.c */
 extern void get_cpu_config (struct cpu_config *);
+
+/* rtc.c */
+extern void get_rtc_config (struct rtc_config *);
 
 /* kernel-cmdline.c */
 extern char **parse_cmdline_string (const char *cmdline);

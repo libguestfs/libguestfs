@@ -43,6 +43,7 @@ AC_CHECK_HEADERS([\
     errno.h \
     linux/fs.h \
     linux/raid/md_u.h \
+    linux/rtc.h \
     printf.h \
     sys/inotify.h \
     sys/resource.h \

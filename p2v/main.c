@@ -340,6 +340,7 @@ set_config_defaults (struct config *config)
   config->memory++;
 
   get_cpu_config (&config->cpu);
+  get_rtc_config (&config->rtc);
 
   /* Find all block devices in the system. */
   if (!test_disk)

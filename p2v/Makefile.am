@@ -84,6 +84,7 @@ virt_p2v_SOURCES = \
 	main.c \
 	nbd.c \
 	p2v.h \
+	rtc.c \
 	ssh.c \
 	utils.c \
 	whole-file.c
@@ -112,7 +113,8 @@ virt_p2v_LDADD = \
 	$(LIBXML2_LIBS) \
 	$(GTK_LIBS) \
 	$(DBUS_LIBS) \
-	../gnulib/lib/libgnu.la
+	../gnulib/lib/libgnu.la \
+	-lm
 
 # Scripts to build the disk image, USB key, or kickstart.
 bin_SCRIPTS = virt-p2v-make-disk virt-p2v-make-kickstart virt-p2v-make-kiwi
