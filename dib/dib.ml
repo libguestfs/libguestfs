@@ -78,6 +78,12 @@ let prepare_external ~envvars ~dib_args ~dib_vars ~out_name ~root_label
   destdir libdir fakebindir loaded_elements all_elements element_paths =
   let network_string = if network then "" else "1" in
   let checksum_string = if checksum then "1" else "" in
+  let elements_paths_yaml =
+    List.map (
+      fun e ->
+        sprintf "%s: %s" e (quote (Hashtbl.find loaded_elements e).directory)
+    ) (StringSet.elements all_elements) in
+  let elements_paths_yaml = String.concat ", " elements_paths_yaml in
   let elements_paths_array =
     List.map (
       fun e ->
@@ -164,11 +170,13 @@ $target_dir/$script
     python in
   write_script (destdir // "run-part-extra.sh") run_extra;
   let elinfo_out = sprintf "\
+export IMAGE_ELEMENT_YAML=\"{%s}\"
 function get_image_element_array {
   echo \"%s\"
 };
 export -f get_image_element_array;
 "
+    elements_paths_yaml
     elements_paths_array in
   write_script (destdir // "elinfo_out") elinfo_out
 
