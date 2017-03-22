@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libintl.h>
+#include <inttypes.h>
 
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
@@ -432,10 +434,58 @@ check_w2k3_installer_root (guestfs_h *g, struct inspect_fs *fs,
   return 0;
 }
 
+/* Read the data from a product.id-like file.
+ *
+ * This is an old file, mostly used in Mandriva-based systems (still including
+ * Mageia).  A very minimal documentation for it is:
+ * - https://wiki.mageia.org/en/Product_id
+ * - http://wiki.mandriva.com/en/Product_id (old URL, defunct)
+ */
+static int
+check_product_id_installer_root (guestfs_h *g, struct inspect_fs *fs,
+                                 const char *filename)
+{
+  CLEANUP_FREE char *line = NULL;
+  const char *elem;
+  char *saveptr;
+
+  fs->type = OS_TYPE_LINUX;
+
+  line = guestfs_int_first_line_of_file (g, filename);
+  if (line == NULL)
+    return -1;
+
+  elem = strtok_r (line, ",", &saveptr);
+  while (elem) {
+    const char *equal = strchr (elem, '=');
+    if (equal == NULL || equal == elem)
+      return -1;
+
+    const char *value = equal + 1;
+
+    if (STRPREFIX (elem, "distribution=")) {
+      if (STREQ (value, "Mageia"))
+        fs->distro = OS_DISTRO_MAGEIA;
+    } else if (STRPREFIX (elem, "version=")) {
+      if (guestfs_int_version_from_x_y_or_x (g, &fs->version, value) == -1)
+        return -1;
+    } else if (STRPREFIX (elem, "arch=")) {
+      fs->arch = safe_strdup (g, value);
+    }
+
+    elem = strtok_r (NULL, ",", &saveptr);
+  }
+
+  /* Not found. */
+  return 0;
+}
+
 /* The currently mounted device is very likely to be an installer. */
 int
 guestfs_int_check_installer_root (guestfs_h *g, struct inspect_fs *fs)
 {
+  CLEANUP_FREE_STRING_LIST char **paths = NULL;
+
   /* The presence of certain files indicates a live CD.
    *
    * XXX Fedora netinst contains a ~120MB squashfs called
@@ -492,6 +542,18 @@ guestfs_int_check_installer_root (guestfs_h *g, struct inspect_fs *fs)
   else if (guestfs_is_file (g, "/i386/txtsetup.sif") > 0) {
     fs->arch = safe_strdup (g, "i386");
     if (check_w2k3_installer_root (g, fs, "/i386/txtsetup.sif") == -1)
+      return -1;
+  }
+
+  /* Linux with /{i586,x86_64,etc}/product.id (typically found in Mandriva
+   * and Mageia).  Usually there should be just one around, so we use the
+   * first one found.
+   */
+  paths = guestfs_glob_expand (g, "/*/product.id");
+  if (paths == NULL)
+    return -1;
+  if (paths[0] != NULL) {
+    if (check_product_id_installer_root (g, fs, paths[0]) == -1)
       return -1;
   }
 
