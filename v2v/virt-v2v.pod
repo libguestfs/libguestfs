@@ -1376,9 +1376,10 @@ below for a workaround.
 
 To import a particular guest from a Xen server, do:
 
- $ virt-v2v -ic 'xen+ssh://root@xen.example.com' \
-   rhel49-x86_64-pv \
-   -o local -os /var/tmp
+ $ LIBGUESTFS_BACKEND=direct \
+       virt-v2v -ic 'xen+ssh://root@xen.example.com' \
+           rhel49-x86_64-pv \
+           -o local -os /var/tmp
 
 where C<rhel49-x86_64-pv> is the name of the guest (which must be shut
 down).
@@ -1386,6 +1387,10 @@ down).
 In this case the output flags are set to write the converted guest to
 a temporary directory as this is just an example, but you can also
 write to libvirt or any other supported target.
+
+Setting the L<backend|guestfs(3)/BACKEND> to C<direct> is a temporary
+workaround until
+L<libvirt bug 1140166|https://bugzilla.redhat.com/1140166> is fixed.
 
 =head2 XEN OR SSH CONVERSIONS FROM BLOCK DEVICES
 
