@@ -38,6 +38,9 @@ object
     debug "input_libvirt_xen_ssh: source: scheme %s server %s"
           scheme server;
 
+    if backend_is_libvirt () then (
+      error (f_"because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this environment variable:\n\nexport LIBGUESTFS_BACKEND=direct\n\nand then rerun the virt-v2v command.")
+    );
     error_if_libvirt_does_not_support_json_backingfile ();
     error_if_no_ssh_agent ();
 
