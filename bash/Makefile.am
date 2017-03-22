@@ -22,7 +22,8 @@ scripts = \
 	guestmount \
 	virt-alignment-scan \
 	virt-rescue \
-	virt-v2v
+	virt-v2v \
+	virt-v2v-copy-to-local
 
 # Some of the scripts are simply symbolic links.
 symlinks = \

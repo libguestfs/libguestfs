@@ -1,0 +1,42 @@
+# virt-v2v-copy-to-local bash completion script -*- shell-script -*-
+# Copyright (C) 2014-2017 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+_virt_v2v_copy_to_local ()
+{
+    local cur prev words cword split
+    local shortopts longopts items
+
+    _init_completion -s || return
+
+    case "$cur" in
+        --*)
+            # --options
+            longopts="$(virt-v2v-copy-to-local --long-options)"
+            COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
+            return ;;
+        -*)
+            # -o and --options
+            shortopts="$(virt-v2v-copy-to-local --short-options)"
+            longopts="$(virt-v2v-copy-to-local --long-options)"
+            COMPREPLY=( $(compgen -W "$shortopts $longopts" -- "$cur") )
+            return ;;
+        *)
+            COMPREPLY=( $(compgen "$cur") )
+            return ;;
+    esac
+} &&
+complete -o default -F _virt_v2v_copy_to_local virt-v2v-copy-to-local
