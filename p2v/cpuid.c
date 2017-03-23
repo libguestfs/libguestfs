@@ -17,20 +17,17 @@
  */
 
 /**
- * Process CPU capabilities into libvirt-compatible C<E<lt>cpuE<gt>> data.
+ * Find CPU vendor, topology and some CPU flags.
  *
- * If libvirt is available at compile time then this is quite
- * simple - libvirt API C<virConnectGetCapabilities> provides
- * a C<E<lt>hostE<ge>> element which has mostly what we need.
+ * lscpu (from util-linux) provides CPU vendor, topology and flags.
  *
- * Flags C<acpi>, C<apic>, C<pae> still have to be parsed out of
- * F</proc/cpuinfo> because these will not necessarily be present in
- * the libvirt capabilities directly (they are implied by the
- * processor model, requiring a complex lookup in the CPU map).
+ * ACPI can be read by seeing if F</sys/firmware/acpi> exists.
+ *
+ * CPU model is essentially impossible to get without using libvirt,
+ * but we cannot use libvirt for the reasons outlined in this message:
+ * https://www.redhat.com/archives/libvirt-users/2017-March/msg00071.html
  *
  * Note that #vCPUs and amount of RAM is handled by F<main.c>.
- *
- * See: L<https://libvirt.org/formatdomain.html#elementsCPU>
  */
 
 #include <config.h>
@@ -40,15 +37,10 @@
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h>
+#include <error.h>
 #include <libintl.h>
 
-#ifdef HAVE_LIBVIRT
-#include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
-#endif
-
-#include <libxml/xpath.h>
-
+#include "c-ctype.h"
 #include "getprogname.h"
 #include "ignore-value.h"
 
@@ -65,235 +57,166 @@ free_cpu_config (struct cpu_config *cpu)
 }
 
 /**
- * Read flags from F</proc/cpuinfo>.
+ * Get the output of lscpu as a list of (key, value) pairs (as a
+ * flattened list of strings).
  */
-static void
-cpuinfo_flags (struct cpu_config *cpu)
+static char **
+get_lscpu (void)
 {
   const char *cmd;
   CLEANUP_PCLOSE FILE *fp = NULL;
-  CLEANUP_FREE char *flag = NULL;
+  CLEANUP_FREE char *line = NULL;
   ssize_t len;
   size_t buflen = 0;
+  char **ret = NULL;
+  size_t ret_size = 0;
 
-  /* Get the flags, one per line. */
-  cmd = "< /proc/cpuinfo "
-#if defined(__arm__)
-    "grep ^Features"
-#else
-    "grep ^flags"
-#endif
-    " | awk '{ for (i = 3; i <= NF; ++i) { print $i }; exit }'";
+  cmd = "lscpu";
 
   fp = popen (cmd, "re");
   if (fp == NULL) {
-    perror ("/proc/cpuinfo");
-    return;
+    perror (cmd);
+    return NULL;
   }
 
-  while (errno = 0, (len = getline (&flag, &buflen, fp)) != -1) {
-    if (len > 0 && flag[len-1] == '\n')
-      flag[len-1] = '\0';
+  ret = malloc (sizeof (char *));
+  if (ret == NULL) error (EXIT_FAILURE, errno, "malloc");
+  ret[0] = NULL;
 
-    if (STREQ (flag, "acpi"))
-      cpu->acpi = 1;
-    else if (STREQ (flag, "apic"))
-      cpu->apic = 1;
-    else if (STREQ (flag, "pae"))
-      cpu->pae = 1;
+  while (errno = 0, (len = getline (&line, &buflen, fp)) != -1) {
+    char *p;
+    char *key, *value;
+
+    if (len > 0 && line[len-1] == '\n')
+      line[len-1] = '\0';
+
+    /* Split the line at the first ':' character. */
+    p = strchr (line, ':');
+    if (p == NULL)
+      continue;
+
+    *p = '\0';
+    key = strdup (line);
+    /* Skip leading whitespace in the value. */
+    for (++p; *p && c_isspace (*p); ++p)
+      ;
+    value = strdup (p);
+
+    /* Add key and value to the list, and trailing NULL pointer. */
+    ret_size += 2;
+    ret = realloc (ret, (ret_size + 1) * sizeof (char *));
+    if (ret == NULL) error (EXIT_FAILURE, errno, "realloc");
+    ret[ret_size-2] = key;
+    ret[ret_size-1] = value;
+    ret[ret_size] = NULL;
   }
 
   if (errno) {
-    perror ("getline");
-    return;
+    perror (cmd);
+    guestfs_int_free_string_list (ret);
+    return NULL;
   }
-}
 
-#ifdef HAVE_LIBVIRT
-
-static void
-ignore_errors (void *ignore, virErrorPtr ignore2)
-{
-  /* empty */
-}
-
-static void libvirt_error (const char *fs, ...) __attribute__((format (printf,1,2)));
-
-static void
-libvirt_error (const char *fs, ...)
-{
-  va_list args;
-  CLEANUP_FREE char *msg = NULL;
-  int len;
-  virErrorPtr err;
-
-  va_start (args, fs);
-  len = vasprintf (&msg, fs, args);
-  va_end (args);
-
-  if (len < 0) goto fallback;
-
-  /* In all recent libvirt, this retrieves the thread-local error. */
-  err = virGetLastError ();
-  if (err)
-    fprintf (stderr,
-             "%s: %s: %s [code=%d int1=%d]\n",
-             getprogname (), msg, err->message, err->code, err->int1);
-  else
-  fallback:
-    fprintf (stderr, "%s: %s\n", getprogname (), msg);
+  return ret;
 }
 
 /**
- * Read the capabilities from libvirt and parse out the fields
- * we care about.
+ * Read a single field from lscpu output.
+ *
+ * If the field does not exist, returns C<NULL>.
+ */
+static const char *
+get_field (char **lscpu, const char *key)
+{
+  size_t i;
+
+  for (i = 0; lscpu[i] != NULL; i += 2) {
+    if (STREQ (lscpu[i], key))
+      return lscpu[i+1];
+  }
+
+  return NULL;
+}
+
+/**
+ * Read the CPU vendor from lscpu output.
  */
 static void
-libvirt_capabilities (struct cpu_config *cpu)
+get_vendor (char **lscpu, struct cpu_config *cpu)
 {
-  virConnectPtr conn;
-  CLEANUP_FREE char *capabilities_xml = NULL;
-  CLEANUP_XMLFREEDOC xmlDocPtr doc = NULL;
-  CLEANUP_XMLXPATHFREECONTEXT xmlXPathContextPtr xpathCtx = NULL;
-  CLEANUP_XMLXPATHFREEOBJECT xmlXPathObjectPtr xpathObj = NULL;
-  const char *xpathexpr;
-  xmlNodeSetPtr nodes;
-  size_t nr_nodes, i;
-  xmlNodePtr node;
+  const char *vendor = get_field (lscpu, "Vendor ID");
 
-  /* Connect to libvirt and get the capabilities XML. */
-  conn = virConnectOpenReadOnly (NULL);
-  if (!conn) {
-    libvirt_error (_("could not connect to libvirt"));
-    return;
+  if (vendor) {
+    /* Note this mapping comes from /usr/share/libvirt/cpu_map.xml */
+    if (STREQ (vendor, "GenuineIntel"))
+      cpu->vendor = strdup ("Intel");
+    else if (STREQ (vendor, "AuthenticAMD"))
+      cpu->vendor = strdup ("AMD");
+    /* Currently aarch64 lscpu has no Vendor ID XXX. */
   }
-
-  /* Suppress default behaviour of printing errors to stderr.  Note
-   * you can't set this to NULL to ignore errors; setting it to NULL
-   * restores the default error handler ...
-   */
-  virConnSetErrorFunc (conn, NULL, ignore_errors);
-
-  capabilities_xml = virConnectGetCapabilities (conn);
-  if (!capabilities_xml) {
-    libvirt_error (_("could not get libvirt capabilities"));
-    virConnectClose (conn);
-    return;
-  }
-
-  /* Parse the capabilities XML with libxml2. */
-  doc = xmlReadMemory (capabilities_xml, strlen (capabilities_xml),
-                       NULL, NULL, XML_PARSE_NONET);
-  if (doc == NULL) {
-    fprintf (stderr,
-             _("%s: unable to parse capabilities XML returned by libvirt\n"),
-             getprogname ());
-    virConnectClose (conn);
-    return;
-  }
-
-  xpathCtx = xmlXPathNewContext (doc);
-  if (xpathCtx == NULL) {
-    fprintf (stderr, _("%s: unable to create new XPath context\n"),
-             getprogname ());
-    virConnectClose (conn);
-    return;
-  }
-
-  /* Get the CPU vendor. */
-  xpathexpr = "/capabilities/host/cpu/vendor/text()";
-  xpathObj = xmlXPathEvalExpression (BAD_CAST xpathexpr, xpathCtx);
-  if (xpathObj == NULL) {
-    fprintf (stderr, _("%s: unable to evaluate xpath expression: %s\n"),
-             getprogname (), xpathexpr);
-    virConnectClose (conn);
-    return;
-  }
-  nodes = xpathObj->nodesetval;
-  nr_nodes = nodes->nodeNr;
-  if (nr_nodes > 0) {
-    node = nodes->nodeTab[0];
-    cpu->vendor = (char *) xmlNodeGetContent (node);
-  }
-
-  /* Get the CPU model. */
-  xmlXPathFreeObject (xpathObj);
-  xpathexpr = "/capabilities/host/cpu/model/text()";
-  xpathObj = xmlXPathEvalExpression (BAD_CAST xpathexpr, xpathCtx);
-  if (xpathObj == NULL) {
-    fprintf (stderr, _("%s: unable to evaluate xpath expression: %s\n"),
-             getprogname (), xpathexpr);
-    virConnectClose (conn);
-    return;
-  }
-  nodes = xpathObj->nodesetval;
-  nr_nodes = nodes->nodeNr;
-  if (nr_nodes > 0) {
-    node = nodes->nodeTab[0];
-    cpu->model = (char *) xmlNodeGetContent (node);
-  }
-
-  /* Get the topology.  Note the XPath expression returns all
-   * attributes of the <topology> node.
-   */
-  xmlXPathFreeObject (xpathObj);
-  xpathexpr = "/capabilities/host/cpu/topology/@*";
-  xpathObj = xmlXPathEvalExpression (BAD_CAST xpathexpr, xpathCtx);
-  if (xpathObj == NULL) {
-    fprintf (stderr, _("%s: unable to evaluate xpath expression: %s\n"),
-             getprogname (), xpathexpr);
-    virConnectClose (conn);
-    return;
-  }
-  nodes = xpathObj->nodesetval;
-  nr_nodes = nodes->nodeNr;
-  /* Iterate over the attributes of the <topology> node. */
-  for (i = 0; i < nr_nodes; ++i) {
-    node = nodes->nodeTab[i];
-
-    if (node->type == XML_ATTRIBUTE_NODE) {
-      xmlAttrPtr attr = (xmlAttrPtr) node;
-      CLEANUP_FREE char *content = NULL;
-      unsigned *up;
-
-      if (STREQ ((const char *) attr->name, "sockets")) {
-        up = &cpu->sockets;
-      parse_attr:
-        *up = 0;
-        content = (char *) xmlNodeListGetString (doc, attr->children, 1);
-        if (content)
-          ignore_value (sscanf (content, "%u", up));
-      }
-      else if (STREQ ((const char *) attr->name, "cores")) {
-        up = &cpu->cores;
-        goto parse_attr;
-      }
-      else if (STREQ ((const char *) attr->name, "threads")) {
-        up = &cpu->threads;
-        goto parse_attr;
-      }
-    }
-  }
-
-  virConnectClose (conn);
 }
 
-#else /* !HAVE_LIBVIRT */
-
+/**
+ * Read the CPU topology from lscpu output.
+ */
 static void
-libvirt_capabilities (struct cpu_config *cpu)
+get_topology (char **lscpu, struct cpu_config *cpu)
 {
-  fprintf (stderr,
-           _("%s: program was compiled without libvirt support\n"),
-           getprogname ());
+  const char *v;
+
+  v = get_field (lscpu, "Socket(s)");
+  if (v)
+    ignore_value (sscanf (v, "%u", &cpu->sockets));
+  v = get_field (lscpu, "Core(s) per socket");
+  if (v)
+    ignore_value (sscanf (v, "%u", &cpu->cores));
+  v = get_field (lscpu, "Thread(s) per core");
+  if (v)
+    ignore_value (sscanf (v, "%u", &cpu->threads));
 }
 
-#endif /* !HAVE_LIBVIRT */
+/**
+ * Read some important flags from lscpu output.
+ */
+static void
+get_flags (char **lscpu, struct cpu_config *cpu)
+{
+  const char *flags;
+
+  flags = get_field (lscpu, "Flags");
+  if (flags) {
+    cpu->apic = strstr (flags, " apic ") != NULL;
+    cpu->pae = strstr (flags, " pae ") != NULL;
+
+    /* aarch64 /proc/cpuinfo has a "Features" field, but lscpu does
+     * not expose it.  However aarch64 Features does not contain any
+     * of the interesting flags above.
+     */
+  }
+}
+
+/**
+ * Find out if the system uses ACPI.
+ */
+static void
+get_acpi (struct cpu_config *cpu)
+{
+  cpu->acpi = access ("/sys/firmware/acpi", F_OK) == 0;
+}
 
 void
 get_cpu_config (struct cpu_config *cpu)
 {
+  CLEANUP_FREE_STRING_LIST char **lscpu = NULL;
+
   free_cpu_config (cpu);
-  libvirt_capabilities (cpu);
-  cpuinfo_flags (cpu);
+
+  lscpu = get_lscpu ();
+  if (lscpu != NULL) {
+    get_vendor (lscpu, cpu);
+    get_topology (lscpu, cpu);
+    get_flags (lscpu, cpu);
+  }
+
+  get_acpi (cpu);
 }

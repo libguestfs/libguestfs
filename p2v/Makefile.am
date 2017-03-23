@@ -100,7 +100,6 @@ virt_p2v_CPPFLAGS = \
 virt_p2v_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(LIBVIRT_CFLAGS) \
 	$(PCRE_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(GTK_CFLAGS) \
@@ -109,7 +108,6 @@ virt_p2v_CFLAGS = \
 virt_p2v_LDADD = \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/common/miniexpect/libminiexpect.la \
-	$(LIBVIRT_LIBS) \
 	$(PCRE_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(GTK_LIBS) \
@@ -126,16 +124,9 @@ dependencies_files = \
 	dependencies.redhat \
 	dependencies.suse
 
-if HAVE_LIBVIRT
-dependencies_have_libvirt = -DHAVE_LIBVIRT=1
-endif
-
 $(dependencies_files): dependencies.m4
 	define=`echo $@ | $(SED) 's/dependencies.//;y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/'`; \
-	m4 -D$$define=1 \
-	   -DGTK_VERSION=$(GTK_VERSION) \
-	   $(dependencies_have_libvirt) \
-	   $< > $@-t
+	m4 -D$$define=1 -DGTK_VERSION=$(GTK_VERSION) $< > $@-t
 	mv $@-t $@
 
 # Support files needed by the virt-p2v-make-* scripts.

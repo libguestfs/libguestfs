@@ -25,8 +25,6 @@ ifelse(REDHAT,1,
   libxml2
   gtk`'GTK_VERSION
   dbus-libs
-  dnl libvirt is optional, used just to parse the host CPU capabilities.
-  ifdef(`HAVE_LIBVIRT', `libvirt-libs')
 
   dnl Run as external programs by the p2v binary.
   /usr/bin/ssh
@@ -66,7 +64,6 @@ ifelse(DEBIAN,1,
   libxml2
   ifelse(GTK_VERSION,2,libgtk`'GTK_VERSION`'.0-0,libgtk-`'GTK_VERSION`'-0)
   libdbus-1-3
-  ifdef(`HAVE_LIBVIRT', `libvirt0')
   openssh-client
   qemu-utils
   debianutils
@@ -87,7 +84,6 @@ ifelse(ARCHLINUX,1,
   libxml2
   gtk`'GTK_VERSION
   dbus
-  ifdef(`HAVE_LIBVIRT', `libvirt')
   openssh
   qemu
   which
@@ -110,7 +106,6 @@ ifelse(SUSE,1,
   libxml2
   gtk`'GTK_VERSION
   libdbus-1-3
-  ifdef(`HAVE_LIBVIRT', `libvirt-libs')
   qemu-tools
   openssh
   dnl /usr/bin/which is in util-linux on SUSE
