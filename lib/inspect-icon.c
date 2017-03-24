@@ -455,7 +455,7 @@ icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   return get_png (g, fs, VOIDLINUX_ICON, size_r, 20480);
 }
 
-#define ALTLINUX_ICON "/usr/share/icons/hicolor/64x64/apps/altlinux.png"
+#define ALTLINUX_ICON "/usr/share/icons/hicolor/48x48/apps/altlinux.png"
 
 static char *
 icon_altlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
