@@ -69,7 +69,8 @@ Virt-rescue can be used on I<any> disk image file or device, not just
 a virtual machine.  For example you can use it on a blank file if you
 want to partition that file (although we would recommend using
 L<guestfish(1)> instead as it is more suitable for this purpose).  You
-can even use virt-rescue on things like SD cards.
+can even use virt-rescue on things like USB drives, SD cards and hard
+disks.
 
 You can get virt-rescue to give you scratch disk(s) to play with.
 This is useful for testing out Linux utilities (see I<--scratch>).
