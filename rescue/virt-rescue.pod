@@ -35,9 +35,9 @@ For live VMs you I<must> use the I<--ro> option.
 When you run virt-rescue on a virtual machine or disk image, you are
 placed in an interactive bash shell where you can use many ordinary
 Linux commands.  What you see in F</> (F</bin>, F</lib> etc) is the
-rescue appliance.  You must mount the virtual machine's filesystems by
-hand.  There is an empty directory called F</sysroot> where you can
-mount filesystems.
+rescue appliance.  You must mount the virtual machine's filesystems.
+There is an empty directory called F</sysroot> where you can mount
+filesystems.
 
 To automatically mount the virtual machine's filesystems under
 F</sysroot> use the I<-i> option.  This uses libguestfs inspection to
