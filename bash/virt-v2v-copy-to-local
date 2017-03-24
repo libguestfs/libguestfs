@@ -15,28 +15,39 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-_virt_v2v_copy_to_local ()
+_guestfs_options_only ()
 {
     local cur prev words cword split
-    local shortopts longopts items
+    local shortopts longopts tool="$1"
 
     _init_completion -s || return
 
     case "$cur" in
         --*)
             # --options
-            longopts="$(virt-v2v-copy-to-local --long-options)"
+            longopts="$($tool --long-options)"
             COMPREPLY=( $(compgen -W "$longopts" -- "$cur") )
             return ;;
         -*)
             # -o and --options
-            shortopts="$(virt-v2v-copy-to-local --short-options)"
-            longopts="$(virt-v2v-copy-to-local --long-options)"
+            shortopts="$($tool --short-options)"
+            longopts="$($tool --long-options)"
             COMPREPLY=( $(compgen -W "$shortopts $longopts" -- "$cur") )
             return ;;
         *)
             COMPREPLY=( $(compgen "$cur") )
             return ;;
     esac
+}
+
+_virt_v2v_copy_to_local ()
+{
+    _guestfs_options_only "virt-v2v-copy-to-local"
 } &&
 complete -o default -F _virt_v2v_copy_to_local virt-v2v-copy-to-local
+
+_virt_win_reg ()
+{
+    _guestfs_options_only "virt-win-reg"
+} &&
+complete -o default -F _virt_win_reg virt-win-reg

@@ -73,6 +73,7 @@ Makefile.in
 /bash/virt-tail
 /bash/virt-tar-in
 /bash/virt-tar-out
+/bash/virt-win-reg
 /build-aux/.gitignore
 /build-aux/ar-lib
 /build-aux/compile

@@ -51,7 +51,8 @@ symlinks = \
 	virt-sysprep \
 	virt-tail \
 	virt-tar-in \
-	virt-tar-out
+	virt-tar-out \
+	virt-win-reg
 
 # Note: Don't distribute the symbolic links, only the real files.
 EXTRA_DIST = \
@@ -62,11 +63,17 @@ EXTRA_DIST = \
 CLEANFILES += \
 	$(symlinks)
 
-# Any tool that has --short-options and --long-options is handled by
-# this common script.  However this script cannot deal with commands
-# that use --ro/--rw (eg. virt-rescue), nor commands that have lots of
-# exceptions (eg. guestfish).  Those tools have to be handled
-# individually.
+# Any tool that has --short-options and --long-options only is handled
+# by this common script.
+virt-win-reg:
+	rm -f $@
+	$(LN_S) virt-v2v-copy-to-local $@
+
+# Any tool that has --short-options and --long-options and a few
+# common options like -d is handled by this common script.  However
+# this script cannot deal with commands that use --ro/--rw
+# (eg. virt-rescue), nor commands that have lots of exceptions
+# (eg. guestfish).  Those tools have to be handled individually.
 guestunmount \
 virt-builder virt-cat virt-customize virt-df virt-dib virt-diff \
 virt-edit virt-filesystems virt-format virt-get-kernel virt-inspector \

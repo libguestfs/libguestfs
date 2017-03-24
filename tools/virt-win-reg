@@ -221,7 +221,7 @@ passed into another program or stored in another Registry.
 
 =cut
 
-GetOptions ("help|?" => \$help,
+my %opts = ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
             "debug|d" => \$debug,
@@ -229,12 +229,30 @@ GetOptions ("help|?" => \$help,
             "merge" => \$merge,
             "encoding=s" => \$encoding,
             "unsafe-printable-strings" => \$unsafe_printable_strings,
-    ) or pod2usage (2);
+            "long-options" => \&display_long_options,
+            "short-options" => \&display_short_options);
+GetOptions (%opts) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
     my $g = Sys::Guestfs->new ();
     my %h = $g->version ();
     print "virt-win-reg $h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
+
+sub display_long_options
+{
+    foreach (sort keys %opts) {
+        if (m/^(.*?)([\|=].*)?$/ && !/-options$/) { print "--$1\n" }
+    }
+    exit
+}
+
+sub display_short_options
+{
+    foreach (sort keys %opts) {
+        if (m/\|(.)/) { print "-$1\n" }
+    }
     exit
 }
 
