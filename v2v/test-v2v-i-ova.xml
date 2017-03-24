@@ -5,13 +5,13 @@
   <memory unit='KiB'>2097152</memory>
   <currentMemory unit='KiB'>2097152</currentMemory>
   <vcpu>1</vcpu>
-  <os>
-    <type arch='x86_64'>hvm</type>
-  </os>
   <features>
     <acpi/>
     <apic/>
   </features>
+  <os>
+    <type arch='x86_64'>hvm</type>
+  </os>
   <on_poweroff>destroy</on_poweroff>
   <on_reboot>restart</on_reboot>
   <on_crash>restart</on_crash>
