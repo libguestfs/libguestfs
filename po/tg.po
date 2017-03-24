@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-03-07 15:53+0000\n"
+"POT-Creation-Date: 2017-03-24 11:48+0000\n"
 "PO-Revision-Date: 2015-02-21 10:53-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Tajik (http://www.transifex.com/projects/p/libguestfs/"
@@ -44,7 +44,7 @@ msgid ""
 "guest to partition this extra space if you want."
 msgstr ""
 
-#: ../v2v/input_ova.ml:377 ../mllib/common_utils.ml:580
+#: ../v2v/input_ova.ml:283 ../mllib/common_utils.ml:580
 msgid "%s"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:926
+#: ../v2v/convert_linux.ml:927
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -445,7 +445,7 @@ msgid ""
 "virt-resize only supports MBR (DOS) and GPT partition tables."
 msgstr ""
 
-#: ../v2v/input_ova.ml:145 ../v2v/input_ova.ml:142
+#: ../v2v/input_ova.ml:162 ../v2v/input_ova.ml:158
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -536,14 +536,6 @@ msgstr ""
 msgid "--list: use '--list-format', not '--format'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:350
-msgid "--no-copy and '-o glance' cannot be used at the same time"
-msgstr ""
-
-#: ../v2v/cmdline.ml:360
-msgid "--no-copy and '-o libvirt' cannot be used at the same time"
-msgstr ""
-
 #: ../builder/cmdline.ml:253
 msgid "--notes: too many parameters, expecting 'os-version'"
 msgstr ""
@@ -603,23 +595,11 @@ msgid "-B must be specified"
 msgstr ""
 
 #: ../v2v/cmdline.ml:339
-msgid "-o and --in-place cannot be used at the same time"
-msgstr ""
-
-#: ../v2v/cmdline.ml:348
-msgid "-o glance: --qemu-boot option cannot be used in this output mode"
+msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 
 #: ../v2v/cmdline.ml:344
-msgid "-o glance: -oc option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:346
-msgid "-o glance: -os option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:358
-msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
+msgid "-o and --in-place cannot be used at the same time"
 msgstr ""
 
 #: ../v2v/output_libvirt.ml:129
@@ -647,55 +627,31 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:372
-msgid "-o local: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:367
+#: ../v2v/cmdline.ml:374
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:381
-msgid "-o null: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:377
-msgid "-o null: -oc option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:379
-msgid "-o null: -os option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:388
+#: ../v2v/cmdline.ml:402
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:401
-msgid "-o rhv: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:398
+#: ../v2v/cmdline.ml:413
 msgid "-o rhv: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:411
-msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:415
+#: ../v2v/cmdline.ml:431
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:418
+#: ../v2v/cmdline.ml:434
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:408
+#: ../v2v/cmdline.ml:424
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:390 ../v2v/cmdline.ml:369
+#: ../v2v/cmdline.ml:404 ../v2v/cmdline.ml:376
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -1106,7 +1062,7 @@ msgstr ""
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:988
+#: ../dib/dib.ml:989
 msgid "Done"
 msgstr ""
 
@@ -1729,7 +1685,7 @@ msgstr ""
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/OVF.ml:433 ../v2v/OVF.ml:228
+#: ../v2v/OVF.ml:453 ../v2v/OVF.ml:248
 msgid "RHV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2439,7 +2395,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/OVF.ml:369
+#: ../v2v/OVF.ml:389
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest's display will not "
@@ -2654,6 +2610,16 @@ msgid ""
 "and then rerun the virt-v2v command."
 msgstr ""
 
+#: ../v2v/input_libvirt_xen_ssh.ml:42
+msgid ""
+"because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this "
+"environment variable:\n"
+"\n"
+"export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+"and then rerun the virt-v2v command."
+msgstr ""
+
 #: ../sparsify/cmdline.ml:76
 msgid "block|dir|prebuilt:file"
 msgstr ""
@@ -2756,7 +2722,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:210
+#: ../v2v/input_ova.ml:211
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2828,11 +2794,7 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr ""
 
-#: ../v2v/input_ova.ml:406
-msgid "could not parse disk rasd:HostResource from OVF document"
-msgstr ""
-
-#: ../v2v/input_ova.ml:248
+#: ../v2v/input_ova.ml:231
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2991,15 +2953,11 @@ msgstr ""
 msgid "error parsing URI '%s'. Look for error messages printed above."
 msgstr ""
 
-#: ../v2v/input_ova.ml:316
-msgid "error parsing disk fileRef"
-msgstr ""
-
-#: ../v2v/input_ova.ml:361
+#: ../v2v/input_ova.ml:267
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:126 ../v2v/input_ova.ml:63
+#: ../v2v/input_ova.ml:148 ../v2v/input_ova.ml:50
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -3029,15 +2987,15 @@ msgstr ""
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
-#: ../mllib/common_utils.ml:820 ../dib/dib.ml:975
+#: ../mllib/common_utils.ml:820 ../dib/dib.ml:976
 msgid "external command '%s' exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:978
+#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:979
 msgid "external command '%s' killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:981
+#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:982
 msgid "external command '%s' stopped by signal %d"
 msgstr ""
 
@@ -3066,7 +3024,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:376
+#: ../v2v/input_ova.ml:282
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3139,7 +3097,7 @@ msgid ""
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:133
+#: ../v2v/output_glance.ml:135
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
@@ -3227,8 +3185,7 @@ msgid ""
 "\n"
 "Assuming that you are running virt-v2v/virt-p2v on a source which is "
 "supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"happen.\n"
 "\n"
 "Inspection field '%s' was 'unknown'."
 msgstr ""
@@ -3239,8 +3196,7 @@ msgid ""
 "\n"
 "Assuming that you are running virt-v2v/virt-p2v on a source which is "
 "supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"happen.\n"
 "\n"
 "No root device found in this operating system image."
 msgstr ""
@@ -3357,7 +3313,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:156
+#: ../v2v/input_ova.ml:173
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3379,7 +3335,7 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:186
+#: ../v2v/input_ova.ml:187
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3415,11 +3371,11 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:183
+#: ../v2v/input_ova.ml:184
 msgid "no .ovf file was found in %s"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:358
+#: ../v2v/linux_bootloaders.ml:359
 msgid "no bootloader detected"
 msgstr ""
 
@@ -3435,10 +3391,6 @@ msgstr ""
 msgid ""
 "no guest operating systems or multiboot OS found in this disk image\n"
 "This is a failure of the source repository.  Use -v for more information."
-msgstr ""
-
-#: ../v2v/input_ova.ml:321
-msgid "no href in ovf:File (id=%s)"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:145
@@ -3499,7 +3451,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/OVF.ml:575
+#: ../v2v/OVF.ml:595
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -3578,18 +3530,6 @@ msgstr ""
 msgid ""
 "output size is too large for this block device.  Requested size = %s, output "
 "block device = %s, output block device size = %s"
-msgstr ""
-
-#: ../v2v/input_ova.ml:281
-msgid ""
-"ova disk has an unknown VMware controller type (%d), please report this as a "
-"bug supplying the *.ovf file extracted from the ova"
-msgstr ""
-
-#: ../v2v/input_ova.ml:278
-msgid ""
-"ova disk has no parent controller, please report this as a bug supplying the "
-"*.ovf file extracted from the ova"
 msgstr ""
 
 #: ../v2v/linux_kernels.ml:89
@@ -3859,7 +3799,7 @@ msgstr ""
 msgid "the value of the key '%s' is not an object"
 msgstr ""
 
-#: ../v2v/OVF.ml:218
+#: ../v2v/OVF.ml:238
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -4003,7 +3943,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:214
+#: ../v2v/input_ova.ml:215
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4053,11 +3993,7 @@ msgstr ""
 msgid "unknown -oa option: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:266
-msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
-msgstr ""
-
-#: ../v2v/OVF.ml:183
+#: ../v2v/OVF.ml:203
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
 
@@ -4072,10 +4008,6 @@ msgstr ""
 #. ../resize/resize.ml:863
 #: ../resize/resize.ml:951 ../resize/resize.ml:920 ../resize/resize.ml:881
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
-msgstr ""
-
-#: ../v2v/input_ova.ml:329
-msgid "unsupported compression in OVF: %s"
 msgstr ""
 
 #. ../customize/customize_main.ml:78
@@ -8774,7 +8706,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: lib/launch-direct.c:838 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:835 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -9494,7 +9426,7 @@ msgid ""
 msgstr ""
 
 #: p2v/gui.c:788
-msgid "Output _conn. (-oc):"
+msgid "_Output conn. (-oc):"
 msgstr ""
 
 #: p2v/gui.c:794
@@ -9555,7 +9487,7 @@ msgid "_Back"
 msgstr ""
 
 #: p2v/gui.c:911
-msgid "_Start conversion"
+msgid "Start _conversion"
 msgstr ""
 
 #: p2v/gui.c:961
@@ -10000,7 +9932,7 @@ msgstr ""
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 
-#: tools/virt-tar:258 tools/virt-win-reg:298
+#: tools/virt-tar:258 tools/virt-win-reg:316
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -10013,37 +9945,37 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: tools/virt-tar:262 tools/virt-win-reg:302
+#: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 
-#: tools/virt-win-reg:242
+#: tools/virt-win-reg:260
 msgid "no libvirt domain name or disk image given\n"
 msgstr ""
 
-#: tools/virt-win-reg:324
+#: tools/virt-win-reg:342
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
 
-#: tools/virt-win-reg:484
+#: tools/virt-win-reg:502
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr ""
 
-#: tools/virt-win-reg:489
+#: tools/virt-win-reg:507
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
 
-#: tools/virt-win-reg:562
+#: tools/virt-win-reg:580
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr ""
 
-#: tools/virt-win-reg:579
+#: tools/virt-win-reg:597
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""

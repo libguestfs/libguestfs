@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-03-07 15:53+0000\n"
+"POT-Creation-Date: 2017-03-24 11:48+0000\n"
 "PO-Revision-Date: 2016-07-26 05:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -54,7 +54,7 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../v2v/input_ova.ml:377 ../mllib/common_utils.ml:580
+#: ../v2v/input_ova.ml:283 ../mllib/common_utils.ml:580
 msgid "%s"
 msgstr "%s"
 
@@ -149,7 +149,7 @@ msgstr "Потрібен %s, але його не знайдено"
 msgid "%s option used more than once on the command line"
 msgstr "у командному рядку параметр %s використано декілька разів"
 
-#: ../v2v/convert_linux.ml:926
+#: ../v2v/convert_linux.ml:927
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -582,7 +582,7 @@ msgstr ""
 "%s: невідомий тип таблиці розділів.\n"
 "У virt-resize передбачено підтримку лише таблиць розділів MBR (DOS) та GPT."
 
-#: ../v2v/input_ova.ml:145 ../v2v/input_ova.ml:142
+#: ../v2v/input_ova.ml:162 ../v2v/input_ova.ml:158
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -682,14 +682,6 @@ msgstr "--install"
 msgid "--list: use '--list-format', not '--format'"
 msgstr "--list: скористайтеся --list-format, а не --format"
 
-#: ../v2v/cmdline.ml:350
-msgid "--no-copy and '-o glance' cannot be used at the same time"
-msgstr "Не можна одночасно використовувати --no-copy і «-o glance»"
-
-#: ../v2v/cmdline.ml:360
-msgid "--no-copy and '-o libvirt' cannot be used at the same time"
-msgstr "Не можна одночасно використовувати --no-copy і «-o libvirt»"
-
 #: ../builder/cmdline.ml:253
 msgid "--notes: too many parameters, expecting 'os-version'"
 msgstr "--notes: забагато параметрів, мало бути «версія-ОС»"
@@ -753,32 +745,12 @@ msgid "-B must be specified"
 msgstr "слід вказати -B"
 
 #: ../v2v/cmdline.ml:339
-msgid "-o and --in-place cannot be used at the same time"
-msgstr "-o і --in-place не можна використовувати одночасно"
-
-#: ../v2v/cmdline.ml:348
-msgid "-o glance: --qemu-boot option cannot be used in this output mode"
+msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
-"-o glance: параметр --qemu-boot не можна використовувати у цьому режимі "
-"виведення даних"
 
 #: ../v2v/cmdline.ml:344
-msgid "-o glance: -oc option cannot be used in this output mode"
-msgstr ""
-"-o glance: параметр -oc не можна використовувати у цьому режимі виведення "
-"даних"
-
-#: ../v2v/cmdline.ml:346
-msgid "-o glance: -os option cannot be used in this output mode"
-msgstr ""
-"-o glance: параметр -os не можна використовувати у цьому режимі виведення "
-"даних"
-
-#: ../v2v/cmdline.ml:358
-msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-"-o libvirt: параметр --qemu-boot не можна використовувати у цьому режимі "
-"виведення даних"
+msgid "-o and --in-place cannot be used at the same time"
+msgstr "-o і --in-place не можна використовувати одночасно"
 
 #: ../v2v/output_libvirt.ml:129
 msgid ""
@@ -812,67 +784,35 @@ msgstr ""
 "-o libvirt: буфер виведення «%s» не є каталогом (type='dir'). Див. розділ "
 "«ВИВЕДЕННЯ ДО LIBVIRT» у підручнику virt-v2v(1)."
 
-#: ../v2v/cmdline.ml:372
-msgid "-o local: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-"-o local: параметр --qemu-boot не можна використовувати у цьому режимі "
-"виведення даних"
-
-#: ../v2v/cmdline.ml:367
+#: ../v2v/cmdline.ml:374
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o local: каталог виведення даних не вказано, скористайтеся параметром «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:381
-msgid "-o null: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-"-o null: параметр --qemu-boot не можна використовувати у цьому режимі "
-"виведення даних"
-
-#: ../v2v/cmdline.ml:377
-msgid "-o null: -oc option cannot be used in this output mode"
-msgstr ""
-"-o null: параметр -oc не можна використовувати у цьому режимі виведення даних"
-
-#: ../v2v/cmdline.ml:379
-msgid "-o null: -os option cannot be used in this output mode"
-msgstr ""
-"-o null: параметр -os не можна використовувати у цьому режимі виведення даних"
-
-#: ../v2v/cmdline.ml:388
+#: ../v2v/cmdline.ml:402
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 "-o qemu: не вказано каталогу для виведення даних, скористайтеся «-os /"
 "каталог»"
 
-#: ../v2v/cmdline.ml:401
-msgid "-o rhv: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-
-#: ../v2v/cmdline.ml:398
+#: ../v2v/cmdline.ml:413
 msgid "-o rhv: output storage was not specified, use '-os'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:411
-msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
-msgstr ""
-"-o vdsm: параметр --qemu-boot не можна використовувати у цьому режимі "
-"виведення даних"
-
-#: ../v2v/cmdline.ml:415
+#: ../v2v/cmdline.ml:431
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr "-o vdsm: не вказано --vdsm-image-uuid"
 
-#: ../v2v/cmdline.ml:418
+#: ../v2v/cmdline.ml:434
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr "-o vdsm: не вказано --vdsm-vol-uuid або --vdsm-vm-uuid"
 
-#: ../v2v/cmdline.ml:408
+#: ../v2v/cmdline.ml:424
 msgid "-o vdsm: output storage was not specified, use '-os'"
 msgstr "-o vdsm: не вказано сховище виведення даних, скористайтеся «-os»"
 
-#: ../v2v/cmdline.ml:390 ../v2v/cmdline.ml:369
+#: ../v2v/cmdline.ml:404 ../v2v/cmdline.ml:376
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr "-os %s: каталогу виведення даних не існує або вказано не каталог"
 
@@ -1305,7 +1245,7 @@ msgstr "Не виводити повідомлень щодо поступу"
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:988
+#: ../dib/dib.ml:989
 msgid "Done"
 msgstr "Виконано"
 
@@ -1978,7 +1918,7 @@ msgstr "Вивести дані щодо кешу шаблонів"
 msgid "Print source and stop"
 msgstr "Вивести джерело і припинити обробку"
 
-#: ../v2v/OVF.ml:433 ../v2v/OVF.ml:228
+#: ../v2v/OVF.ml:453 ../v2v/OVF.ml:248
 msgid "RHV does not support the output format '%s', only raw or qcow2"
 msgstr ""
 
@@ -2826,7 +2766,7 @@ msgstr "У цій гостьовій системі не встановлено 
 msgid "This guest has virtio drivers installed."
 msgstr "У цій гостьовій системі встановлено драйвери virtio."
 
-#: ../v2v/OVF.ml:369
+#: ../v2v/OVF.ml:389
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest's display will not "
@@ -3068,6 +3008,16 @@ msgid ""
 "and then rerun the virt-v2v command."
 msgstr ""
 
+#: ../v2v/input_libvirt_xen_ssh.ml:42
+msgid ""
+"because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this "
+"environment variable:\n"
+"\n"
+"export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+"and then rerun the virt-v2v command."
+msgstr ""
+
 #: ../sparsify/cmdline.ml:76
 msgid "block|dir|prebuilt:file"
 msgstr "блоковий пристрій|каталог|prebuilt:файл"
@@ -3198,7 +3148,7 @@ msgstr ""
 "роботу virt-v2v (^C), а потім повторно запустити програму від імені "
 "користувача root."
 
-#: ../v2v/input_ova.ml:210
+#: ../v2v/input_ova.ml:211
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -3286,11 +3236,7 @@ msgstr ""
 msgid "could not parse device name '%s' from the source libvirt XML"
 msgstr "не вдалося обробити назву пристрою «%s» XML libvirt джерела"
 
-#: ../v2v/input_ova.ml:406
-msgid "could not parse disk rasd:HostResource from OVF document"
-msgstr "не вдалося обробити значення rasd:HostResource диска з документа OVF"
-
-#: ../v2v/input_ova.ml:248
+#: ../v2v/input_ova.ml:231
 msgid "could not parse ovf:Name from OVF document"
 msgstr "не вдалося обробити значення ovf:Name з документа OVF"
 
@@ -3475,16 +3421,12 @@ msgstr ""
 "Помилка під час обробки адреси «%s». Ознайомтеся з повідомленнями щодо "
 "помилок, які виведено раніше."
 
-#: ../v2v/input_ova.ml:316
-msgid "error parsing disk fileRef"
-msgstr "помилка під час спроби обробити fileRef диска"
-
-#: ../v2v/input_ova.ml:361
+#: ../v2v/input_ova.ml:267
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../v2v/input_ova.ml:126 ../v2v/input_ova.ml:63
+#: ../v2v/input_ova.ml:148 ../v2v/input_ova.ml:50
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
@@ -3516,15 +3458,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:820 ../dib/dib.ml:975
+#: ../mllib/common_utils.ml:820 ../dib/dib.ml:976
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:978
+#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:979
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:981
+#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:982
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3553,7 +3495,7 @@ msgstr "помилка: %s"
 msgid "file"
 msgstr "file"
 
-#: ../v2v/input_ova.ml:376
+#: ../v2v/input_ova.ml:282
 msgid "file '%s' not found in the ova"
 msgstr ""
 
@@ -3635,7 +3577,7 @@ msgstr ""
 "створити скрипт для уможливлення розпізнавання. Див. попередні повідомлення, "
 "щоб дізнатися більше."
 
-#: ../v2v/output_glance.ml:133
+#: ../v2v/output_glance.ml:135
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 "glance: помилка вивантаження образу до glance, див. попередні повідомлення "
@@ -3751,20 +3693,10 @@ msgid ""
 "\n"
 "Assuming that you are running virt-v2v/virt-p2v on a source which is "
 "supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"happen.\n"
 "\n"
 "Inspection field '%s' was 'unknown'."
 msgstr ""
-"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) "
-"джерела.\n"
-"\n"
-"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого "
-"передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. "
-"Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл "
-"журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
-"\n"
-"Значенням визначеного поля «%s» було «unknown»."
 
 #: ../v2v/inspect_source.ml:111
 msgid ""
@@ -3772,20 +3704,10 @@ msgid ""
 "\n"
 "Assuming that you are running virt-v2v/virt-p2v on a source which is "
 "supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"happen.\n"
 "\n"
 "No root device found in this operating system image."
 msgstr ""
-"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) "
-"джерела.\n"
-"\n"
-"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого "
-"передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. "
-"Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл "
-"журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
-"\n"
-"У образі операційної системи не виявлено кореневого пристрою."
 
 #: ../v2v/v2v.ml:238
 msgid ""
@@ -3912,7 +3834,7 @@ msgstr "файл журналу %s: %s (проігноровано)"
 msgid "lv"
 msgstr "lv"
 
-#: ../v2v/input_ova.ml:156
+#: ../v2v/input_ova.ml:173
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3936,7 +3858,7 @@ msgstr "немає значення для ключа «%s»"
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:186
+#: ../v2v/input_ova.ml:187
 msgid "more than one .ovf file was found in %s"
 msgstr "у %s виявлено декілька файлів .ovf"
 
@@ -3982,11 +3904,11 @@ msgstr "мережа"
 msgid "never|always|auto"
 msgstr "never|always|auto"
 
-#: ../v2v/input_ova.ml:183
+#: ../v2v/input_ova.ml:184
 msgid "no .ovf file was found in %s"
 msgstr "у %s не знайдено файла .ovf"
 
-#: ../v2v/linux_bootloaders.ml:358
+#: ../v2v/linux_bootloaders.ml:359
 msgid "no bootloader detected"
 msgstr ""
 
@@ -4007,10 +3929,6 @@ msgstr ""
 "завантаження.\n"
 "Це помилка сховища-джерела. Скористайтеся параметром -v для отримання "
 "додаткових даних."
-
-#: ../v2v/input_ova.ml:321
-msgid "no href in ovf:File (id=%s)"
-msgstr "немає href у ovf:File (id=%s)"
 
 #: ../v2v/linux_kernels.ml:145
 msgid "no initrd was found in /boot matching %s %s."
@@ -4082,7 +4000,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr "ntfsresize"
 
-#: ../v2v/OVF.ml:575
+#: ../v2v/OVF.ml:595
 msgid ""
 "oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from "
 "the output."
@@ -4186,22 +4104,6 @@ msgstr ""
 "розмір виведених даних є надто великим для цього блокового пристрою. "
 "Потрібний розмір = %s, блоковий пристрій виведення = %s, розмір блокового "
 "пристрою виведення = %s"
-
-#: ../v2v/input_ova.ml:281
-msgid ""
-"ova disk has an unknown VMware controller type (%d), please report this as a "
-"bug supplying the *.ovf file extracted from the ova"
-msgstr ""
-"Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте про "
-"цю ваду, додавши файл *.ovf, видобутий з ova"
-
-#: ../v2v/input_ova.ml:278
-msgid ""
-"ova disk has no parent controller, please report this as a bug supplying the "
-"*.ovf file extracted from the ova"
-msgstr ""
-"Диск ova не має батьківського контролера. Будь ласка, повідомте про цю ваду, "
-"додавши файл *.ovf, видобутий з ova"
 
 #: ../v2v/linux_kernels.ml:89
 msgid "package '%s' contains no files"
@@ -4506,7 +4408,7 @@ msgstr "значення не є об’єктом"
 msgid "the value of the key '%s' is not an object"
 msgstr "значенням ключа «%s» не є об’єкт"
 
-#: ../v2v/OVF.ml:218
+#: ../v2v/OVF.ml:238
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -4717,7 +4619,7 @@ msgstr ""
 "\n"
 "Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/input_ova.ml:214
+#: ../v2v/input_ova.ml:215
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4772,11 +4674,7 @@ msgstr "невідомий параметр -o: %s"
 msgid "unknown -oa option: %s"
 msgstr "невідомий параметр -oa: %s"
 
-#: ../v2v/input_ova.ml:266
-msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
-msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
-
-#: ../v2v/OVF.ml:183
+#: ../v2v/OVF.ml:203
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
 
@@ -4792,10 +4690,6 @@ msgstr "невідомий гіпервізор джерела («%s») у ме�
 #: ../resize/resize.ml:951 ../resize/resize.ml:920 ../resize/resize.ml:881
 msgid "unknown/unavailable method for expanding the %s filesystem on %s"
 msgstr "невідомий або недоступний метод розкриття файлової системи %s на %s"
-
-#: ../v2v/input_ova.ml:329
-msgid "unsupported compression in OVF: %s"
-msgstr ""
 
 #. ../customize/customize_main.ml:78
 #: ../sysprep/main.ml:122 ../get-kernel/get_kernel.ml:56
@@ -10047,7 +9941,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "вам слід викликати guestfs_add_drive перед викликом guestfs_launch"
 
-#: lib/launch-direct.c:838 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:835 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu запущено, встановлено зв’язок з фоновою службою, але стан процесу не "
@@ -10875,7 +10769,7 @@ msgid ""
 msgstr ""
 
 #: p2v/gui.c:788
-msgid "Output _conn. (-oc):"
+msgid "_Output conn. (-oc):"
 msgstr ""
 
 #: p2v/gui.c:794
@@ -10943,7 +10837,7 @@ msgid "_Back"
 msgstr ""
 
 #: p2v/gui.c:911
-msgid "_Start conversion"
+msgid "Start _conversion"
 msgstr ""
 
 #: p2v/gui.c:961
@@ -11454,7 +11348,7 @@ msgstr "virt-tar: {tarball}: файла не знайдено\n"
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
 
-#: tools/virt-tar:258 tools/virt-win-reg:298
+#: tools/virt-tar:258 tools/virt-win-reg:316
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -11476,18 +11370,18 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: tools/virt-tar:262 tools/virt-win-reg:302
+#: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 "{prog}: підтримки операційних систем з варіантами завантаження не "
 "передбачено.\n"
 
-#: tools/virt-win-reg:242
+#: tools/virt-win-reg:260
 msgid "no libvirt domain name or disk image given\n"
 msgstr "не вказано назви домену або образу диска libvirt\n"
 
-#: tools/virt-win-reg:324
+#: tools/virt-win-reg:342
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -11495,25 +11389,145 @@ msgstr ""
 "мало бути вказано 1 або 2 додаткових параметри, шлях до підключа і "
 "необов’язкове значення для експортування\n"
 
-#: tools/virt-win-reg:484
+#: tools/virt-win-reg:502
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr "virt-win-reg: {p}: не вдалося знайти каталог користувача\n"
 
-#: tools/virt-win-reg:489
+#: tools/virt-win-reg:507
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: непідтримуваний запис шляху у регістрі Windows\n"
 
-#: tools/virt-win-reg:562
+#: tools/virt-win-reg:580
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося отримати файл регістра: {err}\n"
 
-#: tools/virt-win-reg:579
+#: tools/virt-win-reg:597
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "--no-copy and '-o glance' cannot be used at the same time"
+#~ msgstr "Не можна одночасно використовувати --no-copy і «-o glance»"
+
+#~ msgid "--no-copy and '-o libvirt' cannot be used at the same time"
+#~ msgstr "Не можна одночасно використовувати --no-copy і «-o libvirt»"
+
+#~ msgid "-o glance: --qemu-boot option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o glance: параметр --qemu-boot не можна використовувати у цьому режимі "
+#~ "виведення даних"
+
+#~ msgid "-o glance: -oc option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o glance: параметр -oc не можна використовувати у цьому режимі виведення "
+#~ "даних"
+
+#~ msgid "-o glance: -os option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o glance: параметр -os не можна використовувати у цьому режимі виведення "
+#~ "даних"
+
+#~ msgid "-o libvirt: --qemu-boot option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o libvirt: параметр --qemu-boot не можна використовувати у цьому режимі "
+#~ "виведення даних"
+
+#~ msgid "-o local: --qemu-boot option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o local: параметр --qemu-boot не можна використовувати у цьому режимі "
+#~ "виведення даних"
+
+#~ msgid "-o null: --qemu-boot option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o null: параметр --qemu-boot не можна використовувати у цьому режимі "
+#~ "виведення даних"
+
+#~ msgid "-o null: -oc option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o null: параметр -oc не можна використовувати у цьому режимі виведення "
+#~ "даних"
+
+#~ msgid "-o null: -os option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o null: параметр -os не можна використовувати у цьому режимі виведення "
+#~ "даних"
+
+#~ msgid "-o vdsm: --qemu-boot option cannot be used in this output mode"
+#~ msgstr ""
+#~ "-o vdsm: параметр --qemu-boot не можна використовувати у цьому режимі "
+#~ "виведення даних"
+
+#~ msgid "could not parse disk rasd:HostResource from OVF document"
+#~ msgstr ""
+#~ "не вдалося обробити значення rasd:HostResource диска з документа OVF"
+
+#~ msgid "error parsing disk fileRef"
+#~ msgstr "помилка під час спроби обробити fileRef диска"
+
+#~ msgid ""
+#~ "inspection could not detect the source guest (or physical machine).\n"
+#~ "\n"
+#~ "Assuming that you are running virt-v2v/virt-p2v on a source which is "
+#~ "supported (and not, for example, a blank disk), then this should not "
+#~ "happen.  You should run 'virt-v2v -v -x ... >& log' and attach the "
+#~ "complete log to a new bug report (see http://libguestfs.org).\n"
+#~ "\n"
+#~ "Inspection field '%s' was 'unknown'."
+#~ msgstr ""
+#~ "під час вивчення не вдалося виявити гостьової системи (або фізичної "
+#~ "машини) джерела.\n"
+#~ "\n"
+#~ "Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку "
+#~ "якого передбачено (а не, наприклад, порожнього диска), такого не мало "
+#~ "трапитися. Слід віддати команду «virt-v2v -v -x ... >& log» і долучити "
+#~ "отриманий файл журналу (log) до звіту щодо вади (див. http://libguestfs."
+#~ "org).\n"
+#~ "\n"
+#~ "Значенням визначеного поля «%s» було «unknown»."
+
+#~ msgid ""
+#~ "inspection could not detect the source guest (or physical machine).\n"
+#~ "\n"
+#~ "Assuming that you are running virt-v2v/virt-p2v on a source which is "
+#~ "supported (and not, for example, a blank disk), then this should not "
+#~ "happen.  You should run 'virt-v2v -v -x ... >& log' and attach the "
+#~ "complete log to a new bug report (see http://libguestfs.org).\n"
+#~ "\n"
+#~ "No root device found in this operating system image."
+#~ msgstr ""
+#~ "під час вивчення не вдалося виявити гостьової системи (або фізичної "
+#~ "машини) джерела.\n"
+#~ "\n"
+#~ "Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку "
+#~ "якого передбачено (а не, наприклад, порожнього диска), такого не мало "
+#~ "трапитися. Слід віддати команду «virt-v2v -v -x ... >& log» і долучити "
+#~ "отриманий файл журналу (log) до звіту щодо вади (див. http://libguestfs."
+#~ "org).\n"
+#~ "\n"
+#~ "У образі операційної системи не виявлено кореневого пристрою."
+
+#~ msgid "no href in ovf:File (id=%s)"
+#~ msgstr "немає href у ovf:File (id=%s)"
+
+#~ msgid ""
+#~ "ova disk has an unknown VMware controller type (%d), please report this "
+#~ "as a bug supplying the *.ovf file extracted from the ova"
+#~ msgstr ""
+#~ "Диск ova має невідомий тип контролера VMware (%d). Будь ласка, повідомте "
+#~ "про цю ваду, додавши файл *.ovf, видобутий з ova"
+
+#~ msgid ""
+#~ "ova disk has no parent controller, please report this as a bug supplying "
+#~ "the *.ovf file extracted from the ova"
+#~ msgstr ""
+#~ "Диск ova не має батьківського контролера. Будь ласка, повідомте про цю "
+#~ "ваду, додавши файл *.ovf, видобутий з ova"
+
+#~ msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
+#~ msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
 #~ msgid ""
 #~ "file-architecture API not available since this version of libguestfs was "

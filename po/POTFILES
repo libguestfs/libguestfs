@@ -130,6 +130,7 @@ daemon/squashfs.c
 daemon/stat.c
 daemon/statvfs.c
 daemon/strings.c
+daemon/structs-cleanups.c
 daemon/stubs-0.c
 daemon/stubs-1.c
 daemon/stubs-2.c
