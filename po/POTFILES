@@ -414,6 +414,8 @@ p2v/kernel-cmdline.c
 p2v/kernel.c
 p2v/main.c
 p2v/nbd.c
+p2v/physical-xml.c
+p2v/rtc.c
 p2v/ssh.c
 p2v/utils.c
 p2v/whole-file.c

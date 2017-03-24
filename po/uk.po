@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-03-17 15:21+0000\n"
+"POT-Creation-Date: 2017-03-24 14:48+0000\n"
 "PO-Revision-Date: 2016-07-26 05:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -526,7 +526,7 @@ msgstr ""
 "Нижче наведено резюме щодо параметрів. Докладніший опис наведено\n"
 "на сторінці підручника (man) virt-resize(1).\n"
 
-#: ../dib/cmdline.ml:61
+#: ../dib/cmdline.ml:62
 msgid ""
 "%s: run diskimage-builder elements to generate images\n"
 "\n"
@@ -645,7 +645,7 @@ msgstr ""
 "--compress не можна використовувати для необроблених вихідних даних. "
 "Вилучіть цей параметр або скористайтеся параметром --convert qcow2."
 
-#: ../dib/cmdline.ml:86
+#: ../dib/cmdline.ml:87
 msgid "--debug parameter must be >= 0"
 msgstr "параметром --debug має бути значення >= 0"
 
@@ -740,7 +740,7 @@ msgstr "--uninstall"
 msgid "--update"
 msgstr "--update"
 
-#: ../dib/cmdline.ml:236
+#: ../dib/cmdline.ml:242
 msgid "-B must be specified"
 msgstr "слід вказати -B"
 
@@ -849,15 +849,15 @@ msgstr ""
 msgid "Add disk image file"
 msgstr "Додати файл образу диска"
 
-#: ../dib/cmdline.ml:168
+#: ../dib/cmdline.ml:172
 msgid "Add extra packages to install"
 msgstr "Додати пакунки для встановлення"
 
-#: ../dib/cmdline.ml:166
+#: ../dib/cmdline.ml:170
 msgid "Add mkfs options"
 msgstr "Додати параметри mkfs"
 
-#: ../dib/cmdline.ml:155
+#: ../dib/cmdline.ml:159
 msgid "Add new a elements location"
 msgstr "Додати нове розташування елементів a"
 
@@ -913,7 +913,7 @@ msgstr "Долучаємо до сумісних підписок"
 msgid "Attaching to the pool %s"
 msgstr "Долучаємо до буфера %s"
 
-#: ../dib/cmdline.ml:191
+#: ../dib/cmdline.ml:196
 msgid "Base path of diskimage-builder library"
 msgstr "Базовий шлях бібліотеки diskimage-builder"
 
@@ -959,11 +959,11 @@ msgstr "CD-ROM"
 msgid "Cannot get the home directory for %s"
 msgstr "Не вдалося отримати домашній каталог для %s"
 
-#: ../dib/dib.ml:555
+#: ../dib/dib.ml:590
 msgid "Carried environment variables: %s"
 msgstr "Обслуговувані змінні середовища: %s"
 
-#: ../dib/cmdline.ml:160
+#: ../dib/cmdline.ml:164
 msgid "Carry/set this environment variable"
 msgstr "Виконати обслуговування або встановити цю змінну середовища"
 
@@ -1173,7 +1173,7 @@ msgid "Deleting: %s"
 msgstr "Вилучаємо: %s"
 
 #. ../builder/cmdline.ml:154
-#: ../dib/cmdline.ml:184 ../customize/customize_main.ml:84
+#: ../dib/cmdline.ml:189 ../customize/customize_main.ml:84
 msgid "Disable appliance network"
 msgstr "Вимкнути мережу у системі для розгортання"
 
@@ -1225,7 +1225,7 @@ msgstr "Не копіювати завантажувач"
 msgid "Don't create extra partition"
 msgstr "Не створювати додатковий розділ"
 
-#: ../dib/cmdline.ml:187 ../builder/cmdline.ml:140
+#: ../dib/cmdline.ml:192 ../builder/cmdline.ml:140
 msgid "Don't delete output file on failure"
 msgstr "Не вилучати файл результатів після помилки"
 
@@ -1245,7 +1245,7 @@ msgstr "Не виводити повідомлень щодо поступу"
 msgid "Don't turn off echo for passphrases"
 msgstr ""
 
-#: ../dib/dib.ml:989
+#: ../dib/dib.ml:1025
 msgid "Done"
 msgstr "Виконано"
 
@@ -1278,7 +1278,7 @@ msgstr "Редагувати файл за допомогою виразу Perl"
 msgid "Editing: %s"
 msgstr "Редагування: %s"
 
-#: ../dib/dib.ml:528
+#: ../dib/dib.ml:563
 msgid "Elements: %s"
 msgstr "Елементи: %s"
 
@@ -1287,7 +1287,7 @@ msgid "Enable appliance network"
 msgstr "Увімкнути мережу у системі для розгортання"
 
 #. ../builder/cmdline.ml:153
-#: ../dib/cmdline.ml:183 ../customize/customize_main.ml:83
+#: ../dib/cmdline.ml:188 ../customize/customize_main.ml:83
 msgid "Enable appliance network (default)"
 msgstr "Увімкнути мережу у системі для розгортання (типово)"
 
@@ -1331,11 +1331,11 @@ msgstr "Перевіряємо %s"
 msgid "Examining the guest ..."
 msgstr "Вивчаємо гостьову систему…"
 
-#: ../dib/cmdline.ml:157
+#: ../dib/cmdline.ml:161
 msgid "Exclude the specified element"
 msgstr "Виключити вказаний елемент"
 
-#: ../dib/cmdline.ml:159
+#: ../dib/cmdline.ml:163
 msgid "Exclude the specified script"
 msgstr "Виключити вказаний скрипт"
 
@@ -1347,7 +1347,7 @@ msgstr "Розгорнути логічний том"
 msgid "Expand partition"
 msgstr "Розгорнути розділ"
 
-#: ../dib/dib.ml:551
+#: ../dib/dib.ml:586
 msgid "Expanded elements: %s"
 msgstr "Розгорнуті елементи: %s"
 
@@ -1363,7 +1363,7 @@ msgstr "Розширюємо %s%s з використанням методу «%
 msgid "Export Storage Domain"
 msgstr "Експортувати домен сховища"
 
-#: ../dib/dib.ml:898
+#: ../dib/dib.ml:934
 msgid "Extracting data out of the image"
 msgstr "Видобуваємо дані з образу"
 
@@ -1409,7 +1409,7 @@ msgstr ""
 msgid "Fetching the remote libvirt XML metadata ..."
 msgstr "Отримуємо метадані XML віддаленої libvirt…"
 
-#: ../dib/cmdline.ml:175
+#: ../dib/cmdline.ml:180
 msgid "Filesystem for the image"
 msgstr "Файлова система образу"
 
@@ -1475,7 +1475,7 @@ msgstr "Примусово змінити розмір розділу"
 msgid "Format of input disk"
 msgstr "Формат диска вхідних даних"
 
-#: ../dib/cmdline.ml:180
+#: ../dib/cmdline.ml:185
 msgid "Format of optional drive"
 msgstr ""
 
@@ -1530,11 +1530,11 @@ msgstr ""
 " - Вилучити кеш: virt-builder --delete-cache\n"
 " - Перевірте, чи не втрутився хтось до даних вашого сайта або мережі!"
 
-#: ../dib/cmdline.ml:169
+#: ../dib/cmdline.ml:173
 msgid "Generate MD5 and SHA256 checksum files"
 msgstr ""
 
-#: ../dib/dib.ml:946
+#: ../dib/dib.ml:982
 msgid "Generating checksums for %s"
 msgstr ""
 
@@ -1598,7 +1598,7 @@ msgstr "Вивчаємо оверлей"
 msgid "Inspecting the source VM"
 msgstr "Вивчаємо ВМ джерела"
 
-#: ../dib/cmdline.ml:163
+#: ../dib/cmdline.ml:167
 msgid "Installation type"
 msgstr "Тип встановлення"
 
@@ -1618,7 +1618,7 @@ msgstr "Встановлюємо скрипт firstboot: %s"
 msgid "Installing packages: %s"
 msgstr "Встановлюємо пакунки: %s"
 
-#: ../dib/dib.ml:481
+#: ../dib/dib.ml:512
 msgid "Installing: %s"
 msgstr "Встановлюємо: %s"
 
@@ -1634,7 +1634,7 @@ msgstr "Ключ: %s\n"
 msgid "LOCALPATH:REMOTEDIR"
 msgstr "ЛОКАЛЬНИЙШЛЯХ:ВІДДАЛЕНИЙКАТАЛОГ"
 
-#: ../dib/cmdline.ml:162
+#: ../dib/cmdline.ml:166
 msgid "Label for the root fs"
 msgstr "Мітка для кореневої файлової системи"
 
@@ -1654,16 +1654,16 @@ msgstr "Показати список доступних шаблонів"
 msgid "List supported operations"
 msgstr "Вивести список підтримуваних операцій"
 
-#: ../dib/cmdline.ml:164
+#: ../dib/cmdline.ml:168
 msgid "Location for cached images"
 msgstr "Місце для кешованих образів"
 
-#: ../dib/cmdline.ml:172
+#: ../dib/cmdline.ml:177
 msgid "Main element for building ramdisks"
 msgstr "Основний елемент для побудови дисків у пам’яті"
 
 #. ../get-kernel/get_kernel.ml:59
-#. ../dib/cmdline.ml:188
+#. ../dib/cmdline.ml:193
 #. ../builder/cmdline.ml:151
 #: ../v2v/cmdline.ml:183 ../sparsify/cmdline.ml:74 ../resize/resize.ml:204
 msgid "Make output machine readable"
@@ -1707,7 +1707,7 @@ msgstr "Пересунути файли на образ диска"
 msgid "Moving: %s -> %s"
 msgstr "Пересуваємо: %s -> %s"
 
-#: ../dib/cmdline.ml:174
+#: ../dib/cmdline.ml:179
 msgid "Name of the image"
 msgstr "Назва образу"
 
@@ -1773,7 +1773,7 @@ msgstr ""
 msgid "Only tune the guest in the input VM"
 msgstr "Лише скоригувати гостьову систему у вхідній ВМ"
 
-#: ../dib/dib.ml:679
+#: ../dib/dib.ml:715
 msgid "Opening the disks"
 msgstr "Відкриваємо диски"
 
@@ -1793,7 +1793,7 @@ msgstr "Відкриваємо джерело %s"
 msgid "Opening the source VM"
 msgstr "Відкриваємо ВМ джерела"
 
-#: ../dib/cmdline.ml:179
+#: ../dib/cmdline.ml:184
 msgid "Optional drive for caches"
 msgstr "Необов’язковий диск для кешування"
 
@@ -1805,7 +1805,7 @@ msgstr "Вивести дані до файла OVF"
 msgid "Output VM UUID"
 msgstr "Вивести UUID віртуальної машини"
 
-#: ../dib/cmdline.ml:178
+#: ../dib/cmdline.ml:183
 msgid "Output architecture"
 msgstr "Архітектура для виведення даних"
 
@@ -1825,7 +1825,7 @@ msgstr "Формат виведення"
 msgid "Output format (default: raw)"
 msgstr "Формат виведення (типовий: raw)"
 
-#: ../dib/cmdline.ml:177
+#: ../dib/cmdline.ml:182
 msgid "Output formats"
 msgstr "Формати виведення"
 
@@ -1906,7 +1906,7 @@ msgstr "Плануємо побудову цього образу"
 msgid "Prefix for files"
 msgstr "Префікс для файлів"
 
-#: ../dib/dib.ml:575
+#: ../dib/dib.ml:610
 msgid "Preparing auxiliary data"
 msgstr "Готуємо допоміжні дані"
 
@@ -2232,7 +2232,7 @@ msgstr "Виконуємо touch: %s"
 msgid "Running: %s"
 msgstr "Виконуємо: %s"
 
-#: ../dib/dib.ml:441 ../dib/dib.ml:390
+#: ../dib/dib.ml:472 ../dib/dib.ml:421
 msgid "Running: %s/%s"
 msgstr "Виконуємо: %s/%s"
 
@@ -2289,6 +2289,10 @@ msgstr "Витираємо: %s"
 msgid "Set GPG binary/command"
 msgstr "Встановити програму або виконуваний файл обробки GPG"
 
+#: ../dib/cmdline.ml:174
+msgid "Set Python interpreter"
+msgstr ""
+
 #: ../customize/customize_main.ml:77 ../builder/cmdline.ml:127
 msgid "Set attach disk format"
 msgstr "Встановити формат диску для долучення"
@@ -2297,7 +2301,7 @@ msgstr "Встановити формат диску для долучення"
 msgid "Set curl binary/command"
 msgstr "Встановити програму або виконуваний файл обробки curl"
 
-#: ../dib/cmdline.ml:190
+#: ../dib/cmdline.ml:195
 msgid "Set debug level"
 msgstr "Встановити рівень діагностики"
 
@@ -2320,7 +2324,7 @@ msgid "Set libvirt guest name"
 msgstr "Встановити назву гостьової системи libvirt"
 
 #. ../builder/cmdline.ml:152
-#: ../dib/cmdline.ml:182 ../customize/customize_main.ml:82
+#: ../dib/cmdline.ml:187 ../customize/customize_main.ml:82
 msgid "Set memory size"
 msgstr "Встановити обсяг пам’яті"
 
@@ -2329,7 +2333,7 @@ msgid "Set mount options (eg /:noatime;/var:rw,noatime)"
 msgstr "Встановити параметри монтування (наприклад /:noatime;/var:rw,noatime)"
 
 #. ../builder/cmdline.ml:160
-#: ../dib/cmdline.ml:185 ../customize/customize_main.ml:85
+#: ../dib/cmdline.ml:190 ../customize/customize_main.ml:85
 msgid "Set number of vCPUs"
 msgstr "Встановити кількість віртуальних процесорів"
 
@@ -2337,7 +2341,7 @@ msgstr "Встановити кількість віртуальних проц�
 msgid "Set output allocation mode"
 msgstr "Встановити режим отримання пам’яті для виведення даних"
 
-#: ../dib/cmdline.ml:176 ../builder/cmdline.ml:159
+#: ../dib/cmdline.ml:181 ../builder/cmdline.ml:159
 msgid "Set output disk size"
 msgstr "Встановити розмір диска для виведення даних"
 
@@ -2426,7 +2430,7 @@ msgstr "Встановлюємо часовий пояс: %s"
 msgid "Setting up initial partition table on %s"
 msgstr "Встановлюємо початкову таблицю розділів на %s"
 
-#: ../dib/dib.ml:820
+#: ../dib/dib.ml:856
 msgid "Setting up the destination root"
 msgstr "Встановлюємо корінь призначення"
 
@@ -2438,7 +2442,7 @@ msgstr "Скорочення для --list-format long"
 msgid "Shrink partition"
 msgstr "Стиснути розділ"
 
-#: ../dib/cmdline.ml:161
+#: ../dib/cmdline.ml:165
 msgid "Skip the inclusion of the 'base' element"
 msgstr "Пропустити включення елемента «base»"
 
@@ -2823,7 +2827,7 @@ msgstr "КОРИСТУВАЧ:ВАРІАНТ"
 msgid "USER[:SELECTOR]"
 msgstr "КОРИСТУВАЧ[:СЕЛЕКТОР]"
 
-#: ../dib/dib.ml:923
+#: ../dib/dib.ml:959
 msgid "Umounting the disks"
 msgstr "Демонтуємо диски"
 
@@ -2994,7 +2998,7 @@ msgstr "значення вирівнювання не може бути мен�
 msgid "append_line: %s is not a file"
 msgstr ""
 
-#: ../dib/cmdline.ml:247
+#: ../dib/cmdline.ml:253
 msgid "at least one distribution root element must be specified"
 msgstr "має бути вказано принаймні один кореневий елемент дистрибутива"
 
@@ -3002,6 +3006,16 @@ msgstr "має бути вказано принаймні один корене�
 msgid ""
 "because of libvirt bug https://bugzilla.redhat.com/1134878 you must EITHER "
 "upgrade to libvirt >= 2.1.0 OR set this environment variable:\n"
+"\n"
+"export LIBGUESTFS_BACKEND=direct\n"
+"\n"
+"and then rerun the virt-v2v command."
+msgstr ""
+
+#: ../v2v/input_libvirt_xen_ssh.ml:42
+msgid ""
+"because of libvirt bug https://bugzilla.redhat.com/1140166 you must set this "
+"environment variable:\n"
 "\n"
 "export LIBGUESTFS_BACKEND=direct\n"
 "\n"
@@ -3456,15 +3470,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "expecting an OVA file name on the command line"
 msgstr "у командному рядку мало бути вказано назву файла OVA"
 
-#: ../mllib/common_utils.ml:820 ../dib/dib.ml:976
+#: ../mllib/common_utils.ml:820 ../dib/dib.ml:1012
 msgid "external command '%s' exited with error %d"
 msgstr "виконання зовнішньої програми «%s» завершилося помилкою %d"
 
-#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:979
+#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:1015
 msgid "external command '%s' killed by signal %d"
 msgstr "виконання зовнішньої програми «%s» завершено сигналом %d"
 
-#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:982
+#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:1018
 msgid "external command '%s' stopped by signal %d"
 msgstr "виконання зовнішньої програми «%s» зупинено сигналом %d"
 
@@ -3532,7 +3546,7 @@ msgstr ""
 #. ../resize/resize.ml:207
 #. ../resize/resize.ml:201
 #. ../get-kernel/get_kernel.ml:58
-#. ../dib/cmdline.ml:180
+#. ../dib/cmdline.ml:185
 #. ../customize/customize_main.ml:81
 #: ../sysprep/main.ml:128 ../sparsify/cmdline.ml:71 ../sparsify/cmdline.ml:70
 msgid "format"
@@ -3691,20 +3705,10 @@ msgid ""
 "\n"
 "Assuming that you are running virt-v2v/virt-p2v on a source which is "
 "supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"happen.\n"
 "\n"
 "Inspection field '%s' was 'unknown'."
 msgstr ""
-"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) "
-"джерела.\n"
-"\n"
-"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого "
-"передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. "
-"Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл "
-"журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
-"\n"
-"Значенням визначеного поля «%s» було «unknown»."
 
 #: ../v2v/inspect_source.ml:111
 msgid ""
@@ -3712,20 +3716,10 @@ msgid ""
 "\n"
 "Assuming that you are running virt-v2v/virt-p2v on a source which is "
 "supported (and not, for example, a blank disk), then this should not "
-"happen.  You should run 'virt-v2v -v -x ... >& log' and attach the complete "
-"log to a new bug report (see http://libguestfs.org).\n"
+"happen.\n"
 "\n"
 "No root device found in this operating system image."
 msgstr ""
-"під час вивчення не вдалося виявити гостьової системи (або фізичної машини) "
-"джерела.\n"
-"\n"
-"Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку якого "
-"передбачено (а не, наприклад, порожнього диска), такого не мало трапитися. "
-"Слід віддати команду «virt-v2v -v -x ... >& log» і долучити отриманий файл "
-"журналу (log) до звіту щодо вади (див. http://libguestfs.org).\n"
-"\n"
-"У образі операційної системи не виявлено кореневого пристрою."
 
 #: ../v2v/v2v.ml:265
 msgid ""
@@ -3789,7 +3783,7 @@ msgstr "внутрішня помилка: формальний вираз не 
 msgid "invalid %s parameter"
 msgstr "некоректний параметр %s"
 
-#: ../dib/cmdline.ml:114
+#: ../dib/cmdline.ml:115
 msgid "invalid format '%s' in --formats"
 msgstr "некоректний формат «%s» у --formats"
 
@@ -3995,7 +3989,7 @@ msgstr "не знайдено операційної системи"
 msgid "no operating systems were found in the guest image"
 msgstr "у образі гостьової системи не було знайдено жодної операційної системи"
 
-#: ../dib/dib.ml:740
+#: ../dib/dib.ml:776
 msgid "no partitions found in the helper drive"
 msgstr "на допоміжному диску не знайдено розділів"
 
@@ -4364,7 +4358,7 @@ msgstr "ssh-inject: файл відкритого ключа (%s) є порож�
 msgid "ssh-inject: the user %s does not exist on the guest"
 msgstr "ssh-inject: запису користувача %s у гостьовій системі не існує"
 
-#: ../dib/dib.ml:473
+#: ../dib/dib.ml:504
 msgid "sub-process killed by signal (%d)"
 msgstr ""
 
@@ -4414,7 +4408,7 @@ msgstr ""
 msgid "the key '%s' was not found in a list of objects"
 msgstr "ключа «%s» у списку об’єктів не знайдено"
 
-#: ../dib/cmdline.ml:243
+#: ../dib/cmdline.ml:249
 msgid "the list of output formats cannot be empty"
 msgstr "список форматів виведення даних не може бути порожнім"
 
@@ -4432,7 +4426,7 @@ msgstr ""
 msgid "the source disk has no partitions"
 msgstr "на диску джерела немає розділів"
 
-#: ../dib/dib.ml:504
+#: ../dib/dib.ml:535
 msgid "the specified base path is not the diskimage-builder library"
 msgstr "вказаний базовий шлях не є шляхом до бібліотеки diskimage-builder"
 
@@ -10057,7 +10051,7 @@ msgstr ""
 msgid "could not connect to libvirt (URI = %s)"
 msgstr "не вдалося встановити з’єднання з libvirt (URI = %s)"
 
-#: lib/launch-libvirt.c:399 p2v/cpuid.c:179
+#: lib/launch-libvirt.c:399
 msgid "could not get libvirt capabilities"
 msgstr "не вдалося визначити можливості libvirt"
 
@@ -10710,55 +10704,31 @@ msgstr "%s: «%s» не можна використовувати з %s%s; до�
 msgid "Extra parameter on the command line: '%s'.\n"
 msgstr "Зайвий параметр у командному рядку: «%s».\n"
 
-#: p2v/conversion.c:259
+#: p2v/conversion.c:223
 #, c-format
 msgid "Starting local NBD server for %s ..."
 msgstr ""
 
-#: p2v/conversion.c:282
+#: p2v/conversion.c:246
 #, c-format
 msgid "Opening data connection for %s ..."
 msgstr "Відкриваємо з’єднання для обміну даними для %s…"
 
-#: p2v/conversion.c:355
+#: p2v/conversion.c:319
 msgid "Setting up the control connection ..."
 msgstr "Налаштовуємо контрольне з’єднання…"
 
-#: p2v/conversion.c:389
+#: p2v/conversion.c:353
 msgid "Doing conversion ..."
 msgstr "Виконуємо перетворення…"
 
-#: p2v/conversion.c:429
+#: p2v/conversion.c:393
 msgid "Conversion cancelled by user."
 msgstr "Перетворення скасовано користувачем."
 
-#: p2v/conversion.c:434
+#: p2v/conversion.c:398
 msgid "Control connection closed by remote."
 msgstr "З’єднання керування розірвано на віддаленому боці."
-
-#: p2v/cpuid.c:167
-msgid "could not connect to libvirt"
-msgstr ""
-
-#: p2v/cpuid.c:189
-#, c-format
-msgid "%s: unable to parse capabilities XML returned by libvirt\n"
-msgstr ""
-
-#: p2v/cpuid.c:197
-#, c-format
-msgid "%s: unable to create new XPath context\n"
-msgstr ""
-
-#: p2v/cpuid.c:207 p2v/cpuid.c:224 p2v/cpuid.c:243
-#, c-format
-msgid "%s: unable to evaluate xpath expression: %s\n"
-msgstr ""
-
-#: p2v/cpuid.c:287
-#, c-format
-msgid "%s: program was compiled without libvirt support\n"
-msgstr ""
 
 #: p2v/gui.c:200
 msgid "Connect to a virt-v2v conversion server over SSH:"
@@ -10870,7 +10840,7 @@ msgid ""
 msgstr ""
 
 #: p2v/gui.c:788
-msgid "Output _conn. (-oc):"
+msgid "_Output conn. (-oc):"
 msgstr ""
 
 #: p2v/gui.c:794
@@ -10938,7 +10908,7 @@ msgid "_Back"
 msgstr ""
 
 #: p2v/gui.c:911
-msgid "_Start conversion"
+msgid "Start _conversion"
 msgstr ""
 
 #: p2v/gui.c:961
@@ -11528,7 +11498,7 @@ msgstr "virt-tar: {tarball}: файла не знайдено\n"
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr "virt-tar: {dir}: запис каталогу має починатися з символу «/»\n"
 
-#: tools/virt-tar:258 tools/virt-win-reg:298
+#: tools/virt-tar:258 tools/virt-win-reg:316
 #, perl-brace-format
 msgid ""
 "{prog}: No operating system could be detected inside this disk image.\n"
@@ -11550,18 +11520,18 @@ msgstr ""
 "повідомлення про ваду,\n"
 "додавши до нього максимум можливої інформації щодо образу диска.\n"
 
-#: tools/virt-tar:262 tools/virt-win-reg:302
+#: tools/virt-tar:262 tools/virt-win-reg:320
 #, perl-brace-format
 msgid "{prog}: multiboot operating systems are not supported.\n"
 msgstr ""
 "{prog}: підтримки операційних систем з варіантами завантаження не "
 "передбачено.\n"
 
-#: tools/virt-win-reg:242
+#: tools/virt-win-reg:260
 msgid "no libvirt domain name or disk image given\n"
 msgstr "не вказано назви домену або образу диска libvirt\n"
 
-#: tools/virt-win-reg:324
+#: tools/virt-win-reg:342
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
@@ -11569,25 +11539,67 @@ msgstr ""
 "мало бути вказано 1 або 2 додаткових параметри, шлях до підключа і "
 "необов’язкове значення для експортування\n"
 
-#: tools/virt-win-reg:484
+#: tools/virt-win-reg:502
 #, perl-brace-format
 msgid "virt-win-reg: {p}: cannot find user directory\n"
 msgstr "virt-win-reg: {p}: не вдалося знайти каталог користувача\n"
 
-#: tools/virt-win-reg:489
+#: tools/virt-win-reg:507
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr "virt-win-reg: {p}: непідтримуваний запис шляху у регістрі Windows\n"
 
-#: tools/virt-win-reg:562
+#: tools/virt-win-reg:580
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося отримати файл регістра: {err}\n"
 
-#: tools/virt-win-reg:579
+#: tools/virt-win-reg:597
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid ""
+#~ "inspection could not detect the source guest (or physical machine).\n"
+#~ "\n"
+#~ "Assuming that you are running virt-v2v/virt-p2v on a source which is "
+#~ "supported (and not, for example, a blank disk), then this should not "
+#~ "happen.  You should run 'virt-v2v -v -x ... >& log' and attach the "
+#~ "complete log to a new bug report (see http://libguestfs.org).\n"
+#~ "\n"
+#~ "Inspection field '%s' was 'unknown'."
+#~ msgstr ""
+#~ "під час вивчення не вдалося виявити гостьової системи (або фізичної "
+#~ "машини) джерела.\n"
+#~ "\n"
+#~ "Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку "
+#~ "якого передбачено (а не, наприклад, порожнього диска), такого не мало "
+#~ "трапитися. Слід віддати команду «virt-v2v -v -x ... >& log» і долучити "
+#~ "отриманий файл журналу (log) до звіту щодо вади (див. http://libguestfs."
+#~ "org).\n"
+#~ "\n"
+#~ "Значенням визначеного поля «%s» було «unknown»."
+
+#~ msgid ""
+#~ "inspection could not detect the source guest (or physical machine).\n"
+#~ "\n"
+#~ "Assuming that you are running virt-v2v/virt-p2v on a source which is "
+#~ "supported (and not, for example, a blank disk), then this should not "
+#~ "happen.  You should run 'virt-v2v -v -x ... >& log' and attach the "
+#~ "complete log to a new bug report (see http://libguestfs.org).\n"
+#~ "\n"
+#~ "No root device found in this operating system image."
+#~ msgstr ""
+#~ "під час вивчення не вдалося виявити гостьової системи (або фізичної "
+#~ "машини) джерела.\n"
+#~ "\n"
+#~ "Якщо припустити, що virt-v2v/virt-p2v запущено для джерела, підтримку "
+#~ "якого передбачено (а не, наприклад, порожнього диска), такого не мало "
+#~ "трапитися. Слід віддати команду «virt-v2v -v -x ... >& log» і долучити "
+#~ "отриманий файл журналу (log) до звіту щодо вади (див. http://libguestfs."
+#~ "org).\n"
+#~ "\n"
+#~ "У образі операційної системи не виявлено кореневого пристрою."
 
 #~ msgid "--no-copy and '-o glance' cannot be used at the same time"
 #~ msgstr "Не можна одночасно використовувати --no-copy і «-o glance»"
