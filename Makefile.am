@@ -194,7 +194,7 @@ SUBDIRS += po-docs
 endif
 
 EXTRA_DIST = \
-	BUGS HACKING TODO \
+	AUTHORS BUGS HACKING TODO \
 	.gitignore \
 	.lvimrc \
 	.mailmap \
@@ -300,7 +300,6 @@ maintainer-upload-website:
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
 
 dist-hook: BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
-	cp AUTHORS $(distdir)/AUTHORS
 	cp BUGS $(distdir)/BUGS
 	cp ChangeLog $(distdir)/ChangeLog
 
