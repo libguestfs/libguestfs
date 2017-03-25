@@ -21,4 +21,5 @@ set -e
 $TEST_FUNCTIONS
 skip_if_skipped
 
-$top_srcdir/podcheck.pl virt-rescue.pod virt-rescue
+$top_srcdir/podcheck.pl virt-rescue.pod virt-rescue \
+                        --ignore=--suggest
