@@ -612,16 +612,41 @@ xterm_button_clicked (GtkWidget *w, gpointer data)
 static void
 about_button_clicked (GtkWidget *w, gpointer data)
 {
-  gtk_show_about_dialog (GTK_WINDOW (conn_dlg),
-                         "program-name", getprogname (),
-                         "version", PACKAGE_VERSION_FULL " (" host_cpu ")",
-                         "copyright", "\u00A9 2009-2017 Red Hat Inc.",
-                         "comments",
-                           _("Virtualize a physical machine to run on KVM"),
-                         "license", gplv2plus,
-                         "website", "http://libguestfs.org/",
-                         "authors", authors,
-                         NULL);
+  GtkWidget *dialog;
+  GtkWidget *parent = conn_dlg;
+
+  dialog = gtk_about_dialog_new ();
+
+  g_object_set (G_OBJECT (dialog),
+                "program-name", getprogname (),
+                "version", PACKAGE_VERSION_FULL " (" host_cpu ")",
+                "copyright", "\u00A9 2009-2017 Red Hat Inc.",
+                "comments",
+                  _("Virtualize a physical machine to run on KVM"),
+                "license", gplv2plus,
+                "website", "http://libguestfs.org/",
+                "authors", authors,
+                NULL);
+
+  if (documenters[0] != NULL)
+    g_object_set (G_OBJECT (dialog),
+                  "documenters", documenters,
+                  NULL);
+
+  if (qa[0] != NULL)
+    gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
+                                         "Quality assurance", qa);
+
+  if (others[0] != NULL)
+    gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
+                                         "Libguestfs development", others);
+
+  gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (parent));
+  gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
+
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
 }
 
 /**

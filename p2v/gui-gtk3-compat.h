@@ -37,6 +37,11 @@
   (box) = gtk_vbox_new ((homogeneous), (spacing))
 #endif
 
+#if !GTK_CHECK_VERSION(3,4,0)   /* gtk < 3.4 */
+/* Gtk < 3.4 entirely lacked gtk_about_dialog_add_credit_section. */
+#define gtk_about_dialog_add_credit_section(d,k,v) do {} while (0)
+#endif
+
 #if GTK_CHECK_VERSION(3,4,0)   /* gtk >= 3.4 */
 /* GtkGrid is sufficiently similar to GtkTable that we can just
  * redefine these functions.

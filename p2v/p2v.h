@@ -190,6 +190,9 @@ extern char **output_drivers;
 
 /* about-authors.c */
 extern const char *authors[];
+extern const char *qa[];
+extern const char *documenters[];
+extern const char *others[];
 
 /* about-license.c */
 extern const char *gplv2plus;

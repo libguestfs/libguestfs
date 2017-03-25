@@ -290,7 +290,6 @@ maintainer-upload-website:
 
 # When doing 'make dist' update a few files automatically.
 #
-#  AUTHORS        - list of authors (created from git)
 #  BUGS           - list of bugs (created from Bugzilla)
 #  ChangeLog      - changelog (created from git)
 #  docs/C_SOURCE_FILES
@@ -300,15 +299,10 @@ maintainer-upload-website:
 #                   special xgettext option [not generated here]
 #  po/POTFILES-ml - OCaml files, which need a special tool to translate
 
-dist-hook: AUTHORS BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
+dist-hook: BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
 	cp AUTHORS $(distdir)/AUTHORS
 	cp BUGS $(distdir)/BUGS
 	cp ChangeLog $(distdir)/ChangeLog
-
-AUTHORS: configure.ac
-	rm -f $@ $@-t
-	git shortlog -s | $(AWK) -F'\t' '{print $$2}' | sort -f > $@-t
-	mv $@-t $@
 
 BUGS: configure.ac
 	rm -f $@ $@-t
@@ -559,6 +553,21 @@ maintainer-commit:
 
 maintainer-tag:
 	git tag -a "v$(VERSION)" -m "Version $(VERSION) ($(BRANCH_TYPE))" -f
+
+# Maintainer only: compare authors (found in git commit messages) to
+# generator/authors.ml.
+maintainer-check-authors:
+	rm -f $@ $@-t
+	git shortlog -s | \
+	    $(AWK) -F'\t' '{print $$2}' | \
+	    sort -f | \
+	    while read author; do \
+	        if ! grep -sqiF "\"$$author\"," generator/authors.ml; then \
+	            echo "FAIL: $$author" is missing from generator/authors.ml; \
+	            exit 1; \
+	        fi; \
+	    done
+	@echo PASS: AUTHORS test
 
 # Maintainer only: check no files are missing from EXTRA_DIST rules,
 # and that all generated files have been included in the tarball.

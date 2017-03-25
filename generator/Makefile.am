@@ -43,6 +43,8 @@ sources = \
 	actions_properties_deprecated.mli \
 	actions_tsk.ml \
 	actions_tsk.mli \
+	authors.ml \
+	authors.mli \
 	bindtests.ml \
 	bindtests.mli \
 	c.ml \
@@ -138,6 +140,7 @@ objects = \
 	events.cmo \
 	pr.cmo \
 	docstrings.cmo \
+	authors.cmo \
 	checks.cmo \
 	c.cmo \
 	XDR.cmo \

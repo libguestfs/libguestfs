@@ -17,7 +17,14 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+generator_built = \
+	about-authors.c
+
+BUILT_SOURCES = \
+	$(generator_built)
+
 EXTRA_DIST = \
+	$(BUILT_SOURCES) \
 	$(TESTS) $(SLOW_TESTS) \
 	dependencies.m4 \
 	issue \

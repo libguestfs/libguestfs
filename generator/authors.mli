@@ -1,5 +1,5 @@
-/* virt-p2v
- * Copyright (C) 2009-2017 Red Hat Inc.
+(* libguestfs
+ * Copyright (C) 2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,28 +13,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *)
 
-#include <config.h>
+type role = Development | Quality_assurance | Documentation | V2V_and_P2V
+(** Not exclusive, you can be in multiple roles :-) *)
 
-#include "p2v.h"
+val authors : (string * role list) list
+(** List of authors and roles. *)
 
-/* The list of authors of virt-p2v and virt-v2v, for the About dialog.
- *
- * Note: In alphabetical order of surname / family name.
- */
-
-const char *authors[] = {
-  "Matthew Booth",
-  "Cédric Bosdonnat",
-  "John Eckersberg",
-  "Richard W.M. Jones",
-  "Shahar Havivi",
-  "Roman Kagan",
-  "Mike Latimer",
-  "Pino Toscano",
-  "Ming Xie",
-  "Tingting Zheng",
-  NULL
-};
+val generate_authors : unit -> unit
+val generate_p2v_about_authors_c : unit -> unit

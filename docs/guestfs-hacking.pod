@@ -1030,6 +1030,11 @@ of the messages:
 (See L<guestfs(3)/LIBGUESTFS VERSION NUMBERS> for the difference
 between a stable and development release.)
 
+=head3 make maintainer-check-authors
+
+Check that all authors (found in git commit messages) are included in
+the F<generator/authors.ml> file.
+
 =head3 make maintainer-check-extra-dist
 
 This rule must be run after C<make dist> (so there is a tarball in the

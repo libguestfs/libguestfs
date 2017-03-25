@@ -73,6 +73,11 @@ Run it from the top source directory using the command
      perror "lock: BUGS" exn;
      exit 1);
 
+  output_to "AUTHORS"
+            Authors.generate_authors;
+  output_to "p2v/about-authors.c"
+            Authors.generate_p2v_about_authors_c;
+
   output_to "common/errnostring/errnostring-gperf.gperf"
             Errnostring.generate_errnostring_gperf;
   output_to "common/errnostring/errnostring.c"
