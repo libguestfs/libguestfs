@@ -1007,6 +1007,42 @@ F<http://git.annexia.org/?p=miniexpect.git;a=summary>)
 
 =head1 MAINTAINER TASKS
 
+=head2 MAINTAINER MAKEFILE TARGETS
+
+These C<make> targets probably won't work and aren't useful unless you
+are a libguestfs maintainer.
+
+=head3 make maintainer-commit
+
+This commits everything in the working directory with the commit
+message C<Version $(VERSION).>.  You must update F<configure.ac>,
+clean and rebuild first.
+
+=head3 make maintainer-tag
+
+This tags the current HEAD commit with the tag C<v$(VERSION)> and one
+of the messages:
+
+ Version $(VERSION) stable
+
+ Version $(VERSION) development
+
+(See L<guestfs(3)/LIBGUESTFS VERSION NUMBERS> for the difference
+between a stable and development release.)
+
+=head3 make maintainer-check-extra-dist
+
+This rule must be run after C<make dist> (so there is a tarball in the
+working directory).  It compares the contents of the tarball with the
+contents of git to ensure that no files have been missed from
+F<Makefile.am> C<EXTRA_DIST> rules.
+
+=head3 make maintainer-upload-website
+
+This is used by the software used to automate libguestfs releases to
+copy the libguestfs website to another git repository before it is
+uploaded to the web server.
+
 =head2 MAKING A STABLE RELEASE
 
 When we make a stable release, there are several steps documented
