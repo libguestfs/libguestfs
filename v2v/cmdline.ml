@@ -170,7 +170,7 @@ let parse_cmdline () =
 
   let argspec = [
     [ S 'b'; L"bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge 'in' to 'out'";
-    [ L"compressed" ], Getopt.Set compressed,     s_"Compress output file";
+    [ L"compressed" ], Getopt.Set compressed,     s_"Compress output file (-of qcow2 only)";
     [ L"dcpath"; L"dcPath" ],  Getopt.String ("path", set_string_option_once "--dcpath" dcpath),
                                             s_"Override dcPath (for vCenter)";
     [ L"debug-overlay"; L"debug-overlays" ], Getopt.Set debug_overlays, s_"Save overlay files";
