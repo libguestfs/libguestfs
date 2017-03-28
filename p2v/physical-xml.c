@@ -37,6 +37,8 @@
 
 #include <glib.h>
 
+#include "getprogname.h"
+
 #include "p2v.h"
 
 static const char *map_interface_to_network (struct config *, const char *interface);
@@ -90,10 +92,10 @@ static const char *map_interface_to_network (struct config *, const char *interf
   } while (0)
 
 /* An XML comment. */
-#define comment(str)						\
-  do {                                                          \
-    if (xmlTextWriterWriteComment (xo, BAD_CAST (str)) == -1)	\
-      error (EXIT_FAILURE, errno, "xmlTextWriterWriteComment");	\
+#define comment(fs,...)                                                 \
+  do {                                                                  \
+    if (xmlTextWriterWriteFormatComment (xo, fs, ##__VA_ARGS__) == -1)	\
+      error (EXIT_FAILURE, errno, "xmlTextWriterWriteFormatComment");   \
   } while (0)
 
 /**
@@ -122,6 +124,8 @@ generate_physical_xml (struct config *config, struct data_conn *data_conns,
     error (EXIT_FAILURE, errno, "xmlTextWriterStartDocument");
 
   memkb = config->memory / 1024;
+
+  comment (" %s %s ", getprogname (), PACKAGE_VERSION_FULL);
 
   comment
     (" NOTE!\n"

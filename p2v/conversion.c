@@ -59,6 +59,7 @@ static void cleanup_data_conns (struct data_conn *data_conns, size_t nr);
 static void generate_name (struct config *, const char *filename);
 static void generate_wrapper_script (struct config *, const char *remote_dir, const char *filename);
 static void generate_system_data (const char *dmesg_file, const char *lscpu_file, const char *lspci_file, const char *lsscsi_file, const char *lsusb_file);
+static void generate_p2v_version_file (const char *p2v_version_file);
 static void print_quoted (FILE *fp, const char *s);
 
 static char *conversion_error;
@@ -170,6 +171,7 @@ start_conversion (struct config *config,
   char lspci_file[]       = "/tmp/p2v.XXXXXX/lspci";
   char lsscsi_file[]      = "/tmp/p2v.XXXXXX/lsscsi";
   char lsusb_file[]       = "/tmp/p2v.XXXXXX/lsusb";
+  char p2v_version_file[] = "/tmp/p2v.XXXXXX/p2v-version";
   int inhibit_fd = -1;
 
 #if DEBUG_STDERR
@@ -306,6 +308,7 @@ start_conversion (struct config *config,
   memcpy (lspci_file, tmpdir, strlen (tmpdir));
   memcpy (lsscsi_file, tmpdir, strlen (tmpdir));
   memcpy (lsusb_file, tmpdir, strlen (tmpdir));
+  memcpy (p2v_version_file, tmpdir, strlen (tmpdir));
 
   /* Generate the static files. */
   generate_name (config, name_file);
@@ -313,6 +316,7 @@ start_conversion (struct config *config,
   generate_wrapper_script (config, remote_dir, wrapper_script);
   generate_system_data (dmesg_file,
                         lscpu_file, lspci_file, lsscsi_file, lsusb_file);
+  generate_p2v_version_file (p2v_version_file);
 
   /* Open the control connection.  This also creates remote_dir. */
   if (notify_ui)
@@ -347,6 +351,7 @@ start_conversion (struct config *config,
   ignore_value (scp_file (config, lspci_file, remote_dir));
   ignore_value (scp_file (config, lsscsi_file, remote_dir));
   ignore_value (scp_file (config, lsusb_file, remote_dir));
+  ignore_value (scp_file (config, p2v_version_file, remote_dir));
 
   /* Do the conversion.  This runs until virt-v2v exits. */
   if (notify_ui)
@@ -565,6 +570,13 @@ generate_wrapper_script (struct config *config, const char *remote_dir,
   fprintf (fp, "\n");
 
   fprintf (fp,
+           "# Log the version of virt-v2v (for information only).\n");
+  if (config->sudo)
+    fprintf (fp, "sudo -n ");
+  fprintf (fp, "virt-v2v --version > v2v-version\n");
+  fprintf (fp, "\n");
+
+  fprintf (fp,
            "# Run virt-v2v.  Send stdout back to virt-p2v.  Send stdout\n"
            "# and stderr (debugging info) to the log file.\n");
   fprintf (fp, "v2v 2>> $log | tee -a $log\n");
@@ -644,4 +656,22 @@ generate_system_data (const char *dmesg_file,
     error (EXIT_FAILURE, errno, "asprintf");
 
   ignore_value (system (cmd));
+}
+
+/**
+ * Generate a file containing the version of virt-p2v.
+ *
+ * The version of virt-v2v is contained in the conversion log.
+ */
+static void
+generate_p2v_version_file (const char *p2v_version_file)
+{
+  FILE *fp = fopen (p2v_version_file, "w");
+  if (fp == NULL) {
+    perror (p2v_version_file);
+    return;                     /* non-fatal */
+  }
+  fprintf (fp, "%s %s\n",
+           getprogname (), PACKAGE_VERSION_FULL);
+  fclose (fp);
 }
