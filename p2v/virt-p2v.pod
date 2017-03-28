@@ -767,6 +767,14 @@ Note this is not "real" libvirt XML (and must B<never> be loaded into
 libvirt, which would reject it anyhow).  Also it is not the same as
 the libvirt XML which virt-v2v generates in certain output modes.
 
+=item F<p2v-version>
+
+=item F<v2v-version>
+
+I<(before conversion)>
+
+The versions of virt-p2v and virt-v2v respectively.
+
 =item F<status>
 
 I<(after conversion)>
