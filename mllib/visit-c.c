@@ -54,7 +54,7 @@ value
 guestfs_int_mllib_visit (value gv, value dirv, value fv)
 {
   CAMLparam3 (gv, dirv, fv);
-  guestfs_h *g = (guestfs_h *) Int64_val (gv);
+  guestfs_h *g = (guestfs_h *) (intptr_t) Int64_val (gv);
   struct visitor_function_wrapper_args args;
   /* The dir string could move around when we call the
    * visitor_function, so we have to take a full copy of it.
