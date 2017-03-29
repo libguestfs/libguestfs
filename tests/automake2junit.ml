@@ -108,6 +108,12 @@ let sanitize_log log =
   let log = string_replace log "\x0d" "" in
   log
 
+let escape_text text =
+  let text = string_replace text "&" "&amp;" in
+  let text = string_replace text "\"" "&quot;" in
+  let text = string_replace text "<" "&lt;" in
+  text
+
 let iterate_results trs_files =
   let total = ref 0 in
   let failures = ref 0 in
@@ -159,7 +165,7 @@ let iterate_results trs_files =
       | Skip ->
         skipped := !skipped + 1;
         Buffer.add_string buf (sprintf "  <testcase name=\"%s\" classname=\"%s\" time=\"%d\">\n" testname (String.concat "." (List.rev stack)) time);
-        Buffer.add_string buf (sprintf "    <skipped message=\"%s\"></skipped>\n" log);
+        Buffer.add_string buf (sprintf "    <skipped message=\"%s\"></skipped>\n" (escape_text log));
         Buffer.add_string buf (sprintf "  </testcase>\n")
       | XFail | Fail | XPass ->
         failures := !failures + 1;
