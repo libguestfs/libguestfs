@@ -61,7 +61,7 @@ let find_uefi_firmware guest_arch =
              guest_arch in
   let rec loop = function
     | [] ->
-       error (f_"cannot find firmware for UEFI guests.\n\nYou probably need to install OVMF, or Gerd's firmware repo (https://www.kraxel.org/repos/), or AAVMF (if using aarch64)")
+       error (f_"cannot find firmware for UEFI guests.\n\nYou probably need to install OVMF (x86-64), or AAVMF (aarch64)")
     | ({ Uefi.code = code; vars = vars_template } as ret) :: rest ->
        if Sys.file_exists code && Sys.file_exists vars_template then ret
        else loop rest
