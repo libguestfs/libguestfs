@@ -134,6 +134,7 @@ static GtkWidget *run_dlg,
 /* Colour tags used in the v2v_output GtkTextBuffer. */
 static GtkTextTag *v2v_output_tags[16];
 
+#if !GTK_CHECK_VERSION(3,0,0)   /* gtk < 3 */
 /* The license of virt-p2v, for the About dialog. */
 static const char gplv2plus[] =
   "This program is free software; you can redistribute it and/or modify\n"
@@ -149,6 +150,7 @@ static const char gplv2plus[] =
   "You should have received a copy of the GNU General Public License\n"
   "along with this program; if not, write to the Free Software\n"
   "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n";
+#endif
 
 /**
  * The entry point from the main program.
@@ -639,7 +641,11 @@ about_button_clicked (GtkWidget *w, gpointer data)
                 "copyright", "\u00A9 2009-2017 Red Hat Inc.",
                 "comments",
                   _("Virtualize a physical machine to run on KVM"),
+#if GTK_CHECK_VERSION(3,0,0)   /* gtk >= 3 */
+                "license-type", GTK_LICENSE_GPL_2_0,
+#else
                 "license", gplv2plus,
+#endif
                 "website", "http://libguestfs.org/",
                 "authors", authors,
                 NULL);
