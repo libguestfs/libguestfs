@@ -366,28 +366,19 @@ start_conversion (struct config *config,
   }
 
   /* Copy the static files to the remote dir. */
-  if (scp_file (config, name_file, remote_dir) == -1) {
-    set_conversion_error ("scp: %s to %s: %s",
-                          name_file, remote_dir, get_ssh_error ());
+
+  /* These three files must not fail, so check for errors here. */
+  if (scp_file (config, remote_dir,
+                name_file, libvirt_xml_file, wrapper_script, NULL) == -1) {
+    set_conversion_error ("scp: %s: %s",
+                          remote_dir, get_ssh_error ());
     goto out;
   }
-  if (scp_file (config, libvirt_xml_file, remote_dir) == -1) {
-    set_conversion_error ("scp: %s to %s: %s",
-                          libvirt_xml_file, remote_dir, get_ssh_error ());
-    goto out;
-  }
-  if (scp_file (config, wrapper_script, remote_dir) == -1) {
-    set_conversion_error ("scp: %s to %s: %s",
-                          wrapper_script, remote_dir, get_ssh_error ());
-    goto out;
-  }
-  /* It's not essential that these files are copied. */
-  ignore_value (scp_file (config, dmesg_file, remote_dir));
-  ignore_value (scp_file (config, lscpu_file, remote_dir));
-  ignore_value (scp_file (config, lspci_file, remote_dir));
-  ignore_value (scp_file (config, lsscsi_file, remote_dir));
-  ignore_value (scp_file (config, lsusb_file, remote_dir));
-  ignore_value (scp_file (config, p2v_version_file, remote_dir));
+
+  /* It's not essential that these files are copied, so ignore errors. */
+  ignore_value (scp_file (config, remote_dir,
+                          dmesg_file, lscpu_file, lspci_file, lsscsi_file,
+                          lsusb_file, p2v_version_file, NULL));
 
   /* Do the conversion.  This runs until virt-v2v exits. */
   if (notify_ui)
