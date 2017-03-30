@@ -373,6 +373,15 @@ L<virt-manager(1)>.
 The solution is to update to the non-vulnerable version of icoutils
 (at least 0.31.1).
 
+=head2 CVE-2017-7244, CVE-2017-7245, CVE-2017-7246
+
+Multiple vulnerabilities in PCRE could be exploited to crash
+libguestfs (ie. cause a denial of service) when performing inspection
+on an untrusted virtual machine.
+
+The solution is to update to a version of PCRE with these bugs fixed
+(upstream version E<ge> 8.41).
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
