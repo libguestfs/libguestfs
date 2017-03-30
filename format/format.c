@@ -68,7 +68,7 @@ usage (int status)
     _("IMPORTANT NOTE: This program ERASES ALL DATA on disks.");
 
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n%s\n"),
+    fprintf (stderr, _("Try ‘%s --help’ for more information.\n%s\n"),
              getprogname (), warning);
   else {
     printf (_("%s: erase and make a blank disk\n"

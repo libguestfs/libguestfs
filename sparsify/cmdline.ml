@@ -51,7 +51,7 @@ let parse_cmdline () =
     | "warn" | "warning" | "w" -> check_tmpdir := `Warn
     | "fail" | "f" | "error" -> check_tmpdir := `Fail
     | str ->
-      error (f_"--check-tmpdir: unknown argument `%s'") str
+      error (f_"--check-tmpdir: unknown argument ‘%s’") str
   in
 
   let compress = ref false in

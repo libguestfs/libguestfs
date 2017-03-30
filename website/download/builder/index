@@ -18,7 +18,7 @@ notes=CentOS 6.6
  
  builder/website/centos.sh
  
- Note that `virt-builder centos-6' will always install the latest
+ Note that ‘virt-builder centos-6’ will always install the latest
  6.x release.
 
 [centos-7.0]
@@ -929,7 +929,7 @@ notes=Scientific Linux 6.5
  
  builder/website/scientificlinux.sh
  
- Note that `virt-builder scientificlinux-6' will always install the
+ Note that ‘virt-builder scientificlinux-6’ will always install the
  latest 6.x release.
 
 [ubuntu-10.04]

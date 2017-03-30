@@ -70,7 +70,7 @@ cleanup_option_list (void *ptr)
 static void __attribute__((noreturn))
 show_error (int status)
 {
-  fprintf (stderr, _("Try `%s --help' or consult %s(1) for more information.\n"),
+  fprintf (stderr, _("Try ‘%s --help’ or consult %s(1) for more information.\n"),
            getprogname (), getprogname ());
   exit (status);
 }

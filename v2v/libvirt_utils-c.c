@@ -160,7 +160,7 @@ connect_and_load_pool (value connv, value poolnamev)
   if (!pool) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot find libvirt pool '%s': %s\n\nUse `virsh pool-list --all' to list all available pools, and `virsh pool-dumpxml <pool>' to display details about a particular pool.\n\nTo set the pool which virt-v2v uses, add the `-os <pool>' option."),
+              _("cannot find libvirt pool '%s': %s\n\nUse ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n\nTo set the pool which virt-v2v uses, add the ‘-os <pool>’ option."),
               poolname, err->message);
     virConnectClose (conn);
     caml_invalid_argument (errmsg);
