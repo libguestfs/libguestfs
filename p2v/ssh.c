@@ -572,14 +572,18 @@ start_ssh (unsigned spawn_flags, struct config *config,
 #endif
 
 /**
- * Upload a file to remote using L<scp(1)>.
+ * Upload file(s) to remote using L<scp(1)>.
+ *
+ * Note that the target (directory or file) comes before the list of
+ * local files, because the list of local files is a varargs list.
  *
  * This is a simplified version of L</start_ssh> above.
  */
 int
-scp_file (struct config *config, const char *localfile, const char *remotefile)
+scp_file (struct config *config, const char *target, const char *local, ...)
 {
   size_t i = 0;
+  va_list args;
   const size_t MAX_ARGS = 64;
   const char *argv[MAX_ARGS];
   char port_str[64];
@@ -618,12 +622,25 @@ scp_file (struct config *config, const char *localfile, const char *remotefile)
     ADD_ARG (argv, i, "-i");
     ADD_ARG (argv, i, config->identity_file);
   }
-  ADD_ARG (argv, i, localfile);
+
+  /* Source files or directories.
+   * Strictly speaking this could abort() if the list of files is
+   * too long, but that never happens in virt-p2v. XXX
+   */
+  va_start (args, local);
+  do ADD_ARG (argv, i, local);
+  while ((local = va_arg (args, const char *)) != NULL);
+  va_end (args);
+
+  /* The target file or directory.  We need to rewrite this as
+   * "username@server:target".
+   */
   if (asprintf (&remote, "%s@%s:%s",
                 config->username ? config->username : "root",
-                config->server, remotefile) == -1)
+                config->server, target) == -1)
     error (EXIT_FAILURE, errno, "asprintf");
   ADD_ARG (argv, i, remote);
+
   ADD_ARG (argv, i, NULL);
 
 #if DEBUG_STDERR
