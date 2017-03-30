@@ -131,7 +131,7 @@ dependencies_files = \
 	dependencies.redhat \
 	dependencies.suse
 
-$(dependencies_files): dependencies.m4
+$(dependencies_files): dependencies.m4 ../config.status
 	define=`echo $@ | $(SED) 's/dependencies.//;y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/'`; \
 	m4 -D$$define=1 -DGTK_VERSION=$(GTK_VERSION) $< > $@-t
 	mv $@-t $@
