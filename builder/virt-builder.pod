@@ -430,9 +430,9 @@ You don't have a host network (eg. in secure/restricted environments).
 
 Do not sync the output file on exit.
 
-Virt-builder fsync's the output file or disk image when it exits.
+Virt-builder C<fsync>s the output file or disk image when it exits.
 
-The reason is that qemu/KVM's default caching mode is C<none> or
+The reason is that qemu/KVM’s default caching mode is C<none> or
 C<directsync>, both of which bypass the host page cache.  Therefore
 these would not work correctly if you immediately started the guest
 after running virt-builder - they would not see the complete output
@@ -554,7 +554,7 @@ you can use I<--install> to install packages like this:
 
  virt-builder fedora-20 --install inkscape
 
-This uses the guest's package manager and the host's network
+This uses the guest’s package manager and the host’s network
 connection.
 
 =head3 Updating packages at build time
@@ -575,11 +575,11 @@ Another option is to install the packages when the guest first boots:
 
  virt-builder fedora-20 --firstboot-install inkscape
 
-This uses the guest's package manager and the guest's network
+This uses the guest’s package manager and the guest’s network
 connection.
 
 The downsides are that it will take the guest a lot longer to boot
-first time, and there's nothing much you can do if package
+first time, and there’s nothing much you can do if package
 installation fails (eg. if a network problem means the guest can't
 reach the package repositories).
 
@@ -808,7 +808,7 @@ the guest, so they can login without supplying a password.
 
 The C<SELECTOR> part of the option value is optional; in this case,
 I<--ssh-inject> C<USER> means that we look in the I<current>
-user's F<~/.ssh> directory to find the default public ID file.  That
+user’s F<~/.ssh> directory to find the default public ID file.  That
 key is uploaded.  "default public ID" is the I<default_ID_file> file
 described in L<ssh-copy-id(1)>.
 
@@ -982,7 +982,7 @@ Notes:
 =item 1.
 
 You I<must> specify the correct format.  The format is C<raw> unless
-you used virt-builder's I<--format> option.
+you used virt-builder’s I<--format> option.
 
 =item 2.
 
@@ -1013,8 +1013,8 @@ Import the image into Glance (the OpenStack image store) by doing:
    --is-public True
 
 The I<--file> parameter is the virt-builder-generated disk image.  It
-should match virt-builder's I<--output> option.  The I<--disk-format>
-parameter should match virt-builder's I<--format> option (or C<raw> if
+should match virt-builder’s I<--output> option.  The I<--disk-format>
+parameter should match virt-builder’s I<--format> option (or C<raw> if
 you didn't use that option).  The I<--container-format> should always
 be C<bare> since virt-builder doesn't put images into containers.
 
@@ -1425,9 +1425,9 @@ When expanding the image to its final size, instruct L<virt-resize(1)>
 to expand the named partition in the guest image to fill up all
 available space.  This works like the virt-resize I<--expand> option.
 
-You should usually put the device name of the guest's root filesystem here.
+You should usually put the device name of the guest’s root filesystem here.
 
-It's a good idea to use this, but not required.  If the field is
+It’s a good idea to use this, but not required.  If the field is
 omitted then virt-resize will create an extra partition at the end of
 the disk to cover the free space, which is much less user-friendly.
 
@@ -1437,7 +1437,7 @@ When expanding the image to its final size, instruct L<virt-resize(1)>
 to expand the named logical volume in the guest image to fill up all
 available space.  This works like the virt-resize I<--lv-expand> option.
 
-If the guest uses LVM2 you should usually put the LV of the guest's
+If the guest uses LVM2 you should usually put the LV of the guest’s
 root filesystem here.  If the guest does not use LVM2 or its root
 filesystem is not on an LV, don't use this option.
 
@@ -1527,7 +1527,7 @@ The index is always encoded in UTF-8.
 =head3 Caching templates
 
 Since the templates are usually very large, downloaded templates are
-cached in the user's home directory.
+cached in the user’s home directory.
 
 The location of the cache is F<$XDG_CACHE_HOME/virt-builder/> or
 F<$HOME/.cache/virt-builder>.
@@ -1608,13 +1608,13 @@ index and templates have not been tampered with.
 The source points to an index file, which is optionally signed.
 
 Virt-builder downloads the index and checks that the signature is
-valid and the signer's fingerprint matches the specified fingerprint
+valid and the signer’s fingerprint matches the specified fingerprint
 (ie. the one specified in I<gpgkey=..> in the I<.conf>, or with
 I<--fingerprint>, in that order).
 
 For checking against the built-in public key/fingerprint, this
-requires importing the public key into the user's local gpg keyring
-(that's just the way that gpg works).
+requires importing the public key into the user’s local gpg keyring
+(that’s just the way that gpg works).
 
 When a template is downloaded, its signature is checked in the same
 way.
@@ -1650,7 +1650,7 @@ commands do not run on the host.  If you are using the libguestfs
 libvirt backend and have SELinux enabled then the virtual machine is
 additionally encapsulated in an SELinux container (sVirt).
 
-However these options will have access to the host's network and since
+However these options will have access to the host’s network and since
 the template may contain untrusted code, the code might try to access
 host network resources which it should not.  You can use
 I<--no-network> to prevent this.

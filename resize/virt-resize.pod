@@ -28,7 +28,7 @@ those manual pages first.
 
 =item 1.
 
-Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions
+Copy C<olddisk> to C<newdisk>, extending one of the guest’s partitions
 to fill the extra 5GB of space.
 
  virt-filesystems --long -h --all -a olddisk
@@ -77,7 +77,7 @@ of a raw disk:
 =item 2. Locate input disk image
 
 Locate the input disk image (ie. the file or device on the host
-containing the guest's disk).  If the guest is managed by libvirt, you
+containing the guest’s disk).  If the guest is managed by libvirt, you
 can use C<virsh dumpxml> like this to find the disk image name:
 
  # virsh dumpxml guestname | xpath /domain/devices/disk/source
@@ -792,7 +792,7 @@ derived from them, for supporting the C<xfs> filesystem.
 
 Virt-resize has no support for expanding that type of filesystem.
 
-In this case, there's nothing that can be done to let virt-resize
+In this case, there’s nothing that can be done to let virt-resize
 expand that type of filesystem.
 
 =back

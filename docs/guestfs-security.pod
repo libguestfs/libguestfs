@@ -188,7 +188,7 @@ L<guestfs(3)/RUNNING COMMANDS>).
 The way to avoid this is to specify the expected disk format when
 adding disks (the optional C<format> option to
 L<guestfs(3)/guestfs_add_drive_opts>).  You should always do this if
-the disk is raw format, and it's a good idea for other cases too.
+the disk is raw format, and it’s a good idea for other cases too.
 (See also L<guestfs(3)/DISK IMAGE FORMATS>).
 
 For disks added from libvirt using calls like
@@ -203,7 +203,7 @@ appropriate.
 L<https://bugzilla.redhat.com/752375>
 
 This is a bug in the kernel which allowed guests to overwrite
-parts of the host's drives which they should not normally
+parts of the host’s drives which they should not normally
 have access to.
 
 It is sufficient to update libguestfs to any version E<ge> 1.16 which
@@ -244,7 +244,7 @@ The location has to be a known one in order for both ends to
 communicate.  However no checking was done that the containing
 directory (F</tmp/.guestfish-$UID>) is owned by the user.  Thus
 another user could create this directory and potentially hijack
-sockets owned by another user's guestfish client or server.
+sockets owned by another user’s guestfish client or server.
 
 It is sufficient to update libguestfs to a version that is not
 vulnerable: libguestfs E<ge> 1.20.12, E<ge> 1.22.7 or E<ge> 1.24.

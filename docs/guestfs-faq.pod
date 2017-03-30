@@ -8,7 +8,7 @@ guestfs-faq - libguestfs Frequently Asked Questions (FAQ)
 
 libguestfs is a way to create, access and modify disk images.  You can
 look inside disk images, modify the files they contain, create them
-from scratch, resize them, and much more.  It's especially useful from
+from scratch, resize them, and much more.  It’s especially useful from
 scripts and programs and from the command line.
 
 libguestfs is a C library (hence "lib-"), and a set of tools built on
@@ -60,7 +60,7 @@ create images from scratch.
 
 vdfuse is like kpartx but for VirtualBox images.  See the kpartx
 comparison above.  You can use libguestfs on the partition files
-exposed by vdfuse, although it's not necessary since libguestfs can
+exposed by vdfuse, although it’s not necessary since libguestfs can
 access VirtualBox images directly.
 
 =item I<vs. qemu-nbd>
@@ -730,7 +730,7 @@ ssh.  See L<guestfs(3)/REMOTE STORAGE>.
 
 =item 2.
 
-Use VMware's proprietary vdiskmanager tool to convert the image to raw
+Use VMware’s proprietary vdiskmanager tool to convert the image to raw
 format.
 
 =item 3.
@@ -754,7 +754,7 @@ See L<https://www.kernel.org/doc/Documentation/filesystems/ufs.txt>
 
 =head2 Windows ReFS
 
-Windows ReFS is Microsoft's ZFS/Btrfs copy.  This filesystem has not
+Windows ReFS is Microsoft’s ZFS/Btrfs copy.  This filesystem has not
 yet been reverse engineered and implemented in the Linux kernel, and
 therefore libguestfs doesn't support it.  At the moment it seems to be
 very rare "in the wild".
@@ -783,8 +783,8 @@ This is a design flaw of the GNU/Linux system.
 VFAT stores long filenames as UTF-16 characters.  When opening or
 returning filenames, the Linux kernel has to translate these to some
 form of 8 bit string.  UTF-8 would be the obvious choice, except for
-Linux users who persist in using non-UTF-8 locales (the user's locale
-is not known to the kernel because it's a function of libc).
+Linux users who persist in using non-UTF-8 locales (the user’s locale
+is not known to the kernel because it’s a function of libc).
 
 Therefore you have to tell the kernel what translation you want done
 when you mount the filesystem.  The two methods are the C<iocharset>
@@ -911,7 +911,7 @@ standalone programs).
 
 =head1 DEBUGGING LIBGUESTFS
 
-=head2 Help, it's not working!
+=head2 Help, it’s not working!
 
 If no libguestfs program seems to work at all, run the program below
 and paste the B<complete, unedited> output into an email to
@@ -1125,7 +1125,7 @@ store these writes, and then we discard it afterwards.  This ensures
 that the underlying disk is always untouched.
 
 Note also that there is a regression test for this when building
-libguestfs (in C<tests/qemu>).  This is one reason why it's important
+libguestfs (in C<tests/qemu>).  This is one reason why it’s important
 for packagers to run the test suite.
 
 =head2 Does C<--ro> make all disks read-only?
@@ -1158,7 +1158,7 @@ different times as the fsck operation progresses, with host writes in
 between.  The result is that fsck sees massive corruption (imaginary,
 not real!) and fails.
 
-What you have to do is to create a point-in-time snapshot.  If it's a
+What you have to do is to create a point-in-time snapshot.  If it’s a
 logical volume, use an LVM2 snapshot.  If the filesystem is located
 inside something like a btrfs/ZFS file, use a btrfs/ZFS snapshot, and
 then run the fsck on the snapshot.  In practice you don't need to use
@@ -1168,7 +1168,7 @@ Creating point-in-time snapshots of host devices and files is outside
 the scope of libguestfs, although libguestfs can operate on them once
 they are created.
 
-=head2 What's the difference between guestfish and virt-rescue?
+=head2 What’s the difference between guestfish and virt-rescue?
 
 A lot of people are confused by the two superficially similar tools we
 provide:
@@ -1192,12 +1192,12 @@ for shell.  The key differentiating factor of guestfish (and the
 libguestfs API in general) is the ability to automate changes.
 
 L<virt-rescue(1)> is a free-for-all freeform way to boot the
-libguestfs appliance and make arbitrary changes to your VM. It's not
+libguestfs appliance and make arbitrary changes to your VM. It’s not
 structured, you can't automate it, but for making quick ad-hoc fixes
 to your guests, it can be quite useful.
 
 But, libguestfs also has a "backdoor" into the appliance allowing you
-to send arbitrary shell commands.  It's not as flexible as
+to send arbitrary shell commands.  It’s not as flexible as
 virt-rescue, because you can't interact with the shell commands, but
 here it is anyway:
 
@@ -1207,7 +1207,7 @@ Note that you should B<not> rely on this.  It could be removed or
 changed in future. If your program needs some operation, please add it
 to the libguestfs API instead.
 
-=head2 What's the deal with C<guestfish -i>?
+=head2 What’s the deal with C<guestfish -i>?
 
 =head2 Why does virt-cat only work on a real VM image, but virt-df
 works on any disk image?
@@ -1322,7 +1322,7 @@ L<https://www.redhat.com/archives/libguestfs/2012-January/msg00023.html>
 =head2 Can I fork libguestfs?
 
 Of course you can.  Git makes it easy to fork libguestfs.  Github
-makes it even easier.  It's nice if you tell us on the mailing list
+makes it even easier.  It’s nice if you tell us on the mailing list
 about forks and the reasons for them.
 
 =head1 MISCELLANEOUS QUESTIONS
@@ -1405,7 +1405,7 @@ deleting filesystems).  For those kinds of things you must relaunch
 the appliance.
 
 (Note there is a third problem that you need to use consistent
-snapshots to really examine live disk images, but that's a general
+snapshots to really examine live disk images, but that’s a general
 problem with using libguestfs against any live disk image.)
 
 =head1 SEE ALSO

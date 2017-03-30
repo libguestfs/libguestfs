@@ -36,7 +36,7 @@ let op = {
     pod_description = Some (s_"\
 This file records who is currently logged in on a machine.  In modern
 Linux distros it is stored in a ramdisk and hence not part of the
-virtual machine's disk, but it was stored on disk in older distros.");
+virtual machine’s disk, but it was stored on disk in older distros.");
     perform_on_filesystems = Some utmp_perform;
 }
 

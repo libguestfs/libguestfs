@@ -558,7 +558,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
     shortdesc = "get hostname of the operating system";
     longdesc = "\
 This function returns the hostname of the operating system
-as found by inspection of the guest's configuration files.
+as found by inspection of the guest’s configuration files.
 
 If the hostname could not be determined, then the
 string C<unknown> is returned.
@@ -740,7 +740,7 @@ Notes:
 
 =item *
 
-Unlike most other inspection API calls, the guest's disks must be
+Unlike most other inspection API calls, the guest’s disks must be
 mounted up before you call this, since it needs to read information
 from the guest filesystem during the call.
 

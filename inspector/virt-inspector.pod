@@ -29,7 +29,7 @@ You can also run virt-inspector directly on disk images from a single
 virtual machine.  Use C<virt-inspector -a disk.img>.  In rare cases a
 domain has several block devices, in which case you should list
 several I<-a> options one after another, with the first corresponding
-to the guest's F</dev/sda>, the second to the guest's F</dev/sdb> and
+to the guest’s F</dev/sda>, the second to the guest’s F</dev/sdb> and
 so on.
 
 You can also run virt-inspector on install disks, live CDs, bootable

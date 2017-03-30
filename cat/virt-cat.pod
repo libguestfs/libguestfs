@@ -257,7 +257,7 @@ where C<domname> is the name of the libvirt guest, and C<file> is the
 full path to the file.  Note the final C<-> (meaning "output to
 stdout").
 
-The command above uses libguestfs's guest inspection feature and so
+The command above uses libguestfs’s guest inspection feature and so
 does not work on guests that libguestfs cannot inspect, or on things
 like arbitrary disk images that don't contain guests.  To display a
 file from a disk image directly, use:

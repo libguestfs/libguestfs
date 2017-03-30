@@ -101,7 +101,7 @@ different (eg. upstream) version of libvirt by running these commands
  ~/path/to/libvirt/run libguestfs-test-tool
 
 The first command kills any session C<libvirtd> process(es) that may
-be running on the machine.  The second command uses libvirt's C<run>
+be running on the machine.  The second command uses libvirt’s C<run>
 script (in the top-level libvirt build directory) to set some
 environment variables so that the alternate version of libvirt is used
 to run the program.

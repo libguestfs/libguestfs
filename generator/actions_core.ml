@@ -58,7 +58,7 @@ automatically." };
     shortdesc = "add hypervisor parameters";
     longdesc = "\
 This can be used to add arbitrary hypervisor parameters of the
-form I<-param value>.  Actually it's not quite arbitrary - we
+form I<-param value>.  Actually it’s not quite arbitrary - we
 prevent you from setting some parameters which would interfere with
 parameters that we use.
 
@@ -163,7 +163,7 @@ This call was added in version C<1.0.58>.  In previous
 versions of libguestfs there was no way to get the version
 number.  From C code you can use dynamic linker functions
 to find out if this symbol exists (if it doesn't, then
-it's an earlier version).
+it’s an earlier version).
 
 The call returns a structure with four elements.  The first
 three (C<major>, C<minor> and C<release>) are numbers and
@@ -1443,7 +1443,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
     blocking = false;
     shortdesc = "parse the environment and set handle flags accordingly";
     longdesc = "\
-Parse the program's environment and set flags in the handle
+Parse the program’s environment and set flags in the handle
 accordingly.  For example if C<LIBGUESTFS_DEBUG=1> then the
 'verbose' flag is set in the handle.
 
@@ -1490,7 +1490,7 @@ another error.
 
 No cleanup is performed: for example, if a file was being uploaded
 then after cancellation there may be a partially uploaded file.  It is
-the caller's responsibility to clean up if necessary.
+the caller’s responsibility to clean up if necessary.
 
 There are two common places that you might call C<guestfs_user_cancel>:
 
@@ -2451,7 +2451,7 @@ first parameter.
 
 Shared libraries and data files required by the program
 must be available on filesystems which are mounted in the
-correct places.  It is the caller's responsibility to ensure
+correct places.  It is the caller’s responsibility to ensure
 all filesystems that are needed are mounted at the right
 locations." };
 
@@ -3128,7 +3128,7 @@ This command is entirely equivalent to running C<fsck -a -t fstype device>." };
     longdesc = "\
 This command writes zeroes over the first few blocks of C<device>.
 
-How many blocks are zeroed isn't specified (but it's I<not> enough
+How many blocks are zeroed isn't specified (but it’s I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
 
@@ -3477,7 +3477,7 @@ volume to match the new size of the underlying device." };
     style = RString "partitions", [Device "device"], [];
     shortdesc = "display the kernel geometry";
     longdesc = "\
-This displays the kernel's idea of the geometry of C<device>.
+This displays the kernel’s idea of the geometry of C<device>.
 
 The result is in human-readable format, and not designed to
 be parsed." };
@@ -3490,7 +3490,7 @@ be parsed." };
 This displays the disk geometry of C<device> read from the
 partition table.  Especially in the case where the underlying
 block device has been resized, this can be different from the
-kernel's idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
+kernel’s idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
 
 The result is in human-readable format, and not designed to
 be parsed." };
@@ -3610,13 +3610,13 @@ L<ntfs-3g.probe(8)> manual page." };
     shortdesc = "run a command via the shell";
     longdesc = "\
 This call runs a command from the guest filesystem via the
-guest's F</bin/sh>.
+guest’s F</bin/sh>.
 
 This is like C<guestfs_command>, but passes the command to:
 
  /bin/sh -c \"command\"
 
-Depending on the guest's shell, this usually results in
+Depending on the guest’s shell, this usually results in
 wildcards being expanded, shell expressions being interpolated
 and so on.
 
@@ -5268,7 +5268,7 @@ Partition number, counting from 1.
 =item B<part_start>
 
 Start of the partition I<in bytes>.  To get sectors you have to
-divide by the device's sector size, see C<guestfs_blockdev_getss>.
+divide by the device’s sector size, see C<guestfs_blockdev_getss>.
 
 =item B<part_end>
 

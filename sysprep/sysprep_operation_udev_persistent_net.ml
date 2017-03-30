@@ -34,7 +34,7 @@ let op = {
     enabled_by_default = true;
     heading = s_"Remove udev persistent net rules";
     pod_description = Some (s_"\
-Remove udev persistent net rules which map the guest's existing MAC
+Remove udev persistent net rules which map the guest’s existing MAC
 address to a fixed ethernet device (eg. eth0).
 
 After a guest is cloned, the MAC address usually changes.  Since the

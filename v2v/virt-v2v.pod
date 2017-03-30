@@ -434,7 +434,7 @@ Set the output method to I<local>.
 
 In this mode, the converted guest is written to a local directory
 specified by I<-os /dir> (the directory must exist).  The converted
-guest's disks are written as:
+guest’s disks are written as:
 
  /dir/name-sda
  /dir/name-sdb
@@ -952,7 +952,7 @@ I<--print-source> option which causes virt-v2v to print out the
 information it has about the guest on the source and then exit.
 
 In the I<--print-source> output you will see a section showing the
-guest's Network Interface Cards (NICs):
+guest’s Network Interface Cards (NICs):
 
  $ virt-v2v [-i ...] --print-source name
  [...]
@@ -1089,7 +1089,7 @@ like this:
 
 If you get an error "Peer certificate cannot be authenticated with
 given CA certificates" or similar, then you can either import the
-vCenter host's certificate, or bypass signature verification by adding
+vCenter host’s certificate, or bypass signature verification by adding
 the C<?no_verify=1> flag:
 
  $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' list --all
@@ -1202,7 +1202,7 @@ B<ignored> when doing vCenter conversions.
 
 =head1 INPUT FROM VMWARE OVA
 
-Virt-v2v is able to import guests from VMware's OVA (Open
+Virt-v2v is able to import guests from VMware’s OVA (Open
 Virtualization Appliance) files.  Only OVAs exported from VMware
 vSphere will work.
 
@@ -1229,7 +1229,7 @@ contents.
 
 =head3 Create OVA with ovftool
 
-You can also use VMware's proprietary C<ovftool>:
+You can also use VMware’s proprietary C<ovftool>:
 
  ovftool --noSSLVerify \
    vi://USER:PASSWORD@esxi.example.com/VM \
@@ -1395,7 +1395,7 @@ L<libvirt bug 1140166|https://bugzilla.redhat.com/1140166> is fixed.
 =head2 XEN OR SSH CONVERSIONS FROM BLOCK DEVICES
 
 Currently virt-v2v cannot directly access a Xen guest (or any guest
-located remotely over ssh) if that guest's disks are located on host
+located remotely over ssh) if that guest’s disks are located on host
 block devices.
 
 To tell if a Xen guest uses host block devices, look at the guest XML.
@@ -1459,9 +1459,9 @@ metadata into a local temporary directory:
 This creates two (or more) files in F</var/tmp> called:
 
  /var/tmp/NAME.xml     # the libvirt XML (metadata)
- /var/tmp/NAME-sda     # the guest's first disk
+ /var/tmp/NAME-sda     # the guest’s first disk
 
-(for C<NAME> substitute the guest's name).
+(for C<NAME> substitute the guest’s name).
 
 =item 2.
 
@@ -1683,7 +1683,7 @@ faster.
 
 =head2 Guest network configuration
 
-Virt-v2v cannot currently reconfigure a guest's network configuration.
+Virt-v2v cannot currently reconfigure a guest’s network configuration.
 If the converted guest is not connected to the same subnet as the
 source, its network configuration may have to be updated.  See also
 L<virt-customize(1)>.

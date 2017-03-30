@@ -189,7 +189,7 @@ public class GuestFS {
    * <code>events</code> is one or more <code>EVENT_*</code> constants,
    * bitwise ORed together.
    * </p><p>
-   * When an event happens, the callback object's <code>event</code> method
+   * When an event happens, the callback object’s <code>event</code> method
    * is invoked like this:
    * </p>
    * <pre>

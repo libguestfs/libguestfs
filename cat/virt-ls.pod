@@ -506,7 +506,7 @@ For shell scripts, use C<csvtool> (L<https://github.com/Chris00/ocaml-csv>
 also packaged in major Linux distributions).
 
 For other languages, use a CSV processing library (eg. C<Text::CSV>
-for Perl or Python's built-in csv library).
+for Perl or Python’s built-in csv library).
 
 Most spreadsheets and databases can import CSV directly.
 

@@ -185,7 +185,7 @@ emulating a netboot:
      -serial stdio
 
 Note that this requires considerably more memory because the PXE image
-is loaded into memory.  Also that qemu's TFTP server is very slow and
+is loaded into memory.  Also that qemu’s TFTP server is very slow and
 the virt-p2v PXE image is very large, so it can appear to "hang" after
 pxelinux starts up.
 

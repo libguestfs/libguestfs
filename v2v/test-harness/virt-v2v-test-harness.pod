@@ -55,7 +55,7 @@ L<git-annex(1)> to distribute the test images.
 
 =head2 REQUIREMENTS
 
-It's recommended to use an idle machine for testing.  You will need
+It’s recommended to use an idle machine for testing.  You will need
 B<a lot of disk space> to run the tests, in excess of S<100 GB>.  You
 should also ensure the test machine has plenty of RAM, at least
 S<16 GB>.
@@ -215,7 +215,7 @@ When you run each test, the following files can be created:
 
 =item I<test>-I<yyyymmdd-hhmmss>.scrn
 
-Screenshot(s) of the guest's graphical console.  These are helpful
+Screenshot(s) of the guest’s graphical console.  These are helpful
 when writing tests or debugging test failures.
 
 The screenshot format is Portable Pixmap (PPM).

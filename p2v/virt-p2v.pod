@@ -65,7 +65,7 @@ disk space to do the conversion, and as long as the physical machine
 can connect directly to its SSH port.  (See also
 L<virt-v2v(1)/RESOURCE REQUIREMENTS>).
 
-Because all of the data on the physical server's hard drive(s) has to
+Because all of the data on the physical server’s hard drive(s) has to
 be copied over the network, the speed of conversion is largely
 determined by the speed of the network between the two machines.
 
@@ -348,7 +348,7 @@ user (default: do not use sudo).
 =item B<p2v.name=GUESTNAME>
 
 The name of the guest that is created.  The default is to try to
-derive a name from the physical machine's hostname (if possible) else
+derive a name from the physical machine’s hostname (if possible) else
 use a randomly generated name.
 
 =item B<p2v.vcpus=NN>
@@ -715,7 +715,7 @@ randomly chosen and is displayed in the GUI.  It has the form:
 
  /tmp/virt-p2v-YYYYMMDD-XXXXXXXX
 
-where C<YYYYMMDD> is the current date, and the X's are random
+where C<YYYYMMDD> is the current date, and the ‘X’s are random
 characters.
 
 Into this directory are written various files which include:

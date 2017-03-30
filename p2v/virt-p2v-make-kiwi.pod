@@ -28,7 +28,7 @@ Using virt-p2v-make-kiwi is very simple:
 
  virt-p2v-make-kiwi
 
-will build a kiwi configuration based on the current machine's distribution.
+will build a kiwi configuration based on the current machine’s distribution.
 
 To control the name of the output folder, use the I<-o> parameter.
 

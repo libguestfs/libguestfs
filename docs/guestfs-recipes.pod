@@ -697,7 +697,7 @@ RAID device:
  guestfish --rw -d Guest run : upload lv.img /dev/vg_guest/lv_root
 
 One common problem is that the filesystem isn't the right size for the
-target.  If it is too large, there's not much you can do with
+target.  If it is too large, there’s not much you can do with
 libguestfs - you have to prepare the filesystem differently.  But if
 the filesystem needs to expand into the target, you can use guestfish
 to resize it to the right size:

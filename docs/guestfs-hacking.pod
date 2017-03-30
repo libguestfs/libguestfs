@@ -391,7 +391,7 @@ In either case, use another function as an example of what to do.
 After making these changes, use C<make> to compile.
 
 Note that you don't need to implement the RPC, language bindings,
-manual pages or anything else.  It's all automatically generated from
+manual pages or anything else.  It’s all automatically generated from
 the OCaml description.
 
 =head3 Adding tests for an API
@@ -945,7 +945,7 @@ in virt-v2v.  They are converted in the same way as foreign VMs.
 =head3 Running virt-p2v
 
 You can run the F<p2v/virt-p2v> binary directly, but it will try to
-convert your machine's real F</dev/sda> which is unlikely to work
+convert your machine’s real F</dev/sda> which is unlikely to work
 well.  However virt-p2v also has a test mode in which you can supply a
 test disk:
 
@@ -1002,7 +1002,7 @@ interactively to the remote virt-v2v conversion server.
 
 (Note that miniexpect is a separate library with its own upstream, so
 if you patch miniexpect.c, then please make sure the changes get
-reflected in miniexpect's upstream too:
+reflected in miniexpect’s upstream too:
 F<http://git.annexia.org/?p=miniexpect.git;a=summary>)
 
 =head1 MAINTAINER TASKS

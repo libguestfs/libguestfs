@@ -235,7 +235,7 @@ the system administrator can interactively edit the file.
 
 There are two ways also to use C<virt-edit> from scripts in order to
 make automated edits to files.  (Note that although you I<can> use
-C<virt-edit> like this, it's less error-prone to write scripts
+C<virt-edit> like this, it’s less error-prone to write scripts
 directly using the libguestfs API and Augeas for configuration file
 editing.)
 
@@ -250,7 +250,7 @@ replace all instances of C<foo> with C<bar> in a file:
  virt-edit -d domname filename -e 's/foo/bar/'
 
 The full power of Perl regular expressions can be used (see
-L<perlre(1)>).  For example to delete root's password you could do:
+L<perlre(1)>).  For example to delete root’s password you could do:
 
  virt-edit -d domname /etc/passwd -e 's/^root:.*?:/root::/'
 
@@ -342,7 +342,7 @@ Using C<virt-edit> is approximately equivalent to doing:
 where C<domname> is the name of the libvirt guest, and F</file> is the
 full path to the file.
 
-The command above uses libguestfs's guest inspection feature and so
+The command above uses libguestfs’s guest inspection feature and so
 does not work on guests that libguestfs cannot inspect, or on things
 like arbitrary disk images that don't contain guests.  To edit a file
 on a disk image directly, use:

@@ -147,7 +147,7 @@ fi
 if [ ! -f "$virt_p2v_xz_binary" ]; then
     echo "$program: cannot find $virt_p2v_xz_binary"
     if [ -n "$arch" ]; then
-        echo "You used the '--arch' option, so it's likely that you will need to build"
+        echo "You used the '--arch' option, so it’s likely that you will need to build"
         echo "a virt-p2v.$arch binary yourself."
         echo "See guestfs-building(1) section BUILDING i686 32 BIT VIRT-P2V for help."
     fi

@@ -530,7 +530,7 @@ content in directory entries and inodes.
 I<(This section applies to Linux guests only)>
 
 For supported guests, virt-sysprep writes a few bytes of randomness
-from the host into the guest's random seed file.
+from the host into the guest’s random seed file.
 
 If this is just done once and the guest is cloned from the same
 template, then each guest will start with the same entropy, and things

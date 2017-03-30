@@ -1651,7 +1651,7 @@ Make sure any filesystem drivers that you need are compiled into the
 kernel.
 
 B<Currently, it needs a large amount of extra work to get modules
-working>.  It's recommended that you disable module support in the
+working>.  It’s recommended that you disable module support in the
 kernel configuration, which will cause everything to be compiled into
 the image.
 
@@ -1922,7 +1922,7 @@ There are at least two distinct variants of this format, although qemu
 
 =item I<vmdk>
 
-VMDK is VMware's native disk image format.  There are many variations.
+VMDK is VMware’s native disk image format.  There are many variations.
 Modern qemu (hence libguestfs) supports most variations, but you
 should be aware that older versions of qemu had some very bad
 data-corrupting bugs in this area.
@@ -1933,7 +1933,7 @@ C<.vmdk> extension.
 
 =item I<vdi>
 
-VDI is VirtualBox's native disk image format.  Qemu (hence libguestfs)
+VDI is VirtualBox’s native disk image format.  Qemu (hence libguestfs)
 has generally good support for this.
 
 =item I<vpc>
@@ -3005,7 +3005,7 @@ To retrieve the pointer, use:
  void *guestfs_get_private (guestfs_h *g, const char *key);
 
 This function returns C<NULL> if either no data is found associated
-with C<key>, or if the user previously set the C<key>'s C<data>
+with C<key>, or if the user previously set the C<key>’s C<data>
 pointer to C<NULL>.
 
 Libguestfs does not try to look at or interpret the C<data> pointer in

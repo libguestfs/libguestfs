@@ -42,13 +42,13 @@ controlling daemon called L</guestfsd>.  The library talks to
 L</guestfsd> using remote procedure calls (RPC).  There is a mostly
 one-to-one correspondence between libguestfs API calls and RPC calls
 to the daemon.  Lastly the disk image(s) are attached to the qemu
-process which translates device access by the appliance's Linux kernel
+process which translates device access by the appliance’s Linux kernel
 into accesses to the image.
 
 A common misunderstanding is that the appliance "is" the virtual
 machine.  Although the disk image you are attached to might also be
 used by some virtual machine, libguestfs doesn't know or care about
-this.  (But you will care if both libguestfs's qemu process and your
+this.  (But you will care if both libguestfs’s qemu process and your
 virtual machine are trying to update the disk image at the same time,
 since these usually results in massive disk corruption).
 

@@ -213,7 +213,7 @@ else
     echo
     echo "Note: The contents of / (root) are the rescue appliance."
     if ! test -d "/sysroot/dev"; then
-        echo "You have to mount the guest's partitions under /sysroot"
+        echo "You have to mount the guest’s partitions under /sysroot"
         echo "before you can examine them."
     else
         echo "Use 'cd /sysroot' or 'chroot /sysroot' to see guest filesystems."

@@ -69,7 +69,7 @@ Use the specified architecture for the output image.  The default
 value is the same as the host running virt-dib.
 
 Right now this option does nothing more than setting the C<ARCH>
-environment variable for the elements, and it's up to them to
+environment variable for the elements, and it’s up to them to
 produce an image for the requested architecture.
 
 =item B<--checksum>
@@ -206,7 +206,7 @@ B<docker>.
 
 =item C<qcow2> (enabled by default)
 
-QEMU's qcow2.  This output format requires the C<qemu-img> tool.
+QEMU’s qcow2.  This output format requires the C<qemu-img> tool.
 
 =item C<raw>
 

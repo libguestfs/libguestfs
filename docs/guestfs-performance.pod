@@ -77,7 +77,7 @@ so that you are measuring a typical "hot cache" case.
 
 This command starts up the libguestfs appliance on the named disk
 image or libvirt guest, performs libguestfs inspection on it (see
-L<guestfs(3)/INSPECTION>), mounts the guest's disks, then discards all
+L<guestfs(3)/INSPECTION>), mounts the guest’s disks, then discards all
 these results and shuts down.
 
 The first time you run the command, it will create an appliance and
@@ -395,7 +395,7 @@ hardware virt acceleration is not available).
 
 Upload and download is as much as 10 times slower on UML than KVM.
 Libguestfs sends this data over the UML emulated serial port, which is
-far less efficient than KVM's virtio-serial.
+far less efficient than KVM’s virtio-serial.
 
 =item *
 

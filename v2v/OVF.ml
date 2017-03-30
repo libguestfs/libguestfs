@@ -421,7 +421,7 @@ let rec create_ovf source targets guestcaps inspect
    *)
   (match source with
   | { s_display = Some { s_password = Some _ } } ->
-    warning (f_"This guest required a password for connection to its display, but this is not supported by RHV.  Therefore the converted guest's display will not require a separate password to connect.");
+    warning (f_"This guest required a password for connection to its display, but this is not supported by RHV.  Therefore the converted guest’s display will not require a separate password to connect.");
     | _ -> ());
 
   if verbose () then (
