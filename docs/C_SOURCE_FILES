@@ -340,7 +340,6 @@ ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c
 ocaml/guestfs-c.h
 p2v/about-authors.c
-p2v/about-license.c
 p2v/config.c
 p2v/conversion.c
 p2v/cpuid.c

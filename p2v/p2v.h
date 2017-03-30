@@ -194,7 +194,4 @@ extern const char *qa[];
 extern const char *documenters[];
 extern const char *others[];
 
-/* about-license.c */
-extern const char *gplv2plus;
-
 #endif /* P2V_H */

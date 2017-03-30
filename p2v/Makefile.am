@@ -78,7 +78,6 @@ noinst_PROGRAMS = virt-p2v
 
 virt_p2v_SOURCES = \
 	about-authors.c \
-	about-license.c \
 	config.c \
 	conversion.c \
 	cpuid.c \
