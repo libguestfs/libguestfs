@@ -724,18 +724,6 @@ Into this directory are written various files which include:
 
 =item F<dmesg>
 
-I<(before conversion)>
-
-The dmesg output from the physical machine.  Useful for detecting
-problems such as missing device drivers or firmware on the virt-p2v
-ISO.
-
-=item F<environment>
-
-I<(before conversion)>
-
-The content of the environment where L<virt-v2v(1)> will run.
-
 =item F<lscpu>
 
 =item F<lspci>
@@ -746,8 +734,18 @@ The content of the environment where L<virt-v2v(1)> will run.
 
 I<(before conversion)>
 
-The output of the corresponding commands (ie L<lscpu(1)> etc) on the
-physical machine.  Useful for debugging novel hardware configurations.
+The output of the corresponding commands (ie L<dmesg(1)>, L<lscpu(1)>
+etc) on the physical machine.
+
+The dmesg output is useful for detecting problems such as missing
+device drivers or firmware on the virt-p2v ISO.  The others are useful
+for debugging novel hardware configurations.
+
+=item F<environment>
+
+I<(before conversion)>
+
+The content of the environment where L<virt-v2v(1)> will run.
 
 =item F<name>
 
@@ -799,7 +797,7 @@ B<unedited> log file in any bug reports or support tickets.
 
 =item F<virt-v2v-wrapper.sh>
 
-I<(during/after conversion)>
+I<(before conversion)>
 
 This is the wrapper script which is used when running virt-v2v.  For
 interest only, do not attempt to run this script yourself.
