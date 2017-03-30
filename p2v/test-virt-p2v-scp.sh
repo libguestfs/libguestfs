@@ -44,15 +44,19 @@ while true ; do
     esac
 done
 
-# Hopefully there are two arguments left, the source (local) file
-# and a remote file of the form user@server:remote.
-if [ $# -ne 2 ]; then
+# Hopefully there are >= two arguments left, the source (local)
+# file(s) and a remote file of the form user@server:remote.
+if [ $# -lt 2 ]; then
     echo "$0: incorrect number of arguments found:" "$@"
     exit 1
 fi
 
-local="$1"
-remote="$(echo $2 | awk -F: '{print $2}')"
+# https://stackoverflow.com/questions/1853946/getting-the-last-argument-passed-to-a-shell-script/1854031#1854031
+remote="${@: -1}"
+# https://stackoverflow.com/questions/20398499/remove-last-argument-from-argument-list-of-shell-script-bash/26163980#26163980
+set -- "${@:1:$(($#-1))}"
+
+remote="$(echo $remote | awk -F: '{print $2}')"
 
 # Use the copy command.
-exec cp "$local" "$remote"
+exec cp "$@" "$remote"
