@@ -9035,8 +9035,7 @@ Trash all qgroup numbers and scan the metadata again with the current config." }
     ];
     shortdesc = "limit the size of a subvolume";
     longdesc = "\
-Limit the size of a subvolume which's path is C<subvolume>. C<size>
-can have suffix of G, M, or K. " };
+Limit the size of the subvolume with path C<subvolume>." };
 
   { defaults with
     name = "btrfs_qgroup_create"; added = (1, 29, 17);
