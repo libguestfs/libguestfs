@@ -66,14 +66,22 @@ XGETTEXT_ARGS = \
 	--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 	--directory=$(top_srcdir)
 
+# For explanation, see
+# http://mingw-users.1079350.n2.nabble.com/Getting-rid-of-xgettext-s-quot-CHARSET-quot-warning-td5620533.html
+FIX_CHARSET = \
+	$(SED) -i 's|text/plain; charset=CHARSET|text/plain; charset=utf-8|g'
+
 $(DOMAIN).pot: Makefile POTFILES $(POTFILES) POTFILES-pl $(POTFILES_PL) POTFILES-ml $(POTFILES_ML)
 	rm -f $@-t
 	touch $@-t
 if HAVE_OCAML_GETTEXT
 	$(OCAML_GETTEXT) --action extract --extract-pot $@-t $(POTFILES_ML)
+	 \
+	$(FIX_CHARSET) $@-t
 endif
 	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) \
 	  --files-from=$(abs_srcdir)/POTFILES
+	$(FIX_CHARSET) $@-t
 	$(XGETTEXT) -j -o $@-t $(XGETTEXT_ARGS) --language=Perl \
 	  --files-from=$(abs_srcdir)/POTFILES-pl
 	mv $@-t $@
