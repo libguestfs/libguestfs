@@ -664,6 +664,8 @@ and generate_perl_pm () =
   generate_header HashStyle LGPLv2plus;
 
   pr "\
+=encoding utf8
+
 =pod
 
 =head1 NAME
