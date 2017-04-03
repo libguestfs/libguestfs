@@ -220,6 +220,13 @@ and ddb_regedits inspect drv_name drv_pciid =
     [ "DriverDatabase"; "DeviceIds"; "PCI"; drv_pciid ],
     [ drv_inf, REG_BINARY "\x01\xff\x00\x00" ];
 
+    [ "DriverDatabase"; "DriverPackages"; drv_inf_label ],
+    [ "Version", REG_BINARY ("\x00\xff\x09\x00\x00\x00\x00\x00" ^
+                             "\x7b\xe9\x36\x4d\x25\xe3\xce\x11" ^
+                             "\xbf\xc1\x08\x00\x2b\xe1\x03\x18" ^
+                             (String.make 24 '\x00')) ];
+    (* Version is necessary for Windows-Kernel-Pnp in w10/w2k16 *)
+
     [ "DriverDatabase"; "DriverPackages"; drv_inf_label;
       "Configurations"; drv_config ],
     [ "ConfigFlags", REG_DWORD 0_l;
