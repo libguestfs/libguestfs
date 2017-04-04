@@ -51,7 +51,7 @@ let compute_checksum csum_type ?tar filename =
     | "sha1" -> "sha1sum"
     | "sha256" -> "sha256sum"
     | "sha512" -> "sha512sum"
-    | _ -> error (f_"unhandled checksum type '%s'") csum_type
+    | _ -> error (f_"unhandled checksum type ‘%s’") csum_type
   in
   let cmd =
     match tar with

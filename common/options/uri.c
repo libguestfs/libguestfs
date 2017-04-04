@@ -116,7 +116,7 @@ parse (const char *arg, char **path_ret, char **protocol_ret,
 
   uri = xmlParseURI (arg);
   if (!uri) {
-    fprintf (stderr, _("%s: --add: could not parse URI '%s'\n"),
+    fprintf (stderr, _("%s: --add: could not parse URI ‘%s’\n"),
              getprogname (), arg);
     return -1;
   }

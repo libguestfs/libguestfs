@@ -1072,7 +1072,7 @@ guestfs_impl_mount_local_run (guestfs_h *g)
   r = guestfs_exists (g, "/");
   guestfs_pop_error_handler (g);
   if (r == -1) {
-    error (g, _("you must call 'guestfs_mount' first to mount a filesystem on '/'.\nNote: '%s' is still mounted.  Use 'guestunmount %s' to clean up."),
+    error (g, _("you must call ‘guestfs_mount’ first to mount a filesystem on '/'.\nNote: ‘%s’ is still mounted.  Use ‘guestunmount %s’ to clean up."),
            g->localmountpoint, g->localmountpoint);
     return -1;
   }

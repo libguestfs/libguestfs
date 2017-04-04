@@ -189,7 +189,7 @@ strtoint (const char *arg)
   long int num;
 
   if (xstrtol (arg, NULL, 0, &num, "") != LONGINT_OK) {
-    fprintf (stderr, _("%s: '%s' is not a numeric value.\n"),
+    fprintf (stderr, _("%s: ‘%s’ is not a numeric value.\n"),
              getprogname (), arg);
     show_error (EXIT_FAILURE);
   }
@@ -375,10 +375,10 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
       v = Field (actionv, 1);
       if (!list_mem (v, optarg)) {
         if (c != 0) {
-          fprintf (stderr, _("%s: '%s' is not allowed for -%c; allowed values are:\n"),
+          fprintf (stderr, _("%s: ‘%s’ is not allowed for -%c; allowed values are:\n"),
                    getprogname (), optarg, c);
         } else {
-          fprintf (stderr, _("%s: '%s' is not allowed for %s%s; allowed values are:\n"),
+          fprintf (stderr, _("%s: ‘%s’ is not allowed for %s%s; allowed values are:\n"),
                    getprogname (), optarg,
                    vector_has_dashdash_opt (specv, longopts[option_index].name) ? "--" : "-",
                    longopts[option_index].name);
@@ -402,7 +402,7 @@ guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, valu
 
   if (optind < (int) argc) {
     if (anon_funv == Val_none) {
-      fprintf (stderr, _("Extra parameter on the command line: '%s'.\n"),
+      fprintf (stderr, _("Extra parameter on the command line: ‘%s’.\n"),
                argv[optind]);
       show_error (EXIT_FAILURE);
     }

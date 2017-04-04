@@ -190,14 +190,14 @@ don't need the network.
 
 =item 3.
 
-You don't want untrusted guest code trying to access your host network
+You don’t want untrusted guest code trying to access your host network
 when running virt-customize.  This is particularly an issue when you
 don't trust the source of the operating system templates.  (See
 L</SECURITY> below).
 
 =item 4.
 
-You don't have a host network (eg. in secure/restricted environments).
+You don’t have a host network (eg. in secure/restricted environments).
 
 =back
 
@@ -205,7 +205,7 @@ You don't have a host network (eg. in secure/restricted environments).
 
 =item B<--quiet>
 
-Don't print log messages.
+Don’t print log messages.
 
 To enable detailed logging of individual file operations, use I<-x>.
 

@@ -175,7 +175,7 @@ and open_source cmdline input =
 
   (match source.s_hypervisor with
   | OtherHV hv ->
-    warning (f_"unknown source hypervisor ('%s') in metadata") hv
+    warning (f_"unknown source hypervisor (‘%s’) in metadata") hv
   | _ -> ()
   );
 
@@ -323,7 +323,7 @@ and init_targets cmdline output source overlays =
           | Some format, _ -> format    (* -of overrides everything *)
           | None, Some format -> format (* same as backing format *)
           | None, None ->
-            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the '-of' option to force the output format.") ov.ov_sd ov.ov_source.s_qemu_uri in
+            error (f_"disk %s (%s) has no defined format.\n\nThe input metadata did not define the disk format (eg. raw/qcow2/etc) of this disk, and so virt-v2v will try to autodetect the format when reading it.\n\nHowever because the input format was not defined, we do not know what output format you want to use.  You have two choices: either define the original format in the source metadata, or use the ‘-of’ option to force the output format.") ov.ov_sd ov.ov_source.s_qemu_uri in
 
         (* What really happens here is that the call to #disk_create
          * below fails if the format is not raw or qcow2.  We would
@@ -333,7 +333,7 @@ and init_targets cmdline output source overlays =
          * early, not below, later.
          *)
         if format <> "raw" && format <> "qcow2" then
-          error (f_"output format should be 'raw' or 'qcow2'.\n\nUse the '-of <format>' option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
+          error (f_"output format should be ‘raw’ or ‘qcow2’.\n\nUse the ‘-of <format>’ option to select a different output format for the converted guest.\n\nOther output formats are not supported at the moment, although might be considered in future.");
 
         (* Only allow compressed with qcow2. *)
         if cmdline.compressed && format <> "qcow2" then
@@ -416,7 +416,7 @@ and check_guest_free_space mpstats =
             10_000_000L in
 
         if free_bytes < needed_bytes then
-          error (f_"not enough free space for conversion on filesystem '%s'.  %Ld bytes free < %Ld bytes needed")
+          error (f_"not enough free space for conversion on filesystem ‘%s’.  %Ld bytes free < %Ld bytes needed")
             mp free_bytes needed_bytes
       )
   ) mpstats
@@ -776,7 +776,7 @@ and rcaps_from_source source =
     | Some Source_virtio_blk -> Some Virtio_blk
     | Some Source_virtio_SCSI -> Some Virtio_SCSI
     | Some Source_IDE -> Some IDE
-    | Some t -> error (f_"source has unsupported hard disk type '%s'")
+    | Some t -> error (f_"source has unsupported hard disk type ‘%s’")
                       (string_of_controller t)
     | None -> error (f_"source has unrecognized hard disk type") in
 
@@ -792,7 +792,7 @@ and rcaps_from_source source =
     | Some Source_virtio_net -> Some Virtio_net
     | Some Source_e1000 -> Some E1000
     | Some Source_rtl8139 -> Some RTL8139
-    | Some t -> error (f_"source has unsupported network adapter model '%s'")
+    | Some t -> error (f_"source has unsupported network adapter model ‘%s’")
                       (string_of_nic_model t)
     | None -> None in
 
@@ -800,7 +800,7 @@ and rcaps_from_source source =
     match source.s_video with
     | Some Source_QXL -> Some QXL
     | Some Source_Cirrus -> Some Cirrus
-    | Some t -> error (f_"source has unsupported video adapter model '%s'")
+    | Some t -> error (f_"source has unsupported video adapter model ‘%s’")
                       (string_of_source_video t)
     | None -> None in
 

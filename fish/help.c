@@ -43,23 +43,24 @@ display_help (void)
 {
   if (guestfs_is_config (g))
     printf (_(
-"Add disk images to examine using the -a or -d options, or the 'add' command.\n"
-"Or create a new disk image using -N, or the 'alloc' or 'sparse' commands.\n"
-"Once you have done this, use the 'run' command.\n"
+"Add disk images to examine using the ‘-a’ or ‘-d’ options, or the ‘add’\n"
+"command.\n"
+"Or create a new disk image using ‘-N’, or the ‘alloc’ or ‘sparse’ commands.\n"
+"Once you have done this, use the ‘run’ command.\n"
               ));
   else
     printf (_(
-"Find out what filesystems are available using 'list-filesystems' and then\n"
-"mount them to examine or modify the contents using 'mount-ro' or\n"
-"'mount'.\n"
+"Find out what filesystems are available using ‘list-filesystems’ and then\n"
+"mount them to examine or modify the contents using ‘mount-ro’ or\n"
+"‘mount’.\n"
               ));
 
   printf ("\n");
 
   printf (_(
-"For more information about a command, use 'help cmd'.\n"
+"For more information about a command, use ‘help cmd’.\n"
 "\n"
-"To read the manual, type 'man'.\n"
+"To read the manual, type ‘man’.\n"
             ));
 
   printf ("\n");

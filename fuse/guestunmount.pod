@@ -84,7 +84,7 @@ Display brief help and exit.
 
 =item B<--quiet>
 
-Don't display error messages from fusermount.  The return status is
+Don’t display error messages from fusermount.  The return status is
 still set (see L</EXIT STATUS> below).
 
 =item B<--no-retry>

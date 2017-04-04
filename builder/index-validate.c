@@ -122,7 +122,7 @@ main (int argc, char *argv[])
   if (ret != 0) {
     parse_context_free (&context);
     error (EXIT_FAILURE, 0,
-           _("'%s' could not be validated, see errors above"), input);
+           _("‘%s’ could not be validated, see errors above"), input);
   }
 
   if (compat_1_24_1 && context.seen_comments) {
@@ -152,7 +152,7 @@ main (int argc, char *argv[])
             strchr (fields->key, ']')) {
           parse_context_free (&context);
           error (EXIT_FAILURE, 0,
-                 _("%s: section [%s], field '%s' has invalid characters which will not work with virt-builder 1.24.0"),
+                 _("%s: section [%s], field ‘%s’ has invalid characters which will not work with virt-builder 1.24.0"),
                  input, sections->name, fields->key);
         }
       }
@@ -161,7 +161,7 @@ main (int argc, char *argv[])
             strchr (fields->key, ',')) {
           parse_context_free (&context);
           error (EXIT_FAILURE, 0,
-                 _("%s: section [%s], field '%s' has invalid characters which will not work with virt-builder 1.24.1"),
+                 _("%s: section [%s], field ‘%s’ has invalid characters which will not work with virt-builder 1.24.1"),
                  input, sections->name, fields->key);
         }
       }
@@ -172,7 +172,7 @@ main (int argc, char *argv[])
     if (compat_1_24_0 && !seen_sig) {
       parse_context_free (&context);
       error (EXIT_FAILURE, 0,
-             _("%s: section [%s] is missing a 'sig' field which will not work with virt-builder 1.24.0"),
+             _("%s: section [%s] is missing a ‘sig’ field which will not work with virt-builder 1.24.0"),
              input, sections->name);
     }
   }

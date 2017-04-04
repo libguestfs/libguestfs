@@ -112,7 +112,7 @@ read the man page virt-dib(1).
         fun fmtset fmt ->
           try Output_format.add_to_set fmt fmtset
           with Not_found ->
-            error (f_"invalid format '%s' in --formats") fmt
+            error (f_"invalid format ‘%s’ in --formats") fmt
       ) Output_format.empty_set fmts in
     formats := Some fmtset in
 
@@ -162,7 +162,7 @@ read the man page virt-dib(1).
     [ L"exclude-script" ], Getopt.String ("script", append_excluded_script),
       s_"Exclude the specified script";
     [ L"envvar" ],     Getopt.String ("envvar[=value]", append_envvar),   s_"Carry/set this environment variable";
-    [ L"skip-base" ],  Getopt.Clear use_base,        s_"Skip the inclusion of the 'base' element";
+    [ L"skip-base" ],  Getopt.Clear use_base,        s_"Skip the inclusion of the ‘base’ element";
     [ L"root-label" ], Getopt.String ("label", set_root_label), s_"Label for the root fs";
     [ L"install-type" ], Getopt.Set_string ("type", install_type),  s_"Installation type";
     [ L"image-cache" ], Getopt.String ("directory", set_image_cache), s_"Location for cached images";
@@ -189,7 +189,7 @@ read the man page virt-dib(1).
     [ L"no-network" ], Getopt.Clear network,      s_"Disable appliance network";
     [ L"smp" ],        Getopt.Int ("vcpus", set_smp),           s_"Set number of vCPUs";
     [ L"no-delete-on-failure" ], Getopt.Clear delete_on_failure,
-                                               s_"Don't delete output file on failure";
+                                               s_"Don’t delete output file on failure";
     [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
 
     [ L"debug" ],      Getopt.Int ("level", set_debug),         s_"Set debug level";

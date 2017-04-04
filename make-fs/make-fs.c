@@ -443,7 +443,7 @@ estimate_input (const char *input, uint64_t *estimate_rtn, char **ifmt_rtn)
     }
 
     if (sscanf (line, "%" SCNu64, estimate_rtn) != 1) {
-      fprintf (stderr, _("%s: cannot parse the output of 'du' command: %s\n"),
+      fprintf (stderr, _("%s: cannot parse the output of ‘du’ command: %s\n"),
                getprogname (), line);
       return -1;
     }
@@ -632,7 +632,7 @@ parse_size (const char *str, uint64_t estimate, uint64_t *size_rtn)
   xerr = xstrtoull (str, NULL, 0, &size, "0kKMGTPEZY");
   if (xerr != LONGINT_OK) {
     fprintf (stderr,
-             _("%s: %s: invalid size parameter '%s' (%s returned %u)\n"),
+             _("%s: %s: invalid size parameter ‘%s’ (%s returned %u)\n"),
              getprogname (), "parse_size", str, "xstrtoull", xerr);
     return -1;
   }

@@ -166,7 +166,7 @@ main (int argc, char *argv[])
   if (guestfs_parse_environment (g) == -1)
     error (EXIT_FAILURE, 0,
            _("failed parsing environment variables.\n"
-             "Check earlier messages, and the output of the 'printenv' command."));
+             "Check earlier messages, and the output of the ‘printenv’ command."));
   guestfs_set_verbose (g, 1);
 
   if (qemu)
@@ -313,7 +313,7 @@ set_qemu (guestfs_h *g, const char *path, int use_wrapper)
   if (!use_wrapper) {
     if (access (path, X_OK) == -1)
       error (EXIT_FAILURE, errno,
-             _("binary '%s' does not exist or is not executable"), path);
+             _("binary ‘%s’ does not exist or is not executable"), path);
 
     guestfs_set_hv (g, path);
     return;

@@ -325,7 +325,7 @@ Notes:
 
 =item *
 
-C<regexps> may be NULL or an empty list, which means we don't match
+C<regexps> may be NULL or an empty list, which means we don’t match
 against a regular expression.  This is useful if you just want to wait
 for EOF or timeout.
 

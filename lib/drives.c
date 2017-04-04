@@ -412,7 +412,7 @@ create_drive_dev_null (guestfs_h *g,
 
   if (data->format) {
     if (STRNEQ (data->format, "raw")) {
-      error (g, _("for device '/dev/null', format must be 'raw'"));
+      error (g, _("for device ‘/dev/null’, format must be ‘raw’"));
       return NULL;
     }
   } else {
@@ -653,14 +653,14 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
 
   if (match2 (g, server, re_hostname_port, &hostname, &port_str)) {
     if (sscanf (port_str, "%d", &port) != 1 || !valid_port (port)) {
-      error (g, _("invalid port number '%s'"), port_str);
+      error (g, _("invalid port number ‘%s’"), port_str);
       free (hostname);
       free (port_str);
       return -1;
     }
     free (port_str);
     if (!VALID_HOSTNAME (hostname)) {
-      error (g, _("invalid hostname '%s'"), hostname);
+      error (g, _("invalid hostname ‘%s’"), hostname);
       free (hostname);
       return -1;
     }
@@ -671,7 +671,7 @@ parse_one_server (guestfs_h *g, const char *server, struct drive_server *ret)
 
   /* Doesn't match anything above, so assume it's a bare hostname. */
   if (!VALID_HOSTNAME (server)) {
-    error (g, _("invalid hostname or server string '%s'"), server);
+    error (g, _("invalid hostname or server string ‘%s’"), server);
     return -1;
   }
 
@@ -755,7 +755,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     else if (STREQ (optargs->discard, "besteffort"))
       data.discard = discard_besteffort;
     else {
-      error (g, _("discard parameter must be 'disable', 'enable' or 'besteffort'"));
+      error (g, _("discard parameter must be ‘disable’, ‘enable’ or ‘besteffort’"));
       free_drive_servers (data.servers, data.nr_servers);
       return -1;
     }
@@ -792,7 +792,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   }
   if (data.cachemode &&
       !(STREQ (data.cachemode, "writeback") || STREQ (data.cachemode, "unsafe"))) {
-    error (g, _("cachemode parameter must be 'writeback' (default) or 'unsafe'"));
+    error (g, _("cachemode parameter must be ‘writeback’ (default) or ‘unsafe’"));
     free_drive_servers (data.servers, data.nr_servers);
     return -1;
   }
@@ -871,7 +871,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
     drv = create_drive_curl (g, &data);
   }
   else {
-    error (g, _("unknown protocol '%s'"), protocol);
+    error (g, _("unknown protocol ‘%s’"), protocol);
     drv = NULL; /*FALLTHROUGH*/
   }
 
@@ -895,7 +895,7 @@ guestfs_impl_add_drive_opts (guestfs_h *g, const char *filename,
   }
 
   if (!drv->disk_label) {
-    error (g, _("'label' is required when hotplugging drives"));
+    error (g, _("‘label’ is required when hotplugging drives"));
     free_drive_struct (drv);
     return -1;
   }
@@ -1025,7 +1025,7 @@ guestfs_impl_remove_drive (guestfs_h *g, const char *label)
     if (drv->disk_label && STREQ (label, drv->disk_label))
       goto found;
   }
-  error (g, _("disk with label '%s' not found"), label);
+  error (g, _("disk with label ‘%s’ not found"), label);
   return -1;
 
  found:

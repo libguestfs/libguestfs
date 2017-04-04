@@ -280,7 +280,7 @@ object
               try find_file_in_tar ova filename
               with
               | Not_found ->
-                 error (f_"file '%s' not found in the ova") filename
+                 error (f_"file ‘%s’ not found in the ova") filename
               | Failure msg -> error (f_"%s") msg in
             (* QEMU requires size aligned to 512 bytes. This is safe because
              * tar also works with 512 byte blocks.

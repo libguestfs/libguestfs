@@ -178,7 +178,7 @@ single thread.
 
 =item B<--quiet>
 
-Don't produce any output.  Just set the exit code
+Don’t produce any output.  Just set the exit code
 (see L</EXIT STATUS> below).
 
 =item B<--uuid>

@@ -124,7 +124,7 @@ See also I<--unversioned-names>.
 
 =item B<--quiet>
 
-Don't print ordinary progress messages.
+Don’t print ordinary progress messages.
 
 =item B<--unversioned-names>
 

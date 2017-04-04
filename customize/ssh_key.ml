@@ -41,7 +41,7 @@ and parse_selector_list orig_arg = function
   | [ "string"; s ] ->
     KeyString s
   | _ ->
-    error (f_"invalid ssh-inject selector '%s'; see the man page") orig_arg
+    error (f_"invalid ssh-inject selector ‘%s’; see the man page") orig_arg
 
 (* Find the local [on the host] user's SSH public key.  See
  * ssh-copy-id(1) default_ID_file for rationale.

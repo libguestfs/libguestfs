@@ -242,7 +242,7 @@ expensive) unless you need the results.
 If you previously performed inspection on the guest, then it may be
 safe to cache and reuse the results from last time.
 
-Some disks don't need to be inspected at all: for example, if you are
+Some disks don’t need to be inspected at all: for example, if you are
 creating a disk image, or if the disk image is not a VM, or if the
 disk image has a known layout.
 
@@ -431,7 +431,7 @@ and most distributions now do this.
 
 =head2 Processors to avoid
 
-Avoid processors that don't have hardware virtualization, and some
+Avoid processors that don’t have hardware virtualization, and some
 processors which are simply very slow (AMD Geode being a great
 example).
 

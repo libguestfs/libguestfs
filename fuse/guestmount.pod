@@ -49,7 +49,7 @@ For a libvirt guest called "Guest" you could do:
 
  guestmount -d Guest -i --ro /mnt
 
-If you don't know what filesystems are contained in a guest or
+If you don’t know what filesystems are contained in a guest or
 disk image, use L<virt-filesystems(1)> first:
 
  virt-filesystems -d MyGuest
@@ -281,7 +281,7 @@ or if libguestfs misidentifies a filesystem.
 
 =item B<--no-fork>
 
-Don't daemonize (or fork into the background).
+Don’t daemonize (or fork into the background).
 
 =item B<-n>
 

@@ -68,7 +68,7 @@ create_sockdir (void)
       (statbuf.st_mode & 0777) != 0700 ||
       statbuf.st_uid != euid)
     error (EXIT_FAILURE, 0,
-           _("'%s' is not a directory or has insecure owner or permissions"),
+           _("‘%s’ is not a directory or has insecure owner or permissions"),
            dir);
 }
 
@@ -280,12 +280,12 @@ rc_listen (void)
       xdrstdio_create (&xdr, fp, XDR_DECODE);
 
       if (!xdr_guestfish_hello (&xdr, &hello)) {
-        fprintf (stderr, _("guestfish: protocol error: could not read 'hello' message\n"));
+        fprintf (stderr, _("guestfish: protocol error: could not read ‘hello’ message\n"));
         goto error;
       }
 
       if (STRNEQ (hello.vers, PACKAGE_VERSION)) {
-        fprintf (stderr, _("guestfish: protocol error: version mismatch, server version '%s' does not match client version '%s'.  The two versions must match exactly.\n"),
+        fprintf (stderr, _("guestfish: protocol error: version mismatch, server version ‘%s’ does not match client version ‘%s’.  The two versions must match exactly.\n"),
                  PACKAGE_VERSION,
                  hello.vers);
         xdr_free ((xdrproc_t) xdr_guestfish_hello, (char *) &hello);

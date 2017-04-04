@@ -29,14 +29,14 @@ let set_docker_target arg = docker_target := Some arg
 let docker_check () =
   require_tool "docker";
   if !docker_target = None then
-    error (f_"docker: a target was not specified, use '--docker-target'")
+    error (f_"docker: a target was not specified, use ‘--docker-target’")
 
 let docker_run_fs (g : Guestfs.guestfs) _ temp_dir =
   let docker_target =
     match !docker_target with
     | None -> assert false (* checked earlier *)
     | Some t -> t in
-  message (f_"Importing the image to docker as '%s'") docker_target;
+  message (f_"Importing the image to docker as ‘%s’") docker_target;
   let dockertmp = Filename.temp_file ~temp_dir "docker." ".tar" in
   g#tar_out ~excludes:[| "./sys/*"; "./proc/*" |] ~xattrs:true ~selinux:true
     "/" dockertmp;

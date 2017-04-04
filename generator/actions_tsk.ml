@@ -43,26 +43,26 @@ The C<tsk_dirent> structure contains the following fields.
 
 =over 4
 
-=item 'tsk_inode'
+=item C<tsk_inode>
 
 Filesystem reference number of the node. It migh be C<0>
 if the node has been deleted.
 
-=item 'tsk_type'
+=item C<tsk_type>
 
 Basic file type information.
 See below for a detailed list of values.
 
-=item 'tsk_size'
+=item C<tsk_size>
 
 File size in bytes. It migh be C<-1>
 if the node has been deleted.
 
-=item 'tsk_name'
+=item C<tsk_name>
 
 The file path relative to its directory.
 
-=item 'tsk_flags'
+=item C<tsk_flags>
 
 Bitfield containing extra information regarding the entry.
 It contains the logical OR of the following values:
@@ -95,30 +95,30 @@ application level compression.
 
 =back
 
-=item 'tsk_atime_sec'
+=item C<tsk_atime_sec>
 
-=item 'tsk_atime_nsec'
+=item C<tsk_atime_nsec>
 
-=item 'tsk_mtime_sec'
+=item C<tsk_mtime_sec>
 
-=item 'tsk_mtime_nsec'
+=item C<tsk_mtime_nsec>
 
-=item 'tsk_ctime_sec'
+=item C<tsk_ctime_sec>
 
-=item 'tsk_ctime_nsec'
+=item C<tsk_ctime_nsec>
 
-=item 'tsk_crtime_sec'
+=item C<tsk_crtime_sec>
 
-=item 'tsk_crtime_nsec'
+=item C<tsk_crtime_nsec>
 
 Respectively, access, modification, last status change and creation
 time in Unix format in seconds and nanoseconds.
 
-=item 'tsk_nlink'
+=item C<tsk_nlink>
 
 Number of file names pointing to this entry.
 
-=item 'tsk_link'
+=item C<tsk_link>
 
 If the entry is a symbolic link, this field will contain the path
 to the target file.

@@ -1009,13 +1009,13 @@ let main () =
             match stat with
             | Unix.WEXITED 0 -> ()
             | Unix.WEXITED i ->
-              error (f_"external command '%s' exited with error %d")
+              error (f_"external command ‘%s’ exited with error %d")
                 csum_tool i
             | Unix.WSIGNALED i ->
-              error (f_"external command '%s' killed by signal %d")
+              error (f_"external command ‘%s’ killed by signal %d")
                 csum_tool i
             | Unix.WSTOPPED i ->
-              error (f_"external command '%s' stopped by signal %d")
+              error (f_"external command ‘%s’ stopped by signal %d")
                 csum_tool i
           );
         done;

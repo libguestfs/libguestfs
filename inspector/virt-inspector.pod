@@ -40,7 +40,7 @@ time>.  To inspect several virtual machines, you have to run
 virt-inspector several times (for example, from a shell script
 for-loop).
 
-Because virt-inspector needs direct access to guest images, it won't
+Because virt-inspector needs direct access to guest images, it won’t
 normally work over remote libvirt connections.
 
 All of the information available from virt-inspector is also available

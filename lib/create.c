@@ -93,7 +93,7 @@ guestfs_impl_disk_create (guestfs_h *g, const char *filename,
      * want to make unlimited promises through the API.  We can always
      * add more later.
      */
-    error (g, _("unsupported format '%s'"), format);
+    error (g, _("unsupported format ‘%s’"), format);
     return -1;
   }
 
@@ -151,7 +151,7 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
     else if (STREQ (optargs->preallocation, "full"))
       allocated = 1;
     else {
-      error (g, _("invalid value for preallocation parameter '%s'"),
+      error (g, _("invalid value for preallocation parameter ‘%s’"),
              optargs->preallocation);
       return -1;
     }
@@ -168,7 +168,7 @@ disk_create_raw (guestfs_h *g, const char *filename, int64_t size,
   if (stat (filename, &statbuf) == 0) {
     /* Refuse to overwrite char devices. */
     if (S_ISCHR (statbuf.st_mode)) {
-      error (g, _("refusing to overwrite char device '%s'"), filename);
+      error (g, _("refusing to overwrite char device ‘%s’"), filename);
       return -1;
     }
     /* Block devices have to be handled specially. */
@@ -273,7 +273,7 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
     if (STRNEQ (backingformat, "raw") &&
         STRNEQ (backingformat, "qcow2") &&
         STRNEQ (backingformat, "vmdk")) {
-      error (g, _("invalid value for backingformat parameter '%s'"),
+      error (g, _("invalid value for backingformat parameter ‘%s’"),
              backingformat);
       return -1;
     }
@@ -288,7 +288,7 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
       /* Ugh: https://lists.gnu.org/archive/html/qemu-devel/2014-08/msg03863.html */
       preallocation = "falloc";
     else {
-      error (g, _("invalid value for preallocation parameter '%s'"),
+      error (g, _("invalid value for preallocation parameter ‘%s’"),
              preallocation);
       return -1;
     }
@@ -296,7 +296,7 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
   if (optargs->bitmask & GUESTFS_DISK_CREATE_COMPAT_BITMASK) {
     compat = optargs->compat;
     if (STRNEQ (compat, "0.10") && STRNEQ (compat, "1.1")) {
-      error (g, _("invalid value for compat parameter '%s'"), compat);
+      error (g, _("invalid value for compat parameter ‘%s’"), compat);
       return -1;
     }
   }
@@ -304,7 +304,7 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
     clustersize = optargs->clustersize;
     if (clustersize < 512 || clustersize > 2097152 ||
         !is_power_of_2 ((unsigned) clustersize)) {
-      error (g, _("invalid value for clustersize parameter '%d'"),
+      error (g, _("invalid value for clustersize parameter ‘%d’"),
              clustersize);
       return -1;
     }

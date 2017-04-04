@@ -85,7 +85,7 @@ let get_session_cookie password scheme uri sslverify url =
     let status = !status in
     if status = "" then (
       dump_response stderr;
-      error (f_"vcenter: no status code in output of 'curl' command.  Is 'curl' installed?")
+      error (f_"vcenter: no status code in output of ‘curl’ command.  Is ‘curl’ installed?")
     );
 
     if status = "401" then (
@@ -99,7 +99,7 @@ let get_session_cookie password scheme uri sslverify url =
 
     if status = "404" then (
       dump_response stderr;
-      error (f_"vcenter: URL not found: %s\n\nThe '--dcpath' parameter may be useful.  See the explanation in the virt-v2v(1) man page OPTIONS section.") url
+      error (f_"vcenter: URL not found: %s\n\nThe ‘--dcpath’ parameter may be useful.  See the explanation in the virt-v2v(1) man page OPTIONS section.") url
     );
 
     if status <> "200" then (

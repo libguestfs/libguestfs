@@ -126,7 +126,7 @@ guestfs_impl_add_domain (guestfs_h *g, const char *domain_name,
 
   if (!dom) {
     err = virGetLastError ();
-    error (g, _("no libvirt domain called '%s': %s"),
+    error (g, _("no libvirt domain called ‘%s’: %s"),
            domain_name, err->message);
     goto cleanup;
   }
@@ -614,7 +614,7 @@ for_each_disk (guestfs_h *g,
             sec = virSecretLookupByUUIDString (conn, uuidstr);
             if (sec == NULL) {
               err = virGetLastError ();
-              error (g, _("no secret with UUID '%s': %s"),
+              error (g, _("no secret with UUID ‘%s’: %s"),
                      uuidstr, err ? err->message : "(none)");
               continue;
             }
@@ -622,7 +622,7 @@ for_each_disk (guestfs_h *g,
             value = virSecretGetValue (sec, &value_size, 0);
             if (value == NULL) {
               err = virGetLastError ();
-              error (g, _("cannot get the value of the secret with UUID '%s': %s"),
+              error (g, _("cannot get the value of the secret with UUID ‘%s’: %s"),
                      uuidstr, err->message);
               virSecretFree (sec);
               continue;
@@ -650,7 +650,7 @@ for_each_disk (guestfs_h *g,
             sec = virSecretLookupByUsage (conn, usageType, usagestr);
             if (sec == NULL) {
               err = virGetLastError ();
-              error (g, _("no secret for usage '%s': %s"),
+              error (g, _("no secret for usage ‘%s’: %s"),
                      usagestr, err->message);
               continue;
             }
@@ -658,7 +658,7 @@ for_each_disk (guestfs_h *g,
             value = virSecretGetValue (sec, &value_size, 0);
             if (value == NULL) {
               err = virGetLastError ();
-              error (g, _("cannot get the value of the secret with usage '%s': %s"),
+              error (g, _("cannot get the value of the secret with usage ‘%s’: %s"),
                      usagestr, err->message);
               virSecretFree (sec);
               continue;
@@ -904,7 +904,7 @@ filename_from_pool (guestfs_h *g, virConnectPtr conn,
   pool = virStoragePoolLookupByName (conn, pool_name);
   if (pool == NULL) {
     err = virGetLastError ();
-    error (g, _("no libvirt pool called '%s': %s"),
+    error (g, _("no libvirt pool called ‘%s’: %s"),
            pool_name, err->message);
     goto cleanup;
   }
@@ -912,7 +912,7 @@ filename_from_pool (guestfs_h *g, virConnectPtr conn,
   vol = virStorageVolLookupByName (pool, volume_name);
   if (vol == NULL) {
     err = virGetLastError ();
-    error (g, _("no volume called '%s' in the libvirt pool '%s': %s"),
+    error (g, _("no volume called ‘%s’ in the libvirt pool ‘%s’: %s"),
            volume_name, pool_name, err->message);
     goto cleanup;
   }
@@ -920,7 +920,7 @@ filename_from_pool (guestfs_h *g, virConnectPtr conn,
   ret = virStorageVolGetInfo (vol, &info);
   if (ret < 0) {
     err = virGetLastError ();
-    error (g, _("cannot get information of the libvirt volume '%s': %s"),
+    error (g, _("cannot get information of the libvirt volume ‘%s’: %s"),
            volume_name, err->message);
     goto cleanup;
   }
@@ -934,7 +934,7 @@ filename_from_pool (guestfs_h *g, virConnectPtr conn,
   filename = virStorageVolGetPath (vol);
   if (filename == NULL) {
     err = virGetLastError ();
-    error (g, _("cannot get the filename of the libvirt volume '%s': %s"),
+    error (g, _("cannot get the filename of the libvirt volume ‘%s’: %s"),
            volume_name, err->message);
     goto cleanup;
   }

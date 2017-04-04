@@ -729,7 +729,7 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) usage_msg =
     [ S 'v'; L"verbose" ], Getopt.Unit set_verbose,  s_"Enable libguestfs debugging messages";
     [ S 'x' ],             Getopt.Unit set_trace,    s_"Enable tracing of libguestfs calls";
     [ L"debug-gc" ],       Getopt.Unit set_debug_gc, Getopt.hidden_option_description;
-    [ S 'q'; L"quiet" ],   Getopt.Unit set_quiet,    s_"Don't print progress messages";
+    [ S 'q'; L"quiet" ],   Getopt.Unit set_quiet,    s_"Don’t print progress messages";
     [ L"color"; L"colors";
       L"colour"; L"colours" ], Getopt.Unit set_colours, s_"Use ANSI colour sequences even if not tty";
   ] @ argspec in
@@ -737,7 +737,7 @@ let create_standard_options argspec ?anon_fun ?(key_opts = false) usage_msg =
     argspec @
       (if key_opts then
       [
-        [ L"echo-keys" ],       Getopt.Unit c_set_echo_keys,       s_"Don't turn off echo for passphrases";
+        [ L"echo-keys" ],       Getopt.Unit c_set_echo_keys,       s_"Don’t turn off echo for passphrases";
         [ L"keys-from-stdin" ], Getopt.Unit c_set_keys_from_stdin, s_"Read passphrases from stdin";
       ]
       else []) in
@@ -817,11 +817,11 @@ let external_command ?(echo_cmd = true) cmd =
   (match stat with
   | Unix.WEXITED 0 -> ()
   | Unix.WEXITED i ->
-    error (f_"external command '%s' exited with error %d") cmd i
+    error (f_"external command ‘%s’ exited with error %d") cmd i
   | Unix.WSIGNALED i ->
-    error (f_"external command '%s' killed by signal %d") cmd i
+    error (f_"external command ‘%s’ killed by signal %d") cmd i
   | Unix.WSTOPPED i ->
-    error (f_"external command '%s' stopped by signal %d") cmd i
+    error (f_"external command ‘%s’ stopped by signal %d") cmd i
   );
   lines
 
@@ -840,10 +840,10 @@ let run_command ?(echo_cmd = true) args =
     match stat with
     | Unix.WEXITED i -> i
     | Unix.WSIGNALED i ->
-      error (f_"external command '%s' killed by signal %d")
+      error (f_"external command ‘%s’ killed by signal %d")
         (stringify_args args) i
     | Unix.WSTOPPED i ->
-      error (f_"external command '%s' stopped by signal %d")
+      error (f_"external command ‘%s’ stopped by signal %d")
         (stringify_args args) i
   with
   | Executable_not_found tool -> 127

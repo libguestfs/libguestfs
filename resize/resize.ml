@@ -192,17 +192,17 @@ let main () =
     let argspec = [
       [ L"align-first" ], Getopt.Set_string (s_"never|always|auto", align_first), s_"Align first partition (default: auto)";
       [ L"alignment" ], Getopt.Set_int (s_"sectors", alignment),   s_"Set partition alignment (default: 128 sectors)";
-      [ L"no-copy-boot-loader" ], Getopt.Clear copy_boot_loader, s_"Don't copy boot loader";
+      [ L"no-copy-boot-loader" ], Getopt.Clear copy_boot_loader, s_"Don’t copy boot loader";
       [ S 'd'; L"debug" ],        Getopt.Unit set_verbose,      s_"Enable debugging messages";
       [ L"delete" ],  Getopt.String (s_"part", add deletes),  s_"Delete partition";
       [ L"expand" ],  Getopt.String (s_"part", set_expand),     s_"Expand partition";
-      [ L"no-expand-content" ], Getopt.Clear expand_content, s_"Don't expand content";
-      [ L"no-extra-partition" ], Getopt.Clear extra_partition, s_"Don't create extra partition";
+      [ L"no-expand-content" ], Getopt.Clear expand_content, s_"Don’t expand content";
+      [ L"no-extra-partition" ], Getopt.Clear extra_partition, s_"Don’t create extra partition";
       [ L"format" ],  Getopt.Set_string (s_"format", format),     s_"Format of input disk";
       [ L"ignore" ],  Getopt.String (s_"part", add ignores),  s_"Ignore partition";
       [ L"lv-expand"; L"LV-expand"; L"lvexpand"; L"LVexpand" ], Getopt.String (s_"lv", add lv_expands), s_"Expand logical volume";
       [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
-      [ S 'n'; L"dry-run"; L"dryrun" ],        Getopt.Set dryrun,            s_"Don't perform changes";
+      [ S 'n'; L"dry-run"; L"dryrun" ],        Getopt.Set dryrun,            s_"Don’t perform changes";
       [ L"ntfsresize-force" ], Getopt.Set ntfsresize_force, s_"Force ntfsresize";
       [ L"output-format" ], Getopt.Set_string (s_"format", output_format), s_"Format of output disk";
       [ L"resize" ],  Getopt.String (s_"part=size", add resizes),  s_"Resize partition";
@@ -313,14 +313,14 @@ read the man page virt-resize(1).
     let infile =
       try (infile, URI.parse_uri infile)
       with Invalid_argument "URI.parse_uri" ->
-        error (f_"error parsing URI '%s'. Look for error messages printed above.")
+        error (f_"error parsing URI ‘%s’. Look for error messages printed above.")
           infile in
 
     (* outfile can be a URI. *)
     let outfile =
       try (outfile, URI.parse_uri outfile)
       with Invalid_argument "URI.parse_uri" ->
-        error (f_"error parsing URI '%s'. Look for error messages printed above.")
+        error (f_"error parsing URI ‘%s’. Look for error messages printed above.")
           outfile in
 
     infile, outfile, align_first, alignment, copy_boot_loader,
@@ -620,15 +620,15 @@ read the man page virt-resize(1).
       let partition =
         try Hashtbl.find hash name
         with Not_found ->
-          error (f_"%s: partition not found in the source disk image (this error came from '%s' option on the command line).  Try running this command: virt-filesystems --partitions --long -a %s")
+          error (f_"%s: partition not found in the source disk image (this error came from ‘%s’ option on the command line).  Try running this command: virt-filesystems --partitions --long -a %s")
           name option (fst infile) in
 
       if partition.p_operation = OpIgnore then
-        error (f_"%s: partition already ignored, you cannot use it in '%s' option")
+        error (f_"%s: partition already ignored, you cannot use it in ‘%s’ option")
           name option;
 
       if partition.p_operation = OpDelete then
-        error (f_"%s: partition already deleted, you cannot use it in '%s' option")
+        error (f_"%s: partition already deleted, you cannot use it in ‘%s’ option")
           name option;
 
       partition in
@@ -677,18 +677,18 @@ read the man page virt-resize(1).
          *)
         match p.p_type with
         | ContentUnknown ->
-          error (f_"%s: This partition has unknown content which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)")
+          error (f_"%s: This partition has unknown content which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the ‘--resize-force’ option, but that could destroy any data on this partition.  (This error came from ‘%s’ option on the command line.)")
             name option
         | ContentPV size when size > newsize ->
-          error (f_"%s: This partition contains an LVM physical volume which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)")
+          error (f_"%s: This partition contains an LVM physical volume which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the ‘--resize-force’ option, but that could destroy any data on this partition.  (This error came from ‘%s‘ option on the command line.)")
             name size newsize option
         | ContentPV _ -> ()
         | ContentFS (fstype, size) when size > newsize ->
-          error (f_"%s: This partition contains a %s filesystem which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy any data on this partition.  (This error came from '%s' option on the command line.)")
+          error (f_"%s: This partition contains a %s filesystem which will be damaged by shrinking it below %Ld bytes (user asked to shrink it to %Ld bytes).  If you want to shrink this partition, you need to use the ‘--resize-force’ option, but that could destroy any data on this partition.  (This error came from ‘%s’ option on the command line.)")
             name fstype size newsize option
         | ContentFS _ -> ()
         | ContentExtendedPartition ->
-          error (f_"%s: This extended partition contains logical partitions which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the '--resize-force' option, but that could destroy logical partitions within this partition.  (This error came from '%s' option on the command line.)")
+          error (f_"%s: This extended partition contains logical partitions which might be damaged by shrinking it.  If you want to shrink this partition, you need to use the ‘--resize-force’ option, but that could destroy logical partitions within this partition.  (This error came from ‘%s’ option on the command line.)")
             name option
         | ContentSwap -> ()
       );
@@ -707,7 +707,7 @@ read the man page virt-resize(1).
         if n == 0 then raise Not_found;
         String.sub arg 0 i, String.sub arg (i+1) n
       with Not_found ->
-        error (f_"%s: missing size field in '%s' option") arg option in
+        error (f_"%s: missing size field in ‘%s’ option") arg option in
 
     let p = find_partition ~option dev in
 
@@ -802,7 +802,7 @@ read the man page virt-resize(1).
      | None -> ()
      | Some dev ->
          if surplus > 0L then
-           error (f_"You cannot use --shrink when there is no deficit (see 'deficit' in the virt-resize(1) man page).");
+           error (f_"You cannot use --shrink when there is no deficit (see ‘deficit’ in the virt-resize(1) man page).");
 
          let option = "--shrink" in
          let p = find_partition ~option dev in
@@ -834,7 +834,7 @@ read the man page virt-resize(1).
       let lv =
         try Hashtbl.find hash name
         with Not_found ->
-          error (f_"%s: logical volume not found in the source disk image (this error came from '--lv-expand' option on the command line).  Try running this command: virt-filesystems --logical-volumes --long -a %s")
+          error (f_"%s: logical volume not found in the source disk image (this error came from ‘--lv-expand’ option on the command line).  Try running this command: virt-filesystems --logical-volumes --long -a %s")
             name (fst infile) in
       lv.lv_operation <- LVOpExpand
   ) lv_expands;
@@ -905,7 +905,7 @@ read the man page virt-resize(1).
           sprintf (f_"%s: This partition will be resized from %s to %s.")
             p.p_name (human_size p.p_part.G.part_size) (human_size newsize) ^
             if can_expand_content p.p_type then (
-              sprintf (f_"  The %s on %s will be expanded using the '%s' method.")
+              sprintf (f_"  The %s on %s will be expanded using the ‘%s’ method.")
                 (string_of_partition_content_no_size p.p_type)
                 p.p_name
                 (string_of_expand_content_method
@@ -936,7 +936,7 @@ read the man page virt-resize(1).
               sprintf (f_"%s: This logical volume will be expanded to maximum size.")
                 name ^
               if can_expand_content lv.lv_type then (
-                sprintf (f_"  The %s on %s will be expanded using the '%s' method.")
+                sprintf (f_"  The %s on %s will be expanded using the ‘%s’ method.")
                   (string_of_partition_content_no_size lv.lv_type)
                   name
                   (string_of_expand_content_method
@@ -1359,7 +1359,7 @@ read the man page virt-resize(1).
           let target = sprintf "/dev/sda%d" p.p_target_partnum in
           let meth = expand_content_method p.p_type in
 
-          message (f_"Expanding %s%s using the '%s' method")
+          message (f_"Expanding %s%s using the ‘%s’ method")
             source
             (if source <> target then sprintf " (now %s)" target else "")
             (string_of_expand_content_method meth);
@@ -1378,7 +1378,7 @@ read the man page virt-resize(1).
           let name = lv.lv_name in
           let meth = expand_content_method lv.lv_type in
 
-          message (f_"Expanding %s using the '%s' method")
+          message (f_"Expanding %s using the ‘%s’ method")
             name (string_of_expand_content_method meth);
 
           (* First expand the LV itself to maximum size. *)

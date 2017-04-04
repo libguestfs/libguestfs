@@ -95,10 +95,10 @@ class output_libvirt oc output_pool = object
     (* Does the domain already exist on the target?  (RHBZ#889082) *)
     if Libvirt_utils.domain_exists ?conn:oc source.s_name then (
       if source.s_hypervisor = Physical then (* virt-p2v user *)
-        error (f_"a libvirt domain called '%s' already exists on the target.\n\nIf using virt-p2v, select a different 'Name' in the 'Target properties'. Or delete the existing domain on the target using the 'virsh undefine' command.")
+        error (f_"a libvirt domain called ‘%s’ already exists on the target.\n\nIf using virt-p2v, select a different ‘Name’ in the ‘Target properties’. Or delete the existing domain on the target using the ‘virsh undefine’ command.")
               source.s_name
       else                      (* !virt-p2v *)
-        error (f_"a libvirt domain called '%s' already exists on the target.\n\nIf using virt-v2v directly, use the '-on' option to select a different name. Or delete the existing domain on the target using the 'virsh undefine' command.")
+        error (f_"a libvirt domain called ‘%s’ already exists on the target.\n\nIf using virt-v2v directly, use the ‘-on’ option to select a different name. Or delete the existing domain on the target using the ‘virsh undefine’ command.")
               source.s_name
     );
 
@@ -112,13 +112,13 @@ class output_libvirt oc output_pool = object
 
     (* We can only output to a pool of type 'dir' (directory). *)
     if xpath_string "/pool/@type" <> Some "dir" then
-      error (f_"-o libvirt: output pool '%s' is not a directory (type='dir').  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
+      error (f_"-o libvirt: output pool ‘%s’ is not a directory (type='dir').  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool;
     let target_path =
       match xpath_string "/pool/target/path/text()" with
       | None ->
-         error (f_"-o libvirt: output pool '%s' does not have /pool/target/path element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+         error (f_"-o libvirt: output pool ‘%s’ does not have /pool/target/path element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
       | Some dir when not (is_directory dir) ->
-         error (f_"-o libvirt: output pool '%s' has type='dir' but the /pool/target/path element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+         error (f_"-o libvirt: output pool ‘%s’ has type='dir' but the /pool/target/path element is not a local directory.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
       | Some dir -> dir in
     (* Get the name of the pool, since we have to use that
      * (and not the UUID) in the XML of the guest.
@@ -126,7 +126,7 @@ class output_libvirt oc output_pool = object
     let name =
       match xpath_string "/pool/name/text()" with
       | None ->
-         error (f_"-o libvirt: output pool '%s' does not have /pool/name element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
+         error (f_"-o libvirt: output pool ‘%s’ does not have /pool/name element.  See virt-v2v(1) section \"OUTPUT TO LIBVIRT\"") output_pool
       | Some name -> name in
     pool_name <- Some name;
 
@@ -203,7 +203,7 @@ class output_libvirt oc output_pool = object
     if run_command cmd = 0 then (
       try Unix.unlink tmpfile with _ -> ()
     ) else (
-      warning (f_"could not define libvirt domain.  The libvirt XML is still available in '%s'.  Try running 'virsh define %s' yourself instead.")
+      warning (f_"could not define libvirt domain.  The libvirt XML is still available in ‘%s’.  Try running ‘virsh define %s’ yourself instead.")
         tmpfile tmpfile
     );
 end

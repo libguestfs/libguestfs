@@ -308,7 +308,7 @@ You have to mount something on F</> before most commands will work.
 If any I<-m> or I<--mount> options are given, the guest is
 automatically launched.
 
-If you don't know what filesystems a disk image contains, you can
+If you don’t know what filesystems a disk image contains, you can
 either run guestfish without this option, then list the partitions,
 filesystems and LVs available (see L</list-partitions>,
 L</list-filesystems> and L</lvs> commands), or you can use the
@@ -355,7 +355,7 @@ of autosync in the L<guestfs(3)> manpage.
 
 =item B<--no-dest-paths>
 
-Don't tab-complete paths on the guest filesystem.  It is useful to be
+Don’t tab-complete paths on the guest filesystem.  It is useful to be
 able to hit the tab key to complete paths on the guest filesystem, but
 this causes extra "hidden" guestfs calls to be made, so this option is
 here to allow this feature to be disabled.
@@ -731,7 +731,7 @@ following will not do what you expect:
 
  rm-rf /home/*
 
-Assuming you don't have a directory called literally F</home/*>
+Assuming you don’t have a directory called literally F</home/*>
 then the above command will return an error.
 
 To perform wildcard expansion, use the C<glob> command.
@@ -1034,14 +1034,14 @@ and cleans up guestfish when the script exits:
 
 =head2 REMOTE CONTROL DOES NOT WORK WITH I<-a> ETC. OPTIONS
 
-Options such as I<-a>, I<--add>, I<-N>, I<--new> etc don't interact
+Options such as I<-a>, I<--add>, I<-N>, I<--new> etc don’t interact
 properly with remote support.  They are processed locally, and not
 sent through to the remote guestfish.  In particular this won't do
 what you expect:
 
  guestfish --remote --add disk.img
 
-Don't use these options.  Use the equivalent commands instead, eg:
+Don’t use these options.  Use the equivalent commands instead, eg:
 
  guestfish --remote add-drive disk.img
 

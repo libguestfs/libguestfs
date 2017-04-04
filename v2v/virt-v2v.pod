@@ -278,7 +278,7 @@ option of L<qemu-img(1)>.
 
 =item B<--dcpath> Folder/Datacenter
 
-B<NB:> You don't need to use this parameter if you have
+B<NB:> You don’t need to use this parameter if you have
 S<libvirt E<ge> 1.2.20>.
 
 For VMware vCenter, override the C<dcPath=...> parameter used to
@@ -397,7 +397,7 @@ See L</NETWORKS AND BRIDGES> below.
 
 =item B<--no-copy>
 
-Don't copy the disks.  Instead, conversion is performed (and thrown
+Don’t copy the disks.  Instead, conversion is performed (and thrown
 away), and metadata is written, but no disks are created.  See
 also discussion of S<I<-o null>> below.
 
@@ -985,7 +985,7 @@ I<--bridge> option instead.  For example:
 
 Virt-v2v is able to import guests from VMware vCenter Server.
 
-vCenter E<ge> 5.0 is required.  If you don't have vCenter, using OVA
+vCenter E<ge> 5.0 is required.  If you don’t have vCenter, using OVA
 is recommended instead (see L</INPUT FROM VMWARE OVA> below), or if
 that is not possible then see L</INPUT FROM VMWARE ESXi HYPERVISOR>.
 
@@ -1796,7 +1796,7 @@ instance.
 
 =item Writing to Glance
 
-This does I<not> need root (in fact it probably won't work), but may
+This does I<not> need root (in fact it probably won’t work), but may
 require either a special user and/or for you to source a script that
 sets authentication environment variables.  Consult the Glance
 documentation.

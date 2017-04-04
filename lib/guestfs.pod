@@ -208,7 +208,7 @@ Linux LVM2 logical volumes you could refer to those instead
 (eg. F</dev/VG/LV>).  Note that these are libguestfs virtual devices,
 and are nothing to do with host devices.
 
-If you are given a disk image and you don't know what it contains then
+If you are given a disk image and you don’t know what it contains then
 you have to find out.  Libguestfs can do that too: use
 L</guestfs_list_partitions> and L</guestfs_lvs> to list possible
 partitions and LVs, and either try mounting each to see what is
@@ -458,7 +458,7 @@ Only supports Linux guests (not Windows, BSD, etc).
 
 =item *
 
-Architecture limitations (eg. won't work for a PPC guest on
+Architecture limitations (eg. won’t work for a PPC guest on
 an X86 host).
 
 =item *
@@ -502,7 +502,7 @@ The main Augeas calls are bound through the C<guestfs_aug_*> APIs.  We
 don't document Augeas itself here because there is excellent
 documentation on the L<http://augeas.net/> website.
 
-If you don't want to use Augeas (you fool!) then try calling
+If you don’t want to use Augeas (you fool!) then try calling
 L</guestfs_read_lines> to get the file as a list of lines which
 you can iterate over.
 
@@ -1105,7 +1105,7 @@ or by copying and resizing and on failure going back to the original.
 
 =head2 USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES
 
-Although we don't want to discourage you from using the C API, we will
+Although we don’t want to discourage you from using the C API, we will
 mention here that the same API is also available in other languages.
 
 The API is broadly identical in all supported languages.  This means
@@ -1117,7 +1117,7 @@ straightforward, predictable isomorphism between each language.
 Error messages are automatically transformed
 into exceptions if the language supports it.
 
-We don't try to "object orientify" parts of the API in OO languages,
+We don’t try to "object orientify" parts of the API in OO languages,
 although contributors are welcome to write higher level APIs above
 what we provide in their favourite languages if they wish.
 
@@ -1264,7 +1264,7 @@ the error message was also unintuitive, but we have corrected this
 since.  Like the Bourne shell, we should have used C<guestfish -c
 command> to run commands.
 
-=item guestfish megabyte modifiers don't work right on all commands
+=item guestfish megabyte modifiers don’t work right on all commands
 
 In recent guestfish you can use C<1M> to mean 1 megabyte (and
 similarly for other modifiers).  What guestfish actually does is to
@@ -1643,7 +1643,7 @@ Clone the Linux git repository or download the Linux source tarball.
 
 =item 2. Configure the kernel
 
-B<Note:> All 'make' commands must have C<ARCH=um> added.
+B<Note:> All ‘make’ commands must have C<ARCH=um> added.
 
  make menuconfig ARCH=um
 
@@ -1858,7 +1858,7 @@ The internal test suite.
 
 =item 3.
 
-If you want to use libguestfs APIs that don't refer to disks, since
+If you want to use libguestfs APIs that don’t refer to disks, since
 libguestfs requires that at least one disk is added, you should add a
 null disk.
 
@@ -1959,7 +1959,7 @@ L</CVE-2010-3851> below.
 Libguestfs offers an API to get the format of a disk image
 (L</guestfs_disk_format>, and it is safest to use this.
 
-I<Don't> be tempted to try parsing the text / human-readable output of
+I<Don’t> be tempted to try parsing the text / human-readable output of
 C<qemu-img> since it cannot be parsed reliably and securely.  Also do
 not use the C<file> command since the output of that changes over
 time.
@@ -2013,7 +2013,7 @@ no extra arguments are used).
 
 =item C<GUESTFS_CREATE_NO_ENVIRONMENT>
 
-Don't parse any environment variables (such as C<LIBGUESTFS_DEBUG> etc).
+Don’t parse any environment variables (such as C<LIBGUESTFS_DEBUG> etc).
 
 You can call L</guestfs_parse_environment> or
 L</guestfs_parse_environment_list> afterwards to parse environment
@@ -2025,7 +2025,7 @@ L</guestfs_parse_environment>.
 
 =item C<GUESTFS_CREATE_NO_CLOSE_ON_EXIT>
 
-Don't try to close the handle in an L<atexit(3)> handler if the
+Don’t try to close the handle in an L<atexit(3)> handler if the
 program exits without explicitly closing the handle.
 
 The default (if this flag is not given) is to install such an atexit
@@ -2282,7 +2282,7 @@ situation.  I<Note this callback must not return>.
 
 The default is to call L<abort(3)>.
 
-You cannot set C<cb> to C<NULL>.  You can't ignore out of memory
+You cannot set C<cb> to C<NULL>.  You can’t ignore out of memory
 situations.
 
 =head2 guestfs_get_out_of_memory_handler
@@ -2428,7 +2428,7 @@ With two:
                          GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
                          -1);
 
-and so forth.  Don't forget the terminating C<-1> otherwise
+and so forth.  Don’t forget the terminating C<-1> otherwise
 Bad Things will happen!
 
 =head2 USING va_list FOR OPTIONAL ARGUMENTS
@@ -3213,7 +3213,7 @@ Our criteria for backporting changes are:
 
 =item *
 
-Documentation changes which don't affect any code are
+Documentation changes which don’t affect any code are
 backported unless the documentation refers to a future feature
 which is not in stable.
 
@@ -3230,7 +3230,7 @@ too far out of step, allowing us to backport future fixes more easily.
 
 =item *
 
-We I<don't> backport new features, new APIs, new tools etc, except in
+We I<don’t> backport new features, new APIs, new tools etc, except in
 one exceptional case: the new feature is required in order to
 implement an important bug fix.
 

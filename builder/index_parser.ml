@@ -27,7 +27,7 @@ open Unix
 let get_index ~downloader ~sigchecker
   { Sources.uri = uri; proxy = proxy } =
   let corrupt_file () =
-    error (f_"The index file downloaded from '%s' is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") uri
+    error (f_"The index file downloaded from ‘%s’ is corrupt.\nYou need to ask the supplier of this file to fix it and upload a fixed version.") uri
   in
 
   let rec get_index () =
@@ -57,7 +57,7 @@ let get_index ~downloader ~sigchecker
       fun (n, arch) ->
         let id = n, arch in
         if Hashtbl.mem nseen id then (
-          eprintf (f_"%s: index is corrupt: os-version '%s' with architecture '%s' appears two or more times\n") prog n arch;
+          eprintf (f_"%s: index is corrupt: os-version ‘%s’ with architecture ‘%s’ appears two or more times\n") prog n arch;
           corrupt_file ()
         );
         Hashtbl.add nseen id true
@@ -73,9 +73,9 @@ let get_index ~downloader ~sigchecker
             if Hashtbl.mem fseen hashkey then (
               (match subkey with
               | Some value ->
-                eprintf (f_"%s: index is corrupt: %s: field '%s[%s]' appears two or more times\n") prog n field value
+                eprintf (f_"%s: index is corrupt: %s: field ‘%s[%s]’ appears two or more times\n") prog n field value
               | None ->
-                eprintf (f_"%s: index is corrupt: %s: field '%s' appears two or more times\n") prog n field);
+                eprintf (f_"%s: index is corrupt: %s: field ‘%s’ appears two or more times\n") prog n field);
               corrupt_file ()
             );
             Hashtbl.add fseen hashkey true
@@ -94,12 +94,12 @@ let get_index ~downloader ~sigchecker
           let file_uri =
             try make_absolute_uri (List.assoc ("file", None) fields)
             with Not_found ->
-              eprintf (f_"%s: no 'file' (URI) entry for '%s'\n") prog n;
+              eprintf (f_"%s: no ‘file’ (URI) entry for ‘%s’\n") prog n;
             corrupt_file () in
           let arch =
             try List.assoc ("arch", None) fields
             with Not_found ->
-              eprintf (f_"%s: no 'arch' entry for '%s'\n") prog n;
+              eprintf (f_"%s: no ‘arch’ entry for ‘%s’\n") prog n;
             corrupt_file () in
           let signature_uri =
             try Some (make_absolute_uri (List.assoc ("sig", None) fields))
@@ -114,7 +114,7 @@ let get_index ~downloader ~sigchecker
             with
             | Not_found -> Rev_int 1
             | Failure _ ->
-              eprintf (f_"%s: cannot parse 'revision' field for '%s'\n") prog n;
+              eprintf (f_"%s: cannot parse ‘revision’ field for ‘%s’\n") prog n;
               corrupt_file () in
           let format =
             try Some (List.assoc ("format", None) fields) with Not_found -> None in
@@ -122,10 +122,10 @@ let get_index ~downloader ~sigchecker
             try Int64.of_string (List.assoc ("size", None) fields)
             with
             | Not_found ->
-              eprintf (f_"%s: no 'size' field for '%s'\n") prog n;
+              eprintf (f_"%s: no ‘size’ field for ‘%s’\n") prog n;
               corrupt_file ()
             | Failure _ ->
-              eprintf (f_"%s: cannot parse 'size' field for '%s'\n") prog n;
+              eprintf (f_"%s: cannot parse ‘size’ field for ‘%s’\n") prog n;
               corrupt_file () in
           let compressed_size =
             try Some (Int64.of_string (List.assoc ("compressed_size", None) fields))
@@ -133,7 +133,7 @@ let get_index ~downloader ~sigchecker
             | Not_found ->
               None
             | Failure _ ->
-              eprintf (f_"%s: cannot parse 'compressed_size' field for '%s'\n")
+              eprintf (f_"%s: cannot parse ‘compressed_size’ field for ‘%s’\n")
                 prog n;
               corrupt_file () in
           let expand =
@@ -158,7 +158,7 @@ let get_index ~downloader ~sigchecker
             with
             | Not_found -> false
             | Failure _ ->
-              eprintf (f_"%s: cannot parse 'hidden' field for '%s'\n")
+              eprintf (f_"%s: cannot parse ‘hidden’ field for ‘%s’\n")
                 prog n;
               corrupt_file () in
           let aliases =
@@ -208,11 +208,11 @@ let get_index ~downloader ~sigchecker
       corrupt_file ()
     )
     else if String.find path "://" >= 0 then (
-      eprintf (f_"%s: cannot use a URI ('%s') in the index file\n") prog path;
+      eprintf (f_"%s: cannot use a URI (‘%s’) in the index file\n") prog path;
       corrupt_file ()
     )
     else if path.[0] = '/' then (
-      eprintf (f_"%s: you must use relative paths (not '%s') in the index file\n") prog path;
+      eprintf (f_"%s: you must use relative paths (not ‘%s’) in the index file\n") prog path;
       corrupt_file ()
     )
     else (

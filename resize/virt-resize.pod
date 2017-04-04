@@ -239,7 +239,7 @@ Similarly, to get non-sparse raw output use:
 
  fallocate -l size outdisk
 
-(on older systems that don't have the L<fallocate(1)> command use
+(on older systems that don’t have the L<fallocate(1)> command use
 C<dd if=/dev/zero of=outdisk bs=1M count=..>)
 
 =head2 LOGICAL PARTITIONS
@@ -463,7 +463,7 @@ L</MACHINE READABLE OUTPUT> below.
 
 =item B<--dry-run>
 
-Print a summary of what would be done, but don't do anything.
+Print a summary of what would be done, but don’t do anything.
 
 =item B<--no-copy-boot-loader>
 
@@ -523,7 +523,7 @@ L</QCOW2 AND NON-SPARSE RAW FORMATS>.
 
 =item B<--quiet>
 
-Don't print the summary.
+Don’t print the summary.
 
 =item B<--resize> PART=SIZE
 

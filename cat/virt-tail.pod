@@ -141,7 +141,7 @@ the mount of its root and all of its mountpoints, so make sure
 to mount all the mountpoints needed to work with the filenames
 given as arguments.
 
-If you don't know what filesystems a disk image contains, you can
+If you don’t know what filesystems a disk image contains, you can
 either run guestfish without this option, then list the partitions,
 filesystems and LVs available (see L</list-partitions>,
 L</list-filesystems> and L</lvs> commands), or you can use the

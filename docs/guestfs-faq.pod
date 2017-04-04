@@ -151,7 +151,7 @@ To get further information about the failure, you have to run:
 
  libguestfs-test-tool
 
-If, after using this, you still don't understand the failure, contact
+If, after using this, you still don’t understand the failure, contact
 us (see previous section).
 
 =head2 libguestfs: error: cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH
@@ -193,7 +193,7 @@ Switch to the direct backend:
 
 =item *
 
-Don't run libguestfs as root.
+Don’t run libguestfs as root.
 
 =item *
 
@@ -317,7 +317,7 @@ L<http://packages.debian.org/search?keywords=libguestfs>
 
 =item Ubuntu
 
-We don't have a full time Ubuntu maintainer, and the packages supplied
+We don’t have a full time Ubuntu maintainer, and the packages supplied
 by Canonical (which are outside our control) are sometimes broken.
 
 Canonical decided to change the permissions on the kernel so that it's
@@ -388,7 +388,7 @@ README file before starting.
 Git: L<https://github.com/libguestfs/libguestfs>
 Source tarballs: L<http://libguestfs.org/download>
 
-Don't run C<make install>!  Use the C<./run> script instead (see README).
+Don’t run C<make install>!  Use the C<./run> script instead (see README).
 
 =head2 How can I compile and install libguestfs if my distro doesn't
 have new enough qemu/supermin/kernel?
@@ -422,11 +422,11 @@ programs you have compiled.
 Use C<./localconfigure> instead of C<./configure>, but otherwise you
 compile libguestfs as usual.
 
-Don't run C<make install>!  Use the C<./run> script instead (see README).
+Don’t run C<make install>!  Use the C<./run> script instead (see README).
 
 =head2 How can I compile and install libguestfs without supermin?
 
-If supermin 5 supports your distro, but you don't happen to have a new
+If supermin 5 supports your distro, but you don’t happen to have a new
 enough supermin installed, then see the previous question.
 
 If supermin 5 doesn't support your distro at all, you will need to use
@@ -759,7 +759,7 @@ yet been reverse engineered and implemented in the Linux kernel, and
 therefore libguestfs doesn't support it.  At the moment it seems to be
 very rare "in the wild".
 
-=head2 Non-ASCII characters don't appear on VFAT filesystems.
+=head2 Non-ASCII characters don’t appear on VFAT filesystems.
 
 Typical symptoms of this problem:
 
@@ -1056,7 +1056,7 @@ L<environment variable|guestfs(3)/ENVIRONMENT VARIABLES>:
 
 See also L<guestfs-internals(1)>.
 
-=head2 Why don't you do everything through the FUSE / filesystem
+=head2 Why don’t you do everything through the FUSE / filesystem
 interface?
 
 We offer a command called L<guestmount(1)> which lets you mount guest
@@ -1084,7 +1084,7 @@ In the libguestfs API it is much more efficient to download an entire
 file or directory through one of the streaming calls like
 C<guestfs_download> or C<guestfs_tar_out>.
 
-=head2 Why don't you do everything through GVFS?
+=head2 Why don’t you do everything through GVFS?
 
 The problems are similar to the problems with FUSE.
 
@@ -1145,7 +1145,7 @@ L<https://www.redhat.com/archives/libguestfs/2010-August/msg00024.html>
 
 See also the next question.
 
-=head2 Why can't I run fsck on a live filesystem using C<guestfish --ro>?
+=head2 Why can’t I run fsck on a live filesystem using C<guestfish --ro>?
 
 This command will usually I<not> work:
 
@@ -1180,7 +1180,7 @@ provide:
  $ virt-rescue --ro guest.img
  ><rescue> /sbin/fsck /dev/sda1
 
-And the related question which then arises is why you can't type in
+And the related question which then arises is why you can’t type in
 full shell commands with all the --options in guestfish (but you can
 in L<virt-rescue(1)>).
 
@@ -1294,7 +1294,7 @@ L<https://www.redhat.com/mailman/listinfo/libguestfs>.  You don't have
 to be subscribed, but there will be a delay until your posting is
 manually approved.
 
-B<Please don't use github pull requests - they will be ignored>.  The
+B<Please don’t use github pull requests - they will be ignored>.  The
 reasons are (a) we want to discuss and dissect patches on the mailing
 list, and (b) github pull requests turn into merge commits but we
 prefer to have a linear history.
@@ -1307,7 +1307,7 @@ on the mailing list first
 disappointment and wasted work if we don't think the feature would fit
 into the libguestfs project.
 
-If you want to suggest a useful feature but don't want to write the
+If you want to suggest a useful feature but don’t want to write the
 code, you can file a bug (see L</GETTING HELP AND REPORTING BUGS>)
 with C<"RFE: "> at the beginning of the Summary line.
 

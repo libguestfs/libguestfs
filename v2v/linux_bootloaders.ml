@@ -126,7 +126,7 @@ object
     let path = List.hd paths in
     let rex = Str.regexp ".*/title\\[\\([1-9][0-9]*\\)\\]/kernel" in
     if not (Str.string_match rex path 0) then
-      error (f_"internal error: regular expression did not match '%s'")
+      error (f_"internal error: regular expression did not match ‘%s’")
         path;
     let index = int_of_string (Str.matched_group 1 path) - 1 in
     g#aug_set (sprintf "/files%s/default" grub_config) (string_of_int index);

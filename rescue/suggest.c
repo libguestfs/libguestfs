@@ -159,12 +159,12 @@ suggest_filesystems (void)
     return;
   }
 
-  printf (_("This disk contains one or more filesystems, but we don't recognize any\n"
+  printf (_("This disk contains one or more filesystems, but we don’t recognize any\n"
             "operating system.  You can use these mount commands in virt-rescue (at the\n"
             "><rescue> prompt) to mount these filesystems.\n\n"));
 
   for (i = 0; fses[i] != NULL; i += 2) {
-    printf (_("# %s has type '%s'\n"), fses[i], fses[i+1]);
+    printf (_("# %s has type ‘%s’\n"), fses[i], fses[i+1]);
 
     if (TEST_MOUNTABLE (fses[i+1]))
       printf ("mount %s /sysroot\n", fses[i]);

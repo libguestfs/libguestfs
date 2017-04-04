@@ -239,7 +239,7 @@ main (int argc, char *argv[])
 
   /* Must be no extra arguments on the command line. */
   if (optind != argc) {
-    fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
+    fprintf (stderr, _("%s: error: extra argument ‘%s’ on command line.\n"
              "Make sure to specify the argument for --format "
              "like '--format=%s'.\n"),
              getprogname (), argv[optind], argv[optind]);

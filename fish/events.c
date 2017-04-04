@@ -294,7 +294,7 @@ run_list_events (const char *cmd, size_t argc, char *argv[])
 {
   if (argc != 0) {
     fprintf (stderr,
-             _("use 'list-events' to list event handlers\n"));
+             _("use ‘list-events’ to list event handlers\n"));
     return -1;
   }
 

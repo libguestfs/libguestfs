@@ -89,7 +89,7 @@ and check_storage_domain domain_class os mp =
   let () =
     let master_vms_dir = mp // uuid // "master" // "vms" in
     if not (is_directory master_vms_dir) then
-      error (f_"%s does not exist or is not a directory.\n\nMost likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n\nYou have to attach the %s to a Data Center using the RHV-M / OVirt user interface first.\n\nIf you don't know what the %s mount point should be then you can also find this out through the RHV-M user interface.")
+      error (f_"%s does not exist or is not a directory.\n\nMost likely cause: Either the %s (%s) has not been attached to any Data Center, or the path %s is not an %s at all.\n\nYou have to attach the %s to a Data Center using the RHV-M / OVirt user interface first.\n\nIf you don’t know what the %s mount point should be then you can also find this out through the RHV-M user interface.")
         master_vms_dir domain_class os os
         domain_class domain_class domain_class in
 

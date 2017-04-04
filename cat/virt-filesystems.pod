@@ -235,7 +235,7 @@ irrespective of whether the LVs contain filesystems.
 
 =item B<--no-title>
 
-In I<--long> mode, don't add a title row.
+In I<--long> mode, don’t add a title row.
 
 Note that the order of the columns is not fixed, and may change in
 future versions of virt-filesystems, so using this option may give you

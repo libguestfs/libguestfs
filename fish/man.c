@@ -34,7 +34,7 @@ int
 run_man (const char *cmd, size_t argc, char *argv[])
 {
   if (argc != 0) {
-    fprintf (stderr, _("use 'man' without parameters to open the manual\n"));
+    fprintf (stderr, _("use ‘man’ without parameters to open the manual\n"));
     return -1;
   }
 

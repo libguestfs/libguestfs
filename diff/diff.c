@@ -342,7 +342,7 @@ main (int argc, char *argv[])
     error (EXIT_FAILURE, 0, _("you cannot use -h and --csv options together."));
 
   if (optind != argc) {
-    fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
+    fprintf (stderr, _("%s: error: extra argument ‘%s’ on command line.\n"
              "Make sure to specify the argument for --checksum or --format "
              "like '--format=%s'.\n"),
              getprogname (), argv[optind], argv[optind]);

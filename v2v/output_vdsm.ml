@@ -78,7 +78,7 @@ object
   method prepare_targets _ targets =
     if List.length vdsm_params.image_uuids <> List.length targets ||
       List.length vdsm_params.vol_uuids <> List.length targets then
-      error (f_"the number of '--vdsm-image-uuid' and '--vdsm-vol-uuid' parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
+      error (f_"the number of ‘--vdsm-image-uuid’ and ‘--vdsm-vol-uuid’ parameters passed on the command line has to match the number of guest disk images (for this guest: %d)")
         (List.length targets);
 
     let mp, uuid =

@@ -93,7 +93,7 @@ guestfs_impl_set_libvirt_supported_credentials (guestfs_h *g, char *const *creds
   for (i = 0; creds[i] != NULL; ++i) {
     credtype = get_credtype_from_string (creds[i]);
     if (credtype == -1) {
-      error (g, _("unknown credential type '%s'"), creds[i]);
+      error (g, _("unknown credential type ‘%s’"), creds[i]);
       return -1;
     }
 

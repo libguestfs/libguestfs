@@ -122,12 +122,12 @@ usage (int status)
               "  %s [--options] cmd [: cmd : cmd ...]\n"
               "Options:\n"
               "  -h|--cmd-help        List available commands\n"
-              "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+              "  -h|--cmd-help cmd    Display detailed help on ‘cmd’\n"
               "  -a|--add image       Add image\n"
               "  -c|--connect uri     Specify libvirt URI for -d option\n"
               "  --csh                Make --listen csh-compatible\n"
               "  -d|--domain guest    Add disks from libvirt guest\n"
-              "  --echo-keys          Don't turn off echo for passphrases\n"
+              "  --echo-keys          Don’t turn off echo for passphrases\n"
               "  -f|--file file       Read commands from file\n"
               "  --format[=raw|..]    Force disk format for -a option\n"
               "  --help               Display brief help\n"
@@ -140,8 +140,8 @@ usage (int status)
               "  --network            Enable network\n"
               "  -N|--new [filename=]type\n"
               "                       Create prepared disk (test<N>.img or filename)\n"
-              "  -n|--no-sync         Don't autosync\n"
-              "  --no-dest-paths      Don't tab-complete paths from guest fs\n"
+              "  -n|--no-sync         Don’t autosync\n"
+              "  --no-dest-paths      Don’t tab-complete paths from guest fs\n"
               "  --pipe-error         Pipe commands can detect write errors\n"
               "  --progress-bars      Enable progress bars even when not interactive\n"
               "  --no-progress-bars   Disable progress bars\n"
@@ -158,8 +158,10 @@ usage (int status)
               "or\n"
               "  %s [--ro|--rw] -i -d name-of-libvirt-domain\n"
               "\n"
-              "--ro recommended to avoid any writes to the disk image.  If -i option fails\n"
-              "run again without -i and use 'run' + 'list-filesystems' + 'mount' cmds.\n"
+              "‘--ro’ is recommended to avoid any writes to the disk image.\n"
+              "\n"
+              "If ‘-i’ option fails run again without ‘-i’ and use ‘run’ +\n"
+              "‘list-filesystems’ + ‘mount’ cmds.\n"
               "\n"
               "For more information, see the manpage %s(1).\n"),
             getprogname (), getprogname (),
@@ -683,9 +685,9 @@ script (int prompt)
               "Welcome to guestfish, the guest filesystem shell for\n"
               "editing virtual machine filesystems and disk images.\n"
               "\n"
-              "Type: 'help' for help on commands\n"
-              "      'man' to read the manual\n"
-              "      'quit' to quit the shell\n"
+              "Type: ‘help’ for help on commands\n"
+              "      ‘man’ to read the manual\n"
+              "      ‘quit’ to quit the shell\n"
               "\n"));
 
     if (inspector) {
@@ -893,7 +895,7 @@ parse_command_line (char *buf, int *exit_on_error_rtn)
       } else
         pend = &p[len];
     } else {
-      fprintf (stderr, _("%s: internal error parsing string at '%s'\n"),
+      fprintf (stderr, _("%s: internal error parsing string at ‘%s’\n"),
                getprogname (), p);
       abort ();
     }

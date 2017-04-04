@@ -30,7 +30,7 @@ let non_daemon_functions = [
     blocking = false;
     shortdesc = "debug the drives (internal use only)";
     longdesc = "\
-This returns the internal list of drives.  'debug' commands are
+This returns the internal list of drives.  ‘debug’ commands are
 not part of the formal API and can be removed or changed at any time." };
 
 ]

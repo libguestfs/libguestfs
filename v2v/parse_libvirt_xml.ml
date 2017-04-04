@@ -40,7 +40,7 @@ let get_drive_slot str offset =
   let name = String.sub str offset (String.length str - offset) in
   try Some (Utils.drive_index name)
   with Invalid_argument _ ->
-       warning (f_"could not parse device name '%s' from the source libvirt XML") str;
+       warning (f_"could not parse device name ‘%s’ from the source libvirt XML") str;
        None
 
 let parse_libvirt_xml ?conn xml =

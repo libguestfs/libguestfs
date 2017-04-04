@@ -245,7 +245,7 @@ let create_meta_files output_alloc sd_uuid image_uuids targets =
         | "raw" -> "RAW"
         | "qcow2" -> "COW"
         | _ ->
-          error (f_"RHV does not support the output format '%s', only raw or qcow2") t.target_format in
+          error (f_"RHV does not support the output format ‘%s’, only raw or qcow2") t.target_format in
 
       let buf = Buffer.create 256 in
       let bpf fs = bprintf buf fs in
@@ -485,7 +485,7 @@ and add_disks targets guestcaps output_alloc sd_uuid image_uuids vol_uuids ovf =
         | "raw" -> "RAW"
         | "qcow2" -> "COW"
         | _ ->
-          error (f_"RHV does not support the output format '%s', only raw or qcow2") t.target_format in
+          error (f_"RHV does not support the output format ‘%s’, only raw or qcow2") t.target_format in
 
       (* Note: Upper case in the .meta, mixed case in the OVF. *)
       let output_alloc_for_rhv =
@@ -627,7 +627,7 @@ and add_sound_card sound ovf =
     | Some { s_sound_model = AC97 } -> Some "ac97"
     | Some { s_sound_model = ICH6 } -> Some "ich6"
     | Some { s_sound_model = model } ->
-       warning (f_"oVirt cannot emulate '%s' sound cards.  This sound card will be dropped from the output.")
+       warning (f_"oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from the output.")
                (string_of_source_sound_model model);
        None in
 

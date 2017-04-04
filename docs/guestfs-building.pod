@@ -604,7 +604,7 @@ it, since errors in the GNUlib test suite are often not important.
 
 =item B<--disable-static>
 
-Don't build a static linked version of the libguestfs library.
+Don’t build a static linked version of the libguestfs library.
 
 =item B<--enable-install-daemon>
 

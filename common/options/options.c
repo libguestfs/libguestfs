@@ -275,11 +275,11 @@ display_mountpoints_on_failure (const char *mp_device,
   if (fses == NULL || fses[0] == NULL)
     return;
 
-  fprintf (stderr, _("%s: '%s' could not be mounted.\n"),
+  fprintf (stderr, _("%s: ‘%s’ could not be mounted.\n"),
            getprogname (), mp_device);
 
   if (user_supplied_options)
-    fprintf (stderr, _("%s: Check mount(8) man page to ensure options '%s'\n"
+    fprintf (stderr, _("%s: Check mount(8) man page to ensure options ‘%s’\n"
                        "%s: are supported by the filesystem that is being mounted.\n"),
              getprogname (), user_supplied_options, getprogname ());
 

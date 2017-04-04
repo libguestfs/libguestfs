@@ -1,6 +1,6 @@
 =begin comment
 
-We break with tradition here and don't use ALL CAPS for the section
+We break with tradition here and don’t use ALL CAPS for the section
 headings, as this makes them much easier to read.
 
 =end comment
@@ -109,7 +109,7 @@ To browse the final disk image, do:
 This technique is quite powerful, allowing you for example to split up
 source directories over the target filesystems.
 
-Note this won't work (at least, not directly) for bootable virtual
+Note this won’t work (at least, not directly) for bootable virtual
 machine disks because it doesn't copy over the boot loader.
 
 =head1 Convert Windows DVD to bootable USB key
@@ -138,7 +138,7 @@ use guestfish to do this:
  # for Windows guests:
  ><fs> resize2fs /dev/sdb1
 
-Such a disk image won't be directly bootable.  You may need to boot it
+Such a disk image won’t be directly bootable.  You may need to boot it
 with an external kernel and initramfs (see below).  Or you can use the
 guestfish commands C<syslinux> or C<extlinux> to install a SYSLINUX
 bootloader.

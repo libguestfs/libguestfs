@@ -55,7 +55,7 @@ let main () =
       let uri =
         try URI.parse_uri arg
         with Invalid_argument "URI.parse_uri" ->
-          error (f_"error parsing URI '%s'. Look for error messages printed above.") arg in
+          error (f_"error parsing URI ‘%s’. Look for error messages printed above.") arg in
       let format = match !format with "auto" -> None | fmt -> Some fmt in
       push_front (uri, format) files;
       format_consumed := true
@@ -79,7 +79,7 @@ let main () =
         fun opset op_name ->
           try Sysprep_operation.add_to_set op_name opset
           with Not_found ->
-            error (f_"--enable: '%s' is not a known operation") op_name
+            error (f_"--enable: ‘%s’ is not a known operation") op_name
       ) Sysprep_operation.empty_set ops in
       operations := Some opset
     and set_operations op_string =
@@ -109,7 +109,7 @@ let main () =
               | `Remove n -> Sysprep_operation.remove_from_set in
             try f n opset with
             | Not_found ->
-              error (f_"--operations: '%s' is not a known operation") n
+              error (f_"--operations: ‘%s’ is not a known operation") n
       ) currentopset ops in
       operations := Some opset
     and list_operations () =

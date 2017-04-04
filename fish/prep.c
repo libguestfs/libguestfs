@@ -106,7 +106,7 @@ parse_type_string (const char *type_string)
 
   if (i == NR_PREPS)
     error (EXIT_FAILURE, 0,
-           _("-N parameter '%s': no such prepared disk image known.\n"
+           _("-N parameter ‘%s’: no such prepared disk image known.\n"
              "Use 'guestfish -N help' to list possible values for the -N parameter."),
            type_string);
 
@@ -159,7 +159,7 @@ void
 prep_error (prep_data *data, const char *filename, const char *fs, ...)
 {
   fprintf (stderr,
-           _("guestfish: error creating prepared disk image '%s' on '%s': "),
+           _("guestfish: error creating prepared disk image ‘%s’ on ‘%s’: "),
            data->orig_type_string, filename);
 
   va_list args;

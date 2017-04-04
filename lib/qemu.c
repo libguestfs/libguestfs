@@ -435,7 +435,7 @@ guestfs_int_drive_source_qemu_param (guestfs_h *g,
      */
     path = realpath (src->u.path, NULL);
     if (path == NULL) {
-      perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+      perrorf (g, _("realpath: could not convert ‘%s’ to absolute path"),
                src->u.path);
       return NULL;
     }
@@ -650,7 +650,7 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
      */
     NOT_SUPPORTED (g, false,
                    _("discard cannot be enabled on this drive: "
-                     "qemu does not support discard for '%s' format files"),
+                     "qemu does not support discard for ‘%s’ format files"),
                    drv->src.format);
   }
 
@@ -673,7 +673,7 @@ guestfs_int_discard_possible (guestfs_h *g, struct drive *drv,
   case drive_protocol_tftp:
     NOT_SUPPORTED (g, -1,
                    _("discard cannot be enabled on this drive: "
-                     "protocol '%s' does not support discard"),
+                     "protocol ‘%s’ does not support discard"),
                    guestfs_int_drive_protocol_to_string (drv->src.protocol));
   }
 

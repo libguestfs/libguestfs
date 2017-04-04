@@ -415,7 +415,7 @@ For example:
  \"/dev/vg_guest/lv_swap\" => \"swap\"
 
 The key is not necessarily a block device. It may also be an opaque
-'mountable' string which can be passed to C<guestfs_mount>.
+‘mountable’ string which can be passed to C<guestfs_mount>.
 
 The value can have the special value \"unknown\", meaning the
 content of the device is undetermined or empty.
@@ -620,7 +620,7 @@ specify the remote username you want.
 
 =item C<secret>
 
-For the C<rbd> protocol only, this specifies the 'secret' to use when
+For the C<rbd> protocol only, this specifies the ‘secret’ to use when
 connecting to the remote device.  It must be base64 encoded.
 
 If not given, then a secret matching the given username will be looked up in the
@@ -1445,7 +1445,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
     longdesc = "\
 Parse the program’s environment and set flags in the handle
 accordingly.  For example if C<LIBGUESTFS_DEBUG=1> then the
-'verbose' flag is set in the handle.
+‘verbose’ flag is set in the handle.
 
 I<Most programs do not need to call this>.  It is done implicitly
 when you call C<guestfs_create>.
@@ -1464,7 +1464,7 @@ C<guestfs_parse_environment_list>." };
 Parse the list of strings in the argument C<environment>
 and set flags in the handle accordingly.
 For example if C<LIBGUESTFS_DEBUG=1> is a string in the list,
-then the 'verbose' flag is set in the handle.
+then the ‘verbose’ flag is set in the handle.
 
 This is the same as C<guestfs_parse_environment> except that
 it parses an explicit list of strings instead of the program's
@@ -1753,7 +1753,7 @@ Mount a guest disk at a position in the filesystem.  Block devices
 are named F</dev/sda>, F</dev/sdb> and so on, as they were added to
 the guest.  If those block devices contain partitions, they will have
 the usual names (eg. F</dev/sda1>).  Also LVM F</dev/VG/LV>-style
-names can be used, or 'mountable' strings returned by
+names can be used, or ‘mountable’ strings returned by
 C<guestfs_list_filesystems> or C<guestfs_inspect_get_mountpoints>.
 
 The rules are the same as for L<mount(2)>:  A filesystem must
@@ -6912,7 +6912,7 @@ This option may not be specified at the same time as the C<forceall> option.
 
 =item C<forceall>
 
-Assume an answer of 'yes' to all questions; allows e2fsck to be used
+Assume an answer of ‘yes’ to all questions; allows e2fsck to be used
 non-interactively.
 
 This option may not be specified at the same time as the C<correct> option.

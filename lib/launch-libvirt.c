@@ -196,7 +196,7 @@ get_source_format_or_autodetect (guestfs_h *g, struct drive *drv)
     if (STREQ (format, "unknown")) {
       error (g, _("could not auto-detect the format.\n"
                   "If the format is known, pass the format to libguestfs, eg. using the\n"
-                  "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+                  "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."));
       return NULL;
     }
 
@@ -206,7 +206,7 @@ get_source_format_or_autodetect (guestfs_h *g, struct drive *drv)
   /* Non-file protocol. */
   error (g, _("could not auto-detect the format when using a non-file protocol.\n"
               "If the format is known, pass the format to libguestfs, eg. using the\n"
-              "'--format' option, or via the optional 'format' argument to 'add-drive'."));
+              "‘--format’ option, or via the optional ‘format’ argument to ‘add-drive’."));
   return NULL;
 }
 
@@ -334,7 +334,7 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
                                MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR,
                                MIN_LIBVIRT_MICRO)) {
     error (g, _("you must have libvirt >= %d.%d.%d "
-                "to use the 'libvirt' backend"),
+                "to use the ‘libvirt’ backend"),
            MIN_LIBVIRT_MAJOR, MIN_LIBVIRT_MINOR, MIN_LIBVIRT_MICRO);
     return -1;
   }
@@ -788,11 +788,11 @@ parse_capabilities (guestfs_h *g, const char *capabilities_xml,
     CLEANUP_FREE char *backend = guestfs_get_backend (g);
 
     error (g,
-           _("libvirt hypervisor doesn't support qemu or KVM,\n"
+           _("libvirt hypervisor doesn’t support qemu or KVM,\n"
              "so we cannot create the libguestfs appliance.\n"
-             "The current backend is '%s'.\n"
+             "The current backend is ‘%s’.\n"
              "Check that the PATH environment variable is set and contains\n"
-             "the path to the qemu ('qemu-system-*') or KVM ('qemu-kvm', 'kvm' etc).\n"
+             "the path to the qemu (‘qemu-system-*’) or KVM (‘qemu-kvm’, ‘kvm’ etc).\n"
              "Or: try setting:\n"
              "  export LIBGUESTFS_BACKEND=libvirt:qemu:///session\n"
              "Or: if you want to have libguestfs run qemu directly, try:\n"
@@ -1429,7 +1429,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
 
   /* XXX We probably could support this if we thought about it some more. */
   if (drv->iface) {
-    error (g, _("'iface' parameter is not supported by the libvirt backend"));
+    error (g, _("‘iface’ parameter is not supported by the libvirt backend"));
     return -1;
   }
 
@@ -1475,7 +1475,7 @@ construct_libvirt_xml_disk (guestfs_h *g,
         if (!is_host_device) {
           path = realpath (drv->src.u.path, NULL);
           if (path == NULL) {
-            perrorf (g, _("realpath: could not convert '%s' to absolute path"),
+            perrorf (g, _("realpath: could not convert ‘%s’ to absolute path"),
                      drv->src.u.path);
             return -1;
           }
@@ -2036,7 +2036,7 @@ check_bridge_exists (guestfs_h *g, const char *brname)
     return 0;
 
   error (g,
-         _("bridge '%s' not found.  Try running:\n"
+         _("bridge ‘%s’ not found.  Try running:\n"
            "\n"
            "  brctl show\n"
            "\n"

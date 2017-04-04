@@ -191,4 +191,4 @@ let sort = List.sort action_compare
 (* Find a single action by name, or give an error. *)
 let find name =
   try List.find (fun { name = n } -> n = name) actions
-  with Not_found -> failwithf "could not find action named '%s'" name
+  with Not_found -> failwithf "could not find action named ‘%s’" name

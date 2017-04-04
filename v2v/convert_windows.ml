@@ -98,7 +98,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
          let uninstkey = "UninstallString" in
          let valueh = g#hivex_node_get_value node uninstkey in
          if valueh = 0L then (
-           warning (f_"cannot uninstall Xen PV drivers: registry key 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s' does not contain an '%s' key")
+           warning (f_"cannot uninstall Xen PV drivers: registry key ‘HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\%s’ does not contain an ‘%s’ key")
                    xenpvreg uninstkey;
            raise Not_found
          );
@@ -153,7 +153,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
                let valueh = g#hivex_node_get_value uninstnode uninstval in
                if valueh = 0L then (
                  let name = g#hivex_node_name uninstnode in
-                 warning (f_"cannot uninstall Parallels Tools: registry key 'HKLM\\SOFTWARE\\%s\\%s' with DisplayName '%s' doesn't contain value '%s'")
+                 warning (f_"cannot uninstall Parallels Tools: registry key ‘HKLM\\SOFTWARE\\%s\\%s’ with DisplayName ‘%s’ doesn't contain value ‘%s’")
                          (String.concat "\\" path) name dispname uninstval;
                  raise Not_found
                );

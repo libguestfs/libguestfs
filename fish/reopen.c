@@ -40,7 +40,7 @@ run_reopen (const char *cmd, size_t argc, char *argv[])
   void *cb_data;
 
   if (argc > 0) {
-    fprintf (stderr, _("'reopen' command takes no parameters\n"));
+    fprintf (stderr, _("‘reopen’ command takes no parameters\n"));
     return -1;
   }
 

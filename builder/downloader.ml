@@ -88,7 +88,7 @@ and download_to t ?(progress_bar = false) ~proxy uri filename =
       [ path; filename_new ] in
     let r = run_command cmd in
     if r <> 0 then
-      error (f_"cp (download) command failed copying '%s'") path;
+      error (f_"cp (download) command failed copying ‘%s’") path;
 
   (* Any other protocol. *)
   | _ ->

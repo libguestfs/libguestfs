@@ -106,7 +106,7 @@ before using it).  This allows you to choose a large I<--size> but the
 extra space won't actually be allocated in the image until you try to
 store something in it.
 
-Don't forget that you can also use local commands including
+Don’t forget that you can also use local commands including
 L<resize2fs(8)> and L<virt-resize(1)> to resize existing filesystems,
 or rerun virt-make-fs to build another image from scratch.
 

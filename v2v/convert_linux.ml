@@ -713,7 +713,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
     if !updated &&
       not (g#is_file ~followsymlinks:true "/usr/bin/X") &&
       not (g#is_file ~followsymlinks:true "/usr/bin/X11/X") then
-      warning (f_"The display driver was updated to '%s', but X11 does not seem to be installed in the guest.  X may not function correctly.")
+      warning (f_"The display driver was updated to ‘%s’, but X11 does not seem to be installed in the guest.  X may not function correctly.")
         video_driver
 
   and configure_kernel_modules block_type net_type =
@@ -818,7 +818,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       fun path ->
         let device = g#aug_get path in
         let module_ = g#aug_get (path ^ "/modulename") in
-        warning (f_"don't know how to update %s which loads the %s module")
+        warning (f_"don’t know how to update %s which loads the %s module")
           device module_;
     ) paths;
 

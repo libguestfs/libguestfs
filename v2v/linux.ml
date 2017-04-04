@@ -58,7 +58,7 @@ and do_remove g { i_package_format = package_format } packages =
     ignore (g#command cmd)
 
   | format ->
-    error (f_"don't know how to remove packages using %s: packages: %s")
+    error (f_"don’t know how to remove packages using %s: packages: %s")
       format (String.concat " " packages)
 
 let file_list_of_package (g : Guestfs.guestfs) inspect app =
@@ -102,7 +102,7 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
     List.sort compare files
 
   | format ->
-    error (f_"don't know how to get list of files from package using %s")
+    error (f_"don’t know how to get list of files from package using %s")
       format
 
 let rec file_owner (g : G.guestfs) { i_package_format = package_format } path =
@@ -128,7 +128,7 @@ let rec file_owner (g : G.guestfs) { i_package_format = package_format } path =
       let line =
         try String.sub line 0 (String.rindex line ':')
         with Invalid_argument _ ->
-          error (f_"internal error: file_owner: invalid dpkg output: '%s'")
+          error (f_"internal error: file_owner: invalid dpkg output: ‘%s’")
                 line in
       fst (String.split "," line)
 
@@ -151,7 +151,7 @@ let rec file_owner (g : G.guestfs) { i_package_format = package_format } path =
       )
 
   | format ->
-    error (f_"don't know how to find file owner using %s") format
+    error (f_"don’t know how to find file owner using %s") format
 
 and is_file_owned g inspect path =
   try ignore (file_owner g inspect path); true

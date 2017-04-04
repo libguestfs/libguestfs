@@ -189,10 +189,10 @@ main (int argc, char *argv[])
       } else if (STREQ (long_options[option_index].name, "smp")) {
         if (sscanf (optarg, "%d", &smp) != 1)
           error (EXIT_FAILURE, 0,
-                 _("could not parse --smp parameter '%s'"), optarg);
+                 _("could not parse --smp parameter ‘%s’"), optarg);
         if (smp < 1)
           error (EXIT_FAILURE, 0,
-                 _("--smp parameter '%s' should be >= 1"), optarg);
+                 _("--smp parameter ‘%s’ should be >= 1"), optarg);
       } else if (STREQ (long_options[option_index].name, "suggest")) {
         suggest = 1;
       } else if (STREQ (long_options[option_index].name, "scratch")) {
@@ -202,16 +202,16 @@ main (int argc, char *argv[])
           int n;
           if (sscanf (optarg, "%d", &n) != 1)
             error (EXIT_FAILURE, 0,
-                   _("could not parse --scratch parameter '%s'"), optarg);
+                   _("could not parse --scratch parameter ‘%s’"), optarg);
           if (n < 1)
             error (EXIT_FAILURE, 0,
-                   _("--scratch parameter '%s' should be >= 1"), optarg);
+                   _("--scratch parameter ‘%s’ should be >= 1"), optarg);
           add_scratch_disks (n, &drvs);
         }
       } else if (STREQ (long_options[option_index].name, "memsize")) {
         if (sscanf (optarg, "%d", &memsize) != 1)
           error (EXIT_FAILURE, 0,
-                 _("could not parse memory size '%s'"), optarg);
+                 _("could not parse memory size ‘%s’"), optarg);
       } else
         error (EXIT_FAILURE, 0,
                _("unknown long option: %s (%d)"),
@@ -325,7 +325,7 @@ main (int argc, char *argv[])
 
   /* Must be no extra arguments on the command line. */
   if (optind != argc) {
-    fprintf (stderr, _("%s: error: extra argument '%s' on command line.\n"
+    fprintf (stderr, _("%s: error: extra argument ‘%s’ on command line.\n"
              "Make sure to specify the argument for --format or --scratch "
              "like '--format=%s'.\n"),
              getprogname (), argv[optind], argv[optind]);

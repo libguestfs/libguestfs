@@ -236,7 +236,7 @@ will do the same, plus mount F</var> with C<rw,nodiratime>.
 
 =item B<--quiet>
 
-Don't print log messages.
+Don’t print log messages.
 
 To enable detailed logging of individual file operations, use I<-x>.
 
@@ -421,7 +421,7 @@ Create a snapshot using qemu-img:
 
  qemu-img create -f qcow2 -o backing_file=original snapshot.qcow
 
-The advantage is that you don't need to copy the original (very fast)
+The advantage is that you don’t need to copy the original (very fast)
 and only changes are stored (less storage required).
 
 Note that writing to the backing file once you have created guests on

@@ -132,9 +132,9 @@ guestfs_create_flags (unsigned flags, ...)
   if (!g->identifier) goto error;
 
   if (guestfs_int_set_backend (g, DEFAULT_BACKEND) == -1) {
-    warning (g, _("libguestfs was built with an invalid default backend, using 'direct' instead"));
+    warning (g, _("libguestfs was built with an invalid default backend, using ‘direct’ instead"));
     if (guestfs_int_set_backend (g, "direct") == -1) {
-      warning (g, _("'direct' backend does not work"));
+      warning (g, _("‘direct’ backend does not work"));
       goto error;
     }
   }

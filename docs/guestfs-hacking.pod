@@ -390,7 +390,7 @@ In either case, use another function as an example of what to do.
 
 After making these changes, use C<make> to compile.
 
-Note that you don't need to implement the RPC, language bindings,
+Note that you don’t need to implement the RPC, language bindings,
 manual pages or anything else.  It’s all automatically generated from
 the OCaml description.
 
@@ -783,7 +783,7 @@ Submit patches to the mailing list:
 L<http://www.redhat.com/mailman/listinfo/libguestfs>
 and CC to L<rjones@redhat.com>.
 
-You do not need to subscribe to the mailing list if you don't want to.
+You do not need to subscribe to the mailing list if you don’t want to.
 There may be a short delay while your message is moderated.
 
 =head2 DAEMON CUSTOM PRINTF FORMATTERS
@@ -821,7 +821,7 @@ however.
 
 We support i18n (gettext anyhow) in the library.
 
-However many messages come from the daemon, and we don't translate
+However many messages come from the daemon, and we don’t translate
 those at the moment.  One reason is that the appliance generally has
 all locale files removed from it, because they take up a lot of space.
 So we'd have to readd some of those, as well as copying our PO files
@@ -1009,7 +1009,7 @@ F<http://git.annexia.org/?p=miniexpect.git;a=summary>)
 
 =head2 MAINTAINER MAKEFILE TARGETS
 
-These C<make> targets probably won't work and aren't useful unless you
+These C<make> targets probably won’t work and aren't useful unless you
 are a libguestfs maintainer.
 
 =head3 make maintainer-commit

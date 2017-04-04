@@ -35,23 +35,23 @@ let object_find_optional key = function
     (match List.filter (fun (k, _) -> k = key) (Array.to_list o) with
     | [(k, v)] -> Some v
     | [] -> None
-    | _ -> error (f_"more than value for the key '%s'") key)
-  | _ -> error (f_"the value of the key '%s' is not an object") key
+    | _ -> error (f_"more than value for the key ‘%s’") key)
+  | _ -> error (f_"the value of the key ‘%s’ is not an object") key
 
 let object_find key yv =
   match object_find_optional key yv with
-  | None -> error (f_"missing value for the key '%s'") key
+  | None -> error (f_"missing value for the key ‘%s’") key
   | Some v -> v
 
 let object_get_string key yv =
   match object_find key yv with
   | Yajl_string s -> s
-  | _ -> error (f_"the value for the key '%s' is not a string") key
+  | _ -> error (f_"the value for the key ‘%s’ is not a string") key
 
 let object_find_object key yv =
   match object_find key yv with
   | Yajl_object _ as o -> o
-  | _ -> error (f_"the value for the key '%s' is not an object") key
+  | _ -> error (f_"the value for the key ‘%s’ is not an object") key
 
 let object_find_objects fn = function
   | Yajl_object o -> filter_map fn (Array.to_list o)
@@ -66,7 +66,7 @@ let object_get_number key yv =
   match object_find key yv with
   | Yajl_number n -> n
   | Yajl_double d -> Int64.of_float d
-  | _ -> error (f_"the value for the key '%s' is not an integer") key
+  | _ -> error (f_"the value for the key ‘%s’ is not an integer") key
 
 let objects_get_string key yvs =
   let rec loop = function
@@ -74,10 +74,10 @@ let objects_get_string key yvs =
     | x :: xs ->
       (match object_find_optional key x with
       | Some (Yajl_string s) -> Some s
-      | Some _ -> error (f_"the value for key '%s' is not a string as expected") key
+      | Some _ -> error (f_"the value for key ‘%s’ is not a string as expected") key
       | None -> loop xs
       )
   in
   match loop yvs with
   | Some s -> s
-  | None -> error (f_"the key '%s' was not found in a list of objects") key
+  | None -> error (f_"the key ‘%s’ was not found in a list of objects") key

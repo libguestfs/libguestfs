@@ -47,11 +47,11 @@ let var_from_lines var lines =
   let var_lines = List.filter (fun x -> String.is_prefix x var_with_equal) lines in
   match var_lines with
   | [] ->
-    error (f_"variable '%s' not found in lines:\n%s")
+    error (f_"variable ‘%s’ not found in lines:\n%s")
       var (String.concat "\n" lines)
   | [x] -> snd (String.split "=" x)
   | _ ->
-    error (f_"variable '%s' has more than one occurrency in lines:\n%s")
+    error (f_"variable ‘%s’ has more than one occurrency in lines:\n%s")
       var (String.concat "\n" lines)
 
 let string_index_fn fn str =

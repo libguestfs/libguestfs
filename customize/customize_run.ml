@@ -92,7 +92,7 @@ exec >>%s 2>&1
         debug_logfile ();
         if warn_failed_no_network && not (g#get_network ()) then (
           prerr_newline ();
-          warning (f_"the command may have failed because the network is disabled.  Try either removing '--no-network' or adding '--network' on the command line.");
+          warning (f_"the command may have failed because the network is disabled.  Try either removing ‘--no-network’ or adding ‘--network’ on the command line.");
           prerr_newline ()
         );
         error (f_"%s: command exited with an error") display
@@ -182,10 +182,10 @@ exec >>%s 2>&1
 
   (* Windows has package_management == "unknown". *)
   and error_unknown_package_manager flag =
-    error (f_"cannot use '%s' because no package manager has been detected for this guest OS.\n\nIf this guest OS is a common one with ordinary package management then this may have been caused by a failure of libguestfs inspection.\n\nFor OSes such as Windows that lack package management, this is not possible.  Try using one of the '--firstboot*' flags instead (described in the manual).") flag
+    error (f_"cannot use ‘%s’ because no package manager has been detected for this guest OS.\n\nIf this guest OS is a common one with ordinary package management then this may have been caused by a failure of libguestfs inspection.\n\nFor OSes such as Windows that lack package management, this is not possible.  Try using one of the ‘--firstboot*’ flags instead (described in the manual).") flag
 
   and error_unimplemented_package_manager flag pm =
-      error (f_"sorry, '%s' with the '%s' package manager has not been implemented yet.\n\nYou can work around this by using one of the '--run*' or '--firstboot*' options instead (described in the manual).") flag pm
+      error (f_"sorry, ‘%s’ with the ‘%s’ package manager has not been implemented yet.\n\nYou can work around this by using one of the ‘--run*’ or ‘--firstboot*’ options instead (described in the manual).") flag pm
   in
 
   (* Set the random seed. *)
@@ -197,7 +197,7 @@ exec >>%s 2>&1
   let passwords = Hashtbl.create 13 in
   let set_password user pw =
     if Hashtbl.mem passwords user then
-      error (f_"multiple --root-password/--password options set the password for user '%s' twice") user;
+      error (f_"multiple --root-password/--password options set the password for user ‘%s’ twice") user;
     Hashtbl.replace passwords user pw
   in
 

@@ -146,7 +146,7 @@ read the man page virt-sparsify(1).
 
       (* Check the output is not a char special (RHBZ#1056290). *)
       if is_char_device outdisk then
-        error (f_"output '%s' cannot be a character device, it must be a regular file")
+        error (f_"output ‘%s’ cannot be a character device, it must be a regular file")
               outdisk;
 
       indisk,

@@ -48,7 +48,7 @@ guestfs_impl_copy_in (guestfs_h *g,
   struct stat statbuf;
 
   if (stat (localpath, &statbuf) == -1) {
-    error (g, _("source '%s' does not exist (or cannot be read)"), localpath);
+    error (g, _("source ‘%s’ does not exist (or cannot be read)"), localpath);
     return -1;
   }
 
@@ -57,7 +57,7 @@ guestfs_impl_copy_in (guestfs_h *g,
     return -1;
 
   if (!remote_is_dir) {
-    error (g, _("target '%s' is not a directory"), remotedir);
+    error (g, _("target ‘%s’ is not a directory"), remotedir);
     return -1;
   }
 
@@ -139,7 +139,7 @@ guestfs_impl_copy_out (guestfs_h *g,
 
   if (stat (localdir, &statbuf) == -1 ||
       ! (S_ISDIR (statbuf.st_mode))) {
-    error (g, _("target '%s' is not a directory"), localdir);
+    error (g, _("target ‘%s’ is not a directory"), localdir);
     return -1;
   }
 
@@ -176,7 +176,7 @@ guestfs_impl_copy_out (guestfs_h *g,
       return -1;
 
     if (r == 0) {
-      error (g, _("'%s' is not a file or directory"), remotepath);
+      error (g, _("‘%s’ is not a file or directory"), remotepath);
       return -1;
     }
 

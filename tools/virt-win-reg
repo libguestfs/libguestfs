@@ -672,7 +672,7 @@ This file would need conversion before you could I<--merge> it.
 
 =head1 CurrentControlSet etc.
 
-Registry keys like C<CurrentControlSet> don't really exist in the
+Registry keys like C<CurrentControlSet> don’t really exist in the
 Windows Registry at the level of the hive file, and therefore you
 cannot modify these.
 

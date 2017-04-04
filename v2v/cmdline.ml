@@ -104,7 +104,7 @@ let parse_cmdline () =
       | in_, out ->
          let key = t, Some in_ in
          if NetworkMap.mem key !network_map then
-           error (f_"duplicate %s parameter.  Duplicate mappings specified for %s '%s'.") flag name in_;
+           error (f_"duplicate %s parameter.  Duplicate mappings specified for %s ‘%s’.") flag name in_;
          network_map := NetworkMap.add key out !network_map
     in
     let add_network str = add "-n/--network" (s_"network") Network str
@@ -169,7 +169,7 @@ let parse_cmdline () =
     String.concat "|" (Modules_list.output_modules ()) in
 
   let argspec = [
-    [ S 'b'; L"bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge 'in' to 'out'";
+    [ S 'b'; L"bridge" ],        Getopt.String ("in:out", add_bridge),     s_"Map bridge ‘in’ to ‘out’";
     [ L"compressed" ], Getopt.Set compressed,     s_"Compress output file (-of qcow2 only)";
     [ L"dcpath"; L"dcPath" ],  Getopt.String ("path", set_string_option_once "--dcpath" dcpath),
                                             s_"Override dcPath (for vCenter)";
@@ -181,7 +181,7 @@ let parse_cmdline () =
                                             s_"Input format (for -i disk)";
     [ L"in-place" ], Getopt.Set in_place,         s_"Only tune the guest in the input VM";
     [ L"machine-readable" ], Getopt.Set machine_readable, s_"Make output machine readable";
-    [ S 'n'; L"network" ],        Getopt.String ("in:out", add_network),    s_"Map network 'in' to 'out'";
+    [ S 'n'; L"network" ],        Getopt.String ("in:out", add_network),    s_"Map network ‘in’ to ‘out’";
     [ L"no-copy" ], Getopt.Clear do_copy,         s_"Just write the metadata";
     [ L"no-trim" ], Getopt.String ("-", no_trim_warning),
                                             s_"Ignored for backwards compatibility";
@@ -410,7 +410,7 @@ read the man page virt-v2v(1).
       let os =
         match output_storage with
         | None ->
-           error (f_"-o rhv: output storage was not specified, use '-os'");
+           error (f_"-o rhv: output storage was not specified, use ‘-os’");
         | Some d -> d in
       if qemu_boot then
         error_option_cannot_be_used_in_output_mode "rhv" "--qemu-boot";
@@ -421,7 +421,7 @@ read the man page virt-v2v(1).
       let os =
         match output_storage with
         | None ->
-           error (f_"-o vdsm: output storage was not specified, use '-os'");
+           error (f_"-o vdsm: output storage was not specified, use ‘-os’");
         | Some d -> d in
       if qemu_boot then
         error_option_cannot_be_used_in_output_mode "vdsm" "--qemu-boot";

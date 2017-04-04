@@ -124,7 +124,7 @@ let rec do_fetch ~transform_fn ~outputdir g root =
     match typ with
     | "linux" -> pick_kernel_files_linux g root
     | typ ->
-      error (f_"operating system '%s' not supported") typ in
+      error (f_"operating system ‘%s’ not supported") typ in
 
   (* Download the files. *)
   List.iter (

@@ -37,7 +37,7 @@ and parse_credentials_selector_list orig_arg = function
   | [ username; "file"; filename ] ->
     { sm_username = username; sm_password = read_first_line_from_file filename }
   | _ ->
-    error (f_"invalid sm-credentials selector '%s'; see the man page") orig_arg
+    error (f_"invalid sm-credentials selector ‘%s’; see the man page") orig_arg
 
 let rec parse_pool_selector arg =
   parse_pool_selector_list arg (String.nsplit ":" arg)
@@ -50,4 +50,4 @@ and parse_pool_selector_list orig_arg = function
   | [ "file"; filename ] ->
     PoolId (read_first_line_from_file filename)
   | _ ->
-    error (f_"invalid sm-attach selector '%s'; see the man page") orig_arg
+    error (f_"invalid sm-attach selector ‘%s’; see the man page") orig_arg

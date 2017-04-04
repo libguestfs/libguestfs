@@ -57,7 +57,7 @@ let find_uefi_firmware guest_arch =
     | "x86_64" -> Uefi.uefi_x86_64_firmware
     | "aarch64" -> Uefi.uefi_aarch64_firmware
     | arch ->
-       error (f_"don't know how to convert UEFI guests for architecture %s")
+       error (f_"don’t know how to convert UEFI guests for architecture %s")
              guest_arch in
   let rec loop = function
     | [] ->

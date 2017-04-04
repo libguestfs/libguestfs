@@ -68,7 +68,7 @@ void
 inspect_mount_handle (guestfs_h *g)
 {
   if (live)
-    error (EXIT_FAILURE, 0, _("don't use --live and -i options together"));
+    error (EXIT_FAILURE, 0, _("don’t use --live and -i options together"));
 
   inspect_do_decrypt (g);
 
@@ -80,16 +80,16 @@ inspect_mount_handle (guestfs_h *g)
     fprintf (stderr,
 	     _("%s: no operating system was found on this disk\n"
 	       "\n"
-	       "If using guestfish '-i' option, remove this option and instead\n"
-	       "use the commands 'run' followed by 'list-filesystems'.\n"
+	       "If using guestfish ‘-i’ option, remove this option and instead\n"
+	       "use the commands ‘run’ followed by ‘list-filesystems’.\n"
 	       "You can then mount filesystems you want by hand using the\n"
-	       "'mount' or 'mount-ro' command.\n"
+	       "‘mount’ or ‘mount-ro’ command.\n"
 	       "\n"
-	       "If using guestmount '-i', remove this option and choose the\n"
-	       "filesystem(s) you want to see by manually adding '-m' option(s).\n"
-	       "Use 'virt-filesystems' to see what filesystems are available.\n"
+	       "If using guestmount ‘-i’, remove this option and choose the\n"
+	       "filesystem(s) you want to see by manually adding ‘-m’ option(s).\n"
+	       "Use ‘virt-filesystems’ to see what filesystems are available.\n"
 	       "\n"
-	       "If using other virt tools, this disk image won't work\n"
+	       "If using other virt tools, this disk image won’t work\n"
 	       "with these tools.  Use the guestfish equivalent commands\n"
 	       "(see the virt tool manual page).\n"),
              getprogname ());
@@ -101,16 +101,16 @@ inspect_mount_handle (guestfs_h *g)
     fprintf (stderr,
 	     _("%s: multi-boot operating systems are not supported\n"
 	       "\n"
-	       "If using guestfish '-i' option, remove this option and instead\n"
-	       "use the commands 'run' followed by 'list-filesystems'.\n"
+	       "If using guestfish ‘-i’ option, remove this option and instead\n"
+	       "use the commands ‘run’ followed by ‘list-filesystems’.\n"
 	       "You can then mount filesystems you want by hand using the\n"
-	       "'mount' or 'mount-ro' command.\n"
+	       "‘mount’ or ‘mount-ro’ command.\n"
 	       "\n"
-	       "If using guestmount '-i', remove this option and choose the\n"
-	       "filesystem(s) you want to see by manually adding '-m' option(s).\n"
-	       "Use 'virt-filesystems' to see what filesystems are available.\n"
+	       "If using guestmount ‘-i’, remove this option and choose the\n"
+	       "filesystem(s) you want to see by manually adding ‘-m’ option(s).\n"
+	       "Use ‘virt-filesystems’ to see what filesystems are available.\n"
 	       "\n"
-	       "If using other virt tools, multi-boot operating systems won't work\n"
+	       "If using other virt tools, multi-boot operating systems won’t work\n"
 	       "with these tools.  Use the guestfish equivalent commands\n"
 	       "(see the virt tool manual page).\n"),
              getprogname ());

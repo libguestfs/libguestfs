@@ -63,7 +63,7 @@ to escalate its privileges to root.  Additionally if you use the
 libvirt back end and SELinux, sVirt is used to confine the qemu
 process.  This multi-step escalation, performed by a static piece of
 data, is thought to be extremely hard to do, although we never say
-'never' about security issues.
+‘never’ about security issues.
 
 Callers can also reduce the attack surface by forcing the filesystem
 type when mounting (use L<guestfs(3)/guestfs_mount_vfs>).

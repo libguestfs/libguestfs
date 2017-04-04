@@ -157,7 +157,7 @@ C<cyls>, C<heads> and C<sectors> are the number of cylinders, heads
 and sectors on the device, which are passed directly to sfdisk as
 the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
 of these, then the corresponding parameter is omitted.  Usually for
-'large' disks, you can just pass C<0> for these, but for small
+‘large’ disks, you can just pass C<0> for these, but for small
 (floppy-sized) disks, sfdisk (or rather, the kernel) cannot work
 out the right geometry and you will need to tell it.
 

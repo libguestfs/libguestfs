@@ -67,7 +67,7 @@ and parse_selector_list orig_arg = function
   | [ "disable"|"disabled" ] ->
     { pw_password = Disabled_password; pw_locked = false }
   | _ ->
-    error (f_"invalid password selector '%s'; see the man page") orig_arg
+    error (f_"invalid password selector ‘%s’; see the man page") orig_arg
 
 (* Permissible characters in a salt. *)
 let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"

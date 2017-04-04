@@ -35,7 +35,7 @@ let vhd_run_file filename (tmpdisk, _) temp_dir =
               "-i"; fn_intermediate; "-o"; filename ] in
   if run_command cmd <> 0 then exit 1;
   if not (Sys.file_exists filename) then
-    error (f_"VHD output not produced, most probably vhd-util is old or not patched for 'convert'")
+    error (f_"VHD output not produced, most probably vhd-util is old or not patched for ‘convert’")
 
 let fmt = {
   defaults with

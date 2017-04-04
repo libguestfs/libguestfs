@@ -87,7 +87,7 @@ guestfs_impl_disk_format (guestfs_h *g, const char *filename)
   }
 
  bad_type:
-  error (g, _("qemu-img info: JSON output did not contain 'format' key"));
+  error (g, _("qemu-img info: JSON output did not contain ‘format’ key"));
   return NULL;
 }
 
@@ -112,7 +112,7 @@ guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
       if (! YAJL_IS_NUMBER (node))
         goto bad_type;
       if (! YAJL_IS_INTEGER (node)) {
-        error (g, _("qemu-img info: 'virtual-size' is not representable as a 64 bit integer"));
+        error (g, _("qemu-img info: ‘virtual-size’ is not representable as a 64 bit integer"));
         return -1;
       }
       return YAJL_GET_INTEGER (node);
@@ -120,7 +120,7 @@ guestfs_impl_disk_virtual_size (guestfs_h *g, const char *filename)
   }
 
  bad_type:
-  error (g, _("qemu-img info: JSON output did not contain 'virtual-size' key"));
+  error (g, _("qemu-img info: JSON output did not contain ‘virtual-size’ key"));
   return -1;
 }
 

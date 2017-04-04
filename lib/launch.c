@@ -173,7 +173,7 @@ guestfs_impl_get_pid (guestfs_h *g)
 
   if (g->backend_ops->get_pid == NULL)
     NOT_SUPPORTED (g, -1,
-                   _("the current backend does not support 'get-pid'"));
+                   _("the current backend does not support ‘get-pid’"));
 
   return g->backend_ops->get_pid (g, g->backend_data);
 }
@@ -272,7 +272,7 @@ guestfs_impl_config (guestfs_h *g,
       STREQ (hv_param, "-full-screen") ||
       STREQ (hv_param, "-std-vga") ||
       STREQ (hv_param, "-vnc")) {
-    error (g, _("parameter '%s' isn't allowed"), hv_param);
+    error (g, _("parameter ‘%s’ isn't allowed"), hv_param);
     return -1;
   }
 

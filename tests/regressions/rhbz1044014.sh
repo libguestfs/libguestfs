@@ -52,7 +52,7 @@ grep "libvirt needs authentication to connect to libvirt URI" rhbz1044014.out ||
 
 # This is the error we are expecting to see.  If we see it then it
 # indicates that authentication was successful.
-grep "error: libvirt hypervisor doesn't support qemu or KVM" rhbz1044014.out || {
+grep "error: libvirt hypervisor doesn’t support qemu or KVM" rhbz1044014.out || {
     echo "$0: unexpected output:"
     echo
     cat rhbz1044014.out

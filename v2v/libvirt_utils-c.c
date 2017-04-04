@@ -137,7 +137,7 @@ connect_and_load_pool (value connv, value poolnamev)
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
-                _("cannot open libvirt connection '%s'"), conn_uri);
+                _("cannot open libvirt connection ‘%s’"), conn_uri);
     else
       snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
     caml_invalid_argument (errmsg);
@@ -160,7 +160,7 @@ connect_and_load_pool (value connv, value poolnamev)
   if (!pool) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot find libvirt pool '%s': %s\n\nUse ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n\nTo set the pool which virt-v2v uses, add the ‘-os <pool>’ option."),
+              _("cannot find libvirt pool ‘%s’: %s\n\nUse ‘virsh pool-list --all’ to list all available pools, and ‘virsh pool-dumpxml <pool>’ to display details about a particular pool.\n\nTo set the pool which virt-v2v uses, add the ‘-os <pool>’ option."),
               poolname, err->message);
     virConnectClose (conn);
     caml_invalid_argument (errmsg);
@@ -208,7 +208,7 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
-                _("cannot open libvirt connection '%s'"), conn_uri);
+                _("cannot open libvirt connection ‘%s’"), conn_uri);
     else
       snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
     caml_invalid_argument (errmsg);
@@ -231,7 +231,7 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
   if (!dom) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot find libvirt domain '%s': %s"), domname, err->message);
+              _("cannot find libvirt domain ‘%s’: %s"), domname, err->message);
     virConnectClose (conn);
     caml_invalid_argument (errmsg);
   }
@@ -246,7 +246,7 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
         state == VIR_DOMAIN_BLOCKED ||
         state == VIR_DOMAIN_PAUSED) {
       snprintf (errmsg, sizeof errmsg,
-                _("libvirt domain '%s' is running or paused.  It must be shut down in order to perform virt-v2v conversion"),
+                _("libvirt domain ‘%s’ is running or paused.  It must be shut down in order to perform virt-v2v conversion"),
                 domname);
       virDomainFree (dom);
       virConnectClose (conn);
@@ -259,7 +259,7 @@ v2v_dumpxml (value passwordv, value connv, value domnamev)
   if (xml == NULL) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot fetch XML description of guest '%s': %s"),
+              _("cannot fetch XML description of guest ‘%s’: %s"),
               domname, err->message);
     virDomainFree (dom);
     virConnectClose (conn);
@@ -296,7 +296,7 @@ v2v_pool_dumpxml (value connv, value poolnamev)
   if (xml == NULL) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot fetch XML description of pool '%s': %s"),
+              _("cannot fetch XML description of pool ‘%s’: %s"),
               String_val (poolnamev), err->message);
     virStoragePoolFree (pool);
     virConnectClose (conn);
@@ -339,7 +339,7 @@ v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
   if (!vol) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot find libvirt volume '%s': %s"), volname, err->message);
+              _("cannot find libvirt volume ‘%s’: %s"), volname, err->message);
     virStoragePoolFree (pool);
     virConnectClose (conn);
     caml_invalid_argument (errmsg);
@@ -349,7 +349,7 @@ v2v_vol_dumpxml (value connv, value poolnamev, value volnamev)
   if (xml == NULL) {
     err = virGetLastError ();
     snprintf (errmsg, sizeof errmsg,
-              _("cannot fetch XML description of volume '%s': %s"),
+              _("cannot fetch XML description of volume ‘%s’: %s"),
               volname, err->message);
     virStorageVolFree (vol);
     virStoragePoolFree (pool);
@@ -392,7 +392,7 @@ v2v_capabilities (value connv, value unitv)
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
-                _("cannot open libvirt connection '%s'"), conn_uri);
+                _("cannot open libvirt connection ‘%s’"), conn_uri);
     else
       snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
     caml_invalid_argument (errmsg);
@@ -449,7 +449,7 @@ v2v_domain_exists (value connv, value domnamev)
   if (conn == NULL) {
     if (conn_uri)
       snprintf (errmsg, sizeof errmsg,
-                _("cannot open libvirt connection '%s'"), conn_uri);
+                _("cannot open libvirt connection ‘%s’"), conn_uri);
     else
       snprintf (errmsg, sizeof errmsg, _("cannot open libvirt connection"));
     caml_invalid_argument (errmsg);
@@ -475,7 +475,7 @@ v2v_domain_exists (value connv, value domnamev)
       domain_exists = 0;
     else {
       snprintf (errmsg, sizeof errmsg,
-                _("cannot find libvirt domain '%s': %s"),
+                _("cannot find libvirt domain ‘%s’: %s"),
                 domname, err->message);
       virConnectClose (conn);
       caml_invalid_argument (errmsg);

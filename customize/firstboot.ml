@@ -223,10 +223,10 @@ WantedBy=default.target
     if guest_arch_compatible then
       try ignore (g#sh cmd)
       with Guestfs.Error msg ->
-        warning (f_"could not finish firstboot installation by running '%s' because the command failed: %s")
+        warning (f_"could not finish firstboot installation by running ‘%s’ because the command failed: %s")
                 cmd msg
     else (
-      warning (f_"cannot finish firstboot installation by running '%s' because host cpu (%s) and guest arch (%s) are not compatible.  The firstboot service may not run at boot.")
+      warning (f_"cannot finish firstboot installation by running ‘%s’ because host cpu (%s) and guest arch (%s) are not compatible.  The firstboot service may not run at boot.")
               cmd Guestfs_config.host_cpu guest_arch
     )
 end

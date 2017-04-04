@@ -348,7 +348,7 @@ Not applicable in ramdisk mode, see L</RAMDISK BUILDING>.
 
 =item B<--no-delete-on-failure>
 
-Don't delete the output files on failure to build.  You can use this
+Don’t delete the output files on failure to build.  You can use this
 to debug failures to run scripts.
 
 The default is to delete the output files if virt-dib fails (or,
@@ -369,7 +369,7 @@ F<python>.
 
 =item B<--quiet>
 
-Don't print ordinary progress messages.
+Don’t print ordinary progress messages.
 
 =item B<--qemu-img-options> option[,option,...]
 
