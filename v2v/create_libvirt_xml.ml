@@ -338,6 +338,32 @@ let create_libvirt_xml ?pool source target_buses guestcaps
          [] in
   append devices sound;
 
+  (* Miscellaneous KVM devices. *)
+  if guestcaps.gcaps_virtio_rng then
+    push_back devices (
+      e "rng" ["model", "virtio"] [
+        (* XXX Using /dev/urandom requires libvirt >= 1.3.4.  Libvirt
+         * was broken before that.
+         *)
+        e "backend" ["model", "random"] [PCData "/dev/urandom"]
+      ]
+    );
+  (* For the balloon device, libvirt adds an implicit device
+   * unless we use model='none', hence this:
+   *)
+  push_back devices (
+    e "memballoon"
+      ["model",
+       if guestcaps.gcaps_virtio_balloon then "virtio" else "none"]
+      []
+  );
+  if guestcaps.gcaps_isa_pvpanic then
+    push_back devices (
+      e "panic" ["model", "isa"] [
+        e "address" ["type", "isa"; "iobase", "0x505"] []
+      ]
+    );
+
   (* Standard devices added to every guest. *)
   append devices [
     e "input" ["type", "tablet"; "bus", "usb"] [];

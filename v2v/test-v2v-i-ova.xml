@@ -37,6 +37,10 @@
       <model type='qxl' ram='65536' heads='1'/>
     </video>
     <graphics type='vnc' autoport='yes' port='-1'/>
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+    <memballoon model='virtio'/>
     <input type='tablet' bus='usb'/>
     <input type='mouse' bus='ps2'/>
     <console type='pty'/>
