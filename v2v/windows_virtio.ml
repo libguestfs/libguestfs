@@ -31,7 +31,9 @@ let virtio_win =
   with Not_found ->
     try Sys.getenv "VIRTIO_WIN_DIR" (* old name for VIRTIO_WIN *)
     with Not_found ->
-      Guestfs_config.datadir // "virtio-win"
+      let iso = Guestfs_config.datadir // "virtio-win" // "virtio-win.iso" in
+      if Sys.file_exists iso then iso
+      else Guestfs_config.datadir // "virtio-win"
 
 let scsi_class_guid = "{4D36E97B-E325-11CE-BFC1-08002BE10318}"
 let viostor_pciid = "VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00"
