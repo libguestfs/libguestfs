@@ -424,9 +424,6 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
     if best_kernel <> List.hd bootloader_kernels then
       bootloader#set_default_kernel best_kernel.ki_vmlinuz;
 
-    (* Does the best/bootable kernel support virtio? *)
-    let virtio = best_kernel.ki_supports_virtio in
-
     (* Update /etc/sysconfig/kernel DEFAULTKERNEL (RHBZ#1176801). *)
     if g#is_file ~followsymlinks:true "/etc/sysconfig/kernel" then (
       let entries =
@@ -438,7 +435,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       )
     );
 
-    best_kernel, virtio
+    best_kernel
 
   (* Even though the kernel was already installed (this version of
    * virt-v2v does not install new kernels), it could have an
@@ -1004,7 +1001,8 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
   unconfigure_kudzu ();
   unconfigure_prltools ();
 
-  let kernel, virtio = configure_kernel () in
+  let kernel = configure_kernel () in
+  let virtio = kernel.ki_supports_virtio in
 
   if output#keep_serial_console then (
     configure_console ();
