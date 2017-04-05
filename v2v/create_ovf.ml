@@ -16,11 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(* Functions for dealing with OVF files.
- *
- * The format is described in
- * http://www.ovirt.org/images/8/86/Ovirt_ovf_format.odt
- *)
+(* Create OVF and related files for RHV. *)
 
 open Common_gettext.Gettext
 open Common_utils

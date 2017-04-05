@@ -16,7 +16,20 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Functions for dealing with OVF files. *)
+(** Create OVF and related files for RHV.
+
+    The format is described in
+    http://www.ovirt.org/images/8/86/Ovirt_ovf_format.odt
+
+    OVF isn't a real standard, so it's likely that if we ever had to
+    create OVF for another target management system then we would need
+    to heavily modify or even duplicate this code. *)
+
+val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> string -> string list -> string list -> string -> DOM.doc
+(** Create the OVF file.
+
+    Actually a {!DOM} document is created, not a file.  It can be written
+    to the desired output location using {!DOM.doc_to_chan}. *)
 
 val create_meta_files : Types.output_allocation -> string -> string list -> Types.target list -> string list
 (** Create the .meta file associated with each target.
@@ -25,9 +38,6 @@ val create_meta_files : Types.output_allocation -> string -> string list -> Type
     permissions dance when writing files.  Instead the contents of each
     file is returned (one per target), and they must be written to
     [target_file ^ ".meta"]. *)
-
-val create_ovf : Types.source -> Types.target list -> Types.guestcaps -> Types.inspect -> Types.output_allocation -> string -> string list -> string list -> string -> DOM.doc
-(** Create the OVF file. *)
 
 (**/**)
 

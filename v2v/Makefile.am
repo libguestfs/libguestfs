@@ -30,6 +30,7 @@ SOURCES_MLI = \
 	convert_linux.mli \
 	convert_windows.mli \
 	create_libvirt_xml.mli \
+	create_ovf.mli \
 	DOM.mli \
 	input_disk.mli \
 	input_libvirt.mli \
@@ -52,7 +53,6 @@ SOURCES_MLI = \
 	output_qemu.mli \
 	output_rhv.mli \
 	output_vdsm.mli \
-	OVF.mli \
 	parse_ovf_from_ova.mli \
 	parse_libvirt_xml.mli \
 	qemu_command.mli \
@@ -73,8 +73,8 @@ SOURCES_ML = \
 	libvirt_utils.ml \
 	DOM.ml \
 	changeuid.ml \
-	OVF.ml \
 	parse_ovf_from_ova.ml \
+	create_ovf.ml \
 	linux.ml \
 	windows.ml \
 	windows_virtio.ml \
@@ -448,7 +448,7 @@ v2v_unit_tests_BOBJECTS = \
 	uefi.cmo \
 	utils.cmo \
 	DOM.cmo \
-	OVF.cmo \
+	create_ovf.cmo \
 	windows.cmo \
 	windows_virtio.cmo \
 	linux.cmo \

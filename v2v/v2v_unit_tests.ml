@@ -39,65 +39,74 @@ let inspect_defaults = {
 let test_get_ostype ctx =
   let printer = identity in
   assert_equal ~printer "RHEL6"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "linux"; i_distro = "rhel";
-                                 i_major_version = 6;
-                                 i_minor_version = 0;
-                                 i_arch = "i386" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "linux"; i_distro = "rhel";
+                    i_major_version = 6;
+                    i_minor_version = 0;
+                    i_arch = "i386" });
   assert_equal ~printer "RHEL6x64"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "linux"; i_distro = "rhel";
-                                 i_major_version = 6;
-                                 i_minor_version = 0;
-                                 i_arch = "x86_64" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "linux"; i_distro = "rhel";
+                    i_major_version = 6;
+                    i_minor_version = 0;
+                    i_arch = "x86_64" });
   assert_equal ~printer "rhel_7x64"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "linux"; i_distro = "rhel";
-                                 i_major_version = 7;
-                                 i_minor_version = 0;
-                                 i_arch = "x86_64" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "linux"; i_distro = "rhel";
+                    i_major_version = 7;
+                    i_minor_version = 0;
+                    i_arch = "x86_64" });
   assert_equal ~printer "Windows7"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "windows";
-                                 i_major_version = 6;
-                                 i_minor_version = 1;
-                                 i_product_variant = "Client";
-                                 i_arch = "i386" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "windows";
+                    i_major_version = 6;
+                    i_minor_version = 1;
+                    i_product_variant = "Client";
+                    i_arch = "i386" });
   assert_equal ~printer "Windows7x64"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "windows";
-                                 i_major_version = 6;
-                                 i_minor_version = 1;
-                                 i_product_variant = "Client";
-                                 i_arch = "x86_64" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "windows";
+                    i_major_version = 6;
+                    i_minor_version = 1;
+                    i_product_variant = "Client";
+                    i_arch = "x86_64" });
   assert_equal ~printer "windows_8"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "windows";
-                                 i_major_version = 6;
-                                 i_minor_version = 2;
-                                 i_product_variant = "Client";
-                                 i_arch = "i386" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "windows";
+                    i_major_version = 6;
+                    i_minor_version = 2;
+                    i_product_variant = "Client";
+                    i_arch = "i386" });
   assert_equal ~printer "windows_8x64"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "windows";
-                                 i_major_version = 6;
-                                 i_minor_version = 2;
-                                 i_product_variant = "Client";
-                                 i_arch = "x86_64" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "windows";
+                    i_major_version = 6;
+                    i_minor_version = 2;
+                    i_product_variant = "Client";
+                    i_arch = "x86_64" });
   assert_equal ~printer "windows_2012x64"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "windows";
-                                 i_major_version = 6;
-                                 i_minor_version = 2;
-                                 i_product_variant = "Server";
-                                 i_arch = "x86_64" });
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "windows";
+                    i_major_version = 6;
+                    i_minor_version = 2;
+                    i_product_variant = "Server";
+                    i_arch = "x86_64" });
   assert_equal ~printer "windows_2012R2x64"
-               (OVF.get_ostype { inspect_defaults with
-                                 i_type = "windows";
-                                 i_major_version = 6;
-                                 i_minor_version = 3;
-                                 i_product_variant = "Server";
-                                 i_arch = "x86_64" })
+               (Create_ovf.get_ostype {
+                    inspect_defaults with
+                    i_type = "windows";
+                    i_major_version = 6;
+                    i_minor_version = 3;
+                    i_product_variant = "Server";
+                    i_arch = "x86_64" })
 
 let test_drive_name ctx =
   let printer = identity in
@@ -791,7 +800,7 @@ let test_qemu_img_supports ctx =
 let suite =
   "virt-v2v" >:::
     [
-      "OVF.get_ostype" >:: test_get_ostype;
+      "Create_ovf.get_ostype" >:: test_get_ostype;
       "Utils.drive_name" >:: test_drive_name;
       "Utils.drive_index" >:: test_drive_index;
       "Windows_virtio.virtio_iso_path_matches_guest_os" >::

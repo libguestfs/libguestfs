@@ -138,7 +138,7 @@ object
 
     (* Generate the .meta files associated with each volume. *)
     let metas =
-      OVF.create_meta_files output_alloc dd_uuid
+      Create_ovf.create_meta_files output_alloc dd_uuid
         vdsm_params.image_uuids targets in
     List.iter (
       fun ({ target_file = target_file }, meta) ->
@@ -168,7 +168,7 @@ object
     assert (target_firmware = TargetBIOS);
 
     (* Create the metadata. *)
-    let ovf = OVF.create_ovf source targets guestcaps inspect
+    let ovf = Create_ovf.create_ovf source targets guestcaps inspect
       output_alloc dd_uuid
       vdsm_params.image_uuids
       vdsm_params.vol_uuids
