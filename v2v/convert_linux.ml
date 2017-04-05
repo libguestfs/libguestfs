@@ -397,7 +397,7 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
 
     (* Check a non-Xen kernel exists. *)
     let only_xen_kernels = List.for_all (
-      fun { ki_is_xen_kernel = is_xen_kernel } -> is_xen_kernel
+      fun { ki_is_xen_pv_only_kernel = pv_only } -> pv_only
     ) bootloader_kernels in
     if only_xen_kernels then
       error (f_"only Xen kernels are installed in this guest.\n\nRead the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do.") prog;
@@ -417,7 +417,9 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
         )
       in
       let kernels = bootloader_kernels in
-      let kernels = List.filter (fun { ki_is_xen_kernel = is_xen_kernel } -> not is_xen_kernel) kernels in
+      let kernels =
+        List.filter (fun { ki_is_xen_pv_only_kernel = pv_only } -> not pv_only)
+                    kernels in
       let kernels = List.sort compare_best_kernels kernels in
       let kernels = List.rev kernels (* so best is first *) in
       List.hd kernels in
