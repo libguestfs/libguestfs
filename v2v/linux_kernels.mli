@@ -28,7 +28,8 @@ type kernel_info = {
   ki_initrd : string option;       (** Path of initramfs, if found. *)
   ki_modpath : string;             (** The module path. *)
   ki_modules : string list;        (** The list of module names. *)
-  ki_supports_virtio : bool;       (** Kernel has virtio drivers? *)
+  ki_supports_virtio_blk : bool;   (** Kernel supports virtio-blk? *)
+  ki_supports_virtio_net : bool;   (** Kernel supports virtio-net? *)
   ki_is_xen_pv_only_kernel : bool; (** Is a Xen paravirt-only kernel? *)
   ki_is_debug : bool;              (** Is debug kernel? *)
   ki_config_file : string option;  (** Path of config file, if found. *)
@@ -45,3 +46,7 @@ val detect_kernels : Guestfs.guestfs -> Types.inspect ->
     installed and kernels that the bootloader knows about.  The
     first kernel in the returned list is the default boot option,
     ie. what the guest would boot without interaction or overrides. *)
+
+val print_kernel_info : out_channel -> string -> kernel_info -> unit
+(** Print a kernel_info struct to the given output channel.  The
+    second parameter is a prefix for indentation etc. *)
