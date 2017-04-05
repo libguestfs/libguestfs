@@ -138,6 +138,11 @@ object
          | x, 0 -> push_back properties ("os_version", string_of_int x)
          | x, y -> push_back properties ("os_version", sprintf "%d.%d" x y)
         );
+        if guestcaps.gcaps_virtio_rng then
+          push_back properties ("hw_rng_model", "virtio");
+        (* XXX Neither memory balloon nor pvpanic are supported by
+         * Glance at this time.
+         *)
 
         let properties =
           List.flatten (
