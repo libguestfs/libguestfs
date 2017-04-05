@@ -38,18 +38,25 @@ type kernel_info = {
   ki_initrd : string option;
   ki_modpath : string;
   ki_modules : string list;
-  ki_supports_virtio : bool;
+  ki_supports_virtio_blk : bool;
+  ki_supports_virtio_net : bool;
   ki_is_xen_pv_only_kernel : bool;
   ki_is_debug : bool;
   ki_config_file : string option;
 }
 
-let string_of_kernel_info ki =
-  sprintf "(%s, %s, %s, %s, %s, %s, virtio=%b, xen=%b, debug=%b)"
-    ki.ki_name ki.ki_version ki.ki_arch ki.ki_vmlinuz
-    (match ki.ki_initrd with None -> "None" | Some f -> f)
-    (match ki.ki_config_file with None -> "None" | Some f -> f)
-    ki.ki_supports_virtio ki.ki_is_xen_pv_only_kernel ki.ki_is_debug
+let print_kernel_info chan prefix ki =
+  let fpf fs = output_string chan prefix; fprintf chan fs in
+  fprintf chan "* %s %s (%s)\n" ki.ki_name ki.ki_version ki.ki_arch;
+  fpf "%s\n" ki.ki_vmlinuz;
+  fpf "%s\n" (match ki.ki_initrd with None -> "no initrd" | Some s -> s);
+  fpf "%s\n" (match ki.ki_config_file with None -> "no config" | Some s -> s);
+  fpf "%s\n" ki.ki_modpath;
+  fpf "%d modules found\n" (List.length ki.ki_modules);
+  fpf "virtio: blk=%b net=%b\n"
+      ki.ki_supports_virtio_blk ki.ki_supports_virtio_net;
+  fpf "xen=%b debug=%b\n"
+      ki.ki_is_xen_pv_only_kernel ki.ki_is_debug
 
 let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
@@ -181,7 +188,10 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
              let kernel_supports what kconf =
                List.mem what modules || check_config kconf config_file in
 
-             let supports_virtio = kernel_supports "virtio_net" "VIRTIO_NET" in
+             let supports_virtio_blk =
+               kernel_supports "virtio_blk" "VIRTIO_BLK" in
+             let supports_virtio_net =
+               kernel_supports "virtio_net" "VIRTIO_NET" in
              let is_xen_pv_only_kernel =
                check_config "X86_XEN" config_file ||
                check_config "X86_64_XEN" config_file in
@@ -203,7 +213,8 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                ki_initrd = initrd;
                ki_modpath = modpath;
                ki_modules = modules;
-               ki_supports_virtio = supports_virtio;
+               ki_supports_virtio_blk = supports_virtio_blk;
+               ki_supports_virtio_net = supports_virtio_net;
                ki_is_xen_pv_only_kernel = is_xen_pv_only_kernel;
                ki_is_debug = is_debug;
                ki_config_file = config_file;
@@ -218,9 +229,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
 
   if verbose () then (
     eprintf "installed kernel packages in this guest:\n";
-    List.iter (
-      fun kernel -> eprintf "\t%s\n" (string_of_kernel_info kernel)
-    ) installed_kernels;
+    List.iter (print_kernel_info stderr "\t") installed_kernels;
     flush stderr
   );
 
@@ -257,10 +266,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
 
   if verbose () then (
     eprintf "kernels offered by the bootloader in this guest (first in list is default):\n";
-    List.iter (
-      fun kernel ->
-        eprintf "\t%s\n" (string_of_kernel_info kernel)
-    ) bootloader_kernels;
+    List.iter (print_kernel_info stderr "\t") bootloader_kernels;
     flush stderr
   );
 

@@ -403,11 +403,12 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       error (f_"only Xen kernels are installed in this guest.\n\nRead the %s(1) manual, section \"XEN PARAVIRTUALIZED GUESTS\", to see what to do.") prog;
 
     (* Enable the best non-Xen kernel, where "best" means the one with
-     * the highest version which supports virtio.
+     * the highest version, preferring non-debug kernels which support
+     * virtio.
      *)
     let best_kernel =
       let compare_best_kernels k1 k2 =
-        let i = compare k1.ki_supports_virtio k2.ki_supports_virtio in
+        let i = compare k1.ki_supports_virtio_net k2.ki_supports_virtio_net in
         if i <> 0 then i
         else (
           let i = compare_app2_versions k1.ki_app k2.ki_app in
@@ -448,9 +449,9 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
     match kernel.ki_initrd with
     | None -> ()
     | Some initrd ->
-      let virtio = kernel.ki_supports_virtio in
+      (* Enable the basic virtio modules in the kernel. *)
       let modules =
-        if virtio then
+        let modules =
           (* The order of modules here is deliberately the same as the
            * order specified in the postinstall script of kmod-virtio in
            * RHEL3. The reason is that the probing order determines the
@@ -459,9 +460,11 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
            *)
           List.filter (fun m -> List.mem m kernel.ki_modules)
                       [ "virtio"; "virtio_ring"; "virtio_blk";
-                        "virtio_scsi"; "virtio_net"; "virtio_pci" ]
+                        "virtio_scsi"; "virtio_net"; "virtio_pci" ] in
+        if modules <> [] then modules
         else
-          [ "sym53c8xx" (* XXX why not "ide"? *) ] in
+          (* Fallback copied from old virt-v2v.  XXX Why not "ide"? *)
+          [ "sym53c8xx" ] in
 
       (* Move the old initrd file out of the way.  Note that dracut/mkinitrd
        * will refuse to overwrite an old file so we have to do this.
@@ -1004,7 +1007,6 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
   unconfigure_prltools ();
 
   let kernel = configure_kernel () in
-  let virtio = kernel.ki_supports_virtio in
 
   if output#keep_serial_console then (
     configure_console ();
@@ -1023,12 +1025,12 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
 
   let block_type =
     match rcaps.rcaps_block_bus with
-    | None -> if virtio then Virtio_blk else IDE
+    | None -> if kernel.ki_supports_virtio_blk then Virtio_blk else IDE
     | Some block_type -> block_type in
 
   let net_type =
     match rcaps.rcaps_net_bus with
-    | None -> if virtio then Virtio_net else E1000
+    | None -> if kernel.ki_supports_virtio_net then Virtio_net else E1000
     | Some net_type -> net_type in
 
   configure_display_driver video;
