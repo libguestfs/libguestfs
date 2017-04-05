@@ -39,7 +39,7 @@ type kernel_info = {
   ki_modpath : string;
   ki_modules : string list;
   ki_supports_virtio : bool;
-  ki_is_xen_kernel : bool;
+  ki_is_xen_pv_only_kernel : bool;
   ki_is_debug : bool;
   ki_config_file : string option;
 }
@@ -49,7 +49,7 @@ let string_of_kernel_info ki =
     ki.ki_name ki.ki_version ki.ki_arch ki.ki_vmlinuz
     (match ki.ki_initrd with None -> "None" | Some f -> f)
     (match ki.ki_config_file with None -> "None" | Some f -> f)
-    ki.ki_supports_virtio ki.ki_is_xen_kernel ki.ki_is_debug
+    ki.ki_supports_virtio ki.ki_is_xen_pv_only_kernel ki.ki_is_debug
 
 let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
@@ -182,7 +182,9 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                List.mem what modules || check_config kconf config_file in
 
              let supports_virtio = kernel_supports "virtio_net" "VIRTIO_NET" in
-             let is_xen_kernel = List.mem "xennet" modules in
+             let is_xen_pv_only_kernel =
+               check_config "X86_XEN" config_file ||
+               check_config "X86_64_XEN" config_file in
 
              (* If the package name is like "kernel-debug", then it's
               * a debug kernel.
@@ -202,7 +204,7 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                ki_modpath = modpath;
                ki_modules = modules;
                ki_supports_virtio = supports_virtio;
-               ki_is_xen_kernel = is_xen_kernel;
+               ki_is_xen_pv_only_kernel = is_xen_pv_only_kernel;
                ki_is_debug = is_debug;
                ki_config_file = config_file;
              }
