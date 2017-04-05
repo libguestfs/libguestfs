@@ -61,7 +61,7 @@ let rec install_drivers ((g, _) as reg) inspect rcaps =
         match net_type with
         | Some model -> model
         | None -> RTL8139 in
-      (IDE, net_type, Cirrus)
+      (IDE, net_type, Cirrus, false, false, false)
   )
   else (
     (* Can we install the block driver? *)
@@ -165,7 +165,13 @@ let rec install_drivers ((g, _) as reg) inspect rcaps =
       | Some Cirrus, _ ->
         Cirrus in
 
-    (block, net, video)
+    (* Did we install the miscellaneous drivers? *)
+    let virtio_rng_supported = g#exists (driverdir // "viorng.inf") in
+    let virtio_ballon_supported = g#exists (driverdir // "balloon.inf") in
+    let isa_pvpanic_supported = g#exists (driverdir // "pvpanic.inf") in
+
+    (block, net, video,
+     virtio_rng_supported, virtio_ballon_supported, isa_pvpanic_supported)
   )
 
 and add_guestor_to_registry ((g, root) as reg) inspect drv_name drv_pciid =

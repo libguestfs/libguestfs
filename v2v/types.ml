@@ -396,6 +396,9 @@ type guestcaps = {
   gcaps_block_bus : guestcaps_block_type;
   gcaps_net_bus : guestcaps_net_type;
   gcaps_video : guestcaps_video_type;
+  gcaps_virtio_rng : bool;
+  gcaps_virtio_balloon : bool;
+  gcaps_isa_pvpanic : bool;
   gcaps_arch : string;
   gcaps_acpi : bool;
 }

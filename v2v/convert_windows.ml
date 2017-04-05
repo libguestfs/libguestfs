@@ -600,7 +600,8 @@ if errorlevel 3010 exit /b 0
   configure_firstboot ();
 
   (* Open the system hive for writes and update it. *)
-  let block_driver, net_driver, video_driver =
+  let block_driver, net_driver, video_driver,
+      virtio_rng_supported, virtio_ballon_supported, isa_pvpanic_supported =
     Registry.with_hive_write g inspect.i_windows_system_hive
                              update_system_hive in
 
@@ -628,6 +629,9 @@ if errorlevel 3010 exit /b 0
     gcaps_block_bus = block_driver;
     gcaps_net_bus = net_driver;
     gcaps_video = video_driver;
+    gcaps_virtio_rng = virtio_rng_supported;
+    gcaps_virtio_balloon = virtio_ballon_supported;
+    gcaps_isa_pvpanic = isa_pvpanic_supported;
     gcaps_arch = Utils.kvm_arch inspect.i_arch;
     gcaps_acpi = true;
   } in

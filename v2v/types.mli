@@ -264,6 +264,10 @@ type guestcaps = {
       installing drivers).  Thus this is not known until after
       conversion. *)
 
+  gcaps_virtio_rng : bool;      (** Guest supports virtio-rng. *)
+  gcaps_virtio_balloon : bool;  (** Guest supports virtio balloon. *)
+  gcaps_isa_pvpanic : bool;     (** Guest supports ISA pvpanic device. *)
+
   gcaps_arch : string;      (** Architecture that KVM must emulate. *)
   gcaps_acpi : bool;        (** True if guest supports acpi. *)
 }

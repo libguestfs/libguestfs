@@ -40,6 +40,9 @@ type kernel_info = {
   ki_modules : string list;
   ki_supports_virtio_blk : bool;
   ki_supports_virtio_net : bool;
+  ki_supports_virtio_rng : bool;
+  ki_supports_virtio_balloon : bool;
+  ki_supports_isa_pvpanic : bool;
   ki_is_xen_pv_only_kernel : bool;
   ki_is_debug : bool;
   ki_config_file : string option;
@@ -53,10 +56,11 @@ let print_kernel_info chan prefix ki =
   fpf "%s\n" (match ki.ki_config_file with None -> "no config" | Some s -> s);
   fpf "%s\n" ki.ki_modpath;
   fpf "%d modules found\n" (List.length ki.ki_modules);
-  fpf "virtio: blk=%b net=%b\n"
-      ki.ki_supports_virtio_blk ki.ki_supports_virtio_net;
-  fpf "xen=%b debug=%b\n"
-      ki.ki_is_xen_pv_only_kernel ki.ki_is_debug
+  fpf "virtio: blk=%b net=%b rng=%b balloon=%b\n"
+      ki.ki_supports_virtio_blk ki.ki_supports_virtio_net
+      ki.ki_supports_virtio_rng ki.ki_supports_virtio_balloon;
+  fpf "pvpanic=%b xen=%b debug=%b\n"
+      ki.ki_supports_isa_pvpanic ki.ki_is_xen_pv_only_kernel ki.ki_is_debug
 
 let detect_kernels (g : G.guestfs) inspect family bootloader =
   (* What kernel/kernel-like packages are installed on the current guest? *)
@@ -192,6 +196,12 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                kernel_supports "virtio_blk" "VIRTIO_BLK" in
              let supports_virtio_net =
                kernel_supports "virtio_net" "VIRTIO_NET" in
+             let supports_virtio_rng =
+               kernel_supports "virtio-rng" "HW_RANDOM_VIRTIO" in
+             let supports_virtio_balloon =
+               kernel_supports "virtio_balloon" "VIRTIO_BALLOON" in
+             let supports_isa_pvpanic =
+               kernel_supports "pvpanic" "PVPANIC" in
              let is_xen_pv_only_kernel =
                check_config "X86_XEN" config_file ||
                check_config "X86_64_XEN" config_file in
@@ -215,6 +225,9 @@ let detect_kernels (g : G.guestfs) inspect family bootloader =
                ki_modules = modules;
                ki_supports_virtio_blk = supports_virtio_blk;
                ki_supports_virtio_net = supports_virtio_net;
+               ki_supports_virtio_rng = supports_virtio_rng;
+               ki_supports_virtio_balloon = supports_virtio_balloon;
+               ki_supports_isa_pvpanic = supports_isa_pvpanic;
                ki_is_xen_pv_only_kernel = is_xen_pv_only_kernel;
                ki_is_debug = is_debug;
                ki_config_file = config_file;

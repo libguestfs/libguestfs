@@ -20,7 +20,7 @@
 
 val install_drivers
     : Registry.t -> Types.inspect -> Types.requested_guestcaps ->
-      Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type
+      Types.guestcaps_block_type * Types.guestcaps_net_type * Types.guestcaps_video_type * bool * bool * bool
 (** [install_drivers reg inspect rcaps]
     installs virtio drivers from the driver directory or driver
     ISO into the guest driver directory and updates the registry
@@ -34,7 +34,8 @@ val install_drivers
     install_drivers will adjust its choices based on that information, and
     abort if the requested driver wasn't found.
 
-    This returns the tuple [(block_driver, net_driver, video_driver)]
+    This returns the tuple [(block_driver, net_driver, video_driver,
+    virtio_rng_supported, virtio_ballon_supported, isa_pvpanic_supported)]
     reflecting what devices are now required by the guest, either
     virtio devices if we managed to install those, or legacy devices
     if we didn't. *)

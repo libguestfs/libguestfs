@@ -1050,6 +1050,9 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
     gcaps_block_bus = block_type;
     gcaps_net_bus = net_type;
     gcaps_video = video;
+    gcaps_virtio_rng = kernel.ki_supports_virtio_rng;
+    gcaps_virtio_balloon = kernel.ki_supports_virtio_balloon;
+    gcaps_isa_pvpanic = kernel.ki_supports_isa_pvpanic;
     gcaps_arch = Utils.kvm_arch inspect.i_arch;
     gcaps_acpi = acpi;
   } in
