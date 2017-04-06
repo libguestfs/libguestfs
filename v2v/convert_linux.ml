@@ -424,8 +424,14 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       let kernels = List.sort compare_best_kernels kernels in
       let kernels = List.rev kernels (* so best is first *) in
       List.hd kernels in
-    if best_kernel <> List.hd bootloader_kernels then
-      bootloader#set_default_kernel best_kernel.ki_vmlinuz;
+    if verbose () then (
+      eprintf "best kernel for this guest:\n";
+      print_kernel_info stderr "\t" best_kernel
+    );
+    if best_kernel <> List.hd bootloader_kernels then (
+      debug "best kernel is not the bootloader default, setting bootloader default ...";
+      bootloader#set_default_kernel best_kernel.ki_vmlinuz
+    );
 
     (* Update /etc/sysconfig/kernel DEFAULTKERNEL (RHBZ#1176801). *)
     if g#is_file ~followsymlinks:true "/etc/sysconfig/kernel" then (
