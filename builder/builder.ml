@@ -148,12 +148,10 @@ let main () =
   (* Check that gpg is installed.  Optional as long as the user
    * disables all signature checks.
    *)
-  let cmd = sprintf "%s --help >/dev/null 2>&1" cmdline.gpg in
-  if shell_command cmd <> 0 then (
-    if cmdline.check_signature then
-      error (f_"gpg is not installed (or does not work)\nYou should install gpg, or use --gpg option, or use --no-check-signature.")
-    else if verbose () then
-      warning (f_"gpg program is not available")
+  if cmdline.check_signature then (
+    let cmd = sprintf "%s --help >/dev/null 2>&1" cmdline.gpg in
+    if cmdline.gpg = "" || shell_command cmd <> 0 then
+      error (f_"no GNU Privacy Guard (GnuPG, gpg) binary was found.\n\nEither gpg v1 or v2 can be installed to check signatures.  Virt-builder looks for a binary called either ‘gpg2’ or ‘gpg‘ on the $PATH.  You can also specify a binary using the ‘--gpg’ option.  If you don't want to check signatures, use ’--no-check-signature’ but note that this may make you vulnerable to Man-In-The-Middle attacks.")
   );
 
   (* Check that curl works. *)

@@ -280,7 +280,7 @@ Optional.  For the L<UML backend|guestfs(3)/BACKEND>.
 
 Optional.  Used by virt-builder for downloads.
 
-=item gpg
+=item GNU Privacy Guard (GnuPG, gpg) v1 or v2
 
 Optional.  Used by virt-builder for checking digital signatures.
 
