@@ -314,8 +314,10 @@ F</boot> directory of a guest, see L<virt-copy-out(1)>.
 
 =item B<--gpg> GPG
 
-Specify an alternate L<gpg(1)> (GNU Privacy Guard) binary.  You can
-also use this to add gpg parameters, for example to specify an
+Specify an alternate L<gpg(1)> (GNU Privacy Guard) binary.  By default
+virt-builder looks for either C<gpg2> or C<gpg> in the C<$PATH>.
+
+You can also use this to add gpg parameters, for example to specify an
 alternate home directory:
 
  virt-builder --gpg "gpg --homedir /tmp" [...]
@@ -1880,6 +1882,7 @@ L<virt-resize(1)>,
 L<virt-sysprep(1)>,
 L<oz-install(1)>,
 L<gpg(1)>,
+L<gpg2(1)>,
 L<curl(1)>,
 L<virt-make-fs(1)>,
 L<genisoimage(1)>,
