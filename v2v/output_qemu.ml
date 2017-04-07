@@ -213,15 +213,15 @@ object
 
     (* Add the miscellaneous KVM devices. *)
     if guestcaps.gcaps_virtio_rng then (
-      arg "-object" "rng-random,filename=/dev/urandom,id=rng0";
-      arg "-device" "virtio-rng-pci,rng=rng0"
+      commas "-object" ["rng-random"; "filename=/dev/urandom"; "id=rng0"];
+      commas "-device" ["virtio-rng-pci"; "rng=rng0"];
     );
     if guestcaps.gcaps_virtio_balloon then
       arg "-balloon" "virtio"
     else
       arg "-balloon" "none";
     if guestcaps.gcaps_isa_pvpanic then
-      arg "-device" "pvpanic,ioport=0x505";
+      commas "-device" ["pvpanic"; "ioport=0x505"];
 
     (* Add a serial console to Linux guests. *)
     if inspect.i_type = "linux" then
