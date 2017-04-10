@@ -86,6 +86,7 @@ let parse_cmdline () =
     | "libvirt" -> input_mode := `Libvirt
     | "libvirtxml" -> input_mode := `LibvirtXML
     | "ova" -> input_mode := `OVA
+    | "vmx" -> input_mode := `VMX
     | s ->
       error (f_"unknown -i option: %s") s
   in
@@ -331,7 +332,16 @@ read the man page virt-v2v(1).
         | [filename] -> filename
         | _ ->
           error (f_"expecting an OVA file name on the command line") in
-      Input_ova.input_ova filename in
+      Input_ova.input_ova filename
+
+    | `VMX ->
+      (* -i vmx: Expecting an vmx filename. *)
+      let filename =
+        match args with
+        | [filename] -> filename
+        | _ ->
+          error (f_"expecting a VMX file name on the command line") in
+      Input_vmx.input_vmx filename in
 
   (* Prevent use of --in-place option in RHEL. *)
   if in_place then

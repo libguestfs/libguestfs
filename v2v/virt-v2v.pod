@@ -41,7 +41,8 @@ libguestfs E<ge> 1.28.
  ... ───▶│  (default) │   │            │ ──┐ └────────────┘
          └────────────┘   │            │ ─┐└──────▶ -o glance
  -i libvirtxml ─────────▶ │            │ ┐└─────────▶ -o rhv
-                          └────────────┘ └──────────▶ -o vdsm
+ -i vmx ────────────────▶ │            │ └──────────▶ -o vdsm
+                          └────────────┘
 
 Virt-v2v has a number of possible input and output modes, selected
 using the I<-i> and I<-o> options.  Only one input and output mode can
@@ -59,6 +60,8 @@ I<-i libvirtxml> is used to read from libvirt XML files.  This is the
 method used by L<virt-p2v(1)> behind the scenes.
 
 I<-i ova> is used for reading from a VMware ova source file.
+
+I<-i vmx> is used for reading from a VMware vmx file.
 
 I<-o glance> is used for writing to OpenStack Glance.
 
@@ -214,6 +217,14 @@ In this mode you can read a VMware ova file.  Virt-v2v will read the
 ova manifest file and check the vmdk volumes for validity (checksums)
 as well as analyzing the ovf file, and then convert the guest.  See
 L</INPUT FROM VMWARE OVA> below
+
+=item B<-i> B<vmx>
+
+Set the input method to I<vmx>.
+
+In this mode you can read a VMware vmx file directly.  This is useful
+when VMware VMs are stored on an NFS server which you can mount
+directly.  See L</INPUT FROM VMWARE VMX> below
 
 =item B<-ic> libvirtURI
 
@@ -843,9 +854,10 @@ I<--bridge> option instead.  For example:
 
 Virt-v2v is able to import guests from VMware vCenter Server.
 
-vCenter E<ge> 5.0 is required.  If you don't have vCenter, using OVA
-is recommended instead (see L</INPUT FROM VMWARE OVA> below), or if
-that is not possible then see L</INPUT FROM VMWARE ESXi HYPERVISOR>.
+vCenter E<ge> 5.0 is required.  If you don’t have vCenter, using OVA
+or VMX is recommended instead (see L</INPUT FROM VMWARE OVA> and/or
+L</INPUT FROM VMWARE VMX> below), or if that is not possible then see
+L</INPUT FROM VMWARE ESXi HYPERVISOR>.
 
 Virt-v2v uses libvirt for access to vCenter, and therefore the input
 mode should be I<-i libvirt>.  As this is the default, you don't need
@@ -1116,12 +1128,58 @@ directory containing the files:
 
  $ virt-v2v -i ova /path/to/files -o local -os /var/tmp
 
+=head1 INPUT FROM VMWARE VMX
+
+Virt-v2v is able to import guests from VMware’s vmx files.  This is
+useful where VMware virtual machines are stored on a separate NFS
+server and you are able to mount the NFS storage directly.
+
+If you find a folder of files called F<I<guest>.vmx>,
+F<I<guest>.vmxf>, F<I<guest>.nvram> and one or more F<.vmdk> disk
+images, then you can use this method.
+
+=head2 VMX: REMOVE VMWARE TOOLS FROM WINDOWS GUESTS
+
+For Windows guests, you should remove VMware tools before conversion.
+Although this is not strictly necessary, and the guest will still be
+able to run, if you don't do this then the converted guest will
+complain on every boot.  The tools cannot be removed after conversion
+because the uninstaller checks if it is running on VMware and refuses
+to start (which is also the reason that virt-v2v cannot remove them).
+
+This is not necessary for Linux guests, as virt-v2v is able to remove
+VMware tools.
+
+=head2 VMX: GUEST MUST BE SHUT DOWN
+
+B<The guest must be shut down before conversion starts>.  If you don't
+shut it down, you will end up with a corrupted VM disk on the target.
+With other methods, virt-v2v tries to prevent concurrent access, but
+because the I<-i vmx> method works directly against the storage,
+checking for concurrent access is not possible.
+
+=head2 VMX: MOUNT THE NFS STORAGE ON THE CONVERSION SERVER
+
+Virt-v2v must be able to access the F<.vmx> file and any local
+F<.vmdk> disks.  Normally this means you must mount the NFS storage
+containing these files.
+
+=head2 VMX: IMPORTING A GUEST
+
+To import a vmx file, do:
+
+ $ virt-v2v -i vmx guest.vmx -o local -os /var/tmp
+
+Virt-v2v processes the vmx file and uses it to find the location of
+any vmdk disks.
+
 =head1 INPUT FROM VMWARE ESXi HYPERVISOR
 
 Virt-v2v cannot access an ESXi hypervisor directly.  You should use
-the OVA method above (see L</INPUT FROM VMWARE OVA>) if possible, as
-it is much faster and requires much less disk space than the method
-described in this section.
+the OVA or VMX methods above (see L</INPUT FROM VMWARE OVA> and/or
+L</INPUT FROM VMWARE VMX>) if possible, as it is much faster and
+requires much less disk space than the method described in this
+section.
 
 You can use the L<virt-v2v-copy-to-local(1)> tool to copy the guest
 off the hypervisor into a local file, and then convert it.
