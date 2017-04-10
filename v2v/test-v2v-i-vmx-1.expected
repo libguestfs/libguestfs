@@ -1,0 +1,42 @@
+[   0.0] Opening the source -i vmx test-v2v-i-vmx-1.vmx
+Source guest information (--print-source option):
+
+    source name: BZ1308535_21disks
+hypervisor type: vmware
+         memory: 2147483648 (bytes)
+       nr vCPUs: 1
+     CPU vendor: 
+      CPU model: 
+   CPU topology: sockets: - cores/socket: - threads/core: -
+   CPU features: 
+       firmware: bios
+        display: 
+          video: vmvga
+          sound: 
+disks:
+	/BZ1308535_21disks.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_1.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_2.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_3.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_4.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_5.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_6.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_7.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_8.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_9.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_10.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_11.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_12.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_13.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_14.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_15.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_16.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_17.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_18.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_19.vmdk (vmdk) [scsi]
+	/BZ1308535_21disks_20.vmdk (vmdk) [scsi]
+removable media:
+	CD-ROM [ide] in slot 2
+NICs:
+	Network "VM Network" mac: 00:0c:29:36:ef:31 [vmxnet3]
+

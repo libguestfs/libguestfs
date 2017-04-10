@@ -1,5 +1,5 @@
 (* virt-v2v
- * Copyright (C) 2009-2017 Red Hat Inc.
+ * Copyright (C) 2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,26 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Common_gettext.Gettext
-open Common_utils
+(** [-i vmx] source. *)
 
-let name_from_disk disk =
-  let name = Filename.basename disk in
-  (* Remove the extension (or suffix), only if it's one usually
-   * used for disk images. *)
-  let suffixes = [
-    ".img"; ".ova"; ".qcow2"; ".raw"; ".vmdk"; ".vmx";
-    "-sda";
-  ] in
-  let rec loop = function
-    | suff :: xs ->
-       if Filename.check_suffix name suff then
-         Filename.chop_suffix name suff
-       else
-         loop xs
-    | [] -> name
-  in
-  let name = loop suffixes in
-  if name = "" then
-    error (f_"invalid input filename (%s)") disk;
-  name
+val input_vmx : string -> Types.input
+(** [input_vmx filename] sets up an input from vmware vmx file. *)

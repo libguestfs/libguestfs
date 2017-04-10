@@ -1,0 +1,22 @@
+[   0.0] Opening the source -i vmx test-v2v-i-vmx-2.vmx
+Source guest information (--print-source option):
+
+    source name: Fedora 20
+hypervisor type: vmware
+         memory: 2147483648 (bytes)
+       nr vCPUs: 1
+     CPU vendor: 
+      CPU model: 
+   CPU topology: sockets: - cores/socket: - threads/core: -
+   CPU features: 
+       firmware: bios
+        display: 
+          video: vmvga
+          sound: 
+disks:
+	/Fedora 20.vmdk (vmdk) [scsi]
+removable media:
+
+NICs:
+	Network "VM Network" mac: 00:50:56:9b:5f:0d [vmxnet3]
+

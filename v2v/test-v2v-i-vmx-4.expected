@@ -1,0 +1,22 @@
+[   0.0] Opening the source -i vmx test-v2v-i-vmx-4.vmx
+Source guest information (--print-source option):
+
+    source name: Windows 7 x64
+hypervisor type: vmware
+         memory: 2147483648 (bytes)
+       nr vCPUs: 1
+     CPU vendor: 
+      CPU model: 
+   CPU topology: sockets: - cores/socket: - threads/core: -
+   CPU features: 
+       firmware: bios
+        display: 
+          video: vmvga
+          sound: 
+disks:
+	/Windows 7 x64.vmdk (vmdk) [scsi]
+removable media:
+	CD-ROM [ide] in slot 2
+NICs:
+	Network "VM Network" mac: 00:0c:29:94:89:23 [e1000]
+

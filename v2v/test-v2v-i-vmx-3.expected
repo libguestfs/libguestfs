@@ -1,0 +1,22 @@
+[   0.0] Opening the source -i vmx test-v2v-i-vmx-3.vmx
+Source guest information (--print-source option):
+
+    source name: RHEL 7.1 UEFI
+hypervisor type: vmware
+         memory: 2147483648 (bytes)
+       nr vCPUs: 1
+     CPU vendor: 
+      CPU model: 
+   CPU topology: sockets: - cores/socket: - threads/core: -
+   CPU features: 
+       firmware: uefi
+        display: 
+          video: vmvga
+          sound: 
+disks:
+	/RHEL 7.1 UEFI.vmdk (vmdk) [scsi]
+removable media:
+	CD-ROM [ide] in slot 2
+NICs:
+	Network "VM Network" mac: 00:0c:29:4b:2b:8c [vmxnet3]
+
