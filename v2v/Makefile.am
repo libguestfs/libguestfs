@@ -38,6 +38,7 @@ SOURCES_MLI = \
 	input_libvirt_xen_ssh.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
+	input_vmx.mli \
 	inspect_source.mli \
 	libvirt_utils.mli \
 	linux.mli \
@@ -55,6 +56,7 @@ SOURCES_MLI = \
 	OVF.mli \
 	parse_ovf_from_ova.mli \
 	parse_libvirt_xml.mli \
+	parse_vmx.mli \
 	qemu_command.mli \
 	target_bus_assignment.mli \
 	types.mli \
@@ -80,6 +82,7 @@ SOURCES_ML = \
 	windows_virtio.ml \
 	modules_list.ml \
 	input_disk.ml \
+	parse_vmx.ml \
 	parse_libvirt_xml.ml \
 	create_libvirt_xml.ml \
 	qemu_command.ml \
@@ -89,6 +92,7 @@ SOURCES_ML = \
 	input_libvirt_xen_ssh.ml \
 	input_libvirt.ml \
 	input_ova.ml \
+	input_vmx.ml \
 	linux_bootloaders.ml \
 	linux_kernels.ml \
 	convert_linux.ml \
@@ -268,6 +272,7 @@ TESTS = \
 	test-v2v-i-ova-subfolders.sh \
 	test-v2v-i-ova-tar.sh \
 	test-v2v-i-ova-two-disks.sh \
+	test-v2v-i-vmx.sh \
 	test-v2v-bad-networks-and-bridges.sh
 
 if HAVE_LIBVIRT
@@ -411,6 +416,15 @@ EXTRA_DIST += \
 	test-v2v-i-ova.ovf \
 	test-v2v-i-ova.sh \
 	test-v2v-i-ova.xml \
+	test-v2v-i-vmx.sh \
+	test-v2v-i-vmx-1.expected \
+	test-v2v-i-vmx-2.expected \
+	test-v2v-i-vmx-3.expected \
+	test-v2v-i-vmx-4.expected \
+	test-v2v-i-vmx-1.vmx \
+	test-v2v-i-vmx-2.vmx \
+	test-v2v-i-vmx-3.vmx \
+	test-v2v-i-vmx-4.vmx \
 	test-v2v-machine-readable.sh \
 	test-v2v-networks-and-bridges-expected.xml \
 	test-v2v-networks-and-bridges.sh \
@@ -450,6 +464,7 @@ v2v_unit_tests_BOBJECTS = \
 	windows.cmo \
 	windows_virtio.cmo \
 	linux.cmo \
+	parse_vmx.cmo \
 	v2v_unit_tests.cmo
 v2v_unit_tests_XOBJECTS = $(v2v_unit_tests_BOBJECTS:.cmo=.cmx)
 
