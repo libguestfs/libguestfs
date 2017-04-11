@@ -390,6 +390,29 @@ let rec create_ovf source targets guestcaps inspect
         ]
       ];
 
+      (* Add the miscellaneous KVM devices. *)
+      if guestcaps.gcaps_virtio_rng then
+        append virtual_hardware_section_items [
+          e "Item" [] [
+            e "rasd:Caption" [] [PCData "RNG Device"];
+            e "rasd:InstanceId" [] [PCData (uuidgen ())];
+            e "rasd:ResourceType" [] [PCData "0"];
+            e "Type" [] [PCData "rng"];
+            e "Device" [] [PCData "virtio"];
+          ]
+        ];
+      if guestcaps.gcaps_virtio_balloon then
+        append virtual_hardware_section_items [
+          e "Item" [] [
+            e "rasd:Caption" [] [PCData "Memory Ballooning Device"];
+            e "rasd:InstanceId" [] [PCData (uuidgen ())];
+            e "rasd:ResourceType" [] [PCData "0"];
+            e "Type" [] [PCData "balloon"];
+            e "Device" [] [PCData "memballoon"];
+          ]
+        ];
+
+
       push_back content_subnodes (
         e "Section" ["xsi:type", "ovf:VirtualHardwareSection_Type"]
           !virtual_hardware_section_items
