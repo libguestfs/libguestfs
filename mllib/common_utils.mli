@@ -43,6 +43,10 @@ module Char : sig
     (** Return true if the character is a US ASCII 7 bit alphabetic. *)
     val isalnum : char -> bool
     (** Return true if the character is a US ASCII 7 bit alphanumeric. *)
+
+    val hexdigit : char -> int
+    (** Return the value of a hex digit.  If the char is not in
+        the set [[0-9a-fA-F]] then this returns [-1]. *)
 end
 (** Override the Char module from stdlib. *)
 
