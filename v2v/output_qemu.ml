@@ -183,7 +183,7 @@ object
           match model with
           | AC97      -> arg "-device" "AC97"
           | ES1370    -> arg "-device" "ES1370"
-          | ICH6      -> arg "-device" "intel-hda -device hda-duplex"
+          | ICH6      -> arg "-device" "intel-hda"; arg "-device" "hda-duplex"
           | ICH9      -> arg "-device" "ich9-intel-hda"
           | PCSpeaker -> arg "-soundhw" "pcspk" (* not qdev-ified *)
           | SB16      -> arg "-device" "sb16"
