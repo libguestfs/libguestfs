@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-04-06 16:35+0100\n"
+"POT-Creation-Date: 2017-04-11 23:38+0100\n"
 "PO-Revision-Date: 2015-10-28 05:01-0400\n"
 "Last-Translator: Marco Aurélio Krause <ouesten@me.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -43,7 +43,7 @@ msgstr ""
 "O espaço excedente será ignorado. Execute um programa de particionamento "
 "para dividir este espaço extra, se quiser."
 
-#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:580
+#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:599
 msgid "%s"
 msgstr "%s"
 
@@ -54,7 +54,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:452
-#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1150
+#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1169
 msgid "%s (ignored)"
 msgstr "%s (ignorado)"
 
@@ -120,7 +120,7 @@ msgstr ""
 
 #. ../v2v/cmdline.ml:83
 #. ../v2v/cmdline.ml:75
-#: ../v2v/copy_to_local.ml:39 ../v2v/cmdline.ml:138 ../v2v/cmdline.ml:122
+#: ../v2v/copy_to_local.ml:39 ../v2v/cmdline.ml:139 ../v2v/cmdline.ml:123
 msgid "%s option used more than once on the command line"
 msgstr ""
 
@@ -130,11 +130,11 @@ msgid ""
 "manually after conversion."
 msgstr ""
 
-#: ../mllib/common_utils.ml:576 ../mllib/common_utils.ml:548
+#: ../mllib/common_utils.ml:595 ../mllib/common_utils.ml:567
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../mllib/common_utils.ml:578
+#: ../mllib/common_utils.ml:597
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -241,7 +241,7 @@ msgstr ""
 msgid "%s: command exited with an error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:217
+#: ../v2v/cmdline.ml:218
 msgid ""
 "%s: convert a guest to use KVM\n"
 "\n"
@@ -298,7 +298,7 @@ msgid ""
 "read the man page virt-customize(1).\n"
 msgstr ""
 
-#: ../mllib/common_utils.ml:520
+#: ../mllib/common_utils.ml:539
 msgid "%s: error: %s"
 msgstr ""
 
@@ -454,7 +454,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:538
+#: ../mllib/common_utils.ml:557
 msgid "%s: warning: %s"
 msgstr ""
 
@@ -595,11 +595,11 @@ msgstr ""
 msgid "-B must be specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:339
+#: ../v2v/cmdline.ml:349
 msgid "-o %s: %s option cannot be used in this output mode"
 msgstr ""
 
-#: ../v2v/cmdline.ml:344
+#: ../v2v/cmdline.ml:354
 msgid "-o and --in-place cannot be used at the same time"
 msgstr ""
 
@@ -628,31 +628,31 @@ msgid ""
 "v2v(1) section \"OUTPUT TO LIBVIRT\""
 msgstr ""
 
-#: ../v2v/cmdline.ml:374
+#: ../v2v/cmdline.ml:384
 msgid "-o local: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:402
+#: ../v2v/cmdline.ml:412
 msgid "-o qemu: output directory was not specified, use '-os /dir'"
 msgstr ""
 
-#: ../v2v/cmdline.ml:413
+#: ../v2v/cmdline.ml:423
 msgid "-o rhv: output storage was not specified, use ‘-os’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:431
+#: ../v2v/cmdline.ml:441
 msgid "-o vdsm: --vdsm-image-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:434
+#: ../v2v/cmdline.ml:444
 msgid "-o vdsm: either --vdsm-vol-uuid or --vdsm-vm-uuid was not specified"
 msgstr ""
 
-#: ../v2v/cmdline.ml:424
+#: ../v2v/cmdline.ml:434
 msgid "-o vdsm: output storage was not specified, use ‘-os’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:404 ../v2v/cmdline.ml:376
+#: ../v2v/cmdline.ml:414 ../v2v/cmdline.ml:386
 msgid "-os %s: output directory does not exist or is not a directory"
 msgstr ""
 
@@ -765,7 +765,7 @@ msgstr ""
 msgid "Behaviour on expand unknown filesystems (default: warn)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:202
+#: ../v2v/cmdline.ml:203
 msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
@@ -842,7 +842,7 @@ msgstr ""
 msgid "Compatibility option, does nothing"
 msgstr ""
 
-#: ../v2v/cmdline.ml:173
+#: ../v2v/cmdline.ml:174
 msgid "Compress output file (-of qcow2 only)"
 msgstr ""
 
@@ -1019,7 +1019,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:728
+#: ../mllib/common_utils.ml:747
 msgid "Display version and exit"
 msgstr ""
 
@@ -1059,11 +1059,11 @@ msgstr ""
 msgid "Don’t perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:732
+#: ../mllib/common_utils.ml:751
 msgid "Don’t print progress messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:740
+#: ../mllib/common_utils.ml:759
 msgid "Don’t turn off echo for passphrases"
 msgstr ""
 
@@ -1110,7 +1110,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:729
+#: ../mllib/common_utils.ml:748
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1118,7 +1118,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr ""
 
-#: ../mllib/common_utils.ml:730
+#: ../mllib/common_utils.ml:749
 msgid "Enable tracing of libguestfs calls"
 msgstr ""
 
@@ -1337,11 +1337,11 @@ msgstr ""
 msgid "HOSTNAME"
 msgstr ""
 
-#: ../v2v/cmdline.ml:203
+#: ../v2v/cmdline.ml:204
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:525
+#: ../mllib/common_utils.ml:544
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1357,7 +1357,7 @@ msgstr ""
 msgid "Ignore partition"
 msgstr ""
 
-#: ../v2v/cmdline.ml:212 ../v2v/cmdline.ml:187
+#: ../v2v/cmdline.ml:213 ../v2v/cmdline.ml:188
 msgid "Ignored for backwards compatibility"
 msgstr ""
 
@@ -1373,7 +1373,7 @@ msgstr ""
 msgid "Inject a public key into the guest"
 msgstr ""
 
-#: ../v2v/cmdline.ml:181
+#: ../v2v/cmdline.ml:182
 msgid "Input format (for -i disk)"
 msgstr ""
 
@@ -1409,7 +1409,7 @@ msgstr ""
 msgid "Installing: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:185
+#: ../v2v/cmdline.ml:186
 msgid "Just write the metadata"
 msgstr ""
 
@@ -1425,7 +1425,7 @@ msgstr ""
 msgid "Label for the root fs"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:47 ../v2v/cmdline.ml:192 ../v2v/cmdline.ml:179
+#: ../v2v/copy_to_local.ml:47 ../v2v/cmdline.ml:193 ../v2v/cmdline.ml:180
 msgid "Libvirt URI"
 msgstr ""
 
@@ -1452,7 +1452,7 @@ msgstr ""
 #. ../get-kernel/get_kernel.ml:59
 #. ../dib/cmdline.ml:193
 #. ../builder/cmdline.ml:157
-#: ../v2v/cmdline.ml:183 ../sparsify/cmdline.ml:74 ../resize/resize.ml:204
+#: ../v2v/cmdline.ml:184 ../sparsify/cmdline.ml:74 ../resize/resize.ml:204
 msgid "Make output machine readable"
 msgstr ""
 
@@ -1460,11 +1460,11 @@ msgstr ""
 msgid "Making directory: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:172
+#: ../v2v/cmdline.ml:173
 msgid "Map bridge ‘in’ to ‘out’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:184
+#: ../v2v/cmdline.ml:185
 msgid "Map network ‘in’ to ‘out’"
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgid ""
 "building rhsrvany (https://github.com/rwmjones/rhsrvany)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:182
+#: ../v2v/cmdline.ml:183
 msgid "Only tune the guest in the input VM"
 msgstr ""
 
@@ -1567,11 +1567,11 @@ msgstr ""
 msgid "Optional drive for caches"
 msgstr ""
 
-#: ../v2v/cmdline.ml:210
+#: ../v2v/cmdline.ml:211
 msgid "Output OVF file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:208
+#: ../v2v/cmdline.ml:209
 msgid "Output VM UUID"
 msgstr ""
 
@@ -1599,7 +1599,7 @@ msgstr ""
 msgid "Output formats"
 msgstr ""
 
-#: ../v2v/cmdline.ml:205
+#: ../v2v/cmdline.ml:206
 msgid "Output image UUID(s)"
 msgstr ""
 
@@ -1607,7 +1607,7 @@ msgstr ""
 msgid "Output size"
 msgstr ""
 
-#: ../v2v/cmdline.ml:206
+#: ../v2v/cmdline.ml:207
 msgid "Output vol UUID(s)"
 msgstr ""
 
@@ -1615,7 +1615,7 @@ msgstr ""
 msgid "Overlay saved as %s [--debug-overlays]"
 msgstr ""
 
-#: ../v2v/cmdline.ml:175
+#: ../v2v/cmdline.ml:176
 msgid "Override dcPath (for vCenter)"
 msgstr ""
 
@@ -1682,11 +1682,11 @@ msgstr ""
 msgid "Print info about template cache"
 msgstr ""
 
-#: ../v2v/cmdline.ml:201
+#: ../v2v/cmdline.ml:202
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:484 ../v2v/create_ovf.ml:244
+#: ../v2v/create_ovf.ml:507 ../v2v/create_ovf.ml:244
 msgid "RHV does not support the output format ‘%s’, only raw or qcow2"
 msgstr ""
 
@@ -1694,7 +1694,7 @@ msgstr ""
 msgid "Read customize commands from file"
 msgstr ""
 
-#: ../mllib/common_utils.ml:741
+#: ../mllib/common_utils.ml:760
 msgid "Read passphrases from stdin"
 msgstr ""
 
@@ -1905,7 +1905,7 @@ msgstr ""
 msgid "Removing all the subscriptions"
 msgstr ""
 
-#: ../v2v/cmdline.ml:196
+#: ../v2v/cmdline.ml:197
 msgid "Rename guest when converting"
 msgstr ""
 
@@ -2002,7 +2002,7 @@ msgstr ""
 msgid "SSH key inject: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:176
+#: ../v2v/cmdline.ml:177
 msgid "Save overlay files"
 msgstr ""
 
@@ -2050,7 +2050,7 @@ msgstr ""
 msgid "Set format (default: auto)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:177
+#: ../v2v/cmdline.ml:178
 msgid "Set input mode (default: libvirt)"
 msgstr ""
 
@@ -2078,7 +2078,7 @@ msgstr ""
 msgid "Set number of vCPUs"
 msgstr ""
 
-#: ../v2v/cmdline.ml:190
+#: ../v2v/cmdline.ml:191
 msgid "Set output allocation mode"
 msgstr ""
 
@@ -2090,15 +2090,15 @@ msgstr ""
 msgid "Set output filename"
 msgstr ""
 
-#: ../v2v/cmdline.ml:194
+#: ../v2v/cmdline.ml:195
 msgid "Set output format"
 msgstr ""
 
-#: ../v2v/cmdline.ml:188
+#: ../v2v/cmdline.ml:189
 msgid "Set output mode (default: libvirt)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:198
+#: ../v2v/cmdline.ml:199
 msgid "Set output storage location"
 msgstr ""
 
@@ -2400,7 +2400,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/create_ovf.ml:420
+#: ../v2v/create_ovf.ml:443
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest’s display will not "
@@ -2492,11 +2492,11 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:734
+#: ../mllib/common_utils.ml:753
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
 
-#: ../v2v/copy_to_local.ml:49 ../v2v/cmdline.ml:200
+#: ../v2v/copy_to_local.ml:49 ../v2v/cmdline.ml:201
 msgid "Use password from file"
 msgstr ""
 
@@ -2538,7 +2538,7 @@ msgstr ""
 msgid "Write file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:204
+#: ../v2v/cmdline.ml:205
 msgid "Write qcow2 with compat=0.10|1.1"
 msgstr ""
 
@@ -2629,7 +2629,7 @@ msgstr ""
 msgid "block|dir|prebuilt:file"
 msgstr ""
 
-#: ../v2v/cmdline.ml:111
+#: ../v2v/cmdline.ml:112
 msgid "bridge"
 msgstr ""
 
@@ -2926,11 +2926,11 @@ msgstr ""
 msgid "dual/multi-boot images are not supported by this tool"
 msgstr ""
 
-#: ../v2v/cmdline.ml:107
+#: ../v2v/cmdline.ml:108
 msgid "duplicate %s parameter.  Duplicate mappings specified for %s ‘%s’."
 msgstr ""
 
-#: ../v2v/cmdline.ml:102
+#: ../v2v/cmdline.ml:103
 msgid "duplicate %s parameter.  Only one default mapping is allowed."
 msgstr ""
 
@@ -2975,7 +2975,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:593
+#: ../mllib/common_utils.ml:612
 msgid "exception: %s"
 msgstr ""
 
@@ -2985,19 +2985,23 @@ msgid ""
 "string: %s)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:304
+#: ../v2v/cmdline.ml:344
+msgid "expecting a VMX file name on the command line"
+msgstr ""
+
+#: ../v2v/cmdline.ml:305
 msgid "expecting a disk image (filename) on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:325
+#: ../v2v/cmdline.ml:326
 msgid "expecting a libvirt XML file name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:316
+#: ../v2v/cmdline.ml:317
 msgid "expecting a libvirt guest name on the command line"
 msgstr ""
 
-#: ../v2v/cmdline.ml:334
+#: ../v2v/cmdline.ml:335
 msgid "expecting an OVA file name on the command line"
 msgstr ""
 
@@ -3005,15 +3009,15 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:820 ../dib/dib.ml:1012
+#: ../mllib/common_utils.ml:839 ../dib/dib.ml:1012
 msgid "external command ‘%s’ exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:843 ../mllib/common_utils.ml:822 ../dib/dib.ml:1015
+#: ../mllib/common_utils.ml:862 ../mllib/common_utils.ml:841 ../dib/dib.ml:1015
 msgid "external command ‘%s’ killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:846 ../mllib/common_utils.ml:824 ../dib/dib.ml:1018
+#: ../mllib/common_utils.ml:865 ../mllib/common_utils.ml:843 ../dib/dib.ml:1018
 msgid "external command ‘%s’ stopped by signal %d"
 msgstr ""
 
@@ -3029,7 +3033,7 @@ msgstr ""
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
-#: ../mllib/common_utils.ml:584
+#: ../mllib/common_utils.ml:603
 msgid "failure: %s"
 msgstr ""
 
@@ -3100,7 +3104,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../mllib/common_utils.ml:603
+#: ../mllib/common_utils.ml:622
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3218,11 +3222,11 @@ msgid ""
 "host\"."
 msgstr ""
 
-#: ../mllib/common_utils.ml:591
+#: ../mllib/common_utils.ml:610
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:588
+#: ../mllib/common_utils.ml:607
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
@@ -3238,7 +3242,7 @@ msgstr ""
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:586
+#: ../mllib/common_utils.ml:605
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3254,7 +3258,7 @@ msgstr ""
 msgid "internal error: regular expression did not match ‘%s’"
 msgstr ""
 
-#: ../v2v/cmdline.ml:98
+#: ../v2v/cmdline.ml:99
 msgid "invalid %s parameter"
 msgstr ""
 
@@ -3306,7 +3310,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:582
+#: ../mllib/common_utils.ml:601
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3375,7 +3379,7 @@ msgid ""
 "twice"
 msgstr ""
 
-#: ../v2v/cmdline.ml:110
+#: ../v2v/cmdline.ml:111
 msgid "network"
 msgstr ""
 
@@ -3478,7 +3482,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:626
+#: ../v2v/create_ovf.ml:649
 msgid ""
 "oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from "
 "the output."
@@ -3780,11 +3784,11 @@ msgid ""
 "qcow2)"
 msgstr ""
 
-#: ../v2v/cmdline.ml:116
+#: ../v2v/cmdline.ml:117
 msgid "the --no-trim option has been removed and now does nothing"
 msgstr ""
 
-#: ../v2v/cmdline.ml:163
+#: ../v2v/cmdline.ml:164
 msgid "the --vmtype option has been removed and now does nothing"
 msgstr ""
 
@@ -4023,7 +4027,7 @@ msgstr ""
 msgid "unknown --align-first option: use never|always|auto"
 msgstr ""
 
-#: ../v2v/cmdline.ml:153
+#: ../v2v/cmdline.ml:154
 msgid "unknown --root option: %s"
 msgstr ""
 
@@ -4031,15 +4035,15 @@ msgstr ""
 msgid "unknown --unknown-filesystems: use ignore|warn|error"
 msgstr ""
 
-#: ../v2v/cmdline.ml:90
+#: ../v2v/cmdline.ml:91
 msgid "unknown -i option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:132
+#: ../v2v/cmdline.ml:133
 msgid "unknown -o option: %s"
 msgstr ""
 
-#: ../v2v/cmdline.ml:143
+#: ../v2v/cmdline.ml:144
 msgid "unknown -oa option: %s"
 msgstr ""
 
