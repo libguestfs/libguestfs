@@ -184,6 +184,8 @@ object
           | AC97      -> arg "-device" "AC97"
           | ES1370    -> arg "-device" "ES1370"
           | ICH6      -> arg "-device" "intel-hda"; arg "-device" "hda-duplex"
+          (* XXX ich9 is a q35-only device, so it's not likely
+             that this will work unless we can force q35 above: *)
           | ICH9      -> arg "-device" "ich9-intel-hda"
           | PCSpeaker -> arg "-soundhw" "pcspk" (* not qdev-ified *)
           | SB16      -> arg "-device" "sb16"
