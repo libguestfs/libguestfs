@@ -120,6 +120,7 @@ AS_IF([test "x$have_Bytes_module" = "xno"],[
 include String
 let of_string = String.copy
 let to_string = String.copy
+let sub_string = String.sub
 EOF
     ln -s ../generator/bytes.ml mllib/bytes.ml
     OCAML_GENERATOR_BYTES_COMPAT_CMO='$(top_builddir)/generator/bytes.cmo'
