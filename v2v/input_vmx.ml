@@ -26,8 +26,6 @@ open Types
 open Utils
 open Name_from_disk
 
-external identity : 'a -> 'a = "%identity"
-
 let rec find_disks vmx vmx_filename =
   find_scsi_disks vmx vmx_filename @ find_ide_disks vmx vmx_filename
 

@@ -282,6 +282,8 @@ let ( /^ ) = Int64.div
 let ( &^ ) = Int64.logand
 let ( ~^ ) = Int64.lognot
 
+external identity : 'a -> 'a = "%identity"
+
 let roundup64 i a = let a = a -^ 1L in (i +^ a) &^ (~^ a)
 let div_roundup64 i a = (i +^ a -^ 1L) /^ a
 
