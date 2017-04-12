@@ -142,6 +142,8 @@ val ( &^ ) : int64 -> int64 -> int64
 val ( ~^ ) : int64 -> int64
 (** Various int64 operators. *)
 
+external identity : 'a -> 'a = "%identity"
+
 val roundup64 : int64 -> int64 -> int64
 (** [roundup64 i a] returns [i] rounded up to the next multiple of [a]. *)
 val div_roundup64 : int64 -> int64 -> int64

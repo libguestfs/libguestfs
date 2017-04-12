@@ -23,7 +23,7 @@ open Types
 
 open Printf
 
-external identity : 'a -> 'a = "%identity"
+open Common_utils
 
 let inspect_defaults = {
   i_type = ""; i_distro = ""; i_arch = "";
