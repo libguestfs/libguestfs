@@ -1,4 +1,4 @@
-[   0.0] Opening the source -i vmx test-v2v-i-vmx-1.vmx
+
 Source guest information (--print-source option):
 
     source name: BZ1308535_21disks
