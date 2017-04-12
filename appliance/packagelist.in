@@ -133,6 +133,7 @@ ifelse(SUSE,1,
   dnl It seems no other augeas package depends on it.
   augeas-lenses
   btrfsprogs
+  cdrkit-cdrtools-compat
   cryptsetup
   dhcpcd
   dhcp-client
