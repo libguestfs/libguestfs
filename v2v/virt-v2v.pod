@@ -1528,6 +1528,21 @@ additional details.
 If you export several guests, then you can import them all at the same
 time through the UI.
 
+=head2 RHV: TESTING RHV CONVERSIONS
+
+If you do not have an oVirt or RHV instance to test against, then you
+can test conversions by creating a directory structure which looks
+enough like a RHV-M Export Storage Domain to trick virt-v2v:
+
+ uuid=`uuidgen`
+ mkdir /tmp/rhv
+ mkdir /tmp/rhv/$uuid
+ mkdir /tmp/rhv/$uuid/images
+ mkdir /tmp/rhv/$uuid/master
+ mkdir /tmp/rhv/$uuid/master/vms
+ touch /tmp/rhv/$uuid/dom_md
+ virt-v2v [...] -o rhv -os /tmp/rhv
+
 =head1 OUTPUT TO GLANCE
 
 To output to OpenStack Glance, use the I<-o glance> option.
