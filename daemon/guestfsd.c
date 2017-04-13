@@ -402,6 +402,9 @@ int
 is_root_device (const char *device)
 {
   struct stat statbuf;
+
+  udev_settle_file (device);
+
   if (stat (device, &statbuf) == -1) {
     perror (device);
     return 0;
