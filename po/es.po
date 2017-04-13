@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-04-11 23:38+0100\n"
+"POT-Creation-Date: 2017-04-13 17:03+0100\n"
 "PO-Revision-Date: 2015-03-18 06:06-0400\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -52,7 +52,7 @@ msgstr ""
 " Se ignora el espacio restante. Ejecute un editor de particiones en el "
 "sistema invitado para particionar este espacio extra."
 
-#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:599
+#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:601
 msgid "%s"
 msgstr "%s"
 
@@ -63,7 +63,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:452
-#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1169
+#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1171
 msgid "%s (ignored)"
 msgstr "%s (se ignora)"
 
@@ -141,11 +141,11 @@ msgstr ""
 "%s referencia al dispositivo desconocido \"%s\". Puede que tengas que "
 "arreglar esta entrada manualmente después de la conversión."
 
-#: ../mllib/common_utils.ml:595 ../mllib/common_utils.ml:567
+#: ../mllib/common_utils.ml:597 ../mllib/common_utils.ml:569
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../mllib/common_utils.ml:597
+#: ../mllib/common_utils.ml:599
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -237,7 +237,7 @@ msgstr ""
 "ayuda más detallada\n"
 "consulte la página del manual virt-builder(1).\n"
 
-#: ../v2v/windows_virtio.ml:294
+#: ../v2v/windows_virtio.ml:298
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr ""
 
@@ -331,7 +331,7 @@ msgstr ""
 "una ayuda más detallada\n"
 "consulte la página de manual virt-customize(1).\n"
 
-#: ../mllib/common_utils.ml:539
+#: ../mllib/common_utils.ml:541
 msgid "%s: error: %s"
 msgstr "%s: error: %s"
 
@@ -505,7 +505,7 @@ msgid ""
 "compress with gzip or xz), zip"
 msgstr ""
 
-#: ../mllib/common_utils.ml:557
+#: ../mllib/common_utils.ml:559
 msgid "%s: warning: %s"
 msgstr "%s: aviso: %s"
 
@@ -1095,7 +1095,7 @@ msgstr ""
 msgid "Display installation notes"
 msgstr "Mostrar notas de instalación"
 
-#: ../mllib/common_utils.ml:747
+#: ../mllib/common_utils.ml:749
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
@@ -1135,11 +1135,11 @@ msgstr ""
 msgid "Don’t perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:751
+#: ../mllib/common_utils.ml:753
 msgid "Don’t print progress messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:759
+#: ../mllib/common_utils.ml:761
 msgid "Don’t turn off echo for passphrases"
 msgstr ""
 
@@ -1190,7 +1190,7 @@ msgstr ""
 msgid "Enable debugging messages"
 msgstr "Activar mensajes de depuración"
 
-#: ../mllib/common_utils.ml:748
+#: ../mllib/common_utils.ml:750
 msgid "Enable libguestfs debugging messages"
 msgstr ""
 
@@ -1198,7 +1198,7 @@ msgstr ""
 msgid "Enable specific operations"
 msgstr "Activar operaciones específicas"
 
-#: ../mllib/common_utils.ml:749
+#: ../mllib/common_utils.ml:751
 msgid "Enable tracing of libguestfs calls"
 msgstr "Activar el traceado de las llamadas libguestfs"
 
@@ -1431,7 +1431,7 @@ msgstr ""
 msgid "How to choose root filesystem"
 msgstr ""
 
-#: ../mllib/common_utils.ml:544
+#: ../mllib/common_utils.ml:546
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1791,7 +1791,7 @@ msgstr ""
 msgid "Read customize commands from file"
 msgstr "Leer órdenes a partir de archivo"
 
-#: ../mllib/common_utils.ml:760
+#: ../mllib/common_utils.ml:762
 msgid "Read passphrases from stdin"
 msgstr ""
 
@@ -2589,7 +2589,7 @@ msgstr ""
 msgid "Uploading: %s to %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:753
+#: ../mllib/common_utils.ml:755
 msgid "Use ANSI colour sequences even if not tty"
 msgstr ""
 
@@ -3074,7 +3074,7 @@ msgstr ""
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:612
+#: ../mllib/common_utils.ml:614
 msgid "exception: %s"
 msgstr ""
 
@@ -3108,15 +3108,15 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:839 ../dib/dib.ml:1012
+#: ../mllib/common_utils.ml:841 ../dib/dib.ml:1012
 msgid "external command ‘%s’ exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:862 ../mllib/common_utils.ml:841 ../dib/dib.ml:1015
+#: ../mllib/common_utils.ml:864 ../mllib/common_utils.ml:843 ../dib/dib.ml:1015
 msgid "external command ‘%s’ killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:865 ../mllib/common_utils.ml:843 ../dib/dib.ml:1018
+#: ../mllib/common_utils.ml:867 ../mllib/common_utils.ml:845 ../dib/dib.ml:1018
 msgid "external command ‘%s’ stopped by signal %d"
 msgstr ""
 
@@ -3132,7 +3132,7 @@ msgstr ""
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
-#: ../mllib/common_utils.ml:603
+#: ../mllib/common_utils.ml:605
 msgid "failure: %s"
 msgstr ""
 
@@ -3203,7 +3203,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../mllib/common_utils.ml:622
+#: ../mllib/common_utils.ml:624
 msgid "generated by %s %s"
 msgstr ""
 
@@ -3321,11 +3321,11 @@ msgid ""
 "host\"."
 msgstr ""
 
-#: ../mllib/common_utils.ml:610
+#: ../mllib/common_utils.ml:612
 msgid "internal error: Not_found exception was thrown"
 msgstr ""
 
-#: ../mllib/common_utils.ml:607
+#: ../mllib/common_utils.ml:609
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr ""
 
@@ -3341,7 +3341,7 @@ msgstr ""
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:605
+#: ../mllib/common_utils.ml:607
 msgid "internal error: invalid argument: %s"
 msgstr ""
 
@@ -3359,6 +3359,10 @@ msgstr ""
 
 #: ../v2v/cmdline.ml:99
 msgid "invalid %s parameter"
+msgstr ""
+
+#: ../v2v/input_vmx.ml:303
+msgid "invalid cpuid.coresPerSocket < number of vCPUs"
 msgstr ""
 
 #: ../customize/customize_cmdline.ml:153 ../customize/customize_cmdline.ml:142
@@ -3409,7 +3413,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
-#: ../mllib/common_utils.ml:601
+#: ../mllib/common_utils.ml:603
 msgid "libguestfs error: %s"
 msgstr ""
 
@@ -3511,6 +3515,10 @@ msgstr ""
 
 #: ../builder/builder.ml:242
 msgid "no cache directory\n"
+msgstr ""
+
+#: ../v2v/input_vmx.ml:282
+msgid "no displayName key found in VMX file"
 msgstr ""
 
 #: ../builder/builder.ml:676
@@ -3971,13 +3979,13 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHV-M %s?"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:52
+#: ../v2v/windows_virtio.ml:54
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:59
+#: ../v2v/windows_virtio.ml:61
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -3985,13 +3993,13 @@ msgid ""
 "The guest will be configured to use slower emulated devices."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:154
+#: ../v2v/windows_virtio.ml:158
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:159
+#: ../v2v/windows_virtio.ml:163
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -4007,7 +4015,7 @@ msgid ""
 "are susceptible to man-in-the-middle attacks."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:89
+#: ../v2v/windows_virtio.ml:91
 msgid ""
 "there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d "
 "%s).  virt-v2v looks for this driver in %s\n"
@@ -4015,7 +4023,7 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:94 ../v2v/windows_virtio.ml:84
+#: ../v2v/windows_virtio.ml:96 ../v2v/windows_virtio.ml:86
 msgid ""
 "there is no virtio block device driver for this version of Windows (%d.%d "
 "%s).  virt-v2v looks for this driver in %s\n"
@@ -4023,13 +4031,13 @@ msgid ""
 "The guest will be configured to use a slower emulated device."
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:133
+#: ../v2v/windows_virtio.ml:137
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:138
+#: ../v2v/windows_virtio.ml:142
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -4150,8 +4158,16 @@ msgstr ""
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr ""
 
+#: ../v2v/input_vmx.ml:315
+msgid "unknown firmware value '%s', assuming BIOS"
+msgstr ""
+
 #: ../v2v/create_ovf.ml:199
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
+msgstr ""
+
+#: ../v2v/input_vmx.ml:331
+msgid "unknown sound device '%s' ignored"
 msgstr ""
 
 #: ../v2v/parse_libvirt_xml.ml:203
@@ -4290,6 +4306,14 @@ msgstr ""
 
 #: ../v2v/v2v.ml:589
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
+msgstr ""
+
+#: ../v2v/parse_vmx.ml:302
+msgid "vmx parser: cannot parse this line, ignoring: %s"
+msgstr ""
+
+#: ../v2v/parse_vmx.ml:335
+msgid "vmx parser: duplicate key '%s' ignored"
 msgstr ""
 
 #: ../resize/resize.ml:144

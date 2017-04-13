@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-04-11 23:38+0100\n"
+"POT-Creation-Date: 2017-04-13 17:03+0100\n"
 "PO-Revision-Date: 2016-07-26 05:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -54,7 +54,7 @@ msgstr ""
 "розділи у гостьовій системі для розподілу цього додаткового простору, якщо "
 "хочете."
 
-#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:599
+#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:601
 msgid "%s"
 msgstr "%s"
 
@@ -67,7 +67,7 @@ msgstr ""
 "Параметри:\n"
 
 #. ../customize/customize_run.ml:452
-#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1169
+#: ../v2v/inspect_source.ml:52 ../mllib/common_utils.ml:1171
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -149,11 +149,11 @@ msgstr ""
 "%s посилається на невідомий пристрій «%s». Ймовірно, вам доведеться "
 "виправити цей запис після перетворення."
 
-#: ../mllib/common_utils.ml:595 ../mllib/common_utils.ml:567
+#: ../mllib/common_utils.ml:597 ../mllib/common_utils.ml:569
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: ../mllib/common_utils.ml:597
+#: ../mllib/common_utils.ml:599
 msgid "%s: %s: %s"
 msgstr "%s: %s: %s"
 
@@ -244,7 +244,7 @@ msgstr ""
 "Коротке резюме параметрів надано нижче. Докладніші довідкові дані\n"
 "можна знайти на сторінках підручника (man) virt-builder(1).\n"
 
-#: ../v2v/windows_virtio.ml:294
+#: ../v2v/windows_virtio.ml:298
 msgid "%s: cannot open virtio-win ISO file: %s"
 msgstr "%s: не вдалося відкрити файл ISO virtio-win: %s"
 
@@ -355,7 +355,7 @@ msgstr ""
 "Коротке резюме щодо параметрів наведено нижче. Докладніший опис\n"
 "можна знайти на сторінці підручника (man) virt-customize(1).\n"
 
-#: ../mllib/common_utils.ml:539
+#: ../mllib/common_utils.ml:541
 msgid "%s: error: %s"
 msgstr "%s: помилка: %s"
 
@@ -548,7 +548,7 @@ msgstr ""
 "У поточній версії передбачено підтримку таких форматів для «-i ova»: "
 "нестиснений tar (нестиснений, стиснений за допомогою gzip або xz), zip"
 
-#: ../mllib/common_utils.ml:557
+#: ../mllib/common_utils.ml:559
 msgid "%s: warning: %s"
 msgstr "%s: попередження: %s"
 
@@ -1147,7 +1147,7 @@ msgstr "Показати коротку довідку"
 msgid "Display installation notes"
 msgstr "Показати нотатки щодо встановлення"
 
-#: ../mllib/common_utils.ml:747
+#: ../mllib/common_utils.ml:749
 msgid "Display version and exit"
 msgstr "Вивести версію та вийти"
 
@@ -1187,11 +1187,11 @@ msgstr ""
 msgid "Don’t perform changes"
 msgstr ""
 
-#: ../mllib/common_utils.ml:751
+#: ../mllib/common_utils.ml:753
 msgid "Don’t print progress messages"
 msgstr ""
 
-#: ../mllib/common_utils.ml:759
+#: ../mllib/common_utils.ml:761
 msgid "Don’t turn off echo for passphrases"
 msgstr ""
 
@@ -1241,7 +1241,7 @@ msgstr "Увімкнути мережу у системі для розгорт�
 msgid "Enable debugging messages"
 msgstr "Увімкнути показ діагностичних повідомлень"
 
-#: ../mllib/common_utils.ml:748
+#: ../mllib/common_utils.ml:750
 msgid "Enable libguestfs debugging messages"
 msgstr "Увімкнути діагностичні повідомлення libguestfs"
 
@@ -1249,7 +1249,7 @@ msgstr "Увімкнути діагностичні повідомлення lib
 msgid "Enable specific operations"
 msgstr "Увімкнути специфічні операції"
 
-#: ../mllib/common_utils.ml:749
+#: ../mllib/common_utils.ml:751
 msgid "Enable tracing of libguestfs calls"
 msgstr "Увімкнути трасування викликів libguestfs"
 
@@ -1484,7 +1484,7 @@ msgstr "НАЗВА_ВУЗЛА"
 msgid "How to choose root filesystem"
 msgstr "Як вибрати кореневу файлову систему"
 
-#: ../mllib/common_utils.ml:544
+#: ../mllib/common_utils.ml:546
 msgid ""
 "If reporting bugs, run %s with debugging enabled and include the complete "
 "output:\n"
@@ -1860,7 +1860,7 @@ msgstr ""
 msgid "Read customize commands from file"
 msgstr "Прочитати команди налаштовування з файла"
 
-#: ../mllib/common_utils.ml:760
+#: ../mllib/common_utils.ml:762
 msgid "Read passphrases from stdin"
 msgstr ""
 
@@ -2752,7 +2752,7 @@ msgstr "Вивантажити локальний файл у систему п�
 msgid "Uploading: %s to %s"
 msgstr "Вивантажуємо: %s до %s"
 
-#: ../mllib/common_utils.ml:753
+#: ../mllib/common_utils.ml:755
 msgid "Use ANSI colour sequences even if not tty"
 msgstr "Використовувати послідовності ANSI для кольорів, навіть якщо це не tty"
 
@@ -3271,7 +3271,7 @@ msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 "помилка під час розпаковування %s, див. попередні повідомлення щодо помилок"
 
-#: ../mllib/common_utils.ml:612
+#: ../mllib/common_utils.ml:614
 msgid "exception: %s"
 msgstr "виключення: %s"
 
@@ -3306,15 +3306,15 @@ msgstr "у командному рядку мало бути вказано на
 msgid "external command failed: %s"
 msgstr "помилка під час виконання зовнішньої команди: %s"
 
-#: ../mllib/common_utils.ml:839 ../dib/dib.ml:1012
+#: ../mllib/common_utils.ml:841 ../dib/dib.ml:1012
 msgid "external command ‘%s’ exited with error %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:862 ../mllib/common_utils.ml:841 ../dib/dib.ml:1015
+#: ../mllib/common_utils.ml:864 ../mllib/common_utils.ml:843 ../dib/dib.ml:1015
 msgid "external command ‘%s’ killed by signal %d"
 msgstr ""
 
-#: ../mllib/common_utils.ml:865 ../mllib/common_utils.ml:843 ../dib/dib.ml:1018
+#: ../mllib/common_utils.ml:867 ../mllib/common_utils.ml:845 ../dib/dib.ml:1018
 msgid "external command ‘%s’ stopped by signal %d"
 msgstr ""
 
@@ -3330,7 +3330,7 @@ msgstr ""
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
-#: ../mllib/common_utils.ml:603
+#: ../mllib/common_utils.ml:605
 msgid "failure: %s"
 msgstr "помилка: %s"
 
@@ -3406,7 +3406,7 @@ msgid ""
 "'--ignore %s', or use copying mode instead."
 msgstr ""
 
-#: ../mllib/common_utils.ml:622
+#: ../mllib/common_utils.ml:624
 msgid "generated by %s %s"
 msgstr "створено за допомогою %s %s"
 
@@ -3562,11 +3562,11 @@ msgstr ""
 "Також ознайомтеся із підручником з virt-v2v(1), розділ «Minimum free space "
 "check in the host» («Мінімальний розмір вільного місця у основній системі»)."
 
-#: ../mllib/common_utils.ml:610
+#: ../mllib/common_utils.ml:612
 msgid "internal error: Not_found exception was thrown"
 msgstr "внутрішня помилка: надіслано виключення Not_found"
 
-#: ../mllib/common_utils.ml:607
+#: ../mllib/common_utils.ml:609
 msgid "internal error: assertion failed at %s, line %d, char %d"
 msgstr "внутрішня помилка: помилка оцінки у %s, рядок %d, символ %d"
 
@@ -3582,7 +3582,7 @@ msgstr ""
 msgid "internal error: file_owner: rpm command returned no output"
 msgstr ""
 
-#: ../mllib/common_utils.ml:605
+#: ../mllib/common_utils.ml:607
 msgid "internal error: invalid argument: %s"
 msgstr "внутрішня помилка: некоректний аргумент: %s"
 
@@ -3601,6 +3601,10 @@ msgstr ""
 #: ../v2v/cmdline.ml:99
 msgid "invalid %s parameter"
 msgstr "некоректний параметр %s"
+
+#: ../v2v/input_vmx.ml:303
+msgid "invalid cpuid.coresPerSocket < number of vCPUs"
+msgstr ""
 
 #: ../customize/customize_cmdline.ml:153 ../customize/customize_cmdline.ml:142
 msgid "invalid format for '--%s' parameter, see the man page"
@@ -3650,7 +3654,7 @@ msgstr ""
 msgid "kernel %s is not under grub tree %s"
 msgstr "ядро %s перебуває поза ієрархією grub %s"
 
-#: ../mllib/common_utils.ml:601
+#: ../mllib/common_utils.ml:603
 msgid "libguestfs error: %s"
 msgstr "помилка libguestfs: %s"
 
@@ -3767,6 +3771,10 @@ msgstr "немає каталогу кешування"
 #: ../builder/builder.ml:242
 msgid "no cache directory\n"
 msgstr "немає каталогу кешування\n"
+
+#: ../v2v/input_vmx.ml:282
+msgid "no displayName key found in VMX file"
+msgstr ""
 
 #: ../builder/builder.ml:676
 msgid ""
@@ -4290,7 +4298,7 @@ msgstr ""
 msgid "there are no UUIDs in the %s (%s).  Is it really an OVirt or RHV-M %s?"
 msgstr ""
 
-#: ../v2v/windows_virtio.ml:52
+#: ../v2v/windows_virtio.ml:54
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s"
@@ -4298,7 +4306,7 @@ msgstr ""
 "немає драйверів virtio для цієї версії Windows (%d.%d %s %s). virt-v2v шукає "
 "драйвери у %s"
 
-#: ../v2v/windows_virtio.ml:59
+#: ../v2v/windows_virtio.ml:61
 msgid ""
 "there are no virtio drivers available for this version of Windows (%d.%d %s "
 "%s).  virt-v2v looks for drivers in %s\n"
@@ -4311,7 +4319,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільніших емульованих "
 "пристроїв."
 
-#: ../v2v/windows_virtio.ml:154
+#: ../v2v/windows_virtio.ml:158
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s"
@@ -4319,7 +4327,7 @@ msgstr ""
 "немає драйвера QXL для цієї версії Windows (d.%d %s). virt-v2v шукає цей "
 "драйвер у %s"
 
-#: ../v2v/windows_virtio.ml:159
+#: ../v2v/windows_virtio.ml:163
 msgid ""
 "there is no QXL driver for this version of Windows (%d.%d %s).  virt-v2v "
 "looks for this driver in %s\n"
@@ -4345,7 +4353,7 @@ msgstr ""
 "але це означатиме, що ваша система стане вразливою до нападів man-in-the-"
 "middle."
 
-#: ../v2v/windows_virtio.ml:89
+#: ../v2v/windows_virtio.ml:91
 msgid ""
 "there is no vioscsi (virtio SCSI) driver for this version of Windows (%d.%d "
 "%s).  virt-v2v looks for this driver in %s\n"
@@ -4358,7 +4366,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/windows_virtio.ml:94 ../v2v/windows_virtio.ml:84
+#: ../v2v/windows_virtio.ml:96 ../v2v/windows_virtio.ml:86
 msgid ""
 "there is no virtio block device driver for this version of Windows (%d.%d "
 "%s).  virt-v2v looks for this driver in %s\n"
@@ -4371,7 +4379,7 @@ msgstr ""
 "Гостьову систему буде налаштовано на використання повільнішого емульованого "
 "пристрою."
 
-#: ../v2v/windows_virtio.ml:133
+#: ../v2v/windows_virtio.ml:137
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s"
@@ -4379,7 +4387,7 @@ msgstr ""
 "немає драйвера мережі virtio для цієї версії Windows (d.%d %s). virt-v2v "
 "шукає цей драйвер у %s"
 
-#: ../v2v/windows_virtio.ml:138
+#: ../v2v/windows_virtio.ml:142
 msgid ""
 "there is no virtio network driver for this version of Windows (%d.%d %s).  "
 "virt-v2v looks for this driver in %s\n"
@@ -4533,9 +4541,17 @@ msgstr "невідомий параметр -oa: %s"
 msgid "unknown Config:firmware value %s (expected \"bios\" or \"efi\")"
 msgstr "невідоме значення Config:firmware %s (мало бути «bios» або «efi»)"
 
+#: ../v2v/input_vmx.ml:315
+msgid "unknown firmware value '%s', assuming BIOS"
+msgstr ""
+
 #: ../v2v/create_ovf.ml:199
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr "невідома гостьова операційна система: %s %s %d.%d %s (%s)"
+
+#: ../v2v/input_vmx.ml:331
+msgid "unknown sound device '%s' ignored"
+msgstr ""
 
 #: ../v2v/parse_libvirt_xml.ml:203
 msgid "unknown sound model %s ignored"
@@ -4687,6 +4703,14 @@ msgstr ""
 msgid "virt-v2v is unable to convert this guest type (%s/%s)"
 msgstr ""
 "virt-v2v не може виконувати перетворення цього типу гостьових систем (%s/%s)"
+
+#: ../v2v/parse_vmx.ml:302
+msgid "vmx parser: cannot parse this line, ignoring: %s"
+msgstr ""
+
+#: ../v2v/parse_vmx.ml:335
+msgid "vmx parser: duplicate key '%s' ignored"
+msgstr ""
 
 #: ../resize/resize.ml:144
 msgid "xfs_growfs"
