@@ -142,6 +142,8 @@ extern int parse_btrfsvol (const char *desc, mountable_t *mountable);
 
 extern int prog_exists (const char *prog);
 
+extern void udev_settle_file (const char *file);
+
 extern void udev_settle (void);
 
 extern int random_name (char *template);

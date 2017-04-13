@@ -1213,20 +1213,34 @@ random_name (char *template)
  * fussed if it fails.
  */
 void
-udev_settle (void)
+udev_settle_file (const char *file)
 {
-  char cmd[80];
+  const size_t MAX_ARGS = 64;
+  const char *argv[MAX_ARGS];
+  CLEANUP_FREE char *err = NULL;
+  size_t i = 0;
   int r;
 
-  snprintf (cmd, sizeof cmd, "%s%s settle",
-            str_udevadm, verbose ? " --debug" : "");
+  ADD_ARG (argv, i, str_udevadm);
   if (verbose)
-    printf ("%s\n", cmd);
-  r = system (cmd);
+    ADD_ARG (argv, i, "--debug");
+
+  ADD_ARG (argv, i, "settle");
+  if (file) {
+    ADD_ARG (argv, i, "-E");
+    ADD_ARG (argv, i, file);
+  }
+  ADD_ARG (argv, i, NULL);
+
+  r = commandv (NULL, &err, argv);
   if (r == -1)
-    perror ("system");
-  else if (!WIFEXITED (r) || WEXITSTATUS (r) != 0)
-    fprintf (stderr, "warning: udevadm command failed\n");
+    fprintf (stderr, "udevadm settle: %s\n", err);
+}
+
+void
+udev_settle (void)
+{
+  udev_settle_file (NULL);
 }
 
 char *
