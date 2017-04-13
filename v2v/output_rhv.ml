@@ -205,7 +205,7 @@ object
         List.iter (
           fun image_uuid ->
             let d = images_dir // image_uuid in
-            let cmd = sprintf "rm -rf %s" d in
+            let cmd = sprintf "rm -rf %s" (quote d) in
             Changeuid.command changeuid_t cmd
         ) image_uuids
       )
