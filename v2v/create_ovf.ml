@@ -306,6 +306,12 @@ let rec create_ovf source targets guestcaps inspect
         e "DefaultDisplayType" [] [PCData "1"];
       ] in
 
+      (match source.s_cpu_model with
+        | None -> ()
+        | Some model ->
+           push_back content_subnodes (e "CustomCpuName" [] [PCData model])
+      );
+
       (* Add the <Origin/> element if we can. *)
       (match origin_of_source_hypervisor source.s_hypervisor with
        | None -> ()
