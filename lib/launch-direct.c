@@ -60,7 +60,7 @@ struct backend_direct_data {
 };
 
 static int is_openable (guestfs_h *g, const char *path, int flags);
-static char *make_appliance_dev (guestfs_h *g, int virtio_scsi);
+static char *make_appliance_dev (guestfs_h *g);
 static void print_qemu_command_line (guestfs_h *g, char **argv);
 
 static char *
@@ -234,7 +234,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   CLEANUP_FREE void *buf = NULL;
   struct drive *drv;
   size_t i;
-  int virtio_scsi;
   struct hv_param *hp;
   bool has_kvm;
   int force_tcg;
@@ -336,14 +335,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   ADD_CMDLINE (g->hv);
 
   /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
-   * devices.  The -global option must exist, but you can pass any
-   * strings to it so we don't need to check for the specific virtio
-   * feature.
+   * devices.
    */
-  if (guestfs_int_qemu_supports (g, data->qemu_data, "-global")) {
-    ADD_CMDLINE ("-global");
-    ADD_CMDLINE (VIRTIO_BLK ".scsi=off");
-  }
+  ADD_CMDLINE ("-global");
+  ADD_CMDLINE (VIRTIO_BLK ".scsi=off");
 
   if (guestfs_int_qemu_supports (g, data->qemu_data, "-nodefconfig"))
     ADD_CMDLINE ("-nodefconfig");
@@ -461,16 +456,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     ADD_CMDLINE ("virtio-rng-pci,rng=rng0");
   }
 
+  /* Create the virtio-scsi bus. */
+  ADD_CMDLINE ("-device");
+  ADD_CMDLINE (VIRTIO_SCSI ",id=scsi");
+
   /* Add drives */
-  virtio_scsi = guestfs_int_qemu_supports_virtio_scsi (g, data->qemu_data,
-                                                       &data->qemu_version);
-
-  if (virtio_scsi) {
-    /* Create the virtio-scsi bus. */
-    ADD_CMDLINE ("-device");
-    ADD_CMDLINE (VIRTIO_SCSI ",id=scsi");
-  }
-
   ITER_DRIVES (g, i, drv) {
     CLEANUP_FREE char *file = NULL, *escaped_file = NULL, *param = NULL;
 
@@ -529,10 +519,14 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     }
 
     /* If there's an explicit 'iface', use it.  Otherwise default to
-     * virtio-scsi if available.  Otherwise default to virtio-blk.
+     * virtio-scsi.
      */
-    if (drv->iface && STREQ (drv->iface, "virtio")) /* virtio-blk */
-      goto virtio_blk;
+    if (drv->iface && STREQ (drv->iface, "virtio")) { /* virtio-blk */
+      ADD_CMDLINE ("-drive");
+      ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
+      ADD_CMDLINE ("-device");
+      ADD_CMDLINE_PRINTF (VIRTIO_BLK ",drive=hd%zu", i);
+    }
 #if defined(__arm__) || defined(__aarch64__) || defined(__powerpc__)
     else if (drv->iface && STREQ (drv->iface, "ide")) {
       error (g, "'ide' interface does not work on ARM or PowerPC");
@@ -543,18 +537,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=%s", param, drv->iface);
     }
-    else if (virtio_scsi) {
+    else /* virtio-scsi */ {
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
       ADD_CMDLINE ("-device");
       ADD_CMDLINE_PRINTF ("scsi-hd,drive=hd%zu", i);
-    }
-    else {
-    virtio_blk:
-      ADD_CMDLINE ("-drive");
-      ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
-      ADD_CMDLINE ("-device");
-      ADD_CMDLINE_PRINTF (VIRTIO_BLK ",drive=hd%zu", i);
     }
   }
 
@@ -565,16 +552,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
                         "cache=unsafe,if=none,format=raw",
                         appliance);
 
-    if (virtio_scsi) {
-      ADD_CMDLINE ("-device");
-      ADD_CMDLINE ("scsi-hd,drive=appliance");
-    }
-    else {
-      ADD_CMDLINE ("-device");
-      ADD_CMDLINE (VIRTIO_BLK ",drive=appliance");
-    }
+    ADD_CMDLINE ("-device");
+    ADD_CMDLINE ("scsi-hd,drive=appliance");
 
-    appliance_dev = make_appliance_dev (g, virtio_scsi);
+    appliance_dev = make_appliance_dev (g);
   }
 
   /* Create the virtio serial bus. */
@@ -881,25 +862,18 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
  * NULL, "ide" or "virtio" (which means virtio-blk).  See RHBZ#975797.
  */
 static char *
-make_appliance_dev (guestfs_h *g, int virtio_scsi)
+make_appliance_dev (guestfs_h *g)
 {
   size_t i, index = 0;
   struct drive *drv;
-  char dev[64] = "/dev/Xd";
+  char dev[64] = "/dev/sd";
 
   /* Calculate the index of the drive. */
   ITER_DRIVES (g, i, drv) {
-    if (virtio_scsi) {
-      if (drv->iface == NULL || STREQ (drv->iface, "ide"))
-        index++;
-    }
-    else /* virtio-blk */ {
-      if (drv->iface == NULL || STRNEQ (drv->iface, "virtio"))
-        index++;
-    }
+    if (drv->iface == NULL || STREQ (drv->iface, "ide"))
+      index++;
   }
 
-  dev[5] = virtio_scsi ? 's' : 'v';
   guestfs_int_drive_name (index, &dev[7]);
 
   return safe_strdup (g, dev);  /* Caller frees. */
@@ -1012,20 +986,7 @@ get_pid_direct (guestfs_h *g, void *datav)
 static int
 max_disks_direct (guestfs_h *g, void *datav)
 {
-  struct backend_direct_data *data = datav;
-
-  /* Get qemu help text and version. */
-  if (data->qemu_data == NULL) {
-    data->qemu_data = guestfs_int_test_qemu (g, &data->qemu_version);
-    if (data->qemu_data == NULL)
-      return -1;
-  }
-
-  if (guestfs_int_qemu_supports_virtio_scsi (g, data->qemu_data,
-                                             &data->qemu_version))
-    return 255;
-  else
-    return 27;                  /* conservative estimate */
+  return 255;
 }
 
 static struct backend_ops backend_direct_ops = {

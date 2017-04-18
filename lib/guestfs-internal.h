@@ -983,7 +983,6 @@ struct qemu_data;
 extern struct qemu_data *guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version);
 extern int guestfs_int_qemu_supports (guestfs_h *g, const struct qemu_data *, const char *option);
 extern int guestfs_int_qemu_supports_device (guestfs_h *g, const struct qemu_data *, const char *device_name);
-extern int guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *, const struct version *qemu_version);
 extern char *guestfs_int_drive_source_qemu_param (guestfs_h *g, const struct drive_source *src);
 extern bool guestfs_int_discard_possible (guestfs_h *g, struct drive *drv, const struct version *qemu_version);
 extern char *guestfs_int_qemu_escape_param (guestfs_h *g, const char *param);

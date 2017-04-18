@@ -46,9 +46,6 @@
 struct qemu_data {
   char *qemu_help;              /* Output of qemu -help. */
   char *qemu_devices;           /* Output of qemu -device ? */
-
-  int virtio_scsi;              /* See function
-                                   guestfs_int_qemu_supports_virtio_scsi */
 };
 
 static int test_qemu (guestfs_h *g, struct qemu_data *data, struct version *qemu_version);
@@ -301,50 +298,6 @@ guestfs_int_qemu_supports_device (guestfs_h *g,
                                   const char *device_name)
 {
   return strstr (data->qemu_devices, device_name) != NULL;
-}
-
-static int
-old_or_broken_virtio_scsi (const struct version *qemu_version)
-{
-  /* qemu 1.1 claims to support virtio-scsi but in reality it's broken. */
-  if (!guestfs_int_version_ge (qemu_version, 1, 2, 0))
-    return 1;
-
-  return 0;
-}
-
-/**
- * Test if qemu supports virtio-scsi.
- *
- * Returns C<1> = use virtio-scsi, or C<0> = use virtio-blk.
- */
-int
-guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *data,
-                                       const struct version *qemu_version)
-{
-  int r;
-
-  /* data->virtio_scsi has these values:
-   *   0 = untested (after handle creation)
-   *   1 = supported
-   *   2 = not supported (use virtio-blk)
-   *   3 = test failed (use virtio-blk)
-   */
-  if (data->virtio_scsi == 0) {
-    if (old_or_broken_virtio_scsi (qemu_version))
-      data->virtio_scsi = 2;
-    else {
-      r = guestfs_int_qemu_supports_device (g, data, VIRTIO_SCSI);
-      if (r > 0)
-        data->virtio_scsi = 1;
-      else if (r == 0)
-        data->virtio_scsi = 2;
-      else
-        data->virtio_scsi = 3;
-    }
-  }
-
-  return data->virtio_scsi == 1;
 }
 
 /**
