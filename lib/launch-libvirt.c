@@ -1661,9 +1661,31 @@ construct_libvirt_xml_disk_address (guestfs_h *g, xmlTextWriterPtr xo,
 {
   start_element ("address") {
     attribute ("type", "drive");
+
+    /* "controller" refers back to <controller type=scsi index=0
+     * model=virtio-scsi/> which was added above.
+     *
+     * We could add more controllers, but it's a little inflexible
+     * since each would require a PCI slot and we'd have to decide in
+     * advance how many controllers to add, so best to leave this as 0.
+     */
     attribute ("controller", "0");
+
+    /* libvirt "bus" == qemu "channel".  virtio-scsi in qemu only uses
+     * the channel for spapr_vscsi, and enforces channel=0 on all
+     * other platforms.  You cannot change this.
+     */
     attribute ("bus", "0");
+
+    /* libvirt "target" == qemu "scsi-id" (internally in the qemu
+     * virtio-scsi driver, this is the ".id" field).  This is a number
+     * in the range 0-255.
+     */
     attribute_format ("target", "%zu", drv_index);
+
+    /* libvirt "unit" == qemu "lun".  This is the SCSI logical unit
+     * number, which is a number in the range 0..16383.
+     */
     attribute ("unit", "0");
   } end_element ();
 
@@ -2223,6 +2245,9 @@ selinux_warning (guestfs_h *g, const char *func,
 static int
 max_disks_libvirt (guestfs_h *g, void *datav)
 {
+  /* target is in the range 0-255, but one target is reserved for the
+   * appliance.
+   */
   return 255;
 }
 
