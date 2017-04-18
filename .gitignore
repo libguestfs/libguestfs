@@ -560,6 +560,7 @@ Makefile.in
 /tests/c-api/test-user-cancel
 /tests/charsets/test-charset-fidelity
 /tests/daemon/captive-daemon.pm
+/tests/disks/test-add-disks
 /tests/disks/test-qemu-drive-libvirt.xml
 /tests/events/test-libvirt-auth-callbacks
 /tests/mount-local/test-parallel-mount-local

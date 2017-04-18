@@ -17,17 +17,48 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+TESTS_ENVIRONMENT = \
+	$(top_builddir)/run --test
+
 TESTS = \
-	test-max-disks.pl \
 	test-qemu-drive.sh
 
 if HAVE_LIBVIRT
 TESTS += \
 	test-qemu-drive-libvirt.sh
+
+if ENABLE_APPLIANCE
+TESTS += \
+	test-27-disks.sh \
+	test-255-disks.sh \
+	test-add-lots-of-disks.sh
+endif
 endif
 
-TESTS_ENVIRONMENT = \
-	$(top_builddir)/run --test
+SLOW_TESTS = \
+	test-max-disks.sh
+
+TESTS += \
+	$(SLOW_TESTS)
+
+check-slow:
+	$(MAKE) check TESTS="$(SLOW_TESTS)" SLOW=1
+
+check_PROGRAMS = test-add-disks
+
+test_add_disks_SOURCES = \
+	test-add-disks.c
+test_add_disks_CPPFLAGS = \
+	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
+	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
+test_add_disks_CFLAGS = \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_add_disks_LDADD = \
+	$(top_builddir)/common/utils/libutils.la \
+	$(top_builddir)/lib/libguestfs.la \
+	$(top_builddir)/gnulib/lib/libgnu.la \
+	$(LIBXML2_LIBS)
 
 EXTRA_DIST = \
 	debug-qemu.sh \
