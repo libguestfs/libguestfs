@@ -125,12 +125,15 @@ foreach_block_device (block_dev_func_t func, bool return_md)
 static int
 add_device (const char *device, struct stringsbuf *r)
 {
-  char dev_path[256];
-  snprintf (dev_path, sizeof dev_path, "/dev/%s", device);
+  char *dev_path;
 
-  if (add_string (r, dev_path) == -1) {
+  if (asprintf (&dev_path, "/dev/%s", device) == -1) {
+    reply_with_perror ("asprintf");
     return -1;
   }
+
+  if (add_string_nodup (r, dev_path) == -1)
+    return -1;
 
   return 0;
 }
@@ -153,10 +156,13 @@ do_list_devices (void)
 static int
 add_partitions (const char *device, struct stringsbuf *r)
 {
-  char devdir[256];
+  CLEANUP_FREE char *devdir = NULL;
 
   /* Open the device's directory under /sys/block */
-  snprintf (devdir, sizeof devdir, "/sys/block/%s", device);
+  if (asprintf (&devdir, "/sys/block/%s", device) == -1) {
+    reply_with_perror ("asprintf");
+    return -1;
+  }
 
   DIR *dir = opendir (devdir);
   if (!dir) {
