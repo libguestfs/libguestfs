@@ -32,6 +32,8 @@
 #ifndef GUESTFS_INTERNAL_ALL_H_
 #define GUESTFS_INTERNAL_ALL_H_
 
+#include <string.h>
+
 /* This is also defined in <guestfs.h>, so don't redefine it. */
 #if defined(__GNUC__) && !defined(GUESTFS_GCC_VERSION)
 # define GUESTFS_GCC_VERSION \
@@ -91,18 +93,20 @@
 
 /* Return true iff the buffer is all zero bytes.
  *
- * Note that gcc is smart enough to optimize this properly:
- * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
+ * The clever approach here was suggested by Eric Blake.  See:
+ * https://www.redhat.com/archives/libguestfs/2017-April/msg00171.html
  */
 static inline int
 is_zero (const char *buffer, size_t size)
 {
   size_t i;
+  const size_t limit = MIN (size, 16);
 
-  for (i = 0; i < size; ++i) {
-    if (buffer[i] != 0)
+  for (i = 0; i < limit; ++i)
+    if (buffer[i])
       return 0;
-  }
+  if (size != limit)
+    return !memcmp (buffer, buffer + 16, size - 16);
 
   return 1;
 }
