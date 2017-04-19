@@ -409,24 +409,6 @@ parse_indexes (value filenamev, int fd)
   return combined_index;
 }
 
-/* Return true iff the buffer is all zero bytes.
- *
- * Note that gcc is smart enough to optimize this properly:
- * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
- */
-static inline int
-is_zero (const unsigned char *buffer, size_t size)
-{
-  size_t i;
-
-  for (i = 0; i < size; ++i) {
-    if (buffer[i] != 0)
-      return 0;
-  }
-
-  return 1;
-}
-
 struct global_state {
   /* Current iterator.  Threads update this, but it is protected by a
    * mutex, and each thread takes a copy of it when working on it.
@@ -681,7 +663,7 @@ worker_thread (void *vp)
         /* Don't write if the block is all zero, to preserve output file
          * sparseness.  However we have to update oposition.
          */
-        if (!is_zero (outbuf, wsz)) {
+        if (!is_zero ((char *) outbuf, wsz)) {
           if (xpwrite (global->ofd, outbuf, wsz, oposition) == -1) {
             perror (global->outputfile);
             return &state->status;

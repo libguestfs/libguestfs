@@ -89,6 +89,24 @@
 #define xdr_uint32_t xdr_u_int32_t
 #endif
 
+/* Return true iff the buffer is all zero bytes.
+ *
+ * Note that gcc is smart enough to optimize this properly:
+ * http://stackoverflow.com/questions/1493936/faster-means-of-checking-for-an-empty-buffer-in-c/1493989#1493989
+ */
+static inline int
+is_zero (const char *buffer, size_t size)
+{
+  size_t i;
+
+  for (i = 0; i < size; ++i) {
+    if (buffer[i] != 0)
+      return 0;
+  }
+
+  return 1;
+}
+
 /* Macro which compiles the regexp once when the program/library is
  * loaded, and frees it when the library is unloaded.
  */
