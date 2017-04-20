@@ -251,7 +251,7 @@ do_command (char *const *argv)
     { .mounted = false };
 
   /* We need a root filesystem mounted to do this. */
-  NEED_ROOT (, return NULL);
+  NEED_ROOT (0, return NULL);
 
   /* Conveniently, argv is already a NULL-terminated argv-style array
    * of parameters, so we can pass it straight in to our internal

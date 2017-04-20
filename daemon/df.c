@@ -36,7 +36,7 @@ do_df (void)
   char *out;
   CLEANUP_FREE char *err = NULL;
 
-  NEED_ROOT (, return NULL);
+  NEED_ROOT (0, return NULL);
 
   r = command (&out, &err, str_df, NULL);
   if (r == -1) {
@@ -55,7 +55,7 @@ do_df_h (void)
   char *out;
   CLEANUP_FREE char *err = NULL;
 
-  NEED_ROOT (, return NULL);
+  NEED_ROOT (0, return NULL);
 
   r = command (&out, &err, str_df, "-h", NULL);
   if (r == -1) {

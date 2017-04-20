@@ -349,8 +349,8 @@ do_hivex_commit (const char *filename)
     /* There is no "OptPathname" in the generator, so we have
      * to do the pathname checks explicitly here.  RHBZ#981683
      */
-    ABS_PATH (filename, , return -1);
-    NEED_ROOT (, return -1);
+    ABS_PATH (filename, 0, return -1);
+    NEED_ROOT (0, return -1);
 
     buf = sysroot_path (filename);
     if (!buf) {
