@@ -82,7 +82,7 @@ do_inotify_init (int max_events)
 {
   FILE *fp;
 
-  NEED_ROOT (, return -1);
+  NEED_ROOT (0, return -1);
 
   if (max_events < 0) {
     reply_with_error ("max_events < 0");

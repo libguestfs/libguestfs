@@ -180,7 +180,7 @@ do_mount_9p (const char *mount_tag, const char *mountpoint, const char *options)
   struct stat statbuf;
   int r;
 
-  ABS_PATH (mountpoint, , return -1);
+  ABS_PATH (mountpoint, 0, return -1);
 
   mp = sysroot_path (mountpoint);
   if (!mp) {

@@ -127,7 +127,7 @@ do_mount_vfs (const char *options, const char *vfstype,
   CLEANUP_FREE char *mp = NULL;
   struct stat statbuf;
 
-  ABS_PATH (mountpoint, , return -1);
+  ABS_PATH (mountpoint, 0, return -1);
 
   mp = sysroot_path (mountpoint);
   if (!mp) {
@@ -498,8 +498,8 @@ do_mkmountpoint (const char *path)
 {
   int r;
 
-  /* NEED_ROOT (return -1); - we don't want this test for this call. */
-  ABS_PATH (path, , return -1);
+  /* NEED_ROOT (0, return -1); - we don't want this test for this call. */
+  ABS_PATH (path, 0, return -1);
 
   CHROOT_IN;
   r = mkdir (path, 0777);
@@ -518,8 +518,8 @@ do_rmmountpoint (const char *path)
 {
   int r;
 
-  /* NEED_ROOT (return -1); - we don't want this test for this call. */
-  ABS_PATH (path, , return -1);
+  /* NEED_ROOT (0, return -1); - we don't want this test for this call. */
+  ABS_PATH (path, 0, return -1);
 
   CHROOT_IN;
   r = rmdir (path);

@@ -327,26 +327,22 @@ extern void pulse_mode_cancel (void);
  */
 extern void notify_progress_no_ratelimit (uint64_t position, uint64_t total, const struct timeval *now);
 
-/* Helper for functions that need a root filesystem mounted.
- * NB. Cannot be used for FileIn functions.
- */
-#define NEED_ROOT(cancel_stmt,fail_stmt)                                \
+/* Helper for functions that need a root filesystem mounted. */
+#define NEED_ROOT(is_filein,fail_stmt)                                  \
   do {									\
     if (!is_root_mounted ()) {						\
-      cancel_stmt;                                                      \
+      if (is_filein) cancel_receive ();                                 \
       reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
       fail_stmt;							\
     }									\
   }									\
   while (0)
 
-/* Helper for functions that need an argument ("path") that is absolute.
- * NB. Cannot be used for FileIn functions.
- */
-#define ABS_PATH(path,cancel_stmt,fail_stmt)                            \
+/* Helper for functions that need an argument ("path") that is absolute. */
+#define ABS_PATH(path,is_filein,fail_stmt)                              \
   do {									\
     if ((path)[0] != '/') {						\
-      cancel_stmt;                                                      \
+      if (is_filein) cancel_receive ();                                 \
       reply_with_error ("%s: path must start with a / character", __func__); \
       fail_stmt;							\
     }									\
