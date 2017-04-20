@@ -1697,37 +1697,13 @@ developer to program in confidence against the libguestfs API.
 
 =head2 BLOCK DEVICE NAMING
 
-In the kernel there is now quite a profusion of schemata for naming
-block devices (in this context, by I<block device> I mean a physical
-or virtual hard drive).  The original Linux IDE driver used names
-starting with F</dev/hd*>.  SCSI devices have historically used a
-different naming scheme, F</dev/sd*>.  When the Linux kernel I<libata>
-driver became a popular replacement for the old IDE driver
-(particularly for SATA devices) those devices also used the
-F</dev/sd*> scheme.  Additionally we now have virtual machines with
-paravirtualized drivers.  This has created several different naming
-systems, such as F</dev/vd*> for virtio disks and F</dev/xvd*> for Xen
-PV disks.
+Libguestfs defines F</dev/sd*> as the I<standard naming scheme> for
+devices passed to API calls.  So F</dev/sda> means "the first device
+added by L</guestfs_add_drive_opts>", and F</dev/sdb3> means "the
+third partition on the second device".
 
-As discussed above, libguestfs uses a qemu appliance running an
-embedded Linux kernel to access block devices.  We can run a variety
-of appliances based on a variety of Linux kernels.
-
-This causes a problem for libguestfs because many API calls use device
-or partition names.  Working scripts and the recipe (example) scripts
-that we make available over the internet could fail if the naming
-scheme changes.
-
-Therefore libguestfs defines F</dev/sd*> as the I<standard naming
-scheme>.  Internally F</dev/sd*> names are translated, if necessary,
-to other names as required.  For example, under RHEL 5 which uses the
-F</dev/hd*> scheme, any device parameter F</dev/sda2> is translated to
-F</dev/hda2> transparently.
-
-Note that this I<only> applies to parameters.  The
-L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
-return the true names of the devices and partitions as known to the
-appliance, but see L</guestfs_canonical_device_name>.
+Internally device names are sometimes translated, but this should not
+be visible at the API level.
 
 =head3 DISK LABELS
 
@@ -1745,78 +1721,9 @@ Partitions on the disk can be addressed using
 F</dev/disk/guestfs/I<label>I<partnum>>.
 
 Listing devices (L</guestfs_list_devices>) and partitions
-(L</guestfs_list_partitions>) returns the raw block device name.
-However you can use L</guestfs_list_disk_labels> to map disk labels
-to raw block device and partition names.
-
-=head3 ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION
-
-Usually this translation is transparent.  However in some (very rare)
-cases you may need to know the exact algorithm.  Such cases include
-where you use L</guestfs_config> to add a mixture of virtio and IDE
-devices to the qemu-based appliance, so have a mixture of F</dev/sd*>
-and F</dev/vd*> devices.
-
-The algorithm is applied only to I<parameters> which are known to be
-either device or partition names.  Return values from functions such
-as L</guestfs_list_devices> are never changed.
-
-=over 4
-
-=item *
-
-Is the string a parameter which is a device or partition name?
-
-=item *
-
-Does the string begin with F</dev/sd>?
-
-=item *
-
-Does the named device exist?  If so, we use that device.
-However if I<not> then we continue with this algorithm.
-
-=item *
-
-Replace initial F</dev/sd> string with F</dev/hd>.
-
-For example, change F</dev/sda2> to F</dev/hda2>.
-
-If that named device exists, use it.  If not, continue.
-
-=item *
-
-Replace initial F</dev/sd> string with F</dev/vd>.
-
-If that named device exists, use it.  If not, return an error.
-
-=back
-
-=head3 PORTABILITY CONCERNS WITH BLOCK DEVICE NAMING
-
-Although the standard naming scheme and automatic translation is
-useful for simple programs and guestfish scripts, for larger programs
-it is best not to rely on this mechanism.
-
-Where possible for maximum future portability programs using
-libguestfs should use these future-proof techniques:
-
-=over 4
-
-=item *
-
-Use L</guestfs_list_devices> or L</guestfs_list_partitions> to list
-actual device names, and then use those names directly.
-
-Since those device names exist by definition, they will never be
-translated.
-
-=item *
-
-Use higher level ways to identify filesystems, such as LVM names,
-UUIDs and filesystem labels.
-
-=back
+(L</guestfs_list_partitions>) returns the block device names.  However
+you can use L</guestfs_list_disk_labels> to map disk labels to block
+device and partition names.
 
 =head2 NULL DISKS
 

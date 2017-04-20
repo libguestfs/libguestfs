@@ -948,8 +948,7 @@ print_arginfo (const struct printf_info *info, size_t n, int *argtypes)
 #endif
 
 /**
- * Perform device name translation.  See L<guestfs(3)> for the
- * algorithm.  Usually you should not call this directly.
+ * Perform device name translation.
  *
  * It returns a newly allocated string which the caller must free.
  *
