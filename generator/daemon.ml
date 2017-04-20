@@ -284,7 +284,7 @@ let generate_daemon_stubs actions () =
         if is_filein then
           pr "    cancel_receive ();\n";
         pr "    reply_with_unavailable_feature (\"%s\");\n" group;
-        pr "    goto done_no_free;\n";
+        pr "    return;\n";
         pr "  }\n";
         pr "\n"
       | None -> ()
@@ -302,14 +302,14 @@ let generate_daemon_stubs actions () =
         if is_filein then
           pr "    cancel_receive ();\n";
         pr "    reply_with_error (\"unknown option in optional arguments bitmask (this can happen if a program is compiled against a newer version of libguestfs, then run against an older version of the daemon)\");\n";
-        pr "    goto done_no_free;\n";
+        pr "    return;\n";
         pr "  }\n";
       ) else (
         pr "  if (optargs_bitmask != 0) {\n";
         if is_filein then
           pr "    cancel_receive ();\n";
         pr "    reply_with_error (\"header optargs_bitmask field must be passed as 0 for calls that don't take optional arguments\");\n";
-        pr "    goto done_no_free;\n";
+        pr "    return;\n";
         pr "  }\n";
       );
       pr "\n";
@@ -499,15 +499,13 @@ let generate_daemon_stubs actions () =
       );
 
       (* Free the args. *)
-      pr "done:\n";
+      pr "done: ;\n";
       (match args_passed_to_daemon with
        | [] -> ()
        | _ ->
            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
              name
       );
-      pr "done_no_free:\n";
-      pr "  return;\n";
       pr "}\n\n";
   ) (actions |> daemon_functions |> sort)
 
