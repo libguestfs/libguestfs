@@ -154,6 +154,7 @@ guestfsd_SOURCES = \
 	stubs-5.c \
 	stubs-6.c \
 	stubs.h \
+	stubs-macros.h \
 	swap.c \
 	sync.c \
 	syslinux.c \
