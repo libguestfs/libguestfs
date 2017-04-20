@@ -225,6 +225,33 @@ let generate_daemon_stubs actions () =
   List.iter (
     fun { name = name; style = ret, args, optargs; optional = optional } ->
       (* Generate server-side stubs. *)
+      let uc_name = String.uppercase_ascii name in
+
+      let args_passed_to_daemon = args @ args_of_optargs optargs in
+      let args_passed_to_daemon =
+        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+          args_passed_to_daemon in
+
+      if args_passed_to_daemon <> [] then (
+        pr "#ifdef HAVE_ATTRIBUTE_CLEANUP\n";
+        pr "\n";
+        pr "#define CLEANUP_XDR_FREE_%s_ARGS \\\n" uc_name;
+        pr "    __attribute__((cleanup(cleanup_xdr_free_%s_args)))\n" name;
+        pr "\n";
+        pr "static void\n";
+        pr "cleanup_xdr_free_%s_args (struct guestfs_%s_args *argsp)\n"
+           name name;
+        pr "{\n";
+        pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) argsp);\n"
+           name;
+        pr "}\n";
+        pr "\n";
+        pr "#else /* !HAVE_ATTRIBUTE_CLEANUP */\n";
+        pr "#define CLEANUP_XDR_FREE_%s_ARGS\n" uc_name;
+        pr "#endif /* !HAVE_ATTRIBUTE_CLEANUP */\n";
+        pr "\n"
+      );
+
       pr "void\n";
       pr "%s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
@@ -243,12 +270,10 @@ let generate_daemon_stubs actions () =
            pr "  char *r;\n"
       );
 
-      let args_passed_to_daemon = args @ args_of_optargs optargs in
-      let args_passed_to_daemon =
-        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
-          args_passed_to_daemon in
       if args_passed_to_daemon <> [] then (
-        pr "  struct guestfs_%s_args args;\n" name;
+        pr "  CLEANUP_XDR_FREE_%s_ARGS struct guestfs_%s_args args;\n"
+           uc_name name;
+        pr "  memset (&args, 0, sizeof args);\n";
         List.iter (
           function
           | Device n | Dev_or_Path n ->
@@ -316,8 +341,6 @@ let generate_daemon_stubs actions () =
 
       (* Decode arguments. *)
       if args_passed_to_daemon <> [] then (
-        pr "  memset (&args, 0, sizeof args);\n";
-        pr "\n";
         pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
         if is_filein then
           pr "    cancel_receive ();\n";
@@ -498,14 +521,7 @@ let generate_daemon_stubs actions () =
             pr "  free (r);\n"
       );
 
-      (* Free the args. *)
       pr "done: ;\n";
-      (match args_passed_to_daemon with
-       | [] -> ()
-       | _ ->
-           pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
-             name
-      );
       pr "}\n\n";
   ) (actions |> daemon_functions |> sort)
 
