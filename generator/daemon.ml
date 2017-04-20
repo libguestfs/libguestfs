@@ -345,7 +345,7 @@ let generate_daemon_stubs actions () =
         if is_filein then
           pr "    cancel_receive ();\n";
         pr "    reply_with_error (\"daemon failed to decode procedure arguments\");\n";
-        pr "    goto done;\n";
+        pr "    return;\n";
         pr "  }\n";
         let pr_args n =
           pr "  %s = args.%s;\n" n n
@@ -354,19 +354,19 @@ let generate_daemon_stubs actions () =
           function
           | Pathname n ->
               pr_args n;
-              pr "  ABS_PATH (%s, %s, goto done);\n"
+              pr "  ABS_PATH (%s, %s, return);\n"
                 n (if is_filein then "cancel_receive ()" else "");
           | Device n ->
-              pr "  RESOLVE_DEVICE (args.%s, %s, %s, goto done);\n"
+              pr "  RESOLVE_DEVICE (args.%s, %s, %s, return);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Mountable n ->
-              pr "  RESOLVE_MOUNTABLE (args.%s, %s, %s, goto done);\n"
+              pr "  RESOLVE_MOUNTABLE (args.%s, %s, %s, return);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Dev_or_Path n ->
-              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (args.%s, %s, %s, goto done);\n"
+              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (args.%s, %s, %s, return);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Mountable_or_Path n ->
-              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %s, goto done);\n"
+              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %s, return);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | String n | Key n | GUID n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
@@ -381,7 +381,7 @@ let generate_daemon_stubs actions () =
                 pr "        cancel_receive ();\n";
               pr "        reply_with_error (\"%%s: '%%s' is not a file name\", __func__, args.%s.%s_val[i]);\n"
                 n n;
-              pr "        goto done;\n";
+              pr "        return;\n";
               pr "      }\n";
               pr "    }\n";
               pr "  }\n"
@@ -394,7 +394,7 @@ let generate_daemon_stubs actions () =
             if is_filein then
               pr "    cancel_receive ();\n";
             pr "    reply_with_perror (\"realloc\");\n";
-            pr "    goto done;\n";
+            pr "    return;\n";
             pr "  }\n";
             pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
             pr "  args.%s.%s_val = %s;\n" n n n
@@ -407,7 +407,7 @@ let generate_daemon_stubs actions () =
             pr "    size_t i;\n";
             pr "    for (i = 0; i < args.%s.%s_len; ++i)\n" n n;
             pr "      RESOLVE_DEVICE (args.%s.%s_val[i], %s[i],\n" n n n;
-            pr "                      %s, goto done);\n"
+            pr "                      %s, return);\n"
               (if is_filein then "cancel_receive ()" else "");
             pr "    %s[i] = NULL;\n" n;
             pr "  }\n"
@@ -426,7 +426,7 @@ let generate_daemon_stubs actions () =
       if List.exists (function Pathname _ -> true | _ -> false) args then (
         (* Emit NEED_ROOT just once, even when there are two or
            more Pathname args *)
-        pr "  NEED_ROOT (%s, goto done);\n"
+        pr "  NEED_ROOT (%s, return);\n"
           (if is_filein then "cancel_receive ()" else "");
       );
 
@@ -454,7 +454,7 @@ let generate_daemon_stubs actions () =
              | (`ErrorIsMinusOne | `ErrorIsNULL) as e -> e in
            pr "  if (r == %s)\n" (string_of_errcode errcode);
            pr "    /* do_%s has already called reply_with_error */\n" name;
-           pr "    goto done;\n";
+           pr "    return;\n";
            pr "\n"
        | RBufferOut _ ->
            pr "  /* size == 0 && r == NULL could be a non-error case (just\n";
@@ -462,7 +462,7 @@ let generate_daemon_stubs actions () =
            pr "   */\n";
            pr "  if (size == 1 && r == NULL)\n";
            pr "    /* do_%s has already called reply_with_error */\n" name;
-           pr "    goto done;\n";
+           pr "    return;\n";
            pr "\n"
       );
 
@@ -520,8 +520,6 @@ let generate_daemon_stubs actions () =
               name;
             pr "  free (r);\n"
       );
-
-      pr "done: ;\n";
       pr "}\n\n";
   ) (actions |> daemon_functions |> sort)
 
