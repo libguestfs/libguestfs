@@ -91,17 +91,17 @@ let generate_daemon_stubs_h () =
  *
  * NB. Cannot be used for FileIn functions.
  */
-#define RESOLVE_DEVICE(path,path_out,cancel_stmt,fail_stmt)             \\
+#define RESOLVE_DEVICE(path,path_out,cancel_stmt)                       \\
   do {									\\
     if (STRNEQLEN ((path), \"/dev/\", 5)) {				\\
       cancel_stmt;                                                      \\
       reply_with_error (\"%%s: %%s: expecting a device name\", __func__, (path)); \\
-      fail_stmt;							\\
+      return;							        \\
     }									\\
     if (is_root_device (path)) {                                        \\
       cancel_stmt;                                                      \\
       reply_with_error (\"%%s: %%s: device not found\", __func__, path);    \\
-      fail_stmt;                                                        \\
+      return;                                                           \\
     }                                                                   \\
     (path_out) = device_name_translation ((path));                      \\
     if ((path_out) == NULL) {                                           \\
@@ -109,7 +109,7 @@ let generate_daemon_stubs_h () =
       cancel_stmt;                                                      \\
       errno = err;                                                      \\
       reply_with_perror (\"%%s: %%s\", __func__, path);                     \\
-      fail_stmt;							\\
+      return;							        \\
     }                                                                   \\
   } while (0)
 
@@ -120,7 +120,7 @@ let generate_daemon_stubs_h () =
  *
  * Note that the \"string\" argument may be modified.
  */
-#define RESOLVE_MOUNTABLE(string,mountable,cancel_stmt,fail_stmt)       \\
+#define RESOLVE_MOUNTABLE(string,mountable,cancel_stmt)                 \\
   do {                                                                  \\
     if (STRPREFIX ((string), \"btrfsvol:\")) {                            \\
       if (parse_btrfsvol ((string) + strlen (\"btrfsvol:\"), &(mountable)) == -1)\\
@@ -128,14 +128,14 @@ let generate_daemon_stubs_h () =
         cancel_stmt;                                                    \\
         reply_with_error (\"%%s: %%s: expecting a btrfs volume\",           \\
                           __func__, (string));                          \\
-        fail_stmt;                                                      \\
+        return;                                                         \\
       }                                                                 \\
     }                                                                   \\
     else {                                                              \\
       (mountable).type = MOUNTABLE_DEVICE;                              \\
       (mountable).device = NULL;                                        \\
       (mountable).volume = NULL;                                        \\
-      RESOLVE_DEVICE ((string), (mountable).device, cancel_stmt, fail_stmt); \\
+      RESOLVE_DEVICE ((string), (mountable).device, cancel_stmt);       \\
     }                                                                   \\
   } while (0)
 
@@ -149,18 +149,18 @@ let generate_daemon_stubs_h () =
  * because we intend in future to make device parameters a distinct
  * type from filenames.
  */
-#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,path_out,cancel_stmt,fail_stmt) \\
+#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,path_out,cancel_stmt)       \\
   do {									\\
     if (STREQLEN ((path), \"/dev/\", 5))                                  \\
-      RESOLVE_DEVICE ((path), (path_out), cancel_stmt, fail_stmt);      \\
+      RESOLVE_DEVICE ((path), (path_out), cancel_stmt);                 \\
     else {								\\
-      NEED_ROOT (cancel_stmt, fail_stmt);                               \\
-      ABS_PATH ((path), cancel_stmt, fail_stmt);                        \\
+      NEED_ROOT (cancel_stmt, return);                                  \\
+      ABS_PATH ((path), cancel_stmt, return);                           \\
       (path_out) = strdup ((path));                                     \\
       if ((path_out) == NULL) {                                         \\
         cancel_stmt;                                                    \\
         reply_with_perror (\"strdup\");                                   \\
-        fail_stmt;                                                      \\
+        return;                                                         \\
       }                                                                 \\
     }									\\
   } while (0)
@@ -168,14 +168,13 @@ let generate_daemon_stubs_h () =
 /* Helper for functions which need either an absolute path in the
  * mounted filesystem, OR a valid mountable description.
  */
-#define REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(string, mountable,            \\
-                                          cancel_stmt, fail_stmt)       \\
+#define REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(string, mountable, cancel_stmt) \\
   do {                                                                  \\
     if (STRPREFIX ((string), \"/dev/\") || (string)[0] != '/') {\\
-      RESOLVE_MOUNTABLE (string, mountable, cancel_stmt, fail_stmt);    \\
+      RESOLVE_MOUNTABLE (string, mountable, cancel_stmt);               \\
     }                                                                   \\
     else {                                                              \\
-      NEED_ROOT (cancel_stmt, fail_stmt);                               \\
+      NEED_ROOT (cancel_stmt, return);                                  \\
       /* NB: It's a path, not a device. */                              \\
       (mountable).type = MOUNTABLE_PATH;                                \\
       (mountable).device = strdup ((string));                           \\
@@ -183,7 +182,7 @@ let generate_daemon_stubs_h () =
       if ((mountable).device == NULL) {                                 \\
         cancel_stmt;                                                    \\
         reply_with_perror (\"strdup\");                                   \\
-        fail_stmt;                                                      \\
+        return;                                                         \\
       }                                                                 \\
     }                                                                   \\
   } while (0)                                                           \\
@@ -357,16 +356,16 @@ let generate_daemon_stubs actions () =
               pr "  ABS_PATH (%s, %s, return);\n"
                 n (if is_filein then "cancel_receive ()" else "");
           | Device n ->
-              pr "  RESOLVE_DEVICE (args.%s, %s, %s, return);\n"
+              pr "  RESOLVE_DEVICE (args.%s, %s, %s);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Mountable n ->
-              pr "  RESOLVE_MOUNTABLE (args.%s, %s, %s, return);\n"
+              pr "  RESOLVE_MOUNTABLE (args.%s, %s, %s);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Dev_or_Path n ->
-              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (args.%s, %s, %s, return);\n"
+              pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (args.%s, %s, %s);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | Mountable_or_Path n ->
-              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %s, return);\n"
+              pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %s);\n"
                 n n (if is_filein then "cancel_receive ()" else "");
           | String n | Key n | GUID n -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
@@ -407,7 +406,7 @@ let generate_daemon_stubs actions () =
             pr "    size_t i;\n";
             pr "    for (i = 0; i < args.%s.%s_len; ++i)\n" n n;
             pr "      RESOLVE_DEVICE (args.%s.%s_val[i], %s[i],\n" n n n;
-            pr "                      %s, return);\n"
+            pr "                      %s);\n"
               (if is_filein then "cancel_receive ()" else "");
             pr "    %s[i] = NULL;\n" n;
             pr "  }\n"
