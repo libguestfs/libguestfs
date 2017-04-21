@@ -154,6 +154,29 @@ let () =
       List.iter check_arg_type args;
   ) (actions |> daemon_functions);
 
+  (* Some String/stringt and StringList/stringt combinations are
+   * not permitted.
+   *)
+  List.iter (
+    fun { name = name; style = _, args, _ } ->
+      let check_arg_type = function
+        (* Previously only DeviceList and FilenameList were special list
+         * types.  We could permit more here in future.
+         *)
+        | StringList (FileIn, _)
+        | StringList (FileOut, _)
+        | StringList (Mountable, _)
+        | StringList (Pathname, _)
+        | StringList (Dev_or_Path, _)
+        | StringList (Mountable_or_Path, _)
+        | StringList (Key, _)
+        | StringList (GUID, _) ->
+           failwithf "StringList (t, _) is not permitted for %s." name
+        | _ -> ()
+      in
+      List.iter check_arg_type args
+  ) actions;
+
   (* Check short descriptions. *)
   List.iter (
     fun { name = name; shortdesc = shortdesc } ->
