@@ -38,7 +38,7 @@ not part of the formal API and can be removed or changed at any time." };
 let daemon_functions = [
   { defaults with
     name = "debug"; added = (1, 0, 11);
-    style = RString "result", [String "subcmd"; StringList "extraargs"], [];
+    style = RString "result", [String (PlainString, "subcmd"); StringList (PlainString, "extraargs")], [];
     visibility = VDebug;
     shortdesc = "debugging and internals";
     longdesc = "\
@@ -52,7 +52,7 @@ to find out what you can do." };
 
   { defaults with
     name = "debug_upload"; added = (1, 3, 5);
-    style = RErr, [FileIn "filename"; String "tmpname"; Int "mode"], [];
+    style = RErr, [String (FileIn, "filename"); String (PlainString, "tmpname"); Int "mode"], [];
     visibility = VDebug;
     cancellable = true;
     shortdesc = "upload a file to the appliance (internal use only)";

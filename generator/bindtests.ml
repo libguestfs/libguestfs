@@ -153,13 +153,7 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
 
       List.iter (
         function
-        | Pathname n
-        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
-        | String n
-        | FileIn n
-        | FileOut n
-        | Key n
-        | GUID n -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
+        | String (_, n) -> pr "  fprintf (fp, \"%%s\\n\", %s);\n" n
         | BufferIn n ->
           pr "  {\n";
           pr "    size_t i;\n";
@@ -167,10 +161,12 @@ fill_lvm_pv (guestfs_h *g, struct guestfs_lvm_pv *pv, size_t i)
           pr "      fprintf (fp, \"<%%02x>\", (unsigned) %s[i]);\n" n;
           pr "    fprintf (fp, \"\\n\");\n";
           pr "  }\n";
-        | OptString n -> pr "  fprintf (fp, \"%%s\\n\", %s ? %s : \"null\");\n" n n
-        | StringList n | DeviceList n | FilenameList n ->
+        | OptString n ->
+           pr "  fprintf (fp, \"%%s\\n\", %s ? %s : \"null\");\n" n n
+        | StringList (_, n) ->
           pr "  print_strings (g, %s);\n" n
-        | Bool n -> pr "  fprintf (fp, \"%%s\\n\", %s ? \"true\" : \"false\");\n" n
+        | Bool n ->
+           pr "  fprintf (fp, \"%%s\\n\", %s ? \"true\" : \"false\");\n" n
         | Int n -> pr "  fprintf (fp, \"%%d\\n\", %s);\n" n
         | Int64 n -> pr "  fprintf (fp, \"%%\" PRIi64 \"\\n\", %s);\n" n
         | Pointer _ -> assert false

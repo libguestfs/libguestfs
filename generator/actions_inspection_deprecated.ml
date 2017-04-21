@@ -25,7 +25,7 @@ open Types
 let non_daemon_functions = [
   { defaults with
     name = "inspect_list_applications"; added = (1, 7, 8);
-    style = RStructList ("applications", "application"), [Mountable "root"], [];
+    style = RStructList ("applications", "application"), [String (Mountable, "root")], [];
     deprecated_by = Replaced_by "inspect_list_applications2";
     shortdesc = "get list of applications installed in the operating system";
     longdesc = "\

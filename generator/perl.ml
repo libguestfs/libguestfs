@@ -356,9 +356,7 @@ PREINIT:
       iteri (
         fun i ->
           function
-          | Pathname n | Device n | Mountable n
-          | Dev_or_Path n | Mountable_or_Path n | String n
-          | FileIn n | FileOut n | Key n | GUID n ->
+          | String (_, n) ->
               pr "      char *%s;\n" n
           | BufferIn n ->
               pr "      char *%s;\n" n;
@@ -369,7 +367,7 @@ PREINIT:
                * to add 1 to the ST(x) operator.
                *)
               pr "      char *%s = SvOK(ST(%d)) ? SvPV_nolen(ST(%d)) : NULL;\n" n (i+1) (i+1)
-          | StringList n | DeviceList n | FilenameList n ->
+          | StringList (_, n) ->
               pr "      char **%s;\n" n
           | Bool n -> pr "      int %s;\n" n
           | Int n -> pr "      int %s;\n" n
@@ -511,12 +509,11 @@ PREINIT:
       (* Cleanup any arguments. *)
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _
-        | Dev_or_Path _ | Mountable_or_Path _ | String _
-        | OptString _ | Bool _ | Int _ | Int64 _
-        | FileIn _ | FileOut _
-        | BufferIn _ | Key _ | Pointer _ | GUID _ -> ()
-        | StringList n | DeviceList n | FilenameList n ->
+        | String _ | OptString _
+        | Bool _ | Int _ | Int64 _
+        | BufferIn _
+        | Pointer _ -> ()
+        | StringList (_, n) ->
             pr "      free (%s);\n" n
       ) args;
 
@@ -953,25 +950,29 @@ C<$g-E<gt>feature-available>.\n\n" opt
       );
       pr ",\n";
       let pr_type i = function
-        | Pathname n -> pr "[ '%s', 'string(path)', %d ]" n i
-        | Device n -> pr "[ '%s', 'string(device)', %d ]" n i
-        | Mountable n -> pr "[ '%s', 'string(mountable)', %d ]" n i
-        | Dev_or_Path n -> pr "[ '%s', 'string(dev_or_path)', %d ]" n i
-        | Mountable_or_Path n ->
-          pr "[ '%s', 'string(mountable_or_path)', %d ]" n i
-        | String n | GUID n -> pr "[ '%s', 'string', %d ]" n i
-        | FileIn n -> pr "[ '%s', 'string(filename)', %d ]" n i
-        | FileOut n -> pr "[ '%s', 'string(filename)', %d ]" n i
-        | Key n -> pr "[ '%s', 'string(key)', %d ]" n i
+        | String (PlainString, n) -> pr "[ '%s', 'string', %d ]" n i
+        | String (Device, n) -> pr "[ '%s', 'string(device)', %d ]" n i
+        | String (Mountable, n) -> pr "[ '%s', 'string(mountable)', %d ]" n i
+        | String (Dev_or_Path, n) ->
+           pr "[ '%s', 'string(dev_or_path)', %d ]" n i
+        | String (Mountable_or_Path, n) ->
+           pr "[ '%s', 'string(mountable_or_path)', %d ]" n i
+        | String (GUID, n) -> pr "[ '%s', 'guid', %d ]" n i
+        | String ((FileIn|FileOut), n) ->
+           pr "[ '%s', 'string(filename)', %d ]" n i
+        | String (Key, n) -> pr "[ '%s', 'string(key)', %d ]" n i
+        | String (Filename, n) -> pr "[ '%s', 'string(file)', %d ]" n i
+        | String (Pathname, n) -> pr "[ '%s', 'string(path)', %d ]" n i
         | BufferIn n -> pr "[ '%s', 'buffer', %d ]" n i
         | OptString n -> pr "[ '%s', 'nullable string', %d ]" n i
-        | StringList n -> pr "[ '%s', 'string list', %d ]" n i
-        | DeviceList n -> pr "[ '%s', 'string(device) list', %d ]" n i
+        | StringList (Device, n) -> pr "[ '%s', 'string(device) list', %d ]" n i
+        | StringList (Filename, n) ->
+           pr "[ '%s', 'string(file) list', %d ]" n i
+        | StringList (_, n) -> pr "[ '%s', 'string list', %d ]" n i
         | Bool n -> pr "[ '%s', 'bool', %d ]" n i
         | Int n -> pr "[ '%s', 'int', %d ]" n i
         | Int64 n -> pr "[ '%s', 'int64', %d ]" n i
         | Pointer (t, n) -> pr "[ '%s', 'pointer(%s)', %d ]" n t i
-        | FilenameList n -> pr "[ '%s', 'string(path) list', %d ]" n i
       in
       pr "    args => [\n";
       iteri (fun i arg ->
@@ -1125,12 +1126,11 @@ and generate_perl_prototype name (ret, args, optargs) =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | Pathname n | Device n | Mountable n
-      | Dev_or_Path n | Mountable_or_Path n | String n
-      | OptString n | Bool n | Int n | Int64 n | FileIn n | FileOut n
-      | BufferIn n | Key n | Pointer (_, n) | GUID n ->
+      | String (_, n)
+      | OptString n | Bool n | Int n | Int64 n
+      | BufferIn n | Pointer (_, n) ->
           pr "$%s" n
-      | StringList n | DeviceList n | FilenameList n ->
+      | StringList (_, n) ->
           pr "\\@%s" n
   ) args;
   List.iter (

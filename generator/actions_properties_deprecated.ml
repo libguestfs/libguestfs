@@ -99,7 +99,7 @@ see L<guestfs(3)>." };
 
   { defaults with
     name = "set_attach_method"; added = (1, 9, 8);
-    style = RErr, [String "backend"], [];
+    style = RErr, [String (PlainString, "backend")], [];
     fish_alias = ["attach-method"]; config_only = true;
     blocking = false;
     deprecated_by = Replaced_by "set_backend";

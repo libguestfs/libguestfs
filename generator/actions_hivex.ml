@@ -44,7 +44,7 @@ data." };
 let daemon_functions = [
   { defaults with
     name = "hivex_open"; added = (1, 19, 35);
-    style = RErr, [Pathname "filename"], [OBool "verbose"; OBool "debug"; OBool "write"; OBool "unsafe"];
+    style = RErr, [String (Pathname, "filename")], [OBool "verbose"; OBool "debug"; OBool "write"; OBool "unsafe"];
     optional = Some "hivex";
     tests = [
       InitScratchFS, Always, TestRun (
@@ -105,7 +105,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
 
   { defaults with
     name = "hivex_node_get_child"; added = (1, 19, 35);
-    style = RInt64 "child", [Int64 "nodeh"; String "name"], [];
+    style = RInt64 "child", [Int64 "nodeh"; String (PlainString, "name")], [];
     optional = Some "hivex";
     shortdesc = "return the named child of node";
     longdesc = "\
@@ -136,7 +136,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
 
   { defaults with
     name = "hivex_node_get_value"; added = (1, 19, 35);
-    style = RInt64 "valueh", [Int64 "nodeh"; String "key"], [];
+    style = RInt64 "valueh", [Int64 "nodeh"; String (PlainString, "key")], [];
     optional = Some "hivex";
     shortdesc = "return the named value";
     longdesc = "\
@@ -206,7 +206,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
 
   { defaults with
     name = "hivex_node_add_child"; added = (1, 19, 35);
-    style = RInt64 "nodeh", [Int64 "parent"; String "name"], [];
+    style = RInt64 "nodeh", [Int64 "parent"; String (PlainString, "name")], [];
     optional = Some "hivex";
     shortdesc = "add a child node";
     longdesc = "\
@@ -226,7 +226,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
 
   { defaults with
     name = "hivex_node_set_value"; added = (1, 19, 35);
-    style = RErr, [Int64 "nodeh"; String "key"; Int64 "t"; BufferIn "val"], [];
+    style = RErr, [Int64 "nodeh"; String (PlainString, "key"); Int64 "t"; BufferIn "val"], [];
     optional = Some "hivex";
     shortdesc = "set or replace a single value in a node";
     longdesc = "\

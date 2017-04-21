@@ -411,15 +411,9 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
   List.iter (
     function
     | OptString _, "NULL", _ -> ()
-    | Pathname _, arg, sym
-    | Device _, arg, sym
-    | Mountable _, arg, sym
-    | Dev_or_Path _, arg, sym
-    | Mountable_or_Path _, arg, sym
-    | String _, arg, sym
-    | OptString _, arg, sym
-    | Key _, arg, sym
-    | GUID _, arg, sym ->
+    | String ((Pathname|Device|Mountable|Dev_or_Path|Mountable_or_Path
+               |PlainString|Key|GUID|Filename), _), arg, sym
+    | OptString _, arg, sym ->
       pr "  const char *%s = \"%s\";\n" sym (c_quote arg);
     | BufferIn _, arg, sym ->
       pr "  const char *%s = \"%s\";\n" sym (c_quote arg);
@@ -427,16 +421,13 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
     | Int _, _, _
     | Int64 _, _, _
     | Bool _, _, _ -> ()
-    | FileIn _, arg, sym ->
+    | String (FileIn, _), arg, sym ->
       pr "  CLEANUP_FREE char *%s = substitute_srcdir (\"%s\");\n"
         sym (c_quote arg)
-    | FileOut _, _, _ -> ()
-    | StringList _, "", sym
-    | DeviceList _, "", sym ->
+    | String (FileOut, _), _, _ -> ()
+    | StringList (_, _), "", sym ->
       pr "  const char *const %s[1] = { NULL };\n" sym
-    | StringList _, arg, sym
-    | DeviceList _, arg, sym
-    | FilenameList _, arg, sym ->
+    | StringList (_, _), arg, sym ->
       let strs = String.nsplit " " arg in
       iteri (
         fun i str ->
@@ -532,20 +523,11 @@ and generate_test_command_call ?(expect_error = false) ?(do_return = true) ?test
   List.iter (
     function
     | OptString _, "NULL", _ -> pr ", NULL"
-    | Pathname _, _, sym
-    | Device _, _, sym
-    | Mountable _, _, sym
-    | Dev_or_Path _, _, sym
-    | Mountable_or_Path _, _, sym
+    | String (FileOut, _), arg, _ -> pr ", \"%s\"" (c_quote arg)
     | String _, _, sym
-    | OptString _, _, sym
-    | Key _, _, sym
-    | FileIn _, _, sym
-    | GUID _, _, sym -> pr ", %s" sym
+    | OptString _, _, sym -> pr ", %s" sym
     | BufferIn _, _, sym -> pr ", %s, %s_size" sym sym
-    | FileOut _, arg, _ -> pr ", \"%s\"" (c_quote arg)
-    | StringList _, _, sym | DeviceList _, _, sym
-    | FilenameList _, _, sym ->
+    | StringList _, _, sym ->
       pr ", (char **) %s" sym
     | Int _, arg, _ ->
       let i =

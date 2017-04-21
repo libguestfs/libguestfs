@@ -25,7 +25,7 @@ open Types
 let non_daemon_functions = [
   { defaults with
     name = "filesystem_walk"; added = (1, 33, 39);
-    style = RStructList ("dirents", "tsk_dirent"), [Mountable "device";], [];
+    style = RStructList ("dirents", "tsk_dirent"), [String (Mountable, "device");], [];
     optional = Some "libtsk";
     progress = true; cancellable = true;
     shortdesc = "walk through the filesystem content";
@@ -173,7 +173,7 @@ Unknown file type
 
   { defaults with
     name = "find_inode"; added = (1, 35, 6);
-    style = RStructList ("dirents", "tsk_dirent"), [Mountable "device"; Int64 "inode";], [];
+    style = RStructList ("dirents", "tsk_dirent"), [String (Mountable, "device"); Int64 "inode";], [];
     optional = Some "libtsk";
     progress = true; cancellable = true;
     shortdesc = "search the entries associated to the given inode";
@@ -188,7 +188,7 @@ See C<filesystem_walk> for more information about C<tsk_dirent> structures." };
 let daemon_functions = [
   { defaults with
     name = "download_inode"; added = (1, 33, 14);
-    style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename"], [];
+    style = RErr, [String (Mountable, "device"); Int64 "inode"; String (FileOut, "filename")], [];
     optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download a file to the local machine given its inode";
@@ -202,7 +202,7 @@ The command is capable of downloading deleted or inaccessible files." };
 
   { defaults with
     name = "internal_filesystem_walk"; added = (1, 33, 39);
-    style = RErr, [Mountable "device"; FileOut "filename"], [];
+    style = RErr, [String (Mountable, "device"); String (FileOut, "filename")], [];
     visibility = VInternal;
     optional = Some "libtsk";
     shortdesc = "walk through the filesystem content";
@@ -210,7 +210,7 @@ The command is capable of downloading deleted or inaccessible files." };
 
   { defaults with
     name = "download_blocks"; added = (1, 33, 45);
-    style = RErr, [Mountable "device"; Int64 "start"; Int64 "stop"; FileOut "filename"], [OBool "unallocated"];
+    style = RErr, [String (Mountable, "device"); Int64 "start"; Int64 "stop"; String (FileOut, "filename")], [OBool "unallocated"];
     optional = Some "sleuthkit";
     progress = true; cancellable = true;
     shortdesc = "download the given data units from the disk";
@@ -233,7 +233,7 @@ which data units have not been overwritten yet." };
 
   { defaults with
     name = "internal_find_inode"; added = (1, 35, 6);
-    style = RErr, [Mountable "device"; Int64 "inode"; FileOut "filename";], [];
+    style = RErr, [String (Mountable, "device"); Int64 "inode"; String (FileOut, "filename");], [];
     visibility = VInternal;
     optional = Some "libtsk";
     shortdesc = "search the entries associated to the given inode";

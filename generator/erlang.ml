@@ -361,13 +361,7 @@ instead of erl_interface.
       iteri (
         fun i ->
           function
-          | Pathname n
-          | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
-          | String n
-          | FileIn n
-          | FileOut n
-          | Key n
-          | GUID n ->
+          | String (_, n) ->
             pr "  CLEANUP_FREE char *%s = erl_iolist_to_string (ARG (%d));\n" n i
           | OptString n ->
             pr "  CLEANUP_FREE char *%s;\n" n;
@@ -379,7 +373,7 @@ instead of erl_interface.
             pr "  ETERM *%s_bin = erl_iolist_to_binary (ARG (%d));\n" n i;
             pr "  const void *%s = ERL_BIN_PTR (%s_bin);\n" n n;
             pr "  size_t %s_size = ERL_BIN_SIZE (%s_bin);\n" n n
-          | StringList n | DeviceList n | FilenameList n ->
+          | StringList (_, n) ->
             pr "  CLEANUP_FREE_STRING_LIST char **%s = get_string_list (ARG (%d));\n" n i
           | Bool n ->
             pr "  int %s = get_bool (ARG (%d));\n" n i

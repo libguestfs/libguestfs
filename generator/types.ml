@@ -130,15 +130,19 @@ and argt =
   | Bool of string	(* boolean *)
   | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
   | Int64 of string	(* any 64 bit int *)
-  | String of string	(* const char *name, cannot be NULL *)
-  | Device of string	(* /dev device name, cannot be NULL *)
-  | Mountable of string	(* location of mountable filesystem, cannot be NULL *)
-  | Pathname of string	(* file name, cannot be NULL *)
-  | Dev_or_Path of string (* /dev device name or Pathname, cannot be NULL *)
-  | Mountable_or_Path of string (* mount or Pathname, cannot be NULL *)
-  | OptString of string	(* const char *name, may be NULL *)
-  | StringList of string(* list of strings (each string cannot be NULL) *)
-  | DeviceList of string(* list of Device names (each cannot be NULL) *)
+
+    (* Strings: These can be plain strings, device names, mountable
+     * filesystems, etc.  They cannot be NULL.
+     *)
+  | String of stringt * string
+
+  | OptString of string	(* Plain string, may be NULL. *)
+
+    (* List of strings: The strings may be plain strings, device names
+     * etc., but all of the same type.  The strings cannot be NULL.
+     *)
+  | StringList of stringt * string
+
     (* Opaque buffer which can contain arbitrary 8 bit data.
      * In the C API, this is expressed as <const char *, size_t> pair.
      * Most other languages have a string type which can contain
@@ -149,24 +153,7 @@ and argt =
      * To return an arbitrary buffer, use RBufferOut.
      *)
   | BufferIn of string
-    (* Key material / passphrase.  Eventually we should treat this
-     * as sensitive and mlock it into physical RAM.  However this
-     * is highly complex because of all the places that XDR-encoded
-     * strings can end up.  So currently the only difference from
-     * 'String' is the way that guestfish requests these parameters
-     * from the user.
-     *)
-  | Key of string
-    (* These are treated as filenames (simple string parameters) in
-     * the C API and bindings.  But in the RPC protocol, we transfer
-     * the actual file content up to or down from the daemon.
-     * FileIn: local machine -> daemon (in request)
-     * FileOut: daemon -> local machine (in reply)
-     * In guestfish (only), the special name "-" means read from
-     * stdin or write to stdout.
-     *)
-  | FileIn of string
-  | FileOut of string
+
     (* This specifies an opaque pointer that is passed through
      * untouched.  Only non-daemon functions are supported.
      *
@@ -184,17 +171,52 @@ and argt =
      * tests, although we should fix this in future.
      *)
   | Pointer of (string * string)
-    (* const char * which represents a GUID string.
+
+and stringt =
+  | PlainString         (* none of the others *)
+  | Device              (* /dev device name *)
+  | Mountable           (* location of mountable filesystem *)
+
+    (* An absolute path within the appliance filesystem. *)
+  | Pathname
+
+    (* These are treated as filenames (simple string parameters) in
+     * the C API and bindings.  But in the RPC protocol, we transfer
+     * the actual file content up to or down from the daemon.
+     * FileIn: local machine -> daemon (in request)
+     * FileOut: daemon -> local machine (in reply)
+     * In guestfish (only), the special name "-" means read from
+     * stdin or write to stdout.
+     *)
+  | FileIn
+  | FileOut
+
+    (* Key material / passphrase.  Eventually we should treat this
+     * as sensitive and mlock it into physical RAM.  However this
+     * is highly complex because of all the places that XDR-encoded
+     * strings can end up.  So currently the only difference from
+     * 'PlainString' is the way that guestfish requests these
+     * parameters from the user.
+     *)
+  | Key
+
+    (* A GUID string.
      *
      * It cannot be NULL, and it will be validated using
      * guestfs_int_validate_guid.
      *)
-  | GUID of string
-    (* List of file names only, where the list cannot be NULL,
-     * and each element cannot be NULL, empty, or anything different than
-     * a simple file name (i.e. neither absolute nor relative paths).
+  | GUID
+
+    (* A simple filename (not a path nor a relative path).  It cannot
+     * be NULL, empty, or anything different than a simple file name.
      *)
-  | FilenameList of string
+  | Filename
+
+    (* The following two are DEPRECATED and must not be used in
+     * any new APIs.
+     *)
+  | Dev_or_Path         (* Device or Pathname. *)
+  | Mountable_or_Path   (* Mountable or Pathname. *)
 
 and optargs = optargt list
 

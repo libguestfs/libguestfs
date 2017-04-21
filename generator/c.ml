@@ -110,28 +110,23 @@ let rec generate_prototype ?(extern = true) ?(static = false)
   in
   List.iter (
     function
-    | Pathname n
-    | Device n | Dev_or_Path n
-    | String n
-    | OptString n
-    | Key n
-    | GUID n ->
+    | String ((PlainString|Device|Dev_or_Path|Pathname|Key|GUID|Filename), n)
+    | OptString n ->
         next ();
         pr "const char *%s" n
-    | Mountable n | Mountable_or_Path n ->
+    | String ((Mountable|Mountable_or_Path), n) ->
         next();
         if in_daemon then
           pr "const mountable_t *%s" n
         else
           pr "const char *%s" n
-    | StringList n | DeviceList n | FilenameList n ->
+    | StringList (_, n) ->
         next ();
         pr "char *const *%s" n
     | Bool n -> next (); pr "int %s" n
     | Int n -> next (); pr "int %s" n
     | Int64 n -> next (); pr "int64_t %s" n
-    | FileIn n
-    | FileOut n ->
+    | String ((FileIn|FileOut), n) ->
         if not in_daemon then (next (); pr "const char *%s" n)
     | BufferIn n ->
         next ();
@@ -177,7 +172,7 @@ and generate_c_call_args ?handle ?(implicit_size_ptr = "&size")
     | BufferIn n ->
         next ();
         pr "%s, %s_size" n n
-    | Mountable n | Mountable_or_Path n ->
+    | String ((Mountable|Mountable_or_Path), n) ->
         next ();
         (if in_daemon then pr "&%s" else pr "%s") n
     | arg ->
@@ -291,7 +286,7 @@ I<The caller must free the returned buffer after use>.\n\n"
     pr "%s\n\n" progress_message;
   if f.protocol_limit_warning then
     pr "%s\n\n" protocol_limit_warning;
-  if List.exists (function Key _ -> true | _ -> false) args then
+  if List.exists (function String (Key, _) -> true | _ -> false) args then
     pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
@@ -1372,20 +1367,10 @@ and generate_client_actions actions () =
     List.iter (
       function
       (* parameters which should not be NULL *)
-      | String n
-      | Device n
-      | Mountable n
-      | Pathname n
-      | Dev_or_Path n | Mountable_or_Path n
-      | FileIn n
-      | FileOut n
+      | String (_, n)
       | BufferIn n
-      | StringList n
-      | DeviceList n
-      | Key n
-      | Pointer (_, n)
-      | GUID n
-      | FilenameList n ->
+      | StringList (_, n)
+      | Pointer (_, n) ->
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" c_name n;
@@ -1476,7 +1461,7 @@ and generate_client_actions actions () =
     let pr_newline = ref false in
     List.iter (
       function
-      | GUID n ->
+      | String (GUID, n) ->
           pr "  if (!guestfs_int_validate_guid (%s)) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter is not a valid GUID\",\n";
           pr "           \"%s\", \"%s\");\n" c_name n;
@@ -1488,7 +1473,7 @@ and generate_client_actions actions () =
           pr "  }\n";
           pr_newline := true
 
-      | FilenameList n ->
+      | StringList (Filename, n) ->
           pr "  {\n";
           pr "    size_t i;\n";
           pr "    for (i = 0; %s[i] != NULL; ++i) {\n" n;
@@ -1506,17 +1491,11 @@ and generate_client_actions actions () =
           pr_newline := true
 
       (* not applicable *)
-      | String _
-      | Device _
-      | Mountable _
-      | Pathname _
-      | Dev_or_Path _ | Mountable_or_Path _
-      | FileIn _
-      | FileOut _
+      | String ((PlainString|Device|Mountable|Pathname|
+                 Dev_or_Path|Mountable_or_Path|
+                 FileIn|FileOut|Key|Filename), _)
       | BufferIn _
       | StringList _
-      | DeviceList _
-      | Key _
       | Pointer (_, _)
       | OptString _
       | Bool _
@@ -1533,7 +1512,7 @@ and generate_client_actions actions () =
 
     let needs_i =
       List.exists (function
-      | StringList _ | DeviceList _ | FilenameList _ -> true
+      | StringList _ -> true
       | _ -> false) args ||
       List.exists (function
       | OStringList _ -> true
@@ -1550,17 +1529,11 @@ and generate_client_actions actions () =
     (* Required arguments. *)
     List.iter (
       function
-      | String n			(* strings *)
-      | Device n
-      | Mountable n
-      | Pathname n
-      | Dev_or_Path n | Mountable_or_Path n
-      | FileIn n
-      | FileOut n
-      | GUID n ->
+      | String ((PlainString|Device|Mountable|Pathname|Filename
+                 |Dev_or_Path|Mountable_or_Path|FileIn|FileOut|GUID), n) ->
           (* guestfish doesn't support string escaping, so neither do we *)
           pr "    fprintf (trace_buffer.fp, \" \\\"%%s\\\"\", %s);\n" n
-      | Key n ->
+      | String (Key, n) ->
           (* don't print keys *)
           pr "    fprintf (trace_buffer.fp, \" \\\"***\\\"\");\n"
       | OptString n ->			(* string option *)
@@ -1568,9 +1541,7 @@ and generate_client_actions actions () =
           pr "      fprintf (trace_buffer.fp, \" \\\"%%s\\\"\", %s);\n" n;
           pr "    else\n";
           pr "      fprintf (trace_buffer.fp, \" null\");\n"
-      | StringList n
-      | DeviceList n
-      | FilenameList n ->			(* string list *)
+      | StringList (_, n) ->
           pr "    fputc (' ', trace_buffer.fp);\n";
           pr "    fputc ('\"', trace_buffer.fp);\n";
           pr "    for (i = 0; %s[i]; ++i) {\n" n;
@@ -1812,7 +1783,7 @@ and generate_client_actions actions () =
     handle_null_optargs optargs c_name;
 
     let args_passed_to_daemon =
-      List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+      List.filter (function String ((FileIn| FileOut), _) -> false | _ -> true)
         args in
     (match args_passed_to_daemon, optargs with
     | [], [] -> ()
@@ -1848,7 +1819,7 @@ and generate_client_actions actions () =
     );
 
     let has_filein =
-      List.exists (function FileIn _ -> true | _ -> false) args in
+      List.exists (function String (FileIn, _) -> true | _ -> false) args in
     if has_filein then (
       pr "  uint64_t progress_hint = 0;\n";
       pr "  struct stat progress_stat;\n";
@@ -1867,7 +1838,7 @@ and generate_client_actions actions () =
      *)
     List.iter (
       function
-      | FileIn n ->
+      | String (FileIn, n) ->
         pr "  if (stat (%s, &progress_stat) == 0 &&\n" n;
         pr "      S_ISREG (progress_stat.st_mode))\n";
         pr "    progress_hint += progress_stat.st_size;\n";
@@ -1890,13 +1861,11 @@ and generate_client_actions actions () =
     ) else (
       List.iter (
         function
-        | Pathname n | Device n | Mountable n | Dev_or_Path n 
-        | Mountable_or_Path n | String n
-        | Key n | GUID n ->
+        | String (_, n) ->
           pr "  args.%s = (char *) %s;\n" n n
         | OptString n ->
           pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
-        | StringList n | DeviceList n | FilenameList n ->
+        | StringList (_, n) ->
           pr "  args.%s.%s_val = (char **) %s;\n" n n n;
           pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
         | Bool n ->
@@ -1915,7 +1884,7 @@ and generate_client_actions actions () =
           pr "  }\n";
           pr "  args.%s.%s_val = (char *) %s;\n" n n n;
           pr "  args.%s.%s_len = %s_size;\n" n n n
-        | FileIn _ | FileOut _ | Pointer _ -> assert false
+        | Pointer _ -> assert false
       ) args_passed_to_daemon;
 
       List.iter (
@@ -1963,7 +1932,7 @@ and generate_client_actions actions () =
     let need_read_reply_label = ref false in
     List.iter (
       function
-      | FileIn n ->
+      | String (FileIn, n) ->
         pr "  r = guestfs_int_send_file (g, %s);\n" n;
         pr "  if (r == -1) {\n";
         trace_return_error ~indent:4 name style errcode;
@@ -2026,7 +1995,7 @@ and generate_client_actions actions () =
     (* Expecting to receive further files (FileOut)? *)
     List.iter (
       function
-      | FileOut n ->
+      | String (FileOut, n) ->
         pr "  if (guestfs_int_recv_file (g, %s) == -1) {\n" n;
         trace_return_error ~indent:4 name style errcode;
         pr "    return %s;\n" (string_of_errcode errcode);

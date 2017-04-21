@@ -602,13 +602,7 @@ copy_table (char * const * argv)
 
       List.iter (
         function
-        | Pathname n
-        | Device n | Mountable n | Dev_or_Path n | Mountable_or_Path n
-        | String n
-        | FileIn n
-        | FileOut n
-        | Key n
-        | GUID n ->
+        | String (_, n) ->
             (* Copy strings in case the GC moves them: RHBZ#604691 *)
             pr "  char *%s;\n" n;
             pr "  %s = strdup (String_val (%sv));\n" n n;
@@ -627,7 +621,7 @@ copy_table (char * const * argv)
             pr "  %s = malloc (%s_size);\n" n n;
             pr "  if (%s == NULL) caml_raise_out_of_memory ();\n" n;
             pr "  memcpy (%s, String_val (%sv), %s_size);\n" n n n
-        | StringList n | DeviceList n | FilenameList n ->
+        | StringList (_, n) ->
             pr "  char **%s = guestfs_int_ocaml_strings_val (g, %sv);\n" n n
         | Bool n ->
             pr "  int %s = Bool_val (%sv);\n" n n
@@ -701,12 +695,10 @@ copy_table (char * const * argv)
       (* Free strings if we copied them above. *)
       List.iter (
         function
-        | Pathname n | Device n | Mountable n
-        | Dev_or_Path n | Mountable_or_Path n | String n
-        | OptString n | FileIn n | FileOut n | BufferIn n
-        | Key n | GUID n ->
+        | String (_, n)
+        | OptString n | BufferIn n ->
             pr "  free (%s);\n" n
-        | StringList n | DeviceList n | FilenameList n ->
+        | StringList (_, n) ->
             pr "  guestfs_int_free_string_list (%s);\n" n;
         | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
       ) args;
@@ -874,12 +866,9 @@ and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
   ) optargs;
   List.iter (
     function
-    | Pathname _ | Device _ | Mountable _
-    | Dev_or_Path _ | Mountable_or_Path _ | String _
-    | FileIn _ | FileOut _ | BufferIn _ | Key _
-    | GUID _ -> pr "string -> "
+    | String _ | BufferIn _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
-    | StringList _ | DeviceList _ | FilenameList _ ->
+    | StringList _ ->
         pr "string array -> "
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "

@@ -23,14 +23,14 @@ open Types
 (* These test functions are used in the language binding tests. *)
 
 let test_all_args = [
-  String "str";
+  String (PlainString, "str");
   OptString "optstr";
-  StringList "strlist";
+  StringList (PlainString, "strlist");
   Bool "b";
   Int "integer";
   Int64 "integer64";
-  FileIn "filein";
-  FileOut "fileout";
+  String (FileIn, "filein");
+  String (FileOut, "fileout");
   BufferIn "bufferin";
 ]
 
@@ -112,7 +112,7 @@ You probably don't want to call this function." }
     fun (name, ret) -> [
       { defaults with
         name = name;
-        style = ret, [String "val"], [];
+        style = ret, [String (PlainString, "val")], [];
         visibility = VBindTest;
         blocking = false;
         shortdesc = "internal test function - do not use";
@@ -145,7 +145,7 @@ You probably don't want to call this function." }
 let test_support_functions = [
   { defaults with
     name = "internal_test_set_output";
-    style = RErr, [String "filename"], [];
+    style = RErr, [String (PlainString, "filename")], [];
     visibility = VBindTest;
     blocking = false;
     shortdesc = "internal test function - do not use";

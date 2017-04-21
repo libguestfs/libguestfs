@@ -307,19 +307,9 @@ func return_hashtable (argv **C.char) map[string]string {
           | Bool n -> pr "%s bool" n
           | Int n -> pr "%s int" n
           | Int64 n -> pr "%s int64" n
-          | String n
-          | Device n
-          | Mountable n
-          | Pathname n
-          | Dev_or_Path n
-          | Mountable_or_Path n
-          | Key n
-          | FileIn n | FileOut n
-          | GUID n -> pr "%s string" n
+          | String (_, n) -> pr "%s string" n
           | OptString n -> pr "%s *string" n
-          | StringList n
-          | DeviceList n
-          | FilenameList n -> pr "%s []string" n
+          | StringList (_, n) -> pr "%s []string" n
           | BufferIn n -> pr "%s []byte" n
           | Pointer (_, n) -> pr "%s int64" n
       ) args;
@@ -364,15 +354,7 @@ func return_hashtable (argv **C.char) map[string]string {
           pr "\n";
           pr "    var c_%s C.int\n" n;
           pr "    if %s { c_%s = 1 } else { c_%s = 0 }\n" n n n
-        | String n
-        | Device n
-        | Mountable n
-        | Pathname n
-        | Dev_or_Path n
-        | Mountable_or_Path n
-        | Key n
-        | FileIn n | FileOut n
-        | GUID n ->
+        | String (_, n) ->
           pr "\n";
           pr "    c_%s := C.CString (%s)\n" n n;
           pr "    defer C.free (unsafe.Pointer (c_%s))\n" n
@@ -383,9 +365,7 @@ func return_hashtable (argv **C.char) map[string]string {
           pr "        c_%s = C.CString (*%s)\n" n n;
           pr "        defer C.free (unsafe.Pointer (c_%s))\n" n;
           pr "    }\n"
-        | StringList n
-        | DeviceList n
-        | FilenameList n ->
+        | StringList (_, n) ->
           pr "\n";
           pr "    c_%s := arg_string_list (%s)\n" n n;
           pr "    defer free_string_list (c_%s)\n" n
@@ -449,19 +429,9 @@ func return_hashtable (argv **C.char) map[string]string {
           | Bool n -> pr "c_%s" n
           | Int n -> pr "C.int (%s)" n
           | Int64 n -> pr "C.int64_t (%s)" n
-          | String n
-          | Device n
-          | Mountable n
-          | Pathname n
-          | Dev_or_Path n
-          | Mountable_or_Path n
-          | OptString n
-          | Key n
-          | FileIn n | FileOut n
-          | GUID n -> pr "c_%s" n
-          | StringList n
-          | DeviceList n
-          | FilenameList n -> pr "c_%s" n
+          | String (_, n)
+          | OptString n -> pr "c_%s" n
+          | StringList (_, n) -> pr "c_%s" n
           | BufferIn n -> pr "c_%s, C.size_t (len (%s))" n n
           | Pointer _ -> pr "nil"
       ) args;

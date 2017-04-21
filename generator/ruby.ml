@@ -251,9 +251,7 @@ and generate_ruby_c actions () =
 
       List.iter (
         function
-        | Pathname n | Device n | Mountable n
-        | Dev_or_Path n | Mountable_or_Path n | String n | Key n
-        | FileIn n | FileOut n | GUID n ->
+        | String (_, n) ->
           pr "  const char *%s = StringValueCStr (%sv);\n" n n;
         | BufferIn n ->
           pr "  Check_Type (%sv, T_STRING);\n" n;
@@ -264,7 +262,7 @@ and generate_ruby_c actions () =
           pr "  size_t %s_size = RSTRING_LEN (%sv);\n" n n
         | OptString n ->
           pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
-        | StringList n | DeviceList n | FilenameList n ->
+        | StringList (_, n) ->
           pr "  char **%s;\n" n;
           pr "  Check_Type (%sv, T_ARRAY);\n" n;
           pr "  {\n";
@@ -355,11 +353,9 @@ and generate_ruby_c actions () =
 
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _
-        | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ | GUID _ -> ()
-        | StringList n | DeviceList n | FilenameList n ->
+        | String _ | OptString _ | Bool _ | Int _ | Int64 _
+        | BufferIn _ | Pointer _ -> ()
+        | StringList (_, n) ->
             pr "  free (%s);\n" n
       ) args;
 

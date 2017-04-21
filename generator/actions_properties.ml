@@ -25,7 +25,7 @@ open Types
 let non_daemon_functions = [
   { defaults with
     name = "set_hv"; added = (1, 23, 17);
-    style = RErr, [String "hv"], [];
+    style = RErr, [String (PlainString, "hv")], [];
     fish_alias = ["hv"]; config_only = true;
     blocking = false;
     shortdesc = "set the hypervisor binary";
@@ -314,7 +314,7 @@ This returns the enable network flag." };
 
   { defaults with
     name = "set_backend"; added = (1, 21, 26);
-    style = RErr, [String "backend"], [];
+    style = RErr, [String (PlainString, "backend")], [];
     fish_alias = ["backend"]; config_only = true;
     blocking = false;
     shortdesc = "set the backend";
@@ -438,7 +438,7 @@ Get the directory used by the handle to store the appliance cache." };
 
   { defaults with
     name = "set_program"; added = (1, 21, 29);
-    style = RErr, [String "program"], [];
+    style = RErr, [String (PlainString, "program")], [];
     fish_alias = ["program"];
     blocking = false;
     shortdesc = "set the program name";
@@ -481,7 +481,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
   { defaults with
     name = "set_backend_settings"; added = (1, 25, 24);
-    style = RErr, [StringList "settings"], [];
+    style = RErr, [StringList (PlainString, "settings")], [];
     config_only = true;
     blocking = false;
     shortdesc = "replace per-backend settings strings";
@@ -505,7 +505,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
   { defaults with
     name = "get_backend_setting"; added = (1, 27, 2);
-    style = RString "val", [String "name"], [];
+    style = RString "val", [String (PlainString, "name")], [];
     blocking = false;
     shortdesc = "get a single per-backend settings string";
     longdesc = "\
@@ -522,7 +522,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
   { defaults with
     name = "set_backend_setting"; added = (1, 27, 2);
-    style = RErr, [String "name"; String "val"], [];
+    style = RErr, [String (PlainString, "name"); String (PlainString, "val")], [];
     config_only = true;
     blocking = false;
     shortdesc = "set a single per-backend settings string";
@@ -535,7 +535,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
   { defaults with
     name = "clear_backend_setting"; added = (1, 27, 2);
-    style = RInt "count", [String "name"], [];
+    style = RInt "count", [String (PlainString, "name")], [];
     config_only = true;
     blocking = false;
     shortdesc = "remove a single per-backend settings string";
@@ -551,7 +551,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
   { defaults with
     name = "set_identifier"; added = (1, 31, 14);
-    style = RErr, [String "identifier"], [];
+    style = RErr, [String (PlainString, "identifier")], [];
     fish_alias = ["identifier"];
     blocking = false;
     shortdesc = "set the handle identifier";

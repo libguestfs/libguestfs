@@ -62,7 +62,7 @@ See also C<guestfs_list_filesystems>." };
 
   { defaults with
     name = "inspect_get_type"; added = (1, 5, 3);
-    style = RString "name", [Mountable "root"], [];
+    style = RString "name", [String (Mountable, "root")], [];
     shortdesc = "get type of inspected operating system";
     longdesc = "\
 This returns the type of the inspected operating system.
@@ -115,7 +115,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_arch"; added = (1, 5, 3);
-    style = RString "arch", [Mountable "root"], [];
+    style = RString "arch", [String (Mountable, "root")], [];
     shortdesc = "get architecture of inspected operating system";
     longdesc = "\
 This returns the architecture of the inspected operating system.
@@ -129,7 +129,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_distro"; added = (1, 5, 3);
-    style = RString "distro", [Mountable "root"], [];
+    style = RString "distro", [String (Mountable, "root")], [];
     shortdesc = "get distro of inspected operating system";
     longdesc = "\
 This returns the distro (distribution) of the inspected operating
@@ -285,7 +285,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_major_version"; added = (1, 5, 3);
-    style = RInt "major", [Mountable "root"], [];
+    style = RInt "major", [String (Mountable, "root")], [];
     shortdesc = "get major version of inspected operating system";
     longdesc = "\
 This returns the major version number of the inspected operating
@@ -304,7 +304,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_minor_version"; added = (1, 5, 3);
-    style = RInt "minor", [Mountable "root"], [];
+    style = RInt "minor", [String (Mountable, "root")], [];
     shortdesc = "get minor version of inspected operating system";
     longdesc = "\
 This returns the minor version number of the inspected operating
@@ -317,7 +317,7 @@ See also C<guestfs_inspect_get_major_version>." };
 
   { defaults with
     name = "inspect_get_product_name"; added = (1, 5, 3);
-    style = RString "product", [Mountable "root"], [];
+    style = RString "product", [String (Mountable, "root")], [];
     shortdesc = "get product name of inspected operating system";
     longdesc = "\
 This returns the product name of the inspected operating
@@ -332,7 +332,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_mountpoints"; added = (1, 5, 3);
-    style = RHashtable "mountpoints", [Mountable "root"], [];
+    style = RHashtable "mountpoints", [String (Mountable, "root")], [];
     shortdesc = "get mountpoints of inspected operating system";
     longdesc = "\
 This returns a hash of where we think the filesystems
@@ -363,7 +363,7 @@ See also C<guestfs_inspect_get_filesystems>." };
 
   { defaults with
     name = "inspect_get_filesystems"; added = (1, 5, 3);
-    style = RStringList "filesystems", [Mountable "root"], [];
+    style = RStringList "filesystems", [String (Mountable, "root")], [];
     shortdesc = "get filesystems associated with inspected operating system";
     longdesc = "\
 This returns a list of all the filesystems that we think
@@ -379,7 +379,7 @@ See also C<guestfs_inspect_get_mountpoints>." };
 
   { defaults with
     name = "inspect_get_windows_systemroot"; added = (1, 5, 25);
-    style = RString "systemroot", [Mountable "root"], [];
+    style = RString "systemroot", [String (Mountable, "root")], [];
     shortdesc = "get Windows systemroot of inspected operating system";
     longdesc = "\
 This returns the Windows systemroot of the inspected guest.
@@ -407,7 +407,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_package_format"; added = (1, 7, 5);
-    style = RString "packageformat", [Mountable "root"], [];
+    style = RString "packageformat", [String (Mountable, "root")], [];
     shortdesc = "get package format used by the operating system";
     longdesc = "\
 This function and C<guestfs_inspect_get_package_management> return
@@ -429,7 +429,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_package_management"; added = (1, 7, 5);
-    style = RString "packagemanagement", [Mountable "root"], [];
+    style = RString "packagemanagement", [String (Mountable, "root")], [];
     shortdesc = "get package management tool used by the operating system";
     longdesc = "\
 C<guestfs_inspect_get_package_format> and this function return
@@ -451,7 +451,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_list_applications2"; added = (1, 19, 56);
-    style = RStructList ("applications2", "application2"), [Mountable "root"], [];
+    style = RStructList ("applications2", "application2"), [String (Mountable, "root")], [];
     shortdesc = "get list of applications installed in the operating system";
     longdesc = "\
 Return the list of applications installed in the operating system.
@@ -554,7 +554,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_hostname"; added = (1, 7, 9);
-    style = RString "hostname", [Mountable "root"], [];
+    style = RString "hostname", [String (Mountable, "root")], [];
     shortdesc = "get hostname of the operating system";
     longdesc = "\
 This function returns the hostname of the operating system
@@ -567,7 +567,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_format"; added = (1, 9, 4);
-    style = RString "format", [Mountable "root"], [];
+    style = RString "format", [String (Mountable, "root")], [];
     shortdesc = "get format of inspected operating system";
     longdesc = "\
 This returns the format of the inspected operating system.  You
@@ -599,7 +599,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_is_live"; added = (1, 9, 4);
-    style = RBool "live", [Mountable "root"], [];
+    style = RBool "live", [String (Mountable, "root")], [];
     shortdesc = "get live flag for install disk";
     longdesc = "\
 If C<guestfs_inspect_get_format> returns C<installer> (this
@@ -610,7 +610,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_is_netinst"; added = (1, 9, 4);
-    style = RBool "netinst", [Mountable "root"], [];
+    style = RBool "netinst", [String (Mountable, "root")], [];
     shortdesc = "get netinst (network installer) flag for install disk";
     longdesc = "\
 If C<guestfs_inspect_get_format> returns C<installer> (this
@@ -623,7 +623,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_is_multipart"; added = (1, 9, 4);
-    style = RBool "multipart", [Mountable "root"], [];
+    style = RBool "multipart", [String (Mountable, "root")], [];
     shortdesc = "get multipart flag for install disk";
     longdesc = "\
 If C<guestfs_inspect_get_format> returns C<installer> (this
@@ -634,7 +634,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_product_variant"; added = (1, 9, 13);
-    style = RString "variant", [Mountable "root"], [];
+    style = RString "variant", [String (Mountable, "root")], [];
     shortdesc = "get product variant of inspected operating system";
     longdesc = "\
 This returns the product variant of the inspected operating
@@ -662,7 +662,7 @@ C<guestfs_inspect_get_major_version>." };
 
   { defaults with
     name = "inspect_get_windows_current_control_set"; added = (1, 9, 17);
-    style = RString "controlset", [Mountable "root"], [];
+    style = RString "controlset", [String (Mountable, "root")], [];
     shortdesc = "get Windows CurrentControlSet of inspected operating system";
     longdesc = "\
 This returns the Windows CurrentControlSet of the inspected guest.
@@ -676,7 +676,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_drive_mappings"; added = (1, 9, 17);
-    style = RHashtable "drives", [Mountable "root"], [];
+    style = RHashtable "drives", [String (Mountable, "root")], [];
     shortdesc = "get drive letter mappings";
     longdesc = "\
 This call is useful for Windows which uses a primitive system
@@ -710,7 +710,7 @@ C<guestfs_inspect_get_filesystems>." };
 
   { defaults with
     name = "inspect_get_icon"; added = (1, 11, 12);
-    style = RBufferOut "icon", [Mountable "root"],  [OBool "favicon"; OBool "highquality"];
+    style = RBufferOut "icon", [String (Mountable, "root")],  [OBool "favicon"; OBool "highquality"];
     shortdesc = "get the icon corresponding to this operating system";
     longdesc = "\
 This function returns an icon corresponding to the inspected
@@ -775,7 +775,7 @@ advice before using trademarks in applications.
 
   { defaults with
     name = "inspect_get_windows_software_hive"; added = (1, 35, 26);
-    style = RString "path", [Mountable "root"], [];
+    style = RString "path", [String (Mountable, "root")], [];
     shortdesc = "get the path of the Windows software hive";
     longdesc = "\
 This returns the path to the hive (binary Windows Registry file)
@@ -792,7 +792,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
 
   { defaults with
     name = "inspect_get_windows_system_hive"; added = (1, 35, 26);
-    style = RString "path", [Mountable "root"], [];
+    style = RString "path", [String (Mountable, "root")], [];
     shortdesc = "get the path of the Windows system hive";
     longdesc = "\
 This returns the path to the hive (binary Windows Registry file)

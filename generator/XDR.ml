@@ -90,27 +90,25 @@ let generate_xdr () =
        *)
       let args_passed_to_daemon = args @ args_of_optargs optargs in
       let args_passed_to_daemon =
-        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
-          args_passed_to_daemon in
+        List.filter (function String ((FileIn|FileOut), _) -> false | _ -> true)
+                    args_passed_to_daemon in
       (match args_passed_to_daemon with
       | [] -> ()
       | args ->
         pr "struct %s_args {\n" name;
         List.iter (
           function
-          | Pathname n | Device n | Mountable n | Dev_or_Path n
-          | Mountable_or_Path n | String n
-          | Key n | GUID n ->
+          | String (_, n) ->
             pr "  string %s<>;\n" n
           | OptString n -> pr "  guestfs_str *%s;\n" n
-          | StringList n | DeviceList n | FilenameList n ->
+          | StringList (_, n) ->
             pr "  guestfs_str %s<>;\n" n
           | Bool n -> pr "  bool %s;\n" n
           | Int n -> pr "  int %s;\n" n
           | Int64 n -> pr "  int64_t %s;\n" n
           | BufferIn n ->
             pr "  opaque %s<>;\n" n
-          | FileIn _ | FileOut _ | Pointer _ -> assert false
+          | Pointer _ -> assert false
         ) args;
         pr "};\n\n"
       );

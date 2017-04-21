@@ -314,15 +314,13 @@ and generate_python_actions actions () =
 
       List.iter (
         function
-        | Pathname n | Device n | Mountable n
-        | Dev_or_Path n | Mountable_or_Path n | String n | Key n
-        | FileIn n | FileOut n | GUID n ->
+        | String (_, n) ->
             pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
         | BufferIn n ->
             pr "  const char *%s;\n" n;
             pr "  Py_ssize_t %s_size;\n" n
-        | StringList n | DeviceList n | FilenameList n ->
+        | StringList (_, n) ->
             pr "  PyObject *py_%s;\n" n;
             pr "  char **%s = NULL;\n" n
         | Bool n -> pr "  int %s;\n" n
@@ -352,11 +350,9 @@ and generate_python_actions actions () =
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _
-        | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ | GUID _ -> pr "s"
+        | String _ -> pr "s"
         | OptString _ -> pr "z"
-        | StringList _ | DeviceList _ | FilenameList _ -> pr "O"
+        | StringList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
         | Int _ -> pr "i"
         | Int64 _ ->
@@ -375,12 +371,9 @@ and generate_python_actions actions () =
       pr "                         &py_g";
       List.iter (
         function
-        | Pathname n | Device n | Mountable n
-        | Dev_or_Path n | Mountable_or_Path n | String n | Key n
-        | FileIn n | FileOut n | GUID n -> pr ", &%s" n
+        | String (_, n) -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
-        | StringList n | DeviceList n | FilenameList n ->
-            pr ", &py_%s" n
+        | StringList (_, n) -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
         | Int n -> pr ", &%s" n
         | Int64 n -> pr ", &%s" n
@@ -399,11 +392,9 @@ and generate_python_actions actions () =
       pr "  g = get_handle (py_g);\n";
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _
-        | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | GUID _ -> ()
-        | StringList n | DeviceList n | FilenameList n ->
+        | String _ | OptString _ | Bool _ | Int _ | Int64 _
+        | BufferIn _ -> ()
+        | StringList (_, n) ->
             pr "  %s = guestfs_int_py_get_string_list (py_%s);\n" n n;
             pr "  if (!%s) goto out;\n" n
         | Pointer (_, n) ->
@@ -549,11 +540,9 @@ and generate_python_actions actions () =
 
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _
-        | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | Pointer _ | GUID _ -> ()
-        | StringList n | DeviceList n | FilenameList n ->
+        | String _ | OptString _ | Bool _ | Int _ | Int64 _
+        | BufferIn _ | Pointer _ -> ()
+        | StringList (_, n) ->
             pr "  free (%s);\n" n
       ) args;
 
@@ -912,11 +901,9 @@ class GuestFS(object):
        *)
       List.iter (
         function
-        | Pathname _ | Device _ | Mountable _
-        | Dev_or_Path _ | Mountable_or_Path _ | String _ | Key _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ | GUID _ -> ()
-        | StringList n | DeviceList n | FilenameList n ->
+        | String _ | OptString _ | Bool _ | Int _ | Int64 _
+        | BufferIn _ -> ()
+        | StringList (_, n) ->
           pr "        %s = list(%s)\n" n n
         | Pointer (_, n) ->
           pr "        %s = %s.c_pointer()\n" n n

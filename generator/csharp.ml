@@ -190,15 +190,11 @@ namespace Guestfs
           (c_return_type ()) c_function;
         List.iter (
           function
-          | Pathname n | Device n | Mountable n
-          | Dev_or_Path n | Mountable_or_Path n | String n
+          | String (_, n)
           | OptString n
-          | FileIn n | FileOut n
-          | Key n
-          | BufferIn n
-          | GUID n ->
+          | BufferIn n ->
               pr ", [In] string %s" n
-          | StringList n | DeviceList n | FilenameList n ->
+          | StringList (_, n) ->
               pr ", [In] string[] %s" n
           | Bool n ->
               pr ", bool %s" n
@@ -219,15 +215,11 @@ namespace Guestfs
         in
         List.iter (
           function
-          | Pathname n | Device n | Mountable n
-          | Dev_or_Path n | Mountable_or_Path n | String n
+          | String (_, n)
           | OptString n
-          | FileIn n | FileOut n
-          | Key n
-          | BufferIn n
-          | GUID n ->
+          | BufferIn n ->
               next (); pr "string %s" n
-          | StringList n | DeviceList n | FilenameList n ->
+          | StringList (_, n) ->
               next (); pr "string[] %s" n
           | Bool n ->
               next (); pr "bool %s" n

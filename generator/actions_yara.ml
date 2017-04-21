@@ -25,7 +25,7 @@ open Types
 let non_daemon_functions = [
   { defaults with
     name = "yara_scan"; added = (1, 37, 13);
-    style = RStructList ("detections", "yara_detection"), [Pathname "path"], [];
+    style = RStructList ("detections", "yara_detection"), [String (Pathname, "path")], [];
     optional = Some "libyara";
     progress = true; cancellable = true;
     shortdesc = "scan a file with the loaded yara rules";
@@ -53,7 +53,7 @@ Identifier of the Yara rule which matched against the given file.
 let daemon_functions = [
   { defaults with
       name = "yara_load"; added = (1, 37, 13);
-      style = RErr, [FileIn "filename"], [];
+      style = RErr, [String (FileIn, "filename")], [];
       progress = true; cancellable = true;
       optional = Some "libyara";
       shortdesc = "load yara rules within libguestfs";
@@ -83,7 +83,7 @@ Destroy previously loaded Yara rules in order to free libguestfs resources." };
 
   { defaults with
     name = "internal_yara_scan"; added = (1, 37, 13);
-    style = RErr, [Pathname "path"; FileOut "filename"], [];
+    style = RErr, [String (Pathname, "path"); String (FileOut, "filename")], [];
     visibility = VInternal;
     optional = Some "libyara";
     shortdesc = "scan a file with the loaded yara rules";

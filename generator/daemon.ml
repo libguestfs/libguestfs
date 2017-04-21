@@ -62,8 +62,8 @@ let generate_daemon_actions_h () =
     fun { name = name; style = ret, args, optargs } ->
       let args_passed_to_daemon = args @ args_of_optargs optargs in
       let args_passed_to_daemon =
-        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
-          args_passed_to_daemon in
+        List.filter (function String ((FileIn|FileOut), _) -> false | _ -> true)
+                    args_passed_to_daemon in
       let style = ret, args_passed_to_daemon, [] in
       generate_prototype
         ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
@@ -123,8 +123,8 @@ let generate_daemon_stubs actions () =
 
       let args_passed_to_daemon = args @ args_of_optargs optargs in
       let args_passed_to_daemon =
-        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
-          args_passed_to_daemon in
+        List.filter (function String ((FileIn|FileOut), _) -> false | _ -> true)
+                    args_passed_to_daemon in
 
       if args_passed_to_daemon <> [] then (
         pr "#ifdef HAVE_ATTRIBUTE_CLEANUP\n";
@@ -170,16 +170,17 @@ let generate_daemon_stubs actions () =
         pr "  memset (&args, 0, sizeof args);\n";
         List.iter (
           function
-          | Device n | Dev_or_Path n ->
+          | String ((Device|Dev_or_Path), n) ->
             pr "  CLEANUP_FREE char *%s = NULL;\n" n
-          | Pathname n | String n | Key n | OptString n | GUID n ->
+          | String ((Pathname|PlainString|Key|GUID), n)
+          | OptString n ->
             pr "  const char *%s;\n" n
-          | Mountable n | Mountable_or_Path n ->
+          | String ((Mountable|Mountable_or_Path), n) ->
             pr "  CLEANUP_FREE_MOUNTABLE mountable_t %s\n" n;
             pr "      = { .device = NULL, .volume = NULL };\n"
-          | StringList n | FilenameList n ->
+          | StringList ((PlainString|Filename), n) ->
             pr "  char **%s;\n" n
-          | DeviceList n ->
+          | StringList (Device, n) ->
             pr "  CLEANUP_FREE_STRING_LIST char **%s = NULL;\n" n
           | Bool n -> pr "  int %s;\n" n
           | Int n -> pr "  int %s;\n" n
@@ -187,13 +188,16 @@ let generate_daemon_stubs actions () =
           | BufferIn n ->
               pr "  const char *%s;\n" n;
               pr "  size_t %s_size;\n" n
-          | FileIn _ | FileOut _ | Pointer _ -> assert false
+          | String ((FileIn|FileOut|Filename), _)
+          | StringList ((Mountable|Pathname|FileIn|FileOut|Key|GUID
+                         |Dev_or_Path|Mountable_or_Path), _)
+          | Pointer _ -> assert false
         ) args_passed_to_daemon
       );
       pr "\n";
 
       let is_filein =
-        List.exists (function FileIn _ -> true | _ -> false) args in
+        List.exists (function String (FileIn, _) -> true | _ -> false) args in
 
       (* Reject Optional functions that are not available (RHBZ#679737). *)
       (match optional with
@@ -246,24 +250,24 @@ let generate_daemon_stubs actions () =
         in
         List.iter (
           function
-          | Pathname n ->
+          | String (Pathname, n) ->
               pr_args n;
               pr "  ABS_PATH (%s, %b, return);\n" n is_filein;
-          | Device n ->
+          | String (Device, n) ->
               pr "  RESOLVE_DEVICE (args.%s, %s, %b);\n" n n is_filein;
-          | Mountable n ->
+          | String (Mountable, n) ->
               pr "  RESOLVE_MOUNTABLE (args.%s, %s, %b);\n" n n is_filein;
-          | Dev_or_Path n ->
+          | String (Dev_or_Path, n) ->
               pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (args.%s, %s, %b);\n"
                 n n is_filein;
-          | Mountable_or_Path n ->
+          | String (Mountable_or_Path, n) ->
               pr "  REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE (args.%s, %s, %b);\n"
                 n n is_filein;
-          | String n | Key n | GUID n -> pr_args n
+          | String ((PlainString|Key|GUID), n) -> pr_args n
           | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
-          | StringList n | FilenameList n as arg ->
+          | StringList ((PlainString|Filename) as arg, n) ->
             (match arg with
-            | FilenameList n ->
+            | Filename ->
               pr "  {\n";
               pr "    size_t i;\n";
               pr "    for (i = 0; i < args.%s.%s_len; ++i) {\n" n n;
@@ -289,7 +293,7 @@ let generate_daemon_stubs actions () =
             pr "  }\n";
             pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
             pr "  args.%s.%s_val = %s;\n" n n n
-          | DeviceList n ->
+          | StringList (Device, n) ->
             pr "  /* Copy the string list and apply device name translation\n";
             pr "   * to each one.\n";
             pr "   */\n";
@@ -307,13 +311,17 @@ let generate_daemon_stubs actions () =
           | BufferIn n ->
               pr "  %s = args.%s.%s_val;\n" n n n;
               pr "  %s_size = args.%s.%s_len;\n" n n n
-          | FileIn _ | FileOut _ | Pointer _ -> assert false
+          | String ((FileIn|FileOut|Filename), _)
+          | StringList ((Mountable|Pathname|FileIn|FileOut|Key|GUID
+                         |Dev_or_Path|Mountable_or_Path), _)
+          | Pointer _ -> assert false
         ) args_passed_to_daemon;
         pr "\n"
       );
 
       (* this is used at least for do_equal *)
-      if List.exists (function Pathname _ -> true | _ -> false) args then (
+      if List.exists (function String (Pathname, _) -> true
+                             | _ -> false) args then (
         (* Emit NEED_ROOT just once, even when there are two or
            more Pathname args *)
         pr "  NEED_ROOT (%b, return);\n" is_filein
@@ -325,7 +333,7 @@ let generate_daemon_stubs actions () =
       let () =
         let args' =
           List.filter
-            (function FileIn _ | FileOut _ -> false | _ -> true) args in
+            (function String ((FileIn|FileOut), _) -> false | _ -> true) args in
         let style = ret, args' @ args_of_optargs optargs, [] in
         pr "  r = do_%s " name;
         generate_c_call_args ~in_daemon:true style;
@@ -359,7 +367,7 @@ let generate_daemon_stubs actions () =
        * send its own reply.
        *)
       let no_reply =
-        List.exists (function FileOut _ -> true | _ -> false) args in
+        List.exists (function String (FileOut, _) -> true | _ -> false) args in
       if no_reply then
         pr "  /* do_%s has already sent a reply */\n" name
       else (
