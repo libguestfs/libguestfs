@@ -49,11 +49,11 @@ let test_all_rets = [
   "internal_test_rbool",        RBool "valout";
   "internal_test_rconststring", RConstString "valout";
   "internal_test_rconstoptstring", RConstOptString "valout";
-  "internal_test_rstring",      RString "valout";
-  "internal_test_rstringlist",  RStringList "valout";
+  "internal_test_rstring",      RString (RPlainString, "valout");
+  "internal_test_rstringlist",  RStringList (RPlainString, "valout");
   "internal_test_rstruct",      RStruct ("valout", "lvm_pv");
   "internal_test_rstructlist",  RStructList ("valout", "lvm_pv");
-  "internal_test_rhashtable",   RHashtable "valout";
+  "internal_test_rhashtable",   RHashtable (RPlainString, RPlainString, "valout");
   "internal_test_rbufferout",   RBufferOut "valout";
 ]
 

@@ -229,7 +229,7 @@ to return the existing label on a filesystem." };
 
   { defaults with
     name = "get_e2label"; added = (1, 0, 15);
-    style = RString "label", [String (Device, "device")], [];
+    style = RString (RPlainString, "label"), [String (Device, "device")], [];
     deprecated_by = Replaced_by "vfs_label";
     shortdesc = "get the ext2/3/4 filesystem label";
     longdesc = "\
@@ -266,7 +266,7 @@ of a filesystem." };
 
   { defaults with
     name = "get_e2uuid"; added = (1, 0, 15);
-    style = RString "uuid", [String (Device, "device")], [];
+    style = RString (RPlainString, "uuid"), [String (Device, "device")], [];
     deprecated_by = Replaced_by "vfs_uuid";
     tests = [
       (* We can't predict what UUID will be, so just check
@@ -298,7 +298,7 @@ See also: C<guestfs_part_add>" };
 
   { defaults with
     name = "sfdisk_l"; added = (1, 0, 26);
-    style = RString "partitions", [String (Device, "device")], [];
+    style = RString (RDevice, "partitions"), [String (Device, "device")], [];
     deprecated_by = Replaced_by "part_list";
     shortdesc = "display the partition table";
     longdesc = "\
@@ -366,7 +366,7 @@ and C<guestfs_part_disk>" };
 
   { defaults with
     name = "zfile"; added = (1, 0, 59);
-    style = RString "description", [String (PlainString, "meth"); String (Pathname, "path")], [];
+    style = RString (RPlainString, "description"), [String (PlainString, "meth"); String (Pathname, "path")], [];
     deprecated_by = Replaced_by "file";
     shortdesc = "determine file type inside a compressed file";
     longdesc = "\
@@ -380,7 +380,7 @@ process compressed files." };
 
   { defaults with
     name = "egrep"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -395,7 +395,7 @@ matching lines." };
 
   { defaults with
     name = "fgrep"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "pattern"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "pattern"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -410,7 +410,7 @@ matching lines." };
 
   { defaults with
     name = "grepi"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -425,7 +425,7 @@ matching lines." };
 
   { defaults with
     name = "egrepi"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -440,7 +440,7 @@ matching lines." };
 
   { defaults with
     name = "fgrepi"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "pattern"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "pattern"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -455,7 +455,7 @@ matching lines." };
 
   { defaults with
     name = "zgrep"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -470,7 +470,7 @@ matching lines." };
 
   { defaults with
     name = "zegrep"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -485,7 +485,7 @@ matching lines." };
 
   { defaults with
     name = "zfgrep"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "pattern"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "pattern"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -500,7 +500,7 @@ matching lines." };
 
   { defaults with
     name = "zgrepi"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
 
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
@@ -516,7 +516,7 @@ matching lines." };
 
   { defaults with
     name = "zegrepi"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -531,7 +531,7 @@ matching lines." };
 
   { defaults with
     name = "zfgrepi"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "pattern"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "pattern"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     deprecated_by = Replaced_by "grep";
     tests = [
@@ -577,7 +577,7 @@ See the documentation about SELINUX in L<guestfs(3)>." };
 
   { defaults with
     name = "getcon"; added = (1, 0, 67);
-    style = RString "context", [], [];
+    style = RString (RPlainString, "context"), [], [];
     optional = Some "selinux";
     deprecated_by = Replaced_by "selinux_relabel";
     shortdesc = "get SELinux security context";
@@ -774,7 +774,7 @@ it to local file C<tarball> (as an xz compressed tar archive)." };
 
   { defaults with
     name = "llz"; added = (1, 17, 6);
-    style = RString "listing", [String (Pathname, "directory")], [];
+    style = RString (RPlainString, "listing"), [String (Pathname, "directory")], [];
     deprecated_by = Replaced_by "lgetxattrs";
     shortdesc = "list the files in a directory (long format with SELinux contexts)";
     longdesc = "\

@@ -2011,9 +2011,9 @@ and generate_client_actions actions () =
       pr "  ret_v = ret.%s;\n" n
     | RConstString _ | RConstOptString _ ->
       failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-    | RString n ->
+    | RString (_, n) ->
       pr "  ret_v = ret.%s; /* caller will free */\n" n
-    | RStringList n | RHashtable n ->
+    | RStringList (_, n) | RHashtable (_, _, n) ->
       pr "  /* caller will free this, but we need to add a NULL entry */\n";
       pr "  ret.%s.%s_val =\n" n n;
       pr "    safe_realloc (g, ret.%s.%s_val,\n" n n;

@@ -148,11 +148,11 @@ namespace Guestfs
         | RInt64 n -> "long"
         | RConstString n
         | RConstOptString n
-        | RString n
+        | RString (_, n)
         | RBufferOut n -> "string"
         | RStruct (_,n) -> "_" ^ n
-        | RHashtable n -> "Hashtable"
-        | RStringList n -> "string[]"
+        | RHashtable _ -> "Hashtable"
+        | RStringList _ -> "string[]"
         | RStructList (_,n) -> sprintf "_%s[]" n
 
       and c_return_type () =

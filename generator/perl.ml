@@ -1002,11 +1002,11 @@ and generate_perl_prototype name (ret, args, optargs) =
    | RInt64 n
    | RConstString n
    | RConstOptString n
-   | RString n
+   | RString (_, n)
    | RBufferOut n -> pr "$%s = " n
    | RStruct (n,_)
-   | RHashtable n -> pr "%%%s = " n
-   | RStringList n
+   | RHashtable (_, _, n) -> pr "%%%s = " n
+   | RStringList (_, n)
    | RStructList (n,_) -> pr "@%s = " n
   );
   pr "$g->%s (" name;

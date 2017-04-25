@@ -126,9 +126,9 @@ let () =
       (match ret with
        | RErr -> ()
        | RInt n | RInt64 n | RBool n
-       | RConstString n | RConstOptString n | RString n
-       | RStringList n | RStruct (n, _) | RStructList (n, _)
-       | RHashtable n | RBufferOut n ->
+       | RConstString n | RConstOptString n | RString (_, n)
+       | RStringList (_, n) | RStruct (n, _) | RStructList (n, _)
+       | RHashtable (_, _, n) | RBufferOut n ->
            check_arg_ret_name n
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) args;

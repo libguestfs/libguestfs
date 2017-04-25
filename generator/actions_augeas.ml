@@ -127,7 +127,7 @@ if a node was created." };
 
   { defaults with
     name = "aug_get"; added = (0, 0, 7);
-    style = RString "val", [String (PlainString, "augpath")], [];
+    style = RString (RPlainString, "val"), [String (PlainString, "augpath")], [];
     shortdesc = "look up the value of an Augeas path";
     longdesc = "\
 Look up the value associated with C<path>.  If C<path>
@@ -198,7 +198,7 @@ one node.  C<dest> is overwritten if it exists." };
 
   { defaults with
     name = "aug_match"; added = (0, 0, 7);
-    style = RStringList "matches", [String (PlainString, "augpath")], [];
+    style = RStringList (RPlainString, "matches"), [String (PlainString, "augpath")], [];
     shortdesc = "return Augeas nodes which match augpath";
     longdesc = "\
 Returns a list of paths which match the path expression C<path>.
@@ -227,7 +227,7 @@ details." };
 
   { defaults with
     name = "aug_ls"; added = (0, 0, 8);
-    style = RStringList "matches", [String (PlainString, "augpath")], [];
+    style = RStringList (RPlainString, "matches"), [String (PlainString, "augpath")], [];
     tests = [
       InitBasicFS, Always, TestResult (
         [["mkdir"; "/etc"];

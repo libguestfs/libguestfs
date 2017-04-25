@@ -25,7 +25,7 @@ open Types
 let non_daemon_functions = [
   { defaults with
     name = "hivex_value_utf8"; added = (1, 19, 35);
-    style = RString "databuf", [Int64 "valueh"], [];
+    style = RString (RPlainString, "databuf"), [Int64 "valueh"], [];
     optional = Some "hivex";
     shortdesc = "return the data field from the (key, datatype, data) tuple";
     longdesc = "\
@@ -85,7 +85,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
 
   { defaults with
     name = "hivex_node_name"; added = (1, 19, 35);
-    style = RString "name", [Int64 "nodeh"], [];
+    style = RString (RPlainString, "name"), [Int64 "nodeh"], [];
     optional = Some "hivex";
     shortdesc = "return the name of the node";
     longdesc = "\
@@ -148,7 +148,7 @@ This is a wrapper around the L<hivex(3)> call of the same name." };
 
   { defaults with
     name = "hivex_value_key"; added = (1, 19, 35);
-    style = RString "key", [Int64 "valueh"], [];
+    style = RString (RPlainString, "key"), [Int64 "valueh"], [];
     optional = Some "hivex";
     shortdesc = "return the key field from the (key, datatype, data) tuple";
     longdesc = "\

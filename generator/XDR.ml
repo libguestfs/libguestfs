@@ -128,11 +128,11 @@ let generate_xdr () =
            pr "};\n\n"
        | RConstString _ | RConstOptString _ ->
            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-       | RString n ->
+       | RString (_, n) ->
            pr "struct %s_ret {\n" name;
            pr "  string %s<>;\n" n;
            pr "};\n\n"
-       | RStringList n ->
+       | RStringList (_, n) ->
            pr "struct %s_ret {\n" name;
            pr "  guestfs_str %s<>;\n" n;
            pr "};\n\n"
@@ -144,7 +144,7 @@ let generate_xdr () =
            pr "struct %s_ret {\n" name;
            pr "  guestfs_int_%s_list %s;\n" typ n;
            pr "};\n\n"
-       | RHashtable n ->
+       | RHashtable (_, _, n) ->
            pr "struct %s_ret {\n" name;
            pr "  guestfs_str %s<>;\n" n;
            pr "};\n\n"

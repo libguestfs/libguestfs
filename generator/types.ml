@@ -81,12 +81,12 @@ and ret =
     (* "RString" is a returned string.  It must NOT be NULL, since
      * a NULL return indicates an error.  The caller frees this.
      *)
-  | RString of string
+  | RString of rstringt * string
 
     (* "RStringList" is a list of strings.  No string in the list
      * can be NULL.  The caller frees the strings and the array.
      *)
-  | RStringList of string
+  | RStringList of rstringt * string
 
     (* "RStruct" is a function which returns a single named structure
      * or an error indication (in C, a struct, and in other languages
@@ -101,13 +101,18 @@ and ret =
   | RStructList of string * string	(* name of retval, name of struct *)
 
     (* Key-value pairs of untyped strings.  Turns into a hashtable or
-     * dictionary in languages which support it.  DON'T use this as a
-     * general "bucket" for results.  Prefer a stronger typed return
-     * value if one is available, or write a custom struct.  Don't use
-     * this if the list could potentially be very long, since it is
-     * inefficient.  Keys should be unique.  NULLs are not permitted.
+     * dictionary in languages which support it.
+     *
+     * DON'T use this as a general "bucket" for results.  Prefer a
+     * stronger typed return value if one is available, or write a
+     * custom struct.  Don't use this if the list could potentially
+     * be very long, since it is inefficient.
+     *
+     * Keys should be unique.  NULLs are not permitted.
+     * The first rstringt is the type of the keys, the second
+     * rstringt is the type of the values.
      *)
-  | RHashtable of string
+  | RHashtable of rstringt * rstringt * string
 
     (* "RBufferOut" is handled almost exactly like RString, but
      * it allows the string to contain arbitrary 8 bit data including
@@ -123,6 +128,11 @@ and ret =
      * size (ie. ~ 2 MB).
      *)
   | RBufferOut of string
+
+and rstringt =
+  | RPlainString        (* none of the others *)
+  | RDevice             (* /dev device name *)
+  | RMountable          (* location of mountable filesystem *)
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 

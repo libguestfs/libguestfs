@@ -380,13 +380,69 @@ let generate_daemon_stubs actions () =
               name
         | RConstString _ | RConstOptString _ ->
             failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-        | RString n ->
+        | RString (RPlainString, n) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = r;\n" n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
               name
-        | RStringList n | RHashtable n ->
+        | RString ((RDevice|RMountable), n) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  CLEANUP_FREE char *rr = reverse_device_name_translation (r);\n";
+            pr "  if (rr == NULL)\n";
+            pr "    /* reverse_device_name_translation has already called reply_with_error */\n";
+            pr "    return;\n";
+            pr "  ret.%s = rr;\n" n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RStringList (RPlainString, n)
+        | RHashtable (RPlainString, RPlainString, n) ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_val = r;\n" n n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RStringList ((RDevice|RMountable), n)
+        | RHashtable ((RDevice|RMountable), (RDevice|RMountable), n) ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  size_t i;\n";
+            pr "  for (i = 0; r[i] != NULL; ++i) {\n";
+            pr "    char *rr = reverse_device_name_translation (r[i]);\n";
+            pr "    if (rr == NULL)\n";
+            pr "      /* reverse_device_name_translation has already called reply_with_error */\n";
+            pr "      return;\n";
+            pr "    free (r[i]);\n";
+            pr "    r[i] = rr;\n";
+            pr "  }\n";
+            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_val = r;\n" n n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RHashtable ((RDevice|RMountable), RPlainString, n) ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  size_t i;\n";
+            pr "  for (i = 0; r[i] != NULL; i += 2) {\n";
+            pr "    char *rr = reverse_device_name_translation (r[i]);\n";
+            pr "    if (rr == NULL)\n";
+            pr "      /* reverse_device_name_translation has already called reply_with_error */\n";
+            pr "      return;\n";
+            pr "    free (r[i]);\n";
+            pr "    r[i] = rr;\n";
+            pr "  }\n";
+            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_val = r;\n" n n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RHashtable (RPlainString, (RDevice|RMountable), n) ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  size_t i;\n";
+            pr "  for (i = 0; r[i] != NULL; i += 2) {\n";
+            pr "    char *rr = reverse_device_name_translation (r[i+1]);\n";
+            pr "    if (rr == NULL)\n";
+            pr "      /* reverse_device_name_translation has already called reply_with_error */\n";
+            pr "      return;\n";
+            pr "    free (r[i+1]);\n";
+            pr "    r[i+1] = rr;\n";
+            pr "  }\n";
             pr "  ret.%s.%s_len = count_strings (r);\n" n n;
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"

@@ -51,7 +51,7 @@ the qemu binary at the same time as the handle is created." };
 
   { defaults with
     name = "get_hv"; added = (1, 23, 17);
-    style = RString "hv", [], [];
+    style = RString (RPlainString, "hv"), [], [];
     blocking = false;
     tests = [
       InitNone, Always, TestRun (
@@ -328,7 +328,7 @@ See L<guestfs(3)/BACKEND>." };
 
   { defaults with
     name = "get_backend"; added = (1, 21, 26);
-    style = RString "backend", [], [];
+    style = RString (RPlainString, "backend"), [], [];
     blocking = false;
     tests = [
       InitNone, Always, TestRun (
@@ -405,7 +405,7 @@ the default.  Else F</tmp> is the default." };
 
   { defaults with
     name = "get_tmpdir"; added = (1, 19, 58);
-    style = RString "tmpdir", [], [];
+    style = RString (RPlainString, "tmpdir"), [], [];
     blocking = false;
     shortdesc = "get the temporary directory";
     longdesc = "\
@@ -430,7 +430,7 @@ the default.  Else F</var/tmp> is the default." };
 
   { defaults with
     name = "get_cachedir"; added = (1, 19, 58);
-    style = RString "cachedir", [], [];
+    style = RString (RPlainString, "cachedir"), [], [];
     blocking = false;
     shortdesc = "get the appliance cache directory";
     longdesc = "\
@@ -464,7 +464,7 @@ Get the program name.  See C<guestfs_set_program>." };
 
   { defaults with
     name = "get_backend_settings"; added = (1, 25, 24);
-    style = RStringList "settings", [], [];
+    style = RStringList (RPlainString, "settings"), [], [];
     blocking = false;
     tests = [
       InitNone, Always, TestRun (
@@ -505,7 +505,7 @@ See L<guestfs(3)/BACKEND>, L<guestfs(3)/BACKEND SETTINGS>." };
 
   { defaults with
     name = "get_backend_setting"; added = (1, 27, 2);
-    style = RString "val", [String (PlainString, "name")], [];
+    style = RString (RPlainString, "val"), [String (PlainString, "name")], [];
     blocking = false;
     shortdesc = "get a single per-backend settings string";
     longdesc = "\
@@ -594,7 +594,7 @@ Get the handle identifier.  See C<guestfs_set_identifier>." };
 
   { defaults with
     name = "get_sockdir"; added = (1, 33, 8);
-    style = RString "sockdir", [], [];
+    style = RString (RPlainString, "sockdir"), [], [];
     blocking = false;
     shortdesc = "get the temporary directory for sockets";
     longdesc = "\

@@ -93,3 +93,18 @@ device_name_translation (const char *device)
 
   return NULL;
 }
+
+char *
+reverse_device_name_translation (const char *device)
+{
+  char *ret;
+
+  /* Currently a no-op. */
+  ret = strdup (device);
+  if (ret == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
+}

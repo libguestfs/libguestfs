@@ -167,6 +167,7 @@ extern int is_device_mounted (const char *device);
 
 /*-- in device-name-translation.c --*/
 extern char *device_name_translation (const char *device);
+extern char *reverse_device_name_translation (const char *device);
 
 /*-- in stubs.c (auto-generated) --*/
 extern void dispatch_incoming_message (XDR *);

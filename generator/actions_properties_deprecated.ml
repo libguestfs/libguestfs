@@ -112,7 +112,7 @@ See L<guestfs(3)/BACKEND>." };
 
   { defaults with
     name = "get_attach_method"; added = (1, 9, 8);
-    style = RString "backend", [], [];
+    style = RString (RPlainString, "backend"), [], [];
     blocking = false;
     deprecated_by = Replaced_by "get_backend";
     tests = [

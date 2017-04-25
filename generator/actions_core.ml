@@ -184,7 +184,7 @@ Use C<guestfs_available> or C<guestfs_feature_available> instead." };
 
   { defaults with
     name = "file_architecture"; added = (1, 5, 3);
-    style = RString "arch", [String (Pathname, "filename")], [];
+    style = RString (RPlainString, "arch"), [String (Pathname, "filename")], [];
     tests = [
       InitISOFS, Always, TestResultString (
         [["file_architecture"; "/bin-aarch64-dynamic"]], "aarch64"), [];
@@ -372,7 +372,7 @@ initrd or kernel module(s) instead.
 
   { defaults with
     name = "mountable_device"; added = (1, 33, 15);
-    style = RString "device", [String (Mountable, "mountable")], [];
+    style = RString (RDevice, "device"), [String (Mountable, "mountable")], [];
     shortdesc = "extract the device part of a mountable";
     longdesc = "\
 Returns the device name of a mountable. In quite a lot of
@@ -385,7 +385,7 @@ extract the subvolume path of the mountable if any)." };
 
   { defaults with
     name = "mountable_subvolume"; added = (1, 33, 15);
-    style = RString "subvolume", [String (Mountable, "mountable")], [];
+    style = RString (RPlainString, "subvolume"), [String (Mountable, "mountable")], [];
     shortdesc = "extract the subvolume part of a mountable";
     longdesc = "\
 Returns the subvolume path of a mountable. Btrfs subvolumes
@@ -398,7 +398,7 @@ this function fails and the C<errno> is set to C<EINVAL>." };
 
   { defaults with
     name = "list_filesystems"; added = (1, 5, 15);
-    style = RHashtable "fses", [], [];
+    style = RHashtable (RMountable, RPlainString, "fses"), [], [];
     shortdesc = "list filesystems";
     longdesc = "\
 This inspection command looks for filesystems on partitions,
@@ -905,7 +905,7 @@ information on this topic." };
 
   { defaults with
     name = "canonical_device_name"; added = (1, 19, 7);
-    style = RString "canonical", [String (PlainString, "device")], [];
+    style = RString (RPlainString, "canonical"), [String (PlainString, "device")], [];
     tests = [
       InitNone, Always, TestResultString (
         [["canonical_device_name"; "/dev/hda"]], "/dev/sda"), [];
@@ -969,7 +969,7 @@ but note that any errors are ignored in that case." };
 
   { defaults with
     name = "cat"; added = (0, 0, 4);
-    style = RString "content", [String (Pathname, "path")], [];
+    style = RString (RPlainString, "content"), [String (Pathname, "path")], [];
     tests = [
       InitISOFS, Always, TestResultString (
         [["cat"; "/known-2"]], "abcdef\n"), []
@@ -985,7 +985,7 @@ or C<guestfs_download> functions." };
 
   { defaults with
     name = "find"; added = (1, 0, 27);
-    style = RStringList "names", [String (Pathname, "directory")], [];
+    style = RStringList (RPlainString, "names"), [String (Pathname, "directory")], [];
     tests = [
       InitBasicFS, Always, TestResult (
         [["find"; "/"]],
@@ -1047,7 +1047,7 @@ handle files that contain embedded ASCII NUL characters." };
 
   { defaults with
     name = "read_lines"; added = (0, 0, 7);
-    style = RStringList "lines", [String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (Pathname, "path")], [];
     tests = [
       InitISOFS, Always, TestResult (
         [["read_lines"; "/known-4"]],
@@ -1194,7 +1194,7 @@ for getting standard stats." };
 
   { defaults with
     name = "readlinklist"; added = (1, 0, 77);
-    style = RStringList "links", [String (Pathname, "path"); StringList (Filename, "names")], [];
+    style = RStringList (RPlainString, "links"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     shortdesc = "readlink on multiple files";
     longdesc = "\
 This call allows you to do a C<readlink> operation
@@ -1217,7 +1217,7 @@ list a directory contents without making many round-trips." };
 
   { defaults with
     name = "ls"; added = (0, 0, 4);
-    style = RStringList "listing", [String (Pathname, "directory")], [];
+    style = RStringList (RPlainString, "listing"), [String (Pathname, "directory")], [];
     tests = [
       InitScratchFS, Always, TestResult (
         [["mkdir"; "/ls"];
@@ -1235,7 +1235,7 @@ hidden files are shown." };
 
   { defaults with
     name = "disk_format"; added = (1, 19, 38);
-    style = RString "format", [String (PlainString, "filename")], [];
+    style = RString (RPlainString, "format"), [String (PlainString, "filename")], [];
     tests = [
       InitEmpty, Always, TestResultString (
         [["disk_format"; "../../test-data/blank-disks/blank-disk-1s.raw"]], "raw"), [];
@@ -1377,7 +1377,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
 
   { defaults with
     name = "get_libvirt_requested_credentials"; added = (1, 19, 52);
-    style = RStringList "creds", [], [];
+    style = RStringList (RPlainString, "creds"), [], [];
     blocking = false;
     shortdesc = "get list of credentials requested by libvirt";
     longdesc = "\
@@ -1392,7 +1392,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
 
   { defaults with
     name = "get_libvirt_requested_credential_prompt"; added = (1, 19, 52);
-    style = RString "prompt", [Int "index"], [];
+    style = RString (RPlainString, "prompt"), [Int "index"], [];
     blocking = false;
     shortdesc = "prompt of i'th requested credential";
     longdesc = "\
@@ -1404,7 +1404,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
 
   { defaults with
     name = "get_libvirt_requested_credential_challenge"; added = (1, 19, 52);
-    style = RString "challenge", [Int "index"], [];
+    style = RString (RPlainString, "challenge"), [Int "index"], [];
     blocking = false;
     shortdesc = "challenge of i'th requested credential";
     longdesc = "\
@@ -1416,7 +1416,7 @@ See L<guestfs(3)/LIBVIRT AUTHENTICATION> for documentation and example code." };
 
   { defaults with
     name = "get_libvirt_requested_credential_defresult"; added = (1, 19, 52);
-    style = RString "defresult", [Int "index"], [];
+    style = RString (RPlainString, "defresult"), [Int "index"], [];
     blocking = false;
     shortdesc = "default result of i'th requested credential";
     longdesc = "\
@@ -1804,7 +1804,7 @@ file types such as directories, symbolic links, block special etc." };
 
   { defaults with
     name = "ll"; added = (0, 0, 4);
-    style = RString "listing", [String (Pathname, "directory")], [];
+    style = RString (RPlainString, "listing"), [String (Pathname, "directory")], [];
     test_excuse = "tricky to test because it depends on the exact format of the 'ls -l' command, which changed between Fedora 10 and Fedora 11";
     shortdesc = "list the files in a directory (long format)";
     longdesc = "\
@@ -1816,7 +1816,7 @@ is I<not> intended that you try to parse the output string." };
 
   { defaults with
     name = "list_devices"; added = (0, 0, 4);
-    style = RStringList "devices", [], [];
+    style = RStringList (RDevice, "devices"), [], [];
     tests = [
       InitEmpty, Always, TestResult (
         [["list_devices"]],
@@ -1832,7 +1832,7 @@ See also C<guestfs_list_filesystems>." };
 
   { defaults with
     name = "list_partitions"; added = (0, 0, 4);
-    style = RStringList "partitions", [], [];
+    style = RStringList (RDevice, "partitions"), [], [];
     tests = [
       InitBasicFS, Always, TestResult (
         [["list_partitions"]],
@@ -1858,7 +1858,7 @@ See also C<guestfs_list_filesystems>." };
 
   { defaults with
     name = "pvs"; added = (0, 0, 4);
-    style = RStringList "physvols", [], [];
+    style = RStringList (RDevice, "physvols"), [], [];
     optional = Some "lvm2";
     tests = [
       InitBasicFSonLVM, Always, TestResult (
@@ -1886,7 +1886,7 @@ See also C<guestfs_pvs_full>." };
 
   { defaults with
     name = "vgs"; added = (0, 0, 4);
-    style = RStringList "volgroups", [], [];
+    style = RStringList (RPlainString, "volgroups"), [], [];
     optional = Some "lvm2";
     tests = [
       InitBasicFSonLVM, Always, TestResult (
@@ -1916,7 +1916,7 @@ See also C<guestfs_vgs_full>." };
 
   { defaults with
     name = "lvs"; added = (0, 0, 4);
-    style = RStringList "logvols", [], [];
+    style = RStringList (RDevice, "logvols"), [], [];
     optional = Some "lvm2";
     tests = [
       InitBasicFSonLVM, Always, TestResult (
@@ -2263,7 +2263,7 @@ contains the filesystem." };
 
   { defaults with
     name = "mounts"; added = (0, 0, 8);
-    style = RStringList "devices", [], [];
+    style = RStringList (RMountable, "devices"), [], [];
     tests = [
       InitScratchFS, Always, TestResult (
         [["mounts"]], "is_device_list (ret, 1, \"/dev/sdb1\")"), []
@@ -2320,7 +2320,7 @@ and physical volumes." };
 
   { defaults with
     name = "file"; added = (1, 9, 1);
-    style = RString "description", [String (Dev_or_Path, "path")], [];
+    style = RString (RPlainString, "description"), [String (Dev_or_Path, "path")], [];
     tests = [
       InitISOFS, Always, TestResultString (
         [["file"; "/empty"]], "empty"), [];
@@ -2354,7 +2354,7 @@ C<guestfs_is_file>, C<guestfs_is_blockdev> (etc), C<guestfs_is_zero>." };
 
   { defaults with
     name = "command"; added = (1, 9, 1);
-    style = RString "output", [StringList (PlainString, "arguments")], [];
+    style = RString (RPlainString, "output"), [StringList (PlainString, "arguments")], [];
     protocol_limit_warning = true;
     tests = [
       InitScratchFS, IfNotCrossAppliance, TestResultString (
@@ -2457,7 +2457,7 @@ locations." };
 
   { defaults with
     name = "command_lines"; added = (1, 9, 1);
-    style = RStringList "lines", [StringList (PlainString, "arguments")], [];
+    style = RStringList (RPlainString, "lines"), [StringList (PlainString, "arguments")], [];
     protocol_limit_warning = true;
     tests = [
       InitScratchFS, IfNotCrossAppliance, TestResult (
@@ -2551,7 +2551,7 @@ This is the same as the L<statvfs(2)> system call." };
 
   { defaults with
     name = "tune2fs_l"; added = (1, 9, 2);
-    style = RHashtable "superblock", [String (Device, "device")], [];
+    style = RHashtable (RPlainString, RPlainString, "superblock"), [String (Device, "device")], [];
     tests = [
       InitScratchFS, Always, TestResult (
         [["tune2fs_l"; "/dev/sdb1"]],
@@ -2752,7 +2752,7 @@ See also C<guestfs_upload>, C<guestfs_cat>." };
 
   { defaults with
     name = "checksum"; added = (1, 0, 2);
-    style = RString "checksum", [String (PlainString, "csumtype"); String (Pathname, "path")], [];
+    style = RString (RPlainString, "checksum"), [String (PlainString, "csumtype"); String (Pathname, "path")], [];
     tests = [
       InitISOFS, Always, TestResultString (
         [["checksum"; "crc"; "/known-3"]], "2891671662"), [];
@@ -3277,7 +3277,7 @@ so that the maximum guest memory is freed." };
 
   { defaults with
     name = "dmesg"; added = (1, 0, 18);
-    style = RString "kmsgs", [], [];
+    style = RString (RPlainString, "kmsgs"), [], [];
     tests = [
       InitEmpty, Always, TestRun (
         [["dmesg"]]), []
@@ -3334,7 +3334,7 @@ The external L<cmp(1)> program is used for the comparison." };
 
   { defaults with
     name = "strings"; added = (1, 0, 22);
-    style = RStringList "stringsout", [String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "stringsout"), [String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -3358,7 +3358,7 @@ version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
 
   { defaults with
     name = "strings_e"; added = (1, 0, 22);
-    style = RStringList "stringsout", [String (PlainString, "encoding"); String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "stringsout"), [String (PlainString, "encoding"); String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -3416,7 +3416,7 @@ version of libguestfs, but see L<guestfs(3)/CVE-2014-8484>." };
 
   { defaults with
     name = "hexdump"; added = (1, 0, 22);
-    style = RString "dump", [String (Pathname, "path")], [];
+    style = RString (RPlainString, "dump"), [String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResultString (
@@ -3474,7 +3474,7 @@ volume to match the new size of the underlying device." };
 
   { defaults with
     name = "sfdisk_kernel_geometry"; added = (1, 0, 26);
-    style = RString "partitions", [String (Device, "device")], [];
+    style = RString (RPlainString, "partitions"), [String (Device, "device")], [];
     shortdesc = "display the kernel geometry";
     longdesc = "\
 This displays the kernel’s idea of the geometry of C<device>.
@@ -3484,7 +3484,7 @@ be parsed." };
 
   { defaults with
     name = "sfdisk_disk_geometry"; added = (1, 0, 26);
-    style = RString "partitions", [String (Device, "device")], [];
+    style = RString (RPlainString, "partitions"), [String (Device, "device")], [];
     shortdesc = "display the disk geometry from the partition table";
     longdesc = "\
 This displays the disk geometry of C<device> read from the
@@ -3606,7 +3606,7 @@ L<ntfs-3g.probe(8)> manual page." };
 
   { defaults with
     name = "sh"; added = (1, 0, 50);
-    style = RString "output", [String (PlainString, "command")], [];
+    style = RString (RPlainString, "output"), [String (PlainString, "command")], [];
     shortdesc = "run a command via the shell";
     longdesc = "\
 This call runs a command from the guest filesystem via the
@@ -3624,7 +3624,7 @@ All the provisos about C<guestfs_command> apply to this call." };
 
   { defaults with
     name = "sh_lines"; added = (1, 0, 50);
-    style = RStringList "lines", [String (PlainString, "command")], [];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "command")], [];
     shortdesc = "run a command via the shell returning lines";
     longdesc = "\
 This is the same as C<guestfs_sh>, but splits the result
@@ -3639,7 +3639,7 @@ See also: C<guestfs_command_lines>" };
      * start with "/".  There is no concept of "cwd" in libguestfs,
      * hence no "."-relative names.
      *)
-    style = RStringList "paths", [String (Pathname, "pattern")], [OBool "directoryslash"];
+    style = RStringList (RPlainString, "paths"), [String (Pathname, "pattern")], [OBool "directoryslash"];
     once_had_no_optargs = true;
     tests = [
       InitScratchFS, Always, TestResult (
@@ -3752,7 +3752,7 @@ manual page for more details." };
 
   { defaults with
     name = "mkdtemp"; added = (1, 0, 54);
-    style = RString "dir", [String (Pathname, "tmpl")], [];
+    style = RString (RPlainString, "dir"), [String (Pathname, "tmpl")], [];
     tests = [
       InitScratchFS, Always, TestRun (
         [["mkdir"; "/mkdtemp"];
@@ -3820,7 +3820,7 @@ C<wc -c> external command." };
 
   { defaults with
     name = "head"; added = (1, 0, 54);
-    style = RStringList "lines", [String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -3838,7 +3838,7 @@ a list of strings." };
 
   { defaults with
     name = "head_n"; added = (1, 0, 54);
-    style = RStringList "lines", [Int "nrlines"; String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [Int "nrlines"; String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -3863,7 +3863,7 @@ If the parameter C<nrlines> is zero, this returns an empty list." };
 
   { defaults with
     name = "tail"; added = (1, 0, 54);
-    style = RStringList "lines", [String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -3877,7 +3877,7 @@ a list of strings." };
 
   { defaults with
     name = "tail_n"; added = (1, 0, 54);
-    style = RStringList "lines", [Int "nrlines"; String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "lines"), [Int "nrlines"; String (Pathname, "path")], [];
     protocol_limit_warning = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -3902,7 +3902,7 @@ If the parameter C<nrlines> is zero, this returns an empty list." };
 
   { defaults with
     name = "df"; added = (1, 0, 54);
-    style = RString "output", [], [];
+    style = RString (RPlainString, "output"), [], [];
     test_excuse = "tricky to test because it depends on the exact format of the 'df' command and other imponderables";
     shortdesc = "report file system disk space usage";
     longdesc = "\
@@ -3914,7 +3914,7 @@ Use C<guestfs_statvfs> from programs." };
 
   { defaults with
     name = "df_h"; added = (1, 0, 54);
-    style = RString "output", [], [];
+    style = RString (RPlainString, "output"), [], [];
     test_excuse = "tricky to test because it depends on the exact format of the 'df' command and other imponderables";
     shortdesc = "report file system disk space usage (human readable)";
     longdesc = "\
@@ -3947,7 +3947,7 @@ The result is the estimated size in I<kilobytes>
 
   { defaults with
     name = "initrd_list"; added = (1, 0, 54);
-    style = RStringList "filenames", [String (Pathname, "path")], [];
+    style = RStringList (RPlainString, "filenames"), [String (Pathname, "path")], [];
     tests = [
       InitISOFS, Always, TestResult (
         [["initrd_list"; "/initrd"]],
@@ -4265,7 +4265,7 @@ of the link itself." };
 
   { defaults with
     name = "mountpoints"; added = (1, 0, 62);
-    style = RHashtable "mps", [], [];
+    style = RHashtable (RMountable, RPlainString, "mps"), [], [];
     shortdesc = "show mountpoints";
     longdesc = "\
 This call is similar to C<guestfs_mounts>.  That call returns
@@ -4332,7 +4332,7 @@ for full details." };
 
   { defaults with
     name = "grep"; added = (1, 0, 66);
-    style = RStringList "lines", [String (PlainString, "regex"); String (Pathname, "path")], [OBool "extended"; OBool "fixed"; OBool "insensitive"; OBool "compressed"];
+    style = RStringList (RPlainString, "lines"), [String (PlainString, "regex"); String (Pathname, "path")], [OBool "extended"; OBool "fixed"; OBool "insensitive"; OBool "compressed"];
     protocol_limit_warning = true; once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResult (
@@ -4411,7 +4411,7 @@ compress- or gzip-compressed.
 
   { defaults with
     name = "realpath"; added = (1, 0, 66);
-    style = RString "rpath", [String (Pathname, "path")], [];
+    style = RString (RPlainString, "rpath"), [String (Pathname, "path")], [];
     tests = [
       InitISOFS, Always, TestResultString (
         [["realpath"; "/../directory"]], "/directory"), []
@@ -4483,7 +4483,7 @@ The I<-f> option removes the link (C<linkname>) if it exists already." };
 
   { defaults with
     name = "readlink"; added = (1, 0, 66);
-    style = RString "link", [String (Pathname, "path")], [];
+    style = RString (RPlainString, "link"), [String (Pathname, "path")], [];
     shortdesc = "read the target of a symbolic link";
     longdesc = "\
 This command reads the target of a symbolic link." };
@@ -4706,7 +4706,7 @@ size and leave remaining events in the queue." };
 
   { defaults with
     name = "inotify_files"; added = (1, 0, 66);
-    style = RStringList "paths", [], [];
+    style = RStringList (RPlainString, "paths"), [], [];
     optional = Some "inotify";
     shortdesc = "return list of watched files that had events";
     longdesc = "\
@@ -4737,7 +4737,7 @@ This loads a kernel module in the appliance." };
 
   { defaults with
     name = "echo_daemon"; added = (1, 0, 69);
-    style = RString "output", [StringList (PlainString, "words")], [];
+    style = RString (RPlainString, "output"), [StringList (PlainString, "words")], [];
     tests = [
       InitNone, Always, TestResultString (
         [["echo_daemon"; "This is a test"]], "This is a test"), [];
@@ -4786,7 +4786,7 @@ The result list is not sorted.
 
   { defaults with
     name = "case_sensitive_path"; added = (1, 0, 75);
-    style = RString "rpath", [String (Pathname, "path")], [];
+    style = RString (RPlainString, "rpath"), [String (Pathname, "path")], [];
     tests = [
       InitISOFS, Always, TestResultString (
         [["case_sensitive_path"; "/DIRECTORY"]], "/directory"), [];
@@ -4870,7 +4870,7 @@ See also C<guestfs_realpath>." };
 
   { defaults with
     name = "vfs_type"; added = (1, 0, 75);
-    style = RString "fstype", [String (Mountable, "mountable")], [];
+    style = RString (RPlainString, "fstype"), [String (Mountable, "mountable")], [];
     tests = [
       InitScratchFS, Always, TestResultString (
         [["vfs_type"; "/dev/sdb1"]], "ext2"), []
@@ -5032,7 +5032,7 @@ into smaller groups of names." };
 
   { defaults with
     name = "internal_readlinklist"; added = (1, 19, 32);
-    style = RStringList "links", [String (Pathname, "path"); StringList (Filename, "names")], [];
+    style = RStringList (RPlainString, "links"), [String (Pathname, "path"); StringList (Filename, "names")], [];
     visibility = VInternal;
     shortdesc = "readlink on multiple files";
     longdesc = "\
@@ -5282,7 +5282,7 @@ Size of the partition in bytes.
 
   { defaults with
     name = "part_get_parttype"; added = (1, 0, 78);
-    style = RString "parttype", [String (Device, "device")], [];
+    style = RString (RPlainString, "parttype"), [String (Device, "device")], [];
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "gpt"];
@@ -5390,28 +5390,28 @@ See also C<guestfs_initrd_list>." };
 
   { defaults with
     name = "pvuuid"; added = (1, 0, 87);
-    style = RString "uuid", [String (Device, "device")], [];
+    style = RString (RPlainString, "uuid"), [String (Device, "device")], [];
     shortdesc = "get the UUID of a physical volume";
     longdesc = "\
 This command returns the UUID of the LVM PV C<device>." };
 
   { defaults with
     name = "vguuid"; added = (1, 0, 87);
-    style = RString "uuid", [String (PlainString, "vgname")], [];
+    style = RString (RPlainString, "uuid"), [String (PlainString, "vgname")], [];
     shortdesc = "get the UUID of a volume group";
     longdesc = "\
 This command returns the UUID of the LVM VG named C<vgname>." };
 
   { defaults with
     name = "lvuuid"; added = (1, 0, 87);
-    style = RString "uuid", [String (Device, "device")], [];
+    style = RString (RPlainString, "uuid"), [String (Device, "device")], [];
     shortdesc = "get the UUID of a logical volume";
     longdesc = "\
 This command returns the UUID of the LVM LV C<device>." };
 
   { defaults with
     name = "vgpvuuids"; added = (1, 0, 87);
-    style = RStringList "uuids", [String (PlainString, "vgname")], [];
+    style = RStringList (RPlainString, "uuids"), [String (PlainString, "vgname")], [];
     shortdesc = "get the PV UUIDs containing the volume group";
     longdesc = "\
 Given a VG called C<vgname>, this returns the UUIDs of all
@@ -5424,7 +5424,7 @@ See also C<guestfs_vglvuuids>." };
 
   { defaults with
     name = "vglvuuids"; added = (1, 0, 87);
-    style = RStringList "uuids", [String (PlainString, "vgname")], [];
+    style = RStringList (RPlainString, "uuids"), [String (PlainString, "vgname")], [];
     shortdesc = "get the LV UUIDs of all LVs in the volume group";
     longdesc = "\
 Given a VG called C<vgname>, this returns the UUIDs of all
@@ -5536,7 +5536,7 @@ types (see C<guestfs_part_get_parttype>)." };
 
   { defaults with
     name = "checksum_device"; added = (1, 3, 2);
-    style = RString "checksum", [String (PlainString, "csumtype"); String (Device, "device")], [];
+    style = RString (RPlainString, "checksum"), [String (PlainString, "csumtype"); String (Device, "device")], [];
     tests = [
       InitISOFS, Always, TestResult (
         [["checksum_device"; "md5"; "/dev/sdd"]],
@@ -5723,7 +5723,7 @@ allows you to specify the new size (in bytes) explicitly." };
 
   { defaults with
     name = "available_all_groups"; added = (1, 3, 15);
-    style = RStringList "groups", [], [];
+    style = RStringList (RPlainString, "groups"), [], [];
     tests = [
       InitNone, Always, TestRun [["available_all_groups"]], []
     ];
@@ -5766,7 +5766,7 @@ a file in the host and attach it as a device." };
 
   { defaults with
     name = "vfs_label"; added = (1, 3, 18);
-    style = RString "label", [String (Mountable, "mountable")], [];
+    style = RString (RPlainString, "label"), [String (Mountable, "mountable")], [];
     tests = [
       InitBasicFS, Always, TestResultString (
         [["set_label"; "/dev/sda1"; "LTEST"];
@@ -5791,7 +5791,7 @@ To find a filesystem from the label, use C<guestfs_findfs_label>." };
 
   { defaults with
     name = "vfs_uuid"; added = (1, 3, 18);
-    style = RString "uuid", [String (Mountable, "mountable")], [];
+    style = RString (RPlainString, "uuid"), [String (Mountable, "mountable")], [];
     fish_alias = ["get-uuid"];
     tests = [
         InitBasicFS, Always, TestResultString (
@@ -5955,7 +5955,7 @@ returns true iff this is the case." };
 
   { defaults with
     name = "findfs_uuid"; added = (1, 5, 3);
-    style = RString "device", [String (PlainString, "uuid")], [];
+    style = RString (RDevice, "device"), [String (PlainString, "uuid")], [];
     shortdesc = "find a filesystem by UUID";
     longdesc = "\
 This command searches the filesystems and returns the one
@@ -5966,7 +5966,7 @@ To find the UUID of a filesystem, use C<guestfs_vfs_uuid>." };
 
   { defaults with
     name = "findfs_label"; added = (1, 5, 3);
-    style = RString "device", [String (PlainString, "label")], [];
+    style = RString (RDevice, "device"), [String (PlainString, "label")], [];
     shortdesc = "find a filesystem by label";
     longdesc = "\
 This command searches the filesystems and returns the one
@@ -6083,7 +6083,7 @@ See also C<guestfs_stat>." };
 
   { defaults with
     name = "part_to_dev"; added = (1, 5, 15);
-    style = RString "device", [String (Device, "partition")], [];
+    style = RString (RDevice, "device"), [String (Device, "partition")], [];
     tests = [
       InitPartition, Always, TestResultDevice (
         [["part_to_dev"; "/dev/sda1"]], "/dev/sda"), [];
@@ -6206,7 +6206,7 @@ See also C<guestfs_pread>." };
 
   { defaults with
     name = "lvm_canonical_lv_name"; added = (1, 5, 24);
-    style = RString "lv", [String (Device, "lvname")], [];
+    style = RString (RDevice, "lv"), [String (Device, "lvname")], [];
     tests = [
       InitBasicFSonLVM, IfAvailable "lvm2", TestResultString (
         [["lvm_canonical_lv_name"; "/dev/mapper/VG-LV"]], "/dev/VG/LV"), [];
@@ -6384,7 +6384,7 @@ Note that for large devices this can take a long time to run." };
 
   { defaults with
     name = "list_9p"; added = (1, 11, 12);
-    style = RStringList "mounttags", [], [];
+    style = RStringList (RPlainString, "mounttags"), [], [];
     shortdesc = "list 9p filesystems";
     longdesc = "\
 List all 9p filesystems attached to the guest.  A list of
@@ -6405,7 +6405,7 @@ parameter." };
 
   { defaults with
     name = "list_dm_devices"; added = (1, 11, 15);
-    style = RStringList "devices", [], [];
+    style = RStringList (RDevice, "devices"), [], [];
     shortdesc = "list device mapper devices";
     longdesc = "\
 List all device mapper devices.
@@ -6802,14 +6802,14 @@ If not set, this defaults to C<raid1>.
 
   { defaults with
     name = "list_md_devices"; added = (1, 15, 4);
-    style = RStringList "devices", [], [];
+    style = RStringList (RDevice, "devices"), [], [];
     shortdesc = "list Linux md (RAID) devices";
     longdesc = "\
 List all Linux md devices." };
 
   { defaults with
     name = "md_detail"; added = (1, 15, 6);
-    style = RHashtable "info", [String (Device, "md")], [];
+    style = RHashtable (RPlainString, RPlainString, "info"), [String (Device, "md")], [];
     optional = Some "mdadm";
     shortdesc = "obtain metadata for an MD device";
     longdesc = "\
@@ -6852,7 +6852,7 @@ device is stopped, but it is not destroyed or zeroed." };
 
   { defaults with
     name = "blkid"; added = (1, 15, 9);
-    style = RHashtable "info", [String (Device, "device")], [];
+    style = RHashtable (RPlainString, RPlainString, "info"), [String (Device, "device")], [];
     tests = [
       InitScratchFS, Always, TestResult (
         [["blkid"; "/dev/sdb1"]],
@@ -7217,7 +7217,7 @@ To create general filesystems, use C<guestfs_mkfs>." };
 
   { defaults with
     name = "get_e2attrs"; added = (1, 17, 31);
-    style = RString "attrs", [String (Pathname, "file")], [];
+    style = RString (RPlainString, "attrs"), [String (Pathname, "file")], [];
     tests = [
       InitScratchFS, Always, TestResultString (
         [["touch"; "/e2attrs1"];
@@ -8048,7 +8048,7 @@ silently create an ext2 filesystem instead." };
 
   { defaults with
     name = "list_disk_labels"; added = (1, 19, 49);
-    style = RHashtable "labels", [], [];
+    style = RHashtable (RPlainString, RDevice, "labels"), [], [];
     tests = [
       (* The test disks have no labels, so we can be sure there are
        * no labels.  See in tests/disk-labels/ for tests checking
@@ -8099,7 +8099,7 @@ This function is used internally when hotplugging drives." };
 
   { defaults with
     name = "mktemp"; added = (1, 19, 53);
-    style = RString "path", [String (Pathname, "tmpl")], [OString "suffix"];
+    style = RString (RPlainString, "path"), [String (Pathname, "tmpl")], [OString "suffix"];
     tests = [
       InitScratchFS, Always, TestRun (
         [["mkdir"; "/mktemp"];
@@ -8146,7 +8146,7 @@ which we try to create the C<lost+found> directory." };
 
   { defaults with
     name = "acl_get_file"; added = (1, 19, 63);
-    style = RString "acl", [String (Pathname, "path"); String (PlainString, "acltype")], [];
+    style = RString (RPlainString, "acl"), [String (Pathname, "path"); String (PlainString, "acltype")], [];
     optional = Some "acl";
     shortdesc = "get the POSIX ACL attached to a file";
     longdesc = "\
@@ -8258,7 +8258,7 @@ attached to directory C<dir>." };
 
   { defaults with
     name = "cap_get_file"; added = (1, 19, 63);
-    style = RString "cap", [String (Pathname, "path")], [];
+    style = RString (RPlainString, "cap"), [String (Pathname, "path")], [];
     optional = Some "linuxcaps";
     shortdesc = "get the Linux capabilities attached to a file";
     longdesc = "\
@@ -8285,7 +8285,7 @@ The capabilities set C<cap> should be passed in text form
 
   { defaults with
     name = "list_ldm_volumes"; added = (1, 20, 0);
-    style = RStringList "devices", [], [];
+    style = RStringList (RDevice, "devices"), [], [];
     optional = Some "ldm";
     shortdesc = "list all Windows dynamic disk volumes";
     longdesc = "\
@@ -8295,7 +8295,7 @@ device names." };
 
   { defaults with
     name = "list_ldm_partitions"; added = (1, 20, 0);
-    style = RStringList "devices", [], [];
+    style = RStringList (RDevice, "devices"), [], [];
     optional = Some "ldm";
     shortdesc = "list all Windows dynamic disk partitions";
     longdesc = "\
@@ -8333,7 +8333,7 @@ volumes" };
 
   { defaults with
     name = "ldmtool_scan"; added = (1, 20, 0);
-    style = RStringList "guids", [], [];
+    style = RStringList (RPlainString, "guids"), [], [];
     optional = Some "ldm";
     shortdesc = "scan for Windows dynamic disks";
     longdesc = "\
@@ -8346,7 +8346,7 @@ block devices, call C<guestfs_ldmtool_scan_devices> instead." };
 
   { defaults with
     name = "ldmtool_scan_devices"; added = (1, 20, 0);
-    style = RStringList "guids", [StringList (Device, "devices")], [];
+    style = RStringList (RPlainString, "guids"), [StringList (Device, "devices")], [];
     optional = Some "ldm";
     shortdesc = "scan for Windows dynamic disks";
     longdesc = "\
@@ -8359,7 +8359,7 @@ scanned.  If this list is empty, all block devices are scanned." };
 
   { defaults with
     name = "ldmtool_diskgroup_name"; added = (1, 20, 0);
-    style = RString "name", [String (PlainString, "diskgroup")], [];
+    style = RString (RPlainString, "name"), [String (PlainString, "diskgroup")], [];
     optional = Some "ldm";
     shortdesc = "return the name of a Windows dynamic disk group";
     longdesc = "\
@@ -8369,7 +8369,7 @@ the list returned by C<guestfs_ldmtool_scan>." };
 
   { defaults with
     name = "ldmtool_diskgroup_volumes"; added = (1, 20, 0);
-    style = RStringList "volumes", [String (PlainString, "diskgroup")], [];
+    style = RStringList (RPlainString, "volumes"), [String (PlainString, "diskgroup")], [];
     optional = Some "ldm";
     shortdesc = "return the volumes in a Windows dynamic disk group";
     longdesc = "\
@@ -8379,7 +8379,7 @@ the list returned by C<guestfs_ldmtool_scan>." };
 
   { defaults with
     name = "ldmtool_diskgroup_disks"; added = (1, 20, 0);
-    style = RStringList "disks", [String (PlainString, "diskgroup")], [];
+    style = RStringList (RDevice, "disks"), [String (PlainString, "diskgroup")], [];
     optional = Some "ldm";
     shortdesc = "return the disks in a Windows dynamic disk group";
     longdesc = "\
@@ -8389,7 +8389,7 @@ the list returned by C<guestfs_ldmtool_scan>." };
 
   { defaults with
     name = "ldmtool_volume_type"; added = (1, 20, 0);
-    style = RString "voltype", [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
+    style = RString (RPlainString, "voltype"), [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
     optional = Some "ldm";
     shortdesc = "return the type of a Windows dynamic disk volume";
     longdesc = "\
@@ -8402,7 +8402,7 @@ Other types may also be returned." };
 
   { defaults with
     name = "ldmtool_volume_hint"; added = (1, 20, 0);
-    style = RString "hint", [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
+    style = RString (RPlainString, "hint"), [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
     optional = Some "ldm";
     shortdesc = "return the hint field of a Windows dynamic disk volume";
     longdesc = "\
@@ -8413,7 +8413,7 @@ not always, the name of a Windows drive, eg. C<E:>." };
 
   { defaults with
     name = "ldmtool_volume_partitions"; added = (1, 20, 0);
-    style = RStringList "partitions", [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
+    style = RStringList (RDevice, "partitions"), [String (PlainString, "diskgroup"); String (PlainString, "volume")], [];
     optional = Some "ldm";
     shortdesc = "return the partitions in a Windows dynamic disk volume";
     longdesc = "\
@@ -8444,7 +8444,7 @@ for a useful list of type GUIDs." };
 
   { defaults with
     name = "part_get_gpt_type"; added = (1, 21, 1);
-    style = RString "guid", [String (Device, "device"); Int "partnum"], [];
+    style = RString (RPlainString, "guid"), [String (Device, "device"); Int "partnum"], [];
     optional = Some "gdisk";
     tests = [
       InitGPT, Always, TestResultString (
@@ -8751,7 +8751,7 @@ This returns the number of nodes modified." };
 
   { defaults with
     name = "aug_label"; added = (1, 23, 14);
-    style = RString "label", [String (PlainString, "augpath")], [];
+    style = RString (RPlainString, "label"), [String (PlainString, "augpath")], [];
     tests = [
       InitBasicFS, Always, TestResultString (
         [["mkdir"; "/etc"];
@@ -8823,7 +8823,7 @@ enables all the other flags, if they are not specified already.
 
   { defaults with
     name = "part_get_name"; added = (1, 25, 33);
-    style = RString "name", [String (Device, "device"); Int "partnum"], [];
+    style = RString (RPlainString, "name"), [String (Device, "device"); Int "partnum"], [];
     shortdesc = "get partition name";
     longdesc = "\
 This gets the partition name on partition numbered C<partnum> on
@@ -8966,7 +8966,7 @@ Get the default subvolume or snapshot of a filesystem mounted at C<mountpoint>."
 
   { defaults with
     name = "btrfs_subvolume_show"; added = (1, 29, 17);
-    style = RHashtable "btrfssubvolumeinfo", [String (Pathname, "subvolume")], [];
+    style = RHashtable (RPlainString, RPlainString, "btrfssubvolumeinfo"), [String (Pathname, "subvolume")], [];
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeShow";
     tests = [
       InitPartition, Always, TestRun (
@@ -9262,7 +9262,7 @@ valid GUID." };
 
   { defaults with
     name = "part_get_gpt_guid"; added = (1, 29, 25);
-    style = RString "guid", [String (Device, "device"); Int "partnum"], [];
+    style = RString (RPlainString, "guid"), [String (Device, "device"); Int "partnum"], [];
     optional = Some "gdisk";
     tests = [
       InitGPT, Always, TestResultString (
@@ -9366,7 +9366,7 @@ All data will be zeroed, but metadata and the like is preserved." };
 
   { defaults with
     name = "part_get_mbr_part_type"; added = (1, 29, 32);
-    style = RString "partitiontype", [String (Device, "device"); Int "partnum"], [];
+    style = RString (RPlainString, "partitiontype"), [String (Device, "device"); Int "partnum"], [];
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_init"; "/dev/sda"; "mbr"];
@@ -9479,7 +9479,7 @@ or if C<guid> is not a valid GUID." };
 
   { defaults with
     name = "part_get_disk_guid"; added = (1, 33, 2);
-    style = RString "guid", [String (Device, "device")], [];
+    style = RString (RPlainString, "guid"), [String (Device, "device")], [];
     optional = Some "gdisk";
     tests = [
       InitGPT, Always, TestResultString (
@@ -9537,7 +9537,7 @@ otherwise the call will fail." };
 
   { defaults with
     name = "btrfs_filesystem_show"; added = (1, 33, 29);
-    style = RStringList "devices", [String (Device, "device")], [];
+    style = RStringList (RDevice, "devices"), [String (Device, "device")], [];
     optional = Some "btrfs"; camel_name = "BTRFSFilesystemsShow";
     tests = [
       InitScratchFS, Always, TestLastFail (

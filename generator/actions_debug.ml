@@ -25,7 +25,7 @@ open Types
 let non_daemon_functions = [
   { defaults with
     name = "debug_drives"; added = (1, 13, 22);
-    style = RStringList "cmdline", [], [];
+    style = RStringList (RPlainString, "cmdline"), [], [];
     visibility = VDebug;
     blocking = false;
     shortdesc = "debug the drives (internal use only)";
@@ -38,7 +38,7 @@ not part of the formal API and can be removed or changed at any time." };
 let daemon_functions = [
   { defaults with
     name = "debug"; added = (1, 0, 11);
-    style = RString "result", [String (PlainString, "subcmd"); StringList (PlainString, "extraargs")], [];
+    style = RString (RPlainString, "result"), [String (PlainString, "subcmd"); StringList (PlainString, "extraargs")], [];
     visibility = VDebug;
     shortdesc = "debugging and internals";
     longdesc = "\
