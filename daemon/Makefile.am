@@ -74,6 +74,7 @@ guestfsd_SOURCES = \
 	dd.c \
 	debug.c \
 	debug-bmap.c \
+	device-name-translation.c \
 	devsparts.c \
 	df.c \
 	dir.c \

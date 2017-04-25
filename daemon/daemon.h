@@ -136,8 +136,6 @@ extern int is_power_of_2 (unsigned long v);
 
 extern void trim (char *str);
 
-extern char *device_name_translation (const char *device);
-
 extern int parse_btrfsvol (const char *desc, mountable_t *mountable);
 
 extern int prog_exists (const char *prog);
@@ -166,6 +164,9 @@ extern uint64_t optargs_bitmask;
 /*-- in mount.c --*/
 extern int is_root_mounted (void);
 extern int is_device_mounted (const char *device);
+
+/*-- in device-name-translation.c --*/
+extern char *device_name_translation (const char *device);
 
 /*-- in stubs.c (auto-generated) --*/
 extern void dispatch_incoming_message (XDR *);
