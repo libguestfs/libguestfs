@@ -45,4 +45,12 @@ it is recommended to compile them first.
 
 Previously loaded rules will be destroyed." };
 
+  { defaults with
+    name = "yara_destroy"; added = (1, 37, 13);
+    style = RErr, [], [];
+    optional = Some "libyara";
+    shortdesc = "destroy previously loaded yara rules";
+    longdesc = "\
+Destroy previously loaded Yara rules in order to free libguestfs resources." };
+
 ]
