@@ -524,7 +524,7 @@ and generate_python_actions actions () =
        | RStructList (_, typ) ->
            pr "  py_r = guestfs_int_py_put_%s_list (r);\n" typ;
            pr "  guestfs_free_%s_list (r);\n" typ
-       | RHashtable n ->
+       | RHashtable _ ->
            pr "  py_r = guestfs_int_py_put_table (r);\n";
            pr "  guestfs_int_free_string_list (r);\n"
        | RBufferOut _ ->
