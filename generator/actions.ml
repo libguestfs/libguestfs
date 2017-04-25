@@ -38,7 +38,8 @@ let non_daemon_functions =
   Actions_inspection_deprecated.non_daemon_functions @
   Actions_properties.non_daemon_functions @
   Actions_properties_deprecated.non_daemon_functions @
-  Actions_tsk.non_daemon_functions
+  Actions_tsk.non_daemon_functions @
+  Actions_yara.non_daemon_functions
 
 (* daemon_functions are any functions which cause some action
  * to take place in the daemon.

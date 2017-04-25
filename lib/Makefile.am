@@ -127,6 +127,7 @@ libguestfs_la_SOURCES = \
 	wait.c \
 	whole-file.c \
 	version.c \
+	yara.c \
 	libguestfs.syms
 
 libguestfs_la_CPPFLAGS = \

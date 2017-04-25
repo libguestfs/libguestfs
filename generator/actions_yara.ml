@@ -22,6 +22,34 @@ open Types
 
 (* Yara APIs. *)
 
+let non_daemon_functions = [
+  { defaults with
+    name = "yara_scan"; added = (1, 37, 13);
+    style = RStructList ("detections", "yara_detection"), [Pathname "path"], [];
+    optional = Some "libyara";
+    progress = true; cancellable = true;
+    shortdesc = "scan a file with the loaded yara rules";
+    longdesc = "\
+Scan a file with the previously loaded Yara rules.
+
+For each matching rule, a C<yara_detection> structure is returned.
+
+The C<yara_detection> structure contains the following fields.
+
+=over 4
+
+=item C<yara_name>
+
+Path of the file matching a Yara rule.
+
+=item C<yara_rule>
+
+Identifier of the Yara rule which matched against the given file.
+
+=back" };
+
+]
+
 let daemon_functions = [
   { defaults with
       name = "yara_load"; added = (1, 37, 13);

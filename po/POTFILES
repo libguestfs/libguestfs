@@ -392,6 +392,7 @@ lib/unit-tests.c
 lib/version.c
 lib/wait.c
 lib/whole-file.c
+lib/yara.c
 lua/lua-guestfs.c
 make-fs/make-fs.c
 mllib/common_utils-c.c
