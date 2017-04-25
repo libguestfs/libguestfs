@@ -479,6 +479,7 @@ let proc_nr = [
 469, "aug_transform";
 470, "internal_find_inode";
 471, "mksquashfs";
+472, "yara_load";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

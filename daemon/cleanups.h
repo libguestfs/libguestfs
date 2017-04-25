@@ -26,6 +26,7 @@ extern void cleanup_free (void *ptr);
 extern void cleanup_free_string_list (void *ptr);
 extern void cleanup_unlink_free (void *ptr);
 extern void cleanup_close (void *ptr);
+extern void cleanup_fclose (void *ptr);
 extern void cleanup_aug_close (void *ptr);
 extern void cleanup_free_stringsbuf (void *ptr);
 
@@ -35,6 +36,7 @@ extern void cleanup_free_stringsbuf (void *ptr);
     __attribute__((cleanup(cleanup_free_string_list)))
 #define CLEANUP_UNLINK_FREE __attribute__((cleanup(cleanup_unlink_free)))
 #define CLEANUP_CLOSE __attribute__((cleanup(cleanup_close)))
+#define CLEANUP_FCLOSE __attribute__((cleanup(cleanup_fclose)))
 #define CLEANUP_AUG_CLOSE __attribute__((cleanup(cleanup_aug_close)))
 #define CLEANUP_FREE_STRINGSBUF __attribute__((cleanup(cleanup_free_stringsbuf)))
 #else

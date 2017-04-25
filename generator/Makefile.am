@@ -45,6 +45,8 @@ sources = \
 	actions_tsk.mli \
 	authors.ml \
 	authors.mli \
+	actions_yara.ml \
+	actions_yara.mli \
 	bindtests.ml \
 	bindtests.mli \
 	c.ml \
@@ -132,6 +134,7 @@ objects = \
 	actions_properties.cmo \
 	actions_properties_deprecated.cmo \
 	actions_tsk.cmo \
+	actions_yara.cmo \
 	actions.cmo \
 	structs.cmo \
 	fish_commands.cmo \

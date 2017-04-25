@@ -62,6 +62,15 @@ cleanup_close (void *ptr)
 }
 
 void
+cleanup_fclose (void *ptr)
+{
+  FILE *f = * (FILE **) ptr;
+
+  if (f)
+    fclose (f);
+}
+
+void
 cleanup_aug_close (void *ptr)
 {
   augeas *aug = * (augeas **) ptr;

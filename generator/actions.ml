@@ -50,7 +50,8 @@ let daemon_functions =
   Actions_core_deprecated.daemon_functions @
   Actions_debug.daemon_functions @
   Actions_hivex.daemon_functions @
-  Actions_tsk.daemon_functions
+  Actions_tsk.daemon_functions @
+  Actions_yara.daemon_functions
 
 (* Some post-processing of the basic lists of actions. *)
 

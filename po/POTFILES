@@ -152,6 +152,7 @@ daemon/uuids.c
 daemon/wc.c
 daemon/xattr.c
 daemon/xfs.c
+daemon/yara.c
 daemon/zero.c
 daemon/zerofree.c
 df/df.c
