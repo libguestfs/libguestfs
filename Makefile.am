@@ -86,6 +86,7 @@ SUBDIRS += tests/relative-paths
 SUBDIRS += tests/gdisk
 SUBDIRS += tests/regressions
 SUBDIRS += tests/tsk
+SUBDIRS += tests/yara
 endif
 
 # Common code used by the tools.

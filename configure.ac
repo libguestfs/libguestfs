@@ -296,6 +296,7 @@ AC_CONFIG_FILES([Makefile
                  tests/tsk/Makefile
                  tests/xfs/Makefile
                  tests/xml/Makefile
+                 tests/yara/Makefile
                  tools/Makefile
                  utils/boot-analysis/Makefile
                  utils/boot-benchmark/Makefile
