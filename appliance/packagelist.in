@@ -52,6 +52,7 @@ ifelse(REDHAT,1,
   vim-minimal
   xz
   yajl
+  yara
   zfs-fuse
 )
 
@@ -86,6 +87,7 @@ dnl iproute has been renamed to iproute2
   libsystemd-journal0
   libtirpc1
   libyajl2
+  libyara3
   linux-image
   dnl syslinux 'suggests' mtools, but in reality it's a hard dependency:
   mtools
@@ -129,6 +131,7 @@ ifelse(ARCHLINUX,1,
   vim
   xz
   yajl
+  yara
 )
 
 ifelse(SUSE,1,
@@ -160,6 +163,7 @@ ifelse(SUSE,1,
   systemd
   vim
   xz
+  yara
 )
 
 ifelse(FRUGALWARE,1,

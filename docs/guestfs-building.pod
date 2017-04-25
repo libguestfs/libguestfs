@@ -427,6 +427,10 @@ Optional.  For tab-completion of commands in bash.
 
 Optional.  Library for filesystem forensics analysis.
 
+=item yara
+
+Optional.  Tool for categorizing files based on their content.
+
 =back
 
 =head1 BUILDING FROM GIT
