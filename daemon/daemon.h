@@ -261,6 +261,9 @@ extern int64_t ntfs_minimum_size (const char *device);
 extern int swap_set_uuid (const char *device, const char *uuid);
 extern int swap_set_label (const char *device, const char *label);
 
+/*-- in upload.c --*/
+extern int upload_to_fd (int fd, const char *filename);
+
 /* ordinary daemon functions use these to indicate errors
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.
