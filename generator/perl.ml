@@ -420,20 +420,20 @@ PREINIT:
       (match ret with
        | RErr ->
            pr " PPCODE:\n";
-       | RInt n
-       | RBool n ->
+       | RInt _
+       | RBool _ ->
            pr "   CODE:\n";
-       | RInt64 n ->
+       | RInt64 _ ->
            pr "   CODE:\n";
-       | RConstString n ->
+       | RConstString _ ->
            pr "   CODE:\n";
-       | RConstOptString n ->
+       | RConstOptString _ ->
            pr "   CODE:\n";
-       | RString n ->
+       | RString _ ->
            pr "   CODE:\n";
-       | RStringList n | RHashtable n ->
+       | RStringList _ | RHashtable _ ->
            pr " PPCODE:\n";
-       | RBufferOut n ->
+       | RBufferOut _ ->
            pr "   CODE:\n";
        | RStruct _
        | RStructList _ ->
@@ -525,40 +525,40 @@ PREINIT:
        | RErr ->
            pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-       | RInt n
-       | RBool n ->
+       | RInt _
+       | RBool _ ->
            pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSViv (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
-       | RInt64 n ->
+       | RInt64 _ ->
            pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = my_newSVll (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
-       | RConstString n ->
+       | RConstString _ ->
            pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSVpv (r, 0);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
-       | RConstOptString n ->
+       | RConstOptString _ ->
            pr "      if (r == NULL)\n";
            pr "        RETVAL = &PL_sv_undef;\n";
            pr "      else\n";
            pr "        RETVAL = newSVpv (r, 0);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
-       | RString n ->
+       | RString _ ->
            pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSVpv (r, 0);\n";
            pr "      free (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
-       | RStringList n | RHashtable n ->
+       | RStringList _ | RHashtable _ ->
            pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      for (n = 0; r[n] != NULL; ++n) /**/;\n";
@@ -568,13 +568,13 @@ PREINIT:
            pr "        free (r[i]);\n";
            pr "      }\n";
            pr "      free (r);\n";
-       | RStruct (n, typ) ->
+       | RStruct (_, typ) ->
            let cols = cols_of_struct typ in
-           generate_perl_struct_code typ cols name style n
-       | RStructList (n, typ) ->
+           generate_perl_struct_code typ cols name style
+       | RStructList (_, typ) ->
            let cols = cols_of_struct typ in
-           generate_perl_struct_list_code typ cols name style n
-       | RBufferOut n ->
+           generate_perl_struct_list_code typ cols name style
+       | RBufferOut _ ->
            pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSVpvn (r, size);\n";
@@ -586,7 +586,7 @@ PREINIT:
       pr "\n"
   ) (actions |> external_functions |> sort)
 
-and generate_perl_struct_list_code typ cols name style n =
+and generate_perl_struct_list_code typ cols name style =
   pr "      if (r == NULL)\n";
   pr "        croak (\"%%s\", guestfs_last_error (g));\n";
   pr "      EXTEND (SP, r->len);\n";
@@ -623,7 +623,7 @@ and generate_perl_struct_list_code typ cols name style n =
   pr "      }\n";
   pr "      guestfs_free_%s_list (r);\n" typ
 
-and generate_perl_struct_code typ cols name style n =
+and generate_perl_struct_code typ cols name style =
   pr "      if (r == NULL)\n";
   pr "        croak (\"%%s\", guestfs_last_error (g));\n";
   pr "      EXTEND (SP, 2 * %d);\n" (List.length cols);
