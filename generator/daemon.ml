@@ -155,13 +155,13 @@ let generate_daemon_stubs actions () =
        | RBool _ -> pr "  int r;\n"
        | RConstString _ | RConstOptString _ ->
            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-       | RString _ -> pr "  char *r;\n"
-       | RStringList _ | RHashtable _ -> pr "  char **r;\n"
-       | RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ
-       | RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ
+       | RString _ -> pr "  CLEANUP_FREE char *r = NULL;\n"
+       | RStringList _ | RHashtable _ -> pr "  CLEANUP_FREE_STRING_LIST char **r = NULL;\n"
+       | RStruct (_, typ) -> pr "  CLEANUP_FREE guestfs_int_%s *r = NULL;\n" typ
+       | RStructList (_, typ) -> pr "  CLEANUP_FREE guestfs_int_%s_list *r = NULL;\n" typ
        | RBufferOut _ ->
            pr "  size_t size = 1;\n";
-           pr "  char *r;\n"
+           pr "  CLEANUP_FREE char *r = NULL;\n"
       );
 
       if args_passed_to_daemon <> [] then (
@@ -376,19 +376,16 @@ let generate_daemon_stubs actions () =
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = r;\n" n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-              name;
-            pr "  free (r);\n"
+              name
         | RStringList n | RHashtable n ->
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s.%s_len = count_strings (r);\n" n n;
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-              name;
-            pr "  free_strings (r);\n"
+              name
         | RStruct (n, _) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = *r;\n" n;
-            pr "  free (r);\n";
             pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name;
             pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
@@ -396,7 +393,6 @@ let generate_daemon_stubs actions () =
         | RStructList (n, _) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
             pr "  ret.%s = *r;\n" n;
-            pr "  free (r);\n";
             pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
               name;
             pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
@@ -406,8 +402,7 @@ let generate_daemon_stubs actions () =
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  ret.%s.%s_len = size;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-              name;
-            pr "  free (r);\n"
+              name
       );
       pr "}\n\n";
   ) (actions |> daemon_functions |> sort)
