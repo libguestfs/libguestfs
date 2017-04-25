@@ -481,6 +481,7 @@ let proc_nr = [
 471, "mksquashfs";
 472, "yara_load";
 473, "yara_destroy";
+474, "internal_yara_scan";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list

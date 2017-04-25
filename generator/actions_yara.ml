@@ -53,4 +53,12 @@ Previously loaded rules will be destroyed." };
     longdesc = "\
 Destroy previously loaded Yara rules in order to free libguestfs resources." };
 
+  { defaults with
+    name = "internal_yara_scan"; added = (1, 37, 13);
+    style = RErr, [Pathname "path"; FileOut "filename"], [];
+    visibility = VInternal;
+    optional = Some "libyara";
+    shortdesc = "scan a file with the loaded yara rules";
+    longdesc = "Internal function for yara_scan." };
+
 ]

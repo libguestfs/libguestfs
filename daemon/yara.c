@@ -58,6 +58,8 @@ static bool initialized = false;
 static int compile_rules_file (const char *);
 static void compile_error_callback (int, const char *, int, const char *, void *);
 static void cleanup_destroy_yara_compiler (void *ptr);
+static int yara_rules_callback (int , void *, void *);
+static int send_detection_info (const char *, YR_RULE *);
 
 /* Has one FileIn parameter.
  * Takes optional arguments, consult optargs_bitmask.
@@ -125,6 +127,38 @@ do_yara_destroy (void)
   return 0;
 }
 
+/* Has one FileOut parameter. */
+int
+do_internal_yara_scan (const char *path)
+{
+  int r;
+  CLEANUP_CLOSE int fd = -1;
+
+  if (rules == NULL) {
+    reply_with_error ("no yara rules loaded");
+    return -1;
+  }
+
+  CHROOT_IN;
+  fd = open (path, O_RDONLY|O_CLOEXEC);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("%s", path);
+    return -1;
+  }
+
+  reply (NULL, NULL);  /* Reply message. */
+
+  r = yr_rules_scan_fd (rules, fd, 0, yara_rules_callback, (void *) path, 0);
+  if (r == ERROR_SUCCESS)
+    r = send_file_end (0);  /* File transfer end. */
+  else
+    send_file_end (1);  /* Cancel file transfer. */
+
+  return 0;
+}
+
 /* Compile source code rules and load them.
  * Return ERROR_SUCCESS on success, Yara error code type on error.
  */
@@ -182,6 +216,58 @@ compile_error_callback (int level, const char *name, int line,
     fprintf (stderr, "Yara error (line %d): %s\n", line, message);
   else if (verbose)
     fprintf (stderr, "Yara warning (line %d): %s\n", line, message);
+}
+
+/* Yara scan callback, called by yr_rules_scan_file.
+ * Return 0 on success, -1 on error.
+ */
+static int
+yara_rules_callback (int code, void *message, void *data)
+{
+  int ret = 0;
+
+  if (code == CALLBACK_MSG_RULE_MATCHING)
+    ret = send_detection_info ((const char *)data, (YR_RULE *) message);
+
+  return (ret == 0) ? CALLBACK_CONTINUE : CALLBACK_ERROR;
+}
+
+/* Serialize file path and rule name and send it out.
+ * Return 0 on success, -1 on error.
+ */
+static int
+send_detection_info (const char *name, YR_RULE *rule)
+{
+  XDR xdr;
+  int r;
+  size_t len;
+  CLEANUP_FREE char *buf = NULL;
+  struct guestfs_int_yara_detection detection;
+
+  detection.yara_name = (char *) name;
+  detection.yara_rule = (char *) rule->identifier;
+
+  /* Serialize detection struct. */
+  buf = malloc (GUESTFS_MAX_CHUNK_SIZE);
+  if (buf == NULL) {
+    perror ("malloc");
+    return -1;
+  }
+
+  xdrmem_create (&xdr, buf, GUESTFS_MAX_CHUNK_SIZE, XDR_ENCODE);
+
+  r = xdr_guestfs_int_yara_detection (&xdr, &detection);
+  if (r == 0) {
+    perror ("xdr_guestfs_int_yara_detection");
+    return -1;
+  }
+
+  len = xdr_getpos (&xdr);
+
+  xdr_destroy (&xdr);
+
+  /* Send serialised yara_detection out. */
+  return send_file_write (buf, len);
 }
 
 /* Clean up yara handle on daemon exit. */

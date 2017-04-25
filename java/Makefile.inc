@@ -46,4 +46,5 @@ java_built_sources = \
 	com/redhat/et/libguestfs/Version.java \
 	com/redhat/et/libguestfs/XAttr.java \
 	com/redhat/et/libguestfs/XFSInfo.java \
+	com/redhat/et/libguestfs/YaraDetection.java \
 	com/redhat/et/libguestfs/GuestFS.java

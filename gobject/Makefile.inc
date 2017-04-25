@@ -49,6 +49,7 @@ guestfs_gobject_headers= \
   include/guestfs-gobject/struct-version.h \
   include/guestfs-gobject/struct-xattr.h \
   include/guestfs-gobject/struct-xfsinfo.h \
+  include/guestfs-gobject/struct-yara_detection.h \
   include/guestfs-gobject/optargs-add_domain.h \
   include/guestfs-gobject/optargs-add_drive.h \
   include/guestfs-gobject/optargs-add_drive_scratch.h \
@@ -141,6 +142,7 @@ guestfs_gobject_sources= \
   src/struct-version.c \
   src/struct-xattr.c \
   src/struct-xfsinfo.c \
+  src/struct-yara_detection.c \
   src/optargs-add_domain.c \
   src/optargs-add_drive.c \
   src/optargs-add_drive_scratch.c \

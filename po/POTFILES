@@ -313,6 +313,7 @@ gobject/src/struct-utsname.c
 gobject/src/struct-version.c
 gobject/src/struct-xattr.c
 gobject/src/struct-xfsinfo.c
+gobject/src/struct-yara_detection.c
 gobject/src/tristate.c
 inspector/inspector.c
 java/actions-0.c
