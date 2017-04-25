@@ -154,6 +154,7 @@ daemon/stubs-3.c
 daemon/stubs-4.c
 daemon/stubs-5.c
 daemon/stubs-6.c
+daemon/stubs-macros.h
 daemon/stubs.h
 daemon/swap.c
 daemon/sync.c

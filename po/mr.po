@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-04-13 17:03+0100\n"
+"POT-Creation-Date: 2017-04-25 22:45+0100\n"
 "PO-Revision-Date: 2015-02-21 10:51-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Marathi (http://www.transifex.com/projects/p/libguestfs/"
@@ -1687,7 +1687,7 @@ msgstr ""
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:507 ../v2v/create_ovf.ml:244
+#: ../v2v/create_ovf.ml:512 ../v2v/create_ovf.ml:244
 msgid "RHV does not support the output format ‘%s’, only raw or qcow2"
 msgstr ""
 
@@ -2401,7 +2401,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/create_ovf.ml:443
+#: ../v2v/create_ovf.ml:448
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest’s display will not "
@@ -3491,7 +3491,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:649
+#: ../v2v/create_ovf.ml:654
 msgid ""
 "oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from "
 "the output."
@@ -8852,11 +8852,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:247 lib/launch-uml.c:155
+#: lib/launch-direct.c:246 lib/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: lib/launch-direct.c:835 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:816 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
@@ -8935,7 +8935,7 @@ msgstr ""
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1478 lib/qemu.c:438
+#: lib/launch-libvirt.c:1478 lib/qemu.c:391
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -8946,28 +8946,28 @@ msgid ""
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1880
+#: lib/launch-libvirt.c:1902
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1891
+#: lib/launch-libvirt.c:1913
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1895
+#: lib/launch-libvirt.c:1917
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1916
+#: lib/launch-libvirt.c:1938
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1929
+#: lib/launch-libvirt.c:1951
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2039
+#: lib/launch-libvirt.c:2061
 #, c-format
 msgid ""
 "bridge ‘%s’ not found.  Try running:\n"
@@ -8983,20 +8983,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2142
+#: lib/launch-libvirt.c:2164
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2163 lib/launch-libvirt.c:2196
+#: lib/launch-libvirt.c:2185 lib/launch-libvirt.c:2218
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2259
+#: lib/launch-libvirt.c:2284
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2290
+#: lib/launch-libvirt.c:2315
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
@@ -9284,35 +9284,35 @@ msgstr "फाइल खंड वाचण्यास अपयशी"
 msgid "file receive cancelled by daemon"
 msgstr "डिमनने फाइल प्राप्यता रद्द केली"
 
-#: lib/qemu.c:620
+#: lib/qemu.c:573
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:629
+#: lib/qemu.c:582
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:636
+#: lib/qemu.c:589
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:644
+#: lib/qemu.c:597
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:652
+#: lib/qemu.c:605
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:675
+#: lib/qemu.c:628
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
