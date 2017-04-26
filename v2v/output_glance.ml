@@ -41,7 +41,7 @@ object
 
   method as_options = "-o glance"
 
-  method supported_firmware = [ TargetBIOS ]
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
     (* This does nothing useful except to check that the user has
@@ -66,9 +66,6 @@ object
     ) targets
 
   method create_metadata source targets _ guestcaps inspect target_firmware =
-    (* See #supported_firmware above. *)
-    assert (target_firmware = TargetBIOS);
-
     (* The first disk, assumed to be the system disk, will be called
      * "guestname".  Subsequent disks, assumed to be data disks,
      * will be called "guestname-disk2" etc.  The manual strongly
@@ -143,6 +140,11 @@ object
         (* XXX Neither memory balloon nor pvpanic are supported by
          * Glance at this time.
          *)
+        (match target_firmware with
+         | TargetBIOS -> ()
+         | TargetUEFI ->
+            push_back properties ("hw_firmware_type", "uefi")
+        );
 
         let properties =
           List.flatten (
