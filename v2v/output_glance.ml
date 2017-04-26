@@ -41,7 +41,7 @@ object
 
   method as_options = "-o glance"
 
-  method supported_firmware = [ TargetBIOS ]
+  method supported_firmware = [ TargetBIOS; TargetUEFI ]
 
   method prepare_targets source targets =
     (* This does nothing useful except to check that the user has
@@ -66,9 +66,6 @@ object
     ) targets
 
   method create_metadata source targets _ guestcaps inspect target_firmware =
-    (* See #supported_firmware above. *)
-    assert (target_firmware = TargetBIOS);
-
     (* The first disk, assumed to be the system disk, will be called
      * "guestname".  Subsequent disks, assumed to be data disks,
      * will be called "guestname-disk2" etc.  The manual strongly
@@ -118,6 +115,11 @@ object
          | 0, 0 -> ()
          | x, 0 -> push_back properties ("os_version", string_of_int x)
          | x, y -> push_back properties ("os_version", sprintf "%d.%d" x y)
+        );
+        (match target_firmware with
+         | TargetBIOS -> ()
+         | TargetUEFI ->
+            push_back properties ("hw_firmware_type", "uefi")
         );
 
         let properties =
