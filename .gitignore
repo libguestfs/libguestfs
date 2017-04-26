@@ -127,6 +127,7 @@ Makefile.in
 /common/protocol/guestfs_protocol.c
 /common/protocol/guestfs_protocol.h
 /common/protocol/guestfs_protocol.x
+/common/qemuopts/qemuopts-tests
 /common/utils/guestfs-internal-frontend-cleanups.h
 /common/utils/structs-cleanup.c
 /common/utils/structs-print.c
