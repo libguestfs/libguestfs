@@ -97,64 +97,6 @@ create_cow_overlay_direct (guestfs_h *g, void *datav, struct drive *drv)
   return overlay;
 }
 
-#ifdef QEMU_OPTIONS
-/* Like 'add_cmdline' but allowing a shell-quoted string of zero or
- * more options.  XXX The unquoting is not very clever.
- */
-static void
-add_cmdline_shell_unquoted (guestfs_h *g, struct stringsbuf *sb,
-                            const char *options)
-{
-  char quote;
-  const char *startp, *endp, *nextp;
-
-  while (*options) {
-    quote = *options;
-    if (quote == '\'' || quote == '"')
-      startp = options+1;
-    else {
-      startp = options;
-      quote = ' ';
-    }
-
-    endp = strchr (options, quote);
-    if (endp == NULL) {
-      if (quote != ' ') {
-        fprintf (stderr,
-                 _("unclosed quote character (%c) in command line near: %s"),
-                 quote, options);
-        _exit (EXIT_FAILURE);
-      }
-      endp = options + strlen (options);
-    }
-
-    if (quote == ' ') {
-      if (endp[0] == '\0')
-        nextp = endp;
-      else
-        nextp = endp+1;
-    }
-    else {
-      if (!endp[1])
-        nextp = endp+1;
-      else if (endp[1] == ' ')
-        nextp = endp+2;
-      else {
-        fprintf (stderr, _("cannot parse quoted string near: %s"), options);
-        _exit (EXIT_FAILURE);
-      }
-    }
-    while (*nextp && *nextp == ' ')
-      nextp++;
-
-    guestfs_int_add_string_nodup (g, sb,
-				  safe_strndup (g, startp, endp-startp));
-
-    options = nextp;
-  }
-}
-#endif /* defined QEMU_OPTIONS */
-
 /* On Debian, /dev/kvm is mode 0660 and group kvm, so users need to
  * add themselves to the kvm group otherwise things are going to be
  * very slow (this is Debian bug 640328).  Warn about this.
@@ -603,14 +545,6 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* Note: custom command line parameters must come last so that
    * qemu -set parameters can modify previously added options.
    */
-
-  /* Add the extra options for the qemu command line specified
-   * at configure time.
-   */
-#ifdef QEMU_OPTIONS
-  if (STRNEQ (QEMU_OPTIONS, ""))
-    add_cmdline_shell_unquoted (g, &cmdline, QEMU_OPTIONS);
-#endif
 
   /* Add any qemu parameters. */
   for (hp = g->hv_params; hp; hp = hp->next) {

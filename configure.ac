@@ -321,7 +321,7 @@ echo "This is how we have configured the optional components for you today:"
 echo
 echo       "Daemon .............................. $enable_daemon"
 echo       "Appliance ........................... $ENABLE_APPLIANCE"
-echo       "QEMU ................................ $QEMU $QEMU_OPTIONS"
+echo       "QEMU ................................ $QEMU"
 echo       "guestfish and C-based virt tools .... yes"
 echo       "FUSE filesystem ..................... $enable_fuse"
 AS_ECHO_N(["GNU gettext for i18n ................ "])

@@ -667,11 +667,6 @@ Provide an alternate qemu binary (or list of binaries).  This can be
 overridden at runtime by setting the C<LIBGUESTFS_HV> environment
 variable.
 
-=item B<--with-qemu-options=">-M ... -cpu ...B<">
-
-If qemu requires extra options to work on this platform, you can pass
-them here, and they will be used both when testing and running qemu.
-
 =item B<--with-supermin-packager-config=>I<yum.conf>
 
 This passes the I<--packager-config> option to L<supermin(1)>.

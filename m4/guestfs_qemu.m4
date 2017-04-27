@@ -43,22 +43,6 @@ AS_IF([test "x$with_qemu" = "xno"],[
 
     AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
-    dnl Does the user wish to specify -M, -cpu or other qemu options?
-    AC_MSG_CHECKING([if the user specified extra options for qemu command line])
-    AC_ARG_WITH([qemu-options],
-        [AS_HELP_STRING([--with-qemu-options="-M ... -cpu ... etc"],
-            [pass extra options for qemu command line @<:@default=no@:>@])],
-        [QEMU_OPTIONS="$withval"],
-        [QEMU_OPTIONS=no])
-    AS_IF([test "x$QEMU_OPTIONS" = "xno"],[
-        AC_MSG_RESULT([no])
-        QEMU_OPTIONS=
-    ],[
-        AC_MSG_RESULT([$QEMU_OPTIONS])
-    ])
-    AC_DEFINE_UNQUOTED([QEMU_OPTIONS],["$QEMU_OPTIONS"],
-                       [Extra options for qemu command line.])
-
     dnl Check that the chosen qemu has virtio-serial support.
     dnl For historical reasons this can be disabled by setting
     dnl vmchannel_test=no.
