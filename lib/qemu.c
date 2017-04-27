@@ -304,6 +304,10 @@ guestfs_int_qemu_supports_device (guestfs_h *g,
  * Escape a qemu parameter.
  *
  * Every C<,> becomes C<,,>.  The caller must free the returned string.
+ *
+ * XXX This functionality is now only used when constructing a
+ * qemu-img command in F<lib/create.c>.  We should extend the qemuopts
+ * library to cover this use case.
  */
 char *
 guestfs_int_qemu_escape_param (guestfs_h *g, const char *param)
