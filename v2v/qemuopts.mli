@@ -16,14 +16,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** Generate a qemu command line, dealing with quoting. *)
+(** OCaml bindings for the [common/qemuopts] library. *)
 
 type t
 
-val create : ?arch:string -> unit -> t
-(** Create an empty qemu command.  If the optional [?arch] parameter
-    is supplied then the command will be [qemu-system-<arch>],
-    otherwise it will be [qemu-system-x86_64]. *)
+val create : unit -> t
+(** Create an empty qemu command line.
+
+    In case of error, all these functions raise [Unix_error]. *)
+
+val set_binary : t -> string -> unit
+(** Set the qemu binary name. *)
+
+val set_binary_by_arch : t -> string option -> unit
+(** Set the qemu binary to [qemu-system-<arch>].  If [arch] is [None],
+    then this picks the right KVM binary for the current host
+    architecture. *)
 
 val flag : t -> string -> unit
 (** [flag t "-foo"] adds a parameter to the command line with no argument. *)
@@ -34,13 +42,13 @@ val arg : t -> string -> string -> unit
     The value will shell-quoted if required, so you do not need to quote
     the string.  However if the value is a comma-separated list
     (eg. [-drive file=foo,if=ide]) then do {b not} use this function, call
-    {!commas} instead. *)
+    {!arg_list} instead. *)
 
 val arg_noquote : t -> string -> string -> unit
 (** Like {!arg} except no quoting is done on the value. *)
 
-val commas : t -> string -> string list -> unit
-(** [commas t "-drive" ["file=foo"; "if=ide"]] adds a comma-separated
+val arg_list : t -> string -> string list -> unit
+(** [arg_list t "-drive" ["file=foo"; "if=ide"]] adds a comma-separated
     list of parameters to the command line [-drive file=foo,if=ide].
 
     This does both qemu comma-quoting and shell-quoting as required. *)

@@ -57,7 +57,7 @@ SOURCES_MLI = \
 	parse_ovf_from_ova.mli \
 	parse_libvirt_xml.mli \
 	parse_vmx.mli \
-	qemu_command.mli \
+	qemuopts.mli \
 	target_bus_assignment.mli \
 	types.mli \
 	uefi.mli \
@@ -85,7 +85,7 @@ SOURCES_ML = \
 	parse_vmx.ml \
 	parse_libvirt_xml.ml \
 	create_libvirt_xml.ml \
-	qemu_command.ml \
+	qemuopts.ml \
 	input_libvirtxml.ml \
 	input_libvirt_other.ml \
 	input_libvirt_vcenter_https.ml \
@@ -111,6 +111,7 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	libvirt_utils-c.c \
+	qemuopts-c.c \
 	utils-c.c
 
 if HAVE_OCAML
@@ -122,6 +123,7 @@ virt_v2v_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/common/qemuopts \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib
 virt_v2v_CFLAGS = \
@@ -140,6 +142,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/common/utils/.libs \
+	-I $(top_builddir)/common/qemuopts/.libs \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
@@ -151,6 +154,7 @@ endif
 
 OCAMLCLIBS = \
 	-lutils \
+	-lqemuopts \
 	$(LIBVIRT_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(LIBINTL) \
