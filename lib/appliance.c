@@ -199,7 +199,9 @@ contains_fixed_appliance (guestfs_h *g, const char *path, void *data)
 static int
 contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 {
-  return dir_contains_files (g, path, "supermin.d", NULL);
+  return dir_contains_files (g, path,
+                             "supermin.d/base.tar.gz",
+                             "supermin.d/packages", NULL);
 }
 
 /**
