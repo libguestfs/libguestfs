@@ -346,7 +346,7 @@ main (int argc, char *argv[])
   }
 
   /* Add drives. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
 
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);

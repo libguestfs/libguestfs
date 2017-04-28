@@ -54,7 +54,7 @@ do_suggestion (struct drv *drvs)
   read_only = 1;
 
   /* Add drives. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
 
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);

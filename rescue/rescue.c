@@ -372,7 +372,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Do the guest drives and mountpoints. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
   if (inspector)
@@ -673,7 +673,6 @@ add_scratch_disk (struct drv **drvs)
   if (!drv)
     error (EXIT_FAILURE, errno, "calloc");
   drv->type = drv_scratch;
-  drv->nr_drives = -1;
   drv->scratch.size = INT64_C (10737418240);
   drv->next = *drvs;
   *drvs = drv;

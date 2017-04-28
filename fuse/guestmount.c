@@ -360,7 +360,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
 
   /* Do the guest drives and mountpoints. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
   if (inspector)

@@ -43,14 +43,14 @@ extern int in_virt_rescue;
 struct drv {
   struct drv *next;
 
-  char *device;    /* Device name inside the appliance (eg. /dev/sda).
-                    * This is filled in when we add the drives in
-                    * add_drives.  Note that guests (-d option) may
-                    * have multiple drives, in which case this is the
-                    * first drive, and nr_drives is the number of
-                    * drives used.
-                    */
-  int nr_drives;   /* number of drives for this guest */
+  /* Drive index.  This is filled in by add_drives(). */
+  size_t drive_index;
+
+  /* Number of drives represented by this 'drv' struct.  For -d this
+   * can be != 1 because a guest can have more than one disk.  For
+   * others it is always 1.  This is filled in by add_drives().
+   */
+  size_t nr_drives;
 
   enum {
     drv_a,                      /* -a option (without URI) */
@@ -123,8 +123,8 @@ extern char *read_key (const char *param);
 /* in options.c */
 extern void option_a (const char *arg, const char *format, struct drv **drvsp);
 extern void option_d (const char *arg, struct drv **drvsp);
-extern char add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive);
-#define add_drives(drv, next_drive) add_drives_handle (g, drv, next_drive)
+extern char add_drives_handle (guestfs_h *g, struct drv *drv, size_t drive_index);
+#define add_drives(drv) add_drives_handle (g, drv, 0)
 extern void mount_mps (struct mp *mp);
 extern void free_drives (struct drv *drv);
 extern void free_mps (struct mp *mp);

@@ -271,7 +271,7 @@ main (int argc, char *argv[])
   /* Add drives, inspect and mount.  Note that inspector is always true,
    * and there is no -m option.
    */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
 
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
