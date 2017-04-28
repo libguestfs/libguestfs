@@ -249,7 +249,7 @@ main (int argc, char *argv[])
     const char *wipefs[] = { "wipefs", NULL };
 
     /* Add domains/drives from the command line (for a single guest). */
-    add_drives (drvs, 'a');
+    add_drives (drvs);
 
     if (guestfs_launch (g) == -1)
       exit (EXIT_FAILURE);

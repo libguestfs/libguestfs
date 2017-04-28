@@ -279,7 +279,7 @@ do_tail (int argc, char *argv[], /* list of files in the guest */
     int processed;
 
     /* Add drives, inspect and mount. */
-    add_drives (drvs, 'a');
+    add_drives (drvs);
 
     if (guestfs_launch (g) == -1)
       return -1;

@@ -362,7 +362,7 @@ main (int argc, char *argv[])
   unsigned errors = 0;
 
   /* Mount up first guest. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
 
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
@@ -373,7 +373,7 @@ main (int argc, char *argv[])
     errors++;
 
   /* Mount up second guest. */
-  add_drives_handle (g2, drvs2, 'a');
+  add_drives_handle (g2, drvs2, 0);
 
   if (guestfs_launch (g2) == -1)
     exit (EXIT_FAILURE);

@@ -339,7 +339,7 @@ main (int argc, char *argv[])
   }
 
   /* Add drives. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
 
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
@@ -383,7 +383,7 @@ do_suggestion (struct drv *drvs)
   read_only = 1;
 
   /* Add drives. */
-  add_drives (drvs, 'a');
+  add_drives (drvs);
 
   /* Free up data structures, no longer needed after this point. */
   free_drives (drvs);
@@ -524,7 +524,6 @@ add_scratch_disk (struct drv **drvs)
   if (!drv)
     error (EXIT_FAILURE, errno, "calloc");
   drv->type = drv_scratch;
-  drv->nr_drives = -1;
   drv->scratch.size = INT64_C (10737418240);
   drv->next = *drvs;
   *drvs = drv;

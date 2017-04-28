@@ -67,7 +67,6 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
       error (EXIT_FAILURE, errno, "access: %s", uri.path);
 
     drv->type = drv_a;
-    drv->nr_drives = -1;
     drv->a.filename = uri.path;
     drv->a.format = format;
 
@@ -76,7 +75,6 @@ option_a (const char *arg, const char *format, struct drv **drvsp)
   else {
     /* Remote storage. */
     drv->type = drv_uri;
-    drv->nr_drives = -1;
     drv->uri.path = uri.path;
     drv->uri.protocol = uri.protocol;
     drv->uri.server = uri.server;
@@ -103,7 +101,6 @@ option_d (const char *arg, struct drv **drvsp)
     error (EXIT_FAILURE, errno, "calloc");
 
   drv->type = drv_d;
-  drv->nr_drives = -1;
   drv->d.guest = optarg;
 
   drv->next = *drvsp;
@@ -111,22 +108,15 @@ option_d (const char *arg, struct drv **drvsp)
 }
 
 char
-add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
+add_drives_handle (guestfs_h *g, struct drv *drv, size_t drive_index)
 {
   int r;
   struct guestfs_add_drive_opts_argv ad_optargs;
 
-  if (next_drive > 'z')
-    error (EXIT_FAILURE, 0, _("too many drives added on the command line"));
-
   if (drv) {
-    next_drive = add_drives (drv->next, next_drive);
+    drive_index = add_drives_handle (g, drv->next, drive_index);
 
-    free (drv->device);
-    drv->device = NULL;
-
-    if (asprintf (&drv->device, "/dev/sd%c", next_drive) == -1)
-      error (EXIT_FAILURE, errno, "asprintf");
+    drv->drive_index = drive_index;
 
     switch (drv->type) {
     case drv_a:
@@ -153,7 +143,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
         exit (EXIT_FAILURE);
 
       drv->nr_drives = 1;
-      next_drive++;
+      drive_index++;
       break;
 
     case drv_uri:
@@ -186,7 +176,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
         exit (EXIT_FAILURE);
 
       drv->nr_drives = 1;
-      next_drive++;
+      drive_index++;
       break;
 
     case drv_d:
@@ -195,7 +185,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
         exit (EXIT_FAILURE);
 
       drv->nr_drives = r;
-      next_drive += r;
+      drive_index += r;
       break;
 
     case drv_N:
@@ -208,7 +198,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
         exit (EXIT_FAILURE);
 
       drv->nr_drives = 1;
-      next_drive++;
+      drive_index++;
       break;
 
     case drv_scratch:
@@ -218,7 +208,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
         exit (EXIT_FAILURE);
 
       drv->nr_drives = 1;
-      next_drive++;
+      drive_index++;
       break;
 
     default: /* keep GCC happy */
@@ -226,7 +216,7 @@ add_drives_handle (guestfs_h *g, struct drv *drv, char next_drive)
     }
   }
 
-  return next_drive;
+  return drive_index;
 }
 
 static void display_mountpoints_on_failure (const char *mp_device, const char *user_supplied_options);
@@ -319,8 +309,6 @@ free_drives (struct drv *drv)
 {
   if (!drv) return;
   free_drives (drv->next);
-
-  free (drv->device);
 
   switch (drv->type) {
   case drv_a:
