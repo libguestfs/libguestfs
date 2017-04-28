@@ -55,9 +55,24 @@ static struct backend {
 int
 guestfs_impl_launch (guestfs_h *g)
 {
+  int r;
+
   /* Configured? */
   if (g->state != CONFIG) {
     error (g, _("the libguestfs handle has already been launched"));
+    return -1;
+  }
+
+  /* Too many drives?
+   *
+   * Some backends such as ‘unix:’ don't allow us to query max_disks.
+   * Don't fail in this case.
+   */
+  guestfs_push_error_handler (g, NULL, NULL);
+  r = guestfs_max_disks (g);
+  guestfs_pop_error_handler (g);
+  if (r >= 0 && g->nr_drives > (size_t) r) {
+    error (g, _("too many drives have been added, the current backend only supports %d drives"), r);
     return -1;
   }
 
