@@ -49,6 +49,13 @@ let remove_hd_prefix path =
 
 (* Grub1 (AKA grub-legacy) representation. *)
 class bootloader_grub1 (g : G.guestfs) inspect grub_config =
+  let () =
+  (* Apply the "grub" lens if it is not handling the file
+   * already -- Augeas < 1.7.0 will error out otherwise.
+   *)
+  if g#aug_ls ("/files" ^ grub_config) = [||] then
+    g#aug_transform "grub" grub_config in
+
   (* Grub prefix?  Usually "/boot". *)
   let grub_prefix =
     let mounts = g#inspect_get_mountpoints inspect.i_root in
@@ -345,33 +352,46 @@ object (self)
 end
 
 let detect_bootloader (g : G.guestfs) inspect =
-  let config_file, typ =
-    let locations = [
-      "/boot/grub2/grub.cfg", Grub2;
-      "/boot/grub/grub.cfg", Grub2;
-      "/boot/grub/menu.lst", Grub1;
-      "/boot/grub/grub.conf", Grub1;
-    ] in
-    let locations =
-      match inspect.i_firmware with
-      | I_UEFI _ ->
-        [
-          "/boot/efi/EFI/redhat/grub.cfg", Grub2;
-          "/boot/efi/EFI/redhat/grub.conf", Grub1;
-        ] @ locations
-      | I_BIOS -> locations in
-    try
-      List.find (
-        fun (config_file, _) -> g#is_file ~followsymlinks:true config_file
-      ) locations
-    with
-      Not_found ->
-        error (f_"no bootloader detected") in
+  (* Where to start searching for bootloaders. *)
+  let mp =
+    match inspect.i_firmware with
+    | I_BIOS -> "/boot"
+    | I_UEFI _ -> "/boot/efi/EFI" in
 
-  match typ with
-  | Grub1 ->
-    if config_file = "/boot/efi/EFI/redhat/grub.conf" then
-      g#aug_transform "grub" "/boot/efi/EFI/redhat/grub.conf";
+  (* Find all paths below the mountpoint, then filter them to find
+   * the grub config file.
+   *)
+  let paths =
+    try List.map ((^) mp) (Array.to_list (g#find mp))
+    with G.Error msg ->
+      error (f_"could not find bootloader mount point (%s): %s") mp msg in
 
-    new bootloader_grub1 g inspect config_file
-  | Grub2 -> new bootloader_grub2 g config_file
+  (* We can determine if the bootloader config file is grub 1 or
+   * grub 2 just by looking at the filename.
+   *)
+  let bootloader_type_of_filename path =
+    match last_part_of path '/' with
+    | Some "grub.cfg" -> Some Grub2
+    | Some ("grub.conf" | "menu.lst") -> Some Grub1
+    | Some _
+    | None -> None
+  in
+
+  let grub_config, typ =
+    let rec loop = function
+      | [] -> error (f_"no bootloader detected")
+      | path :: paths ->
+         match bootloader_type_of_filename path with
+         | None -> loop paths
+         | Some typ ->
+            if not (g#is_file ~followsymlinks:true path) then loop paths
+            else path, typ
+    in
+    loop paths in
+
+  let bl =
+    (match typ with
+     | Grub1 -> new bootloader_grub1 g inspect grub_config
+     | Grub2 -> new bootloader_grub2 g grub_config) in
+  debug "detected bootloader %s at %s" bl#name grub_config;
+  bl
