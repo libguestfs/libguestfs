@@ -190,8 +190,12 @@ and get_ostype = function
     "windows_10"
 
   | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
-      i_arch = "x86_64" } ->
+      i_arch = "x86_64"; i_product_variant = "Client" } ->
     "windows_10x64"
+
+  | { i_type = "windows"; i_major_version = 10; i_minor_version = 0;
+      i_arch = "x86_64" } ->
+    "windows_2016x64"
 
   | { i_type = typ; i_distro = distro;
       i_major_version = major; i_minor_version = minor; i_arch = arch;
