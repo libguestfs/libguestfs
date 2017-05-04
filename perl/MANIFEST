@@ -25,7 +25,6 @@ t/410-close-event.t
 t/420-log-messages.t
 t/800-explicit-close.t
 t/810-mkdir-eexist.t
-t/900-introspection.t
 t/910-pod.t
 t/920-pod-coverage.t
 typemap
