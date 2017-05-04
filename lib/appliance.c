@@ -37,18 +37,23 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 
+struct appliance_files {
+  char *kernel;
+  char *initrd;
+  char *image;
+};
+
 /* Old-style appliance is going to be obsoleted. */
 static const char kernel_name[] = "vmlinuz." host_cpu;
 static const char initrd_name[] = "initramfs." host_cpu ".img";
 
-static int build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
-static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
+static int search_appliance (guestfs_h *g, struct appliance_files *appliance);
 static int dir_contains_file (guestfs_h *g, const char *dir, const char *file);
 static int dir_contains_files (guestfs_h *g, const char *dir, ...);
 static int contains_old_style_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_fixed_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
-static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, char **kernel, char **initrd, char **appliance);
+static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, struct appliance_files *appliance);
 static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *appliancedir, const char *supermin_path);
 
 /**
@@ -59,12 +64,12 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  * appliances, or using either a fixed or old-style appliance.
  *
  * The return value is C<0> = good, C<-1> = error.  Returned in
- * C<*kernel> will be the name of the kernel to use, C<*initrd> the
- * name of the initrd, C<*appliance> the name of the ext2 root
- * filesystem.  C<*appliance> can be C<NULL>, meaning that we are
- * using an old-style (non-ext2) appliance.  All three strings must be
- * freed by the caller.  However the referenced files themselves must
- * I<not> be deleted.
+ * C<appliance.kernel> will be the name of the kernel to use,
+ * C<appliance.initrd> the name of the initrd, C<appliance.image> the name of
+ * the ext2 root filesystem.  C<appliance.image> can be C<NULL>, meaning that
+ * we are using an old-style (non-ext2) appliance.  All three strings must be
+ * freed by the caller.  However the referenced files themselves must I<not> be
+ * deleted.
  *
  * The process is as follows:
  *
@@ -72,9 +77,8 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  *
  * =item 1.
  *
- * Look for the first element of C<g-E<gt>path> which contains a
- * supermin appliance skeleton.  If no element has this, skip straight
- * to step 3.
+ * Look in C<path> which contains a supermin appliance skeleton.  If no element
+ * has this, skip straight to step 3.
  *
  * =item 2.
  *
@@ -83,13 +87,12 @@ static int run_supermin_build (guestfs_h *g, const char *lockfile, const char *a
  *
  * =item 3.
  *
- * Check each element of C<g-E<gt>path>, looking for a fixed
- * appliance.  If one is found, return it.
+ * Check C<path>, looking for a fixed appliance.  If one is found, return it.
  *
  * =item 4.
  *
- * Check each element of C<g-E<gt>path>, looking for an old-style
- * appliance.  If one is found, return it.
+ * Check C<path>, looking for an old-style appliance.  If one is found,
+ * return it.
  *
  * =back
  *
@@ -112,74 +115,108 @@ guestfs_int_build_appliance (guestfs_h *g,
 			     char **initrd_rtn,
 			     char **appliance_rtn)
 {
-  char *kernel = NULL, *initrd = NULL, *appliance = NULL;
 
-  if (build_appliance (g, &kernel, &initrd, &appliance) == -1)
+  struct appliance_files appliance;
+
+  if (search_appliance (g, &appliance) != 1)
     return -1;
 
   /* Don't assign these until we know we're going to succeed, to avoid
    * the caller double-freeing (RHBZ#983218).
    */
-  *kernel_rtn = kernel;
-  *initrd_rtn = initrd;
-  *appliance_rtn = appliance;
+  *kernel_rtn = appliance.kernel;
+  *initrd_rtn = appliance.initrd;
+  *appliance_rtn = appliance.image;
   return 0;
 }
 
+/**
+ * Check C<path>, looking for one of appliances: supermin appliance,
+ * fixed appliance or old-style appliance.  If one of the fixed appliances is
+ * found, return it.  If the supermin appliance skeleton is found, build and
+ * return appliance.
+ *
+ * Return values:
+ *
+ *   1 = appliance is found, returns C<appliance>,
+ *   0 = appliance not found,
+ *  -1 = error which aborts the launch process.
+ */
 static int
-build_appliance (guestfs_h *g,
-                 char **kernel,
-                 char **initrd,
-                 char **appliance)
+locate_or_build_appliance (guestfs_h *g,
+                           struct appliance_files *appliance,
+                           const char *path)
 {
   int r;
-  CLEANUP_FREE char *supermin_path = NULL;
-  CLEANUP_FREE char *path = NULL;
 
   /* Step (1). */
-  r = find_path (g, contains_supermin_appliance, NULL, &supermin_path);
-  if (r == -1)
-    return -1;
-
-  if (r == 1)
+  r = contains_supermin_appliance(g, path, NULL);
+  if (r == 1) {
     /* Step (2): build supermin appliance. */
-    return build_supermin_appliance (g, supermin_path,
-                                     kernel, initrd, appliance);
+    r = build_supermin_appliance (g, path, appliance);
+    return r < 0 ? r : 1;
+  }
 
   /* Step (3). */
-  r = find_path (g, contains_fixed_appliance, NULL, &path);
-  if (r == -1)
-    return -1;
-
+  r = contains_fixed_appliance (g, path, NULL);
   if (r == 1) {
-    const size_t len = strlen (path);
-    *kernel = safe_malloc (g, len + 6 /* "kernel" */ + 2);
-    *initrd = safe_malloc (g, len + 6 /* "initrd" */ + 2);
-    *appliance = safe_malloc (g, len + 4 /* "root" */ + 2);
-    sprintf (*kernel, "%s/kernel", path);
-    sprintf (*initrd, "%s/initrd", path);
-    sprintf (*appliance, "%s/root", path);
-    return 0;
+    appliance->kernel = safe_asprintf (g, "%s/kernel", path);
+    appliance->initrd = safe_asprintf (g, "%s/initrd", path);
+    appliance->image = safe_asprintf(g, "%s/root", path);
+    return 1;
   }
 
   /* Step (4). */
-  r = find_path (g, contains_old_style_appliance, NULL, &path);
-  if (r == -1)
-    return -1;
-
+  r = contains_old_style_appliance (g, path, NULL);
   if (r == 1) {
-    const size_t len = strlen (path);
-    *kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
-    *initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
-    sprintf (*kernel, "%s/%s", path, kernel_name);
-    sprintf (*initrd, "%s/%s", path, initrd_name);
-    *appliance = NULL;
-    return 0;
+    appliance->kernel = safe_asprintf(g, "%s/%s", path, kernel_name);
+    appliance->initrd = safe_asprintf(g, "%s/%s", path, initrd_name);
+    appliance->image = NULL;
+    return 1;
   }
 
+  return 0;
+}
+
+
+/**
+ * Search elements of C<g-E<gt>path>, returning the first C<appliance> element
+ * which matches the predicate function C<locate_or_build_appliance>.
+ *
+ * Return values:
+ *
+ *   1 = a path element matched, returns C<appliance>,
+ *   0 = no path element matched,
+ *  -1 = error which aborts the launch process.
+ */
+static int
+search_appliance (guestfs_h *g, struct appliance_files *appliance)
+{
+  const char *pelem = g->path;
+
+  /* Note that if g->path is an empty string, we want to check the
+   * current directory (for backwards compatibility with
+   * libguestfs < 1.5.4).
+   */
+  do {
+    size_t len = strcspn (pelem, PATH_SEPARATOR);
+    /* Empty element or "." means current directory. */
+    CLEANUP_FREE char *path = (len == 0) ? safe_strdup (g, ".") :
+                                           safe_strndup (g, pelem, len);
+    int r = locate_or_build_appliance (g, appliance, path);
+    if (r != 0)
+      return r;       /* error or predicate matched */
+
+    if (pelem[len] == PATH_SEPARATOR[0])
+      pelem += len + 1;
+    else
+      pelem += len;
+  } while (*pelem);
+
+  /* Predicate didn't match on any path element. */
   error (g, _("cannot find any suitable libguestfs supermin, fixed or old-style appliance on LIBGUESTFS_PATH (search path: %s)"),
          g->path);
-  return -1;
+  return 0;
 }
 
 static int
@@ -213,8 +250,7 @@ contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
 static int
 build_supermin_appliance (guestfs_h *g,
                           const char *supermin_path,
-                          char **kernel, char **initrd,
-                          char **appliance)
+                          struct appliance_files *appliance)
 {
   CLEANUP_FREE char *cachedir = NULL, *lockfile = NULL, *appliancedir = NULL;
 
@@ -236,13 +272,13 @@ build_supermin_appliance (guestfs_h *g,
   debug (g, "finished building supermin appliance");
 
   /* Return the appliance filenames. */
-  *kernel = safe_asprintf (g, "%s/kernel", appliancedir);
-  *initrd = safe_asprintf (g, "%s/initrd", appliancedir);
-  *appliance = safe_asprintf (g, "%s/root", appliancedir);
+  appliance->kernel = safe_asprintf (g, "%s/kernel", appliancedir);
+  appliance->initrd = safe_asprintf (g, "%s/initrd", appliancedir);
+  appliance->image = safe_asprintf (g, "%s/root", appliancedir);
 
   /* Touch the files so they don't get deleted (as they are in /var/tmp). */
-  (void) utimes (*kernel, NULL);
-  (void) utimes (*initrd, NULL);
+  (void) utimes (appliance->kernel, NULL);
+  (void) utimes (appliance->initrd, NULL);
 
   /* Checking backend != "uml" is a big hack.  UML encodes the mtime
    * of the original backing file (in this case, the appliance) in the
@@ -257,7 +293,7 @@ build_supermin_appliance (guestfs_h *g,
    * XXX
    */
   if (STRNEQ (g->backend, "uml"))
-    (void) utimes (*appliance, NULL);
+    (void) utimes (appliance->image, NULL);
 
   return 0;
 }
@@ -313,65 +349,6 @@ run_supermin_build (guestfs_h *g,
     return -1;
   }
 
-  return 0;
-}
-
-/**
- * Search elements of C<g-E<gt>path>, returning the first path element
- * which matches the predicate function C<pred>.
- *
- * Function C<pred> must return a true or false value.  If it returns
- * C<-1> then the entire search is aborted.
- *
- * Return values:
- *
- *   1 = a path element matched, it is returned in *pelem_ret and must be
- *       freed by the caller,
- *   0 = no path element matched, *pelem_ret is set to NULL, or
- *  -1 = error which aborts the launch process
- */
-static int
-find_path (guestfs_h *g,
-           int (*pred) (guestfs_h *g, const char *pelem, void *data),
-           void *data,
-           char **pelem_ret)
-{
-  size_t len;
-  int r;
-  const char *pelem = g->path;
-
-  /* Note that if g->path is an empty string, we want to check the
-   * current directory (for backwards compatibility with
-   * libguestfs < 1.5.4).
-   */
-  do {
-    len = strcspn (pelem, PATH_SEPARATOR);
-
-    /* Empty element or "." means current directory. */
-    if (len == 0)
-      *pelem_ret = safe_strdup (g, ".");
-    else
-      *pelem_ret = safe_strndup (g, pelem, len);
-
-    r = pred (g, *pelem_ret, data);
-    if (r == -1) {
-      free (*pelem_ret);
-      return -1;
-    }
-
-    if (r != 0)                 /* predicate matched */
-      return 1;
-
-    free (*pelem_ret);
-
-    if (pelem[len] == PATH_SEPARATOR[0])
-      pelem += len + 1;
-    else
-      pelem += len;
-  } while (*pelem);
-
-  /* Predicate didn't match on any path element. */
-  *pelem_ret = NULL;
   return 0;
 }
 
