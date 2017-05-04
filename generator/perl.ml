@@ -724,8 +724,7 @@ use warnings;
 
 # This is always 1.0, never changes, and is unrelated to the
 # real libguestfs version.  If you want to find the libguestfs
-# library version, use $g->version.  If you want to test if
-# APIs/parameters are present, use %%guestfs_introspection.
+# library version, use $g->version.
 use vars qw($VERSION);
 $VERSION = '1.0';
 
@@ -927,88 +926,6 @@ C<$g-E<gt>feature-available>.\n\n" opt
 
   pr "=cut\n\n";
 
-  (* Introspection hash. *)
-  pr "use vars qw(%%guestfs_introspection);\n";
-  pr "%%guestfs_introspection = (\n";
-  List.iter (
-    fun { name = name; style = (ret, args, optargs); shortdesc = shortdesc } ->
-      pr "  \"%s\" => {\n" name;
-      pr "    ret => ";
-      (match ret with
-       | RErr -> pr "'void'"
-       | RInt _ -> pr "'int'"
-       | RBool _ -> pr "'bool'"
-       | RInt64 _ -> pr "'int64'"
-       | RConstString _ -> pr "'const string'"
-       | RConstOptString _ -> pr "'const nullable string'"
-       | RString _ -> pr "'string'"
-       | RStringList _ -> pr "'string list'"
-       | RHashtable _ -> pr "'hash'"
-       | RStruct (_, typ) -> pr "'struct %s'" typ
-       | RStructList (_, typ) -> pr "'struct %s list'" typ
-       | RBufferOut _ -> pr "'buffer'"
-      );
-      pr ",\n";
-      let pr_type i = function
-        | String (PlainString, n) -> pr "[ '%s', 'string', %d ]" n i
-        | String (Device, n) -> pr "[ '%s', 'string(device)', %d ]" n i
-        | String (Mountable, n) -> pr "[ '%s', 'string(mountable)', %d ]" n i
-        | String (Dev_or_Path, n) ->
-           pr "[ '%s', 'string(dev_or_path)', %d ]" n i
-        | String (Mountable_or_Path, n) ->
-           pr "[ '%s', 'string(mountable_or_path)', %d ]" n i
-        | String (GUID, n) -> pr "[ '%s', 'guid', %d ]" n i
-        | String ((FileIn|FileOut), n) ->
-           pr "[ '%s', 'string(filename)', %d ]" n i
-        | String (Key, n) -> pr "[ '%s', 'string(key)', %d ]" n i
-        | String (Filename, n) -> pr "[ '%s', 'string(file)', %d ]" n i
-        | String (Pathname, n) -> pr "[ '%s', 'string(path)', %d ]" n i
-        | BufferIn n -> pr "[ '%s', 'buffer', %d ]" n i
-        | OptString n -> pr "[ '%s', 'nullable string', %d ]" n i
-        | StringList (Device, n) -> pr "[ '%s', 'string(device) list', %d ]" n i
-        | StringList (Filename, n) ->
-           pr "[ '%s', 'string(file) list', %d ]" n i
-        | StringList (_, n) -> pr "[ '%s', 'string list', %d ]" n i
-        | Bool n -> pr "[ '%s', 'bool', %d ]" n i
-        | Int n -> pr "[ '%s', 'int', %d ]" n i
-        | Int64 n -> pr "[ '%s', 'int64', %d ]" n i
-        | Pointer (t, n) -> pr "[ '%s', 'pointer(%s)', %d ]" n t i
-      in
-      pr "    args => [\n";
-      iteri (fun i arg ->
-        pr "      ";
-        pr_type i arg;
-        pr ",\n"
-      ) args;
-      pr "    ],\n";
-      if optargs <> [] then (
-        pr "    optargs => {\n";
-        iteri (fun i arg ->
-          pr "      %s => " (name_of_argt arg);
-          pr_type i arg;
-          pr ",\n"
-        ) (args_of_optargs optargs);
-        pr "    },\n";
-      );
-      pr "    name => \"%s\",\n" name;
-      pr "    description => %S,\n" shortdesc;
-      pr "  },\n";
-  ) (actions |> external_functions |> sort);
-  pr ");\n\n";
-
-  pr "# Add aliases to the introspection hash.\n";
-  let i = ref 0 in
-  List.iter (
-    fun { name = name; non_c_aliases = non_c_aliases } ->
-      List.iter (
-        fun alias ->
-          pr "my %%ielem%d = %%{$guestfs_introspection{%s}};\n" !i name;
-          pr "$guestfs_introspection{%s} = \\%%ielem%d;\n" alias !i;
-          incr i
-      ) non_c_aliases
-  ) (actions |> external_functions |> sort);
-  pr "\n";
-
   (* End of file. *)
   pr "\
 1;
@@ -1031,33 +948,6 @@ class, use the ordinary Perl UNIVERSAL method C<can(METHOD)>
  if (defined (Sys::Guestfs->can (\"set_verbose\"))) {
    print \"\\$g->set_verbose is available\\n\";
  }
-
-Perl does not offer a way to list the arguments of a method, and
-from time to time we may add extra arguments to calls that take
-optional arguments.  For this reason, we provide a global hash
-variable C<%%guestfs_introspection> which contains the arguments
-and their types for each libguestfs method.  The keys of this
-hash are the method names, and the values are an hashref
-containing useful introspection information about the method
-(further fields may be added to this in future).
-
- use Sys::Guestfs;
- $Sys::Guestfs::guestfs_introspection{mkfs}
- => {
-    ret => 'void',                    # return type
-    args => [                         # required arguments
-      [ 'fstype', 'string', 0 ],
-      [ 'device', 'string(device)', 1 ],
-    ],
-    optargs => {                      # optional arguments
-      blocksize => [ 'blocksize', 'int', 0 ],
-      features => [ 'features', 'string', 1 ],
-      inode => [ 'inode', 'int', 2 ],
-      sectorsize => [ 'sectorsize', 'int', 3 ],
-    },
-    name => \"mkfs\",
-    description => \"make a filesystem\",
-  }
 
 To test if particular features are supported by the current
 build, use the L</feature_available> method like the example below.  Note
