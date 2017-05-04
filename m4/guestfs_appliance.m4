@@ -128,3 +128,14 @@ AC_ARG_WITH([extra-packages],
     [EXTRA_PACKAGES="$withval"],
     [EXTRA_PACKAGES=])
 AC_SUBST([EXTRA_PACKAGES])
+
+dnl Set guestfs default path
+AC_ARG_WITH([guestfs-path],
+    [AS_HELP_STRING([--with-guestfs-path=PATH],
+                   [specify guestfs path (default=$libdir/guestfs)])],
+    [GUESTFS_DEFAULT_PATH="$withval"],
+    [GUESTFS_DEFAULT_PATH="${acl_final_exec_prefix}/${acl_libdirstem}/guestfs"])
+AC_SUBST([GUESTFS_DEFAULT_PATH])
+
+AC_DEFINE_UNQUOTED([GUESTFS_DEFAULT_PATH], ["$GUESTFS_DEFAULT_PATH"],
+    [Define guestfs default path.])
