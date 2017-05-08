@@ -43,10 +43,20 @@ let libvirt_supports_json_raw_driver () =
 (* Untar part or all files from tar archive. If [paths] is specified it is
  * a list of paths in the tar archive.
  *)
-let untar ?(format = "") ?paths file outdir =
-  let cmd = [ "tar"; sprintf "-x%sf" format; file; "-C"; outdir ]
-            @ match paths with None -> [] | Some p -> p in
-  if run_command cmd <> 0 then
+let untar ?format ?(paths = []) file outdir =
+  let paths = String.concat " " (List.map quote paths) in
+  let cmd =
+    match format with
+    | None ->
+       sprintf "tar -xf %s -C %s %s"
+               (quote file) (quote outdir) paths
+    | Some `GZip ->
+       sprintf "gzip -c -d %s | tar -xf - -C %s %s"
+               (quote file) (quote outdir) paths
+    | Some `XZ ->
+       sprintf "xz -c -d %s | tar -xf - -C %s %s"
+               (quote file) (quote outdir) paths in
+  if shell_command cmd <> 0 then
     error (f_"error unpacking %s, see earlier error messages") file
 
 (* Untar only ovf and manifest from the archive *)
@@ -151,7 +161,6 @@ object
         | (`GZip|`XZ) as format ->
           (match uncompressed_type format ova with
           | `Tar ->
-             let format = match format with `GZip -> "z" | `XZ -> "J" in
              untar ~format ova tmpdir;
              tmpdir, false
           | `Zip | `GZip | `XZ | `Unknown ->
