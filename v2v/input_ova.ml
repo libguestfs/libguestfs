@@ -40,6 +40,10 @@ let libvirt_supports_json_raw_driver () =
   else
     true
 
+let zcat_command_of_format = function
+  | `GZip -> "gzip -c -d"
+  | `XZ -> "xz -c -d"
+
 (* Untar part or all files from tar archive. If [paths] is specified it is
  * a list of paths in the tar archive.
  *)
@@ -50,12 +54,10 @@ let untar ?format ?(paths = []) file outdir =
     | None ->
        sprintf "tar -xf %s -C %s %s"
                (quote file) (quote outdir) paths
-    | Some `GZip ->
-       sprintf "gzip -c -d %s | tar -xf - -C %s %s"
-               (quote file) (quote outdir) paths
-    | Some `XZ ->
-       sprintf "xz -c -d %s | tar -xf - -C %s %s"
-               (quote file) (quote outdir) paths in
+    | Some ((`GZip|`XZ) as format) ->
+       sprintf "%s %s | tar -xf - -C %s %s"
+               (zcat_command_of_format format) (quote file)
+               (quote outdir) paths in
   if shell_command cmd <> 0 then
     error (f_"error unpacking %s, see earlier error messages") file
 
@@ -72,10 +74,10 @@ let untar_metadata file outdir =
   untar ~paths:files file outdir
 
 (* Uncompress the first few bytes of [file] and return it as
- * [(bytes, len)].  [zcat] is the command to use (eg. zcat or xzcat).
+ * [(bytes, len)].
  *)
-let uncompress_head zcat file =
-  let cmd = sprintf "%s %s" zcat (quote file) in
+let uncompress_head format file =
+  let cmd = sprintf "%s %s" (zcat_command_of_format format) (quote file) in
   let chan_out, chan_in, chan_err = Unix.open_process_full cmd [||] in
   let b = Bytes.create 512 in
   let len = input chan_out b 0 (Bytes.length b) in
@@ -89,8 +91,7 @@ let uncompress_head zcat file =
  * type of the uncompressed content (if known).
  *)
 let uncompressed_type format file =
-  let zcat = match format with `GZip -> "zcat" | `XZ -> "xzcat" in
-  let head, headlen = uncompress_head zcat file in
+  let head, headlen = uncompress_head format file in
   let tmpfile, chan =
     Filename.open_temp_file "ova.file." "" in
   output chan head 0 headlen;
