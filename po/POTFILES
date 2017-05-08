@@ -28,6 +28,8 @@ common/parallel/domains.c
 common/parallel/estimate-max-threads.c
 common/parallel/parallel.c
 common/progress/progress.c
+common/qemuopts/qemuopts-tests.c
+common/qemuopts/qemuopts.c
 common/utils/cleanup.c
 common/utils/structs-cleanup.c
 common/utils/structs-print.c
@@ -60,6 +62,7 @@ daemon/cpmv.c
 daemon/dd.c
 daemon/debug-bmap.c
 daemon/debug.c
+daemon/device-name-translation.c
 daemon/devsparts.c
 daemon/df.c
 daemon/dir.c
@@ -460,5 +463,6 @@ utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
 v2v/libvirt_utils-c.c
+v2v/qemuopts-c.c
 v2v/test-harness/dummy.c
 v2v/utils-c.c

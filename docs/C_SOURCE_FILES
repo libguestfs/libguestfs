@@ -34,6 +34,9 @@ common/parallel/parallel.c
 common/parallel/parallel.h
 common/progress/progress.c
 common/progress/progress.h
+common/qemuopts/qemuopts-tests.c
+common/qemuopts/qemuopts.c
+common/qemuopts/qemuopts.h
 common/utils/cleanup.c
 common/utils/guestfs-internal-frontend-cleanups.h
 common/utils/guestfs-internal-frontend.h
@@ -74,6 +77,7 @@ daemon/daemon.h
 daemon/dd.c
 daemon/debug-bmap.c
 daemon/debug.c
+daemon/device-name-translation.c
 daemon/devsparts.c
 daemon/df.c
 daemon/dir.c
@@ -400,5 +404,6 @@ utils/boot-benchmark/boot-benchmark.c
 utils/qemu-boot/qemu-boot.c
 utils/qemu-speed-test/qemu-speed-test.c
 v2v/libvirt_utils-c.c
+v2v/qemuopts-c.c
 v2v/test-harness/dummy.c
 v2v/utils-c.c

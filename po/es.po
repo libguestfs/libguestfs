@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-04-25 22:45+0100\n"
+"POT-Creation-Date: 2017-05-08 14:01+0100\n"
 "PO-Revision-Date: 2015-03-18 06:06-0400\n"
 "Last-Translator: Alex Puchades <alex94puchades@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libguestfs/"
@@ -52,7 +52,7 @@ msgstr ""
 " Se ignora el espacio restante. Ejecute un editor de particiones en el "
 "sistema invitado para particionar este espacio extra."
 
-#: ../v2v/input_ova.ml:284 ../mllib/common_utils.ml:601
+#: ../v2v/input_ova.ml:304 ../mllib/common_utils.ml:601
 msgid "%s"
 msgstr "%s"
 
@@ -497,7 +497,7 @@ msgstr ""
 "%s: tipo de tabla de particiones desconocido\n"
 "virt-resize sólo soporta tablas de partición MBR (DOS) y GPT."
 
-#: ../v2v/input_ova.ml:162 ../v2v/input_ova.ml:158
+#: ../v2v/input_ova.ml:182 ../v2v/input_ova.ml:178
 msgid ""
 "%s: unsupported file format\n"
 "\n"
@@ -1783,7 +1783,7 @@ msgstr "Imprimir información acerca de la caché de plantillas"
 msgid "Print source and stop"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:512 ../v2v/create_ovf.ml:244
+#: ../v2v/create_ovf.ml:516 ../v2v/create_ovf.ml:248
 msgid "RHV does not support the output format ‘%s’, only raw or qcow2"
 msgstr ""
 
@@ -2497,7 +2497,7 @@ msgstr ""
 msgid "This guest has virtio drivers installed."
 msgstr ""
 
-#: ../v2v/create_ovf.ml:448
+#: ../v2v/create_ovf.ml:452
 msgid ""
 "This guest required a password for connection to its display, but this is "
 "not supported by RHV.  Therefore the converted guest’s display will not "
@@ -2823,7 +2823,7 @@ msgid ""
 "v2v (^C) and rerun it as root."
 msgstr ""
 
-#: ../v2v/input_ova.ml:211
+#: ../v2v/input_ova.ml:231
 msgid ""
 "checksum of disk %s does not match manifest %s (actual %s(%s) = %s, expected "
 "%s(%s) = %s)"
@@ -2847,7 +2847,7 @@ msgstr ""
 msgid "copy command failed, see earlier errors"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:239
+#: ../v2v/linux_bootloaders.ml:246
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
@@ -2857,7 +2857,7 @@ msgid ""
 "‘%s’.  Try running ‘virsh define %s’ yourself instead."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:218
+#: ../v2v/linux_bootloaders.ml:225
 msgid "could not determine a way to update the configuration of Grub2"
 msgstr ""
 
@@ -2865,6 +2865,10 @@ msgstr ""
 msgid ""
 "could not export public key\n"
 "Use the ‘-v’ option and look for earlier error messages."
+msgstr ""
+
+#: ../v2v/linux_bootloaders.ml:357
+msgid "could not find bootloader mount point (%s): %s"
 msgstr ""
 
 #: ../builder/builder.ml:141
@@ -2901,7 +2905,7 @@ msgstr ""
 msgid "could not parse disk rasd:HostResource from OVF document"
 msgstr ""
 
-#: ../v2v/input_ova.ml:232
+#: ../v2v/input_ova.ml:252
 msgid "could not parse ovf:Name from OVF document"
 msgstr ""
 
@@ -2911,7 +2915,7 @@ msgid ""
 "line.  Is it really an OVirt or RHV-M %s?  The original error is: %s"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:257
+#: ../v2v/linux_bootloaders.ml:264
 msgid ""
 "could not rebuild grub2 configuration file (%s).  This may mean that grub "
 "output will not be sent to the serial port, but otherwise should be "
@@ -2922,7 +2926,7 @@ msgstr ""
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:241
+#: ../v2v/linux_bootloaders.ml:248
 msgid "could not remove grub2 serial console (ignored)"
 msgstr ""
 
@@ -2946,7 +2950,7 @@ msgid ""
 "This could be a bug in %s."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:125
+#: ../v2v/linux_bootloaders.ml:132
 msgid "didn't find grub entry for kernel %s"
 msgstr ""
 
@@ -3066,11 +3070,11 @@ msgstr ""
 msgid "error parsing disk fileRef"
 msgstr ""
 
-#: ../v2v/input_ova.ml:268
+#: ../v2v/input_ova.ml:288
 msgid "error uncompressing %s, see earlier error messages"
 msgstr ""
 
-#: ../v2v/input_ova.ml:148 ../v2v/input_ova.ml:50
+#: ../v2v/input_ova.ml:169 ../v2v/input_ova.ml:72
 msgid "error unpacking %s, see earlier error messages"
 msgstr ""
 
@@ -3124,7 +3128,7 @@ msgstr ""
 msgid "failed to download %s: HTTP status code %s"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:205
+#: ../v2v/linux_bootloaders.ml:212
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
@@ -3141,7 +3145,7 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: ../v2v/input_ova.ml:283
+#: ../v2v/input_ova.ml:303
 msgid "file ‘%s’ not found in the ova"
 msgstr ""
 
@@ -3214,7 +3218,7 @@ msgid ""
 "preceding messages for details."
 msgstr ""
 
-#: ../v2v/output_glance.ml:159
+#: ../v2v/output_glance.ml:164
 msgid "glance: image upload to glance failed, see earlier errors"
 msgstr ""
 
@@ -3353,7 +3357,7 @@ msgstr ""
 msgid "internal error: qemu-img did not create overlay with backing file"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:129
+#: ../v2v/linux_bootloaders.ml:136
 msgid "internal error: regular expression did not match ‘%s’"
 msgstr ""
 
@@ -3409,7 +3413,7 @@ msgstr ""
 msgid "invalid vmw:CoresPerSocket < number of cores"
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:113
+#: ../v2v/linux_bootloaders.ml:120
 msgid "kernel %s is not under grub tree %s"
 msgstr ""
 
@@ -3432,7 +3436,7 @@ msgstr ""
 msgid "lv"
 msgstr ""
 
-#: ../v2v/input_ova.ml:173
+#: ../v2v/input_ova.ml:193
 msgid ""
 "making OVA directory public readable to work around libvirt bug https://"
 "bugzilla.redhat.com/1045069"
@@ -3454,7 +3458,7 @@ msgstr ""
 msgid "mkswap"
 msgstr ""
 
-#: ../v2v/input_ova.ml:187
+#: ../v2v/input_ova.ml:207
 msgid "more than one .ovf file was found in %s"
 msgstr ""
 
@@ -3490,7 +3494,7 @@ msgstr ""
 msgid "never|always|auto"
 msgstr ""
 
-#: ../v2v/input_ova.ml:184
+#: ../v2v/input_ova.ml:204
 msgid "no .ovf file was found in %s"
 msgstr ""
 
@@ -3505,7 +3509,7 @@ msgid ""
 "vulnerable to Man-In-The-Middle attacks."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:359
+#: ../v2v/linux_bootloaders.ml:372
 msgid "no bootloader detected"
 msgstr ""
 
@@ -3589,7 +3593,7 @@ msgstr ""
 msgid "ntfsresize"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:654
+#: ../v2v/create_ovf.ml:658
 msgid ""
 "oVirt cannot emulate ‘%s’ sound cards.  This sound card will be dropped from "
 "the output."
@@ -3960,7 +3964,7 @@ msgstr ""
 msgid "the value of the key ‘%s’ is not an object"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:234
+#: ../v2v/create_ovf.ml:238
 msgid ""
 "the virtual size of the input disk %s is not an exact multiple of 512 "
 "bytes.  The virtual size is: %Ld.\n"
@@ -4104,7 +4108,7 @@ msgid ""
 "Original error message: %s"
 msgstr ""
 
-#: ../v2v/input_ova.ml:215
+#: ../v2v/input_ova.ml:235
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
@@ -4162,7 +4166,7 @@ msgstr ""
 msgid "unknown firmware value '%s', assuming BIOS"
 msgstr ""
 
-#: ../v2v/create_ovf.ml:199
+#: ../v2v/create_ovf.ml:203
 msgid "unknown guest operating system: %s %s %d.%d %s (%s)"
 msgstr ""
 
@@ -4820,29 +4824,24 @@ msgstr "%s montado en %s\n"
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Ingrese la llave o la frase de acceso (\"%s\"): "
 
-#: common/options/options.c:120
-#, c-format
-msgid "too many drives added on the command line"
-msgstr ""
-
-#: common/options/options.c:278
+#: common/options/options.c:268
 #, c-format
 msgid "%s: ‘%s’ could not be mounted.\n"
 msgstr ""
 
-#: common/options/options.c:282
+#: common/options/options.c:272
 #, c-format
 msgid ""
 "%s: Check mount(8) man page to ensure options ‘%s’\n"
 "%s: are supported by the filesystem that is being mounted.\n"
 msgstr ""
 
-#: common/options/options.c:286
+#: common/options/options.c:276
 #, c-format
 msgid "%s: Did you mean to mount one of these filesystems?\n"
 msgstr ""
 
-#: common/options/options.c:299
+#: common/options/options.c:289
 #, c-format
 msgid "cannot determine the subvolume for %s: %s (%d)"
 msgstr ""
@@ -5118,22 +5117,22 @@ msgstr "Utilice el comando 'sparse file size' para generar una imagen sparse\n"
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1742
+#: cmds-gperf.gperf:1751
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1744
+#: cmds-gperf.gperf:1753
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1745
+#: cmds-gperf.gperf:1754
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1750
+#: cmds-gperf.gperf:1759
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: comando desconocido\n"
@@ -5721,8 +5720,8 @@ msgid "edit a file"
 msgstr "edita un archivo"
 
 #: fish/cmds.c:661 fish/cmds.c:662 fish/cmds.c:673 fish/cmds.c:674
-#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1174 fish/cmds.c:1175
-#: fish/cmds.c:1180 fish/cmds.c:1181 fish/cmds.c:1183 fish/cmds.c:1184
+#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1177 fish/cmds.c:1178
+#: fish/cmds.c:1183 fish/cmds.c:1184 fish/cmds.c:1186 fish/cmds.c:1187
 msgid "return lines matching a pattern"
 msgstr "devuelve líneas coincidentes con un patrón"
 
@@ -7374,29 +7373,41 @@ msgstr ""
 msgid "repair an XFS filesystem"
 msgstr ""
 
+#: fish/cmds.c:1174
+msgid "destroy previously loaded yara rules"
+msgstr ""
+
+#: fish/cmds.c:1175
+msgid "load yara rules within libguestfs"
+msgstr ""
+
 #: fish/cmds.c:1176
-msgid "write zeroes to the device"
-msgstr "escribe ceros en el dispositivo"
-
-#: fish/cmds.c:1177
-msgid "write zeroes to an entire device"
-msgstr "escribe ceros en la totalidad de un dispositivo"
-
-#: fish/cmds.c:1178
-msgid "zero free space in a filesystem"
+msgid "scan a file with the loaded yara rules"
 msgstr ""
 
 #: fish/cmds.c:1179
+msgid "write zeroes to the device"
+msgstr "escribe ceros en el dispositivo"
+
+#: fish/cmds.c:1180
+msgid "write zeroes to an entire device"
+msgstr "escribe ceros en la totalidad de un dispositivo"
+
+#: fish/cmds.c:1181
+msgid "zero free space in a filesystem"
+msgstr ""
+
+#: fish/cmds.c:1182
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 "poner a 0 los nodos i y bloques de disco en el sistema de archivos ext2/3"
 
-#: fish/cmds.c:1182
+#: fish/cmds.c:1185
 msgid "determine file type inside a compressed file"
 msgstr ""
 "determina el tipo de archivo que se encuentra dentro de un archivo comprimido"
 
-#: fish/cmds.c:1185
+#: fish/cmds.c:1188
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Utilice -h <cmd> / help <cmd> para ver asistencia detallada de un comando."
@@ -7527,22 +7538,22 @@ msgstr ""
 msgid "only one -f parameter can be given"
 msgstr ""
 
-#: fish/fish.c:504
+#: fish/fish.c:503
 #, c-format
 msgid "cannot use --listen and --remote options at the same time"
 msgstr ""
 
-#: fish/fish.c:509
+#: fish/fish.c:508
 #, c-format
 msgid "extra parameters on the command line with --listen flag"
 msgstr ""
 
-#: fish/fish.c:512
+#: fish/fish.c:511
 #, c-format
 msgid "cannot use --listen and --file options at the same time"
 msgstr ""
 
-#: fish/fish.c:684
+#: fish/fish.c:688
 #, c-format
 msgid ""
 "\n"
@@ -7555,51 +7566,51 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:858 fish/fish.c:874
+#: fish/fish.c:862 fish/fish.c:878
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:868
+#: fish/fish.c:872
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:898
+#: fish/fish.c:902
 #, c-format
 msgid "%s: internal error parsing string at ‘%s’\n"
 msgstr ""
 
-#: fish/fish.c:915
+#: fish/fish.c:919
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:991
+#: fish/fish.c:995
 #, c-format
 msgid "%s: invalid escape sequence in string (starting at offset %d)\n"
 msgstr "%s: secuencia no válida en la cadena (empezando en el offset %d)\n"
 
-#: fish/fish.c:1000
+#: fish/fish.c:1004
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:1065
+#: fish/fish.c:1069
 #, c-format
 msgid "empty command on command line"
 msgstr ""
 
-#: fish/fish.c:1224
+#: fish/fish.c:1228
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:1226
+#: fish/fish.c:1230
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:1237
+#: fish/fish.c:1241
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -7610,7 +7621,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1245
+#: fish/fish.c:1249
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -7619,12 +7630,12 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1250
+#: fish/fish.c:1254
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1270
+#: fish/fish.c:1274
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -7635,17 +7646,17 @@ msgstr ""
 "Para obtener una lista de comandos:             guestfish -h\n"
 "Para obtener la documentación completa:         man guestfish\n"
 
-#: fish/fish.c:1281
+#: fish/fish.c:1285
 #, c-format
 msgid "%s:%d: libguestfs: error: %s\n"
 msgstr "%s:%d: libguestfs: error: %s\n"
 
-#: fish/fish.c:1408
+#: fish/fish.c:1412
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1740
+#: fish/fish.c:1744
 #, c-format
 msgid ""
 "%s: to use Windows drive letters, you must inspect the guest (\"-i\" option "
@@ -7654,14 +7665,14 @@ msgstr ""
 "%s: para utilizar letras de unidad Windows, debe inspeccionar el huésped  "
 "(opción \"-i\"o ejecute el comando \"inspect-os\")\n"
 
-#: fish/fish.c:1746
+#: fish/fish.c:1750
 #, c-format
 msgid "%s: to use Windows drive letters, this must be a Windows guest\n"
 msgstr ""
 "%s para utilizar una letra de unidad de Windows, este debe ser un huésped "
 "Windows\n"
 
-#: fish/fish.c:1760
+#: fish/fish.c:1764
 #, c-format
 msgid ""
 "%s: drive '%c:' not found.  To list available drives do:\n"
@@ -7671,7 +7682,7 @@ msgstr ""
 "disponibles ejecute:\n"
 "  inspect-get-drive-mappings %s\n"
 
-#: fish/fish.c:1779
+#: fish/fish.c:1783
 #, c-format
 msgid ""
 "%s: to access '%c:', mount %s first.  One way to do this is:\n"
@@ -7933,10 +7944,10 @@ msgstr "reopen: guestfs_create: falló al intentar crear el manipulador\n"
 #: fish/run-1.c:2356 fish/run-1.c:2369 fish/run-1.c:2382 fish/run-1.c:2579
 #: fish/run-1.c:2627 fish/run-1.c:2701 fish/run-1.c:2885 fish/run-1.c:2898
 #: fish/run-1.c:2947 fish/run-1.c:3028 fish/run-1.c:3041 fish/run-1.c:3054
-#: fish/run-1.c:3067 fish/run-1.c:3080 fish/run-2.c:125 fish/run-2.c:189
-#: fish/run-2.c:502 fish/run-2.c:713 fish/run-2.c:726 fish/run-2.c:1006
-#: fish/run-2.c:1258 fish/run-2.c:1339 fish/run-2.c:1835 fish/run-2.c:2101
-#: fish/run-2.c:2114 fish/run-2.c:2276 fish/run-3.c:416 fish/run-3.c:986
+#: fish/run-1.c:3067 fish/run-1.c:3080 fish/run-2.c:137 fish/run-2.c:201
+#: fish/run-2.c:514 fish/run-2.c:725 fish/run-2.c:738 fish/run-2.c:1018
+#: fish/run-2.c:1270 fish/run-2.c:1351 fish/run-2.c:1847 fish/run-2.c:2113
+#: fish/run-2.c:2126 fish/run-2.c:2288 fish/run-3.c:416 fish/run-3.c:986
 #: fish/run-3.c:1352 fish/run-3.c:1365 fish/run-3.c:1378 fish/run-3.c:1391
 #: fish/run-3.c:1634 fish/run-3.c:1693 fish/run-3.c:2440 fish/run-3.c:2453
 #: fish/run-3.c:2466 fish/run-3.c:2479 fish/run-3.c:2492 fish/run-3.c:2505
@@ -7961,8 +7972,8 @@ msgstr ""
 #: fish/run-0.c:2568 fish/run-1.c:310 fish/run-1.c:576 fish/run-1.c:701
 #: fish/run-1.c:1189 fish/run-1.c:1443 fish/run-1.c:2027 fish/run-1.c:2392
 #: fish/run-1.c:2589 fish/run-1.c:2766 fish/run-1.c:2908 fish/run-1.c:3100
-#: fish/run-2.c:199 fish/run-2.c:266 fish/run-2.c:736 fish/run-2.c:1016
-#: fish/run-2.c:1268 fish/run-2.c:1349 fish/run-2.c:1644 fish/run-2.c:2124
+#: fish/run-2.c:211 fish/run-2.c:278 fish/run-2.c:748 fish/run-2.c:1028
+#: fish/run-2.c:1280 fish/run-2.c:1361 fish/run-2.c:1656 fish/run-2.c:2136
 #: fish/run-3.c:431 fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889
 #: fish/run-3.c:996 fish/run-3.c:1401 fish/run-3.c:1644 fish/run-3.c:1703
 #: fish/run-3.c:2658 fish/run-3.c:2975 fish/run-3.c:3256 fish/run-3.c:3585
@@ -7980,8 +7991,8 @@ msgstr "%s: argumento optativo  \"%s\" desconocido\n"
 #: fish/run-0.c:2574 fish/run-1.c:316 fish/run-1.c:582 fish/run-1.c:707
 #: fish/run-1.c:1195 fish/run-1.c:1449 fish/run-1.c:2033 fish/run-1.c:2398
 #: fish/run-1.c:2595 fish/run-1.c:2772 fish/run-1.c:2914 fish/run-1.c:3106
-#: fish/run-2.c:205 fish/run-2.c:272 fish/run-2.c:742 fish/run-2.c:1022
-#: fish/run-2.c:1274 fish/run-2.c:1355 fish/run-2.c:1650 fish/run-2.c:2130
+#: fish/run-2.c:217 fish/run-2.c:284 fish/run-2.c:754 fish/run-2.c:1034
+#: fish/run-2.c:1286 fish/run-2.c:1367 fish/run-2.c:1662 fish/run-2.c:2142
 #: fish/run-3.c:437 fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895
 #: fish/run-3.c:1002 fish/run-3.c:1407 fish/run-3.c:1650 fish/run-3.c:1709
 #: fish/run-3.c:2664 fish/run-3.c:2981 fish/run-3.c:3262 fish/run-3.c:3591
@@ -8003,12 +8014,12 @@ msgstr "%s: el argumento optativo \"%s\" ha sido ofrecido dos veces\n"
 #: fish/run-1.c:1233 fish/run-1.c:1288 fish/run-1.c:1374 fish/run-1.c:1609
 #: fish/run-1.c:1628 fish/run-1.c:1897 fish/run-1.c:1949 fish/run-1.c:1966
 #: fish/run-1.c:1989 fish/run-1.c:2012 fish/run-1.c:2098 fish/run-1.c:2117
-#: fish/run-1.c:2136 fish/run-1.c:2483 fish/run-1.c:2502 fish/run-2.c:244
-#: fish/run-2.c:444 fish/run-2.c:564 fish/run-2.c:583 fish/run-2.c:666
-#: fish/run-2.c:683 fish/run-2.c:700 fish/run-2.c:835 fish/run-2.c:1087
-#: fish/run-2.c:1124 fish/run-2.c:1465 fish/run-2.c:1516 fish/run-2.c:1583
-#: fish/run-2.c:1715 fish/run-2.c:1820 fish/run-2.c:1873 fish/run-2.c:1985
-#: fish/run-2.c:2191 fish/run-2.c:2456 fish/run-3.c:483 fish/run-3.c:572
+#: fish/run-1.c:2136 fish/run-1.c:2483 fish/run-1.c:2502 fish/run-2.c:256
+#: fish/run-2.c:456 fish/run-2.c:576 fish/run-2.c:595 fish/run-2.c:678
+#: fish/run-2.c:695 fish/run-2.c:712 fish/run-2.c:847 fish/run-2.c:1099
+#: fish/run-2.c:1136 fish/run-2.c:1477 fish/run-2.c:1528 fish/run-2.c:1595
+#: fish/run-2.c:1727 fish/run-2.c:1832 fish/run-2.c:1885 fish/run-2.c:1997
+#: fish/run-2.c:2203 fish/run-2.c:2468 fish/run-3.c:483 fish/run-3.c:572
 #: fish/run-3.c:784 fish/run-3.c:834 fish/run-3.c:873 fish/run-3.c:956
 #: fish/run-3.c:969 fish/run-3.c:1443 fish/run-3.c:1482 fish/run-3.c:1525
 #: fish/run-3.c:1809 fish/run-3.c:2084 fish/run-3.c:2159 fish/run-3.c:2176
@@ -8051,9 +8062,9 @@ msgstr ""
 #: fish/run-1.c:910 fish/run-1.c:994 fish/run-1.c:1380 fish/run-1.c:1615
 #: fish/run-1.c:1634 fish/run-1.c:1903 fish/run-1.c:1972 fish/run-1.c:1995
 #: fish/run-1.c:2104 fish/run-1.c:2123 fish/run-1.c:2142 fish/run-1.c:2489
-#: fish/run-2.c:570 fish/run-2.c:589 fish/run-2.c:841 fish/run-2.c:1471
-#: fish/run-2.c:1522 fish/run-2.c:1589 fish/run-2.c:1826 fish/run-2.c:1879
-#: fish/run-2.c:2197 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
+#: fish/run-2.c:582 fish/run-2.c:601 fish/run-2.c:853 fish/run-2.c:1483
+#: fish/run-2.c:1534 fish/run-2.c:1601 fish/run-2.c:1838 fish/run-2.c:1891
+#: fish/run-2.c:2209 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
 #: fish/run-3.c:1488 fish/run-3.c:1531 fish/run-3.c:2090 fish/run-3.c:2369
 #: fish/run-3.c:2392 fish/run-3.c:2708 fish/run-3.c:2754 fish/run-3.c:2797
 #: fish/run-3.c:2841 fish/run-3.c:2860 fish/run-3.c:2879 fish/run-3.c:2952
@@ -8384,7 +8395,7 @@ msgstr ""
 msgid "xmlSaveDoc failed"
 msgstr ""
 
-#: lib/appliance.c:180
+#: lib/appliance.c:217
 #, c-format
 msgid ""
 "cannot find any suitable libguestfs supermin, fixed or old-style appliance "
@@ -8990,17 +9001,7 @@ msgstr ""
 "%s: no se ha encontrado un dispositivo raíz: sólo invoque esta función con "
 "un dispositivo raíz previamente obtenido mediante  guestfs_inspect_os"
 
-#: lib/launch-direct.c:124
-#, c-format
-msgid "unclosed quote character (%c) in command line near: %s"
-msgstr ""
-
-#: lib/launch-direct.c:143
-#, c-format
-msgid "cannot parse quoted string near: %s"
-msgstr ""
-
-#: lib/launch-direct.c:210
+#: lib/launch-direct.c:152
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -9009,11 +9010,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:246 lib/launch-uml.c:155
+#: lib/launch-direct.c:358 lib/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: lib/launch-direct.c:816 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:853 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
@@ -9093,7 +9094,7 @@ msgstr ""
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1478 lib/qemu.c:391
+#: lib/launch-libvirt.c:1478 lib/qemu.c:395
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
@@ -9209,32 +9210,38 @@ msgstr ""
 msgid "contacted guestfsd, but state != READY"
 msgstr "se ha hecho contacto con guestfsd, pero el estado es != READY"
 
-#: lib/launch.c:60
+#: lib/launch.c:62
 msgid "the libguestfs handle has already been launched"
 msgstr "el manipulador libguestfs ya ha sido iniciado"
 
-#: lib/launch.c:170
+#: lib/launch.c:75
+#, c-format
+msgid ""
+"too many drives have been added, the current backend only supports %d drives"
+msgstr ""
+
+#: lib/launch.c:185
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: lib/launch.c:176
+#: lib/launch.c:191
 msgid "the current backend does not support ‘get-pid’"
 msgstr ""
 
-#: lib/launch.c:190
+#: lib/launch.c:205
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: lib/launch.c:204
+#: lib/launch.c:219
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: lib/launch.c:275
+#: lib/launch.c:290
 #, c-format
 msgid "parameter ‘%s’ isn't allowed"
 msgstr ""
 
-#: lib/launch.c:301
+#: lib/launch.c:316
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
@@ -9453,35 +9460,35 @@ msgstr "falló al analizar porciones del archivo"
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
-#: lib/qemu.c:573
+#: lib/qemu.c:577
 msgid "discard cannot be enabled on this drive: qemu < 1.5"
 msgstr ""
 
-#: lib/qemu.c:582
+#: lib/qemu.c:586
 msgid ""
 "discard cannot be enabled on this drive: the drive has a read-only overlay"
 msgstr ""
 
-#: lib/qemu.c:589
+#: lib/qemu.c:593
 msgid ""
 "discard cannot be enabled on this drive: you have to specify the format of "
 "the file"
 msgstr ""
 
-#: lib/qemu.c:597
+#: lib/qemu.c:601
 msgid ""
 "discard cannot be enabled on this drive: qemu < 1.6 cannot do discard on "
 "qcow2 files"
 msgstr ""
 
-#: lib/qemu.c:605
+#: lib/qemu.c:609
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: qemu does not support discard for "
 "‘%s’ format files"
 msgstr ""
 
-#: lib/qemu.c:628
+#: lib/qemu.c:632
 #, c-format
 msgid ""
 "discard cannot be enabled on this drive: protocol ‘%s’ does not support "
