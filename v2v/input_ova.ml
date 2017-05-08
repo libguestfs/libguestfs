@@ -61,20 +61,6 @@ let untar_metadata file outdir =
     ) files in
   untar ~paths:files file outdir
 
-(* Find files in [dir] ending with [ext]. *)
-let find_files dir ext =
-  let rec loop = function
-    | [] -> []
-    | dir :: rest ->
-       let files = Array.to_list (Sys.readdir dir) in
-       let files = List.map (Filename.concat dir) files in
-       let dirs, files = List.partition Sys.is_directory files in
-       let files =
-         List.filter (fun x -> Filename.check_suffix x ext) files in
-       files @ loop (rest @ dirs)
-  in
-  loop [dir]
-
 (* Uncompress the first few bytes of [file] and return it as
  * [(bytes, len)].  [zcat] is the command to use (eg. zcat or xzcat).
  *)
@@ -102,6 +88,20 @@ let uncompressed_type format file =
   let ret = detect_file_type tmpfile in
   Sys.remove tmpfile;
   ret
+
+(* Find files in [dir] ending with [ext]. *)
+let find_files dir ext =
+  let rec loop = function
+    | [] -> []
+    | dir :: rest ->
+       let files = Array.to_list (Sys.readdir dir) in
+       let files = List.map (Filename.concat dir) files in
+       let dirs, files = List.partition Sys.is_directory files in
+       let files =
+         List.filter (fun x -> Filename.check_suffix x ext) files in
+       files @ loop (rest @ dirs)
+  in
+  loop [dir]
 
 class input_ova ova =
   let tmpdir =
