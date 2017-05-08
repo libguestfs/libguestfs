@@ -40,9 +40,19 @@ let libvirt_supports_json_raw_driver () =
   else
     true
 
+let pigz_available =
+  let test = lazy (shell_command "pigz --help >/dev/null 2>&1" = 0) in
+  fun () -> Lazy.force test
+
+let pxz_available =
+  let test = lazy (shell_command "pxz --help >/dev/null 2>&1" = 0) in
+  fun () -> Lazy.force test
+
 let zcat_command_of_format = function
-  | `GZip -> "gzip -c -d"
-  | `XZ -> "xz -c -d"
+  | `GZip ->
+     if pigz_available () then "pigz -c -d" else "gzip -c -d"
+  | `XZ ->
+     if pxz_available () then "pxz -c -d" else "xz -c -d"
 
 (* Untar part or all files from tar archive. If [paths] is specified it is
  * a list of paths in the tar archive.
