@@ -241,11 +241,7 @@ guestfs_int_py_event_to_string (PyObject *self, PyObject *args)
     return NULL;
   }
 
-#ifdef HAVE_PYSTRING_ASSTRING
-  py_r = PyString_FromString (str);
-#else
-  py_r = PyUnicode_FromString (str);
-#endif
+  py_r = guestfs_int_py_fromstring (str);
   free (str);
 
   return py_r;
@@ -298,9 +294,6 @@ guestfs_int_py_get_string_list (PyObject *obj)
 {
   size_t i, len;
   char **r;
-#ifndef HAVE_PYSTRING_ASSTRING
-  PyObject *bytes;
-#endif
 
   assert (obj);
 
@@ -321,14 +314,8 @@ guestfs_int_py_get_string_list (PyObject *obj)
     return NULL;
   }
 
-  for (i = 0; i < len; ++i) {
-#ifdef HAVE_PYSTRING_ASSTRING
-    r[i] = PyString_AsString (PyList_GetItem (obj, i));
-#else
-    bytes = PyUnicode_AsUTF8String (PyList_GetItem (obj, i));
-    r[i] = PyBytes_AS_STRING (bytes);
-#endif
-  }
+  for (i = 0; i < len; ++i)
+    r[i] = guestfs_int_py_asstring (PyList_GetItem (obj, i));
   r[len] = NULL;
 
   return r;
@@ -345,11 +332,7 @@ guestfs_int_py_put_string_list (char * const * const argv)
 
   list = PyList_New (argc);
   for (i = 0; i < argc; ++i) {
-#ifdef HAVE_PYSTRING_ASSTRING
-    PyList_SetItem (list, i, PyString_FromString (argv[i]));
-#else
-    PyList_SetItem (list, i, PyUnicode_FromString (argv[i]));
-#endif
+    PyList_SetItem (list, i, guestfs_int_py_fromstring (argv[i]));
   }
 
   return list;
@@ -367,15 +350,41 @@ guestfs_int_py_put_table (char * const * const argv)
   list = PyList_New (argc >> 1);
   for (i = 0; i < argc; i += 2) {
     item = PyTuple_New (2);
-#ifdef HAVE_PYSTRING_ASSTRING
-    PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
-    PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
-#else
-    PyTuple_SetItem (item, 0, PyUnicode_FromString (argv[i]));
-    PyTuple_SetItem (item, 1, PyUnicode_FromString (argv[i+1]));
-#endif
+    PyTuple_SetItem (item, 0, guestfs_int_py_fromstring (argv[i]));
+    PyTuple_SetItem (item, 1, guestfs_int_py_fromstring (argv[i+1]));
     PyList_SetItem (list, i >> 1, item);
   }
 
   return list;
+}
+
+PyObject *
+guestfs_int_py_fromstring (const char *str)
+{
+#ifdef HAVE_PYSTRING_ASSTRING
+  return PyString_FromString (str);
+#else
+  return PyUnicode_FromString (str);
+#endif
+}
+
+PyObject *
+guestfs_int_py_fromstringsize (const char *str, size_t size)
+{
+#ifdef HAVE_PYSTRING_ASSTRING
+  return PyString_FromStringAndSize (str, size);
+#else
+  return PyString_FromStringAndSize (str, size);
+#endif
+}
+
+char *
+guestfs_int_py_asstring (PyObject *obj)
+{
+#ifdef HAVE_PYSTRING_ASSTRING
+  return PyString_AsString (obj);
+#else
+  PyObject *bytes = PyUnicode_AsUTF8String (obj);
+  return PyBytes_AS_STRING (bytes);
+#endif
 }

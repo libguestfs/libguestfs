@@ -91,6 +91,9 @@ extern PyObject *guestfs_int_py_event_to_string (PyObject *self, PyObject *args)
 extern char **guestfs_int_py_get_string_list (PyObject *obj);
 extern PyObject *guestfs_int_py_put_string_list (char * const * const argv);
 extern PyObject *guestfs_int_py_put_table (char * const * const argv);
+extern PyObject *guestfs_int_py_fromstring (const char *str);
+extern PyObject *guestfs_int_py_fromstringsize (const char *str, size_t size);
+extern char *guestfs_int_py_asstring (PyObject *obj);
 
 ";
 
@@ -178,31 +181,16 @@ and generate_python_structs () =
         function
         | name, FString ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-            pr "                        PyString_FromString (%s->%s));\n"
-              typ name;
-            pr "#else\n";
-            pr "                        PyUnicode_FromString (%s->%s));\n"
-              typ name;
-            pr "#endif\n"
+            pr "                        guestfs_int_py_fromstring (%s->%s));\n"
+              typ name
         | name, FBuffer ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-            pr "                        PyString_FromStringAndSize (%s->%s, %s->%s_len));\n"
-              typ name typ name;
-            pr "#else\n";
-            pr "                        PyBytes_FromStringAndSize (%s->%s, %s->%s_len));\n"
-              typ name typ name;
-            pr "#endif\n"
+            pr "                        guestfs_int_py_fromstringsize (%s->%s, %s->%s_len));\n"
+              typ name typ name
         | name, FUUID ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-            pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
-              typ name;
-            pr "#else\n";
-            pr "                        PyBytes_FromStringAndSize (%s->%s, 32));\n"
-              typ name;
-            pr "#endif\n"
+            pr "                        guestfs_int_py_fromstringsize (%s->%s, 32));\n"
+              typ name
         | name, (FBytes|FUInt64) ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
             pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
@@ -229,15 +217,9 @@ and generate_python_structs () =
             pr "    PyDict_SetItemString (dict, \"%s\", Py_None);\n" name;
             pr "  }\n"
         | name, FChar ->
-            pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyString_FromStringAndSize (&%s->%s, 1));\n"
-              typ name;
-            pr "#else\n";
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyUnicode_FromStringAndSize (&%s->%s, 1));\n"
-              typ name;
-            pr "#endif\n"
+            pr "                        guestfs_int_py_fromstringsize (&%s->%s, 1));\n"
+              typ name
       ) cols;
       pr "  return dict;\n";
       pr "};\n";
@@ -419,13 +401,7 @@ and generate_python_actions actions () =
               pr "    optargs_s.%s = PyLong_AsLongLong (py_%s);\n" n n;
               pr "    if (PyErr_Occurred ()) goto out;\n"
             | OString _ ->
-              pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-              pr "    optargs_s.%s = PyString_AsString (py_%s);\n" n n;
-              pr "#else\n";
-              pr "    PyObject *bytes;\n";
-              pr "    bytes = PyUnicode_AsUTF8String (py_%s);\n" n;
-              pr "    optargs_s.%s = PyBytes_AS_STRING (bytes);\n" n;
-              pr "#endif\n";
+              pr "    optargs_s.%s = guestfs_int_py_asstring (py_%s);\n" n n
             | OStringList _ ->
               pr "    optargs_s.%s = guestfs_int_py_get_string_list (py_%s);\n" n n;
               pr "    if (!optargs_s.%s) goto out;\n" n;
@@ -480,30 +456,18 @@ and generate_python_actions actions () =
        | RBool _ -> pr "  py_r = PyLong_FromLong ((long) r);\n"
        | RInt64 _ -> pr "  py_r = PyLong_FromLongLong (r);\n"
        | RConstString _ ->
-           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-           pr "  py_r = PyString_FromString (r);\n";
-           pr "#else\n";
-           pr "  py_r = PyUnicode_FromString (r);\n";
-           pr "#endif\n";
+           pr "  py_r = guestfs_int_py_fromstring (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
        | RConstOptString _ ->
            pr "  if (r) {\n";
-           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-           pr "    py_r = PyString_FromString (r);\n";
-           pr "#else\n";
-           pr "    py_r = PyUnicode_FromString (r);\n";
-           pr "#endif\n";
+           pr "    py_r = guestfs_int_py_fromstring (r);\n";
            pr "  } else {\n";
            pr "    Py_INCREF (Py_None);\n";
            pr "    py_r = Py_None;\n";
            pr "  }\n";
            pr "  if (py_r == NULL) goto out;\n";
        | RString _ ->
-           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-           pr "  py_r = PyString_FromString (r);\n";
-           pr "#else\n";
-           pr "  py_r = PyUnicode_FromString (r);\n";
-           pr "#endif\n";
+           pr "  py_r = guestfs_int_py_fromstring (r);\n";
            pr "  free (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
        | RStringList _ ->
@@ -519,11 +483,7 @@ and generate_python_actions actions () =
            pr "  py_r = guestfs_int_py_put_table (r);\n";
            pr "  guestfs_int_free_string_list (r);\n"
        | RBufferOut _ ->
-           pr "#ifdef HAVE_PYSTRING_ASSTRING\n";
-           pr "  py_r = PyString_FromStringAndSize (r, size);\n";
-           pr "#else\n";
-           pr "  py_r = PyBytes_FromStringAndSize (r, size);\n";
-           pr "#endif\n";
+           pr "  py_r = guestfs_int_py_fromstringsize (r, size);\n";
            pr "  free (r);\n";
            pr "  if (py_r == NULL) goto out;\n";
       );
