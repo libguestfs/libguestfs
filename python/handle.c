@@ -374,7 +374,7 @@ guestfs_int_py_fromstringsize (const char *str, size_t size)
 #ifdef HAVE_PYSTRING_ASSTRING
   return PyString_FromStringAndSize (str, size);
 #else
-  return PyString_FromStringAndSize (str, size);
+  return PyUnicode_FromStringAndSize (str, size);
 #endif
 }
 
