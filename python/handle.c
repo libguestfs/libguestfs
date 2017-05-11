@@ -237,7 +237,7 @@ guestfs_int_py_event_to_string (PyObject *self, PyObject *args)
 
   str = guestfs_event_to_string (events);
   if (str == NULL) {
-    PyErr_SetString (PyExc_RuntimeError, strerror (errno));
+    PyErr_SetFromErrno (PyExc_RuntimeError);
     return NULL;
   }
 
@@ -271,7 +271,7 @@ get_all_event_callbacks (guestfs_h *g, size_t *len_rtn)
   /* Copy them into the return array. */
   r = malloc (sizeof (PyObject *) * (*len_rtn));
   if (r == NULL) {
-    PyErr_SetNone (PyExc_MemoryError);
+    PyErr_NoMemory ();
     return NULL;
   }
 
@@ -298,7 +298,7 @@ guestfs_int_py_get_string_list (PyObject *obj)
   assert (obj);
 
   if (!PyList_Check (obj)) {
-    PyErr_SetString (PyExc_RuntimeError, "expecting a list parameter");
+    PyErr_SetString (PyExc_TypeError, "expecting a list parameter");
     return NULL;
   }
 
@@ -310,7 +310,7 @@ guestfs_int_py_get_string_list (PyObject *obj)
   len = (size_t) slen;
   r = malloc (sizeof (char *) * (len+1));
   if (r == NULL) {
-    PyErr_SetString (PyExc_RuntimeError, "get_string_list: out of memory");
+    PyErr_NoMemory ();
     return NULL;
   }
 
