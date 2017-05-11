@@ -324,15 +324,23 @@ guestfs_int_py_get_string_list (PyObject *obj)
 PyObject *
 guestfs_int_py_put_string_list (char * const * const argv)
 {
-  PyObject *list;
+  PyObject *list, *item;
   size_t argc, i;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
 
   list = PyList_New (argc);
+  if (list == NULL)
+    return NULL;
   for (i = 0; i < argc; ++i) {
-    PyList_SetItem (list, i, guestfs_int_py_fromstring (argv[i]));
+    item = guestfs_int_py_fromstring (argv[i]);
+    if (item == NULL) {
+      Py_CLEAR (list);
+      return NULL;
+    }
+
+    PyList_SetItem (list, i, item);
   }
 
   return list;
@@ -341,21 +349,35 @@ guestfs_int_py_put_string_list (char * const * const argv)
 PyObject *
 guestfs_int_py_put_table (char * const * const argv)
 {
-  PyObject *list, *item;
+  PyObject *list, *tuple, *item;
   size_t argc, i;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
 
   list = PyList_New (argc >> 1);
+  if (list == NULL)
+    return NULL;
   for (i = 0; i < argc; i += 2) {
-    item = PyTuple_New (2);
-    PyTuple_SetItem (item, 0, guestfs_int_py_fromstring (argv[i]));
-    PyTuple_SetItem (item, 1, guestfs_int_py_fromstring (argv[i+1]));
-    PyList_SetItem (list, i >> 1, item);
+    tuple = PyTuple_New (2);
+    if (tuple == NULL)
+      goto err;
+    item = guestfs_int_py_fromstring (argv[i]);
+    if (item == NULL)
+      goto err;
+    PyTuple_SetItem (tuple, 0, item);
+    item = guestfs_int_py_fromstring (argv[i+1]);
+    if (item == NULL)
+      goto err;
+    PyTuple_SetItem (tuple, 1, item);
+    PyList_SetItem (list, i >> 1, tuple);
   }
 
   return list;
+ err:
+  Py_CLEAR (list);
+  Py_CLEAR (tuple);
+  return NULL;
 }
 
 PyObject *

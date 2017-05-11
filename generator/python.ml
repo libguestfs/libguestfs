@@ -155,12 +155,20 @@ and generate_python_structs () =
     pr "PyObject *\n";
     pr "guestfs_int_py_put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
-    pr "  PyObject *list;\n";
+    pr "  PyObject *list, *element;\n";
     pr "  size_t i;\n";
     pr "\n";
     pr "  list = PyList_New (%ss->len);\n" typ;
-    pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-    pr "    PyList_SetItem (list, i, guestfs_int_py_put_%s (&%ss->val[i]));\n" typ typ;
+    pr "  if (list == NULL)\n";
+    pr "    return NULL;\n";
+    pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
+    pr "    element = guestfs_int_py_put_%s (&%ss->val[i]);\n" typ typ;
+    pr "    if (element == NULL) {\n";
+    pr "      Py_CLEAR (list);\n";
+    pr "      return NULL;\n";
+    pr "    }\n";
+    pr "    PyList_SetItem (list, i, element);\n";
+    pr "  }\n";
     pr "  return list;\n";
     pr "};\n";
     pr "#endif\n";
@@ -174,54 +182,72 @@ and generate_python_structs () =
       pr "PyObject *\n";
       pr "guestfs_int_py_put_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
-      pr "  PyObject *dict;\n";
+      pr "  PyObject *dict, *value;\n";
       pr "\n";
       pr "  dict = PyDict_New ();\n";
+      pr "  if (dict == NULL)\n";
+      pr "    return NULL;\n";
       List.iter (
         function
         | name, FString ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        guestfs_int_py_fromstring (%s->%s));\n"
-              typ name
+            pr "  value = guestfs_int_py_fromstring (%s->%s);" typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
         | name, FBuffer ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        guestfs_int_py_fromstringsize (%s->%s, %s->%s_len));\n"
-              typ name typ name
+            pr "  value = guestfs_int_py_fromstringsize (%s->%s, %s->%s_len);\n"
+              typ name typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
         | name, FUUID ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        guestfs_int_py_fromstringsize (%s->%s, 32));\n"
-              typ name
-        | name, (FBytes|FUInt64) ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
-              typ name
-        | name, FInt64 ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyLong_FromLongLong (%s->%s));\n"
-              typ name
-        | name, FUInt32 ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyLong_FromUnsignedLong (%s->%s));\n"
-              typ name
-        | name, FInt32 ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        PyLong_FromLong (%s->%s));\n"
-              typ name
-        | name, FOptPercent ->
-            pr "  if (%s->%s >= 0)\n" typ name;
-            pr "    PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                          PyFloat_FromDouble ((double) %s->%s));\n"
+            pr "  value = guestfs_int_py_fromstringsize (%s->%s, 32);\n"
               typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+        | name, (FBytes|FUInt64) ->
+            pr "  value = PyLong_FromUnsignedLongLong (%s->%s);\n" typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+        | name, FInt64 ->
+            pr "  value = PyLong_FromLongLong (%s->%s);\n" typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+        | name, FUInt32 ->
+            pr "  value = PyLong_FromUnsignedLong (%s->%s);\n" typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+        | name, FInt32 ->
+            pr "  value = PyLong_FromLong (%s->%s);\n" typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
+        | name, FOptPercent ->
+            pr "  if (%s->%s >= 0) {\n" typ name;
+            pr "    value = PyFloat_FromDouble ((double) %s->%s);\n" typ name;
+            pr "    if (value == NULL)\n";
+            pr "      goto err;\n";
+            pr "    PyDict_SetItemString (dict, \"%s\", value);\n" name;
+            pr "  }\n";
             pr "  else {\n";
             pr "    Py_INCREF (Py_None);\n";
             pr "    PyDict_SetItemString (dict, \"%s\", Py_None);\n" name;
             pr "  }\n"
         | name, FChar ->
-            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-            pr "                        guestfs_int_py_fromstringsize (&%s->%s, 1));\n"
-              typ name
+            pr "  value = guestfs_int_py_fromstringsize (&%s->%s, 1);\n"
+              typ name;
+            pr "  if (value == NULL)\n";
+            pr "    goto err;\n";
+            pr "  PyDict_SetItemString (dict, \"%s\", value);\n" name;
       ) cols;
       pr "  return dict;\n";
+      pr " err:\n";
+      pr "  Py_CLEAR (dict);\n";
+      pr "  return NULL;\n";
       pr "};\n";
       pr "#endif\n";
       pr "\n";
@@ -472,16 +498,20 @@ and generate_python_actions actions () =
            pr "  if (py_r == NULL) goto out;\n";
        | RStringList _ ->
            pr "  py_r = guestfs_int_py_put_string_list (r);\n";
-           pr "  guestfs_int_free_string_list (r);\n"
+           pr "  guestfs_int_free_string_list (r);\n";
+           pr "  if (py_r == NULL) goto out;\n";
        | RStruct (_, typ) ->
            pr "  py_r = guestfs_int_py_put_%s (r);\n" typ;
-           pr "  guestfs_free_%s (r);\n" typ
+           pr "  guestfs_free_%s (r);\n" typ;
+           pr "  if (py_r == NULL) goto out;\n";
        | RStructList (_, typ) ->
            pr "  py_r = guestfs_int_py_put_%s_list (r);\n" typ;
-           pr "  guestfs_free_%s_list (r);\n" typ
+           pr "  guestfs_free_%s_list (r);\n" typ;
+           pr "  if (py_r == NULL) goto out;\n";
        | RHashtable _ ->
            pr "  py_r = guestfs_int_py_put_table (r);\n";
-           pr "  guestfs_int_free_string_list (r);\n"
+           pr "  guestfs_int_free_string_list (r);\n";
+           pr "  if (py_r == NULL) goto out;\n";
        | RBufferOut _ ->
            pr "  py_r = guestfs_int_py_fromstringsize (r, size);\n";
            pr "  free (r);\n";
