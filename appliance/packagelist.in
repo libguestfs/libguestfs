@@ -155,6 +155,7 @@ ifelse(SUSE,1,
   libselinux1
   libtirpc3
   libyajl2
+  libyara3
   mkisofs
   ntfsprogs
   ntfs-3g
