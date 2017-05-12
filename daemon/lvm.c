@@ -264,7 +264,7 @@ do_lvs (void)
     r = command (&out, &err,
                  str_lvm, "lvs",
                  "-o", "vg_name,lv_name",
-                 "-S", "lv_role=public && lv_skip_activation!=1",
+                 "-S", "lv_role=public && lv_skip_activation!=yes",
                  "--noheadings",
                  "--separator", "/", NULL);
     if (r == -1) {
