@@ -517,7 +517,8 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
           g#command [| "/sbin/mkinitrd";
                        "-m"; String.concat " " modules;
                        "-i"; initrd;
-                       "-k"; kernel.ki_vmlinuz |]
+                       "-k"; kernel.ki_vmlinuz;
+                       "-d"; inspect.i_root |]
         )
       )
       else if family = `Debian_family then (
