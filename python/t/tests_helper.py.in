@@ -36,6 +36,7 @@ def skipUnlessConfiguredWithLibvirt():
         return unittest.skip("configured --without-libvirt")
     return lambda func: func
 
+
 def skipUnlessLibvirtHasCPointer():
     """
     Skip the current class/method if:
