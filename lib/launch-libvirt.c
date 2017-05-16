@@ -1347,6 +1347,7 @@ construct_libvirt_xml_devices (guestfs_h *g,
         return -1;
     }
 
+#ifndef __s390x__
     /* Console. */
     start_element ("serial") {
       attribute ("type", "unix");
@@ -1358,6 +1359,22 @@ construct_libvirt_xml_devices (guestfs_h *g,
         attribute ("port", "0");
       } end_element ();
     } end_element ();
+#else
+    /* https://bugzilla.redhat.com/show_bug.cgi?id=1376547#c14
+     * and https://libvirt.org/formatdomain.html#elementCharConsole
+     */
+    start_element ("console") {
+      attribute ("type", "unix");
+      start_element ("source") {
+        attribute ("mode", "connect");
+        attribute ("path", params->data->console_path);
+      } end_element ();
+      start_element ("target") {
+	attribute ("type", "sclp");
+        attribute ("port", "0");
+      } end_element ();
+    } end_element ();
+#endif
 
     /* Virtio-serial for guestfsd communication. */
     start_element ("channel") {
