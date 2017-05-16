@@ -463,11 +463,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * when needing entropy.
    */
   if (guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        "virtio-rng-pci")) {
+                                        VIRTIO_RNG)) {
     ADD_CMDLINE ("-object");
     ADD_CMDLINE ("rng-random,filename=/dev/urandom,id=rng0");
     ADD_CMDLINE ("-device");
-    ADD_CMDLINE ("virtio-rng-pci,rng=rng0");
+    ADD_CMDLINE (VIRTIO_RNG ",rng=rng0");
   }
 
   /* Add drives */
