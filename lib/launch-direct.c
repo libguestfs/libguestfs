@@ -551,14 +551,14 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * when needing entropy.
    */
   if (guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        "virtio-rng-pci")) {
+                                        VIRTIO_RNG)) {
     start_list ("-object") {
       append_list ("rng-random");
       append_list ("filename=/dev/urandom");
       append_list ("id=rng0");
     } end_list ();
     start_list ("-device") {
-      append_list ("virtio-rng-pci");
+      append_list (VIRTIO_RNG);
       append_list ("rng=rng0");
     } end_list ();
   }
