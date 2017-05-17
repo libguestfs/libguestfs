@@ -29,6 +29,7 @@ skip_if_arch arm
 skip_if_arch aarch64
 skip_if_arch ppc64
 skip_if_arch ppc64le
+skip_if_arch s390x
 skip_if_backend libvirt
 # UML doesn't support the 'iface' parameter.
 skip_if_backend uml
