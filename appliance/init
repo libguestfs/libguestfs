@@ -179,6 +179,7 @@ else
   # Run virt-rescue shell.
 
   # Get name of the serial port, from console= passed by libguestfs.
+  # XXX Consider using /proc/consoles
   guestfs_serial=$(grep -Eo 'console=[^[:space:]]+' /proc/cmdline |
                    sed s/console=//)
 
