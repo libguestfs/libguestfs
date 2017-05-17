@@ -25,16 +25,18 @@ $TEST_FUNCTIONS
 skip_if_skipped
 skip_unless_backend direct
 
-# The name of the virtio-9p device is different on virtio-pci and virtio-mmio.
-arch="$(uname -m)"
-if [[ "$arch" =~ ^arm ]]; then
-    virtio_mmio=yes
-fi
-if [ "$virtio_mmio" != "yes" ]; then
-    virtio_9p=virtio-9p-pci
-else
-    virtio_9p=virtio-9p-device
-fi
+# The name of the virtio-9p device is different on some architectures.
+case "$(uname -m)" in
+    arm*)
+	virtio_9p=virtio-9p-device
+	;;
+    s390*)
+	virtio_9p=virtio-9p-ccw
+	;;
+    *)
+	virtio_9p=virtio-9p-pci
+	;;
+esac
 
 rm -f test-9p.img test-9p.out
 
