@@ -44,6 +44,8 @@
 #define SERIAL_CONSOLE "console=hvc0 console=ttyS0"
 #elif defined(__arm__) || defined(__aarch64__)
 #define SERIAL_CONSOLE "console=ttyAMA0"
+#elif defined(__s390x__)
+#define SERIAL_CONSOLE "console=ttysclp0"
 #else
 #define SERIAL_CONSOLE "console=ttyS0"
 #endif
