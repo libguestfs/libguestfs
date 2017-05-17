@@ -595,7 +595,18 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   arg ("-device", VIRTIO_SERIAL);
 
   /* Create the serial console. */
+#ifndef __s390x__
   arg ("-serial", "stdio");
+#else
+  start_list ("-chardev") {
+    append_list ("stdio");
+    append_list ("id=charconsole0");
+  } end_list ();
+  start_list ("-device") {
+    append_list ("sclpconsole");
+    append_list ("chardev=charconsole0");
+  } end_list ();
+#endif
 
   if (g->verbose &&
       guestfs_int_qemu_supports_device (g, data->qemu_data,
