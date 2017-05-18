@@ -49,6 +49,17 @@
 #include "guestfs_protocol.h"
 #include "qemuopts.h"
 
+/* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
+ * (CCW) vs normal hardware with PCI.
+ */
+#if defined(__arm__)
+#define VIRTIO_DEVICE_NAME(type) type "-device"
+#elif defined(__s390x__)
+#define VIRTIO_DEVICE_NAME(type) type "-ccw"
+#else
+#define VIRTIO_DEVICE_NAME(type) type "-pci"
+#endif
+
 /* Per-handle data. */
 struct backend_direct_data {
   pid_t pid;                    /* Qemu PID. */
@@ -275,7 +286,7 @@ add_drive (guestfs_h *g, struct backend_direct_data *data,
       append_list ("if=none");
     } end_list ();
     start_list ("-device") {
-      append_list (VIRTIO_BLK);
+      append_list (VIRTIO_DEVICE_NAME ("virtio-blk"));
       append_list_format ("drive=hd%zu", i);
     } end_list ();
   }
@@ -448,7 +459,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   /* CVE-2011-4127 mitigation: Disable SCSI ioctls on virtio-blk
    * devices.
    */
-  arg ("-global", VIRTIO_BLK ".scsi=off");
+  arg ("-global", VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
 
   if (guestfs_int_qemu_supports (g, data->qemu_data, "-nodefconfig"))
     flag ("-nodefconfig");
@@ -551,21 +562,21 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * when needing entropy.
    */
   if (guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        VIRTIO_RNG)) {
+                                        VIRTIO_DEVICE_NAME ("virtio-rng"))) {
     start_list ("-object") {
       append_list ("rng-random");
       append_list ("filename=/dev/urandom");
       append_list ("id=rng0");
     } end_list ();
     start_list ("-device") {
-      append_list (VIRTIO_RNG);
+      append_list (VIRTIO_DEVICE_NAME ("virtio-rng"));
       append_list ("rng=rng0");
     } end_list ();
   }
 
   /* Create the virtio-scsi bus. */
   start_list ("-device") {
-    append_list (VIRTIO_SCSI);
+    append_list (VIRTIO_DEVICE_NAME ("virtio-scsi"));
     append_list ("id=scsi");
   } end_list ();
 
@@ -592,7 +603,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   }
 
   /* Create the virtio serial bus. */
-  arg ("-device", VIRTIO_SERIAL);
+  arg ("-device", VIRTIO_DEVICE_NAME ("virtio-serial"));
 
   /* Create the serial console. */
 #ifndef __s390x__
@@ -640,7 +651,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       append_list ("net=169.254.0.0/16");
     } end_list ();
     start_list ("-device") {
-      append_list (VIRTIO_NET);
+      append_list (VIRTIO_DEVICE_NAME ("virtio-net"));
       append_list ("netdev=usernet");
     } end_list ();
   }
