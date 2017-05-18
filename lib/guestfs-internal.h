@@ -142,27 +142,15 @@
 /* Maximum size of Windows explorer.exe.  2.6MB on Windows 7. */
 #define MAX_WINDOWS_EXPLORER_SIZE (4 * 1000 * 1000)
 
-/* Differences in device names on ARMv7 (virtio-mmio), s/390x (CCW) vs
- * normal hardware with PCI.
+/* Differences in qemu device names on ARMv7 (virtio-mmio), s/390x
+ * (CCW) vs normal hardware with PCI.
  */
 #if defined(__arm__)
-#define VIRTIO_BLK "virtio-blk-device"
-#define VIRTIO_SCSI "virtio-scsi-device"
-#define VIRTIO_SERIAL "virtio-serial-device"
-#define VIRTIO_NET "virtio-net-device"
-#define VIRTIO_RNG "virtio-rng-device"
+#define VIRTIO_DEVICE_NAME(type) type "-device"
 #elif defined(__s390x__)
-#define VIRTIO_BLK "virtio-blk-ccw"
-#define VIRTIO_SCSI "virtio-scsi-ccw"
-#define VIRTIO_SERIAL "virtio-serial-ccw"
-#define VIRTIO_NET "virtio-net-ccw"
-#define VIRTIO_RNG "virtio-rng-ccw"
+#define VIRTIO_DEVICE_NAME(type) type "-ccw"
 #else
-#define VIRTIO_BLK "virtio-blk-pci"
-#define VIRTIO_SCSI "virtio-scsi-pci"
-#define VIRTIO_SERIAL "virtio-serial-pci"
-#define VIRTIO_NET "virtio-net-pci"
-#define VIRTIO_RNG "virtio-rng-pci"
+#define VIRTIO_DEVICE_NAME(type) type "-pci"
 #endif
 
 /* Machine types. */

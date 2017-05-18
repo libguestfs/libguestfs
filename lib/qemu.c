@@ -619,7 +619,7 @@ guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *data,
     if (old_or_broken_virtio_scsi (qemu_version))
       data->virtio_scsi = 2;
     else {
-      r = guestfs_int_qemu_supports_device (g, data, VIRTIO_SCSI);
+      r = guestfs_int_qemu_supports_device (g, data, VIRTIO_DEVICE_NAME ("virtio-scsi"));
       if (r > 0)
         data->virtio_scsi = 1;
       else if (r == 0)

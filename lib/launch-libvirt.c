@@ -1803,7 +1803,7 @@ construct_libvirt_xml_qemu_cmdline (guestfs_h *g,
       } end_element ();
 
       start_element ("qemu:arg") {
-        attribute ("value", VIRTIO_NET ",netdev=usernet");
+        attribute ("value", VIRTIO_DEVICE_NAME ("virtio-net") ",netdev=usernet");
       } end_element ();
     }
 

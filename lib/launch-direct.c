@@ -349,7 +349,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    */
   if (guestfs_int_qemu_supports (g, data->qemu_data, "-global")) {
     ADD_CMDLINE ("-global");
-    ADD_CMDLINE (VIRTIO_BLK ".scsi=off");
+    ADD_CMDLINE (VIRTIO_DEVICE_NAME ("virtio-blk") ".scsi=off");
   }
 
   if (guestfs_int_qemu_supports (g, data->qemu_data, "-nodefconfig"))
@@ -463,11 +463,11 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
    * when needing entropy.
    */
   if (guestfs_int_qemu_supports_device (g, data->qemu_data,
-                                        VIRTIO_RNG)) {
+                                        VIRTIO_DEVICE_NAME ("virtio-rng"))) {
     ADD_CMDLINE ("-object");
     ADD_CMDLINE ("rng-random,filename=/dev/urandom,id=rng0");
     ADD_CMDLINE ("-device");
-    ADD_CMDLINE (VIRTIO_RNG ",rng=rng0");
+    ADD_CMDLINE (VIRTIO_DEVICE_NAME ("virtio-rng") ",rng=rng0");
   }
 
   /* Add drives */
@@ -477,7 +477,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   if (virtio_scsi) {
     /* Create the virtio-scsi bus. */
     ADD_CMDLINE ("-device");
-    ADD_CMDLINE (VIRTIO_SCSI ",id=scsi");
+    ADD_CMDLINE (VIRTIO_DEVICE_NAME ("virtio-scsi") ",id=scsi");
   }
 
   ITER_DRIVES (g, i, drv) {
@@ -564,7 +564,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       ADD_CMDLINE ("-drive");
       ADD_CMDLINE_PRINTF ("%s,if=none" /* sic */, param);
       ADD_CMDLINE ("-device");
-      ADD_CMDLINE_PRINTF (VIRTIO_BLK ",drive=hd%zu", i);
+      ADD_CMDLINE_PRINTF (VIRTIO_DEVICE_NAME ("virtio-blk") ",drive=hd%zu", i);
     }
   }
 
@@ -581,7 +581,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     }
     else {
       ADD_CMDLINE ("-device");
-      ADD_CMDLINE (VIRTIO_BLK ",drive=appliance");
+      ADD_CMDLINE (VIRTIO_DEVICE_NAME ("virtio-blk") ",drive=appliance");
     }
 
     appliance_dev = make_appliance_dev (g, virtio_scsi);
@@ -589,7 +589,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Create the virtio serial bus. */
   ADD_CMDLINE ("-device");
-  ADD_CMDLINE (VIRTIO_SERIAL);
+  ADD_CMDLINE (VIRTIO_DEVICE_NAME ("virtio-serial"));
 
   /* Create the serial console. */
 #ifndef __s390x__
@@ -626,7 +626,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
     ADD_CMDLINE ("-netdev");
     ADD_CMDLINE ("user,id=usernet,net=169.254.0.0/16");
     ADD_CMDLINE ("-device");
-    ADD_CMDLINE (VIRTIO_NET ",netdev=usernet");
+    ADD_CMDLINE (VIRTIO_DEVICE_NAME ("virtio-net") ",netdev=usernet");
   }
 
   ADD_CMDLINE ("-append");
