@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-05-08 14:01+0100\n"
+"POT-Creation-Date: 2017-05-18 21:59+0100\n"
 "PO-Revision-Date: 2015-02-21 10:52-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/projects/p/"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:935
+#: ../v2v/convert_linux.ml:936
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2259,7 +2259,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:724
+#: ../v2v/convert_linux.ml:725
 msgid ""
 "The display driver was updated to ‘%s’, but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2923,7 +2923,7 @@ msgstr ""
 msgid "don’t know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:829
+#: ../v2v/convert_linux.ml:830
 msgid "don’t know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3995,7 +3995,7 @@ msgstr ""
 msgid "too many parameters, expecting ‘os-version’"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:763
+#: ../v2v/convert_linux.ml:764
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -4014,13 +4014,13 @@ msgstr ""
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:608
+#: ../v2v/convert_linux.ml:609
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:525
+#: ../v2v/convert_linux.ml:526
 msgid ""
 "unable to rebuild initrd (%s) because update-initramfs was not found in the "
 "guest"
@@ -8841,7 +8841,7 @@ msgstr ""
 "%s: ਰੂਟ (root) ਜੰਤਰ ਨਹੀਂ ਲੱਭਿਆ: ਇਸ ਫੰਕਸ਼ਨ ਨੂੰ ਸਿਰਫ ਰੂਟ ਜੰਤਰ ਨਾਲ ਕਾਲ ਕਰੋ ਜੋ ਪਹਿਲਾਂ "
 "guestfs_inspect_os ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 
-#: lib/launch-direct.c:152
+#: lib/launch-direct.c:163
 #, c-format
 msgid ""
 "current user is not a member of the KVM group (group ID %d). This user "
@@ -8850,11 +8850,11 @@ msgid ""
 "might need to log out and log in again)."
 msgstr ""
 
-#: lib/launch-direct.c:358 lib/launch-uml.c:155
+#: lib/launch-direct.c:369 lib/launch-uml.c:155
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: lib/launch-direct.c:853 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:875 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
@@ -8929,43 +8929,43 @@ msgstr ""
 msgid "%s:%d: error constructing libvirt XML near call to \"%s\""
 msgstr ""
 
-#: lib/launch-libvirt.c:1432
+#: lib/launch-libvirt.c:1449
 msgid "‘iface’ parameter is not supported by the libvirt backend"
 msgstr ""
 
-#: lib/launch-libvirt.c:1478 lib/qemu.c:395
+#: lib/launch-libvirt.c:1495 lib/qemu.c:395
 #, c-format
 msgid "realpath: could not convert ‘%s’ to absolute path"
 msgstr ""
 
-#: lib/launch-libvirt.c:1561
+#: lib/launch-libvirt.c:1578
 msgid ""
 "libvirt does not support the qemu curl driver protocols (ftp, http, etc.); "
 "try setting LIBGUESTFS_BACKEND=direct"
 msgstr ""
 
-#: lib/launch-libvirt.c:1902
+#: lib/launch-libvirt.c:1919
 msgid "could not define libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:1913
+#: lib/launch-libvirt.c:1930
 msgid "rbd protocol secret must be base64 encoded"
 msgstr ""
 
-#: lib/launch-libvirt.c:1917
+#: lib/launch-libvirt.c:1934
 #, c-format
 msgid "base64_decode_alloc: %m"
 msgstr ""
 
-#: lib/launch-libvirt.c:1938
+#: lib/launch-libvirt.c:1955
 msgid "could not set libvirt secret value"
 msgstr ""
 
-#: lib/launch-libvirt.c:1951
+#: lib/launch-libvirt.c:1968
 msgid "could not get UUID from libvirt secret"
 msgstr ""
 
-#: lib/launch-libvirt.c:2061
+#: lib/launch-libvirt.c:2078
 #, c-format
 msgid ""
 "bridge ‘%s’ not found.  Try running:\n"
@@ -8981,20 +8981,20 @@ msgid ""
 "For further information see guestfs(3)."
 msgstr ""
 
-#: lib/launch-libvirt.c:2164
+#: lib/launch-libvirt.c:2181
 msgid "could not destroy libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2185 lib/launch-libvirt.c:2218
+#: lib/launch-libvirt.c:2202 lib/launch-libvirt.c:2235
 #, c-format
 msgid "%s: internal error forming error message"
 msgstr ""
 
-#: lib/launch-libvirt.c:2284
+#: lib/launch-libvirt.c:2301
 msgid "could not attach disk to libvirt domain"
 msgstr ""
 
-#: lib/launch-libvirt.c:2315
+#: lib/launch-libvirt.c:2332
 msgid "could not detach disk from libvirt domain"
 msgstr ""
 
