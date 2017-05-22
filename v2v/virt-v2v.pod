@@ -191,6 +191,17 @@ Save the overlay file(s) created during conversion.  This option is
 only used for debugging virt-v2v and may be removed in a future
 version.
 
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, virt-v2v normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room you
+can specify this flag to see what you are typing.
+
+Note this options only applies to keys and passphrases for encrypted
+devices and partitions, not for passwords used to connect to remote
+servers.
+
 =item B<-i> B<disk>
 
 Set the input method to I<disk>.
@@ -256,6 +267,15 @@ L</INPUT FROM XEN> below.
 For I<-i disk> only, this specifies the format of the input disk
 image.  For other input methods you should specify the input
 format in the metadata.
+
+=item B<--keys-from-stdin>
+
+Read key or passphrase parameters from stdin.  The default is
+to try to read passphrases from the user by opening F</dev/tty>.
+
+Note this options only applies to keys and passphrases for encrypted
+devices and partitions, not for passwords used to connect to remote
+servers.
 
 =item B<--machine-readable>
 

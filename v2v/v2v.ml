@@ -90,6 +90,9 @@ let rec main () =
 
   g#launch ();
 
+  (* Decrypt the disks. *)
+  inspect_decrypt g;
+
   (* Inspection - this also mounts up the filesystems. *)
   (match conversion_mode with
    | Copying _ -> message (f_"Inspecting the overlay")
