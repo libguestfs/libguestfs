@@ -267,8 +267,6 @@ val protect : f:(unit -> 'a) -> finally:(unit -> unit) -> 'a
 val failwithf : ('a, unit, string, 'b) format4 -> 'a
 (** Like [failwith] but supports printf-like arguments. *)
 
-(*</stdlib>*)
-
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
 
@@ -280,6 +278,8 @@ val set_verbose : unit -> unit
 val verbose : unit -> bool
 (** Stores the quiet ([--quiet]), trace ([-x]) and verbose ([-v]) flags
     in global variables. *)
+
+(*</stdlib>*)
 
 val message : ('a, unit, string, unit) format4 -> 'a
 (** Timestamped progress messages.  Used for ordinary messages when
