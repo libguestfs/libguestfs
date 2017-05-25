@@ -267,6 +267,15 @@ val protect : f:(unit -> 'a) -> finally:(unit -> unit) -> 'a
 val failwithf : ('a, unit, string, 'b) format4 -> 'a
 (** Like [failwith] but supports printf-like arguments. *)
 
+exception Executable_not_found of string (* executable *)
+(** Exception thrown by [which] when the specified executable is not found
+    in [$PATH]. *)
+
+val which : string -> string
+(** Return the full path of the specified executable from [$PATH].
+
+    Throw [Executable_not_found] if not available. *)
+
 val prog : string
 (** The program name (derived from {!Sys.executable_name}). *)
 
@@ -484,15 +493,6 @@ val inspect_mount_root_ro : Guestfs.guestfs -> string -> unit
 
 val is_btrfs_subvolume : Guestfs.guestfs -> string -> bool
 (** Checks if a filesystem is a btrfs subvolume. *)
-
-exception Executable_not_found of string (* executable *)
-(** Exception thrown by [which] when the specified executable is not found
-    in [$PATH]. *)
-
-val which : string -> string
-(** Return the full path of the specified executable from [$PATH].
-
-    Throw [Executable_not_found] if not available. *)
 
 val inspect_decrypt : Guestfs.guestfs -> unit
 (** Simple implementation of decryption: look for any [crypto_LUKS]
