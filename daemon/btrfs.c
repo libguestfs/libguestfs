@@ -2185,11 +2185,11 @@ do_btrfs_replace (const char *srcdev, const char *targetdev,
   ADD_ARG (argv, i, str_btrfs);
   ADD_ARG (argv, i, "replace");
   ADD_ARG (argv, i, "start");
+  ADD_ARG (argv, i, "-B");
+  ADD_ARG (argv, i, "-f");
   ADD_ARG (argv, i, srcdev);
   ADD_ARG (argv, i, targetdev);
   ADD_ARG (argv, i, path_buf);
-  ADD_ARG (argv, i, "-B");
-  ADD_ARG (argv, i, "-f");
   ADD_ARG (argv, i, NULL);
 
   r = commandv (NULL, &err, argv);
