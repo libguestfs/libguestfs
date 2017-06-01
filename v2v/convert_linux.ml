@@ -514,7 +514,9 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
       else if family = `SUSE_family
            && g#is_file ~followsymlinks:true "/sbin/mkinitrd" then (
         ignore (
-          g#command [| "/sbin/mkinitrd";
+          g#command [| "/usr/bin/env";
+                       "rootdev=" ^ inspect.i_root;
+                       "/sbin/mkinitrd";
                        "-m"; String.concat " " modules;
                        "-i"; initrd;
                        "-k"; kernel.ki_vmlinuz;
