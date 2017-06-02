@@ -67,12 +67,6 @@ get_blkid_tag (const char *device, const char *tag)
 }
 
 char *
-do_vfs_type (const mountable_t *mountable)
-{
-  return get_blkid_tag (mountable->device, "TYPE");
-}
-
-char *
 do_vfs_label (const mountable_t *mountable)
 {
   CLEANUP_FREE char *type = do_vfs_type (mountable);

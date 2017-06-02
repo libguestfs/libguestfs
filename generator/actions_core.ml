@@ -4872,6 +4872,7 @@ See also C<guestfs_realpath>." };
   { defaults with
     name = "vfs_type"; added = (1, 0, 75);
     style = RString (RPlainString, "fstype"), [String (Mountable, "mountable")], [];
+    impl = OCaml "Blkid.vfs_type";
     tests = [
       InitScratchFS, Always, TestResultString (
         [["vfs_type"; "/dev/sdb1"]], "ext2"), []

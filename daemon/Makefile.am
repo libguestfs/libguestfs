@@ -241,9 +241,11 @@ guestfsd_CFLAGS = \
 # library and then linked to the daemon.  See
 # https://caml.inria.fr/pub/docs/manual-ocaml/intfc.html
 SOURCES_MLI = \
+	blkid.mli \
 	chroot.mli \
 	sysroot.mli \
 	file.mli \
+	mountable.mli \
 	utils.mli
 
 SOURCES_ML = \
@@ -252,7 +254,9 @@ SOURCES_ML = \
 	structs.ml \
 	optgroups.ml \
 	sysroot.ml \
+	mountable.ml \
 	chroot.ml \
+	blkid.ml \
 	file.ml \
 	callbacks.ml \
 	daemon.ml
