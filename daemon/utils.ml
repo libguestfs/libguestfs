@@ -131,6 +131,90 @@ let is_root_device device =
               device func arg (error_message err);
       false
 
+(* XXX This function is copied from C, but is misconceived.  It
+ * cannot by design work for devices like /dev/md0.  It would be
+ * better if it checked for the existence of devices and partitions
+ * in /sys/block so we know what the kernel thinks is a device or
+ * partition.  The same applies to APIs such as part_to_partnum
+ * and part_to_dev which rely on this function.
+ *)
+let split_device_partition dev =
+  (* Skip /dev/ prefix if present. *)
+  let dev =
+    if String.is_prefix dev "/dev/" then
+      String.sub dev 5 (String.length dev - 5)
+    else dev in
+
+  (* Find the partition number (if present). *)
+  let dev, part =
+    let n = String.length dev in
+    let i = ref n in
+    while !i >= 1 && Char.isdigit dev.[!i-1] do
+      decr i
+    done;
+    let i = !i in
+    if i = n then
+      dev, 0 (* no partition number, whole device *)
+    else
+      String.sub dev 0 i, int_of_string (String.sub dev i (n-i)) in
+
+  (* Deal with device names like /dev/md0p1. *)
+  (* XXX This function is buggy (as was the old C function) when
+   * presented with a whole device like /dev/md0.
+   *)
+  let dev =
+    let n = String.length dev in
+    if n < 2 || dev.[n-1] <> 'p' || not (Char.isdigit dev.[n-2]) then
+      dev
+    else (
+      let i = ref (n-1) in
+      while !i >= 0 && Char.isdigit dev.[!i] do
+        decr i;
+      done;
+      let i = !i in
+      String.sub dev 0 i
+    ) in
+
+  dev, part
+
+let rec sort_device_names devs =
+  List.sort compare_device_names devs
+
+and compare_device_names a b =
+  (* This takes the device name like "/dev/sda1" and returns ("sda", 1). *)
+  let dev_a, part_a = split_device_partition a
+  and dev_b, part_b = split_device_partition b in
+
+  (* Skip "sd|hd|ubd..." so that /dev/sda and /dev/vda sort together.
+   * (This is what the old C function did, but it's not clear if it
+   * is still relevant. XXX)
+   *)
+  let skip_prefix dev =
+    let n = String.length dev in
+    if n >= 2 && dev.[1] = 'd' then
+      String.sub dev 2 (String.length dev - 2)
+    else if n >= 3 && dev.[2] = 'd' then
+      String.sub dev 3 (String.length dev - 3)
+    else
+      dev in
+  let dev_a = skip_prefix dev_a
+  and dev_b = skip_prefix dev_b in
+
+  (* If device name part is longer, it is always greater, eg.
+   * "/dev/sdz" < "/dev/sdaa".
+   *)
+  let r = compare (String.length dev_a) (String.length dev_b) in
+  if r <> 0 then r
+  else (
+    (* Device name parts are the same length, so do a regular compare. *)
+    let r = compare dev_a dev_b in
+    if r <> 0 then r
+    else (
+      (* Device names are identical, so compare partition numbers. *)
+      compare part_a part_b
+    )
+  )
+
 let proc_unmangle_path path =
   let n = String.length path in
   let b = Buffer.create n in

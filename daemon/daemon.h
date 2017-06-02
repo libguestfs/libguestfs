@@ -67,8 +67,6 @@ extern int xread (int sock, void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 extern void sort_strings (char **argv, size_t len);
 extern void free_stringslen (char **argv, size_t len);
-extern void sort_device_names (char **argv, size_t len);
-extern int compare_device_names (const char *a, const char *b);
 extern char **take_stringsbuf (struct stringsbuf *sb);
 extern void free_stringsbuf (struct stringsbuf *sb);
 extern struct stringsbuf split_lines_sb (char *str);

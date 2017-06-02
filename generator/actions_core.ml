@@ -1817,6 +1817,7 @@ is I<not> intended that you try to parse the output string." };
   { defaults with
     name = "list_devices"; added = (0, 0, 4);
     style = RStringList (RDevice, "devices"), [], [];
+    impl = OCaml "Devsparts.list_devices";
     tests = [
       InitEmpty, Always, TestResult (
         [["list_devices"]],
@@ -1833,6 +1834,7 @@ See also C<guestfs_list_filesystems>." };
   { defaults with
     name = "list_partitions"; added = (0, 0, 4);
     style = RStringList (RDevice, "partitions"), [], [];
+    impl = OCaml "Devsparts.list_partitions";
     tests = [
       InitBasicFS, Always, TestResult (
         [["list_partitions"]],
@@ -6086,6 +6088,7 @@ See also C<guestfs_stat>." };
   { defaults with
     name = "part_to_dev"; added = (1, 5, 15);
     style = RString (RDevice, "device"), [String (Device, "partition")], [];
+    impl = OCaml "Devsparts.part_to_dev";
     tests = [
       InitPartition, Always, TestResultDevice (
         [["part_to_dev"; "/dev/sda1"]], "/dev/sda"), [];
@@ -6533,6 +6536,7 @@ as in C<guestfs_compress_out>." };
   { defaults with
     name = "part_to_partnum"; added = (1, 13, 25);
     style = RInt "partnum", [String (Device, "partition")], [];
+    impl = OCaml "Devsparts.part_to_partnum";
     tests = [
       InitPartition, Always, TestResult (
         [["part_to_partnum"; "/dev/sda1"]], "ret == 1"), [];
@@ -8480,6 +8484,7 @@ you are better to use C<guestfs_mv> instead." };
   { defaults with
     name = "is_whole_device"; added = (1, 21, 9);
     style = RBool "flag", [String (Device, "device")], [];
+    impl = OCaml "Devsparts.is_whole_device";
     tests = [
       InitEmpty, Always, TestResultTrue (
         [["is_whole_device"; "/dev/sda"]]), [];

@@ -41,6 +41,21 @@ val is_root_device_stat : Unix.stats -> bool
 (** As for {!is_root_device} but operates on a statbuf instead of
     a device name. *)
 
+val split_device_partition : string -> string * int
+(** Split a device name like [/dev/sda1] into a device name and
+    partition number, eg. ["sda", 1].
+
+    The [/dev/] prefix is skipped and removed, if present.
+
+    If the partition number is not present (a whole device), 0 is returned.
+
+    This function splits [/dev/md0p1] to ["md0", 1]. *)
+
+val sort_device_names : string list -> string list
+(** Sort device names correctly so that /dev/sdaa appears after /dev/sdz.
+    This also deals with partition numbers, and works whether or not
+    [/dev/] is present. *)
+
 val proc_unmangle_path : string -> string
 (** Reverse kernel path escaping done in fs/seq_file.c:mangle_path.
     This is inconsistently used for /proc fields. *)
