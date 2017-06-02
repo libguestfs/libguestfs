@@ -35,8 +35,6 @@ SOURCES_C = \
 	c_utils-c.c \
 	unix_utils-c.c
 
-if HAVE_OCAML
-
 # We pretend that we're building a C library.  automake handles the
 # compilation of the C sources for us.  At the end we take the C
 # objects and OCaml objects and link them into the OCaml library.
@@ -149,7 +147,5 @@ depend: .depend
 	mv $@-t $@
 
 -include .depend
-
-endif
 
 .PHONY: depend docs

@@ -133,6 +133,12 @@ Run it from the top source directory using the command
             Daemon.generate_daemon_stubs_h;
   output_to_subset "daemon/stubs-%d.c"
                    Daemon.generate_daemon_stubs;
+  output_to "daemon/caml-stubs.c"
+            Daemon.generate_daemon_caml_stubs;
+  output_to "daemon/callbacks.ml"
+            Daemon.generate_daemon_caml_callbacks_ml;
+  output_to "daemon/types.ml"
+            Daemon.generate_daemon_caml_types_ml;
   output_to "daemon/dispatch.c"
             Daemon.generate_daemon_dispatch;
   output_to "daemon/names.c"
@@ -141,6 +147,8 @@ Run it from the top source directory using the command
             Daemon.generate_daemon_optgroups_c;
   output_to "daemon/optgroups.h"
             Daemon.generate_daemon_optgroups_h;
+  output_to "daemon/optgroups.ml"
+            Daemon.generate_daemon_optgroups_ml;
   output_to "daemon/lvm-tokenization.c"
             Daemon.generate_daemon_lvm_tokenization;
   output_to "daemon/structs-cleanups.c"
@@ -185,6 +193,8 @@ Run it from the top source directory using the command
             OCaml.generate_ocaml_c;
   output_to "ocaml/guestfs-c-errnos.c"
             OCaml.generate_ocaml_c_errnos;
+  output_to "daemon/structs.ml"
+            OCaml.generate_ocaml_daemon_structs;
   output_to "ocaml/bindtests.ml"
             Bindtests.generate_ocaml_bindtests;
 

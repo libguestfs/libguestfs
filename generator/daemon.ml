@@ -471,6 +471,324 @@ let generate_daemon_stubs actions () =
       pr "}\n\n";
   ) (actions |> daemon_functions |> sort)
 
+let generate_daemon_caml_types_ml () =
+  generate_header OCamlStyle GPLv2plus
+
+let generate_daemon_caml_callbacks_ml () =
+  generate_header OCamlStyle GPLv2plus;
+
+  if actions |> impl_ocaml_functions <> [] then (
+    pr "let init_callbacks () =\n";
+    pr "  (* Initialize callbacks to OCaml code. *)\n";
+    List.iter (
+      fun ({ name = name; style = ret, args, optargs } as f) ->
+        let ocaml_function =
+          match f.impl with
+          | OCaml f -> f
+          | C -> assert false in
+
+        pr "  Callback.register %S %s;\n" ocaml_function ocaml_function
+    ) (actions |> impl_ocaml_functions |> sort)
+  )
+  else
+    pr "let init_callbacks () = ()\n"
+
+(* Generate stubs for the functions implemented in OCaml.
+ * Basically we implement the do_<name> function here, and
+ * have it call out to OCaml code.
+ *)
+let generate_daemon_caml_stubs () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <inttypes.h>
+#include <errno.h>
+
+#include <caml/alloc.h>
+#include <caml/callback.h>
+#include <caml/fail.h>
+#include <caml/memory.h>
+#include <caml/mlvalues.h>
+
+#include \"daemon.h\"
+#include \"actions.h\"
+#include \"daemon-c.h\"
+
+";
+
+  (* Implement code for returning structs and struct lists. *)
+  let emit_return_struct typ =
+    let struc = Structs.lookup_struct typ in
+    pr "/* Implement RStruct (%S, _). */\n" typ;
+    pr "static guestfs_int_%s *\n" typ;
+    pr "return_%s (value retv)\n" typ;
+    pr "{\n";
+    pr "  guestfs_int_%s *ret;\n" typ;
+    pr "  value v;\n";
+    pr "\n";
+    pr "  ret = malloc (sizeof (*ret));\n";
+    pr "  if (ret == NULL) {\n";
+    pr "    reply_with_perror (\"malloc\");\n";
+    pr "    return NULL;\n";
+    pr "  }\n";
+    pr "\n";
+    iteri (
+      fun i ->
+        pr "  v = Field (retv, %d);\n" i;
+        function
+        | n, (FString|FUUID) ->
+           pr "  ret->%s = strdup (String_val (v));\n" n;
+           pr "  if (ret->%s == NULL) return NULL;\n" n
+        | n, FBuffer ->
+           pr "  ret->%s_len = caml_string_length (v);\n" n;
+           pr "  ret->%s = strdup (String_val (v));\n" n;
+           pr "  if (ret->%s == NULL) return NULL;\n" n
+        | n, (FBytes|FInt64|FUInt64) ->
+           pr "  ret->%s = Int64_val (v);\n" n
+        | n, (FInt32|FUInt32) ->
+           pr "  ret->%s = Int32_val (v);\n" n
+        | n, FOptPercent ->
+           pr "  if (v == Val_int (0)) /* None */\n";
+           pr "    ret->%s = -1;\n" n;
+           pr "  else {\n";
+           pr "    v = Field (v, 0);\n";
+           pr "    ret->%s = Double_val (v);\n" n;
+           pr "  }\n"
+        | n, FChar ->
+           pr "  ret->%s = Int_val (v);\n" n
+    ) struc.s_cols;
+    pr "\n";
+    pr "  return ret;\n";
+    pr "}\n";
+    pr "\n"
+
+  and emit_return_struct_list typ =
+    pr "/* Implement RStructList (%S, _). */\n" typ;
+    pr "static guestfs_int_%s_list *\n" typ;
+    pr "return_%s_list (value retv)\n" typ;
+    pr "{\n";
+    pr "  guestfs_int_%s_list *ret;\n" typ;
+    pr "  guestfs_int_%s *r;\n" typ;
+    pr "  size_t i, len;\n";
+    pr "  value v, rv;\n";
+    pr "\n";
+    pr "  /* Count the number of elements in the list. */\n";
+    pr "  rv = retv;\n";
+    pr "  len = 0;\n";
+    pr "  while (rv != Val_int (0)) {\n";
+    pr "    len++;\n";
+    pr "    rv = Field (rv, 1);\n";
+    pr "  }\n";
+    pr "\n";
+    pr "  ret = malloc (sizeof *ret);\n";
+    pr "  if (ret == NULL) {\n";
+    pr "    reply_with_perror (\"malloc\");\n";
+    pr "    return NULL;\n";
+    pr "  }\n";
+    pr "  ret->guestfs_int_%s_list_len = len;\n" typ;
+    pr "  ret->guestfs_int_%s_list_val =\n" typ;
+    pr "    calloc (len, sizeof (guestfs_int_%s));\n" typ;
+    pr "  if (ret->guestfs_int_%s_list_val == NULL) {\n" typ;
+    pr "    reply_with_perror (\"calloc\");\n";
+    pr "    free (ret);\n";
+    pr "    return NULL;\n";
+    pr "  }\n";
+    pr "\n";
+    pr "  rv = retv;\n";
+    pr "  for (i = 0; i < len; ++i) {\n";
+    pr "    v = Field (rv, 0);\n";
+    pr "    r = return_%s (v);\n" typ;
+    pr "    if (r == NULL)\n";
+    pr "      return NULL; /* XXX leaks memory along this error path */\n";
+    pr "    memcpy (&ret->guestfs_int_%s_list_val[i], r, sizeof (*r));\n" typ;
+    pr "    free (r);\n";
+    pr "    rv = Field (rv, 1);\n";
+    pr "  }\n";
+    pr "\n";
+    pr "  return ret;\n";
+    pr "}\n";
+    pr "\n";
+  in
+
+  List.iter (
+    function
+    | typ, RStructOnly ->
+       emit_return_struct typ
+    | typ, (RStructListOnly | RStructAndList) ->
+       emit_return_struct typ;
+       emit_return_struct_list typ
+  ) (rstructs_used_by (actions |> impl_ocaml_functions));
+
+  (* Implement the wrapper functions. *)
+  List.iter (
+    fun ({ name = name; style = ret, args, optargs } as f) ->
+      let uc_name = String.uppercase_ascii name in
+      let ocaml_function =
+        match f.impl with
+        | OCaml f -> f
+        | C -> assert false in
+
+      pr "/* Wrapper for OCaml function ‘%s’. */\n" ocaml_function;
+
+      let args_do_function = args @ args_of_optargs optargs in
+      let args_do_function =
+        List.filter (function
+                     | String ((FileIn|FileOut), _) -> false | _ -> true)
+                    args_do_function in
+      let style = ret, args_do_function, [] in
+      generate_prototype ~extern:false ~semicolon:false
+                         ~single_line:false ~newline:false
+                         ~in_daemon:true ~prefix:"do_"
+                         name style;
+      pr "\n";
+
+      let add_unit_arg =
+        let args = List.filter
+                     (function
+                      | String ((FileIn|FileOut), _) -> false | _ -> true)
+                 args in
+        args = [] in
+      let nr_args = List.length args_do_function in
+
+      pr "{\n";
+      pr "  static value *cb = NULL;\n";
+      pr "  CAMLparam0 ();\n";
+      pr "  CAMLlocal2 (v, retv);\n";
+      pr "  CAMLlocalN (args, %d);\n"
+         (nr_args + if add_unit_arg then 1 else 0);
+      pr "\n";
+      pr "  if (cb == NULL)\n";
+      pr "    cb = caml_named_value (\"%s\");\n" ocaml_function;
+      pr "\n";
+
+      (* Construct the actual call, but note that we want to pass
+       * the optional arguments first in the list.
+       *)
+      let i = ref 0 in
+      List.iter (
+        fun optarg ->
+          let n = name_of_optargt optarg in
+          let uc_n = String.uppercase_ascii n in
+
+          (* optargs are all passed as [None|Some _] *)
+          pr "  if ((optargs_bitmask & GUESTFS_%s_%s_BITMASK) == 0)\n"
+             uc_name uc_n;
+          pr "    args[%d] = Val_int (0); /* None */\n" !i;
+          pr "  else {\n";
+          pr "    v = ";
+          (match optarg with
+           | OBool _ ->
+              pr "Val_bool (%s)" n;
+           | OInt _ -> assert false
+           | OInt64 _ -> assert false
+           | OString _ -> assert false
+           | OStringList _ -> assert false
+          );
+          pr ";\n";
+          pr "    args[%d] = caml_alloc (1, 0);\n" !i;
+          pr "    Store_field (args[%d], 0, v);\n" !i;
+          pr "  }\n";
+          incr i
+      ) optargs;
+      List.iter (
+        fun arg ->
+          pr "  args[%d] = " !i;
+          (match arg with
+           | Bool n -> pr "Val_bool (%s)" n
+           | Int n -> pr "Val_int (%s)" n
+           | Int64 n -> pr "caml_copy_int64 (%s)" n
+           | String ((PlainString|Device|Pathname|Dev_or_Path), n) ->
+              pr "caml_copy_string (%s)" n
+           | String ((Mountable|Mountable_or_Path), n) ->
+              pr "guestfs_int_daemon_copy_mountable (%s)" n
+           | String _ -> assert false
+           | OptString _ -> assert false
+           | StringList _ -> assert false
+           | BufferIn _ -> assert false
+           | Pointer _ -> assert false
+          );
+          pr ";\n";
+          incr i
+      ) args;
+      assert (!i = nr_args);
+
+      (* If there are no non-optional arguments, we add a unit arg. *)
+      if add_unit_arg then
+        pr "  args[%d] = Val_unit;\n" !i;
+
+      pr "  retv = caml_callbackN_exn (*cb, %d, args);\n"
+         (nr_args + if add_unit_arg then 1 else 0);
+      pr "\n";
+      pr "  if (Is_exception_result (retv)) {\n";
+      pr "    retv = Extract_exception (retv);\n";
+      pr "    guestfs_int_daemon_exn_to_reply_with_error (%S, retv);\n" name;
+      (match errcode_of_ret ret with
+       | `CannotReturnError ->
+          pr "    CAMLreturn0;\n"
+       | `ErrorIsMinusOne ->
+          pr "    CAMLreturnT (int, -1);\n"
+       | `ErrorIsNULL ->
+          pr "    CAMLreturnT (void *, NULL);\n"
+      );
+      pr "  }\n";
+      pr "\n";
+
+      (match ret with
+       | RErr ->
+          pr "  CAMLreturnT (int, 0);\n"
+       | RInt _ ->
+          pr "  CAMLreturnT (int, Int_val (retv));\n"
+       | RInt64 _ ->
+          pr "  CAMLreturnT (int, Int64_val (retv));\n"
+       | RBool _ ->
+          pr "  CAMLreturnT (int, Bool_val (retv));\n"
+       | RConstString _ -> assert false
+       | RConstOptString _ -> assert false
+       | RString ((RPlainString|RDevice), _) ->
+          pr "  char *ret = strdup (String_val (retv));\n";
+          pr "  if (ret == NULL) {\n";
+          pr "    reply_with_perror (\"strdup\");\n";
+          pr "    CAMLreturnT (char *, NULL);\n";
+          pr "  }\n";
+          pr "  CAMLreturnT (char *, ret); /* caller frees */\n"
+       | RString (RMountable, _) ->
+          pr "  char *ret =\n";
+          pr "    guestfs_int_daemon_return_string_mountable (retv);\n";
+          pr "  CAMLreturnT (char *, ret); /* caller frees */\n"
+       | RStringList _ ->
+          pr "  char **ret = guestfs_int_daemon_return_string_list (retv);\n";
+          pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
+       | RStruct (_, typ) ->
+          pr "  guestfs_int_%s *ret =\n" typ;
+          pr "    return_%s (retv);\n" typ;
+          pr "  /* caller frees */\n";
+          pr "  CAMLreturnT (guestfs_int_%s *, ret);\n" typ
+       | RStructList (_, typ) ->
+          pr "  guestfs_int_%s_list *ret =\n" typ;
+          pr "    return_%s_list (retv);\n" typ;
+          pr "  /* caller frees */\n";
+          pr "  CAMLreturnT (guestfs_int_%s_list *, ret);\n" typ
+       | RHashtable (RPlainString, RPlainString, _) ->
+          pr "  char **ret =\n";
+          pr "    guestfs_int_daemon_return_hashtable_string_string (retv);\n";
+          pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
+       | RHashtable (RMountable, RPlainString, _) ->
+          pr "  char **ret =\n";
+          pr "    guestfs_int_daemon_return_hashtable_mountable_string (retv);\n";
+          pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
+       | RHashtable _ -> assert false
+       | RBufferOut _ -> assert false
+      );
+      pr "}\n";
+      pr "\n"
+  ) (actions |> impl_ocaml_functions |> sort)
+
 let generate_daemon_dispatch () =
   generate_header CStyle GPLv2plus;
 
@@ -730,6 +1048,8 @@ let generate_daemon_optgroups_c () =
 
   pr "#include <config.h>\n";
   pr "\n";
+  pr "#include <caml/mlvalues.h>\n";
+  pr "\n";
   pr "#include \"daemon.h\"\n";
   pr "#include \"optgroups.h\"\n";
   pr "\n";
@@ -752,7 +1072,22 @@ let generate_daemon_optgroups_c () =
         pr "  { \"%s\", optgroup_%s_available },\n" group group
   ) optgroups_names_all;
   pr "  { NULL, NULL }\n";
-  pr "};\n"
+  pr "};\n";
+  pr "\n";
+  pr "/* Wrappers so these functions can be called from OCaml code. */\n";
+  List.iter (
+    fun group ->
+      pr "extern value guestfs_int_daemon_optgroup_%s_available (value);\n"
+         group;
+      pr "\n";
+      pr "/* NB: This is a \"noalloc\" call. */\n";
+      pr "value\n";
+      pr "guestfs_int_daemon_optgroup_%s_available (value unitv)\n" group;
+      pr "{\n";
+      pr "  return Val_bool (optgroup_%s_available ());\n" group;
+      pr "}\n";
+      pr "\n"
+  ) optgroups_names
 
 let generate_daemon_optgroups_h () =
   generate_header CStyle GPLv2plus;
@@ -801,8 +1136,18 @@ let generate_daemon_optgroups_h () =
 
   pr "#endif /* GUESTFSD_OPTGROUPS_H */\n"
 
+(* Generate optgroup available functions in OCaml. *)
+let generate_daemon_optgroups_ml () =
+  generate_header OCamlStyle GPLv2plus;
+
+  List.iter (
+    fun group ->
+      pr "external %s_available : unit -> bool =\n" group;
+      pr "  \"guestfs_int_daemon_optgroup_%s_available\" \"noalloc\"\n" group
+  ) optgroups_names
+
 (* Generate structs-cleanups.c file. *)
-and generate_daemon_structs_cleanups_c () =
+let generate_daemon_structs_cleanups_c () =
   generate_header CStyle GPLv2plus;
 
   pr "\
@@ -852,7 +1197,7 @@ and generate_daemon_structs_cleanups_c () =
   ) structs
 
 (* Generate structs-cleanups.h file. *)
-and generate_daemon_structs_cleanups_h () =
+let generate_daemon_structs_cleanups_h () =
   generate_header CStyle GPLv2plus;
 
   pr "\

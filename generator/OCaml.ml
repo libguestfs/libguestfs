@@ -888,3 +888,11 @@ and generate_ocaml_function_type ?(extra_unit = false) (ret, args, optargs) =
    | RStructList (_, typ) -> pr "%s array" typ
    | RHashtable _ -> pr "(string * string) list"
   )
+
+(* Structure definitions (again).  These are used in the daemon,
+ * but it's convenient to generate them here.
+ *)
+and generate_ocaml_daemon_structs () =
+  generate_header OCamlStyle GPLv2plus;
+
+  generate_ocaml_structure_decls ()

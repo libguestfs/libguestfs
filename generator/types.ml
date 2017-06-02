@@ -379,11 +379,16 @@ type deprecated_by =
   | Replaced_by of string         (* replaced by another function *)
   | Deprecated_no_replacement     (* deprecated with no replacement *)
 
+type impl =
+  | C                             (* implemented in C by "do_<name>" *)
+  | OCaml of string               (* implemented in OCaml by named function *)
+
 (* Type of an action as declared in Actions module. *)
 type action = {
   name : string;                  (* name, not including "guestfs_" *)
   added : version;                (* which version was the API first added *)
   style : style;                  (* args and return value *)
+  impl : impl;                    (* implementation language (C or OCaml) *)
   proc_nr : int option;           (* proc number, None for non-daemon *)
   tests : c_api_tests;            (* C API tests *)
   test_excuse : string;           (* if there's no tests ... *)
@@ -439,7 +444,7 @@ type action = {
  *)
 let defaults = { name = "";
                  added = (-1,-1,-1);
-                 style = RErr, [], []; proc_nr = None;
+                 style = RErr, [], []; impl = C; proc_nr = None;
                  tests = []; test_excuse = "";
                  shortdesc = ""; longdesc = "";
                  protocol_limit_warning = false; fish_alias = [];

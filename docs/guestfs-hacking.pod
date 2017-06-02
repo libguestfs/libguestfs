@@ -416,6 +416,13 @@ in the C<lib/> directory.
 
 In either case, use another function as an example of what to do.
 
+=item 3.
+
+As an alternative to step 2: Since libguestfs 1.38, daemon actions
+can be implemented in OCaml.  You have to set the C<impl = OCaml ...>
+flag in the generator.  Take a look at F<daemon/file.ml> for an
+example.
+
 =back
 
 After making these changes, use C<make> to compile.

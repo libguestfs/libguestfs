@@ -185,6 +185,11 @@ let is_fish { visibility = v; style = (_, args, _) } =
     not (List.exists (function Pointer _ -> true | _ -> false) args)
 let fish_functions = List.filter is_fish
 
+let is_ocaml_function = function
+  | { impl = OCaml _ } -> true
+  | { impl = C } -> false
+let impl_ocaml_functions = List.filter is_ocaml_function
+
 (* In some places we want the functions to be displayed sorted
  * alphabetically, so this is useful:
  *)

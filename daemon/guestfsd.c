@@ -56,6 +56,8 @@
 
 #include <augeas.h>
 
+#include <caml/callback.h> /* for caml_startup */
+
 #include "sockets.h"
 #include "c-ctype.h"
 #include "ignore-value.h"
@@ -230,6 +232,12 @@ main (int argc, char *argv[])
     usage ();
     exit (EXIT_FAILURE);
   }
+
+  /* Initialize the OCaml stubs.  This must be done after the
+   * ‘verbose’ flag is set from the command line since the OCaml
+   * initialization code depends on that.
+   */
+  caml_startup (argv);
 
 #ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */

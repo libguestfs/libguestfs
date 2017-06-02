@@ -40,6 +40,10 @@ val internal_functions : Types.action list -> Types.action list
 val fish_functions : Types.action list -> Types.action list
 (** Filter {!actions}, returning only functions in guestfish. *)
 
+val impl_ocaml_functions : Types.action list -> Types.action list
+(** Filter {!actions}, returning only functions implemented
+    in OCaml (in the daemon). *)
+
 val documented_functions : Types.action list -> Types.action list
 (** Filter {!actions}, returning only functions requiring documentation. *)
 

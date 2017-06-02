@@ -1,4 +1,4 @@
-(* libguestfs
+(* guestfs-inspection
  * Copyright (C) 2009-2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -11,13 +11,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val generate_ocaml_c : unit -> unit
-val generate_ocaml_c_errnos : unit -> unit
-val generate_ocaml_ml : unit -> unit
-val generate_ocaml_mli : unit -> unit
-val generate_ocaml_daemon_structs : unit -> unit
+open Std_utils
+
+external sysroot : unit -> string = "guestfs_int_daemon_sysroot"
+
+let sysroot_path path = sysroot () // path

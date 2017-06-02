@@ -1,4 +1,4 @@
-(* libguestfs
+(* guestfs-inspection
  * Copyright (C) 2009-2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -11,13 +11,15 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val generate_ocaml_c : unit -> unit
-val generate_ocaml_c_errnos : unit -> unit
-val generate_ocaml_ml : unit -> unit
-val generate_ocaml_mli : unit -> unit
-val generate_ocaml_daemon_structs : unit -> unit
+val sysroot : unit -> string
+(** Return the current sysroot path where filesystems are mounted.
+    This comes from the daemon command line ([-r] option) or a built
+    in default. *)
+
+val sysroot_path : string -> string
+(** Equivalent to calling [sysroot () // path] *)

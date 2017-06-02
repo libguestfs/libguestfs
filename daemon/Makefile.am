@@ -17,8 +17,9 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-generator_built = \
+BUILT_SOURCES = \
 	actions.h \
+	caml-stubs.c \
 	dispatch.c \
 	names.c \
 	lvm-tokenization.c \
@@ -33,11 +34,14 @@ generator_built = \
 	stubs-6.c \
 	stubs.h
 
-BUILT_SOURCES = \
-	$(generator_built)
+generator_built = \
+	$(BUILT_SOURCES) \
+	callbacks.ml \
+	types.ml
 
 EXTRA_DIST = \
-	$(BUILT_SOURCES) \
+	$(generator_built) \
+	$(SOURCES_MLI) $(SOURCES_ML) \
 	guestfsd.pod
 
 if INSTALL_DAEMON
@@ -61,6 +65,7 @@ guestfsd_SOURCES = \
 	blkid.c \
 	blockdev.c \
 	btrfs.c \
+	caml-stubs.c \
 	cap.c \
 	checksum.c \
 	cleanups.c \
@@ -71,6 +76,8 @@ guestfsd_SOURCES = \
 	copy.c \
 	cpio.c \
 	cpmv.c \
+	daemon-c.c \
+	daemon-c.h \
 	daemon.h \
 	dd.c \
 	debug.c \
@@ -161,6 +168,7 @@ guestfsd_SOURCES = \
 	swap.c \
 	sync.c \
 	syslinux.c \
+	sysroot-c.c \
 	tar.c \
 	tsk.c \
 	truncate.c \
@@ -176,10 +184,16 @@ guestfsd_SOURCES = \
 	zero.c \
 	zerofree.c
 
+guestfsd_LDFLAGS = \
+	-L$(shell $(OCAMLC) -where) \
+	-L$(shell $(OCAMLC) -where)/hivex \
+	-L../common/mlutils \
+	-L../common/mlstdutils
 guestfsd_LDADD = \
 	../common/errnostring/liberrnostring.la \
 	../common/protocol/libprotocol.la \
 	../common/utils/libutils.la \
+	camldaemon.o \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
 	$(YAJL_LIBS) \
@@ -198,9 +212,12 @@ guestfsd_LDADD = \
 	$(PCRE_LIBS) \
 	$(TSK_LIBS) \
 	$(RPC_LIBS) \
-	$(YARA_LIBS)
+	$(YARA_LIBS) \
+	$(OCAML_LIBS)
 
 guestfsd_CPPFLAGS = \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(shell $(OCAMLC) -where)/hivex \
 	-I$(top_srcdir)/gnulib/lib \
 	-I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib \
@@ -219,6 +236,71 @@ guestfsd_CFLAGS = \
 	$(SD_JOURNAL_CFLAGS) \
 	$(YAJL_CFLAGS) \
 	$(PCRE_CFLAGS)
+
+# Parts of the daemon are written in OCaml.  These are linked into a
+# library and then linked to the daemon.  See
+# https://caml.inria.fr/pub/docs/manual-ocaml/intfc.html
+SOURCES_MLI = \
+	chroot.mli \
+	sysroot.mli \
+	utils.mli
+
+SOURCES_ML = \
+	types.ml \
+	utils.ml \
+	structs.ml \
+	optgroups.ml \
+	sysroot.ml \
+	chroot.ml \
+	callbacks.ml \
+	daemon.ml
+
+BOBJECTS = $(SOURCES_ML:.ml=.cmo)
+XOBJECTS = $(BOBJECTS:.cmo=.cmx)
+
+OCAMLPACKAGES = \
+	-package str,unix,hivex \
+	-I $(top_srcdir)/common/mlstdutils \
+	-I $(top_srcdir)/common/mlutils
+
+OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_FLAGS)
+
+if !HAVE_OCAMLOPT
+OBJECTS = $(BOBJECTS)
+CAMLRUN = camlrun
+else
+OBJECTS = $(XOBJECTS)
+CAMLRUN = asmrun
+endif
+OCAML_LIBS = \
+	-lmlcutils \
+	-lmlstdutils \
+	-lmlhivex \
+	-lcamlstr \
+	-lunix \
+	-l$(CAMLRUN) -ldl -lm
+
+CLEANFILES += camldaemon.o
+
+camldaemon.o: $(OBJECTS)
+	$(OCAMLFIND) $(BEST) -output-obj -o $@ \
+	    $(OCAMLFLAGS) $(OCAMLPACKAGES) \
+	    -linkpkg mlcutils.$(MLARCHIVE) mlstdutils.$(MLARCHIVE) \
+	    $(OBJECTS)
+
+# OCaml dependencies.
+depend: .depend
+
+.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
+	rm -f $@ $@-t
+	$(OCAMLFIND) ocamldep -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils $^ | \
+	  $(SED) 's/ *$$//' | \
+	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
+	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
+	  sort > $@-t
+	mv $@-t $@
+
+-include .depend
 
 # Manual pages and HTML files for the website.
 if INSTALL_DAEMON
@@ -241,4 +323,4 @@ stamp-guestfsd.pod: guestfsd.pod
 	  $<
 	touch $@
 
-.PHONY: force
+.PHONY: depend force

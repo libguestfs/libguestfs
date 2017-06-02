@@ -19,10 +19,14 @@
 val generate_daemon_actions_h : unit -> unit
 val generate_daemon_stubs_h : unit -> unit
 val generate_daemon_stubs : Types.action list -> unit -> unit
+val generate_daemon_caml_stubs : unit -> unit
+val generate_daemon_caml_callbacks_ml : unit -> unit
+val generate_daemon_caml_types_ml : unit -> unit
 val generate_daemon_dispatch : unit -> unit
 val generate_daemon_lvm_tokenization : unit -> unit
 val generate_daemon_names : unit -> unit
 val generate_daemon_optgroups_c : unit -> unit
 val generate_daemon_optgroups_h : unit -> unit
+val generate_daemon_optgroups_ml : unit -> unit
 val generate_daemon_structs_cleanups_c : unit -> unit
 val generate_daemon_structs_cleanups_h : unit -> unit

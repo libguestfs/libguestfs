@@ -1,5 +1,5 @@
-(* libguestfs
- * Copyright (C) 2009-2017 Red Hat Inc.
+/* guestfs-inspection
+ * Copyright (C) 2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,25 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *)
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
 
-val generate_ocaml_c : unit -> unit
-val generate_ocaml_c_errnos : unit -> unit
-val generate_ocaml_ml : unit -> unit
-val generate_ocaml_mli : unit -> unit
-val generate_ocaml_daemon_structs : unit -> unit
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <caml/alloc.h>
+#include <caml/fail.h>
+#include <caml/memory.h>
+#include <caml/mlvalues.h>
+
+#include "daemon.h"
+
+extern value guestfs_int_daemon_sysroot (value unitv);
+
+value
+guestfs_int_daemon_sysroot (value unitv)
+{
+  return caml_copy_string (sysroot);
+}

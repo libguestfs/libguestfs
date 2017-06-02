@@ -44,6 +44,7 @@ SUBDIRS += common/structs
 SUBDIRS += lib docs examples po
 
 # The daemon and the appliance.
+SUBDIRS += common/mlutils
 if ENABLE_DAEMON
 SUBDIRS += daemon
 SUBDIRS += tests/daemon
@@ -155,7 +156,6 @@ SUBDIRS += csharp
 # OCaml tools.  Note 'common/ml*', 'mllib' and 'customize' contain
 # shared code used by other OCaml tools, so these must come first.
 if HAVE_OCAML
-SUBDIRS += common/mlutils
 SUBDIRS += common/mlprogress
 SUBDIRS += common/mlvisit
 SUBDIRS += common/mlxml
