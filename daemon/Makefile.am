@@ -243,6 +243,7 @@ guestfsd_CFLAGS = \
 SOURCES_MLI = \
 	chroot.mli \
 	sysroot.mli \
+	file.mli \
 	utils.mli
 
 SOURCES_ML = \
@@ -252,6 +253,7 @@ SOURCES_ML = \
 	optgroups.ml \
 	sysroot.ml \
 	chroot.ml \
+	file.ml \
 	callbacks.ml \
 	daemon.ml
 

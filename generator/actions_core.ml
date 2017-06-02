@@ -2321,6 +2321,7 @@ and physical volumes." };
   { defaults with
     name = "file"; added = (1, 9, 1);
     style = RString (RPlainString, "description"), [String (Dev_or_Path, "path")], [];
+    impl = OCaml "File.file";
     tests = [
       InitISOFS, Always, TestResultString (
         [["file"; "/empty"]], "empty"), [];
