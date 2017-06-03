@@ -1732,6 +1732,7 @@ See also C<guestfs_vgs_full>." };
   { defaults with
     name = "lvs"; added = (0, 0, 4);
     style = RStringList (RDevice, "logvols"), [], [];
+    impl = OCaml "Lvm.lvs";
     optional = Some "lvm2";
     tests = [
       InitBasicFSonLVM, Always, TestResult (
