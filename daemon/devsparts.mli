@@ -19,6 +19,8 @@
 val list_devices : unit -> string list
 val list_partitions : unit -> string list
 
+val nr_devices : unit -> int
+
 val part_to_dev : string -> string
 val part_to_partnum : string -> int
 

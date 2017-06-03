@@ -54,21 +54,6 @@ do_device_index (const char *device)
   return ret;
 }
 
-int
-do_nr_devices (void)
-{
-  size_t i;
-  CLEANUP_FREE_STRING_LIST char **devices = do_list_devices ();
-
-  if (devices == NULL)
-    return -1;
-
-  for (i = 0; devices[i] != NULL; ++i)
-    ;
-
-  return (int) i;
-}
-
 #define GUESTFSDIR "/dev/disk/guestfs"
 
 char **

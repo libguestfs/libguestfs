@@ -89,6 +89,8 @@ and add_partitions dev =
   let parts = List.filter (fun part -> String.is_prefix part dev) parts in
   List.map ((^) "/dev/") parts
 
+let nr_devices () = List.length (list_devices ())
+
 let part_to_dev part =
   let dev, part = split_device_partition part in
   if part = 0 then

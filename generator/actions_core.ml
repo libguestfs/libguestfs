@@ -7432,6 +7432,7 @@ See also C<guestfs_list_devices>, C<guestfs_part_to_dev>." };
 
   { defaults with
     name = "nr_devices"; added = (1, 19, 15);
+    impl = OCaml "Devsparts.nr_devices";
     style = RInt "nrdisks", [], [];
     tests = [
       InitEmpty, Always, TestResult (
