@@ -517,48 +517,6 @@ test_sfdisk_has_part_type (void)
   return tested;
 }
 
-/* Currently we use sfdisk for getting and setting the ID byte.  In
- * future, extend parted to provide this functionality.  As a result
- * of using sfdisk, this won't work for non-MBR-style partitions, but
- * that limitation is noted in the documentation and we can extend it
- * later without breaking the ABI.
- */
-int
-do_part_get_mbr_id (const char *device, int partnum)
-{
-  if (partnum <= 0) {
-    reply_with_error ("partition number must be >= 1");
-    return -1;
-  }
-
-  const char *param = test_sfdisk_has_part_type () ? "--part-type" : "--print-id";
-
-  char partnum_str[16];
-  snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
-
-  CLEANUP_FREE char *out = NULL, *err = NULL;
-  int r;
-
-  udev_settle ();
-
-  r = command (&out, &err, "sfdisk", param, device, partnum_str, NULL);
-  if (r == -1) {
-    reply_with_error ("sfdisk %s: %s", param, err);
-    return -1;
-  }
-
-  udev_settle ();
-
-  /* It's printed in hex ... */
-  unsigned id;
-  if (sscanf (out, "%x", &id) != 1) {
-    reply_with_error ("sfdisk --print-id: cannot parse output: %s", out);
-    return -1;
-  }
-
-  return id;
-}
-
 int
 do_part_set_mbr_id (const char *device, int partnum, int idbyte)
 {

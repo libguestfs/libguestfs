@@ -5513,6 +5513,7 @@ See also C<guestfs_part_set_bootable>." };
   { defaults with
     name = "part_get_mbr_id"; added = (1, 3, 2);
     style = RInt "idbyte", [String (Device, "device"); Int "partnum"], [];
+    impl = OCaml "Parted.part_get_mbr_id";
     fish_output = Some FishOutputHexadecimal;
     tests = [
       InitEmpty, Always, TestResult (
