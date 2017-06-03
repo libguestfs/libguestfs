@@ -23,7 +23,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <glob.h>
 #include <string.h>
 
 #include <yajl/yajl_tree.h>
@@ -43,87 +42,6 @@ int
 optgroup_ldm_available (void)
 {
   return prog_exists ("ldmtool");
-}
-
-static int
-glob_errfunc (const char *epath, int eerrno)
-{
-  fprintf (stderr, "glob: failure reading %s: %s\n", epath, strerror (eerrno));
-  return 1;
-}
-
-static char **
-get_devices (const char *pattern)
-{
-  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
-  glob_t devs;
-  int err;
-  size_t i;
-
-  memset (&devs, 0, sizeof devs);
-
-  err = glob (pattern, GLOB_ERR, glob_errfunc, &devs);
-  if (err == GLOB_NOSPACE) {
-    reply_with_error ("glob: returned GLOB_NOSPACE: "
-                      "rerun with LIBGUESTFS_DEBUG=1");
-    goto error;
-  } else if (err == GLOB_ABORTED) {
-    reply_with_error ("glob: returned GLOB_ABORTED: "
-                      "rerun with LIBGUESTFS_DEBUG=1");
-    goto error;
-  }
-
-  for (i = 0; i < devs.gl_pathc; ++i) {
-    if (add_string (&ret, devs.gl_pathv[i]) == -1)
-      goto error;
-  }
-
-  if (end_stringsbuf (&ret) == -1) goto error;
-
-  globfree (&devs);
-  return take_stringsbuf (&ret);
-
- error:
-  globfree (&devs);
-
-  return NULL;
-}
-
-/* All device mapper devices called /dev/mapper/ldm_vol_*.  XXX We
- * could tighten this up in future if ldmtool had a way to read these
- * names back after they have been created.
- */
-char **
-do_list_ldm_volumes (void)
-{
-  struct stat buf;
-
-  /* If /dev/mapper doesn't exist at all, don't give an error. */
-  if (stat ("/dev/mapper", &buf) == -1) {
-    if (errno == ENOENT)
-      return empty_list ();
-    reply_with_perror ("/dev/mapper");
-    return NULL;
-  }
-
-  return get_devices ("/dev/mapper/ldm_vol_*");
-}
-
-/* Same as above but /dev/mapper/ldm_part_*.  See comment above. */
-char **
-do_list_ldm_partitions (void)
-{
-  struct stat buf;
-
-  /* If /dev/mapper doesn't exist at all, don't give an error. */
-  if (stat ("/dev/mapper", &buf) == -1) {
-    if (errno == ENOENT)
-      return empty_list ();
-    reply_with_perror ("/dev/mapper");
-    return NULL;
-  }
-
-  return get_devices ("/dev/mapper/ldm_part_*");
 }
 
 int

@@ -8114,6 +8114,7 @@ The capabilities set C<cap> should be passed in text form
   { defaults with
     name = "list_ldm_volumes"; added = (1, 20, 0);
     style = RStringList (RDevice, "devices"), [], [];
+    impl = OCaml "Ldm.list_ldm_volumes";
     optional = Some "ldm";
     shortdesc = "list all Windows dynamic disk volumes";
     longdesc = "\
@@ -8124,6 +8125,7 @@ device names." };
   { defaults with
     name = "list_ldm_partitions"; added = (1, 20, 0);
     style = RStringList (RDevice, "devices"), [], [];
+    impl = OCaml "Ldm.list_ldm_partitions";
     optional = Some "ldm";
     shortdesc = "list all Windows dynamic disk partitions";
     longdesc = "\
