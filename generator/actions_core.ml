@@ -4797,6 +4797,7 @@ The result list is not sorted.
   { defaults with
     name = "case_sensitive_path"; added = (1, 0, 75);
     style = RString (RPlainString, "rpath"), [String (Pathname, "path")], [];
+    impl = OCaml "Realpath.case_sensitive_path";
     tests = [
       InitISOFS, Always, TestResultString (
         [["case_sensitive_path"; "/DIRECTORY"]], "/directory"), [];
