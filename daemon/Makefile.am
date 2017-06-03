@@ -42,6 +42,7 @@ generator_built = \
 EXTRA_DIST = \
 	$(generator_built) \
 	$(SOURCES_MLI) $(SOURCES_ML) \
+	daemon_utils_tests.ml \
 	guestfsd.pod
 
 if INSTALL_DAEMON
@@ -269,7 +270,8 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 OCAMLPACKAGES = \
 	-package str,unix,hivex \
 	-I $(top_srcdir)/common/mlstdutils \
-	-I $(top_srcdir)/common/mlutils
+	-I $(top_srcdir)/common/mlutils \
+	-I $(top_builddir)/common/utils/.libs
 
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_FLAGS)
 
@@ -309,6 +311,47 @@ depend: .depend
 	mv $@-t $@
 
 -include .depend
+
+# Tests.
+
+check_PROGRAMS = daemon_utils_tests
+TESTS_ENVIRONMENT = $(top_builddir)/run --test
+TESTS = \
+	daemon_utils_tests
+
+check-valgrind:
+	$(MAKE) VG="@VG@" check
+
+daemon_utils_tests_SOURCES = dummy.c
+daemon_utils_tests_CPPFLAGS = \
+	-I. \
+	-I$(top_builddir) \
+	-I$(shell $(OCAMLC) -where) \
+	-I$(top_srcdir)/lib
+daemon_utils_tests_BOBJECTS = \
+	utils.cmo \
+	daemon_utils_tests.cmo
+daemon_utils_tests_XOBJECTS = $(daemon_utils_tests_BOBJECTS:.cmo=.cmx)
+
+if !HAVE_OCAMLOPT
+daemon_utils_tests_THEOBJECTS = $(daemon_utils_tests_BOBJECTS)
+else
+daemon_utils_tests_THEOBJECTS = $(daemon_utils_tests_XOBJECTS)
+endif
+
+OCAMLLINKFLAGS = \
+	mlcutils.$(MLARCHIVE) \
+	mlstdutils.$(MLARCHIVE) \
+	$(LINK_CUSTOM_OCAMLC_ONLY)
+
+daemon_utils_tests_DEPENDENCIES = \
+	$(daemon_utils_tests_THEOBJECTS) \
+	$(top_srcdir)/ocaml-link.sh
+daemon_utils_tests_LINK = \
+	$(top_srcdir)/ocaml-link.sh -- \
+	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
+	  $(OCAMLPACKAGES) \
+	  $(daemon_utils_tests_THEOBJECTS) -o $@
 
 # Manual pages and HTML files for the website.
 if INSTALL_DAEMON

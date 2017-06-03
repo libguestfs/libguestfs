@@ -97,6 +97,7 @@ daemon/dispatch.c
 daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
+daemon/dummy.c
 daemon/echo-daemon.c
 daemon/ext2.c
 daemon/fallocate.c
