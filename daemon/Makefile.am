@@ -248,6 +248,7 @@ SOURCES_MLI = \
 	devsparts.mli \
 	file.mli \
 	is.mli \
+	link.mli \
 	mountable.mli \
 	utils.mli
 
@@ -263,6 +264,7 @@ SOURCES_ML = \
 	devsparts.ml \
 	file.ml \
 	is.ml \
+	link.ml \
 	callbacks.ml \
 	daemon.ml
 

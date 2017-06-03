@@ -4489,6 +4489,7 @@ The I<-f> option removes the link (C<linkname>) if it exists already." };
   { defaults with
     name = "readlink"; added = (1, 0, 66);
     style = RString (RPlainString, "link"), [String (Pathname, "path")], [];
+    impl = OCaml "Link.readlink";
     shortdesc = "read the target of a symbolic link";
     longdesc = "\
 This command reads the target of a symbolic link." };
