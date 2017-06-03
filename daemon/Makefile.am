@@ -247,6 +247,7 @@ SOURCES_MLI = \
 	sysroot.mli \
 	devsparts.mli \
 	file.mli \
+	is.mli \
 	mountable.mli \
 	utils.mli
 
@@ -261,6 +262,7 @@ SOURCES_ML = \
 	blkid.ml \
 	devsparts.ml \
 	file.ml \
+	is.ml \
 	callbacks.ml \
 	daemon.ml
 

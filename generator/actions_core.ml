@@ -2114,6 +2114,7 @@ See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>." };
   { defaults with
     name = "is_file"; added = (0, 0, 8);
     style = RBool "fileflag", [String (Pathname, "path")], [OBool "followsymlinks"];
+    impl = OCaml "Is.is_file";
     once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultTrue (
@@ -2138,6 +2139,7 @@ See also C<guestfs_stat>." };
   { defaults with
     name = "is_dir"; added = (0, 0, 8);
     style = RBool "dirflag", [String (Pathname, "path")], [OBool "followsymlinks"];
+    impl = OCaml "Is.is_dir";
     once_had_no_optargs = true;
     tests = [
       InitISOFS, Always, TestResultFalse (
@@ -6052,6 +6054,7 @@ See also C<guestfs_stat>." };
   { defaults with
     name = "is_symlink"; added = (1, 5, 10);
     style = RBool "flag", [String (Pathname, "path")], [];
+    impl = OCaml "Is.is_symlink";
     tests = [
       InitISOFS, Always, TestResultFalse (
         [["is_symlink"; "/directory"]]), [];
