@@ -249,6 +249,7 @@ SOURCES_MLI = \
 	file.mli \
 	is.mli \
 	link.mli \
+	mount.mli \
 	mountable.mli \
 	utils.mli
 
@@ -265,6 +266,7 @@ SOURCES_ML = \
 	file.ml \
 	is.ml \
 	link.ml \
+	mount.ml \
 	callbacks.ml \
 	daemon.ml
 

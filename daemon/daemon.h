@@ -109,9 +109,6 @@ extern void cleanup_free_stringsbuf (void *ptr);
 #endif
 
 /* mount.c */
-extern int mount_vfs_nochroot (const char *options, const char *vfstype,
-                               const mountable_t *mountable,
-                               const char *mp, const char *user_mp);
 extern int is_root_mounted (void);
 extern int is_device_mounted (const char *device);
 

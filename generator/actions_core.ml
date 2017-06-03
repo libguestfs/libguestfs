@@ -1739,6 +1739,7 @@ let daemon_functions = [
   { defaults with
     name = "mount"; added = (0, 0, 3);
     style = RErr, [String (Mountable, "mountable"); String (PlainString, "mountpoint")], [];
+    impl = OCaml "Mount.mount";
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "mbr"];
@@ -2922,6 +2923,7 @@ If set to true, POSIX ACLs are saved in the output tar.
   { defaults with
     name = "mount_ro"; added = (1, 0, 10);
     style = RErr, [String (Mountable, "mountable"); String (PlainString, "mountpoint")], [];
+    impl = OCaml "Mount.mount_ro";
     tests = [
       InitBasicFS, Always, TestLastFail (
         [["umount"; "/"; "false"; "false"];
@@ -2941,6 +2943,7 @@ mounts the filesystem with the read-only (I<-o ro>) flag." };
   { defaults with
     name = "mount_options"; added = (1, 0, 10);
     style = RErr, [String (PlainString, "options"); String (Mountable, "mountable"); String (PlainString, "mountpoint")], [];
+    impl = OCaml "Mount.mount_options";
     shortdesc = "mount a guest disk with mount options";
     longdesc = "\
 This is the same as the C<guestfs_mount> command, but it
@@ -2954,6 +2957,7 @@ the filesystem uses)." };
   { defaults with
     name = "mount_vfs"; added = (1, 0, 10);
     style = RErr, [String (PlainString, "options"); String (PlainString, "vfstype"); String (Mountable, "mountable"); String (PlainString, "mountpoint")], [];
+    impl = OCaml "Mount.mount_vfs";
     shortdesc = "mount a guest disk with mount options and vfstype";
     longdesc = "\
 This is the same as the C<guestfs_mount> command, but it
