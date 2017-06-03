@@ -183,194 +183,6 @@ making this an unreliable way to test for features.
 Use C<guestfs_available> or C<guestfs_feature_available> instead." };
 
   { defaults with
-    name = "file_architecture"; added = (1, 5, 3);
-    style = RString (RPlainString, "arch"), [String (Pathname, "filename")], [];
-    tests = [
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-aarch64-dynamic"]], "aarch64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-armv7-dynamic"]], "arm"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-i586-dynamic"]], "i386"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-ppc64-dynamic"]], "ppc64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-ppc64le-dynamic"]], "ppc64le"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-riscv64-dynamic"]], "riscv64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-s390x-dynamic"]], "s390x"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-win32.exe"]], "i386"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-win64.exe"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-x86_64-dynamic"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-aarch64.so"]], "aarch64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-armv7.so"]], "arm"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-i586.so"]], "i386"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-ppc64.so"]], "ppc64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-ppc64le.so"]], "ppc64le"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-riscv64.so"]], "riscv64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-s390x.so"]], "s390x"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-sparc.so"]], "sparc"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-win32.dll"]], "i386"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-win64.dll"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-x86_64.so"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/initrd-x86_64.img"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/initrd-x86_64.img.gz"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/bin-x86_64-dynamic.gz"]], "x86_64"), [];
-      InitISOFS, Always, TestResultString (
-        [["file_architecture"; "/lib-i586.so.xz"]], "i386"), [];
-    ];
-    shortdesc = "detect the architecture of a binary file";
-    longdesc = "\
-This detects the architecture of the binary F<filename>,
-and returns it if known.
-
-Currently defined architectures are:
-
-=over 4
-
-=item \"aarch64\"
-
-64 bit ARM.
-
-=item \"arm\"
-
-32 bit ARM.
-
-=item \"i386\"
-
-This string is returned for all 32 bit i386, i486, i586, i686 binaries
-irrespective of the precise processor requirements of the binary.
-
-=item \"ia64\"
-
-Intel Itanium.
-
-=item \"ppc\"
-
-32 bit Power PC.
-
-=item \"ppc64\"
-
-64 bit Power PC (big endian).
-
-=item \"ppc64le\"
-
-64 bit Power PC (little endian).
-
-=item \"riscv32\"
-
-=item \"riscv64\"
-
-=item \"riscv128\"
-
-RISC-V 32-, 64- or 128-bit variants.
-
-=item \"s390\"
-
-31 bit IBM S/390.
-
-=item \"s390x\"
-
-64 bit IBM S/390.
-
-=item \"sparc\"
-
-32 bit SPARC.
-
-=item \"sparc64\"
-
-64 bit SPARC V9 and above.
-
-=item \"x86_64\"
-
-64 bit x86-64.
-
-=back
-
-Libguestfs may return other architecture strings in future.
-
-The function works on at least the following types of files:
-
-=over 4
-
-=item *
-
-many types of Un*x and Linux binary
-
-=item *
-
-many types of Un*x and Linux shared library
-
-=item *
-
-Windows Win32 and Win64 binaries
-
-=item *
-
-Windows Win32 and Win64 DLLs
-
-Win32 binaries and DLLs return C<i386>.
-
-Win64 binaries and DLLs return C<x86_64>.
-
-=item *
-
-Linux kernel modules
-
-=item *
-
-Linux new-style initrd images
-
-=item *
-
-some non-x86 Linux vmlinuz kernels
-
-=back
-
-What it can't do currently:
-
-=over 4
-
-=item *
-
-static libraries (libfoo.a)
-
-=item *
-
-Linux old-style initrd as compressed ext2 filesystem (RHEL 3)
-
-=item *
-
-x86 Linux vmlinuz kernels
-
-x86 vmlinuz images (bzImage format) consist of a mix of 16-, 32- and
-compressed code, and are horribly hard to unpack.  If you want to find
-the architecture of a kernel, use the architecture of the associated
-initrd or kernel module(s) instead.
-
-=back" };
-
-  { defaults with
     name = "mountable_device"; added = (1, 33, 15);
     style = RString (RDevice, "device"), [String (Mountable, "mountable")], [];
     shortdesc = "extract the device part of a mountable";
@@ -9627,5 +9439,194 @@ wildcards.
 
 Please note that this API may fail when used to compress directories
 with large files, such as the resulting squashfs will be over 3GB big." };
+
+  { defaults with
+    name = "file_architecture"; added = (1, 5, 3);
+    style = RString (RPlainString, "arch"), [String (Pathname, "filename")], [];
+    impl = OCaml "Filearch.file_architecture";
+    tests = [
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-aarch64-dynamic"]], "aarch64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-armv7-dynamic"]], "arm"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-i586-dynamic"]], "i386"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-ppc64-dynamic"]], "ppc64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-ppc64le-dynamic"]], "ppc64le"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-riscv64-dynamic"]], "riscv64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-s390x-dynamic"]], "s390x"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-sparc-dynamic"]], "sparc"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-win32.exe"]], "i386"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-win64.exe"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-x86_64-dynamic"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-aarch64.so"]], "aarch64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-armv7.so"]], "arm"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-i586.so"]], "i386"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-ppc64.so"]], "ppc64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-ppc64le.so"]], "ppc64le"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-riscv64.so"]], "riscv64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-s390x.so"]], "s390x"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-sparc.so"]], "sparc"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-win32.dll"]], "i386"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-win64.dll"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-x86_64.so"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/initrd-x86_64.img"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/initrd-x86_64.img.gz"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/bin-x86_64-dynamic.gz"]], "x86_64"), [];
+      InitISOFS, Always, TestResultString (
+        [["file_architecture"; "/lib-i586.so.xz"]], "i386"), [];
+    ];
+    shortdesc = "detect the architecture of a binary file";
+    longdesc = "\
+This detects the architecture of the binary F<filename>,
+and returns it if known.
+
+Currently defined architectures are:
+
+=over 4
+
+=item \"aarch64\"
+
+64 bit ARM.
+
+=item \"arm\"
+
+32 bit ARM.
+
+=item \"i386\"
+
+This string is returned for all 32 bit i386, i486, i586, i686 binaries
+irrespective of the precise processor requirements of the binary.
+
+=item \"ia64\"
+
+Intel Itanium.
+
+=item \"ppc\"
+
+32 bit Power PC.
+
+=item \"ppc64\"
+
+64 bit Power PC (big endian).
+
+=item \"ppc64le\"
+
+64 bit Power PC (little endian).
+
+=item \"riscv32\"
+
+=item \"riscv64\"
+
+=item \"riscv128\"
+
+RISC-V 32-, 64- or 128-bit variants.
+
+=item \"s390\"
+
+31 bit IBM S/390.
+
+=item \"s390x\"
+
+64 bit IBM S/390.
+
+=item \"sparc\"
+
+32 bit SPARC.
+
+=item \"sparc64\"
+
+64 bit SPARC V9 and above.
+
+=item \"x86_64\"
+
+64 bit x86-64.
+
+=back
+
+Libguestfs may return other architecture strings in future.
+
+The function works on at least the following types of files:
+
+=over 4
+
+=item *
+
+many types of Un*x and Linux binary
+
+=item *
+
+many types of Un*x and Linux shared library
+
+=item *
+
+Windows Win32 and Win64 binaries
+
+=item *
+
+Windows Win32 and Win64 DLLs
+
+Win32 binaries and DLLs return C<i386>.
+
+Win64 binaries and DLLs return C<x86_64>.
+
+=item *
+
+Linux kernel modules
+
+=item *
+
+Linux new-style initrd images
+
+=item *
+
+some non-x86 Linux vmlinuz kernels
+
+=back
+
+What it can't do currently:
+
+=over 4
+
+=item *
+
+static libraries (libfoo.a)
+
+=item *
+
+Linux old-style initrd as compressed ext2 filesystem (RHEL 3)
+
+=item *
+
+x86 Linux vmlinuz kernels
+
+x86 vmlinuz images (bzImage format) consist of a mix of 16-, 32- and
+compressed code, and are horribly hard to unpack.  If you want to find
+the architecture of a kernel, use the architecture of the associated
+initrd or kernel module(s) instead.
+
+=back" };
 
 ]

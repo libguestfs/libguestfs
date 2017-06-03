@@ -300,7 +300,6 @@ lib/errors.c
 lib/event-string.c
 lib/events.c
 lib/file.c
-lib/filearch.c
 lib/fuse.c
 lib/guestfs-internal-actions.h
 lib/guestfs-internal-all.h

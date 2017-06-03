@@ -89,7 +89,6 @@ libguestfs_la_SOURCES = \
 	event-string.c \
 	events.c \
 	file.c \
-	filearch.c \
 	fuse.c \
 	guid.c \
 	handle.c \
@@ -159,7 +158,7 @@ libguestfs_la_LIBADD = \
 	../common/qemuopts/libqemuopts.la \
 	../common/structs/libstructs.la \
 	../common/utils/libutils.la \
-	$(PCRE_LIBS) $(MAGIC_LIBS) \
+	$(PCRE_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(SELINUX_LIBS) \
 	$(YAJL_LIBS) \
