@@ -45,6 +45,7 @@ SUBDIRS += lib docs examples po
 
 # The daemon and the appliance.
 SUBDIRS += common/mlutils
+SUBDIRS += common/mlaugeas
 SUBDIRS += common/mlpcre
 if ENABLE_DAEMON
 SUBDIRS += daemon

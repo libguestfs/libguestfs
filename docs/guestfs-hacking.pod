@@ -100,6 +100,11 @@ A copy of the miniexpect library from
 L<http://git.annexia.org/?p=miniexpect.git;a=summary>.  This is used
 in virt-p2v.
 
+=item F<common/mlaugeas>
+
+Bindings for the Augeas library.  These come from the ocaml-augeas
+library L<http://git.annexia.org/?p=ocaml-augeas.git>
+
 =item F<common/mlpcre>
 
 Lightweight OCaml bindings for Perl Compatible Regular Expressions

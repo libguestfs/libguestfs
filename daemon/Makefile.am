@@ -190,6 +190,7 @@ guestfsd_LDFLAGS = \
 	-L$(shell $(OCAMLC) -where)/hivex \
 	-L../common/mlutils \
 	-L../common/mlstdutils \
+	-L../common/mlaugeas \
 	-L../common/mlpcre
 guestfsd_LDADD = \
 	../common/errnostring/liberrnostring.la \
@@ -294,6 +295,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 
 OCAMLPACKAGES = \
 	-package str,unix,hivex \
+	-I $(top_srcdir)/common/mlaugeas \
 	-I $(top_srcdir)/common/mlstdutils \
 	-I $(top_srcdir)/common/mlutils \
 	-I $(top_builddir)/common/utils/.libs \
@@ -314,6 +316,7 @@ OCAML_LIBS = \
 	-lmlpcre \
 	-lmlcutils \
 	-lmlstdutils \
+	-lmlaugeas \
 	-lmlhivex \
 	-lcamlstr \
 	-lunix \
@@ -325,7 +328,8 @@ camldaemon.o: $(OBJECTS)
 	$(OCAMLFIND) $(BEST) -output-obj -o $@ \
 	    $(OCAMLFLAGS) $(OCAMLPACKAGES) \
 	    -linkpkg \
-	    mlpcre.$(MLARCHIVE) mlcutils.$(MLARCHIVE) mlstdutils.$(MLARCHIVE) \
+	    mlaugeas.$(MLARCHIVE) mlpcre.$(MLARCHIVE) \
+	    mlcutils.$(MLARCHIVE) mlstdutils.$(MLARCHIVE) \
 	    $(OBJECTS)
 
 # OCaml dependencies.
@@ -377,6 +381,7 @@ OCAMLLINKFLAGS = \
 	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
+	mlaugeas.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 daemon_utils_tests_DEPENDENCIES = \

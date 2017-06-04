@@ -123,6 +123,7 @@ Makefile.in
 /common/errnostring/errnostring-gperf.gperf
 /common/errnostring/errnostring.h
 /common/miniexpect/miniexpect.3
+/common/mlaugeas/.depend
 /common/mlpcre/.depend
 /common/mlpcre/pcre_tests
 /common/mlprogress/.depend

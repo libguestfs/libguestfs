@@ -226,6 +226,7 @@ AC_CONFIG_FILES([Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
                  common/miniexpect/Makefile
+                 common/mlaugeas/Makefile
                  common/mlpcre/Makefile
                  common/mlprogress/Makefile
                  common/mlstdutils/Makefile
