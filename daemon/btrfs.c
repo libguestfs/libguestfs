@@ -33,11 +33,6 @@
 #include "c-ctype.h"
 #include "ignore-value.h"
 
-COMPILE_REGEXP (re_btrfs_subvolume_list,
-                "ID\\s+(\\d+).*\\s"
-                "top level\\s+(\\d+).*\\s"
-                "path\\s(.*)",
-                0)
 COMPILE_REGEXP (re_btrfs_balance_status, "Balance on '.*' is (.*)", 0)
 
 int
@@ -475,137 +470,6 @@ umount (char *fs_buf, const mountable_t *fs)
   return 0;
 }
 
-guestfs_int_btrfssubvolume_list *
-do_btrfs_subvolume_list (const mountable_t *fs)
-{
-  CLEANUP_FREE_STRING_LIST char **lines = NULL;
-  size_t i = 0;
-  const size_t MAX_ARGS = 64;
-  const char *argv[MAX_ARGS];
-
-  /* Execute 'btrfs subvolume list <fs>', and split the output into lines */
-  {
-    char *fs_buf = mount (fs);
-
-    if (!fs_buf)
-      return NULL;
-
-    ADD_ARG (argv, i, "btrfs");
-    ADD_ARG (argv, i, "subvolume");
-    ADD_ARG (argv, i, "list");
-    ADD_ARG (argv, i, fs_buf);
-    ADD_ARG (argv, i, NULL);
-
-    CLEANUP_FREE char *out = NULL, *errout = NULL;
-    int r = commandv (&out, &errout, argv);
-
-    if (umount (fs_buf, fs) != 0)
-      return NULL;
-
-    if (r == -1) {
-      CLEANUP_FREE char *fs_desc = mountable_to_string (fs);
-      if (fs_desc == NULL) {
-        fprintf (stderr, "malloc: %m");
-      }
-      reply_with_error ("%s: %s", fs_desc ? fs_desc : "malloc", errout);
-      return NULL;
-    }
-
-    lines = split_lines (out);
-    if (!lines) return NULL;
-  }
-
-  /* Output is:
-   *
-   * ID 256 gen 30 top level 5 path test1
-   * ID 257 gen 30 top level 5 path dir/test2
-   * ID 258 gen 30 top level 5 path test3
-   *
-   * "ID <n>" is the subvolume ID.
-   * "gen <n>" is the generation when the root was created or last
-   * updated.
-   * "top level <n>" is the top level subvolume ID.
-   * "path <str>" is the subvolume path, relative to the top of the
-   * filesystem.
-   *
-   * Note that the order that each of the above is fixed, but
-   * different versions of btrfs may display different sets of data.
-   * Specifically, older versions of btrfs do not display gen.
-   */
-
-  guestfs_int_btrfssubvolume_list *ret = NULL;
-
-  const size_t nr_subvolumes = guestfs_int_count_strings (lines);
-
-  ret = malloc (sizeof *ret);
-  if (!ret) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
-  ret->guestfs_int_btrfssubvolume_list_len = nr_subvolumes;
-  ret->guestfs_int_btrfssubvolume_list_val =
-    calloc (nr_subvolumes, sizeof (struct guestfs_int_btrfssubvolume));
-  if (ret->guestfs_int_btrfssubvolume_list_val == NULL) {
-    reply_with_perror ("calloc");
-    goto error;
-  }
-
-  for (i = 0; i < nr_subvolumes; ++i) {
-    /* To avoid allocations, reuse the 'line' buffer to store the
-     * path.  Thus we don't need to free 'line', since it will be
-     * freed by the calling (XDR) code.
-     */
-    char *line = lines[i];
-#define N_MATCHES 4
-    int ovector[N_MATCHES * 3];
-
-    if (pcre_exec (re_btrfs_subvolume_list, NULL, line, strlen (line), 0, 0,
-                   ovector, N_MATCHES * 3) < 0)
-#undef N_MATCHES
-      {
-      unexpected_output:
-	reply_with_error ("unexpected output from 'btrfs subvolume list' command: %s", line);
-	goto error;
-      }
-
-    struct guestfs_int_btrfssubvolume *this =
-      &ret->guestfs_int_btrfssubvolume_list_val[i];
-
-#if __WORDSIZE == 64
-#define XSTRTOU64 xstrtoul
-#else
-#define XSTRTOU64 xstrtoull
-#endif
-
-    if (XSTRTOU64 (line + ovector[2], NULL, 10,
-                   &this->btrfssubvolume_id, NULL) != LONGINT_OK)
-      goto unexpected_output;
-    if (XSTRTOU64 (line + ovector[4], NULL, 10,
-                   &this->btrfssubvolume_top_level_id, NULL) != LONGINT_OK)
-      goto unexpected_output;
-
-#undef XSTRTOU64
-
-    this->btrfssubvolume_path =
-      strndup (line + ovector[6], ovector[7] - ovector[6]);
-    if (this->btrfssubvolume_path == NULL)
-      goto error;
-  }
-
-  return ret;
-
- error:
-  if (ret->guestfs_int_btrfssubvolume_list_val) {
-    for (i = 0; i < nr_subvolumes; ++i)
-      free (ret->guestfs_int_btrfssubvolume_list_val[i].btrfssubvolume_path);
-    free (ret->guestfs_int_btrfssubvolume_list_val);
-  }
-  free (ret);
-
-  return NULL;
-}
-
 int
 do_btrfs_subvolume_set_default (int64_t id, const char *fs)
 {
@@ -639,45 +503,6 @@ do_btrfs_subvolume_set_default (int64_t id, const char *fs)
   }
 
   return 0;
-}
-
-int64_t
-do_btrfs_subvolume_get_default (const mountable_t *fs)
-{
-  const size_t MAX_ARGS = 64;
-  const char *argv[MAX_ARGS];
-  size_t i = 0;
-  char *fs_buf = NULL;
-  CLEANUP_FREE char *err = NULL;
-  CLEANUP_FREE char *out = NULL;
-  int r;
-  int64_t ret = -1;
-
-  fs_buf = mount (fs);
-  if (fs_buf == NULL)
-    goto error;
-
-  ADD_ARG (argv, i, "btrfs");
-  ADD_ARG (argv, i, "subvolume");
-  ADD_ARG (argv, i, "get-default");
-  ADD_ARG (argv, i, fs_buf);
-  ADD_ARG (argv, i, NULL);
-
-  r = commandv (&out, &err, argv);
-  if (r == -1) {
-    reply_with_error ("%s: %s", fs_buf, err);
-    goto error;
-  }
-  if (sscanf (out, "ID %" SCNi64, &ret) != 1) {
-    reply_with_error ("%s: could not parse subvolume id: %s", argv[0], out);
-    ret = -1;
-    goto error;
-  }
-
- error:
-  if (fs_buf && umount (fs_buf, fs) != 0)
-    return -1;
-  return ret;
 }
 
 int

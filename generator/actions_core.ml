@@ -7304,6 +7304,7 @@ created subvolume will be added to." };
   { defaults with
     name = "btrfs_subvolume_list"; added = (1, 17, 35);
     style = RStructList ("subvolumes", "btrfssubvolume"), [String (Mountable_or_Path, "fs")], [];
+    impl = OCaml "Btrfs.btrfs_subvolume_list";
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeList";
     test_excuse = "tested in tests/btrfs";
     shortdesc = "list btrfs snapshots and subvolumes";
@@ -8783,6 +8784,7 @@ This uses the L<blockdev(8)> command." };
   { defaults with
     name = "btrfs_subvolume_get_default"; added = (1, 29, 17);
     style = RInt64 "id", [String (Mountable_or_Path, "fs")], [];
+    impl = OCaml "Btrfs.btrfs_subvolume_get_default";
     optional = Some "btrfs"; camel_name = "BTRFSSubvolumeGetDefault";
     tests = [
       InitPartition, Always, TestResult (
