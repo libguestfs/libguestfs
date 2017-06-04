@@ -1,0 +1,21 @@
+[cirros-0.3.5]
+name=CirrOS 0.3.5
+arch=x86_64
+file=cirros-0.3.5.xz
+checksum=77f74203aa26e843e83f522ba44d765c6ba9ab595c19c14d629064c71f875158beb7e93e7b6ac5e6895c6e3b6daa8b94d7286230b9fdf166ae65d0d6e9c9329a
+format=raw
+size=41126400
+compressed_size=11479284
+expand=/dev/sda1
+notes=CirrOS 0.3.5
+ 
+ CirrOS is a commonly used test image, ideal because it is very
+ small and boots into a minimally usable Linux system.
+ 
+ Note this is not a real Linux distribution, and several virt-builder
+ features such as installing packages will not (and cannot) work.
+ 
+ This CirrOS image comes from https://download.cirros-cloud.net/0.3.5/
+ and was prepared by running ‘qemu-img convert .. -O raw’ followed by
+ ‘xz --best’.
+
