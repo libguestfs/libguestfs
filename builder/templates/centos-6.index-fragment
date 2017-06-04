@@ -18,6 +18,6 @@ notes=CentOS 6.6
  
  builder/website/centos.sh
  
- Note that `virt-builder centos-6' will always install the latest
+ Note that ‘virt-builder centos-6’ will always install the latest
  6.x release.
 
