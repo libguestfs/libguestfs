@@ -32,7 +32,7 @@ noinst_DATA = $(top_builddir)/website/download/builder/index
 
 $(top_builddir)/website/download/builder/index: $(index_fragments)
 	rm -f $@ $@-t
-	cat *.index-fragment > $@-t
+	LANG=C sh -c 'cat *.index-fragment' > $@-t
 	mv $@-t $@
 	@echo "NOTE: $@.asc must be updated by running:"
 	@echo "    gpg --clearsign --armor $@"
