@@ -95,7 +95,6 @@ guestfsd_SOURCES = \
 	ext2.c \
 	fallocate.c \
 	file.c \
-	findfs.c \
 	fill.c \
 	find.c \
 	format.c \
@@ -249,6 +248,7 @@ SOURCES_MLI = \
 	devsparts.mli \
 	file.mli \
 	filearch.mli \
+	findfs.mli \
 	is.mli \
 	ldm.mli \
 	link.mli \
@@ -278,6 +278,7 @@ SOURCES_ML = \
 	ldm.ml \
 	link.ml \
 	lvm.ml \
+	findfs.ml \
 	md.ml \
 	mount.ml \
 	parted.ml \

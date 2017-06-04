@@ -5746,6 +5746,7 @@ returns true iff this is the case." };
   { defaults with
     name = "findfs_uuid"; added = (1, 5, 3);
     style = RString (RDevice, "device"), [String (PlainString, "uuid")], [];
+    impl = OCaml "Findfs.findfs_uuid";
     shortdesc = "find a filesystem by UUID";
     longdesc = "\
 This command searches the filesystems and returns the one
@@ -5757,6 +5758,7 @@ To find the UUID of a filesystem, use C<guestfs_vfs_uuid>." };
   { defaults with
     name = "findfs_label"; added = (1, 5, 3);
     style = RString (RDevice, "device"), [String (PlainString, "label")], [];
+    impl = OCaml "Findfs.findfs_label";
     shortdesc = "find a filesystem by label";
     longdesc = "\
 This command searches the filesystems and returns the one
