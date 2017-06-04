@@ -6606,6 +6606,7 @@ List all Linux md devices." };
   { defaults with
     name = "md_detail"; added = (1, 15, 6);
     style = RHashtable (RPlainString, RPlainString, "info"), [String (Device, "md")], [];
+    impl = OCaml "Md.md_detail";
     optional = Some "mdadm";
     shortdesc = "obtain metadata for an MD device";
     longdesc = "\

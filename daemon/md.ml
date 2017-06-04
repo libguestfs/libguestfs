@@ -46,3 +46,37 @@ let list_md_devices () =
 
   (* Return the list sorted. *)
   sort_device_names devs
+
+let md_detail md =
+  let out = command "mdadm" ["-D"; "--export"; md] in
+
+  (* Split the command output into lines. *)
+  let out = String.trim out in
+  let lines = String.nsplit "\n" out in
+  let lines = List.filter ((<>) "") lines in
+
+  (* Parse the output of mdadm -D --export:
+   * MD_LEVEL=raid1
+   * MD_DEVICES=2
+   * MD_METADATA=1.0
+   * MD_UUID=cfa81b59:b6cfbd53:3f02085b:58f4a2e1
+   * MD_NAME=localhost.localdomain:0
+   *)
+  List.map (
+    fun line ->
+      (* Split the line at the equals sign. *)
+      let key, value = String.split "=" line in
+
+      (* Remove the MD_ prefix from the key and translate the
+       * remainder to lower case.
+       *)
+      let key =
+        if String.is_prefix key "MD_" then
+          String.sub key 3 (String.length key - 3)
+        else
+          key in
+      let key = String.lowercase_ascii key in
+
+      (* Add the key/value pair to the output. *)
+      (key, value)
+  ) lines

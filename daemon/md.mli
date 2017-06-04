@@ -17,3 +17,4 @@
  *)
 
 val list_md_devices : unit -> string list
+val md_detail : string -> (string * string) list
