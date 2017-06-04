@@ -22,6 +22,8 @@ open Std_utils
 
 open Utils
 
+let available = Optgroups.lvm2_available
+
 (* Check whether lvs has -S to filter its output.
  * It is available only in lvm2 >= 2.02.107. 
  *)

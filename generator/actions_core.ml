@@ -209,43 +209,6 @@ If the mountable does not represent a btrfs subvolume, then
 this function fails and the C<errno> is set to C<EINVAL>." };
 
   { defaults with
-    name = "list_filesystems"; added = (1, 5, 15);
-    style = RHashtable (RMountable, RPlainString, "fses"), [], [];
-    shortdesc = "list filesystems";
-    longdesc = "\
-This inspection command looks for filesystems on partitions,
-block devices and logical volumes, returning a list of C<mountables>
-containing filesystems and their type.
-
-The return value is a hash, where the keys are the devices
-containing filesystems, and the values are the filesystem types.
-For example:
-
- \"/dev/sda1\" => \"ntfs\"
- \"/dev/sda2\" => \"ext2\"
- \"/dev/vg_guest/lv_root\" => \"ext4\"
- \"/dev/vg_guest/lv_swap\" => \"swap\"
-
-The key is not necessarily a block device. It may also be an opaque
-‘mountable’ string which can be passed to C<guestfs_mount>.
-
-The value can have the special value \"unknown\", meaning the
-content of the device is undetermined or empty.
-\"swap\" means a Linux swap partition.
-
-This command runs other libguestfs commands, which might include
-C<guestfs_mount> and C<guestfs_umount>, and therefore you should
-use this soon after launch and only when nothing is mounted.
-
-Not all of the filesystems returned will be mountable.  In
-particular, swap partitions are returned in the list.  Also
-this command does not check that each filesystem
-found is valid and mountable, and some filesystems might
-be mountable but require special options.  Filesystems may
-not all belong to a single logical operating system
-(use C<guestfs_inspect_os> to look for OSes)." };
-
-  { defaults with
     name = "add_drive"; added = (0, 0, 3);
     style = RErr, [String (PlainString, "filename")], [OBool "readonly"; OString "format"; OString "iface"; OString "name"; OString "label"; OString "protocol"; OStringList "server"; OString "username"; OString "secret"; OString "cachemode"; OString "discard"; OBool "copyonread"];
     once_had_no_optargs = true;
@@ -9634,5 +9597,43 @@ the architecture of a kernel, use the architecture of the associated
 initrd or kernel module(s) instead.
 
 =back" };
+
+  { defaults with
+    name = "list_filesystems"; added = (1, 5, 15);
+    style = RHashtable (RMountable, RPlainString, "fses"), [], [];
+    impl = OCaml "Listfs.list_filesystems";
+    shortdesc = "list filesystems";
+    longdesc = "\
+This inspection command looks for filesystems on partitions,
+block devices and logical volumes, returning a list of C<mountables>
+containing filesystems and their type.
+
+The return value is a hash, where the keys are the devices
+containing filesystems, and the values are the filesystem types.
+For example:
+
+ \"/dev/sda1\" => \"ntfs\"
+ \"/dev/sda2\" => \"ext2\"
+ \"/dev/vg_guest/lv_root\" => \"ext4\"
+ \"/dev/vg_guest/lv_swap\" => \"swap\"
+
+The key is not necessarily a block device. It may also be an opaque
+‘mountable’ string which can be passed to C<guestfs_mount>.
+
+The value can have the special value \"unknown\", meaning the
+content of the device is undetermined or empty.
+\"swap\" means a Linux swap partition.
+
+This command runs other libguestfs commands, which might include
+C<guestfs_mount> and C<guestfs_umount>, and therefore you should
+use this soon after launch and only when nothing is mounted.
+
+Not all of the filesystems returned will be mountable.  In
+particular, swap partitions are returned in the list.  Also
+this command does not check that each filesystem
+found is valid and mountable, and some filesystems might
+be mountable but require special options.  Filesystems may
+not all belong to a single logical operating system
+(use C<guestfs_inspect_os> to look for OSes)." };
 
 ]

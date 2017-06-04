@@ -325,7 +325,6 @@ lib/launch.c
 lib/libvirt-auth.c
 lib/libvirt-domain.c
 lib/libvirt-is-version.c
-lib/listfs.c
 lib/lpj.c
 lib/match.c
 lib/mountable.c

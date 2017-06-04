@@ -109,7 +109,6 @@ libguestfs_la_SOURCES = \
 	launch-unix.c \
 	libvirt-auth.c \
 	libvirt-domain.c \
-	listfs.c \
 	lpj.c \
 	match.c \
 	mountable.c \

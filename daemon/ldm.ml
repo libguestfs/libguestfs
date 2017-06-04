@@ -20,6 +20,8 @@ open Std_utils
 
 open Utils
 
+let available = Optgroups.ldm_available
+
 (* All device mapper devices are called /dev/mapper/ldm_vol_*
  * or /dev/mapper/ldm_part_*.
  *

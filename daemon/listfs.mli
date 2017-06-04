@@ -16,6 +16,4 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-val available : unit -> bool
-
-val lvs : unit -> string list
+val list_filesystems : unit -> (Mountable.t * string) list

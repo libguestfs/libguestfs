@@ -16,5 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+val available : unit -> bool
+
 val list_ldm_volumes : unit -> string list
 val list_ldm_partitions : unit -> string list

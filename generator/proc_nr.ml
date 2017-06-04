@@ -483,6 +483,7 @@ let proc_nr = [
 473, "yara_destroy";
 474, "internal_yara_scan";
 475, "file_architecture";
+476, "list_filesystems";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
