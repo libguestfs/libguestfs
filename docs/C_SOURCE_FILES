@@ -147,7 +147,6 @@ daemon/parted.c
 daemon/pingdaemon.c
 daemon/proto.c
 daemon/readdir.c
-daemon/realpath.c
 daemon/rename.c
 daemon/rsync.c
 daemon/scrub.c

@@ -20,6 +20,10 @@ open Printf
 
 open Std_utils
 
+let realpath path =
+  let chroot = Chroot.create ~name:(sprintf "realpath: %s" path) () in
+  Chroot.f chroot Unix_utils.Realpath.realpath path
+
 (* The infamous case_sensitive_path function, which works around
  * the bug in ntfs-3g that all paths are case sensitive even though
  * the underlying filesystem is case insensitive.

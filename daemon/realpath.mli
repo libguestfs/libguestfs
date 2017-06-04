@@ -16,4 +16,5 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+val realpath : string -> string
 val case_sensitive_path : string -> string

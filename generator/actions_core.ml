@@ -4197,6 +4197,7 @@ compress- or gzip-compressed.
   { defaults with
     name = "realpath"; added = (1, 0, 66);
     style = RString (RPlainString, "rpath"), [String (Pathname, "path")], [];
+    impl = OCaml "Realpath.realpath";
     tests = [
       InitISOFS, Always, TestResultString (
         [["realpath"; "/../directory"]], "/directory"), []
