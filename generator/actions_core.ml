@@ -6632,6 +6632,7 @@ If not set, this defaults to C<raid1>.
   { defaults with
     name = "list_md_devices"; added = (1, 15, 4);
     style = RStringList (RDevice, "devices"), [], [];
+    impl = OCaml "Md.list_md_devices";
     shortdesc = "list Linux md (RAID) devices";
     longdesc = "\
 List all Linux md devices." };

@@ -252,6 +252,7 @@ SOURCES_MLI = \
 	ldm.mli \
 	link.mli \
 	lvm.mli \
+	md.mli \
 	mount.mli \
 	mountable.mli \
 	parted.mli \
@@ -274,6 +275,7 @@ SOURCES_ML = \
 	ldm.ml \
 	link.ml \
 	lvm.ml \
+	md.ml \
 	mount.ml \
 	parted.ml \
 	realpath.ml \

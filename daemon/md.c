@@ -24,13 +24,14 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <glob.h>
 
 #ifdef HAVE_LINUX_RAID_MD_U_H
 #include <sys/ioctl.h>
 #include <linux/major.h>
 #include <linux/raid/md_u.h>
 #endif /* HAVE_LINUX_RAID_MD_U_H */
+
+#include <caml/mlvalues.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -41,6 +42,35 @@ int
 optgroup_mdadm_available (void)
 {
   return prog_exists ("mdadm");
+}
+
+/* Check if 'dev' is a real RAID device, because in the case where md
+ * is linked directly into the kernel (not a module), /dev/md0 is
+ * sometimes created.  This is called from OCaml function
+ * Md.list_md_devices.
+ */
+extern value guestfs_int_daemon_is_raid_device (value devicev);
+
+/* NB: This is a "noalloc" call. */
+value
+guestfs_int_daemon_is_raid_device (value devv)
+{
+  const char *dev = String_val (devv);
+  int ret = 1;
+
+#if defined(HAVE_LINUX_RAID_MD_U_H) && defined(GET_ARRAY_INFO)
+  int fd;
+  mdu_array_info_t array;
+
+  fd = open (dev, O_RDONLY);
+  if (fd >= 0) {
+    if (ioctl (fd, GET_ARRAY_INFO, &array) == -1 && errno == ENODEV)
+      ret = 0;
+    close (fd);
+  }
+#endif
+
+  return Val_bool (ret);
 }
 
 static size_t
@@ -185,99 +215,6 @@ do_md_create (const char *name, char *const *devices,
 #if defined(__GNUC__) && GUESTFS_GCC_VERSION >= 40800 /* gcc >= 4.8.0 */
 #pragma GCC diagnostic pop
 #endif
-
-static int
-glob_errfunc (const char *epath, int eerrno)
-{
-  fprintf (stderr, "glob: failure reading %s: %s\n", epath, strerror (eerrno));
-  return 1;
-}
-
-/* Check if 'dev' is a real RAID device, because in the case where md
- * is linked directly into the kernel (not a module), /dev/md0 is
- * sometimes created.
- */
-static int
-is_raid_device (const char *dev)
-{
-  int ret = 1;
-
-#if defined(HAVE_LINUX_RAID_MD_U_H) && defined(GET_ARRAY_INFO)
-  int fd;
-  mdu_array_info_t array;
-
-  fd = open (dev, O_RDONLY);
-  if (fd >= 0) {
-    if (ioctl (fd, GET_ARRAY_INFO, &array) == -1 && errno == ENODEV)
-      ret = 0;
-    close (fd);
-  }
-#endif
-
-  return ret;
-}
-
-char **
-do_list_md_devices (void)
-{
-  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
-  glob_t mds;
-
-  memset (&mds, 0, sizeof mds);
-
-#define PREFIX "/sys/block/md"
-#define SUFFIX "/md"
-
-  /* Look for directories under /sys/block matching md[0-9]*
-   * As an additional check, we also make sure they have a md subdirectory.
-   */
-  const int err = glob (PREFIX "[0-9]*" SUFFIX, GLOB_ERR, glob_errfunc, &mds);
-  if (err == GLOB_NOSPACE) {
-    reply_with_error ("glob: returned GLOB_NOSPACE: "
-                      "rerun with LIBGUESTFS_DEBUG=1");
-    goto error;
-  } else if (err == GLOB_ABORTED) {
-    reply_with_error ("glob: returned GLOB_ABORTED: "
-                      "rerun with LIBGUESTFS_DEBUG=1");
-    goto error;
-  }
-
-  for (size_t i = 0; i < mds.gl_pathc; i++) {
-    size_t len;
-    char *dev, *n;
-
-    len = strlen (mds.gl_pathv[i]) - strlen (PREFIX) - strlen (SUFFIX);
-
-#define DEV "/dev/md"
-    dev = malloc (strlen (DEV) + len + 1);
-    if (NULL == dev) {
-      reply_with_perror ("malloc");
-      goto error;
-    }
-
-    n = dev;
-    n = mempcpy (n, DEV, strlen (DEV));
-    n = mempcpy (n, &mds.gl_pathv[i][strlen (PREFIX)], len);
-    *n = '\0';
-
-    if (!is_raid_device (dev)) {
-      free (dev);
-      continue;
-    }
-
-    if (add_string_nodup (&ret, dev) == -1) goto error;
-  }
-
-  if (end_stringsbuf (&ret) == -1) goto error;
-  globfree (&mds);
-
-  return take_stringsbuf (&ret);
-
- error:
-  globfree (&mds);
-
-  return NULL;
-}
 
 char **
 do_md_detail (const char *md)
