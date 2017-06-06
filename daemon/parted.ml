@@ -22,6 +22,8 @@ open Std_utils
 
 open Utils
 
+include Structs
+
 (* Test if [sfdisk] is recent enough to have [--part-type], to be used
  * instead of [--print-id] and [--change-id].
  *)
@@ -53,3 +55,57 @@ let part_get_mbr_id device partnum =
 
   (* It's printed in hex, possibly with a leading space. *)
   sscanf out " %x" identity
+
+(* This is not equivalent to print_partition_table in the C code, as
+ * it only deals with the ‘-m’ option output, and it partially parses
+ * that.  If we convert other functions that don't use the ‘-m’ version
+ * we'll have to refactor this. XXX
+ *)
+let print_partition_table_machine_readable device =
+  udev_settle ();
+
+  let args = ref [] in
+  push_back args "-m";
+  push_back args "-s";
+  push_back args "--";
+  push_back args device;
+  push_back args "unit";
+  push_back args "b";
+  push_back args "print";
+
+  let out =
+    try command "parted" !args
+    with
+      (* Translate "unrecognised disk label" into an errno code. *)
+      Failure str when String.find str "unrecognised disk label" >= 0 ->
+        raise (Unix.Unix_error (Unix.EINVAL, "parted", device ^ ": " ^ str)) in
+
+  udev_settle ();
+
+  (* Split the output into lines. *)
+  let out = String.trim out in
+  let lines = String.nsplit "\n" out in
+
+  (* lines[0] is "BYT;", lines[1] is the device line which we ignore,
+   * lines[2..] are the partitions themselves.
+   *)
+  match lines with
+  | "BYT;" :: _ :: lines -> lines
+  | [] | [_] ->
+     failwith "too few rows of output from 'parted print' command"
+  | _ ->
+     failwith "did not see 'BYT;' magic value in 'parted print' command"
+
+let part_list device =
+  let lines = print_partition_table_machine_readable device in
+
+  List.map (
+    fun line ->
+      try sscanf line "%d:%LdB:%LdB:%LdB"
+                 (fun num start end_ size ->
+                   { part_num = Int32.of_int num;
+                     part_start = start; part_end = end_; part_size = size })
+      with Scan_failure err ->
+        failwithf "could not parse row from output of 'parted print' command: %s: %s"
+                  line err
+  ) lines

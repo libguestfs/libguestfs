@@ -16,4 +16,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+type partition = {
+  part_num : int32;
+  part_start : int64;
+  part_end : int64;
+  part_size : int64;
+}
+
 val part_get_mbr_id : string -> int -> int
+val part_list : string -> partition list

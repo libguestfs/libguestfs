@@ -5039,6 +5039,7 @@ table.  This works on C<gpt> but not on C<mbr> partitions." };
   { defaults with
     name = "part_list"; added = (1, 0, 78);
     style = RStructList ("partitions", "partition"), [String (Device, "device")], [];
+    impl = OCaml "Parted.part_list";
     tests = [] (* XXX Add a regression test for this. *);
     shortdesc = "list partitions on a device";
     longdesc = "\

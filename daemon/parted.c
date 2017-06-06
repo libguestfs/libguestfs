@@ -383,62 +383,6 @@ do_part_get_parttype (const char *device)
   return r;
 }
 
-guestfs_int_partition_list *
-do_part_list (const char *device)
-{
-  CLEANUP_FREE char *out = print_partition_table (device, true);
-  if (!out)
-    return NULL;
-
-  CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
-
-  if (!lines)
-    return NULL;
-
-  guestfs_int_partition_list *r;
-
-  /* lines[0] is "BYT;", lines[1] is the device line which we ignore,
-   * lines[2..] are the partitions themselves.  Count how many.
-   */
-  size_t nr_rows = 0, row;
-  for (row = 2; lines[row] != NULL; ++row)
-    ++nr_rows;
-
-  r = malloc (sizeof *r);
-  if (r == NULL) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-  r->guestfs_int_partition_list_len = nr_rows;
-  r->guestfs_int_partition_list_val =
-    malloc (nr_rows * sizeof (guestfs_int_partition));
-  if (r->guestfs_int_partition_list_val == NULL) {
-    reply_with_perror ("malloc");
-    goto error2;
-  }
-
-  /* Now parse the lines. */
-  size_t i;
-  for (i = 0, row = 2; lines[row] != NULL; ++i, ++row) {
-    if (sscanf (lines[row], "%d:%" SCNi64 "B:%" SCNi64 "B:%" SCNi64 "B",
-                &r->guestfs_int_partition_list_val[i].part_num,
-                &r->guestfs_int_partition_list_val[i].part_start,
-                &r->guestfs_int_partition_list_val[i].part_end,
-                &r->guestfs_int_partition_list_val[i].part_size) != 4) {
-      reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
-      goto error3;
-    }
-  }
-
-  return r;
-
- error3:
-  free (r->guestfs_int_partition_list_val);
- error2:
-  free (r);
-  return NULL;
-}
-
 int
 do_part_get_bootable (const char *device, int partnum)
 {
