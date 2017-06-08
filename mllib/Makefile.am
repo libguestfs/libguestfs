@@ -27,8 +27,6 @@ EXTRA_DIST = \
 	test-getopt.sh
 
 SOURCES_MLI = \
-	xml.mli \
-	xpath_helpers.mli \
 	checksums.mli \
 	unix_utils.mli \
 	common_utils.mli \
@@ -39,7 +37,8 @@ SOURCES_MLI = \
 	regedit.mli \
 	registry.mli \
 	stringMap.mli \
-	URI.mli
+	URI.mli \
+	xpath_helpers.mli
 
 SOURCES_ML = \
 	guestfs_config.ml \
@@ -57,7 +56,6 @@ SOURCES_ML = \
 	JSON.ml \
 	curl.ml \
 	checksums.ml \
-	xml.ml \
 	xpath_helpers.ml
 
 SOURCES_C = \
@@ -67,8 +65,7 @@ SOURCES_C = \
 	common_utils-c.c \
 	getopt-c.c \
 	unix_utils-c.c \
-	uri-c.c \
-	xml-c.c
+	uri-c.c
 
 if HAVE_OCAML
 
@@ -95,7 +92,8 @@ libmllib_a_CPPFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
-	-I$(top_srcdir)/common/options
+	-I$(top_srcdir)/common/options \
+	-I$(top_srcdir)/common/mlxml
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
@@ -113,6 +111,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlxml \
 	-I $(builddir)
 OCAMLPACKAGES_TESTS = $(MLLIB_CMA)
 if HAVE_OCAML_PKG_GETTEXT

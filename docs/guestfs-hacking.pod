@@ -108,6 +108,10 @@ OCaml bindings for the progress bar functions (see F<common/progress>).
 
 OCaml bindings for the visit functions (see F<common/visit>).
 
+=item F<common/mlxml>
+
+OCaml bindings for the libxml2 library.
+
 =item F<common/options>
 
 Common options parsing for guestfish, guestmount and some virt tools.

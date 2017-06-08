@@ -42,6 +42,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/v2v
 
@@ -128,7 +129,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize -I $(abs_top_builddir)/v2v $^ | \
+	$(OCAMLFIND) ocamldep -I ../../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize -I $(abs_top_builddir)/v2v $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

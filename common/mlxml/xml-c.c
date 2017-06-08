@@ -129,6 +129,27 @@ mllib_xml_parse_memory (value xmlv)
 }
 
 value
+mllib_xml_parse_file (value filenamev)
+{
+  CAMLparam1 (filenamev);
+  CAMLlocal1 (docv);
+  xmlDocPtr doc;
+
+  /* For security reasons, call xmlReadFile (not xmlParseFile) and
+   * pass XML_PARSE_NONET.  See commit 845daded5fddc70f.
+   */
+  doc = xmlReadFile (String_val (filenamev), NULL, XML_PARSE_NONET);
+  if (doc == NULL)
+    caml_invalid_argument ("parse_file: unable to parse XML from file");
+
+  docv = caml_alloc_custom (&docptr_custom_operations, sizeof (xmlDocPtr),
+                            0, 1);
+  docptr_val (docv) = doc;
+
+  CAMLreturn (docv);
+}
+
+value
 mllib_xml_copy_doc (value docv, value recursivev)
 {
   CAMLparam2 (docv, recursivev);

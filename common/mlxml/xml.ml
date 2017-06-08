@@ -67,9 +67,11 @@ let parse_memory xml =
   Gc.finalise free_docptr docptr;
   docptr
 
-let parse_file file =
-  let xml = Common_utils.read_whole_file file in
-  parse_memory xml
+external _parse_file : string -> docptr = "mllib_xml_parse_file"
+let parse_file filename =
+  let docptr = _parse_file filename in
+  Gc.finalise free_docptr docptr;
+  docptr
 
 external _copy_doc : docptr -> recursive:bool -> docptr = "mllib_xml_copy_doc"
 let copy_doc docptr ~recursive =

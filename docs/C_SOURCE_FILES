@@ -18,6 +18,7 @@ common/miniexpect/miniexpect.h
 common/mlprogress/progress-c.c
 common/mlvisit/dummy.c
 common/mlvisit/visit-c.c
+common/mlxml/xml-c.c
 common/options/config.c
 common/options/decrypt.c
 common/options/display-options.c
@@ -342,7 +343,6 @@ mllib/dummy.c
 mllib/getopt-c.c
 mllib/unix_utils-c.c
 mllib/uri-c.c
-mllib/xml-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c

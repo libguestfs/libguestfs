@@ -126,6 +126,7 @@ Makefile.in
 /common/mlprogress/.depend
 /common/mlvisit/.depend
 /common/mlvisit/visit_tests
+/common/mlxml/.depend
 /common/protocol/guestfs_protocol.c
 /common/protocol/guestfs_protocol.h
 /common/protocol/guestfs_protocol.x

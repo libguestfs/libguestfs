@@ -198,6 +198,7 @@ AC_CONFIG_FILES([Makefile
                  common/miniexpect/Makefile
                  common/mlprogress/Makefile
                  common/mlvisit/Makefile
+                 common/mlxml/Makefile
                  common/options/Makefile
                  common/parallel/Makefile
                  common/progress/Makefile

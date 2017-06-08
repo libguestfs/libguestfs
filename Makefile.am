@@ -156,6 +156,7 @@ if HAVE_OCAML
 SUBDIRS += \
 	common/mlprogress \
 	common/mlvisit \
+	common/mlxml \
 	mllib \
 	customize \
 	builder builder/templates \
