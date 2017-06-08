@@ -241,6 +241,14 @@ is_power_of_2 (unsigned v)
   return v && ((v & (v - 1)) == 0);
 }
 
+/**
+ * Check for valid backing format.  Allow any C<^[[:alnum]]+$>
+ * (in C locale), but limit the length to something reasonable.
+ */
+#define VALID_FORMAT(format) \
+  guestfs_int_string_is_valid ((format), 1, 16, \
+                               VALID_FLAG_ALPHA|VALID_FLAG_DIGIT, "")
+
 static int
 disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
                    const char *backingfile,
@@ -267,12 +275,7 @@ disk_create_qcow2 (guestfs_h *g, const char *orig_filename, int64_t size,
 
   if (optargs->bitmask & GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK) {
     backingformat = optargs->backingformat;
-    /* Conservative whitelist.  This can be extended with other
-     * valid formats as required.
-     */
-    if (STRNEQ (backingformat, "raw") &&
-        STRNEQ (backingformat, "qcow2") &&
-        STRNEQ (backingformat, "vmdk")) {
+    if (!VALID_FORMAT (backingformat)) {
       error (g, _("invalid value for backingformat parameter ‘%s’"),
              backingformat);
       return -1;
