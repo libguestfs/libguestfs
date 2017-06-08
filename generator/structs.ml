@@ -18,7 +18,7 @@
 
 (* Please read generator/README first. *)
 
-open Common_utils
+open Std_utils
 open Types
 open Utils
 

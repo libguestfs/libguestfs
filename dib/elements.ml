@@ -18,8 +18,9 @@
 
 (* Parsing and handling of elements. *)
 
-open Common_gettext.Gettext
+open Std_utils
 open Common_utils
+open Common_gettext.Gettext
 
 open Utils
 

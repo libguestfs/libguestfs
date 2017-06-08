@@ -18,8 +18,9 @@
 
 open Printf
 
-open Common_gettext.Gettext
+open Std_utils
 open Common_utils
+open Common_gettext.Gettext
 open Visit
 open Unix_utils.Fnmatch
 open Sysprep_operation

@@ -18,11 +18,12 @@
 
 (* Create OVF and related files for RHV. *)
 
-open Common_gettext.Gettext
-open Common_utils
-
 open Unix
 open Printf
+
+open Std_utils
+open Common_utils
+open Common_gettext.Gettext
 
 open Types
 open Utils

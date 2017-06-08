@@ -18,12 +18,14 @@
 
 (* This file tests individual virt-v2v functions. *)
 
-open OUnit2
-open Types
-
 open Printf
 
+open OUnit2
+
+open Std_utils
 open Common_utils
+
+open Types
 
 let inspect_defaults = {
   i_type = ""; i_distro = ""; i_arch = "";

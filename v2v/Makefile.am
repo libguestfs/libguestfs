@@ -146,6 +146,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -170,6 +171,7 @@ OBJECTS = $(XOBJECTS)
 endif
 
 OCAMLLINKFLAGS = \
+	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlxml.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
@@ -210,6 +212,7 @@ endif
 
 virt_v2v_copy_to_local_DEPENDENCIES = \
 	$(COPY_TO_LOCAL_OBJECTS) \
+	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
@@ -495,6 +498,7 @@ endif
 
 v2v_unit_tests_DEPENDENCIES = \
 	$(v2v_unit_tests_THEOBJECTS) \
+	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
@@ -510,7 +514,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

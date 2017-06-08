@@ -20,7 +20,7 @@
 
 open Printf
 
-open Common_utils
+open Std_utils
 open Docstrings
 open Pr
 
@@ -623,6 +623,7 @@ and generate_customize_cmdline_ml () =
 
 open Printf
 
+open Std_utils
 open Common_utils
 open Common_gettext.Gettext
 open Getopt.OptionName

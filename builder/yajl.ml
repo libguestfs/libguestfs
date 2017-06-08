@@ -16,8 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Common_gettext.Gettext
+open Std_utils
 open Common_utils
+open Common_gettext.Gettext
 
 type yajl_val =
 | Yajl_null

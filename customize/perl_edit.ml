@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
+open Std_utils
 open Common_utils
 
 external c_edit_file : verbose:bool -> Guestfs.t -> int64 -> string -> string -> unit

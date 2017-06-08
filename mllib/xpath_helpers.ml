@@ -18,8 +18,9 @@
 
 open Printf
 
-open Common_gettext.Gettext
+open Std_utils
 open Common_utils
+open Common_gettext.Gettext
 
 (* Parse an xpath expression and return a string/int.  Returns
  * [Some v], or [None] if the expression doesn't match.

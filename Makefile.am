@@ -20,7 +20,7 @@ include $(top_srcdir)/common-rules.mk
 ACLOCAL_AMFLAGS = -I m4
 
 # The generator - must be before anything else.
-SUBDIRS = generator
+SUBDIRS = common/mlstdutils generator
 
 # Must be the first tests that run.
 if ENABLE_APPLIANCE

@@ -20,7 +20,7 @@
 
 open Printf
 
-open Common_utils
+open Std_utils
 
 module G = Guestfs
 

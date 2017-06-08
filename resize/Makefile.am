@@ -61,6 +61,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlprogress \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
@@ -84,6 +85,7 @@ OBJECTS = $(XOBJECTS)
 endif
 
 OCAMLLINKFLAGS = \
+	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlprogress.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
@@ -91,6 +93,7 @@ OCAMLLINKFLAGS = \
 
 virt_resize_DEPENDENCIES = \
 	$(OBJECTS) \
+	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_resize_LINK = \
@@ -135,7 +138,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mllib $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mlstdutils -I $(abs_top_builddir)/mllib $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

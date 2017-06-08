@@ -123,6 +123,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/mllib \
 	-I $(builddir)
 if HAVE_OCAML_PKG_GETTEXT
@@ -149,7 +150,12 @@ else
 CUSTOMIZE_THEOBJECTS = $(CUSTOMIZE_XOBJECTS)
 endif
 
-OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) mllib.$(MLARCHIVE) customize.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
+OCAMLLINKFLAGS = \
+	mlstdutils.$(MLARCHIVE) \
+	mlguestfs.$(MLARCHIVE) \
+	mllib.$(MLARCHIVE) \
+	customize.$(MLARCHIVE) \
+	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 OCAMLCLIBS = \
 	-lutils \

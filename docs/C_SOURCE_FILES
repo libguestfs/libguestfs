@@ -16,6 +16,7 @@ common/edit/file-edit.h
 common/miniexpect/miniexpect.c
 common/miniexpect/miniexpect.h
 common/mlprogress/progress-c.c
+common/mlstdutils/dummy.c
 common/mlvisit/dummy.c
 common/mlvisit/visit-c.c
 common/mlxml/xml-c.c

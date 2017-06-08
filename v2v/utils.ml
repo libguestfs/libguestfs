@@ -20,8 +20,9 @@
 
 open Printf
 
-open Common_gettext.Gettext
+open Std_utils
 open Common_utils
+open Common_gettext.Gettext
 
 external drive_name : int -> string = "v2v_utils_drive_name"
 external drive_index : string -> int = "v2v_utils_drive_index"

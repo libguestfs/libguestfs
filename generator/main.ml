@@ -21,7 +21,7 @@
 open Unix
 open Printf
 
-open Common_utils
+open Std_utils
 open Pr
 open Actions
 open Structs

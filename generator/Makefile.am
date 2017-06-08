@@ -53,8 +53,6 @@ sources = \
 	c.mli \
 	checks.ml \
 	checks.mli \
-	common_utils.ml \
-	common_utils.mli \
 	csharp.ml \
 	csharp.mli \
 	customize.ml \
@@ -77,7 +75,6 @@ sources = \
 	GObject.mli \
 	golang.ml \
 	golang.mli \
-	guestfs_config.ml \
 	haskell.ml \
 	haskell.mli \
 	java.ml \
@@ -118,8 +115,8 @@ sources = \
 # In build dependency order.
 objects = \
 	$(OCAML_GENERATOR_BYTES_COMPAT_CMO) \
-	guestfs_config.cmo \
-	common_utils.cmo \
+	../common/mlstdutils/guestfs_config.cmo \
+	../common/mlstdutils/std_utils.cmo \
 	types.cmo \
 	utils.cmo \
 	proc_nr.cmo \
@@ -170,7 +167,12 @@ objects = \
 
 EXTRA_DIST = $(sources) files-generated.txt
 
-OCAMLPACKAGES = -package unix,str -I $(srcdir) -I .
+OCAMLPACKAGES = \
+	-package unix,str \
+	-I $(srcdir) \
+	-I . \
+	-I $(top_srcdir)/common/mlstdutils \
+	-I $(top_builddir)/common/mlstdutils
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 noinst_PROGRAM = generator
@@ -183,9 +185,9 @@ generator: $(objects)
 # Dependencies.
 depend: .depend
 
-.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml) common_utils.ml common_utils.mli guestfs_config.ml
+.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml) $(wildcard $(abs_srcdir)/common/mlstdutils/*.mli) $(wildcard $(abs_srcdir)/common/mlstdutils/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
+	$(OCAMLFIND) ocamldep -I ../common/mlstdutils -I $(abs_srcdir) $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
@@ -223,22 +225,6 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/gobject/include/guestfs-gobject
 	cd $(top_srcdir) && $(abs_builddir)/generator
 	touch $@
-
-# We share common_utils.ml{,i} with the mllib directory.  However we
-# have to remove functions which depend on any modules which are not
-# part of the OCaml stdlib.
-common_utils.ml: $(top_srcdir)/mllib/common_utils.ml
-	rm -f $@ $@-t
-	echo '(* This file is generated from mllib/common_utils.ml *)' > $@-t
-	sed -n '/^(\*<stdlib>\*)$$/,/^(\*<\/stdlib>\*)$$/p' $< >> $@-t
-	mv $@-t $@
-common_utils.mli: $(top_srcdir)/mllib/common_utils.mli
-	rm -f $@ $@-t
-	echo '(* This file is generated from mllib/common_utils.mli *)' > $@-t
-	sed -n '/^(\*<stdlib>\*)$$/,/^(\*<\/stdlib>\*)$$/p' $< >> $@-t
-	mv $@-t $@
-guestfs_config.ml: ../mllib/guestfs_config.ml
-	cp $< $@
 
 CLEANFILES += $(noinst_DATA) $(noinst_PROGRAM)
 

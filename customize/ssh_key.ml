@@ -16,12 +16,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-open Common_gettext.Gettext
-open Common_utils
-
 open Printf
 open Sys
 open Unix
+
+open Std_utils
+open Common_utils
+open Common_gettext.Gettext
 
 module G = Guestfs
 

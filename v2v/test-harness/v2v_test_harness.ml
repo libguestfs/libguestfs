@@ -23,6 +23,7 @@ module D = Libvirt.Domain
 open Unix
 open Printf
 
+open Std_utils
 open Common_utils
 
 type test_plan = {

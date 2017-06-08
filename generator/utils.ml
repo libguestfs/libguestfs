@@ -23,7 +23,7 @@
  * makes this a bit harder than it should be.
  *)
 
-open Common_utils
+open Std_utils
 
 open Unix
 open Printf

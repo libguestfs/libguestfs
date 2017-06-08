@@ -124,6 +124,11 @@ Makefile.in
 /common/errnostring/errnostring.h
 /common/miniexpect/miniexpect.3
 /common/mlprogress/.depend
+/common/mlstdutils/.depend
+/common/mlstdutils/guestfs_config.ml
+/common/mlstdutils/libdir.ml
+/common/mlstdutils/oUnit-*
+/common/mlstdutils/std_utils_tests
 /common/mlvisit/.depend
 /common/mlvisit/visit_tests
 /common/mlxml/.depend
@@ -273,7 +278,6 @@ Makefile.in
 /generator/common_utils.mli
 /generator/files-generated.txt
 /generator/generator
-/generator/guestfs_config.ml
 /generator/.pod2text.data*
 /generator/stamp-generator
 /get-kernel/.depend
@@ -361,9 +365,7 @@ Makefile.in
 /mllib/common_gettext.ml
 /mllib/common_utils_tests
 /mllib/getopt_tests
-/mllib/guestfs_config.ml
 /mllib/JSON_tests
-/mllib/libdir.ml
 /mllib/oUnit-*
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt

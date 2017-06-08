@@ -20,6 +20,7 @@ open Common_gettext.Gettext
 
 module G = Guestfs
 
+open Std_utils
 open Common_utils
 open Unix_utils
 open Password
