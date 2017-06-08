@@ -123,6 +123,8 @@ Makefile.in
 /common/errnostring/errnostring-gperf.gperf
 /common/errnostring/errnostring.h
 /common/miniexpect/miniexpect.3
+/common/mlvisit/.depend
+/common/mlvisit/visit_tests
 /common/protocol/guestfs_protocol.c
 /common/protocol/guestfs_protocol.h
 /common/protocol/guestfs_protocol.x
@@ -361,7 +363,6 @@ Makefile.in
 /mllib/JSON_tests
 /mllib/libdir.ml
 /mllib/oUnit-*
-/mllib/visit_tests
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml

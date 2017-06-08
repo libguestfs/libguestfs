@@ -100,6 +100,10 @@ A copy of the miniexpect library from
 L<http://git.annexia.org/?p=miniexpect.git;a=summary>.  This is used
 in virt-p2v.
 
+=item F<common/mlvisit>
+
+OCaml bindings for the visit functions (see F<common/visit>).
+
 =item F<common/options>
 
 Common options parsing for guestfish, guestmount and some virt tools.

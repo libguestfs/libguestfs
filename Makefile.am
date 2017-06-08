@@ -150,10 +150,11 @@ endif
 # Unconditional because nothing is built yet.
 SUBDIRS += csharp
 
-# OCaml tools.  Note 'mllib' and 'customize' contain shared code used
-# by other OCaml tools, so these must come first.
+# OCaml tools.  Note 'common/ml*', 'mllib' and 'customize' contain
+# shared code used by other OCaml tools, so these must come first.
 if HAVE_OCAML
 SUBDIRS += \
+	common/mlvisit \
 	mllib \
 	customize \
 	builder builder/templates \

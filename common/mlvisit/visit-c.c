@@ -31,7 +31,6 @@
 #include <caml/mlvalues.h>
 
 #include "guestfs.h"
-#include "guestfs-internal.h"
 #include "visit.h"
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
@@ -59,7 +58,7 @@ guestfs_int_mllib_visit (value gv, value dirv, value fv)
   /* The dir string could move around when we call the
    * visitor_function, so we have to take a full copy of it.
    */
-  CLEANUP_FREE char *dir = strdup (String_val (dirv));
+  char *dir = strdup (String_val (dirv));
   /* This stack address is used to point to the exception, if one is
    * raised in the visitor_function.
    */
@@ -71,6 +70,8 @@ guestfs_int_mllib_visit (value gv, value dirv, value fv)
   args.fvp = &fv;
 
   if (visit (g, dir, visitor_function_wrapper, &args) == -1) {
+    free (dir);
+
     if (exn != Val_unit) {
       /* The failure was caused by visitor_function raising an
        * exception.  Re-raise it here.
@@ -84,6 +85,7 @@ guestfs_int_mllib_visit (value gv, value dirv, value fv)
      */
     caml_failwith ("visit");
   }
+  free (dir);
 
   CAMLreturn (Val_unit);
 }

@@ -111,6 +111,8 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/visit/.libs \
+	-I $(top_builddir)/common/mlvisit \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
 if HAVE_OCAML_PKG_GETTEXT
@@ -118,6 +120,7 @@ OCAMLPACKAGES += -package gettext-stub
 endif
 
 OCAMLCLIBS = \
+	-lvisit \
 	-lutils \
 	$(LIBTINFO_LIBS) \
 	$(LIBCRYPT_LIBS) \
@@ -133,7 +136,12 @@ else
 OBJECTS = $(XOBJECTS)
 endif
 
-OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) mllib.$(MLARCHIVE) customize.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
+OCAMLLINKFLAGS = \
+	mlguestfs.$(MLARCHIVE) \
+	mllib.$(MLARCHIVE) \
+	mlvisit.$(MLARCHIVE) \
+	customize.$(MLARCHIVE) \
+	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 virt_sysprep_DEPENDENCIES = \
 	$(OBJECTS) \

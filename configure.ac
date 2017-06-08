@@ -196,6 +196,7 @@ AC_CONFIG_FILES([Makefile
                  common/errnostring/Makefile
                  common/edit/Makefile
                  common/miniexpect/Makefile
+                 common/mlvisit/Makefile
                  common/options/Makefile
                  common/parallel/Makefile
                  common/progress/Makefile
