@@ -127,7 +127,7 @@ do_internal_lstatnslist (const char *path, char *const *names)
   guestfs_int_statns_list *ret;
   size_t i, nr_names;
 
-  nr_names = count_strings (names);
+  nr_names = guestfs_int_count_strings (names);
 
   ret = malloc (sizeof *ret);
   if (!ret) {

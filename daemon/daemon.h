@@ -30,9 +30,11 @@
 
 #include "guestfs_protocol.h"
 
+#include "cleanups.h"
+#include "guestfs-utils.h"
+
 #include "guestfs-internal-all.h"
 
-#include "cleanups.h"
 #include "structs-cleanups.h"
 #include "command.h"
 
@@ -76,6 +78,22 @@ extern int xread (int sock, void *buf, size_t len)
 
 extern char *mountable_to_string (const mountable_t *mountable);
 
+/*-- in cleanups.c --*/
+
+/* These functions are used internally by the CLEANUP_* macros.
+ * Don't call them directly.
+ */
+extern void cleanup_aug_close (void *ptr);
+extern void cleanup_free_stringsbuf (void *ptr);
+
+#ifdef HAVE_ATTRIBUTE_CLEANUP
+#define CLEANUP_AUG_CLOSE __attribute__((cleanup(cleanup_aug_close)))
+#define CLEANUP_FREE_STRINGSBUF __attribute__((cleanup(cleanup_free_stringsbuf)))
+#else
+#define CLEANUP_AUG_CLOSE
+#define CLEANUP_FREE_STRINGSBUF
+#endif
+
 /*-- in mount.c --*/
 
 extern int mount_vfs_nochroot (const char *options, const char *vfstype,
@@ -109,20 +127,11 @@ extern int end_stringsbuf (struct stringsbuf *sb);
 extern char **take_stringsbuf (struct stringsbuf *sb);
 extern void free_stringsbuf (struct stringsbuf *sb);
 
-extern size_t count_strings (char *const *argv);
 extern void sort_strings (char **argv, size_t len);
-extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, size_t len);
 
 extern void sort_device_names (char **argv, size_t len);
 extern int compare_device_names (const char *a, const char *b);
-
-/* Concatenate strings, optionally with a separator string between
- * each.  On error, these return NULL but do NOT call reply_with_* nor
- * free anything.
- */
-extern char *concat_strings (char *const *argv);
-extern char *join_strings (const char *separator, char *const *argv);
 
 extern struct stringsbuf split_lines_sb (char *str);
 extern char **split_lines (char *str);

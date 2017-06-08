@@ -152,7 +152,7 @@ do_mkfs_btrfs (char *const *devices,
                int leafsize, const char *label, const char *metadata,
                int nodesize, int sectorsize)
 {
-  const size_t nr_devices = count_strings (devices);
+  const size_t nr_devices = guestfs_int_count_strings (devices);
   const size_t MAX_ARGS = nr_devices + 64;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
@@ -500,7 +500,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
 
   guestfs_int_btrfssubvolume_list *ret = NULL;
 
-  const size_t nr_subvolumes = count_strings (lines);
+  const size_t nr_subvolumes = guestfs_int_count_strings (lines);
 
   ret = malloc (sizeof *ret);
   if (!ret) {
@@ -733,7 +733,7 @@ int
 do_btrfs_device_add (char *const *devices, const char *fs)
 {
   static int btrfs_device_add_needs_force = -1;
-  const size_t nr_devices = count_strings (devices);
+  const size_t nr_devices = guestfs_int_count_strings (devices);
   const size_t MAX_ARGS = nr_devices + 8;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
@@ -781,7 +781,7 @@ do_btrfs_device_add (char *const *devices, const char *fs)
 int
 do_btrfs_device_delete (char *const *devices, const char *fs)
 {
-  const size_t nr_devices = count_strings (devices);
+  const size_t nr_devices = guestfs_int_count_strings (devices);
 
   if (nr_devices == 0)
     return 0;
@@ -1391,7 +1391,7 @@ do_btrfs_qgroup_show (const char *path)
    *  0/5        9249849344   9249849344
    *
    */
-  const size_t nr_qgroups = count_strings (lines) - 2;
+  const size_t nr_qgroups = guestfs_int_count_strings (lines) - 2;
   guestfs_int_btrfsqgroup_list *ret = NULL;
   ret = malloc (sizeof *ret);
   if (!ret) {
@@ -1821,7 +1821,7 @@ do_btrfs_balance_status (const char *path)
   if (!lines)
     return NULL;
 
-  nlines = count_strings (lines);
+  nlines = guestfs_int_count_strings (lines);
 
   ret = calloc (1, sizeof *ret);
   if (ret == NULL) {
@@ -1938,7 +1938,7 @@ do_btrfs_scrub_status (const char *path)
   if (!lines)
     return NULL;
 
-  if (count_strings (lines) < 2) {
+  if (guestfs_int_count_strings (lines) < 2) {
     reply_with_error ("truncated output from 'btrfs scrub status -R' command");
     return NULL;
   }
@@ -2124,7 +2124,7 @@ int
 do_btrfs_image (char *const *sources, const char *image,
 		int compresslevel)
 {
-  const size_t nr_sources =  count_strings (sources);
+  const size_t nr_sources =  guestfs_int_count_strings (sources);
   const size_t MAX_ARGS = 64 + nr_sources;
   const char *argv[MAX_ARGS];
   size_t i = 0, j;
@@ -2229,7 +2229,7 @@ do_btrfs_filesystem_show (const char *device)
   if (!lines)
     return NULL;
 
-  if (count_strings (lines) < 3) {
+  if (guestfs_int_count_strings (lines) < 3) {
     reply_with_error ("truncated output from 'btrfs filesystem show' command");
     return NULL;
   }

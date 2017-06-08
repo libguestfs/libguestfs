@@ -397,7 +397,7 @@ let generate_daemon_stubs actions () =
         | RStringList (RPlainString, n)
         | RHashtable (RPlainString, RPlainString, n) ->
             pr "  struct guestfs_%s_ret ret;\n" name;
-            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_len = guestfs_int_count_strings (r);\n" n n;
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
               name
@@ -413,7 +413,7 @@ let generate_daemon_stubs actions () =
             pr "    free (r[i]);\n";
             pr "    r[i] = rr;\n";
             pr "  }\n";
-            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_len = guestfs_int_count_strings (r);\n" n n;
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
               name
@@ -428,7 +428,7 @@ let generate_daemon_stubs actions () =
             pr "    free (r[i]);\n";
             pr "    r[i] = rr;\n";
             pr "  }\n";
-            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_len = guestfs_int_count_strings (r);\n" n n;
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
               name
@@ -443,7 +443,7 @@ let generate_daemon_stubs actions () =
             pr "    free (r[i+1]);\n";
             pr "    r[i+1] = rr;\n";
             pr "  }\n";
-            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_len = guestfs_int_count_strings (r);\n" n n;
             pr "  ret.%s.%s_val = r;\n" n n;
             pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
               name

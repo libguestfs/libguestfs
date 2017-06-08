@@ -74,7 +74,6 @@ daemon/btrfs.c
 daemon/cap.c
 daemon/checksum.c
 daemon/cleanups.c
-daemon/cleanups.h
 daemon/cmp.c
 daemon/command.c
 daemon/command.h

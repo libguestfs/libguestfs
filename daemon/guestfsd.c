@@ -583,16 +583,6 @@ take_stringsbuf (struct stringsbuf *sb)
   return ret;
 }
 
-size_t
-count_strings (char *const *argv)
-{
-  size_t argc;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    ;
-  return argc;
-}
-
 /**
  * Returns true if C<v> is a power of 2.
  *
@@ -617,19 +607,6 @@ void
 sort_strings (char **argv, size_t len)
 {
   qsort (argv, len, sizeof (char *), compare);
-}
-
-void
-free_strings (char **argv)
-{
-  size_t argc;
-
-  if (!argv)
-    return;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    free (argv[argc]);
-  free (argv);
 }
 
 void
@@ -718,47 +695,6 @@ void
 sort_device_names (char **argv, size_t len)
 {
   qsort (argv, len, sizeof (char *), compare_device_names_vp);
-}
-
-char *
-concat_strings (char *const *argv)
-{
-  return join_strings ("", argv);
-}
-
-char *
-join_strings (const char *separator, char *const *argv)
-{
-  size_t i, len, seplen, rlen;
-  char *r;
-
-  seplen = strlen (separator);
-
-  len = 0;
-  for (i = 0; argv[i] != NULL; ++i) {
-    if (i > 0)
-      len += seplen;
-    len += strlen (argv[i]);
-  }
-  len++; /* for final \0 */
-
-  r = malloc (len);
-  if (r == NULL)
-    return NULL;
-
-  rlen = 0;
-  for (i = 0; argv[i] != NULL; ++i) {
-    if (i > 0) {
-      memcpy (&r[rlen], separator, seplen);
-      rlen += seplen;
-    }
-    len = strlen (argv[i]);
-    memcpy (&r[rlen], argv[i], len);
-    rlen += len;
-  }
-  r[rlen] = '\0';
-
-  return r;
 }
 
 /**

@@ -436,7 +436,7 @@ do_aug_ls (const char *path)
   if (matches == NULL)
     return NULL;		/* do_aug_match has already sent the error */
 
-  sort_strings (matches, count_strings ((void *) matches));
+  sort_strings (matches, guestfs_int_count_strings ((void *) matches));
   return matches;		/* Caller frees. */
 }
 

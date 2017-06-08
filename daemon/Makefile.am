@@ -49,6 +49,8 @@ endif
 guestfsd_SOURCES = \
 	../common/errnostring/errnostring.h \
 	../common/protocol/guestfs_protocol.h \
+	../common/utils/cleanups.h \
+	../common/utils/guestfs-utils.h \
 	9p.c \
 	acl.c \
 	actions.h \
@@ -62,7 +64,6 @@ guestfsd_SOURCES = \
 	cap.c \
 	checksum.c \
 	cleanups.c \
-	cleanups.h \
 	cmp.c \
 	command.c \
 	command.h \
@@ -178,6 +179,7 @@ guestfsd_SOURCES = \
 guestfsd_LDADD = \
 	../common/errnostring/liberrnostring.la \
 	../common/protocol/libprotocol.la \
+	../common/utils/libutils.la \
 	$(ACL_LIBS) \
 	$(CAP_LIBS) \
 	$(YAJL_LIBS) \
@@ -206,7 +208,9 @@ guestfsd_CPPFLAGS = \
 	-I$(top_srcdir)/common/errnostring \
 	-I$(top_builddir)/common/errnostring \
 	-I$(top_srcdir)/common/protocol \
-	-I$(top_builddir)/common/protocol
+	-I$(top_builddir)/common/protocol \
+	-I$(top_srcdir)/common/utils \
+	-I$(top_builddir)/common/utils
 guestfsd_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(RPC_CFLAGS) \

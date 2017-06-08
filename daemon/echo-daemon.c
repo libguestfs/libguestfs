@@ -28,7 +28,7 @@ do_echo_daemon (char *const *argv)
 {
   char *out;
 
-  out = join_strings (" ", argv);
+  out = guestfs_int_join_strings (" ", argv);
   if (out == NULL) {
     reply_with_perror ("malloc");
     return NULL;

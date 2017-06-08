@@ -24,51 +24,7 @@
 
 #include <augeas.h>
 
-#include "cleanups.h"
-
-/* Use by the CLEANUP_* macros.  Do not call these directly. */
-void
-cleanup_free (void *ptr)
-{
-  free (* (void **) ptr);
-}
-
-extern void free_strings (char **argv);
-
-void
-cleanup_free_string_list (void *ptr)
-{
-  free_strings (* (char ***) ptr);
-}
-
-void
-cleanup_unlink_free (void *ptr)
-{
-  char *filename = * (char **) ptr;
-
-  if (filename) {
-    unlink (filename);
-    free (filename);
-  }
-}
-
-void
-cleanup_close (void *ptr)
-{
-  const int fd = * (int *) ptr;
-
-  if (fd >= 0)
-    close (fd);
-}
-
-void
-cleanup_fclose (void *ptr)
-{
-  FILE *f = * (FILE **) ptr;
-
-  if (f)
-    fclose (f);
-}
+#include "daemon.h"
 
 void
 cleanup_aug_close (void *ptr)
@@ -78,9 +34,6 @@ cleanup_aug_close (void *ptr)
   if (aug != NULL)
     aug_close (aug);
 }
-
-struct stringsbuf;
-extern void free_stringsbuf (struct stringsbuf *sb);
 
 void
 cleanup_free_stringsbuf (void *ptr)

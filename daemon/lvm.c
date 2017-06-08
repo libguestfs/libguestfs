@@ -337,7 +337,7 @@ do_vgcreate (const char *volgroup, char *const *physvols)
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE const char **argv = NULL;
 
-  argc = count_strings (physvols) + 3;
+  argc = guestfs_int_count_strings (physvols) + 3;
   argv = malloc (sizeof (char *) * (argc + 1));
   if (argv == NULL) {
     reply_with_perror ("malloc");
@@ -643,7 +643,7 @@ do_vg_activate (int activate, char *const *volgroups)
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE const char **argv = NULL;
 
-  argc = count_strings (volgroups) + 4;
+  argc = guestfs_int_count_strings (volgroups) + 4;
   argv = malloc (sizeof (char *) * (argc+1));
   if (argv == NULL) {
     reply_with_perror ("malloc");

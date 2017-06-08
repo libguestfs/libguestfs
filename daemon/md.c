@@ -97,7 +97,8 @@ do_md_create (const char *name, char *const *devices,
     }
   }
   else
-    nrdevices = count_strings (devices) + count_bits (umissingbitmap);
+    nrdevices =
+      guestfs_int_count_strings (devices) + count_bits (umissingbitmap);
 
   if (optargs_bitmask & GUESTFS_MD_CREATE_LEVEL_BITMASK) {
     if (STRNEQ (level, "linear") && STRNEQ (level, "raid0") &&
@@ -124,10 +125,11 @@ do_md_create (const char *name, char *const *devices,
   }
 
   /* Check invariant. */
-  if (count_strings (devices) + count_bits (umissingbitmap) !=
+  if (guestfs_int_count_strings (devices) + count_bits (umissingbitmap) !=
       (size_t) (nrdevices + spare)) {
     reply_with_error ("devices (%zu) + bits set in missingbitmap (%zu) is not equal to nrdevices (%d) + spare (%d)",
-                      count_strings (devices), count_bits (umissingbitmap),
+                      guestfs_int_count_strings (devices),
+                      count_bits (umissingbitmap),
                       nrdevices, spare);
     return -1;
   }

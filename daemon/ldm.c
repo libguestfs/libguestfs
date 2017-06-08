@@ -320,7 +320,7 @@ do_ldmtool_scan_devices (char * const * devices)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  nr_devices = count_strings (devices);
+  nr_devices = guestfs_int_count_strings (devices);
   argv = malloc ((3 + nr_devices) * sizeof (char *));
   if (argv == NULL) {
     reply_with_perror ("malloc");

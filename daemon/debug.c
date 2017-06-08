@@ -444,7 +444,7 @@ debug_ldd (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_ls (const char *subcmd, size_t argc, char *const *const argv)
 {
-  const size_t len = count_strings (argv);
+  const size_t len = guestfs_int_count_strings (argv);
   CLEANUP_FREE const char **cargv = NULL;
   size_t i;
   int r;
@@ -477,7 +477,7 @@ debug_ls (const char *subcmd, size_t argc, char *const *const argv)
 static char *
 debug_ll (const char *subcmd, size_t argc, char *const *const argv)
 {
-  const size_t len = count_strings (argv);
+  const size_t len = guestfs_int_count_strings (argv);
   CLEANUP_FREE const char **cargv = NULL;
   size_t i;
   int r;
