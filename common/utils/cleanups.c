@@ -85,6 +85,15 @@ guestfs_int_cleanup_unlink_free (char **ptr)
 }
 
 void
+guestfs_int_cleanup_close (void *ptr)
+{
+  const int fd = * (int *) ptr;
+
+  if (fd >= 0)
+    close (fd);
+}
+
+void
 guestfs_int_cleanup_fclose (void *ptr)
 {
   FILE *f = * (FILE **) ptr;
