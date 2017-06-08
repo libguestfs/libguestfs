@@ -74,6 +74,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/utils/.libs \
+	-I $(top_builddir)/common/structs/.libs \
 	-I $(top_builddir)/common/visit/.libs \
 	-I $(builddir)
 OCAMLPACKAGES_TESTS = $(MLVISIT_CMA)
@@ -115,7 +116,7 @@ visit_tests_DEPENDENCIES = \
 	$(top_srcdir)/ocaml-link.sh
 visit_tests_LINK = \
 	$(top_srcdir)/ocaml-link.sh \
-	  -cclib '-lvisit -lutils $(LIBXML2_LIBS) -lgnu' -- \
+	  -cclib '-lvisit -lstructs -lutils $(LIBXML2_LIBS) -lgnu' -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
 	  $(OCAMLPACKAGES) $(OCAMLPACKAGES_TESTS) \
 	  $(visit_tests_THEOBJECTS) -o $@

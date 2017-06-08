@@ -44,6 +44,7 @@ virt_diff_CFLAGS = \
 virt_diff_LDADD = \
 	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/visit/libvisit.la \
+	$(top_builddir)/common/structs/libstructs.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \

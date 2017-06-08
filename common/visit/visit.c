@@ -37,6 +37,7 @@
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
+#include "structs-cleanups.h"
 
 #include "visit.h"
 

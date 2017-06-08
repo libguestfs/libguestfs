@@ -32,6 +32,7 @@
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
+#include "structs-cleanups.h"
 
 /* Debian/Ubuntu install disks are easy ...
  *

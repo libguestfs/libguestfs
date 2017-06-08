@@ -136,10 +136,10 @@ Makefile.in
 /common/protocol/guestfs_protocol.h
 /common/protocol/guestfs_protocol.x
 /common/qemuopts/qemuopts-tests
-/common/utils/guestfs-internal-frontend-cleanups.h
-/common/utils/structs-cleanup.c
-/common/utils/structs-print.c
-/common/utils/structs-print.h
+/common/structs/structs-cleanups.c
+/common/structs/structs-cleanups.h
+/common/structs/structs-print.c
+/common/structs/structs-print.h
 /compile
 /config.cache
 /config.guess

@@ -108,10 +108,12 @@ librc_protocol_la_CFLAGS = -Wall -Wno-unused -fno-strict-aliasing
 libcmds_la_SOURCES = cmds-gperf.c
 libcmds_la_CPPFLAGS = \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib
 libcmds_la_CFLAGS =
 libcmds_la_LIBADD = \
+	$(top_builddir)/common/structs/libstructs.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(LTLIBINTL)
 
@@ -124,6 +126,7 @@ guestfish_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-I$(top_srcdir)/common/edit -I$(top_builddir)/common/edit \
 	-I$(top_srcdir)/common/options -I$(top_builddir)/common/options \
@@ -141,6 +144,7 @@ guestfish_LDADD = \
 	$(top_builddir)/common/edit/libedit.la \
 	$(top_builddir)/common/options/liboptions.la \
 	$(top_builddir)/common/progress/libprogress.la \
+	$(top_builddir)/common/structs/libstructs.la \
 	$(top_builddir)/common/utils/libutils.la \
 	$(top_builddir)/lib/libguestfs.la \
 	$(LIBXML2_LIBS) \

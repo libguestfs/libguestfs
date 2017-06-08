@@ -54,6 +54,7 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
+#include "structs-cleanups.h"
 
 #if HAVE_FUSE
 

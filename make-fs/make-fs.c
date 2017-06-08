@@ -40,6 +40,7 @@
 #include "xstrtol.h"
 #include "getprogname.h"
 
+#include "structs-cleanups.h"
 #include "options.h"
 #include "display-options.h"
 

@@ -48,6 +48,7 @@ let rec generate_c_api_tests () =
 
 #include \"guestfs.h\"
 #include \"guestfs-internal-frontend.h\"
+#include \"structs-cleanups.h\"
 
 #include \"tests.h\"
 

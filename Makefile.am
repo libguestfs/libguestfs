@@ -38,7 +38,9 @@ SUBDIRS += gnulib/tests
 endif
 
 # Basic source for the library.
-SUBDIRS += common/errnostring common/protocol common/qemuopts common/utils
+SUBDIRS += common/errnostring common/protocol common/qemuopts
+SUBDIRS += common/utils
+SUBDIRS += common/structs
 SUBDIRS += lib docs examples po
 
 # The daemon and the appliance.

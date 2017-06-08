@@ -27,6 +27,7 @@
 #include <errno.h>
 
 #include "guestfs.h"
+#include "structs-cleanups.h"
 #include "options.h"
 #include "domains.h"
 #include "virt-df.h"

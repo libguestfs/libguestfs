@@ -63,11 +63,6 @@ extern void guestfs_int_fadvise_noreuse (int fd);
 //extern void guestfs_int_fadvise_willneed (int fd);
 extern char *guestfs_int_shell_unquote (const char *str);
 
-/* These are in a separate header so the header can be generated.
- * Don't include the following file directly:
- */
-#include "guestfs-internal-frontend-cleanups.h"
-
 /* Not all language bindings know how to deal with Pointer arguments.
  * Those that don't will use this macro which complains noisily and
  * returns NULL.

@@ -108,6 +108,7 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/common/utils/.libs \
+	-I $(top_builddir)/common/structs/.libs \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
@@ -122,6 +123,7 @@ endif
 
 OCAMLCLIBS = \
 	-lvisit \
+	-lstructs \
 	-lutils \
 	$(LIBTINFO_LIBS) \
 	$(LIBCRYPT_LIBS) \

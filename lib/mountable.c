@@ -23,7 +23,7 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
-
+#include "structs-cleanups.h"
 
 char *
 guestfs_impl_mountable_device (guestfs_h *g, const char *mountable)

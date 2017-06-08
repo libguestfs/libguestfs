@@ -58,7 +58,7 @@ libguestfs_la_SOURCES = \
 	../common/protocol/guestfs_protocol.h \
 	../common/qemuopts/qemuopts.h \
 	../common/utils/guestfs-internal-frontend.h \
-	../common/utils/guestfs-internal-frontend-cleanups.h \
+	../common/structs/structs-cleanups.h \
 	guestfs.h \
 	guestfs-internal.h \
 	guestfs-internal-all.h \
@@ -140,6 +140,7 @@ libguestfs_la_CPPFLAGS = \
 	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
 	-I$(top_srcdir)/common/qemuopts -I$(top_builddir)/common/qemuopts \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib
 
 libguestfs_la_CFLAGS = \
@@ -155,6 +156,7 @@ libguestfs_la_LIBADD = \
 	../common/errnostring/liberrnostring.la \
 	../common/protocol/libprotocol.la \
 	../common/qemuopts/libqemuopts.la \
+	../common/structs/libstructs.la \
 	../common/utils/libutils.la \
 	$(PCRE_LIBS) $(MAGIC_LIBS) \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
@@ -216,6 +218,7 @@ unit_tests_SOURCES = unit-tests.c
 unit_tests_CPPFLAGS = \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/common/utils -I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/common/structs -I$(top_builddir)/common/structs \
 	-I$(top_srcdir)/lib -I.
 unit_tests_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
@@ -223,6 +226,7 @@ unit_tests_CFLAGS = \
 # non-exported functions we have to link with the objects not the
 # library.
 unit_tests_LDADD = \
+	../common/structs/libstructs.la \
 	../common/utils/libutils.la \
 	$(libguestfs_la_OBJECTS) \
 	$(libguestfs_la_LIBADD)

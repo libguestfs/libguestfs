@@ -794,20 +794,17 @@ and generate_internal_actions_h () =
   pr "\n";
   pr "#endif /* GUESTFS_INTERNAL_ACTIONS_H_ */\n"
 
-(* Generate guestfs-internal-frontend-cleanups.h file. *)
-and generate_internal_frontend_cleanups_h () =
+(* Generate structs-cleanups.h file. *)
+and generate_client_structs_cleanups_h () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
 /* These CLEANUP_* macros automatically free the struct or struct list
  * pointed to by the local variable at the end of the current scope.
- *
- * Don't include this file directly!  To use these cleanups in library
- * bindings and tools, include \"guestfs-internal-frontend.h\" only.
  */
 
-#ifndef GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_
-#define GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_
+#ifndef GUESTFS_STRUCTS_CLEANUPS_H_
+#define GUESTFS_STRUCTS_CLEANUPS_H_
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
 ";
@@ -846,7 +843,7 @@ and generate_internal_frontend_cleanups_h () =
   ) structs;
 
   pr "\n";
-  pr "#endif /* GUESTFS_INTERNAL_FRONTEND_CLEANUPS_H_ */\n"
+  pr "#endif /* GUESTFS_STRUCTS_CLEANUPS_H_ */\n"
 
 (* Functions to free structures. *)
 and generate_client_structs_free () =
@@ -1166,7 +1163,7 @@ and generate_client_structs_copy () =
   ) structs
 
 (* Functions to free structures used by the CLEANUP_* macros. *)
-and generate_client_structs_cleanup () =
+and generate_client_structs_cleanups_c () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
@@ -1176,7 +1173,7 @@ and generate_client_structs_cleanup () =
 #include <stdlib.h>
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\"
+#include \"structs-cleanups.h\"
 
 ";
 

@@ -48,6 +48,7 @@
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
+#include "structs-cleanups.h"
 
 COMPILE_REGEXP (re_windows_version, "^(\\d+)\\.(\\d+)", 0)
 COMPILE_REGEXP (re_boot_ini_os_header, "^\\[operating systems\\]\\s*$", 0)

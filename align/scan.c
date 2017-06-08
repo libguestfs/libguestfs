@@ -41,6 +41,7 @@
 #include "getprogname.h"
 
 #include "guestfs.h"
+#include "structs-cleanups.h"
 #include "options.h"
 #include "display-options.h"
 #include "parallel.h"

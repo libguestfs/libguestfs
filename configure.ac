@@ -206,6 +206,7 @@ AC_CONFIG_FILES([Makefile
                  common/progress/Makefile
                  common/protocol/Makefile
                  common/qemuopts/Makefile
+                 common/structs/Makefile
                  common/utils/Makefile
                  common/visit/Makefile
                  common/windows/Makefile

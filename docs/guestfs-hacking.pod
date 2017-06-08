@@ -137,6 +137,11 @@ and the daemon running inside the appliance is defined here.
 
 Mini-library for writing qemu command lines and qemu config files.
 
+=item F<common/structs>
+
+Common code for printing and freeing libguestfs structs, used by the
+library and some tools.
+
 =item F<common/utils>
 
 Various utility functions used throughout the library and tools.

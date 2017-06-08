@@ -35,6 +35,7 @@
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
+#include "structs-cleanups.h"
 
 static int check_filesystem (guestfs_h *g, const char *mountable,
                              const struct guestfs_internal_mountable *m,

@@ -45,6 +45,7 @@
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
+#include "structs-cleanups.h"
 
 static struct backend {
   struct backend *next;

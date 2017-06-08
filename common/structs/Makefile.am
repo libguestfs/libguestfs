@@ -17,22 +17,28 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-noinst_LTLIBRARIES = libutils.la
+generator_built = \
+	structs-cleanups.c \
+	structs-cleanups.h \
+	structs-print.c \
+	structs-print.h
 
-libutils_la_SOURCES = \
+BUILT_SOURCES = \
+	$(generator_built)
+
+EXTRA_DIST = \
+	$(BUILT_SOURCES)
+
+noinst_LTLIBRARIES = libstructs.la
+
+libstructs_la_SOURCES = \
 	../../lib/guestfs.h \
-	cleanups.c \
-	cleanups.h \
-	gnulib-cleanups.c \
-	guestfs-internal-frontend.h \
-	libxml2-cleanups.c \
-	utils.c
-libutils_la_CPPFLAGS = \
+	$(BUILT_SOURCES)
+libstructs_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
 	-I$(top_srcdir)/gnulib/lib -I$(top_builddir)/gnulib/lib \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib
-libutils_la_CFLAGS = \
+libstructs_la_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
-	$(GCC_VISIBILITY_HIDDEN) \
-	$(LIBXML2_CFLAGS)
+	$(GCC_VISIBILITY_HIDDEN)

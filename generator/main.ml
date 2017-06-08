@@ -86,13 +86,13 @@ Run it from the top source directory using the command
             Errnostring.generate_errnostring_h;
   output_to "common/protocol/guestfs_protocol.x"
             XDR.generate_xdr;
-  output_to "common/utils/guestfs-internal-frontend-cleanups.h"
-            C.generate_internal_frontend_cleanups_h;
-  output_to "common/utils/structs-cleanup.c"
-            C.generate_client_structs_cleanup;
-  output_to "common/utils/structs-print.c"
+  output_to "common/structs/structs-cleanups.h"
+            C.generate_client_structs_cleanups_h;
+  output_to "common/structs/structs-cleanups.c"
+            C.generate_client_structs_cleanups_c;
+  output_to "common/structs/structs-print.c"
             C.generate_client_structs_print_c;
-  output_to "common/utils/structs-print.h"
+  output_to "common/structs/structs-print.h"
             C.generate_client_structs_print_h;
   output_to "lib/uefi.c"
             UEFI.generate_uefi_c;

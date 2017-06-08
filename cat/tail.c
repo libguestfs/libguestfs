@@ -37,6 +37,7 @@
 #include "ignore-value.h"
 
 #include "guestfs.h"
+#include "structs-cleanups.h"
 #include "options.h"
 #include "display-options.h"
 #include "windows.h"
