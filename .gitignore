@@ -123,6 +123,7 @@ Makefile.in
 /common/errnostring/errnostring-gperf.gperf
 /common/errnostring/errnostring.h
 /common/miniexpect/miniexpect.3
+/common/mlprogress/.depend
 /common/mlvisit/.depend
 /common/mlvisit/visit_tests
 /common/protocol/guestfs_protocol.c

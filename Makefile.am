@@ -154,6 +154,7 @@ SUBDIRS += csharp
 # shared code used by other OCaml tools, so these must come first.
 if HAVE_OCAML
 SUBDIRS += \
+	common/mlprogress \
 	common/mlvisit \
 	mllib \
 	customize \

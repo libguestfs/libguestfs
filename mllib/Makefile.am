@@ -36,7 +36,6 @@ SOURCES_MLI = \
 	getopt.mli \
 	JSON.mli \
 	planner.mli \
-	progress.mli \
 	regedit.mli \
 	registry.mli \
 	stringMap.mli \
@@ -51,7 +50,6 @@ SOURCES_ML = \
 	getopt.ml \
 	unix_utils.ml \
 	common_utils.ml \
-	progress.ml \
 	URI.ml \
 	planner.ml \
 	registry.ml \
@@ -66,10 +64,8 @@ SOURCES_C = \
 	../common/options/decrypt.c \
 	../common/options/keys.c \
 	../common/options/uri.c \
-	../common/progress/progress.c \
 	common_utils-c.c \
 	getopt-c.c \
-	progress-c.c \
 	unix_utils-c.c \
 	uri-c.c \
 	xml-c.c
@@ -99,8 +95,7 @@ libmllib_a_CPPFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	-I$(top_srcdir)/common/utils \
 	-I$(top_srcdir)/lib \
-	-I$(top_srcdir)/common/options \
-	-I$(top_srcdir)/common/progress
+	-I$(top_srcdir)/common/options
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \

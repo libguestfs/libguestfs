@@ -15,6 +15,7 @@ common/edit/file-edit.c
 common/edit/file-edit.h
 common/miniexpect/miniexpect.c
 common/miniexpect/miniexpect.h
+common/mlprogress/progress-c.c
 common/mlvisit/dummy.c
 common/mlvisit/visit-c.c
 common/options/config.c
@@ -339,7 +340,6 @@ make-fs/make-fs.c
 mllib/common_utils-c.c
 mllib/dummy.c
 mllib/getopt-c.c
-mllib/progress-c.c
 mllib/unix_utils-c.c
 mllib/uri-c.c
 mllib/xml-c.c

@@ -62,15 +62,18 @@ XOBJECTS = $(BOBJECTS:.cmo=.cmx)
 OCAMLPACKAGES = \
 	-package str,unix \
 	-I $(top_builddir)/common/utils/.libs \
+	-I $(top_builddir)/common/progress/.libs \
 	-I $(top_builddir)/lib/.libs \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
+	-I $(top_builddir)/common/mlprogress \
 	-I $(top_builddir)/mllib
 if HAVE_OCAML_PKG_GETTEXT
 OCAMLPACKAGES += -package gettext-stub
 endif
 
 OCAMLCLIBS = \
+	-lprogress \
 	-lutils \
 	$(LIBTINFO_LIBS) \
 	$(LIBXML2_LIBS) \
@@ -85,7 +88,11 @@ else
 OBJECTS = $(XOBJECTS)
 endif
 
-OCAMLLINKFLAGS = mlguestfs.$(MLARCHIVE) mllib.$(MLARCHIVE) $(LINK_CUSTOM_OCAMLC_ONLY)
+OCAMLLINKFLAGS = \
+	mlguestfs.$(MLARCHIVE) \
+	mlprogress.$(MLARCHIVE) \
+	mllib.$(MLARCHIVE) \
+	$(LINK_CUSTOM_OCAMLC_ONLY)
 
 virt_sparsify_DEPENDENCIES = \
 	$(OBJECTS) \
