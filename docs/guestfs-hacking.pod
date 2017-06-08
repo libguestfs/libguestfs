@@ -117,6 +117,10 @@ Common code for printing progress bars.
 The XDR-based communication protocol used between the library
 and the daemon running inside the appliance is defined here.
 
+=item F<common/qemuopts>
+
+Mini-library for writing qemu command lines and qemu config files.
+
 =item F<common/utils>
 
 Various utility functions used throughout the library and tools.
