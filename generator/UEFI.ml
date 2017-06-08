@@ -86,7 +86,8 @@ let generate_uefi_c () =
   pr "\n";
   pr "#include <stdio.h>\n";
   pr "\n";
-  pr "#include \"guestfs-internal-frontend.h\"\n";
+  pr "#include \"guestfs.h\"\n";
+  pr "#include \"guestfs-internal.h\"\n";
 
   List.iter (
     fun arch ->

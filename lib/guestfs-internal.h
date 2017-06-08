@@ -1011,4 +1011,16 @@ extern bool guestfs_int_version_cmp_ge (const struct version *a, const struct ve
 #define version_init_null(v) guestfs_int_version_from_values (v, 0, 0, 0)
 #define version_is_null(v) ((v)->v_major == 0 && (v)->v_minor == 0 && (v)->v_micro == 0)
 
+/* uefi.c */
+struct uefi_firmware {
+  const char *code;             /* code file (NULL = end of list) */
+  const char *code_debug;       /* code file with debugging msgs (may be NULL)*/
+  const char *vars;             /* vars template file */
+  int flags;                    /* various flags, see below */
+#define UEFI_FLAG_SECURE_BOOT_REQUIRED 1 /* secure boot (see RHBZ#1367615) */
+};
+extern struct uefi_firmware guestfs_int_uefi_i386_firmware[];
+extern struct uefi_firmware guestfs_int_uefi_x86_64_firmware[];
+extern struct uefi_firmware guestfs_int_uefi_aarch64_firmware[];
+
 #endif /* GUESTFS_INTERNAL_H_ */

@@ -124,10 +124,11 @@ libguestfs_la_SOURCES = \
 	structs-free.c \
 	tmpdirs.c \
 	tsk.c \
+	uefi.c \
 	umask.c \
+	version.c \
 	wait.c \
 	whole-file.c \
-	version.c \
 	yara.c \
 	libguestfs.syms
 

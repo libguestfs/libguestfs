@@ -94,7 +94,7 @@ Run it from the top source directory using the command
             C.generate_client_structs_print_c;
   output_to "common/utils/structs-print.h"
             C.generate_client_structs_print_h;
-  output_to "common/utils/uefi.c"
+  output_to "lib/uefi.c"
             UEFI.generate_uefi_c;
   output_to "lib/guestfs.h"
             C.generate_guestfs_h;

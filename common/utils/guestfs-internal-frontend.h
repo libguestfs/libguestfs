@@ -102,18 +102,6 @@ extern void guestfs_int_fadvise_noreuse (int fd);
 //extern void guestfs_int_fadvise_willneed (int fd);
 extern char *guestfs_int_shell_unquote (const char *str);
 
-/* uefi.c */
-struct uefi_firmware {
-  const char *code;		/* code file (NULL = end of list) */
-  const char *code_debug;	/* code file with debugging msgs (may be NULL)*/
-  const char *vars;		/* vars template file */
-  int flags;                    /* various flags, see below */
-#define UEFI_FLAG_SECURE_BOOT_REQUIRED 1 /* secure boot (see RHBZ#1367615) */
-};
-extern struct uefi_firmware guestfs_int_uefi_i386_firmware[];
-extern struct uefi_firmware guestfs_int_uefi_x86_64_firmware[];
-extern struct uefi_firmware guestfs_int_uefi_aarch64_firmware[];
-
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
  */

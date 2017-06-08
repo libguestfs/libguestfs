@@ -140,7 +140,6 @@ Makefile.in
 /common/utils/structs-cleanup.c
 /common/utils/structs-print.c
 /common/utils/structs-print.h
-/common/utils/uefi.c
 /compile
 /config.cache
 /config.guess
@@ -337,6 +336,7 @@ Makefile.in
 /lib/structs-copy.c
 /lib/structs-free.c
 /lib/unit-tests
+/lib/uefi.c
 /libguestfs.spec
 /libguestfs-*.tar.gz
 /libtool

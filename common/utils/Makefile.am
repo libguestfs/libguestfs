@@ -21,8 +21,7 @@ generator_built = \
 	guestfs-internal-frontend-cleanups.h \
 	structs-cleanup.c \
 	structs-print.c \
-	structs-print.h \
-	uefi.c
+	structs-print.h
 
 BUILT_SOURCES = \
 	$(generator_built)
@@ -40,7 +39,6 @@ libutils_la_SOURCES = \
 	structs-cleanup.c \
 	structs-print.c \
 	structs-print.h \
-	uefi.c \
 	utils.c
 libutils_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
