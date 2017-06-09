@@ -101,9 +101,9 @@ stamp-extra-files: \
 	  cleanups.h \
 	  config.h \
 	  guestfs-internal-all.h \
-	  guestfs-internal-frontend.h \
+	  guestfs-utils.h
 	  ignore-value.h \
-	  utils.c
+	  utils.c \
 	touch $@
 
 config.h:
@@ -124,8 +124,8 @@ ignore-value.h:
 guestfs-internal-all.h:
 	ln $(top_srcdir)/lib/guestfs-internal-all.h $@
 
-guestfs-internal-frontend.h:
-	ln $(top_srcdir)/common/utils/guestfs-internal-frontend.h $@
+guestfs-utils.h:
+	ln $(top_srcdir)/common/utils/guestfs-utils.h $@
 
 utils.c:
 	ln $(top_srcdir)/common/utils/utils.c $@
@@ -152,7 +152,7 @@ CLEANFILES += \
 	cleanups.c \
 	cleanups.h \
 	guestfs-internal-all.h \
-	guestfs-internal-frontend.h \
+	guestfs-utils.h \
 	ignore-value.h \
 	stamp-extra-files \
 	utils.c

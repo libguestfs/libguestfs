@@ -31,7 +31,7 @@
 #include "xgetcwd.h"
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 static void
 make_test_xml (FILE *fp, const char *cwd)

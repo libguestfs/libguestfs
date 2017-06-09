@@ -57,7 +57,7 @@ libguestfs_la_SOURCES = \
 	../common/errnostring/errnostring.h \
 	../common/protocol/guestfs_protocol.h \
 	../common/qemuopts/qemuopts.h \
-	../common/utils/guestfs-internal-frontend.h \
+	../common/utils/guestfs-utils.h \
 	../common/structs/structs-cleanups.h \
 	guestfs.h \
 	guestfs-internal.h \

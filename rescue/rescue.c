@@ -40,7 +40,7 @@
 #include "xvasprintf.h"
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #include "windows.h"
 #include "options.h"

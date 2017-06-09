@@ -24,7 +24,7 @@ libutils_la_SOURCES = \
 	cleanups.c \
 	cleanups.h \
 	gnulib-cleanups.c \
-	guestfs-internal-frontend.h \
+	guestfs-utils.h \
 	libxml2-cleanups.c \
 	utils.c
 libutils_la_CPPFLAGS = \

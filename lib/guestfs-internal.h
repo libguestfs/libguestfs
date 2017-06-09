@@ -20,8 +20,7 @@
  * This header file is included in the libguestfs library (F<lib/>)
  * only.
  *
- * See also F<lib/guestfs-internal-frontend.h> and
- * F<lib/guestfs-internal-all.h>
+ * See also F<lib/guestfs-internal-all.h>.
  */
 
 #ifndef GUESTFS_INTERNAL_H_
@@ -55,7 +54,7 @@
 
 #include "hash.h"
 
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #if ENABLE_PROBES
 #include <sys/sdt.h>

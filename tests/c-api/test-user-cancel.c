@@ -48,7 +48,7 @@
 #include "cloexec.h"
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 static const off_t filesize = 1024*1024*1024;
 

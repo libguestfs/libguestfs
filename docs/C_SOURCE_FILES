@@ -51,7 +51,7 @@ common/structs/structs-print.c
 common/structs/structs-print.h
 common/utils/cleanups.c
 common/utils/cleanups.h
-common/utils/guestfs-internal-frontend.h
+common/utils/guestfs-utils.h
 common/utils/libxml2-cleanups.c
 common/utils/utils.c
 common/visit/visit.c

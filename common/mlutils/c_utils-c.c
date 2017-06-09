@@ -36,7 +36,7 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #endif
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 

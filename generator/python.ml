@@ -42,7 +42,7 @@ let rec generate_python_actions_h () =
 #define GUESTFS_PYTHON_ACTIONS_H_
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-utils.h\"
 
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;

@@ -254,7 +254,7 @@ instead of erl_interface.
 */
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-utils.h\"
 
 #include \"actions.h\"
 ";
@@ -344,7 +344,7 @@ instead of erl_interface.
 */
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-utils.h\"
 
 #include \"actions.h\"
 ";
@@ -535,7 +535,7 @@ instead of erl_interface.
 */
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-utils.h\"
 
 #include \"actions.h\"
 

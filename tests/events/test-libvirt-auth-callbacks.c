@@ -28,7 +28,7 @@
 #include <libvirt/libvirt.h>
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #define EXPECT_OK 1
 #define EXPECT_FAIL -1

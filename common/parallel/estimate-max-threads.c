@@ -26,7 +26,7 @@
 #include <libintl.h>
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 #include "estimate-max-threads.h"
 
 static char *read_line_from (const char *cmd);

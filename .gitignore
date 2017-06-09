@@ -496,7 +496,7 @@ Makefile.in
 /python/guestfs.pyc
 /python/guestfs.pyo
 /python/guestfs-internal-all.h
-/python/guestfs-internal-frontend.h
+/python/guestfs-utils.h
 /python/ignore-value.h
 /python/MANIFEST
 /python/module.c

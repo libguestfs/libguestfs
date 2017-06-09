@@ -35,7 +35,7 @@
 #include <sys/wait.h>
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #include "xstrtol.h"
 #include "getprogname.h"

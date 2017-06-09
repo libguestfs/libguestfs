@@ -40,7 +40,7 @@
 #include <caml/callback.h>
 #include <caml/printexc.h>
 
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 extern value guestfs_int_mllib_getopt_parse (value argsv, value specsv, value anon_funv, value usage_msgv);
 

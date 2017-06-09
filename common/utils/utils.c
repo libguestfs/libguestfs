@@ -47,7 +47,7 @@
 
 /* NB: MUST NOT include "guestfs-internal.h". */
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 void
 guestfs_int_free_string_list (char **argv)

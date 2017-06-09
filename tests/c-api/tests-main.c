@@ -37,7 +37,7 @@
 #define GUESTFS_WARN_DEPRECATED 1
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 #include "structs-cleanups.h"
 
 #include "tests.h"

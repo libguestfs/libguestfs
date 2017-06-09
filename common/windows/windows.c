@@ -34,7 +34,7 @@
 #include <langinfo.h>
 #include <libintl.h>
 
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #include "c-ctype.h"
 

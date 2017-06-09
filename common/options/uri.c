@@ -37,7 +37,7 @@
 #include "getprogname.h"
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 #include "uri.h"
 
 static int is_uri (const char *arg);

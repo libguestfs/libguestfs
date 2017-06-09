@@ -55,7 +55,7 @@ let rec generate_ruby_h () =
 #endif
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\" /* Only for POINTER_NOT_IMPLEMENTED */
+#include \"guestfs-utils.h\" /* Only for POINTER_NOT_IMPLEMENTED */
 
 #include \"extconf.h\"
 

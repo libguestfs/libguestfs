@@ -33,7 +33,7 @@
 #include "getprogname.h"
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #define GUESTMOUNT_BINARY "guestmount"
 #define GUESTUNMOUNT_BINARY "guestunmount"

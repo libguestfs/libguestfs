@@ -32,10 +32,10 @@
 /* We don't use libguestfs directly here, and we don't link to it
  * either (in fact, we don't want libguestfs on the ISO).  However
  * we include this just so that we can use the convenience macros in
- * guestfs-internal-frontend.h.
+ * utils.h.
  */
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 /* Ensure we don't use libguestfs. */
 #define guestfs_h DO_NOT_USE

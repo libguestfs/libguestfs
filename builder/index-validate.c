@@ -31,7 +31,7 @@
 #include <guestfs.h>
 
 #include "getprogname.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #include "index-struct.h"
 #include "index-parse.h"

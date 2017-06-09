@@ -63,7 +63,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #include "glthread/lock.h"
 #include "hash.h"

@@ -64,7 +64,7 @@ let generate_lua_c () =
 #endif
 
 #include <guestfs.h>
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-utils.h\"
 
 #define GUESTFS_LUA_HANDLE \"guestfs handle\"
 

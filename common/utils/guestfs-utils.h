@@ -29,8 +29,8 @@
  * B<not> be here!
  */
 
-#ifndef GUESTFS_INTERNAL_FRONTEND_H_
-#define GUESTFS_INTERNAL_FRONTEND_H_
+#ifndef GUESTFS_UTILS_H_
+#define GUESTFS_UTILS_H_
 
 #include <stdbool.h>
 
@@ -103,4 +103,4 @@ extern char *guestfs_int_shell_unquote (const char *str);
       fputs ("\033[0m", (fp));                   \
   } while (0)
 
-#endif /* GUESTFS_INTERNAL_FRONTEND_H_ */
+#endif /* GUESTFS_UTILS_H_ */

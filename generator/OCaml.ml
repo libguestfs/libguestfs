@@ -425,7 +425,7 @@ and generate_ocaml_c () =
 #include <caml/signals.h>
 
 #include <guestfs.h>
-#include \"guestfs-internal-frontend.h\"
+#include \"guestfs-utils.h\"
 
 #include \"guestfs-c.h\"
 

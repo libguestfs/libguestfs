@@ -90,7 +90,7 @@ and generate_php_c () =
 #include <php_guestfs_php.h>
 
 #include \"guestfs.h\"
-#include \"guestfs-internal-frontend.h\" /* Only for POINTER_NOT_IMPLEMENTED */
+#include \"guestfs-utils.h\" /* Only for POINTER_NOT_IMPLEMENTED */
 
 static int res_guestfs_h;
 

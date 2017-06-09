@@ -23,7 +23,7 @@
 
 #include <stdbool.h>
 
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 /* Provided by guestfish or guestmount. */
 extern guestfs_h *g;

@@ -99,7 +99,7 @@ let generate_fish_run_cmds actions () =
   pr "#include \"getprogname.h\"\n";
   pr "\n";
   pr "#include \"guestfs.h\"\n";
-  pr "#include \"guestfs-internal-frontend.h\"\n";
+  pr "#include \"guestfs-utils.h\"\n";
   pr "#include \"structs-print.h\"\n";
   pr "\n";
   pr "#include \"fish.h\"\n";
@@ -607,7 +607,7 @@ let generate_fish_cmds () =
   pr "#include <errno.h>\n";
   pr "\n";
   pr "#include \"guestfs.h\"\n";
-  pr "#include \"guestfs-internal-frontend.h\"\n";
+  pr "#include \"guestfs-utils.h\"\n";
   pr "#include \"structs-print.h\"\n";
   pr "\n";
   pr "#include \"fish.h\"\n";

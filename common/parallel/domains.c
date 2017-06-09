@@ -41,7 +41,7 @@
 #endif
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 #include "domains.h"
 
 #if defined(HAVE_LIBVIRT)

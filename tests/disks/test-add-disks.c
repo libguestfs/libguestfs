@@ -34,7 +34,7 @@
 #include <assert.h>
 
 #include <guestfs.h>
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 #include "getprogname.h"
 

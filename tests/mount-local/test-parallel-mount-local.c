@@ -38,7 +38,7 @@
 #include <pthread.h>
 
 #include "guestfs.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 #include "estimate-max-threads.h"
 
 #include "ignore-value.h"

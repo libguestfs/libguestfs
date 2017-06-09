@@ -38,7 +38,7 @@
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
-#include "guestfs-internal-frontend.h"
+#include "guestfs-utils.h"
 
 /**
  * Test C<guestfs_int_split_string>.
