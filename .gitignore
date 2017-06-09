@@ -129,6 +129,9 @@ Makefile.in
 /common/mlstdutils/libdir.ml
 /common/mlstdutils/oUnit-*
 /common/mlstdutils/std_utils_tests
+/common/mlutils/.depend
+/common/mlutils/c_utils_unit_tests
+/common/mlutils/oUnit-*
 /common/mlvisit/.depend
 /common/mlvisit/visit_tests
 /common/mlxml/.depend

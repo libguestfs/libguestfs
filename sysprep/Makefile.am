@@ -114,6 +114,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/visit/.libs \
 	-I $(top_builddir)/common/mlstdutils \
+	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/mlvisit \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -142,6 +143,7 @@ endif
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
+	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
 	mlvisit.$(MLARCHIVE) \
 	customize.$(MLARCHIVE) \
@@ -150,6 +152,7 @@ OCAMLLINKFLAGS = \
 virt_sysprep_DEPENDENCIES = \
 	$(OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
+	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	../customize/customize.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
@@ -218,7 +221,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/mlstdutils -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

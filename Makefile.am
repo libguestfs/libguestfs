@@ -155,18 +155,18 @@ SUBDIRS += csharp
 # OCaml tools.  Note 'common/ml*', 'mllib' and 'customize' contain
 # shared code used by other OCaml tools, so these must come first.
 if HAVE_OCAML
-SUBDIRS += \
-	common/mlprogress \
-	common/mlvisit \
-	common/mlxml \
-	mllib \
-	customize \
-	builder builder/templates \
-	get-kernel \
-	resize \
-	sparsify \
-	sysprep \
-	v2v
+SUBDIRS += common/mlutils
+SUBDIRS += common/mlprogress
+SUBDIRS += common/mlvisit
+SUBDIRS += common/mlxml
+SUBDIRS += mllib
+SUBDIRS += customize
+SUBDIRS += builder builder/templates
+SUBDIRS += get-kernel
+SUBDIRS += resize
+SUBDIRS += sparsify
+SUBDIRS += sysprep
+SUBDIRS += v2v
 if HAVE_OCAML_PKG_LIBVIRT
 SUBDIRS += v2v/test-harness
 endif

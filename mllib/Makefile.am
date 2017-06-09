@@ -28,7 +28,6 @@ EXTRA_DIST = \
 
 SOURCES_MLI = \
 	checksums.mli \
-	unix_utils.mli \
 	common_utils.mli \
 	curl.mli \
 	getopt.mli \
@@ -43,7 +42,6 @@ SOURCES_ML = \
 	$(OCAML_BYTES_COMPAT_ML) \
 	common_gettext.ml \
 	getopt.ml \
-	unix_utils.ml \
 	common_utils.ml \
 	URI.ml \
 	planner.ml \
@@ -60,7 +58,6 @@ SOURCES_C = \
 	../common/options/uri.c \
 	common_utils-c.c \
 	getopt-c.c \
-	unix_utils-c.c \
 	uri-c.c
 
 if HAVE_OCAML
@@ -90,7 +87,8 @@ libmllib_a_CPPFLAGS = \
 	-I$(top_srcdir)/lib \
 	-I$(top_srcdir)/common/options \
 	-I$(top_srcdir)/common/mlxml \
-	-I$(top_srcdir)/common/mlstdutils
+	-I$(top_srcdir)/common/mlstdutils \
+	-I$(top_srcdir)/common/mlutils
 libmllib_a_CFLAGS = \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS) \
 	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
@@ -110,6 +108,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/common/mlstdutils \
+	-I $(top_builddir)/common/mlutils \
 	-I $(builddir)
 OCAMLPACKAGES_TESTS = $(MLLIB_CMA)
 if HAVE_OCAML_PKG_GETTEXT
@@ -189,6 +188,7 @@ endif
 
 OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
+	mlcutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 

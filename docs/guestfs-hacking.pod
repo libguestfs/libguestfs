@@ -108,6 +108,11 @@ A library of pure OCaml utility functions used in many places.
 
 OCaml bindings for the progress bar functions (see F<common/progress>).
 
+=item F<common/mlutils>
+
+OCaml bindings for C functions in C<common/utils>, and some POSIX
+bindings which are missing from the OCaml stdlib.
+
 =item F<common/mlvisit>
 
 OCaml bindings for the visit functions (see F<common/visit>).

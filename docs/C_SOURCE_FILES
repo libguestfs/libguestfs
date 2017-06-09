@@ -17,6 +17,9 @@ common/miniexpect/miniexpect.c
 common/miniexpect/miniexpect.h
 common/mlprogress/progress-c.c
 common/mlstdutils/dummy.c
+common/mlutils/c_utils-c.c
+common/mlutils/dummy.c
+common/mlutils/unix_utils-c.c
 common/mlvisit/dummy.c
 common/mlvisit/visit-c.c
 common/mlxml/xml-c.c
@@ -344,7 +347,6 @@ make-fs/make-fs.c
 mllib/common_utils-c.c
 mllib/dummy.c
 mllib/getopt-c.c
-mllib/unix_utils-c.c
 mllib/uri-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
@@ -410,4 +412,3 @@ utils/qemu-speed-test/qemu-speed-test.c
 v2v/libvirt_utils-c.c
 v2v/qemuopts-c.c
 v2v/test-harness/dummy.c
-v2v/utils-c.c

@@ -111,8 +111,7 @@ SOURCES_ML = \
 
 SOURCES_C = \
 	libvirt_utils-c.c \
-	qemuopts-c.c \
-	utils-c.c
+	qemuopts-c.c
 
 if HAVE_OCAML
 
@@ -147,6 +146,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/gnulib/lib/.libs \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
+	-I $(top_builddir)/common/mlutils \
 	-I $(top_builddir)/common/mlxml \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
@@ -174,6 +174,7 @@ OCAMLLINKFLAGS = \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlxml.$(MLARCHIVE) \
+	mlcutils.$(MLARCHIVE) \
 	mllib.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
 
@@ -184,8 +185,7 @@ virt_v2v_LINK = \
 	  $(OBJECTS) -o $@
 
 virt_v2v_copy_to_local_SOURCES = \
-	libvirt_utils-c.c \
-	utils-c.c
+	libvirt_utils-c.c
 virt_v2v_copy_to_local_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
@@ -214,6 +214,7 @@ virt_v2v_copy_to_local_DEPENDENCIES = \
 	$(COPY_TO_LOCAL_OBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
+	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 virt_v2v_copy_to_local_LINK = \
@@ -500,6 +501,7 @@ v2v_unit_tests_DEPENDENCIES = \
 	$(v2v_unit_tests_THEOBJECTS) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlxml/mlxml.$(MLARCHIVE) \
+	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
 	$(top_srcdir)/ocaml-link.sh
 v2v_unit_tests_LINK = \
@@ -514,7 +516,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

@@ -18,6 +18,7 @@
 
 open Printf
 
+open C_utils
 open Std_utils
 open Common_utils
 open Common_gettext.Gettext
@@ -40,7 +41,7 @@ and parsed_source =
  *)
 let get_drive_slot str offset =
   let name = String.sub str offset (String.length str - offset) in
-  try Some (Utils.drive_index name)
+  try Some (drive_index name)
   with Invalid_argument _ ->
        warning (f_"could not parse device name ‘%s’ from the source libvirt XML") str;
        None

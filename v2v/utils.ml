@@ -24,11 +24,6 @@ open Std_utils
 open Common_utils
 open Common_gettext.Gettext
 
-external drive_name : int -> string = "v2v_utils_drive_name"
-external drive_index : string -> int = "v2v_utils_drive_index"
-
-external shell_unquote : string -> string = "v2v_utils_shell_unquote"
-
 (* URI quoting. *)
 let uri_quote str =
   let len = String.length str in

@@ -199,6 +199,7 @@ AC_CONFIG_FILES([Makefile
                  common/mlprogress/Makefile
                  common/mlstdutils/Makefile
                  common/mlstdutils/guestfs_config.ml
+                 common/mlutils/Makefile
                  common/mlvisit/Makefile
                  common/mlxml/Makefile
                  common/options/Makefile

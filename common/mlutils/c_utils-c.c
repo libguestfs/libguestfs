@@ -41,7 +41,7 @@ extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 value
-v2v_utils_drive_name (value indexv)
+guestfs_int_mlutils_drive_name (value indexv)
 {
   CAMLparam1 (indexv);
   CAMLlocal1 (namev);
@@ -54,7 +54,7 @@ v2v_utils_drive_name (value indexv)
 }
 
 value
-v2v_utils_drive_index (value strv)
+guestfs_int_mlutils_drive_index (value strv)
 {
   CAMLparam1 (strv);
   ssize_t r;
@@ -67,7 +67,7 @@ v2v_utils_drive_index (value strv)
 }
 
 value
-v2v_utils_shell_unquote (value strv)
+guestfs_int_mlutils_shell_unquote (value strv)
 {
   CAMLparam1 (strv);
   CAMLlocal1 (retv);

@@ -18,17 +18,6 @@
 
 (** Utilities used in virt-v2v only. *)
 
-val drive_name : int -> string
-val drive_index : string -> int
-
-val shell_unquote : string -> string
-(** If the string looks like a shell quoted string, then attempt to
-    unquote it.
-
-    This is just intended to deal with quoting in configuration files
-    (like ones under /etc/sysconfig), and it doesn't deal with some
-    situations such as $variable interpolation. *)
-
 val uri_quote : string -> string
 (** Take a string and perform %xx escaping as used in some parts of URLs. *)
 
