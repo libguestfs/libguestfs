@@ -147,6 +147,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   size_t i;
   struct hv_param *hp;
   char *term = getenv ("TERM");
+  sigset_t sigset;
 
   if (!uml_supported (g))
     return -1;
@@ -323,6 +324,11 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
       close_file_descriptors (fd > 2 && fd != dsv[1]);
     }
 
+    /* RHBZ#1460338. */
+    sigemptyset (&sigset);
+    sigaddset (&sigset, SIGTERM);
+    sigprocmask (SIG_UNBLOCK, &sigset, NULL);
+
     /* Dump the command line (after setting up stderr above). */
     if (g->verbose)
       print_vmlinux_command_line (g, cmdline.argv);
@@ -368,6 +374,11 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
        * hold open (eg) pipes from the parent process.
        */
       close_file_descriptors (1);
+
+      /* RHBZ#1460338 */
+      sigemptyset (&sigset);
+      sigaddset (&sigset, SIGTERM);
+      sigprocmask (SIG_UNBLOCK, &sigset, NULL);
 
       /* It would be nice to be able to put this in the same process
        * group as vmlinux (ie. setpgid (0, vmlinux_pid)).  However

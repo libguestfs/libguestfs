@@ -361,6 +361,7 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   const char *cpu_model;
   CLEANUP_FREE char *append = NULL;
   CLEANUP_FREE_STRING_LIST char **argv = NULL;
+  sigset_t sigset;
 
   /* At present you must add drives before starting the appliance.  In
    * future when we enable hotplugging you won't need to do this.
@@ -728,6 +729,13 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       close_file_descriptors (fd > 2);
     }
 
+    /* Unblock the SIGTERM signal since we will need to send that to
+     * the subprocess (RHBZ#1460338).
+     */
+    sigemptyset (&sigset);
+    sigaddset (&sigset, SIGTERM);
+    sigprocmask (SIG_UNBLOCK, &sigset, NULL);
+
     /* Dump the command line (after setting up stderr above). */
     if (g->verbose)
       qemuopts_to_channel (qopts, stderr);
@@ -780,6 +788,13 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
        * hold open (eg) pipes from the parent process.
        */
       close_file_descriptors (1);
+
+      /* Unblock the SIGTERM signal since we will need to respond to
+       * SIGTERM from the parent (RHBZ#1460338).
+       */
+      sigemptyset (&sigset);
+      sigaddset (&sigset, SIGTERM);
+      sigprocmask (SIG_UNBLOCK, &sigset, NULL);
 
       /* It would be nice to be able to put this in the same process
        * group as qemu (ie. setpgid (0, qemu_pid)).  However this is
