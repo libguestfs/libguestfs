@@ -625,6 +625,7 @@ do_pvresize_size (const char *device, int64_t size)
 
   r = command (NULL, &err,
                str_lvm, "pvresize",
+               "--yes",
                "--setphysicalvolumesize", buf,
                device, NULL);
   if (r == -1) {
