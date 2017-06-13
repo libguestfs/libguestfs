@@ -178,6 +178,21 @@ guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y)
   return msec;
 }
 
+/**
+ * Unblock the C<SIGTERM> signal.  Call this after L<fork(2)> so that
+ * the parent process can send C<SIGTERM> to the child process in case
+ * C<SIGTERM> is blocked.  See L<https://bugzilla.redhat.com/1460338>.
+ */
+void
+guestfs_int_unblock_sigterm (void)
+{
+  sigset_t sigset;
+
+  sigemptyset (&sigset);
+  sigaddset (&sigset, SIGTERM);
+  sigprocmask (SIG_UNBLOCK, &sigset, NULL);
+}
+
 int
 guestfs_impl_get_pid (guestfs_h *g)
 {
