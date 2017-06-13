@@ -136,20 +136,6 @@ extern void guestfs_int_cleanup_pclose (void *ptr);
  */
 #include "guestfs-internal-frontend-cleanups.h"
 
-/* Close all file descriptors matching the condition. */
-#define close_file_descriptors(cond) do {                               \
-    int max_fd = sysconf (_SC_OPEN_MAX);                                \
-    int fd;                                                             \
-    if (max_fd == -1)                                                   \
-      max_fd = 1024;                                                    \
-    if (max_fd > 65536)                                                 \
-      max_fd = 65536;          /* bound the amount of work we do here */ \
-    for (fd = 0; fd < max_fd; ++fd) {                                   \
-      if (cond)                                                         \
-        close (fd);                                                     \
-    }                                                                   \
-  } while (0)
-
 /* Not all language bindings know how to deal with Pointer arguments.
  * Those that don't will use this macro which complains noisily and
  * returns NULL.
