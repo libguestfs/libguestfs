@@ -847,7 +847,8 @@ extern int guestfs_int_get_uefi (guestfs_h *g, char **code, char **vars, int *fl
 /* launch.c */
 extern int64_t guestfs_int_timeval_diff (const struct timeval *x, const struct timeval *y);
 extern void guestfs_int_launch_send_progress (guestfs_h *g, int perdozen);
-int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
+extern void guestfs_int_unblock_sigterm (void);
+extern int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*sockname)[UNIX_PATH_MAX]);
 extern void guestfs_int_register_backend (const char *name, const struct backend_ops *);
 extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 

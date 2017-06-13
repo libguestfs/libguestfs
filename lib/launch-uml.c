@@ -147,7 +147,6 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
   size_t i;
   struct hv_param *hp;
   char *term = getenv ("TERM");
-  sigset_t sigset;
 
   if (!uml_supported (g))
     return -1;
@@ -325,9 +324,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
     }
 
     /* RHBZ#1460338. */
-    sigemptyset (&sigset);
-    sigaddset (&sigset, SIGTERM);
-    sigprocmask (SIG_UNBLOCK, &sigset, NULL);
+    guestfs_int_unblock_sigterm ();
 
     /* Dump the command line (after setting up stderr above). */
     if (g->verbose)
@@ -376,9 +373,7 @@ launch_uml (guestfs_h *g, void *datav, const char *arg)
       close_file_descriptors (1);
 
       /* RHBZ#1460338 */
-      sigemptyset (&sigset);
-      sigaddset (&sigset, SIGTERM);
-      sigprocmask (SIG_UNBLOCK, &sigset, NULL);
+      guestfs_int_unblock_sigterm ();
 
       /* It would be nice to be able to put this in the same process
        * group as vmlinux (ie. setpgid (0, vmlinux_pid)).  However
