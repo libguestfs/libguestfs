@@ -839,6 +839,20 @@ int guestfs_int_create_socketname (guestfs_h *g, const char *filename, char (*so
 extern void guestfs_int_register_backend (const char *name, const struct backend_ops *);
 extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 
+/* Close all file descriptors matching the condition. */
+#define close_file_descriptors(cond) do {                               \
+    int max_fd = sysconf (_SC_OPEN_MAX);                                \
+    int fd;                                                             \
+    if (max_fd == -1)                                                   \
+      max_fd = 1024;                                                    \
+    if (max_fd > 65536)                                                 \
+      max_fd = 65536;          /* bound the amount of work we do here */ \
+    for (fd = 0; fd < max_fd; ++fd) {                                   \
+      if (cond)                                                         \
+        close (fd);                                                     \
+    }                                                                   \
+  } while (0)
+
 /* inspect.c */
 extern void guestfs_int_free_inspect_info (guestfs_h *g);
 extern char *guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
