@@ -143,10 +143,29 @@ val roundup64 : int64 -> int64 -> int64
 val div_roundup64 : int64 -> int64 -> int64
 (** [div_roundup64 i a] returns [i] rounded up to the next multiple of [a],
     with the result divided by [a]. *)
+
+val int_of_le16 : string -> int64
+val le16_of_int : int64 -> string
+val int_of_be16 : string -> int64
+val be16_of_int : int64 -> string
 val int_of_le32 : string -> int64
-(** Unpack a 4 byte string as a little endian 32 bit integer. *)
 val le32_of_int : int64 -> string
-(** Pack a 32 bit integer a 4 byte string stored little endian. *)
+val int_of_be32 : string -> int64
+val be32_of_int : int64 -> string
+val int_of_le64 : string -> int64
+val le64_of_int : int64 -> string
+val int_of_be64 : string -> int64
+val be64_of_int : int64 -> string
+(** [int_of_X] functions unpack a string and return the equivalent integer.
+
+    [X_of_int] functions pack an integer into a string.
+
+    The value of [X] encodes whether the string is stored as
+    little endian [le] or big endian [be] and the size in bits
+    [16], [32] or [64].
+
+    On the OCaml side, 64 bit integers are always used so that you
+    can use the [.^] operators on them for bit manipulation. *)
 
 val wrap : ?chan:out_channel -> ?indent:int -> string -> unit
 (** Wrap text. *)

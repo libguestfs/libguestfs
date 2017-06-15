@@ -272,6 +272,21 @@ external identity : 'a -> 'a = "%identity"
 let roundup64 i a = let a = a -^ 1L in (i +^ a) &^ (~^ a)
 let div_roundup64 i a = (i +^ a -^ 1L) /^ a
 
+let int_of_le16 str =
+  assert (String.length str = 2);
+  let c0 = Char.code (String.unsafe_get str 0) in
+  let c1 = Char.code (String.unsafe_get str 1) in
+  Int64.of_int c0 +^
+    (Int64.shift_left (Int64.of_int c1) 8)
+
+let le16_of_int i =
+  let c0 = i &^ 0xffL in
+  let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
+  let b = Bytes.create 2 in
+  Bytes.unsafe_set b 0 (Char.unsafe_chr (Int64.to_int c0));
+  Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c1));
+  Bytes.to_string b
+
 let int_of_le32 str =
   assert (String.length str = 4);
   let c0 = Char.code (String.unsafe_get str 0) in
@@ -293,6 +308,122 @@ let le32_of_int i =
   Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c1));
   Bytes.unsafe_set b 2 (Char.unsafe_chr (Int64.to_int c2));
   Bytes.unsafe_set b 3 (Char.unsafe_chr (Int64.to_int c3));
+  Bytes.to_string b
+
+let int_of_le64 str =
+  assert (String.length str = 8);
+  let c0 = Char.code (String.unsafe_get str 0) in
+  let c1 = Char.code (String.unsafe_get str 1) in
+  let c2 = Char.code (String.unsafe_get str 2) in
+  let c3 = Char.code (String.unsafe_get str 3) in
+  let c4 = Char.code (String.unsafe_get str 4) in
+  let c5 = Char.code (String.unsafe_get str 5) in
+  let c6 = Char.code (String.unsafe_get str 6) in
+  let c7 = Char.code (String.unsafe_get str 7) in
+  Int64.of_int c0 +^
+    (Int64.shift_left (Int64.of_int c1) 8) +^
+    (Int64.shift_left (Int64.of_int c2) 16) +^
+    (Int64.shift_left (Int64.of_int c3) 24) +^
+    (Int64.shift_left (Int64.of_int c4) 32) +^
+    (Int64.shift_left (Int64.of_int c5) 40) +^
+    (Int64.shift_left (Int64.of_int c6) 48) +^
+    (Int64.shift_left (Int64.of_int c7) 56)
+
+let le64_of_int i =
+  let c0 = i &^ 0xffL in
+  let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
+  let c2 = Int64.shift_right (i &^ 0xff0000L) 16 in
+  let c3 = Int64.shift_right (i &^ 0xff000000L) 24 in
+  let c4 = Int64.shift_right (i &^ 0xff00000000L) 32 in
+  let c5 = Int64.shift_right (i &^ 0xff0000000000L) 40 in
+  let c6 = Int64.shift_right (i &^ 0xff000000000000L) 48 in
+  let c7 = Int64.shift_right (i &^ 0xff00000000000000L) 56 in
+  let b = Bytes.create 8 in
+  Bytes.unsafe_set b 0 (Char.unsafe_chr (Int64.to_int c0));
+  Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c1));
+  Bytes.unsafe_set b 2 (Char.unsafe_chr (Int64.to_int c2));
+  Bytes.unsafe_set b 3 (Char.unsafe_chr (Int64.to_int c3));
+  Bytes.unsafe_set b 4 (Char.unsafe_chr (Int64.to_int c4));
+  Bytes.unsafe_set b 5 (Char.unsafe_chr (Int64.to_int c5));
+  Bytes.unsafe_set b 6 (Char.unsafe_chr (Int64.to_int c6));
+  Bytes.unsafe_set b 7 (Char.unsafe_chr (Int64.to_int c7));
+  Bytes.to_string b
+
+let int_of_be16 str =
+  assert (String.length str = 2);
+  let c0 = Char.code (String.unsafe_get str 0) in
+  let c1 = Char.code (String.unsafe_get str 1) in
+  Int64.of_int c1 +^
+    (Int64.shift_left (Int64.of_int c0) 8)
+
+let be16_of_int i =
+  let c0 = i &^ 0xffL in
+  let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
+  let b = Bytes.create 2 in
+  Bytes.unsafe_set b 0 (Char.unsafe_chr (Int64.to_int c1));
+  Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c0));
+  Bytes.to_string b
+
+let int_of_be32 str =
+  assert (String.length str = 4);
+  let c0 = Char.code (String.unsafe_get str 0) in
+  let c1 = Char.code (String.unsafe_get str 1) in
+  let c2 = Char.code (String.unsafe_get str 2) in
+  let c3 = Char.code (String.unsafe_get str 3) in
+  Int64.of_int c3 +^
+    (Int64.shift_left (Int64.of_int c2) 8) +^
+    (Int64.shift_left (Int64.of_int c1) 16) +^
+    (Int64.shift_left (Int64.of_int c0) 24)
+
+let be32_of_int i =
+  let c0 = i &^ 0xffL in
+  let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
+  let c2 = Int64.shift_right (i &^ 0xff0000L) 16 in
+  let c3 = Int64.shift_right (i &^ 0xff000000L) 24 in
+  let b = Bytes.create 4 in
+  Bytes.unsafe_set b 0 (Char.unsafe_chr (Int64.to_int c3));
+  Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c2));
+  Bytes.unsafe_set b 2 (Char.unsafe_chr (Int64.to_int c1));
+  Bytes.unsafe_set b 3 (Char.unsafe_chr (Int64.to_int c0));
+  Bytes.to_string b
+
+let int_of_be64 str =
+  assert (String.length str = 8);
+  let c0 = Char.code (String.unsafe_get str 0) in
+  let c1 = Char.code (String.unsafe_get str 1) in
+  let c2 = Char.code (String.unsafe_get str 2) in
+  let c3 = Char.code (String.unsafe_get str 3) in
+  let c4 = Char.code (String.unsafe_get str 4) in
+  let c5 = Char.code (String.unsafe_get str 5) in
+  let c6 = Char.code (String.unsafe_get str 6) in
+  let c7 = Char.code (String.unsafe_get str 7) in
+  Int64.of_int c7 +^
+    (Int64.shift_left (Int64.of_int c6) 8) +^
+    (Int64.shift_left (Int64.of_int c5) 16) +^
+    (Int64.shift_left (Int64.of_int c4) 24) +^
+    (Int64.shift_left (Int64.of_int c3) 32) +^
+    (Int64.shift_left (Int64.of_int c2) 40) +^
+    (Int64.shift_left (Int64.of_int c1) 48) +^
+    (Int64.shift_left (Int64.of_int c0) 56)
+
+let be64_of_int i =
+  let c0 = i &^ 0xffL in
+  let c1 = Int64.shift_right (i &^ 0xff00L) 8 in
+  let c2 = Int64.shift_right (i &^ 0xff0000L) 16 in
+  let c3 = Int64.shift_right (i &^ 0xff000000L) 24 in
+  let c4 = Int64.shift_right (i &^ 0xff00000000L) 32 in
+  let c5 = Int64.shift_right (i &^ 0xff0000000000L) 40 in
+  let c6 = Int64.shift_right (i &^ 0xff000000000000L) 48 in
+  let c7 = Int64.shift_right (i &^ 0xff00000000000000L) 56 in
+  let b = Bytes.create 8 in
+  Bytes.unsafe_set b 0 (Char.unsafe_chr (Int64.to_int c7));
+  Bytes.unsafe_set b 1 (Char.unsafe_chr (Int64.to_int c6));
+  Bytes.unsafe_set b 2 (Char.unsafe_chr (Int64.to_int c5));
+  Bytes.unsafe_set b 3 (Char.unsafe_chr (Int64.to_int c4));
+  Bytes.unsafe_set b 4 (Char.unsafe_chr (Int64.to_int c3));
+  Bytes.unsafe_set b 5 (Char.unsafe_chr (Int64.to_int c2));
+  Bytes.unsafe_set b 6 (Char.unsafe_chr (Int64.to_int c1));
+  Bytes.unsafe_set b 7 (Char.unsafe_chr (Int64.to_int c0));
   Bytes.to_string b
 
 type wrap_break_t = WrapEOS | WrapSpace | WrapNL

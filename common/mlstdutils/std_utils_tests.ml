@@ -33,10 +33,22 @@ let test_subdirectory ctx =
   assert_equal_string "bar" (subdirectory "/foo" "/foo/bar");
   assert_equal_string "bar/baz" (subdirectory "/foo" "/foo/bar/baz")
 
-(* Test Common_utils.int_of_le32 and Common_utils.le32_of_int. *)
-let test_le32 ctx =
-  assert_equal_int64 0x20406080L (int_of_le32 "\x80\x60\x40\x20");
-  assert_equal_string "\x80\x60\x40\x20" (le32_of_int 0x20406080L)
+(* Test Std_utils.int_of_X and Std_utils.X_of_int byte swapping
+ * functions.
+ *)
+let rec test_byteswap ctx =
+  test_swap int_of_le16 le16_of_int 0x2040L "\x40\x20";
+  test_swap int_of_le32 le32_of_int 0x20406080L "\x80\x60\x40\x20";
+  test_swap int_of_le64 le64_of_int
+            0x20406080A0C0E0F0L "\xF0\xE0\xC0\xA0\x80\x60\x40\x20";
+  test_swap int_of_be16 be16_of_int 0x2040L "\x20\x40";
+  test_swap int_of_be32 be32_of_int 0x20406080L "\x20\x40\x60\x80";
+  test_swap int_of_be64 be64_of_int
+            0x20406080A0C0E0F0L "\x20\x40\x60\x80\xA0\xC0\xE0\xF0"
+
+and test_swap int_of_x x_of_int i s =
+  assert_equal_int64 i (int_of_x s);
+  assert_equal_string s (x_of_int i)
 
 (* Test Std_utils.String.is_prefix. *)
 let test_string_is_prefix ctx =
@@ -84,7 +96,7 @@ let suite =
   "mllib Std_utils" >:::
     [
       "subdirectory" >:: test_subdirectory;
-      "numeric.le32" >:: test_le32;
+      "numeric.byteswap" >:: test_byteswap;
       "strings.is_prefix" >:: test_string_is_prefix;
       "strings.is_suffix" >:: test_string_is_suffix;
       "strings.find" >:: test_string_find;
