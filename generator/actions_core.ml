@@ -7419,6 +7419,7 @@ instead of, or after calling C<guestfs_zero_free_space>." };
   { defaults with
     name = "device_index"; added = (1, 19, 7);
     style = RInt "index", [String (Device, "device")], [];
+    impl = OCaml "Devsparts.device_index";
     tests = [
       InitEmpty, Always, TestResult (
         [["device_index"; "/dev/sda"]], "ret == 0"), []
