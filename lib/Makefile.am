@@ -93,6 +93,7 @@ libguestfs_la_SOURCES = \
 	fuse.c \
 	guid.c \
 	handle.c \
+	hivex.c \
 	info.c \
 	inspect.c \
 	inspect-apps.c \
