@@ -86,18 +86,18 @@ let print_partition_table_machine_readable device =
   let out = String.trim out in
   let lines = String.nsplit "\n" out in
 
-  (* lines[0] is "BYT;", lines[1] is the device line which we ignore,
+  (* lines[0] is "BYT;", lines[1] is the device line,
    * lines[2..] are the partitions themselves.
    *)
   match lines with
-  | "BYT;" :: _ :: lines -> lines
+  | "BYT;" :: device_line :: lines -> device_line, lines
   | [] | [_] ->
      failwith "too few rows of output from 'parted print' command"
   | _ ->
      failwith "did not see 'BYT;' magic value in 'parted print' command"
 
 let part_list device =
-  let lines = print_partition_table_machine_readable device in
+  let _, lines = print_partition_table_machine_readable device in
 
   List.map (
     fun line ->
@@ -109,3 +109,71 @@ let part_list device =
         failwithf "could not parse row from output of 'parted print' command: %s: %s"
                   line err
   ) lines
+
+let part_get_parttype device =
+  let device_line, _ = print_partition_table_machine_readable device in
+
+  (* device_line is something like:
+   * "/dev/sda:1953525168s:scsi:512:512:msdos:ATA Hitachi HDT72101;"
+   *)
+  let fields = String.nsplit ":" device_line in
+  match fields with
+  | _::_::_::_::_::"loop"::_ -> (* If "loop" return an error (RHBZ#634246). *)
+     failwithf "%s: not a partitioned device" device
+  | _::_::_::_::_::ret::_ -> ret
+  | _ ->
+     failwithf "%s: cannot parse the output of parted" device
+
+let rec part_get_gpt_type device partnum =
+  sgdisk_info_extract_uuid_field device partnum "Partition GUID code"
+and part_get_gpt_guid device partnum =
+  sgdisk_info_extract_uuid_field device partnum "Partition unique GUID"
+
+and sgdisk_info_extract_uuid_field device partnum field =
+  if partnum <= 0 then failwith "partition number must be >= 1";
+
+  udev_settle ();
+
+  let r, _, err =
+    commandr ~fold_stdout_on_stderr:true
+             "sgdisk" [ device; "-i"; string_of_int partnum ] in
+  if r <> 0 then
+    failwithf "sgdisk: %s" err;
+
+  udev_settle ();
+
+  let err = String.trim err in
+  let lines = String.nsplit "\n" err in
+
+  (* Parse the output of sgdisk -i:
+   * Partition GUID code: 21686148-6449-6E6F-744E-656564454649 (BIOS boot partition)
+   * Partition unique GUID: 19AEC5FE-D63A-4A15-9D37-6FCBFB873DC0
+   * First sector: 2048 (at 1024.0 KiB)
+   * Last sector: 411647 (at 201.0 MiB)
+   * Partition size: 409600 sectors (200.0 MiB)
+   * Attribute flags: 0000000000000000
+   * Partition name: 'EFI System Partition'
+   *)
+  let field_len = String.length field in
+  let rec loop = function
+    | [] ->
+       failwithf "%s: sgdisk output did not contain '%s'" device field
+    | line :: _ when String.is_prefix line field &&
+                     String.length line >= field_len + 2 &&
+                     line.[field_len] = ':' ->
+       let value =
+         String.sub line (field_len+1) (String.length line - field_len - 1) in
+
+       (* Skip any whitespace after the colon. *)
+       let value = String.triml value in
+
+       (* Extract the UUID. *)
+       extract_uuid value
+
+    | _ :: lines -> loop lines
+  in
+  loop lines
+
+and extract_uuid value =
+  (* The value contains only valid GUID characters. *)
+  String.sub value 0 (String.span value "-0123456789ABCDEF")

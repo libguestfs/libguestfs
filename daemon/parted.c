@@ -344,45 +344,6 @@ print_partition_table (const char *device, bool add_m_option)
   return out;
 }
 
-char *
-do_part_get_parttype (const char *device)
-{
-  CLEANUP_FREE char *out = print_partition_table (device, true);
-  if (!out)
-    return NULL;
-
-  CLEANUP_FREE_STRING_LIST char **lines = split_lines (out);
-  if (!lines)
-    return NULL;
-
-  if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
-    reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
-                      lines[0] ? lines[0] : "(signature was null)");
-    return NULL;
-  }
-
-  if (lines[1] == NULL) {
-    reply_with_error ("parted didn't return a line describing the device");
-    return NULL;
-  }
-
-  /* lines[1] is something like:
-   * "/dev/sda:1953525168s:scsi:512:512:msdos:ATA Hitachi HDT72101;"
-   */
-  char *r = get_table_field (lines[1], 5);
-  if (r == NULL)
-    return NULL;
-
-  /* If "loop" return an error (RHBZ#634246). */
-  if (STREQ (r, "loop")) {
-    free (r);
-    reply_with_error ("not a partitioned device");
-    return NULL;
-  }
-
-  return r;
-}
-
 int
 do_part_get_bootable (const char *device, int partnum)
 {
@@ -553,126 +514,6 @@ do_part_set_gpt_guid (const char *device, int partnum, const char *guid)
   return 0;
 }
 
-static char *
-sgdisk_info_extract_field (const char *device, int partnum, const char *field,
-                           char *(*extract) (const char *path))
-{
-  if (partnum <= 0) {
-    reply_with_error ("partition number must be >= 1");
-    return NULL;
-  }
-
-  CLEANUP_FREE char *partnum_str = NULL;
-  if (asprintf (&partnum_str, "%i", partnum) == -1) {
-    reply_with_perror ("asprintf");
-    return NULL;
-  }
-
-  udev_settle ();
-
-  CLEANUP_FREE char *err = NULL;
-  int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    "sgdisk", device, "-i", partnum_str, NULL);
-
-  if (r == -1) {
-    reply_with_error ("%s %s -i %s: %s", "sgdisk", device, partnum_str, err);
-    return NULL;
-  }
-
-  udev_settle ();
-
-  CLEANUP_FREE_STRING_LIST char **lines = split_lines (err);
-  if (lines == NULL) {
-    reply_with_error ("'%s %s -i %i' returned no output",
-                      "sgdisk", device, partnum);
-    return NULL;
-  }
-
-  const int fieldlen = strlen (field);
-
-  /* Parse the output of sgdisk -i:
-   * Partition GUID code: 21686148-6449-6E6F-744E-656564454649 (BIOS boot partition)
-   * Partition unique GUID: 19AEC5FE-D63A-4A15-9D37-6FCBFB873DC0
-   * First sector: 2048 (at 1024.0 KiB)
-   * Last sector: 411647 (at 201.0 MiB)
-   * Partition size: 409600 sectors (200.0 MiB)
-   * Attribute flags: 0000000000000000
-   * Partition name: 'EFI System Partition'
-   */
-  for (char **i = lines; *i != NULL; i++) {
-    char *line = *i;
-
-    /* Skip blank lines */
-    if (line[0] == '\0') continue;
-
-    /* Split the line in 2 at the colon */
-    char *colon = strchr (line, ':');
-    if (colon) {
-      if (colon - line == fieldlen &&
-          memcmp (line, field, fieldlen) == 0)
-      {
-        /* The value starts after the colon */
-        char *value = colon + 1;
-
-        /* Skip any leading whitespace */
-        value += strspn (value, " \t");
-
-        /* Extract the actual information from the field. */
-        char *ret = extract (value);
-        if (ret == NULL) {
-          /* The extraction function already sends the error. */
-          return NULL;
-        }
-
-        return ret;
-      }
-    } else {
-      /* Ignore lines with no colon. Log to stderr so it will show up in
-       * LIBGUESTFS_DEBUG. */
-      if (verbose) {
-        fprintf (stderr, "get-gpt-type: unexpected sgdisk output ignored: %s\n",
-                 line);
-      }
-    }
-  }
-
-  /* If we got here it means we didn't find the field */
-  reply_with_error ("sgdisk output did not contain '%s'. "
-                    "See LIBGUESTFS_DEBUG output for more details", field);
-  return NULL;
-}
-
-static char *
-extract_uuid (const char *value)
-{
-  /* The value contains only valid GUID characters */
-  const size_t value_len = strspn (value, "-0123456789ABCDEF");
-
-  char *ret = malloc (value_len + 1);
-  if (ret == NULL) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
-  memcpy (ret, value, value_len);
-  ret[value_len] = '\0';
-  return ret;
-}
-
-char *
-do_part_get_gpt_type (const char *device, int partnum)
-{
-  return sgdisk_info_extract_field (device, partnum,
-                                    "Partition GUID code", extract_uuid);
-}
-
-char *
-do_part_get_gpt_guid (const char *device, int partnum)
-{
-  return sgdisk_info_extract_field (device, partnum,
-                                    "Partition unique GUID", extract_uuid);
-}
-
 char *
 do_part_get_name (const char *device, int partnum)
 {
@@ -834,6 +675,23 @@ do_part_get_mbr_part_type (const char *device, int partnum)
  error:
   reply_with_error ("strdup failed");
   return NULL;
+}
+
+static char *
+extract_uuid (const char *value)
+{
+  /* The value contains only valid GUID characters */
+  const size_t value_len = strspn (value, "-0123456789ABCDEF");
+
+  char *ret = malloc (value_len + 1);
+  if (ret == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  memcpy (ret, value, value_len);
+  ret[value_len] = '\0';
+  return ret;
 }
 
 char *

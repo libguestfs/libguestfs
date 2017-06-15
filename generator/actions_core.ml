@@ -5073,6 +5073,7 @@ Size of the partition in bytes.
   { defaults with
     name = "part_get_parttype"; added = (1, 0, 78);
     style = RString (RPlainString, "parttype"), [String (Device, "device")], [];
+    impl = OCaml "Parted.part_get_parttype";
     tests = [
       InitEmpty, Always, TestResultString (
         [["part_disk"; "/dev/sda"; "gpt"];
@@ -8247,6 +8248,7 @@ for a useful list of type GUIDs." };
   { defaults with
     name = "part_get_gpt_type"; added = (1, 21, 1);
     style = RString (RPlainString, "guid"), [String (Device, "device"); Int "partnum"], [];
+    impl = OCaml "Parted.part_get_gpt_type";
     optional = Some "gdisk";
     tests = [
       InitGPT, Always, TestResultString (
@@ -9067,6 +9069,7 @@ valid GUID." };
   { defaults with
     name = "part_get_gpt_guid"; added = (1, 29, 25);
     style = RString (RPlainString, "guid"), [String (Device, "device"); Int "partnum"], [];
+    impl = OCaml "Parted.part_get_gpt_guid";
     optional = Some "gdisk";
     tests = [
       InitGPT, Always, TestResultString (
