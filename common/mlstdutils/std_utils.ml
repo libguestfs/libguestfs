@@ -74,6 +74,8 @@ module Char = struct
       | 'e' | 'E' -> 14
       | 'f' | 'F' -> 15
       | _ -> -1
+
+    let mem c str = String.contains str c
 end
 
 module String = struct
@@ -246,6 +248,24 @@ module String = struct
       List.map f (explode str)
 
     let spaces n = String.make n ' '
+
+    let span str accept =
+      let len = String.length str in
+      let rec loop i =
+        if i >= len then len
+        else if Char.mem (String.unsafe_get str i) accept then loop (i+1)
+        else i
+      in
+      loop 0
+
+    let cspan str reject =
+      let len = String.length str in
+      let rec loop i =
+        if i >= len then len
+        else if Char.mem (String.unsafe_get str i) reject then i
+        else loop (i+1)
+      in
+      loop 0
 end
 
 let (//) = Filename.concat

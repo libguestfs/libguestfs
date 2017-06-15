@@ -50,6 +50,14 @@ and test_swap int_of_x x_of_int i s =
   assert_equal_int64 i (int_of_x s);
   assert_equal_string s (x_of_int i)
 
+(* Test Std_utils.Char.mem. *)
+let test_char_mem ctx =
+  assert_bool "Char.mem" (Char.mem 'a' "abc");
+  assert_bool "Char.mem" (Char.mem 'b' "abc");
+  assert_bool "Char.mem" (Char.mem 'c' "abc");
+  assert_bool "Char.mem" (not (Char.mem 'd' "abc"));
+  assert_bool "Char.mem" (not (Char.mem 'a' ""))
+
 (* Test Std_utils.String.is_prefix. *)
 let test_string_is_prefix ctx =
   assert_bool "String.is_prefix,," (String.is_prefix "" "");
@@ -91,16 +99,29 @@ let test_string_lines_split ctx =
   assert_equal_stringlist ["A\nB"; ""] (String.lines_split "A\\\nB\n");
   assert_equal_stringlist ["A\nB\n"] (String.lines_split "A\\\nB\\\n")
 
+(* Test Std_utils.String.span and cspan. *)
+let test_string_span ctx =
+  assert_equal_int 3 (String.span "aaabb" "a");
+  assert_equal_int 3 (String.span "aaaba" "a");
+  assert_equal_int 3 (String.span "aba" "ab");
+  assert_equal_int 0 (String.span "" "ab");
+  assert_equal_int 3 (String.cspan "defab" "ab");
+  assert_equal_int 3 (String.cspan "defba" "ab");
+  assert_equal_int 3 (String.cspan "def" "ab");
+  assert_equal_int 0 (String.cspan "" "ab")
+
 (* Suites declaration. *)
 let suite =
   "mllib Std_utils" >:::
     [
       "subdirectory" >:: test_subdirectory;
       "numeric.byteswap" >:: test_byteswap;
+      "char.mem" >:: test_char_mem;
       "strings.is_prefix" >:: test_string_is_prefix;
       "strings.is_suffix" >:: test_string_is_suffix;
       "strings.find" >:: test_string_find;
       "strings.lines_split" >:: test_string_lines_split;
+      "strings.span" >:: test_string_span;
     ]
 
 let () =

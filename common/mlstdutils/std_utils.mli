@@ -41,6 +41,12 @@ module Char : sig
     val hexdigit : char -> int
     (** Return the value of a hex digit.  If the char is not in
         the set [[0-9a-fA-F]] then this returns [-1]. *)
+
+    val mem : char -> string -> bool
+    (** [mem c str] returns true if the byte [c] is contained in [str].
+
+        This is actually the same as {!String.contains} with the
+        parameters reversed. *)
 end
 (** Override the Char module from stdlib. *)
 
@@ -109,6 +115,15 @@ module String : sig
     (** Explode string, then map function over the characters. *)
     val spaces : int -> string
     (** [spaces n] creates a string of n spaces. *)
+    val span : string -> string -> int
+    val cspan : string -> string -> int
+    (** [span str accept] returns the length in bytes of the initial
+        segment of [str] which contains only bytes in [accept].
+
+        [cspan str reject] returns the length in bytes of the initial
+        segment of [str] which contains only bytes {!i not} in [reject].
+
+        These work exactly like the C functions [strspn] and [strcspn]. *)
 end
 (** Override the String module from stdlib. *)
 
