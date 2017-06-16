@@ -343,7 +343,7 @@ static void
 output_root (xmlTextWriterPtr xo, char *root)
 {
   char *str;
-  int i, r;
+  int i;
   char buf[32];
   char *canonical_root;
   size_t size;
@@ -442,35 +442,6 @@ output_root (xmlTextWriterPtr xo, char *root)
 	      xmlTextWriterWriteElement (xo, BAD_CAST "hostname",
 					 BAD_CAST str));
   free (str);
-
-  str = guestfs_inspect_get_format (g, root);
-  if (!str) exit (EXIT_FAILURE);
-  if (STRNEQ (str, "unknown"))
-    XMLERROR (-1,
-	      xmlTextWriterWriteElement (xo, BAD_CAST "format",
-					 BAD_CAST str));
-  free (str);
-
-  r = guestfs_inspect_is_live (g, root);
-  if (r > 0) {
-    XMLERROR (-1,
-              xmlTextWriterStartElement (xo, BAD_CAST "live"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  r = guestfs_inspect_is_netinst (g, root);
-  if (r > 0) {
-    XMLERROR (-1,
-              xmlTextWriterStartElement (xo, BAD_CAST "netinst"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
-
-  r = guestfs_inspect_is_multipart (g, root);
-  if (r > 0) {
-    XMLERROR (-1,
-              xmlTextWriterStartElement (xo, BAD_CAST "multipart"));
-    XMLERROR (-1, xmlTextWriterEndElement (xo));
-  }
 
   output_mountpoints (xo, root);
 

@@ -87,22 +87,6 @@ guestfs_int_check_for_filesystem_on (guestfs_h *g, const char *mountable)
     }
   }
 
-  if (whole_device) {
-    extend_fses (g);
-    fs = &g->fses[g->nr_fses-1];
-
-    r = guestfs_int_check_installer_iso (g, fs, m->im_device);
-    if (r == -1) {              /* Fatal error. */
-      g->nr_fses--;
-      return -1;
-    }
-    if (r > 0)                  /* Found something. */
-      return 0;
-
-    /* Didn't find anything.  Fall through ... */
-    g->nr_fses--;
-  }
-
   /* Try mounting the device.  As above, ignore errors. */
   guestfs_push_error_handler (g, NULL, NULL);
   if (vfs_type && STREQ (vfs_type, "ufs")) { /* Hack for the *BSDs. */
@@ -289,30 +273,6 @@ check_filesystem (guestfs_h *g, const char *mountable,
      * 32 bit i386 processor.
      */
     fs->arch = safe_strdup (g, "i386");
-  }
-  /* Install CD/disk?
-   *
-   * Note that we checked (above) for an install ISO, but there are
-   * other types of install image (eg. USB keys) which that check
-   * wouldn't have picked up.
-   *
-   * Skip these checks if it's not a whole device (eg. CD) or the
-   * first partition (eg. bootable USB key).
-   */
-  else if ((whole_device || (partnum == 1 && nr_partitions == 1)) &&
-           (guestfs_is_file (g, "/isolinux/isolinux.cfg") > 0 ||
-            guestfs_is_dir (g, "/EFI/BOOT") > 0 ||
-            guestfs_is_file (g, "/images/install.img") > 0 ||
-            guestfs_is_dir (g, "/.disk") > 0 ||
-            guestfs_is_file (g, "/.discinfo") > 0 ||
-            guestfs_is_file (g, "/i386/txtsetup.sif") > 0 ||
-            guestfs_is_file (g, "/amd64/txtsetup.sif") > 0 ||
-            guestfs_is_file (g, "/freedos/freedos.ico") > 0 ||
-            guestfs_is_file (g, "/boot/loader.rc") > 0)) {
-    fs->role = OS_ROLE_ROOT;
-    fs->format = OS_FORMAT_INSTALLER;
-    if (guestfs_int_check_installer_root (g, fs) == -1)
-      return -1;
   }
 
   /* The above code should have set fs->type and fs->distro fields, so

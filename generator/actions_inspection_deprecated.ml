@@ -121,4 +121,65 @@ If unavailable this is returned as an empty string C<\"\">.
 
 Please read L<guestfs(3)/INSPECTION> for more details." };
 
+  { defaults with
+    name = "inspect_get_format"; added = (1, 9, 4);
+    style = RString (RPlainString, "format"), [String (Mountable, "root")], [];
+    deprecated_by = Deprecated_no_replacement;
+    shortdesc = "get format of inspected operating system";
+    longdesc = "\
+Before libguestfs 1.38, there was some unreliable support for detecting
+installer CDs.  This API would return:
+
+=over 4
+
+=item \"installed\"
+
+This is an installed operating system.
+
+=item \"installer\"
+
+The disk image being inspected is not an installed operating system,
+but a I<bootable> install disk, live CD, or similar.
+
+=item \"unknown\"
+
+The format of this disk image is not known.
+
+=back
+
+In libguestfs E<ge> 1.38, this only returns C<installed>.
+Use libosinfo directly to detect installer CDs.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
+  { defaults with
+    name = "inspect_is_live"; added = (1, 9, 4);
+    style = RBool "live", [String (Mountable, "root")], [];
+    deprecated_by = Deprecated_no_replacement;
+    shortdesc = "get live flag for install disk";
+    longdesc = "\
+This is deprecated and always returns C<false>.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
+  { defaults with
+    name = "inspect_is_netinst"; added = (1, 9, 4);
+    style = RBool "netinst", [String (Mountable, "root")], [];
+    deprecated_by = Deprecated_no_replacement;
+    shortdesc = "get netinst (network installer) flag for install disk";
+    longdesc = "\
+This is deprecated and always returns C<false>.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
+  { defaults with
+    name = "inspect_is_multipart"; added = (1, 9, 4);
+    style = RBool "multipart", [String (Mountable, "root")], [];
+    deprecated_by = Deprecated_no_replacement;
+    shortdesc = "get multipart flag for install disk";
+    longdesc = "\
+This is deprecated and always returns C<false>.
+
+Please read L<guestfs(3)/INSPECTION> for more details." };
+
 ]

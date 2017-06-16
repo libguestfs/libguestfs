@@ -38,10 +38,6 @@
             <optional><ref name="ospackageformat"/></optional>
             <optional><ref name="ospackagemanagement"/></optional>
             <optional><element name="hostname"><text/></element></optional>
-            <optional><ref name="osformat"/></optional>
-            <optional><element name="live"><empty/></element></optional>
-            <optional><element name="netinst"><empty/></element></optional>
-            <optional><element name="multipart"><empty/></element></optional>
 
             <ref name="mountpoints"/>
             <ref name="filesystems"/>
@@ -147,17 +143,6 @@
         <value>xbps</value>
         <value>yum</value>
         <value>zypper</value>
-        <!-- "unknown" is intentionally left out -->
-      </choice>
-    </element>
-  </define>
-
-  <!-- the operating system format -->
-  <define name="osformat">
-    <element name="format">
-      <choice>
-        <value>installed</value>
-        <value>installer</value>
         <!-- "unknown" is intentionally left out -->
       </choice>
     </element>

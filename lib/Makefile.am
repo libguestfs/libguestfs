@@ -97,7 +97,6 @@ libguestfs_la_SOURCES = \
 	inspect.c \
 	inspect-apps.c \
 	inspect-fs.c \
-	inspect-fs-cd.c \
 	inspect-fs-unix.c \
 	inspect-fs-windows.c \
 	inspect-icon.c \
@@ -112,7 +111,6 @@ libguestfs_la_SOURCES = \
 	lpj.c \
 	match.c \
 	mountable.c \
-	osinfo.c \
 	private-data.c \
 	proto.c \
 	qemu.c \
@@ -134,7 +132,6 @@ libguestfs_la_SOURCES = \
 libguestfs_la_CPPFLAGS = \
 	-DGUESTFS_WARN_DEPRECATED=1 \
 	-DGUESTFS_PRIVATE=1 \
-	-DLIBOSINFO_DB_PATH='"$(datadir)/libosinfo/db"' \
 	-I$(top_srcdir)/common/errnostring -I$(top_builddir)/common/errnostring \
 	-I$(top_srcdir)/common/protocol -I$(top_builddir)/common/protocol \
 	-I$(top_srcdir)/common/qemuopts -I$(top_builddir)/common/qemuopts \

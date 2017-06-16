@@ -202,7 +202,6 @@ describe the operating system, its architecture, the descriptive
      <major_version>6</major_version>
      <minor_version>1</minor_version>
      <windows_systemroot>/Windows</windows_systemroot>
-     <format>installed</format>
 
 In brief, E<lt>nameE<gt> is the class of operating system (something
 like C<linux> or C<windows>), E<lt>distroE<gt> is the distribution
@@ -329,27 +328,6 @@ extract the data, then use the coreutils L<base64(1)> program to do
 the conversion back to a PNG file:
 
  base64 -i -d < icon.data > icon.png
-
-=head2 INSPECTING INSTALL DISKS, LIVE CDs
-
-Virt-inspector can detect some operating system installers on
-install disks, live CDs, bootable USB keys and more.
-
-In this case the E<lt>formatE<gt> tag will contain C<installer>
-and other fields may be present to indicate a live CD, network
-installer, or one part of a multipart CD.  For example:
-
- <operatingsystems>
-   <operatingsystem>
-     <root>/dev/sda</root>
-     <name>linux</name>
-     <arch>i386</arch>
-     <distro>ubuntu</distro>
-     <product_name>Ubuntu 10.10 &quot;Maverick Meerkat&quot;</product_name>
-     <major_version>10</major_version>
-     <minor_version>10</minor_version>
-     <format>installer</format>
-     <live/>
 
 =head1 XPATH QUERIES
 

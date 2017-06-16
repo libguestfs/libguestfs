@@ -12,7 +12,6 @@
     <windows_systemroot>/Windows</windows_systemroot>
     <windows_current_control_set>ControlSet001</windows_current_control_set>
     <hostname>windows.invalid</hostname>
-    <format>installed</format>
     <mountpoints>
       <mountpoint dev="/dev/sda2">/</mountpoint>
     </mountpoints>

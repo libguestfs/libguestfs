@@ -939,19 +939,10 @@ documentation for that function for details).
 Libguestfs (since 1.9.4) can detect some install disks, install
 CDs, live CDs and more.
 
-Call L</guestfs_inspect_get_format> to return the format of the
-operating system, which currently can be C<installed> (a regular
-operating system) or C<installer> (some sort of install disk).
-
 Further information is available about the operating system that can
 be installed using the regular inspection APIs like
 L</guestfs_inspect_get_product_name>,
 L</guestfs_inspect_get_major_version> etc.
-
-Some additional information specific to installer disks is also
-available from the L</guestfs_inspect_is_live>,
-L</guestfs_inspect_is_netinst> and L</guestfs_inspect_is_multipart>
-calls.
 
 =head2 SPECIAL CONSIDERATIONS FOR WINDOWS GUESTS
 

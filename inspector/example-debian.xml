@@ -11,7 +11,6 @@
     <package_format>deb</package_format>
     <package_management>apt</package_management>
     <hostname>debian5x64.home.annexia.org</hostname>
-    <format>installed</format>
     <mountpoints>
       <mountpoint dev="/dev/debian5x64.home.annexia.org/root">/</mountpoint>
       <mountpoint dev="/dev/debian5x64.home.annexia.org/tmp">/tmp</mountpoint>

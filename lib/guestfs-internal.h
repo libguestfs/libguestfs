@@ -889,10 +889,6 @@ extern char *guestfs_int_case_sensitive_path_silently (guestfs_h *g, const char 
 extern char * guestfs_int_get_windows_systemroot (guestfs_h *g);
 extern int guestfs_int_check_windows_root (guestfs_h *g, struct inspect_fs *fs, char *windows_systemroot);
 
-/* inspect-fs-cd.c */
-extern int guestfs_int_check_installer_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_installer_iso (guestfs_h *g, struct inspect_fs *fs, const char *device);
-
 /* dbdump.c */
 typedef int (*guestfs_int_db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);
 extern int guestfs_int_read_db_dump (guestfs_h *g, const char *dumpfile, void *opaque, guestfs_int_db_dump_callback callback);
@@ -909,33 +905,6 @@ extern void guestfs_int_free_fuse (guestfs_h *g);
 #ifdef HAVE_LIBVIRT
 extern virConnectPtr guestfs_int_open_libvirt_connection (guestfs_h *g, const char *uri, unsigned int flags);
 #endif
-
-/* osinfo.c */
-struct osinfo {
-  /* Data provided by libosinfo database. */
-  enum inspect_os_type type;
-  enum inspect_os_distro distro;
-  char *product_name;
-  int major_version;
-  int minor_version;
-  char *arch;
-  int is_live_disk;
-  bool is_installer;
-
-#if 0
-  /* Not yet available in libosinfo database. */
-  char *product_variant;
-  int is_netinst_disk;
-  int is_multipart_disk;
-#endif
-
-  /* The regular expressions used to match ISOs. */
-  pcre *re_system_id;
-  pcre *re_volume_id;
-  pcre *re_publisher_id;
-  pcre *re_application_id;
-};
-extern int guestfs_int_osinfo_map (guestfs_h *g, const struct guestfs_isoinfo *isoinfo, const struct osinfo **osinfo_ret);
 
 /* command.c */
 struct command;
