@@ -35,7 +35,6 @@ Makefile.in
 /.sc-*
 /*.patch
 
-/ABOUT-NLS
 /aclocal.m4
 /align/stamp-virt-alignment-scan.pod
 /align/virt-alignment-scan
@@ -159,8 +158,6 @@ Makefile.in
 /daemon/guestfsd
 /daemon/guestfsd.8
 /daemon/guestfsd.exe
-/daemon/install-sh
-/daemon/missing
 /daemon/names.c
 /daemon/optgroups.c
 /daemon/optgroups.h
@@ -290,7 +287,6 @@ Makefile.in
 /golang/examples/guestfs-golang.3
 /golang/examples/stamp-guestfs-golang.pod
 /golang/pkg
-/guestfsd-in-wine.log
 /haskell/Bindtests
 /haskell/Bindtests.hs
 /haskell/Guestfs010Load
@@ -360,7 +356,6 @@ Makefile.in
 /mllib/bytes.ml
 /mllib/common_gettext.ml
 /mllib/common_utils_tests
-/mllib/dummy
 /mllib/getopt_tests
 /mllib/guestfs_config.ml
 /mllib/JSON_tests
@@ -502,7 +497,6 @@ Makefile.in
 /python/stamp-extra-files
 /python/t/tests_helper.py
 /python/utils.c
-/qemu-wrapper.sh
 /rescue/stamp-virt-rescue.pod
 /rescue/virt-rescue
 /rescue/virt-rescue.1
@@ -624,7 +618,6 @@ Makefile.in
 /utils/qemu-boot/qemu-boot
 /utils/qemu-speed-test/qemu-speed-test
 /v2v/.depend
-/v2v/fake-virtio-win.iso
 /v2v/oUnit-*
 /v2v/real-*.d/
 /v2v/real-*.img
