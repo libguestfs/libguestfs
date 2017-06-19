@@ -35,49 +35,10 @@
 #include <stdbool.h>
 
 #include "guestfs-internal-all.h"
+#include "cleanups.h"
 
 #define _(str) dgettext(PACKAGE, (str))
 #define N_(str) dgettext(PACKAGE, (str))
-
-#ifdef HAVE_ATTRIBUTE_CLEANUP
-#define CLEANUP_FREE __attribute__((cleanup(guestfs_int_cleanup_free)))
-#define CLEANUP_FREE_STRING_LIST                                \
-  __attribute__((cleanup(guestfs_int_cleanup_free_string_list)))
-#define CLEANUP_HASH_FREE                               \
-  __attribute__((cleanup(guestfs_int_cleanup_hash_free)))
-#define CLEANUP_UNLINK_FREE                                     \
-  __attribute__((cleanup(guestfs_int_cleanup_unlink_free)))
-#define CLEANUP_XMLFREE                                         \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlFree)))
-#define CLEANUP_XMLBUFFERFREE                                   \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlBufferFree)))
-#define CLEANUP_XMLFREEDOC                                      \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlFreeDoc)))
-#define CLEANUP_XMLFREEURI                                              \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlFreeURI)))
-#define CLEANUP_XMLFREETEXTWRITER                               \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlFreeTextWriter)))
-#define CLEANUP_XMLXPATHFREECONTEXT                                     \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlXPathFreeContext)))
-#define CLEANUP_XMLXPATHFREEOBJECT                                      \
-  __attribute__((cleanup(guestfs_int_cleanup_xmlXPathFreeObject)))
-#define CLEANUP_FCLOSE __attribute__((cleanup(guestfs_int_cleanup_fclose)))
-#define CLEANUP_PCLOSE __attribute__((cleanup(guestfs_int_cleanup_pclose)))
-#else
-#define CLEANUP_FREE
-#define CLEANUP_FREE_STRING_LIST
-#define CLEANUP_HASH_FREE
-#define CLEANUP_UNLINK_FREE
-#define CLEANUP_XMLFREE
-#define CLEANUP_XMLBUFFERFREE
-#define CLEANUP_XMLFREEDOC
-#define CLEANUP_XMLFREEURI
-#define CLEANUP_XMLFREETEXTWRITER
-#define CLEANUP_XMLXPATHFREECONTEXT
-#define CLEANUP_XMLXPATHFREEOBJECT
-#define CLEANUP_FCLOSE
-#define CLEANUP_PCLOSE
-#endif
 
 /* utils.c */
 extern void guestfs_int_free_string_list (char **);
@@ -101,23 +62,6 @@ extern void guestfs_int_fadvise_noreuse (int fd);
 //extern void guestfs_int_fadvise_dontneed (int fd);
 //extern void guestfs_int_fadvise_willneed (int fd);
 extern char *guestfs_int_shell_unquote (const char *str);
-
-/* These functions are used internally by the CLEANUP_* macros.
- * Don't call them directly.
- */
-extern void guestfs_int_cleanup_free (void *ptr);
-extern void guestfs_int_cleanup_free_string_list (char ***ptr);
-extern void guestfs_int_cleanup_hash_free (void *ptr);
-extern void guestfs_int_cleanup_unlink_free (char **ptr);
-extern void guestfs_int_cleanup_xmlFree (void *ptr);
-extern void guestfs_int_cleanup_xmlBufferFree (void *ptr);
-extern void guestfs_int_cleanup_xmlFreeDoc (void *ptr);
-extern void guestfs_int_cleanup_xmlFreeURI (void *ptr);
-extern void guestfs_int_cleanup_xmlFreeTextWriter (void *ptr);
-extern void guestfs_int_cleanup_xmlXPathFreeContext (void *ptr);
-extern void guestfs_int_cleanup_xmlXPathFreeObject (void *ptr);
-extern void guestfs_int_cleanup_fclose (void *ptr);
-extern void guestfs_int_cleanup_pclose (void *ptr);
 
 /* These are in a separate header so the header can be generated.
  * Don't include the following file directly:

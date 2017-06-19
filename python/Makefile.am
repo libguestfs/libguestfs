@@ -97,9 +97,10 @@ setup-install: setup.py stamp-extra-files
 # to hard-link any extra files we need into the local directory.
 stamp-extra-files: \
 	  c-ctype.h \
+	  cleanups.c \
+	  cleanups.h \
 	  config.h \
 	  guestfs-internal-all.h \
-	  guestfs-internal-frontend-cleanups.h \
 	  guestfs-internal-frontend.h \
 	  ignore-value.h \
 	  utils.c
@@ -111,14 +112,17 @@ config.h:
 c-ctype.h:
 	ln $(top_srcdir)/gnulib/lib/c-ctype.h $@
 
+cleanups.c:
+	ln $(top_srcdir)/common/utils/cleanups.c $@
+
+cleanups.h:
+	ln $(top_srcdir)/common/utils/cleanups.h $@
+
 ignore-value.h:
 	ln $(top_srcdir)/gnulib/lib/ignore-value.h $@
 
 guestfs-internal-all.h:
 	ln $(top_srcdir)/lib/guestfs-internal-all.h $@
-
-guestfs-internal-frontend-cleanups.h:
-	ln $(top_srcdir)/common/utils/guestfs-internal-frontend-cleanups.h $@
 
 guestfs-internal-frontend.h:
 	ln $(top_srcdir)/common/utils/guestfs-internal-frontend.h $@
@@ -145,8 +149,9 @@ CLEANFILES += \
 	t/*~ t/*.pyc \
 	c-ctype.h \
 	config.h \
+	cleanups.c \
+	cleanups.h \
 	guestfs-internal-all.h \
-	guestfs-internal-frontend-cleanups.h \
 	guestfs-internal-frontend.h \
 	ignore-value.h \
 	stamp-extra-files \

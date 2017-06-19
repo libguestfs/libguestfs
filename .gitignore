@@ -483,6 +483,8 @@ Makefile.in
 /python/bindtests.py
 /python/build
 /python/c-ctype.h
+/python/cleanups.c
+/python/cleanups.h
 /python/config.h
 /python/dist
 /python/examples/guestfs-python.3
@@ -491,7 +493,6 @@ Makefile.in
 /python/guestfs.pyc
 /python/guestfs.pyo
 /python/guestfs-internal-all.h
-/python/guestfs-internal-frontend-cleanups.h
 /python/guestfs-internal-frontend.h
 /python/ignore-value.h
 /python/MANIFEST

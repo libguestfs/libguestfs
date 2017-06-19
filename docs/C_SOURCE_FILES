@@ -42,9 +42,11 @@ common/progress/progress.h
 common/qemuopts/qemuopts-tests.c
 common/qemuopts/qemuopts.c
 common/qemuopts/qemuopts.h
-common/utils/cleanup.c
+common/utils/cleanups.c
+common/utils/cleanups.h
 common/utils/guestfs-internal-frontend-cleanups.h
 common/utils/guestfs-internal-frontend.h
+common/utils/libxml2-cleanups.c
 common/utils/structs-cleanup.c
 common/utils/structs-print.c
 common/utils/structs-print.h

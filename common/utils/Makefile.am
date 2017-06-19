@@ -33,9 +33,12 @@ noinst_LTLIBRARIES = libutils.la
 
 libutils_la_SOURCES = \
 	../../lib/guestfs.h \
-	cleanup.c \
+	cleanups.c \
+	cleanups.h \
+	gnulib-cleanups.c \
 	guestfs-internal-frontend.h \
 	guestfs-internal-frontend-cleanups.h \
+	libxml2-cleanups.c \
 	structs-cleanup.c \
 	structs-print.c \
 	structs-print.h \
