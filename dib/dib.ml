@@ -980,45 +980,23 @@ let main () =
     List.iter (
       fun fn ->
         message (f_"Generating checksums for %s") fn;
-        let pids =
+        let cmds =
           List.map (
             fun csum ->
               let csum_fn = fn ^ "." ^ csum in
               let csum_tool = tool_of_checksum csum in
               let outfd = Unix.openfile csum_fn file_flags 0o640 in
-              Unix.set_close_on_exec outfd;
-              let args = [| csum_tool; fn; |] in
-              Common_utils.debug "%s" (stringify_args (Array.to_list args));
-              let pid = Unix.create_process csum_tool args Unix.stdin
-                          outfd Unix.stderr in
-              (pid, csum_tool, outfd)
+              [ csum_tool; fn ], Some outfd, None
           ) checksums in
-        let pids = ref pids in
-        while !pids <> [] do
-          let pid, stat = Unix.waitpid [] 0 in
-          let matching_pair, new_pids =
-            List.partition (
-              fun (p, tool, outfd) ->
-                pid = p
-            ) !pids in
-          if matching_pair <> [] then (
-            let matching_pair = List.hd matching_pair in
-            let _, csum_tool, outfd = matching_pair in
-            Unix.close outfd;
-            pids := new_pids;
-            match stat with
-            | Unix.WEXITED 0 -> ()
-            | Unix.WEXITED i ->
+        let res = run_commands cmds in
+        iteri (
+          fun i code ->
+            if code <> 0 then (
+              let args, _, _ = List.nth cmds i in
               error (f_"external command ‘%s’ exited with error %d")
-                csum_tool i
-            | Unix.WSIGNALED i ->
-              error (f_"external command ‘%s’ killed by signal %d")
-                csum_tool i
-            | Unix.WSTOPPED i ->
-              error (f_"external command ‘%s’ stopped by signal %d")
-                csum_tool i
-          );
-        done;
+                (List.hd args) code
+            )
+        ) res;
     ) filenames;
   );
 
