@@ -846,29 +846,82 @@ let external_command ?(echo_cmd = true) cmd =
   );
   lines
 
-let run_command ?(echo_cmd = true) args =
-  if echo_cmd then
-    debug "%s" (stringify_args args);
+let rec run_commands ?(echo_cmd = true) cmds =
+  let res = Array.make (List.length cmds) 0 in
+  let pids =
+    mapi (
+      fun i (args, stdout_chan, stderr_chan) ->
+        let run_res = do_run args ?stdout_chan ?stderr_chan in
+        match run_res with
+        | Either (pid, app, outfd, errfd) ->
+          Some (i, pid, app, outfd, errfd)
+        | Or code ->
+          res.(i) <- code;
+          None
+    ) cmds in
+  let pids = filter_map identity pids in
+  let pids = ref pids in
+  while !pids <> [] do
+    let pid, stat = Unix.waitpid [] 0 in
+    let matching_pair, new_pids =
+      List.partition (
+        fun (_, p, _, _, _) ->
+          pid = p
+      ) !pids in
+    if matching_pair <> [] then (
+      let matching_pair = List.hd matching_pair in
+      let idx, _, app, outfd, errfd = matching_pair in
+      pids := new_pids;
+      res.(idx) <- do_teardown app outfd errfd stat
+    );
+  done;
+  Array.to_list res
+
+and run_command ?(echo_cmd = true) ?stdout_chan ?stderr_chan args =
+  let run_res = do_run args ~echo_cmd ?stdout_chan ?stderr_chan in
+  match run_res with
+  | Either (pid, app, outfd, errfd) ->
+    let _, stat = Unix.waitpid [] pid in
+    do_teardown app outfd errfd stat
+  | Or code ->
+    code
+
+and do_run ?(echo_cmd = true) ?stdout_chan ?stderr_chan args =
   let app = List.hd args in
+  let get_fd default = function
+    | None ->
+      default
+    | Some fd ->
+      Unix.set_close_on_exec fd;
+      fd
+  in
   try
     let app =
       if Filename.is_relative app then which app
       else (Unix.access app [Unix.X_OK]; app) in
-    let pid =
-      Unix.create_process app (Array.of_list args) Unix.stdin
-        Unix.stdout Unix.stderr in
-    let _, stat = Unix.waitpid [] pid in
-    match stat with
-    | Unix.WEXITED i -> i
-    | Unix.WSIGNALED i ->
-      error (f_"external command ‘%s’ killed by signal %d")
-        (stringify_args args) i
-    | Unix.WSTOPPED i ->
-      error (f_"external command ‘%s’ stopped by signal %d")
-        (stringify_args args) i
+    let outfd = get_fd Unix.stdout stdout_chan in
+    let errfd = get_fd Unix.stderr stderr_chan in
+    if echo_cmd then
+      debug "%s" (stringify_args args);
+    let pid = Unix.create_process app (Array.of_list args) Unix.stdin
+                outfd errfd in
+    Either (pid, app, stdout_chan, stderr_chan)
   with
-  | Executable_not_found tool -> 127
-  | Unix.Unix_error (errcode, _, _) when errcode = Unix.ENOENT -> 127
+  | Executable_not_found _ ->
+    Or 127
+  | Unix.Unix_error (errcode, _, _) when errcode = Unix.ENOENT ->
+    Or 127
+
+and do_teardown app outfd errfd exitstat =
+  may Unix.close outfd;
+  may Unix.close errfd;
+  match exitstat with
+  | Unix.WEXITED i ->
+    i
+  | Unix.WSIGNALED i ->
+    error (f_"external command ‘%s’ killed by signal %d") app i
+  | Unix.WSTOPPED i ->
+    error (f_"external command ‘%s’ stopped by signal %d") app i
 
 let shell_command ?(echo_cmd = true) cmd =
   if echo_cmd then

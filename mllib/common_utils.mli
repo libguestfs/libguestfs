@@ -374,7 +374,26 @@ val external_command : ?echo_cmd:bool -> string -> string list
     [echo_cmd] specifies whether to output the full command on verbose
     mode, and it's on by default. *)
 
-val run_command : ?echo_cmd:bool -> string list -> int
+val run_commands : ?echo_cmd:bool -> (string list * Unix.file_descr option * Unix.file_descr option) list -> int list
+(** Run external commands in parallel without using a shell,
+    and return a list with their exit codes.
+
+    The list of commands is composed as tuples:
+    - the first element is a list of command and its arguments
+    - the second element is an optional [Unix.file_descr] descriptor
+      for the stdout of the process; if not specified, [stdout] is
+      used
+    - the third element is an optional [Unix.file_descr] descriptor
+      for the stderr of the process; if not specified, [stderr] is
+      used
+
+    If any descriptor is specified, it is automatically closed at the
+    end of the execution of the command for which it was specified.
+
+    [echo_cmd] specifies whether output the full command on verbose
+    mode, and it's on by default. *)
+
+val run_command : ?echo_cmd:bool -> ?stdout_chan:Unix.file_descr -> ?stderr_chan:Unix.file_descr -> string list -> int
 (** Run an external command without using a shell, and return its exit code.
 
     [echo_cmd] specifies whether output the full command on verbose

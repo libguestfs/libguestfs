@@ -26,6 +26,7 @@ let assert_equal_string = assert_equal ~printer:(fun x -> x)
 let assert_equal_int = assert_equal ~printer:(fun x -> string_of_int x)
 let assert_equal_int64 = assert_equal ~printer:(fun x -> Int64.to_string x)
 let assert_equal_stringlist = assert_equal ~printer:(fun x -> "(" ^ (String.escaped (String.concat "," x)) ^ ")")
+let assert_equal_intlist = assert_equal ~printer:(fun x -> "(" ^ (String.concat ";" (List.map string_of_int x)) ^ ")")
 
 let test_subdirectory ctx =
   assert_equal_string "" (subdirectory "/foo" "/foo");
@@ -131,6 +132,73 @@ let test_string_lines_split ctx =
   assert_equal_stringlist ["A\nB"; ""] (String.lines_split "A\\\nB\n");
   assert_equal_stringlist ["A\nB\n"] (String.lines_split "A\\\nB\\\n")
 
+(* Test Common_utils.run_command. *)
+let test_run_command ctx =
+  assert_equal_int 0 (run_command ["true"]);
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    let res = run_command ["echo"; "this is a test"] ~stdout_chan:(Unix.descr_of_out_channel chan) in
+    assert_equal_int 0 res;
+    let content = read_whole_file tmpfile in
+    assert_equal_string "this is a test\n" content
+  end;
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    let res = run_command ["ls"; "/this-directory-is-unlikely-to-exist"] ~stderr_chan:(Unix.descr_of_out_channel chan) in
+    assert_equal_int 2 res;
+    let content = read_whole_file tmpfile in
+    assert_bool "test_run_commands/not-existing/content" (String.length content > 0)
+  end;
+  ()
+
+(* Test Common_utils.run_commands. *)
+let test_run_commands ctx =
+  begin
+    let res = run_commands [] in
+    assert_equal_intlist [] res
+  end;
+  begin
+    let res = run_commands [(["true"], None, None)] in
+    assert_equal_intlist [0] res
+  end;
+  begin
+    let res = run_commands [(["true"], None, None); (["false"], None, None)] in
+    assert_equal_intlist [0; 1] res
+  end;
+  begin
+    let res = run_commands [(["this-command-does-not-really-exist"], None, None)] in
+    assert_equal_intlist [127] res
+  end;
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    let res = run_commands [(["echo"; "this is a test"], Some (Unix.descr_of_out_channel chan), None)] in
+    assert_equal_intlist [0] res;
+    let content = read_whole_file tmpfile in
+    assert_equal_string "this is a test\n" content
+  end;
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    let res = run_commands [(["ls"; "/this-directory-is-unlikely-to-exist"], None, Some (Unix.descr_of_out_channel chan))] in
+    assert_equal_intlist [2] res;
+    let content = read_whole_file tmpfile in
+    assert_bool "test_run_commands/not-existing/content" (String.length content > 0)
+  end;
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    let res = run_commands [(["echo"; "this is a test"], Some (Unix.descr_of_out_channel chan), None); (["false"], None, None)] in
+    assert_equal_intlist [0; 1] res;
+    let content = read_whole_file tmpfile in
+    assert_equal_string "this is a test\n" content
+  end;
+  begin
+    let tmpfile, chan = bracket_tmpfile ctx in
+    let res = run_commands [(["this-command-does-not-really-exist"], None, None); (["echo"; "this is a test"], Some (Unix.descr_of_out_channel chan), None)] in
+    assert_equal_intlist [127; 0] res;
+    let content = read_whole_file tmpfile in
+    assert_equal_string "this is a test\n" content
+  end;
+  ()
+
 (* Suites declaration. *)
 let suite =
   "mllib Common_utils" >:::
@@ -143,6 +211,8 @@ let suite =
       "strings.is_suffix" >:: test_string_is_suffix;
       "strings.find" >:: test_string_find;
       "strings.lines_split" >:: test_string_lines_split;
+      "run_command" >:: test_run_command;
+      "run_commands" >:: test_run_commands;
     ]
 
 let () =
