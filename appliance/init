@@ -171,6 +171,19 @@ fi
 if test "$guestfs_network" = 1; then
     cmd="$cmd --network"
 fi
+if false; then
+    # To get a stack trace if the daemon crashes:
+    # (1) change this section to 'if true'
+    # (2) add 'gdb' to 'appliance/packagelist.in'
+    unset LD_PRELOAD
+    echo set pagination off  > /tmp/gdb-script
+    echo run                >> /tmp/gdb-script
+    echo info registers     >> /tmp/gdb-script
+    echo 'x/16i $pc'        >> /tmp/gdb-script
+    echo t a a bt           >> /tmp/gdb-script
+    echo quit               >> /tmp/gdb-script
+    cmd="gdb -batch -x /tmp/gdb-script --args $cmd"
+fi
 if ! test "$guestfs_rescue" = 1; then
     echo $cmd
     $cmd
