@@ -1146,7 +1146,7 @@ let last_part_of str sep =
 
 let read_first_line_from_file filename =
   let chan = open_in filename in
-  let line = input_line chan in
+  let line = try input_line chan with End_of_file -> "" in
   close_in chan;
   line
 
