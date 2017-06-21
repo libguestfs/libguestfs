@@ -348,7 +348,7 @@ read the man page virt-resize(1).
   (* Add in and out disks to the handle and launch. *)
   let connect_both_disks () =
     let g = open_guestfs () in
-    add_drive_uri g ?format (snd infile);
+    add_drive_uri g ?format ~readonly:true (snd infile);
     (* The output disk is being created, so use cache=unsafe here. *)
     add_drive_uri g ?format:output_format ~readonly:false ~cachemode:"unsafe"
       (snd outfile);
