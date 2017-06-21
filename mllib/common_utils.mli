@@ -492,7 +492,7 @@ val last_part_of : string -> char -> string option
 
 val read_first_line_from_file : string -> string
 (** Read only the first line (i.e. until the first newline character)
-    of a file. *)
+    of a file.  If the file is empty this returns an empty string. *)
 
 val is_regular_file : string -> bool
 (** Checks whether the file is a regular file. *)
