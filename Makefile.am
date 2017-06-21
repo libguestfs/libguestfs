@@ -267,7 +267,7 @@ EXTRA_DIST = \
 	zanata.xml \
 	zanata-pull.sh
 
-WEBSITEDIR = $(HOME)/d/websites/libguestfs
+WEBSITESDIR = $(HOME)/d/websites
 
 BUILDERFILES = \
 	website/download/builder/README \
@@ -286,8 +286,8 @@ website/TODO.txt: TODO
 	cp $< $@
 
 maintainer-upload-website:
-	cp website/*.{css,html,png,svg,txt} $(WEBSITEDIR)/
-	cp $(BUILDERFILES) $(WEBSITEDIR)/download/builder/
+	cp website/*.{css,html,png,svg,txt} $(WEBSITESDIR)/libguestfs/
+	cp $(BUILDERFILES) $(WEBSITESDIR)/libguestfs-builder/
 
 # When doing 'make dist' update a few files automatically.
 #
