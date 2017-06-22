@@ -125,6 +125,7 @@
 /localename.m4
 /locale-tr.m4
 /locale-zh.m4
+/localtime-buffer.m4
 /lock.m4
 /longdouble.m4
 /longlong.m4
@@ -256,8 +257,9 @@
 /unlinkdir.m4
 /unlink.m4
 /usleep.m4
-/utimbuf.m4
 /utimecmp.m4
+/utime_h.m4
+/utime.m4
 /utimens.m4
 /utimes.m4
 /vasnprintf.m4
