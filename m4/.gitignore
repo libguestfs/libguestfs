@@ -257,6 +257,7 @@
 /unlinkdir.m4
 /unlink.m4
 /usleep.m4
+/utimbuf.m4
 /utimecmp.m4
 /utime_h.m4
 /utime.m4
