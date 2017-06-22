@@ -631,6 +631,9 @@ B<Note this option only affects I<-o vdsm> output>.  All other output
 modes (including I<-o rhv>) generate modern qcow2 I<compat=1.1>
 files, always.
 
+If this option is available, then C<vdsm-compat-option> will appear in
+the I<--machine-readable> output.
+
 =item B<--vdsm-image-uuid> UUID
 
 =item B<--vdsm-vol-uuid> UUID
@@ -1915,6 +1918,7 @@ virt-v2v binary.  Typical output looks like this:
  virt-v2v
  libguestfs-rewrite
  colours-option
+ vdsm-compat-option
  input:disk
  [...]
  output:local
