@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-05-19 11:22+0100\n"
+"POT-Creation-Date: 2017-06-22 10:19+0100\n"
 "PO-Revision-Date: 2015-02-21 10:50-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Kannada (http://www.transifex.com/projects/p/libguestfs/"
@@ -126,7 +126,7 @@ msgstr ""
 msgid "%s option used more than once on the command line"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:936
+#: ../v2v/convert_linux.ml:938
 msgid ""
 "%s references unknown device \"%s\".  You may have to fix this entry "
 "manually after conversion."
@@ -2254,7 +2254,7 @@ msgid ""
 " IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:725
+#: ../v2v/convert_linux.ml:727
 msgid ""
 "The display driver was updated to '%s', but X11 does not seem to be "
 "installed in the guest.  X may not function correctly."
@@ -2914,7 +2914,7 @@ msgstr ""
 msgid "don't know how to remove packages using %s: packages: %s"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:830
+#: ../v2v/convert_linux.ml:832
 msgid "don't know how to update %s which loads the %s module"
 msgstr ""
 
@@ -3953,7 +3953,7 @@ msgstr ""
 msgid "too many parameters, expecting 'os-version'"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:764
+#: ../v2v/convert_linux.ml:766
 msgid ""
 "unable to find any valid modprobe configuration file such as /etc/modprobe."
 "conf"
@@ -3972,13 +3972,13 @@ msgstr ""
 msgid "unable to parse line from manifest file: %S"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:609
+#: ../v2v/convert_linux.ml:611
 msgid ""
 "unable to rebuild initrd (%s) because mkinitrd or dracut was not found in "
 "the guest"
 msgstr ""
 
-#: ../v2v/convert_linux.ml:526
+#: ../v2v/convert_linux.ml:528
 msgid ""
 "unable to rebuild initrd (%s) because update-initramfs was not found in the "
 "guest"
@@ -8209,7 +8209,7 @@ msgstr ""
 msgid "backingformat parameter cannot be used with raw format"
 msgstr ""
 
-#: lib/create.c:154 lib/create.c:291
+#: lib/create.c:154 lib/create.c:294
 #, c-format
 msgid "invalid value for preallocation parameter '%s'"
 msgstr ""
@@ -8252,17 +8252,17 @@ msgstr ""
 msgid "%s: close"
 msgstr ""
 
-#: lib/create.c:276
+#: lib/create.c:279
 #, c-format
 msgid "invalid value for backingformat parameter '%s'"
 msgstr ""
 
-#: lib/create.c:299
+#: lib/create.c:302
 #, c-format
 msgid "invalid value for compat parameter '%s'"
 msgstr ""
 
-#: lib/create.c:307
+#: lib/create.c:310
 #, c-format
 msgid "invalid value for clustersize parameter '%d'"
 msgstr ""
@@ -8749,7 +8749,7 @@ msgstr ""
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: lib/launch-direct.c:835 lib/launch-libvirt.c:676
+#: lib/launch-direct.c:845 lib/launch-libvirt.c:676
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
@@ -8922,7 +8922,7 @@ msgid ""
 "uml backend does not support drives with 'discard' parameter set to 'enable'"
 msgstr ""
 
-#: lib/launch-uml.c:456
+#: lib/launch-uml.c:462
 msgid "vmlinux launched and contacted daemon, but state != READY"
 msgstr ""
 
@@ -8947,28 +8947,28 @@ msgstr ""
 msgid "the libguestfs handle has already been launched"
 msgstr ""
 
-#: lib/launch.c:170
+#: lib/launch.c:185
 msgid "get-pid can only be called after launch"
 msgstr ""
 
-#: lib/launch.c:176
+#: lib/launch.c:191
 msgid "the current backend does not support 'get-pid'"
 msgstr ""
 
-#: lib/launch.c:190
+#: lib/launch.c:205
 msgid "the current backend does not allow max disks to be queried"
 msgstr ""
 
-#: lib/launch.c:204
+#: lib/launch.c:219
 msgid "qemu has not been launched yet"
 msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗಿಲ್ಲ"
 
-#: lib/launch.c:275
+#: lib/launch.c:290
 #, c-format
 msgid "parameter '%s' isn't allowed"
 msgstr ""
 
-#: lib/launch.c:301
+#: lib/launch.c:316
 #, c-format
 msgid "socket path too long: %s/%s"
 msgstr ""
