@@ -306,6 +306,7 @@ dist-hook: BUGS ChangeLog docs/C_SOURCE_FILES po/POTFILES po/POTFILES-ml
 
 BUGS: configure.ac
 	rm -f $@ $@-t
+	unset LC_ALL; \
 	$(top_srcdir)/update-bugs.sh > $@-t
 	mv $@-t $@
 
