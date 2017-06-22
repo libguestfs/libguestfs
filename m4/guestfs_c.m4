@@ -95,6 +95,10 @@ dnl Warn about large stack frames, including estimates for alloca
 dnl and variable length arrays.
 gl_WARN_ADD([-Wstack-usage=10000])
 
+dnl Warn about implicit fallthrough in case statements, but suppress
+dnl the warning if /*FALLTHROUGH*/ comment is used.
+gl_WARN_ADD([-Wimplicit-fallthrough=4])
+
 AC_SUBST([WARN_CFLAGS])
 
 AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
