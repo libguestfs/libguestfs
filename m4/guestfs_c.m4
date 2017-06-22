@@ -99,6 +99,9 @@ dnl Warn about implicit fallthrough in case statements, but suppress
 dnl the warning if /*FALLTHROUGH*/ comment is used.
 gl_WARN_ADD([-Wimplicit-fallthrough=4])
 
+dnl GCC level 2 gives incorrect warnings, so use level 1.
+gl_WARN_ADD([-Wformat-truncation=1])
+
 AC_SUBST([WARN_CFLAGS])
 
 AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
