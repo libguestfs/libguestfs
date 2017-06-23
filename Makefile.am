@@ -194,7 +194,7 @@ SUBDIRS += po-docs
 endif
 
 EXTRA_DIST = \
-	BUGS HACKING TODO \
+	BUGS HACKING RELEASES TODO \
 	.gitignore \
 	.lvimrc \
 	.mailmap \

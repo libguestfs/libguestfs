@@ -24,10 +24,6 @@ m4_define([libguestfs_release], [5])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 
-dnl The date that the above version was released.  This is used in
-dnl the website 'index.html' file.
-AC_SUBST([RELEASE_DATE], [2017-05-19])
-
 AC_CONFIG_AUX_DIR([build-aux])
 AC_REQUIRE_AUX_FILE([guestfs-test-driver])
 
@@ -86,6 +82,21 @@ gl_INIT
 dnl Check for external programs required to either build or run
 dnl libguestfs.
 m4_include([m4/guestfs_progs.m4])
+
+dnl Find the release date for this version.  This is used in
+dnl the website 'index.html' file.  We have to do this after
+dnl testing for awk in guestfs_progs.m4 above.
+AC_MSG_CHECKING([for the release date of $PACKAGE_VERSION])
+RELEASE_DATE="$(grep ^$PACKAGE_VERSION@<:@@<:@:space:@:>@@:>@ RELEASES | $AWK '{print $2}')"
+AS_IF([test "x$RELEASE_DATE" != "x"],[
+    AC_MSG_RESULT([$RELEASE_DATE])
+],[
+    AC_MSG_RESULT([not found])
+    AC_MSG_FAILURE(
+[When updating the version you must add the release date
+(usually the current date) to the ‘RELEASES’ file in the top directory.
+])])
+AC_SUBST([RELEASE_DATE])
 
 dnl The C compiler environment.
 m4_include([m4/guestfs_c.m4])
