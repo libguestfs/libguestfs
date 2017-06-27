@@ -987,7 +987,7 @@ and notes_of_os os arch nvram =
       add "and no virtual consoles.  To enable virtual consoles use this";
       add "virt-builder option:";
       add "";
-      add "    --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'\n";
+      add "    --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'";
       add "";
       reconfigure_ssh_host_keys_debian ();
    | Ubuntu ("16.04", _) ->
