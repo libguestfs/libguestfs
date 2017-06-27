@@ -1,6 +1,6 @@
 #!/usr/bin/env ocaml
 (* libguestfs
- * Copyright (C) 2016 Red Hat Inc.
+ * Copyright (C) 2016-2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -309,6 +309,7 @@ and os_of_string os ver =
   | "debian", "6" -> Debian (6, "squeeze")
   | "debian", "7" -> Debian (7, "wheezy")
   | "debian", "8" -> Debian (8, "jessie")
+  | "debian", "9" -> Debian (9, "stretch")
   | "ubuntu", "10.04" -> Ubuntu (ver, "lucid")
   | "ubuntu", "12.04" -> Ubuntu (ver, "precise")
   | "ubuntu", "14.04" -> Ubuntu (ver, "trusty")
@@ -745,13 +746,18 @@ and os_variant_of_os os arch =
   | Fedora ver, _ when ver <= 23 ->
      sprintf "fedora%d" ver
   | Fedora _, _ -> "fedora23" (* max version known in Fedora 24 *)
+
   | CentOS (major, minor), _ when (major, minor) <= (7,0) ->
      sprintf "centos%d.%d" major minor
   | CentOS _, _ -> "centos7.0" (* max version known in Fedora 24 *)
+
   | RHEL (major, minor), _ when (major, minor) <= (7,2) ->
      sprintf "rhel%d.%d" major minor
   | RHEL _, _ -> "rhel7.2" (* max version known in Fedora 24 *)
-  | Debian (ver, _), _ -> sprintf "debian%d" ver
+
+  | Debian (ver, _), _ when ver <= 8 -> sprintf "debian%d" ver
+  | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)
+
   | Ubuntu (ver, _), _ -> sprintf "ubuntu%s" ver
 
 (* Same as the above, but we print the "true" os-variant, even
@@ -973,7 +979,7 @@ and notes_of_os os arch nvram =
    | CentOS (6, _) ->
       add "‘virt-builder centos-6’ will always install the latest 6.x release.";
       add ""
-   | Debian (8, _) ->
+   | Debian ((8|9), _) ->
       reconfigure_ssh_host_keys_debian ();
       fix_serial_console_debian ();
    | Debian _ ->
