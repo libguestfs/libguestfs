@@ -592,7 +592,9 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
       append_list ("id=appliance");
       append_list ("cache=unsafe");
       append_list ("if=none");
+#ifndef APPLIANCE_FORMAT_AUTO
       append_list ("format=raw");
+#endif
     } end_list ();
     start_list ("-device") {
       append_list ("scsi-hd");

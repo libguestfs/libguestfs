@@ -139,3 +139,14 @@ AC_SUBST([GUESTFS_DEFAULT_PATH])
 
 AC_DEFINE_UNQUOTED([GUESTFS_DEFAULT_PATH], ["$GUESTFS_DEFAULT_PATH"],
     [Define guestfs default path.])
+
+AC_ARG_ENABLE([appliance-format-auto],
+    [AS_HELP_STRING([--enable-appliance-format-auto],
+        [enable autodetection of appliance image format @<:@default=no@:>@])],
+        [ENABLE_APPLIANCE_FORMAT_AUTO="$enableval"],
+        [ENABLE_APPLIANCE_FORMAT_AUTO=no])
+
+if test "x$ENABLE_APPLIANCE_FORMAT_AUTO" = "xyes"; then
+    AC_DEFINE([APPLIANCE_FORMAT_AUTO], [1],
+        [Define to 1 if enabled autodetection of appliance image format.])
+fi

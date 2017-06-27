@@ -212,9 +212,10 @@ get_source_format_or_autodetect (guestfs_h *g, struct drive *drv)
 
 /**
  * Create a qcow2 format overlay, with the given C<backing_drive>
- * (file).  The C<format> parameter, which must be non-NULL, is the
- * backing file format.  This is used to create the appliance overlay,
- * and also for read-only drives.
+ * (file).  The C<format> parameter is the backing file format.
+ * The C<format> parameter can be NULL, in this case the backing
+ * format will be determined automatically.  This is used to create
+ * the appliance overlay, and also for read-only drives.
  */
 static char *
 make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
@@ -223,8 +224,6 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
   char *overlay;
   struct guestfs_disk_create_argv optargs;
 
-  assert (format != NULL);
-
   if (guestfs_int_lazy_make_tmpdir (g) == -1)
     return NULL;
 
@@ -232,8 +231,10 @@ make_qcow2_overlay (guestfs_h *g, const char *backing_drive,
 
   optargs.bitmask = GUESTFS_DISK_CREATE_BACKINGFILE_BITMASK;
   optargs.backingfile = backing_drive;
-  optargs.bitmask |= GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK;
-  optargs.backingformat = format;
+  if (format) {
+    optargs.bitmask |= GUESTFS_DISK_CREATE_BACKINGFORMAT_BITMASK;
+    optargs.backingformat = format;
+  }
 
   if (guestfs_disk_create_argv (g, overlay, "qcow2", -1, &optargs) == -1) {
     free (overlay);
@@ -461,7 +462,11 @@ launch_libvirt (guestfs_h *g, void *datav, const char *libvirt_uri)
 
   /* Note that appliance can be NULL if using the old-style appliance. */
   if (appliance) {
+#ifndef APPLIANCE_FORMAT_AUTO
     params.appliance_overlay = make_qcow2_overlay (g, appliance, "raw");
+#else
+    params.appliance_overlay = make_qcow2_overlay (g, appliance, NULL);
+#endif
     if (!params.appliance_overlay)
       goto cleanup;
   }
