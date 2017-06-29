@@ -278,8 +278,6 @@ Run it from the top source directory using the command
             GObject.generate_gobject_makefile;
   output_to "gobject/include/guestfs-gobject.h"
             GObject.generate_gobject_header;
-  output_to "gobject/docs/guestfs-title.sgml"
-            GObject.generate_gobject_doc_title;
   List.iter (
     fun { s_name = typ; s_cols = cols } ->
       let short = sprintf "struct-%s" typ in

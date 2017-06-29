@@ -194,24 +194,6 @@ let generate_gobject_header () =
     (function f -> pr "#include <guestfs-gobject/%s.h>\n" f)
     filenames
 
-let generate_gobject_doc_title () =
-  pr
-"<?xml version=\"1.0\"?>
-<!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.3//EN\"
-               \"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd\"
-[
-  <!ENTITY %% local.common.attrib \"xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'\">
-]>
-<chapter>
-  <title>Libguestfs GObject Bindings</title>
-";
-
-  List.iter (
-    function n -> pr "  <xi:include href=\"xml/%s.xml\"/>\n" n
-  ) filenames;
-
-  pr "</chapter>\n"
-
 let generate_gobject_struct_header filename typ cols () =
   header_start filename;
 

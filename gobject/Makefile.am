@@ -15,8 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-SUBDIRS = . docs
-
 include $(top_srcdir)/subdir-rules.mk
 
 include $(srcdir)/Makefile.inc
@@ -33,7 +31,6 @@ EXTRA_DIST = \
 	TODO.txt \
 	.gitignore \
 	bindtests-retvalues.js \
-	docs/.gitignore \
 	tests-misc.js \
 	run-tests \
 	run-tests-retvalues \

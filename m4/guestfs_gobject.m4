@@ -59,10 +59,3 @@ m4_ifdef([GOBJECT_INTROSPECTION_CHECK], [
 ],[
     AM_CONDITIONAL([HAVE_INTROSPECTION], [false])
 ])
-
-# check for gtk-doc
-m4_ifdef([GTK_DOC_CHECK], [
-    GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
-],[
-    AM_CONDITIONAL([ENABLE_GTK_DOC], false)
-])
