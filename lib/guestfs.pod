@@ -1141,7 +1141,9 @@ See L<guestfs-erlang(3)>.
 =item B<GObject>
 
 Experimental GObject bindings (with GObject Introspection support) are
-available.  See the C<gobject> directory in the source.
+available.
+
+See L<guestfs-gobject(3)>.
 
 =item B<Go>
 
@@ -3393,6 +3395,7 @@ L<guestfs-examples(3)>.
 
 Language bindings:
 L<guestfs-erlang(3)>,
+L<guestfs-gobject(3)>,
 L<guestfs-golang(3)>,
 L<guestfs-java(3)>,
 L<guestfs-lua(3)>,
