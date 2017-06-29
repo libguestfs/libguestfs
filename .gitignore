@@ -283,6 +283,8 @@ Makefile.in
 /gobject/bindtests.js
 /gobject/Guestfs-1.0.gir
 /gobject/Guestfs-1.0.typelib
+/gobject/guestfs-gobject.3
+/gobject/stamp-guestfs-gobject.pod
 /golang/bindtests.go
 /golang/examples/guestfs-golang.3
 /golang/examples/stamp-guestfs-golang.pod

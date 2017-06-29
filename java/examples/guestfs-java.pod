@@ -161,6 +161,7 @@ on the class path, as well as the path of your program.  For example:
 L<guestfs(3)>,
 L<guestfs-examples(3)>,
 L<guestfs-erlang(3)>,
+L<guestfs-gobject(3)>,
 L<guestfs-golang(3)>,
 L<guestfs-lua(3)>,
 L<guestfs-ocaml(3)>,
