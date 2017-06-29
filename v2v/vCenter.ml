@@ -22,21 +22,7 @@ open Common_utils
 open Common_gettext.Gettext
 
 open Xml
-
-(* URI quoting. *)
-let uri_quote str =
-  let len = String.length str in
-  let xs = ref [] in
-  for i = 0 to len-1 do
-    xs :=
-      (match str.[i] with
-      | ('A'..'Z' | 'a'..'z' | '0'..'9' | '/' | '.' | '-') as c ->
-        String.make 1 c
-      | c ->
-        sprintf "%%%02x" (Char.code c)
-      ) :: !xs
-  done;
-  String.concat "" (List.rev !xs)
+open Utils
 
 (* Memoized session cookie. *)
 let session_cookie = ref ""

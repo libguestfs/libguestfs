@@ -23,6 +23,7 @@ open Common_utils
 
 open Types
 open Xpath_helpers
+open Utils
 
 type parsed_disk = {
   p_source_disk : source_disk;
@@ -43,12 +44,38 @@ let get_drive_slot str offset =
        warning (f_"could not parse device name ‘%s’ from the source libvirt XML") str;
        None
 
+(* Create a JSON URI for qemu referring to a remote CURL (http/https)
+ * resource.  See also [v2v/vCenter.ml].
+ *)
+let create_curl_qemu_uri driver host port path =
+  let url =
+    let port =
+      match driver, port with
+      | _, None -> ""
+      | "https", Some 443 -> ""
+      | "http", Some 80 -> ""
+      | _, Some port when port >= 1 -> ":" ^ string_of_int port
+      | _, Some port -> invalid_arg "invalid port number in libvirt XML" in
+    sprintf "%s://%s%s%s" driver host port (uri_quote path) in
+
+  let json_params = [
+    "file.driver", JSON.String driver;  (* "http" or "https" *)
+    "file.url", JSON.String url;
+    "file.timeout", JSON.Int 2000;
+    "file.readahead", JSON.Int (1024 * 1024);
+    (* "file.sslverify", JSON.String "off"; XXX *)
+  ] in
+
+  (* Turn the JSON parameters into a 'json:' protocol string. *)
+  "json: " ^ JSON.string_of_doc json_params
+
 let parse_libvirt_xml ?conn xml =
   debug "libvirt xml is:\n%s" xml;
 
   let doc = Xml.parse_memory xml in
   let xpathctx = Xml.xpath_new_context doc in
   let xpath_string = xpath_string xpathctx
+  and xpath_string_default = xpath_string_default xpathctx
   and xpath_int = xpath_int xpathctx
   (*and xpath_int_default = xpath_int_default xpathctx*)
   and xpath_int64_default = xpath_int64_default xpathctx in
@@ -273,21 +300,27 @@ let parse_libvirt_xml ?conn xml =
          | None -> ()
         );
       | Some "network" ->
-        (* We only handle <source protocol="nbd"> here, and that is
-         * intended only for virt-p2v.
-         *)
         (match (xpath_string "source/@protocol",
                 xpath_string "source/host/@name",
                 xpath_int "source/host/@port") with
         | None, _, _ ->
-          warning (f_"<disk type='%s'> was ignored") "network"
+           warning (f_"<disk type='%s'> was ignored") "network"
         | Some "nbd", Some ("localhost" as host), Some port when port > 0 ->
-          (* virt-p2v: Generate a qemu nbd URL. *)
-          let path = sprintf "nbd:%s:%d" host port in
-          add_disk path format controller P_dont_rewrite
+           (* <source protocol="nbd"> with host localhost is used by
+            * virt-p2v.  Generate a qemu 'nbd:' URL.
+            *)
+           let path = sprintf "nbd:%s:%d" host port in
+           add_disk path format controller P_dont_rewrite
+        | Some ("http"|"https" as driver), Some (_ as host), port ->
+           (* This is for testing curl, eg for testing VMware conversions
+            * without needing VMware around.
+            *)
+           let path = xpath_string_default "source/@name" "" in
+           let qemu_uri = create_curl_qemu_uri driver host port path in
+           add_disk qemu_uri format controller P_dont_rewrite
         | Some protocol, _, _ ->
-          warning (f_"<disk type='network'> with <source protocol='%s'> was ignored")
-            protocol
+           warning (f_"<disk type='network'> with <source protocol='%s'> was ignored")
+                   protocol
         )
       | Some "volume" ->
         (match xpath_string "source/@pool", xpath_string "source/@volume" with

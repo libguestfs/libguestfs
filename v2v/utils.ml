@@ -28,6 +28,21 @@ external drive_index : string -> int = "v2v_utils_drive_index"
 
 external shell_unquote : string -> string = "v2v_utils_shell_unquote"
 
+(* URI quoting. *)
+let uri_quote str =
+  let len = String.length str in
+  let xs = ref [] in
+  for i = 0 to len-1 do
+    xs :=
+      (match str.[i] with
+      | ('A'..'Z' | 'a'..'z' | '0'..'9' | '/' | '.' | '-') as c ->
+        String.make 1 c
+      | c ->
+        sprintf "%%%02x" (Char.code c)
+      ) :: !xs
+  done;
+  String.concat "" (List.rev !xs)
+
 (* Map guest architecture found by inspection to the architecture
  * that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor.
  *)

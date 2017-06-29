@@ -29,6 +29,9 @@ val shell_unquote : string -> string
     (like ones under /etc/sysconfig), and it doesn't deal with some
     situations such as $variable interpolation. *)
 
+val uri_quote : string -> string
+(** Take a string and perform %xx escaping as used in some parts of URLs. *)
+
 val kvm_arch : string -> string
 (** Map guest architecture found by inspection to the architecture
     that KVM must emulate.  Note for x86 we assume a 64 bit hypervisor. *)
