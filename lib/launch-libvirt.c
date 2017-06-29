@@ -1571,7 +1571,8 @@ construct_libvirt_xml_disk (guestfs_h *g,
 
       if (construct_libvirt_xml_disk_driver_qemu (g, data, drv, xo, format,
                                                   drv->cachemode ? : "writeback",
-                                                  drv->discard, false)
+                                                  drv->discard,
+                                                  drv->copyonread)
           == -1)
         return -1;
     }
