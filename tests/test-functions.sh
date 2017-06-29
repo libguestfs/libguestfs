@@ -211,6 +211,15 @@ skip_unless_libvirt_minimum_version ()
     fi
 }
 
+# Skip unless the environment variable named is set to a non-empty value.
+skip_unless_environment_variable_set ()
+{
+    if [ -z "${!1}" ]; then
+        echo "$(basename $0): test skipped because \$$1 is not set"
+        exit 77
+    fi
+}
+
 # Run an external command and skip if the command fails.  This can be
 # used to test if a command exists.  Normally you should use
 # `cmd --help' or `cmd --version' or similar.
@@ -220,6 +229,13 @@ skip_unless ()
         echo "$(basename $0): test skipped because $1 is not available"
         exit 77
     fi
+}
+
+# Use this if a test is broken.  "$1" should contain the reason.
+skip_because ()
+{
+    echo "$(basename $0): test skipped because: $1"
+    exit 77
 }
 
 # Skip if the user is trying to run a test as root.

@@ -18,9 +18,8 @@
 
 set -e
 
-if [ -z "$GJS" ]; then
-  echo "GObject bind tests skipped: gjs is missing"
-  exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_environment_variable_set GJS
 
 $GJS $srcdir/bindtests-retvalues.js 2>/dev/null
