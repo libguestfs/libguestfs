@@ -231,8 +231,6 @@ AC_CONFIG_FILES([Makefile
                  gnulib/tests/Makefile
                  gobject/libguestfs-gobject-1.0.pc
                  gobject/Makefile
-                 gobject/docs/Makefile
-                 gobject/docs/guestfs-docs.sgml
                  golang/Makefile
                  golang/examples/Makefile
                  haskell/Makefile

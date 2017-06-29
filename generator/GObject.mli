@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *)
 
-val generate_gobject_doc_title : unit -> unit
 val generate_gobject_header : unit -> unit
 val generate_gobject_makefile : unit -> unit
 val generate_gobject_optargs_header : string -> string -> Types.action -> unit -> unit
