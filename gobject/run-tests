@@ -18,13 +18,12 @@
 
 set -e
 
-if [ -z "$GJS" ]; then
-  echo "GObject bind tests skipped: gjs is missing"
-  exit 77
-fi
+$TEST_FUNCTIONS
+skip_if_skipped
+skip_unless_environment_variable_set GJS
 
-echo "GObject bind tests skipped: Int64, OInt64 and OStringList are all broken"
-exit 77
+# This test is disabled until we fix 64 bit support.
+skip_because "Int64, OInt64 and OStringList are all broken"
 
 rm -f bindtests.tmp
 
