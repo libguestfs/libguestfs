@@ -349,6 +349,15 @@ and string_of_arch = function
   | PPC64le -> "ppc64le"
   | S390X -> "s390x"
 
+and debian_arch_of_arch = function
+  | X86_64 -> "amd64"
+  | Aarch64 -> "arm64"
+  | Armv7 -> "armhf"
+  | I686 -> "i386"
+  | PPC64 -> "ppc64"
+  | PPC64le -> "ppc64el"
+  | S390X -> "s390x"
+
 and filename_of_os os arch ext =
   match os with
   | Fedora ver ->
@@ -587,9 +596,9 @@ and make_location os arch =
       *)
      sprintf "http://mirror.centos.org/centos-7/%d/os/x86_64/" major
 
-  | Debian (_, dist), X86_64 ->
-     sprintf "http://deb.debian.org/debian/dists/%s/main/installer-amd64"
-             dist
+  | Debian (_, dist), arch ->
+     sprintf "http://deb.debian.org/debian/dists/%s/main/installer-%s"
+             dist (debian_arch_of_arch arch)
 
   | Fedora ver, Aarch64 ->
      sprintf "https://download.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/aarch64/os/" ver
