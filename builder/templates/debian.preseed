@@ -96,7 +96,7 @@ d-i netcfg/wireless_wep string
 # If you select ftp, the mirror/country string does not need to be set.
 #d-i mirror/protocol string ftp
 d-i mirror/country string manual
-d-i mirror/http/hostname string ftp.uk.debian.org
+d-i mirror/http/hostname string deb.debian.org
 d-i mirror/http/directory string /debian
 #d-i mirror/http/proxy string
 
@@ -321,13 +321,13 @@ d-i partman/confirm_nooverwrite boolean true
 
 
 ### Package selection
-#tasksel tasksel/first multiselect standard, web-server, kde-desktop
+tasksel tasksel/first multiselect standard, ssh-server
 
 # Individual additional packages to install
 #d-i pkgsel/include string openssh-server build-essential
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade
-#d-i pkgsel/upgrade select none
+d-i pkgsel/upgrade select full-upgrade
 
 # Some versions of the installer can report back on what software you have
 # installed, and what software you use. The default is not to report back,
@@ -356,7 +356,7 @@ d-i grub-installer/with_other_os boolean true
 # determined safely in general, so this needs to be specified:
 #d-i grub-installer/bootdev  string /dev/sda
 # To install to the first device (assuming it is not a USB stick):
-#d-i grub-installer/bootdev  string default
+d-i grub-installer/bootdev string default
 
 # Alternatively, if you want to install to a location other than the mbr,
 # uncomment and edit these lines:
