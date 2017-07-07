@@ -1909,18 +1909,32 @@ that guest through the RHV-M UI, you may encounter an import failure.
 Diagnosing these failures is infuriatingly difficult as the UI
 generally hides the true reason for the failure.
 
-There are two log files of interest.  The first is stored on the
-RHV-M server itself, and is called
-F</var/log/ovirt-engine/engine.log>
+There are several log files of interest:
 
-The second file, which is the most useful, is found on the SPM host
-(SPM stands for "Storage Pool Manager").  This is a RHV node that is
-elected to do all metadata modifications in the data center, such as
-image or snapshot creation.  You can find out which host is the
-current SPM from the "Hosts" tab "Spm Status" column.  Once you have
-located the SPM, log into it and grab the file
-F</var/log/vdsm/vdsm.log> which will contain detailed error messages
-from low-level commands.
+=over 4
+
+=item F</var/log/vdsm/import/>
+
+In oVirt E<ge> 4.1.0, VDSM preserves the virt-v2v log file for
+30 days in this directory.
+
+This directory is found on the host which performed the conversion.
+The host can be selected in the import dialog, or can be found under
+the C<Events> tab in oVirt administration.
+
+=item F</var/log/vdsm/vdsm.log>
+
+As above, this file is present on the host which performed the
+conversion.  It contains detailed error messages from low-level
+operations executed by VDSM, and is useful if the error was not caused
+by virt-v2v, but by VDSM.
+
+=item F</var/log/ovirt-engine/engine.log>
+
+This log file is stored on the RHV-M server.  It contains more detail
+for any errors caused by the oVirt GUI.
+
+=back
 
 =head1 MINIMAL XML FOR -i libvirtxml OPTION
 
