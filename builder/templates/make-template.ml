@@ -97,6 +97,11 @@ let rec main () =
   (* Choose a random temporary disk name. *)
   let tmpout = sprintf "%s.img" tmpname in
 
+  (* Create the final output name (actually not quite final because
+   * we will xz-compress it).
+   *)
+  let output = filename_of_os os arch "" in
+
   (* Some architectures need EFI boot. *)
   let tmpefivars =
     match os, arch with
@@ -146,6 +151,20 @@ let rec main () =
   if pid = 0 then Unix.execvp "virt-install" vi;
   let _, pstat = Unix.waitpid [] pid in
   check_process_status_for_errors pstat;
+  (* If there were NVRAM variables, move them to the final name and
+   * compress them.  Doing this operation later means the cleanup of
+   * the guest will remove them as well (because of --nvram).
+   *)
+  let nvram =
+    match tmpefivars with
+    | Some (_, vars) ->
+       let f = sprintf "%s-nvram" output in
+       let cmd = sprintf "mv %s %s" (quote vars) (quote f) in
+       if Sys.command cmd <> 0 then exit 1;
+       let cmd = sprintf "xz -f --best %s" (quote f) in
+       if Sys.command cmd <> 0 then exit 1;
+       Some (f ^ ".xz")
+    | None -> None in
   cleanup_libvirt_guest ();
   ignore (Sys.command "sync");
 
@@ -211,11 +230,6 @@ let rec main () =
             (if is_selinux_os os then " --selinux-relabel" else "") in
   if Sys.command cmd <> 0 then exit 1;
 
-  (* Create the final output name (actually not quite final because
-   * we will xz-compress it).
-   *)
-  let output = filename_of_os os arch "" in
-
   (* Sparsify and copy to output name. *)
   printf "Sparsifying ...\n%!";
   let cmd =
@@ -230,20 +244,6 @@ let rec main () =
   if Sys.command cmd <> 0 then exit 1;
   let output = output ^ ".xz" in
 
-  (* If there were NVRAM variables, move them to the final name and
-   * compress them too.
-   *)
-  let nvram =
-    match tmpefivars with
-    | Some (_, vars) ->
-       let f = sprintf "%s-nvram" output in
-       let cmd = sprintf "mv %s %s-nvram" (quote vars) (quote f) in
-       if Sys.command cmd <> 0 then exit 1;
-       let cmd = sprintf "xz -f --best %s-nvram" (quote f) in
-       if Sys.command cmd <> 0 then exit 1;
-       Unix.unlink vars;
-       Some (f ^ ".xz")
-    | None -> None in
   printf "Template completed: %s\n%!" output;
 
   (* Construct the index fragment, but don't create this for the private
