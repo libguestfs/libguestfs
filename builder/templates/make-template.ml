@@ -726,7 +726,11 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
   let proxy =
     let p = try Some (Sys.getenv "http_proxy") with Not_found -> None in
     match p with
-    | None -> ""
+    | None ->
+       (match os with
+       | Fedora _ | RHEL _ | CentOS _ | Ubuntu _ -> ""
+       | Debian _ -> "mirror/http/proxy="
+       )
     | Some p ->
        match os with
        | Fedora _ | RHEL _ | CentOS _ -> "proxy=" ^ p
