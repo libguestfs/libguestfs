@@ -20,7 +20,8 @@ include $(top_srcdir)/subdir-rules.mk
 EXTRA_DIST = \
 	$(SOURCES_MLI) \
 	$(SOURCES_ML) \
-	$(SOURCES_C)
+	$(SOURCES_C) \
+	c_utils_unit_tests.ml
 
 SOURCES_MLI = \
 	c_utils.mli \
