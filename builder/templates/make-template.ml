@@ -698,7 +698,7 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
   );
 
   add "--os-type=linux";
-  add (sprintf "--os-variant=%s" (os_variant_of_os os arch));
+  add (sprintf "--os-variant=%s" (os_variant_of_os ~for_fedora:true os arch));
 
   (match tmpefivars with
    | Some (code, vars) ->
@@ -737,38 +737,47 @@ and make_virt_install_command os arch ks tmpname tmpout tmpefivars location
   (* Return the command line (list of arguments). *)
   Array.of_list (List.rev !args)
 
-and os_variant_of_os os arch =
-  match os, arch with
-  (* This case is needed to workaround a bug in virt-install:
-   * https://bugzilla.redhat.com/show_bug.cgi?id=1399083
-   *)
-  | Fedora _, (PPC64|PPC64le) -> "fedora22"
-  | Fedora ver, _ when ver <= 23 ->
-     sprintf "fedora%d" ver
-  | Fedora _, _ -> "fedora23" (* max version known in Fedora 24 *)
-
-  | CentOS (major, minor), _ when (major, minor) <= (7,0) ->
-     sprintf "centos%d.%d" major minor
-  | CentOS _, _ -> "centos7.0" (* max version known in Fedora 24 *)
-
-  | RHEL (major, minor), _ when (major, minor) <= (7,2) ->
-     sprintf "rhel%d.%d" major minor
-  | RHEL _, _ -> "rhel7.2" (* max version known in Fedora 24 *)
-
-  | Debian (ver, _), _ when ver <= 8 -> sprintf "debian%d" ver
-  | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)
-
-  | Ubuntu (ver, _), _ -> sprintf "ubuntu%s" ver
-
-(* Same as the above, but we print the "true" os-variant, even
- * if osinfo itself might not support it yet.
+(* The optional [?for_fedora] flag means that we only return
+ * libosinfo data as currently supported by the latest version of
+ * Fedora.
+ *
+ * This is because if you try to use [virt-install --os-variant=...]
+ * with an os-variant which the host doesn't support, it won't work,
+ * and I currently use Fedora, so whatever is supported there matters.
  *)
-and true_os_variant_of_os = function
-  | Fedora ver -> sprintf "fedora%d" ver
-  | CentOS (major, minor) -> sprintf "centos%d.%d" major minor
-  | RHEL (major, minor) -> sprintf "rhel%d.%d" major minor
-  | Debian (ver, _) -> sprintf "debian%d" ver
-  | Ubuntu (ver, _) -> sprintf "ubuntu%s" ver
+and os_variant_of_os ?(for_fedora = false) os arch =
+  if not for_fedora then (
+    match os with
+    | Fedora ver -> sprintf "fedora%d" ver
+    | CentOS (major, minor) -> sprintf "centos%d.%d" major minor
+    | RHEL (major, minor) -> sprintf "rhel%d.%d" major minor
+    | Debian (ver, _) -> sprintf "debian%d" ver
+    | Ubuntu (ver, _) -> sprintf "ubuntu%s" ver
+  )
+  else (
+    match os, arch with
+    (* This special case for Fedora/ppc64{,le} is needed to work
+     * around a bug in virt-install:
+     * https://bugzilla.redhat.com/show_bug.cgi?id=1399083
+     *)
+    | Fedora _, (PPC64|PPC64le) -> "fedora22"
+    | Fedora ver, _ when ver <= 23 ->
+       sprintf "fedora%d" ver
+    | Fedora _, _ -> "fedora23" (* max version known in Fedora 24 *)
+
+    | CentOS (major, minor), _ when (major, minor) <= (7,0) ->
+       sprintf "centos%d.%d" major minor
+    | CentOS _, _ -> "centos7.0" (* max version known in Fedora 24 *)
+
+    | RHEL (major, minor), _ when (major, minor) <= (7,2) ->
+       sprintf "rhel%d.%d" major minor
+    | RHEL _, _ -> "rhel7.2" (* max version known in Fedora 24 *)
+
+    | Debian (ver, _), _ when ver <= 8 -> sprintf "debian%d" ver
+    | Debian _, _ -> "debian8" (* max version known in Fedora 26 *)
+
+    | Ubuntu (ver, _), _ -> sprintf "ubuntu%s" ver
+  )
 
 and kernel_cmdline_of_os os arch =
   match os, arch with
@@ -872,7 +881,7 @@ and make_index_fragment os arch index_fragment output nvram revision
 
   fpf "[%s]\n" (string_of_os_noarch os);
   fpf "name=%s\n" (long_name_of_os os arch);
-  fpf "osinfo=%s\n" (true_os_variant_of_os os);
+  fpf "osinfo=%s\n" (os_variant_of_os os arch);
   fpf "arch=%s\n" (string_of_arch arch);
   fpf "file=%s\n" output;
   (match revision with
