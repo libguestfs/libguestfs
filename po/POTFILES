@@ -16,6 +16,14 @@ common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/miniexpect/miniexpect.c
+common/mlprogress/progress-c.c
+common/mlstdutils/dummy.c
+common/mlutils/c_utils-c.c
+common/mlutils/dummy.c
+common/mlutils/unix_utils-c.c
+common/mlvisit/dummy.c
+common/mlvisit/visit-c.c
+common/mlxml/xml-c.c
 common/options/config.c
 common/options/decrypt.c
 common/options/display-options.c
@@ -30,10 +38,11 @@ common/parallel/parallel.c
 common/progress/progress.c
 common/qemuopts/qemuopts-tests.c
 common/qemuopts/qemuopts.c
-common/utils/cleanup.c
-common/utils/structs-cleanup.c
-common/utils/structs-print.c
-common/utils/uefi.c
+common/structs/structs-cleanups.c
+common/structs/structs-print.c
+common/utils/cleanups.c
+common/utils/gnulib-cleanups.c
+common/utils/libxml2-cleanups.c
 common/utils/utils.c
 common/visit/visit.c
 common/windows/windows.c
@@ -390,6 +399,7 @@ lib/structs-copy.c
 lib/structs-free.c
 lib/tmpdirs.c
 lib/tsk.c
+lib/uefi.c
 lib/umask.c
 lib/unit-tests.c
 lib/version.c
@@ -401,11 +411,7 @@ make-fs/make-fs.c
 mllib/common_utils-c.c
 mllib/dummy.c
 mllib/getopt-c.c
-mllib/progress-c.c
-mllib/unix_utils-c.c
 mllib/uri-c.c
-mllib/visit-c.c
-mllib/xml-c.c
 ocaml/guestfs-c-actions.c
 ocaml/guestfs-c-errnos.c
 ocaml/guestfs-c.c
@@ -465,4 +471,3 @@ utils/qemu-speed-test/qemu-speed-test.c
 v2v/libvirt_utils-c.c
 v2v/qemuopts-c.c
 v2v/test-harness/dummy.c
-v2v/utils-c.c

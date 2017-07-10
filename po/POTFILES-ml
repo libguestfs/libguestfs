@@ -54,17 +54,9 @@ mllib/common_utils_tests.ml
 mllib/curl.ml
 mllib/getopt.ml
 mllib/getopt_tests.ml
-mllib/guestfs_config.ml
-mllib/libdir.ml
 mllib/planner.ml
-mllib/progress.ml
 mllib/regedit.ml
 mllib/registry.ml
-mllib/stringMap.ml
-mllib/unix_utils.ml
-mllib/visit.ml
-mllib/visit_tests.ml
-mllib/xml.ml
 mllib/xpath_helpers.ml
 resize/resize.ml
 sparsify/cmdline.ml
