@@ -600,9 +600,7 @@ and make_location os arch =
      sprintf "http://deb.debian.org/debian/dists/%s/main/installer-%s"
              dist (debian_arch_of_arch arch)
 
-  | Fedora ver, Aarch64 ->
-     sprintf "https://download.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/aarch64/os/" ver
-
+  (* Fedora primary architectures. *)
   | Fedora ver, Armv7 ->
      sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/armhfp/os/" ver
 
@@ -612,20 +610,24 @@ and make_location os arch =
   | Fedora ver, X86_64 ->
      sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/x86_64/os/" ver
 
-  | Fedora ver, I686 when ver < 21 ->
-     sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Fedora/i386/os/" ver
+  (* Fedora secondary architectures.
+   * By using dl.fedoraproject.org we avoid randomly using mirrors
+   * which might have incomplete copies.
+   *)
+  | Fedora ver, Aarch64 ->
+     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/aarch64/os/" ver
 
   | Fedora ver, I686 ->
-     sprintf "http://mirror.bytemark.co.uk/fedora/linux/releases/%d/Server/i386/os/" ver
+     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/i386/os/" ver
 
   | Fedora ver, PPC64 ->
-     sprintf "https://download.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64/os/" ver
+     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64/os/" ver
 
   | Fedora ver, PPC64le ->
-     sprintf "https://download.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64le/os/" ver
+     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/ppc64le/os/" ver
 
   | Fedora ver, S390X ->
-     sprintf "https://download.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/s390x/os/" ver
+     sprintf "https://dl.fedoraproject.org/pub/fedora-secondary/releases/%d/Server/s390x/os/" ver
 
   | RHEL (3, minor), X86_64 ->
      sprintf "http://download.devel.redhat.com/released/RHEL-3/U%d/AS/x86_64/tree" minor
