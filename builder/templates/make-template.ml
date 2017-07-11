@@ -106,7 +106,7 @@ let rec main () =
   let tmpefivars =
     match os, arch with
     | (Fedora _|RHEL _), Aarch64 ->
-       let vars = sprintf "%s.vars" tmpname in
+       let vars = Sys.getcwd () // sprintf "%s.vars" tmpname in
        let cmd =
          sprintf "cp /usr/share/edk2/aarch64/vars-template-pflash.raw %s"
                  (quote vars) in
