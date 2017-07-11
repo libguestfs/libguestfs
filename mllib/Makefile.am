@@ -39,7 +39,6 @@ SOURCES_MLI = \
 	xpath_helpers.mli
 
 SOURCES_ML = \
-	$(OCAML_BYTES_COMPAT_ML) \
 	common_gettext.ml \
 	getopt.ml \
 	common_utils.ml \

@@ -125,6 +125,7 @@ Makefile.in
 /common/miniexpect/miniexpect.3
 /common/mlprogress/.depend
 /common/mlstdutils/.depend
+/common/mlstdutils/bytes.ml
 /common/mlstdutils/guestfs_config.ml
 /common/mlstdutils/libdir.ml
 /common/mlstdutils/oUnit-*
@@ -275,7 +276,6 @@ Makefile.in
 /fuse/test-guestmount-fd
 /fuse/test-guestunmount-fd
 /generator/.depend
-/generator/bytes.ml
 /generator/common_utils.ml
 /generator/common_utils.mli
 /generator/files-generated.txt
@@ -366,7 +366,6 @@ Makefile.in
 /make-fs/virt-make-fs.1
 /missing
 /mllib/.depend
-/mllib/bytes.ml
 /mllib/common_gettext.ml
 /mllib/common_utils_tests
 /mllib/getopt_tests

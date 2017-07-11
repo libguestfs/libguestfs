@@ -114,7 +114,7 @@ sources = \
 
 # In build dependency order.
 objects = \
-	$(OCAML_GENERATOR_BYTES_COMPAT_CMO) \
+	$(OCAML_BYTES_COMPAT_CMO) \
 	../common/mlstdutils/guestfs_config.cmo \
 	../common/mlstdutils/std_utils.cmo \
 	types.cmo \

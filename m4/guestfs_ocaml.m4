@@ -113,27 +113,23 @@ AM_CONDITIONAL([HAVE_OCAML_GETTEXT],
     [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno" && test "x$OCAML_PKG_gettext" != "xno" && test "x$OCAML_GETTEXT" != "xno"])
 
 dnl Create the backwards compatibility Bytes module for OCaml < 4.02.
-mkdir -p generator mllib
-rm -f generator/bytes.ml mllib/bytes.ml
+mkdir -p common/mlstdutils
+rm -f common/mlstdutils/bytes.ml
 AS_IF([test "x$have_Bytes_module" = "xno"],[
-    cat > generator/bytes.ml <<EOF
+    cat > common/mlstdutils/bytes.ml <<EOF
 include String
 let of_string = String.copy
 let to_string = String.copy
 let sub_string = String.sub
 EOF
-    ln -s ../generator/bytes.ml mllib/bytes.ml
-    OCAML_GENERATOR_BYTES_COMPAT_CMO='$(top_builddir)/generator/bytes.cmo'
-    OCAML_BYTES_COMPAT_CMO='$(top_builddir)/mllib/bytes.cmo'
-    OCAML_BYTES_COMPAT_ML='$(top_builddir)/mllib/bytes.ml'
+    OCAML_BYTES_COMPAT_CMO='$(top_builddir)/common/mlstdutils/bytes.cmo'
+    OCAML_BYTES_COMPAT_ML='$(top_builddir)/common/mlstdutils/bytes.ml'
     safe_string_option=
 ],[
-    OCAML_GENERATOR_BYTES_COMPAT_CMO=
     OCAML_BYTES_COMPAT_CMO=
     OCAML_BYTES_COMPAT_ML=
     safe_string_option="-safe-string"
 ])
-AC_SUBST([OCAML_GENERATOR_BYTES_COMPAT_CMO])
 AC_SUBST([OCAML_BYTES_COMPAT_CMO])
 AC_SUBST([OCAML_BYTES_COMPAT_ML])
 
