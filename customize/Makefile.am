@@ -233,6 +233,7 @@ firstboot_test_scripts := \
 	test-firstboot-debian-7.sh \
 	test-firstboot-debian-8.sh \
 	test-firstboot-fedora-25.sh \
+	test-firstboot-fedora-26.sh \
 	test-firstboot-ubuntu-10.04.sh \
 	test-firstboot-ubuntu-12.04.sh \
 	test-firstboot-ubuntu-14.04.sh \
