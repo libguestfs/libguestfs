@@ -114,9 +114,6 @@ sources = \
 
 # In build dependency order.
 objects = \
-	$(OCAML_BYTES_COMPAT_CMO) \
-	../common/mlstdutils/guestfs_config.cmo \
-	../common/mlstdutils/std_utils.cmo \
 	types.cmo \
 	utils.cmo \
 	proc_nr.cmo \
@@ -178,7 +175,12 @@ OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 noinst_PROGRAM = generator
 
 generator: $(objects)
-	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -linkpkg $^ -o $@
+#	We need the recursive make here because the generator is
+#	rebuilt in ‘make clean’.
+	$(MAKE) -C $(top_builddir)/common/mlstdutils mlstdutils.cma
+	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) \
+	    $(OCAMLPACKAGES) -linkpkg mlstdutils.cma \
+	    $^ -o $@
 
 # Dependencies.
 depend: .depend
