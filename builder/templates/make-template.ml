@@ -24,6 +24,12 @@
  * shell scripts located in libguestfs.git/builder/website.
  *)
 
+#load "str.cma";;
+#load "unix.cma";;
+#directory "../../ocaml";; (* use locally built guestfs *)
+(*#directory "+guestfs";; (* use globally installed guestfs *) *)
+#load "mlguestfs.cma";;
+
 open Printf
 
 let prog = "make-template"
@@ -42,13 +48,22 @@ let () =
      eprintf "%s: you must use `../../run ./make-template.ml ...' to run this script\n"
              prog;
      exit 1
+  );
+
+  (* Check we're not being run as root. *)
+  if Unix.geteuid () = 0 then (
+    eprintf "%s: don't run this script as root\n" prog;
+    exit 1
+  );
+  (* ... and that LIBVIRT_DEFAULT_URI=qemu:///system is NOT set,
+   * which is the same as above.
+   *)
+  let s = try Sys.getenv "LIBVIRT_DEFAULT_URI" with Not_found -> "" in
+  if s = "qemu:///system" then (
+    eprintf "%s: don't set LIBVIRT_DEFAULT_URI=qemu:///system\n" prog;
+    exit 1
   )
   ;;
-
-#load "str.cma";;
-#load "unix.cma";;
-#directory "../../ocaml";;
-#load "mlguestfs.cma";;
 
 type os =
   | CentOS of int * int         (* major, minor *)
