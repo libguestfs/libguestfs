@@ -120,8 +120,7 @@ I<Required>.  Part of Perl core.
 
 =item OCaml findlib
 
-I<Required> if compiling from git.
-Optional (but recommended) if compiling from tarball.
+I<Required>.
 
 =item autoconf
 
@@ -600,8 +599,12 @@ See L</USING A PREBUILT BINARY APPLIANCE> below.
 Disable specific language bindings, even if C<./configure> finds all
 the necessary libraries are installed so that they could be compiled.
 
-Note that disabling OCaml or Perl will have the knock-on effect of
-disabling large numbers of virt tools and parts of the test suite.
+Note that disabling OCaml (bindings) or Perl will have the knock-on
+effect of disabling parts of the test suite and some tools.
+
+OCaml is required to build libguestfs and this requirement cannot be
+removed.  Using I<--disable-ocaml> only disables the bindings and
+OCaml tools.
 
 =item B<--disable-fuse>
 

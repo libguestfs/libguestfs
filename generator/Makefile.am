@@ -177,8 +177,6 @@ OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_ERROR)
 
 noinst_PROGRAM = generator
 
-if HAVE_OCAML
-
 generator: $(objects)
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -linkpkg $^ -o $@
 
@@ -195,19 +193,6 @@ depend: .depend
 	mv $@-t $@
 
 -include .depend
-
-else
-
-# No OCaml compiler.  Just replace the generator with a script that
-# prints a warning.
-
-generator:
-	rm -f $@ $@-t
-	echo 'echo Warning: Install OCaml compiler in order to rebuild the generated files.' > $@-t
-	chmod +x $@-t
-	mv $@-t $@
-
-endif
 
 noinst_DATA = stamp-generator
 
