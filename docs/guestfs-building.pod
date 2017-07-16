@@ -446,6 +446,12 @@ git.
 
 =head1 BUILDING FROM TARBALLS
 
+Tarballs are downloaded from L<http://download.libguestfs.org/>.
+Stable tarballs are signed with the GnuPG key for C<rich@annexia.org>,
+see
+L<https://pgp.mit.edu/pks/lookup?op=vindex&search=0x91738F73E1B768A0>.
+The fingerprint is C<F777 4FB1 AD07 4A7E 8C87 67EA 9173 8F73 E1B7 68A0>.
+
 Download and unpack the tarball.
 
  cd libguestfs-1.xx.yy
