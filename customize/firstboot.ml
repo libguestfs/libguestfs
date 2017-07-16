@@ -80,7 +80,7 @@ then
 fi
 " firstboot_dir firstboot_dir
 
-  let systemd_target = "default.target"
+  let systemd_target = "multi-user.target"
 
   let firstboot_service = sprintf "\
 [Unit]
