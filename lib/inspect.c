@@ -741,7 +741,7 @@ guestfs_int_free_inspect_info (guestfs_h *g)
  * handle the case of multiple roots.
  */
 char *
-guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
+guestfs_int_download_to_tmp (guestfs_h *g,
 			     const char *filename,
 			     const char *basename, uint64_t max_size)
 {
@@ -750,17 +750,10 @@ guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
   char devfd[32];
   int64_t size;
 
-  /* Make the basename unique by prefixing it with the fs number.
-   * This also ensures there is one cache per filesystem.
-   */
-  if (asprintf (&r, "%s/%td-%s", g->tmpdir, fs - g->fses, basename) == -1) {
+  if (asprintf (&r, "%s/%s", g->tmpdir, basename) == -1) {
     perrorf (g, "asprintf");
     return NULL;
   }
-
-  /* If the file has already been downloaded, return. */
-  if (access (r, R_OK) == 0)
-    return r;
 
   /* Check size of remote file. */
   size = guestfs_filesize (g, filename);
