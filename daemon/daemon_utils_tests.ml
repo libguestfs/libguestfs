@@ -46,3 +46,13 @@ let () =
 let () =
   assert (proc_unmangle_path "\\040" = " ");
   assert (proc_unmangle_path "\\040\\040" = "  ")
+
+(* Test unix_canonical_path. *)
+let () =
+  assert (unix_canonical_path "/" = "/");
+  assert (unix_canonical_path "/usr" = "/usr");
+  assert (unix_canonical_path "/usr/" = "/usr");
+  assert (unix_canonical_path "/usr/local" = "/usr/local");
+  assert (unix_canonical_path "///" = "/");
+  assert (unix_canonical_path "///usr//local//" = "/usr/local");
+  assert (unix_canonical_path "/usr///" = "/usr")

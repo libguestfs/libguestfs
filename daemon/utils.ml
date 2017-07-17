@@ -212,3 +212,20 @@ let proc_unmangle_path path =
 let is_small_file path =
   is_regular_file path &&
     (stat path).st_size <= 2 * 1048 * 1024
+
+let read_small_file filename =
+  if not (is_small_file filename) then (
+    eprintf "%s: not a regular file or too large\n" filename;
+    None
+  )
+  else (
+    let content = read_whole_file filename in
+    let lines = String.nsplit "\n" content in
+    Some lines
+  )
+
+let unix_canonical_path path =
+  let is_absolute = String.length path > 0 && path.[0] = '/' in
+  let path = String.nsplit "/" path in
+  let path = List.filter ((<>) "") path in
+  (if is_absolute then "/" else "") ^ String.concat "/" path

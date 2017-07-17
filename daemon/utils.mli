@@ -86,5 +86,16 @@ val commandr : ?fold_stdout_on_stderr:bool -> string -> string list -> (int * st
 val is_small_file : string -> bool
 (** Return true if the path is a small regular file. *)
 
+val read_small_file : string -> string list option
+(** If [filename] is a small file (see {!is_small_file}) then read it
+    split into lines.  Otherwise emits a debug message and returns
+    [None]. *)
+
+val unix_canonical_path : string -> string
+(** Canonicalize a Unix path, so "///usr//local//" -> "/usr/local"
+
+    The path is modified in place because the result is always
+    the same length or shorter than the argument passed. *)
+
 (**/**)
 val get_verbose_flag : unit -> bool
