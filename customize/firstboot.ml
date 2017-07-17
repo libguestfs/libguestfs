@@ -146,7 +146,11 @@ WantedBy=%s
       | csum ->
         warning (f_"firstboot: unknown version for old firstboot.service file %s (md5=%s), it will not be removed")
           oldunitfile csum
-    )
+    );
+    (* And the old default.target.wants/guestfs-firstboot.service from
+     * libguestfs <= 1.37.17.
+     *)
+    g#rm_f "/etc/systemd/system/default.target.wants/guestfs-firstboot.service"
 
   and install_sysvinit_service g root distro major =
     match distro with
