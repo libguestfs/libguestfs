@@ -252,6 +252,8 @@ SOURCES_MLI = \
 	file.mli \
 	filearch.mli \
 	findfs.mli \
+	inspect_types.mli \
+	inspect_utils.mli \
 	is.mli \
 	ldm.mli \
 	link.mli \
@@ -287,6 +289,8 @@ SOURCES_ML = \
 	parted.ml \
 	listfs.ml \
 	realpath.ml \
+	inspect_types.ml \
+	inspect_utils.ml \
 	callbacks.ml \
 	daemon.ml
 
