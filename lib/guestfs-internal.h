@@ -856,6 +856,8 @@ extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 /* inspect.c */
 extern void guestfs_int_free_inspect_info (guestfs_h *g);
 extern char *guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
+extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
+extern int guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 extern struct inspect_fs *guestfs_int_search_for_root (guestfs_h *g, const char *root);
 extern int guestfs_int_is_partition (guestfs_h *g, const char *partition);
 
@@ -864,8 +866,6 @@ extern int guestfs_int_is_file_nocase (guestfs_h *g, const char *);
 extern int guestfs_int_is_dir_nocase (guestfs_h *g, const char *);
 extern int guestfs_int_check_for_filesystem_on (guestfs_h *g,
                                               const char *mountable);
-extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
-extern int guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 extern int guestfs_int_parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
 extern char *guestfs_int_first_line_of_file (guestfs_h *g, const char *filename);
 extern int guestfs_int_first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);

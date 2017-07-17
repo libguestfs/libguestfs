@@ -410,32 +410,6 @@ guestfs_int_is_dir_nocase (guestfs_h *g, const char *path)
   return r > 0;
 }
 
-/* Parse small, unsigned ints, as used in version numbers. */
-int
-guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str)
-{
-  long ret;
-  const int r = xstrtol (str, NULL, 10, &ret, "");
-  if (r != LONGINT_OK) {
-    error (g, _("could not parse integer in version number: %s"), str);
-    return -1;
-  }
-  return ret;
-}
-
-/* Like parse_unsigned_int, but ignore trailing stuff. */
-int
-guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
-{
-  long ret;
-  const int r = xstrtol (str, NULL, 10, &ret, NULL);
-  if (r != LONGINT_OK) {
-    error (g, _("could not parse integer in version number: %s"), str);
-    return -1;
-  }
-  return ret;
-}
-
 /* Parse generic MAJOR.MINOR from the fs->product_name string. */
 int
 guestfs_int_parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
