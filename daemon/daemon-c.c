@@ -151,6 +151,30 @@ guestfs_int_daemon_return_string_mountable (value retv)
   }
 }
 
+/* Implement RStringList (RMountable, _). */
+char **
+guestfs_int_daemon_return_string_mountable_list (value retv)
+{
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
+  value v;
+  char *m;
+
+  while (retv != Val_int (0)) {
+    v = Field (retv, 0);
+    m = guestfs_int_daemon_return_string_mountable (v);
+    if (m == NULL)
+      return NULL;
+    if (add_string_nodup (&ret, m) == -1)
+      return NULL;
+    retv = Field (retv, 1);
+  }
+
+  if (end_stringsbuf (&ret) == -1)
+    return NULL;
+
+  return take_stringsbuf (&ret); /* caller frees */
+}
+
 /* Implement RHashtable (RPlainString, RPlainString, _). */
 char **
 guestfs_int_daemon_return_hashtable_string_string (value retv)
@@ -193,6 +217,34 @@ guestfs_int_daemon_return_hashtable_mountable_string (value retv)
       return NULL;
     sv = Field (v, 1);          /* string */
     if (add_string (&ret, String_val (sv)) == -1)
+      return NULL;
+    retv = Field (retv, 1);
+  }
+
+  if (end_stringsbuf (&ret) == -1)
+    return NULL;
+
+  return take_stringsbuf (&ret); /* caller frees */
+}
+
+/* Implement RHashtable (RPlainString, RMountable, _). */
+char **
+guestfs_int_daemon_return_hashtable_string_mountable (value retv)
+{
+  CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
+  value sv, v, mv;
+  char *m;
+
+  while (retv != Val_int (0)) {
+    v = Field (retv, 0);        /* (string, Mountable.t) */
+    sv = Field (v, 0);          /* string */
+    if (add_string (&ret, String_val (sv)) == -1)
+      return NULL;
+    mv = Field (v, 1);          /* Mountable.t */
+    m = guestfs_int_daemon_return_string_mountable (mv);
+    if (m == NULL)
+      return NULL;
+    if (add_string_nodup (&ret, m) == -1)
       return NULL;
     retv = Field (retv, 1);
   }

@@ -761,8 +761,12 @@ let generate_daemon_caml_stubs () =
           pr "  char *ret =\n";
           pr "    guestfs_int_daemon_return_string_mountable (retv);\n";
           pr "  CAMLreturnT (char *, ret); /* caller frees */\n"
-       | RStringList _ ->
+       | RStringList ((RPlainString|RDevice), _) ->
           pr "  char **ret = guestfs_int_daemon_return_string_list (retv);\n";
+          pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
+       | RStringList (RMountable, _) ->
+          pr "  char **ret =\n";
+          pr "    guestfs_int_daemon_return_string_mountable_list (retv);\n";
           pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
        | RStruct (_, typ) ->
           pr "  guestfs_int_%s *ret =\n" typ;
@@ -774,13 +778,18 @@ let generate_daemon_caml_stubs () =
           pr "    return_%s_list (retv);\n" typ;
           pr "  /* caller frees */\n";
           pr "  CAMLreturnT (guestfs_int_%s_list *, ret);\n" typ
-       | RHashtable (RPlainString, RPlainString, _) ->
+       | RHashtable (RPlainString, RPlainString, _)
+       | RHashtable (RPlainString, RDevice, _) ->
           pr "  char **ret =\n";
           pr "    guestfs_int_daemon_return_hashtable_string_string (retv);\n";
           pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
        | RHashtable (RMountable, RPlainString, _) ->
           pr "  char **ret =\n";
           pr "    guestfs_int_daemon_return_hashtable_mountable_string (retv);\n";
+          pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
+       | RHashtable (RPlainString, RMountable, _) ->
+          pr "  char **ret =\n";
+          pr "    guestfs_int_daemon_return_hashtable_string_mountable (retv);\n";
           pr "  CAMLreturnT (char **, ret); /* caller frees */\n"
        | RHashtable _ -> assert false
        | RBufferOut _ -> assert false
