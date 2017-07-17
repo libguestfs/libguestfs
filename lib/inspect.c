@@ -38,6 +38,7 @@
 #endif
 
 #include "ignore-value.h"
+#include "xstrtol.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
@@ -797,6 +798,32 @@ guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs,
  error:
   free (r);
   return NULL;
+}
+
+/* Parse small, unsigned ints, as used in version numbers. */
+int
+guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str)
+{
+  long ret;
+  const int r = xstrtol (str, NULL, 10, &ret, "");
+  if (r != LONGINT_OK) {
+    error (g, _("could not parse integer in version number: %s"), str);
+    return -1;
+  }
+  return ret;
+}
+
+/* Like parse_unsigned_int, but ignore trailing stuff. */
+int
+guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str)
+{
+  long ret;
+  const int r = xstrtol (str, NULL, 10, &ret, NULL);
+  if (r != LONGINT_OK) {
+    error (g, _("could not parse integer in version number: %s"), str);
+    return -1;
+  }
+  return ret;
 }
 
 struct inspect_fs *
