@@ -868,7 +868,7 @@ extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
 
 /* inspect.c */
 extern void guestfs_int_free_inspect_info (guestfs_h *g);
-extern char *guestfs_int_download_to_tmp (guestfs_h *g, struct inspect_fs *fs, const char *filename, const char *basename, uint64_t max_size);
+extern char *guestfs_int_download_to_tmp (guestfs_h *g, const char *filename, const char *basename, uint64_t max_size);
 extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
 extern int guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
 extern struct inspect_fs *guestfs_int_search_for_root (guestfs_h *g, const char *root);
