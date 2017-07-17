@@ -19,3 +19,4 @@
 (* Please read generator/README first. *)
 
 val non_daemon_functions : Types.action list
+val daemon_functions : Types.action list

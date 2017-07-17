@@ -121,9 +121,13 @@ If unavailable this is returned as an empty string C<\"\">.
 
 Please read L<guestfs(3)/INSPECTION> for more details." };
 
+]
+
+let daemon_functions = [
   { defaults with
     name = "inspect_get_format"; added = (1, 9, 4);
     style = RString (RPlainString, "format"), [String (Mountable, "root")], [];
+    impl = OCaml "Inspect.inspect_get_format";
     deprecated_by = Deprecated_no_replacement;
     shortdesc = "get format of inspected operating system";
     longdesc = "\
@@ -155,6 +159,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
   { defaults with
     name = "inspect_is_live"; added = (1, 9, 4);
     style = RBool "live", [String (Mountable, "root")], [];
+    impl = OCaml "Inspect.inspect_is_live";
     deprecated_by = Deprecated_no_replacement;
     shortdesc = "get live flag for install disk";
     longdesc = "\
@@ -165,6 +170,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
   { defaults with
     name = "inspect_is_netinst"; added = (1, 9, 4);
     style = RBool "netinst", [String (Mountable, "root")], [];
+    impl = OCaml "Inspect.inspect_is_netinst";
     deprecated_by = Deprecated_no_replacement;
     shortdesc = "get netinst (network installer) flag for install disk";
     longdesc = "\
@@ -175,6 +181,7 @@ Please read L<guestfs(3)/INSPECTION> for more details." };
   { defaults with
     name = "inspect_is_multipart"; added = (1, 9, 4);
     style = RBool "multipart", [String (Mountable, "root")], [];
+    impl = OCaml "Inspect.inspect_is_multipart";
     deprecated_by = Deprecated_no_replacement;
     shortdesc = "get multipart flag for install disk";
     longdesc = "\

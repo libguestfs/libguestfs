@@ -46,12 +46,12 @@
 #include "structs-cleanups.h"
 
 #ifdef DB_DUMP
-static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application2_list *list_applications_rpm (guestfs_h *g, const char *root);
 #endif
-static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, struct inspect_fs *fs);
-static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, struct inspect_fs *fs);
-static struct guestfs_application2_list *list_applications_apk (guestfs_h *g, struct inspect_fs *fs);
-static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, struct inspect_fs *fs);
+static struct guestfs_application2_list *list_applications_deb (guestfs_h *g, const char *root);
+static struct guestfs_application2_list *list_applications_pacman (guestfs_h *g, const char *root);
+static struct guestfs_application2_list *list_applications_apk (guestfs_h *g, const char *root);
+static struct guestfs_application2_list *list_applications_windows (guestfs_h *g, const char *root);
 static void add_application (guestfs_h *g, struct guestfs_application2_list *, const char *name, const char *display_name, int32_t epoch, const char *version, const char *release, const char *arch, const char *install_path, const char *publisher, const char *url, const char *source, const char *summary, const char *description);
 static void sort_applications (struct guestfs_application2_list *);
 
@@ -109,67 +109,44 @@ struct guestfs_application2_list *
 guestfs_impl_inspect_list_applications2 (guestfs_h *g, const char *root)
 {
   struct guestfs_application2_list *ret = NULL;
-  struct inspect_fs *fs = guestfs_int_search_for_root (g, root);
-  if (!fs)
+  CLEANUP_FREE char *type = NULL;
+  CLEANUP_FREE char *package_format = NULL;
+
+  type = guestfs_inspect_get_type (g, root);
+  if (!type)
+    return NULL;
+  package_format = guestfs_inspect_get_package_format (g, root);
+  if (!package_format)
     return NULL;
 
-  /* Presently we can only list applications for installed disks.  It
-   * is possible in future to get lists of packages from installers.
-   */
-  if (fs->format == OS_FORMAT_INSTALLED) {
-    switch (fs->type) {
-    case OS_TYPE_LINUX:
-    case OS_TYPE_HURD:
-      switch (fs->package_format) {
-      case OS_PACKAGE_FORMAT_RPM:
+  if (STREQ (type, "linux") || STREQ (type, "hurd")) {
+    if (STREQ (package_format, "rpm")) {
 #ifdef DB_DUMP
-        ret = list_applications_rpm (g, fs);
-        if (ret == NULL)
-          return NULL;
-#endif
-        break;
-
-      case OS_PACKAGE_FORMAT_DEB:
-        ret = list_applications_deb (g, fs);
-        if (ret == NULL)
-          return NULL;
-        break;
-
-      case OS_PACKAGE_FORMAT_PACMAN:
-	ret = list_applications_pacman (g, fs);
-	if (ret == NULL)
-	  return NULL;
-	break;
-
-      case OS_PACKAGE_FORMAT_APK:
-        ret = list_applications_apk (g, fs);
-        if (ret == NULL)
-          return NULL;
-        break;
-
-      case OS_PACKAGE_FORMAT_EBUILD:
-      case OS_PACKAGE_FORMAT_PISI:
-      case OS_PACKAGE_FORMAT_PKGSRC:
-      case OS_PACKAGE_FORMAT_XBPS:
-      case OS_PACKAGE_FORMAT_UNKNOWN:
-        ; /* nothing */
-      }
-      break;
-
-    case OS_TYPE_WINDOWS:
-      ret = list_applications_windows (g, fs);
+      ret = list_applications_rpm (g, root);
       if (ret == NULL)
         return NULL;
-      break;
-
-    case OS_TYPE_FREEBSD:
-    case OS_TYPE_MINIX:
-    case OS_TYPE_NETBSD:
-    case OS_TYPE_DOS:
-    case OS_TYPE_OPENBSD:
-    case OS_TYPE_UNKNOWN:
-      ; /* nothing */
+#endif
     }
+    else if (STREQ (package_format, "deb")) {
+      ret = list_applications_deb (g, root);
+      if (ret == NULL)
+        return NULL;
+    }
+    else if (STREQ (package_format, "pacman")) {
+      ret = list_applications_pacman (g, root);
+      if (ret == NULL)
+        return NULL;
+    }
+    else if (STREQ (package_format, "apk")) {
+      ret = list_applications_apk (g, root);
+      if (ret == NULL)
+        return NULL;
+    }
+  }
+  else if (STREQ (type, "windows")) {
+    ret = list_applications_windows (g, root);
+    if (ret == NULL)
+      return NULL;
   }
 
   if (ret == NULL) {
@@ -386,7 +363,7 @@ read_package (guestfs_h *g,
 #pragma GCC diagnostic pop
 
 static struct guestfs_application2_list *
-list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
+list_applications_rpm (guestfs_h *g, const char *root)
 {
   CLEANUP_FREE char *Name = NULL, *Packages = NULL;
   struct rpm_names_list list = { .names = NULL, .len = 0 };
@@ -437,7 +414,7 @@ list_applications_rpm (guestfs_h *g, struct inspect_fs *fs)
 #endif /* defined DB_DUMP */
 
 static struct guestfs_application2_list *
-list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
+list_applications_deb (guestfs_h *g, const char *root)
 {
   CLEANUP_FREE char *status = NULL;
   struct guestfs_application2_list *apps = NULL, *ret = NULL;
@@ -594,7 +571,7 @@ list_applications_deb (guestfs_h *g, struct inspect_fs *fs)
 }
 
 static struct guestfs_application2_list *
-list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
+list_applications_pacman (guestfs_h *g, const char *root)
 {
   CLEANUP_FREE char *desc_file = NULL, *fname = NULL, *line = NULL;
   CLEANUP_FREE_DIRENT_LIST struct guestfs_dirent_list *local_db = NULL;
@@ -725,7 +702,7 @@ list_applications_pacman (guestfs_h *g, struct inspect_fs *fs)
 }
 
 static struct guestfs_application2_list *
-list_applications_apk (guestfs_h *g, struct inspect_fs *fs)
+list_applications_apk (guestfs_h *g, const char *root)
 {
   CLEANUP_FREE char *installed = NULL, *line = NULL;
   struct guestfs_application2_list *apps = NULL, *ret = NULL;
@@ -843,14 +820,15 @@ list_applications_apk (guestfs_h *g, struct inspect_fs *fs)
 static void list_applications_windows_from_path (guestfs_h *g, struct guestfs_application2_list *apps, const char **path, size_t path_len);
 
 static struct guestfs_application2_list *
-list_applications_windows (guestfs_h *g, struct inspect_fs *fs)
+list_applications_windows (guestfs_h *g, const char *root)
 {
   struct guestfs_application2_list *ret = NULL;
-
-  if (!fs->windows_software_hive)
+  CLEANUP_FREE char *software_hive =
+    guestfs_inspect_get_windows_software_hive (g, root);
+  if (!software_hive)
     return NULL;
 
-  if (guestfs_hivex_open (g, fs->windows_software_hive,
+  if (guestfs_hivex_open (g, software_hive,
                           GUESTFS_HIVEX_OPEN_VERBOSE, g->verbose,
                           GUESTFS_HIVEX_OPEN_UNSAFE, 1,
                           -1) == -1)

@@ -51,21 +51,23 @@
  *     An icon was found.  'ret' points to the icon buffer, and *size_r
  *     is the size.
  */
-static char *icon_favicon (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_fedora (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_rhel (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_debian (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_ubuntu (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_mageia (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+static char *icon_favicon (guestfs_h *g, const char *type, size_t *size_r);
+static char *icon_fedora (guestfs_h *g, size_t *size_r);
+static char *icon_rhel (guestfs_h *g, int major, size_t *size_r);
+static char *icon_debian (guestfs_h *g, size_t *size_r);
+static char *icon_ubuntu (guestfs_h *g, size_t *size_r);
+static char *icon_mageia (guestfs_h *g, size_t *size_r);
+static char *icon_opensuse (guestfs_h *g, size_t *size_r);
 #if CAN_DO_CIRROS
-static char *icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+static char *icon_cirros (guestfs_h *g, size_t *size_r);
 #endif
-static char *icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
-static char *icon_altlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+static char *icon_voidlinux (guestfs_h *g, size_t *size_r);
+static char *icon_altlinux (guestfs_h *g, size_t *size_r);
 #if CAN_DO_WINDOWS
-static char *icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r);
+static char *icon_windows (guestfs_h *g, const char *root, size_t *size_r);
 #endif
+
+static char *case_sensitive_path_silently (guestfs_h *g, const char *path);
 
 /* Dummy static object. */
 static char *NOT_FOUND = (char *) "not_found";
@@ -82,13 +84,17 @@ char *
 guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
 			       const struct guestfs_inspect_get_icon_argv *optargs)
 {
-  struct inspect_fs *fs;
   char *r = NOT_FOUND;
   int favicon, highquality;
   size_t size;
+  CLEANUP_FREE char *type = NULL;
+  CLEANUP_FREE char *distro = NULL;
 
-  fs = guestfs_int_search_for_root (g, root);
-  if (!fs)
+  type = guestfs_inspect_get_type (g, root);
+  if (!type)
+    return NULL;
+  distro = guestfs_inspect_get_distro (g, root);
+  if (!distro)
     return NULL;
 
   /* Get optargs, or defaults. */
@@ -106,7 +112,7 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
 
   /* Try looking for a favicon first. */
   if (favicon) {
-    r = icon_favicon (g, fs, &size);
+    r = icon_favicon (g, type, &size);
     if (!r)
       return NULL;
 
@@ -120,96 +126,52 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
   /* Favicon failed, so let's try a method based on the detected operating
    * system.
    */
-  switch (fs->type) {
-  case OS_TYPE_LINUX:
-  case OS_TYPE_HURD:
-    switch (fs->distro) {
-    case OS_DISTRO_FEDORA:
-      r = icon_fedora (g, fs, &size);
-      break;
-
-    case OS_DISTRO_RHEL:
-    case OS_DISTRO_REDHAT_BASED:
-    case OS_DISTRO_CENTOS:
-    case OS_DISTRO_SCIENTIFIC_LINUX:
-    case OS_DISTRO_ORACLE_LINUX:
-      r = icon_rhel (g, fs, &size);
-      break;
-
-    case OS_DISTRO_DEBIAN:
-      r = icon_debian (g, fs, &size);
-      break;
-
-    case OS_DISTRO_UBUNTU:
-      if (!highquality)
-        r = icon_ubuntu (g, fs, &size);
-      break;
-
-    case OS_DISTRO_MAGEIA:
-      r = icon_mageia (g, fs, &size);
-      break;
-
-    case OS_DISTRO_SUSE_BASED:
-    case OS_DISTRO_OPENSUSE:
-    case OS_DISTRO_SLES:
-      r = icon_opensuse (g, fs, &size);
-      break;
-
-    case OS_DISTRO_CIRROS:
-#if CAN_DO_CIRROS
-      r = icon_cirros (g, fs, &size);
-#endif
-      break;
-
-    case OS_DISTRO_VOID_LINUX:
-      r = icon_voidlinux (g, fs, &size);
-      break;
-
-    case OS_DISTRO_ALTLINUX:
-      r = icon_altlinux (g, fs, &size);
-      break;
-
-      /* These are just to keep gcc warnings happy. */
-    case OS_DISTRO_ARCHLINUX:
-    case OS_DISTRO_BUILDROOT:
-    case OS_DISTRO_COREOS:
-    case OS_DISTRO_FREEDOS:
-    case OS_DISTRO_GENTOO:
-    case OS_DISTRO_LINUX_MINT:
-    case OS_DISTRO_MANDRIVA:
-    case OS_DISTRO_MEEGO:
-    case OS_DISTRO_PARDUS:
-    case OS_DISTRO_SLACKWARE:
-    case OS_DISTRO_TTYLINUX:
-    case OS_DISTRO_WINDOWS:
-    case OS_DISTRO_FREEBSD:
-    case OS_DISTRO_NETBSD:
-    case OS_DISTRO_OPENBSD:
-    case OS_DISTRO_ALPINE_LINUX:
-    case OS_DISTRO_FRUGALWARE:
-    case OS_DISTRO_PLD_LINUX:
-    case OS_DISTRO_UNKNOWN:
-      ; /* nothing */
+  if (STREQ (type, "linux") || STREQ (type, "hurd")) {
+    if (STREQ (distro, "fedora")) {
+      r = icon_fedora (g, &size);
     }
-    break;
-
-  case OS_TYPE_WINDOWS:
+    else if (STREQ (distro, "rhel") ||
+             STREQ (distro, "redhat-based") ||
+             STREQ (distro, "centos") ||
+             STREQ (distro, "scientificlinux") ||
+             STREQ (distro, "oraclelinux")) {
+      r = icon_rhel (g, guestfs_inspect_get_major_version (g, root), &size);
+    }
+    else if (STREQ (distro, "debian")) {
+      r = icon_debian (g, &size);
+    }
+    else if (STREQ (distro, "ubuntu")) {
+      if (!highquality)
+        r = icon_ubuntu (g, &size);
+    }
+    else if (STREQ (distro, "mageia")) {
+      r = icon_mageia (g, &size);
+    }
+    else if (STREQ (distro, "suse-based") ||
+             STREQ (distro, "opensuse") ||
+             STREQ (distro, "sles")) {
+      r = icon_opensuse (g, &size);
+    }
+    else if (STREQ (distro, "cirros")) {
+#if CAN_DO_CIRROS
+      r = icon_cirros (g, &size);
+#endif
+    }
+    else if (STREQ (distro, "voidlinux")) {
+      r = icon_voidlinux (g, &size);
+    }
+    else if (STREQ (distro, "altlinux")) {
+      r = icon_altlinux (g, &size);
+    }
+  }
+  else if (STREQ (type, "windows")) {
 #if CAN_DO_WINDOWS
     /* We don't know how to get high quality icons from a Windows guest,
      * so disable this if high quality was specified.
      */
     if (!highquality)
-      r = icon_windows (g, fs, &size);
+      r = icon_windows (g, root, &size);
 #endif
-    break;
-
-  case OS_TYPE_FREEBSD:
-  case OS_TYPE_NETBSD:
-  case OS_TYPE_DOS:
-  case OS_TYPE_OPENBSD:
-  case OS_TYPE_MINIX:
-  case OS_TYPE_UNKNOWN:
-    ; /* nothing */
   }
 
   if (r == NOT_FOUND) {
@@ -229,8 +191,7 @@ guestfs_impl_inspect_get_icon (guestfs_h *g, const char *root, size_t *size_r,
  * If it is, download and return it.
  */
 static char *
-get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
-         size_t *size_r, size_t max_size)
+get_png (guestfs_h *g, const char *filename, size_t *size_r, size_t max_size)
 {
   char *ret;
   CLEANUP_FREE char *real = NULL;
@@ -285,20 +246,20 @@ get_png (guestfs_h *g, struct inspect_fs *fs, const char *filename,
  * it has a reasonable size and format.
  */
 static char *
-icon_favicon (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_favicon (guestfs_h *g, const char *type, size_t *size_r)
 {
   char *ret;
   char *filename = safe_strdup (g, "/etc/favicon.png");
 
-  if (fs->type == OS_TYPE_WINDOWS) {
-    char *f = guestfs_int_case_sensitive_path_silently (g, filename);
+  if (STREQ (type, "windows")) {
+    char *f = case_sensitive_path_silently (g, filename);
     if (f) {
       free (filename);
       filename = f;
     }
   }
 
-  ret = get_png (g, fs, filename, size_r, 0);
+  ret = get_png (g, filename, size_r, 0);
   free (filename);
   return ret;
 }
@@ -309,9 +270,9 @@ icon_favicon (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 #define FEDORA_ICON "/usr/share/icons/hicolor/96x96/apps/fedora-logo-icon.png"
 
 static char *
-icon_fedora (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_fedora (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, fs, FEDORA_ICON, size_r, 0);
+  return get_png (g, FEDORA_ICON, size_r, 0);
 }
 
 /* RHEL 3, 4:
@@ -330,28 +291,28 @@ icon_fedora (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
  * RHEL clones have different sizes.
  */
 static char *
-icon_rhel (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_rhel (guestfs_h *g, int major, size_t *size_r)
 {
   const char *shadowman;
 
-  if (!guestfs_int_version_ge (&fs->version, 7, 0, 0))
+  if (major < 7)
     shadowman = "/usr/share/pixmaps/redhat/shadowman-transparent.png";
   else
     shadowman = "/usr/share/pixmaps/fedora-logo-sprite.png";
 
-  return get_png (g, fs, shadowman, size_r, 102400);
+  return get_png (g, shadowman, size_r, 102400);
 }
 
 #define DEBIAN_ICON "/usr/share/pixmaps/debian-logo.png"
 
 static char *
-icon_debian (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_debian (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, fs, DEBIAN_ICON, size_r, 2048);
+  return get_png (g, DEBIAN_ICON, size_r, 2048);
 }
 
 static char *
-icon_ubuntu (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_ubuntu (guestfs_h *g, size_t *size_r)
 {
   const char *icons[] = {
     "/usr/share/icons/gnome/24x24/places/ubuntu-logo.png",
@@ -366,7 +327,7 @@ icon_ubuntu (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   char *ret;
 
   for (i = 0; icons[i] != NULL; ++i) {
-    ret = get_png (g, fs, icons[i], size_r, 2048);
+    ret = get_png (g, icons[i], size_r, 2048);
     if (ret == NULL)
       return NULL;
     if (ret != NOT_FOUND)
@@ -378,17 +339,17 @@ icon_ubuntu (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 #define MAGEIA_ICON "/usr/share/icons/mageia.png"
 
 static char *
-icon_mageia (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_mageia (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, fs, MAGEIA_ICON, size_r, 2048);
+  return get_png (g, MAGEIA_ICON, size_r, 2048);
 }
 
 #define OPENSUSE_ICON "/usr/share/icons/hicolor/24x24/apps/distributor.png"
 
 static char *
-icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_opensuse (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, fs, OPENSUSE_ICON, size_r, 2048);
+  return get_png (g, OPENSUSE_ICON, size_r, 2048);
 }
 
 #if CAN_DO_CIRROS
@@ -397,7 +358,7 @@ icon_opensuse (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 #define CIRROS_LOGO "/usr/share/cirros/logo"
 
 static char *
-icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_cirros (guestfs_h *g, size_t *size_r)
 {
   char *ret;
   CLEANUP_FREE char *type = NULL;
@@ -450,17 +411,17 @@ icon_cirros (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 #define VOIDLINUX_ICON "/usr/share/void-artwork/void-logo.png"
 
 static char *
-icon_voidlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_voidlinux (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, fs, VOIDLINUX_ICON, size_r, 20480);
+  return get_png (g, VOIDLINUX_ICON, size_r, 20480);
 }
 
 #define ALTLINUX_ICON "/usr/share/icons/hicolor/48x48/apps/altlinux.png"
 
 static char *
-icon_altlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_altlinux (guestfs_h *g, size_t *size_r)
 {
-  return get_png (g, fs, ALTLINUX_ICON, size_r, 20480);
+  return get_png (g, ALTLINUX_ICON, size_r, 20480);
 }
 
 #if CAN_DO_WINDOWS
@@ -481,7 +442,7 @@ icon_altlinux (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
  */
 
 static char *
-icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_windows_xp (guestfs_h *g, const char *systemroot, size_t *size_r)
 {
   CLEANUP_FREE char *filename = NULL;
   CLEANUP_FREE char *filename_case = NULL;
@@ -492,7 +453,7 @@ icon_windows_xp (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   char *ret;
 
   /* Download %systemroot%\explorer.exe */
-  filename = safe_asprintf (g, "%s/explorer.exe", fs->windows_systemroot);
+  filename = safe_asprintf (g, "%s/explorer.exe", systemroot);
   filename_case = guestfs_case_sensitive_path (g, filename);
   if (filename_case == NULL)
     return NULL;
@@ -543,7 +504,7 @@ static const char *win7_explorer[] = {
 };
 
 static char *
-icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_windows_7 (guestfs_h *g, const char *systemroot, size_t *size_r)
 {
   size_t i;
   CLEANUP_FREE char *filename_case = NULL;
@@ -556,11 +517,10 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
   for (i = 0; win7_explorer[i] != NULL; ++i) {
     CLEANUP_FREE char *filename = NULL;
 
-    filename = safe_asprintf (g, "%s/%s",
-                              fs->windows_systemroot, win7_explorer[i]);
+    filename = safe_asprintf (g, "%s/%s", systemroot, win7_explorer[i]);
 
     free (filename_case);
-    filename_case = guestfs_int_case_sensitive_path_silently (g, filename);
+    filename_case = case_sensitive_path_silently (g, filename);
     if (filename_case == NULL)
       continue;
 
@@ -609,14 +569,14 @@ icon_windows_7 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
  * - /Windows/System32/slui.exe --type=14 group icon #2
  */
 static char *
-icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_windows_8 (guestfs_h *g, size_t *size_r)
 {
   CLEANUP_FREE char *filename_case = NULL;
   CLEANUP_FREE char *filename_downloaded = NULL;
   int r;
   char *ret;
 
-  filename_case = guestfs_int_case_sensitive_path_silently
+  filename_case = case_sensitive_path_silently
     (g, "/ProgramData/Microsoft/Windows Live/WLive48x48.png");
   if (filename_case == NULL)
     return NOT_FOUND; /* Not an error since a parent dir might not exist. */
@@ -641,25 +601,46 @@ icon_windows_8 (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
 }
 
 static char *
-icon_windows (guestfs_h *g, struct inspect_fs *fs, size_t *size_r)
+icon_windows (guestfs_h *g, const char *root, size_t *size_r)
 {
-  if (fs->windows_systemroot == NULL)
+  CLEANUP_FREE char *systemroot =
+    guestfs_inspect_get_windows_systemroot (g, root);
+  int major = guestfs_inspect_get_major_version (g, root);
+  int minor = guestfs_inspect_get_minor_version (g, root);
+
+  if (systemroot == NULL)
     return NOT_FOUND;
 
   /* Windows XP. */
-  if (fs->version.v_major == 5 && fs->version.v_minor == 1)
-    return icon_windows_xp (g, fs, size_r);
+  if (major == 5 && minor == 1)
+    return icon_windows_xp (g, systemroot, size_r);
 
   /* Windows 7. */
-  else if (fs->version.v_major == 6 && fs->version.v_minor == 1)
-    return icon_windows_7 (g, fs, size_r);
+  else if (major == 6 && minor == 1)
+    return icon_windows_7 (g, systemroot, size_r);
 
   /* Windows 8. */
-  else if (fs->version.v_major == 6 && fs->version.v_minor == 2)
-    return icon_windows_8 (g, fs, size_r);
+  else if (major == 6 && minor == 2)
+    return icon_windows_8 (g, size_r);
 
   /* Not (yet) a supported version of Windows. */
   else return NOT_FOUND;
 }
 
 #endif /* CAN_DO_WINDOWS */
+
+/* NB: This function DOES NOT test for the existence of the file.  It
+ * will return non-NULL even if the file/directory does not exist.
+ * You have to call guestfs_is_file{,_opts} etc.
+ */
+static char *
+case_sensitive_path_silently (guestfs_h *g, const char *path)
+{
+  char *ret;
+
+  guestfs_push_error_handler (g, NULL, NULL);
+  ret = guestfs_case_sensitive_path (g, path);
+  guestfs_pop_error_handler (g);
+
+  return ret;
+}

@@ -116,21 +116,6 @@
 
 /* Some limits on what the inspection code will read, for safety. */
 
-/* Small text configuration files.
- *
- * The upper limit is for general files that we grep or download.  The
- * largest such file is probably "txtsetup.sif" from Windows CDs
- * (~500K).  This number has to be larger than any legitimate file and
- * smaller than the protocol message size.
- *
- * The lower limit is for files parsed by Augeas on the daemon side,
- * where Augeas is running in reduced memory and can potentially
- * create a lot of metadata so we really need to be careful about
- * those.
- */
-#define MAX_SMALL_FILE_SIZE    (2 * 1000 * 1000)
-#define MAX_AUGEAS_FILE_SIZE        (100 * 1000)
-
 /* Maximum RPM or dpkg database we will download to /tmp.  RPM
  * 'Packages' database can get very large: 70 MB is roughly the
  * standard size for a new Fedora install, and after lots of package
@@ -470,12 +455,6 @@ struct guestfs_h {
   struct event *events;
   size_t nr_events;
 
-  /* Information gathered by inspect_os.  Must be freed by calling
-   * guestfs_int_free_inspect_info.
-   */
-  struct inspect_fs *fses;
-  size_t nr_fses;
-
   /* Private data area. */
   struct hash_table *pda;
   struct pda_entry *pda_next;
@@ -534,133 +513,6 @@ struct version {
   int v_major;
   int v_minor;
   int v_micro;
-};
-
-/* Per-filesystem data stored for inspect_os. */
-enum inspect_os_format {
-  OS_FORMAT_UNKNOWN = 0,
-  OS_FORMAT_INSTALLED,
-  OS_FORMAT_INSTALLER,
-  /* in future: supplemental disks */
-};
-
-enum inspect_os_type {
-  OS_TYPE_UNKNOWN = 0,
-  OS_TYPE_LINUX,
-  OS_TYPE_WINDOWS,
-  OS_TYPE_FREEBSD,
-  OS_TYPE_NETBSD,
-  OS_TYPE_HURD,
-  OS_TYPE_DOS,
-  OS_TYPE_OPENBSD,
-  OS_TYPE_MINIX,
-};
-
-enum inspect_os_distro {
-  OS_DISTRO_UNKNOWN = 0,
-  OS_DISTRO_DEBIAN,
-  OS_DISTRO_FEDORA,
-  OS_DISTRO_REDHAT_BASED,
-  OS_DISTRO_RHEL,
-  OS_DISTRO_WINDOWS,
-  OS_DISTRO_PARDUS,
-  OS_DISTRO_ARCHLINUX,
-  OS_DISTRO_GENTOO,
-  OS_DISTRO_UBUNTU,
-  OS_DISTRO_MEEGO,
-  OS_DISTRO_LINUX_MINT,
-  OS_DISTRO_MANDRIVA,
-  OS_DISTRO_SLACKWARE,
-  OS_DISTRO_CENTOS,
-  OS_DISTRO_SCIENTIFIC_LINUX,
-  OS_DISTRO_TTYLINUX,
-  OS_DISTRO_MAGEIA,
-  OS_DISTRO_OPENSUSE,
-  OS_DISTRO_BUILDROOT,
-  OS_DISTRO_CIRROS,
-  OS_DISTRO_FREEDOS,
-  OS_DISTRO_SUSE_BASED,
-  OS_DISTRO_SLES,
-  OS_DISTRO_OPENBSD,
-  OS_DISTRO_ORACLE_LINUX,
-  OS_DISTRO_FREEBSD,
-  OS_DISTRO_NETBSD,
-  OS_DISTRO_COREOS,
-  OS_DISTRO_ALPINE_LINUX,
-  OS_DISTRO_ALTLINUX,
-  OS_DISTRO_FRUGALWARE,
-  OS_DISTRO_PLD_LINUX,
-  OS_DISTRO_VOID_LINUX,
-};
-
-enum inspect_os_package_format {
-  OS_PACKAGE_FORMAT_UNKNOWN = 0,
-  OS_PACKAGE_FORMAT_RPM,
-  OS_PACKAGE_FORMAT_DEB,
-  OS_PACKAGE_FORMAT_PACMAN,
-  OS_PACKAGE_FORMAT_EBUILD,
-  OS_PACKAGE_FORMAT_PISI,
-  OS_PACKAGE_FORMAT_PKGSRC,
-  OS_PACKAGE_FORMAT_APK,
-  OS_PACKAGE_FORMAT_XBPS,
-};
-
-enum inspect_os_package_management {
-  OS_PACKAGE_MANAGEMENT_UNKNOWN = 0,
-  OS_PACKAGE_MANAGEMENT_YUM,
-  OS_PACKAGE_MANAGEMENT_UP2DATE,
-  OS_PACKAGE_MANAGEMENT_APT,
-  OS_PACKAGE_MANAGEMENT_PACMAN,
-  OS_PACKAGE_MANAGEMENT_PORTAGE,
-  OS_PACKAGE_MANAGEMENT_PISI,
-  OS_PACKAGE_MANAGEMENT_URPMI,
-  OS_PACKAGE_MANAGEMENT_ZYPPER,
-  OS_PACKAGE_MANAGEMENT_DNF,
-  OS_PACKAGE_MANAGEMENT_APK,
-  OS_PACKAGE_MANAGEMENT_XBPS,
-};
-
-enum inspect_os_role {
-  OS_ROLE_UNKNOWN = 0,
-  OS_ROLE_ROOT,
-  OS_ROLE_USR,
-};
-
-/**
- * The inspection code maintains one of these structures per mountable
- * filesystem found in the disk image.  The struct (or structs) which
- * have the C<role> attribute set to C<OS_ROLE_ROOT> are inspection roots,
- * each corresponding to a single guest.  Note that a filesystem can be
- * shared between multiple guests.
- */
-struct inspect_fs {
-  enum inspect_os_role role;
-  char *mountable;
-  enum inspect_os_type type;
-  enum inspect_os_distro distro;
-  enum inspect_os_package_format package_format;
-  enum inspect_os_package_management package_management;
-  char *product_name;
-  char *product_variant;
-  struct version version;
-  char *arch;
-  char *hostname;
-  char *windows_systemroot;
-  char *windows_software_hive;
-  char *windows_system_hive;
-  char *windows_current_control_set;
-  char **drive_mappings;
-  enum inspect_os_format format;
-  int is_live_disk;
-  int is_netinst_disk;
-  int is_multipart_disk;
-  struct inspect_fstab_entry *fstab;
-  size_t nr_fstab;
-};
-
-struct inspect_fstab_entry {
-  char *mountable;
-  char *mountpoint;
 };
 
 struct guestfs_message_header;
@@ -854,40 +706,9 @@ extern int guestfs_int_set_backend (guestfs_h *g, const char *method);
   } while (0)
 
 /* inspect.c */
-extern void guestfs_int_free_inspect_info (guestfs_h *g);
 extern char *guestfs_int_download_to_tmp (guestfs_h *g, const char *filename, const char *basename, uint64_t max_size);
 extern int guestfs_int_parse_unsigned_int (guestfs_h *g, const char *str);
 extern int guestfs_int_parse_unsigned_int_ignore_trailing (guestfs_h *g, const char *str);
-extern struct inspect_fs *guestfs_int_search_for_root (guestfs_h *g, const char *root);
-extern int guestfs_int_is_partition (guestfs_h *g, const char *partition);
-
-/* inspect-fs.c */
-extern int guestfs_int_is_file_nocase (guestfs_h *g, const char *);
-extern int guestfs_int_is_dir_nocase (guestfs_h *g, const char *);
-extern int guestfs_int_check_for_filesystem_on (guestfs_h *g,
-                                              const char *mountable);
-extern int guestfs_int_parse_major_minor (guestfs_h *g, struct inspect_fs *fs);
-extern char *guestfs_int_first_line_of_file (guestfs_h *g, const char *filename);
-extern int guestfs_int_first_egrep_of_file (guestfs_h *g, const char *filename, const char *eregex, int iflag, char **ret);
-extern void guestfs_int_check_package_format (guestfs_h *g, struct inspect_fs *fs);
-extern void guestfs_int_check_package_management (guestfs_h *g, struct inspect_fs *fs);
-extern void guestfs_int_merge_fs_inspections (guestfs_h *g, struct inspect_fs *dst, struct inspect_fs *src);
-
-/* inspect-fs-unix.c */
-extern int guestfs_int_check_linux_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_linux_usr (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_freebsd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_netbsd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_openbsd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_hurd_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_minix_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_coreos_root (guestfs_h *g, struct inspect_fs *fs);
-extern int guestfs_int_check_coreos_usr (guestfs_h *g, struct inspect_fs *fs);
-
-/* inspect-fs-windows.c */
-extern char *guestfs_int_case_sensitive_path_silently (guestfs_h *g, const char *);
-extern char * guestfs_int_get_windows_systemroot (guestfs_h *g);
-extern int guestfs_int_check_windows_root (guestfs_h *g, struct inspect_fs *fs, char *windows_systemroot);
 
 /* dbdump.c */
 typedef int (*guestfs_int_db_dump_callback) (guestfs_h *g, const unsigned char *key, size_t keylen, const unsigned char *value, size_t valuelen, void *opaque);

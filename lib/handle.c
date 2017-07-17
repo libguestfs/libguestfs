@@ -369,7 +369,6 @@ guestfs_close (guestfs_h *g)
   guestfs_int_free_fuse (g);
 #endif
 
-  guestfs_int_free_inspect_info (g);
   guestfs_int_free_drives (g);
 
   for (hp = g->hv_params; hp; hp = hp_next) {

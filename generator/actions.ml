@@ -51,6 +51,8 @@ let daemon_functions =
   Actions_debug.daemon_functions @
   Actions_hivex.daemon_functions @
   Actions_hivex_deprecated.daemon_functions @
+  Actions_inspection.daemon_functions @
+  Actions_inspection_deprecated.daemon_functions @
   Actions_tsk.daemon_functions @
   Actions_yara.daemon_functions
 
