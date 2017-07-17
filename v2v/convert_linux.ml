@@ -302,7 +302,12 @@ let rec convert (g : G.guestfs) inspect source output rcaps =
     let uninstaller = "/usr/bin/vmware-uninstall-tools.pl" in
     if g#is_file ~followsymlinks:true uninstaller then (
       try
-        ignore (g#command [| uninstaller |]);
+        if family = `SUSE_family then
+          ignore (g#command [| "/usr/bin/env";
+                               "rootdev=" ^ inspect.i_root;
+                               uninstaller |])
+        else
+          ignore (g#command [| uninstaller |]);
 
         (* Reload Augeas to detect changes made by vbox tools uninst. *)
         Linux.augeas_reload g
