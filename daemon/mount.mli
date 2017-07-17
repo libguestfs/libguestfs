@@ -20,3 +20,5 @@ val mount : Mountable.t -> string -> unit
 val mount_ro : Mountable.t -> string -> unit
 val mount_options : string -> Mountable.t -> string -> unit
 val mount_vfs : string option -> string option -> Mountable.t -> string -> unit
+
+val umount_all : unit -> unit

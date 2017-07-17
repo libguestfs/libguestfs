@@ -60,3 +60,64 @@ let mount_vfs options vfs mountable mountpoint =
 let mount = mount_vfs None None
 let mount_ro = mount_vfs (Some "ro") None
 let mount_options options = mount_vfs (Some options) None
+
+(* Unmount everything mounted under /sysroot.
+ *
+ * We have to unmount in the correct order, so we sort the paths by
+ * longest first to ensure that child paths are unmounted by parent
+ * paths.
+ *
+ * This call is more important than it appears at first, because it
+ * is widely used by both test and production code in order to
+ * get back to a known state (nothing mounted, everything synchronized).
+ *)
+let rec umount_all () =
+  (* This is called from internal_autosync and generally as a cleanup
+   * function, and since the umount will definitely fail if any
+   * handles are open, we may as well close them.
+   *)
+  (* XXX
+  aug_finalize ();
+  hivex_finalize ();
+  journal_finalize ();
+  *)
+
+  let sysroot = Sysroot.sysroot () in
+  let sysroot_len = String.length sysroot in
+
+  let info = read_whole_file "/proc/self/mountinfo" in
+  let info = String.nsplit "\n" info in
+
+  let mps = ref [] in
+  List.iter (
+    fun line ->
+      let line = String.nsplit " " line in
+      (* The field of interest is the 5th field.  Whitespace is escaped
+       * with octal sequences like \040 (for space).
+       * See fs/seq_file.c:mangle_path.
+       *)
+      if List.length line >= 5 then (
+        let mp = List.nth line 4 in
+        let mp = proc_unmangle_path mp in
+
+        (* Allow a mount directory like "/sysroot" or "/sysroot/..." *)
+        if (sysroot_len > 0 && String.is_prefix mp sysroot) ||
+           (String.is_prefix mp sysroot &&
+            String.length mp > sysroot_len &&
+            mp.[sysroot_len] = '/') then
+          push_front mp mps
+      )
+  ) info;
+
+  let mps = !mps in
+  let mps = List.sort compare_longest_first mps in
+
+  (* Unmount them. *)
+  List.iter (
+    fun mp -> ignore (command "umount" [mp])
+  ) mps
+
+and compare_longest_first s1 s2 =
+  let n1 = String.length s1 in
+  let n2 = String.length s2 in
+  n2 - n1
