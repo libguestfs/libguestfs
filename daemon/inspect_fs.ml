@@ -192,6 +192,12 @@ and check_filesystem mountable =
     debug_matching "Linux /var";
     ()
   )
+  (* Windows root? *)
+  else if Inspect_fs_windows.is_windows_systemroot () then (
+    debug_matching "Windows root";
+    role := `Root;
+    Inspect_fs_windows.check_windows_root data;
+  )
   (* Windows volume with installed applications (but not root)? *)
   else if is_dir_nocase "/System Volume Information" &&
           is_dir_nocase "/Program Files" then (

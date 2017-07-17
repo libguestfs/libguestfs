@@ -256,6 +256,7 @@ SOURCES_MLI = \
 	inspect_fs.mli \
 	inspect_fs_unix.mli \
 	inspect_fs_unix_fstab.mli \
+	inspect_fs_windows.mli \
 	inspect_types.mli \
 	inspect_utils.mli \
 	is.mli \
@@ -297,6 +298,7 @@ SOURCES_ML = \
 	inspect_utils.ml \
 	inspect_fs_unix_fstab.ml \
 	inspect_fs_unix.ml \
+	inspect_fs_windows.ml \
 	inspect_fs.ml \
 	inspect.ml \
 	callbacks.ml \
