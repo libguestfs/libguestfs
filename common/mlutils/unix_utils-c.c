@@ -40,13 +40,7 @@
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
-
-#ifdef HAVE_CAML_UNIXSUPPORT_H
 #include <caml/unixsupport.h>
-#else
-#define Nothing ((value) 0)
-extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
-#endif
 
 extern value guestfs_int_mllib_dev_t_makedev (value majv, value minv);
 extern value guestfs_int_mllib_dev_t_major (value devv);

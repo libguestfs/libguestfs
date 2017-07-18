@@ -56,12 +56,6 @@ AM_CONDITIONAL([HAVE_OCAMLOPT],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
-dnl Check for <caml/unixsupport.h> header.
-old_CPPFLAGS="$CPPFLAGS"
-CPPFLAGS="$CPPFLAGS -I`$OCAMLC -where`"
-AC_CHECK_HEADERS([caml/unixsupport.h],[],[],[#include <caml/mlvalues.h>])
-CPPFLAGS="$old_CPPFLAGS"
-
 OCAML_PKG_gettext=no
 OCAML_PKG_libvirt=no
 OCAML_PKG_oUnit=no
