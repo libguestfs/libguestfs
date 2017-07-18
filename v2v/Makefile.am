@@ -370,6 +370,9 @@ real_guests_scripts = \
 	test-v2v-conversion-of-debian-8.sh \
 	test-v2v-conversion-of-fedora-20.sh \
 	test-v2v-conversion-of-fedora-23.sh \
+	test-v2v-conversion-of-opensuse-13.1.sh \
+	test-v2v-conversion-of-opensuse-13.2.sh \
+	test-v2v-conversion-of-opensuse-42.1.sh \
 	test-v2v-conversion-of-rhel-5.10.sh \
 	test-v2v-conversion-of-rhel-6.8.sh \
 	test-v2v-conversion-of-rhel-7.0.sh \
