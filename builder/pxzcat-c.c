@@ -34,6 +34,7 @@
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/unixsupport.h>
 
 #include "guestfs.h"
 #include "guestfs-internal-frontend.h"
@@ -42,13 +43,6 @@
 
 #if HAVE_LIBLZMA
 #include <lzma.h>
-#endif
-
-#ifdef HAVE_CAML_UNIXSUPPORT_H
-#include <caml/unixsupport.h>
-#else
-#define Nothing ((value) 0)
-extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
 #endif
 
 #if defined (HAVE_LIBLZMA) &&			\

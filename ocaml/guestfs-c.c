@@ -34,13 +34,7 @@
 #include <caml/mlvalues.h>
 #include <caml/printexc.h>
 #include <caml/signals.h>
-
-#ifdef HAVE_CAML_UNIXSUPPORT_H
 #include <caml/unixsupport.h>
-#else
-#define Nothing ((value) 0)
-extern void unix_error (int errcode, char * cmdname, value arg) Noreturn;
-#endif
 
 #include "guestfs-c.h"
 
