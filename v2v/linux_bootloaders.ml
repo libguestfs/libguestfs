@@ -287,10 +287,21 @@ object (self)
           let cmd =
             [| "/usr/bin/perl"; "-MBootloader::Tools"; "-e"; "
                   InitLibrary();
-                  my $default = Bootloader::Tools::GetDefaultSection();
-                  print $default->{image};
+                  my $default = Bootloader::Tools::GetDefaultSection ();
+                  if (!defined $default) {
+                    print 'NODEFAULTSECTION'
+                  }
+                  elsif (exists $default->{image}) {
+                    print $default->{image}
+                  }
+                  else {
+                    die 'no $default->{image}' # should never happen
+                  }
                " |] in
-          Some (g#command cmd)
+          let res = g#command cmd in
+          (match res with
+           | "NODEFAULTSECTION" -> None
+           | _ -> Some res)
         | MethodNone ->
           None in
       match res with
