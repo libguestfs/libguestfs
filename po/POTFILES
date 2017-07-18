@@ -367,6 +367,7 @@ lib/filearch.c
 lib/fuse.c
 lib/guid.c
 lib/handle.c
+lib/hivex.c
 lib/info.c
 lib/inspect-apps.c
 lib/inspect-fs-cd.c
