@@ -270,7 +270,14 @@ let rec main () =
       let index_fragment = filename_of_os os arch ".index-fragment" in
       (* If there is an existing file, read the revision and increment it. *)
       let revision = read_revision index_fragment in
-      let revision = match revision with None -> None | Some i -> Some (i+1) in
+      let revision =
+        match revision with
+        (* no existing file *)
+        | `No_file -> None
+        (* file exists, but no revision line, so revision=1 *)
+        | `No_revision -> Some 2
+        (* existing file with revision line *)
+        | `Revision i -> Some (i+1) in
       make_index_fragment os arch index_fragment output nvram revision
                           expandfs lvexpandfs virtual_size_gb;
 
@@ -1058,15 +1065,15 @@ and notes_of_os os arch nvram =
 
 and read_revision filename =
   match (try Some (open_in filename) with Sys_error _ -> None) with
-  | None -> None
+  | None -> `No_file
   | Some chan ->
-     let r = ref None in
+     let r = ref `No_revision in
      let rex = Str.regexp "^revision=\\([0-9]+\\)$" in
      (try
        let rec loop () =
          let line = input_line chan in
          if Str.string_match rex line 0 then (
-           r := Some (int_of_string (Str.matched_group 1 line));
+           r := `Revision (int_of_string (Str.matched_group 1 line));
            raise End_of_file
          );
          loop ()
