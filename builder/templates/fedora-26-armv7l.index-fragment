@@ -3,12 +3,12 @@ name=Fedora® 26 Server (armv7l)
 osinfo=fedora26
 arch=armv7l
 file=fedora-26-armv7l.xz
-checksum[sha512]=d79e87dfeff5bb68a740630dfbe16085c444bf9c77d0baa6f6d69b313c8ea5e9e0ef5c7ba9bf77b3ac32b597f703761e99d04f829d947e62f8f66da47843b9d0
+revision=2
+checksum[sha512]=579c3038601fd20ae27023c16c542ecfee03df0c1925c3def1443f36658a6b671d21295f5c7f3d457e35015a21e50094a23ce6993344d94c645da9298def1631
 format=raw
 size=6442450944
-compressed_size=293797908
-expand=/dev/sda2
-lvexpand=/dev/fedora/root
+compressed_size=343672984
+expand=/dev/sda3
 notes=Fedora® 26 Server (armv7l)
  
  This Fedora image contains only unmodified @Core group packages.

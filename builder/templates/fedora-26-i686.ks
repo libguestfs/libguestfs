@@ -16,7 +16,7 @@ bootloader --location=mbr --append="console=tty0 console=ttyS0,115200 rd_NO_PLYM
 
 zerombr
 clearpart --all --initlabel
-autopart --type=lvm
+autopart --type=plain
 
 # Halt the system once configuration has finished.
 poweroff

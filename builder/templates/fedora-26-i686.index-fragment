@@ -3,12 +3,12 @@ name=Fedora® 26 Server (i686)
 osinfo=fedora26
 arch=i686
 file=fedora-26-i686.xz
-checksum[sha512]=17cdcc3c2074e437f9e8fa66c6e92231d67f0836dfac3e744da177815b2eb1ceee24b64d6f45af0cc523652336928805dd5319764b7fd7ff886eabfbc17a6536
+revision=2
+checksum[sha512]=5e246089550ad25a78b88b9d815c59b9564d49ce2a3c81146bf971ce39903d4b143e2c549fe764cedbd47efa6327871886d8f2a7e3e724fde449d611e2bec7ae
 format=raw
 size=6442450944
-compressed_size=297019396
-expand=/dev/sda2
-lvexpand=/dev/fedora/root
+compressed_size=346508392
+expand=/dev/sda3
 notes=Fedora® 26 Server (i686)
  
  This Fedora image contains only unmodified @Core group packages.

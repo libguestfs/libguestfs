@@ -3,12 +3,12 @@ name=Fedora® 26 Server (ppc64)
 osinfo=fedora26
 arch=ppc64
 file=fedora-26-ppc64.xz
-checksum[sha512]=8f69995f583e6ec84c74b5b65ea68c6cb1edc0c496535d1f22c5ef4d5d10cb9f17d2d49f8de3c4ca5ad9d79d9a62160455b5e6709a2ee02b424787b0edb6e437
+revision=2
+checksum[sha512]=5c14c0fb7995e834bb43e46939e9ca25414557ca991825005dbb2fbbe125dd4fbf10c3e5827e99ca23c400e8653bfbd9c301361579e04cd5fe586374fd461f61
 format=raw
 size=6442450944
-compressed_size=285393076
-expand=/dev/sda3
-lvexpand=/dev/fedora/root
+compressed_size=338334768
+expand=/dev/sda5
 notes=Fedora® 26 Server (ppc64)
  
  This Fedora image contains only unmodified @Core group packages.

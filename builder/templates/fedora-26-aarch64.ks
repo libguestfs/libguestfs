@@ -16,7 +16,7 @@ bootloader --location=mbr --append="console=ttyAMA0 earlyprintk=pl011,0x9000000 
 
 zerombr
 clearpart --all --initlabel
-autopart --type=lvm
+autopart --type=plain
 
 # Halt the system once configuration has finished.
 poweroff
