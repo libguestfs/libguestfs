@@ -178,7 +178,7 @@ EOF
 #!/bin/bash
 # Rebuild the initramfs.
 latest_version="$(cd /lib/modules; ls -1vr | head -1)"
-dracut -f --kver $latest_version
+dracut -v -f --kver $latest_version
 EOF
         # Double quotes because we want $tmpdir to be expanded:
         extra_args="
