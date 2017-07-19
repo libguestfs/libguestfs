@@ -477,7 +477,7 @@ part /     --fstype=%s   --size=1024 --grow --asprimary
       bpf "\
 zerombr
 clearpart --all --initlabel
-autopart --type=lvm
+autopart --type=plain
 ";
    | _ -> assert false (* cannot happen, see caller *)
   );
