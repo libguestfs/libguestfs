@@ -117,7 +117,7 @@ let find_files dir ext =
 class input_ova ova =
   let tmpdir =
     let base_dir = (open_guestfs ())#get_cachedir () in
-    let t = Mkdtemp.temp_dir ~base_dir "ova." "" in
+    let t = Mkdtemp.temp_dir ~base_dir "ova." in
     rmdir_on_exit t;
     t in
 object

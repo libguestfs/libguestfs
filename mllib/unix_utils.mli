@@ -80,8 +80,8 @@ module Mkdtemp : sig
   val mkdtemp : string -> string
   (** [mkdtemp pattern] Tiny wrapper to the C [mkdtemp]. *)
 
-  val temp_dir : ?base_dir:string -> string -> string -> string
-  (** [temp_dir prefix suffix] creates a new unique temporary directory.
+  val temp_dir : ?base_dir:string -> string -> string
+  (** [temp_dir prefix] creates a new unique temporary directory.
 
       The optional [~base_dir:string] changes the base directory where
       to create the new temporary directory; if not specified, the default

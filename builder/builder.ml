@@ -180,7 +180,7 @@ let main () =
    * temporary files that Downloader, Sigchecker, etc, are going
    * create.
    *)
-  let tmpdir = Mkdtemp.temp_dir "virt-builder." "" in
+  let tmpdir = Mkdtemp.temp_dir "virt-builder." in
   rmdir_on_exit tmpdir;
 
   (* Download the sources. *)

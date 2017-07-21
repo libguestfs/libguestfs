@@ -512,7 +512,7 @@ let main () =
   let image_basename = Filename.basename cmdline.image_name in
   let image_basename_d = image_basename ^ ".d" in
 
-  let tmpdir = Mkdtemp.temp_dir "dib." "" in
+  let tmpdir = Mkdtemp.temp_dir "dib." in
   rmdir_on_exit tmpdir;
   let auxtmpdir = tmpdir // "in_target.aux" in
   do_mkdir auxtmpdir;
