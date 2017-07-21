@@ -26,8 +26,6 @@ open Utils
 
 open Printf
 
-module StringSet = Set.Make (String)
-
 type element = {
   directory : string;
   hooks : hooks_map;

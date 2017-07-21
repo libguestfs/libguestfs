@@ -27,8 +27,6 @@ open Types
 open Utils
 open DOM
 
-module StringSet = Set.Make (String)
-
 let string_set_of_list =
   List.fold_left (fun set x -> StringSet.add x set) StringSet.empty
 

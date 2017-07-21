@@ -19,7 +19,6 @@
 open Sysprep_operation
 open Common_gettext.Gettext
 
-module StringSet = Set.Make (String)
 module G = Guestfs
 
 let ca_certificates_perform (g : Guestfs.guestfs) root side_effects =

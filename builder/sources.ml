@@ -34,8 +34,6 @@ and source_format =
 | FormatNative
 | FormatSimpleStreams
 
-module StringSet = Set.Make (String)
-
 let parse_conf file =
   debug "trying to read %s" file;
   let sections = Ini_reader.read_ini ~error_suffix:"[ignored]" file in

@@ -24,13 +24,15 @@ EXTRA_DIST = \
 
 SOURCES_MLI = \
 	std_utils.mli \
-	stringMap.mli
+	stringMap.mli \
+	stringSet.mli
 
 SOURCES_ML = \
 	guestfs_config.ml \
 	$(OCAML_BYTES_COMPAT_ML) \
 	libdir.ml \
 	stringMap.ml \
+	stringSet.ml \
 	std_utils.ml
 
 # We pretend that we're building a C library.  automake handles the
