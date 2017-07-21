@@ -52,8 +52,8 @@ end
 module Mkdtemp = struct
   external mkdtemp : string -> string = "guestfs_int_mllib_mkdtemp"
 
-  let temp_dir ?(base_dir = Filename.temp_dir_name) prefix suffix =
-    mkdtemp (Filename.concat base_dir (prefix ^ "XXXXXX" ^ suffix))
+  let temp_dir ?(base_dir = Filename.temp_dir_name) prefix =
+    mkdtemp (Filename.concat base_dir (prefix ^ "XXXXXX"))
 end
 
 module Realpath = struct

@@ -40,7 +40,7 @@ let rec mount_and_check_storage_domain domain_class os =
     (* Create a mountpoint.  Default mode is too restrictive for us
      * when we need to write into the directory as 36:36.
      *)
-    let mp = Mkdtemp.temp_dir "v2v." "" in
+    let mp = Mkdtemp.temp_dir "v2v." in
     chmod mp 0o755;
 
     (* Try mounting it. *)
