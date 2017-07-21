@@ -110,6 +110,15 @@ let test_string_span ctx =
   assert_equal_int 3 (String.cspan "def" "ab");
   assert_equal_int 0 (String.cspan "" "ab")
 
+(* Test Std_utils.String.chomp. *)
+let test_string_chomp ctx =
+  assert_equal_string "a" (String.chomp "a");
+  assert_equal_string "a" (String.chomp "a\n");
+  assert_equal_string "a\nb" (String.chomp "a\nb");
+  assert_equal_string "" (String.chomp "");
+  assert_equal_string "" (String.chomp "\n");
+  assert_equal_string "\n" (String.chomp "\n\n") (* only removes one *)
+
 (* Suites declaration. *)
 let suite =
   "mllib Std_utils" >:::
@@ -122,6 +131,7 @@ let suite =
       "strings.find" >:: test_string_find;
       "strings.lines_split" >:: test_string_lines_split;
       "strings.span" >:: test_string_span;
+      "strings.chomp" >:: test_string_chomp;
     ]
 
 let () =

@@ -376,14 +376,8 @@ let shell_command ?(echo_cmd = true) cmd =
 let uuidgen () =
   let lines = external_command "uuidgen -r" in
   assert (List.length lines >= 1);
-  let uuid = List.hd lines in
-  let len = String.length uuid in
-  let uuid, len =
-    if len > 0 && uuid.[len-1] = '\n' then
-      String.sub uuid 0 (len-1), len-1
-    else
-      uuid, len in
-  if len < 10 then assert false; (* sanity check on uuidgen *)
+  let uuid = String.chomp (List.hd lines) in
+  if String.length uuid < 10 then assert false; (* sanity check on uuidgen *)
   uuid
 
 (* Remove a temporary directory on exit. *)

@@ -296,12 +296,8 @@ object (self)
       match res with
       | None -> None
       | Some k ->
-        let len = String.length k in
-        let k =
-          if len > 0 && k.[len-1] = '\n' then
-            String.sub k 0 (len-1)
-          else k in
-        Some (remove_hd_prefix k)
+         let k = String.chomp k in
+         Some (remove_hd_prefix k)
     in
 
     let vmlinuzes =

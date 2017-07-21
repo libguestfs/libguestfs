@@ -107,6 +107,8 @@ module String : sig
     (** Trim right. *)
     val trim : ?test:(char -> bool) -> string -> string
     (** Trim left and right. *)
+    val chomp : string -> string
+    (** If the string ends with [\n], remove it. *)
     val count_chars : char -> string -> int
     (** Count number of times the character occurs in string. *)
     val explode : string -> char list

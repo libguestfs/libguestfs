@@ -229,6 +229,13 @@ module String = struct
     let trim ?(test = Char.isspace) str =
       trimr ~test (triml ~test str)
 
+    let chomp str =
+      let n = String.length str in
+      if n > 0 && str.[n-1] = '\n' then
+        String.sub str 0 (n-1)
+      else
+        str
+
     let count_chars c str =
       let count = ref 0 in
       for i = 0 to String.length str - 1 do
