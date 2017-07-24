@@ -38,7 +38,11 @@
 #include "structs-cleanups.h"
 #include "command.h"
 
-/* Mountables */
+struct stringsbuf {
+  char **argv;
+  size_t size;
+  size_t alloc;
+};
 
 typedef struct {
   mountable_type_t type;
@@ -46,6 +50,43 @@ typedef struct {
   char *volume;
 } mountable_t;
 
+/* guestfsd.c */
+extern int verbose;
+extern int enable_network;
+extern int autosync_umount;
+extern int test_mode;
+extern const char *sysroot;
+extern size_t sysroot_len;
+
+extern char *sysroot_path (const char *path);
+extern char *sysroot_realpath (const char *path);
+extern int is_root_device (const char *device);
+extern int xwrite (int sock, const void *buf, size_t len)
+  __attribute__((__warn_unused_result__));
+extern int xread (int sock, void *buf, size_t len)
+  __attribute__((__warn_unused_result__));
+extern void sort_strings (char **argv, size_t len);
+extern void free_stringslen (char **argv, size_t len);
+extern void sort_device_names (char **argv, size_t len);
+extern int compare_device_names (const char *a, const char *b);
+extern char **take_stringsbuf (struct stringsbuf *sb);
+extern void free_stringsbuf (struct stringsbuf *sb);
+extern struct stringsbuf split_lines_sb (char *str);
+extern char **split_lines (char *str);
+extern char **empty_list (void);
+extern int is_power_of_2 (unsigned long v);
+extern void trim (char *str);
+extern int parse_btrfsvol (const char *desc, mountable_t *mountable);
+extern int prog_exists (const char *prog);
+extern void udev_settle_file (const char *file);
+extern void udev_settle (void);
+extern int random_name (char *template);
+extern char *get_random_uuid (void);
+extern char *make_exclude_from_file (const char *function, char *const *excludes);
+extern int asprintf_nowarn (char **strp, const char *fmt, ...);
+
+/* mountable functions (in guestfsd.c) */
+extern char *mountable_to_string (const mountable_t *mountable);
 extern void cleanup_free_mountable (mountable_t *mountable);
 
 #ifdef HAVE_ATTRIBUTE_CLEANUP
@@ -54,32 +95,7 @@ extern void cleanup_free_mountable (mountable_t *mountable);
 #define CLEANUP_FREE_MOUNTABLE
 #endif
 
-/*-- in guestfsd.c --*/
-extern int verbose;
-
-extern int enable_network;
-
-extern int autosync_umount;
-
-extern int test_mode;
-
-extern const char *sysroot;
-extern size_t sysroot_len;
-
-extern char *sysroot_path (const char *path);
-extern char *sysroot_realpath (const char *path);
-
-extern int is_root_device (const char *device);
-
-extern int xwrite (int sock, const void *buf, size_t len)
-  __attribute__((__warn_unused_result__));
-extern int xread (int sock, void *buf, size_t len)
-  __attribute__((__warn_unused_result__));
-
-extern char *mountable_to_string (const mountable_t *mountable);
-
-/*-- in cleanups.c --*/
-
+/* cleanups.c */
 /* These functions are used internally by the CLEANUP_* macros.
  * Don't call them directly.
  */
@@ -94,18 +110,14 @@ extern void cleanup_free_stringsbuf (void *ptr);
 #define CLEANUP_FREE_STRINGSBUF
 #endif
 
-/*-- in mount.c --*/
-
+/* mount.c */
 extern int mount_vfs_nochroot (const char *options, const char *vfstype,
                                const mountable_t *mountable,
                                const char *mp, const char *user_mp);
+extern int is_root_mounted (void);
+extern int is_device_mounted (const char *device);
 
-/* Growable strings buffer. */
-struct stringsbuf {
-  char **argv;
-  size_t size;
-  size_t alloc;
-};
+/* stringsbuf.c: growable strings buffer. */
 #define DECLARE_STRINGSBUF(v) \
   struct stringsbuf (v) = { .argv = NULL, .size = 0, .alloc = 0 }
 
@@ -124,158 +136,20 @@ extern int add_string (struct stringsbuf *sb, const char *str);
 extern int add_sprintf (struct stringsbuf *sb, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern int end_stringsbuf (struct stringsbuf *sb);
-extern char **take_stringsbuf (struct stringsbuf *sb);
-extern void free_stringsbuf (struct stringsbuf *sb);
 
-extern void sort_strings (char **argv, size_t len);
-extern void free_stringslen (char **argv, size_t len);
 
-extern void sort_device_names (char **argv, size_t len);
-extern int compare_device_names (const char *a, const char *b);
-
-extern struct stringsbuf split_lines_sb (char *str);
-extern char **split_lines (char *str);
-
-extern char **empty_list (void);
-
-#define __external_command __attribute__((__section__(".guestfsd_ext_cmds")))
-#define GUESTFSD_EXT_CMD(___ext_cmd_var, ___ext_cmd_str) static const char ___ext_cmd_var[] __external_command = #___ext_cmd_str
-
-extern int is_power_of_2 (unsigned long v);
-
-extern void trim (char *str);
-
-extern int parse_btrfsvol (const char *desc, mountable_t *mountable);
-
-extern int prog_exists (const char *prog);
-
-extern void udev_settle_file (const char *file);
-
-extern void udev_settle (void);
-
-extern int random_name (char *template);
-
-extern char *get_random_uuid (void);
-
-extern char *make_exclude_from_file (const char *function, char *const *excludes);
-
-extern int asprintf_nowarn (char **strp, const char *fmt, ...);
-
-/*-- in names.c (auto-generated) --*/
+/* names.c (auto-generated) */
 extern const char *function_names[];
 
-/*-- in proto.c --*/
+/* proto.c */
 extern int proc_nr;
 extern int serial;
 extern uint64_t progress_hint;
 extern uint64_t optargs_bitmask;
 
-/*-- in mount.c --*/
-extern int is_root_mounted (void);
-extern int is_device_mounted (const char *device);
-
-/*-- in device-name-translation.c --*/
-extern char *device_name_translation (const char *device);
-extern char *reverse_device_name_translation (const char *device);
-
-/*-- in stubs.c (auto-generated) --*/
-extern void dispatch_incoming_message (XDR *);
-extern guestfs_int_lvm_pv_list *parse_command_line_pvs (void);
-extern guestfs_int_lvm_vg_list *parse_command_line_vgs (void);
-extern guestfs_int_lvm_lv_list *parse_command_line_lvs (void);
-
-/*-- in optgroups.c (auto-generated) --*/
-struct optgroup {
-  const char *group;            /* Name of the optional group. */
-  int (*available) (void);      /* Function to test availability. */
-};
-extern struct optgroup optgroups[];
-
-/*-- in available.c --*/
-extern int filesystem_available (const char *filesystem);
-
-/*-- in sync.c --*/
-/* Use this as a replacement for sync(2). */
-extern int sync_disks (void);
-
-/*-- in ext2.c --*/
-/* Confirmed this is true up to ext4 from the Linux sources. */
-#define EXT2_LABEL_MAX 16
-extern int fstype_is_extfs (const char *fstype);
-extern int ext_set_uuid_random (const char *device);
-extern int64_t ext_minimum_size (const char *device);
-
-/*-- in blkid.c --*/
-extern char *get_blkid_tag (const char *device, const char *tag);
-
-/*-- in lvm.c --*/
-extern int lv_canonical (const char *device, char **ret);
-
-/*-- in lvm-filter.c --*/
-extern void copy_lvm (void);
-extern void start_lvmetad (void);
-
-/*-- in zero.c --*/
-extern void wipe_device_before_mkfs (const char *device);
-
-/*-- in augeas.c --*/
-extern void aug_read_version (void);
-extern void aug_finalize (void);
-
-/* The version of augeas, saved as:
- * (MAJOR << 16) | (MINOR << 8) | PATCH
- */
-extern int augeas_version;
-static inline int
-augeas_is_version (int major, int minor, int patch)
-{
-  aug_read_version (); /* Lazy version reading. */
-  return augeas_version >= ((major << 16) | (minor << 8) | patch);
-}
-
-/*-- hivex.c, journal.c --*/
-extern void hivex_finalize (void);
-extern void journal_finalize (void);
-
-/*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
-/*-- in xattr.c --*/
-extern int copy_xattrs (const char *src, const char *dest);
-
-/*-- in xfs.c --*/
-/* Documented in xfs_admin(8). */
-#define XFS_LABEL_MAX 12
-extern int xfs_set_uuid (const char *device, const char *uuid);
-extern int xfs_set_uuid_random (const char *device);
-extern int xfs_set_label (const char *device, const char *label);
-extern int64_t xfs_minimum_size (const char *path);
-
-/*-- debug-bmap.c --*/
-extern char *debug_bmap (const char *subcmd, size_t argc, char *const *const argv);
-extern char *debug_bmap_file (const char *subcmd, size_t argc, char *const *const argv);
-extern char *debug_bmap_device (const char *subcmd, size_t argc, char *const *const argv);
-
-/*-- in btrfs.c --*/
-extern char *btrfs_get_label (const char *device);
-extern int btrfs_set_label (const char *device, const char *label);
-extern int btrfs_set_uuid (const char *device, const char *uuid);
-extern int btrfs_set_uuid_random (const char *device);
-extern int64_t btrfs_minimum_size (const char *path);
-
-/*-- in ntfs.c --*/
-extern char *ntfs_get_label (const char *device);
-extern int ntfs_set_label (const char *device, const char *label);
-extern int64_t ntfs_minimum_size (const char *device);
-
-/*-- in swap.c --*/
-extern int swap_set_uuid (const char *device, const char *uuid);
-extern int swap_set_label (const char *device, const char *label);
-
-/*-- in upload.c --*/
-extern int upload_to_fd (int fd, const char *filename);
-
-/* ordinary daemon functions use these to indicate errors
+/* Ordinary daemon functions use these to indicate errors.
  * NB: you don't need to prefix the string with the current command,
  * it is added automatically by the client-side RPC stubs.
  */
@@ -292,25 +166,25 @@ extern void reply_with_perror_errno (int err, const char *fs, ...)
      "how to check for the availability of features.", \
      feature)
 
-/* daemon functions that receive files (FileIn) should call
+/* Daemon functions that receive files (FileIn) should call
  * receive_file for each FileIn parameter.
  */
 typedef int (*receive_cb) (void *opaque, const void *buf, size_t len);
 extern int receive_file (receive_cb cb, void *opaque);
 
-/* daemon functions that receive files (FileIn) can call this
+/* Daemon functions that receive files (FileIn) can call this
  * to cancel incoming transfers (eg. if there is a local error).
  */
 extern int cancel_receive (void);
 
-/* daemon functions that return files (FileOut) should call
+/* Daemon functions that return files (FileOut) should call
  * reply, then send_file_* for each FileOut parameter.
  * Note max write size if GUESTFS_MAX_CHUNK_SIZE.
  */
 extern int send_file_write (const void *buf, size_t len);
 extern int send_file_end (int cancel);
 
-/* only call this if there is a FileOut parameter */
+/* Only call this if there is a FileOut parameter. */
 extern void reply (xdrproc_t xdrp, char *ret);
 
 /* Notify progress to caller.  This function is self-rate-limiting so
@@ -340,6 +214,106 @@ extern void pulse_mode_cancel (void);
  * for debugging - DON'T use it in regular code!
  */
 extern void notify_progress_no_ratelimit (uint64_t position, uint64_t total, const struct timeval *now);
+
+/* device-name-translation.c */
+extern char *device_name_translation (const char *device);
+extern char *reverse_device_name_translation (const char *device);
+
+/* stubs.c (auto-generated) */
+extern void dispatch_incoming_message (XDR *);
+extern guestfs_int_lvm_pv_list *parse_command_line_pvs (void);
+extern guestfs_int_lvm_vg_list *parse_command_line_vgs (void);
+extern guestfs_int_lvm_lv_list *parse_command_line_lvs (void);
+
+/* optgroups.c (auto-generated) */
+struct optgroup {
+  const char *group;            /* Name of the optional group. */
+  int (*available) (void);      /* Function to test availability. */
+};
+extern struct optgroup optgroups[];
+
+/* available.c */
+extern int filesystem_available (const char *filesystem);
+
+/* sync.c */
+/* Use this as a replacement for sync(2). */
+extern int sync_disks (void);
+
+/* ext2.c */
+/* Confirmed this is true up to ext4 from the Linux sources. */
+#define EXT2_LABEL_MAX 16
+extern int fstype_is_extfs (const char *fstype);
+extern int ext_set_uuid_random (const char *device);
+extern int64_t ext_minimum_size (const char *device);
+
+/* blkid.c */
+extern char *get_blkid_tag (const char *device, const char *tag);
+
+/* lvm.c */
+extern int lv_canonical (const char *device, char **ret);
+
+/* lvm-filter.c */
+extern void copy_lvm (void);
+extern void start_lvmetad (void);
+
+/* zero.c */
+extern void wipe_device_before_mkfs (const char *device);
+
+/* augeas.c */
+extern void aug_read_version (void);
+extern void aug_finalize (void);
+
+/* The version of augeas, saved as:
+ * (MAJOR << 16) | (MINOR << 8) | PATCH
+ */
+extern int augeas_version;
+static inline int
+augeas_is_version (int major, int minor, int patch)
+{
+  aug_read_version (); /* Lazy version reading. */
+  return augeas_version >= ((major << 16) | (minor << 8) | patch);
+}
+
+/* hivex.c */
+extern void hivex_finalize (void);
+
+/* journal.c */
+extern void journal_finalize (void);
+
+/* xattr.c */
+extern int copy_xattrs (const char *src, const char *dest);
+
+/* xfs.c */
+/* Documented in xfs_admin(8). */
+#define XFS_LABEL_MAX 12
+extern int xfs_set_uuid (const char *device, const char *uuid);
+extern int xfs_set_uuid_random (const char *device);
+extern int xfs_set_label (const char *device, const char *label);
+extern int64_t xfs_minimum_size (const char *path);
+
+/* debug-bmap.c */
+extern char *debug_bmap (const char *subcmd, size_t argc, char *const *const argv);
+extern char *debug_bmap_file (const char *subcmd, size_t argc, char *const *const argv);
+extern char *debug_bmap_device (const char *subcmd, size_t argc, char *const *const argv);
+
+/* btrfs.c */
+extern char *btrfs_get_label (const char *device);
+extern int btrfs_set_label (const char *device, const char *label);
+extern int btrfs_set_uuid (const char *device, const char *uuid);
+extern int btrfs_set_uuid_random (const char *device);
+extern int64_t btrfs_minimum_size (const char *path);
+
+/* ntfs.c */
+extern char *ntfs_get_label (const char *device);
+extern int ntfs_set_label (const char *device, const char *label);
+extern int64_t ntfs_minimum_size (const char *device);
+
+/* swap.c */
+extern int swap_set_uuid (const char *device, const char *uuid);
+extern int swap_set_label (const char *device, const char *label);
+
+/* upload.c */
+extern int upload_to_fd (int fd, const char *filename);
 
 /* Helper for functions that need a root filesystem mounted. */
 #define NEED_ROOT(is_filein,fail_stmt)                                  \
@@ -422,5 +396,8 @@ extern void notify_progress_no_ratelimit (uint64_t position, uint64_t total, con
                           details ? ": " : "", details ? details : ""); \
     }                                                                   \
   } while (0)
+
+#define __external_command __attribute__((__section__(".guestfsd_ext_cmds")))
+#define GUESTFSD_EXT_CMD(___ext_cmd_var, ___ext_cmd_str) static const char ___ext_cmd_var[] __external_command = #___ext_cmd_str
 
 #endif /* GUESTFSD_DAEMON_H */
