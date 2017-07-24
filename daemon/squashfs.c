@@ -29,12 +29,10 @@
 
 #define MAX_ARGS 64
 
-GUESTFSD_EXT_CMD(str_mksquashfs, mksquashfs);
-
 int
 optgroup_squashfs_available (void)
 {
-  return prog_exists (str_mksquashfs);
+  return prog_exists ("mksquashfs");
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -80,7 +78,7 @@ do_mksquashfs (const char *path, const char *compress, char *const *excludes)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_mksquashfs);
+  ADD_ARG (argv, i, "mksquashfs");
   ADD_ARG (argv, i, buf);
   ADD_ARG (argv, i, tmpfile);
   ADD_ARG (argv, i, "-noappend");

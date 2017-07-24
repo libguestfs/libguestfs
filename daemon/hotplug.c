@@ -77,8 +77,6 @@ do_internal_hot_add_drive (const char *label)
   return -1;
 }
 
-GUESTFSD_EXT_CMD(str_fuser, fuser);
-
 /* This function is called before a drive is hot-unplugged. */
 int
 do_internal_hot_remove_drive_precheck (const char *label)
@@ -96,7 +94,7 @@ do_internal_hot_remove_drive_precheck (const char *label)
     return -1;
   }
 
-  r = commandr (&out, &err, str_fuser, "-v", "-m", path, NULL);
+  r = commandr (&out, &err, "fuser", "-v", "-m", path, NULL);
   if (r == -1) {
     reply_with_error ("fuser: %s: %s", path, err);
     return -1;

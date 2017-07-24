@@ -31,21 +31,16 @@
 
 #define MAX_ARGS 64
 
-GUESTFSD_EXT_CMD(str_ntfs3g_probe, ntfs-3g.probe);
-GUESTFSD_EXT_CMD(str_ntfsresize, ntfsresize);
-GUESTFSD_EXT_CMD(str_ntfsfix, ntfsfix);
-GUESTFSD_EXT_CMD(str_ntfslabel, ntfslabel);
-
 int
 optgroup_ntfs3g_available (void)
 {
-  return prog_exists (str_ntfs3g_probe);
+  return prog_exists ("ntfs3g.probe");
 }
 
 int
 optgroup_ntfsprogs_available (void)
 {
-  return prog_exists (str_ntfsresize);
+  return prog_exists ("ntfsresize");
 }
 
 char *
@@ -56,7 +51,7 @@ ntfs_get_label (const char *device)
   char *out = NULL;
   size_t len;
 
-  r = command (&out, &err, str_ntfslabel, device, NULL);
+  r = command (&out, &err, "ntfslabel", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -81,7 +76,7 @@ ntfs_set_label (const char *device, const char *label)
    * characters and return an error.  This is not so easy since we
    * don't have the required libraries.
    */
-  r = command (NULL, &err, str_ntfslabel, device, label, NULL);
+  r = command (NULL, &err, "ntfslabel", device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -99,7 +94,7 @@ do_ntfs_3g_probe (int rw, const char *device)
 
   rw_flag = rw ? "-w" : "-r";
 
-  r = commandr (NULL, &err, str_ntfs3g_probe, rw_flag, device, NULL);
+  r = commandr (NULL, &err, "ntfs3g.probe", rw_flag, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -118,7 +113,7 @@ do_ntfsresize (const char *device, int64_t size, int force)
   size_t i = 0;
   char size_str[32];
 
-  ADD_ARG (argv, i, str_ntfsresize);
+  ADD_ARG (argv, i, "ntfsresize");
   ADD_ARG (argv, i, "-P");
 
   if (optargs_bitmask & GUESTFS_NTFSRESIZE_SIZE_BITMASK) {
@@ -170,7 +165,7 @@ ntfs_minimum_size (const char *device)
   int32_t cluster_size = 0;
 
   /* FS may be marked for check, so force ntfsresize */
-  r = command (&out, &err, str_ntfsresize, "--info", "-ff", device, NULL);
+  r = command (&out, &err, "ntfsresize", "--info", "-ff", device, NULL);
 
   lines = split_lines (out);
   if (lines == NULL)
@@ -249,7 +244,7 @@ do_ntfsfix (const char *device, int clearbadsectors)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  ADD_ARG (argv, i, str_ntfsfix);
+  ADD_ARG (argv, i, "ntfsfix");
 
   if ((optargs_bitmask & GUESTFS_NTFSFIX_CLEARBADSECTORS_BITMASK) &&
       clearbadsectors)

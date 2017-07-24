@@ -397,7 +397,4 @@ extern int upload_to_fd (int fd, const char *filename);
     }                                                                   \
   } while (0)
 
-#define __external_command __attribute__((__section__(".guestfsd_ext_cmds")))
-#define GUESTFSD_EXT_CMD(___ext_cmd_var, ___ext_cmd_str) static const char ___ext_cmd_var[] __external_command = #___ext_cmd_str
-
 #endif /* GUESTFSD_DAEMON_H */

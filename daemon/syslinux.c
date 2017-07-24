@@ -28,19 +28,16 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_syslinux, syslinux);
-GUESTFSD_EXT_CMD(str_extlinux, extlinux);
-
 int
 optgroup_syslinux_available (void)
 {
-  return prog_exists (str_syslinux);
+  return prog_exists ("syslinux");
 }
 
 int
 optgroup_extlinux_available (void)
 {
-  return prog_exists (str_extlinux);
+  return prog_exists ("extlinux");
 }
 
 /* Takes optional arguments, consult optargs_bitmask. */
@@ -53,7 +50,7 @@ do_syslinux (const char *device, const char *directory)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  ADD_ARG (argv, i, str_syslinux);
+  ADD_ARG (argv, i, "syslinux");
   ADD_ARG (argv, i, "--install");
   ADD_ARG (argv, i, "--force");
 
@@ -86,7 +83,7 @@ do_extlinux (const char *directory)
     return -1;
   }
 
-  r = command (NULL, &err, str_extlinux, "--install", buf, NULL);
+  r = command (NULL, &err, "extlinux", "--install", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", directory, err);
     return -1;

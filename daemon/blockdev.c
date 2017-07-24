@@ -28,8 +28,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_blockdev, blockdev);
-
 /* These functions are all about using the blockdev command, so
  * we centralize it in one call.
  */
@@ -40,7 +38,7 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
   int64_t rv;
   CLEANUP_FREE char *out = NULL, *err = NULL;
   const char *argv[] = {
-    str_blockdev,
+    "blockdev",
     switc,
     NULL,
     NULL,

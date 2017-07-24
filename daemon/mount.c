@@ -33,9 +33,6 @@
 
 #define MAX_ARGS 64
 
-GUESTFSD_EXT_CMD(str_mount, mount);
-GUESTFSD_EXT_CMD(str_umount, umount);
-
 /* You must mount something on "/" first before many operations.
  * Hence we have an internal function which can test if something is
  * mounted on *or under* the sysroot directory.  (It has to be *or
@@ -176,11 +173,11 @@ mount_vfs_nochroot (const char *options, const char *vfstype,
   int r;
   if (vfstype)
     r = command (NULL, &error,
-                 str_mount, "-o", options_plus ? options_plus : options,
+                 "mount", "-o", options_plus ? options_plus : options,
                  "-t", vfstype, device, mp, NULL);
   else
     r = command (NULL, &error,
-                 str_mount, "-o", options_plus ? options_plus : options,
+                 "mount", "-o", options_plus ? options_plus : options,
                  device, mp, NULL);
   if (r == -1) {
     reply_with_error ("%s on %s (options: '%s'): %s",
@@ -238,7 +235,7 @@ do_umount (const char *pathordevice,
   /* Use the external /bin/umount program, so that /etc/mtab is kept
    * updated.
    */
-  ADD_ARG (argv, i, str_umount);
+  ADD_ARG (argv, i, "umount");
 
   if (force)
     ADD_ARG (argv, i, "-f");
@@ -412,7 +409,7 @@ do_umount_all (void)
   for (i = 0; i < mounts.size; ++i) {
     CLEANUP_FREE char *err = NULL;
 
-    r = command (NULL, &err, str_umount, mounts.argv[i], NULL);
+    r = command (NULL, &err, "umount", mounts.argv[i], NULL);
     if (r == -1) {
       reply_with_error ("umount: %s: %s", mounts.argv[i], err);
       return -1;
@@ -445,7 +442,7 @@ do_mount_loop (const char *file, const char *mountpoint)
     return -1;
   }
 
-  r = command (NULL, &error, str_mount, "-o", "loop", buf, mp, NULL);
+  r = command (NULL, &error, "mount", "-o", "loop", buf, mp, NULL);
   if (r == -1) {
     reply_with_error ("%s on %s: %s", file, mountpoint, error);
     return -1;
@@ -480,7 +477,7 @@ do_remount (const char *mountpoint, int rw)
 
   /* XXX Do we need to check the mountpoint exists? */
 
-  r = command (NULL, &err, str_mount, "-o", options, mp, NULL);
+  r = command (NULL, &err, "mount", "-o", options, mp, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", mountpoint, options, err);
     return -1;

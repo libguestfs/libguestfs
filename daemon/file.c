@@ -30,10 +30,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_file, file);
-GUESTFSD_EXT_CMD(str_zcat, zcat);
-GUESTFSD_EXT_CMD(str_bzcat, bzcat);
-
 int
 do_touch (const char *path)
 {
@@ -505,7 +501,7 @@ do_file (const char *path)
 
   char *out;
   CLEANUP_FREE char *err = NULL;
-  int r = command (&out, &err, str_file, flags, path, NULL);
+  int r = command (&out, &err, "file", flags, path, NULL);
 
   if (r == -1) {
     free (out);
@@ -539,9 +535,9 @@ do_zfile (const char *method, const char *path)
   char line[256];
 
   if (STREQ (method, "gzip") || STREQ (method, "compress"))
-    zcat = str_zcat;
+    zcat = "zcat";
   else if (STREQ (method, "bzip2"))
-    zcat = str_bzcat;
+    zcat = "bzcat";
   else {
     reply_with_error ("unknown method");
     return NULL;

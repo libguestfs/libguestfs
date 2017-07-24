@@ -33,14 +33,6 @@
 
 #define MAX_ARGS 128
 
-GUESTFSD_EXT_CMD(str_tune2fs, tune2fs);
-GUESTFSD_EXT_CMD(str_e2fsck, e2fsck);
-GUESTFSD_EXT_CMD(str_resize2fs, resize2fs);
-GUESTFSD_EXT_CMD(str_mke2fs, mke2fs);
-GUESTFSD_EXT_CMD(str_lsattr, lsattr);
-GUESTFSD_EXT_CMD(str_chattr, chattr);
-GUESTFSD_EXT_CMD(str_e2label, e2label);
-
 /* https://bugzilla.redhat.com/show_bug.cgi?id=978302#c1 */
 int
 fstype_is_extfs (const char *fstype)
@@ -57,7 +49,7 @@ do_tune2fs_l (const char *device)
   char *p, *pend, *colon;
   CLEANUP_FREE_STRINGSBUF DECLARE_STRINGSBUF (ret);
 
-  r = command (&out, &err, str_tune2fs, "-l", device, NULL);
+  r = command (&out, &err, "tune2fs", "-l", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
@@ -136,7 +128,7 @@ do_set_e2label (const char *device, const char *label)
     return -1;
   }
 
-  r = command (NULL, &err, str_e2label, device, label, NULL);
+  r = command (NULL, &err, "e2label", device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -162,7 +154,7 @@ do_set_e2uuid (const char *device, const char *uuid)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, str_tune2fs, "-U", uuid, device, NULL);
+  r = command (NULL, &err, "tune2fs", "-U", uuid, device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -215,7 +207,7 @@ do_resize2fs (const char *device)
   if (if_not_mounted_run_e2fsck (device) == -1)
     return -1;
 
-  r = command (NULL, &err, str_resize2fs, device, NULL);
+  r = command (NULL, &err, "resize2fs", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -247,7 +239,7 @@ do_resize2fs_size (const char *device, int64_t size)
   char buf[32];
   snprintf (buf, sizeof buf, "%" PRIi64 "K", size);
 
-  r = command (NULL, &err, str_resize2fs, device, buf, NULL);
+  r = command (NULL, &err, "resize2fs", device, buf, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -265,7 +257,7 @@ do_resize2fs_M (const char *device)
   if (if_not_mounted_run_e2fsck (device) == -1)
     return -1;
 
-  r = command (NULL, &err, str_resize2fs, "-M", device, NULL);
+  r = command (NULL, &err, "resize2fs", "-M", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -311,7 +303,7 @@ ext_minimum_size (const char *device)
   long block_size;
   const char *pattern = "Estimated minimum size of the filesystem: ";
 
-  r = command (&out, &err, str_resize2fs, "-P", "-f", device, NULL);
+  r = command (&out, &err, "resize2fs", "-P", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -376,7 +368,7 @@ do_e2fsck (const char *device,
     return -1;
   }
 
-  ADD_ARG (argv, i, str_e2fsck);
+  ADD_ARG (argv, i, "e2fsck");
   ADD_ARG (argv, i, "-f");
 
   if (correct)
@@ -425,7 +417,7 @@ do_mke2journal (int blocksize, const char *device)
   wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
-               str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
+               "mke2fs", "-F", "-O", "journal_dev", "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -453,7 +445,7 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
-               str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
+               "mke2fs", "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-L", label,
                device, NULL);
   if (r == -1) {
@@ -476,7 +468,7 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
   wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
-               str_mke2fs, "-F", "-O", "journal_dev", "-b", blocksize_s,
+               "mke2fs", "-F", "-O", "journal_dev", "-b", blocksize_s,
                "-U", uuid,
                device, NULL);
   if (r == -1) {
@@ -511,7 +503,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
-               str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               "mke2fs", "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -551,7 +543,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
-               str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               "mke2fs", "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -585,7 +577,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   wipe_device_before_mkfs (device);
 
   r = command (NULL, &err,
-               str_mke2fs, "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               "mke2fs", "-F", "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -621,7 +613,7 @@ do_tune2fs (const char *device, /* only required parameter */
   char reservedblockscount_s[64];
   char user_s[64];
 
-  ADD_ARG (argv, i, str_tune2fs);
+  ADD_ARG (argv, i, "tune2fs");
 
   if (optargs_bitmask & GUESTFS_TUNE2FS_FORCE_BITMASK) {
     if (force)
@@ -759,7 +751,7 @@ do_get_e2attrs (const char *filename)
     return NULL;
   }
 
-  r = command (&out, &err, str_lsattr, "-d", "--", buf, NULL);
+  r = command (&out, &err, "lsattr", "-d", "--", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "lsattr", filename, err);
     free (out);
@@ -850,7 +842,7 @@ do_set_e2attrs (const char *filename, const char *attrs, int clear)
     return -1;
   }
 
-  r = command (NULL, &err, str_chattr, attr_arg, "--", buf, NULL);
+  r = command (NULL, &err, "chattr", attr_arg, "--", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "chattr", filename, err);
     return -1;
@@ -872,7 +864,7 @@ do_get_e2generation (const char *filename)
     return -1;
   }
 
-  r = command (&out, &err, str_lsattr, "-dv", "--", buf, NULL);
+  r = command (&out, &err, "lsattr", "-dv", "--", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "lsattr", filename, err);
     return -1;
@@ -908,7 +900,7 @@ do_set_e2generation (const char *filename, int64_t generation)
   snprintf (generation_str, sizeof generation_str,
             "%" PRIu64, (uint64_t) generation);
 
-  r = command (NULL, &err, str_chattr, "-v", generation_str, "--", buf, NULL);
+  r = command (NULL, &err, "chattr", "-v", generation_str, "--", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", "chattr", filename, err);
     return -1;
@@ -979,7 +971,7 @@ do_mke2fs (const char *device,               /* 0 */
   char maxonlineresize_s[74];
   size_t i = 0;
 
-  ADD_ARG (argv, i, str_mke2fs);
+  ADD_ARG (argv, i, "mke2fs");
 
   if (optargs_bitmask & GUESTFS_MKE2FS_BLOCKSIZE_BITMASK) {
     if (blocksize < 0) {

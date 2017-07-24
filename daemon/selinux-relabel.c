@@ -29,14 +29,12 @@
 
 #include "ignore-value.h"
 
-GUESTFSD_EXT_CMD(str_setfiles, setfiles);
-
 #define MAX_ARGS 64
 
 int
 optgroup_selinuxrelabel_available (void)
 {
-  return prog_exists (str_setfiles);
+  return prog_exists ("setfiles");
 }
 
 static int
@@ -46,7 +44,7 @@ setfiles_has_m_option (void)
   CLEANUP_FREE char *err = NULL;
 
   if (flag == -1) {
-    ignore_value (command (NULL, &err, str_setfiles, "-m", NULL));
+    ignore_value (command (NULL, &err, "setfiles", "-m", NULL));
     flag = err && strstr (err, /* "invalid option -- " */ "'m'") == NULL;
   }
 
@@ -86,7 +84,7 @@ do_selinux_relabel (const char *specfile, const char *path,
    * observations to the bug report:
    * https://bugzilla.redhat.com/show_bug.cgi?id=1396297
    */
-  ADD_ARG (argv, i, str_setfiles);
+  ADD_ARG (argv, i, "setfiles");
   if (force)
     ADD_ARG (argv, i, "-F");
 

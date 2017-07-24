@@ -31,9 +31,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_zcat, zcat);
-GUESTFSD_EXT_CMD(str_cpio, cpio);
-
 char **
 do_initrd_list (const char *path)
 {
@@ -46,7 +43,7 @@ do_initrd_list (const char *path)
   int ret;
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
-  if (asprintf_nowarn (&cmd, "%s %R | %s --quiet -it", str_zcat, path, str_cpio) == -1) {
+  if (asprintf_nowarn (&cmd, "zcat %R | cpio --quiet -it", path) == -1) {
     reply_with_perror ("asprintf");
     return NULL;
   }

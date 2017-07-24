@@ -28,12 +28,10 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_scrub, scrub);
-
 int
 optgroup_scrub_available (void)
 {
-  return prog_exists (str_scrub);
+  return prog_exists ("scrub");
 }
 
 int
@@ -42,7 +40,7 @@ do_scrub_device (const char *device)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  r = command (NULL, &err, str_scrub, device, NULL);
+  r = command (NULL, &err, "scrub", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -68,7 +66,7 @@ do_scrub_file (const char *file)
     return -1;
   }
 
-  r = command (NULL, &err, str_scrub, "-r", buf, NULL);
+  r = command (NULL, &err, "scrub", "-r", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", file, err);
     return -1;
@@ -91,7 +89,7 @@ do_scrub_freespace (const char *dir)
     return -1;
   }
 
-  r = command (NULL, &err, str_scrub, "-X", buf, NULL);
+  r = command (NULL, &err, "scrub", "-X", buf, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", dir, err);
     return -1;

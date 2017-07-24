@@ -27,8 +27,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_dmesg, dmesg);
-
 char *
 do_dmesg (void)
 {
@@ -36,7 +34,7 @@ do_dmesg (void)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  r = command (&out, &err, str_dmesg, NULL);
+  r = command (&out, &err, "dmesg", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);

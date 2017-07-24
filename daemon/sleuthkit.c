@@ -31,9 +31,6 @@
 
 static int send_command_output (const char *cmd);
 
-GUESTFSD_EXT_CMD(str_icat, icat);
-GUESTFSD_EXT_CMD(str_blkls, blkls);
-
 int
 do_download_inode (const mountable_t *mountable, int64_t inode)
 {
@@ -47,8 +44,8 @@ do_download_inode (const mountable_t *mountable, int64_t inode)
   }
 
   /* Construct the command. */
-  ret = asprintf (&cmd, "%s -r %s %" PRIi64,
-                  str_icat, mountable->device, inode);
+  ret = asprintf (&cmd, "icat -r %s %" PRIi64,
+                  mountable->device, inode);
   if (ret < 0) {
     reply_with_perror ("asprintf");
     return -1;
@@ -84,8 +81,8 @@ do_download_blocks (const mountable_t *mountable, int64_t start, int64_t stop,
     params = "";
 
   /* Construct the command. */
-  ret = asprintf (&cmd, "%s %s %s %" PRIi64 "-%" PRIi64,
-                  str_blkls, mountable->device, params, start, stop);
+  ret = asprintf (&cmd, "blkls %s %s %" PRIi64 "-%" PRIi64,
+                  mountable->device, params, start, stop);
   if (ret < 0) {
     reply_with_perror ("asprintf");
     return -1;
@@ -155,5 +152,5 @@ send_command_output (const char *cmd)
 int
 optgroup_sleuthkit_available (void)
 {
-  return prog_exists (str_icat);
+  return prog_exists ("icat");
 }

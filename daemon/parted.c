@@ -30,10 +30,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_parted, parted);
-GUESTFSD_EXT_CMD(str_sfdisk, sfdisk);
-GUESTFSD_EXT_CMD(str_sgdisk, sgdisk);
-
 /* Notes:
  *
  * Parted 1.9 sends error messages to stdout, hence use of the
@@ -88,7 +84,7 @@ do_part_init (const char *device, const char *parttype)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_parted, "-s", "--", device, "mklabel", parttype, NULL);
+                "parted", "-s", "--", device, "mklabel", parttype, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
     return -1;
@@ -141,7 +137,7 @@ do_part_add (const char *device, const char *prlogex,
    * this as a bug in the parted mkpart command.
    */
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_parted, "-s", "--",
+                "parted", "-s", "--",
                 device, "mkpart", prlogex, startstr, endstr, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
@@ -170,7 +166,7 @@ do_part_del (const char *device, int partnum)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_parted, "-s", "--", device, "rm", partnum_str, NULL);
+                "parted", "-s", "--", device, "rm", partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
     return -1;
@@ -209,7 +205,7 @@ do_part_disk (const char *device, const char *parttype)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_parted, "-s", "--",
+                "parted", "-s", "--",
                 device,
                 "mklabel", parttype,
                 /* See comment about about the parted mkpart command. */
@@ -243,7 +239,7 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_parted, "-s", "--",
+                "parted", "-s", "--",
                 device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
@@ -273,7 +269,7 @@ do_part_set_name (const char *device, int partnum, const char *name)
   udev_settle ();
 
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_parted, "-s", "--", device, "name", partstr, name, NULL);
+                "parted", "-s", "--", device, "name", partstr, name, NULL);
   if (r == -1) {
     reply_with_error ("parted: %s: %s", device, err);
     return -1;
@@ -323,11 +319,11 @@ print_partition_table (const char *device, bool add_m_option)
   udev_settle ();
 
   if (add_m_option)
-    r = command (&out, &err, str_parted, "-m", "-s", "--", device,
+    r = command (&out, &err, "parted", "-m", "-s", "--", device,
                  "unit", "b",
                  "print", NULL);
   else
-    r = command (&out, &err, str_parted, "-s", "--", device,
+    r = command (&out, &err, "parted", "-s", "--", device,
                  "unit", "b",
                  "print", NULL);
 
@@ -511,7 +507,7 @@ test_sfdisk_has_part_type (void)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  r = command (&out, &err, str_sfdisk, "--help", NULL);
+  r = command (&out, &err, "sfdisk", "--help", NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", "sfdisk --help", err);
     return -1;
@@ -545,7 +541,7 @@ do_part_get_mbr_id (const char *device, int partnum)
 
   udev_settle ();
 
-  r = command (&out, &err, str_sfdisk, param, device, partnum_str, NULL);
+  r = command (&out, &err, "sfdisk", param, device, partnum_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk %s: %s", param, err);
     return -1;
@@ -585,7 +581,7 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
 
   udev_settle ();
 
-  r = command (NULL, &err, str_sfdisk,
+  r = command (NULL, &err, "sfdisk",
                param, device, partnum_str, idbyte_str, NULL);
   if (r == -1) {
     reply_with_error ("sfdisk %s: %s", param, err);
@@ -600,7 +596,7 @@ do_part_set_mbr_id (const char *device, int partnum, int idbyte)
 int
 optgroup_gdisk_available (void)
 {
-  return prog_exists (str_sgdisk);
+  return prog_exists ("sgdisk");
 }
 
 int
@@ -619,10 +615,10 @@ do_part_set_gpt_type (const char *device, int partnum, const char *guid)
 
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, device, "-t", typecode, NULL);
+                    "sgdisk", device, "-t", typecode, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s %s -t %s: %s", str_sgdisk, device, typecode, err);
+    reply_with_error ("%s %s -t %s: %s", "sgdisk", device, typecode, err);
     return -1;
   }
 
@@ -645,10 +641,10 @@ do_part_set_gpt_guid (const char *device, int partnum, const char *guid)
 
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, device, "-u", typecode, NULL);
+                    "sgdisk", device, "-u", typecode, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s %s -u %s: %s", str_sgdisk, device, typecode, err);
+    reply_with_error ("%s %s -u %s: %s", "sgdisk", device, typecode, err);
     return -1;
   }
 
@@ -674,10 +670,10 @@ sgdisk_info_extract_field (const char *device, int partnum, const char *field,
 
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, device, "-i", partnum_str, NULL);
+                    "sgdisk", device, "-i", partnum_str, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s %s -i %s: %s", str_sgdisk, device, partnum_str, err);
+    reply_with_error ("%s %s -i %s: %s", "sgdisk", device, partnum_str, err);
     return NULL;
   }
 
@@ -686,7 +682,7 @@ sgdisk_info_extract_field (const char *device, int partnum, const char *field,
   CLEANUP_FREE_STRING_LIST char **lines = split_lines (err);
   if (lines == NULL) {
     reply_with_error ("'%s %s -i %i' returned no output",
-                      str_sgdisk, device, partnum);
+                      "sgdisk", device, partnum);
     return NULL;
   }
 
@@ -946,16 +942,16 @@ do_part_get_disk_guid (const char *device)
 
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, device, "-p", NULL);
+                    "sgdisk", device, "-p", NULL);
   if (r == -1) {
-    reply_with_error ("%s %s -p: %s", str_sgdisk, device, err);
+    reply_with_error ("%s %s -p: %s", "sgdisk", device, err);
     return NULL;
   }
 
   CLEANUP_FREE_STRING_LIST char **lines = split_lines (err);
   if (lines == NULL) {
     reply_with_error ("'%s %s -p' returned no output",
-                      str_sgdisk, device);
+                      "sgdisk", device);
     return NULL;
   }
 
@@ -988,10 +984,10 @@ do_part_set_disk_guid (const char *device, const char *guid)
 {
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, device, "-U", guid, NULL);
+                    "sgdisk", device, "-U", guid, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s %s -U %s: %s", str_sgdisk, device, guid, err);
+    reply_with_error ("%s %s -U %s: %s", "sgdisk", device, guid, err);
     return -1;
   }
 
@@ -1003,10 +999,10 @@ do_part_set_disk_guid_random (const char *device)
 {
   CLEANUP_FREE char *err = NULL;
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, device, "-U", "R", NULL);
+                    "sgdisk", device, "-U", "R", NULL);
 
   if (r == -1) {
-    reply_with_error ("%s %s -U R: %s", str_sgdisk, device, err);
+    reply_with_error ("%s %s -U R: %s", "sgdisk", device, err);
     return -1;
   }
 
@@ -1022,25 +1018,25 @@ do_part_expand_gpt(const char *device)
    * (e.g. recreate partition table and so on).
    * We do not want such behavior, so dry-run at first.*/
   int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                    str_sgdisk, "--pretend", "-e", device, NULL);
+                    "sgdisk", "--pretend", "-e", device, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s --pretend -e %s: %s", str_sgdisk, device, err);
+    reply_with_error ("%s --pretend -e %s: %s", "sgdisk", device, err);
     return -1;
   }
   if (err && strlen(err) != 0) {
     /* Unexpected actions. */
-    reply_with_error ("%s --pretend -e %s: %s", str_sgdisk, device, err);
+    reply_with_error ("%s --pretend -e %s: %s", "sgdisk", device, err);
     return -1;
   }
   free(err);
 
   /* Now we can do a real run. */
   r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
-                str_sgdisk, "-e", device, NULL);
+                "sgdisk", "-e", device, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s -e %s: %s", str_sgdisk, device, err);
+    reply_with_error ("%s -e %s: %s", "sgdisk", device, err);
     return -1;
   }
 

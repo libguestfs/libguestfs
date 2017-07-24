@@ -25,33 +25,30 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_cp, cp);
-GUESTFSD_EXT_CMD(str_mv, mv);
-
 static int cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest);
 
 int
 do_cp (const char *src, const char *dest)
 {
-  return cpmv_cmd (str_cp, NULL, src, dest);
+  return cpmv_cmd ("cp", NULL, src, dest);
 }
 
 int
 do_cp_a (const char *src, const char *dest)
 {
-  return cpmv_cmd (str_cp, "-a", src, dest);
+  return cpmv_cmd ("cp", "-a", src, dest);
 }
 
 int
 do_cp_r (const char *src, const char *dest)
 {
-  return cpmv_cmd (str_cp, "-rP", src, dest);
+  return cpmv_cmd ("cp", "-rP", src, dest);
 }
 
 int
 do_mv (const char *src, const char *dest)
 {
-  return cpmv_cmd (str_mv, NULL, src, dest);
+  return cpmv_cmd ("mv", NULL, src, dest);
 }
 
 static int

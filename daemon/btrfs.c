@@ -33,13 +33,6 @@
 #include "c-ctype.h"
 #include "ignore-value.h"
 
-GUESTFSD_EXT_CMD(str_btrfs, btrfs);
-GUESTFSD_EXT_CMD(str_btrfstune, btrfstune);
-GUESTFSD_EXT_CMD(str_btrfsck, btrfsck);
-GUESTFSD_EXT_CMD(str_mkfs_btrfs, mkfs.btrfs);
-GUESTFSD_EXT_CMD(str_umount, umount);
-GUESTFSD_EXT_CMD(str_btrfsimage, btrfs-image);
-
 COMPILE_REGEXP (re_btrfs_subvolume_list,
                 "ID\\s+(\\d+).*\\s"
                 "top level\\s+(\\d+).*\\s"
@@ -51,7 +44,7 @@ int
 optgroup_btrfs_available (void)
 {
   return test_mode ||
-    (prog_exists (str_btrfs) && filesystem_available ("btrfs") > 0);
+    (prog_exists ("btrfs") && filesystem_available ("btrfs") > 0);
 }
 
 char *
@@ -62,7 +55,7 @@ btrfs_get_label (const char *device)
   char *out = NULL;
   size_t len;
 
-  r = command (&out, &err, str_btrfs, "filesystem", "label",
+  r = command (&out, &err, "btrfs", "filesystem", "label",
                device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -84,7 +77,7 @@ btrfs_set_label (const char *device, const char *label)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, str_btrfs, "filesystem", "label",
+  r = command (NULL, &err, "btrfs", "filesystem", "label",
                device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -110,7 +103,7 @@ do_btrfs_filesystem_resize (const char *filesystem, int64_t size)
   size_t i = 0;
   char size_str[32];
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "resize");
 
@@ -169,7 +162,7 @@ do_mkfs_btrfs (char *const *devices,
     return -1;
   }
 
-  ADD_ARG (argv, i, str_mkfs_btrfs);
+  ADD_ARG (argv, i, "mkfs.btrfs");
 
   /* Optional arguments. */
   if (optargs_bitmask & GUESTFS_MKFS_BTRFS_ALLOCSTART_BITMASK) {
@@ -290,7 +283,7 @@ do_btrfs_subvolume_snapshot (const char *source, const char *dest, int ro,
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "snapshot");
 
@@ -333,7 +326,7 @@ do_btrfs_subvolume_delete (const char *subvolume)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "delete");
   ADD_ARG (argv, i, subvolume_buf);
@@ -364,7 +357,7 @@ do_btrfs_subvolume_create (const char *dest, const char *qgroupid)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "create");
 
@@ -426,7 +419,7 @@ umount (char *fs_buf, const mountable_t *fs)
   if (fs->type != MOUNTABLE_PATH) {
     CLEANUP_FREE char *err = NULL;
 
-    if (command (NULL, &err, str_umount, fs_buf, NULL) == -1) {
+    if (command (NULL, &err, "umount", fs_buf, NULL) == -1) {
       reply_with_error ("umount: %s", err);
       return -1;
     }
@@ -455,7 +448,7 @@ do_btrfs_subvolume_list (const mountable_t *fs)
     if (!fs_buf)
       return NULL;
 
-    ADD_ARG (argv, i, str_btrfs);
+    ADD_ARG (argv, i, "btrfs");
     ADD_ARG (argv, i, "subvolume");
     ADD_ARG (argv, i, "list");
     ADD_ARG (argv, i, fs_buf);
@@ -590,7 +583,7 @@ do_btrfs_subvolume_set_default (int64_t id, const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "set-default");
   ADD_ARG (argv, i, buf);
@@ -622,7 +615,7 @@ do_btrfs_subvolume_get_default (const mountable_t *fs)
   if (fs_buf == NULL)
     goto error;
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "get-default");
   ADD_ARG (argv, i, fs_buf);
@@ -661,7 +654,7 @@ do_btrfs_filesystem_sync (const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "sync");
   ADD_ARG (argv, i, fs_buf);
@@ -692,7 +685,7 @@ do_btrfs_filesystem_balance (const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "balance");
   ADD_ARG (argv, i, fs_buf);
   ADD_ARG (argv, i, NULL);
@@ -715,7 +708,7 @@ test_btrfs_device_add_needs_force (void)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  r = command (&out, &err, str_btrfs, "device", "add", "--help", NULL);
+  r = command (&out, &err, "btrfs", "device", "add", "--help", NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", "btrfs device add --help", err);
     return -1;
@@ -756,7 +749,7 @@ do_btrfs_device_add (char *const *devices, const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "device");
   ADD_ARG (argv, i, "add");
 
@@ -799,7 +792,7 @@ do_btrfs_device_delete (char *const *devices, const char *fs)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "device");
   ADD_ARG (argv, i, "delete");
 
@@ -840,7 +833,7 @@ test_btrfstune_uuid_opt (void)
 
   CLEANUP_FREE char *err = NULL;
 
-  int r = commandr (NULL, &err, str_btrfstune, "--help", NULL);
+  int r = commandr (NULL, &err, "btrfstune", "--help", NULL);
 
   if (r == -1) {
     reply_with_error ("btrfstune: %s", err);
@@ -868,7 +861,7 @@ do_btrfs_set_seeding (const char *device, int svalue)
 
   const char *s_value = svalue ? "1" : "0";
 
-  r = commandr (NULL, &err, str_btrfstune, "-S", s_value, device, NULL);
+  r = commandr (NULL, &err, "btrfstune", "-S", s_value, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -887,7 +880,7 @@ btrfs_set_uuid (const char *device, const char *uuid)
   if (has_uuid_opts <= 0)
     NOT_SUPPORTED (-1, "btrfs filesystems' UUID cannot be changed");
 
-  r = commandr (NULL, &err, str_btrfstune, "-f", "-U", uuid, device, NULL);
+  r = commandr (NULL, &err, "btrfstune", "-f", "-U", uuid, device, NULL);
 
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
@@ -907,7 +900,7 @@ btrfs_set_uuid_random (const char *device)
   if (has_uuid_opts <= 0)
     NOT_SUPPORTED (-1, "btrfs filesystems' UUID cannot be changed");
 
-  r = commandr (NULL, &err, str_btrfstune, "-f", "-u", device, NULL);
+  r = commandr (NULL, &err, "btrfstune", "-f", "-u", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -927,7 +920,7 @@ do_btrfs_fsck (const char *device, int64_t superblock, int repair)
   const char *argv[MAX_ARGS];
   char super_s[64];
 
-  ADD_ARG (argv, i, str_btrfsck);
+  ADD_ARG (argv, i, "btrfsck");
 
   /* Optional arguments. */
   if (optargs_bitmask & GUESTFS_BTRFS_FSCK_SUPERBLOCK_BITMASK) {
@@ -1025,7 +1018,7 @@ do_btrfs_subvolume_show (const char *subvolume)
     return NULL;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "subvolume");
   ADD_ARG (argv, i, "show");
   ADD_ARG (argv, i, subvolume_buf);
@@ -1164,7 +1157,7 @@ do_btrfs_quota_enable (const mountable_t *fs, int enable)
   if (fs_buf == NULL)
     goto error;
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "quota");
   if (enable)
     ADD_ARG (argv, i, "enable");
@@ -1199,7 +1192,7 @@ do_btrfs_quota_rescan (const mountable_t *fs)
   if (fs_buf == NULL)
     goto error;
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "quota");
   ADD_ARG (argv, i, "rescan");
   ADD_ARG (argv, i, fs_buf);
@@ -1234,7 +1227,7 @@ do_btrfs_qgroup_limit (const char *subvolume, int64_t size)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "limit");
   snprintf (size_str, sizeof size_str, "%" PRIi64, size);
@@ -1267,7 +1260,7 @@ do_btrfs_qgroup_create (const char *qgroupid, const char *subvolume)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "create");
   ADD_ARG (argv, i, qgroupid);
@@ -1299,7 +1292,7 @@ do_btrfs_qgroup_destroy (const char *qgroupid, const char *subvolume)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "destroy");
   ADD_ARG (argv, i, qgroupid);
@@ -1332,7 +1325,7 @@ test_btrfs_qgroup_show_raw_opt (void)
   CLEANUP_FREE char *err = NULL;
   CLEANUP_FREE char *out = NULL;
 
-  int r = commandr (&out, &err, str_btrfs, "qgroup", "show", "--help", NULL);
+  int r = commandr (&out, &err, "btrfs", "qgroup", "show", "--help", NULL);
 
   if (r == -1) {
     reply_with_error ("btrfs qgroup show --help: %s", err);
@@ -1366,7 +1359,7 @@ do_btrfs_qgroup_show (const char *path)
     return NULL;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "show");
   if (has_raw_opt > 0)
@@ -1449,7 +1442,7 @@ do_btrfs_qgroup_assign (const char *src, const char *dst, const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "assign");
   ADD_ARG (argv, i, src);
@@ -1482,7 +1475,7 @@ do_btrfs_qgroup_remove (const char *src, const char *dst, const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "qgroup");
   ADD_ARG (argv, i, "remove");
   ADD_ARG (argv, i, src);
@@ -1515,7 +1508,7 @@ do_btrfs_scrub_start (const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "scrub");
   ADD_ARG (argv, i, "start");
   ADD_ARG (argv, i, path_buf);
@@ -1546,7 +1539,7 @@ do_btrfs_scrub_cancel (const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "scrub");
   ADD_ARG (argv, i, "cancel");
   ADD_ARG (argv, i, path_buf);
@@ -1577,7 +1570,7 @@ do_btrfs_scrub_resume (const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "scrub");
   ADD_ARG (argv, i, "resume");
   ADD_ARG (argv, i, path_buf);
@@ -1608,7 +1601,7 @@ do_btrfs_balance_pause (const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "balance");
   ADD_ARG (argv, i, "pause");
   ADD_ARG (argv, i, path_buf);
@@ -1639,7 +1632,7 @@ do_btrfs_balance_cancel (const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "balance");
   ADD_ARG (argv, i, "cancel");
   ADD_ARG (argv, i, path_buf);
@@ -1670,7 +1663,7 @@ do_btrfs_balance_resume (const char *path)
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "balance");
   ADD_ARG (argv, i, "resume");
   ADD_ARG (argv, i, path_buf);
@@ -1702,7 +1695,7 @@ do_btrfs_filesystem_defragment (const char *path, int flush, const char *compres
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "defragment");
   ADD_ARG (argv, i, "-r");
@@ -1742,7 +1735,7 @@ do_btrfs_rescue_chunk_recover (const char *device)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "rescue");
   ADD_ARG (argv, i, "chunk-recover");
   ADD_ARG (argv, i, "-y");
@@ -1767,7 +1760,7 @@ do_btrfs_rescue_super_recover (const char *device)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "rescue");
   ADD_ARG (argv, i, "super-recover");
   ADD_ARG (argv, i, "-y");
@@ -1805,7 +1798,7 @@ do_btrfs_balance_status (const char *path)
     return NULL;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "balance");
   ADD_ARG (argv, i, "status");
   ADD_ARG (argv, i, path_buf);
@@ -1918,7 +1911,7 @@ do_btrfs_scrub_status (const char *path)
     return NULL;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "scrub");
   ADD_ARG (argv, i, "status");
   ADD_ARG (argv, i, "-R");
@@ -2052,7 +2045,7 @@ do_btrfstune_seeding (const char *device, int svalue)
   int r;
   const char *s_value = svalue ? "1" : "0";
 
-  ADD_ARG (argv, i, str_btrfstune);
+  ADD_ARG (argv, i, "btrfstune");
   ADD_ARG (argv, i, "-S");
   ADD_ARG (argv, i, s_value);
   if (svalue == 0)
@@ -2078,7 +2071,7 @@ do_btrfstune_enable_extended_inode_refs (const char *device)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  ADD_ARG (argv, i, str_btrfstune);
+  ADD_ARG (argv, i, "btrfstune");
   ADD_ARG (argv, i, "-r");
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
@@ -2101,7 +2094,7 @@ do_btrfstune_enable_skinny_metadata_extent_refs (const char *device)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  ADD_ARG (argv, i, str_btrfstune);
+  ADD_ARG (argv, i, "btrfstune");
   ADD_ARG (argv, i, "-x");
   ADD_ARG (argv, i, device);
   ADD_ARG (argv, i, NULL);
@@ -2137,7 +2130,7 @@ do_btrfs_image (char *const *sources, const char *image,
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfsimage);
+  ADD_ARG (argv, i, "btrfs-image");
 
   if ((optargs_bitmask & GUESTFS_BTRFS_IMAGE_COMPRESSLEVEL_BITMASK)
       && compresslevel >= 0) {
@@ -2182,7 +2175,7 @@ do_btrfs_replace (const char *srcdev, const char *targetdev,
     return -1;
   }
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "replace");
   ADD_ARG (argv, i, "start");
   ADD_ARG (argv, i, "-B");
@@ -2213,7 +2206,7 @@ do_btrfs_filesystem_show (const char *device)
   CLEANUP_FREE_STRING_LIST char **lines = NULL;
   int r;
 
-  ADD_ARG (argv, i, str_btrfs);
+  ADD_ARG (argv, i, "btrfs");
   ADD_ARG (argv, i, "filesystem");
   ADD_ARG (argv, i, "show");
   ADD_ARG (argv, i, device);
@@ -2305,7 +2298,7 @@ test_btrfs_min_dev_size (void)
   if (result != -1)
     return result;
 
-  r = commandr (&out, &err, str_btrfs, "--help", NULL);
+  r = commandr (&out, &err, "btrfs", "--help", NULL);
 
   if (r == -1) {
     reply_with_error ("btrfs: %s", err);
@@ -2340,7 +2333,7 @@ btrfs_minimum_size (const char *path)
     return -1;
   }
 
-  r = command (&out, &err, str_btrfs, "inspect-internal",
+  r = command (&out, &err, "btrfs", "inspect-internal",
                "min-dev-size", buf, NULL);
 
   if (r == -1) {

@@ -26,12 +26,10 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_grub_install, grub-install);
-
 int
 optgroup_grub_available (void)
 {
-  return prog_exists (str_grub_install);
+  return prog_exists ("grub-install");
 }
 
 int
@@ -46,7 +44,7 @@ do_grub_install (const char *root, const char *device)
   }
 
   r = command (verbose ? &out : NULL, &err,
-               str_grub_install, buf, device, NULL);
+               "grub-install", buf, device, NULL);
 
   if (r == -1) {
     if (verbose)

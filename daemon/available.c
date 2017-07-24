@@ -30,9 +30,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_grep, grep);
-GUESTFSD_EXT_CMD(str_modprobe, modprobe);
-
 int
 do_internal_feature_available (const char *group)
 {
@@ -79,7 +76,7 @@ test_proc_filesystems (const char *filesystem)
     return -1;
   }
 
-  r = commandr (NULL, &err, str_grep, regex, "/proc/filesystems", NULL);
+  r = commandr (NULL, &err, "grep", regex, "/proc/filesystems", NULL);
   if (r == -1 || r >= 2) {
     fprintf (stderr, "grep /proc/filesystems: %s", err);
     return -1;
@@ -92,7 +89,7 @@ test_proc_filesystems (const char *filesystem)
 static void
 modprobe (const char *module)
 {
-  ignore_value (command (NULL, NULL, str_modprobe, module, NULL));
+  ignore_value (command (NULL, NULL, "modprobe", module, NULL));
 }
 
 /* Internal function for testing if a filesystem is available.  Note

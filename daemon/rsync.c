@@ -30,12 +30,10 @@
 
 #define MAX_ARGS 64
 
-GUESTFSD_EXT_CMD(str_rsync, rsync);
-
 int
 optgroup_rsync_available (void)
 {
-  return prog_exists (str_rsync);
+  return prog_exists ("rsync");
 }
 
 static int
@@ -48,7 +46,7 @@ rsync (const char *src, const char *src_orig,
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  ADD_ARG (argv, i, str_rsync);
+  ADD_ARG (argv, i, "rsync");
 
   if (archive)
     ADD_ARG (argv, i, "--archive");

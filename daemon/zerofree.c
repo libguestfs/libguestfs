@@ -28,12 +28,10 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_zerofree, zerofree);
-
 int
 optgroup_zerofree_available (void)
 {
-  return prog_exists (str_zerofree);
+  return prog_exists ("zerofree");
 }
 
 int
@@ -42,7 +40,7 @@ do_zerofree (const char *device)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  r = command (NULL, &err, str_zerofree, device, NULL);
+  r = command (NULL, &err, "zerofree", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;

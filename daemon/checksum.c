@@ -29,33 +29,23 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_find, find);
-GUESTFSD_EXT_CMD(str_xargs, xargs);
-GUESTFSD_EXT_CMD(str_cksum, cksum);
-GUESTFSD_EXT_CMD(str_md5sum, md5sum);
-GUESTFSD_EXT_CMD(str_sha1sum, sha1sum);
-GUESTFSD_EXT_CMD(str_sha224sum, sha224sum);
-GUESTFSD_EXT_CMD(str_sha256sum, sha256sum);
-GUESTFSD_EXT_CMD(str_sha384sum, sha384sum);
-GUESTFSD_EXT_CMD(str_sha512sum, sha512sum);
-
 static const char *
 program_of_csum (const char *csumtype)
 {
   if (STRCASEEQ (csumtype, "crc"))
-    return str_cksum;
+    return "cksum";
   else if (STRCASEEQ (csumtype, "md5"))
-    return str_md5sum;
+    return "md5sum";
   else if (STRCASEEQ (csumtype, "sha1"))
-    return str_sha1sum;
+    return "sha1sum";
   else if (STRCASEEQ (csumtype, "sha224"))
-    return str_sha224sum;
+    return "sha224sum";
   else if (STRCASEEQ (csumtype, "sha256"))
-    return str_sha256sum;
+    return "sha256sum";
   else if (STRCASEEQ (csumtype, "sha384"))
-    return str_sha384sum;
+    return "sha384sum";
   else if (STRCASEEQ (csumtype, "sha512"))
-    return str_sha512sum;
+    return "sha512sum";
   else {
     reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512");
     return NULL;
@@ -166,7 +156,7 @@ do_checksums_out (const char *csumtype, const char *dir)
 
   cmd = NULL;
   if (asprintf_nowarn (&cmd, "cd %Q && %s -type f -print0 | %s -0 %s",
-                       sysrootdir, str_find, str_xargs, program) == -1) {
+                       sysrootdir, "find", "xargs", program) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }

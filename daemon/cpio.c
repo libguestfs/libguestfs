@@ -33,8 +33,6 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_cpio, cpio);
-
 /* Has one FileOut parameter. */
 /* Takes optional arguments, consult optargs_bitmask. */
 int
@@ -82,7 +80,7 @@ do_cpio_out (const char *dir, const char *format)
 
   if (asprintf_nowarn (&cmd, "cd %Q && find -print0 | %s -0 -o -H %s --quiet",
                        buf,
-                       str_cpio,
+                       "cpio",
                        format) == -1) {
     reply_with_perror ("asprintf");
     return -1;

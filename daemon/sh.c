@@ -32,10 +32,6 @@
 
 #include "ignore-value.h"
 
-GUESTFSD_EXT_CMD(str_cp, cp);
-GUESTFSD_EXT_CMD(str_mount, mount);
-GUESTFSD_EXT_CMD(str_umount, umount);
-
 #ifdef HAVE_ATTRIBUTE_CLEANUP
 #define CLEANUP_BIND_STATE __attribute__((cleanup(free_bind_state)))
 #define CLEANUP_RESOLVER_STATE __attribute__((cleanup(free_resolver_state)))
@@ -100,20 +96,20 @@ bind_mount (struct bind_state *bs)
    * However I have not found a reliable way to unmount the same set
    * of directories (umount -R does NOT work).
    */
-  r = command (NULL, NULL, str_mount, "--bind", "/dev", bs->sysroot_dev, NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/dev", bs->sysroot_dev, NULL);
   bs->dev_ok = r != -1;
-  r = command (NULL, NULL, str_mount, "--bind", "/dev/pts", bs->sysroot_dev_pts, NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/dev/pts", bs->sysroot_dev_pts, NULL);
   bs->dev_pts_ok = r != -1;
-  r = command (NULL, NULL, str_mount, "--bind", "/proc", bs->sysroot_proc, NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/proc", bs->sysroot_proc, NULL);
   bs->proc_ok = r != -1;
   /* Note on the next line we have to bind-mount /sys/fs/selinux (appliance
    * kernel) on top of /selinux (where guest is expecting selinux).
    */
-  r = command (NULL, NULL, str_mount, "--bind", "/sys/fs/selinux", bs->sysroot_selinux, NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/sys/fs/selinux", bs->sysroot_selinux, NULL);
   bs->selinux_ok = r != -1;
-  r = command (NULL, NULL, str_mount, "--bind", "/sys", bs->sysroot_sys, NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/sys", bs->sysroot_sys, NULL);
   bs->sys_ok = r != -1;
-  r = command (NULL, NULL, str_mount, "--bind", "/sys/fs/selinux", bs->sysroot_sys_fs_selinux, NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/sys/fs/selinux", bs->sysroot_sys_fs_selinux, NULL);
   bs->sys_fs_selinux_ok = r != -1;
 
   bs->mounted = true;
@@ -124,7 +120,7 @@ bind_mount (struct bind_state *bs)
 static inline void
 umount_ignore_fail (const char *path)
 {
-  ignore_value (command (NULL, NULL, str_umount, path, NULL));
+  ignore_value (command (NULL, NULL, "umount", path, NULL));
 }
 
 static void
@@ -205,7 +201,7 @@ set_up_etc_resolv_conf (struct resolver_state *rs)
   /* Now that the guest's <sysroot>/etc/resolv.conf is out the way, we
    * can create our own copy of the appliance /etc/resolv.conf.
    */
-  ignore_value (command (NULL, NULL, str_cp, "/etc/resolv.conf",
+  ignore_value (command (NULL, NULL, "cp", "/etc/resolv.conf",
                          rs->sysroot_etc_resolv_conf, NULL));
 
   rs->mounted = true;

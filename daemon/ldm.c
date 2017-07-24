@@ -39,12 +39,10 @@
 #pragma GCC diagnostic ignored "-Wnull-dereference"
 #endif
 
-GUESTFSD_EXT_CMD(str_ldmtool, ldmtool);
-
 int
 optgroup_ldm_available (void)
 {
-  return prog_exists (str_ldmtool);
+  return prog_exists ("ldmtool");
 }
 
 static int
@@ -134,7 +132,7 @@ do_ldmtool_create_all (void)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, str_ldmtool, "create", "all", NULL);
+  r = command (NULL, &err, "ldmtool", "create", "all", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -148,7 +146,7 @@ do_ldmtool_remove_all (void)
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, str_ldmtool, "remove", "all", NULL);
+  r = command (NULL, &err, "ldmtool", "remove", "all", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -327,7 +325,7 @@ do_ldmtool_scan_devices (char * const * devices)
     return NULL;
   }
 
-  argv[0] = str_ldmtool;
+  argv[0] = "ldmtool";
   argv[1] = "scan";
   for (i = 0; i < nr_devices; ++i)
     argv[2+i] = devices[i];
@@ -349,7 +347,7 @@ do_ldmtool_diskgroup_name (const char *diskgroup)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  r = command (&out, &err, str_ldmtool, "show", "diskgroup", diskgroup, NULL);
+  r = command (&out, &err, "ldmtool", "show", "diskgroup", diskgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
@@ -365,7 +363,7 @@ do_ldmtool_diskgroup_volumes (const char *diskgroup)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  r = command (&out, &err, str_ldmtool, "show", "diskgroup", diskgroup, NULL);
+  r = command (&out, &err, "ldmtool", "show", "diskgroup", diskgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
@@ -382,7 +380,7 @@ do_ldmtool_diskgroup_disks (const char *diskgroup)
   int r;
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
-  r = command (&out, &err, str_ldmtool, "show", "diskgroup", diskgroup, NULL);
+  r = command (&out, &err, "ldmtool", "show", "diskgroup", diskgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
@@ -399,7 +397,7 @@ do_ldmtool_volume_type (const char *diskgroup, const char *volume)
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err,
-               str_ldmtool, "show", "volume", diskgroup, volume, NULL);
+               "ldmtool", "show", "volume", diskgroup, volume, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
@@ -416,7 +414,7 @@ do_ldmtool_volume_hint (const char *diskgroup, const char *volume)
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err,
-               str_ldmtool, "show", "volume", diskgroup, volume, NULL);
+               "ldmtool", "show", "volume", diskgroup, volume, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
@@ -433,7 +431,7 @@ do_ldmtool_volume_partitions (const char *diskgroup, const char *volume)
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
   r = command (&out, &err,
-               str_ldmtool, "show", "volume", diskgroup, volume, NULL);
+               "ldmtool", "show", "volume", diskgroup, volume, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;

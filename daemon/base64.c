@@ -30,8 +30,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_base64, base64);
-
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
 {
@@ -48,7 +46,7 @@ do_base64_in (const char *file)
   CLEANUP_FREE char *cmd = NULL;
   int fd;
 
-  if (asprintf_nowarn (&cmd, "%s -d -i > %R", str_base64, file) == -1) {
+  if (asprintf_nowarn (&cmd, "%s -d -i > %R", "base64", file) == -1) {
     err = errno;
     cancel_receive ();
     errno = err;
@@ -132,7 +130,7 @@ do_base64_out (const char *file)
   }
 
   /* Construct the command. */
-  if (asprintf_nowarn (&cmd, "%s %Q", str_base64, buf) == -1) {
+  if (asprintf_nowarn (&cmd, "%s %Q", "base64", buf) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }

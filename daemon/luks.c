@@ -28,12 +28,10 @@
 
 #define MAX_ARGS 64
 
-GUESTFSD_EXT_CMD(str_cryptsetup, cryptsetup);
-
 int
 optgroup_luks_available (void)
 {
-  return prog_exists (str_cryptsetup);
+  return prog_exists ("cryptsetup");
 }
 
 /* Callers must also call remove_temp (tempfile). */
@@ -108,7 +106,7 @@ luks_open (const char *device, const char *key, const char *mapname,
   const char *argv[MAX_ARGS];
   size_t i = 0;
 
-  ADD_ARG (argv, i, str_cryptsetup);
+  ADD_ARG (argv, i, "cryptsetup");
   ADD_ARG (argv, i, "-d");
   ADD_ARG (argv, i, tempfile);
   if (readonly) ADD_ARG (argv, i, "--readonly");
@@ -155,7 +153,7 @@ do_luks_close (const char *device)
   const char *mapname = &device[12];
 
   CLEANUP_FREE char *err = NULL;
-  int r = command (NULL, &err, str_cryptsetup, "luksClose", mapname, NULL);
+  int r = command (NULL, &err, "cryptsetup", "luksClose", mapname, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -178,7 +176,7 @@ luks_format (const char *device, const char *key, int keyslot,
   char keyslot_s[16];
   size_t i = 0;
 
-  ADD_ARG (argv, i, str_cryptsetup);
+  ADD_ARG (argv, i, "cryptsetup");
   ADD_ARG (argv, i, "-q");
   if (cipher) {
     ADD_ARG (argv, i, "--cipher");
@@ -237,7 +235,7 @@ do_luks_add_key (const char *device, const char *key, const char *newkey,
   char keyslot_s[16];
   size_t i = 0;
 
-  ADD_ARG (argv, i, str_cryptsetup);
+  ADD_ARG (argv, i, "cryptsetup");
   ADD_ARG (argv, i, "-q");
   ADD_ARG (argv, i, "-d");
   ADD_ARG (argv, i, keyfile);
@@ -273,7 +271,7 @@ do_luks_kill_slot (const char *device, const char *key, int keyslot)
   char keyslot_s[16];
   size_t i = 0;
 
-  ADD_ARG (argv, i, str_cryptsetup);
+  ADD_ARG (argv, i, "cryptsetup");
   ADD_ARG (argv, i, "-q");
   ADD_ARG (argv, i, "-d");
   ADD_ARG (argv, i, tempfile);

@@ -27,8 +27,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_dd, dd);
-
 int
 do_dd (const char *src, const char *dest)
 {
@@ -59,7 +57,7 @@ do_dd (const char *src, const char *dest)
     return -1;
   }
 
-  r = command (NULL, &err, str_dd, "bs=1024K", if_arg, of_arg, NULL);
+  r = command (NULL, &err, "dd", "bs=1024K", if_arg, of_arg, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s: %s", src, dest, err);
     return -1;

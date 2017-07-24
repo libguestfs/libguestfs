@@ -32,12 +32,10 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_lvm, lvm);
-
 int
 optgroup_lvm2_available (void)
 {
-  return prog_exists (str_lvm);
+  return prog_exists ("lvm");
 }
 
 /* LVM actions.  Keep an eye on liblvm, although at the time
@@ -194,7 +192,7 @@ do_pvs (void)
   int r;
 
   r = command (&out, &err,
-               str_lvm, "pvs", "-o", "pv_name", "--noheadings", NULL);
+               "lvm", "pvs", "-o", "pv_name", "--noheadings", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -212,7 +210,7 @@ do_vgs (void)
   int r;
 
   r = command (&out, &err,
-               str_lvm, "vgs", "-o", "vg_name", "--noheadings", NULL);
+               "lvm", "vgs", "-o", "vg_name", "--noheadings", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -235,7 +233,7 @@ test_lvs_has_S_opt (void)
   CLEANUP_FREE char *out = NULL;
   CLEANUP_FREE char *err = NULL;
 
-  int r = command (&out, &err, str_lvm, "lvs", "--help", NULL);
+  int r = command (&out, &err, "lvm", "lvs", "--help", NULL);
   if (r == -1) {
     reply_with_error ("lvm lvs --help: %s", err);
     return -1;
@@ -262,7 +260,7 @@ do_lvs (void)
 
   if (has_S > 0) {
     r = command (&out, &err,
-                 str_lvm, "lvs",
+                 "lvm", "lvs",
                  "-o", "vg_name,lv_name",
                  "-S", "lv_role=public && lv_skip_activation!=yes",
                  "--noheadings",
@@ -276,7 +274,7 @@ do_lvs (void)
     return convert_lvm_output (out, "/dev/");
   } else {
     r = command (&out, &err,
-                 str_lvm, "lvs",
+                 "lvm", "lvs",
                  "-o", "lv_attr,vg_name,lv_name",
                  "--noheadings",
                  "--separator", ":", NULL);
@@ -319,7 +317,7 @@ do_pvcreate (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "pvcreate", "--force", device, NULL);
+               "lvm", "pvcreate", "--force", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -343,7 +341,7 @@ do_vgcreate (const char *volgroup, char *const *physvols)
     reply_with_perror ("malloc");
     return -1;
   }
-  argv[0] = str_lvm;
+  argv[0] = "lvm";
   argv[1] = "vgcreate";
   argv[2] = volgroup;
   for (i = 3; i < argc+1; ++i)
@@ -370,7 +368,7 @@ do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
   snprintf (size, sizeof size, "%d", mbytes);
 
   r = command (NULL, &err,
-               str_lvm, "lvcreate",
+               "lvm", "lvcreate",
                "-L", size, "-n", logvol, volgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -397,7 +395,7 @@ do_lvcreate_free (const char *logvol, const char *volgroup, int percent)
   snprintf (size, sizeof size, "%d%%FREE", percent);
 
   r = command (NULL, &err,
-               str_lvm, "lvcreate",
+               "lvm", "lvcreate",
                "-l", size, "-n", logvol, volgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -430,7 +428,7 @@ do_lvresize (const char *logvol, int mbytes)
   snprintf (size, sizeof size, "%d", mbytes);
 
   r = command (NULL, &err,
-               str_lvm, "lvresize",
+               "lvm", "lvresize",
                "--force", "-L", size, logvol, NULL);
   if (r == -1) {
     if (!ignore_same_size_error (err)) {
@@ -457,7 +455,7 @@ do_lvresize_free (const char *logvol, int percent)
   snprintf (size, sizeof size, "+%d%%FREE", percent);
 
   r = command (NULL, &err,
-               str_lvm, "lvresize", "-l", size, logvol, NULL);
+               "lvm", "lvresize", "-l", size, logvol, NULL);
   if (r == -1) {
     if (!ignore_same_size_error (err)) {
       reply_with_error ("%s", err);
@@ -489,10 +487,10 @@ do_lvm_remove_all (void)
       /* Deactivate the LV first.  On Ubuntu, lvremove '-f' option
        * does not remove active LVs reliably.
        */
-      (void) command (NULL, NULL, str_lvm, "lvchange", "-an", xs[i], NULL);
+      (void) command (NULL, NULL, "lvm", "lvchange", "-an", xs[i], NULL);
       udev_settle ();
 
-      r = command (NULL, &err, str_lvm, "lvremove", "-f", xs[i], NULL);
+      r = command (NULL, &err, "lvm", "lvremove", "-f", xs[i], NULL);
       if (r == -1) {
         reply_with_error ("lvremove: %s: %s", xs[i], err);
         return -1;
@@ -510,10 +508,10 @@ do_lvm_remove_all (void)
       CLEANUP_FREE char *err = NULL;
 
       /* Deactivate the VG first, see note above. */
-      (void) command (NULL, NULL, str_lvm, "vgchange", "-an", xs[i], NULL);
+      (void) command (NULL, NULL, "lvm", "vgchange", "-an", xs[i], NULL);
       udev_settle ();
 
-      r = command (NULL, &err, str_lvm, "vgremove", "-f", xs[i], NULL);
+      r = command (NULL, &err, "lvm", "vgremove", "-f", xs[i], NULL);
       if (r == -1) {
         reply_with_error ("vgremove: %s: %s", xs[i], err);
         return -1;
@@ -530,7 +528,7 @@ do_lvm_remove_all (void)
     for (i = 0; xs[i] != NULL; ++i) {
       CLEANUP_FREE char *err = NULL;
 
-      r = command (NULL, &err, str_lvm, "pvremove", "-f", xs[i], NULL);
+      r = command (NULL, &err, "lvm", "pvremove", "-f", xs[i], NULL);
       if (r == -1) {
         reply_with_error ("pvremove: %s: %s", xs[i], err);
         return -1;
@@ -551,7 +549,7 @@ do_lvremove (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "lvremove", "-f", device, NULL);
+               "lvm", "lvremove", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -569,7 +567,7 @@ do_vgremove (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "vgremove", "-f", device, NULL);
+               "lvm", "vgremove", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -587,7 +585,7 @@ do_pvremove (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "pvremove", "-ff", device, NULL);
+               "lvm", "pvremove", "-ff", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -605,7 +603,7 @@ do_pvresize (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "pvresize", device, NULL);
+               "lvm", "pvresize", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -624,7 +622,7 @@ do_pvresize_size (const char *device, int64_t size)
   snprintf (buf, sizeof buf, "%" PRIi64 "b", size);
 
   r = command (NULL, &err,
-               str_lvm, "pvresize",
+               "lvm", "pvresize",
                "--yes",
                "--setphysicalvolumesize", buf,
                device, NULL);
@@ -650,7 +648,7 @@ do_vg_activate (int activate, char *const *volgroups)
     return -1;
   }
 
-  argv[0] = str_lvm;
+  argv[0] = "lvm";
   argv[1] = "vgchange";
   argv[2] = "-a";
   argv[3] = activate ? "y" : "n";
@@ -682,7 +680,7 @@ do_lvrename (const char *logvol, const char *newlogvol)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "lvrename",
+               "lvm", "lvrename",
                logvol, newlogvol, NULL);
   if (r == -1) {
     reply_with_error ("%s -> %s: %s", logvol, newlogvol, err);
@@ -701,7 +699,7 @@ do_vgrename (const char *volgroup, const char *newvolgroup)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "vgrename",
+               "lvm", "vgrename",
                volgroup, newvolgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s -> %s: %s", volgroup, newvolgroup, err);
@@ -719,7 +717,7 @@ get_lvm_field (const char *cmd, const char *field, const char *device)
   char *out;
   CLEANUP_FREE char *err = NULL;
   int r = command (&out, &err,
-                   str_lvm, cmd,
+                   "lvm", cmd,
                    "--unbuffered", "--noheadings", "-o", field,
                    device, NULL);
   if (r == -1) {
@@ -756,7 +754,7 @@ get_lvm_fields (const char *cmd, const char *field, const char *device)
   CLEANUP_FREE char *out = NULL, *err = NULL;
 
   int r = command (&out, &err,
-                   str_lvm, cmd,
+                   "lvm", cmd,
                    "--unbuffered", "--noheadings", "-o", field,
                    device, NULL);
   if (r == -1) {
@@ -795,7 +793,7 @@ do_vgscan (void)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "vgscan", NULL);
+               "lvm", "vgscan", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -983,7 +981,7 @@ do_vgmeta (const char *vg, size_t *size_r)
 
   close (fd);
 
-  r = command (NULL, &err, str_lvm, "vgcfgbackup", "-f", tmp, vg, NULL);
+  r = command (NULL, &err, "lvm", "vgcfgbackup", "-f", tmp, vg, NULL);
   if (r == -1) {
     reply_with_error ("vgcfgbackup: %s", err);
     return NULL;
@@ -1056,7 +1054,7 @@ do_pvchange_uuid (const char *device)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "pvchange", "-u", device, NULL);
+               "lvm", "pvchange", "-u", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     return -1;
@@ -1074,7 +1072,7 @@ do_pvchange_uuid_all (void)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "pvchange", "-u", "-a", NULL);
+               "lvm", "pvchange", "-u", "-a", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;
@@ -1092,7 +1090,7 @@ do_vgchange_uuid (const char *vg)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "vgchange", "-u", vg, NULL);
+               "lvm", "vgchange", "-u", vg, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", vg, err);
     return -1;
@@ -1110,7 +1108,7 @@ do_vgchange_uuid_all (void)
   int r;
 
   r = command (NULL, &err,
-               str_lvm, "vgchange", "-u", NULL);
+               "lvm", "vgchange", "-u", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;

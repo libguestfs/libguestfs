@@ -27,15 +27,13 @@
 #include "actions.h"
 #include "optgroups.h"
 
-GUESTFSD_EXT_CMD(str_dosfslabel, dosfslabel);
-
 static int
 dosfslabel (const char *device, const char *label)
 {
   int r;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (NULL, &err, str_dosfslabel, device, label, NULL);
+  r = command (NULL, &err, "dosfslabel", device, label, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return -1;

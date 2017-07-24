@@ -29,8 +29,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-GUESTFSD_EXT_CMD(str_rm, rm);
-
 int
 do_rmdir (const char *path)
 {
@@ -69,7 +67,7 @@ do_rm_rf (const char *path)
     return -1;
   }
 
-  r = command (NULL, &err, str_rm, "-rf", buf, NULL);
+  r = command (NULL, &err, "rm", "-rf", buf, NULL);
   /* rm -rf is never supposed to fail.  I/O errors perhaps? */
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);

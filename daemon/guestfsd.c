@@ -63,9 +63,6 @@
 
 #include "daemon.h"
 
-GUESTFSD_EXT_CMD(str_udevadm, udevadm);
-GUESTFSD_EXT_CMD(str_uuidgen, uuidgen);
-
 #ifndef MAX
 # define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
@@ -1095,7 +1092,7 @@ udev_settle_file (const char *file)
   size_t i = 0;
   int r;
 
-  ADD_ARG (argv, i, str_udevadm);
+  ADD_ARG (argv, i, "udevadm");
   if (verbose)
     ADD_ARG (argv, i, "--debug");
 
@@ -1124,7 +1121,7 @@ get_random_uuid (void)
   char *out;
   CLEANUP_FREE char *err = NULL;
 
-  r = command (&out, &err, str_uuidgen, NULL);
+  r = command (&out, &err, "uuidgen", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     return NULL;
