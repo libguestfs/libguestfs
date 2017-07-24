@@ -123,6 +123,8 @@ EOF
 ])
 AC_SUBST([OCAML_BYTES_COMPAT_CMO])
 AC_SUBST([OCAML_BYTES_COMPAT_ML])
+AM_CONDITIONAL([HAVE_BYTES_COMPAT_ML],
+	       [test "x$OCAML_BYTES_COMPAT_ML" != "x"])
 
 dnl Flags we want to pass to every OCaml compiler call.
 OCAML_WARN_ERROR="-warn-error CDEFLMPSUVYZX-3"

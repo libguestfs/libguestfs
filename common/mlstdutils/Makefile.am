@@ -27,9 +27,14 @@ SOURCES_MLI = \
 	stringMap.mli \
 	stringSet.mli
 
-SOURCES_ML = \
+if HAVE_BYTES_COMPAT_ML
+SOURCES_ML = bytes.ml
+else
+SOURCES_ML =
+endif
+
+SOURCES_ML += \
 	guestfs_config.ml \
-	$(OCAML_BYTES_COMPAT_ML) \
 	libdir.ml \
 	stringMap.ml \
 	stringSet.ml \
