@@ -269,7 +269,7 @@ main (int argc, char *argv[])
    * daemon/lvm-filter.c).
    */
   if (!test_mode) {
-    copy_lvm ();
+    clean_lvm_config ();
     start_lvmetad ();
   }
 
