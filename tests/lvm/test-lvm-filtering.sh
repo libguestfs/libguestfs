@@ -40,22 +40,22 @@ pvcreate /dev/sdb1
 vgcreate VG1 /dev/sda1
 vgcreate VG2 /dev/sdb1
 
-# Should see VG1 and VG2
+echo Expect VG1, VG2
 vgs
 
-# Should see just VG1
+echo Expect VG1, VG1
 lvm-set-filter /dev/sda
 vgs
 lvm-set-filter /dev/sda1
 vgs
 
-# Should see just VG2
+echo Expect VG2, VG2
 lvm-set-filter /dev/sdb
 vgs
 lvm-set-filter /dev/sdb1
 vgs
 
-# Should see VG1 and VG2
+echo Expect VG1, VG2 x 5
 lvm-set-filter "/dev/sda /dev/sdb"
 vgs
 lvm-set-filter "/dev/sda1 /dev/sdb1"
@@ -69,12 +69,16 @@ vgs
 EOF
 )
 
-expected="VG1
-VG2
-VG1
+expected="Expect VG1, VG2
 VG1
 VG2
+Expect VG1, VG1
+VG1
+VG1
+Expect VG2, VG2
 VG2
+VG2
+Expect VG1, VG2 x 5
 VG1
 VG2
 VG1
