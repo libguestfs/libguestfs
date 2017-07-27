@@ -44,11 +44,7 @@ object
   method check_target_firmware guestcaps target_firmware =
     match target_firmware with
     | TargetBIOS -> ()
-    | TargetUEFI ->
-       (* This will fail with an error if the target firmware is
-        * not installed on the host.
-        *)
-       ignore (find_uefi_firmware guestcaps.gcaps_arch)
+    | TargetUEFI -> error_unless_uefi_firmware guestcaps.gcaps_arch
 
   method create_metadata source _ target_buses guestcaps inspect
                          target_firmware =

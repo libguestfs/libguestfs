@@ -79,6 +79,9 @@ let find_uefi_firmware guest_arch =
   in
   loop files
 
+let error_unless_uefi_firmware guest_arch =
+  ignore (find_uefi_firmware guest_arch)
+
 let compare_app2_versions app1 app2 =
   let i = compare app1.Guestfs.app2_epoch app2.Guestfs.app2_epoch in
   if i <> 0 then i
