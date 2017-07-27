@@ -40,6 +40,9 @@ val find_uefi_firmware : string -> Uefi.uefi_firmware
 (** Find the UEFI firmware for the guest architecture.
     This cannot return an error, it calls [error] and fails instead. *)
 
+val error_unless_uefi_firmware : string -> unit
+(** Check UEFI firmware is installed on the local host and error out if not. *)
+
 val compare_app2_versions : Guestfs.application2 -> Guestfs.application2 -> int
 (** Compare two app versions. *)
 
