@@ -59,6 +59,7 @@ daemon/blkdiscard.c
 daemon/blkid.c
 daemon/blockdev.c
 daemon/btrfs.c
+daemon/caml-stubs.c
 daemon/cap.c
 daemon/checksum.c
 daemon/cleanups.c
@@ -68,6 +69,7 @@ daemon/compress.c
 daemon/copy.c
 daemon/cpio.c
 daemon/cpmv.c
+daemon/daemon-c.c
 daemon/dd.c
 daemon/debug-bmap.c
 daemon/debug.c
@@ -79,13 +81,13 @@ daemon/dispatch.c
 daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
+daemon/dummy.c
 daemon/echo-daemon.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
 daemon/fill.c
 daemon/find.c
-daemon/findfs.c
 daemon/format.c
 daemon/fs-min-size.c
 daemon/fsck.c
@@ -128,7 +130,6 @@ daemon/parted.c
 daemon/pingdaemon.c
 daemon/proto.c
 daemon/readdir.c
-daemon/realpath.c
 daemon/rename.c
 daemon/rsync.c
 daemon/scrub.c
@@ -153,6 +154,7 @@ daemon/stubs-6.c
 daemon/swap.c
 daemon/sync.c
 daemon/syslinux.c
+daemon/sysroot-c.c
 daemon/tar.c
 daemon/truncate.c
 daemon/tsk.c
@@ -384,7 +386,6 @@ lib/launch.c
 lib/libvirt-auth.c
 lib/libvirt-domain.c
 lib/libvirt-is-version.c
-lib/listfs.c
 lib/lpj.c
 lib/match.c
 lib/mountable.c

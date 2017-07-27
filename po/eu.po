@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-07-18 15:11+0100\n"
+"POT-Creation-Date: 2017-07-27 23:01+0100\n"
 "PO-Revision-Date: 2015-02-21 10:49-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../dib/elements.ml:162
+#: ../dib/elements.ml:160
 msgid "  %s: already provided by %s"
 msgstr ""
 
@@ -56,7 +56,7 @@ msgid ""
 msgstr ""
 
 #. ../customize/customize_run.ml:453
-#: ../v2v/inspect_source.ml:53 ../mllib/common_utils.ml:550
+#: ../v2v/inspect_source.ml:53 ../mllib/common_utils.ml:544
 msgid "%s (ignored)"
 msgstr ""
 
@@ -355,7 +355,7 @@ msgstr ""
 msgid "%s: no ‘size’ field for ‘%s’\n"
 msgstr ""
 
-#: ../builder/sources.ml:50
+#: ../builder/sources.ml:48
 msgid "%s: no ‘uri’ entry for ‘%s’ in %s, skipping it\n"
 msgstr ""
 
@@ -769,7 +769,7 @@ msgstr ""
 msgid "Boot in qemu (-o qemu only)"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:107
+#: ../sysprep/sysprep_operation_user_account.ml:105
 msgid ""
 "By default remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed.\n"
@@ -782,7 +782,7 @@ msgstr ""
 msgid "CD-ROM"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:85
+#: ../sysprep/sysprep_operation_user_account.ml:83
 msgid "Cannot get the home directory for %s"
 msgstr ""
 
@@ -1726,7 +1726,7 @@ msgstr ""
 msgid "Remove /etc/passwd- and similar backup files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_ca_certificates.ml:51
+#: ../sysprep/sysprep_operation_ca_certificates.ml:50
 msgid "Remove CA certificates in the guest"
 msgstr ""
 
@@ -1750,7 +1750,7 @@ msgstr ""
 msgid "Remove HWADDR (hard-coded MAC address) configuration"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_kerberos_data.ml:44
+#: ../sysprep/sysprep_operation_kerberos_data.ml:43
 msgid "Remove Kerberos data in the guest"
 msgstr ""
 
@@ -1770,11 +1770,11 @@ msgstr ""
 msgid "Remove email from the local mail spool directory"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_rpm_db.ml:39
+#: ../sysprep/sysprep_operation_rpm_db.ml:38
 msgid "Remove host-specific RPM database files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_rpm_db.ml:40
+#: ../sysprep/sysprep_operation_rpm_db.ml:39
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will\n"
 "recreate these files automatically if needed."
@@ -1870,7 +1870,7 @@ msgstr ""
 msgid "Remove the process accounting log files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:106
+#: ../sysprep/sysprep_operation_user_account.ml:104
 msgid "Remove the user accounts in the guest"
 msgstr ""
 
@@ -2321,7 +2321,7 @@ msgid ""
 "log files if the process accounting is on."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:131
+#: ../sysprep/sysprep_operation_user_account.ml:129
 msgid ""
 "The user accounts to be kept in the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2335,7 +2335,7 @@ msgid ""
 "This option can be specified multiple times."
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:116
+#: ../sysprep/sysprep_operation_user_account.ml:114
 msgid ""
 "The user accounts to be removed from the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2359,7 +2359,7 @@ msgid ""
 "larger by at least this amount or adjust your resizing requests."
 msgstr ""
 
-#: ../dib/elements.ml:212
+#: ../dib/elements.ml:210
 msgid ""
 "There is a duplicated script in your elements:\n"
 "%s/%s in: %s"
@@ -2504,11 +2504,11 @@ msgstr ""
 msgid "Use unversioned names for files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:129
+#: ../sysprep/sysprep_operation_user_account.ml:127
 msgid "Users to keep"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:114
+#: ../sysprep/sysprep_operation_user_account.ml:112
 msgid "Users to remove"
 msgstr ""
 
@@ -2752,7 +2752,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:207
+#: ../v2v/output_libvirt.ml:205
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "‘%s’.  Try running ‘virsh define %s’ yourself instead."
@@ -2768,7 +2768,7 @@ msgid ""
 "Use the ‘-v’ option and look for earlier error messages."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:358
+#: ../v2v/linux_bootloaders.ml:365
 msgid "could not find bootloader mount point (%s): %s"
 msgstr ""
 
@@ -2823,7 +2823,7 @@ msgid ""
 "harmless.  Original error message: %s"
 msgstr ""
 
-#: ../v2v/output_libvirt.ml:167
+#: ../v2v/output_libvirt.ml:165
 msgid "could not refresh libvirt pool %s"
 msgstr ""
 
@@ -2946,7 +2946,7 @@ msgstr ""
 msgid "duplicate operation name (%s)"
 msgstr ""
 
-#: ../dib/elements.ml:132
+#: ../dib/elements.ml:130
 msgid "element %s not found"
 msgstr ""
 
@@ -3033,7 +3033,7 @@ msgstr ""
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:181
+#: ../v2v/utils.ml:184
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
@@ -3071,7 +3071,7 @@ msgstr ""
 msgid "floppy disk"
 msgstr ""
 
-#: ../dib/elements.ml:166
+#: ../dib/elements.ml:164
 msgid ""
 "following elements are already provided by another element:\n"
 "%s"
@@ -3282,7 +3282,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:166
+#: ../v2v/utils.ml:169
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
@@ -3290,7 +3290,7 @@ msgstr ""
 msgid "invalid password selector ‘%s’; see the man page"
 msgstr ""
 
-#: ../v2v/utils.ml:171
+#: ../v2v/utils.ml:174
 msgid "invalid size returned by tar: %S"
 msgstr ""
 
@@ -3410,7 +3410,7 @@ msgid ""
 "vulnerable to Man-In-The-Middle attacks."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:373
+#: ../v2v/linux_bootloaders.ml:380
 msgid "no bootloader detected"
 msgstr ""
 
@@ -3616,7 +3616,7 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr ""
 
-#: ../dib/elements.ml:170
+#: ../dib/elements.ml:168
 msgid "please include an operating system element"
 msgstr ""
 
@@ -4105,24 +4105,24 @@ msgstr ""
 msgid "usage: %s [--options] indisk outdisk"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:147
+#: ../sysprep/sysprep_operation_user_account.ml:145
 msgid ""
 "user-accounts: --keep-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:149
+#: ../sysprep/sysprep_operation_user_account.ml:147
 msgid ""
 "user-accounts: --remove-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_user_account.ml:40
+#: ../sysprep/sysprep_operation_user_account.ml:38
 msgid "user-accounts: empty user name"
 msgstr ""
 
-#. ../sysprep/sysprep_operation_user_account.ml:114
-#: ../sysprep/sysprep_operation_user_account.ml:129
+#. ../sysprep/sysprep_operation_user_account.ml:112
+#: ../sysprep/sysprep_operation_user_account.ml:127
 msgid "users"
 msgstr ""
 
@@ -8605,11 +8605,6 @@ msgstr ""
 msgid ""
 "%s: %s: %s.\n"
 "To see full error messages you may need to enable debugging.\n"
-msgstr ""
-
-#: lib/filearch.c:217 lib/filearch.c:289
-#, c-format
-msgid "size of %s unreasonable (%<PRIi64> bytes)"
 msgstr ""
 
 #: lib/fuse.c:977

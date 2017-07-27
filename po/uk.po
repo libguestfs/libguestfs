@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-07-18 15:11+0100\n"
+"POT-Creation-Date: 2017-07-27 23:01+0100\n"
 "PO-Revision-Date: 2016-07-26 05:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libguestfs/"
@@ -25,7 +25,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../dib/elements.ml:162
+#: ../dib/elements.ml:160
 msgid "  %s: already provided by %s"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgstr ""
 "Параметри:\n"
 
 #. ../customize/customize_run.ml:453
-#: ../v2v/inspect_source.ml:53 ../mllib/common_utils.ml:550
+#: ../v2v/inspect_source.ml:53 ../mllib/common_utils.ml:544
 msgid "%s (ignored)"
 msgstr "%s (проігноровано)"
 
@@ -416,7 +416,7 @@ msgstr ""
 msgid "%s: no ‘size’ field for ‘%s’\n"
 msgstr ""
 
-#: ../builder/sources.ml:50
+#: ../builder/sources.ml:48
 msgid "%s: no ‘uri’ entry for ‘%s’ in %s, skipping it\n"
 msgstr ""
 
@@ -881,7 +881,7 @@ msgstr ""
 msgid "Boot in qemu (-o qemu only)"
 msgstr "Завантажитися у qemu (лише для -o qemu)"
 
-#: ../sysprep/sysprep_operation_user_account.ml:107
+#: ../sysprep/sysprep_operation_user_account.ml:105
 msgid ""
 "By default remove all the user accounts and their home directories.\n"
 "The \"root\" account is not removed.\n"
@@ -901,7 +901,7 @@ msgstr ""
 msgid "CD-ROM"
 msgstr "CD-ROM"
 
-#: ../sysprep/sysprep_operation_user_account.ml:85
+#: ../sysprep/sysprep_operation_user_account.ml:83
 msgid "Cannot get the home directory for %s"
 msgstr "Не вдалося отримати домашній каталог для %s"
 
@@ -1892,7 +1892,7 @@ msgstr "Вилучити каталоги «.ssh» у гостьовій сис�
 msgid "Remove /etc/passwd- and similar backup files"
 msgstr ""
 
-#: ../sysprep/sysprep_operation_ca_certificates.ml:51
+#: ../sysprep/sysprep_operation_ca_certificates.ml:50
 msgid "Remove CA certificates in the guest"
 msgstr "Вилучити сертифікати CA у гостьовій системі"
 
@@ -1916,7 +1916,7 @@ msgstr ""
 msgid "Remove HWADDR (hard-coded MAC address) configuration"
 msgstr "Вилучити налаштування HWADDR (апаратної адреси MAC)"
 
-#: ../sysprep/sysprep_operation_kerberos_data.ml:44
+#: ../sysprep/sysprep_operation_kerberos_data.ml:43
 msgid "Remove Kerberos data in the guest"
 msgstr "Вилучити дані Kerberos у гостьовій системі"
 
@@ -1936,11 +1936,11 @@ msgstr ""
 msgid "Remove email from the local mail spool directory"
 msgstr "Вилучити поштове повідомлення з локального каталогу поштового буфера"
 
-#: ../sysprep/sysprep_operation_rpm_db.ml:39
+#: ../sysprep/sysprep_operation_rpm_db.ml:38
 msgid "Remove host-specific RPM database files"
 msgstr "Вилучити специфічні для системи файли баз даних RPM"
 
-#: ../sysprep/sysprep_operation_rpm_db.ml:40
+#: ../sysprep/sysprep_operation_rpm_db.ml:39
 msgid ""
 "Remove host-specific RPM database files and locks.  RPM will\n"
 "recreate these files automatically if needed."
@@ -2044,7 +2044,7 @@ msgstr "Вилучити ідентифікатор локального ком�
 msgid "Remove the process accounting log files"
 msgstr "Вилучити файли журналу обліку процесів"
 
-#: ../sysprep/sysprep_operation_user_account.ml:106
+#: ../sysprep/sysprep_operation_user_account.ml:104
 msgid "Remove the user accounts in the guest"
 msgstr "Вилучити облікові записи користувачів у гостьовій системі"
 
@@ -2537,7 +2537,7 @@ msgstr ""
 "Дані обліку процесів системи будуть зберігатися у файлах\n"
 "журналу pacct, якщо увімкнено облік процесів."
 
-#: ../sysprep/sysprep_operation_user_account.ml:131
+#: ../sysprep/sysprep_operation_user_account.ml:129
 msgid ""
 "The user accounts to be kept in the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2561,7 +2561,7 @@ msgstr ""
 "\n"
 "Цей параметр можна вказувати декілька разів у одній команді."
 
-#: ../sysprep/sysprep_operation_user_account.ml:116
+#: ../sysprep/sysprep_operation_user_account.ml:114
 msgid ""
 "The user accounts to be removed from the guest.\n"
 "The value of this option is a list of user names separated by comma,\n"
@@ -2597,7 +2597,7 @@ msgstr ""
 "Маємо дефіцит у %Ld байтів (%s). Вам слід збільшити розмір диска призначення "
 "принаймні на цей об’єм або скоригувати ваші запити щодо зміни розмірів."
 
-#: ../dib/elements.ml:212
+#: ../dib/elements.ml:210
 msgid ""
 "There is a duplicated script in your elements:\n"
 "%s/%s in: %s"
@@ -2764,11 +2764,11 @@ msgstr "Скористатися паролем із файла"
 msgid "Use unversioned names for files"
 msgstr "Використовувати назви без версій для файлів"
 
-#: ../sysprep/sysprep_operation_user_account.ml:129
+#: ../sysprep/sysprep_operation_user_account.ml:127
 msgid "Users to keep"
 msgstr "Користувачі, записи яких слід зберегти"
 
-#: ../sysprep/sysprep_operation_user_account.ml:114
+#: ../sysprep/sysprep_operation_user_account.ml:112
 msgid "Users to remove"
 msgstr "Користувачі, записи яких слід вилучити"
 
@@ -3030,7 +3030,7 @@ msgstr ""
 msgid "could not add grub2 serial console (ignored)"
 msgstr "не вдалося додати послідовну консоль grub2 (проігноровано)"
 
-#: ../v2v/output_libvirt.ml:207
+#: ../v2v/output_libvirt.ml:205
 msgid ""
 "could not define libvirt domain.  The libvirt XML is still available in "
 "‘%s’.  Try running ‘virsh define %s’ yourself instead."
@@ -3046,7 +3046,7 @@ msgid ""
 "Use the ‘-v’ option and look for earlier error messages."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:358
+#: ../v2v/linux_bootloaders.ml:365
 msgid "could not find bootloader mount point (%s): %s"
 msgstr ""
 
@@ -3109,7 +3109,7 @@ msgstr ""
 "виведені grub дані не буде надіслано до послідовного порту, але, окрім "
 "цього, не зашкодить. Початкове повідомлення щодо помилки: %s"
 
-#: ../v2v/output_libvirt.ml:167
+#: ../v2v/output_libvirt.ml:165
 msgid "could not refresh libvirt pool %s"
 msgstr "не вдалося оновити буфер libvirt %s"
 
@@ -3238,7 +3238,7 @@ msgstr ""
 msgid "duplicate operation name (%s)"
 msgstr "дублювання назви операції (%s)"
 
-#: ../dib/elements.ml:132
+#: ../dib/elements.ml:130
 msgid "element %s not found"
 msgstr "не знайдено елемента «%s»"
 
@@ -3330,7 +3330,7 @@ msgstr "не вдалося отримати %s: код стану HTTP %s"
 msgid "failed to find grub2-mkconfig binary (but Grub2 was detected on guest)"
 msgstr ""
 
-#: ../v2v/utils.ml:181
+#: ../v2v/utils.ml:184
 msgid "failed to parse line returned by tar: %S"
 msgstr ""
 
@@ -3373,7 +3373,7 @@ msgstr ""
 msgid "floppy disk"
 msgstr "дискета"
 
-#: ../dib/elements.ml:166
+#: ../dib/elements.ml:164
 msgid ""
 "following elements are already provided by another element:\n"
 "%s"
@@ -3622,7 +3622,7 @@ msgstr ""
 msgid "invalid input filename (%s)"
 msgstr ""
 
-#: ../v2v/utils.ml:166
+#: ../v2v/utils.ml:169
 msgid "invalid offset returned by tar: %S"
 msgstr ""
 
@@ -3630,7 +3630,7 @@ msgstr ""
 msgid "invalid password selector ‘%s’; see the man page"
 msgstr ""
 
-#: ../v2v/utils.ml:171
+#: ../v2v/utils.ml:174
 msgid "invalid size returned by tar: %S"
 msgstr ""
 
@@ -3764,7 +3764,7 @@ msgid ""
 "vulnerable to Man-In-The-Middle attacks."
 msgstr ""
 
-#: ../v2v/linux_bootloaders.ml:373
+#: ../v2v/linux_bootloaders.ml:380
 msgid "no bootloader detected"
 msgstr ""
 
@@ -4007,7 +4007,7 @@ msgstr ""
 msgid "passwords could not be set for this type of guest"
 msgstr "для цього типу гостьових систем не можна встановлювати паролі"
 
-#: ../dib/elements.ml:170
+#: ../dib/elements.ml:168
 msgid "please include an operating system element"
 msgstr "будь ласка, включіть елемент операційної системи"
 
@@ -4587,7 +4587,7 @@ msgstr "Користування: %s [--параметри] вхідний_ди�
 msgid "usage: %s [--options] indisk outdisk"
 msgstr "користування: %s [--параметри] вхідний_диск вихідний_диск"
 
-#: ../sysprep/sysprep_operation_user_account.ml:147
+#: ../sysprep/sysprep_operation_user_account.ml:145
 msgid ""
 "user-accounts: --keep-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
@@ -4595,7 +4595,7 @@ msgstr ""
 "user-accounts: використано параметр --keep-user-accounts, але операцію «user-"
 "account» не увімкнено"
 
-#: ../sysprep/sysprep_operation_user_account.ml:149
+#: ../sysprep/sysprep_operation_user_account.ml:147
 msgid ""
 "user-accounts: --remove-user-accounts parameter was used, but the \"user-"
 "account\" operation is not enabled"
@@ -4603,12 +4603,12 @@ msgstr ""
 "user-accounts: використано параметр --remove-user-accounts, але операцію "
 "«user-account» не увімкнено"
 
-#: ../sysprep/sysprep_operation_user_account.ml:40
+#: ../sysprep/sysprep_operation_user_account.ml:38
 msgid "user-accounts: empty user name"
 msgstr "user-accounts: порожнє ім’я користувача"
 
-#. ../sysprep/sysprep_operation_user_account.ml:114
-#: ../sysprep/sysprep_operation_user_account.ml:129
+#. ../sysprep/sysprep_operation_user_account.ml:112
+#: ../sysprep/sysprep_operation_user_account.ml:127
 msgid "users"
 msgstr "користувачі"
 
@@ -9499,11 +9499,6 @@ msgstr ""
 "Щоб переглянути повідомлення щодо помилок повністю, вам, можливо, слід "
 "увімкнути діагностику.\n"
 
-#: lib/filearch.c:217 lib/filearch.c:289
-#, c-format
-msgid "size of %s unreasonable (%<PRIi64> bytes)"
-msgstr "некоректний розмір %s (%<PRIi64> байтів)"
-
 #: lib/fuse.c:977
 msgid "filesystem is already mounted in another thread"
 msgstr "файлову систему вже змонтовано у іншому потоці виконання команд"
@@ -11201,6 +11196,9 @@ msgstr "virt-win-reg: {p}: не вдалося отримати файл рег�
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: не вдалося вивантажити файл регістра: {err}\n"
+
+#~ msgid "size of %s unreasonable (%<PRIi64> bytes)"
+#~ msgstr "некоректний розмір %s (%<PRIi64> байтів)"
 
 #~ msgid "too many drives added on the command line"
 #~ msgstr "у командному рядку вказано занадто багато пристроїв"

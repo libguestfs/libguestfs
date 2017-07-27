@@ -20,7 +20,7 @@
 # freeform string.
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [37])
-m4_define([libguestfs_release], [18])
+m4_define([libguestfs_release], [19])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 
