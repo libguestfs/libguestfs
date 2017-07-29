@@ -180,8 +180,10 @@ Optional if compiling from tarball.
 
 =item hivex E<ge> 1.2.7
 
-I<Required> if compiling from git, and highly recommended otherwise.
-Various core features will be disabled if hivex is not available.
+=item ocaml-hivex
+
+I<Required>.  ocaml-hivex is the OCaml binding for hivex, which is
+required when building the daemon.
 
 =item libmagic
 
