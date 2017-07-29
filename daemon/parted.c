@@ -178,6 +178,37 @@ do_part_del (const char *device, int partnum)
 }
 
 int
+do_part_resize (const char *device, int partnum, int64_t endsect)
+{
+  int r;
+  CLEANUP_FREE char *err = NULL;
+  char endstr[32];
+  char partnum_str[16];
+
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
+  snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
+  snprintf (endstr, sizeof endstr, "%" PRIi64 "s", endsect);
+
+  udev_settle ();
+
+  r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                "parted", "-s", "--", device, "resizepart", partnum_str,
+                endstr, NULL);
+  if (r == -1) {
+    reply_with_error ("parted: %s: %s:", device, err);
+    return -1;
+  }
+
+  udev_settle();
+
+  return 0;
+}
+
+int
 do_part_disk (const char *device, const char *parttype)
 {
   int r;

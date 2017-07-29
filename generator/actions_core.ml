@@ -9646,4 +9646,26 @@ be mountable but require special options.  Filesystems may
 not all belong to a single logical operating system
 (use C<guestfs_inspect_os> to look for OSes)." };
 
+  { defaults with
+    name = "part_resize"; added = (1, 37, 20);
+    style = RErr, [String (Device, "device"); Int "partnum"; Int64 "endsect"], [];
+    tests = [
+      InitEmpty, Always, TestRun (
+        [["part_init"; "/dev/sda"; "mbr"];
+         ["part_add"; "/dev/sda"; "primary"; "1"; "-1025"];
+         ["part_resize"; "/dev/sda"; "1"; "-1"]]), []
+    ];
+    shortdesc = "resize a partition";
+    longdesc = "\
+This command resizes the partition numbered C<partnum> on C<device>
+by moving the end position.
+
+Note that this does not modify any filesystem present in the partition.
+If you wish to do this, you will need to use filesystem resizing
+commands like C<guestfs_resize2fs>.
+
+When growing a partition you will want to grow the filesystem
+afterwards, but when shrinking, you need to shrink the filesystem
+before the partition." };
+
 ]

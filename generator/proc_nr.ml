@@ -484,6 +484,7 @@ let proc_nr = [
 474, "internal_yara_scan";
 475, "file_architecture";
 476, "list_filesystems";
+477, "part_resize";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
