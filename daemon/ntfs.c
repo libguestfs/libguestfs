@@ -34,7 +34,7 @@
 int
 optgroup_ntfs3g_available (void)
 {
-  return prog_exists ("ntfs3g.probe");
+  return prog_exists ("ntfs-3g.probe");
 }
 
 int

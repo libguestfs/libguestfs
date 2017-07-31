@@ -120,7 +120,7 @@ let rec main () =
   (* Some architectures need EFI boot. *)
   let tmpefivars =
     match os, arch with
-    | (Fedora _|RHEL _), Aarch64 ->
+    | (Fedora _|RHEL _|Debian _), Aarch64 ->
        let vars = Sys.getcwd () // sprintf "%s.vars" tmpname in
        let cmd =
          sprintf "cp /usr/share/edk2/aarch64/vars-template-pflash.raw %s"
