@@ -56,6 +56,14 @@ AM_CONDITIONAL([HAVE_OCAMLOPT],
 AM_CONDITIONAL([HAVE_OCAMLDOC],
                [test "x$OCAMLDOC" != "xno"])
 
+if test "x$enable_daemon" = "xyes"; then
+    OCAML_PKG_hivex=no
+    AC_CHECK_OCAML_PKG(hivex)
+    if test "x$OCAML_PKG_hivex" = "xno"; then
+        AC_MSG_ERROR([the OCaml module 'hivex' is required])
+    fi
+fi
+
 OCAML_PKG_gettext=no
 OCAML_PKG_libvirt=no
 OCAML_PKG_oUnit=no
