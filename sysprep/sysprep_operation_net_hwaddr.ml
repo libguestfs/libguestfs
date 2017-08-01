@@ -28,7 +28,7 @@ let net_hwaddr_perform (g : Guestfs.guestfs) root side_effects =
   let typ = g#inspect_get_type root in
   let distro = g#inspect_get_distro root in
   match typ, distro with
-  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based") ->
+  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based") ->
     let filenames = g#glob_expand "/etc/sysconfig/network-scripts/ifcfg-*" in
     Array.iter (
       fun filename ->

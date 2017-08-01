@@ -47,7 +47,7 @@ let rec set_random_seed (g : Guestfs.guestfs) root =
     let distro = g#inspect_get_distro root in
     let file =
       match typ, distro with
-      | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based") ->
+      | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based") ->
         Some "/var/lib/random-seed"
       | "linux", ("debian"|"ubuntu") ->
         Some "/var/lib/urandom/random-seed"

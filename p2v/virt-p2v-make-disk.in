@@ -169,7 +169,7 @@ xzcat "$virt_p2v_xz_binary" > "$virt_p2v_binary"
 # Variations depending on the target distro.  The main difference
 # is in the list of distro packages we add to the base appliance.
 case "$osversion" in
-    centos-*|fedora-*|rhel-*|scientificlinux-*)
+    centos-*|fedora-*|rhel-*|scientificlinux-*|oraclelinux-*)
         depsfile="$datadir/dependencies.redhat"
         cat > $tmpdir/p2v.conf <<'EOF'
 add_drivers+=" usb-storage "

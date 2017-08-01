@@ -144,9 +144,9 @@ and default_crypto g root =
   let distro = g#inspect_get_distro root in
   let major = g#inspect_get_major_version root in
   match distro, major with
-  | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v when v >= 6 ->
+  | ("rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based"), v when v >= 6 ->
     `SHA512
-  | ("rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
+  | ("rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based"), _ ->
     `MD5 (* RHEL 5 does not appear to support SHA512, according to crypt(3) *)
 
   | "fedora", v when v >= 9 -> `SHA512

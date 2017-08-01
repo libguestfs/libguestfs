@@ -87,7 +87,7 @@ let file_list_of_package (g : Guestfs.guestfs) inspect app =
           match inspect with
           | { i_type = "linux";
               i_distro = "rhel" | "centos" | "scientificlinux" |
-                  "redhat-based";
+                  "oraclelinux" | "redhat-based";
               i_major_version = v } when v < 5 -> true
           | _ -> false in
         if is_rhel_lt_5 then

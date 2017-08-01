@@ -36,7 +36,7 @@ let rec set_hostname (g : Guestfs.guestfs) root hostname =
     update_etc_machine_info g hostname;
     true
 
-  | "linux", ("rhel"|"centos"|"scientificlinux"|"redhat-based"), v
+  | "linux", ("rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based"), v
     when v >= 7 ->
     update_etc_hostname g hostname;
     update_etc_machine_info g hostname;
@@ -48,7 +48,7 @@ let rec set_hostname (g : Guestfs.guestfs) root hostname =
     replace_host_in_etc_hosts g old_hostname hostname;
     true
 
-  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"redhat-based"), _ ->
+  | "linux", ("fedora"|"rhel"|"centos"|"scientificlinux"|"oraclelinux"|"redhat-based"), _ ->
     replace_line_in_file g "/etc/sysconfig/network" "HOSTNAME" hostname;
     true
 
