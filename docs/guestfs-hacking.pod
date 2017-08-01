@@ -100,13 +100,13 @@ A copy of the miniexpect library from
 L<http://git.annexia.org/?p=miniexpect.git;a=summary>.  This is used
 in virt-p2v.
 
-=item F<common/mlstdutils>
-
-A library of pure OCaml utility functions used in many places.
-
 =item F<common/mlprogress>
 
 OCaml bindings for the progress bar functions (see F<common/progress>).
+
+=item F<common/mlstdutils>
+
+A library of pure OCaml utility functions used in many places.
 
 =item F<common/mlutils>
 
