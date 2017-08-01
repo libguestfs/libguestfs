@@ -25,7 +25,7 @@ open Utils
 external is_raid_device : string -> bool =
   "guestfs_int_daemon_is_raid_device" "noalloc"
 
-let re_md = Str.regexp "^md[0-9]+$"
+let re_md = PCRE.compile "^md[0-9]+$"
 
 let list_md_devices () =
   (* Look for directories under /sys/block matching md[0-9]+
@@ -33,7 +33,7 @@ let list_md_devices () =
    *)
   let devs = Sys.readdir "/sys/block" in
   let devs = Array.to_list devs in
-  let devs = List.filter (fun d -> Str.string_match re_md d 0) devs in
+  let devs = List.filter (fun d -> PCRE.matches re_md d) devs in
   let devs = List.filter (
     fun d -> is_directory (sprintf "/sys/block/%s/md" d)
   ) devs in

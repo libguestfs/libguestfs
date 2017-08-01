@@ -71,9 +71,9 @@ let rec with_mounted mountable f =
      _with_mounted cmd f
 
 let re_btrfs_subvolume_list =
-  Str.regexp ("ID[ \t]+\\([0-9]+\\).*[ \t]" ^
-              "top level[ \t]+\\([0-9]+\\).*[ \t]" ^
-              "path[ \t]+\\(.*\\)")
+  PCRE.compile ("ID\\s+(\\d+).*\\s" ^
+                "top level\\s+(\\d+).*\\s" ^
+                "path\\s(.*)")
 
 let btrfs_subvolume_list mountable =
   (* Execute 'btrfs subvolume list <fs>', and split the output into lines *)
@@ -103,10 +103,10 @@ let btrfs_subvolume_list mountable =
    *)
   List.map (
     fun line ->
-      if Str.string_match re_btrfs_subvolume_list line 0 then (
-        let id = Int64.of_string (Str.matched_group 1 line)
-        and top_level_id = Int64.of_string (Str.matched_group 2 line)
-        and path = Str.matched_group 3 line in
+      if PCRE.matches re_btrfs_subvolume_list line then (
+        let id = Int64.of_string (PCRE.sub 1)
+        and top_level_id = Int64.of_string (PCRE.sub 2)
+        and path = PCRE.sub 3 in
 
         {
           btrfssubvolume_id = id;

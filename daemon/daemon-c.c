@@ -65,6 +65,12 @@ guestfs_int_daemon_exn_to_reply_with_error (const char *func, value exn)
     reply_with_error ("%s", String_val (Field (exn, 1)));
   else if (STREQ (exn_name, "Invalid_argument"))
     reply_with_error ("invalid argument: %s", String_val (Field (exn, 1)));
+  else if (STREQ (exn_name, "PCRE.Error")) {
+    value pair = Field (exn, 1);
+    reply_with_error ("PCRE error: %s (PCRE error code: %d)",
+                      String_val (Field (pair, 0)),
+                      Int_val (Field (pair, 1)));
+  }
   else
     reply_with_error ("internal error: %s: unhandled exception thrown: %s",
                       func, exn_name);

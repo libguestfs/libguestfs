@@ -25,9 +25,9 @@ open Unix_utils
 open Utils
 
 let re_file_elf =
-  Str.regexp ".*ELF \\([0-9]+\\)-bit \\(MSB\\|LSB\\).*\\(executable\\|shared object\\|relocatable\\), \\([^,]+\\),"
+  PCRE.compile "ELF (\\d+)-bit (MSB|LSB).*(?:executable|shared object|relocatable), (.+?),"
 
-let re_file_elf_ppc64 = Str.regexp ".*64.*PowerPC"
+let re_file_elf_ppc64 = PCRE.compile ".*64.*PowerPC"
 
 let initrd_binaries = [
   "bin/ls";
@@ -48,10 +48,10 @@ let rec file_architecture orig_path =
   file_architecture_of_magic magic orig_path orig_path
 
 and file_architecture_of_magic magic orig_path path =
-  if Str.string_match re_file_elf magic 0 then (
-    let bits = Str.matched_group 1 magic in
-    let endianness = Str.matched_group 2 magic in
-    let elf_arch = Str.matched_group 4 magic in
+  if PCRE.matches re_file_elf magic then (
+    let bits = PCRE.sub 1 in
+    let endianness = PCRE.sub 2 in
+    let elf_arch = PCRE.sub 3 in
     canonical_elf_arch bits endianness elf_arch
   )
   else if String.find magic "PE32 executable" >= 0 then
@@ -78,7 +78,7 @@ and canonical_elf_arch bits endianness elf_arch =
     "sparc64"
   else if substr "IA-64" then
     "ia64"
-  else if Str.string_match re_file_elf_ppc64 elf_arch 0 then (
+  else if PCRE.matches re_file_elf_ppc64 elf_arch then (
     match endianness with
     | "MSB" -> "ppc64"
     | "LSB" -> "ppc64le"

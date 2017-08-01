@@ -187,7 +187,8 @@ guestfsd_LDFLAGS = \
 	-L$(shell $(OCAMLC) -where) \
 	-L$(shell $(OCAMLC) -where)/hivex \
 	-L../common/mlutils \
-	-L../common/mlstdutils
+	-L../common/mlstdutils \
+	-L../common/mlpcre
 guestfsd_LDADD = \
 	../common/errnostring/liberrnostring.la \
 	../common/protocol/libprotocol.la \
@@ -293,7 +294,9 @@ OCAMLPACKAGES = \
 	-package str,unix,hivex \
 	-I $(top_srcdir)/common/mlstdutils \
 	-I $(top_srcdir)/common/mlutils \
-	-I $(top_builddir)/common/utils/.libs
+	-I $(top_builddir)/common/utils/.libs \
+	-I $(top_srcdir)/common/mlpcre \
+	-I $(top_builddir)/common/mlpcre/.libs
 
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_FLAGS)
 
@@ -305,6 +308,7 @@ OBJECTS = $(XOBJECTS)
 CAMLRUN = asmrun
 endif
 OCAML_LIBS = \
+	-lmlpcre \
 	-lmlcutils \
 	-lmlstdutils \
 	-lmlhivex \
@@ -317,7 +321,8 @@ CLEANFILES += camldaemon.o
 camldaemon.o: $(OBJECTS)
 	$(OCAMLFIND) $(BEST) -output-obj -o $@ \
 	    $(OCAMLFLAGS) $(OCAMLPACKAGES) \
-	    -linkpkg mlcutils.$(MLARCHIVE) mlstdutils.$(MLARCHIVE) \
+	    -linkpkg \
+	    mlpcre.$(MLARCHIVE) mlcutils.$(MLARCHIVE) mlstdutils.$(MLARCHIVE) \
 	    $(OBJECTS)
 
 # OCaml dependencies.
@@ -325,7 +330,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils $^ | \
+	$(OCAMLFIND) ocamldep -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/common/mlpcre $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
@@ -362,6 +367,7 @@ daemon_utils_tests_THEOBJECTS = $(daemon_utils_tests_XOBJECTS)
 endif
 
 OCAMLLINKFLAGS = \
+	mlpcre.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
 	$(LINK_CUSTOM_OCAMLC_ONLY)
