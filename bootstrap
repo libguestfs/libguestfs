@@ -95,6 +95,7 @@ symlinkat
 sys_select
 sys_types
 sys_wait
+tls
 vasprintf
 vc-list-files
 warnings

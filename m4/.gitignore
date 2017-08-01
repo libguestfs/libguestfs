@@ -248,6 +248,7 @@
 /thread.m4
 /time_h.m4
 /timespec.m4
+/tls.m4
 /ttyname_r.m4
 /ulonglong.m4
 /ungetc.m4

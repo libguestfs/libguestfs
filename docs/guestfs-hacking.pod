@@ -100,6 +100,12 @@ A copy of the miniexpect library from
 L<http://git.annexia.org/?p=miniexpect.git;a=summary>.  This is used
 in virt-p2v.
 
+=item F<common/mlpcre>
+
+Lightweight OCaml bindings for Perl Compatible Regular Expressions
+(PCRE).  Note this is not related in any way to Markus Mottl's
+ocaml-pcre library.
+
 =item F<common/mlprogress>
 
 OCaml bindings for the progress bar functions (see F<common/progress>).
