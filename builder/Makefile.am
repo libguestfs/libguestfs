@@ -126,6 +126,7 @@ OCAMLPACKAGES = \
 	-I $(top_builddir)/ocaml \
 	-I $(top_builddir)/common/mlstdutils \
 	-I $(top_builddir)/common/mlutils \
+	-I $(top_builddir)/common/mlpcre \
 	-I $(top_builddir)/mllib \
 	-I $(top_builddir)/customize
 OCAMLPACKAGES_TESTS =
@@ -156,6 +157,7 @@ OBJECTS = $(XOBJECTS)
 endif
 
 OCAMLLINKFLAGS = \
+	mlpcre.$(MLARCHIVE) \
 	mlstdutils.$(MLARCHIVE) \
 	mlguestfs.$(MLARCHIVE) \
 	mlcutils.$(MLARCHIVE) \
@@ -165,6 +167,7 @@ OCAMLLINKFLAGS = \
 
 virt_builder_DEPENDENCIES = \
 	$(OBJECTS) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
@@ -238,6 +241,7 @@ endif
 
 yajl_tests_DEPENDENCIES = \
 	$(yajl_tests_THEOBJECTS) \
+	../common/mlpcre/mlpcre.$(MLARCHIVE) \
 	../common/mlstdutils/mlstdutils.$(MLARCHIVE) \
 	../common/mlutils/mlcutils.$(MLARCHIVE) \
 	../mllib/mllib.$(MLARCHIVE) \
@@ -311,7 +315,7 @@ depend: .depend
 
 .depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
+	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/common/mlpcre -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
 	  $(SED) 's/ *$$//' | \
 	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
 	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \

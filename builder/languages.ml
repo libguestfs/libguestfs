@@ -19,15 +19,14 @@
 open Std_utils
 open Common_utils
 
+let re_locale =
+  PCRE.compile "^([A-Za-z]+)(_([A-Za-z]+))?(\\.([A-Za-z0-9-]+))?(@([A-Za-z]+))?$"
+
 let split_locale loc =
-  let regex = Str.regexp "^\\([A-Za-z]+\\)\\(_\\([A-Za-z]+\\)\\)?\\(\\.\\([A-Za-z0-9-]+\\)\\)?\\(@\\([A-Za-z]+\\)\\)?$" in
   let l = ref [] in
-  if Str.string_match regex loc 0 then (
-    let match_or_empty n =
-      try Str.matched_group n loc with
-      | Not_found -> ""
-    in
-    let lang = Str.matched_group 1 loc in
+  if PCRE.matches re_locale loc then (
+    let match_or_empty n = try PCRE.sub n with Not_found -> "" in
+    let lang = PCRE.sub 1 in
     let territory = match_or_empty 3 in
     (match territory with
     | "" -> ()
