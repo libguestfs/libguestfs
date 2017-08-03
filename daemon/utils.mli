@@ -37,10 +37,6 @@ val udev_settle : ?filename:string -> unit -> unit
 val is_root_device : string -> bool
 (** Return true if this is the root (appliance) device. *)
 
-val is_root_device_stat : Unix.stats -> bool
-(** As for {!is_root_device} but operates on a statbuf instead of
-    a device name. *)
-
 val split_device_partition : string -> string * int
 (** Split a device name like [/dev/sda1] into a device name and
     partition number, eg. ["sda", 1].
@@ -85,3 +81,6 @@ val commandr : ?fold_stdout_on_stderr:bool -> string -> string list -> (int * st
 
 val is_small_file : string -> bool
 (** Return true if the path is a small regular file. *)
+
+(**/**)
+val get_verbose_flag : unit -> bool

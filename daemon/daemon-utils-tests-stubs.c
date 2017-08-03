@@ -1,4 +1,4 @@
-/* guestfs-inspection
+/* guestfsd
  * Copyright (C) 2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,22 +16,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/* This file is separate from <daemon.h> because we don't want to
- * include the OCaml headers (to get 'value') for the whole daemon.
- */
+#include <config.h>
 
-#ifndef GUESTFSD_DAEMON_C_H
-#define GUESTFSD_DAEMON_C_H
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "daemon.h"
 
-#include <caml/mlvalues.h>
+/* This stubs out some functions that we want to link to the unit
+ * tests, but don't want to actually pull in plus dependencies.
+ */
 
-extern void guestfs_int_daemon_exn_to_reply_with_error (const char *func, value exn);
-extern value guestfs_int_daemon_copy_mountable (const mountable_t *mountable);
-extern char **guestfs_int_daemon_return_string_list (value retv);
-extern char *guestfs_int_daemon_return_string_mountable (value retv);
-extern char **guestfs_int_daemon_return_hashtable_string_string (value retv);
-extern char **guestfs_int_daemon_return_hashtable_mountable_string (value retv);
-
-#endif /* GUESTFSD_DAEMON_C_H */
+char *device_name_translation (const char *device) { abort (); }
+void reply_with_error_errno (int err, const char *fs, ...) { abort (); }
+void reply_with_perror_errno (int err, const char *fs, ...) { abort (); }

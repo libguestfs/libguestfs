@@ -76,13 +76,6 @@ guestfs_int_daemon_exn_to_reply_with_error (const char *func, value exn)
                       func, exn_name);
 }
 
-/* NB: This is a "noalloc" call. */
-value
-guestfs_int_daemon_get_verbose_flag (value unitv)
-{
-  return Val_bool (verbose);
-}
-
 /* Implement String (Mountable, _) parameter. */
 value
 guestfs_int_daemon_copy_mountable (const mountable_t *mountable)

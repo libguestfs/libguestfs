@@ -174,6 +174,7 @@ guestfsd_SOURCES = \
 	umask.c \
 	upload.c \
 	utils.c \
+	utils-c.c \
 	utimens.c \
 	utsname.c \
 	uuids.c \
@@ -297,7 +298,8 @@ OCAMLPACKAGES = \
 	-I $(top_srcdir)/common/mlutils \
 	-I $(top_builddir)/common/utils/.libs \
 	-I $(top_srcdir)/common/mlpcre \
-	-I $(top_builddir)/common/mlpcre/.libs
+	-I $(top_builddir)/common/mlpcre/.libs \
+	-I $(top_builddir)/gnulib/lib/.libs
 
 OCAMLFLAGS = $(OCAML_FLAGS) $(OCAML_WARN_FLAGS)
 
@@ -350,12 +352,25 @@ TESTS = \
 check-valgrind:
 	$(MAKE) VG="@VG@" check
 
-daemon_utils_tests_SOURCES = dummy.c
+daemon_utils_tests_SOURCES = \
+	command.c \
+	daemon-utils-tests-stubs.c \
+	utils.c \
+	utils-c.c
 daemon_utils_tests_CPPFLAGS = \
 	-I. \
 	-I$(top_builddir) \
 	-I$(shell $(OCAMLC) -where) \
-	-I$(top_srcdir)/lib
+	-I$(top_srcdir)/gnulib/lib \
+	-I$(top_builddir)/gnulib/lib \
+	-I$(top_srcdir)/common/errnostring \
+	-I$(top_builddir)/common/errnostring \
+	-I$(top_srcdir)/common/protocol \
+	-I$(top_builddir)/common/protocol \
+	-I$(top_srcdir)/common/utils \
+	-I$(top_builddir)/common/utils \
+	-I$(top_srcdir)/lib \
+	-I$(top_builddir)/lib
 daemon_utils_tests_BOBJECTS = \
 	utils.cmo \
 	daemon_utils_tests.cmo
@@ -377,7 +392,9 @@ daemon_utils_tests_DEPENDENCIES = \
 	$(daemon_utils_tests_THEOBJECTS) \
 	$(top_srcdir)/ocaml-link.sh
 daemon_utils_tests_LINK = \
-	$(top_srcdir)/ocaml-link.sh -- \
+	$(top_srcdir)/ocaml-link.sh \
+	  -cclib '-lutils -lgnu' \
+	  -- \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLLINKFLAGS) \
 	  $(OCAMLPACKAGES) \
 	  $(daemon_utils_tests_THEOBJECTS) -o $@

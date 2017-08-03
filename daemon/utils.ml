@@ -21,9 +21,10 @@ open Printf
 
 open Std_utils
 
-let prog_exists prog =
-  try ignore (which prog); true
-  with Executable_not_found _ -> false
+external get_verbose_flag : unit -> bool = "guestfs_int_daemon_get_verbose_flag" "noalloc"
+external is_root_device : string -> bool = "guestfs_int_daemon_is_root_device" "noalloc"
+external prog_exists : string -> bool = "guestfs_int_daemon_prog_exists" "noalloc"
+external udev_settle : ?filename:string -> unit -> unit = "guestfs_int_daemon_udev_settle" "noalloc"
 
 let commandr ?(fold_stdout_on_stderr = false) prog args =
   if verbose () then
@@ -100,38 +101,6 @@ let command ?fold_stdout_on_stderr prog args =
   if r <> 0 then
     failwithf "%s exited with status %d: %s" prog r stderr;
   stdout
-
-let udev_settle ?filename () =
-  let args = ref [] in
-  if verbose () then
-    push_back args "--debug";
-  push_back args "settle";
-  (match filename with
-   | None -> ()
-   | Some filename ->
-      push_back args "-E";
-      push_back args filename
-  );
-  let args = !args in
-  let r, _, err = commandr "udevadm" args in
-  if r <> 0 then
-    eprintf "udevadm settle: %s\n" err
-
-let root_device = lazy ((stat "/").st_dev)
-
-let is_root_device_stat statbuf =
-  statbuf.st_rdev = Lazy.force root_device
-
-let is_root_device device =
-  udev_settle ~filename:device ();
-  try
-    let statbuf = stat device in
-    is_root_device_stat statbuf
-  with
-    Unix_error (err, func, arg) ->
-      eprintf "is_root_device: %s: %s: %s: %s\n"
-              device func arg (error_message err);
-      false
 
 (* XXX This function is copied from C, but is misconceived.  It
  * cannot by design work for devices like /dev/md0.  It would be

@@ -18,9 +18,6 @@
 
 open Printf
 
-external get_verbose_flag : unit -> bool =
-  "guestfs_int_daemon_get_verbose_flag" "noalloc"
-
 (* When guestfsd starts up, early on (after parsing the command line
  * but not much else), it calls 'caml_startup' which runs all
  * initialization code in the OCaml modules, including this one.
@@ -32,7 +29,7 @@ let () =
   (* Connect the guestfsd [-v] (verbose) flag into 'verbose ()'
    * used in OCaml code to print debugging messages.
    *)
-  if get_verbose_flag () then (
+  if Utils.get_verbose_flag () then (
     Std_utils.set_verbose ();
     eprintf "OCaml daemon loaded\n%!"
   );
