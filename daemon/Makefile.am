@@ -173,6 +173,7 @@ guestfsd_SOURCES = \
 	truncate.c \
 	umask.c \
 	upload.c \
+	utils.c \
 	utimens.c \
 	utsname.c \
 	uuids.c \

@@ -50,13 +50,14 @@ typedef struct {
   char *volume;
 } mountable_t;
 
-/* guestfsd.c */
+/* utils.c */
 extern int verbose;
 extern int enable_network;
 extern int autosync_umount;
 extern int test_mode;
 extern const char *sysroot;
 extern size_t sysroot_len;
+extern dev_t root_device;
 
 extern char *sysroot_path (const char *path);
 extern char *sysroot_realpath (const char *path);
@@ -83,7 +84,7 @@ extern char *get_random_uuid (void);
 extern char *make_exclude_from_file (const char *function, char *const *excludes);
 extern int asprintf_nowarn (char **strp, const char *fmt, ...);
 
-/* mountable functions (in guestfsd.c) */
+/* mountable functions (in utils.c) */
 extern char *mountable_to_string (const mountable_t *mountable);
 extern void cleanup_free_mountable (mountable_t *mountable);
 
