@@ -93,9 +93,21 @@ unless ($g->feature_available (["blkdiscard"])) {
 my $orig_size = (stat ($disk))[12];
 print "original size:\t$orig_size (blocks)\n";
 
-# Fill the block device with some random data.
+# Fill the block device with non-zero data.
 
-$g->copy_device_to_device ("/dev/urandom", "/dev/sda", size => $size);
+my $i = $size;
+my $offset = 0;
+while ($i > 0) {
+    my $data;
+    if ($i >= 1024*1024) {
+        $data = "*" x (1024*1024)
+    } else {
+        $data = "*" x $i
+    }
+    $g->pwrite_device ("/dev/sda", $data, $offset);
+    $offset += length $data;
+    $i -= length $data;
+}
 $g->sync ();
 
 my $full_size = (stat ($disk))[12];
