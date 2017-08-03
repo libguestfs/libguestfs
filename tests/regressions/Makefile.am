@@ -50,6 +50,7 @@ EXTRA_DIST = \
 	rhbz1285847.sh \
 	rhbz1370424.sh \
 	rhbz1370424.xml \
+	rhbz1477623.sh \
 	test-noexec-stack.pl
 
 TESTS = \
@@ -80,6 +81,7 @@ TESTS = \
 	rhbz1232192.sh \
 	rhbz1285847.sh \
 	rhbz1370424.sh \
+	rhbz1477623.sh \
 	test-big-heap \
 	test-noexec-stack.pl \
 	$(SLOW_TESTS)
