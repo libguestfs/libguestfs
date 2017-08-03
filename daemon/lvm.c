@@ -723,7 +723,18 @@ char *
 do_lvm_canonical_lv_name (const char *device)
 {
   char *canonical;
-  int r = lv_canonical (device, &canonical);
+  int r;
+
+  /* The device parameter is passed as PlainString because we can't
+   * really be sure that the device name will exist (especially for
+   * "/dev/mapper/..." names).  Do some sanity checking on it here.
+   */
+  if (!STRPREFIX (device, "/dev/")) {
+    reply_with_error ("%s: not a device name", device);
+    return NULL;
+  }
+
+  r = lv_canonical (device, &canonical);
   if (r == -1)
     return NULL;
 

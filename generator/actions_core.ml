@@ -6002,7 +6002,7 @@ See also C<guestfs_pread>." };
 
   { defaults with
     name = "lvm_canonical_lv_name"; added = (1, 5, 24);
-    style = RString (RDevice, "lv"), [String (Device, "lvname")], [];
+    style = RString (RDevice, "lv"), [String (PlainString, "lvname")], [];
     tests = [
       InitBasicFSonLVM, IfAvailable "lvm2", TestResultString (
         [["lvm_canonical_lv_name"; "/dev/mapper/VG-LV"]], "/dev/VG/LV"), [];
