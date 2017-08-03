@@ -94,7 +94,7 @@ upload (const char *filename, int flags, int64_t offset)
 {
   int err, is_dev, fd;
 
-  is_dev = STRPREFIX (filename, "/dev/");
+  is_dev = is_device_parameter (filename);
 
   if (!is_dev) CHROOT_IN;
   fd = open (filename, flags, 0666);
@@ -170,7 +170,7 @@ do_download (const char *filename)
     return -1;
   }
 
-  is_dev = STRPREFIX (filename, "/dev/");
+  is_dev = is_device_parameter (filename);
 
   if (!is_dev) CHROOT_IN;
   fd = open (filename, O_RDONLY|O_CLOEXEC);
@@ -264,7 +264,7 @@ do_download_offset (const char *filename, int64_t offset, int64_t size)
   }
   uint64_t usize = (uint64_t) size;
 
-  is_dev = STRPREFIX (filename, "/dev/");
+  is_dev = is_device_parameter (filename);
 
   if (!is_dev) CHROOT_IN;
   fd = open (filename, O_RDONLY|O_CLOEXEC);

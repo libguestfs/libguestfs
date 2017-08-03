@@ -327,7 +327,7 @@ do_xfs_info (const char *pathordevice)
   CLEANUP_FREE_STRING_LIST char **lines = NULL;
   int is_dev;
 
-  is_dev = STREQLEN (pathordevice, "/dev/", 5);
+  is_dev = is_device_parameter (pathordevice);
   buf = is_dev ? strdup (pathordevice)
                : sysroot_path (pathordevice);
   if (buf == NULL) {
@@ -631,7 +631,7 @@ do_xfs_repair (const char *device,
     ADD_ARG (argv, i, rtdev);
   }
 
-  is_device = STREQLEN (device, "/dev/", 5);
+  is_device = is_device_parameter (device);
   if (!is_device) {
     buf = sysroot_path (device);
     if (buf == NULL) {

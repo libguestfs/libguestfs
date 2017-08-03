@@ -22,6 +22,7 @@ open Printf
 open Std_utils
 
 external get_verbose_flag : unit -> bool = "guestfs_int_daemon_get_verbose_flag" "noalloc"
+external is_device_parameter : string -> bool = "guestfs_int_daemon_is_device_parameter" "noalloc"
 external is_root_device : string -> bool = "guestfs_int_daemon_is_root_device" "noalloc"
 external prog_exists : string -> bool = "guestfs_int_daemon_prog_exists" "noalloc"
 external udev_settle : ?filename:string -> unit -> unit = "guestfs_int_daemon_udev_settle" "noalloc"

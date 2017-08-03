@@ -30,16 +30,11 @@
  */
 #define RESOLVE_DEVICE(path,path_out,is_filein)                         \
   do {									\
-    if (STRNEQLEN ((path), "/dev/", 5)) {				\
+    if (!is_device_parameter ((path))) {                                \
       if (is_filein) cancel_receive ();                                 \
       reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       return;							        \
     }									\
-    if (is_root_device (path)) {                                        \
-      if (is_filein) cancel_receive ();                                 \
-      reply_with_error ("%s: %s: device not found", __func__, path);    \
-      return;                                                           \
-    }                                                                   \
     (path_out) = device_name_translation ((path));                      \
     if ((path_out) == NULL) {                                           \
       const int err = errno;                                            \
@@ -86,7 +81,7 @@
  */
 #define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,path_out,is_filein)         \
   do {									\
-    if (STREQLEN ((path), "/dev/", 5))                                  \
+    if (is_device_parameter ((path)))                                   \
       RESOLVE_DEVICE ((path), (path_out), (is_filein));                 \
     else {								\
       NEED_ROOT ((is_filein), return);                                  \
@@ -105,7 +100,7 @@
  */
 #define REQUIRE_ROOT_OR_RESOLVE_MOUNTABLE(string, mountable, is_filein) \
   do {                                                                  \
-    if (STRPREFIX ((string), "/dev/") || (string)[0] != '/') {          \
+    if (is_device_parameter ((string)) || (string)[0] != '/') {         \
       RESOLVE_MOUNTABLE ((string), (mountable), (is_filein));           \
     }                                                                   \
     else {                                                              \

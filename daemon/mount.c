@@ -120,7 +120,7 @@ do_umount (const char *pathordevice,
   const char *argv[MAX_ARGS];
   size_t i = 0;
 
-  is_dev = STREQLEN (pathordevice, "/dev/", 5);
+  is_dev = is_device_parameter (pathordevice);
   buf = is_dev ? strdup (pathordevice)
     : sysroot_path (pathordevice);
   if (buf == NULL) {

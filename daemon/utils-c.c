@@ -46,6 +46,13 @@ guestfs_int_daemon_get_verbose_flag (value unitv)
 
 /* NB: This is a "noalloc" call. */
 value
+guestfs_int_daemon_is_device_parameter (value device)
+{
+  return Val_bool (is_device_parameter (String_val (device)));
+}
+
+/* NB: This is a "noalloc" call. */
+value
 guestfs_int_daemon_is_root_device (value device)
 {
   return Val_bool (is_root_device (String_val (device)));

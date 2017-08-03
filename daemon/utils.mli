@@ -37,6 +37,10 @@ val udev_settle : ?filename:string -> unit -> unit
 val is_root_device : string -> bool
 (** Return true if this is the root (appliance) device. *)
 
+val is_device_parameter : string -> bool
+(** Use this function to tell the difference between a device
+    or path for [Dev_or_Path] parameters. *)
+
 val split_device_partition : string -> string * int
 (** Split a device name like [/dev/sda1] into a device name and
     partition number, eg. ["sda", 1].

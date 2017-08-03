@@ -25,7 +25,7 @@ open Utils
 
 (* This runs the [file] command. *)
 let file path =
-  let is_dev = String.is_prefix path "/dev/" in
+  let is_dev = is_device_parameter path in
 
   (* For non-dev, check this is a regular file, else just return the
    * file type as a string (RHBZ#582484).

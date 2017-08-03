@@ -1049,7 +1049,7 @@ do_mke2fs (const char *device,               /* 0 */
        * have to do it manually here, but note that LABEL=.. and
        * UUID=.. are valid strings which do not require translation.
        */
-      if (STRPREFIX (journaldevice, "/dev/")) {
+      if (is_device_parameter (journaldevice)) {
         if (is_root_device (journaldevice)) {
           reply_with_error ("%s: device not found", journaldevice);
           return -1;
@@ -1068,7 +1068,7 @@ do_mke2fs (const char *device,               /* 0 */
 
         sprintf (journaldevice_s, "device=%s", journaldevice_translated);
       }
-      else {
+      else /* XXX check only UUID= or LABEL= should be used here */ {
         journaldevice_s = malloc (strlen (journaldevice) + 8);
         if (!journaldevice_s) {
           reply_with_perror ("malloc");

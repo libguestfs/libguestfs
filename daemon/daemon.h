@@ -62,6 +62,7 @@ extern dev_t root_device;
 extern char *sysroot_path (const char *path);
 extern char *sysroot_realpath (const char *path);
 extern int is_root_device (const char *device);
+extern int is_device_parameter (const char *device);
 extern int xwrite (int sock, const void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 extern int xread (int sock, void *buf, size_t len)

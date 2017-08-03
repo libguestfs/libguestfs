@@ -37,6 +37,8 @@
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <sys/ioctl.h>
+#include <linux/fs.h>
 #include <errno.h>
 #include <error.h>
 #include <assert.h>
@@ -97,6 +99,76 @@ is_root_device (const char *device)
   }
 
   return is_root_device_stat (&statbuf);
+}
+
+/**
+ * Parameters marked as C<Device>, C<Dev_or_Path>, etc can be passed a
+ * block device name.  This function tests if the parameter is a block
+ * device name.
+ *
+ * It can also be used in daemon code to test if the string passed
+ * as a C<Dev_or_Path> parameter is a device or path.
+ */
+int
+is_device_parameter (const char *device)
+{
+  struct stat statbuf;
+  CLEANUP_CLOSE int fd = -1;
+  uint64_t n;
+
+  udev_settle_file (device);
+
+  if (!STRPREFIX (device, "/dev/"))
+    return 0;
+
+  /* Allow any /dev/sd device, so device name translation works. */
+  if (STRPREFIX (device, "/dev/sd"))
+    return 1;
+
+  /* Is it a block device in the appliance? */
+  if (stat (device, &statbuf) == -1) {
+    if (verbose)
+      fprintf (stderr, "%s: stat: %s: %m\n", "is_device_parameter", device);
+    return 0;
+  }
+
+  /* Special case: The lvremove API allows you to remove all LVs by
+   * pointing to the VG directory.  This was misconceived in the
+   * extreme, but here we are.  XXX
+   */
+  if (S_ISDIR (statbuf.st_mode))
+    return strlen (device) > 5;
+
+  if (!S_ISBLK (statbuf.st_mode))
+    return 0;
+
+  /* Reject the root (appliance) device. */
+  if (is_root_device_stat (&statbuf)) {
+    if (verbose)
+      fprintf (stderr, "%s: %s is the root device\n",
+               "is_device_parameter", device);
+    return 0;
+  }
+
+  /* Only now is it safe to try opening the device since chardev devices
+   * might block when opened.
+   *
+   * Only disk-like things should support BLKGETSIZE64.
+   */
+  fd = open (device, O_RDONLY|O_CLOEXEC);
+  if (fd == -1) {
+    if (verbose)
+      fprintf (stderr, "%s: open: %s: %m\n", "is_device_parameter", device);
+    return 0;
+  }
+  if (ioctl (fd, BLKGETSIZE64, &n) == -1) {
+    if (verbose)
+      fprintf (stderr, "%s: ioctl BLKGETSIZE64: %s: %m\n",
+               "is_device_parameter", device);
+    return 0;
+  }
+
+  return 1;
 }
 
 /**

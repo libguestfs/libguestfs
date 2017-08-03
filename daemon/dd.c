@@ -35,7 +35,7 @@ do_dd (const char *src, const char *dest)
   CLEANUP_FREE char *err = NULL;
   int r;
 
-  src_is_dev = STRPREFIX (src, "/dev/");
+  src_is_dev = is_device_parameter (src);
 
   if (src_is_dev)
     r = asprintf (&if_arg, "if=%s", src);
@@ -46,7 +46,7 @@ do_dd (const char *src, const char *dest)
     return -1;
   }
 
-  dest_is_dev = STRPREFIX (dest, "/dev/");
+  dest_is_dev = is_device_parameter (dest);
 
   if (dest_is_dev)
     r = asprintf (&of_arg, "of=%s", dest);
@@ -71,7 +71,7 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
 {
   int src_fd, dest_fd;
 
-  if (STRPREFIX (src, "/dev/"))
+  if (is_device_parameter (src))
     src_fd = open (src, O_RDONLY | O_CLOEXEC);
   else {
     CLEANUP_FREE char *buf = sysroot_path (src);
@@ -86,7 +86,7 @@ do_copy_size (const char *src, const char *dest, int64_t ssize)
     return -1;
   }
 
-  if (STRPREFIX (dest, "/dev/"))
+  if (is_device_parameter (dest))
     dest_fd = open (dest, O_WRONLY | O_CLOEXEC);
   else {
     CLEANUP_FREE char *buf = sysroot_path (dest);
