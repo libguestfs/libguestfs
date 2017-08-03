@@ -58,6 +58,7 @@ let authors = [
 "Hilko Bengen", [ Development ];
 "Hu Tao", [ Development ];
 "infernix", [ Development ];
+"Jamie Iles", [ Development ];
 "Jaswinder Singh", [ Development ];
 "Jim Meyering", [ Development ];
 "Jiri Popelka", [ Development ];

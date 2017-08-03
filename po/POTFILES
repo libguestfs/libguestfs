@@ -16,6 +16,8 @@ common/edit/file-edit.c
 common/errnostring/errnostring-gperf.c
 common/errnostring/errnostring.c
 common/miniexpect/miniexpect.c
+common/mlpcre/dummy.c
+common/mlpcre/pcre-c.c
 common/mlprogress/progress-c.c
 common/mlstdutils/dummy.c
 common/mlutils/c_utils-c.c

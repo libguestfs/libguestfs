@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2017-07-27 23:01+0100\n"
+"POT-Creation-Date: 2017-08-03 18:45+0100\n"
 "PO-Revision-Date: 2015-02-21 10:50-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/libguestfs/"
@@ -5021,22 +5021,22 @@ msgstr "スパースなイメージを作成するには 'sparse file size' を�
 msgid "%s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1751
+#: cmds-gperf.gperf:1754
 #, c-format
 msgid "error: incorrect number of arguments\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1753
+#: cmds-gperf.gperf:1756
 #, c-format
 msgid "usage: %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1754
+#: cmds-gperf.gperf:1757
 #, c-format
 msgid "type 'help %s' for more help on %s\n"
 msgstr ""
 
-#: cmds-gperf.gperf:1759
+#: cmds-gperf.gperf:1762
 #, c-format
 msgid "%s: unknown command\n"
 msgstr "%s: 未知のコマンド\n"
@@ -5065,11 +5065,11 @@ msgstr "ファイルに接続する POSIX ACL を設定する"
 #: fish/cmds.c:513 fish/cmds.c:533 fish/cmds.c:538 fish/cmds.c:557
 #: fish/cmds.c:600 fish/cmds.c:639 fish/cmds.c:648 fish/cmds.c:664
 #: fish/cmds.c:691 fish/cmds.c:756 fish/cmds.c:759 fish/cmds.c:833
-#: fish/cmds.c:884 fish/cmds.c:892 fish/cmds.c:936 fish/cmds.c:972
-#: fish/cmds.c:975 fish/cmds.c:978 fish/cmds.c:984 fish/cmds.c:998
-#: fish/cmds.c:1007 fish/cmds.c:1026 fish/cmds.c:1029 fish/cmds.c:1035
-#: fish/cmds.c:1083 fish/cmds.c:1110 fish/cmds.c:1114 fish/cmds.c:1127
-#: fish/cmds.c:1130 fish/cmds.c:1139 fish/cmds.c:1161
+#: fish/cmds.c:884 fish/cmds.c:892 fish/cmds.c:936 fish/cmds.c:973
+#: fish/cmds.c:976 fish/cmds.c:979 fish/cmds.c:985 fish/cmds.c:999
+#: fish/cmds.c:1008 fish/cmds.c:1027 fish/cmds.c:1030 fish/cmds.c:1036
+#: fish/cmds.c:1084 fish/cmds.c:1111 fish/cmds.c:1115 fish/cmds.c:1128
+#: fish/cmds.c:1131 fish/cmds.c:1140 fish/cmds.c:1162
 #, c-format
 msgid "alias for '%s'"
 msgstr ""
@@ -5616,8 +5616,8 @@ msgid "edit a file"
 msgstr "ファイルを編集する"
 
 #: fish/cmds.c:661 fish/cmds.c:662 fish/cmds.c:673 fish/cmds.c:674
-#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1177 fish/cmds.c:1178
-#: fish/cmds.c:1183 fish/cmds.c:1184 fish/cmds.c:1186 fish/cmds.c:1187
+#: fish/cmds.c:731 fish/cmds.c:732 fish/cmds.c:1178 fish/cmds.c:1179
+#: fish/cmds.c:1184 fish/cmds.c:1185 fish/cmds.c:1187 fish/cmds.c:1188
 msgid "return lines matching a pattern"
 msgstr "パターンに一致する行を返す"
 
@@ -6269,7 +6269,7 @@ msgstr "ハードリンクを作成する"
 msgid "create a symbolic link"
 msgstr "シンボリックリンクを作成する"
 
-#: fish/cmds.c:853 fish/cmds.c:1011
+#: fish/cmds.c:853 fish/cmds.c:1012
 msgid "remove extended attribute of a file or directory"
 msgstr "ファイルまたはディレクトリの拡張属性を削除する"
 
@@ -6281,7 +6281,7 @@ msgstr "ディレクトリにあるファイルを一覧表示する"
 msgid "get list of files in a directory"
 msgstr "ディレクトリーにあるファイルの一覧を取得する"
 
-#: fish/cmds.c:856 fish/cmds.c:1071
+#: fish/cmds.c:856 fish/cmds.c:1072
 msgid "set extended attribute of a file or directory"
 msgstr "ファイルまたはディレクトリの拡張属性を取得する"
 
@@ -6639,659 +6639,663 @@ msgid "list partitions on a device"
 msgstr "デバイスにあるパーティションを一覧表示する"
 
 #: fish/cmds.c:962
+msgid "resize a partition"
+msgstr ""
+
+#: fish/cmds.c:963
 msgid "make a partition bootable"
 msgstr "パーティションをブート可能にする"
 
-#: fish/cmds.c:963
+#: fish/cmds.c:964
 msgid "set the GUID of a GPT-partitioned disk"
 msgstr ""
 
-#: fish/cmds.c:964
+#: fish/cmds.c:965
 msgid "set the GUID of a GPT-partitioned disk to random value"
 msgstr ""
 
-#: fish/cmds.c:965
+#: fish/cmds.c:966
 msgid "set the GUID of a GPT partition"
 msgstr ""
 
-#: fish/cmds.c:966
+#: fish/cmds.c:967
 msgid "set the type GUID of a GPT partition"
 msgstr "GPT パーティションの種別 GUID を設定する"
 
-#: fish/cmds.c:967
+#: fish/cmds.c:968
 msgid "set the MBR type byte (ID byte) of a partition"
 msgstr "パーティションの MBR 形式バイト（ID バイト）を設定する"
 
-#: fish/cmds.c:968
+#: fish/cmds.c:969
 msgid "set partition name"
 msgstr "パーティション名を設定する"
 
-#: fish/cmds.c:969
+#: fish/cmds.c:970
 msgid "convert partition name to device name"
 msgstr "パーティション名をデバイス名に変換する"
 
-#: fish/cmds.c:970
+#: fish/cmds.c:971
 msgid "convert partition name to partition number"
 msgstr "パーティション名をパーティション番号に変換する"
 
-#: fish/cmds.c:980
+#: fish/cmds.c:981
 msgid "ping the guest daemon"
 msgstr "ゲストデーモンに ping する"
 
-#: fish/cmds.c:981
+#: fish/cmds.c:982
 msgid "read part of a file"
 msgstr "ファイルの中の一部を読み込む"
 
-#: fish/cmds.c:982
+#: fish/cmds.c:983
 msgid "read part of a device"
 msgstr "デバイスの中の一部を読み込む"
 
-#: fish/cmds.c:986
+#: fish/cmds.c:987
 msgid "generate a new random UUID for a physical volume"
 msgstr "物理ボリュームに対する新しいランダムな UUID を生成する"
 
-#: fish/cmds.c:987
+#: fish/cmds.c:988
 msgid "generate new random UUIDs for all physical volumes"
 msgstr "すべての物理ボリュームに対する新しいランダムな UUID を生成する"
 
-#: fish/cmds.c:988
+#: fish/cmds.c:989
 msgid "create an LVM physical volume"
 msgstr "LVM 物理ボリュームを作成する"
 
-#: fish/cmds.c:989
+#: fish/cmds.c:990
 msgid "remove an LVM physical volume"
 msgstr "LVM 物理ボリュームを削除する"
 
-#: fish/cmds.c:990
+#: fish/cmds.c:991
 msgid "resize an LVM physical volume"
 msgstr "LVM 物理ボリュームの容量を変更する"
 
-#: fish/cmds.c:991
+#: fish/cmds.c:992
 msgid "resize an LVM physical volume (with size)"
 msgstr "LVM 物理ボリュームの容量を（指定した容量に）変更する"
 
-#: fish/cmds.c:992 fish/cmds.c:993
+#: fish/cmds.c:993 fish/cmds.c:994
 msgid "list the LVM physical volumes (PVs)"
 msgstr "LVM 物理ボリューム (PV) を一覧表示する"
 
-#: fish/cmds.c:994
+#: fish/cmds.c:995
 msgid "get the UUID of a physical volume"
 msgstr "物理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:995
+#: fish/cmds.c:996
 msgid "write to part of a file"
 msgstr "ファイルの一部に書き込む"
 
-#: fish/cmds.c:996
+#: fish/cmds.c:997
 msgid "write to part of a device"
 msgstr "デバイスの一部に書き込む"
 
-#: fish/cmds.c:1000
+#: fish/cmds.c:1001
 msgid "read a file"
 msgstr "ファイルを読み込む"
 
-#: fish/cmds.c:1001
+#: fish/cmds.c:1002
 msgid "read file as lines"
 msgstr "ファイルを行として読み込む"
 
-#: fish/cmds.c:1002
+#: fish/cmds.c:1003
 msgid "read directories entries"
 msgstr "ディレクトリのエントリーを読み込む"
 
-#: fish/cmds.c:1003
+#: fish/cmds.c:1004
 msgid "read the target of a symbolic link"
 msgstr "シンボリックリンクのターゲットを読み込む"
 
-#: fish/cmds.c:1004
+#: fish/cmds.c:1005
 msgid "readlink on multiple files"
 msgstr "複数のファイルにおいて readlink する"
 
-#: fish/cmds.c:1005
+#: fish/cmds.c:1006
 msgid "canonicalized absolute pathname"
 msgstr "正規化された絶対パス名"
 
-#: fish/cmds.c:1009
+#: fish/cmds.c:1010
 msgid "remount a filesystem with different options"
 msgstr "ファイルシステムを他のオプションで再マウントする"
 
-#: fish/cmds.c:1010
+#: fish/cmds.c:1011
 msgid "remove a disk image"
 msgstr "ディスクイメージを削除する"
 
-#: fish/cmds.c:1012
+#: fish/cmds.c:1013
 msgid "rename a file on the same filesystem"
 msgstr "同じファイルシステムにあるファイルの名前を変更する"
 
-#: fish/cmds.c:1013
+#: fish/cmds.c:1014
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ハンドルを閉じて開きなおす"
 
-#: fish/cmds.c:1014
+#: fish/cmds.c:1015
 msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "ext2, ext3 または ext4 ファイルシステムの容量を変更する"
 
-#: fish/cmds.c:1015
+#: fish/cmds.c:1016
 msgid "resize an ext2, ext3 or ext4 filesystem to the minimum size"
 msgstr "ext2, ext3 または ext4 ファイルシステムの容量を最小容量に変更する"
 
-#: fish/cmds.c:1016
+#: fish/cmds.c:1017
 msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr ""
 "ext2, ext3 または ext4 ファイルシステムの容量を（指定した容量に）変更する"
 
-#: fish/cmds.c:1017
+#: fish/cmds.c:1018
 msgid "remove a file"
 msgstr "ファイルを削除する"
 
-#: fish/cmds.c:1018
+#: fish/cmds.c:1019
 msgid "remove a file ignoring errors"
 msgstr "エラーを無視してファイルを削除する"
 
-#: fish/cmds.c:1019
+#: fish/cmds.c:1020
 msgid "remove a file or directory recursively"
 msgstr "ファイルまたはディレクトリを再帰的に削除する"
 
-#: fish/cmds.c:1020
+#: fish/cmds.c:1021
 msgid "remove a directory"
 msgstr "ディレクトリを削除する"
 
-#: fish/cmds.c:1021
+#: fish/cmds.c:1022
 msgid "remove a mountpoint"
 msgstr "マウントポイントを削除する"
 
-#: fish/cmds.c:1022
+#: fish/cmds.c:1023
 msgid "synchronize the contents of two directories"
 msgstr "二つのディレクトリーの内容を同期する"
 
-#: fish/cmds.c:1023
+#: fish/cmds.c:1024
 msgid "synchronize host or remote filesystem with filesystem"
 msgstr "ホストまたはリモートのファイルシステムをファイルシステムと同期する"
 
-#: fish/cmds.c:1024
+#: fish/cmds.c:1025
 msgid "synchronize filesystem with host or remote filesystem"
 msgstr "ホストまたはリモートのファイルシステムと同期する"
 
-#: fish/cmds.c:1031
+#: fish/cmds.c:1032
 msgid "scrub (securely wipe) a device"
 msgstr "デバイスを（セキュアに）完全消去する"
 
-#: fish/cmds.c:1032
+#: fish/cmds.c:1033
 msgid "scrub (securely wipe) a file"
 msgstr "ファイルを（セキュアに）完全消去する"
 
-#: fish/cmds.c:1033
+#: fish/cmds.c:1034
 msgid "scrub (securely wipe) free space"
 msgstr "空き領域を（セキュアに）完全消去する"
 
-#: fish/cmds.c:1037
+#: fish/cmds.c:1038
 msgid "relabel parts of the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1038
+#: fish/cmds.c:1039
 msgid "add options to kernel command line"
 msgstr "カーネルのコマンド行にオプションを追加する"
 
-#: fish/cmds.c:1039 fish/cmds.c:1041
+#: fish/cmds.c:1040 fish/cmds.c:1042
 msgid "set the backend"
 msgstr "バックエンドを設定する"
 
-#: fish/cmds.c:1040
+#: fish/cmds.c:1041
 msgid "set autosync mode"
 msgstr "自動同期モードを設定する"
 
-#: fish/cmds.c:1042
+#: fish/cmds.c:1043
 msgid "set a single per-backend settings string"
 msgstr ""
 
-#: fish/cmds.c:1043
+#: fish/cmds.c:1044
 msgid "replace per-backend settings strings"
 msgstr ""
 
-#: fish/cmds.c:1044
+#: fish/cmds.c:1045
 msgid "set the appliance cache directory"
 msgstr "アプライアンスのキャッシュディレクトリーを設定する"
 
-#: fish/cmds.c:1045
+#: fish/cmds.c:1046
 msgid "enable or disable direct appliance mode"
 msgstr "直接アプライアンスモードを有効化または無効化する"
 
-#: fish/cmds.c:1046
+#: fish/cmds.c:1047
 msgid "set ext2 file attributes of a file"
 msgstr "ファイルの ext2 ファイル属性を設定する"
 
-#: fish/cmds.c:1047
+#: fish/cmds.c:1048
 msgid "set ext2 file generation of a file"
 msgstr "ファイルの ext2 ファイル世代を設定する"
 
-#: fish/cmds.c:1048
+#: fish/cmds.c:1049
 msgid "set the ext2/3/4 filesystem label"
 msgstr "ext2/3/4 ファイルシステムのラベルを設定する"
 
-#: fish/cmds.c:1049
+#: fish/cmds.c:1050
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr "ext2/3/4 ファイルシステムの UUID を設定する"
 
-#: fish/cmds.c:1050
+#: fish/cmds.c:1051
 msgid "set the hypervisor binary"
 msgstr "ハイパーバイザーのバイナリを設定する"
 
-#: fish/cmds.c:1051
+#: fish/cmds.c:1052
 msgid "set the handle identifier"
 msgstr ""
 
-#: fish/cmds.c:1052
+#: fish/cmds.c:1053
 msgid "set filesystem label"
 msgstr "ファイルシステムのラベルを設定する"
 
-#: fish/cmds.c:1053
+#: fish/cmds.c:1054
 msgid "pass requested credential back to libvirt"
 msgstr "要求されたクレディンシャルを libvirt に渡す"
 
-#: fish/cmds.c:1054
+#: fish/cmds.c:1055
 msgid "set libvirt credentials supported by calling program"
 msgstr ""
 "呼び出されたプログラムによりサポートされる libvirt クレディンシャルを設定する"
 
-#: fish/cmds.c:1055
+#: fish/cmds.c:1056
 msgid "set memory allocated to the hypervisor"
 msgstr "ハイパーバイザーに割り当てるメモリを設定する"
 
-#: fish/cmds.c:1056
+#: fish/cmds.c:1057
 msgid "set enable network flag"
 msgstr "network フラグを有効に設定する"
 
-#: fish/cmds.c:1057
+#: fish/cmds.c:1058
 msgid "set the search path"
 msgstr "検索パスを設定する"
 
-#: fish/cmds.c:1058
+#: fish/cmds.c:1059
 msgid "set process group flag"
 msgstr "プロセスグループのフラグを設定する"
 
-#: fish/cmds.c:1059
+#: fish/cmds.c:1060
 msgid "set the program name"
 msgstr "プログラム名を設定する"
 
-#: fish/cmds.c:1060
+#: fish/cmds.c:1061
 msgid "set the hypervisor binary (usually qemu)"
 msgstr "ハイパーバイザーのバイナリ (通常は QEMU) を設定する"
 
-#: fish/cmds.c:1061
+#: fish/cmds.c:1062
 msgid "enable or disable the recovery process"
 msgstr "リカバリープロセスを有効化または無効化する"
 
-#: fish/cmds.c:1062
+#: fish/cmds.c:1063
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr "アプライアンスの起動時に SELinux を有効または無効に設定する"
 
-#: fish/cmds.c:1063
+#: fish/cmds.c:1064
 msgid "set number of virtual CPUs in appliance"
 msgstr "アプライアンスの仮想 CPU 数を設定する"
 
-#: fish/cmds.c:1064
+#: fish/cmds.c:1065
 msgid "set the temporary directory"
 msgstr "一時的なディレクトリーを設定する"
 
-#: fish/cmds.c:1065
+#: fish/cmds.c:1066
 msgid "enable or disable command traces"
 msgstr "コマンドのトレースを有効化または無効化する"
 
-#: fish/cmds.c:1066
+#: fish/cmds.c:1067
 msgid "set the filesystem UUID"
 msgstr "ファイルシステム UUID を設定する"
 
-#: fish/cmds.c:1067
+#: fish/cmds.c:1068
 msgid "set a random UUID for the filesystem"
 msgstr ""
 
-#: fish/cmds.c:1068
+#: fish/cmds.c:1069
 msgid "set verbose mode"
 msgstr "冗長モードを設定する"
 
-#: fish/cmds.c:1069
+#: fish/cmds.c:1070
 msgid "set SELinux security context"
 msgstr "SELinux セキュリティコンテキストを設定する"
 
-#: fish/cmds.c:1070
+#: fish/cmds.c:1071
 msgid "set an environment variable"
 msgstr "環境変数を設定する"
 
-#: fish/cmds.c:1072 fish/cmds.c:1073
+#: fish/cmds.c:1073 fish/cmds.c:1074
 msgid "create partitions on a block device"
 msgstr "ブロックデバイスにパーティションを作成する"
 
-#: fish/cmds.c:1074
+#: fish/cmds.c:1075
 msgid "modify a single partition on a block device"
 msgstr "ブロックデバイスの単一パーティションを変更する"
 
-#: fish/cmds.c:1075
+#: fish/cmds.c:1076
 msgid "display the disk geometry from the partition table"
 msgstr "パーティションテーブルからディスク配置を表示する"
 
-#: fish/cmds.c:1076
+#: fish/cmds.c:1077
 msgid "display the kernel geometry"
 msgstr "カーネル配置を表示する"
 
-#: fish/cmds.c:1077
+#: fish/cmds.c:1078
 msgid "display the partition table"
 msgstr "パーティションテーブルを表示する"
 
-#: fish/cmds.c:1078
+#: fish/cmds.c:1079
 msgid "run a command via the shell"
 msgstr "シェル経由でコマンドを実行する"
 
-#: fish/cmds.c:1079
+#: fish/cmds.c:1080
 msgid "run a command via the shell returning lines"
 msgstr "シェル経由でコマンドを実行して行を返す"
 
-#: fish/cmds.c:1080
+#: fish/cmds.c:1081
 msgid "shutdown the hypervisor"
 msgstr "ハイパーバイザーをシャットダウンする"
 
-#: fish/cmds.c:1081
+#: fish/cmds.c:1082
 msgid "sleep for some seconds"
 msgstr "数秒間スリープする"
 
-#: fish/cmds.c:1085
+#: fish/cmds.c:1086
 msgid "create a sparse disk image and add"
 msgstr "スパースなディスクイメージを作成して追加する"
 
-#: fish/cmds.c:1086 fish/cmds.c:1087
+#: fish/cmds.c:1087 fish/cmds.c:1088
 msgid "get file information"
 msgstr "ファイルの情報を取得する"
 
-#: fish/cmds.c:1088
+#: fish/cmds.c:1089
 msgid "get file system statistics"
 msgstr "ファイルシステムの統計情報を取得する"
 
-#: fish/cmds.c:1089 fish/cmds.c:1090
+#: fish/cmds.c:1090 fish/cmds.c:1091
 msgid "print the printable strings in a file"
 msgstr "ファイルにある表示可能な文字を表示する"
 
-#: fish/cmds.c:1091
+#: fish/cmds.c:1092
 msgid "list supported groups of commands"
 msgstr "サポートされるコマンドのグループを一覧表示する"
 
-#: fish/cmds.c:1092
+#: fish/cmds.c:1093
 msgid "disable swap on device"
 msgstr "デバイスにおけるスワップを無効にする"
 
-#: fish/cmds.c:1093
+#: fish/cmds.c:1094
 msgid "disable swap on file"
 msgstr "ファイルにおけるスワップを無効にする"
 
-#: fish/cmds.c:1094
+#: fish/cmds.c:1095
 msgid "disable swap on labeled swap partition"
 msgstr "ラベル付き swap パーティションにおけるスワップを無効にする"
 
-#: fish/cmds.c:1095
+#: fish/cmds.c:1096
 msgid "disable swap on swap partition by UUID"
 msgstr "UUID による swap パーティションにおけるスワップを無効にする"
 
-#: fish/cmds.c:1096
+#: fish/cmds.c:1097
 msgid "enable swap on device"
 msgstr "デバイスにおけるスワップを有効にする"
 
-#: fish/cmds.c:1097
+#: fish/cmds.c:1098
 msgid "enable swap on file"
 msgstr "ファイルにおけるスワップを有効にする"
 
-#: fish/cmds.c:1098
+#: fish/cmds.c:1099
 msgid "enable swap on labeled swap partition"
 msgstr "ラベル付き swap パーティションにおけるスワップを有効にする"
 
-#: fish/cmds.c:1099
+#: fish/cmds.c:1100
 msgid "enable swap on swap partition by UUID"
 msgstr "UUID による swap パーティションにおけるスワップを有効にする"
 
-#: fish/cmds.c:1100
+#: fish/cmds.c:1101
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr "ディスクを同期する、書き込みをディスクイメージにフラッシュする"
 
-#: fish/cmds.c:1101
+#: fish/cmds.c:1102
 msgid "install the SYSLINUX bootloader"
 msgstr "SYSLINUX ブートローダーをインストールする"
 
-#: fish/cmds.c:1102
+#: fish/cmds.c:1103
 msgid "return last 10 lines of a file"
 msgstr "ファイルの末尾 10 行を返す"
 
-#: fish/cmds.c:1103
+#: fish/cmds.c:1104
 msgid "return last N lines of a file"
 msgstr "ファイルの末尾 N 行を返す"
 
-#: fish/cmds.c:1104
+#: fish/cmds.c:1105
 msgid "unpack tarfile to directory"
 msgstr "tar ファイルをディレクトリに展開する"
 
-#: fish/cmds.c:1105
+#: fish/cmds.c:1106
 msgid "pack directory into tarfile"
 msgstr "ディレクトリを tar ファイルに圧縮する"
 
-#: fish/cmds.c:1106 fish/cmds.c:1120
+#: fish/cmds.c:1107 fish/cmds.c:1121
 msgid "unpack compressed tarball to directory"
 msgstr "圧縮 tar ファイルをディレクトリに展開する"
 
-#: fish/cmds.c:1107 fish/cmds.c:1121
+#: fish/cmds.c:1108 fish/cmds.c:1122
 msgid "pack directory into compressed tarball"
 msgstr "ディレクトリを圧縮 tar ファイルに圧縮する"
 
-#: fish/cmds.c:1108
+#: fish/cmds.c:1109
 msgid "print elapsed time taken to run a command"
 msgstr "コマンドの実行にかかった経過時間を表示する"
 
-#: fish/cmds.c:1112
+#: fish/cmds.c:1113
 msgid "update file timestamps or create a new file"
 msgstr "ファイルのタイムスタンプを更新する、または新しいファイルを作成する"
 
-#: fish/cmds.c:1116
+#: fish/cmds.c:1117
 msgid "truncate a file to zero size"
 msgstr "ファイルをゼロまで切り詰める"
 
-#: fish/cmds.c:1117
+#: fish/cmds.c:1118
 msgid "truncate a file to a particular size"
 msgstr "ファイルを特定の容量まで切り詰める"
 
-#: fish/cmds.c:1118
+#: fish/cmds.c:1119
 msgid "adjust ext2/ext3/ext4 filesystem parameters"
 msgstr "ext2/ext3/ext4 ファイルシステムのパラメーターを調整する"
 
-#: fish/cmds.c:1119
+#: fish/cmds.c:1120
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr "ext2/ext3/ext4 スーパーブロックの詳細を取得する"
 
-#: fish/cmds.c:1122
+#: fish/cmds.c:1123
 msgid "set file mode creation mask (umask)"
 msgstr "ファイルモードの作成マスク（umask）を設定する"
 
-#: fish/cmds.c:1123
+#: fish/cmds.c:1124
 msgid "unmount a filesystem"
 msgstr "ファイルシステムをアンマウントする"
 
-#: fish/cmds.c:1124
+#: fish/cmds.c:1125
 msgid "unmount all filesystems"
 msgstr "すべてのファイルシステムをアンマウントする"
 
-#: fish/cmds.c:1125
+#: fish/cmds.c:1126
 msgid "unmount a locally mounted filesystem"
 msgstr "ローカルにマウントされたファイルシステムをアンマウントする"
 
-#: fish/cmds.c:1132
+#: fish/cmds.c:1133
 msgid "unset an environment variable"
 msgstr "環境変数を設定解除する"
 
-#: fish/cmds.c:1133
+#: fish/cmds.c:1134
 msgid "upload a file from the local machine"
 msgstr "ローカルマシンからファイルをアップロードする"
 
-#: fish/cmds.c:1134
+#: fish/cmds.c:1135
 msgid "upload a file from the local machine with offset"
 msgstr "ローカルマシンからファイルをオフセット付きでアップロードする"
 
-#: fish/cmds.c:1135
+#: fish/cmds.c:1136
 msgid "cancel the current upload or download operation"
 msgstr "現在のアップロードまたはダウンロード操作を取り消す"
 
-#: fish/cmds.c:1136
+#: fish/cmds.c:1137
 msgid "set timestamp of a file with nanosecond precision"
 msgstr "ファイルのタイムスタンプをナノ秒単位で設定する"
 
-#: fish/cmds.c:1137
+#: fish/cmds.c:1138
 msgid "appliance kernel version"
 msgstr "アプライアンスのカーネルバージョン"
 
-#: fish/cmds.c:1141
+#: fish/cmds.c:1142
 msgid "get the library version number"
 msgstr "ライブラリのバージョン番号を取得する"
 
-#: fish/cmds.c:1142
+#: fish/cmds.c:1143
 msgid "get the filesystem label"
 msgstr "ファイルシステムのラベルを取得する"
 
-#: fish/cmds.c:1143
+#: fish/cmds.c:1144
 msgid "get minimum filesystem size"
 msgstr ""
 
-#: fish/cmds.c:1144
+#: fish/cmds.c:1145
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr "マウント済みデバイスに対応する Linux VFS 形式を取得する"
 
-#: fish/cmds.c:1145
+#: fish/cmds.c:1146
 msgid "get the filesystem UUID"
 msgstr "ファイルシステムの UUID を取得する"
 
-#: fish/cmds.c:1146
+#: fish/cmds.c:1147
 msgid "activate or deactivate some volume groups"
 msgstr "いくつかのボリュームグループを活性化または非活性化する"
 
-#: fish/cmds.c:1147
+#: fish/cmds.c:1148
 msgid "activate or deactivate all volume groups"
 msgstr "すべてのボリュームグループを活性化または非活性化する"
 
-#: fish/cmds.c:1148
+#: fish/cmds.c:1149
 msgid "generate a new random UUID for a volume group"
 msgstr "ボリュームグループに対するランダムな新規 UUID を生成する"
 
-#: fish/cmds.c:1149
+#: fish/cmds.c:1150
 msgid "generate new random UUIDs for all volume groups"
 msgstr "すべてのボリュームグループに対するランダムな新規 UUID を生成する"
 
-#: fish/cmds.c:1150
+#: fish/cmds.c:1151
 msgid "create an LVM volume group"
 msgstr "LVM ボリュームグループを作成する"
 
-#: fish/cmds.c:1151
+#: fish/cmds.c:1152
 msgid "get the LV UUIDs of all LVs in the volume group"
 msgstr "ボリュームグループにあるすべての論理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:1152
+#: fish/cmds.c:1153
 msgid "get volume group metadata"
 msgstr "ボリュームグループのメタ情報を取得する"
 
-#: fish/cmds.c:1153
+#: fish/cmds.c:1154
 msgid "get the PV UUIDs containing the volume group"
 msgstr "ボリュームグループを含む物理ボリュームの UUID を取得する"
 
-#: fish/cmds.c:1154
+#: fish/cmds.c:1155
 msgid "remove an LVM volume group"
 msgstr "LVM ボリュームグループを削除する"
 
-#: fish/cmds.c:1155
+#: fish/cmds.c:1156
 msgid "rename an LVM volume group"
 msgstr "LVM ボリュームグループの名前を変更する"
 
-#: fish/cmds.c:1156 fish/cmds.c:1157
+#: fish/cmds.c:1157 fish/cmds.c:1158
 msgid "list the LVM volume groups (VGs)"
 msgstr "LVM ボリュームグループ (VG) を一覧表示する"
 
-#: fish/cmds.c:1158
+#: fish/cmds.c:1159
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
 "LVM 物理ボリューム、ボリュームグループおよび論理ボリュームを再スキャンする"
 
-#: fish/cmds.c:1159
+#: fish/cmds.c:1160
 msgid "get the UUID of a volume group"
 msgstr "ボリュームグループの UUID を取得する"
 
-#: fish/cmds.c:1163
+#: fish/cmds.c:1164
 msgid "count characters in a file"
 msgstr "ファイルにある文字数を数える"
 
-#: fish/cmds.c:1164
+#: fish/cmds.c:1165
 msgid "count lines in a file"
 msgstr "ファイルにある行数を数える"
 
-#: fish/cmds.c:1165
+#: fish/cmds.c:1166
 msgid "count words in a file"
 msgstr "ファイルにある単語数を数える"
 
-#: fish/cmds.c:1166
+#: fish/cmds.c:1167
 msgid "wipe a filesystem signature from a device"
 msgstr "デバイスからファイルシステムのシグネチャーを完全消去する"
 
-#: fish/cmds.c:1167
+#: fish/cmds.c:1168
 msgid "create a new file"
 msgstr "新規ファイルを作成する"
 
-#: fish/cmds.c:1168
+#: fish/cmds.c:1169
 msgid "append content to end of file"
 msgstr "コンテンツをファイルの最後に追加する"
 
-#: fish/cmds.c:1169
+#: fish/cmds.c:1170
 msgid "create a file"
 msgstr "ファイルを作成する"
 
-#: fish/cmds.c:1170
+#: fish/cmds.c:1171
 msgid "change parameters of an XFS filesystem"
 msgstr "XFS ファイルシステムのパラメーターを変更する"
 
-#: fish/cmds.c:1171
+#: fish/cmds.c:1172
 msgid "expand an existing XFS filesystem"
 msgstr "既存の XFS ファイルシステムを拡張する"
 
-#: fish/cmds.c:1172
+#: fish/cmds.c:1173
 msgid "get geometry of XFS filesystem"
 msgstr "XFS ファイルシステムのジオメトリーを取得する"
 
-#: fish/cmds.c:1173
+#: fish/cmds.c:1174
 msgid "repair an XFS filesystem"
 msgstr "XFS ファイルシステムを修復する"
 
-#: fish/cmds.c:1174
+#: fish/cmds.c:1175
 msgid "destroy previously loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1175
+#: fish/cmds.c:1176
 msgid "load yara rules within libguestfs"
 msgstr ""
 
-#: fish/cmds.c:1176
+#: fish/cmds.c:1177
 msgid "scan a file with the loaded yara rules"
 msgstr ""
 
-#: fish/cmds.c:1179
+#: fish/cmds.c:1180
 msgid "write zeroes to the device"
 msgstr "デバイスにゼロを書き込む"
 
-#: fish/cmds.c:1180
+#: fish/cmds.c:1181
 msgid "write zeroes to an entire device"
 msgstr "デバイス全体にゼロを書き込む"
 
-#: fish/cmds.c:1181
+#: fish/cmds.c:1182
 msgid "zero free space in a filesystem"
 msgstr "ファイルシステムの空き領域をゼロで埋める"
 
-#: fish/cmds.c:1182
+#: fish/cmds.c:1183
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 "ext2/3 ファイルシステムにある未使用の inode およびディスクブロックをゼロで埋"
 "める"
 
-#: fish/cmds.c:1185
+#: fish/cmds.c:1186
 msgid "determine file type inside a compressed file"
 msgstr "圧縮ファイルの中にあるファイルの形式を決定する"
 
-#: fish/cmds.c:1188
+#: fish/cmds.c:1189
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "コマンドの詳細なヘルプを表示するには -h <cmd> / help <cmd> を使用します。"
@@ -7838,10 +7842,10 @@ msgstr "reopen: guestfs_create: ハンドルの作成に失敗しました\n"
 #: fish/run-1.c:566 fish/run-1.c:678 fish/run-1.c:691 fish/run-1.c:1140
 #: fish/run-1.c:1153 fish/run-1.c:1166 fish/run-1.c:1179 fish/run-1.c:1420
 #: fish/run-1.c:1433 fish/run-1.c:2286 fish/run-1.c:2330 fish/run-1.c:2343
-#: fish/run-1.c:2356 fish/run-1.c:2369 fish/run-1.c:2382 fish/run-1.c:2579
-#: fish/run-1.c:2627 fish/run-1.c:2701 fish/run-1.c:2885 fish/run-1.c:2898
-#: fish/run-1.c:2947 fish/run-1.c:3028 fish/run-1.c:3041 fish/run-1.c:3054
-#: fish/run-1.c:3067 fish/run-1.c:3080 fish/run-2.c:137 fish/run-2.c:201
+#: fish/run-1.c:2356 fish/run-1.c:2369 fish/run-1.c:2382 fish/run-1.c:2636
+#: fish/run-1.c:2684 fish/run-1.c:2758 fish/run-1.c:2942 fish/run-1.c:2955
+#: fish/run-1.c:3004 fish/run-1.c:3085 fish/run-1.c:3098 fish/run-1.c:3111
+#: fish/run-1.c:3124 fish/run-1.c:3137 fish/run-2.c:137 fish/run-2.c:201
 #: fish/run-2.c:514 fish/run-2.c:725 fish/run-2.c:738 fish/run-2.c:1018
 #: fish/run-2.c:1270 fish/run-2.c:1351 fish/run-2.c:1847 fish/run-2.c:2113
 #: fish/run-2.c:2126 fish/run-2.c:2288 fish/run-3.c:416 fish/run-3.c:986
@@ -7868,7 +7872,7 @@ msgstr "%s: '%s': 無効な論理値、'true' または 'false' を使用して�
 #: fish/run-0.c:739 fish/run-0.c:1753 fish/run-0.c:1873 fish/run-0.c:1997
 #: fish/run-0.c:2568 fish/run-1.c:310 fish/run-1.c:576 fish/run-1.c:701
 #: fish/run-1.c:1189 fish/run-1.c:1443 fish/run-1.c:2027 fish/run-1.c:2392
-#: fish/run-1.c:2589 fish/run-1.c:2766 fish/run-1.c:2908 fish/run-1.c:3100
+#: fish/run-1.c:2646 fish/run-1.c:2823 fish/run-1.c:2965 fish/run-1.c:3157
 #: fish/run-2.c:211 fish/run-2.c:278 fish/run-2.c:748 fish/run-2.c:1028
 #: fish/run-2.c:1280 fish/run-2.c:1361 fish/run-2.c:1656 fish/run-2.c:2136
 #: fish/run-3.c:431 fish/run-3.c:493 fish/run-3.c:588 fish/run-3.c:889
@@ -7887,7 +7891,7 @@ msgstr "%s: 未知のオプション引数 \"%s\"\n"
 #: fish/run-0.c:745 fish/run-0.c:1759 fish/run-0.c:1879 fish/run-0.c:2003
 #: fish/run-0.c:2574 fish/run-1.c:316 fish/run-1.c:582 fish/run-1.c:707
 #: fish/run-1.c:1195 fish/run-1.c:1449 fish/run-1.c:2033 fish/run-1.c:2398
-#: fish/run-1.c:2595 fish/run-1.c:2772 fish/run-1.c:2914 fish/run-1.c:3106
+#: fish/run-1.c:2652 fish/run-1.c:2829 fish/run-1.c:2971 fish/run-1.c:3163
 #: fish/run-2.c:217 fish/run-2.c:284 fish/run-2.c:754 fish/run-2.c:1034
 #: fish/run-2.c:1286 fish/run-2.c:1367 fish/run-2.c:1662 fish/run-2.c:2142
 #: fish/run-3.c:437 fish/run-3.c:499 fish/run-3.c:594 fish/run-3.c:895
@@ -7911,45 +7915,45 @@ msgstr "%s: オプション引数 \"%s\" が２回指定されています。\n"
 #: fish/run-1.c:1233 fish/run-1.c:1288 fish/run-1.c:1374 fish/run-1.c:1609
 #: fish/run-1.c:1628 fish/run-1.c:1897 fish/run-1.c:1949 fish/run-1.c:1966
 #: fish/run-1.c:1989 fish/run-1.c:2012 fish/run-1.c:2098 fish/run-1.c:2117
-#: fish/run-1.c:2136 fish/run-1.c:2483 fish/run-1.c:2502 fish/run-2.c:256
-#: fish/run-2.c:456 fish/run-2.c:576 fish/run-2.c:595 fish/run-2.c:678
-#: fish/run-2.c:695 fish/run-2.c:712 fish/run-2.c:847 fish/run-2.c:1099
-#: fish/run-2.c:1136 fish/run-2.c:1477 fish/run-2.c:1528 fish/run-2.c:1595
-#: fish/run-2.c:1727 fish/run-2.c:1832 fish/run-2.c:1885 fish/run-2.c:1997
-#: fish/run-2.c:2203 fish/run-2.c:2468 fish/run-3.c:483 fish/run-3.c:572
-#: fish/run-3.c:784 fish/run-3.c:834 fish/run-3.c:873 fish/run-3.c:956
-#: fish/run-3.c:969 fish/run-3.c:1443 fish/run-3.c:1482 fish/run-3.c:1525
-#: fish/run-3.c:1809 fish/run-3.c:2084 fish/run-3.c:2159 fish/run-3.c:2176
-#: fish/run-3.c:2193 fish/run-3.c:2210 fish/run-3.c:2227 fish/run-3.c:2244
-#: fish/run-3.c:2261 fish/run-3.c:2278 fish/run-3.c:2295 fish/run-3.c:2312
-#: fish/run-3.c:2329 fish/run-3.c:2346 fish/run-3.c:2363 fish/run-3.c:2386
-#: fish/run-3.c:2702 fish/run-3.c:2748 fish/run-3.c:2791 fish/run-3.c:2835
-#: fish/run-3.c:2854 fish/run-3.c:2873 fish/run-3.c:2946 fish/run-3.c:3017
-#: fish/run-3.c:3053 fish/run-3.c:3095 fish/run-3.c:3675 fish/run-3.c:3698
-#: fish/run-3.c:3726 fish/run-3.c:3743 fish/run-3.c:3766 fish/run-3.c:3794
-#: fish/run-3.c:3811 fish/run-3.c:3896 fish/run-3.c:3909 fish/run-3.c:3922
-#: fish/run-3.c:3935 fish/run-3.c:4064 fish/run-4.c:138 fish/run-4.c:302
-#: fish/run-4.c:443 fish/run-4.c:604 fish/run-4.c:647 fish/run-4.c:696
-#: fish/run-4.c:709 fish/run-4.c:750 fish/run-4.c:819 fish/run-4.c:836
-#: fish/run-4.c:853 fish/run-4.c:947 fish/run-4.c:1081 fish/run-4.c:1278
-#: fish/run-4.c:1368 fish/run-4.c:1435 fish/run-4.c:1479 fish/run-4.c:1524
-#: fish/run-4.c:1543 fish/run-4.c:1562 fish/run-4.c:1693 fish/run-4.c:1706
-#: fish/run-4.c:1743 fish/run-4.c:1787 fish/run-4.c:1830 fish/run-4.c:1874
-#: fish/run-4.c:2256 fish/run-5.c:501 fish/run-5.c:518 fish/run-5.c:535
-#: fish/run-5.c:626 fish/run-5.c:643 fish/run-5.c:660 fish/run-5.c:871
-#: fish/run-5.c:1000 fish/run-5.c:1068 fish/run-5.c:1374 fish/run-5.c:1538
-#: fish/run-5.c:1586 fish/run-5.c:1630 fish/run-5.c:1748 fish/run-5.c:1776
-#: fish/run-5.c:1799 fish/run-5.c:1863 fish/run-5.c:2018 fish/run-5.c:2062
-#: fish/run-5.c:2106 fish/run-5.c:2243 fish/run-5.c:2361 fish/run-5.c:2380
-#: fish/run-5.c:2399 fish/run-5.c:2477 fish/run-5.c:2496 fish/run-5.c:2515
-#: fish/run-5.c:2534 fish/run-5.c:2699 fish/run-5.c:2921 fish/run-5.c:2938
-#: fish/run-5.c:2955 fish/run-5.c:2972 fish/run-5.c:2989 fish/run-5.c:3135
-#: fish/run-5.c:3152 fish/run-5.c:3169 fish/run-5.c:3186 fish/run-6.c:191
-#: fish/run-6.c:428 fish/run-6.c:473 fish/run-6.c:612 fish/run-6.c:631
-#: fish/run-6.c:787 fish/run-6.c:823 fish/run-6.c:1073 fish/run-6.c:1198
-#: fish/run-6.c:1426 fish/run-6.c:1445 fish/run-6.c:1490 fish/run-6.c:1509
-#: fish/run-6.c:1591 fish/run-6.c:1737 fish/run-6.c:1871 fish/run-6.c:1953
-#: fish/run-6.c:2040
+#: fish/run-1.c:2136 fish/run-1.c:2437 fish/run-1.c:2456 fish/run-1.c:2540
+#: fish/run-1.c:2559 fish/run-2.c:256 fish/run-2.c:456 fish/run-2.c:576
+#: fish/run-2.c:595 fish/run-2.c:678 fish/run-2.c:695 fish/run-2.c:712
+#: fish/run-2.c:847 fish/run-2.c:1099 fish/run-2.c:1136 fish/run-2.c:1477
+#: fish/run-2.c:1528 fish/run-2.c:1595 fish/run-2.c:1727 fish/run-2.c:1832
+#: fish/run-2.c:1885 fish/run-2.c:1997 fish/run-2.c:2203 fish/run-2.c:2468
+#: fish/run-3.c:483 fish/run-3.c:572 fish/run-3.c:784 fish/run-3.c:834
+#: fish/run-3.c:873 fish/run-3.c:956 fish/run-3.c:969 fish/run-3.c:1443
+#: fish/run-3.c:1482 fish/run-3.c:1525 fish/run-3.c:1809 fish/run-3.c:2084
+#: fish/run-3.c:2159 fish/run-3.c:2176 fish/run-3.c:2193 fish/run-3.c:2210
+#: fish/run-3.c:2227 fish/run-3.c:2244 fish/run-3.c:2261 fish/run-3.c:2278
+#: fish/run-3.c:2295 fish/run-3.c:2312 fish/run-3.c:2329 fish/run-3.c:2346
+#: fish/run-3.c:2363 fish/run-3.c:2386 fish/run-3.c:2702 fish/run-3.c:2748
+#: fish/run-3.c:2791 fish/run-3.c:2835 fish/run-3.c:2854 fish/run-3.c:2873
+#: fish/run-3.c:2946 fish/run-3.c:3017 fish/run-3.c:3053 fish/run-3.c:3095
+#: fish/run-3.c:3675 fish/run-3.c:3698 fish/run-3.c:3726 fish/run-3.c:3743
+#: fish/run-3.c:3766 fish/run-3.c:3794 fish/run-3.c:3811 fish/run-3.c:3896
+#: fish/run-3.c:3909 fish/run-3.c:3922 fish/run-3.c:3935 fish/run-3.c:4064
+#: fish/run-4.c:138 fish/run-4.c:302 fish/run-4.c:443 fish/run-4.c:604
+#: fish/run-4.c:647 fish/run-4.c:696 fish/run-4.c:709 fish/run-4.c:750
+#: fish/run-4.c:819 fish/run-4.c:836 fish/run-4.c:853 fish/run-4.c:947
+#: fish/run-4.c:1081 fish/run-4.c:1278 fish/run-4.c:1368 fish/run-4.c:1435
+#: fish/run-4.c:1479 fish/run-4.c:1524 fish/run-4.c:1543 fish/run-4.c:1562
+#: fish/run-4.c:1693 fish/run-4.c:1706 fish/run-4.c:1743 fish/run-4.c:1787
+#: fish/run-4.c:1830 fish/run-4.c:1874 fish/run-4.c:2256 fish/run-5.c:501
+#: fish/run-5.c:518 fish/run-5.c:535 fish/run-5.c:626 fish/run-5.c:643
+#: fish/run-5.c:660 fish/run-5.c:871 fish/run-5.c:1000 fish/run-5.c:1068
+#: fish/run-5.c:1374 fish/run-5.c:1538 fish/run-5.c:1586 fish/run-5.c:1630
+#: fish/run-5.c:1748 fish/run-5.c:1776 fish/run-5.c:1799 fish/run-5.c:1863
+#: fish/run-5.c:2018 fish/run-5.c:2062 fish/run-5.c:2106 fish/run-5.c:2243
+#: fish/run-5.c:2361 fish/run-5.c:2380 fish/run-5.c:2399 fish/run-5.c:2477
+#: fish/run-5.c:2496 fish/run-5.c:2515 fish/run-5.c:2534 fish/run-5.c:2699
+#: fish/run-5.c:2921 fish/run-5.c:2938 fish/run-5.c:2955 fish/run-5.c:2972
+#: fish/run-5.c:2989 fish/run-5.c:3135 fish/run-5.c:3152 fish/run-5.c:3169
+#: fish/run-5.c:3186 fish/run-6.c:191 fish/run-6.c:428 fish/run-6.c:473
+#: fish/run-6.c:612 fish/run-6.c:631 fish/run-6.c:787 fish/run-6.c:823
+#: fish/run-6.c:1073 fish/run-6.c:1198 fish/run-6.c:1426 fish/run-6.c:1445
+#: fish/run-6.c:1490 fish/run-6.c:1509 fish/run-6.c:1591 fish/run-6.c:1737
+#: fish/run-6.c:1871 fish/run-6.c:1953 fish/run-6.c:2040
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %u)\n"
 msgstr ""
@@ -7958,27 +7962,28 @@ msgstr ""
 #: fish/run-0.c:1720 fish/run-0.c:1743 fish/run-0.c:2398 fish/run-0.c:2494
 #: fish/run-1.c:910 fish/run-1.c:994 fish/run-1.c:1380 fish/run-1.c:1615
 #: fish/run-1.c:1634 fish/run-1.c:1903 fish/run-1.c:1972 fish/run-1.c:1995
-#: fish/run-1.c:2104 fish/run-1.c:2123 fish/run-1.c:2142 fish/run-1.c:2489
-#: fish/run-2.c:582 fish/run-2.c:601 fish/run-2.c:853 fish/run-2.c:1483
-#: fish/run-2.c:1534 fish/run-2.c:1601 fish/run-2.c:1838 fish/run-2.c:1891
-#: fish/run-2.c:2209 fish/run-3.c:578 fish/run-3.c:790 fish/run-3.c:879
-#: fish/run-3.c:1488 fish/run-3.c:1531 fish/run-3.c:2090 fish/run-3.c:2369
-#: fish/run-3.c:2392 fish/run-3.c:2708 fish/run-3.c:2754 fish/run-3.c:2797
-#: fish/run-3.c:2841 fish/run-3.c:2860 fish/run-3.c:2879 fish/run-3.c:2952
-#: fish/run-3.c:3059 fish/run-3.c:3101 fish/run-3.c:3681 fish/run-3.c:3704
-#: fish/run-3.c:3749 fish/run-3.c:3772 fish/run-3.c:4070 fish/run-4.c:144
-#: fish/run-4.c:308 fish/run-4.c:653 fish/run-4.c:953 fish/run-4.c:1284
-#: fish/run-4.c:1374 fish/run-4.c:1441 fish/run-4.c:1485 fish/run-4.c:1530
-#: fish/run-4.c:1549 fish/run-4.c:1568 fish/run-4.c:1749 fish/run-4.c:1793
-#: fish/run-4.c:1836 fish/run-4.c:1880 fish/run-4.c:2262 fish/run-5.c:877
-#: fish/run-5.c:1006 fish/run-5.c:1544 fish/run-5.c:1592 fish/run-5.c:1636
-#: fish/run-5.c:1754 fish/run-5.c:1782 fish/run-5.c:1805 fish/run-5.c:1869
-#: fish/run-5.c:2024 fish/run-5.c:2068 fish/run-5.c:2112 fish/run-5.c:2249
-#: fish/run-5.c:2367 fish/run-5.c:2386 fish/run-5.c:2405 fish/run-5.c:2483
-#: fish/run-5.c:2502 fish/run-5.c:2521 fish/run-5.c:2540 fish/run-5.c:2995
-#: fish/run-6.c:197 fish/run-6.c:434 fish/run-6.c:618 fish/run-6.c:637
-#: fish/run-6.c:1079 fish/run-6.c:1204 fish/run-6.c:1432 fish/run-6.c:1451
-#: fish/run-6.c:1496 fish/run-6.c:1959 fish/run-6.c:2046 mllib/getopt-c.c:198
+#: fish/run-1.c:2104 fish/run-1.c:2123 fish/run-1.c:2142 fish/run-1.c:2443
+#: fish/run-1.c:2546 fish/run-2.c:582 fish/run-2.c:601 fish/run-2.c:853
+#: fish/run-2.c:1483 fish/run-2.c:1534 fish/run-2.c:1601 fish/run-2.c:1838
+#: fish/run-2.c:1891 fish/run-2.c:2209 fish/run-3.c:578 fish/run-3.c:790
+#: fish/run-3.c:879 fish/run-3.c:1488 fish/run-3.c:1531 fish/run-3.c:2090
+#: fish/run-3.c:2369 fish/run-3.c:2392 fish/run-3.c:2708 fish/run-3.c:2754
+#: fish/run-3.c:2797 fish/run-3.c:2841 fish/run-3.c:2860 fish/run-3.c:2879
+#: fish/run-3.c:2952 fish/run-3.c:3059 fish/run-3.c:3101 fish/run-3.c:3681
+#: fish/run-3.c:3704 fish/run-3.c:3749 fish/run-3.c:3772 fish/run-3.c:4070
+#: fish/run-4.c:144 fish/run-4.c:308 fish/run-4.c:653 fish/run-4.c:953
+#: fish/run-4.c:1284 fish/run-4.c:1374 fish/run-4.c:1441 fish/run-4.c:1485
+#: fish/run-4.c:1530 fish/run-4.c:1549 fish/run-4.c:1568 fish/run-4.c:1749
+#: fish/run-4.c:1793 fish/run-4.c:1836 fish/run-4.c:1880 fish/run-4.c:2262
+#: fish/run-5.c:877 fish/run-5.c:1006 fish/run-5.c:1544 fish/run-5.c:1592
+#: fish/run-5.c:1636 fish/run-5.c:1754 fish/run-5.c:1782 fish/run-5.c:1805
+#: fish/run-5.c:1869 fish/run-5.c:2024 fish/run-5.c:2068 fish/run-5.c:2112
+#: fish/run-5.c:2249 fish/run-5.c:2367 fish/run-5.c:2386 fish/run-5.c:2405
+#: fish/run-5.c:2483 fish/run-5.c:2502 fish/run-5.c:2521 fish/run-5.c:2540
+#: fish/run-5.c:2995 fish/run-6.c:197 fish/run-6.c:434 fish/run-6.c:618
+#: fish/run-6.c:637 fish/run-6.c:1079 fish/run-6.c:1204 fish/run-6.c:1432
+#: fish/run-6.c:1451 fish/run-6.c:1496 fish/run-6.c:1959 fish/run-6.c:2046
+#: mllib/getopt-c.c:198
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: 範囲外の整数\n"
