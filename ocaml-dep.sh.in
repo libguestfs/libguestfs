@@ -1,0 +1,62 @@
+#!/bin/bash -
+# (C) Copyright 2009-2017 Red Hat Inc.
+# @configure_input@
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+# This is a smarter wrapper around ocamldep(1) which is used to create
+# the .depend files which are present in each subdirectory that builds
+# OCaml code.
+#
+# Usage:
+#   .depend: *.mli *.ml
+#       $(top_builddir)/ocaml-dep.sh $^
+#   -include .depend
+
+set -e
+
+# List of directories that contain common OCaml libraries.  If it
+# contains OCaml code that can be included from another directory,
+# then it should go here.  Note that OCaml modules in these
+# directories must have unique names (eg. not ‘Utils’) else
+# dependencies don't get built right.
+include_dirs="
+common/mlpcre
+common/mlprogress
+common/mlstdutils
+common/mlutils
+common/mlvisit
+common/mlxml
+customize
+mllib
+ocaml
+"
+
+# Output file is always created in the current directory.
+output=.depend
+
+includes=""
+for i in $include_dirs; do
+    includes="$includes -I @abs_top_srcdir@/$i -I @abs_top_builddir@/$i"
+done
+
+rm -f $output $output-t
+
+@OCAMLFIND@ ocamldep $includes "$@" |
+    @SED@ 's/ *$//' |
+    @SED@ -e :a -e '/ *\\$/N; s/ *\\\n */ /; ta' |
+    sort > $output-t
+
+mv $output-t $output

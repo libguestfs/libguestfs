@@ -126,20 +126,11 @@ stamp-virt-v2v-test-harness.pod: virt-v2v-test-harness.pod
 	touch $@
 
 # Dependencies.
-depend: .depend
-
-.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
-	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize -I $(abs_top_builddir)/v2v $^ | \
-	  $(SED) 's/ *$$//' | \
-	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
-	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
-	  sort > $@-t
-	mv $@-t $@
-
+.depend: *.mli *.ml
+	$(top_builddir)/ocaml-dep.sh -I .. $^
 -include .depend
 
 endif
 endif
 
-.PHONY: depend docs
+.PHONY: docs

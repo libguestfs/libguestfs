@@ -515,19 +515,10 @@ v2v_unit_tests_LINK = \
 	  $(v2v_unit_tests_THEOBJECTS) -o $@
 
 # Dependencies.
-depend: .depend
-
-.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
-	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/common/mlxml -I $(abs_top_builddir)/mllib -I $(abs_top_builddir)/customize $^ | \
-	  $(SED) 's/ *$$//' | \
-	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
-	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
-	  sort > $@-t
-	mv $@-t $@
-
+.depend: *.mli *.ml
+	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
 endif
 
-.PHONY: depend docs
+.PHONY: docs

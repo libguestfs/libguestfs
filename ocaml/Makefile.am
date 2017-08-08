@@ -185,17 +185,8 @@ guestfs.cmx: guestfs.ml
 	$(guestfs_am_v_ocamlopt)$(OCAMLFIND) ocamlopt $(OCAMLOPTFLAGS) -package unix -c $< -o $@
 endif
 
-depend: .depend
-
-.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml) $(wildcard $(abs_srcdir)/t/*.ml)
-	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I ../ocaml -I $(abs_srcdir) $^ | \
-	  $(SED) 's/ *$$//' | \
-	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
-	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
-	  sort > $@-t
-	mv $@-t $@
-
+.depend: *.mli *.ml
+	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly

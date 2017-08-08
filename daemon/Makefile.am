@@ -329,17 +329,8 @@ camldaemon.o: $(OBJECTS)
 	    $(OBJECTS)
 
 # OCaml dependencies.
-depend: .depend
-
-.depend: $(wildcard $(abs_srcdir)/*.mli) $(wildcard $(abs_srcdir)/*.ml)
-	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep -I $(abs_srcdir) -I $(abs_top_builddir)/common/mlstdutils -I $(abs_top_builddir)/common/mlutils -I $(abs_top_builddir)/common/mlpcre $^ | \
-	  $(SED) 's/ *$$//' | \
-	  $(SED) -e :a -e '/ *\\$$/N; s/ *\\\n */ /; ta' | \
-	  $(SED) -e 's,$(abs_srcdir)/,$(builddir)/,g' | \
-	  sort > $@-t
-	mv $@-t $@
-
+.depend: *.mli *.ml
+	$(top_builddir)/ocaml-dep.sh $^
 -include .depend
 
 # Tests.
@@ -420,4 +411,4 @@ stamp-guestfsd.pod: guestfsd.pod
 	  $<
 	touch $@
 
-.PHONY: depend force
+.PHONY: force

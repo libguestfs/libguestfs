@@ -380,6 +380,7 @@ Makefile.in
 /mllib/getopt_tests
 /mllib/JSON_tests
 /mllib/oUnit-*
+/ocaml-dep.sh
 /ocaml/bindtests.bc
 /ocaml/bindtests.opt
 /ocaml/bindtests.ml
