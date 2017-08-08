@@ -27,7 +27,7 @@ let prog_exists prog =
 
 let commandr ?(fold_stdout_on_stderr = false) prog args =
   if verbose () then
-    eprintf "command: %s %s\n%!"
+    eprintf "command:%s %s\n%!"
             (if fold_stdout_on_stderr then " fold-stdout-on-stderr" else "")
             (stringify_args (prog :: args));
 
