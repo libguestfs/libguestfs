@@ -33,11 +33,13 @@ let commandr ?(fold_stdout_on_stderr = false) prog args =
 
   let argv = Array.of_list (prog :: args) in
 
-  let stdout_file, stdout_chan = Filename.open_temp_file "cmd" ".out" in
-  let stderr_file, stderr_chan = Filename.open_temp_file "cmd" ".err" in
-  let stdout_fd = descr_of_out_channel stdout_chan in
-  let stderr_fd = descr_of_out_channel stderr_chan in
   let stdin_fd = openfile "/dev/null" [O_RDONLY] 0 in
+  let stdout_file, stdout_fd =
+    let filename, chan = Filename.open_temp_file "cmd" ".out" in
+    filename, descr_of_out_channel chan in
+  let stderr_file, stderr_fd =
+    let filename, chan = Filename.open_temp_file "cmd" ".err" in
+    filename, descr_of_out_channel chan in
 
   let pid = fork () in
   if pid = 0 then (
