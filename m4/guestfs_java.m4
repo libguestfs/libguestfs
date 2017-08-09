@@ -50,9 +50,13 @@ if test "x$with_java" != "xno"; then
             /usr/lib/jvm/java-7-openjdk \
             /usr/lib/jvm/java-6-openjdk
         do
+            AC_MSG_CHECKING([for 'java' in $d])
             if test -d $d && test -f $d/bin/java; then
+                AC_MSG_RESULT([found])
                 JAVA=$d
                 break
+            else
+                AC_MSG_RESULT([not found])
             fi
         done
     fi
@@ -85,7 +89,7 @@ if test "x$with_java" != "xno"; then
             JAR="$JAVA/bin/jar"
         fi
         java_version=`$JAVA_EXE -version 2>&1 | $AWK -F '"' '/^(java|openjdk) version/ {print $2;}'`
-        AC_MSG_RESULT(found $java_version in $JAVA)
+        AC_MSG_RESULT(found $java_version)
 
         dnl Find jni.h.
         AC_MSG_CHECKING([for jni.h])
