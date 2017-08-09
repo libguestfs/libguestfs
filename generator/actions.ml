@@ -33,7 +33,6 @@ let non_daemon_functions =
   Actions_core.non_daemon_functions @
   Actions_core_deprecated.non_daemon_functions @
   Actions_debug.non_daemon_functions @
-  Actions_hivex.non_daemon_functions @
   Actions_inspection.non_daemon_functions @
   Actions_inspection_deprecated.non_daemon_functions @
   Actions_properties.non_daemon_functions @
@@ -51,6 +50,7 @@ let daemon_functions =
   Actions_core_deprecated.daemon_functions @
   Actions_debug.daemon_functions @
   Actions_hivex.daemon_functions @
+  Actions_hivex_deprecated.daemon_functions @
   Actions_tsk.daemon_functions @
   Actions_yara.daemon_functions
 

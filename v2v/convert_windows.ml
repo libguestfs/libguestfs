@@ -145,7 +145,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
                if valueh = 0L then
                  raise Not_found;
 
-               let dispname = g#hivex_value_utf8 valueh in
+               let dispname = g#hivex_value_string valueh in
                if not (Str.string_match (Str.regexp ".*\\(Parallels\\|Virtuozzo\\) Tools.*")
                                         dispname 0) then
                  raise Not_found;
@@ -159,7 +159,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
                  raise Not_found
                );
 
-               let uninst = (g#hivex_value_utf8 valueh) ^
+               let uninst = (g#hivex_value_string valueh) ^
                      " /quiet /norestart /l*v+ \"%~dpn0.log\"" ^
                      " REBOOT=ReallySuppress REMOVE=ALL" ^
                      (* without these custom Parallels-specific MSI properties the
@@ -570,7 +570,7 @@ if errorlevel 3010 exit /b 0
             match Registry.get_node reg path with
             | None -> raise Not_found
             | Some node -> node in
-          let current_boot_entry = g#hivex_value_utf8 (
+          let current_boot_entry = g#hivex_value_string (
             g#hivex_node_get_value boot_mgr_default_link "Element") in
           let path = ["Objects"; current_boot_entry; "Elements"; "16000046"] in
           match Registry.get_node reg path with

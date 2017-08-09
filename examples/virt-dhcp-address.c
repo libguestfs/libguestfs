@@ -266,7 +266,7 @@ print_dhcp_address_windows (guestfs_h *g, char *root_fs)
   /* Get the string and use libguestfs's auto-conversion to convert it
    * to UTF-8 for output.
    */
-  p = guestfs_hivex_value_utf8 (g, value);
+  p = guestfs_hivex_value_string (g, value);
   if (!p)
     exit (EXIT_FAILURE);
 

@@ -919,23 +919,23 @@ list_applications_windows_from_path (guestfs_h *g,
 
     value = guestfs_hivex_node_get_value (g, child, "DisplayName");
     if (value) {
-      display_name = guestfs_hivex_value_utf8 (g, value);
+      display_name = guestfs_hivex_value_string (g, value);
       if (display_name) {
         value = guestfs_hivex_node_get_value (g, child, "DisplayVersion");
         if (value)
-          version = guestfs_hivex_value_utf8 (g, value);
+          version = guestfs_hivex_value_string (g, value);
         value = guestfs_hivex_node_get_value (g, child, "InstallLocation");
         if (value)
-          install_path = guestfs_hivex_value_utf8 (g, value);
+          install_path = guestfs_hivex_value_string (g, value);
         value = guestfs_hivex_node_get_value (g, child, "Publisher");
         if (value)
-          publisher = guestfs_hivex_value_utf8 (g, value);
+          publisher = guestfs_hivex_value_string (g, value);
         value = guestfs_hivex_node_get_value (g, child, "URLInfoAbout");
         if (value)
-          url = guestfs_hivex_value_utf8 (g, value);
+          url = guestfs_hivex_value_string (g, value);
         value = guestfs_hivex_node_get_value (g, child, "Comments");
         if (value)
-          comments = guestfs_hivex_value_utf8 (g, value);
+          comments = guestfs_hivex_value_string (g, value);
 
         add_application (g, apps, name, display_name, 0,
                          version ? : "",

@@ -355,7 +355,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
       goto out;
 
     if (STRCASEEQ (key, "ProductName")) {
-      fs->product_name = guestfs_hivex_value_utf8 (g, value);
+      fs->product_name = guestfs_hivex_value_string (g, value);
       if (!fs->product_name)
         goto out;
     }
@@ -396,7 +396,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
       ignore_currentversion = true;
     }
     else if (!ignore_currentversion && STRCASEEQ (key, "CurrentVersion")) {
-      CLEANUP_FREE char *version = guestfs_hivex_value_utf8 (g, value);
+      CLEANUP_FREE char *version = guestfs_hivex_value_string (g, value);
       if (!version)
         goto out;
       if (guestfs_int_version_from_x_y_re (g, &fs->version, version,
@@ -404,7 +404,7 @@ check_windows_software_registry (guestfs_h *g, struct inspect_fs *fs)
         goto out;
     }
     else if (STRCASEEQ (key, "InstallationType")) {
-      fs->product_variant = guestfs_hivex_value_utf8 (g, value);
+      fs->product_variant = guestfs_hivex_value_string (g, value);
       if (!fs->product_variant)
         goto out;
     }
@@ -568,7 +568,7 @@ check_windows_system_registry (guestfs_h *g, struct inspect_fs *fs)
       goto out;
 
     if (STRCASEEQ (key, "Hostname")) {
-      fs->hostname = guestfs_hivex_value_utf8 (g, v);
+      fs->hostname = guestfs_hivex_value_string (g, v);
       if (!fs->hostname)
         goto out;
     }

@@ -22,25 +22,6 @@ open Types
 
 (* Hivex APIs. *)
 
-let non_daemon_functions = [
-  { defaults with
-    name = "hivex_value_utf8"; added = (1, 19, 35);
-    style = RString (RPlainString, "databuf"), [Int64 "valueh"], [];
-    optional = Some "hivex";
-    shortdesc = "return the data field from the (key, datatype, data) tuple";
-    longdesc = "\
-This calls C<guestfs_hivex_value_value> (which returns the
-data field from a hivex value tuple).  It then assumes that
-the field is a UTF-16LE string and converts the result to
-UTF-8 (or if this is not possible, it returns an error).
-
-This is useful for reading strings out of the Windows registry.
-However it is not foolproof because the registry is not
-strongly-typed and fields can contain arbitrary or unexpected
-data." };
-
-]
-
 let daemon_functions = [
   { defaults with
     name = "hivex_open"; added = (1, 19, 35);
@@ -177,6 +158,22 @@ Return the data field of a (key, datatype, data) tuple.
 This is a wrapper around the L<hivex(3)> call of the same name.
 
 See also: C<guestfs_hivex_value_utf8>." };
+
+  { defaults with
+    name = "hivex_value_string"; added = (1, 37, 22);
+    style = RString (RPlainString, "databuf"), [Int64 "valueh"], [];
+    optional = Some "hivex";
+    shortdesc = "return the data field as a UTF-8 string";
+    longdesc = "\
+This calls C<guestfs_hivex_value_value> (which returns the
+data field from a hivex value tuple).  It then assumes that
+the field is a UTF-16LE string and converts the result to
+UTF-8 (or if this is not possible, it returns an error).
+
+This is useful for reading strings out of the Windows registry.
+However it is not foolproof because the registry is not
+strongly-typed and fields can contain arbitrary or unexpected
+data." };
 
   { defaults with
     name = "hivex_commit"; added = (1, 19, 35);

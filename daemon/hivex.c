@@ -335,6 +335,29 @@ do_hivex_value_value (int64_t valueh, size_t *size_r)
   return r;
 }
 
+char *
+do_hivex_value_string (int64_t valueh)
+{
+  char *r;
+
+  NEED_HANDLE (NULL);
+
+  r = hivex_value_string (h, valueh);
+  if (r == NULL) {
+    reply_with_perror ("failed");
+    return NULL;
+  }
+
+  return r;
+}
+
+/* Deprecated alias for hivex_value_string. */
+char *
+do_hivex_value_utf8 (int64_t valueh)
+{
+  return do_hivex_value_string (valueh);
+}
+
 int
 do_hivex_commit (const char *filename)
 {

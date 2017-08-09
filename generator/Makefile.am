@@ -31,6 +31,8 @@ sources = \
 	actions_debug.mli \
 	actions_hivex.ml \
 	actions_hivex.mli \
+	actions_hivex_deprecated.ml \
+	actions_hivex_deprecated.mli \
 	actions_inspection.ml \
 	actions_inspection.mli \
 	actions_inspection_deprecated.ml \
@@ -122,6 +124,7 @@ objects = \
 	actions_core_deprecated.cmo \
 	actions_debug.cmo \
 	actions_hivex.cmo \
+	actions_hivex_deprecated.cmo \
 	actions_inspection.cmo \
 	actions_inspection_deprecated.cmo \
 	actions_internal_tests.cmo \

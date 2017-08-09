@@ -485,6 +485,8 @@ let proc_nr = [
 475, "file_architecture";
 476, "list_filesystems";
 477, "part_resize";
+478, "hivex_value_utf8";
+479, "hivex_value_string";
 ]
 
 (* End of list.  If adding a new entry, add it at the end of the list
