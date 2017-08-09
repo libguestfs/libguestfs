@@ -72,6 +72,7 @@ daemon/copy.c
 daemon/cpio.c
 daemon/cpmv.c
 daemon/daemon-c.c
+daemon/daemon-utils-tests-stubs.c
 daemon/dd.c
 daemon/debug-bmap.c
 daemon/debug.c
@@ -83,7 +84,6 @@ daemon/dispatch.c
 daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
-daemon/dummy.c
 daemon/echo-daemon.c
 daemon/ext2.c
 daemon/fallocate.c
@@ -162,6 +162,8 @@ daemon/truncate.c
 daemon/tsk.c
 daemon/umask.c
 daemon/upload.c
+daemon/utils-c.c
+daemon/utils.c
 daemon/utimens.c
 daemon/utsname.c
 daemon/uuids.c

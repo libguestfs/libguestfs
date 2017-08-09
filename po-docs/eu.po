@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.35.27\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2017-08-03 18:45+0100\n"
+"POT-Creation-Date: 2017-08-09 15:28+0100\n"
 "PO-Revision-Date: 2015-02-21 10:17-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/libguestfs/"
@@ -1277,8 +1277,8 @@ msgstr ""
 #: ../docs/internal-documentation.pod:3258
 #: ../docs/internal-documentation.pod:3262
 #: ../docs/internal-documentation.pod:3267
-#: ../docs/internal-documentation.pod:3795
-#: ../docs/internal-documentation.pod:3800 ../edit/virt-edit.pod:302
+#: ../docs/internal-documentation.pod:3817
+#: ../docs/internal-documentation.pod:3822 ../edit/virt-edit.pod:302
 #: ../edit/virt-edit.pod:307 ../edit/virt-edit.pod:312
 #: ../edit/virt-edit.pod:323 ../edit/virt-edit.pod:327
 #: ../fish/guestfish-actions.pod:772 ../fish/guestfish-actions.pod:778
@@ -38771,7 +38771,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/internal-documentation.pod:548
-#: ../docs/internal-documentation.pod:3647 ../fuse/guestunmount.pod:131
+#: ../docs/internal-documentation.pod:3669 ../fuse/guestunmount.pod:131
 msgid "C<1>"
 msgstr ""
 
@@ -38782,7 +38782,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/internal-documentation.pod:552
-#: ../docs/internal-documentation.pod:3651
+#: ../docs/internal-documentation.pod:3673
 msgid "C<0>"
 msgstr ""
 
@@ -38793,7 +38793,7 @@ msgstr ""
 
 #. type: =item
 #: ../docs/internal-documentation.pod:556
-#: ../docs/internal-documentation.pod:3655
+#: ../docs/internal-documentation.pod:3677
 msgid "C<-1>"
 msgstr ""
 
@@ -44045,7 +44045,7 @@ msgstr ""
 
 #. type: textblock
 #: ../docs/internal-documentation.pod:2955
-#: ../docs/internal-documentation.pod:3453
+#: ../docs/internal-documentation.pod:3490
 msgid "returns C<[]>"
 msgstr ""
 
@@ -44925,226 +44925,16 @@ msgstr ""
 #: ../docs/internal-documentation.pod:3386
 msgid ""
 "This is the guestfs daemon which runs inside the guestfs appliance.  This "
-"file handles start up, connecting back to the library, and has several "
-"utility functions."
+"file handles start up and connecting back to the library."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3390
-msgid "Function C<daemon/guestfsd.c:is_root_device_stat>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3392
-#, no-wrap
-msgid ""
-" static int\n"
-" is_root_device_stat (struct stat *statbuf)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3395
-msgid ""
-"Return true iff device is the root device (and therefore should be ignored "
-"from the point of view of user calls)."
-msgstr ""
-
-#. type: =head4
-#: ../docs/internal-documentation.pod:3398
-msgid "Function C<daemon/guestfsd.c:sysroot_path>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3400
-#, no-wrap
-msgid ""
-" char *\n"
-" sysroot_path (const char *path)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3403
-msgid "Turn C<\"/path\"> into C<\"/sysroot/path\">."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3405
-#: ../docs/internal-documentation.pod:3419
-msgid ""
-"Returns C<NULL> on failure.  The caller I<must> check for this and call "
-"S<C<reply_with_perror (\"malloc\")>>.  The caller must also free the "
-"returned string."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3409
-#: ../docs/internal-documentation.pod:3423
-msgid ""
-"See also the custom C<%R> printf formatter which does shell quoting too."
-msgstr ""
-
-#. type: =head4
-#: ../docs/internal-documentation.pod:3411
-msgid "Function C<daemon/guestfsd.c:sysroot_realpath>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3413
-#, no-wrap
-msgid ""
-" char *\n"
-" sysroot_realpath (const char *path)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3416
-msgid ""
-"Resolve path within sysroot, calling C<sysroot_path> on the resolved path."
-msgstr ""
-
-#. type: =head4
-#: ../docs/internal-documentation.pod:3425
-msgid "Function C<daemon/guestfsd.c:is_power_of_2>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3427
-#, no-wrap
-msgid ""
-" int\n"
-" is_power_of_2 (unsigned long v)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3430
-msgid "Returns true if C<v> is a power of 2."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3432
-msgid ""
-"Uses the algorithm described at L<http://graphics.stanford.edu/~seander/"
-"bithacks.html#DetermineIfPowerOf2>"
-msgstr ""
-
-#. type: =head4
-#: ../docs/internal-documentation.pod:3435
-msgid "Function C<daemon/guestfsd.c:split_lines_sb>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3437
-#, no-wrap
-msgid ""
-" struct stringsbuf\n"
-" split_lines_sb (char *str)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3440
-msgid ""
-"Split an output string into a NULL-terminated list of lines, wrapped into a "
-"stringsbuf."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3443
-msgid ""
-"Typically this is used where we have run an external command which has "
-"printed out a list of things, and we want to return an actual list."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3447
-msgid "The corner cases here are quite tricky.  Note in particular:"
-msgstr ""
-
-#. type: =item
-#: ../docs/internal-documentation.pod:3451
-msgid "C<\"\">"
-msgstr ""
-
-#. type: =item
-#: ../docs/internal-documentation.pod:3455
-msgid "C<\"\\n\">"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3457
-msgid "returns C<[\"\"]>"
-msgstr ""
-
-#. type: =item
-#: ../docs/internal-documentation.pod:3459
-msgid "C<\"a\\nb\">"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3461
-#: ../docs/internal-documentation.pod:3465
-msgid "returns C<[\"a\"; \"b\"]>"
-msgstr ""
-
-#. type: =item
-#: ../docs/internal-documentation.pod:3463
-msgid "C<\"a\\nb\\n\">"
-msgstr ""
-
-#. type: =item
-#: ../docs/internal-documentation.pod:3467
-msgid "C<\"a\\nb\\n\\n\">"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3469
-msgid "returns C<[\"a\"; \"b\"; \"\"]>"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3473
-msgid ""
-"The original string is written over and destroyed by this function (which is "
-"usually OK because it's the 'out' string from C<command*()>).  You can free "
-"the original string, because C<add_string()> strdups the strings."
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3478
-msgid "C<argv> in the C<struct stringsbuf> will be C<NULL> in case of errors."
-msgstr ""
-
-#. type: =head4
-#: ../docs/internal-documentation.pod:3480
-msgid "Function C<daemon/guestfsd.c:trim>"
-msgstr ""
-
-#. type: verbatim
-#: ../docs/internal-documentation.pod:3482
-#, no-wrap
-msgid ""
-" void\n"
-" trim (char *str)\n"
-"\n"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3485
-msgid ""
-"Skip leading and trailing whitespace, updating the original string in-place."
-msgstr ""
-
-#. type: =head4
-#: ../docs/internal-documentation.pod:3488
+#: ../docs/internal-documentation.pod:3389
 msgid "Function C<daemon/guestfsd.c:print_shell_quote>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3490
+#: ../docs/internal-documentation.pod:3391
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45155,19 +44945,293 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3495
+#: ../docs/internal-documentation.pod:3396
 msgid ""
 "printf helper function so we can use C<%Q> (\"quoted\") and C<%R> to print "
 "shell-quoted strings.  See L<guestfs-hacking(1)> for more details."
 msgstr ""
 
+#. type: =head3
+#: ../docs/internal-documentation.pod:3400
+msgid "File F<daemon/internal.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3402
+msgid "Internal functions that are not part of the public API."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:3404
+msgid "File F<daemon/utils-c.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3406
+msgid "Bindings for utility functions."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3408
+msgid ""
+"Note that functions called from OCaml code B<must never> call any of the "
+"C<reply*> functions."
+msgstr ""
+
+#. type: =head3
+#: ../docs/internal-documentation.pod:3411
+msgid "File F<daemon/utils.c>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3413
+msgid "Miscellaneous utility functions used by the daemon."
+msgstr ""
+
 #. type: =head4
-#: ../docs/internal-documentation.pod:3499
-msgid "Function C<daemon/guestfsd.c:parse_btrfsvol>"
+#: ../docs/internal-documentation.pod:3415
+msgid "Function C<daemon/utils.c:is_root_device_stat>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3501
+#: ../docs/internal-documentation.pod:3417
+#, no-wrap
+msgid ""
+" static int\n"
+" is_root_device_stat (struct stat *statbuf)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3420
+msgid ""
+"Return true iff device is the root device (and therefore should be ignored "
+"from the point of view of user calls)."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3423
+msgid "Function C<daemon/utils.c:is_device_parameter>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3425
+#, no-wrap
+msgid ""
+" int\n"
+" is_device_parameter (const char *device)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3428
+msgid ""
+"Parameters marked as C<Device>, C<Dev_or_Path>, etc can be passed a block "
+"device name.  This function tests if the parameter is a block device name."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3432
+msgid ""
+"It can also be used in daemon code to test if the string passed as a "
+"C<Dev_or_Path> parameter is a device or path."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3435
+msgid "Function C<daemon/utils.c:sysroot_path>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3437
+#, no-wrap
+msgid ""
+" char *\n"
+" sysroot_path (const char *path)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3440
+msgid "Turn C<\"/path\"> into C<\"/sysroot/path\">."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3442
+#: ../docs/internal-documentation.pod:3456
+msgid ""
+"Returns C<NULL> on failure.  The caller I<must> check for this and call "
+"S<C<reply_with_perror (\"malloc\")>>.  The caller must also free the "
+"returned string."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3446
+#: ../docs/internal-documentation.pod:3460
+msgid ""
+"See also the custom C<%R> printf formatter which does shell quoting too."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3448
+msgid "Function C<daemon/utils.c:sysroot_realpath>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3450
+#, no-wrap
+msgid ""
+" char *\n"
+" sysroot_realpath (const char *path)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3453
+msgid ""
+"Resolve path within sysroot, calling C<sysroot_path> on the resolved path."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3462
+msgid "Function C<daemon/utils.c:is_power_of_2>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3464
+#, no-wrap
+msgid ""
+" int\n"
+" is_power_of_2 (unsigned long v)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3467
+msgid "Returns true if C<v> is a power of 2."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3469
+msgid ""
+"Uses the algorithm described at L<http://graphics.stanford.edu/~seander/"
+"bithacks.html#DetermineIfPowerOf2>"
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3472
+msgid "Function C<daemon/utils.c:split_lines_sb>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3474
+#, no-wrap
+msgid ""
+" struct stringsbuf\n"
+" split_lines_sb (char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3477
+msgid ""
+"Split an output string into a NULL-terminated list of lines, wrapped into a "
+"stringsbuf."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3480
+msgid ""
+"Typically this is used where we have run an external command which has "
+"printed out a list of things, and we want to return an actual list."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3484
+msgid "The corner cases here are quite tricky.  Note in particular:"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:3488
+msgid "C<\"\">"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:3492
+msgid "C<\"\\n\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3494
+msgid "returns C<[\"\"]>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:3496
+msgid "C<\"a\\nb\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3498
+#: ../docs/internal-documentation.pod:3502
+msgid "returns C<[\"a\"; \"b\"]>"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:3500
+msgid "C<\"a\\nb\\n\">"
+msgstr ""
+
+#. type: =item
+#: ../docs/internal-documentation.pod:3504
+msgid "C<\"a\\nb\\n\\n\">"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3506
+msgid "returns C<[\"a\"; \"b\"; \"\"]>"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3510
+msgid ""
+"The original string is written over and destroyed by this function (which is "
+"usually OK because it's the 'out' string from C<command*()>).  You can free "
+"the original string, because C<add_string()> strdups the strings."
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3515
+msgid "C<argv> in the C<struct stringsbuf> will be C<NULL> in case of errors."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3517
+msgid "Function C<daemon/utils.c:trim>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3519
+#, no-wrap
+msgid ""
+" void\n"
+" trim (char *str)\n"
+"\n"
+msgstr ""
+
+#. type: textblock
+#: ../docs/internal-documentation.pod:3522
+msgid ""
+"Skip leading and trailing whitespace, updating the original string in-place."
+msgstr ""
+
+#. type: =head4
+#: ../docs/internal-documentation.pod:3525
+msgid "Function C<daemon/utils.c:parse_btrfsvol>"
+msgstr ""
+
+#. type: verbatim
+#: ../docs/internal-documentation.pod:3527
 #, no-wrap
 msgid ""
 " int\n"
@@ -45176,19 +45240,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3504
+#: ../docs/internal-documentation.pod:3530
 msgid ""
 "Parse the mountable descriptor for a btrfs subvolume.  Don't call this "
 "directly; it is only used from the stubs."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3507
+#: ../docs/internal-documentation.pod:3533
 msgid "A btrfs subvolume is given as:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3509
+#: ../docs/internal-documentation.pod:3535
 #, no-wrap
 msgid ""
 " btrfsvol:/dev/sda3/root\n"
@@ -45196,7 +45260,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3511
+#: ../docs/internal-documentation.pod:3537
 msgid ""
 "where F</dev/sda3> is a block device containing a btrfs filesystem, and root "
 "is the name of a subvolume on it. This function is passed the string "
@@ -45204,19 +45268,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3515
+#: ../docs/internal-documentation.pod:3541
 msgid ""
 "On success, C<mountable-E<gt>device> and C<mountable-E<gt>volume> must be "
 "freed by the caller."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3518
-msgid "Function C<daemon/guestfsd.c:mountable_to_string>"
+#: ../docs/internal-documentation.pod:3544
+msgid "Function C<daemon/utils.c:mountable_to_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3520
+#: ../docs/internal-documentation.pod:3546
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45225,24 +45289,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3523
+#: ../docs/internal-documentation.pod:3549
 msgid "Convert a C<mountable_t> back to its string representation"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3525
+#: ../docs/internal-documentation.pod:3551
 msgid ""
 "This function can be used in an error path, so must not call "
 "C<reply_with_error>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3528
-msgid "Function C<daemon/guestfsd.c:prog_exists>"
+#: ../docs/internal-documentation.pod:3554
+msgid "Function C<daemon/utils.c:prog_exists>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3530
+#: ../docs/internal-documentation.pod:3556
 #, no-wrap
 msgid ""
 " int\n"
@@ -45251,17 +45315,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3533
+#: ../docs/internal-documentation.pod:3559
 msgid "Check program exists and is executable on C<$PATH>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3535
-msgid "Function C<daemon/guestfsd.c:random_name>"
+#: ../docs/internal-documentation.pod:3561
+msgid "Function C<daemon/utils.c:random_name>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3537
+#: ../docs/internal-documentation.pod:3563
 #, no-wrap
 msgid ""
 " int\n"
@@ -45270,7 +45334,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3540
+#: ../docs/internal-documentation.pod:3566
 msgid ""
 "Pass a template such as C<\"/sysroot/XXXXXXXX.XXX\">.  This updates the "
 "template to contain a randomly named file.  Any C<'X'> characters after the "
@@ -45278,7 +45342,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3545
+#: ../docs/internal-documentation.pod:3571
 msgid ""
 "Notes: You should probably use an 8.3 path, so it's compatible with all "
 "filesystems including basic FAT.  Also this only substitutes lowercase ASCII "
@@ -45287,24 +45351,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3550
+#: ../docs/internal-documentation.pod:3576
 msgid ""
 "This doesn't create a file or check whether or not the file exists (it would "
 "be extremely unlikely to exist as long as the RNG is working)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3554
+#: ../docs/internal-documentation.pod:3580
 msgid "If there is an error, C<-1> is returned."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3556
-msgid "Function C<daemon/guestfsd.c:udev_settle_file>"
+#: ../docs/internal-documentation.pod:3582
+msgid "Function C<daemon/utils.c:udev_settle_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3558
+#: ../docs/internal-documentation.pod:3584
 #, no-wrap
 msgid ""
 " void\n"
@@ -45313,7 +45377,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3561
+#: ../docs/internal-documentation.pod:3587
 msgid ""
 "LVM and other commands aren't synchronous, especially when udev is "
 "involved.  eg. You can create or remove some device, but the C</dev> device "
@@ -45322,19 +45386,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3566
+#: ../docs/internal-documentation.pod:3592
 msgid ""
 "Use C<udevadm settle> after certain commands, but don't be too fussed if it "
 "fails."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3569
-msgid "Function C<daemon/guestfsd.c:make_exclude_from_file>"
+#: ../docs/internal-documentation.pod:3595
+msgid "Function C<daemon/utils.c:make_exclude_from_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3571
+#: ../docs/internal-documentation.pod:3597
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45343,51 +45407,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3574
+#: ../docs/internal-documentation.pod:3600
 msgid ""
 "Turn list C<excludes> into a temporary file, and return a string containing "
 "the temporary file name.  Caller must unlink the file and free the string."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3578
+#: ../docs/internal-documentation.pod:3604
 msgid ""
 "C<function> is the function that invoked this helper, and it is used mainly "
 "for errors/debugging."
 msgstr ""
 
-#. type: =head3
-#: ../docs/internal-documentation.pod:3581
-msgid "File F<daemon/internal.c>"
-msgstr ""
-
-#. type: textblock
-#: ../docs/internal-documentation.pod:3583
-msgid "Internal functions that are not part of the public API."
-msgstr ""
-
 #. type: =head2
-#: ../docs/internal-documentation.pod:3585
+#: ../docs/internal-documentation.pod:3607
 msgid "Subdirectory F<fish>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3587
+#: ../docs/internal-documentation.pod:3609
 msgid "File F<fish/alloc.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3589
+#: ../docs/internal-documentation.pod:3611
 msgid "This file implements the guestfish C<alloc> and C<sparse> commands."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3591
+#: ../docs/internal-documentation.pod:3613
 msgid "Function C<fish/alloc.c:alloc_disk>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3593
+#: ../docs/internal-documentation.pod:3615
 #, no-wrap
 msgid ""
 " int\n"
@@ -45396,95 +45450,95 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3596
+#: ../docs/internal-documentation.pod:3618
 msgid ""
 "This is the underlying allocation function.  It's called from a few other "
 "places in guestfish."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3599
+#: ../docs/internal-documentation.pod:3621
 msgid "File F<fish/copy.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3601
+#: ../docs/internal-documentation.pod:3623
 msgid "This file implements the guestfish commands C<copy-in> and C<copy-out>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3604
+#: ../docs/internal-documentation.pod:3626
 msgid "File F<fish/destpaths.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3606
+#: ../docs/internal-documentation.pod:3628
 msgid "The file handles tab-completion of filesystem paths in guestfish."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3608
+#: ../docs/internal-documentation.pod:3630
 msgid "File F<fish/display.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3610
+#: ../docs/internal-documentation.pod:3632
 msgid ""
 "The file implements the guestfish C<display> command, for displaying "
 "graphical files (icons, images) in disk images."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3613
+#: ../docs/internal-documentation.pod:3635
 msgid "File F<fish/echo.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3615
+#: ../docs/internal-documentation.pod:3637
 msgid "The file implements the guestfish C<echo> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3617
+#: ../docs/internal-documentation.pod:3639
 msgid "File F<fish/edit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3619
+#: ../docs/internal-documentation.pod:3641
 msgid "guestfish C<edit> command, suggested by Ján Ondrej."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3621
+#: ../docs/internal-documentation.pod:3643
 msgid "File F<fish/events.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3623
+#: ../docs/internal-documentation.pod:3645
 msgid ""
 "This file implements the guestfish event-related commands, C<event>, "
 "C<delete-event> and C<list-events>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3626
+#: ../docs/internal-documentation.pod:3648
 msgid "File F<fish/fish.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3628
+#: ../docs/internal-documentation.pod:3650
 msgid ""
 "guestfish, the guest filesystem shell.  This file contains the main loop and "
 "utilities."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3631
+#: ../docs/internal-documentation.pod:3653
 msgid "Function C<fish/fish.c:parse_command_line>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3633
+#: ../docs/internal-documentation.pod:3655
 #, no-wrap
 msgid ""
 " static struct parsed_command\n"
@@ -45493,47 +45547,47 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3636
+#: ../docs/internal-documentation.pod:3658
 msgid ""
 "Parse a command string, splitting at whitespace, handling C<'!'>, C<'#'> "
 "etc.  This destructively updates C<buf>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3639
+#: ../docs/internal-documentation.pod:3661
 msgid ""
 "C<exit_on_error_rtn> is used to pass in the global C<exit_on_error> setting "
 "and to return the local setting (eg. if the command begins with C<'-'>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3643
+#: ../docs/internal-documentation.pod:3665
 msgid "Returns in C<parsed_command.status>:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3649
+#: ../docs/internal-documentation.pod:3671
 msgid ""
 "got a guestfish command (returned in C<cmd_rtn>/C<argv_rtn>/C<pipe_rtn>)"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3653
+#: ../docs/internal-documentation.pod:3675
 msgid "no guestfish command, but otherwise OK"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3657
+#: ../docs/internal-documentation.pod:3679
 msgid "an error"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3661
+#: ../docs/internal-documentation.pod:3683
 msgid "Function C<fish/fish.c:parse_quoted_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3663
+#: ../docs/internal-documentation.pod:3685
 #, no-wrap
 msgid ""
 " static ssize_t\n"
@@ -45542,7 +45596,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3666
+#: ../docs/internal-documentation.pod:3688
 msgid ""
 "Parse double-quoted strings, replacing backslash escape sequences with the "
 "true character.  Since the string is returned in place, the escapes must "
@@ -45550,12 +45604,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3670
+#: ../docs/internal-documentation.pod:3692
 msgid "Function C<fish/fish.c:execute_and_inline>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3672
+#: ../docs/internal-documentation.pod:3694
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45564,17 +45618,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3675
+#: ../docs/internal-documentation.pod:3697
 msgid "Used to handle C<E<lt>!> (execute command and inline result)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3677
+#: ../docs/internal-documentation.pod:3699
 msgid "Function C<fish/fish.c:issue_command>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3679
+#: ../docs/internal-documentation.pod:3701
 #, no-wrap
 msgid ""
 " int\n"
@@ -45584,12 +45638,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3683
+#: ../docs/internal-documentation.pod:3705
 msgid "Run a command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3685
+#: ../docs/internal-documentation.pod:3707
 msgid ""
 "C<rc_exit_on_error_flag> is the C<exit_on_error> flag that we pass to the "
 "remote server (when issuing I<--remote> commands).  It does not cause "
@@ -45597,12 +45651,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3689
+#: ../docs/internal-documentation.pod:3711
 msgid "Function C<fish/fish.c:extended_help_message>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3691
+#: ../docs/internal-documentation.pod:3713
 #, no-wrap
 msgid ""
 " void\n"
@@ -45611,14 +45665,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3694
+#: ../docs/internal-documentation.pod:3716
 msgid ""
 "Print an extended help message when the user types in an unknown command for "
 "the first command issued.  A common case is the user doing:"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3698
+#: ../docs/internal-documentation.pod:3720
 #, no-wrap
 msgid ""
 "  guestfish disk.img\n"
@@ -45626,19 +45680,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3700
+#: ../docs/internal-documentation.pod:3722
 msgid ""
 "expecting guestfish to open F<disk.img> (in fact, this tried to run a non-"
 "existent command C<disk.img>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3703
+#: ../docs/internal-documentation.pod:3725
 msgid "Function C<fish/fish.c:error_cb>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3705
+#: ../docs/internal-documentation.pod:3727
 #, no-wrap
 msgid ""
 " static void\n"
@@ -45647,17 +45701,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3708
+#: ../docs/internal-documentation.pod:3730
 msgid "Error callback.  This replaces the standard libguestfs error handler."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3710
+#: ../docs/internal-documentation.pod:3732
 msgid "Function C<fish/fish.c:free_n_strings>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3712
+#: ../docs/internal-documentation.pod:3734
 #, no-wrap
 msgid ""
 " static void\n"
@@ -45666,17 +45720,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3715
+#: ../docs/internal-documentation.pod:3737
 msgid "Free strings from a non-NULL terminated C<char**>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3717
+#: ../docs/internal-documentation.pod:3739
 msgid "Function C<fish/fish.c:decode_ps1>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3719
+#: ../docs/internal-documentation.pod:3741
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -45685,17 +45739,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3722
+#: ../docs/internal-documentation.pod:3744
 msgid "Decode C<str> into the final printable prompt string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3724
+#: ../docs/internal-documentation.pod:3746
 msgid "Function C<fish/fish.c:win_prefix>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3726
+#: ../docs/internal-documentation.pod:3748
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45704,26 +45758,26 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3729
+#: ../docs/internal-documentation.pod:3751
 msgid ""
 "Resolve the special C<win:...> form for Windows-specific paths.  The "
 "generated code calls this for all device or path arguments."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3732
+#: ../docs/internal-documentation.pod:3754
 msgid ""
 "The function returns a newly allocated string, and the caller must free this "
 "string; else display an error and return C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3735
+#: ../docs/internal-documentation.pod:3757
 msgid "Function C<fish/fish.c:file_in>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3737
+#: ../docs/internal-documentation.pod:3759
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45732,24 +45786,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3740
+#: ../docs/internal-documentation.pod:3762
 msgid "Resolve the special C<FileIn> paths (C<-> or C<-<<END> or filename)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3742
+#: ../docs/internal-documentation.pod:3764
 msgid ""
 "The caller (F<fish/cmds.c>) will call C<free_file_in> after the command has "
 "run which should clean up resources."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3745
+#: ../docs/internal-documentation.pod:3767
 msgid "Function C<fish/fish.c:file_out>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3747
+#: ../docs/internal-documentation.pod:3769
 #, no-wrap
 msgid ""
 " char *\n"
@@ -45758,24 +45812,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3750
+#: ../docs/internal-documentation.pod:3772
 msgid "Resolve the special C<FileOut> paths (C<-> or filename)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3752
+#: ../docs/internal-documentation.pod:3774
 msgid ""
 "The caller (F<fish/cmds.c>) will call S<C<free (str)>> after the command has "
 "run."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3755
+#: ../docs/internal-documentation.pod:3777
 msgid "Function C<fish/fish.c:progress_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3757
+#: ../docs/internal-documentation.pod:3779
 #, no-wrap
 msgid ""
 " void\n"
@@ -45787,27 +45841,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3763
+#: ../docs/internal-documentation.pod:3785
 msgid "Callback which displays a progress bar."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3765
+#: ../docs/internal-documentation.pod:3787
 msgid "File F<fish/glob.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3767
+#: ../docs/internal-documentation.pod:3789
 msgid "This file implements the guestfish C<glob> command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3769
+#: ../docs/internal-documentation.pod:3791
 msgid "Function C<fish/glob.c:expand_devicename>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3771
+#: ../docs/internal-documentation.pod:3793
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -45816,21 +45870,21 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3774
+#: ../docs/internal-documentation.pod:3796
 msgid ""
 "Glob-expand device patterns, such as C</dev/sd*> (L<https://bugzilla.redhat."
 "com/635971>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3777
+#: ../docs/internal-documentation.pod:3799
 msgid ""
 "There is no C<guestfs_glob_expand_device> function because the equivalent "
 "can be implemented using functions like C<guestfs_list_devices>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3781
+#: ../docs/internal-documentation.pod:3803
 msgid ""
 "It's not immediately clear what it means to expand a pattern like C</dev/"
 "sd*>.  Should that include device name translation? Should the result "
@@ -45838,42 +45892,42 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3785
+#: ../docs/internal-documentation.pod:3807
 msgid ""
 "Should C<\"/dev/\"> + C<\"*\"> return every possible device and filesystem? "
 "How about VGs? LVs?"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3788
+#: ../docs/internal-documentation.pod:3810
 msgid ""
 "To solve this what we do is build up a list of every device, partition, "
 "etc., then glob against that list."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3791
+#: ../docs/internal-documentation.pod:3813
 msgid "Notes for future work (XXX):"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3797
+#: ../docs/internal-documentation.pod:3819
 msgid ""
 "This doesn't handle device name translation.  It wouldn't be too hard to add."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3802
+#: ../docs/internal-documentation.pod:3824
 msgid "Could have an API function for returning all device-like things."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3806
+#: ../docs/internal-documentation.pod:3828
 msgid "Function C<fish/glob.c:add_strings_matching>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3808
+#: ../docs/internal-documentation.pod:3830
 #, no-wrap
 msgid ""
 " static int\n"
@@ -45883,7 +45937,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3812
+#: ../docs/internal-documentation.pod:3834
 msgid ""
 "Using POSIX L<fnmatch(3)>, find strings in the list C<pp> which match "
 "pattern C<glob>.  Add strings which match to the C<ret> array.  C<*size_r> "
@@ -45891,12 +45945,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3817
+#: ../docs/internal-documentation.pod:3839
 msgid "Function C<fish/glob.c:single_element_list>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3819
+#: ../docs/internal-documentation.pod:3841
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -45905,27 +45959,27 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3822
+#: ../docs/internal-documentation.pod:3844
 msgid "Return a single element list containing C<element>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3824
+#: ../docs/internal-documentation.pod:3846
 msgid "File F<fish/help.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3826
+#: ../docs/internal-documentation.pod:3848
 msgid "The file implements the guestfish C<help> command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3828
+#: ../docs/internal-documentation.pod:3850
 msgid "Function C<fish/help.c:display_help>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3830
+#: ../docs/internal-documentation.pod:3852
 #, no-wrap
 msgid ""
 " void\n"
@@ -45934,12 +45988,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3833
+#: ../docs/internal-documentation.pod:3855
 msgid "The C<help> command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3835
+#: ../docs/internal-documentation.pod:3857
 msgid ""
 "This used to just list all commands, but that's not very useful.  Instead "
 "display some useful context-sensitive help.  This could be improved if we "
@@ -45948,27 +46002,27 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3840
+#: ../docs/internal-documentation.pod:3862
 msgid "File F<fish/hexedit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3842
+#: ../docs/internal-documentation.pod:3864
 msgid "This file implements the guestfish C<hexedit> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3844
+#: ../docs/internal-documentation.pod:3866
 msgid "File F<fish/lcd.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3846
+#: ../docs/internal-documentation.pod:3868
 msgid "Function C<fish/lcd.c:run_lcd>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3848
+#: ../docs/internal-documentation.pod:3870
 #, no-wrap
 msgid ""
 " int\n"
@@ -45977,22 +46031,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3851
+#: ../docs/internal-documentation.pod:3873
 msgid "guestfish C<lcd> command (similar to the C<lcd> command in BSD ftp)."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3853
+#: ../docs/internal-documentation.pod:3875
 msgid "File F<fish/man.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3855
+#: ../docs/internal-documentation.pod:3877
 msgid "Function C<fish/man.c:run_man>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3857
+#: ../docs/internal-documentation.pod:3879
 #, no-wrap
 msgid ""
 " int\n"
@@ -46001,49 +46055,49 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3860
+#: ../docs/internal-documentation.pod:3882
 msgid "guestfish C<man> command"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3862
+#: ../docs/internal-documentation.pod:3884
 msgid "File F<fish/more.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3864
+#: ../docs/internal-documentation.pod:3886
 msgid "This file implements the guestfish C<more> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3866
+#: ../docs/internal-documentation.pod:3888
 msgid "File F<fish/prep.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3868
+#: ../docs/internal-documentation.pod:3890
 msgid ""
 "This file implements the guestfish I<-N> option for creating pre-prepared "
 "disk layouts."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3871
+#: ../docs/internal-documentation.pod:3893
 msgid "File F<fish/rc.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3873
+#: ../docs/internal-documentation.pod:3895
 msgid "This file implements guestfish remote (command) support."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3875
+#: ../docs/internal-documentation.pod:3897
 msgid "Function C<fish/rc.c:rc_listen>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3877
+#: ../docs/internal-documentation.pod:3899
 #, no-wrap
 msgid ""
 " void\n"
@@ -46052,17 +46106,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3880
+#: ../docs/internal-documentation.pod:3902
 msgid "The remote control server (ie. C<guestfish --listen>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3882
+#: ../docs/internal-documentation.pod:3904
 msgid "Function C<fish/rc.c:rc_remote>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3884
+#: ../docs/internal-documentation.pod:3906
 #, no-wrap
 msgid ""
 " int\n"
@@ -46072,59 +46126,59 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3888
+#: ../docs/internal-documentation.pod:3910
 msgid "The remote control client (ie. C<guestfish --remote>)."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3890
+#: ../docs/internal-documentation.pod:3912
 msgid "File F<fish/reopen.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3892
+#: ../docs/internal-documentation.pod:3914
 msgid "This file implements the guestfish C<reopen> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3894
+#: ../docs/internal-documentation.pod:3916
 msgid "File F<fish/setenv.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3896
+#: ../docs/internal-documentation.pod:3918
 msgid "This file implements the guestfish C<setenv> and C<unsetenv> commands."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3899
+#: ../docs/internal-documentation.pod:3921
 msgid "File F<fish/supported.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3901
+#: ../docs/internal-documentation.pod:3923
 msgid "This file implements the guestfish C<supported> command."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3903
+#: ../docs/internal-documentation.pod:3925
 msgid "File F<fish/tilde.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3905
+#: ../docs/internal-documentation.pod:3927
 msgid ""
 "This file implements tilde (C<~>) expansion of home directories in "
 "L<guestfish(1)>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3908
+#: ../docs/internal-documentation.pod:3930
 msgid "Function C<fish/tilde.c:try_tilde_expansion>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3910
+#: ../docs/internal-documentation.pod:3932
 #, no-wrap
 msgid ""
 " char *\n"
@@ -46133,19 +46187,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3913
+#: ../docs/internal-documentation.pod:3935
 msgid ""
 "This is called from the script loop if we find a candidate for C<~username> "
 "(tilde-expansion)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3916
+#: ../docs/internal-documentation.pod:3938
 msgid "Function C<fish/tilde.c:expand_home>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3918
+#: ../docs/internal-documentation.pod:3940
 #, no-wrap
 msgid ""
 " static char *\n"
@@ -46154,17 +46208,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3921
+#: ../docs/internal-documentation.pod:3943
 msgid "Return C<$HOME> + append string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3923
+#: ../docs/internal-documentation.pod:3945
 msgid "Function C<fish/tilde.c:find_home_for_username>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3925
+#: ../docs/internal-documentation.pod:3947
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -46173,39 +46227,39 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3928
+#: ../docs/internal-documentation.pod:3950
 msgid ""
 "Lookup C<username> (of length C<ulen>), return home directory if found, or "
 "C<NULL> if not found."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3931
+#: ../docs/internal-documentation.pod:3953
 msgid "File F<fish/time.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3933
+#: ../docs/internal-documentation.pod:3955
 msgid "This file implements the guestfish C<time> command."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:3935
+#: ../docs/internal-documentation.pod:3957
 msgid "Subdirectory F<p2v>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3937
+#: ../docs/internal-documentation.pod:3959
 msgid "File F<p2v/config.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3939
+#: ../docs/internal-documentation.pod:3961
 msgid "Function C<p2v/config.c:print_config>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3941
+#: ../docs/internal-documentation.pod:3963
 #, no-wrap
 msgid ""
 " void\n"
@@ -46214,22 +46268,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3944
+#: ../docs/internal-documentation.pod:3966
 msgid "Print the conversion parameters and other important information."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:3946
+#: ../docs/internal-documentation.pod:3968
 msgid "File F<p2v/conversion.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3948
+#: ../docs/internal-documentation.pod:3970
 msgid "This file manages the p2v conversion."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3950
+#: ../docs/internal-documentation.pod:3972
 msgid ""
 "The conversion is actually done by L<virt-v2v(1)> running on the remote "
 "conversion server.  This file manages running the remote command and "
@@ -46237,7 +46291,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3954
+#: ../docs/internal-documentation.pod:3976
 msgid ""
 "When virt-p2v operates in GUI mode, this code runs in a separate thread.  "
 "When virt-p2v operates in kernel mode, this runs synchronously in the main "
@@ -46245,12 +46299,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3958
+#: ../docs/internal-documentation.pod:3980
 msgid "Function C<p2v/conversion.c:generate_name>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3960
+#: ../docs/internal-documentation.pod:3982
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46259,17 +46313,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3963
+#: ../docs/internal-documentation.pod:3985
 msgid "Write the guest name into C<filename>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3965
+#: ../docs/internal-documentation.pod:3987
 msgid "Function C<p2v/conversion.c:generate_wrapper_script>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3967
+#: ../docs/internal-documentation.pod:3989
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46279,12 +46333,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3971
+#: ../docs/internal-documentation.pod:3993
 msgid "Construct the virt-v2v wrapper script."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3973
+#: ../docs/internal-documentation.pod:3995
 msgid ""
 "This will be sent to the remote server, and is easier than trying to \"type"
 "\" a long and complex single command line into the ssh connection when we "
@@ -46292,12 +46346,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3977
+#: ../docs/internal-documentation.pod:3999
 msgid "Function C<p2v/conversion.c:print_quoted>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3979
+#: ../docs/internal-documentation.pod:4001
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46306,17 +46360,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3982
+#: ../docs/internal-documentation.pod:4004
 msgid "Print a shell-quoted string on C<fp>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3984
+#: ../docs/internal-documentation.pod:4006
 msgid "Function C<p2v/conversion.c:generate_system_data>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:3986
+#: ../docs/internal-documentation.pod:4008
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46329,24 +46383,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3993
+#: ../docs/internal-documentation.pod:4015
 msgid ""
 "Collect data about the system running virt-p2v such as the dmesg output and "
 "lists of PCI devices.  This is useful for diagnosis when things go wrong."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:3997
+#: ../docs/internal-documentation.pod:4019
 msgid "If any command fails, this is non-fatal."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:3999
+#: ../docs/internal-documentation.pod:4021
 msgid "Function C<p2v/conversion.c:generate_p2v_version_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4001
+#: ../docs/internal-documentation.pod:4023
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46355,37 +46409,37 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4004
+#: ../docs/internal-documentation.pod:4026
 msgid "Generate a file containing the version of virt-p2v."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4006
+#: ../docs/internal-documentation.pod:4028
 msgid "The version of virt-v2v is contained in the conversion log."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4008
+#: ../docs/internal-documentation.pod:4030
 msgid "File F<p2v/cpuid.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4010
+#: ../docs/internal-documentation.pod:4032
 msgid "Find CPU vendor, topology and some CPU flags."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4012
+#: ../docs/internal-documentation.pod:4034
 msgid "lscpu (from util-linux) provides CPU vendor, topology and flags."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4014
+#: ../docs/internal-documentation.pod:4036
 msgid "ACPI can be read by seeing if F</sys/firmware/acpi> exists."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4016
+#: ../docs/internal-documentation.pod:4038
 msgid ""
 "CPU model is essentially impossible to get without using libvirt, but we "
 "cannot use libvirt for the reasons outlined in this message: https://www."
@@ -46393,17 +46447,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4020
+#: ../docs/internal-documentation.pod:4042
 msgid "Note that #vCPUs and amount of RAM is handled by F<main.c>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4022
+#: ../docs/internal-documentation.pod:4044
 msgid "Function C<p2v/cpuid.c:get_lscpu>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4024
+#: ../docs/internal-documentation.pod:4046
 #, no-wrap
 msgid ""
 " static char **\n"
@@ -46412,19 +46466,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4027
+#: ../docs/internal-documentation.pod:4049
 msgid ""
 "Get the output of lscpu as a list of (key, value) pairs (as a flattened list "
 "of strings)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4030
+#: ../docs/internal-documentation.pod:4052
 msgid "Function C<p2v/cpuid.c:get_field>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4032
+#: ../docs/internal-documentation.pod:4054
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -46433,22 +46487,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4035
+#: ../docs/internal-documentation.pod:4057
 msgid "Read a single field from lscpu output."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4037
+#: ../docs/internal-documentation.pod:4059
 msgid "If the field does not exist, returns C<NULL>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4039
+#: ../docs/internal-documentation.pod:4061
 msgid "Function C<p2v/cpuid.c:get_vendor>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4041
+#: ../docs/internal-documentation.pod:4063
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46457,17 +46511,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4044
+#: ../docs/internal-documentation.pod:4066
 msgid "Read the CPU vendor from lscpu output."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4046
+#: ../docs/internal-documentation.pod:4068
 msgid "Function C<p2v/cpuid.c:get_topology>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4048
+#: ../docs/internal-documentation.pod:4070
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46476,17 +46530,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4051
+#: ../docs/internal-documentation.pod:4073
 msgid "Read the CPU topology from lscpu output."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4053
+#: ../docs/internal-documentation.pod:4075
 msgid "Function C<p2v/cpuid.c:get_flags>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4055
+#: ../docs/internal-documentation.pod:4077
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46495,17 +46549,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4058
+#: ../docs/internal-documentation.pod:4080
 msgid "Read some important flags from lscpu output."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4060
+#: ../docs/internal-documentation.pod:4082
 msgid "Function C<p2v/cpuid.c:get_acpi>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4062
+#: ../docs/internal-documentation.pod:4084
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46514,34 +46568,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4065
+#: ../docs/internal-documentation.pod:4087
 msgid "Find out if the system uses ACPI."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4067
+#: ../docs/internal-documentation.pod:4089
 msgid "File F<p2v/gui.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4069
+#: ../docs/internal-documentation.pod:4091
 msgid ""
 "This file implements almost all of the virt-p2v graphical user interface "
 "(GUI)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4072
+#: ../docs/internal-documentation.pod:4094
 msgid "The GUI has three main dialogs:"
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:4076
+#: ../docs/internal-documentation.pod:4098
 msgid "Connection dialog"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4078
+#: ../docs/internal-documentation.pod:4100
 msgid ""
 "The connection dialog is the one shown initially.  It asks the user to type "
 "in the login details for the remote conversion server and invites the user "
@@ -46549,12 +46603,12 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:4082
+#: ../docs/internal-documentation.pod:4104
 msgid "Conversion dialog"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4084
+#: ../docs/internal-documentation.pod:4106
 msgid ""
 "The conversion dialog asks for information about the target VM (eg. the "
 "number of vCPUs required), and about what to convert (eg. which network "
@@ -46562,19 +46616,19 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: ../docs/internal-documentation.pod:4089
+#: ../docs/internal-documentation.pod:4111
 msgid "Running dialog"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4091
+#: ../docs/internal-documentation.pod:4113
 msgid ""
 "The running dialog is displayed when the P2V process is underway.  It mainly "
 "displays the virt-v2v debug messages."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4096
+#: ../docs/internal-documentation.pod:4118
 msgid ""
 "Note that the other major dialog (C<\"Configure network ...\">) is handled "
 "entirely by NetworkManager's L<nm-connection-editor(1)> program and has "
@@ -46582,7 +46636,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4100
+#: ../docs/internal-documentation.pod:4122
 msgid ""
 "This file is written in a kind of \"pseudo-Gtk\" which is backwards "
 "compatible from Gtk 2.10 (RHEL 5) through at least Gtk 3.22.  This is done "
@@ -46593,12 +46647,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4107
+#: ../docs/internal-documentation.pod:4129
 msgid "Function C<p2v/gui.c:gui_conversion>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4109
+#: ../docs/internal-documentation.pod:4131
 #, no-wrap
 msgid ""
 " void\n"
@@ -46607,22 +46661,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4112
+#: ../docs/internal-documentation.pod:4134
 msgid "The entry point from the main program."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4114
+#: ../docs/internal-documentation.pod:4136
 msgid "Note that C<gtk_init> etc have already been called in C<main>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4116
+#: ../docs/internal-documentation.pod:4138
 msgid "Function C<p2v/gui.c:create_connection_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4118
+#: ../docs/internal-documentation.pod:4140
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46631,24 +46685,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4121
+#: ../docs/internal-documentation.pod:4143
 msgid "Create the connection dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4123
+#: ../docs/internal-documentation.pod:4145
 msgid ""
 "This creates the dialog, but it is not displayed.  See "
 "C<show_connection_dialog>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4126
+#: ../docs/internal-documentation.pod:4148
 msgid "Function C<p2v/gui.c:username_changed_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4128
+#: ../docs/internal-documentation.pod:4150
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46657,17 +46711,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4131
+#: ../docs/internal-documentation.pod:4153
 msgid "If the username is \"root\", disable the sudo button."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4133
+#: ../docs/internal-documentation.pod:4155
 msgid "Function C<p2v/gui.c:password_or_identity_changed_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4135
+#: ../docs/internal-documentation.pod:4157
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46676,7 +46730,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4138
+#: ../docs/internal-documentation.pod:4160
 msgid ""
 "The password or SSH identity URL entries are mutually exclusive, so if one "
 "contains text then disable the other.  This function is called when the "
@@ -46684,12 +46738,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4142
+#: ../docs/internal-documentation.pod:4164
 msgid "Function C<p2v/gui.c:show_connection_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4144
+#: ../docs/internal-documentation.pod:4166
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46698,17 +46752,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4147
+#: ../docs/internal-documentation.pod:4169
 msgid "Hide all other dialogs and show the connection dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4149
+#: ../docs/internal-documentation.pod:4171
 msgid "Function C<p2v/gui.c:test_connection_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4151
+#: ../docs/internal-documentation.pod:4173
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46717,12 +46771,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4154
+#: ../docs/internal-documentation.pod:4176
 msgid "Callback from the C<Test connection> button."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4156
+#: ../docs/internal-documentation.pod:4178
 msgid ""
 "This initiates a background thread which actually does the ssh to the "
 "conversion server and the rest of the testing (see "
@@ -46730,12 +46784,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4160
+#: ../docs/internal-documentation.pod:4182
 msgid "Function C<p2v/gui.c:test_connection_thread>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4162
+#: ../docs/internal-documentation.pod:4184
 #, no-wrap
 msgid ""
 " static void *\n"
@@ -46744,7 +46798,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4165
+#: ../docs/internal-documentation.pod:4187
 msgid ""
 "Run C<test_connection> (in a detached background thread).  Once it finishes "
 "stop the spinner and set the spinner message appropriately.  If the test is "
@@ -46753,12 +46807,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4171
+#: ../docs/internal-documentation.pod:4193
 msgid "Function C<p2v/gui.c:start_spinner>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4173
+#: ../docs/internal-documentation.pod:4195
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -46767,19 +46821,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4176
+#: ../docs/internal-documentation.pod:4198
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "to start the spinner in the connection dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4179
+#: ../docs/internal-documentation.pod:4201
 msgid "Function C<p2v/gui.c:stop_spinner>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4181
+#: ../docs/internal-documentation.pod:4203
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -46788,19 +46842,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4184
+#: ../docs/internal-documentation.pod:4206
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "to stop the spinner in the connection dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4187
+#: ../docs/internal-documentation.pod:4209
 msgid "Function C<p2v/gui.c:test_connection_error>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4189
+#: ../docs/internal-documentation.pod:4211
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -46809,7 +46863,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4192
+#: ../docs/internal-documentation.pod:4214
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "when there is an error.  Display the error message and disable the C<Next> "
@@ -46817,12 +46871,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4196
+#: ../docs/internal-documentation.pod:4218
 msgid "Function C<p2v/gui.c:test_connection_ok>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4198
+#: ../docs/internal-documentation.pod:4220
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -46831,19 +46885,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4201
+#: ../docs/internal-documentation.pod:4223
 msgid ""
 "Idle task called from C<test_connection_thread> (but run on the main thread) "
 "when the connection test was successful."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4204
+#: ../docs/internal-documentation.pod:4226
 msgid "Function C<p2v/gui.c:configure_network_button_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4206
+#: ../docs/internal-documentation.pod:4228
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46852,19 +46906,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4209
+#: ../docs/internal-documentation.pod:4231
 msgid ""
 "Callback from the C<Configure network ...> button.  This dialog is handled "
 "entirely by an external program which is part of NetworkManager."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4213
+#: ../docs/internal-documentation.pod:4235
 msgid "Function C<p2v/gui.c:xterm_button_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4215
+#: ../docs/internal-documentation.pod:4237
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46873,17 +46927,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4218
+#: ../docs/internal-documentation.pod:4240
 msgid "Callback from the C<XTerm ...> button."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4220
+#: ../docs/internal-documentation.pod:4242
 msgid "Function C<p2v/gui.c:about_button_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4222
+#: ../docs/internal-documentation.pod:4244
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46892,22 +46946,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4225
+#: ../docs/internal-documentation.pod:4247
 msgid "Callback from the C<About virt-p2v ...> button."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4227
+#: ../docs/internal-documentation.pod:4249
 msgid "See also F<p2v/about-authors.c> and F<p2v/about-license.c>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4229
+#: ../docs/internal-documentation.pod:4251
 msgid "Function C<p2v/gui.c:connection_next_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4231
+#: ../docs/internal-documentation.pod:4253
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46916,17 +46970,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4234
+#: ../docs/internal-documentation.pod:4256
 msgid "Callback when the connection dialog C<Next> button has been clicked."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4237
+#: ../docs/internal-documentation.pod:4259
 msgid "Function C<p2v/gui.c:create_conversion_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4239
+#: ../docs/internal-documentation.pod:4261
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46935,24 +46989,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4242
+#: ../docs/internal-documentation.pod:4264
 msgid "Create the conversion dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4244
+#: ../docs/internal-documentation.pod:4266
 msgid ""
 "This creates the dialog, but it is not displayed.  See "
 "C<show_conversion_dialog>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4247
+#: ../docs/internal-documentation.pod:4269
 msgid "Function C<p2v/gui.c:show_conversion_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4249
+#: ../docs/internal-documentation.pod:4271
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46961,17 +47015,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4252
+#: ../docs/internal-documentation.pod:4274
 msgid "Hide all other dialogs and show the conversion dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4254
+#: ../docs/internal-documentation.pod:4276
 msgid "Function C<p2v/gui.c:set_info_label>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4256
+#: ../docs/internal-documentation.pod:4278
 #, no-wrap
 msgid ""
 " static void\n"
@@ -46980,24 +47034,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4259
+#: ../docs/internal-documentation.pod:4281
 msgid "Update the C<Information> section in the conversion dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4261
+#: ../docs/internal-documentation.pod:4283
 msgid ""
 "Note that C<v2v_version> (the remote virt-v2v version) is read from the "
 "remote virt-v2v in the C<test_connection> function."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4264
+#: ../docs/internal-documentation.pod:4286
 msgid "Function C<p2v/gui.c:repopulate_output_combo>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4266
+#: ../docs/internal-documentation.pod:4288
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47006,7 +47060,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4269
+#: ../docs/internal-documentation.pod:4291
 msgid ""
 "Repopulate the list of output drivers in the C<Output to (-o)> combo.  The "
 "list of drivers is read from the remote virt-v2v instance in "
@@ -47014,12 +47068,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4273
+#: ../docs/internal-documentation.pod:4295
 msgid "Function C<p2v/gui.c:populate_disks>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4275
+#: ../docs/internal-documentation.pod:4297
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47028,17 +47082,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4278
+#: ../docs/internal-documentation.pod:4300
 msgid "Populate the C<Fixed hard disks> treeview."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4280
+#: ../docs/internal-documentation.pod:4302
 msgid "Function C<p2v/gui.c:populate_removable>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4282
+#: ../docs/internal-documentation.pod:4304
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47047,17 +47101,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4285
+#: ../docs/internal-documentation.pod:4307
 msgid "Populate the C<Removable media> treeview."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4287
+#: ../docs/internal-documentation.pod:4309
 msgid "Function C<p2v/gui.c:populate_interfaces>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4289
+#: ../docs/internal-documentation.pod:4311
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47066,17 +47120,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4292
+#: ../docs/internal-documentation.pod:4314
 msgid "Populate the C<Network interfaces> treeview."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4294
+#: ../docs/internal-documentation.pod:4316
 msgid "Function C<p2v/gui.c:maybe_identify_click>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4296
+#: ../docs/internal-documentation.pod:4318
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -47086,7 +47140,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4300
+#: ../docs/internal-documentation.pod:4322
 msgid ""
 "When the user clicks on the interface name on the list of interfaces, we "
 "want to run C<ethtool --identify>, which usually makes some lights flash on "
@@ -47094,7 +47148,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4304
+#: ../docs/internal-documentation.pod:4326
 msgid ""
 "We cannot catch clicks on the cell itself, so we have to go via a more "
 "obscure route.  See L<http://stackoverflow.com/a/27207433> and L<https://en."
@@ -47102,12 +47156,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4308
+#: ../docs/internal-documentation.pod:4330
 msgid "Function C<p2v/gui.c:conversion_back_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4310
+#: ../docs/internal-documentation.pod:4332
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47116,17 +47170,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4313
+#: ../docs/internal-documentation.pod:4335
 msgid "The conversion dialog C<Back> button has been clicked."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4315
+#: ../docs/internal-documentation.pod:4337
 msgid "Function C<p2v/gui.c:vcpus_or_memory_check_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4317
+#: ../docs/internal-documentation.pod:4339
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47135,19 +47189,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4320
+#: ../docs/internal-documentation.pod:4342
 msgid ""
 "Display a warning if the vCPUs or memory is outside the supported range "
 "(L<https://bugzilla.redhat.com/823758>)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4323
+#: ../docs/internal-documentation.pod:4345
 msgid "Function C<p2v/gui.c:create_running_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4325
+#: ../docs/internal-documentation.pod:4347
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47156,24 +47210,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4328
+#: ../docs/internal-documentation.pod:4350
 msgid "Create the running dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4330
+#: ../docs/internal-documentation.pod:4352
 msgid ""
 "This creates the dialog, but it is not displayed.  See "
 "C<show_running_dialog>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4333
+#: ../docs/internal-documentation.pod:4355
 msgid "Function C<p2v/gui.c:show_running_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4335
+#: ../docs/internal-documentation.pod:4357
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47182,17 +47236,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4338
+#: ../docs/internal-documentation.pod:4360
 msgid "Hide all other dialogs and show the running dialog."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4340
+#: ../docs/internal-documentation.pod:4362
 msgid "Function C<p2v/gui.c:set_log_dir>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4342
+#: ../docs/internal-documentation.pod:4364
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -47201,33 +47255,33 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4345
+#: ../docs/internal-documentation.pod:4367
 msgid "Display the remote log directory in the running dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4347
-#: ../docs/internal-documentation.pod:4360
-#: ../docs/internal-documentation.pod:4376
+#: ../docs/internal-documentation.pod:4369
+#: ../docs/internal-documentation.pod:4382
+#: ../docs/internal-documentation.pod:4398
 msgid ""
 "If this isn't called from the main thread, then you must only call it via an "
 "idle task (C<g_idle_add>)."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4350
+#: ../docs/internal-documentation.pod:4372
 msgid ""
 "B<NB:> This frees the remote_dir (C<user_data> pointer) which was strdup'd "
 "in C<notify_ui_callback>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4353
+#: ../docs/internal-documentation.pod:4375
 msgid "Function C<p2v/gui.c:set_status>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4355
+#: ../docs/internal-documentation.pod:4377
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -47236,25 +47290,25 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4358
+#: ../docs/internal-documentation.pod:4380
 msgid "Display the conversion status in the running dialog."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4363
-#: ../docs/internal-documentation.pod:4379
+#: ../docs/internal-documentation.pod:4385
+#: ../docs/internal-documentation.pod:4401
 msgid ""
 "B<NB:> This frees the message (C<user_data> pointer) which was strdup'd in "
 "C<notify_ui_callback>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4366
+#: ../docs/internal-documentation.pod:4388
 msgid "Function C<p2v/gui.c:add_v2v_output>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4368
+#: ../docs/internal-documentation.pod:4390
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -47263,24 +47317,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4371
+#: ../docs/internal-documentation.pod:4393
 msgid ""
 "Append output from the virt-v2v process to the buffer, and scroll to ensure "
 "it is visible."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4374
+#: ../docs/internal-documentation.pod:4396
 msgid "This function is able to parse ANSI colour sequences and more."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4382
+#: ../docs/internal-documentation.pod:4404
 msgid "Function C<p2v/gui.c:start_conversion_clicked>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4384
+#: ../docs/internal-documentation.pod:4406
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47289,17 +47343,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4387
+#: ../docs/internal-documentation.pod:4409
 msgid "Callback when the C<Start conversion> button is clicked."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4389
+#: ../docs/internal-documentation.pod:4411
 msgid "Function C<p2v/gui.c:start_conversion_thread>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4391
+#: ../docs/internal-documentation.pod:4413
 #, no-wrap
 msgid ""
 " static void *\n"
@@ -47308,17 +47362,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4394
+#: ../docs/internal-documentation.pod:4416
 msgid "This is the background thread which performs the conversion."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4396
+#: ../docs/internal-documentation.pod:4418
 msgid "Function C<p2v/gui.c:conversion_error>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4398
+#: ../docs/internal-documentation.pod:4420
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -47327,19 +47381,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4401
+#: ../docs/internal-documentation.pod:4423
 msgid ""
 "Idle task called from C<start_conversion_thread> (but run on the main "
 "thread) when there was an error during the conversion."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4404
+#: ../docs/internal-documentation.pod:4426
 msgid "Function C<p2v/gui.c:conversion_finished>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4406
+#: ../docs/internal-documentation.pod:4428
 #, no-wrap
 msgid ""
 " static gboolean\n"
@@ -47348,19 +47402,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4409
+#: ../docs/internal-documentation.pod:4431
 msgid ""
 "Idle task called from C<start_conversion_thread> (but run on the main "
 "thread) when the conversion completed without errors."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4412
+#: ../docs/internal-documentation.pod:4434
 msgid "Function C<p2v/gui.c:notify_ui_callback>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4414
+#: ../docs/internal-documentation.pod:4436
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47369,19 +47423,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4417
+#: ../docs/internal-documentation.pod:4439
 msgid ""
 "This is called from F<conversion.c>:C<start_conversion> when there is a "
 "status change or a log message."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4420
+#: ../docs/internal-documentation.pod:4442
 msgid "Function C<p2v/gui.c:cancel_conversion_dialog>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4422
+#: ../docs/internal-documentation.pod:4444
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47390,7 +47444,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4425
+#: ../docs/internal-documentation.pod:4447
 msgid ""
 "This is called when the user clicks on the \"Cancel conversion\" button.  "
 "Since conversions can run for a long time, and cancelling the conversion is "
@@ -47399,40 +47453,40 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4430
+#: ../docs/internal-documentation.pod:4452
 msgid "File F<p2v/inhibit.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4432
+#: ../docs/internal-documentation.pod:4454
 msgid ""
 "This file is used to inhibit power saving, sleep, suspend etc during the "
 "conversion."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4435
+#: ../docs/internal-documentation.pod:4457
 msgid ""
 "The method it uses is to send a D-Bus message to logind, as described here:"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4438
+#: ../docs/internal-documentation.pod:4460
 msgid "https://www.freedesktop.org/wiki/Software/systemd/inhibit/"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4440
+#: ../docs/internal-documentation.pod:4462
 msgid "If virt-p2v is compiled without D-Bus support then this does nothing."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4442
+#: ../docs/internal-documentation.pod:4464
 msgid "Function C<p2v/inhibit.c:inhibit_power_saving>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4444
+#: ../docs/internal-documentation.pod:4466
 #, no-wrap
 msgid ""
 " int\n"
@@ -47441,14 +47495,14 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4447
+#: ../docs/internal-documentation.pod:4469
 msgid ""
 "Inhibit all forms of power saving.  A file descriptor is returned, and when "
 "the file descriptor is closed the inhibit is stopped."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4450
+#: ../docs/internal-documentation.pod:4472
 msgid ""
 "If the function returns C<-1> then C<Inhibit> operation could not be "
 "performed (eg. if we are compiled without D-Bus support, or there is some "
@@ -47457,22 +47511,22 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4455
+#: ../docs/internal-documentation.pod:4477
 msgid "File F<p2v/kernel-cmdline.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4457
+#: ../docs/internal-documentation.pod:4479
 msgid "Mini library to read and parse C</proc/cmdline>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4459
+#: ../docs/internal-documentation.pod:4481
 msgid "Function C<p2v/kernel-cmdline.c:parse_cmdline_string>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4461
+#: ../docs/internal-documentation.pod:4483
 #, no-wrap
 msgid ""
 " char **\n"
@@ -47481,51 +47535,51 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4464
+#: ../docs/internal-documentation.pod:4486
 msgid "Read and parse C</proc/cmdline>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4466
+#: ../docs/internal-documentation.pod:4488
 msgid ""
 "We only support double quoting, consistent with the Linux documentation.  "
 "L<https://www.kernel.org/doc/Documentation/kernel-parameters.txt>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4470
+#: ../docs/internal-documentation.pod:4492
 msgid ""
 "systemd supports single and double quoting and single character escaping, "
 "but we don't support all that."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4473
+#: ../docs/internal-documentation.pod:4495
 msgid "Returns a list of key, value pairs, terminated by C<NULL>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4475
+#: ../docs/internal-documentation.pod:4497
 msgid "File F<p2v/kernel.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4477
+#: ../docs/internal-documentation.pod:4499
 msgid "Kernel-driven, non-interactive configuration of virt-p2v."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4479
+#: ../docs/internal-documentation.pod:4501
 msgid "File F<p2v/main.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4481
+#: ../docs/internal-documentation.pod:4503
 msgid "Function C<p2v/main.c:partition_parent>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4483
+#: ../docs/internal-documentation.pod:4505
 #, no-wrap
 msgid ""
 " static dev_t\n"
@@ -47534,22 +47588,22 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4486
+#: ../docs/internal-documentation.pod:4508
 msgid "Get parent device of a partition."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4488
+#: ../docs/internal-documentation.pod:4510
 msgid "Returns C<0> if no parent device could be found."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4490
+#: ../docs/internal-documentation.pod:4512
 msgid "Function C<p2v/main.c:device_contains>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4492
+#: ../docs/internal-documentation.pod:4514
 #, no-wrap
 msgid ""
 " static int\n"
@@ -47558,7 +47612,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4495
+#: ../docs/internal-documentation.pod:4517
 msgid ""
 "Return true if the named device (eg. C<dev == \"sda\">) contains the root "
 "filesystem.  C<root_device> is the major:minor of the root filesystem (eg. "
@@ -47566,19 +47620,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4499
+#: ../docs/internal-documentation.pod:4521
 msgid ""
 "This doesn't work for LVs and so on.  However we only really care if this "
 "test works on the P2V ISO where the root device is a regular partition."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4503
+#: ../docs/internal-documentation.pod:4525
 msgid "Function C<p2v/main.c:find_all_disks>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4505
+#: ../docs/internal-documentation.pod:4527
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47587,19 +47641,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4508
+#: ../docs/internal-documentation.pod:4530
 msgid ""
 "Enumerate all disks in F</sys/block> and add them to the global C<all_disks> "
 "and C<all_removable> arrays."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4511
+#: ../docs/internal-documentation.pod:4533
 msgid "Function C<p2v/main.c:find_all_interfaces>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4513
+#: ../docs/internal-documentation.pod:4535
 #, no-wrap
 msgid ""
 " static void\n"
@@ -47608,31 +47662,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4516
+#: ../docs/internal-documentation.pod:4538
 msgid ""
 "Enumerate all network interfaces in F</sys/class/net> and add them to the "
 "global C<all_interfaces> array."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4519
+#: ../docs/internal-documentation.pod:4541
 msgid "File F<p2v/nbd.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4521
+#: ../docs/internal-documentation.pod:4543
 msgid ""
 "This file handles the virt-p2v I<--nbd> command line option and running "
 "either L<qemu-nbd(8)> or L<nbdkit(1)>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4524
+#: ../docs/internal-documentation.pod:4546
 msgid "Function C<p2v/nbd.c:set_nbd_option>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4526
+#: ../docs/internal-documentation.pod:4548
 #, no-wrap
 msgid ""
 " void\n"
@@ -47641,17 +47695,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4529
+#: ../docs/internal-documentation.pod:4551
 msgid "The main program calls this to set the I<--nbd> option."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4531
+#: ../docs/internal-documentation.pod:4553
 msgid "Function C<p2v/nbd.c:test_nbd_servers>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4533
+#: ../docs/internal-documentation.pod:4555
 #, no-wrap
 msgid ""
 " void\n"
@@ -47660,24 +47714,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4536
+#: ../docs/internal-documentation.pod:4558
 msgid ""
 "Test the I<--nbd> option (or built-in default list) to see which servers are "
 "actually installed and appear to be working."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4539
+#: ../docs/internal-documentation.pod:4561
 msgid "Set the C<use_server> global accordingly."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4541
+#: ../docs/internal-documentation.pod:4563
 msgid "Function C<p2v/nbd.c:start_nbd_server>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4543
+#: ../docs/internal-documentation.pod:4565
 #, no-wrap
 msgid ""
 " pid_t\n"
@@ -47686,31 +47740,31 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4546
+#: ../docs/internal-documentation.pod:4568
 msgid "Start the NBD server."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4548
+#: ../docs/internal-documentation.pod:4570
 msgid ""
 "We previously tested all NBD servers (see C<test_nbd_servers>) and hopefully "
 "found one which will work."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4551
-#: ../docs/internal-documentation.pod:4575
-#: ../docs/internal-documentation.pod:4590
+#: ../docs/internal-documentation.pod:4573
+#: ../docs/internal-documentation.pod:4597
+#: ../docs/internal-documentation.pod:4612
 msgid "Returns the process ID (E<gt> 0) or C<0> if there is an error."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4553
+#: ../docs/internal-documentation.pod:4575
 msgid "Function C<p2v/nbd.c:socket_activation>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4555
+#: ../docs/internal-documentation.pod:4577
 #, no-wrap
 msgid ""
 " static inline void\n"
@@ -47719,23 +47773,23 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4558
+#: ../docs/internal-documentation.pod:4580
 msgid ""
 "Set up file descriptors and environment variables for socket activation."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4561
+#: ../docs/internal-documentation.pod:4583
 msgid "Note this function runs in the child between fork and exec."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4563
+#: ../docs/internal-documentation.pod:4585
 msgid "Function C<p2v/nbd.c:start_qemu_nbd>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4565
+#: ../docs/internal-documentation.pod:4587
 #, no-wrap
 msgid ""
 " static pid_t\n"
@@ -47745,13 +47799,13 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4569
+#: ../docs/internal-documentation.pod:4591
 msgid "Start a local L<qemu-nbd(1)> process."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4571
-#: ../docs/internal-documentation.pod:4586
+#: ../docs/internal-documentation.pod:4593
+#: ../docs/internal-documentation.pod:4608
 msgid ""
 "If we are using socket activation, C<fds> and C<nr_fds> will contain the "
 "locally pre-opened file descriptors for this.  Otherwise if C<fds == NULL> "
@@ -47759,12 +47813,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4577
+#: ../docs/internal-documentation.pod:4599
 msgid "Function C<p2v/nbd.c:start_nbdkit>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4579
+#: ../docs/internal-documentation.pod:4601
 #, no-wrap
 msgid ""
 " static pid_t\n"
@@ -47774,17 +47828,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4583
+#: ../docs/internal-documentation.pod:4605
 msgid "Start a local L<nbdkit(1)> process using the L<nbdkit-file-plugin(1)>."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4592
+#: ../docs/internal-documentation.pod:4614
 msgid "Function C<p2v/nbd.c:get_local_port>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4594
+#: ../docs/internal-documentation.pod:4616
 #, no-wrap
 msgid ""
 " static int\n"
@@ -47793,7 +47847,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4597
+#: ../docs/internal-documentation.pod:4619
 msgid ""
 "This is used when we are starting an NBD server that does not support socket "
 "activation.  We have to pass the '-p' option to the NBD server, but there's "
@@ -47801,18 +47855,18 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4602
-#: ../docs/internal-documentation.pod:4613
+#: ../docs/internal-documentation.pod:4624
+#: ../docs/internal-documentation.pod:4635
 msgid "Returns the port number on success or C<-1> on error."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4604
+#: ../docs/internal-documentation.pod:4626
 msgid "Function C<p2v/nbd.c:open_listening_socket>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4606
+#: ../docs/internal-documentation.pod:4628
 #, no-wrap
 msgid ""
 " static int\n"
@@ -47821,7 +47875,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4609
+#: ../docs/internal-documentation.pod:4631
 msgid ""
 "This is used when we are starting an NBD server which supports socket "
 "activation.  We can open a listening socket on an unused local port and "
@@ -47829,19 +47883,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4615
+#: ../docs/internal-documentation.pod:4637
 msgid ""
 "The file descriptor(s) bound are returned in the array *fds, *nr_fds.  The "
 "caller must free the array."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4618
+#: ../docs/internal-documentation.pod:4640
 msgid "Function C<p2v/nbd.c:wait_for_nbd_server_to_start>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4620
+#: ../docs/internal-documentation.pod:4642
 #, no-wrap
 msgid ""
 " int\n"
@@ -47850,17 +47904,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4623
+#: ../docs/internal-documentation.pod:4645
 msgid "Wait for a local NBD server to start and be listening for connections."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4626
+#: ../docs/internal-documentation.pod:4648
 msgid "Function C<p2v/nbd.c:connect_with_source_port>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4628
+#: ../docs/internal-documentation.pod:4650
 #, no-wrap
 msgid ""
 " static int\n"
@@ -47869,43 +47923,43 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4631
+#: ../docs/internal-documentation.pod:4653
 msgid ""
 "Connect to C<hostname:dest_port>, resolving the address using "
 "L<getaddrinfo(3)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4634
+#: ../docs/internal-documentation.pod:4656
 msgid ""
 "This also sets the source port of the connection to the first free port "
 "number E<ge> C<source_port>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4637
+#: ../docs/internal-documentation.pod:4659
 msgid "This may involve multiple connections - to IPv4 and IPv6 for instance."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4640
+#: ../docs/internal-documentation.pod:4662
 msgid "File F<p2v/physical-xml.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4642
+#: ../docs/internal-documentation.pod:4664
 msgid ""
 "Create the F<physical.xml> file, which is a piece of phony libvirt XML used "
 "to communicate the metadata of the physical machine to virt-v2v."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4646
+#: ../docs/internal-documentation.pod:4668
 msgid "Function C<p2v/physical-xml.c:generate_physical_xml>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4648
+#: ../docs/internal-documentation.pod:4670
 #, no-wrap
 msgid ""
 " void\n"
@@ -47915,12 +47969,12 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4652
+#: ../docs/internal-documentation.pod:4674
 msgid "Write the libvirt XML for this physical machine."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4654
+#: ../docs/internal-documentation.pod:4676
 msgid ""
 "Note this is not actually input for libvirt.  It's input for virt-v2v on the "
 "conversion server.  Virt-v2v will (if necessary)  generate the final libvirt "
@@ -47928,12 +47982,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4658
+#: ../docs/internal-documentation.pod:4680
 msgid "Function C<p2v/physical-xml.c:map_interface_to_network>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4660
+#: ../docs/internal-documentation.pod:4682
 #, no-wrap
 msgid ""
 " static const char *\n"
@@ -47942,7 +47996,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4663
+#: ../docs/internal-documentation.pod:4685
 msgid ""
 "Using C<config-E<gt>network_map>, map the interface to a target network "
 "name.  If no map is found, return C<default>.  See L<virt-p2v(1)> "
@@ -47950,19 +48004,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4668
+#: ../docs/internal-documentation.pod:4690
 msgid ""
 "Note this returns a static string which is only valid as long as C<config-"
 "E<gt>network_map> is not freed."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4671
+#: ../docs/internal-documentation.pod:4693
 msgid "File F<p2v/rtc.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4673
+#: ../docs/internal-documentation.pod:4695
 msgid ""
 "Try to calculate Real Time Clock (RTC) offset from UTC in seconds.  For "
 "example if the RTC is 1 hour ahead of UTC, this will return C<3600>.  This "
@@ -47970,12 +48024,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4677
+#: ../docs/internal-documentation.pod:4699
 msgid "Function C<p2v/rtc.c:get_rtc_config>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4679
+#: ../docs/internal-documentation.pod:4701
 #, no-wrap
 msgid ""
 " void\n"
@@ -47984,38 +48038,38 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4682
+#: ../docs/internal-documentation.pod:4704
 msgid ""
 "Return RTC offset from UTC in seconds, positive numbers meaning that the RTC "
 "is running ahead of UTC."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4685
+#: ../docs/internal-documentation.pod:4707
 msgid ""
 "In the error case, C<rtcE<gt>offset> is updated with 0 and C<rtcE<gt>basis> "
 "is set to C<BASIS_UNKNOWN>."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4688
+#: ../docs/internal-documentation.pod:4710
 msgid "File F<p2v/ssh.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4690
+#: ../docs/internal-documentation.pod:4712
 msgid "This file handles the ssh connections to the conversion server."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4692
+#: ../docs/internal-documentation.pod:4714
 msgid ""
 "virt-p2v will open several connections over the lifetime of the conversion "
 "process."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4695
+#: ../docs/internal-documentation.pod:4717
 msgid ""
 "In C<test_connection>, it will first open a connection (to check it is "
 "possible) and query virt-v2v on the server to ensure it exists, it is the "
@@ -48025,7 +48079,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4701
+#: ../docs/internal-documentation.pod:4723
 msgid ""
 "Once we start conversion, we will open a control connection to send the "
 "libvirt configuration data and to start up virt-v2v, and we will open up one "
@@ -48036,12 +48090,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4709
+#: ../docs/internal-documentation.pod:4731
 msgid "Function C<p2v/ssh.c:curl_download>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4711
+#: ../docs/internal-documentation.pod:4733
 #, no-wrap
 msgid ""
 " static int\n"
@@ -48050,17 +48104,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4714
+#: ../docs/internal-documentation.pod:4736
 msgid "Download URL to local file using the external 'curl' command."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4716
+#: ../docs/internal-documentation.pod:4738
 msgid "Function C<p2v/ssh.c:cache_ssh_identity>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4718
+#: ../docs/internal-documentation.pod:4740
 #, no-wrap
 msgid ""
 " static int\n"
@@ -48069,17 +48123,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4721
+#: ../docs/internal-documentation.pod:4743
 msgid "Re-cache the C<config-E<gt>identity_url> if needed."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4723
+#: ../docs/internal-documentation.pod:4745
 msgid "Function C<p2v/ssh.c:start_ssh>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4725
+#: ../docs/internal-documentation.pod:4747
 #, no-wrap
 msgid ""
 " static mexp_h *\n"
@@ -48089,19 +48143,19 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4729
+#: ../docs/internal-documentation.pod:4751
 msgid ""
 "Start ssh subprocess with the standard arguments and possibly some optional "
 "arguments.  Also handles authentication."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4732
+#: ../docs/internal-documentation.pod:4754
 msgid "Function C<p2v/ssh.c:scp_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4734
+#: ../docs/internal-documentation.pod:4756
 #, no-wrap
 msgid ""
 " int\n"
@@ -48110,34 +48164,34 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4737
+#: ../docs/internal-documentation.pod:4759
 msgid "Upload file(s) to remote using L<scp(1)>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4739
+#: ../docs/internal-documentation.pod:4761
 msgid ""
 "Note that the target (directory or file) comes before the list of local "
 "files, because the list of local files is a varargs list."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4742
+#: ../docs/internal-documentation.pod:4764
 msgid "This is a simplified version of L</start_ssh> above."
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4744
+#: ../docs/internal-documentation.pod:4766
 msgid "File F<p2v/utils.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4746
+#: ../docs/internal-documentation.pod:4768
 msgid "Function C<p2v/utils.c:get_blockdev_size>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4748
+#: ../docs/internal-documentation.pod:4770
 #, no-wrap
 msgid ""
 " uint64_t\n"
@@ -48146,24 +48200,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4751
+#: ../docs/internal-documentation.pod:4773
 msgid "Return size of a block device, from F</sys/block/I<dev>/size>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4753
+#: ../docs/internal-documentation.pod:4775
 msgid ""
 "This function always succeeds, or else exits (since we expect C<dev> to "
 "always be valid and the C<size> file to always exist)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4756
+#: ../docs/internal-documentation.pod:4778
 msgid "Function C<p2v/utils.c:get_blockdev_model>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4758
+#: ../docs/internal-documentation.pod:4780
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48172,24 +48226,24 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4761
+#: ../docs/internal-documentation.pod:4783
 msgid "Return model of a block device, from F</sys/block/I<dev>/device/model>."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4763
+#: ../docs/internal-documentation.pod:4785
 msgid ""
 "Returns C<NULL> if the file was not found.  The caller must free the "
 "returned string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4766
+#: ../docs/internal-documentation.pod:4788
 msgid "Function C<p2v/utils.c:get_blockdev_serial>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4768
+#: ../docs/internal-documentation.pod:4790
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48198,29 +48252,29 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4771
+#: ../docs/internal-documentation.pod:4793
 msgid "Return the serial number of a block device."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4773
+#: ../docs/internal-documentation.pod:4795
 msgid "This is found using the lsblk command."
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4775
+#: ../docs/internal-documentation.pod:4797
 msgid ""
 "Returns C<NULL> if we could not get the serial number.  The caller must free "
 "the returned string."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4778
+#: ../docs/internal-documentation.pod:4800
 msgid "Function C<p2v/utils.c:get_if_addr>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4780
+#: ../docs/internal-documentation.pod:4802
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48229,17 +48283,17 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4783
+#: ../docs/internal-documentation.pod:4805
 msgid "Return contents of F</sys/class/net/I<if_name>/address> (if found)."
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4785
+#: ../docs/internal-documentation.pod:4807
 msgid "Function C<p2v/utils.c:get_if_vendor>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4787
+#: ../docs/internal-documentation.pod:4809
 #, no-wrap
 msgid ""
 " char *\n"
@@ -48248,7 +48302,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4790
+#: ../docs/internal-documentation.pod:4812
 msgid ""
 "Return contents of F</sys/class/net/I<if_name>/device/vendor> (if found), "
 "mapped to the PCI vendor.  See: L<http://pjwelsh.blogspot.co.uk/2011/11/"
@@ -48256,12 +48310,12 @@ msgid ""
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4794
+#: ../docs/internal-documentation.pod:4816
 msgid "Function C<p2v/utils.c:wait_network_online>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4796
+#: ../docs/internal-documentation.pod:4818
 #, no-wrap
 msgid ""
 " void\n"
@@ -48270,7 +48324,7 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4799
+#: ../docs/internal-documentation.pod:4821
 msgid ""
 "Wait for the network to come online, but don't error out if that fails.  The "
 "caller will call C<test_connection> immediately after this which will fail "
@@ -48278,17 +48332,17 @@ msgid ""
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4803
+#: ../docs/internal-documentation.pod:4825
 msgid "File F<p2v/whole-file.c>"
 msgstr ""
 
 #. type: =head4
-#: ../docs/internal-documentation.pod:4805
+#: ../docs/internal-documentation.pod:4827
 msgid "Function C<p2v/whole-file.c:read_whole_file>"
 msgstr ""
 
 #. type: verbatim
-#: ../docs/internal-documentation.pod:4807
+#: ../docs/internal-documentation.pod:4829
 #, no-wrap
 msgid ""
 " int\n"
@@ -48297,41 +48351,41 @@ msgid ""
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4810
+#: ../docs/internal-documentation.pod:4832
 msgid ""
 "Read the whole file into a memory buffer and return it.  The file should be "
 "a regular, local, trusted file."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:4813
+#: ../docs/internal-documentation.pod:4835
 msgid "Subdirectory F<python>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4815
+#: ../docs/internal-documentation.pod:4837
 msgid "File F<python/handle.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4817
+#: ../docs/internal-documentation.pod:4839
 msgid ""
 "This file contains a small number of functions that are written by hand.  "
 "The majority of the bindings are generated (see F<python/actions-*.c>)."
 msgstr ""
 
 #. type: =head2
-#: ../docs/internal-documentation.pod:4821
+#: ../docs/internal-documentation.pod:4843
 msgid "Subdirectory F<v2v>"
 msgstr ""
 
 #. type: =head3
-#: ../docs/internal-documentation.pod:4823
+#: ../docs/internal-documentation.pod:4845
 msgid "File F<v2v/libvirt_utils-c.c>"
 msgstr ""
 
 #. type: textblock
-#: ../docs/internal-documentation.pod:4825
+#: ../docs/internal-documentation.pod:4847
 msgid ""
 "This module implements various C<virsh>-like commands, but with non-broken "
 "authentication handling."
