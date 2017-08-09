@@ -76,11 +76,15 @@ AC_DEFINE_UNQUOTED([PACKAGE_VERSION_FULL],["$PACKAGE_VERSION_FULL"],[Full versio
 AC_SUBST([PACKAGE_VERSION_FULL])
 
 dnl Early gnulib initialization.
+AS_ECHO
+AS_ECHO(["Configuring Gnulib:"])
 gl_EARLY
 gl_INIT
 
 dnl Check for external programs required to either build or run
 dnl libguestfs.
+AS_ECHO
+AS_ECHO(["Checking for external programs:"])
 m4_include([m4/guestfs_progs.m4])
 
 dnl Find the release date for this version.  This is used in
@@ -99,43 +103,83 @@ AS_IF([test "x$RELEASE_DATE" != "x"],[
 AC_SUBST([RELEASE_DATE])
 
 dnl The C compiler environment.
+AS_ECHO
+AS_ECHO(["Checking for the C compiler environment:"])
 m4_include([m4/guestfs_c.m4])
 
 dnl Any C libraries required by the libguestfs C library (not the daemon).
+AS_ECHO
+AS_ECHO(["Checking for libraries used by libguestfs:"])
 m4_include([m4/guestfs_libraries.m4])
 
 dnl Check for FUSE.
+AS_ECHO
+AS_ECHO(["Checking for FUSE:"])
 m4_include([m4/guestfs_fuse.m4])
 
 dnl The daemon and any dependencies.
+AS_ECHO
+AS_ECHO(["Checking the daemon and its dependencies:"])
 m4_include([m4/guestfs_daemon.m4])
 
 dnl The appliance and any dependencies.
+AS_ECHO
+AS_ECHO(["Checking the appliance and its dependencies:"])
 m4_include([m4/guestfs_appliance.m4])
 
 dnl Check for QEMU.
+AS_ECHO
+AS_ECHO(["Checking for QEMU:"])
 m4_include([m4/guestfs_qemu.m4])
 
 dnl Miscellaneous libraries used by other programs.
+AS_ECHO
+AS_ECHO(["Checking for other libraries:"])
 m4_include([m4/guestfs_misc_libraries.m4])
 
 dnl Check for language bindings.
+AS_ECHO
+AS_ECHO(["Checking for OCaml:"])
 m4_include([m4/guestfs_ocaml.m4])
+AS_ECHO
+AS_ECHO(["Checking for Perl:"])
 m4_include([m4/guestfs_perl.m4])
+AS_ECHO
+AS_ECHO(["Checking for Python:"])
 m4_include([m4/guestfs_python.m4])
+AS_ECHO
+AS_ECHO(["Checking for Ruby:"])
 m4_include([m4/guestfs_ruby.m4])
+AS_ECHO
+AS_ECHO(["Checking for Java:"])
 m4_include([m4/guestfs_java.m4])
+AS_ECHO
+AS_ECHO(["Checking for Haskell:"])
 m4_include([m4/guestfs_haskell.m4])
+AS_ECHO
+AS_ECHO(["Checking for PHP:"])
 m4_include([m4/guestfs_php.m4])
+AS_ECHO
+AS_ECHO(["Checking for Erlang:"])
 m4_include([m4/guestfs_erlang.m4])
+AS_ECHO
+AS_ECHO(["Checking for Lua:"])
 m4_include([m4/guestfs_lua.m4])
+AS_ECHO
+AS_ECHO(["Checking for Go:"])
 m4_include([m4/guestfs_golang.m4])
+AS_ECHO
+AS_ECHO(["Checking for GObject Introspection:"])
 m4_include([m4/guestfs_gobject.m4])
 
 dnl Bash completion.
+AS_ECHO
+AS_ECHO(["Checking for bash completion:"])
 m4_include([m4/guestfs_bash_completion.m4])
 
 dnl Miscellaneous configuration that doesn't fit anywhere else.
+AS_ECHO
+AS_ECHO(["Performing additional configuration:"])
 m4_include([m4/guestfs_misc.m4])
 
 dnl Work around autoconf's lack of expanded variables.
@@ -145,6 +189,8 @@ SYSCONFDIR="${my_sysconfdir}"
 AC_SUBST(SYSCONFDIR)
 
 dnl Produce output files.
+AS_ECHO
+AS_ECHO(["Generating output files:"])
 
 AC_CONFIG_HEADERS([config.h])
 
