@@ -33,8 +33,9 @@ have_func("rb_define_alloc_func")
 have_type("rb_alloc_func_t")
 
 $CFLAGS =
-  "#{$CFLAGS} @CFLAGS@ -DGUESTFS_PRIVATE=1 " <<
-  "@WARN_CFLAGS@ @WERROR_CFLAGS@"
+  "#{$CFLAGS} " <<
+  "@WARN_CFLAGS@ @WERROR_CFLAGS@ " <<
+  "@CFLAGS@ -DGUESTFS_PRIVATE=1"
 
 create_header
 create_makefile(extension_name, "@abs_srcdir@")
