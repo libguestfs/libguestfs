@@ -359,6 +359,7 @@ let convert (g : G.guestfs) inspect source output rcaps =
     let remove = !remove in
     Linux.remove g inspect remove;
 
+(*
     (* VMware Tools may have been installed from a tarball, so the
      * above code won't remove it.  Look for the uninstall tool and run
      * if present.
@@ -380,6 +381,8 @@ let convert (g : G.guestfs) inspect source output rcaps =
           warning (f_"VMware tools was detected, but uninstallation failed.  The error message was: %s (ignored)")
             msg
     )
+*)
+    ()
 
   and unconfigure_citrix () =
     let pkgs =
