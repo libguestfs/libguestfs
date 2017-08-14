@@ -1348,6 +1348,13 @@ Note that password-interactive and Kerberos access are B<not>
 supported.  You B<have> to set up ssh access using ssh-agent and
 authorized_keys.
 
+With some modern ssh implementations, legacy crypto policies required
+to interoperate with RHEL 5 sshd are disabled.  To enable them you may
+need to run this command on the conversion server (ie. ssh client),
+but read L<update-crypto-policies(8)> first:
+
+ # update-crypto-policies LEGACY
+
 =head2 XEN: TEST LIBVIRT CONNECTION TO REMOTE XEN HOST
 
 Use the L<virsh(1)> command to list the guests on the remote Xen host:
