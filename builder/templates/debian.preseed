@@ -174,12 +174,23 @@ d-i partman-md/device_remove_md boolean true
 # And the same goes for the confirmation to write the lvm partitions.
 d-i partman-lvm/confirm boolean true
 d-i partman-lvm/confirm_nooverwrite boolean true
+d-i partman-basicfilesystems/no_swap boolean false
+
+d-i partman-auto/expert_recipe string myroot :: 500 10000 1000000 ext4 \
+	$primary{ } \
+	$bootable{ } \
+	method{ format } \
+	format{ } \
+	use_filesystem{ } \
+	filesystem{ ext4 } \
+	mountpoint{ / } .
 
 # You can choose one of the three predefined partitioning recipes:
 # - atomic: all files in one partition
 # - home:   separate /home partition
 # - multi:  separate /home, /var, and /tmp partitions
-d-i partman-auto/choose_recipe select atomic
+
+d-i partman-auto/choose_recipe select myroot
 
 # Or provide a recipe of your own...
 # If you have a way to get a recipe file into the d-i environment, you can
