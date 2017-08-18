@@ -1347,9 +1347,20 @@ read the man page virt-resize(1).
         (* Rebuild the swap using the UUID and label of the existing
          * swap partition.
          *)
-        let uuid = g#vfs_uuid target in
+        let orig_uuid = g#vfs_uuid target in
+        let uuid =
+          match orig_uuid with
+          | "" -> None
+          | uuid -> Some uuid in
         let label = g#vfs_label target in
-        g#mkswap ~uuid ~label target
+        g#mkswap ?uuid ~label target;
+        (* Check whether the UUID could be set, and warn in case it
+         * changed.
+         *)
+        let new_uuid = g#vfs_uuid target in
+        if new_uuid <> orig_uuid then
+          warning (f_"UUID in swap partition %s changed from ‘%s’ to ‘%s’")
+            target orig_uuid new_uuid;
     in
 
     (* Expand partition content as required. *)
