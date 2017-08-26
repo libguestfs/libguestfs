@@ -3,20 +3,15 @@ name=Debian 9 (stretch)
 osinfo=debian9
 arch=x86_64
 file=debian-9.xz
-checksum[sha512]=8f556a0ef907ecce2de22c2c3b06e3c2512e7f7c3e9a61b6c377ea39c8ccedf9f371f491678037c8357334b915346f2b4de793be34859d92f710a9596bd71148
+revision=2
+checksum[sha512]=2e8bc3b34940157766b9ad628ddf8eb9a1b410798b921959fd57ae8a4e54fdfa74ac939fe214b8200f9d783be940f4b75b640dbf388e51ef5e74f0c96acd5529
 format=raw
 size=6442450944
-compressed_size=203644432
+compressed_size=194181968
 expand=/dev/sda1
 notes=Debian 9 (stretch)
  
  This is a minimal Debian install.
- 
- This image is so very minimal that it only includes an ssh server
- and no virtual consoles.  To enable virtual consoles use this
- virt-builder option:
- 
-     --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'
  
  This image does not contain SSH host keys.  To regenerate them use:
  

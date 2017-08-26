@@ -1027,14 +1027,8 @@ and notes_of_os os arch nvram =
       add ""
    | Debian ((8|9), _) ->
       reconfigure_ssh_host_keys_debian ();
-      fix_serial_console_debian ();
    | Debian _ ->
       add "This image is so very minimal that it only includes an ssh server";
-      add "and no virtual consoles.  To enable virtual consoles use this";
-      add "virt-builder option:";
-      add "";
-      add "    --edit '/etc/inittab: s,^#([1-9].*respawn.*/sbin/getty.*),$1,'";
-      add "";
       reconfigure_ssh_host_keys_debian ();
    | Ubuntu ("16.04", _) ->
       builder_account_warning ();
