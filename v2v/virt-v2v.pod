@@ -514,6 +514,35 @@ boot an operating system from the first VirtIO disk.  Specifically,
 F</boot> must be on the first VirtIO disk, and it cannot chainload an
 OS which is not in the first VirtIO disk.
 
+=item B<--vddk> LIBDIR
+
+Enable VDDK input from VMware vCenter or ESXi.  C<LIBDIR> is the top
+directory of the VDDK library.  This directory should I<contain>
+subdirectories called F<include>, F<lib64> etc., but do not include
+F<lib64> actually in the parameter.
+
+See L</INPUT FROM VDDK> below for details.
+
+=item B<--vddk-config> FILENAME
+
+=item B<--vddk-cookie> COOKIE
+
+=item B<--vddk-nfchostport> PORT
+
+=item B<--vddk-port> PORT
+
+=item B<--vddk-snapshot> SNAPSHOT-MOREF
+
+=item B<--vddk-thumbprint> xx:xx:xx:...
+
+=item B<--vddk-transports> MODE:MODE:...
+
+=item B<--vddk-vimapiver> APIVER
+
+When using VDDK mode, these options are passed unmodified to the
+L<nbdkit(1)> VDDK plugin.  Please refer to L<nbdkit-vddk-plugin(1)>.
+Only I<--vddk-thumbprint> is required, the others are optional.
+
 =item B<--vdsm-compat=0.10>
 
 =item B<--vdsm-compat=1.1>
@@ -1269,6 +1298,130 @@ Perform the conversion of the guest using virt-v2v:
 =head2 ESXi: CLEAN UP
 
 Remove the F<guest.xml> and F<guest-disk*> files.
+
+=head1 INPUT FROM VDDK
+
+Virt-v2v is able to import guests using VMware’s proprietary VDDK
+library (a.k.a. VixDiskLib).
+
+=head2 VDDK: PREREQUISITES
+
+=over 4
+
+=item 1.
+
+As the VDDK library is not open source, and the license of this
+library does not permit redistribution or commercial use, you must
+obtain VDDK yourself and satisfy yourself that your usage of the
+library is permitted by the license.
+
+=item 2.
+
+You must also compile nbdkit, enabling the VDDK plugin.  At least
+nbdkit E<ge> 1.1.14 is required, but it is usually best to compile
+from the git tree.
+
+=over 4
+
+=item *
+
+L<https://github.com/libguestfs/nbdkit>
+
+=item *
+
+L<https://github.com/libguestfs/nbdkit/tree/master/plugins/vddk>
+
+=back
+
+=item 3.
+
+You can run nbdkit from its source directory without needing to
+install it.  Set C<$PATH> to include the nbdkit top build directory
+(the directory containing a shell script called F<nbdkit>):
+
+ export PATH=/path/to/nbdkit:$PATH
+
+=item 4.
+
+You must find the SSL "thumbprint" of your VMware server.  How to do
+this is explained in L<nbdkit-vddk-plugin(1)>, also available at the
+link given in item 2 above.
+
+=item 5.
+
+VDDK imports require a feature added in libvirt E<ge> 3.7.
+
+=back
+
+=head2 VDDK: URI
+
+Construct the correct C<vpx://> (for vCenter) or C<esx://> (for ESXi)
+URL.  It will look something like these:
+
+ vpx://root@vcenter.example.com/Datacenter/esxi
+
+ esx://root@esxi.example.com
+
+To verify that you have the correct URL, use the L<virsh(1)> command
+to list the guests on the server:
+
+ $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' list --all
+ Enter root's password for vcenter.example.com: ***
+ 
+  Id    Name                           State
+ ----------------------------------------------------
+  -     Fedora 20                      shut off
+  -     Windows 2003                   shut off
+
+If you get an error "Peer certificate cannot be authenticated with
+given CA certificates" or similar, then you can either import the
+vCenter host’s certificate, or bypass signature verification by adding
+the C<?no_verify=1> flag:
+
+ $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' list --all
+
+You should also try dumping the metadata from any guest on your
+server, like this:
+
+ $ virsh -c 'vpx://root@vcenter.example.com/Datacenter/esxi' dumpxml "Windows 2003"
+ <domain type='vmware'>
+   <name>Windows 2003</name>
+   [...]
+   <vmware:moref>vm-123</vmware:moref>
+ </domain>
+
+If C<E<lt>vmware:morefE<gt>> does not appear in the metadata, then you
+need to upgrade libvirt.
+
+B<If the above commands do not work, then virt-v2v is not going to
+work either>.  Fix your URI and/or your VMware server before
+continuing.
+
+=head2 VDDK: IMPORTING A GUEST
+
+To import a particular guest from vCenter server or ESXi hypervisor,
+use a command like the following, substituting the URI, guest name and
+SSL thumbprint:
+
+ $ export PATH=/path/to/nbdkit:$PATH
+ $ virt-v2v \
+     -ic 'vpx://root@vcenter.example.com/Datacenter/esxi?no_verify=1' \
+     --vddk /path/to/vmware-vix-disklib-distrib \
+     --vddk-thumbprint xx:xx:xx:... \
+     "Windows 2003" \
+     -o local -os /var/tmp
+
+Other options that you might need to add in rare circumstances include
+I<--vddk-config>, I<--vddk-cookie>, I<--vddk-nfchostport>,
+I<--vddk-port>, I<--vddk-snapshot>, I<--vddk-transports> and
+I<--vddk-vimapiver>, which are all explained in the
+L<nbdkit-vddk-plugin(1)> documentation.
+
+=head2 VDDK: DEBUGGING VDDK FAILURES
+
+The VDDK library can be operated in a verbose mode where it gives
+(very) verbose messages.  Use ‘virt-v2v -v -x’ as usual to enable
+verbose messages.
 
 =head1 INPUT FROM XEN
 
@@ -2032,6 +2185,8 @@ L<virt-v2v-copy-to-local(1)>,
 L<virt-v2v-test-harness(1)>,
 L<engine-image-uploader(8)>,
 L<import-to-ovirt.pl|http://git.annexia.org/?p=import-to-ovirt.git>,
+L<nbdkit(1)>,
+L<nbdkit-vddk-plugin(1)>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
