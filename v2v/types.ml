@@ -488,6 +488,18 @@ type root_choice = AskRoot | SingleRoot | FirstRoot | RootDev of string
 
 type output_allocation = Sparse | Preallocated
 
+type vddk_options = {
+    vddk_libdir : string;
+    vddk_config : string option;
+    vddk_cookie : string option;
+    vddk_nfchostport : string option;
+    vddk_port : string option;
+    vddk_snapshot : string option;
+    vddk_thumbprint : string option;
+    vddk_transports : string option;
+    vddk_vimapiver : string option;
+}
+
 class virtual input = object
   method virtual as_options : string
   method virtual source : unit -> source

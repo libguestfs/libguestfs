@@ -64,6 +64,15 @@ let parse_cmdline () =
   let output_name = ref None in
   let output_storage = ref None in
   let password_file = ref None in
+  let vddk = ref None in
+  let vddk_config = ref None in
+  let vddk_cookie = ref None in
+  let vddk_nfchostport = ref None in
+  let vddk_port = ref None in
+  let vddk_snapshot = ref None in
+  let vddk_thumbprint = ref None in
+  let vddk_transports = ref None in
+  let vddk_vimapiver = ref None in
   let vdsm_vm_uuid = ref None in
   let vdsm_ovf_output = ref None in (* default "." *)
 
@@ -203,6 +212,24 @@ let parse_cmdline () =
     [ L"print-source" ], Getopt.Set print_source, s_"Print source and stop";
     [ L"qemu-boot" ], Getopt.Set qemu_boot,       s_"Boot in qemu (-o qemu only)";
     [ L"root" ],    Getopt.String ("ask|... ", set_root_choice), s_"How to choose root filesystem";
+    [ L"vddk" ],     Getopt.String ("libpath", set_string_option_once "--vddk" vddk),
+                                            s_"Use nbdkit VDDK plugin";
+    [ L"vddk-config" ], Getopt.String ("filename", set_string_option_once "--vddk-config" vddk_config),
+                                            s_"Set VDDK config file";
+    [ L"vddk-cookie" ], Getopt.String ("cookie", set_string_option_once "--vddk-cookie" vddk_cookie),
+                                            s_"Set VDDK cookie";
+    [ L"vddk-nfchostport" ], Getopt.String ("nfchostport", set_string_option_once "--vddk-nfchostport" vddk_nfchostport),
+                                            s_"Set VDDK nfchostport";
+    [ L"vddk-port" ], Getopt.String ("port", set_string_option_once "--vddk-port" vddk_port),
+                                            s_"Set VDDK port";
+    [ L"vddk-snapshot" ], Getopt.String ("snapshot-moref", set_string_option_once "--vddk-snapshot" vddk_snapshot),
+                                            s_"Set VDDK snapshot";
+    [ L"vddk-thumbprint" ], Getopt.String ("thumbprint", set_string_option_once "--vddk-thumbprint" vddk_thumbprint),
+                                            s_"Set VDDK thumbprint";
+    [ L"vddk-transports" ], Getopt.String ("transports", set_string_option_once "--vddk-transports" vddk_transports),
+                                            s_"Set VDDK transports";
+    [ L"vddk-vimapiver" ], Getopt.String ("apiver", set_string_option_once "--vddk-vimapiver" vddk_vimapiver),
+                                            s_"Set VDDK vimapiver";
     [ L"vdsm-compat" ], Getopt.Symbol ("0.10|1.1", ["0.10"; "1.1"], set_vdsm_compat), s_"Write qcow2 with compat=0.10|1.1";
     [ L"vdsm-image-uuid" ], Getopt.String ("uuid", add_vdsm_image_uuid), s_"Output image UUID(s)";
     [ L"vdsm-vol-uuid" ], Getopt.String ("uuid", add_vdsm_vol_uuid), s_"Output vol UUID(s)";
@@ -265,6 +292,29 @@ read the man page virt-v2v(1).
   let print_source = !print_source in
   let qemu_boot = !qemu_boot in
   let root_choice = !root_choice in
+  let vddk_options =
+    match !vddk with
+    | Some libdir ->
+      Some { vddk_libdir = libdir;
+             vddk_config = !vddk_config;
+             vddk_cookie = !vddk_cookie;
+             vddk_nfchostport = !vddk_nfchostport;
+             vddk_port = !vddk_port;
+             vddk_snapshot = !vddk_snapshot;
+             vddk_thumbprint = !vddk_thumbprint;
+             vddk_transports = !vddk_transports;
+             vddk_vimapiver = !vddk_vimapiver }
+    | None ->
+      if !vddk_config <> None ||
+         !vddk_cookie <> None ||
+         !vddk_nfchostport <> None ||
+         !vddk_port <> None ||
+         !vddk_snapshot <> None ||
+         !vddk_thumbprint <> None ||
+         !vddk_transports <> None ||
+         !vddk_vimapiver <> None then
+        error (f_"‘--vddk-*’ options should only be used when conversion via the nbdkit VDDK plugin has been enabled, ie. using ‘--vddk’.");
+      None in
   let vdsm_compat = !vdsm_compat in
   let vdsm_image_uuids = List.rev !vdsm_image_uuids in
   let vdsm_vol_uuids = List.rev !vdsm_vol_uuids in
@@ -280,6 +330,7 @@ read the man page virt-v2v(1).
     printf "libguestfs-rewrite\n";
     printf "vcenter-https\n";
     printf "xen-ssh\n";
+    printf "vddk\n";
     printf "colours-option\n";
     printf "vdsm-compat-option\n";
     List.iter (printf "input:%s\n") (Modules_list.input_modules ());
@@ -318,7 +369,7 @@ read the man page virt-v2v(1).
         | [guest] -> guest
         | _ ->
           error (f_"expecting a libvirt guest name on the command line") in
-      Input_libvirt.input_libvirt dcpath password input_conn guest
+      Input_libvirt.input_libvirt dcpath vddk_options password input_conn guest
 
     | `LibvirtXML ->
       (* -i libvirtxml: Expecting a filename (XML file). *)

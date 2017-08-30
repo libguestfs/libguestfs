@@ -1,5 +1,5 @@
 (* virt-v2v
- * Copyright (C) 2009-2017 Red Hat Inc.
+ * Copyright (C) 2017 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *)
 
-(** [-i libvirt] source. *)
+(** [-i libvirt] when the source is VMware via nbdkit vddk plugin *)
 
-val input_libvirt : string option -> Types.vddk_options option -> string option -> string option -> string -> Types.input
-(** [input_libvirt dcpath vddk_options password libvirt_uri guest] creates
-    and returns a new {!Types.input} object specialized for reading input
-    from libvirt sources. *)
+val input_libvirt_vddk : Types.vddk_options -> string option -> string option -> Xml.uri -> string -> Types.input
+(** [input_libvirt_vddk vddk_options password libvirt_uri parsed_uri guest]
+    creates and returns a {!Types.input} object specialized for reading
+    the guest disks using the nbdkit vddk plugin. *)

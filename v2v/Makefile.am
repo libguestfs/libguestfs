@@ -36,6 +36,7 @@ SOURCES_MLI = \
 	input_libvirt.mli \
 	input_libvirt_other.mli \
 	input_libvirt_vcenter_https.mli \
+	input_libvirt_vddk.mli \
 	input_libvirt_xen_ssh.mli \
 	input_libvirtxml.mli \
 	input_ova.mli \
@@ -89,6 +90,7 @@ SOURCES_ML = \
 	input_libvirtxml.ml \
 	input_libvirt_other.ml \
 	input_libvirt_vcenter_https.ml \
+	input_libvirt_vddk.ml \
 	input_libvirt_xen_ssh.ml \
 	input_libvirt.ml \
 	input_ova.ml \
