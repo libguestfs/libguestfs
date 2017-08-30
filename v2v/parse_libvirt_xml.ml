@@ -405,6 +405,22 @@ let parse_libvirt_xml ?conn xml =
     done;
     List.rev !nics in
 
+  (* Check for hostdev devices. (RHBZ#1472719) *)
+  let () =
+    let obj = Xml.xpath_eval_expression xpathctx "/domain/devices/hostdev" in
+    let nr_nodes = Xml.xpathobj_nr_nodes obj in
+    if nr_nodes > 0 then (
+      (* Sadly fn_ in ocaml-gettext seems broken, and always returns the
+       * singular string no matter what.  Work around this by using a simple
+       * string with sn_ (which works), and outputting it as a whole.
+       *)
+      let msg = sn_ "this guest has a passthrough host device which will be ignored"
+                    "this guest has passthrough host devices which will be ignored"
+                    nr_nodes in
+      warning "%s" msg
+    )
+  in
+
   ({
     s_hypervisor = hypervisor;
     s_name = name; s_orig_name = name;
