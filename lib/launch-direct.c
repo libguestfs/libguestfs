@@ -519,8 +519,10 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
   arg ("-rtc", "driftfix=slew");
   if (guestfs_int_qemu_supports (g, data->qemu_data, "-no-hpet"))
     flag ("-no-hpet");
+#if defined(__i386__) || defined(__x86_64__)
   if (guestfs_int_version_ge (&data->qemu_version, 1, 3, 0))
     arg ("-global", "kvm-pit.lost_tick_policy=discard");
+#endif
 
   /* UEFI (firmware) if required. */
   if (guestfs_int_get_uefi (g, &uefi_code, &uefi_vars, &uefi_flags) == -1)
