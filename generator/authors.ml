@@ -52,6 +52,7 @@ let authors = [
 "Eric Blake", [ Development ];
 "Erik Nolte", [ Development ];
 "Evaggelos Balaskas", [ Development ];
+"Florian Klink", [ Development ];
 "Gabriele Cerami", [ Development ];
 "Geert Warrink", [ Development ];
 "Guido Günther", [ Development ];
