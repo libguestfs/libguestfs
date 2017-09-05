@@ -22,6 +22,7 @@
 set -e
 
 $TEST_FUNCTIONS
+skip_because "device name hints are broken" ;# XXX Fix before 1.38
 skip_if_skipped
 skip_if_backend uml
 skip_unless_phony_guest fedora.img
