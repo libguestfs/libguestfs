@@ -815,7 +815,7 @@ and make_rhel_yum_conf major minor arch =
          sprintf "http://download.devel.redhat.com/released/RHEL-%d/%d.%d"
                  major major minor in
        sprintf "%s/Server/%s/os" topurl (string_of_arch arch),
-       sprintf "%s/Server/source/SRPMS" topurl,
+       sprintf "%s/Server/source/tree" topurl,
        Some (sprintf "%s/Server-optional/%s/os" topurl (string_of_arch arch),
              sprintf "%s/Server-optional/source/tree" topurl)
     | _ -> assert false in
