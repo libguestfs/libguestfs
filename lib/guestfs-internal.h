@@ -992,7 +992,8 @@ void guestfs_int_init_unix_backend (void) __attribute__((constructor));
 
 /* qemu.c */
 struct qemu_data;
-extern struct qemu_data *guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version);
+extern struct qemu_data *guestfs_int_test_qemu (guestfs_h *g);
+extern struct version guestfs_int_qemu_version (guestfs_h *g, struct qemu_data *);
 extern int guestfs_int_qemu_supports (guestfs_h *g, const struct qemu_data *, const char *option);
 extern int guestfs_int_qemu_supports_device (guestfs_h *g, const struct qemu_data *, const char *device_name);
 extern int guestfs_int_qemu_supports_virtio_scsi (guestfs_h *g, struct qemu_data *, const struct version *qemu_version);

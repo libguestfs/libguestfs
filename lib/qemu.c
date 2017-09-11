@@ -47,11 +47,14 @@ struct qemu_data {
   char *qemu_help;              /* Output of qemu -help. */
   char *qemu_devices;           /* Output of qemu -device ? */
 
+  /* The following fields are derived from the fields above. */
+  struct version qemu_version;  /* Parsed qemu version number. */
+
   int virtio_scsi;              /* See function
                                    guestfs_int_qemu_supports_virtio_scsi */
 };
 
-static int test_qemu (guestfs_h *g, struct qemu_data *data, struct version *qemu_version);
+static int test_qemu (guestfs_h *g, struct qemu_data *data);
 static void parse_qemu_version (guestfs_h *g, const char *, struct version *qemu_version);
 static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
 
@@ -67,14 +70,11 @@ static void read_all (guestfs_h *g, void *retv, const char *buf, size_t len);
  * the version of qemu what options this qemu supports, and
  * C<qemu -device ?> so we know what devices are available.
  *
- * The version number of qemu (from the C<-help> output) is saved in
- * C<&qemu_version>.
- *
  * This caches the results in the cachedir so that as long as the qemu
  * binary does not change, calling this is effectively free.
  */
 struct qemu_data *
-guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
+guestfs_int_test_qemu (guestfs_h *g)
 {
   struct qemu_data *data;
   struct stat statbuf;
@@ -131,7 +131,7 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
       return NULL;
     }
 
-    parse_qemu_version (g, data->qemu_help, qemu_version);
+    parse_qemu_version (g, data->qemu_help, &data->qemu_version);
 
     if (guestfs_int_read_whole_file (g, qemu_devices_filename,
                                      &data->qemu_devices, NULL) == -1) {
@@ -145,10 +145,12 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
  do_test:
   data = safe_calloc (g, 1, sizeof *data);
 
-  if (test_qemu (g, data, qemu_version) == -1) {
+  if (test_qemu (g, data) == -1) {
     guestfs_int_free_qemu_data (data);
     return NULL;
   }
+
+  parse_qemu_version (g, data->qemu_help, &data->qemu_version);
 
   /* Now memoize the qemu output in the cache directory. */
   debug (g, "saving test results");
@@ -206,7 +208,7 @@ guestfs_int_test_qemu (guestfs_h *g, struct version *qemu_version)
 }
 
 static int
-test_qemu (guestfs_h *g, struct qemu_data *data, struct version *qemu_version)
+test_qemu (guestfs_h *g, struct qemu_data *data)
 {
   CLEANUP_CMD_CLOSE struct command *cmd1 = guestfs_int_new_command (g);
   CLEANUP_CMD_CLOSE struct command *cmd2 = guestfs_int_new_command (g);
@@ -221,8 +223,6 @@ test_qemu (guestfs_h *g, struct qemu_data *data, struct version *qemu_version)
   r = guestfs_int_cmd_run (cmd1);
   if (r == -1 || !WIFEXITED (r) || WEXITSTATUS (r) != 0)
     goto error;
-
-  parse_qemu_version (g, data->qemu_help, qemu_version);
 
   guestfs_int_cmd_add_arg (cmd2, g->hv);
   guestfs_int_cmd_add_arg (cmd2, "-display");
@@ -268,8 +268,6 @@ parse_qemu_version (guestfs_h *g, const char *qemu_help,
            __func__, g->hv);
     return;
   }
-
-  debug (g, "qemu version %d.%d", qemu_version->v_major, qemu_version->v_minor);
 }
 
 static void
@@ -278,6 +276,15 @@ read_all (guestfs_h *g, void *retv, const char *buf, size_t len)
   char **ret = retv;
 
   *ret = safe_strndup (g, buf, len);
+}
+
+/**
+ * Return the parsed version of qemu.
+ */
+struct version
+guestfs_int_qemu_version (guestfs_h *g, struct qemu_data *data)
+{
+  return data->qemu_version;
 }
 
 /**

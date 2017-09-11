@@ -280,9 +280,12 @@ launch_direct (guestfs_h *g, void *datav, const char *arg)
 
   /* Get qemu help text and version. */
   if (data->qemu_data == NULL) {
-    data->qemu_data = guestfs_int_test_qemu (g, &data->qemu_version);
+    data->qemu_data = guestfs_int_test_qemu (g);
     if (data->qemu_data == NULL)
       goto cleanup0;
+    data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
+    debug (g, "qemu version: %d.%d",
+           data->qemu_version.v_major, data->qemu_version.v_minor);
   }
 
   /* Using virtio-serial, we need to create a local Unix domain socket
@@ -1028,9 +1031,12 @@ max_disks_direct (guestfs_h *g, void *datav)
 
   /* Get qemu help text and version. */
   if (data->qemu_data == NULL) {
-    data->qemu_data = guestfs_int_test_qemu (g, &data->qemu_version);
+    data->qemu_data = guestfs_int_test_qemu (g);
     if (data->qemu_data == NULL)
       return -1;
+    data->qemu_version = guestfs_int_qemu_version (g, data->qemu_data);
+    debug (g, "qemu version: %d.%d",
+           data->qemu_version.v_major, data->qemu_version.v_minor);
   }
 
   if (guestfs_int_qemu_supports_virtio_scsi (g, data->qemu_data,
